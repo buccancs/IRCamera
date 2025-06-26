@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#474747"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/zoomup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="zoom up" />
+
+        <Button
+            android:id="@+id/zoomdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="zoom down" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/derotate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="positive" />
+
+        <Button
+            android:id="@+id/rotate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="negative" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/mirror"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="mirror" />
+
+        <Button
+            android:id="@+id/flip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="flip" />
+
+        <Button
+            android:id="@+id/flip_mirror"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="flip+mirror" />
+
+        <Button
+            android:id="@+id/none"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="none" />
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TNR"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <Spinner
+            android:id="@+id/TNR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/SNR"
+            app:layout_constraintStart_toStartOf="parent"></Spinner>
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SNR"
+            app:layout_constraintStart_toStartOf="@+id/SNR"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="110dp" />
+
+        <Spinner
+            android:id="@+id/SNR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/DDE"
+            app:layout_constraintStart_toEndOf="@+id/TNR"
+            app:layout_constraintTop_toTopOf="@+id/TNR"></Spinner>
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DDE"
+            app:layout_constraintStart_toStartOf="@+id/DDE"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="192dp" />
+
+        <Spinner
+            android:id="@+id/DDE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="165dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/SNR"
+            app:layout_constraintTop_toTopOf="@+id/SNR"></Spinner>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp">
+
+        <TextView
+            android:id="@+id/BRIGHTNESStext"
+            android:layout_width="88dp"
+            android:layout_height="16dp"
+            android:text="BRIGHTNESS" />
+
+        <TextView
+            android:id="@+id/CONTRASTtext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/CONTRAST"
+            android:text="CONTRAST" />
+
+        <EditText
+            android:id="@+id/CONTRAST"
+            android:layout_width="88dp"
+            android:layout_height="43dp"
+            android:layout_below="@id/CONTRASTtext"
+            android:layout_toRightOf="@id/BRIGHTNESS"
+            android:inputType="number"></EditText>
+
+        <EditText
+            android:id="@+id/BRIGHTNESS"
+            android:layout_width="91dp"
+            android:layout_height="42dp"
+            android:layout_below="@id/CONTRASTtext"
+            android:inputType="number"></EditText>
+
+        <Button
+            android:id="@+id/setIR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/BRIGHTNESStext"
+            android:layout_toRightOf="@id/CONTRAST"
+            android:text="SET" />
+    </RelativeLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="agc mode"
+            tools:layout_editor_absoluteX="57dp"
+            tools:layout_editor_absoluteY="5dp" />
+
+        <TextView
+            android:id="@+id/MAXGAINtext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MAXGAIN"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@id/MAXGAIN"
+            app:layout_constraintLeft_toLeftOf="@id/MAXGAIN" />
+
+        <TextView
+            android:id="@+id/BOStext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/BOS"
+            android:layout_alignLeft="@id/BOS"
+            android:text="BOS"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@id/BOS"
+            app:layout_constraintLeft_toLeftOf="@id/BOS"
+            app:layout_constraintLeft_toRightOf="@id/MAXGAINtext" />
+
+        <EditText
+            android:id="@+id/MAXGAIN"
+            android:layout_width="84dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:visibility="invisible"
+            app:layout_constraintLeft_toRightOf="@id/AGC"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="85dp" />
+
+        <ToggleButton
+            android:id="@+id/ONOFF_AGC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="ONOFF"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="46dp"
+            tools:layout_conversion_absoluteWidth="85dp" />
+
+        <Spinner
+            android:id="@+id/AGC"
+            android:layout_width="74dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintLeft_toRightOf="@id/ONOFF_AGC"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="73dp" />
+
+        <Button
+            android:id="@+id/setagc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="set"
+            android:visibility="invisible"
+            app:layout_constraintLeft_toRightOf="@id/BOS"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="85dp" />
+
+        <EditText
+            android:id="@+id/BOS"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:visibility="invisible"
+            app:layout_constraintLeft_toRightOf="@id/MAXGAIN"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="84dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/restore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="RESTORE_DEFAULT_IMAGE_PARAMS" />
+
+    <Button
+        android:id="@+id/more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="more" />
+
+</LinearLayout>

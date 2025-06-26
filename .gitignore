@@ -1,0 +1,7 @@
+/.idea/
+/local.properties
+/.gradle/
+/buildSrc/build/
+/buildSrc/.gradle/
+/ai-upscale/
+/ai-upscale/3rdparty/ncnn-android-vulkan-shared/armeabi-v7a/

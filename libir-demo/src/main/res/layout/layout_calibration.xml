@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#474747"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <RelativeLayout
+        android:layout_width="301dp"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/single_point_temperature" />
+
+        <EditText
+            android:id="@+id/singlepoint"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView"
+            android:ems="10"
+            android:inputType="number" />
+
+
+        <Button
+            android:id="@+id/singlepointsumit"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/singlepoint"
+            android:layout_toRightOf="@id/singlepoint"
+            android:text="@string/single_point_calibration" />
+
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/singlepoint"
+            android:text="@string/low_temperature" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/singlepoint"
+            android:layout_alignStart="@id/highpoint"
+            android:layout_toRightOf="@id/textView2"
+            android:text="@string/high_temperature" />
+
+
+        <EditText
+            android:id="@+id/lowpoint"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView2"
+            android:ems="10"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/highpoint"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView3"
+            android:layout_toRightOf="@id/lowpoint"
+            android:ems="10"
+            android:inputType="number" />
+
+        <Button
+            android:id="@+id/doiblepointsumit"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView3"
+            android:layout_toRightOf="@id/highpoint"
+            android:text="@string/submit_low" />
+
+        <Button
+            android:id="@+id/endpointsumit"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView3"
+            android:layout_toRightOf="@id/highpoint"
+            android:text="@string/submit_high"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/doiblepointsumit"
+            android:text="@string/cancel_calibration" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="301dp"
+        android:layout_height="56dp">
+
+        <EditText
+            android:id="@+id/gain"
+            android:layout_width="51dp"
+            android:layout_height="35dp"
+            android:layout_below="@id/revcover"
+            android:ems="10"
+            android:inputType="number"
+            android:text="1" />
+
+        <TextView
+            android:id="@+id/revcover"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pot_calibration" />
+
+        <Button
+            android:id="@+id/bengin"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/revcover"
+            android:text="@string/ready" />
+
+        <Button
+            android:id="@+id/start"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/bengin"
+            android:text="@string/begin" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="301dp"
+        android:layout_height="67dp">
+
+        <TextView
+            android:id="@+id/blind2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/x"
+            android:text="X" />
+
+        <TextView
+            android:id="@+id/blind3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/y"
+            android:text="Y" />
+
+        <TextView
+            android:id="@+id/blind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bad_pixel" />
+
+        <EditText
+            android:id="@+id/y"
+            android:layout_width="66dp"
+            android:layout_height="46dp"
+            android:layout_below="@id/blind"
+            android:layout_marginLeft="1dp"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@id/x"
+            android:ems="10"
+            android:inputType="number"
+            android:text="45" />
+
+        <Button
+            android:id="@+id/rm_dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="0dp"
+            android:layout_toRightOf="@id/add_dp"
+            android:text="@string/cancel" />
+
+        <Button
+            android:id="@+id/add_dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/y"
+            android:text="@string/submit" />
+
+        <EditText
+            android:id="@+id/x"
+            android:layout_width="75dp"
+            android:layout_height="45dp"
+            android:layout_below="@id/blind"
+            android:layout_marginTop="3dp"
+            android:ems="10"
+            android:inputType="number"
+            android:text="123" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/savecfg"
+            android:layout_width="118dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/doiblepointsumit"
+            android:text="@string/save_calibration" />
+
+        <Button
+            android:id="@+id/restorecfg"
+            android:layout_width="133dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/doiblepointsumit"
+            android:text="@string/restore_factory" />
+    </LinearLayout>
+</LinearLayout>
