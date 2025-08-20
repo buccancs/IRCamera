@@ -54,7 +54,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread"
-        android:src="@drawable/mask_old"/>
+        android:src="@drawable/mask_new"/>
 
     <ImageView
         android:id="@+id/img2"
@@ -122,7 +122,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread"
-        android:src="@drawable/mask_blue_old"/>
+        android:src="@drawable/mask_blue_new"/>
 
     <ImageView
         android:id="@+id/img5"

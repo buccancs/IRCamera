@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.topdon.house.view.MyEasySwipeMenuLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Replaced MyEasySwipeMenuLayout with LinearLayout -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipe_menu_layout"
@@ -48,7 +49,7 @@
             android:layout_marginStart="9dp"
             android:paddingVertical="18dp"
             android:paddingHorizontal="9dp"
-            android:drawableStart="@drawable/selector_house_state_good"
+            android:drawableStart="@drawable/selector_device_connect_state"
             app:drawable_height="20sp"
             app:layout_constraintStart_toStartOf="@id/view_bg_item"
             app:layout_constraintTop_toBottomOf="@id/tv_item_name" />
@@ -58,7 +59,7 @@
             android:layout_height="wrap_content"
             android:paddingVertical="18dp"
             android:paddingHorizontal="9dp"
-            android:drawableStart="@drawable/selector_house_state_warn"
+            android:drawableStart="@drawable/svg_warn_info"
             app:drawable_height="20sp"
             app:layout_constraintStart_toEndOf="@id/tv_good"
             app:layout_constraintTop_toTopOf="@id/tv_good" />
@@ -68,7 +69,7 @@
             android:layout_height="wrap_content"
             android:paddingVertical="18dp"
             android:paddingHorizontal="9dp"
-            android:drawableStart="@drawable/selector_house_state_danger"
+            android:drawableStart="@drawable/svg_warn_info"
             app:drawable_height="20sp"
             app:layout_constraintStart_toEndOf="@id/tv_warn"
             app:layout_constraintTop_toTopOf="@id/tv_good" />
@@ -211,7 +212,7 @@
                 android:layout_height="26dp"
                 android:layout_marginStart="-13dp"
                 android:padding="5dp"
-                android:src="@drawable/svg_house_red_close"
+                android:src="@drawable/dialog_close"
                 android:contentDescription="@null"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toEndOf="@id/space_image1" />
@@ -221,7 +222,7 @@
                 android:layout_height="26dp"
                 android:layout_marginStart="-13dp"
                 android:padding="5dp"
-                android:src="@drawable/svg_house_red_close"
+                android:src="@drawable/dialog_close"
                 android:contentDescription="@null"
                 android:visibility="gone"
                 tools:visibility="visible"
@@ -233,7 +234,7 @@
                 android:layout_height="26dp"
                 android:layout_marginStart="-13dp"
                 android:padding="5dp"
-                android:src="@drawable/svg_house_red_close"
+                android:src="@drawable/dialog_close"
                 android:contentDescription="@null"
                 android:visibility="gone"
                 tools:visibility="visible"
@@ -245,7 +246,7 @@
                 android:layout_height="26dp"
                 android:layout_marginStart="-13dp"
                 android:padding="5dp"
-                android:src="@drawable/svg_house_red_close"
+                android:src="@drawable/dialog_close"
                 android:contentDescription="@null"
                 android:visibility="gone"
                 tools:visibility="visible"
@@ -283,7 +284,7 @@
             android:layout_height="wrap_content"
             android:paddingVertical="12dp"
             android:paddingHorizontal="16dp"
-            android:drawableStart="@drawable/svg_house_item_add_img"
+            android:drawableStart="@drawable/ic_add_nor"
             app:drawable_height="17sp"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintTop_toBottomOf="@id/view_line"
@@ -296,7 +297,7 @@
             android:layout_height="wrap_content"
             android:paddingVertical="12dp"
             android:paddingHorizontal="16dp"
-            android:drawableStart="@drawable/svg_house_item_add_text"
+            android:drawableStart="@drawable/ic_add_nor"
             app:drawable_height="17sp"
             app:layout_constraintTop_toTopOf="@id/tv_item_add_img"
             app:layout_constraintStart_toEndOf="@id/tv_item_add_img"
@@ -308,7 +309,7 @@
             android:layout_height="wrap_content"
             android:paddingVertical="12dp"
             android:paddingHorizontal="16dp"
-            android:drawableStart="@drawable/svg_house_item_copy"
+            android:drawableStart="@drawable/ic_copy_svg"
             app:drawable_height="17sp"
             app:layout_constraintTop_toTopOf="@id/tv_item_add_img"
             app:layout_constraintStart_toEndOf="@id/tv_item_add_text"
@@ -320,7 +321,7 @@
             android:layout_height="wrap_content"
             android:paddingVertical="12dp"
             android:paddingHorizontal="16dp"
-            android:drawableStart="@drawable/svg_house_item_del"
+            android:drawableStart="@drawable/ic_ir_delete_svg"
             app:drawable_height="17sp"
             app:layout_constraintTop_toTopOf="@id/tv_item_add_img"
             app:layout_constraintStart_toEndOf="@id/tv_item_copy"
@@ -336,7 +337,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginEnd="16dp"
-            android:src="@drawable/svg_house_item_red_del"
+            android:src="@drawable/svg_popup_del_bg"
             android:contentDescription="@null"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
@@ -344,4 +345,4 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-</com.topdon.house.view.MyEasySwipeMenuLayout>
+</LinearLayout>

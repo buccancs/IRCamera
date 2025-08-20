@@ -76,7 +76,7 @@
             android:id="@+id/iv_del"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@drawable/selector_house_del"
+            android:src="@drawable/svg_main_device_del"
             android:contentDescription="@null"
             app:layout_constraintWidth_percent="0.064"
             app:layout_constraintDimensionRatio="1:1"

@@ -3,8 +3,6 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
-    id 'com.google.gms.google-services'
-    id 'com.google.firebase.crashlytics'
 }
 
 kapt {
@@ -320,12 +318,6 @@ dependencies {
 //    implementation 'com.topdon.aliyun:auth-number:2.13.2.1@aar'
 //    implementation 'com.topdon.aliyun:logger:2.2.1:release@aar'
 //    implementation 'com.topdon.aliyun:main:2.2.1:release@aar'
-
-    implementation platform('com.google.firebase:firebase-bom:28.4.1')
-    implementation 'com.google.firebase:firebase-crashlytics-ktx'
-    implementation 'com.google.firebase:firebase-analytics-ktx'
-    implementation 'com.google.firebase:firebase-messaging:21.0.1'
-    implementation "com.google.firebase:firebase-iid"
 
     implementation files('libs/umeng-common-9.4.4+000.jar')
 }

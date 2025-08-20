@@ -30,7 +30,7 @@
         <ImageView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@drawable/svg_house_save"
+            android:src="@drawable/app_save"
             android:contentDescription="@null"
             app:layout_constraintWidth_percent="0.2"
             app:layout_constraintDimensionRatio="1:1"
@@ -64,8 +64,8 @@
             app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- 签名 View -->
-    <com.topdon.house.view.SignView
+    <!-- Replaced SignView with generic View -->
+    <View
         android:id="@+id/sign_view"
         android:layout_width="0dp"
         android:layout_height="0dp"

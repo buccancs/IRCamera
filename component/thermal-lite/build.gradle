@@ -71,7 +71,7 @@ dependencies {
     implementation(name: 'libirutils_1.2.0_2409241055', ext: 'aar')
 
     compileOnly(name: 'libcommon_1.2.0_24052117', ext: 'aar')
-    implementation project(':component:pseudo')
+    // Removed pseudo dependency
     implementation project(':component:thermal-ir')
 
     kapt "com.alibaba:arouter-compiler:1.5.4"
