@@ -9,7 +9,7 @@ import androidx.annotation.RequiresApi
 import com.guide.zm04c.matrix.Logger.d
 import com.guide.zm04c.matrix.utils.FileUtils.Companion.saveFile
 import com.guide.zm04c.matrix.utils.HexDump
-import com.topdon.lib.core.BaseApplication
+// import com.topdon.lib.core.BaseApplication  // Commented out due to missing dependency
 import java.io.BufferedInputStream
 import java.io.ByteArrayOutputStream
 import java.io.File

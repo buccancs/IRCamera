@@ -2,15 +2,7 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-android-extensions'
-    id 'kotlin-kapt'
 }
-
-kapt {
-    arguments {
-        arg("AROUTER_MODULE_NAME", project.getName())
-    }
-}
-
 
 android {
     compileSdk rootProject.ext.android.compileSdk
@@ -45,7 +37,6 @@ android {
     externalNativeBuild {
         cmake {
             path "src/main/cpp/CMakeLists.txt"
-            version "3.10.2"
         }
     }
 
@@ -55,6 +46,7 @@ android {
 }
 
 dependencies {
-    implementation files('../app/libs/libcommon_1.2.0_24052117.aar')
-    kapt rootProject.ext.dependencyVersions["arouter_compiler"]
+    compileOnly files('../app/libs/libcommon_1.2.0_24052117.aar')
+    implementation 'androidx.annotation:annotation:1.6.0'
+    implementation 'com.blankj:utilcodex:1.31.1'
 }
