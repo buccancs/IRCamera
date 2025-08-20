@@ -228,7 +228,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
 
-    // Room - removed compiler dependency, using reflection-based Room for Kotlin 2.0+
+    // Room without annotation processing (Kotlin 2.0 compatible)
     implementation "androidx.room:room-runtime:2.6.1"
     implementation "androidx.room:room-ktx:2.6.1"
 
@@ -240,7 +240,7 @@ dependencies {
 
     implementation "org.greenrobot:eventbus:3.2.0"
 
-    // Glide upgraded to version that doesn't require annotation processing
+    // Glide 4.16.0 - no annotation processing required
     implementation "com.github.bumptech.glide:glide:4.16.0"
 
     implementation "io.reactivex.rxjava2:rxjava:2.2.20"
