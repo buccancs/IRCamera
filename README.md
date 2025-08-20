@@ -1,18 +1,14 @@
-# IRCamera - Thermal Infrared Camera Application
+# IRCamera - TC001 Thermal Camera Application
 
-An Android application for thermal infrared cameras supporting multiple device types including TC001, TC007, TS004, and Hikvision thermal cameras.
+An Android application for the TC001 thermal infrared camera, providing comprehensive thermal imaging capabilities.
 
 ## Project Overview
 
-This is a modular Android application that provides thermal imaging capabilities across various hardware devices. The app features real-time thermal imaging, temperature measurement, image/video capture, and data analysis tools.
+This is a modular Android application specifically designed for the TC001 thermal camera device. The app features real-time thermal imaging, temperature measurement, image/video capture, and data analysis tools.
 
-## Supported Devices
+## Supported Device
 
 - **TC001**: Primary thermal camera device
-- **TC007**: Advanced thermal imaging device
-- **TS004**: Wireless thermal camera
-- **Hikvision**: Professional thermal cameras
-- **AC020**: Additional device support
 
 ## Key Features
 
@@ -40,10 +36,10 @@ The project follows a modular Android architecture:
 
 ## Build Variants
 
-The application supports multiple build variants:
+The TC001 application supports multiple build variants:
 
-- **Google Play**: Consumer version
-- **Topdon**: OEM version
+- **Google Play**: Consumer version for TC001
+- **Topdon**: OEM version for TC001
 - **Regional**: China and international variants
 - **Environment**: Development, beta, and production builds
 
@@ -95,11 +91,11 @@ Other modules have build configurations but are not currently included in the ma
 - **OpenGL**: Graphics rendering for thermal overlays
 - **GSY Video Player**: Video playback functionality
 - **Firebase**: Crashlytics and analytics
-- **Thermal SDKs**: Various device-specific thermal imaging SDKs
+- **TC001 SDK**: Thermal imaging SDK for TC001 device
 
 ## License
 
-This project is proprietary software for thermal camera applications.
+This project is proprietary software for the TC001 thermal camera application.
 
 ## Support
 

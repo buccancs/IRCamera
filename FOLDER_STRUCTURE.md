@@ -1,20 +1,19 @@
 # IRCamera Repository - Folder Structure Guide
 
-This document explains the responsibility and purpose of each top-level folder in the IRCamera repository.
+This document explains the responsibility and purpose of each top-level folder in the IRCamera repository for the TC001 thermal camera application.
 
 ## Overview
 
-The IRCamera project is an Android application for thermal infrared cameras, built with a modular architecture. The main application supports multiple thermal imaging devices (TC001, TC007, TS004, etc.) and provides various thermal imaging capabilities.
+The IRCamera project is an Android application specifically designed for the TC001 thermal infrared camera, built with a modular architecture. The application provides comprehensive thermal imaging capabilities for the TC001 device.
 
 ## Quick Reference Table
 
 | Folder | Type | Primary Responsibility |
 |--------|------|----------------------|
-| `app/` | Application | Main Android application module and entry point |
+| `app/` | Application | Main Android application module for TC001 |
 | `libapp/` | Library | Core shared functionality and infrastructure |
-| `component/` | Feature Modules | Feature-specific components (thermal, user, UI, etc.) |
-| `LocalRepo/` | Custom Libraries | Project-specific utilities and device libraries |
-| `libhik/` | Integration | Hikvision thermal camera integration |
+| `component/` | Feature Modules | TC001-specific components (thermal, user, UI, etc.) |
+| `LocalRepo/` | Custom Libraries | Project-specific utilities and libraries |
 | `libmatrix/` | Processing | Matrix operations and image processing |
 | `RangeSeekBar/` | UI Component | Custom range selection widget |
 | `buildSrc/` | Build System | Custom build logic and Gradle plugins |
@@ -24,61 +23,51 @@ The IRCamera project is an Android application for thermal infrared cameras, bui
 ## Top-Level Folder Structure
 
 ### 📱 **app/**
-- **Purpose**: Main Android application module
+- **Purpose**: Main Android application module for TC001
 - **Contents**: 
   - Primary application entry point (`com.topdon.tc001.app.App`)
   - Main AndroidManifest.xml with app permissions and configuration
-  - Application-level resources, assets, and UI components
-  - Build configuration for the primary application
+  - Application-level resources, assets, and UI components for TC001
+  - Build configuration for the TC001 application
 - **Key Files**: `AndroidManifest.xml`, `build.gradle`, Application class
 - **Dependencies**: Depends on `libapp` and various `component` modules
 
 ### 🔧 **libapp/**
-- **Purpose**: Core shared library module
+- **Purpose**: Core shared library module for TC001
 - **Contents**:
-  - Common functionality shared across all components
-  - Core repository classes (`TS004Repository`, `GalleryRepository`)
+  - Common functionality shared across TC001 components
+  - Core repository classes for TC001 data management
   - Configuration classes (`FileConfig`) for file management
   - Database schemas and Room database configuration
   - Base infrastructure and utilities
 - **Key Features**: File management, network repositories, gallery handling
-- **Dependencies**: Base library that other modules depend on
+- **Dependencies**: Base library that other TC001 modules depend on
 
 ### 🧩 **component/**
-- **Purpose**: Feature-specific modules organized by functionality
+- **Purpose**: Feature-specific modules organized by functionality for TC001
 - **Sub-modules**:
-  - **thermal*/** - Various thermal imaging implementations:
-    - `thermal07/`: TC007 device thermal imaging
-    - `thermal-ir/`: Infrared thermal processing with video playback
-    - `thermal-lite/`: Lightweight thermal features
-    - `thermal04/`: TC004/TS004 device thermal imaging
-    - `thermal-hik/`: Hikvision thermal camera integration
-    - `thermal/`: Base thermal functionality
+  - **thermal/**: Base thermal functionality for TC001
+  - **thermal-ir/**: Infrared thermal processing with video playback
+  - **thermal-lite/**: Lightweight thermal features
   - `user/`: User management and authentication
   - `house/`: Home screen and main navigation
   - `edit3d/`: 3D editing capabilities
   - `pseudo/`: Pseudo/simulation features
   - `transfer/`: Data transfer and file operations
   - `CommonComponent/`: Shared component utilities
-- **Architecture**: Each component is an independent Android library module
+- **Architecture**: Each component is an independent Android library module supporting TC001
 
 ### 📚 **LocalRepo/**
 - **Purpose**: Local repository for custom libraries and utilities
 - **Sub-directories**:
   - `libcommon/`: Common utility libraries
-  - `libac020/`: AC020 device-specific libraries
   - `libirutils/`: Infrared utility libraries and tools
 - **Usage**: Contains project-specific libraries not available in public repositories
 
-### 🏢 **libhik/**
-- **Purpose**: Hikvision device integration library
-- **Contents**: APIs and utilities for Hikvision thermal cameras
-- **Functionality**: Device communication and thermal data processing for Hikvision hardware
-
 ### 🔢 **libmatrix/**
-- **Purpose**: Matrix processing library
+- **Purpose**: Matrix processing library for TC001 thermal data
 - **Contents**: Mathematical operations and matrix calculations
-- **Usage**: Image processing, thermal data calculations, and geometric transformations
+- **Usage**: Image processing, thermal data calculations, and geometric transformations for TC001
 
 ### 🎚️ **RangeSeekBar/**
 - **Purpose**: Custom UI component
@@ -114,17 +103,18 @@ The IRCamera project is an Android application for thermal infrared cameras, bui
 ## Architecture Overview
 
 ```
-IRCamera Project
+IRCamera Project (TC001)
 ├── app (Main Application) [ACTIVE MODULE]
 ├── libapp (Core Library) [HAS BUILD CONFIG]
 ├── component/ (Feature Modules) [MULTIPLE BUILD CONFIGS]
-│   ├── thermal*/ (Thermal Imaging)
+│   ├── thermal/ (Base Thermal for TC001)
+│   ├── thermal-ir/ (IR Processing)
+│   ├── thermal-lite/ (Lightweight Features)
 │   ├── user/ (User Management)
 │   ├── house/ (Home Screen)
 │   └── ... (Other Features)
 ├── LocalRepo/ (Custom Libraries) [PARTIALLY ACTIVE]
 │   └── libcommon/ [ACTIVE MODULE]
-├── libhik/ (Hikvision Integration) [HAS BUILD CONFIG]
 ├── libmatrix/ (Matrix Processing) [HAS BUILD CONFIG]
 └── RangeSeekBar/ (UI Component) [HAS BUILD CONFIG]
 ```
@@ -138,7 +128,7 @@ Based on the `settings.gradle` configuration, only these modules are currently a
 The following folders contain `build.gradle` files but are not included in `settings.gradle`:
 - 📄 `libapp` - Core library (has build config, not included)
 - 📄 `component/*` - All component modules (have build configs, not included)
-- 📄 `libhik`, `libmatrix`, `RangeSeekBar` - Additional libraries (have build configs, not included)
+- 📄 `libmatrix`, `RangeSeekBar` - Additional libraries (have build configs, not included)
 
 This suggests the project structure is designed for modular development, but the current build configuration only includes the essential modules.
 
@@ -148,12 +138,12 @@ This suggests the project structure is designed for modular development, but the
 - **Kotlin/Java**: Primary development languages  
 - **Gradle**: Build system with modular configuration
 - **Room**: Database ORM (in libapp)
-- **Thermal Imaging**: Multiple device support (TC001, TC007, TS004, Hikvision)
-- **Modular Architecture**: Feature-based component separation
+- **Thermal Imaging**: TC001 device support
+- **Modular Architecture**: Feature-based component separation for TC001
 
 ## Build Variants
 
-The project supports multiple build variants:
+The TC001 project supports multiple build variants:
 - **Google Play**: Consumer version for Google Play Store
 - **Topdon**: OEM version for Topdon devices
 - **Regional variants**: Inside China and international versions
@@ -161,8 +151,8 @@ The project supports multiple build variants:
 
 ## Getting Started
 
-1. The main application entry point is in `app/`
+1. The main TC001 application entry point is in `app/`
 2. Core functionality is provided by `libapp/`
-3. Feature-specific code is organized in `component/` modules
-4. Device-specific integrations are in dedicated lib modules
+3. TC001-specific thermal features are organized in `component/` modules
+4. Supporting libraries provide matrix processing and UI components
 5. Build scripts automate compilation for different variants
