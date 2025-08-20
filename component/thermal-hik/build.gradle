@@ -64,7 +64,7 @@ dependencies {
     implementation project(':libapp')
     implementation project(':libcom')
     implementation project(':libhik')
-    implementation project(':libir') //点线面温度需要用到
+    implementation project(':libapp') //点线面温度需要用到
     implementation project(':libmenu')
     implementation project(':libui')
 

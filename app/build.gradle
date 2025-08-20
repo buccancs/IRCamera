@@ -326,7 +326,6 @@ dependencies {
     implementation project(':component:user')
     implementation project(':libapp')
     implementation project(':libcom')
-    implementation project(':libir')
     implementation project(':libmenu')
     implementation project(':libui')
 

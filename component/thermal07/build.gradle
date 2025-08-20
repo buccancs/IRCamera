@@ -63,7 +63,7 @@ android {
 dependencies {
     implementation project(':libapp')
     implementation project(':libcom')
-    implementation project(':libir')
+    implementation project(':libapp')
     implementation project(':libmenu')
     implementation project(':libui')
     implementation project(':component:pseudo')
