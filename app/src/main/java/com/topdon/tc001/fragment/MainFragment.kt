@@ -65,32 +65,15 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         tv_connect_device.setOnClickListener(this)
         iv_add.setOnClickListener(this)
         adapter.hasConnectLine = DeviceTools.isConnect()
-        adapter.hasConnectTS004 = WebSocketProxy.getInstance().isTS004Connect()
-        adapter.hasConnectTC007 = WebSocketProxy.getInstance().isTC007Connect()
+        // TS004/TC007 support removed
         adapter.onItemClickListener = {
             when (it) {
                 ConnectType.LINE -> {
                     ARouter.getInstance()
                         .build(RouterConfig.IR_MAIN)
-                        .withBoolean(ExtraKeyConfig.IS_TC007, false)
                         .navigation(requireContext())
                 }
-                ConnectType.TS004 -> {
-                    if (WebSocketProxy.getInstance().isTS004Connect()) {
-                        ARouter.getInstance().build(RouterConfig.IR_MONOCULAR).navigation(requireContext())
-                    } else {
-                        ARouter.getInstance()
-                            .build(RouterConfig.IR_DEVICE_ADD)
-                            .withBoolean("isTS004", true)
-                            .navigation(requireContext())
-                    }
-                }
-                ConnectType.TC007 -> {
-                    ARouter.getInstance()
-                        .build(RouterConfig.IR_MAIN)
-                        .withBoolean(ExtraKeyConfig.IS_TC007, true)
-                        .navigation(requireContext())
-                }
+                // TS004/TC007 cases removed
             }
         }
         adapter.onItemLongClickListener = { view, type ->
@@ -103,8 +86,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
                     .setPositiveListener(R.string.report_delete) {
                         when (type) {
                             ConnectType.LINE -> SharedManager.hasTcLine = false
-                            ConnectType.TS004 -> SharedManager.hasTS004 = false
-                            ConnectType.TC007 -> SharedManager.hasTC007 = false
+                            // TS004/TC007 cases removed (SharedManager properties no longer exist)
                         }
                         refresh()
                         TToast.shortToast(requireContext(), R.string.test_results_delete_success)
@@ -372,7 +354,6 @@ class MainFragment : BaseFragment(), View.OnClickListener {
 
     enum class ConnectType {
         LINE,
-        TS004,
-        TC007,
+        // TS004, TC007 support removed
     }
 }
