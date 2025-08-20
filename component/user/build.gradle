@@ -34,6 +34,7 @@ android {
         jvmTarget = '17'
     }
 
+
     flavorDimensions 'app'
     productFlavors {
         dev {
@@ -58,7 +59,7 @@ android {
 }
 
 dependencies {
-    compileOnly(name: 'libcommon_1.2.0_24052117', ext: 'aar')
+    compileOnly(name: "libcommon_1.2.0_24052117", ext: "aar")
     kapt "com.alibaba:arouter-compiler:1.5.2"
     implementation 'com.zoho.salesiq:mobilisten:7.0.0'
     

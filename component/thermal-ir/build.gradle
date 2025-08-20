@@ -40,11 +40,6 @@ android {
         dataBinding = true
         buildConfig = true
     }
-//    repositories {
-//        flatDir {
-//            dirs '../../libir/libs'
-//        }
-//    }
 
     flavorDimensions 'app'
     productFlavors {
@@ -73,7 +68,7 @@ dependencies {
     implementation(name: 'opengl_1.3.2_standard', ext: 'aar')
     implementation(name: 'library_1.0', ext: 'aar')
 
-    compileOnly(name: 'libcommon_1.2.0_24052117', ext: 'aar')
+    compileOnly(name: "libcommon_1.2.0_24052117", ext: "aar")
     // Removed house and pseudo dependencies  
     implementation project(':libmatrix')
 

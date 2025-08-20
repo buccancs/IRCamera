@@ -36,6 +36,7 @@ android {
     kotlinOptions {
         jvmTarget = '17'
     }
+
     buildFeatures {
         viewBinding true
         dataBinding = true
@@ -70,7 +71,7 @@ dependencies {
     implementation(name: 'libAC020sdk_USB_IR_1.1.1_2408291439', ext: 'aar')
     implementation(name: 'libirutils_1.2.0_2409241055', ext: 'aar')
 
-    compileOnly(name: 'libcommon_1.2.0_24052117', ext: 'aar')
+    compileOnly(name: "libcommon_1.2.0_24052117", ext: "aar")
     // Removed pseudo dependency
     implementation project(':component:thermal-ir')
 

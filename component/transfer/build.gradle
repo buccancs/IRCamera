@@ -26,6 +26,7 @@ android {
         jvmTarget = '17'
     }
 
+
     flavorDimensions 'app'
     productFlavors {
         dev {
@@ -50,7 +51,7 @@ android {
 }
 
 dependencies {
-    compileOnly(name: 'libcommon_1.2.0_24052117', ext: 'aar')
+    compileOnly(name: "libcommon_1.2.0_24052117", ext: "aar")
     
     // Kotlin Coroutines - compatible with Kotlin 2.0+
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
