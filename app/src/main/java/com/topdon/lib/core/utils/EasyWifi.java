@@ -25,3 +25,4 @@ public class EasyWifi {
         WIFI_CIPHER_NO_PASS
     }
 
+

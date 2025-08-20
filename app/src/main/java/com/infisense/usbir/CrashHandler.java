@@ -45,3 +45,10 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         pw.print("versionName : ");
         pw.println(pi.versionName);
         try {
+            // Implementation would go here
+        } catch (Exception e) {
+            Log.e(TAG, "Error collecting crash info", e);
+        }
+        return null;
+    }
+}
