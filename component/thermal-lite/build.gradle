@@ -12,7 +12,7 @@ kapt {
 }
 
 android {
-    namespace = "com.example.thermal_lite"
+    namespace 'com.topdon.module.thermal.lite'
     compileSdk rootProject.ext.android.compileSdk
 
     defaultConfig {
@@ -30,17 +30,16 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
     buildFeatures {
         viewBinding true
-    }
-    buildFeatures{
         dataBinding = true
+        buildConfig = true
     }
 
     flavorDimensions 'app'
