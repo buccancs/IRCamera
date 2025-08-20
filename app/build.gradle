@@ -26,7 +26,6 @@ android {
         multiDexEnabled true
         ndk {
             abiFilters "arm64-v8a"
-//            abiFilters "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
         }
 
         buildConfigField "String", "VERSION_DATE", "\"$dayStr\""
@@ -85,14 +84,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     packagingOptions {
-        //解决第三方so依赖冲突 merge（合并）  pickFirst（选取第一个）
-        //如果合并不能解决问题就选择其中一个
         merge 'META-INF/LICENSE-notice.md'
         merge 'META-INF/LICENSE.md'
         merge 'META-INF/proguard/androidx-annotations.pro'
         merge 'META-INF/proguard/coroutines.pro'
-//        merge 'lib/arm64-v8a/libc++_shared.so'
-//        merge 'lib/armeabi-v7a/libc++_shared.so'
         pickFirst 'lib/x86/libc++_shared.so'
         pickFirst 'lib/x86_64/libc++_shared.so'
         pickFirst 'lib/arm64-v8a/libc++_shared.so'
@@ -109,11 +104,14 @@ android {
         pickFirst 'lib/arm64-v8a/libomp.so'
         pickFirst 'lib/arm64-v8a/liblog.so'
         pickFirst 'lib/armeabi-v7a/liblog.so'
-        // Handle duplicate libraries from merged modules
         pickFirst 'lib/arm64-v8a/libUSBUVCCamera.so'
         pickFirst 'lib/armeabi-v7a/libUSBUVCCamera.so'
         pickFirst 'lib/arm64-v8a/libircmd.so'
         pickFirst 'lib/armeabi-v7a/libircmd.so'
+        pickFirst 'lib/arm64-v8a/libirparse.so'
+        pickFirst 'lib/armeabi-v7a/libirparse.so'
+        pickFirst 'lib/arm64-v8a/libirprocess.so'
+        pickFirst 'lib/armeabi-v7a/libirprocess.so'
         exclude 'META-INF/*.SF'
         exclude 'META-INF/*.DSA' 
         exclude 'META-INF/*.RSA'
@@ -166,7 +164,6 @@ def versionApk(variant, defaultConfig) {
     }
 }
 
-//复制apk
 def copyApk(type, flavor) {
     copy {
         from "build/outputs/apk/${flavor}/${type}"
@@ -178,7 +175,6 @@ def copyApk(type, flavor) {
     }
 }
 
-//复制aab
 def copyAab(type) {
     copy {
         from "build/outputs/bundle/${type}"
@@ -210,7 +206,6 @@ project.afterEvaluate {
 }
 
 dependencies {
-    // All dependencies consolidated from merged modules
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
     implementation Deps.appcompat
     implementation Deps.fragment_ktx
@@ -277,12 +272,16 @@ dependencies {
     implementation files('libs\\lms_international-3.90.009.0.aar')
     implementation files('libs\\logger-2.2.1-release.aar')
     implementation files('libs\\main-2.2.1-release.aar')
-    implementation(name: 'libusbdualsdk_1.3.4_2406271906_standard', ext: 'aar')
-    implementation(name: 'opengl_1.3.2_standard', ext: 'aar')
-    // opengl_1.3.2_standard included here only - removed from libapp to avoid duplicates
+    implementation files('libs\\libusbdualsdk_1.3.4_2406271906_standard.aar')
+    implementation files('libs\\opengl_1.3.2_standard.aar')
+    implementation files('libs\\suplib-release.aar')
+    implementation files('libs\\ai-upscale-release.aar')
+    implementation files('libs\\libusbirsdk_1.2.3_22041515.aar')
+    implementation files('libs\\texturegesture-release.aar')
+    implementation files('libs\\library_1.0.aar')
     
     implementation project(':LocalRepo:libcommon')
-    implementation project(':libapp')
+    implementation project(':RangeSeekBar')
     implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '3.17'
     implementation group: 'org.apache.xmlbeans', name: 'xmlbeans', version: '3.1.0'
     implementation 'javax.xml.stream:stax-api:1.0'
@@ -307,12 +306,11 @@ dependencies {
 //    implementation 'com.topdon.aliyun:logger:2.2.1:release@aar'
 //    implementation 'com.topdon.aliyun:main:2.2.1:release@aar'
 
-    //国际版需要添加的
     implementation platform('com.google.firebase:firebase-bom:28.4.1')
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-messaging:21.0.1'
     implementation "com.google.firebase:firebase-iid"
 
-    implementation files('libs/umeng-common-9.4.4+000.jar')//谷歌定制版
+    implementation files('libs/umeng-common-9.4.4+000.jar')
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Original app colors -->
     <color name="rsbColorIndicatorBg">#FFBA42</color>
     <color name="rsbColorSeekBarDefault">#c3c3c3</color>
     <color name="rsbColorThumbPressed">#FFE7E7E7</color>
@@ -11,4 +12,47 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="color_16131E">#16131E</color>
+    
+    <!-- libapp colors -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <color name="color_default_max">#FFF3812F</color>
+    <color name="color_default_min">#FF28C445</color>
+    <color name="color_select1">#FF000000</color>
+    <color name="color_select2">#FFFFFFFF</color>
+    <color name="color_select3">#FF2B79D8</color>
+    <color name="color_select4">#FFFF0000</color>
+    <color name="color_select5">#FF0FA752</color>
+    <color name="color_select6">#808080</color>
+
+    <color name="wheel_select_bg">#1A2B79D7</color>
+    <color name="wheel_select_text">#FFFFFF</color>
+    <color name="wheel_unselect_text">#B2FFFFFF</color>
+    <color name="ui_main_custom_color">#8A898E</color>
+    <color name="color_green_point">#0CEB82</color>
+    
+    <!-- Missing colors from build errors -->
+    <color name="chart_bg_bottom_max">#FFE7E7E7</color>
+    <color name="chart_bg_top_max">#FFBA42</color>
+    <color name="chart_bg_bottom_min">#28C445</color>
+    <color name="chart_bg_top_min">#0FA752</color>
+    <color name="chart_bg_bottom_center">#808080</color>
+    <color name="chart_bg_top_center">#c3c3c3</color>
+    <color name="color_E74380">#E74380</color>
+    <color name="color_FFBA42">#FFBA42</color>
+    <color name="color_06AAFF">#06AAFF</color>
+    <color name="toolbar_5F16131E">#5F16131E</color>
+    <color name="color_23202E">#23202E</color>
+    <color name="font_second_color">#808080</color>
+    <color name="temp_font_title_item_color">#333333</color>
+    <color name="color_img_calibration_right">#06AAFF</color>
+    
+    <!-- Additional missing color -->
+    <color name="tx_333">#333333</color>
+    <color name="ir_bg_color">#000000</color>
+    <color name="color_img_calibration_normal">#FFFFFF</color>
+    <color name="color_img_calibration_left">#06AAFF</color>
+    <color name="color_img_calibration_button">#FFBA42</color>
+    <color name="toolbar_16131E">#16131E</color>
 </resources>
