@@ -9,7 +9,7 @@ import com.topdon.lib.core.tools.GlideLoader
 import com.topdon.module.thermal.ir.R
 import kotlinx.android.synthetic.main.item_gallery.view.*
 
-class GalleryAdapter(val context: Context) :
+class SimpleGalleryAdapter(val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var listener: OnItemClickListener? = null

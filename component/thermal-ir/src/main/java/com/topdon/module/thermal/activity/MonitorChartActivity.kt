@@ -32,8 +32,8 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.adapter.SettingCheckAdapter
 import com.topdon.module.thermal.adapter.SettingTimeAdapter
 import com.topdon.module.thermal.chart.MyValueFormatter
-import com.topdon.module.thermal.utils.ArrayUtils
-import com.topdon.module.thermal.view.MyMarkerView
+import com.topdon.module.thermal.ir.utils.ArrayUtils
+import com.topdon.module.thermal.ir.view.MyMarkerView
 import com.topdon.module.thermal.viewmodel.LogViewModel
 import kotlinx.android.synthetic.main.activity_monitor_chart.*
 import kotlinx.coroutines.Dispatchers

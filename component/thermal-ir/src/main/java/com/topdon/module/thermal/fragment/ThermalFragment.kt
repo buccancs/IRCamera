@@ -30,12 +30,12 @@ import com.topdon.lib.ui.fence.FencePointView
 import com.topdon.lib.ui.fence.FenceView
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.base.BaseThermalFragment
-import com.topdon.module.thermal.fragment.event.ThermalActionEvent
+import com.topdon.module.thermal.ir.event.ThermalActionEvent
 import com.topdon.module.thermal.tools.Fence
 import com.topdon.module.thermal.tools.ThermalTool
 import com.topdon.module.thermal.tools.medie.IYapVideoProvider
 import com.topdon.module.thermal.tools.medie.YapVideoEncoder
-import com.topdon.module.thermal.utils.ArrayUtils
+import com.topdon.module.thermal.ir.utils.ArrayUtils
 import com.topdon.module.thermal.viewmodel.ThermalViewModel
 import kotlinx.android.synthetic.main.fragment_thermal.*
 import kotlinx.coroutines.delay

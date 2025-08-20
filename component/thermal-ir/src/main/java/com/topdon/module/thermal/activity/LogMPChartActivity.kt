@@ -26,7 +26,7 @@ import com.topdon.lib.core.tools.ToastTools
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.adapter.SettingTimeAdapter
 import com.topdon.module.thermal.chart.MyValueFormatter
-import com.topdon.module.thermal.view.MyMarkerView
+import com.topdon.module.thermal.ir.view.MyMarkerView
 import com.topdon.module.thermal.viewmodel.LogViewModel
 import kotlinx.android.synthetic.main.activity_log_mp_chart.*
 import kotlinx.coroutines.Dispatchers

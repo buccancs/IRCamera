@@ -11,7 +11,7 @@ import com.maning.imagebrowserlibrary.MNImageBrowser
 import com.topdon.lib.core.ktbase.BaseViewModelFragment
 import com.topdon.lib.core.widget.dialog.TipDialog
 import com.topdon.module.thermal.ir.R
-import com.topdon.module.thermal.adapter.GalleryAdapter
+import com.topdon.module.thermal.adapter.SimpleGalleryAdapter
 import com.topdon.module.thermal.tools.GlideImageEngine
 import com.topdon.module.thermal.viewmodel.GalleryViewModel
 import kotlinx.android.synthetic.main.fragment_gallery_picture.*
@@ -23,7 +23,7 @@ import java.io.File
  */
 class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
 
-    private val adapter by lazy { GalleryAdapter(requireContext()) }
+    private val adapter by lazy { SimpleGalleryAdapter(requireContext()) }
 
     override fun providerVMClass() = GalleryViewModel::class.java
     override fun initContentView() = R.layout.fragment_gallery_picture
@@ -37,7 +37,7 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
         viewModel.galleryLiveData.observe(this) {
             adapter.datas = it
         }
-        adapter.listener = object : GalleryAdapter.OnItemClickListener {
+        adapter.listener = object : SimpleGalleryAdapter.OnItemClickListener {
             override fun onClick(index: Int, path: String) {
                 previewPicture(path)
             }
