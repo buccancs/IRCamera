@@ -77,7 +77,7 @@ dependencies {
     implementation project(':component:house')
     implementation project(':component:pseudo')
 
-    kapt "com.alibaba:arouter-compiler:1.5.2"
+    kapt "com.alibaba:arouter-compiler:1.5.4"
     api "com.airbnb.android:lottie:6.0.0"
     api 'com.github.anzaizai:EasySwipeMenuLayout:1.1.4'
 

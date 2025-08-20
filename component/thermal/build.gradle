@@ -41,5 +41,5 @@ dependencies {
     compileOnly(name: 'libcommon_1.2.0_24052117', ext: 'aar')
     implementation project(':libmatrix')
     implementation 'com.google.android.mediahome:video:1.0.0'
-    kapt "com.alibaba:arouter-compiler:1.5.2"
+    kapt "com.alibaba:arouter-compiler:1.5.4"
 }

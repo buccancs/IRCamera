@@ -62,7 +62,7 @@ android {
 }
 
 dependencies {
-    kapt "com.alibaba:arouter-compiler:1.5.2"
+    kapt "com.alibaba:arouter-compiler:1.5.4"
     compileOnly(name: 'libcommon_1.2.0_24052117', ext: 'aar')
     implementation(name: 'opengl_1.3.2_standard', ext: 'aar')
 

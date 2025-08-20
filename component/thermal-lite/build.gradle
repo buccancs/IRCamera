@@ -74,7 +74,7 @@ dependencies {
     implementation project(':component:pseudo')
     implementation project(':component:thermal-ir')
 
-    kapt "com.alibaba:arouter-compiler:1.5.2"
+    kapt "com.alibaba:arouter-compiler:1.5.4"
     api(project(":component:CommonComponent"))
     implementation("androidx.multidex:multidex:2.0.1")
     implementation("com.google.android.material:material:1.4.0")
