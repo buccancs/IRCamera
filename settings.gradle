@@ -17,7 +17,7 @@ dependencyResolutionManagement {
 //            allowInsecureProtocol = true
 //        }
         flatDir {
-            dirs 'libir/libs'
+            dirs 'libapp/libs'
         }
     }
 }
@@ -36,10 +36,7 @@ include ':component:thermal07'
 include ':component:transfer'
 include ':component:user'
 include ':libapp'
-include ':libcom'
 include ':libhik'
-include ':libmenu'
-include ':libui'
 include ':LocalRepo:libac020'
 include ':LocalRepo:libcommon'
 include ':LocalRepo:libirutils'

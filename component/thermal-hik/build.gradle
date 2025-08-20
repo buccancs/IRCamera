@@ -62,11 +62,9 @@ dependencies {
     implementation project(':component:pseudo')
     implementation project(':component:thermal-ir') //很多热成像公共的东西在里面如图库
     implementation project(':libapp')
-    implementation project(':libcom')
     implementation project(':libhik')
     implementation project(':libapp') //点线面温度需要用到
-    implementation project(':libmenu')
-    implementation project(':libui')
+    implementation project(":libapp")
 
     kapt Deps.arouter_compiler
 }

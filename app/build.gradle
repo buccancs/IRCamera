@@ -325,9 +325,6 @@ dependencies {
     implementation project(':component:transfer')
     implementation project(':component:user')
     implementation project(':libapp')
-    implementation project(':libcom')
-    implementation project(':libmenu')
-    implementation project(':libui')
 
     kapt Deps.arouter_compiler
 
