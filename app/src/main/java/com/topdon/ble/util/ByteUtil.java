@@ -33,13 +33,6 @@ public class ByteUtil {
         return byteMerger(byte1, byte2.getBytes());
     }
 
-
-
-
-
-
-
-
     public static byte[] byteMerger(byte[]... bytes) {
         int length = 0;
         for (byte[] tmp : bytes) {
@@ -79,8 +72,6 @@ public class ByteUtil {
         }
         return buffer;
     }
-
-
 
     public static float bytesToFloat(byte[] bytes) {
         float value = Integer.valueOf(HexUtil.bytesToHexString(bytes), 16);
