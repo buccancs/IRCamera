@@ -17,16 +17,4 @@
         <item name="android:activityCloseEnterAnimation">@anim/abc_fade_in</item>
         <item name="android:activityCloseExitAnimation">@anim/abc_fade_out</item>
     </style>
-    
-    <style name="Splash" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@color/colorPrimary</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowFullscreen">true</item>
-    </style>
-    
-    <style name="Blank" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowNoTitle">true</item>
-    </style>
 </resources>
