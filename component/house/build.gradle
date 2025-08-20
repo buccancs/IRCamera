@@ -50,6 +50,5 @@ android {
 }
 
 dependencies {
-    implementation project(':commonlibrary')
-    implementation project(":commonlibrary")
+    compileOnly(name: 'libcommon_1.2.0_24052117', ext: 'aar')
 }

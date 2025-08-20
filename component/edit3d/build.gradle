@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
 }
+
 kapt {
     arguments {
         arg("AROUTER_MODULE_NAME", project.getName())
@@ -61,7 +62,7 @@ android {
 
 dependencies {
     kapt "com.alibaba:arouter-compiler:1.5.2"
-    implementation project(':commonlibrary')
+    compileOnly(name: 'libcommon_1.2.0_24052117', ext: 'aar')
     implementation(name: 'opengl_1.3.2_standard', ext: 'aar')
 
 }
