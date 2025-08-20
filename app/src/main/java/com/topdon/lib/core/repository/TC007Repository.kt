@@ -57,9 +57,6 @@ object TC007Repository {
 
 
 
-    /**
-     * 获取产品信息
-     */
     suspend fun getProductInfo(): ProductBean? = withContext(Dispatchers.IO) {
         try {
             getTC007Service().getProductInfo().Data
@@ -68,9 +65,6 @@ object TC007Repository {
         }
     }
 
-    /**
-     * 获取设备电池信息
-     */
     suspend fun getBatteryInfo(): BatteryInfo? = withContext(Dispatchers.IO) {
         try {
             getTC007Service().getBatteryInfo().Data
@@ -79,9 +73,6 @@ object TC007Repository {
         }
     }
 
-    /**
-     * 同步时间.
-     */
     suspend fun syncTime(): Boolean = withContext(Dispatchers.IO) {
         try {
             val calendar = Calendar.getInstance()
@@ -142,10 +133,10 @@ object TC007Repository {
                     val body = byteArray.toRequestBody("application/octet-stream".toMediaTypeOrNull())
                     val part = MultipartBody.Part.createFormData("zipFile", "zipFile", body)
                     val code = getTC007Service(30).sendUpgradeFile(file.name, packNum, totalPackNum, md5, part).Code
-                    if (code == 400805) {//已在升级中
+                    if (code == 400805) {
                         return@withContext true
                     }
-                    if (code != 200) {//200是成功
+                    if (code != 200) {
                         result = false
                     }
                     hasReadCount = 0
@@ -161,10 +152,10 @@ object TC007Repository {
                 val body = lastArray.toRequestBody("application/octet-stream".toMediaTypeOrNull())
                 val part = MultipartBody.Part.createFormData("zipFile", "zipFile", body)
                 val code = getTC007Service(30).sendUpgradeFile(file.name, packNum, totalPackNum, md5, part).Code
-                if (code == 400805) {//已在升级中
+                if (code == 400805) {
                     return@withContext true
                 }
-                if (code != 200) {//200是成功
+                if (code != 200) {
                     result = false
                 }
             }
