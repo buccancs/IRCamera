@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace 'com.topdon.libmatrix'
+    namespace 'com.guide.zm04c.matrix'
     compileSdk rootProject.ext.android.compileSdk
 
     defaultConfig {
@@ -39,6 +39,10 @@ android {
         cmake {
             path "src/main/cpp/CMakeLists.txt"
         }
+    }
+
+    buildFeatures{
+        buildConfig = true
     }
 
     lintOptions {
