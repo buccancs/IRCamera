@@ -212,6 +212,24 @@ object SharedManager {
 
     private const val SP_SETTING_IS_PUSH = "sp_setting_is_push" //推送开关
     private const val SP_SETTING_IS_RECOMMEND = "sp_setting_is_recommend"
+    
+    // Missing constants
+    private const val SP_HOT_MODE = "sp_hot_mode"
+    private const val SP_CHANGE_DEVICE = "sp_change_device"
+    private const val SP_CAR_DETECT = "sp_car_detect"
+    
+    // Device connection states
+    var hasTS004: Boolean
+        get() = SPUtils.getInstance().getBoolean("hasTS004", false)
+        set(value) = SPUtils.getInstance().put("hasTS004", value)
+        
+    var hasTC007: Boolean
+        get() = SPUtils.getInstance().getBoolean("hasTC007", false)
+        set(value) = SPUtils.getInstance().put("hasTC007", value)
+        
+    var is04AutoSync: Boolean
+        get() = SPUtils.getInstance().getBoolean("is04AutoSync", false)
+        set(value) = SPUtils.getInstance().put("is04AutoSync", value)
 
     fun getTargetPop(): Boolean {
         return SPUtils.getInstance().getBoolean(SP_TARGET_POP, false)
