@@ -21,10 +21,7 @@ import java.util.TimeZone
 object GalleryRepository {
 
     enum class DirType {
-        LINE,
-        TC007,
-        TS004_LOCALE,
-        TS004_REMOTE,
+        LINE
     }
 
     private fun copySourDir(sourceDir: File, targetDir: File): Boolean {
