@@ -24,7 +24,7 @@ import com.topdon.lms.sdk.utils.LanguageUtil
 import com.topdon.lms.sdk.utils.StringUtils
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.lms.sdk.xutils.http.RequestParams
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 import com.topdon.module.thermal.ir.adapter.PDFAdapter
 import com.topdon.module.thermal.ir.report.viewmodel.PdfViewModel
 import kotlinx.android.synthetic.main.activity_pdf_list.*

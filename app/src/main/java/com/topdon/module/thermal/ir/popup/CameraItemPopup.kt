@@ -14,7 +14,7 @@ import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.dialog.TipShutterDialog
 import com.topdon.libcom.bean.SaveSettingBean
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 import com.topdon.module.thermal.ir.databinding.PopCameraItemBinding
 
 @SuppressLint("SetTextI18n")

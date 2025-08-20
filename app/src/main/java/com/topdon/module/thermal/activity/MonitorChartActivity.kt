@@ -29,7 +29,7 @@ import com.topdon.lib.core.db.AppDatabase
 import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.TimeTool
-import com.topdon.module.thermal.R
+import com.topdon.tc001.R
 import com.topdon.module.thermal.adapter.SettingCheckAdapter
 import com.topdon.module.thermal.adapter.SettingTimeAdapter
 import com.topdon.module.thermal.chart.MyValueFormatter

@@ -16,7 +16,7 @@ import com.blankj.utilcode.util.CollectionUtils
 import com.topdon.house.activity.ImagesDetailActivity
 import com.topdon.lib.core.bean.HouseRepPreviewItemBean
 import com.topdon.lib.core.config.ExtraKeyConfig
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 import com.topdon.module.thermal.ir.view.DetectHorizontalScrollView.OnScrollStopListner
 import kotlinx.android.synthetic.main.item_gallery_head_lay.view.*
 import kotlinx.android.synthetic.main.item_gallery_lay.view.*

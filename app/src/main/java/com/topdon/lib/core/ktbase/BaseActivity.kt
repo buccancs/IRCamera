@@ -12,7 +12,7 @@ import androidx.core.content.FileProvider
 import com.elvishew.xlog.XLog
 import com.google.gson.Gson
 import com.topdon.lib.core.BaseApplication
-import com.topdon.lib.core.R
+import com.topdon.tc001.R
 import com.topdon.lib.core.bean.event.SocketStateEvent
 import com.topdon.lib.core.bean.event.device.DeviceConnectEvent
 import com.topdon.lib.core.bean.response.ResponseUserInfo

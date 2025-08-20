@@ -9,7 +9,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
-import com.topdon.module.user.R
+import com.topdon.tc001.R
 import com.topdon.module.user.model.QuestionData
 import com.topdon.module.user.model.FaqRepository
 import kotlinx.android.synthetic.main.activity_question.*

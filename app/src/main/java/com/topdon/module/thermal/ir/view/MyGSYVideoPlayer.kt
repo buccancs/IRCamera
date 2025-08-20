@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.ImageView
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 
 class MyGSYVideoPlayer : StandardGSYVideoPlayer {
 

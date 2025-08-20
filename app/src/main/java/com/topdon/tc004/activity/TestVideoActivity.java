@@ -7,7 +7,7 @@ import android.preference.PreferenceManager;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.topdon.tc004.R;
+import com.topdon.tc001.R;
 import com.topdon.tc004.activity.video.PlayFragment;
 
 

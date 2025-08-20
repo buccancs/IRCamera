@@ -14,7 +14,7 @@ import com.topdon.lib.core.tools.GlideLoader
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.libcom.PDFHelp
 import com.topdon.module.thermal.ir.report.view.ReportIRShowView
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 import com.topdon.module.thermal.ir.report.bean.ReportBean
 import kotlinx.android.synthetic.main.activity_report_detail.*
 import kotlinx.coroutines.Dispatchers

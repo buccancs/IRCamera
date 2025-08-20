@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.open3d.JNITool
 import com.topdon.lib.core.config.RouterConfig
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 import com.topdon.module.thermal.ir.utils.ImageColorTools
 import org.opencv.core.CvType
 import org.opencv.core.Mat

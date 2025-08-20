@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.utils.ScreenUtil
-import com.topdon.tc004.R
+import com.topdon.tc001.R
 import com.topdon.tc004.bean.MenuBean
 import com.topdon.tc004.bean.MonocularBean
 import com.topdon.tc004.config.MonocularHelp

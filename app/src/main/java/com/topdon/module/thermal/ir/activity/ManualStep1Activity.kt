@@ -4,7 +4,7 @@ import android.content.Intent
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 import com.topdon.module.thermal.ir.event.ManualFinishBean
 import kotlinx.android.synthetic.main.activity_manual_step1.tv_manual
 import org.greenrobot.eventbus.Subscribe

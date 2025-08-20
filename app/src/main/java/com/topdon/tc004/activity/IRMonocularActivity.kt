@@ -32,7 +32,7 @@ import com.topdon.lib.core.utils.NetWorkUtils
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lib.core.utils.WsCmdConstants
 import com.topdon.lms.sdk.weiget.TToast
-import com.topdon.tc004.R
+import com.topdon.tc001.R
 import com.topdon.tc004.activity.video.PlayFragment
 import com.topdon.tc004.adapter.MenuSixAdapter
 import com.topdon.tc004.bean.MenuBean

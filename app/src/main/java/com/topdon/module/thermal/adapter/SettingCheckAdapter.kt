@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.topdon.module.thermal.R
+import com.topdon.tc001.R
 import kotlinx.android.synthetic.main.item_setting_check.view.*
 
 class SettingCheckAdapter(val context: Context) :

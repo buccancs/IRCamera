@@ -26,7 +26,7 @@ import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.lib.core.viewmodel.FirmwareViewModel
 import com.topdon.lms.sdk.weiget.TToast
-import com.topdon.module.user.R
+import com.topdon.tc001.R
 import com.topdon.module.user.dialog.DownloadProDialog
 import com.topdon.module.user.dialog.FirmwareInstallDialog
 import kotlinx.android.synthetic.main.fragment_more.*

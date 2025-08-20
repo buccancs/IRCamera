@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.skydoves.colorpickerview.ColorPickerView
 import com.skydoves.colorpickerview.listeners.ColorListener
-import com.topdon.libcom.R
+import com.topdon.tc001.R
 import com.topdon.libcom.adpter.DColorSelectAdapter
 
 @Deprecated("产品要求所有颜色拾取都更改为 ColorPickDialog 那种样式，这个弹框废弃")

@@ -8,7 +8,7 @@ import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.Utils
 import com.elvishew.xlog.XLog
 import com.google.gson.Gson
-import com.topdon.lib.core.R
+import com.topdon.tc001.R
 import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.repository.DeviceInfo
 import com.topdon.lib.core.repository.ProductBean

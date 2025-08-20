@@ -5,7 +5,7 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.topdon.lib.core.bean.CameraItemBean
 import com.topdon.lib.ui.listener.SingleClickListener
 import com.topdon.lib.ui.widget.CountDownView
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 
 class CameraItemAdapter(
     data: MutableList<CameraItemBean>? = null) : BaseQuickAdapter<CameraItemBean, BaseViewHolder>(R.layout.item_camera,data) {

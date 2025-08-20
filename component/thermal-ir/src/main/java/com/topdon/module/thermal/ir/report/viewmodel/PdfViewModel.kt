@@ -9,7 +9,7 @@ import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.ktbase.BaseViewModel
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.lib.core.utils.HttpHelp
-import com.topdon.libcom.R
+import com.topdon.module.thermal.ir.R
 import com.topdon.lms.sdk.LMS
 import com.topdon.lms.sdk.network.IResponseCallback
 import com.topdon.lms.sdk.utils.NetworkUtil

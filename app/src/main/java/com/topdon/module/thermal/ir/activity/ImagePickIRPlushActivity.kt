@@ -5,7 +5,7 @@ import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BasePickImgActivity
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 import com.topdon.module.thermal.ir.fragment.IRCorrectionFragment
 import com.topdon.module.thermal.ir.fragment.IRPlushFragment
 

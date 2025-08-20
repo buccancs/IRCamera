@@ -11,7 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.SizeUtils
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 import com.topdon.module.thermal.ir.utils.IRConfigData
 import kotlinx.android.synthetic.main.item_ir_config_emissivity.view.*
 

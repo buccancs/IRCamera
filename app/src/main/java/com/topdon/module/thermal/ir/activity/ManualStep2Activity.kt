@@ -32,7 +32,7 @@ import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.utils.ByteUtils.toLittleBytes
 import com.topdon.lms.sdk.weiget.LmsLoadDialog
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 import com.topdon.module.thermal.ir.event.ManualFinishBean
 import com.topdon.module.thermal.ir.utils.IRCmdTool
 import com.topdon.module.thermal.ir.view.MoveImageView

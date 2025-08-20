@@ -37,7 +37,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.elvishew.xlog.XLog;
-import com.topdon.tc004.R;
+import com.topdon.tc001.R;
 import com.topdon.tc004.util.FileUtil;
 import com.topdon.lib.core.util.PreferenceUtils;
 

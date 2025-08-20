@@ -29,7 +29,7 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.SpanBuilder
-import com.topdon.tc004.R
+import com.topdon.tc001.R
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.config.ExtraKeyConfig

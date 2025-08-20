@@ -6,7 +6,7 @@ import android.view.View
 import com.infisense.usbdual.Const
 import com.infisense.usbdual.camera.DualViewWithExternalCameraCommonApi
 import com.infisense.usbir.view.TemperatureView
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 import com.topdon.module.thermal.ir.activity.BaseIRPlushFragment
 import kotlinx.android.synthetic.main.fragment_ir_plush.dualTextureViewNativeCamera
 import kotlinx.android.synthetic.main.fragment_ir_plush.temperature_view

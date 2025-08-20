@@ -20,7 +20,7 @@ import androidx.appcompat.widget.SwitchCompat
 import com.blankj.utilcode.util.ToastUtils
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.XXPermissions
-import com.topdon.lib.core.R
+import com.topdon.tc001.R
 import com.topdon.lib.core.bean.WatermarkBean
 import com.topdon.lib.core.*
 import com.topdon.lib.core.common.SharedManager

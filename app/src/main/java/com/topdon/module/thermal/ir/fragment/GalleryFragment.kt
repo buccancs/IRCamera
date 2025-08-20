@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.topdon.lib.core.tools.GlideLoader
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 import kotlinx.android.synthetic.main.fragment_gallery.*
 import kotlinx.coroutines.launch
 

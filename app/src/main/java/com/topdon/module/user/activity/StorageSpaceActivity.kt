@@ -12,7 +12,7 @@ import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lms.sdk.utils.TLog
 import com.topdon.lms.sdk.weiget.TToast
-import com.topdon.module.user.R
+import com.topdon.tc001.R
 import com.topdon.module.user.bean.ColorsBean
 import kotlinx.android.synthetic.main.activity_storage_space.*
 import kotlinx.coroutines.delay

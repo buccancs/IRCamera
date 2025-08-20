@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.SizeUtils
 import com.topdon.lib.core.view.MyTextView
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 import kotlinx.android.synthetic.main.popup_option_pick.view.*
 
 class OptionPickPopup(private val context: Context, private val strArray: Array<String>, private val resIdArray: Array<Int>? = null) : PopupWindow() {

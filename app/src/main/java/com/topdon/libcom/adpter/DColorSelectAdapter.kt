@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.topdon.libcom.R
+import com.topdon.tc001.R
 import com.topdon.libcom.bean.DColorSelectBean
 import kotlinx.android.synthetic.main.d_ui_item_color_select.view.*
 

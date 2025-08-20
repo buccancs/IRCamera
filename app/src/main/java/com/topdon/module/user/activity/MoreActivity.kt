@@ -23,7 +23,7 @@ import com.topdon.lib.core.utils.Constants
 import com.topdon.lib.core.viewmodel.FirmwareViewModel
 import com.topdon.lms.sdk.LMS
 import com.topdon.lms.sdk.weiget.TToast
-import com.topdon.module.user.R
+import com.topdon.tc001.R
 import com.topdon.module.user.dialog.DownloadProDialog
 import com.topdon.module.user.dialog.FirmwareInstallDialog
 import com.topdon.lib.core.dialog.FirmwareUpDialog

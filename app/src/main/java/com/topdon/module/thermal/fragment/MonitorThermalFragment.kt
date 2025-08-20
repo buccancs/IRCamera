@@ -27,7 +27,7 @@ import com.topdon.lib.core.utils.ScreenShotUtils
 import com.topdon.lib.ui.fence.FenceLineView
 import com.topdon.lib.ui.fence.FencePointView
 import com.topdon.lib.ui.fence.FenceView
-import com.topdon.module.thermal.R
+import com.topdon.tc001.R
 import com.topdon.module.thermal.activity.MonitorActivity
 import com.topdon.module.thermal.base.BaseThermalFragment
 import com.topdon.module.thermal.fragment.event.ThermalActionEvent

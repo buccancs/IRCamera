@@ -30,7 +30,7 @@ import com.energy.iruvc.utils.Line;
 import com.energy.iruvc.utils.SynchronizedBitmap;
 import com.infisense.usbdual.Const;
 import com.infisense.usbdual.camera.BaseDualView;
-import com.infisense.usbir.R;
+import com.topdon.tc001.R;
 import com.infisense.usbir.inf.ILiteListener;
 import com.infisense.usbir.utils.TempDrawHelper;
 import com.infisense.usbir.utils.TempUtil;

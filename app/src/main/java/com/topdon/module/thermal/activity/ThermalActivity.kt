@@ -9,7 +9,7 @@ import com.blankj.utilcode.util.BarUtils
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.ui.MenuFirstTabView
-import com.topdon.module.thermal.R
+import com.topdon.tc001.R
 import com.topdon.module.thermal.adapter.MenuTabAdapter
 import com.topdon.module.thermal.fragment.event.ThermalActionEvent
 import kotlinx.android.synthetic.main.activity_thermal.*
