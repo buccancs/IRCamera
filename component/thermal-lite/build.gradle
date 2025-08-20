@@ -68,6 +68,8 @@ android {
 
 dependencies {
     implementation(name: 'libusbdualsdk_1.3.4_2406271906_standard', ext: 'aar')
+    implementation(name: 'libAC020sdk_USB_IR_1.1.1_2408291439', ext: 'aar')
+    implementation(name: 'libirutils_1.2.0_2409241055', ext: 'aar')
 
     implementation project(':libapp')
     implementation project(":libapp")
@@ -75,8 +77,6 @@ dependencies {
     implementation project(':component:thermal-ir')
 
     kapt Deps.arouter_compiler
-    api(project(":LocalRepo:libac020"))
-    api(project(":LocalRepo:libirutils"))
     api(project(":libapp")
     api(project(":component:CommonComponent"))
     implementation(Deps.multidex)

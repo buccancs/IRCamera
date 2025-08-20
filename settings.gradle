@@ -23,5 +23,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "TopInfrared"
 include ':app'
-include ':LocalRepo:libcommon'
 include ':RangeSeekBar'

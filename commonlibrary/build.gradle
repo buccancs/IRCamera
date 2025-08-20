@@ -3,4 +3,4 @@
  * 使用新的导入方式,解决 Direct local .aar file dependencies are not ... 问题
  */
 configurations.maybeCreate("default")
-artifacts.add("default", file('libcommon_1.0.5_23051509.aar'))
+artifacts.add("default", file('../app/libs/libcommon_1.0.5_23051509.aar'))
