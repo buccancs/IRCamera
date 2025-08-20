@@ -17,10 +17,12 @@ dependencyResolutionManagement {
 //            allowInsecureProtocol = true
 //        }
         flatDir {
-            dirs 'app/libs'
+            dirs 'app/libs', 'libapp/libs'
         }
     }
 }
 rootProject.name = "TopInfrared"
 include ':app'
 include ':LocalRepo:libcommon'
+include ':libapp'
+include ':RangeSeekBar'
