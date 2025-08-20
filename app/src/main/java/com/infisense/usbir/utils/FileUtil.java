@@ -86,22 +86,7 @@ public class FileUtil {
         }
     }
 
-    public static void saveByteFile(byte[] bytes, String fileTitle) {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    }
+    // Removed empty saveByteFile method - use saveByteFile(Context, byte[], String) instead
 
     public static String getTableDirPath(){
         return Utils.getApp().getCacheDir().getAbsolutePath()+"/table";
