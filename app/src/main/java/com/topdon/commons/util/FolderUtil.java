@@ -60,50 +60,20 @@ public class FolderUtil {
 
     private static void initPath() {
         if (!TextUtils.isEmpty(mUserId)) {
-            File asiaLibsFile = new File(mPath + fileName + mUserId + "/Diagnosis/Asia/");
-            if (!asiaLibsFile.exists()) {
-                asiaLibsFile.mkdirs();
+            // Only keep UK/English region support
+            File ukLibsFile = new File(mPath + fileName + mUserId + "/Diagnosis/UK/");
+            if (!ukLibsFile.exists()) {
+                ukLibsFile.mkdirs();
             }
-            File europeLibsFile = new File(mPath + fileName + mUserId + "/Diagnosis/Europe/");
-            if (!europeLibsFile.exists()) {
-                europeLibsFile.mkdirs();
-            }
-            File americaLibsFile = new File(mPath + fileName + mUserId + "/Diagnosis/America/");
-            if (!americaLibsFile.exists()) {
-                americaLibsFile.mkdirs();
-            }
-            File chinaLibsFile = new File(mPath + fileName + mUserId + "/Diagnosis/China/");
-            if (!chinaLibsFile.exists()) {
-                chinaLibsFile.mkdirs();
-            }
+            
             File publicLibsFile = new File(mPath + fileName + mUserId + "/Diagnosis/Public/");
             if (!publicLibsFile.exists()) {
                 publicLibsFile.mkdirs();
             }
 
-            File immoAsiaLibsFile = new File(mPath + fileName + mUserId + "/Immo/Asia/");
-            if (!immoAsiaLibsFile.exists()) {
-                immoAsiaLibsFile.mkdirs();
-            }
-
-            File immoEuropeLibsFile = new File(mPath + fileName + mUserId + "/Immo/Europe/");
-            if (!immoEuropeLibsFile.exists()) {
-                immoEuropeLibsFile.mkdirs();
-            }
-
-            File immoAmericaLibsFile = new File(mPath + fileName + mUserId + "/Immo/America/");
-            if (!immoAmericaLibsFile.exists()) {
-                immoAmericaLibsFile.mkdirs();
-            }
-
-            File immoChinaLibsFile = new File(mPath + fileName + mUserId + "/Immo/China/");
-            if (!immoChinaLibsFile.exists()) {
-                immoChinaLibsFile.mkdirs();
-            }
-
-            File immoAustraliaLibsFile = new File(mPath + fileName + mUserId + "/Immo/Australia/");
-            if (!immoAustraliaLibsFile.exists()) {
-                immoAustraliaLibsFile.mkdirs();
+            File immoUkLibsFile = new File(mPath + fileName + mUserId + "/Immo/UK/");
+            if (!immoUkLibsFile.exists()) {
+                immoUkLibsFile.mkdirs();
             }
 
             File rfidLibsFile = new File(mPath + fileName + mUserId + "/RFID/");

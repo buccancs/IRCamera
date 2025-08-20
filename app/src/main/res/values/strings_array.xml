@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="setting_language_list">
+        <item>English</item>
+    </string-array>
+    
     <string-array name="area">
         <item>@string/area_acre</item>         <!-- 英亩 -->
         <item>@string/area_square_metre</item> <!-- 平方米 -->
