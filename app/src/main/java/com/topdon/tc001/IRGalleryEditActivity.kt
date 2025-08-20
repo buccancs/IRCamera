@@ -60,8 +60,9 @@ import com.topdon.module.thermal.ir.frame.ImageParams
 import com.topdon.module.thermal.ir.report.bean.ImageTempBean
 import com.topdon.module.thermal.ir.view.TemperatureBaseView.Mode
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryEditViewModel
-import com.topdon.pseudo.activity.PseudoSetActivity
-import com.topdon.pseudo.bean.CustomPseudoBean
+// Removed imports from pseudo component
+// import com.topdon.pseudo.activity.PseudoSetActivity
+// import com.topdon.pseudo.bean.CustomPseudoBean
 import kotlinx.android.synthetic.main.activity_ir_gallery_edit.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -461,63 +462,65 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                 }
             }
             temperature_iv_input -> {
-                val intent = Intent(this, PseudoSetActivity::class.java)
-                intent.putExtra(ExtraKeyConfig.IS_TC007, isTC007)
-                intent.putExtra(ExtraKeyConfig.CUSTOM_PSEUDO_BEAN, struct.customPseudoBean)
-                pseudoSetResult.launch(intent)
+                // Removed pseudo functionality - PseudoSetActivity not available
+                // val intent = Intent(this, PseudoSetActivity::class.java)
+                // intent.putExtra(ExtraKeyConfig.IS_TC007, isTC007)  
+                // intent.putExtra(ExtraKeyConfig.CUSTOM_PSEUDO_BEAN, struct.customPseudoBean)
+                // pseudoSetResult.launch(intent)
             }
         }
     }
 
-    private val pseudoSetResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode == RESULT_OK) {
-                val tmp = it.data?.getParcelableExtra(ExtraKeyConfig.CUSTOM_PSEUDO_BEAN)
-                    ?: CustomPseudoBean()
-                updateImageAndSeekbarColorList(tmp)
-                temperature_seekbar.setColorList(tmp.getColorList(struct.isTC007())?.reversedArray())
-                temperature_seekbar.setPlaces(tmp.getPlaceList())
+    // Commented out pseudo result handling  
+    // private val pseudoSetResult =
+    //     registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+    //         if (it.resultCode == RESULT_OK) {
+    //             val tmp = it.data?.getParcelableExtra(ExtraKeyConfig.CUSTOM_PSEUDO_BEAN)
+    //                 ?: CustomPseudoBean()
+    //             updateImageAndSeekbarColorList(tmp)
+    //             temperature_seekbar.setColorList(tmp.getColorList(struct.isTC007())?.reversedArray())
+    //             temperature_seekbar.setPlaces(tmp.getPlaceList())
+    //         }
+    //     }
 
-            }
-        }
-
-    private fun updateImageAndSeekbarColorList(customPseudoBean: CustomPseudoBean?) {
-        customPseudoBean?.let {
-            updateImage(
-                frameTool.getScrPseudoColorScaledBitmap(
-                    changePseudocodeModeByOld(
-                        pseudocodeMode
-                    ), rotate = rotate, customPseudoBean = customPseudoBean,
-                    maxTemperature = tempCorrect(frameTool.getSrcTemp().maxTemperature),
-                    minTemperature = tempCorrect(frameTool.getSrcTemp().minTemperature),
-                    isAmplify = struct.isAmplify
-                )
-            )
-            if (it.isUseCustomPseudo) {
-                temperature_iv_lock.visibility = View.INVISIBLE
-                tv_temp_content.visibility = View.VISIBLE
-                updateTemperatureSeekBar(false, R.drawable.svg_pseudo_bar_lock, "lock")//加锁
-                temperature_seekbar.setRangeAndPro(
-                    UnitTools.showUnitValue(it.minTemp,isShowC),
-                    UnitTools.showUnitValue(it.maxTemp,isShowC), UnitTools.showUnitValue(it.minTemp,isShowC),
-                    UnitTools.showUnitValue(it.maxTemp,isShowC)
-                )
-                edit_recycler_second.setPseudoColor(-1)
-                temperature_iv_input.setImageResource(R.drawable.ir_model)
-            } else {
-                temperature_iv_lock.visibility = View.VISIBLE
-                if (struct.customPseudoBean.isUseCustomPseudo) {
-                    setDefLimit()
-                }
-                tv_temp_content.visibility = View.GONE
-                edit_recycler_second.setPseudoColor(pseudocodeMode)
-                temperature_iv_input.setImageResource(R.drawable.ic_color_edit)
-            }
-            struct.customPseudoBean = customPseudoBean
-            temperature_seekbar.setColorList(customPseudoBean.getColorList(struct.isTC007())?.reversedArray())
-            temperature_seekbar.setPlaces(customPseudoBean.getPlaceList())
-        }
-    }
+    // Commented out pseudo functionality
+    // private fun updateImageAndSeekbarColorList(customPseudoBean: CustomPseudoBean?) {
+    //     customPseudoBean?.let {
+    //         updateImage(
+    //             frameTool.getScrPseudoColorScaledBitmap(
+    //                 changePseudocodeModeByOld(
+    //                     pseudocodeMode
+    //                 ), rotate = rotate, customPseudoBean = customPseudoBean,
+    //                 maxTemperature = tempCorrect(frameTool.getSrcTemp().maxTemperature),
+    //                 minTemperature = tempCorrect(frameTool.getSrcTemp().minTemperature),
+    //                 isAmplify = struct.isAmplify
+    //             )
+    //         )
+    //         if (it.isUseCustomPseudo) {
+    //             temperature_iv_lock.visibility = View.INVISIBLE
+    //             tv_temp_content.visibility = View.VISIBLE
+    //             updateTemperatureSeekBar(false, R.drawable.svg_pseudo_bar_lock, "lock")//加锁
+    //             temperature_seekbar.setRangeAndPro(
+    //                 UnitTools.showUnitValue(it.minTemp,isShowC),
+    //                 UnitTools.showUnitValue(it.maxTemp,isShowC), UnitTools.showUnitValue(it.minTemp,isShowC),
+    //                 UnitTools.showUnitValue(it.maxTemp,isShowC)
+    //             )
+    //             edit_recycler_second.setPseudoColor(-1)
+    //             temperature_iv_input.setImageResource(R.drawable.ir_model)
+    //         } else {
+    //             temperature_iv_lock.visibility = View.VISIBLE
+    //             if (struct.customPseudoBean.isUseCustomPseudo) {
+    //                 setDefLimit()
+    //             }
+    //             tv_temp_content.visibility = View.GONE
+    //             edit_recycler_second.setPseudoColor(pseudocodeMode)
+    //             temperature_iv_input.setImageResource(R.drawable.ic_color_edit)
+    //         }
+    //         struct.customPseudoBean = customPseudoBean
+    //         temperature_seekbar.setColorList(customPseudoBean.getColorList(struct.isTC007())?.reversedArray())
+    //         temperature_seekbar.setPlaces(customPseudoBean.getPlaceList())
+    //     }
+    // }
 
     private var isReportPick = false
     private fun initUI() {
