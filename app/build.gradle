@@ -2,7 +2,6 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-parcelize'
-    id 'kotlin-kapt'
 }
 
 
@@ -229,7 +228,8 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
 
-    kapt "androidx.room:room-compiler:2.6.1"
+    // Room - removed compiler dependency, using reflection-based Room for Kotlin 2.0+
+    implementation "androidx.room:room-runtime:2.6.1"
     implementation "androidx.room:room-ktx:2.6.1"
 
     implementation "androidx.work:work-runtime-ktx:2.7.1"
@@ -240,8 +240,8 @@ dependencies {
 
     implementation "org.greenrobot:eventbus:3.2.0"
 
-    implementation "com.github.bumptech.glide:glide:4.11.0"
-    kapt "com.github.bumptech.glide:compiler:4.11.0"
+    // Glide upgraded to version that doesn't require annotation processing
+    implementation "com.github.bumptech.glide:glide:4.16.0"
 
     implementation "io.reactivex.rxjava2:rxjava:2.2.20"
     implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
