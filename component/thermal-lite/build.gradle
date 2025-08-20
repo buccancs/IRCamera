@@ -74,10 +74,14 @@ dependencies {
     // Removed pseudo dependency
     implementation project(':component:thermal-ir')
 
-    kapt "com.alibaba:arouter-compiler:1.5.4"
+    kapt "com.alibaba:arouter-compiler:1.5.2"
     api(project(":component:CommonComponent"))
     implementation("androidx.multidex:multidex:2.0.1")
     implementation("com.google.android.material:material:1.4.0")
+    
+    // Kotlin Coroutines - compatible with Kotlin 2.0+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
 
     api "com.github.kylecorry31.andromeda:sense:6.2.0"
     api "com.github.kylecorry31.andromeda:core:6.2.0"

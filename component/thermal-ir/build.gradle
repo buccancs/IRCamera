@@ -77,9 +77,13 @@ dependencies {
     // Removed house and pseudo dependencies  
     implementation project(':libmatrix')
 
-    kapt "com.alibaba:arouter-compiler:1.5.4"
+    kapt "com.alibaba:arouter-compiler:1.5.2"
     api "com.airbnb.android:lottie:6.0.0"
     api 'com.github.anzaizai:EasySwipeMenuLayout:1.1.4'
+    
+    // Kotlin Coroutines - compatible with Kotlin 2.0+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
 
     api "com.github.kylecorry31.andromeda:sense:6.2.0"
     api "com.github.kylecorry31.andromeda:core:6.2.0"

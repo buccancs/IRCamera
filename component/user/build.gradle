@@ -59,7 +59,10 @@ android {
 
 dependencies {
     compileOnly(name: 'libcommon_1.2.0_24052117', ext: 'aar')
-    kapt "com.alibaba:arouter-compiler:1.5.4"
+    kapt "com.alibaba:arouter-compiler:1.5.2"
     implementation 'com.zoho.salesiq:mobilisten:7.0.0'
-
+    
+    // Kotlin Coroutines - compatible with Kotlin 2.0+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
 }
