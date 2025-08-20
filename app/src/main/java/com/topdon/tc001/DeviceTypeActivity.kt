@@ -7,9 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.launcher.ARouter
 import com.topdon.lib.core.config.ExtraKeyConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.DeviceTools
 import kotlinx.android.synthetic.main.activity_device_type.*
@@ -28,10 +26,9 @@ class DeviceTypeActivity : BaseActivity() {
                 clientType = it
                 when (it) {
                     else -> {
-                        ARouter.getInstance()
-                            .build(RouterConfig.IR_MAIN)
-                            .withBoolean(ExtraKeyConfig.IS_TC007, false)
-                            .navigation(this@DeviceTypeActivity)
+                        val intent = Intent(this@DeviceTypeActivity, com.topdon.module.thermal.ir.activity.IRMainActivity::class.java)
+                        intent.putExtra(ExtraKeyConfig.IS_TC007, false)
+                        startActivity(intent)
                         if (DeviceTools.isConnect()) {
                             finish()
                         }

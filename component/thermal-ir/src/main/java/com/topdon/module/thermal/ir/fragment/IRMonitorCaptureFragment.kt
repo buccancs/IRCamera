@@ -2,8 +2,6 @@ package com.topdon.module.thermal.ir.fragment
 
 import android.content.Intent
 import androidx.core.view.isVisible
-import com.alibaba.android.arouter.launcher.ARouter
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.lib.core.tools.ToastTools
@@ -27,9 +25,9 @@ class IRMonitorCaptureFragment : BaseFragment() {
         view_start.setOnClickListener {
             if (DeviceTools.isConnect()) {
                 if (DeviceTools.isTC001LiteConnect()) {
-                    ARouter.getInstance().build(RouterConfig.IR_THERMAL_MONITOR_LITE).navigation(requireContext())
+                    // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_THERMAL_MONITOR_LITE).navigation(requireContext())
                 } else if (DeviceTools.isHikConnect()) {
-                    ARouter.getInstance().build(RouterConfig.IR_HIK_MONITOR_CAPTURE1).navigation(requireContext())
+                    // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_HIK_MONITOR_CAPTURE1).navigation(requireContext())
                 } else {
                     startActivity(Intent(requireContext(), IRMonitorActivity::class.java))
                 }

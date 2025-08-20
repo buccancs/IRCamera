@@ -11,8 +11,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.drawToBitmap
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.SizeUtils
 import com.elvishew.xlog.XLog
 import com.energy.iruvc.ircmd.IRCMDType
@@ -32,7 +30,6 @@ import com.topdon.lib.core.common.ProductType.PRODUCT_NAME_TS
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.FileConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.ScreenTool
 import com.topdon.lib.core.tools.TimeTool
@@ -72,7 +69,6 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 
-@Route(path = RouterConfig.IR_GALLERY_EDIT)
 class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListener {
 
 
@@ -554,13 +550,13 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                     launch(Dispatchers.Main) {
                         dismissLoadingDialog()
                         if (intent.getBooleanExtra(IS_REPORT_FIRST, true)) {
-                            ARouter.getInstance().build(RouterConfig.REPORT_CREATE_FIRST)
+                            // TODO: Replace report creation navigation - Intent(this, ReportCreateFirstActivity::class.java)
                                 .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
                                 .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, fileAbsolutePath)
                                 .withParcelable(ExtraKeyConfig.IMAGE_TEMP_BEAN, buildImageTempBean())
                                 .navigation(this@IRGalleryEditActivity)
                         } else {
-                            ARouter.getInstance().build(RouterConfig.REPORT_CREATE_SECOND)
+                            // TODO: Replace report creation navigation - Intent(this, ReportCreateSecondActivity::class.java)
                                 .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
                                 .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, fileAbsolutePath)
                                 .withParcelable(ExtraKeyConfig.IMAGE_TEMP_BEAN, buildImageTempBean())

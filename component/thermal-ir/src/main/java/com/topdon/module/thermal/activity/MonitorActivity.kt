@@ -1,10 +1,7 @@
 package com.topdon.module.thermal.activity
 
 import android.view.View
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.BarUtils
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.ui.dialog.MonitorSelectDialog
 import com.topdon.module.thermal.ir.R
@@ -13,7 +10,6 @@ import kotlinx.android.synthetic.main.activity_monitor.*
 import org.greenrobot.eventbus.EventBus
 import java.util.*
 
-@Route(path = RouterConfig.THERMAL_MONITOR)
 class MonitorActivity : BaseActivity(), View.OnClickListener {
 
     companion object {
@@ -51,7 +47,7 @@ class MonitorActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v) {
             motion_log_btn -> {
-                ARouter.getInstance().build(RouterConfig.THERMAL_LOG_MP_CHART).navigation(this)
+                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.THERMAL_LOG_MP_CHART).navigation(this)
             }
             motion_btn -> {
                 MonitorSelectDialog.Builder(this)
@@ -72,7 +68,7 @@ class MonitorActivity : BaseActivity(), View.OnClickListener {
                     .create().show()
             }
             motion_start_btn -> {
-                ARouter.getInstance().build(RouterConfig.MONITOR_CHART)
+                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.MONITOR_CHART)
                     .withInt("type", selectType)
                     .withIntegerArrayList("select", selectIndex)
                     .navigation(this)

@@ -12,11 +12,9 @@ import com.blankj.utilcode.util.AppUtils
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
-import com.alibaba.android.arouter.launcher.ARouter
 import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.ExtraKeyConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.lib.core.dialog.TipDialog
@@ -130,14 +128,14 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
         when (v) {
             cl_open_thermal -> {
                 if (isTC007) {
-                    ARouter.getInstance().build(RouterConfig.IR_THERMAL_07).navigation(requireContext())
+                    // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_THERMAL_07).navigation(requireContext())
                 } else {
                     if (DeviceTools.isTC001PlusConnect()) {
                         startActivityForResult(Intent(requireContext(), IRThermalPlusActivity::class.java), 101)
                     }else if(DeviceTools.isTC001LiteConnect()){
-                        ARouter.getInstance().build(RouterConfig.IR_TCLITE).navigation(activity,101)
+                        // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_TCLITE).navigation(activity,101)
                     } else if (DeviceTools.isHikConnect()) {
-                        ARouter.getInstance().build(RouterConfig.IR_HIK_MAIN).navigation(activity)
+                        // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_HIK_MAIN).navigation(activity)
                     } else {
                         startActivityForResult(Intent(requireContext(), IRThermalNightActivity::class.java), 101)
                     }
@@ -187,12 +185,12 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
                 }
             }
             cl_07_connect_tips -> {//TC007 连接提示
-                ARouter.getInstance().build(RouterConfig.IR_CONNECT_TIPS)
+                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_CONNECT_TIPS)
                     .withBoolean(ExtraKeyConfig.IS_TC007, true)
                     .navigation(requireContext())
             }
             tv_07_connect -> {//TC007 连接设备
-                ARouter.getInstance()
+                // TODO: Replace ARouter navigation - Intent
                     .build(RouterConfig.IR_DEVICE_ADD)
                     .withBoolean("isTS004", false)
                     .navigation(requireContext())

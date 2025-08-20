@@ -1,10 +1,7 @@
 package com.topdon.module.thermal.ir.activity
 
 import android.content.Intent
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.topdon.lib.core.config.ExtraKeyConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.DeviceTools
@@ -23,7 +20,6 @@ import org.greenrobot.eventbus.ThreadMode
  * 需要传递参数：
  * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
  */
-@Route(path = RouterConfig.IR_CORRECTION_TWO)
 class IRCorrectionTwoActivity : BaseActivity() {
 
     /**
@@ -48,12 +44,12 @@ class IRCorrectionTwoActivity : BaseActivity() {
         tv_correction.setOnClickListener {
             if (if (isTC007) WebSocketProxy.getInstance().isTC007Connect() else DeviceTools.isConnect()) {
                 if (isTC007) {
-                    ARouter.getInstance().build(RouterConfig.IR_CORRECTION_07).navigation(this)
+                    // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_CORRECTION_07).navigation(this)
                 } else {
                     if (DeviceTools.isTC001LiteConnect()){
-                        ARouter.getInstance().build(RouterConfig.IR_CORRECTION_THREE_LITE).navigation(this)
+                        // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_CORRECTION_THREE_LITE).navigation(this)
                     } else if (DeviceTools.isHikConnect()) {
-                        ARouter.getInstance().build(RouterConfig.IR_HIK_CORRECT_THREE).navigation(this)
+                        // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_HIK_CORRECT_THREE).navigation(this)
                     } else{
                         startActivity(Intent(this, IRCorrectionThreeActivity::class.java))
                     }

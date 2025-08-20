@@ -120,9 +120,10 @@ class FenceView : View {
                 point2[i] = startPoint[i]
             }
         }
-            "123",
-            "原始坐标 start:${startPoint.contentToString()}, end:${endPoint.contentToString()}"
-        )
+        // XLog.d(
+        //     "123",
+        //     "原始坐标 start:${startPoint.contentToString()}, end:${endPoint.contentToString()}"
+        // )
         if (listener != null) {
             listener!!.callback(point1, point2, intArrayOf(width, height))
         }

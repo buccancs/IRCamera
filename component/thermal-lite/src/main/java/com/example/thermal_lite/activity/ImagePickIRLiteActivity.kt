@@ -2,9 +2,7 @@ package com.example.thermal_lite.activity
 
 import android.graphics.Bitmap
 import android.view.View
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.thermal_lite.fragment.IRMonitorLiteFragment
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.ktbase.BasePickImgActivity
 import com.topdon.module.thermal.ir.R
@@ -14,7 +12,6 @@ import com.topdon.module.thermal.ir.R
  * author: CaiSongL
  * date: 2024/8/24 18:10
  **/
-@Route(path = RouterConfig.IR_IMG_PICK_LITE)
 class ImagePickIRLiteActivity : BasePickImgActivity() {
 
 

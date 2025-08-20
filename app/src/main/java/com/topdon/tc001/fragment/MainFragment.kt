@@ -13,12 +13,10 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.launcher.ARouter
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.bean.event.SocketMsgEvent
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.ExtraKeyConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.repository.BatteryInfo
@@ -69,7 +67,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         adapter.onItemClickListener = {
             when (it) {
                 ConnectType.LINE -> {
-                    ARouter.getInstance()
+                    // TODO: Replace ARouter navigation - Intent
                         .build(RouterConfig.IR_MAIN)
                         .navigation(requireContext())
                 }

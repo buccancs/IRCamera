@@ -131,19 +131,17 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         if (!SharedManager.hasTcLine && !SharedManager.hasTS004 && !SharedManager.hasTC007) {
             if (DeviceTools.isConnect()) {
                 if (!WebSocketProxy.getInstance().isConnected()) {
-                    ARouter.getInstance()
-                        .build(RouterConfig.IR_MAIN)
-                        .withBoolean(ExtraKeyConfig.IS_TC007, false)
-                        .navigation(this)
+                    val intent = Intent(this, com.topdon.module.thermal.ir.activity.IRMainActivity::class.java)
+                    intent.putExtra(ExtraKeyConfig.IS_TC007, false)
+                    startActivity(intent)
                 }
             } else {
                 if (WebSocketProxy.getInstance().isTS004Connect()) {
-                    ARouter.getInstance().build(RouterConfig.IR_MONOCULAR).navigation(this)
+                    startActivity(Intent(this, com.topdon.module.thermal.ir.activity.IRMainActivity::class.java))
                 } else if (WebSocketProxy.getInstance().isTC007Connect()) {
-                    ARouter.getInstance()
-                        .build(RouterConfig.IR_MAIN)
-                        .withBoolean(ExtraKeyConfig.IS_TC007, true)
-                        .navigation(this)
+                    val intent = Intent(this, com.topdon.module.thermal.ir.activity.IRMainActivity::class.java)
+                    intent.putExtra(ExtraKeyConfig.IS_TC007, true)
+                    startActivity(intent)
                 }
             }
         }
@@ -341,7 +339,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     override fun disConnected() {
         if (WebSocketProxy.getInstance().isTS004Connect()) {
-            ARouter.getInstance().build(RouterConfig.IR_MONOCULAR).navigation(this)
+            startActivity(Intent(this, com.topdon.module.thermal.ir.activity.IRMainActivity::class.java))
         }
         if (tipOtgDialog != null && tipOtgDialog!!.isShowing) {
             return
@@ -539,16 +537,12 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             2 -> {
 
                 if (DeviceTools.isTC001PlusConnect()) {
-                    ARouter.getInstance().build(RouterConfig.IR_MAIN).navigation(this@MainActivity)
                     startActivityForResult(Intent(this@MainActivity, IRThermalPlusActivity::class.java), 101)
-                }else if(DeviceTools.isTC001LiteConnect()){
-                    ARouter.getInstance().build(RouterConfig.IR_MAIN).navigation(this@MainActivity)
+                } else if (DeviceTools.isTC001LiteConnect()) {
                     startActivityForResult(Intent(this@MainActivity, IRThermalLiteActivity::class.java), 101)
                 } else if (DeviceTools.isHikConnect()) {
-                    ARouter.getInstance().build(RouterConfig.IR_MAIN).navigation(this@MainActivity)
                     startActivity(Intent(this, IRThermalHikActivity::class.java))
-                } else{
-                    ARouter.getInstance().build(RouterConfig.IR_MAIN).navigation(this@MainActivity)
+                } else {
                     startActivityForResult(Intent(this@MainActivity, IRThermalNightActivity::class.java), 101)
                 }
             }

@@ -1,11 +1,9 @@
 //package com.topdon.module.thermal.activity.temp
 //
 //import androidx.lifecycle.lifecycleScope
-//import com.alibaba.android.arouter.facade.annotation.Route
 //import com.github.aachartmodel.aainfographics.aachartcreator.*
 //import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAScrollablePlotArea
 //import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAStyle
-//import com.topdon.lib.core.config.RouterConfig
 //import com.topdon.lib.core.ktbase.BaseActivity
 //import com.topdon.module.thermal.ir.R
 //import kotlinx.android.synthetic.main.activity_chart.*

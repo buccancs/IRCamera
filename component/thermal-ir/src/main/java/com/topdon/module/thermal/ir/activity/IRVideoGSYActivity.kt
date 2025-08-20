@@ -7,14 +7,12 @@ import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.BarUtils
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
 import com.shuyu.gsyvideoplayer.player.PlayerFactory
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer
 import com.topdon.lib.core.bean.GalleryBean
 import com.topdon.lib.core.config.FileConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.FileTools
 import com.topdon.lib.core.tools.TimeTool
@@ -32,7 +30,6 @@ import tv.danmaku.ijk.media.exo2.Exo2PlayerManager
 import java.io.File
 
 
-@Route(path = RouterConfig.IR_VIDEO_GSY)
 class IRVideoGSYActivity : BaseActivity() {
 
     private var isRemote = false

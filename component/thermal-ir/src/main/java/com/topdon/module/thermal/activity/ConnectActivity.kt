@@ -1,14 +1,11 @@
 package com.topdon.module.thermal.activity
 
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.module.thermal.ir.R
 import kotlinx.android.synthetic.main.activity_connect.*
 
 //连接设备
-@Route(path = RouterConfig.CONNECT)
 class ConnectActivity : BaseActivity() {
 
     override fun initContentView() = R.layout.activity_connect

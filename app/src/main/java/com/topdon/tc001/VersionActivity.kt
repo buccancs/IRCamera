@@ -1,11 +1,8 @@
 package com.topdon.tc001
 
 import android.view.View
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.common.SharedManager
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.CheckDoubleClick
 import com.topdon.lib.core.utils.CommUtils
@@ -18,7 +15,6 @@ import kotlinx.android.synthetic.main.item_new_version.cl_new_version
 import kotlinx.android.synthetic.main.item_new_version.tv_new_version
 import java.util.*
 
-@Route(path = RouterConfig.VERSION)
 class VersionActivity : BaseActivity(), View.OnClickListener {
     override fun initContentView() = R.layout.activity_version
 
@@ -57,17 +53,17 @@ class VersionActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v) {
             version_statement_private_txt -> {
-                ARouter.getInstance().build(RouterConfig.POLICY)
+                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.POLICY)
                     .withInt(PolicyActivity.KEY_THEME_TYPE, 1)
                     .navigation(this)
             }
             version_statement_policy_txt -> {
-                ARouter.getInstance().build(RouterConfig.POLICY)
+                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.POLICY)
                     .withInt(PolicyActivity.KEY_THEME_TYPE, 2)
                     .navigation(this)
             }
             version_statement_copyright_txt -> {
-                ARouter.getInstance().build(RouterConfig.POLICY)
+                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.POLICY)
                     .withInt(PolicyActivity.KEY_THEME_TYPE, 3)
                     .navigation(this)
             }

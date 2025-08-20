@@ -3,11 +3,9 @@ package com.example.thermal_lite.activity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.ToastUtils
 import com.example.thermal_lite.R
 import com.example.thermal_lite.fragment.IRMonitorLiteFragment
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.view.TitleView
@@ -26,7 +24,6 @@ import org.greenrobot.eventbus.EventBus
  * @author: CaiSongL
  * @date: 2023/8/4 9:06
  */
-@Route(path = RouterConfig.IR_CORRECTION_FOUR_LITE)
 class IRCorrectionLiteFourActivity : BaseActivity() {
 
     val time = 60

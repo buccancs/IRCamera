@@ -6,12 +6,10 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.PopupWindow
-import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.ToastUtils
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
 import com.topdon.lib.core.common.SharedManager
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.dialog.TipShutterDialog
 import com.topdon.libcom.bean.SaveSettingBean
 import com.topdon.module.thermal.ir.R
@@ -121,7 +119,7 @@ class CameraItemPopup(val context: Context, private val saveSetBean: SaveSetting
                 onShutterClickListener?.invoke()
             }
             binding.clAudio -> onAudioCLickListener?.invoke()
-            binding.clSetting -> ARouter.getInstance().build(RouterConfig.IR_CAMERA_SETTING).navigation(context)
+            binding.clSetting -> // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_CAMERA_SETTING).navigation(context)
         }
     }
 

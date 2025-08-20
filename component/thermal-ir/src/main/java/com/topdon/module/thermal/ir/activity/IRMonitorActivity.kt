@@ -1,9 +1,6 @@
 package com.topdon.module.thermal.ir.activity
 
 import android.view.View
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.ui.dialog.MonitorSelectDialog
 import com.topdon.module.thermal.ir.R
@@ -16,7 +13,6 @@ import org.greenrobot.eventbus.EventBus
 /**
  * 选取区域监听
  */
-@Route(path = RouterConfig.IR_THERMAL_MONITOR)
 class IRMonitorActivity : BaseActivity(), View.OnClickListener {
 
     private var selectIndex: SelectPositionBean? = null//选取点
@@ -61,7 +57,7 @@ class IRMonitorActivity : BaseActivity(), View.OnClickListener {
                     return
                 }
                 //开始温度监听
-                ARouter.getInstance().build(RouterConfig.IR_MONITOR_CHART)
+                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_MONITOR_CHART)
                     .withParcelable("select", selectIndex)
                     .navigation(this)
                 finish()

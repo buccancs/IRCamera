@@ -1,12 +1,9 @@
 package com.topdon.module.user.fragment
 
 import android.view.View
-import com.alibaba.android.arouter.facade.annotation.Route
 import androidx.core.view.isVisible
-import com.alibaba.android.arouter.launcher.ARouter
 import com.topdon.lib.core.common.SaveSettingUtil
 import com.topdon.lib.core.common.SharedManager
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.tools.DeviceTools
@@ -18,7 +15,6 @@ import kotlinx.android.synthetic.main.fragment_more.*
  * 
  * 支持TC001Plus等其他插件式设备 (TS004/TC007 support removed)
  */
-@Route(path = RouterConfig.TC_MORE)
 class MoreFragment : BaseFragment(), View.OnClickListener {
 
     override fun initContentView() = R.layout.fragment_more
@@ -78,16 +74,16 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
     override fun onClick(v: View?) {
        when(v){
            setting_item_model -> {//温度修正
-               ARouter.getInstance().build(RouterConfig.IR_SETTING).navigation(requireContext())
+               // TODO: Replace IR setting navigation - startActivity(Intent(requireContext(), IRSettingActivity::class.java))
            }
            setting_item_dual->{
-               ARouter.getInstance().build(RouterConfig.MANUAL_START).navigation(requireContext())
+               // TODO: Replace manual start navigation - startActivity(Intent(requireContext(), ManualStartActivity::class.java))
            }
            setting_item_unit -> {//温度单位
-               ARouter.getInstance().build(RouterConfig.UNIT).navigation(requireContext())
+               startActivity(Intent(requireContext(), com.topdon.module.user.activity.UnitActivity::class.java))
            }
            setting_item_correction->{//图像校正
-               ARouter.getInstance().build(RouterConfig.IR_CORRECTION).navigation(requireContext())
+               // TODO: Replace correction navigation - startActivity(Intent(requireContext(), IRCorrectionActivity::class.java))
            }
        }
     }

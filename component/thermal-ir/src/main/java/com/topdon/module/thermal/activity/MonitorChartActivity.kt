@@ -8,7 +8,6 @@ import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.github.mikephil.charting.charts.LineChart
@@ -23,7 +22,6 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.guide.zm04c.matrix.GuideInterface
 import com.topdon.lib.core.bean.tools.ThermalBean
 import com.topdon.lib.core.common.SharedManager
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.db.AppDatabase
 import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.lib.core.ktbase.BaseActivity
@@ -45,7 +43,6 @@ import java.math.BigDecimal
 /**
  * 温度监控
  */
-@Route(path = RouterConfig.MONITOR_CHART)
 class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueSelectedListener {
 
     private val viewModel: LogViewModel by viewModels()

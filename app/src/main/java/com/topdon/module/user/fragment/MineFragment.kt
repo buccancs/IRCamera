@@ -13,7 +13,6 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.CleanUtils
 import com.blankj.utilcode.util.LanguageUtils
 import com.blankj.utilcode.util.SizeUtils
@@ -27,7 +26,6 @@ import com.topdon.lib.core.bean.response.ResponseUserInfo
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.common.UserInfoManager
 import com.topdon.lib.core.config.ExtraKeyConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.db.AppDatabase
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseFragment
@@ -140,7 +138,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                 }
 
 
-                ARouter.getInstance().build(RouterConfig.WEB_VIEW)
+                Intent(this, com.topdon.tc001.WebViewActivity::class.java)
                     .withString(ExtraKeyConfig.URL, url)
                     .navigation(requireContext())
             }
@@ -158,10 +156,10 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                 }
             }
             setting_electronic_manual -> {//电子说明书
-                ARouter.getInstance().build(RouterConfig.ELECTRONIC_MANUAL).withInt(Constants.SETTING_TYPE, Constants.SETTING_BOOK).navigation(requireContext())
+                Intent(this, com.topdon.module.user.activity.ElectronicManualActivity::class.java).withInt(Constants.SETTING_TYPE, Constants.SETTING_BOOK).navigation(requireContext())
             }
             setting_faq -> {//FAQ
-                ARouter.getInstance().build(RouterConfig.ELECTRONIC_MANUAL).withInt(Constants.SETTING_TYPE, Constants.SETTING_FAQ).navigation(requireContext())
+                Intent(this, com.topdon.module.user.activity.ElectronicManualActivity::class.java).withInt(Constants.SETTING_TYPE, Constants.SETTING_FAQ).navigation(requireContext())
             }
             setting_feedback -> {//意见反馈
                 if (LMS.getInstance().isLogin) {
@@ -180,10 +178,10 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                 }
             }
             setting_item_unit -> {//温度单位
-                ARouter.getInstance().build(RouterConfig.UNIT).navigation(requireContext())
+                startActivity(Intent(requireContext(), com.topdon.module.user.activity.UnitActivity::class.java))
             }
             setting_item_version -> {//版本
-                ARouter.getInstance().build(RouterConfig.VERSION).navigation(requireContext())
+                startActivity(Intent(requireContext(), com.topdon.tc001.VersionActivity::class.java))
             }
             setting_item_language -> {//语言
                 languagePickResult.launch(Intent(requireContext(), LanguageActivity::class.java))

@@ -24,8 +24,6 @@
 //import androidx.lifecycle.lifecycleScope
 //import androidx.recyclerview.widget.GridLayoutManager
 //import androidx.recyclerview.widget.RecyclerView
-//import com.alibaba.android.arouter.facade.annotation.Route
-//import com.alibaba.android.arouter.launcher.ARouter
 //import com.blankj.utilcode.util.*
 //import com.blankj.utilcode.util.ScreenUtils
 //import com.elvishew.xlog.XLog
@@ -62,7 +60,6 @@
 //import com.topdon.lib.core.common.SharedManager.getTemperature
 //import com.topdon.lib.core.config.DeviceConfig
 //import com.topdon.lib.core.config.ExtraKeyConfig
-//import com.topdon.lib.core.config.RouterConfig
 //import com.topdon.lib.core.ktbase.BaseActivity
 //import com.topdon.lib.core.tools.*
 //import com.topdon.lib.core.utils.CameraLiveDateUtil
@@ -460,7 +457,7 @@
 //                    videoTimeClose()
 //                    delay(500)
 //                }
-//                ARouter.getInstance().build(RouterConfig.IR_GALLERY).navigation()
+//                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_GALLERY).navigation()
 //            }
 //        }
 //        thermal_recycler.fencelistener = {
@@ -1593,7 +1590,7 @@
 //                    cameraItemAdapter.listener = listener@{ position, item ->
 //                        when (cameraItemAdapter.data[position].type){
 //                            CameraItemBean.TYPE_SETTING ->{
-//                                ARouter.getInstance().build(RouterConfig.IR_CAMERA_SETTING)
+//                                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_CAMERA_SETTING)
 //                                    .navigation(this)
 //                                return@listener
 //                            }

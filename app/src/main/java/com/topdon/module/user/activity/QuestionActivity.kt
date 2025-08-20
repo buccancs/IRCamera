@@ -5,9 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.tc001.R
 import com.topdon.module.user.model.QuestionData
@@ -17,7 +14,6 @@ import kotlinx.android.synthetic.main.item_question.view.item_question_info
 import kotlinx.android.synthetic.main.item_question.view.item_question_lay
 import java.util.ArrayList
 
-@Route(path = RouterConfig.QUESTION)
 class QuestionActivity : BaseActivity() {
 
     override fun initContentView() = R.layout.activity_question
@@ -25,11 +21,10 @@ class QuestionActivity : BaseActivity() {
     override fun initView() {
         val adapter = MyAdapter(FaqRepository.getQuestionList(intent.getBooleanExtra("isTS001", false)))
         adapter.onItemClickListener = {
-            ARouter.getInstance()
-                .build(RouterConfig.QUESTION_DETAILS)
-                .withString("question", it.question)
-                .withString("answer", it.answer)
-                .navigation(this)
+            val intent = Intent(this, com.topdon.module.user.activity.QuestionDetailsActivity::class.java)
+            intent.putExtra("question", it.question)
+            intent.putExtra("answer", it.answer)
+            startActivity(intent)
         }
 
         question_recycler.layoutManager = LinearLayoutManager(this)

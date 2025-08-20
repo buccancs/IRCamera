@@ -3,9 +3,7 @@ package com.topdon.module.thermal.activity
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.BarUtils
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.ui.MenuFirstTabView
 import com.topdon.module.thermal.ir.R
@@ -14,7 +12,6 @@ import com.topdon.module.thermal.ir.event.ThermalActionEvent
 import kotlinx.android.synthetic.main.activity_thermal.*
 import org.greenrobot.eventbus.EventBus
 
-@Route(path = RouterConfig.THERMAL_MAIN)
 class ThermalActivity : BaseActivity() {
 
     private val menuAdapter by lazy { MenuTabAdapter(this) }

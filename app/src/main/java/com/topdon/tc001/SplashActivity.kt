@@ -5,9 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.launcher.ARouter
 import com.topdon.lib.core.common.SharedManager
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.utils.CommUtils
 import com.topdon.lms.sdk.Config
 import com.topdon.lms.sdk.LMS
@@ -27,9 +25,9 @@ class SplashActivity : AppCompatActivity() {
         lifecycleScope.launch {
             delay(if (BuildConfig.DEBUG) 3000 else 1000)
             if (SharedManager.getHasShowClause()) {
-                ARouter.getInstance().build(RouterConfig.MAIN).navigation(this@SplashActivity)
+                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.MAIN).navigation(this@SplashActivity)
             } else {
-                ARouter.getInstance().build(RouterConfig.CLAUSE).navigation(this@SplashActivity)
+                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.CLAUSE).navigation(this@SplashActivity)
             }
             finish()
         }

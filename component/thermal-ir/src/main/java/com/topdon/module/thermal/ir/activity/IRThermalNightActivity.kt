@@ -23,8 +23,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.*
 import com.elvishew.xlog.XLog
 import com.energy.iruvc.ircmd.IRCMD
@@ -68,7 +66,6 @@ import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.common.SharedManager.getTemperature
 import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.config.ExtraKeyConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.dialog.*
 import com.topdon.lib.core.repository.GalleryRepository
 import com.topdon.lib.core.tools.*
@@ -115,7 +112,6 @@ import org.greenrobot.eventbus.ThreadMode
 import kotlin.math.roundToInt
 
 
-@Route(path = RouterConfig.IR_FRAME)
 open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
 
     /**
@@ -1301,7 +1297,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                         videoTimeClose()
                         delay(500)
                     }
-                    ARouter.getInstance()
+                    // TODO: Replace ARouter navigation - Intent
                         .build(RouterConfig.IR_GALLERY_HOME)
                         .withInt(ExtraKeyConfig.DIR_TYPE, GalleryRepository.DirType.LINE.ordinal)
                         .navigation()
@@ -2267,7 +2263,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                     cameraItemAdapter?.listener = listener@{ position, _ ->
                         when (cameraItemAdapter!!.data[position].type) {
                             CameraItemBean.TYPE_SETTING -> {
-                                ARouter.getInstance().build(RouterConfig.IR_CAMERA_SETTING)
+                                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_CAMERA_SETTING)
                                     .navigation(this)
                                 return@listener
                             }

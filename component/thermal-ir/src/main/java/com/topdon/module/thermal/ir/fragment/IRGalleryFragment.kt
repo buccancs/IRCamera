@@ -10,12 +10,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.alibaba.android.arouter.launcher.ARouter
 import com.topdon.lib.core.bean.GalleryBean
 import com.topdon.lib.core.bean.GalleryTitle
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.FileConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.tools.FileTools.getUri
 import com.topdon.lib.core.tools.ToastTools
@@ -188,7 +186,7 @@ class IRGalleryFragment : BaseFragment() {
         adapter.itemClickCallback = {
             val galleryBean: GalleryBean = adapter.dataList[it]
             if (galleryBean.name.uppercase().endsWith(".MP4")) {
-                ARouter.getInstance().build(RouterConfig.IR_VIDEO_GSY)
+                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_VIDEO_GSY)
                     .withBoolean("isRemote", currentDirType == DirType.TS004_REMOTE)
                     .withParcelable("data", adapter.dataList[it])
                     .navigation(requireActivity())
@@ -204,13 +202,13 @@ class IRGalleryFragment : BaseFragment() {
 
 
                 if (currentDirType == DirType.LINE || currentDirType == DirType.TC007) {
-                    ARouter.getInstance().build(RouterConfig.IR_GALLERY_DETAIL_01)
+                    // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_GALLERY_DETAIL_01)
                         .withBoolean(ExtraKeyConfig.IS_TC007, currentDirType == DirType.TC007)
                         .withInt("position", position)
                         .withParcelableArrayList("list", sourceList)
                         .navigation(requireActivity())
                 } else {
-                    ARouter.getInstance().build(RouterConfig.IR_GALLERY_DETAIL_04)
+                    // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_GALLERY_DETAIL_04)
                         .withBoolean("isRemote", currentDirType == DirType.TS004_REMOTE)
                         .withInt("position", position)
                         .withParcelableArrayList("list", sourceList)

@@ -1,8 +1,6 @@
 package com.topdon.module.thermal.ir.activity
 
 import android.content.Intent
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.event.ManualFinishBean
@@ -14,7 +12,6 @@ import org.greenrobot.eventbus.ThreadMode
  * 双光校正 - 第1步.
  * Created by LCG on 2023/12/29.
  */
-@Route(path = RouterConfig.MANUAL_START)
 class ManualStep1Activity : BaseActivity() {
 
     override fun initContentView(): Int = R.layout.activity_manual_step1

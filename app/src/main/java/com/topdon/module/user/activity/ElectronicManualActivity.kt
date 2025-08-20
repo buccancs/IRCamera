@@ -5,9 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.utils.Constants
 import com.topdon.tc001.R
@@ -15,7 +12,6 @@ import kotlinx.android.synthetic.main.activity_electronic_manual.*
 import kotlinx.android.synthetic.main.item_electronic_manual.view.item_lay
 import kotlinx.android.synthetic.main.item_electronic_manual.view.item_text
 
-@Route(path = RouterConfig.ELECTRONIC_MANUAL)
 class ElectronicManualActivity : BaseActivity() {
 
     override fun initContentView() = R.layout.activity_electronic_manual
@@ -30,13 +26,19 @@ class ElectronicManualActivity : BaseActivity() {
             if (isTS001) {
                 if (productType == Constants.SETTING_BOOK) {
                 } else {
-                    ARouter.getInstance().build(RouterConfig.QUESTION).withBoolean("isTS001", true).navigation(this)
+                    val intent = Intent(this, com.topdon.module.user.activity.QuestionActivity::class.java)
+                    intent.putExtra("isTS001", true)
+                    startActivity(intent)
                 }
             } else {
                 if (productType == Constants.SETTING_BOOK) {
-                    ARouter.getInstance().build(RouterConfig.PDF).withBoolean("isTS001", false).navigation(this)
+                    val intent = Intent(this, com.topdon.tc001.PdfActivity::class.java)
+                    intent.putExtra("isTS001", false)
+                    startActivity(intent)
                 } else {
-                    ARouter.getInstance().build(RouterConfig.QUESTION).withBoolean("isTS001", false).navigation(this)
+                    val intent = Intent(this, com.topdon.module.user.activity.QuestionActivity::class.java)
+                    intent.putExtra("isTS001", false)
+                    startActivity(intent)
                 }
             }
         }

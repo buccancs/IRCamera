@@ -7,7 +7,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.FileUtils
 import com.topdon.house.R
 import com.topdon.house.activity.DetectAddActivity
@@ -20,7 +19,6 @@ import com.topdon.house.viewmodel.ReportViewModel
 import com.topdon.house.viewmodel.TabViewModel
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.FileConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.db.AppDatabase
 import com.topdon.lib.core.db.entity.HouseReport
 import com.topdon.lib.core.dialog.TipDialog
@@ -58,7 +56,7 @@ internal class ReportListFragment : BaseFragment(), View.OnClickListener {
 
         adapter = HouseAdapter(requireContext(), false)
         adapter.onItemClickListener = {
-            ARouter.getInstance().build(RouterConfig.REPORT_PREVIEW)
+            // TODO: Replace ARouter navigation - Intent.build(RouterConfig.REPORT_PREVIEW)
                 .withBoolean(ExtraKeyConfig.IS_REPORT, true)
                 .withLong(ExtraKeyConfig.LONG_ID, adapter.dataList[it].id)
                 .navigation(requireContext())

@@ -33,8 +33,6 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -80,7 +78,6 @@ import com.topdon.lib.core.common.SaveSettingUtil
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.common.SharedManager.getTemperature
 import com.topdon.lib.core.config.ExtraKeyConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.dialog.CarDetectDialog
 import com.topdon.lib.core.dialog.EmissivityTipPopup
 import com.topdon.lib.core.dialog.LongTextDialog
@@ -145,7 +142,6 @@ import kotlin.math.abs
  *
  * Created by LCG on 2024/4/28.
  */
-@Route(path = RouterConfig.IR_TCLITE)
 class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
 
     private var mPreviewWidth = 256
@@ -1342,7 +1338,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                         videoTimeClose()
                         delay(500)
                     }
-                    ARouter.getInstance()
+                    // TODO: Replace ARouter navigation - Intent
                         .build(RouterConfig.IR_GALLERY_HOME)
                         .withInt(ExtraKeyConfig.DIR_TYPE, GalleryRepository.DirType.LINE.ordinal)
                         .navigation()
@@ -1380,7 +1376,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                     cameraItemAdapter?.listener = listener@{ position, _ ->
                         when (cameraItemAdapter!!.data[position].type) {
                             CameraItemBean.TYPE_SETTING -> {
-                                ARouter.getInstance().build(RouterConfig.IR_CAMERA_SETTING)
+                                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_CAMERA_SETTING)
                                     .navigation(this)
                                 return@listener
                             }

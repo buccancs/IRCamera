@@ -7,7 +7,6 @@ import android.view.WindowManager
 import android.yt.jni.Usbcontorl
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.elvishew.xlog.XLog
 import com.energy.iruvc.ircmd.IRCMD
 import com.energy.iruvc.ircmd.IRCMDType
@@ -33,7 +32,6 @@ import com.topdon.lib.core.bean.tools.ThermalBean
 import com.topdon.lib.core.common.SaveSettingUtil
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.DeviceConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.db.AppDatabase
 import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.lib.core.ktbase.BaseActivity
@@ -55,7 +53,6 @@ import java.math.RoundingMode
 /**
  * 温度实时监控
  */
-@Route(path = RouterConfig.IR_MONITOR_CHART)
 class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
 
     /** 默认数据流模式：图像+温度复合数据 */

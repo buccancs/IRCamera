@@ -11,8 +11,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.AppUtils
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
@@ -21,7 +19,6 @@ import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.bean.event.PDFEvent
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.ExtraKeyConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.repository.GalleryRepository.DirType
@@ -51,7 +48,6 @@ import org.greenrobot.eventbus.EventBus
  *
  * Created by LCG on 2024/4/18.
  */
-@Route(path = RouterConfig.IR_MAIN)
 class IRMainActivity : BaseActivity(), View.OnClickListener {
 
     /**
@@ -100,7 +96,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
                     TC007Repository.syncTime()
                 }
                 if (SharedManager.isConnect07AutoOpen) {
-                    ARouter.getInstance().build(RouterConfig.IR_THERMAL_07).navigation(this)
+                    // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_THERMAL_07).navigation(this)
                 }
             } else {
                 iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
@@ -365,7 +361,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
                     0 -> AbilityFragment()
                     2 -> IRThermalFragment()
                     3 -> PDFListFragment()
-                    else -> ARouter.getInstance().build(RouterConfig.TC_MORE).navigation() as Fragment
+                    else -> // TODO: Replace ARouter navigation - Intent.build(RouterConfig.TC_MORE).navigation() as Fragment
                 }
                 fragment.arguments = Bundle().also { it.putBoolean(ExtraKeyConfig.IS_TC007, isTC007) }
                 return fragment

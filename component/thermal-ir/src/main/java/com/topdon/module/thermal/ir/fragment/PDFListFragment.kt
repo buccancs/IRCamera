@@ -11,11 +11,9 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.Utils
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.FileConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseViewModelFragment
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.socket.WebSocketProxy
@@ -219,7 +217,7 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
                 .create().show()
         }
         reportAdapter.jumpDetailListener = {item, position ->
-            ARouter.getInstance().build(RouterConfig.REPORT_DETAIL)
+            // TODO: Replace ARouter navigation - Intent.build(RouterConfig.REPORT_DETAIL)
                 .withParcelable(ExtraKeyConfig.REPORT_BEAN,reportAdapter.data[position]?.reportContent)
                 .navigation(requireContext())
         }

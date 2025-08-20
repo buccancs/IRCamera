@@ -6,7 +6,6 @@ import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.SizeUtils
 import com.elvishew.xlog.XLog
 import com.github.mikephil.charting.charts.LineChart
@@ -19,7 +18,6 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.topdon.lib.core.common.SharedManager
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.ToastTools
@@ -32,7 +30,6 @@ import kotlinx.android.synthetic.main.activity_log_mp_chart.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Route(path = RouterConfig.THERMAL_LOG_MP_CHART)
 class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
 
     private val viewModel: LogViewModel by viewModels()

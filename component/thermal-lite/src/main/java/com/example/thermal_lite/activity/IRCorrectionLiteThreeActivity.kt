@@ -3,10 +3,8 @@ package com.example.thermal_lite.activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.thermal_lite.R
 import com.example.thermal_lite.fragment.IRMonitorLiteFragment
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import kotlinx.android.synthetic.main.activity_ir_correction_lite_three.tv_correction
 import kotlinx.coroutines.delay
@@ -18,7 +16,6 @@ import kotlinx.coroutines.launch
  * @author: CaiSongL
  * @date: 2023/8/4 9:06
  */
-@Route(path = RouterConfig.IR_CORRECTION_THREE_LITE)
 class IRCorrectionLiteThreeActivity : BaseActivity() {
 
     override fun initContentView(): Int = R.layout.activity_ir_correction_lite_three

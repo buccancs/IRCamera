@@ -5,9 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.user.R
 import com.topdon.module.user.model.QuestionData
@@ -20,7 +17,6 @@ import java.util.ArrayList
 /**
  * FAQ
  */
-@Route(path = RouterConfig.QUESTION)
 class QuestionActivity : BaseActivity() {
 
     override fun initContentView() = R.layout.activity_question
@@ -28,7 +24,7 @@ class QuestionActivity : BaseActivity() {
     override fun initView() {
         val adapter = MyAdapter(FaqRepository.getQuestionList(intent.getBooleanExtra("isTS001", false)))
         adapter.onItemClickListener = {
-            ARouter.getInstance()
+            // TODO: Replace ARouter navigation - Intent
                 .build(RouterConfig.QUESTION_DETAILS)
                 .withString("question", it.question)
                 .withString("answer", it.answer)

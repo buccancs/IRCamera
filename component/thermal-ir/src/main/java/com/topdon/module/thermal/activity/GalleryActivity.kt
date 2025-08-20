@@ -5,8 +5,6 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.fragment.GalleryPictureFragment
@@ -14,7 +12,6 @@ import com.topdon.module.thermal.fragment.GalleryVideoFragment
 import kotlinx.android.synthetic.main.activity_gallery.*
 
 
-@Route(path = RouterConfig.GALLERY)
 class GalleryActivity : BaseActivity() {
 
 //    override fun providerVMClass() = GalleryViewModel::class.java

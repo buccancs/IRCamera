@@ -5,7 +5,6 @@ import android.view.SurfaceView
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.ToastUtils
 import com.energy.iruvc.sdkisp.LibIRProcess
 import com.energy.iruvc.utils.CommonParams
@@ -17,7 +16,6 @@ import com.infisense.usbir.view.TemperatureView
 import com.topdon.lib.core.bean.CameraItemBean
 import com.topdon.lib.core.common.ProductType.PRODUCT_NAME_TCP
 import com.topdon.lib.core.common.SaveSettingUtil
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.menu.constant.TwoLightType
 import com.topdon.module.thermal.ir.R
@@ -37,7 +35,6 @@ import java.nio.ByteBuffer
  * @author: CaiSongL
  * @date: 2024/1/17 17:47
  */
-@Route(path = RouterConfig.IR_FRAME_PLUSH)
 class IRThermalPlusActivity : BaseIRPlushActivity() {
     private val irImageHelp by lazy {
         IRImageHelp()

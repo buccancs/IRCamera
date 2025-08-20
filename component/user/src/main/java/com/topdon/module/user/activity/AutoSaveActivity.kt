@@ -1,8 +1,6 @@
 package com.topdon.module.user.activity
 
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.topdon.lib.core.common.SharedManager
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.user.R
 import kotlinx.android.synthetic.main.activity_auto_save.*
@@ -10,7 +8,6 @@ import kotlinx.android.synthetic.main.activity_auto_save.*
 /**
  * 自动保存到手机
  */
-@Route(path = RouterConfig.AUTO_SAVE)
 class AutoSaveActivity :BaseActivity(){
 
     override fun initContentView() = R.layout.activity_auto_save

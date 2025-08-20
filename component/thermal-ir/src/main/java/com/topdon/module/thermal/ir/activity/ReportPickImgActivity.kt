@@ -7,13 +7,10 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.topdon.lib.core.bean.GalleryTitle
 import com.topdon.lib.core.bean.event.ReportCreateEvent
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.FileConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.FileTools.getUri
 import com.topdon.lib.core.tools.ToastTools
@@ -40,7 +37,6 @@ import java.io.File
  * - [ExtraKeyConfig.REPORT_CONDITION] - 检测条件
  * - [ExtraKeyConfig.REPORT_IR_LIST] - 当前已添加的图片对应数据列表
  */
-@Route(path = RouterConfig.REPORT_PICK_IMG)
 class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
 
     /**
@@ -172,7 +168,7 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
             val fileName = data.name.substringBeforeLast(".")
             val irPath = "${FileConfig.lineIrGalleryDir}/${fileName}.ir"
             if (File(irPath).exists()) {
-                ARouter.getInstance().build(RouterConfig.IR_GALLERY_EDIT)
+                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_GALLERY_EDIT)
                     .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
                     .withBoolean(ExtraKeyConfig.IS_PICK_REPORT_IMG, true)
                     .withBoolean(IS_REPORT_FIRST, false)

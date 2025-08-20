@@ -7,10 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup.LayoutParams
 import android.widget.*
-import com.alibaba.android.arouter.launcher.ARouter
 import com.topdon.tc001.R
 import com.topdon.lib.core.config.ExtraKeyConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.tools.NumberTools
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.utils.ScreenUtil
@@ -100,7 +98,7 @@ class TipEmissivityDialog : Dialog {
             }
             view.dialog_tip_cancel_btn.setOnClickListener {
                 dialog?.onDismissListener?.invoke(hasCheck)
-                ARouter.getInstance().build(RouterConfig.IR_SETTING)
+                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_SETTING)
                     .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
                     .navigation(context)
                 dismiss()

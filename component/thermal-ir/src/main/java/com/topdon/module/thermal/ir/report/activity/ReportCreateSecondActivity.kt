@@ -3,13 +3,10 @@ package com.topdon.module.thermal.ir.report.activity
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.ToastUtils
 import com.topdon.lib.core.bean.event.ReportCreateEvent
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.ExtraKeyConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.tools.GlideLoader
@@ -32,7 +29,6 @@ import org.greenrobot.eventbus.ThreadMode
  * - 可选：检测条件 [ExtraKeyConfig.REPORT_CONDITION]
  * - 可选：当前已确认的图片信息列表 [ExtraKeyConfig.REPORT_IR_LIST]
  */
-@Route(path = RouterConfig.REPORT_CREATE_SECOND)
 class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
 
     /**
@@ -166,7 +162,7 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
                 }
                 val reportIRBeanList = ArrayList<ReportIRBean>(reportIRList)
                 reportIRBeanList.add(buildReportIr(currentFilePath))
-                ARouter.getInstance()
+                // TODO: Replace ARouter navigation - Intent
                     .build(RouterConfig.REPORT_PICK_IMG)
                     .withBoolean(ExtraKeyConfig.IS_TC007, intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false))
                     .withParcelable(ExtraKeyConfig.REPORT_INFO, intent.getParcelableExtra(ExtraKeyConfig.REPORT_INFO))
@@ -182,7 +178,7 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
                 val reportIRBeanList = ArrayList<ReportIRBean>(reportIRList)
                 reportIRBeanList.add(buildReportIr(currentFilePath))
                 val reportBean = ReportBean(SoftwareInfo(appLanguage, sdkVersion), reportInfoBean!!, conditionBean!!, reportIRBeanList)
-                ARouter.getInstance().build(RouterConfig.REPORT_PREVIEW_SECOND)
+                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.REPORT_PREVIEW_SECOND)
                     .withBoolean(ExtraKeyConfig.IS_TC007, intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false))
                     .withParcelable(ExtraKeyConfig.REPORT_BEAN, reportBean)
                     .navigation(this)

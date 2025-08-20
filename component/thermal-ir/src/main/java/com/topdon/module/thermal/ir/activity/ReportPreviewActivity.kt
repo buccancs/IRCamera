@@ -8,7 +8,6 @@ import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.CollectionUtils
 import com.bumptech.glide.Glide
 import com.google.android.material.appbar.AppBarLayout
@@ -22,7 +21,6 @@ import com.topdon.lib.core.bean.HouseRepPreviewBean
 import com.topdon.lib.core.bean.HouseRepPreviewItemBean
 import com.topdon.lib.core.bean.HouseRepPreviewProjectItemBean
 import com.topdon.lib.core.config.ExtraKeyConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.db.AppDatabase
 import com.topdon.lib.core.db.entity.HouseReport
 import com.topdon.lib.core.ktbase.BaseActivity
@@ -41,7 +39,6 @@ import kotlin.math.abs
  * - [ExtraKeyConfig.IS_REPORT] - true-查看报告即查看 false-查看检测即生成
  * - [ExtraKeyConfig.LONG_ID] - 房屋检测Id(生成时)  房屋报告Id(查看时）
  */
-@Route(path = RouterConfig.REPORT_PREVIEW)
 class ReportPreviewActivity : BaseActivity(), View.OnClickListener {
 
     private val detectViewModel: DetectViewModel by viewModels()

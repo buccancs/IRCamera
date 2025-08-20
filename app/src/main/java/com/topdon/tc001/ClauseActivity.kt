@@ -5,11 +5,8 @@ import android.text.method.ScrollingMovementMethod
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.common.SharedManager
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.dialog.TipProgressDialog
 import com.topdon.lib.core.utils.CommUtils
@@ -24,7 +21,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.*
 
-@Route(path = RouterConfig.CLAUSE)
 class ClauseActivity : AppCompatActivity() {
 
     private lateinit var dialog: TipProgressDialog
@@ -64,33 +60,30 @@ class ClauseActivity : AppCompatActivity() {
             if (!NetworkUtil.isConnected(this)) {
                 TToast.shortToast(this, R.string.lms_setting_http_error)
             } else {
-                ARouter.getInstance()
-                    .build(RouterConfig.POLICY)
-                    .withInt(PolicyActivity.KEY_THEME_TYPE, 1)
-                    .withInt(PolicyActivity.KEY_USE_TYPE, keyUseType)
-                    .navigation(this)
+                val intent = Intent(this, com.topdon.tc001.PolicyActivity::class.java)
+                intent.putExtra(PolicyActivity.KEY_THEME_TYPE, 1)
+                intent.putExtra(PolicyActivity.KEY_USE_TYPE, keyUseType)
+                startActivity(intent)
             }
         }
         clause_item2.setOnClickListener {
             if (!NetworkUtil.isConnected(this)) {
                 TToast.shortToast(this, R.string.lms_setting_http_error)
             } else {
-                ARouter.getInstance()
-                    .build(RouterConfig.POLICY)
-                    .withInt(PolicyActivity.KEY_THEME_TYPE, 2)
-                    .withInt(PolicyActivity.KEY_USE_TYPE, keyUseType)
-                    .navigation(this)
+                val intent = Intent(this, com.topdon.tc001.PolicyActivity::class.java)
+                intent.putExtra(PolicyActivity.KEY_THEME_TYPE, 2)
+                intent.putExtra(PolicyActivity.KEY_USE_TYPE, keyUseType)
+                startActivity(intent)
             }
         }
         clause_item3.setOnClickListener {
             if (!NetworkUtil.isConnected(this)) {
                 TToast.shortToast(this, R.string.lms_setting_http_error)
             } else {
-                ARouter.getInstance()
-                    .build(RouterConfig.POLICY)
-                    .withInt(PolicyActivity.KEY_THEME_TYPE, 3)
-                    .withInt(PolicyActivity.KEY_USE_TYPE, keyUseType)
-                    .navigation(this)
+                val intent = Intent(this, com.topdon.tc001.PolicyActivity::class.java)
+                intent.putExtra(PolicyActivity.KEY_THEME_TYPE, 3)
+                intent.putExtra(PolicyActivity.KEY_USE_TYPE, keyUseType)
+                startActivity(intent)
             }
         }
 
@@ -112,7 +105,7 @@ class ClauseActivity : AppCompatActivity() {
                 delay(1000)
                 return@async
             }.await().let {
-                ARouter.getInstance().build(RouterConfig.MAIN).navigation(this@ClauseActivity)
+                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.MAIN).navigation(this@ClauseActivity)
                 SharedManager.setHasShowClause(true)
                 dismissLoading()
                 finish()
