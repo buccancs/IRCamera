@@ -17,4 +17,9 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
     </style>
+    
+    <style name="cameraSetSwitch">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/font_second_color</item>
+    </style>
 </resources>

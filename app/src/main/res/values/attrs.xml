@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- 长地像 SeekBar 的那个条条 -->
     <declare-styleable name="BarPickView">
         <attr name="android:max" />
         <attr name="android:progress" />
@@ -17,7 +16,6 @@
         </attr>
     </declare-styleable>
 
-    <!-- 圆角 ImageView -->
     <declare-styleable name="RoundImageView">
         <attr name="round_radius" format="dimension"/>
         <attr name="round_position">
@@ -37,19 +35,12 @@
         <attr name="guide_icon_show" format="boolean" />
     </declare-styleable>
 
-    <!-- 倒计时控件属性 -->
     <declare-styleable name="CountDownView">
-        <!--颜色-->
         <attr name="ringColor" format="color" />
-        <!-- 进度文本的字体大小 -->
         <attr name="progressTextSize" format="dimension" />
-        <!-- 圆环宽度 -->
         <attr name="ringWidth" format="dimension" />
-        <!--进度文本颜色-->
         <attr name="progressTextColor" format="color" />
-        <!--文本-->
         <attr name="progressText" format="string" />
-        <!--倒计时-->
         <attr name="countdownTime" format="integer" />
     </declare-styleable>
 
@@ -221,4 +212,19 @@
     <declare-styleable name="IndicateView">
         <attr name="selectColor" format="color"/>
     </declare-styleable>
+    
+    <!-- Custom title text attribute -->
+    <attr name="titleText" format="string"/>
+    
+    <!-- Additional missing attributes -->
+    <attr name="leftDrawable" format="reference"/>
+    <attr name="rightDrawable" format="reference"/>
+    <attr name="isInitLeft" format="boolean"/>
+    <attr name="drawable_height" format="dimension"/>
+    <attr name="maxCount" format="integer"/>
+    <attr name="rightText" format="string"/>
+    <attr name="right2Drawable" format="reference"/>
+    <attr name="right3Drawable" format="reference"/>
+    <attr name="deviceType" format="string"/>
+    <attr name="temperature_count" format="integer"/>
 </resources>
