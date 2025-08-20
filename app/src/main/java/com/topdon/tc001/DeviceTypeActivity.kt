@@ -27,18 +27,6 @@ class DeviceTypeActivity : BaseActivity() {
             onItemClickListener = {
                 clientType = it
                 when (it) {
-                    IRDeviceType.TS004 -> {
-                        ARouter.getInstance()
-                            .build(RouterConfig.IR_DEVICE_ADD)
-                            .withBoolean("isTS004", true)
-                            .navigation(this@DeviceTypeActivity)
-                    }
-                    IRDeviceType.TC007 -> {
-                        ARouter.getInstance()
-                            .build(RouterConfig.IR_DEVICE_ADD)
-                            .withBoolean("isTS004", false)
-                            .navigation(this@DeviceTypeActivity)
-                    }
                     else -> {
                         ARouter.getInstance()
                             .build(RouterConfig.IR_MAIN)
@@ -63,14 +51,9 @@ class DeviceTypeActivity : BaseActivity() {
     }
 
     override fun onSocketConnected(isTS004: Boolean) {
-        if (isTS004) {
-            if (clientType == IRDeviceType.TS004) {
-                finish()
-            }
-        } else {
-            if (clientType == IRDeviceType.TC007) {
-                finish()
-            }
+        // TC007 and TS004 support removed - only handle TC001/TS001 connections
+        if (clientType?.isLine() == true) {
+            finish()
         }
     }
 
@@ -83,7 +66,6 @@ class DeviceTypeActivity : BaseActivity() {
         private val dataList: ArrayList<ItemInfo> = arrayListOf(
             ItemInfo(true, IRDeviceType.TS001, IRDeviceType.TC001),
             ItemInfo(false, IRDeviceType.TC001_PLUS, IRDeviceType.TC002C_DUO),
-            ItemInfo(true, IRDeviceType.TS004, null),
         )
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -101,9 +83,7 @@ class DeviceTypeActivity : BaseActivity() {
                 IRDeviceType.TC001 -> holder.itemView.iv_item1.setImageResource(R.drawable.ic_device_type_tc001)
                 IRDeviceType.TC001_PLUS -> holder.itemView.iv_item1.setImageResource(R.drawable.ic_device_type_tc001_plus)
                 IRDeviceType.TC002C_DUO -> holder.itemView.iv_item1.setImageResource(R.drawable.ic_device_type_tc001_plus)
-                IRDeviceType.TC007 -> holder.itemView.iv_item1.setImageResource(R.drawable.ic_device_type_tc007)
                 IRDeviceType.TS001 -> holder.itemView.iv_item1.setImageResource(R.drawable.ic_device_type_ts001)
-                IRDeviceType.TS004 -> holder.itemView.iv_item1.setImageResource(R.drawable.ic_device_type_ts004)
             }
 
             holder.itemView.group_item2.isVisible = secondType != null
@@ -113,9 +93,7 @@ class DeviceTypeActivity : BaseActivity() {
                     IRDeviceType.TC001 -> holder.itemView.iv_item2.setImageResource(R.drawable.ic_device_type_tc001)
                     IRDeviceType.TC001_PLUS -> holder.itemView.iv_item2.setImageResource(R.drawable.ic_device_type_tc001_plus)
                     IRDeviceType.TC002C_DUO -> holder.itemView.iv_item2.setImageResource(R.drawable.ic_device_type_tc001_plus)
-                    IRDeviceType.TC007 -> holder.itemView.iv_item2.setImageResource(R.drawable.ic_device_type_tc007)
                     IRDeviceType.TS001 -> holder.itemView.iv_item2.setImageResource(R.drawable.ic_device_type_ts001)
-                    IRDeviceType.TS004 -> holder.itemView.iv_item2.setImageResource(R.drawable.ic_device_type_ts004)
                 }
             }
         }
@@ -154,17 +132,9 @@ class DeviceTypeActivity : BaseActivity() {
             override fun isLine(): Boolean = true
             override fun getDeviceName(): String = "TC002C Duo"
         },
-        TC007 {
-            override fun isLine(): Boolean = false
-            override fun getDeviceName(): String = "TC007"
-        },
         TS001 {
             override fun isLine(): Boolean = true
             override fun getDeviceName(): String = "TS001"
-        },
-        TS004 {
-            override fun isLine(): Boolean = false
-            override fun getDeviceName(): String = "TS004"
         };
 
         abstract fun isLine(): Boolean
