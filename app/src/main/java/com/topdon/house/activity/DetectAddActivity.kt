@@ -226,7 +226,7 @@ class DetectAddActivity : BaseActivity(), View.OnClickListener {
                     if (editId == 0L) {
                         val newIntent = Intent(this@DetectAddActivity, ReportAddActivity::class.java)
                         newIntent.putExtra(ExtraKeyConfig.DETECT_ID, houseDetect.id)
-                        newIntent.putExtra(ExtraKeyConfig.IS_TC007, intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false))
+                        // TC007 support removed - only TC001 supported
                         startActivity(newIntent)
                     }
                     dismissLoadingDialog()

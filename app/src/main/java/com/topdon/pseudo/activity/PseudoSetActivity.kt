@@ -26,8 +26,8 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
     override fun initContentView() = R.layout.activity_pseudo_set
 
     override fun initView() {
-        val isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
-        customPseudoBean = intent.getParcelableExtra(ExtraKeyConfig.CUSTOM_PSEUDO_BEAN) ?: CustomPseudoBean.loadFromShared(isTC007)
+        // TC007 support removed - only TC001 supported
+        customPseudoBean = intent.getParcelableExtra(ExtraKeyConfig.CUSTOM_PSEUDO_BEAN) ?: CustomPseudoBean.loadFromShared(false)
         switchDynamicCustom(customPseudoBean.isUseCustomPseudo)
 
         et_max_temp.setText(UnitTools.showNoUnit(customPseudoBean.maxTemp))

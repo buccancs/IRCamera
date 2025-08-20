@@ -563,7 +563,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
         }
         temperature_iv_input.setOnClickListener {
             val intent = Intent(this, PseudoSetActivity::class.java)
-            intent.putExtra(ExtraKeyConfig.IS_TC007, false)
+            // TC007 support removed - only TC001 supported
             pseudoSetResult.launch(intent)
         }
         temperature_seekbar.setOnRangeChangedListener(object : OnRangeChangedListener {

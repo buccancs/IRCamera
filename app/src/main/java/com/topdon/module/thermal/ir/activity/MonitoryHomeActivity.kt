@@ -18,8 +18,8 @@ class MonitoryHomeActivity : BaseActivity() {
     override fun initContentView(): Int = R.layout.activity_monitor_home
 
     override fun initView() {
-        val isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
-        view_pager2.adapter = ViewPagerAdapter(this, isTC007)
+        // TC007 support removed - only TC001 supported
+        view_pager2.adapter = ViewPagerAdapter(this)
         TabLayoutMediator(tab_layout, view_pager2) { tab, position ->
             tab.setText(if (position == 0) R.string.chart_history else R.string.chart_real_time)
         }.attach()
@@ -33,16 +33,15 @@ class MonitoryHomeActivity : BaseActivity() {
         view_pager2.currentItem = 0
     }
 
-    private class ViewPagerAdapter(activity: MonitoryHomeActivity, val isTC007: Boolean) : FragmentStateAdapter(activity) {
+    private class ViewPagerAdapter(activity: MonitoryHomeActivity) : FragmentStateAdapter(activity) {
         override fun getItemCount() = 2
 
         override fun createFragment(position: Int): Fragment {
             return if (position == 0) {
                 IRMonitorHistoryFragment()
             } else {
-                val fragment = IRMonitorCaptureFragment()
-                fragment.arguments = Bundle().also { it.putBoolean(ExtraKeyConfig.IS_TC007, isTC007) }
-                fragment
+                // TC007 support removed - only TC001 supported
+                IRMonitorCaptureFragment()
             }
         }
     }

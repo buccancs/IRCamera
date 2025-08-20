@@ -36,10 +36,7 @@ class GalleryChangePopup(private val context: Context) : PopupWindow() {
             dismiss()
             onPickListener?.invoke(1, "TS004")
         }
-        contentView.tv_tc007.setOnClickListener {
-            dismiss()
-            onPickListener?.invoke(2, "TC007")
-        }
+        // TC007 support removed - only TC001 supported
     }
 
     fun show(anchor: View) {

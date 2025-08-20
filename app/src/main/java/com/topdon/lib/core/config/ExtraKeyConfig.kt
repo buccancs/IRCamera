@@ -7,7 +7,7 @@ object ExtraKeyConfig {
     const val IS_VIDEO = "IS_VIDEO"
     const val HAS_BACK_ICON = "HAS_BACK_ICON"
     const val CAN_SWITCH_DIR = "CAN_SWITCH_DIR"
-    const val IS_TC007 = "IS_TC007"
+    // TC007 support removed - only TC001 supported
     const val IS_PICK_INSPECTOR = "IS_PICK_INSPECTOR"
     const val IS_REPORT = "IS_REPORT"
 
