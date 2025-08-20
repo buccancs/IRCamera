@@ -6,7 +6,7 @@ import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.AppLanguageUtils
 import com.topdon.lib.core.tools.ConstantLanguages
-import com.topdon.module.user.R
+import com.topdon.tc001.R
 import com.topdon.module.user.adapter.LanguageAdapter
 import kotlinx.android.synthetic.main.activity_language.*
 

@@ -6,7 +6,6 @@ import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
@@ -35,7 +34,7 @@ import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.utils.CommUtils
 import com.topdon.module.thermal.ir.BuildConfig
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 import com.topdon.module.thermal.ir.report.bean.ImageTempBean
 import com.topdon.module.thermal.ir.report.bean.ReportConditionBean
 import com.topdon.module.thermal.ir.report.bean.ReportInfoBean
@@ -215,10 +214,8 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
                     location.latitude,
                     location.longitude, 1
                 )
-                Log.v("TAG", "获取地址信息：$result")
             }
         } catch (e: Exception) {
-            e.printStackTrace()
         }
         var str = ""
         if (result!=null && result.isNotEmpty()){

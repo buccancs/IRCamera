@@ -13,7 +13,7 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.topdon.lib.core.tools.UnitTools
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 
 class ChartTrendView : LineChart {
 

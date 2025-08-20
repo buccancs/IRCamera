@@ -12,7 +12,7 @@ import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lms.sdk.utils.TLog
 import com.topdon.lms.sdk.weiget.TToast
-import com.topdon.module.user.R
+import com.topdon.tc001.R
 import com.topdon.module.user.bean.ColorsBean
 import kotlinx.android.synthetic.main.activity_storage_space.*
 import kotlinx.coroutines.delay
@@ -58,7 +58,6 @@ class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
             if (freeSpaceBean == null) {
                 TToast.shortToast(this@StorageSpaceActivity, R.string.operation_failed_tips)
             } else {
-                TLog.d("ts004", "║ response :$freeSpaceBean")
 
                 tv_progress_value.text = "${(freeSpaceBean.hasUseSize() * 100.0 / freeSpaceBean.total).toInt().coerceAtLeast(1)}"
 
@@ -95,7 +94,6 @@ class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
                         lifecycleScope.launch {
                             val isSuccess = TS004Repository.getFormatStorage()
                             if (isSuccess) {
-                                XLog.d("TS004 格式化存储成功，即将断开连接")
                                 (application as BaseApplication).disconnectWebSocket()
                                 ARouter.getInstance().build(RouterConfig.MAIN).navigation(this@StorageSpaceActivity)
                                 finish()

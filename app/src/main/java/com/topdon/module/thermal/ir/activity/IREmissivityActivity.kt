@@ -11,7 +11,7 @@ import com.blankj.utilcode.util.SizeUtils
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.ui.widget.MyItemDecoration
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 import com.topdon.module.thermal.ir.view.EmissivityView
 import kotlinx.android.synthetic.main.activity_ir_emissivity.*
 import kotlinx.android.synthetic.main.item_ir_emissivity_title.*

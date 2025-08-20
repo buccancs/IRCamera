@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.topdon.lib.core.R
+import com.topdon.tc001.R
 import com.topdon.lib.core.utils.ScreenUtil
 import kotlinx.android.synthetic.main.dialog_long_text.view.*
 

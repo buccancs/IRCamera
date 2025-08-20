@@ -4,7 +4,7 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import com.blankj.utilcode.util.Utils
 import com.elvishew.xlog.XLog
-import com.topdon.lib.core.R
+import com.topdon.tc001.R
 
 object CommUtils {
 
@@ -19,7 +19,6 @@ object CommUtils {
         try {
             msg = appInfo.metaData.getString("app_name")?.toString() ?: ""
         }catch (e : Exception){
-            XLog.w("获取app名称异常： ${e.message}")
         }
         return msg
 

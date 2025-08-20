@@ -34,7 +34,6 @@ import static org.opencv.imgproc.Imgproc.rectangle;
 import static org.opencv.imgproc.Imgproc.threshold;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import com.example.suplib.wrapper.SupHelp;
 import com.topdon.lib.core.BaseApplication;
@@ -112,7 +111,6 @@ public class OpencvTools {
         byte[] byteArray = new byte[dataOut.capacity()];
         
         dataOut.get(byteArray);
-        Log.e("4倍超分模型：", String.valueOf((System.currentTimeMillis() - startTime)));
         return SupRUtils.INSTANCE.byteArrayToBitmap(byteArray);
     }
 
@@ -124,11 +122,9 @@ public class OpencvTools {
         ByteBuffer dataOut = ByteBuffer.allocateDirect(imgByte.length * 4); 
         
         SupHelp.getInstance().imgUpScalerFour(BaseApplication.instance, dataIn, dataOut);
-        Log.e("AI_UPSCALE 4倍超分模型2：", String.valueOf((System.currentTimeMillis() - startTime)));
         
         byte[] outputData = new byte[dataOut.capacity()];
         dataOut.get(outputData);
-        Log.e("4倍超分模型：", String.valueOf((System.currentTimeMillis() - startTime)));
         Bitmap bitmap = SupRUtils.INSTANCE.byteArrayToBitmap(outputData);
         return outputData;
     }
@@ -144,7 +140,6 @@ public class OpencvTools {
 
         
         SupHelp.getInstance().imgUpScalerFour(BaseApplication.instance, dataIn, dataOut);
-        Log.e("AI_UPSCALE 4倍超分模型2：", String.valueOf((System.currentTimeMillis() - startTime)) + "
 
         
         byte[] outputData = new byte[dataOut.capacity()];
@@ -169,7 +164,6 @@ public class OpencvTools {
         
         srcMat.release();
         dstMat.release();
-        Log.e("4倍超分模型：", String.valueOf((System.currentTimeMillis() - startTime)));
 
         return finalBitmap;
     }
@@ -186,7 +180,6 @@ public class OpencvTools {
         ByteBuffer dataOut = ByteBuffer.allocateDirect(256 * 192 * 4 * 4); 
         
         SupHelp.getInstance().imgUpScalerFour(BaseApplication.instance, dataIn, dataOut);
-        Log.e("AI_UPSCALE 4倍超分模型2：", String.valueOf((System.currentTimeMillis() - startTime))+"
         
         byte[] outputData = new byte[dataOut.capacity()];
         dataOut.get(outputData);
@@ -204,7 +197,6 @@ public class OpencvTools {
         
         srcMat.release();
         dstMat.release();
-        Log.e("4倍超分模型：", String.valueOf((System.currentTimeMillis() - startTime)));
         return finalBitmap;
     }
 
@@ -764,7 +756,6 @@ public class OpencvTools {
     public static Bitmap draw_edge_from_temp_reigon_bitmap_argb_psd(byte[] image, byte[] temperature,
                                                                     int image_h, int image_w, float high_t,
                                                                     float low_t, int color_h, int color_l, int type) throws IOException {
-        Log.w("预警值","最高温："+high_t+"
         Mat src = draw_high_temp_edge_argb_pse(image, temperature, image_h, image_w, high_t == Float.MAX_VALUE ? 128f : high_t, color_h, type);
         Mat mat = low_t == Float.MIN_VALUE ? src : draw_temp_edge(src, temperature, low_t, color_l, type);
         Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2RGBA);
@@ -824,7 +815,6 @@ public class OpencvTools {
                 }
 
             }else{
-                System.out.println("copy failed");
             }
         }
         
@@ -868,7 +858,6 @@ public class OpencvTools {
         Mat hu2c = calcHU(image_padd.size(),t2);
         Core.mulSpectrums(image_padd, hu2c, image_padd_2c, 0);
         Core.idft(image_padd_2c,image_padd_2c,DFT_SCALE);
-        System.out.println(image_padd_2c.channels());
 
 
         Core.exp(image_padd_2c,image_padd_2c);
@@ -882,14 +871,11 @@ public class OpencvTools {
         normalize(reinforce_src, temp, 0, 255, NORM_MINMAX);
         temp = iftCenter(temp);
         Mat result = new Mat();
-        Log.w("123",temp.toString());
         temp.convertTo(result,CV_8UC1);
-        Log.w("1234",result.toString());
         applyColorMap(result,result,15);
         cvtColor(result,result,COLOR_RGB2BGR);
 
 
-        Log.w("1234",result.toString());
         
         
         
@@ -935,7 +921,6 @@ public class OpencvTools {
                 colors[0] = r;
                 colors[1] = g;
                 colors[2] = b;
-                Log.w("测试","低于最小值");
             }else if (maxGrey != -1 && ratio > maxGrey){
                 if (isGrayUse){
                     
@@ -953,9 +938,7 @@ public class OpencvTools {
                 colors[0] = r;
                 colors[1] = g;
                 colors[2] = b;
-                Log.w("测试","大于于最大值");
             }else if (maxTemp >= customMaxTemp && minTemp <= customMinTemp){
-                Log.w("测试","实际温度大于并且小于自定义的最高低温");
                 
                colors = capColor(colorList,maxTemp,minTemp,customMaxTemp,customMinTemp,isGrayUse,ratio);
             }else if (customMinTemp > maxTemp){
@@ -989,7 +972,6 @@ public class OpencvTools {
                 colors = capColor(tmpColor,
                         maxTemp,minTemp,maxTemp,minTemp,isGrayUse,ratio);
             }
-            Log.w("测试","编号值"+i+":"+colors[0]+"--"+ colors[1]+"--"+colors[2]+"
             colorBar.put(i, 0, colors[2], colors[1], colors[0]);
         }
         return colorBar;

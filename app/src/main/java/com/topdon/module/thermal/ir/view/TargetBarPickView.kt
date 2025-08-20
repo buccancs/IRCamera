@@ -13,7 +13,7 @@ import android.view.View
 import androidx.annotation.ColorInt
 import com.blankj.utilcode.util.SizeUtils
 import com.topdon.lib.core.utils.ScreenUtil
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 
 class TargetBarPickView : View {
 

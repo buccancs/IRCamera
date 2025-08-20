@@ -5,7 +5,6 @@ import android.content.pm.ActivityInfo
 import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.fragment.app.FragmentManager
@@ -32,7 +31,7 @@ import com.topdon.lib.core.utils.NetWorkUtils
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lib.core.utils.WsCmdConstants
 import com.topdon.lms.sdk.weiget.TToast
-import com.topdon.tc004.R
+import com.topdon.tc001.R
 import com.topdon.tc004.activity.video.PlayFragment
 import com.topdon.tc004.adapter.MenuSixAdapter
 import com.topdon.tc004.bean.MenuBean
@@ -512,7 +511,6 @@ class IRMonocularActivity : BaseWifiActivity() {
                     }
                 }
             } catch (e: Exception) {
-                Log.e("刷新图标状态异常", e.message.toString())
             }
         }
     }

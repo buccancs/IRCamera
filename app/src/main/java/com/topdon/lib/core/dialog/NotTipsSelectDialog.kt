@@ -5,7 +5,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.ViewGroup
 import androidx.annotation.StringRes
-import com.topdon.lib.core.R
+import com.topdon.tc001.R
 import com.topdon.lib.core.utils.ScreenUtil
 import kotlinx.android.synthetic.main.dialog_not_tips_select.*
 

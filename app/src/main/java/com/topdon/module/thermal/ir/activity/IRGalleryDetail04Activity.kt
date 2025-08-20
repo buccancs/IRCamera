@@ -27,7 +27,7 @@ import com.topdon.lib.core.tools.FileTools
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.dialog.TipDialog
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 import com.topdon.lib.core.dialog.ConfirmSelectDialog
 import com.topdon.lib.core.bean.event.GalleryDelEvent
 import com.topdon.lms.sdk.weiget.TToast

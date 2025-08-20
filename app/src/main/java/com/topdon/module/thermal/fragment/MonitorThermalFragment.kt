@@ -2,7 +2,6 @@ package com.topdon.module.thermal.fragment
 
 import android.graphics.Bitmap
 import android.graphics.Matrix
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -27,7 +26,7 @@ import com.topdon.lib.core.utils.ScreenShotUtils
 import com.topdon.lib.ui.fence.FenceLineView
 import com.topdon.lib.ui.fence.FencePointView
 import com.topdon.lib.ui.fence.FenceView
-import com.topdon.module.thermal.R
+import com.topdon.tc001.R
 import com.topdon.module.thermal.activity.MonitorActivity
 import com.topdon.module.thermal.base.BaseThermalFragment
 import com.topdon.module.thermal.fragment.event.ThermalActionEvent
@@ -96,8 +95,6 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
         mIrSurfaceViewLayout!!.addView(mIrSurfaceView)
         val screenWidth = ScreenUtils.getScreenWidth()
         val screenHeight = screenWidth * 270 / 360
-        Log.w("123", "screenWidth比例:${screenWidth} / $screenHeight")
-        Log.w("123", "screenWidth比例:${screenWidth.toFloat() / screenHeight}")
         width = screenWidth
         height = screenHeight
         highCrossWidth = resources.getDimension(R.dimen.high_cross_width).toInt()
@@ -137,7 +134,6 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
         initFence()
         onIrVideoStart()
         mIrSurfaceView!!.post {
-            Log.w("123", "w:${mIrSurfaceView!!.width}, h:${mIrSurfaceView!!.height}")
         }
 
         msgLiveData.observe(this) { msg ->
@@ -180,7 +176,6 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
                 try {
                     mIrSurfaceView!!.doDraw(mIrBitmap, mGuideInterface!!.getImageStatus())
                 } catch (e: Exception) {
-                    e.printStackTrace()
                 }
                 if (rotateType == 1 || rotateType == 3) {
                     rawWidth = SRC_WIDTH
@@ -203,17 +198,13 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
                     mMaxTemp = maxBigDecimal.setScale(1, BigDecimal.ROUND_HALF_UP).toFloat()
                     mMinTemp = minBigDecimal.setScale(1, BigDecimal.ROUND_HALF_UP).toFloat()
                 } catch (e: Exception) {
-                    e.printStackTrace()
-                    Log.e(TAG, "提取温度异常:${e.message}")
                 }
             }
 
         })
 
         if (ret == 5) {
-            Log.w("123", "视频流开启完成")
         } else {
-            Log.w("123", "视频流开启失败")
             mGuideInterface = null
             mIsIrVideoStart = false
         }
@@ -235,21 +226,18 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
             origin.recycle()
             return newBitmap
         } catch (e: Exception) {
-            Log.e("123", "error:${e.message}")
             return origin
         }
     }
 
     fun onIrVideoStop() {
         mIsIrVideoStart = if (!mIsIrVideoStart) {
-            Log.w("123", "视频流已停止")
             return
         } else {
             false
         }
         mGuideInterface!!.exit()
         mGuideInterface = null
-        Log.w("123", "视频流停止完成")
     }
 
 
@@ -323,7 +311,6 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun action(event: ThermalActionEvent) {
-        Log.w("123", "event:${event.action}")
         when (event.action) {
             1001 -> {
                 ToastUtils.showShort("拍照")
@@ -455,17 +442,14 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
 
     private fun video() {
         if (isVideoRunning) {
-            Log.w("123", "正在录制")
             return
         }
         val latestResultPath = "${galleryPath}YapBitmapToMp4_${System.currentTimeMillis()}.mp4"
-        Log.w("123", "latestResultPath:$latestResultPath")
         YapVideoEncoder(this, File(latestResultPath)).start()
     }
 
     private fun full() {
         rotateType = if (rotateType == 0) {
-            Log.w("123", "横屏显示")
             1
         } else {
             0
@@ -484,7 +468,6 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
     }
 
     override fun progress(progress: Float) {
-        Log.w("123", "progress:$progress")
         isVideoRunning = progress > 0 || progress < 100
     }
 
@@ -512,7 +495,6 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
                 delay(timeMillis)
                 time++
             }
-            Log.w("123", "停止记录, 数据量:$time")
         }
     }
 }

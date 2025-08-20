@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
-import android.util.Log;
 
 import org.opencv.android.Utils;
 import org.opencv.core.CvType;
@@ -95,7 +94,6 @@ public class ImageColorTools {
             index += 4;
             j += 2;
         }
-//        Log.e("执行耗时：",System.currentTimeMillis() - time+"//");
         // Convert OpenCV Mat to Android Bitmap
         Bitmap outputBitmap = Bitmap.createBitmap(256, 192, Bitmap.Config.ARGB_8888);
         outputBitmap.copyPixelsFromBuffer(ByteBuffer.wrap(imageDst));
@@ -198,7 +196,6 @@ public class ImageColorTools {
                 }
             }
         }
-        Log.e("执行耗时：",System.currentTimeMillis() - time+"//");
 //        Imgproc.cvtColor(imageColor, imageColor, Imgproc.COLOR_BGR2RGBA);
 //        byte[] imageDst = matToByteArray(imageColor);
 //        Bitmap outputBitmap = Bitmap.createBitmap(imageColor.width(),
@@ -293,7 +290,6 @@ public class ImageColorTools {
 //                }
 //            }
 //        }
-        Log.e("执行耗时：",System.currentTimeMillis() - time+"//");
 //        Imgproc.cvtColor(imageMat, imageMat, Imgproc.COLOR_BGR2RGBA);
 //        byte[] imageDst = matToByteArray(imageMat);
 //        Bitmap outputBitmap = Bitmap.createBitmap(imageMat.width(),

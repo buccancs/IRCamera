@@ -1,6 +1,5 @@
 package com.topdon.module.thermal.activity
 
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -49,7 +48,6 @@ class ThermalActivity : BaseActivity() {
         menuAdapter.listener = object : MenuTabAdapter.OnItemClickListener {
             override fun onClick(index: Int) {
                 //二级菜单选择
-                Log.w("123", "index: $index")
                 EventBus.getDefault().post(ThermalActionEvent(action = index))
             }
 

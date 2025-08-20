@@ -28,7 +28,7 @@ import com.topdon.lib.core.db.entity.HouseReport
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.lms.sdk.weiget.TToast
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 import com.topdon.module.thermal.ir.adapter.ReportPreviewAdapter
 import kotlinx.android.synthetic.main.activity_report_preview.*
 import kotlinx.coroutines.Dispatchers

@@ -10,7 +10,7 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.SpanBuilder
 import com.topdon.lib.core.utils.Constants
-import com.topdon.tc004.R
+import com.topdon.tc001.R
 import kotlinx.android.synthetic.main.activity_connect_tips.*
 
 @Route(path = RouterConfig.IR_CONNECT_TIPS)

@@ -1,6 +1,5 @@
 package com.topdon.module.thermal.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.elvishew.xlog.XLog
@@ -32,18 +31,15 @@ class LogViewModel : BaseViewModel() {
             var endTime = 0L
             when (selectType) {
                 1 -> {
-                    Log.w("123", "查询秒")
                     //秒
                     endTime = Date().time
                     startTime = endTime - 7200 * 1000L //2小时
-                    Log.w("123", "query startTime:$startTime, endTime:$endTime")
                     dataList = AppDatabase.getInstance().thermalDao()
                         .getThermalByDate(
                             SharedManager.getUserId(),
                             startTime,
                             endTime
                         ) as ArrayList<ThermalEntity>
-                    Log.w("123", "data size: ${dataList.size}")
                 }
                 2 -> {
                     //分
@@ -77,7 +73,6 @@ class LogViewModel : BaseViewModel() {
             if (dataList == null) {
                 dataList = arrayListOf()
             } else {
-                Log.w("123", "dataList size:${dataList.size}")
             }
             resultLiveData.postValue(ChartList(dataList = dataList))
         }
@@ -134,8 +129,6 @@ class LogViewModel : BaseViewModel() {
                             startTime = startLogTime,
                             endTime = endLogTime
                         )
-                    Log.w("chart", "电压数据:${bean.dataList.size}")
-                    Log.w("chart", "电压数据max vol:${bean.maxVol},min vol:${bean.minVol}")
                 }
                 2 -> {
                     val resultList = AppDatabase.getInstance().thermalMinDao()
@@ -168,8 +161,6 @@ class LogViewModel : BaseViewModel() {
                             startTime = startLogTime,
                             endTime = endLogTime
                         )
-                    Log.w("chart", "电压数据:${bean.dataList.size}")
-                    Log.w("chart", "电压数据max vol:${bean.maxVol},min vol:${bean.minVol}")
                 }
                 3 -> {
                     val resultList = AppDatabase.getInstance().thermalHourDao()
@@ -202,8 +193,6 @@ class LogViewModel : BaseViewModel() {
                             startTime = startLogTime,
                             endTime = endLogTime
                         )
-                    Log.w("chart", "电压数据:${bean.dataList.size}")
-                    Log.w("chart", "电压数据max vol:${bean.maxVol},min vol:${bean.minVol}")
                 }
                 4 -> {
                     val resultList = AppDatabase.getInstance().thermalDayDao()
@@ -236,15 +225,12 @@ class LogViewModel : BaseViewModel() {
                             startTime = startLogTime,
                             endTime = endLogTime
                         )
-                    Log.w("chart", "电压数据:${bean.dataList.size}")
-                    Log.w("chart", "电压数据max vol:${bean.maxVol},min vol:${bean.minVol}")
                 }
             }
             bean.action = action
             if (action == 4) {
                 val startTime = TimeTool.showDateType(bean.dataList.first().createTime)
                 val endTime = TimeTool.showDateType(bean.dataList.last().createTime)
-                Log.w("123", "log start:${startTime}, end:$endTime")
             }
             resultLiveData.postValue(bean)
         }
@@ -319,7 +305,6 @@ class LogViewModel : BaseViewModel() {
                                 startTime = startLogTime,
                                 endTime = endLogTime
                             )
-                        Log.w("chart", "电压数据:${bean.dataList.size}")
                     }
                     2 -> {
                         val resultList = AppDatabase.getInstance().thermalMinDao()
@@ -353,7 +338,6 @@ class LogViewModel : BaseViewModel() {
                                 startTime = startLogTime,
                                 endTime = endLogTime
                             )
-                        Log.w("chart", "电压数据:${bean.dataList.size}")
                     }
                     3 -> {
                         val resultList = AppDatabase.getInstance().thermalHourDao()
@@ -387,7 +371,6 @@ class LogViewModel : BaseViewModel() {
                                 startTime = startLogTime,
                                 endTime = endLogTime
                             )
-                        Log.w("chart", "电压数据:${bean.dataList.size}")
                     }
                     4 -> {
                         val resultList = AppDatabase.getInstance().thermalDayDao()
@@ -421,13 +404,11 @@ class LogViewModel : BaseViewModel() {
                                 startTime = startLogTime,
                                 endTime = endLogTime
                             )
-                        Log.w("chart", "电压数据:${bean.dataList.size}")
                     }
                 }
                 delay(500)
                 resultLiveData.postValue(bean)
             } catch (e: Exception) {
-                XLog.e("数据查询异常:${e.message}")
                 resultLiveData.postValue(ChartList())
             }
         }
@@ -523,12 +504,10 @@ class LogViewModel : BaseViewModel() {
      * 5. 删除多余的数据
      */
     private suspend fun syncVol(selectTimeType: Int) {
-        Log.i("chart", "syncVol: $syncRun")
         if (syncRun) {
             //有任务正在执行
             return
         }
-        Log.i("chart", "syncVol start")
         if (selectTimeType == 1) {
             //秒数据不用处理
             return
@@ -548,12 +527,10 @@ class LogViewModel : BaseViewModel() {
                             endTime = System.currentTimeMillis()
                         )
                 if (minuteVolLatestList.isNotEmpty()) {
-                    Log.w("chart", "最新时间段已经有记录，不需要同步更新")
                     return
                 }
                 val maxTime =
                     AppDatabase.getInstance().thermalMinDao().queryMaxTime(userId = userId)
-                Log.w("chart", "minute latest time: $maxTime, ${TimeTool.showDateType(maxTime)}")
                 //获取要更新的时间段数据
                 val secondVolList = AppDatabase.getInstance().thermalDao()
                     .queryByTime(
@@ -565,9 +542,7 @@ class LogViewModel : BaseViewModel() {
                 if (secondVolList.size > 0) {
                     val startTime = TimeTool.showDateType(secondVolList.first().createTime)
                     val endTime = TimeTool.showDateType(secondVolList.last().createTime)
-                    Log.w("chart", "要处理${secondVolList.size}个数据, start:$startTime, end:${endTime}")
                 } else {
-                    Log.w("chart", "无数据处理")
                 }
                 //秒数据转分数据的平均值
                 val minVolList = getNewVolData(secondVolList, 2)
@@ -586,7 +561,6 @@ class LogViewModel : BaseViewModel() {
                         bean.updateTime = System.currentTimeMillis()
                         AppDatabase.getInstance().thermalMinDao().insert(bean)
                     } catch (e: Exception) {
-                        XLog.e("insert error:${e.message}")
                     }
                 }
                 val bean = ThermalMinuteEntity()
@@ -599,7 +573,6 @@ class LogViewModel : BaseViewModel() {
                     bean.updateTime = System.currentTimeMillis()
                     AppDatabase.getInstance().thermalMinDao().insert(bean)
                 } catch (e: Exception) {
-                    XLog.e("insert error:${e.message}")
                 }
                 //删除多余的数据
                 AppDatabase.getInstance().thermalMinDao()
@@ -616,12 +589,10 @@ class LogViewModel : BaseViewModel() {
                             endTime = System.currentTimeMillis()
                         )
                 if (hourVolLatestList.isNotEmpty()) {
-                    Log.w("chart", "最新时间段已经有记录，不需要同步更新")
                     return
                 }
                 val maxTime =
                     AppDatabase.getInstance().thermalHourDao().queryMaxTime(userId = userId)
-                Log.w("chart", "hour latest  time: $maxTime, ${TimeTool.showDateType(maxTime)}")
                 //获取要更新的时间段数据
                 val secondVolList = AppDatabase.getInstance().thermalDao()
                     .queryByTime(
@@ -632,9 +603,7 @@ class LogViewModel : BaseViewModel() {
                 if (secondVolList.size > 0) {
                     val startTime = TimeTool.showDateType(secondVolList.first().createTime)
                     val endTime = TimeTool.showDateType(secondVolList.last().createTime)
-                    Log.w("chart", "要处理${secondVolList.size}个数据, start:$startTime, end:${endTime}")
                 } else {
-                    Log.w("chart", "无数据处理")
                 }
                 //秒数据转分数据的平均值
                 val hourVolList = getNewVolData(secondVolList, 3)
@@ -676,12 +645,10 @@ class LogViewModel : BaseViewModel() {
                         )
                 if (todayVolLatestList.isNotEmpty()) {
                     //今天已经有记录，说明已经同步到今天，不需要同步更新
-                    Log.w("chart", "今天已经有记录，不需要同步更新")
                     return
                 }
                 val maxTime =
                     AppDatabase.getInstance().thermalDayDao().queryMaxTime(userId = userId)
-                Log.w("chart", "day latest time: $maxTime, ${TimeTool.showDateType(maxTime)}")
                 //获取要更新的时间段数据
                 val secondVolList = AppDatabase.getInstance().thermalDao()
                     .queryByTime(
@@ -693,9 +660,7 @@ class LogViewModel : BaseViewModel() {
                 if (secondVolList.size > 0) {
                     val startTime = TimeTool.showDateType(secondVolList.first().createTime)
                     val endTime = TimeTool.showDateType(secondVolList.last().createTime)
-                    Log.w("chart", "要处理${secondVolList.size}个数据, start:$startTime, end:${endTime}")
                 } else {
-                    Log.w("chart", "无数据处理")
                 }
                 val dayVolList = getNewVolData(secondVolList, 4)
                 //添加到分数据库
@@ -727,7 +692,6 @@ class LogViewModel : BaseViewModel() {
             }
         }
         syncRun = false
-        Log.w("chart", "syncVol end")
     }
 
     data class ChartList(

@@ -3,7 +3,6 @@ package com.topdon.module.thermal.ir.fragment
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +20,7 @@ import com.topdon.lib.core.db.dao.ThermalDao
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.libcom.view.CommLoadMoreView
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 import com.topdon.module.thermal.ir.activity.IRLogMPChartActivity
 import com.topdon.module.thermal.ir.event.MonitorCreateEvent
 import com.topdon.module.thermal.ir.viewmodel.IRMonitorViewModel

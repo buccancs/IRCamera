@@ -14,7 +14,6 @@ object SocketCmdUtil {
             paramMap["cmd"] = cmd
             cmdJson = gson.toJson(paramMap)
         } catch (e: Exception) {
-            e.printStackTrace()
         } finally {
             return cmdJson
         }
@@ -27,7 +26,6 @@ object SocketCmdUtil {
             val jsonObject = JSONObject(response)
             cmd = jsonObject.getInt("cmd")
         } catch (e: JSONException) {
-            e.printStackTrace()
         }
         return cmd
     }
@@ -39,7 +37,6 @@ object SocketCmdUtil {
             val jsonObject = JSONObject(response)
             ip = jsonObject.getString("ip")
         } catch (e: JSONException) {
-            e.printStackTrace()
         }
         return ip
     }

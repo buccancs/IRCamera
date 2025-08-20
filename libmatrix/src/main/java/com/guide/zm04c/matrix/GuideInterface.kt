@@ -4,12 +4,10 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.os.Build
 import android.text.TextUtils
-import android.util.Log
 import androidx.annotation.RequiresApi
-import com.guide.zm04c.matrix.Logger.d
 import com.guide.zm04c.matrix.utils.FileUtils.Companion.saveFile
 import com.guide.zm04c.matrix.utils.HexDump
-import com.topdon.lib.core.BaseApplication
+// import com.topdon.lib.core.BaseApplication  // Commented out due to missing dependency
 import java.io.BufferedInputStream
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -19,7 +17,6 @@ import kotlin.experimental.and
 
 class GuideInterface {
 
-    private val TAG = "guidecore"
     private val IR_WIDTH = 256
     private val IR_HEIGHT = 192
     private val HEAD_SIZE = 64
@@ -65,21 +62,14 @@ class GuideInterface {
     private fun startUsbBufferWriteThread() {
         mWriteThreadFlag = true
         mUsbBufferWriteThread = Thread {
-            d(TAG, "write thread start")
             while (mWriteThreadFlag) {
                 val length: Int = mGuideUsbManager!!.read(mUsbReadbuffer) //读取红外设备传回的图像信息
                 if (length > 0) {
                     mUsbBuffer!!.write(mUsbReadbuffer, 0, length)
                 } else {
-//                        Logger.d(TAG, "length < 0");
-                    try {
-                        Thread.sleep(10)
-                    } catch (e: InterruptedException) {
-                        e.printStackTrace()
-                    }
+                    Thread.sleep(10)
                 }
             }
-            d(TAG, "write thread exit")
         }
         mUsbBufferWriteThread!!.start()
     }
@@ -92,7 +82,6 @@ class GuideInterface {
     private fun startUsbBufferReadThread() {
         mReadThreadFlag = true
         mUsbBufferReadThread = Thread {
-            d(TAG, "read thread start")
             while (mReadThreadFlag) {
                 val ret = mUsbBuffer!!.readFrame(mFrame) //mFrame len: 295488
                 if (ret) {
@@ -130,10 +119,8 @@ class GuideInterface {
                         mIrDataCallback!!.processIrData(mYuv, mTempMatrixFloat) //回调图片信息和温度矩阵
                     }
                 } else {
-//                        Logger.d(TAG, "read Frame failed");
                 }
             }
-            d(TAG, "read thread exit")
         }
         mUsbBufferReadThread!!.start()
     }
@@ -144,7 +131,6 @@ class GuideInterface {
             try {
                 mUsbBufferWriteThread!!.join()
             } catch (e: InterruptedException) {
-                e.printStackTrace()
             }
             mUsbBufferWriteThread = null
         }
@@ -156,7 +142,6 @@ class GuideInterface {
             try {
                 mUsbBufferReadThread!!.join()
             } catch (e: InterruptedException) {
-                e.printStackTrace()
             }
             mUsbBufferReadThread = null
         }
@@ -183,7 +168,6 @@ class GuideInterface {
         if (ret != 5) {
             return ret
         }
-        d(TAG, "connectUsbDevice ret = $ret")
         mUsbBuffer = UsbBuffer(FRAME_SIZE, HEAD_SIZE, 8)
         mUsbBuffer!!.setFrameMark(0xBB66)
         startUsbBufferReadThread()
@@ -218,7 +202,6 @@ class GuideInterface {
     }
 
     fun changePalette(i: Int) {
-        Log.d(TAG, "changePalette() called with: i = [$i]")
         if (mGuideUsbManager == null) {
             return
         }
@@ -413,7 +396,6 @@ class GuideInterface {
                 `in`!!.close()
                 bos.close()
             } catch (ex: Exception) {
-                ex.printStackTrace()
             }
             return FirmwareUpgradeResultCode.FILE_READ_ERROR
         }

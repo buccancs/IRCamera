@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup.LayoutParams
 import android.widget.TextView
 import androidx.annotation.StringRes
-import com.topdon.lib.core.R
+import com.topdon.tc001.R
 import com.topdon.lib.core.utils.ScreenUtil
 import kotlinx.android.synthetic.main.dialog_tip_shutter.view.*
 

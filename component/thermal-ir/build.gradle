@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
+    id 'kotlin-parcelize'
     id 'kotlin-kapt'
 }
 
@@ -12,6 +12,7 @@ kapt {
 }
 
 android {
+    namespace 'com.topdon.module.thermal.ir'
     compileSdk rootProject.ext.android.compileSdk
 
     defaultConfig {
@@ -29,14 +30,15 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
     buildFeatures{
         dataBinding = true
+        buildConfig = true
     }
 //    repositories {
 //        flatDir {
@@ -75,7 +77,7 @@ dependencies {
     implementation project(':component:house')
     implementation project(':component:pseudo')
 
-    kapt "com.alibaba:arouter-compiler:1.5.2"
+    kapt "com.alibaba:arouter-compiler:1.5.4"
     api "com.airbnb.android:lottie:6.0.0"
     api 'com.github.anzaizai:EasySwipeMenuLayout:1.1.4'
 

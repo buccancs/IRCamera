@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import androidx.core.content.ContextCompat
 import com.blankj.utilcode.util.SizeUtils
@@ -22,7 +21,7 @@ import com.github.mikephil.charting.listener.OnChartGestureListener
 import com.topdon.lib.core.bean.tools.ThermalBean
 import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.lib.core.tools.TimeTool
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 import com.topdon.module.thermal.ir.chart.IRMyValueFormatter
 import com.topdon.module.thermal.ir.chart.YValueFormatter
 import com.topdon.module.thermal.ir.utils.ChartTools
@@ -115,7 +114,6 @@ class ChartMonitorView : LineChart, OnChartGestureListener {
         synchronized(this) {
             try {
                 if (bean.createTime == 0L) {
-                    Log.w("123", "createTime = 0L, bean:${bean}")
                     return
                 }
                 val lineData: LineData = this.data
@@ -135,18 +133,15 @@ class ChartMonitorView : LineChart, OnChartGestureListener {
                         if (volDataSet == null) {
                             volDataSet = createSet(0, "point temp")
                             lineData.addDataSet(volDataSet)
-                            Log.w("123", "volDataSet.entryCount:${volDataSet.entryCount}")
                         }
                         val entity = Entry(x, bean.thermal)
                         entity.data = bean
                         volDataSet.addEntry(entity)
-                        Log.w("123", "添加一个数据:$entity")
                     }
                     2 -> {
                         if (volDataSet == null) {
                             volDataSet = createSet(0, "line max temp")
                             lineData.addDataSet(volDataSet)
-                            Log.w("123", "volDataSet.entryCount:${volDataSet.entryCount}")
                         }
                         val entity = Entry(x, bean.thermalMax)
                         entity.data = bean
@@ -194,7 +189,6 @@ class ChartMonitorView : LineChart, OnChartGestureListener {
                 }
                 return@synchronized
             } catch (e: Exception) {
-                Log.e("123", "添加数据时异常:${e.message}")
                 return@synchronized
             }
         }

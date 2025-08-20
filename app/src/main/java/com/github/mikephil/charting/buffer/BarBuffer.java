@@ -10,4 +10,5 @@ public class BarBuffer extends AbstractBuffer<IBarDataSet> {
     protected int mDataSetCount = 1;
     protected boolean mContainsStacks = false;
     protected boolean mInverted = false;
+}
 

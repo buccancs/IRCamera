@@ -8,7 +8,7 @@ import android.view.ViewGroup.LayoutParams
 import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.topdon.lib.core.R
+import com.topdon.tc001.R
 import com.topdon.lib.core.adapter.TargetColorAdapter
 import com.topdon.lib.core.bean.ObserveBean
 import com.topdon.lib.core.utils.ScreenUtil

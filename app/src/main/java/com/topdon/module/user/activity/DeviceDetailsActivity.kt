@@ -11,7 +11,7 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.repository.ProductBean
 import com.topdon.lms.sdk.utils.TLog
 import com.topdon.lms.sdk.weiget.TToast
-import com.topdon.module.user.R
+import com.topdon.tc001.R
 import kotlinx.android.synthetic.main.activity_device_details.*
 import kotlinx.coroutines.launch
 
@@ -44,7 +44,6 @@ class DeviceDetailsActivity : BaseActivity(), View.OnClickListener {
             } else {
                 val deviceDetailsBean = TS004Repository.getDeviceInfo()
                 if (deviceDetailsBean?.isSuccess()!!) {
-                    TLog.d("ts004-->response", "${deviceDetailsBean.data}")
                     tv_sn_value.text = deviceDetailsBean.data!!.sn
                     tv_device_model_value.text = deviceDetailsBean.data!!.model
                 } else {

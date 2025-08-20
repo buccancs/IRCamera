@@ -10,7 +10,7 @@ import android.view.ViewGroup.LayoutParams
 import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
-import com.topdon.lib.core.R
+import com.topdon.tc001.R
 import kotlinx.android.synthetic.main.dialog_tip.view.*
 
 class TipDialog : Dialog {

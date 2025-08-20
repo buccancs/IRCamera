@@ -1,7 +1,7 @@
 package com.topdon.module.user.model
 
 import com.blankj.utilcode.util.Utils
-import com.topdon.module.user.R
+import com.topdon.tc001.R
 
 object FaqRepository {
 

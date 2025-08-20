@@ -8,7 +8,6 @@ import android.content.res.AssetManager;
 import android.hardware.usb.UsbDevice;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
@@ -26,7 +25,7 @@ import com.infisense.iruvc.utils.SynchronizedBitmap;
 import com.infisense.iruvc.uvc.ConcreateUVCBuilder;
 import com.infisense.iruvc.uvc.UVCCamera;
 import com.infisense.iruvc.uvc.UVCType;
-import com.infisense.usbir.R;
+import com.topdon.tc001.R;
 import com.infisense.usbir.config.MsgCode;
 import com.infisense.usbir.utils.BitmapUtils;
 
@@ -36,7 +35,6 @@ import java.util.List;
 
 public class IRUVCTC {
 
-    private static final String TAG = "IRUVC";
     private final int TinyB = 0x3901;
     private IFrameCallback iFrameCallback;
     private Context mContext;
@@ -98,7 +96,6 @@ public class IRUVCTC {
             
             @Override
             public void onAttach(UsbDevice device) {
-                Log.w(TAG, "onAttach");
                 if (isIRpid(device.getProductId())) {
                     if (uvcCamera == null || !uvcCamera.getOpenStatus()) {
                         mUSBMonitor.requestPermission(device);
@@ -110,7 +107,6 @@ public class IRUVCTC {
             
             @Override
             public void onConnect(final UsbDevice device, USBMonitor.UsbControlBlock ctrlBlock, boolean createNew) {
-                Log.w(TAG, "onConnect");
                 if (isIRpid(device.getProductId())) {
                     if (createNew) {
                         openUVCCamera(ctrlBlock, dataFlowMode);
@@ -123,14 +119,12 @@ public class IRUVCTC {
             
             @Override
             public void onDisconnect(UsbDevice device, USBMonitor.UsbControlBlock ctrlBlock) {
-                Log.w(TAG, "onDisconnect");
             }
 
             
             
             @Override
             public void onDettach(UsbDevice device) {
-                Log.w(TAG, "onDettach");
                 if (isIRpid(device.getProductId())) {
                     if (uvcCamera != null && uvcCamera.getOpenStatus()) {
                         stopPreview();
@@ -140,7 +134,6 @@ public class IRUVCTC {
 
             @Override
             public void onCancel(UsbDevice device) {
-                Log.w(TAG, "onCancel");
             }
         });
         
@@ -171,7 +164,6 @@ public class IRUVCTC {
                     fps = 100 * 1000 / (timeuse + 0.0);
                 }
                 timestart = currentTimeMillis;
-                Log.d(TAG, "frame.length = " + frame.length + " fps=" + String.format("%.1f", fps) +
                         " dataFlowMode = " + dataFlowMode + " rotate = " + rotate);
             }
             if (syncimage == null) return;
@@ -183,7 +175,6 @@ public class IRUVCTC {
                     
                     if (mHandler != null)
                         mHandler.sendEmptyMessage(MsgCode.RESTART_USB);
-                    Log.d(TAG, "RESTART_USB");
                     return;
                 }
                 if ((dataFlowMode == CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT) || isUseIRISP && (dataFlowMode == CommonParams.DataFlowMode.TEMP_OUTPUT)) {
@@ -261,7 +252,6 @@ public class IRUVCTC {
     }
 
     public void init(int cameraWidth, int cameraHeight) {
-        Log.w(TAG, "init");
         
         ConcreateUVCBuilder concreateUVCBuilder = new ConcreateUVCBuilder();
         uvcCamera = concreateUVCBuilder
@@ -320,7 +310,6 @@ public class IRUVCTC {
     }
 
     public void openUVCCamera(USBMonitor.UsbControlBlock ctrlBlock, CommonParams.DataFlowMode dataFlowMode) {
-        Log.i(TAG, "openUVCCamera");
         if (ctrlBlock.getProductId() == TinyB) {
             if (syncimage != null) {
                 syncimage.type = 1;
@@ -337,7 +326,6 @@ public class IRUVCTC {
     }
 
     public void startPreview() {
-        Log.i(TAG, "startPreview");
        if (uvcCamera!=null){
            uvcCamera.setOpenStatus(true);
            uvcCamera.setFrameCallback(iFrameCallback);
@@ -352,7 +340,6 @@ public class IRUVCTC {
     }
 
     public void stopPreview() {
-        Log.i(TAG, "stopPreview");
         if (uvcCamera != null) {
             if (uvcCamera.getOpenStatus()) {
                 uvcCamera.onStopPreview();
@@ -371,7 +358,6 @@ public class IRUVCTC {
         ircmd.getCurrentVTemperature(curVtemp);
         
         uvcCamera.setCurVTemp(curVtemp[0]);
-        Log.i(TAG, "ktbt_init->CurVTemp=" + curVtemp[0]);
 
         uvcCamera.initIRISPModule();
         
@@ -414,9 +400,7 @@ public class IRUVCTC {
                         int lenth_priv = is.available();
                         priv_high = new byte[lenth_priv];
                         if (is.read(priv_high) != lenth_priv) {
-                            Log.d(TAG, "read priv file fail ");
                         }
-                        Log.d(TAG, "read priv file lenth " + lenth_priv);
                     } else {
                         
                         ircmd.readPrivData(gainMode, priv_high, priv_low);
@@ -425,7 +409,6 @@ public class IRUVCTC {
                         BitmapUtils.saveByteFile(priv_low, "priv_low");
                     }
                     for (int i = 0; i < 6; i++) {
-                        Log.i(TAG, "ktbt_init->priv_data[" + i + "]=" + priv_high[i]);
                     }
 
                     if (isUseSaveData) {
@@ -434,9 +417,7 @@ public class IRUVCTC {
                         int lenthKt = is.available();
                         byte kt_high_byte[] = new byte[lenthKt];
                         if (is.read(kt_high_byte) != lenthKt) {
-                            Log.d(TAG, "read kt file fail ");
                         }
-                        Log.d(TAG, "read kt file lenth " + lenthKt);
                         kt_high = BitmapUtils.toShortArray(kt_high_byte);
                     } else {
                         
@@ -446,7 +427,6 @@ public class IRUVCTC {
                         BitmapUtils.saveShortFile(kt_low, "kt_low");
                     }
                     for (int i = 0; i < 100; i++) {
-                        Log.i(TAG, "ktbt_init->kt_data[" + i + "]=" + kt_high[i]);
                     }
 
                     if (isUseSaveData) {
@@ -455,13 +435,10 @@ public class IRUVCTC {
                         int lenthBt = is.available();
                         byte bt_high_byte[] = new byte[lenthBt];
                         if (is.read(bt_high_byte) != lenthBt) {
-                            Log.d(TAG, "read file fail ");
                         }
-                        Log.d(TAG, "read bt file lenth " + lenthBt);
                         bt_high = BitmapUtils.toShortArray(bt_high_byte);
 
                         for (int i = 0; i < 100; i++) {
-                            Log.i(TAG, "ktbt_init->bt_data[" + i + "]=" + bt_high_byte[i]);
                         }
                     } else {
                         
@@ -478,15 +455,12 @@ public class IRUVCTC {
                         int lenthNuc = is.available();
                         byte nuc_table_high_byte[] = new byte[lenthNuc];
                         if (is.read(nuc_table_high_byte) != lenthNuc) {
-                            Log.d(TAG, "read nuc_table file fail ");
                         }
-                        Log.d(TAG, "read nuc_table file lenth " + lenthNuc);
                         nuc_table_high = BitmapUtils.toShortArray(nuc_table_high_byte);
                     } else {
                         
                         int[] valueGain = new int[1];
                         ircmd.getPropTPDParams(CommonParams.PropTPDParams.TPD_PROP_GAIN_SEL, valueGain);
-                        Log.i(TAG, "TPD_PROP_GAIN_SEL=" + valueGain[0]);
 
                         if (valueGain[0] == 1) {
                             
@@ -499,24 +473,20 @@ public class IRUVCTC {
                         ircmd.readNucTableFromFlash(gainMode, nuc_table_high, nuc_table_low);
                         
                         for (int i = 4000; i < 5000; i += 100) {
-                            Log.i(TAG, "ktbt_init->nuc_table_high[" + i + "]=" + nuc_table_high[i]);
                         }
                         for (int i = 4000; i < 5000; i += 100) {
-                            Log.i(TAG, "ktbt_init->nuc_table_low[" + i + "]=" + nuc_table_low[i]);
                         }
                         
                         BitmapUtils.saveShortFile(nuc_table_high, "nuc_table_high");
                         BitmapUtils.saveShortFile(nuc_table_low, "nuc_table_low");
                     }
                 } catch (IOException e) {
-                    e.printStackTrace();
                 } finally {
                     try {
                         if (is != null) {
                             is.close();
                         }
                     } catch (IOException e) {
-                        e.printStackTrace();
                     }
                 }
 

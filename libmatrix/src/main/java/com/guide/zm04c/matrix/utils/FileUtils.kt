@@ -16,7 +16,6 @@ class FileUtils {
 
     companion object {
 
-        private val TAG = "RealTimeImpl"
 
         fun isFileExist(filePath: String): Boolean {
             if (StringUtils.isBlank(filePath)) {
@@ -118,7 +117,6 @@ class FileUtils {
                 }
 
             } catch (io: IOException) {
-                io.printStackTrace()
             } finally {
                 outputFile?.close()
                 inputStream?.close()
@@ -145,20 +143,14 @@ class FileUtils {
                 val f = File(filePath)
 
                 if (!f.exists()) {
-                    Logger.d("FileUtils", "file not exists")
                     f.createNewFile()
                 }
 
                 stream = FileOutputStream(f)
 
-                Logger.d("FileUtils", "end")
 
             } catch (e: FileNotFoundException) {
-                e.printStackTrace()
-                Logger.d("FileUtils", "FileNotFoundException: " + e.message)
             } catch (e: IOException) {
-                e.printStackTrace()
-                Logger.d("FileUtils", "IOException: " + e.message)
             }
 
             if (null != bmp && null != stream) {
@@ -224,7 +216,6 @@ class FileUtils {
                 try {
                     fs = FileInputStream(file)
                 } catch (e: FileNotFoundException) {
-                    e.printStackTrace()
                 }
 
                 if (fs != null) {
@@ -249,13 +240,11 @@ class FileUtils {
                             }
                         }
                     } catch (e: IOException) {
-                        e.printStackTrace()
                     } finally {
                         if (fs != null) {
                             try {
                                 fs.close()
                             } catch (e: IOException) {
-                                e.printStackTrace()
                             }
 
                         }
@@ -277,11 +266,9 @@ class FileUtils {
                 buffer = ByteArray(fis.available())
                 fis.read(buffer)
             } catch (e: FileNotFoundException) {
-                e.printStackTrace()
                 fileNotFoundErrAction()
                 return null
             } catch (ioe: IOException) {
-                ioe.printStackTrace()
                 ioErrAction()
                 return null
             } finally {
@@ -289,7 +276,6 @@ class FileUtils {
                     try {
                         fis.close()
                     } catch (e: IOException) {
-                        e.printStackTrace()
                     }
 
                 }
@@ -307,7 +293,6 @@ class FileUtils {
                     inputStream.read(byteArr)
                 }
             } catch (e1: Exception) {
-                e1.printStackTrace()
                 // 捕获异常后尝试读取下一遍
                 try {
                     if (null != inputStream) {
@@ -315,7 +300,6 @@ class FileUtils {
                         inputStream.read(byteArr)
                     }
                 } catch (e2: Exception) {
-                    e2.printStackTrace()
                 }
 
             }

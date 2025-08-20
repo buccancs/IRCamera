@@ -38,6 +38,7 @@ class SpanBuilder : SpannableStringBuilder {
     }
 
     fun appendColor(text: CharSequence, @ColorInt color: Int): SpanBuilder {
+        if (text.isEmpty()) {
             return this
         }
         val oldLength = this.length
@@ -47,6 +48,7 @@ class SpanBuilder : SpannableStringBuilder {
     }
 
     fun appendColorAndClick(text: CharSequence, @ColorInt color: Int, listener: OnClickListener): SpanBuilder {
+        if (text.isEmpty()) {
             return this
         }
         val oldLength = this.length

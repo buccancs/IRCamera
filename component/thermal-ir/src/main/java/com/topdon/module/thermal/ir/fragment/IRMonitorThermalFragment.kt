@@ -4,7 +4,6 @@ import android.graphics.Bitmap
 import android.graphics.Point
 import android.graphics.RectF
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.yt.jni.Usbcontorl
@@ -90,7 +89,6 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun action(event: ThermalActionEvent) {
         temperatureView.isEnabled = true
-        Log.w("123", "event:${event.action}")
         when (event.action) {
             2001 -> {
                 //点
@@ -161,7 +159,6 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
         // 某些特定客户的特殊设备需要使用该命令关闭sensor
         if (Usbcontorl.isload) {
             Usbcontorl.usb3803_mode_setting(1) //打开5V
-            Log.w("123", "打开5V")
         }
         //初始全局测温
         temperatureView.post {
@@ -189,7 +186,6 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
             imageThread!!.setRotate(true)
             imageThread!!.start()
         }catch (e : Exception){
-            Log.e("图像线程重复启动",e.message.toString())
         }
     }
 
@@ -204,7 +200,6 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
                 }
 
                 override fun onIRCMDCreate(ircmd: IRCMD) {
-                    Log.i(
                         TAG,
                         "ConnectCallback->onIRCMDCreate"
                     )
@@ -226,7 +221,6 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
                     val arm = String(fwBuildVersionInfoBytes.copyOfRange(0, 8))
                     isTS001 = arm.contains("Mini256", true)
                     ircmd!!.getPropTPDParams(CommonParams.PropTPDParams.TPD_PROP_GAIN_SEL, value)
-                    Log.d(TAG, "TPD_PROP_GAIN_SEL=" + value[0])
                     gainStatus = if (value[0] == 1) {
                         // 当前机芯为高增益
                         CommonParams.GainStatus.HIGH_GAIN
@@ -269,7 +263,6 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
 
     override fun onStart() {
         super.onStart()
-        Log.w(TAG, "onStart")
         if (!isrun) {
             //初始配置,伪彩铁红
             if (isPick){
@@ -289,7 +282,6 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
 
     override fun onStop() {
         super.onStop()
-        Log.w(TAG, "onStop")
         if (iruvc != null) {
             iruvc!!.stopPreview()
             iruvc!!.unregisterUSB()
@@ -303,11 +295,9 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.w(TAG, "onDestroy")
         try {
             imageThread?.join()
         } catch (e: InterruptedException) {
-            Log.e(TAG, "imageThread.join(): catch an interrupted exception")
         }
         // 某些特定客户的特殊设备需要使用该命令关闭sensor
 //        if (Usbcontorl.isload) {
@@ -442,7 +432,6 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
             val disChar = (config.distance * 128).toInt() //距离(米)
             val emsChar = (config.radiation * 128).toInt() //发射率
 //            val tuChar = (config.environment * 10).toInt().toChar() //环境温度
-            XLog.w("设置TPD_PROP DISTANCE:${disChar.toInt()}, EMS:${emsChar.toInt()}}")
             val timeMillis = 250L
             delay(timeMillis)
             //发射率
@@ -512,7 +501,6 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
         try {
             tmp = tempCorrect(temp!!, gainStatus, 0)
         } catch (e: Exception) {
-            XLog.i("温度校正失败: ${e.message}")
         }
         return tmp!!
     }

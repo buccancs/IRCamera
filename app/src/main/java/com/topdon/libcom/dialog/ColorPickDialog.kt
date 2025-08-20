@@ -12,7 +12,7 @@ import com.blankj.utilcode.util.SizeUtils
 import com.jaygoo.widget.DefRangeSeekBar
 import com.jaygoo.widget.OnRangeChangedListener
 import com.topdon.lib.core.utils.ScreenUtil
-import com.topdon.libcom.R
+import com.topdon.tc001.R
 import com.topdon.libcom.util.ColorUtils
 import kotlinx.android.synthetic.main.dialog_color_pick.nifty_slider_view
 import kotlinx.android.synthetic.main.dialog_color_pick.tv_nifty_left

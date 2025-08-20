@@ -4,7 +4,6 @@ import android.graphics.Bitmap
 import android.graphics.Point
 import android.graphics.RectF
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.yt.jni.Usbcontorl
@@ -29,7 +28,7 @@ import com.topdon.lib.core.common.SaveSettingUtil
 import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.utils.ScreenUtil
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 import com.topdon.module.thermal.ir.activity.IRMonitorActivity
 import com.topdon.module.thermal.ir.bean.SelectPositionBean
 import com.topdon.module.thermal.ir.event.ThermalActionEvent
@@ -63,7 +62,6 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
         setViewLay()
         if (Usbcontorl.isload) {
             Usbcontorl.usb3803_mode_setting(1) //打开5V
-            Log.w("123", "打开5V")
         }
         temperatureView.post {
             if (!temperaturerun) {
@@ -86,7 +84,6 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
             imageThread!!.setRotate(true)
             imageThread!!.start()
         }catch (e : Exception){
-            Log.e("图像线程重复启动",e.message.toString())
         }
     }
 
@@ -98,7 +95,6 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
                 }
 
                 override fun onIRCMDCreate(ircmd: IRCMD) {
-                    Log.i(
                         TAG,
                         "ConnectCallback->onIRCMDCreate"
                     )
@@ -117,7 +113,6 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
                     val arm = String(fwBuildVersionInfoBytes.copyOfRange(0, 8))
                     isTS001 = arm.contains("Mini256", true)
                     ircmd!!.getPropTPDParams(CommonParams.PropTPDParams.TPD_PROP_GAIN_SEL, value)
-                    Log.d(TAG, "TPD_PROP_GAIN_SEL=" + value[0])
                     gainStatus = if (value[0] == 1) {
                         CommonParams.GainStatus.HIGH_GAIN
                     } else {
@@ -154,7 +149,6 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
 
     override fun onStart() {
         super.onStart()
-        Log.w(TAG, "onStart")
         if (!isrun) {
             if (isPick){
                 pseudocolorMode = SaveSettingUtil.pseudoColorMode
@@ -172,7 +166,6 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
 
     override fun onStop() {
         super.onStop()
-        Log.w(TAG, "onStop")
         if (iruvc != null) {
             iruvc!!.stopPreview()
             iruvc!!.unregisterUSB()
@@ -186,11 +179,9 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.w(TAG, "onDestroy")
         try {
             imageThread?.join()
         } catch (e: InterruptedException) {
-            Log.e(TAG, "imageThread.join(): catch an interrupted exception")
         }
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -312,7 +303,6 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
             val config = ConfigRepository.readConfig(false)
             val disChar = (config.distance * 128).toInt() //距离(米)
             val emsChar = (config.radiation * 128).toInt() //发射率
-            XLog.w("设置TPD_PROP DISTANCE:${disChar.toInt()}, EMS:${emsChar.toInt()}}")
             val timeMillis = 250L
             delay(timeMillis)
             ircmd?.setPropTPDParams(
@@ -375,7 +365,6 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
         try {
             tmp = tempCorrect(temp!!, gainStatus, 0)
         } catch (e: Exception) {
-            XLog.i("温度校正失败: ${e.message}")
         }
         return tmp!!
     }

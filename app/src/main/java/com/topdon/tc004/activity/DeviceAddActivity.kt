@@ -29,7 +29,7 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.SpanBuilder
-import com.topdon.tc004.R
+import com.topdon.tc001.R
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.config.ExtraKeyConfig
@@ -95,7 +95,6 @@ class DeviceAddActivity : BaseActivity() {
         requestPermission(2)
 
         LocationUtil.addBtStateListener(this) {
-            XLog.i("【添加设备】 位置信息开关状态：${if (it) "已开启" else "已关闭"}")
             refreshStateAndTips()
             if (it) {
                 if (isFirstRequest) {
@@ -118,7 +117,6 @@ class DeviceAddActivity : BaseActivity() {
             adapter.addOne(it)
         }
         BluetoothUtil.addBtStateListener(this) {
-            XLog.i("【添加设备】 蓝牙开关状态：${if (it) "已开启" else "已关闭"}")
             refreshStateAndTips()
             if (it) {
                 if (isFirstRequest) {
@@ -138,7 +136,6 @@ class DeviceAddActivity : BaseActivity() {
         }
 
         WifiUtil.addWifiStateListener(this) {
-            XLog.i("【添加设备】 WIFI 开关状态：${if (it) "已开启" else "已关闭或未知"}")
             refreshStateAndTips()
             if (it) {
                 if (isFirstRequest) {
@@ -232,10 +229,8 @@ class DeviceAddActivity : BaseActivity() {
                 .setPositiveListener(R.string.app_open) {
                     var intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                     if (intent.resolveActivity(packageManager) == null) {
-                        XLog.e("【添加设备】 位置信息 Intent 没有对应 Activity，尝试跳转系统设置首页")
                         intent = Intent(Settings.ACTION_SETTINGS)
                         if (intent.resolveActivity(packageManager) == null) {
-                            XLog.e("【添加设备】 不可能！系统设置首页 Intent 没有对应 Activity!")
                             return@setPositiveListener
                         }
                     }
@@ -266,10 +261,8 @@ class DeviceAddActivity : BaseActivity() {
                 .setPositiveListener(R.string.app_open) {
                     var intent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
                     if (intent.resolveActivity(packageManager) == null) {
-                        XLog.e("【添加设备】 不可能！开启蓝牙 Intent 没有对应 Activity! 尝试跳转系统设置首页")
                         intent = Intent(Settings.ACTION_SETTINGS)
                         if (intent.resolveActivity(packageManager) == null) {
-                            XLog.e("【添加设备】 不可能！系统设置首页 Intent 没有对应 Activity!")
                             return@setPositiveListener
                         }
                     }
@@ -303,13 +296,10 @@ class DeviceAddActivity : BaseActivity() {
                     } else {
                         var wifiIntent = Intent(Settings.Panel.ACTION_WIFI)
                         if (wifiIntent.resolveActivity(packageManager) == null) {
-                            XLog.e("【添加设备】 浮窗开启 WIFI Intent 没有对应 Activity! 尝试打开 WIFI 设置 Intent")
                             wifiIntent = Intent(Settings.ACTION_WIFI_SETTINGS)
                             if (wifiIntent.resolveActivity(packageManager) == null) {
-                                XLog.e("【添加设备】 不可能！WIFI 设置 Intent 没有对应 Activity! 尝试跳转系统设置首页")
                                 wifiIntent = Intent(Settings.ACTION_SETTINGS)
                                 if (wifiIntent.resolveActivity(packageManager) == null) {
-                                    XLog.e("【添加设备】 不可能！系统设置首页 Intent 没有对应 Activity!")
                                     return@setPositiveListener
                                 }
                             }
@@ -460,7 +450,6 @@ class DeviceAddActivity : BaseActivity() {
             return
         }
 
-        XLog.i("当前连接 ${WifiUtil.getCurrentWifiSSID(this)} 准备连接 $wifiName")
         showCameraLoading()
         job = lifecycleScope.launch {
             examineConnect()

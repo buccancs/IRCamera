@@ -20,7 +20,6 @@ import android.text.Layout
 import android.text.StaticLayout
 import android.text.TextPaint
 import android.text.TextUtils
-import android.util.Log
 import android.view.TextureView
 import android.view.View
 import android.view.View.VISIBLE
@@ -229,11 +228,9 @@ class VideoRecordFFmpeg(
      */
     private fun getVideoCodec(): Int {
         return if (Build.BRAND == "motorola" && Build.MODEL == "XT2201-2") {
-            XLog.i("使用视频编码AV_CODEC_ID_H264")
             avcodec.AV_CODEC_ID_H264
         } else {
             //默认类型
-            XLog.i("使用视频编码AV_CODEC_ID_MPEG4")
             avcodec.AV_CODEC_ID_MPEG4
         }
     }
@@ -329,7 +326,6 @@ class VideoRecordFFmpeg(
                             setBitmap(it)
                         }
                     }, Consumer {
-                        Log.e("图像对象录制异常", "${it.message}")
                     }
                 )
             if (audioRecord == null) {
@@ -402,24 +398,19 @@ class VideoRecordFFmpeg(
                                 AUDIO_CHANNELS, tmpAudioData
                             )
                         }
-//                        Log.w(
 //                            "图像大小",
 //                            "${System.currentTimeMillis() - time}======${frame.image.size}//${bufferSize}//${(recorder?.timestamp!! / 1000000L)}"
 //                        )
 
                     } catch (e: Exception) {
-                        Log.e("图像录制", "Caught an exception: " + e.message);
                     }
                 }, Consumer {
-                    Log.e("图像对象录制异常", "${it.message}")
                 })
 
         } catch (e: Exception) {
 //            stopRecord()
             exportDisposable?.dispose()
             stopVideoRecordListener?.invoke(false)
-            XLog.e("录制异常")
-            e.printStackTrace()
         }
     }
 
@@ -476,7 +467,6 @@ class VideoRecordFFmpeg(
                 )
             }
         } catch (e: Exception) {
-            Log.e("图像对象处理异常", "${e.message}")
         }
     }
 
@@ -486,7 +476,6 @@ class VideoRecordFFmpeg(
     fun canStartVideoRecord(videoFile: File?): Boolean {
         val canStart = (SDCardUtils.getExternalAvailableSize() - (videoFile?.length()
             ?: 0)) > (500L * 1000 * 1000)
-//        Log.w("本地可用空间","" + SDCardUtils.getExternalAvailableSize() / 1000 / 1000)
         if (!canStart) {
             ThreadUtils.runOnUiThread {
                 TipDialog.Builder(cameraView.context)
@@ -541,7 +530,6 @@ class VideoRecordFFmpeg(
                     delay(300)
                     refreshAlbum()
                 } catch (e: Exception) {
-                    XLog.e("捕获停止录制视频" + e.message)
                 }
             }
             isRunning = false
@@ -620,7 +608,6 @@ class VideoRecordFFmpeg(
         if (thermalPseudoBarView?.visibility == VISIBLE) {
             try {
                 thermalPseudoBarView?.viewBitmap?.let {
-//                    Log.w("图像对象处理耗时-彩条大小",it.byteCount.toString())
                     cameraViewBitmap = BitmapUtils.mergeBitmap(
                         cameraViewBitmap,
                         it,
@@ -628,9 +615,7 @@ class VideoRecordFFmpeg(
                         (cameraViewBitmap!!.height - it.height) / 2
                     )
                 }
-//                Log.w("图像对象处理耗时-彩条",""+(System.currentTimeMillis() - startTime))
             } catch (e: Exception) {
-//                Log.e("图像对象处理耗时-彩条",""+(System.currentTimeMillis() - startTime))
             }
         }
         if (true == tempBg?.isVisible) {
@@ -662,9 +647,7 @@ class VideoRecordFFmpeg(
                         SizeUtils.dp2px(20f)
                     )
                 } catch (e: Exception) {
-                    Log.e(TAG, "图像对象处理异常 exception:${e.message}")
                 }
-//                Log.w("图像对象处理耗时-指南针", "${System.currentTimeMillis() - startTime}")
             }
         }
 

@@ -9,7 +9,7 @@ import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.ktbase.BaseViewModel
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.lib.core.utils.HttpHelp
-import com.topdon.libcom.R
+import com.topdon.tc001.R
 import com.topdon.lms.sdk.LMS
 import com.topdon.lms.sdk.network.IResponseCallback
 import com.topdon.lms.sdk.utils.NetworkUtil
@@ -55,7 +55,6 @@ class PdfViewModel : BaseViewModel() {
                 result?.msg = p0?.message
                 result?.code = -1
                 downLatch.countDown()
-                TLog.e("bcf", "获取报告列表失败：" + p0?.message)
             }
 
             override fun onFail(failMsg: String?, errorCode: String) {
@@ -68,7 +67,6 @@ class PdfViewModel : BaseViewModel() {
                         TToast.shortToast(LMS.mContext, it)
                     }
                 } catch (e: Exception) {
-                    e.printStackTrace()
                 }
             }
         })

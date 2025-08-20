@@ -1,17 +1,11 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
-    id 'kotlin-kapt'
-}
-
-kapt {
-    arguments {
-        arg("AROUTER_MODULE_NAME", project.getName())
-    }
+    id 'kotlin-parcelize'
 }
 
 android {
+    namespace 'com.topdon.thermal'
     compileSdk rootProject.ext.android.compileSdk
 
     defaultConfig {
@@ -28,17 +22,16 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
 }
 
 dependencies {
     compileOnly(name: 'libcommon_1.2.0_24052117', ext: 'aar')
-    // implementation project(':libmatrix')  // Temporarily disabled due to CMake version issue
+    implementation project(':libmatrix')
     implementation 'com.google.android.mediahome:video:1.0.0'
-    kapt "com.alibaba:arouter-compiler:1.5.2"
 }

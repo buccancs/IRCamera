@@ -27,7 +27,7 @@ import com.topdon.lib.core.utils.ByteUtils.bytesToInt
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.ui.dialog.ProgressDialog
 import com.topdon.libcom.ExcelUtil
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 import com.topdon.lib.core.bean.event.GalleryDelEvent
 import com.topdon.lib.core.utils.Constants.IS_REPORT_FIRST
 import com.topdon.module.thermal.ir.event.ImageGalleryEvent
@@ -226,10 +226,8 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
                     withContext(Dispatchers.IO) {
                         val file = File(irPath)
                         if (!file.exists()) {
-                            XLog.w("IR文件不存在: ${file.absolutePath}")
                             return@withContext
                         }
-                        XLog.w("IR文件: ${file.absolutePath}")
                         val bytes = file.readBytes()
                         val headLenBytes = ByteArray(2)
                         System.arraycopy(bytes, 0, headLenBytes, 0, 2)

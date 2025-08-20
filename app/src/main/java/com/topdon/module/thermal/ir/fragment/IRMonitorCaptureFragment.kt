@@ -9,7 +9,7 @@ import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.lib.core.tools.ToastTools
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 import com.topdon.module.thermal.ir.activity.IRMonitorActivity
 import kotlinx.android.synthetic.main.fragment_ir_monitor_capture.*
 

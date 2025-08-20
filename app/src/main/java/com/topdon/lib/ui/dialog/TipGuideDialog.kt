@@ -130,7 +130,6 @@ class TipGuideDialog : DialogFragment() {
         try {
             super.show(manager, tag)
         } catch (e: Exception) {
-            e.printStackTrace()
         }
     }
 

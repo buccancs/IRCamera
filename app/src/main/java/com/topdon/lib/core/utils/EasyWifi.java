@@ -1,7 +1,6 @@
 package com.topdon.lib.core.utils;
 
 import android.content.Context;
-import android.util.Log;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -24,4 +23,5 @@ public class EasyWifi {
         WIFI_CIPHER_WPA,
         WIFI_CIPHER_NO_PASS
     }
+
 

@@ -3,7 +3,6 @@ package com.infisense.usbir.thread;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.SystemClock;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -35,7 +34,6 @@ public class ImageThreadTC extends Thread {
     public static final int TYPE_AI_L = 2;
 
     private byte[] imgTmp;
-    private String TAG = "ImageThread";
     private Context mContext;
     private Bitmap bitmap;
     private SynchronizedBitmap syncimage;
@@ -126,7 +124,6 @@ public class ImageThreadTC extends Thread {
     }
 
     public ImageThreadTC(Context context, int imageWidth, int imageHeight) {
-        Log.i(TAG, "ImageThread create->imageWidth = " + imageWidth + " imageHeight = " + imageHeight);
         this.mContext = context;
         this.imageWidth = imageWidth;
         this.imageHeight = imageHeight;
@@ -241,7 +238,6 @@ public class ImageThreadTC extends Thread {
                                 imageDst = grayData;
                                 firstTime++;
                             } catch (Throwable e) {
-                                Log.e("静态闯入异常：", e.getMessage());
                             }
                         } else {
                             
@@ -272,7 +268,6 @@ public class ImageThreadTC extends Thread {
                             }
                         }
                     }catch (Exception e){
-                        e.printStackTrace();
                     }
                     syncimage.valid = true;
                     syncimage.viewLock.notify();
@@ -281,10 +276,8 @@ public class ImageThreadTC extends Thread {
             try {
                 SystemClock.sleep(20);
             } catch (Exception e) {
-                XLog.e("Image Thread刷新异常: " + e.getMessage());
             }
         }
-        Log.i(TAG, "ImageThread exit");
     }
 
     public Bitmap getBaseBitmap(int rotateInt){

@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
+    id 'kotlin-parcelize'
     id 'kotlin-kapt'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
@@ -14,6 +14,7 @@ kapt {
 }
 
 android {
+    namespace 'com.topdon.tc001'
     compileSdk rootProject.ext.android.compileSdk
     defaultConfig {
         applicationId rootProject.ext.android.applicationId
@@ -28,7 +29,7 @@ android {
             abiFilters "arm64-v8a"
         }
 
-        buildConfigField "String", "VERSION_DATE", "\"$dayStr\""
+        buildConfigField "String", "VERSION_DATE", "\"${getDayStr()}\""
         manifestPlaceholders = [
                 JPUSH_PKGNAME : applicationId,
                 JPUSH_APPKEY : "cbd4eafc9049d751fc5a8c58",
@@ -80,8 +81,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     packagingOptions {
         merge 'META-INF/LICENSE-notice.md'
@@ -122,10 +123,11 @@ android {
         doNotStrip "**/*.so"
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
     buildFeatures{
         dataBinding = true
+        buildConfig = true
     }
     flavorDimensions 'app'
 
@@ -156,6 +158,7 @@ static def getTimeStr() {
 def versionApk(variant, defaultConfig) {
     variant.outputs.all {
         def appName = "IRCamera.apk"
+        def dayStr = getDayStr()
         def nameStr = "IRCamera_" + defaultConfig.versionName + "." + dayStr
         if (variant.name == "prodDebug") {
             appName = nameStr + "_debug.apk"
@@ -167,6 +170,7 @@ def versionApk(variant, defaultConfig) {
 }
 
 def copyApk(type, flavor) {
+    def timeStr = getTimeStr()
     copy {
         from "build/outputs/apk/${flavor}/${type}"
         into "../outputs/${type}/"
@@ -178,6 +182,8 @@ def copyApk(type, flavor) {
 }
 
 def copyAab(type) {
+    def dayStr = getDayStr()
+    def timeStr = getTimeStr()
     copy {
         from "build/outputs/bundle/${type}"
         into "../outputs/bundle/${type}/"
@@ -189,21 +195,29 @@ def copyAab(type) {
 }
 
 project.afterEvaluate {
-    assembleProdDebug.doLast {
-        println "===================== build prod Debug.apk copy ========================="
-        copyApk("debug", "prod")
+    tasks.named("assembleProdDebug").configure {
+        doLast {
+            println "===================== build prod Debug.apk copy ========================="
+            copyApk("debug", "prod")
+        }
     }
-    assembleProdRelease.doLast {
-        println "===================== build prod Release.apk copy ======================="
-        copyApk("release", "prod")
+    tasks.named("assembleProdRelease").configure {
+        doLast {
+            println "===================== build prod Release.apk copy ======================="
+            copyApk("release", "prod")
+        }
     }
-    bundleProdDebug.doLast {
-        println "===================== build prod Debug.aab copy ======================="
-        copyAab("prodDebug")
+    tasks.named("bundleProdDebug").configure {
+        doLast {
+            println "===================== build prod Debug.aab copy ======================="
+            copyAab("prodDebug")
+        }
     }
-    bundleProdRelease.doLast {
-        println "===================== build prod Release.aab copy ======================="
-        copyAab("prodRelease")
+    tasks.named("bundleProdRelease").configure {
+        doLast {
+            println "===================== build prod Release.aab copy ======================="
+            copyAab("prodRelease")
+        }
     }
 }
 
@@ -288,7 +302,7 @@ dependencies {
     implementation 'javax.xml.stream:stax-api:1.0'
     implementation 'com.fasterxml:aalto-xml:1.2.2'
 
-    kapt "com.alibaba:arouter-compiler:1.5.2"
+    kapt "com.alibaba:arouter-compiler:1.5.4"
 
     implementation 'com.github.lzyzsd:jsbridge:1.0.4'
     implementation 'com.alibaba:fastjson:1.2.78'

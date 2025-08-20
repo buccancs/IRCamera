@@ -25,7 +25,7 @@ import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.ui.widget.MyItemDecoration
 import com.topdon.lms.sdk.weiget.TToast
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 import com.topdon.module.thermal.ir.adapter.ConfigEmAdapter
 import com.topdon.module.thermal.ir.bean.DataBean
 import com.topdon.module.thermal.ir.bean.ModelBean

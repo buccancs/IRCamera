@@ -1,6 +1,5 @@
 package com.topdon.ble.util;
 
-import android.util.Log;
 
 import com.topdon.lib.core.util.HexUtils;
 
@@ -86,7 +85,6 @@ public class ByteUtil {
             resultByte[i] = bytes[i];
         }
         float value = Integer.valueOf(HexUtils.bytesToHexString(resultByte), 16);
-        Log.e("bcf", "bytesToFloat bytes: " + HexUtils.bytesToHexString(resultByte) + "   float:" + value);
         return value;
     }
 

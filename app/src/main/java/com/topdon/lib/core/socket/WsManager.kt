@@ -2,7 +2,6 @@ package com.topdon.lib.core.socket
 
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import okhttp3.*
 import okio.ByteString
 import java.util.Timer
@@ -95,7 +94,6 @@ class WsManager(private val wsUrl: String, private val okHttpClient: OkHttpClien
     @Synchronized
     fun startConnect() {
         if (status == State.CONNECTING || status == State.CONNECTED) {//连接中或已连接
-            Log.w("WebSocket", "${if (status == State.CONNECTING) "连接中" else "已连接"} startConnect() 重复调用")
             return
         }
         status = State.CONNECTING
@@ -188,7 +186,6 @@ class WsManager(private val wsUrl: String, private val okHttpClient: OkHttpClien
                         lastHeartBeatTime = currentTime
                     }
                     if (currentTime - lastHeartBeatTime > 15 * 1000) {//3秒一个心跳包，连续丢失 5 个包视为断开
-                        Log.d("WebSocket", "连续5个心跳包无响应，视为连接断开")
                         timeoutListener?.invoke()
                         lastHeartBeatTime = currentTime
                     } else {
@@ -197,7 +194,6 @@ class WsManager(private val wsUrl: String, private val okHttpClient: OkHttpClien
                             lastHeartBeatTime = currentTime
                         } else {
                             val isSuccess = wsManager.sendMessage(heartBeatMsg)
-                            Log.v("WebSocket", "--> 发送心跳消息 ${if (isSuccess) "成功" else "失败"}")
                         }
                     }
                 }

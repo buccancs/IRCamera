@@ -7,7 +7,7 @@ import androidx.room.ForeignKey
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.blankj.utilcode.util.Utils
-import com.topdon.lib.core.R
+import com.topdon.tc001.R
 
 open class ItemBase {
     @PrimaryKey(autoGenerate = true)

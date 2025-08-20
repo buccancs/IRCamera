@@ -32,7 +32,7 @@ import com.infisense.usbir.utils.PseudocodeUtils
 import com.infisense.usbir.view.TemperatureView
 import com.topdon.lib.core.common.SaveSettingUtil
 import com.topdon.lib.core.dialog.TipDialog
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 import com.topdon.module.thermal.ir.utils.DualParamsUtil
 import com.topdon.module.thermal.ir.utils.IRCmdTool
 import com.topdon.module.thermal.ir.utils.IRCmdTool.getSNStr
@@ -232,12 +232,10 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
             setFusion(mCurrentFusionType)
             inputStream.close()
         } catch (e: IOException) {
-            e.printStackTrace()
         } finally {
             try {
                 inputStream?.close()
             } catch (e: IOException) {
-                e.printStackTrace()
             }
         }
     }
@@ -379,7 +377,6 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
                             }
                             .create().show()
                     }
-                    XLog.e("超分初始化失败")
                 }
             }
             if (!SupHelp.getInstance().loadOpenclSuccess){

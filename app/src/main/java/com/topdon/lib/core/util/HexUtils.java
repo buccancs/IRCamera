@@ -1,6 +1,5 @@
 package com.topdon.lib.core.util;
 
-import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -13,7 +12,6 @@ import java.io.IOException;
  * Replaces com.infisense.usbir.utils.HexUtils and com.topdon.ble.util.HexUtil
  */
 public class HexUtils {
-    private static final String TAG = "HexUtils";
     private static FileInputStream in;
 
     /**
@@ -194,14 +192,12 @@ public class HexUtils {
     public static byte[] readFileToByteArray(String path) {
         File file = new File(path);
         if (!file.exists()) {
-            Log.d(TAG, "File doesn't exist!");
             return null;
         }
         try {
             in = new FileInputStream(file);
             long inSize = in.getChannel().size();
             if (inSize == 0) {
-                Log.d(TAG, "The FileInputStream has no content!");
                 return null;
             }
 
@@ -209,10 +205,8 @@ public class HexUtils {
             in.read(buffer);
             return buffer;
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
             return null;
         } catch (IOException e) {
-            e.printStackTrace();
             return null;
         } finally {
             try {

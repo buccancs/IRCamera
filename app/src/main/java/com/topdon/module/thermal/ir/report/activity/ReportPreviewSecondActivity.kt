@@ -26,7 +26,7 @@ import com.topdon.lms.sdk.LMS
 import com.topdon.lms.sdk.utils.StringUtils
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.thermal.ir.report.view.ReportIRShowView
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 import com.topdon.module.thermal.ir.report.bean.ReportBean
 import com.topdon.module.thermal.ir.report.viewmodel.UpReportViewModel
 import kotlinx.android.synthetic.main.activity_report_preview_second.*

@@ -1,6 +1,5 @@
 package com.example.thermal_lite.util
 
-import android.util.Log
 import com.elvishew.xlog.XLog
 import com.energy.ac020library.bean.CommonParams
 import com.energy.ac020library.bean.IrcmdError
@@ -28,7 +27,6 @@ object IRTool {
             DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
                 ?.basicAutoFFCStatusSet(if (isAutoShutter) CommonParams.AutoFFCStatus.AUTO_FFC_ENABLE
                 else CommonParams.AutoFFCStatus.AUTO_FFC_DISABLED)
-        Log.d(TAG,
             "basicAutoFFCStatusSet=$basicAutoFFCStatusSet"
         )
     }
@@ -38,7 +36,6 @@ object IRTool {
      */
     fun setOneShutter(){
         val basicFFCUpdate = DeviceIrcmdControlManager.getInstance().ircmdEngine?.basicFFCUpdate()
-        Log.d(TAG,
             "basicFFCUpdate=$basicFFCUpdate"
         )
     }
@@ -59,12 +56,10 @@ object IRTool {
             CameraPreviewManager.getInstance().setAutoSwitchGainEnable(false)
             val basicGainSet = DeviceIrcmdControlManager.getInstance().ircmdEngine
                 ?.basicGainSet(CommonParams.GainStatus.HIGH_GAIN)
-            Log.d(TAG, "basicGainSet=$basicGainSet--$gainType")
         }else if (gainType == CameraItemBean.TYPE_TMP_H){
             CameraPreviewManager.getInstance().setAutoSwitchGainEnable(false)
             val basicGainSet = DeviceIrcmdControlManager.getInstance().ircmdEngine
                 ?.basicGainSet(CommonParams.GainStatus.LOW_GAIN)
-            Log.d(TAG, "basicGainSet=$basicGainSet--$gainType")
         }
     }
 
@@ -74,7 +69,6 @@ object IRTool {
     fun basicGlobalContrastLevelSet(levelValue : Int){
         val basicGlobalContrastLevelSetResult = DeviceIrcmdControlManager.getInstance().ircmdEngine
             ?.basicGlobalContrastLevelSet(levelValue)
-        Log.d(TAG,
             "basicGlobalContrastLevelSet=$basicGlobalContrastLevelSetResult"
         )
     }
@@ -86,7 +80,6 @@ object IRTool {
 //            .advProfessionModeSet(CommonParams.ProfessionMode.valueOf(0))
 //        val basicImageDetailEnhanceLevelSetResult = DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
 //            ?.basicImageDetailEnhanceLevelSet(levelValue);
-//        Log.d(TAG, "basicImageDetailEnhanceLevelSet=" + basicImageDetailEnhanceLevelSetResult)
     }
 
     /**
@@ -97,7 +90,6 @@ object IRTool {
         val basicMirrorAndFlipStatusSet = DeviceIrcmdControlManager.getInstance().ircmdEngine
             ?.basicMirrorAndFlipStatusSet(if (openMirror) CommonParams.MirrorFlipType.ONLY_FLIP else
                 CommonParams.MirrorFlipType.NO_MIRROR_OR_FLIP)
-        Log.d(TAG, "basicGlobalContrastLevelSet=$basicMirrorAndFlipStatusSet")
     }
 
     /**
@@ -126,7 +118,6 @@ object IRTool {
         DeviceIrcmdControlManager.getInstance().getIrcmdEngine()?.basicFFCUpdate()
         //Setp5
         val result = DeviceIrcmdControlManager.getInstance().getIrcmdEngine()?.advAutoRmcoverCali()
-        Log.d(TAG, "advAutoRmcoverCali=${result}")
         //Setp6
         DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
             ?.basicAutoFFCStatusSet(CommonParams.AutoFFCStatus.AUTO_FFC_ENABLE)
@@ -143,14 +134,11 @@ object IRTool {
     suspend fun autoStart() : Boolean{
         basicGainSet(CameraItemBean.TYPE_TMP_C)
         delay(2000)
-        XLog.d(TAG, "onceAuto=start")
         if (!onceAuto()){
             return false
         }
-        XLog.d(TAG, "basicGainSet=start")
         basicGainSet(CameraItemBean.TYPE_TMP_H)
         delay(2000)
-        XLog.d(TAG, "onceAuto=start")
         return onceAuto()
     }
 
@@ -208,7 +196,6 @@ object IRTool {
                 if (basicGainGetValue == 0) GainStatus.LOW_GAIN else GainStatus.HIGH_GAIN
             )
         }catch (e : Exception){
-            XLog.e("$TAG:temperatureCorrection-${e.message}")
         }finally {
             return newTemp
         }
@@ -222,7 +209,6 @@ object IRTool {
 //            .advProfessionModeSet(CommonParams.ProfessionMode.valueOf(0))
 //        val ircmdError = DeviceIrcmdControlManager.getInstance().ircmdEngine
 //            .basicImageSceneModeSet(3)
-//        Log.d(TAG, "setModel=${ircmdError}")
     }
 
 

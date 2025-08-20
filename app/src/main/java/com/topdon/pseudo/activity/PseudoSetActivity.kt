@@ -11,7 +11,7 @@ import com.topdon.lib.core.common.ProductType
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.UnitTools
-import com.topdon.pseudo.R
+import com.topdon.tc001.R
 import com.topdon.pseudo.bean.CustomPseudoBean
 import com.topdon.pseudo.constant.*
 import kotlinx.android.synthetic.main.activity_pseudo_set.*

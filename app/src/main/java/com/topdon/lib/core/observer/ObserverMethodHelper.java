@@ -31,7 +31,6 @@ class ObserverMethodHelper {
                 try {
                     method.invoke(observer);
                 } catch (IllegalAccessException | InvocationTargetException e) {
-                    e.printStackTrace();
                 }
             };
         } else {
@@ -44,7 +43,6 @@ class ObserverMethodHelper {
                 try {
                     method.invoke(observer, params);
                 } catch (IllegalAccessException | InvocationTargetException e) {
-                    e.printStackTrace();
                 }
             };
         }

@@ -1,7 +1,6 @@
 package com.topdon.module.thermal.ir.fragment
 
 import android.graphics.Bitmap
-import android.util.Log
 import android.view.WindowManager
 import android.yt.jni.Usbcontorl
 import androidx.lifecycle.lifecycleScope
@@ -24,7 +23,7 @@ import com.topdon.lib.core.common.SaveSettingUtil
 import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.utils.ScreenUtil
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 import com.topdon.module.thermal.ir.repository.ConfigRepository
 import com.topdon.module.thermal.ir.utils.CalibrationTools
 import kotlinx.android.synthetic.main.fragment_ir_monitor_thermal.*
@@ -56,7 +55,6 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
         setViewLay()
         if (Usbcontorl.isload) {
             Usbcontorl.usb3803_mode_setting(1) //打开5V
-            Log.w("123", "打开5V")
         }
         temperatureView.clear()
         temperatureView.temperatureRegionMode = REGION_MODE_CLEAN
@@ -75,7 +73,6 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
             imageThread!!.setRotate(true)
             imageThread!!.start()
         }catch (e : Exception){
-            Log.e("图像线程重复启动",e.message.toString())
         }
     }
 
@@ -88,7 +85,6 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
                     }
 
                     override fun onIRCMDCreate(ircmd: IRCMD) {
-                        Log.i(
                             TAG,
                             "ConnectCallback->onIRCMDCreate"
                         )
@@ -125,7 +121,6 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
 
     override fun onStart() {
         super.onStart()
-        Log.w(TAG, "onStart")
         if (!isrun) {
             temperatureView.postDelayed({
                 pseudocolorMode = 3
@@ -141,7 +136,6 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
 
     override fun onStop() {
         super.onStop()
-        Log.w(TAG, "onStop")
         if (iruvc != null) {
             iruvc!!.stopPreview()
             iruvc!!.unregisterUSB()
@@ -155,11 +149,9 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.w(TAG, "onDestroy")
         try {
             imageThread?.join()
         } catch (e: InterruptedException) {
-            Log.e(TAG, "imageThread.join(): catch an interrupted exception")
         }
     }
 
@@ -219,7 +211,6 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
             val config = ConfigRepository.readConfig(false)
             val disChar = (config.distance * 128).toInt() //距离(米)
             val emsChar = (config.radiation * 128).toInt() //发射率
-            XLog.w("设置TPD_PROP DISTANCE:${disChar}, EMS:${emsChar}}")
             val timeMillis = 250L
             delay(timeMillis)
             ircmd?.setPropTPDParams(
@@ -288,26 +279,18 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
     suspend fun autoStart() {
         withContext(Dispatchers.IO){
             CalibrationTools.autoShutter(irCmd = ircmd, false)
-            XLog.w("锅盖矫正："+"锅盖标定开始")
             delay(2000)
-            XLog.w("锅盖矫正："+"关闭锅盖校正")
             CalibrationTools.stsSwitch(irCmd = ircmd, false)
             CalibrationTools.pot(irCmd = ircmd!!, 1)
-            XLog.w("锅盖矫正："+"发送锅盖标")
             delay(5000)
-            XLog.w("锅盖矫正："+"打开锅盖校正")
             CalibrationTools.stsSwitch(irCmd = ircmd, true)
             delay(20000)
-            XLog.w("锅盖矫正："+"20000")
             delay(2000)
             CalibrationTools.stsSwitch(irCmd = ircmd, false)
-            XLog.w("锅盖矫正："+"关闭锅盖校正")
             CalibrationTools.pot(irCmd = ircmd!!, 1)
             delay(5000)
-            XLog.w("锅盖矫正："+"打开锅盖校正")
             CalibrationTools.stsSwitch(irCmd = ircmd, true)
             CalibrationTools.autoShutter(irCmd = ircmd, true)
-            XLog.w("锅盖矫正："+"锅盖结束")
         }
     }
 

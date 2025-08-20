@@ -2,7 +2,6 @@ package com.topdon.lib.core.tools
 
 import android.media.MediaMetadataRetriever
 import android.media.MediaPlayer
-import android.util.Log
 import org.bytedeco.javacv.FFmpegFrameGrabber
 import org.bytedeco.javacv.FrameGrabber
 

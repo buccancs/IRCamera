@@ -18,7 +18,7 @@ import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.tools.NumberTools
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.ui.widget.MyItemDecoration
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 import com.topdon.module.thermal.ir.adapter.ConfigEmAdapter
 import com.topdon.module.thermal.ir.bean.DataBean
 import kotlinx.android.synthetic.main.dialog_config_guide.*

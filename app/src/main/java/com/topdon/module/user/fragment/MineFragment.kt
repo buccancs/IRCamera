@@ -43,7 +43,7 @@ import com.topdon.lms.sdk.bean.CommonBean
 import com.topdon.lms.sdk.bean.FeedBackBean
 import com.topdon.lms.sdk.feedback.activity.FeedbackActivity
 import com.topdon.lms.sdk.utils.LanguageUtil
-import com.topdon.module.user.R
+import com.topdon.tc001.R
 import com.topdon.module.user.activity.LanguageActivity
 import com.topdon.module.user.activity.MoreActivity
 import com.zoho.salesiqembed.ZohoSalesIQ
@@ -170,7 +170,6 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                         logPath = logPath
                         sn = devSn
                         lastConnectSn = devSn
-                        XLog.e("bcf","sn $sn  logPath $logPath")
                     }.let { feedBackBean ->
                         val intent = Intent(requireContext(), FeedbackActivity::class.java)
                         intent.putExtra(FeedbackActivity.FEEDBACKBEAN, feedBackBean)
@@ -226,11 +225,9 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
                     changeLoginStyle()
                 } catch (e: Exception) {
-                    XLog.e(" 登录异常: ${e.message}")
                 }
             }
         } else {
-            XLog.e(" 登录失败")
             changeLoginStyle()
             setting_user_img_night.setImageResource(R.mipmap.ic_default_user_head)//恢复默认头像
         }
@@ -290,7 +287,6 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     AppDatabase.getInstance().thermalDao().deleteByUserId(SharedManager.getUserId())
                     CleanUtils.cleanExternalCache()
                 } catch (e: Exception) {
-                    XLog.w("清除缓存异常: ${e.message}")
                 }
                 delay(1000)
             }

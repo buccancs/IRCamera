@@ -84,8 +84,6 @@ object GalleryRepository {
                 }
             }
         } catch (e: Exception) {
-            e.printStackTrace()
-            XLog.e("读取图库失败: ${e.message}")
             return ""
         }
         return firstPath
@@ -116,7 +114,6 @@ object GalleryRepository {
                         }
                     }
                 } catch (e: Exception) {
-                    XLog.e("读取图库失败: ${e.message}")
                 }
             }
 
@@ -137,7 +134,6 @@ object GalleryRepository {
                 }
             }
         } catch (e: Exception) {
-            XLog.e("读取图库失败: ${e.message}")
         }
         return@withContext resultList
     }

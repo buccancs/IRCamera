@@ -15,7 +15,7 @@ import com.topdon.lib.core.bean.GalleryBean
 import com.topdon.lib.core.bean.HouseRepPreviewAlbumItemBean
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.ui.widget.RoundImageView
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 import com.topdon.module.thermal.ir.report.bean.ReportData
 import kotlinx.android.synthetic.main.activity_report_preview.iv_inspector_signature
 import kotlinx.android.synthetic.main.item_gallery_head_lay.view.*

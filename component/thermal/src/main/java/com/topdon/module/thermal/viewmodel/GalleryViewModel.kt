@@ -1,6 +1,5 @@
 package com.topdon.module.thermal.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.blankj.utilcode.util.Utils
 import com.topdon.lib.core.config.FileConfig.galleryPath
@@ -21,9 +20,7 @@ class GalleryViewModel : BaseViewModel() {
         viewModelScope.launch {
             getGalleryList().collect { it ->
                 if (it.size == 0) {
-                    Log.w("123", "文件不存在")
                 } else {
-//                    it.forEach { Log.w("123", "it:$it") }
                     galleryLiveData.postValue(it)
                 }
             }
@@ -34,9 +31,7 @@ class GalleryViewModel : BaseViewModel() {
         viewModelScope.launch {
             getVideoList().collect { it ->
                 if (it.size == 0) {
-                    Log.w("123", "文件不存在")
                 } else {
-//                    it.forEach { Log.w("123", "it:$it") }
                     galleryLiveData.postValue(it)
                 }
             }

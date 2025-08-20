@@ -10,7 +10,6 @@ import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.PowerManager;
-import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -43,7 +42,6 @@ import java.util.List;
 public class TestRecordActivity extends Activity{
 
     private final static String CLASS_LABEL = "RecordActivity";
-    private final static String LOG_TAG = CLASS_LABEL;
 
     private PowerManager.WakeLock mWakeLock;
 
@@ -177,12 +175,10 @@ public class TestRecordActivity extends Activity{
             public void onClick(View v) {
                 if (!recording) {
                     startRecording();
-                    Log.w(LOG_TAG, "Start Button Pushed");
                     btnRecorderControl.setText("Stop");
                 } else {
                     // This will trigger the audio recording loop to stop and then set isRecorderStart = false;
                     stopRecording();
-                    Log.w(LOG_TAG, "Stop Button Pushed");
                     btnRecorderControl.setText("Start");
                 }
             }
@@ -204,10 +200,8 @@ public class TestRecordActivity extends Activity{
         layoutParam.leftMargin = (int) (1.0 * bg_screen_bx * screenWidth / bg_width);
 
         cameraDevice = Camera.open();
-        Log.i(LOG_TAG, "cameara open");
         cameraView = new CameraView(this, cameraDevice);
         topLayout.addView(cameraView, layoutParam);
-        Log.i(LOG_TAG, "cameara preview start: OK");
     }
 
     //---------------------------------------
@@ -215,7 +209,6 @@ public class TestRecordActivity extends Activity{
     //---------------------------------------
     private void initRecorder() {
 
-        Log.w(LOG_TAG, "init recorder");
 
         if (RECORD_LENGTH > 0) {
             imagesIndex = 0;
@@ -227,17 +220,14 @@ public class TestRecordActivity extends Activity{
             }
         } else if (yuvImage == null) {
             yuvImage = new Frame(imageWidth, imageHeight, Frame.DEPTH_UBYTE, 2);
-            Log.i(LOG_TAG, "create yuvImage");
         }
 
-        Log.i(LOG_TAG, "ffmpeg_url: " + ffmpeg_link);
         recorder = new FFmpegFrameRecorder(ffmpeg_link, imageWidth, imageHeight, 1);
         recorder.setFormat("mp4");
         recorder.setSampleRate(sampleAudioRateInHz);
         // Set in the surface changed method
         recorder.setFrameRate(frameRate);
 
-        Log.i(LOG_TAG, "recorder initialize success");
 
         audioRecordRunnable = new AudioRecordRunnable();
         audioThread = new Thread(audioRecordRunnable);
@@ -255,7 +245,6 @@ public class TestRecordActivity extends Activity{
             audioThread.start();
 
         } catch (FFmpegFrameRecorder.Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -265,14 +254,12 @@ public class TestRecordActivity extends Activity{
         try {
             audioThread.join();
         } catch (InterruptedException e) {
-            e.printStackTrace();
         }
         audioRecordRunnable = null;
         audioThread = null;
 
         if (recorder != null && recording) {
             if (RECORD_LENGTH > 0) {
-                Log.v(LOG_TAG,"Writing frames");
                 try {
                     int firstIndex = imagesIndex % samples.length;
                     int lastIndex = (imagesIndex - 1) % images.length;
@@ -309,18 +296,14 @@ public class TestRecordActivity extends Activity{
                         recorder.recordSamples(samples[i % samples.length]);
                     }
                 } catch (FFmpegFrameRecorder.Exception e) {
-                    Log.v(LOG_TAG,e.getMessage());
-                    e.printStackTrace();
                 }
             }
 
             recording = false;
-            Log.v(LOG_TAG,"Finishing recording, calling stop and release on recorder");
             try {
                 recorder.stop();
                 recorder.release();
             } catch (FFmpegFrameRecorder.Exception e) {
-                e.printStackTrace();
             }
             recorder = null;
 
@@ -373,7 +356,6 @@ public class TestRecordActivity extends Activity{
                 audioData = ShortBuffer.allocate(bufferSize);
             }
 
-            Log.d(LOG_TAG, "audioRecord.startRecording()");
             audioRecord.startRecording();
 
             /* ffmpeg_audio encoding loop */
@@ -382,32 +364,25 @@ public class TestRecordActivity extends Activity{
                     audioData = samples[samplesIndex++ % samples.length];
                     audioData.position(0).limit(0);
                 }
-                //Log.v(LOG_TAG,"recording? " + recording);
                 bufferReadResult = audioRecord.read(audioData.array(), 0, audioData.capacity());
                 audioData.limit(bufferReadResult);
                 if (bufferReadResult > 0) {
-                    Log.v(LOG_TAG,"bufferReadResult: " + bufferReadResult);
                     // If "recording" isn't true when start this thread, it never get's set according to this if statement...!!!
                     // Why?  Good question...
                     if (recording) {
                         if (RECORD_LENGTH <= 0) try {
                             recorder.recordSamples(audioData);
-                            //Log.v(LOG_TAG,"recording " + 1024*i + " to " + 1024*i+1024);
                         } catch (FFmpegFrameRecorder.Exception e) {
-                            Log.v(LOG_TAG,e.getMessage());
-                            e.printStackTrace();
                         }
                     }
                 }
             }
-            Log.v(LOG_TAG,"AudioThread Finished, release audioRecord");
 
             /* encoding finish, release recorder */
             if (audioRecord != null) {
                 audioRecord.stop();
                 audioRecord.release();
                 audioRecord = null;
-                Log.v(LOG_TAG,"audioRecord released");
             }
         }
     }
@@ -422,7 +397,6 @@ public class TestRecordActivity extends Activity{
 
         public CameraView(Context context, Camera camera) {
             super(context);
-            Log.w("camera","camera view");
             mCamera = camera;
             mHolder = getHolder();
             mHolder.addCallback(CameraView.this);
@@ -458,16 +432,13 @@ public class TestRecordActivity extends Activity{
                 if ((sizes.get(i).width >= imageWidth && sizes.get(i).height >= imageHeight) || i == sizes.size() - 1) {
                     imageWidth = sizes.get(i).width;
                     imageHeight = sizes.get(i).height;
-                    Log.v(LOG_TAG, "Changed to supported resolution: " + imageWidth + "x" + imageHeight);
                     break;
                 }
             }
             camParams.setPreviewSize(imageWidth, imageHeight);
 
-            Log.v(LOG_TAG,"Setting imageWidth: " + imageWidth + " imageHeight: " + imageHeight + " frameRate: " + frameRate);
 
             camParams.setPreviewFrameRate(frameRate);
-            Log.v(LOG_TAG,"Preview Framerate: " + camParams.getPreviewFrameRate());
 
             mCamera.setParameters(camParams);
             startPreview();
@@ -513,15 +484,12 @@ public class TestRecordActivity extends Activity{
                 ((ByteBuffer)yuvImage.image[0].position(0)).put(data);
 
                 if (RECORD_LENGTH <= 0) try {
-                    Log.v(LOG_TAG,"Writing Frame");
                     long t = 1000 * (System.currentTimeMillis() - startTime);
                     if (t > recorder.getTimestamp()) {
                         recorder.setTimestamp(t);
                     }
                     recorder.record(yuvImage);
                 } catch (FFmpegFrameRecorder.Exception e) {
-                    Log.v(LOG_TAG,e.getMessage());
-                    e.printStackTrace();
                 }
             }
         }

@@ -3,7 +3,6 @@ package com.example.thermal_lite.camera;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -28,7 +27,6 @@ import java.util.Arrays;
  * Tiny2c冷开机温度补偿方案
  */
 public class TempCompensation {
-    private final String TAG = "TempCompensation";
     // 初始化
     private final int HANDLER_KEY_INIT = 1000;
     // 1s后打快门
@@ -93,18 +91,12 @@ public class TempCompensation {
         String sn = CommonUtils.byteToString(snData);
         File file = new File(BaseApplication.instance.getExternalCacheDir(), "NUC_T_HIGH_" + sn + ".bin");
         if (file.exists()) {
-            Log.d(TAG, "File exists, reading from: " + file.getAbsolutePath());
             byte[] nucTableHighByte = FileUtil.readFile2BytesByStream(BaseApplication.instance.getApplicationContext(), file);
             nucT = byteToShort(nucTableHighByte);
-            Log.d(TAG, "getNucTData int: " + Arrays.toString(nucT));
         } else {
-            Log.d(TAG, "getNucTData path: " + file.getAbsolutePath());
             readFlashData(CommonParams.SdFilePath.DEFAULT_DATA_NUC_T_HIGH, file.getPath(),
-                    progress -> Log.d(TAG, "getNucTData readFlashData DEFAULT_DATA_NUC_T_HIGH : " + progress));
             byte[] nucTableHighByte = FileUtil.readFile2BytesByStream(BaseApplication.instance.getApplicationContext(), file);
-            Log.d(TAG, "getNucTData byte: " + nucTableHighByte.length + "---" + Arrays.toString(nucTableHighByte));
             nucT = byteToShort(nucTableHighByte);
-            Log.d(TAG, "getNucTData int: " + Arrays.toString(nucT));
         }
     }
 
@@ -124,11 +116,8 @@ public class TempCompensation {
         try {
             result = ircamEngine.advFileRead(sdFilePath, localFilePath, iFileHandleCallback);
         } catch (IOException e) {
-            e.printStackTrace();
-            Log.d(TAG, sdFilePath + "  advFileRead fail !");
         }
         if (result != 0) {
-            Log.d(TAG, sdFilePath + "  advFileRead fail !");
         }
     }
 
@@ -150,7 +139,6 @@ public class TempCompensation {
                 KEY_PARAM2, DEFAULT_PARAM2));
         param3 = Double.parseDouble(SharedPreferencesUtils.getString(BaseApplication.instance.getApplicationContext(),
                 KEY_PARAM3, DEFAULT_PARAM3));
-        Log.d(TAG, "param1:" + param1 + "--param2:" + param2 + "--param3:" + param3);
 
         handlerThread = new HandlerThread("TempCompensation");
         handlerThread.start();
@@ -160,13 +148,11 @@ public class TempCompensation {
                 super.handleMessage(msg);
                 try {
                     if (HANDLER_KEY_INIT == msg.what) {
-                        Log.d(TAG, "HANDLER_KEY_INIT");
                         isStart = true;
                         // 关闭自动快门
                         if (DeviceIrcmdControlManager.getInstance().getIrcmdEngine()!=null){
                             IrcmdError basicAutoFFCStatusSet = DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
                                     .basicAutoFFCStatusSet(CommonParams.AutoFFCStatus.AUTO_FFC_DISABLED);
-                            Log.d(TAG, "basicAutoFFCStatusSet=" + basicAutoFFCStatusSet);
                         }
                         // 获取NUC-T
                         getNucTData();
@@ -175,17 +161,14 @@ public class TempCompensation {
                         if (DeviceIrcmdControlManager.getInstance().getIrcmdEngine() != null){
                             IrcmdError nativeAdvManualFFCUpdateResult = DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
                                     .basicFFCUpdate();
-                            Log.d(TAG, "nativeAdvManualFFCUpdateResult=" + nativeAdvManualFFCUpdateResult);
                             // 打快门后获取Vtemp_start
                             int[] nativeAdvDeviceRealtimeStatusGetValue = new int[1];
                             IrcmdError advDeviceRealtimeStatusGetResult = DeviceIrcmdControlManager.getInstance()
                                     .getIrcmdEngine()
                                     .advDeviceRealtimeStatusGet(CommonParams.RealtimeStatusType.ADV_IR_SENSOR_VTEMP,
                                             nativeAdvDeviceRealtimeStatusGetValue);
-                            Log.d(TAG, "advDeviceRealtimeStatusGetResult=" + advDeviceRealtimeStatusGetResult);
                             // 第一次(1s时)打完快门记录Vtemp_start
                             vTempStart = nativeAdvDeviceRealtimeStatusGetValue[0];
-                            Log.d(TAG, "Vtemp_start=" + vTempStart);
                             // 令NUC_new=0为初始值;
                             nucNew = 0;
                             // 开始补偿
@@ -194,21 +177,17 @@ public class TempCompensation {
                         }
                     } else if (HANDLER_KEY_AFTER == msg.what) {
                         if (DeviceIrcmdControlManager.getInstance().getIrcmdEngine() != null){
-                            Log.d(TAG, "打快门");
                             //手动打快门
                             IrcmdError advManualFFCUpdateResult = DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
                                     .advManualFFCUpdate(CommonParams.FFCShutterBehaviorMode.ONLY_B_UPDATE);
-                            Log.d(TAG, "advManualFFCUpdateResult=" + advManualFFCUpdateResult);
                             // 打快门后记录NUC_neW=ΔNUC
                             nucNew = (int) (param1 * deltaVTemp * deltaVTemp + param2 * deltaVTemp - param3);
-                            Log.d(TAG, "NUC_new=" + nucNew);
 
                             // 6s
                             handler.sendEmptyMessageDelayed(HANDLER_KEY_AFTER, 6000);
                         }
                     }
                 }catch (Exception e){
-                    Log.d(TAG, "温度补偿异常=" + e.getMessage());
                 }
             }
         };
@@ -244,7 +223,6 @@ public class TempCompensation {
         }
         if (DeviceIrcmdControlManager.getInstance()
                 .getIrcmdEngine() != null){
-            Log.d(TAG, "getDeltaNucAndVTemp start");
             // 获取当前vtemp
             int[] nativeAdvDeviceRealtimeStatusGetValue = new int[1];
             IrcmdError nativeAdvDeviceRealtimeStatusGetResult = DeviceIrcmdControlManager.getInstance()
@@ -252,13 +230,10 @@ public class TempCompensation {
                     .advDeviceRealtimeStatusGet(CommonParams.RealtimeStatusType.ADV_IR_SENSOR_VTEMP,
                             nativeAdvDeviceRealtimeStatusGetValue);
             int currentVTemp = nativeAdvDeviceRealtimeStatusGetValue[0];
-            Log.d(TAG, "getDeltaNucAndVTemp currentVTemp = " + currentVTemp);
             // 获取ΔVTemp
             deltaVTemp = vTempStart - currentVTemp;
-            Log.d(TAG, "getDeltaNucAndVTemp deltaVTemp=" + deltaVTemp + "----NUC_new:" + nucNew);
             // 获取ΔNUC
             deltaNUC = (int) (param1 * deltaVTemp * deltaVTemp + param2 * deltaVTemp - param3 - nucNew);
-            Log.d(TAG, "getDeltaNucAndVTemp deltaNUC=" + deltaNUC);
         }
     }
 
@@ -274,12 +249,10 @@ public class TempCompensation {
         if (nucT == null) {
             return temp;
         }
-        Log.d(TAG, "getNewTempValue start:" + temp);
         // 反寻址nuc
         int[] nucValue = new int[1];
         LibIRTemp.reverseCalcNUCWithNucT(nucT, temp, nucValue);
         int nuc = nucValue[0];
-        Log.d(TAG, "getNewTempValue NUC: " + nuc);
         // 获取新的nuc
         int nucOut = nuc + deltaNUC;
         // 大于20s后，线性减小
@@ -287,13 +260,11 @@ public class TempCompensation {
         if (deltaTime > edgeTime) {
             nucOut = nuc + deltaNUC * (int) (deltaTime % edgeTime / 1000 * -0.1 + 1);
         }
-        Log.d(TAG, "getNewTempValue nucOut: " + nucOut);
         // 获取新温度值
         int[] newTemp = new int[1];
         LibIRTemp.remapTemp(nucT, nucOut, newTemp);
         int newTempInt = newTemp[0];
         float newTempFloat = newTempInt / 16f - 273.15f;
-        Log.d(TAG, "getNewTempValue end：" + newTempFloat);
 
         // 持续30s
         isCompensation = deltaTime < ALL_DURATION * 1000L;
@@ -313,12 +284,10 @@ public class TempCompensation {
         if (nucT == null) {
             return temp;
         }
-        Log.d(TAG, "getNewTempValue start:" + temp);
         // 反寻址nuc
         int[] nucValue = new int[1];
         LibIRTemp.reverseCalcNUCWithNucT(nucT, temp, nucValue);
         int nuc = nucValue[0];
-        Log.d(TAG, "getNewTempValue NUC: " + nuc);
         long deltaTime = System.currentTimeMillis() - startTime;
         // 获取新的nuc
         int nucOut = nuc + deltaNUC;
@@ -327,13 +296,11 @@ public class TempCompensation {
         if (deltaTime > edgeTime) {
             nucOut = nuc + deltaNUC * (int) (deltaTime % edgeTime / 1000 * -0.1 + 1);
         }
-        Log.d(TAG, "getNewTempValue nucOut: " + nucOut);
         // 获取新温度值
         int[] newTemp = new int[1];
         LibIRTemp.remapTemp(nucT, nucOut, newTemp);
         int newTempInt = newTemp[0];
         float newTempFloat = newTempInt / 16f - 273.15f;
-        Log.d(TAG, "getNewTempValue end：" + newTempFloat);
 
         // 持续30s
         isCompensation = deltaTime < ALL_DURATION * 1000L;
@@ -354,7 +321,6 @@ public class TempCompensation {
             // 停止补偿，恢复自动快门
             IrcmdError basicAutoFFCStatusSet = DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
                     .basicAutoFFCStatusSet(CommonParams.AutoFFCStatus.AUTO_FFC_ENABLE);
-            Log.d(TAG, "basicAutoFFCStatusSet=" + basicAutoFFCStatusSet);
         }
         if (handler != null) {
             handler.removeCallbacksAndMessages(null);

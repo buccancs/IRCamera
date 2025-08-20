@@ -8,7 +8,7 @@ import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
 import com.topdon.lib.core.BaseApplication
-import com.topdon.lib.core.R
+import com.topdon.tc001.R
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lms.sdk.weiget.TToast
 
@@ -105,12 +105,10 @@ object PermissionTool {
             .permission(permissionList)
             .request(object : OnPermissionCallback {
                 override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
-                    XLog.i("onGranted($allGranted)")
                     callback.onResult(allGranted)
                 }
 
                 override fun onDenied(permissions: MutableList<String>, never: Boolean) {
-                    XLog.i("onDenied($never)")
                     if (never) {
                         var isBtNever = false
                         var isLocationNever = false

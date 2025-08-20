@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 import kotlinx.android.synthetic.main.item_gallery_edit_menu.view.*
 
 @Deprecated("旧的2D编辑一级菜单，已重构过了")

@@ -63,7 +63,6 @@ object PDFUtil {
                 val selectionArgs: Array<String> = arrayOf(FileConfig.documentsDir)
                 resolver.delete(contentUri, selection, selectionArgs)
             } catch (e: Exception) {
-                e.printStackTrace()
             }
         }
     }
@@ -349,7 +348,6 @@ object PDFUtil {
                 }
             }
         } catch (e: IOException) {
-            e.printStackTrace()
         } finally {
             pdfDocument.close()
         }

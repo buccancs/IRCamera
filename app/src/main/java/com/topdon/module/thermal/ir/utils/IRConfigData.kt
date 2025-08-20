@@ -1,7 +1,7 @@
 package com.topdon.module.thermal.ir.utils
 
 import android.content.Context
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 
 data class IRConfigData(val name: String, val value: String) {
     companion object {

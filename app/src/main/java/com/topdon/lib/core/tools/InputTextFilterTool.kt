@@ -2,7 +2,6 @@ package com.topdon.lib.core.tools
 
 import android.text.InputFilter
 import android.text.Spanned
-import android.util.Log
 import android.widget.EditText
 import java.util.regex.Pattern
 
@@ -35,7 +34,6 @@ class InputTextFilterTool {
         ): CharSequence? {
             val emojiMatcher = emoji.matcher(source)
             if (emojiMatcher.find()) {
-                Log.w("123", "不支持输入表情")
                 return ""
             }
             return null

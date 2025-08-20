@@ -10,7 +10,7 @@ import com.topdon.lib.core.repository.*
 import com.topdon.lib.core.socket.SocketCmdUtil
 import com.topdon.lib.core.utils.WsCmdConstants
 import com.topdon.lms.sdk.weiget.TToast
-import com.topdon.module.user.R
+import com.topdon.tc001.R
 import kotlinx.android.synthetic.main.activity_tisr.*
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.Subscribe

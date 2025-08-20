@@ -24,7 +24,7 @@ import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.libcom.ExcelUtil
 import com.topdon.lms.sdk.BuildConfig
-import com.topdon.module.thermal.ir.R
+import com.topdon.tc001.R
 import com.topdon.module.thermal.ir.viewmodel.IRMonitorViewModel
 import kotlinx.android.synthetic.main.activity_ir_log_mp_chart.*
 import kotlinx.coroutines.Dispatchers
@@ -69,7 +69,6 @@ class IRLogMPChartActivity : BaseActivity() {
             try {
                 log_chart_time_chart.initEntry(it as ArrayList<ThermalEntity>)
             } catch (e: Exception) {
-                XLog.e("刷新图表异常:${e.message}")
             }
         }
 

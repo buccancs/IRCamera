@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
-import com.topdon.lib.core.R
+import com.topdon.tc001.R
 import com.topdon.lib.core.bean.event.SocketStateEvent
 import com.topdon.lib.core.bean.event.device.DeviceConnectEvent
 import com.topdon.lib.core.dialog.LoadingDialog

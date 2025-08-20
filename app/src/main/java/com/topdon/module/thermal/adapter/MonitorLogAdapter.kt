@@ -1,7 +1,6 @@
 package com.topdon.module.thermal.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.lib.core.tools.GlideLoader
 import com.topdon.lib.core.tools.TimeTool
-import com.topdon.module.thermal.R
+import com.topdon.tc001.R
 import kotlinx.android.synthetic.main.item_gallery.view.*
 import kotlinx.android.synthetic.main.item_log.view.*
 

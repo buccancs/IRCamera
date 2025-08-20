@@ -1,7 +1,6 @@
 package com.topdon.module.thermal.activity
 
 import android.graphics.Color
-import android.util.Log
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
@@ -64,7 +63,6 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
             try {
                 initEntry(it.dataList)
             } catch (e: Exception) {
-                XLog.e("刷新图表异常:${e.message}")
                 ToastTools.showShort("图表异常，请重新加载")
             }
         }
@@ -190,18 +188,11 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
                 if (data.size == 0) {
                     return@launch
                 }
-                Log.i("chart", "update chart start")
                 val lineData: LineData = chart.data
                 if (lineData != null) {
-                    Log.w(
-                        "123",
-                        "时间区间:${(data.last().createTime - data.first().createTime) / 1000}"
-                    )
                     val startTime = data[0].createTime
-                    Log.w("123", "设置初始时间startTime:$startTime")
                     chart.xAxis.valueFormatter =
                         MyValueFormatter(startTime = startTime, type = selectType)
-                    XLog.w("chart init startTime:$startTime")
                     data[0].type = "default"
                     when (data[0].type) {
                         "point" -> {
@@ -216,7 +207,6 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
                                 entity.data = it
                                 set.addEntry(entity)
                             }
-                            XLog.w("DataSet:${set.entryCount}")
                         }
                         "line" -> {
                             var maxDataSet = lineData.getDataSetByIndex(0)//读取x为0的坐标点
@@ -230,7 +220,6 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
                                 minDataSet = createSet(1, "line minTemp")
                                 lineData.addDataSet(minDataSet)
                             }
-                            Log.w("123", "两条曲线")
                             data.forEach {
                                 val x = (it.createTime - startTime).toFloat()
                                 //max
@@ -242,7 +231,6 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
                                 entityMin.data = it
                                 minDataSet.addEntry(entityMin)
                             }
-                            XLog.w("DataSet:${maxDataSet.entryCount}")
                         }
                         else -> {
                             //max
@@ -268,7 +256,6 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
                                 entity.data = it
                                 centerTempDataSet.addEntry(entity)
                             }
-                            XLog.w("DataSet:${centerTempDataSet.entryCount}")
                         }
                     }
                     lineData.notifyDataChanged()
@@ -279,7 +266,6 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
                     chart.moveViewToX(chart.xChartMax)//移动到最右端
                     chart.zoom(1f, 1f, chart.xChartMax, 0f)//默认无缩放，全部显示
                 }
-                Log.w("chart", "update chart finish")
             }
         }
     }
