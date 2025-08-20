@@ -12,8 +12,6 @@ import com.topdon.lib.core.R
 import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.repository.DeviceInfo
 import com.topdon.lib.core.repository.ProductBean
-import com.topdon.lib.core.repository.TC007Repository
-import com.topdon.lib.core.repository.TS004Repository
 import com.topdon.lms.sdk.LMS
 import com.topdon.lms.sdk.UrlConstant
 import com.topdon.lms.sdk.bean.CommonBean

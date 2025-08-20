@@ -24,7 +24,6 @@ import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.dialog.TipDialog
-import com.topdon.lib.core.http.ts004.TS004URL
 import com.topdon.lib.core.ktbase.BaseWifiActivity
 import com.topdon.lib.core.repository.*
 import com.topdon.lib.core.socket.SocketCmdUtil

@@ -39,7 +39,7 @@ import com.bumptech.glide.Glide;
 import com.elvishew.xlog.XLog;
 import com.topdon.tc004.R;
 import com.topdon.tc004.util.FileUtil;
-import com.topdon.commons.util.PreferenceUtils;
+import com.topdon.lib.core.util.PreferenceUtils;
 
 import org.easydarwin.video.Client;
 import org.easydarwin.video.EasyPlayerClient;

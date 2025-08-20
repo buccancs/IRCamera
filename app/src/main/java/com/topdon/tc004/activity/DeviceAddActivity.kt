@@ -33,8 +33,6 @@ import com.topdon.tc004.R
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.config.ExtraKeyConfig
-import com.topdon.lib.core.repository.TC007Repository
-import com.topdon.lib.core.repository.TS004Repository
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.PermissionTool
 import com.topdon.lib.core.utils.BluetoothUtil

@@ -4,8 +4,8 @@ import com.topdon.ble.callback.RequestCallback;
 
 import java.util.UUID;
 
-import com.topdon.commons.observer.Observe;
-import com.topdon.commons.poster.RunOn;
+import com.topdon.lib.core.observer.Observe;
+import com.topdon.lib.core.poster.RunOn;
 
 public class RequestBuilder<T extends RequestCallback> {
     String tag;

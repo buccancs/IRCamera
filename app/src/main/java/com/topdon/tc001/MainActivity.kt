@@ -29,7 +29,6 @@ import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
 import com.topdon.hik.activity.IRThermalHikActivity
 import com.topdon.lib.core.BaseApplication
-import com.topdon.lib.core.bean.event.TS004ResetEvent
 import com.topdon.lib.core.bean.event.WinterClickEvent
 import com.topdon.lib.core.bean.event.device.DevicePermissionEvent
 import com.topdon.lib.core.common.SharedManager

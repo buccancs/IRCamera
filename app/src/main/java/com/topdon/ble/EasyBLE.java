@@ -20,9 +20,9 @@ import androidx.annotation.Nullable;
 import com.topdon.ble.callback.ScanListener;
 import com.topdon.ble.util.DefaultLogger;
 import com.topdon.ble.util.Logger;
-import com.topdon.commons.observer.Observable;
-import com.topdon.commons.poster.MethodInfo;
-import com.topdon.commons.poster.PosterDispatcher;
+import com.topdon.lib.core.observer.Observable;
+import com.topdon.lib.core.poster.MethodInfo;
+import com.topdon.lib.core.poster.PosterDispatcher;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

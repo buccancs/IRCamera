@@ -1,8 +1,8 @@
 package com.topdon.ble;
 
 import com.topdon.ble.util.Logger;
-import com.topdon.commons.observer.Observable;
-import com.topdon.commons.poster.ThreadMode;
+import com.topdon.lib.core.observer.Observable;
+import com.topdon.lib.core.poster.ThreadMode;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

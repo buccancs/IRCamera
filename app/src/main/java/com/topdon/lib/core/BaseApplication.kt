@@ -26,7 +26,6 @@ import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.db.AppDatabase
 import com.topdon.lib.core.repository.FileBean
-import com.topdon.lib.core.repository.TS004Repository
 import com.topdon.lib.core.socket.SocketCmdUtil
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.AppLanguageUtils

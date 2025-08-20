@@ -76,13 +76,13 @@ dependencies {
     implementation project(':component:pseudo')
     implementation project(':component:thermal-ir')
 
-    kapt Deps.arouter_compiler
-    api(project(":libapp")
+    kapt "com.alibaba:arouter-compiler:1.5.2"
+    api(project(":libapp"))
     api(project(":component:CommonComponent"))
-    implementation(Deps.multidex)
-    implementation(Deps.material)
+    implementation("androidx.multidex:multidex:2.0.1")
+    implementation("com.google.android.material:material:1.4.0")
 
-    api Deps.compass_sense
-    api Deps.compass_core
+    api "com.github.kylecorry31.andromeda:sense:6.2.0"
+    api "com.github.kylecorry31.andromeda:core:6.2.0"
 
 }

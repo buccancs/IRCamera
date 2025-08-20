@@ -10,7 +10,6 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.ToastUtils
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.BaseApplication
-import com.topdon.lib.core.bean.event.TS004ResetEvent
 import com.topdon.lib.core.common.SaveSettingUtil
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.ExtraKeyConfig
@@ -20,7 +19,6 @@ import com.topdon.lib.core.dialog.ConfirmSelectDialog
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.http.tool.DownloadTool
 import com.topdon.lib.core.ktbase.BaseActivity
-import com.topdon.lib.core.repository.TS004Repository
 import com.topdon.lib.core.utils.Constants
 import com.topdon.lib.core.viewmodel.FirmwareViewModel
 import com.topdon.lms.sdk.LMS

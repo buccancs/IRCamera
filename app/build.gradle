@@ -207,59 +207,59 @@ project.afterEvaluate {
 
 dependencies {
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
-    implementation Deps.appcompat
-    implementation Deps.fragment_ktx
-    implementation Deps.material
+    implementation "androidx.appcompat:appcompat:1.6.1"
+    implementation "androidx.fragment:fragment-ktx:1.3.6"
+    implementation "com.google.android.material:material:1.4.0"
 
-    implementation Deps.lifecycle_runtime_ktx
-    implementation Deps.lifecycle_viewmodel_ktx
-    implementation Deps.lifecycle_livedata_ktx
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
 
-    kapt Deps.room_compiler
-    implementation Deps.room_ktx
+    kapt "androidx.room:room-compiler:2.6.1"
+    implementation "androidx.room:room-ktx:2.6.1"
 
-    implementation Deps.work_runtime_ktx
+    implementation "androidx.work:work-runtime-ktx:2.7.1"
 
-    implementation Deps.retrofit2
-    implementation Deps.converter_gson
-    implementation Deps.adapter_rxjava2
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.9.0"
 
-    implementation Deps.eventbus
+    implementation "org.greenrobot:eventbus:3.2.0"
 
-    implementation Deps.glide
-    kapt Deps.glide_compiler
+    implementation "com.github.bumptech.glide:glide:4.11.0"
+    kapt "com.github.bumptech.glide:compiler:4.11.0"
 
-    implementation Deps.rxjava2
-    implementation Deps.rxandroid
-    implementation Deps.rxpermissions
-    implementation Deps.rxlifecycle
-    implementation Deps.rxlifecycle_android
-    implementation Deps.rxlifecycle_components
-    implementation Deps.rxlifecycle_ktx
-    implementation Deps.rxlifecycle_android_lifecycle_ktx
+    implementation "io.reactivex.rxjava2:rxjava:2.2.20"
+    implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
+    implementation "com.github.tbruyelle:rxpermissions:0.10.2"
+    implementation "com.trello.rxlifecycle2:rxlifecycle:2.2.2"
+    implementation "com.trello.rxlifecycle2:rxlifecycle-android:2.2.2"
+    implementation "com.trello.rxlifecycle2:rxlifecycle-components:2.2.2"
+    implementation "com.trello.rxlifecycle2:rxlifecycle-kotlin:2.2.2"
+    implementation "com.trello.rxlifecycle2:rxlifecycle-android-lifecycle-kotlin:2.2.2"
 
-    implementation Deps.arouter_api
+    implementation "com.alibaba:arouter-api:1.5.2"
 
-    implementation Deps.utilcode
-    implementation Deps.XXPermissions
-    implementation Deps.xlog
-    implementation Deps.PhotoView
-    implementation Deps.android_pdf_viewr
-    implementation Deps.lottie
+    implementation "com.blankj:utilcodex:1.31.0"
+    implementation "com.github.getActivity:XXPermissions:20.0"
+    implementation "com.elvishew:xlog:1.11.0"
+    implementation "com.github.chrisbanes:PhotoView:2.3.0"
+    implementation "com.github.barteksc:android-pdf-viewer:2.8.1"
+    implementation "com.airbnb.android:lottie:6.0.0"
 
-    implementation Deps.brvah
-    implementation Deps.refresh_layout_kernel
-    implementation Deps.refresh_header_classics
-    implementation Deps.refresh_header_material
+    implementation "com.github.cymchad:BaseRecyclerViewAdapterHelper:3.0.10"
+    implementation "com.scwang.smart:refresh-layout-kernel:2.0.3"
+    implementation "com.scwang.smart:refresh-header-classics:2.0.3"
+    implementation "com.scwang.smart:refresh-header-material:2.0.3"
 
-    implementation Deps.logging_interceptor
-    implementation Deps.colorpickerview
-    implementation Deps.MNImageBrowser
-    implementation Deps.nifty
-    implementation Deps.nifty_effect
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
+    implementation "com.github.skydoves:colorpickerview:2.2.4"
+    implementation "com.github.maning0303:MNImageBrowser:V1.3.7"
+    implementation "io.github.litao0621:nifty-slider:1.4.6"
+    implementation "io.github.litao0621:nifty-slider-effect:1.4.6"
 
-    implementation Deps.javacv
-    implementation Deps.javacpp
+    implementation "org.bytedeco:javacv:1.5.8"
+    implementation "org.bytedeco:javacpp:1.5.8"
     
     implementation 'com.blankj:utilcodex:1.30.6'
     implementation 'com.google.code.gson:gson:2.8.8'
@@ -281,13 +281,12 @@ dependencies {
     implementation files('libs\\library_1.0.aar')
     
     implementation(name: 'libcommon_1.2.0_24052117', ext: 'aar')
-    implementation project(':RangeSeekBar')
     implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '3.17'
     implementation group: 'org.apache.xmlbeans', name: 'xmlbeans', version: '3.1.0'
     implementation 'javax.xml.stream:stax-api:1.0'
     implementation 'com.fasterxml:aalto-xml:1.2.2'
 
-    kapt Deps.arouter_compiler
+    kapt "com.alibaba:arouter-compiler:1.5.2"
 
     implementation 'com.github.lzyzsd:jsbridge:1.0.4'
     implementation 'com.alibaba:fastjson:1.2.78'

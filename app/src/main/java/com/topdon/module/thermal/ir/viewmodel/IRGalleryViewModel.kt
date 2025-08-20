@@ -7,7 +7,6 @@ import com.topdon.lib.core.bean.GalleryTitle
 import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.ktbase.BaseViewModel
 import com.topdon.lib.core.repository.GalleryRepository
-import com.topdon.lib.core.repository.TS004Repository
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.module.thermal.ir.utils.WriteTools
 import kotlinx.coroutines.Dispatchers

@@ -13,7 +13,6 @@ import android.os.Build
 import android.util.Log
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.BaseApplication
-import com.topdon.lib.core.repository.TS004Repository
 
 object NetWorkUtils {
 

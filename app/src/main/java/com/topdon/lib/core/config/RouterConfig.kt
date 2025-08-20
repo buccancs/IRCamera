@@ -34,6 +34,7 @@ object RouterConfig {
     const val IR_CORRECTION_FOUR = "/$GROUP_IR/correction4"
     const val IR_IMG_PICK = "/$GROUP_IR/ImagePickIRActivity"
     const val IR_IMG_PICK_PLUS = "/$GROUP_IR/ImagePickIRPlushActivity"
+    const val IR_DEVICE_ADD = "/$GROUP_IR/irMain"  // Redirect to main IR - TC007/TS004 support removed
 
     const val IR_GALLERY_3D = "/menu/Image3DActivity"
 
@@ -54,6 +55,10 @@ object RouterConfig {
     const val ELECTRONIC_MANUAL = "/$GROUP_USER/electronic_manual"
     const val STORAGE_SPACE = "/$GROUP_USER/storage_space"
     const val AUTO_SAVE = "/$GROUP_USER/auto_save"
+    
+    // Legacy device routes - redirect to standard MORE
+    const val TC_MORE = "/$GROUP_USER/more"
+    const val TS004_MORE = "/$GROUP_USER/more"
 
     const val MANUAL_START = "/$GROUP_CALIBRATE/manual/first"
     const val IR_FRAME_PLUSH = "/$GROUP_IR/frame/plush"

@@ -19,7 +19,6 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.FileTools
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.lib.core.dialog.TipDialog
-import com.topdon.lib.core.repository.TS004Repository
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.module.thermal.ir.R
 import com.topdon.lib.core.dialog.ConfirmSelectDialog
