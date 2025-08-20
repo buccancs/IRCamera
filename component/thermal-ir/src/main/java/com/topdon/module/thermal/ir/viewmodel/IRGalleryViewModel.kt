@@ -105,7 +105,7 @@ class IRGalleryViewModel : BaseViewModel() {
     fun delete(deleteList: List<GalleryBean>, dirType: GalleryRepository.DirType, isDelLocal: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             if (dirType == GalleryRepository.DirType.TS004_REMOTE) {
-                val isSuccess = // TS004Repository.deleteFiles(Array(deleteList.size) {
+                val isSuccess = TS004Repository.deleteFiles(Array(deleteList.size) {
                     deleteList[it].id
                 })
                 if (isSuccess) {

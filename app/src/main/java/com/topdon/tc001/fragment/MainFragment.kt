@@ -120,7 +120,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
 
         if (WebSocketProxy.getInstance().isTC007Connect()) {
             lifecycleScope.launch {
-                val batteryInfo: BatteryInfo? = // TC007Repository.getBatteryInfo()
+                val batteryInfo: BatteryInfo? = TC007Repository.getBatteryInfo()
                 if (batteryInfo != null) {
                     adapter.tc007Battery = batteryInfo
                 }
@@ -172,7 +172,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             SharedManager.hasTC007 = true
             adapter.hasConnectTC007 = true
             lifecycleScope.launch {
-                val batteryInfo: BatteryInfo? = // TC007Repository.getBatteryInfo()
+                val batteryInfo: BatteryInfo? = TC007Repository.getBatteryInfo()
                 if (batteryInfo != null) {
                     adapter.tc007Battery = batteryInfo
                 }

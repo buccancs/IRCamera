@@ -109,7 +109,7 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
             if (isTC007 && WebSocketProxy.getInstance().isTC007Connect()) {
                 lifecycleScope.launch {
                     val config = ConfigRepository.readConfig(true)
-                    // TC007Repository.setIRConfig(config.environment, config.distance, config.radiation)
+                    TC007Repository.setIRConfig(config.environment, config.distance, config.radiation)
                 }
             }
         }

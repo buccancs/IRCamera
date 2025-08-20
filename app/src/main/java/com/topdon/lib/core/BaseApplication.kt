@@ -127,12 +127,12 @@ abstract class BaseApplication : Application() {
 
     private fun autoSaveNewest(isVideo: Boolean) {
         CoroutineScope(Dispatchers.IO).launch {
-            val fileList: List<FileBean>? = // TS004Repository.getNewestFile(if (isVideo) 1 else 0)
+            val fileList: List<FileBean>? = TS004Repository.getNewestFile(if (isVideo) 1 else 0)
             if (!fileList.isNullOrEmpty()) {
                 val fileBean: FileBean = fileList[0]
                 val url = "http://192.168.40.1:8080/DCIM/${fileBean.name}"
                 val file = File(FileConfig.ts004GalleryDir, fileBean.name)
-                // TS004Repository.download(url, file)
+                TS004Repository.download(url, file)
                 MediaScannerConnection.scanFile(this@BaseApplication, arrayOf(FileConfig.ts004GalleryDir), null, null)
             }
         }

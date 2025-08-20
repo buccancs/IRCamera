@@ -54,7 +54,7 @@ class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
     @SuppressLint("SetTextI18n")
     override fun initData() {
         lifecycleScope.launch {
-            val freeSpaceBean = // TS004Repository.getFreeSpace()
+            val freeSpaceBean = TS004Repository.getFreeSpace()
             if (freeSpaceBean == null) {
                 TToast.shortToast(this@StorageSpaceActivity, R.string.operation_failed_tips)
             } else {
@@ -93,7 +93,7 @@ class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
                     .setPositiveListener(R.string.app_ok) {
                         showLoadingDialog()
                         lifecycleScope.launch {
-                            val isSuccess = // TS004Repository.getFormatStorage()
+                            val isSuccess = TS004Repository.getFormatStorage()
                             if (isSuccess) {
                                 XLog.d("TS004 格式化存储成功，即将断开连接")
                                 (application as BaseApplication).disconnectWebSocket()

@@ -288,7 +288,7 @@ class IRGalleryFragment : BaseFragment() {
             lifecycleScope.launch {
                 (context as? Activity)?.window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
                 showLoadingDialog()
-                val successCount = // TS004Repository.downloadList(downloadMap) { path, isSuccess ->
+                val successCount = TS004Repository.downloadList(downloadMap) { path, isSuccess ->
                     if (isSuccess) {
                         for (galleryBean in downloadList) {
                             if (galleryBean.path == path) {

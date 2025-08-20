@@ -154,7 +154,7 @@ object NetWorkUtils {
                 super.onAvailable(network)
                 XLog.i("切换到 ${if (isWifi) "WIFI" else "流量"} onAvailable()")
                 if (isWifi) {
-                    // TS004Repository.netWork = network
+                    TS004Repository.netWork = network
                 }
                 connectivityManager.bindProcessToNetwork(network)
                 connectivityManager.unregisterNetworkCallback(this)

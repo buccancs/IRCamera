@@ -214,7 +214,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
 
         if (isConnect) {
             lifecycleScope.launch {
-                val productBean: ProductBean? = // TC007Repository.getProductInfo()
+                val productBean: ProductBean? = TC007Repository.getProductInfo()
                 if (productBean == null) {
                     TToast.shortToast(requireContext(), R.string.operation_failed_tips)
                 } else {
@@ -281,7 +281,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
             val installDialog = FirmwareInstallDialog(requireContext())
             installDialog.show()
 
-            val isSuccess = // TC007Repository.updateFirmware(file)
+            val isSuccess = TC007Repository.updateFirmware(file)
             installDialog.dismiss()
             if (isSuccess) {
                 XLog.d("TC007 固件升级 - 固件升级包发送往 TC007 成功，即将断开连接")
@@ -346,7 +346,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
     private fun resetAll() {
         showLoadingDialog(R.string.ts004_reset_tip3)
         lifecycleScope.launch {
-            val isSuccess = // TC007Repository.resetToFactory()
+            val isSuccess = TC007Repository.resetToFactory()
             if (isSuccess) {
                 XLog.d("TC007 恢复出厂设置成功，即将断开连接")
                 TToast.shortToast(requireContext(), R.string.ts004_reset_tip4)

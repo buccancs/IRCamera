@@ -97,7 +97,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
                 NetWorkUtils.switchNetwork(false)
                 iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_connect)
                 lifecycleScope.launch {
-                    // TC007Repository.syncTime()
+                    TC007Repository.syncTime()
                 }
                 if (SharedManager.isConnect07AutoOpen) {
                     ARouter.getInstance().build(RouterConfig.IR_THERMAL_07).navigation(this)

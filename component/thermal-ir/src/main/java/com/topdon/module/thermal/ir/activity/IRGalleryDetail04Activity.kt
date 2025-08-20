@@ -165,7 +165,7 @@ class IRGalleryDetail04Activity : BaseActivity() {
             lifecycleScope.launch {
                 showCameraLoading()
 
-                val isSuccess = // TS004Repository.deleteFiles(arrayOf(data.id))
+                val isSuccess = TS004Repository.deleteFiles(arrayOf(data.id))
                 if (isSuccess) {
                     if (isDelLocal) {
                         File(FileConfig.ts004GalleryDir, data.name).delete()

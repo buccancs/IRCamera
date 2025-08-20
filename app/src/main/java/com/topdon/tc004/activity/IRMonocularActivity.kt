@@ -85,8 +85,8 @@ class IRMonocularActivity : BaseWifiActivity() {
 
     override fun initData() {
         lifecycleScope.launch {
-            // TS004Repository.syncTime()
-            // TS004Repository.syncTimeZone()
+            TS004Repository.syncTime()
+            TS004Repository.syncTimeZone()
         }
 
         refreshImg(2)
@@ -146,14 +146,14 @@ class IRMonocularActivity : BaseWifiActivity() {
         if (Build.VERSION.SDK_INT >= 29) {//Android10 及以上
             NetWorkUtils.switchNetwork(true) {
                 if (it != null) {
-                    // TS004Repository.netWork = it
+                    TS004Repository.netWork = it
                 }
             }
         }
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
         lifecycleScope.launch {
-            val mPseudoColorBean = // TS004Repository.getPseudoColor()
+            val mPseudoColorBean = TS004Repository.getPseudoColor()
             if (mPseudoColorBean?.isSuccess() == true) {
                 mDefaultHot = mPseudoColorBean.data?.mode!!
                 updatePseudoColorUI()
@@ -162,7 +162,7 @@ class IRMonocularActivity : BaseWifiActivity() {
             }
         }
         lifecycleScope.launch {
-            val mRangeBean = // TS004Repository.getRangeFind()
+            val mRangeBean = TS004Repository.getRangeFind()
             if (mRangeBean?.isSuccess() == true) {
                 isRange = mRangeBean.data?.state!! == 1
                 updateRangeUI()
@@ -171,7 +171,7 @@ class IRMonocularActivity : BaseWifiActivity() {
             }
         }
         lifecycleScope.launch {
-            val mBrightnessBean = // TS004Repository.getPanelParam()
+            val mBrightnessBean = TS004Repository.getPanelParam()
             if (mBrightnessBean?.isSuccess() == true) {
                 mDefaultLight = mBrightnessBean.data?.brightness!!
                 updateBrightnessUI(true)
@@ -180,7 +180,7 @@ class IRMonocularActivity : BaseWifiActivity() {
             }
         }
         lifecycleScope.launch {
-            val mPipBean = // TS004Repository.getPip()
+            val mPipBean = TS004Repository.getPip()
             if (mPipBean?.isSuccess() == true) {
                 isPip = mPipBean.data?.enable!!
                 updatePipUI()
@@ -189,7 +189,7 @@ class IRMonocularActivity : BaseWifiActivity() {
             }
         }
         lifecycleScope.launch {
-            val mZoomBean = // TS004Repository.getZoom()
+            val mZoomBean = TS004Repository.getZoom()
             if (mZoomBean?.isSuccess() == true) {
                 mDefaultGain = mZoomBean.data?.factor!!
                 updateZoomUI()
@@ -198,7 +198,7 @@ class IRMonocularActivity : BaseWifiActivity() {
             }
         }
         lifecycleScope.launch {
-            val mRecordStatus = // TS004Repository.getRecordStatus()
+            val mRecordStatus = TS004Repository.getRecordStatus()
             if (mRecordStatus?.isSuccess() == true) {
                 val status = mRecordStatus.data?.status!!
                 updateCamera(status)
@@ -355,7 +355,7 @@ class IRMonocularActivity : BaseWifiActivity() {
 
     private fun setPseudoColor() {
         lifecycleScope.launch {
-            val isSuccess = // TS004Repository.setPseudoColor(WsUtil.getWebSocketPseudo(mDefaultHot))
+            val isSuccess = TS004Repository.setPseudoColor(WsUtil.getWebSocketPseudo(mDefaultHot))
             if (isSuccess) {
                 mDefaultHot = WsUtil.getWebSocketPseudo(mDefaultHot)
                 updatePseudoColorUI()
@@ -367,7 +367,7 @@ class IRMonocularActivity : BaseWifiActivity() {
 
     private fun setBrightness() {
         lifecycleScope.launch {
-            val isSuccess = // TS004Repository.setPanelParam(WsUtil.getBrightness(mDefaultLight))
+            val isSuccess = TS004Repository.setPanelParam(WsUtil.getBrightness(mDefaultLight))
             if (isSuccess) {
                 mDefaultLight = WsUtil.getBrightness(mDefaultLight)
                 updateBrightnessUI(false)
@@ -379,7 +379,7 @@ class IRMonocularActivity : BaseWifiActivity() {
 
     private fun setRangeFind() {
         lifecycleScope.launch {
-            val isSuccess = // TS004Repository.setRangeFind(if (!isRange) 1 else 0)
+            val isSuccess = TS004Repository.setRangeFind(if (!isRange) 1 else 0)
             if (isSuccess) {
                 isRange = !isRange
                 updateRangeUI()
@@ -392,7 +392,7 @@ class IRMonocularActivity : BaseWifiActivity() {
 
     private fun setPip() {
         lifecycleScope.launch {
-            val isSuccess = // TS004Repository.setPip(!isPip)
+            val isSuccess = TS004Repository.setPip(!isPip)
             if (isSuccess) {
                 isPip = !isPip
                 updatePipUI()
@@ -404,7 +404,7 @@ class IRMonocularActivity : BaseWifiActivity() {
 
     private fun setZoom() {
         lifecycleScope.launch {
-            val isSuccess = // TS004Repository.setZoom(mDefaultGain)
+            val isSuccess = TS004Repository.setZoom(mDefaultGain)
             if (isSuccess) {
                 updateZoomUI()
             } else {
@@ -471,7 +471,7 @@ class IRMonocularActivity : BaseWifiActivity() {
 
     private fun video() {
         lifecycleScope.launch {
-            val isSuccess = // TS004Repository.setVideo(isVideoRecording)
+            val isSuccess = TS004Repository.setVideo(isVideoRecording)
             if (isSuccess) {
                 if (!isVideoRecording) {
                     refreshImg(1)
@@ -484,7 +484,7 @@ class IRMonocularActivity : BaseWifiActivity() {
 
     private fun setCamera() {
         lifecycleScope.launch {
-            val isSuccess = // TS004Repository.setSnapshot()
+            val isSuccess = TS004Repository.setSnapshot()
             if (isSuccess) {
                 refreshImg(0)
                 TToast.shortToast(this@IRMonocularActivity, R.string.tip_save_success)
@@ -496,7 +496,7 @@ class IRMonocularActivity : BaseWifiActivity() {
 
     private fun refreshImg(fileType: Int) {
         lifecycleScope.launch {
-            val fileList: List<FileBean>? = // TS004Repository.getNewestFile(fileType)
+            val fileList: List<FileBean>? = TS004Repository.getNewestFile(fileType)
             try {
                 if (fileList != null) {//请求成功
                     if (fileList.isEmpty()) {//请求成功但是当前没有对应图片或视频

@@ -77,7 +77,7 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
 
 
             if (isTS004) {
-                val firmware: String? = // TS004Repository.getVersion()?.data?.firmware
+                val firmware: String? = TS004Repository.getVersion()?.data?.firmware
                 if (firmware == null) {
                     XLog.w("TS004 固件升级 - 从设备查询 固件版本 失败!")
                     failLD.postValue(false)
@@ -87,7 +87,7 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
 
                 getInfoFromAssets(true, firmware)
             } else {
-                val productInfo: ProductBean? = // TC007Repository.getProductInfo()
+                val productInfo: ProductBean? = TC007Repository.getProductInfo()
                 if (productInfo == null) {
                     XLog.w("TC007 固件升级 - 从设备查询 SN、激活码 失败!")
                     failLD.postValue(false)
