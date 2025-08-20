@@ -60,7 +60,7 @@ android {
 }
 
 dependencies {
-    kapt Deps.arouter_compiler
+    kapt "com.alibaba:arouter-compiler:1.5.2"
     implementation project(':libapp')
     implementation(name: 'opengl_1.3.2_standard', ext: 'aar')
 
