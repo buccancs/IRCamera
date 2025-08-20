@@ -74,8 +74,7 @@ dependencies {
     implementation(name: 'library_1.0', ext: 'aar')
 
     compileOnly(name: 'libcommon_1.2.0_24052117', ext: 'aar')
-    implementation project(':component:house')
-    implementation project(':component:pseudo')
+    // Removed house and pseudo dependencies  
     implementation project(':libmatrix')
 
     kapt "com.alibaba:arouter-compiler:1.5.4"
