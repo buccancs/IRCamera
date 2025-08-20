@@ -11,9 +11,9 @@ IRCamera is a comprehensive Android application for thermal infrared (IR) camera
 **Minimum SDK:** 24 (Android 7.0)
 
 ### Project Statistics
-- **Source Files:** 1277 Java/Kotlin files
+- **Source Files:** 1,277 Java/Kotlin files
 - **Total Code:** 192,006 lines
-- **Component Modules:** 9 feature modules
+- **Component Modules:** 14 total modules (9 feature components + 5 support modules)
 - **Native Libraries:** 56 .so files for thermal processing
 
 ## Supported Devices
@@ -81,21 +81,29 @@ IRCamera/
 │   │   └── com/example/         # Example implementations
 │   │       └── thermal_lite/    # Lightweight thermal features
 │   └── libs/                    # Third-party libraries and SDKs
-├── component/                   # Modular components (9 modules)
-│   ├── thermal/                 # Core thermal imaging module
-│   ├── thermal-ir/              # Advanced IR features
-│   ├── thermal-lite/            # Lightweight thermal module  
-│   ├── house/                   # House inspection module
-│   ├── pseudo/                  # Pseudo color processing
-│   ├── edit3d/                  # 3D editing capabilities
-│   ├── transfer/                # Data transfer module
-│   ├── user/                    # User management
-│   └── CommonComponent/         # Shared components
+├── component/                   # Modular components (14 total modules)
+│   ├── thermal/                 # Core thermal imaging module (37 files)
+│   ├── thermal-ir/              # Advanced IR features (145 files)
+│   ├── thermal-lite/            # Lightweight thermal module (23 files)
+│   ├── house/                   # House inspection module (29 files)
+│   ├── pseudo/                  # Pseudo color processing (6 files)
+│   ├── edit3d/                  # 3D editing capabilities (6 files)
+│   ├── transfer/                # Data transfer module (4 files)
+│   ├── user/                    # User management (19 files)
+│   └── CommonComponent/         # Shared components (18 files)
 ├── buildSrc/                    # Build logic and dependencies
-├── RangeSeekBar/               # Custom UI component
-├── libmatrix/                   # Matrix processing library
-└── commonlibrary/              # Common utility library
+├── RangeSeekBar/               # Custom UI component (10 files)
+├── libmatrix/                   # Matrix processing library (15 files)
+└── commonlibrary/              # Common utility library (placeholder)
 ```
+
+## Module Documentation
+
+For detailed information about each module's functionality, implementation, and APIs, see [MODULE_DOCUMENTATION.md](MODULE_DOCUMENTATION.md).
+
+The application consists of 14 modules:
+- **9 Feature Components:** thermal, thermal-ir, thermal-lite, house, pseudo, edit3d, transfer, user, CommonComponent
+- **5 Support Modules:** app (main), RangeSeekBar, libmatrix, commonlibrary, buildSrc
 
 ## Architecture
 
@@ -338,6 +346,21 @@ Enable debug logging by setting log level in application settings or through dev
 ## License
 
 This project contains proprietary thermal imaging algorithms and device-specific SDKs. Please refer to individual license files for component-specific licensing terms.
+
+---
+
+## Documentation
+
+### 📚 Complete Documentation Suite
+- **[README.md](README.md)** - Main project documentation with features, build instructions, and troubleshooting
+- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Technical architecture, design patterns, and system diagrams  
+- **[MODULE_DOCUMENTATION.md](MODULE_DOCUMENTATION.md)** - Comprehensive module-by-module documentation with detailed functionality descriptions
+
+### 🗂️ Quick Reference
+- **14 Total Modules:** 9 feature components + 5 support modules
+- **1,277 Source Files:** 192,006 lines of Java/Kotlin code
+- **56 Native Libraries:** Optimized thermal processing capabilities
+- **Multi-device Support:** TC001, TC007, TS004, LINE, HIK thermal cameras
 
 ---
 
