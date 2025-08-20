@@ -36,8 +36,6 @@ object RouterConfig {
     const val IR_IMG_PICK_PLUS = "/$GROUP_IR/ImagePickIRPlushActivity"
     const val IR_DEVICE_ADD = "/$GROUP_IR/irMain"  // Redirect to main IR - TC007/TS004 support removed
 
-    const val IR_GALLERY_3D = "/menu/Image3DActivity"
-
     const val REPORT_CREATE_FIRST = "/$GROUP_REPORT/create/first"
     const val REPORT_CREATE_SECOND = "/$GROUP_REPORT/create/second"
     const val REPORT_PREVIEW_FIRST = "/$GROUP_REPORT/preview/first"

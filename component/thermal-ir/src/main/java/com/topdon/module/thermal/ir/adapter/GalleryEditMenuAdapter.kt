@@ -23,7 +23,6 @@ class GalleryEditMenuAdapter(val context: Context) : RecyclerView.Adapter<Recycl
     private var settingColorBar = false //设置
 
     private val bean = arrayListOf(
-        IconBean(name = context.getString(R.string.menu_3d_calibrate), icon = R.drawable.selector_menu_first_2_5, code = 1000), //标定
         IconBean(name = context.getString(R.string.thermal_false_color), icon = R.drawable.selector_menu_first_4_3, code = 2000), //伪彩
         IconBean(name = context.getString(R.string.app_setting), icon = R.drawable.selector_menu_first_5_6, code = 4000), //设置
         IconBean(name = context.getString(R.string.func_temper_ruler), icon = R.drawable.selector_menu_first_edit_4, code = 3000), //等温尺

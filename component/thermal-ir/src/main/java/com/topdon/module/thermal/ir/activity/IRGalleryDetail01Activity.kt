@@ -83,7 +83,6 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
         initViewPager()
 
         ll_ir_edit_2D?.setOnClickListener(this)
-        ll_ir_edit_3D?.setOnClickListener(this)
         ll_ir_report?.setOnClickListener(this)
         ll_ir_ex?.setOnClickListener(this)
 
@@ -135,7 +134,6 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
 
                 irPath = "${FileConfig.lineIrGalleryDir}/${dataList[position].name.substringBeforeLast(".")}.ir"
                 val hasIrData = File(irPath!!).exists()
-                ll_ir_edit_3D?.isVisible = hasIrData
                 ll_ir_report?.isVisible = hasIrData
                 ll_ir_edit_2D?.isVisible = hasIrData
                 ll_ir_ex?.isVisible = hasIrData
@@ -227,44 +225,6 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
             ll_ir_edit_2D -> {
                 //2d编辑
                 actionEditOrReport(false)
-            }
-
-            ll_ir_edit_3D -> {
-                //跳转到3D
-                val data = dataList[position]
-                val fileName = data.name.substringBeforeLast(".")
-                val irPath = "${FileConfig.lineIrGalleryDir}/${fileName}.ir"
-                if (!File(irPath).exists()) {
-                    ToastTools.showShort(R.string.album_report_on_edit)
-                    return
-                }
-                var tempHigh = 0f
-                var tempLow = 0f
-                lifecycleScope.launch {
-//                    showLoading()
-                    withContext(Dispatchers.IO) {
-                        val file = File(irPath)
-                        if (!file.exists()) {
-                            return@withContext
-                        }
-                        val bytes = file.readBytes()
-                        val headLenBytes = ByteArray(2)
-                        System.arraycopy(bytes, 0, headLenBytes, 0, 2)
-                        val headLen = headLenBytes.bytesToInt()
-                        val headDataBytes = ByteArray(headLen)
-                        val frameDataBytes = ByteArray(bytes.size - headLen)
-                        System.arraycopy(bytes, 0, headDataBytes, 0, headDataBytes.size)
-                        System.arraycopy(bytes, headLen, frameDataBytes, 0, frameDataBytes.size)
-                        frameTool.read(frameDataBytes)
-                        tempHigh = frameTool.getSrcTemp().maxTemperature
-                        tempLow = frameTool.getSrcTemp().minTemperature
-                    }
-//                    dismissLoading()
-                    ARouter.getInstance().build(RouterConfig.IR_GALLERY_3D).withString(ExtraKeyConfig.IR_PATH, irPath)
-                        .withFloat(ExtraKeyConfig.TEMP_HIGH, tempHigh).withFloat(ExtraKeyConfig.TEMP_LOW, tempLow)
-                        .navigation(this@IRGalleryDetail01Activity)
-                }
-
             }
 
             ll_ir_report -> {
