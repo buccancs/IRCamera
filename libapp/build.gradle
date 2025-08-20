@@ -8,7 +8,6 @@ plugins {
 kapt {
     arguments {
         arg("AROUTER_MODULE_NAME", project.getName())
-//        arg("AROUTER_GENERATE_DOC", "enable")//生成doc文档
         arg("room.schemaLocation", "$projectDir/schemas".toString())
         arg("room.incremental", "true")
         arg("room.expandProjection", "true")
@@ -67,16 +66,10 @@ android {
     }
     sourceSets {
         main {
-            jniLibs.srcDirs = ['src/main/jniLibs']
+            jniLibs.srcDirs = ['src/main/jniLibs', 'libs']
         }
     }
 }
-
-//kotlin {
-//    experimental {
-//        coroutines 'enable'
-//    }
-//}
 
 dependencies {
     api fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
@@ -132,21 +125,31 @@ dependencies {
     api Deps.nifty
     api Deps.nifty_effect
 
-//    devApi Deps.lms2
-//    betaApi Deps.lms2
-//    prodApi Deps.lms2
-//    prodTopdonApi Deps.lms2
-//    insideChinaApi Deps.lms3
-//    prodTopdonInsideChinaApi Deps.lms3
-
-
-
-    //javacv
     api Deps.javacv
     api Deps.javacpp
+    
+    api 'com.blankj:utilcodex:1.30.6'
+    api 'com.google.code.gson:gson:2.8.8'
+    api 'com.elvishew:xlog:1.10.1'
+    api 'com.conghuahuadan:superlayout:1.1.0'
+    implementation files('libs/ini4j-0.5.5.jar')
+    
     api files('libs\\abtest-1.0.1.aar')
     api files('libs\\auth-number-2.13.2.1.aar')
     api files('libs\\lms_international-3.90.009.0.aar')
     api files('libs\\logger-2.2.1-release.aar')
     api files('libs\\main-2.2.1-release.aar')
+    api(name: 'libusbdualsdk_1.3.4_2406271906_standard', ext: 'aar')
+    implementation(name: 'opengl_1.3.2_standard', ext: 'aar')
+    api(name: 'suplib-release', ext: 'aar')
+    api(name: 'ai-upscale-release', ext: 'aar')
+    implementation(name: 'libusbirsdk_1.2.3_22041515', ext: 'aar')
+    
+    api(project(":LocalRepo:libcommon"))
+    
+    implementation project(':RangeSeekBar')
+    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '3.17'
+    implementation group: 'org.apache.xmlbeans', name: 'xmlbeans', version: '3.1.0'
+    implementation 'javax.xml.stream:stax-api:1.0'
+    implementation 'com.fasterxml:aalto-xml:1.2.2'
 }

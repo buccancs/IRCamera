@@ -38,7 +38,6 @@ android {
 
 dependencies {
     implementation project(':libapp')
-    implementation project(':libui')
     implementation project(':libmatrix')
     implementation 'com.google.android.mediahome:video:1.0.0'
     kapt Deps.arouter_compiler

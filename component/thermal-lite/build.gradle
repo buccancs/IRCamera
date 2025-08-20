@@ -70,17 +70,14 @@ dependencies {
     implementation(name: 'libusbdualsdk_1.3.4_2406271906_standard', ext: 'aar')
 
     implementation project(':libapp')
-    implementation project(':libcom')
-    implementation project(':libir')
-    implementation project(':libmenu')
-    implementation project(':libui')
+    implementation project(":libapp")
     implementation project(':component:pseudo')
     implementation project(':component:thermal-ir')
 
     kapt Deps.arouter_compiler
     api(project(":LocalRepo:libac020"))
     api(project(":LocalRepo:libirutils"))
-    api(project(":LocalRepo:libcommon"))
+    api(project(":libapp")
     api(project(":component:CommonComponent"))
     implementation(Deps.multidex)
     implementation(Deps.material)

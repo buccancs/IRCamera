@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="color_CCFFFFFF">#CCFFFFFF</color>
-    <color name="c_bg_white">#FF16131E</color>
+    <color name="rsbColorIndicatorBg">#FFBA42</color>
+    <color name="rsbColorSeekBarDefault">#c3c3c3</color>
+    <color name="rsbColorThumbPressed">#FFE7E7E7</color>
+    <color name="rsbColorThumbDefault">#FFFFFF</color>
+    <color name="rsbColorThumbBorder">#FFD7D7D7</color>
+    
+    <!-- App theme colors -->
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="color_16131E">#16131E</color>
 </resources>

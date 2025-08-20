@@ -72,10 +72,7 @@ dependencies {
     implementation(name: 'library_1.0', ext: 'aar')
 
     implementation project(':libapp')
-    implementation project(':libcom')
-    implementation project(':libir')
-    implementation project(':libmenu')
-    implementation project(':libui')
+    implementation project(":libapp")
     implementation project(':component:house')
     implementation project(':component:pseudo')
 

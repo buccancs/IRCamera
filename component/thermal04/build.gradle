@@ -65,8 +65,6 @@ android {
 
 dependencies {
     implementation project(':libapp')
-    implementation project(':libui')
-    implementation project(':libir')
 
     api(name: 'library_1.0', ext: 'aar')
     kapt Deps.arouter_compiler

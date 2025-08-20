@@ -58,7 +58,6 @@ android {
 
 dependencies {
     implementation project(':libapp')
-    implementation project(':libui')
 
     kapt Deps.arouter_compiler
 }
