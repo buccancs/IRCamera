@@ -109,6 +109,16 @@ android {
         pickFirst 'lib/arm64-v8a/libomp.so'
         pickFirst 'lib/arm64-v8a/liblog.so'
         pickFirst 'lib/armeabi-v7a/liblog.so'
+        // Handle duplicate libraries from merged modules
+        pickFirst 'lib/arm64-v8a/libUSBUVCCamera.so'
+        pickFirst 'lib/armeabi-v7a/libUSBUVCCamera.so'
+        pickFirst 'lib/arm64-v8a/libircmd.so'
+        pickFirst 'lib/armeabi-v7a/libircmd.so'
+        exclude 'META-INF/*.SF'
+        exclude 'META-INF/*.DSA' 
+        exclude 'META-INF/*.RSA'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/INDEX.LIST'
         doNotStrip "**/*.so"
     }
     kotlinOptions {
@@ -315,16 +325,81 @@ project.afterEvaluate {
 }
 
 dependencies {
-    implementation project(':component:edit3d')
-    implementation project(':component:pseudo')
-    implementation project(':component:thermal-hik')
-    implementation project(':component:thermal-ir')
-    implementation project(':component:thermal-lite')
-    implementation project(':component:thermal04')
-    implementation project(':component:thermal07')
-    implementation project(':component:transfer')
-    implementation project(':component:user')
-    implementation project(':libapp')
+    // All dependencies consolidated from merged modules
+    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
+    implementation Deps.appcompat
+    implementation Deps.fragment_ktx
+    implementation Deps.material
+
+    implementation Deps.lifecycle_runtime_ktx
+    implementation Deps.lifecycle_viewmodel_ktx
+    implementation Deps.lifecycle_livedata_ktx
+
+    kapt Deps.room_compiler
+    implementation Deps.room_ktx
+
+    implementation Deps.work_runtime_ktx
+
+    implementation Deps.retrofit2
+    implementation Deps.converter_gson
+    implementation Deps.adapter_rxjava2
+
+    implementation Deps.eventbus
+
+    implementation Deps.glide
+    kapt Deps.glide_compiler
+
+    implementation Deps.rxjava2
+    implementation Deps.rxandroid
+    implementation Deps.rxpermissions
+    implementation Deps.rxlifecycle
+    implementation Deps.rxlifecycle_android
+    implementation Deps.rxlifecycle_components
+    implementation Deps.rxlifecycle_ktx
+    implementation Deps.rxlifecycle_android_lifecycle_ktx
+
+    implementation Deps.arouter_api
+
+    implementation Deps.utilcode
+    implementation Deps.XXPermissions
+    implementation Deps.xlog
+    implementation Deps.PhotoView
+    implementation Deps.android_pdf_viewr
+    implementation Deps.lottie
+
+    implementation Deps.brvah
+    implementation Deps.refresh_layout_kernel
+    implementation Deps.refresh_header_classics
+    implementation Deps.refresh_header_material
+
+    implementation Deps.logging_interceptor
+    implementation Deps.colorpickerview
+    implementation Deps.MNImageBrowser
+    implementation Deps.nifty
+    implementation Deps.nifty_effect
+
+    implementation Deps.javacv
+    implementation Deps.javacpp
+    
+    implementation 'com.blankj:utilcodex:1.30.6'
+    implementation 'com.google.code.gson:gson:2.8.8'
+    implementation 'com.elvishew:xlog:1.10.1'
+    implementation 'com.conghuahuadan:superlayout:1.1.0'
+    implementation files('libs/ini4j-0.5.5.jar')
+    
+    implementation files('libs\\abtest-1.0.1.aar')
+    implementation files('libs\\auth-number-2.13.2.1.aar')
+    implementation files('libs\\lms_international-3.90.009.0.aar')
+    implementation files('libs\\logger-2.2.1-release.aar')
+    implementation files('libs\\main-2.2.1-release.aar')
+    implementation(name: 'libusbdualsdk_1.3.4_2406271906_standard', ext: 'aar')
+    implementation(name: 'opengl_1.3.2_standard', ext: 'aar')
+    
+    implementation project(':LocalRepo:libcommon')
+    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '3.17'
+    implementation group: 'org.apache.xmlbeans', name: 'xmlbeans', version: '3.1.0'
+    implementation 'javax.xml.stream:stax-api:1.0'
+    implementation 'com.fasterxml:aalto-xml:1.2.2'
 
     kapt Deps.arouter_compiler
 

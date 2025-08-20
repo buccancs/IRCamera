@@ -17,29 +17,10 @@ dependencyResolutionManagement {
 //            allowInsecureProtocol = true
 //        }
         flatDir {
-            dirs 'libapp/libs'
+            dirs 'app/libs'
         }
     }
 }
 rootProject.name = "TopInfrared"
 include ':app'
-include ':commonlibrary'
-include ':component:CommonComponent'
-include ':component:edit3d'
-include ':component:house'
-include ':component:pseudo'
-include ':component:thermal-hik'
-include ':component:thermal-ir'
-include ':component:thermal-lite'
-include ':component:thermal04'
-include ':component:thermal07'
-include ':component:transfer'
-include ':component:user'
-include ':libapp'
-include ':libhik'
-include ':LocalRepo:libac020'
 include ':LocalRepo:libcommon'
-include ':LocalRepo:libirutils'
-include ':RangeSeekBar'
-include ':ai-upscale'
-include ':ts004:thermal04'

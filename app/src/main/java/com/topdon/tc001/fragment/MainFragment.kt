@@ -54,11 +54,6 @@ import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONObject
 
 
-/**
- * 首页 Fragment.
- *
- * Created by LCG on 2024/4/18.
- */
 @SuppressLint("NotifyDataSetChanged")
 class MainFragment : BaseFragment(), View.OnClickListener {
 
@@ -134,7 +129,6 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         }
         viewLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onResume(owner: LifecycleOwner) {
-                // 要是当前已连接 TS004、TC007，切到流量上，不然登录注册意见反馈那些没网
                 if (WebSocketProxy.getInstance().isConnected()) {
                     NetWorkUtils.switchNetwork(true)
                 }
@@ -199,9 +193,6 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         when (v) {
             tv_connect_device, iv_add -> {//添加设备
                 startActivity(Intent(requireContext(), DeviceTypeActivity::class.java))
-//                ARouter.getInstance().build(RoutePath.UsbIrModule.PAGE_IR_MAIN_ACTIVITY)
-//                    .navigation()
-//                startActivity(Intent(requireContext(), IRThermalLiteActivity::class.java))
             }
         }
     }
@@ -222,33 +213,21 @@ class MainFragment : BaseFragment(), View.OnClickListener {
     }
 
     private class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
-        /**
-         * 有线设备当前是否已连接.
-         */
         var hasConnectLine: Boolean = false
             set(value) {
                 field = value
                 notifyItemRangeChanged(0, 3)
             }
-        /**
-         * TS004 当前是否已连接.
-         */
         var hasConnectTS004: Boolean = false
             set(value) {
                 field = value
                 notifyItemRangeChanged(0, itemCount)
             }
-        /**
-         * TC007 当前是否已连接.
-         */
         var hasConnectTC007: Boolean = false
             set(value) {
                 field = value
                 notifyItemRangeChanged(0, itemCount)
             }
-        /**
-         * TC007 设备电池信息.
-         */
         var tc007Battery: BatteryInfo? = null
             set(value) {
                 if (field != value) {
@@ -350,7 +329,6 @@ class MainFragment : BaseFragment(), View.OnClickListener {
                 rootView.iv_bg.setOnLongClickListener {
                     val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
-                        //只有离线设备才能长按删除
                         val deviceType = getConnectType(position)
                         when (deviceType) {
                             ConnectType.LINE -> {
