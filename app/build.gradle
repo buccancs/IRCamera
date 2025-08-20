@@ -281,7 +281,6 @@ dependencies {
     implementation files('libs\\library_1.0.aar')
     
     implementation(name: 'libcommon_1.2.0_24052117', ext: 'aar')
-    implementation project(':RangeSeekBar')
     implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '3.17'
     implementation group: 'org.apache.xmlbeans', name: 'xmlbeans', version: '3.1.0'
     implementation 'javax.xml.stream:stax-api:1.0'
