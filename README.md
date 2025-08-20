@@ -11,10 +11,10 @@ IRCamera is a comprehensive Android application for thermal infrared (IR) camera
 **Minimum SDK:** 24 (Android 7.0)
 
 ### Project Statistics
-- **Source Files:** 1044 Java/Kotlin files
-- **Total Code:** 162,497 lines
+- **Source Files:** 1277 Java/Kotlin files
+- **Total Code:** 192,006 lines
 - **Component Modules:** 9 feature modules
-- **Native Libraries:** 20+ .so files for thermal processing
+- **Native Libraries:** 56 .so files for thermal processing
 
 ## Supported Devices
 
