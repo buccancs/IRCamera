@@ -27,6 +27,7 @@ object PDFHelp {
     fun savePdfFileByListView(name: String, view: ScrollView, viewList: MutableList<View>, watermarkView: View): String {
 
         var onePageContentHeight = 0f
+        val onePageHeight = CommUtils.dp2px(842f)
 
         val pdfDocument = PdfDocument()
         var page: PdfDocument.Page? = null
@@ -37,6 +38,7 @@ object PDFHelp {
 
         for (index in 0 until viewList.size) {
             val contentHeight = viewList[index].measuredHeight
+            if (onePageContentHeight + contentHeight > onePageHeight) {
                 onePageContentHeight = 0f
                 pdfDocument.finishPage(page)
                 page = null
@@ -72,14 +74,13 @@ object PDFHelp {
             }
         }
 
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+        return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             val pdfFile = File(FileConfig.getPdfDir(), "$name.pdf")
             val fos = FileOutputStream(pdfFile)
             pdfDocument.writeTo(fos)
             fos.flush()
             fos.close()
-            return pdfFile.absolutePath
+            pdfFile.absolutePath
         } else {
             val fileName = "$name.pdf"
             val values = ContentValues()
@@ -90,7 +91,7 @@ object PDFHelp {
             )
             val contentUri = MediaStore.Files.getContentUri("external")
             val uri = Utils.getApp().contentResolver.insert(contentUri, values)
-            return if (uri != null) {
+            if (uri != null) {
                 val outputStream = Utils.getApp().contentResolver.openOutputStream(uri)
                 if (outputStream != null) {
                     val bos = BufferedOutputStream(outputStream)

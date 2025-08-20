@@ -126,7 +126,7 @@ class ColorPickDialog(context: Context, @ColorInt private var color: Int,var tex
     override fun onClick(v: View?) {
         when (v) {
             rootView.rl_close -> dismiss()
-
+            rootView.tv_save -> {
                 dismiss()
                 onPickListener?.invoke(color,textSize)
             }
