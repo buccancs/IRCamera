@@ -25,7 +25,7 @@ import com.infisense.usbir.config.MsgCode;
 import com.infisense.usbir.event.IRMsgEvent;
 import com.infisense.usbir.event.PreviewComplete;
 import com.infisense.usbir.utils.FileUtil;
-import com.infisense.usbir.utils.ScreenUtils;
+import com.topdon.commons.util.ScreenUtils;
 import com.infisense.usbir.utils.USBMonitorCallback;
 
 import org.greenrobot.eventbus.EventBus;

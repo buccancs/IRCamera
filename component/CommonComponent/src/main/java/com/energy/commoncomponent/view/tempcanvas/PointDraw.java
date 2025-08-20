@@ -14,7 +14,7 @@ import android.text.TextPaint;
 import android.util.Log;
 
 import com.energy.commoncomponent.R;
-import com.energy.commoncomponent.utils.ScreenUtils;
+import com.topdon.commons.util.ScreenUtils;
 
 import java.util.LinkedList;
 import java.util.UUID;

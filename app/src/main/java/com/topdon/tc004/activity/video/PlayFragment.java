@@ -39,7 +39,7 @@ import com.bumptech.glide.Glide;
 import com.elvishew.xlog.XLog;
 import com.topdon.tc004.R;
 import com.topdon.tc004.util.FileUtil;
-import com.topdon.tc004.util.SPUtil;
+import com.topdon.commons.util.PreferenceUtils;
 
 import org.easydarwin.video.Client;
 import org.easydarwin.video.EasyPlayerClient;
@@ -172,7 +172,7 @@ public class PlayFragment extends Fragment implements TextureView.SurfaceTexture
             }
         });
 
-        boolean autoRecord = SPUtil.getAutoRecord(getContext());
+        boolean autoRecord = PreferenceUtils.getAutoRecord(getContext());
 
         File f = new File(FileUtil.getMoviePath(mUrl));
         f.mkdirs();
