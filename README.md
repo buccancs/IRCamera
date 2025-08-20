@@ -5,7 +5,7 @@
 IRCamera is a comprehensive Android application for thermal infrared (IR) camera devices, supporting multiple TOPDON thermal camera models including TC001, TC007, and TS004. The application provides advanced thermal imaging capabilities, image analysis tools, gallery management, and device-specific functionality for professional thermal imaging workflows.
 
 **Version:** 1.10.000  
-**Package:** com.topdon.tc001  
+**Package:** com.csl.irCamera  
 **Target SDK:** 34 (Android 14)  
 **Minimum SDK:** 24 (Android 7.0)
 
@@ -55,10 +55,10 @@ IRCamera is a comprehensive Android application for thermal infrared (IR) camera
 IRCamera/
 ├── app/                          # Main Android application module
 │   ├── src/main/java/
-│   │   ├── com/topdon/tc001/    # Main application package
+│   │   ├── com/topdon/tc001/    # Main application components
 │   │   │   ├── MainActivity.kt   # Primary activity
 │   │   │   ├── SplashActivity.kt # Launch screen
-│   │   │   └── fragment/         # UI fragments
+│   │   │   └── app/              # Application class
 │   │   ├── com/topdon/lib/core/ # Core library components
 │   │   │   ├── repository/       # Data layer (TC007, TS004, Gallery)
 │   │   │   ├── viewmodel/        # MVVM ViewModels
@@ -74,7 +74,7 @@ IRCamera/
 │   │   └── com/example/         # Example implementations
 │   │       └── thermal_lite/    # Lightweight thermal features
 │   └── libs/                    # Third-party libraries and SDKs
-├── component/                   # Modular components
+├── component/                   # Modular components (9 modules)
 │   ├── thermal/                 # Core thermal imaging module
 │   ├── thermal-ir/              # Advanced IR features
 │   ├── thermal-lite/            # Lightweight thermal module  
