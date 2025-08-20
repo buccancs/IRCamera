@@ -64,4 +64,14 @@
     <color name="c_bg_white">#FFFFFF</color>
     <color name="color_font">#333333</color>
     <color name="color_font_five">#808080</color>
+    <color name="color_B3FFFFFF">#B3FFFFFF</color>
+    
+    <!-- Additional missing colors -->
+    <color name="white_80">#CCFFFFFF</color>
+    <color name="color_bg_min">#28C445</color>
+    <color name="color_8A898E">#8A898E</color>
+    <color name="font_third_color">#999999</color>
+    <color name="grey">#808080</color>
+    <color name="toastTextColor">#FFFFFF</color>
+    <color name="color_CCFFFFFF">#CCFFFFFF</color>
 </resources>

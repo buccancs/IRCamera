@@ -164,6 +164,8 @@
         <attr name="rsb_step_radius" format="dimension" />
         <attr name="rsb_step_auto_bonding" format="boolean" />
         <attr name="rsb_step_drawable" format="reference" />
+        <attr name="rsb_step_padding_left" format="dimension" />
+        <attr name="rsb_step_padding_right" format="dimension" />
 
     </declare-styleable>
 
@@ -239,4 +241,39 @@
         <enum name="line" value="2"/>
         <enum name="rect" value="3"/>
     </attr>
+    
+    <!-- LinearCompassView attributes from thermal-ir component -->
+    <declare-styleable name="LinearCompassView">
+        <attr name="backgroundColor" format="color" />
+        <attr name="lineColor" format="color" />
+        <attr name="textSize" format="dimension" />
+        <attr name="textColor" format="color" />
+        <attr name="shortLineSize" format="dimension" />
+        <attr name="shortLineColor" format="color" />
+        <attr name="longLineSize" format="dimension" />
+        <attr name="longLineColor" format="color" />
+        <attr name="positionSize" format="dimension" />
+        <attr name="positionColor" format="color" />
+        <attr name="markerColor" format="color" />
+        <attr name="markerSize" format="dimension" />
+    </declare-styleable>
+    
+    <!-- ListItemView attributes from user component -->
+    <declare-styleable name="ListItemView">
+        <attr name="list_item_left_icon" format="reference" />
+        <attr name="list_item_left_text" format="string" />
+        <attr name="list_item_right_text" format="string" />
+        <attr name="list_item_line" format="boolean" />
+    </declare-styleable>
+    
+    <!-- Additional missing attributes -->
+    <declare-styleable name="TempAlarmView">
+        <attr name="start_height" format="dimension" />
+    </declare-styleable>
+    
+    <!-- SwipeMenuLayout attributes -->
+    <declare-styleable name="SwipeMenuLayout">
+        <attr name="contentView" format="reference" />
+        <attr name="rightMenuView" format="reference" />
+    </declare-styleable>
 </resources>

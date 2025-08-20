@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="_65dp">65dp</dimen>
+    
+    <!-- Missing dimensions from monitor thermal fragment -->
+    <dimen name="cross_width">24dp</dimen>
+    <dimen name="cross_height">24dp</dimen>
+    
+    <!-- Additional missing dimensions -->
+    <dimen name="high_cross_width">32dp</dimen>
 </resources>

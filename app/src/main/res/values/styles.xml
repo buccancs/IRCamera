@@ -22,4 +22,16 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/font_second_color</item>
     </style>
+    
+    <!-- Missing toolbar theme -->
+    <style name="ToolbarTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@color/backgroundColor</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+    
+    <!-- Switch style -->
+    <style name="SwitchCompatStyle" parent="Widget.AppCompat.CompoundButton.Switch">
+        <item name="android:textOff">OFF</item>
+        <item name="android:textOn">ON</item>
+    </style>
 </resources>
