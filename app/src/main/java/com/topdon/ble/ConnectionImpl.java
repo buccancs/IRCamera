@@ -21,7 +21,7 @@ import androidx.core.util.Pair;
 
 import com.topdon.ble.callback.RequestCallback;
 import com.topdon.ble.callback.ScanListener;
-import com.topdon.ble.util.HexUtil;
+import com.topdon.commons.util.HexUtils;
 import com.topdon.ble.util.Logger;
 
 import java.lang.ref.WeakReference;
@@ -168,7 +168,7 @@ class ConnectionImpl implements Connection, ScanListener {
 
         @Override
         public void onCharacteristicRead(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
-            Log.e("bcf","onCharacteristicRead  status: "+status+"  value: "+ HexUtil.bytesToHexString(characteristic.getValue()));
+            Log.e("bcf","onCharacteristicRead  status: "+status+"  value: "+ HexUtils.bytesToHexString(characteristic.getValue()));
             if (originCallback != null) {
                 easyBle.getExecutorService().execute(() -> originCallback.onCharacteristicRead(gatt, characteristic, status));
             }
