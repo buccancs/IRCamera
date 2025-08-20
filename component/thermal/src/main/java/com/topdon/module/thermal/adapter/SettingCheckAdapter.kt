@@ -1,7 +1,6 @@
 package com.topdon.module.thermal.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,7 +42,6 @@ class SettingCheckAdapter(val context: Context) :
                 holder.btn.setTextColor(ContextCompat.getColor(context, R.color.font_gray))
             }
             holder.btn.setOnClickListener {
-                Log.w("123", "文件: ${datas[position]}")
                 listener?.onClick(position, dataTimes[position])
             }
 

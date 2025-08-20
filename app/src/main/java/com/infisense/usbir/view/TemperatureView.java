@@ -11,7 +11,6 @@ import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.os.SystemClock;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -47,7 +46,6 @@ import java.util.List;
 public class TemperatureView extends SurfaceView implements SurfaceHolder.Callback,
         View.OnTouchListener, BaseDualView.OnFrameCallback {
 
-    private static final String TAG = "TemperatureView";
 
 
     private static final int TOUCH_TOLERANCE = SizeUtils.sp2px(7f);
@@ -503,16 +501,13 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
                 if (productType == Const.TYPE_IR_DUAL){
                     try {
                         if (remapTempData == null) {
-                            Log.d(TAG, "remapTempData == NULL");
                             if (dualUVCCamera != null && llTempData != null
                                     && dualUVCCamera.getTempData(llTempData) != 0) {
                                 
-                                Log.d(TAG, "--------error----------");
                                 SystemClock.sleep(1000);
                                 continue;
                             }
                         } else {
-                            Log.d(TAG, "remapTempData != NULL");
                             System.arraycopy(remapTempData, 0, llTempData, 0,
                                     temperatureHeight * temperatureWidth * 2);
                         }
@@ -523,7 +518,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
                             irtemp.setTempData(llTempData);
                         }
                     }catch (Exception e){
-                        Log.d(TAG, "remapTempData != NULL"+e.getMessage());
                         continue;
                     }
                 }else {
@@ -534,7 +528,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
                             if (syncimage.type == 1) irtemp.setScale(16);
                         }
                     }catch (Exception e){
-                        Log.d(TAG, "syncimage != NULL"+e.getMessage());
                     }
                     tempArray = temperature;
                 }
@@ -687,15 +680,12 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
                             surfaceViewCanvas.drawBitmap(regionAndValueBitmap, new Rect(0, 0, viewWidth, viewHeight), new Rect(0, 0, viewWidth, viewHeight), null);
                             getHolder().unlockCanvasAndPost(surfaceViewCanvas);
                         } catch (Exception e) {
-                            Log.e(TAG, "temperatureThread:" + e.getMessage());
                         }
                     }
                 } catch (Exception e) {
-                    Log.e(TAG, "temperatureError:" + e.getMessage());
                 }
                 SystemClock.sleep(1000);
             }
-            Log.d(TAG, "temperatureThread exit");
         };
     }
 

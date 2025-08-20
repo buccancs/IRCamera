@@ -1,7 +1,6 @@
 package com.topdon.module.thermal.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,11 +30,9 @@ class GalleryAdapter(val context: Context) :
         if (holder is ItemView) {
             GlideLoader.load(holder.img, datas[position])
             holder.lay.setOnClickListener {
-                Log.w("123", "文件: ${datas[position]}")
                 listener?.onClick(position, datas[position])
             }
             holder.lay.setOnLongClickListener(View.OnLongClickListener {
-                Log.w("123", "文件: ${datas[position]}")
                 listener?.onLongClick(position, datas[position])
                 return@OnLongClickListener true
             })

@@ -1,12 +1,10 @@
 
 package com.github.gzuliyujiang.dialog;
 
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 public final class DialogLog {
-    private static final String TAG = "AndroidPicker";
     private static boolean enable = false;
 
     private DialogLog() {
@@ -21,7 +19,6 @@ public final class DialogLog {
         if (!enable) {
             return;
         }
-        Log.d(TAG, log.toString());
     }
 
 }

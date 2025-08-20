@@ -105,12 +105,10 @@ object PermissionTool {
             .permission(permissionList)
             .request(object : OnPermissionCallback {
                 override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
-                    XLog.i("onGranted($allGranted)")
                     callback.onResult(allGranted)
                 }
 
                 override fun onDenied(permissions: MutableList<String>, never: Boolean) {
-                    XLog.i("onDenied($never)")
                     if (never) {
                         var isBtNever = false
                         var isLocationNever = false

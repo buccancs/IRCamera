@@ -12,7 +12,6 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -114,7 +113,6 @@ public class EasyBLE {
             Method appMethod = acThread.getClass().getMethod("getApplication");
             application = (Application) appMethod.invoke(acThread);
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

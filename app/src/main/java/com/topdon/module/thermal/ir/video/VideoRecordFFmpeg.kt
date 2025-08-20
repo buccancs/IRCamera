@@ -20,7 +20,6 @@ import android.text.Layout
 import android.text.StaticLayout
 import android.text.TextPaint
 import android.text.TextUtils
-import android.util.Log
 import android.view.TextureView
 import android.view.View
 import android.view.View.VISIBLE
@@ -174,10 +173,8 @@ class VideoRecordFFmpeg(
 
     private fun getVideoCodec(): Int {
         return if (Build.BRAND == "motorola" && Build.MODEL == "XT2201-2") {
-            XLog.i("使用视频编码AV_CODEC_ID_H264")
             avcodec.AV_CODEC_ID_H264
         } else {
-            XLog.i("使用视频编码AV_CODEC_ID_MPEG4")
             avcodec.AV_CODEC_ID_MPEG4
         }
     }
@@ -265,7 +262,6 @@ class VideoRecordFFmpeg(
                             setBitmap(it)
                         }
                     }, Consumer {
-                        Log.e("图像对象录制异常", "${it.message}")
                     }
                 )
             if (audioRecord == null) {
@@ -336,17 +332,13 @@ class VideoRecordFFmpeg(
                         }
 
                     } catch (e: Exception) {
-                        Log.e("图像录制", "Caught an exception: " + e.message);
                     }
                 }, Consumer {
-                    Log.e("图像对象录制异常", "${it.message}")
                 })
 
         } catch (e: Exception) {
             exportDisposable?.dispose()
             stopVideoRecordListener?.invoke(false)
-            XLog.e("录制异常")
-            e.printStackTrace()
         }
     }
 
@@ -402,7 +394,6 @@ class VideoRecordFFmpeg(
                 )
             }
         } catch (e: Exception) {
-            Log.e("图像对象处理异常", "${e.message}")
         }
     }
 
@@ -462,7 +453,6 @@ class VideoRecordFFmpeg(
                     delay(300)
                     refreshAlbum()
                 } catch (e: Exception) {
-                    XLog.e("捕获停止录制视频" + e.message)
                 }
             }
             isRunning = false
@@ -574,7 +564,6 @@ class VideoRecordFFmpeg(
                         SizeUtils.dp2px(20f)
                     )
                 } catch (e: Exception) {
-                    Log.e(TAG, "图像对象处理异常 exception:${e.message}")
                 }
             }
         }

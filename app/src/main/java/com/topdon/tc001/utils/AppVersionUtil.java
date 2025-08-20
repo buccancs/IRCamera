@@ -63,7 +63,6 @@ public class AppVersionUtil {
         LMS.getInstance().checkAppUpdate(commonBean -> {
             if (commonBean.code == SUCCESS) {
                 AppInfoBean appInfoBean = LMS.getInstance().getUpdateAppInfoBean();
-                XLog.w("bcf", "app更新信息:" + GsonUtils.toJson(appInfoBean));
                 if (appInfoBean != null) {
                     if (appInfoBean.getVersionCode() > getDealVersionCode()) {
                         if (isShowDialog) {
@@ -208,9 +207,7 @@ public class AppVersionUtil {
                 AppUtil.installApp(mContext, files.get(0));
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -240,11 +237,9 @@ public class AppVersionUtil {
             params.addBodyParameter(params2[0], params2[1]);
             params.addBodyParameter(params3[0], params3[1]);
         } catch (Exception e) {
-            XLog.e("bcf", "升级接口解析异常");
         }
         fileName = "topinfrared" + System.currentTimeMillis() + ".zip";
         String path = mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() + File.separator + fileName;
-        XLog.e("bcf", "download path:" + path);
         params.setSaveFilePath(path);
         params.setCacheDirName(fileName);
         params.setAutoResume(true);
@@ -254,43 +249,34 @@ public class AppVersionUtil {
         com.topdon.lms.sdk.xutils.x.http().get(params, new Callback.ProgressCallback<File>() {
             @Override
             public void onWaiting() {
-                XLog.e("bcf", "onWaiting");
             }
 
             @Override
             public void onStarted() {
-                XLog.e("bcf", "onStarted");
             }
 
             @Override
             public void onLoading(long total, long current, boolean isDownloading) {
-                XLog.w("bcf", "onLoading： " + current + "/" + total);
                 int progress = (int) (current * 100 / total);
                 LmsUpdateDialog.Build.INSTANCE.setProgressNum(progress / 100f);
             }
 
             @Override
             public void onSuccess(File result) {
-                XLog.e("bcf", "onSuccess,start install apk");
                 LmsUpdateDialog.Build.INSTANCE.dismiss();
                 installApkNew();
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                ex.printStackTrace();
-                XLog.e("bcf", "onError " + ex.getMessage());
             }
 
             @Override
             public void onCancelled(CancelledException cex) {
-                cex.printStackTrace();
-                XLog.e("bcf", "onCancelled " + cex.getMessage());
             }
 
             @Override
             public void onFinished() {
-                XLog.e("bcf", "onFinished");
             }
         });
     }
@@ -304,9 +290,7 @@ public class AppVersionUtil {
                 AppUtil.installApp(mContext, files.get(0));
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

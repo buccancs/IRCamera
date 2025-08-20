@@ -2,7 +2,6 @@ package com.infisense.usbir
 
 import android.content.Context
 import android.content.pm.PackageManager
-import android.util.Log
 import java.io.File
 import java.io.PrintWriter
 import java.text.SimpleDateFormat
@@ -11,7 +10,6 @@ import java.util.*
 class CrashHandler : Thread.UncaughtExceptionHandler {
 
     companion object {
-        private const val TAG = "CrashHandler"
         val instance = CrashHandler()
     }
 
@@ -19,7 +17,6 @@ class CrashHandler : Thread.UncaughtExceptionHandler {
     private var context: Context? = null
 
     override fun uncaughtException(t: Thread, e: Throwable) {
-        // Handle the uncaught exception
         defaultHandler?.uncaughtException(t, e)
     }
 
@@ -42,12 +39,6 @@ class CrashHandler : Thread.UncaughtExceptionHandler {
             
             pw.print("versionName : ")
             pw.println(pi.versionName)
-            
-            try {
-                // Implementation would go here
-            } catch (e: Exception) {
-                Log.e(TAG, "Error collecting crash info", e)
-            }
         }
         return null
     }

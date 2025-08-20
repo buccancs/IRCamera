@@ -1,6 +1,5 @@
 package com.topdon.module.thermal.ir.utils;
 
-import android.util.Log;
 
 import com.example.opengl.render.IROpen3DTools;
 

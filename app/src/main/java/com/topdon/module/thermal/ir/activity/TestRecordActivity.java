@@ -10,7 +10,6 @@ import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.PowerManager;
-import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -39,7 +38,6 @@ import java.util.List;
 public class TestRecordActivity extends Activity{
 
     private final static String CLASS_LABEL = "RecordActivity";
-    private final static String LOG_TAG = CLASS_LABEL;
 
     private PowerManager.WakeLock mWakeLock;
 
@@ -138,11 +136,9 @@ public class TestRecordActivity extends Activity{
             public void onClick(View v) {
                 if (!recording) {
                     startRecording();
-                    Log.w(LOG_TAG, "Start Button Pushed");
                     btnRecorderControl.setText("Stop");
                 } else {
                     stopRecording();
-                    Log.w(LOG_TAG, "Stop Button Pushed");
                     btnRecorderControl.setText("Start");
                 }
             }
@@ -156,32 +152,25 @@ public class TestRecordActivity extends Activity{
                 bufferReadResult = audioRecord.read(audioData.array(), 0, audioData.capacity());
                 audioData.limit(bufferReadResult);
                 if (bufferReadResult > 0) {
-                    Log.v(LOG_TAG,"bufferReadResult: " + bufferReadResult);
                     if (recording) {
                         if (RECORD_LENGTH <= 0) try {
                             recorder.recordSamples(audioData);
                         } catch (FFmpegFrameRecorder.Exception e) {
-                            Log.v(LOG_TAG,e.getMessage());
-                            e.printStackTrace();
                         }
                     }
                 }
             }
-            Log.v(LOG_TAG,"AudioThread Finished, release audioRecord");
 
             if (yuvImage != null && recording) {
                 ((ByteBuffer)yuvImage.image[0].position(0)).put(data);
 
                 if (RECORD_LENGTH <= 0) try {
-                    Log.v(LOG_TAG,"Writing Frame");
                     long t = 1000 * (System.currentTimeMillis() - startTime);
                     if (t > recorder.getTimestamp()) {
                         recorder.setTimestamp(t);
                     }
                     recorder.record(yuvImage);
                 } catch (FFmpegFrameRecorder.Exception e) {
-                    Log.v(LOG_TAG,e.getMessage());
-                    e.printStackTrace();
                 }
             }
         }

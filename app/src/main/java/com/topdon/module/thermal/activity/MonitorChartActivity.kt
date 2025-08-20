@@ -2,7 +2,6 @@ package com.topdon.module.thermal.activity
 
 import android.graphics.Color
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.activity.viewModels
@@ -67,8 +66,6 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
         setTitleText(R.string.main_thermal_motion)
         selectType = intent.getIntExtra("type", 3)
         selectIndex = intent.getIntegerArrayListExtra("select")!!
-        Log.w("123", "selectType:$selectType")
-        Log.w("123", "selectIndex:${selectIndex.joinToString()}")
         SharedManager.setSelectFenceType(selectType)
         type = when (selectType) {
             1 -> "point"
@@ -80,7 +77,6 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
         initRecycler()
         viewModel.resultLiveData.observe(this)
         {
-            Log.w("123", "查询到历史数据:${it.dataList.size}")
             resultVol(it)
         }
         lifecycleScope.launch {
@@ -137,7 +133,6 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
                     recordTask!!.cancel()
                     recordTask = null
                 }
-                Log.w("123", "select:$time")
                 adapter.setCheck(index)
                 timeMillis = time * 1000L
                 pointIndex = startIndex - defaultCount
@@ -178,18 +173,14 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
                     bean.minTemp = minBigDecimal.setScale(1, BigDecimal.ROUND_HALF_UP).toFloat()
                     bean.createTime = System.currentTimeMillis()
                 } catch (e: Exception) {
-                    e.printStackTrace()
-                    Log.e(TAG, "提取温度异常:${e.message}")
                 }
             }
 
         })
 
         if (ret == 5) {
-            Log.w("123", "视频流开启完成")
             recordThermal()//开始记录
         } else {
-            Log.w("123", "视频流开启失败")
             mGuideInterface = null
             mIsIrVideoStart = false
         }
@@ -197,14 +188,12 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
 
     private fun onIrVideoStop() {
         mIsIrVideoStart = if (!mIsIrVideoStart) {
-            Log.w("123", "视频流已停止")
             return
         } else {
             false
         }
         mGuideInterface!!.exit()
         mGuideInterface = null
-        Log.w("123", "视频流停止完成")
     }
 
     var isRecord = false
@@ -238,10 +227,8 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
                     }
                     delay(timeMillis)
                 } else {
-                    Log.w("123", "当前不可更新")
                 }
             }
-            Log.w("123", "停止记录, 数据量:$time")
         }
     }
 
@@ -332,7 +319,6 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
         synchronized(chart) {
             try {
                 if (bean.createTime == 0L) {
-                    Log.w("123", "createTime = 0L, bean:${bean}")
                     return
                 }
                 val data = ThermalEntity()
@@ -344,7 +330,6 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
                 var volDataSet = lineData.getDataSetByIndex(0) //读取x为0的坐标点
                 if (volDataSet == null) {
                     startTime = data.createTime
-                    Log.w("123", "设置初始时间startTime:$startTime")
                     chart.xAxis.valueFormatter = MyValueFormatter(startTime = startTime)
                 }
                 val x = (data.createTime - startTime).toFloat()
@@ -353,18 +338,15 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
                         if (volDataSet == null) {
                             volDataSet = createSet("green")
                             lineData.addDataSet(volDataSet)
-                            Log.w("123", "volDataSet.entryCount:${volDataSet.entryCount}")
                         }
                         val entity = Entry(x, data.thermal)
                         entity.data = data
                         volDataSet.addEntry(entity)
-                        Log.w("123", "添加一个数据:$entity")
                     }
                     "line" -> {
                         if (volDataSet == null) {
                             volDataSet = createSet("red")
                             lineData.addDataSet(volDataSet)
-                            Log.w("123", "volDataSet.entryCount:${volDataSet.entryCount}")
                         }
                         val entity = Entry(x, data.thermalMax)
                         entity.data = data
@@ -410,7 +392,6 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
                 }
                 return@synchronized
             } catch (e: Exception) {
-                Log.e("123", "添加数据时异常:${e.message}")
                 return@synchronized
             }
         }
@@ -506,18 +487,15 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
                     if (volDataSet == null) {
                         volDataSet = createSet("green")
                         lineData.addDataSet(volDataSet)
-                        Log.w("123", "volDataSet.entryCount:${volDataSet.entryCount}")
                     }
                     val entity = Entry(x, it.thermal)
                     entity.data = it
                     volDataSet.addEntry(entity)
-                    Log.w("123", "添加一个数据:$entity")
                 }
                 "line" -> {
                     if (volDataSet == null) {
                         volDataSet = createSet("red")
                         lineData.addDataSet(volDataSet)
-                        Log.w("123", "volDataSet.entryCount:${volDataSet.entryCount}")
                     }
                     val entity = Entry(x, it.thermalMax)
                     entity.data = it
@@ -552,12 +530,10 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
                 }
             }
         }
-        Log.w("123", "曲线数据:${volDataSet.entryCount}个")
         lineData.notifyDataChanged()
         chart.notifyDataSetChanged()
         chart.setVisibleXRangeMinimum(getMinimum())//设置显示X轴区间大小
         chart.setVisibleXRangeMaximum(getMaximum())//设置显示X轴区间大小
-        Log.i(
             "123",
             "list moveViewToX:${chart.xChartMax}, chart.highestVisibleX:${chart.highestVisibleX}"
         )

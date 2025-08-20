@@ -705,7 +705,6 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
         try {
             tmp = tempCorrect(temp!!)
         } catch (e: Exception) {
-            XLog.i("温度校正失败: ${e.message}")
         }
         return tmp!!
     }
@@ -747,7 +746,6 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                     BaseApplication.instance.tau_data_L!!,struct.gainStatus)
             }
         }catch (e : Exception){
-            XLog.e("$TAG:tempCorrect-${e.message}")
         }finally {
             return newTemp
         }

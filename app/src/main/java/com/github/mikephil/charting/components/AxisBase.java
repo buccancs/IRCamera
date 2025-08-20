@@ -2,7 +2,6 @@ package com.github.mikephil.charting.components;
 
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
-import android.util.Log;
 
 import com.github.mikephil.charting.formatter.DefaultAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
@@ -188,7 +187,6 @@ public abstract class AxisBase extends ComponentBase {
         mLimitLines.add(l);
 
         if (mLimitLines.size() > 6) {
-            Log.e("MPAndroiChart",
                     "Warning! You have more than 6 LimitLines on your axis, do you really want " +
                             "that?");
         }

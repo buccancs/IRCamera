@@ -41,8 +41,6 @@ class FrameTool {
             println("imageBytes len: ${imageBytes.size}")
             println("temperatureBytes len: ${temperatureBytes.size}")
         } catch (e: Exception) {
-            e.printStackTrace()
-            XLog.e("读取一帧原始数据失败: ${e.message}")
         }
     }
 

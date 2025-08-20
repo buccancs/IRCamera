@@ -54,7 +54,6 @@ class DeviceDetailsActivity : BaseActivity(), View.OnClickListener {
             } else {
                 val deviceDetailsBean = TS004Repository.getDeviceInfo()
                 if (deviceDetailsBean?.isSuccess()!!) {
-                    TLog.d("ts004-->response", "${deviceDetailsBean.data}")
                     tv_sn_value.text = deviceDetailsBean.data!!.sn
                     tv_device_model_value.text = deviceDetailsBean.data!!.model
                 } else {

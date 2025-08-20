@@ -10,7 +10,6 @@ import android.graphics.Bitmap
 import android.graphics.drawable.ColorDrawable
 import android.hardware.SensorManager
 import android.provider.Settings
-import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
@@ -201,7 +200,6 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                             }
                             .create().show()
                     }
-                    XLog.e("超分初始化失败")
                 }
             }
             if (!SupHelp.getInstance().loadOpenclSuccess){
@@ -336,7 +334,6 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                             ) //自定义颜色
                         }
                     } catch (e: Exception) {
-                        Log.e("温度图层更新失败", e.message.toString())
                     }
                     try {
                         tv_temp_content.text = "Max:${UnitTools.showC(max, isShowC)}\nMin:${
@@ -346,7 +343,6 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                             )
                         }"
                     } catch (e: Exception) {
-                        Log.e("温度图层更新失败", e.message.toString())
                     }
                 } else {
                     try {
@@ -357,7 +353,6 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                             )
                         }"
                     } catch (e: Exception) {
-                        Log.e("温度图层更新失败", e.message.toString())
                     }
                 }
                 try {
@@ -366,12 +361,10 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                         cl_seek_bar.updateBitmap()
                     }
                 } catch (e: Exception) {
-                    Log.w("伪彩条更新异常:", "${e.message}")
                 }
                 try {
                     AlarmHelp.getInstance(application).alarmData(max, min, temp_bg)
                 } catch (e: Exception) {
-                    Log.e("温度图层更新失败", e.message.toString())
                 }
             }
 
@@ -892,7 +885,6 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         try {
             imageThread?.join()
         } catch (e: InterruptedException) {
-            Log.e(TAG, "imageThread.join(): catch an interrupted exception")
         }
         startISP()
 
@@ -968,7 +960,6 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         } else {
             2
         }
-        Log.w("测试自动旋转: ", "mOrientation: $mOrientation")
     }
 
     private fun initRecycler() {
@@ -1227,7 +1218,6 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 }
             }
         } catch (e: Exception) {
-            Log.e("线程", e.message.toString())
         }
     }
 
@@ -1243,7 +1233,6 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 }
             }
         } catch (e: Exception) {
-            Log.e("线程", e.message.toString())
         }
     }
 
@@ -1728,7 +1717,6 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             imageThread?.typeAi = if(curChooseTabPos == 2) aiConfig else ObserveBean.TYPE_NONE
             imageThread?.start()
         } catch (e: Exception) {
-            Log.e("图像线程重复启动", e.message.toString())
         }
     }
 
@@ -1745,7 +1733,6 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         iruvc = IRUVCTC(cameraWidth, cameraHeight, this, syncimage,
             defaultDataFlowMode, object : ConnectCallback {
                 override fun onCameraOpened(uvcCamera: UVCCamera) {
-                    XLog.w("设置onCameraOpened:${uvcCamera}}")
                 }
 
                 override fun onIRCMDCreate(ircmd: IRCMD) {
@@ -1820,7 +1807,6 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 }
                 val value = IntArray(1)
                 ircmd!!.getPropTPDParams(CommonParams.PropTPDParams.TPD_PROP_GAIN_SEL, value)
-                Log.d(TAG, "TPD_PROP_GAIN_SEL=" + value[0])
                 gainStatus = if (value[0] == 1) {
                     CommonParams.GainStatus.HIGH_GAIN
                 } else {
@@ -1878,7 +1864,6 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             tempInfo,
             gainStatus
         )
-        Log.i(
             TAG,
             "temp correct, oldTemp = " + paramsArray[0] + " ems = " + paramsArray[1] + " ta = " + paramsArray[2] + " " +
                     "distance = " + paramsArray[4] + " hum = " + paramsArray[5] + " productType = ${CommonParams.ProductType.WN256}" + " " +
@@ -1953,7 +1938,6 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 )
             }
         } catch (e: InterruptedException) {
-            Log.e(TAG, "imageThread.join(): catch an interrupted exception")
         }
 
 
@@ -2282,7 +2266,6 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                     EventBus.getDefault().post(GalleryAddEvent())
                 }
             }catch (e:Exception){
-                XLog.e(e.message)
             }
         }
     }
@@ -2483,7 +2466,6 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             val config = ConfigRepository.readConfig(false)
             val disChar = (config.distance * 128).toInt() //距离(米)
             val emsChar = (config.radiation * 128).toInt() //发射率
-            XLog.w("设置TPD_PROP DISTANCE:${disChar}, EMS:${emsChar}}")
             delay(timeMillis)
             ircmd?.setPropTPDParams(
                 CommonParams.PropTPDParams.TPD_PROP_EMS,
@@ -2496,7 +2478,6 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             )
             setTemperatureMode(temperatureMode, false)
             delay(timeMillis)
-            XLog.w("设置TPD_PROP DISTANCE:${disChar}, EMS:${emsChar}}")
             if (isFirst && isrun) {
                 thermal_recycler_night.setSettingSelected(SettingType.MIRROR, saveSetBean.isOpenMirror)
                 ircmd?.setMirror(saveSetBean.isOpenMirror)
@@ -2510,7 +2491,6 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 ircmd?.setPropDdeLevel(saveSetBean.ddeConfig)
                 ircmd?.setContrast(saveSetBean.contrastValue)
                 if (SaveSettingUtil.isSaveSetting) {
-                    XLog.i("配置中的模式为：${if (SaveSettingUtil.isMeasureTempMode) "测温" else "观测"}模式")
                     if(isTS001){
                         switchTs001Mode(SaveSettingUtil.isMeasureTempMode)
                     }else{
@@ -2528,7 +2508,6 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             } else {
                 ircmd?.updateOOCOrB(CommonParams.UpdateOOCOrBType.B_UPDATE)
             }
-            XLog.w("设置TPD_PROP DISTANCE2:${disChar}, EMS:${emsChar}}")
 
         }
     }
@@ -2642,9 +2621,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                         infoBuilder.toString(),
                         HtmlCompat.FROM_HTML_MODE_LEGACY
                     )
-                XLog.i("获取设备信息: $str")
             } catch (e: Exception) {
-                XLog.e("获取SN失败: ${e.message}")
             }
         }
     }
@@ -2654,7 +2631,6 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         try {
             tmp = tempCorrect(temp, gainStatus, tempinfo)
         } catch (e: Exception) {
-            XLog.i("温度校正失败: ${e.message}")
         }
         return tmp
     }
@@ -2735,7 +2711,6 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                             ToastUtils.showShort(R.string.scan_ble_tip_authorize)
                         }
                     } catch (e: Exception) {
-                        XLog.e("画中画" + e.message)
                     }
                 }
 
@@ -2814,7 +2789,6 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                             ToastUtils.showShort(R.string.scan_ble_tip_authorize)
                         }
                     } catch (e: Exception) {
-                        Log.e("录音启动失败", "" + e.message)
                     }
                 }
 

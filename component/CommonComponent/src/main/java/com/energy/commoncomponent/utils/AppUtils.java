@@ -18,7 +18,6 @@ public class AppUtils {
             Method method = clazz.getMethod(methodName);
             method.invoke(null);
         } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
         }
     }
 }

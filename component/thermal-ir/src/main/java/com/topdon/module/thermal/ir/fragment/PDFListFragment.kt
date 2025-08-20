@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.text.TextUtils
-import android.util.Log
 import android.widget.TextView
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
@@ -182,7 +181,6 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
                                     if (file.exists()) {
                                         file.delete()
                                     }
-                                    Log.w("删除成功",response.toString())
                                 }
 
                                 override fun onFail(exception: Exception?) {
@@ -199,7 +197,6 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
                                             TToast.shortToast(LMS.mContext, it)
                                         }
                                     } catch (e: Exception) {
-                                        e.printStackTrace()
                                     }
                                 }
                             })

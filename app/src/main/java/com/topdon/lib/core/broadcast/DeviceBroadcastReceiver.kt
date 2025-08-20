@@ -13,7 +13,6 @@ import org.greenrobot.eventbus.EventBus
 
 class DeviceBroadcastReceiver : BroadcastReceiver() {
 
-    private val TAG = this.javaClass.simpleName
 
     companion object {
         const val ACTION_USB_PERMISSION = "com.topdon.topInfrared.USB_PERMISSION"
@@ -25,10 +24,6 @@ class DeviceBroadcastReceiver : BroadcastReceiver() {
             return
         }
         when (intent.action) {
-            UsbManager.ACTION_USB_DEVICE_ATTACHED -> XLog.v("$TAG ACTION_USB_DEVICE_ATTACHED")
-            UsbManager.ACTION_USB_DEVICE_DETACHED -> XLog.v("$TAG ACTION_USB_DEVICE_DETACHED")
-            ACTION_USB_PERMISSION -> XLog.v("$TAG ACTION_USB_PERMISSION")
-            else -> XLog.v("$TAG ${intent.action}")
         }
 
         if (intent.action == ACTION_USB_PERMISSION) {
@@ -44,15 +39,11 @@ class DeviceBroadcastReceiver : BroadcastReceiver() {
         try {
             usbDevice = intent.extras!!["device"] as UsbDevice?
         } catch (e: Exception) {
-            e.printStackTrace()
-            XLog.e("$TAG Get UsbDevice error: ${e.message}")
             return
         }
         if (usbDevice == null) {
-            XLog.w("$TAG usbDevice == null")
             return
         }
-        XLog.v("$TAG usbDevice PRODUCT_ID = ${usbDevice.productId}, VENDOR_ID = ${usbDevice.vendorId}")
         if (usbDevice.isTcTsDevice()) {
             if (UsbManager.ACTION_USB_DEVICE_ATTACHED == intent.action) {//已连接
                 DeviceTools.isConnect(isSendConnectEvent = true, isAutoRequest = true)

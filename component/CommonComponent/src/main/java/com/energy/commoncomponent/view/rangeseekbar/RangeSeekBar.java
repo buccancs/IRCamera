@@ -251,7 +251,6 @@ public class RangeSeekBar extends View {
             stepsAutoBonding = t.getBoolean(R.styleable.RangeSeekBar_rsb_step_auto_bonding, true);
             t.recycle();
         } catch (Exception e) {
-            e.printStackTrace();
         }
 
     }
@@ -751,7 +750,6 @@ public class RangeSeekBar extends View {
             float currSelectedMax = ss.currSelectedMax;
             setProgress(currSelectedMin, currSelectedMax);
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

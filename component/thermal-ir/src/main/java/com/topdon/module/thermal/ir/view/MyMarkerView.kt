@@ -71,7 +71,6 @@ class MyMarkerView(context: Context, layoutResource: Int) : MarkerView(context, 
                 }
             }
         } catch (ex: Exception) {
-            XLog.e("MarkerView error: ${ex.message}")
         }
         super.refreshContent(e, highlight)
     }

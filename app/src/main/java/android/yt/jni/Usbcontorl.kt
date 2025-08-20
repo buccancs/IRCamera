@@ -15,18 +15,14 @@ class Usbcontorl : Usbjni() {
         init {
             val file = File("/proc/self/maps")
             if (file.exists() && file.isFile) {
-                try {
-                    BufferedReader(FileReader(file)).use { reader ->
-                        var tempString: String?
-                        while (reader.readLine().also { tempString = it } != null) {
-                            if (tempString?.contains("libusb3803_hub.so") == true) {
-                                isLoad = true
-                                break
-                            }
+                BufferedReader(FileReader(file)).use { reader ->
+                    var tempString: String?
+                    while (reader.readLine().also { tempString = it } != null) {
+                        if (tempString?.contains("libusb3803_hub.so") == true) {
+                            isLoad = true
+                            break
                         }
                     }
-                } catch (e: IOException) {
-                    e.printStackTrace()
                 }
             }
         }

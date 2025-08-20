@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
-import android.util.Log
 import com.elvishew.xlog.XLog
 import org.bytedeco.javacv.FFmpegFrameRecorder
 import java.lang.ref.WeakReference
@@ -48,7 +47,6 @@ class AudioRecordHelp private constructor() {
             startTime = System.currentTimeMillis()
             audioThread!!.start()
         } catch (e: Exception) {
-            e.printStackTrace()
         }
     }
 
@@ -76,7 +74,6 @@ class AudioRecordHelp private constructor() {
                     if (recordingAudio) {
                         if (bufferReadResult > 0) {
                             audioData?.limit(bufferReadResult)
-                            Log.w("音频采集",bufferReadResult.toString()+"//"+bufferReadResult)
                             recorder?.get()?.recordSamples(
                                 VideoRecordFFmpeg.SAMPLE_AUDIO_RETE_INHZ,
                                 VideoRecordFFmpeg.AUDIO_CHANNELS, audioData)
@@ -92,7 +89,6 @@ class AudioRecordHelp private constructor() {
                     }
                 }
             }catch (e:Exception){
-                XLog.e("采集容器异常")
             }
         }
     }
@@ -110,7 +106,6 @@ class AudioRecordHelp private constructor() {
         try {
             audioThread?.interrupt()
         } catch (e: InterruptedException) {
-            e.printStackTrace()
         }
         audioRecord?.stop()
         audioRecord?.release()
@@ -127,7 +122,6 @@ class AudioRecordHelp private constructor() {
     }
 
     companion object {
-        private val LOG_TAG = AudioRecordHelp::class.java.name
         fun getInstance(): AudioRecordHelp {
             return AudioUtilHolder.INSTANCE
         }

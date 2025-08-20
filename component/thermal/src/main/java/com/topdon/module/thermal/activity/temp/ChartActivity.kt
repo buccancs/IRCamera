@@ -1,6 +1,5 @@
 //package com.topdon.module.thermal.activity.temp
 //
-//import android.util.Log
 //import androidx.lifecycle.lifecycleScope
 //import com.alibaba.android.arouter.facade.annotation.Route
 //import com.github.aachartmodel.aainfographics.aachartcreator.*
@@ -43,7 +42,6 @@
 //                getSeriesModel(y1.toFloat())
 //                y1
 //            }.collect {
-//                Log.w("123", "data:${dataSeries.joinToString()}")
 //                aa_chart_view.aa_addPointToChartSeriesElement(0, it, true)
 //            }
 //        }

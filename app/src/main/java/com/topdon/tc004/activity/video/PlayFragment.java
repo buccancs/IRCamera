@@ -16,7 +16,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -131,7 +130,6 @@ public class PlayFragment extends Fragment implements TextureView.SurfaceTexture
 
     private void onVideoDisplayed() {
         View view = getView();
-        Log.i(TAG, String.format("VIDEO DISPLAYED!!!!%d*%d", mWidth, mHeight));
         view.findViewById(android.R.id.progress).setVisibility(View.GONE);
         view.findViewById(R.id.iv_not_connect_space).setVisibility(View.GONE);
         mSurfaceView.post(new Runnable() {
@@ -186,7 +184,6 @@ public class PlayFragment extends Fragment implements TextureView.SurfaceTexture
                     "",
                     autoRecord ? FileUtil.getMovieName(mUrl).getPath() : null);
         } catch (Exception e) {
-            e.printStackTrace();
             Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
             return;
         }
@@ -272,9 +269,7 @@ public class PlayFragment extends Fragment implements TextureView.SurfaceTexture
                 }
             }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         } catch (OutOfMemoryError error) {
-            error.printStackTrace();
         } catch (IllegalStateException e) {
-            e.printStackTrace();
         }
     }
 
@@ -330,21 +325,17 @@ public class PlayFragment extends Fragment implements TextureView.SurfaceTexture
                 try {
                     connection.connect();
                 } catch (Exception e) {
-                    e.printStackTrace();
                 }
 
                 mScanner = connection;
             }
         } catch (IOException e) {
-            e.printStackTrace();
         } catch (OutOfMemoryError error) {
-            error.printStackTrace();
         } finally {
             if (fos != null) {
                 try {
                     fos.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
                 }
             }
         }
@@ -360,7 +351,6 @@ public class PlayFragment extends Fragment implements TextureView.SurfaceTexture
 
     private void onVideoSizeChange() {
         try {
-            Log.i(TAG, String.format("RESULT_VIDEO_SIZE RECEIVED :%d*%d", mWidth, mHeight));
 
             if (mWidth == 0 || mHeight == 0)
                 return;
@@ -408,7 +398,6 @@ public class PlayFragment extends Fragment implements TextureView.SurfaceTexture
 
             mSurfaceView.requestLayout();
         }catch (Exception e){
-            XLog.d(e.getMessage());
         }
     }
 

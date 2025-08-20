@@ -1,7 +1,6 @@
 package com.topdon.module.thermal.ir.utils
 
 import android.graphics.Point
-import android.util.Log
 import com.github.mikephil.charting.charts.LineChart
 import com.topdon.lib.core.tools.UnitTools
 import kotlin.math.abs
@@ -126,7 +125,6 @@ object ChartTools {
                 chart.axisLeft.axisMinimum = minVol - (maxVol - minVol) * 0.15f
             }
         }
-        Log.w("chart", "yAxis max:${chart.axisLeft.axisMaximum}, min:${chart.axisLeft.axisMinimum}")
     }
 
     fun setX(chart: LineChart, type: Int) {

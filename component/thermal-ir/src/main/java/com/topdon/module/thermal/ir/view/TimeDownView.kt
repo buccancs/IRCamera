@@ -5,7 +5,6 @@ import android.graphics.Canvas
 import android.os.Handler
 import android.os.Message
 import android.util.AttributeSet
-import android.util.Log
 import android.view.Gravity
 import android.view.animation.*
 import androidx.appcompat.widget.AppCompatTextView
@@ -166,7 +165,6 @@ public class TimeDownView : AppCompatTextView {
                     downTimeWatcher!!.onTime(downCount)
                 }
                 onTimeListener?.invoke(downCount)
-//                Log.e("测试","//handleMessage"+downCount+"//"+lastDown);
                 if (downCount >= lastDown - 1) {
                     drawTextFlag = DRAW_TEXT_YES //默认绘制
                     //未到结束时

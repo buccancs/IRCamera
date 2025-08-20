@@ -1,7 +1,6 @@
 package com.github.mikephil.charting.data;
 
 import android.graphics.Typeface;
-import android.util.Log;
 
 import com.github.mikephil.charting.components.YAxis.AxisDependency;
 import com.github.mikephil.charting.formatter.ValueFormatter;
@@ -279,7 +278,6 @@ public abstract class ChartData<T extends IDataSet<? extends Entry>> {
             calcMinMax(e, set.getAxisDependency());
 
         } else {
-            Log.e("addEntry", "Cannot add Entry because dataSetIndex too high or too low.");
         }
     }
 

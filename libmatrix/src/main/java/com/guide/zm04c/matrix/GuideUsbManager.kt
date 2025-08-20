@@ -4,7 +4,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.hardware.usb.*
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import com.guide.zm04c.matrix.ResultCode.ERROR_CONNECT_DEVICE_FAILD
 import com.guide.zm04c.matrix.ResultCode.SUCC_CONNECT_INTERFACE
@@ -37,7 +36,6 @@ class GuideUsbManager {
         public static final int PRODUCT_ID = 0xa4a0;
     */
     private var mConnectCode: Int = ResultCode.READY_CONNECT_DEVICE
-    private val TAG = "guidecore"
     private var mNativeGuideCore: NativeGuideCore? = null
 
     constructor(context: Context?, nativeGuideCore: NativeGuideCore?) {
@@ -97,7 +95,6 @@ class GuideUsbManager {
         val deviceList = mUsbManager!!.deviceList
         if (!deviceList.isEmpty()) {
             for (device in deviceList.values) {
-//                Log.w(
 //                    "123",
 //                    "device vendorId:" + device.vendorId + ", device productId:" + device.productId
 //                )
@@ -196,13 +193,10 @@ class GuideUsbManager {
         if (mUsbInterface != null) {
             mConnection = mUsbManager!!.openDevice(mUsbDevice)
             return if (mConnection != null) {
-                Logger.d(TAG, "setInterface")
                 mConnection!!.setInterface(mUsbInterface)
                 if (mConnection!!.claimInterface(mUsbInterface, true)) {
-                    Logger.d(TAG, "claimInterface true")
                     SUCC_CONNECT_INTERFACE.also { mConnectCode = it }
                 } else {
-                    Logger.d(TAG, "claimInterface false")
                     mConnection!!.close()
                     ERROR_CONNECT_DEVICE_FAILD.also { mConnectCode = it }
                 }
@@ -220,7 +214,6 @@ class GuideUsbManager {
             for (i in 0 until endpointCount) {
                 usbEndpoint = mUsbInterface!!.getEndpoint(i)
                 val address = usbEndpoint.address
-//                Log.w("123", "address:$address")
                 when (address) {
                     ADDRESS_ENDPOINT_DATA_IN -> mEndpointDataIn = usbEndpoint
                     ADDRESS_ENDPOINT_CONTROL_OUT -> mEndpointControlOut = usbEndpoint
@@ -300,7 +293,6 @@ class GuideUsbManager {
                 }
                 System.arraycopy(data, total, sendBuf, 0, sendLen)
                 total += if (!send(sendBuf)) {
-                    Logger.d(TAG, "upgrade senBuf failed")
                     return false
                 } else {
                     sendLen
@@ -358,7 +350,6 @@ class GuideUsbManager {
         val reserve = byteArrayOf(0x00)
         val len = toByteArray(data.size)
         val check = toByteArray(mNativeGuideCore!!.crc(data))
-        Log.w("123", "check: ${check.toHexString()}")
         val tail = byteArrayOf(0x03)
         val buffer =
             ByteArray(header.size + cmd.size + reserve.size + len.size + check.size + data.size + tail.size)
@@ -377,18 +368,11 @@ class GuideUsbManager {
         destPos += data.size
         System.arraycopy(tail, 0, buffer, destPos, tail.size)
         val length = mConnection!!.bulkTransfer(mEndpointControlOut, buffer, buffer.size, 1000)
-        Log.w("123", "sendUsbCmd: ${buffer.toHexString()}")
-        Logger.d(TAG, "sendUsbCmd >> ${HexDump.dumpHexString(buffer)}".trimIndent())
-        Logger.d(TAG, "<< end (length = $length)")
         return length
     }
 
     private fun send(buffer: ByteArray): Boolean {
         val length = mConnection!!.bulkTransfer(mEndpointControlOut, buffer, buffer.size, 1000)
-        Logger.d(
-            TAG,
-            "send " + (length == buffer.size) + ": request len = " + buffer.size + " response len = " + length
-        )
         return length == buffer.size
     }
 
@@ -399,10 +383,6 @@ class GuideUsbManager {
         while (length < 0) {
             length = mConnection!!.bulkTransfer(mEndpointControlIn, buffer, buffer.size, 1000)
         }
-        Logger.d(
-            TAG, """receive length = $length
- data = ${HexDump.dumpHexString(buffer)}"""
-        )
         val headReceive = ByteArray(1)
         val cmdReceive = ByteArray(2)
         val reserveReceive = ByteArray(1)
@@ -412,25 +392,18 @@ class GuideUsbManager {
         val tailReceive = ByteArray(1)
         var destPos = 0
         System.arraycopy(buffer, destPos, headReceive, 0, headReceive.size)
-        Logger.d(TAG, "receive headReceive = " + HexDump.dumpHexString(headReceive))
         destPos += headReceive.size
         System.arraycopy(buffer, destPos, cmdReceive, 0, cmdReceive.size)
-        Logger.d(TAG, "receive cmdReceive = " + HexDump.dumpHexString(cmdReceive))
         destPos += cmdReceive.size
         System.arraycopy(buffer, destPos, reserveReceive, 0, reserveReceive.size)
-        Logger.d(TAG, "receive reserveReceive = " + HexDump.dumpHexString(reserveReceive))
         destPos += reserveReceive.size
         System.arraycopy(buffer, destPos, lenReceive, 0, lenReceive.size)
-        Logger.d(TAG, "receive lenReceive = " + HexDump.dumpHexString(lenReceive))
         destPos += lenReceive.size
         System.arraycopy(buffer, destPos, checkReceive, 0, checkReceive.size)
-        Logger.d(TAG, "receive checkReceive = " + HexDump.dumpHexString(checkReceive))
         destPos += checkReceive.size
         System.arraycopy(buffer, destPos, dataReceive, 0, dataReceive.size)
-        Logger.d(TAG, "receive dataReceive = " + HexDump.dumpHexString(dataReceive))
         destPos += dataReceive.size
         System.arraycopy(buffer, destPos, tailReceive, 0, tailReceive.size)
-        Logger.d(TAG, "receive tailReceive = " + HexDump.dumpHexString(tailReceive))
         return Arrays.equals(cmd, cmdReceive) && Arrays.equals(SUCCESS, dataReceive)
     }
 }

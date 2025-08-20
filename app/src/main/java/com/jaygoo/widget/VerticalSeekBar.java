@@ -28,7 +28,6 @@ public class VerticalSeekBar extends SeekBar {
             indicatorTextOrientation = t.getInt(R.styleable.VerticalRangeSeekBar_rsb_indicator_text_orientation, TEXT_DIRECTION_VERTICAL);
             t.recycle();
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

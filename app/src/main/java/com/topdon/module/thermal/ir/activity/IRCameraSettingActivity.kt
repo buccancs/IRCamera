@@ -7,7 +7,6 @@ import android.text.Editable
 import android.text.InputType
 import android.text.TextUtils
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
@@ -249,10 +248,8 @@ class IRCameraSettingActivity : BaseActivity() {
                     location.latitude,
                     location.longitude, 1
                 )
-                Log.v("TAG", "获取地址信息：$result")
             }
         } catch (e: Exception) {
-            e.printStackTrace()
         }
         var str = ""
         if (result!=null && result.isNotEmpty()){

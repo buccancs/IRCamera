@@ -1,6 +1,5 @@
 package com.example.thermal_lite.camera;
 
-import android.util.Log;
 
 import com.energy.iruvccamera.usb.USBMonitor;
 import com.example.thermal_lite.camera.task.DeviceControlWorker;
@@ -18,7 +17,6 @@ import java.util.Map;
  */
 public class DeviceControlManager implements IDeviceConnectListener {
 
-    private static final String TAG = "DualDeviceControlManager";
 
     private DeviceControlWorker mDeviceControlWorker;
 
@@ -88,7 +86,6 @@ public class DeviceControlManager implements IDeviceConnectListener {
      */
     public void handleStartPreview(USBMonitor.UsbControlBlock ctrlBlock) {
         if (mDeviceControlWorker != null) {
-            Log.d(TAG, "handleStartPreview");
             mDeviceControlWorker.addTask(new StartPreviewTask(ctrlBlock, mDeviceControlWorker.getDeviceState()));
         }
     }
@@ -98,7 +95,6 @@ public class DeviceControlManager implements IDeviceConnectListener {
      */
     public void handleStopPreview() {
         if (mDeviceControlWorker != null) {
-            Log.d(TAG, "handleStopPreview");
             mDeviceControlWorker.addTask(new StopPreviewTask(mDeviceControlWorker.getDeviceState()));
         }
     }
@@ -108,7 +104,6 @@ public class DeviceControlManager implements IDeviceConnectListener {
      */
     public void handlePauseDualPreview() {
         if (mDeviceControlWorker != null) {
-            Log.d(TAG, "handlePausePreview");
             mDeviceControlWorker.addTask(new PausePreviewTask(mDeviceControlWorker.getDeviceState()));
         }
     }
@@ -118,7 +113,6 @@ public class DeviceControlManager implements IDeviceConnectListener {
      */
     public void handleResumeDualPreview() {
         if (mDeviceControlWorker != null) {
-            Log.d(TAG, "handleResumePreview");
             mDeviceControlWorker.addTask(new ResumePreviewTask(mDeviceControlWorker.getDeviceState()));
         }
     }

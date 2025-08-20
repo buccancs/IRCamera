@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceView;
 
@@ -58,7 +57,6 @@ import java.util.List;
  */
 public class CameraPreviewManager {
 
-    private final String TAG = "CameraPreviewManager";
     private IIrFrameCallback mIIrFrameCallback;
     public LiteSurfaceView mSurfaceView;
 
@@ -203,7 +201,6 @@ public class CameraPreviewManager {
                     // 帧率展示
                     if (mIsShowFPS) {
                         double fps = CommonUtil.showFps();
-                        Log.d(TAG, "onFrame frame.length = " + length + " onFrame fps=" + String.format("%.1f", fps));
                         Message message = Message.obtain(mMainHandler, IrDisplayActivity.HANDLE_SHOW_FPS, fps);
                         mMainHandler.sendMessage(message);
                     }
@@ -244,7 +241,6 @@ public class CameraPreviewManager {
 //                            mLibIRTemp.getTemperatureOfRect(new Rect(0, 0, mPreviewWidth / 2, mPreviewHeight - 1));
 //                    float maxTemperature = temperatureSampleResult.maxTemperature;
 //                    float minTemperature = temperatureSampleResult.minTemperature;
-//                    Log.d(TAG, "max temp : " + maxTemperature + " min temp : " + minTemperature);
                     } else if (FRAME_OUT_PUT_FORMAT == CommonParams.FrameOutputFormat.NV12_AND_TEMP_OUTPUT) {
                         //获取温度数据
                         System.arraycopy(frame, mIrLength + mInfoLength, mTempData, 0, mTempLength);
@@ -254,7 +250,6 @@ public class CameraPreviewManager {
 //                            mLibIRTemp.getTemperatureOfRect(new Rect(0, 0, mPreviewWidth / 2, mPreviewHeight - 1));
 //                    float maxTemperature = temperatureSampleResult.maxTemperature;
 //                    float minTemperature = temperatureSampleResult.minTemperature;
-//                    Log.d(TAG, "max temp : " + maxTemperature + " mix temp : " + minTemperature);
                     }
 
                     //数据格式转化yuv to argb
@@ -290,7 +285,6 @@ public class CameraPreviewManager {
                             break;
                         case NV12_IMAGE_OUTPUT:
                         case NV12_AND_TEMP_OUTPUT:
-                            Log.d(TAG, "NV12_AND_TEMP_OUTPUT");
                             LibIRParse.NV12ToRGBA(mIrData, mPreviewWidth, mPreviewHeight, mIrARGBData);
 
                             //todo 切换数据源后，temp data 被切换成中间出图数据，数据格式y16
@@ -309,22 +303,17 @@ public class CameraPreviewManager {
                     //自动增益切换
                     //内部逻辑，在ac020上, 增益切换长命令调用后, 直接返回success,需要调用basic_long_time_vdcmd_state_get不断的获取状态
                     if (mAutoSwitchGainEnable && FRAME_OUT_PUT_FORMAT == CommonParams.FrameOutputFormat.YUYV_AND_TEMP_OUTPUT) {
-                        Log.d(TAG, "onAutoGainSwitchState switch");
                         mIrcamEngine.advAutoGainSwitch(mTempData, mAutoGainImageRes, mAutoGainSwitchInfo, mGainSwitchParam, new AutoGainSwitchCallback() {
                             @Override
                             public void onAutoGainSwitchState(int gainselStatus) {
-                                Log.d(TAG, "onAutoGainSwitchState : " + gainselStatus);
                             }
 
                             @Override
                             public void onAutoGainSwitchResult(int gainselStatus, int result) {
-                                Log.d(TAG, "onAutoGainSwitchResult : " + gainselStatus);
-                                Log.d(TAG, "onAutoGainSwitchResult : " + result);
                             }
                         });
                     }
                 }catch (Exception e){
-                    XLog.e(TAG,"Lite图像处理异常"+e.getMessage());
                 }
             }
         };
@@ -456,7 +445,6 @@ public class CameraPreviewManager {
                 break;
         }
 
-        Log.i(TAG, "mPreviewWidth = " + mPreviewWidth + " mPreviewHeight = " + mPreviewHeight);
         mLibIRTemp = new LibIRTemp(mPreviewWidth, mPreviewHeight);
         mImageRes = new LibIRProcess.ImageRes_t();
         mImageRes.width = (char) mPreviewWidth;
@@ -493,7 +481,6 @@ public class CameraPreviewManager {
                     //mimi640 模组，大疆固件版本，需要先发送basicVideoStreamContinue命令，打开数据流
                     IrcmdError basicVideoStreamContinueResult = DeviceIrcmdControlManager.getInstance()
                             .getIrcmdEngine().basicVideoStreamContinue();
-                    Log.d(TAG, "basicVideoStreamContinueResult=" + basicVideoStreamContinueResult);
                     mMainHandler.sendEmptyMessage(IrDisplayActivity.HIDE_LOADING);
                 }
             }, 10000);
@@ -553,7 +540,6 @@ public class CameraPreviewManager {
          */
         uvcHandleParam.setBandwidth(bandwidth);
 
-        Log.d(TAG, "initHandleEngine UvcHandleParam = " + uvcHandleParam.toString());
 
         LibIRProcess.irprocessLogRegister(LogLevel.SDK_LOG_NO_PRINT);
         LibIRProcess.getIRProcessVersion();
@@ -573,16 +559,11 @@ public class CameraPreviewManager {
                 .setFrameOutputFormat(FRAME_OUT_PUT_FORMAT)
                 .setUvcHandleParam(uvcHandleParam)
                 .build();
-        Log.d(TAG, "stopPreview onSuccess initHandle : ");
         mIrcamEngine.initHandle(new HandleInitCallback() {
             @Override
             public void onSuccess(IrcmdEngine ircmdEngine) {
                 DeviceIrcmdControlManager.getInstance().setIrcamEngine(mIrcamEngine);
                 DeviceIrcmdControlManager.getInstance().setIrcmdEngine(ircmdEngine);
-                Log.d(TAG, "IrcamVersion : " + mIrcamEngine.ircamVersion());
-                Log.d(TAG, "IrcmdVersion : " + ircmdEngine.ircmdVersion());
-                Log.d(TAG, "IrcamVersion number: " + mIrcamEngine.ircamVersionNumber());
-                Log.d(TAG, "IrcmdVersion number: " + ircmdEngine.ircmdVersionNumber());
                 if (isStartPreview) {
                     handleStartPreview();
                 }
@@ -599,7 +580,6 @@ public class CameraPreviewManager {
      * 开始出图
      */
     public void startPreview() {
-        Log.d(TAG, "startPreview");
         if (mIrcamEngine != null) {
             mIrcamEngine.setIrFrameCallback(mIIrFrameCallback);
             int result = mIrcamEngine.startVideoStream();
@@ -648,13 +628,11 @@ public class CameraPreviewManager {
      * 停止出图
      */
     public void stopPreview() {
-        Log.i(TAG, "stopPreview");
 //        TempCompensation.getInstance().stopTempCompensation();
         if (Const.DEVICE_TYPE == DeviceType.DEVICE_TYPE_WN2640) {
             //WN2640固件版本，退出之前，需要发停止数据流的命令
             IrcmdError ircmdError = DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
                     .basicVideoStreamPause();
-            Log.d(TAG, "basicVideoStreamPause=" + ircmdError);
         }
         if (mIrcamEngine != null) {
             mIrcamEngine.setIrFrameCallback(null);
@@ -697,7 +675,6 @@ public class CameraPreviewManager {
         this.mImageRotate = imageRotate;
         mIrRotateData = null;
         mIrRotateData = new byte[mIrARGBLength];
-        Log.d(TAG, "setImageRotate : " + imageRotate.getValue());
     }
 
     public RotateDegree getImageRotate() {
@@ -771,7 +748,6 @@ public class CameraPreviewManager {
                 mSurfaceNativeWindow.onDrawFrame(mSurface, mIrRotateData, mFinalImageWidth, mFinalImageHeight);
             }
         }catch (Exception e){
-            XLog.e(TAG+":lite的图像渲染异常："+e.getMessage());
         }
     }
 
@@ -782,8 +758,6 @@ public class CameraPreviewManager {
 //            ZetaZoomHelper.getInstance().initData(mPreviewWidth, mPreviewHeight);
 //            int imageWidth = ZetaZoomHelper.getInstance().getImageWidth();
 //            int imageHeight = ZetaZoomHelper.getInstance().getImageHeight();
-//            Log.d(TAG, "imageWidth" + imageWidth);
-//            Log.d(TAG, "imageHeight" + imageHeight);
 //            //zeta zoom code
 //            mResultARBGDataForZetaZoom = new byte[imageWidth * imageHeight * 4];
 //        }
@@ -793,7 +767,6 @@ public class CameraPreviewManager {
         //zeta zoom code
 //        boolean isZetaZoom = ZetaZoomHelper.getInstance().isZetaZoomEnable();
 //        if (isZetaZoom) {
-//            Log.d(TAG, "isZetaZoom");
 //            ZetaZoomHelper.getInstance().zetazoomRun(mIrData, mResultARBGDataForZetaZoom);
 //            mFinalImageWidth = ZetaZoomHelper.getInstance().getImageWidth();
 //            mFinalImageHeight = ZetaZoomHelper.getInstance().getImageHeight();

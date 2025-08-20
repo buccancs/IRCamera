@@ -104,7 +104,6 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
                     if (firmwareData != null) {
                         showFirmwareUpDialog(firmwareData)
                     } else {
-                        XLog.i("TS004 固件升级 - 点击查询")
                         showCameraLoading()
                         firmwareViewModel.queryFirmware(true)
                     }
@@ -155,7 +154,6 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
      */
     private fun downloadFirmware(firmwareData: FirmwareViewModel.FirmwareData) {
         lifecycleScope.launch {
-            XLog.d("TS004 固件升级 - 开始下载固件升级包")
             val progressDialog = DownloadProDialog(this@MoreActivity)
             progressDialog.show()
 
@@ -165,10 +163,8 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
             }
             progressDialog.dismiss()
             if (isSuccess) {
-                XLog.d("TS004 固件升级 - 固件升级包下载成功，即将开始安装")
                 installFirmware(file)
             } else {
-                XLog.w("TS004 固件升级 - 固件升级包下载失败!")
                 showReDownloadDialog(firmwareData)
             }
         }
@@ -176,19 +172,16 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
 
     private fun installFirmware(file: File) {
         lifecycleScope.launch {
-            XLog.d("TS004 固件升级 - 开始安装固件升级包")
             val installDialog = FirmwareInstallDialog(this@MoreActivity)
             installDialog.show()
 
             val isSuccess = TS004Repository.updateFirmware(file)
             installDialog.dismiss()
             if (isSuccess) {
-                XLog.d("TS004 固件升级 - 固件升级包发送往 TS004 成功，即将断开连接")
                 (application as BaseApplication).disconnectWebSocket()
                 ARouter.getInstance().build(RouterConfig.MAIN).navigation(this@MoreActivity)
                 finish()
             } else {
-                XLog.w("TS004 固件升级 - 固件升级包发送往 TS004 失败!")
                 showReInstallDialog(file)
             }
         }
@@ -245,9 +238,7 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
     private fun resetAll() {
         showLoadingDialog(R.string.ts004_reset_tip3)
         lifecycleScope.launch {
-            XLog.i("准备调用恢复出厂设置接口")
             val isSuccess = TS004Repository.getResetAll()
-            XLog.i("恢复出厂设置接口调用 ${if (isSuccess) "成功" else "失败"}")
             if (isSuccess) {
                 TToast.shortToast(this@MoreActivity, R.string.ts004_reset_tip4)
                 (application as BaseApplication).disconnectWebSocket()

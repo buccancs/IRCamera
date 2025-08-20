@@ -19,7 +19,6 @@ object CommUtils {
         try {
             msg = appInfo.metaData.getString("app_name")?.toString() ?: ""
         }catch (e : Exception){
-            XLog.w("获取app名称异常： ${e.message}")
         }
         return msg
 

@@ -1,6 +1,5 @@
 //package com.topdon.module.thermal.activity.temp
 //
-//import android.util.Log
 //import androidx.lifecycle.lifecycleScope
 //import androidx.recyclerview.widget.GridLayoutManager
 //import com.alibaba.android.arouter.facade.annotation.Route
@@ -73,7 +72,6 @@
 //        dataList.forEach {
 //            dataSeries = dataSeries.plus(it.thermal)
 //        }
-//        Log.w("123", "ahh:${dataSeries.joinToString()}")
 //        return arrayOf(
 //            AASeriesElement()
 //                .name("Tokyo")

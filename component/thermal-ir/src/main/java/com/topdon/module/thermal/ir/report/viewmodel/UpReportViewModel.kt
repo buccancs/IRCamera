@@ -45,19 +45,16 @@ class UpReportViewModel : BaseViewModel() {
                     }
                     val file = File(reportIrBean.picture_url)
                     LMS.getInstance().uploadFile(file, 0, 13, 20) {
-                        XLog.i(it?.data)
                         if (it?.code == LMS.SUCCESS) {
                             file.delete()
                             val jsonObject = JSONObject(it.data)
                             reportIrBean.picture_id = jsonObject.getString("fileSecret")
                             reportIrBean.picture_url = jsonObject.getString("url")
                         }
-                        XLog.i("上传完一张图")
                         downLatch.countDown()
                     }
                 }
                 downLatch.await()
-                XLog.i("${irList.size} 张图上传完毕")
             }
         }
     }

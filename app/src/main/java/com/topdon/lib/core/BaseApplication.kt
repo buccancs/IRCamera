@@ -13,7 +13,6 @@ import android.net.NetworkInfo
 import android.os.Build
 import android.os.Process
 import android.text.TextUtils
-import android.util.Log
 import android.webkit.WebView
 import androidx.annotation.RequiresApi
 import com.alibaba.android.arouter.launcher.ARouter
@@ -83,7 +82,6 @@ abstract class BaseApplication : Application() {
 
     private fun connectWebSocket() {
         val ssid = WifiUtil.getCurrentWifiSSID(this) ?: return
-        Log.i("WebSocket", "当前连接 Wifi SSID: $ssid")
         if (ssid.startsWith(DeviceConfig.TS004_NAME_START)) {
             SharedManager.hasTS004 = true
             WebSocketProxy.getInstance().startWebSocket(ssid)
@@ -96,7 +94,6 @@ abstract class BaseApplication : Application() {
     }
 
     fun disconnectWebSocket() {
-        Log.i("WebSocket", "disconnectWebSocket()")
         WebSocketProxy.getInstance().stopWebSocket()
     }
 
@@ -147,7 +144,6 @@ abstract class BaseApplication : Application() {
                     connectWebSocket()
                 }else{
                 }
-                Log.i("WebSocket", "网络切换 Wifi SSID: $activeNetwork"+activeNetwork.type)
             }
         }
     }
@@ -178,13 +174,11 @@ abstract class BaseApplication : Application() {
     private fun initARouter() {
         try {
             if (BuildConfig.DEBUG) {
-                Log.e("TopInfrared_LOG", "router init debug")
                 ARouter.openDebug()
             }
             ARouter.init(this)
         } catch (e: Exception) {
             if (SharedManager.getHasShowClause()) {
-                Log.e("TopInfrared_LOG", "router init error: ${e.message}")
             }
             ARouter.openDebug()
             ARouter.init(this)
@@ -196,7 +190,6 @@ abstract class BaseApplication : Application() {
             try {
                 AppDatabase.getInstance().thermalDao().deleteZero(SharedManager.getUserId())
             } catch (e: Exception) {
-                XLog.e("delete db error: ${e.message}")
             }
         }
     }

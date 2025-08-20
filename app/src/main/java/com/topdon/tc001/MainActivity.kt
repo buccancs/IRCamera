@@ -91,11 +91,9 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             str.append("SDK_INT: ${Build.VERSION.SDK_INT}").append("\n")
             str.append("RELEASE: ${Build.VERSION.RELEASE}").append("\n")
             if (SharedManager.getHasShowClause()) {
-                XLog.i(str)
             }
         } catch (e: Exception) {
             if (SharedManager.getHasShowClause()) {
-                XLog.e("log error: ${e.message}")
             }
         }
     }
@@ -253,7 +251,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             inputStream.close()
             outputStream.close()
         } catch (e: IOException) {
-            e.printStackTrace()
         }
     }
 

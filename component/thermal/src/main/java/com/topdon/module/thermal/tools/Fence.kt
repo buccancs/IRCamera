@@ -1,6 +1,5 @@
 package com.topdon.module.thermal.tools
 
-import android.util.Log
 
 class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateType: Int = 0) {
 
@@ -18,7 +17,6 @@ class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateTyp
             }
         }
         scale = w / srcRect[0].toFloat()
-        Log.w("123", "scale: $scale")
     }
 
     /**
@@ -58,7 +56,6 @@ class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateTyp
         }
         val k: Float =
             (start[1].toFloat() - end[1].toFloat()) / (start[0].toFloat() - end[0].toFloat())
-        Log.w("123", "k: $k")
 
         val startX: Int = (startPoint[0] * scale).toInt()
         val startY: Int = (startPoint[1] * scale).toInt()
@@ -122,8 +119,6 @@ class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateTyp
         list.forEach {
             stringBuilder.append(it.contentToString()).append(", ")
         }
-        Log.w("123", "list size:${list.size}")
-        Log.w("123", "list point:$stringBuilder")
     }
 
     private fun showArrayIndex(list: ArrayList<IntArray>) {
@@ -131,7 +126,5 @@ class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateTyp
         list.forEach {
             stringBuilder.append(FenceTool.pointToIndex(it, w)).append(", ")
         }
-        Log.w("123", "list size:${list.size}")
-        Log.w("123", "list index:$stringBuilder")
     }
 }

@@ -12,7 +12,6 @@ import java.io.InputStream;
  * Created by fengjibo on 2023/8/16.
  */
 public class CommonUtil {
-    public static final String TAG = "CommonUtil";
 
     public static byte[] getAssetData(Context mContext, String assetTauName) {
         byte[] tau_data = null;
@@ -28,14 +27,12 @@ public class CommonUtil {
                 // "read file fail "
             }
         } catch (IOException e) {
-            e.printStackTrace();
         } finally {
             try {
                 if (is != null) {
                     is.close();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
             }
         }
         return tau_data;

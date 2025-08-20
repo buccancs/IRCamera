@@ -1,6 +1,5 @@
 package com.topdon.module.thermal.ir.utils
 
-import android.util.Log
 import com.elvishew.xlog.XLog
 import com.energy.iruvc.ircmd.IRCMD
 import com.energy.iruvc.utils.CommonParams
@@ -24,10 +23,8 @@ object CalibrationTools {
             if (result == 0) {
                 success = true
             } else {
-                XLog.w("单点标定失败")
             }
         } else {
-            XLog.w("单点标定失败")
         }
         return success
     }
@@ -44,10 +41,8 @@ object CalibrationTools {
             if (result == 0) {
                 success = true
             } else {
-                XLog.w("低温标定失败")
             }
         } else {
-            XLog.w("低温标定失败")
         }
         return success
     }
@@ -66,10 +61,8 @@ object CalibrationTools {
             if (result == 0) {
                 success = true
             } else {
-                Log.w("123", "失败")
             }
         } else {
-            Log.w("123", "失败")
         }
         return success
     }
@@ -222,7 +215,6 @@ object CalibrationTools {
         return try {
             irCmd?.setPropTPDParams(params, value) ?: 0
         } catch (e: Exception) {
-            XLog.w("设置参数异常[${params.name}]: ${e.message}")
             0
         }
     }

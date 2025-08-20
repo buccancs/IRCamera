@@ -15,7 +15,6 @@ import android.os.Looper
 import android.os.Message
 import android.os.SystemClock
 import android.provider.Settings
-import android.util.Log
 import android.view.Gravity
 import android.view.OrientationEventListener
 import android.view.View
@@ -443,19 +442,16 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                             ) //自定义颜色
                         }
                     } catch (e: Exception) {
-                        Log.e("温度图层更新失败", e.message.toString())
                     }
                     try {
                         tv_temp_content.text = "Max:${UnitTools.showC(max, isShowC)}\nMin:${UnitTools.showC(min, isShowC)}"
                     } catch (e: Exception) {
-                        Log.e("温度图层更新失败", e.message.toString())
                     }
                 } else {
                     //自定义渲染
                     try {
                         tv_temp_content.text = " Max:${UnitTools.showC(max, isShowC)}\nMin:${UnitTools.showC(min, isShowC)}"
                     } catch (e: Exception) {
-                        Log.e("温度图层更新失败", e.message.toString())
                     }
                 }
                 try {
@@ -464,12 +460,10 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                         cl_seek_bar.updateBitmap()
                     }
                 } catch (e: Exception) {
-                    Log.w("伪彩条更新异常:", "${e.message}")
                 }
                 try {
                     AlarmHelp.getInstance(application).alarmData(max, min, temp_bg)
                 } catch (e: Exception) {
-                    Log.e("温度图层更新失败", e.message.toString())
                 }
             }
 
@@ -939,7 +933,6 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                             ToastUtils.showShort(R.string.scan_ble_tip_authorize)
                         }
                     } catch (e: Exception) {
-                        XLog.e("画中画" + e.message)
                     }
                 }
 
@@ -972,14 +965,11 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
             if (msg.what == SHOW_LOADING) {
-                Log.d(TAG, "SHOW_LOADING")
                 showLoadingDialog()
             } else if (msg.what == HIDE_LOADING) {
-                Log.d(TAG, "HIDE_LOADING")
                 hideLoadingDialog()
                 isConfigWait = false
             } else if (msg.what == HANDLE_INIT_FAIL) {
-                Log.d(TAG, "HANDLE_INIT_FAIL")
                 hideLoadingDialog()
                 Toast.makeText(this@IRThermalLiteActivity, "handle init fail !", Toast.LENGTH_LONG).show()
             } else if (msg.what == HANDLE_SHOW_TOAST) {
@@ -1488,7 +1478,6 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                 }
             }
         } catch (e: Exception) {
-            Log.e("线程", e.message.toString())
         }
     }
 
@@ -1543,7 +1532,6 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                             ToastUtils.showShort(com.topdon.module.thermal.ir.R.string.scan_ble_tip_authorize)
                         }
                     } catch (e: Exception) {
-                        Log.e("录音启动失败", "" + e.message)
                     }
                 }
 
@@ -1587,7 +1575,6 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                 }
             }
         } catch (e: Exception) {
-            Log.e("线程", e.message.toString())
         }
     }
     private fun initStoragePermission() {
@@ -1766,7 +1753,6 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                     EventBus.getDefault().post(GalleryAddEvent())
                 }
             }catch (e:Exception){
-                XLog.e(e.message)
             }
         }
     }
@@ -1909,7 +1895,6 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
             //自动快门
             delay(30 * 1000)
             IRTool.setAutoShutter(isAutoShutter)
-            XLog.i("模组配置恢复成功")
         }
     }
     private fun updateCustomPseudo() {
@@ -2021,7 +2006,6 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                 }
             }
         }catch (e : Exception){
-            XLog.e("$TAG:onStop-${e.message}")
         }
     }
 
@@ -2043,7 +2027,6 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
             DeviceControlManager.getInstance().release()
             CameraPreviewManager.getInstance().releaseSource()
         }catch (e : Exception){
-            XLog.e("$TAG:lite销毁异常-${e.message}")
         }
         SystemClock.sleep(100)
     }
@@ -2095,7 +2078,6 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                     val basicGainGet: IrcmdError? = DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
                         ?.basicGainGet(basicGainGetValue)
                 }catch (e : Exception){
-                    XLog.e("增益获取失败")
                 }
                 basicGainGetTime = System.currentTimeMillis()
             }
@@ -2115,14 +2097,12 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                 params_array[5],
                 if (basicGainGetValue[0] == 0) GainStatus.LOW_GAIN else GainStatus.HIGH_GAIN
             )
-            Log.i(
                 TAG,
                 "temp correct, oldTemp = " + params_array[0] + " newtemp = " + tempNew +
                         " ems = " + params_array[1] + " ta = " + params_array[2] + " " +
                         "distance = " + params_array[4] + " hum = " + params_array[5] +" basicGain = "+basicGainGetValue[0]
             )
         }catch (e : Exception){
-            XLog.e("$TAG--温度修正异常：${e.message}")
         }finally {
             return tempNew ?: 0f
         }

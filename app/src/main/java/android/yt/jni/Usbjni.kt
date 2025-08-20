@@ -1,19 +1,10 @@
 package android.yt.jni
 
-import android.util.Log
-
 open class Usbjni {
 
     companion object {
-        private const val TAG = "Usbjni"
-
         init {
-            try {
-                System.loadLibrary("usb3803_hub")
-            } catch (e: UnsatisfiedLinkError) {
-                e.printStackTrace()
-                Log.e(TAG, "Couldn't load lib: - ${e.message}")
-            }
+            System.loadLibrary("usb3803_hub")
         }
 
         @JvmStatic

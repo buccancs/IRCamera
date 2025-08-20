@@ -293,12 +293,10 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
             setFusion(mCurrentFusionType)
             inputStream.close()
         } catch (e: IOException) {
-            e.printStackTrace()
         } finally {
             try {
                 inputStream?.close()
             } catch (e: IOException) {
-                e.printStackTrace()
             }
         }
     }
@@ -462,7 +460,6 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
                             }
                             .create().show()
                     }
-                    XLog.e("超分初始化失败")
                 }
             }
             if (!SupHelp.getInstance().loadOpenclSuccess){

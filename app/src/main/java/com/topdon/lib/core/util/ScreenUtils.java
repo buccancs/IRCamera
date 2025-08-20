@@ -68,7 +68,6 @@ public class ScreenUtils {
                     .get(object).toString());
             statusHeight = context.getResources().getDimensionPixelSize(height);
         } catch (Exception e) {
-            e.printStackTrace();
         }
         return statusHeight;
     }
@@ -153,7 +152,6 @@ public class ScreenUtils {
             method.invoke(display, displayMetrics);
             dpi = displayMetrics.heightPixels;
         } catch (Exception e) {
-            e.printStackTrace();
         }
         return dpi;
     }

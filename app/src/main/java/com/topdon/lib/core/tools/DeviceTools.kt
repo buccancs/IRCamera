@@ -26,13 +26,11 @@ object DeviceTools {
         for (usbDevice in deviceList.values) {
             if (usbDevice.isTcTsDevice()) {
                 return if (usbManager.hasPermission(usbDevice)) {
-                    XLog.i("设备已连接且有权限")
                     if (isSendConnectEvent) {
                         EventBus.getDefault().post(DeviceConnectEvent(true, usbDevice))
                     }
                     true
                 } else {
-                    XLog.w("设备已连接但无权限")
                     if (isAutoRequest) {
                         EventBus.getDefault().post(DevicePermissionEvent(usbDevice))
                     }
@@ -50,11 +48,9 @@ object DeviceTools {
             if (usbDevice.isTcTsDevice()) {
                 val productID = usbDevice.productId.toBytes(2).toHexString()
                 val vendorID = usbDevice.vendorId.toBytes(2).toHexString()
-                XLog.i("找到一个usb设备 productId:${productID}, vendorId:${vendorID}, deviceName:${usbDevice.deviceName}")
                 return usbDevice
             }
         }
-        XLog.i("检索到${deviceList.size}个设备, 没有符合定制usb设备")
         return null
     }
 
@@ -102,7 +98,6 @@ object DeviceTools {
         val flag = PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         val pendingIntent = PendingIntent.getBroadcast(activity, requestCode, intent, flag)
         usbManager.requestPermission(device, pendingIntent)
-        XLog.i("申请usb权限")
     }
 
 

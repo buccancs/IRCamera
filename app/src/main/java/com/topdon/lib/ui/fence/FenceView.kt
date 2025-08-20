@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import com.blankj.utilcode.util.SizeUtils
@@ -121,11 +120,9 @@ class FenceView : View {
                 point2[i] = startPoint[i]
             }
         }
-        Log.i(
             "123",
             "原始坐标 start:${startPoint.contentToString()}, end:${endPoint.contentToString()}"
         )
-        Log.w("123", "修正坐标 start:${point1.contentToString()}, end:${point2.contentToString()}")
         if (listener != null) {
             listener!!.callback(point1, point2, intArrayOf(width, height))
         }

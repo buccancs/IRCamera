@@ -26,7 +26,6 @@ object LmsRepository {
                     result = Gson().fromJson(it.data, CheckVersionJson::class.java)
                 }
             } catch (e: Exception) {
-                XLog.e("version json解析异常: ${e.message}")
             }
             downLatch.countDown()
         }
@@ -48,14 +47,12 @@ object LmsRepository {
                         result = json.data
                     }
                 } catch (e: Exception) {
-                    XLog.e("json解析异常: ${e.message}")
                 }
                 downLatch.countDown()
             }
 
             override fun onFail(p0: Exception?) {
                 downLatch.countDown()
-                XLog.w("onFail: $result")
             }
 
             override fun onFail(failMsg: String?, errorCode: String) {
@@ -68,7 +65,6 @@ object LmsRepository {
                         TToast.shortToast(LMS.mContext, it)
                     }
                 } catch (e: Exception) {
-                    e.printStackTrace()
                 }
             }
         })

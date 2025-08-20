@@ -8,7 +8,6 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import android.os.SystemClock
-import android.util.Log
 import android.view.SurfaceView
 import android.view.View
 import android.widget.FrameLayout
@@ -85,10 +84,8 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
             if (msg.what == SHOW_LOADING) {
-                Log.d(TAG, "SHOW_LOADING")
                 showLoadingDialog()
             } else if (msg.what == HIDE_LOADING) {
-                Log.d(TAG, "HIDE_LOADING")
                 hideLoadingDialog()
             } else if (msg.what == HANDLE_CONNECT) {
                 initDualCamera()
@@ -213,7 +210,6 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
             var lenth = `is`.available()
             mPseudoColors[0] = ByteArray(lenth + 1)
             if (`is`.read(mPseudoColors[0]) != lenth) {
-                Log.d(Companion.TAG, "read file fail ")
             }
             mPseudoColors[0]!![lenth] = 0
             mDualView!!.dualUVCCamera.loadPseudocolor(
@@ -224,7 +220,6 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
             lenth = `is`.available()
             mPseudoColors[1] = ByteArray(lenth + 1)
             if (`is`.read(mPseudoColors[1]) != lenth) {
-                Log.d(Companion.TAG, "read file fail ")
             }
             mPseudoColors[1]!![lenth] = 1
             mDualView!!.dualUVCCamera.loadPseudocolor(
@@ -235,7 +230,6 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
             lenth = `is`.available()
             mPseudoColors[2] = ByteArray(lenth + 1)
             if (`is`.read(mPseudoColors[2]) != lenth) {
-                Log.d(Companion.TAG, "read file fail ")
             }
             mPseudoColors[2]!![lenth] = 2
             mDualView!!.dualUVCCamera.loadPseudocolor(
@@ -246,7 +240,6 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
             lenth = `is`.available()
             mPseudoColors[3] = ByteArray(lenth + 1)
             if (`is`.read(mPseudoColors[3]) != lenth) {
-                Log.d(Companion.TAG, "read file fail ")
             }
             mPseudoColors[3]!![lenth] = 3
             mDualView!!.dualUVCCamera.loadPseudocolor(
@@ -257,7 +250,6 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
             mDualView!!.dualUVCCamera.setPseudocolor(CommonParams.PseudoColorUsbDualType.IRONBOW_MODE)
             `is`.close()
         } catch (e: IOException) {
-            e.printStackTrace()
         }
     }
 
@@ -268,13 +260,11 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
             dualDisp = IRCmdTool.dispNumber
             mDualView?.dualUVCCamera?.setDisp(dualDisp)
             mDualView?.startPreview()
-            Log.e("机芯数据加载成功","初始化完成:")
         }
     }
 
     fun onViewClicked(view: View?) {}
     override fun onStart() {
-        Log.w(Companion.TAG, "onStart")
         super.onStart()
     }
 
@@ -373,7 +363,6 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
     }
 
     override fun onDestroy() {
-        Log.w(Companion.TAG, "onDestroy")
         super.onDestroy()
         USBMonitorDualManager.getInstance().removeOnUSBConnectListener(this)
         USBMonitorDualManager.getInstance().onRelease()
@@ -406,7 +395,6 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
         if (!canOperate) {
             return
         }
-        Log.d(Companion.TAG, "prex :$preX prey : $preY curx : $curX cury : $curY")
         if (mDualView != null) {
             updateSaveButton()
             val newSrc = ByteArray(8)
@@ -424,7 +412,6 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
         if (!canOperate) {
             return
         }
-        Log.d(Companion.TAG, "angle :$angle")
         if (mDualView != null) {
             val newSrc = ByteArray(4)
             val xSrc = ByteArray(4)
@@ -477,7 +464,6 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
     }
 
     companion object {
-        private const val TAG = "ManualStep2Activity"
         const val SHOW_LOADING = 1003
         const val HIDE_LOADING = 1004
         const val HIDE_LOADING_FINISH = 1005
@@ -495,7 +481,6 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
                 flag = true
                 lastClickTime = System.currentTimeMillis()
             }
-            Log.d(TAG, "ACTION_MOVE isFastClick flag : $flag")
             return flag
         }
     }

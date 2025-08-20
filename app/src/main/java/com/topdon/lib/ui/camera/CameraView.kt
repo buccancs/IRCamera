@@ -11,7 +11,6 @@ import android.media.ImageReader
 import android.os.Handler
 import android.os.Looper
 import android.util.AttributeSet
-import android.util.Log
 import android.util.Size
 import android.view.*
 import android.widget.Button
@@ -187,7 +186,6 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
                                 mCameraHandler
                             )
                         } catch (e: CameraAccessException) {
-                            e.printStackTrace()
                         }
                     }
 
@@ -196,7 +194,6 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
                 }, mCameraHandler
             )
         } catch (e: CameraAccessException) {
-            e.printStackTrace()
         }
     }
 
@@ -208,7 +205,6 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
                 width: Int,
                 height: Int
             ) {
-                Log.w("123", "width:$width, height:$height")
                 setUpCamera(width, height)
             }
 
@@ -235,7 +231,6 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
             mCameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager?
             mCameraManager!!.openCamera(mCameraId, mStateCallback, mCameraHandler)
         } catch (e: Exception) {
-            Log.e("123", "打开相机失败:${e.message}")
             ToastUtils.showShort("打开相机失败")
         }
     }
@@ -260,14 +255,11 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
                 val w = 1000
                 val h = w * sizes[0].height / sizes[0].width
                 mCaptureSize = Size(w, h)
-                Log.w("123", "w:${sizes[0].width}, h:${sizes[0].height}")
-                Log.w("123", "调整后w:${w}, h:${h}")
                 setupImageReader()
                 mCameraId = cameraId
                 break
             }
         } catch (e: CameraAccessException) {
-            e.printStackTrace()
         }
     }
 

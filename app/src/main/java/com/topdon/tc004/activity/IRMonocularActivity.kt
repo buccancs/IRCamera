@@ -5,7 +5,6 @@ import android.content.pm.ActivityInfo
 import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.fragment.app.FragmentManager
@@ -512,7 +511,6 @@ class IRMonocularActivity : BaseWifiActivity() {
                     }
                 }
             } catch (e: Exception) {
-                Log.e("刷新图标状态异常", e.message.toString())
             }
         }
     }

@@ -6,7 +6,6 @@ import android.content.Context
 import android.net.wifi.WifiManager
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.core.os.postDelayed
 import androidx.lifecycle.DefaultLifecycleObserver
@@ -163,7 +162,6 @@ class WebSocketProxy {
 
         override fun onMessage(webSocket: WebSocket, text: String) {
             if (SocketCmdUtil.getCmdResponse(text) == WsCmdConstants.APP_EVENT_HEART_BEATS) {
-                Log.v("WebSocket", "<-- 收到心跳消息 ${text.replace("\n", "").replace(" ", "")}")
             } else {
                 XLog.tag("WebSocket").d("$ssid 收到TEXT消息:$text")
             }
@@ -177,8 +175,6 @@ class WebSocketProxy {
                 onFrameListener.invoke(frameBean)
                 needPrint = !needPrint
                 if (needPrint) {
-                    Log.v("WebSocket", "--------- $ssid 打印一帧数据 ---------")
-                    Log.v("WebSocket", frameBean.toString())
                 }
             } else {
                 XLog.tag("WebSocket").w("$ssid 未知的 bytes 消息，长度 ${bytes.size}")
