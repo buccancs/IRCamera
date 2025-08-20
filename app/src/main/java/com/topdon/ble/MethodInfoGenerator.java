@@ -1,7 +1,7 @@
 package com.topdon.ble;
 
 
-import com.topdon.commons.poster.MethodInfo;
+import com.topdon.lib.core.poster.MethodInfo;
 
 import java.util.UUID;
 

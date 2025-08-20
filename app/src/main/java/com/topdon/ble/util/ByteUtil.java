@@ -2,7 +2,7 @@ package com.topdon.ble.util;
 
 import android.util.Log;
 
-import com.topdon.commons.util.HexUtils;
+import com.topdon.lib.core.util.HexUtils;
 
 public class ByteUtil {
     public static byte[] byteMerger(byte[] byte1, int byte2, int byte3, int byte4) {

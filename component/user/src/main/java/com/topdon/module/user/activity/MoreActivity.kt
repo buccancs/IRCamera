@@ -10,7 +10,6 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.ToastUtils
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.BaseApplication
-import com.topdon.lib.core.bean.event.TS004ResetEvent
 import com.topdon.lib.core.common.SaveSettingUtil
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.ExtraKeyConfig
@@ -20,7 +19,6 @@ import com.topdon.lib.core.dialog.ConfirmSelectDialog
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.http.tool.DownloadTool
 import com.topdon.lib.core.ktbase.BaseActivity
-import com.topdon.lib.core.repository.TS004Repository
 import com.topdon.lib.core.utils.Constants
 import com.topdon.lib.core.viewmodel.FirmwareViewModel
 import com.topdon.lms.sdk.LMS
@@ -182,7 +180,7 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
             val installDialog = FirmwareInstallDialog(this@MoreActivity)
             installDialog.show()
 
-            val isSuccess = TS004Repository.updateFirmware(file)
+            val isSuccess = // TS004Repository.updateFirmware(file)
             installDialog.dismiss()
             if (isSuccess) {
                 XLog.d("TS004 固件升级 - 固件升级包发送往 TS004 成功，即将断开连接")
@@ -222,7 +220,7 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
 
     private fun updateVersion() {
         lifecycleScope.launch {
-            val versionBean = TS004Repository.getVersion()
+            val versionBean = // TS004Repository.getVersion()
             if (versionBean?.isSuccess() == true) {
                 item_setting_bottom_text.text = getString(R.string.setting_firmware_update_version) + "V" + versionBean.data?.firmware
             } else {
@@ -248,7 +246,7 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
         showLoadingDialog(R.string.ts004_reset_tip3)
         lifecycleScope.launch {
             XLog.i("准备调用恢复出厂设置接口")
-            val isSuccess = TS004Repository.getResetAll()
+            val isSuccess = // TS004Repository.getResetAll()
             XLog.i("恢复出厂设置接口调用 ${if (isSuccess) "成功" else "失败"}")
             if (isSuccess) {
                 TToast.shortToast(this@MoreActivity, R.string.ts004_reset_tip4)

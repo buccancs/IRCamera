@@ -22,7 +22,6 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.repository.BatteryInfo
-import com.topdon.lib.core.repository.TC007Repository
 import com.topdon.lib.core.socket.SocketCmdUtil
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.AppLanguageUtils
@@ -121,7 +120,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
 
         if (WebSocketProxy.getInstance().isTC007Connect()) {
             lifecycleScope.launch {
-                val batteryInfo: BatteryInfo? = TC007Repository.getBatteryInfo()
+                val batteryInfo: BatteryInfo? = // TC007Repository.getBatteryInfo()
                 if (batteryInfo != null) {
                     adapter.tc007Battery = batteryInfo
                 }
@@ -173,7 +172,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             SharedManager.hasTC007 = true
             adapter.hasConnectTC007 = true
             lifecycleScope.launch {
-                val batteryInfo: BatteryInfo? = TC007Repository.getBatteryInfo()
+                val batteryInfo: BatteryInfo? = // TC007Repository.getBatteryInfo()
                 if (batteryInfo != null) {
                     adapter.tc007Battery = batteryInfo
                 }

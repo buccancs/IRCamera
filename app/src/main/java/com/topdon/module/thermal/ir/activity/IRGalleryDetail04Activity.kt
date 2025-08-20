@@ -27,7 +27,6 @@ import com.topdon.lib.core.tools.FileTools
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.dialog.TipDialog
-import com.topdon.lib.core.repository.TS004Repository
 import com.topdon.module.thermal.ir.R
 import com.topdon.lib.core.dialog.ConfirmSelectDialog
 import com.topdon.lib.core.bean.event.GalleryDelEvent
@@ -153,7 +152,7 @@ class IRGalleryDetail04Activity : BaseActivity() {
             lifecycleScope.launch {
                 showCameraLoading()
 
-                val isSuccess = TS004Repository.deleteFiles(arrayOf(data.id))
+                val isSuccess = // TS004Repository.deleteFiles(arrayOf(data.id))
                 if (isSuccess) {
                     if (isDelLocal) {
                         File(FileConfig.ts004GalleryDir, data.name).delete()

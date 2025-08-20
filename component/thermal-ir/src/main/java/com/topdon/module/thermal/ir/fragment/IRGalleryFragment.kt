@@ -20,7 +20,6 @@ import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.tools.FileTools.getUri
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.repository.GalleryRepository.DirType
-import com.topdon.lib.core.repository.TS004Repository
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.adapter.GalleryAdapter
 import com.topdon.lib.core.dialog.ConfirmSelectDialog
@@ -289,7 +288,7 @@ class IRGalleryFragment : BaseFragment() {
             lifecycleScope.launch {
                 (context as? Activity)?.window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
                 showLoadingDialog()
-                val successCount = TS004Repository.downloadList(downloadMap) { path, isSuccess ->
+                val successCount = // TS004Repository.downloadList(downloadMap) { path, isSuccess ->
                     if (isSuccess) {
                         for (galleryBean in downloadList) {
                             if (galleryBean.path == path) {

@@ -21,7 +21,7 @@ import androidx.core.util.Pair;
 
 import com.topdon.ble.callback.RequestCallback;
 import com.topdon.ble.callback.ScanListener;
-import com.topdon.commons.util.HexUtils;
+import com.topdon.lib.core.util.HexUtils;
 import com.topdon.ble.util.Logger;
 
 import java.lang.ref.WeakReference;
@@ -35,11 +35,11 @@ import java.util.Locale;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import com.topdon.commons.observer.Observable;
-import com.topdon.commons.poster.MethodInfo;
-import com.topdon.commons.poster.PosterDispatcher;
-import com.topdon.commons.util.MathUtils;
-import com.topdon.commons.util.StringUtils;
+import com.topdon.lib.core.observer.Observable;
+import com.topdon.lib.core.poster.MethodInfo;
+import com.topdon.lib.core.poster.PosterDispatcher;
+import com.topdon.lib.core.util.MathUtils;
+import com.topdon.lib.core.util.StringUtils;
 
 @SuppressLint("MissingPermission")
 class ConnectionImpl implements Connection, ScanListener {

@@ -10,7 +10,6 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.ToastUtils
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.BaseApplication
-import com.topdon.lib.core.bean.event.TS004ResetEvent
 import com.topdon.lib.core.common.SaveSettingUtil
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.common.WifiSaveSettingUtil
@@ -23,7 +22,6 @@ import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.http.tool.DownloadTool
 import com.topdon.lib.core.repository.ProductBean
-import com.topdon.lib.core.repository.TC007Repository
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.lib.core.viewmodel.FirmwareViewModel
@@ -194,7 +192,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
 
         if (isConnect) {
             lifecycleScope.launch {
-                val productBean: ProductBean? = TC007Repository.getProductInfo()
+                val productBean: ProductBean? = // TC007Repository.getProductInfo()
                 if (productBean == null) {
                     TToast.shortToast(requireContext(), R.string.operation_failed_tips)
                 } else {
@@ -253,7 +251,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
             val installDialog = FirmwareInstallDialog(requireContext())
             installDialog.show()
 
-            val isSuccess = TC007Repository.updateFirmware(file)
+            val isSuccess = // TC007Repository.updateFirmware(file)
             installDialog.dismiss()
             if (isSuccess) {
                 XLog.d("TC007 固件升级 - 固件升级包发送往 TC007 成功，即将断开连接")
@@ -318,7 +316,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
     private fun resetAll() {
         showLoadingDialog(R.string.ts004_reset_tip3)
         lifecycleScope.launch {
-            val isSuccess = TC007Repository.resetToFactory()
+            val isSuccess = // TC007Repository.resetToFactory()
             if (isSuccess) {
                 XLog.d("TC007 恢复出厂设置成功，即将断开连接")
                 TToast.shortToast(requireContext(), R.string.ts004_reset_tip4)

@@ -21,7 +21,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.energy.commoncomponent.R;
-import com.topdon.commons.util.ScreenUtils;
+import com.topdon.lib.core.util.ScreenUtils;
 
 import java.util.LinkedList;
 import java.util.concurrent.CopyOnWriteArrayList;

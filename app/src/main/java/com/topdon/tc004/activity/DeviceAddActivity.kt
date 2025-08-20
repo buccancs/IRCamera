@@ -33,8 +33,6 @@ import com.topdon.tc004.R
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.config.ExtraKeyConfig
-import com.topdon.lib.core.repository.TC007Repository
-import com.topdon.lib.core.repository.TS004Repository
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.PermissionTool
 import com.topdon.lib.core.utils.BluetoothUtil
@@ -478,11 +476,11 @@ class DeviceAddActivity : BaseActivity() {
                     NetWorkUtils.switchNetwork(true)
                     WebSocketProxy.getInstance().startWebSocket(wifiName, it)
                     if (isTS004) {
-                        TS004Repository.netWork = it
+                        // TS004Repository.netWork = it
                         SharedManager.hasTS004 = true
                         ARouter.getInstance().build(RouterConfig.IR_MONOCULAR).navigation(this@DeviceAddActivity)
                     } else {
-                        TC007Repository.netWork = it
+                        // TC007Repository.netWork = it
                         SharedManager.hasTC007 = true
                         ARouter.getInstance().build(RouterConfig.IR_MAIN)
                             .withBoolean(ExtraKeyConfig.IS_TC007, true)
@@ -499,12 +497,12 @@ class DeviceAddActivity : BaseActivity() {
         if (WebSocketProxy.getInstance().isConnected()){
             NetWorkUtils.switchNetwork(true) {
                 if (isTS004) {
-                    TS004Repository.netWork = it
+                    // TS004Repository.netWork = it
                     SharedManager.hasTS004 = true
                     ARouter.getInstance().build(RouterConfig.IR_MONOCULAR)
                         .navigation(this@DeviceAddActivity)
                 } else {
-                    TC007Repository.netWork = it
+                    // TC007Repository.netWork = it
                     SharedManager.hasTC007 = true
                     ARouter.getInstance().build(RouterConfig.IR_MAIN)
                         .withBoolean(ExtraKeyConfig.IS_TC007, true)

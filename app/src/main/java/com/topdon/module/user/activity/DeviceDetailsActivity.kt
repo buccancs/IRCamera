@@ -9,8 +9,6 @@ import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.repository.ProductBean
-import com.topdon.lib.core.repository.TC007Repository
-import com.topdon.lib.core.repository.TS004Repository
 import com.topdon.lms.sdk.utils.TLog
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.user.R
@@ -36,7 +34,7 @@ class DeviceDetailsActivity : BaseActivity(), View.OnClickListener {
     private fun getDeviceDetails() {
         lifecycleScope.launch {
             if (isTC007) {
-                val productBean: ProductBean? = TC007Repository.getProductInfo()
+                val productBean: ProductBean? = // TC007Repository.getProductInfo()
                 if (productBean == null) {
                     TToast.shortToast(this@DeviceDetailsActivity, R.string.operation_failed_tips)
                 } else {
@@ -44,7 +42,7 @@ class DeviceDetailsActivity : BaseActivity(), View.OnClickListener {
                     tv_device_model_value.text = productBean.ProductName
                 }
             } else {
-                val deviceDetailsBean = TS004Repository.getDeviceInfo()
+                val deviceDetailsBean = // TS004Repository.getDeviceInfo()
                 if (deviceDetailsBean?.isSuccess()!!) {
                     TLog.d("ts004-->response", "${deviceDetailsBean.data}")
                     tv_sn_value.text = deviceDetailsBean.data!!.sn

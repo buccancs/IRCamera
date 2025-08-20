@@ -26,7 +26,6 @@ import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.db.AppDatabase
 import com.topdon.lib.core.repository.FileBean
-import com.topdon.lib.core.repository.TS004Repository
 import com.topdon.lib.core.socket.SocketCmdUtil
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.AppLanguageUtils
@@ -128,12 +127,12 @@ abstract class BaseApplication : Application() {
 
     private fun autoSaveNewest(isVideo: Boolean) {
         CoroutineScope(Dispatchers.IO).launch {
-            val fileList: List<FileBean>? = TS004Repository.getNewestFile(if (isVideo) 1 else 0)
+            val fileList: List<FileBean>? = // TS004Repository.getNewestFile(if (isVideo) 1 else 0)
             if (!fileList.isNullOrEmpty()) {
                 val fileBean: FileBean = fileList[0]
                 val url = "http://192.168.40.1:8080/DCIM/${fileBean.name}"
                 val file = File(FileConfig.ts004GalleryDir, fileBean.name)
-                TS004Repository.download(url, file)
+                // TS004Repository.download(url, file)
                 MediaScannerConnection.scanFile(this@BaseApplication, arrayOf(FileConfig.ts004GalleryDir), null, null)
             }
         }

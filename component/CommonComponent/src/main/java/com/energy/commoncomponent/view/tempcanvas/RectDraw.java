@@ -13,7 +13,7 @@ import android.text.TextPaint;
 import android.util.Log;
 
 import com.energy.commoncomponent.R;
-import com.topdon.commons.util.ScreenUtils;
+import com.topdon.lib.core.util.ScreenUtils;
 
 import java.util.LinkedList;
 import java.util.UUID;

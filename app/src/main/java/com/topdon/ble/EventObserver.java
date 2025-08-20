@@ -3,7 +3,7 @@ package com.topdon.ble;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 
-import com.topdon.commons.observer.Observer;
+import com.topdon.lib.core.observer.Observer;
 
 import java.util.UUID;
 

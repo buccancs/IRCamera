@@ -19,7 +19,6 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.FileTools
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.lib.core.dialog.TipDialog
-import com.topdon.lib.core.repository.TS004Repository
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.module.thermal.ir.R
 import com.topdon.lib.core.dialog.ConfirmSelectDialog
@@ -109,7 +108,7 @@ class IRVideoGSYActivity : BaseActivity() {
         lifecycleScope.launch {
             window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
             showCameraLoading()
-            val isSuccess = TS004Repository.download(data.path, File(FileConfig.ts004GalleryDir, data.name))
+            val isSuccess = // TS004Repository.download(data.path, File(FileConfig.ts004GalleryDir, data.name))
             MediaScannerConnection.scanFile(this@IRVideoGSYActivity, arrayOf(FileConfig.ts004GalleryDir), null, null)
             dismissCameraLoading()
             if (isSuccess) {
@@ -167,7 +166,7 @@ class IRVideoGSYActivity : BaseActivity() {
         if (isRemote) {
             lifecycleScope.launch {
                 showCameraLoading()
-                val isSuccess = TS004Repository.deleteFiles(arrayOf(data.id))
+                val isSuccess = // TS004Repository.deleteFiles(arrayOf(data.id))
                 if (isSuccess) {
                     if (isDelLocal) {
                         File(FileConfig.ts004GalleryDir, data.name).delete()
