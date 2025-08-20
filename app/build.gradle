@@ -5,11 +5,7 @@ plugins {
     id 'kotlin-kapt'
 }
 
-kapt {
-    arguments {
-        arg("AROUTER_MODULE_NAME", project.getName())
-    }
-}
+
 
 android {
     namespace 'com.topdon.tc001'
@@ -256,7 +252,7 @@ dependencies {
     implementation "com.trello.rxlifecycle2:rxlifecycle-kotlin:2.2.2"
     implementation "com.trello.rxlifecycle2:rxlifecycle-android-lifecycle-kotlin:2.2.2"
 
-    implementation "com.alibaba:arouter-api:1.5.2"
+
 
     implementation "com.blankj:utilcodex:1.31.0"
     implementation "com.github.getActivity:XXPermissions:20.0"
@@ -304,7 +300,7 @@ dependencies {
     implementation 'javax.xml.stream:stax-api:1.0'
     implementation 'com.fasterxml:aalto-xml:1.2.2'
 
-    kapt "com.alibaba:arouter-compiler:1.5.2"
+
 
     implementation 'com.github.lzyzsd:jsbridge:1.0.4'
     implementation 'com.alibaba:fastjson:1.2.78'

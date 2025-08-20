@@ -5,11 +5,7 @@ plugins {
     id 'kotlin-kapt'
 }
 
-kapt {
-    arguments {
-        arg("AROUTER_MODULE_NAME", project.getName())
-    }
-}
+
 
 android {
     namespace 'com.topdon.module.thermal.ir'
@@ -72,7 +68,7 @@ dependencies {
     // Removed house and pseudo dependencies  
     implementation project(':libmatrix')
 
-    kapt "com.alibaba:arouter-compiler:1.5.2"
+
     api "com.airbnb.android:lottie:6.0.0"
     api 'com.github.anzaizai:EasySwipeMenuLayout:1.1.4'
     

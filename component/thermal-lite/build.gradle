@@ -5,11 +5,7 @@ plugins {
     id 'kotlin-kapt'
 }
 
-kapt {
-    arguments {
-        arg("AROUTER_MODULE_NAME", project.getName())
-    }
-}
+
 
 android {
     namespace 'com.topdon.module.thermal.lite'
@@ -75,7 +71,7 @@ dependencies {
     // Removed pseudo dependency
     implementation project(':component:thermal-ir')
 
-    kapt "com.alibaba:arouter-compiler:1.5.2"
+
     api(project(":component:CommonComponent"))
     implementation("androidx.multidex:multidex:2.0.1")
     implementation("com.google.android.material:material:1.4.0")

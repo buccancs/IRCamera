@@ -17,8 +17,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.Utils
 import com.elvishew.xlog.XLog
@@ -34,7 +33,7 @@ import com.topdon.lib.core.bean.event.device.DevicePermissionEvent
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.AppConfig
 import com.topdon.lib.core.config.ExtraKeyConfig
-import com.topdon.lib.core.config.RouterConfig
+
 import com.topdon.lib.core.dialog.FirmwareUpDialog
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.dialog.TipOtgDialog
@@ -68,7 +67,7 @@ import java.io.IOException
 import java.io.OutputStream
 
 
-@Route(path = RouterConfig.MAIN)
+
 class MainActivity : BaseActivity(), View.OnClickListener {
 
     private val versionViewModel: VersionViewModel by viewModels()

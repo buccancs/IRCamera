@@ -5,11 +5,7 @@ plugins {
     id 'kotlin-kapt'
 }
 
-kapt {
-    arguments {
-        arg("AROUTER_MODULE_NAME", project.getName())
-    }
-}
+
 
 android {
     namespace 'com.topdon.pseudo'
@@ -61,5 +57,5 @@ android {
 dependencies {
     compileOnly(name: "libcommon_1.2.0_24052117", ext: "aar")
 
-    kapt "com.alibaba:arouter-compiler:1.5.2"
+
 }
