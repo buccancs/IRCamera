@@ -304,6 +304,7 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
             flag = 1
             val image: Image = reader.acquireLatestImage()
             mCameraHandler.post(ImageSaver(image))
+            mCameraHandler.post {
                 val buffer: ByteBuffer = image.planes[0].buffer
                 buffer.rewind()
                 val bytes = ByteArray(buffer.remaining())

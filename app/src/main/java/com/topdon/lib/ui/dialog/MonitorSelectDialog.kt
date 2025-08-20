@@ -35,20 +35,20 @@ class MonitorSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
             dialog.window!!.attributes = lp
 
             view.btn_confirm_or_back.setOnClickListener {
-                        return@setOnClickListener
-                    }
-                    isFirstStep = false
-                    view.btn_cancel.visibility = View.VISIBLE
-                    view.cl_first_step.visibility = View.INVISIBLE
-                    view.cl_second_step.visibility = View.VISIBLE
-                    view.tv_title.text = context.getString(R.string.select_monitor_type_step2)
-                    view.btn_confirm_or_back.text = context.getString(R.string.select_monitor_return)
+                if (!isFirstStep) {
                     isFirstStep = true
                     view.btn_cancel.visibility = View.GONE
                     view.cl_first_step.visibility = View.VISIBLE
                     view.cl_second_step.visibility = View.GONE
                     view.tv_title.text = context.getString(R.string.select_monitor_type_step1)
                     view.btn_confirm_or_back.text = context.getString(R.string.app_confirm)
+                } else {
+                    isFirstStep = false
+                    view.btn_cancel.visibility = View.VISIBLE
+                    view.cl_first_step.visibility = View.INVISIBLE
+                    view.cl_second_step.visibility = View.VISIBLE
+                    view.tv_title.text = context.getString(R.string.select_monitor_type_step2)
+                    view.btn_confirm_or_back.text = context.getString(R.string.select_monitor_return)
                 }
             }
 
