@@ -76,6 +76,7 @@ dependencies {
     compileOnly(name: 'libcommon_1.2.0_24052117', ext: 'aar')
     implementation project(':component:house')
     implementation project(':component:pseudo')
+    implementation project(':libmatrix')
 
     kapt "com.alibaba:arouter-compiler:1.5.4"
     api "com.airbnb.android:lottie:6.0.0"
@@ -88,4 +89,7 @@ dependencies {
     implementation "com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v8.1.4"
     implementation "com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-exo_player2:v8.1.4"
     implementation "com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-armv64:v8.1.4"
+    
+    // Dependencies from basic thermal component
+    implementation 'com.google.android.mediahome:video:1.0.0'
 }
