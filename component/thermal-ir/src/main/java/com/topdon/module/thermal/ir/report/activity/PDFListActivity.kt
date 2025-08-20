@@ -118,9 +118,9 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
             viewModel.getReportData(isTC007, ++page)
         }
         reportAdapter.jumpDetailListener = {item, position ->
-            // TODO: Replace ARouter navigation - Intent.build(RouterConfig.REPORT_DETAIL)
-                .withParcelable(ExtraKeyConfig.REPORT_BEAN,reportAdapter.data[position]?.reportContent)
-                .navigation(this)
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                 .withParcelable(ExtraKeyConfig.REPORT_BEAN,reportAdapter.data[position]?.reportContent)
+// TODO_FIX_AROUTER:                 .navigation(this)
         }
         reportAdapter.isUseEmpty = true
         reportAdapter.delListener = {item, position ->

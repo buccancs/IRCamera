@@ -47,7 +47,7 @@ class MonitorActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v) {
             motion_log_btn -> {
-                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.THERMAL_LOG_MP_CHART).navigation(this)
+            // TODO: Replace RouterConfig reference with direct navigation
             }
             motion_btn -> {
                 MonitorSelectDialog.Builder(this)
@@ -68,10 +68,10 @@ class MonitorActivity : BaseActivity(), View.OnClickListener {
                     .create().show()
             }
             motion_start_btn -> {
-                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.MONITOR_CHART)
-                    .withInt("type", selectType)
-                    .withIntegerArrayList("select", selectIndex)
-                    .navigation(this)
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                     .withInt("type", selectType)
+// TODO_FIX_AROUTER:                     .withIntegerArrayList("select", selectIndex)
+// TODO_FIX_AROUTER:                     .navigation(this)
                 finish()
             }
         }

@@ -13,7 +13,7 @@
 //import kotlinx.coroutines.launch
 //
 //监控记录
-//@Route(path = RouterConfig.THERMAL_LOG)
+            // TODO: Replace RouterConfig reference with direct navigation
 //class MonitorLogActivity : BaseActivity() {
 //
 //    val adapter: MonitorLogAdapter by lazy { MonitorLogAdapter(this) }
@@ -25,7 +25,7 @@
 //        log_recycler.adapter = adapter
 //        adapter.listener = object : MonitorLogAdapter.OnItemClickListener {
 //            override fun onClick(index: Int, thermalId: String) {
-//                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.THERMAL_LOG_CHART).navigation(baseContext)
+            // TODO: Replace RouterConfig reference with direct navigation
 //            }
 //
 //            override fun onLongClick(index: Int, thermalId: String) {

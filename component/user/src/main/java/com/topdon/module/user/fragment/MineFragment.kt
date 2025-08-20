@@ -150,8 +150,8 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
 
                 Intent(this, com.topdon.tc001.WebViewActivity::class.java)
-                    .withString(ExtraKeyConfig.URL, url)
-                    .navigation(requireContext())
+// TODO_FIX_AROUTER:                     .withString(ExtraKeyConfig.URL, url)
+// TODO_FIX_AROUTER:                     .navigation(requireContext())
             }
             setting_user_lay, setting_user_img_night -> {
                 if (UserInfoManager.getInstance().isLogin()) {
@@ -167,10 +167,10 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                 }
             }
             setting_electronic_manual -> {//电子说明书
-                Intent(this, com.topdon.module.user.activity.ElectronicManualActivity::class.java).withInt(Constants.SETTING_TYPE, Constants.SETTING_BOOK).navigation(requireContext())
+// TODO_FIX_AROUTER:                 Intent(this, com.topdon.module.user.activity.ElectronicManualActivity::class.java).withInt(Constants.SETTING_TYPE, Constants.SETTING_BOOK).navigation(requireContext())
             }
             setting_faq -> {//FAQ
-                Intent(this, com.topdon.module.user.activity.ElectronicManualActivity::class.java).withInt(Constants.SETTING_TYPE, Constants.SETTING_FAQ).navigation(requireContext())
+// TODO_FIX_AROUTER:                 Intent(this, com.topdon.module.user.activity.ElectronicManualActivity::class.java).withInt(Constants.SETTING_TYPE, Constants.SETTING_FAQ).navigation(requireContext())
             }
             setting_feedback -> {//意见反馈
                 if (LMS.getInstance().isLogin) {

@@ -166,22 +166,22 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
             tv_preview -> {//预览
                 val reportInfoBean = buildReportInfo()
                 val reportConditionBean = buildReportCondition()
-                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.REPORT_PREVIEW_FIRST)
-                    .withParcelable(ExtraKeyConfig.REPORT_INFO, reportInfoBean)
-                    .withParcelable(ExtraKeyConfig.REPORT_CONDITION, reportConditionBean)
-                    .navigation(this)
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                     .withParcelable(ExtraKeyConfig.REPORT_INFO, reportInfoBean)
+// TODO_FIX_AROUTER:                     .withParcelable(ExtraKeyConfig.REPORT_CONDITION, reportConditionBean)
+// TODO_FIX_AROUTER:                     .navigation(this)
             }
             tv_next -> {//下一步
                 val reportInfoBean = buildReportInfo()
                 val reportConditionBean = buildReportCondition()
                 val imageTempBean: ImageTempBean? = intent.getParcelableExtra(ExtraKeyConfig.IMAGE_TEMP_BEAN)
                 // TODO: Replace report creation navigation - Intent(this, ReportCreateSecondActivity::class.java)
-                    .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
-                    .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, intent.getStringExtra(ExtraKeyConfig.FILE_ABSOLUTE_PATH))
-                    .withParcelable(ExtraKeyConfig.IMAGE_TEMP_BEAN, imageTempBean)
-                    .withParcelable(ExtraKeyConfig.REPORT_INFO, reportInfoBean)
-                    .withParcelable(ExtraKeyConfig.REPORT_CONDITION, reportConditionBean)
-                    .navigation(this)
+// TODO_FIX_AROUTER:                     .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
+// TODO_FIX_AROUTER:                     .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, intent.getStringExtra(ExtraKeyConfig.FILE_ABSOLUTE_PATH))
+// TODO_FIX_AROUTER:                     .withParcelable(ExtraKeyConfig.IMAGE_TEMP_BEAN, imageTempBean)
+// TODO_FIX_AROUTER:                     .withParcelable(ExtraKeyConfig.REPORT_INFO, reportInfoBean)
+// TODO_FIX_AROUTER:                     .withParcelable(ExtraKeyConfig.REPORT_CONDITION, reportConditionBean)
+// TODO_FIX_AROUTER:                     .navigation(this)
             }
             img_location -> {
                 checkLocationPermission()

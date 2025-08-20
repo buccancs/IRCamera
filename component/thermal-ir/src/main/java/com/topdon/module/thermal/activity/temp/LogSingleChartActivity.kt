@@ -24,7 +24,7 @@
 ///**
 // * 针对单个thermalId显示(用不到)
 // */
-//@Route(path = RouterConfig.THERMAL_LOG_SINGLE_CHART)
+            // TODO: Replace RouterConfig reference with direct navigation
 //class LogSingleChartActivity : BaseActivity() {
 //
 //    val adapter: SettingTimeAdapter by lazy { SettingTimeAdapter(this) }

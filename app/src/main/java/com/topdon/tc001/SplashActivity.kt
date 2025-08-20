@@ -25,9 +25,9 @@ class SplashActivity : AppCompatActivity() {
         lifecycleScope.launch {
             delay(if (BuildConfig.DEBUG) 3000 else 1000)
             if (SharedManager.getHasShowClause()) {
-                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.MAIN).navigation(this@SplashActivity)
+            // TODO: Replace RouterConfig reference with direct navigation
             } else {
-                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.CLAUSE).navigation(this@SplashActivity)
+            // TODO: Replace RouterConfig reference with direct navigation
             }
             finish()
         }

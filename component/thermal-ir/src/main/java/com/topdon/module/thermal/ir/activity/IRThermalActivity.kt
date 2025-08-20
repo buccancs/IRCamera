@@ -100,7 +100,7 @@
 //import java.util.*
 //
 //
-//@Route(path = RouterConfig.IR_MAIN)
+            // TODO: Replace RouterConfig reference with direct navigation
 //open class IRThermalActivity : BaseActivity(), ITsTempListener {
 //
 //    private var alphaPaint: Paint ?=null
@@ -457,7 +457,7 @@
 //                    videoTimeClose()
 //                    delay(500)
 //                }
-//                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_GALLERY).navigation()
+            // TODO: Replace RouterConfig reference with direct navigation
 //            }
 //        }
 //        thermal_recycler.fencelistener = {
@@ -1590,8 +1590,8 @@
 //                    cameraItemAdapter.listener = listener@{ position, item ->
 //                        when (cameraItemAdapter.data[position].type){
 //                            CameraItemBean.TYPE_SETTING ->{
-//                                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_CAMERA_SETTING)
-//                                    .navigation(this)
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER: //                                    .navigation(this)
 //                                return@listener
 //                            }
 //                            CameraItemBean.TYPE_DELAY ->{

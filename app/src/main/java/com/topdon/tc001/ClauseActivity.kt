@@ -105,7 +105,7 @@ class ClauseActivity : AppCompatActivity() {
                 delay(1000)
                 return@async
             }.await().let {
-                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.MAIN).navigation(this@ClauseActivity)
+            // TODO: Replace RouterConfig reference with direct navigation
                 SharedManager.setHasShowClause(true)
                 dismissLoading()
                 finish()

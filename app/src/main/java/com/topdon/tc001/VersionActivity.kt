@@ -53,19 +53,19 @@ class VersionActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v) {
             version_statement_private_txt -> {
-                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.POLICY)
-                    .withInt(PolicyActivity.KEY_THEME_TYPE, 1)
-                    .navigation(this)
+                val intent = Intent(this, com.topdon.tc001.PolicyActivity::class.java)
+                intent.putExtra(PolicyActivity.KEY_THEME_TYPE, 1)
+                startActivity(intent)
             }
             version_statement_policy_txt -> {
-                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.POLICY)
-                    .withInt(PolicyActivity.KEY_THEME_TYPE, 2)
-                    .navigation(this)
+                val intent = Intent(this, com.topdon.tc001.PolicyActivity::class.java)
+                intent.putExtra(PolicyActivity.KEY_THEME_TYPE, 2)
+                startActivity(intent)
             }
             version_statement_copyright_txt -> {
-                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.POLICY)
-                    .withInt(PolicyActivity.KEY_THEME_TYPE, 3)
-                    .navigation(this)
+                val intent = Intent(this, com.topdon.tc001.PolicyActivity::class.java)
+                intent.putExtra(PolicyActivity.KEY_THEME_TYPE, 3)
+                startActivity(intent)
             }
         }
     }

@@ -123,10 +123,10 @@ class ReportAddActivity : BaseActivity(), View.OnClickListener {
                 iv_expand.isSelected = isAllExpand
             }
             tv_export_report -> {//导出报告
-                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.REPORT_PREVIEW)
-                    .withBoolean(ExtraKeyConfig.IS_REPORT, false)
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                     .withBoolean(ExtraKeyConfig.IS_REPORT, false)
                     .withLong(ExtraKeyConfig.LONG_ID, intent.getLongExtra(ExtraKeyConfig.DETECT_ID, 0))
-                    .navigation(this)
+// TODO_FIX_AROUTER:                     .navigation(this)
             }
             tv_add -> {//新增默认目录
                 val detect: HouseDetect? = viewModel.detectLD.value

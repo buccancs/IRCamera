@@ -44,12 +44,12 @@ class IRCorrectionTwoActivity : BaseActivity() {
         tv_correction.setOnClickListener {
             if (if (isTC007) WebSocketProxy.getInstance().isTC007Connect() else DeviceTools.isConnect()) {
                 if (isTC007) {
-                    // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_CORRECTION_07).navigation(this)
+            // TODO: Replace RouterConfig reference with direct navigation
                 } else {
                     if (DeviceTools.isTC001LiteConnect()){
-                        // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_CORRECTION_THREE_LITE).navigation(this)
+            // TODO: Replace RouterConfig reference with direct navigation
                     } else if (DeviceTools.isHikConnect()) {
-                        // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_HIK_CORRECT_THREE).navigation(this)
+            // TODO: Replace RouterConfig reference with direct navigation
                     } else{
                         startActivity(Intent(this, IRCorrectionThreeActivity::class.java))
                     }

@@ -67,9 +67,8 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         adapter.onItemClickListener = {
             when (it) {
                 ConnectType.LINE -> {
-                    // TODO: Replace ARouter navigation - Intent
-                        .build(RouterConfig.IR_MAIN)
-                        .navigation(requireContext())
+                    val intent = Intent(requireContext(), com.topdon.module.thermal.ir.activity.IRMainActivity::class.java)
+                    startActivity(intent)
                 }
                 // TS004/TC007 cases removed
             }

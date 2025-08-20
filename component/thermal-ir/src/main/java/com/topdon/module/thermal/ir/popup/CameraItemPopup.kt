@@ -119,7 +119,7 @@ class CameraItemPopup(val context: Context, private val saveSetBean: SaveSetting
                 onShutterClickListener?.invoke()
             }
             binding.clAudio -> onAudioCLickListener?.invoke()
-            binding.clSetting -> // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_CAMERA_SETTING).navigation(context)
+            // TODO: Replace RouterConfig reference with direct navigation
         }
     }
 

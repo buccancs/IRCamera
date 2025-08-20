@@ -14,9 +14,9 @@ class BlankDevActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         if (SharedManager.getHasShowClause()) {
             if (!App.instance.activityNameList.contains(IRMainActivity::class.simpleName)){
-                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.MAIN).navigation(this)
+            // TODO: Replace RouterConfig reference with direct navigation
                 if (!SharedManager.isConnectAutoOpen){
-                    // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_MAIN).navigation(this)
+            // TODO: Replace RouterConfig reference with direct navigation
                 }
             }
             finish()

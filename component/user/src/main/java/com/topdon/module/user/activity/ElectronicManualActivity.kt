@@ -31,15 +31,15 @@ class ElectronicManualActivity : BaseActivity() {
                     //电子说明书-TS001
                 } else {
                     //FAQ-TS001
-                    // TODO: Replace ARouter navigation - Intent.build(RouterConfig.QUESTION).withBoolean("isTS001", true).navigation(this)
+            // TODO: Replace RouterConfig reference with direct navigation
                 }
             } else {
                 if (productType == Constants.SETTING_BOOK) {
                     //电子说明书-TS004
-                    // TODO: Replace ARouter navigation - Intent.build(RouterConfig.PDF).withBoolean("isTS001", false).navigation(this)
+            // TODO: Replace RouterConfig reference with direct navigation
                 } else {
                     //FAQ-TS004
-                    // TODO: Replace ARouter navigation - Intent.build(RouterConfig.QUESTION).withBoolean("isTS001", false).navigation(this)
+            // TODO: Replace RouterConfig reference with direct navigation
                 }
             }
         }

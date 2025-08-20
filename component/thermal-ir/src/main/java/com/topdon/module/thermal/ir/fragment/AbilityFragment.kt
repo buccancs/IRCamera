@@ -53,8 +53,8 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
                     "http://172.16.66.77:8081/#/detectionGuidanceIndex?languageId=1&showHeader=1"
                 }
                 Intent(this, com.topdon.tc001.WebViewActivity::class.java)
-                    .withString(ExtraKeyConfig.URL, url)
-                    .navigation(requireContext())
+// TODO_FIX_AROUTER:                     .withString(ExtraKeyConfig.URL, url)
+// TODO_FIX_AROUTER:                     .navigation(requireContext())
             }
             view_monitory -> {//温度监控
                 val intent = Intent(requireContext(), MonitoryHomeActivity::class.java)
@@ -71,9 +71,9 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
             view_car -> {//汽车检测
                 if (mIsTC007) {
                     if (WebSocketProxy.getInstance().isConnected()) {
-                        // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_THERMAL_07)
-                            .withBoolean(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
-                            .navigation(requireContext())
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                             .withBoolean(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
+// TODO_FIX_AROUTER:                             .navigation(requireContext())
                     }
                 } else {
                     if (DeviceTools.isTC001PlusConnect()) {
@@ -81,13 +81,13 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
                         intent.putExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
                         startActivity(intent)
                     } else if (DeviceTools.isTC001LiteConnect()) {
-                        // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_TCLITE)
-                            .withBoolean(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
-                            .navigation(activity)
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                             .withBoolean(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
+            // TODO: Implement proper Intent navigation
                     } else if (DeviceTools.isHikConnect()) {
-                        // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_HIK_MAIN)
-                            .withBoolean(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
-                            .navigation(activity)
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                             .withBoolean(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
+            // TODO: Implement proper Intent navigation
                     } else if (DeviceTools.isConnect(isSendConnectEvent = false, true)) {
                         var intent = Intent(requireContext(), IRThermalNightActivity::class.java)
                         intent.putExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)

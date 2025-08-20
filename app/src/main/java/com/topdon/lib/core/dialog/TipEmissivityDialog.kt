@@ -98,9 +98,9 @@ class TipEmissivityDialog : Dialog {
             }
             view.dialog_tip_cancel_btn.setOnClickListener {
                 dialog?.onDismissListener?.invoke(hasCheck)
-                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_SETTING)
-                    .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
-                    .navigation(context)
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                     .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
+            // TODO: Implement proper Intent navigation
                 dismiss()
             }
             val tvEmissivity = view.tv_emissivity

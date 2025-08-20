@@ -56,10 +56,10 @@ internal class ReportListFragment : BaseFragment(), View.OnClickListener {
 
         adapter = HouseAdapter(requireContext(), false)
         adapter.onItemClickListener = {
-            // TODO: Replace ARouter navigation - Intent.build(RouterConfig.REPORT_PREVIEW)
-                .withBoolean(ExtraKeyConfig.IS_REPORT, true)
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                 .withBoolean(ExtraKeyConfig.IS_REPORT, true)
                 .withLong(ExtraKeyConfig.LONG_ID, adapter.dataList[it].id)
-                .navigation(requireContext())
+// TODO_FIX_AROUTER:                 .navigation(requireContext())
         }
         adapter.onShareClickListener = {
             lifecycleScope.launch {

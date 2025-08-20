@@ -128,14 +128,14 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
         when (v) {
             cl_open_thermal -> {
                 if (isTC007) {
-                    // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_THERMAL_07).navigation(requireContext())
+            // TODO: Replace RouterConfig reference with direct navigation
                 } else {
                     if (DeviceTools.isTC001PlusConnect()) {
                         startActivityForResult(Intent(requireContext(), IRThermalPlusActivity::class.java), 101)
                     }else if(DeviceTools.isTC001LiteConnect()){
-                        // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_TCLITE).navigation(activity,101)
+            // TODO: Replace RouterConfig reference with direct navigation
                     } else if (DeviceTools.isHikConnect()) {
-                        // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_HIK_MAIN).navigation(activity)
+            // TODO: Replace RouterConfig reference with direct navigation
                     } else {
                         startActivityForResult(Intent(requireContext(), IRThermalNightActivity::class.java), 101)
                     }
@@ -185,15 +185,15 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
                 }
             }
             cl_07_connect_tips -> {//TC007 连接提示
-                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_CONNECT_TIPS)
-                    .withBoolean(ExtraKeyConfig.IS_TC007, true)
-                    .navigation(requireContext())
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                     .withBoolean(ExtraKeyConfig.IS_TC007, true)
+// TODO_FIX_AROUTER:                     .navigation(requireContext())
             }
             tv_07_connect -> {//TC007 连接设备
                 // TODO: Replace ARouter navigation - Intent
-                    .build(RouterConfig.IR_DEVICE_ADD)
-                    .withBoolean("isTS004", false)
-                    .navigation(requireContext())
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                     .withBoolean("isTS004", false)
+// TODO_FIX_AROUTER:                     .navigation(requireContext())
             }
         }
     }

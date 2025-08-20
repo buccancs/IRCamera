@@ -1339,9 +1339,9 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                         delay(500)
                     }
                     // TODO: Replace ARouter navigation - Intent
-                        .build(RouterConfig.IR_GALLERY_HOME)
-                        .withInt(ExtraKeyConfig.DIR_TYPE, GalleryRepository.DirType.LINE.ordinal)
-                        .navigation()
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                         .withInt(ExtraKeyConfig.DIR_TYPE, GalleryRepository.DirType.LINE.ordinal)
+            // TODO: Implement proper Intent navigation
                 }
             }
             2 -> {//更多菜单
@@ -1376,8 +1376,8 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                     cameraItemAdapter?.listener = listener@{ position, _ ->
                         when (cameraItemAdapter!!.data[position].type) {
                             CameraItemBean.TYPE_SETTING -> {
-                                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_CAMERA_SETTING)
-                                    .navigation(this)
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                                     .navigation(this)
                                 return@listener
                             }
 

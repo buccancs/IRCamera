@@ -163,12 +163,12 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
                 val reportIRBeanList = ArrayList<ReportIRBean>(reportIRList)
                 reportIRBeanList.add(buildReportIr(currentFilePath))
                 // TODO: Replace ARouter navigation - Intent
-                    .build(RouterConfig.REPORT_PICK_IMG)
-                    .withBoolean(ExtraKeyConfig.IS_TC007, intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false))
-                    .withParcelable(ExtraKeyConfig.REPORT_INFO, intent.getParcelableExtra(ExtraKeyConfig.REPORT_INFO))
-                    .withParcelable(ExtraKeyConfig.REPORT_CONDITION, intent.getParcelableExtra(ExtraKeyConfig.REPORT_CONDITION))
-                    .withParcelableArrayList(ExtraKeyConfig.REPORT_IR_LIST, reportIRBeanList)
-                    .navigation(this)
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                     .withBoolean(ExtraKeyConfig.IS_TC007, intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false))
+// TODO_FIX_AROUTER:                     .withParcelable(ExtraKeyConfig.REPORT_INFO, intent.getParcelableExtra(ExtraKeyConfig.REPORT_INFO))
+// TODO_FIX_AROUTER:                     .withParcelable(ExtraKeyConfig.REPORT_CONDITION, intent.getParcelableExtra(ExtraKeyConfig.REPORT_CONDITION))
+// TODO_FIX_AROUTER:                     .withParcelableArrayList(ExtraKeyConfig.REPORT_IR_LIST, reportIRBeanList)
+// TODO_FIX_AROUTER:                     .navigation(this)
             }
             tv_preview -> {//预览
                 val appLanguage = SharedManager.getLanguage(this)
@@ -178,10 +178,10 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
                 val reportIRBeanList = ArrayList<ReportIRBean>(reportIRList)
                 reportIRBeanList.add(buildReportIr(currentFilePath))
                 val reportBean = ReportBean(SoftwareInfo(appLanguage, sdkVersion), reportInfoBean!!, conditionBean!!, reportIRBeanList)
-                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.REPORT_PREVIEW_SECOND)
-                    .withBoolean(ExtraKeyConfig.IS_TC007, intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false))
-                    .withParcelable(ExtraKeyConfig.REPORT_BEAN, reportBean)
-                    .navigation(this)
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                     .withBoolean(ExtraKeyConfig.IS_TC007, intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false))
+// TODO_FIX_AROUTER:                     .withParcelable(ExtraKeyConfig.REPORT_BEAN, reportBean)
+// TODO_FIX_AROUTER:                     .navigation(this)
             }
         }
     }

@@ -217,9 +217,9 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
                 .create().show()
         }
         reportAdapter.jumpDetailListener = {item, position ->
-            // TODO: Replace ARouter navigation - Intent.build(RouterConfig.REPORT_DETAIL)
-                .withParcelable(ExtraKeyConfig.REPORT_BEAN,reportAdapter.data[position]?.reportContent)
-                .navigation(requireContext())
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                 .withParcelable(ExtraKeyConfig.REPORT_BEAN,reportAdapter.data[position]?.reportContent)
+// TODO_FIX_AROUTER:                 .navigation(requireContext())
         }
         reportAdapter.loadMoreModule.loadMoreView = CommLoadMoreView()
         reportAdapter.loadMoreModule.setOnLoadMoreListener {

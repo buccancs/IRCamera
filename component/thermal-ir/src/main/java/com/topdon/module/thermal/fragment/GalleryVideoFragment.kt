@@ -65,8 +65,8 @@ class GalleryVideoFragment : BaseViewModelFragment<GalleryViewModel>() {
 
 
     fun openVideo(path: String) {
-        // TODO: Replace ARouter navigation - Intent.build(RouterConfig.VIDEO).withString("video_path", path)
-            .navigation(requireContext())
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:             .navigation(requireContext())
     }
 
 }

@@ -550,20 +550,20 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                     launch(Dispatchers.Main) {
                         dismissLoadingDialog()
                         if (intent.getBooleanExtra(IS_REPORT_FIRST, true)) {
-                            // TODO: Replace report creation navigation - Intent(this, ReportCreateFirstActivity::class.java)
-                                .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
-                                .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, fileAbsolutePath)
-                                .withParcelable(ExtraKeyConfig.IMAGE_TEMP_BEAN, buildImageTempBean())
-                                .navigation(this@IRGalleryEditActivity)
+                            val reportIntent = Intent(this@IRGalleryEditActivity, com.topdon.module.thermal.ir.report.activity.ReportCreateFirstActivity::class.java)
+                            reportIntent.putExtra(ExtraKeyConfig.IS_TC007, isTC007)
+                            reportIntent.putExtra(ExtraKeyConfig.FILE_ABSOLUTE_PATH, fileAbsolutePath)
+                            reportIntent.putExtra(ExtraKeyConfig.IMAGE_TEMP_BEAN, buildImageTempBean())
+                            startActivity(reportIntent)
                         } else {
-                            // TODO: Replace report creation navigation - Intent(this, ReportCreateSecondActivity::class.java)
-                                .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
-                                .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, fileAbsolutePath)
-                                .withParcelable(ExtraKeyConfig.IMAGE_TEMP_BEAN, buildImageTempBean())
-                                .withParcelable(ExtraKeyConfig.REPORT_INFO, intent.getParcelableExtra(ExtraKeyConfig.REPORT_INFO))
-                                .withParcelable(ExtraKeyConfig.REPORT_CONDITION, intent.getParcelableExtra(ExtraKeyConfig.REPORT_CONDITION))
-                                .withParcelableArrayList(ExtraKeyConfig.REPORT_IR_LIST, intent.getParcelableArrayListExtra(ExtraKeyConfig.REPORT_IR_LIST))
-                                .navigation(this@IRGalleryEditActivity)
+                            val reportIntent = Intent(this@IRGalleryEditActivity, com.topdon.module.thermal.ir.report.activity.ReportCreateSecondActivity::class.java)
+                            reportIntent.putExtra(ExtraKeyConfig.IS_TC007, isTC007)
+                            reportIntent.putExtra(ExtraKeyConfig.FILE_ABSOLUTE_PATH, fileAbsolutePath)
+                            reportIntent.putExtra(ExtraKeyConfig.IMAGE_TEMP_BEAN, buildImageTempBean())
+                            reportIntent.putExtra(ExtraKeyConfig.REPORT_INFO, intent.getParcelableExtra(ExtraKeyConfig.REPORT_INFO))
+                            reportIntent.putExtra(ExtraKeyConfig.REPORT_CONDITION, intent.getParcelableExtra(ExtraKeyConfig.REPORT_CONDITION))
+                            reportIntent.putExtra(ExtraKeyConfig.REPORT_IR_LIST, intent.getParcelableArrayListExtra(ExtraKeyConfig.REPORT_IR_LIST))
+                            startActivity(reportIntent)
                         }
                     }
                 }

@@ -19,7 +19,7 @@
 //import kotlinx.coroutines.delay
 //import kotlinx.coroutines.launch
 //
-//@Route(path = RouterConfig.THERMAL_LOG_CHART)
+            // TODO: Replace RouterConfig reference with direct navigation
 //class LogChartActivity : BaseActivity() {
 //
 //    val adapter: SettingTimeAdapter by lazy { SettingTimeAdapter(this) }

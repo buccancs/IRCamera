@@ -122,9 +122,9 @@ class ReportPreviewSecondActivity: BaseViewModelActivity<UpReportViewModel>(), V
             dismissCameraLoading()
             if (it.code == LMS.SUCCESS) {
                 EventBus.getDefault().post(ReportCreateEvent())
-                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.REPORT_LIST)
-                    .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
-                    .navigation(this)
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                     .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
+// TODO_FIX_AROUTER:                     .navigation(this)
                 finish()
             } else {
                 ToastUtils.showShort(StringUtils.getResString(this, it.code.toString()))

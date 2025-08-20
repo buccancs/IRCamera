@@ -25,9 +25,9 @@ class IRMonitorCaptureFragment : BaseFragment() {
         view_start.setOnClickListener {
             if (DeviceTools.isConnect()) {
                 if (DeviceTools.isTC001LiteConnect()) {
-                    // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_THERMAL_MONITOR_LITE).navigation(requireContext())
+            // TODO: Replace RouterConfig reference with direct navigation
                 } else if (DeviceTools.isHikConnect()) {
-                    // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_HIK_MONITOR_CAPTURE1).navigation(requireContext())
+            // TODO: Replace RouterConfig reference with direct navigation
                 } else {
                     startActivity(Intent(requireContext(), IRMonitorActivity::class.java))
                 }

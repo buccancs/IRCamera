@@ -14,7 +14,7 @@
 //import kotlinx.coroutines.launch
 //import kotlin.math.sin
 //
-//@Route(path = RouterConfig.CHART)
+            // TODO: Replace RouterConfig reference with direct navigation
 //class ChartActivity : BaseActivity() {
 //
 //    override fun initContentView() = R.layout.activity_chart

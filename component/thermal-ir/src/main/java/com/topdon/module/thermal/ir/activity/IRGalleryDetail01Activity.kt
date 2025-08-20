@@ -244,12 +244,12 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
             ToastTools.showShort(R.string.album_report_on_edit)
             return
         }
-        // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_GALLERY_EDIT)
-            .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
-            .withBoolean(ExtraKeyConfig.IS_PICK_REPORT_IMG, isReport)
-            .withBoolean(IS_REPORT_FIRST, true)
-            .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, irPath)
-            .navigation(this)
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:             .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
+// TODO_FIX_AROUTER:             .withBoolean(ExtraKeyConfig.IS_PICK_REPORT_IMG, isReport)
+// TODO_FIX_AROUTER:             .withBoolean(IS_REPORT_FIRST, true)
+// TODO_FIX_AROUTER:             .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, irPath)
+// TODO_FIX_AROUTER:             .navigation(this)
     }
 
     inner class GalleryViewPagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {

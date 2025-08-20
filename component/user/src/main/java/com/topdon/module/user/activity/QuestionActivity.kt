@@ -25,10 +25,10 @@ class QuestionActivity : BaseActivity() {
         val adapter = MyAdapter(FaqRepository.getQuestionList(intent.getBooleanExtra("isTS001", false)))
         adapter.onItemClickListener = {
             // TODO: Replace ARouter navigation - Intent
-                .build(RouterConfig.QUESTION_DETAILS)
-                .withString("question", it.question)
-                .withString("answer", it.answer)
-                .navigation(this)
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                 .withString("question", it.question)
+// TODO_FIX_AROUTER:                 .withString("answer", it.answer)
+// TODO_FIX_AROUTER:                 .navigation(this)
         }
 
         question_recycler.layoutManager = LinearLayoutManager(this)

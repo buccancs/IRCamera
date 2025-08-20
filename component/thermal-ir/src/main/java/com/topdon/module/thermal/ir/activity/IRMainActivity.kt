@@ -96,7 +96,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
                     TC007Repository.syncTime()
                 }
                 if (SharedManager.isConnect07AutoOpen) {
-                    // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_THERMAL_07).navigation(this)
+            // TODO: Replace RouterConfig reference with direct navigation
                 }
             } else {
                 iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
@@ -361,7 +361,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
                     0 -> AbilityFragment()
                     2 -> IRThermalFragment()
                     3 -> PDFListFragment()
-                    else -> // TODO: Replace ARouter navigation - Intent.build(RouterConfig.TC_MORE).navigation() as Fragment
+            // TODO: Replace RouterConfig reference with direct navigation
                 }
                 fragment.arguments = Bundle().also { it.putBoolean(ExtraKeyConfig.IS_TC007, isTC007) }
                 return fragment

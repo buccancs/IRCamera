@@ -186,10 +186,10 @@ class IRGalleryFragment : BaseFragment() {
         adapter.itemClickCallback = {
             val galleryBean: GalleryBean = adapter.dataList[it]
             if (galleryBean.name.uppercase().endsWith(".MP4")) {
-                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_VIDEO_GSY)
-                    .withBoolean("isRemote", currentDirType == DirType.TS004_REMOTE)
-                    .withParcelable("data", adapter.dataList[it])
-                    .navigation(requireActivity())
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                     .withBoolean("isRemote", currentDirType == DirType.TS004_REMOTE)
+// TODO_FIX_AROUTER:                     .withParcelable("data", adapter.dataList[it])
+            // TODO: Implement proper Intent navigation
             } else {
                 val sourceList: ArrayList<GalleryBean> = viewModel.sourceListLD.value ?: ArrayList()
                 var position = if (it >= sourceList.size) sourceList.size - 1 else it
@@ -202,17 +202,17 @@ class IRGalleryFragment : BaseFragment() {
 
 
                 if (currentDirType == DirType.LINE || currentDirType == DirType.TC007) {
-                    // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_GALLERY_DETAIL_01)
-                        .withBoolean(ExtraKeyConfig.IS_TC007, currentDirType == DirType.TC007)
-                        .withInt("position", position)
-                        .withParcelableArrayList("list", sourceList)
-                        .navigation(requireActivity())
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                         .withBoolean(ExtraKeyConfig.IS_TC007, currentDirType == DirType.TC007)
+// TODO_FIX_AROUTER:                         .withInt("position", position)
+// TODO_FIX_AROUTER:                         .withParcelableArrayList("list", sourceList)
+            // TODO: Implement proper Intent navigation
                 } else {
-                    // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_GALLERY_DETAIL_04)
-                        .withBoolean("isRemote", currentDirType == DirType.TS004_REMOTE)
-                        .withInt("position", position)
-                        .withParcelableArrayList("list", sourceList)
-                        .navigation(requireActivity())
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                         .withBoolean("isRemote", currentDirType == DirType.TS004_REMOTE)
+// TODO_FIX_AROUTER:                         .withInt("position", position)
+// TODO_FIX_AROUTER:                         .withParcelableArrayList("list", sourceList)
+            // TODO: Implement proper Intent navigation
                 }
             }
         }

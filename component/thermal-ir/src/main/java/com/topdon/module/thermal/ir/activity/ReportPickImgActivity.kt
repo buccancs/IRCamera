@@ -168,15 +168,15 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
             val fileName = data.name.substringBeforeLast(".")
             val irPath = "${FileConfig.lineIrGalleryDir}/${fileName}.ir"
             if (File(irPath).exists()) {
-                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_GALLERY_EDIT)
-                    .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
-                    .withBoolean(ExtraKeyConfig.IS_PICK_REPORT_IMG, true)
-                    .withBoolean(IS_REPORT_FIRST, false)
-                    .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, irPath)
-                    .withParcelable(ExtraKeyConfig.REPORT_INFO, intent.getParcelableExtra(ExtraKeyConfig.REPORT_INFO))
-                    .withParcelable(ExtraKeyConfig.REPORT_CONDITION, intent.getParcelableExtra(ExtraKeyConfig.REPORT_CONDITION))
-                    .withParcelableArrayList(ExtraKeyConfig.REPORT_IR_LIST, intent.getParcelableArrayListExtra(ExtraKeyConfig.REPORT_IR_LIST))
-                    .navigation(this)
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                     .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
+// TODO_FIX_AROUTER:                     .withBoolean(ExtraKeyConfig.IS_PICK_REPORT_IMG, true)
+// TODO_FIX_AROUTER:                     .withBoolean(IS_REPORT_FIRST, false)
+// TODO_FIX_AROUTER:                     .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, irPath)
+// TODO_FIX_AROUTER:                     .withParcelable(ExtraKeyConfig.REPORT_INFO, intent.getParcelableExtra(ExtraKeyConfig.REPORT_INFO))
+// TODO_FIX_AROUTER:                     .withParcelable(ExtraKeyConfig.REPORT_CONDITION, intent.getParcelableExtra(ExtraKeyConfig.REPORT_CONDITION))
+// TODO_FIX_AROUTER:                     .withParcelableArrayList(ExtraKeyConfig.REPORT_IR_LIST, intent.getParcelableArrayListExtra(ExtraKeyConfig.REPORT_IR_LIST))
+// TODO_FIX_AROUTER:                     .navigation(this)
             } else {
                 ToastTools.showShort(R.string.album_report_on_edit)
             }

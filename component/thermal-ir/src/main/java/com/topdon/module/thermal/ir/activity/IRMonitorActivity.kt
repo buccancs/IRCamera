@@ -57,9 +57,9 @@ class IRMonitorActivity : BaseActivity(), View.OnClickListener {
                     return
                 }
                 //开始温度监听
-                // TODO: Replace ARouter navigation - Intent.build(RouterConfig.IR_MONITOR_CHART)
-                    .withParcelable("select", selectIndex)
-                    .navigation(this)
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                     .withParcelable("select", selectIndex)
+// TODO_FIX_AROUTER:                     .navigation(this)
                 finish()
             }
         }
