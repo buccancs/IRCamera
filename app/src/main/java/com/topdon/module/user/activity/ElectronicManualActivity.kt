@@ -62,7 +62,7 @@ class ElectronicManualActivity : BaseActivity() {
             if (isFAQ) {
                 optionList.add("TS001")
             }
-            optionList.add("TS004")
+            // TS004 support removed
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

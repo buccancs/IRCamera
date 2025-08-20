@@ -50,15 +50,11 @@ object RouterConfig {
     const val QUESTION = "/$GROUP_USER/question"//FAQ
     const val QUESTION_DETAILS = "/$GROUP_USER/question/details"//FAQ
     const val UNIT = "/$GROUP_USER/unit"
-    const val DEVICE_INFORMATION = "/$GROUP_USER/device_information"
-    const val TISR = "/$GROUP_USER/tisr"
     const val ELECTRONIC_MANUAL = "/$GROUP_USER/electronic_manual"
-    const val STORAGE_SPACE = "/$GROUP_USER/storage_space"
     const val AUTO_SAVE = "/$GROUP_USER/auto_save"
     
     // Legacy device routes - redirect to standard MORE
     const val TC_MORE = "/$GROUP_USER/more"
-    const val TS004_MORE = "/$GROUP_USER/more"
 
     const val MANUAL_START = "/$GROUP_CALIBRATE/manual/first"
     const val IR_FRAME_PLUSH = "/$GROUP_IR/frame/plush"

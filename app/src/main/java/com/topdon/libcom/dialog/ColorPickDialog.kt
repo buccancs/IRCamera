@@ -108,15 +108,9 @@ class ColorPickDialog(context: Context, @ColorInt private var color: Int,var tex
         rootView.tv_save.setOnClickListener(this)
     }
 
-    private fun textSizeToNifyValue(size: Int, isTC007: Boolean) : Float{
-        if (isTC007){
-            return when(size){
-                14 -> 0f
-                16 -> 50f
-                else -> 100f
-            }
-        }
-        return when(size){
+    private fun textSizeToNifyValue(size: Int, isTC007: Boolean): Float {
+        // TC007 support removed - always use standard size conversion
+        return when (size) {
             SizeUtils.sp2px(14f) -> 0f
             SizeUtils.sp2px(16f) -> 50f
             else -> 100f

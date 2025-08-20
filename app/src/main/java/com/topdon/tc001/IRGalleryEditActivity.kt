@@ -77,6 +77,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
 
     private var isShowC: Boolean = false
 
+    // TC007 support removed - always false
     private var isTC007 = false
 
     private val imageWidth = 256
@@ -123,7 +124,8 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
             filePath = intent.getStringExtra(ExtraKeyConfig.FILE_ABSOLUTE_PATH)!!
         }
         isReportPick = intent.getBooleanExtra(ExtraKeyConfig.IS_PICK_REPORT_IMG, false)
-        isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
+        // TC007 support removed - ignore parameter
+        isTC007 = false
 
         edit_recycler_second.fenceSelectType = FenceType.DEL
         temperature_view.isShowName = isReportPick
