@@ -5,9 +5,16 @@
 IRCamera is a comprehensive Android application for thermal infrared (IR) camera devices, supporting multiple TOPDON thermal camera models including TC001, TC007, and TS004. The application provides advanced thermal imaging capabilities, image analysis tools, gallery management, and device-specific functionality for professional thermal imaging workflows.
 
 **Version:** 1.10.000  
-**Package:** com.csl.irCamera  
+**Manifest Package:** com.topdon.tc001  
+**Application ID:** com.csl.irCamera  
 **Target SDK:** 34 (Android 14)  
 **Minimum SDK:** 24 (Android 7.0)
+
+### Project Statistics
+- **Source Files:** 1044 Java/Kotlin files
+- **Total Code:** 162,497 lines
+- **Component Modules:** 9 feature modules
+- **Native Libraries:** 20+ .so files for thermal processing
 
 ## Supported Devices
 
@@ -155,11 +162,13 @@ IRCamera/
 - **prodRelease** - Production release build
 
 ### Native Libraries
-- **libircmd.so** - IR command processing
-- **libirparse.so** - IR data parsing
-- **libirprocess.so** - IR image processing
-- **libUSBUVCCamera.so** - USB camera interface
-- **libopencv_java4.so** - OpenCV image processing
+- **libopencv_java4.so** - OpenCV computer vision processing
+- **libHCUSBSDK.so** - HC USB SDK for device communication
+- **libuvc.so** - USB Video Class support
+- **libSRImage.so** - SR image processing
+- **libavformat.so/.../libavutil.so** - FFmpeg multimedia framework
+- **libopen3d.so** - 3D data processing
+- **libyuv.so** - YUV image format processing
 
 ## Setup Instructions
 
@@ -188,6 +197,13 @@ cd IRCamera
 # Generate bundle for Play Store
 ./gradlew bundleProdRelease
 ```
+
+#### Alternative Build Scripts
+The repository includes convenience batch scripts for different build configurations:
+- `build_apk_google_script.bat` - Google Play variant
+- `build_apk_topdon_script.bat` - TOPDON variant  
+- `build_release_google_apk_script.bat` - Google release build
+- `build_release_topdon_apk_script.bat` - TOPDON release build
 
 ### 4. Install on Device
 ```bash
@@ -258,6 +274,13 @@ The application supports USB thermal camera devices with automatic detection:
 - **Raw Data** - Binary thermal sensor data
 
 ## Configuration
+
+### Package Configuration
+The application uses a dual package configuration:
+- **Manifest Package:** `com.topdon.tc001` (source code namespace)
+- **Application ID:** `com.csl.irCamera` (published app identifier)
+
+This configuration allows maintaining the original source code structure while publishing under a different application identifier for distribution purposes.
 
 ### Device Types
 ```kotlin

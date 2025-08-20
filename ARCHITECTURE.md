@@ -69,8 +69,8 @@
                    ┌─────────────┐                      ┌─────────────┐
                    │   Native    │                      │ ViewModel   │
                    │  Libraries  │                      │   Layer     │
-                   │ (libircmd,  │                      │             │
-                   │  libirprocess)                     │             │
+                   │ (libHCUSBSDK, │                      │             │
+                   │  libopencv)  │                      │             │
                    └─────────────┘                      └─────────────┘
                             │                                      │
                             ▼                                      ▼
