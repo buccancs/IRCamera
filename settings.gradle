@@ -23,3 +23,14 @@ dependencyResolutionManagement {
 }
 rootProject.name = "TopInfrared"
 include ':app'
+include ':commonlibrary'
+include ':libmatrix'
+include ':component:CommonComponent'
+include ':component:edit3d'
+include ':component:house'
+include ':component:pseudo'
+include ':component:thermal'
+include ':component:thermal-ir'
+include ':component:thermal-lite'
+include ':component:transfer'
+include ':component:user'

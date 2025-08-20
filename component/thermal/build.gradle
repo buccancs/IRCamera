@@ -37,7 +37,7 @@ android {
 }
 
 dependencies {
-    implementation project(':libapp')
+    implementation project(':commonlibrary')
     implementation project(':libmatrix')
     implementation 'com.google.android.mediahome:video:1.0.0'
     kapt "com.alibaba:arouter-compiler:1.5.2"

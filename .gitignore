@@ -1,7 +1,55 @@
+# IDE files
 /.idea/
-/local.properties
+
+# Gradle files
 /.gradle/
 /buildSrc/build/
 /buildSrc/.gradle/
+/local.properties
+
+# Build directories
+/build/
+*/build/
+**/build/
+
+# App specific directories  
+/app/prod/
+/app/prodTopdon/
+
+# AI upscale specific
 /ai-upscale/
 /ai-upscale/3rdparty/ncnn-android-vulkan-shared/armeabi-v7a/
+
+# Android generated files
+*.iml
+.externalNativeBuild
+.cxx
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+
+# Log files
+*.log
+
+# Local configuration files
+local.properties
+
+# Signing files
+*.jks
+*.keystore
+
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

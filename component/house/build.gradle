@@ -50,6 +50,6 @@ android {
 }
 
 dependencies {
-    implementation project(':libapp')
-    implementation project(":libapp")
+    implementation project(':commonlibrary')
+    implementation project(":commonlibrary")
 }

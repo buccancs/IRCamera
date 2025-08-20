@@ -50,5 +50,5 @@ android {
 }
 
 dependencies {
-    implementation project(':libapp')
+    implementation project(':commonlibrary')
 }

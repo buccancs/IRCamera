@@ -55,6 +55,6 @@ android {
 }
 
 dependencies {
-    implementation project(':libapp')
-    kapt rootProject.ext.dependencies["arouter_compiler"]
+    implementation project(':commonlibrary')
+    kapt rootProject.ext.dependencyVersions["arouter_compiler"]
 }

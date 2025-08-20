@@ -71,13 +71,13 @@ dependencies {
     implementation(name: 'libAC020sdk_USB_IR_1.1.1_2408291439', ext: 'aar')
     implementation(name: 'libirutils_1.2.0_2409241055', ext: 'aar')
 
-    implementation project(':libapp')
-    implementation project(":libapp")
+    implementation project(':commonlibrary')
+    implementation project(":commonlibrary")
     implementation project(':component:pseudo')
     implementation project(':component:thermal-ir')
 
     kapt "com.alibaba:arouter-compiler:1.5.2"
-    api(project(":libapp"))
+    api(project(":commonlibrary"))
     api(project(":component:CommonComponent"))
     implementation("androidx.multidex:multidex:2.0.1")
     implementation("com.google.android.material:material:1.4.0")
