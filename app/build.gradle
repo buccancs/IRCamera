@@ -130,26 +130,6 @@ android {
     flavorDimensions 'app'
 
     productFlavors {
-        dev {
-            dimension 'app'
-            buildConfigField "int", "ENV_TYPE", "0"
-            buildConfigField("String", "SOFT_CODE", "\"${rootProject.ext.softCode.topInfrared}\"")
-            buildConfigField("String", "APP_KEY", "\"${rootProject.ext.appKey.topInfrared}\"")
-            buildConfigField("String", "APP_SECRET", "\"${rootProject.ext.appSecret.topInfrared}\"")
-            manifestPlaceholders = [
-                    app_name: "TopInfrared",
-            ]
-        }
-        beta {
-            dimension 'app'
-            buildConfigField "int", "ENV_TYPE", "0"
-            buildConfigField("String", "SOFT_CODE", "\"${rootProject.ext.softCode.topInfrared}\"")
-            buildConfigField("String", "APP_KEY", "\"${rootProject.ext.appKey.topInfrared}\"")
-            buildConfigField("String", "APP_SECRET", "\"${rootProject.ext.appSecret.topInfrared}\"")
-            manifestPlaceholders = [
-                    app_name: "IRCamera",
-            ]
-        }
         prod {
             dimension 'app'
             buildConfigField "int", "ENV_TYPE", "0"
@@ -158,43 +138,6 @@ android {
             buildConfigField("String", "APP_SECRET", "\"${rootProject.ext.appSecret.topInfrared}\"")
             manifestPlaceholders = [
                     app_name: "IRCamera",
-            ]
-        }
-        prodTopdon {
-            dimension 'app'
-            targetSdk 27
-            buildConfigField "int", "ENV_TYPE", "0"
-            buildConfigField("String", "SOFT_CODE", "\"${rootProject.ext.softCode.topInfrared10}\"")
-            buildConfigField("String", "APP_KEY", "\"${rootProject.ext.appKey.topInfrared10}\"")
-            buildConfigField("String", "APP_SECRET", "\"${rootProject.ext.appSecret.topInfrared10}\"")
-//            versionCode rootProject.ext.android.versionCode + getYearStr().toInteger() * 10000
-            manifestPlaceholders = [
-                    app_name: "IRCamera",
-            ]
-        }
-
-        //国内版
-        insideChina {
-            dimension 'app'
-            buildConfigField "int", "ENV_TYPE", "1"
-            buildConfigField("String", "SOFT_CODE", "\"${rootProject.ext.softCode.topInfraredCN}\"")
-            buildConfigField("String", "APP_KEY", "\"${rootProject.ext.appKey.topInfraredCN}\"")
-            buildConfigField("String", "APP_SECRET", "\"${rootProject.ext.appSecret.topInfraredCN}\"")
-            manifestPlaceholders = [
-                    app_name: "热视界",
-            ]
-        }
-        //国内版 Android 10
-        prodTopdonInsideChina {
-            dimension 'app'
-            targetSdk 27
-            buildConfigField "int", "ENV_TYPE", "1"
-            buildConfigField("String", "SOFT_CODE", "\"${rootProject.ext.softCode.topInfraredCN10}\"")
-            buildConfigField("String", "APP_KEY", "\"${rootProject.ext.appKey.topInfraredCN10}\"")
-            buildConfigField("String", "APP_SECRET", "\"${rootProject.ext.appSecret.topInfraredCN10}\"")
-            versionCode rootProject.ext.android.versionCode + getYearStr().toInteger() * 10000
-            manifestPlaceholders = [
-                    app_name: "热视界",
             ]
         }
     }
@@ -212,31 +155,11 @@ static def getTimeStr() {
 
 def versionApk(variant, defaultConfig) {
     variant.outputs.all {
-        def appName = "TopInfrared.apk"
-        def nameStr = "TopInfrared_" + defaultConfig.versionName + "." + dayStr
-        if (variant.name == "devDebug") {
-            appName = "TopInfrared-v" + defaultConfig.versionName + "-debug.apk"
-        } else if (variant.name == "devRelease") {
-            appName = nameStr + "-release.apk"
-        } else if (variant.name == "betaDebug") {
-            appName = nameStr + "_beta_debug.apk"
-        } else if (variant.name == "betaRelease") {
-            appName = nameStr + "_beta.apk"
-        } else if (variant.name == "prodDebug") {
+        def appName = "IRCamera.apk"
+        def nameStr = "IRCamera_" + defaultConfig.versionName + "." + dayStr
+        if (variant.name == "prodDebug") {
             appName = nameStr + "_debug.apk"
         } else if (variant.name == "prodRelease") {
-            appName = nameStr + ".apk"
-        } else if (variant.name == "prodTopdonDebug") {
-            appName = "TopInfrared_Android10_" + defaultConfig.versionName + "." + dayStr + "_debug.apk"
-        } else if (variant.name == "prodTopdonRelease") {
-            appName = "TopInfrared_Android10_" + defaultConfig.versionName + "." + dayStr + ".apk"
-        } else if (variant.name == "insideChinaDebug") {
-            appName = nameStr + "_debug.apk"
-        } else if (variant.name == "insideChinaRelease") {
-            appName = nameStr + ".apk"
-        }else if (variant.name == "prodTopdonInsideChinaDebug") {
-            appName = nameStr + "_debug.apk"
-        } else if (variant.name == "prodTopdonInsideChinaRelease") {
             appName = nameStr + ".apk"
         }
         outputFileName = appName
@@ -250,11 +173,7 @@ def copyApk(type, flavor) {
         into "../outputs/${type}/"
         include '**/*.apk'
         rename { String fileName ->
-            if (flavor.contains("Topdon")) {
-                fileName.substring(0, fileName.lastIndexOf(".apk")) + '_build' + timeStr + '(Topdon).apk'
-            } else {
-                fileName.substring(0, fileName.lastIndexOf(".apk")) + '_build' + timeStr + '.apk'
-            }
+            fileName.substring(0, fileName.lastIndexOf(".apk")) + '_build' + timeStr + '.apk'
         }
     }
 }
@@ -280,39 +199,6 @@ project.afterEvaluate {
         println "===================== build prod Release.apk copy ======================="
         copyApk("release", "prod")
     }
-    assembleProdTopdonDebug.doLast {
-        println "===================== build prod Debug.apk copy ========================="
-        copyApk("debug", "prodTopdon")
-    }
-    assembleProdTopdonRelease.doLast {
-        println "===================== build prod Release.apk copy ======================="
-        copyApk("release", "prodTopdon")
-    }
-    assembleBetaDebug.doLast {
-        println "===================== build beta Debug.apk copy ========================="
-        copyApk("debug", "beta")
-    }
-    assembleBetaRelease.doLast {
-        println "===================== build beta Release.apk copy ======================="
-        copyApk("release", "beta")
-    }
-
-    assembleInsideChinaDebug.doLast {
-        println "===================== build beta Debug.apk copy ========================="
-        copyApk("debug", "insideChina")
-    }
-    assembleInsideChinaRelease.doLast {
-        println "===================== build beta Release.apk copy ======================="
-        copyApk("release", "insideChina")
-    }
-    assembleProdTopdonInsideChinaDebug.doLast {
-        println "===================== build beta Debug.apk copy ========================="
-        copyApk("debug", "prodTopdonInsideChina")
-    }
-    assembleProdTopdonInsideChinaRelease.doLast {
-        println "===================== build beta Release.apk copy ======================="
-        copyApk("release", "prodTopdonInsideChina")
-    }
     bundleProdDebug.doLast {
         println "===================== build prod Debug.aab copy ======================="
         copyAab("prodDebug")
@@ -321,7 +207,6 @@ project.afterEvaluate {
         println "===================== build prod Release.aab copy ======================="
         copyAab("prodRelease")
     }
-
 }
 
 dependencies {
@@ -394,8 +279,10 @@ dependencies {
     implementation files('libs\\main-2.2.1-release.aar')
     implementation(name: 'libusbdualsdk_1.3.4_2406271906_standard', ext: 'aar')
     implementation(name: 'opengl_1.3.2_standard', ext: 'aar')
+    // opengl_1.3.2_standard included here only - removed from libapp to avoid duplicates
     
     implementation project(':LocalRepo:libcommon')
+    implementation project(':libapp')
     implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '3.17'
     implementation group: 'org.apache.xmlbeans', name: 'xmlbeans', version: '3.1.0'
     implementation 'javax.xml.stream:stax-api:1.0'
@@ -422,30 +309,10 @@ dependencies {
 
     //国际版需要添加的
     implementation platform('com.google.firebase:firebase-bom:28.4.1')
-    devImplementation 'com.google.firebase:firebase-crashlytics-ktx'
-    devImplementation 'com.google.firebase:firebase-analytics-ktx'
-    devImplementation 'com.google.firebase:firebase-messaging:21.0.1'
-    devImplementation "com.google.firebase:firebase-iid"
-    betaImplementation 'com.google.firebase:firebase-crashlytics-ktx'
-    betaImplementation 'com.google.firebase:firebase-analytics-ktx'
-    betaImplementation 'com.google.firebase:firebase-messaging:21.0.1'
-    betaImplementation "com.google.firebase:firebase-iid"
-    prodImplementation 'com.google.firebase:firebase-crashlytics-ktx'
-    prodImplementation 'com.google.firebase:firebase-analytics-ktx'
-    prodImplementation 'com.google.firebase:firebase-messaging:21.0.1'
-    prodImplementation "com.google.firebase:firebase-iid"
-    prodTopdonImplementation 'com.google.firebase:firebase-crashlytics-ktx'
-    prodTopdonImplementation 'com.google.firebase:firebase-analytics-ktx'
-    prodTopdonImplementation 'com.google.firebase:firebase-m' +
-            'essaging:21.0.1'
-    prodTopdonImplementation "com.google.firebase:firebase-iid"
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-messaging:21.0.1'
+    implementation "com.google.firebase:firebase-iid"
 
-    betaImplementation files('libs/umeng-common-9.4.4+000.jar')//谷歌定制版
-    devImplementation files('libs/umeng-common-9.4.4+000.jar')//谷歌定制版
-    prodImplementation files('libs/umeng-common-9.4.4+000.jar')//谷歌定制版
-    prodTopdonImplementation files('libs/umeng-common-9.4.4+000.jar')//谷歌定制版
-
-    //国内版需要添加的
-    insideChinaImplementation 'com.umeng.umsdk:common:9.6.7'
-    insideChinaImplementation 'com.umeng.umsdk:asms:1.8.0'
+    implementation files('libs/umeng-common-9.4.4+000.jar')//谷歌定制版
 }

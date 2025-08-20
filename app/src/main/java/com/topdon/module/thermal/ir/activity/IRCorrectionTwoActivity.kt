@@ -17,33 +17,24 @@ import org.greenrobot.eventbus.ThreadMode
 @Route(path = RouterConfig.IR_CORRECTION_TWO)
 class IRCorrectionTwoActivity : BaseActivity() {
 
-    private var isTC007 = false
-
     override fun initContentView(): Int = R.layout.activity_ir_correction_two
 
     override fun initView() {
-        isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
+        // Only TC001 support - removed TC007 and HIK support
+        iv_sketch_map.setImageResource(R.drawable.ic_corrected_line)
 
-        iv_sketch_map.setImageResource(if (isTC007) R.drawable.ic_corrected_tc007 else R.drawable.ic_corrected_line)
-
-        if (if (isTC007) WebSocketProxy.getInstance().isTC007Connect() else DeviceTools.isConnect()) {
+        if (DeviceTools.isConnect()) {
             tv_correction.setBackgroundResource(R.drawable.bg_corners05_solid_theme)
         } else {
             tv_correction.setBackgroundResource(R.drawable.bg_corners05_solid_50_theme)
         }
 
         tv_correction.setOnClickListener {
-            if (if (isTC007) WebSocketProxy.getInstance().isTC007Connect() else DeviceTools.isConnect()) {
-                if (isTC007) {
-                    ARouter.getInstance().build(RouterConfig.IR_CORRECTION_07).navigation(this)
+            if (DeviceTools.isConnect()) {
+                if (DeviceTools.isTC001LiteConnect()){
+                    ARouter.getInstance().build(RouterConfig.IR_CORRECTION_THREE_LITE).navigation(this)
                 } else {
-                    if (DeviceTools.isTC001LiteConnect()){
-                        ARouter.getInstance().build(RouterConfig.IR_CORRECTION_THREE_LITE).navigation(this)
-                    } else if (DeviceTools.isHikConnect()) {
-                        ARouter.getInstance().build(RouterConfig.IR_HIK_CORRECT_THREE).navigation(this)
-                    } else{
-                        startActivity(Intent(this, IRCorrectionThreeActivity::class.java))
-                    }
+                    startActivity(Intent(this, IRCorrectionThreeActivity::class.java))
                 }
             }
         }
@@ -51,27 +42,19 @@ class IRCorrectionTwoActivity : BaseActivity() {
 
 
     override fun connected() {
-        if (!isTC007) {
-            tv_correction.setBackgroundResource(R.drawable.bg_corners05_solid_theme)
-        }
+        tv_correction.setBackgroundResource(R.drawable.bg_corners05_solid_theme)
     }
 
     override fun disConnected() {
-        if (!isTC007) {
-            tv_correction.setBackgroundResource(R.drawable.bg_corners05_solid_50_theme)
-        }
+        tv_correction.setBackgroundResource(R.drawable.bg_corners05_solid_50_theme)
     }
 
     override fun onSocketConnected(isTS004: Boolean) {
-        if (isTC007 && !isTS004) {
-            tv_correction.setBackgroundResource(R.drawable.bg_corners05_solid_theme)
-        }
+        // No TC007 support needed
     }
 
     override fun onSocketDisConnected(isTS004: Boolean) {
-        if (isTC007 && !isTS004) {
-            tv_correction.setBackgroundResource(R.drawable.bg_corners05_solid_50_theme)
-        }
+        // No TC007 support needed
     }
 
     override fun initData() {}

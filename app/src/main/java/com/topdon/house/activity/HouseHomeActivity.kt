@@ -100,7 +100,7 @@ class HouseHomeActivity : BaseActivity(), View.OnClickListener {
             }
             iv_add -> {//添加
                 val newIntent = Intent(this, DetectAddActivity::class.java)
-                newIntent.putExtra(ExtraKeyConfig.IS_TC007, intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false))
+                // TC007 support removed - only TC001 supported
                 startActivity(newIntent)
             }
             iv_exit_edit -> {//退出编辑
@@ -115,7 +115,7 @@ class HouseHomeActivity : BaseActivity(), View.OnClickListener {
 
         override fun createFragment(position: Int): Fragment {
             val bundle = Bundle()
-            bundle.putBoolean(ExtraKeyConfig.IS_TC007, activity.intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false))
+            // TC007 support removed - only TC001 supported
             val fragment = if (position == 0) DetectListFragment() else ReportListFragment()
             fragment.arguments = bundle
             return fragment

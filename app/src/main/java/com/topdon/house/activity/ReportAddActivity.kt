@@ -40,7 +40,8 @@ class ReportAddActivity : BaseActivity(), View.OnClickListener {
     override fun initContentView(): Int = R.layout.activity_report_add
 
     override fun initView() {
-        isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
+        // TC007 support removed - only TC001 supported
+        isTC007 = false
 
         iv_expand.isEnabled = false
         iv_back.setOnClickListener(this)
