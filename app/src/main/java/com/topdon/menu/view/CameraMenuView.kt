@@ -113,18 +113,23 @@ class CameraMenuView : FrameLayout, View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
+            binding.ivAction -> {
                 val currentTime = System.currentTimeMillis()
                 if (currentTime - lastClickTime > 500) {
                     lastClickTime = currentTime
                     onCameraClickListener?.invoke(CODE_ACTION)
                 }
             }
+            binding.ivGallery -> {
                 onCameraClickListener?.invoke(CODE_GALLERY)
             }
+            binding.ivMore -> {
                 onCameraClickListener?.invoke(CODE_MORE)
             }
+            binding.tvPhoto -> {
                 binding.viewPager2.currentItem = 0
             }
+            binding.tvVideo -> {
                 binding.viewPager2.currentItem = 1
             }
         }
