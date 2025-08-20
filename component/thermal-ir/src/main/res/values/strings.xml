@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_thermal">Thermal Imaging</string>
+    <string name="main_thermal_motion">Temperature Monitoring</string>
+    <string name="main_thermal_tips">Professional Thermal Imaging Testing</string>
+</resources>
