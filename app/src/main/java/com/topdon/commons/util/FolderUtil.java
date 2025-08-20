@@ -60,20 +60,50 @@ public class FolderUtil {
 
     private static void initPath() {
         if (!TextUtils.isEmpty(mUserId)) {
-            // Consolidated regional diagnosis folders into single International folder
-            File internationalLibsFile = new File(mPath + fileName + mUserId + "/Diagnosis/International/");
-            if (!internationalLibsFile.exists()) {
-                internationalLibsFile.mkdirs();
+            File asiaLibsFile = new File(mPath + fileName + mUserId + "/Diagnosis/Asia/");
+            if (!asiaLibsFile.exists()) {
+                asiaLibsFile.mkdirs();
+            }
+            File europeLibsFile = new File(mPath + fileName + mUserId + "/Diagnosis/Europe/");
+            if (!europeLibsFile.exists()) {
+                europeLibsFile.mkdirs();
+            }
+            File americaLibsFile = new File(mPath + fileName + mUserId + "/Diagnosis/America/");
+            if (!americaLibsFile.exists()) {
+                americaLibsFile.mkdirs();
+            }
+            File chinaLibsFile = new File(mPath + fileName + mUserId + "/Diagnosis/China/");
+            if (!chinaLibsFile.exists()) {
+                chinaLibsFile.mkdirs();
             }
             File publicLibsFile = new File(mPath + fileName + mUserId + "/Diagnosis/Public/");
             if (!publicLibsFile.exists()) {
                 publicLibsFile.mkdirs();
             }
 
-            // Consolidated regional immobilizer folders into single International folder
-            File immoInternationalFile = new File(mPath + fileName + mUserId + "/Immo/International/");
-            if (!immoInternationalFile.exists()) {
-                immoInternationalFile.mkdirs();
+            File immoAsiaLibsFile = new File(mPath + fileName + mUserId + "/Immo/Asia/");
+            if (!immoAsiaLibsFile.exists()) {
+                immoAsiaLibsFile.mkdirs();
+            }
+
+            File immoEuropeLibsFile = new File(mPath + fileName + mUserId + "/Immo/Europe/");
+            if (!immoEuropeLibsFile.exists()) {
+                immoEuropeLibsFile.mkdirs();
+            }
+
+            File immoAmericaLibsFile = new File(mPath + fileName + mUserId + "/Immo/America/");
+            if (!immoAmericaLibsFile.exists()) {
+                immoAmericaLibsFile.mkdirs();
+            }
+
+            File immoChinaLibsFile = new File(mPath + fileName + mUserId + "/Immo/China/");
+            if (!immoChinaLibsFile.exists()) {
+                immoChinaLibsFile.mkdirs();
+            }
+
+            File immoAustraliaLibsFile = new File(mPath + fileName + mUserId + "/Immo/Australia/");
+            if (!immoAustraliaLibsFile.exists()) {
+                immoAustraliaLibsFile.mkdirs();
             }
 
             File rfidLibsFile = new File(mPath + fileName + mUserId + "/RFID/");
@@ -136,7 +166,7 @@ public class FolderUtil {
                 userRFID.mkdirs();
             }
 
-            File downFile = new File(mPath + fileName + mUserId + "/Download/");
+            File downFile = new File(mPath + fileName + mUserId + "Download/");
             if (!downFile.exists()) {
                 downFile.mkdirs();
             }
@@ -160,7 +190,18 @@ public class FolderUtil {
                 dataLogFile.mkdirs();
             }
 
-            // Removed empty log file creation blocks - these were not creating directories anyway
+            File log6File = new File(mPath + fileName + "666666/");
+            if (!log6File.exists()) {
+            }
+            File log7File = new File(mPath + fileName + "777777/");
+            if (!log7File.exists()) {
+            }
+            File log8File = new File(mPath + fileName + "888888/");
+            if (!log8File.exists()) {
+            }
+            File log9File = new File(mPath + fileName + "999999/");
+            if (!log9File.exists()) {
+            }
 
             File feedbackLog = new File(mPath + fileName + mUserId + "/FeedbackLog/");
             if (!feedbackLog.exists()) {
@@ -199,10 +240,6 @@ public class FolderUtil {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + mUserId + "/Immo/";
     }
 
-    public static String getImmoInternationalPath() {
-        return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + mUserId + "/Immo/International/";
-    }
-
     public static String getRfidTopScanPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + tdartsSn + "/RFID/";
     }
@@ -211,21 +248,16 @@ public class FolderUtil {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + mUserId + "/RFID/";
     }
 
-    public static String getInternationalPath() {
-        return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + mUserId + "/Diagnosis/International/";
-    }
-
-    // Consolidated regional paths - all now point to International folder
     public static String getAsiaPath() {
-        return getInternationalPath();
+        return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + mUserId + "/Diagnosis/Asia/";
     }
 
     public static String getAmericaPath() {
-        return getInternationalPath();
+        return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + mUserId + "/Diagnosis/America/";
     }
 
     public static String getEuropePath() {
-        return getInternationalPath();
+        return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + mUserId + "/Diagnosis/Europe/";
     }
 
     public static String getVehiclePublicPath() {

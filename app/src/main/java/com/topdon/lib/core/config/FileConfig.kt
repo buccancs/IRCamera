@@ -9,14 +9,6 @@ import com.topdon.lib.core.utils.CommUtils
 import java.io.File
 
 object FileConfig {
-    // Helper method to create directories and reduce duplication
-    private fun ensureDirectoryExists(path: String): String {
-        val file = File(path)
-        if (!file.exists()) {
-            file.mkdirs()
-        }
-        return path
-    }
     fun getDetectImageDir(context: Context, child: String): File {
         val externalDir = context.getExternalFilesDir("detect")
         return if (externalDir == null) {
@@ -50,7 +42,11 @@ object FileConfig {
         return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             val dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).absolutePath
             val path = dir + File.separator + CommUtils.getAppName() + File.separator + "pdf"
-            ensureDirectoryExists(path)
+            val file = File(path)
+            if (!file.exists()) {
+                file.mkdirs()
+            }
+            path
         } else {
             Environment.DIRECTORY_DOCUMENTS + "/${CommUtils.getAppName()}/pdf"
         }
@@ -62,7 +58,11 @@ object FileConfig {
             return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
                 val dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).absolutePath
                 val path = dir + File.separator + CommUtils.getAppName() + File.separator + "excel"
-                ensureDirectoryExists(path)
+                val file = File(path)
+                if (!file.exists()) {
+                    file.mkdirs()
+                }
+                path
             } else {
                 Environment.DIRECTORY_DOCUMENTS + "/${CommUtils.getAppName()}/excel"
             }
@@ -73,7 +73,11 @@ object FileConfig {
     val gallerySourDir: String
         get() {
             val result = Utils.getApp().getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!.absolutePath + File.separator + "TopInfrared"
-            return ensureDirectoryExists(result)
+            val file = File(result)
+            if (!file.exists()) {
+                file.mkdirs()
+            }
+            return result
         }
 
     @JvmStatic
@@ -81,7 +85,11 @@ object FileConfig {
         get() {
             val dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
             val path = dir + File.separator + "TC001"
-            return ensureDirectoryExists(path)
+            val file = File(path)
+            if (!file.exists()) {
+                file.mkdirs()
+            }
+            return path
         }
 
     fun getGalleryDirByType(currentDirType : DirType) : String = when (currentDirType) {
@@ -95,7 +103,11 @@ object FileConfig {
         get() {
             val dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
             val path = dir + File.separator + CommUtils.getAppName()
-            return ensureDirectoryExists(path)
+            val file = File(path)
+            if (!file.exists()) {
+                file.mkdirs()
+            }
+            return path
         }
 
     @JvmStatic
@@ -103,7 +115,11 @@ object FileConfig {
         get() {
             val dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
             val path = dir + File.separator + "TS004"
-            return ensureDirectoryExists(path)
+            val file = File(path)
+            if (!file.exists()) {
+                file.mkdirs()
+            }
+            return path
         }
 
     @JvmStatic
@@ -111,7 +127,11 @@ object FileConfig {
         get() {
             val dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
             val path = dir + File.separator + "TC007"
-            return ensureDirectoryExists(path)
+            val file = File(path)
+            if (!file.exists()) {
+                file.mkdirs()
+            }
+            return path
         }
 
     @JvmStatic
@@ -119,7 +139,11 @@ object FileConfig {
         get() {
             val dir = Utils.getApp().getExternalFilesDir(Environment.DIRECTORY_DCIM)!!.absolutePath
             val path = dir + File.separator + "${CommUtils.getAppName()}-ir"
-            return ensureDirectoryExists(path)
+            val file = File(path)
+            if (!file.exists()) {
+                file.mkdirs()
+            }
+            return path
         }
 
     @JvmStatic
@@ -127,7 +151,11 @@ object FileConfig {
         get() {
             val dir = Utils.getApp().getExternalFilesDir(Environment.DIRECTORY_DCIM)!!.absolutePath
             val path = dir + File.separator + "TC007-ir"
-            return ensureDirectoryExists(path)
+            val file = File(path)
+            if (!file.exists()) {
+                file.mkdirs()
+            }
+            return path
         }
 
 
@@ -138,7 +166,11 @@ object FileConfig {
             return if (Build.VERSION.SDK_INT < 29) {
                 val dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).absolutePath
                 val path = dir + File.separator + CommUtils.getAppName() + "/house"
-                ensureDirectoryExists(path)
+                val file = File(path)
+                if (!file.exists()) {
+                    file.mkdirs()
+                }
+                path
             } else {
                 Environment.DIRECTORY_DOCUMENTS + File.separator + CommUtils.getAppName() + "/house/"
             }

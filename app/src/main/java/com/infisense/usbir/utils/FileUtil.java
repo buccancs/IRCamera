@@ -86,7 +86,22 @@ public class FileUtil {
         }
     }
 
-    // Removed empty saveByteFile method - use saveByteFile(Context, byte[], String) instead
+    public static void saveByteFile(byte[] bytes, String fileTitle) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
 
     public static String getTableDirPath(){
         return Utils.getApp().getCacheDir().getAbsolutePath()+"/table";
@@ -109,11 +124,11 @@ public class FileUtil {
 
     public static void saveShortFile(short[] bytes, String fileTitle) {
         try {
-            File path = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "InfiRay");
-            if (!path.exists()) {
+            File path = new File("/sdcard");
+            if (!path.exists() && path.isDirectory()) {
                 path.mkdirs();
             }
-            File file = new File(path, fileTitle + new SimpleDateFormat("_HHmmss_yyMMdd").
+            File file = new File("/sdcard/", fileTitle + new SimpleDateFormat("_HHmmss_yyMMdd").
                     format(new Date(System.currentTimeMillis())) + ".bin");
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(toByteArray(bytes));
@@ -215,11 +230,11 @@ public class FileUtil {
 
     public static void savaRawFile(byte[] bytes, byte[] bytes2) {
         try {
-            File path = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "InfiRay");
-            if (!path.exists()) {
+            File path = new File("/sdcard");
+            if (!path.exists() && path.isDirectory()) {
                 path.mkdirs();
             }
-            File file = new File(path, new SimpleDateFormat("_HHmmss_yyMMdd").
+            File file = new File("/sdcard/", new SimpleDateFormat("_HHmmss_yyMMdd").
                     format(new Date(System.currentTimeMillis())) + ".bin");
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(bytes);
@@ -232,11 +247,11 @@ public class FileUtil {
 
     public static void savaIRFile(byte[] bytes) {
         try {
-            File path = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "InfiRay");
-            if (!path.exists()) {
+            File path = new File("/sdcard");
+            if (!path.exists() && path.isDirectory()) {
                 path.mkdirs();
             }
-            File file = new File(path, "ir" + new SimpleDateFormat("_HHmmss_yyMMdd").
+            File file = new File("/sdcard/", "ir" + new SimpleDateFormat("_HHmmss_yyMMdd").
                     format(new Date(System.currentTimeMillis())) + ".bin");
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(bytes);
@@ -250,11 +265,11 @@ public class FileUtil {
 
     public static void savaTempFile(byte[] bytes) {
         try {
-            File path = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "InfiRay");
-            if (!path.exists()) {
+            File path = new File("/sdcard");
+            if (!path.exists() && path.isDirectory()) {
                 path.mkdirs();
             }
-            File file = new File(path, "temp" + new SimpleDateFormat("_HHmmss_yyMMdd").
+            File file = new File("/sdcard/", "temp" + new SimpleDateFormat("_HHmmss_yyMMdd").
                     format(new Date(System.currentTimeMillis())) + ".bin");
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(bytes);
