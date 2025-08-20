@@ -112,6 +112,8 @@ android {
         pickFirst 'lib/armeabi-v7a/libirparse.so'
         pickFirst 'lib/arm64-v8a/libirprocess.so'
         pickFirst 'lib/armeabi-v7a/libirprocess.so'
+        pickFirst 'lib/arm64-v8a/libirtemp.so'
+        pickFirst 'lib/armeabi-v7a/libirtemp.so'
         exclude 'META-INF/*.SF'
         exclude 'META-INF/*.DSA' 
         exclude 'META-INF/*.RSA'
@@ -280,7 +282,7 @@ dependencies {
     implementation files('libs\\texturegesture-release.aar')
     implementation files('libs\\library_1.0.aar')
     
-    implementation(name: 'libcommon_1.2.0_24052117', ext: 'aar')
+    // implementation(name: 'libcommon_1.2.0_24052117', ext: 'aar')  // Removed: provided by component dependencies
     implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '3.17'
     implementation group: 'org.apache.xmlbeans', name: 'xmlbeans', version: '3.1.0'
     implementation 'javax.xml.stream:stax-api:1.0'

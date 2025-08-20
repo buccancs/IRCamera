@@ -213,18 +213,30 @@
         <attr name="selectColor" format="color"/>
     </declare-styleable>
     
-    <!-- Custom title text attribute -->
-    <attr name="titleText" format="string"/>
+    <declare-styleable name="TitleView">
+        <attr name="titleText" format="string"/>
+        <attr name="leftText" format="string"/>
+        <attr name="leftTextColor" format="color"/>
+        <attr name="leftDrawable" format="reference"/>
+        <attr name="rightText" format="string"/>
+        <attr name="rightTextColor" format="color"/>
+        <attr name="rightDrawable" format="reference"/>
+        <attr name="right2Drawable" format="reference"/>
+        <attr name="right3Drawable" format="reference"/>
+        <attr name="isInitLeft" format="boolean"/>
+        <attr name="isTitleCenter" format="boolean"/>
+    </declare-styleable>
     
     <!-- Additional missing attributes -->
-    <attr name="leftDrawable" format="reference"/>
-    <attr name="rightDrawable" format="reference"/>
-    <attr name="isInitLeft" format="boolean"/>
     <attr name="drawable_height" format="dimension"/>
     <attr name="maxCount" format="integer"/>
-    <attr name="rightText" format="string"/>
-    <attr name="right2Drawable" format="reference"/>
-    <attr name="right3Drawable" format="reference"/>
     <attr name="deviceType" format="string"/>
     <attr name="temperature_count" format="integer"/>
+    <attr name="index" format="integer"/>
+    <attr name="type" format="enum">
+        <enum name="full" value="0"/>
+        <enum name="point" value="1"/>
+        <enum name="line" value="2"/>
+        <enum name="rect" value="3"/>
+    </attr>
 </resources>

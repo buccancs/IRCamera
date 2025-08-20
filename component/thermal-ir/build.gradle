@@ -71,8 +71,7 @@ dependencies {
     implementation(name: 'opengl_1.3.2_standard', ext: 'aar')
     implementation(name: 'library_1.0', ext: 'aar')
 
-    implementation project(':libapp')
-    implementation project(":libapp")
+    compileOnly(name: 'libcommon_1.2.0_24052117', ext: 'aar')
     implementation project(':component:house')
     implementation project(':component:pseudo')
 
