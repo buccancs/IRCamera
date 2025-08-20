@@ -8,4 +8,6 @@ enum class MenuType {
     Lite,
 
     GALLERY_EDIT,
+
+    TC007,
 }

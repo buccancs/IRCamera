@@ -219,18 +219,19 @@ class TempAlarmSetDialog(
 
     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
         when (buttonView?.id) {
+            R.id.switch_alarm_high -> {
                 et_alarm_high.isEnabled = isChecked
                 alarmBean.isHighOpen = isChecked
             }
-
+            R.id.switch_alarm_low -> {
                 et_alarm_low.isEnabled = isChecked
                 alarmBean.isLowOpen = isChecked
             }
-
+            R.id.switch_alarm_mark -> {
                 cl_alarm_mark.isVisible = isChecked
                 alarmBean.isMarkOpen = isChecked
             }
-
+            R.id.switch_alarm_ringtone -> {
                 cl_ringtone_select.isVisible = isChecked
                 if (isChecked) {
                     selectRingtone(alarmBean.ringtoneType)
