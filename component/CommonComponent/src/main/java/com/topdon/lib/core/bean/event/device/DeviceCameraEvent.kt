@@ -5,5 +5,7 @@ package com.topdon.lib.core.bean.event.device
  */
 data class DeviceCameraEvent(
     val isConnected: Boolean,
-    val deviceType: String = "TC001"
+    val deviceType: String = "TC001",
+    val action: Int = 0,
+    val message: String = ""
 )
