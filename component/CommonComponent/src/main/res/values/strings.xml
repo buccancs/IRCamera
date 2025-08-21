@@ -6,4 +6,13 @@
     <string name="temp_avg">Moy :</string>
 
     <string name="text_button_play">start</string>
+    
+    <!-- App strings -->
+    <string name="app_name">IRCamera</string>
+    <string name="app_record">Record</string>
+    <string name="app_connect">Connected</string>
+    <string name="app_no_connect">Not Connected</string>
+    
+    <!-- LMS strings -->
+    <string name="lms_http_code998">No data available</string>
 </resources>

@@ -29,6 +29,14 @@ object AppDatabase {
         return ThermalDao
     }
     
+    fun thermalDao(): ThermalDao {
+        return ThermalDao
+    }
+    
+    fun thermalDayDao(): ThermalDayDao {
+        return ThermalDayDao
+    }
+    
     object ThermalDao {
         fun insertThermalEntity(entity: com.topdon.lib.core.db.entity.ThermalEntity) {
             // Database insert operation
@@ -40,6 +48,56 @@ object AppDatabase {
         
         fun updateTime(entity: com.topdon.lib.core.db.entity.ThermalDayEntity) {
             // Database update operation
+        }
+        
+        fun queryAll(): List<com.topdon.lib.core.db.entity.ThermalEntity> {
+            return emptyList()
+        }
+        
+        fun queryThermalListByUserId(userId: String): List<com.topdon.lib.core.db.entity.ThermalEntity> {
+            return emptyList()
+        }
+        
+        fun queryThermalByType(type: Int): List<com.topdon.lib.core.db.entity.ThermalEntity> {
+            return emptyList()
+        }
+        
+        fun deleteById(id: Long) {
+            // Database delete operation
+        }
+        
+        fun insert(entity: com.topdon.lib.core.db.entity.ThermalEntity) {
+            insertThermalEntity(entity)
+        }
+    }
+    
+    object ThermalDayDao {
+        fun insert(entity: com.topdon.lib.core.db.entity.ThermalDayEntity) {
+            // Database insert operation
+        }
+        
+        fun queryAll(): List<com.topdon.lib.core.db.entity.ThermalDayEntity> {
+            return emptyList()
+        }
+        
+        fun queryThermalDayListByUserId(userId: String): List<com.topdon.lib.core.db.entity.ThermalDayEntity> {
+            return emptyList()
+        }
+        
+        fun queryThermalDayByType(type: Int): List<com.topdon.lib.core.db.entity.ThermalDayEntity> {
+            return emptyList()
+        }
+        
+        fun deleteById(id: Long) {
+            // Database delete operation
+        }
+        
+        fun updateTime(entity: com.topdon.lib.core.db.entity.ThermalDayEntity) {
+            // Database update operation
+        }
+        
+        fun deleteRepeatVol(id: Long) {
+            // Database delete repeat volume operation
         }
     }
 }

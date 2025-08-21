@@ -42,4 +42,23 @@ object TimeTool {
         }
         return formatter.format(Date(timestamp))
     }
+    
+    /**
+     * Show current date in second format (yyyyMMddHHmmss)
+     */
+    fun showDateSecond(): String {
+        val formatter = SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault())
+        return formatter.format(Date())
+    }
+    
+    /**
+     * Show video time in long format (HH:mm:ss)
+     */
+    fun showVideoLongTime(durationMs: Long): String {
+        val seconds = (durationMs / 1000) % 60
+        val minutes = (durationMs / (1000 * 60)) % 60
+        val hours = (durationMs / (1000 * 60 * 60)) % 24
+        
+        return String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds)
+    }
 }

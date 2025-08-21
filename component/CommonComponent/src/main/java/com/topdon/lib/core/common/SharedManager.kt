@@ -62,4 +62,16 @@ object SharedManager {
     // Unit settings (Celsius/Fahrenheit)
     fun getTemperatureUnit(): String = getString("temp_unit", "C")
     fun setTemperatureUnit(unit: String) = setString("temp_unit", unit)
+    
+    // Select fence type for thermal monitoring
+    fun getSelectFenceType(): Int = getInt("select_fence_type", 0)
+    fun setSelectFenceType(type: Int) = setInt("select_fence_type", type)
+    
+    // Thermal measurement settings
+    fun getThermalMeasureType(): Int = getInt("thermal_measure_type", 0)
+    fun setThermalMeasureType(type: Int) = setInt("thermal_measure_type", type)
+    
+    // Device connection settings
+    fun getConnectedDeviceType(): String = getString("connected_device_type", "TC001")
+    fun setConnectedDeviceType(type: String) = setString("connected_device_type", type)
 }

@@ -62,4 +62,15 @@ abstract class BaseActivity : AppCompatActivity() {
     fun dismissLoadingDialog() {
         isLoading = false
     }
+    
+    /**
+     * Show toast message
+     */
+    fun showToast(message: String) {
+        android.widget.Toast.makeText(this, message, android.widget.Toast.LENGTH_SHORT).show()
+    }
+    
+    fun showToast(messageRes: Int) {
+        android.widget.Toast.makeText(this, messageRes, android.widget.Toast.LENGTH_SHORT).show()
+    }
 }

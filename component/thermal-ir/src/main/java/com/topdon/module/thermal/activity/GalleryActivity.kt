@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.topdon.lib.core.ktbase.BaseActivity
+import com.topdon.lib.core.tools.Permission
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.fragment.GalleryPictureFragment
 import com.topdon.module.thermal.fragment.GalleryVideoFragment
@@ -17,7 +18,7 @@ class GalleryActivity : BaseActivity() {
 
 //    override fun providerVMClass() = GalleryViewModel::class.java
 
-    private val permissionList by lazy{
+    private val permissionList by lazy<List<String>> {
         if (this.applicationInfo.targetSdkVersion >= 34){
             listOf(
                 Permission.READ_MEDIA_VIDEO,
