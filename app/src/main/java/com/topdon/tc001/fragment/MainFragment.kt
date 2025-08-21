@@ -124,12 +124,10 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         val clHasDevice = requireView().findViewById<ConstraintLayout>(R.id.cl_has_device)
         val clNoDevice = requireView().findViewById<ConstraintLayout>(R.id.cl_no_device)
         
-        val hasAnyDevice = SharedManager.hasTcLine || SharedManager.hasTS004 || SharedManager.hasTC007
+        val hasAnyDevice = SharedManager.hasTcLine
         clHasDevice.isVisible = hasAnyDevice
         clNoDevice.isVisible = !hasAnyDevice
         adapter.hasConnectLine = DeviceTools.isConnect(isAutoRequest = false)
-        adapter.hasConnectTS004 = WebSocketProxy.getInstance().isTS004Connect()
-        adapter.hasConnectTC007 = WebSocketProxy.getInstance().isTC007Connect()
         adapter.notifyDataSetChanged()
     }
 
@@ -198,23 +196,6 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             set(value) {
                 field = value
                 notifyItemRangeChanged(0, 3)
-            }
-        var hasConnectTS004: Boolean = false
-            set(value) {
-                field = value
-                notifyItemRangeChanged(0, itemCount)
-            }
-        var hasConnectTC007: Boolean = false
-            set(value) {
-                field = value
-                notifyItemRangeChanged(0, itemCount)
-            }
-        var tc007Battery: BatteryInfo? = null
-            set(value) {
-                if (field != value) {
-                    field = value
-                    notifyItemRangeChanged(0, itemCount)
-                }
             }
 
 
@@ -363,7 +344,6 @@ class MainFragment : BaseFragment(), View.OnClickListener {
     }
 
     enum class ConnectType {
-        LINE,
-        // TS004, TC007 support removed
+        LINE
     }
 }

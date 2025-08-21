@@ -314,6 +314,14 @@ object SharedManager {
         SPUtils.getInstance().put("app_language", language)
     }
 
+    fun getHasShowClause(): Boolean {
+        return SPUtils.getInstance().getBoolean(HAS_SHOW_CLAUSE, false)
+    }
+
+    fun setHasShowClause(hasShow: Boolean) {
+        SPUtils.getInstance().put(HAS_SHOW_CLAUSE, hasShow)
+    }
+
     // Context-based language methods for compatibility
     fun getLanguage(context: Context): String {
         return getLanguage()
