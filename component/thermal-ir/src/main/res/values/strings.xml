@@ -3,4 +3,22 @@
     <string name="main_thermal">Thermal Imaging</string>
     <string name="main_thermal_motion">Temperature Monitoring</string>
     <string name="main_thermal_tips">Professional Thermal Imaging Testing</string>
+    
+    <!-- Additional strings needed for ConnectActivity and other components -->
+    <string name="app_name">IR Camera</string>
+    <string name="app_connect">Connected</string>
+    <string name="app_no_connect">Not Connected</string>
+    
+    <!-- Loading and status strings -->
+    <string name="tip_loading">Loading...</string>
+    <string name="connecting">Connecting...</string>
+    <string name="connected">Connected</string>
+    <string name="disconnected">Disconnected</string>
+    
+    <!-- Common UI strings -->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="delete">Delete</string>
+    <string name="save">Save</string>
 </resources>
