@@ -16,4 +16,8 @@
     
     <!-- Missing language strings -->
     <string name="english">English</string>
+    
+    <!-- Missing strings from ClauseActivity - only add ones not in strings_language.xml -->
+    <string name="version_year">© %1$s TOPDON</string>
+    <string name="privacy_agreement_tips_new">    By using %1$s, you agree to our Terms of Service and Privacy Policy. We are committed to protecting your privacy and will only collect necessary information to provide better services.</string>
 </resources>

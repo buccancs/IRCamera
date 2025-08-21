@@ -239,8 +239,8 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             viewDeviceState.isSelected = hasConnect
             tvDeviceState.isSelected = hasConnect
             tvDeviceState.text = if (hasConnect) "online" else "offline"
-            tvBattery.isVisible = type == ConnectType.TC007 && hasConnectTC007 && tc007Battery != null
-            batteryView.isVisible = type == ConnectType.TC007 && hasConnectTC007 && tc007Battery != null
+            tvBattery.isVisible = false  // TC007 support removed
+            batteryView.isVisible = false  // TC007 support removed
 
             when (type) {
                 ConnectType.LINE -> {
@@ -253,25 +253,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
                         ivImage.setImageResource(R.drawable.ic_main_device_line_disconnect)
                     }
                 }
-                ConnectType.TS004 -> {
-                    tvDeviceName.text = "TS004"
-                    if (hasConnect) {
-                        ivImage.setImageResource(R.drawable.ic_main_device_ts004_connect)
-                    } else {
-                        ivImage.setImageResource(R.drawable.ic_main_device_ts004_disconnect)
-                    }
-                }
-                ConnectType.TC007 -> {
-                    tvDeviceName.text = "TC007"
-                    if (hasConnect) {
-                        ivImage.setImageResource(R.drawable.ic_main_device_tc007_connect)
-                    } else {
-                        ivImage.setImageResource(R.drawable.ic_main_device_tc007_disconnect)
-                    }
-                    tvBattery.text = "${tc007Battery?.getBattery()}%"
-                    batteryView.battery = tc007Battery?.getBattery() ?: 0
-                    batteryView.isCharging = tc007Battery?.isCharging() ?: false
-                }
+                // TS004 and TC007 support removed
             }
         }
 
@@ -308,16 +290,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
                                     return@setOnLongClickListener true
                                 }
                             }
-                            ConnectType.TS004 -> {
-                                if (WebSocketProxy.getInstance().isTS004Connect()) {
-                                    return@setOnLongClickListener true
-                                }
-                            }
-                            ConnectType.TC007 -> {
-                                if (WebSocketProxy.getInstance().isTC007Connect()) {
-                                    return@setOnLongClickListener true
-                                }
-                            }
+                            // TS004 and TC007 support removed
                         }
                         onItemLongClickListener?.invoke(it, deviceType)
                     }
@@ -325,21 +298,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
                 }
             }
 
-            fun getConnectType(position: Int): ConnectType = when (position) {
-                0 -> if (SharedManager.hasTcLine) {
-                    ConnectType.LINE
-                } else if (SharedManager.hasTS004) {
-                    ConnectType.TS004
-                } else {
-                    ConnectType.TC007
-                }
-                1 -> if (SharedManager.hasTcLine) {
-                    if (SharedManager.hasTS004) ConnectType.TS004 else ConnectType.TC007
-                } else {
-                    ConnectType.TC007
-                }
-                else -> ConnectType.TC007
-            }
+            fun getConnectType(position: Int): ConnectType = ConnectType.LINE // Only LINE support remains
         }
     }
 

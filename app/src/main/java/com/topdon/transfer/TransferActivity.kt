@@ -18,7 +18,6 @@ import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseActivity
 import android.widget.ProgressBar
-import com.topdon.lib.core.ui.TitleView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

@@ -65,9 +65,7 @@ import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.infisense.usbir.view.CameraPreView
 import com.infisense.usbir.view.TemperatureView
-import com.topdon.lib.core.ui.TitleView
-import com.topdon.lib.ui.widget.SettingNightView
-import com.topdon.lib.ui.widget.seekbar.RangeSeekBar
+import com.topdon.lib.ui.SettingNightView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -75,6 +73,9 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.util.*
+import com.topdon.module.thermal.ir.frame.FrameTool
+import com.topdon.module.thermal.ir.frame.ImageParams
+import com.topdon.module.thermal.ir.frame.FrameStruct
 
 class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListener {
 
@@ -85,11 +86,13 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
 
     private val imageWidth = 256
     private val imageHeight = 192
-    private val viewModel: IRGalleryEditViewModel by viewModels()
+    // TODO: Fix ViewModel instantiation
+    // private val viewModel: IRGalleryEditViewModel by viewModels()
     private var filePath = ""
 
     private var mFrame = ByteArray(192 * 256 * 4)
-    private val frameTool by lazy { FrameTool() }
+    // TODO: Fix FrameTool instantiation 
+    // private val frameTool by lazy { FrameTool() }
 
     private var pseudocodeMode = 3
     private var leftValue = 0f

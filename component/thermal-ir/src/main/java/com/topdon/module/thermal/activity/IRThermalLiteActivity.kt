@@ -205,29 +205,30 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
     private var cameraAlpha = SaveSettingUtil.twoLightAlpha
     private var isRecordAudio = SaveSettingUtil.isRecordAudio
     private var showCameraSetting = false
-    private val cameraItemBeanList by lazy {
-        mutableListOf(
-            CameraItemBean(
-                "延迟", CameraItemBean.TYPE_DELAY,
-                time = SaveSettingUtil.delayCaptureSecond
-            ),
-            CameraItemBean(
-                "自动快门", CameraItemBean.TYPE_ZDKM,
-                isSel = SaveSettingUtil.isAutoShutter
-            ),
-            CameraItemBean("手动快门", CameraItemBean.TYPE_SDKM),
-            CameraItemBean(
-                "声音", CameraItemBean.TYPE_AUDIO,
-                isSel = SaveSettingUtil.isRecordAudio &&
-                        ActivityCompat.checkSelfPermission(
-                            this,
-                            Manifest.permission.RECORD_AUDIO
-                        )
-                        == PackageManager.PERMISSION_GRANTED
-            ),
-            CameraItemBean("设置", CameraItemBean.TYPE_SETTING),
-        )
-    }
+    // TODO: Fix lazy delegate initialization
+    // private val cameraItemBeanList by lazy {
+    //     mutableListOf(
+    //         CameraItemBean(
+    //             "延迟", CameraItemBean.TYPE_DELAY,
+    //             time = SaveSettingUtil.delayCaptureSecond
+    //         ),
+    //         CameraItemBean(
+    //             "自动快门", CameraItemBean.TYPE_ZDKM,
+    //             isSel = SaveSettingUtil.isAutoShutter
+    //         ),
+    //         CameraItemBean("手动快门", CameraItemBean.TYPE_SDKM),
+    //         CameraItemBean(
+    //             "声音", CameraItemBean.TYPE_AUDIO,
+    //             isSel = SaveSettingUtil.isRecordAudio &&
+    //                     ActivityCompat.checkSelfPermission(
+    //                         this,
+    //                         Manifest.permission.RECORD_AUDIO
+    //                     )
+    //                     == PackageManager.PERMISSION_GRANTED
+    //         ),
+    //         CameraItemBean("设置", CameraItemBean.TYPE_SETTING),
+    //     )
+    // }
     private var cameraItemAdapter: CameraItemAdapter? = null
     private var audioPosition: Int = 0
     private var isAutoShutter: Boolean = SaveSettingUtil.isAutoShutter
