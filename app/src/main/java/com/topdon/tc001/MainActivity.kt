@@ -1,4 +1,5 @@
 package com.topdon.tc001
+import com.topdon.tc001.R
 
 import android.Manifest
 import android.content.Intent
@@ -17,13 +18,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.Utils
 import com.elvishew.xlog.XLog
 import com.example.suplib.wrapper.SupHelp
-import com.example.thermal_lite.activity.IRThermalLiteActivity
+import com.topdon.module.thermal.activity.IRThermalLiteActivity
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
@@ -34,7 +34,7 @@ import com.topdon.lib.core.bean.event.device.DevicePermissionEvent
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.AppConfig
 import com.topdon.lib.core.config.ExtraKeyConfig
-import com.topdon.lib.core.config.RouterConfig
+
 import com.topdon.lib.core.dialog.FirmwareUpDialog
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.dialog.TipOtgDialog
@@ -56,7 +56,7 @@ import com.topdon.tc001.utils.AppVersionUtil
 import com.zoho.commons.LauncherModes
 import com.zoho.commons.LauncherProperties
 import com.zoho.salesiqembed.ZohoSalesIQ
-import kotlinx.android.synthetic.main.activity_main.*
+
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
@@ -68,7 +68,7 @@ import java.io.IOException
 import java.io.OutputStream
 
 
-@Route(path = RouterConfig.MAIN)
+
 class MainActivity : BaseActivity(), View.OnClickListener {
 
     private val versionViewModel: VersionViewModel by viewModels()
@@ -103,22 +103,22 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         lifecycleScope.launch(Dispatchers.IO){
             SupHelp.getInstance().initAiUpScaler(Utils.getApp())
         }
-        view_page.offscreenPageLimit = 3
-        view_page.isUserInputEnabled = false
-        view_page.adapter = ViewPagerAdapter(this)
-        view_page.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        findViewById<ViewPager2>(R.id.view_page).offscreenPageLimit = 3
+        findViewById<ViewPager2>(R.id.view_page).isUserInputEnabled = false
+        findViewById<ViewPager2>(R.id.view_page).adapter = ViewPagerAdapter(this)
+        findViewById<ViewPager2>(R.id.view_page).registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 refreshTabSelect(position)
             }
         })
         if (savedInstanceState == null) {
-            view_page.setCurrentItem(1, false)
+            findViewById<ViewPager2>(R.id.view_page).setCurrentItem(1, false)
         }
 
-        view_mine_point.isVisible = !SharedManager.hasClickWinter
+        findViewById(R.id.view_mine_point).isVisible = !SharedManager.hasClickWinter
 
         cl_icon_gallery.setOnClickListener(this)
-        view_main.setOnClickListener(this)
+        findViewById(R.id.view_main).setOnClickListener(this)
         cl_icon_mine.setOnClickListener(this)
         App.instance.initWebSocket()
         copyFile("SR.pb", File(filesDir, "SR.pb"))
@@ -132,19 +132,17 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         if (!SharedManager.hasTcLine && !SharedManager.hasTS004 && !SharedManager.hasTC007) {
             if (DeviceTools.isConnect()) {
                 if (!WebSocketProxy.getInstance().isConnected()) {
-                    ARouter.getInstance()
-                        .build(RouterConfig.IR_MAIN)
-                        .withBoolean(ExtraKeyConfig.IS_TC007, false)
-                        .navigation(this)
+                    val intent = Intent(this, com.topdon.module.thermal.ir.activity.IRMainActivity::class.java)
+                    intent.putExtra(ExtraKeyConfig.IS_TC007, false)
+                    startActivity(intent)
                 }
             } else {
                 if (WebSocketProxy.getInstance().isTS004Connect()) {
-                    ARouter.getInstance().build(RouterConfig.IR_MONOCULAR).navigation(this)
+                    startActivity(Intent(this, com.topdon.module.thermal.ir.activity.IRMainActivity::class.java))
                 } else if (WebSocketProxy.getInstance().isTC007Connect()) {
-                    ARouter.getInstance()
-                        .build(RouterConfig.IR_MAIN)
-                        .withBoolean(ExtraKeyConfig.IS_TC007, true)
-                        .navigation(this)
+                    val intent = Intent(this, com.topdon.module.thermal.ir.activity.IRMainActivity::class.java)
+                    intent.putExtra(ExtraKeyConfig.IS_TC007, true)
+                    startActivity(intent)
                 }
             }
         }
@@ -275,10 +273,10 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 checkStoragePermission()
             }
             view_main -> {//首页
-                view_page.setCurrentItem(1, false)
+                findViewById<ViewPager2>(R.id.view_page).setCurrentItem(1, false)
             }
             cl_icon_mine -> {//我的
-                view_page.setCurrentItem(2, false)
+                findViewById<ViewPager2>(R.id.view_page).setCurrentItem(2, false)
             }
         }
     }
@@ -306,7 +304,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onWinterClick(event: WinterClickEvent) {
-        view_mine_point.isVisible = false
+        findViewById(R.id.view_mine_point).isVisible = false
     }
 
     private fun refreshTabSelect(index: Int) {
@@ -342,7 +340,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     override fun disConnected() {
         if (WebSocketProxy.getInstance().isTS004Connect()) {
-            ARouter.getInstance().build(RouterConfig.IR_MONOCULAR).navigation(this)
+            startActivity(Intent(this, com.topdon.module.thermal.ir.activity.IRMainActivity::class.java))
         }
         if (tipOtgDialog != null && tipOtgDialog!!.isShowing) {
             return
@@ -535,21 +533,17 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 DeviceTools.isConnect(isSendConnectEvent = true)
             }
             1 -> {
-                view_page.setCurrentItem(0, false)
+                findViewById<ViewPager2>(R.id.view_page).setCurrentItem(0, false)
             }
             2 -> {
 
                 if (DeviceTools.isTC001PlusConnect()) {
-                    ARouter.getInstance().build(RouterConfig.IR_MAIN).navigation(this@MainActivity)
                     startActivityForResult(Intent(this@MainActivity, IRThermalPlusActivity::class.java), 101)
-                }else if(DeviceTools.isTC001LiteConnect()){
-                    ARouter.getInstance().build(RouterConfig.IR_MAIN).navigation(this@MainActivity)
+                } else if (DeviceTools.isTC001LiteConnect()) {
                     startActivityForResult(Intent(this@MainActivity, IRThermalLiteActivity::class.java), 101)
                 } else if (DeviceTools.isHikConnect()) {
-                    ARouter.getInstance().build(RouterConfig.IR_MAIN).navigation(this@MainActivity)
                     startActivity(Intent(this, IRThermalHikActivity::class.java))
-                } else{
-                    ARouter.getInstance().build(RouterConfig.IR_MAIN).navigation(this@MainActivity)
+                } else {
                     startActivityForResult(Intent(this@MainActivity, IRThermalNightActivity::class.java), 101)
                 }
             }

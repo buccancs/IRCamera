@@ -1,6 +1,7 @@
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
+        gradlePluginPortal()
         maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
         maven { url 'https://maven.aliyun.com/repository/central' }
         maven { url 'https://maven.aliyun.com/repository/public' }
@@ -26,10 +27,8 @@ dependencyResolutionManagement {
 rootProject.name = "TopInfrared"
 include ':app'
 include ':component:CommonComponent'
-include ':component:edit3d'
 
 include ':component:thermal-ir'
-include ':component:thermal-lite'
 include ':component:transfer'
 include ':component:user'
 include ':libmatrix'

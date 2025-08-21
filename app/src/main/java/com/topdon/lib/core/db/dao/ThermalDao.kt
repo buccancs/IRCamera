@@ -19,6 +19,9 @@ interface ThermalDao {
     @Query("delete from thermal where user_id = :userId")
     fun deleteByUserId(userId: String)
 
+    @Query("delete from thermal")
+    fun deleteAll()
+
     @Query("delete from thermal where user_id = :userId and thermal=0 and thermal_max=0 and thermal_min=0 and create_time<(select max(create_time) from thermal where thermal=0 and thermal_max=0 and thermal_min=0)")
     fun deleteZero(userId: String)
 

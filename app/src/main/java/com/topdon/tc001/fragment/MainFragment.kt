@@ -13,12 +13,10 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.launcher.ARouter
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.bean.event.SocketMsgEvent
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.ExtraKeyConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.repository.BatteryInfo
@@ -33,19 +31,10 @@ import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.tc001.DeviceTypeActivity
 import com.topdon.tc001.R
 import com.topdon.tc001.popup.DelPopup
-import kotlinx.android.synthetic.main.fragment_main.cl_has_device
-import kotlinx.android.synthetic.main.fragment_main.cl_no_device
-import kotlinx.android.synthetic.main.fragment_main.iv_add
-import kotlinx.android.synthetic.main.fragment_main.recycler_view
-import kotlinx.android.synthetic.main.fragment_main.tv_connect_device
-import kotlinx.android.synthetic.main.item_device_connect.view.battery_view
-import kotlinx.android.synthetic.main.item_device_connect.view.iv_bg
-import kotlinx.android.synthetic.main.item_device_connect.view.iv_image
-import kotlinx.android.synthetic.main.item_device_connect.view.tv_battery
-import kotlinx.android.synthetic.main.item_device_connect.view.tv_device_name
-import kotlinx.android.synthetic.main.item_device_connect.view.tv_device_state
-import kotlinx.android.synthetic.main.item_device_connect.view.tv_title
-import kotlinx.android.synthetic.main.item_device_connect.view.view_device_state
+import android.widget.TextView
+import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.topdon.lib.core.ui.BatteryView
 import kotlinx.coroutines.launch
 import org.bytedeco.librealsense.context
 import org.greenrobot.eventbus.Subscribe
@@ -61,17 +50,22 @@ class MainFragment : BaseFragment(), View.OnClickListener {
     override fun initContentView(): Int = R.layout.fragment_main
 
     override fun initView() {
+        val tvConnectDevice = requireView().findViewById<TextView>(R.id.tv_connect_device)
+        val ivAdd = requireView().findViewById<ImageView>(R.id.iv_add)
+        val recyclerView = requireView().findViewById<RecyclerView>(R.id.recycler_view)
+        val clHasDevice = requireView().findViewById<ConstraintLayout>(R.id.cl_has_device)
+        val clNoDevice = requireView().findViewById<ConstraintLayout>(R.id.cl_no_device)
+        
         adapter = MyAdapter()
-        tv_connect_device.setOnClickListener(this)
-        iv_add.setOnClickListener(this)
+        tvConnectDevice.setOnClickListener(this)
+        ivAdd.setOnClickListener(this)
         adapter.hasConnectLine = DeviceTools.isConnect()
         // TS004/TC007 support removed
         adapter.onItemClickListener = {
             when (it) {
                 ConnectType.LINE -> {
-                    ARouter.getInstance()
-                        .build(RouterConfig.IR_MAIN)
-                        .navigation(requireContext())
+                    val intent = Intent(requireContext(), com.topdon.module.thermal.ir.activity.IRMainActivity::class.java)
+                    startActivity(intent)
                 }
                 // TS004/TC007 cases removed
             }
@@ -97,8 +91,8 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             popup.show(view)
         }
 
-        recycler_view.layoutManager = LinearLayoutManager(requireContext())
-        recycler_view.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = adapter
 
         if (WebSocketProxy.getInstance().isTC007Connect()) {
             lifecycleScope.launch {
@@ -127,12 +121,13 @@ class MainFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun refresh() {
-        val hasAnyDevice = SharedManager.hasTcLine || SharedManager.hasTS004 || SharedManager.hasTC007
-        cl_has_device.isVisible = hasAnyDevice
-        cl_no_device.isVisible = !hasAnyDevice
+        val clHasDevice = requireView().findViewById<ConstraintLayout>(R.id.cl_has_device)
+        val clNoDevice = requireView().findViewById<ConstraintLayout>(R.id.cl_no_device)
+        
+        val hasAnyDevice = SharedManager.hasTcLine
+        clHasDevice.isVisible = hasAnyDevice
+        clNoDevice.isVisible = !hasAnyDevice
         adapter.hasConnectLine = DeviceTools.isConnect(isAutoRequest = false)
-        adapter.hasConnectTS004 = WebSocketProxy.getInstance().isTS004Connect()
-        adapter.hasConnectTC007 = WebSocketProxy.getInstance().isTC007Connect()
         adapter.notifyDataSetChanged()
     }
 
@@ -171,8 +166,11 @@ class MainFragment : BaseFragment(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
+        val tvConnectDevice = requireView().findViewById<TextView>(R.id.tv_connect_device)
+        val ivAdd = requireView().findViewById<ImageView>(R.id.iv_add)
+        
         when (v) {
-            tv_connect_device, iv_add -> {//添加设备
+            tvConnectDevice, ivAdd -> {//添加设备
                 startActivity(Intent(requireContext(), DeviceTypeActivity::class.java))
             }
         }
@@ -199,23 +197,6 @@ class MainFragment : BaseFragment(), View.OnClickListener {
                 field = value
                 notifyItemRangeChanged(0, 3)
             }
-        var hasConnectTS004: Boolean = false
-            set(value) {
-                field = value
-                notifyItemRangeChanged(0, itemCount)
-            }
-        var hasConnectTC007: Boolean = false
-            set(value) {
-                field = value
-                notifyItemRangeChanged(0, itemCount)
-            }
-        var tc007Battery: BatteryInfo? = null
-            set(value) {
-                if (field != value) {
-                    field = value
-                    notifyItemRangeChanged(0, itemCount)
-                }
-            }
 
 
         var onItemClickListener: ((type: ConnectType) -> Unit)? = null
@@ -239,48 +220,57 @@ class MainFragment : BaseFragment(), View.OnClickListener {
                 ConnectType.TC007 -> hasConnectTC007
             }
 
-            holder.itemView.tv_title.isVisible = hasTitle
-            holder.itemView.tv_title.text = AppLanguageUtils.attachBaseContext(
+            val tvTitle = holder.itemView.findViewById<TextView>(R.id.tv_title)
+            val ivBg = holder.itemView.findViewById<ImageView>(R.id.iv_bg)
+            val tvDeviceName = holder.itemView.findViewById<TextView>(R.id.tv_device_name)
+            val viewDeviceState = holder.itemView.findViewById<View>(R.id.view_device_state)
+            val tvDeviceState = holder.itemView.findViewById<TextView>(R.id.tv_device_state)
+            val tvBattery = holder.itemView.findViewById<TextView>(R.id.tv_battery)
+            val batteryView = holder.itemView.findViewById<BatteryView>(R.id.battery_view)
+            val ivImage = holder.itemView.findViewById<ImageView>(R.id.iv_image)
+
+            tvTitle.isVisible = hasTitle
+            tvTitle.text = AppLanguageUtils.attachBaseContext(
                 holder.itemView.context, SharedManager.getLanguage(holder.itemView.context!!))
                 .getString(if (type == ConnectType.LINE) R.string.tc_connect_line else R.string.tc_connect_wifi)
 
-            holder.itemView.iv_bg.isSelected = hasConnect
-            holder.itemView.tv_device_name.isSelected = hasConnect
-            holder.itemView.view_device_state.isSelected = hasConnect
-            holder.itemView.tv_device_state.isSelected = hasConnect
-            holder.itemView.tv_device_state.text = if (hasConnect) "online" else "offline"
-            holder.itemView.tv_battery.isVisible = type == ConnectType.TC007 && hasConnectTC007 && tc007Battery != null
-            holder.itemView.battery_view.isVisible = type == ConnectType.TC007 && hasConnectTC007 && tc007Battery != null
+            ivBg.isSelected = hasConnect
+            tvDeviceName.isSelected = hasConnect
+            viewDeviceState.isSelected = hasConnect
+            tvDeviceState.isSelected = hasConnect
+            tvDeviceState.text = if (hasConnect) "online" else "offline"
+            tvBattery.isVisible = type == ConnectType.TC007 && hasConnectTC007 && tc007Battery != null
+            batteryView.isVisible = type == ConnectType.TC007 && hasConnectTC007 && tc007Battery != null
 
             when (type) {
                 ConnectType.LINE -> {
-                    holder.itemView.tv_device_name.setText(AppLanguageUtils.attachBaseContext(
+                    tvDeviceName.setText(AppLanguageUtils.attachBaseContext(
                         holder.itemView.context, SharedManager.getLanguage(holder.itemView.context!!))
                         .getString(R.string.tc_has_line_device))
                     if (hasConnect) {
-                        holder.itemView.iv_image.setImageResource(R.drawable.ic_main_device_line_connect)
+                        ivImage.setImageResource(R.drawable.ic_main_device_line_connect)
                     } else {
-                        holder.itemView.iv_image.setImageResource(R.drawable.ic_main_device_line_disconnect)
+                        ivImage.setImageResource(R.drawable.ic_main_device_line_disconnect)
                     }
                 }
                 ConnectType.TS004 -> {
-                    holder.itemView.tv_device_name.text = "TS004"
+                    tvDeviceName.text = "TS004"
                     if (hasConnect) {
-                        holder.itemView.iv_image.setImageResource(R.drawable.ic_main_device_ts004_connect)
+                        ivImage.setImageResource(R.drawable.ic_main_device_ts004_connect)
                     } else {
-                        holder.itemView.iv_image.setImageResource(R.drawable.ic_main_device_ts004_disconnect)
+                        ivImage.setImageResource(R.drawable.ic_main_device_ts004_disconnect)
                     }
                 }
                 ConnectType.TC007 -> {
-                    holder.itemView.tv_device_name.text = "TC007"
+                    tvDeviceName.text = "TC007"
                     if (hasConnect) {
-                        holder.itemView.iv_image.setImageResource(R.drawable.ic_main_device_tc007_connect)
+                        ivImage.setImageResource(R.drawable.ic_main_device_tc007_connect)
                     } else {
-                        holder.itemView.iv_image.setImageResource(R.drawable.ic_main_device_tc007_disconnect)
+                        ivImage.setImageResource(R.drawable.ic_main_device_tc007_disconnect)
                     }
-                    holder.itemView.tv_battery.text = "${tc007Battery?.getBattery()}%"
-                    holder.itemView.battery_view.battery = tc007Battery?.getBattery() ?: 0
-                    holder.itemView.battery_view.isCharging = tc007Battery?.isCharging() ?: false
+                    tvBattery.text = "${tc007Battery?.getBattery()}%"
+                    batteryView.battery = tc007Battery?.getBattery() ?: 0
+                    batteryView.isCharging = tc007Battery?.isCharging() ?: false
                 }
             }
         }
@@ -301,13 +291,14 @@ class MainFragment : BaseFragment(), View.OnClickListener {
 
         inner class ViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
             init {
-                rootView.iv_bg.setOnClickListener {
+                val ivBg = rootView.findViewById<ImageView>(R.id.iv_bg)
+                ivBg.setOnClickListener {
                     val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         onItemClickListener?.invoke(getConnectType(position))
                     }
                 }
-                rootView.iv_bg.setOnLongClickListener {
+                ivBg.setOnLongClickListener {
                     val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         val deviceType = getConnectType(position)
@@ -353,7 +344,6 @@ class MainFragment : BaseFragment(), View.OnClickListener {
     }
 
     enum class ConnectType {
-        LINE,
-        // TS004, TC007 support removed
+        LINE
     }
 }

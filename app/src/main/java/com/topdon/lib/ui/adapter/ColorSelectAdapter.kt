@@ -9,7 +9,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.ui.R
 import com.topdon.lib.ui.bean.ColorSelectBean
-import kotlinx.android.synthetic.main.ui_item_color_select.view.*
+
 
 class ColorSelectAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -59,9 +59,9 @@ class ColorSelectAdapter(val context: Context) : RecyclerView.Adapter<RecyclerVi
     }
 
     inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val lay: View = itemView.item_color_lay
-        val img: ImageView = itemView.item_color_img
-        val checkImg: ImageView = itemView.item_color_check
+        val lay: View = itemView.findViewById(R.id.item_color_lay)
+        val img: ImageView = itemView.findViewById(R.id.item_color_img)
+        val checkImg: ImageView = itemView.findViewById(R.id.item_color_check)
     }
 
 

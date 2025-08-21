@@ -5,7 +5,6 @@ import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
-import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.UriUtils
 import com.topdon.house.R
@@ -16,7 +15,6 @@ import com.topdon.house.popup.ThreePickPopup
 import com.topdon.house.viewmodel.DetectViewModel
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.FileConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.db.entity.HouseDetect
 import com.topdon.lib.core.db.entity.ItemDetect
 import com.topdon.lib.core.ktbase.BaseActivity
@@ -25,7 +23,6 @@ import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.lib.core.tools.PermissionTool
 import com.topdon.libcom.util.ARouterUtil
 import com.topdon.lms.sdk.weiget.TToast
-import kotlinx.android.synthetic.main.activity_report_add.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.io.File
@@ -125,10 +122,10 @@ class ReportAddActivity : BaseActivity(), View.OnClickListener {
                 iv_expand.isSelected = isAllExpand
             }
             tv_export_report -> {//导出报告
-                ARouter.getInstance().build(RouterConfig.REPORT_PREVIEW)
-                    .withBoolean(ExtraKeyConfig.IS_REPORT, false)
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                     .withBoolean(ExtraKeyConfig.IS_REPORT, false)
                     .withLong(ExtraKeyConfig.LONG_ID, intent.getLongExtra(ExtraKeyConfig.DETECT_ID, 0))
-                    .navigation(this)
+// TODO_FIX_AROUTER:                     .navigation(this)
             }
             tv_add -> {//新增默认目录
                 val detect: HouseDetect? = viewModel.detectLD.value

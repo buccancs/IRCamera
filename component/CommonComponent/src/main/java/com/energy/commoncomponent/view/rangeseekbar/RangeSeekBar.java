@@ -11,6 +11,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.os.Parcelable;
+import android.view.View.BaseSavedState;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -1253,5 +1254,32 @@ public class RangeSeekBar extends View {
             stepsBitmaps.add(Utils.drawableToBitmap(getContext(), (int) stepsWidth, (int) stepsHeight, stepsDrawableIds.get(i)));
         }
         setStepsBitmaps(stepsBitmaps);
+    }
+
+    // Missing interface and class definitions
+    public interface OnRangeChangedListener {
+        void onStartTrackingTouch(RangeSeekBar view, boolean isLeft);
+        void onRangeChanged(RangeSeekBar view, float leftValue, float rightValue, boolean fromUser);
+        void onStopTrackingTouch(RangeSeekBar view, boolean isLeft);
+    }
+    
+    public static class SeekBarState {
+        public float value;
+        public String indicatorText;
+        public boolean isMin;
+        public boolean isMax;
+    }
+
+    // SavedState class for view state persistence
+    static class SavedState extends BaseSavedState {
+        float minValue;
+        float maxValue;
+        float rangeInterval;
+        float currSelectedMin;
+        float currSelectedMax;
+
+        SavedState(Parcelable superState) {
+            super(superState);
+        }
     }
 }

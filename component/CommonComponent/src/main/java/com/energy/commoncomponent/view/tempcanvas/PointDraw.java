@@ -13,7 +13,7 @@ import android.graphics.RectF;
 import android.text.TextPaint;
 
 import com.energy.commoncomponent.R;
-import com.topdon.lib.core.util.ScreenUtils;
+import com.blankj.utilcode.util.SizeUtils;
 
 import java.util.LinkedList;
 import java.util.UUID;
@@ -53,17 +53,17 @@ public class PointDraw extends BaseDraw {
     public PointDraw(Context context) {
         super(context);
         mPointList = new LinkedList<>();
-        TEXT_POINT_MARGIN = ScreenUtils.dp2px(4);
-        LABEL_POINT_MARGIN = ScreenUtils.dp2px(24);
+        TEXT_POINT_MARGIN = SizeUtils.dp2px(4);
+        LABEL_POINT_MARGIN = SizeUtils.dp2px(24);
 
         mTextPaint = new Paint();
-        mTextPaint.setStrokeWidth(ScreenUtils.dp2px(STROKE_WIDTH));
-        mTextPaint.setTextSize(ScreenUtils.sp2px(TEXT_SIZE));
+        mTextPaint.setStrokeWidth(SizeUtils.dp2px(STROKE_WIDTH));
+        mTextPaint.setTextSize(SizeUtils.sp2px(TEXT_SIZE));
         mTextPaint.setColor(Color.WHITE);
         mTextPaint.setTextAlign(Paint.Align.CENTER);
 
         mBgPaint = new TextPaint();
-        mBgPaint.setStrokeWidth(ScreenUtils.dp2px(1));
+        mBgPaint.setStrokeWidth(SizeUtils.dp2px(1));
     }
 
     public int getOperateStatus() {
@@ -275,7 +275,7 @@ public class PointDraw extends BaseDraw {
 
         public PointView(Context context, int mode, float centerX, float centerY) {
             mId = UUID.randomUUID().toString();
-            mPointSize = ScreenUtils.dp2px(20f);
+            mPointSize = SizeUtils.dp2px(20f);
             mCenterX = centerX;
             mCenterY = centerY;
             mMode = mode;

@@ -8,8 +8,6 @@ import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.item_setting_check.view.*
-import kotlinx.android.synthetic.main.item_setting_time.view.*
 
 /**
  * 设置时间
@@ -58,7 +56,7 @@ class SettingTimeAdapter(val context: Context) :
     }
 
     inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val btn: Button = itemView.item_setting_time_btn
+        val btn: Button = itemView.findViewById(R.id.item_setting_time_btn)
     }
 
 

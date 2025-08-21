@@ -14,7 +14,6 @@ import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.lib.ui.R
 import com.topdon.lib.ui.bean.TemperatureBean
-import kotlinx.android.synthetic.main.ui_item_menu_five_view.view.*
 
 @Deprecated("旧的温度档位菜单，已重构过了")
 class MenuFiveNightAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -97,10 +96,10 @@ class MenuFiveNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
     }
 
     inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val lay: View = itemView.item_menu_tab_lay
-        val img: ImageView = itemView.item_menu_tab_img
-        val name: TextView = itemView.item_menu_tab_text
-        val info: TextView = itemView.item_menu_tab_info_text
+        val lay: View = itemView.findViewById(R.id.item_menu_tab_lay)
+        val img: ImageView = itemView.findViewById(R.id.item_menu_tab_img)
+        val name: TextView = itemView.findViewById(R.id.item_menu_tab_text)
+        val info: TextView = itemView.findViewById(R.id.item_menu_tab_info_text)
     }
 
 }

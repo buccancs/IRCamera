@@ -5,21 +5,20 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.topdon.lib.core.config.RouterConfig
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
 import com.topdon.lib.core.ktbase.BaseActivity
+import com.topdon.lib.core.tools.Permission
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.fragment.GalleryPictureFragment
 import com.topdon.module.thermal.fragment.GalleryVideoFragment
-import kotlinx.android.synthetic.main.activity_gallery.*
 
 
-@Route(path = RouterConfig.GALLERY)
 class GalleryActivity : BaseActivity() {
 
 //    override fun providerVMClass() = GalleryViewModel::class.java
 
-    private val permissionList by lazy{
+    private val permissionList by lazy<List<String>> {
         if (this.applicationInfo.targetSdkVersion >= 34){
             listOf(
                 Permission.READ_MEDIA_VIDEO,
@@ -39,13 +38,20 @@ class GalleryActivity : BaseActivity() {
 
     override fun initView() {
         setTitleText(getString(R.string.gallery))
-        gallery_viewpager.adapter = ViewAdapter(this, supportFragmentManager)
-        gallery_tab.setupWithViewPager(gallery_viewpager)
+        val galleryViewPager = findViewById<ViewPager>(R.id.gallery_viewpager)
+        val galleryTab = findViewById<TabLayout>(R.id.gallery_tab)
+        
+        galleryViewPager.adapter = ViewAdapter(this, supportFragmentManager)
+        galleryTab.setupWithViewPager(galleryViewPager)
 
-        mRxPermissions!!.request( permissionList)
-            .subscribe {
-
-            }
+        // Request permissions using standard Android approach
+        if (permissionList.any { !Permission.checkPermission(this, it) }) {
+            Permission.requestPermissions(this, permissionList.toTypedArray(), REQUEST_PERMISSION_CODE)
+        }
+    }
+    
+    companion object {
+        private const val REQUEST_PERMISSION_CODE = 1001
     }
 
     override fun initData() {

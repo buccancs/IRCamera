@@ -10,12 +10,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.alibaba.android.arouter.launcher.ARouter
 import com.topdon.lib.core.bean.GalleryBean
 import com.topdon.lib.core.bean.GalleryTitle
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.FileConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.tools.FileTools.getUri
 import com.topdon.lib.core.tools.ToastTools
@@ -31,7 +29,6 @@ import com.topdon.module.thermal.ir.event.GalleryDirChangeEvent
 import com.topdon.module.thermal.ir.event.GalleryDownloadEvent
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryTabViewModel
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryViewModel
-import kotlinx.android.synthetic.main.fragment_ir_gallery.*
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -188,10 +185,10 @@ class IRGalleryFragment : BaseFragment() {
         adapter.itemClickCallback = {
             val galleryBean: GalleryBean = adapter.dataList[it]
             if (galleryBean.name.uppercase().endsWith(".MP4")) {
-                ARouter.getInstance().build(RouterConfig.IR_VIDEO_GSY)
-                    .withBoolean("isRemote", currentDirType == DirType.TS004_REMOTE)
-                    .withParcelable("data", adapter.dataList[it])
-                    .navigation(requireActivity())
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                     .withBoolean("isRemote", currentDirType == DirType.TS004_REMOTE)
+// TODO_FIX_AROUTER:                     .withParcelable("data", adapter.dataList[it])
+            // TODO: Implement proper Intent navigation
             } else {
                 val sourceList: ArrayList<GalleryBean> = viewModel.sourceListLD.value ?: ArrayList()
                 var position = if (it >= sourceList.size) sourceList.size - 1 else it
@@ -204,17 +201,17 @@ class IRGalleryFragment : BaseFragment() {
 
 
                 if (currentDirType == DirType.LINE || currentDirType == DirType.TC007) {
-                    ARouter.getInstance().build(RouterConfig.IR_GALLERY_DETAIL_01)
-                        .withBoolean(ExtraKeyConfig.IS_TC007, currentDirType == DirType.TC007)
-                        .withInt("position", position)
-                        .withParcelableArrayList("list", sourceList)
-                        .navigation(requireActivity())
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                         .withBoolean(ExtraKeyConfig.IS_TC007, currentDirType == DirType.TC007)
+// TODO_FIX_AROUTER:                         .withInt("position", position)
+// TODO_FIX_AROUTER:                         .withParcelableArrayList("list", sourceList)
+            // TODO: Implement proper Intent navigation
                 } else {
-                    ARouter.getInstance().build(RouterConfig.IR_GALLERY_DETAIL_04)
-                        .withBoolean("isRemote", currentDirType == DirType.TS004_REMOTE)
-                        .withInt("position", position)
-                        .withParcelableArrayList("list", sourceList)
-                        .navigation(requireActivity())
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                         .withBoolean("isRemote", currentDirType == DirType.TS004_REMOTE)
+// TODO_FIX_AROUTER:                         .withInt("position", position)
+// TODO_FIX_AROUTER:                         .withParcelableArrayList("list", sourceList)
+            // TODO: Implement proper Intent navigation
                 }
             }
         }

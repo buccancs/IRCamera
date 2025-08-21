@@ -13,7 +13,6 @@ import android.widget.TextView
 import androidx.annotation.StringRes
 import com.topdon.tc001.R
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.dialog_tip_otg.view.*
 
 
 class TipOtgDialog : Dialog {
@@ -93,10 +92,10 @@ class TipOtgDialog : Dialog {
             val inflater =
                 context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             val view = inflater.inflate(R.layout.dialog_tip_otg, null)
-            messageText = view.dialog_tip_msg_text
-            checkBox = view.dialog_tip_check
-            successBtn = view.dialog_tip_success_btn
-            cancelBtn = view.dialog_tip_cancel_btn
+            messageText = view.findViewById(R.id.dialog_tip_msg_text)
+            checkBox = view.findViewById(R.id.dialog_tip_check)
+            successBtn = view.findViewById(R.id.dialog_tip_success_btn)
+            cancelBtn = view.findViewById(R.id.dialog_tip_cancel_btn)
             dialog!!.addContentView(
                 view,
                 LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)

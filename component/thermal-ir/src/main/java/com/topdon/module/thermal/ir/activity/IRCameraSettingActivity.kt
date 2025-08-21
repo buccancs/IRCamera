@@ -11,7 +11,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.ToastUtils
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
@@ -20,7 +19,6 @@ import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.bean.ContinuousBean
 import com.topdon.lib.core.bean.WatermarkBean
 import com.topdon.lib.core.common.SharedManager
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.lib.core.dialog.TipDialog
@@ -28,7 +26,9 @@ import com.topdon.lib.ui.listener.SingleClickListener
 import com.topdon.lib.core.utils.CommUtils
 import com.topdon.module.thermal.ir.BuildConfig
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.activity_ir_camera_setting.*
+import android.widget.*
+import androidx.appcompat.widget.SwitchCompat
+import com.topdon.lib.core.view.TitleView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -40,7 +40,6 @@ import java.util.*
  * @author: CaiSongL
  * @date: 2023/4/3 15:00
  */
-@Route(path = RouterConfig.IR_CAMERA_SETTING)
 class IRCameraSettingActivity : BaseActivity() {
 
     companion object{

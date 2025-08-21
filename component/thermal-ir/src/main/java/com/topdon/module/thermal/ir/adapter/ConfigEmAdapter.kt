@@ -9,11 +9,11 @@ import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.SizeUtils
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.utils.IRConfigData
-import kotlinx.android.synthetic.main.item_ir_config_emissivity.view.*
 
 /**
  * 温度修正（环境温度、测温距离、发射率修改那个页面）常用发射率表 Adapter.
@@ -27,10 +27,13 @@ class ConfigEmAdapter(val context: Context) : RecyclerView.Adapter<ConfigEmAdapt
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.itemView.tv_em_name.text = dataList[position].name
-        holder.itemView.tv_em_num.text = dataList[position].value
-        holder.itemView.tv_em_name.background = EmBgDrawable(false, position == dataList.size - 1)
-        holder.itemView.tv_em_num.background = EmBgDrawable(true, position == dataList.size - 1)
+        val tvEmName = holder.itemView.findViewById<TextView>(R.id.tv_em_name)
+        val tvEmNum = holder.itemView.findViewById<TextView>(R.id.tv_em_num)
+        
+        tvEmName.text = dataList[position].name
+        tvEmNum.text = dataList[position].value
+        tvEmName.background = EmBgDrawable(false, position == dataList.size - 1)
+        tvEmNum.background = EmBgDrawable(true, position == dataList.size - 1)
     }
 
     override fun getItemCount(): Int = dataList.size

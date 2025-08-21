@@ -353,7 +353,6 @@
 
     <string name="monitor_finish">Stop</string>
     <string name="album_menu_2d">2D Edit</string>
-    <string name="album_menu_3d">3D Edit</string>
     <string name="album_menu_excel">Excel</string>
     <string name="album_excel_tips">It takes around 2 mins to export an Excel file. Do you want to continue?</string>
     <string name="title_color_mode">Color Mode</string>
@@ -391,17 +390,6 @@
 
 
     <!-- 2.30 -->
-    <string name="menu_3d_visual">View</string>
-    <string name="menu_3d_calibrate">Calibration</string>
-    <string name="model">Mode</string>
-    <string name="menu_3d_visual_3d">3D View</string>
-    <string name="menu_3d_visual_top">Top View</string>
-    <string name="menu_3d_visual_left">Left View</string>
-    <string name="menu_3d_visual_right">Right View</string>
-    <string name="menu_3d_visual_center">Front View</string>
-    <string name="menu_3d_range_temp">Temperature Bar</string>
-    <string name="menu_3d_x_axis">X-axis</string>
-    <string name="menu_3d_y_axis">Y-axis</string>
 
     <!--TS001-1.0.0-->
     <string name="album_menu_Photos">Photos</string>

@@ -2,12 +2,10 @@ package com.topdon.module.thermal.ir.fragment
 
 import android.content.Intent
 import android.view.View
-import com.alibaba.android.arouter.launcher.ARouter
 import com.topdon.house.activity.HouseHomeActivity
 import com.topdon.lib.core.bean.event.WinterClickEvent
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.ExtraKeyConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.socket.WebSocketProxy
@@ -18,7 +16,8 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.activity.IRThermalNightActivity
 import com.topdon.module.thermal.ir.activity.IRThermalPlusActivity
 import com.topdon.module.thermal.ir.activity.MonitoryHomeActivity
-import kotlinx.android.synthetic.main.fragment_ability.*
+import android.widget.ImageView
+import android.widget.LinearLayout
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -54,9 +53,9 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
                 } else {
                     "http://172.16.66.77:8081/#/detectionGuidanceIndex?languageId=1&showHeader=1"
                 }
-                ARouter.getInstance().build(RouterConfig.WEB_VIEW)
-                    .withString(ExtraKeyConfig.URL, url)
-                    .navigation(requireContext())
+                Intent(this, com.topdon.tc001.WebViewActivity::class.java)
+// TODO_FIX_AROUTER:                     .withString(ExtraKeyConfig.URL, url)
+// TODO_FIX_AROUTER:                     .navigation(requireContext())
             }
             view_monitory -> {//温度监控
                 val intent = Intent(requireContext(), MonitoryHomeActivity::class.java)
@@ -73,9 +72,9 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
             view_car -> {//汽车检测
                 if (mIsTC007) {
                     if (WebSocketProxy.getInstance().isConnected()) {
-                        ARouter.getInstance().build(RouterConfig.IR_THERMAL_07)
-                            .withBoolean(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
-                            .navigation(requireContext())
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                             .withBoolean(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
+// TODO_FIX_AROUTER:                             .navigation(requireContext())
                     }
                 } else {
                     if (DeviceTools.isTC001PlusConnect()) {
@@ -83,13 +82,13 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
                         intent.putExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
                         startActivity(intent)
                     } else if (DeviceTools.isTC001LiteConnect()) {
-                        ARouter.getInstance().build(RouterConfig.IR_TCLITE)
-                            .withBoolean(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
-                            .navigation(activity)
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                             .withBoolean(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
+            // TODO: Implement proper Intent navigation
                     } else if (DeviceTools.isHikConnect()) {
-                        ARouter.getInstance().build(RouterConfig.IR_HIK_MAIN)
-                            .withBoolean(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
-                            .navigation(activity)
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                             .withBoolean(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
+            // TODO: Implement proper Intent navigation
                     } else if (DeviceTools.isConnect(isSendConnectEvent = false, true)) {
                         var intent = Intent(requireContext(), IRThermalNightActivity::class.java)
                         intent.putExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)

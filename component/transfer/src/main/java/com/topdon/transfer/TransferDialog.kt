@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.dialog_transfer.view.*
 
 /**
  * 相册迁移进度弹框.
@@ -17,15 +17,15 @@ import kotlinx.android.synthetic.main.dialog_transfer.view.*
 class TransferDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
 
     var max: Int
-        get() = contentView.seek_bar.max
+        get() = contentView.findViewById<SeekBar>(R.id.seek_bar).max
         set(value) {
-            contentView.seek_bar.max = value
+            contentView.findViewById<SeekBar>(R.id.seek_bar).max = value
         }
 
     var progress: Int
-        get() = contentView.seek_bar.progress
+        get() = contentView.findViewById<SeekBar>(R.id.seek_bar).progress
         set(value) {
-            contentView.seek_bar.progress = value
+            contentView.findViewById<SeekBar>(R.id.seek_bar).progress = value
         }
 
 
@@ -36,7 +36,8 @@ class TransferDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
         setCancelable(false)
         setCanceledOnTouchOutside(false)
 
-        contentView.seek_bar.isEnabled = false
+        val seekBar = contentView.findViewById<SeekBar>(R.id.seek_bar)
+        seekBar.isEnabled = false
         setContentView(contentView)
 
         window?.let {

@@ -9,46 +9,52 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.topdon.tc001.R
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.dialog_firmware_up.view.*
+import android.widget.TextView
+import androidx.core.view.isVisible
 
 class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), View.OnClickListener {
 
+    private val rootView: View = LayoutInflater.from(context).inflate(R.layout.dialog_firmware_up, null)
+    private val tvTitle: TextView by lazy { rootView.findViewById(R.id.tv_title) }
+    private val tvSize: TextView by lazy { rootView.findViewById(R.id.tv_size) }
+    private val tvContent: TextView by lazy { rootView.findViewById(R.id.tv_content) }
+    private val tvRestartTips: TextView by lazy { rootView.findViewById(R.id.tv_restart_tips) }
+    private val tvCancel: TextView by lazy { rootView.findViewById(R.id.tv_cancel) }
+    private val tvConfirm: TextView by lazy { rootView.findViewById(R.id.tv_confirm) }
+
     var titleStr: CharSequence?
-        get() = rootView.tv_title.text
+        get() = tvTitle.text
         set(value) {
-            rootView.tv_title.text = value
+            tvTitle.text = value
         }
 
     var sizeStr: CharSequence?
-        get() = rootView.tv_size.text
+        get() = tvSize.text
         set(value) {
-            rootView.tv_size.text = value
+            tvSize.text = value
         }
 
     var contentStr: CharSequence?
-        get() = rootView.tv_content.text
+        get() = tvContent.text
         set(value) {
-            rootView.tv_content.text = value
+            tvContent.text = value
         }
 
     var isShowRestartTips: Boolean
-        get() = rootView.tv_restart_tips.isVisible
+        get() = tvRestartTips.isVisible
         set(value) {
-            rootView.tv_restart_tips.isVisible = value
+            tvRestartTips.isVisible = value
         }
 
     var isShowCancel: Boolean
-        get() = rootView.tv_cancel.isVisible
+        get() = tvCancel.isVisible
         set(value) {
-            rootView.tv_cancel.isVisible = value
+            tvCancel.isVisible = value
         }
 
 
     var onCancelClickListener: (() -> Unit)? = null
     var onConfirmClickListener: (() -> Unit)? = null
-
-
-    private val rootView: View = LayoutInflater.from(context).inflate(R.layout.dialog_firmware_up, null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,17 +69,17 @@ class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), 
             it.attributes = layoutParams
         }
 
-        rootView.tv_cancel.setOnClickListener(this)
-        rootView.tv_confirm.setOnClickListener(this)
+        tvCancel.setOnClickListener(this)
+        tvConfirm.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v) {
-            rootView.tv_cancel -> {//取消
+            tvCancel -> {//取消
                 dismiss()
                 onCancelClickListener?.invoke()
             }
-            rootView.tv_confirm -> {//确认
+            tvConfirm -> {//确认
                 dismiss()
                 onConfirmClickListener?.invoke()
             }

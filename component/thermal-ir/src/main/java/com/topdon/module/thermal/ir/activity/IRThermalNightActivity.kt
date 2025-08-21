@@ -23,8 +23,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.*
 import com.elvishew.xlog.XLog
 import com.energy.iruvc.ircmd.IRCMD
@@ -68,10 +66,10 @@ import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.common.SharedManager.getTemperature
 import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.config.ExtraKeyConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.dialog.*
 import com.topdon.lib.core.repository.GalleryRepository
 import com.topdon.lib.core.tools.*
+import com.topdon.lib.core.view.MainTitleView
 import com.topdon.lib.core.utils.BitmapUtils
 import com.topdon.lib.core.utils.CommUtils
 import com.topdon.lib.core.utils.Constants
@@ -106,7 +104,7 @@ import com.topdon.module.thermal.ir.view.TimeDownView
 import com.topdon.module.thermal.ir.view.compass.SensorService
 import com.topdon.pseudo.activity.PseudoSetActivity
 import com.topdon.pseudo.bean.CustomPseudoBean
-import kotlinx.android.synthetic.main.activity_thermal_ir_night.*
+import android.widget.TextView
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import org.greenrobot.eventbus.EventBus
@@ -115,7 +113,6 @@ import org.greenrobot.eventbus.ThreadMode
 import kotlin.math.roundToInt
 
 
-@Route(path = RouterConfig.IR_FRAME)
 open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
 
     /**
@@ -1301,10 +1298,10 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                         videoTimeClose()
                         delay(500)
                     }
-                    ARouter.getInstance()
-                        .build(RouterConfig.IR_GALLERY_HOME)
-                        .withInt(ExtraKeyConfig.DIR_TYPE, GalleryRepository.DirType.LINE.ordinal)
-                        .navigation()
+                    // TODO: Replace ARouter navigation - Intent
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                         .withInt(ExtraKeyConfig.DIR_TYPE, GalleryRepository.DirType.LINE.ordinal)
+            // TODO: Implement proper Intent navigation
                 }
             }
             2 -> {//更多菜单
@@ -2048,7 +2045,8 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             tempInfo,
             gainStatus
         )
-            TAG,
+            XLog.d(
+                TAG,
             "temp correct, oldTemp = " + paramsArray[0] + " ems = " + paramsArray[1] + " ta = " + paramsArray[2] + " " +
                     "distance = " + paramsArray[4] + " hum = " + paramsArray[5] + " productType = ${CommonParams.ProductType.WN256}" + " " +
                     "newtemp = " + newTemp
@@ -2267,8 +2265,8 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                     cameraItemAdapter?.listener = listener@{ position, _ ->
                         when (cameraItemAdapter!!.data[position].type) {
                             CameraItemBean.TYPE_SETTING -> {
-                                ARouter.getInstance().build(RouterConfig.IR_CAMERA_SETTING)
-                                    .navigation(this)
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                                     .navigation(this)
                                 return@listener
                             }
 

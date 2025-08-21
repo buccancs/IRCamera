@@ -1,6 +1,8 @@
 package com.topdon.transfer
+import com.topdon.tc001.R
 
 import android.media.MediaScannerConnection
+import android.view.View
 import android.view.WindowManager
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
@@ -15,7 +17,8 @@ import com.hjq.permissions.XXPermissions
 import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseActivity
-import kotlinx.android.synthetic.main.activity_transfer.*
+import android.widget.ProgressBar
+import com.topdon.lib.core.ui.TitleView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -33,7 +36,10 @@ class TransferActivity : BaseActivity() {
     override fun initContentView(): Int = R.layout.activity_transfer
 
     override fun initView() {
-        iv_back.setOnClickListener {
+        val ivBack = findViewById<View>(R.id.iv_back)
+        val clSuccess = findViewById<View>(R.id.cl_success)
+        
+        ivBack.setOnClickListener {
             finish()
         }
 
@@ -74,6 +80,7 @@ class TransferActivity : BaseActivity() {
 
 
     private fun startTransfer() {
+        val clSuccess = findViewById<View>(R.id.cl_success)
         val oldGalleryList: Array<File>? = File(FileConfig.oldTc001GalleryDir).listFiles()
 
         transferDialog = TransferDialog(this)
@@ -88,7 +95,7 @@ class TransferActivity : BaseActivity() {
             window?.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
             transferDialog.dismiss()
-            cl_success.isVisible = true
+            clSuccess.isVisible = true
         }
     }
 

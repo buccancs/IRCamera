@@ -1,4 +1,5 @@
 package com.topdon.lib.core.binding
+import com.topdon.tc001.R
 
 import android.content.res.TypedArray
 import android.graphics.drawable.ColorDrawable

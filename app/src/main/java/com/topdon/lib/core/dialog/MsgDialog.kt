@@ -13,7 +13,6 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.topdon.tc001.R
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.dialog_msg.view.*
 
 
 class MsgDialog : Dialog {
@@ -72,9 +71,9 @@ class MsgDialog : Dialog {
             val inflater =
                 context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             val view = inflater.inflate(R.layout.dialog_msg, null)
-            tipImg = view.dialog_msg_img
-            messageText = view.dialog_msg_text
-            closeImg = view.dialog_msg_close
+            tipImg = view.findViewById(R.id.dialog_msg_img)
+            messageText = view.findViewById(R.id.dialog_msg_text)
+            closeImg = view.findViewById(R.id.dialog_msg_close)
             dialog!!.addContentView(
                 view, LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
             )

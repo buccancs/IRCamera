@@ -15,7 +15,7 @@ import android.os.Process
 import android.text.TextUtils
 import android.webkit.WebView
 import androidx.annotation.RequiresApi
-import com.alibaba.android.arouter.launcher.ARouter
+
 import com.blankj.utilcode.util.LanguageUtils
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.bean.event.SocketMsgEvent
@@ -25,6 +25,7 @@ import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.db.AppDatabase
 import com.topdon.lib.core.repository.FileBean
+import com.topdon.lib.core.repository.TS004Repository
 import com.topdon.lib.core.socket.SocketCmdUtil
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.AppLanguageUtils
@@ -62,7 +63,6 @@ abstract class BaseApplication : Application() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             webviewSetPath(this)
         }
-        initARouter()
         onLanguageChange()
 
         WebSocketProxy.getInstance().onMessageListener = {
@@ -171,19 +171,7 @@ abstract class BaseApplication : Application() {
         return null
     }
 
-    private fun initARouter() {
-        try {
-            if (BuildConfig.DEBUG) {
-                ARouter.openDebug()
-            }
-            ARouter.init(this)
-        } catch (e: Exception) {
-            if (SharedManager.getHasShowClause()) {
-            }
-            ARouter.openDebug()
-            ARouter.init(this)
-        }
-    }
+
 
     fun clearDb() {
         GlobalScope.launch(Dispatchers.Default) {

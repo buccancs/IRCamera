@@ -17,19 +17,6 @@ import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.ui.widget.RoundImageView
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.report.bean.ReportData
-import kotlinx.android.synthetic.main.activity_report_preview.iv_inspector_signature
-import kotlinx.android.synthetic.main.item_gallery_head_lay.view.*
-import kotlinx.android.synthetic.main.item_gallery_lay.view.*
-import kotlinx.android.synthetic.main.item_report_album_child.view.riv_photo
-import kotlinx.android.synthetic.main.item_report_album_child.view.tv_name
-import kotlinx.android.synthetic.main.item_report_floor_child.view.iv_problem
-import kotlinx.android.synthetic.main.item_report_floor_child.view.iv_repair
-import kotlinx.android.synthetic.main.item_report_floor_child.view.iv_replace
-import kotlinx.android.synthetic.main.item_report_floor_child.view.tv_problem
-import kotlinx.android.synthetic.main.item_report_floor_child.view.tv_project
-import kotlinx.android.synthetic.main.item_report_floor_child.view.tv_remark
-import kotlinx.android.synthetic.main.item_report_floor_child.view.tv_repair
-import kotlinx.android.synthetic.main.item_report_floor_child.view.tv_replace
 
 @SuppressLint("NotifyDataSetChanged")
 class ReportPreviewAlbumAdapter(
@@ -51,9 +38,10 @@ class ReportPreviewAlbumAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val bean = dataList[position]
-        Glide.with(cxt).load(bean.photoPath).into(holder.itemView.riv_photo)
-        holder.itemView.tv_name.text = bean.title
-        holder.itemView.riv_photo.setOnClickListener {
+        val itemHolder = holder as ItemView
+        Glide.with(cxt).load(bean.photoPath).into(itemHolder.rivPhoto)
+        itemHolder.tvName.text = bean.title
+        itemHolder.rivPhoto.setOnClickListener {
             jumpListener?.invoke(bean,position)
         }
     }
@@ -63,7 +51,7 @@ class ReportPreviewAlbumAdapter(
     }
 
     inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val rivPhoto: RoundImageView = itemView.riv_photo
-        val tvName: TextView = itemView.tv_name
+        val rivPhoto: RoundImageView = itemView.findViewById(R.id.riv_photo)
+        val tvName: TextView = itemView.findViewById(R.id.tv_name)
     }
 }

@@ -2,14 +2,13 @@ package com.topdon.module.thermal.ir.fragment
 
 import android.content.Intent
 import androidx.core.view.isVisible
-import com.alibaba.android.arouter.launcher.ARouter
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.activity.IRMonitorActivity
-import kotlinx.android.synthetic.main.fragment_ir_monitor_capture.*
+import android.widget.LinearLayout
+import com.airbnb.lottie.LottieAnimationView
 
 /**
  * 温度监控-实时（即生成温度监控）.
@@ -27,9 +26,9 @@ class IRMonitorCaptureFragment : BaseFragment() {
         view_start.setOnClickListener {
             if (DeviceTools.isConnect()) {
                 if (DeviceTools.isTC001LiteConnect()) {
-                    ARouter.getInstance().build(RouterConfig.IR_THERMAL_MONITOR_LITE).navigation(requireContext())
+            // TODO: Replace RouterConfig reference with direct navigation
                 } else if (DeviceTools.isHikConnect()) {
-                    ARouter.getInstance().build(RouterConfig.IR_HIK_MONITOR_CAPTURE1).navigation(requireContext())
+            // TODO: Replace RouterConfig reference with direct navigation
                 } else {
                     startActivity(Intent(requireContext(), IRMonitorActivity::class.java))
                 }

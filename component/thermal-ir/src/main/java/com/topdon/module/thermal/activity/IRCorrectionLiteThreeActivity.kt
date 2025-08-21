@@ -1,0 +1,58 @@
+package com.topdon.module.thermal.activity
+
+import android.content.Intent
+import android.os.Bundle
+import androidx.lifecycle.lifecycleScope
+import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.fragment.IRMonitorLiteFragment
+import com.topdon.lib.core.ktbase.BaseActivity
+import android.widget.TextView
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
+/**
+ *
+ * 锅盖矫正
+ * @author: CaiSongL
+ * @date: 2023/8/4 9:06
+ */
+class IRCorrectionLiteThreeActivity : BaseActivity() {
+
+    override fun initContentView(): Int = R.layout.activity_ir_correction_lite_three
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val fragment: IRMonitorLiteFragment = if (savedInstanceState == null) {
+            IRMonitorLiteFragment()
+        } else {
+            supportFragmentManager.findFragmentById(R.id.fragment_container_view) as IRMonitorLiteFragment
+        }
+
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .setReorderingAllowed(true)
+                .add(R.id.fragment_container_view, fragment)
+                .commit()
+        }
+
+        findViewById<TextView>(R.id.tv_correction).setOnClickListener {
+            lifecycleScope.launch {
+                if (fragment.frameReady) {
+                    fragment.closeFragment()
+                    showCameraLoading()
+                    delay(1000)
+                    dismissCameraLoading()
+                    val intent = Intent(this@IRCorrectionLiteThreeActivity,
+                        IRCorrectionLiteFourActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            }
+        }
+    }
+
+    override fun initView() {
+    }
+
+    override fun initData() {}
+}

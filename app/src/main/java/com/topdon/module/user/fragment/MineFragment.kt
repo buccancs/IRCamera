@@ -13,7 +13,6 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.CleanUtils
 import com.blankj.utilcode.util.LanguageUtils
 import com.blankj.utilcode.util.SizeUtils
@@ -23,11 +22,8 @@ import com.google.gson.Gson
 import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.bean.event.PDFEvent
 import com.topdon.lib.core.bean.event.WinterClickEvent
-import com.topdon.lib.core.bean.response.ResponseUserInfo
 import com.topdon.lib.core.common.SharedManager
-import com.topdon.lib.core.common.UserInfoManager
 import com.topdon.lib.core.config.ExtraKeyConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.db.AppDatabase
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseFragment
@@ -47,9 +43,8 @@ import com.topdon.tc001.R
 import com.topdon.module.user.activity.LanguageActivity
 import com.topdon.module.user.activity.MoreActivity
 import com.zoho.salesiqembed.ZohoSalesIQ
-import kotlinx.android.synthetic.main.fragment_mine.*
-import kotlinx.android.synthetic.main.fragment_more.setting_item_unit
-import kotlinx.android.synthetic.main.layout_customer.drag_customer_view
+import android.widget.ImageView
+import android.widget.TextView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -60,11 +55,42 @@ import org.greenrobot.eventbus.ThreadMode
 
 class MineFragment : BaseFragment(), View.OnClickListener {
 
-    private var isNeedRefreshLogin = false
+    private var isNeedRefreshUI = false
+
+    // View declarations
+    private lateinit var iv_winter: ImageView
+    private lateinit var setting_item_language: View
+    private lateinit var setting_item_version: View
+    private lateinit var setting_item_clear: View
+    private lateinit var setting_user_lay: View
+    private lateinit var setting_user_img_night: ImageView
+    private lateinit var setting_user_text: TextView
+    private lateinit var setting_electronic_manual: View
+    private lateinit var setting_faq: View
+    private lateinit var setting_feedback: View
+    private lateinit var setting_item_unit: View
+    private lateinit var drag_customer_view: View
+    private lateinit var view_winter_point: View
+    private lateinit var tv_email: TextView
 
     override fun initContentView(): Int = R.layout.fragment_mine
 
     override fun initView() {
+        // Initialize views
+        iv_winter = requireView().findViewById(R.id.iv_winter)
+        setting_item_language = requireView().findViewById(R.id.setting_item_language)
+        setting_item_version = requireView().findViewById(R.id.setting_item_version)
+        setting_item_clear = requireView().findViewById(R.id.setting_item_clear)
+        setting_user_lay = requireView().findViewById(R.id.setting_user_lay)
+        setting_user_img_night = requireView().findViewById(R.id.setting_user_img_night)
+        setting_user_text = requireView().findViewById(R.id.setting_user_text)
+        setting_electronic_manual = requireView().findViewById(R.id.setting_electronic_manual)
+        setting_faq = requireView().findViewById(R.id.setting_faq)
+        setting_feedback = requireView().findViewById(R.id.setting_feedback)
+        setting_item_unit = requireView().findViewById(R.id.setting_item_unit)
+        drag_customer_view = requireView().findViewById(R.id.drag_customer_view)
+        view_winter_point = requireView().findViewById(R.id.view_winter_point)
+        tv_email = requireView().findViewById(R.id.tv_email)
         iv_winter.setOnClickListener(this)
         setting_item_language.setOnClickListener(this)
         setting_item_version.setOnClickListener(this)
@@ -98,7 +124,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun updatePDF(event: PDFEvent) {
-        isNeedRefreshLogin = true
+        isNeedRefreshUI = true
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -108,10 +134,9 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
-        changeLoginStyle()
-        if (isNeedRefreshLogin) {
-            isNeedRefreshLogin = false
-            checkLoginResult()
+        updateUIStyle()
+        if (isNeedRefreshUI) {
+            isNeedRefreshUI = false
         }
     }
 
@@ -140,50 +165,38 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                 }
 
 
-                ARouter.getInstance().build(RouterConfig.WEB_VIEW)
-                    .withString(ExtraKeyConfig.URL, url)
-                    .navigation(requireContext())
+                Intent(this, com.topdon.tc001.WebViewActivity::class.java)
+// TODO_FIX_AROUTER:                     .withString(ExtraKeyConfig.URL, url)
+// TODO_FIX_AROUTER:                     .navigation(requireContext())
             }
-            setting_user_lay, setting_user_img_night -> {
-                if (UserInfoManager.getInstance().isLogin()) {
-                    isNeedRefreshLogin = true
-                    LMS.getInstance().activityUserInfo()
-                } else {
-                    loginAction()
-                }
-            }
-            setting_user_text -> {
-                if (!LMS.getInstance().isLogin) {
-                    loginAction()
-                }
+            setting_user_lay, setting_user_img_night, setting_user_text -> {
+                // Local settings - no login required
+                ToastTools.showShort("Local mode - no user account required")
             }
             setting_electronic_manual -> {//电子说明书
-                ARouter.getInstance().build(RouterConfig.ELECTRONIC_MANUAL).withInt(Constants.SETTING_TYPE, Constants.SETTING_BOOK).navigation(requireContext())
+// TODO_FIX_AROUTER:                 Intent(this, com.topdon.module.user.activity.ElectronicManualActivity::class.java).withInt(Constants.SETTING_TYPE, Constants.SETTING_BOOK).navigation(requireContext())
             }
             setting_faq -> {//FAQ
-                ARouter.getInstance().build(RouterConfig.ELECTRONIC_MANUAL).withInt(Constants.SETTING_TYPE, Constants.SETTING_FAQ).navigation(requireContext())
+// TODO_FIX_AROUTER:                 Intent(this, com.topdon.module.user.activity.ElectronicManualActivity::class.java).withInt(Constants.SETTING_TYPE, Constants.SETTING_FAQ).navigation(requireContext())
             }
             setting_feedback -> {//意见反馈
-                if (LMS.getInstance().isLogin) {
-                    val devSn = SharedManager.getDeviceSn()
-                    FeedBackBean().apply {
-                        logPath = logPath
-                        sn = devSn
-                        lastConnectSn = devSn
-                    }.let { feedBackBean ->
-                        val intent = Intent(requireContext(), FeedbackActivity::class.java)
-                        intent.putExtra(FeedbackActivity.FEEDBACKBEAN, feedBackBean)
-                        startActivity(intent)
-                    }
-                } else {
-                    loginAction()
+                // Simplified feedback - no login required
+                val devSn = SharedManager.getDeviceSn()
+                FeedBackBean().apply {
+                    logPath = logPath
+                    sn = devSn
+                    lastConnectSn = devSn
+                }.let { feedBackBean ->
+                    val intent = Intent(requireContext(), FeedbackActivity::class.java)
+                    intent.putExtra(FeedbackActivity.FEEDBACKBEAN, feedBackBean)
+                    startActivity(intent)
                 }
             }
             setting_item_unit -> {//温度单位
-                ARouter.getInstance().build(RouterConfig.UNIT).navigation(requireContext())
+                startActivity(Intent(requireContext(), com.topdon.module.user.activity.UnitActivity::class.java))
             }
             setting_item_version -> {//版本
-                ARouter.getInstance().build(RouterConfig.VERSION).navigation(requireContext())
+                startActivity(Intent(requireContext(), com.topdon.tc001.VersionActivity::class.java))
             }
             setting_item_language -> {//语言
                 languagePickResult.launch(Intent(requireContext(), LanguageActivity::class.java))
@@ -202,81 +215,19 @@ class MineFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
-    private fun loginAction() {
-        isNeedRefreshLogin = true
-        val bgBitmap = BitmapFactory.decodeResource(resources, R.mipmap.bg_login)
-        LMS.getInstance().activityLogin(null, null, false, null, bgBitmap)
-    }
-
-    private fun checkLoginResult() {
-        if (LMS.getInstance().isLogin) {
-            LMS.getInstance().getUserInfo { userinfo: CommonBean ->
-                try {
-                    val json = userinfo.data
-                    val infoData = Gson().fromJson(json, ResponseUserInfo::class.java)
-                    UserInfoManager.getInstance().login(
-                        token = LMS.getInstance().token,
-                        userId = infoData.topdonId,
-                        phone = infoData.phone,
-                        email = infoData.email,
-                        nickname = infoData.userName,
-                        headUrl = infoData.avatar,
-                    )
-
-                    changeLoginStyle()
-                } catch (e: Exception) {
-                }
-            }
-        } else {
-            changeLoginStyle()
-            setting_user_img_night.setImageResource(R.mipmap.ic_default_user_head)//恢复默认头像
-        }
-    }
-
-    private fun changeLoginStyle() {
-        if (LMS.getInstance().isLogin) {
-            val layoutParams = ConstraintLayout.LayoutParams(0, ConstraintLayout.LayoutParams.WRAP_CONTENT)
-            layoutParams.startToEnd = R.id.setting_user_img_night
-            layoutParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
-            layoutParams.topToTop = ConstraintLayout.LayoutParams.PARENT_ID
-            layoutParams.marginStart = SizeUtils.dp2px(16f)
-            layoutParams.marginEnd = SizeUtils.dp2px(16f)
-            setting_user_text.setPadding(0,0,0,0)
-            setting_user_text.gravity = Gravity.LEFT
-            setting_user_text.layoutParams = layoutParams
-            val drawable = ContextCompat.getDrawable(requireContext(), R.color.transparent)
-            drawable!!.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
-            setting_user_text.setCompoundDrawables(null, null, drawable, null)
-            setting_user_text.text = SharedManager.getNickname()
-            tv_email.text = SharedManager.getUsername()
-            setting_user_lay.visibility = View.VISIBLE
-
-            if (setting_user_img_night != null) {
-                GlideLoader.loadCircle(
-                    setting_user_img_night,
-                    SharedManager.getHeadIcon(),
-                    R.mipmap.ic_default_user_head,
-                    RequestOptions().optionalCircleCrop()
-                )
-            }
-        } else {
-            val layoutParams = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT)
-            layoutParams.startToEnd = R.id.setting_user_img_night
-            layoutParams.topToTop = R.id.setting_user_img_night
-            layoutParams.bottomToBottom = R.id.setting_user_img_night
-            setting_user_text.setPadding(SizeUtils.dp2px(16f), SizeUtils.dp2px(16f), SizeUtils.dp2px(16f), SizeUtils.dp2px(16f))
-            setting_user_text.gravity = Gravity.CENTER
-            setting_user_text.layoutParams = layoutParams
-            setting_user_text.setText(
-                AppLanguageUtils.attachBaseContext(
-                context, SharedManager.getLanguage(requireContext())).getString(R.string.app_sign_in))
-            val drawable = ContextCompat.getDrawable(requireContext(), R.mipmap.ic_arrow_login)
-            drawable!!.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
-            setting_user_text.setCompoundDrawables(null, null, drawable, null)
-            setting_user_lay.visibility = View.GONE
-            tv_email.text = ""
-            setting_user_img_night.setImageResource(R.mipmap.ic_default_user_head)//恢复默认头像
-        }
+    private fun updateUIStyle() {
+        // Local mode - show local settings UI
+        val layoutParams = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT)
+        layoutParams.startToEnd = R.id.setting_user_img_night
+        layoutParams.topToTop = R.id.setting_user_img_night
+        layoutParams.bottomToBottom = R.id.setting_user_img_night
+        setting_user_text.setPadding(SizeUtils.dp2px(16f), SizeUtils.dp2px(16f), SizeUtils.dp2px(16f), SizeUtils.dp2px(16f))
+        setting_user_text.gravity = Gravity.CENTER
+        setting_user_text.layoutParams = layoutParams
+        setting_user_text.text = "Local Mode"
+        setting_user_lay.visibility = View.GONE
+        tv_email.text = ""
+        setting_user_img_night.setImageResource(R.mipmap.ic_default_user_head)
     }
 
     private fun clearCache() {

@@ -7,17 +7,15 @@ import android.view.ViewGroup
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.topdon.lib.core.bean.event.ReportCreateEvent
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.FileConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseViewModelActivity
 import com.topdon.lib.core.tools.FileTools
 import com.topdon.lib.core.tools.GlideLoader
+import com.topdon.lib.core.view.MainTitleView
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.utils.NetWorkUtils
@@ -29,7 +27,10 @@ import com.topdon.module.thermal.ir.report.view.ReportIRShowView
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.report.bean.ReportBean
 import com.topdon.module.thermal.ir.report.viewmodel.UpReportViewModel
-import kotlinx.android.synthetic.main.activity_report_preview_second.*
+import android.widget.ScrollView
+import android.widget.LinearLayout
+import android.widget.Button
+import com.topdon.lib.core.ui.TitleView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
@@ -42,7 +43,6 @@ import java.io.File
  * - 是否 TC007: [ExtraKeyConfig.IS_TC007]
  * - 一份报告所有信息 [ExtraKeyConfig.REPORT_BEAN]
  */
-@Route(path = RouterConfig.REPORT_PREVIEW_SECOND)
 class ReportPreviewSecondActivity: BaseViewModelActivity<UpReportViewModel>(), View.OnClickListener {
 
     /**
@@ -126,9 +126,9 @@ class ReportPreviewSecondActivity: BaseViewModelActivity<UpReportViewModel>(), V
             dismissCameraLoading()
             if (it.code == LMS.SUCCESS) {
                 EventBus.getDefault().post(ReportCreateEvent())
-                ARouter.getInstance().build(RouterConfig.REPORT_LIST)
-                    .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
-                    .navigation(this)
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                     .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
+// TODO_FIX_AROUTER:                     .navigation(this)
                 finish()
             } else {
                 ToastUtils.showShort(StringUtils.getResString(this, it.code.toString()))

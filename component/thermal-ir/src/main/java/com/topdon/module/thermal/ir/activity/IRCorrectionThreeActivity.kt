@@ -2,12 +2,10 @@ package com.topdon.module.thermal.ir.activity
 
 import android.content.Intent
 import android.os.Bundle
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.fragment.IRCorrectionFragment
-import kotlinx.android.synthetic.main.activity_ir_correction_three.*
+import android.widget.TextView
 
 /**
  *
@@ -15,7 +13,6 @@ import kotlinx.android.synthetic.main.activity_ir_correction_three.*
  * @author: CaiSongL
  * @date: 2023/8/4 9:06
  */
-@Route(path = RouterConfig.IR_CORRECTION_THREE)
 class IRCorrectionThreeActivity : BaseActivity() {
 
     override fun initContentView(): Int = R.layout.activity_ir_correction_three
@@ -35,7 +32,8 @@ class IRCorrectionThreeActivity : BaseActivity() {
                 .commit()
         }
 
-        tv_correction.setOnClickListener {
+        val tvCorrection: TextView = findViewById(R.id.tv_correction)
+        tvCorrection.setOnClickListener {
             if (fragment.frameReady) {
                 val intent = Intent(this,IRCorrectionFourActivity::class.java)
                 startActivity(intent)

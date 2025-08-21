@@ -2,14 +2,9 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-parcelize'
-    id 'kotlin-kapt'
 }
 
-kapt {
-    arguments {
-        arg("AROUTER_MODULE_NAME", project.getName())
-    }
-}
+
 
 android {
     namespace 'com.topdon.module.thermal.ir'
@@ -40,11 +35,6 @@ android {
         dataBinding = true
         buildConfig = true
     }
-//    repositories {
-//        flatDir {
-//            dirs '../../libir/libs'
-//        }
-//    }
 
     flavorDimensions 'app'
     productFlavors {
@@ -55,16 +45,26 @@ android {
 }
 
 dependencies {
+    // Merged dependencies from thermal-ir and thermal-lite
     implementation(name: 'opengl_1.3.2_standard', ext: 'aar')
     implementation(name: 'library_1.0', ext: 'aar')
+    implementation(name: 'libusbdualsdk_1.3.4_2406271906_standard', ext: 'aar')
+    implementation(name: 'libAC020sdk_USB_IR_1.1.1_2408291439', ext: 'aar')
+    implementation(name: 'libirutils_1.2.0_2409241055', ext: 'aar')
 
-    compileOnly(name: 'libcommon_1.2.0_24052117', ext: 'aar')
-    // Removed house and pseudo dependencies  
+    compileOnly(name: "libcommon_1.2.0_24052117", ext: "aar")
     implementation project(':libmatrix')
 
-    kapt "com.alibaba:arouter-compiler:1.5.4"
+    api(project(":component:CommonComponent"))
+    implementation("androidx.multidex:multidex:2.0.1")
+    implementation("com.google.android.material:material:1.4.0")
+
     api "com.airbnb.android:lottie:6.0.0"
     api 'com.github.anzaizai:EasySwipeMenuLayout:1.1.4'
+    
+    // Kotlin Coroutines - compatible with Kotlin 2.0+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
 
     api "com.github.kylecorry31.andromeda:sense:6.2.0"
     api "com.github.kylecorry31.andromeda:core:6.2.0"

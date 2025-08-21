@@ -1,15 +1,13 @@
 package com.topdon.module.thermal.fragment
 
 import androidx.recyclerview.widget.GridLayoutManager
-import com.alibaba.android.arouter.launcher.ARouter
+import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ScreenUtils
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseViewModelFragment
 import com.topdon.lib.core.widget.dialog.TipDialog
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.adapter.SimpleGalleryAdapter
 import com.topdon.module.thermal.viewmodel.GalleryViewModel
-import kotlinx.android.synthetic.main.fragment_gallery_video.*
 
 /**
  * 图片
@@ -23,8 +21,9 @@ class GalleryVideoFragment : BaseViewModelFragment<GalleryViewModel>() {
 
     override fun initView() {
         val span = if (ScreenUtils.isLandscape()) 6 else 3
-        gallery_video_recycler.layoutManager = GridLayoutManager(requireContext(), span)
-        gallery_video_recycler.adapter = adapter
+        val galleryVideoRecycler = requireView().findViewById<RecyclerView>(R.id.gallery_video_recycler)
+        galleryVideoRecycler.layoutManager = GridLayoutManager(requireContext(), span)
+        galleryVideoRecycler.adapter = adapter
 
         viewModel.galleryLiveData.observe(this) {
             adapter.datas = it
@@ -67,8 +66,8 @@ class GalleryVideoFragment : BaseViewModelFragment<GalleryViewModel>() {
 
 
     fun openVideo(path: String) {
-        ARouter.getInstance().build(RouterConfig.VIDEO).withString("video_path", path)
-            .navigation(requireContext())
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:             .navigation(requireContext())
     }
 
 }

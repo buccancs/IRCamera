@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
 import com.blankj.utilcode.util.SizeUtils
@@ -14,12 +15,6 @@ import com.jaygoo.widget.OnRangeChangedListener
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.tc001.R
 import com.topdon.libcom.util.ColorUtils
-import kotlinx.android.synthetic.main.dialog_color_pick.nifty_slider_view
-import kotlinx.android.synthetic.main.dialog_color_pick.tv_nifty_left
-import kotlinx.android.synthetic.main.dialog_color_pick.tv_nifty_right
-import kotlinx.android.synthetic.main.dialog_color_pick.tv_size_title
-import kotlinx.android.synthetic.main.dialog_color_pick.tv_size_value
-import kotlinx.android.synthetic.main.dialog_color_pick.view.*
 
 class ColorPickDialog(context: Context, @ColorInt private var color: Int,var textSize: Int,var textSizeIsDP : Boolean = false) : Dialog(context, R.style.InfoDialog), View.OnClickListener {
 
@@ -61,12 +56,18 @@ class ColorPickDialog(context: Context, @ColorInt private var color: Int,var tex
             color = it
         }
         if (textSize != -1){
-            tv_size_title.visibility = View.VISIBLE
-            tv_size_value.visibility = View.VISIBLE
-            tv_nifty_left.visibility = View.VISIBLE
-            tv_nifty_right.visibility = View.VISIBLE
-            nifty_slider_view.visibility = View.VISIBLE
-            nifty_slider_view.setOnRangeChangedListener(object : OnRangeChangedListener{
+            val tvSizeTitle = findViewById<TextView>(R.id.tv_size_title)
+            val tvSizeValue = findViewById<TextView>(R.id.tv_size_value)
+            val tvNiftyLeft = findViewById<TextView>(R.id.tv_nifty_left)
+            val tvNiftyRight = findViewById<TextView>(R.id.tv_nifty_right)
+            val niftySliderView = findViewById<DefRangeSeekBar>(R.id.nifty_slider_view)
+            
+            tvSizeTitle.visibility = View.VISIBLE
+            tvSizeValue.visibility = View.VISIBLE
+            tvNiftyLeft.visibility = View.VISIBLE
+            tvNiftyRight.visibility = View.VISIBLE
+            niftySliderView.visibility = View.VISIBLE
+            niftySliderView.setOnRangeChangedListener(object : OnRangeChangedListener{
                 override fun onRangeChanged(
                     view: DefRangeSeekBar?,
                     leftValue: Float,
@@ -84,7 +85,7 @@ class ColorPickDialog(context: Context, @ColorInt private var color: Int,var tex
                         textSize = 18
                         context.getString(R.string.temp_text_sup_big)
                     }
-                    tv_size_value?.text = text
+                    tvSizeValue?.text = text
                 }
 
                 override fun onStartTrackingTouch(view: DefRangeSeekBar?, isLeft: Boolean) {
@@ -94,9 +95,10 @@ class ColorPickDialog(context: Context, @ColorInt private var color: Int,var tex
                 }
 
             })
-            nifty_slider_view.setProgress(textSizeToNifyValue(textSize,textSizeIsDP))
+            niftySliderView.setProgress(textSizeToNifyValue(textSize,textSizeIsDP))
         }else{
-            nifty_slider_view.visibility = View.GONE
+            val niftySliderView = findViewById<DefRangeSeekBar>(R.id.nifty_slider_view)
+            niftySliderView.visibility = View.GONE
         }
         rootView.view_color1.setOnClickListener(this)
         rootView.view_color2.setOnClickListener(this)

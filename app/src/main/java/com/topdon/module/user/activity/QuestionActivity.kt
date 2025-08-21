@@ -1,39 +1,34 @@
 package com.topdon.module.user.activity
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.tc001.R
 import com.topdon.module.user.model.QuestionData
 import com.topdon.module.user.model.FaqRepository
-import kotlinx.android.synthetic.main.activity_question.*
-import kotlinx.android.synthetic.main.item_question.view.item_question_info
-import kotlinx.android.synthetic.main.item_question.view.item_question_lay
 import java.util.ArrayList
 
-@Route(path = RouterConfig.QUESTION)
 class QuestionActivity : BaseActivity() {
 
     override fun initContentView() = R.layout.activity_question
 
     override fun initView() {
+        val questionRecycler = findViewById<RecyclerView>(R.id.question_recycler)
         val adapter = MyAdapter(FaqRepository.getQuestionList(intent.getBooleanExtra("isTS001", false)))
         adapter.onItemClickListener = {
-            ARouter.getInstance()
-                .build(RouterConfig.QUESTION_DETAILS)
-                .withString("question", it.question)
-                .withString("answer", it.answer)
-                .navigation(this)
+            val intent = Intent(this, com.topdon.module.user.activity.QuestionDetailsActivity::class.java)
+            intent.putExtra("question", it.question)
+            intent.putExtra("answer", it.answer)
+            startActivity(intent)
         }
 
-        question_recycler.layoutManager = LinearLayoutManager(this)
-        question_recycler.adapter = adapter
+        questionRecycler.layoutManager = LinearLayoutManager(this)
+        questionRecycler.adapter = adapter
     }
 
     override fun initData() {
@@ -53,8 +48,10 @@ class QuestionActivity : BaseActivity() {
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             if (holder is ItemHolder) {
-                holder.rootView.item_question_info.text = questionList[position].question
-                holder.rootView.item_question_lay.setOnClickListener {
+                val itemQuestionInfo = holder.rootView.findViewById<TextView>(R.id.item_question_info)
+                val itemQuestionLay = holder.rootView.findViewById<View>(R.id.item_question_lay)
+                itemQuestionInfo.text = questionList[position].question
+                itemQuestionLay.setOnClickListener {
                     onItemClickListener?.invoke(questionList[position])
                 }
             }

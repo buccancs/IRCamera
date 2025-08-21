@@ -34,7 +34,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="@string/menu_3d_calibrate"
+                android:text="@string/button_correction"
                 android:textSize="13sp"
                 android:textColor="@color/second_menu_text"
                 android:maxLines="1"

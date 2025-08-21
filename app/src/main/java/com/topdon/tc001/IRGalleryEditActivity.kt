@@ -1,4 +1,5 @@
 package com.topdon.tc001
+import com.topdon.tc001.R
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -11,16 +12,14 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.drawToBitmap
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.SizeUtils
 import com.elvishew.xlog.XLog
 import com.energy.iruvc.ircmd.IRCMDType
 import com.energy.iruvc.ircmd.IRUtils
 import com.energy.iruvc.utils.CommonParams
-import com.example.thermal_lite.IrConst
-import com.example.thermal_lite.util.CommonUtil
-import com.example.thermal_lite.util.IRTool
+import com.topdon.module.thermal.IrConst
+import com.topdon.module.thermal.util.CommonUtil
+import com.topdon.module.thermal.util.IRTool
 import com.infisense.usbir.utils.OpencvTools
 import com.topdon.lib.core.utils.BitmapUtils
 import com.infisense.usbir.utils.PseudocodeUtils.changePseudocodeModeByOld
@@ -32,7 +31,6 @@ import com.topdon.lib.core.common.ProductType.PRODUCT_NAME_TS
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.FileConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.ScreenTool
 import com.topdon.lib.core.tools.TimeTool
@@ -63,7 +61,13 @@ import com.topdon.module.thermal.ir.viewmodel.IRGalleryEditViewModel
 // Removed imports from pseudo component
 // import com.topdon.pseudo.activity.PseudoSetActivity
 // import com.topdon.pseudo.bean.CustomPseudoBean
-import kotlinx.android.synthetic.main.activity_ir_gallery_edit.*
+import android.widget.*
+import androidx.recyclerview.widget.RecyclerView
+import com.infisense.usbir.view.CameraPreView
+import com.infisense.usbir.view.TemperatureView
+import com.topdon.lib.core.ui.TitleView
+import com.topdon.lib.ui.widget.SettingNightView
+import com.topdon.lib.ui.widget.seekbar.RangeSeekBar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -72,7 +76,6 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 
-@Route(path = RouterConfig.IR_GALLERY_EDIT)
 class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListener {
 
 
@@ -554,20 +557,20 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                     launch(Dispatchers.Main) {
                         dismissLoadingDialog()
                         if (intent.getBooleanExtra(IS_REPORT_FIRST, true)) {
-                            ARouter.getInstance().build(RouterConfig.REPORT_CREATE_FIRST)
-                                .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
-                                .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, fileAbsolutePath)
-                                .withParcelable(ExtraKeyConfig.IMAGE_TEMP_BEAN, buildImageTempBean())
-                                .navigation(this@IRGalleryEditActivity)
+                            val reportIntent = Intent(this@IRGalleryEditActivity, com.topdon.module.thermal.ir.report.activity.ReportCreateFirstActivity::class.java)
+                            reportIntent.putExtra(ExtraKeyConfig.IS_TC007, isTC007)
+                            reportIntent.putExtra(ExtraKeyConfig.FILE_ABSOLUTE_PATH, fileAbsolutePath)
+                            reportIntent.putExtra(ExtraKeyConfig.IMAGE_TEMP_BEAN, buildImageTempBean())
+                            startActivity(reportIntent)
                         } else {
-                            ARouter.getInstance().build(RouterConfig.REPORT_CREATE_SECOND)
-                                .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
-                                .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, fileAbsolutePath)
-                                .withParcelable(ExtraKeyConfig.IMAGE_TEMP_BEAN, buildImageTempBean())
-                                .withParcelable(ExtraKeyConfig.REPORT_INFO, intent.getParcelableExtra(ExtraKeyConfig.REPORT_INFO))
-                                .withParcelable(ExtraKeyConfig.REPORT_CONDITION, intent.getParcelableExtra(ExtraKeyConfig.REPORT_CONDITION))
-                                .withParcelableArrayList(ExtraKeyConfig.REPORT_IR_LIST, intent.getParcelableArrayListExtra(ExtraKeyConfig.REPORT_IR_LIST))
-                                .navigation(this@IRGalleryEditActivity)
+                            val reportIntent = Intent(this@IRGalleryEditActivity, com.topdon.module.thermal.ir.report.activity.ReportCreateSecondActivity::class.java)
+                            reportIntent.putExtra(ExtraKeyConfig.IS_TC007, isTC007)
+                            reportIntent.putExtra(ExtraKeyConfig.FILE_ABSOLUTE_PATH, fileAbsolutePath)
+                            reportIntent.putExtra(ExtraKeyConfig.IMAGE_TEMP_BEAN, buildImageTempBean())
+                            reportIntent.putExtra(ExtraKeyConfig.REPORT_INFO, intent.getParcelableExtra(ExtraKeyConfig.REPORT_INFO))
+                            reportIntent.putExtra(ExtraKeyConfig.REPORT_CONDITION, intent.getParcelableExtra(ExtraKeyConfig.REPORT_CONDITION))
+                            reportIntent.putExtra(ExtraKeyConfig.REPORT_IR_LIST, intent.getParcelableArrayListExtra(ExtraKeyConfig.REPORT_IR_LIST))
+                            startActivity(reportIntent)
                         }
                     }
                 }

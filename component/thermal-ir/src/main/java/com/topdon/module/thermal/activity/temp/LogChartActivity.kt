@@ -2,26 +2,22 @@
 //
 //import androidx.lifecycle.lifecycleScope
 //import androidx.recyclerview.widget.GridLayoutManager
-//import com.alibaba.android.arouter.facade.annotation.Route
 //import com.github.aachartmodel.aainfographics.aachartcreator.*
 //import com.github.aachartmodel.aainfographics.aaoptionsmodel.*
 //import com.github.aachartmodel.aainfographics.aatools.AAGradientColor
 //import com.github.aachartmodel.aainfographics.aatools.AALinearGradientDirection
 //import com.topdon.lib.core.common.SharedManager
-//import com.topdon.lib.core.config.RouterConfig
 //import com.topdon.lib.core.db.AppDatabase
 //import com.topdon.lib.core.db.entity.ThermalEntity
 //import com.topdon.lib.core.ktbase.BaseActivity
 //import com.topdon.lib.core.tools.TimeTool
 //import com.topdon.module.thermal.ir.R
 //import com.topdon.module.thermal.adapter.SettingTimeAdapter
-//import kotlinx.android.synthetic.main.activity_chart.aa_chart_view
-//import kotlinx.android.synthetic.main.activity_log_chart.*
 //import kotlinx.coroutines.Dispatchers
 //import kotlinx.coroutines.delay
 //import kotlinx.coroutines.launch
 //
-//@Route(path = RouterConfig.THERMAL_LOG_CHART)
+            // TODO: Replace RouterConfig reference with direct navigation
 //class LogChartActivity : BaseActivity() {
 //
 //    val adapter: SettingTimeAdapter by lazy { SettingTimeAdapter(this) }

@@ -36,7 +36,7 @@ ext {
     ]
 
     dependencyVersions = [
-        "arouter_compiler": "com.alibaba:arouter-compiler:1.5.4"
+        "arouter_compiler": "com.alibaba:arouter-compiler:1.5.2"
     ]
 }
 

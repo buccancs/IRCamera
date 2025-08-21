@@ -240,7 +240,7 @@ public class SeekBar {
      * @return
      */
     protected String formatCurrentIndicatorText(String text2Draw) {
-        SeekBarState[] states = rangeSeekBar.getRangeSeekBarState();
+        RangeSeekBar.SeekBarState[] states = rangeSeekBar.getRangeSeekBarState();
         if (TextUtils.isEmpty(text2Draw)) {
             if (isLeft) {
                 if (indicatorTextDecimalFormat != null) {

@@ -3,18 +3,15 @@ package com.topdon.module.thermal.activity
 import android.net.Uri
 import android.os.Build
 import android.widget.MediaController
+import android.widget.VideoView
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.BarUtils
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.activity_video.*
 import java.io.File
 
 
-@Route(path = RouterConfig.VIDEO)
 class VideoActivity : BaseActivity() {
 
     companion object {
@@ -45,7 +42,7 @@ class VideoActivity : BaseActivity() {
         } else {
             Uri.fromFile(file)
         }
-        val videoView = video_play
+        val videoView = findViewById<VideoView>(R.id.video_play)
         videoView.setVideoURI(uri)
         videoView.setMediaController(MediaController(this))
         videoView.start()

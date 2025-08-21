@@ -13,9 +13,6 @@ import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.ui.widget.MyItemDecoration
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.view.EmissivityView
-import kotlinx.android.synthetic.main.activity_ir_emissivity.*
-import kotlinx.android.synthetic.main.item_ir_emissivity_title.*
-import kotlinx.android.synthetic.main.item_ir_emissivity_title.view.*
 
 /**
  * 常用材料发射率.
@@ -28,16 +25,17 @@ class IREmissivityActivity : BaseActivity() {
 
     override fun initView() {
         val dataArray: Array<ItemBean> = buildDataArray()
-        tv_title.text = dataArray[0].name
-        emissivity_view.refreshText(dataArray[0].buildTextList(this))
+        findViewById<TextView>(R.id.tv_title).text = dataArray[0].name
+        findViewById<EmissivityView>(R.id.emissivity_view).refreshText(dataArray[0].buildTextList(this))
 
         val itemDecoration = MyItemDecoration(this)
         itemDecoration.wholeBottom = 20f
 
         val layoutManager = LinearLayoutManager(this)
-        recycler_view.layoutManager = layoutManager
-        recycler_view.adapter = MyAdapter(this, dataArray)
-        recycler_view.addItemDecoration(itemDecoration)
+        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = MyAdapter(this, dataArray)
+        recyclerView.addItemDecoration(itemDecoration)
         recycler_view.addOnScrollListener(MyOnScrollListener(cl_title, layoutManager, dataArray))
     }
 

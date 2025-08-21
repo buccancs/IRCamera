@@ -4,9 +4,11 @@ import android.app.Dialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lib.ui.R
-import kotlinx.android.synthetic.main.dialog_monitor_select.view.*
 
 class MonitorSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
 
@@ -34,40 +36,50 @@ class MonitorSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
             val lp = dialog.window!!.attributes
             dialog.window!!.attributes = lp
 
-            view.btn_confirm_or_back.setOnClickListener {
+            val btnConfirmOrBack = view.findViewById<Button>(R.id.btn_confirm_or_back)
+            val btnCancel = view.findViewById<Button>(R.id.btn_cancel)
+            val btnSelectLocation = view.findViewById<Button>(R.id.btn_select_location)
+            val tvTitle = view.findViewById<TextView>(R.id.tv_title)
+            val clFirstStep = view.findViewById<ConstraintLayout>(R.id.cl_first_step)
+            val clSecondStep = view.findViewById<ConstraintLayout>(R.id.cl_second_step)
+            val tvPoint = view.findViewById<TextView>(R.id.tv_point)
+            val tvLine = view.findViewById<TextView>(R.id.tv_line)
+            val tvRect = view.findViewById<TextView>(R.id.tv_rect)
+
+            btnConfirmOrBack.setOnClickListener {
                 if (!isFirstStep) {
                     isFirstStep = true
-                    view.btn_cancel.visibility = View.GONE
-                    view.cl_first_step.visibility = View.VISIBLE
-                    view.cl_second_step.visibility = View.GONE
-                    view.tv_title.text = context.getString(R.string.select_monitor_type_step1)
-                    view.btn_confirm_or_back.text = context.getString(R.string.app_confirm)
+                    btnCancel.visibility = View.GONE
+                    clFirstStep.visibility = View.VISIBLE
+                    clSecondStep.visibility = View.GONE
+                    tvTitle.text = context.getString(R.string.select_monitor_type_step1)
+                    btnConfirmOrBack.text = context.getString(R.string.app_confirm)
                 } else {
                     isFirstStep = false
-                    view.btn_cancel.visibility = View.VISIBLE
-                    view.cl_first_step.visibility = View.INVISIBLE
-                    view.cl_second_step.visibility = View.VISIBLE
-                    view.tv_title.text = context.getString(R.string.select_monitor_type_step2)
-                    view.btn_confirm_or_back.text = context.getString(R.string.select_monitor_return)
+                    btnCancel.visibility = View.VISIBLE
+                    clFirstStep.visibility = View.INVISIBLE
+                    clSecondStep.visibility = View.VISIBLE
+                    tvTitle.text = context.getString(R.string.select_monitor_type_step2)
+                    btnConfirmOrBack.text = context.getString(R.string.select_monitor_return)
                 }
             }
 
-            view.btn_cancel.setOnClickListener {
+            btnCancel.setOnClickListener {
                 dialog.dismiss()
             }
 
-            view.btn_select_location.setOnClickListener {
+            btnSelectLocation.setOnClickListener {
                 dialog.dismiss()
                 positiveClickListener?.invoke(monitorType)
             }
 
-            view.tv_point.setOnClickListener {
+            tvPoint.setOnClickListener {
                 updateUI(view, 1)
             }
-            view.tv_line.setOnClickListener {
+            tvLine.setOnClickListener {
                 updateUI(view, 2)
             }
-            view.tv_rect.setOnClickListener {
+            tvRect.setOnClickListener {
                 updateUI(view, 3)
             }
             return dialog
@@ -75,9 +87,13 @@ class MonitorSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
 
 
         private fun updateUI(view: View, index: Int) {
-            view.tv_point.isSelected = index == 1
-            view.tv_line.isSelected = index == 2
-            view.tv_rect.isSelected = index == 3
+            val tvPoint = view.findViewById<TextView>(R.id.tv_point)
+            val tvLine = view.findViewById<TextView>(R.id.tv_line)
+            val tvRect = view.findViewById<TextView>(R.id.tv_rect)
+            
+            tvPoint.isSelected = index == 1
+            tvLine.isSelected = index == 2
+            tvRect.isSelected = index == 3
             monitorType = index
         }
     }

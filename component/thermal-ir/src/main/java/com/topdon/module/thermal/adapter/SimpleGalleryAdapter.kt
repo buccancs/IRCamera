@@ -4,10 +4,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.tools.GlideLoader
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.item_gallery.view.*
 
 class SimpleGalleryAdapter(val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -44,8 +44,8 @@ class SimpleGalleryAdapter(val context: Context) :
     }
 
     inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val lay = itemView.item_gallery_lay
-        val img = itemView.item_gallery_img
+        val lay: View = itemView.findViewById(R.id.item_gallery_lay)
+        val img: ImageView = itemView.findViewById(R.id.item_gallery_img)
     }
 
 

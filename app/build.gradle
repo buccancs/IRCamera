@@ -2,14 +2,10 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-parcelize'
-    id 'kotlin-kapt'
+    id 'com.google.devtools.ksp'
 }
 
-kapt {
-    arguments {
-        arg("AROUTER_MODULE_NAME", project.getName())
-    }
-}
+
 
 android {
     namespace 'com.topdon.tc001'
@@ -229,7 +225,12 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
 
-    kapt "androidx.room:room-compiler:2.6.1"
+    // Kotlin Coroutines - compatible with Kotlin 2.0+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
+
+    // Room without annotation processing (Kotlin 2.0 compatible)
+    implementation "androidx.room:room-runtime:2.6.1"
     implementation "androidx.room:room-ktx:2.6.1"
 
     implementation "androidx.work:work-runtime-ktx:2.7.1"
@@ -240,8 +241,8 @@ dependencies {
 
     implementation "org.greenrobot:eventbus:3.2.0"
 
-    implementation "com.github.bumptech.glide:glide:4.11.0"
-    kapt "com.github.bumptech.glide:compiler:4.11.0"
+    // Glide 4.16.0 - no annotation processing required
+    implementation "com.github.bumptech.glide:glide:4.16.0"
 
     implementation "io.reactivex.rxjava2:rxjava:2.2.20"
     implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
@@ -252,7 +253,7 @@ dependencies {
     implementation "com.trello.rxlifecycle2:rxlifecycle-kotlin:2.2.2"
     implementation "com.trello.rxlifecycle2:rxlifecycle-android-lifecycle-kotlin:2.2.2"
 
-    implementation "com.alibaba:arouter-api:1.5.2"
+
 
     implementation "com.blankj:utilcodex:1.31.0"
     implementation "com.github.getActivity:XXPermissions:20.0"
@@ -300,7 +301,7 @@ dependencies {
     implementation 'javax.xml.stream:stax-api:1.0'
     implementation 'com.fasterxml:aalto-xml:1.2.2'
 
-    kapt "com.alibaba:arouter-compiler:1.5.4"
+
 
     implementation 'com.github.lzyzsd:jsbridge:1.0.4'
     implementation 'com.alibaba:fastjson:1.2.78'

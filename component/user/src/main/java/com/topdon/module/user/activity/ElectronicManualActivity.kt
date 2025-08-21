@@ -5,28 +5,31 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.utils.Constants
 import com.topdon.module.user.R
-import kotlinx.android.synthetic.main.activity_electronic_manual.*
-import kotlinx.android.synthetic.main.item_electronic_manual.view.item_lay
-import kotlinx.android.synthetic.main.item_electronic_manual.view.item_text
+import androidx.recyclerview.widget.RecyclerView
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.topdon.lib.core.view.BaseTitleView
 
 /**
  * 电子说明书 或 FAQ 设备类型选择页面
  */
-@Route(path = RouterConfig.ELECTRONIC_MANUAL)
 class ElectronicManualActivity : BaseActivity() {
+
+    private lateinit var titleView: BaseTitleView
+    private lateinit var electronicManualRecycler: RecyclerView
 
     override fun initContentView() = R.layout.activity_electronic_manual
 
     override fun initView() {
+        titleView = findViewById(R.id.title_view)
+        electronicManualRecycler = findViewById(R.id.electronic_manual_recycler)
+        
         val productType = intent.getIntExtra(Constants.SETTING_TYPE, 0) //0-电子说明书 1-FAQ
 
-        title_view.setTitleText(if (productType == Constants.SETTING_BOOK) R.string.electronic_manual else R.string.app_question)
+        titleView.setTitleText(if (productType == Constants.SETTING_BOOK) R.string.electronic_manual else R.string.app_question)
 
         val adapter = MyAdapter(productType == 1)
         adapter.onPickListener = { isTS001 ->
@@ -35,21 +38,21 @@ class ElectronicManualActivity : BaseActivity() {
                     //电子说明书-TS001
                 } else {
                     //FAQ-TS001
-                    ARouter.getInstance().build(RouterConfig.QUESTION).withBoolean("isTS001", true).navigation(this)
+            // TODO: Replace RouterConfig reference with direct navigation
                 }
             } else {
                 if (productType == Constants.SETTING_BOOK) {
                     //电子说明书-TS004
-                    ARouter.getInstance().build(RouterConfig.PDF).withBoolean("isTS001", false).navigation(this)
+            // TODO: Replace RouterConfig reference with direct navigation
                 } else {
                     //FAQ-TS004
-                    ARouter.getInstance().build(RouterConfig.QUESTION).withBoolean("isTS001", false).navigation(this)
+            // TODO: Replace RouterConfig reference with direct navigation
                 }
             }
         }
 
-        electronic_manual_recycler.layoutManager = LinearLayoutManager(this)
-        electronic_manual_recycler.adapter = adapter
+        electronicManualRecycler.layoutManager = LinearLayoutManager(this)
+        electronicManualRecycler.adapter = adapter
     }
 
     override fun initData() {
@@ -79,8 +82,11 @@ class ElectronicManualActivity : BaseActivity() {
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             if (holder is ItemViewHolder) {
-                holder.rootView.item_text.text = optionList[position]
-                holder.rootView.item_lay.setOnClickListener {
+                val itemText = holder.rootView.findViewById<TextView>(R.id.item_text)
+                val itemLay = holder.rootView.findViewById<ConstraintLayout>(R.id.item_lay)
+                
+                itemText.text = optionList[position]
+                itemLay.setOnClickListener {
                     onPickListener?.invoke(isFAQ && position == 0)
                 }
             }
