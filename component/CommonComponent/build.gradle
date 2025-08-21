@@ -74,7 +74,7 @@ dependencies {
     
     implementation 'org.greenrobot:eventbus:3.3.1'
     implementation 'com.google.code.gson:gson:2.10.1'
-    implementation 'com.elvishew:xlog:1.10.1'
+    api 'com.elvishew:xlog:1.10.1'
     
     // Room database
     implementation 'androidx.room:room-runtime:2.4.3'

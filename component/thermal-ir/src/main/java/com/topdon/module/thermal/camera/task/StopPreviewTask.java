@@ -1,4 +1,4 @@
-package com.example.thermal_lite.camera.task;
+package com.topdon.module.thermal.camera.task;
 
 import android.os.SystemClock;
 

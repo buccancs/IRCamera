@@ -1,4 +1,4 @@
-package com.example.thermal_lite.util;
+package com.topdon.module.thermal.util;
 
 import android.content.Context;
 import android.content.res.AssetManager;

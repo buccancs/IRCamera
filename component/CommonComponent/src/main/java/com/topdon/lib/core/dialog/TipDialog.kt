@@ -21,6 +21,10 @@ class TipDialog(context: Context) : Dialog(context) {
         onConfirm()
     }
     
+    override fun show() {
+        super.show()
+    }
+    
     class Builder(private val context: Context) {
         private var message: String = ""
         private var messageRes: Int = 0
@@ -52,6 +56,15 @@ class TipDialog(context: Context) : Dialog(context) {
         fun setNegativeListener(textRes: Int, listener: () -> Unit): Builder {
             this.negativeListener = listener
             return this
+        }
+        
+        fun setCancelListener(textRes: Int, listener: () -> Unit): Builder {
+            this.negativeListener = listener
+            return this
+        }
+        
+        fun create(): TipDialog {
+            return TipDialog(context)
         }
         
         fun show() {

@@ -42,4 +42,7 @@
     <string name="shutter_tips">Shutter adjustment tips</string>
     <string name="battery_share">Share</string>
     <string name="finalize_and_save">Finalize and Save</string>
+    <string name="app_no">No</string>
+    <string name="correction_complete">Correction Complete</string>
+    <string name="app_confirm">Confirm</string>
 </resources>

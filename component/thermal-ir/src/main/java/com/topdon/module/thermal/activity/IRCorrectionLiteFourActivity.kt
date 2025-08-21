@@ -2,6 +2,8 @@ package com.topdon.module.thermal.activity
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.lifecycleScope
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.fragment.IRMonitorLiteFragment
