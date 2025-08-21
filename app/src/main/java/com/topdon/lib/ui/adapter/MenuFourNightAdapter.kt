@@ -20,7 +20,6 @@ import com.topdon.lib.ui.R
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.lib.ui.config.CameraHelp
 import com.topdon.lib.ui.listener.SingleClickListener
-import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.*
 
 
 @Deprecated("旧的设置菜单，已重构过了")
@@ -231,9 +230,9 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
     }
 
     inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val lay: View = itemView.item_menu_tab_lay
-        val img: ImageView = itemView.item_menu_tab_img
-        val name: TextView = itemView.item_menu_tab_text
+        val lay: View = itemView.findViewById(R.id.item_menu_tab_lay)
+        val img: ImageView = itemView.findViewById(R.id.item_menu_tab_img)
+        val name: TextView = itemView.findViewById(R.id.item_menu_tab_text)
     }
 
 
