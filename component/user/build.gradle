@@ -61,6 +61,12 @@ dependencies {
 
     implementation 'com.zoho.salesiq:mobilisten:7.0.0'
     
+    // Image loading
+    implementation "com.github.bumptech.glide:glide:4.15.1"
+    
+    // JSON parsing
+    implementation "com.google.code.gson:gson:2.10.1"
+    
     // Kotlin Coroutines - compatible with Kotlin 2.0+
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"

@@ -5,7 +5,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.ktbase.BaseActivity
-import com.topdon.lib.ui.TitleView
+import com.topdon.lib.core.view.TitleView
 import com.topdon.module.user.R
 
 /**

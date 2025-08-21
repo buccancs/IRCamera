@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- User module strings -->
+    <string name="electronic_manual">e-Manual</string>
+    <string name="tip_save_success">Saved</string>
+    <string name="clear_finish">Clear complete</string>
+    <string name="save_setting_tips">Enabling this function will save your settings on Auto Shutter, Shooting Mode, Pseudo Colors, Image Mode, and the status of the pseudo-color bar (on/off).</string>
+    <string name="app_ok">OK</string>
+    <string name="app_cancel">Cancel</string>
+    <string name="app_question">FAQ</string>
+    
+    <!-- FAQ Questions and Answers -->
+    <string name="question1">Why there is no response after connecting the TC001、TS001 to a phone?</string>
+    <string name="answer1">Follow the steps below to identify the problem:\na) Check if your phone is on Android version 6.0 or above. \nb) Check if the OTG is available in your phone Settings and if it is ON. For some phones, search for OTG in the Settings menu and turn it on manually. \nc) Check if the blue LED indicator on the TC001、TS001 is lit. If not, your phone may not be properly connected to the device, or your phone may not support OTG functions. \nd) Check if you have downloaded the app and given it the necessary authorization. \ne) Disconnect and plug in the TC001、TS001 again. If there is still no response, please contact customer support.</string>
+    
+    <string name="question2">What if the image is not clear and the temperature is not accurate?</string>
+    <string name="answer2">The uncooled infrared detectors require periodic refreshing of the screen by pressing the shutter icon on the upper right. This ensures a clearer image and more accurate temperature measurement.</string>
+    
+    <string name="question3">Can the TC001、TS001 perform readings underwater, through glass windows, through clothes, or under skin?</string>
+    <string name="answer3">The infrared detector can detect long-wave infrared regions of 8~14um, and can only measure the surface temperature of an object. It cannot measure temperature through water or glass.</string>
+    
+    <string name="question4">Why is the measured temperature not precise?</string>
+    <string name="answer4">The temperature resolution of the TC001、TS001 is ±2%, with a normal temperature range of –20~150°C (-4~302°F) , and high temperature range of 150–550°C (302~1022°F). Please select the corresponding range in the app before testing.</string>
+    
+    <string name="question5">Does the TC001、TS001 emit radiation harmful to people\'s health?</string>
+    <string name="answer5">The TC001、TS001 does not emit any harmful radiation and only collects heat information about an object.</string>
+    
+    <string name="question6">Why does the temperature reading increase when I get closer to the device?</string>
+    <string name="answer6">Infrared radiation attenuates after passing through the atmosphere. The longer the distance, the stronger the attenuation, causing the accuracy of temperature measured at a distance to decrease. For users who need to get accurate temperature data, they can enter the distance to be measured (maximum 5 meters) in Personal Information - Settings - Temperature Correction - Distance to Spot, to get the corrected temperature.</string>
+    
+    <string name="question7">Why there is a clicking sound? What does "shutter moving" mean?</string>
+    <string name="answer7">The temperature of the infrared imager will change slightly during use. Therefore, a periodic internal temperature calibration is needed. The micro motor controlled activation or deactivation of such internal calibration makes such a sound, which is known in the industry as "shutter moving".</string>
+</resources>
