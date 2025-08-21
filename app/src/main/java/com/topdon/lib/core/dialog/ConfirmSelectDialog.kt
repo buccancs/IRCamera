@@ -10,45 +10,53 @@ import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import com.topdon.tc001.R
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.dialog_confirm_select.view.*
+import android.widget.TextView
+import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
 
 class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog), View.OnClickListener {
 
     var onConfirmClickListener: ((isSelect: Boolean) -> Unit)? = null
 
+    private val rootView: View = LayoutInflater.from(context).inflate(R.layout.dialog_confirm_select, null)
+    private val ivIcon: ImageView by lazy { rootView.findViewById(R.id.iv_icon) }
+    private val tvTitle: TextView by lazy { rootView.findViewById(R.id.tv_title) }
+    private val rlMessage: ConstraintLayout by lazy { rootView.findViewById(R.id.rl_message) }
+    private val tvMessage: TextView by lazy { rootView.findViewById(R.id.tv_message) }
+    private val tvCancel: TextView by lazy { rootView.findViewById(R.id.tv_cancel) }
+    private val tvConfirm: TextView by lazy { rootView.findViewById(R.id.tv_confirm) }
+    private val ivSelect: ImageView by lazy { rootView.findViewById(R.id.iv_select) }
+
     fun setShowIcon(isShowIcon: Boolean) {
-        rootView.iv_icon.isVisible = isShowIcon
+        ivIcon.isVisible = isShowIcon
     }
 
     fun setTitleRes(@StringRes titleRes: Int) {
-        rootView.tv_title.setText(titleRes)
+        tvTitle.setText(titleRes)
     }
 
     fun setTitleStr(titleStr: String) {
-        rootView.tv_title.text = titleStr
+        tvTitle.text = titleStr
     }
 
     fun setShowMessage(isShowMessage: Boolean) {
-        rootView.rl_message.isVisible = isShowMessage
+        rlMessage.isVisible = isShowMessage
     }
 
     fun setMessageRes(@StringRes messageRes: Int) {
-        rootView.tv_message.setText(messageRes)
+        tvMessage.setText(messageRes)
     }
 
     fun setShowCancel(isShowCancel: Boolean) {
-        rootView.tv_cancel.isVisible = isShowCancel
+        tvCancel.isVisible = isShowCancel
     }
     fun setCancelText(@StringRes cancelRes: Int) {
-        rootView.tv_cancel.setText(cancelRes)
+        tvCancel.setText(cancelRes)
     }
 
     fun setConfirmText(@StringRes confirmRes: Int) {
-        rootView.tv_confirm.setText(confirmRes)
+        tvConfirm.setText(confirmRes)
     }
-
-
-    private val rootView: View = LayoutInflater.from(context).inflate(R.layout.dialog_confirm_select, null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,22 +71,22 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
             it.attributes = layoutParams
         }
 
-        rootView.rl_message.setOnClickListener(this)
-        rootView.tv_cancel.setOnClickListener(this)
-        rootView.tv_confirm.setOnClickListener(this)
+        rlMessage.setOnClickListener(this)
+        tvCancel.setOnClickListener(this)
+        tvConfirm.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v) {
-            rootView.rl_message -> {//选中状态
-                rootView.iv_select.isSelected = !rootView.iv_select.isSelected
+            rlMessage -> {//选中状态
+                ivSelect.isSelected = !ivSelect.isSelected
             }
-            rootView.tv_cancel -> {//取消
+            tvCancel -> {//取消
                 dismiss()
             }
-            rootView.tv_confirm -> {//确认
+            tvConfirm -> {//确认
                 dismiss()
-                onConfirmClickListener?.invoke(rootView.iv_select.isSelected)
+                onConfirmClickListener?.invoke(ivSelect.isSelected)
             }
         }
     }

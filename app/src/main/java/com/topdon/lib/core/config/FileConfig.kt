@@ -133,6 +133,17 @@ object FileConfig {
             return path
         }
 
+    @JvmStatic
+    val ts004GalleryDir: String
+        get() {
+            val dir = Utils.getApp().getExternalFilesDir(Environment.DIRECTORY_DCIM)!!.absolutePath
+            val path = dir + File.separator + "TS004"
+            val file = File(path)
+            if (!file.exists()) {
+                file.mkdirs()
+            }
+            return path
+        }
 
 
     @JvmStatic
