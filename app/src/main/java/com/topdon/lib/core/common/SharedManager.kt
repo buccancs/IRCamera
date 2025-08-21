@@ -306,53 +306,26 @@ object SharedManager {
         SPUtils.getInstance().put(SP_CAR_DETECT, GsonUtils.toJson(bean))
     }
 
-    // User info management methods
-    fun getToken(): String {
-        return SPUtils.getInstance().getString("user_token", "")
-    }
-
-    fun setToken(token: String) {
-        SPUtils.getInstance().put("user_token", token)
-    }
-
-    fun getUserId(): String {
-        return SPUtils.getInstance().getString("user_id", "0")
-    }
-
-    fun setUserId(userId: String) {
-        SPUtils.getInstance().put("user_id", userId)
-    }
-
-    fun getUsername(): String {
-        return SPUtils.getInstance().getString("username", "")
-    }
-
-    fun setUsername(username: String) {
-        SPUtils.getInstance().put("username", username)
-    }
-
-    fun getNickname(): String {
-        return SPUtils.getInstance().getString("nickname", "")
-    }
-
-    fun setNickname(nickname: String) {
-        SPUtils.getInstance().put("nickname", nickname)
-    }
-
-    fun getHeadIcon(): String {
-        return SPUtils.getInstance().getString("head_icon", "")
-    }
-
-    fun setHeadIcon(headIcon: String) {
-        SPUtils.getInstance().put("head_icon", headIcon)
-    }
-
     fun getLanguage(): String {
         return SPUtils.getInstance().getString("app_language", "en")
     }
 
     fun setLanguage(language: String) {
         SPUtils.getInstance().put("app_language", language)
+    }
+
+    // Context-based language methods for compatibility
+    fun getLanguage(context: Context): String {
+        return getLanguage()
+    }
+
+    fun setLanguage(context: Context, language: String) {
+        setLanguage(language)
+    }
+
+    // Local-only mode - always return a default local user ID
+    fun getUserId(): String {
+        return "local"
     }
 
 }
