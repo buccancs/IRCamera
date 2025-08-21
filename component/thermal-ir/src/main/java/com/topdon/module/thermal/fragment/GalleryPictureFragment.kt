@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Build
 import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ScreenUtils
 import com.maning.imagebrowserlibrary.MNImageBrowser
 import com.topdon.lib.core.ktbase.BaseViewModelFragment
@@ -14,7 +15,6 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.adapter.SimpleGalleryAdapter
 import com.topdon.module.thermal.tools.GlideImageEngine
 import com.topdon.module.thermal.viewmodel.GalleryViewModel
-import kotlinx.android.synthetic.main.fragment_gallery_picture.*
 import java.io.File
 
 
@@ -31,8 +31,9 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
 
     override fun initView() {
         val span = if (ScreenUtils.isLandscape()) 6 else 3
-        gallery_recycler.layoutManager = GridLayoutManager(requireContext(), span)
-        gallery_recycler.adapter = adapter
+        val galleryRecycler = requireView().findViewById<RecyclerView>(R.id.gallery_recycler)
+        galleryRecycler.layoutManager = GridLayoutManager(requireContext(), span)
+        galleryRecycler.adapter = adapter
 
         viewModel.galleryLiveData.observe(this) {
             adapter.datas = it

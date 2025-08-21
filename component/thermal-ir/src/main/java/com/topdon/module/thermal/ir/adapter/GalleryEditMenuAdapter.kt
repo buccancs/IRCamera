@@ -10,7 +10,6 @@ import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.item_gallery_edit_menu.view.*
 
 @Deprecated("旧的2D编辑一级菜单，已重构过了")
 class GalleryEditMenuAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -97,9 +96,9 @@ class GalleryEditMenuAdapter(val context: Context) : RecyclerView.Adapter<Recycl
         var name: TextView
 
         init {
-            lay = itemView.item_edit_menu_tab_lay
-            img = itemView.item_edit_menu_tab_img
-            name = itemView.item_edit_menu_tab_text
+            lay = itemView.findViewById(R.id.item_edit_menu_tab_lay)
+            img = itemView.findViewById(R.id.item_edit_menu_tab_img)
+            name = itemView.findViewById(R.id.item_edit_menu_tab_text)
         }
     }
 
