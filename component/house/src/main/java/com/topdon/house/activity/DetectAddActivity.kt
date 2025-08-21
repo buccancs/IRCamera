@@ -34,7 +34,6 @@ import com.topdon.lib.core.tools.PermissionTool
 import com.topdon.lib.core.tools.SpanBuilder
 import com.topdon.lib.core.utils.LocationUtil
 import com.topdon.lms.sdk.weiget.TToast
-import kotlinx.android.synthetic.main.activity_detect_add.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

@@ -2,6 +2,7 @@ package com.topdon.transfer
 import com.topdon.tc001.R
 
 import android.media.MediaScannerConnection
+import android.view.View
 import android.view.WindowManager
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
