@@ -11,14 +11,13 @@ import androidx.annotation.StringRes
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.isVisible
 import com.topdon.tc001.R
-import kotlinx.android.synthetic.main.ui_setting_view.view.*
 
 class SettingNightView : LinearLayout {
 
     var isRightArrowVisible: Boolean
-        get() = endImg.isVisible
+        get() = findViewById<ImageView>(R.id.item_setting_end_image).isVisible
         set(value) {
-            endImg.isVisible = value
+            findViewById<ImageView>(R.id.item_setting_end_image).isVisible = value
         }
 
     fun setRightTextId(@StringRes resId: Int) {
@@ -77,6 +76,7 @@ class SettingNightView : LinearLayout {
         contentText = findViewById(R.id.item_setting_text)
         headImg = findViewById(R.id.item_setting_image)
         endImg = findViewById(R.id.item_setting_end_image)
+        val itemSettingLine = findViewById<View>(R.id.item_setting_line)
 
         headImg.setImageResource(iconRes)
         if (iconShow) {
@@ -90,6 +90,6 @@ class SettingNightView : LinearLayout {
         } else {
             endImg.visibility = View.GONE
         }
-        item_setting_line.visibility = if (lineShow) View.VISIBLE else View.GONE
+        itemSettingLine.visibility = if (lineShow) View.VISIBLE else View.GONE
     }
 }
