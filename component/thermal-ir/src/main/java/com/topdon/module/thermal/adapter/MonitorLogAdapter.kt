@@ -4,13 +4,13 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.lib.core.tools.GlideLoader
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.item_gallery.view.*
-import kotlinx.android.synthetic.main.item_log.view.*
 
 class MonitorLogAdapter(val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -49,9 +49,9 @@ class MonitorLogAdapter(val context: Context) :
     }
 
     inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val lay = itemView.item_log_lay
-        val indexText = itemView.item_log_index_text
-        val timeText = itemView.item_log_time_text
+        val lay: View = itemView.findViewById(R.id.item_log_lay)
+        val indexText: TextView = itemView.findViewById(R.id.item_log_index_text)
+        val timeText: TextView = itemView.findViewById(R.id.item_log_time_text)
     }
 
 

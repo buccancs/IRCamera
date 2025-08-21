@@ -9,8 +9,6 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.item_menu_tab_more_view.view.*
-import kotlinx.android.synthetic.main.item_menu_tab_view.view.*
 
 class MenuTabAdapter(val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -161,16 +159,16 @@ class MenuTabAdapter(val context: Context) :
         var name: TextView
 
         init {
-            lay = itemView.item_menu_tab_lay
-            img = itemView.item_menu_tab_img
-            name = itemView.item_menu_tab_text
+            lay = itemView.findViewById(R.id.item_menu_tab_lay)
+            img = itemView.findViewById(R.id.item_menu_tab_img)
+            name = itemView.findViewById(R.id.item_menu_tab_text)
         }
     }
 
     inner class ItemMoreView(itemView: View) : BaseItemView(itemView) {
         init {
-            lay = itemView.item_menu_tab_more_lay
-            img = itemView.item_menu_tab_more_img
+            lay = itemView.findViewById(R.id.item_menu_tab_more_lay)
+            img = itemView.findViewById(R.id.item_menu_tab_more_img)
         }
     }
 
