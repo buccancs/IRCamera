@@ -2,7 +2,7 @@ package com.topdon.module.thermal.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import com.blankj.utilcode.util.Utils
-import com.topdon.lib.core.config.FileConfig.galleryPath
+import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.ktbase.BaseViewModel
 import com.topdon.lib.core.utils.SingleLiveEvent
 import kotlinx.coroutines.flow.Flow
@@ -61,7 +61,7 @@ class GalleryViewModel : BaseViewModel() {
 
     private fun getVideoList(): Flow<ArrayList<String>> {
         val flow = flow {
-            val path = galleryPath
+            val path = FileConfig.getGalleryPath(Utils.getApp())
             val file = File(path)
             if (file.isDirectory) {
                 val list = arrayListOf<String>()

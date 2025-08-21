@@ -270,7 +270,7 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
     var basicGainGetTime = 0L
 
 
-    override fun tempCorrectByTs(temp: Float?): Float {
+    fun tempCorrectByTs(temp: Float?): Float {
         var tempNew = temp
         try {
             if (config == null){
@@ -315,9 +315,10 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
                         "distance = " + params_array[4] + " hum = " + params_array[5]
             )
         }catch (e : Exception){
-        }finally {
-            return tempNew ?: 0f
+            // Log exception if needed
         }
+        
+        return tempNew ?: 0f
     }
 
     // ITsTempListener interface implementations  
@@ -329,7 +330,7 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
         // Handle temperature range change  
     }
     
-    override fun onTempMeasureComplete() {
+    fun onTempMeasureComplete() {
         // Handle temperature measurement complete
     }
     

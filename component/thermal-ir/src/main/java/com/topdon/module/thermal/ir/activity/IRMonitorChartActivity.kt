@@ -60,6 +60,10 @@ import java.math.RoundingMode
  * 温度实时监控
  */
 class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
+    
+    companion object {
+        private const val TAG = "IRMonitorChartActivity"
+    }
 
     /** 默认数据流模式：图像+温度复合数据 */
     protected var defaultDataFlowMode = CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT
@@ -381,7 +385,6 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
                 TAG,
                         "ConnectCallback->onIRCMDCreate"
             )
-                    )
                     this@IRMonitorChartActivity.ircmd = ircmd
                     // 需要等IRCMD初始化完成之后才可以调用
 //                    ircmd.setPseudoColor(

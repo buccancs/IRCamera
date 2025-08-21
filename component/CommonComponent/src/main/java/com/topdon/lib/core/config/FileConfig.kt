@@ -91,4 +91,15 @@ object FileConfig {
             }
             return path
         }
-}
+        
+        // Gallery path for thermal images 
+        fun getGalleryPath(context: Context): String {
+            val externalDir = context.getExternalFilesDir("Pictures")
+            val path = "${externalDir?.absolutePath}/thermal"
+            val file = File(path)
+            if (!file.exists()) {
+                file.mkdirs()
+            }
+            return path
+        }
+    }

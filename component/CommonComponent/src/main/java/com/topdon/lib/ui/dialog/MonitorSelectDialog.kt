@@ -31,6 +31,10 @@ class MonitorSelectDialog(context: Context) : Dialog(context) {
         fun build(): MonitorSelectDialog {
             return MonitorSelectDialog(context)
         }
+        
+        fun create(): MonitorSelectDialog {
+            return build()
+        }
     }
     
     override fun show() {

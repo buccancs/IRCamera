@@ -27,5 +27,10 @@ data class CameraItemBean(
         const val CAMERA_TYPE_TC001 = 1
         const val CAMERA_TYPE_TC002 = 2
         const val CAMERA_TYPE_OTHER = 99
+        
+        // Temperature gain types referenced in IRTool
+        const val TYPE_TMP_ZD = -1  // Auto temperature mode
+        const val TYPE_TMP_C = 1    // Normal temperature mode (high gain)
+        const val TYPE_TMP_H = 0    // High temperature mode (low gain)
     }
 }

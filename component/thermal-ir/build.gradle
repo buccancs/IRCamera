@@ -66,6 +66,7 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'com.blankj:utilcode:1.30.7'  // BlankJ utilities
     implementation 'com.github.getActivity:XXPermissions:18.5'  // HJQ permissions
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'  // viewModelScope support
 
     api "com.airbnb.android:lottie:6.0.0"
     api 'com.github.anzaizai:EasySwipeMenuLayout:1.1.4'

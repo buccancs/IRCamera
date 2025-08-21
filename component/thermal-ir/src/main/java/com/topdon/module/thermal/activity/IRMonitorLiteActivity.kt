@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewTreeObserver
 import android.view.WindowManager
+import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
@@ -33,7 +35,6 @@ import com.topdon.lib.ui.listener.SingleClickListener
 import com.topdon.module.thermal.ir.bean.DataBean
 import com.topdon.module.thermal.ir.bean.SelectPositionBean
 import com.topdon.module.thermal.ir.event.MonitorSaveEvent
-import com.topdon.module.thermal.ir.event.ThermalActionEvent
 import com.topdon.module.thermal.ir.repository.ConfigRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -155,10 +156,10 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTem
             isRecord = true
             val thermalId = TimeTool.showDateSecond()
             val startTime = System.currentTimeMillis()
-            val typeStr = when (selectBean.type) {
-                1 -> "point"
-                2 -> "line"
-                else -> "fence"
+            val typeInt = when (selectBean.type) {
+                1 -> 1  // point
+                2 -> 2  // line  
+                else -> 3  // fence
             }
             var time = 0L
             while (isRecord) {
@@ -166,23 +167,23 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTem
                     val entity = ThermalEntity()
                     entity.userId = SharedManager.getUserId()
                     entity.thermalId = thermalId
-                    entity.thermal = NumberTools.to02f(bean.centerTemp)
-                    entity.thermalMax = NumberTools.to02f(bean.maxTemp)
-                    entity.thermalMin = NumberTools.to02f(bean.minTemp)
-                    entity.type = typeStr
+                    entity.thermal = bean.centerTemp
+                    entity.thermalMax = bean.maxTemp
+                    entity.thermalMin = bean.minTemp  
+                    entity.type = typeInt
                     entity.startTime = startTime
                     entity.createTime = System.currentTimeMillis()
                     AppDatabase.getInstance().thermalDao().insert(entity)
                     time++
                     launch(Dispatchers.Main) {
-                        mp_chart_view.addPointToChart(bean = entity, selectType = selectBean.type)
+                        findViewById<com.topdon.module.thermal.ir.view.ChartMonitorView>(R.id.mp_chart_view).addPointToChart(bean = entity, selectType = selectBean.type)
                     }
                     delay(timeMillis)
                 } else {
                     delay(100)
                 }
                 lifecycleScope.launch(Dispatchers.Main) {
-                    tv_time.text = TimeTool.showVideoLongTime(System.currentTimeMillis() - startTime)
+                    findViewById<TextView>(R.id.tv_time).text = TimeTool.showVideoLongTime(System.currentTimeMillis() - startTime)
                 }
             }
         }
@@ -199,7 +200,7 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTem
 
     override fun onClick(v: View?) {
         when (v) {
-            motion_start_btn -> {
+            findViewById<Button>(R.id.motion_start_btn) -> {
                 if (selectIndex == null) {
                     MonitorSelectDialog.Builder(this)
                         .setPositiveListener {
@@ -220,18 +221,18 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTem
                                 return@launch
                             }
                             irMonitorLiteFragment?.stopTask()
-                            thermal_fragment.getViewTreeObserver().addOnGlobalLayoutListener(object :
+                            findViewById<FrameLayout>(R.id.thermal_fragment).getViewTreeObserver().addOnGlobalLayoutListener(object :
                                 ViewTreeObserver.OnGlobalLayoutListener {
                                 override fun onGlobalLayout() {
                                     // 移除监听器以避免重复调用
-                                    thermal_fragment.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                                    findViewById<FrameLayout>(R.id.thermal_fragment).getViewTreeObserver().removeOnGlobalLayoutListener(this);
                                     irMonitorLiteFragment?.restTempView()
                                     irMonitorLiteFragment?.addTempLine(selectIndex!!)
                                     // 进行需要的操作
                                 }
                             })
-                            motion_action_lay.isVisible = false
-                            chart_lay.isVisible = true
+                            findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.motion_action_lay).isVisible = false
+                            findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.chart_lay).isVisible = true
                             showCameraLoading()
                             delay(500)
                             dismissCameraLoading()

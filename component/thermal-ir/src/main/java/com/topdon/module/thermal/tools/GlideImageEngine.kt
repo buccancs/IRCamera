@@ -70,7 +70,7 @@ class GlideImageEngine : ImageEngine {
         override fun onResourceReady(
             resource: Bitmap?,
             model: Any?,
-            target: Target<Bitmap>?,
+            target: Target<*>?,
             dataSource: DataSource?,
             isFirstResource: Boolean
         ): Boolean {
