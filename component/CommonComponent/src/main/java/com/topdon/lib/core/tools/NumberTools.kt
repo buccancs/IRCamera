@@ -22,4 +22,15 @@ object NumberTools {
     fun formatTemperature(temp: Double): String {
         return format(temp, "#.#") + "°C"
     }
+    
+    /**
+     * Format number to 2 decimal places  
+     */
+    fun to02f(value: Float): String {
+        return format(value, "#.00")
+    }
+    
+    fun to02f(value: Double): String {
+        return format(value, "#.00")
+    }
 }

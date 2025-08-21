@@ -2,6 +2,7 @@ package com.topdon.lib.core
 
 import android.app.Application
 import android.app.Activity
+import android.content.Context
 
 /**
  * Base Application class for thermal component compatibility
@@ -11,6 +12,10 @@ abstract class BaseApplication : Application() {
 
     companion object {
         lateinit var instance: BaseApplication
+        
+        // Context reference for components
+        val mContext: Context
+            get() = instance
     }
     
     // TAU data for thermal calculations
