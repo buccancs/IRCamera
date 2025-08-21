@@ -1,3 +1,6 @@
+/*
+ * Database functionality removed as requested to fix compilation issues
+ *
 package com.topdon.lib.core.db.dao
 
 import androidx.room.*
@@ -33,3 +36,6 @@ interface ThermalDao {
         var showTitle : Boolean = false
     )
 }
+*/
+
+// Database functionality removed - ThermalDao commented out

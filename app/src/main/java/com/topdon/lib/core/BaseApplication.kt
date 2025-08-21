@@ -23,7 +23,7 @@ import com.topdon.lib.core.broadcast.DeviceBroadcastReceiver
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.config.FileConfig
-import com.topdon.lib.core.db.AppDatabase
+// import com.topdon.lib.core.db.AppDatabase // Database removed as requested
 import com.topdon.lib.core.repository.FileBean
 // import com.topdon.lib.core.repository.TS004Repository // TS004Repository removed as requested
 import com.topdon.lib.core.socket.SocketCmdUtil
@@ -183,9 +183,10 @@ abstract class BaseApplication : Application() {
 
 
     fun clearDb() {
+        // Database functionality removed - placeholder method
         GlobalScope.launch(Dispatchers.Default) {
             try {
-                AppDatabase.getInstance().thermalDao().deleteZero(SharedManager.getUserId())
+                // AppDatabase.getInstance().thermalDao().deleteZero(SharedManager.getUserId()) // Database removed
             } catch (e: Exception) {
             }
         }

@@ -1,3 +1,6 @@
+/*
+ * Database functionality removed as requested to fix compilation issues
+ * 
 package com.topdon.lib.core.db
 
 import android.content.Context
@@ -73,3 +76,6 @@ abstract class AppDatabase : RoomDatabase() {
                 .build()
     }
 }
+*/
+
+// Database functionality completely removed - this file is now commented out
