@@ -13,8 +13,6 @@ import com.topdon.lib.core.bean.GalleryTitle
 import com.topdon.lib.core.tools.GlideLoader
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.item_gallery_head_lay.view.*
-import kotlinx.android.synthetic.main.item_gallery_lay.view.*
 
 /**
  * 照片或视频
@@ -139,13 +137,14 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 holder.itemView.iv_video_time.isVisible = true
             } else {
                 holder.info.text = ""
-                holder.itemView.iv_video_time.isVisible = false
+                holder.itemView.findViewById<ImageView>(R.id.iv_video_time).isVisible = false
             }
 
-            holder.itemView.iv_has_download.isVisible = isTS004Remote && data.hasDownload
+            holder.itemView.findViewById<ImageView>(R.id.iv_has_download).isVisible = isTS004Remote && data.hasDownload
 
-            holder.itemView.iv_check.isVisible = isEditMode
-            holder.itemView.iv_check.isSelected = selectList.contains(position)
+            val ivCheck = holder.itemView.findViewById<ImageView>(R.id.iv_check)
+            ivCheck.isVisible = isEditMode
+            ivCheck.isSelected = selectList.contains(position)
 
             holder.img.setOnClickListener {
                 if (isEditMode) {
@@ -156,7 +155,7 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     }
                     selectCallback?.invoke(selectList)
 
-                    holder.itemView.iv_check.isSelected = selectList.contains(position)
+                    holder.itemView.findViewById<ImageView>(R.id.iv_check).isSelected = selectList.contains(position)
                 } else {
                     itemClickCallback?.invoke(position)
                 }
@@ -165,8 +164,9 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 if (!isEditMode) {
                     selectList.add(position)
                     selectCallback?.invoke(selectList)
-                    holder.itemView.iv_check.isVisible = true
-                    holder.itemView.iv_check.isSelected = true
+                    val ivCheckView = holder.itemView.findViewById<ImageView>(R.id.iv_check)
+                    ivCheckView.isVisible = true
+                    ivCheckView.isSelected = true
                     isEditMode = true
                     onLongEditListener?.invoke()
                 }
@@ -183,12 +183,12 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     inner class ItemHeadView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val name: TextView = itemView.item_gallery_head_text
+        val name: TextView = itemView.findViewById(R.id.item_gallery_head_text)
     }
 
     inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val img: ImageView = itemView.item_gallery_img
-        val info: TextView = itemView.item_gallery_text
+        val img: ImageView = itemView.findViewById(R.id.item_gallery_img)
+        val info: TextView = itemView.findViewById(R.id.item_gallery_text)
     }
 
 
