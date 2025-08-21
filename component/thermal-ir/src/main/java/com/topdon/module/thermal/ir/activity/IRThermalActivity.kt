@@ -85,8 +85,6 @@
 //import com.topdon.module.thermal.ir.view.TimeDownView
 //import com.topdon.pseudo.activity.PseudoSetActivity
 //import com.topdon.pseudo.bean.CustomPseudoBean
-//import kotlinx.android.synthetic.main.activity_thermal_ir.thermal_recycler
-//import kotlinx.android.synthetic.main.activity_thermal_ir.tv_temp_content
 //import kotlinx.coroutines.*
 //import kotlinx.coroutines.flow.flow
 //import org.greenrobot.eventbus.Subscribe

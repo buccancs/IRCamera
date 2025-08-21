@@ -21,7 +21,11 @@ import com.topdon.lib.core.db.entity.HouseDetect
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lms.sdk.weiget.TToast
-import kotlinx.android.synthetic.main.fragment_detect_list.*
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.Group
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -40,15 +44,32 @@ internal class DetectListFragment : BaseFragment(), View.OnClickListener {
     private lateinit var adapter: HouseAdapter
 
     private val tabViewModel: TabViewModel by activityViewModels()
-
     private val viewModel: DetectViewModel by activityViewModels()
+    
+    private lateinit var ivEmpty: ImageView
+    private lateinit var tvEmpty: TextView
+    private lateinit var tvAdd: TextView
+    private lateinit var groupEmpty: Group
+    private lateinit var clDel: ConstraintLayout
+    private lateinit var ivDel: ImageView
+    private lateinit var tvDel: TextView
+    private lateinit var recyclerView: RecyclerView
 
     override fun initContentView(): Int = R.layout.fragment_detect_list
 
     override fun initView() {
-        cl_del.isEnabled = false
-        iv_del.isEnabled = false
-        tv_del.isEnabled = false
+        ivEmpty = requireView().findViewById(R.id.iv_empty)
+        tvEmpty = requireView().findViewById(R.id.tv_empty)
+        tvAdd = requireView().findViewById(R.id.tv_add)
+        groupEmpty = requireView().findViewById(R.id.group_empty)
+        clDel = requireView().findViewById(R.id.cl_del)
+        ivDel = requireView().findViewById(R.id.iv_del)
+        tvDel = requireView().findViewById(R.id.tv_del)
+        recyclerView = requireView().findViewById(R.id.recycler_view)
+        
+        clDel.isEnabled = false
+        ivDel.isEnabled = false
+        tvDel.isEnabled = false
 
         adapter = HouseAdapter(requireContext(), true)
         adapter.onItemClickListener = {
@@ -95,26 +116,26 @@ internal class DetectListFragment : BaseFragment(), View.OnClickListener {
         adapter.onSelectChangeListener = {
             tabViewModel.selectSizeLD.value = it
         }
-        recycler_view.layoutManager = LinearLayoutManager(requireContext())
-        recycler_view.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = adapter
 
-        tv_add.setOnClickListener(this)
-        cl_del.setOnClickListener(this)
+        tvAdd.setOnClickListener(this)
+        clDel.setOnClickListener(this)
 
 
         tabViewModel.isEditModeLD.observe(viewLifecycleOwner) {
             adapter.isEditMode = it
-            cl_del.isVisible = it
+            clDel.isVisible = it
         }
         tabViewModel.selectSizeLD.observe(viewLifecycleOwner) {
-            cl_del.isEnabled = it > 0
-            iv_del.isEnabled = it > 0
-            tv_del.isEnabled = it > 0
+            clDel.isEnabled = it > 0
+            ivDel.isEnabled = it > 0
+            tvDel.isEnabled = it > 0
         }
 
         viewModel.detectListLD.observe(viewLifecycleOwner) {
-            group_empty.isVisible = it.isEmpty()
-            recycler_view.isVisible = it.isNotEmpty()
+            groupEmpty.isVisible = it.isEmpty()
+            recyclerView.isVisible = it.isNotEmpty()
             adapter.refresh(it)
         }
         viewModel.detectLD.observe(viewLifecycleOwner) {
@@ -151,12 +172,12 @@ internal class DetectListFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            tv_add -> {//添加
+            tvAdd -> {//添加
                 val intent = Intent(requireContext(), DetectAddActivity::class.java)
                 intent.putExtra(ExtraKeyConfig.IS_TC007, arguments?.getBoolean(ExtraKeyConfig.IS_TC007, false) ?: false)
                 startActivity(intent)
             }
-            cl_del -> {//批量删除
+            clDel -> {//批量删除
                 if (adapter.selectIndexList.isNotEmpty()) {
                     TipDialog.Builder(requireContext())
                         .setTitleMessage(getString(R.string.monitor_report_delete))
