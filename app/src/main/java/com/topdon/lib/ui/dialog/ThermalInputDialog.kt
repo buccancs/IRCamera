@@ -28,7 +28,7 @@ import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lib.ui.R
 import com.topdon.lib.ui.adapter.ColorSelectAdapter
-import kotlinx.android.synthetic.main.dialog_thermal_input.view.*
+
 import java.math.BigDecimal
 
 
@@ -180,31 +180,31 @@ class ThermalInputDialog : Dialog {
             val inflater =
                 context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             val view = inflater.inflate(R.layout.dialog_thermal_input, null)
-            messageText = view.dialog_tip_msg_text
-            successBtn = view.dialog_tip_success_btn
-            cancelBtn = view.dialog_tip_cancel_btn
-            upEdit = view.dialog_up_edit
-            downEdit = view.dialog_down_edit
-            upUnit = view.dialog_up_unit_text
-            downUnit = view.dialog_down_unit_text
-            colorPickerView = view.color_picker_view
-            recycler = view.color_picker_recycler
-            view.color_picker_view_lay.visibility = View.GONE
-            view.dialog_input_lay.visibility = View.VISIBLE
+            messageText = view.findViewById(R.id.dialog_tip_msg_text)
+            successBtn = view.findViewById(R.id.dialog_tip_success_btn)
+            cancelBtn = view.findViewById(R.id.dialog_tip_cancel_btn)
+            upEdit = view.findViewById(R.id.dialog_up_edit)
+            downEdit = view.findViewById(R.id.dialog_down_edit)
+            upUnit = view.findViewById(R.id.dialog_up_unit_text)
+            downUnit = view.findViewById(R.id.dialog_down_unit_text)
+            colorPickerView = view.findViewById(R.id.color_picker_view)
+            recycler = view.findViewById(R.id.color_picker_recycler)
+            view.findViewById<View>(R.id.color_picker_view_lay).visibility = View.GONE
+            view.findViewById<View>(R.id.dialog_input_lay).visibility = View.VISIBLE
             if(isIconEdit){
-                view.dialog_up_color.visibility = View.GONE
-                view.dialog_down_color.visibility = View.GONE
+                view.findViewById<View>(R.id.dialog_up_color).visibility = View.GONE
+                view.findViewById<View>(R.id.dialog_down_color).visibility = View.GONE
             }else{
-                view.dialog_up_color.visibility = View.VISIBLE
-                view.dialog_down_color.visibility = View.VISIBLE
+                view.findViewById<View>(R.id.dialog_up_color).visibility = View.VISIBLE
+                view.findViewById<View>(R.id.dialog_down_color).visibility = View.VISIBLE
             }
             messageText.text = message
             if (maxColor != 0) upColor = maxColor
             if (minColor != 0) downColor = minColor
             upUnit.text = UnitTools.showUnit()
             downUnit.text = UnitTools.showUnit()
-            view.dialog_up_color.setColorFilter(upColor)
-            view.dialog_down_color.setColorFilter(downColor)
+            view.findViewById<View>(R.id.dialog_up_color).setColorFilter(upColor)
+            view.findViewById<View>(R.id.dialog_down_color).setColorFilter(downColor)
             colorPickerView.setInitialColor(upColor)
 
             recycler.layoutManager = GridLayoutManager(context!!, 6)

@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup.LayoutParams
+import android.widget.ProgressBar
+import android.widget.TextView
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lib.ui.R
-import kotlinx.android.synthetic.main.dialog_progress.view.*
+
 
 class ProgressDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
     var max: Int = 100
@@ -46,7 +48,7 @@ class ProgressDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
 
     override fun show() {
         super.show()
-        rootView.progress_bar.max = max
-        rootView.progress_bar.progress = progress
+        rootView.findViewById<ProgressBar>(R.id.progress_bar).max = max
+        rootView.findViewById<ProgressBar>(R.id.progress_bar).progress = progress
     }
 }
