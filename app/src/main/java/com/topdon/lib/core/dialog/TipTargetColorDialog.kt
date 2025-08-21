@@ -12,9 +12,6 @@ import com.topdon.tc001.R
 import com.topdon.lib.core.adapter.TargetColorAdapter
 import com.topdon.lib.core.bean.ObserveBean
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.dialog_tip_observe.view.img_close
-import kotlinx.android.synthetic.main.dialog_tip_observe.view.tv_i_know
-import kotlinx.android.synthetic.main.dialog_tip_observe.view.tv_title
 
 class TipTargetColorDialog : Dialog {
 

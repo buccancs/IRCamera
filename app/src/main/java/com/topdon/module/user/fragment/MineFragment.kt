@@ -43,9 +43,8 @@ import com.topdon.tc001.R
 import com.topdon.module.user.activity.LanguageActivity
 import com.topdon.module.user.activity.MoreActivity
 import com.zoho.salesiqembed.ZohoSalesIQ
-import kotlinx.android.synthetic.main.fragment_mine.*
-import kotlinx.android.synthetic.main.fragment_more.setting_item_unit
-import kotlinx.android.synthetic.main.layout_customer.drag_customer_view
+import android.widget.ImageView
+import android.widget.TextView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -58,9 +57,40 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
     private var isNeedRefreshUI = false
 
+    // View declarations
+    private lateinit var iv_winter: ImageView
+    private lateinit var setting_item_language: View
+    private lateinit var setting_item_version: View
+    private lateinit var setting_item_clear: View
+    private lateinit var setting_user_lay: View
+    private lateinit var setting_user_img_night: ImageView
+    private lateinit var setting_user_text: TextView
+    private lateinit var setting_electronic_manual: View
+    private lateinit var setting_faq: View
+    private lateinit var setting_feedback: View
+    private lateinit var setting_item_unit: View
+    private lateinit var drag_customer_view: View
+    private lateinit var view_winter_point: View
+    private lateinit var tv_email: TextView
+
     override fun initContentView(): Int = R.layout.fragment_mine
 
     override fun initView() {
+        // Initialize views
+        iv_winter = requireView().findViewById(R.id.iv_winter)
+        setting_item_language = requireView().findViewById(R.id.setting_item_language)
+        setting_item_version = requireView().findViewById(R.id.setting_item_version)
+        setting_item_clear = requireView().findViewById(R.id.setting_item_clear)
+        setting_user_lay = requireView().findViewById(R.id.setting_user_lay)
+        setting_user_img_night = requireView().findViewById(R.id.setting_user_img_night)
+        setting_user_text = requireView().findViewById(R.id.setting_user_text)
+        setting_electronic_manual = requireView().findViewById(R.id.setting_electronic_manual)
+        setting_faq = requireView().findViewById(R.id.setting_faq)
+        setting_feedback = requireView().findViewById(R.id.setting_feedback)
+        setting_item_unit = requireView().findViewById(R.id.setting_item_unit)
+        drag_customer_view = requireView().findViewById(R.id.drag_customer_view)
+        view_winter_point = requireView().findViewById(R.id.view_winter_point)
+        tv_email = requireView().findViewById(R.id.tv_email)
         iv_winter.setOnClickListener(this)
         setting_item_language.setOnClickListener(this)
         setting_item_version.setOnClickListener(this)
@@ -107,7 +137,6 @@ class MineFragment : BaseFragment(), View.OnClickListener {
         updateUIStyle()
         if (isNeedRefreshUI) {
             isNeedRefreshUI = false
-        }
         }
     }
 
