@@ -41,7 +41,7 @@ import com.topdon.lms.sdk.feedback.activity.FeedbackActivity
 import com.topdon.lms.sdk.utils.LanguageUtil
 import com.topdon.tc001.R
 import com.topdon.module.user.activity.LanguageActivity
-import com.topdon.module.user.activity.MoreActivity
+// MoreActivity removed - not using plugin-style navigation anymore
 import com.zoho.salesiqembed.ZohoSalesIQ
 import android.widget.ImageView
 import android.widget.TextView

@@ -336,4 +336,22 @@ object SharedManager {
         return "local"
     }
 
+    // Device SN methods
+    fun getDeviceSn(): String {
+        return SPUtils.getInstance().getString(DEVICE_SN, "")
+    }
+
+    fun setDeviceSn(sn: String) {
+        SPUtils.getInstance().put(DEVICE_SN, sn)
+    }
+
+    // Device version methods
+    fun getDeviceVersion(): String {
+        return SPUtils.getInstance().getString(DEVICE_VERSION, "")
+    }
+
+    fun setDeviceVersion(version: String) {
+        SPUtils.getInstance().put(DEVICE_VERSION, version)
+    }
+
 }

@@ -36,6 +36,13 @@ abstract class BaseFragment : RxFragment() {
         initView()
     }
 
+    /**
+     * Helper method for findViewById calls in fragments
+     */
+    protected fun <T : View> findViewById(id: Int): T {
+        return requireView().findViewById(id)
+    }
+
 
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)

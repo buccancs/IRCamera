@@ -11,6 +11,7 @@ import android.location.Location
 import android.location.LocationManager
 import android.text.TextUtils
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup.LayoutParams
 import android.widget.EditText
 import android.widget.ImageView
@@ -82,7 +83,7 @@ class TipWaterMarkDialog : Dialog {
             view.findViewById<SwitchCompat>(R.id.switch_date_time).setOnCheckedChangeListener { _, _ ->
 
             }
-            view.findViewById(R.id.tv_i_know).setOnClickListener {
+            view.findViewById<View>(R.id.tv_i_know).setOnClickListener {
                 dismiss()
                 closeEvent?.invoke(
                     WatermarkBean(
