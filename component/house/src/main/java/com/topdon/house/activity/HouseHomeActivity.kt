@@ -20,7 +20,11 @@ import com.topdon.house.viewmodel.ReportViewModel
 import com.topdon.house.viewmodel.TabViewModel
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.ktbase.BaseActivity
-import kotlinx.android.synthetic.main.activity_house_home.*
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -38,15 +42,35 @@ class HouseHomeActivity : BaseActivity(), View.OnClickListener {
     private val detectViewModel: DetectViewModel by viewModels()
 
     private val reportViewModel: ReportViewModel by viewModels()
+    
+    private lateinit var ivBack: ImageView
+    private lateinit var ivEdit: ImageView
+    private lateinit var ivAdd: ImageView
+    private lateinit var ivExitEdit: ImageView
+    private lateinit var clTitleBar: ConstraintLayout
+    private lateinit var clEditBar: ConstraintLayout
+    private lateinit var tabLayout: TabLayout
+    private lateinit var viewPager2: ViewPager2
+    private lateinit var tvEditTitle: TextView
 
     override fun initContentView(): Int = R.layout.activity_house_home
 
     override fun initView() {
-        iv_edit.isEnabled = false
-        iv_back.setOnClickListener(this)
-        iv_edit.setOnClickListener(this)
-        iv_add.setOnClickListener(this)
-        iv_exit_edit.setOnClickListener(this)
+        ivBack = findViewById(R.id.iv_back)
+        ivEdit = findViewById(R.id.iv_edit)
+        ivAdd = findViewById(R.id.iv_add)
+        ivExitEdit = findViewById(R.id.iv_exit_edit)
+        clTitleBar = findViewById(R.id.cl_title_bar)
+        clEditBar = findViewById(R.id.cl_edit_bar)
+        tabLayout = findViewById(R.id.tab_layout)
+        viewPager2 = findViewById(R.id.view_pager2)
+        tvEditTitle = findViewById(R.id.tv_edit_title)
+
+        ivEdit.isEnabled = false
+        ivBack.setOnClickListener(this)
+        ivEdit.setOnClickListener(this)
+        ivAdd.setOnClickListener(this)
+        ivExitEdit.setOnClickListener(this)
 
         val backCallback = object : OnBackPressedCallback(false) {
             override fun handleOnBackPressed() {
@@ -57,37 +81,37 @@ class HouseHomeActivity : BaseActivity(), View.OnClickListener {
 
         tabViewModel.isEditModeLD.observe(this) {
             backCallback.isEnabled = it
-            cl_title_bar.isVisible = !it
-            cl_edit_bar.isVisible = it
-            tab_layout.isVisible = !it
-            view_pager2.isUserInputEnabled = !it
+            clTitleBar.isVisible = !it
+            clEditBar.isVisible = it
+            tabLayout.isVisible = !it
+            viewPager2.isUserInputEnabled = !it
         }
         tabViewModel.selectSizeLD.observe(this) {
-            tv_edit_title.text = if (it > 0) getString(R.string.chosen_item, it) else getString(R.string.not_selected)
+            tvEditTitle.text = if (it > 0) getString(R.string.chosen_item, it) else getString(R.string.not_selected)
         }
 
         detectViewModel.detectListLD.observe(this) {
-            if (view_pager2.currentItem == 0) {
-                iv_edit.isEnabled = !it.isNullOrEmpty()
+            if (viewPager2.currentItem == 0) {
+                ivEdit.isEnabled = !it.isNullOrEmpty()
             }
         }
         reportViewModel.reportListLD.observe(this) {
-            if (view_pager2.currentItem == 1) {
-                iv_edit.isEnabled = !it.isNullOrEmpty()
+            if (viewPager2.currentItem == 1) {
+                ivEdit.isEnabled = !it.isNullOrEmpty()
             }
         }
 
-        view_pager2.adapter = ViewPagerAdapter(this)
-        view_pager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        viewPager2.adapter = ViewPagerAdapter(this)
+        viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 if (position == 0) {//检测
-                    iv_edit.isEnabled = !detectViewModel.detectListLD.value.isNullOrEmpty()
+                    ivEdit.isEnabled = !detectViewModel.detectListLD.value.isNullOrEmpty()
                 } else {//报告
-                    iv_edit.isEnabled = !reportViewModel.reportListLD.value.isNullOrEmpty()
+                    ivEdit.isEnabled = !reportViewModel.reportListLD.value.isNullOrEmpty()
                 }
             }
         })
-        TabLayoutMediator(tab_layout, view_pager2) { tab, position ->
+        TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
             tab.setText(if (position == 0) R.string.app_detection else R.string.app_report)
         }.attach()
     }
@@ -98,21 +122,21 @@ class HouseHomeActivity : BaseActivity(), View.OnClickListener {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onDetectCreate(event: HouseReportAddEvent) {
         //有新报告被创建时，切到报告页
-        view_pager2.currentItem = 1
+        viewPager2.currentItem = 1
     }
 
     override fun onClick(v: View?) {
         when (v) {
-            iv_back -> finish()
-            iv_edit -> {//编辑
+            ivBack -> finish()
+            ivEdit -> {//编辑
                 tabViewModel.isEditModeLD.value = true
             }
-            iv_add -> {//添加
+            ivAdd -> {//添加
                 val newIntent = Intent(this, DetectAddActivity::class.java)
                 newIntent.putExtra(ExtraKeyConfig.IS_TC007, intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false))
                 startActivity(newIntent)
             }
-            iv_exit_edit -> {//退出编辑
+            ivExitEdit -> {//退出编辑
                 tabViewModel.isEditModeLD.value = false
             }
         }

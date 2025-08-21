@@ -9,9 +9,9 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.user.R
 import com.topdon.module.user.model.QuestionData
 import com.topdon.module.user.model.FaqRepository
-import kotlinx.android.synthetic.main.activity_question.*
-import kotlinx.android.synthetic.main.item_question.view.item_question_info
-import kotlinx.android.synthetic.main.item_question.view.item_question_lay
+import androidx.recyclerview.widget.RecyclerView
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import java.util.ArrayList
 
 /**
@@ -19,9 +19,13 @@ import java.util.ArrayList
  */
 class QuestionActivity : BaseActivity() {
 
+    private lateinit var questionRecycler: RecyclerView
+
     override fun initContentView() = R.layout.activity_question
 
     override fun initView() {
+        questionRecycler = findViewById(R.id.question_recycler)
+        
         val adapter = MyAdapter(FaqRepository.getQuestionList(intent.getBooleanExtra("isTS001", false)))
         adapter.onItemClickListener = {
             // TODO: Replace ARouter navigation - Intent
@@ -31,8 +35,8 @@ class QuestionActivity : BaseActivity() {
 // TODO_FIX_AROUTER:                 .navigation(this)
         }
 
-        question_recycler.layoutManager = LinearLayoutManager(this)
-        question_recycler.adapter = adapter
+        questionRecycler.layoutManager = LinearLayoutManager(this)
+        questionRecycler.adapter = adapter
     }
 
     override fun initData() {
@@ -52,8 +56,11 @@ class QuestionActivity : BaseActivity() {
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             if (holder is ItemHolder) {
-                holder.rootView.item_question_info.text = questionList[position].question
-                holder.rootView.item_question_lay.setOnClickListener {
+                val questionInfo = holder.rootView.findViewById<TextView>(R.id.item_question_info)
+                val questionLay = holder.rootView.findViewById<ConstraintLayout>(R.id.item_question_lay)
+                
+                questionInfo.text = questionList[position].question
+                questionLay.setOnClickListener {
                     onItemClickListener?.invoke(questionList[position])
                 }
             }
