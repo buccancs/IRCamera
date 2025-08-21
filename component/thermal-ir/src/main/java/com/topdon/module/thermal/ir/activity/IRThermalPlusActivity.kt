@@ -3,6 +3,7 @@ package com.topdon.module.thermal.ir.activity
 import android.graphics.Bitmap
 import android.view.SurfaceView
 import android.view.View
+import android.widget.LinearLayout
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.ToastUtils
@@ -18,13 +19,10 @@ import com.topdon.lib.core.common.ProductType.PRODUCT_NAME_TCP
 import com.topdon.lib.core.common.SaveSettingUtil
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.menu.constant.TwoLightType
+import com.topdon.menu.MenuSecondView
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.event.GalleryAddEvent
 import com.topdon.module.thermal.ir.video.VideoRecordFFmpeg
-import android.view.SurfaceView
-import android.widget.LinearLayout
-import com.topdon.menu.MenuSecondView
-import com.infisense.usbir.view.TemperatureView
 import com.topdon.module.thermal.ir.view.DualSteeringView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

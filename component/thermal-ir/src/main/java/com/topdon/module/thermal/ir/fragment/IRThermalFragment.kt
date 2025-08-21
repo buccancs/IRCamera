@@ -17,6 +17,7 @@ import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.ktbase.BaseFragment
+import com.topdon.lib.core.view.MainTitleView
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.utils.CommUtils

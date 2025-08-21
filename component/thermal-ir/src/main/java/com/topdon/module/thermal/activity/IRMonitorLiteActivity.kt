@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewTreeObserver
 import android.view.WindowManager
+import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.elvishew.xlog.XLog
@@ -25,6 +26,7 @@ import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.NumberTools
 import com.topdon.lib.core.tools.TimeTool
+import com.topdon.lib.core.view.MainTitleView
 import com.topdon.lib.ui.dialog.MonitorSelectDialog
 import com.topdon.lib.ui.listener.SingleClickListener
 import com.topdon.module.thermal.ir.bean.DataBean
@@ -80,8 +82,8 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTem
             showTask!!.cancel()
             showTask = null
         }
-        title_view.setRightText(R.string.monitor_finish)
-        title_view.setRightClickListener {
+        findViewById<MainTitleView>(R.id.title_view).setRightText(R.string.monitor_finish)
+        findViewById<MainTitleView>(R.id.title_view).setRightClickListener {
             recordJob?.cancel()
             lifecycleScope.launch {
                 delay(500)
@@ -127,9 +129,9 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTem
         }
 
 
-        monitor_current_vol.text = getString(if (selectIndex!!.type == 1) R.string.chart_temperature else R.string.chart_temperature_high)
-        monitor_real_vol.visibility = if (selectIndex!!.type == 1) View.GONE else View.VISIBLE
-        monitor_real_img.visibility = if (selectIndex!!.type == 1) View.GONE else View.VISIBLE
+        findViewById<TextView>(R.id.monitor_current_vol).text = getString(if (selectIndex!!.type == 1) R.string.chart_temperature else R.string.chart_temperature_high)
+        findViewById<View>(R.id.monitor_real_vol).visibility = if (selectIndex!!.type == 1) View.GONE else View.VISIBLE
+        findViewById<View>(R.id.monitor_real_img).visibility = if (selectIndex!!.type == 1) View.GONE else View.VISIBLE
         recordThermal()//开始记录
     }
     private var showTask: Job? = null

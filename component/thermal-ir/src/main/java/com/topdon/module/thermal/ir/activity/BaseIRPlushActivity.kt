@@ -36,7 +36,6 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.utils.DualParamsUtil
 import com.topdon.module.thermal.ir.utils.IRCmdTool
 import com.topdon.module.thermal.ir.utils.IRCmdTool.getSNStr
-import android.view.SurfaceView
 import com.topdon.lib.core.view.MainTitleView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

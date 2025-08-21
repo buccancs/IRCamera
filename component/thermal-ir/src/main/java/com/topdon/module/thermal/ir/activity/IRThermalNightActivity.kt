@@ -69,6 +69,7 @@ import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.dialog.*
 import com.topdon.lib.core.repository.GalleryRepository
 import com.topdon.lib.core.tools.*
+import com.topdon.lib.core.view.MainTitleView
 import com.topdon.lib.core.utils.BitmapUtils
 import com.topdon.lib.core.utils.CommUtils
 import com.topdon.lib.core.utils.Constants

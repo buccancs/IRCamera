@@ -92,6 +92,7 @@ import com.topdon.lib.core.tools.SpanBuilder
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.tools.UnitTools
+import com.topdon.lib.core.view.MainTitleView
 import com.topdon.lib.core.utils.BitmapUtils
 import com.topdon.lib.core.utils.CommUtils
 import com.topdon.lib.core.utils.ImageUtils

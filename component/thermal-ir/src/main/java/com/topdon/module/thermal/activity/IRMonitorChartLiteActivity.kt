@@ -3,6 +3,7 @@ package com.topdon.module.thermal.activity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.elvishew.xlog.XLog
@@ -26,6 +27,7 @@ import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.NumberTools
 import com.topdon.lib.core.tools.TimeTool
+import com.topdon.lib.core.view.MainTitleView
 import com.topdon.lms.sdk.LMS.mContext
 import com.topdon.module.thermal.ir.bean.DataBean
 import com.topdon.module.thermal.ir.bean.SelectPositionBean
@@ -80,7 +82,7 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
     }
 
     override fun initView() {
-        title_view.setRightClickListener {
+        findViewById<MainTitleView>(R.id.title_view).setRightClickListener {
             recordJob?.cancel()
             lifecycleScope.launch {
                 delay(500)
@@ -88,9 +90,9 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
             }
         }
 
-        monitor_current_vol.text = getString(if (selectBean.type == 1) R.string.chart_temperature else R.string.chart_temperature_high)
-        monitor_real_vol.visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
-        monitor_real_img.visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
+        findViewById<TextView>(R.id.monitor_current_vol).text = getString(if (selectBean.type == 1) R.string.chart_temperature else R.string.chart_temperature_high)
+        findViewById<View>(R.id.monitor_real_vol).visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
+        findViewById<View>(R.id.monitor_real_img).visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
 
     }
 

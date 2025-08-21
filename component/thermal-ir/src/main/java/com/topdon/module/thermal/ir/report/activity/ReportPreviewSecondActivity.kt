@@ -15,6 +15,7 @@ import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.ktbase.BaseViewModelActivity
 import com.topdon.lib.core.tools.FileTools
 import com.topdon.lib.core.tools.GlideLoader
+import com.topdon.lib.core.view.MainTitleView
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.utils.NetWorkUtils
