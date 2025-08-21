@@ -564,6 +564,7 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
                 params_array[5],
                 if (basicGainGetValue[0] == 0) GainStatus.LOW_GAIN else GainStatus.HIGH_GAIN
             )
+            XLog.d(
                 TAG,
                 "temp correct, oldTemp = " + params_array[0] + " newtemp = " + tempNew +
                         " ems = " + params_array[1] + " ta = " + params_array[2] + " " +

@@ -37,6 +37,14 @@ object AppDatabase {
         return ThermalDayDao
     }
     
+    fun thermalHourDao(): ThermalHourDao {
+        return ThermalHourDao
+    }
+    
+    fun thermalMinDao(): ThermalMinDao {
+        return ThermalMinDao
+    }
+    
     object ThermalDao {
         fun insertThermalEntity(entity: com.topdon.lib.core.db.entity.ThermalEntity) {
             // Database insert operation
@@ -69,6 +77,26 @@ object AppDatabase {
         fun insert(entity: com.topdon.lib.core.db.entity.ThermalEntity) {
             insertThermalEntity(entity)
         }
+        
+        fun queryByTime(startTime: Long, endTime: Long): List<com.topdon.lib.core.db.entity.ThermalEntity> {
+            return emptyList()
+        }
+        
+        fun queryByTimeMax(startTime: Long, endTime: Long): List<com.topdon.lib.core.db.entity.ThermalEntity> {
+            return emptyList()
+        }
+        
+        fun queryByTimeMin(startTime: Long, endTime: Long): List<com.topdon.lib.core.db.entity.ThermalEntity> {
+            return emptyList()
+        }
+        
+        fun deleteRepeatVol(id: Long) {
+            deleteById(id)
+        }
+        
+        fun queryMaxTime(): Long {
+            return System.currentTimeMillis()
+        }
     }
     
     object ThermalDayDao {
@@ -98,6 +126,58 @@ object AppDatabase {
         
         fun deleteRepeatVol(id: Long) {
             // Database delete repeat volume operation
+        }
+        
+        fun queryByTime(startTime: Long, endTime: Long): List<com.topdon.lib.core.db.entity.ThermalDayEntity> {
+            return emptyList()
+        }
+        
+        fun queryMaxTime(): Long {
+            return System.currentTimeMillis()
+        }
+    }
+    
+    object ThermalHourDao {
+        fun insert(entity: com.topdon.lib.core.db.entity.ThermalHourEntity) {
+            // Database insert operation
+        }
+        
+        fun queryAll(): List<com.topdon.lib.core.db.entity.ThermalHourEntity> {
+            return emptyList()
+        }
+        
+        fun queryByTime(startTime: Long, endTime: Long): List<com.topdon.lib.core.db.entity.ThermalHourEntity> {
+            return emptyList()
+        }
+        
+        fun queryMaxTime(): Long {
+            return System.currentTimeMillis()
+        }
+        
+        fun deleteById(id: Long) {
+            // Database delete operation
+        }
+    }
+    
+    object ThermalMinDao {
+        fun insert(entity: com.topdon.lib.core.db.entity.ThermalMinEntity) {
+            // Database insert operation
+        }
+        
+        fun queryAll(): List<com.topdon.lib.core.db.entity.ThermalMinEntity> {
+            return emptyList()
+        }
+        
+        fun queryByTime(startTime: Long, endTime: Long): List<com.topdon.lib.core.db.entity.ThermalMinEntity> {
+            return emptyList()
+        }
+        
+        fun queryMaxTime(): Long {
+            return System.currentTimeMillis()
+        }
+        
+        fun deleteById(id: Long) {
+            // Database delete operation
         }
     }
 }

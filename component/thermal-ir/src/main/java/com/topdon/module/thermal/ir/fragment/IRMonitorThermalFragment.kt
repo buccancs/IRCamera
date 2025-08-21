@@ -199,8 +199,10 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
                 }
 
                 override fun onIRCMDCreate(ircmd: IRCMD) {
-                        TAG,
+            XLog.d(
+                TAG,
                         "ConnectCallback->onIRCMDCreate"
+            )
                     )
                     this@IRMonitorThermalFragment.ircmd = ircmd
                     //重置镜像为非镜像

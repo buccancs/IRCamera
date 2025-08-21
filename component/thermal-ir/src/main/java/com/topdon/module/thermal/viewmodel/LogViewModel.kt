@@ -8,7 +8,7 @@ import com.topdon.lib.core.db.AppDatabase
 import com.topdon.lib.core.db.entity.ThermalDayEntity
 import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.lib.core.db.entity.ThermalHourEntity
-import com.topdon.lib.core.db.entity.ThermalMinuteEntity
+import com.topdon.lib.core.db.entity.ThermalMinEntity
 import com.topdon.lib.core.ktbase.BaseViewModel
 import com.topdon.lib.core.tools.TimeTool
 import kotlinx.coroutines.*
@@ -136,7 +136,7 @@ class LogViewModel : BaseViewModel() {
                             userId = userId,
                             startTime = startLogTime,
                             endTime = endLogTime
-                        ) as ArrayList<ThermalMinuteEntity>
+                        ) as ArrayList<ThermalMinEntity>
                     resultList.forEach {
                         val entity = ThermalEntity()
                         entity.userId = it.userId
@@ -313,7 +313,7 @@ class LogViewModel : BaseViewModel() {
                                 startTime = startLogTime,
                                 endTime = endLogTime,
                                 type = typeStr
-                            ) as ArrayList<ThermalMinuteEntity>
+                            ) as ArrayList<ThermalMinEntity>
                         resultList.forEach {
                             val entity = ThermalEntity()
                             entity.userId = it.userId
@@ -517,7 +517,7 @@ class LogViewModel : BaseViewModel() {
         //查询保存记录的最新时间
         when (selectTimeType) {
             2 -> {
-                val minuteTime = TimeTool.timeToMinute(System.currentTimeMillis(), 2)
+                val minuteTime = TimeTool.roundTimeByPrecision(System.currentTimeMillis(), 2)
                 //检查最新时间段有没有数据同步
                 val minuteVolLatestList =
                     AppDatabase.getInstance().thermalMinDao()
@@ -548,7 +548,7 @@ class LogViewModel : BaseViewModel() {
                 val minVolList = getNewVolData(secondVolList, 2)
                 //添加到分数据库
                 minVolList.forEach {
-                    val bean = ThermalMinuteEntity()
+                    val bean = ThermalMinEntity()
                     try {
                         bean.userId = it.userId
                         bean.sn = it.sn
@@ -557,19 +557,19 @@ class LogViewModel : BaseViewModel() {
                         bean.thermalMin = it.thermalMin
                         bean.info = it.info
                         bean.type = it.type
-                        bean.createTime = TimeTool.timeToMinute(it.createTime, 2)//调整精确到分
+                        bean.createTime = TimeTool.roundTimeByPrecision(it.createTime, 2)//调整精确到分
                         bean.updateTime = System.currentTimeMillis()
                         AppDatabase.getInstance().thermalMinDao().insert(bean)
                     } catch (e: Exception) {
                     }
                 }
-                val bean = ThermalMinuteEntity()
+                val bean = ThermalMinEntity()
                 try {
                     bean.userId = userId
                     bean.thermal = 0f
                     bean.thermalMax = 0f
                     bean.thermalMin = 0f
-                    bean.createTime = TimeTool.timeToMinute(System.currentTimeMillis(), 2)//调整精确到分
+                    bean.createTime = TimeTool.roundTimeByPrecision(System.currentTimeMillis(), 2)//调整精确到分
                     bean.updateTime = System.currentTimeMillis()
                     AppDatabase.getInstance().thermalMinDao().insert(bean)
                 } catch (e: Exception) {
@@ -579,7 +579,7 @@ class LogViewModel : BaseViewModel() {
                     .deleteRepeatVol(userId)
             }
             3 -> {
-                val hourTime = TimeTool.timeToMinute(System.currentTimeMillis(), 3)
+                val hourTime = TimeTool.roundTimeByPrecision(System.currentTimeMillis(), 3)
                 //检查最新时间段有没有数据同步
                 val hourVolLatestList =
                     AppDatabase.getInstance().thermalHourDao()
@@ -617,7 +617,7 @@ class LogViewModel : BaseViewModel() {
                     bean.thermalMin = it.thermalMin
                     bean.info = it.info
                     bean.type = it.type
-                    bean.createTime = TimeTool.timeToMinute(it.createTime, 3)//调整精确到分
+                    bean.createTime = TimeTool.roundTimeByPrecision(it.createTime, 3)//调整精确到分
                     bean.updateTime = System.currentTimeMillis()
                     AppDatabase.getInstance().thermalHourDao().insert(bean)
                 }
@@ -626,7 +626,7 @@ class LogViewModel : BaseViewModel() {
                 bean.thermal = 0f
                 bean.thermalMax = 0f
                 bean.thermalMin = 0f
-                bean.createTime = TimeTool.timeToMinute(System.currentTimeMillis(), 3)//调整精确到分
+                bean.createTime = TimeTool.roundTimeByPrecision(System.currentTimeMillis(), 3)//调整精确到分
                 bean.updateTime = System.currentTimeMillis()
                 AppDatabase.getInstance().thermalHourDao().insert(bean)
                 //删除多余的数据
@@ -634,7 +634,7 @@ class LogViewModel : BaseViewModel() {
             }
             4 -> {
                 val todayStartTime =
-                    TimeTool.timeToMinute(System.currentTimeMillis(), 4)//天只更新到今天凌晨的数据
+                    TimeTool.roundTimeByPrecision(System.currentTimeMillis(), 4)//天只更新到今天凌晨的数据
                 //检查今天有没有数据同步
                 val todayVolLatestList =
                     AppDatabase.getInstance().thermalDayDao()
@@ -673,7 +673,7 @@ class LogViewModel : BaseViewModel() {
                     bean.thermalMin = it.thermalMin
                     bean.info = it.info
                     bean.type = it.type
-                    bean.createTime = TimeTool.timeToMinute(it.createTime, 4)//调整精确到分
+                    bean.createTime = TimeTool.roundTimeByPrecision(it.createTime, 4)//调整精确到分
                     bean.updateTime = System.currentTimeMillis()
                     AppDatabase.getInstance().thermalDayDao().insert(bean)
                     //此处只更新到今天凌晨
@@ -684,7 +684,7 @@ class LogViewModel : BaseViewModel() {
                 bean.thermal = 0f
                 bean.thermalMax = 0f
                 bean.thermalMin = 0f
-                bean.createTime = TimeTool.timeToMinute(System.currentTimeMillis(), 4)//调整精确到分
+                bean.createTime = TimeTool.roundTimeByPrecision(System.currentTimeMillis(), 4)//调整精确到分
                 bean.updateTime = System.currentTimeMillis()
                 AppDatabase.getInstance().thermalDayDao().insert(bean)
                 //删除多余的数据

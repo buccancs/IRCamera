@@ -377,8 +377,10 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
                 }
 
                 override fun onIRCMDCreate(ircmd: IRCMD) {
-                        TAG,
+            XLog.d(
+                TAG,
                         "ConnectCallback->onIRCMDCreate"
+            )
                     )
                     this@IRMonitorChartActivity.ircmd = ircmd
                     // 需要等IRCMD初始化完成之后才可以调用
@@ -618,7 +620,8 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
             tempInfo,
             gainStatus
         )
-            TAG,
+            XLog.d(
+                TAG,
             "temp correct, oldTemp = " + paramsArray[0] + " ems = " + paramsArray[1] + " ta = " + paramsArray[2] + " " +
                     "distance = " + paramsArray[4] + " hum = " + paramsArray[5] + " productType = ${CommonParams.ProductType.WN256_ADVANCED}" + " " +
                     "newtemp = " + newTemp

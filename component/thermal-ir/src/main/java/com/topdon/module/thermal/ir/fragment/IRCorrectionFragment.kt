@@ -141,8 +141,10 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
                     }
 
                     override fun onIRCMDCreate(ircmd: IRCMD) {
-                            TAG,
+            XLog.d(
+                TAG,
                             "ConnectCallback->onIRCMDCreate"
+            )
                         )
                         this@IRCorrectionFragment.ircmd = ircmd
                         // 需要等IRCMD初始化完成之后才可以调用
