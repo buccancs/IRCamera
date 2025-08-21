@@ -32,4 +32,14 @@ object TimeTool {
         val formatter = SimpleDateFormat("mm:ss", Locale.getDefault())
         return formatter.format(Date(timestamp))
     }
+    
+    fun showDateType(timestamp: Long, type: String = "day"): String {
+        val formatter = when (type) {
+            "day" -> SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            "hour" -> SimpleDateFormat("HH:mm", Locale.getDefault()) 
+            "minute" -> SimpleDateFormat("mm:ss", Locale.getDefault())
+            else -> SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        }
+        return formatter.format(Date(timestamp))
+    }
 }

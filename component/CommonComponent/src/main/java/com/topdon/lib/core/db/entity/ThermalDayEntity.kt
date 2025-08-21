@@ -9,5 +9,6 @@ data class ThermalDayEntity(
     val date: String = "",
     val thermalMax: Float = 0f,
     val thermalMin: Float = 0f,
-    val createTime: Long = System.currentTimeMillis()
+    val createTime: Long = System.currentTimeMillis(),
+    val updateTime: Long = System.currentTimeMillis()
 )

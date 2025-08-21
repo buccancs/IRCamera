@@ -21,7 +21,25 @@ object AppDatabase {
         return emptyList()
     }
     
-    fun init(context: Context) {
-        // Database initialization
+    fun getInstance(): AppDatabase {
+        return this
+    }
+    
+    fun getThermalDao(): ThermalDao {
+        return ThermalDao
+    }
+    
+    object ThermalDao {
+        fun insertThermalEntity(entity: com.topdon.lib.core.db.entity.ThermalEntity) {
+            // Database insert operation
+        }
+        
+        fun insertThermalDayEntity(entity: com.topdon.lib.core.db.entity.ThermalDayEntity) {
+            // Database insert operation  
+        }
+        
+        fun updateTime(entity: com.topdon.lib.core.db.entity.ThermalDayEntity) {
+            // Database update operation
+        }
     }
 }
