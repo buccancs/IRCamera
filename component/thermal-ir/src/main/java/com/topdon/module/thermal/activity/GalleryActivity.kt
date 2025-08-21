@@ -44,10 +44,14 @@ class GalleryActivity : BaseActivity() {
         galleryViewPager.adapter = ViewAdapter(this, supportFragmentManager)
         galleryTab.setupWithViewPager(galleryViewPager)
 
-        mRxPermissions!!.request( permissionList)
-            .subscribe {
-
-            }
+        // Request permissions using standard Android approach
+        if (permissionList.any { !Permission.checkPermission(this, it) }) {
+            Permission.requestPermissions(this, permissionList.toTypedArray(), REQUEST_PERMISSION_CODE)
+        }
+    }
+    
+    companion object {
+        private const val REQUEST_PERMISSION_CODE = 1001
     }
 
     override fun initData() {

@@ -3,7 +3,7 @@ package com.topdon.module.thermal.activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
-import com.topdon.module.thermal.R
+import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.fragment.IRMonitorLiteFragment
 import com.topdon.lib.core.ktbase.BaseActivity
 import android.widget.TextView

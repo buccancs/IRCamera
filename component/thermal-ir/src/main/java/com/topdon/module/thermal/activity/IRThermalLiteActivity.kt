@@ -46,7 +46,7 @@ import com.energy.iruvc.utils.CommonParams
 import com.energy.iruvc.utils.SynchronizedBitmap
 import com.energy.iruvccamera.usb.USBMonitor
 import com.topdon.module.thermal.IrConst
-import com.topdon.module.thermal.R
+import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.camera.CameraPreviewManager
 import com.topdon.module.thermal.camera.DeviceControlManager
 import com.topdon.module.thermal.camera.DeviceIrcmdControlManager

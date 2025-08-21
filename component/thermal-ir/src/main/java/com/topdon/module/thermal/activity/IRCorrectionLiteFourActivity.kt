@@ -3,14 +3,12 @@ package com.topdon.module.thermal.activity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
-import com.blankj.utilcode.util.ToastUtils
-import com.topdon.module.thermal.R
+import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.fragment.IRMonitorLiteFragment
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.view.TitleView
 import com.topdon.module.thermal.ir.event.CorrectionFinishEvent
-import com.topdon.module.thermal.ir.view.TimeDownView
 import com.topdon.module.thermal.ir.view.TimeDownView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -80,7 +78,7 @@ class IRCorrectionLiteFourActivity : BaseActivity() {
                     override fun onLastTimeFinish(num: Int) {
                         try {
                             if (!result){
-                                ToastUtils.showShort("标定保存失败，请重新标定")
+                                showToast("标定保存失败，请重新标定")
                                 return
                             }
                             if (!this@IRCorrectionLiteFourActivity.isFinishing){

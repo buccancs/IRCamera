@@ -12,7 +12,7 @@ import com.energy.irutilslibrary.bean.GainStatus
 import com.energy.iruvc.sdkisp.LibIRTemp
 import com.energy.iruvc.utils.Line
 import com.topdon.module.thermal.IrConst
-import com.topdon.module.thermal.R
+import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.camera.DeviceIrcmdControlManager
 import com.topdon.module.thermal.fragment.IRMonitorLiteFragment
 import com.topdon.module.thermal.util.CommonUtil
