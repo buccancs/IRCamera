@@ -63,6 +63,11 @@ class TipDialog(context: Context) : Dialog(context) {
             return this
         }
         
+        fun setCanceled(cancellable: Boolean): Builder {
+            // Placeholder - in real implementation would set dialog cancellable
+            return this
+        }
+        
         fun create(): TipDialog {
             return TipDialog(context)
         }
