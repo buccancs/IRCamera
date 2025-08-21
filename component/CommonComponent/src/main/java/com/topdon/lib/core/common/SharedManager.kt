@@ -86,4 +86,17 @@ object SharedManager {
     // Device connection settings
     fun getConnectedDeviceType(): String = getString("connected_device_type", "TC001")
     fun setConnectedDeviceType(type: String) = setString("connected_device_type", type)
+    
+    // Winter click tracking
+    var hasClickWinter: Boolean
+        get() = getBoolean("has_click_winter", false)
+        set(value) = setBoolean("has_click_winter", value)
+    
+    // Device SN tracking
+    fun getDeviceSn(): String = getString("device_sn", "")
+    fun setDeviceSn(sn: String) = setString("device_sn", sn)
+    
+    // Last connected device SN
+    fun getLastConnectSn(): String = getString("last_connect_sn", "")
+    fun setLastConnectSn(sn: String) = setString("last_connect_sn", sn)
 }

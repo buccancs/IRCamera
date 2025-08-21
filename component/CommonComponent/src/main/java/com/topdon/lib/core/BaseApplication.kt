@@ -32,4 +32,12 @@ abstract class BaseApplication : Application() {
     }
 
     abstract fun getSoftWareCode(): String
+    
+    /**
+     * Check if this is domestic version
+     */
+    fun isDomestic(): Boolean {
+        // Simplified - return false for international version
+        return false
+    }
 }
