@@ -31,19 +31,10 @@ import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.tc001.DeviceTypeActivity
 import com.topdon.tc001.R
 import com.topdon.tc001.popup.DelPopup
-import kotlinx.android.synthetic.main.fragment_main.cl_has_device
-import kotlinx.android.synthetic.main.fragment_main.cl_no_device
-import kotlinx.android.synthetic.main.fragment_main.iv_add
-import kotlinx.android.synthetic.main.fragment_main.recycler_view
-import kotlinx.android.synthetic.main.fragment_main.tv_connect_device
-import kotlinx.android.synthetic.main.item_device_connect.view.battery_view
-import kotlinx.android.synthetic.main.item_device_connect.view.iv_bg
-import kotlinx.android.synthetic.main.item_device_connect.view.iv_image
-import kotlinx.android.synthetic.main.item_device_connect.view.tv_battery
-import kotlinx.android.synthetic.main.item_device_connect.view.tv_device_name
-import kotlinx.android.synthetic.main.item_device_connect.view.tv_device_state
-import kotlinx.android.synthetic.main.item_device_connect.view.tv_title
-import kotlinx.android.synthetic.main.item_device_connect.view.view_device_state
+import android.widget.TextView
+import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.topdon.lib.core.ui.BatteryView
 import kotlinx.coroutines.launch
 import org.bytedeco.librealsense.context
 import org.greenrobot.eventbus.Subscribe
@@ -59,9 +50,15 @@ class MainFragment : BaseFragment(), View.OnClickListener {
     override fun initContentView(): Int = R.layout.fragment_main
 
     override fun initView() {
+        val tvConnectDevice = requireView().findViewById<TextView>(R.id.tv_connect_device)
+        val ivAdd = requireView().findViewById<ImageView>(R.id.iv_add)
+        val recyclerView = requireView().findViewById<RecyclerView>(R.id.recycler_view)
+        val clHasDevice = requireView().findViewById<ConstraintLayout>(R.id.cl_has_device)
+        val clNoDevice = requireView().findViewById<ConstraintLayout>(R.id.cl_no_device)
+        
         adapter = MyAdapter()
-        tv_connect_device.setOnClickListener(this)
-        iv_add.setOnClickListener(this)
+        tvConnectDevice.setOnClickListener(this)
+        ivAdd.setOnClickListener(this)
         adapter.hasConnectLine = DeviceTools.isConnect()
         // TS004/TC007 support removed
         adapter.onItemClickListener = {
@@ -94,8 +91,8 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             popup.show(view)
         }
 
-        recycler_view.layoutManager = LinearLayoutManager(requireContext())
-        recycler_view.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = adapter
 
         if (WebSocketProxy.getInstance().isTC007Connect()) {
             lifecycleScope.launch {
@@ -124,9 +121,12 @@ class MainFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun refresh() {
+        val clHasDevice = requireView().findViewById<ConstraintLayout>(R.id.cl_has_device)
+        val clNoDevice = requireView().findViewById<ConstraintLayout>(R.id.cl_no_device)
+        
         val hasAnyDevice = SharedManager.hasTcLine || SharedManager.hasTS004 || SharedManager.hasTC007
-        cl_has_device.isVisible = hasAnyDevice
-        cl_no_device.isVisible = !hasAnyDevice
+        clHasDevice.isVisible = hasAnyDevice
+        clNoDevice.isVisible = !hasAnyDevice
         adapter.hasConnectLine = DeviceTools.isConnect(isAutoRequest = false)
         adapter.hasConnectTS004 = WebSocketProxy.getInstance().isTS004Connect()
         adapter.hasConnectTC007 = WebSocketProxy.getInstance().isTC007Connect()
@@ -168,8 +168,11 @@ class MainFragment : BaseFragment(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
+        val tvConnectDevice = requireView().findViewById<TextView>(R.id.tv_connect_device)
+        val ivAdd = requireView().findViewById<ImageView>(R.id.iv_add)
+        
         when (v) {
-            tv_connect_device, iv_add -> {//添加设备
+            tvConnectDevice, ivAdd -> {//添加设备
                 startActivity(Intent(requireContext(), DeviceTypeActivity::class.java))
             }
         }

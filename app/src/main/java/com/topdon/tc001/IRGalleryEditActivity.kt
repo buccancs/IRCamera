@@ -61,7 +61,13 @@ import com.topdon.module.thermal.ir.viewmodel.IRGalleryEditViewModel
 // Removed imports from pseudo component
 // import com.topdon.pseudo.activity.PseudoSetActivity
 // import com.topdon.pseudo.bean.CustomPseudoBean
-import kotlinx.android.synthetic.main.activity_ir_gallery_edit.*
+import android.widget.*
+import androidx.recyclerview.widget.RecyclerView
+import com.infisense.usbir.view.CameraPreView
+import com.infisense.usbir.view.TemperatureView
+import com.topdon.lib.core.ui.TitleView
+import com.topdon.lib.ui.widget.SettingNightView
+import com.topdon.lib.ui.widget.seekbar.RangeSeekBar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
