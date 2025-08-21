@@ -2,8 +2,8 @@ package com.topdon.tc001
 import com.topdon.tc001.R
 
 import android.view.WindowManager
+import com.github.barteksc.pdfviewer.PDFView
 import com.topdon.lib.core.ktbase.BaseActivity
-import kotlinx.android.synthetic.main.activity_pdf.*
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -14,8 +14,9 @@ class PdfActivity : BaseActivity() {
     override fun initContentView() = R.layout.activity_pdf
 
     override fun initView() {
+        val pdfView = findViewById<PDFView>(R.id.pdf_view)
         // Always use TC001.pdf since TS004.pdf support was removed
-        pdf_view.fromAsset("TC001.pdf")
+        pdfView.fromAsset("TC001.pdf")
             .enableSwipe(true) // allows to block changing pages using swipe
             .swipeHorizontal(false)
             .enableDoubletap(true)

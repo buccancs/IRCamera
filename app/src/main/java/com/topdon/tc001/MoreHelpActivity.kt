@@ -8,10 +8,11 @@ import android.provider.Settings
 import android.text.*
 import android.text.style.UnderlineSpan
 import android.view.View
+import android.widget.TextView
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.utils.Constants
-import kotlinx.android.synthetic.main.activity_more_help.*
+import com.topdon.lib.core.view.TitleView
 
 class MoreHelpActivity:BaseActivity() {
     private var connectionType : Int = 0
@@ -24,10 +25,13 @@ class MoreHelpActivity:BaseActivity() {
     }
 
     private fun initIntent() {
+        val tvTitle = findViewById<TextView>(R.id.tv_title)
+        val titleView = findViewById<TitleView>(R.id.title_view)
+        
         connectionType = intent.getIntExtra(Constants.SETTING_CONNECTION_TYPE,0)
         if(connectionType == Constants.SETTING_CONNECTION){
-            tv_title.text = getString(R.string.ts004_guide_text8)
-            title_view.setTitleText(R.string.ts004_guide_text6)
+            tvTitle.text = getString(R.string.ts004_guide_text8)
+            titleView.setTitleText(R.string.ts004_guide_text6)
             main_guide_tip1.visibility = View.VISIBLE
             main_guide_tip2.visibility = View.VISIBLE
             main_guide_tip4.visibility = View.VISIBLE
