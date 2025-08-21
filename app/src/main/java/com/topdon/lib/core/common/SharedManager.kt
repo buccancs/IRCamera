@@ -21,11 +21,14 @@ object SharedManager {
         get() = SPUtils.getInstance().getBoolean("isNeedShowTrendTips", true)
         set(value) = SPUtils.getInstance().put("isNeedShowTrendTips", value)
 
+    // House-related properties commented out as requested - graceful removal
+    /*
     var houseSpaceUnit: Int
         get() = SPUtils.getInstance().getInt("houseSpaceUnit", 0)
         set(value) {
             SPUtils.getInstance().put("houseSpaceUnit", value)
         }
+    */
 
     var costUnit: Int
         get() = SPUtils.getInstance().getInt("costUnit", 0)

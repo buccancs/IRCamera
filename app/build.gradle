@@ -201,12 +201,15 @@ project.afterEvaluate {
             copyApk("release", "prod")
         }
     }
+    // bundleProdDebug commented out as requested - reduced build tasks
+    /*
     tasks.named("bundleProdDebug").configure {
         doLast {
             println "===================== build prod Debug.aab copy ======================="
             copyAab("prodDebug")
         }
     }
+    */
     tasks.named("bundleProdRelease").configure {
         doLast {
             println "===================== build prod Release.aab copy ======================="

@@ -25,7 +25,7 @@ import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.db.AppDatabase
 import com.topdon.lib.core.repository.FileBean
-import com.topdon.lib.core.repository.TS004Repository
+// import com.topdon.lib.core.repository.TS004Repository // TS004Repository removed as requested
 import com.topdon.lib.core.socket.SocketCmdUtil
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.AppLanguageUtils
@@ -122,6 +122,8 @@ abstract class BaseApplication : Application() {
         }
     }
 
+    // TS004 functionality removed as requested
+    /*
     private fun autoSaveNewest(isVideo: Boolean) {
         CoroutineScope(Dispatchers.IO).launch {
             val fileList: List<FileBean>? = TS004Repository.getNewestFile(if (isVideo) 1 else 0)
@@ -134,6 +136,7 @@ abstract class BaseApplication : Application() {
             }
         }
     }
+    */
 
     private inner class NetworkChangedReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {

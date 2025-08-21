@@ -146,6 +146,8 @@ object FileConfig {
         }
 
 
+    // House documents directory removed as requested - graceful removal
+    /*
     @JvmStatic
     val documentsDir: String
         get() {
@@ -161,4 +163,5 @@ object FileConfig {
                 Environment.DIRECTORY_DOCUMENTS + File.separator + CommUtils.getAppName() + "/house/"
             }
         }
+    */
 }
