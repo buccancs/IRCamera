@@ -71,6 +71,10 @@ object SharedManager {
     fun getTemperatureUnit(): String = getString("temp_unit", "C")
     fun setTemperatureUnit(unit: String) = setString("temp_unit", unit)
     
+    // Legacy temperature methods for compatibility (0=Fahrenheit, 1=Celsius)
+    fun getTemperature(): Int = if (getTemperatureUnit() == "C") 1 else 0
+    fun setTemperature(value: Int) = setTemperatureUnit(if (value == 1) "C" else "F")
+    
     // Select fence type for thermal monitoring
     fun getSelectFenceType(): Int = getInt("select_fence_type", 0)
     fun setSelectFenceType(type: Int) = setInt("select_fence_type", type)

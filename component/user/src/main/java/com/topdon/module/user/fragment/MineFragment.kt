@@ -27,25 +27,25 @@ import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.db.AppDatabase
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseFragment
-import com.topdon.lib.core.socket.WebSocketProxy
+// import com.topdon.lib.core.socket.WebSocketProxy // Removed to simplify dependencies
 import com.topdon.lib.core.tools.AppLanguageUtils
 import com.bumptech.glide.Glide
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.utils.Constants
 import com.topdon.lib.core.utils.NetWorkUtils
-import com.topdon.lms.sdk.LMS
-import com.topdon.lms.sdk.UrlConstant
-import com.topdon.lms.sdk.bean.CommonBean
-import com.topdon.lms.sdk.bean.FeedBackBean
-import com.topdon.lms.sdk.feedback.activity.FeedbackActivity
-import com.topdon.lms.sdk.utils.LanguageUtil
+// LMS SDK imports commented out to avoid dependency issues
+// import com.topdon.lms.sdk.LMS
+// import com.topdon.lms.sdk.UrlConstant  
+// import com.topdon.lms.sdk.bean.CommonBean
+// import com.topdon.lms.sdk.bean.FeedBackBean
+// import com.topdon.lms.sdk.feedback.activity.FeedbackActivity
+// import com.topdon.lms.sdk.utils.LanguageUtil
 import com.topdon.module.user.R
 import com.topdon.module.user.activity.LanguageActivity
-import com.topdon.module.user.activity.MoreActivity
 import com.zoho.salesiqembed.ZohoSalesIQ
 import android.widget.ImageView
 import android.widget.TextView
-import com.topdon.lib.ui.SettingNightView
+import com.topdon.lib.core.view.SettingNightView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

@@ -8,6 +8,7 @@
     <string name="app_ok">OK</string>
     <string name="app_cancel">Cancel</string>
     <string name="app_question">FAQ</string>
+    <string name="detail_len">Size</string>
     
     <!-- FAQ Questions and Answers -->
     <string name="question1">Why there is no response after connecting the TC001、TS001 to a phone?</string>

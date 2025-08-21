@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Dialog styles -->
+    <style name="InfoDialog" parent="@style/Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+    
     <declare-styleable name="MessageSettingItem">
         <attr name="iconImg" format="reference|integer" />
         <attr name="textTitle" format="reference|integer" />
