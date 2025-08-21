@@ -36,6 +36,7 @@ import com.topdon.lib.core.common.FeedBackBean
 import com.topdon.lib.core.tools.AppLanguageUtils
 import com.bumptech.glide.Glide
 import com.topdon.lib.core.utils.Constants
+import com.topdon.module.user.activity.FeedbackActivity
 // LMS SDK imports commented out to avoid dependency issues
 // import com.topdon.lms.sdk.LMS
 // import com.topdon.lms.sdk.UrlConstant  
@@ -116,14 +117,15 @@ class MineFragment : BaseFragment(), View.OnClickListener {
     }
 
 
-    private val languagePickResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        if (it.resultCode == Activity.RESULT_OK) {
-            val localeStr: String = it.data?.getStringExtra("localeStr") ?: return@registerForActivityResult
-            SharedManager.setLanguage(localeStr)
-            LanguageUtils.applyLanguage(AppLanguageUtils.getLocaleByLanguage(localeStr))
-            ToastTools.showShort(requireContext(), R.string.tip_save_success)
-        }
-    }
+    // Simplified language picker - commenting out complex activity result handling for now
+    // private val languagePickResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+    //     if (it.resultCode == Activity.RESULT_OK) {
+    //         val localeStr: String = it.data?.getStringExtra("localeStr") ?: return@registerForActivityResult
+    //         SharedManager.setLanguage(localeStr)
+    //         LanguageUtils.applyLanguage(AppLanguageUtils.getLocaleByLanguage(localeStr))
+    //         ToastTools.showShort(requireContext(), R.string.tip_save_success)
+    //     }
+    // }
 
     override fun onClick(v: View?) {
         when (v) {
@@ -176,7 +178,9 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                 // startActivity(Intent(requireContext(), VersionActivity::class.java))
             }
             findViewById<SettingNightView>(R.id.setting_item_language) -> {//语言
-                languagePickResult.launch(Intent(requireContext(), LanguageActivity::class.java))
+                // languagePickResult.launch(Intent(requireContext(), LanguageActivity::class.java))
+                // Simplified - just start the activity directly
+                startActivity(Intent(requireContext(), LanguageActivity::class.java))
             }
             findViewById<SettingNightView>(R.id.setting_item_clear) -> {//清除缓存，实际已隐藏
                 clearCache()
@@ -195,16 +199,16 @@ class MineFragment : BaseFragment(), View.OnClickListener {
     private fun updateUIStyle() {
         // Local mode - show local settings UI
         val layoutParams = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT)
-        layoutParams.startToEnd = R.id.findViewById<ImageView>(R.id.setting_user_img_night)
-        layoutParams.topToTop = R.id.findViewById<ImageView>(R.id.setting_user_img_night)
-        layoutParams.bottomToBottom = R.id.findViewById<ImageView>(R.id.setting_user_img_night)
-        findViewById<TextView>(R.id.setting_user_text).setPadding(SizeUtils.dp2px(16f), SizeUtils.dp2px(16f), SizeUtils.dp2px(16f), SizeUtils.dp2px(16f))
-        findViewById<TextView>(R.id.setting_user_text).gravity = Gravity.CENTER
-        findViewById<TextView>(R.id.setting_user_text).layoutParams = layoutParams
-        findViewById<TextView>(R.id.setting_user_text).text = "Local Mode"
-        findViewById<ConstraintLayout>(R.id.setting_user_lay).visibility = View.GONE
+        layoutParams.startToEnd = R.id.setting_user_img_night
+        layoutParams.topToTop = R.id.setting_user_img_night
+        layoutParams.bottomToBottom = R.id.setting_user_img_night
+        findViewById<TextView>(R.id.setting_user_text)?.setPadding(SizeUtils.dp2px(16f), SizeUtils.dp2px(16f), SizeUtils.dp2px(16f), SizeUtils.dp2px(16f))
+        findViewById<TextView>(R.id.setting_user_text)?.gravity = Gravity.CENTER
+        findViewById<TextView>(R.id.setting_user_text)?.layoutParams = layoutParams
+        findViewById<TextView>(R.id.setting_user_text)?.text = "Local Mode"
+        findViewById<ConstraintLayout>(R.id.setting_user_lay)?.visibility = View.GONE
         // tv_email.text = "" // Comment out missing view reference
-        findViewById<ImageView>(R.id.setting_user_img_night).setImageResource(R.mipmap.ic_default_user_head)
+        findViewById<ImageView>(R.id.setting_user_img_night)?.setImageResource(android.R.drawable.ic_menu_gallery) // Use system drawable as placeholder
     }
 
     private fun clearCache() {

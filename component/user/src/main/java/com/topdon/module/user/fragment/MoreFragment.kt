@@ -1,5 +1,6 @@
 package com.topdon.module.user.fragment
 
+import android.content.Intent
 import android.view.View
 import androidx.core.view.isVisible
 import com.topdon.lib.core.common.SaveSettingUtil
@@ -9,7 +10,7 @@ import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.module.user.R
 import androidx.appcompat.widget.SwitchCompat
-import com.topdon.lib.ui.SettingNightView
+import com.topdon.lib.core.view.SettingNightView
 
 /**
  * 插件式 "更多" 页面
@@ -52,12 +53,12 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
         settingReset.isVisible = false
         
         // Only show dual light correction for TC001Plus
-        settingItemDual.isVisible = DeviceTools.isTC001PlusConnect()
+        settingItemDual.isVisible = SaveSettingUtil.isTC001PlusConnect()
 
         // Auto-open settings for connected devices
-        settingItemAutoShow.isChecked = SharedManager.isConnectAutoOpen
+        settingItemAutoShow.isChecked = SaveSettingUtil.isConnectAutoOpen()
         settingItemAutoShow.setOnCheckedChangeListener { _, isChecked ->
-            SharedManager.isConnectAutoOpen = isChecked
+            SaveSettingUtil.setConnectAutoOpen(isChecked)
         }
 
         // Configuration save settings
@@ -84,11 +85,11 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
     override fun initData() {
     }
 
-    override fun connected() {
-        settingItemDual.isVisible = DeviceTools.isTC001PlusConnect()
+    fun connected() {
+        settingItemDual.isVisible = SaveSettingUtil.isTC001PlusConnect()
     }
 
-    override fun disConnected() {
+    fun disConnected() {
         settingItemDual.isVisible = false
     }
 
