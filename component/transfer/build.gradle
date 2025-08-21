@@ -38,6 +38,25 @@ android {
 dependencies {
     compileOnly(name: "libcommon_1.2.0_24052117", ext: "aar")
     
+    // Required core dependencies
+    api(project(":component:CommonComponent"))
+    
+    // Android dependencies  
+    implementation "androidx.appcompat:appcompat:1.6.1"
+    implementation "com.google.android.material:material:1.4.0"
+    implementation "androidx.constraintlayout:constraintlayout:2.1.4"
+    implementation "androidx.core:core-ktx:1.9.0"
+    
+    // Lifecycle dependencies
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
+    
+    // Utility dependencies
+    implementation "com.blankj:utilcodex:1.31.0"
+    implementation "com.github.getActivity:XXPermissions:20.0"
+    implementation "com.elvishew:xlog:1.11.0"
+    
     // Kotlin Coroutines - compatible with Kotlin 2.0+
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"

@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.utils.Constants
 import com.topdon.module.user.R
-import androidx.recyclerview.widget.RecyclerView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.topdon.lib.core.view.BaseTitleView

@@ -2,10 +2,11 @@ package com.topdon.lib.core.common
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.blankj.utilcode.util.SPUtils
 
 /**
- * Simplified SharedManager for component modules
- * Contains basic shared preferences functionality
+ * SharedManager for component modules
+ * Contains shared preferences functionality needed by components
  */
 object SharedManager {
     
@@ -14,38 +15,45 @@ object SharedManager {
     
     fun init(context: Context) {
         prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        // Initialize SPUtils for blankj compatibility
+        SPUtils.getInstance().put("__init", true)
     }
+    
+    // Auto sync property needed by user component
+    var is04AutoSync: Boolean
+        get() = SPUtils.getInstance().getBoolean("is04AutoSync", false)
+        set(value) = SPUtils.getInstance().put("is04AutoSync", value)
     
     // Basic string preferences
     fun setString(key: String, value: String) {
-        prefs?.edit()?.putString(key, value)?.apply()
+        SPUtils.getInstance().put(key, value)
     }
     
     fun getString(key: String, defaultValue: String = ""): String {
-        return prefs?.getString(key, defaultValue) ?: defaultValue
+        return SPUtils.getInstance().getString(key, defaultValue)
     }
     
     // Basic boolean preferences  
     fun setBoolean(key: String, value: Boolean) {
-        prefs?.edit()?.putBoolean(key, value)?.apply()
+        SPUtils.getInstance().put(key, value)
     }
     
     fun getBoolean(key: String, defaultValue: Boolean = false): Boolean {
-        return prefs?.getBoolean(key, defaultValue) ?: defaultValue
+        return SPUtils.getInstance().getBoolean(key, defaultValue)
     }
     
     // Basic int preferences
     fun setInt(key: String, value: Int) {
-        prefs?.edit()?.putInt(key, value)?.apply()
+        SPUtils.getInstance().put(key, value)
     }
     
     fun getInt(key: String, defaultValue: Int = 0): Int {
-        return prefs?.getInt(key, defaultValue) ?: defaultValue
+        return SPUtils.getInstance().getInt(key, defaultValue)
     }
     
     // Basic float preferences
     fun setFloat(key: String, value: Float) {
-        prefs?.edit()?.putFloat(key, value)?.apply()
+        SPUtils.getInstance().put(key, value)
     }
     
     fun getFloat(key: String, defaultValue: Float = 0f): Float {

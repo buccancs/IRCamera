@@ -7,7 +7,7 @@ plugins {
 
 
 android {
-    namespace 'com.topdon.user'
+    namespace 'com.topdon.module.user'
     compileSdk rootProject.ext.android.compileSdk
 
     defaultConfig {
@@ -40,6 +40,24 @@ android {
 
 dependencies {
     compileOnly(name: "libcommon_1.2.0_24052117", ext: "aar")
+    
+    // Required core dependencies
+    api(project(":component:CommonComponent"))
+    
+    // Android dependencies
+    implementation "androidx.appcompat:appcompat:1.6.1"
+    implementation "com.google.android.material:material:1.4.0"
+    implementation "androidx.fragment:fragment-ktx:1.3.6"
+    
+    // Lifecycle dependencies
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
+    
+    // Utility dependencies
+    implementation "com.blankj:utilcodex:1.31.0"
+    implementation "com.github.getActivity:XXPermissions:20.0"
+    implementation "com.elvishew:xlog:1.11.0"
 
     implementation 'com.zoho.salesiq:mobilisten:7.0.0'
     
