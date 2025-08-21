@@ -11,6 +11,7 @@ import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import com.topdon.tc001.R
 import android.widget.Button
+import android.widget.TextView
 
 class TipDialog : Dialog {
 

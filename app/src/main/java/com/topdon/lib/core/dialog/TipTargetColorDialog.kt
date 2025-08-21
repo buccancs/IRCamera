@@ -61,7 +61,7 @@ class TipTargetColorDialog : Dialog {
                 context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             val view = inflater.inflate(R.layout.dialog_tip_target_color, null)
 
-            view.findViewById(R.id.tv_i_know).setOnClickListener {
+            view.findViewById<View>(R.id.tv_i_know).setOnClickListener {
                 dismiss()
                 closeEvent?.invoke(targetColor)
             }
