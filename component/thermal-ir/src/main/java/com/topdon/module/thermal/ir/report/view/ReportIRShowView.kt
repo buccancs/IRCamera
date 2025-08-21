@@ -11,8 +11,8 @@ import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.report.bean.ReportIRBean
 import com.topdon.module.thermal.ir.report.bean.ReportTempBean
-import kotlinx.android.synthetic.main.item_report_ir_show.view.*
-import kotlinx.android.synthetic.main.view_report_ir_show.view.*
+import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
 
 /**
  * 一项红外数据预览 View.

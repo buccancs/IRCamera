@@ -11,7 +11,7 @@ import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.view.TitleView
 import com.topdon.module.thermal.ir.event.CorrectionFinishEvent
 import com.topdon.module.thermal.ir.view.TimeDownView
-import kotlinx.android.synthetic.main.activity_ir_thermal_lite.time_down_view
+import com.topdon.module.thermal.ir.view.TimeDownView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -62,10 +62,11 @@ class IRCorrectionLiteFourActivity : BaseActivity() {
         }
 
 
-        time_down_view.postDelayed({
+        val timeDownView: TimeDownView = findViewById(R.id.time_down_view)
+        timeDownView.postDelayed({
             //开始矫正
-            if (time_down_view.downTimeWatcher == null){
-                time_down_view.setOnTimeDownListener(object : TimeDownView.DownTimeWatcher{
+            if (timeDownView.downTimeWatcher == null){
+                timeDownView.setOnTimeDownListener(object : TimeDownView.DownTimeWatcher{
                     override fun onTime(num: Int) {
                         if (num == 35){
                             lifecycleScope.launch(Dispatchers.IO) {
@@ -97,7 +98,7 @@ class IRCorrectionLiteFourActivity : BaseActivity() {
                     }
                 })
             }
-            time_down_view.downSecond(time,false)
+            timeDownView.downSecond(time,false)
         },2000)
     }
 
@@ -118,7 +119,8 @@ class IRCorrectionLiteFourActivity : BaseActivity() {
 
     override fun disConnected() {
         super.disConnected()
-        time_down_view.cancel()
+        val timeDownView: TimeDownView = findViewById(R.id.time_down_view)
+        timeDownView.cancel()
         EventBus.getDefault().post(CorrectionFinishEvent())
         finish()
     }
@@ -135,6 +137,7 @@ class IRCorrectionLiteFourActivity : BaseActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        time_down_view.cancel()
+        val timeDownView: TimeDownView = findViewById(R.id.time_down_view)
+        timeDownView.cancel()
     }
 }

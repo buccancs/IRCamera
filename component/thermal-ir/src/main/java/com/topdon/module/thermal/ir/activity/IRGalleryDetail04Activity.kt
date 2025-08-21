@@ -31,7 +31,11 @@ import com.topdon.lib.core.bean.event.GalleryDelEvent
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.thermal.ir.event.GalleryDownloadEvent
 import com.topdon.module.thermal.ir.fragment.GalleryFragment
-import kotlinx.android.synthetic.main.activity_ir_gallery_detail_04.*
+import android.widget.ImageView
+import android.widget.LinearLayout
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.viewpager2.widget.ViewPager2
+import com.topdon.lib.core.view.TitleView
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import java.io.File
@@ -63,32 +67,38 @@ class IRGalleryDetail04Activity : BaseActivity() {
         position = intent.getIntExtra("position", 0)
         dataList = intent.getParcelableArrayListExtra("list")!!
 
-        title_view.setTitleText("${position + 1}/${dataList.size}")
+        val titleView: TitleView = findViewById(R.id.title_view)
+        val clBottom: ConstraintLayout = findViewById(R.id.cl_bottom)
+        val clDownload: ConstraintLayout = findViewById(R.id.cl_download)
+        val clShare: ConstraintLayout = findViewById(R.id.cl_share)
+        val clDelete: ConstraintLayout = findViewById(R.id.cl_delete)
 
-        cl_bottom.isVisible = isRemote //查看远端时底部才有3个按钮
+        titleView.setTitleText("${position + 1}/${dataList.size}")
+
+        clBottom.isVisible = isRemote //查看远端时底部才有3个按钮
 
         if (!isRemote) {
-            title_view.setRightDrawable(R.drawable.ic_toolbar_info_svg)
-            title_view.setRight2Drawable(R.drawable.ic_toolbar_share_svg)
-            title_view.setRight3Drawable(R.drawable.ic_toolbar_delete_svg)
-            title_view.setRightClickListener { actionInfo() }
-            title_view.setRight2ClickListener { actionShare() }
-            title_view.setRight3ClickListener { actionDelete() }
+            titleView.setRightDrawable(R.drawable.ic_toolbar_info_svg)
+            titleView.setRight2Drawable(R.drawable.ic_toolbar_share_svg)
+            titleView.setRight3Drawable(R.drawable.ic_toolbar_delete_svg)
+            titleView.setRightClickListener { actionInfo() }
+            titleView.setRight2ClickListener { actionShare() }
+            titleView.setRight3ClickListener { actionDelete() }
         }
 
         initViewPager()
 
-        cl_download.setOnClickListener {
+        clDownload.setOnClickListener {
             actionDownload(false)
         }
-        cl_share.setOnClickListener {
+        clShare.setOnClickListener {
             if (dataList[position].hasDownload) {
                 actionShare()
             } else {
                 actionDownload(true)
             }
         }
-        cl_delete.setOnClickListener {
+        clDelete.setOnClickListener {
             actionDelete()
         }
     }
@@ -99,17 +109,21 @@ class IRGalleryDetail04Activity : BaseActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun initViewPager() {
-        ir_gallery_viewpager.adapter = GalleryViewPagerAdapter(this)
-        ir_gallery_viewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        val irGalleryViewpager: ViewPager2 = findViewById(R.id.ir_gallery_viewpager)
+        val titleView: TitleView = findViewById(R.id.title_view)
+        val ivDownload: ImageView = findViewById(R.id.iv_download)
+        
+        irGalleryViewpager.adapter = GalleryViewPagerAdapter(this)
+        irGalleryViewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
 
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 this@IRGalleryDetail04Activity.position = position
-                title_view.setTitleText("${position + 1}/${dataList.size}")
-                iv_download.isSelected = dataList[position].hasDownload
+                titleView.setTitleText("${position + 1}/${dataList.size}")
+                ivDownload.isSelected = dataList[position].hasDownload
             }
         })
-        ir_gallery_viewpager?.setCurrentItem(position, false)
+        irGalleryViewpager.setCurrentItem(position, false)
     }
 
     private fun actionInfo() {
@@ -230,7 +244,8 @@ class IRGalleryDetail04Activity : BaseActivity() {
                     MediaScannerConnection.scanFile(this@IRGalleryDetail04Activity, arrayOf(FileConfig.ts004GalleryDir), null, null)
                     ToastTools.showShort(R.string.tip_save_success)
                     data.hasDownload = true
-                    iv_download.isSelected = dataList[position].hasDownload
+                    val ivDownload: ImageView = findViewById(R.id.iv_download)
+                    ivDownload.isSelected = dataList[position].hasDownload
                     if (isToShare) {
                         actionShare()
                     }

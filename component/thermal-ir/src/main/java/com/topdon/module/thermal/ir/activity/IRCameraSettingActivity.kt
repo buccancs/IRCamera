@@ -26,7 +26,9 @@ import com.topdon.lib.ui.listener.SingleClickListener
 import com.topdon.lib.core.utils.CommUtils
 import com.topdon.module.thermal.ir.BuildConfig
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.activity_ir_camera_setting.*
+import android.widget.*
+import androidx.appcompat.widget.SwitchCompat
+import com.topdon.lib.core.view.TitleView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
