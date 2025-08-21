@@ -12,7 +12,7 @@ import android.graphics.RectF;
 import android.text.TextPaint;
 
 import com.energy.commoncomponent.R;
-import com.topdon.lib.core.util.ScreenUtils;
+import com.blankj.utilcode.util.SizeUtils;
 
 import java.util.LinkedList;
 import java.util.UUID;
@@ -58,7 +58,7 @@ public class RectDraw extends BaseDraw {
 
     public RectDraw(Context context) {
         super(context);
-        LINE_STROKE_WIDTH = ScreenUtils.dp2px(1);
+        LINE_STROKE_WIDTH = SizeUtils.dp2px(1);
         mRectList = new LinkedList<>();
 
         mRectPaint = new Paint();
@@ -70,13 +70,13 @@ public class RectDraw extends BaseDraw {
         mRectPaint.setStyle(Paint.Style.STROKE);
 
         mTextPaint = new Paint();
-        mTextPaint.setStrokeWidth(ScreenUtils.dp2px(STROKE_WIDTH));
-        mTextPaint.setTextSize(ScreenUtils.sp2px(TEXT_SIZE));
+        mTextPaint.setStrokeWidth(SizeUtils.dp2px(STROKE_WIDTH));
+        mTextPaint.setTextSize(SizeUtils.sp2px(TEXT_SIZE));
         mTextPaint.setColor(Color.WHITE);
         mTextPaint.setTextAlign(Paint.Align.CENTER);
 
         mBgPaint = new TextPaint();
-        mBgPaint.setStrokeWidth(ScreenUtils.dp2px(1));
+        mBgPaint.setStrokeWidth(SizeUtils.dp2px(1));
     }
 
     public int getOperateStatus() {
@@ -452,7 +452,7 @@ public class RectDraw extends BaseDraw {
         private int mMovingRight;
 
         public RectView(Context context, int startX, int startY, int endX, int endY) {
-            mPointSize = ScreenUtils.dp2px(20f);
+            mPointSize = SizeUtils.dp2px(20f);
             mId = UUID.randomUUID().toString();
             mRect = new Rect();
             mRect.left = startX;

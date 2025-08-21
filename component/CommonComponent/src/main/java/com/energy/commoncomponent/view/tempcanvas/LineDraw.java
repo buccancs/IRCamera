@@ -10,7 +10,7 @@ import android.graphics.Point;
 import android.graphics.RectF;
 import android.text.TextPaint;
 import com.energy.commoncomponent.R;
-import com.topdon.lib.core.util.ScreenUtils;
+import com.blankj.utilcode.util.SizeUtils;
 import java.util.LinkedList;
 import java.util.UUID;
 
@@ -46,7 +46,7 @@ public class LineDraw extends BaseDraw {
 
     public LineDraw(Context context) {
         super(context);
-        LINE_STROKE_WIDTH = ScreenUtils.dp2px(1);
+        LINE_STROKE_WIDTH = SizeUtils.dp2px(1);
         mLineList = new LinkedList<>();
 
         mLinePaint = new Paint();
@@ -58,13 +58,13 @@ public class LineDraw extends BaseDraw {
         mLinePaint.setStyle(Paint.Style.STROKE);
 
         mTextPaint = new Paint();
-        mTextPaint.setStrokeWidth(ScreenUtils.dp2px(STROKE_WIDTH));
-        mTextPaint.setTextSize(ScreenUtils.sp2px(TEXT_SIZE));
+        mTextPaint.setStrokeWidth(SizeUtils.dp2px(STROKE_WIDTH));
+        mTextPaint.setTextSize(SizeUtils.sp2px(TEXT_SIZE));
         mTextPaint.setColor(Color.WHITE);
         mTextPaint.setTextAlign(Paint.Align.CENTER);
 
         mBgPaint = new TextPaint();
-        mBgPaint.setStrokeWidth(ScreenUtils.dp2px(1));
+        mBgPaint.setStrokeWidth(SizeUtils.dp2px(1));
     }
 
     public int getOperateStatus() {
@@ -397,7 +397,7 @@ public class LineDraw extends BaseDraw {
         private int mEndMovingLineY;
 
         public LineView(Context context, int startX, int startY, int endX, int endY) {
-            mPointSize = ScreenUtils.dp2px(20f);
+            mPointSize = SizeUtils.dp2px(20f);
             mId = UUID.randomUUID().toString();
             mStartPoint = new Point(startX, startY);
             mEndPoint = new Point(endX, endY);

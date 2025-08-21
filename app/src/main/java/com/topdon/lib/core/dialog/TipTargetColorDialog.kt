@@ -15,7 +15,6 @@ import com.topdon.lib.core.utils.ScreenUtil
 import kotlinx.android.synthetic.main.dialog_tip_observe.view.img_close
 import kotlinx.android.synthetic.main.dialog_tip_observe.view.tv_i_know
 import kotlinx.android.synthetic.main.dialog_tip_observe.view.tv_title
-import kotlinx.android.synthetic.main.dialog_tip_target_color.view.*
 
 class TipTargetColorDialog : Dialog {
 
@@ -65,14 +64,14 @@ class TipTargetColorDialog : Dialog {
                 context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             val view = inflater.inflate(R.layout.dialog_tip_target_color, null)
 
-            view.tv_i_know.setOnClickListener {
+            view.findViewById(R.id.tv_i_know).setOnClickListener {
                 dismiss()
                 closeEvent?.invoke(targetColor)
             }
 
-            titleText = view.tv_title
-            imgClose = view.img_close
-            recyclerView = view.recycler_view
+            titleText = view.findViewById(R.id.tv_title)
+            imgClose = view.findViewById(R.id.img_close)
+            recyclerView = view.findViewById(R.id.recycler_view)
             recyclerView.layoutManager = LinearLayoutManager(context!!, RecyclerView.HORIZONTAL, false)
             val targetColorAdapter = TargetColorAdapter(context!!,targetColor)
             targetColorAdapter.listener = listener@{ _, item ->

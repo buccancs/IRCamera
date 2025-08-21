@@ -20,7 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.energy.commoncomponent.R;
-import com.topdon.lib.core.util.ScreenUtils;
+import com.blankj.utilcode.util.SizeUtils;
 
 import java.util.LinkedList;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -177,7 +177,7 @@ public abstract class BaseTemperatureView extends SurfaceView implements Surface
         mTextPaint = new TextPaint();
         mTextPaint.setColor(Color.WHITE);
         mTextPaint.setStyle(Paint.Style.FILL);
-        mTextPaint.setTextSize(ScreenUtils.sp2px(14));
+        mTextPaint.setTextSize(SizeUtils.sp2px(14));
 
         mPointDraw = new PointDraw(mContext);
         mLineDraw = new LineDraw(mContext);
@@ -729,7 +729,7 @@ public abstract class BaseTemperatureView extends SurfaceView implements Surface
             y = mViewHeight - 10;
         }
 
-        int interval = ScreenUtils.dp2px(mTextWidth + 10);
+        int interval = SizeUtils.dp2px(mTextWidth + 10);
         int count = 0;
         int startIndex = 0;
         int pointCount = 0;
@@ -749,9 +749,9 @@ public abstract class BaseTemperatureView extends SurfaceView implements Surface
             if (count != 0 && count % 3 == 0) {
                 startIndex = 0;
                 if (pointCount == 3 && count == 3) {
-                    y += ScreenUtils.dp2px(40);
+                    y += SizeUtils.dp2px(40);
                 } else {
-                    y += ScreenUtils.dp2px(80);
+                    y += SizeUtils.dp2px(80);
                 }
             }
             canvas.translate(x + interval * startIndex, y);

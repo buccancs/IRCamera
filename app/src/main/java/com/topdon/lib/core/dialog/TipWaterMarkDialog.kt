@@ -26,7 +26,7 @@ import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.utils.CommUtils
 import com.topdon.lib.core.utils.ScreenUtil
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
-import kotlinx.android.synthetic.main.dialog_tip_watermark.view.*
+
 import java.util.*
 
 class TipWaterMarkDialog : Dialog {
@@ -68,38 +68,38 @@ class TipWaterMarkDialog : Dialog {
             }
             val inflater = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             val view = inflater.inflate(R.layout.dialog_tip_watermark, null)
-            imgClose = view.img_close
-            llWatermarkContent = view.ll_watermark_content
-            mEtTitle = view.ed_title
-            mEtAddress = view.ed_address
-            imgLocation = view.img_location
-            switchDateTime = view.switch_date_time
+            imgClose = view.findViewById(R.id.img_close)
+            llWatermarkContent = view.findViewById(R.id.ll_watermark_content)
+            mEtTitle = view.findViewById(R.id.ed_title)
+            mEtAddress = view.findViewById(R.id.ed_address)
+            imgLocation = view.findViewById(R.id.img_location)
+            switchDateTime = view.findViewById(R.id.switch_date_time)
             updateWaterMark(false)
 
-            view.switch_watermark.setOnCheckedChangeListener { _, isChecked ->
+            view.findViewById<SwitchCompat>(R.id.switch_watermark).setOnCheckedChangeListener { _, isChecked ->
                 updateWaterMark(isChecked)
             }
-            view.switch_date_time.setOnCheckedChangeListener { _, _ ->
+            view.findViewById<SwitchCompat>(R.id.switch_date_time).setOnCheckedChangeListener { _, _ ->
 
             }
-            view.tv_i_know.setOnClickListener {
+            view.findViewById(R.id.tv_i_know).setOnClickListener {
                 dismiss()
                 closeEvent?.invoke(
                     WatermarkBean(
-                        view.switch_watermark.isChecked,
-                        view.ed_title.text.toString(),
-                        view.ed_address.text.toString(),
-                        view.switch_date_time.isChecked,
+                        view.findViewById<SwitchCompat>(R.id.switch_watermark).isChecked,
+                        view.findViewById<EditText>(R.id.ed_title).text.toString(),
+                        view.findViewById<EditText>(R.id.ed_address).text.toString(),
+                        view.findViewById<SwitchCompat>(R.id.switch_date_time).isChecked,
                     )
                 )
             }
             imgLocation.setOnClickListener {
                 checkLocationPermission()
             }
-            view.switch_watermark.isChecked = watermarkBean.isOpen
-            view.switch_date_time.isChecked = watermarkBean.isAddTime
-            view.ed_title.setText(watermarkBean.title.ifEmpty { SharedManager.watermarkBean.title })
-            view.ed_address.setText(watermarkBean.address)
+            view.findViewById<SwitchCompat>(R.id.switch_watermark).isChecked = watermarkBean.isOpen
+            view.findViewById<SwitchCompat>(R.id.switch_date_time).isChecked = watermarkBean.isAddTime
+            view.findViewById<EditText>(R.id.ed_title).setText(watermarkBean.title.ifEmpty { SharedManager.watermarkBean.title })
+            view.findViewById<EditText>(R.id.ed_address).setText(watermarkBean.address)
 
 
             dialog!!.addContentView(
