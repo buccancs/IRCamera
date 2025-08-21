@@ -21,7 +21,6 @@ import com.blankj.utilcode.util.ToastUtils
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.listener.BitmapViewListener
 import com.topdon.lib.ui.R
-import kotlinx.android.synthetic.main.camera_lay.view.*
 import java.util.*
 
 

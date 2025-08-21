@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
 import android.view.View.MeasureSpec
+import android.widget.*
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.ImageUtils
@@ -13,7 +14,6 @@ import com.topdon.tc001.R
 import com.topdon.lib.core.dialog.ColorSelectDialog
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.view.ImageEditView
-import kotlinx.android.synthetic.main.activity_image_pick_ir_plush.*
 import kotlinx.coroutines.launch
 import java.io.File
 
@@ -33,16 +33,16 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        iv_edit_circle.isSelected = true
-        image_edit_view.type = ImageEditView.Type.CIRCLE
-        view_color.setBackgroundColor(image_edit_view.color)
+        findViewById<ImageView>(R.id.iv_edit_circle).isSelected = true
+        findViewById<ImageEditView>(R.id.image_edit_view).type = ImageEditView.Type.CIRCLE
+        findViewById<View>(R.id.view_color).setBackgroundColor(findViewById<ImageEditView>(R.id.image_edit_view).color)
 
-        iv_edit_color.setOnClickListener(this)
-        iv_edit_circle.setOnClickListener(this)
-        iv_edit_rect.setOnClickListener(this)
-        iv_edit_arrow.setOnClickListener(this)
-        iv_edit_clear.setOnClickListener(this)
-        img_pick.setOnClickListener(this)
+        findViewById<ImageView>(R.id.iv_edit_color).setOnClickListener(this)
+        findViewById<ImageView>(R.id.iv_edit_circle).setOnClickListener(this)
+        findViewById<ImageView>(R.id.iv_edit_rect).setOnClickListener(this)
+        findViewById<ImageView>(R.id.iv_edit_arrow).setOnClickListener(this)
+        findViewById<ImageView>(R.id.iv_edit_clear).setOnClickListener(this)
+        findViewById<ImageView>(R.id.img_pick).setOnClickListener(this)
 
         title_view.setLeftClickListener {
             if (hasTakePhoto) {
