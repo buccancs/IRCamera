@@ -26,7 +26,8 @@ import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.repository.ConfigRepository
 import com.topdon.module.thermal.ir.utils.CalibrationTools
-import kotlinx.android.synthetic.main.fragment_ir_monitor_thermal.*
+import com.infisense.usbir.view.CameraPreView
+import com.infisense.usbir.view.TemperatureView
 import kotlinx.coroutines.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -81,6 +82,9 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
     private fun initDataIR() {
         imageWidth = cameraHeight - tempHeight
         imageHeight = cameraWidth
+        val temperatureView = requireView().findViewById<TemperatureView>(R.id.temperatureView)
+        val cameraView = requireView().findViewById<CameraPreView>(R.id.cameraView)
+        
         temperatureView.setTextSize(SaveSettingUtil.tempTextSize)
         if (ScreenUtil.isPortrait(requireContext())) {
             bitmap = Bitmap.createBitmap(imageWidth, imageHeight, Bitmap.Config.ARGB_8888)
@@ -181,6 +185,8 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
         super.onStart()
         if (!isrun) {
             //初始配置,伪彩铁红
+            val temperatureView = requireView().findViewById<TemperatureView>(R.id.temperatureView)
+            val cameraView = requireView().findViewById<CameraPreView>(R.id.cameraView)
             temperatureView.postDelayed({
                 pseudocolorMode = 3
                 startUSB(false)
@@ -202,6 +208,8 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
         }
         imageThread?.interrupt()
         syncimage.valid = false
+        val temperatureView = requireView().findViewById<TemperatureView>(R.id.temperatureView)
+        val cameraView = requireView().findViewById<CameraPreView>(R.id.cameraView)
         temperatureView.stop()
         cameraView?.stop()
         isrun = false
@@ -228,18 +236,19 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
     }
 
     private fun setViewLay() {
-        thermal_lay.post {
+        val thermalLay = requireView().findViewById<View>(R.id.thermal_lay)
+        thermalLay.post {
             if (ScreenUtil.isPortrait(requireContext())) {
-                val params = thermal_lay.layoutParams
+                val params = thermalLay.layoutParams
                 params.width = ScreenUtil.getScreenWidth(requireContext())
                 params.height = params.width * imageHeight / imageWidth
-                thermal_lay.layoutParams = params
+                thermalLay.layoutParams = params
             } else {
                 // 横屏
-                val params = thermal_lay.layoutParams
-                params.height = thermal_lay.height
+                val params = thermalLay.layoutParams
+                params.height = thermalLay.height
                 params.width = params.height * imageHeight / imageWidth
-                thermal_lay.layoutParams = params
+                thermalLay.layoutParams = params
             }
         }
     }

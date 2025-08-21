@@ -14,7 +14,11 @@ import com.topdon.libcom.PDFHelp
 import com.topdon.module.thermal.ir.report.view.ReportIRShowView
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.report.bean.ReportBean
-import kotlinx.android.synthetic.main.activity_report_detail.*
+import android.widget.ScrollView
+import android.widget.LinearLayout
+import com.topdon.lib.core.ui.TitleView
+import com.topdon.module.thermal.ir.report.view.ReportInfoView
+import com.topdon.module.thermal.ir.report.view.WatermarkView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
@@ -42,22 +46,27 @@ class ReportDetailActivity: BaseActivity() {
 
     override fun initView() {
         reportBean = intent.getParcelableExtra(ExtraKeyConfig.REPORT_BEAN)
+        
+        val titleView = findViewById<TitleView>(R.id.title_view)
+        val reportInfoView = findViewById<ReportInfoView>(R.id.report_info_view)
+        val watermarkView = findViewById<WatermarkView>(R.id.watermark_view)
+        val llContent = findViewById<LinearLayout>(R.id.ll_content)
 
-        title_view.setTitleText(R.string.album_edit_report)
-        title_view.setLeftDrawable(R.drawable.svg_arrow_left_e8)
-        title_view.setRightDrawable(R.drawable.ic_share_black_svg)
-        title_view.setLeftClickListener {
+        titleView.setTitleText(R.string.album_edit_report)
+        titleView.setLeftDrawable(R.drawable.svg_arrow_left_e8)
+        titleView.setRightDrawable(R.drawable.ic_share_black_svg)
+        titleView.setLeftClickListener {
             finish()
         }
-        title_view.setRightClickListener {
+        titleView.setRightClickListener {
             saveWithPDF()
         }
 
-        report_info_view.refreshInfo(reportBean?.report_info)
-        report_info_view.refreshCondition(reportBean?.detection_condition)
+        reportInfoView.refreshInfo(reportBean?.report_info)
+        reportInfoView.refreshCondition(reportBean?.detection_condition)
 
         if (reportBean?.report_info?.is_report_watermark == 1) {
-            watermark_view.watermarkText = reportBean?.report_info?.report_watermark
+            watermarkView.watermarkText = reportBean?.report_info?.report_watermark
         }
 
         val irList = reportBean?.infrared_data
@@ -69,7 +78,7 @@ class ReportDetailActivity: BaseActivity() {
                     val drawable = GlideLoader.getDrawable(this@ReportDetailActivity, irList[i].picture_url)
                     reportShowView.setImageDrawable(drawable)
                 }
-                ll_content.addView(reportShowView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                llContent.addView(reportShowView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             }
         }
     }
@@ -119,10 +128,12 @@ class ReportDetailActivity: BaseActivity() {
      */
     private fun getPrintViewList(): ArrayList<View> {
         val result = ArrayList<View>()
-        result.add(report_info_view)
-        val childCount = ll_content.childCount
+        val reportInfoView = findViewById<ReportInfoView>(R.id.report_info_view)
+        val llContent = findViewById<LinearLayout>(R.id.ll_content)
+        result.add(reportInfoView)
+        val childCount = llContent.childCount
         for (i in 0 until  childCount) {
-            val childView = ll_content.getChildAt(i)
+            val childView = llContent.getChildAt(i)
             if (childView is ReportIRShowView) {
                 result.addAll(childView.getPrintViewList())
             }

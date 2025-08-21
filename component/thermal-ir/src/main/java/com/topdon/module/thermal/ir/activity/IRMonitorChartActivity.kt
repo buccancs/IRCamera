@@ -42,7 +42,13 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.bean.SelectPositionBean
 import com.topdon.module.thermal.ir.event.MonitorSaveEvent
 import com.topdon.module.thermal.ir.repository.ConfigRepository
-import kotlinx.android.synthetic.main.activity_ir_monitor_chart.*
+import android.widget.TextView
+import android.widget.LinearLayout
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.infisense.usbir.view.CameraPreView
+import com.infisense.usbir.view.TemperatureView
+import com.topdon.lib.core.ui.TitleView
+import com.topdon.lib.ui.widget.MPChartView
 import kotlinx.coroutines.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -73,7 +79,18 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
     override fun initContentView() = R.layout.activity_ir_monitor_chart
 
     override fun initView() {
-        title_view.setRightClickListener {
+        val titleView = findViewById<TitleView>(R.id.title_view)
+        val monitorCurrentVol = findViewById<TextView>(R.id.monitor_current_vol)
+        val monitorRealVol = findViewById<TextView>(R.id.monitor_real_vol)
+        val monitorRealImg = findViewById<View>(R.id.monitor_real_img)
+        val temperatureView = findViewById<TemperatureView>(R.id.temperatureView)
+        val llTime = findViewById<LinearLayout>(R.id.ll_time)
+        val cameraView = findViewById<CameraPreView>(R.id.cameraView)
+        val mpChartView = findViewById<MPChartView>(R.id.mp_chart_view)
+        val tvTime = findViewById<TextView>(R.id.tv_time)
+        val thermalLay = findViewById<ConstraintLayout>(R.id.thermal_lay)
+        
+        titleView.setRightClickListener {
             recordJob?.cancel()
             lifecycleScope.launch {
                 delay(200)
@@ -84,9 +101,9 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
         ts_data_L = CommonUtils.getTauData(this@IRMonitorChartActivity, "ts/TS001_L.bin")
         selectBean = intent.getParcelableExtra("select")!!
 
-        monitor_current_vol.text = getString(if (selectBean.type == 1) R.string.chart_temperature else R.string.chart_temperature_high)
-        monitor_real_vol.visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
-        monitor_real_img.visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
+        monitorCurrentVol.text = getString(if (selectBean.type == 1) R.string.chart_temperature else R.string.chart_temperature_high)
+        monitorRealVol.visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
+        monitorRealImg.visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
 
         temperatureView.isEnabled = false
         temperatureView.setTextSize(SaveSettingUtil.tempTextSize)
@@ -127,7 +144,7 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
                     } else {
                         isFirstRead = false
                         lifecycleScope.launch(Dispatchers.Main) {
-                            ll_time.isVisible = true
+                            llTime.isVisible = true
                         }
                     }
                 }
@@ -149,6 +166,8 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
         isStop = false
         if (!isrun) {
             configParam()
+            val temperatureView = findViewById<TemperatureView>(R.id.temperatureView)
+            val cameraView = findViewById<CameraPreView>(R.id.cameraView)
             temperatureView.postDelayed({
                 //初始配置,伪彩铁红
                 try {
@@ -172,7 +191,8 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
     override fun onResume() {
         super.onResume()
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        mp_chart_view.highlightValue(null) //关闭高亮点Marker
+        val mpChartView = findViewById<MPChartView>(R.id.mp_chart_view)
+        mpChartView.highlightValue(null) //关闭高亮点Marker
     }
 
     override fun onPause() {
@@ -190,6 +210,8 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
         }
         imageThread?.interrupt()
         syncimage.valid = false
+        val temperatureView = findViewById<TemperatureView>(R.id.temperatureView)
+        val cameraView = findViewById<CameraPreView>(R.id.cameraView)
         temperatureView.stop()
         cameraView.stop()
         isrun = false
@@ -243,14 +265,14 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
                         AppDatabase.getInstance().thermalDao().insert(entity)
                         time++
                         launch(Dispatchers.Main) {
-                            mp_chart_view.addPointToChart(bean = entity, selectType = selectBean.type)
+                            mpChartView.addPointToChart(bean = entity, selectType = selectBean.type)
                         }
                         delay(timeMillis)
                     } else {
                         delay(100)
                     }
                     lifecycleScope.launch(Dispatchers.Main) {
-                        tv_time.text = TimeTool.showVideoLongTime(System.currentTimeMillis() - startTime)
+                        tvTime.text = TimeTool.showVideoLongTime(System.currentTimeMillis() - startTime)
                     }
                 }
             }
@@ -291,6 +313,8 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
     private fun initDataIR() {
         imageWidth = cameraHeight - tempHeight
         imageHeight = cameraWidth
+        val temperatureView = findViewById<TemperatureView>(R.id.temperatureView)
+        val cameraView = findViewById<CameraPreView>(R.id.cameraView)
         if (ScreenUtil.isPortrait(this)) {
             bitmap = Bitmap.createBitmap(imageWidth, imageHeight, Bitmap.Config.ARGB_8888)
             temperatureView.setImageSize(imageWidth, imageHeight,this@IRMonitorChartActivity)
@@ -496,6 +520,7 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
      * 绘制点线面
      */
     private fun addTempLine() {
+        val temperatureView = findViewById<TemperatureView>(R.id.temperatureView)
         temperatureView.visibility = View.VISIBLE
         when (selectBean.type) {
             1 -> {
@@ -530,20 +555,21 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
     }
 
     private fun setViewLay() {
-        thermal_lay.post {
-            val params = thermal_lay.layoutParams
+        val thermalLay = findViewById<ConstraintLayout>(R.id.thermal_lay)
+        thermalLay.post {
+            val params = thermalLay.layoutParams
             if (ScreenUtil.isPortrait(this)) {
-                params.height = thermal_lay.height
+                params.height = thermalLay.height
                 var w = params.height * imageWidth / imageHeight
                 if (w > ScreenUtil.getScreenWidth(this)) {
                     w = ScreenUtil.getScreenWidth(this)
                 }
                 params.width = w
             } else {
-                params.width = thermal_lay.width
+                params.width = thermalLay.width
                 params.height = params.width * imageWidth / imageHeight
             }
-            thermal_lay.layoutParams = params
+            thermalLay.layoutParams = params
         }
     }
 
