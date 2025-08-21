@@ -46,5 +46,13 @@
         <item name="android:backgroundDimEnabled">false</item>
         <item name="android:backgroundDimAmount">0.6</item>
     </style>
+    
+    <!-- Transparent Dialog Style -->
+    <style name="TransparentDialog" parent="@style/Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
 
 </resources>

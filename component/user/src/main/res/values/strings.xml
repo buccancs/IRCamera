@@ -31,4 +31,24 @@
     
     <string name="question7">Why there is a clicking sound? What does "shutter moving" mean?</string>
     <string name="answer7">The temperature of the infrared imager will change slightly during use. Therefore, a periodic internal temperature calibration is needed. The micro motor controlled activation or deactivation of such internal calibration makes such a sound, which is known in the industry as "shutter moving".</string>
+    
+    <!-- Additional FAQ entries -->
+    <string name="question8">How do I update the firmware?</string>
+    <string name="answer8">Firmware updates can be downloaded from the official website or through the app when available. Follow the instructions provided with the update package.</string>
+    
+    <!-- TS004 FAQ entries (kept for reference even though TS004 support was removed) -->
+    <string name="ts004_faq_q1">What is the operating temperature range?</string>
+    <string name="ts004_faq_a1">The operating temperature range is -10°C to +50°C (14°F to 122°F).</string>
+    
+    <string name="ts004_faq_q2">What is the measurement accuracy?</string>
+    <string name="ts004_faq_a2">The measurement accuracy is ±2°C or ±2% of reading, whichever is greater.</string>
+    
+    <string name="ts004_faq_q3">How do I calibrate the device?</string>
+    <string name="ts004_faq_a3">Calibration is performed automatically. Manual calibration can be done through the settings menu.</string>
+    
+    <string name="ts004_faq_q4">What is the battery life?</string>
+    <string name="ts004_faq_a4">Battery life depends on usage but typically provides 4-6 hours of continuous operation.</string>
+    
+    <string name="ts004_faq_q5">How do I connect to WiFi?</string>
+    <string name="ts004_faq_a5">Go to Settings > WiFi and select your network. Enter the password when prompted.</string>
 </resources>
