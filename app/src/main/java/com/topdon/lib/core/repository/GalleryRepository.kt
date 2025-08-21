@@ -71,7 +71,7 @@ object GalleryRepository {
     fun readLatest(dirType: DirType): String {
         var firstPath = ""
         try {
-            val path = if (dirType == DirType.LINE) FileConfig.lineGalleryDir else FileConfig.tc007GalleryDir
+            val path = if (dirType == DirType.LINE) FileConfig.lineGalleryDir else FileConfig.lineGalleryDir
             val dirFile = File(path)
             if (dirFile.isDirectory) {
                 val files = dirFile.listFiles()!!
@@ -150,7 +150,7 @@ object GalleryRepository {
         }
         val dirFile = when (dirType) {
             DirType.LINE -> File(FileConfig.lineGalleryDir)
-            DirType.TC007 -> File(FileConfig.tc007GalleryDir)
+            DirType.TC007 -> File(FileConfig.lineGalleryDir) // TC007 support removed, fallback to line
             else -> File(FileConfig.ts004GalleryDir)
         }
         var files = dirFile.listFiles { pathname -> pathname?.isFile == true }

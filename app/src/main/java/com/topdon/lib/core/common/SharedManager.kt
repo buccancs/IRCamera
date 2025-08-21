@@ -354,4 +354,13 @@ object SharedManager {
         SPUtils.getInstance().put(DEVICE_VERSION, version)
     }
 
+    // Temperature unit methods (0 = Celsius, 1 = Fahrenheit)
+    fun getTemperature(): Int {
+        return SPUtils.getInstance().getInt(TEMPERATURE_UNIT, 0)
+    }
+
+    fun setTemperature(unit: Int) {
+        SPUtils.getInstance().put(TEMPERATURE_UNIT, unit)
+    }
+
 }

@@ -142,7 +142,7 @@ object NetWorkUtils {
             override fun onAvailable(network: Network) {
                 super.onAvailable(network)
                 if (isWifi) {
-                    TS004Repository.netWork = network
+                    // TS004Repository.netWork = network // TS004 support removed
                 }
                 connectivityManager.bindProcessToNetwork(network)
                 connectivityManager.unregisterNetworkCallback(this)

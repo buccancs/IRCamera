@@ -10,4 +10,10 @@
     <!-- Missing strings from main fragment -->
     <string name="top_infrared_up_case">TOP INFRARED</string>
     <string name="see_more_than">See More Than</string>
+    
+    <!-- Missing error strings -->
+    <string name="http_code_z5004">Network connection error</string>
+    
+    <!-- Missing language strings -->
+    <string name="english">English</string>
 </resources>
