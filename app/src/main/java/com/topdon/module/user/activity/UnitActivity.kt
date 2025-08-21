@@ -1,31 +1,39 @@
 package com.topdon.module.user.activity
 
+import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.ktbase.BaseActivity
+import com.topdon.lib.core.view.TitleView
 import com.topdon.tc001.R
-import kotlinx.android.synthetic.main.activity_unit.*
 
 class UnitActivity : BaseActivity() {
 
     override fun initContentView() = R.layout.activity_unit
 
     override fun initView() {
-        title_view.setRightClickListener {
-            SharedManager.setTemperature(if (iv_degrees_celsius.isVisible) 1 else 0)
+        val titleView = findViewById<TitleView>(R.id.title_view)
+        val ivDegreesCelsius = findViewById<ImageView>(R.id.iv_degrees_celsius)
+        val ivFahrenheit = findViewById<ImageView>(R.id.iv_fahrenheit)
+        val constraintDegreesCelsius = findViewById<ConstraintLayout>(R.id.constraint_degrees_celsius)
+        val constraintFahrenheit = findViewById<ConstraintLayout>(R.id.constraint_fahrenheit)
+
+        titleView.setRightClickListener {
+            SharedManager.setTemperature(if (ivDegreesCelsius.isVisible) 1 else 0)
             finish()
         }
 
-        iv_degrees_celsius.isVisible = SharedManager.getTemperature() == 1
-        iv_fahrenheit.isVisible = SharedManager.getTemperature() == 0
+        ivDegreesCelsius.isVisible = SharedManager.getTemperature() == 1
+        ivFahrenheit.isVisible = SharedManager.getTemperature() == 0
 
-        constraint_degrees_celsius.setOnClickListener {
-            iv_degrees_celsius.isVisible = true
-            iv_fahrenheit.isVisible = false
+        constraintDegreesCelsius.setOnClickListener {
+            ivDegreesCelsius.isVisible = true
+            ivFahrenheit.isVisible = false
         }
-        constraint_fahrenheit.setOnClickListener {
-            iv_degrees_celsius.isVisible = false
-            iv_fahrenheit.isVisible = true
+        constraintFahrenheit.setOnClickListener {
+            ivDegreesCelsius.isVisible = false
+            ivFahrenheit.isVisible = true
         }
     }
 

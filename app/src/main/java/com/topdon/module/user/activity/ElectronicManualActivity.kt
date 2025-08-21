@@ -1,16 +1,16 @@
 package com.topdon.module.user.activity
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.utils.Constants
+import com.topdon.lib.core.view.TitleView
 import com.topdon.tc001.R
-import kotlinx.android.synthetic.main.activity_electronic_manual.*
-import kotlinx.android.synthetic.main.item_electronic_manual.view.item_lay
-import kotlinx.android.synthetic.main.item_electronic_manual.view.item_text
 
 class ElectronicManualActivity : BaseActivity() {
 
@@ -18,8 +18,10 @@ class ElectronicManualActivity : BaseActivity() {
 
     override fun initView() {
         val productType = intent.getIntExtra(Constants.SETTING_TYPE, 0) //0-电子说明书 1-FAQ
+        val titleView = findViewById<TitleView>(R.id.title_view)
+        val electronicManualRecycler = findViewById<RecyclerView>(R.id.electronic_manual_recycler)
 
-        title_view.setTitleText(if (productType == Constants.SETTING_BOOK) R.string.electronic_manual else R.string.app_question)
+        titleView.setTitleText(if (productType == Constants.SETTING_BOOK) R.string.electronic_manual else R.string.app_question)
 
         val adapter = MyAdapter(productType == 1)
         adapter.onPickListener = { isTS001 ->
@@ -43,8 +45,8 @@ class ElectronicManualActivity : BaseActivity() {
             }
         }
 
-        electronic_manual_recycler.layoutManager = LinearLayoutManager(this)
-        electronic_manual_recycler.adapter = adapter
+        electronicManualRecycler.layoutManager = LinearLayoutManager(this)
+        electronicManualRecycler.adapter = adapter
     }
 
     override fun initData() {
@@ -73,8 +75,10 @@ class ElectronicManualActivity : BaseActivity() {
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             if (holder is ItemViewHolder) {
-                holder.rootView.item_text.text = optionList[position]
-                holder.rootView.item_lay.setOnClickListener {
+                val itemText = holder.rootView.findViewById<TextView>(R.id.item_text)
+                val itemLay = holder.rootView.findViewById<View>(R.id.item_lay)
+                itemText.text = optionList[position]
+                itemLay.setOnClickListener {
                     onPickListener?.invoke(isFAQ && position == 0)
                 }
             }

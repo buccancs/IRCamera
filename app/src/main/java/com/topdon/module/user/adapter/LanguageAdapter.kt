@@ -8,7 +8,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.tc001.R
-import kotlinx.android.synthetic.main.item_language.view.*
 
 class LanguageAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -45,9 +44,9 @@ class LanguageAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.
     }
 
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var lay: View = itemView.item_language_lay
-        var name: TextView = itemView.item_language_text
-        var img: ImageView = itemView.item_language_img
+        var lay: View = itemView.findViewById(R.id.item_language_lay)
+        var name: TextView = itemView.findViewById(R.id.item_language_text)
+        var img: ImageView = itemView.findViewById(R.id.item_language_img)
     }
 
     interface ItemOnClickListener {

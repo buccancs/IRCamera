@@ -1,6 +1,7 @@
 package com.topdon.module.user.fragment
 import com.topdon.tc001.R
 
+import android.content.Intent
 import android.view.View
 import androidx.core.view.isVisible
 import com.topdon.lib.core.common.SaveSettingUtil
@@ -8,8 +9,8 @@ import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.tools.DeviceTools
+import com.topdon.lib.core.view.MySettingItem
 import com.topdon.module.user.R
-import kotlinx.android.synthetic.main.fragment_more.*
 
 /**
  * 插件式 "更多" 页面
@@ -21,28 +22,38 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
     override fun initContentView() = R.layout.fragment_more
 
     override fun initView() {
-        setting_item_model.setOnClickListener(this)//温度修正
-        setting_item_correction.setOnClickListener(this)//图像校正
-        setting_item_dual.setOnClickListener(this)//双光校正
-        setting_item_unit.setOnClickListener(this)//温度单位
+        val settingItemModel = findViewById<MySettingItem>(R.id.setting_item_model)
+        val settingItemCorrection = findViewById<MySettingItem>(R.id.setting_item_correction)
+        val settingItemDual = findViewById<MySettingItem>(R.id.setting_item_dual)
+        val settingItemUnit = findViewById<MySettingItem>(R.id.setting_item_unit)
+        val settingVersion = findViewById<View>(R.id.setting_version)
+        val settingDeviceInformation = findViewById<View>(R.id.setting_device_information)
+        val settingReset = findViewById<View>(R.id.setting_reset)
+        val settingItemAutoShow = findViewById<MySettingItem>(R.id.setting_item_auto_show)
+        val settingItemConfigSelect = findViewById<MySettingItem>(R.id.setting_item_config_select)
+
+        settingItemModel.setOnClickListener(this)//温度修正
+        settingItemCorrection.setOnClickListener(this)//图像校正
+        settingItemDual.setOnClickListener(this)//双光校正
+        settingItemUnit.setOnClickListener(this)//温度单位
 
         // Hide removed device-specific elements (TS004/TC007 support removed)
-        setting_version.isVisible = false
-        setting_device_information.isVisible = false
-        setting_reset.isVisible = false
+        settingVersion.isVisible = false
+        settingDeviceInformation.isVisible = false
+        settingReset.isVisible = false
         
         // Only show dual light correction for TC001Plus
-        setting_item_dual.isVisible = DeviceTools.isTC001PlusConnect()
+        settingItemDual.isVisible = DeviceTools.isTC001PlusConnect()
 
         // Auto-open settings for connected devices
-        setting_item_auto_show.isChecked = SharedManager.isConnectAutoOpen
-        setting_item_auto_show.setOnCheckedChangeListener { _, isChecked ->
+        settingItemAutoShow.isChecked = SharedManager.isConnectAutoOpen
+        settingItemAutoShow.setOnCheckedChangeListener { _, isChecked ->
             SharedManager.isConnectAutoOpen = isChecked
         }
 
         // Configuration save settings
-        setting_item_config_select.isChecked = SaveSettingUtil.isSaveSetting
-        setting_item_config_select.setOnCheckedChangeListener { _, isChecked ->
+        settingItemConfigSelect.isChecked = SaveSettingUtil.isSaveSetting
+        settingItemConfigSelect.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 TipDialog.Builder(requireContext())
                     .setMessage(R.string.save_setting_tips)
@@ -50,7 +61,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
                         SaveSettingUtil.isSaveSetting = true
                     }
                     .setCancelListener(R.string.app_cancel) {
-                        setting_item_config_select.isChecked = false
+                        settingItemConfigSelect.isChecked = false
                     }
                     .setCanceled(false)
                     .create().show()
@@ -65,25 +76,32 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
     }
 
     override fun connected() {
-        setting_item_dual.isVisible = DeviceTools.isTC001PlusConnect()
+        val settingItemDual = findViewById<MySettingItem>(R.id.setting_item_dual)
+        settingItemDual.isVisible = DeviceTools.isTC001PlusConnect()
     }
 
     override fun disConnected() {
-        setting_item_dual.isVisible = false
+        val settingItemDual = findViewById<MySettingItem>(R.id.setting_item_dual)
+        settingItemDual.isVisible = false
     }
 
     override fun onClick(v: View?) {
+        val settingItemModel = findViewById<MySettingItem>(R.id.setting_item_model)
+        val settingItemDual = findViewById<MySettingItem>(R.id.setting_item_dual)
+        val settingItemUnit = findViewById<MySettingItem>(R.id.setting_item_unit)
+        val settingItemCorrection = findViewById<MySettingItem>(R.id.setting_item_correction)
+
        when(v){
-           setting_item_model -> {//温度修正
+           settingItemModel -> {//温度修正
                // TODO: Replace IR setting navigation - startActivity(Intent(requireContext(), IRSettingActivity::class.java))
            }
-           setting_item_dual->{
+           settingItemDual->{
                // TODO: Replace manual start navigation - startActivity(Intent(requireContext(), ManualStartActivity::class.java))
            }
-           setting_item_unit -> {//温度单位
+           settingItemUnit -> {//温度单位
                startActivity(Intent(requireContext(), com.topdon.module.user.activity.UnitActivity::class.java))
            }
-           setting_item_correction->{//图像校正
+           settingItemCorrection->{//图像校正
                // TODO: Replace correction navigation - startActivity(Intent(requireContext(), IRCorrectionActivity::class.java))
            }
        }
