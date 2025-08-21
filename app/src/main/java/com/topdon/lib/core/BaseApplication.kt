@@ -128,6 +128,8 @@ abstract class BaseApplication : Application() {
     // TS004 functionality removed as requested
     /*
     private fun autoSaveNewest(isVideo: Boolean) {
+        // TS004Repository removed - auto-save functionality disabled
+        /*
         CoroutineScope(Dispatchers.IO).launch {
             val fileList: List<FileBean>? = TS004Repository.getNewestFile(if (isVideo) 1 else 0)
             if (!fileList.isNullOrEmpty()) {
@@ -138,6 +140,7 @@ abstract class BaseApplication : Application() {
                 MediaScannerConnection.scanFile(this@BaseApplication, arrayOf(FileConfig.ts004GalleryDir), null, null)
             }
         }
+        */
     }
     */
 

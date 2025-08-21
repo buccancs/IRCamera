@@ -81,8 +81,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
 
     private var isShowC: Boolean = false
 
-    // TC007 support removed - always false
-    private var isTC007 = false
+
 
     private val imageWidth = 256
     private val imageHeight = 192
@@ -128,16 +127,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
             filePath = intent.getStringExtra(ExtraKeyConfig.FILE_ABSOLUTE_PATH)!!
         }
         isReportPick = intent.getBooleanExtra(ExtraKeyConfig.IS_PICK_REPORT_IMG, false)
-        // TC007 support removed - ignore parameter
-        isTC007 = false
 
-        edit_recycler_second.fenceSelectType = FenceType.DEL
-        temperature_view.isShowName = isReportPick
-        temperature_view.mode = Mode.CLEAR
-        temperature_view.setITsTempListener(this)
-        if (isTC007){
-            temperature_seekbar?.progressHeight = SizeUtils.dp2px(10f)
-        }
     }
 
     private fun initObserve() {
@@ -252,7 +242,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                 leftValue = showUnitValue(struct.customPseudoBean.minTemp,isShowC)
                 temperature_iv_input.setImageResource(R.drawable.ir_model)
                 temperature_iv_lock.visibility = View.INVISIBLE
-                temperature_seekbar.setColorList(struct.customPseudoBean.getColorList(struct.isTC007())?.reversedArray())
+                temperature_seekbar.setColorList(struct.customPseudoBean.getColorList(false)?.reversedArray())
                 temperature_seekbar.setPlaces(struct.customPseudoBean.getPlaceList())
             } else {
                 tv_temp_content.visibility = View.GONE
@@ -368,7 +358,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                 struct.isAmplify
             )
         )
-        temperature_seekbar.setColorList(struct.customPseudoBean.getColorList(struct.isTC007())?.reversedArray())
+        temperature_seekbar.setColorList(struct.customPseudoBean.getColorList(false)?.reversedArray())
         temperature_seekbar.setPlaces(struct.customPseudoBean.getPlaceList())
         edit_recycler_second.setPseudoColor(code)
     }
@@ -558,13 +548,11 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                         dismissLoadingDialog()
                         if (intent.getBooleanExtra(IS_REPORT_FIRST, true)) {
                             val reportIntent = Intent(this@IRGalleryEditActivity, com.topdon.module.thermal.ir.report.activity.ReportCreateFirstActivity::class.java)
-                            reportIntent.putExtra(ExtraKeyConfig.IS_TC007, isTC007)
                             reportIntent.putExtra(ExtraKeyConfig.FILE_ABSOLUTE_PATH, fileAbsolutePath)
                             reportIntent.putExtra(ExtraKeyConfig.IMAGE_TEMP_BEAN, buildImageTempBean())
                             startActivity(reportIntent)
                         } else {
                             val reportIntent = Intent(this@IRGalleryEditActivity, com.topdon.module.thermal.ir.report.activity.ReportCreateSecondActivity::class.java)
-                            reportIntent.putExtra(ExtraKeyConfig.IS_TC007, isTC007)
                             reportIntent.putExtra(ExtraKeyConfig.FILE_ABSOLUTE_PATH, fileAbsolutePath)
                             reportIntent.putExtra(ExtraKeyConfig.IMAGE_TEMP_BEAN, buildImageTempBean())
                             reportIntent.putExtra(ExtraKeyConfig.REPORT_INFO, intent.getParcelableExtra(ExtraKeyConfig.REPORT_INFO))
@@ -657,7 +645,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
             }
             var name: String
             irBitmap.let {
-                name = ImageUtils.save(bitmap = it,isTC007)
+                name = ImageUtils.save(bitmap = it, false)
             }
             ImageUtils.saveFrame(bs = mFrame, capital = getCapital(), name = name)
             ToastTools.showShort(R.string.tip_photo_saved)
