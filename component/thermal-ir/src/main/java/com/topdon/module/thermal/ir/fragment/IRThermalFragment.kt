@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.view.View
+import android.widget.*
 import androidx.core.os.postDelayed
 import androidx.core.view.isVisible
 import androidx.lifecycle.DefaultLifecycleObserver
@@ -25,7 +26,6 @@ import com.topdon.lib.core.utils.NetWorkUtils
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.activity.IRThermalNightActivity
 import com.topdon.module.thermal.ir.activity.IRThermalPlusActivity
-import kotlinx.android.synthetic.main.fragment_thermal_ir.*
 
 class IRThermalFragment : BaseFragment(), View.OnClickListener {
 

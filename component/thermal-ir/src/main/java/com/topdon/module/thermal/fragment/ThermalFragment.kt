@@ -8,8 +8,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.FrameLayout
-import android.widget.ImageView
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
@@ -37,7 +36,6 @@ import com.topdon.module.thermal.tools.medie.IYapVideoProvider
 import com.topdon.module.thermal.tools.medie.YapVideoEncoder
 import com.topdon.module.thermal.ir.utils.ArrayUtils
 import com.topdon.module.thermal.viewmodel.ThermalViewModel
-import kotlinx.android.synthetic.main.fragment_thermal.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.Subscribe

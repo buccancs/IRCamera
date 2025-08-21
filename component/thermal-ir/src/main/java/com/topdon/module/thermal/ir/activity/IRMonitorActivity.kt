@@ -1,13 +1,13 @@
 package com.topdon.module.thermal.ir.activity
 
 import android.view.View
+import android.widget.Button
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.ui.dialog.MonitorSelectDialog
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.bean.SelectPositionBean
 import com.topdon.module.thermal.ir.event.MonitorSaveEvent
 import com.topdon.module.thermal.ir.event.ThermalActionEvent
-import kotlinx.android.synthetic.main.activity_ir_monitor.*
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -20,8 +20,8 @@ class IRMonitorActivity : BaseActivity(), View.OnClickListener {
     override fun initContentView() = R.layout.activity_ir_monitor
 
     override fun initView() {
-        motion_btn.setOnClickListener(this)
-        motion_start_btn.setOnClickListener(this)
+        findViewById<Button>(R.id.motion_btn).setOnClickListener(this)
+        findViewById<Button>(R.id.motion_start_btn).setOnClickListener(this)
     }
 
     override fun initData() {
@@ -30,7 +30,7 @@ class IRMonitorActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            motion_btn -> {
+            findViewById<Button>(R.id.motion_btn) -> {
                 MonitorSelectDialog.Builder(this)
                     .setPositiveListener {
                         updateUI()
@@ -42,7 +42,7 @@ class IRMonitorActivity : BaseActivity(), View.OnClickListener {
                     }
                     .create().show()
             }
-            motion_start_btn -> {
+            findViewById<Button>(R.id.motion_start_btn) -> {
                 if (selectIndex == null) {
                     MonitorSelectDialog.Builder(this)
                         .setPositiveListener {
@@ -70,8 +70,8 @@ class IRMonitorActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun updateUI() {
-        motion_start_btn.visibility = View.VISIBLE
-        motion_btn.visibility = View.GONE
+        findViewById<Button>(R.id.motion_start_btn).visibility = View.VISIBLE
+        findViewById<Button>(R.id.motion_btn).visibility = View.GONE
     }
 
     override fun disConnected() {
