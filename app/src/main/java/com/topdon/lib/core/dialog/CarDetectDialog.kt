@@ -19,8 +19,6 @@ import com.topdon.tc001.R
 import com.topdon.lib.core.bean.CarDetectBean
 import com.topdon.lib.core.bean.CarDetectChildBean
 import com.topdon.lib.core.common.SharedManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.topdon.lib.core.view.TitleView
 
 class CarDetectDialog(context: Context, val listener: ((bean: CarDetectChildBean) -> Unit)) :

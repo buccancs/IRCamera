@@ -13,8 +13,6 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.topdon.tc001.R
 import com.topdon.lib.core.utils.ScreenUtil
-import android.widget.TextView
-import android.widget.ImageView
 
 
 class MsgDialog : Dialog {

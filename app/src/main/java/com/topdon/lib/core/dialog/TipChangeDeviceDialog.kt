@@ -5,14 +5,9 @@ import android.content.Context
 import android.content.res.Configuration
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.ImageView
 import androidx.annotation.StringRes
 import com.topdon.tc001.R
 import com.topdon.lib.core.utils.ScreenUtil
-import android.widget.TextView
-import android.widget.CheckBox
-import android.widget.ImageView
 
 @Deprecated("3.80使用新首页设备列表逻辑，不需要设备切换提示弹框了")
 class TipChangeDeviceDialog :Dialog {

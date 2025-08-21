@@ -15,9 +15,6 @@ import com.topdon.tc001.R
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.tools.NumberTools
 import com.topdon.lib.core.tools.UnitTools
-import android.widget.TextView
-import android.widget.Button
-import android.widget.CheckBox
 
 class EmissivityTipPopup(val context: Context, val isTC007: Boolean) {
     private var text: String = ""

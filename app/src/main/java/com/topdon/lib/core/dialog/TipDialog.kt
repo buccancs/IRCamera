@@ -7,13 +7,9 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup.LayoutParams
-import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import com.topdon.tc001.R
-import android.widget.TextView
-import android.widget.CheckBox
-import android.widget.ImageView
 import android.widget.Button
 
 class TipDialog : Dialog {
