@@ -1,4 +1,5 @@
 package com.topdon.tc001
+import com.topdon.tc001.R
 
 import android.annotation.SuppressLint
 import android.os.Handler

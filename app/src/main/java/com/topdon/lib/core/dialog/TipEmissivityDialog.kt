@@ -12,7 +12,9 @@ import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.tools.NumberTools
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.dialog_tip_emissivity.view.*
+import android.widget.TextView
+import android.widget.Button
+import android.widget.CheckBox
 
 class TipEmissivityDialog : Dialog {
 
@@ -88,15 +90,19 @@ class TipEmissivityDialog : Dialog {
                 context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             val view = inflater.inflate(R.layout.dialog_tip_emissivity, null)
 
+            val tvEnvironmentTitle: TextView = view.findViewById(R.id.tv_environment_title)
+            val tvDistanceTitle: TextView = view.findViewById(R.id.tv_distance_title)
+            val dialogTipSuccessBtn: Button = view.findViewById(R.id.dialog_tip_success_btn)
+            val dialogTipCancelBtn: Button = view.findViewById(R.id.dialog_tip_cancel_btn)
 
-            view.tv_environment_title.text = context!!.getString(R.string.thermal_config_environment) + ":"
-            view.tv_distance_title.text = context!!.getString(R.string.thermal_config_distance) + ":"
+            tvEnvironmentTitle.text = context!!.getString(R.string.thermal_config_environment) + ":"
+            tvDistanceTitle.text = context!!.getString(R.string.thermal_config_distance) + ":"
 
-            view.dialog_tip_success_btn.setOnClickListener {
+            dialogTipSuccessBtn.setOnClickListener {
                 dialog?.onDismissListener?.invoke(hasCheck)
                 dismiss()
             }
-            view.dialog_tip_cancel_btn.setOnClickListener {
+            dialogTipCancelBtn.setOnClickListener {
                 dialog?.onDismissListener?.invoke(hasCheck)
             // TODO: Replace RouterConfig reference with direct navigation
 // TODO_FIX_AROUTER:                     .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)

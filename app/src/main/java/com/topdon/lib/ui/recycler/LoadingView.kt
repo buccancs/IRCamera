@@ -1,4 +1,5 @@
 package com.topdon.lib.ui.recycler
+import com.topdon.tc001.R
 
 import android.content.Context
 import android.util.AttributeSet

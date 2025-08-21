@@ -1,4 +1,5 @@
 package com.topdon.transfer
+import com.topdon.tc001.R
 
 import android.app.Dialog
 import android.content.Context

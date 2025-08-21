@@ -1,4 +1,5 @@
 package com.topdon.tc001
+import com.topdon.tc001.R
 
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
