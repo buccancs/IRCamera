@@ -1,19 +1,14 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
-    id 'kotlin-kapt'
-    id 'com.google.gms.google-services'
-    id 'com.google.firebase.crashlytics'
+    id 'kotlin-parcelize'
+    id 'com.google.devtools.ksp'
 }
 
-kapt {
-    arguments {
-        arg("AROUTER_MODULE_NAME", project.getName())
-    }
-}
+
 
 android {
+    namespace 'com.topdon.tc001'
     compileSdk rootProject.ext.android.compileSdk
     defaultConfig {
         applicationId rootProject.ext.android.applicationId
@@ -28,7 +23,7 @@ android {
             abiFilters "arm64-v8a"
         }
 
-        buildConfigField "String", "VERSION_DATE", "\"$dayStr\""
+        buildConfigField "String", "VERSION_DATE", "\"${getDayStr()}\""
         manifestPlaceholders = [
                 JPUSH_PKGNAME : applicationId,
                 JPUSH_APPKEY : "cbd4eafc9049d751fc5a8c58",
@@ -80,8 +75,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     packagingOptions {
         merge 'META-INF/LICENSE-notice.md'
@@ -112,6 +107,8 @@ android {
         pickFirst 'lib/armeabi-v7a/libirparse.so'
         pickFirst 'lib/arm64-v8a/libirprocess.so'
         pickFirst 'lib/armeabi-v7a/libirprocess.so'
+        pickFirst 'lib/arm64-v8a/libirtemp.so'
+        pickFirst 'lib/armeabi-v7a/libirtemp.so'
         exclude 'META-INF/*.SF'
         exclude 'META-INF/*.DSA' 
         exclude 'META-INF/*.RSA'
@@ -120,10 +117,11 @@ android {
         doNotStrip "**/*.so"
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
     buildFeatures{
         dataBinding = true
+        buildConfig = true
     }
     flavorDimensions 'app'
 
@@ -154,6 +152,7 @@ static def getTimeStr() {
 def versionApk(variant, defaultConfig) {
     variant.outputs.all {
         def appName = "IRCamera.apk"
+        def dayStr = getDayStr()
         def nameStr = "IRCamera_" + defaultConfig.versionName + "." + dayStr
         if (variant.name == "prodDebug") {
             appName = nameStr + "_debug.apk"
@@ -165,6 +164,7 @@ def versionApk(variant, defaultConfig) {
 }
 
 def copyApk(type, flavor) {
+    def timeStr = getTimeStr()
     copy {
         from "build/outputs/apk/${flavor}/${type}"
         into "../outputs/${type}/"
@@ -176,6 +176,8 @@ def copyApk(type, flavor) {
 }
 
 def copyAab(type) {
+    def dayStr = getDayStr()
+    def timeStr = getTimeStr()
     copy {
         from "build/outputs/bundle/${type}"
         into "../outputs/bundle/${type}/"
@@ -187,79 +189,92 @@ def copyAab(type) {
 }
 
 project.afterEvaluate {
-    assembleProdDebug.doLast {
-        println "===================== build prod Debug.apk copy ========================="
-        copyApk("debug", "prod")
+    tasks.named("assembleProdDebug").configure {
+        doLast {
+            println "===================== build prod Debug.apk copy ========================="
+            copyApk("debug", "prod")
+        }
     }
-    assembleProdRelease.doLast {
-        println "===================== build prod Release.apk copy ======================="
-        copyApk("release", "prod")
+    tasks.named("assembleProdRelease").configure {
+        doLast {
+            println "===================== build prod Release.apk copy ======================="
+            copyApk("release", "prod")
+        }
     }
-    bundleProdDebug.doLast {
-        println "===================== build prod Debug.aab copy ======================="
-        copyAab("prodDebug")
+    tasks.named("bundleProdDebug").configure {
+        doLast {
+            println "===================== build prod Debug.aab copy ======================="
+            copyAab("prodDebug")
+        }
     }
-    bundleProdRelease.doLast {
-        println "===================== build prod Release.aab copy ======================="
-        copyAab("prodRelease")
+    tasks.named("bundleProdRelease").configure {
+        doLast {
+            println "===================== build prod Release.aab copy ======================="
+            copyAab("prodRelease")
+        }
     }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
-    implementation Deps.appcompat
-    implementation Deps.fragment_ktx
-    implementation Deps.material
+    implementation "androidx.appcompat:appcompat:1.6.1"
+    implementation "androidx.fragment:fragment-ktx:1.3.6"
+    implementation "com.google.android.material:material:1.4.0"
 
-    implementation Deps.lifecycle_runtime_ktx
-    implementation Deps.lifecycle_viewmodel_ktx
-    implementation Deps.lifecycle_livedata_ktx
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
 
-    kapt Deps.room_compiler
-    implementation Deps.room_ktx
+    // Kotlin Coroutines - compatible with Kotlin 2.0+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
 
-    implementation Deps.work_runtime_ktx
+    // Room without annotation processing (Kotlin 2.0 compatible)
+    implementation "androidx.room:room-runtime:2.6.1"
+    implementation "androidx.room:room-ktx:2.6.1"
 
-    implementation Deps.retrofit2
-    implementation Deps.converter_gson
-    implementation Deps.adapter_rxjava2
+    implementation "androidx.work:work-runtime-ktx:2.7.1"
 
-    implementation Deps.eventbus
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.9.0"
 
-    implementation Deps.glide
-    kapt Deps.glide_compiler
+    implementation "org.greenrobot:eventbus:3.2.0"
 
-    implementation Deps.rxjava2
-    implementation Deps.rxandroid
-    implementation Deps.rxpermissions
-    implementation Deps.rxlifecycle
-    implementation Deps.rxlifecycle_android
-    implementation Deps.rxlifecycle_components
-    implementation Deps.rxlifecycle_ktx
-    implementation Deps.rxlifecycle_android_lifecycle_ktx
+    // Glide 4.16.0 - no annotation processing required
+    implementation "com.github.bumptech.glide:glide:4.16.0"
 
-    implementation Deps.arouter_api
+    implementation "io.reactivex.rxjava2:rxjava:2.2.20"
+    implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
+    implementation "com.github.tbruyelle:rxpermissions:0.10.2"
+    implementation "com.trello.rxlifecycle2:rxlifecycle:2.2.2"
+    implementation "com.trello.rxlifecycle2:rxlifecycle-android:2.2.2"
+    implementation "com.trello.rxlifecycle2:rxlifecycle-components:2.2.2"
+    implementation "com.trello.rxlifecycle2:rxlifecycle-kotlin:2.2.2"
+    implementation "com.trello.rxlifecycle2:rxlifecycle-android-lifecycle-kotlin:2.2.2"
 
-    implementation Deps.utilcode
-    implementation Deps.XXPermissions
-    implementation Deps.xlog
-    implementation Deps.PhotoView
-    implementation Deps.android_pdf_viewr
-    implementation Deps.lottie
 
-    implementation Deps.brvah
-    implementation Deps.refresh_layout_kernel
-    implementation Deps.refresh_header_classics
-    implementation Deps.refresh_header_material
 
-    implementation Deps.logging_interceptor
-    implementation Deps.colorpickerview
-    implementation Deps.MNImageBrowser
-    implementation Deps.nifty
-    implementation Deps.nifty_effect
+    implementation "com.blankj:utilcodex:1.31.0"
+    implementation "com.github.getActivity:XXPermissions:20.0"
+    implementation "com.elvishew:xlog:1.11.0"
+    implementation "com.github.chrisbanes:PhotoView:2.3.0"
+    implementation "com.github.barteksc:android-pdf-viewer:2.8.1"
+    implementation "com.airbnb.android:lottie:6.0.0"
 
-    implementation Deps.javacv
-    implementation Deps.javacpp
+    implementation "com.github.cymchad:BaseRecyclerViewAdapterHelper:3.0.10"
+    implementation "com.scwang.smart:refresh-layout-kernel:2.0.3"
+    implementation "com.scwang.smart:refresh-header-classics:2.0.3"
+    implementation "com.scwang.smart:refresh-header-material:2.0.3"
+
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
+    implementation "com.github.skydoves:colorpickerview:2.2.4"
+    implementation "com.github.maning0303:MNImageBrowser:V1.3.7"
+    implementation "io.github.litao0621:nifty-slider:1.4.6"
+    implementation "io.github.litao0621:nifty-slider-effect:1.4.6"
+
+    implementation "org.bytedeco:javacv:1.5.8"
+    implementation "org.bytedeco:javacpp:1.5.8"
     
     implementation 'com.blankj:utilcodex:1.30.6'
     implementation 'com.google.code.gson:gson:2.8.8'
@@ -280,14 +295,13 @@ dependencies {
     implementation files('libs\\texturegesture-release.aar')
     implementation files('libs\\library_1.0.aar')
     
-    implementation(name: 'libcommon_1.2.0_24052117', ext: 'aar')
-    implementation project(':RangeSeekBar')
+    // implementation(name: 'libcommon_1.2.0_24052117', ext: 'aar')  // Removed: provided by component dependencies
     implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '3.17'
     implementation group: 'org.apache.xmlbeans', name: 'xmlbeans', version: '3.1.0'
     implementation 'javax.xml.stream:stax-api:1.0'
     implementation 'com.fasterxml:aalto-xml:1.2.2'
 
-    kapt Deps.arouter_compiler
+
 
     implementation 'com.github.lzyzsd:jsbridge:1.0.4'
     implementation 'com.alibaba:fastjson:1.2.78'
@@ -305,12 +319,6 @@ dependencies {
 //    implementation 'com.topdon.aliyun:auth-number:2.13.2.1@aar'
 //    implementation 'com.topdon.aliyun:logger:2.2.1:release@aar'
 //    implementation 'com.topdon.aliyun:main:2.2.1:release@aar'
-
-    implementation platform('com.google.firebase:firebase-bom:28.4.1')
-    implementation 'com.google.firebase:firebase-crashlytics-ktx'
-    implementation 'com.google.firebase:firebase-analytics-ktx'
-    implementation 'com.google.firebase:firebase-messaging:21.0.1'
-    implementation "com.google.firebase:firebase-iid"
 
     implementation files('libs/umeng-common-9.4.4+000.jar')
 }

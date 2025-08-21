@@ -8,7 +8,6 @@ import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.drawable.BitmapDrawable
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import com.blankj.utilcode.util.SizeUtils
@@ -137,7 +136,6 @@ class FencePointView : View {
         if (startPoint[1] + destW / 2 > height) {
             point1[1] = height - destH / 2
         }
-        Log.w("123", "坐标 point:${point1.contentToString()}")
         if (listener != null) {
             listener!!.callback(point1, intArrayOf(width, height))
         }

@@ -13,7 +13,9 @@ import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentActivity
-import com.topdon.lib.core.R
+import com.topdon.tc001.R
+import android.widget.FrameLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 
 abstract class BaseDialogFragment<B : ViewDataBinding> : AppCompatDialogFragment() {
 
@@ -36,7 +38,7 @@ abstract class BaseDialogFragment<B : ViewDataBinding> : AppCompatDialogFragment
 
     }
     @StyleRes
-    protected open fun getDialogThemeResId(): Int = R.style.base_dialog
+    protected open fun getDialogThemeResId(): Int = R.style.findViewById<ConstraintLayout>(R.id.base_dialog)
 
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

@@ -6,7 +6,7 @@ import android.content.DialogInterface
 import android.content.res.Configuration
 import android.view.LayoutInflater
 import android.view.ViewGroup.LayoutParams
-import com.topdon.lib.core.R
+import com.topdon.tc001.R
 import com.topdon.lib.core.utils.ScreenUtil
 
 

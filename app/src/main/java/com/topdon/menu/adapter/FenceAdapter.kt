@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.topdon.menu.constant.MenuType
-import com.topdon.menu.R
+import com.topdon.tc001.R
 import com.topdon.menu.constant.FenceType
 
 @SuppressLint("NotifyDataSetChanged")
@@ -14,8 +14,7 @@ internal class FenceAdapter(menuType: MenuType) : BaseMenuAdapter() {
             when (value) {
                 FenceType.FULL -> isFullSelect = true
                 FenceType.DEL -> isFullSelect = false
-
-                }
+                else -> { }
             }
             field = value
             notifyDataSetChanged()
@@ -33,6 +32,7 @@ internal class FenceAdapter(menuType: MenuType) : BaseMenuAdapter() {
         dataList.add(Data(R.string.thermal_line, R.drawable.selector_menu2_fence_line, FenceType.LINE))
         dataList.add(Data(R.string.thermal_rect, R.drawable.selector_menu2_fence_rect, FenceType.RECT))
         dataList.add(Data(R.string.thermal_full_rect, R.drawable.selector_menu2_fence_full, FenceType.FULL))
+        if (menuType != MenuType.SINGLE_LIGHT) {
             dataList.add(Data(R.string.thermal_trend, R.drawable.selector_menu2_fence_trend, FenceType.TREND))
         }
         dataList.add(Data(R.string.thermal_delete, R.drawable.selector_menu2_del, FenceType.DEL))

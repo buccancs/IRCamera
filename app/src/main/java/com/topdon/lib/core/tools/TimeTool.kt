@@ -1,7 +1,6 @@
 package com.topdon.lib.core.tools
 
 import android.annotation.SuppressLint
-import android.util.Log
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.utils.CommUtils
 import java.io.File
@@ -126,7 +125,6 @@ object TimeTool {
                 file.lastModified()
             }
         } catch (e: Exception) {
-            Log.e("视频文件名称解析异常", "${e.message}")
         }
         return currentTime
     }

@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <!-- Missing strings from splash activity -->
+    <string name="splash_title_1">IR Camera</string>
+    <string name="splash_title_2">Thermal Imaging</string>
+    
+    <!-- Missing strings from version activity -->
+    <string name="version_code">Version Code</string>
+    
+    <!-- Missing strings from main fragment -->
+    <string name="top_infrared_up_case">TOP INFRARED</string>
+    <string name="see_more_than">See More Than</string>
 </resources>

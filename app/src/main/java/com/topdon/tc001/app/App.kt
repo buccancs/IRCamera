@@ -5,9 +5,8 @@ import android.app.Application
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import com.elvishew.xlog.XLog
-import com.example.thermal_lite.IrConst
-import com.example.thermal_lite.util.CommonUtil
-import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.topdon.module.thermal.IrConst
+import com.topdon.module.thermal.util.CommonUtil
 import com.scwang.smart.refresh.header.MaterialHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.topdon.lib.core.BaseApplication
@@ -76,7 +75,6 @@ class App : BaseApplication() {
 
         RxJavaPlugins.setErrorHandler {
             if (SharedManager.getHasShowClause()) {
-                XLog.w("未知异常： ${it.message}")
             }
         }
         if (!isDomestic()) {
@@ -84,13 +82,9 @@ class App : BaseApplication() {
                 UrlConstant.setBaseUrl("${HttpConfig.HOST}/", false)
             } else {
                 if (SharedManager.getHasShowClause()) {
-                    XLog.w("lms host: ${UrlConstant.BASE_URL}")
                 }
             }
             SharedManager.setBaseHost(UrlConstant.BASE_URL) //更新app服务地址
-        }
-        if(BuildConfig.DEBUG) {
-            FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(false);
         }
         CoroutineScope(Dispatchers.IO).launch {
             tau_data_H = CommonUtil.getAssetData(mContext, IrConst.TAU_HIGH_GAIN_ASSET_PATH)
@@ -134,11 +128,9 @@ class App : BaseApplication() {
             null,
             object : InitListener {
                 override fun onInitSuccess() {
-                    XLog.e("bcf", "ZohoSalesIQ成功")
                 }
 
                 override fun onInitError(errorCode: Int, errorMessage: String?) {
-                    XLog.e("bcf", "ZohoSalesIQ失敗")
                 }
             })
     }

@@ -1,48 +1,52 @@
 package com.topdon.module.user.activity
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.utils.Constants
-import com.topdon.module.user.R
-import kotlinx.android.synthetic.main.activity_electronic_manual.*
-import kotlinx.android.synthetic.main.item_electronic_manual.view.item_lay
-import kotlinx.android.synthetic.main.item_electronic_manual.view.item_text
+import com.topdon.lib.core.view.TitleView
+import com.topdon.tc001.R
 
-@Route(path = RouterConfig.ELECTRONIC_MANUAL)
 class ElectronicManualActivity : BaseActivity() {
 
     override fun initContentView() = R.layout.activity_electronic_manual
 
     override fun initView() {
         val productType = intent.getIntExtra(Constants.SETTING_TYPE, 0) //0-电子说明书 1-FAQ
+        val titleView = findViewById<TitleView>(R.id.title_view)
+        val electronicManualRecycler = findViewById<RecyclerView>(R.id.electronic_manual_recycler)
 
-        title_view.setTitleText(if (productType == Constants.SETTING_BOOK) R.string.electronic_manual else R.string.app_question)
+        titleView.setTitleText(if (productType == Constants.SETTING_BOOK) R.string.electronic_manual else R.string.app_question)
 
         val adapter = MyAdapter(productType == 1)
         adapter.onPickListener = { isTS001 ->
             if (isTS001) {
                 if (productType == Constants.SETTING_BOOK) {
                 } else {
-                    ARouter.getInstance().build(RouterConfig.QUESTION).withBoolean("isTS001", true).navigation(this)
+                    val intent = Intent(this, com.topdon.module.user.activity.QuestionActivity::class.java)
+                    intent.putExtra("isTS001", true)
+                    startActivity(intent)
                 }
             } else {
                 if (productType == Constants.SETTING_BOOK) {
-                    ARouter.getInstance().build(RouterConfig.PDF).withBoolean("isTS001", false).navigation(this)
+                    val intent = Intent(this, com.topdon.tc001.PdfActivity::class.java)
+                    intent.putExtra("isTS001", false)
+                    startActivity(intent)
                 } else {
-                    ARouter.getInstance().build(RouterConfig.QUESTION).withBoolean("isTS001", false).navigation(this)
+                    val intent = Intent(this, com.topdon.module.user.activity.QuestionActivity::class.java)
+                    intent.putExtra("isTS001", false)
+                    startActivity(intent)
                 }
             }
         }
 
-        electronic_manual_recycler.layoutManager = LinearLayoutManager(this)
-        electronic_manual_recycler.adapter = adapter
+        electronicManualRecycler.layoutManager = LinearLayoutManager(this)
+        electronicManualRecycler.adapter = adapter
     }
 
     override fun initData() {
@@ -62,7 +66,7 @@ class ElectronicManualActivity : BaseActivity() {
             if (isFAQ) {
                 optionList.add("TS001")
             }
-            optionList.add("TS004")
+            // TS004 support removed
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -71,8 +75,10 @@ class ElectronicManualActivity : BaseActivity() {
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             if (holder is ItemViewHolder) {
-                holder.rootView.item_text.text = optionList[position]
-                holder.rootView.item_lay.setOnClickListener {
+                val itemText = holder.rootView.findViewById<TextView>(R.id.item_text)
+                val itemLay = holder.rootView.findViewById<View>(R.id.item_lay)
+                itemText.text = optionList[position]
+                itemLay.setOnClickListener {
                     onPickListener?.invoke(isFAQ && position == 0)
                 }
             }

@@ -6,9 +6,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.topdon.lib.core.R
+import com.topdon.tc001.R
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.dialog_long_text.view.*
+import android.widget.TextView
 
 class LongTextDialog(context: Context, val title: String?, val content: String?) : Dialog(context, R.style.InfoDialog) {
 
@@ -18,10 +18,14 @@ class LongTextDialog(context: Context, val title: String?, val content: String?)
         setCanceledOnTouchOutside(true)
 
         val rootView: View = LayoutInflater.from(context).inflate(R.layout.dialog_long_text, null)
-        rootView.tv_title.text = title
-        rootView.tv_text.text = content
+        val tvTitle: TextView = rootView.findViewById(R.id.tv_title)
+        val tvText: TextView = rootView.findViewById(R.id.tv_text)
+        val tvIKnow: TextView = rootView.findViewById(R.id.tv_i_know)
+        
+        tvTitle.text = title
+        tvText.text = content
         setContentView(rootView)
-        rootView.tv_i_know.setOnClickListener {
+        tvIKnow.setOnClickListener {
             dismiss()
         }
 

@@ -7,16 +7,14 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.topdon.lib.core.bean.GalleryTitle
 import com.topdon.lib.core.bean.event.ReportCreateEvent
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.FileConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.FileTools.getUri
 import com.topdon.lib.core.tools.ToastTools
+import com.topdon.lib.core.view.MainTitleView
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.repository.GalleryRepository.DirType
 import com.topdon.module.thermal.ir.R
@@ -25,7 +23,10 @@ import com.topdon.lib.core.bean.event.GalleryDelEvent
 import com.topdon.lib.core.utils.Constants.IS_REPORT_FIRST
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryViewModel
-import kotlinx.android.synthetic.main.activity_report_pick_img.*
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.topdon.lib.core.view.TitleView
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -40,7 +41,6 @@ import java.io.File
  * - [ExtraKeyConfig.REPORT_CONDITION] - 检测条件
  * - [ExtraKeyConfig.REPORT_IR_LIST] - 当前已添加的图片对应数据列表
  */
-@Route(path = RouterConfig.REPORT_PICK_IMG)
 class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
 
     /**
@@ -172,15 +172,15 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
             val fileName = data.name.substringBeforeLast(".")
             val irPath = "${FileConfig.lineIrGalleryDir}/${fileName}.ir"
             if (File(irPath).exists()) {
-                ARouter.getInstance().build(RouterConfig.IR_GALLERY_EDIT)
-                    .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
-                    .withBoolean(ExtraKeyConfig.IS_PICK_REPORT_IMG, true)
-                    .withBoolean(IS_REPORT_FIRST, false)
-                    .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, irPath)
-                    .withParcelable(ExtraKeyConfig.REPORT_INFO, intent.getParcelableExtra(ExtraKeyConfig.REPORT_INFO))
-                    .withParcelable(ExtraKeyConfig.REPORT_CONDITION, intent.getParcelableExtra(ExtraKeyConfig.REPORT_CONDITION))
-                    .withParcelableArrayList(ExtraKeyConfig.REPORT_IR_LIST, intent.getParcelableArrayListExtra(ExtraKeyConfig.REPORT_IR_LIST))
-                    .navigation(this)
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                     .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
+// TODO_FIX_AROUTER:                     .withBoolean(ExtraKeyConfig.IS_PICK_REPORT_IMG, true)
+// TODO_FIX_AROUTER:                     .withBoolean(IS_REPORT_FIRST, false)
+// TODO_FIX_AROUTER:                     .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, irPath)
+// TODO_FIX_AROUTER:                     .withParcelable(ExtraKeyConfig.REPORT_INFO, intent.getParcelableExtra(ExtraKeyConfig.REPORT_INFO))
+// TODO_FIX_AROUTER:                     .withParcelable(ExtraKeyConfig.REPORT_CONDITION, intent.getParcelableExtra(ExtraKeyConfig.REPORT_CONDITION))
+// TODO_FIX_AROUTER:                     .withParcelableArrayList(ExtraKeyConfig.REPORT_IR_LIST, intent.getParcelableArrayListExtra(ExtraKeyConfig.REPORT_IR_LIST))
+// TODO_FIX_AROUTER:                     .navigation(this)
             } else {
                 ToastTools.showShort(R.string.album_report_on_edit)
             }

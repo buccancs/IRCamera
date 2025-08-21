@@ -3,7 +3,7 @@ package com.topdon.menu.adapter
 import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import com.topdon.menu.R
+import com.topdon.tc001.R
 import com.topdon.menu.constant.MenuType
 import com.topdon.menu.constant.TwoLightType
 
@@ -41,10 +41,13 @@ internal class TwoLightAdapter(private val menuType: MenuType) : BaseMenuAdapter
         }
 
     fun setSelected(twoLightType: TwoLightType, isSelected: Boolean) {
+        if (twoLightType == TwoLightType.CORRECT || twoLightType == TwoLightType.BLEND_EXTENT) {
             return
         }
+        if (twoLightType == TwoLightType.P_IN_P && menuType != MenuType.TC007) {
             return
         }
+        if (!isSelected) {
             return
         }
         for (data in dataList) {
@@ -82,9 +85,12 @@ internal class TwoLightAdapter(private val menuType: MenuType) : BaseMenuAdapter
         holder.binding.ivIcon.isSelected = data.isSelected
         holder.binding.tvText.isSelected = data.isSelected
         holder.binding.clRoot.setOnClickListener {
+            if (data.isSingle) {
+                if (!data.isSelected) {
                     twoLightType = data.twoLightType
                     onTwoLightListener?.invoke(data.twoLightType, true)
                 }
+            } else {
                 data.isSelected = !data.isSelected
                 holder.binding.ivIcon.isSelected = data.isSelected
                 holder.binding.tvText.isSelected = data.isSelected

@@ -15,7 +15,7 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginStart="16dp"
-        android:src="@drawable/selector_house_radio"
+        android:src="@drawable/selector_radio"
         android:contentDescription="@null"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -70,7 +70,7 @@
         android:layout_marginStart="9dp"
         android:paddingVertical="15dp"
         android:paddingHorizontal="9dp"
-        android:drawableStart="@drawable/selector_house_state_good"
+        android:drawableStart="@drawable/selector_device_connect_state"
         app:drawable_height="20sp"
         app:layout_constraintStart_toStartOf="@id/view_bg"
         app:layout_constraintTop_toBottomOf="@id/et_input_name" />
@@ -80,7 +80,7 @@
         android:layout_height="wrap_content"
         android:paddingVertical="15dp"
         android:paddingHorizontal="9dp"
-        android:drawableStart="@drawable/selector_house_state_warn"
+        android:drawableStart="@drawable/svg_warn_info"
         app:drawable_height="20sp"
         app:layout_constraintStart_toEndOf="@id/tv_good"
         app:layout_constraintTop_toTopOf="@id/tv_good" />
@@ -90,7 +90,7 @@
         android:layout_height="wrap_content"
         android:paddingVertical="15dp"
         android:paddingHorizontal="9dp"
-        android:drawableStart="@drawable/selector_house_state_danger"
+        android:drawableStart="@drawable/svg_warn_info"
         app:drawable_height="20sp"
         app:layout_constraintStart_toEndOf="@id/tv_warn"
         app:layout_constraintTop_toTopOf="@id/tv_good" />

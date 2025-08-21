@@ -1,9 +1,17 @@
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
+        gradlePluginPortal()
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        maven { url 'https://maven.aliyun.com/repository/central' }
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
         google()
         mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
+        maven { url 'https://www.jitpack.io' }
+        maven { url 'https://developer.huawei.com/repo/'}
+        maven { url "https://maven.google.com" }
+        maven { url 'https://repo1.maven.org/maven2/' }
         maven { url 'https://jitpack.io' }
         maven {
             url 'https://maven.zohodl.com'
@@ -11,11 +19,6 @@ dependencyResolutionManagement {
         maven {
             url 'https://maven.aliyun.com/repository/public/'
         }
-//        maven {
-//            // http://172.16.50.94:8081/#browse/browse:topdon
-//            url 'http://172.16.50.94:8081/repository/topdon'
-//            allowInsecureProtocol = true
-//        }
         flatDir {
             dirs 'app/libs'
         }
@@ -23,4 +26,9 @@ dependencyResolutionManagement {
 }
 rootProject.name = "TopInfrared"
 include ':app'
-include ':RangeSeekBar'
+include ':component:CommonComponent'
+
+include ':component:thermal-ir'
+include ':component:transfer'
+include ':component:user'
+include ':libmatrix'

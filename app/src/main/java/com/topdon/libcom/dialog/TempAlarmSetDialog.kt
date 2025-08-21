@@ -1,6 +1,5 @@
 package com.topdon.libcom.dialog
 
-import android.app.Dialog
 import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.media.MediaPlayer
@@ -8,16 +7,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
+import android.widget.*
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.libcom.AlarmHelp
-import com.topdon.libcom.R
+import com.topdon.tc001.R
 import com.topdon.lib.core.bean.AlarmBean
 import com.topdon.lib.core.common.SaveSettingUtil
 import com.topdon.lib.core.tools.ToastTools
-import kotlinx.android.synthetic.main.dialog_temp_alarm_set.*
 
 class TempAlarmSetDialog(
     context: Context,
@@ -58,12 +56,12 @@ class TempAlarmSetDialog(
     private fun initView() {
         cl_root.setOnClickListener { dismiss() }
         cl_close.setOnClickListener { dismiss() }
-        tv_save.setOnClickListener { save() }
-        iv_ringtone1.setOnClickListener { selectRingtone(0) }
-        iv_ringtone2.setOnClickListener { selectRingtone(1) }
-        iv_ringtone3.setOnClickListener { selectRingtone(2) }
-        iv_ringtone4.setOnClickListener { selectRingtone(3) }
-        iv_ringtone5.setOnClickListener { selectRingtone(4) }
+        findViewById<TextView>(R.id.tv_save).setOnClickListener { save() }
+        findViewById<ImageView>(R.id.iv_ringtone1).setOnClickListener { selectRingtone(0) }
+        findViewById<ImageView>(R.id.iv_ringtone2).setOnClickListener { selectRingtone(1) }
+        findViewById<ImageView>(R.id.iv_ringtone3).setOnClickListener { selectRingtone(2) }
+        findViewById<ImageView>(R.id.iv_ringtone4).setOnClickListener { selectRingtone(3) }
+        findViewById<ImageView>(R.id.iv_ringtone5).setOnClickListener { selectRingtone(4) }
         switch_alarm_high.setOnCheckedChangeListener(this)
         switch_alarm_low.setOnCheckedChangeListener(this)
         switch_alarm_mark.setOnCheckedChangeListener(this)
@@ -219,18 +217,19 @@ class TempAlarmSetDialog(
 
     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
         when (buttonView?.id) {
+            R.id.switch_alarm_high -> {
                 et_alarm_high.isEnabled = isChecked
                 alarmBean.isHighOpen = isChecked
             }
-
+            R.id.switch_alarm_low -> {
                 et_alarm_low.isEnabled = isChecked
                 alarmBean.isLowOpen = isChecked
             }
-
+            R.id.switch_alarm_mark -> {
                 cl_alarm_mark.isVisible = isChecked
                 alarmBean.isMarkOpen = isChecked
             }
-
+            R.id.switch_alarm_ringtone -> {
                 cl_ringtone_select.isVisible = isChecked
                 if (isChecked) {
                     selectRingtone(alarmBean.ringtoneType)

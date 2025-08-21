@@ -26,10 +26,6 @@ import com.topdon.house.R
 import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.db.entity.HouseReport
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.pdf_head.view.*
-import kotlinx.android.synthetic.main.pdf_foot.view.*
-import kotlinx.android.synthetic.main.pdf_tab_item.view.*
-import kotlinx.android.synthetic.main.pdf_image_line.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -63,7 +59,6 @@ object PDFUtil {
                 val selectionArgs: Array<String> = arrayOf(FileConfig.documentsDir)
                 resolver.delete(contentUri, selection, selectionArgs)
             } catch (e: Exception) {
-                e.printStackTrace()
             }
         }
     }
@@ -349,7 +344,6 @@ object PDFUtil {
                 }
             }
         } catch (e: IOException) {
-            e.printStackTrace()
         } finally {
             pdfDocument.close()
         }

@@ -1,17 +1,13 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
-    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
 }
 
-kapt {
-    arguments {
-        arg("AROUTER_MODULE_NAME", project.getName())
-    }
-}
+
 
 android {
+    namespace 'com.topdon.user'
     compileSdk rootProject.ext.android.compileSdk
 
     defaultConfig {
@@ -26,39 +22,28 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
+
 
     flavorDimensions 'app'
     productFlavors {
-        dev {
-            dimension 'app'
-        }
-        beta {
-            dimension 'app'
-        }
         prod {
-            dimension 'app'
-        }
-        prodTopdon {
-            dimension 'app'
-        }
-        insideChina {
-            dimension 'app'
-        }
-        prodTopdonInsideChina {
             dimension 'app'
         }
     }
 }
 
 dependencies {
-    implementation project(':libapp')
-    kapt Deps.arouter_compiler
-    implementation 'com.zoho.salesiq:mobilisten:7.0.0'
+    compileOnly(name: "libcommon_1.2.0_24052117", ext: "aar")
 
+    implementation 'com.zoho.salesiq:mobilisten:7.0.0'
+    
+    // Kotlin Coroutines - compatible with Kotlin 2.0+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
 }

@@ -7,7 +7,7 @@ import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.blankj.utilcode.util.TimeUtils
 import com.blankj.utilcode.util.Utils
-import com.topdon.lib.core.R
+import com.topdon.tc001.R
 
 open class HouseBase {
     @PrimaryKey(autoGenerate = true)

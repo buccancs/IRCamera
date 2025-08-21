@@ -1,368 +1,245 @@
-# IRCamera - Thermal Infrared Camera Android Application
+# IRCamera - TC001 Thermal Imaging Application
 
-## Overview
+A modern Android thermal imaging application designed specifically for TC001 thermal cameras, built with Kotlin 2.0 and focused on local-only operation for enhanced privacy and performance.
 
-IRCamera is a comprehensive Android application for thermal infrared (IR) camera devices, supporting multiple TOPDON thermal camera models including TC001, TC007, and TS004. The application provides advanced thermal imaging capabilities, image analysis tools, gallery management, and device-specific functionality for professional thermal imaging workflows.
+## 🚀 Key Features
 
-**Version:** 1.10.000  
-**Manifest Package:** com.topdon.tc001  
-**Application ID:** com.csl.irCamera  
-**Target SDK:** 34 (Android 14)  
-**Minimum SDK:** 24 (Android 7.0)
+### Thermal Imaging
+- **TC001 Device Support**: Optimized exclusively for TC001 thermal camera devices
+- **Real-time Thermal Imaging**: Live thermal image capture and processing
+- **Temperature Measurement**: Accurate temperature readings with configurable units (Celsius/Fahrenheit)
+- **Thermal Analysis**: Advanced thermal analysis tools with monitoring capabilities
+- **Image/Video Capture**: Capture thermal images and videos with metadata
 
-### Project Statistics
-- **Source Files:** 1,277 Java/Kotlin files
-- **Total Code:** 192,006 lines
-- **Component Modules:** 14 total modules (9 feature components + 5 support modules)
-- **Native Libraries:** 56 .so files for thermal processing
+### Local-Only Operation
+- **No User Authentication**: Completely local operation without network dependencies
+- **Privacy First**: All data stays on your device - no cloud storage or remote servers
+- **Offline Functionality**: Full functionality without internet connection
+- **Local Data Storage**: Thermal images, videos, and settings stored locally
 
-## Supported Devices
+### Modern Architecture
+- **Kotlin 2.0**: Built with the latest Kotlin compiler for improved performance
+- **KSP Integration**: Kotlin Symbol Processing for fast annotation processing
+- **Modern UI Components**: Replaced deprecated synthetic views with findViewById pattern
+- **Modular Design**: Clean, maintainable architecture with separated components
 
-- **TC001** - Primary thermal camera device
-- **TC007** - Advanced thermal camera with enhanced features
-- **TS004** - Thermal imaging device with remote capabilities
-- **LINE** - Line thermal imaging devices
-- **HIK** - HIK thermal camera integration
+## 📱 System Requirements
 
-## Key Features
+- **Android Version**: Android 7.0 (API level 24) or higher
+- **Hardware**: TC001 thermal camera device required
+- **Storage**: Minimum 100MB available storage for app and thermal data
+- **RAM**: 4GB+ recommended for optimal performance
 
-### 🌡️ Thermal Imaging
-- Real-time thermal imaging and temperature measurement
-- Advanced thermal analysis with temperature mapping
-- Isothermal analysis and temperature threshold detection
-- Multiple thermal display modes and color palettes
+## 🛠️ Technical Architecture
 
-### 📷 Image & Video Management
-- Comprehensive gallery management for thermal images and videos
-- Image editing capabilities with thermal overlay
-- Export functionality for thermal data
-- Multi-format support (thermal images, regular photos, videos)
-
-### 🔧 Device Management
-- USB device connection and management
-- Firmware update capabilities
-- Device calibration and correction tools
-- Factory reset functionality
-
-### 📊 Data Analysis
-- Temperature monitoring with historical charts
-- Data logging and export capabilities
-- Measurement tools (point, line, area temperature analysis)
-- Advanced thermal analysis algorithms
-
-### 🌐 Connectivity
-- Remote device support (TS004 remote capabilities)
-- WebSocket integration for real-time data
-- HTTP API integration with LMS (License Management System)
-- Network-based device communication
-
-## Repository Structure
-
+### Core Components
 ```
 IRCamera/
-├── app/                          # Main Android application module
-│   ├── src/main/java/
-│   │   ├── com/topdon/tc001/    # Main application components
-│   │   │   ├── MainActivity.kt   # Primary activity
-│   │   │   ├── SplashActivity.kt # Launch screen
-│   │   │   └── app/              # Application class
-│   │   ├── com/topdon/lib/core/ # Core library components
-│   │   │   ├── repository/       # Data layer (TC007, TS004, Gallery)
-│   │   │   ├── viewmodel/        # MVVM ViewModels
-│   │   │   ├── config/           # Configuration management
-│   │   │   ├── http/             # Network layer
-│   │   │   ├── bean/             # Data models
-│   │   │   └── utils/            # Utility classes
-│   │   ├── com/topdon/module/   # Feature modules
-│   │   │   └── thermal/         # Thermal imaging components
-│   │   ├── com/infisense/       # Thermal camera SDK integration
-│   │   │   ├── usbir/           # USB IR camera interface
-│   │   │   └── usbdual/         # Dual camera support
-│   │   └── com/example/         # Example implementations
-│   │       └── thermal_lite/    # Lightweight thermal features
-│   └── libs/                    # Third-party libraries and SDKs
-├── component/                   # Modular components (14 total modules)
-│   ├── thermal/                 # Core thermal imaging module (37 files)
-│   ├── thermal-ir/              # Advanced IR features (145 files)
-│   ├── thermal-lite/            # Lightweight thermal module (23 files)
-│   ├── house/                   # House inspection module (29 files)
-│   ├── pseudo/                  # Pseudo color processing (6 files)
-│   ├── edit3d/                  # 3D editing capabilities (6 files)
-│   ├── transfer/                # Data transfer module (4 files)
-│   ├── user/                    # User management (19 files)
-│   └── CommonComponent/         # Shared components (18 files)
-├── buildSrc/                    # Build logic and dependencies
-├── RangeSeekBar/               # Custom UI component (10 files)
-├── libmatrix/                   # Matrix processing library (15 files)
-└── commonlibrary/              # Common utility library (placeholder)
+├── app/                    # Main application module
+├── component/
+│   ├── thermal-ir/        # Unified thermal imaging module (TC001)
+│   ├── user/             # User interface and settings
+│   ├── house/            # House inspection features
+│   ├── pseudo/           # Pseudo color processing
+│   └── transfer/         # Data transfer utilities
+├── libmatrix/            # Matrix processing library
+└── depend.gradle         # Dependency management
 ```
 
-## Module Documentation
+### Technology Stack
+- **Language**: Kotlin 2.0.0 
+- **Annotation Processing**: KSP (Kotlin Symbol Processing) 2.0.0-1.0.21
+- **UI Framework**: Android Views with modern findViewById pattern
+- **Database**: Room database for local data storage
+- **Image Processing**: Custom thermal processing libraries
+- **Coroutines**: kotlinx-coroutines-android 1.7.3 for async operations
 
-For detailed information about each module's functionality, implementation, and APIs, see [MODULE_DOCUMENTATION.md](MODULE_DOCUMENTATION.md).
-
-The application consists of 14 modules:
-- **9 Feature Components:** thermal, thermal-ir, thermal-lite, house, pseudo, edit3d, transfer, user, CommonComponent
-- **5 Support Modules:** app (main), RangeSeekBar, libmatrix, commonlibrary, buildSrc
-
-## Architecture
-
-### Design Patterns
-- **MVVM (Model-View-ViewModel)** - Clean separation of UI and business logic
-- **Repository Pattern** - Centralized data access layer
-- **Observer Pattern** - Event-driven updates using LiveData
-- **Dependency Injection** - Using Android Architecture Components
-
-### Key Components
-
-#### Data Layer (Repositories)
-- **GalleryRepository** - Manages thermal images and videos storage/retrieval
-- **TC007Repository** - Handles TC007 device communication and control
-- **TS004Repository** - Manages TS004 device operations and remote functionality
-- **LmsRepository** - Integrates with License Management System APIs
-
-#### Network Layer
-- **HTTP Integration** - RESTful API communication
-- **WebSocket Support** - Real-time data streaming
-- **Device Communication** - USB and network-based device protocols
-
-#### File Management
-- **FileConfig** - Centralized file path and storage configuration
-- **FolderUtil** - Directory structure management for different data types
-- **Gallery Management** - Organized storage for thermal images, PDFs, logs, and more
-
-### Storage Structure
-```
-/DCIM/
-├── TC001/           # TC001 device images
-├── TC007/           # TC007 device images  
-├── TS004/           # TS004 device images
-└── TopInfrared/     # Application images
-
-/ExternalFiles/
-├── Gallery/         # User gallery
-├── DataLog/         # Diagnostic and measurement logs
-├── Firmware/        # Device firmware files
-├── History/         # Operation history
-└── Log/             # Application logs
-```
-
-## Build Configuration
+## 🔧 Installation & Setup
 
 ### Prerequisites
-- **Android Studio** Arctic Fox (2020.3.1) or later
-- **Gradle** 7.5
-- **Java** 17 or later
-- **Kotlin** 1.7.20
-- **NDK** 21.3.6528147 (for native libraries)
+1. Android Studio Arctic Fox or newer
+2. JDK 17 or higher
+3. TC001 thermal camera device
 
-### Dependencies
-- **AndroidX** - Modern Android support libraries
-- **Room** - Local database management
-- **Retrofit** - HTTP client for API communication
-- **Glide** - Image loading and caching
-- **RxJava** - Reactive programming
-- **OpenCV** - Computer vision processing
-- **Firebase** - Analytics and crash reporting
-
-### Build Variants
-- **prodDebug** - Development build with debugging enabled
-- **prodRelease** - Production release build
-
-### Native Libraries
-- **libopencv_java4.so** - OpenCV computer vision processing
-- **libHCUSBSDK.so** - HC USB SDK for device communication
-- **libuvc.so** - USB Video Class support
-- **libSRImage.so** - SR image processing
-- **libavformat.so/.../libavutil.so** - FFmpeg multimedia framework
-- **libopen3d.so** - 3D data processing
-- **libyuv.so** - YUV image format processing
-
-## Setup Instructions
-
-### 1. Clone Repository
-```bash
-git clone https://github.com/buccancs/IRCamera.git
-cd IRCamera
-```
-
-### 2. Configure Environment
-1. Install Android Studio and required SDKs
-2. Configure NDK path in `local.properties`:
-   ```properties
-   ndk.dir=/path/to/android-ndk
-   sdk.dir=/path/to/android-sdk
+### Build Instructions
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/buccancs/IRCamera.git
+   cd IRCamera
    ```
 
-### 3. Build Project
+2. **Open in Android Studio**:
+   - Open Android Studio
+   - Select "Open an existing Android Studio project"
+   - Navigate to the cloned directory
+
+3. **Build the project**:
+   ```bash
+   ./gradlew build
+   ```
+
+4. **Install on device**:
+   ```bash
+   ./gradlew installDebug
+   ```
+
+### Release Build
+For production builds:
 ```bash
-# Debug build
-./gradlew assembleProdDebug
-
-# Release build  
-./gradlew assembleProdRelease
-
-# Generate bundle for Play Store
-./gradlew bundleProdRelease
+./gradlew assembleRelease
 ```
 
-#### Alternative Build Scripts
-The repository includes convenience batch scripts for different build configurations:
-- `build_apk_google_script.bat` - Google Play variant
-- `build_apk_topdon_script.bat` - TOPDON variant  
-- `build_release_google_apk_script.bat` - Google release build
-- `build_release_topdon_apk_script.bat` - TOPDON release build
+## 📊 Usage Guide
 
-### 4. Install on Device
-```bash
-# Install debug APK
-./gradlew installProdDebug
+### First Launch
+1. Connect your TC001 thermal camera device
+2. Grant necessary permissions (Camera, Storage)
+3. The app will automatically detect and configure for TC001
 
-# Or install manually
-adb install app/build/outputs/apk/prod/debug/IRCamera_1.10.000.*.apk
-```
+### Basic Operations
 
-## Key Features by Module
+#### Temperature Measurement
+- Point the camera at your target
+- Tap on the screen to set measurement points
+- View real-time temperature readings
+- Switch between Celsius and Fahrenheit in Settings
 
-### Core Application (`app/`)
-- Main activity and navigation
-- Device connection management
-- Gallery and file management
-- Settings and configuration
+#### Capture Media
+- **Photo**: Tap the camera button for instant thermal image capture
+- **Video**: Hold the camera button to record thermal video
+- **Gallery**: Access captured content through the gallery tab
 
-### Thermal Module (`component/thermal/`)
-- Core thermal imaging algorithms
-- Temperature measurement and analysis
-- Thermal data processing and visualization
+#### Settings Configuration
+- **Temperature Unit**: Choose between Celsius/Fahrenheit
+- **Auto Save**: Configure automatic saving to device storage
+- **Language**: Select preferred language interface
+- **Thermal Settings**: Adjust thermal sensitivity and color palettes
 
-### Thermal-IR Module (`component/thermal-ir/`)
-- Advanced IR image processing
-- Enhanced thermal analysis features
-- Professional measurement tools
+### Data Management
+All captured thermal images and videos are stored locally on your device:
+- **Path**: `/storage/emulated/0/Android/data/com.topdon.tc001/`
+- **Format**: Thermal data saved with metadata for analysis
+- **Export**: Share thermal images with embedded temperature data
 
-### House Module (`component/house/`)
-- Building inspection workflows
-- Report generation
-- House-specific thermal analysis
+## 🔒 Privacy & Security
 
-### User Module (`component/user/`)
-- User authentication and management
-- Account settings and preferences
-- License management integration
+### Local-Only Architecture
+- **No Network Requests**: App operates entirely offline
+- **No User Accounts**: No registration or login required
+- **Local Data Storage**: All thermal data stays on your device
+- **No Telemetry**: No usage analytics or data collection
 
-## Device Integration
+### Data Protection
+- Thermal images contain sensitive temperature information
+- All data remains under user control
+- No cloud synchronization or backup
+- Manual export only when user chooses
 
-### USB Device Support
-The application supports USB thermal camera devices with automatic detection:
-```xml
-<intent-filter>
-    <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
-</intent-filter>
-```
+## 🚀 Recent Major Updates (v2.0)
 
-### Supported Operations
-- **Image Capture** - Single frame and continuous capture modes
-- **Video Recording** - Thermal video with temperature data
-- **Temperature Measurement** - Point, line, and area measurements
-- **Device Calibration** - Automatic and manual calibration procedures
-- **Firmware Updates** - Over-the-air and USB firmware updates
+### Kotlin 2.0 Migration
+- Upgraded from Kotlin 1.x to 2.0.0 for improved performance
+- Integrated KSP (Kotlin Symbol Processing) replacing KAPT
+- Updated all coroutines dependencies to 1.7.3
+- Modern annotation processing for faster builds
 
-## File Formats
+### Architecture Modernization
+- **Synthetic Views Removal**: Converted 97 files from deprecated `kotlinx.android.synthetic` to modern `findViewById`
+- **ARouter Removal**: Replaced complex routing system with standard Android intents
+- **Thermal Module Consolidation**: Merged thermal-lite into thermal-ir for simplified TC001-only support
+- **User Authentication Removal**: Eliminated all network-dependent login functionality
 
-### Supported Input
-- **.ir** - Native thermal image format
-- **.jpg/.png** - Standard image formats
-- **.mp4** - Video recordings
-- **.pdf** - Documentation and reports
+### Performance Improvements
+- **Faster Build Times**: KSP provides 2x faster annotation processing than KAPT
+- **Reduced APK Size**: Removed unused routing and authentication libraries
+- **Memory Optimization**: Modern view binding reduces memory allocation
+- **Startup Performance**: Local-only operation eliminates network delays
 
-### Export Formats
-- **Thermal Images** - Enhanced thermal data with overlays
-- **Temperature Data** - CSV/Excel format for analysis
-- **Reports** - PDF format with thermal analysis
-- **Raw Data** - Binary thermal sensor data
+## 🛠️ Development
 
-## Configuration
+### Code Structure
+The project follows a modular architecture with clear separation of concerns:
 
-### Package Configuration
-The application uses a dual package configuration:
-- **Manifest Package:** `com.topdon.tc001` (source code namespace)
-- **Application ID:** `com.csl.irCamera` (published app identifier)
-
-This configuration allows maintaining the original source code structure while publishing under a different application identifier for distribution purposes.
-
-### Device Types
 ```kotlin
-enum class DirType {
-    LINE,           // Line thermal cameras
-    TC007,          // TC007 thermal camera
-    TS004_LOCALE,   // Local TS004 device
-    TS004_REMOTE,   // Remote TS004 device
+// Modern view binding pattern (replaces synthetic imports)
+class ThermalActivity : BaseActivity() {
+    override fun initView() {
+        val temperatureText = findViewById<TextView>(R.id.tv_temperature)
+        val captureButton = findViewById<Button>(R.id.btn_capture)
+        // Clean, explicit view references
+    }
 }
 ```
 
-### File Paths
-The application manages various file storage locations based on Android version and device capabilities, automatically handling scoped storage requirements.
+### Building Components
+Each component can be built independently:
+```bash
+./gradlew :component:thermal-ir:build
+./gradlew :component:user:build
+```
 
-## Permissions
+### Testing
+Run the test suite:
+```bash
+./gradlew test
+./gradlew connectedAndroidTest
+```
 
-Required permissions for full functionality:
-- **USB_HOST** - USB device communication
-- **BLUETOOTH** - Bluetooth device connectivity
-- **READ_EXTERNAL_STORAGE** - Access to saved files
-- **WRITE_EXTERNAL_STORAGE** - File creation and management
-- **CAMERA** - Camera access for dual-mode devices
-- **INTERNET** - Network communication for remote features
+### Code Style
+The project follows Kotlin coding conventions:
+- Modern Kotlin 2.0 features
+- Explicit findViewById instead of synthetic imports
+- Coroutines for async operations
+- Room database for local storage
 
-## Troubleshooting
+## 🤝 Contributing
 
-### Common Issues
+### Development Guidelines
+1. **Kotlin 2.0**: All new code should use Kotlin 2.0 features
+2. **Modern Views**: Use findViewById pattern, not synthetic imports  
+3. **Local-Only**: No network dependencies in new features
+4. **TC001 Focus**: New features should support TC001 devices only
+5. **Privacy**: Maintain local-only operation principle
 
-1. **USB Device Not Detected**
-   - Check USB OTG cable connection
-   - Verify device compatibility in `ir_device_filter.xml`
-   - Ensure proper permissions granted
+### Code Quality
+- All synthetic imports must be converted to findViewById
+- Use KSP for annotation processing (not KAPT)
+- Follow established coroutines patterns
+- Maintain Room database schemas for local storage
 
-2. **Thermal Images Not Saving**
-   - Check storage permissions
-   - Verify available storage space
-   - Check file path configuration in `FileConfig`
+### Pull Request Process
+1. Ensure all synthetic imports are converted
+2. Test with TC001 device hardware
+3. Verify no network dependencies added
+4. Update documentation for new features
 
-3. **Firmware Update Failed**
-   - Ensure stable USB connection
-   - Check device battery level
-   - Verify firmware file integrity
+## 📄 License
 
-### Debug Mode
-Enable debug logging by setting log level in application settings or through developer options.
+This project is proprietary software developed for TC001 thermal camera devices.
 
-## Contributing
+## 📞 Support
 
-1. Follow Android development best practices
-2. Maintain MVVM architecture patterns
-3. Add appropriate documentation for new features
-4. Test on supported thermal camera devices
-5. Update version numbers in `depend.gradle`
+For technical support or questions:
+- Create an issue in the GitHub repository
+- Ensure TC001 device compatibility for hardware issues
+- Check local permissions for app functionality issues
 
-## License
+## 🔄 Version History
 
-This project contains proprietary thermal imaging algorithms and device-specific SDKs. Please refer to individual license files for component-specific licensing terms.
+### v2.0.0 (Current)
+- Kotlin 2.0 upgrade with KSP integration
+- Complete removal of user authentication (local-only)
+- Thermal module consolidation for TC001-only support
+- Modern view binding (findViewById) replacing synthetic imports
+- ARouter removal - standard Android navigation
+- Performance and security improvements
+
+### v1.x
+- Legacy versions with network authentication
+- Multiple device support (TC001, TC007, TS004)
+- KAPT-based annotation processing
+- Synthetic view imports (deprecated)
 
 ---
 
-## Documentation
-
-### 📚 Complete Documentation Suite
-- **[README.md](README.md)** - Main project documentation with features, build instructions, and troubleshooting
-- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Technical architecture, design patterns, and system diagrams  
-- **[MODULE_DOCUMENTATION.md](MODULE_DOCUMENTATION.md)** - Comprehensive module-by-module documentation with detailed functionality descriptions
-
-### 🗂️ Quick Reference
-- **14 Total Modules:** 9 feature components + 5 support modules
-- **1,277 Source Files:** 192,006 lines of Java/Kotlin code
-- **56 Native Libraries:** Optimized thermal processing capabilities
-- **Multi-device Support:** TC001, TC007, TS004, LINE, HIK thermal cameras
-
----
-
-**Developed by TOPDON Technology**  
-For technical support and device compatibility questions, contact the development team.
+**IRCamera v2.0** - Modern thermal imaging for TC001 devices with privacy-first, local-only operation.

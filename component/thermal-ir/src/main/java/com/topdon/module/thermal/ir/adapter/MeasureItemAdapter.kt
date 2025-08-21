@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.bean.ObserveBean
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.itme_target_mode.view.*
 
 class MeasureItemAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var listener: ((index: Int, code: Int) -> Unit)? = null
@@ -60,9 +59,9 @@ class MeasureItemAdapter(val context: Context) : RecyclerView.Adapter<RecyclerVi
     }
 
     inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val lay: View = itemView.item_menu_tab_lay
-        val img: ImageView = itemView.item_menu_tab_img
-        val name: TextView = itemView.item_menu_tab_text
+        val lay: View = itemView.findViewById(R.id.item_menu_tab_lay)
+        val img: ImageView = itemView.findViewById(R.id.item_menu_tab_img)
+        val name: TextView = itemView.findViewById(R.id.item_menu_tab_text)
 //        init {
 //            val canSeeCount = 4
 //            val with = (ScreenUtils.getScreenWidth() / canSeeCount)

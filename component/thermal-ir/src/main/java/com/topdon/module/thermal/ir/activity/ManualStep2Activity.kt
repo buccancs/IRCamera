@@ -8,7 +8,6 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import android.os.SystemClock
-import android.util.Log
 import android.view.SurfaceView
 import android.view.View
 import android.widget.FrameLayout
@@ -36,9 +35,9 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.event.ManualFinishBean
 import com.topdon.module.thermal.ir.utils.IRCmdTool
 import com.topdon.module.thermal.ir.view.MoveImageView
-import kotlinx.android.synthetic.main.activity_manual_step2.iv_tips
-import kotlinx.android.synthetic.main.activity_manual_step2.ll_seek_bar
-import kotlinx.android.synthetic.main.activity_manual_step2.tv_tips
+import android.widget.TextView
+import android.widget.ImageView
+import android.widget.LinearLayout
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import java.io.IOException
@@ -104,10 +103,8 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
             if (msg.what == SHOW_LOADING) {
-                Log.d(TAG, "SHOW_LOADING")
                 showLoadingDialog()
             } else if (msg.what == HIDE_LOADING) {
-                Log.d(TAG, "HIDE_LOADING")
                 hideLoadingDialog()
             } else if (msg.what == HANDLE_CONNECT) {
                 initDualCamera()
@@ -139,9 +136,9 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
                 //拍照
                 takePhoto()
                 ivTakePhoto?.setText(R.string.app_ok)
-                tv_tips.text = getString(R.string.dual_light_correction_tips_3)
-                iv_tips.visibility = View.GONE
-                ll_seek_bar.visibility = View.VISIBLE
+                findViewById<TextView>(R.id.tv_tips).text = getString(R.string.dual_light_correction_tips_3)
+                findViewById<ImageView>(R.id.iv_tips).visibility = View.GONE
+                findViewById<LinearLayout>(R.id.ll_seek_bar).visibility = View.VISIBLE
             }else{
                 SharedManager.setManualAngle(snStr,seek_bar!!.progress)
                 val byteArray = ByteArray(24)
@@ -169,7 +166,7 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
             }
         })
-        ll_seek_bar.visibility = View.GONE
+        findViewById<LinearLayout>(R.id.ll_seek_bar).visibility = View.GONE
         seek_bar?.max = 2000
         seek_bar?.setEnabled(false)
         moveImageView?.setEnabled(false)
@@ -217,8 +214,6 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
 //        var height = 0
 //        val screenWidth = ScreenUtils.getScreenWidth(this)
 //        val screenHeight = ScreenUtils.getScreenHeight(this) - SizeUtils.dp2px(52f)
-//        Log.d(TAG, "initdata screenWidth : $screenWidth screenHeight: $screenHeight")
-//        Log.d(TAG, "initdata imageWidth : $mImageWidth imageHeight: $mImageHeight")
 //        if (screenWidth > screenHeight) {
 //            width = screenHeight * mImageWidth / mImageHeight
 //            height = screenHeight
@@ -272,7 +267,6 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
             var lenth = `is`.available()
             mPseudoColors[0] = ByteArray(lenth + 1)
             if (`is`.read(mPseudoColors[0]) != lenth) {
-                Log.d(Companion.TAG, "read file fail ")
             }
             mPseudoColors[0]!![lenth] = 0
             mDualView!!.dualUVCCamera.loadPseudocolor(
@@ -283,7 +277,6 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
             lenth = `is`.available()
             mPseudoColors[1] = ByteArray(lenth + 1)
             if (`is`.read(mPseudoColors[1]) != lenth) {
-                Log.d(Companion.TAG, "read file fail ")
             }
             mPseudoColors[1]!![lenth] = 1
             mDualView!!.dualUVCCamera.loadPseudocolor(
@@ -294,7 +287,6 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
             lenth = `is`.available()
             mPseudoColors[2] = ByteArray(lenth + 1)
             if (`is`.read(mPseudoColors[2]) != lenth) {
-                Log.d(Companion.TAG, "read file fail ")
             }
             mPseudoColors[2]!![lenth] = 2
             mDualView!!.dualUVCCamera.loadPseudocolor(
@@ -305,7 +297,6 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
             lenth = `is`.available()
             mPseudoColors[3] = ByteArray(lenth + 1)
             if (`is`.read(mPseudoColors[3]) != lenth) {
-                Log.d(Companion.TAG, "read file fail ")
             }
             mPseudoColors[3]!![lenth] = 3
             mDualView!!.dualUVCCamera.loadPseudocolor(
@@ -317,7 +308,6 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
             mDualView!!.dualUVCCamera.setPseudocolor(CommonParams.PseudoColorUsbDualType.IRONBOW_MODE)
             `is`.close()
         } catch (e: IOException) {
-            e.printStackTrace()
         }
     }
 
@@ -333,13 +323,11 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
             // 初始化默认值
             mDualView?.dualUVCCamera?.setDisp(dualDisp)
             mDualView?.startPreview()
-            Log.e("机芯数据加载成功","初始化完成:")
         }
     }
 
     fun onViewClicked(view: View?) {}
     override fun onStart() {
-        Log.w(Companion.TAG, "onStart")
         super.onStart()
     }
 
@@ -445,7 +433,6 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
     }
 
     override fun onDestroy() {
-        Log.w(Companion.TAG, "onDestroy")
         super.onDestroy()
         USBMonitorDualManager.getInstance().removeOnUSBConnectListener(this)
         USBMonitorDualManager.getInstance().onRelease()
@@ -485,7 +472,6 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
         if (!canOperate) {
             return
         }
-        Log.d(Companion.TAG, "prex :$preX prey : $preY curx : $curX cury : $curY")
         if (mDualView != null) {
             updateSaveButton()
             val newSrc = ByteArray(8)
@@ -506,7 +492,6 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
         if (!canOperate) {
             return
         }
-        Log.d(Companion.TAG, "angle :$angle")
         if (mDualView != null) {
             val newSrc = ByteArray(4)
             val xSrc = ByteArray(4)
@@ -562,7 +547,6 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
     }
 
     companion object {
-        private const val TAG = "ManualStep2Activity"
         const val SHOW_LOADING = 1003
         const val HIDE_LOADING = 1004
         const val HIDE_LOADING_FINISH = 1005
@@ -581,7 +565,6 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
                 flag = true
                 lastClickTime = System.currentTimeMillis()
             }
-            Log.d(TAG, "ACTION_MOVE isFastClick flag : $flag")
             return flag
         }
     }

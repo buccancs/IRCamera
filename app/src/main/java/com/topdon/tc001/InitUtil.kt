@@ -45,9 +45,7 @@ object InitUtil {
             .flattener(PatternFlattener(pattern)) //自定义日志格式
             .build()
         if (BuildConfig.DEBUG) {
-            XLog.init(config, androidPrinter, filePrinter)
         } else {
-            XLog.init(config, filePrinter)
         }
     }
 
@@ -85,7 +83,6 @@ object InitUtil {
     fun initJPush() {
         var registrationID = ""
         if (SharedManager.getHasShowClause()) {
-            XLog.w("registrationID= $registrationID")
         }
     }
 

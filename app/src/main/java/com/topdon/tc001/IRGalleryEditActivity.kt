@@ -1,4 +1,5 @@
 package com.topdon.tc001
+import com.topdon.tc001.R
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -11,16 +12,14 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.drawToBitmap
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.SizeUtils
 import com.elvishew.xlog.XLog
 import com.energy.iruvc.ircmd.IRCMDType
 import com.energy.iruvc.ircmd.IRUtils
 import com.energy.iruvc.utils.CommonParams
-import com.example.thermal_lite.IrConst
-import com.example.thermal_lite.util.CommonUtil
-import com.example.thermal_lite.util.IRTool
+import com.topdon.module.thermal.IrConst
+import com.topdon.module.thermal.util.CommonUtil
+import com.topdon.module.thermal.util.IRTool
 import com.infisense.usbir.utils.OpencvTools
 import com.topdon.lib.core.utils.BitmapUtils
 import com.infisense.usbir.utils.PseudocodeUtils.changePseudocodeModeByOld
@@ -32,7 +31,6 @@ import com.topdon.lib.core.common.ProductType.PRODUCT_NAME_TS
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.FileConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.ScreenTool
 import com.topdon.lib.core.tools.TimeTool
@@ -60,9 +58,16 @@ import com.topdon.module.thermal.ir.frame.ImageParams
 import com.topdon.module.thermal.ir.report.bean.ImageTempBean
 import com.topdon.module.thermal.ir.view.TemperatureBaseView.Mode
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryEditViewModel
-import com.topdon.pseudo.activity.PseudoSetActivity
-import com.topdon.pseudo.bean.CustomPseudoBean
-import kotlinx.android.synthetic.main.activity_ir_gallery_edit.*
+// Removed imports from pseudo component
+// import com.topdon.pseudo.activity.PseudoSetActivity
+// import com.topdon.pseudo.bean.CustomPseudoBean
+import android.widget.*
+import androidx.recyclerview.widget.RecyclerView
+import com.infisense.usbir.view.CameraPreView
+import com.infisense.usbir.view.TemperatureView
+import com.topdon.lib.core.ui.TitleView
+import com.topdon.lib.ui.widget.SettingNightView
+import com.topdon.lib.ui.widget.seekbar.RangeSeekBar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -71,12 +76,12 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 
-@Route(path = RouterConfig.IR_GALLERY_EDIT)
 class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListener {
 
 
     private var isShowC: Boolean = false
 
+    // TC007 support removed - always false
     private var isTC007 = false
 
     private val imageWidth = 256
@@ -123,7 +128,8 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
             filePath = intent.getStringExtra(ExtraKeyConfig.FILE_ABSOLUTE_PATH)!!
         }
         isReportPick = intent.getBooleanExtra(ExtraKeyConfig.IS_PICK_REPORT_IMG, false)
-        isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
+        // TC007 support removed - ignore parameter
+        isTC007 = false
 
         edit_recycler_second.fenceSelectType = FenceType.DEL
         temperature_view.isShowName = isReportPick
@@ -459,63 +465,65 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                 }
             }
             temperature_iv_input -> {
-                val intent = Intent(this, PseudoSetActivity::class.java)
-                intent.putExtra(ExtraKeyConfig.IS_TC007, isTC007)
-                intent.putExtra(ExtraKeyConfig.CUSTOM_PSEUDO_BEAN, struct.customPseudoBean)
-                pseudoSetResult.launch(intent)
+                // Removed pseudo functionality - PseudoSetActivity not available
+                // val intent = Intent(this, PseudoSetActivity::class.java)
+                // intent.putExtra(ExtraKeyConfig.IS_TC007, isTC007)  
+                // intent.putExtra(ExtraKeyConfig.CUSTOM_PSEUDO_BEAN, struct.customPseudoBean)
+                // pseudoSetResult.launch(intent)
             }
         }
     }
 
-    private val pseudoSetResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode == RESULT_OK) {
-                val tmp = it.data?.getParcelableExtra(ExtraKeyConfig.CUSTOM_PSEUDO_BEAN)
-                    ?: CustomPseudoBean()
-                updateImageAndSeekbarColorList(tmp)
-                temperature_seekbar.setColorList(tmp.getColorList(struct.isTC007())?.reversedArray())
-                temperature_seekbar.setPlaces(tmp.getPlaceList())
+    // Commented out pseudo result handling  
+    // private val pseudoSetResult =
+    //     registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+    //         if (it.resultCode == RESULT_OK) {
+    //             val tmp = it.data?.getParcelableExtra(ExtraKeyConfig.CUSTOM_PSEUDO_BEAN)
+    //                 ?: CustomPseudoBean()
+    //             updateImageAndSeekbarColorList(tmp)
+    //             temperature_seekbar.setColorList(tmp.getColorList(struct.isTC007())?.reversedArray())
+    //             temperature_seekbar.setPlaces(tmp.getPlaceList())
+    //         }
+    //     }
 
-            }
-        }
-
-    private fun updateImageAndSeekbarColorList(customPseudoBean: CustomPseudoBean?) {
-        customPseudoBean?.let {
-            updateImage(
-                frameTool.getScrPseudoColorScaledBitmap(
-                    changePseudocodeModeByOld(
-                        pseudocodeMode
-                    ), rotate = rotate, customPseudoBean = customPseudoBean,
-                    maxTemperature = tempCorrect(frameTool.getSrcTemp().maxTemperature),
-                    minTemperature = tempCorrect(frameTool.getSrcTemp().minTemperature),
-                    isAmplify = struct.isAmplify
-                )
-            )
-            if (it.isUseCustomPseudo) {
-                temperature_iv_lock.visibility = View.INVISIBLE
-                tv_temp_content.visibility = View.VISIBLE
-                updateTemperatureSeekBar(false, R.drawable.svg_pseudo_bar_lock, "lock")//加锁
-                temperature_seekbar.setRangeAndPro(
-                    UnitTools.showUnitValue(it.minTemp,isShowC),
-                    UnitTools.showUnitValue(it.maxTemp,isShowC), UnitTools.showUnitValue(it.minTemp,isShowC),
-                    UnitTools.showUnitValue(it.maxTemp,isShowC)
-                )
-                edit_recycler_second.setPseudoColor(-1)
-                temperature_iv_input.setImageResource(R.drawable.ir_model)
-            } else {
-                temperature_iv_lock.visibility = View.VISIBLE
-                if (struct.customPseudoBean.isUseCustomPseudo) {
-                    setDefLimit()
-                }
-                tv_temp_content.visibility = View.GONE
-                edit_recycler_second.setPseudoColor(pseudocodeMode)
-                temperature_iv_input.setImageResource(R.drawable.ic_color_edit)
-            }
-            struct.customPseudoBean = customPseudoBean
-            temperature_seekbar.setColorList(customPseudoBean.getColorList(struct.isTC007())?.reversedArray())
-            temperature_seekbar.setPlaces(customPseudoBean.getPlaceList())
-        }
-    }
+    // Commented out pseudo functionality
+    // private fun updateImageAndSeekbarColorList(customPseudoBean: CustomPseudoBean?) {
+    //     customPseudoBean?.let {
+    //         updateImage(
+    //             frameTool.getScrPseudoColorScaledBitmap(
+    //                 changePseudocodeModeByOld(
+    //                     pseudocodeMode
+    //                 ), rotate = rotate, customPseudoBean = customPseudoBean,
+    //                 maxTemperature = tempCorrect(frameTool.getSrcTemp().maxTemperature),
+    //                 minTemperature = tempCorrect(frameTool.getSrcTemp().minTemperature),
+    //                 isAmplify = struct.isAmplify
+    //             )
+    //         )
+    //         if (it.isUseCustomPseudo) {
+    //             temperature_iv_lock.visibility = View.INVISIBLE
+    //             tv_temp_content.visibility = View.VISIBLE
+    //             updateTemperatureSeekBar(false, R.drawable.svg_pseudo_bar_lock, "lock")//加锁
+    //             temperature_seekbar.setRangeAndPro(
+    //                 UnitTools.showUnitValue(it.minTemp,isShowC),
+    //                 UnitTools.showUnitValue(it.maxTemp,isShowC), UnitTools.showUnitValue(it.minTemp,isShowC),
+    //                 UnitTools.showUnitValue(it.maxTemp,isShowC)
+    //             )
+    //             edit_recycler_second.setPseudoColor(-1)
+    //             temperature_iv_input.setImageResource(R.drawable.ir_model)
+    //         } else {
+    //             temperature_iv_lock.visibility = View.VISIBLE
+    //             if (struct.customPseudoBean.isUseCustomPseudo) {
+    //                 setDefLimit()
+    //             }
+    //             tv_temp_content.visibility = View.GONE
+    //             edit_recycler_second.setPseudoColor(pseudocodeMode)
+    //             temperature_iv_input.setImageResource(R.drawable.ic_color_edit)
+    //         }
+    //         struct.customPseudoBean = customPseudoBean
+    //         temperature_seekbar.setColorList(customPseudoBean.getColorList(struct.isTC007())?.reversedArray())
+    //         temperature_seekbar.setPlaces(customPseudoBean.getPlaceList())
+    //     }
+    // }
 
     private var isReportPick = false
     private fun initUI() {
@@ -549,20 +557,20 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                     launch(Dispatchers.Main) {
                         dismissLoadingDialog()
                         if (intent.getBooleanExtra(IS_REPORT_FIRST, true)) {
-                            ARouter.getInstance().build(RouterConfig.REPORT_CREATE_FIRST)
-                                .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
-                                .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, fileAbsolutePath)
-                                .withParcelable(ExtraKeyConfig.IMAGE_TEMP_BEAN, buildImageTempBean())
-                                .navigation(this@IRGalleryEditActivity)
+                            val reportIntent = Intent(this@IRGalleryEditActivity, com.topdon.module.thermal.ir.report.activity.ReportCreateFirstActivity::class.java)
+                            reportIntent.putExtra(ExtraKeyConfig.IS_TC007, isTC007)
+                            reportIntent.putExtra(ExtraKeyConfig.FILE_ABSOLUTE_PATH, fileAbsolutePath)
+                            reportIntent.putExtra(ExtraKeyConfig.IMAGE_TEMP_BEAN, buildImageTempBean())
+                            startActivity(reportIntent)
                         } else {
-                            ARouter.getInstance().build(RouterConfig.REPORT_CREATE_SECOND)
-                                .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
-                                .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, fileAbsolutePath)
-                                .withParcelable(ExtraKeyConfig.IMAGE_TEMP_BEAN, buildImageTempBean())
-                                .withParcelable(ExtraKeyConfig.REPORT_INFO, intent.getParcelableExtra(ExtraKeyConfig.REPORT_INFO))
-                                .withParcelable(ExtraKeyConfig.REPORT_CONDITION, intent.getParcelableExtra(ExtraKeyConfig.REPORT_CONDITION))
-                                .withParcelableArrayList(ExtraKeyConfig.REPORT_IR_LIST, intent.getParcelableArrayListExtra(ExtraKeyConfig.REPORT_IR_LIST))
-                                .navigation(this@IRGalleryEditActivity)
+                            val reportIntent = Intent(this@IRGalleryEditActivity, com.topdon.module.thermal.ir.report.activity.ReportCreateSecondActivity::class.java)
+                            reportIntent.putExtra(ExtraKeyConfig.IS_TC007, isTC007)
+                            reportIntent.putExtra(ExtraKeyConfig.FILE_ABSOLUTE_PATH, fileAbsolutePath)
+                            reportIntent.putExtra(ExtraKeyConfig.IMAGE_TEMP_BEAN, buildImageTempBean())
+                            reportIntent.putExtra(ExtraKeyConfig.REPORT_INFO, intent.getParcelableExtra(ExtraKeyConfig.REPORT_INFO))
+                            reportIntent.putExtra(ExtraKeyConfig.REPORT_CONDITION, intent.getParcelableExtra(ExtraKeyConfig.REPORT_CONDITION))
+                            reportIntent.putExtra(ExtraKeyConfig.REPORT_IR_LIST, intent.getParcelableArrayListExtra(ExtraKeyConfig.REPORT_IR_LIST))
+                            startActivity(reportIntent)
                         }
                     }
                 }
@@ -705,7 +713,6 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
         try {
             tmp = tempCorrect(temp!!)
         } catch (e: Exception) {
-            XLog.i("温度校正失败: ${e.message}")
         }
         return tmp!!
     }
@@ -747,7 +754,6 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                     BaseApplication.instance.tau_data_L!!,struct.gainStatus)
             }
         }catch (e : Exception){
-            XLog.e("$TAG:tempCorrect-${e.message}")
         }finally {
             return newTemp
         }

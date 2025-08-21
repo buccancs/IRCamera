@@ -10,10 +10,9 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.text.TextPaint;
-import android.util.Log;
 
 import com.energy.commoncomponent.R;
-import com.energy.commoncomponent.utils.ScreenUtils;
+import com.blankj.utilcode.util.SizeUtils;
 
 import java.util.LinkedList;
 import java.util.UUID;
@@ -22,7 +21,6 @@ import java.util.UUID;
  * Created by fengjibo on 2024/2/1.
  */
 public class RectDraw extends BaseDraw {
-    private static final String TAG = "BaseTemperatureView RectDraw";
 
     private static final int MAX_RECT_COUNT = 3;
     public static final int OPERATE_STATUS_RECTANGLE_LEFT_TOP_CORNER = 0;
@@ -60,7 +58,7 @@ public class RectDraw extends BaseDraw {
 
     public RectDraw(Context context) {
         super(context);
-        LINE_STROKE_WIDTH = ScreenUtils.dp2px(1);
+        LINE_STROKE_WIDTH = SizeUtils.dp2px(1);
         mRectList = new LinkedList<>();
 
         mRectPaint = new Paint();
@@ -72,13 +70,13 @@ public class RectDraw extends BaseDraw {
         mRectPaint.setStyle(Paint.Style.STROKE);
 
         mTextPaint = new Paint();
-        mTextPaint.setStrokeWidth(ScreenUtils.dp2px(STROKE_WIDTH));
-        mTextPaint.setTextSize(ScreenUtils.sp2px(TEXT_SIZE));
+        mTextPaint.setStrokeWidth(SizeUtils.dp2px(STROKE_WIDTH));
+        mTextPaint.setTextSize(SizeUtils.sp2px(TEXT_SIZE));
         mTextPaint.setColor(Color.WHITE);
         mTextPaint.setTextAlign(Paint.Align.CENTER);
 
         mBgPaint = new TextPaint();
-        mBgPaint.setStrokeWidth(ScreenUtils.dp2px(1));
+        mBgPaint.setStrokeWidth(SizeUtils.dp2px(1));
     }
 
     public int getOperateStatus() {
@@ -87,7 +85,6 @@ public class RectDraw extends BaseDraw {
 
     public void setOperateStatus(int mOperateStatus) {
         this.mOperateStatus = mOperateStatus;
-        Log.d(TAG, "setOperateStatus = " + mOperateStatus);
     }
 
     /**
@@ -104,13 +101,11 @@ public class RectDraw extends BaseDraw {
             if (mRectList.size() < MAX_RECT_COUNT) {
 
                 String newLabel = "R" + (size + 1);
-                Log.d(TAG, "addRect newLabel : " + newLabel);
                 boolean hasSame = false;
                 for (int i = 0; i < mRectList.size(); i ++) {
                     if (mRectList.get(i).getLabel().equals(newLabel)) {
                         //存在一样的
                         hasSame = true;
-                        Log.d(TAG, "addRect is same");
                         break;
                     }
                 }
@@ -127,7 +122,6 @@ public class RectDraw extends BaseDraw {
 
                 mTouchIndex = size;
             } else {
-                Log.d(TAG, "Rect remove and add");
                 mRectList.remove();
                 mRectList.add(rectView);
                 for (int i = 0; i < mRectList.size(); i ++) {
@@ -458,7 +452,7 @@ public class RectDraw extends BaseDraw {
         private int mMovingRight;
 
         public RectView(Context context, int startX, int startY, int endX, int endY) {
-            mPointSize = ScreenUtils.dp2px(20f);
+            mPointSize = SizeUtils.dp2px(20f);
             mId = UUID.randomUUID().toString();
             mRect = new Rect();
             mRect.left = startX;

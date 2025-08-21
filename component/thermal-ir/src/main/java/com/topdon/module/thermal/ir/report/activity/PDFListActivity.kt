@@ -1,15 +1,11 @@
 package com.topdon.module.thermal.ir.report.activity
 
 import android.text.TextUtils
-import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.Utils
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.FileConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseViewModelActivity
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.socket.WebSocketProxy
@@ -27,7 +23,8 @@ import com.topdon.lms.sdk.xutils.http.RequestParams
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.adapter.PDFAdapter
 import com.topdon.module.thermal.ir.report.viewmodel.PdfViewModel
-import kotlinx.android.synthetic.main.activity_pdf_list.*
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -40,7 +37,6 @@ import java.io.File
  * @author: CaiSongL
  * @date: 2023/5/12 11:34
  */
-@Route(path = RouterConfig.REPORT_LIST)
 class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
 
     /**
@@ -123,9 +119,9 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
             viewModel.getReportData(isTC007, ++page)
         }
         reportAdapter.jumpDetailListener = {item, position ->
-            ARouter.getInstance().build(RouterConfig.REPORT_DETAIL)
-                .withParcelable(ExtraKeyConfig.REPORT_BEAN,reportAdapter.data[position]?.reportContent)
-                .navigation(this)
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                 .withParcelable(ExtraKeyConfig.REPORT_BEAN,reportAdapter.data[position]?.reportContent)
+// TODO_FIX_AROUTER:                 .navigation(this)
         }
         reportAdapter.isUseEmpty = true
         reportAdapter.delListener = {item, position ->
@@ -151,7 +147,6 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
                                     if (file.exists()) {
                                         file.delete()
                                     }
-                                    Log.w("删除成功",response.toString())
                                 }
 
                                 override fun onFail(exception: Exception?) {
@@ -168,7 +163,6 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
                                             TToast.shortToast(LMS.mContext, it)
                                         }
                                     } catch (e: Exception) {
-                                        e.printStackTrace()
                                     }
                                 }
                             })

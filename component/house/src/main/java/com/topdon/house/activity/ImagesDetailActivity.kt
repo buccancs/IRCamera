@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.topdon.house.R
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.ktbase.BaseActivity
-import kotlinx.android.synthetic.main.activity_images_detail.*
+import com.topdon.lib.core.view.BaseTitleView
 
 /**
  * 多张图片详情.
@@ -20,17 +20,24 @@ import kotlinx.android.synthetic.main.activity_images_detail.*
  * Created by LCG on 2024/8/27.
  */
 class ImagesDetailActivity : BaseActivity() {
+    
+    private lateinit var titleView: BaseTitleView
+    private lateinit var viewPager2: ViewPager2
+    
     override fun initContentView(): Int = R.layout.activity_images_detail
 
     override fun initView() {
+        titleView = findViewById(R.id.title_view)
+        viewPager2 = findViewById(R.id.view_pager2)
+        
         val imageList: List<String> = intent.getStringArrayListExtra(ExtraKeyConfig.IMAGE_PATH_LIST) ?: return
-        view_pager2.adapter = MyAdapter(imageList)
-        view_pager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        viewPager2.adapter = MyAdapter(imageList)
+        viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                title_view.setTitleText("${position + 1}/${imageList.size}")
+                titleView.setTitleText("${position + 1}/${imageList.size}")
             }
         })
-        view_pager2.setCurrentItem(intent.getIntExtra(ExtraKeyConfig.CURRENT_ITEM, 0), false)
+        viewPager2.setCurrentItem(intent.getIntExtra(ExtraKeyConfig.CURRENT_ITEM, 0), false)
     }
 
     override fun initData() {

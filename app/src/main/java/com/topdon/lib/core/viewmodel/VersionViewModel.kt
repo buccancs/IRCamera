@@ -1,6 +1,5 @@
 package com.topdon.lib.core.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.TimeUtils
@@ -29,7 +28,6 @@ class VersionViewModel : BaseViewModel() {
         val downPageUrl = result.downloadPageUrl
         val sizeStr = "${result.notUnZipSize}MB"
 
-        XLog.i("有版本升级,升级信息: $description, 是否强制升级: $isForcedUpgrade")
 
         val versionUpData = VersionUpData(
             versionNo = result.versionNo ?: "",

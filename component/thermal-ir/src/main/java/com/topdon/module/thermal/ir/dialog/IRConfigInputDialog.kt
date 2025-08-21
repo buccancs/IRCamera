@@ -6,12 +6,12 @@ import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.ViewGroup
+import android.widget.*
 import androidx.core.view.isVisible
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.dialog_ir_config_input.*
 import java.lang.NumberFormatException
 
 /**

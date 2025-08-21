@@ -10,7 +10,7 @@ import android.os.Environment;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.infisense.usbir.R;
+import com.topdon.tc001.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -77,13 +77,11 @@ public class BitmapUtils {
             out.flush();
             success = true;
         } catch (Exception e) {
-            e.printStackTrace();
         } finally {
             if (out != null) {
                 try {
                     out.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
                 }
             }
         }
@@ -137,7 +135,6 @@ public class BitmapUtils {
             out.flush();
             out.close();
         } catch (IOException e) {
-            e.printStackTrace();
             return false;
         }
         return true;
@@ -181,7 +178,6 @@ public class BitmapUtils {
                     outStream.close();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
             }
         }
 
@@ -189,7 +185,6 @@ public class BitmapUtils {
             MediaScannerConnection.scanFile(context, new String[]{fileName}, null, null);
             Toast.makeText(context, context.getResources().getString(R.string.pic_save_success), Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
-            e.printStackTrace();
             Toast.makeText(context, context.getResources().getString(R.string.pic_save_fail), Toast.LENGTH_SHORT).show();
         }
         return file;
@@ -219,9 +214,7 @@ public class BitmapUtils {
             fos.write(bytes2);
             fos.close();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -245,9 +238,7 @@ public class BitmapUtils {
             fos.write(bytes);
             fos.close();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -263,9 +254,7 @@ public class BitmapUtils {
             fos.write(toByteArray(bytes));
             fos.close();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

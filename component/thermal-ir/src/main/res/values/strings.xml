@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_thermal">Thermal Imaging</string>
+    <string name="main_thermal_motion">Temperature Monitoring</string>
+    <string name="main_thermal_tips">Professional Thermal Imaging Testing</string>
+    
+    <!-- Additional strings needed for ConnectActivity and other components -->
+    <string name="app_name">IR Camera</string>
+    <string name="app_connect">Connected</string>
+    <string name="app_no_connect">Not Connected</string>
+    
+    <!-- Loading and status strings -->
+    <string name="tip_loading">Loading...</string>
+    <string name="connecting">Connecting...</string>
+    <string name="connected">Connected</string>
+    <string name="disconnected">Disconnected</string>
+    
+    <!-- Common UI strings -->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="delete">Delete</string>
+    <string name="save">Save</string>
+    <string name="gallery">Gallery</string>
+    <string name="video">Video</string>
+    <string name="app_record">Record</string>
+    <string name="monitor_finish">Finish</string>
+    <string name="lms_http_code998">No data available</string>
+    <string name="chart_temperature">Temperature</string>
+    <string name="chart_temperature_high">High Temperature</string>
+    <string name="app_tip">Tip</string>
+    <string name="tips_cancel_correction">Are you sure you want to cancel the correction?</string>
+    <string name="app_yes">Yes</string>
+    <string name="tip_change_pseudo_mode">Change pseudo color mode</string>
+    <string name="tc_high_temp_test">High Temperature Test</string>
+    <string name="auto_open">Auto Open</string>
+    <string name="scan_ble_tip_authorize">Please authorize Bluetooth access</string>
+    <string name="thermal_trend_tips">Thermal trend analysis tips</string>
+    <string name="off_photography">Photography disabled</string>
+    <string name="seconds_dalay_3">3 second delay</string>
+    <string name="seconds_dalay_6">6 second delay</string>
+    <string name="shutter_tips">Shutter adjustment tips</string>
+    <string name="battery_share">Share</string>
+    <string name="finalize_and_save">Finalize and Save</string>
+    <string name="app_no">No</string>
+    <string name="correction_complete">Correction Complete</string>
+    <string name="app_confirm">Confirm</string>
+</resources>

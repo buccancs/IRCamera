@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 
 import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.UriUtils;
@@ -93,7 +92,6 @@ public class ExcelUtil {
                         bos.flush();
                         bos.close();
                     }
-                    Log.w("导出",UriUtils.uri2File(uri).getAbsolutePath());
                     return UriUtils.uri2File(uri).getAbsolutePath();
                 }else {
                     return null;
@@ -192,14 +190,12 @@ public class ExcelUtil {
                         bos.flush();
                         bos.close();
                     }
-                    Log.w("导出",UriUtils.uri2File(uri).getAbsolutePath());
                     return UriUtils.uri2File(uri).getAbsolutePath();
                 }else {
                     return null;
                 }
             }
         } catch (IOException e) {
-            Log.e("ExpressExcle", "exportExcel", e);
             return null;
         }
 

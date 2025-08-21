@@ -15,7 +15,8 @@ import com.hjq.permissions.XXPermissions
 import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseActivity
-import kotlinx.android.synthetic.main.activity_transfer.*
+import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -34,11 +35,16 @@ import java.util.zip.ZipFile
 class TransferActivity : BaseActivity() {
 
     private lateinit var transferDialog: TransferDialog
+    private lateinit var ivBack: ImageView
+    private lateinit var clSuccess: ConstraintLayout
 
     override fun initContentView(): Int = R.layout.activity_transfer
 
     override fun initView() {
-        iv_back.setOnClickListener {
+        ivBack = findViewById(R.id.iv_back)
+        clSuccess = findViewById(R.id.cl_success)
+        
+        ivBack.setOnClickListener {
             finish()
         }
 
@@ -99,7 +105,7 @@ class TransferActivity : BaseActivity() {
             window?.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
             transferDialog.dismiss()
-            cl_success.isVisible = true
+            clSuccess.isVisible = true
         }
     }
 

@@ -5,9 +5,10 @@ import android.content.Context
 import android.os.Bundle
 import android.view.ViewGroup
 import androidx.annotation.StringRes
-import com.topdon.lib.core.R
+import com.topdon.tc001.R
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.dialog_not_tips_select.*
+import android.widget.TextView
+import android.widget.CheckBox
 
 class NotTipsSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
 
@@ -34,14 +35,18 @@ class NotTipsSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
         setCanceledOnTouchOutside(false)
         setContentView(R.layout.dialog_not_tips_select)
 
+        val tvMessage: TextView = findViewById(R.id.tv_message)
+        val tvSelect: CheckBox = findViewById(R.id.tv_select)
+        val tvIKnow: TextView = findViewById(R.id.tv_i_know)
+
         if (tipsResId != 0) {
-            tv_message.setText(tipsResId)
+            tvMessage.setText(tipsResId)
         }
-        tv_select.setOnClickListener {
+        tvSelect.setOnClickListener {
             it.isSelected = !it.isSelected
         }
-        tv_i_know.setOnClickListener {
-            onConfirmListener?.invoke(tv_select.isSelected)
+        tvIKnow.setOnClickListener {
+            onConfirmListener?.invoke(tvSelect.isSelected)
             dismiss()
         }
 

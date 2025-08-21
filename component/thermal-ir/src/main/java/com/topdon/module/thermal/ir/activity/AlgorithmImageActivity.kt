@@ -1,14 +1,11 @@
 package com.topdon.module.thermal.ir.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.open3d.JNITool
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.utils.ImageColorTools
 import org.opencv.core.CvType
@@ -111,7 +108,6 @@ class AlgorithmImageActivity : AppCompatActivity() {
             val im = Mat(192, 256, CvType.CV_8UC4)
             im.put(0, 0, matByteArray)
             val bitmap = ImageColorTools.matToBitmap(im)
-            Log.e("测试耗时：","diff2firstFrameByTemp ： ${System.currentTimeMillis() - startTime}")
             imgARGB.setImageBitmap(ImageColorTools.adjustPhotoRotation(bitmap, 90))
         }
         findViewById<View>(R.id.btn_u4).setOnClickListener {

@@ -94,8 +94,7 @@ object FileConfig {
 
     fun getGalleryDirByType(currentDirType : DirType) : String = when (currentDirType) {
         DirType.LINE -> lineGalleryDir
-        DirType.TC007 -> tc007GalleryDir
-        else -> ts004GalleryDir
+        else -> lineGalleryDir
     }
 
     @JvmStatic
@@ -103,30 +102,6 @@ object FileConfig {
         get() {
             val dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
             val path = dir + File.separator + CommUtils.getAppName()
-            val file = File(path)
-            if (!file.exists()) {
-                file.mkdirs()
-            }
-            return path
-        }
-
-    @JvmStatic
-    val ts004GalleryDir: String
-        get() {
-            val dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
-            val path = dir + File.separator + "TS004"
-            val file = File(path)
-            if (!file.exists()) {
-                file.mkdirs()
-            }
-            return path
-        }
-
-    @JvmStatic
-    val tc007GalleryDir: String
-        get() {
-            val dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
-            val path = dir + File.separator + "TC007"
             val file = File(path)
             if (!file.exists()) {
                 file.mkdirs()
@@ -158,6 +133,17 @@ object FileConfig {
             return path
         }
 
+    @JvmStatic
+    val ts004GalleryDir: String
+        get() {
+            val dir = Utils.getApp().getExternalFilesDir(Environment.DIRECTORY_DCIM)!!.absolutePath
+            val path = dir + File.separator + "TS004"
+            val file = File(path)
+            if (!file.exists()) {
+                file.mkdirs()
+            }
+            return path
+        }
 
 
     @JvmStatic

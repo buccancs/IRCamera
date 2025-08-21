@@ -5,10 +5,9 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.MeasureSpec
-import android.widget.PopupWindow
+import android.widget.*
 import com.blankj.utilcode.util.SizeUtils
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.popup_gallery_change.view.*
 
 /**
  * 图库目录切换 PopupWindow.

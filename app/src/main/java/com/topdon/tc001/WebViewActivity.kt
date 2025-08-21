@@ -1,4 +1,5 @@
 package com.topdon.tc001
+import com.topdon.tc001.R
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -7,14 +8,11 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebSettings
 import android.webkit.WebView
 import androidx.core.view.isVisible
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.github.lzyzsd.jsbridge.BridgeWebViewClient
 import com.topdon.lib.core.config.ExtraKeyConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseBindingActivity
 import com.topdon.tc001.databinding.ActivityWebViewBinding
 
-@Route(path = RouterConfig.WEB_VIEW)
 class WebViewActivity : BaseBindingActivity<ActivityWebViewBinding>() {
 
     override fun initContentLayoutId(): Int = R.layout.activity_web_view

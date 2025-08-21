@@ -8,24 +8,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
-import com.topdon.lib.core.R
+import com.topdon.tc001.R
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.dialog_loading.view.*
+import android.widget.TextView
 
 class LoadingDialog(context: Context) : Dialog(context, R.style.TransparentDialog) {
 
+    private val rootView: View = LayoutInflater.from(context).inflate(R.layout.dialog_loading, null)
+    private val tvTips: TextView by lazy { rootView.findViewById(R.id.tv_tips) }
+
     fun setTips(@StringRes resId: Int) {
-        rootView.tv_tips.setText(resId)
-        rootView.tv_tips.isVisible = true
+        tvTips.setText(resId)
+        tvTips.isVisible = true
     }
 
     fun setTips(text: CharSequence?) {
-        rootView.tv_tips.text = text
-        rootView.tv_tips.isVisible = text?.isNotEmpty() == true
+        tvTips.text = text
+        tvTips.isVisible = text?.isNotEmpty() == true
     }
-
-
-    private val rootView: View = LayoutInflater.from(context).inflate(R.layout.dialog_loading, null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

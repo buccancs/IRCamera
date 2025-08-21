@@ -9,9 +9,8 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.RectF;
 import android.text.TextPaint;
-import android.util.Log;
 import com.energy.commoncomponent.R;
-import com.energy.commoncomponent.utils.ScreenUtils;
+import com.blankj.utilcode.util.SizeUtils;
 import java.util.LinkedList;
 import java.util.UUID;
 
@@ -19,7 +18,6 @@ import java.util.UUID;
  * Created by fengjibo on 2024/1/31.
  */
 public class LineDraw extends BaseDraw {
-    private static final String TAG = "BaseTemperatureView LineDraw";
     public static final int OPERATE_STATUS_LINE_IN_TOUCH_START = 0;
     public static final int OPERATE_STATUS_LINE_IN_TOUCH_CENTER = 1;
     public static final int OPERATE_STATUS_LINE_IN_TOUCH_END = 2;
@@ -48,7 +46,7 @@ public class LineDraw extends BaseDraw {
 
     public LineDraw(Context context) {
         super(context);
-        LINE_STROKE_WIDTH = ScreenUtils.dp2px(1);
+        LINE_STROKE_WIDTH = SizeUtils.dp2px(1);
         mLineList = new LinkedList<>();
 
         mLinePaint = new Paint();
@@ -60,13 +58,13 @@ public class LineDraw extends BaseDraw {
         mLinePaint.setStyle(Paint.Style.STROKE);
 
         mTextPaint = new Paint();
-        mTextPaint.setStrokeWidth(ScreenUtils.dp2px(STROKE_WIDTH));
-        mTextPaint.setTextSize(ScreenUtils.sp2px(TEXT_SIZE));
+        mTextPaint.setStrokeWidth(SizeUtils.dp2px(STROKE_WIDTH));
+        mTextPaint.setTextSize(SizeUtils.sp2px(TEXT_SIZE));
         mTextPaint.setColor(Color.WHITE);
         mTextPaint.setTextAlign(Paint.Align.CENTER);
 
         mBgPaint = new TextPaint();
-        mBgPaint.setStrokeWidth(ScreenUtils.dp2px(1));
+        mBgPaint.setStrokeWidth(SizeUtils.dp2px(1));
     }
 
     public int getOperateStatus() {
@@ -75,7 +73,6 @@ public class LineDraw extends BaseDraw {
 
     public void setOperateStatus(int mOperateStatus) {
         this.mOperateStatus = mOperateStatus;
-        Log.d(TAG, "setOperateStatus = " + mOperateStatus);
     }
 
     /**
@@ -92,13 +89,11 @@ public class LineDraw extends BaseDraw {
             if (mLineList.size() < MAX_LINE_COUNT) {
 
                 String newLabel = "L" + (size + 1);
-                Log.d(TAG, "addLine newLabel : " + newLabel);
                 boolean hasSame = false;
                 for (int i = 0; i < mLineList.size(); i ++) {
                     if (mLineList.get(i).getLabel().equals(newLabel)) {
                         //存在一样的
                         hasSame = true;
-                        Log.d(TAG, "addLine is same");
                         break;
                     }
                 }
@@ -115,7 +110,6 @@ public class LineDraw extends BaseDraw {
 
                 mTouchIndex = size;
             } else {
-                Log.d(TAG, "line remove and add");
                 mLineList.remove();
                 mLineList.add(lineView);
                 for (int i = 0; i < mLineList.size(); i ++) {
@@ -266,7 +260,6 @@ public class LineDraw extends BaseDraw {
         if (mTouchIndex < 0 || mTouchIndex >= mLineList.size()) {
             return;
         }
-        Log.d(TAG, "mOperateStatus : " + mOperateStatus);
 
         LineView lineView = mLineList.get(mTouchIndex);
         if (mOperateStatus == OPERATE_STATUS_LINE_IN_TOUCH_START) {
@@ -383,7 +376,6 @@ public class LineDraw extends BaseDraw {
             tempDistance = (int) (tempDistance / Math.sqrt(Math.pow(lineView.mEndMovingLineY - lineView.mStartMovingLineY, 2) + Math.pow(lineView.mEndMovingLineX - lineView.mStartMovingLineX, 2)));
             if (Math.abs(tempDistance) < TOUCH_TOLERANCE && x > Math.min(lineView.mStartMovingLineX, lineView.mEndMovingLineX) - TOUCH_TOLERANCE && x < Math.max(lineView.mStartMovingLineX, lineView.mEndMovingLineX) + TOUCH_TOLERANCE) {
                 mTouchIndex = i;
-                Log.d(TAG, "checkTouchLineInclude true mTouchIndex = " + mTouchIndex);
                 return i;
             }
         }
@@ -405,7 +397,7 @@ public class LineDraw extends BaseDraw {
         private int mEndMovingLineY;
 
         public LineView(Context context, int startX, int startY, int endX, int endY) {
-            mPointSize = ScreenUtils.dp2px(20f);
+            mPointSize = SizeUtils.dp2px(20f);
             mId = UUID.randomUUID().toString();
             mStartPoint = new Point(startX, startY);
             mEndPoint = new Point(endX, endY);

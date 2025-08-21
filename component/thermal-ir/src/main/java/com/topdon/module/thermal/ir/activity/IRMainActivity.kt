@@ -11,8 +11,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.AppUtils
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
@@ -21,11 +19,9 @@ import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.bean.event.PDFEvent
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.ExtraKeyConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.repository.GalleryRepository.DirType
-import com.topdon.lib.core.repository.TC007Repository
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.lib.core.utils.CommUtils
@@ -39,27 +35,14 @@ import com.topdon.module.thermal.ir.fragment.IRGalleryTabFragment
 import com.topdon.module.thermal.ir.fragment.IRThermalFragment
 import com.topdon.module.thermal.ir.fragment.AbilityFragment
 import com.topdon.module.thermal.ir.fragment.PDFListFragment
-import kotlinx.android.synthetic.main.activity_ir_main.*
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 
 /**
- * 插件式 或 TC007 首页.
- *
- * 需要传递参数：
- * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
+ * TC001 main activity (TC007 support removed).
  *
  * Created by LCG on 2024/4/18.
  */
-@Route(path = RouterConfig.IR_MAIN)
 class IRMainActivity : BaseActivity(), View.OnClickListener {
-
-    /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
-     */
-    private var isTC007 = false
 
     override fun initContentView(): Int = R.layout.activity_ir_main
 
@@ -69,49 +52,35 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun initView() {
-        isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
-
-        view_page.offscreenPageLimit = 5
-        view_page.isUserInputEnabled = false
-        view_page.adapter = ViewPagerAdapter(this, isTC007)
-        view_page.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        // TC001 only - removed TC007 logic
+        val viewPage = findViewById<ViewPager2>(R.id.view_page)
+        viewPage.offscreenPageLimit = 5
+        viewPage.isUserInputEnabled = false
+        viewPage.adapter = ViewPagerAdapter(this)
+        viewPage.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 refreshTabSelect(position)
             }
         })
-        view_page.setCurrentItem(2, false)
+        viewPage.setCurrentItem(2, false)
 
-        cl_icon_monitor.setOnClickListener(this)
-        cl_icon_gallery.setOnClickListener(this)
-        view_main_thermal.setOnClickListener(this)
-        cl_icon_report.setOnClickListener(this)
-        cl_icon_mine.setOnClickListener(this)
+        findViewById<View>(R.id.cl_icon_monitor).setOnClickListener(this)
+        findViewById<View>(R.id.cl_icon_gallery).setOnClickListener(this)
+        findViewById<View>(R.id.view_main_thermal).setOnClickListener(this)
+        findViewById<View>(R.id.cl_icon_report).setOnClickListener(this)
+        findViewById<View>(R.id.cl_icon_mine).setOnClickListener(this)
 
         showGuideDialog()
     }
 
     override fun onResume() {
         super.onResume()
-//        DeviceTools.isConnect(true)
-        if (isTC007) {
-            if (WebSocketProxy.getInstance().isTC007Connect()) {
-                NetWorkUtils.switchNetwork(false)
-                iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_connect)
-                lifecycleScope.launch {
-                    TC007Repository.syncTime()
-                }
-                if (SharedManager.isConnect07AutoOpen) {
-                    ARouter.getInstance().build(RouterConfig.IR_THERMAL_07).navigation(this)
-                }
-            } else {
-                iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
-            }
+        // TC001 only - removed TC007 logic
+        val ivMainBg = findViewById<View>(R.id.iv_main_bg)
+        if (DeviceTools.isConnect(isAutoRequest = false)) {
+            ivMainBg.setBackgroundResource(R.drawable.ic_ir_main_bg_connect)
         } else {
-            if (DeviceTools.isConnect(isAutoRequest = false)) {
-                iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_connect)
-            } else {
-                iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
-            }
+            ivMainBg.setBackgroundResource(R.drawable.ic_ir_main_bg_disconnect)
         }
     }
 
@@ -119,15 +88,13 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun connected() {
-        if (!isTC007) {
-            iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_connect)
-        }
+        // TC001 only - always update background
+        findViewById<View>(R.id.iv_main_bg).setBackgroundResource(R.drawable.ic_ir_main_bg_connect)
     }
 
     override fun disConnected() {
-        if (!isTC007) {
-            iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
-        }
+        // TC001 only - always update background  
+        findViewById<View>(R.id.iv_main_bg).setBackgroundResource(R.drawable.ic_ir_main_bg_disconnect)
     }
 
     override fun onSocketConnected(isTS004: Boolean) {
@@ -348,17 +315,17 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
 
 
 
-    private class ViewPagerAdapter(activity: FragmentActivity, val isTC007: Boolean) : FragmentStateAdapter(activity) {
+    private class ViewPagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
         override fun getItemCount() = 5
 
         override fun createFragment(position: Int): Fragment {
             if (position == 1) {//图库
                 return IRGalleryTabFragment().apply {
                     arguments = Bundle().also {
-                        val dirType = if (isTC007) DirType.TC007.ordinal else DirType.LINE.ordinal
+                        // TC001 only - always use LINE directory type
                         it.putBoolean(ExtraKeyConfig.CAN_SWITCH_DIR, false)
                         it.putBoolean(ExtraKeyConfig.HAS_BACK_ICON, false)
-                        it.putInt(ExtraKeyConfig.DIR_TYPE, dirType)
+                        it.putInt(ExtraKeyConfig.DIR_TYPE, DirType.LINE.ordinal)
                     }
                 }
             } else {
@@ -366,9 +333,10 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
                     0 -> AbilityFragment()
                     2 -> IRThermalFragment()
                     3 -> PDFListFragment()
-                    else -> ARouter.getInstance().build(RouterConfig.TC_MORE).navigation() as Fragment
+            // TODO: Replace RouterConfig reference with direct navigation
                 }
-                fragment.arguments = Bundle().also { it.putBoolean(ExtraKeyConfig.IS_TC007, isTC007) }
+                // TC001 only - always pass false for IS_TC007
+                fragment.arguments = Bundle().also { it.putBoolean(ExtraKeyConfig.IS_TC007, false) }
                 return fragment
             }
         }

@@ -3,7 +3,7 @@ package com.topdon.menu.adapter
 import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import com.topdon.menu.R
+import com.topdon.tc001.R
 import com.topdon.menu.constant.MenuType
 
 @SuppressLint("NotifyDataSetChanged")

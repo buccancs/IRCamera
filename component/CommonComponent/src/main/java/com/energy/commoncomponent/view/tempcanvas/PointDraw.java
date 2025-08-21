@@ -11,10 +11,9 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.text.TextPaint;
-import android.util.Log;
 
 import com.energy.commoncomponent.R;
-import com.energy.commoncomponent.utils.ScreenUtils;
+import com.blankj.utilcode.util.SizeUtils;
 
 import java.util.LinkedList;
 import java.util.UUID;
@@ -25,7 +24,6 @@ import java.util.UUID;
  */
 public class PointDraw extends BaseDraw {
 
-    private static final String TAG = "BaseTemperatureView PointDraw";
     public static final int OPERATE_STATUS_POINT_IN_TOUCH = 0;
     public static final int OPERATE_STATUS_POINT_ADD = 1;
     public static final int OPERATE_STATUS_POINT_REMOVE = 2;
@@ -55,17 +53,17 @@ public class PointDraw extends BaseDraw {
     public PointDraw(Context context) {
         super(context);
         mPointList = new LinkedList<>();
-        TEXT_POINT_MARGIN = ScreenUtils.dp2px(4);
-        LABEL_POINT_MARGIN = ScreenUtils.dp2px(24);
+        TEXT_POINT_MARGIN = SizeUtils.dp2px(4);
+        LABEL_POINT_MARGIN = SizeUtils.dp2px(24);
 
         mTextPaint = new Paint();
-        mTextPaint.setStrokeWidth(ScreenUtils.dp2px(STROKE_WIDTH));
-        mTextPaint.setTextSize(ScreenUtils.sp2px(TEXT_SIZE));
+        mTextPaint.setStrokeWidth(SizeUtils.dp2px(STROKE_WIDTH));
+        mTextPaint.setTextSize(SizeUtils.sp2px(TEXT_SIZE));
         mTextPaint.setColor(Color.WHITE);
         mTextPaint.setTextAlign(Paint.Align.CENTER);
 
         mBgPaint = new TextPaint();
-        mBgPaint.setStrokeWidth(ScreenUtils.dp2px(1));
+        mBgPaint.setStrokeWidth(SizeUtils.dp2px(1));
     }
 
     public int getOperateStatus() {
@@ -74,7 +72,6 @@ public class PointDraw extends BaseDraw {
 
     public void setOperateStatus(int mOperateStatus) {
         this.mOperateStatus = mOperateStatus;
-        Log.d(TAG, "setOperateStatus = " + mOperateStatus);
     }
 
     /**
@@ -87,7 +84,6 @@ public class PointDraw extends BaseDraw {
         PointView pointView = new PointView(mContext, mode, centerX, centerY);
         int size = mPointList.size();
         if (mPointList.size() < MAX_POINT_COUNT) {
-            Log.d(TAG, "addPoint");
 
             String newLabel = "P" + (size + 1);
             boolean hasSame = false;
@@ -95,7 +91,6 @@ public class PointDraw extends BaseDraw {
                 if (mPointList.get(i).getLabel().equals(newLabel)) {
                     //存在一样的
                     hasSame = true;
-                    Log.d(TAG, "addPoint is same");
                     break;
                 }
             }
@@ -112,7 +107,6 @@ public class PointDraw extends BaseDraw {
 
             mTouchIndex = size;
         } else {
-            Log.d(TAG, "point remove and add");
             mPointList.remove();
             mPointList.add(pointView);
             for (int i = 0; i < mPointList.size(); i ++) {
@@ -281,7 +275,7 @@ public class PointDraw extends BaseDraw {
 
         public PointView(Context context, int mode, float centerX, float centerY) {
             mId = UUID.randomUUID().toString();
-            mPointSize = ScreenUtils.dp2px(20f);
+            mPointSize = SizeUtils.dp2px(20f);
             mCenterX = centerX;
             mCenterY = centerY;
             mMode = mode;

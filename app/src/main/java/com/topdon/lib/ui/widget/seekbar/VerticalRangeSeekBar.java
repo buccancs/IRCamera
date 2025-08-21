@@ -59,7 +59,6 @@ public class VerticalRangeSeekBar extends RangeSeekBar {
             tickMarkDirection = t.getInt(R.styleable.VerticalRangeSeekBar_rsb_tick_mark_orientation, TEXT_DIRECTION_VERTICAL);
             t.recycle();
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

@@ -50,15 +50,15 @@ class BatteryView : AppCompatImageView {
                     MeasureSpec.EXACTLY -> setMeasuredDimension(widthSize, (widthSize * 30 / 58f).toInt().coerceAtMost(heightSize))
                     MeasureSpec.AT_MOST -> {
                         if (widthSize < 58) {
-                                if ((widthSize * 30 / 58f).toInt() <= heightSize) {
-                                    setMeasuredDimension(widthSize, (widthSize * 30 / 58f).toInt())
-                                } else {
-                                    setMeasuredDimension((heightSize * 58 / 30f).toInt(), heightSize)
-                                }
+                            if ((widthSize * 30 / 58f).toInt() <= heightSize) {
                                 setMeasuredDimension(widthSize, (widthSize * 30 / 58f).toInt())
+                            } else {
+                                setMeasuredDimension((heightSize * 58 / 30f).toInt(), heightSize)
                             }
                         } else {
+                            if ((heightSize * 58 / 30f).toInt() <= widthSize) {
                                 setMeasuredDimension((heightSize * 58 / 30f).toInt(), heightSize)
+                            } else {
                                 setMeasuredDimension(58, 30)
                             }
                         }

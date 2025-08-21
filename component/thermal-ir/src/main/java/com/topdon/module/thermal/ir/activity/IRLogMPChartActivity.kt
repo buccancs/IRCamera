@@ -5,7 +5,6 @@ import android.view.View
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.elvishew.xlog.XLog
@@ -16,7 +15,6 @@ import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.FileConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.FileTools
@@ -26,14 +24,16 @@ import com.topdon.libcom.ExcelUtil
 import com.topdon.lms.sdk.BuildConfig
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.viewmodel.IRMonitorViewModel
-import kotlinx.android.synthetic.main.activity_ir_log_mp_chart.*
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.topdon.lib.core.ui.TitleView
+import com.topdon.lib.ui.widget.MPChartView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 import kotlin.collections.ArrayList
 
-@Route(path = RouterConfig.IR_THERMAL_LOG_MP_CHART)
 class IRLogMPChartActivity : BaseActivity() {
 
     private val viewModel: IRMonitorViewModel by viewModels()
@@ -61,22 +61,27 @@ class IRLogMPChartActivity : BaseActivity() {
 
     override fun initView() {
         startTime = intent.getLongExtra(ExtraKeyConfig.TIME_MILLIS, 0)
+        val monitorCurrentVol = findViewById<TextView>(R.id.monitor_current_vol)
+        val monitorRealVol = findViewById<TextView>(R.id.monitor_real_vol)
+        val monitorRealImg = findViewById<View>(R.id.monitor_real_img)
+        val logChartTimeChart = findViewById<MPChartView>(R.id.log_chart_time_chart)
+        val btnEx = findViewById<View>(R.id.btn_ex)
+        
         viewModel.detailListLD.observe(this) {
             dismissLoadingDialog()
 
             val isPoint = it?.isNotEmpty() == true && it.first().type == "point"
-            monitor_current_vol.text = getString(if (isPoint) R.string.chart_temperature else R.string.chart_temperature_high)
-            monitor_real_vol.visibility = if (isPoint) View.GONE else View.VISIBLE
-            monitor_real_img.visibility = if (isPoint) View.GONE else View.VISIBLE
+            monitorCurrentVol.text = getString(if (isPoint) R.string.chart_temperature else R.string.chart_temperature_high)
+            monitorRealVol.visibility = if (isPoint) View.GONE else View.VISIBLE
+            monitorRealImg.visibility = if (isPoint) View.GONE else View.VISIBLE
 
             try {
-                log_chart_time_chart.initEntry(it as ArrayList<ThermalEntity>)
+                logChartTimeChart.initEntry(it as ArrayList<ThermalEntity>)
             } catch (e: Exception) {
-                XLog.e("刷新图表异常:${e.message}")
             }
         }
 
-        btn_ex?.setOnClickListener {
+        btnEx?.setOnClickListener {
             TipDialog.Builder(this)
                 .setMessage(R.string.tip_album_temp_exportfile)
                 .setPositiveListener(R.string.app_confirm) {

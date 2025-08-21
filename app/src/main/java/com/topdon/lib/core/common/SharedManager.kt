@@ -39,61 +39,10 @@ object SharedManager {
             SPUtils.getInstance().put("hasConnectTcLine", value)
         }
 
-    var hasTS004: Boolean
-        get() = SPUtils.getInstance().getBoolean("hasConnectTS004", false)
-        set(value) {
-            SPUtils.getInstance().put("hasConnectTS004", value)
-        }
-
-    var hasTC007: Boolean
-        get() = SPUtils.getInstance().getBoolean("hasConnectTC007", false)
-        set(value) {
-            SPUtils.getInstance().put("hasConnectTC007", value)
-        }
-
-    var irConfigJsonTC007: String
-        get() = SPUtils.getInstance().getString("irConfigJsonTC007")
-        set(value) {
-            SPUtils.getInstance().put("irConfigJsonTC007", value)
-        }
-
-
-    var homeGuideStep: Int
-        get() {
-            val value = SPUtils.getInstance().getInt("homeGuideStep", 2)
-            return if (value == 1) 2 else value
-        }
-        set(value) {
-            SPUtils.getInstance().put("homeGuideStep", value)
-        }
-
-    var configGuideStep: Int
-        get() = SPUtils.getInstance().getInt("configGuideStep", 1)
-        set(value) = SPUtils.getInstance().put("configGuideStep", value)
-
-
     var isHideEmissivityTips: Boolean
         get() = SPUtils.getInstance().getBoolean("isHideEmissivityTips", false)
         set(value) {
             SPUtils.getInstance().put("isHideEmissivityTips", value)
-        }
-
-    var is07HideEmissivityTips: Boolean
-        get() = SPUtils.getInstance().getBoolean("is07HideEmissivityTips", false)
-        set(value) {
-            SPUtils.getInstance().put("is07HideEmissivityTips", value)
-        }
-
-    var is04TISR: Boolean
-        get() = SPUtils.getInstance().getBoolean("is04TISR", false)
-        set(value) {
-            SPUtils.getInstance().put("is04TISR", value)
-        }
-
-    var is04AutoSync: Boolean
-        get() = SPUtils.getInstance().getBoolean("is04AutoSync", false)
-        set(value) {
-            SPUtils.getInstance().put("is04AutoSync", value)
         }
 
     fun getManualAngle(sId: String): Int {
@@ -149,12 +98,6 @@ object SharedManager {
         get() = SPUtils.getInstance().getBoolean("isConnectAutoOpen", false)
         set(value) {
             SPUtils.getInstance().put("isConnectAutoOpen", value)
-        }
-
-    var isConnect07AutoOpen: Boolean
-        get() = SPUtils.getInstance().getBoolean("isConnect07AutoOpen", false)
-        set(value) {
-            SPUtils.getInstance().put("isConnect07AutoOpen", value)
         }
 
     var isTipOTG: Boolean
@@ -269,6 +212,24 @@ object SharedManager {
 
     private const val SP_SETTING_IS_PUSH = "sp_setting_is_push" //推送开关
     private const val SP_SETTING_IS_RECOMMEND = "sp_setting_is_recommend"
+    
+    // Missing constants
+    private const val SP_HOT_MODE = "sp_hot_mode"
+    private const val SP_CHANGE_DEVICE = "sp_change_device"
+    private const val SP_CAR_DETECT = "sp_car_detect"
+    
+    // Device connection states
+    var hasTS004: Boolean
+        get() = SPUtils.getInstance().getBoolean("hasTS004", false)
+        set(value) = SPUtils.getInstance().put("hasTS004", value)
+        
+    var hasTC007: Boolean
+        get() = SPUtils.getInstance().getBoolean("hasTC007", false)
+        set(value) = SPUtils.getInstance().put("hasTC007", value)
+        
+    var is04AutoSync: Boolean
+        get() = SPUtils.getInstance().getBoolean("is04AutoSync", false)
+        set(value) = SPUtils.getInstance().put("is04AutoSync", value)
 
     fun getTargetPop(): Boolean {
         return SPUtils.getInstance().getBoolean(SP_TARGET_POP, false)
@@ -343,6 +304,36 @@ object SharedManager {
 
     fun saveCarDetectInfo(bean: CarDetectChildBean) {
         SPUtils.getInstance().put(SP_CAR_DETECT, GsonUtils.toJson(bean))
+    }
+
+    fun getLanguage(): String {
+        return SPUtils.getInstance().getString("app_language", "en")
+    }
+
+    fun setLanguage(language: String) {
+        SPUtils.getInstance().put("app_language", language)
+    }
+
+    fun getHasShowClause(): Boolean {
+        return SPUtils.getInstance().getBoolean(HAS_SHOW_CLAUSE, false)
+    }
+
+    fun setHasShowClause(hasShow: Boolean) {
+        SPUtils.getInstance().put(HAS_SHOW_CLAUSE, hasShow)
+    }
+
+    // Context-based language methods for compatibility
+    fun getLanguage(context: Context): String {
+        return getLanguage()
+    }
+
+    fun setLanguage(context: Context, language: String) {
+        setLanguage(language)
+    }
+
+    // Local-only mode - always return a default local user ID
+    fun getUserId(): String {
+        return "local"
     }
 
 }

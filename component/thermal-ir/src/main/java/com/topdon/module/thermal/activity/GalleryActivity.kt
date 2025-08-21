@@ -1,0 +1,86 @@
+package com.topdon.module.thermal.activity
+
+import android.Manifest
+import android.content.Context
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
+import com.topdon.lib.core.ktbase.BaseActivity
+import com.topdon.lib.core.tools.Permission
+import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.fragment.GalleryPictureFragment
+import com.topdon.module.thermal.fragment.GalleryVideoFragment
+
+
+class GalleryActivity : BaseActivity() {
+
+//    override fun providerVMClass() = GalleryViewModel::class.java
+
+    private val permissionList by lazy<List<String>> {
+        if (this.applicationInfo.targetSdkVersion >= 34){
+            listOf(
+                Permission.READ_MEDIA_VIDEO,
+                Permission.READ_MEDIA_IMAGES,
+                Permission.WRITE_EXTERNAL_STORAGE,
+            )
+        } else if (this.applicationInfo.targetSdkVersion >= 33){
+            mutableListOf(Permission.READ_MEDIA_VIDEO,
+                Permission.READ_MEDIA_IMAGES,
+                Permission.WRITE_EXTERNAL_STORAGE)
+        }else{
+            mutableListOf(Permission.READ_EXTERNAL_STORAGE,Permission.WRITE_EXTERNAL_STORAGE)
+        }
+    }
+
+    override fun initContentView() = R.layout.activity_gallery
+
+    override fun initView() {
+        setTitleText(getString(R.string.gallery))
+        val galleryViewPager = findViewById<ViewPager>(R.id.gallery_viewpager)
+        val galleryTab = findViewById<TabLayout>(R.id.gallery_tab)
+        
+        galleryViewPager.adapter = ViewAdapter(this, supportFragmentManager)
+        galleryTab.setupWithViewPager(galleryViewPager)
+
+        // Request permissions using standard Android approach
+        if (permissionList.any { !Permission.checkPermission(this, it) }) {
+            Permission.requestPermissions(this, permissionList.toTypedArray(), REQUEST_PERMISSION_CODE)
+        }
+    }
+    
+    companion object {
+        private const val REQUEST_PERMISSION_CODE = 1001
+    }
+
+    override fun initData() {
+    }
+
+    inner class ViewAdapter : FragmentPagerAdapter {
+        private var titles: Array<String> = arrayOf()
+
+        constructor (context: Context, fm: FragmentManager) : super(
+            fm,
+            BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+        ) {
+            titles = arrayOf("图片", "视频")
+        }
+
+        override fun getCount(): Int {
+            return titles.size
+        }
+
+        override fun getPageTitle(position: Int): CharSequence? {
+            return titles[position]
+        }
+
+        override fun getItem(position: Int): Fragment {
+            return when (position) {
+                0 -> GalleryPictureFragment()
+                else -> GalleryVideoFragment()
+            }
+        }
+    }
+
+}

@@ -23,12 +23,16 @@ class RoundImageView : AppCompatImageView {
         private const val DEFAULT_POSITION = 15
     }
 
+    private var density: Float = 0f
+    private var radius: Int = 0
         set(value) {
             if (field != value) {
                 field = value
                 invalidate()
             }
         }
+    private var position: Int = DEFAULT_POSITION
+    private val path = Path()
 
 
 

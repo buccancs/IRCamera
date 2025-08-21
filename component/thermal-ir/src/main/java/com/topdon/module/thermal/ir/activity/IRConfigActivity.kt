@@ -9,20 +9,18 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.*
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.ExtraKeyConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.NumberTools
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.dialog.TipDialog
-import com.topdon.lib.core.repository.TC007Repository
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.ui.widget.MyItemDecoration
 import com.topdon.lms.sdk.weiget.TToast
@@ -34,9 +32,6 @@ import com.topdon.module.thermal.ir.dialog.ConfigGuideDialog
 import com.topdon.module.thermal.ir.dialog.IRConfigInputDialog
 import com.topdon.module.thermal.ir.repository.ConfigRepository
 import com.topdon.module.thermal.ir.viewmodel.IRConfigViewModel
-import kotlinx.android.synthetic.main.activity_ir_config.*
-import kotlinx.android.synthetic.main.item_ir_config_config.view.*
-import kotlinx.android.synthetic.main.item_ir_config_foot.view.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -46,7 +41,6 @@ import kotlinx.coroutines.launch
  * 需要传递参数：
  * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
  */
-@Route(path = RouterConfig.IR_SETTING)
 class IRConfigActivity : BaseActivity(), View.OnClickListener {
 
     /**
@@ -66,15 +60,15 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
     override fun initView() {
         isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
 
-        tv_default_temp_title.text = "${getString(R.string.thermal_config_environment)} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
-        tv_default_dis_title.text = "${getString(R.string.thermal_config_distance)} (0.2~${if (isTC007) 4 else 5}m)"
-        tv_default_em_title.text = "${getString(R.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
-        tv_default_temp_unit.text = UnitTools.showUnit()
+        findViewById<TextView>(R.id.tv_default_temp_title).text = "${getString(R.string.thermal_config_environment)} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
+        findViewById<TextView>(R.id.tv_default_dis_title).text = "${getString(R.string.thermal_config_distance)} (0.2~${if (isTC007) 4 else 5}m)"
+        findViewById<TextView>(R.id.tv_default_em_title).text = "${getString(R.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
+        findViewById<TextView>(R.id.tv_default_temp_unit).text = UnitTools.showUnit()
 
-        iv_default_selector.setOnClickListener(this)
-        view_default_temp_bg.setOnClickListener(this)
-        view_default_dis_bg.setOnClickListener(this)
-        tv_default_em_value.setOnClickListener(this)
+        findViewById<ImageView>(R.id.iv_default_selector).setOnClickListener(this)
+        findViewById<View>(R.id.view_default_temp_bg).setOnClickListener(this)
+        findViewById<View>(R.id.view_default_dis_bg).setOnClickListener(this)
+        findViewById<TextView>(R.id.tv_default_em_value).setOnClickListener(this)
 
         adapter = ConfigAdapter(this, isTC007)
         adapter.onSelectListener = {

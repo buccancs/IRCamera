@@ -8,9 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import com.blankj.utilcode.util.SizeUtils
-import com.topdon.lib.core.R
+import com.topdon.tc001.R
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.dialog_color_select.view.*
+import com.topdon.lib.core.view.ColorSelectView
+import android.widget.TextView
 
 class ColorSelectDialog(context: Context, @ColorInt private var color: Int) : Dialog(context, R.style.InfoDialog) {
 
@@ -25,11 +26,15 @@ class ColorSelectDialog(context: Context, @ColorInt private var color: Int) : Di
 
         val rootView: View = LayoutInflater.from(context).inflate(R.layout.dialog_color_select, null)
         setContentView(rootView)
-        rootView.color_select_view.selectColor(color)
-        rootView.color_select_view.onSelectListener = {
+        
+        val colorSelectView: ColorSelectView = rootView.findViewById(R.id.color_select_view)
+        val tvSave: TextView = rootView.findViewById(R.id.tv_save)
+        
+        colorSelectView.selectColor(color)
+        colorSelectView.onSelectListener = {
             color = it
         }
-        rootView.tv_save.setOnClickListener {
+        tvSave.setOnClickListener {
             dismiss()
             onPickListener?.invoke(color)
         }

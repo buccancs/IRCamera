@@ -3,7 +3,6 @@ package com.topdon.lib.ui.widget
 import android.content.Context
 import android.graphics.Canvas
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import androidx.appcompat.widget.AppCompatSeekBar
 import com.topdon.lib.ui.R

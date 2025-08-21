@@ -4,7 +4,6 @@ import android.content.*
 import android.content.pm.ActivityInfo
 import android.os.*
 import android.provider.MediaStore
-import android.util.Log
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
@@ -12,12 +11,10 @@ import androidx.core.content.FileProvider
 import com.elvishew.xlog.XLog
 import com.google.gson.Gson
 import com.topdon.lib.core.BaseApplication
-import com.topdon.lib.core.R
+import com.topdon.tc001.R
 import com.topdon.lib.core.bean.event.SocketStateEvent
 import com.topdon.lib.core.bean.event.device.DeviceConnectEvent
-import com.topdon.lib.core.bean.response.ResponseUserInfo
 import com.topdon.lib.core.common.SharedManager
-import com.topdon.lib.core.common.UserInfoManager
 import com.topdon.lib.core.dialog.LoadingDialog
 import com.topdon.lib.core.tools.*
 import com.topdon.lib.core.dialog.TipCameraProgressDialog
@@ -112,7 +109,6 @@ abstract class BaseActivity : RxAppCompatActivity() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onSocketConnectState(event: SocketStateEvent) {
-        Log.d("onSocketConnectState","${event.isConnect}")
         if (event.isConnect) {
             onSocketConnected(event.isTS004)
         } else {
@@ -159,7 +155,6 @@ abstract class BaseActivity : RxAppCompatActivity() {
                 cameraDialog?.show()
             }
         }catch (e:Exception){
-            Log.e("临时处理方案",e.message.toString())
         }
     }
     fun dismissCameraLoading() {
@@ -169,29 +164,9 @@ abstract class BaseActivity : RxAppCompatActivity() {
     }
 
     private fun synLogin() {
-        if (this::class.java.simpleName == "MainActivity") {
-            LMS.getInstance().syncUserInfo()
-        }
-        if (SharedManager.getHasShowClause() && LMS.getInstance().isLogin) {
-            LMS.getInstance().getUserInfo { userinfo: CommonBean ->
-                try {
-                    val infoData = Gson().fromJson(userinfo.data, ResponseUserInfo::class.java)
-                    UserInfoManager.getInstance().login(
-                        token = LMS.getInstance().token,
-                        userId = infoData.topdonId,
-                        phone = infoData.phone,
-                        email = infoData.email,
-                        nickname = infoData.userName,
-                        headUrl = infoData.avatar,
-                    )
-                } catch (e: Exception) {
-                    XLog.e("login error:${e.message}")
-                }
-            }
-        } else {
-            if (UserInfoManager.getInstance().isLogin()) {
-                UserInfoManager.getInstance().logout()
-            }
+        // Local mode - no user sync needed
+        if (SharedManager.getHasShowClause()) {
+            XLog.d("BaseActivity: Local mode - clause shown")
         }
     }
 

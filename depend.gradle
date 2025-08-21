@@ -34,5 +34,9 @@ ext {
             topInfraredCN : "9D33C48FD7CE4440B7D922FBF9B6DE2A",
             topInfraredCN10 : "F4511AAA6C694E54A3676CF2345A4A8E",
     ]
+
+    dependencyVersions = [
+        "arouter_compiler": "com.alibaba:arouter-compiler:1.5.2"
+    ]
 }
 

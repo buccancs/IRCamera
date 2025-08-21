@@ -3,7 +3,6 @@ package com.github.mikephil.charting.utils;
 
 import android.content.res.AssetManager;
 import android.os.Environment;
-import android.util.Log;
 
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
@@ -52,7 +51,6 @@ public class FileUtils {
                 }
             }
         } catch (IOException e) {
-            Log.e(LOG, e.toString());
         }
 
         return entries;
@@ -88,7 +86,6 @@ public class FileUtils {
                 line = reader.readLine();
             }
         } catch (IOException e) {
-            Log.e(LOG, e.toString());
 
         } finally {
 
@@ -96,7 +93,6 @@ public class FileUtils {
                 try {
                     reader.close();
                 } catch (IOException e) {
-                    Log.e(LOG, e.toString());
                 }
             }
         }
@@ -117,7 +113,6 @@ public class FileUtils {
                 saved.createNewFile();
             } catch (IOException e)
             {
-                Log.e(LOG, e.toString());
             }
         }
         try
@@ -133,7 +128,6 @@ public class FileUtils {
             buf.close();
         } catch (IOException e)
         {
-            Log.e(LOG, e.toString());
         }
     }
 
@@ -156,7 +150,6 @@ public class FileUtils {
                 line = reader.readLine();
             }
         } catch (IOException e) {
-            Log.e(LOG, e.toString());
 
         } finally {
 
@@ -164,7 +157,6 @@ public class FileUtils {
                 try {
                     reader.close();
                 } catch (IOException e) {
-                    Log.e(LOG, e.toString());
                 }
             }
         }

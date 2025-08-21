@@ -3,9 +3,7 @@ package com.topdon.module.thermal.ir.activity
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.topdon.lib.core.config.ExtraKeyConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.repository.GalleryRepository.DirType
 import com.topdon.lib.core.utils.NetWorkUtils
@@ -21,7 +19,6 @@ import com.topdon.module.thermal.ir.viewmodel.IRGalleryTabViewModel
  *
  * Created by LCG on 2024/2/22.
  */
-@Route(path = RouterConfig.IR_GALLERY_HOME)
 class IRGalleryHomeActivity : BaseActivity() {
     private var isTS004Remote = false
 

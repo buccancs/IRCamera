@@ -12,7 +12,6 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,9 +19,9 @@ import androidx.annotation.Nullable;
 import com.topdon.ble.callback.ScanListener;
 import com.topdon.ble.util.DefaultLogger;
 import com.topdon.ble.util.Logger;
-import com.topdon.commons.observer.Observable;
-import com.topdon.commons.poster.MethodInfo;
-import com.topdon.commons.poster.PosterDispatcher;
+import com.topdon.lib.core.observer.Observable;
+import com.topdon.lib.core.poster.MethodInfo;
+import com.topdon.lib.core.poster.PosterDispatcher;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -114,7 +113,6 @@ public class EasyBLE {
             Method appMethod = acThread.getClass().getMethod("getApplication");
             application = (Application) appMethod.invoke(acThread);
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

@@ -10,7 +10,6 @@ import android.media.ImageReader
 import android.os.Handler
 import android.os.Looper
 import android.util.AttributeSet
-import android.util.Log
 import android.util.Size
 import android.view.*
 import android.widget.ImageView
@@ -22,7 +21,6 @@ import com.blankj.utilcode.util.ToastUtils
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.listener.BitmapViewListener
 import com.topdon.lib.ui.R
-import kotlinx.android.synthetic.main.camera_lay.view.*
 import java.util.*
 
 
@@ -173,13 +171,11 @@ class CameraPreView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener,
     private val mStateCallback: CameraDevice.StateCallback =
         object : CameraDevice.StateCallback() {
             override fun onOpened(@NonNull camera: CameraDevice) {
-                XLog.i("开启预览")
                 mCameraDevice = camera
                 takePreview()
             }
 
             override fun onDisconnected(@NonNull camera: CameraDevice) {
-                XLog.i("关闭预览")
                 isPreviewing = false
             }
 
@@ -187,7 +183,6 @@ class CameraPreView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener,
                 isPreviewing = false
                 camera.close()
                 mCameraDevice = null
-                XLog.e("预览异常 error: $error")
             }
         }
 
@@ -225,18 +220,15 @@ class CameraPreView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener,
                                 mCameraHandler
                             )
                         } catch (e: CameraAccessException) {
-                            XLog.e("相机异常：${e.printStackTrace()}")
                         }
                     }
 
                     override fun onConfigureFailed(@NonNull session: CameraCaptureSession) {
-                        XLog.e("配置失败")
                     }
                 },
                 mCameraHandler
             )
         } catch (e: CameraAccessException) {
-            e.printStackTrace()
         }
     }
 
@@ -248,7 +240,6 @@ class CameraPreView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener,
                 width: Int,
                 height: Int
             ) {
-                XLog.w("width:$width, height:$height")
                 setUpCamera(width, height)
             }
 
@@ -278,7 +269,6 @@ class CameraPreView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener,
         mCameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
         try {
             for (cameraId in mCameraManager!!.cameraIdList) {
-                XLog.i("camera id: $cameraId")
                 cameraCharacteristics = mCameraManager!!.getCameraCharacteristics(cameraId)
                 val facing = cameraCharacteristics?.get(CameraCharacteristics.LENS_FACING)
                 if (facing != null && facing == CameraCharacteristics.LENS_FACING_FRONT) continue
@@ -290,19 +280,13 @@ class CameraPreView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener,
                 constraintSet.clone(camera_lay_root)
                 constraintSet.constrainHeight(mTextureView.id,width * mPreviewSize!!.width / mPreviewSize!!.height)
                 constraintSet.applyTo(camera_lay_root);
-                XLog.w("mPreviewSize:${mPreviewSize}")
                 val sizes = map.getOutputSizes(ImageFormat.JPEG)
-                XLog.w("size:${sizes.toList()}")
                 val w = 1000
                 val h = w * sizes[0].height / sizes[0].width
-                XLog.w("选取比例 w:${sizes[0].width}, h:${sizes[0].height}")
-                XLog.w("调整后 w: ${w}, h:${h}")
                 mCameraId = cameraId
                 break
             }
         } catch (e: CameraAccessException) {
-            e.printStackTrace()
-            Log.e("123", "设置相机参数:${e.message}")
         }
     }
 
@@ -334,7 +318,6 @@ class CameraPreView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener,
             mCameraManager!!.openCamera(mCameraId, mStateCallback, mCameraHandler)
         } catch (e: Exception) {
             isPreviewing = false
-            XLog.e("打开相机失败:${e.message}")
             ToastUtils.showShort("打开相机失败")
         }
     }
@@ -350,7 +333,6 @@ class CameraPreView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener,
             mTextureView.scaleY = 1f
             scale = 1f
         } catch (e: Exception) {
-            XLog.e("关闭相机失败:${e.message}")
             ToastUtils.showShort("关闭相机失败")
         }
     }

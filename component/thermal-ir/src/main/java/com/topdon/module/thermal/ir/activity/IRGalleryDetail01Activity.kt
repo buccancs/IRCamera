@@ -12,17 +12,15 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.bean.GalleryBean
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.FileConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.FileTools
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.lib.core.tools.ToastTools
+import com.topdon.lib.core.view.MainTitleView
 import com.topdon.lib.core.utils.ByteUtils.bytesToInt
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.ui.dialog.ProgressDialog
@@ -34,7 +32,11 @@ import com.topdon.module.thermal.ir.event.ImageGalleryEvent
 import com.topdon.module.thermal.ir.fragment.GalleryFragment
 import com.topdon.module.thermal.ir.frame.FrameTool
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryEditViewModel
-import kotlinx.android.synthetic.main.activity_ir_gallery_detail_01.*
+import android.widget.ImageView
+import android.widget.LinearLayout
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.viewpager2.widget.ViewPager2
+import com.topdon.lib.core.view.TitleView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -46,7 +48,6 @@ import java.io.File
 /**
  * 插件式设备、TC007 图片详情
  */
-@Route(path = RouterConfig.IR_GALLERY_DETAIL_01)
 class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
 
     /**
@@ -83,7 +84,6 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
         initViewPager()
 
         ll_ir_edit_2D?.setOnClickListener(this)
-        ll_ir_edit_3D?.setOnClickListener(this)
         ll_ir_report?.setOnClickListener(this)
         ll_ir_ex?.setOnClickListener(this)
 
@@ -135,7 +135,6 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
 
                 irPath = "${FileConfig.lineIrGalleryDir}/${dataList[position].name.substringBeforeLast(".")}.ir"
                 val hasIrData = File(irPath!!).exists()
-                ll_ir_edit_3D?.isVisible = hasIrData
                 ll_ir_report?.isVisible = hasIrData
                 ll_ir_edit_2D?.isVisible = hasIrData
                 ll_ir_ex?.isVisible = hasIrData
@@ -229,46 +228,6 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
                 actionEditOrReport(false)
             }
 
-            ll_ir_edit_3D -> {
-                //跳转到3D
-                val data = dataList[position]
-                val fileName = data.name.substringBeforeLast(".")
-                val irPath = "${FileConfig.lineIrGalleryDir}/${fileName}.ir"
-                if (!File(irPath).exists()) {
-                    ToastTools.showShort(R.string.album_report_on_edit)
-                    return
-                }
-                var tempHigh = 0f
-                var tempLow = 0f
-                lifecycleScope.launch {
-//                    showLoading()
-                    withContext(Dispatchers.IO) {
-                        val file = File(irPath)
-                        if (!file.exists()) {
-                            XLog.w("IR文件不存在: ${file.absolutePath}")
-                            return@withContext
-                        }
-                        XLog.w("IR文件: ${file.absolutePath}")
-                        val bytes = file.readBytes()
-                        val headLenBytes = ByteArray(2)
-                        System.arraycopy(bytes, 0, headLenBytes, 0, 2)
-                        val headLen = headLenBytes.bytesToInt()
-                        val headDataBytes = ByteArray(headLen)
-                        val frameDataBytes = ByteArray(bytes.size - headLen)
-                        System.arraycopy(bytes, 0, headDataBytes, 0, headDataBytes.size)
-                        System.arraycopy(bytes, headLen, frameDataBytes, 0, frameDataBytes.size)
-                        frameTool.read(frameDataBytes)
-                        tempHigh = frameTool.getSrcTemp().maxTemperature
-                        tempLow = frameTool.getSrcTemp().minTemperature
-                    }
-//                    dismissLoading()
-                    ARouter.getInstance().build(RouterConfig.IR_GALLERY_3D).withString(ExtraKeyConfig.IR_PATH, irPath)
-                        .withFloat(ExtraKeyConfig.TEMP_HIGH, tempHigh).withFloat(ExtraKeyConfig.TEMP_LOW, tempLow)
-                        .navigation(this@IRGalleryDetail01Activity)
-                }
-
-            }
-
             ll_ir_report -> {
                 //报告
                 actionEditOrReport(true)
@@ -290,12 +249,12 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
             ToastTools.showShort(R.string.album_report_on_edit)
             return
         }
-        ARouter.getInstance().build(RouterConfig.IR_GALLERY_EDIT)
-            .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
-            .withBoolean(ExtraKeyConfig.IS_PICK_REPORT_IMG, isReport)
-            .withBoolean(IS_REPORT_FIRST, true)
-            .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, irPath)
-            .navigation(this)
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:             .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
+// TODO_FIX_AROUTER:             .withBoolean(ExtraKeyConfig.IS_PICK_REPORT_IMG, isReport)
+// TODO_FIX_AROUTER:             .withBoolean(IS_REPORT_FIRST, true)
+// TODO_FIX_AROUTER:             .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, irPath)
+// TODO_FIX_AROUTER:             .navigation(this)
     }
 
     inner class GalleryViewPagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {

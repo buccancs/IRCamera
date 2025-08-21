@@ -23,8 +23,7 @@ object GalleryRepository {
     enum class DirType {
         LINE,
         TC007,
-        TS004_LOCALE,
-        TS004_REMOTE,
+        TS004_REMOTE
     }
 
     private fun copySourDir(sourceDir: File, targetDir: File): Boolean {
@@ -84,8 +83,6 @@ object GalleryRepository {
                 }
             }
         } catch (e: Exception) {
-            e.printStackTrace()
-            XLog.e("读取图库失败: ${e.message}")
             return ""
         }
         return firstPath
@@ -116,7 +113,6 @@ object GalleryRepository {
                         }
                     }
                 } catch (e: Exception) {
-                    XLog.e("读取图库失败: ${e.message}")
                 }
             }
 
@@ -137,7 +133,6 @@ object GalleryRepository {
                 }
             }
         } catch (e: Exception) {
-            XLog.e("读取图库失败: ${e.message}")
         }
         return@withContext resultList
     }

@@ -1,6 +1,7 @@
 package com.topdon.ble.util;
 
-import android.util.Log;
+
+import com.topdon.lib.core.util.HexUtils;
 
 public class ByteUtil {
     public static byte[] byteMerger(byte[] byte1, int byte2, int byte3, int byte4) {
@@ -74,7 +75,7 @@ public class ByteUtil {
     }
 
     public static float bytesToFloat(byte[] bytes) {
-        float value = Integer.valueOf(HexUtil.bytesToHexString(bytes), 16);
+        float value = Integer.valueOf(HexUtils.bytesToHexString(bytes), 16);
         return value;
     }
 
@@ -83,8 +84,7 @@ public class ByteUtil {
         for (int i = 0; i < bytes.length; i++) {
             resultByte[i] = bytes[i];
         }
-        float value = Integer.valueOf(HexUtil.bytesToHexString(resultByte), 16);
-        Log.e("bcf", "bytesToFloat bytes: " + HexUtil.bytesToHexString(resultByte) + "   float:" + value);
+        float value = Integer.valueOf(HexUtils.bytesToHexString(resultByte), 16);
         return value;
     }
 
@@ -112,7 +112,7 @@ public class ByteUtil {
     }
 
     public static String getCmdType(byte[] bytes) {
-        String hex = HexUtil.bytesToHexString(bytes);
+        String hex = HexUtils.bytesToHexString(bytes);
         String cmd = "";
         if (hex.length() >= 16) {
             cmd = hex.substring(12, 16);
@@ -121,7 +121,7 @@ public class ByteUtil {
     }
 
     public static String getCmd(byte[] bytes){
-        String hex = HexUtil.bytesToHexString(bytes);
+        String hex = HexUtils.bytesToHexString(bytes);
         String cmd = "";
         if (hex.length() >= 16) {
             cmd = hex.substring(12, 14);

@@ -4,7 +4,6 @@ import android.graphics.Bitmap
 import android.graphics.Point
 import android.graphics.RectF
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.yt.jni.Usbcontorl
@@ -34,8 +33,7 @@ import com.topdon.module.thermal.ir.activity.IRMonitorActivity
 import com.topdon.module.thermal.ir.bean.SelectPositionBean
 import com.topdon.module.thermal.ir.event.ThermalActionEvent
 import com.topdon.module.thermal.ir.repository.ConfigRepository
-import kotlinx.android.synthetic.main.activity_thermal_ir_night.cameraView
-import kotlinx.android.synthetic.main.fragment_ir_monitor_thermal.*
+import android.view.SurfaceView
 import kotlinx.coroutines.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -90,7 +88,6 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun action(event: ThermalActionEvent) {
         temperatureView.isEnabled = true
-        Log.w("123", "event:${event.action}")
         when (event.action) {
             2001 -> {
                 //点
@@ -152,8 +149,8 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
             temperatureView.setImageSize(imageHeight, imageWidth,this@IRMonitorThermalFragment)
             rotateAngle = DeviceConfig.ROTATE_ANGLE
         }
-        cameraView!!.setSyncimage(syncimage)
-        cameraView!!.bitmap = bitmap
+        requireActivity().findViewById<SurfaceView>(R.id.cameraView)!!.setSyncimage(syncimage)
+        requireActivity().findViewById<SurfaceView>(R.id.cameraView)!!.bitmap = bitmap
         temperatureView.setSyncimage(syncimage)
         temperatureView.setTemperature(temperature)
         temperatureView.isEnabled = false
@@ -161,7 +158,6 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
         // 某些特定客户的特殊设备需要使用该命令关闭sensor
         if (Usbcontorl.isload) {
             Usbcontorl.usb3803_mode_setting(1) //打开5V
-            Log.w("123", "打开5V")
         }
         //初始全局测温
         temperatureView.post {
@@ -189,7 +185,6 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
             imageThread!!.setRotate(true)
             imageThread!!.start()
         }catch (e : Exception){
-            Log.e("图像线程重复启动",e.message.toString())
         }
     }
 
@@ -204,9 +199,10 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
                 }
 
                 override fun onIRCMDCreate(ircmd: IRCMD) {
-                    Log.i(
-                        TAG,
+            XLog.d(
+                TAG,
                         "ConnectCallback->onIRCMDCreate"
+            )
                     )
                     this@IRMonitorThermalFragment.ircmd = ircmd
                     //重置镜像为非镜像
@@ -226,7 +222,6 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
                     val arm = String(fwBuildVersionInfoBytes.copyOfRange(0, 8))
                     isTS001 = arm.contains("Mini256", true)
                     ircmd!!.getPropTPDParams(CommonParams.PropTPDParams.TPD_PROP_GAIN_SEL, value)
-                    Log.d(TAG, "TPD_PROP_GAIN_SEL=" + value[0])
                     gainStatus = if (value[0] == 1) {
                         // 当前机芯为高增益
                         CommonParams.GainStatus.HIGH_GAIN
@@ -269,7 +264,6 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
 
     override fun onStart() {
         super.onStart()
-        Log.w(TAG, "onStart")
         if (!isrun) {
             //初始配置,伪彩铁红
             if (isPick){
@@ -280,7 +274,7 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
             startUSB(false)
             startISP()
             temperatureView.start()
-            cameraView!!.start()
+            requireActivity().findViewById<SurfaceView>(R.id.cameraView)!!.start()
             isrun = true
             //恢复配置
             configParam()
@@ -289,7 +283,6 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
 
     override fun onStop() {
         super.onStop()
-        Log.w(TAG, "onStop")
         if (iruvc != null) {
             iruvc!!.stopPreview()
             iruvc!!.unregisterUSB()
@@ -297,17 +290,15 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
         imageThread?.interrupt()
         syncimage.valid = false
         temperatureView.stop()
-        cameraView?.stop()
+        requireActivity().findViewById<SurfaceView>(R.id.cameraView)?.stop()
         isrun = false
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.w(TAG, "onDestroy")
         try {
             imageThread?.join()
         } catch (e: InterruptedException) {
-            Log.e(TAG, "imageThread.join(): catch an interrupted exception")
         }
         // 某些特定客户的特殊设备需要使用该命令关闭sensor
 //        if (Usbcontorl.isload) {
@@ -442,7 +433,6 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
             val disChar = (config.distance * 128).toInt() //距离(米)
             val emsChar = (config.radiation * 128).toInt() //发射率
 //            val tuChar = (config.environment * 10).toInt().toChar() //环境温度
-            XLog.w("设置TPD_PROP DISTANCE:${disChar.toInt()}, EMS:${emsChar.toInt()}}")
             val timeMillis = 250L
             delay(timeMillis)
             //发射率
@@ -494,7 +484,7 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
     }
 
     fun getBitmap() : Bitmap{
-        return cameraView.scaledBitmap
+        return requireActivity().findViewById<SurfaceView>(R.id.cameraView).scaledBitmap
     }
 
     fun startCoverStsSwitchReady() : Int{
@@ -512,7 +502,6 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
         try {
             tmp = tempCorrect(temp!!, gainStatus, 0)
         } catch (e: Exception) {
-            XLog.i("温度校正失败: ${e.message}")
         }
         return tmp!!
     }

@@ -48,11 +48,30 @@
     <color name="temp_font_title_item_color">#333333</color>
     <color name="color_img_calibration_right">#06AAFF</color>
     
-    <!-- Additional missing color -->
+    <!-- Additional missing colors -->
     <color name="tx_333">#333333</color>
     <color name="ir_bg_color">#000000</color>
     <color name="color_img_calibration_normal">#FFFFFF</color>
     <color name="color_img_calibration_left">#06AAFF</color>
     <color name="color_img_calibration_button">#FFBA42</color>
     <color name="toolbar_16131E">#16131E</color>
+    
+    <!-- Missing colors from build errors -->
+    <color name="chart_line_center">#808080</color>
+    <color name="backgroundColor">#16131E</color>
+    <color name="font_gray">#808080</color>
+    <color name="chart_line_min">#28C445</color>
+    <color name="c_bg_white">#FFFFFF</color>
+    <color name="color_font">#333333</color>
+    <color name="color_font_five">#808080</color>
+    <color name="color_B3FFFFFF">#B3FFFFFF</color>
+    
+    <!-- Additional missing colors -->
+    <color name="white_80">#CCFFFFFF</color>
+    <color name="color_bg_min">#28C445</color>
+    <color name="color_8A898E">#8A898E</color>
+    <color name="font_third_color">#999999</color>
+    <color name="grey">#808080</color>
+    <color name="toastTextColor">#FFFFFF</color>
+    <color name="color_CCFFFFFF">#CCFFFFFF</color>
 </resources>

@@ -2,15 +2,14 @@ package com.topdon.module.thermal.ir.activity
 
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.dialog.TipDialog
+import com.topdon.lib.core.view.MainTitleView
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.event.CorrectionFinishEvent
 import com.topdon.module.thermal.ir.fragment.IRCorrectionFragment
 import com.topdon.module.thermal.ir.view.TimeDownView
-import kotlinx.android.synthetic.main.activity_ir_correction_four.*
+import com.topdon.lib.core.view.TitleView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -22,7 +21,6 @@ import org.greenrobot.eventbus.EventBus
  * @author: CaiSongL
  * @date: 2023/8/4 9:06
  */
-@Route(path = RouterConfig.IR_CORRECTION_FOUR)
 class IRCorrectionFourActivity : BaseActivity() {
 
     val time = 60

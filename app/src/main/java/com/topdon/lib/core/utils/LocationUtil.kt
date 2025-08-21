@@ -37,7 +37,6 @@ object LocationUtil {
             val address = resultList[0]
             return@withContext (address.adminArea ?: "") + (address.locality ?: "") + (address.subLocality ?: "")//省-市-区
         } catch (e: Exception) {
-            e.printStackTrace()
             return@withContext null
         }
     }

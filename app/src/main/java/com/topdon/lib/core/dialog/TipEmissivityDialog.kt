@@ -7,14 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup.LayoutParams
 import android.widget.*
-import com.alibaba.android.arouter.launcher.ARouter
-import com.topdon.lib.core.R
+import com.topdon.tc001.R
 import com.topdon.lib.core.config.ExtraKeyConfig
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.tools.NumberTools
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.dialog_tip_emissivity.view.*
 
 class TipEmissivityDialog : Dialog {
 
@@ -90,25 +87,29 @@ class TipEmissivityDialog : Dialog {
                 context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             val view = inflater.inflate(R.layout.dialog_tip_emissivity, null)
 
+            val tvEnvironmentTitle: TextView = view.findViewById(R.id.tv_environment_title)
+            val tvDistanceTitle: TextView = view.findViewById(R.id.tv_distance_title)
+            val dialogTipSuccessBtn: Button = view.findViewById(R.id.dialog_tip_success_btn)
+            val dialogTipCancelBtn: Button = view.findViewById(R.id.dialog_tip_cancel_btn)
 
-            view.tv_environment_title.text = context!!.getString(R.string.thermal_config_environment) + ":"
-            view.tv_distance_title.text = context!!.getString(R.string.thermal_config_distance) + ":"
+            tvEnvironmentTitle.text = context!!.getString(R.string.thermal_config_environment) + ":"
+            tvDistanceTitle.text = context!!.getString(R.string.thermal_config_distance) + ":"
 
-            view.dialog_tip_success_btn.setOnClickListener {
+            dialogTipSuccessBtn.setOnClickListener {
                 dialog?.onDismissListener?.invoke(hasCheck)
                 dismiss()
             }
-            view.dialog_tip_cancel_btn.setOnClickListener {
+            dialogTipCancelBtn.setOnClickListener {
                 dialog?.onDismissListener?.invoke(hasCheck)
-                ARouter.getInstance().build(RouterConfig.IR_SETTING)
-                    .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
-                    .navigation(context)
+            // TODO: Replace RouterConfig reference with direct navigation
+// TODO_FIX_AROUTER:                     .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
+            // TODO: Implement proper Intent navigation
                 dismiss()
             }
-            val tvEmissivity = view.tv_emissivity
-            val tvEmissivityMaterials = view.tv_emissivity_materials
-            val tvEnvironmentValue = view.tv_environment_value
-            val tvDistanceValue = view.tv_distance_value
+            val tvEmissivity = view.findViewById<TextView>(R.id.tv_emissivity)
+            val tvEmissivityMaterials = view.findViewById<TextView>(R.id.tv_emissivity_materials)
+            val tvEnvironmentValue = view.findViewById<TextView>(R.id.tv_environment_value)
+            val tvDistanceValue = view.findViewById<TextView>(R.id.tv_distance_value)
 
             if (text.isNotEmpty()){
                 tvEmissivityMaterials.text = text
@@ -121,10 +122,10 @@ class TipEmissivityDialog : Dialog {
             tvEnvironmentValue.text = UnitTools.showC(environment)
             tvDistanceValue.text = "${
                 NumberTools.to02(distance)}m"
-            titleText = view.tv_title
-            messageText = view.dialog_tip_msg_text
-            checkBox = view.dialog_tip_check
-            imgClose = view.img_close
+            titleText = view.findViewById(R.id.tv_title)
+            messageText = view.findViewById(R.id.dialog_tip_msg_text)
+            checkBox = view.findViewById(R.id.dialog_tip_check)
+            imgClose = view.findViewById(R.id.img_close)
             dialog!!.addContentView(
                 view,
                 LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
