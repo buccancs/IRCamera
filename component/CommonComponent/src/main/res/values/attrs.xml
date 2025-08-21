@@ -131,4 +131,12 @@
 
     </declare-styleable>
 
+    <declare-styleable name="SettingNightView">
+        <attr name="setting_text_night" format="string" />
+        <attr name="setting_icon_night" format="reference" />
+        <attr name="setting_more_night" format="boolean" />
+        <attr name="setting_line_night" format="boolean" />
+        <attr name="setting_icon_show_night" format="boolean" />
+    </declare-styleable>
+
 </resources>

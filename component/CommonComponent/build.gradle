@@ -83,4 +83,7 @@ dependencies {
     // Coroutines - compatible with Kotlin 2.0+
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
+    
+    // XXPermissions for WifiUtil
+    implementation "com.github.getActivity:XXPermissions:20.0"
 }

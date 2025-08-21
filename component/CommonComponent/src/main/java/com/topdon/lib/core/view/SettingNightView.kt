@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.isVisible
-import com.topdon.tc001.R
+import com.energy.commoncomponent.R
 
 class SettingNightView : LinearLayout {
 
