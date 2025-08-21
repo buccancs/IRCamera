@@ -56,7 +56,7 @@ import com.topdon.tc001.utils.AppVersionUtil
 import com.zoho.commons.LauncherModes
 import com.zoho.commons.LauncherProperties
 import com.zoho.salesiqembed.ZohoSalesIQ
-import kotlinx.android.synthetic.main.activity_main.*
+
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
@@ -103,22 +103,22 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         lifecycleScope.launch(Dispatchers.IO){
             SupHelp.getInstance().initAiUpScaler(Utils.getApp())
         }
-        view_page.offscreenPageLimit = 3
-        view_page.isUserInputEnabled = false
-        view_page.adapter = ViewPagerAdapter(this)
-        view_page.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        findViewById<ViewPager2>(R.id.view_page).offscreenPageLimit = 3
+        findViewById<ViewPager2>(R.id.view_page).isUserInputEnabled = false
+        findViewById<ViewPager2>(R.id.view_page).adapter = ViewPagerAdapter(this)
+        findViewById<ViewPager2>(R.id.view_page).registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 refreshTabSelect(position)
             }
         })
         if (savedInstanceState == null) {
-            view_page.setCurrentItem(1, false)
+            findViewById<ViewPager2>(R.id.view_page).setCurrentItem(1, false)
         }
 
-        view_mine_point.isVisible = !SharedManager.hasClickWinter
+        findViewById(R.id.view_mine_point).isVisible = !SharedManager.hasClickWinter
 
         cl_icon_gallery.setOnClickListener(this)
-        view_main.setOnClickListener(this)
+        findViewById(R.id.view_main).setOnClickListener(this)
         cl_icon_mine.setOnClickListener(this)
         App.instance.initWebSocket()
         copyFile("SR.pb", File(filesDir, "SR.pb"))
@@ -273,10 +273,10 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 checkStoragePermission()
             }
             view_main -> {//首页
-                view_page.setCurrentItem(1, false)
+                findViewById<ViewPager2>(R.id.view_page).setCurrentItem(1, false)
             }
             cl_icon_mine -> {//我的
-                view_page.setCurrentItem(2, false)
+                findViewById<ViewPager2>(R.id.view_page).setCurrentItem(2, false)
             }
         }
     }
@@ -304,7 +304,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onWinterClick(event: WinterClickEvent) {
-        view_mine_point.isVisible = false
+        findViewById(R.id.view_mine_point).isVisible = false
     }
 
     private fun refreshTabSelect(index: Int) {
@@ -533,7 +533,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 DeviceTools.isConnect(isSendConnectEvent = true)
             }
             1 -> {
-                view_page.setCurrentItem(0, false)
+                findViewById<ViewPager2>(R.id.view_page).setCurrentItem(0, false)
             }
             2 -> {
 

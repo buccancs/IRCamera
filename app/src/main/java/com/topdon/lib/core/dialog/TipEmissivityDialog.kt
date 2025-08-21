@@ -12,9 +12,6 @@ import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.tools.NumberTools
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.utils.ScreenUtil
-import android.widget.TextView
-import android.widget.Button
-import android.widget.CheckBox
 
 class TipEmissivityDialog : Dialog {
 
@@ -109,10 +106,10 @@ class TipEmissivityDialog : Dialog {
             // TODO: Implement proper Intent navigation
                 dismiss()
             }
-            val tvEmissivity = view.tv_emissivity
-            val tvEmissivityMaterials = view.tv_emissivity_materials
-            val tvEnvironmentValue = view.tv_environment_value
-            val tvDistanceValue = view.tv_distance_value
+            val tvEmissivity = view.findViewById<TextView>(R.id.tv_emissivity)
+            val tvEmissivityMaterials = view.findViewById<TextView>(R.id.tv_emissivity_materials)
+            val tvEnvironmentValue = view.findViewById<TextView>(R.id.tv_environment_value)
+            val tvDistanceValue = view.findViewById<TextView>(R.id.tv_distance_value)
 
             if (text.isNotEmpty()){
                 tvEmissivityMaterials.text = text
@@ -125,10 +122,10 @@ class TipEmissivityDialog : Dialog {
             tvEnvironmentValue.text = UnitTools.showC(environment)
             tvDistanceValue.text = "${
                 NumberTools.to02(distance)}m"
-            titleText = view.tv_title
-            messageText = view.dialog_tip_msg_text
-            checkBox = view.dialog_tip_check
-            imgClose = view.img_close
+            titleText = view.findViewById(R.id.tv_title)
+            messageText = view.findViewById(R.id.dialog_tip_msg_text)
+            checkBox = view.findViewById(R.id.dialog_tip_check)
+            imgClose = view.findViewById(R.id.img_close)
             dialog!!.addContentView(
                 view,
                 LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
