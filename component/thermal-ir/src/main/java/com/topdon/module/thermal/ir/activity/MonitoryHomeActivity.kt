@@ -10,7 +10,8 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.event.MonitorSaveEvent
 import com.topdon.module.thermal.ir.fragment.IRMonitorCaptureFragment
 import com.topdon.module.thermal.ir.fragment.IRMonitorHistoryFragment
-import kotlinx.android.synthetic.main.activity_monitor_home.*
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -29,8 +30,10 @@ class MonitoryHomeActivity : BaseActivity() {
 
     override fun initView() {
         val isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
-        view_pager2.adapter = ViewPagerAdapter(this, isTC007)
-        TabLayoutMediator(tab_layout, view_pager2) { tab, position ->
+        val viewPager2 = findViewById<ViewPager2>(R.id.view_pager2)
+        val tabLayout = findViewById<TabLayout>(R.id.tab_layout)
+        viewPager2.adapter = ViewPagerAdapter(this, isTC007)
+        TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
             tab.setText(if (position == 0) R.string.chart_history else R.string.chart_real_time)
         }.attach()
     }
@@ -40,7 +43,7 @@ class MonitoryHomeActivity : BaseActivity() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMonitorCreate(event: MonitorSaveEvent) {
-        view_pager2.currentItem = 0
+        findViewById<ViewPager2>(R.id.view_pager2).currentItem = 0
     }
 
     private class ViewPagerAdapter(activity: MonitoryHomeActivity, val isTC007: Boolean) : FragmentStateAdapter(activity) {

@@ -33,8 +33,7 @@ import com.topdon.module.thermal.ir.activity.IRMonitorActivity
 import com.topdon.module.thermal.ir.bean.SelectPositionBean
 import com.topdon.module.thermal.ir.event.ThermalActionEvent
 import com.topdon.module.thermal.ir.repository.ConfigRepository
-import kotlinx.android.synthetic.main.activity_thermal_ir_night.cameraView
-import kotlinx.android.synthetic.main.fragment_ir_monitor_thermal.*
+import android.view.SurfaceView
 import kotlinx.coroutines.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -150,8 +149,8 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
             temperatureView.setImageSize(imageHeight, imageWidth,this@IRMonitorThermalFragment)
             rotateAngle = DeviceConfig.ROTATE_ANGLE
         }
-        cameraView!!.setSyncimage(syncimage)
-        cameraView!!.bitmap = bitmap
+        requireActivity().findViewById<SurfaceView>(R.id.cameraView)!!.setSyncimage(syncimage)
+        requireActivity().findViewById<SurfaceView>(R.id.cameraView)!!.bitmap = bitmap
         temperatureView.setSyncimage(syncimage)
         temperatureView.setTemperature(temperature)
         temperatureView.isEnabled = false
@@ -273,7 +272,7 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
             startUSB(false)
             startISP()
             temperatureView.start()
-            cameraView!!.start()
+            requireActivity().findViewById<SurfaceView>(R.id.cameraView)!!.start()
             isrun = true
             //恢复配置
             configParam()
@@ -289,7 +288,7 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
         imageThread?.interrupt()
         syncimage.valid = false
         temperatureView.stop()
-        cameraView?.stop()
+        requireActivity().findViewById<SurfaceView>(R.id.cameraView)?.stop()
         isrun = false
     }
 
@@ -483,7 +482,7 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
     }
 
     fun getBitmap() : Bitmap{
-        return cameraView.scaledBitmap
+        return requireActivity().findViewById<SurfaceView>(R.id.cameraView).scaledBitmap
     }
 
     fun startCoverStsSwitchReady() : Int{
