@@ -45,4 +45,14 @@
     <string name="app_no">No</string>
     <string name="correction_complete">Correction Complete</string>
     <string name="app_confirm">Confirm</string>
+    
+    <!-- Missing string resources for compilation -->
+    <string name="test_results_delete_success">Delete Successful</string>
+    <string name="test_results_delete_failed">Delete Failed</string>
+    <string name="get_Location_failed">Location access failed</string>
+    <string name="address">Address</string>
+    <string name="tip_least_select">Please select at least one item</string>
+    <string name="operation_failed_tips">Operation failed, please try again</string>
+    <string name="app_ok">OK</string>
+    
 </resources>

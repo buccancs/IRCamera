@@ -164,7 +164,8 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
                             bean.maxTemp = maxBigDecimal.setScale(1, RoundingMode.HALF_UP).toFloat()
                             bean.minTemp = minBigDecimal.setScale(1, RoundingMode.HALF_UP).toFloat()
                             bean.createTime = System.currentTimeMillis()
-                        canUpdate = true//可以开始更新记录
+                            canUpdate = true//可以开始更新记录
+                        }
                     }
                 }
             }
@@ -233,7 +234,7 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
                     entity.createTime = System.currentTimeMillis()
                     AppDatabase.getInstance().thermalDao().insert(entity)
                     time++
-                    launch(Dispatchers.Main) {
+                    lifecycleScope.launch(Dispatchers.Main) {
                         findViewById<View>(R.id.mp_chart_view).let {
                             // Chart operations would go here
                         }
@@ -270,7 +271,7 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
     var basicGainGetTime = 0L
 
 
-    fun tempCorrectByTs(temp: Float?): Float {
+    override fun tempCorrectByTs(temp: Float?): Float {
         var tempNew = temp
         try {
             if (config == null){
@@ -330,7 +331,7 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
         // Handle temperature range change  
     }
     
-    fun onTempMeasureComplete() {
+    override fun onTempMeasureComplete() {
         // Handle temperature measurement complete
     }
     

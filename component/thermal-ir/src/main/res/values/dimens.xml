@@ -14,4 +14,8 @@
     <!--    高低温迪-->
     <dimen name="high_cross_width">36dp</dimen>
     <dimen name="high_cross_height">36dp</dimen>
+    
+    <!-- Missing dimension resources for compilation -->
+    <dimen name="app_font_13">13sp</dimen>
+    <dimen name="app_font_15">15sp</dimen>
 </resources>

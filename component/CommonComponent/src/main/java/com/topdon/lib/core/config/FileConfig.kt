@@ -102,4 +102,19 @@ object FileConfig {
             }
             return path
         }
+        
+        // TS004 gallery directory path for compatibility
+        fun getTs004GalleryDir(context: Context): String {
+            val externalDir = context.getExternalFilesDir("Pictures") 
+            val path = "${externalDir?.absolutePath}/ts004"
+            val file = File(path)
+            if (!file.exists()) {
+                file.mkdirs()
+            }
+            return path
+        }
+        
+        // TS004 gallery directory as property for compatibility
+        val ts004GalleryDir: String
+            get() = "/storage/emulated/0/Android/data/com.topdon.ircamera/files/Pictures/ts004"
     }

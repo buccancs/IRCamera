@@ -249,8 +249,8 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTem
     }
 
     private fun updateUI() {
-        motion_start_btn.visibility = View.VISIBLE
-        motion_btn.visibility = View.GONE
+        findViewById<Button>(R.id.motion_start_btn).visibility = View.VISIBLE
+        findViewById<Button>(R.id.motion_btn).visibility = View.GONE
     }
 
     override fun disConnected() {
@@ -329,15 +329,15 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTem
     }
 
     // ITsTempListener interface implementations
-    override fun onTempChanged(temperature: Float) {
+    fun onTempChanged(temperature: Float) {
         // Handle temperature change
     }
     
-    override fun onTempRangeChanged(minTemp: Float, maxTemp: Float) {
+    fun onTempRangeChanged(minTemp: Float, maxTemp: Float) {
         // Handle temperature range change
     }
     
-    override fun onTempMeasureComplete() {
+    fun onTempMeasureComplete() {
         // Handle temperature measurement complete
     }
     
