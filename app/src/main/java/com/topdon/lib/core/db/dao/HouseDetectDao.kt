@@ -1,5 +1,3 @@
-// House-related DAO commented out as requested - graceful removal
-/*
 package com.topdon.lib.core.db.dao
 
 import androidx.room.Dao
@@ -214,4 +212,3 @@ abstract class HouseDetectDao {
     @Query("SELECT * FROM ItemDetect WHERE parentId = :dirId ORDER BY position")
     abstract fun queryItemList(dirId: Long): List<ItemDetect>
 }
-*/

@@ -101,6 +101,8 @@ abstract class BaseApplication : Application() {
         if (TextUtils.isEmpty(msgJson)) return
         EventBus.getDefault().post(SocketMsgEvent(msgJson))
 
+        // TS004 auto-sync functionality removed as requested
+        /*
         if (SharedManager.is04AutoSync) {//自动保存到手机开启
             when (SocketCmdUtil.getCmdResponse(msgJson)) {
                 WsCmdConstants.AR_COMMAND_SNAPSHOT -> {//拍照事件
@@ -120,6 +122,7 @@ abstract class BaseApplication : Application() {
                 }
             }
         }
+        */
     }
 
     // TS004 functionality removed as requested

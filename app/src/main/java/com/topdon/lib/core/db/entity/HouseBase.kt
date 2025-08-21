@@ -9,8 +9,6 @@ import com.blankj.utilcode.util.TimeUtils
 import com.blankj.utilcode.util.Utils
 import com.topdon.tc001.R
 
-// House-related base class commented out as requested - graceful removal
-/*
 open class HouseBase {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
@@ -79,12 +77,9 @@ open class HouseBase {
 
     fun getPdfFileName(): String = "TC_${TimeUtils.millis2String(createTime, "yyyyMMdd_HHmmss")}.pdf"
 }
-*/
 
 
 
-// House-related entities commented out as requested - graceful removal
-/*
 @Entity
 class HouseDetect : HouseBase() {
     @Ignore
@@ -158,4 +153,3 @@ class HouseReport : HouseBase() {
     @Ignore
     var dirList: ArrayList<DirReport> = ArrayList()
 }
-*/
