@@ -13,10 +13,9 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.core.view.isVisible
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.dialog_home_guide.*
-import kotlinx.android.synthetic.main.layout_home_guide_1.*
-import kotlinx.android.synthetic.main.layout_home_guide_2.*
-import kotlinx.android.synthetic.main.layout_home_guide_3.*
+import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.ImageView
+import android.widget.TextView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -47,43 +46,43 @@ class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(c
 
         when (currentStep) {
             1 -> {
-                cl_guide_1.isVisible = true
-                cl_guide_2.isVisible = false
-                cl_guide_3.isVisible = false
+                findViewById<ConstraintLayout>(R.id.cl_guide_1).isVisible = true
+                findViewById<ConstraintLayout>(R.id.cl_guide_2).isVisible = false
+                findViewById<ConstraintLayout>(R.id.cl_guide_3).isVisible = false
             }
             2 -> {
-                cl_guide_1.isVisible = false
-                cl_guide_2.isVisible = true
-                cl_guide_3.isVisible = false
+                findViewById<ConstraintLayout>(R.id.cl_guide_1).isVisible = false
+                findViewById<ConstraintLayout>(R.id.cl_guide_2).isVisible = true
+                findViewById<ConstraintLayout>(R.id.cl_guide_3).isVisible = false
             }
             3 -> {
-                cl_guide_1.isVisible = false
-                cl_guide_2.isVisible = false
-                cl_guide_3.isVisible = true
+                findViewById<ConstraintLayout>(R.id.cl_guide_1).isVisible = false
+                findViewById<ConstraintLayout>(R.id.cl_guide_2).isVisible = false
+                findViewById<ConstraintLayout>(R.id.cl_guide_3).isVisible = true
             }
         }
 
-        tv_next1.setOnClickListener {
+        findViewById<TextView>(R.id.tv_next1).setOnClickListener {
             onNextClickListener?.invoke(1)
-            cl_guide_1.isVisible = false
-            cl_guide_2.isVisible = true
+            findViewById<ConstraintLayout>(R.id.cl_guide_1).isVisible = false
+            findViewById<ConstraintLayout>(R.id.cl_guide_2).isVisible = true
         }
-        tv_next2.setOnClickListener {
+        findViewById<TextView>(R.id.tv_next2).setOnClickListener {
             onNextClickListener?.invoke(2)
-            cl_guide_2.isVisible = false
-            cl_guide_3.isVisible = true
+            findViewById<ConstraintLayout>(R.id.cl_guide_2).isVisible = false
+            findViewById<ConstraintLayout>(R.id.cl_guide_3).isVisible = true
         }
-        tv_i_know.setOnClickListener {
+        findViewById<TextView>(R.id.tv_i_know).setOnClickListener {
             onNextClickListener?.invoke(3)
             dismiss()
         }
 
 
-        tv_skin1.setOnClickListener {
+        findViewById<TextView>(R.id.tv_skin1).setOnClickListener {
             onSkinClickListener?.invoke()
             dismiss()
         }
-        tv_skin2.setOnClickListener {
+        findViewById<TextView>(R.id.tv_skin2).setOnClickListener {
             onSkinClickListener?.invoke()
             dismiss()
         }
@@ -114,8 +113,9 @@ class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(c
                 renderScript.destroy()
 
                 launch(Dispatchers.Main) {
-                    iv_blur_bg.isVisible = true
-                    iv_blur_bg.setImageBitmap(outputBitmap)
+                    val ivBlurBg = findViewById<ImageView>(R.id.iv_blur_bg)
+                    ivBlurBg.isVisible = true
+                    ivBlurBg.setImageBitmap(outputBitmap)
                 }
             } catch (_: Exception) {
 

@@ -6,7 +6,7 @@ import androidx.lifecycle.lifecycleScope
 import com.topdon.module.thermal.R
 import com.topdon.module.thermal.fragment.IRMonitorLiteFragment
 import com.topdon.lib.core.ktbase.BaseActivity
-import kotlinx.android.synthetic.main.activity_ir_correction_lite_three.tv_correction
+import android.widget.TextView
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -35,7 +35,7 @@ class IRCorrectionLiteThreeActivity : BaseActivity() {
                 .commit()
         }
 
-        tv_correction.setOnClickListener {
+        findViewById<TextView>(R.id.tv_correction).setOnClickListener {
             lifecycleScope.launch {
                 if (fragment.frameReady) {
                     fragment.closeFragment()

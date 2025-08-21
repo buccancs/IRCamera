@@ -35,9 +35,9 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.event.ManualFinishBean
 import com.topdon.module.thermal.ir.utils.IRCmdTool
 import com.topdon.module.thermal.ir.view.MoveImageView
-import kotlinx.android.synthetic.main.activity_manual_step2.iv_tips
-import kotlinx.android.synthetic.main.activity_manual_step2.ll_seek_bar
-import kotlinx.android.synthetic.main.activity_manual_step2.tv_tips
+import android.widget.TextView
+import android.widget.ImageView
+import android.widget.LinearLayout
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import java.io.IOException
@@ -136,9 +136,9 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
                 //拍照
                 takePhoto()
                 ivTakePhoto?.setText(R.string.app_ok)
-                tv_tips.text = getString(R.string.dual_light_correction_tips_3)
-                iv_tips.visibility = View.GONE
-                ll_seek_bar.visibility = View.VISIBLE
+                findViewById<TextView>(R.id.tv_tips).text = getString(R.string.dual_light_correction_tips_3)
+                findViewById<ImageView>(R.id.iv_tips).visibility = View.GONE
+                findViewById<LinearLayout>(R.id.ll_seek_bar).visibility = View.VISIBLE
             }else{
                 SharedManager.setManualAngle(snStr,seek_bar!!.progress)
                 val byteArray = ByteArray(24)
@@ -166,7 +166,7 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
             }
         })
-        ll_seek_bar.visibility = View.GONE
+        findViewById<LinearLayout>(R.id.ll_seek_bar).visibility = View.GONE
         seek_bar?.max = 2000
         seek_bar?.setEnabled(false)
         moveImageView?.setEnabled(false)
