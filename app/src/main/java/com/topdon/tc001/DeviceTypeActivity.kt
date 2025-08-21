@@ -30,7 +30,6 @@ class DeviceTypeActivity : BaseActivity() {
                 when (it) {
                     else -> {
                         val intent = Intent(this@DeviceTypeActivity, com.topdon.module.thermal.ir.activity.IRMainActivity::class.java)
-                        intent.putExtra(ExtraKeyConfig.IS_TC007, false)
                         startActivity(intent)
                         if (DeviceTools.isConnect()) {
                             finish()
