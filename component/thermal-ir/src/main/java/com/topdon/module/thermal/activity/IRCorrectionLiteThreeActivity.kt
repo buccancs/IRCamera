@@ -1,10 +1,10 @@
-package com.example.thermal_lite.activity
+package com.topdon.module.thermal.activity
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
-import com.example.thermal_lite.R
-import com.example.thermal_lite.fragment.IRMonitorLiteFragment
+import com.topdon.module.thermal.R
+import com.topdon.module.thermal.fragment.IRMonitorLiteFragment
 import com.topdon.lib.core.ktbase.BaseActivity
 import kotlinx.android.synthetic.main.activity_ir_correction_lite_three.tv_correction
 import kotlinx.coroutines.delay

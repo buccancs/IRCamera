@@ -17,9 +17,9 @@ import com.elvishew.xlog.XLog
 import com.energy.iruvc.ircmd.IRCMDType
 import com.energy.iruvc.ircmd.IRUtils
 import com.energy.iruvc.utils.CommonParams
-import com.example.thermal_lite.IrConst
-import com.example.thermal_lite.util.CommonUtil
-import com.example.thermal_lite.util.IRTool
+import com.topdon.module.thermal.IrConst
+import com.topdon.module.thermal.util.CommonUtil
+import com.topdon.module.thermal.util.IRTool
 import com.infisense.usbir.utils.OpencvTools
 import com.topdon.lib.core.utils.BitmapUtils
 import com.infisense.usbir.utils.PseudocodeUtils.changePseudocodeModeByOld

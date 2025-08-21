@@ -29,7 +29,6 @@ include ':app'
 include ':component:CommonComponent'
 
 include ':component:thermal-ir'
-include ':component:thermal-lite'
 include ':component:transfer'
 include ':component:user'
 include ':libmatrix'

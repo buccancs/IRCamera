@@ -23,7 +23,7 @@ import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.Utils
 import com.elvishew.xlog.XLog
 import com.example.suplib.wrapper.SupHelp
-import com.example.thermal_lite.activity.IRThermalLiteActivity
+import com.topdon.module.thermal.activity.IRThermalLiteActivity
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions

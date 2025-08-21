@@ -1,4 +1,4 @@
-package com.example.thermal_lite;
+package com.topdon.module.thermal;
 
 /**
  * Created by fengjibo on 2023/5/8.

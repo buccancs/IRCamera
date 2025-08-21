@@ -9,7 +9,6 @@ import com.topdon.lib.ui.MenuFirstTabView
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.adapter.MenuTabAdapter
 import com.topdon.module.thermal.ir.event.ThermalActionEvent
-import kotlinx.android.synthetic.main.activity_thermal.*
 import org.greenrobot.eventbus.EventBus
 
 class ThermalActivity : BaseActivity() {
@@ -24,7 +23,7 @@ class ThermalActivity : BaseActivity() {
         BarUtils.setStatusBarColor(this, blackColor)
         BarUtils.setNavBarColor(window, blackColor)
         initRecycler()
-        thermal_tab.setOnItemListener(object : MenuFirstTabView.OnItemListener {
+        findViewById<MenuFirstTabView>(R.id.thermal_tab).setOnItemListener(object : MenuFirstTabView.OnItemListener {
             override fun selectPosition(position: Int) {
                 //一级菜单选择
                 showRecycler(position)
@@ -38,9 +37,10 @@ class ThermalActivity : BaseActivity() {
     }
 
     private fun initRecycler() {
-        thermal_recycler.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        thermal_recycler.adapter = menuAdapter
-        thermal_recycler.visibility = View.GONE
+        val thermalRecycler = findViewById<RecyclerView>(R.id.thermal_recycler)
+        thermalRecycler.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        thermalRecycler.adapter = menuAdapter
+        thermalRecycler.visibility = View.GONE
         menuAdapter.initType(1)
         menuAdapter.listener = object : MenuTabAdapter.OnItemClickListener {
             override fun onClick(index: Int) {
@@ -52,12 +52,13 @@ class ThermalActivity : BaseActivity() {
     }
 
     fun showRecycler(select: Int) {
-        thermal_recycler.initType(select)
+        val thermalRecycler = findViewById<RecyclerView>(R.id.thermal_recycler)
+        menuAdapter.initType(select)
         if (select == 5) {
-            thermal_recycler.visibility = View.GONE
+            thermalRecycler.visibility = View.GONE
             EventBus.getDefault().post(ThermalActionEvent(action = 5000))
         } else {
-            thermal_recycler.visibility = View.VISIBLE
+            thermalRecycler.visibility = View.VISIBLE
         }
     }
 

@@ -45,13 +45,19 @@ android {
 }
 
 dependencies {
+    // Merged dependencies from thermal-ir and thermal-lite
     implementation(name: 'opengl_1.3.2_standard', ext: 'aar')
     implementation(name: 'library_1.0', ext: 'aar')
+    implementation(name: 'libusbdualsdk_1.3.4_2406271906_standard', ext: 'aar')
+    implementation(name: 'libAC020sdk_USB_IR_1.1.1_2408291439', ext: 'aar')
+    implementation(name: 'libirutils_1.2.0_2409241055', ext: 'aar')
 
     compileOnly(name: "libcommon_1.2.0_24052117", ext: "aar")
-    // Removed house and pseudo dependencies  
     implementation project(':libmatrix')
 
+    api(project(":component:CommonComponent"))
+    implementation("androidx.multidex:multidex:2.0.1")
+    implementation("com.google.android.material:material:1.4.0")
 
     api "com.airbnb.android:lottie:6.0.0"
     api 'com.github.anzaizai:EasySwipeMenuLayout:1.1.4'

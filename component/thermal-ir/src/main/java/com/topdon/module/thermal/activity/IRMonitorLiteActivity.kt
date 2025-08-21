@@ -1,7 +1,8 @@
-package com.example.thermal_lite.activity
+package com.topdon.module.thermal.activity
 
 import android.os.Bundle
 import android.view.View
+import android.view.ViewTreeObserver
 import android.view.WindowManager
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
@@ -11,14 +12,12 @@ import com.energy.irutilslibrary.LibIRTempAC020
 import com.energy.irutilslibrary.bean.GainStatus
 import com.energy.iruvc.sdkisp.LibIRTemp
 import com.energy.iruvc.utils.Line
-import com.example.thermal_lite.IrConst
-import com.example.thermal_lite.R
-import com.example.thermal_lite.camera.DeviceIrcmdControlManager
-import com.example.thermal_lite.fragment.IRMonitorLiteFragment
-import com.example.thermal_lite.util.CommonUtil
+import com.topdon.module.thermal.R
+import com.topdon.module.thermal.camera.DeviceIrcmdControlManager
+import com.topdon.module.thermal.fragment.IRMonitorLiteFragment
+import com.google.gson.Gson
 import com.infisense.usbir.view.ITsTempListener
 import com.topdon.lib.core.BaseApplication
-import com.topdon.lib.core.bean.event.device.DeviceCameraEvent
 import com.topdon.lib.core.bean.tools.ThermalBean
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.db.AppDatabase
@@ -26,86 +25,69 @@ import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.NumberTools
 import com.topdon.lib.core.tools.TimeTool
-import com.topdon.lms.sdk.LMS.mContext
+import com.topdon.lib.ui.dialog.MonitorSelectDialog
+import com.topdon.lib.ui.listener.SingleClickListener
 import com.topdon.module.thermal.ir.bean.DataBean
 import com.topdon.module.thermal.ir.bean.SelectPositionBean
 import com.topdon.module.thermal.ir.event.MonitorSaveEvent
+import com.topdon.module.thermal.ir.event.ThermalActionEvent
 import com.topdon.module.thermal.ir.repository.ConfigRepository
-import kotlinx.android.synthetic.main.activity_ir_monitor_chart_lite.*
-import kotlinx.coroutines.*
+import kotlinx.android.synthetic.main.activity_ir_monitor_lite.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import java.math.BigDecimal
 import java.math.RoundingMode
 
 /**
- * 温度实时监控
+ * 选取区域监听
  */
-class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
+open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTempListener {
 
-    /**
-     * 从上一界面传递过来的，当前选中的 点/线/面 信息.
-     */
+    private var selectIndex: SelectPositionBean? = null//选取点
+    val irMonitorLiteFragment = IRMonitorLiteFragment()
+    private val bean = ThermalBean()
     private var selectBean: SelectPositionBean = SelectPositionBean()
 
-    private val bean = ThermalBean()
-    var irMonitorLiteFragment : IRMonitorLiteFragment ?= null
-    protected var tau_data_H: ByteArray? = null
-    protected var tau_data_L: ByteArray? = null
-
-    override fun initContentView() = R.layout.activity_ir_monitor_chart_lite
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        selectBean = intent.getParcelableExtra("select")!!
-        lifecycleScope.launch {
-            withContext(Dispatchers.IO){
-                if (BaseApplication.instance.tau_data_H == null){
-                    BaseApplication.instance.tau_data_H = CommonUtil.getAssetData(mContext, IrConst.TAU_HIGH_GAIN_ASSET_PATH)
-                }
-                if (BaseApplication.instance.tau_data_L == null){
-                    BaseApplication.instance.tau_data_L = CommonUtil.getAssetData(mContext, IrConst.TAU_LOW_GAIN_ASSET_PATH)
-                }
-            }
-            delay(1000)
-            irMonitorLiteFragment = IRMonitorLiteFragment()
-            val args = Bundle()
-            args.putParcelable("select", selectBean)
-            irMonitorLiteFragment?.arguments = args
-            supportFragmentManager.beginTransaction().add(R.id.thermal_lay, irMonitorLiteFragment!!).commit()
-            delay(1000)
-            recordThermal()//开始记录
-        }
-    }
+    override fun initContentView() = R.layout.activity_ir_monitor_lite
 
     override fun initView() {
+        motion_btn.setOnClickListener(object : SingleClickListener() {
+            override fun onSingleClick() {
+                MonitorSelectDialog.Builder(this@IRMonitorLiteActivity)
+                    .setPositiveListener {
+                        updateUI()
+                        when (it) {
+                            1 -> EventBus.getDefault().post(ThermalActionEvent(action = 2001))
+                            2 -> EventBus.getDefault().post(ThermalActionEvent(action = 2002))
+                            else -> EventBus.getDefault().post(ThermalActionEvent(action = 2003))
+                        }
+                    }
+                    .create().show()
+            }
+        })
+        motion_start_btn.setOnClickListener(this)
+    }
+
+    private fun startChart(){
+        if (selectIndex == null){
+            return
+        }
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        selectBean = selectIndex!!
+        if (showTask != null && showTask!!.isActive) {
+            showTask!!.cancel()
+            showTask = null
+        }
+        title_view.setRightText(R.string.monitor_finish)
         title_view.setRightClickListener {
             recordJob?.cancel()
             lifecycleScope.launch {
                 delay(500)
                 finish()
             }
-        }
-
-        monitor_current_vol.text = getString(if (selectBean.type == 1) R.string.chart_temperature else R.string.chart_temperature_high)
-        monitor_real_vol.visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
-        monitor_real_img.visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
-
-    }
-
-    override fun finish() {
-        super.finish()
-        EventBus.getDefault().post(MonitorSaveEvent())
-    }
-
-    private var showTask: Job? = null
-
-    override fun initData() {
-        if (showTask != null && showTask!!.isActive) {
-            showTask!!.cancel()
-            showTask = null
         }
         showTask = lifecycleScope.launch {
             var isFirstRead = true
@@ -144,35 +126,14 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
                 }
             }
         }
+
+
+        monitor_current_vol.text = getString(if (selectIndex!!.type == 1) R.string.chart_temperature else R.string.chart_temperature_high)
+        monitor_real_vol.visibility = if (selectIndex!!.type == 1) View.GONE else View.VISIBLE
+        monitor_real_img.visibility = if (selectIndex!!.type == 1) View.GONE else View.VISIBLE
+        recordThermal()//开始记录
     }
-
-    override fun onStart() {
-        super.onStart()
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        mp_chart_view.highlightValue(null) //关闭高亮点Marker
-    }
-
-    override fun onPause() {
-        super.onPause()
-        window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-    }
-
-
-
-    override fun onDestroy() {
-        super.onDestroy()
-        recordJob?.cancel()
-    }
-
-    override fun disConnected() {
-        super.disConnected()
-        finish()
-    }
+    private var showTask: Job? = null
 
     private var isRecord = false
     private var timeMillis = 1000L //间隔1s
@@ -220,22 +181,78 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun cameraEvent(event: DeviceCameraEvent) {
-        when (event.action) {
-            100 -> {
-                //准备图像
-                showCameraLoading()
-            }
-            101 -> {
-                //显示图像
-                dismissCameraLoading()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        supportFragmentManager.beginTransaction().add(R.id.thermal_fragment, irMonitorLiteFragment).commit()
+    }
+
+    override fun initData() {
+
+    }
+
+    override fun onClick(v: View?) {
+        when (v) {
+            motion_start_btn -> {
+                if (selectIndex == null) {
+                    MonitorSelectDialog.Builder(this)
+                        .setPositiveListener {
+                            updateUI()
+                            when (it) {
+                                1 -> EventBus.getDefault().post(ThermalActionEvent(action = 2001))
+                                2 -> EventBus.getDefault().post(ThermalActionEvent(action = 2002))
+                                else -> EventBus.getDefault().post(ThermalActionEvent(action = 2003))
+                            }
+                        }
+                        .create().show()
+                    return
+                }
+                lifecycleScope.launch {
+                    if (irMonitorLiteFragment.frameReady) {
+                        lifecycleScope.launch {
+                            if (selectIndex == null){
+                                return@launch
+                            }
+                            irMonitorLiteFragment?.stopTask()
+                            thermal_fragment.getViewTreeObserver().addOnGlobalLayoutListener(object :
+                                ViewTreeObserver.OnGlobalLayoutListener {
+                                override fun onGlobalLayout() {
+                                    // 移除监听器以避免重复调用
+                                    thermal_fragment.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                                    irMonitorLiteFragment?.restTempView()
+                                    irMonitorLiteFragment?.addTempLine(selectIndex!!)
+                                    // 进行需要的操作
+                                }
+                            })
+                            motion_action_lay.isVisible = false
+                            chart_lay.isVisible = true
+                            showCameraLoading()
+                            delay(500)
+                            dismissCameraLoading()
+                            startChart()
+                        }
+                    }
+                }
             }
         }
     }
 
+    fun select(selectIndex: SelectPositionBean?) {
+        this.selectIndex = selectIndex
+    }
 
-    var config : DataBean ?= null
+    private fun updateUI() {
+        motion_start_btn.visibility = View.VISIBLE
+        motion_btn.visibility = View.GONE
+    }
+
+    override fun disConnected() {
+        super.disConnected()
+        finish()
+    }
+
+
+
+    var config : DataBean?= null
     val basicGainGetValue = IntArray(1)
     var basicGainGetTime = 0L
 
@@ -266,11 +283,11 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
                 temp!!, config!!.radiation, config!!.environment,
                 config!!.environment, config!!.distance, 0.8f
             )
-            if (tau_data_H == null || tau_data_L == null) return temp
+            if (BaseApplication.instance.tau_data_H == null || BaseApplication.instance.tau_data_L == null) return temp
             tempNew = LibIRTempAC020.temperatureCorrection(
                 params_array[0],
-                tau_data_H,
-                tau_data_L,
+                BaseApplication.instance.tau_data_H,
+                BaseApplication.instance.tau_data_L,
                 params_array[1],
                 params_array[2],
                 params_array[3],
@@ -287,5 +304,18 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
         }finally {
             return tempNew ?: 0f
         }
+    }
+
+    override fun finish() {
+        super.finish()
+        if(isRecord){
+            EventBus.getDefault().post(MonitorSaveEvent())
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        showTask?.cancel()
+        recordJob?.cancel()
     }
 }
