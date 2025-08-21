@@ -24,8 +24,8 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.activity.IRLogMPChartActivity
 import com.topdon.module.thermal.ir.event.MonitorCreateEvent
 import com.topdon.module.thermal.ir.viewmodel.IRMonitorViewModel
-import kotlinx.android.synthetic.main.fragment_ir_monitor_history.view.*
-import kotlinx.android.synthetic.main.item_monitory_history.view.*
+import android.widget.TextView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

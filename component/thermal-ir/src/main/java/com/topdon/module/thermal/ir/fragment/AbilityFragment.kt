@@ -16,7 +16,8 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.activity.IRThermalNightActivity
 import com.topdon.module.thermal.ir.activity.IRThermalPlusActivity
 import com.topdon.module.thermal.ir.activity.MonitoryHomeActivity
-import kotlinx.android.synthetic.main.fragment_ability.*
+import android.widget.ImageView
+import android.widget.LinearLayout
 import org.greenrobot.eventbus.EventBus
 
 /**

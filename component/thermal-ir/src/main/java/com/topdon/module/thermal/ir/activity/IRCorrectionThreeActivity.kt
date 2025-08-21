@@ -5,7 +5,7 @@ import android.os.Bundle
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.fragment.IRCorrectionFragment
-import kotlinx.android.synthetic.main.activity_ir_correction_three.*
+import android.widget.TextView
 
 /**
  *
@@ -32,7 +32,8 @@ class IRCorrectionThreeActivity : BaseActivity() {
                 .commit()
         }
 
-        tv_correction.setOnClickListener {
+        val tvCorrection: TextView = findViewById(R.id.tv_correction)
+        tvCorrection.setOnClickListener {
             if (fragment.frameReady) {
                 val intent = Intent(this,IRCorrectionFourActivity::class.java)
                 startActivity(intent)

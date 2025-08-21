@@ -8,8 +8,7 @@ import com.infisense.usbdual.camera.DualViewWithExternalCameraCommonApi
 import com.infisense.usbir.view.TemperatureView
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.activity.BaseIRPlushFragment
-import kotlinx.android.synthetic.main.fragment_ir_plush.dualTextureViewNativeCamera
-import kotlinx.android.synthetic.main.fragment_ir_plush.temperature_view
+
 
 /**
  * des:
@@ -19,11 +18,11 @@ import kotlinx.android.synthetic.main.fragment_ir_plush.temperature_view
 class IRPlushFragment : BaseIRPlushFragment() {
 
     override fun getSurfaceView(): SurfaceView {
-        return dualTextureViewNativeCamera
+        return requireView().findViewById(R.id.dualTextureViewNativeCamera)
     }
 
     override fun getTemperatureDualView(): TemperatureView {
-        return temperature_view
+        return requireView().findViewById(R.id.temperature_view)
     }
 
     override suspend fun onDualViewCreate(dualView: DualViewWithExternalCameraCommonApi?) {

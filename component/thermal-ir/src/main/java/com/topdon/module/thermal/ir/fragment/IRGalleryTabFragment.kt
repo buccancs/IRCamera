@@ -15,7 +15,9 @@ import com.topdon.module.thermal.ir.event.GalleryDirChangeEvent
 import com.topdon.module.thermal.ir.popup.GalleryChangePopup
 import com.topdon.module.thermal.ir.popup.OptionPickPopup
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryTabViewModel
-import kotlinx.android.synthetic.main.fragment_gallery_tab.*
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
+import com.topdon.lib.core.view.TitleView
 import org.greenrobot.eventbus.EventBus
 
 /**
