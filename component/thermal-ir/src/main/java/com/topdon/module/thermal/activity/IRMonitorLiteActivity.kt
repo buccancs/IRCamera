@@ -47,6 +47,10 @@ import java.math.RoundingMode
  */
 open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTempListener {
 
+    companion object {
+        private const val TAG = "IRMonitorLiteActivity"
+    }
+
     private var selectIndex: SelectPositionBean? = null//选取点
     val irMonitorLiteFragment = IRMonitorLiteFragment()
     private val bean = ThermalBean()

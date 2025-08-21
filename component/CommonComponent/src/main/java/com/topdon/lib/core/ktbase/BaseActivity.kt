@@ -73,4 +73,41 @@ abstract class BaseActivity : AppCompatActivity() {
     fun showToast(messageRes: Int) {
         android.widget.Toast.makeText(this, messageRes, android.widget.Toast.LENGTH_SHORT).show()
     }
+    
+    /**
+     * Camera-related loading methods expected by thermal-ir components
+     */
+    fun showCameraLoading() {
+        showLoadingDialog("Camera loading...")
+    }
+    
+    fun dismissCameraLoading() {
+        dismissLoadingDialog()
+    }
+    
+    /**
+     * Connection status methods expected by thermal-ir components
+     */
+    open fun disConnected() {
+        // Default implementation - can be overridden
+    }
+    
+    /**
+     * Temperature listener interface methods expected by thermal-ir components
+     */
+    open fun onTempChanged() {
+        // Default implementation - can be overridden
+    }
+    
+    open fun onTempRangeChanged() {
+        // Default implementation - can be overridden
+    }
+    
+    open fun onTempMeasureComplete() {
+        // Default implementation - can be overridden
+    }
+    
+    open fun onTempError() {
+        // Default implementation - can be overridden
+    }
 }

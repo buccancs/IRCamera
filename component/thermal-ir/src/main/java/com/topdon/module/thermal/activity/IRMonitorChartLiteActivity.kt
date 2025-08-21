@@ -28,7 +28,7 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.NumberTools
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.lib.core.view.MainTitleView
-import com.topdon.lms.sdk.LMS.mContext
+import com.topdon.lms.sdk.LMS.this
 import com.topdon.module.thermal.ir.bean.DataBean
 import com.topdon.module.thermal.ir.bean.SelectPositionBean
 import com.topdon.module.thermal.ir.event.MonitorSaveEvent
@@ -64,10 +64,10 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
         lifecycleScope.launch {
             withContext(Dispatchers.IO){
                 if (BaseApplication.instance.tau_data_H == null){
-                    BaseApplication.instance.tau_data_H = CommonUtil.getAssetData(mContext, IrConst.TAU_HIGH_GAIN_ASSET_PATH)
+                    BaseApplication.instance.tau_data_H = CommonUtil.getAssetData(this, IrConst.TAU_HIGH_GAIN_ASSET_PATH)
                 }
                 if (BaseApplication.instance.tau_data_L == null){
-                    BaseApplication.instance.tau_data_L = CommonUtil.getAssetData(mContext, IrConst.TAU_LOW_GAIN_ASSET_PATH)
+                    BaseApplication.instance.tau_data_L = CommonUtil.getAssetData(this, IrConst.TAU_LOW_GAIN_ASSET_PATH)
                 }
             }
             delay(1000)

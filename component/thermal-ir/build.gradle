@@ -34,6 +34,7 @@ android {
     buildFeatures{
         dataBinding = true
         buildConfig = true
+        viewBinding = true
     }
 
     flavorDimensions 'app'
@@ -53,11 +54,18 @@ dependencies {
     implementation(name: 'libirutils_1.2.0_2409241055', ext: 'aar')
 
     compileOnly(name: "libcommon_1.2.0_24052117", ext: "aar")
-    implementation project(':libmatrix')
+    // implementation project(':libmatrix')  // Commented out due to NDK configuration issues
 
     api(project(":component:CommonComponent"))
     implementation("androidx.multidex:multidex:2.0.1")
     implementation("com.google.android.material:material:1.4.0")
+
+    // Missing dependencies for thermal-ir component
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'org.greenrobot:eventbus:3.3.1'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'com.blankj:utilcode:1.30.7'  // BlankJ utilities
+    implementation 'com.github.getActivity:XXPermissions:18.5'  // HJQ permissions
 
     api "com.airbnb.android:lottie:6.0.0"
     api 'com.github.anzaizai:EasySwipeMenuLayout:1.1.4'

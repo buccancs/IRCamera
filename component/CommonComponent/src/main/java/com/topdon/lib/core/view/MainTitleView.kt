@@ -22,6 +22,14 @@ class MainTitleView @JvmOverloads constructor(
         setTitle(context.getString(titleRes))
     }
     
+    fun setRightText(text: String) {
+        // Simplified implementation for setting right text
+    }
+    
+    fun setRightText(textRes: Int) {
+        setRightText(context.getString(textRes))
+    }
+    
     fun setLeftClickListener(listener: OnClickListener) {
         // Simplified implementation
     }
