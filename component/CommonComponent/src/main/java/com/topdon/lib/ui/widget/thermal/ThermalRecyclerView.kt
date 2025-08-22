@@ -25,6 +25,7 @@ class ThermalRecyclerView @JvmOverloads constructor(
     var onSettingListener: ((type: SettingType, isSelected: Boolean) -> Unit)? = null
     var onTabClickListener: ((tabInfo: Any) -> Unit)? = null
     var cameraPreViewCloseListener: (() -> Unit)? = null
+    var onTempLevelListener: ((level: Int) -> Unit)? = null
     
     /**
      * Set temperature level

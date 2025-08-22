@@ -73,6 +73,8 @@ class TipDialog(context: Context) : Dialog(context) {
         }
         
         fun show() {
+            val dialog = create()
+            dialog.show()
             // Simplified implementation - just call the positive listener
             positiveListener?.invoke()
         }

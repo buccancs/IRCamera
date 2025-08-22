@@ -112,6 +112,11 @@ object SharedManager {
         setString("car_detect_item", info.item)
         setString("car_detect_description", info.description)
     }
+    
+    // High temperature tip tracking
+    var isTipHighTemp: Boolean
+        get() = getBoolean("is_tip_high_temp", true)
+        set(value) = setBoolean("is_tip_high_temp", value)
 }
 
 /**

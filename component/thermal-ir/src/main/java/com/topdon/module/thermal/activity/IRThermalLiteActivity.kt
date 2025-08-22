@@ -158,10 +158,13 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
     private val thermalRecyclerNight by lazy { findViewById<com.topdon.lib.ui.widget.thermal.ThermalRecyclerView>(com.topdon.module.thermal.ir.R.id.thermal_recycler_night) }
     private val temperatureIvLock by lazy { findViewById<android.widget.ImageView>(com.topdon.module.thermal.ir.R.id.temperature_iv_lock) }
     private val viewCarDetect by lazy { findViewById<android.view.View>(com.topdon.module.thermal.ir.R.id.view_car_detect) }
-    private val temperatureView by lazy { findViewById<android.view.View>(com.topdon.module.thermal.ir.R.id.temperatureView) }
+    private val temperatureView by lazy { findViewById<com.topdon.lib.ui.widget.temperature.TemperatureView>(com.topdon.module.thermal.ir.R.id.temperatureView) }
     private val viewStubCamera by lazy { findViewById<android.view.View>(com.topdon.module.thermal.ir.R.id.view_stub_camera) }
     private val cameraPreview by lazy { findViewById<com.topdon.lib.ui.widget.camera.CameraPreviewView>(com.topdon.module.thermal.ir.R.id.cameraPreview) }
     private val viewMenuFirst by lazy { findViewById<com.topdon.lib.ui.widget.menu.MenuView>(com.topdon.module.thermal.ir.R.id.view_menu_first) }
+    private val clTrendOpen by lazy { findViewById<android.view.View>(com.topdon.module.thermal.ir.R.id.cl_trend_open) }
+    private val viewChartTrend by lazy { findViewById<com.topdon.lib.ui.widget.chart.ChartTrendView>(com.topdon.module.thermal.ir.R.id.view_chart_trend) }
+    private val llTrendClose by lazy { findViewById<android.view.View>(com.topdon.module.thermal.ir.R.id.ll_trend_close) }
 
     private var pseudoColorMode = SaveSettingUtil.pseudoColorMode
 
@@ -331,8 +334,8 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                 .build()
                 .showAsDropDown(titleView, 0, 0, Gravity.END)
         }
-        viewCarDetect.findViewById<LinearLayout>(com.topdon.module.thermal.ir.R.id.ll_car_detect_info).setOnClickListener {
-            LongTextDialog(this, SharedManager.getCarDetectInfo().item, SharedManager.getCarDetectInfo()?.description).show()
+        viewCarDetect.setOnClickListener {
+            LongTextDialog(this, SharedManager.getCarDetectInfo().item, SharedManager.getCarDetectInfo().description).show()
         }
         cameraPreview.cameraPreViewCloseListener = {
             if (isOpenPreview) {
@@ -363,7 +366,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
         thermalRecyclerNight.isUnitF = SharedManager.getTemperature() == 0 //温度档位单位
         thermalRecyclerNight.setTempLevel(temperatureMode) //选中当前的温度档位
         thermalRecyclerNight.onCameraClickListener = { cameraType ->
-            setCamera(cameraType)
+            setCamera(cameraType as Int)
         }
         thermalRecyclerNight.onFenceListener = { fenceType: FenceType, isSelected: Boolean ->
             setTemp(fenceType, isSelected)
@@ -376,7 +379,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                     .setPositiveListener(com.topdon.module.thermal.ir.R.string.app_yes) {
                         customPseudoBean.isUseCustomPseudo = false
                         customPseudoBean.saveToShared()
-                        setPColor(colorType)
+                        setPColor(colorType as Int)
                         setDefLimit()
                         updateImageAndSeekbarColorList(customPseudoBean)
                         thermalRecyclerNight.setPseudoColor(pseudoColorMode)
@@ -384,16 +387,16 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                     }
                     .create().show()
             } else {
-                setPColor(colorType)
+                setPColor(colorType as Int)
             }
         }
         thermalRecyclerNight.onSettingListener = { type: SettingType, isSelected: Boolean ->
             setSetting(type, isSelected)
         }
-        thermal_recycler_night.onTempLevelListener = {
-            temperatureMode = it
-            setConfigForIr(IrParam.ParamTemperature,temperatureMode)
-            if (it == CameraItemBean.TYPE_TMP_H && SharedManager.isTipHighTemp) {
+        thermalRecyclerNight.onTempLevelListener = { level ->
+            temperatureMode = level
+            setConfigForIr(IrParam.createDefault(), temperatureMode)
+            if (level == CameraItemBean.TYPE_TMP_H && SharedManager.isTipHighTemp) {
                 //切换到高温档
                 val message = SpanBuilder(getString(com.topdon.module.thermal.ir.R.string.tc_high_temp_test_tips1))
                     .appendDrawable(this@IRThermalLiteActivity, com.topdon.module.thermal.ir.R.drawable.svg_title_temp, SizeUtils.sp2px(24f))
@@ -414,22 +417,22 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
         temperatureView.setTextSize(saveSetBean.tempTextSize)
         temperatureView.setLinePaintColor(saveSetBean.tempTextColor)
         temperatureView.setiLiteListener(this)
-        temperatureView.setOnTrendChangeListener {
+        temperatureView.setOnTrendChangeListener { trendData ->
             lifecycleScope.launch(Dispatchers.Main) {
-                if (cl_trend_open.isVisible) {
-                    view_chart_trend.refresh(it)
+                if (clTrendOpen.isVisible) {
+                    viewChartTrend.refresh(trendData)
                 }
             }
         }
         temperatureView.setOnTrendAddListener {
             if (hasClickTrendDel) {
                 hasClickTrendDel = false
-                cl_trend_open.isVisible = true
-                ll_trend_close.isVisible = false
+                clTrendOpen.isVisible = true
+                llTrendClose.isVisible = false
             }
         }
         temperatureView.setOnTrendRemoveListener {
-            view_chart_trend.setToEmpty()
+            viewChartTrend.setToEmpty()
         }
         temperatureView.listener = TemperatureView.TempListener { max, min, _ ->
             realLeftValue = UnitTools.showUnitValue(min, isShowC)
