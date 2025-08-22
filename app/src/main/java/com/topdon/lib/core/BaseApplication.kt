@@ -83,16 +83,8 @@ abstract class BaseApplication : Application() {
     }
 
     private fun connectWebSocket() {
-        val ssid = WifiUtil.getCurrentWifiSSID(this) ?: return
-        if (ssid.startsWith(DeviceConfig.TS004_NAME_START)) {
-            SharedManager.hasTS004 = true
-            WebSocketProxy.getInstance().startWebSocket(ssid)
-        } else if (ssid.startsWith(DeviceConfig.TC007_NAME_START)) {
-            SharedManager.hasTC007 = true
-            WebSocketProxy.getInstance().startWebSocket(ssid)
-        }else{
-            NetWorkUtils.switchNetwork(true)
-        }
+        // TS004/TC007 WebSocket support removed - only TC001 supported
+        NetWorkUtils.switchNetwork(true)
     }
 
     fun disconnectWebSocket() {

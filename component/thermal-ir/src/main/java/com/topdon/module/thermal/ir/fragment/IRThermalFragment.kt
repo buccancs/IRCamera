@@ -30,41 +30,31 @@ import com.topdon.module.thermal.ir.activity.IRThermalPlusActivity
 
 class IRThermalFragment : BaseFragment(), View.OnClickListener {
 
-    /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
-     */
-    private var isTC007 = false
+    // Only TC001 supported - TC007 support removed
 
     override fun initContentView() = R.layout.fragment_thermal_ir
 
     override fun initView() {
-        isTC007 = arguments?.getBoolean(ExtraKeyConfig.IS_TC007, false) ?: false
-        title_view.setTitleText(if (isTC007) "TC007" else getString(R.string.tc_has_line_device))
+        // Always use TC001 settings
+        title_view.setTitleText(getString(R.string.tc_has_line_device))
 
         cl_open_thermal.setOnClickListener(this)
         tv_main_enter.setOnClickListener(this)
-        cl_07_connect_tips.setOnClickListener(this)
-        tv_07_connect.setOnClickListener(this)
 
-        tv_main_enter.isVisible = !isTC007
-        cl_07_connect_tips.isVisible = isTC007
-        tv_07_connect.isVisible = isTC007
+        // Only show TC001 UI elements
+        tv_main_enter.isVisible = true
+        cl_07_connect_tips.isVisible = false // TC007 UI hidden
+        tv_07_connect.isVisible = false // TC007 UI hidden
 
-        if (isTC007) {
-            animation_view.setAnimation("TC007AnimationJSON.json")
-            cl_not_connect.isVisible = !WebSocketProxy.getInstance().isTC007Connect()
-            cl_connect.isVisible = WebSocketProxy.getInstance().isTC007Connect()
-        } else {
-            animation_view.setAnimation("TDAnimationJSON.json")
-            checkConnect()
-        }
+        // Always use TC001 animation
+        animation_view.setAnimation("TDAnimationJSON.json")
+        checkConnect()
         viewLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onResume(owner: LifecycleOwner) {
-                // 要是当前已连接 TS004、TC007，切到流量上，不然登录注册意见反馈那些没网
+                // Only TC001 supported - no special network switching needed
                 if (WebSocketProxy.getInstance().isConnected()) {
                     NetWorkUtils.switchNetwork(true)
-                }else{
+                } else {
                     NetWorkUtils.connectivityManager.bindProcessToNetwork(null)
                 }
             }
@@ -77,38 +67,29 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
-        if (!isTC007) {
-            checkConnect()
-        }
+        // Always check connect for TC001
+        checkConnect()
     }
 
     override fun connected() {
         SharedManager.hasTcLine = true
-        if (!isTC007) {
-            cl_connect.isVisible = true
-            cl_not_connect.isVisible = false
-        }
+        // Always show connected state for TC001
+        cl_connect.isVisible = true
+        cl_not_connect.isVisible = false
     }
 
     override fun disConnected() {
-        if (!isTC007) {
-            cl_connect.isVisible = false
-            cl_not_connect.isVisible = true
-        }
+        // Always show disconnected state for TC001
+        cl_connect.isVisible = false
+        cl_not_connect.isVisible = true
     }
 
     override fun onSocketConnected(isTS004: Boolean) {
-        if (isTC007 && !isTS004) {
-            cl_connect.isVisible = true
-            cl_not_connect.isVisible = false
-        }
+        // TC007/TS004 support removed - only TC001 supported
     }
 
     override fun onSocketDisConnected(isTS004: Boolean) {
-        if (isTC007 && !isTS004) {
-            cl_connect.isVisible = false
-            cl_not_connect.isVisible = true
-        }
+        // TC007/TS004 support removed - only TC001 supported
     }
 
     /**
@@ -128,12 +109,10 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v) {
             cl_open_thermal -> {
-                if (isTC007) {
-            // TODO: Replace RouterConfig reference with direct navigation
-                } else {
-                    if (DeviceTools.isTC001PlusConnect()) {
-                        startActivityForResult(Intent(requireContext(), IRThermalPlusActivity::class.java), 101)
-                    }else if(DeviceTools.isTC001LiteConnect()){
+                // Only TC001 devices supported
+                if (DeviceTools.isTC001PlusConnect()) {
+                    startActivityForResult(Intent(requireContext(), IRThermalPlusActivity::class.java), 101)
+                } else if (DeviceTools.isTC001LiteConnect()) {
             // TODO: Replace RouterConfig reference with direct navigation
                     } else if (DeviceTools.isHikConnect()) {
             // TODO: Replace RouterConfig reference with direct navigation
@@ -185,17 +164,7 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
                     }
                 }
             }
-            cl_07_connect_tips -> {//TC007 连接提示
-            // TODO: Replace RouterConfig reference with direct navigation
-// TODO_FIX_AROUTER:                     .withBoolean(ExtraKeyConfig.IS_TC007, true)
-// TODO_FIX_AROUTER:                     .navigation(requireContext())
-            }
-            tv_07_connect -> {//TC007 连接设备
-                // TODO: Replace ARouter navigation - Intent
-            // TODO: Replace RouterConfig reference with direct navigation
-// TODO_FIX_AROUTER:                     .withBoolean("isTS004", false)
-// TODO_FIX_AROUTER:                     .navigation(requireContext())
-            }
+            // TC007 click handlers removed - only TC001 supported
         }
     }
 
