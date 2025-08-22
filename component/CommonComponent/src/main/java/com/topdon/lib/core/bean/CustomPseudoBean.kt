@@ -10,7 +10,10 @@ data class CustomPseudoBean(
     var isDefault: Boolean = false,
     var colors: IntArray = intArrayOf(),
     var enabled: Boolean = true,
-    var isUseCustomPseudo: Boolean = false
+    var isUseCustomPseudo: Boolean = false,
+    var isUseGray: Boolean = false,
+    var maxTemp: Float = 100f,
+    var minTemp: Float = 0f
 ) {
     
     companion object {
@@ -124,5 +127,25 @@ data class CustomPseudoBean(
      */
     fun saveToShared() {
         // Stub implementation for saving to SharedPreferences
+    }
+    
+    /**
+     * Get color list for pseudo color mapping
+     */
+    fun getColorList(): IntArray? {
+        return if (colors.isNotEmpty()) colors else null
+    }
+    
+    /**
+     * Get place list for temperature ranges
+     */
+    fun getPlaceList(): FloatArray? {
+        // Generate default place list based on temperature range
+        return if (maxTemp > minTemp) {
+            val count = colors.size.coerceAtLeast(2)
+            FloatArray(count) { i ->
+                minTemp + (maxTemp - minTemp) * i / (count - 1)
+            }
+        } else null
     }
 }

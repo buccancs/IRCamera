@@ -45,5 +45,30 @@ class TempUtil {
                 "${String.format("%.1f", celsiusToFahrenheit(temp))}°F"
             }
         }
+        
+        /**
+         * Get line temperatures between two points
+         */
+        fun getLineTemps(startPoint: android.graphics.Point, endPoint: android.graphics.Point, tempArray: FloatArray, imageWidth: Int): List<Float> {
+            val temps = mutableListOf<Float>()
+            
+            // Calculate line points
+            val dx = endPoint.x - startPoint.x
+            val dy = endPoint.y - startPoint.y
+            val steps = kotlin.math.max(kotlin.math.abs(dx), kotlin.math.abs(dy)).coerceAtLeast(1)
+            
+            for (i in 0..steps) {
+                val x = startPoint.x + dx * i / steps
+                val y = startPoint.y + dy * i / steps
+                
+                // Calculate temperature array index
+                val index = y * imageWidth + x
+                if (index >= 0 && index < tempArray.size) {
+                    temps.add(tempArray[index])
+                }
+            }
+            
+            return temps
+        }
     }
 }

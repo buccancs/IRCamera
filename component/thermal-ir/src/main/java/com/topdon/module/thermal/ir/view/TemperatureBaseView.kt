@@ -12,9 +12,11 @@ import androidx.annotation.CallSuper
 import androidx.annotation.ColorInt
 import com.blankj.utilcode.util.SizeUtils
 import com.energy.iruvc.utils.Line
-import com.infisense.usbir.utils.TempDrawHelper
-import com.infisense.usbir.utils.TempDrawHelper.Companion.correct
-import com.infisense.usbir.utils.TempDrawHelper.Companion.correctPoint
+// import com.infisense.usbir.utils.TempDrawHelper  // External library - create stub
+// import com.infisense.usbir.utils.TempDrawHelper.Companion.correct  // External library - use our extension
+// import com.infisense.usbir.utils.TempDrawHelper.Companion.correctPoint  // External library - create stub
+import com.topdon.lib.core.tools.TempDrawHelper  // Our stub implementation  
+import com.topdon.lib.ui.view.correct  // Our extension function
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.module.thermal.ir.R
 import kotlin.math.abs

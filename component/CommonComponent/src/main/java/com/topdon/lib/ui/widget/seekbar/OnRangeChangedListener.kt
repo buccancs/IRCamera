@@ -11,8 +11,9 @@ interface OnRangeChangedListener {
      * @param leftValue The left value of the range
      * @param rightValue The right value of the range
      * @param fromUser True if the change was initiated by the user
+     * @param tempMode The temperature mode
      */
-    fun onRangeChanged(view: RangeSeekBar, leftValue: Float, rightValue: Float, fromUser: Boolean)
+    fun onRangeChanged(view: RangeSeekBar, leftValue: Float, rightValue: Float, fromUser: Boolean, tempMode: Int = 0)
     
     /**
      * Called when start tracking touch

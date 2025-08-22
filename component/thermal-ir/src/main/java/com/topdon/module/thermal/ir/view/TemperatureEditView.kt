@@ -6,7 +6,7 @@ import android.graphics.*
 import android.util.AttributeSet
 import com.energy.iruvc.sdkisp.LibIRTemp
 import com.energy.iruvc.utils.Line
-import com.infisense.usbir.utils.TempDrawHelper.Companion.correct
+import com.topdon.lib.ui.view.correct  // Our extension function
 import com.infisense.usbir.view.ITsTempListener
 import java.lang.ref.WeakReference
 

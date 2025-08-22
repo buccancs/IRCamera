@@ -408,6 +408,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                 val message = SpanBuilder(getString(com.topdon.module.thermal.ir.R.string.tc_high_temp_test_tips1))
                     .appendDrawable(this@IRThermalLiteActivity, com.topdon.module.thermal.ir.R.drawable.svg_title_temp, SizeUtils.sp2px(24f))
                     .append(getString(com.topdon.module.thermal.ir.R.string.tc_high_temp_test_tips2))
+                    .build()
                 TipShutterDialog.Builder(this)
                     .setTitle(com.topdon.module.thermal.ir.R.string.tc_high_temp_test)
                     .setMessage(message)
@@ -417,7 +418,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                     .create().show()
             }
         }
-        thermalRecyclerNight.onTwoLightListener = { twoLightType: Any, isSelected: Boolean ->
+        thermalRecyclerNight.onTwoLightListener = { twoLightType: TwoLightType, isSelected: Boolean ->
             setTwoLight(twoLightType, isSelected)
         }
         updateTemperatureSeekBar(false)//加锁
@@ -441,7 +442,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
         temperatureView.setOnTrendRemoveListener {
             viewChartTrend.setToEmpty()
         }
-        temperatureView.listener = TemperatureView.TempListener { max: Float, min: Float, avg: Float ->
+        temperatureView.listener = com.topdon.lib.ui.widget.temperature.TemperatureView.TempListener { max: Float, min: Float, avg: Float ->
             realLeftValue = UnitTools.showUnitValue(min, isShowC)
             realRightValue = UnitTools.showUnitValue(max, isShowC)
             this@IRThermalLiteActivity.runOnUiThread {
@@ -488,7 +489,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
 
         }
         addTemperatureListener()
-        if (SaveSettingUtil.isOpenTwoLight()) {
+        if (SaveSettingUtil.isOpenTwoLight) {
             cameraPreviewConfig(false)
         }
         lifecycleScope.launch {
@@ -691,23 +692,23 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
     //更新自定义伪彩的颜色的属性值
     private fun updateImageAndSeekbarColorList(customPseudoBean: CustomPseudoBean?) {
         customPseudoBean?.let {
-            temperature_seekbar.setColorList(customPseudoBean.getColorList()?.reversedArray())
-            temperature_seekbar.setPlaces(customPseudoBean.getPlaceList())
+            temperatureSeekbar.setColorList(customPseudoBean.getColorList()?.reversedArray())
+            temperatureSeekbar.setPlaces(customPseudoBean.getPlaceList())
             setCustomPseudoColorList(
                 customPseudoBean.getColorList(),
                 customPseudoBean.getPlaceList(),
                 customPseudoBean.isUseGray, it.maxTemp, it.minTemp
             )
             if (it.isUseCustomPseudo) {
-                temperature_iv_lock.visibility = View.INVISIBLE
-                tv_temp_content.visibility = View.VISIBLE
+                temperatureIvLock.visibility = View.INVISIBLE
+                tvTempContent.visibility = View.VISIBLE
                 setDefLimit()
                 updateTemperatureSeekBar(false)//加锁
-                temperature_seekbar.setRangeAndPro(
-                    UnitTools.showUnitValue(it.minTemp),
-                    UnitTools.showUnitValue(it.maxTemp),
-                    UnitTools.showUnitValue(it.minTemp),
-                    UnitTools.showUnitValue(it.maxTemp)
+                temperatureSeekbar.setRangeAndPro(
+                    UnitTools.showUnitValue(it.minTemp, isShowC),
+                    UnitTools.showUnitValue(it.maxTemp, isShowC),
+                    UnitTools.showUnitValue(it.minTemp, isShowC),
+                    UnitTools.showUnitValue(it.maxTemp, isShowC)
                 )
                 thermal_recycler_night.setPseudoColor(-1)
                 temperature_iv_input.setImageResource(com.topdon.module.thermal.ir.R.drawable.ir_model)

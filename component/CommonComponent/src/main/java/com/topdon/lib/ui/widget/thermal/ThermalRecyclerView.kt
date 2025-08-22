@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.menu.constant.FenceType
 import com.topdon.menu.constant.SettingType
+import com.topdon.menu.constant.TwoLightType
 
 /**
  * Thermal RecyclerView with thermal imaging specific functionality
@@ -26,7 +27,7 @@ class ThermalRecyclerView @JvmOverloads constructor(
     var onTabClickListener: ((tabInfo: Any) -> Unit)? = null
     var cameraPreViewCloseListener: (() -> Unit)? = null
     var onTempLevelListener: ((level: Int) -> Unit)? = null
-    var onTwoLightListener: ((twoLightType: Any, isSelected: Boolean) -> Unit)? = null
+    var onTwoLightListener: ((twoLightType: TwoLightType, isSelected: Boolean) -> Unit)? = null
     
     /**
      * Set temperature level

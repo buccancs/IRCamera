@@ -109,4 +109,32 @@ class RangeSeekBar @JvmOverloads constructor(
     fun setIndicatorTextDecimalFormat(format: String) {
         // Stub implementation for compilation - would format indicator text
     }
+    
+    /**
+     * Set color list for temperature display
+     */
+    fun setColorList(colors: IntArray?) {
+        // Stub implementation
+    }
+    
+    /**
+     * Set places for temperature range  
+     */
+    fun setPlaces(places: FloatArray?) {
+        // Stub implementation
+    }
+    
+    /**
+     * Get color list
+     */
+    fun getColorList(): IntArray? {
+        return null // Stub implementation
+    }
+    
+    /**
+     * Get place list  
+     */
+    fun getPlaceList(): FloatArray? {
+        return null // Stub implementation  
+    }
 }

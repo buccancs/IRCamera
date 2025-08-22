@@ -32,10 +32,10 @@ class TipEmissivityDialog(context: Context) : Dialog(context) {
         private var radiation: String = ""
         private var text: String = ""
         
-        fun setDataBean(environment: String, distance: String, radiation: String, text: String): Builder {
-            this.environment = environment
-            this.distance = distance
-            this.radiation = radiation
+        fun setDataBean(environment: Any, distance: Any, radiation: Any, text: String): Builder {
+            this.environment = environment.toString()
+            this.distance = distance.toString()
+            this.radiation = radiation.toString()
             this.text = text
             return this
         }
