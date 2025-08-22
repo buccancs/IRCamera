@@ -276,4 +276,15 @@
         <attr name="contentView" format="reference" />
         <attr name="rightMenuView" format="reference" />
     </declare-styleable>
+
+    <!-- MyTextView attributes -->
+    <declare-styleable name="MyTextView">
+        <attr name="drawable_height" />
+        <attr name="top_height" format="dimension" />
+        <attr name="bottom_height" format="dimension" />
+        <attr name="start_height" />
+        <attr name="end_height" format="dimension" />
+        <attr name="left_height" format="dimension" />
+        <attr name="right_height" format="dimension" />
+    </declare-styleable>
 </resources>

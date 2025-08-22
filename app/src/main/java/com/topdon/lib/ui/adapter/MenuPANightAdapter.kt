@@ -5,7 +5,7 @@ import androidx.core.content.ContextCompat
 import com.blankj.utilcode.util.ScreenUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
-import com.topdon.lib.ui.R
+import com.topdon.tc001.R
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.lib.ui.listener.SingleClickListener
 

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.topdon.lib.ui.R
+import com.topdon.tc001.R
 
 @Deprecated("热成像-菜单-拍照已重构，不需要这个类了")
 class CameraItemAdapter(context: Context) : RecyclerView.Adapter<CameraItemAdapter.ViewHolder>() {

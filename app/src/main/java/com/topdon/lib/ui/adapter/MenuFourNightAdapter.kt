@@ -16,7 +16,7 @@ import com.topdon.lib.core.utils.Constants.IR_OBSERVE_MODE
 import com.topdon.lib.core.utils.Constants.IR_TCPLUS_MODE
 import com.topdon.lib.core.utils.Constants.IR_TEMPERATURE_LITE
 import com.topdon.lib.core.utils.Constants.IR_TEMPERATURE_MODE
-import com.topdon.lib.ui.R
+import com.topdon.tc001.R
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.lib.ui.config.CameraHelp
 import com.topdon.lib.ui.listener.SingleClickListener
