@@ -106,7 +106,8 @@ object SharedManager {
     fun getCarDetectInfo(): CarDetectInfo {
         return CarDetectInfo(
             item = getString("car_detect_item", "Default"),
-            description = getString("car_detect_description", "Car detection information")
+            description = getString("car_detect_description", "Car detection information"),
+            temperature = getString("car_detect_temperature", "40~70")
         )
     }
     
@@ -169,5 +170,6 @@ object SharedManager {
  */
 data class CarDetectInfo(
     val item: String,
-    val description: String
+    val description: String,
+    val temperature: String = "40~70" // Default temperature range
 )

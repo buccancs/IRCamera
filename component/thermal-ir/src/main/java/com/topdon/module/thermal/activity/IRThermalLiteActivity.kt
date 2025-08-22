@@ -203,6 +203,10 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
      */
     private var popupWindow: PopupWindow ?= null
 
+    companion object {
+        private const val TAG = "IRThermalLiteActivity"
+    }
+
     private var tempAlarmSetDialog: TempAlarmSetDialog? = null
     private var alarmBean = SaveSettingUtil.alarmBean
     private var temperatureMode: Int = SaveSettingUtil.temperatureMode//高低增益
@@ -1941,7 +1945,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
             delay(500)
             IRTool.setAutoShutter(false)
             //初始化对比度
-            IRTool.basicGlobalContrastLevelSet((saveSetBean.contrastValue / 255f * 100).toInt())
+            IRTool.basicGlobalContrastLevelSet(((saveSetBean.contrastValue / 255.0f) * 100.0f).toInt())
             //镜像
             IRTool.basicMirrorAndFlipStatusSet(saveSetBean.isOpenMirror)
             thermalRecyclerNight.setSettingSelected(SettingType.MIRROR, saveSetBean.isOpenMirror)
@@ -2095,9 +2099,10 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
 
     private fun setCarDetectPrompt(){
         var carDetectInfo = SharedManager.getCarDetectInfo()
+        var tvDetectPrompt: TextView? = null
         try {
             // Using a fallback TextView ID since tv_detect_prompt might not exist
-            var tvDetectPrompt = viewCarDetect.findViewById<TextView>(R.id.tv_temp_content)
+            tvDetectPrompt = viewCarDetect.findViewById<TextView>(R.id.tv_temp_content)
             if(carDetectInfo == null){
                 tvDetectPrompt?.text =  getString(R.string.abnormal_item1) + TemperatureUtil.getTempStr(40, 70)
             }else{
@@ -2108,10 +2113,10 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
             // Handle case where TextView doesn't exist in the layout
         }
         layCarDetectPrompt.visibility = if(intent.getBooleanExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER,false)) View.VISIBLE else View.GONE
-        viewCarDetect.findViewById<RelativeLayout>(com.topdon.module.thermal.ir.R.id.rl_content).setOnClickListener {
-            CarDetectDialog(this) {
-                var temperature = it.temperature.split("~")
-                tvDetectPrompt.text =  it.item + TemperatureUtil.getTempStr(temperature[0].toInt(), temperature[1].toInt())
+        viewCarDetect.setOnClickListener {
+            CarDetectDialog(this) { carInfo ->
+                var temperature = carInfo.temperature.split("~")
+                tvDetectPrompt?.text =  carInfo.item + TemperatureUtil.getTempStr(temperature[0].toInt(), temperature[1].toInt())
             }.show()
         }
     }
@@ -2176,12 +2181,12 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
         }
     }
 
-    override fun getDeltaNucAndVTemp(): Float {
+    fun getDeltaNucAndVTemp(): Float {
         TempCompensation.getInstance().getDeltaNucAndVTemp()
         return 0f
     }
 
-    override fun compensateTemp(temp: Float): Float {
+    fun compensateTemp(temp: Float): Float {
         return TempCompensation.getInstance().compensateTemp(temp)
     }
 }
