@@ -27,6 +27,9 @@ class MyMarkerView(context: Context, layoutResource: Int) : MarkerView(context, 
 
     private val tvContent: TextView = findViewById(R.id.tvContent)
     private val timeText: TextView = findViewById(R.id.time_text)
+    
+    // Temperature unit preference - default to Celsius
+    var isShowCelsius: Boolean = true
 
     // runs every time the MarkerView is redrawn, can be used to update the
     // content (user-interface)
@@ -44,14 +47,14 @@ class MyMarkerView(context: Context, layoutResource: Int) : MarkerView(context, 
                     when (index) {
                         0 -> {
                             str.append(com.blankj.utilcode.util.Utils.getApp().getString(R.string.chart_temperature) + ": ")
-                                .append(UnitTools.showC(data.thermal))
+                                .append(UnitTools.showC(data.thermal, isShowCelsius))
                         }
                         1 -> {
                             str.append(com.blankj.utilcode.util.Utils.getApp().getString(R.string.chart_temperature_high) + ": ")
-                                .append(UnitTools.showC(data.thermalMax))
+                                .append(UnitTools.showC(data.thermalMax, isShowCelsius))
                             str.append(System.getProperty("line.separator"))
                                 .append(com.blankj.utilcode.util.Utils.getApp().getString(R.string.chart_temperature_low) + ": ")
-                                .append(UnitTools.showC(data.thermalMin))
+                                .append(UnitTools.showC(data.thermalMin, isShowCelsius))
                         }
                         else -> {
                             str.append(com.blankj.utilcode.util.Utils.getApp().getString(R.string.chart_temperature_high) + ": ")

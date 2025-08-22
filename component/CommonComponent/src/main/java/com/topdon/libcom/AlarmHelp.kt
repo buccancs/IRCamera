@@ -10,9 +10,18 @@ class AlarmHelp {
         private var INSTANCE: AlarmHelp? = null
         
         /**
-         * Get singleton instance
+         * Get singleton instance with Application
          */
         fun getInstance(application: android.app.Application): AlarmHelp {
+            return INSTANCE ?: synchronized(this) {
+                INSTANCE ?: AlarmHelp().also { INSTANCE = it }
+            }
+        }
+        
+        /**
+         * Get singleton instance with Context (Activity)
+         */
+        fun getInstance(context: android.content.Context): AlarmHelp {
             return INSTANCE ?: synchronized(this) {
                 INSTANCE ?: AlarmHelp().also { INSTANCE = it }
             }
@@ -85,6 +94,42 @@ class AlarmHelp {
         }
         ringtoneType?.let {
             // Update ringtone type
+        }
+    }
+    
+    /**
+     * Update alarm data with AlarmBean
+     */
+    fun updateData(alarmBean: com.topdon.lib.core.bean.AlarmBean) {
+        // Stub implementation for updating alarm data with AlarmBean
+        updateData(
+            if (alarmBean.isLowOpen) alarmBean.lowTemp else null,
+            if (alarmBean.isHighOpen) alarmBean.highTemp else null,
+            if (alarmBean.isRingtoneOpen) alarmBean.ringtoneType else null
+        )
+    }
+    
+    /**
+     * Handle resume lifecycle
+     */
+    fun onResume() {
+        // Stub implementation for resume handling
+    }
+    
+    /**
+     * Handle pause lifecycle
+     */
+    fun pause() {
+        // Stub implementation for pause handling
+    }
+    
+    /**
+     * Handle destroy lifecycle
+     */
+    fun onDestroy(saveSetting: Boolean) {
+        // Stub implementation for destroy handling
+        if (saveSetting) {
+            // Save alarm settings
         }
     }
 }

@@ -112,5 +112,37 @@ class ImageUtils {
             val formatter = java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss", java.util.Locale.getDefault())
             return formatter.format(java.util.Date())
         }
+        
+        /**
+         * Save bitmap and return filename
+         */
+        fun save(bitmap: Bitmap): String {
+            val timestamp = System.currentTimeMillis()
+            val filename = "IR_${timestamp}.jpg"
+            val file = File(android.os.Environment.getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_PICTURES), filename)
+            saveBitmapToFile(bitmap, file)
+            return filename
+        }
+        
+        /**
+         * Save thermal frame data with capital and name
+         */
+        fun saveFrame(bs: ByteArray?, capital: ByteArray, name: String) {
+            // Stub implementation for saving thermal frame data
+            try {
+                bs?.let { data ->
+                    val timestamp = System.currentTimeMillis()
+                    val filename = "IR_Frame_${name}_${timestamp}.dat"
+                    val file = File(android.os.Environment.getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_PICTURES), filename)
+                    val fos = FileOutputStream(file)
+                    // Write capital data first, then thermal data
+                    fos.write(capital)
+                    fos.write(data)
+                    fos.close()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 }

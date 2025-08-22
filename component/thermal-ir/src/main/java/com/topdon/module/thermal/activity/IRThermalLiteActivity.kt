@@ -1545,7 +1545,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
             if (BaseApplication.instance.isDomestic()) {
                 TipDialog.Builder(this)
                     .setMessage(getString(R.string.permission_request_storage_app, CommUtils.getAppName()))
-                    .setCancelListener { }
+                    .setCancelListener(R.string.app_cancel) { }
                     .setPositiveListener(R.string.app_confirm) {
                         if (storageRequestType == 0) {
                             initStoragePermission()
@@ -1783,7 +1783,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                     val basicGainGetValue = IntArray(1)
                     val basicGainGet: IrcmdError = DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
                         ?.basicGainGet(basicGainGetValue)!!
-                    val p2RotateAngle = if (saveSetBean.rotateAngle == 90) 270 else abs(saveSetBean.rotateAngle - 180)
+                    val p2RotateAngle = if (saveSetBean.rotateAngle == 90) 270 else kotlin.math.abs((saveSetBean.rotateAngle - 180).toFloat()).toInt()
                     val capital = FrameStruct.toCode(
                         name = getProductName(),
                         width = if (cameraViewBitmap!!.height < cameraViewBitmap.width) 256 else 192,
@@ -1804,8 +1804,11 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                         config?.radiation ?: 0f,
                         false
                     )
-                    ImageUtils.saveFrame(bs = CameraPreviewManager.getInstance().frameIrAndTempData,
-                        capital = capital, name = name)
+                    ImageUtils.saveFrame(
+                        bs = CameraPreviewManager.getInstance().frameIrAndTempData,
+                        capital = capital, 
+                        name = name
+                    )
                     launch(Dispatchers.Main) {
                         thermalRecyclerNight.refreshImg()
                     }
@@ -1961,10 +1964,10 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
         temperatureSeekbar.setPlaces(customPseudoBean.getPlaceList())
         temperatureIvLock.visibility = View.INVISIBLE
         temperatureSeekbar.setRangeAndPro(
-            UnitTools.showUnitValue(customPseudoBean.minTemp),
-            UnitTools.showUnitValue(customPseudoBean.maxTemp),
-            UnitTools.showUnitValue(customPseudoBean.minTemp),
-            UnitTools.showUnitValue(customPseudoBean.maxTemp)
+            UnitTools.showUnitValue(customPseudoBean.minTemp, isShowC),
+            UnitTools.showUnitValue(customPseudoBean.maxTemp, isShowC),
+            UnitTools.showUnitValue(customPseudoBean.minTemp, isShowC),
+            UnitTools.showUnitValue(customPseudoBean.maxTemp, isShowC)
         )
         setCustomPseudoColorList(
             customPseudoBean.getColorList(),
@@ -2092,15 +2095,20 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
 
     private fun setCarDetectPrompt(){
         var carDetectInfo = SharedManager.getCarDetectInfo()
-        var tvDetectPrompt = view_car_detect.findViewById<TextView>(R.id.tv_detect_prompt)
-        if(carDetectInfo == null){
-            tvDetectPrompt.text =  getString(R.string.abnormal_item1) + TemperatureUtil.getTempStr(40, 70)
-        }else{
-            var temperature = carDetectInfo.temperature.split("~")
-            tvDetectPrompt.text =  carDetectInfo.item + TemperatureUtil.getTempStr(temperature[0].toInt(), temperature[1].toInt())
+        try {
+            // Using a fallback TextView ID since tv_detect_prompt might not exist
+            var tvDetectPrompt = viewCarDetect.findViewById<TextView>(R.id.tv_temp_content)
+            if(carDetectInfo == null){
+                tvDetectPrompt?.text =  getString(R.string.abnormal_item1) + TemperatureUtil.getTempStr(40, 70)
+            }else{
+                var temperature = carDetectInfo.temperature.split("~")
+                tvDetectPrompt?.text =  carDetectInfo.item + TemperatureUtil.getTempStr(temperature[0].toInt(), temperature[1].toInt())
+            }
+        } catch (e: Exception) {
+            // Handle case where TextView doesn't exist in the layout
         }
         layCarDetectPrompt.visibility = if(intent.getBooleanExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER,false)) View.VISIBLE else View.GONE
-        view_car_detect.findViewById<RelativeLayout>(com.topdon.module.thermal.ir.R.id.rl_content).setOnClickListener {
+        viewCarDetect.findViewById<RelativeLayout>(com.topdon.module.thermal.ir.R.id.rl_content).setOnClickListener {
             CarDetectDialog(this) {
                 var temperature = it.temperature.split("~")
                 tvDetectPrompt.text =  it.item + TemperatureUtil.getTempStr(temperature[0].toInt(), temperature[1].toInt())

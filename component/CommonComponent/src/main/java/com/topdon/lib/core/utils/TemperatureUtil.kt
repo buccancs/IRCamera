@@ -82,5 +82,12 @@ class TemperatureUtil {
             val multiplier = 10.0f.pow(precision)
             return round(temperature * multiplier) / multiplier
         }
+        
+        /**
+         * Get temperature range string for display
+         */
+        fun getTempStr(minTemp: Int, maxTemp: Int): String {
+            return "${minTemp}°C ~ ${maxTemp}°C"
+        }
     }
 }

@@ -61,5 +61,12 @@ class UnitTools {
                 convertTemperature(value, "F", "C") // Convert from Fahrenheit to Celsius
             }
         }
+        
+        /**
+         * Show unit symbol based on temperature unit preference
+         */
+        fun showUnit(isShowC: Boolean): String {
+            return if (isShowC) "°C" else "°F"
+        }
     }
 }

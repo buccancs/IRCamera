@@ -26,6 +26,13 @@ import kotlin.math.pow
 import kotlin.math.sqrt
 
 /**
+ * Extension function to correct point coordinates
+ */
+fun Float.correctPoint(viewSize: Int): Int {
+    return (this * 256 / viewSize).toInt().coerceIn(0, 255)
+}
+
+/**
  * TC007、2D 编辑 点线面温度图层公共逻辑封装.
  *
  * Created by LCG on 2024/5/7.

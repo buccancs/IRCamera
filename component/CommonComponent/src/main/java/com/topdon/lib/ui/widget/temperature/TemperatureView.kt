@@ -115,6 +115,13 @@ class TemperatureView @JvmOverloads constructor(
     }
     
     /**
+     * Stop temperature view
+     */
+    fun stop() {
+        // Stub implementation for stopping temperature view
+    }
+    
+    /**
      * Temperature listener interface
      */
     fun interface TempListener {

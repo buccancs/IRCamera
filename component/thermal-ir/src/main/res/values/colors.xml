@@ -7,4 +7,17 @@
     <color name="temp_bg_line_color">#5B5961</color>
     <color name="font_four_unit_color">#EEEEEE</color>
     <color name="ir_bg_color">#FF16131E</color>
+    
+    <!-- Chart colors -->
+    <color name="chart_axis">#CCCCCC</color>
+    <color name="circle_white">#FFFFFF</color>
+    <color name="chart_bg">#1A1A1A</color>
+    <color name="chart_text">#FFFFFF</color>
+    <color name="chart_line_max">#FF4444</color>
+    <color name="chart_line_min">#4444FF</color>
+    <color name="chart_line_center">#44FF44</color>
+    <color name="chart_point_max">#FF0000</color>
+    <color name="chart_point_min">#0000FF</color>
+    <color name="chart_point_center">#00FF00</color>
+    <color name="http_code998">#888888</color>
 </resources>

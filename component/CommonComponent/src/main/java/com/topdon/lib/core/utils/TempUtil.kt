@@ -70,5 +70,38 @@ class TempUtil {
             
             return temps
         }
+        
+        /**
+         * Get line temperatures between two points (ByteArray version)
+         * Converts ByteArray thermal data to temperature values
+         */
+        fun getLineTemps(startPoint: android.graphics.Point, endPoint: android.graphics.Point, tempArray: ByteArray, imageWidth: Int): List<Float> {
+            val temps = mutableListOf<Float>()
+            
+            // Calculate line points
+            val dx = endPoint.x - startPoint.x
+            val dy = endPoint.y - startPoint.y
+            val steps = kotlin.math.max(kotlin.math.abs(dx), kotlin.math.abs(dy)).coerceAtLeast(1)
+            
+            for (i in 0..steps) {
+                val x = startPoint.x + dx * i / steps
+                val y = startPoint.y + dy * i / steps
+                
+                // Calculate temperature array index (2 bytes per pixel for thermal data)
+                val index = (y * imageWidth + x) * 2
+                if (index >= 0 && index + 1 < tempArray.size) {
+                    // Convert 2 bytes to temperature value
+                    val lowByte = tempArray[index].toInt() and 0xFF
+                    val highByte = tempArray[index + 1].toInt() and 0xFF
+                    val rawValue = (highByte shl 8) or lowByte
+                    
+                    // Convert raw value to temperature (simplified conversion)
+                    val temperature = (rawValue / 100.0f) - 273.15f  // Convert from Kelvin to Celsius
+                    temps.add(temperature)
+                }
+            }
+            
+            return temps
+        }
     }
 }
