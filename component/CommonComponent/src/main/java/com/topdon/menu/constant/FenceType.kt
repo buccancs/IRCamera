@@ -11,7 +11,8 @@ enum class FenceType(val value: Int, val displayName: String) {
     RECTANGLE(3, "Rectangle"),
     ELLIPSE(4, "Ellipse"),
     POLYGON(5, "Polygon"),
-    CIRCLE(6, "Circle");
+    CIRCLE(6, "Circle"),
+    FULL(7, "Full Screen");
     
     companion object {
         fun fromValue(value: Int): FenceType {
@@ -27,7 +28,7 @@ enum class FenceType(val value: Int, val displayName: String) {
         }
         
         fun getTemperatureMeasurementTypes(): Array<FenceType> {
-            return arrayOf(POINT, LINE, RECTANGLE)
+            return arrayOf(POINT, LINE, RECTANGLE, FULL)
         }
         
         fun isTemperatureMeasurement(type: FenceType): Boolean {
@@ -39,7 +40,7 @@ enum class FenceType(val value: Int, val displayName: String) {
      * Check if fence type supports temperature measurement
      */
     fun supportsTemperature(): Boolean {
-        return this in arrayOf(POINT, LINE, RECTANGLE, ELLIPSE, CIRCLE)
+        return this in arrayOf(POINT, LINE, RECTANGLE, ELLIPSE, CIRCLE, FULL)
     }
     
     /**
@@ -54,6 +55,7 @@ enum class FenceType(val value: Int, val displayName: String) {
             CIRCLE -> 2
             ELLIPSE -> 2
             POLYGON -> 3
+            FULL -> 0  // Full screen needs no points
         }
     }
 }

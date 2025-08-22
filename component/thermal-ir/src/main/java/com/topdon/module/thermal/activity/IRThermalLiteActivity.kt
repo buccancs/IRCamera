@@ -154,12 +154,14 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
     // View references (replacing synthetic imports)
     private val titleView by lazy { findViewById<com.topdon.lib.core.view.MainTitleView>(com.topdon.module.thermal.ir.R.id.title_view) }
     private val timeDownView by lazy { findViewById<android.view.View>(com.topdon.module.thermal.ir.R.id.time_down_view) }
-    private val temperatureSeekbar by lazy { findViewById<android.view.View>(com.topdon.module.thermal.ir.R.id.temperature_seekbar) }
-    private val thermalRecyclerNight by lazy { findViewById<android.view.View>(com.topdon.module.thermal.ir.R.id.thermal_recycler_night) }
+    private val temperatureSeekbar by lazy { findViewById<com.topdon.lib.ui.widget.seekbar.RangeSeekBar>(com.topdon.module.thermal.ir.R.id.temperature_seekbar) }
+    private val thermalRecyclerNight by lazy { findViewById<com.topdon.lib.ui.widget.thermal.ThermalRecyclerView>(com.topdon.module.thermal.ir.R.id.thermal_recycler_night) }
     private val temperatureIvLock by lazy { findViewById<android.widget.ImageView>(com.topdon.module.thermal.ir.R.id.temperature_iv_lock) }
     private val viewCarDetect by lazy { findViewById<android.view.View>(com.topdon.module.thermal.ir.R.id.view_car_detect) }
     private val temperatureView by lazy { findViewById<android.view.View>(com.topdon.module.thermal.ir.R.id.temperatureView) }
     private val viewStubCamera by lazy { findViewById<android.view.View>(com.topdon.module.thermal.ir.R.id.view_stub_camera) }
+    private val cameraPreview by lazy { findViewById<com.topdon.lib.ui.widget.camera.CameraPreviewView>(com.topdon.module.thermal.ir.R.id.cameraPreview) }
+    private val viewMenuFirst by lazy { findViewById<com.topdon.lib.ui.widget.menu.MenuView>(com.topdon.module.thermal.ir.R.id.view_menu_first) }
 
     private var pseudoColorMode = SaveSettingUtil.pseudoColorMode
 
@@ -338,17 +340,17 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                 cameraPreviewConfig(false)
             }
         }
-        view_menu_first.onTabClickListener = {
-            ViewStubUtils.showViewStub(view_stub_camera, false, null)
+        viewMenuFirst.onTabClickListener = { tabInfo ->
+            ViewStubUtils.showViewStub(viewStubCamera, false, null)
             popupWindow?.dismiss()
-            temperatureView.isEnabled = it.selectPosition == 1
-            thermal_recycler_night.selectPosition(it.selectPosition + (if (it.isObserveMode) 10 else 0))
+            temperatureView.isEnabled = tabInfo.selectPosition == 1
+            thermalRecyclerNight.selectPosition(tabInfo.selectPosition + (if (tabInfo.isObserveMode) 10 else 0))
         }
-        temperature_iv_lock.setOnClickListener {
-            if (temperature_iv_lock.visibility != View.VISIBLE) {
+        temperatureIvLock.setOnClickListener {
+            if (temperatureIvLock.visibility != View.VISIBLE) {
                 return@setOnClickListener
             }
-            if (temperature_iv_lock.contentDescription == "lock") {
+            if (temperatureIvLock.contentDescription == "lock") {
                 updateTemperatureSeekBar(true)//解锁
             } else {
                 setDefLimit()
@@ -356,17 +358,17 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
             }
         }
 
-        thermal_recycler_night.isVideoMode = SaveSettingUtil.isVideoMode //恢复拍照/录像状态
-        thermal_recycler_night.fenceSelectType = FenceType.FULL //初始选中全图
-        thermal_recycler_night.isUnitF = SharedManager.getTemperature() == 0 //温度档位单位
-        thermal_recycler_night.setTempLevel(temperatureMode) //选中当前的温度档位
-        thermal_recycler_night.onCameraClickListener = {
-            setCamera(it)
+        thermalRecyclerNight.isVideoMode = SaveSettingUtil.isVideoMode //恢复拍照/录像状态
+        thermalRecyclerNight.fenceSelectType = FenceType.FULL //初始选中全图
+        thermalRecyclerNight.isUnitF = SharedManager.getTemperature() == 0 //温度档位单位
+        thermalRecyclerNight.setTempLevel(temperatureMode) //选中当前的温度档位
+        thermalRecyclerNight.onCameraClickListener = { cameraType ->
+            setCamera(cameraType)
         }
-        thermal_recycler_night.onFenceListener = { fenceType, isSelected ->
+        thermalRecyclerNight.onFenceListener = { fenceType: FenceType, isSelected: Boolean ->
             setTemp(fenceType, isSelected)
         }
-        thermal_recycler_night.onColorListener = { _, it, _ ->
+        thermalRecyclerNight.onColorListener = { _: Any, colorType: Any, _: Any ->
             if (customPseudoBean.isUseCustomPseudo) {
                 TipDialog.Builder(this)
                     .setTitleMessage(getString(com.topdon.module.thermal.ir.R.string.app_tip))
@@ -374,18 +376,18 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                     .setPositiveListener(com.topdon.module.thermal.ir.R.string.app_yes) {
                         customPseudoBean.isUseCustomPseudo = false
                         customPseudoBean.saveToShared()
-                        setPColor(it)
+                        setPColor(colorType)
                         setDefLimit()
                         updateImageAndSeekbarColorList(customPseudoBean)
-                        thermal_recycler_night.setPseudoColor(pseudoColorMode)
+                        thermalRecyclerNight.setPseudoColor(pseudoColorMode)
                     }.setCancelListener(com.topdon.module.thermal.ir.R.string.app_no) {
                     }
                     .create().show()
             } else {
-                setPColor(it)
+                setPColor(colorType)
             }
         }
-        thermal_recycler_night.onSettingListener = { type, isSelected ->
+        thermalRecyclerNight.onSettingListener = { type: SettingType, isSelected: Boolean ->
             setSetting(type, isSelected)
         }
         thermal_recycler_night.onTempLevelListener = {

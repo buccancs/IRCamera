@@ -84,4 +84,11 @@ class RangeSeekBar @JvmOverloads constructor(
         invalidate()
         listener?.onRangeChanged(this, leftValue, rightValue, false)
     }
+    
+    /**
+     * Set indicator text decimal format - stub implementation
+     */
+    fun setIndicatorTextDecimalFormat(format: String) {
+        // Stub implementation for compilation - would format indicator text
+    }
 }

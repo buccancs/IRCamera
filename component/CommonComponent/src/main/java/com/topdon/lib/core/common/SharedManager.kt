@@ -99,4 +99,25 @@ object SharedManager {
     // Last connected device SN
     fun getLastConnectSn(): String = getString("last_connect_sn", "")
     fun setLastConnectSn(sn: String) = setString("last_connect_sn", sn)
+    
+    // Car detect info
+    fun getCarDetectInfo(): CarDetectInfo {
+        return CarDetectInfo(
+            item = getString("car_detect_item", "Default"),
+            description = getString("car_detect_description", "Car detection information")
+        )
+    }
+    
+    fun setCarDetectInfo(info: CarDetectInfo) {
+        setString("car_detect_item", info.item)
+        setString("car_detect_description", info.description)
+    }
 }
+
+/**
+ * Data class for car detection information
+ */
+data class CarDetectInfo(
+    val item: String,
+    val description: String
+)

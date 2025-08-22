@@ -9,7 +9,8 @@ data class CustomPseudoBean(
     var colorMode: Int = 0,
     var isDefault: Boolean = false,
     var colors: IntArray = intArrayOf(),
-    var enabled: Boolean = true
+    var enabled: Boolean = true,
+    var isUseCustomPseudo: Boolean = false
 ) {
     
     companion object {
@@ -92,6 +93,14 @@ data class CustomPseudoBean(
             }
             return colors
         }
+        
+        /**
+         * Load custom pseudo bean from shared preferences
+         */
+        fun loadFromShared(): CustomPseudoBean {
+            // Stub implementation - return default for compilation
+            return createDefault()
+        }
     }
     
     /**
@@ -108,5 +117,12 @@ data class CustomPseudoBean(
         if (colors.isEmpty()) return android.graphics.Color.BLACK
         val index = (position.coerceIn(0f, 1f) * (colors.size - 1)).toInt()
         return colors[index]
+    }
+    
+    /**
+     * Save to shared preferences
+     */
+    fun saveToShared() {
+        // Stub implementation for saving to SharedPreferences
     }
 }

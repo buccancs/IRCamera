@@ -2,12 +2,12 @@ package com.topdon.module.thermal.camera;
 
 
 import com.energy.iruvccamera.usb.USBMonitor;
-import com.example.thermal_lite.camera.task.DeviceControlWorker;
-import com.example.thermal_lite.camera.task.IDeviceConnectListener;
-import com.example.thermal_lite.camera.task.PausePreviewTask;
-import com.example.thermal_lite.camera.task.ResumePreviewTask;
-import com.example.thermal_lite.camera.task.StartPreviewTask;
-import com.example.thermal_lite.camera.task.StopPreviewTask;
+import com.topdon.module.thermal.camera.task.DeviceControlWorker;
+import com.topdon.module.thermal.camera.task.IDeviceConnectListener;
+import com.topdon.module.thermal.camera.task.PausePreviewTask;
+import com.topdon.module.thermal.camera.task.ResumePreviewTask;
+import com.topdon.module.thermal.camera.task.StartPreviewTask;
+import com.topdon.module.thermal.camera.task.StopPreviewTask;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -155,5 +155,12 @@ public class DeviceControlManager implements IDeviceConnectListener {
         for (Map.Entry<String, IDeviceConnectListener> entry: mIDeviceConnectListeners.entrySet()) {
             entry.getValue().onResumed();
         }
+    }
+    
+    /**
+     * Check if device control is running
+     */
+    public boolean isRunning() {
+        return mDeviceControlWorker != null && mDeviceControlWorker.isRunning();
     }
 }

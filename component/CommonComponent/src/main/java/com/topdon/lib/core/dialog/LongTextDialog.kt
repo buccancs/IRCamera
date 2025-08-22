@@ -6,7 +6,11 @@ import android.content.Context
 /**
  * Long text dialog - stub implementation for compilation
  */
-class LongTextDialog(context: Context) : Dialog(context) {
+class LongTextDialog @JvmOverloads constructor(
+    context: Context,
+    private val title: String? = null,
+    private val content: String? = null
+) : Dialog(context) {
     
     override fun show() {
         // Stub implementation
