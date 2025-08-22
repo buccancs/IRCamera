@@ -67,6 +67,7 @@ import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
 import com.infisense.usbir.inf.ILiteListener
 import com.infisense.usbir.utils.ViewStubUtils
+import com.infisense.usbir.view.CameraView
 import com.infisense.usbir.view.ITsTempListener
 import com.infisense.usbir.view.TemperatureView
 import com.infisense.usbir.view.TemperatureView.*
@@ -173,6 +174,10 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
     private val ivTrendClose by lazy { findViewById(com.topdon.module.thermal.ir.R.id.iv_trend_close) as android.widget.ImageView }
     private val ivTrendOpen by lazy { findViewById(com.topdon.module.thermal.ir.R.id.iv_trend_open) as android.widget.ImageView }
     private val temperatureIvInput by lazy { findViewById(com.topdon.module.thermal.ir.R.id.temperature_iv_input) as android.widget.ImageView }
+    
+    // Missing view references that were causing compilation errors
+    private val fpsText by lazy { findViewById<TextView>(com.topdon.module.thermal.ir.R.id.fpsText) }
+    private val cameraView by lazy { findViewById<CameraView>(com.topdon.module.thermal.ir.R.id.cameraView) }
 
     private var pseudoColorMode = SaveSettingUtil.pseudoColorMode
 
@@ -922,7 +927,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
             if (BaseApplication.instance.isDomestic()) {
                 TipDialog.Builder(this)
                     .setMessage(getString(com.topdon.module.thermal.ir.R.string.permission_request_camera_app, CommUtils.getAppName()))
-                    .setCancelListener(com.topdon.module.thermal.ir.R.string.app_cancel)
+                    .setCancelListener(com.topdon.module.thermal.ir.R.string.app_cancel) { /* Cancel action */ }
                     .setPositiveListener(com.topdon.module.thermal.ir.R.string.app_confirm) {
                         initCameraPermission(needShowTip)
                     }
@@ -954,11 +959,11 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                                 SaveSettingUtil.isOpenTwoLight = true
                             }
                             if (needShowTip && SharedManager.isTipPinP) {
-                                val dialog = TipPreviewDialog.newInstance()
+                                val dialog = TipPreviewDialog(this)
                                 dialog.closeEvent = {
                                     SharedManager.isTipPinP = !it
                                 }
-                                dialog.show(supportFragmentManager, "")
+                                dialog.show()
                             }
                         } else {
                             thermalRecyclerNight.setTwoLightSelected(TwoLightType.P_IN_P, false)
@@ -1285,7 +1290,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                 temperatureView.visibility = View.VISIBLE
                 temperatureView.temperatureRegionMode = REGION_MODE_LINE
             }
-            FenceType.RECT -> {//面
+            FenceType.RECTANGLE -> {//面
                 temperatureView.visibility = View.VISIBLE
                 temperatureView.temperatureRegionMode = REGION_MODE_RECTANGLE
             }
@@ -1318,6 +1323,11 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                 spaceChart.isVisible = false
                 clTrendOpen.isVisible = false
                 llTrendClose.isVisible = false
+            }
+            FenceType.NONE, FenceType.ELLIPSE, FenceType.POLYGON, FenceType.CIRCLE -> {
+                // Handle additional fence types with default behavior
+                temperatureView.visibility = View.VISIBLE
+                temperatureView.temperatureRegionMode = REGION_MODE_POINT // Default mode
             }
         }
     }

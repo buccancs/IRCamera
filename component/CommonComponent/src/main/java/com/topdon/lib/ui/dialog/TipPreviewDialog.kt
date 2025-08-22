@@ -8,6 +8,8 @@ import android.content.Context
  */
 class TipPreviewDialog(context: Context) : Dialog(context) {
     
+    var closeEvent: ((Boolean) -> Unit)? = null
+    
     override fun show() {
         // Stub implementation
     }

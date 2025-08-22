@@ -5,4 +5,5 @@
     
     <!-- Missing dimensions -->
     <dimen name="dp_24">24dp</dimen>
+    <dimen name="app_font_11">11sp</dimen>
 </resources>

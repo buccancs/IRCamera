@@ -69,6 +69,41 @@ class TemperatureView @JvmOverloads constructor(
     }
     
     /**
+     * Set temperature data
+     */
+    fun setTemperature(tempBytes: ByteArray?) {
+        // Stub implementation for setting temperature data
+    }
+    
+    /**
+     * Set image size for temperature calculations
+     */
+    fun setImageSize(width: Int, height: Int, context: Context) {
+        // Stub implementation for setting image dimensions
+    }
+    
+    /**
+     * Set synchronization image
+     */
+    fun setSyncimage(syncImage: Any?) {
+        // Stub implementation for setting sync image
+    }
+    
+    /**
+     * Set use IR ISP flag
+     */
+    fun setUseIRISP(useIRISP: Boolean) {
+        // Stub implementation for IR ISP setting
+    }
+    
+    /**
+     * Start temperature view
+     */
+    fun start() {
+        // Stub implementation for starting temperature view
+    }
+    
+    /**
      * Temperature listener interface
      */
     fun interface TempListener {

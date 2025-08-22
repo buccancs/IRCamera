@@ -12,7 +12,9 @@ enum class FenceType(val value: Int, val displayName: String) {
     ELLIPSE(4, "Ellipse"),
     POLYGON(5, "Polygon"),
     CIRCLE(6, "Circle"),
-    FULL(7, "Full Screen");
+    FULL(7, "Full Screen"),
+    TREND(8, "Trend"),
+    DEL(9, "Delete");
     
     companion object {
         fun fromValue(value: Int): FenceType {
@@ -56,6 +58,8 @@ enum class FenceType(val value: Int, val displayName: String) {
             ELLIPSE -> 2
             POLYGON -> 3
             FULL -> 0  // Full screen needs no points
+            TREND -> 0  // Trend analysis needs no points
+            DEL -> 0    // Delete operation needs no points
         }
     }
 }

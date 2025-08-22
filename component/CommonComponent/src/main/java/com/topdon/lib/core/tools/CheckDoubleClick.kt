@@ -21,6 +21,10 @@ class CheckDoubleClick {
             return CheckDoubleClick().check()
         }
         
+        fun isFastDoubleClick(): Boolean {
+            return isDoubleClick()
+        }
+        
         fun preventDoubleClick(): Boolean {
             return !isDoubleClick()
         }

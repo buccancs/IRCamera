@@ -88,4 +88,17 @@
     <string name="main_person">Personal</string>
     <string name="testing_guidance">Testing Guide</string>
     <string name="dual_light_title">Dual Light Mode</string>
+    
+    <!-- Additional missing strings from build errors -->
+    <string name="correction_title">Temperature Correction</string>
+    <string name="save_setting_model">Save Settings</string>
+    <string name="connect_auto_open">Auto Connect</string>
+    <string name="english">English</string>
+    <string name="unlock_professional_perspectives">Unlock Professional Perspectives</string>
+    <string name="user_advice_feedback">Feedback &amp; Support</string>
+    <string name="set_clear_cache">Clear Cache</string>
+    <string name="setting_version">Version Information</string>
+    <string name="setting_model">Settings</string>
+    <string name="more_check_version">Check for Updates</string>
+    <string name="user_device_firmware_version">Firmware Version</string>
 </resources>

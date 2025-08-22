@@ -8,4 +8,6 @@
     
     <!-- Missing colors -->
     <color name="color_8A898E">#8A898E</color>
+    <color name="font_third_color">#999999</color>
+    <color name="lms_color_717171">#717171</color>
 </resources>

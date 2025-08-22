@@ -71,7 +71,10 @@
     <string name="compass_northwest">Northwest</string>
     
     <!-- Missing string resources identified in build errors -->
-    <string name="permission_request_camera_app">Camera permission is required for this feature</string>
+    <string name="permission_request_camera_app">%s requires camera permission to function properly</string>
+    <string name="permission_request_storage_app">%s requires storage permission to function properly</string>
     <string name="app_cancel">Cancel</string>
+    <string name="app_camera_content">Camera</string>
+    <string name="app_open">Open</string>
     
 </resources>

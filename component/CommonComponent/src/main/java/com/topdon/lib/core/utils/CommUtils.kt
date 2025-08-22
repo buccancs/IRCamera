@@ -68,5 +68,12 @@ class CommUtils {
             
             return String.format("%.1f %s", size, units[unitIndex])
         }
+        
+        /**
+         * Get application name
+         */
+        fun getAppName(): String {
+            return "IR Camera"
+        }
     }
 }
