@@ -84,4 +84,10 @@
     <string name="app_storage_content">Storage access required for saving images and videos</string>
     <string name="abnormal_item1">Temperature alert: </string>
     
+    <!-- Missing string resources identified in compilation errors -->
+    <string name="liveData_save_error">Failed to save data</string>
+    <string name="status_error_load_fail">Failed to load status</string>
+    <string name="setting_http_error">HTTP configuration error</string>
+    <string name="lms_setting_http_error">LMS HTTP setting error</string>
+    
 </resources>

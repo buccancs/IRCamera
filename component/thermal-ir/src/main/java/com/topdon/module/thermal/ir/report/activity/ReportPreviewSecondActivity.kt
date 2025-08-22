@@ -214,4 +214,11 @@ class ReportPreviewSecondActivity: BaseViewModelActivity<UpReportViewModel>(), V
         }
         return result
     }
+    
+    /**
+     * Handle request error - stub implementation for compilation
+     */
+    private fun requestError(throwable: Throwable) {
+        ToastUtils.showShort(R.string.setting_http_error)
+    }
 }

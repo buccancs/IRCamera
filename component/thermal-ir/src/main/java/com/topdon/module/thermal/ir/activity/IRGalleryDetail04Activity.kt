@@ -218,7 +218,7 @@ class IRGalleryDetail04Activity : BaseActivity() {
 
 
     private fun actionDownload(isToShare: Boolean) {
-        val data = dataList[position]
+        var data = dataList[position]
         if (data.hasDownload) {
             if (isToShare) {
                 actionShare()

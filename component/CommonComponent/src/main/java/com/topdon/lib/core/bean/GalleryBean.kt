@@ -9,7 +9,7 @@ data class GalleryBean(
     val path: String = "",
     override val time: Long = 0L,
     val size: Long = 0L,
-    val hasDownload: Boolean = true,
+    var hasDownload: Boolean = true,  // Changed to var to allow modification
     val isVideo: Boolean = false,
     val duration: Long = 0L
 ) : GalleryItem
