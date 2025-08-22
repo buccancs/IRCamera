@@ -18,6 +18,8 @@ import androidx.annotation.RequiresApi
 
 import com.blankj.utilcode.util.LanguageUtils
 import com.elvishew.xlog.XLog
+import com.topdon.lib.core.tools.ConstantLanguages
+import java.util.Locale
 import com.topdon.lib.core.bean.event.SocketMsgEvent
 import com.topdon.lib.core.broadcast.DeviceBroadcastReceiver
 import com.topdon.lib.core.common.SharedManager
@@ -183,23 +185,10 @@ abstract class BaseApplication : Application() {
     }
 
     open fun onLanguageChange() {
-        val selectLan = SharedManager.getLanguage(baseContext)
-        if (TextUtils.isEmpty(selectLan)) {
-            if (isDomestic()) {
-                val autoSelect = AppLanguageUtils.getChineseSystemLanguage()
-                val locale = AppLanguageUtils.getLocaleByLanguage(autoSelect)
-                LanguageUtils.applyLanguage(locale)
-                SharedManager.setLanguage(baseContext, autoSelect)
-            } else {
-                val autoSelect = AppLanguageUtils.getSystemLanguage()
-                val locale = AppLanguageUtils.getLocaleByLanguage(autoSelect)
-                LanguageUtils.applyLanguage(locale)
-                SharedManager.setLanguage(baseContext, autoSelect)
-            }
-        } else {
-            val locale = AppLanguageUtils.getLocaleByLanguage(SharedManager.getLanguage(this))
-            LanguageUtils.applyLanguage(locale)
-        }
+        // Always use English - no internationalization support
+        val locale = Locale.ENGLISH
+        LanguageUtils.applyLanguage(locale)
+        SharedManager.setLanguage(baseContext, ConstantLanguages.ENGLISH)
         WebView(this).destroy()
     }
 
