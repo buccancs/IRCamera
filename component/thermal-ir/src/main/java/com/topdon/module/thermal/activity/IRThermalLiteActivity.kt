@@ -104,7 +104,7 @@ import com.topdon.lib.ui.widget.seekbar.RangeSeekBar
 import com.topdon.libcom.AlarmHelp
 import com.topdon.libcom.dialog.ColorPickDialog
 import com.topdon.libcom.dialog.TempAlarmSetDialog
-import com.topdon.lms.sdk.LMS.mContext
+// import com.topdon.lms.sdk.LMS.mContext  // LMS SDK not available, removed
 import com.topdon.menu.constant.FenceType
 import com.topdon.menu.constant.SettingType
 import com.topdon.menu.constant.TwoLightType
@@ -118,8 +118,8 @@ import com.topdon.module.thermal.ir.repository.ConfigRepository
 import com.topdon.module.thermal.ir.utils.IRConfigData
 import com.topdon.module.thermal.ir.video.VideoRecordFFmpeg
 import com.topdon.module.thermal.ir.view.TimeDownView
-import com.topdon.pseudo.activity.PseudoSetActivity
-import com.topdon.pseudo.bean.CustomPseudoBean
+// import com.topdon.pseudo.activity.PseudoSetActivity  // Pseudo component removed
+// import com.topdon.pseudo.bean.CustomPseudoBean  // Pseudo component removed
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
