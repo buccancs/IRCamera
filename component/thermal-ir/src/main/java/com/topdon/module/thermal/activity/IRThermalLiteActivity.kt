@@ -1945,7 +1945,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
             delay(500)
             IRTool.setAutoShutter(false)
             //初始化对比度
-            IRTool.basicGlobalContrastLevelSet(((saveSetBean.contrastValue / 255.0f) * 100.0f).toInt())
+            IRTool.basicGlobalContrastLevelSet((saveSetBean.contrastValue.toFloat() / 255.0f * 100.0f).toInt())
             //镜像
             IRTool.basicMirrorAndFlipStatusSet(saveSetBean.isOpenMirror)
             thermalRecyclerNight.setSettingSelected(SettingType.MIRROR, saveSetBean.isOpenMirror)
