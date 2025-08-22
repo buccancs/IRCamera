@@ -18,8 +18,6 @@ import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.dialog.LoadingDialog
 import com.topdon.lib.core.tools.*
 import com.topdon.lib.core.dialog.TipCameraProgressDialog
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
 import com.topdon.lib.core.dialog.TipProgressDialog
 import com.topdon.lms.sdk.LMS
 import com.topdon.lms.sdk.bean.CommonBean
@@ -45,8 +43,11 @@ abstract class BaseActivity : RxAppCompatActivity() {
         super.onCreate(savedInstanceState)
         BaseApplication.instance.activitys.add(this)
         this.savedInstanceState = savedInstanceState
-        if(!EventBus.getDefault().isRegistered(this)){
+        // Register EventBus with try-catch to handle already registered cases
+        try {
             EventBus.getDefault().register(this)
+        } catch (e: Exception) {
+            // Already registered or other EventBus error
         }
 
         if (isLockPortrait()) {
@@ -66,8 +67,11 @@ abstract class BaseActivity : RxAppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        if(!EventBus.getDefault().isRegistered(this)){
+        // Register EventBus with try-catch to handle already registered cases
+        try {
             EventBus.getDefault().register(this)
+        } catch (e: Exception) {
+            // Already registered or other EventBus error
         }
     }
 
@@ -84,8 +88,11 @@ abstract class BaseActivity : RxAppCompatActivity() {
     override fun onDestroy() {
         cameraDialog?.dismiss()
         super.onDestroy()
-        if (EventBus.getDefault().isRegistered(this)){
+        // Unregister EventBus with try-catch to handle not registered cases
+        try {
             EventBus.getDefault().unregister(this)
+        } catch (e: Exception) {
+            // Not registered or other EventBus error
         }
         BaseApplication.instance.activitys.remove(this)
     }

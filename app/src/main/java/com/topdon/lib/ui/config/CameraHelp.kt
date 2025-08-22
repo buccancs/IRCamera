@@ -10,6 +10,11 @@ object CameraHelp {
     val TYPE_SET_ALARM = 6
     val TYPE_SET_COLOR = 7
     val TYPE_SET_MIRROR = 5
+    val TYPE_SET_COMPASS = 8
+    val TYPE_SET_WATERMARK = 9
+    val TYPE_SET_HIGHTEMP = 10
+    val TYPE_SET_LOWTEMP = 11
+    val TYPE_SET_DETELE = 12
 
 
 
