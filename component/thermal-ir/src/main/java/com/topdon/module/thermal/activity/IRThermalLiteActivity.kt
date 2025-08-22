@@ -121,6 +121,7 @@ import com.topdon.module.thermal.ir.view.TimeDownView
 // import com.topdon.pseudo.activity.PseudoSetActivity  // Pseudo component removed
 // import com.topdon.pseudo.bean.CustomPseudoBean  // Pseudo component removed
 import com.topdon.lib.core.bean.CustomPseudoBean  // Use our stub implementation
+import com.topdon.lib.ui.view.updateBitmap  // Extension function for ConstraintLayout
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -153,7 +154,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
 
     // View references (replacing synthetic imports)
     private val titleView by lazy { findViewById<com.topdon.lib.core.view.MainTitleView>(com.topdon.module.thermal.ir.R.id.title_view) }
-    private val timeDownView by lazy { findViewById<android.view.View>(com.topdon.module.thermal.ir.R.id.time_down_view) }
+    private val timeDownView by lazy { findViewById<TimeDownView>(com.topdon.module.thermal.ir.R.id.time_down_view) }
     private val temperatureSeekbar by lazy { findViewById<com.topdon.lib.ui.widget.seekbar.RangeSeekBar>(com.topdon.module.thermal.ir.R.id.temperature_seekbar) }
     private val thermalRecyclerNight by lazy { findViewById<com.topdon.lib.ui.widget.thermal.ThermalRecyclerView>(com.topdon.module.thermal.ir.R.id.thermal_recycler_night) }
     private val temperatureIvLock by lazy { findViewById<android.widget.ImageView>(com.topdon.module.thermal.ir.R.id.temperature_iv_lock) }
@@ -165,6 +166,12 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
     private val clTrendOpen by lazy { findViewById<android.view.View>(com.topdon.module.thermal.ir.R.id.cl_trend_open) }
     private val viewChartTrend by lazy { findViewById<com.topdon.lib.ui.widget.chart.ChartTrendView>(com.topdon.module.thermal.ir.R.id.view_chart_trend) }
     private val llTrendClose by lazy { findViewById<android.view.View>(com.topdon.module.thermal.ir.R.id.ll_trend_close) }
+    private val tvTempContent by lazy { findViewById<TextView>(com.topdon.module.thermal.ir.R.id.tv_temp_content) }
+    private val clSeekBar by lazy { findViewById<ConstraintLayout>(com.topdon.module.thermal.ir.R.id.cl_seek_bar) }
+    private val tempBg by lazy { findViewById<android.view.View>(com.topdon.module.thermal.ir.R.id.temp_bg) }
+    private val ivTrendClose by lazy { findViewById<android.widget.ImageView>(com.topdon.module.thermal.ir.R.id.iv_trend_close) }
+    private val ivTrendOpen by lazy { findViewById<android.widget.ImageView>(com.topdon.module.thermal.ir.R.id.iv_trend_open) }
+    private val temperatureIvInput by lazy { findViewById<android.widget.ImageView>(com.topdon.module.thermal.ir.R.id.temperature_iv_input) }
 
     private var pseudoColorMode = SaveSettingUtil.pseudoColorMode
 
@@ -309,7 +316,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
         initUSBMonitorManager()
         DeviceControlManager.getInstance().init()
         titleView.setLeftClickListener {
-            if (timeDownView.isRunning) {
+            if (timeDownView.isRunning()) {
                 return@setLeftClickListener
             }
             setResult(200)
@@ -404,13 +411,13 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                 TipShutterDialog.Builder(this)
                     .setTitle(com.topdon.module.thermal.ir.R.string.tc_high_temp_test)
                     .setMessage(message)
-                    .setCancelListener { isCheck ->
+                    .setCancelListener { isCheck: Boolean ->
                         SharedManager.isTipHighTemp = !isCheck
                     }
                     .create().show()
             }
         }
-        thermal_recycler_night.onTwoLightListener = { twoLightType, isSelected ->
+        thermalRecyclerNight.onTwoLightListener = { twoLightType: Any, isSelected: Boolean ->
             setTwoLight(twoLightType, isSelected)
         }
         updateTemperatureSeekBar(false)//加锁
@@ -434,14 +441,14 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
         temperatureView.setOnTrendRemoveListener {
             viewChartTrend.setToEmpty()
         }
-        temperatureView.listener = TemperatureView.TempListener { max, min, _ ->
+        temperatureView.listener = TemperatureView.TempListener { max: Float, min: Float, avg: Float ->
             realLeftValue = UnitTools.showUnitValue(min, isShowC)
             realRightValue = UnitTools.showUnitValue(max, isShowC)
             this@IRThermalLiteActivity.runOnUiThread {
                 if (!customPseudoBean.isUseCustomPseudo) {
                     //动态渲染模式
                     try {
-                        temperature_seekbar.setRangeAndPro(
+                        temperatureSeekbar.setRangeAndPro(
                             UnitTools.showUnitValue(editMinValue, isShowC),
                             UnitTools.showUnitValue(editMaxValue, isShowC),
                             realLeftValue,
@@ -456,37 +463,37 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                     } catch (e: Exception) {
                     }
                     try {
-                        tv_temp_content.text = "Max:${UnitTools.showC(max, isShowC)}\nMin:${UnitTools.showC(min, isShowC)}"
+                        tvTempContent.text = "Max:${UnitTools.showC(max, isShowC)}\nMin:${UnitTools.showC(min, isShowC)}"
                     } catch (e: Exception) {
                     }
                 } else {
                     //自定义渲染
                     try {
-                        tv_temp_content.text = " Max:${UnitTools.showC(max, isShowC)}\nMin:${UnitTools.showC(min, isShowC)}"
+                        tvTempContent.text = " Max:${UnitTools.showC(max, isShowC)}\nMin:${UnitTools.showC(min, isShowC)}"
                     } catch (e: Exception) {
                     }
                 }
                 try {
                     if (isVideo) {
-                        cl_seek_bar.requestLayout()
-                        cl_seek_bar.updateBitmap()
+                        clSeekBar.requestLayout()
+                        clSeekBar.updateBitmap()
                     }
                 } catch (e: Exception) {
                 }
                 try {
-                    AlarmHelp.getInstance(application).alarmData(max, min, temp_bg)
+                    AlarmHelp.getInstance(application).alarmData(max, min, tempBg)
                 } catch (e: Exception) {
                 }
             }
 
         }
         addTemperatureListener()
-        if (SaveSettingUtil.isOpenTwoLight){
+        if (SaveSettingUtil.isOpenTwoLight()) {
             cameraPreviewConfig(false)
         }
         lifecycleScope.launch {
             delay(1000)
-            if (!SharedManager.isHideEmissivityTips){
+            if (!SharedManager.isHideEmissivityTips()) {
                 showEmissivityTips()
             }
         }
@@ -513,13 +520,13 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
 //        handler?.postDelayed(shutterRunnable!!,5000L)
         initOrientationEventListener()
 
-        iv_trend_close.setOnClickListener {
-            cl_trend_open.isVisible = false
-            ll_trend_close.isVisible = true
+        ivTrendClose.setOnClickListener {
+            clTrendOpen.isVisible = false
+            llTrendClose.isVisible = true
         }
-        iv_trend_open.setOnClickListener {
-            cl_trend_open.isVisible = true
-            ll_trend_close.isVisible = false
+        ivTrendOpen.setOnClickListener {
+            clTrendOpen.isVisible = true
+            llTrendClose.isVisible = false
         }
     }
 
@@ -588,30 +595,32 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
             .setDataBean(config.environment,config.distance,config.radiation,text)
             .create()
         dialog.onDismissListener = {
-            SharedManager.isHideEmissivityTips = it
+            SharedManager.isHideEmissivityTips(it)
         }
         dialog.show()
     }
 
     private fun addTemperatureListener() {
 
-        temperature_iv_lock.setOnClickListener {
-            if (temperature_iv_lock.visibility != View.VISIBLE) {
+        temperatureIvLock.setOnClickListener {
+            if (temperatureIvLock.visibility != View.VISIBLE) {
                 return@setOnClickListener
             }
-            if (temperature_iv_lock.contentDescription == "lock") {
+            if (temperatureIvLock.contentDescription == "lock") {
                 updateTemperatureSeekBar(true)//解锁
             } else {
                 setDefLimit()
                 updateTemperatureSeekBar(false)//加锁
             }
         }
-        temperature_iv_input.setOnClickListener {
+        /*
+        temperatureIvInput.setOnClickListener {
             val intent = Intent(this, PseudoSetActivity::class.java)
             intent.putExtra(ExtraKeyConfig.IS_TC007, false)
             pseudoSetResult.launch(intent)
         }
-        temperature_seekbar.setOnRangeChangedListener(object : OnRangeChangedListener {
+        */
+        temperatureSeekbar.setOnRangeChangedListener(object : OnRangeChangedListener {
             override fun onRangeChanged(
                 view: RangeSeekBar?,
                 leftValue: Float,

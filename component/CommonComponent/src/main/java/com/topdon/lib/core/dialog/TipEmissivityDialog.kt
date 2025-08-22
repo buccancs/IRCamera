@@ -8,6 +8,8 @@ import android.content.Context
  */
 class TipEmissivityDialog(context: Context) : Dialog(context) {
     
+    var onDismissListener: ((Boolean) -> Unit)? = null
+    
     override fun show() {
         // Stub implementation
     }
@@ -22,5 +24,24 @@ class TipEmissivityDialog(context: Context) : Dialog(context) {
     
     fun getEmissivityValue(): Float {
         return 0.95f // Default emissivity value
+    }
+    
+    class Builder(private val context: Context) {
+        private var environment: String = ""
+        private var distance: String = ""
+        private var radiation: String = ""
+        private var text: String = ""
+        
+        fun setDataBean(environment: String, distance: String, radiation: String, text: String): Builder {
+            this.environment = environment
+            this.distance = distance
+            this.radiation = radiation
+            this.text = text
+            return this
+        }
+        
+        fun create(): TipEmissivityDialog {
+            return TipEmissivityDialog(context)
+        }
     }
 }

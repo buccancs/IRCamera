@@ -117,6 +117,13 @@ public class TimeDownView : AppCompatTextView {
         timer = null
         isRunning = false
     }
+    
+    /**
+     * Check if timer is running - method version
+     */
+    fun isRunning(): Boolean {
+        return isRunning
+    }
 
     private inner class DownTimerTask : TimerTask() {
         override fun run() {

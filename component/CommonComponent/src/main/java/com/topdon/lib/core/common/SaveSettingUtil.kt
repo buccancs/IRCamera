@@ -98,6 +98,13 @@ object SaveSettingUtil {
         set(value) = SharedManager.setBoolean("video_mode", value)
     
     /**
+     * Two light mode setting
+     */
+    var isOpenTwoLight: Boolean
+        get() = SharedManager.getBoolean("open_two_light", false)
+        set(value) = SharedManager.setBoolean("open_two_light", value)
+    
+    /**
      * Reset save settings
      */
     fun reset() {

@@ -117,6 +117,14 @@ object SharedManager {
     var isTipHighTemp: Boolean
         get() = getBoolean("is_tip_high_temp", true)
         set(value) = setBoolean("is_tip_high_temp", value)
+    
+    // Two light feature
+    fun isOpenTwoLight(): Boolean = getBoolean("is_open_two_light", false)
+    fun setOpenTwoLight(value: Boolean) = setBoolean("is_open_two_light", value)
+    
+    // Emissivity tips visibility
+    fun isHideEmissivityTips(): Boolean = getBoolean("is_hide_emissivity_tips", false)
+    fun isHideEmissivityTips(value: Boolean) = setBoolean("is_hide_emissivity_tips", value)
 }
 
 /**

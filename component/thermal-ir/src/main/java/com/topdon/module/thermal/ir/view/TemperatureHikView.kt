@@ -16,8 +16,9 @@ import com.energy.iruvc.sdkisp.LibIRTemp
 import com.energy.iruvc.sdkisp.LibIRTemp.TemperatureSampleResult
 import com.energy.iruvc.utils.CommonParams.IRPROCSRCFMTType
 import com.energy.iruvc.utils.Line
-import com.infisense.usbir.utils.TempDrawHelper.Companion.correct
-import com.infisense.usbir.utils.TempUtil
+import com.topdon.lib.ui.view.correct  // Our extension function
+// import com.infisense.usbir.utils.TempUtil  // External library - create stub
+import com.topdon.lib.core.utils.TempUtil  // Our stub implementation
 
 /**
  * 海康点线面温度图层 View.

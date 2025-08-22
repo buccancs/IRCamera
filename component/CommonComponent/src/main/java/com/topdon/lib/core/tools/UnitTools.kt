@@ -30,15 +30,35 @@ class UnitTools {
         }
         
         /**
-         * Convert distance units
+         * Show temperature value with appropriate unit display
          */
-        fun convertDistance(value: Float, fromUnit: String, toUnit: String): Float {
-            return when {
-                fromUnit == "m" && toUnit == "cm" -> value * 100
-                fromUnit == "cm" && toUnit == "m" -> value / 100
-                fromUnit == "m" && toUnit == "mm" -> value * 1000
-                fromUnit == "mm" && toUnit == "m" -> value / 1000
-                else -> value
+        fun showUnitValue(value: Float, isShowC: Boolean): Float {
+            return if (isShowC) {
+                value // Already in Celsius
+            } else {
+                convertTemperature(value, "C", "F") // Convert to Fahrenheit
+            }
+        }
+        
+        /**
+         * Show temperature with unit formatting for display
+         */
+        fun showC(value: Float, isShowC: Boolean): String {
+            return if (isShowC) {
+                "${value}°C"
+            } else {
+                "${convertTemperature(value, "C", "F")}°F"
+            }
+        }
+        
+        /**
+         * Show temperature value converted to Celsius
+         */
+        fun showToCValue(value: Float, isShowC: Boolean): Float {
+            return if (isShowC) {
+                value // Already in Celsius
+            } else {
+                convertTemperature(value, "F", "C") // Convert from Fahrenheit to Celsius
             }
         }
     }

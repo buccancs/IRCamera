@@ -19,6 +19,12 @@ class RangeSeekBar @JvmOverloads constructor(
     private var maxValue: Float = 100f
     private var listener: OnRangeChangedListener? = null
     
+    companion object {
+        const val TEMP_MODE_MIN = 1
+        const val TEMP_MODE_MAX = 2
+        const val TEMP_MODE_INTERVAL = 3
+    }
+    
     /**
      * Set range changed listener
      */
@@ -56,6 +62,18 @@ class RangeSeekBar @JvmOverloads constructor(
      * Get right value  
      */
     fun getRightValue(): Float = rightValue
+    
+    /**
+     * Set range and progress values 
+     */
+    fun setRangeAndPro(minVal: Float, maxVal: Float, leftVal: Float, rightVal: Float) {
+        this.minValue = minVal
+        this.maxValue = maxVal
+        this.leftValue = leftVal.coerceIn(minVal, maxVal)
+        this.rightValue = rightVal.coerceIn(minVal, maxVal)
+        invalidate()
+        listener?.onRangeChanged(this, this.leftValue, this.rightValue, false)
+    }
     
     /**
      * Get min value

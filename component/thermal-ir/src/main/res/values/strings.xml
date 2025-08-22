@@ -60,4 +60,14 @@
     <string name="tc_high_temp_test_tips1">High temperature mode warning:</string>
     <string name="tc_high_temp_test_tips2">Please ensure proper safety precautions</string>
     
+    <!-- Compass direction strings -->
+    <string name="compass_north">North</string>
+    <string name="compass_northeast">Northeast</string>
+    <string name="compass_east">East</string>
+    <string name="compass_southeast">Southeast</string>
+    <string name="compass_south">South</string>
+    <string name="compass_southwest">Southwest</string>
+    <string name="compass_west">West</string>
+    <string name="compass_northwest">Northwest</string>
+    
 </resources>

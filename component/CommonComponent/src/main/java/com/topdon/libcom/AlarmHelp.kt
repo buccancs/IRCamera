@@ -6,6 +6,17 @@ package com.topdon.libcom
 class AlarmHelp {
     
     companion object {
+        @Volatile
+        private var INSTANCE: AlarmHelp? = null
+        
+        /**
+         * Get singleton instance
+         */
+        fun getInstance(application: android.app.Application): AlarmHelp {
+            return INSTANCE ?: synchronized(this) {
+                INSTANCE ?: AlarmHelp().also { INSTANCE = it }
+            }
+        }
         
         /**
          * Set temperature alarm
@@ -48,12 +59,16 @@ class AlarmHelp {
         fun getAlarmConfig(): AlarmConfig {
             return AlarmConfig()
         }
-        
-        /**
-         * Check alarm trigger condition
-         */
-        fun checkAlarmTrigger(temperature: Float): AlarmResult {
-            return AlarmResult(false, "Normal", temperature)
+    }
+    
+    /**
+     * Process alarm data with temperature readings
+     */
+    fun alarmData(maxTemp: Float, minTemp: Float, view: android.view.View) {
+        // Stub implementation for temperature alarm processing
+        val alarmThreshold = 50f // Example threshold
+        if (maxTemp > alarmThreshold) {
+            // Trigger visual alarm indication
         }
     }
 }
