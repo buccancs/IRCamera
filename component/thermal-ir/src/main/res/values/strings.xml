@@ -39,6 +39,7 @@
     <string name="seconds_dalay_3">3 second delay</string>
     <string name="seconds_dalay_6">6 second delay</string>
     <string name="shutter_tips">Shutter adjustment tips</string>
+    <string name="tip_video_record">Video recording in progress</string>
     <string name="battery_share">Share</string>
     <string name="finalize_and_save">Finalize and Save</string>
     <string name="app_no">No</string>

@@ -178,6 +178,8 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
     private val temperatureIvInput by lazy { findViewById(com.topdon.module.thermal.ir.R.id.temperature_iv_input) as android.widget.ImageView }
     
     // Missing view references that were causing compilation errors
+    private val popTimeText by lazy { findViewById(com.topdon.module.thermal.ir.R.id.pop_time_text) as TextView }
+    private val popTimeLay by lazy { findViewById(com.topdon.module.thermal.ir.R.id.pop_time_lay) as android.view.View }
     private val fpsText by lazy { findViewById<TextView>(com.topdon.module.thermal.ir.R.id.fpsText) }
     private val cameraView by lazy { findViewById<com.topdon.lib.ui.widget.LiteSurfaceView>(com.topdon.module.thermal.ir.R.id.cameraView) }
     private val tvTypeInd by lazy { findViewById<TextView>(com.topdon.module.thermal.ir.R.id.tv_type_ind) }
@@ -1502,7 +1504,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                                 cameraItemAdapter!!.notifyItemChanged(position)
                                 if (SharedManager.isTipShutter && !isAutoShutter) {
                                     val dialog = TipShutterDialog.Builder(this)
-                                        .setMessage(getString(com.topdon.module.thermal.ir.R.string.shutter_tips))
+                                        .setMessage(android.text.SpannableString(getString(com.topdon.module.thermal.ir.R.string.shutter_tips)))
                                         .setCancelListener { isCheck ->
                                             SharedManager.isTipShutter = !isCheck
                                         }
@@ -1516,7 +1518,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                         cameraItemAdapter!!.dataList[position].isSel = !cameraItemAdapter!!.dataList[position].isSel
                         cameraItemAdapter!!.notifyItemChanged(position)
                     }
-                    recyclerView.adapter = cameraItemAdapter
+                    recyclerView.adapter = cameraItemAdapter as RecyclerView.Adapter<RecyclerView.ViewHolder>
                 }
             })
         } else {
@@ -1649,7 +1651,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                                     //连续拍照
                                     autoJob = countDownCoroutines(
                                         setting.count,
-                                        setting.continuaTime,
+                                        setting.continuaTime.toLong(),
                                         this@IRThermalLiteActivity.lifecycleScope,
                                         onTick = {
                                             camera()
@@ -1828,7 +1830,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
             temperatureView,
             true,
             clSeekBar,
-            temp_bg,
+            tempBg,
             null, null,
             carView = layCarDetectPrompt
         )
@@ -1845,7 +1847,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                     if (isShowVideoRecordTips) {
                         try {
                             val dialog = TipDialog.Builder(this@IRThermalLiteActivity)
-                                .setMessage(com.topdon.module.thermal.ir.R.string.tip_video_record)
+                                .setMessage(getString(com.topdon.module.thermal.ir.R.string.tip_video_record))
                                 .create()
                             dialog.show()
                         } catch (_: Exception) {
@@ -1918,7 +1920,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
             CameraPreviewManager.getInstance().setColorList(null,null, false,0f,0f)
             temperatureSeekbar.progressColor
             temperatureIvLock.visibility = View.VISIBLE
-            tv_temp_content.visibility = View.GONE
+            tvTempContent.visibility = View.GONE
             temperatureIvInput.setImageResource(com.topdon.module.thermal.ir.R.drawable.ic_color_edit)
             thermalRecyclerNight.setPseudoColor(pseudoColorMode)
         }
@@ -1969,7 +1971,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
             customPseudoBean.getPlaceList(),
             customPseudoBean.isUseGray, customPseudoBean.maxTemp, customPseudoBean.minTemp
         )
-        tv_temp_content.visibility = View.VISIBLE
+        tvTempContent.visibility = View.VISIBLE
         thermalRecyclerNight.setPseudoColor(-1)
         temperatureIvInput.setImageResource(com.topdon.module.thermal.ir.R.drawable.ir_model)
     }
@@ -1984,7 +1986,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                 }
             }.collect {
                 launch(Dispatchers.Main) {
-                    pop_time_text.text = TimeTool.showVideoTime(it * 1000L)
+                    popTimeText.text = TimeTool.showVideoTime(it * 1000L)
                 }
                 if (it == time - 1) {
                     //停止
@@ -1992,12 +1994,12 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                 }
             }
         }
-        pop_time_lay.visibility = View.VISIBLE
+        popTimeLay.visibility = View.VISIBLE
     }
     private fun videoTimeClose() {
         flow?.cancel()
         flow = null
-        pop_time_lay.visibility = View.GONE
+        popTimeLay.visibility = View.GONE
     }
 
     override fun onStart() {
