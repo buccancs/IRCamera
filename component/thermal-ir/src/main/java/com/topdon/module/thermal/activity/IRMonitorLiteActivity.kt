@@ -337,11 +337,11 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTem
         // Handle temperature range change
     }
     
-    fun onTempMeasureComplete() {
+    override fun onTempMeasureComplete() {
         // Handle temperature measurement complete
     }
     
-    override fun onTempError(error: String) {
+    fun onTempError(error: String) {
         // Handle temperature error
         showToast(error)
     }
