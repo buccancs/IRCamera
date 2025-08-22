@@ -10,7 +10,9 @@ enum class TwoLightType(val value: Int, val displayName: String) {
     IR_LIGHT(2, "IR Light"),
     DUAL_LIGHT(3, "Dual Light"),
     THERMAL_LIGHT(4, "Thermal Light"),
-    COMBINED(5, "Combined");
+    COMBINED(5, "Combined"),
+    P_IN_P(6, "Picture in Picture"),
+    BLEND_EXTENT(7, "Blend Extent");
     
     companion object {
         fun fromValue(value: Int): TwoLightType {
@@ -66,6 +68,8 @@ enum class TwoLightType(val value: Int, val displayName: String) {
             THERMAL_LIGHT -> other.supportsThermal() || other == NONE
             DUAL_LIGHT -> other.supportsVisible() || other.supportsIR()
             COMBINED -> true
+            P_IN_P -> true
+            BLEND_EXTENT -> true
         }
     }
 }

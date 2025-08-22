@@ -14,6 +14,17 @@ class TemperatureView @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
     
     var listener: TempListener? = null
+    var temperatureRegionMode: Int = 0  // Temperature region mode property
+    var isShowFull: Boolean = false     // Show full property
+    
+    /**
+     * Clear temperature measurements
+     */
+    fun clear() {
+        // Stub implementation for clearing temperature data
+        temperatureRegionMode = 0
+        invalidate()
+    }
     
     /**
      * Set text size

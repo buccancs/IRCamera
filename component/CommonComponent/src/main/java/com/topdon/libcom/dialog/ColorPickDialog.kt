@@ -6,10 +6,15 @@ import android.content.Context
 /**
  * Color picker dialog - stub implementation for compilation
  */
-class ColorPickDialog(context: Context) : Dialog(context) {
+class ColorPickDialog @JvmOverloads constructor(
+    context: Context,
+    private val initialColor: Int = 0xFF000000.toInt(),
+    private val textSize: Int = 14
+) : Dialog(context) {
     
-    private var selectedColor: Int = 0xFF000000.toInt()
+    private var selectedColor: Int = initialColor
     private var onColorSelectedListener: ((Int) -> Unit)? = null
+    var onPickListener: ((color: Int, textSize: Int) -> Unit)? = null
     
     override fun show() {
         // Stub implementation

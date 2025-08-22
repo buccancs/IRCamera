@@ -45,20 +45,22 @@ object SaveSettingUtil {
     /**
      * Alarm bean configuration
      */
-    var alarmBean: AlarmConfig
-        get() = AlarmConfig(
-            enabled = SharedManager.getBoolean("alarm_enabled", false),
-            soundEnabled = SharedManager.getBoolean("alarm_sound", true),
-            vibrationEnabled = SharedManager.getBoolean("alarm_vibration", true),
-            minTemperature = SharedManager.getFloat("alarm_min_temp", 0f),
-            maxTemperature = SharedManager.getFloat("alarm_max_temp", 100f)
+    var alarmBean: com.topdon.lib.core.bean.AlarmBean
+        get() = com.topdon.lib.core.bean.AlarmBean(
+            isLowOpen = SharedManager.getBoolean("alarm_low_open", false),
+            isHighOpen = SharedManager.getBoolean("alarm_high_open", false),
+            lowTemp = SharedManager.getFloat("alarm_low_temp", 0f),
+            highTemp = SharedManager.getFloat("alarm_high_temp", 100f),
+            isRingtoneOpen = SharedManager.getBoolean("alarm_ringtone_open", true),
+            ringtoneType = SharedManager.getInt("alarm_ringtone_type", 0)
         )
         set(value) {
-            SharedManager.setBoolean("alarm_enabled", value.enabled)
-            SharedManager.setBoolean("alarm_sound", value.soundEnabled)
-            SharedManager.setBoolean("alarm_vibration", value.vibrationEnabled)
-            SharedManager.setFloat("alarm_min_temp", value.minTemperature)
-            SharedManager.setFloat("alarm_max_temp", value.maxTemperature)
+            SharedManager.setBoolean("alarm_low_open", value.isLowOpen)
+            SharedManager.setBoolean("alarm_high_open", value.isHighOpen)
+            SharedManager.setFloat("alarm_low_temp", value.lowTemp)
+            SharedManager.setFloat("alarm_high_temp", value.highTemp)
+            SharedManager.setBoolean("alarm_ringtone_open", value.isRingtoneOpen)
+            SharedManager.setInt("alarm_ringtone_type", value.ringtoneType)
         }
     
     /**
@@ -116,6 +118,6 @@ object SaveSettingUtil {
         isRecordAudio = false
         isAutoShutter = true
         isVideoMode = false
-        alarmBean = AlarmConfig()
+        alarmBean = com.topdon.lib.core.bean.AlarmBean()
     }
 }

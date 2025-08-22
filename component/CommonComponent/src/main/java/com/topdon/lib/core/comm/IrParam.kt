@@ -19,6 +19,9 @@ data class IrParam(
     }
     
     companion object {
+        // Parameter types for configuration
+        const val ParamPColor = 1  // Pseudo color parameter
+        const val ParamAlarm = 2   // Alarm parameter
         
         /**
          * Create default IR parameters

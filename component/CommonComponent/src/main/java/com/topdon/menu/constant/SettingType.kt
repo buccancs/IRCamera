@@ -22,7 +22,13 @@ enum class SettingType(val value: Int, val displayName: String) {
     TIME_FORMAT(15, "Time Format"),
     AUTO_SAVE(16, "Auto Save"),
     SOUND_ENABLED(17, "Sound"),
-    VIBRATION_ENABLED(18, "Vibration");
+    VIBRATION_ENABLED(18, "Vibration"),
+    PSEUDO_BAR(19, "Pseudo Bar"),
+    DETAIL(20, "Detail"),
+    ALARM(21, "Alarm"),
+    ROTATE(22, "Rotate"),
+    FONT(23, "Font"),
+    MIRROR(24, "Mirror");
     
     companion object {
         fun fromValue(value: Int): SettingType {

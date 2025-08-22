@@ -128,6 +128,8 @@
         <attr name="rsb_step_radius" format="dimension" />
         <attr name="rsb_step_auto_bonding" format="boolean" />
         <attr name="rsb_step_drawable" format="reference" />
+        <attr name="rsb_step_padding_left" format="dimension" />
+        <attr name="rsb_step_padding_right" format="dimension" />
 
     </declare-styleable>
 

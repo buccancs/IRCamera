@@ -49,4 +49,53 @@ class ThermalRecyclerView @JvmOverloads constructor(
     fun setPseudoColor(colorMode: Int) {
         // Stub implementation
     }
+    
+    /**
+     * Set setting selected
+     */
+    fun setSettingSelected(settingType: SettingType, isSelected: Boolean) {
+        // Stub implementation
+    }
+    
+    /**
+     * Set two light selected
+     */
+    fun setTwoLightSelected(twoLightType: TwoLightType, isSelected: Boolean) {
+        // Stub implementation
+    }
+    
+    /**
+     * Set setting rotate angle
+     */
+    fun setSettingRotate(rotateAngle: Int) {
+        // Stub implementation
+    }
+    
+    /**
+     * Set to record mode
+     */
+    fun setToRecord(isRecord: Boolean) {
+        // Stub implementation
+    }
+    
+    /**
+     * Set to camera mode
+     */
+    fun setToCamera() {
+        // Stub implementation
+    }
+    
+    /**
+     * Refresh image
+     */
+    fun refreshImg() {
+        // Stub implementation
+    }
+    
+    /**
+     * Update camera model
+     */
+    fun updateCameraModel() {
+        // Stub implementation
+    }
 }
