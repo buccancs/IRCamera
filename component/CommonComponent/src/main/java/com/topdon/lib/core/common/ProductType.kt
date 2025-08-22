@@ -15,6 +15,12 @@ enum class ProductType(val value: Int, val displayName: String) {
     UNKNOWN(0, "Unknown");
     
     companion object {
+        // Product name constants for backward compatibility
+        const val PRODUCT_NAME_TC001LITE = "TC001 Lite"
+        const val PRODUCT_NAME_TC001 = "TC001"
+        const val PRODUCT_NAME_TS004 = "TS004"
+        const val PRODUCT_NAME_TC007 = "TC007"
+        
         fun fromValue(value: Int): ProductType {
             return values().find { it.value == value } ?: UNKNOWN
         }

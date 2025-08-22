@@ -77,4 +77,15 @@
     <string name="person_save">Save</string>
     <string name="album_menu_Photos">Photos</string>
     <string name="app_video">Videos</string>
+    
+    <!-- Missing strings identified in build errors -->
+    <string name="more_storage_reset">Reset Storage</string>
+    <string name="ts004_tisr_title">TISR Settings</string>
+    <string name="ts004_tisr_tips">Configure TISR (Temperature Image Super Resolution) settings for enhanced image quality.</string>
+    <string name="setting_unit">Unit Settings</string>
+    <string name="ts004_download_doing">Downloading...</string>
+    <string name="ts004_firmware_installing">Installing firmware...</string>
+    <string name="main_person">Personal</string>
+    <string name="testing_guidance">Testing Guide</string>
+    <string name="dual_light_title">Dual Light Mode</string>
 </resources>

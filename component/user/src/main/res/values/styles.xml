@@ -38,5 +38,13 @@
         <attr name="titleText" format="string|reference" />
         <attr name="rightText" format="string|reference" />
         <attr name="rightTextColor" format="color|reference" />
+        <attr name="isTitleCenter" format="boolean" />
+        <attr name="isInitLeft" format="boolean" />
+    </declare-styleable>
+    
+    <declare-styleable name="LoadingIndicatorView">
+        <attr name="lms_dot_spacing" format="dimension" />
+        <attr name="lms_dot_radius" format="dimension" />
+        <attr name="lms_dot_move_rate" format="float" />
     </declare-styleable>
 </resources>

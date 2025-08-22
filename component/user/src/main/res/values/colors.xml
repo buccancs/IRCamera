@@ -5,4 +5,7 @@
     <color name="font_second_color">#CCCCCC</color>
     <color name="color_font">#FFFFFF</color>
     <color name="color_font_five">#888888</color>
+    
+    <!-- Missing colors -->
+    <color name="color_8A898E">#8A898E</color>
 </resources>

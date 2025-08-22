@@ -28,7 +28,9 @@ enum class SettingType(val value: Int, val displayName: String) {
     ALARM(21, "Alarm"),
     ROTATE(22, "Rotate"),
     FONT(23, "Font"),
-    MIRROR(24, "Mirror");
+    MIRROR(24, "Mirror"),
+    COMPASS(25, "Compass"),
+    WATERMARK(26, "Watermark");
     
     companion object {
         fun fromValue(value: Int): SettingType {

@@ -2,4 +2,7 @@
 <resources>
     <dimen name="app_font">16sp</dimen>
     <dimen name="app_small_font">12sp</dimen>
+    
+    <!-- Missing dimensions -->
+    <dimen name="dp_24">24dp</dimen>
 </resources>

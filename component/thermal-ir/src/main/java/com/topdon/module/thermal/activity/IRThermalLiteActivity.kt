@@ -167,7 +167,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
     private val viewChartTrend by lazy { findViewById(com.topdon.module.thermal.ir.R.id.view_chart_trend) as com.topdon.lib.ui.widget.chart.ChartTrendView }
     private val llTrendClose by lazy { findViewById(com.topdon.module.thermal.ir.R.id.ll_trend_close) as android.view.View }
     private val tvTempContent by lazy { findViewById(com.topdon.module.thermal.ir.R.id.tv_temp_content) as TextView }
-    private val clSeekBar by lazy { findViewById(com.topdon.module.thermal.ir.R.id.clSeekBar) as ConstraintLayout }
+    private val clSeekBar by lazy { findViewById(com.topdon.module.thermal.ir.R.id.cl_seek_bar) as com.topdon.lib.ui.widget.BitmapConstraintLayout }
     private val tempBg by lazy { findViewById(com.topdon.module.thermal.ir.R.id.temp_bg) as android.view.View }
     private val ivTrendClose by lazy { findViewById(com.topdon.module.thermal.ir.R.id.iv_trend_close) as android.widget.ImageView }
     private val ivTrendOpen by lazy { findViewById(com.topdon.module.thermal.ir.R.id.iv_trend_open) as android.widget.ImageView }
@@ -823,6 +823,9 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
             SettingType.WATERMARK -> {
                 //水印菜单只有 2D 编辑才有
             }
+            else -> {
+                // Handle other settings not specifically implemented in this activity
+            }
         }
     }
 
@@ -833,9 +836,9 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
     private fun showBlendExtentPopup() {
         val seekBarPopup = SeekBarPopup(this, true)
         seekBarPopup.isRealTimeTrigger = true
-        seekBarPopup.progress = cameraAlpha
-        seekBarPopup.onValuePickListener = {
-            cameraAlpha = it
+        seekBarPopup.progress = cameraAlpha.toInt()
+        seekBarPopup.onValuePickListener = { it: Int ->
+            cameraAlpha = it.toFloat()
             SaveSettingUtil.twoLightAlpha = cameraAlpha
             cameraPreview?.setCameraAlpha(cameraAlpha / 100.0f)
         }
@@ -867,7 +870,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                     }
                     if (temperatureMode == CameraItemBean.TYPE_TMP_ZD &&
                         SaveSettingUtil.temperatureMode != temperatureMode) {
-                        ToastTools.showShort(com.topdon.module.thermal.ir.R.string.auto_open)
+                        TToast.showShort(this, com.topdon.module.thermal.ir.R.string.auto_open)
                     }
                     SaveSettingUtil.temperatureMode = temperatureMode
                 }
