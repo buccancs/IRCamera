@@ -32,5 +32,14 @@ data class CameraItemBean(
         const val TYPE_TMP_ZD = -1  // Auto temperature mode
         const val TYPE_TMP_C = 1    // Normal temperature mode (high gain)
         const val TYPE_TMP_H = 0    // High temperature mode (low gain)
+        
+        // Camera menu item types
+        const val TYPE_SETTING = 100  // Settings menu item
+        const val TYPE_DELAY = 101    // Delay capture menu item
+        
+        // Delay time constants
+        const val DELAY_TIME_0 = 0    // No delay
+        const val DELAY_TIME_3 = 3    // 3 second delay
+        const val DELAY_TIME_6 = 6    // 6 second delay
     }
 }

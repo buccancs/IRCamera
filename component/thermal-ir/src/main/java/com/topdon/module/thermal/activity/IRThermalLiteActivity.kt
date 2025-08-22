@@ -156,13 +156,13 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
 
     // View references (replacing synthetic imports)
     private val titleView by lazy { findViewById(com.topdon.module.thermal.ir.R.id.title_view) as com.topdon.lib.core.view.MainTitleView }
-    private val timeDownView by lazy { findViewById(com.topdon.module.thermal.ir.R.id.time_down_view) as TimeDownView }
+    private val timeDownView by lazy { findViewById(com.topdon.module.thermal.ir.R.id.timeDownView) as TimeDownView }
     private val temperatureSeekbar by lazy { findViewById(com.topdon.module.thermal.ir.R.id.temperature_seekbar) as com.jaygoo.widget.DefRangeSeekBar }
     private val thermalRecyclerNight by lazy { findViewById(com.topdon.module.thermal.ir.R.id.thermal_recycler_night) as com.topdon.lib.ui.widget.thermal.ThermalRecyclerView }
     private val temperatureIvLock by lazy { findViewById(com.topdon.module.thermal.ir.R.id.temperature_iv_lock) as android.widget.ImageView }
     private val viewCarDetect by lazy { findViewById(com.topdon.module.thermal.ir.R.id.view_car_detect) as android.view.View }
     private val temperatureView by lazy { findViewById(com.topdon.module.thermal.ir.R.id.temperatureView) as com.topdon.lib.ui.widget.temperature.TemperatureView }
-    private val viewStubCamera by lazy { findViewById(com.topdon.module.thermal.ir.R.id.view_stub_camera) as android.view.View }
+    private val viewStubCamera by lazy { findViewById(com.topdon.module.thermal.ir.R.id.viewStubCamera) as android.view.View }
     private val cameraPreview by lazy { findViewById(com.topdon.module.thermal.ir.R.id.cameraPreview) as com.topdon.lib.ui.widget.camera.CameraPreviewView }
     private val viewMenuFirst by lazy { findViewById(com.topdon.module.thermal.ir.R.id.view_menu_first) as com.topdon.lib.ui.widget.menu.MenuView }
     private val clTrendOpen by lazy { findViewById(com.topdon.module.thermal.ir.R.id.cl_trend_open) as android.view.View }
@@ -1350,12 +1350,12 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                 if (cameraDelaySecond > 0) {
                     autoJob?.cancel()
                 }
-                if (time_down_view.isRunning) {
-                    time_down_view.cancel()
+                if (timeDownView.isRunning) {
+                    timeDownView.cancel()
                     updateDelayView()
                 } else {
-                    if (time_down_view.downTimeWatcher == null) {
-                        time_down_view.setOnTimeDownListener(object : TimeDownView.DownTimeWatcher {
+                    if (timeDownView.downTimeWatcher == null) {
+                        timeDownView.setOnTimeDownListener(object : TimeDownView.DownTimeWatcher {
                             override fun onTime(num: Int) {
                                 updateDelayView()
                             }
@@ -1373,7 +1373,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                             }
                         })
                     }
-                    time_down_view.downSecond(cameraDelaySecond)
+                    timeDownView.downSecond(cameraDelaySecond)
                 }
             }
             1 -> {//图库
@@ -1408,7 +1408,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
     private fun settingCamera() {
         showCameraSetting = !showCameraSetting
         if (showCameraSetting) {
-            ViewStubUtils.showViewStub(view_stub_camera, true, callback = { view: View? ->
+            ViewStubUtils.showViewStub(viewStubCamera, true, callback = { view: View? ->
                 view?.let {
                     val recyclerView = it.findViewById<RecyclerView>(com.topdon.module.thermal.ir.R.id.recycler_view)
                     if (ScreenUtil.isPortrait(this)) {
@@ -1428,7 +1428,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                             }
 
                             CameraItemBean.TYPE_DELAY -> {
-                                if (time_down_view.isRunning) {
+                                if (timeDownView.isRunning) {
                                     return@listener
                                 }
                                 cameraItemAdapter!!.data[position].changeDelayType()
@@ -1505,7 +1505,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                 }
             })
         } else {
-            ViewStubUtils.showViewStub(view_stub_camera, false, null)
+            ViewStubUtils.showViewStub(viewStubCamera, false, null)
         }
     }
 
@@ -1514,7 +1514,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
      */
     fun updateVideoDelayView(){
         try {
-            if (time_down_view.isRunning) {
+            if (timeDownView.isRunning) {
                 lifecycleScope.launch(Dispatchers.Main) {
                     thermalRecyclerNight.setToRecord(true)
                 }
@@ -1607,7 +1607,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
      */
     fun updateDelayView() {
         try {
-            if (time_down_view.isRunning) {
+            if (timeDownView.isRunning) {
                 lifecycleScope.launch(Dispatchers.Main) {
                     thermalRecyclerNight.setToRecord(true)
                 }
@@ -2023,7 +2023,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
         AlarmHelp.getInstance(this).pause()
         isAutoCamera = false
         autoJob?.cancel()
-        time_down_view?.cancel()
+        timeDownView?.cancel()
         isPause = true
         DeviceControlManager.getInstance().handlePauseDualPreview()
     }
@@ -2032,7 +2032,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
         super.onStop()
         configJob?.cancel()
         temperatureView?.stop()
-        time_down_view?.cancel()
+        timeDownView?.cancel()
         try {
             if (isVideo) {
                 isVideo = false

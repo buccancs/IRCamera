@@ -107,6 +107,13 @@ object SaveSettingUtil {
         set(value) = SharedManager.setBoolean("open_two_light", value)
     
     /**
+     * Delay capture seconds (0 = disabled)
+     */
+    var delayCaptureSecond: Int
+        get() = SharedManager.getInt("delay_capture_second", 0)
+        set(value) = SharedManager.setInt("delay_capture_second", value)
+    
+    /**
      * Reset save settings
      */
     fun reset() {

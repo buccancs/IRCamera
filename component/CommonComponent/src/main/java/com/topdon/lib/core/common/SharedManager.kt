@@ -125,6 +125,16 @@ object SharedManager {
     // Emissivity tips visibility
     fun isHideEmissivityTips(): Boolean = getBoolean("is_hide_emissivity_tips", false)
     fun isHideEmissivityTips(value: Boolean) = setBoolean("is_hide_emissivity_tips", value)
+    
+    // Picture in picture tip
+    var isTipPinP: Boolean
+        get() = getBoolean("is_tip_pinp", true)
+        set(value) = setBoolean("is_tip_pinp", value)
+    
+    // Trend tips visibility
+    var isNeedShowTrendTips: Boolean
+        get() = getBoolean("is_need_show_trend_tips", true)
+        set(value) = setBoolean("is_need_show_trend_tips", value)
 }
 
 /**

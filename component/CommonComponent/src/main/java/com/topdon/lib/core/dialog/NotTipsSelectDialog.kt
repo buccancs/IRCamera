@@ -16,6 +16,16 @@ class NotTipsSelectDialog(context: Context) : Dialog(context) {
         // Stub implementation
     }
     
+    fun setOnConfirmListener(listener: (Boolean) -> Unit): NotTipsSelectDialog {
+        // Stub implementation - return this for method chaining
+        return this
+    }
+    
+    fun setTipsResId(resId: Int): NotTipsSelectDialog {
+        // Stub implementation - return this for method chaining
+        return this
+    }
+    
     fun setOptions(options: List<String>) {
         // Stub implementation
     }
