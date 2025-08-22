@@ -8,6 +8,10 @@ enum class DirType(val value: Int) {
     VIDEO(2), 
     REPORT(3),
     THERMAL(4),
+    LINE(5),
+    TC007(6),
+    TS004_LOCALE(7),
+    TS004_REMOTE(8),
     OTHER(99);
     
     companion object {

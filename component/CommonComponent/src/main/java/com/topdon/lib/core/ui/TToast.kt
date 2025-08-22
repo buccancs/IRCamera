@@ -31,4 +31,10 @@ object TToast {
     fun showLong(context: Context, @StringRes messageRes: Int) {
         android.widget.Toast.makeText(context, messageRes, android.widget.Toast.LENGTH_LONG).show()
     }
+    
+    // Legacy method names for compatibility
+    fun shortToast(context: Context, message: String) = showShort(context, message)
+    fun shortToast(context: Context, @StringRes messageRes: Int) = showShort(context, messageRes)
+    fun longToast(context: Context, message: String) = showLong(context, message)  
+    fun longToast(context: Context, @StringRes messageRes: Int) = showLong(context, messageRes)
 }

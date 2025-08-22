@@ -5,7 +5,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.ktbase.BaseActivity
-import com.topdon.lib.core.repository.GalleryRepository.DirType
+import com.topdon.lib.core.enum.DirType
 import com.topdon.lib.core.utils.NetWorkUtils
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.fragment.IRGalleryTabFragment

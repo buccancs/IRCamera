@@ -3,10 +3,13 @@ package com.topdon.module.thermal.ir.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.topdon.lib.core.bean.GalleryBean
+import com.topdon.lib.core.bean.GalleryItem
 import com.topdon.lib.core.bean.GalleryTitle
 import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.ktbase.BaseViewModel
 import com.topdon.lib.core.repository.GalleryRepository
+import com.topdon.lib.core.repository.TS004Repository
+import com.topdon.lib.core.enum.DirType
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.module.thermal.ir.utils.WriteTools
 import kotlinx.coroutines.Dispatchers
@@ -28,23 +31,23 @@ class IRGalleryViewModel : BaseViewModel() {
     /**
      * 添加了日期标题的用于显示的列表.
      */
-    val showListLD: MutableLiveData<ArrayList<GalleryBean>> = MutableLiveData()
+    val showListLD: MutableLiveData<ArrayList<GalleryItem>> = MutableLiveData()
 
     /**
      * 仅供生成报告使用的，加载所有插件式设备图片.
      */
-    fun queryAllReportImg(dirType: GalleryRepository.DirType) {
+    fun queryAllReportImg(dirType: DirType) {
         viewModelScope.launch(Dispatchers.IO) {
             val sourceList: ArrayList<GalleryBean> = GalleryRepository.loadAllReportImg(dirType)
             sourceListLD.postValue(sourceList)
 
             //插入日期 item
-            val showList: ArrayList<GalleryBean> = ArrayList(sourceList.size)
-            var beforeTime = 0L
+            val showList: ArrayList<GalleryItem> = ArrayList(sourceList.size)
+            var beforeTime = ""
             for (galleryBean in sourceList) {
-                val currentTime = TimeTool.timeToMinute(galleryBean.timeMillis, 4)
+                val currentTime = TimeTool.timeToMinute(galleryBean.time, 4)
                 if (beforeTime != currentTime) {//新的日期
-                    showList.add(GalleryTitle(galleryBean.timeMillis))
+                    showList.add(GalleryTitle(galleryBean.time, TimeTool.formatTime(galleryBean.time)))
                     beforeTime = currentTime
                 }
                 showList.add(galleryBean)
@@ -63,24 +66,24 @@ class IRGalleryViewModel : BaseViewModel() {
      */
     val pageListLD: MutableLiveData<ArrayList<GalleryBean>?> = MutableLiveData()
 
-    fun queryGalleryByPage(isVideo: Boolean, dirType: GalleryRepository.DirType) {
+    fun queryGalleryByPage(isVideo: Boolean, dirType: DirType) {
         viewModelScope.launch(Dispatchers.IO) {
             val pageList: ArrayList<GalleryBean>? = GalleryRepository.loadByPage(isVideo, dirType, hasLoadPage + 1, PAGE_COUNT)
             pageListLD.postValue(pageList)
 
             if (pageList != null) {
                 val sourceList = if (hasLoadPage == 0) ArrayList(pageList.size) else sourceListLD.value ?: ArrayList(pageList.size)
-                val showList = if (hasLoadPage == 0) ArrayList(pageList.size) else showListLD.value ?: ArrayList(pageList.size)
+                val showList: ArrayList<GalleryItem> = if (hasLoadPage == 0) ArrayList(pageList.size) else showListLD.value ?: ArrayList(pageList.size)
                 if (pageList.isNotEmpty()) {
                     hasLoadPage++
                 }
 
                 //插入日期 item
-                var beforeTime = if (sourceList.isEmpty()) 0 else TimeTool.timeToMinute(sourceList.last().timeMillis, 4)
+                var beforeTime = if (sourceList.isEmpty()) "" else TimeTool.timeToMinute(sourceList.last().time, 4)
                 for (galleryBean in pageList) {
-                    val currentTime = TimeTool.timeToMinute(galleryBean.timeMillis, 4)
+                    val currentTime = TimeTool.timeToMinute(galleryBean.time, 4)
                     if (beforeTime != currentTime) {//新的日期
-                        showList.add(GalleryTitle(galleryBean.timeMillis))
+                        showList.add(GalleryTitle(galleryBean.time, TimeTool.formatTime(galleryBean.time)))
                         beforeTime = currentTime
                     }
                     showList.add(galleryBean)
@@ -102,9 +105,9 @@ class IRGalleryViewModel : BaseViewModel() {
      */
     val deleteResultLD: MutableLiveData<Boolean> = MutableLiveData()
 
-    fun delete(deleteList: List<GalleryBean>, dirType: GalleryRepository.DirType, isDelLocal: Boolean) {
+    fun delete(deleteList: List<GalleryBean>, dirType: DirType, isDelLocal: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
-            if (dirType == GalleryRepository.DirType.TS004_REMOTE) {
+            if (dirType == DirType.TS004_REMOTE) {
                 val isSuccess = TS004Repository.deleteFiles(Array(deleteList.size) {
                     deleteList[it].id
                 })
