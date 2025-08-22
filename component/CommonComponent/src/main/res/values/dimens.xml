@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="main_item_font">14sp</dimen>
+    <dimen name="app_font_15">15sp</dimen>
 </resources>

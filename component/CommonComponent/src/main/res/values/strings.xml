@@ -14,9 +14,17 @@
     <string name="app_no_connect">Not Connected</string>
     <string name="app_tip">Tip</string>
     <string name="app_confirm">Confirm</string>
+    <string name="app_cancel">Cancel</string>
     <string name="app_yes">Yes</string>
     <string name="app_no">No</string>
     <string name="gallery">Gallery</string>
+    
+    <!-- Monitor selection strings -->
+    <string name="select_monitor_type_step1">Select Monitor Type</string>
+    <string name="select_monitor_point">Point Temperature</string>
+    <string name="select_monitor_line">Line Temperature</string>
+    <string name="select_monitor_area">Area Temperature</string>
+    <string name="select_monitor_position">Select Position</string>
     
     <!-- Correction strings -->
     <string name="correction_complete">Correction Complete</string>
