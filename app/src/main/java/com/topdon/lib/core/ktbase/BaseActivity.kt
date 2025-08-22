@@ -18,6 +18,8 @@ import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.dialog.LoadingDialog
 import com.topdon.lib.core.tools.*
 import com.topdon.lib.core.dialog.TipCameraProgressDialog
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import com.topdon.lib.core.dialog.TipProgressDialog
 import com.topdon.lms.sdk.LMS
 import com.topdon.lms.sdk.bean.CommonBean

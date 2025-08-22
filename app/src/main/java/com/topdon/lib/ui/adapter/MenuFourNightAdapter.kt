@@ -28,6 +28,17 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
 
 
     var listener: ((index: Int, code: Int) -> Unit)? = null
+    
+    // Missing properties for adapter functionality
+    var rotateAngle: Int = 0
+    var colorEnable: Boolean = false
+    var contrastEnable: Boolean = false
+    var ddeEnable: Boolean = false
+    var alarmEnable: Boolean = false
+    var textColorEnable: Boolean = false
+    var mirrorEnable: Boolean = false
+    var compassEnable: Boolean = false
+    var waterMarkEnable: Boolean = false
 
 
 

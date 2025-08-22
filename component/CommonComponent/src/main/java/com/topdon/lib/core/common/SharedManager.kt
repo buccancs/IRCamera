@@ -163,6 +163,13 @@ object SharedManager {
             WatermarkBean.createDefault()
         }
         set(value) = setString("watermark_bean", value.toString())
+        
+    // Base host URL configuration - stub implementation
+    fun setBaseHost(url: String) {
+        setString("base_host_url", url)
+    }
+    
+    fun getBaseHost(): String = getString("base_host_url", "")
 }
 
 /**

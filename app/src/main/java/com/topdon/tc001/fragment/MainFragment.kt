@@ -65,8 +65,10 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         adapter.onItemClickListener = {
             when (it) {
                 ConnectType.LINE -> {
-                    val intent = Intent(requireContext(), com.topdon.module.thermal.ir.activity.IRMainActivity::class.java)
-                    startActivity(intent)
+                    // Temporarily disabled due to thermal-ir compilation issues
+                    // val intent = Intent(requireContext(), com.topdon.module.thermal.ir.activity.IRMainActivity::class.java)
+                    // startActivity(intent)
+                    println("LINE connection - thermal-ir module temporarily disabled")
                 }
                 ConnectType.TS004 -> {
                     // TS004 support removed

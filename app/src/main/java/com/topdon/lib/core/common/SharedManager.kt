@@ -357,7 +357,7 @@ object SharedManager {
         SPUtils.getInstance().put(DEVICE_VERSION, version)
     }
 
-    // Temperature unit methods (0 = Celsius, 1 = Fahrenheit)
+        // Temperature unit methods (0 = Celsius, 1 = Fahrenheit)
     fun getTemperature(): Int {
         return SPUtils.getInstance().getInt(TEMPERATURE_UNIT, 0)
     }
@@ -366,4 +366,12 @@ object SharedManager {
         SPUtils.getInstance().put(TEMPERATURE_UNIT, unit)
     }
 
+    // Base host URL configuration - stub implementation
+    fun setBaseHost(url: String) {
+        SPUtils.getInstance().put("base_host_url", url)
+    }
+    
+    fun getBaseHost(): String {
+        return SPUtils.getInstance().getString("base_host_url", "")
+    }
 }

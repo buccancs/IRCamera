@@ -5,8 +5,9 @@ import android.app.Application
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import com.elvishew.xlog.XLog
-import com.topdon.module.thermal.IrConst
-import com.topdon.module.thermal.util.CommonUtil
+// Temporarily disabled due to thermal-ir compilation issues
+// import com.topdon.module.thermal.IrConst
+// import com.topdon.module.thermal.util.CommonUtil
 import com.scwang.smart.refresh.header.MaterialHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.topdon.lib.core.BaseApplication
@@ -87,8 +88,9 @@ class App : BaseApplication() {
             SharedManager.setBaseHost(UrlConstant.BASE_URL) //更新app服务地址
         }
         CoroutineScope(Dispatchers.IO).launch {
-            tau_data_H = CommonUtil.getAssetData(mContext, IrConst.TAU_HIGH_GAIN_ASSET_PATH)
-            tau_data_L = CommonUtil.getAssetData(mContext, IrConst.TAU_LOW_GAIN_ASSET_PATH)
+            // Temporarily disabled due to thermal-ir compilation issues
+            // tau_data_H = CommonUtil.getAssetData(mContext, IrConst.TAU_HIGH_GAIN_ASSET_PATH)
+            // tau_data_L = CommonUtil.getAssetData(mContext, IrConst.TAU_LOW_GAIN_ASSET_PATH)
         }
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks{

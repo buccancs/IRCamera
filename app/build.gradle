@@ -324,4 +324,10 @@ dependencies {
 //    implementation 'com.topdon.aliyun:main:2.2.1:release@aar'
 
     implementation files('libs/umeng-common-9.4.4+000.jar')
+
+    // Component dependencies
+    implementation project(':component:CommonComponent')
+    // implementation project(':component:thermal-ir') // Temporarily disabled due to compilation errors
+    implementation project(':component:transfer')
+    implementation project(':component:user')
 }
