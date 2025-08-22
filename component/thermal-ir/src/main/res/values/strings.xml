@@ -55,4 +55,10 @@
     <string name="operation_failed_tips">Operation failed, please try again</string>
     <string name="app_ok">OK</string>
     
+    <!-- Thermal imaging strings -->
+    <string name="tc_temp_test_materials">Test Materials</string>
+    <string name="tc_high_temp_test">High Temperature Test</string>
+    <string name="tc_high_temp_test_tips1">High temperature mode warning:</string>
+    <string name="tc_high_temp_test_tips2">Please ensure proper safety precautions</string>
+    
 </resources>

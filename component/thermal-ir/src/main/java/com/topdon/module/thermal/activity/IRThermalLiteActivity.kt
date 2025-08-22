@@ -120,6 +120,7 @@ import com.topdon.module.thermal.ir.video.VideoRecordFFmpeg
 import com.topdon.module.thermal.ir.view.TimeDownView
 // import com.topdon.pseudo.activity.PseudoSetActivity  // Pseudo component removed
 // import com.topdon.pseudo.bean.CustomPseudoBean  // Pseudo component removed
+import com.topdon.lib.core.bean.CustomPseudoBean  // Use our stub implementation
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -150,6 +151,15 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
     private var mOnUSBConnectListener: OnUSBConnectListener? = null
     private var mProgressDialog: ProgressDialog? = null
 
+    // View references (replacing synthetic imports)
+    private val titleView by lazy { findViewById<com.topdon.lib.core.view.MainTitleView>(com.topdon.module.thermal.ir.R.id.title_view) }
+    private val timeDownView by lazy { findViewById<android.view.View>(com.topdon.module.thermal.ir.R.id.time_down_view) }
+    private val temperatureSeekbar by lazy { findViewById<android.view.View>(com.topdon.module.thermal.ir.R.id.temperature_seekbar) }
+    private val thermalRecyclerNight by lazy { findViewById<android.view.View>(com.topdon.module.thermal.ir.R.id.thermal_recycler_night) }
+    private val temperatureIvLock by lazy { findViewById<android.widget.ImageView>(com.topdon.module.thermal.ir.R.id.temperature_iv_lock) }
+    private val viewCarDetect by lazy { findViewById<android.view.View>(com.topdon.module.thermal.ir.R.id.view_car_detect) }
+    private val temperatureView by lazy { findViewById<android.view.View>(com.topdon.module.thermal.ir.R.id.temperatureView) }
+    private val viewStubCamera by lazy { findViewById<android.view.View>(com.topdon.module.thermal.ir.R.id.view_stub_camera) }
 
     private var pseudoColorMode = SaveSettingUtil.pseudoColorMode
 
@@ -263,10 +273,10 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
         lifecycleScope.launch(Dispatchers.IO) {
             delay(1000)
             if (BaseApplication.instance.tau_data_H == null){
-                BaseApplication.instance.tau_data_H = CommonUtil.getAssetData(mContext, IrConst.TAU_HIGH_GAIN_ASSET_PATH)
+                BaseApplication.instance.tau_data_H = CommonUtil.getAssetData(this@IRThermalLiteActivity, IrConst.TAU_HIGH_GAIN_ASSET_PATH)
             }
             if (BaseApplication.instance.tau_data_L == null){
-                BaseApplication.instance.tau_data_L = CommonUtil.getAssetData(mContext, IrConst.TAU_LOW_GAIN_ASSET_PATH)
+                BaseApplication.instance.tau_data_L = CommonUtil.getAssetData(this@IRThermalLiteActivity, IrConst.TAU_LOW_GAIN_ASSET_PATH)
             }
         }
     }
@@ -281,7 +291,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
         imageRes.width = 256.toChar()
         imageRes.height = 192.toChar()
         isShowC = getTemperature() == 1
-        temperature_seekbar.setIndicatorTextDecimalFormat("0.0")
+        temperatureSeekbar.setIndicatorTextDecimalFormat("0.0")
         initPreviewManager()
         val imageRotate = when (saveSetBean.rotateAngle) {
             270 -> RotateDegree.DEGREE_270
@@ -293,14 +303,14 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
         initCameraSize()
         initUSBMonitorManager()
         DeviceControlManager.getInstance().init()
-        title_view.setLeftClickListener {
-            if (time_down_view.isRunning) {
+        titleView.setLeftClickListener {
+            if (timeDownView.isRunning) {
                 return@setLeftClickListener
             }
             setResult(200)
             finish()
         }
-        title_view.setRightClickListener {
+        titleView.setRightClickListener {
             val config = ConfigRepository.readConfig(false)
             var text = ""
             for (tmp in IRConfigData.irConfigData(this)){
@@ -317,9 +327,9 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
             EmissivityTipPopup(this@IRThermalLiteActivity, false)
                 .setDataBean(config.environment,config.distance,config.radiation,text)
                 .build()
-                .showAsDropDown(title_view, 0, 0, Gravity.END)
+                .showAsDropDown(titleView, 0, 0, Gravity.END)
         }
-        view_car_detect.findViewById<LinearLayout>(com.topdon.module.thermal.ir.R.id.ll_car_detect_info).setOnClickListener {
+        viewCarDetect.findViewById<LinearLayout>(com.topdon.module.thermal.ir.R.id.ll_car_detect_info).setOnClickListener {
             LongTextDialog(this, SharedManager.getCarDetectInfo().item, SharedManager.getCarDetectInfo()?.description).show()
         }
         cameraPreview.cameraPreViewCloseListener = {
