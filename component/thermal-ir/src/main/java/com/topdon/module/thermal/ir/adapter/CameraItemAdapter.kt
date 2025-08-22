@@ -14,8 +14,16 @@ import com.topdon.module.thermal.ir.R
 class CameraItemAdapter(
     data: MutableList<CameraItemBean>? = null) : BaseQuickAdapter<CameraItemBean, BaseViewHolder>(R.layout.item_camera,data) {
 
-
     var listener: ((index: Int,item: CameraItemBean) -> Unit)? = null
+    
+    // Add compatibility method for notifyItemChanged
+    fun notifyItemChanged(position: Int) {
+        super.notifyItemChanged(position)
+    }
+    
+    // Expose data property for compatibility
+    val dataList: MutableList<CameraItemBean>
+        get() = data
 
     override fun convert(holder: BaseViewHolder, item: CameraItemBean) {
         holder.setVisible(R.id.img,true)

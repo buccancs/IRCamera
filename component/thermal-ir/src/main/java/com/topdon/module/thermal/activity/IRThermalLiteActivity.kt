@@ -92,7 +92,7 @@ import com.topdon.lib.core.repository.GalleryRepository
 import com.topdon.lib.core.tools.CheckDoubleClick
 import com.topdon.lib.core.tools.NumberTools
 import com.topdon.lib.core.tools.SpanBuilder
-import com.topdon.lib.core.tools.TimeTool
+import com.topdon.lib.core.tool.TimeTool
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.view.MainTitleView
@@ -1435,7 +1435,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                     }
                     cameraItemAdapter = CameraItemAdapter(cameraItemBeanList)
                     cameraItemAdapter?.listener = listener@{ position, _ ->
-                        when (cameraItemAdapter!!.data[position].type) {
+                        when (cameraItemAdapter!!.dataList[position].type) {
                             CameraItemBean.TYPE_SETTING -> {
             // TODO: Replace RouterConfig reference with direct navigation
 // TODO_FIX_AROUTER:                                     .navigation(this)
@@ -1446,9 +1446,9 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                                 if (timeDownView.isRunning) {
                                     return@listener
                                 }
-                                cameraItemAdapter!!.data[position].changeDelayType()
+                                cameraItemAdapter!!.dataList[position].changeDelayType()
                                 cameraItemAdapter!!.notifyItemChanged(position)
-                                when (cameraItemAdapter!!.data[position].time) {
+                                when (cameraItemAdapter!!.dataList[position].time) {
                                     CameraItemBean.DELAY_TIME_0 -> {
                                         ToastUtils.showShort(com.topdon.module.thermal.ir.R.string.off_photography)
                                     }
@@ -1461,12 +1461,12 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                                         ToastUtils.showShort(com.topdon.module.thermal.ir.R.string.seconds_dalay_6)
                                     }
                                 }
-                                cameraDelaySecond = cameraItemAdapter!!.data[position].time
+                                cameraDelaySecond = cameraItemAdapter!!.dataList[position].time
                                 SaveSettingUtil.delayCaptureSecond = cameraDelaySecond
                             }
 
                             CameraItemBean.TYPE_AUDIO -> {
-                                if (!cameraItemAdapter!!.data[position].isSel) {
+                                if (!cameraItemAdapter!!.dataList[position].isSel) {
                                     storageRequestType = 1
                                     audioPosition = position
                                     checkStoragePermission()
@@ -1474,7 +1474,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                                     isRecordAudio = false
                                     SaveSettingUtil.isRecordAudio = isRecordAudio
                                     videoRecord?.updateAudioState(false)
-                                    cameraItemAdapter!!.data[position].isSel = !cameraItemAdapter!!.data[position].isSel
+                                    cameraItemAdapter!!.dataList[position].isSel = !cameraItemAdapter!!.dataList[position].isSel
                                     cameraItemAdapter!!.notifyItemChanged(position)
                                 }
                                 return@listener
@@ -1482,10 +1482,10 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
 
                             CameraItemBean.TYPE_SDKM -> {
                                 lifecycleScope.launch {
-                                    cameraItemAdapter!!.data[position].isSel = true
+                                    cameraItemAdapter!!.dataList[position].isSel = true
                                     cameraItemAdapter!!.notifyItemChanged(position)
                                     delay(500)
-                                    cameraItemAdapter!!.data[position].isSel = false
+                                    cameraItemAdapter!!.dataList[position].isSel = false
                                     cameraItemAdapter!!.notifyItemChanged(position)
                                 }
                                 //手动快门
@@ -1498,11 +1498,11 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                                 //自动快门
                                 isAutoShutter = !isAutoShutter
                                 SaveSettingUtil.isAutoShutter = isAutoShutter
-                                cameraItemAdapter!!.data[position].isSel = !cameraItemAdapter!!.data[position].isSel
+                                cameraItemAdapter!!.dataList[position].isSel = !cameraItemAdapter!!.dataList[position].isSel
                                 cameraItemAdapter!!.notifyItemChanged(position)
                                 if (SharedManager.isTipShutter && !isAutoShutter) {
                                     val dialog = TipShutterDialog.Builder(this)
-                                        .setMessage(com.topdon.module.thermal.ir.R.string.shutter_tips)
+                                        .setMessage(getString(com.topdon.module.thermal.ir.R.string.shutter_tips))
                                         .setCancelListener { isCheck ->
                                             SharedManager.isTipShutter = !isCheck
                                         }
@@ -1513,7 +1513,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                                 return@listener
                             }
                         }
-                        cameraItemAdapter!!.data[position].isSel = !cameraItemAdapter!!.data[position].isSel
+                        cameraItemAdapter!!.dataList[position].isSel = !cameraItemAdapter!!.dataList[position].isSel
                         cameraItemAdapter!!.notifyItemChanged(position)
                     }
                     recyclerView.adapter = cameraItemAdapter
@@ -1543,7 +1543,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
             if (BaseApplication.instance.isDomestic()) {
                 TipDialog.Builder(this)
                     .setMessage(getString(R.string.permission_request_storage_app, CommUtils.getAppName()))
-                    .setCancelListener(R.string.app_cancel)
+                    .setCancelListener { }
                     .setPositiveListener(R.string.app_confirm) {
                         if (storageRequestType == 0) {
                             initStoragePermission()
@@ -1583,7 +1583,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                             isRecordAudio = true
                             SaveSettingUtil.isRecordAudio = isRecordAudio
                             videoRecord?.updateAudioState(true)
-                            cameraItemAdapter?.data?.get(audioPosition)?.isSel = !(cameraItemAdapter?.data?.get(audioPosition)?.isSel?:false)
+                            cameraItemAdapter?.dataList?.get(audioPosition)?.isSel = !(cameraItemAdapter?.dataList?.get(audioPosition)?.isSel?:false)
                             cameraItemAdapter?.notifyItemChanged(audioPosition)
                         } else {
                             ToastUtils.showShort(com.topdon.module.thermal.ir.R.string.scan_ble_tip_authorize)

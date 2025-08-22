@@ -101,5 +101,43 @@ class BitmapUtils {
             val y = bitmap.height / 2f
             return overlayTextOnBitmap(bitmap, text, x, y, paint)
         }
+        
+        /**
+         * Draw center label with multiple texts on bitmap (watermark support)
+         */
+        fun drawCenterLable(bitmap: Bitmap?, title: String, address: String, time: String, width: Int): Bitmap? {
+            if (bitmap == null) return null
+            
+            val mutableBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true)
+            val canvas = Canvas(mutableBitmap)
+            val paint = Paint().apply {
+                color = android.graphics.Color.WHITE
+                textSize = 36f
+                isAntiAlias = true
+            }
+            
+            val x = bitmap.width - 50f
+            var y = 50f
+            val lineHeight = 50f
+            
+            // Draw title
+            if (title.isNotEmpty()) {
+                canvas.drawText(title, x, y, paint)
+                y += lineHeight
+            }
+            
+            // Draw address
+            if (address.isNotEmpty()) {
+                canvas.drawText(address, x, y, paint)
+                y += lineHeight
+            }
+            
+            // Draw time
+            if (time.isNotEmpty()) {
+                canvas.drawText(time, x, y, paint)
+            }
+            
+            return mutableBitmap
+        }
     }
 }
