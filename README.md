@@ -201,8 +201,10 @@ IRCamera/
 git clone https://github.com/buccancs/IRCamera.git
 cd IRCamera
 
+
 # Build all components
 ./gradlew clean build
+
 
 # Run comprehensive tests
 ./gradlew test
@@ -210,7 +212,6 @@ cd IRCamera
 # Build production release
 ./gradlew bundleProdRelease
 ```
-
 ### Testing
 ```bash
 # Run all tests with coverage
@@ -223,7 +224,6 @@ cd IRCamera
 # Generate test reports
 ./gradlew testReport
 ```
-
 ## 📈 Performance Benchmarks
 
 ### Thermal Processing Performance
@@ -243,9 +243,6 @@ cd IRCamera
 - **Thermal Data Encryption**: AES-256 encryption for stored thermal images
 - **Privacy by Design**: Minimal data collection with user consent
 - **Secure Transfer**: HTTPS/SFTP protocols for file transfers
-- **Access Control**: Role-based permissions for thermal data access
-
-## 🌐 Internationalization
 
 ### Multi-Language Support
 - **Complete i18n**: English, Chinese, French, German, Spanish, Japanese
@@ -270,22 +267,6 @@ cd IRCamera
 ## 🤝 Contributing
 
 ### Development Guidelines
-1. **Code Style**: Follow Android Kotlin style guide
-2. **Testing**: Maintain 100% test coverage for new features
-3. **Documentation**: Update both code comments and README documentation
-4. **Thermal Accuracy**: Validate temperature measurements with calibrated equipment
-
-### Pull Request Process
-1. Create feature branch from main
-2. Implement changes with comprehensive tests
-3. Ensure all tests pass: `./gradlew test`
-4. Update documentation
-5. Submit PR with detailed description
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## 🆘 Support
 
 ### Documentation
