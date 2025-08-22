@@ -70,4 +70,9 @@
     <string name="compass_west">West</string>
     <string name="compass_northwest">Northwest</string>
     
+    <!-- Missing string resources identified in build errors -->
+    <string name="auto_open">Auto mode enabled</string>
+    <string name="permission_request_camera_app">Camera permission is required for this feature</string>
+    <string name="app_cancel">Cancel</string>
+    
 </resources>

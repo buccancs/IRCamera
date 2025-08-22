@@ -71,6 +71,22 @@ class AlarmHelp {
             // Trigger visual alarm indication
         }
     }
+    
+    /**
+     * Update alarm data
+     */
+    fun updateData(lowTemp: Float?, highTemp: Float?, ringtoneType: Int?) {
+        // Stub implementation for updating alarm data
+        lowTemp?.let { 
+            // Update low temperature threshold
+        }
+        highTemp?.let { 
+            // Update high temperature threshold  
+        }
+        ringtoneType?.let {
+            // Update ringtone type
+        }
+    }
 }
 
 /**

@@ -136,6 +136,7 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.greenrobot.eventbus.EventBus
+import com.topdon.lib.core.ui.TToast
 import kotlin.math.abs
 
 
@@ -417,7 +418,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
         }
         thermalRecyclerNight.onTempLevelListener = { level ->
             temperatureMode = level
-            setConfigForIr(IrParam.createDefault(), temperatureMode)
+            setConfigForIr(IrParam.ParamTemperature.TYPE_AUTO, temperatureMode)
             if (level == CameraItemBean.TYPE_TMP_H && SharedManager.isTipHighTemp) {
                 //切换到高温档
                 val message = SpanBuilder(getString(com.topdon.module.thermal.ir.R.string.tc_high_temp_test_tips1))
@@ -857,9 +858,9 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
     /**
      * 统一在此处处理设备端的参数设置
      */
-    private fun setConfigForIr(type : IrParam,data : Any?){
+    private fun setConfigForIr(type : Int, data : Any?){
         when(type){
-            IrParam.ParamTemperature -> {
+            IrParam.ParamTemperature.TYPE_AUTO -> {
                 //高低增益切换
                 lifecycleScope.launch {
                     if (temperatureMode == CameraItemBean.TYPE_TMP_C){
@@ -870,7 +871,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                     }
                     if (temperatureMode == CameraItemBean.TYPE_TMP_ZD &&
                         SaveSettingUtil.temperatureMode != temperatureMode) {
-                        TToast.showShort(this, com.topdon.module.thermal.ir.R.string.auto_open)
+                        TToast.showShort(this@IRThermalLiteActivity, com.topdon.module.thermal.ir.R.string.auto_open)
                     }
                     SaveSettingUtil.temperatureMode = temperatureMode
                 }
@@ -883,7 +884,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                 //预警
                 CameraPreviewManager.getInstance().alarmBean = alarmBean
                 SaveSettingUtil.alarmBean = alarmBean
-                AlarmHelp.getInstance(this).updateData(
+                AlarmHelp.getInstance(this.application).updateData(
                     if (alarmBean.isLowOpen) alarmBean.lowTemp else null,
                     if (alarmBean.isHighOpen) alarmBean.highTemp else null,
                     if (alarmBean.isRingtoneOpen) alarmBean.ringtoneType else null)
