@@ -2,6 +2,8 @@ package com.topdon.lib.core.common
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.topdon.lib.core.bean.ContinuousBean
+import com.topdon.lib.core.bean.WatermarkBean
 import com.blankj.utilcode.util.SPUtils
 
 /**
@@ -135,6 +137,31 @@ object SharedManager {
     var isNeedShowTrendTips: Boolean
         get() = getBoolean("is_need_show_trend_tips", true)
         set(value) = setBoolean("is_need_show_trend_tips", value)
+    
+    // Continuous measurement bean
+    var continuousBean: ContinuousBean
+        get() = try {
+            // In a real implementation, this would deserialize from JSON
+            ContinuousBean.createDefault()
+        } catch (e: Exception) {
+            ContinuousBean.createDefault()
+        }
+        set(value) = setString("continuous_bean", value.toString())
+    
+    // Tip shutter state
+    var isTipShutter: Boolean
+        get() = getBoolean("is_tip_shutter", false)  
+        set(value) = setBoolean("is_tip_shutter", value)
+    
+    // Watermark configuration
+    var watermarkBean: WatermarkBean
+        get() = try {
+            // In a real implementation, this would deserialize from JSON
+            WatermarkBean.createDefault()
+        } catch (e: Exception) {
+            WatermarkBean.createDefault()
+        }
+        set(value) = setString("watermark_bean", value.toString())
 }
 
 /**

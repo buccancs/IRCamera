@@ -10,8 +10,8 @@ object ViewStubUtils {
     /**
      * Show or hide view stub
      */
-    fun showViewStub(view: View, show: Boolean, callback: (() -> Unit)? = null) {
+    fun showViewStub(view: View, show: Boolean, callback: ((View?) -> Unit)? = null) {
         view.visibility = if (show) View.VISIBLE else View.GONE
-        callback?.invoke()
+        callback?.invoke(if (show) view else null)
     }
 }

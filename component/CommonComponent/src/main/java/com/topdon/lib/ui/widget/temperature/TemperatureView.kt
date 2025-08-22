@@ -17,6 +17,17 @@ class TemperatureView @JvmOverloads constructor(
     var temperatureRegionMode: Int = 0  // Temperature region mode property
     var isShowFull: Boolean = false     // Show full property
     
+    // Region and value bitmap for overlay
+    val regionAndValueBitmap: android.graphics.Bitmap?
+        get() {
+            // In real implementation, this would return the overlay bitmap with temperature readings
+            return try {
+                android.graphics.Bitmap.createBitmap(100, 100, android.graphics.Bitmap.Config.ARGB_8888)
+            } catch (e: Exception) {
+                null
+            }
+        }
+    
     /**
      * Clear temperature measurements
      */

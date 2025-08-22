@@ -18,6 +18,8 @@ import android.provider.Settings
 import android.view.Gravity
 import android.view.OrientationEventListener
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewTreeObserver
 import android.view.WindowManager
 import android.widget.LinearLayout
@@ -156,13 +158,13 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
 
     // View references (replacing synthetic imports)
     private val titleView by lazy { findViewById(com.topdon.module.thermal.ir.R.id.title_view) as com.topdon.lib.core.view.MainTitleView }
-    private val timeDownView by lazy { findViewById(com.topdon.module.thermal.ir.R.id.timeDownView) as TimeDownView }
+    private val timeDownView by lazy { findViewById(com.topdon.module.thermal.ir.R.id.time_down_view) as TimeDownView }
     private val temperatureSeekbar by lazy { findViewById(com.topdon.module.thermal.ir.R.id.temperature_seekbar) as com.jaygoo.widget.DefRangeSeekBar }
     private val thermalRecyclerNight by lazy { findViewById(com.topdon.module.thermal.ir.R.id.thermal_recycler_night) as com.topdon.lib.ui.widget.thermal.ThermalRecyclerView }
     private val temperatureIvLock by lazy { findViewById(com.topdon.module.thermal.ir.R.id.temperature_iv_lock) as android.widget.ImageView }
     private val viewCarDetect by lazy { findViewById(com.topdon.module.thermal.ir.R.id.view_car_detect) as android.view.View }
     private val temperatureView by lazy { findViewById(com.topdon.module.thermal.ir.R.id.temperatureView) as com.topdon.lib.ui.widget.temperature.TemperatureView }
-    private val viewStubCamera by lazy { findViewById(com.topdon.module.thermal.ir.R.id.viewStubCamera) as android.view.View }
+    private val viewStubCamera by lazy { findViewById(com.topdon.module.thermal.ir.R.id.view_stub_camera) as android.view.View }
     private val cameraPreview by lazy { findViewById(com.topdon.module.thermal.ir.R.id.cameraPreview) as com.topdon.lib.ui.widget.camera.CameraPreviewView }
     private val viewMenuFirst by lazy { findViewById(com.topdon.module.thermal.ir.R.id.view_menu_first) as com.topdon.lib.ui.widget.menu.MenuView }
     private val clTrendOpen by lazy { findViewById(com.topdon.module.thermal.ir.R.id.cl_trend_open) as android.view.View }
@@ -177,7 +179,20 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
     
     // Missing view references that were causing compilation errors
     private val fpsText by lazy { findViewById<TextView>(com.topdon.module.thermal.ir.R.id.fpsText) }
-    private val cameraView by lazy { findViewById<CameraView>(com.topdon.module.thermal.ir.R.id.cameraView) }
+    private val cameraView by lazy { findViewById<com.topdon.lib.ui.widget.LiteSurfaceView>(com.topdon.module.thermal.ir.R.id.cameraView) }
+    private val tvTypeInd by lazy { findViewById<TextView>(com.topdon.module.thermal.ir.R.id.tv_type_ind) }
+    private val layCarDetectPrompt by lazy { findViewById<View>(com.topdon.module.thermal.ir.R.id.lay_car_detect_prompt) }
+    
+    // Camera item list for menu configuration
+    private val cameraItemBeanList by lazy {
+        mutableListOf<CameraItemBean>().apply {
+            add(CameraItemBean().apply { type = CameraItemBean.TYPE_DELAY })
+            add(CameraItemBean().apply { type = CameraItemBean.TYPE_ZDKM })  
+            add(CameraItemBean().apply { type = CameraItemBean.TYPE_SDKM })
+            add(CameraItemBean().apply { type = CameraItemBean.TYPE_AUDIO })
+            add(CameraItemBean().apply { type = CameraItemBean.TYPE_SETTING })
+        }
+    }
 
     private var pseudoColorMode = SaveSettingUtil.pseudoColorMode
 
@@ -959,7 +974,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                                 SaveSettingUtil.isOpenTwoLight = true
                             }
                             if (needShowTip && SharedManager.isTipPinP) {
-                                val dialog = TipPreviewDialog(this)
+                                val dialog = TipPreviewDialog(this@IRThermalLiteActivity)
                                 dialog.closeEvent = {
                                     SharedManager.isTipPinP = !it
                                 }
@@ -1302,8 +1317,8 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                 if (SharedManager.isNeedShowTrendTips) {
                     NotTipsSelectDialog(this)
                         .setTipsResId(R.string.thermal_trend_tips)
-                        .setOnConfirmListener {
-                            SharedManager.isNeedShowTrendTips = !it
+                        .setOnConfirmListener { isSelected: Boolean ->
+                            SharedManager.isNeedShowTrendTips = !isSelected
                         }
                         .show()
                 }
@@ -1639,10 +1654,10 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                                         onTick = {
                                             camera()
                                         }, onStart = {
-                                            tv_type_ind?.visibility = VISIBLE
+                                            tvTypeInd?.visibility = VISIBLE
                                             isAutoCamera = true
                                         }, onFinish = {
-                                            tv_type_ind?.visibility = GONE
+                                            tvTypeInd?.visibility = GONE
                                             isAutoCamera = false
                                         })
                                     autoJob?.start()
@@ -1752,10 +1767,10 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                         )
                     }
                     //添加汽车检测
-                    if (lay_car_detect_prompt.isVisible){
+                    if (layCarDetectPrompt.isVisible){
                         cameraViewBitmap = BitmapUtils.mergeBitmap(
                             cameraViewBitmap,
-                            lay_car_detect_prompt.drawToBitmap(), 0, 0)
+                            layCarDetectPrompt.drawToBitmap(), 0, 0)
                     }
 
                     var name = ""
@@ -1815,7 +1830,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
             clSeekBar,
             temp_bg,
             null, null,
-            carView = lay_car_detect_prompt
+            carView = layCarDetectPrompt
         )
     }
     private fun video() {
@@ -2082,7 +2097,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
             var temperature = carDetectInfo.temperature.split("~")
             tvDetectPrompt.text =  carDetectInfo.item + TemperatureUtil.getTempStr(temperature[0].toInt(), temperature[1].toInt())
         }
-        lay_car_detect_prompt.visibility = if(intent.getBooleanExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER,false)) View.VISIBLE else View.GONE
+        layCarDetectPrompt.visibility = if(intent.getBooleanExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER,false)) View.VISIBLE else View.GONE
         view_car_detect.findViewById<RelativeLayout>(com.topdon.module.thermal.ir.R.id.rl_content).setOnClickListener {
             CarDetectDialog(this) {
                 var temperature = it.temperature.split("~")

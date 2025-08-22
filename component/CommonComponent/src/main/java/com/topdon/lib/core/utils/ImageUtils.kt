@@ -89,5 +89,28 @@ class ImageUtils {
             val extension = file.extension.lowercase()
             return extension in listOf("jpg", "jpeg", "png", "gif", "bmp")
         }
+        
+        /**
+         * Save image to app directory
+         */
+        fun saveImageToApp(bitmap: Bitmap): String? {
+            return try {
+                val timestamp = System.currentTimeMillis()
+                val filename = "IR_${timestamp}.jpg"
+                val file = File(android.os.Environment.getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_PICTURES), filename)
+                saveBitmapToFile(bitmap, file)
+                file.absolutePath
+            } catch (e: Exception) {
+                null
+            }
+        }
+        
+        /**
+         * Get current time string for watermark
+         */
+        fun getNowTime(): String {
+            val formatter = java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss", java.util.Locale.getDefault())
+            return formatter.format(java.util.Date())
+        }
     }
 }

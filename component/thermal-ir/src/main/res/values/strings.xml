@@ -77,4 +77,9 @@
     <string name="app_camera_content">Camera</string>
     <string name="app_open">Open</string>
     
+    <!-- Additional missing strings for thermal-ir component -->
+    <string name="app_Manual_Shutter">Manual Shutter</string>
+    <string name="app_microphone_content">Microphone recording enabled</string>
+    <string name="app_storage_content">Storage access required for saving images and videos</string>
+    
 </resources>
