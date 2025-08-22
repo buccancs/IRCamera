@@ -14,6 +14,12 @@
         <item name="android:windowIsFloating">false</item>
     </style>
     
+    <!-- Camera setting switch style -->
+    <style name="cameraSetSwitch">
+        <item name="android:textColor">@color/font_second_color</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    
     <declare-styleable name="MessageSettingItem">
         <attr name="iconImg" format="reference|integer" />
         <attr name="textTitle" format="reference|integer" />
@@ -25,5 +31,12 @@
         <attr name="list_item_left_text" format="string" />
         <attr name="list_item_right_text" format="string" />
         <attr name="list_item_line" format="boolean" />
+    </declare-styleable>
+    
+    <!-- TitleView attributes -->
+    <declare-styleable name="TitleView">
+        <attr name="titleText" format="string|reference" />
+        <attr name="rightText" format="string|reference" />
+        <attr name="rightTextColor" format="color|reference" />
     </declare-styleable>
 </resources>

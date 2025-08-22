@@ -5,4 +5,9 @@
     <string name="app_album_content">Transfer photos to album?</string>
     <string name="app_open">Open</string>
     <string name="app_cancel">Cancel</string>
+    
+    <!-- Gallery transfer strings -->
+    <string name="gallery_transfer">Gallery Transfer</string>
+    <string name="gallery_transfer_complete">Transfer Complete</string>
+    <string name="gallery_transfer_wait">Transferring, please wait...</string>
 </resources>
