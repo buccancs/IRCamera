@@ -129,19 +129,11 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             versionViewModel.checkVersion()
         }
 
-        if (!SharedManager.hasTcLine && !SharedManager.hasTS004 && !SharedManager.hasTC007) {
+        if (!SharedManager.hasTcLine) {
             if (DeviceTools.isConnect()) {
                 if (!WebSocketProxy.getInstance().isConnected()) {
                     val intent = Intent(this, com.topdon.module.thermal.ir.activity.IRMainActivity::class.java)
                     intent.putExtra(ExtraKeyConfig.IS_TC007, false)
-                    startActivity(intent)
-                }
-            } else {
-                if (WebSocketProxy.getInstance().isTS004Connect()) {
-                    startActivity(Intent(this, com.topdon.module.thermal.ir.activity.IRMainActivity::class.java))
-                } else if (WebSocketProxy.getInstance().isTC007Connect()) {
-                    val intent = Intent(this, com.topdon.module.thermal.ir.activity.IRMainActivity::class.java)
-                    intent.putExtra(ExtraKeyConfig.IS_TC007, true)
                     startActivity(intent)
                 }
             }
@@ -150,12 +142,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         if (DeviceTools.isConnect()) {
             SharedManager.hasTcLine = true
         }
-        if (WebSocketProxy.getInstance().isTS004Connect()) {
-            SharedManager.hasTS004 = true
-        }
-        if (WebSocketProxy.getInstance().isTC007Connect()) {
-            SharedManager.hasTC007 = true
-        }
+        // TS004/TC007 support removed - only TC001 supported
     }
 
     override fun onStart() {

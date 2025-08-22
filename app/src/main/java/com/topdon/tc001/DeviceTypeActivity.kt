@@ -27,15 +27,12 @@ class DeviceTypeActivity : BaseActivity() {
         recyclerView.adapter = MyAdapter(this).apply {
             onItemClickListener = {
                 clientType = it
-                when (it) {
-                    else -> {
-                        val intent = Intent(this@DeviceTypeActivity, com.topdon.module.thermal.ir.activity.IRMainActivity::class.java)
-                        intent.putExtra(ExtraKeyConfig.IS_TC007, false)
-                        startActivity(intent)
-                        if (DeviceTools.isConnect()) {
-                            finish()
-                        }
-                    }
+                // Only TC001 is supported
+                val intent = Intent(this@DeviceTypeActivity, com.topdon.module.thermal.ir.activity.IRMainActivity::class.java)
+                intent.putExtra(ExtraKeyConfig.IS_TC007, false) // Always false since we only support TC001
+                startActivity(intent)
+                if (DeviceTools.isConnect()) {
+                    finish()
                 }
             }
         }
@@ -64,8 +61,7 @@ class DeviceTypeActivity : BaseActivity() {
         private data class ItemInfo(val isTitle:Boolean, val firstType: IRDeviceType, val secondType: IRDeviceType?)
 
         private val dataList: ArrayList<ItemInfo> = arrayListOf(
-            ItemInfo(true, IRDeviceType.TS001, IRDeviceType.TC001),
-            ItemInfo(false, IRDeviceType.TC001_PLUS, IRDeviceType.TC002C_DUO),
+            ItemInfo(true, IRDeviceType.TC001, null),
         )
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -74,35 +70,18 @@ class DeviceTypeActivity : BaseActivity() {
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val firstType: IRDeviceType = dataList[position].firstType
-            val secondType: IRDeviceType? = dataList[position].secondType
             val tvTitle = holder.itemView.findViewById<TextView>(R.id.tv_title)
             val tvItem1 = holder.itemView.findViewById<TextView>(R.id.tv_item1)
             val ivItem1 = holder.itemView.findViewById<ImageView>(R.id.iv_item1)
             val groupItem2 = holder.itemView.findViewById<View>(R.id.group_item2)
-            val tvItem2 = holder.itemView.findViewById<TextView>(R.id.tv_item2)
-            val ivItem2 = holder.itemView.findViewById<ImageView>(R.id.iv_item2)
             
             tvTitle.isVisible = dataList[position].isTitle
-            tvTitle.text = context.getString(if (firstType.isLine()) R.string.tc_connect_line else R.string.tc_connect_wifi)
+            tvTitle.text = context.getString(R.string.tc_connect_line)
 
             tvItem1.text = firstType.getDeviceName()
-            when (firstType) {
-                IRDeviceType.TC001 -> ivItem1.setImageResource(R.drawable.ic_device_type_tc001)
-                IRDeviceType.TC001_PLUS -> ivItem1.setImageResource(R.drawable.ic_device_type_tc001_plus)
-                IRDeviceType.TC002C_DUO -> ivItem1.setImageResource(R.drawable.ic_device_type_tc001_plus)
-                IRDeviceType.TS001 -> ivItem1.setImageResource(R.drawable.ic_device_type_ts001)
-            }
+            ivItem1.setImageResource(R.drawable.ic_device_type_tc001)
 
-            groupItem2.isVisible = secondType != null
-            if (secondType != null) {
-                tvItem2.text = secondType.getDeviceName()
-                when (secondType) {
-                    IRDeviceType.TC001 -> ivItem2.setImageResource(R.drawable.ic_device_type_tc001)
-                    IRDeviceType.TC001_PLUS -> ivItem2.setImageResource(R.drawable.ic_device_type_tc001_plus)
-                    IRDeviceType.TC002C_DUO -> ivItem2.setImageResource(R.drawable.ic_device_type_tc001_plus)
-                    IRDeviceType.TS001 -> ivItem2.setImageResource(R.drawable.ic_device_type_ts001)
-                }
-            }
+            groupItem2.isVisible = false // No second device option
         }
 
         override fun getItemCount(): Int = dataList.size
@@ -110,19 +89,11 @@ class DeviceTypeActivity : BaseActivity() {
         inner class ViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
             init {
                 val viewBgItem1 = rootView.findViewById<View>(R.id.view_bg_item1)
-                val viewBgItem2 = rootView.findViewById<View>(R.id.view_bg_item2)
                 
                 viewBgItem1.setOnClickListener {
                     val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         onItemClickListener?.invoke(dataList[position].firstType)
-                    }
-                }
-                viewBgItem2.setOnClickListener {
-                    val position = bindingAdapterPosition
-                    if (position != RecyclerView.NO_POSITION) {
-                        val irDeviceType: IRDeviceType = dataList[position].secondType ?: return@setOnClickListener
-                        onItemClickListener?.invoke(irDeviceType)
                     }
                 }
             }
@@ -133,18 +104,6 @@ class DeviceTypeActivity : BaseActivity() {
         TC001 {
             override fun isLine(): Boolean = true
             override fun getDeviceName(): String = "TC001"
-        },
-        TC001_PLUS {
-            override fun isLine(): Boolean = true
-            override fun getDeviceName(): String = "TC001 Plus"
-        },
-        TC002C_DUO {
-            override fun isLine(): Boolean = true
-            override fun getDeviceName(): String = "TC002C Duo"
-        },
-        TS001 {
-            override fun isLine(): Boolean = true
-            override fun getDeviceName(): String = "TS001"
         };
 
         abstract fun isLine(): Boolean
