@@ -117,4 +117,10 @@ object FileConfig {
         // TS004 gallery directory as property for compatibility
         val ts004GalleryDir: String
             get() = "/storage/emulated/0/Android/data/com.topdon.ircamera/files/Pictures/ts004"
+            
+        /**
+         * Gallery path for thermal images and videos
+         */
+        val galleryPath: String
+            get() = "/storage/emulated/0/IRCamera/Gallery/"
     }

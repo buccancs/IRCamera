@@ -59,5 +59,19 @@ class ByteUtils {
         fun isEmpty(bytes: ByteArray?): Boolean {
             return bytes == null || bytes.isEmpty()
         }
+        
+        /**
+         * Get index from byte array - stub implementation
+         */
+        fun getIndex(bytes: ByteArray, value: Byte): Int {
+            return bytes.indexOf(value)
+        }
     }
+}
+
+/**
+ * Extension function for Int to get bit flag at index
+ */
+fun Int.getIndex(index: Int): Int {
+    return if (this and (1 shl (4 * (index - 1))) != 0) 1 else 0
 }
