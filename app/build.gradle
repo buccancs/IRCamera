@@ -327,7 +327,7 @@ dependencies {
 
     // Component dependencies
     implementation project(':component:CommonComponent')
-    // implementation project(':component:thermal-ir') // Temporarily disabled due to compilation errors
+    implementation project(':component:thermal-ir')
     implementation project(':component:transfer')
     implementation project(':component:user')
 }
