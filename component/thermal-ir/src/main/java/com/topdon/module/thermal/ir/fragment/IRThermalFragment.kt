@@ -38,16 +38,16 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
         // Always use TC001 settings
         title_view.setTitleText(getString(R.string.tc_has_line_device))
 
-        cl_open_thermal.setOnClickListener(this)
-        tv_main_enter.setOnClickListener(this)
+        findViewById<View>(R.id.cl_open_thermal).setOnClickListener(this)
+        findViewById<View>(R.id.tv_main_enter).setOnClickListener(this)
 
         // Only show TC001 UI elements
-        tv_main_enter.isVisible = true
-        cl_07_connect_tips.isVisible = false // TC007 UI hidden
-        tv_07_connect.isVisible = false // TC007 UI hidden
+        findViewById<View>(R.id.tv_main_enter).isVisible = true
+        findViewById<View>(R.id.cl_07_connect_tips).isVisible = false // TC007 UI hidden
+        findViewById<View>(R.id.tv_07_connect).isVisible = false // TC007 UI hidden
 
         // Always use TC001 animation
-        animation_view.setAnimation("TDAnimationJSON.json")
+        findViewById<com.airbnb.lottie.LottieAnimationView>(R.id.animation_view).setAnimation("TDAnimationJSON.json")
         checkConnect()
         viewLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onResume(owner: LifecycleOwner) {
@@ -108,7 +108,7 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            cl_open_thermal -> {
+            R.id.cl_open_thermal -> {
                 // Only TC001 devices supported
                 if (DeviceTools.isTC001PlusConnect()) {
                     startActivityForResult(Intent(requireContext(), IRThermalPlusActivity::class.java), 101)
@@ -121,7 +121,7 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
                     }
                 }
             }
-            tv_main_enter -> {
+            R.id.tv_main_enter -> {
                 if (!DeviceTools.isConnect()) {
                     //没有接入设备不需要提示，有系统授权提示框
                     if (DeviceTools.findUsbDevice() == null) {

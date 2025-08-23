@@ -21,7 +21,7 @@ import com.topdon.lib.core.config.FileConfig.galleryPath
 import com.topdon.lib.core.db.AppDatabase
 import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.lib.core.tools.TimeTool
-import com.topdon.lib.core.utils.ByteUtils.getIndex
+import com.topdon.lib.core.utils.ByteUtils
 import com.topdon.lib.core.utils.ScreenShotUtils
 import com.topdon.lib.ui.fence.FenceLineView
 import com.topdon.lib.ui.fence.FencePointView
@@ -458,12 +458,15 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
 
     //显示点线面布局
     private fun showFence(index: Int) {
-        if (fenceFlag.getIndex(index) == 0) {
+        if (ByteUtils.getIndex(fenceFlag, index) == 0) {
             fenceFlag = 1.shl(4 * (index - 1)) //设置001 or 010 or 100
             mFenceLayout!!.visibility = View.VISIBLE
-            fence_point_view.visibility = if (fenceFlag.getIndex(1) > 0) View.VISIBLE else View.GONE
-            fence_line_view.visibility = if (fenceFlag.getIndex(2) > 0) View.VISIBLE else View.GONE
-            fence_view.visibility = if (fenceFlag.getIndex(3) > 0) View.VISIBLE else View.GONE
+            val fencePointView = findViewById<FencePointView>(R.id.fence_point_view)
+            val fenceLineView = findViewById<FenceLineView>(R.id.fence_line_view)
+            val fenceView = findViewById<FenceView>(R.id.fence_view)
+            fencePointView?.visibility = if (ByteUtils.getIndex(fenceFlag, 1) > 0) View.VISIBLE else View.GONE
+            fenceLineView?.visibility = if (ByteUtils.getIndex(fenceFlag, 2) > 0) View.VISIBLE else View.GONE
+            fenceView?.visibility = if (ByteUtils.getIndex(fenceFlag, 3) > 0) View.VISIBLE else View.GONE
         } else {
             fenceFlag = 0x000
             mFenceLayout!!.visibility = View.GONE

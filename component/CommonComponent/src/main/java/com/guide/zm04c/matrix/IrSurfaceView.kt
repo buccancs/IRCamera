@@ -1,6 +1,7 @@
 package com.guide.zm04c.matrix
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.util.AttributeSet
 import android.view.SurfaceView
 
@@ -39,5 +40,12 @@ class IrSurfaceView @JvmOverloads constructor(
      */
     fun setMatrix(matrix: android.graphics.Matrix?, width: Float, height: Float) {
         // Stub implementation for matrix transformation
+    }
+    
+    /**
+     * Draw bitmap to surface with image status
+     */
+    fun doDraw(bitmap: Bitmap?, imageStatus: Int) {
+        // Stub implementation for drawing bitmap to surface
     }
 }

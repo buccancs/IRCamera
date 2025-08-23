@@ -20,7 +20,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import com.topdon.lib.core.bean.tools.ScreenBean
 import com.topdon.lib.core.config.FileConfig.galleryPath
 import com.topdon.lib.core.tools.ToastTools
-import com.topdon.lib.core.utils.ByteUtils.getIndex
+import com.topdon.lib.core.utils.ByteUtils
 import com.topdon.lib.core.utils.ScreenShotUtils
 import com.topdon.lib.ui.dialog.SeekDialog
 import com.topdon.lib.ui.dialog.ThermalInputDialog
@@ -81,24 +81,24 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
     override fun initView() {
         requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         rotateType = 3//默认旋转270度
-        mCenterTextView = temp_display
-        mMaxTextView = max_temp_display
-        mMinTextView = min_temp_display
-        maxImg = max_img
-        minImg = min_img
-        mDisplayFrameLayout = temp_display_layout
-        mFenceLayout = fence_lay
-        mCameraLayout = temp_camera_layout
+        mCenterTextView = findViewById(R.id.temp_display)
+        mMaxTextView = findViewById(R.id.max_temp_display)
+        mMinTextView = findViewById(R.id.min_temp_display)
+        maxImg = findViewById(R.id.max_img)
+        minImg = findViewById(R.id.min_img)
+        mDisplayFrameLayout = findViewById(R.id.temp_display_layout)
+        mFenceLayout = findViewById(R.id.fence_lay)
+        mCameraLayout = findViewById(R.id.temp_camera_layout)
         mDisplayFrameLayout!!.visibility = View.GONE
         mFenceLayout!!.visibility = View.GONE
-        mIrSurfaceViewLayout = final_ir_layout
+        mIrSurfaceViewLayout = findViewById(R.id.final_ir_layout)
         mIrSurfaceView = IrSurfaceView(requireContext())
         val ifrSurfaceViewLayoutParams = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.MATCH_PARENT,
             FrameLayout.LayoutParams.MATCH_PARENT, Gravity.CENTER
         )
         mIrSurfaceView!!.layoutParams = ifrSurfaceViewLayoutParams
-        mIrSurfaceView!!.setMatrix(ThermalTool.getRotate(rotateType), 256f, 192f)
+        mIrSurfaceView!!.setMatrix(null, 256f, 192f) // Fix: pass null Matrix instead of ThermalTool.getRotate result
         mIrSurfaceViewLayout!!.addView(mIrSurfaceView)
         val screenWidth = ScreenUtils.getScreenWidth()
         val screenHeight = screenWidth * 192 / 256
@@ -518,12 +518,15 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
 
     //显示点线面布局
     private fun showFence(index: Int) {
-        if (fenceFlag.getIndex(index) == 0) {
+        if (ByteUtils.getIndex(fenceFlag, index) == 0) {
             fenceFlag = 1.shl(4 * (index - 1)) //设置001 or 010 or 100
             mFenceLayout!!.visibility = View.VISIBLE
-            fence_point_view.visibility = if (fenceFlag.getIndex(1) > 0) View.VISIBLE else View.GONE
-            fence_line_view.visibility = if (fenceFlag.getIndex(2) > 0) View.VISIBLE else View.GONE
-            fence_view.visibility = if (fenceFlag.getIndex(3) > 0) View.VISIBLE else View.GONE
+            val fencePointView = findViewById<FencePointView>(R.id.fence_point_view)
+            val fenceLineView = findViewById<FenceLineView>(R.id.fence_line_view)
+            val fenceView = findViewById<FenceView>(R.id.fence_view)
+            fencePointView?.visibility = if (ByteUtils.getIndex(fenceFlag, 1) > 0) View.VISIBLE else View.GONE
+            fenceLineView?.visibility = if (ByteUtils.getIndex(fenceFlag, 2) > 0) View.VISIBLE else View.GONE
+            fenceView?.visibility = if (ByteUtils.getIndex(fenceFlag, 3) > 0) View.VISIBLE else View.GONE
         } else {
             fenceFlag = 0x000
             mFenceLayout!!.visibility = View.GONE

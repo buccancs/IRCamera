@@ -66,6 +66,20 @@ class ByteUtils {
         fun getIndex(bytes: ByteArray, value: Byte): Int {
             return bytes.indexOf(value)
         }
+        
+        /**
+         * Get index from integer value
+         */
+        fun getIndex(value: Int): Int {
+            return value and 0xFF
+        }
+        
+        /**
+         * Get index from integer value with position
+         */
+        fun getIndex(value: Int, position: Int): Int {
+            return (value shr (position * 8)) and 0xFF
+        }
     }
 }
 
