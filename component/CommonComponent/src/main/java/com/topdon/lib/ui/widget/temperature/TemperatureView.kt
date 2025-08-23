@@ -20,6 +20,7 @@ class TemperatureView @JvmOverloads constructor(
     var point: android.graphics.Point? = null  // Current point for temperature measurement
     var line: Line? = null  // Current line for temperature measurement 
     var rectangle: android.graphics.RectF? = null  // Current rectangle for temperature measurement
+    var tempTextSize: Float = 12f  // Text size for temperature display
     
     // Region and value bitmap for overlay
     val regionAndValueBitmap: android.graphics.Bitmap?
@@ -126,9 +127,62 @@ class TemperatureView @JvmOverloads constructor(
     }
     
     /**
+     * Set monitor - stub implementation
+     */
+    fun setMonitor(monitor: Any?) {
+        // Stub implementation for setting monitor
+    }
+    
+    /**
+     * Reset view - stub implementation
+     */
+    fun restView() {
+        clear()
+    }
+    
+    /**
+     * Add scale point - stub implementation
+     */
+    fun addScalePoint(point: android.graphics.Point) {
+        this.point = point
+        invalidate()
+    }
+    
+    /**
+     * Add scale line - stub implementation
+     */
+    fun addScaleLine(line: Line) {
+        this.line = line
+        invalidate()
+    }
+    
+    /**
+     * Add scale rectangle - stub implementation
+     */
+    fun addScaleRectangle(rect: android.graphics.RectF) {
+        this.rectangle = rect
+        invalidate()
+    }
+    
+    /**
+     * Draw line - stub implementation
+     */
+    fun drawLine(line: Line) {
+        this.line = line
+        invalidate()
+    }
+    
+    /**
      * Temperature listener interface
      */
     fun interface TempListener {
         fun onTempChanged(max: Float, min: Float, avg: Float)
+    }
+    
+    companion object {
+        const val REGION_MODE_CLEAN = 0
+        const val REGION_MODE_POINT = 1 
+        const val REGION_MODE_LINE = 2
+        const val REGION_MODE_RECTANGLE = 3
     }
 }
