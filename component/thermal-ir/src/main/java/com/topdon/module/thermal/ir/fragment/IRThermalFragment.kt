@@ -113,12 +113,13 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
                 if (DeviceTools.isTC001PlusConnect()) {
                     startActivityForResult(Intent(requireContext(), IRThermalPlusActivity::class.java), 101)
                 } else if (DeviceTools.isTC001LiteConnect()) {
-            // TODO: Replace RouterConfig reference with direct navigation
-                    } else if (DeviceTools.isHikConnect()) {
-            // TODO: Replace RouterConfig reference with direct navigation
-                    } else {
-                        startActivityForResult(Intent(requireContext(), IRThermalNightActivity::class.java), 101)
-                    }
+                    // TODO: Replace RouterConfig reference with direct navigation - stub implementation
+                    startActivityForResult(Intent(requireContext(), IRThermalActivity::class.java), 101)
+                } else if (DeviceTools.isHikConnect()) {
+                    // TODO: Replace RouterConfig reference with direct navigation - stub implementation
+                    startActivityForResult(Intent(requireContext(), IRThermalActivity::class.java), 101)
+                } else {
+                    startActivityForResult(Intent(requireContext(), IRThermalNightActivity::class.java), 101)
                 }
             }
             R.id.tv_main_enter -> {

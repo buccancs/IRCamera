@@ -37,4 +37,12 @@ object ScreenShotUtils {
             false
         }
     }
+    
+    /**
+     * Take screenshot with bitmap and screen bean parameters
+     */
+    fun shotScreenBitmap(context: android.content.Context, bitmap: Bitmap?, mode: Int, screenBean: Any?): Bitmap? {
+        // Stub implementation for thermal camera screenshot
+        return bitmap
+    }
 }

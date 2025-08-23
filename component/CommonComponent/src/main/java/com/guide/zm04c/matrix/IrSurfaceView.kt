@@ -48,4 +48,34 @@ class IrSurfaceView @JvmOverloads constructor(
     fun doDraw(bitmap: Bitmap?, imageStatus: Int) {
         // Stub implementation for drawing bitmap to surface
     }
+    
+    /**
+     * Set open lookup table
+     */
+    fun setOpenLut() {
+        // Stub implementation for lookup table control
+    }
+    
+    /**
+     * Take screenshot of the surface
+     */
+    fun shotScreenBitmap(bitmap: Bitmap?, width: Int, height: Int): Bitmap? {
+        // Stub implementation for screen capture
+        return bitmap
+    }
+    
+    /**
+     * Get saturation value
+     */
+    fun getSaturationValue(): Int {
+        // Stub implementation - return default saturation
+        return 50
+    }
+    
+    /**
+     * Set saturation value
+     */
+    fun setSaturationValue(value: Int) {
+        // Stub implementation for saturation control
+    }
 }

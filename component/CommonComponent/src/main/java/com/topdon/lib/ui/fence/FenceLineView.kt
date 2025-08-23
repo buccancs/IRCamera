@@ -17,5 +17,18 @@ class FenceLineView @JvmOverloads constructor(
     
     interface CallBack {
         fun onLineChanged(startX: Float, startY: Float, endX: Float, endY: Float)
+        
+        // Legacy callback method for compatibility
+        fun callback(startPoint: IntArray, endPoint: IntArray, srcRect: IntArray) {
+            // Default implementation
+        }
+    }
+    
+    /**
+     * Clear fence selection
+     */
+    fun clear() {
+        // Clear the fence selection
+        invalidate()
     }
 }
