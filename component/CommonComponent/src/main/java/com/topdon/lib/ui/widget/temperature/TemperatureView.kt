@@ -3,6 +3,7 @@ package com.topdon.lib.ui.widget.temperature
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
+import com.energy.iruvc.utils.Line
 
 /**
  * Temperature view with thermal measurement functionality
@@ -16,6 +17,9 @@ class TemperatureView @JvmOverloads constructor(
     var listener: TempListener? = null
     var temperatureRegionMode: Int = 0  // Temperature region mode property
     var isShowFull: Boolean = false     // Show full property
+    var point: android.graphics.Point? = null  // Current point for temperature measurement
+    var line: Line? = null  // Current line for temperature measurement 
+    var rectangle: android.graphics.RectF? = null  // Current rectangle for temperature measurement
     
     // Region and value bitmap for overlay
     val regionAndValueBitmap: android.graphics.Bitmap?

@@ -170,6 +170,12 @@ object SharedManager {
     }
     
     fun getBaseHost(): String = getString("base_host_url", "")
+    
+    /**
+     * Get time zone for display
+     * @return timezone string (e.g. "UTC", "America/New_York")
+     */
+    fun getShowZone(): String = getString("show_zone", "UTC")
 }
 
 /**

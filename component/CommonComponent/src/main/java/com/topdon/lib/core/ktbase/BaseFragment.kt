@@ -71,6 +71,28 @@ abstract class BaseFragment : Fragment() {
     }
     
     /**
+     * Show loading dialog - stub implementation
+     */
+    fun showLoadingDialog() {
+        // Stub implementation - in production would show progress dialog
+        showToast("Loading...")
+    }
+    
+    /**
+     * Hide loading dialog - stub implementation
+     */
+    fun hideLoadingDialog() {
+        // Stub implementation - in production would hide progress dialog
+    }
+    
+    /**
+     * Dismiss loading dialog - alias for hideLoadingDialog
+     */
+    fun dismissLoadingDialog() {
+        hideLoadingDialog()
+    }
+    
+    /**
      * Get context safely
      */
     fun getSafeContext(): Context? {

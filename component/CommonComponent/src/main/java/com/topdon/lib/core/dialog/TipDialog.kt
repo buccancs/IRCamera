@@ -53,7 +53,17 @@ class TipDialog(context: Context) : Dialog(context) {
             return this
         }
         
+        fun setPositiveListener(text: String, listener: () -> Unit): Builder {
+            this.positiveListener = listener
+            return this
+        }
+        
         fun setNegativeListener(textRes: Int, listener: () -> Unit): Builder {
+            this.negativeListener = listener
+            return this
+        }
+        
+        fun setNegativeListener(text: String, listener: () -> Unit): Builder {
             this.negativeListener = listener
             return this
         }

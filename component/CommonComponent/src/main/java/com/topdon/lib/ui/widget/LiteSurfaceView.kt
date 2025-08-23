@@ -22,6 +22,9 @@ class LiteSurfaceView @JvmOverloads constructor(
     companion object {
         const val REGION_MODE_CLEAN = 0
         const val REGION_MODE_OVERLAY = 1
+        const val REGION_MODE_POINT = 2
+        const val REGION_MODE_LINE = 3
+        const val REGION_MODE_RECTANGLE = 4
     }
     
     // Stub methods referenced in thermal-ir component

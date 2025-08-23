@@ -28,7 +28,7 @@ class SimpleGalleryAdapter(val context: Context) :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ItemView) {
-            GlideLoader.load(holder.img, datas[position])
+            GlideLoader.loadImage(holder.itemView.context, datas[position], holder.img)
             holder.lay.setOnClickListener {
                 listener?.onClick(position, datas[position])
             }

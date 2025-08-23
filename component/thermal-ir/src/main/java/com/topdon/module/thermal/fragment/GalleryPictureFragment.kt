@@ -8,9 +8,9 @@ import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ScreenUtils
-import com.maning.imagebrowserlibrary.MNImageBrowser
+import com.topdon.lib.core.widget.MNImageBrowser
 import com.topdon.lib.core.ktbase.BaseViewModelFragment
-import com.topdon.lib.core.widget.dialog.TipDialog
+import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.adapter.SimpleGalleryAdapter
 import com.topdon.module.thermal.tools.GlideImageEngine
@@ -25,7 +25,7 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
 
     private val adapter by lazy { SimpleGalleryAdapter(requireContext()) }
 
-    override fun providerVMClass() = GalleryViewModel::class.java
+    override fun provideViewModel() = GalleryViewModel()
     override fun initContentView() = R.layout.fragment_gallery_picture
 
 
@@ -85,12 +85,7 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
     }
 
     fun previewPicture(path: String) {
-        val imageEngine = GlideImageEngine()
-        MNImageBrowser.with(context) //当前位置
-            .setCurrentPosition(0) //图片引擎
-            .setImageEngine(imageEngine) //图片集合
-            .setImageUrl(path)
-            .show()
+        MNImageBrowser.startImageBrowser(requireContext(), path, "图片预览")
     }
 
 }
