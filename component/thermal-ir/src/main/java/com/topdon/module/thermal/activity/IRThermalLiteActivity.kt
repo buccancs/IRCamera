@@ -1964,8 +1964,8 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
         }
     }
     private fun updateCustomPseudo() {
-        temperatureSeekbar.setColorList(customPseudoBean.getColorList()?.reversedArray())
-        temperatureSeekbar.setPlaces(customPseudoBean.getPlaceList())
+        temperatureSeekbar.setColorList(customPseudoBean.getColorList().toIntArray().reversedArray())
+        temperatureSeekbar.setPlaces(customPseudoBean.getPlaceList().toFloatArray())
         temperatureIvLock.visibility = View.INVISIBLE
         temperatureSeekbar.setRangeAndPro(
             UnitTools.showUnitValue(customPseudoBean.minTemp, isShowC),
@@ -1974,8 +1974,8 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
             UnitTools.showUnitValue(customPseudoBean.maxTemp, isShowC)
         )
         setCustomPseudoColorList(
-            customPseudoBean.getColorList(),
-            customPseudoBean.getPlaceList(),
+            customPseudoBean.getColorList().toIntArray(),
+            customPseudoBean.getPlaceList().toFloatArray(),
             customPseudoBean.isUseGray, customPseudoBean.maxTemp, customPseudoBean.minTemp
         )
         tvTempContent.visibility = View.VISIBLE

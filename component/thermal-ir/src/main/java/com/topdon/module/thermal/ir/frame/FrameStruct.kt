@@ -7,7 +7,7 @@ import com.topdon.lib.core.bean.WatermarkBean
 import com.topdon.lib.core.common.ProductType.PRODUCT_NAME_TC007
 import com.topdon.lib.core.utils.ByteUtils
 import com.topdon.lib.core.utils.ByteUtils.toBytes
-import com.topdon.pseudo.bean.CustomPseudoBean
+import com.topdon.lib.core.bean.CustomPseudoBean
 
 /**
  * 首部结构，数值均为大端

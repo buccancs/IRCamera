@@ -20,4 +20,8 @@
     <color name="chart_point_min">#0000FF</color>
     <color name="chart_point_center">#00FF00</color>
     <color name="http_code998">#888888</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="font_third_color">#CCCCCC</color>
+    <color name="font_gray">#999999</color>
 </resources>

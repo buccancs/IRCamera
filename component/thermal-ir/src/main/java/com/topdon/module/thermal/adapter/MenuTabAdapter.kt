@@ -30,11 +30,11 @@ class MenuTabAdapter(val context: Context) :
     }
 
     //拍摄
-    private val firstMenus =
+    private val firstMenus: ArrayList<Int> =
         arrayListOf(R.drawable.ic_menu_thermal1001_svg, R.drawable.ic_menu_thermal1002_svg)
 
     //选框
-    private val secondMenus =
+    private val secondMenus: ArrayList<Int> =
         arrayListOf(
             R.drawable.ic_menu_thermal2002,
             R.drawable.ic_menu_thermal2003,
@@ -65,7 +65,7 @@ class MenuTabAdapter(val context: Context) :
         )
 
     //色彩
-    private val thirdMenus =
+    private val thirdMenus: ArrayList<Int> =
         arrayListOf(
             R.drawable.ic_menu_thermal3001,
             R.drawable.ic_menu_thermal3002,
@@ -80,7 +80,7 @@ class MenuTabAdapter(val context: Context) :
         )
 
     //设置
-    private val fourthMenus =
+    private val fourthMenus: ArrayList<Int> =
         arrayListOf(
             R.drawable.ic_menu_thermal4001_svg,
             R.drawable.ic_menu_thermal4002_svg,
