@@ -221,14 +221,8 @@ object SharedManager {
     private const val SP_CHANGE_DEVICE = "sp_change_device"
     private const val SP_CAR_DETECT = "sp_car_detect"
     
-    // Device connection states
-    var hasTS004: Boolean
-        get() = SPUtils.getInstance().getBoolean("hasTS004", false)
-        set(value) = SPUtils.getInstance().put("hasTS004", value)
-        
-    var hasTC007: Boolean
-        get() = SPUtils.getInstance().getBoolean("hasTC007", false)
-        set(value) = SPUtils.getInstance().put("hasTC007", value)
+    // Device connection states - Only TC001 supported
+    // hasTS004 and hasTC007 removed - not supported
         
     var is04AutoSync: Boolean
         get() = SPUtils.getInstance().getBoolean("is04AutoSync", false)

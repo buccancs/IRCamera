@@ -103,14 +103,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
-        if (WebSocketProxy.getInstance().isTC007Connect()) {
-            lifecycleScope.launch {
-                val batteryInfo: BatteryInfo? = TC007Repository.getBatteryInfo()
-                if (batteryInfo != null) {
-                    adapter.tc007Battery = batteryInfo
-                }
-            }
-        }
+        // TC007 support removed - only TC001 supported
         viewLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onResume(owner: LifecycleOwner) {
                 if (WebSocketProxy.getInstance().isConnected()) {
@@ -151,27 +144,11 @@ class MainFragment : BaseFragment(), View.OnClickListener {
     }
 
     override fun onSocketConnected(isTS004: Boolean) {
-        if (isTS004) {
-            SharedManager.hasTS004 = true
-            adapter.hasConnectTS004 = true
-        } else {
-            SharedManager.hasTC007 = true
-            adapter.hasConnectTC007 = true
-            lifecycleScope.launch {
-                val batteryInfo: BatteryInfo? = TC007Repository.getBatteryInfo()
-                if (batteryInfo != null) {
-                    adapter.tc007Battery = batteryInfo
-                }
-            }
-        }
+        // Only TC001 supported - TS004/TC007 support removed
     }
 
     override fun onSocketDisConnected(isTS004: Boolean) {
-        if (isTS004) {
-            adapter.hasConnectTS004 = false
-        } else {
-            adapter.hasConnectTC007 = false
-        }
+        // Only TC001 supported - TS004/TC007 support removed
     }
 
     override fun onClick(v: View?) {
@@ -187,17 +164,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onSocketMsgEvent(event: SocketMsgEvent) {
-        if (SocketCmdUtil.getCmdResponse(event.text) == WsCmdConstants.APP_EVENT_HEART_BEATS) {//心跳
-            if (!adapter.hasConnectTC007) {//当前连接的不是 TC007
-                return
-            }
-            try {
-                val battery: JSONObject = JSONObject(event.text).getJSONObject("battery")
-                adapter.tc007Battery = BatteryInfo(battery.getString("status"), battery.getString("remaining"))
-            } catch (_: Exception) {
-
-            }
-        }
+        // TC007 heartbeat handling removed - only TC001 supported
     }
 
     private class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
@@ -235,16 +202,8 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         @SuppressLint("SetTextI18n")
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val type = holder.getConnectType(position)
-            val hasTitle: Boolean = when (position) {
-                0 -> true
-                1 -> SharedManager.hasTcLine
-                else -> false
-            }
-            val hasConnect: Boolean = when (type) {
-                ConnectType.LINE -> hasConnectLine
-                ConnectType.TS004 -> hasConnectTS004
-                ConnectType.TC007 -> hasConnectTC007
-            }
+            val hasTitle: Boolean = (position == 0) // Show title for first (and only) item
+            val hasConnect: Boolean = hasConnectLine // Only LINE is supported
 
             val tvTitle = holder.itemView.findViewById<TextView>(R.id.tv_title)
             val ivBg = holder.itemView.findViewById<ImageView>(R.id.iv_bg)
@@ -252,13 +211,11 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             val viewDeviceState = holder.itemView.findViewById<View>(R.id.view_device_state)
             val tvDeviceState = holder.itemView.findViewById<TextView>(R.id.tv_device_state)
             val tvBattery = holder.itemView.findViewById<TextView>(R.id.tv_battery)
-            val batteryView = holder.itemView.findViewById<BatteryView>(R.id.battery_view)
+            // BatteryView removed - TC007 support removed
             val ivImage = holder.itemView.findViewById<ImageView>(R.id.iv_image)
 
             tvTitle.isVisible = hasTitle
-            tvTitle.text = AppLanguageUtils.attachBaseContext(
-                holder.itemView.context, SharedManager.getLanguage(holder.itemView.context!!))
-                .getString(if (type == ConnectType.LINE) R.string.tc_connect_line else R.string.tc_connect_wifi)
+            tvTitle.text = holder.itemView.context.getString(R.string.tc_connect_line) // Always LINE
 
             ivBg.isSelected = hasConnect
             tvDeviceName.isSelected = hasConnect
@@ -291,17 +248,8 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         }
 
         override fun getItemCount(): Int {
-            var result = 0
-            if (SharedManager.hasTcLine) {
-                result++
-            }
-            if (SharedManager.hasTS004) {
-                result++
-            }
-            if (SharedManager.hasTC007) {
-                result++
-            }
-            return result
+            // Only LINE/TC001 supported
+            return if (SharedManager.hasTcLine) 1 else 0
         }
 
         inner class ViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
@@ -330,18 +278,12 @@ class MainFragment : BaseFragment(), View.OnClickListener {
                                 // TC007 support removed
                             }
                         }
-                        onItemLongClickListener?.invoke(it, deviceType)
                     }
                     true
                 }
             }
 
-            fun getConnectType(position: Int): ConnectType = when (position) {
-                0 -> ConnectType.LINE
-                1 -> ConnectType.TS004
-                2 -> ConnectType.TC007
-                else -> ConnectType.LINE
-            }
+            fun getConnectType(position: Int): ConnectType = ConnectType.LINE
         }
     }
 
