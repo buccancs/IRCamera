@@ -24,7 +24,7 @@ import com.energy.iruvc.utils.CommonParams
 import com.energy.iruvc.utils.Line
 import com.energy.iruvc.utils.SynchronizedBitmap
 import com.energy.iruvccamera.usb.USBMonitor
-import com.topdon.module.thermal.R
+import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.activity.IRMonitorLiteActivity
 import com.topdon.module.thermal.camera.CameraPreviewManager
 import com.topdon.module.thermal.camera.DeviceControlManager
@@ -40,10 +40,10 @@ import com.topdon.module.thermal.ui.activity.IrDisplayActivity.PREVIEW_FAIL
 import com.topdon.module.thermal.ui.activity.IrDisplayActivity.SHOW_LOADING
 import com.topdon.module.thermal.util.IRTool
 import com.infisense.usbir.view.ITsTempListener
-import com.infisense.usbir.view.TemperatureView
-import com.infisense.usbir.view.TemperatureView.REGION_MODE_LINE
-import com.infisense.usbir.view.TemperatureView.REGION_MODE_POINT
-import com.infisense.usbir.view.TemperatureView.REGION_MODE_RECTANGLE
+import com.topdon.lib.ui.widget.temperature.TemperatureView
+import com.topdon.lib.ui.widget.LiteSurfaceView.Companion.REGION_MODE_LINE
+import com.topdon.lib.ui.widget.LiteSurfaceView.Companion.REGION_MODE_POINT
+import com.topdon.lib.ui.widget.LiteSurfaceView.Companion.REGION_MODE_RECTANGLE
 import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.common.SaveSettingUtil
 import com.topdon.lib.core.ktbase.BaseFragment
@@ -70,6 +70,18 @@ import java.util.ResourceBundle.getBundle
  **/
 class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
 
+    companion object {
+        private const val TAG = "IRMonitorLiteFragment"
+        
+        fun newInstance(isPick: Boolean): IRMonitorLiteFragment {
+            val fragment = IRMonitorLiteFragment()
+            val bundle = Bundle()
+            bundle.putBoolean("isPick", isPick)
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
+
     private var configJob: Job ?= null
     protected var isConfigWait = true
     protected var temperatureBytes = ByteArray(192 * 256 * 2) //温度数据
@@ -78,6 +90,8 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
     val dstTempBytes = ByteArray(192*256*2)
     private var mProgressDialog: ProgressDialog? = null
     private var temperaturerun = false
+    private lateinit var temperatureView: TemperatureView // Temperature view for thermal measurements
+    private lateinit var cameraView: com.topdon.lib.ui.widget.LiteSurfaceView // Camera view for thermal preview
 
     private var mPreviewWidth = 256
     private var mPreviewHeight = 192
@@ -92,19 +106,11 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
     protected var isPick = false
 
 
-    companion object{
-        fun newInstance(isPick: Boolean): IRMonitorLiteFragment {
-            val fragment = IRMonitorLiteFragment()
-            val bundle = Bundle()
-            bundle.putBoolean("isPick", isPick)
-            fragment.arguments = bundle
-            return fragment
-        }
-    }
+
 
 
     override fun initContentView(): Int {
-        return R.layout.fragment_lite_ir_monitor
+        return com.topdon.module.thermal.ir.R.layout.fragment_lite_ir_monitor
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -115,6 +121,11 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
     }
 
     override fun initView() {
+        // Initialize temperature view
+        temperatureView = TemperatureView(requireContext())
+        // Initialize camera view stub
+        cameraView = com.topdon.lib.ui.widget.LiteSurfaceView(requireContext())
+        
         lifecycleScope.launch {
             showLoadingDialog()
             delay(1000)
@@ -237,43 +248,28 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
         val contentRectF = RectF(0f,0f,192f,256f)
         when (type) {
             1 -> {
-                if (temperatureView.point != null &&
-                    contentRectF.contains(temperatureView.point.x.toFloat(),
-                        temperatureView.point.y.toFloat()
-                    )) {
-                    result = SelectPositionBean(1, temperatureView.point)
+                temperatureView.point?.let { point ->
+                    if (contentRectF.contains(point.x.toFloat(), point.y.toFloat())) {
+                        result = SelectPositionBean(1, point)
+                    }
                 }
             }
             2 -> {
-                if (temperatureView.line != null) {
-                    result = SelectPositionBean(
-                        2,
-                        temperatureView.line.start,
-                        temperatureView.line.end
-                    )
+                temperatureView.line?.let { line ->
+                    result = SelectPositionBean(2, line.start, line.end)
                 }
             }
             3 -> {
-                if (temperatureView.rectangle != null &&
-                    contentRectF.contains(
-                        RectF(
-                            temperatureView.rectangle.left.toFloat(),
-                            temperatureView.rectangle.top.toFloat(),
-                            temperatureView.rectangle.right.toFloat(),
-                            temperatureView.rectangle.bottom.toFloat()
-                        )
+                temperatureView.rectangle?.let { rect ->
+                    if (contentRectF.contains(
+                        RectF(rect.left, rect.top, rect.right, rect.bottom)
                     )) {
-                    result = SelectPositionBean(
-                        3,
-                        Point(
-                            temperatureView.rectangle.left,
-                            temperatureView.rectangle.top
-                        ),
-                        Point(
-                            temperatureView.rectangle.right,
-                            temperatureView.rectangle.bottom
+                        result = SelectPositionBean(
+                            3,
+                            Point(rect.left.toInt(), rect.top.toInt()),
+                            Point(rect.right.toInt(), rect.bottom.toInt())
                         )
-                    )
+                    }
                 }
             }
         }
@@ -383,7 +379,7 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
 
 
     private fun initCameraSize() {
-        temperatureView.setTextSize(SaveSettingUtil.tempTextSize)
+        temperatureView.setTextSize(temperatureView.tempTextSize)
         temperatureView.setSyncimage(syncimage)
         // 计算画面的宽高，避免被拉伸变形
         temperatureView.setTemperature(dstTempBytes)
@@ -396,7 +392,7 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
                     //需等待渲染完成再显示
                     temperatureView.visibility = View.VISIBLE
                     delay(1000)
-                    temperatureView.setImageSize(mPreviewHeight, mPreviewWidth, this@IRMonitorLiteFragment)
+                    temperatureView.setImageSize(mPreviewHeight, mPreviewWidth, requireContext())
                     temperatureView.temperatureRegionMode = TemperatureView.REGION_MODE_CLEAN//全屏测温
                 }
             }
@@ -438,17 +434,20 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
             3 -> {
                 //面
                 temperatureView.addScaleRectangle(
-                    Rect(
-                        selectBean.startPosition!!.x,
-                        selectBean.startPosition!!.y,
-                        selectBean.endPosition!!.x,
-                        selectBean.endPosition!!.y,
+                    RectF(
+                        selectBean.startPosition!!.x.toFloat(),
+                        selectBean.startPosition!!.y.toFloat(),
+                        selectBean.endPosition!!.x.toFloat(),
+                        selectBean.endPosition!!.y.toFloat(),
                     )
                 )
                 temperatureView.temperatureRegionMode = REGION_MODE_RECTANGLE
             }
         }
-        temperatureView.drawLine()
+        // Draw the current line if it exists
+        temperatureView.line?.let { line ->
+            temperatureView.drawLine(line)
+        }
     }
 
 
@@ -578,6 +577,6 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
 
     fun getBitmap() : Bitmap{
         return Bitmap.createScaledBitmap(CameraPreviewManager.getInstance().scaledBitmap(true),
-            cameraView!!.width, cameraView!!.height, true)
+            cameraView.width, cameraView.height, true)
     }
 }

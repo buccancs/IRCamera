@@ -203,7 +203,6 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
                 TAG,
                         "ConnectCallback->onIRCMDCreate"
             )
-                    )
                     this@IRMonitorThermalFragment.ircmd = ircmd
                     //重置镜像为非镜像
                     ircmd.setPropImageParams(

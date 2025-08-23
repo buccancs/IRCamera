@@ -22,7 +22,7 @@ import com.topdon.lib.core.utils.NetWorkUtils
 import com.topdon.libcom.PDFHelp
 import com.topdon.lms.sdk.LMS
 import com.topdon.lms.sdk.utils.StringUtils
-import com.topdon.lms.sdk.weiget.TToast
+import com.topdon.lib.core.ui.TToast
 import com.topdon.module.thermal.ir.report.view.ReportIRShowView
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.report.bean.ReportBean
@@ -213,5 +213,12 @@ class ReportPreviewSecondActivity: BaseViewModelActivity<UpReportViewModel>(), V
             }
         }
         return result
+    }
+    
+    /**
+     * Handle request error - stub implementation for compilation
+     */
+    private fun requestError(throwable: Throwable) {
+        ToastUtils.showShort(R.string.setting_http_error)
     }
 }

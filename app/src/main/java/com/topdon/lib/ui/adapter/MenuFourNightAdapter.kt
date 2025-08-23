@@ -16,7 +16,7 @@ import com.topdon.lib.core.utils.Constants.IR_OBSERVE_MODE
 import com.topdon.lib.core.utils.Constants.IR_TCPLUS_MODE
 import com.topdon.lib.core.utils.Constants.IR_TEMPERATURE_LITE
 import com.topdon.lib.core.utils.Constants.IR_TEMPERATURE_MODE
-import com.topdon.lib.ui.R
+import com.topdon.tc001.R
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.lib.ui.config.CameraHelp
 import com.topdon.lib.ui.listener.SingleClickListener
@@ -28,6 +28,17 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
 
 
     var listener: ((index: Int, code: Int) -> Unit)? = null
+    
+    // Missing properties for adapter functionality
+    var rotateAngle: Int = 0
+    var colorEnable: Boolean = false
+    var contrastEnable: Boolean = false
+    var ddeEnable: Boolean = false
+    var alarmEnable: Boolean = false
+    var textColorEnable: Boolean = false
+    var mirrorEnable: Boolean = false
+    var compassEnable: Boolean = false
+    var waterMarkEnable: Boolean = false
 
 
 

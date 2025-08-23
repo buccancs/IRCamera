@@ -53,7 +53,17 @@ class TipDialog(context: Context) : Dialog(context) {
             return this
         }
         
+        fun setPositiveListener(text: String, listener: () -> Unit): Builder {
+            this.positiveListener = listener
+            return this
+        }
+        
         fun setNegativeListener(textRes: Int, listener: () -> Unit): Builder {
+            this.negativeListener = listener
+            return this
+        }
+        
+        fun setNegativeListener(text: String, listener: () -> Unit): Builder {
             this.negativeListener = listener
             return this
         }
@@ -63,11 +73,18 @@ class TipDialog(context: Context) : Dialog(context) {
             return this
         }
         
+        fun setCanceled(cancellable: Boolean): Builder {
+            // Placeholder - in real implementation would set dialog cancellable
+            return this
+        }
+        
         fun create(): TipDialog {
             return TipDialog(context)
         }
         
         fun show() {
+            val dialog = create()
+            dialog.show()
             // Simplified implementation - just call the positive listener
             positiveListener?.invoke()
         }

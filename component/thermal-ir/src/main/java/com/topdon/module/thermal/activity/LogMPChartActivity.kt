@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.blankj.utilcode.util.SizeUtils
@@ -44,9 +45,10 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
 
     override fun initView() {
         setTitleText(R.string.app_record)
-        chart = log_chart_time_chart
-        log_chart_time_recycler.layoutManager = GridLayoutManager(this, 4)
-        log_chart_time_recycler.adapter = adapter
+        chart = findViewById(R.id.log_chart_time_chart)
+        val timeRecycler = findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.log_chart_time_recycler)
+        timeRecycler.layoutManager = GridLayoutManager(this, 4)
+        timeRecycler.adapter = adapter
         adapter.listener = object : SettingTimeAdapter.OnItemClickListener {
             override fun onClick(index: Int, time: Int) {
                 //切换类型
@@ -56,11 +58,11 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
             }
         }
         viewModel.resultLiveData.observe(this) {
-            dismissLoading()
+            hideLoading()
             try {
-                initEntry(it.dataList)
+                initEntry(it.dataList as ArrayList<ThermalEntity>)
             } catch (e: Exception) {
-                ToastTools.showShort("图表异常，请重新加载")
+                ToastTools.showShort(this, "图表异常，请重新加载")
             }
         }
         clearEntity(true)
@@ -84,7 +86,7 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
         showLoading()
 //        viewModel.queryLogByType(selectType)
         lifecycleScope.launch(Dispatchers.IO) {
-            viewModel.queryLogVolsByStartTime(
+            viewModel.queryLogsByTimeRange(
                 type = SharedManager.getSelectFenceType(),
                 selectTimeType = selectType
             )
@@ -164,7 +166,7 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
         set.fillDrawable = ContextCompat.getDrawable(this, bgChartColors[index])//设置填充颜色渐变
         set.axisDependency = YAxis.AxisDependency.LEFT
         set.color = ContextCompat.getColor(this, lineChartColors[index])//曲线颜色
-        set.setCircleColor(ContextCompat.getColor(this, R.color.white))//坐标颜色
+        set.setCircleColor(Color.WHITE)//坐标颜色
 //        set.fillColor = ContextCompat.getColor(this, R.color.purple_500)
 //        set.highLightColor = ContextCompat.getColor(this, R.color.white)
         set.valueTextColor = Color.WHITE
@@ -190,9 +192,9 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
                     val startTime = data[0].createTime
                     chart.xAxis.valueFormatter =
                         MyValueFormatter(startTime = startTime, type = selectType)
-                    data[0].type = "default"
+                    data[0].type = 1 // Default type as integer
                     when (data[0].type) {
-                        "point" -> {
+                        1 -> { // point type
                             var set = lineData.getDataSetByIndex(0)//读取x为0的坐标点
                             if (set == null) {
                                 set = createSet(2, "temp")
@@ -205,7 +207,7 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
                                 set.addEntry(entity)
                             }
                         }
-                        "line" -> {
+                        2 -> { // line type
                             var maxDataSet = lineData.getDataSetByIndex(0)//读取x为0的坐标点
                             if (maxDataSet == null) {
                                 maxDataSet = createSet(0, "line maxTemp")

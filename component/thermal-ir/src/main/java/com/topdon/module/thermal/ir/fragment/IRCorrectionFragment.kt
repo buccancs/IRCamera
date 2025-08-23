@@ -145,7 +145,6 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
                 TAG,
                             "ConnectCallback->onIRCMDCreate"
             )
-                        )
                         this@IRCorrectionFragment.ircmd = ircmd
                         // 需要等IRCMD初始化完成之后才可以调用
 //                        ircmd.setPseudoColor(CommonParams.PreviewPathChannel.PREVIEW_PATH0,

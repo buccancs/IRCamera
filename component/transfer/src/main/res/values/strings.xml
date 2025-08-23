@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scan_ble_tip_authorize">Please grant storage permissions to continue</string>
+    <string name="app_tip">Tip</string>
+    <string name="app_album_content">Transfer photos to album?</string>
+    <string name="app_open">Open</string>
+    <string name="app_cancel">Cancel</string>
+    
+    <!-- Gallery transfer strings -->
+    <string name="gallery_transfer">Gallery Transfer</string>
+    <string name="gallery_transfer_complete">Transfer Complete</string>
+    <string name="gallery_transfer_wait">Transferring, please wait...</string>
+</resources>

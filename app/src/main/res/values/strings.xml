@@ -10,4 +10,14 @@
     <!-- Missing strings from main fragment -->
     <string name="top_infrared_up_case">TOP INFRARED</string>
     <string name="see_more_than">See More Than</string>
+    
+    <!-- Missing error strings -->
+    <string name="http_code_z5004">Network connection error</string>
+    
+    <!-- Missing language strings -->
+    <string name="english">English</string>
+    
+    <!-- Missing strings from ClauseActivity - only add ones not in strings_language.xml -->
+    <string name="version_year">© %1$s TOPDON</string>
+    <string name="privacy_agreement_tips_new">    By using %1$s, you agree to our Terms of Service and Privacy Policy. We are committed to protecting your privacy and will only collect necessary information to provide better services.</string>
 </resources>

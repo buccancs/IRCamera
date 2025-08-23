@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.topdon.lib.ui.R
+import com.topdon.tc001.R
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.lib.ui.listener.SingleClickListener
 
@@ -17,6 +17,10 @@ class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.V
     var listener: ((index: Int, code: Int) -> Unit)? = null
     private var type = 0
     private var selected = -1
+    
+    // Missing properties for adapter functionality
+    private var colorEnable: Boolean = false
+    private var contrastEnable: Boolean = false
 
     fun selected(index: Int) {
         selected = index

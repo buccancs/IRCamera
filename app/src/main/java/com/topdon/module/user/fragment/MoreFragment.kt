@@ -1,5 +1,4 @@
 package com.topdon.module.user.fragment
-import com.topdon.tc001.R
 
 import android.content.Intent
 import android.view.View
@@ -9,8 +8,9 @@ import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.tools.DeviceTools
-import com.topdon.lib.core.view.MySettingItem
-import com.topdon.module.user.R
+import com.topdon.lib.ui.SettingNightView
+import com.topdon.tc001.R
+import androidx.appcompat.widget.SwitchCompat
 
 /**
  * 插件式 "更多" 页面
@@ -19,18 +19,28 @@ import com.topdon.module.user.R
  */
 class MoreFragment : BaseFragment(), View.OnClickListener {
 
+    private lateinit var settingItemModel: SettingNightView
+    private lateinit var settingItemCorrection: SettingNightView
+    private lateinit var settingItemDual: SettingNightView
+    private lateinit var settingItemUnit: SettingNightView
+    private lateinit var settingVersion: View
+    private lateinit var settingDeviceInformation: View
+    private lateinit var settingReset: View
+    private lateinit var settingItemAutoShow: SwitchCompat
+    private lateinit var settingItemConfigSelect: SwitchCompat
+
     override fun initContentView() = R.layout.fragment_more
 
     override fun initView() {
-        val settingItemModel = findViewById<MySettingItem>(R.id.setting_item_model)
-        val settingItemCorrection = findViewById<MySettingItem>(R.id.setting_item_correction)
-        val settingItemDual = findViewById<MySettingItem>(R.id.setting_item_dual)
-        val settingItemUnit = findViewById<MySettingItem>(R.id.setting_item_unit)
-        val settingVersion = findViewById<View>(R.id.setting_version)
-        val settingDeviceInformation = findViewById<View>(R.id.setting_device_information)
-        val settingReset = findViewById<View>(R.id.setting_reset)
-        val settingItemAutoShow = findViewById<MySettingItem>(R.id.setting_item_auto_show)
-        val settingItemConfigSelect = findViewById<MySettingItem>(R.id.setting_item_config_select)
+        settingItemModel = findViewById(R.id.setting_item_model)
+        settingItemCorrection = findViewById(R.id.setting_item_correction)
+        settingItemDual = findViewById(R.id.setting_item_dual)
+        settingItemUnit = findViewById(R.id.setting_item_unit)
+        settingVersion = findViewById(R.id.setting_version)
+        settingDeviceInformation = findViewById(R.id.setting_device_information)
+        settingReset = findViewById(R.id.setting_reset)
+        settingItemAutoShow = findViewById(R.id.setting_item_auto_show)
+        settingItemConfigSelect = findViewById(R.id.setting_item_config_select)
 
         settingItemModel.setOnClickListener(this)//温度修正
         settingItemCorrection.setOnClickListener(this)//图像校正
@@ -76,21 +86,14 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
     }
 
     override fun connected() {
-        val settingItemDual = findViewById<MySettingItem>(R.id.setting_item_dual)
         settingItemDual.isVisible = DeviceTools.isTC001PlusConnect()
     }
 
     override fun disConnected() {
-        val settingItemDual = findViewById<MySettingItem>(R.id.setting_item_dual)
         settingItemDual.isVisible = false
     }
 
     override fun onClick(v: View?) {
-        val settingItemModel = findViewById<MySettingItem>(R.id.setting_item_model)
-        val settingItemDual = findViewById<MySettingItem>(R.id.setting_item_dual)
-        val settingItemUnit = findViewById<MySettingItem>(R.id.setting_item_unit)
-        val settingItemCorrection = findViewById<MySettingItem>(R.id.setting_item_correction)
-
        when(v){
            settingItemModel -> {//温度修正
                // TODO: Replace IR setting navigation - startActivity(Intent(requireContext(), IRSettingActivity::class.java))

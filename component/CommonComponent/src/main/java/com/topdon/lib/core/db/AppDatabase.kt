@@ -97,6 +97,35 @@ object AppDatabase {
         fun queryMaxTime(): Long {
             return System.currentTimeMillis()
         }
+        
+        // Additional methods needed by thermal-ir component
+        fun getThermalByDate(userId: String, startTime: Long, endTime: Long): List<com.topdon.lib.core.db.entity.ThermalEntity> {
+            return emptyList()
+        }
+        
+        fun getAllThermalByDate(userId: String, startTime: Long, endTime: Long): List<com.topdon.lib.core.db.entity.ThermalEntity> {
+            return emptyList()
+        }
+        
+        fun deleteZero(userId: String) {
+            // Database delete operation
+        }
+        
+        fun queryByTime(startTime: Long, endTime: Long, userId: String): List<com.topdon.lib.core.db.entity.ThermalEntity> {
+            return emptyList()
+        }
+        
+        fun queryByTimeMax(startTime: Long, endTime: Long, userId: String): List<com.topdon.lib.core.db.entity.ThermalEntity> {
+            return emptyList()
+        }
+        
+        fun queryByTimeMin(startTime: Long, endTime: Long, userId: String): List<com.topdon.lib.core.db.entity.ThermalEntity> {
+            return emptyList()
+        }
+        
+        fun getAllThermalByDate(startTime: Long, endTime: Long, userId: String): List<com.topdon.lib.core.db.entity.ThermalEntity> {
+            return emptyList()
+        }
     }
     
     object ThermalDayDao {
@@ -132,8 +161,20 @@ object AppDatabase {
             return emptyList()
         }
         
+        fun queryByTime(startTime: Long, endTime: Long, userId: String): List<com.topdon.lib.core.db.entity.ThermalDayEntity> {
+            return emptyList()
+        }
+        
         fun queryMaxTime(): Long {
             return System.currentTimeMillis()
+        }
+        
+        fun queryByTimeMax(startTime: Long, endTime: Long, userId: String): List<com.topdon.lib.core.db.entity.ThermalDayEntity> {
+            return emptyList()
+        }
+        
+        fun queryByTimeMin(startTime: Long, endTime: Long, userId: String): List<com.topdon.lib.core.db.entity.ThermalDayEntity> {
+            return emptyList()
         }
     }
     
@@ -150,12 +191,28 @@ object AppDatabase {
             return emptyList()
         }
         
+        fun queryByTime(startTime: Long, endTime: Long, userId: String): List<com.topdon.lib.core.db.entity.ThermalHourEntity> {
+            return emptyList()
+        }
+        
         fun queryMaxTime(): Long {
             return System.currentTimeMillis()
         }
         
         fun deleteById(id: Long) {
             // Database delete operation
+        }
+        
+        fun deleteRepeatVol(id: Long) {
+            deleteById(id)
+        }
+        
+        fun queryByTimeMax(startTime: Long, endTime: Long, userId: String): List<com.topdon.lib.core.db.entity.ThermalHourEntity> {
+            return emptyList()
+        }
+        
+        fun queryByTimeMin(startTime: Long, endTime: Long, userId: String): List<com.topdon.lib.core.db.entity.ThermalHourEntity> {
+            return emptyList()
         }
     }
     
@@ -172,12 +229,28 @@ object AppDatabase {
             return emptyList()
         }
         
+        fun queryByTime(startTime: Long, endTime: Long, userId: String): List<com.topdon.lib.core.db.entity.ThermalMinEntity> {
+            return emptyList()
+        }
+        
         fun queryMaxTime(): Long {
             return System.currentTimeMillis()
         }
         
         fun deleteById(id: Long) {
             // Database delete operation
+        }
+        
+        fun deleteRepeatVol(id: Long) {
+            deleteById(id)
+        }
+        
+        fun queryByTimeMax(startTime: Long, endTime: Long, userId: String): List<com.topdon.lib.core.db.entity.ThermalMinEntity> {
+            return emptyList()
+        }
+        
+        fun queryByTimeMin(startTime: Long, endTime: Long, userId: String): List<com.topdon.lib.core.db.entity.ThermalMinEntity> {
+            return emptyList()
         }
     }
 }

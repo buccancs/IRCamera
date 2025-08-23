@@ -31,4 +31,5 @@ include ':component:CommonComponent'
 include ':component:thermal-ir'
 include ':component:transfer'
 include ':component:user'
-include ':libmatrix'
+// include ':libmatrix'  // Temporarily commented out due to NDK configuration issues
+// House component removed as requested

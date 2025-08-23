@@ -402,7 +402,6 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
                 TAG,
                 "USBMonitorManager 收到消息${msg.what}"
             )
-            )
             if (!isDualIR()){
                 return
             }
@@ -411,14 +410,12 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
                 TAG,
                     "restartDualCamera"
             )
-                )
                 restartDualCamera()
             } else if (msg.what == Const.HANDLE_CONNECT) {
             XLog.d(
                 TAG,
                     "USBMonitorManager HANDLE_CONNECT"
             )
-                )
                 // 避免冲突，需要延时
                 /**
                  * 开可见光相机
@@ -437,14 +434,12 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
                 TAG,
                     "SHOW_LOADING"
             )
-                )
                 showLoadingDialog()
             } else if (msg.what == Const.HIDE_LOADING) {
             XLog.d(
                 TAG,
                     "HIDE_LOADING"
             )
-                )
                 dismissLoadingDialog()
             } else if (msg.what == Const.SHOW_RESTART_MESSAGE) {
                 Toast.makeText(
@@ -467,7 +462,6 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
                 TAG,
             "initDualCamera"
             )
-        )
         dualView = DualViewWithExternalCameraCommonApi(
             getSurfaceView(),
             USBMonitorManager.getInstance().uvcCamera, defaultDataFlowMode,
@@ -500,7 +494,6 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
                 TAG,
             "startVLCamera"
             )
-        )
         vlUVCCamera = IRUVCDual(cameraWidth,
             cameraHeight,
             context,
@@ -512,7 +505,6 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
                 TAG,
                         "ConnectCallback-startVLCamera-onCameraOpened"
             )
-                    )
                 }
 
                 override fun onIRCMDCreate(ircmd: IRCMD) {
@@ -546,7 +538,6 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
                 TAG,
             "ConnectCallback-startVLCamera-onIRCMDCreate"
             )
-        )
 //        getTemperatureDualView().setIrcmd(ircmd)
 //        popupCalibration.setIrcmd(ircmd)
 //        popupImage.setIrcmd(ircmd)
@@ -631,7 +622,6 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
                 TAG,
             "USBMonitorManager dualStop"
             )
-        )
         isrun = false
         syncimage.valid = false
         isConfigWait = true
@@ -658,7 +648,6 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
                 TAG,
                 "正常回收完毕 dualStop"
             )
-            )
         }
     }
 
@@ -667,7 +656,6 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
                 TAG,
             "USBMonitorManager onAttach"
             )
-        )
     }
 
     override fun onGranted(usbDevice: UsbDevice?, granted: Boolean) {
@@ -675,7 +663,6 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
                 TAG,
             "USBMonitorManager onGranted"
             )
-        )
     }
 
     override fun onDettach(device: UsbDevice?) {
@@ -683,7 +670,6 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
                 TAG,
             "USBMonitorManager onDettach"
             )
-        )
     }
 
     override fun onConnect(device: UsbDevice?, ctrlBlock: USBMonitor.UsbControlBlock?, createNew: Boolean) {
@@ -691,7 +677,6 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
                 TAG,
             "USBMonitorManager onConnect测试"
             )
-        )
         mIrHandler.sendEmptyMessage(Const.HANDLE_CONNECT)
     }
 
@@ -700,7 +685,6 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
                 TAG,
             "USBMonitorManager onDisconnect"
             )
-        )
     }
 
     override fun onCancel(device: UsbDevice?) {
@@ -708,7 +692,6 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
                 TAG,
             "USBMonitorManager onCancel"
             )
-        )
     }
 
     override fun onIRCMDInit(ircmd: IRCMD?) {

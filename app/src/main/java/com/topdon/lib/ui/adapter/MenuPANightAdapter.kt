@@ -5,7 +5,7 @@ import androidx.core.content.ContextCompat
 import com.blankj.utilcode.util.ScreenUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
-import com.topdon.lib.ui.R
+import com.topdon.tc001.R
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.lib.ui.listener.SingleClickListener
 
@@ -19,17 +19,19 @@ class MenuPANightAdapter(data: MutableList<ColorBean>, layoutId : Int, private v
             val with = (ScreenUtils.getScreenWidth() / 2)
             holder.itemView.layoutParams = ViewGroup.LayoutParams(with, ViewGroup.LayoutParams.WRAP_CONTENT)
             val imageSize = (ScreenUtils.getScreenWidth() * 62 / 375f).toInt()
-            val layoutParams =  holder.itemView.item_menu_tab_img.layoutParams
+            val itemMenuTabImg = holder.itemView.findViewById<android.widget.ImageView>(R.id.item_menu_tab_img)
+            val layoutParams = itemMenuTabImg.layoutParams
             layoutParams.width = imageSize
             layoutParams.height = imageSize
-            holder.itemView.item_menu_tab_img.layoutParams = layoutParams
+            itemMenuTabImg.layoutParams = layoutParams
         }else{
             holder.itemView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             val imageSize = (ScreenUtils.getScreenWidth() * 62 / 375f).toInt()
-            val layoutParams =  holder.itemView.item_menu_tab_img.layoutParams
+            val itemMenuTabImg = holder.itemView.findViewById<android.widget.ImageView>(R.id.item_menu_tab_img)
+            val layoutParams = itemMenuTabImg.layoutParams
             layoutParams.width = imageSize
             layoutParams.height = imageSize
-            holder.itemView.item_menu_tab_img.layoutParams = layoutParams
+            itemMenuTabImg.layoutParams = layoutParams
         }
         if (item.isSelect){
             holder.setImageResource(R.id.item_menu_tab_img,item.res)

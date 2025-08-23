@@ -17,18 +17,19 @@ import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.tools.FileTools.getUri
 import com.topdon.lib.core.tools.ToastTools
-import com.topdon.lib.core.repository.GalleryRepository.DirType
+import com.topdon.lib.core.enum.DirType
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.adapter.GalleryAdapter
 import com.topdon.lib.core.dialog.ConfirmSelectDialog
 import com.topdon.module.thermal.ir.event.GalleryAddEvent
 import com.topdon.lib.core.bean.event.GalleryDelEvent
 import com.topdon.lib.core.config.FileConfig.getGalleryDirByType
-import com.topdon.lms.sdk.weiget.TToast
+import com.topdon.lib.core.ui.TToast
 import com.topdon.module.thermal.ir.event.GalleryDirChangeEvent
 import com.topdon.module.thermal.ir.event.GalleryDownloadEvent
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryTabViewModel
-import com.topdon.module.thermal.ir.viewmodel.IRGalleryViewModel
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -51,6 +52,12 @@ class IRGalleryFragment : BaseFragment() {
 
     private val adapter = GalleryAdapter()
 
+    // Views
+    private lateinit var refreshLayout: SmartRefreshLayout
+    private lateinit var clBottom: ConstraintLayout
+    private lateinit var clDownload: ConstraintLayout
+    private lateinit var clShare: ConstraintLayout
+
     /**
      * 从上一界面传递过来的，当前是查看照片还是查看视频.
      */
@@ -59,6 +66,12 @@ class IRGalleryFragment : BaseFragment() {
     override fun initContentView() = R.layout.fragment_ir_gallery
 
     override fun initView() {
+        // Initialize views
+        refreshLayout = findViewById(R.id.refreshLayout)
+        clBottom = findViewById(R.id.clBottom)
+        clDownload = findViewById(R.id.clDownload)
+        clShare = findViewById(R.id.cl_share)
+        
         currentDirType = when (arguments?.getInt(ExtraKeyConfig.DIR_TYPE, 0) ?: 0) {
             DirType.TS004_LOCALE.ordinal -> DirType.TS004_LOCALE
             DirType.TS004_REMOTE.ordinal -> DirType.TS004_REMOTE
@@ -66,11 +79,11 @@ class IRGalleryFragment : BaseFragment() {
             else -> DirType.LINE
         }
 
-        cl_download.isVisible = currentDirType == DirType.TS004_REMOTE
+        clDownload.isVisible = currentDirType == DirType.TS004_REMOTE
 
         initRecycler()
 
-        cl_share.setOnClickListener {
+        clShare.setOnClickListener {
             val selectList = adapter.buildSelectList()
             if (selectList.size == 0) {
                 ToastTools.showShort(getString(R.string.tip_least_select))
@@ -85,7 +98,7 @@ class IRGalleryFragment : BaseFragment() {
         cl_delete.setOnClickListener {
             showDeleteDialog()
         }
-        cl_download.setOnClickListener {
+        clDownload.setOnClickListener {
             val selectList = adapter.buildSelectList()
             if (selectList.size == 0) {
                 ToastTools.showShort(getString(R.string.tip_least_select))
@@ -98,9 +111,9 @@ class IRGalleryFragment : BaseFragment() {
             if (it == null) {
                 TToast.shortToast(requireContext(), R.string.operation_failed_tips)
             }
-            refresh_layout.finishRefresh(it != null)
-            refresh_layout.finishLoadMore(it != null)
-            refresh_layout.setNoMoreData(it != null && it.size < IRGalleryViewModel.PAGE_COUNT)
+            refreshLayout.finishRefresh(it != null)
+            refreshLayout.finishLoadMore(it != null)
+            refreshLayout.setNoMoreData(it != null && it.size < IRGalleryViewModel.PAGE_COUNT)
         }
         viewModel.showListLD.observe(this) {
             adapter.refreshList(it)
@@ -118,7 +131,7 @@ class IRGalleryFragment : BaseFragment() {
         }
         tabViewModel.isEditModeLD.observe(this) {
             adapter.isEditMode = it
-            cl_bottom.isVisible = it
+            clBottom.isVisible = it
         }
         tabViewModel.selectAllIndex.observe(this) {
             if ((isVideo && it == 1) || (!isVideo && it == 0)) {
@@ -177,7 +190,7 @@ class IRGalleryFragment : BaseFragment() {
         adapter.isTS004Remote = currentDirType == DirType.TS004_REMOTE
         adapter.onLongEditListener = {
             tabViewModel.isEditModeLD.value = true
-            cl_bottom.isVisible = true
+            clBottom.isVisible = true
         }
         adapter.selectCallback = {
             tabViewModel.selectSizeLD.value = it.size
@@ -217,19 +230,19 @@ class IRGalleryFragment : BaseFragment() {
         }
 
 
-        refresh_layout.setOnRefreshListener {
+        refreshLayout.setOnRefreshListener {
             refresh()
         }
-        refresh_layout.setOnLoadMoreListener {
+        refreshLayout.setOnLoadMoreListener {
             viewModel.queryGalleryByPage(isVideo, currentDirType)
         }
-        refresh_layout.setEnableScrollContentWhenLoaded(false)
+        refreshLayout.setEnableScrollContentWhenLoaded(false)
 
-        refresh_layout.autoRefresh()
+        refreshLayout.autoRefresh()
     }
 
     private fun refresh() {
-        refresh_layout.setEnableLoadMore(true)
+        refreshLayout.setEnableLoadMore(true)
         viewModel.hasLoadPage = 0
         viewModel.queryGalleryByPage(isVideo, currentDirType)
     }

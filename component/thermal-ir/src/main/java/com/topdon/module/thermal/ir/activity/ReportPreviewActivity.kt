@@ -25,7 +25,7 @@ import com.topdon.lib.core.db.AppDatabase
 import com.topdon.lib.core.db.entity.HouseReport
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.TimeTool
-import com.topdon.lms.sdk.weiget.TToast
+import com.topdon.lib.core.ui.TToast
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.adapter.ReportPreviewAdapter
 import android.widget.*

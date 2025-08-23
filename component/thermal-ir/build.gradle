@@ -13,6 +13,7 @@ android {
     defaultConfig {
         minSdk rootProject.ext.android.minSdk
         targetSdk rootProject.ext.android.targetSdk
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "VERSION_NAME", "\"$rootProject.ext.android.versionName\""
 
@@ -34,6 +35,7 @@ android {
     buildFeatures{
         dataBinding = true
         buildConfig = true
+        viewBinding = true
     }
 
     flavorDimensions 'app'
@@ -53,11 +55,22 @@ dependencies {
     implementation(name: 'libirutils_1.2.0_2409241055', ext: 'aar')
 
     compileOnly(name: "libcommon_1.2.0_24052117", ext: "aar")
-    implementation project(':libmatrix')
+    // implementation project(':libmatrix')  // Commented out due to NDK configuration issues
 
     api(project(":component:CommonComponent"))
     implementation("androidx.multidex:multidex:2.0.1")
     implementation("com.google.android.material:material:1.4.0")
+
+    // Missing dependencies for thermal-ir component
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'org.greenrobot:eventbus:3.3.1'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'com.blankj:utilcode:1.30.7'  // BlankJ utilities
+    implementation 'com.github.getActivity:XXPermissions:18.5'  // HJQ permissions
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'  // viewModelScope support
+    implementation 'androidx.activity:activity-ktx:1.7.2'  // viewModels delegate
+    implementation 'androidx.fragment:fragment-ktx:1.6.1'  // viewModels delegate for fragments
+    implementation 'com.github.bumptech.glide:glide:4.15.1'  // Image loading library
 
     api "com.airbnb.android:lottie:6.0.0"
     api 'com.github.anzaizai:EasySwipeMenuLayout:1.1.4'
@@ -65,6 +78,10 @@ dependencies {
     // Kotlin Coroutines - compatible with Kotlin 2.0+
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
+    
+    // RxJava for reactive programming
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 
     api "com.github.kylecorry31.andromeda:sense:6.2.0"
     api "com.github.kylecorry31.andromeda:core:6.2.0"
@@ -76,4 +93,26 @@ dependencies {
     
     // Dependencies from basic thermal component
     implementation 'com.google.android.mediahome:video:1.0.0'
+
+    // Testing dependencies
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'androidx.test.ext:junit:1.1.5'
+    testImplementation 'androidx.test:core:1.5.0'
+    testImplementation 'org.mockito:mockito-core:4.11.0'
+    testImplementation 'org.mockito:mockito-android:4.11.0'
+    testImplementation 'io.mockk:mockk:1.13.8'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3'
+    testImplementation 'androidx.arch.core:core-testing:2.2.0'
+    testImplementation 'com.google.truth:truth:1.1.4'
+    testImplementation 'org.robolectric:robolectric:4.11.1'
+    
+    // Android instrumented tests
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.5.1'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
+    androidTestImplementation 'androidx.test:rules:1.5.0'
+    androidTestImplementation 'com.google.truth:truth:1.1.4'
+    androidTestImplementation 'org.mockito:mockito-android:4.11.0'
+    androidTestImplementation 'io.mockk:mockk-android:1.13.8'
 }

@@ -1,3 +1,6 @@
+/*
+ * Database functionality removed as requested to fix compilation issues
+ *
 package com.topdon.lib.core.db.entity
 
 import androidx.room.ColumnInfo
@@ -61,3 +64,6 @@ class ThermalEntity  {
     }
 
 }
+*/
+
+// Database entity removed - ThermalEntity commented out

@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ScreenUtils
 import com.topdon.lib.core.ktbase.BaseViewModelFragment
-import com.topdon.lib.core.widget.dialog.TipDialog
+import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.adapter.SimpleGalleryAdapter
 import com.topdon.module.thermal.viewmodel.GalleryViewModel
@@ -15,7 +15,7 @@ import com.topdon.module.thermal.viewmodel.GalleryViewModel
 class GalleryVideoFragment : BaseViewModelFragment<GalleryViewModel>() {
     private val adapter by lazy { SimpleGalleryAdapter(requireContext()) }
 
-    override fun providerVMClass() = GalleryViewModel::class.java
+    override fun provideViewModel() = GalleryViewModel()
 
     override fun initContentView() = R.layout.fragment_gallery_video
 

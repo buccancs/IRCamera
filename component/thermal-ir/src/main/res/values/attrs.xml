@@ -40,5 +40,15 @@
         <attr name="markerColor" format="color" />
         <attr name="markerSize" format="dimension" />
     </declare-styleable>
+    
+    <declare-styleable name="BarPickView">
+        <attr name="android:max" />
+        <attr name="barMin" format="integer" />
+        <attr name="android:progress" />
+        <attr name="barSize" format="dimension" />
+        <attr name="barOrientation" format="integer" />
+        <attr name="barLabel" format="string" />
+        <attr name="android:textSize" />
+    </declare-styleable>
 
 </resources>

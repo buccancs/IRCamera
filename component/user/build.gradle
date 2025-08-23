@@ -7,12 +7,13 @@ plugins {
 
 
 android {
-    namespace 'com.topdon.user'
+    namespace 'com.topdon.module.user'
     compileSdk rootProject.ext.android.compileSdk
 
     defaultConfig {
         minSdk rootProject.ext.android.minSdk
         targetSdk rootProject.ext.android.targetSdk
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -40,10 +41,59 @@ android {
 
 dependencies {
     compileOnly(name: "libcommon_1.2.0_24052117", ext: "aar")
+    
+    // Required core dependencies
+    api(project(":component:CommonComponent"))
+    
+    // Android dependencies
+    implementation "androidx.appcompat:appcompat:1.6.1"
+    implementation "com.google.android.material:material:1.4.0"
+    implementation "androidx.fragment:fragment-ktx:1.3.6"
+    
+    // Lifecycle dependencies
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
+    
+    // Utility dependencies
+    implementation "com.blankj:utilcodex:1.31.0"
+    implementation "com.github.getActivity:XXPermissions:20.0"
+    implementation "com.elvishew:xlog:1.11.0"
 
     implementation 'com.zoho.salesiq:mobilisten:7.0.0'
+    
+    // Image loading
+    implementation "com.github.bumptech.glide:glide:4.15.1"
+    
+    // JSON parsing
+    implementation "com.google.code.gson:gson:2.10.1"
     
     // Kotlin Coroutines - compatible with Kotlin 2.0+
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
+    
+    // EventBus for Subscribe/ThreadMode annotations
+    implementation "org.greenrobot:eventbus:3.3.1"
+
+    // Testing dependencies
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'androidx.test.ext:junit:1.1.5'
+    testImplementation 'androidx.test:core:1.5.0'
+    testImplementation 'org.mockito:mockito-core:4.11.0'
+    testImplementation 'org.mockito:mockito-android:4.11.0'
+    testImplementation 'io.mockk:mockk:1.13.8'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3'
+    testImplementation 'androidx.arch.core:core-testing:2.2.0'
+    testImplementation 'com.google.truth:truth:1.1.4'
+    testImplementation 'org.robolectric:robolectric:4.11.1'
+    
+    // Android instrumented tests
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.5.1'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
+    androidTestImplementation 'androidx.test:rules:1.5.0'
+    androidTestImplementation 'com.google.truth:truth:1.1.4'
+    androidTestImplementation 'org.mockito:mockito-android:4.11.0'
+    androidTestImplementation 'io.mockk:mockk-android:1.13.8'
 }

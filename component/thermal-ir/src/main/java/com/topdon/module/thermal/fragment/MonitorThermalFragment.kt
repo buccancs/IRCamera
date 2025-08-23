@@ -21,7 +21,7 @@ import com.topdon.lib.core.config.FileConfig.galleryPath
 import com.topdon.lib.core.db.AppDatabase
 import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.lib.core.tools.TimeTool
-import com.topdon.lib.core.utils.ByteUtils.getIndex
+import com.topdon.lib.core.utils.ByteUtils
 import com.topdon.lib.core.utils.ScreenShotUtils
 import com.topdon.lib.ui.fence.FenceLineView
 import com.topdon.lib.ui.fence.FencePointView
@@ -53,6 +53,19 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
 
     override fun initContentView() = R.layout.fragment_monitor_thermal
     private val msgLiveData by lazy { MutableLiveData<Int>() }
+    
+    // View references - initialized lazily with findViewById
+    private val temp_display by lazy { requireView().findViewById<android.widget.TextView>(com.topdon.module.thermal.ir.R.id.temp_display) }
+    private val max_temp_display by lazy { requireView().findViewById<android.widget.TextView>(com.topdon.module.thermal.ir.R.id.max_temp_display) }
+    private val min_temp_display by lazy { requireView().findViewById<android.widget.TextView>(com.topdon.module.thermal.ir.R.id.min_temp_display) }
+    private val max_img by lazy { requireView().findViewById<android.widget.ImageView>(com.topdon.module.thermal.ir.R.id.max_img) }
+    private val min_img by lazy { requireView().findViewById<android.widget.ImageView>(com.topdon.module.thermal.ir.R.id.min_img) }
+    private val temp_display_layout by lazy { requireView().findViewById<android.widget.FrameLayout>(com.topdon.module.thermal.ir.R.id.temp_display_layout) }
+    private val fence_lay by lazy { requireView().findViewById<android.widget.FrameLayout>(com.topdon.module.thermal.ir.R.id.fence_lay) }
+    private val final_ir_layout by lazy { requireView().findViewById<android.widget.FrameLayout>(com.topdon.module.thermal.ir.R.id.final_ir_layout) }
+    private val fence_point_view by lazy { requireView().findViewById<com.topdon.lib.ui.fence.FencePointView>(com.topdon.module.thermal.ir.R.id.fence_point_view) }
+    private val fence_line_view by lazy { requireView().findViewById<com.topdon.lib.ui.fence.FenceLineView>(com.topdon.module.thermal.ir.R.id.fence_line_view) }
+    private val fence_view by lazy { requireView().findViewById<com.topdon.lib.ui.fence.FenceView>(com.topdon.module.thermal.ir.R.id.fence_view) }
 
     //设置温度展示的位置
     private fun setViewPosition(imageView: ImageView, index: Int) {
@@ -445,12 +458,15 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
 
     //显示点线面布局
     private fun showFence(index: Int) {
-        if (fenceFlag.getIndex(index) == 0) {
+        if (ByteUtils.getIndex(fenceFlag, index) == 0) {
             fenceFlag = 1.shl(4 * (index - 1)) //设置001 or 010 or 100
             mFenceLayout!!.visibility = View.VISIBLE
-            fence_point_view.visibility = if (fenceFlag.getIndex(1) > 0) View.VISIBLE else View.GONE
-            fence_line_view.visibility = if (fenceFlag.getIndex(2) > 0) View.VISIBLE else View.GONE
-            fence_view.visibility = if (fenceFlag.getIndex(3) > 0) View.VISIBLE else View.GONE
+            val fencePointView = findViewById<FencePointView>(R.id.fence_point_view)
+            val fenceLineView = findViewById<FenceLineView>(R.id.fence_line_view)
+            val fenceView = findViewById<FenceView>(R.id.fence_view)
+            fencePointView?.visibility = if (ByteUtils.getIndex(fenceFlag, 1) > 0) View.VISIBLE else View.GONE
+            fenceLineView?.visibility = if (ByteUtils.getIndex(fenceFlag, 2) > 0) View.VISIBLE else View.GONE
+            fenceView?.visibility = if (ByteUtils.getIndex(fenceFlag, 3) > 0) View.VISIBLE else View.GONE
         } else {
             fenceFlag = 0x000
             mFenceLayout!!.visibility = View.GONE

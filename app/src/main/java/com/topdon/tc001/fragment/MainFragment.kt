@@ -19,7 +19,8 @@ import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseFragment
-// BatteryInfo import removed - TC007 support removed
+import com.topdon.lib.core.repository.BatteryInfo
+import com.topdon.lib.core.repository.TC007Repository
 import com.topdon.lib.core.socket.SocketCmdUtil
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.AppLanguageUtils
@@ -34,7 +35,7 @@ import com.topdon.tc001.popup.DelPopup
 import android.widget.TextView
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
-// BatteryView import removed - TC007 support removed
+import com.topdon.lib.ui.widget.BatteryView
 import kotlinx.coroutines.launch
 import org.bytedeco.librealsense.context
 import org.greenrobot.eventbus.Subscribe
@@ -64,10 +65,17 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         adapter.onItemClickListener = {
             when (it) {
                 ConnectType.LINE -> {
-                    val intent = Intent(requireContext(), com.topdon.module.thermal.ir.activity.IRMainActivity::class.java)
-                    startActivity(intent)
+                    // Temporarily disabled due to thermal-ir compilation issues
+                    // val intent = Intent(requireContext(), com.topdon.module.thermal.ir.activity.IRMainActivity::class.java)
+                    // startActivity(intent)
+                    println("LINE connection - thermal-ir module temporarily disabled")
                 }
-                // TS004/TC007 cases removed
+                ConnectType.TS004 -> {
+                    // TS004 support removed
+                }
+                ConnectType.TC007 -> {
+                    // TC007 support removed
+                }
             }
         }
         adapter.onItemLongClickListener = { view, type ->
@@ -80,7 +88,8 @@ class MainFragment : BaseFragment(), View.OnClickListener {
                     .setPositiveListener(R.string.report_delete) {
                         when (type) {
                             ConnectType.LINE -> SharedManager.hasTcLine = false
-                            // TS004/TC007 cases removed (SharedManager properties no longer exist)
+                            ConnectType.TS004 -> { /* TS004 handling removed */ }
+                            ConnectType.TC007 -> { /* TC007 handling removed */ }
                         }
                         refresh()
                         TToast.shortToast(requireContext(), R.string.test_results_delete_success)
@@ -165,6 +174,23 @@ class MainFragment : BaseFragment(), View.OnClickListener {
                 notifyItemRangeChanged(0, 3)
             }
 
+        var hasConnectTS004: Boolean = false
+            set(value) {
+                field = value
+                notifyDataSetChanged()
+            }
+
+        var hasConnectTC007: Boolean = false
+            set(value) {
+                field = value
+                notifyDataSetChanged()
+            }
+
+        var tc007Battery: BatteryInfo? = null
+            set(value) {
+                field = value
+                notifyDataSetChanged()
+            }
 
         var onItemClickListener: ((type: ConnectType) -> Unit)? = null
         var onItemLongClickListener: ((view: View, type: ConnectType) -> Unit)? = null
@@ -196,15 +222,28 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             viewDeviceState.isSelected = hasConnect
             tvDeviceState.isSelected = hasConnect
             tvDeviceState.text = if (hasConnect) "online" else "offline"
-            tvBattery.isVisible = false // No battery UI for TC001
-            // batteryView.isVisible removed - TC007 support removed
+            tvBattery.isVisible = false  // TC007 support removed
+            batteryView.isVisible = false  // TC007 support removed
 
-            // Only LINE type supported for TC001
-            tvDeviceName.text = holder.itemView.context.getString(R.string.tc_has_line_device)
-            if (hasConnect) {
-                ivImage.setImageResource(R.drawable.ic_main_device_line_connect)
-            } else {
-                ivImage.setImageResource(R.drawable.ic_main_device_line_disconnect)
+            when (type) {
+                ConnectType.LINE -> {
+                    tvDeviceName.setText(AppLanguageUtils.attachBaseContext(
+                        holder.itemView.context, SharedManager.getLanguage(holder.itemView.context!!))
+                        .getString(R.string.tc_has_line_device))
+                    if (hasConnect) {
+                        ivImage.setImageResource(R.drawable.ic_main_device_line_connect)
+                    } else {
+                        ivImage.setImageResource(R.drawable.ic_main_device_line_disconnect)
+                    }
+                }
+                ConnectType.TS004 -> {
+                    tvDeviceName.text = "TS004"
+                    ivImage.setImageResource(if (hasConnect) R.drawable.ic_main_device_line_connect else R.drawable.ic_main_device_line_disconnect)
+                }
+                ConnectType.TC007 -> {
+                    tvDeviceName.text = "TC007"
+                    ivImage.setImageResource(if (hasConnect) R.drawable.ic_main_device_line_connect else R.drawable.ic_main_device_line_disconnect)
+                }
             }
         }
 
@@ -226,20 +265,31 @@ class MainFragment : BaseFragment(), View.OnClickListener {
                     val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         val deviceType = getConnectType(position)
-                        // Only allow long click if TC001 is not connected
-                        if (deviceType == ConnectType.LINE && !DeviceTools.isConnect()) {
-                            onItemLongClickListener?.invoke(it, deviceType)
+                        when (deviceType) {
+                            ConnectType.LINE -> {
+                                if (DeviceTools.isConnect()) {
+                                    return@setOnLongClickListener true
+                                }
+                            }
+                            ConnectType.TS004 -> {
+                                // TS004 support removed
+                            }
+                            ConnectType.TC007 -> {
+                                // TC007 support removed
+                            }
                         }
                     }
                     true
                 }
             }
 
-            fun getConnectType(position: Int): ConnectType = ConnectType.LINE // Only LINE supported
+            fun getConnectType(position: Int): ConnectType = ConnectType.LINE
         }
     }
 
     enum class ConnectType {
-        LINE
+        LINE,
+        TS004,
+        TC007
     }
 }

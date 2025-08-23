@@ -28,6 +28,36 @@ object TimeTool {
         }
     }
     
+    fun timeToMinute(timestamp: Long, type: Int): String {
+        // Stub implementation for compatibility - returns formatted date
+        val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        return formatter.format(Date(timestamp))
+    }
+    
+    fun formatTime(timestamp: Long): String {
+        val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        return formatter.format(Date(timestamp))
+    }
+    
+    /**
+     * Show current date in second format (yyyyMMdd_HHmmss)
+     */
+    fun showDateSecond(): String {
+        val formatter = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault())
+        return formatter.format(Date())
+    }
+    
+    /**
+     * Show video time in long format (HH:mm:ss)
+     */
+    fun showVideoLongTime(durationMs: Long): String {
+        val seconds = (durationMs / 1000) % 60
+        val minutes = (durationMs / (1000 * 60)) % 60
+        val hours = (durationMs / (1000 * 60 * 60)) % 24
+        
+        return String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds)
+    }
+    
     fun timeToMinute(timestamp: Long): String {
         val formatter = SimpleDateFormat("mm:ss", Locale.getDefault())
         return formatter.format(Date(timestamp))
@@ -46,25 +76,6 @@ object TimeTool {
             else -> SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         }
         return formatter.format(Date(timestamp))
-    }
-    
-    /**
-     * Show current date in second format (yyyyMMddHHmmss)
-     */
-    fun showDateSecond(): String {
-        val formatter = SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault())
-        return formatter.format(Date())
-    }
-    
-    /**
-     * Show video time in long format (HH:mm:ss)
-     */
-    fun showVideoLongTime(durationMs: Long): String {
-        val seconds = (durationMs / 1000) % 60
-        val minutes = (durationMs / (1000 * 60)) % 60
-        val hours = (durationMs / (1000 * 60 * 60)) % 24
-        
-        return String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds)
     }
     
     /**
@@ -89,6 +100,14 @@ object TimeTool {
     }
     
     /**
+     * Get current time as formatted string for watermark
+     */
+    fun getNowTime(): String {
+        val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        return formatter.format(Date())
+    }
+    
+    /**
      * Round timestamp based on precision level
      * @param timestamp the timestamp to round
      * @param precision 2=minute, 3=hour, 4=day 
@@ -100,5 +119,13 @@ object TimeTool {
             4 -> roundToDay(timestamp)
             else -> timestamp
         }
+    }
+    
+    /**
+     * Show time in seconds format (HH:mm:ss)
+     */
+    fun showTimeSecond(timestamp: Long): String {
+        val formatter = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+        return formatter.format(Date(timestamp))
     }
 }

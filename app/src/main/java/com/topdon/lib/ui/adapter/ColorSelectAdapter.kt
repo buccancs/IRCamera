@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.topdon.lib.ui.R
+import com.topdon.tc001.R
 import com.topdon.lib.ui.bean.ColorSelectBean
 
 

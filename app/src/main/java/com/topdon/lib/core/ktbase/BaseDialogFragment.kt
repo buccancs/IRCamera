@@ -38,7 +38,7 @@ abstract class BaseDialogFragment<B : ViewDataBinding> : AppCompatDialogFragment
 
     }
     @StyleRes
-    protected open fun getDialogThemeResId(): Int = R.style.findViewById<ConstraintLayout>(R.id.base_dialog)
+    protected open fun getDialogThemeResId(): Int = R.style.DefaultDialog
 
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

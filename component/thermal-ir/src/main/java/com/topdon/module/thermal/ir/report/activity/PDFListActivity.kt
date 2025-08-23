@@ -18,7 +18,7 @@ import com.topdon.lms.sdk.network.HttpProxy
 import com.topdon.lms.sdk.network.IResponseCallback
 import com.topdon.lms.sdk.utils.LanguageUtil
 import com.topdon.lms.sdk.utils.StringUtils
-import com.topdon.lms.sdk.weiget.TToast
+import com.topdon.lib.core.ui.TToast
 import com.topdon.lms.sdk.xutils.http.RequestParams
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.adapter.PDFAdapter

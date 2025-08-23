@@ -27,12 +27,14 @@ class DeviceTypeActivity : BaseActivity() {
         recyclerView.adapter = MyAdapter(this).apply {
             onItemClickListener = {
                 clientType = it
-                // Only TC001 is supported
-                val intent = Intent(this@DeviceTypeActivity, com.topdon.module.thermal.ir.activity.IRMainActivity::class.java)
-                intent.putExtra(ExtraKeyConfig.IS_TC007, false) // Always false since we only support TC001
-                startActivity(intent)
-                if (DeviceTools.isConnect()) {
-                    finish()
+                when (it) {
+                    else -> {
+                        val intent = Intent(this@DeviceTypeActivity, com.topdon.module.thermal.ir.activity.IRMainActivity::class.java)
+                        startActivity(intent)
+                        if (DeviceTools.isConnect()) {
+                            finish()
+                        }
+                    }
                 }
             }
         }

@@ -73,7 +73,7 @@ class MonitorActivity : BaseActivity(), View.OnClickListener {
                         }
 
                     })
-                    .setCancelListener(R.string.app_cancel)
+                    .setCancelListener { /* Cancel action - do nothing */ }
                     .create().show()
             }
             motionStartBtn -> {

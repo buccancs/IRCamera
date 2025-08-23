@@ -19,6 +19,10 @@ class TitleView @JvmOverloads constructor(
         // Simplified implementation - component modules should use standard toolbar/actionbar
     }
     
+    fun setRightClickListener(listener: OnClickListener) {
+        // Simplified implementation - component modules should use standard toolbar/actionbar
+    }
+    
     fun setTitle(title: String) {
         // Simplified implementation
     }

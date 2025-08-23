@@ -631,33 +631,38 @@ class VideoRecordFFmpeg(
             )
         }
         if (carView?.isVisible == true){
-            cameraViewBitmap = BitmapUtils.mergeBitmap(
-                cameraViewBitmap,
-                carView?.drawToBitmap(), 0, 0)
+            val carBitmap = carView?.drawToBitmap()
+            if (carBitmap != null) {
+                cameraViewBitmap = BitmapUtils.mergeBitmap(
+                    cameraViewBitmap,
+                    carBitmap, 0, 0)
+            }
         }
         //指南针
         compassView?.let {
             if (it.isVisible) {
                 try {
                     val bitmap = it.curBitmap
-                    cameraViewBitmap = BitmapUtils.mergeBitmap(
-                        cameraViewBitmap,
-                        bitmap,
-                        ((cameraView.parent as ViewGroup).width - it.width) / 2,
-                        SizeUtils.dp2px(20f)
-                    )
+                    if (bitmap != null) {
+                        cameraViewBitmap = BitmapUtils.mergeBitmap(
+                            cameraViewBitmap,
+                            bitmap,
+                            ((cameraView.parent as ViewGroup).width - it.width) / 2,
+                            SizeUtils.dp2px(20f)
+                        )
+                    }
                 } catch (e: Exception) {
                 }
             }
         }
 
         //画中画
-        cameraPreview?.let {
-            if (it.isVisible) {
+        cameraPreview?.let { previewView ->
+            if (previewView.isVisible) {
                 val newBitmap: Bitmap? = BitmapUtils.mergeBitmapByView(
                     cameraViewBitmap,
-                    it.getBitmap(),
-                    it
+                    previewView.getBitmap(),
+                    previewView
                 )
                 if (newBitmap != null) {
                     cameraViewBitmap = newBitmap

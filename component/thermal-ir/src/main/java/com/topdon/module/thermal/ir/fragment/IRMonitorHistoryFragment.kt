@@ -24,6 +24,7 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.activity.IRLogMPChartActivity
 import com.topdon.module.thermal.ir.event.MonitorCreateEvent
 import com.topdon.module.thermal.ir.viewmodel.IRMonitorViewModel
+import com.topdon.module.thermal.ir.viewmodel.IRMonitorViewModel.Record
 import android.widget.TextView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kotlinx.coroutines.Dispatchers
@@ -36,7 +37,7 @@ import java.util.Calendar
 
 class IRMonitorHistoryFragment : Fragment() {
 
-    private val adapter = MyAdapter(ArrayList())
+    private val adapter = MyAdapter(ArrayList<Record>())
 
     private val viewModel: IRMonitorViewModel by viewModels()
 
@@ -116,7 +117,7 @@ class IRMonitorHistoryFragment : Fragment() {
         viewModel.queryRecordList()
     }
 
-    private class MyAdapter(dataList: MutableList<ThermalDao.Record>?) : BaseQuickAdapter<ThermalDao.Record,
+    private class MyAdapter(dataList: MutableList<Record>?) : BaseQuickAdapter<Record,
             BaseViewHolder>(R.layout.item_monitory_history, dataList), LoadMoreModule {
 
         /**

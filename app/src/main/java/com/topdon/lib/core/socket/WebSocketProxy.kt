@@ -129,15 +129,12 @@ class WebSocketProxy {
         mWsManager = null
     }
 
-    fun isConnected(): Boolean = isTS004Connect() || isTC007Connect()
+    fun isConnected(): Boolean = false // TC007/TS004 support removed
 
-    fun isTS004Connect(): Boolean {
-        return currentSSID?.startsWith(DeviceConfig.TS004_NAME_START) == true && mWsManager?.isConnect() == true
-    }
+    // TS004/TC007 support removed - these methods always return false
+    fun isTS004Connect(): Boolean = false
 
-    fun isTC007Connect(): Boolean {
-        return currentSSID?.startsWith(DeviceConfig.TC007_NAME_START) == true && mWsManager?.isConnect() == true
-    }
+    fun isTC007Connect(): Boolean = false
 
     fun sendMessage(cmd: String?) {
         mWsManager?.sendMessage(cmd)

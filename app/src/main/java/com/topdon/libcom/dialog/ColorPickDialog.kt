@@ -95,7 +95,7 @@ class ColorPickDialog(context: Context, @ColorInt private var color: Int,var tex
                 }
 
             })
-            niftySliderView.setProgress(textSizeToNifyValue(textSize,textSizeIsDP))
+            niftySliderView.setProgress(textSizeToNifyValue(textSize))
         }else{
             val niftySliderView = findViewById<DefRangeSeekBar>(R.id.nifty_slider_view)
             niftySliderView.visibility = View.GONE
@@ -110,7 +110,7 @@ class ColorPickDialog(context: Context, @ColorInt private var color: Int,var tex
         rootView.tv_save.setOnClickListener(this)
     }
 
-    private fun textSizeToNifyValue(size: Int, isTC007: Boolean): Float {
+    private fun textSizeToNifyValue(size: Int): Float {
         // TC007 support removed - always use standard size conversion
         return when (size) {
             SizeUtils.sp2px(14f) -> 0f

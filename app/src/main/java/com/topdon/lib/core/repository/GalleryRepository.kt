@@ -71,7 +71,7 @@ object GalleryRepository {
     fun readLatest(dirType: DirType): String {
         var firstPath = ""
         try {
-            val path = if (dirType == DirType.LINE) FileConfig.lineGalleryDir else FileConfig.tc007GalleryDir
+            val path = if (dirType == DirType.LINE) FileConfig.lineGalleryDir else FileConfig.lineGalleryDir
             val dirFile = File(path)
             if (dirFile.isDirectory) {
                 val files = dirFile.listFiles()!!
@@ -92,10 +92,13 @@ object GalleryRepository {
         return withContext(Dispatchers.IO) {
             val resultList: ArrayList<GalleryBean> = ArrayList()
             if (dirType == DirType.TS004_REMOTE) {
-                val pageList = TS004Repository.getFileByPage(if (isVideo) 1 else 0, pageNum, pageCount) ?: return@withContext null
-                pageList.forEach {
-                    resultList.add(GalleryBean(isVideo, it))
-                }
+                // TS004Repository removed as requested
+                // val pageList = TS004Repository.getFileByPage(if (isVideo) 1 else 0, pageNum, pageCount) ?: return@withContext null
+                // pageList.forEach {
+                //     resultList.add(GalleryBean(isVideo, it))
+                // }
+                // Return empty list since TS004 functionality is removed
+                return@withContext arrayListOf()
             } else {
                 try {
                     val allFileList = loadAllLocale(isVideo, dirType)
@@ -150,7 +153,7 @@ object GalleryRepository {
         }
         val dirFile = when (dirType) {
             DirType.LINE -> File(FileConfig.lineGalleryDir)
-            DirType.TC007 -> File(FileConfig.tc007GalleryDir)
+            DirType.TC007 -> File(FileConfig.lineGalleryDir) // TC007 support removed, fallback to line
             else -> File(FileConfig.ts004GalleryDir)
         }
         var files = dirFile.listFiles { pathname -> pathname?.isFile == true }

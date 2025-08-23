@@ -201,12 +201,15 @@ project.afterEvaluate {
             copyApk("release", "prod")
         }
     }
+    // bundleProdDebug commented out as requested - reduced build tasks
+    /*
     tasks.named("bundleProdDebug").configure {
         doLast {
             println "===================== build prod Debug.aab copy ======================="
             copyAab("prodDebug")
         }
     }
+    */
     tasks.named("bundleProdRelease").configure {
         doLast {
             println "===================== build prod Release.aab copy ======================="
@@ -321,4 +324,10 @@ dependencies {
 //    implementation 'com.topdon.aliyun:main:2.2.1:release@aar'
 
     implementation files('libs/umeng-common-9.4.4+000.jar')
+
+    // Component dependencies
+    implementation project(':component:CommonComponent')
+    implementation project(':component:thermal-ir')
+    implementation project(':component:transfer')
+    implementation project(':component:user')
 }

@@ -2,7 +2,9 @@ package com.topdon.lib.core.ktbase
 
 import android.content.Context
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 
 /**
@@ -10,11 +12,31 @@ import androidx.fragment.app.Fragment
  */
 abstract class BaseFragment : Fragment() {
 
+    protected var rootView: View? = null
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val layoutId = initContentView()
+        if (layoutId != 0) {
+            rootView = inflater.inflate(layoutId, container, false)
+            return rootView
+        }
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
         initData()
     }
+
+    /**
+     * Get layout resource ID
+     */
+    abstract fun initContentView(): Int
 
     /**
      * Initialize views after view creation
@@ -25,6 +47,13 @@ abstract class BaseFragment : Fragment() {
      * Initialize data and setup listeners
      */
     abstract fun initData()
+
+    /**
+     * Find view by ID using the root view
+     */
+    fun <T : View> findViewById(id: Int): T? {
+        return rootView?.findViewById(id)
+    }
 
     /**
      * Show toast message
@@ -39,6 +68,28 @@ abstract class BaseFragment : Fragment() {
         activity?.let { 
             android.widget.Toast.makeText(it, messageRes, android.widget.Toast.LENGTH_SHORT).show()
         }
+    }
+    
+    /**
+     * Show loading dialog - stub implementation
+     */
+    fun showLoadingDialog() {
+        // Stub implementation - in production would show progress dialog
+        showToast("Loading...")
+    }
+    
+    /**
+     * Hide loading dialog - stub implementation
+     */
+    fun hideLoadingDialog() {
+        // Stub implementation - in production would hide progress dialog
+    }
+    
+    /**
+     * Dismiss loading dialog - alias for hideLoadingDialog
+     */
+    fun dismissLoadingDialog() {
+        hideLoadingDialog()
     }
     
     /**

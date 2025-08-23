@@ -118,4 +118,11 @@ public class DeviceControlWorker {
     public boolean isStartPreviewing() {
         return isStartPreviewing;
     }
+    
+    /**
+     * Check if worker is running
+     */
+    public boolean isRunning() {
+        return mThread != null && mThread.isAlive();
+    }
 }

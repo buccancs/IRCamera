@@ -3,15 +3,14 @@ package com.topdon.module.user.activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.user.R
 import com.topdon.module.user.model.QuestionData
 import com.topdon.module.user.model.FaqRepository
-import androidx.recyclerview.widget.RecyclerView
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import java.util.ArrayList
 
 /**

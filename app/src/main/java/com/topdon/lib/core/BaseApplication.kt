@@ -25,9 +25,9 @@ import com.topdon.lib.core.broadcast.DeviceBroadcastReceiver
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.config.FileConfig
-import com.topdon.lib.core.db.AppDatabase
+// import com.topdon.lib.core.db.AppDatabase // Database removed as requested
 import com.topdon.lib.core.repository.FileBean
-import com.topdon.lib.core.repository.TS004Repository
+// import com.topdon.lib.core.repository.TS004Repository // TS004Repository removed as requested
 import com.topdon.lib.core.socket.SocketCmdUtil
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.AppLanguageUtils
@@ -95,6 +95,8 @@ abstract class BaseApplication : Application() {
         if (TextUtils.isEmpty(msgJson)) return
         EventBus.getDefault().post(SocketMsgEvent(msgJson))
 
+        // TS004 auto-sync functionality removed as requested
+        /*
         if (SharedManager.is04AutoSync) {//自动保存到手机开启
             when (SocketCmdUtil.getCmdResponse(msgJson)) {
                 WsCmdConstants.AR_COMMAND_SNAPSHOT -> {//拍照事件
@@ -114,9 +116,14 @@ abstract class BaseApplication : Application() {
                 }
             }
         }
+        */
     }
 
+    // TS004 functionality removed as requested
+    /*
     private fun autoSaveNewest(isVideo: Boolean) {
+        // TS004Repository removed - auto-save functionality disabled
+        /*
         CoroutineScope(Dispatchers.IO).launch {
             val fileList: List<FileBean>? = TS004Repository.getNewestFile(if (isVideo) 1 else 0)
             if (!fileList.isNullOrEmpty()) {
@@ -127,7 +134,9 @@ abstract class BaseApplication : Application() {
                 MediaScannerConnection.scanFile(this@BaseApplication, arrayOf(FileConfig.ts004GalleryDir), null, null)
             }
         }
+        */
     }
+    */
 
     private inner class NetworkChangedReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -168,9 +177,10 @@ abstract class BaseApplication : Application() {
 
 
     fun clearDb() {
+        // Database functionality removed - placeholder method
         GlobalScope.launch(Dispatchers.Default) {
             try {
-                AppDatabase.getInstance().thermalDao().deleteZero(SharedManager.getUserId())
+                // AppDatabase.getInstance().thermalDao().deleteZero(SharedManager.getUserId()) // Database removed
             } catch (e: Exception) {
             }
         }

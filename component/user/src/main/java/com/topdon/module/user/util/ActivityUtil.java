@@ -3,8 +3,8 @@ package com.topdon.module.user.util;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import com.topdon.lms.sdk.utils.NetworkUtil;
-import com.topdon.lms.sdk.weiget.TToast;
+import com.energy.commoncomponent.utils.NetworkUtil;
+import com.topdon.lib.core.ui.TToast;
 import com.topdon.module.user.R;
 
 public class ActivityUtil {
@@ -23,7 +23,7 @@ public class ActivityUtil {
      */
     public static void goSystemBrowser(Context mContext, String url) {
         if (!NetworkUtil.isConnected(mContext)) {
-            TToast.shortToast(mContext, R.string.lms_setting_http_error);
+            TToast.INSTANCE.shortToast(mContext, R.string.lms_setting_http_error);
             return;
         }
         try {

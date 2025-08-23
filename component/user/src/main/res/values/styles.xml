@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Dialog styles -->
+    <style name="InfoDialog" parent="@style/Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+    
+    <!-- Transparent Dialog Style -->
+    <style name="TransparentDialog" parent="@style/Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+    
+    <!-- Camera setting switch style -->
+    <style name="cameraSetSwitch">
+        <item name="android:textColor">@color/font_second_color</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    
     <declare-styleable name="MessageSettingItem">
         <attr name="iconImg" format="reference|integer" />
         <attr name="textTitle" format="reference|integer" />
@@ -11,5 +31,20 @@
         <attr name="list_item_left_text" format="string" />
         <attr name="list_item_right_text" format="string" />
         <attr name="list_item_line" format="boolean" />
+    </declare-styleable>
+    
+    <!-- TitleView attributes -->
+    <declare-styleable name="TitleView">
+        <attr name="titleText" format="string|reference" />
+        <attr name="rightText" format="string|reference" />
+        <attr name="rightTextColor" format="color|reference" />
+        <attr name="isTitleCenter" format="boolean" />
+        <attr name="isInitLeft" format="boolean" />
+    </declare-styleable>
+    
+    <declare-styleable name="LoadingIndicatorView">
+        <attr name="lms_dot_spacing" format="dimension" />
+        <attr name="lms_dot_radius" format="dimension" />
+        <attr name="lms_dot_move_rate" format="float" />
     </declare-styleable>
 </resources>

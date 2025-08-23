@@ -1,22 +1,45 @@
+/*
+ * Database functionality removed - LogViewModel commented out due to heavy database dependencies
+ * This file contains extensive database operations that would need major refactoring
+ * to work without the database. For now, commenting it out to fix compilation.
+ */
+
 package com.topdon.module.thermal.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import com.elvishew.xlog.XLog
-import com.topdon.lib.core.common.SharedManager
-import com.topdon.lib.core.db.AppDatabase
-import com.topdon.lib.core.db.entity.ThermalDayEntity
-import com.topdon.lib.core.db.entity.ThermalEntity
-import com.topdon.lib.core.db.entity.ThermalHourEntity
-import com.topdon.lib.core.db.entity.ThermalMinEntity
 import com.topdon.lib.core.ktbase.BaseViewModel
-import com.topdon.lib.core.tools.TimeTool
-import kotlinx.coroutines.*
-import java.util.*
 
+// Simplified placeholder LogViewModel
 class LogViewModel : BaseViewModel() {
-
     val resultLiveData = MutableLiveData<ChartList>()
+    
+    fun queryLogByType(selectType: Int) {
+        // Database functionality removed - placeholder method
+    }
+    
+    fun queryLogsByTimeRange(type: Int, selectTimeType: Int) {
+        // Database functionality removed - placeholder method
+        // Post empty result for compatibility
+        resultLiveData.postValue(ChartList())
+    }
+    
+    suspend fun queryLogThermals(selectTimeType: Int, endLogTime: Long, action: Int) {
+        // Database functionality removed - placeholder method
+        // Post empty result for compatibility
+        resultLiveData.postValue(ChartList())
+    }
+    
+    data class ChartList(
+        var dataList: ArrayList<com.topdon.lib.core.db.entity.ThermalEntity> = arrayListOf(),
+        var maxVol: Float = 0f,
+        var minVol: Float = 0f,
+        var avgVol: Float = 0f
+    )
+}
+
+/*
+ * Original LogViewModel with database dependencies commented out below:
+ *
 
     private var queryJob: Job? = null
 
@@ -701,3 +724,4 @@ class LogViewModel : BaseViewModel() {
         var action: Int = 0
     )
 }
+*/

@@ -17,8 +17,7 @@ import com.topdon.lib.core.view.ImageEditView
 import kotlinx.coroutines.launch
 import java.io.File
 import android.widget.FrameLayout
-import com.topdon.lib.core.ui.TitleView
-import com.topdon.lib.ui.widget.ImageEditView
+import com.topdon.lib.core.view.TitleView
 
 abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
     val RESULT_IMAGE_PATH = "RESULT_IMAGE_PATH"
@@ -37,8 +36,8 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         findViewById<ImageView>(R.id.iv_edit_circle).isSelected = true
-        findViewById<ImageEditView>(R.id.findViewById<ImageEditView>(R.id.image_edit_view)).type = ImageEditView.Type.CIRCLE
-        findViewById<View>(R.id.view_color).setBackgroundColor(findViewById<ImageEditView>(R.id.findViewById<ImageEditView>(R.id.image_edit_view)).color)
+        findViewById<ImageEditView>(R.id.image_edit_view).type = ImageEditView.Type.CIRCLE
+        findViewById<View>(R.id.view_color).setBackgroundColor(findViewById<ImageEditView>(R.id.image_edit_view).color)
 
         findViewById<ImageView>(R.id.iv_edit_color).setOnClickListener(this)
         findViewById<ImageView>(R.id.iv_edit_circle).setOnClickListener(this)
@@ -107,7 +106,7 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            img_pick -> {
+            findViewById<View>(R.id.img_pick) -> {
                 lifecycleScope.launch {
                     getPickBitmap()?.let {
                         switchPhotoState(true)
@@ -116,33 +115,33 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
                     }
                 }
             }
-            iv_edit_color -> {
+            findViewById<View>(R.id.iv_edit_color) -> {
                 val colorPickDialog = ColorSelectDialog(this, findViewById<ImageEditView>(R.id.image_edit_view).color)
                 colorPickDialog.onPickListener = {
                     findViewById<ImageEditView>(R.id.image_edit_view).color = it
-                    view_color.setBackgroundColor(it)
+                    findViewById<View>(R.id.view_color).setBackgroundColor(it)
                 }
                 colorPickDialog.show()
             }
-            iv_edit_circle -> {
-                iv_edit_circle.isSelected = true
-                iv_edit_rect.isSelected = false
-                iv_edit_arrow.isSelected = false
+            findViewById<View>(R.id.iv_edit_circle) -> {
+                findViewById<ImageView>(R.id.iv_edit_circle).isSelected = true
+                findViewById<ImageView>(R.id.iv_edit_rect).isSelected = false
+                findViewById<ImageView>(R.id.iv_edit_arrow).isSelected = false
                 findViewById<ImageEditView>(R.id.image_edit_view).type = ImageEditView.Type.CIRCLE
             }
-            iv_edit_rect -> {
-                iv_edit_circle.isSelected = false
-                iv_edit_rect.isSelected = true
-                iv_edit_arrow.isSelected = false
+            findViewById<View>(R.id.iv_edit_rect) -> {
+                findViewById<ImageView>(R.id.iv_edit_circle).isSelected = false
+                findViewById<ImageView>(R.id.iv_edit_rect).isSelected = true
+                findViewById<ImageView>(R.id.iv_edit_arrow).isSelected = false
                 findViewById<ImageEditView>(R.id.image_edit_view).type = ImageEditView.Type.RECT
             }
-            iv_edit_arrow -> {
-                iv_edit_circle.isSelected = false
-                iv_edit_rect.isSelected = false
-                iv_edit_arrow.isSelected = true
+            findViewById<View>(R.id.iv_edit_arrow) -> {
+                findViewById<ImageView>(R.id.iv_edit_circle).isSelected = false
+                findViewById<ImageView>(R.id.iv_edit_rect).isSelected = false
+                findViewById<ImageView>(R.id.iv_edit_arrow).isSelected = true
                 findViewById<ImageEditView>(R.id.image_edit_view).type = ImageEditView.Type.ARROW
             }
-            iv_edit_clear -> findViewById<ImageEditView>(R.id.image_edit_view).clear()
+            findViewById<View>(R.id.iv_edit_clear) -> findViewById<ImageEditView>(R.id.image_edit_view).clear()
         }
     }
 
@@ -157,8 +156,8 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
     private fun switchPhotoState(hasTakePhoto: Boolean) {
         this.hasTakePhoto = hasTakePhoto
         findViewById<ImageEditView>(R.id.image_edit_view).isVisible = hasTakePhoto
-        cl_edit_menu.isVisible = hasTakePhoto
-        img_pick.isVisible = !hasTakePhoto
+        findViewById<View>(R.id.cl_edit_menu).isVisible = hasTakePhoto
+        findViewById<View>(R.id.img_pick).isVisible = !hasTakePhoto
         findViewById<FrameLayout>(R.id.fragment_container_view).isVisible = !hasTakePhoto
         findViewById<TitleView>(R.id.title_view).setRightDrawable(if (hasTakePhoto) R.drawable.app_save else 0)
     }

@@ -17,6 +17,9 @@ import com.topdon.module.thermal.ir.R
 
 class ChartTrendView : LineChart {
 
+    // Temperature unit preference - default to Celsius
+    var isShowCelsius: Boolean = true
+
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle) {
@@ -62,7 +65,7 @@ class ChartTrendView : LineChart {
         xAxis.granularity = 1f
         xAxis.isGranularityEnabled = true//重复值不显示
         xAxis.textSize = 11f
-        xAxis.isJumpFirstLabel = false
+        // xAxis.isJumpFirstLabel = false // Property not available in current MPAndroidChart version
         xAxis.axisMinimum = 0f
         xAxis.axisMaximum = 10f
         xAxis.setLabelCount(3, true)
@@ -136,14 +139,14 @@ class ChartTrendView : LineChart {
             val tempValue = tempList[i]
             max = max.coerceAtLeast(tempValue)
             min = min.coerceAtMost(tempValue)
-            entryList.add(Entry(i.toFloat(), UnitTools.showUnitValue(tempValue)))
+            entryList.add(Entry(i.toFloat(), UnitTools.showUnitValue(tempValue, isShowCelsius)))
         }
-        val maxUnit = UnitTools.showUnitValue(max)
-        val minUnit = UnitTools.showUnitValue(min)
+        val maxUnit = UnitTools.showUnitValue(max, isShowCelsius)
+        val minUnit = UnitTools.showUnitValue(min, isShowCelsius)
         axisLeft.axisMaximum = (maxUnit + (maxUnit - minUnit) / 3).coerceAtLeast(maxUnit + 0.3f)
         axisLeft.axisMinimum = (minUnit - (maxUnit - minUnit) / 3).coerceAtMost(minUnit - 0.3f)
         axisLeft.valueFormatter = object : ValueFormatter() {
-            override fun getFormattedValue(value: Float): String = "${String.format("%.1f", value)}${UnitTools.showUnit()}"
+            override fun getFormattedValue(value: Float): String = "${String.format("%.1f", value)}${UnitTools.showUnit(isShowCelsius)}"
         }
 
         val lineDataSet = LineDataSet(entryList, "point temp")

@@ -26,13 +26,14 @@
     <string name="app_record">Record</string>
     <string name="monitor_finish">Finish</string>
     <string name="lms_http_code998">No data available</string>
+    <string name="http_code998">No data available</string>
     <string name="chart_temperature">Temperature</string>
     <string name="chart_temperature_high">High Temperature</string>
+    <string name="chart_temperature_low">Low Temperature</string>
     <string name="app_tip">Tip</string>
     <string name="tips_cancel_correction">Are you sure you want to cancel the correction?</string>
     <string name="app_yes">Yes</string>
     <string name="tip_change_pseudo_mode">Change pseudo color mode</string>
-    <string name="tc_high_temp_test">High Temperature Test</string>
     <string name="auto_open">Auto Open</string>
     <string name="scan_ble_tip_authorize">Please authorize Bluetooth access</string>
     <string name="thermal_trend_tips">Thermal trend analysis tips</string>
@@ -40,9 +41,55 @@
     <string name="seconds_dalay_3">3 second delay</string>
     <string name="seconds_dalay_6">6 second delay</string>
     <string name="shutter_tips">Shutter adjustment tips</string>
+    <string name="tip_video_record">Video recording in progress</string>
     <string name="battery_share">Share</string>
     <string name="finalize_and_save">Finalize and Save</string>
     <string name="app_no">No</string>
     <string name="correction_complete">Correction Complete</string>
     <string name="app_confirm">Confirm</string>
+    
+    <!-- Missing string resources for compilation -->
+    <string name="test_results_delete_success">Delete Successful</string>
+    <string name="test_results_delete_failed">Delete Failed</string>
+    <string name="permission_request_storage_app">%s needs storage permission to save images and videos. Please grant the permission in Settings.</string>
+    <string name="get_Location_failed">Location access failed</string>
+    <string name="address">Address</string>
+    <string name="tip_least_select">Please select at least one item</string>
+    <string name="operation_failed_tips">Operation failed, please try again</string>
+    <string name="app_ok">OK</string>
+    
+    <!-- Thermal imaging strings -->
+    <string name="tc_temp_test_materials">Test Materials</string>
+    <string name="tc_high_temp_test">High Temperature Test</string>
+    <string name="tc_high_temp_test_tips1">High temperature mode warning:</string>
+    <string name="tc_high_temp_test_tips2">Please ensure proper safety precautions</string>
+    
+    <!-- Compass direction strings -->
+    <string name="compass_north">North</string>
+    <string name="compass_northeast">Northeast</string>
+    <string name="compass_east">East</string>
+    <string name="compass_southeast">Southeast</string>
+    <string name="compass_south">South</string>
+    <string name="compass_southwest">Southwest</string>
+    <string name="compass_west">West</string>
+    <string name="compass_northwest">Northwest</string>
+    
+    <!-- Missing string resources identified in build errors -->
+    <string name="permission_request_camera_app">%s requires camera permission to function properly</string>
+    <string name="app_cancel">Cancel</string>
+    <string name="app_camera_content">Camera</string>
+    <string name="app_open">Open</string>
+    
+    <!-- Additional missing strings for thermal-ir component -->
+    <string name="app_Manual_Shutter">Manual Shutter</string>
+    <string name="app_microphone_content">Microphone recording enabled</string>
+    <string name="app_storage_content">Storage access required for saving images and videos</string>
+    <string name="abnormal_item1">Temperature alert: </string>
+    
+    <!-- Missing string resources identified in compilation errors -->
+    <string name="liveData_save_error">Failed to save data</string>
+    <string name="status_error_load_fail">Failed to load status</string>
+    <string name="setting_http_error">HTTP configuration error</string>
+    <string name="lms_setting_http_error">LMS HTTP setting error</string>
+    
 </resources>

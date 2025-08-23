@@ -21,11 +21,14 @@ object SharedManager {
         get() = SPUtils.getInstance().getBoolean("isNeedShowTrendTips", true)
         set(value) = SPUtils.getInstance().put("isNeedShowTrendTips", value)
 
+    // House-related properties commented out as requested - graceful removal
+    /*
     var houseSpaceUnit: Int
         get() = SPUtils.getInstance().getInt("houseSpaceUnit", 0)
         set(value) {
             SPUtils.getInstance().put("houseSpaceUnit", value)
         }
+    */
 
     var costUnit: Int
         get() = SPUtils.getInstance().getInt("costUnit", 0)
@@ -330,4 +333,39 @@ object SharedManager {
         return "local"
     }
 
+    // Device SN methods
+    fun getDeviceSn(): String {
+        return SPUtils.getInstance().getString(DEVICE_SN, "")
+    }
+
+    fun setDeviceSn(sn: String) {
+        SPUtils.getInstance().put(DEVICE_SN, sn)
+    }
+
+    // Device version methods
+    fun getDeviceVersion(): String {
+        return SPUtils.getInstance().getString(DEVICE_VERSION, "")
+    }
+
+    fun setDeviceVersion(version: String) {
+        SPUtils.getInstance().put(DEVICE_VERSION, version)
+    }
+
+        // Temperature unit methods (0 = Celsius, 1 = Fahrenheit)
+    fun getTemperature(): Int {
+        return SPUtils.getInstance().getInt(TEMPERATURE_UNIT, 0)
+    }
+
+    fun setTemperature(unit: Int) {
+        SPUtils.getInstance().put(TEMPERATURE_UNIT, unit)
+    }
+
+    // Base host URL configuration - stub implementation
+    fun setBaseHost(url: String) {
+        SPUtils.getInstance().put("base_host_url", url)
+    }
+    
+    fun getBaseHost(): String {
+        return SPUtils.getInstance().getString("base_host_url", "")
+    }
 }
