@@ -164,6 +164,16 @@ object SharedManager {
         }
         set(value) = setString("watermark_bean", value.toString())
         
+    // WiFi watermark configuration (for TC007 device)
+    var wifiWatermarkBean: WatermarkBean
+        get() = try {
+            // In a real implementation, this would deserialize from JSON
+            WatermarkBean.createDefault()
+        } catch (e: Exception) {
+            WatermarkBean.createDefault()
+        }
+        set(value) = setString("wifi_watermark_bean", value.toString())
+        
     // Base host URL configuration - stub implementation
     fun setBaseHost(url: String) {
         setString("base_host_url", url)

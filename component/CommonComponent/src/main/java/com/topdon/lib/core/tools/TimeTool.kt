@@ -100,6 +100,14 @@ object TimeTool {
     }
     
     /**
+     * Get current time as formatted string for watermark
+     */
+    fun getNowTime(): String {
+        val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        return formatter.format(Date())
+    }
+    
+    /**
      * Round timestamp based on precision level
      * @param timestamp the timestamp to round
      * @param precision 2=minute, 3=hour, 4=day 

@@ -1,6 +1,7 @@
 package com.infisense.usbir.view
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.util.AttributeSet
 import android.view.View
 
@@ -13,6 +14,9 @@ class CameraView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
+    
+    val bitmap: Bitmap?
+        get() = null // Stub - returns null bitmap
     
     fun openCamera() {
         // Stub implementation

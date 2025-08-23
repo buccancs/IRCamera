@@ -18,6 +18,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.chart.IRMyValueFormatter
+import com.topdon.menu.constant.FenceType
 import com.topdon.module.thermal.ir.chart.YValueFormatter
 import com.topdon.module.thermal.ir.utils.ChartTools
 import kotlinx.coroutines.Dispatchers
@@ -122,7 +123,7 @@ class ChartLogView : LineChart {
                     xAxis.valueFormatter = IRMyValueFormatter(startTime = startTime, type = type)
 //                    data[0].type = "default"
                     when (data[0].type) {
-                        "point" -> {
+                        FenceType.POINT.value -> {
                             var set = lineData.getDataSetByIndex(0)//读取x为0的坐标点
                             if (set == null) {
                                 set = createSet(0, "point temp")
@@ -139,7 +140,7 @@ class ChartLogView : LineChart {
                                 set.addEntry(entity)
                             }
                         }
-                        "line" -> {
+                        FenceType.LINE.value -> {
                             var maxDataSet = lineData.getDataSetByIndex(0)//读取x为0的坐标点
                             if (maxDataSet == null) {
                                 maxDataSet = createSet(0, "line max temp")

@@ -65,7 +65,7 @@ class ChartTrendView : LineChart {
         xAxis.granularity = 1f
         xAxis.isGranularityEnabled = true//重复值不显示
         xAxis.textSize = 11f
-        xAxis.isJumpFirstLabel = false
+        // xAxis.isJumpFirstLabel = false // Property not available in current MPAndroidChart version
         xAxis.axisMinimum = 0f
         xAxis.axisMaximum = 10f
         xAxis.setLabelCount(3, true)
