@@ -203,14 +203,16 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTem
             findViewById<Button>(R.id.motion_start_btn) -> {
                 if (selectIndex == null) {
                     MonitorSelectDialog.Builder(this)
-                        .setPositiveListener {
-                            updateUI()
-                            when (it) {
-                                1 -> EventBus.getDefault().post(ThermalActionEvent(action = 2001))
-                                2 -> EventBus.getDefault().post(ThermalActionEvent(action = 2002))
-                                else -> EventBus.getDefault().post(ThermalActionEvent(action = 2003))
+                        .setPositiveListener(object : MonitorSelectDialog.OnClickListener {
+                            override fun onClick(select: Int) {
+                                updateUI()
+                                when (select) {
+                                    1 -> EventBus.getDefault().post(ThermalActionEvent(action = 2001))
+                                    2 -> EventBus.getDefault().post(ThermalActionEvent(action = 2002))
+                                    else -> EventBus.getDefault().post(ThermalActionEvent(action = 2003))
+                                }
                             }
-                        }
+                        })
                         .create().show()
                     return
                 }

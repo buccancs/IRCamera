@@ -23,8 +23,14 @@ class LogViewModel : BaseViewModel() {
         resultLiveData.postValue(ChartList())
     }
     
+    suspend fun queryLogThermals(selectTimeType: Int, endLogTime: Long, action: Int) {
+        // Database functionality removed - placeholder method
+        // Post empty result for compatibility
+        resultLiveData.postValue(ChartList())
+    }
+    
     data class ChartList(
-        var dataList: ArrayList<Any> = arrayListOf(),
+        var dataList: ArrayList<com.topdon.lib.core.db.entity.ThermalEntity> = arrayListOf(),
         var maxVol: Float = 0f,
         var minVol: Float = 0f,
         var avgVol: Float = 0f

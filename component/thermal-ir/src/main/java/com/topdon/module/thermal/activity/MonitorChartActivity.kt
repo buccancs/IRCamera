@@ -25,6 +25,7 @@ import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.db.AppDatabase
 import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.lib.core.ktbase.BaseActivity
+import com.topdon.lib.core.tools.NumberTools
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.adapter.SettingCheckAdapter
@@ -72,7 +73,7 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
             2 -> "line"
             else -> "fence"
         }
-        chart = mp_chart_view
+        chart = findViewById(R.id.mp_chart_view)
         initChart()
         initRecycler()
         viewModel.resultLiveData.observe(this)
@@ -112,10 +113,13 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
     }
 
     private fun initRecycler() {
-        monitor_chart_time_recycler.layoutManager = GridLayoutManager(this, 4)
-        monitor_chart_time_recycler.adapter = timeAdapter
-        monitor_chart_setting_recycler.layoutManager = GridLayoutManager(this, 3)
-        monitor_chart_setting_recycler.adapter = adapter
+        val timeRecycler = findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.monitor_chart_time_recycler)
+        timeRecycler.layoutManager = GridLayoutManager(this, 4)
+        timeRecycler.adapter = timeAdapter
+        
+        val settingRecycler = findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.monitor_chart_setting_recycler)
+        settingRecycler.layoutManager = GridLayoutManager(this, 3)
+        settingRecycler.adapter = adapter
         //设置时间段类型(秒 分 时 天)
         timeAdapter.listener = object : SettingTimeAdapter.OnItemClickListener {
             override fun onClick(index: Int, timeType: Int) {
@@ -230,10 +234,10 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
                     val entity = ThermalEntity()
                     entity.userId = SharedManager.getUserId()
                     entity.thermalId = thermalId
-                    entity.thermal = NumberTools.to02f(bean.centerTemp)
-                    entity.thermalMax = NumberTools.to02f(bean.maxTemp)
-                    entity.thermalMin = NumberTools.to02f(bean.minTemp)
-                    entity.type = type
+                    entity.thermal = NumberTools.scale(bean.centerTemp, 2)
+                    entity.thermalMax = NumberTools.scale(bean.maxTemp, 2)
+                    entity.thermalMin = NumberTools.scale(bean.minTemp, 2)
+                    entity.type = selectType  // Use selectType instead of type string
                     entity.startTime = startTime
                     entity.createTime = System.currentTimeMillis()
                     AppDatabase.getInstance().thermalDao().insert(entity)
@@ -319,21 +323,21 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
             2 -> {
                 //分
                 val addTime = 2 * 60 * 1000L
-                if (bean.createTime > TimeTool.timeToMinute(latestTime, 2) + addTime) {
+                if (bean.createTime > latestTime + addTime) {
                     queryLog(3)
                 }
             }
             3 -> {
                 //时
                 val addTime = 2 * 60 * 60 * 1000L
-                if (bean.createTime > TimeTool.timeToMinute(latestTime, 3) + addTime) {
+                if (bean.createTime > latestTime + addTime) {
                     queryLog(3)
                 }
             }
             4 -> {
                 //天(图表显示最后一个时间在昨天，要多加一天)
                 val addTime = 2 * 24 * 60 * 60 * 1000L
-                if (bean.createTime > TimeTool.timeToMinute(latestTime, 4) + addTime) {
+                if (bean.createTime > latestTime + addTime) {
                     queryLog(3)
                 }
             }
@@ -492,15 +496,25 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
         lifecycleScope.launch(Dispatchers.IO) {
 //            dataList.clear()//清空数据
 //            dataList = arrayListOf()
-            viewModel.queryLogThermals(selectTimeType = selectTimeType, action = action)
+            viewModel.queryLogThermals(selectTimeType = selectTimeType, endLogTime = System.currentTimeMillis(), action = action)
         }
     }
 
     private fun resultVol(bean: LogViewModel.ChartList) {
         dismissLoading()
         if (selectTimeType != 1 && bean.dataList.size > 0) {
-            val logTime = TimeTool.showDateType(bean.dataList.last().createTime, selectTimeType)
-            val nowTime = TimeTool.showDateType(System.currentTimeMillis(), selectTimeType)
+            val logTime = TimeTool.showDateType(bean.dataList.last().createTime, when(selectTimeType) {
+                2 -> "minute"
+                3 -> "hour" 
+                4 -> "day"
+                else -> "second"
+            })
+            val nowTime = TimeTool.showDateType(System.currentTimeMillis(), when(selectTimeType) {
+                2 -> "minute"
+                3 -> "hour"
+                4 -> "day" 
+                else -> "second"
+            })
             if (TextUtils.equals(logTime, nowTime)) {
                 //分时天,当前时间段没结束，应当删除最新当前时间段数据
                 bean.dataList.removeLast()

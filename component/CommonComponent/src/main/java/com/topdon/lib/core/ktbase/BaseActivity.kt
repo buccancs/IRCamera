@@ -120,6 +120,11 @@ abstract class BaseActivity : AppCompatActivity() {
         // Default hide loading implementation
     }
     
+    open fun dismissLoading() {
+        // Alias for hideLoading for compatibility
+        hideLoading()
+    }
+    
     open fun queryLogsByTimeRange(startTime: Long, endTime: Long) {
         // Default query implementation - can be overridden
     }

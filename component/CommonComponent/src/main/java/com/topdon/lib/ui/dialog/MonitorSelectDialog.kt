@@ -38,6 +38,15 @@ class MonitorSelectDialog(context: Context) : Dialog(context) {
             return this
         }
         
+        fun setCancelListener(listener: () -> Unit): Builder {
+            // Compatibility method - no-op for now
+            return this
+        }
+        
+        fun show(): MonitorSelectDialog {
+            return build().apply { show() }
+        }
+        
         fun build(): MonitorSelectDialog {
             return MonitorSelectDialog(context).apply {
                 // Apply listener logic here when showing dialog
