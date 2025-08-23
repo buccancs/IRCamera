@@ -110,4 +110,38 @@ abstract class BaseActivity : AppCompatActivity() {
     open fun onTempError() {
         // Default implementation - can be overridden
     }
+    
+    // Additional methods for thermal-ir component compatibility
+    open fun showLoading() {
+        // Default loading implementation
+    }
+    
+    open fun hideLoading() {
+        // Default hide loading implementation
+    }
+    
+    open fun queryLogsByTimeRange(startTime: Long, endTime: Long) {
+        // Default query implementation - can be overridden
+    }
+    
+    // Color properties for compatibility
+    protected val blackColor: Int get() = android.graphics.Color.BLACK
+    protected val white: Int get() = android.graphics.Color.WHITE
+    
+    // Toolbar support
+    protected var mToolBar: androidx.appcompat.widget.Toolbar? = null
+        set(value) {
+            field = value
+            setSupportActionBar(value)
+        }
+    
+    override fun setTitle(title: CharSequence?) {
+        super.setTitle(title)
+        supportActionBar?.title = title
+    }
+    
+    override fun setTitle(titleId: Int) {
+        super.setTitle(titleId)
+        supportActionBar?.setTitle(titleId)
+    }
 }

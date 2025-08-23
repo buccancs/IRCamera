@@ -166,7 +166,7 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
         set.fillDrawable = ContextCompat.getDrawable(this, bgChartColors[index])//设置填充颜色渐变
         set.axisDependency = YAxis.AxisDependency.LEFT
         set.color = ContextCompat.getColor(this, lineChartColors[index])//曲线颜色
-        set.setCircleColor(ContextCompat.getColor(this, R.color.white))//坐标颜色
+        set.setCircleColor(Color.WHITE)//坐标颜色
 //        set.fillColor = ContextCompat.getColor(this, R.color.purple_500)
 //        set.highLightColor = ContextCompat.getColor(this, R.color.white)
         set.valueTextColor = Color.WHITE
@@ -207,7 +207,7 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
                                 set.addEntry(entity)
                             }
                         }
-                        "line" -> {
+                        2 -> { // line type
                             var maxDataSet = lineData.getDataSetByIndex(0)//读取x为0的坐标点
                             if (maxDataSet == null) {
                                 maxDataSet = createSet(0, "line maxTemp")

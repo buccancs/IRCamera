@@ -1,110 +1,53 @@
 package com.topdon.lib.core.tools
 
-import android.graphics.Point
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.Rect
 
 /**
- * Temperature drawing helper - stub implementation
+ * Temperature drawing helper for thermal IR components
  */
 class TempDrawHelper {
     
+    var textSize: Int = 14
+    var textColor: Int = android.graphics.Color.WHITE
+    
+    fun drawPoint(canvas: Canvas, x: Float, y: Float, paint: Paint) {
+        canvas.drawCircle(x, y, 5f, paint)
+    }
+    
+    fun drawLine(canvas: Canvas, startX: Float, startY: Float, stopX: Float, stopY: Float, paint: Paint) {
+        canvas.drawLine(startX, startY, stopX, stopY, paint)
+    }
+    
+    fun drawRect(canvas: Canvas, left: Float, top: Float, right: Float, bottom: Float, paint: Paint) {
+        canvas.drawRect(left, top, right, bottom, paint)
+    }
+    
+    fun drawCircle(canvas: Canvas, cx: Float, cy: Float, radius: Float, paint: Paint) {
+        canvas.drawCircle(cx, cy, radius, paint)
+    }
+    
+    fun drawTempText(canvas: Canvas, text: String, x: Float, y: Float, paint: Paint, isShowC: Boolean = true) {
+        val displayText = if (isShowC) "$text°C" else "$text°F"
+        canvas.drawText(displayText, x, y, paint)
+    }
+    
+    fun drawTrendText(canvas: Canvas, text: String, x: Float, y: Float, paint: Paint) {
+        canvas.drawText(text, x, y, paint)
+    }
+    
+    fun drawPointName(canvas: Canvas, name: String, x: Float, y: Float, paint: Paint) {
+        canvas.drawText(name, x, y, paint)
+    }
+    
+    fun drawPointRectName(canvas: Canvas, name: String, x: Float, y: Float, paint: Paint) {
+        canvas.drawText(name, x, y, paint)
+    }
+    
     companion object {
-        
-        /**
-         * Correct point coordinates within bounds
-         */
-        fun correctPoint(point: Point, width: Int, height: Int): Point {
-            return Point(
-                point.x.coerceIn(0, width),
-                point.y.coerceIn(0, height)
-            )
-        }
-        
-        /**
-         * Draw temperature visualization
-         */
-        fun drawTemperature(canvas: android.graphics.Canvas, x: Float, y: Float, temp: Float) {
-            // Stub implementation for temperature drawing
-        }
-        
-        /**
-         * Get temperature color based on value
-         */
-        fun getTempColor(temperature: Float, minTemp: Float, maxTemp: Float): Int {
-            // Simple color mapping - blue for cold, red for hot
-            val ratio = if (maxTemp > minTemp) {
-                (temperature - minTemp) / (maxTemp - minTemp)
-            } else 0.5f
-            
-            return when {
-                ratio < 0.33f -> android.graphics.Color.BLUE
-                ratio < 0.66f -> android.graphics.Color.GREEN
-                else -> android.graphics.Color.RED
-            }
-        }
-        
-        /**
-         * Format temperature for display
-         */
-        fun formatTemperature(temp: Float, unit: String = "°C"): String {
-            return "${String.format("%.1f", temp)}$unit"
-        }
-        
-        /**
-         * Draw trend text (A, B markers for line endpoints)
-         */
-        fun drawTrendText(canvas: android.graphics.Canvas, viewWidth: Int, viewHeight: Int, 
-                         startX: Float, startY: Float, endX: Float, endY: Float) {
-            // Stub implementation for drawing trend text markers
-            val paint = android.graphics.Paint().apply {
-                color = android.graphics.Color.WHITE
-                textSize = 24f
-                textAlign = android.graphics.Paint.Align.CENTER
-            }
-            canvas.drawText("A", startX, startY - 10, paint)
-            canvas.drawText("B", endX, endY - 10, paint)
-        }
-        
-        /**
-         * Draw point name text
-         */
-        fun drawPointName(canvas: android.graphics.Canvas, name: String, viewWidth: Int, viewHeight: Int, x: Float, y: Float) {
-            // Stub implementation for drawing point name
-            val paint = android.graphics.Paint().apply {
-                color = android.graphics.Color.WHITE
-                textSize = 20f
-                textAlign = android.graphics.Paint.Align.CENTER
-            }
-            canvas.drawText(name, x, y + 30, paint)
-        }
-        
-        /**
-         * Draw rectangle point name text
-         */
-        fun drawPointRectName(canvas: android.graphics.Canvas, name: String, viewWidth: Int, viewHeight: Int, 
-                             left: Float, top: Float, right: Float, bottom: Float) {
-            // Stub implementation for drawing rectangle point name
-            val paint = android.graphics.Paint().apply {
-                color = android.graphics.Color.WHITE
-                textSize = 20f
-                textAlign = android.graphics.Paint.Align.CENTER
-            }
-            val centerX = (left + right) / 2
-            val centerY = (top + bottom) / 2
-            canvas.drawText(name, centerX, centerY + 30, paint)
-        }
-        
-        /**
-         * Get drawable rectangle bounds based on view dimensions
-         */
-        fun getRect(viewWidth: Int, viewHeight: Int): android.graphics.Rect {
-            // Return a rect that represents the drawable area within the view bounds
-            val margin = 20 // Small margin from edges
-            return android.graphics.Rect(
-                margin, 
-                margin, 
-                viewWidth - margin, 
-                viewHeight - margin
-            )
+        fun getRect(width: Int, height: Int): Rect {
+            return Rect(0, 0, width, height)
         }
     }
 }

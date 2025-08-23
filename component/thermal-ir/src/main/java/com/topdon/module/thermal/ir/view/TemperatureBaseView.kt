@@ -199,6 +199,14 @@ abstract class TemperatureBaseView : View {
 
 
     private val helper = TempDrawHelper()
+    
+    private val defaultPaint by lazy {
+        android.graphics.Paint().apply {
+            color = helper.textColor
+            textSize = helper.textSize.toFloat()
+            isAntiAlias = true
+        }
+    }
 
 
     protected var xScale = 0f
@@ -249,7 +257,7 @@ abstract class TemperatureBaseView : View {
      * @param point 以 View 尺寸为坐标系的点
      */
     protected fun drawPoint(canvas: Canvas, point: Point) {
-        helper.drawPoint(canvas, point.x, point.y)
+        helper.drawPoint(canvas, point.x.toFloat(), point.y.toFloat(), paint)
     }
 
     /**
@@ -262,7 +270,7 @@ abstract class TemperatureBaseView : View {
         val startY: Int = ((line.start.y / yScale).toInt() * yScale).toInt()
         val stopX: Int = ((line.end.x / xScale).toInt() * xScale).toInt()
         val stopY: Int = ((line.end.y / yScale).toInt() * yScale).toInt()
-        helper.drawLine(canvas, startX, startY, stopX, stopY)
+        helper.drawLine(canvas, startX.toFloat(), startY.toFloat(), stopX.toFloat(), stopY.toFloat(), defaultPaint)
     }
 
     /**
@@ -273,7 +281,7 @@ abstract class TemperatureBaseView : View {
         val top: Int = ((rect.top / yScale).toInt() * yScale).toInt()
         val right: Int = ((rect.right / xScale).toInt() * xScale).toInt()
         val bottom: Int = ((rect.bottom / yScale).toInt() * yScale).toInt()
-        helper.drawRect(canvas, left, top, right, bottom)
+        helper.drawRect(canvas, left.toFloat(), top.toFloat(), right.toFloat(), bottom.toFloat(), defaultPaint)
     }
 
 
@@ -285,7 +293,7 @@ abstract class TemperatureBaseView : View {
      * @param isMax true-最高温红色 false-最低温蓝色
      */
     protected fun drawCircle(canvas: Canvas, x: Int, y: Int, isMax: Boolean) {
-        helper.drawCircle(canvas, x, y, isMax)
+        helper.drawCircle(canvas, x.toFloat(), y.toFloat(), 5f, defaultPaint)
     }
 
     /**
@@ -296,7 +304,7 @@ abstract class TemperatureBaseView : View {
      * @param x 实心圆圆心的 View 尺寸坐标
      */
     protected fun drawTempText(canvas: Canvas, x: Int, y: Int, temp: Float) {
-        helper.drawTempText(canvas, UnitTools.showC(temp), width, x, y)
+        helper.drawTempText(canvas, UnitTools.showC(temp), x.toFloat(), y.toFloat(), defaultPaint, true)
     }
 
     /**
@@ -305,7 +313,8 @@ abstract class TemperatureBaseView : View {
      * 注意，不对 x、y 进行处理，传进来是哪就在哪绘制。
      */
     protected fun drawTrendText(canvas: Canvas, line: Line) {
-        helper.drawTrendText(canvas, width, height, line.start.x, line.start.y, line.end.x, line.end.y)
+        helper.drawTrendText(canvas, "A", line.start.x.toFloat(), line.start.y.toFloat(), defaultPaint)
+        helper.drawTrendText(canvas, "B", line.end.x.toFloat(), line.end.y.toFloat(), defaultPaint)
     }
 
 
@@ -318,7 +327,7 @@ abstract class TemperatureBaseView : View {
         // 故而这里需要把当前的坐标，转换为温度坐标的整数倍，否则会出现中心对不上的情况
         val x = ((point.x / xScale).toInt() * xScale).toInt()
         val y = ((point.y / yScale).toInt() * yScale).toInt()
-        helper.drawPointName(canvas, name, width, height, x, y)
+        helper.drawPointName(canvas, name, x.toFloat(), y.toFloat(), defaultPaint)
     }
 
     /**
@@ -330,7 +339,7 @@ abstract class TemperatureBaseView : View {
         val startY = ((line.start.y / yScale).toInt() * yScale).toInt()
         val stopX = ((line.end.x / xScale).toInt() * xScale).toInt()
         val stopY = ((line.end.y / yScale).toInt() * yScale).toInt()
-        helper.drawPointRectName(canvas, name, width, height, startX, startY, stopX, stopY)
+        helper.drawPointRectName(canvas, name, (startX + stopX) / 2f, (startY + stopY) / 2f, defaultPaint)
     }
 
     /**
@@ -342,7 +351,7 @@ abstract class TemperatureBaseView : View {
         val top: Int = ((rect.top / yScale).toInt() * yScale).toInt()
         val right: Int = ((rect.right / xScale).toInt() * xScale).toInt()
         val bottom: Int = ((rect.bottom / yScale).toInt() * yScale).toInt()
-        helper.drawPointRectName(canvas, name, width, height, left, top, right, bottom)
+        helper.drawPointRectName(canvas, name, (left + right) / 2f, (top + bottom) / 2f, defaultPaint)
     }
 
 

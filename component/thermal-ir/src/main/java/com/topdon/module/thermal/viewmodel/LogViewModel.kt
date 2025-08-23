@@ -17,6 +17,12 @@ class LogViewModel : BaseViewModel() {
         // Database functionality removed - placeholder method
     }
     
+    fun queryLogsByTimeRange(type: Int, selectTimeType: Int) {
+        // Database functionality removed - placeholder method
+        // Post empty result for compatibility
+        resultLiveData.postValue(ChartList())
+    }
+    
     data class ChartList(
         var dataList: ArrayList<Any> = arrayListOf(),
         var maxVol: Float = 0f,

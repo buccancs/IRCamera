@@ -68,6 +68,8 @@ dependencies {
     implementation 'com.blankj:utilcode:1.30.7'  // BlankJ utilities
     implementation 'com.github.getActivity:XXPermissions:18.5'  // HJQ permissions
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'  // viewModelScope support
+    implementation 'androidx.activity:activity-ktx:1.7.2'  // viewModels delegate
+    implementation 'androidx.fragment:fragment-ktx:1.6.1'  // viewModels delegate for fragments
     implementation 'com.github.bumptech.glide:glide:4.15.1'  // Image loading library
 
     api "com.airbnb.android:lottie:6.0.0"
