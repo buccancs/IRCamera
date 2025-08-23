@@ -725,11 +725,11 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
     //更新自定义伪彩的颜色的属性值
     private fun updateImageAndSeekbarColorList(customPseudoBean: CustomPseudoBean?) {
         customPseudoBean?.let {
-            temperatureSeekbar.setColorList(customPseudoBean.getColorList()?.reversedArray())
-            temperatureSeekbar.setPlaces(customPseudoBean.getPlaceList())
+            temperatureSeekbar.setColorList(customPseudoBean.getColorList().toIntArray().reversedArray())
+            temperatureSeekbar.setPlaces(customPseudoBean.getPlaceList().toFloatArray())
             setCustomPseudoColorList(
-                customPseudoBean.getColorList(),
-                customPseudoBean.getPlaceList(),
+                customPseudoBean.getColorList().toIntArray(),
+                customPseudoBean.getPlaceList().toFloatArray(),
                 customPseudoBean.isUseGray, it.maxTemp, it.minTemp
             )
             if (it.isUseCustomPseudo) {

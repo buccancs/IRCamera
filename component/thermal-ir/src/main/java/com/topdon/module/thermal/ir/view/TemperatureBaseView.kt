@@ -257,7 +257,7 @@ abstract class TemperatureBaseView : View {
      * @param point 以 View 尺寸为坐标系的点
      */
     protected fun drawPoint(canvas: Canvas, point: Point) {
-        helper.drawPoint(canvas, point.x.toFloat(), point.y.toFloat(), paint)
+        helper.drawPoint(canvas, point.x.toFloat(), point.y.toFloat(), defaultPaint)
     }
 
     /**

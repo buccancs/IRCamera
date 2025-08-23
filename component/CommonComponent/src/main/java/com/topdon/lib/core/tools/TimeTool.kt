@@ -112,4 +112,12 @@ object TimeTool {
             else -> timestamp
         }
     }
+    
+    /**
+     * Show time in seconds format (HH:mm:ss)
+     */
+    fun showTimeSecond(timestamp: Long): String {
+        val formatter = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+        return formatter.format(Date(timestamp))
+    }
 }

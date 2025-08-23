@@ -130,16 +130,16 @@ data class CustomPseudoBean(
     }
     
     /**
-     * Get color list for pseudo color mapping
+     * Get color array for pseudo color mapping
      */
-    fun getColorList(): IntArray? {
+    fun getColorArray(): IntArray? {
         return if (colors.isNotEmpty()) colors else null
     }
     
     /**
      * Get place list for temperature ranges
      */
-    fun getPlaceList(): FloatArray? {
+    fun getPlaceListArray(): FloatArray? {
         // Generate default place list based on temperature range
         return if (maxTemp > minTemp) {
             val count = colors.size.coerceAtLeast(2)
@@ -147,5 +147,20 @@ data class CustomPseudoBean(
                 minTemp + (maxTemp - minTemp) * i / (count - 1)
             }
         } else null
+    }
+    
+    /**
+     * Get color list as List<Int> for compatibility with HikSurfaceView
+     */
+    fun getColorList(): List<Int> {
+        return colors.toList()
+    }
+    
+    /**
+     * Get place list as List<Float> for compatibility with HikSurfaceView
+     */
+    fun getPlaceList(): List<Float> {
+        val array = getPlaceListArray()
+        return array?.toList() ?: emptyList()
     }
 }

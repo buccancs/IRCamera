@@ -68,5 +68,19 @@ class UnitTools {
         fun showUnit(isShowC: Boolean): String {
             return if (isShowC) "°C" else "°F"
         }
+        
+        /**
+         * Show unit symbol - default to Celsius
+         */
+        fun showUnit(): String {
+            return "°C"
+        }
+        
+        /**
+         * Show temperature value converted for display (overload without isShowC parameter)
+         */
+        fun showC(value: Float): String {
+            return "${value}°C"
+        }
     }
 }

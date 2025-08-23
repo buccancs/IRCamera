@@ -14,7 +14,7 @@ import com.infisense.usbir.utils.IRImageHelp
 import com.infisense.usbir.utils.OpencvTools
 import com.infisense.usbir.utils.PseudocodeUtils
 import com.topdon.lib.core.bean.AlarmBean
-import com.topdon.pseudo.bean.CustomPseudoBean
+import com.topdon.lib.core.bean.CustomPseudoBean
 import java.nio.ByteBuffer
 
 /**
