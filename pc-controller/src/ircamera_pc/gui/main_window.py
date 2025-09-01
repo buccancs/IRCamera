@@ -22,12 +22,20 @@ from PyQt6.QtCore import QTimer, Qt, pyqtSignal
 from PyQt6.QtGui import QFont
 from typing import Optional
 from datetime import datetime
+import asyncio
 from loguru import logger
 
 from ..core.session import SessionManager, SessionState
 from ..core.timesync import TimeSyncService
 from ..network.server import NetworkServer, DeviceInfo
-from .widgets import DeviceListWidget, SessionControlWidget, StatusDisplayWidget
+from .widgets import (
+    DeviceListWidget, 
+    SessionControlWidget, 
+    StatusDisplayWidget,
+    BluetoothControlWidget,
+    WiFiControlWidget,
+    SystemIntegrationWidget,
+)
 
 
 class MainWindow(QMainWindow):
@@ -55,6 +63,9 @@ class MainWindow(QMainWindow):
         gsr_ingestor=None,
         file_transfer_manager=None,
         camera_calibrator=None,
+        bluetooth_manager=None,
+        wifi_manager=None,
+        admin_privileges_manager=None,
     ):
         """
         Initialize main window with all components.
@@ -66,6 +77,9 @@ class MainWindow(QMainWindow):
             gsr_ingestor: GSR data ingestor (optional)
             file_transfer_manager: File transfer manager (optional)
             camera_calibrator: Camera calibration service (optional)
+            bluetooth_manager: Bluetooth device manager (optional)
+            wifi_manager: WiFi network manager (optional)
+            admin_privileges_manager: Administrator privileges manager (optional)
         """
         super().__init__()
 
@@ -74,16 +88,24 @@ class MainWindow(QMainWindow):
         self.network_server = network_server
         self.time_sync_service = time_sync_service
 
-        # New components (optional)
+        # Enhanced components (optional)
         self.gsr_ingestor = gsr_ingestor
         self.file_transfer_manager = file_transfer_manager
         self.camera_calibrator = camera_calibrator
+        self.bluetooth_manager = bluetooth_manager
+        self.wifi_manager = wifi_manager
+        self.admin_privileges_manager = admin_privileges_manager
 
         # GUI components
         self.device_list_widget: Optional[DeviceListWidget] = None
         self.session_control_widget: Optional[SessionControlWidget] = None
         self.status_display_widget: Optional[StatusDisplayWidget] = None
         self.log_display: Optional[QTextEdit] = None
+        
+        # New GUI components for system integration
+        self.bluetooth_control_widget = None
+        self.wifi_control_widget = None
+        self.system_integration_widget = None
 
         # State tracking
         self._current_session_id: Optional[str] = None
@@ -93,14 +115,15 @@ class MainWindow(QMainWindow):
         self._setup_ui()
         self._setup_connections()
         self._setup_network_callbacks()
+        self._setup_system_integration_callbacks()
         self._start_ui_updates()
 
-        logger.info("Main window initialized")
+        logger.info("Main window initialized with system integration features")
 
     def _setup_ui(self) -> None:
         """Set up the user interface."""
-        self.setWindowTitle("IRCamera PC Controller")
-        self.setMinimumSize(800, 600)
+        self.setWindowTitle("IRCamera PC Controller - System Integration")
+        self.setMinimumSize(1200, 800)  # Increased size for new features
 
         # Central widget
         central_widget = QWidget()
@@ -117,13 +140,18 @@ class MainWindow(QMainWindow):
         left_pane = self._create_left_pane()
         splitter.addWidget(left_pane)
 
+        # Center pane - System integration controls
+        center_pane = self._create_center_pane()
+        splitter.addWidget(center_pane)
+
         # Right pane - Status and logs
         right_pane = self._create_right_pane()
         splitter.addWidget(right_pane)
 
         # Set splitter proportions
         splitter.setStretchFactor(0, 1)  # Left pane
-        splitter.setStretchFactor(1, 1)  # Right pane
+        splitter.setStretchFactor(1, 1)  # Center pane (system integration)
+        splitter.setStretchFactor(2, 1)  # Right pane
 
         # Status bar
         self._setup_status_bar()
@@ -173,6 +201,40 @@ class MainWindow(QMainWindow):
         # Stretch at bottom
         layout.addStretch()
 
+        return pane
+
+    def _create_center_pane(self) -> QWidget:
+        """Create the center pane with system integration controls."""
+        pane = QWidget()
+        layout = QVBoxLayout(pane)
+        
+        # System integration widget
+        if self.admin_privileges_manager:
+            self.system_integration_widget = SystemIntegrationWidget()
+            layout.addWidget(self.system_integration_widget)
+        
+        # Bluetooth control widget
+        if self.bluetooth_manager:
+            from .widgets import BluetoothControlWidget
+            self.bluetooth_control_widget = BluetoothControlWidget()
+            layout.addWidget(self.bluetooth_control_widget)
+        
+        # WiFi control widget
+        if self.wifi_manager:
+            from .widgets import WiFiControlWidget
+            self.wifi_control_widget = WiFiControlWidget()
+            layout.addWidget(self.wifi_control_widget)
+        
+        # If no system integration features available, show a message
+        if not any([self.admin_privileges_manager, self.bluetooth_manager, self.wifi_manager]):
+            placeholder = QLabel("System integration features not available")
+            placeholder.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            placeholder.setStyleSheet("color: gray; font-style: italic; font-size: 14px;")
+            layout.addWidget(placeholder)
+        
+        # Stretch at bottom
+        layout.addStretch()
+        
         return pane
 
     def _create_right_pane(self) -> QWidget:
@@ -240,6 +302,100 @@ class MainWindow(QMainWindow):
         self.network_server.set_device_connected_callback(self._on_device_connected)
         self.network_server.set_device_disconnected_callback(self._on_device_disconnected)
         self.network_server.set_device_status_update_callback(self._on_device_status_updated)
+
+    def _setup_system_integration_callbacks(self) -> None:
+        """Set up system integration callbacks and connections."""
+        # Bluetooth manager callbacks
+        if self.bluetooth_manager and self.bluetooth_control_widget:
+            # Connect widget signals to manager methods
+            self.bluetooth_control_widget.scan_requested.connect(
+                lambda: self.bluetooth_manager.start_scanning(continuous=False)
+            )
+            self.bluetooth_control_widget.connect_requested.connect(
+                lambda addr: asyncio.create_task(self.bluetooth_manager.connect_device(addr))
+            )
+            self.bluetooth_control_widget.disconnect_requested.connect(
+                lambda addr: asyncio.create_task(self.bluetooth_manager.disconnect_device(addr))
+            )
+            
+            # Connect manager signals to widget updates
+            self.bluetooth_manager.device_discovered.connect(
+                lambda device: self._update_bluetooth_devices()
+            )
+            self.bluetooth_manager.device_connected.connect(
+                lambda addr, name: self.bluetooth_control_widget.set_connection_status(addr, True)
+            )
+            self.bluetooth_manager.device_disconnected.connect(
+                lambda addr, reason: self.bluetooth_control_widget.set_connection_status(addr, False)
+            )
+            self.bluetooth_manager.error_occurred.connect(
+                lambda op, err: self.bluetooth_control_widget.set_error_status(err)
+            )
+        
+        # WiFi manager callbacks
+        if self.wifi_manager and self.wifi_control_widget:
+            # Connect widget signals to manager methods
+            self.wifi_control_widget.scan_requested.connect(
+                lambda: self.wifi_manager.start_scanning(continuous=False)
+            )
+            self.wifi_control_widget.connect_requested.connect(
+                lambda ssid, pwd: asyncio.create_task(self.wifi_manager.connect_to_network(ssid, pwd))
+            )
+            self.wifi_control_widget.disconnect_requested.connect(
+                lambda: asyncio.create_task(self.wifi_manager.disconnect_from_network())
+            )
+            self.wifi_control_widget.hotspot_start_requested.connect(
+                lambda ssid, pwd, ch: asyncio.create_task(
+                    self.wifi_manager.start_hotspot(ssid, pwd, ch)
+                )
+            )
+            self.wifi_control_widget.hotspot_stop_requested.connect(
+                lambda: asyncio.create_task(self.wifi_manager.stop_hotspot())
+            )
+            
+            # Connect manager signals to widget updates
+            self.wifi_manager.networks_discovered.connect(
+                lambda networks: self.wifi_control_widget.update_networks(networks)
+            )
+            self.wifi_manager.network_connected.connect(
+                lambda ssid, ip: self.wifi_control_widget.set_connection_status(ssid, True, ip)
+            )
+            self.wifi_manager.network_disconnected.connect(
+                lambda ssid, reason: self.wifi_control_widget.set_connection_status(ssid, False)
+            )
+            self.wifi_manager.hotspot_state_changed.connect(
+                lambda state, msg: self.wifi_control_widget.set_hotspot_status(state.value, msg)
+            )
+            self.wifi_manager.error_occurred.connect(
+                lambda op, err: self.wifi_control_widget.set_error_status(err)
+            )
+        
+        # Admin privileges manager callbacks
+        if self.admin_privileges_manager and self.system_integration_widget:
+            # Connect widget signals to manager methods
+            self.system_integration_widget.elevation_requested.connect(
+                lambda reason: self.admin_privileges_manager.request_elevation(reason)
+            )
+            
+            # Connect manager signals to widget updates
+            self.admin_privileges_manager.privilege_changed.connect(
+                lambda level: self.system_integration_widget.update_privilege_level(level.value)
+            )
+            self.admin_privileges_manager.system_ready.connect(
+                lambda perms: self.system_integration_widget.update_permissions({
+                    'network_config': perms.network_config,
+                    'bluetooth_control': perms.bluetooth_control,
+                    'service_management': perms.service_management,
+                    'registry_access': perms.registry_access,
+                    'hardware_access': perms.hardware_access,
+                    'firewall_control': perms.firewall_control,
+                })
+            )
+            self.admin_privileges_manager.elevation_completed.connect(
+                lambda result, msg: self.system_integration_widget.set_status_message(
+                    msg, result.value == "failed"
+                )
+            )
 
     def _start_ui_updates(self) -> None:
         """Start periodic UI updates."""
@@ -518,6 +674,18 @@ class MainWindow(QMainWindow):
     def _show_info(self, title: str, message: str) -> None:
         """Show information message box."""
         QMessageBox.information(self, title, message)
+
+    def _update_bluetooth_devices(self) -> None:
+        """Update Bluetooth device list in the UI."""
+        if self.bluetooth_manager and self.bluetooth_control_widget:
+            devices = self.bluetooth_manager.discovered_devices
+            self.bluetooth_control_widget.update_devices(devices)
+
+    def _update_wifi_networks(self) -> None:
+        """Update WiFi network list in the UI."""
+        if self.wifi_manager and self.wifi_control_widget:
+            networks = self.wifi_manager.available_networks
+            self.wifi_control_widget.update_networks(networks)
 
     def closeEvent(self, event) -> None:
         """Handle window close event."""

@@ -18,6 +18,9 @@ from ..core.timesync import TimeSyncService
 from ..core.gsr_ingestor import GSRIngestor
 from ..core.file_transfer import FileTransferManager
 from ..core.calibration import CameraCalibrator
+from ..core.bluetooth_manager import BluetoothManager
+from ..core.wifi_manager import WiFiManager
+from ..core.admin_privileges import AdminPrivilegesManager
 from ..network.server import NetworkServer
 from .main_window import MainWindow
 from .utils import setup_logging
@@ -41,10 +44,15 @@ class IRCameraApp:
         self.time_sync_service = TimeSyncService()
         self.network_server = NetworkServer()
 
-        # New components for complete implementation
+        # Enhanced components for system integration
         self.gsr_ingestor = GSRIngestor(self.config)
         self.file_transfer_manager = FileTransferManager(self.config)
         self.camera_calibrator = CameraCalibrator(self.config)
+        
+        # System integration managers
+        self.admin_privileges_manager = AdminPrivilegesManager()
+        self.bluetooth_manager = BluetoothManager()
+        self.wifi_manager = WiFiManager()
 
         # GUI
         self.qt_app: Optional[QApplication] = None
@@ -54,14 +62,17 @@ class IRCameraApp:
         self._loop: Optional[asyncio.AbstractEventLoop] = None
         self._timer: Optional[QTimer] = None
 
-        logger.info("IRCamera Application initialized with all components")
+        logger.info("IRCamera Application initialized with system integration features")
         components = [
             "Session Manager",
             "Time Sync", 
             "Network Server",
             "GSR Ingestor", 
             "File Transfer",
-            "Camera Calibrator"
+            "Camera Calibrator",
+            "Admin Privileges",
+            "Bluetooth Manager",
+            "WiFi Manager"
         ]
         logger.info(f"Components: {', '.join(components)}")
 
@@ -165,7 +176,7 @@ class IRCameraApp:
             """
             )
 
-        # Create main window with all components
+        # Create main window with all components including system integration
         self.main_window = MainWindow(
             session_manager=self.session_manager,
             network_server=self.network_server,
@@ -173,10 +184,13 @@ class IRCameraApp:
             gsr_ingestor=self.gsr_ingestor,
             file_transfer_manager=self.file_transfer_manager,
             camera_calibrator=self.camera_calibrator,
+            bluetooth_manager=self.bluetooth_manager,
+            wifi_manager=self.wifi_manager,
+            admin_privileges_manager=self.admin_privileges_manager,
         )
 
-        # Set up window size from config
-        window_size = config.get("gui.window_size", [1200, 800])
+        # Set up window size from config (increased for system integration features)
+        window_size = config.get("gui.window_size", [1400, 900])
         self.main_window.resize(window_size[0], window_size[1])
 
         logger.info("Qt application set up")
@@ -231,13 +245,20 @@ class IRCameraApp:
             raise
 
     async def stop_services(self) -> None:
-        """Stop backend services."""
+        """Stop backend services and clean up system integration managers."""
         try:
-            # Stop services in reverse order
+            # Stop system integration managers first
+            if self.wifi_manager:
+                await self.wifi_manager.cleanup()
+            
+            if self.bluetooth_manager:
+                await self.bluetooth_manager.cleanup()
+            
+            # Stop core services in reverse order
             await self.network_server.stop()
             await self.time_sync_service.stop()
 
-            logger.info("All services stopped")
+            logger.info("All services and system integration managers stopped")
 
         except Exception as e:
             logger.error(f"Error stopping services: {e}")

@@ -38,3 +38,16 @@ black>=23.0.0
 aiofiles>=23.2.0
 cryptography>=41.0.0
 typing-extensions>=4.7.0
+
+# Bluetooth and WiFi control
+pybluez>=0.23
+bleak>=0.21.0
+wifi>=0.3.8
+psutil>=5.9.0
+
+# Windows system integration
+pywin32>=306
+comtypes>=1.2.0
+
+# Administrator privileges and system control
+elevate>=0.1.3
