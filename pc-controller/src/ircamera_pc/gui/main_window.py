@@ -41,14 +41,20 @@ class MainWindow(QMainWindow):
     
     def __init__(self, session_manager: SessionManager, 
                  network_server: NetworkServer,
-                 time_sync_service: TimeSyncService):
+                 time_sync_service: TimeSyncService,
+                 gsr_ingestor=None,
+                 file_transfer_manager=None,
+                 camera_calibrator=None):
         """
-        Initialize main window.
+        Initialize main window with all components.
         
         Args:
             session_manager: Session management service
             network_server: Network server for device communication
             time_sync_service: Time synchronization service
+            gsr_ingestor: GSR data ingestor (optional)
+            file_transfer_manager: File transfer manager (optional)
+            camera_calibrator: Camera calibration service (optional)
         """
         super().__init__()
         
@@ -56,6 +62,11 @@ class MainWindow(QMainWindow):
         self.session_manager = session_manager
         self.network_server = network_server
         self.time_sync_service = time_sync_service
+        
+        # New components (optional)
+        self.gsr_ingestor = gsr_ingestor
+        self.file_transfer_manager = file_transfer_manager
+        self.camera_calibrator = camera_calibrator
         
         # GUI components
         self.device_list_widget: Optional[DeviceListWidget] = None

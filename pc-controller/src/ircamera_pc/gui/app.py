@@ -15,6 +15,9 @@ from loguru import logger
 
 from ..core import config, SessionManager
 from ..core.timesync import TimeSyncService
+from ..core.gsr_ingestor import GSRIngestor
+from ..core.file_transfer import FileTransferManager
+from ..core.calibration import CameraCalibrator
 from ..network.server import NetworkServer
 from .main_window import MainWindow
 from .utils import setup_logging
@@ -24,15 +27,24 @@ class IRCameraApp:
     """
     Main application controller for IRCamera PC Controller.
     
-    Coordinates between GUI components and backend services.
+    Coordinates between GUI components and backend services including
+    all new components: GSR Ingestor, File Transfer Manager, and Calibration Tools.
     """
     
     def __init__(self):
-        """Initialize the application."""
+        """Initialize the application with all components."""
+        # Load configuration
+        self.config = config
+        
         # Core services
         self.session_manager = SessionManager()
         self.time_sync_service = TimeSyncService()
         self.network_server = NetworkServer()
+        
+        # New components for complete implementation
+        self.gsr_ingestor = GSRIngestor(self.config)
+        self.file_transfer_manager = FileTransferManager(self.config)
+        self.camera_calibrator = CameraCalibrator(self.config)
         
         # GUI
         self.qt_app: Optional[QApplication] = None
@@ -42,7 +54,8 @@ class IRCameraApp:
         self._loop: Optional[asyncio.AbstractEventLoop] = None
         self._timer: Optional[QTimer] = None
         
-        logger.info("IRCamera Application initialized")
+        logger.info("IRCamera Application initialized with all components")
+        logger.info("Components: Session Manager, Time Sync, Network Server, GSR Ingestor, File Transfer, Camera Calibrator")
     
     def setup_qt_app(self) -> None:
         """Set up Qt application."""
@@ -142,11 +155,14 @@ class IRCameraApp:
                 }
             """)
             
-        # Create main window
+        # Create main window with all components
         self.main_window = MainWindow(
             session_manager=self.session_manager,
             network_server=self.network_server,
-            time_sync_service=self.time_sync_service
+            time_sync_service=self.time_sync_service,
+            gsr_ingestor=self.gsr_ingestor,
+            file_transfer_manager=self.file_transfer_manager,
+            camera_calibrator=self.camera_calibrator
         )
         
         # Set up window size from config

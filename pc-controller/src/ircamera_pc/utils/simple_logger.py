@@ -66,3 +66,7 @@ def error(message: str, *args, **kwargs) -> None:
 
 def critical(message: str, *args, **kwargs) -> None:
     logger.critical(message, *args, **kwargs)
+
+def get_logger(name: str = "ircamera_pc") -> SimpleLogger:
+    """Get a logger instance for the given name."""
+    return SimpleLogger(name)
