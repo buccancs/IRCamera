@@ -1,82 +1,73 @@
-/.idea/
-/local.properties
-/.gradle/
-/buildSrc/build/
-/buildSrc/.gradle/
-/ai-upscale/
-/ai-upscale/3rdparty/ncnn-android-vulkan-shared/armeabi-v7a/
+# ===================================================================
+# Recommended .gitignore for Android Projects
+# ===================================================================
 
-# Android Studio generated files
+# IDE - Android Studio
+# -------------------------------------------------------------------
+# User-specific files
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+
+# Generated files
 *.iml
-.DS_Store
+.cxx/
+.externalNativeBuild/
+/captures/
 
-# Build outputs
-*.apk
-*.aab
-*.dex
-*.class
-build/
-*build/
-# IDE files
-.idea/
 
-# Gradle files
-/.gradle/
-/buildSrc/build/
-/buildSrc/.gradle/
-/local.properties
-
-# Build directories
-/build/
-*/build/
+# Build
+# -------------------------------------------------------------------
 **/build/
-
-# App specific directories
-/app/prod/
-/app/prodTopdon/
-
-# AI upscale specific
-/ai-upscale/
-/ai-upscale/3rdparty/ncnn-android-vulkan-shared/armeabi-v7a/
-
-# Android generated files
-*.iml
-.externalNativeBuild
-.cxx
 *.apk
 *.aab
 *.ap_
 *.dex
 *.class
+*.hprof
+*.snapshot
+lint-results-*
 
 
-# Log files
-*.log
+# Gradle
+# -------------------------------------------------------------------
+.gradle/
+.build-cache/
+buildSrc/build/
+buildSrc/.gradle/
 
 
-# Generated files
-/captures/
-.externalNativeBuild/
-.cxx/
-
-# Local configuration files
+# Local configuration
+# -------------------------------------------------------------------
+# Contains SDK path, API keys, and other user-specific information.
 local.properties
 
+
 # Signing files
+# -------------------------------------------------------------------
+# Keep these files private and out of version control.
 *.jks
 *.keystore
 
-# Temporary files
-*.tmp
-*.temp
-*~
 
-# OS generated files
+# OS-generated files
+# -------------------------------------------------------------------
 .DS_Store
 .DS_Store?
 ._*
 .Spotlight-V100
 .Trashes
-ehthumbs.db
 Thumbs.db
+ehthumbs.db
 
+
+# App/Project specific directories
+# -------------------------------------------------------------------
+# These are your custom rules, which are perfectly fine to keep.
+/app/prod/
+/app/prodTopdon/
+/ai-upscale/
+/ai-upscale/3rdparty/ncnn-android-vulkan-shared/armeabi-v7a/
