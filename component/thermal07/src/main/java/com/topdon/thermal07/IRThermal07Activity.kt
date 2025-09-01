@@ -86,6 +86,8 @@ import com.topdon.module.thermal.ir.view.TimeDownView
 import com.topdon.pseudo.activity.PseudoSetActivity
 import com.topdon.pseudo.bean.CustomPseudoBean
 import com.topdon.tc004.activity.video.PlayFragment
+import com.topdon.tc001.gsr.EnhancedThermalRecorder
+import com.topdon.gsr.util.TimeUtil
 import com.topdon.lib.core.comm.IrParam
 import com.topdon.lib.core.comm.TempFont
 import com.topdon.lib.core.dialog.CarDetectDialog
@@ -1585,6 +1587,16 @@ class IRThermal07Activity : BaseWifiActivity() {
      */
     private fun camera() {
         lifecycleScope.launch {
+            // Trigger synchronized GSR sync event for thermal frame capture
+            enhancedThermalRecorder?.let { recorder ->
+                recorder.triggerSyncEvent("THERMAL_PHOTO_CAPTURE", mapOf(
+                    "timestamp" to TimeUtil.formatTimestamp(System.currentTimeMillis()),
+                    "unified_time_base" to "samsung_s22_ground_truth",
+                    "capture_type" to "thermal_photo"
+                ))
+                Log.d("ThermalSync", "Synchronized GSR sync event triggered for thermal photo capture")
+            }
+            
             thermal_recycler_night.setToCamera()
             val photoBean = TC007Repository.getPhoto()
             if (200 == photoBean?.Code) {
@@ -1685,6 +1697,10 @@ class IRThermal07Activity : BaseWifiActivity() {
     private var isVideo = false
 
     private var videoRecord: VideoRecordFFmpeg? = null
+    
+    // Enhanced GSR integration for synchronized multi-modal recording
+    private var enhancedThermalRecorder: EnhancedThermalRecorder? = null
+    private var currentSessionId: String? = null
 
     /**
      * 初始化视频采集组件
@@ -1712,6 +1728,27 @@ class IRThermal07Activity : BaseWifiActivity() {
             if (!videoRecord!!.canStartVideoRecord(null)) {
                 return
             }
+            
+            // Start synchronized GSR recording with thermal video
+            val sessionId = TimeUtil.generateSessionId("Thermal_Video")
+            currentSessionId = sessionId
+            
+            // Configure Enhanced Thermal Recorder for synchronized start
+            enhancedThermalRecorder?.let { recorder ->
+                if (recorder.startRecording(sessionId, null, true)) {
+                    Log.d("ThermalSync", "Synchronized GSR recording started with thermal video: $sessionId")
+                    
+                    // Add initial sync mark for video start
+                    recorder.triggerSyncEvent("THERMAL_VIDEO_START", mapOf(
+                        "timestamp" to TimeUtil.formatTimestamp(System.currentTimeMillis()),
+                        "unified_time_base" to "samsung_s22_ground_truth",
+                        "thermal_video_file" to FileConfig.tc007GalleryDir
+                    ))
+                } else {
+                    Log.w("ThermalSync", "Failed to start synchronized GSR recording, continuing with thermal only")
+                }
+            }
+            
             videoRecord?.stopVideoRecordListener = { isShowVideoRecordTips ->
                 this@IRThermal07Activity.runOnUiThread {
                     if (isShowVideoRecordTips) {
@@ -1723,9 +1760,24 @@ class IRThermal07Activity : BaseWifiActivity() {
                         } catch (_: Exception) {
                         }
                     }
+                    
+                    // Stop synchronized recording
+                    enhancedThermalRecorder?.let { recorder ->
+                        recorder.triggerSyncEvent("THERMAL_VIDEO_END", mapOf(
+                            "timestamp" to TimeUtil.formatTimestamp(System.currentTimeMillis()),
+                            "session_id" to (currentSessionId ?: "unknown")
+                        ))
+                        val session = recorder.stopRecording()
+                        session?.let { 
+                            Log.d("ThermalSync", "Synchronized recording completed: ${it.sessionId}, duration: ${it.getDurationMs()}ms")
+                        }
+                    }
+                    
                     videoRecord?.stopRecord()
                     isVideo = false
                     videoTimeClose()
+                    currentSessionId = null
+                    
                     lifecycleScope.launch(Dispatchers.Main) {
                         delay(500)
                         thermal_recycler_night.refreshImg(GalleryRepository.DirType.TC007)
@@ -1751,8 +1803,24 @@ class IRThermal07Activity : BaseWifiActivity() {
     private fun stopIfVideoing() {
         if (isVideo) {
             isVideo = false
+            
+            // Stop synchronized GSR recording
+            enhancedThermalRecorder?.let { recorder ->
+                recorder.triggerSyncEvent("THERMAL_VIDEO_STOP", mapOf(
+                    "timestamp" to TimeUtil.formatTimestamp(System.currentTimeMillis()),
+                    "session_id" to (currentSessionId ?: "unknown"),
+                    "stop_reason" to "user_initiated"
+                ))
+                val session = recorder.stopRecording()
+                session?.let { 
+                    Log.d("ThermalSync", "Synchronized recording stopped: ${it.sessionId}, samples: ${it.sampleCount}")
+                }
+            }
+            
             videoRecord?.stopRecord()
             videoTimeClose()
+            currentSessionId = null
+            
             lifecycleScope.launch(Dispatchers.Main) {
                 delay(500)
                 thermal_recycler_night.refreshImg(GalleryRepository.DirType.TC007)
@@ -1808,6 +1876,12 @@ class IRThermal07Activity : BaseWifiActivity() {
         }
         thermal_recycler_night.refreshImg(GalleryRepository.DirType.TC007)
         setCarDetectPrompt()
+        
+        // Initialize Enhanced Thermal Recorder for synchronized GSR integration
+        if (enhancedThermalRecorder == null) {
+            enhancedThermalRecorder = EnhancedThermalRecorder.create(this)
+            Log.d("ThermalSync", "Enhanced Thermal Recorder initialized for synchronized recording")
+        }
     }
 
     override fun onPause() {
@@ -1821,6 +1895,11 @@ class IRThermal07Activity : BaseWifiActivity() {
         AlarmHelp.getInstance(application).onDestroy(WifiSaveSettingUtil.isSaveSetting)
         temp_bg.stopAnimation()
         time_down_view.cancel()
+        
+        // Cleanup Enhanced Thermal Recorder
+        enhancedThermalRecorder?.cleanup()
+        enhancedThermalRecorder = null
+        
         //退出时把点线面清掉
         CoroutineScope(Dispatchers.IO).launch {
             TC007Repository.clearAllTemp()
@@ -1834,6 +1913,12 @@ class IRThermal07Activity : BaseWifiActivity() {
             isVideo = false
             videoRecord?.stopRecord()
             videoTimeClose()
+            
+            // Stop synchronized GSR recording
+            enhancedThermalRecorder?.stopRecording()
+            currentSessionId = null
+            Log.d("ThermalSync", "Synchronized thermal and GSR recording stopped in onStop")
+            
             CoroutineScope(Dispatchers.Main).launch {
                 delay(500)
                 EventBus.getDefault().post(GalleryAddEvent())

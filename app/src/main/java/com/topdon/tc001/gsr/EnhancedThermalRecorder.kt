@@ -60,6 +60,10 @@ class EnhancedThermalRecorder private constructor(
     
     init {
         gsrRecorder.addListener(gsrListener)
+        
+        // Initialize Samsung S22 device as NTP-style ground truth for unified timing
+        TimeUtil.initializeGroundTruthTiming()
+        Log.d(TAG, "Enhanced thermal recorder initialized with Samsung S22 ground truth timing")
     }
     
     /**
@@ -126,19 +130,26 @@ class EnhancedThermalRecorder private constructor(
     fun triggerSyncEvent(eventType: String = "THERMAL_CAPTURE", metadata: Map<String, String> = emptyMap()): Boolean {
         return if (isRecording) {
             if (gsrRecorder.isRecording()) {
-                gsrRecorder.addSyncMark(eventType, metadata)
+                // Add unified timing metadata for synchronization
+                val enhancedMetadata = mutableMapOf<String, String>().apply {
+                    putAll(metadata)
+                    putAll(TimeUtil.getTimingMetadata())
+                    put("sync_timestamp", TimeUtil.getSynchronizedTimestamp().toString())
+                    put("thermal_ground_truth", "samsung_s22_device_clock")
+                }
+                gsrRecorder.addSyncMark(eventType, enhancedMetadata)
             } else {
                 // Add sync mark to session manager for thermal-only sessions
                 currentSession?.let { session ->
                     val syncMark = com.topdon.gsr.model.SyncMark(
                         timestamp = System.currentTimeMillis(),
-                        utcTimestamp = TimeUtil.getUtcTimestamp(),
+                        utcTimestamp = TimeUtil.getSynchronizedTimestamp(),
                         eventType = eventType,
                         sessionId = session.sessionId,
-                        metadata = metadata
+                        metadata = metadata + TimeUtil.getTimingMetadata()
                     )
                     session.syncMarks.add(syncMark)
-                    Log.d(TAG, "Sync event added to thermal-only session: $eventType")
+                    Log.d(TAG, "Sync event added to thermal-only session with unified timing: $eventType")
                     true
                 } ?: false
             }
@@ -155,7 +166,9 @@ class EnhancedThermalRecorder private constructor(
         val metadata = mutableMapOf<String, String>().apply {
             putAll(frameMetadata)
             put("capture_type", "thermal")
-            put("timestamp", TimeUtil.formatTimestamp(System.currentTimeMillis()))
+            put("timestamp", TimeUtil.formatTimestamp(TimeUtil.getSynchronizedTimestamp()))
+            put("sync_method", "unified_samsung_s22_ground_truth")
+            putAll(TimeUtil.getTimingMetadata())
         }
         
         return triggerSyncEvent("THERMAL_FRAME_CAPTURE", metadata)
