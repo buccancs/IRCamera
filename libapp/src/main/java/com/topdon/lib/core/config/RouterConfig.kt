@@ -10,6 +10,7 @@ object RouterConfig {
     private const val GROUP_THERMAL04 = "ts004"
     private const val GROUP_THERMAL07 = "tc007"
     private const val GROUP_CALIBRATE = "calibrate"
+    private const val GROUP_GSR = "gsr"
 
 
     //app
@@ -96,5 +97,9 @@ object RouterConfig {
     const val IR_MONITOR_CHART_LITE = "/lite/monitor/chart"
     const val IR_CORRECTION_THREE_LITE = "/lite/correction3"
     const val IR_CORRECTION_FOUR_LITE = "/lite/correction4"
+
+    //GSR Multi-modal recording
+    const val GSR_MULTI_MODAL = "/$GROUP_GSR/multimodal"
+    const val GSR_DEMO = "/$GROUP_GSR/demo"
 
 }

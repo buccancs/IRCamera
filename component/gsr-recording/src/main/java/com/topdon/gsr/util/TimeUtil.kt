@@ -1,7 +1,5 @@
 package com.topdon.gsr.util
 
-import android.util.Log
-
 /**
  * Utility class for time synchronization and timestamp management
  */
@@ -24,7 +22,12 @@ object TimeUtil {
      */
     fun setPcTimeOffset(offset: Long) {
         pcTimeOffset = offset
-        Log.d(TAG, "PC time offset set to: ${offset}ms")
+        // Only log if Android Log is available (not in unit tests)
+        try {
+            android.util.Log.d(TAG, "PC time offset set to: ${offset}ms")
+        } catch (e: Exception) {
+            // Ignore - running in unit tests
+        }
     }
     
     /**

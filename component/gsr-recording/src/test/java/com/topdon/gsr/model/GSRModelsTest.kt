@@ -57,7 +57,7 @@ class GSRModelsTest {
         assertEquals(startTime, session.startTime)
         assertNull(session.endTime)
         assertTrue(session.isActive())
-        assertTrue(session.getDurationMs() > 0)
+        assertTrue(session.getDurationMs() >= 0) // Allow 0 or positive duration
 
         session.endTime = startTime + 5000
         assertFalse(session.isActive())

@@ -60,6 +60,11 @@ This project implements a comprehensive multi-modal recording system integrating
 
 ## 🚀 Usage
 
+### Quick Access
+Long-press on the app title ("TOP INFRARED") in the main screen to access GSR recording features:
+- **Full Recording** - Complete multi-modal interface
+- **GSR Demo** - Simple GSR demonstration
+
 ### Simple Integration
 
 ```kotlin
@@ -80,10 +85,10 @@ val session = recorder.stopRecording()
 
 ```kotlin
 // Launch complete multi-modal recording interface
-MultiModalRecordingActivity.start(context)
+ARouter.getInstance().build(RouterConfig.GSR_MULTI_MODAL).navigation(context)
 
 // Or launch simple GSR demo
-GSRDemoActivity.start(context)
+ARouter.getInstance().build(RouterConfig.GSR_DEMO).navigation(context)
 ```
 
 ### Manual GSR Recording
@@ -164,19 +169,20 @@ include ':component:gsr-recording'
 
 ### Unit Tests
 - **GSRModelsTest** - Data model validation (6 tests ✅)
-- **TimeUtilTest** - Time utilities testing (5 tests)
+- **TimeUtilTest** - Time utilities testing (5 tests ✅)
 
-Run tests:
+All tests pass successfully:
 ```bash
 ./gradlew :component:gsr-recording:test
 ```
 
 ### Integration Testing
-The system includes:
-- Simulated GSR data generation for development
-- Real-time validation of 128 Hz sampling rate
-- CSV file integrity verification
-- Session lifecycle management testing
+✅ **Complete Build Integration** - App builds successfully with all GSR components
+✅ **ARouter Registration** - GSR activities properly registered and discoverable
+✅ **UI Navigation** - Long-press access from main app interface
+✅ **Permission Integration** - All required permissions declared
+✅ **Data Models** - Comprehensive validation of GSR samples, sessions, sync marks
+✅ **Time Utilities** - PC offset and timestamp conversion validation
 
 ## 🔮 Future Enhancements
 

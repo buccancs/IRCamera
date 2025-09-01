@@ -6,15 +6,19 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.topdon.gsr.model.GSRSample
 import com.topdon.gsr.model.SessionInfo
 import com.topdon.gsr.model.SyncMark
 import com.topdon.gsr.service.GSRRecorder
 import com.topdon.gsr.util.TimeUtil
+import com.topdon.lib.core.config.RouterConfig
 
 /**
  * Simple GSR demonstration activity showing basic functionality
  */
+@Route(path = RouterConfig.GSR_DEMO)
 class GSRDemoActivity : AppCompatActivity() {
     
     companion object {

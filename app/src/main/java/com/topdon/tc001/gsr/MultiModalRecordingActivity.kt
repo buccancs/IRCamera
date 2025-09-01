@@ -11,6 +11,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.topdon.gsr.model.GSRSample
 import com.topdon.gsr.model.SessionInfo
 import com.topdon.gsr.model.SyncMark
@@ -18,12 +19,14 @@ import com.topdon.gsr.service.GSRRecorder
 import com.topdon.gsr.service.MultiModalRecordingService
 import com.topdon.gsr.service.SessionManager
 import com.topdon.gsr.util.TimeUtil
+import com.topdon.lib.core.config.RouterConfig
 import com.topdon.tc001.R
 import java.io.File
 
 /**
  * Full multi-modal recording interface with GSR and thermal coordination
  */
+@Route(path = RouterConfig.GSR_MULTI_MODAL)
 class MultiModalRecordingActivity : AppCompatActivity() {
     
     companion object {

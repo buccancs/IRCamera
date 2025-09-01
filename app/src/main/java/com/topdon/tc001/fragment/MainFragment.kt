@@ -39,6 +39,8 @@ import kotlinx.android.synthetic.main.fragment_main.cl_no_device
 import kotlinx.android.synthetic.main.fragment_main.iv_add
 import kotlinx.android.synthetic.main.fragment_main.recycler_view
 import kotlinx.android.synthetic.main.fragment_main.tv_connect_device
+import kotlinx.android.synthetic.main.fragment_main.tv_no_device_title
+import kotlinx.android.synthetic.main.fragment_main.tv_has_device_title
 import kotlinx.android.synthetic.main.item_device_connect.view.battery_view
 import kotlinx.android.synthetic.main.item_device_connect.view.iv_bg
 import kotlinx.android.synthetic.main.item_device_connect.view.iv_image
@@ -70,6 +72,17 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         adapter = MyAdapter()
         tv_connect_device.setOnClickListener(this)
         iv_add.setOnClickListener(this)
+        
+        // GSR Multi-modal Recording Access (long press on titles for research features)
+        tv_no_device_title?.setOnLongClickListener {
+            showGSROptions()
+            true
+        }
+        tv_has_device_title?.setOnLongClickListener {
+            showGSROptions()
+            true
+        }
+        
         adapter.hasConnectLine = DeviceTools.isConnect()
         adapter.hasConnectTS004 = WebSocketProxy.getInstance().isTS004Connect()
         adapter.hasConnectTC007 = WebSocketProxy.getInstance().isTC007Connect()
@@ -391,6 +404,29 @@ class MainFragment : BaseFragment(), View.OnClickListener {
                 else -> ConnectType.TC007
             }
         }
+    }
+    
+    /**
+     * Show GSR Multi-modal Recording options for research purposes
+     * Accessed via long-press on app title
+     */
+    private fun showGSROptions() {
+        TipDialog.Builder(requireContext())
+            .setTitleMessage("GSR Multi-modal Recording")
+            .setMessage("Choose GSR recording option:")
+            .setPositiveListener("Full Recording") {
+                // Launch full multi-modal recording interface
+                ARouter.getInstance()
+                    .build(RouterConfig.GSR_MULTI_MODAL)
+                    .navigation(requireContext())
+            }
+            .setCancelListener("GSR Demo") {
+                // Launch simple GSR demo
+                ARouter.getInstance()
+                    .build(RouterConfig.GSR_DEMO)
+                    .navigation(requireContext())
+            }
+            .create().show()
     }
 
     enum class ConnectType {
