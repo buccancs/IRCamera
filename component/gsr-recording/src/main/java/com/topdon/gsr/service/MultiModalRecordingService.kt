@@ -13,6 +13,9 @@ import androidx.core.app.NotificationCompat
 import com.topdon.gsr.model.GSRSample
 import com.topdon.gsr.model.SessionInfo
 import com.topdon.gsr.model.SyncMark
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
  * Multi-modal recording service that coordinates GSR and thermal recording
@@ -144,14 +147,16 @@ class MultiModalRecordingService : Service() {
         // Start foreground service
         startForeground(NOTIFICATION_ID, createNotification("Starting recording..."))
         
-        // Start GSR recording
-        if (gsrRecorder.startRecording(sessionId, participantId, studyName)) {
-            isRecording = true
-            currentSessionId = sessionId
-            Log.i(TAG, "Multi-modal recording started: $sessionId")
-        } else {
-            Log.e(TAG, "Failed to start GSR recording")
-            stopSelf()
+        // Start GSR recording in coroutine
+        CoroutineScope(Dispatchers.IO).launch {
+            if (gsrRecorder.startRecording(sessionId, participantId, studyName)) {
+                isRecording = true
+                currentSessionId = sessionId
+                Log.i(TAG, "Multi-modal recording started: $sessionId")
+            } else {
+                Log.e(TAG, "Failed to start GSR recording")
+                stopSelf()
+            }
         }
     }
     
@@ -172,7 +177,7 @@ class MultiModalRecordingService : Service() {
     
     private fun triggerSyncEvent(eventType: String) {
         if (isRecording) {
-            gsrRecorder.addSyncMark(eventType)
+            gsrRecorder.triggerSyncEvent(eventType)
             Log.d(TAG, "Sync event triggered: $eventType")
         } else {
             Log.w(TAG, "Cannot trigger sync event - not recording")

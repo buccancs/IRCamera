@@ -48,14 +48,19 @@ dependencies {
     // For CSV writing
     implementation 'com.opencsv:opencsv:5.7.1'
     
-    // Shimmer Android API for GSR sensor integration
-    // Note: Add the actual Shimmer Android API JAR/AAR file to libs/ directory
-    // or use the correct Maven coordinates when available
+    // Official Shimmer Android API Integration
+    // JAR files from https://github.com/ShimmerEngineering/ShimmerAndroidAPI/releases
+    implementation files('libs/ShimmerBiophysicalProcessingLibrary_Rev_0_11.jar')
+    implementation files('libs/AndroidBluetoothLibrary.jar')
+    implementation files('libs/androidplot-core-0.5.0-release.jar')
+    
+    // Additional dependencies for Shimmer API compatibility
+    implementation 'com.google.guava:guava:20.0'
+    implementation 'java3d:vecmath:1.3.1'
     implementation 'org.apache.commons:commons-lang3:3.12.0'
     
-    // For now, include Shimmer3 integration stubs that can be replaced with the actual SDK
-    // Users should download the official Shimmer Android API from:
-    // https://github.com/ShimmerEngineering/ShimmerAndroidAPI/releases
+    // BLE support for Shimmer3R and other modern devices
+    implementation 'com.github.Jasonchenlijian:FastBle:2.4.0'
     
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:4.6.1'
