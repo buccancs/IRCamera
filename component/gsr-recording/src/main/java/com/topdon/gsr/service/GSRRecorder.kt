@@ -16,12 +16,17 @@ import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicLong
 
 /**
- * Core GSR recorder that handles 128 Hz data acquisition and CSV logging
+ * Core GSR recorder with Shimmer3 device integration
+ * Uses official Shimmer Android API with fallback to simulated data
  */
 class GSRRecorder(
     private val context: Context,
     private val samplingRateHz: Int = 128
 ) {
+    
+    // Shimmer3 integration
+    private val shimmerRecorder = ShimmerGSRRecorder(context, samplingRateHz)
+    private val useShimmerDevice = true  // Set to false for simulated data only
     companion object {
         private const val TAG = "GSRRecorder"
         private const val SESSIONS_DIR = "IRCamera_Sessions"
@@ -50,6 +55,59 @@ class GSRRecorder(
     
     private val listeners = mutableListOf<GSRRecordingListener>()
     
+    /**
+     * Initialize GSR recording system with Shimmer3 device detection
+     */
+    suspend fun initialize(): Boolean {
+        return if (useShimmerDevice) {
+            Log.i(TAG, "Attempting to initialize Shimmer3 GSR device...")
+            val success = shimmerRecorder.initializeDevice()
+            if (success) {
+                Log.i(TAG, "Shimmer3 device initialized successfully")
+                setupShimmerListeners()
+                true
+            } else {
+                Log.w(TAG, "Failed to initialize Shimmer3 device, will use simulated data")
+                false
+            }
+        } else {
+            Log.i(TAG, "Using simulated GSR data mode")
+            true
+        }
+    }
+    
+    private fun setupShimmerListeners() {
+        shimmerRecorder.addListener(object : ShimmerGSRRecorder.GSRRecordingListener {
+            override fun onRecordingStarted(session: SessionInfo) {
+                listeners.forEach { it.onRecordingStarted(session) }
+            }
+            
+            override fun onRecordingStopped(session: SessionInfo) {
+                listeners.forEach { it.onRecordingStopped(session) }
+            }
+            
+            override fun onSampleRecorded(sample: GSRSample) {
+                listeners.forEach { it.onSampleRecorded(sample) }
+            }
+            
+            override fun onSyncMarkRecorded(syncMark: SyncMark) {
+                listeners.forEach { it.onSyncMarkAdded(syncMark) }
+            }
+            
+            override fun onError(error: String) {
+                listeners.forEach { it.onError(error) }
+            }
+            
+            override fun onDeviceConnected() {
+                Log.i(TAG, "Shimmer3 GSR device connected")
+            }
+            
+            override fun onDeviceDisconnected() {
+                Log.w(TAG, "Shimmer3 GSR device disconnected")
+            }
+        })
+    }
+    
     interface GSRRecordingListener {
         fun onRecordingStarted(sessionInfo: SessionInfo)
         fun onRecordingStopped(sessionInfo: SessionInfo)
@@ -67,9 +125,27 @@ class GSRRecorder(
     }
     
     /**
-     * Start GSR recording session
+     * Start GSR recording session with Shimmer3 device or simulated data
      */
-    fun startRecording(sessionId: String, participantId: String? = null, studyName: String? = null): Boolean {
+    suspend fun startRecording(sessionId: String, participantId: String? = null, studyName: String? = null): Boolean {
+        if (isRecording()) {
+            Log.w(TAG, "Recording already in progress")
+            return false
+        }
+        
+        return if (useShimmerDevice && shimmerRecorder.isDeviceConnected()) {
+            Log.i(TAG, "Starting Shimmer3 GSR recording for session: $sessionId")
+            shimmerRecorder.startRecording(sessionId)
+        } else {
+            Log.i(TAG, "Starting simulated GSR recording for session: $sessionId")
+            startSimulatedRecording(sessionId, participantId, studyName)
+        }
+    }
+    
+    /**
+     * Start simulated recording (fallback method)
+     */
+    private suspend fun startSimulatedRecording(sessionId: String, participantId: String? = null, studyName: String? = null): Boolean {
         if (isRecording.get()) {
             Log.w(TAG, "Recording already in progress")
             return false
@@ -122,11 +198,23 @@ class GSRRecorder(
     }
     
     /**
-     * Stop GSR recording session
+     * Stop GSR recording session (Shimmer3 or simulated)
      */
     fun stopRecording(): SessionInfo? {
+        return if (useShimmerDevice && shimmerRecorder.isRecording()) {
+            Log.i(TAG, "Stopping Shimmer3 GSR recording")
+            shimmerRecorder.stopRecording()
+        } else {
+            stopSimulatedRecording()
+        }
+    }
+    
+    /**
+     * Stop simulated recording
+     */
+    private fun stopSimulatedRecording(): SessionInfo? {
         if (!isRecording.get()) {
-            Log.w(TAG, "No recording in progress")
+            Log.w(TAG, "No simulated recording in progress")
             return currentSession
         }
         
@@ -141,7 +229,7 @@ class GSRRecorder(
             saveSessionMetadata(session)
             
             listeners.forEach { it.onRecordingStopped(session) }
-            Log.i(TAG, "GSR recording stopped: sessionId=${session.sessionId}, samples=${session.sampleCount}")
+            Log.i(TAG, "Simulated GSR recording stopped: sessionId=${session.sessionId}, samples=${session.sampleCount}")
         }
         
         cleanup()
@@ -150,11 +238,25 @@ class GSRRecorder(
         
         return completedSession
     }
+    }
     
     /**
-     * Add synchronization mark during recording
+     * Add synchronization mark during recording (Shimmer3 or simulated)
      */
     fun addSyncMark(eventType: String, metadata: Map<String, String> = emptyMap()): Boolean {
+        return if (useShimmerDevice && shimmerRecorder.isRecording()) {
+            Log.d(TAG, "Adding sync mark to Shimmer recording: $eventType")
+            val metadataString = metadata.entries.joinToString(",") { "${it.key}=${it.value}" }
+            shimmerRecorder.triggerSyncEvent(eventType, metadataString)
+        } else {
+            addSimulatedSyncMark(eventType, metadata)
+        }
+    }
+    
+    /**
+     * Add sync mark to simulated recording
+     */
+    private fun addSimulatedSyncMark(eventType: String, metadata: Map<String, String>): Boolean {
         val session = currentSession ?: return false
         
         val syncMark = SyncMark(
@@ -172,15 +274,16 @@ class GSRRecorder(
         syncMarksWriter?.flush()
         
         listeners.forEach { it.onSyncMarkAdded(syncMark) }
-        Log.d(TAG, "Sync mark added: eventType=$eventType")
+        Log.d(TAG, "Simulated sync mark added: eventType=$eventType")
         
         return true
     }
     
     /**
-     * Get current recording status
+     * Get current recording status (Shimmer3 or simulated)
      */
-    fun isRecording(): Boolean = isRecording.get()
+    fun isRecording(): Boolean = 
+        (useShimmerDevice && shimmerRecorder.isRecording()) || isRecording.get()
     
     /**
      * Get current session info
@@ -311,5 +414,28 @@ class GSRRecorder(
     private fun notifyError(error: String) {
         Log.e(TAG, error)
         listeners.forEach { it.onError(error) }
+    }
+    
+    /**
+     * Disconnect from Shimmer3 device and clean up resources
+     */
+    fun disconnect() {
+        if (useShimmerDevice) {
+            shimmerRecorder.disconnect()
+        }
+        if (isRecording.get()) {
+            stopRecording()
+        }
+    }
+    
+    /**
+     * Check if Shimmer3 device is connected
+     */
+    fun isDeviceConnected(): Boolean {
+        return if (useShimmerDevice) {
+            shimmerRecorder.isDeviceConnected()
+        } else {
+            true // Simulated mode is always "connected"
+        }
     }
 }

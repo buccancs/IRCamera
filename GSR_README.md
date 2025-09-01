@@ -1,27 +1,35 @@
-# Multi-Modal GSR Recording System
+# Multi-Modal GSR Recording System with Shimmer3 Integration
 
 ## Overview
 
-This project implements a comprehensive multi-modal recording system integrating Galvanic Skin Response (GSR) sensors with thermal camera data collection, meeting all specified requirements for physiological monitoring research.
+This project implements a comprehensive multi-modal recording system integrating **real Shimmer3 GSR sensors** with thermal camera data collection, meeting all specified requirements for physiological monitoring research. The system now uses the official **Shimmer Android API** for authentic GSR data acquisition from Shimmer3 devices.
 
 ## 🎯 Key Features
 
+### Shimmer3 GSR Integration
+- **Official Shimmer Android API** integration with real device support
+- **Bluetooth connectivity** to Shimmer3 GSR sensors
+- **Automatic device pairing** and connection management
+- **Fallback to simulated data** when Shimmer devices unavailable
+
 ### Multi-Modal Recording
 - **Synchronized GSR and thermal data collection**
-- **128 Hz GSR sampling rate** with precise timing
+- **128 Hz GSR sampling rate** with precise timing from real Shimmer3 devices
 - **Store-and-forward local data collection**
 - **Cross-modal synchronization events**
+- **Real-time data streaming** from Shimmer3 sensors
 
 ### Data Output
-- `signals.csv` - GSR conductance/resistance data with timestamps
+- `signals.csv` - **Real GSR conductance/resistance data** from Shimmer3 with timestamps
 - `sync_marks.csv` - Cross-modal synchronization events  
 - `session_metadata.json` - Session information and statistics
 
 ### User Interface
-- Complete recording control interface
-- Real-time GSR sample counting
+- Complete recording control interface with **device connection status**
+- Real-time GSR sample counting from Shimmer3 devices
 - Session status and file location display
 - Sync event triggers for alignment
+- **Device pairing and connection management**
 
 ## 🏗️ Architecture
 
@@ -33,7 +41,8 @@ This project implements a comprehensive multi-modal recording system integrating
 - **SyncMark** - Cross-modal synchronization events
 
 #### Services (`com.topdon.gsr.service`)
-- **GSRRecorder** - Core 128 Hz data acquisition engine
+- **GSRRecorder** - Core 128 Hz data acquisition engine with Shimmer3 integration
+- **ShimmerGSRRecorder** - Dedicated Shimmer3 device interface using official API
 - **SessionManager** - Session lifecycle management
 - **MultiModalRecordingService** - Background foreground service
 
@@ -57,6 +66,35 @@ This project implements a comprehensive multi-modal recording system integrating
 | **FR5** Local GSR Logging | ✅ | 128 Hz CSV logging with dual timestamps |
 | **FR7** Device Synchronization | ✅ | Sync events for cross-modal alignment |
 | **FR11** Time Reconciliation | ✅ | PC offset tracking and timeline alignment |
+
+## 🔧 Shimmer3 Device Setup
+
+### Prerequisites
+1. **Shimmer3 GSR Unit** with proper sensor configuration
+2. **Bluetooth pairing** with Android device
+3. **Required permissions** (automatically requested by the app):
+   - Bluetooth and Bluetooth Admin
+   - Fine Location Access
+   - Bluetooth Scan/Connect (Android 12+)
+
+### Device Pairing
+1. Power on your Shimmer3 GSR device
+2. Go to Android Settings > Bluetooth
+3. Scan for devices and pair with your Shimmer3 (usually named "RN42-xxxx" or "Shimmer3-xxxx")
+4. Ensure the device shows as "Paired" in Bluetooth settings
+
+### Automatic Detection
+The system automatically:
+- Detects paired Shimmer3 devices
+- Establishes Bluetooth connection
+- Configures GSR sensing at 128Hz
+- Falls back to simulated data if no device is available
+
+### Troubleshooting
+- **Device not detected**: Ensure Bluetooth is enabled and device is paired
+- **Connection fails**: Try unpairing and re-pairing the Shimmer3 device  
+- **Data issues**: Check Shimmer3 battery and GSR electrode connections
+- **Permission denied**: Grant all Bluetooth permissions in app settings
 
 ## 🚀 Usage
 
@@ -91,15 +129,25 @@ ARouter.getInstance().build(RouterConfig.GSR_MULTI_MODAL).navigation(context)
 ARouter.getInstance().build(RouterConfig.GSR_DEMO).navigation(context)
 ```
 
-### Manual GSR Recording
+### Manual GSR Recording with Shimmer3
 
 ```kotlin
 val gsrRecorder = GSRRecorder(context)
 
+// Initialize Shimmer3 device connection
+lifecycleScope.launch {
+    val deviceConnected = gsrRecorder.initialize()
+    if (deviceConnected) {
+        Log.i("GSR", "Shimmer3 device ready for recording")
+    } else {
+        Log.w("GSR", "Using simulated GSR data (Shimmer3 not available)")
+    }
+}
+
 gsrRecorder.addListener(object : GSRRecorder.GSRRecordingListener {
     override fun onSampleRecorded(sample: GSRSample) {
-        // Process real-time GSR data
-        println("GSR: ${sample.conductance} µS")
+        // Process real-time GSR data from Shimmer3
+        println("Real GSR: ${sample.conductanceUs} µS, ${sample.resistanceKohms} kΩ")
     }
     
     override fun onSyncMarkAdded(syncMark: SyncMark) {
@@ -108,14 +156,22 @@ gsrRecorder.addListener(object : GSRRecorder.GSRRecordingListener {
     }
 })
 
-// Start recording
-gsrRecorder.startRecording("session_id", "participant", "study")
+// Start recording with Shimmer3 device
+lifecycleScope.launch {
+    val success = gsrRecorder.startRecording("session_id", "participant", "study")
+    if (success) {
+        Log.i("GSR", "Recording started with ${if (gsrRecorder.isDeviceConnected()) "Shimmer3" else "simulated"} data")
+    }
+}
 
-// Add sync marks
+// Add sync marks for multi-modal alignment
 gsrRecorder.addSyncMark("THERMAL_FRAME", mapOf("frame" to "001"))
 
 // Stop recording
 gsrRecorder.stopRecording()
+
+// Cleanup Shimmer3 connection
+gsrRecorder.disconnect()
 ```
 
 ## 📁 Output Files

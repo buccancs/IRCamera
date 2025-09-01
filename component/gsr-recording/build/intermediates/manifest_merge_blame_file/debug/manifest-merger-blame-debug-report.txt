@@ -22,7 +22,7 @@
 13-->/home/runner/work/IRCamera/IRCamera/component/gsr-recording/src/main/AndroidManifest.xml:8:5-68
 13-->/home/runner/work/IRCamera/IRCamera/component/gsr-recording/src/main/AndroidManifest.xml:8:22-65
 14
-15    <!-- Bluetooth permissions for Shimmer device connection (future use) -->
+15    <!-- Bluetooth permissions for Shimmer3 GSR device connection -->
 16    <uses-permission android:name="android.permission.BLUETOOTH" />
 16-->/home/runner/work/IRCamera/IRCamera/component/gsr-recording/src/main/AndroidManifest.xml:11:5-68
 16-->/home/runner/work/IRCamera/IRCamera/component/gsr-recording/src/main/AndroidManifest.xml:11:22-65
@@ -32,19 +32,42 @@
 18    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 18-->/home/runner/work/IRCamera/IRCamera/component/gsr-recording/src/main/AndroidManifest.xml:13:5-79
 18-->/home/runner/work/IRCamera/IRCamera/component/gsr-recording/src/main/AndroidManifest.xml:13:22-76
-19
-20    <application>
-20-->/home/runner/work/IRCamera/IRCamera/component/gsr-recording/src/main/AndroidManifest.xml:15:5-21:19
-21
-22        <!-- Multi-modal recording service -->
-23        <service
-23-->/home/runner/work/IRCamera/IRCamera/component/gsr-recording/src/main/AndroidManifest.xml:17:9-20:40
-24            android:name="com.topdon.gsr.service.MultiModalRecordingService"
-24-->/home/runner/work/IRCamera/IRCamera/component/gsr-recording/src/main/AndroidManifest.xml:18:13-77
-25            android:enabled="true"
-25-->/home/runner/work/IRCamera/IRCamera/component/gsr-recording/src/main/AndroidManifest.xml:19:13-35
-26            android:exported="false" />
-26-->/home/runner/work/IRCamera/IRCamera/component/gsr-recording/src/main/AndroidManifest.xml:20:13-37
-27    </application>
-28
-29</manifest>
+19    <!-- Android 12+ Bluetooth permissions -->
+20    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+20-->/home/runner/work/IRCamera/IRCamera/component/gsr-recording/src/main/AndroidManifest.xml:15:5-73
+20-->/home/runner/work/IRCamera/IRCamera/component/gsr-recording/src/main/AndroidManifest.xml:15:22-70
+21    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+21-->/home/runner/work/IRCamera/IRCamera/component/gsr-recording/src/main/AndroidManifest.xml:16:5-76
+21-->/home/runner/work/IRCamera/IRCamera/component/gsr-recording/src/main/AndroidManifest.xml:16:22-73
+22    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+22-->/home/runner/work/IRCamera/IRCamera/component/gsr-recording/src/main/AndroidManifest.xml:17:5-78
+22-->/home/runner/work/IRCamera/IRCamera/component/gsr-recording/src/main/AndroidManifest.xml:17:22-75
+23
+24    <uses-feature
+24-->/home/runner/work/IRCamera/IRCamera/component/gsr-recording/src/main/AndroidManifest.xml:19:5-88
+25        android:name="android.hardware.bluetooth"
+25-->/home/runner/work/IRCamera/IRCamera/component/gsr-recording/src/main/AndroidManifest.xml:19:19-60
+26        android:required="false" />
+26-->/home/runner/work/IRCamera/IRCamera/component/gsr-recording/src/main/AndroidManifest.xml:19:61-85
+27    <uses-feature
+27-->/home/runner/work/IRCamera/IRCamera/component/gsr-recording/src/main/AndroidManifest.xml:20:5-91
+28        android:name="android.hardware.bluetooth_le"
+28-->/home/runner/work/IRCamera/IRCamera/component/gsr-recording/src/main/AndroidManifest.xml:20:19-63
+29        android:required="false" />
+29-->/home/runner/work/IRCamera/IRCamera/component/gsr-recording/src/main/AndroidManifest.xml:20:64-88
+30
+31    <application>
+31-->/home/runner/work/IRCamera/IRCamera/component/gsr-recording/src/main/AndroidManifest.xml:22:5-28:19
+32
+33        <!-- Multi-modal recording service -->
+34        <service
+34-->/home/runner/work/IRCamera/IRCamera/component/gsr-recording/src/main/AndroidManifest.xml:24:9-27:40
+35            android:name="com.topdon.gsr.service.MultiModalRecordingService"
+35-->/home/runner/work/IRCamera/IRCamera/component/gsr-recording/src/main/AndroidManifest.xml:25:13-77
+36            android:enabled="true"
+36-->/home/runner/work/IRCamera/IRCamera/component/gsr-recording/src/main/AndroidManifest.xml:26:13-35
+37            android:exported="false" />
+37-->/home/runner/work/IRCamera/IRCamera/component/gsr-recording/src/main/AndroidManifest.xml:27:13-37
+38    </application>
+39
+40</manifest>
