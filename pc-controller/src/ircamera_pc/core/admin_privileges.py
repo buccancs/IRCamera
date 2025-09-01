@@ -14,8 +14,44 @@ from typing import Optional, Callable, Any
 from dataclasses import dataclass
 from enum import Enum
 
-from PyQt6.QtCore import QObject, pyqtSignal
-from PyQt6.QtWidgets import QMessageBox, QApplication
+try:
+    from PyQt6.QtCore import QObject, pyqtSignal
+    from PyQt6.QtWidgets import QMessageBox, QApplication
+    PYQT_AVAILABLE = True
+    
+    class BaseManager(QObject):
+        pass
+        
+except ImportError:
+    PYQT_AVAILABLE = False
+    
+    class BaseManager:
+        def __init__(self):
+            pass
+            
+        def __setattr__(self, name, value):
+            # Allow setting any attribute
+            super().__setattr__(name, value)
+            
+    # Mock classes for when PyQt6 is not available
+    class QMessageBox:
+        StandardButton = type('StandardButton', (), {
+            'Yes': 'Yes', 'No': 'No', 'Cancel': 'Cancel'
+        })()
+        
+        @staticmethod
+        def question(*args, **kwargs):
+            return QMessageBox.StandardButton.Yes
+            
+        @staticmethod
+        def warning(*args, **kwargs):
+            pass
+    
+    class QApplication:
+        @staticmethod
+        def quit():
+            pass
+
 from loguru import logger
 
 try:
@@ -69,7 +105,7 @@ class SystemPermissions:
     firewall_control: bool = False
 
 
-class AdminPrivilegesManager(QObject):
+class AdminPrivilegesManager(BaseManager):
     """
     Manages administrator privileges and system integration.
     
@@ -81,12 +117,13 @@ class AdminPrivilegesManager(QObject):
     - Platform-specific privilege handling
     """
     
-    # Signals
-    privilege_changed = pyqtSignal(PrivilegeLevel)
-    elevation_requested = pyqtSignal(str)  # reason
-    elevation_completed = pyqtSignal(ElevationResult, str)  # result, message
-    permission_denied = pyqtSignal(str, str)  # operation, reason
-    system_ready = pyqtSignal(SystemPermissions)
+    # Signals (only available with PyQt6)
+    if PYQT_AVAILABLE:
+        privilege_changed = pyqtSignal(PrivilegeLevel)
+        elevation_requested = pyqtSignal(str)  # reason
+        elevation_completed = pyqtSignal(ElevationResult, str)  # result, message
+        permission_denied = pyqtSignal(str, str)  # operation, reason
+        system_ready = pyqtSignal(SystemPermissions)
     
     def __init__(self):
         super().__init__()
@@ -97,6 +134,12 @@ class AdminPrivilegesManager(QObject):
         # Check initial privilege level
         self._check_current_privileges()
         self._check_system_permissions()
+    
+    def _emit_signal(self, signal_name: str, *args):
+        """Emit a signal if PyQt6 is available."""
+        if PYQT_AVAILABLE and hasattr(self, signal_name):
+            signal = getattr(self, signal_name)
+            signal.emit(*args)
     
     @property
     def current_privilege_level(self) -> PrivilegeLevel:
@@ -135,12 +178,12 @@ class AdminPrivilegesManager(QObject):
             return ElevationResult.FAILED
         
         logger.info(f"Requesting privilege elevation: {reason}")
-        self.elevation_requested.emit(reason)
+        self._emit_signal("elevation_requested", reason)
         self._elevation_requested = True
         
         try:
             result = self._perform_elevation(reason)
-            self.elevation_completed.emit(result, self._get_result_message(result))
+            self._emit_signal("elevation_completed", result, self._get_result_message(result))
             
             if result == ElevationResult.SUCCESS:
                 self._check_current_privileges()
@@ -151,7 +194,7 @@ class AdminPrivilegesManager(QObject):
         except Exception as e:
             logger.error(f"Elevation request failed: {e}")
             result = ElevationResult.FAILED
-            self.elevation_completed.emit(result, str(e))
+            self._emit_signal("elevation_completed", result, str(e))
             return result
         finally:
             self._elevation_requested = False
@@ -181,7 +224,7 @@ class AdminPrivilegesManager(QObject):
         if operation_lower in permission_map:
             has_permission = permission_map[operation_lower]
             if not has_permission:
-                self.permission_denied.emit(operation, "Insufficient privileges")
+                self._emit_signal("permission_denied", operation, "Insufficient privileges")
             return has_permission
         
         logger.warning(f"Unknown operation permission check: {operation}")
@@ -285,7 +328,7 @@ class AdminPrivilegesManager(QObject):
                 self._current_privilege = PrivilegeLevel.UNKNOWN
             
             logger.info(f"Current privilege level: {self._current_privilege.value}")
-            self.privilege_changed.emit(self._current_privilege)
+            self._emit_signal("privilege_changed", self._current_privilege)
             
         except Exception as e:
             logger.error(f"Failed to check privileges: {e}")
@@ -362,7 +405,7 @@ class AdminPrivilegesManager(QObject):
             else:
                 self._check_unix_permissions()
             
-            self.system_ready.emit(self._permissions)
+            self._emit_signal("system_ready", self._permissions)
             
         except Exception as e:
             logger.error(f"Permission check failed: {e}")
