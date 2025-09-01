@@ -95,10 +95,11 @@ import com.topdon.tc004.activity.video.PlayFragment
 import com.topdon.tc001.gsr.EnhancedThermalRecorder
 import com.topdon.gsr.util.TimeUtil
 import com.topdon.tc001.camera.RGBCameraRecorder
-import com.topdon.tc001.camera.SynchronizedMultiModalRecorder
+
 import com.topdon.tc001.camera.ParallelMultiModalRecorder
 import com.topdon.tc001.camera.ui.CameraSettingsView
 import com.topdon.tc001.camera.ui.SensorSelectionDialog
+import com.topdon.tc001.camera.ui.RecordingStatusIndicator
 import com.topdon.lib.core.comm.IrParam
 import com.topdon.lib.core.comm.TempFont
 import com.topdon.lib.core.dialog.CarDetectDialog
@@ -447,11 +448,8 @@ class IRThermal07Activity : BaseWifiActivity() {
             Log.d("ThermalSync", "Enhanced Thermal Recorder initialized during initView for synchronized recording")
         }
         
-        // Initialize Parallel Multi-Modal Recording System
+        // Initialize Parallel Multi-Modal Recording System (consolidated RGB integration)
         initializeParallelRecording()
-        
-        // Initialize RGB camera integration for multi-modal recording
-        initializeRGBCameraIntegration()
         
         view_menu_first.onTabClickListener = {
             ViewStubUtils.showViewStub(view_stub_camera, false, null)
@@ -609,11 +607,52 @@ class IRThermal07Activity : BaseWifiActivity() {
     }
 
     /**
-     * Initialize Parallel Multi-Modal Recording System
+     * Initialize Parallel Multi-Modal Recording System with RGB Camera Integration
      */
     private fun initializeParallelRecording() {
         try {
             enhancedThermalRecorder?.let { thermalRecorder ->
+                // Create RGB camera settings view for manual control when needed
+                rgbCameraSettingsView = CameraSettingsView(this).apply {
+                    visibility = View.GONE // Initially hidden
+                    
+                    onCameraToggle = {
+                        parallelRecorder?.switchRGBCamera()?.let { newFacing ->
+                            setCameraFacing(newFacing)
+                            Log.i(TAG, "RGB camera switched to: ${newFacing.displayName}")
+                        }
+                    }
+                    
+                    onRecordingToggle = { startRecording ->
+                        // For parallel recording, this is handled by the sensor selection dialog
+                        Log.d(TAG, "RGB recording toggle from camera settings (handled by parallel system)")
+                    }
+                    
+                    onSettingsChanged = { newSettings ->
+                        parallelRecorder?.updateRGBSettings(newSettings)
+                        Log.i(TAG, "RGB settings updated: ${newSettings.resolution.displayName}")
+                    }
+                    
+                    onFlashToggle = { enabled ->
+                        // Flash control would be handled by the RGB camera recorder
+                        Log.i(TAG, "RGB flash ${if (enabled) "enabled" else "disabled"}")
+                    }
+                }
+                
+                // Create recording status indicator
+                recordingStatusIndicator = RecordingStatusIndicator(this).apply {
+                    layoutParams = RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.WRAP_CONTENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT
+                    ).apply {
+                        addRule(RelativeLayout.ALIGN_PARENT_TOP)
+                        addRule(RelativeLayout.ALIGN_PARENT_START)
+                        topMargin = 50
+                        marginStart = 20
+                    }
+                    setVisible(false) // Initially hidden
+                }
+                
                 // Create a TextureView for RGB camera preview
                 val rgbTextureView = TextureView(this)
                 rgbTextureView.layoutParams = RelativeLayout.LayoutParams(256, 192).apply {
@@ -632,22 +671,42 @@ class IRThermal07Activity : BaseWifiActivity() {
                     initialize()
                     
                     onRecordingStarted = { session ->
+                        // Update recording status indicator
+                        recordingStatusIndicator?.startRecording(session.sessionId, session.selectedSensors)
+                        
+                        // Update RGB camera settings view if RGB is active
+                        if (session.selectedSensors.contains(SensorSelectionDialog.SensorType.RGB)) {
+                            rgbCameraSettingsView?.setRecordingState(true)
+                            rgbCameraSettingsView?.updateRecordingStatus("RGB Recording Active")
+                            
+                            // Show RGB camera controls if RGB is selected
+                            rgbCameraSettingsView?.visibility = View.VISIBLE
+                        }
+                        
                         Log.i(TAG, "Parallel recording started: ${session.sessionId}")
                         Log.i(TAG, "Active sensors: ${session.selectedSensors.map { it.displayName }.joinToString(", ")}")
                         
                         lifecycleScope.launch(Dispatchers.Main) {
-                            val message = "Recording started:\n${session.selectedSensors.map { "• ${it.displayName}" }.joinToString("\n")}"
+                            val message = "🚀 Recording started:\n${session.selectedSensors.map { "• ${it.displayName}" }.joinToString("\n")}"
                             TToast.shortToast(this@IRThermal07Activity, message)
                         }
                     }
                     
                     onRecordingStopped = { session ->
+                        // Update recording status indicator
+                        recordingStatusIndicator?.stopRecording()
+                        
+                        // Update RGB camera settings view
+                        rgbCameraSettingsView?.setRecordingState(false)
+                        rgbCameraSettingsView?.updateRecordingStatus("Recording Completed")
+                        rgbCameraSettingsView?.visibility = View.GONE
+                        
                         Log.i(TAG, "Parallel recording stopped: ${session.sessionId}")
                         Log.i(TAG, "Duration: ${session.recordingDuration}ms")
                         
                         lifecycleScope.launch(Dispatchers.Main) {
                             val message = buildString {
-                                append("Recording completed (${session.recordingDuration / 1000}s):\n")
+                                append("✅ Recording completed (${session.recordingDuration / 1000}s):\n")
                                 session.selectedSensors.forEach { sensor ->
                                     append("• ${sensor.displayName}: ${session.sensorStatus[sensor] ?: "Unknown"}\n")
                                 }
@@ -663,217 +722,115 @@ class IRThermal07Activity : BaseWifiActivity() {
                     }
                     
                     onError = { error ->
+                        // Update recording status indicator
+                        recordingStatusIndicator?.stopRecording()
+                        
+                        rgbCameraSettingsView?.setRecordingState(false)
+                        rgbCameraSettingsView?.updateRecordingStatus("Error: $error")
+                        
                         Log.e(TAG, "Parallel recording error: $error")
-                        TToast.shortToast(this@IRThermal07Activity, "Recording error: $error")
+                        TToast.shortToast(this@IRThermal07Activity, "❌ Recording error: $error")
                     }
                     
                     onSensorStatusChanged = { sensor, status ->
                         Log.d(TAG, "Sensor ${sensor.displayName} status: $status")
+                        
+                        // Update recording status indicator
+                        recordingStatusIndicator?.updateSensorStatus(sensor, status)
+                        
+                        // Update RGB camera settings view status
+                        if (sensor == SensorSelectionDialog.SensorType.RGB) {
+                            rgbCameraSettingsView?.updateRecordingStatus("RGB: $status")
+                        }
                     }
                 }
                 
                 // Add RGB preview to layout (small preview in corner when RGB recording)
                 temp_bg.addView(rgbTextureView)
                 
-                Log.i(TAG, "Parallel multi-modal recording system initialized")
+                // Add recording status indicator to layout
+                temp_bg.addView(recordingStatusIndicator)
+                
+                // Set available camera options for RGB camera
+                val availableCameras = parallelRecorder?.getAvailableRGBCameras() ?: emptyList()
+                rgbCameraSettingsView?.setAvailableCameraFacing(availableCameras)
+                
+                Log.i(TAG, "Parallel multi-modal recording system initialized with ${availableCameras.size} RGB cameras available")
             }
         } catch (e: Exception) {
             Log.e(TAG, "Failed to initialize parallel recording system", e)
         }
     }
 
-    /**
-     * Initialize RGB camera integration for multi-modal recording
-     */
-    private fun initializeRGBCameraIntegration() {
-        try {
-            // Create RGB camera settings view
-            rgbCameraSettingsView = CameraSettingsView(this).apply {
-                visibility = View.GONE // Initially hidden
-                
-                onCameraToggle = {
-                    synchronizedRecorder?.switchRGBCamera()?.let { newFacing ->
-                        setCameraFacing(newFacing)
-                        Log.i(TAG, "RGB camera switched to: ${newFacing.displayName}")
-                    }
-                }
-                
-                onRecordingToggle = { startRecording ->
-                    if (startRecording) {
-                        startRGBRecording()
-                    } else {
-                        stopRGBRecording()
-                    }
-                }
-                
-                onSettingsChanged = { newSettings ->
-                    synchronizedRecorder?.updateRGBSettings(newSettings)
-                    Log.i(TAG, "RGB settings updated: ${newSettings.resolution.displayName}")
-                }
-                
-                onFlashToggle = { enabled ->
-                    synchronizedRecorder?.setRGBFlash(enabled)
-                    Log.i(TAG, "RGB flash ${if (enabled) "enabled" else "disabled"}")
-                }
-            }
-            
-            // Initialize synchronized recorder with RGB camera support
-            enhancedThermalRecorder?.let { thermalRecorder ->
-                // Create a TextureView for RGB camera preview (we'll add it to the layout)
-                val rgbTextureView = TextureView(this)
-                rgbTextureView.layoutParams = RelativeLayout.LayoutParams(256, 192).apply {
-                    addRule(RelativeLayout.ALIGN_PARENT_TOP)
-                    addRule(RelativeLayout.ALIGN_PARENT_END)
-                    topMargin = 100
-                    marginEnd = 20
-                }
-                
-                // Add RGB preview to thermal layout (small preview in corner)
-                thermal_lay.addView(rgbTextureView)
-                
-                synchronizedRecorder = SynchronizedMultiModalRecorder(
-                    context = this,
-                    thermalRecorder = thermalRecorder,
-                    rgbTextureView = rgbTextureView
-                ).apply {
-                    initialize()
-                    
-                    onRecordingStarted = { session ->
-                        rgbCameraSettingsView?.setRecordingState(true)
-                        rgbCameraSettingsView?.updateRecordingStatus("Recording: ${rgbRecordingMode.displayName}")
-                        Log.i(TAG, "Multi-modal recording started: ${session.sessionId}")
-                    }
-                    
-                    onRecordingStopped = { session ->
-                        rgbCameraSettingsView?.setRecordingState(false)
-                        rgbCameraSettingsView?.updateRecordingStatus("Recording completed")
-                        Log.i(TAG, "Multi-modal recording stopped: ${session.sessionId}")
-                        
-                        // Show completion toast with file information
-                        lifecycleScope.launch(Dispatchers.Main) {
-                            val message = buildString {
-                                append("Recording completed:\n")
-                                if (session.thermalVideoFile != null) append("• Thermal video saved\n")
-                                if (session.rgbVideoFile != null) append("• RGB video saved\n")
-                                if (session.gsrDataFile != null) append("• GSR data saved")
-                            }
-                            TToast.shortToast(this@IRThermal07Activity, message)
-                        }
-                    }
-                    
-                    onError = { error ->
-                        Log.e(TAG, "Multi-modal recording error: $error")
-                        TToast.shortToast(this@IRThermal07Activity, "Recording error: $error")
-                    }
-                }
-                
-                // Set available camera options
-                val availableCameras = synchronizedRecorder?.getAvailableRGBCameras() ?: emptyList()
-                rgbCameraSettingsView?.setAvailableCameraFacing(availableCameras)
-                
-                Log.i(TAG, "RGB camera integration initialized with ${availableCameras.size} cameras available")
-            }
-            
-        } catch (e: Exception) {
-            Log.e(TAG, "Failed to initialize RGB camera integration", e)
-        }
-    }
+
 
     /**
-     * Start RGB video recording
+     * Start RGB video recording (Legacy - Use Parallel Recording Dialog)
+     * @deprecated Use long-press on title to access modern parallel recording system
      */
+    @Deprecated("Use parallel recording system via long-press on title")
     private fun startRGBRecording() {
-        if (!hasRequiredCameraPermissions()) {
-            requestCameraPermissions()
-            return
-        }
+        Log.w(TAG, "Legacy RGB recording called - recommend using parallel recording system")
         
-        val settings = rgbCameraSettingsView?.getCurrentSettings() ?: RGBCameraRecorder.RecordingSettings()
-        val sessionId = TimeUtil.generateSessionId("RGB_Video")
+        // Show hint to user about new parallel recording system
+        TToast.shortToast(this, "Long-press on app title for advanced multi-modal recording")
         
-        when (rgbRecordingMode) {
-            RecordingMode.RGB_ONLY -> {
-                // Start RGB recording only
-                val started = synchronizedRecorder?.let { recorder ->
-                    recorder.startSynchronizedRecording(sessionId, settings)
-                } ?: false
+        // For backward compatibility, start RGB-only recording via parallel system
+        parallelRecorder?.let { recorder ->
+            if (!recorder.isRecording()) {
+                val rgbOnlySensors = setOf(SensorSelectionDialog.SensorType.RGB)
+                val started = recorder.startParallelRecording(
+                    selectedSensors = rgbOnlySensors,
+                    sessionId = TimeUtil.generateSessionId("RGB_Legacy"),
+                    rgbSettings = rgbCameraSettingsView?.getCurrentSettings() ?: RGBCameraRecorder.RecordingSettings()
+                )
                 
                 if (!started) {
-                    TToast.shortToast(this, "Failed to start RGB recording")
+                    TToast.shortToast(this, "Failed to start RGB recording - try parallel system")
                 }
+            } else {
+                TToast.shortToast(this, "Recording already in progress")
             }
-            RecordingMode.THERMAL_RGB -> {
-                // Start synchronized thermal + RGB recording
-                startSynchronizedThermalRGBRecording(sessionId, settings)
-            }
-            RecordingMode.THERMAL_RGB_GSR -> {
-                // Start full multi-modal recording (existing functionality)
-                video() // This will trigger synchronized recording
-            }
-            else -> {
-                Log.w(TAG, "RGB recording not enabled for current mode: ${rgbRecordingMode.displayName}")
+        } ?: run {
+            TToast.shortToast(this, "Parallel recorder not initialized")
+        }
+    }
+
+    /**
+     * Stop RGB video recording (Legacy - Use Parallel Recording Dialog)
+     * @deprecated Use long-press on title to access modern parallel recording system
+     */
+    @Deprecated("Use parallel recording system via long-press on title")
+    private fun stopRGBRecording() {
+        Log.w(TAG, "Legacy RGB stop called - recommend using parallel recording system")
+        
+        parallelRecorder?.let { recorder ->
+            if (recorder.isRecording()) {
+                recorder.stopParallelRecording()
             }
         }
     }
 
     /**
-     * Stop RGB video recording
+     * Start synchronized thermal + RGB recording (Legacy)
+     * @deprecated Use long-press on title to access modern parallel recording system
      */
-    private fun stopRGBRecording() {
-        synchronizedRecorder?.stopSynchronizedRecording()
-    }
-
-    /**
-     * Start synchronized thermal + RGB recording
-     */
+    @Deprecated("Use parallel recording system via long-press on title")
     private fun startSynchronizedThermalRGBRecording(sessionId: String, rgbSettings: RGBCameraRecorder.RecordingSettings) {
-        if (!isVideo) {
-            // Initialize thermal recording
-            initVideoRecordFFmpeg()
-            if (!videoRecord!!.canStartVideoRecord(null)) {
-                return
+        Log.w(TAG, "Legacy synchronized recording called - recommend using parallel recording system")
+        
+        // Show hint about modern system
+        TToast.shortToast(this, "Long-press on app title for synchronized recording")
+        
+        // For backward compatibility, use parallel recorder if available
+        parallelRecorder?.let { recorder ->
+            if (!recorder.isRecording()) {
+                val thermalRgbSensors = setOf(
+                    SensorSelectionDialog.SensorType.THERMAL,
+                    SensorSelectionDialog.SensorType.RGB
+                )
+                recorder.startParallelRecording(thermalRgbSensors, sessionId, rgbSettings)
             }
-            
-            // Start synchronized RGB recording
-            val started = synchronizedRecorder?.startSynchronizedRecording(sessionId, rgbSettings) ?: false
-            if (!started) {
-                TToast.shortToast(this, "Failed to start synchronized recording")
-                return
-            }
-            
-            // Start thermal recording with same timestamp
-            videoRecord?.stopVideoRecordListener = { isShowVideoRecordTips ->
-                this@IRThermal07Activity.runOnUiThread {
-                    if (isShowVideoRecordTips) {
-                        try {
-                            val dialog = TipDialog.Builder(this@IRThermal07Activity)
-                                .setMessage(com.topdon.module.thermal.ir.R.string.tip_video_record)
-                                .create()
-                        } catch (_: Exception) {
-                        }
-                    }
-                    
-                    // Stop synchronized recording
-                    synchronizedRecorder?.stopSynchronizedRecording()
-                    videoRecord?.stopRecord()
-                    isVideo = false
-                    videoTimeClose()
-                    
-                    lifecycleScope.launch(Dispatchers.Main) {
-                        delay(500)
-                        thermal_recycler_night.refreshImg(GalleryRepository.DirType.TC007)
-                    }
-                }
-            }
-            
-            videoRecord?.updateAudioState(false)
-            videoRecord?.startRecord(FileConfig.tc007GalleryDir)
-            
-            isVideo = true
-            lifecycleScope.launch(Dispatchers.Main) {
-                thermal_recycler_night.setToRecord(false)
-            }
-            videoTimeShow()
         }
     }
 
@@ -2040,12 +1997,13 @@ class IRThermal07Activity : BaseWifiActivity() {
     private var currentSessionId: String? = null
     
     // NEW: Parallel Multi-Modal Recording System
+    // Multi-Modal Recording Components (Primary)
     private var parallelRecorder: ParallelMultiModalRecorder? = null
     private var rgbCameraSettingsView: CameraSettingsView? = null
+    private var recordingStatusIndicator: RecordingStatusIndicator? = null
     private var selectedSensors: Set<SensorSelectionDialog.SensorType> = emptySet()
 
-    // Legacy compatibility (keeping for now)
-    private var synchronizedRecorder: SynchronizedMultiModalRecorder? = null
+    // Legacy Recording Mode Support
     private var isRGBRecordingEnabled = false
     private var rgbRecordingMode = RecordingMode.THERMAL_ONLY
 
@@ -2493,27 +2451,34 @@ class IRThermal07Activity : BaseWifiActivity() {
     /**
      * Show RGB camera settings dialog
      */
+    /**
+     * Show RGB camera settings dialog (Legacy - Use Parallel Recording Dialog)
+     * @deprecated Use long-press on title to access modern parallel recording system
+     */
+    @Deprecated("Use parallel recording system via long-press on title")
     private fun showRGBSettingsDialog() {
-        val availableResolutions = synchronizedRecorder?.getSupportedRGBResolutions() ?: emptyList()
-        val availableCameras = synchronizedRecorder?.getAvailableRGBCameras() ?: emptyList()
+        val availableResolutions = parallelRecorder?.getSupportedRGBResolutions() ?: emptyList()
+        val availableCameras = parallelRecorder?.getAvailableRGBCameras() ?: emptyList()
         
         val resolutionNames = availableResolutions.map { it.displayName }.toTypedArray()
         val cameraNames = availableCameras.map { it.displayName }.toTypedArray()
         
         // Create a simple settings dialog
         val dialog = android.app.AlertDialog.Builder(this)
-            .setTitle("RGB Camera Settings")
+            .setTitle("RGB Camera Settings (Legacy)")
             .setMessage("""
+                Long-press on app title for modern parallel recording system.
+                
                 Available Resolutions: ${resolutionNames.joinToString(", ")}
                 Available Cameras: ${cameraNames.joinToString(", ")}
                 
                 Current Settings:
-                • Resolution: ${synchronizedRecorder?.getCurrentRGBSettings()?.resolution?.displayName}
-                • Frame Rate: ${synchronizedRecorder?.getCurrentRGBSettings()?.frameRate} FPS
-                • Camera: ${synchronizedRecorder?.getRGBCameraFacing()?.displayName}
+                • Resolution: ${parallelRecorder?.getCurrentRGBSettings()?.resolution?.displayName ?: "N/A"}
+                • Frame Rate: ${parallelRecorder?.getCurrentRGBSettings()?.frameRate ?: "N/A"} FPS
+                • Camera: ${parallelRecorder?.getRGBCameraFacing()?.displayName ?: "N/A"}
             """.trimIndent())
-            .setPositiveButton("Show Controls") { _, _ ->
-                showRGBCameraControls()
+            .setPositiveButton("Show Parallel System") { _, _ ->
+                showGSROptions() // Show modern parallel recording dialog
             }
             .setNegativeButton("Close") { _, _ -> }
             .create()
@@ -2527,9 +2492,9 @@ class IRThermal07Activity : BaseWifiActivity() {
         temp_bg.stopAnimation()
         time_down_view.cancel()
         
-        // Cleanup Enhanced Thermal Recorder and RGB camera resources
-        synchronizedRecorder?.cleanup()
-        synchronizedRecorder = null
+        // Cleanup Multi-Modal Recording Resources
+        parallelRecorder?.cleanup()
+        parallelRecorder = null
         enhancedThermalRecorder?.cleanup()
         enhancedThermalRecorder = null
         
@@ -2547,11 +2512,11 @@ class IRThermal07Activity : BaseWifiActivity() {
             videoRecord?.stopRecord()
             videoTimeClose()
             
-            // Stop synchronized GSR and RGB recording
-            synchronizedRecorder?.stopSynchronizedRecording()
+            // Stop parallel multi-modal recording
+            parallelRecorder?.stopParallelRecording()
             enhancedThermalRecorder?.stopRecording()
             currentSessionId = null
-            Log.d("ThermalSync", "Synchronized thermal, RGB and GSR recording stopped in onStop")
+            Log.d("ThermalSync", "Parallel multi-modal recording stopped in onStop")
             
             CoroutineScope(Dispatchers.Main).launch {
                 delay(500)

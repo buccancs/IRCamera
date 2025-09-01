@@ -25,9 +25,9 @@ class SensorSelectionDialog(
     }
 
     enum class SensorType(val displayName: String, val description: String) {
-        THERMAL("Thermal Camera", "Infrared thermal imaging"),
-        RGB("RGB Camera", "Color video recording"),
-        GSR("GSR Sensor", "128Hz physiological data")
+        THERMAL("🌡️ Thermal Camera", "Infrared thermal imaging with precise temperature measurement"),
+        RGB("📸 RGB Camera", "High-quality color video recording with Samsung camera features"),
+        GSR("📊 GSR Sensor", "128Hz physiological data via Shimmer3 Bluetooth sensor")
     }
 
     private lateinit var thermalCheckBox: CheckBox
@@ -47,12 +47,13 @@ class SensorSelectionDialog(
             setPadding(48, 32, 48, 32)
         }
 
-        // Title text
+        // Title text with better formatting
         val titleText = TextView(context).apply {
-            text = "Choose sensors for synchronized recording:"
+            text = "🚀 Parallel Multi-Modal Recording\nChoose sensors for synchronized research-grade recording:"
             textSize = 16f
             setTextColor(ContextCompat.getColor(context, android.R.color.black))
             setPadding(0, 0, 0, 24)
+            gravity = Gravity.CENTER
         }
         mainLayout.addView(titleText)
 
@@ -190,11 +191,11 @@ class SensorSelectionDialog(
     private fun updateStatusText() {
         val selectedSensors = getSelectedSensors()
         statusText.text = when (selectedSensors.size) {
-            0 -> "Select at least one sensor to start recording"
-            1 -> "Single-modal recording: ${selectedSensors.first().displayName}"
-            2 -> "Dual-modal recording: ${selectedSensors.map { it.displayName }.joinToString(" + ")}"
-            3 -> "Tri-modal recording: All sensors synchronized"
-            else -> "${selectedSensors.size} sensors selected"
+            0 -> "⚠️ Select at least one sensor to start recording"
+            1 -> "📱 Single-modal: ${selectedSensors.first().displayName} only"
+            2 -> "🔄 Dual-modal: ${selectedSensors.map { it.displayName }.joinToString(" + ")} synchronized"
+            3 -> "🎯 Tri-modal: Complete physiological research setup"
+            else -> "📊 ${selectedSensors.size} sensors selected for parallel recording"
         }
     }
 
