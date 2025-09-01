@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.topdon.gsr.model.GSRModelsTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-09-01T12:25:02" hostname="pkrvmccyg1gnepe" time="0.013">
+  <properties/>
+  <testcase name="testSyncMark" classname="com.topdon.gsr.model.GSRModelsTest" time="0.01"/>
+  <testcase name="testSessionInfo" classname="com.topdon.gsr.model.GSRModelsTest" time="0.001"/>
+  <testcase name="testGSRSampleCreation" classname="com.topdon.gsr.model.GSRModelsTest" time="0.0"/>
+  <testcase name="testGSRSampleToCsvRow" classname="com.topdon.gsr.model.GSRModelsTest" time="0.001"/>
+  <testcase name="testSyncMarkEmptyMetadata" classname="com.topdon.gsr.model.GSRModelsTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

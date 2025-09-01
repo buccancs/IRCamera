@@ -324,6 +324,7 @@ dependencies {
     implementation project(':component:thermal07')
     implementation project(':component:transfer')
     implementation project(':component:user')
+    implementation project(':component:gsr-recording')
     implementation project(':libapp')
     implementation project(':libcom')
     implementation project(':libir')

@@ -120,6 +120,16 @@
         <activity
             android:name="com.topdon.tc001.WebViewActivity"
             android:screenOrientation="userPortrait" />
+        
+        <!-- GSR Multi-Modal Recording Activities -->
+        <activity
+            android:name="com.topdon.tc001.gsr.MultiModalRecordingActivity"
+            android:screenOrientation="userPortrait"
+            android:exported="false" />
+        <activity
+            android:name="com.topdon.tc001.gsr.GSRDemoActivity"
+            android:screenOrientation="userPortrait"
+            android:exported="false" />
     </application>
 
 </manifest>
