@@ -5,3 +5,23 @@
 /buildSrc/.gradle/
 /ai-upscale/
 /ai-upscale/3rdparty/ncnn-android-vulkan-shared/armeabi-v7a/
+
+# Android Studio generated files
+*.iml
+.DS_Store
+
+# Build outputs
+*.apk
+*.aab
+*.dex
+*.class
+/build/
+*/build/
+
+# Log files
+*.log
+
+# Generated files
+/captures/
+.externalNativeBuild/
+.cxx/
