@@ -9,6 +9,8 @@ import android.os.Bundle
 import android.util.Base64
 import android.util.Log
 import android.view.Gravity
+import android.view.Surface
+import android.view.TextureView
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.PopupWindow
@@ -89,6 +91,9 @@ import com.topdon.pseudo.bean.CustomPseudoBean
 import com.topdon.tc004.activity.video.PlayFragment
 import com.topdon.tc001.gsr.EnhancedThermalRecorder
 import com.topdon.gsr.util.TimeUtil
+import com.topdon.tc001.camera.RGBCameraRecorder
+import com.topdon.tc001.camera.SynchronizedMultiModalRecorder
+import com.topdon.tc001.camera.ui.CameraSettingsView
 import com.topdon.lib.core.comm.IrParam
 import com.topdon.lib.core.comm.TempFont
 import com.topdon.lib.core.dialog.CarDetectDialog
@@ -204,6 +209,7 @@ class IRThermal07Activity : BaseWifiActivity() {
 
     companion object {
         private const val RTSP_URL = "rtsp://192.168.40.1/stream0"
+        private const val TAG = "IRThermal07Activity"
     }
 
 
@@ -436,6 +442,9 @@ class IRThermal07Activity : BaseWifiActivity() {
             Log.d("ThermalSync", "Enhanced Thermal Recorder initialized during initView for synchronized recording")
         }
         
+        // Initialize RGB camera integration for multi-modal recording
+        initializeRGBCameraIntegration()
+        
         view_menu_first.onTabClickListener = {
             ViewStubUtils.showViewStub(view_stub_camera, false, null)
             popupWindow?.dismiss()
@@ -589,6 +598,233 @@ class IRThermal07Activity : BaseWifiActivity() {
             pseudoSetResult.launch(intent)
         }
         thermal_recycler_night.updateCameraModel()
+    }
+
+    /**
+     * Initialize RGB camera integration for multi-modal recording
+     */
+    private fun initializeRGBCameraIntegration() {
+        try {
+            // Create RGB camera settings view
+            rgbCameraSettingsView = CameraSettingsView(this).apply {
+                visibility = View.GONE // Initially hidden
+                
+                onCameraToggle = {
+                    synchronizedRecorder?.switchRGBCamera()?.let { newFacing ->
+                        setCameraFacing(newFacing)
+                        Log.i(TAG, "RGB camera switched to: ${newFacing.displayName}")
+                    }
+                }
+                
+                onRecordingToggle = { startRecording ->
+                    if (startRecording) {
+                        startRGBRecording()
+                    } else {
+                        stopRGBRecording()
+                    }
+                }
+                
+                onSettingsChanged = { newSettings ->
+                    synchronizedRecorder?.updateRGBSettings(newSettings)
+                    Log.i(TAG, "RGB settings updated: ${newSettings.resolution.displayName}")
+                }
+                
+                onFlashToggle = { enabled ->
+                    synchronizedRecorder?.setRGBFlash(enabled)
+                    Log.i(TAG, "RGB flash ${if (enabled) "enabled" else "disabled"}")
+                }
+            }
+            
+            // Initialize synchronized recorder with RGB camera support
+            enhancedThermalRecorder?.let { thermalRecorder ->
+                // Create a TextureView for RGB camera preview (we'll add it to the layout)
+                val rgbTextureView = TextureView(this)
+                rgbTextureView.layoutParams = RelativeLayout.LayoutParams(256, 192).apply {
+                    addRule(RelativeLayout.ALIGN_PARENT_TOP)
+                    addRule(RelativeLayout.ALIGN_PARENT_END)
+                    topMargin = 100
+                    marginEnd = 20
+                }
+                
+                // Add RGB preview to thermal layout (small preview in corner)
+                thermal_lay.addView(rgbTextureView)
+                
+                synchronizedRecorder = SynchronizedMultiModalRecorder(
+                    context = this,
+                    thermalRecorder = thermalRecorder,
+                    rgbTextureView = rgbTextureView
+                ).apply {
+                    initialize()
+                    
+                    onRecordingStarted = { session ->
+                        rgbCameraSettingsView?.setRecordingState(true)
+                        rgbCameraSettingsView?.updateRecordingStatus("Recording: ${rgbRecordingMode.displayName}")
+                        Log.i(TAG, "Multi-modal recording started: ${session.sessionId}")
+                    }
+                    
+                    onRecordingStopped = { session ->
+                        rgbCameraSettingsView?.setRecordingState(false)
+                        rgbCameraSettingsView?.updateRecordingStatus("Recording completed")
+                        Log.i(TAG, "Multi-modal recording stopped: ${session.sessionId}")
+                        
+                        // Show completion toast with file information
+                        lifecycleScope.launch(Dispatchers.Main) {
+                            val message = buildString {
+                                append("Recording completed:\n")
+                                if (session.thermalVideoFile != null) append("• Thermal video saved\n")
+                                if (session.rgbVideoFile != null) append("• RGB video saved\n")
+                                if (session.gsrDataFile != null) append("• GSR data saved")
+                            }
+                            TToast.shortToast(this@IRThermal07Activity, message)
+                        }
+                    }
+                    
+                    onError = { error ->
+                        Log.e(TAG, "Multi-modal recording error: $error")
+                        TToast.shortToast(this@IRThermal07Activity, "Recording error: $error")
+                    }
+                }
+                
+                // Set available camera options
+                val availableCameras = synchronizedRecorder?.getAvailableRGBCameras() ?: emptyList()
+                rgbCameraSettingsView?.setAvailableCameraFacing(availableCameras)
+                
+                Log.i(TAG, "RGB camera integration initialized with ${availableCameras.size} cameras available")
+            }
+            
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to initialize RGB camera integration", e)
+        }
+    }
+
+    /**
+     * Start RGB video recording
+     */
+    private fun startRGBRecording() {
+        if (!hasRequiredCameraPermissions()) {
+            requestCameraPermissions()
+            return
+        }
+        
+        val settings = rgbCameraSettingsView?.getCurrentSettings() ?: RGBCameraRecorder.RecordingSettings()
+        val sessionId = TimeUtil.generateSessionId("RGB_Video")
+        
+        when (rgbRecordingMode) {
+            RecordingMode.RGB_ONLY -> {
+                // Start RGB recording only
+                val started = synchronizedRecorder?.let { recorder ->
+                    recorder.startSynchronizedRecording(sessionId, settings)
+                } ?: false
+                
+                if (!started) {
+                    TToast.shortToast(this, "Failed to start RGB recording")
+                }
+            }
+            RecordingMode.THERMAL_RGB -> {
+                // Start synchronized thermal + RGB recording
+                startSynchronizedThermalRGBRecording(sessionId, settings)
+            }
+            RecordingMode.THERMAL_RGB_GSR -> {
+                // Start full multi-modal recording (existing functionality)
+                video() // This will trigger synchronized recording
+            }
+            else -> {
+                Log.w(TAG, "RGB recording not enabled for current mode: ${rgbRecordingMode.displayName}")
+            }
+        }
+    }
+
+    /**
+     * Stop RGB video recording
+     */
+    private fun stopRGBRecording() {
+        synchronizedRecorder?.stopSynchronizedRecording()
+    }
+
+    /**
+     * Start synchronized thermal + RGB recording
+     */
+    private fun startSynchronizedThermalRGBRecording(sessionId: String, rgbSettings: RGBCameraRecorder.RecordingSettings) {
+        if (!isVideo) {
+            // Initialize thermal recording
+            initVideoRecordFFmpeg()
+            if (!videoRecord!!.canStartVideoRecord(null)) {
+                return
+            }
+            
+            // Start synchronized RGB recording
+            val started = synchronizedRecorder?.startSynchronizedRecording(sessionId, rgbSettings) ?: false
+            if (!started) {
+                TToast.shortToast(this, "Failed to start synchronized recording")
+                return
+            }
+            
+            // Start thermal recording with same timestamp
+            videoRecord?.stopVideoRecordListener = { isShowVideoRecordTips ->
+                this@IRThermal07Activity.runOnUiThread {
+                    if (isShowVideoRecordTips) {
+                        try {
+                            val dialog = TipDialog.Builder(this@IRThermal07Activity)
+                                .setMessage(com.topdon.module.thermal.ir.R.string.tip_video_record)
+                                .create()
+                        } catch (_: Exception) {
+                        }
+                    }
+                    
+                    // Stop synchronized recording
+                    synchronizedRecorder?.stopSynchronizedRecording()
+                    videoRecord?.stopRecord()
+                    isVideo = false
+                    videoTimeClose()
+                    
+                    lifecycleScope.launch(Dispatchers.Main) {
+                        delay(500)
+                        thermal_recycler_night.refreshImg(GalleryRepository.DirType.TC007)
+                    }
+                }
+            }
+            
+            videoRecord?.updateAudioState(false)
+            videoRecord?.startRecord(FileConfig.tc007GalleryDir)
+            
+            isVideo = true
+            lifecycleScope.launch(Dispatchers.Main) {
+                thermal_recycler_night.setToRecord(false)
+            }
+            videoTimeShow()
+        }
+    }
+
+    /**
+     * Check if required camera permissions are granted
+     */
+    private fun hasRequiredCameraPermissions(): Boolean {
+        return XXPermissions.isGranted(this, arrayOf(
+            android.Manifest.permission.CAMERA,
+            android.Manifest.permission.RECORD_AUDIO
+        ))
+    }
+
+    /**
+     * Request camera permissions
+     */
+    private fun requestCameraPermissions() {
+        XXPermissions.with(this)
+            .permission(
+                android.Manifest.permission.CAMERA,
+                android.Manifest.permission.RECORD_AUDIO
+            )
+            .request(object : OnPermissionCallback {
+                override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
+                    if (allGranted) {
+                        TToast.shortToast(this@IRThermal07Activity, "Camera permissions granted")
+                    }
+                }
+                
+                override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
+                    TToast.shortToast(this@IRThermal07Activity, "Camera permissions required for RGB recording")
+                }
+            })
     }
 
 
@@ -1720,6 +1956,19 @@ class IRThermal07Activity : BaseWifiActivity() {
     // Enhanced GSR integration for synchronized multi-modal recording
     private var enhancedThermalRecorder: EnhancedThermalRecorder? = null
     private var currentSessionId: String? = null
+    
+    // RGB Video Recording Integration
+    private var synchronizedRecorder: SynchronizedMultiModalRecorder? = null
+    private var rgbCameraSettingsView: CameraSettingsView? = null
+    private var isRGBRecordingEnabled = false
+    private var rgbRecordingMode = RecordingMode.THERMAL_ONLY
+
+    enum class RecordingMode(val displayName: String) {
+        THERMAL_ONLY("Thermal Only"),
+        RGB_ONLY("RGB Only"), 
+        THERMAL_RGB("Thermal + RGB"),
+        THERMAL_RGB_GSR("Thermal + RGB + GSR")
+    }
 
     /**
      * 初始化视频采集组件
@@ -1934,19 +2183,45 @@ class IRThermal07Activity : BaseWifiActivity() {
     }
 
     /**
-     * Show GSR options dialog for multi-modal recording access
+     * Show enhanced multi-modal recording options with RGB camera support
      */
     private fun showGSROptions() {
-        TipDialog.Builder(this)
-            .setTitleMessage("GSR Multi-modal Recording")
-            .setMessage("Choose GSR recording option:")
-            .setPositiveListener("Full Recording") {
-                // Launch full multi-modal recording interface
-                ARouter.getInstance()
-                    .build(RouterConfig.GSR_MULTI_MODAL)
-                    .navigation(this)
+        val recordingModeNames = RecordingMode.values().map { it.displayName }.toTypedArray()
+        
+        android.app.AlertDialog.Builder(this)
+            .setTitle("Multi-Modal Recording Options")
+            .setMessage("Choose recording mode:")
+            .setSingleChoiceItems(recordingModeNames, rgbRecordingMode.ordinal) { _, which ->
+                rgbRecordingMode = RecordingMode.values()[which]
             }
-            .setCancelListener("GSR Demo") {
+            .setPositiveButton("Start Recording") { _, _ ->
+                when (rgbRecordingMode) {
+                    RecordingMode.THERMAL_ONLY -> {
+                        // Use existing thermal recording
+                        checkStoragePermission()
+                    }
+                    RecordingMode.RGB_ONLY -> {
+                        // Show RGB camera controls and start RGB recording
+                        showRGBCameraControls()
+                        startRGBRecording()
+                    }
+                    RecordingMode.THERMAL_RGB -> {
+                        // Start synchronized thermal + RGB recording
+                        showRGBCameraControls()
+                        checkStoragePermission() // This will trigger synchronized recording
+                    }
+                    RecordingMode.THERMAL_RGB_GSR -> {
+                        // Launch full multi-modal recording interface
+                        ARouter.getInstance()
+                            .build(RouterConfig.GSR_MULTI_MODAL)
+                            .navigation(this)
+                    }
+                }
+            }
+            .setNeutralButton("RGB Settings") { _, _ ->
+                showRGBSettingsDialog()
+            }
+            .setNegativeButton("GSR Demo") { _, _ ->
                 // Launch simple GSR demo
                 ARouter.getInstance()
                     .build(RouterConfig.GSR_DEMO)
@@ -1955,13 +2230,77 @@ class IRThermal07Activity : BaseWifiActivity() {
             .create().show()
     }
 
+    /**
+     * Show RGB camera controls in the thermal interface
+     */
+    private fun showRGBCameraControls() {
+        rgbCameraSettingsView?.visibility = View.VISIBLE
+        isRGBRecordingEnabled = true
+        
+        // Add RGB settings view to the layout if not already added
+        if (rgbCameraSettingsView?.parent == null) {
+            val layoutParams = RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+            ).apply {
+                addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
+                bottomMargin = 100
+            }
+            
+            temp_bg.addView(rgbCameraSettingsView, layoutParams)
+        }
+        
+        Log.i(TAG, "RGB camera controls enabled for mode: ${rgbRecordingMode.displayName}")
+    }
+
+    /**
+     * Hide RGB camera controls
+     */
+    private fun hideRGBCameraControls() {
+        rgbCameraSettingsView?.visibility = View.GONE
+        isRGBRecordingEnabled = false
+    }
+
+    /**
+     * Show RGB camera settings dialog
+     */
+    private fun showRGBSettingsDialog() {
+        val availableResolutions = synchronizedRecorder?.getSupportedRGBResolutions() ?: emptyList()
+        val availableCameras = synchronizedRecorder?.getAvailableRGBCameras() ?: emptyList()
+        
+        val resolutionNames = availableResolutions.map { it.displayName }.toTypedArray()
+        val cameraNames = availableCameras.map { it.displayName }.toTypedArray()
+        
+        // Create a simple settings dialog
+        val dialog = android.app.AlertDialog.Builder(this)
+            .setTitle("RGB Camera Settings")
+            .setMessage("""
+                Available Resolutions: ${resolutionNames.joinToString(", ")}
+                Available Cameras: ${cameraNames.joinToString(", ")}
+                
+                Current Settings:
+                • Resolution: ${synchronizedRecorder?.getCurrentRGBSettings()?.resolution?.displayName}
+                • Frame Rate: ${synchronizedRecorder?.getCurrentRGBSettings()?.frameRate} FPS
+                • Camera: ${synchronizedRecorder?.getRGBCameraFacing()?.displayName}
+            """.trimIndent())
+            .setPositiveButton("Show Controls") { _, _ ->
+                showRGBCameraControls()
+            }
+            .setNegativeButton("Close") { _, _ -> }
+            .create()
+            
+        dialog.show()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         AlarmHelp.getInstance(application).onDestroy(WifiSaveSettingUtil.isSaveSetting)
         temp_bg.stopAnimation()
         time_down_view.cancel()
         
-        // Cleanup Enhanced Thermal Recorder
+        // Cleanup Enhanced Thermal Recorder and RGB camera resources
+        synchronizedRecorder?.cleanup()
+        synchronizedRecorder = null
         enhancedThermalRecorder?.cleanup()
         enhancedThermalRecorder = null
         
@@ -1979,10 +2318,11 @@ class IRThermal07Activity : BaseWifiActivity() {
             videoRecord?.stopRecord()
             videoTimeClose()
             
-            // Stop synchronized GSR recording
+            // Stop synchronized GSR and RGB recording
+            synchronizedRecorder?.stopSynchronizedRecording()
             enhancedThermalRecorder?.stopRecording()
             currentSessionId = null
-            Log.d("ThermalSync", "Synchronized thermal and GSR recording stopped in onStop")
+            Log.d("ThermalSync", "Synchronized thermal, RGB and GSR recording stopped in onStop")
             
             CoroutineScope(Dispatchers.Main).launch {
                 delay(500)
