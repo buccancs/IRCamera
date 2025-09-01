@@ -22,12 +22,27 @@ abstract class ShimmerDevice(
         const val STATE_NONE = 0
         const val STATE_CONNECTING = 1
         const val STATE_CONNECTED = 2
+        const val STATE_STREAMING = 3
         
         // Message types from official API
         const val MESSAGE_STATE_CHANGE = 0
         const val MESSAGE_READ = 2
         const val MESSAGE_ACK_RECEIVED = 4
         const val MESSAGE_TOAST = 5
+        const val MESSAGE_STOP_STREAMING = 7
+        const val MESSAGE_INQUIRY_RESPONSE = 8
+        
+        // Configuration constants
+        const val CONFIG_SETUP_BYTES_SIZE = 12
+        const val MAX_INQUIRY_RETRY = 3
+        const val CONNECTION_TIMEOUT_MS = 10000L
+        
+        // GSR Range constants
+        const val GSR_RANGE_10KOHM_56KOHM = 0
+        const val GSR_RANGE_56KOHM_220KOHM = 1
+        const val GSR_RANGE_220KOHM_680KOHM = 2
+        const val GSR_RANGE_680KOHM_4_7MOHM = 3
+        const val GSR_RANGE_AUTO = 4
     }
     
     protected var dataCallback: ((ObjectCluster) -> Unit)? = null
@@ -116,6 +131,88 @@ abstract class ShimmerDevice(
      * Get sampling rate - Official API method
      */
     open fun getSamplingRate(): Double = 128.0
+    
+    /**
+     * Set GSR range - Official API method  
+     */
+    open fun setGSRRange(range: Int) {
+        // Default implementation - override in subclasses
+    }
+    
+    /**
+     * Get GSR range - Official API method
+     */
+    open fun getGSRRange(): Int = GSR_RANGE_AUTO
+    
+    /**
+     * Inquiry device information - Official API method
+     */
+    open fun inquiry() {
+        // Default implementation - override in subclasses
+        sendMessage(MESSAGE_INQUIRY_RESPONSE, 0, 0, "Device inquiry completed (simulated)")
+    }
+    
+    /**
+     * Read calibration parameters - Official API method
+     */
+    open fun readCalibrationParameters() {
+        // Default implementation - override in subclasses
+    }
+    
+    /**
+     * Get device firmware version - Official API method
+     */
+    open fun getFirmwareVersionFullName(): String = "1.0.0"
+    
+    /**
+     * Get device hardware version - Official API method
+     */
+    open fun getHardwareVersion(): String = "3.0"
+    
+    /**
+     * Get battery level - Official API method
+     */
+    open fun getBatteryLevel(): Double = 100.0
+    
+    /**
+     * Check if streaming - Official API method
+     */
+    open fun isStreaming(): Boolean = deviceState == STATE_STREAMING
+    
+    /**
+     * Set device name - Official API method
+     */
+    open fun setDeviceName(name: String) {
+        // Default implementation - override in subclasses
+    }
+    
+    /**
+     * Read configuration from device - Official API method
+     */
+    open fun readConfigurationBytes() {
+        // Default implementation - override in subclasses  
+    }
+    
+    /**
+     * Get configuration bytes - Official API method
+     */
+    open fun getConfigurationBytes(): ByteArray {
+        return ByteArray(CONFIG_SETUP_BYTES_SIZE)
+    }
+    
+    /**
+     * Reset device to defaults - Official API method
+     */
+    open fun resetToDefaultConfiguration() {
+        writeSamplingRate(128.0)
+        writeEnabledSensors(0x10L) // GSR sensor
+        setGSRRange(GSR_RANGE_AUTO)
+    }
+    
+    /**
+     * Get connection timeout - Official API method
+     */
+    open fun getConnectionTimeout(): Long = CONNECTION_TIMEOUT_MS
     
     /**
      * Send message through handler - matches official API pattern

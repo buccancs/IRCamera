@@ -5,6 +5,8 @@ import android.os.Handler
 import android.util.Log
 import com.shimmerresearch.driver.ObjectCluster
 import com.shimmerresearch.driver.ShimmerDevice
+import com.shimmerresearch.driver.Configuration
+import com.shimmerresearch.bluetooth.BluetoothManager
 import kotlinx.coroutines.*
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -28,11 +30,34 @@ class Shimmer(private val handler: Handler, private val context: Context) {
         const val MESSAGE_ACK_RECEIVED = 4
         const val MESSAGE_TOAST = 5
         const val MESSAGE_PACKET_LOSS_DETECTED = 6
+        const val MESSAGE_STOP_STREAMING = 7
+        const val MESSAGE_INQUIRY_RESPONSE = 8
         
         // State constants from official API
         const val STATE_NONE = 0
         const val STATE_CONNECTING = 1
         const val STATE_CONNECTED = 2
+        const val STATE_STREAMING = 3
+        
+        // Sensor constants from official API
+        const val SENSOR_GSR = 0x10
+        const val SENSOR_ACCEL = 0x80
+        const val SENSOR_GYRO = 0x40
+        const val SENSOR_MAG = 0x20
+        
+        // Sampling rate constants (Hz)
+        const val SAMPLING_RATE_1024HZ = 1024.0
+        const val SAMPLING_RATE_512HZ = 512.0
+        const val SAMPLING_RATE_256HZ = 256.0
+        const val SAMPLING_RATE_128HZ = 128.0
+        const val SAMPLING_RATE_64HZ = 64.0
+        const val SAMPLING_RATE_32HZ = 32.0
+        
+        // Device types
+        const val SHIMMER_2 = 0
+        const val SHIMMER_2R = 1
+        const val SHIMMER_3 = 2
+        const val SHIMMER_GQ = 3
     }
     
     private val isConnected = AtomicBoolean(false)
@@ -41,6 +66,15 @@ class Shimmer(private val handler: Handler, private val context: Context) {
     private var deviceAddress: String = ""
     private var deviceName: String = ""
     private var connectionState = STATE_NONE
+    private var deviceType = SHIMMER_3
+    private var firmwareVersion = "1.0.0"
+    private var batteryLevel = 100
+    private var enabledSensors: Long = SENSOR_GSR.toLong()
+    private var samplingRate = SAMPLING_RATE_128HZ
+    private var configuration: Configuration = Configuration.getDefaultGSRConfiguration()
+    
+    // Bluetooth management
+    private val bluetoothManager = BluetoothManager(context)
     
     // Official API callback interfaces
     private var dataCallback: ((ObjectCluster) -> Unit)? = null
@@ -97,6 +131,8 @@ class Shimmer(private val handler: Handler, private val context: Context) {
                 val method = device.javaClass.getMethod("startStreaming")
                 method.invoke(device)
                 isStreaming.set(true)
+                connectionState = STATE_STREAMING
+                sendMessage(MESSAGE_STATE_CHANGE, STATE_STREAMING, -1, null)
                 Log.i(TAG, "Started streaming from real Shimmer device")
                 return
             }
@@ -106,8 +142,10 @@ class Shimmer(private val handler: Handler, private val context: Context) {
         
         // Fallback to simulated streaming
         isStreaming.set(true)
+        connectionState = STATE_STREAMING
+        sendMessage(MESSAGE_STATE_CHANGE, STATE_STREAMING, -1, null)
         startSimulationDataGeneration()
-        Log.i(TAG, "Started simulated Shimmer3 GSR streaming at 128Hz")
+        Log.i(TAG, "Started simulated Shimmer3 GSR streaming at ${samplingRate.toInt()}Hz")
     }
     
     /**
@@ -180,8 +218,10 @@ class Shimmer(private val handler: Handler, private val context: Context) {
     /**
      * Set handler for receiving messages - Official API compatible
      */
-    fun setHandler(newHandler: Handler) {
+    fun setHandler(@Suppress("UNUSED_PARAMETER") newHandler: Handler) {
         // Handler is already set via constructor for official API compatibility
+        // This method exists for API compatibility but doesn't change the handler
+        Log.d(TAG, "Handler setting requested (using constructor handler for compatibility)")
     }
     
     /**
@@ -196,6 +236,154 @@ class Shimmer(private val handler: Handler, private val context: Context) {
      */
     fun setConnectionCallback(callback: (String) -> Unit) {
         this.connectionCallback = callback
+    }
+    
+    /**
+     * Write enabled sensors configuration - Official API method
+     */
+    fun writeEnabledSensors(sensors: Long) {
+        enabledSensors = sensors
+        try {
+            realShimmerInstance?.let { device ->
+                val method = device.javaClass.getMethod("writeEnabledSensors", Long::class.java)
+                method.invoke(device, sensors)
+                Log.d(TAG, "Enabled sensors configured: $sensors")
+                return
+            }
+        } catch (e: Exception) {
+            Log.d(TAG, "Real device sensor configuration not available")
+        }
+        Log.d(TAG, "Enabled sensors set to: $sensors (simulated)")
+    }
+    
+    /**
+     * Write sampling rate configuration - Official API method
+     */
+    fun writeSamplingRate(rate: Double) {
+        samplingRate = rate
+        try {
+            realShimmerInstance?.let { device ->
+                val method = device.javaClass.getMethod("writeSamplingRate", Double::class.java)
+                method.invoke(device, rate)
+                Log.d(TAG, "Sampling rate configured: ${rate}Hz")
+                return
+            }
+        } catch (e: Exception) {
+            Log.d(TAG, "Real device sampling rate configuration not available")
+        }
+        Log.d(TAG, "Sampling rate set to: ${rate}Hz (simulated)")
+    }
+    
+    /**
+     * Get enabled sensors - Official API method
+     */
+    fun getEnabledSensors(): Long = enabledSensors
+    
+    /**
+     * Get sampling rate - Official API method
+     */
+    fun getSamplingRate(): Double = samplingRate
+    
+    /**
+     * Get device type - Official API method
+     */
+    fun getShimmerVersion(): Int = deviceType
+    
+    /**
+     * Get firmware version - Official API method
+     */
+    fun getFirmwareVersionFullName(): String = firmwareVersion
+    
+    /**
+     * Get battery level - Official API method
+     */
+    fun getBatteryLevel(): Int = batteryLevel
+    
+    /**
+     * Check if streaming - Official API method
+     */
+    fun isStreaming(): Boolean = isStreaming.get()
+    
+    /**
+     * Write configuration bytes - Official API method
+     */
+    fun writeConfigurationBytes(config: ByteArray) {
+        try {
+            realShimmerInstance?.let { device ->
+                val method = device.javaClass.getMethod("writeConfigurationBytes", ByteArray::class.java)
+                method.invoke(device, config)
+                Log.d(TAG, "Configuration written to real device")
+                return
+            }
+        } catch (e: Exception) {
+            Log.d(TAG, "Real device configuration write not available")
+        }
+        Log.d(TAG, "Configuration bytes written (simulated): ${config.size} bytes")
+    }
+    
+    /**
+     * Read configuration from device - Official API method
+     */
+    fun readConfigurationBytes() {
+        try {
+            realShimmerInstance?.let { device ->
+                val method = device.javaClass.getMethod("readConfigurationBytes")
+                method.invoke(device)
+                Log.d(TAG, "Configuration read from real device")
+                return
+            }
+        } catch (e: Exception) {
+            Log.d(TAG, "Real device configuration read not available")
+        }
+        Log.d(TAG, "Configuration read (simulated)")
+    }
+    
+    /**
+     * Set GSR range - Official API method
+     */
+    fun setGSRRange(range: Int) {
+        configuration.gsrRange = range
+        try {
+            realShimmerInstance?.let { device ->
+                val method = device.javaClass.getMethod("setGSRRange", Int::class.java)
+                method.invoke(device, range)
+                Log.d(TAG, "GSR range set on real device: $range")
+                return
+            }
+        } catch (e: Exception) {
+            Log.d(TAG, "Real device GSR range setting not available")
+        }
+        Log.d(TAG, "GSR range set (simulated): $range")
+    }
+    
+    /**
+     * Get current configuration - Official API method
+     */
+    fun getConfiguration(): Configuration = configuration
+    
+    /**
+     * Set configuration - Official API method
+     */
+    fun setConfiguration(config: Configuration) {
+        configuration = config
+        samplingRate = config.samplingRate
+        enabledSensors = config.enabledSensors
+        Log.d(TAG, "Configuration updated: $config")
+    }
+    
+    /**
+     * Get available Shimmer devices - Official API method
+     */
+    fun getAvailableDevices(): List<android.bluetooth.BluetoothDevice> {
+        return bluetoothManager.getBondedShimmerDevices()
+    }
+    
+    /**
+     * Validate device for connection - Official API method
+     */
+    fun validateDevice(address: String): Boolean {
+        val device = bluetoothManager.findShimmerDeviceByAddress(address)
+        return device?.let { bluetoothManager.validateShimmerDevice(it).isValid } ?: false
     }
     
     /**
@@ -231,9 +419,10 @@ class Shimmer(private val handler: Handler, private val context: Context) {
     /**
      * Set up callbacks for real Shimmer device
      */
-    private fun setupRealDeviceCallbacks(shimmerInstance: Any) {
+    private fun setupRealDeviceCallbacks(@Suppress("UNUSED_PARAMETER") shimmerInstance: Any) {
         try {
             // Set up real device message handling
+            // This would configure callbacks on the actual device
             Log.d(TAG, "Real Shimmer device callbacks configured")
         } catch (e: Exception) {
             Log.w(TAG, "Could not set up real device callbacks", e)
@@ -252,8 +441,7 @@ class Shimmer(private val handler: Handler, private val context: Context) {
                     val objectCluster = ObjectCluster()
                     
                     // Generate realistic GSR data with physiological variation
-                    val timeOffset = sampleCount * SIMULATION_DATA_INTERVAL_MS
-                    val baseTime = System.currentTimeMillis()
+                    val currentTime = System.currentTimeMillis()
                     
                     // Simulate GSR data being available in ObjectCluster
                     dataCallback?.invoke(objectCluster)

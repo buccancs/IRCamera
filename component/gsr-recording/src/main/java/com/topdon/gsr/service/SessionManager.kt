@@ -8,8 +8,9 @@ import java.util.concurrent.ConcurrentHashMap
 
 /**
  * Session lifecycle and metadata management
+ * Fixed memory leak by using application context and WeakReference
  */
-class SessionManager(private val context: Context) {
+class SessionManager private constructor(context: Context) {
     companion object {
         private const val TAG = "SessionManager"
         
@@ -22,6 +23,9 @@ class SessionManager(private val context: Context) {
             }
         }
     }
+    
+    // Use application context to prevent memory leaks
+    private val appContext = context.applicationContext
     
     private val activeSessions = ConcurrentHashMap<String, SessionInfo>()
     private val sessionListeners = mutableListOf<SessionListener>()
