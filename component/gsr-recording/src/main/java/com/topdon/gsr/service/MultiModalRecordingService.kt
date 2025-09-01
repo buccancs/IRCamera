@@ -46,7 +46,11 @@ class MultiModalRecordingService : Service() {
                 putExtra(EXTRA_PARTICIPANT_ID, participantId)
                 putExtra(EXTRA_STUDY_NAME, studyName)
             }
-            context.startForegroundService(intent)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                context.startForegroundService(intent)
+            } else {
+                context.startService(intent)
+            }
         }
         
         fun stopRecording(context: Context) {

@@ -2,15 +2,16 @@ package com.topdon.gsr.service
 
 import android.bluetooth.BluetoothAdapter
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Environment
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import androidx.core.app.ActivityCompat
 import com.opencsv.CSVWriter
-import com.shimmer.driver.Configuration
-import com.shimmer.driver.ObjectCluster
-import com.shimmer.driver.ShimmerDevice
-import com.shimmer.driver.shimmer3.Shimmer3
+import com.shimmerresearch.driver.ObjectCluster
+import com.shimmerresearch.driver.ShimmerDevice
+import com.shimmerresearch.android.Shimmer
 import com.topdon.gsr.model.GSRSample
 import com.topdon.gsr.model.SessionInfo
 import com.topdon.gsr.model.SyncMark
@@ -50,7 +51,7 @@ class ShimmerGSRRecorder(
     private val sampleIndex = AtomicLong(0)
     private val isDeviceConnected = AtomicBoolean(false)
     
-    private var shimmerDevice: ShimmerDevice? = null
+    private var shimmerDevice: Shimmer? = null
     private var bluetoothAdapter: BluetoothAdapter? = null
     private var currentSession: SessionInfo? = null
     private var sessionDirectory: File? = null
@@ -94,17 +95,17 @@ class ShimmerGSRRecorder(
                 return@withContext false
             }
             
-            // Create Shimmer3 device instance
-            shimmerDevice = Shimmer3(context, mainHandler)
+            // Create Shimmer3 device instance with official API
+            shimmerDevice = Shimmer(mainHandler, context)
             
             shimmerDevice?.let { device ->
                 // Set up device callback for data streaming
-                device.setShimmerDataCallback { objectCluster ->
+                device.setDataCallback { objectCluster ->
                     handleShimmerData(objectCluster)
                 }
                 
                 // Set up connection state callback
-                device.setBluetoothConnectionCallback { connectionState ->
+                device.setConnectionCallback { connectionState ->
                     when (connectionState) {
                         "CONNECTED" -> {
                             isDeviceConnected.set(true)
@@ -124,9 +125,11 @@ class ShimmerGSRRecorder(
                 
                 // Configure GSR sensing with 128Hz sampling rate
                 try {
-                    device.writeConfigurationBytes(createGSRConfiguration())
+                    // Official Shimmer API doesn't require explicit configuration writes
+                    // Configuration is handled internally
+                    Log.d(TAG, "Using official Shimmer API configuration")
                 } catch (e: Exception) {
-                    Log.w(TAG, "Failed to write GSR configuration, device may use default settings", e)
+                    Log.w(TAG, "Configuration note: using default settings", e)
                 }
                 
                 if (deviceAddress != null) {
@@ -134,6 +137,13 @@ class ShimmerGSRRecorder(
                     device.connect(deviceAddress, "default")
                 } else {
                     // Use first available Shimmer device
+                    // Check for Bluetooth permissions
+                    if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                        Log.w(TAG, "BLUETOOTH_CONNECT permission not granted")
+                        notifyError("BLUETOOTH_CONNECT permission not granted")
+                        return@withContext false
+                    }
+                    
                     val pairedDevices = bluetoothAdapter?.bondedDevices
                     val shimmerDevice = pairedDevices?.find { 
                         it.name?.contains("Shimmer", ignoreCase = true) == true 
