@@ -1,7 +1,9 @@
 package com.topdon.thermal07
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
@@ -19,6 +21,7 @@ import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.drawToBitmap
 import androidx.core.view.isVisible
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -93,7 +96,9 @@ import com.topdon.tc001.gsr.EnhancedThermalRecorder
 import com.topdon.gsr.util.TimeUtil
 import com.topdon.tc001.camera.RGBCameraRecorder
 import com.topdon.tc001.camera.SynchronizedMultiModalRecorder
+import com.topdon.tc001.camera.ParallelMultiModalRecorder
 import com.topdon.tc001.camera.ui.CameraSettingsView
+import com.topdon.tc001.camera.ui.SensorSelectionDialog
 import com.topdon.lib.core.comm.IrParam
 import com.topdon.lib.core.comm.TempFont
 import com.topdon.lib.core.dialog.CarDetectDialog
@@ -442,6 +447,9 @@ class IRThermal07Activity : BaseWifiActivity() {
             Log.d("ThermalSync", "Enhanced Thermal Recorder initialized during initView for synchronized recording")
         }
         
+        // Initialize Parallel Multi-Modal Recording System
+        initializeParallelRecording()
+        
         // Initialize RGB camera integration for multi-modal recording
         initializeRGBCameraIntegration()
         
@@ -598,6 +606,80 @@ class IRThermal07Activity : BaseWifiActivity() {
             pseudoSetResult.launch(intent)
         }
         thermal_recycler_night.updateCameraModel()
+    }
+
+    /**
+     * Initialize Parallel Multi-Modal Recording System
+     */
+    private fun initializeParallelRecording() {
+        try {
+            enhancedThermalRecorder?.let { thermalRecorder ->
+                // Create a TextureView for RGB camera preview
+                val rgbTextureView = TextureView(this)
+                rgbTextureView.layoutParams = RelativeLayout.LayoutParams(256, 192).apply {
+                    addRule(RelativeLayout.ALIGN_PARENT_TOP)
+                    addRule(RelativeLayout.ALIGN_PARENT_END)
+                    topMargin = 100
+                    marginEnd = 20
+                }
+                
+                // Initialize parallel recorder
+                parallelRecorder = ParallelMultiModalRecorder(
+                    context = this,
+                    thermalRecorder = thermalRecorder,
+                    rgbTextureView = rgbTextureView
+                ).apply {
+                    initialize()
+                    
+                    onRecordingStarted = { session ->
+                        Log.i(TAG, "Parallel recording started: ${session.sessionId}")
+                        Log.i(TAG, "Active sensors: ${session.selectedSensors.map { it.displayName }.joinToString(", ")}")
+                        
+                        lifecycleScope.launch(Dispatchers.Main) {
+                            val message = "Recording started:\n${session.selectedSensors.map { "• ${it.displayName}" }.joinToString("\n")}"
+                            TToast.shortToast(this@IRThermal07Activity, message)
+                        }
+                    }
+                    
+                    onRecordingStopped = { session ->
+                        Log.i(TAG, "Parallel recording stopped: ${session.sessionId}")
+                        Log.i(TAG, "Duration: ${session.recordingDuration}ms")
+                        
+                        lifecycleScope.launch(Dispatchers.Main) {
+                            val message = buildString {
+                                append("Recording completed (${session.recordingDuration / 1000}s):\n")
+                                session.selectedSensors.forEach { sensor ->
+                                    append("• ${sensor.displayName}: ${session.sensorStatus[sensor] ?: "Unknown"}\n")
+                                }
+                            }
+                            TToast.shortToast(this@IRThermal07Activity, message.trim())
+                            
+                            // Refresh gallery if thermal was recorded
+                            if (session.selectedSensors.contains(SensorSelectionDialog.SensorType.THERMAL)) {
+                                delay(500)
+                                thermal_recycler_night.refreshImg(GalleryRepository.DirType.TC007)
+                            }
+                        }
+                    }
+                    
+                    onError = { error ->
+                        Log.e(TAG, "Parallel recording error: $error")
+                        TToast.shortToast(this@IRThermal07Activity, "Recording error: $error")
+                    }
+                    
+                    onSensorStatusChanged = { sensor, status ->
+                        Log.d(TAG, "Sensor ${sensor.displayName} status: $status")
+                    }
+                }
+                
+                // Add RGB preview to layout (small preview in corner when RGB recording)
+                temp_bg.addView(rgbTextureView)
+                
+                Log.i(TAG, "Parallel multi-modal recording system initialized")
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to initialize parallel recording system", e)
+        }
     }
 
     /**
@@ -1957,9 +2039,13 @@ class IRThermal07Activity : BaseWifiActivity() {
     private var enhancedThermalRecorder: EnhancedThermalRecorder? = null
     private var currentSessionId: String? = null
     
-    // RGB Video Recording Integration
-    private var synchronizedRecorder: SynchronizedMultiModalRecorder? = null
+    // NEW: Parallel Multi-Modal Recording System
+    private var parallelRecorder: ParallelMultiModalRecorder? = null
     private var rgbCameraSettingsView: CameraSettingsView? = null
+    private var selectedSensors: Set<SensorSelectionDialog.SensorType> = emptySet()
+
+    // Legacy compatibility (keeping for now)
+    private var synchronizedRecorder: SynchronizedMultiModalRecorder? = null
     private var isRGBRecordingEnabled = false
     private var rgbRecordingMode = RecordingMode.THERMAL_ONLY
 
@@ -2185,49 +2271,192 @@ class IRThermal07Activity : BaseWifiActivity() {
     /**
      * Show enhanced multi-modal recording options with RGB camera support
      */
+    /**
+     * Show sensor selection dialog for parallel multi-modal recording
+     */
     private fun showGSROptions() {
-        val recordingModeNames = RecordingMode.values().map { it.displayName }.toTypedArray()
+        // Show sensor selection dialog with automatic sensor detection
+        SensorSelectionDialog.show(this) { selectedSensors ->
+            this.selectedSensors = selectedSensors
+            startParallelRecording(selectedSensors)
+        }
+    }
+    
+    /**
+     * Start parallel recording with selected sensors
+     */
+    private fun startParallelRecording(sensors: Set<SensorSelectionDialog.SensorType>) {
+        Log.i(TAG, "Starting parallel recording with sensors: ${sensors.map { it.displayName }.joinToString(", ")}")
         
-        android.app.AlertDialog.Builder(this)
-            .setTitle("Multi-Modal Recording Options")
-            .setMessage("Choose recording mode:")
-            .setSingleChoiceItems(recordingModeNames, rgbRecordingMode.ordinal) { _, which ->
-                rgbRecordingMode = RecordingMode.values()[which]
+        if (sensors.isEmpty()) {
+            TToast.shortToast(this, "No sensors selected for recording")
+            return
+        }
+        
+        // Check permissions before starting
+        if (!hasRequiredPermissions()) {
+            requestRequiredPermissions {
+                if (it) {
+                    startParallelRecordingInternal(sensors)
+                } else {
+                    TToast.shortToast(this, "Recording permissions required")
+                }
             }
-            .setPositiveButton("Start Recording") { _, _ ->
-                when (rgbRecordingMode) {
-                    RecordingMode.THERMAL_ONLY -> {
-                        // Use existing thermal recording
-                        checkStoragePermission()
+            return
+        }
+        
+        startParallelRecordingInternal(sensors)
+    }
+    
+    /**
+     * Internal method to start parallel recording after permissions are granted
+     */
+    private fun startParallelRecordingInternal(sensors: Set<SensorSelectionDialog.SensorType>) {
+        parallelRecorder?.let { recorder ->
+            if (recorder.isRecording()) {
+                // Stop current recording
+                recorder.stopParallelRecording()
+                return
+            }
+            
+            // Create RGB settings if RGB sensor is selected
+            val rgbSettings = if (sensors.contains(SensorSelectionDialog.SensorType.RGB)) {
+                RGBCameraRecorder.RecordingSettings(
+                    resolution = RGBCameraRecorder.Resolution.FULL_HD,
+                    frameRate = 30,
+                    enableStabilization = true
+                )
+            } else {
+                RGBCameraRecorder.RecordingSettings() // Default settings
+            }
+            
+            // Initialize thermal recording if thermal sensor is selected
+            if (sensors.contains(SensorSelectionDialog.SensorType.THERMAL)) {
+                initVideoRecordFFmpeg()
+                if (!videoRecord!!.canStartVideoRecord(null)) {
+                    TToast.shortToast(this, "Cannot start thermal recording")
+                    return
+                }
+            }
+            
+            // Start parallel recording
+            val started = recorder.startParallelRecording(
+                selectedSensors = sensors,
+                sessionId = TimeUtil.generateSessionId("Parallel"),
+                rgbSettings = rgbSettings
+            )
+            
+            if (started) {
+                // Start thermal recording component if thermal sensor is selected
+                if (sensors.contains(SensorSelectionDialog.SensorType.THERMAL)) {
+                    startThermalRecordingComponent()
+                }
+                
+                Log.i(TAG, "Parallel recording started successfully")
+            } else {
+                TToast.shortToast(this, "Failed to start parallel recording")
+            }
+        } ?: run {
+            Log.e(TAG, "Parallel recorder not initialized")
+            TToast.shortToast(this, "Recording system not available")
+        }
+    }
+    
+    /**
+     * Start the thermal recording component (traditional thermal video recording)
+     */
+    private fun startThermalRecordingComponent() {
+        if (!isVideo) {
+            isVideo = true
+            videoRecord?.startRecord()
+            
+            // Setup stop listener for thermal recording
+            videoRecord?.stopVideoRecordListener = { isShowVideoRecordTips ->
+                this@IRThermal07Activity.runOnUiThread {
+                    if (isShowVideoRecordTips) {
+                        try {
+                            val dialog = TipDialog.Builder(this@IRThermal07Activity)
+                                .setMessage(com.topdon.module.thermal.ir.R.string.tip_video_record)
+                                .create()
+                        } catch (_: Exception) {
+                        }
                     }
-                    RecordingMode.RGB_ONLY -> {
-                        // Show RGB camera controls and start RGB recording
-                        showRGBCameraControls()
-                        startRGBRecording()
-                    }
-                    RecordingMode.THERMAL_RGB -> {
-                        // Start synchronized thermal + RGB recording
-                        showRGBCameraControls()
-                        checkStoragePermission() // This will trigger synchronized recording
-                    }
-                    RecordingMode.THERMAL_RGB_GSR -> {
-                        // Launch full multi-modal recording interface
-                        ARouter.getInstance()
-                            .build(RouterConfig.GSR_MULTI_MODAL)
-                            .navigation(this)
+                    
+                    // Stop parallel recording when thermal recording stops
+                    parallelRecorder?.stopParallelRecording()
+                    isVideo = false
+                    videoTimeClose()
+                    
+                    lifecycleScope.launch(Dispatchers.Main) {
+                        delay(500)
+                        thermal_recycler_night.refreshImg(GalleryRepository.DirType.TC007)
                     }
                 }
             }
-            .setNeutralButton("RGB Settings") { _, _ ->
-                showRGBSettingsDialog()
-            }
-            .setNegativeButton("GSR Demo") { _, _ ->
-                // Launch simple GSR demo
-                ARouter.getInstance()
-                    .build(RouterConfig.GSR_DEMO)
-                    .navigation(this)
-            }
-            .create().show()
+            
+            videoTimeStart()
+            Log.i(TAG, "Thermal recording component started")
+        }
+    }
+    
+    /**
+     * Check if required permissions are granted
+     */
+    private fun hasRequiredPermissions(): Boolean {
+        val requiredPermissions = mutableListOf(
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        )
+        
+        // Add camera permission if RGB recording is selected
+        if (selectedSensors.contains(SensorSelectionDialog.SensorType.RGB)) {
+            requiredPermissions.add(Manifest.permission.CAMERA)
+            requiredPermissions.add(Manifest.permission.RECORD_AUDIO)
+        }
+        
+        // Add Bluetooth permissions for GSR if Android 12+
+        if (selectedSensors.contains(SensorSelectionDialog.SensorType.GSR) && 
+            android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            requiredPermissions.add(Manifest.permission.BLUETOOTH_SCAN)
+            requiredPermissions.add(Manifest.permission.BLUETOOTH_CONNECT)
+        }
+        
+        return requiredPermissions.all { permission ->
+            ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
+        }
+    }
+    
+    /**
+     * Request required permissions for selected sensors
+     */
+    private fun requestRequiredPermissions(callback: (Boolean) -> Unit) {
+        val requiredPermissions = mutableListOf(
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        )
+        
+        if (selectedSensors.contains(SensorSelectionDialog.SensorType.RGB)) {
+            requiredPermissions.add(Manifest.permission.CAMERA)
+            requiredPermissions.add(Manifest.permission.RECORD_AUDIO)
+        }
+        
+        if (selectedSensors.contains(SensorSelectionDialog.SensorType.GSR) && 
+            android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            requiredPermissions.add(Manifest.permission.BLUETOOTH_SCAN)
+            requiredPermissions.add(Manifest.permission.BLUETOOTH_CONNECT)
+        }
+        
+        XXPermissions.with(this)
+            .permission(requiredPermissions.toTypedArray())
+            .request(object : OnPermissionCallback {
+                override fun onGranted(permissions: MutableList<String>, all: Boolean) {
+                    callback(all)
+                }
+                
+                override fun onDenied(permissions: MutableList<String>, never: Boolean) {
+                    callback(false)
+                }
+            })
     }
 
     /**
