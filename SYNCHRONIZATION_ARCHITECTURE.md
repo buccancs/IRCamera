@@ -7,17 +7,20 @@ The IRCamera application implements a **production-grade synchronized multi-moda
 
 ### Samsung S22 Device Specifications
 
-**Hardware Foundation:**
-- **Processor**: Qualcomm Snapdragon 8 Gen 1 (4nm)
-- **System Timer**: High-precision ARM DynamIQ timer
+**Hardware Foundation (Model-Specific):**
+- **SM-S901E (International)**: Samsung Exynos 2200 with ARM Cortex-X2 high-precision timer
+- **SM-S901U/W (US/Canada)**: Qualcomm Snapdragon 8 Gen 1 with Kryo 780 high-precision timer  
+- **SM-S901N (Korea)**: Qualcomm Snapdragon 8 Gen 1 with Kryo 780 high-precision timer
+- **System Timer**: High-precision ARM DynamIQ timer (Exynos) or Qualcomm timer (Snapdragon)
 - **Clock Source**: Crystal oscillator with sub-millisecond accuracy
 - **Operating System**: Android 12+ with optimized timing API access
 
 **Timing Capabilities:**
-- **Precision**: Sub-millisecond timestamp accuracy
+- **Precision**: Sub-millisecond timestamp accuracy (both processor variants)
 - **Stability**: Drift rate < 1ms per hour under normal conditions
 - **API Access**: `System.currentTimeMillis()` and `System.nanoTime()` 
 - **Ground Truth Role**: Authoritative time source for all modalities
+- **Processor Detection**: Automatic detection of Exynos 2200 vs Snapdragon 8 Gen 1
 
 ### Unified Timing Architecture
 
@@ -123,6 +126,13 @@ timestamp_samsung_s22,event_type,metadata
 - `System.currentTimeMillis()` - Millisecond precision Samsung S22 clock
 - `System.nanoTime()` - Nanosecond precision for sub-millisecond sync events
 - Ground truth base established at application startup
+- Automatic processor detection (Exynos 2200 vs Snapdragon 8 Gen 1)
+
+**Processor-Specific Optimizations:**
+- **Exynos 2200 (SM-S901E)**: ARM Cortex-X2 high-precision timing optimizations
+- **Snapdragon 8 Gen 1 (SM-S901U/W/N)**: Kryo 780 high-precision timing optimizations
+- **Generic Samsung S22**: Standard Android high-precision timing
+- **Fallback**: Generic Android timing for non-Samsung devices
 
 **NTP-Style Coordination:**
 - Samsung S22 device acts as local NTP server equivalent

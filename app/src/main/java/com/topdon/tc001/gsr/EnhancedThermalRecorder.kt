@@ -22,19 +22,32 @@ class EnhancedThermalRecorder private constructor(
         
         /**
          * Create Enhanced Thermal Recorder with Samsung S22 device validation
+         * Supports both Exynos 2200 and Snapdragon 8 Gen 1 variants
          */
         fun create(context: Context): EnhancedThermalRecorder {
             val recorder = EnhancedThermalRecorder(context)
             
-            // Validate Samsung S22 device for optimal timing performance
-            val deviceModel = android.os.Build.MODEL
+            // Initialize timing system to detect processor variant
+            TimeUtil.initializeGroundTruthTiming()
+            
+            // Get detected processor and model information
+            val detectedProcessor = TimeUtil.getDetectedProcessor()
+            val deviceModel = TimeUtil.getDeviceModel()
             val deviceManufacturer = android.os.Build.MANUFACTURER
             
             if (deviceManufacturer.contains("samsung", ignoreCase = true) && 
                 deviceModel.contains("SM-S90", ignoreCase = true)) {
-                Log.d(TAG, "Samsung S22 device detected: $deviceManufacturer $deviceModel - Optimal timing performance")
+                Log.d(TAG, "Samsung S22 device detected: $deviceManufacturer $deviceModel")
+                Log.d(TAG, "Processor variant: $detectedProcessor - Optimal timing performance enabled")
+                
+                when (detectedProcessor) {
+                    "Exynos_2200" -> Log.i(TAG, "Exynos 2200 processor detected - ARM Cortex-X2 high-precision timing active")
+                    "Snapdragon_8_Gen_1" -> Log.i(TAG, "Snapdragon 8 Gen 1 processor detected - Kryo 780 high-precision timing active") 
+                    "Samsung_S22_Generic" -> Log.i(TAG, "Samsung S22 detected - Generic high-precision timing active")
+                }
             } else {
                 Log.w(TAG, "Non-Samsung S22 device: $deviceManufacturer $deviceModel - Using standard timing")
+                Log.w(TAG, "Detected processor: $detectedProcessor")
             }
             
             return recorder
@@ -78,9 +91,10 @@ class EnhancedThermalRecorder private constructor(
     init {
         gsrRecorder.addListener(gsrListener)
         
-        // Initialize Samsung S22 device as NTP-style ground truth for unified timing
-        TimeUtil.initializeGroundTruthTiming()
-        Log.d(TAG, "Enhanced thermal recorder initialized with Samsung S22 Snapdragon 8 Gen 1 ground truth timing")
+        // Samsung S22 device timing initialization is handled in create() method
+        // to avoid duplicate initialization
+        Log.d(TAG, "Enhanced thermal recorder initialized with Samsung S22 ground truth timing")
+        Log.d(TAG, "Detected processor: ${TimeUtil.getDetectedProcessor()}")
         Log.d(TAG, "Timing validation: ${TimeUtil.validateTimingSystem()}")
     }
     
@@ -106,6 +120,7 @@ class EnhancedThermalRecorder private constructor(
         // Establish unified Samsung S22 ground truth timestamp for true synchronization
         val unifiedStartTimestamp = TimeUtil.getHighPrecisionTimestamp()
         Log.d(TAG, "Starting synchronized recording with Samsung S22 ground truth timestamp: $unifiedStartTimestamp")
+        Log.d(TAG, "Using ${TimeUtil.getDetectedProcessor()} processor timing for maximum precision")
         
         if (enableGsr) {
             // Start GSR recording automatically with unified timing

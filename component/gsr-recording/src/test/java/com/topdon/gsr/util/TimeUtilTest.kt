@@ -11,6 +11,9 @@ class TimeUtilTest {
 
     @Test
     fun testPcTimeOffset() {
+        // Initialize timing system first to ensure proper state
+        TimeUtil.initializeGroundTruthTiming()
+        
         val initialOffset = TimeUtil.getPcTimeOffset()
         assertEquals(0L, initialOffset)
         
@@ -108,8 +111,12 @@ class TimeUtilTest {
         assertTrue("Should contain timing mode", metadata.containsKey("timing_mode"))
         
         assertEquals("1500", metadata["pc_offset_ms"])
-        assertEquals("Samsung_S22", metadata["device_model"])
+        // Device model is now dynamic based on actual device detection
+        assertNotNull("Device model should be detected", metadata["device_model"])
         assertEquals("unified_ntp_style", metadata["timing_mode"])
+        
+        // Verify processor is detected
+        assertNotNull("Device processor should be detected", metadata["device_processor"])
         
         // Reset
         TimeUtil.setPcTimeOffset(0L)

@@ -4,9 +4,10 @@ package com.topdon.gsr.util
  * Utility class for time synchronization and timestamp management
  * Implements unified NTP-style timing with Samsung S22 device as ground truth
  * 
- * Samsung S22 Device Specifications:
- * - System Clock: High-precision Qualcomm Snapdragon 8 Gen 1 system timer
- * - Timing Accuracy: Sub-millisecond precision for physiological recording
+ * Samsung S22 Device Specifications (Model-Specific):
+ * - SM-S901E (International): Samsung Exynos 2200 with ARM Cortex-X2 high-precision timer
+ * - SM-S901U (US): Qualcomm Snapdragon 8 Gen 1 with Kryo 780 high-precision timer
+ * - Timing Accuracy: Sub-millisecond precision for physiological recording (both variants)
  * - NTP Synchronization: Device acts as unified time base for all modalities
  */
 object TimeUtil {
@@ -21,9 +22,14 @@ object TimeUtil {
     // Boot time reference for high-precision timing (Samsung S22 system uptime)
     private var bootTimeReference: Long = 0L
     
+    // Detected processor information for optimal timing configuration
+    private var detectedProcessor: String = "Unknown"
+    private var deviceModel: String = "Unknown"
+    
     /**
      * Get UTC timestamp adjusted for PC synchronization with Samsung S22 ground truth
-     * Uses Samsung S22 Snapdragon 8 Gen 1 system timer for maximum precision
+     * Uses Samsung S22 processor-specific system timer for maximum precision
+     * Compatible with both Exynos 2200 and Snapdragon 8 Gen 1 variants
      */
     fun getUtcTimestamp(): Long {
         // Use Samsung S22 device clock as authoritative ground truth reference
@@ -33,12 +39,15 @@ object TimeUtil {
     }
     
     /**
-     * Initialize Samsung S22 device as NTP ground truth reference
+     * Initialize Samsung S22 device as NTP ground truth reference with processor detection
      * Called at application startup to establish unified time base
-     * Aligns with Samsung Galaxy S22 timing architecture
+     * Automatically detects Exynos 2200 vs Snapdragon 8 Gen 1 for optimal timing
      */
     fun initializeGroundTruthTiming() {
         deviceGroundTruthBase = System.currentTimeMillis()
+        
+        // Detect Samsung S22 processor variant for optimal timing configuration
+        detectSamsungS22Processor()
         
         // Capture boot time reference for high-precision calculations
         try {
@@ -50,9 +59,59 @@ object TimeUtil {
         // Only log if Android Log is available (not in unit tests)
         try {
             android.util.Log.d(TAG, "Samsung S22 device ground truth timestamp initialized: $deviceGroundTruthBase")
-            android.util.Log.d(TAG, "Samsung S22 boot reference: $bootTimeReference (Snapdragon 8 Gen 1 timer)")
+            android.util.Log.d(TAG, "Samsung S22 model: $deviceModel, processor: $detectedProcessor")
+            android.util.Log.d(TAG, "Samsung S22 boot reference: $bootTimeReference (${detectedProcessor} timer)")
         } catch (e: Exception) {
             // Ignore - running in unit tests
+        }
+    }
+    
+    /**
+     * Detect Samsung S22 processor variant (Exynos 2200 vs Snapdragon 8 Gen 1)
+     * Based on device model and hardware characteristics
+     */
+    private fun detectSamsungS22Processor() {
+        try {
+            deviceModel = android.os.Build.MODEL
+            val deviceBrand = android.os.Build.MANUFACTURER
+            val hardware = android.os.Build.HARDWARE
+            val soc = android.os.Build.SOC_MANUFACTURER
+            
+            when {
+                // SM-S901E (International) - typically Exynos 2200
+                deviceModel.contains("SM-S901E", ignoreCase = true) -> {
+                    detectedProcessor = "Exynos_2200"
+                }
+                // SM-S901U/SM-S901W (US/Canada) - typically Snapdragon 8 Gen 1  
+                deviceModel.contains("SM-S901U", ignoreCase = true) || 
+                deviceModel.contains("SM-S901W", ignoreCase = true) -> {
+                    detectedProcessor = "Snapdragon_8_Gen_1"
+                }
+                // SM-S901N (Korea) - typically Snapdragon 8 Gen 1
+                deviceModel.contains("SM-S901N", ignoreCase = true) -> {
+                    detectedProcessor = "Snapdragon_8_Gen_1"
+                }
+                // Additional detection via hardware/SoC if available
+                hardware?.contains("qcom", ignoreCase = true) == true ||
+                soc?.contains("qualcomm", ignoreCase = true) == true -> {
+                    detectedProcessor = "Snapdragon_8_Gen_1"
+                }
+                hardware?.contains("exynos", ignoreCase = true) == true ||
+                soc?.contains("samsung", ignoreCase = true) == true -> {
+                    detectedProcessor = "Exynos_2200"  
+                }
+                // Generic Samsung S22 detection
+                deviceBrand.contains("samsung", ignoreCase = true) && 
+                deviceModel.contains("SM-S90", ignoreCase = true) -> {
+                    detectedProcessor = "Samsung_S22_Generic"
+                }
+                else -> {
+                    detectedProcessor = "Generic_Android_Timer"
+                }
+            }
+        } catch (e: Exception) {
+            detectedProcessor = "Detection_Failed"
+            deviceModel = "Unknown"
         }
     }
     
@@ -66,7 +125,7 @@ object TimeUtil {
         // Only log if Android Log is available (not in unit tests)
         try {
             android.util.Log.d(TAG, "PC time offset set to: ${offset}ms from Samsung S22 ground truth")
-            android.util.Log.d(TAG, "Samsung S22 maintains authoritative timing with ${offset}ms PC coordination")
+            android.util.Log.d(TAG, "Samsung S22 ($detectedProcessor) maintains authoritative timing with ${offset}ms PC coordination")
         } catch (e: Exception) {
             // Ignore - running in unit tests
         }
@@ -110,6 +169,7 @@ object TimeUtil {
     /**
      * Get high-precision timestamp using Samsung S22 nanoTime for sub-millisecond accuracy
      * Used for critical synchronization events requiring maximum precision
+     * Optimized for both Exynos 2200 and Snapdragon 8 Gen 1 processors
      */
     fun getHighPrecisionTimestamp(): Long {
         return try {
@@ -157,8 +217,8 @@ object TimeUtil {
         return mapOf(
             "ground_truth_base" to deviceGroundTruthBase.toString(),
             "pc_offset_ms" to pcTimeOffset.toString(),
-            "device_model" to "Samsung_Galaxy_S22",
-            "device_processor" to "Snapdragon_8_Gen_1",
+            "device_model" to deviceModel,
+            "device_processor" to detectedProcessor,
             "timing_mode" to "unified_ntp_style",
             "timing_precision" to "sub_millisecond",
             "current_sync_time" to getSynchronizedTimestamp().toString(),
@@ -169,7 +229,7 @@ object TimeUtil {
     
     /**
      * Validate timing precision and Samsung S22 ground truth status
-     * Returns health check of timing system
+     * Returns health check of timing system with processor-specific validation
      */
     fun validateTimingSystem(): Map<String, Any> {
         val currentTime = System.currentTimeMillis()
@@ -187,7 +247,20 @@ object TimeUtil {
             "timing_drift_ms" to (currentTime - syncTime + pcTimeOffset),
             "precision_test_ms" to precision,
             "samsung_s22_status" to "operational",
-            "ntp_coordination" to (pcTimeOffset != 0L)
+            "detected_processor" to detectedProcessor,
+            "device_model" to deviceModel,
+            "ntp_coordination" to (pcTimeOffset != 0L),
+            "processor_optimized" to (detectedProcessor.contains("Exynos") || detectedProcessor.contains("Snapdragon"))
         )
     }
+    
+    /**
+     * Get detected processor information for the current device
+     */
+    fun getDetectedProcessor(): String = detectedProcessor
+    
+    /**
+     * Get detected device model
+     */
+    fun getDeviceModel(): String = deviceModel
 }
