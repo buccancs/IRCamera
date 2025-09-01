@@ -15,10 +15,10 @@
 *.aab
 *.dex
 *.class
-/build/
-*/build/
+build/
+*build/
 # IDE files
-/.idea/
+.idea/
 
 # Gradle files
 /.gradle/
