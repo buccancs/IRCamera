@@ -13,20 +13,20 @@ from ..core.config import config
 
 class LogHandler(QObject):
     """Custom log handler that emits Qt signals for GUI integration."""
-    
+
     log_message = pyqtSignal(str, str, str)  # level, message, timestamp
-    
+
     def __init__(self):
         """Initialize log handler."""
         super().__init__()
-    
+
     def write(self, record):
         """Write log record."""
         # Extract relevant information from loguru record
         level = record["level"].name
         message = record["message"]
         timestamp = record["time"].strftime("%Y-%m-%d %H:%M:%S")
-        
+
         # Emit signal for GUI components
         self.log_message.emit(level, message, timestamp)
 
@@ -34,27 +34,32 @@ class LogHandler(QObject):
 def setup_logging() -> LogHandler:
     """
     Set up logging configuration for the application.
-    
+
     Returns:
         LogHandler instance for GUI integration
     """
     # Remove default handler
     logger.remove()
-    
+
     # Get logging configuration
-    log_level = config.get('logging.level', 'INFO')
-    console_output = config.get('logging.console_output', True)
-    file_rotation = config.get('logging.file_rotation', '1 MB')
-    retention = config.get('logging.retention', '30 days')
-    
+    log_level = config.get("logging.level", "INFO")
+    console_output = config.get("logging.console_output", True)
+    file_rotation = config.get("logging.file_rotation", "1 MB")
+    retention = config.get("logging.retention", "30 days")
+
     # Set up console logging if enabled
     if console_output:
         logger.add(
             sys.stdout,
             level=log_level,
-            format="<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>"
+            format=(
+                "<green>{time:YYYY-MM-DD HH:mm:ss}</green> | "
+                "<level>{level: <8}</level> | "
+                "<cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - "
+                "<level>{message}</level>"
+            ),
         )
-    
+
     # Set up file logging
     logger.add(
         "logs/ircamera_pc.log",
@@ -62,21 +67,21 @@ def setup_logging() -> LogHandler:
         format="{time:YYYY-MM-DD HH:mm:ss} | {level: <8} | {name}:{function}:{line} - {message}",
         rotation=file_rotation,
         retention=retention,
-        compression="zip"
+        compression="zip",
     )
-    
+
     # Create and configure GUI log handler
     gui_handler = LogHandler()
-    
+
     # Add custom sink for GUI integration
     def gui_sink(record):
         level = record["level"].name
         message = record["message"]
         timestamp = record["time"].strftime("%H:%M:%S")
         gui_handler.log_message.emit(level, message, timestamp)
-    
+
     logger.add(gui_sink, level=log_level)
-    
+
     logger.info("Logging system initialized")
     return gui_handler
 
@@ -84,7 +89,7 @@ def setup_logging() -> LogHandler:
 def get_app_icon():
     """
     Get application icon.
-    
+
     Returns:
         QIcon or None if no icon available
     """
@@ -95,7 +100,7 @@ def get_app_icon():
 def apply_theme(app, theme_name: str = "default"):
     """
     Apply theme to the Qt application.
-    
+
     Args:
         app: QApplication instance
         theme_name: Theme name to apply
@@ -107,12 +112,12 @@ def apply_theme(app, theme_name: str = "default"):
             background-color: #2d2d2d;
             color: #ffffff;
         }
-        
+
         QWidget {
             background-color: #2d2d2d;
             color: #ffffff;
         }
-        
+
         QGroupBox {
             font-weight: bold;
             border: 2px solid #555555;
@@ -121,13 +126,13 @@ def apply_theme(app, theme_name: str = "default"):
             padding-top: 10px;
             color: #ffffff;
         }
-        
+
         QGroupBox::title {
             subcontrol-origin: margin;
             left: 10px;
             padding: 0 5px 0 5px;
         }
-        
+
         QPushButton {
             background-color: #404040;
             border: 1px solid #666666;
@@ -136,121 +141,121 @@ def apply_theme(app, theme_name: str = "default"):
             min-width: 80px;
             color: #ffffff;
         }
-        
+
         QPushButton:hover {
             background-color: #4a4a4a;
         }
-        
+
         QPushButton:pressed {
             background-color: #353535;
         }
-        
+
         QPushButton:disabled {
             color: #888888;
             background-color: #2d2d2d;
         }
-        
+
         QPushButton.primary {
             background-color: #0078d4;
             color: white;
             font-weight: bold;
         }
-        
+
         QPushButton.primary:hover {
             background-color: #106ebe;
         }
-        
+
         QPushButton.primary:pressed {
             background-color: #005a9e;
         }
-        
+
         QPushButton.danger {
             background-color: #d13438;
             color: white;
             font-weight: bold;
         }
-        
+
         QPushButton.danger:hover {
             background-color: #c4292e;
         }
-        
+
         QPushButton.danger:pressed {
             background-color: #a01e22;
         }
-        
+
         QListWidget {
             border: 1px solid #555555;
             border-radius: 3px;
             background-color: #353535;
             color: #ffffff;
         }
-        
+
         QListWidget::item {
             padding: 8px;
             border-bottom: 1px solid #555555;
         }
-        
+
         QListWidget::item:selected {
             background-color: #0078d4;
             color: white;
         }
-        
+
         QTextEdit {
             border: 1px solid #555555;
             border-radius: 3px;
             background-color: #353535;
             color: #ffffff;
         }
-        
+
         QLabel {
             color: #ffffff;
         }
-        
+
         QStatusBar {
             border-top: 1px solid #555555;
             background-color: #404040;
             color: #ffffff;
         }
-        
+
         QFrame {
             border: 1px solid #555555;
             background-color: #353535;
         }
         """
-        
+
         app.setStyleSheet(dark_style)
-    
+
     # Default theme is handled by the main app stylesheet
 
 
 def format_file_size(size_bytes: int) -> str:
     """
     Format file size in human-readable format.
-    
+
     Args:
         size_bytes: Size in bytes
-        
+
     Returns:
         Formatted size string
     """
     if size_bytes == 0:
         return "0 B"
-    
-    for unit in ['B', 'KB', 'MB', 'GB', 'TB']:
+
+    for unit in ["B", "KB", "MB", "GB", "TB"]:
         if size_bytes < 1024.0:
             return f"{size_bytes:.1f} {unit}"
         size_bytes /= 1024.0
-    
+
     return f"{size_bytes:.1f} PB"
 
 
 def format_duration(seconds: float) -> str:
     """
     Format duration in human-readable format.
-    
+
     Args:
         seconds: Duration in seconds
-        
+
     Returns:
         Formatted duration string (HH:MM:SS)
     """
@@ -258,7 +263,7 @@ def format_duration(seconds: float) -> str:
     hours = total_seconds // 3600
     minutes = (total_seconds % 3600) // 60
     secs = total_seconds % 60
-    
+
     if hours > 0:
         return f"{hours:02d}:{minutes:02d}:{secs:02d}"
     else:
@@ -268,73 +273,69 @@ def format_duration(seconds: float) -> str:
 def get_status_color(status: str) -> str:
     """
     Get color for status display.
-    
+
     Args:
         status: Status string
-        
+
     Returns:
         CSS color value
     """
     status = status.lower()
-    
-    if status in ['connected', 'ok', 'active', 'recording']:
-        return 'green'
-    elif status in ['warning', 'disconnected', 'error']:
-        return 'red'
-    elif status in ['idle', 'waiting', 'pending']:
-        return 'orange'
+
+    if status in ["connected", "ok", "active", "recording"]:
+        return "green"
+    elif status in ["warning", "disconnected", "error"]:
+        return "red"
+    elif status in ["idle", "waiting", "pending"]:
+        return "orange"
     else:
-        return 'gray'
+        return "gray"
 
 
 def validate_session_name(name: str) -> tuple[bool, str]:
     """
     Validate session name.
-    
+
     Args:
         name: Session name to validate
-        
+
     Returns:
         Tuple of (is_valid, error_message)
     """
     if not name or not name.strip():
         return True, ""  # Empty names are allowed (auto-generated)
-    
+
     name = name.strip()
-    
+
     # Check length
     if len(name) > 100:
         return False, "Session name must be 100 characters or less"
-    
+
     # Check for invalid characters
-    invalid_chars = ['<', '>', ':', '"', '|', '?', '*', '/', '\\']
+    invalid_chars = ["<", ">", ":", '"', "|", "?", "*", "/", "\\"]
     for char in invalid_chars:
         if char in name:
             return False, f"Session name cannot contain '{char}'"
-    
+
     return True, ""
 
 
 def confirm_action(parent, title: str, message: str) -> bool:
     """
     Show confirmation dialog.
-    
+
     Args:
         parent: Parent widget
         title: Dialog title
         message: Confirmation message
-        
+
     Returns:
         True if user confirmed, False otherwise
     """
     from PyQt5.QtWidgets import QMessageBox
-    
+
     reply = QMessageBox.question(
-        parent,
-        title,
-        message,
-        QMessageBox.Yes | QMessageBox.No,
-        QMessageBox.No
+        parent, title, message, QMessageBox.Yes | QMessageBox.No, QMessageBox.No
     )
-    
+
     return reply == QMessageBox.Yes

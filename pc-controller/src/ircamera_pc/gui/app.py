@@ -5,8 +5,8 @@ Provides PyQt6-based researcher interface for controlling recording sessions.
 Implements FR6: User Interface for Monitoring & Control requirements.
 """
 
-import sys
 import asyncio
+import sys
 import signal
 from typing import Optional
 from PyQt6.QtWidgets import QApplication
@@ -26,50 +26,59 @@ from .utils import setup_logging
 class IRCameraApp:
     """
     Main application controller for IRCamera PC Controller.
-    
+
     Coordinates between GUI components and backend services including
     all new components: GSR Ingestor, File Transfer Manager, and Calibration Tools.
     """
-    
+
     def __init__(self):
         """Initialize the application with all components."""
         # Load configuration
         self.config = config
-        
+
         # Core services
         self.session_manager = SessionManager()
         self.time_sync_service = TimeSyncService()
         self.network_server = NetworkServer()
-        
+
         # New components for complete implementation
         self.gsr_ingestor = GSRIngestor(self.config)
         self.file_transfer_manager = FileTransferManager(self.config)
         self.camera_calibrator = CameraCalibrator(self.config)
-        
+
         # GUI
         self.qt_app: Optional[QApplication] = None
         self.main_window: Optional[MainWindow] = None
-        
+
         # Event loop integration
         self._loop: Optional[asyncio.AbstractEventLoop] = None
         self._timer: Optional[QTimer] = None
-        
+
         logger.info("IRCamera Application initialized with all components")
-        logger.info("Components: Session Manager, Time Sync, Network Server, GSR Ingestor, File Transfer, Camera Calibrator")
-    
+        components = [
+            "Session Manager",
+            "Time Sync", 
+            "Network Server",
+            "GSR Ingestor", 
+            "File Transfer",
+            "Camera Calibrator"
+        ]
+        logger.info(f"Components: {', '.join(components)}")
+
     def setup_qt_app(self) -> None:
         """Set up Qt application."""
         if self.qt_app is None:
             self.qt_app = QApplication(sys.argv)
             self.qt_app.setApplicationName("IRCamera PC Controller")
             self.qt_app.setApplicationVersion("0.1.0")
-            
+
             # Set up application style
-            self.qt_app.setStyleSheet("""
+            self.qt_app.setStyleSheet(
+                """
                 QMainWindow {
                     background-color: #f0f0f0;
                 }
-                
+
                 QGroupBox {
                     font-weight: bold;
                     border: 2px solid #cccccc;
@@ -77,13 +86,13 @@ class IRCameraApp:
                     margin-top: 1ex;
                     padding-top: 10px;
                 }
-                
+
                 QGroupBox::title {
                     subcontrol-origin: margin;
                     left: 10px;
                     padding: 0 5px 0 5px;
                 }
-                
+
                 QPushButton {
                     background-color: #e1e1e1;
                     border: 1px solid #969696;
@@ -91,70 +100,71 @@ class IRCameraApp:
                     padding: 6px;
                     min-width: 80px;
                 }
-                
+
                 QPushButton:hover {
                     background-color: #e8e8e8;
                 }
-                
+
                 QPushButton:pressed {
                     background-color: #d0d0d0;
                 }
-                
+
                 QPushButton:disabled {
                     color: #888888;
                     background-color: #f0f0f0;
                 }
-                
+
                 QPushButton.primary {
                     background-color: #0078d4;
                     color: white;
                     font-weight: bold;
                 }
-                
+
                 QPushButton.primary:hover {
                     background-color: #106ebe;
                 }
-                
+
                 QPushButton.primary:pressed {
                     background-color: #005a9e;
                 }
-                
+
                 QPushButton.danger {
                     background-color: #d13438;
                     color: white;
                     font-weight: bold;
                 }
-                
+
                 QPushButton.danger:hover {
                     background-color: #c4292e;
                 }
-                
+
                 QPushButton.danger:pressed {
                     background-color: #a01e22;
                 }
-                
+
                 QListWidget {
                     border: 1px solid #cccccc;
                     border-radius: 3px;
                     background-color: white;
                 }
-                
+
                 QListWidget::item {
                     padding: 8px;
                     border-bottom: 1px solid #eeeeee;
                 }
-                
+
                 QListWidget::item:selected {
                     background-color: #0078d4;
                     color: white;
                 }
-                
+
                 QStatusBar {
                     border-top: 1px solid #cccccc;
                     background-color: #f8f8f8;
                 }
-            """)
-            
+            """
+            )
+
         # Create main window with all components
         self.main_window = MainWindow(
             session_manager=self.session_manager,
@@ -162,15 +172,15 @@ class IRCameraApp:
             time_sync_service=self.time_sync_service,
             gsr_ingestor=self.gsr_ingestor,
             file_transfer_manager=self.file_transfer_manager,
-            camera_calibrator=self.camera_calibrator
+            camera_calibrator=self.camera_calibrator,
         )
-        
+
         # Set up window size from config
-        window_size = config.get('gui.window_size', [1200, 800])
+        window_size = config.get("gui.window_size", [1200, 800])
         self.main_window.resize(window_size[0], window_size[1])
-        
+
         logger.info("Qt application set up")
-    
+
     def setup_event_loop_integration(self) -> None:
         """Set up asyncio event loop integration with Qt."""
         # Get or create event loop
@@ -179,17 +189,17 @@ class IRCameraApp:
         except RuntimeError:
             self._loop = asyncio.new_event_loop()
             asyncio.set_event_loop(self._loop)
-        
+
         # Set up periodic Qt processing
         self._timer = QTimer()
         self._timer.timeout.connect(self._process_async_events)
-        
+
         # Update interval from config
-        update_interval = config.get('gui.update_interval_ms', 100)
+        update_interval = config.get("gui.update_interval_ms", 100)
         self._timer.start(update_interval)
-        
+
         logger.debug("Event loop integration set up")
-    
+
     def _process_async_events(self) -> None:
         """Process pending asyncio events."""
         if self._loop:
@@ -204,66 +214,66 @@ class IRCameraApp:
                         break
             except Exception as e:
                 logger.error(f"Error processing async events: {e}")
-    
+
     async def start_services(self) -> None:
         """Start backend services."""
         try:
             # Start time synchronization service
             await self.time_sync_service.start()
-            
+
             # Start network server
             await self.network_server.start()
-            
+
             logger.info("All services started successfully")
-            
+
         except Exception as e:
             logger.error(f"Failed to start services: {e}")
             raise
-    
+
     async def stop_services(self) -> None:
         """Stop backend services."""
         try:
             # Stop services in reverse order
             await self.network_server.stop()
             await self.time_sync_service.stop()
-            
+
             logger.info("All services stopped")
-            
+
         except Exception as e:
             logger.error(f"Error stopping services: {e}")
-    
+
     def run(self) -> int:
         """
         Run the application.
-        
+
         Returns:
             Application exit code
         """
         try:
             # Set up logging
             setup_logging()
-            
+
             # Set up Qt application
             self.setup_qt_app()
-            
+
             # Set up event loop integration
             self.setup_event_loop_integration()
-            
+
             # Set up signal handlers
             signal.signal(signal.SIGINT, self._handle_signal)
             signal.signal(signal.SIGTERM, self._handle_signal)
-            
+
             # Start backend services
             asyncio.run_coroutine_threadsafe(self.start_services(), self._loop)
-            
+
             # Show main window
             self.main_window.show()
-            
+
             logger.info("IRCamera PC Controller started")
-            
+
             # Run Qt event loop
             return self.qt_app.exec_()
-            
+
         except Exception as e:
             logger.error(f"Application error: {e}")
             return 1
@@ -271,7 +281,7 @@ class IRCameraApp:
             # Clean up
             if self._timer:
                 self._timer.stop()
-            
+
             # Stop services
             if self._loop and not self._loop.is_closed():
                 try:
@@ -279,11 +289,11 @@ class IRCameraApp:
                     future.result(timeout=5)  # 5 second timeout
                 except Exception as e:
                     logger.error(f"Error during cleanup: {e}")
-    
+
     def _handle_signal(self, signum: int, frame) -> None:
         """Handle system signals."""
         logger.info(f"Received signal {signum}, shutting down...")
-        
+
         if self.qt_app:
             self.qt_app.quit()
 
