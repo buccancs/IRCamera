@@ -36,7 +36,10 @@ class MultiModalRecordingActivity : AppCompatActivity() {
         private val REQUIRED_PERMISSIONS = arrayOf(
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.RECORD_AUDIO
+            Manifest.permission.RECORD_AUDIO,
+            // Android 12+ Bluetooth permissions for Shimmer3 GSR devices
+            Manifest.permission.BLUETOOTH_SCAN,
+            Manifest.permission.BLUETOOTH_CONNECT
         )
         
         fun start(context: Context) {
@@ -217,13 +220,57 @@ class MultiModalRecordingActivity : AppCompatActivity() {
     }
     
     private fun hasRequiredPermissions(): Boolean {
-        return REQUIRED_PERMISSIONS.all { permission ->
+        val basePermissions = arrayOf(
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.RECORD_AUDIO
+        )
+        
+        // Check base permissions
+        val baseGranted = basePermissions.all { permission ->
             ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
         }
+        
+        // Check Android 12+ Bluetooth permissions for Shimmer3 GSR devices
+        val bluetoothGranted = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            val bluetoothPermissions = arrayOf(
+                Manifest.permission.BLUETOOTH_SCAN,
+                Manifest.permission.BLUETOOTH_CONNECT
+            )
+            bluetoothPermissions.all { permission ->
+                ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
+            }
+        } else {
+            // Legacy Bluetooth permissions
+            ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH) == PackageManager.PERMISSION_GRANTED &&
+            ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_ADMIN) == PackageManager.PERMISSION_GRANTED
+        }
+        
+        return baseGranted && bluetoothGranted
     }
     
     private fun requestPermissions() {
-        ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_PERMISSIONS)
+        val permissionsToRequest = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            // Android 12+ permissions including Bluetooth for Shimmer3 GSR devices
+            arrayOf(
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.BLUETOOTH_SCAN,
+                Manifest.permission.BLUETOOTH_CONNECT
+            )
+        } else {
+            // Legacy permissions
+            arrayOf(
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.BLUETOOTH,
+                Manifest.permission.BLUETOOTH_ADMIN
+            )
+        }
+        
+        ActivityCompat.requestPermissions(this, permissionsToRequest, REQUEST_PERMISSIONS)
     }
     
     override fun onRequestPermissionsResult(
@@ -235,10 +282,28 @@ class MultiModalRecordingActivity : AppCompatActivity() {
         
         if (requestCode == REQUEST_PERMISSIONS) {
             if (grantResults.isNotEmpty() && grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
-                statusText.text = "Permissions granted. Ready to record."
+                statusText.text = "All permissions granted. GSR recording with Shimmer3 devices ready."
             } else {
-                statusText.text = "Permissions required for recording."
-                Toast.makeText(this, "Storage permissions are required for GSR recording", 
+                statusText.text = "Permissions required for GSR recording and Shimmer3 device access."
+                val missingPermissions = mutableListOf<String>()
+                
+                // Check which specific permissions are missing
+                permissions.forEachIndexed { index, permission ->
+                    if (grantResults[index] != PackageManager.PERMISSION_GRANTED) {
+                        when (permission) {
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE, 
+                            Manifest.permission.READ_EXTERNAL_STORAGE -> missingPermissions.add("Storage")
+                            Manifest.permission.RECORD_AUDIO -> missingPermissions.add("Audio")
+                            Manifest.permission.BLUETOOTH_SCAN, 
+                            Manifest.permission.BLUETOOTH_CONNECT,
+                            Manifest.permission.BLUETOOTH,
+                            Manifest.permission.BLUETOOTH_ADMIN -> missingPermissions.add("Bluetooth (for Shimmer3 GSR)")
+                        }
+                    }
+                }
+                
+                Toast.makeText(this, 
+                    "Missing permissions: ${missingPermissions.joinToString(", ")}", 
                     Toast.LENGTH_LONG).show()
             }
         }

@@ -44,6 +44,7 @@ import com.topdon.lib.core.common.WifiSaveSettingUtil
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.config.RouterConfig
+import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.dialog.EmissivityTipPopup
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.dialog.TipEmissivityDialog
@@ -459,6 +460,12 @@ class IRThermal07Activity : BaseWifiActivity() {
                 .setDataBean(config.environment, config.distance, config.radiation, text)
                 .build()
                 .showAsDropDown(title_view, 0, 0, Gravity.END)
+        }
+        
+        // GSR Multi-modal Recording Access (long press on thermal title for research features)
+        title_view.setOnLongClickListener {
+            showGSROptions()
+            true
         }
         view_car_detect.findViewById<LinearLayout>(com.topdon.module.thermal.ir.R.id.ll_car_detect_info).setOnClickListener {
             LongTextDialog(this, SharedManager.getCarDetectInfo()?.item, SharedManager.getCarDetectInfo()?.description).show()
@@ -1753,6 +1760,9 @@ class IRThermal07Activity : BaseWifiActivity() {
                 if (recorder.startRecording(sessionId, null, true)) {
                     Log.d("ThermalSync", "GSR recording started with unified timing: $sessionId")
                     
+                    // Show user feedback for synchronized recording
+                    TToast.shortToast(this@IRThermal07Activity, "Synchronized thermal + GSR recording started")
+                    
                     // Add initial sync mark with exact timestamp
                     recorder.triggerSyncEvent("THERMAL_VIDEO_START", mapOf(
                         "sync_timestamp" to synchronizedTimestamp.toString(),
@@ -1763,6 +1773,7 @@ class IRThermal07Activity : BaseWifiActivity() {
                     ))
                 } else {
                     Log.w("ThermalSync", "Failed to start synchronized GSR recording, continuing with thermal only")
+                    TToast.shortToast(this@IRThermal07Activity, "Thermal recording only (GSR unavailable)")
                 }
             }
             
@@ -1790,6 +1801,10 @@ class IRThermal07Activity : BaseWifiActivity() {
                         session?.let { 
                             Log.d("ThermalSync", "Synchronized recording completed: ${it.sessionId}, duration: ${it.getDurationMs()}ms")
                             Log.d("ThermalSync", "Session files saved to: ${recorder.getSessionDirectory()?.absolutePath}")
+                            
+                            // Show completion feedback with file location
+                            TToast.shortToast(this@IRThermal07Activity, 
+                                "Synchronized recording completed: ${it.sampleCount} GSR samples")
                         }
                     }
                     
@@ -1916,6 +1931,28 @@ class IRThermal07Activity : BaseWifiActivity() {
         super.onPause()
         stopCorrection()
         AlarmHelp.getInstance(this).pause()
+    }
+
+    /**
+     * Show GSR options dialog for multi-modal recording access
+     */
+    private fun showGSROptions() {
+        TipDialog.Builder(this)
+            .setTitleMessage("GSR Multi-modal Recording")
+            .setMessage("Choose GSR recording option:")
+            .setPositiveListener("Full Recording") {
+                // Launch full multi-modal recording interface
+                ARouter.getInstance()
+                    .build(RouterConfig.GSR_MULTI_MODAL)
+                    .navigation(this)
+            }
+            .setCancelListener("GSR Demo") {
+                // Launch simple GSR demo
+                ARouter.getInstance()
+                    .build(RouterConfig.GSR_DEMO)
+                    .navigation(this)
+            }
+            .create().show()
     }
 
     override fun onDestroy() {
