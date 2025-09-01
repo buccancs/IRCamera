@@ -4,13 +4,13 @@ Custom widgets for IRCamera PC Controller GUI
 Specialized UI components for device management and session control.
 """
 
-from PyQt5.QtWidgets import (
+from PyQt6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, 
     QListWidget, QListWidgetItem, QProgressBar, QGroupBox,
     QGridLayout, QLCDNumber, QFrame
 )
-from PyQt5.QtCore import Qt, pyqtSignal, QTimer
-from PyQt5.QtGui import QFont, QColor, QPalette
+from PyQt6.QtCore import Qt, pyqtSignal, QTimer
+from PyQt6.QtGui import QFont, QColor, QPalette
 from typing import Dict, Any, Optional
 from datetime import datetime
 
@@ -58,7 +58,7 @@ class DeviceListWidget(QListWidget):
     def _add_device_item(self, device_id: str, device_info: DeviceInfo) -> None:
         """Add new device item to list."""
         item = QListWidgetItem()
-        item.setData(Qt.UserRole, device_id)
+        item.setData(Qt.ItemDataRole.UserRole, device_id)
         
         self._device_items[device_id] = item
         self.addItem(item)
@@ -121,7 +121,7 @@ class DeviceListWidget(QListWidget):
     
     def _on_item_clicked(self, item: QListWidgetItem) -> None:
         """Handle item click."""
-        device_id = item.data(Qt.UserRole)
+        device_id = item.data(Qt.ItemDataRole.UserRole)
         if device_id:
             self.device_selected.emit(device_id)
 

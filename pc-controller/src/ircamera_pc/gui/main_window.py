@@ -4,14 +4,14 @@ Main Window for IRCamera PC Controller
 Provides the main researcher interface with device monitoring and session control.
 """
 
-from PyQt5.QtWidgets import (
+from PyQt6.QtWidgets import (
     QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QGridLayout,
     QPushButton, QLabel, QListWidget, QListWidgetItem, QGroupBox,
     QStatusBar, QMessageBox, QInputDialog, QProgressBar, QTextEdit,
     QSplitter, QFrame
 )
-from PyQt5.QtCore import QTimer, Qt, pyqtSignal
-from PyQt5.QtGui import QFont, QIcon, QPixmap
+from PyQt6.QtCore import QTimer, Qt, pyqtSignal
+from PyQt6.QtGui import QFont, QIcon, QPixmap
 from typing import Optional, Dict, Any
 from datetime import datetime
 from loguru import logger
@@ -99,7 +99,7 @@ class MainWindow(QMainWindow):
         main_layout = QHBoxLayout(central_widget)
         
         # Create splitter for resizable panes
-        splitter = QSplitter(Qt.Horizontal)
+        splitter = QSplitter(Qt.Orientation.Horizontal)
         main_layout.addWidget(splitter)
         
         # Left pane - Device management and session control

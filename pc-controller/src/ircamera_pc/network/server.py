@@ -1,7 +1,7 @@
 """
 Network Server for IRCamera PC Controller
 
-Manages JSON/TCP/IP communication with Android devices for command and control.
+Manages JSON-based communication with Android devices using formal protocol definition.
 Implements FR2: Synchronised Multi-Modal Recording and FR7: Device Synchronisation.
 """
 
@@ -19,6 +19,7 @@ except ImportError:
     from ..utils.simple_logger import logger
 
 from ..core.config import config
+from .protocol import get_protocol_manager, create_message, validate_message, ValidationError
 
 
 class DeviceState(Enum):
@@ -96,12 +97,22 @@ class NetworkServer:
         self._heartbeat_task: Optional[asyncio.Task] = None
         self._is_running = False
         
+        # Protocol manager
+        self._protocol = get_protocol_manager()
+        
         # Configuration
-        self._host = config.get('network.server_host', '0.0.0.0')
-        self._port = config.get('network.server_port', 8080)
+        transport_config = self._protocol.get_transport_config()
+        self._host = config.get('network.server_host', transport_config.get('host', '0.0.0.0'))
+        self._port = config.get('network.server_port', transport_config.get('port', 8080))
         self._max_connections = config.get('network.max_connections', 8)
-        self._heartbeat_interval = config.get('network.heartbeat_interval', 5)
-        self._connection_timeout = config.get('network.connection_timeout', 30)
+        
+        connection_config = transport_config.get('connection', {})
+        self._heartbeat_interval = config.get('network.heartbeat_interval', connection_config.get('heartbeat_interval_s', 5))
+        self._connection_timeout = config.get('network.connection_timeout', connection_config.get('timeout_s', 30))
+        
+        # Get max message size from protocol
+        framing = transport_config.get('message_framing', {})
+        self._max_message_size = framing.get('max_message_size', 1024 * 1024)  # 1MB default
         
         # Event callbacks
         self._on_device_connected: Optional[Callable] = None
@@ -109,15 +120,18 @@ class NetworkServer:
         self._on_device_status_update: Optional[Callable] = None
         
         self._setup_message_handlers()
-        logger.info("Network Server initialized")
+        logger.info(f"Network Server initialized with protocol {self._protocol.get_protocol_info()['version']}")
     
     def _setup_message_handlers(self) -> None:
         """Set up message handlers for different message types."""
         self._message_handlers = {
-            MessageType.DEVICE_REGISTER.value: self._handle_device_register,
-            MessageType.DEVICE_HEARTBEAT.value: self._handle_device_heartbeat,
-            MessageType.DEVICE_STATUS.value: self._handle_device_status,
-            MessageType.FILE_TRANSFER_COMPLETE.value: self._handle_file_transfer_complete,
+            "device_register": self._handle_device_register,
+            "device_heartbeat": self._handle_device_heartbeat,
+            "device_status": self._handle_device_status,
+            "file_transfer_complete": self._handle_file_transfer_complete,
+            "time_sync_request": self._handle_time_sync_request,
+            "gsr_data_batch": self._handle_gsr_data_batch,
+            "gsr_leader_election": self._handle_gsr_leader_election,
         }
     
     async def start(self) -> None:
@@ -187,7 +201,7 @@ class NetworkServer:
                 length_data = await reader.readexactly(4)
                 message_length = int.from_bytes(length_data, 'big')
                 
-                if message_length > 1024 * 1024:  # 1MB limit
+                if message_length > self._max_message_size:
                     logger.warning(f"Message too large from {addr}: {message_length} bytes")
                     break
                 
@@ -221,16 +235,21 @@ class NetworkServer:
             await writer.wait_closed()
     
     async def _process_message(self, message: Dict[str, Any], writer: asyncio.StreamWriter) -> None:
-        """Process incoming message from device."""
+        """Process incoming message from device using protocol validation."""
         try:
-            message_type = message.get('type')
+            # Validate message against protocol
+            if not validate_message(message, strict=False):
+                await self._send_error(writer, "Message validation failed")
+                return
+            
+            message_type = message.get('message_type')
             message_id = message.get('message_id', str(uuid.uuid4()))
             
             if not message_type:
-                await self._send_error(writer, "Missing message type", message_id)
+                await self._send_error(writer, "Missing message_type field", message_id)
                 return
             
-            # Handle message
+            # Handle message using protocol-aware handlers
             if message_type in self._message_handlers:
                 response = await self._message_handlers[message_type](message, writer)
                 if response:
@@ -240,6 +259,9 @@ class NetworkServer:
                 logger.warning(f"Unknown message type: {message_type}")
                 await self._send_error(writer, f"Unknown message type: {message_type}", message_id)
                 
+        except ValidationError as e:
+            logger.warning(f"Protocol validation error: {e}")
+            await self._send_error(writer, f"Protocol validation error: {e}")
         except Exception as e:
             logger.error(f"Error processing message: {e}")
             await self._send_error(writer, str(e))
@@ -287,19 +309,18 @@ class NetworkServer:
             if self._on_device_connected:
                 self._on_device_connected(device_info)
             
-            return {
-                'type': MessageType.ACK.value,
-                'registered': True,
-                'is_gsr_leader': device_info.is_gsr_leader,
-                'gsr_mode': device_info.gsr_mode
-            }
+            return create_message("ack",
+                                ack_for="device_register",
+                                status="success")
             
         except Exception as e:
             logger.error(f"Error handling device registration: {e}")
-            return {'type': MessageType.ERROR.value, 'error': str(e)}
+            return create_message("error",
+                                error_code="RESOURCE_UNAVAILABLE", 
+                                error_message=str(e))
     
     async def _handle_device_heartbeat(self, message: Dict[str, Any], writer: asyncio.StreamWriter) -> Dict[str, Any]:
-        """Handle device heartbeat."""
+        """Handle device heartbeat using protocol format."""
         device_id = message.get('device_id')
         
         if device_id in self._devices:
@@ -310,20 +331,22 @@ class NetworkServer:
                 self._devices[device_id].battery_level = message['battery_level']
             
             logger.debug(f"Heartbeat from {device_id}")
-            return {'type': MessageType.ACK.value}
+            return create_message("ack", ack_for="device_heartbeat", status="success")
         
-        return {'type': MessageType.ERROR.value, 'error': 'Device not registered'}
+        return create_message("error", 
+                            error_code="DEVICE_BUSY", 
+                            error_message="Device not registered")
     
     async def _handle_device_status(self, message: Dict[str, Any], writer: asyncio.StreamWriter) -> Dict[str, Any]:
-        """Handle device status update."""
+        """Handle device status update using protocol format."""
         device_id = message.get('device_id')
         
         if device_id in self._devices:
             device = self._devices[device_id]
             
             # Update status fields
-            if 'state' in message:
-                device.state = message['state']
+            if 'status' in message:
+                device.state = message['status']
             if 'battery_level' in message:
                 device.battery_level = message['battery_level']
             
@@ -333,19 +356,76 @@ class NetworkServer:
             if self._on_device_status_update:
                 self._on_device_status_update(device)
             
-            return {'type': MessageType.ACK.value}
+            return create_message("ack", ack_for="device_status", status="success")
         
-        return {'type': MessageType.ERROR.value, 'error': 'Device not registered'}
+        return create_message("error",
+                            error_code="DEVICE_BUSY",
+                            error_message="Device not registered")
     
     async def _handle_file_transfer_complete(self, message: Dict[str, Any], writer: asyncio.StreamWriter) -> Dict[str, Any]:
-        """Handle file transfer completion notification."""
+        """Handle file transfer completion notification using protocol format."""
         device_id = message.get('device_id')
-        filename = message.get('filename')
-        checksum = message.get('checksum')
+        transfer_id = message.get('transfer_id')
+        status = message.get('status')
         
-        logger.info(f"File transfer complete from {device_id}: {filename} (checksum: {checksum})")
+        logger.info(f"File transfer {status} from {device_id}: {transfer_id}")
         
-        return {'type': MessageType.ACK.value}
+        return create_message("ack", ack_for="file_transfer_complete", status="success")
+    
+    async def _handle_time_sync_request(self, message: Dict[str, Any], writer: asyncio.StreamWriter) -> Dict[str, Any]:
+        """Handle time synchronization request using protocol format."""
+        device_id = message.get('device_id')
+        client_timestamp = message.get('client_timestamp')
+        
+        server_timestamp = datetime.now(timezone.utc).isoformat()
+        
+        return create_message("time_sync_response",
+                            server_timestamp=server_timestamp,
+                            client_timestamp=client_timestamp,
+                            processing_delay_ms=1.0)  # Minimal processing delay
+    
+    async def _handle_gsr_data_batch(self, message: Dict[str, Any], writer: asyncio.StreamWriter) -> Dict[str, Any]:
+        """Handle GSR data batch using protocol format."""
+        device_id = message.get('device_id')
+        session_id = message.get('session_id')
+        data_points = message.get('data_points', [])
+        
+        logger.debug(f"Received GSR data batch from {device_id}: {len(data_points)} points")
+        
+        # TODO: Forward to GSR ingestor
+        
+        return create_message("ack", ack_for="gsr_data_batch", status="success")
+    
+    async def _handle_gsr_leader_election(self, message: Dict[str, Any], writer: asyncio.StreamWriter) -> Dict[str, Any]:
+        """Handle GSR leader election using protocol format."""
+        device_id = message.get('device_id')
+        election_type = message.get('election_type')
+        priority_score = message.get('priority_score', 0)
+        
+        logger.info(f"GSR leader election from {device_id}: {election_type} (score: {priority_score})")
+        
+        if election_type == "candidate" and device_id in self._devices:
+            # Simple leader election - highest priority score wins
+            current_leader = None
+            for did, device in self._devices.items():
+                if device.is_gsr_leader:
+                    current_leader = device
+                    break
+            
+            if not current_leader or priority_score > 0.8:  # High priority threshold
+                # Elect new leader
+                if current_leader:
+                    current_leader.is_gsr_leader = False
+                
+                self._devices[device_id].is_gsr_leader = True
+                logger.info(f"New GSR leader elected: {device_id}")
+                
+                return create_message("gsr_leader_election",
+                                    device_id="pc_controller",
+                                    election_type="leader",
+                                    priority_score=1.0)
+        
+        return create_message("ack", ack_for="gsr_leader_election", status="success")
     
     async def _handle_device_disconnect(self, device_id: str) -> None:
         """Handle device disconnection."""
@@ -435,7 +515,7 @@ class NetworkServer:
                 try:
                     await self._send_message(self._clients[device_id], command)
                     results[device_id] = True
-                    logger.debug(f"Command sent to {device_id}: {command.get('type')}")
+                    logger.debug(f"Command sent to {device_id}: {command.get('message_type')}")
                 except Exception as e:
                     logger.error(f"Failed to send command to {device_id}: {e}")
                     results[device_id] = False
@@ -444,47 +524,38 @@ class NetworkServer:
         
         return results
     
-    async def start_recording_session(self, session_id: str) -> Dict[str, bool]:
-        """Start recording session on all devices."""
-        command = {
-            'type': MessageType.SESSION_START.value,
-            'session_id': session_id,
-            'timestamp': datetime.now(timezone.utc).isoformat()
-        }
+    async def start_recording_session(self, session_id: str, session_name: str = None) -> Dict[str, bool]:
+        """Start recording session on all devices using protocol format."""
+        command = create_message("session_start",
+                                session_id=session_id,
+                                session_name=session_name or f"Session_{session_id[:8]}")
         
         logger.info(f"Starting recording session {session_id} on all devices")
         return await self.broadcast_command(command)
     
     async def stop_recording_session(self, session_id: str) -> Dict[str, bool]:
-        """Stop recording session on all devices."""
-        command = {
-            'type': MessageType.SESSION_STOP.value,
-            'session_id': session_id,
-            'timestamp': datetime.now(timezone.utc).isoformat()
-        }
+        """Stop recording session on all devices using protocol format."""
+        command = create_message("session_stop", session_id=session_id)
         
         logger.info(f"Stopping recording session {session_id} on all devices")
         return await self.broadcast_command(command)
     
-    async def send_sync_flash(self) -> Dict[str, bool]:
-        """Send sync flash command to all devices."""
-        command = {
-            'type': MessageType.SYNC_FLASH.value,
-            'timestamp': datetime.now(timezone.utc).isoformat(),
-            'sync_id': str(uuid.uuid4())
-        }
+    async def send_sync_flash(self, duration_ms: int = 100) -> Dict[str, bool]:
+        """Send sync flash command to all devices using protocol format."""
+        command = create_message("sync_flash", 
+                                duration_ms=duration_ms,
+                                intensity=1.0,
+                                color="white")
         
         logger.info("Sending sync flash to all devices")
         return await self.broadcast_command(command)
     
-    async def send_sync_mark(self, mark_type: str, data: Dict[str, Any] = None) -> Dict[str, bool]:
-        """Send sync mark to all devices."""
-        command = {
-            'type': MessageType.SYNC_MARK.value,
-            'mark_type': mark_type,
-            'timestamp': datetime.now(timezone.utc).isoformat(),
-            'data': data or {}
-        }
+    async def send_sync_mark(self, mark_type: str, metadata: Dict[str, Any] = None) -> Dict[str, bool]:
+        """Send sync mark to all devices using protocol format."""
+        command = create_message("sync_mark",
+                                mark_type=mark_type,
+                                mark_id=str(uuid.uuid4()),
+                                metadata=metadata or {})
         
         logger.info(f"Sending sync mark '{mark_type}' to all devices")
         return await self.broadcast_command(command)
@@ -503,11 +574,10 @@ class NetworkServer:
             raise
     
     async def _send_error(self, writer: asyncio.StreamWriter, error_message: str, message_id: str = None) -> None:
-        """Send error response to client."""
-        error_response = {
-            'type': MessageType.ERROR.value,
-            'error': error_message
-        }
+        """Send error response to client using protocol format."""
+        error_response = create_message("error",
+                                       error_code="INVALID_MESSAGE",
+                                       error_message=error_message)
         
         if message_id:
             error_response['message_id'] = message_id

@@ -1,7 +1,7 @@
 """
 Main GUI Application for IRCamera PC Controller
 
-Provides PyQt5-based researcher interface for controlling recording sessions.
+Provides PyQt6-based researcher interface for controlling recording sessions.
 Implements FR6: User Interface for Monitoring & Control requirements.
 """
 
@@ -9,8 +9,8 @@ import sys
 import asyncio
 import signal
 from typing import Optional
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QtCore import QTimer
+from PyQt6.QtWidgets import QApplication
+from PyQt6.QtCore import QTimer
 from loguru import logger
 
 from ..core import config, SessionManager
