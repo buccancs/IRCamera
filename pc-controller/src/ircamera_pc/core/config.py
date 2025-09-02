@@ -47,7 +47,7 @@ class ConfigManager:
 
             logger.info(f"Configuration loaded from {self.config_path}")
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Failed to load configuration: {e}")
             self._config = self._get_default_config()
 
@@ -97,7 +97,8 @@ class ConfigManager:
         Get configuration value by dot-notation key.
 
         Args:
-            key: Configuration key in dot notation (e.g., 'network.server_port')
+            key: Configuration key in dot notation (e.g.,
+                'network.server_port')
             default: Default value if key not found
 
         Returns:
@@ -142,11 +143,13 @@ class ConfigManager:
             self.config_path.parent.mkdir(parents=True, exist_ok=True)
 
             with open(self.config_path, "w", encoding="utf-8") as file:
-                yaml.dump(self._config, file, default_flow_style=False, indent=2)
+                yaml.dump(
+                    self._config, file, default_flow_style=False, indent=2
+                )
 
             logger.info(f"Configuration saved to {self.config_path}")
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Failed to save configuration: {e}")
 
     def reload(self) -> None:

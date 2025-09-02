@@ -227,7 +227,11 @@ class MainWindow(QMainWindow):
 
         # If no system integration features available, show a message
         if not any(
-            [self.admin_privileges_manager, self.bluetooth_manager, self.wifi_manager]
+            [
+                self.admin_privileges_manager,
+                self.bluetooth_manager,
+                self.wifi_manager,
+            ]
         ):
             placeholder = QLabel("System integration features not available")
             placeholder.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -299,11 +303,15 @@ class MainWindow(QMainWindow):
 
         # Device list connections
         if self.device_list_widget:
-            self.device_list_widget.device_selected.connect(self._on_device_selected)
+            self.device_list_widget.device_selected.connect(
+                self._on_device_selected
+            )
 
     def _setup_network_callbacks(self) -> None:
         """Set up network server event callbacks."""
-        self.network_server.set_device_connected_callback(self._on_device_connected)
+        self.network_server.set_device_connected_callback(
+            self._on_device_connected
+        )
         self.network_server.set_device_disconnected_callback(
             self._on_device_disconnected
         )
@@ -345,7 +353,9 @@ class MainWindow(QMainWindow):
                 )
             )
             self.bluetooth_manager.error_occurred.connect(
-                lambda op, err: self.bluetooth_control_widget.set_error_status(err)
+                lambda op, err: self.bluetooth_control_widget.set_error_status(
+                    err
+                )
             )
 
         # WiFi manager callbacks
@@ -360,7 +370,9 @@ class MainWindow(QMainWindow):
                 )
             )
             self.wifi_control_widget.disconnect_requested.connect(
-                lambda: asyncio.create_task(self.wifi_manager.disconnect_from_network())
+                lambda: asyncio.create_task(
+                    self.wifi_manager.disconnect_from_network()
+                )
             )
             self.wifi_control_widget.hotspot_start_requested.connect(
                 lambda ssid, pwd, ch: asyncio.create_task(
@@ -373,7 +385,9 @@ class MainWindow(QMainWindow):
 
             # Connect manager signals to widget updates
             self.wifi_manager.networks_discovered.connect(
-                lambda networks: self.wifi_control_widget.update_networks(networks)
+                lambda networks: self.wifi_control_widget.update_networks(
+                    networks
+                )
             )
             self.wifi_manager.network_connected.connect(
                 lambda ssid, ip: self.wifi_control_widget.set_connection_status(
@@ -398,7 +412,9 @@ class MainWindow(QMainWindow):
         if self.admin_privileges_manager and self.system_integration_widget:
             # Connect widget signals to manager methods
             self.system_integration_widget.elevation_requested.connect(
-                lambda reason: self.admin_privileges_manager.request_elevation(reason)
+                lambda reason: self.admin_privileges_manager.request_elevation(
+                    reason
+                )
             )
 
             # Connect manager signals to widget updates
@@ -450,7 +466,9 @@ class MainWindow(QMainWindow):
 
                 current_session = self.session_manager.get_current_session()
                 if current_session:
-                    self.status_display_widget.update_session_info(current_session)
+                    self.status_display_widget.update_session_info(
+                        current_session
+                    )
 
             # Update session status in status bar
             current_session = self.session_manager.get_current_session()
@@ -458,13 +476,16 @@ class MainWindow(QMainWindow):
                 if current_session.state == SessionState.RECORDING.value:
                     if self._session_start_time:
                         elapsed = datetime.now() - self._session_start_time
-                        elapsed_str = str(elapsed).split(".")[0]  # Remove microseconds
+                        elapsed_str = str(elapsed).split(".")[
+                            0
+                        ]  # Remove microseconds
                         self.session_label.setText(f"Recording: {elapsed_str}")
                     else:
                         self.session_label.setText("Recording: --:--:--")
                 else:
                     self.session_label.setText(
-                        f"Session: {current_session.name} ({current_session.state})"
+                        f"Session: {current_session.name}"
+                        "({current_session.state})"
                     )
             else:
                 self.session_label.setText("No active session")
@@ -474,28 +495,37 @@ class MainWindow(QMainWindow):
             if sync_quality["total_devices"] > 0:
                 sync_rate = sync_quality["synchronization_rate"] * 100
                 if sync_rate >= 90:
-                    self.sync_label.setText(f"Time sync: OK ({sync_rate:.0f}%)")
+                    self.sync_label.setText(
+                        f"Time sync: OK ({sync_rate:.0f}%)"
+                    )
                 elif sync_rate >= 70:
-                    self.sync_label.setText(f"Time sync: WARNING ({sync_rate:.0f}%)")
+                    self.sync_label.setText(
+                        f"Time sync: WARNING ({sync_rate:.0f}%)"
+                    )
                 else:
-                    self.sync_label.setText(f"Time sync: ERROR ({sync_rate:.0f}%)")
+                    self.sync_label.setText(
+                        f"Time sync: ERROR ({sync_rate:.0f}%)"
+                    )
             else:
                 self.sync_label.setText("Time sync: No devices")
 
             # Update UI state
             self._update_ui_state()
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Error updating displays: {e}")
 
     def _update_ui_state(self) -> None:
-        """Update UI component enabled/disabled state based on current state."""
+        """Update UI component enabled/disabled"
+        "state based on current state."""
         current_session = self.session_manager.get_current_session()
         has_devices = len(self.network_server.get_connected_devices()) > 0
 
         # Update session control state
         if self.session_control_widget:
-            self.session_control_widget.update_state(current_session, has_devices)
+            self.session_control_widget.update_state(
+                current_session, has_devices
+            )
 
         # Update sync controls
         can_sync = (
@@ -535,7 +565,9 @@ class MainWindow(QMainWindow):
             import asyncio
 
             asyncio.create_task(
-                self.network_server.start_recording_session(current_session.session_id)
+                self.network_server.start_recording_session(
+                    current_session.session_id
+                )
             )
 
             self._current_session_id = current_session.session_id
@@ -544,7 +576,7 @@ class MainWindow(QMainWindow):
             logger.info(f"Session started: {current_session.name}")
             self._add_log_message(f"Session started: {current_session.name}")
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Error starting session: {e}")
             self._show_error("Error", f"Failed to start session: {e}")
 
@@ -559,7 +591,9 @@ class MainWindow(QMainWindow):
             import asyncio
 
             asyncio.create_task(
-                self.network_server.stop_recording_session(current_session.session_id)
+                self.network_server.stop_recording_session(
+                    current_session.session_id
+                )
             )
 
             # End the session
@@ -574,7 +608,7 @@ class MainWindow(QMainWindow):
                 f"(duration: {ended_session.duration_seconds:.1f}s)"
             )
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Error stopping session: {e}")
             self._show_error("Error", f"Failed to stop session: {e}")
 
@@ -599,7 +633,7 @@ class MainWindow(QMainWindow):
             logger.info(f"New session created: {session.name}")
             self._add_log_message(f"New session created: {session.name}")
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Error creating session: {e}")
             self._show_error("Error", f"Failed to create session: {e}")
 
@@ -620,7 +654,7 @@ class MainWindow(QMainWindow):
             logger.info("Sync flash sent to all devices")
             self._add_log_message("Sync flash sent to all devices")
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Error sending sync flash: {e}")
             self._show_error("Error", f"Failed to send sync flash: {e}")
 
@@ -653,7 +687,7 @@ class MainWindow(QMainWindow):
             logger.info(f"Sync mark added: {description}")
             self._add_log_message(f"Sync mark added: {description}")
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Error adding sync mark: {e}")
             self._show_error("Error", f"Failed to add sync mark: {e}")
 
@@ -668,7 +702,9 @@ class MainWindow(QMainWindow):
         """Handle device connection."""
         logger.info(f"Device connected: {device_info.device_id}")
         self._add_log_message(
-            f"Device connected: {device_info.device_id} " f"({device_info.device_type})"
+            f"Device connected: {device_info.device_id}"
+            ""
+            f"({device_info.device_type})"
         )
 
         # Add device to current session if active

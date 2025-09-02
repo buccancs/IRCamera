@@ -7,14 +7,13 @@ Basic test suite for core functionality validation.
 import pytest
 from unittest.mock import Mock, patch
 from datetime import datetime
-from pathlib import Path
 import tempfile
 import shutil
 
 from ..core.config import ConfigManager
 from ..core.session import SessionManager, SessionState
 from ..core.timesync import TimeSyncService
-from ..network.server import NetworkServer, DeviceInfo, DeviceState
+from ..network.server import NetworkServer, DeviceInfo
 
 
 class TestConfigManager:

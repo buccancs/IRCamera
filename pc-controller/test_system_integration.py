@@ -27,7 +27,7 @@ async def test_bluetooth_manager():
         print(f"   - Connected devices: {len(manager.connected_devices)}")
 
         return True
-    except Exception as e:
+    except (OSError, ValueError, RuntimeError) as e:
         print(f"❌ Bluetooth Manager test failed: {e}")
         return False
 
@@ -48,7 +48,7 @@ async def test_wifi_manager():
         print(f"   - WiFi interfaces: {len(manager.wifi_interfaces)}")
 
         return True
-    except Exception as e:
+    except (OSError, ValueError, RuntimeError) as e:
         print(f"❌ WiFi Manager test failed: {e}")
         return False
 
@@ -75,7 +75,7 @@ def test_admin_privileges_basic():
         print(f"   - Default permissions: {perms}")
 
         return True
-    except Exception as e:
+    except (OSError, ValueError, RuntimeError) as e:
         print(f"❌ Admin Privileges test failed: {e}")
         return False
 
@@ -103,7 +103,8 @@ def test_protocol_extension():
         }
 
         print("✅ Protocol Manager loaded")
-        print(f"   - Message types loaded: {len(manager._message_definitions)}")
+        print(f"   - Message types loaded: {len"
+            "(manager._message_definitions)}")
 
         # Test if our new message types are recognized
         bt_valid = manager.validate_message(bluetooth_scan_msg)
@@ -113,7 +114,7 @@ def test_protocol_extension():
         print(f"   - WiFi message valid: {wifi_valid}")
 
         return True
-    except Exception as e:
+    except (OSError, ValueError, RuntimeError) as e:
         print(f"❌ Protocol extension test failed: {e}")
         return False
 

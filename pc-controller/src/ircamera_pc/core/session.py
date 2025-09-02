@@ -102,7 +102,9 @@ class SessionManager:
             SessionState.ACTIVE.value,
             SessionState.RECORDING.value,
         ]:
-            raise ValueError("Cannot create new session: another session is active")
+            raise ValueError(
+                "Cannot create new session:" "another session is active"
+            )
 
         # Generate session ID and name
         session_id = str(uuid.uuid4())
@@ -148,7 +150,9 @@ class SessionManager:
             )
 
         self._current_session.state = SessionState.ACTIVE.value
-        self._current_session.started_at = datetime.now(timezone.utc).isoformat()
+        self._current_session.started_at = datetime.now(
+            timezone.utc
+        ).isoformat()
 
         self._save_metadata()
 
@@ -166,13 +170,16 @@ class SessionManager:
 
         if self._current_session.state != SessionState.ACTIVE.value:
             raise ValueError(
-                f"Cannot begin recording in state: {self._current_session.state}"
+                f"Cannot begin recording in state:"
+                "{self._current_session.state}"
             )
 
         self._current_session.state = SessionState.RECORDING.value
         self._save_metadata()
 
-        logger.info(f"Recording started for session: {self._current_session.name}")
+        logger.info(
+            f"Recording started for session:" "{self._current_session.name}"
+        )
 
     def end_session(self) -> SessionMetadata:
         """
@@ -228,7 +235,8 @@ class SessionManager:
 
         self._save_metadata()
         logger.debug(
-            f"Device added to session: {device_info.get('device_id', 'unknown')}"
+            f"Device added to session: {device_info.get('device_id',
+                'unknown')}"
         )
 
     def add_file(self, file_info: Dict[str, Any]) -> None:
@@ -246,7 +254,10 @@ class SessionManager:
         )
 
         self._save_metadata()
-        logger.debug(f"File added to session: {file_info.get('filename', 'unknown')}")
+        logger.debug(
+            f"File added to session: {file_info.get('filename',
+            'unknown')}"
+        )
 
     def add_sync_event(
         self, event_type: str, event_data: Dict[str, Any] = None
@@ -310,12 +321,15 @@ class SessionManager:
         try:
             with open(metadata_file, "w", encoding="utf-8") as f:
                 json.dump(
-                    asdict(self._current_session), f, indent=2, ensure_ascii=False
+                    asdict(self._current_session),
+                    f,
+                    indent=2,
+                    ensure_ascii=False,
                 )
 
             logger.debug(f"Session metadata saved: {metadata_file}")
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Failed to save session metadata: {e}")
 
     def load_session(self, session_id: str) -> Optional[SessionMetadata]:
@@ -328,7 +342,9 @@ class SessionManager:
         Returns:
             Loaded session metadata or None if not found
         """
-        metadata_file = self._get_session_directory(session_id) / "metadata.json"
+        metadata_file = (
+            self._get_session_directory(session_id) / "metadata.json"
+        )
 
         try:
             if not metadata_file.exists():
@@ -340,7 +356,7 @@ class SessionManager:
 
             return SessionMetadata(**data)
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Failed to load session metadata: {e}")
             return None
 
@@ -358,7 +374,7 @@ class SessionManager:
                 if item.is_dir() and (item / "metadata.json").exists():
                     sessions.append(item.name)
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Failed to list sessions: {e}")
 
         return sorted(sessions)

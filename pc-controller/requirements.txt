@@ -1,57 +1,72 @@
-# PC Controller Requirements - Updated for PyQt6 and latest packages
+# PC Controller Requirements - Updated with latest secure versions
 # Core GUI framework
-PyQt6>=6.4.0
+PyQt6>=6.9.0
 
-# Network communication
-websockets>=12.0
-asyncio-mqtt>=0.16.0
+# Network communication - Updated to secure versions
+websockets>=15.0
+asyncio-mqtt>=0.16.2
 
-# Data handling and serialization
-numpy>=1.25.0
-pandas>=2.1.0
+# Data handling and serialization - Latest stable versions
+numpy>=2.2.0
+pandas>=2.3.0
 
 # Computer vision for calibration
-opencv-python>=4.8.0
+opencv-python>=4.12.0
 
 # Configuration management
 pyyaml>=6.0.1
 
 # Logging
-loguru>=0.7.0
+loguru>=0.7.2
 
 # JSON schema validation for protocol
-jsonschema>=4.19.0
+jsonschema>=4.25.0
 
 # Time synchronization
 ntplib>=0.4.0
 
 # Testing
-pytest>=7.4.0
-pytest-asyncio>=0.21.0
-pytest-qt>=4.2.0
+pytest>=8.4.0
+pytest-asyncio>=0.25.0
+pytest-qt>=4.4.0
 
 # Development tools
-flake8>=6.0.0
-black>=23.0.0
+flake8>=7.3.0
+black>=25.1.0
 
-# Additional dependencies for enhanced functionality
-aiofiles>=23.2.0
-cryptography>=41.0.0
-typing-extensions>=4.7.0
+# Additional dependencies for enhanced functionality - Secure versions
+aiofiles>=24.2.0
+cryptography>=45.0.7
+typing-extensions>=4.12.0
+
+# Network security dependencies - Updated to address CVEs
+urllib3>=2.5.0
+requests>=2.32.3
+jinja2>=3.1.6
+certifi>=2025.1.1
 
 # Bluetooth control (using modern bleak instead of problematic pybluez)
-bleak>=0.21.0
+bleak>=0.23.0
 
 # WiFi control and system monitoring
-psutil>=5.9.0
+psutil>=7.0.0
 
 # Windows system integration (optional - only install on Windows)
-pywin32>=306; sys_platform == "win32"
-comtypes>=1.2.0; sys_platform == "win32"
+pywin32>=308; sys_platform == "win32"
+comtypes>=1.4.8; sys_platform == "win32"
 
 # Administrator privileges and system control
 elevate>=0.1.3
 
 # Alternative WiFi packages for different platforms
 pywifi>=1.1.12; sys_platform == "win32"
+
+# Security and validation tools
+bandit>=1.8.6
+safety>=3.6.1
+
+# Code quality tools
+autoflake>=2.3.1
+mypy>=1.15.0
+
 # For Linux/macOS, we'll use subprocess calls to system tools

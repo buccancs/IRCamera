@@ -178,7 +178,7 @@ def main():
         print("• PyQt6 Compatibility: ✓ Imports updated")
         print("• Package Versions: ✓ Updated to latest")
 
-    except Exception as e:
+    except (OSError, ValueError, RuntimeError) as e:
         print(f"\n❌ TEST FAILED: {e}")
         import traceback
 

@@ -54,7 +54,15 @@ class CameraIntrinsics:
     @property
     def camera_matrix(self) -> np.ndarray:
         """Get camera matrix as numpy array"""
-        return np.array([[self.fx, 0, self.cx], [0, self.fy, self.cy], [0, 0, 1]])
+        return np.array([[self.fx,
+            0,
+            self.cx],
+            [0,
+            self.fy,
+            self.cy],
+            [0,
+            0,
+            1]])
 
     @property
     def distortion_coeffs(self) -> np.ndarray:
@@ -137,7 +145,9 @@ class ChessboardDetector:
         ].T.reshape(-1, 2)
         self.object_points_3d *= square_size
 
-    def detect_corners(self, image: np.ndarray) -> Tuple[bool, Optional[np.ndarray]]:
+    def detect_corners(self,
+        image: np.ndarray) -> Tuple[bool,
+        Optional[np.ndarray]]:
         """
         Detect chessboard corners in image
 
@@ -170,12 +180,18 @@ class ChessboardDetector:
                     30,
                     0.001,
                 )
-                corners = cv2.cornerSubPix(gray, corners, (11, 11), (-1, -1), criteria)
+                corners = cv2.cornerSubPix(gray,
+                    corners,
+                    (11,
+                    11),
+                    (-1,
+                    -1),
+                    criteria)
                 return True, corners
             else:
                 return False, None
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Error detecting chessboard corners: {e}")
             return False, None
 
@@ -217,9 +233,10 @@ class CameraCalibrator:
         self.completed_calibrations: Dict[str, CalibrationResult] = {}
 
         logger.info(
-            f"Camera Calibrator initialized with data directory: {self.data_dir}"
+            f"Camera Calibrator initialized withdata directory: {self.data_dir}"
         )
-        logger.info(f"Pattern: {self.pattern_size}, Square size: {self.square_size}mm")
+        logger.info(f"Pattern: {self.pattern_size},
+            Square size: {self.square_size}mm")
 
     async def start_calibration(
         self, device_id: str, session_id: str, camera_type: CameraType
@@ -258,7 +275,7 @@ class CameraCalibrator:
             logger.info(f"Started calibration session: {calibration_id}")
             return True
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Failed to start calibration: {e}")
             return False
 
@@ -285,7 +302,8 @@ class CameraCalibrator:
             calibration_id = f"{device_id}_{camera_type.value}_{session_id}"
 
             if calibration_id not in self.active_sessions:
-                return {"success": False, "error": "No active calibration session"}
+                return {"success": False, "error": "No"
+                    "active calibration session"}
 
             session_data = self.active_sessions[calibration_id]
 
@@ -298,7 +316,8 @@ class CameraCalibrator:
 
             # Store image resolution on first image
             if session_data["image_resolution"] is None:
-                session_data["image_resolution"] = (image.shape[1], image.shape[0])
+                session_data["image_resolution"] = (image.shape[1],
+                    image.shape[0])
 
             # Detect chessboard corners
             success, corners = self.detector.detect_corners(image)
@@ -317,7 +336,7 @@ class CameraCalibrator:
                 cv2.imwrite(str(image_path), image)
 
                 logger.info(
-                    f"Calibration image {session_data['images_collected']} accepted for {calibration_id}"
+                    f"Calibration image {session_data['images_collected']}accepted for {calibration_id}"
                 )
 
                 return {
@@ -330,7 +349,7 @@ class CameraCalibrator:
                 }
             else:
                 logger.debug(
-                    f"No chessboard pattern detected in image for {calibration_id}"
+                    f"No chessboard pattern detectedin image for {calibration_id}"
                 )
                 return {
                     "success": True,
@@ -340,7 +359,7 @@ class CameraCalibrator:
                     "ready_to_calibrate": False,
                 }
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Error processing calibration image: {e}")
             return {"success": False, "error": str(e)}
 
@@ -362,7 +381,7 @@ class CameraCalibrator:
             calibration_id = f"{device_id}_{camera_type.value}_{session_id}"
 
             if calibration_id not in self.active_sessions:
-                logger.error(f"No active calibration session: {calibration_id}")
+                logger.error(f"No active calibration session:{calibration_id}")
                 return None
 
             session_data = self.active_sessions[calibration_id]
@@ -370,7 +389,7 @@ class CameraCalibrator:
             # Check if we have enough images
             if session_data["images_collected"] < self.min_images:
                 logger.error(
-                    f"Not enough images for calibration: {session_data['images_collected']} < {self.min_images}"
+                    f"Not enough images for calibration: {session_data['images_collected']}< {self.min_images}"
                 )
                 return None
 
@@ -380,7 +399,7 @@ class CameraCalibrator:
             image_points = session_data["image_points"]
 
             logger.info(
-                f"Computing calibration for {calibration_id} with {len(object_points)} images"
+                f"Computing calibration for {calibration_id}with {len(object_points)} images"
             )
 
             # Calibrate camera
@@ -390,7 +409,7 @@ class CameraCalibrator:
 
             if not ret or ret > self.target_error:
                 logger.warning(
-                    f"Calibration error is high: {ret:.3f} > {self.target_error}"
+                    f"Calibration error is high: {ret:.3f}> {self.target_error}"
                 )
 
             # Extract intrinsic parameters
@@ -429,12 +448,13 @@ class CameraCalibrator:
 
             logger.info(f"Calibration completed: {calibration_id}")
             logger.info(
-                f"RMS error: {ret:.3f} pixels, Images used: {len(object_points)}"
+                f"RMS error: {ret:.3f} pixels,
+                    Images used: {len(object_points)}"
             )
 
             return result
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Failed to finalize calibration: {e}")
             return None
 
@@ -490,7 +510,7 @@ class CameraCalibrator:
             logger.info(f"Stereo calibration completed for device {device_id}")
             return stereo_result
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Stereo calibration failed: {e}")
             return None
 
@@ -505,7 +525,7 @@ class CameraCalibrator:
             nparr = np.frombuffer(image_data, np.uint8)
             image = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
             return image
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Failed to decode image: {e}")
             return None
 
@@ -520,7 +540,7 @@ class CameraCalibrator:
 
             logger.info(f"Saved calibration result to {filepath}")
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Failed to save calibration result: {e}")
 
     async def load_calibration_result(
@@ -528,7 +548,7 @@ class CameraCalibrator:
     ) -> Optional[CalibrationResult]:
         """Load calibration result from file"""
         try:
-            filename = f"calibration_{device_id}_{camera_type.value}_{session_id}.json"
+            filename = f"calibration_{device_id}_{camer}a_type.value}_{session_id}.json"
             filepath = self.data_dir / filename
 
             if not filepath.exists():
@@ -542,10 +562,10 @@ class CameraCalibrator:
             # Note: This is a simplified reconstruction - full implementation would
             # handle all nested objects properly
 
-            logger.info(f"Loaded calibration result: {device_id}_{camera_type.value}")
+            logger.info(f"Loaded calibration result: {d}evice_id}_{camera_type.value}")
             return None  # Placeholder - implement full reconstruction
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Failed to load calibration result: {e}")
             return None
 
@@ -593,6 +613,6 @@ class CameraCalibrator:
 
             return False
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Failed to cancel calibration: {e}")
             return False

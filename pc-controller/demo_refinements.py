@@ -34,7 +34,11 @@ def demonstrate_refined_features():
     print(f"   📋 Name: {info['name']}")
     print(f"   🔢 Version: {info['version']}")
     print(f"   📝 Message Types: {info['message_types']}")
-    print(f"   🔧 Transport: {info.get('transport', {}).get('protocol', 'TCP')}")
+    print(
+        f"   🔧 Transport: {info.get('transport',
+        {}).get('protocol',
+        'TCP')}"
+    )
     print()
 
     # Show refined message creation
@@ -70,14 +74,20 @@ def demonstrate_refined_features():
 
     # Show configuration improvements
     print("✨ Enhanced Configuration Management")
-    print(f"   🏠 Server Host: {config.get('network', {}).get('host', '0.0.0.0')}")
+    print(
+        f"   🏠 Server Host: {config.get('network',
+        {}).get('host',
+        '0.0.0.0')}"
+    )
     print(f"   🔌 Server Port: {config.get('network', {}).get('port', 8080)}")
     print(
         f"   ⏱️  Heartbeat Interval: "
         f"{config.get('network', {}).get('heartbeat_interval', 30)}s"
     )
     print(
-        f"   💾 Data Root: {config.get('data', {}).get('root_directory', './data')}"
+        f"   💾 Data Root: {config.get('data',
+            {}).get('root_directory',
+            './data')}"
     )
     print(
         f"   📊 Session Retention: "

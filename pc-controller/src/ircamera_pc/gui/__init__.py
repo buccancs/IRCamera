@@ -6,8 +6,17 @@ This package contains the PyQt5-based user interface components.
 
 from .app import IRCameraApp, main
 from .main_window import MainWindow
-from .widgets import DeviceListWidget, SessionControlWidget, StatusDisplayWidget
-from .utils import setup_logging, apply_theme, format_file_size, format_duration
+from .widgets import (
+    DeviceListWidget,
+    SessionControlWidget,
+    StatusDisplayWidget,
+)
+from .utils import (
+    setup_logging,
+    apply_theme,
+    format_file_size,
+    format_duration,
+)
 
 __all__ = [
     "IRCameraApp",

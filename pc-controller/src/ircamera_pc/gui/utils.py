@@ -55,7 +55,8 @@ def setup_logging() -> LogHandler:
             format=(
                 "<green>{time:YYYY-MM-DD HH:mm:ss}</green> | "
                 "<level>{level: <8}</level> | "
-                "<cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - "
+                "<cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan>"
+                "-"
                 "<level>{message}</level>"
             ),
         )
@@ -64,7 +65,8 @@ def setup_logging() -> LogHandler:
     logger.add(
         "logs/ircamera_pc.log",
         level=log_level,
-        format="{time:YYYY-MM-DD HH:mm:ss} | {level: <8} | {name}:{function}:{line} - {message}",
+        format="{time:YYYY-MM-DD HH:mm:ss} | {level: <8}"
+        "| {name}:{function}:{line} - {message}",
         rotation=file_rotation,
         retention=retention,
         compression="zip",
@@ -335,7 +337,11 @@ def confirm_action(parent, title: str, message: str) -> bool:
     from PyQt5.QtWidgets import QMessageBox
 
     reply = QMessageBox.question(
-        parent, title, message, QMessageBox.Yes | QMessageBox.No, QMessageBox.No
+        parent,
+        title,
+        message,
+        QMessageBox.Yes | QMessageBox.No,
+        QMessageBox.No,
     )
 
     return reply == QMessageBox.Yes

@@ -5,7 +5,9 @@ Provides WiFi network discovery, connection management, and hotspot creation
 for direct communication with IRCamera devices.
 """
 
+import os
 import platform
+import shutil
 import subprocess
 import re
 from typing import Dict, List, Optional
@@ -17,29 +19,21 @@ try:
     from loguru import logger
 except ImportError:
     from ..utils.simple_logger import get_logger
+
     logger = get_logger(__name__)
 
+from .base_manager import BaseManager, AsyncContextManager
+
 try:
-    from PyQt6.QtCore import QObject, pyqtSignal, QTimer, QThread, pyqtSlot
+    from PyQt6.QtCore import QTimer, QThread, pyqtSlot
 
     PYQT_AVAILABLE = True
-
-    class BaseManager(QObject):
-        pass
 
     class BaseThread(QThread):
         pass
 
 except ImportError:
     PYQT_AVAILABLE = False
-
-    class BaseManager:
-        def __init__(self):
-            pass
-
-        def __setattr__(self, name, value):
-            # Allow setting any attribute
-            super().__setattr__(name, value)
 
     class BaseThread:
         def __init__(self):
@@ -59,7 +53,8 @@ try:
     PSUTIL_AVAILABLE = True
 except ImportError:
     logger.warning(
-        "psutil not available. Install 'psutil' for network interface monitoring"
+        "psutil not available. Install 'psutil'"
+        "for network interface monitoring"
     )
     PSUTIL_AVAILABLE = False
 
@@ -155,7 +150,7 @@ class WiFiScanWorker(BaseThread):
             if self._running:  # Check if still running after scan
                 self.networks_found.emit(networks)
                 self.scan_completed.emit(len(networks))
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             if self._running:
                 logger.error(f"WiFi scan error: {e}")
                 self.error_occurred.emit(str(e))
@@ -182,12 +177,21 @@ class WiFiScanWorker(BaseThread):
         networks = []
 
         try:
+            # Security: Use full path for netsh command
+            netsh_path = "C:\\Windows\\System32\\netsh.exe"
+            if not os.path.exists(netsh_path):
+                raise FileNotFoundError(
+                    "netsh.exe not found at expected location"
+                )
+
             # Run netsh command to get WiFi profiles
             result = subprocess.run(
-                ["netsh", "wlan", "show", "profiles"],
+                [netsh_path, "wlan", "show", "profiles"],
                 capture_output=True,
                 text=True,
                 timeout=30,
+                shell=False,
+                check=False,
             )
 
             if result.returncode != 0:
@@ -195,24 +199,28 @@ class WiFiScanWorker(BaseThread):
 
             # Parse available networks
             result = subprocess.run(
-                ["netsh", "wlan", "show", "profile", "interface=*"],
+                [netsh_path, "wlan", "show", "profile", "interface=*"],
                 capture_output=True,
                 text=True,
                 timeout=30,
+                shell=False,
+                check=False,
             )
 
             # Get current scan results
             scan_result = subprocess.run(
-                ["netsh", "wlan", "show", "networks", "mode=bssid"],
+                [netsh_path, "wlan", "show", "networks", "mode=bssid"],
                 capture_output=True,
                 text=True,
                 timeout=30,
+                shell=False,
+                check=False,
             )
 
             if scan_result.returncode == 0:
                 networks = self._parse_windows_scan(scan_result.stdout)
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Windows WiFi scan failed: {e}")
             raise
 
@@ -270,28 +278,36 @@ class WiFiScanWorker(BaseThread):
         networks = []
 
         try:
-            # Try nmcli first (NetworkManager)
-            result = subprocess.run(
-                [
-                    "nmcli",
-                    "-",
-                    "SSID,BSSID,CHAN,FREQ,SIGNAL,SECURITY",
-                    "dev",
-                    "wifi",
-                    "list",
-                ],
-                capture_output=True,
-                text=True,
-                timeout=30,
-            )
+            # Try nmcli first (NetworkManager) - Security: use full path and validation
+            nmcli_path = shutil.which("nmcli")
+            if nmcli_path:
+                result = subprocess.run(
+                    [
+                        nmcli_path,
+                        "-t",
+                        "-f",
+                        "SSID,BSSID,CHAN,FREQ,SIGNAL,SECURITY",
+                        "dev",
+                        "wifi",
+                        "list",
+                    ],
+                    capture_output=True,
+                    text=True,
+                    timeout=30,
+                    shell=False,
+                    check=False,
+                )
 
-            if result.returncode == 0:
-                networks = self._parse_nmcli_output(result.stdout)
+                if result.returncode == 0:
+                    networks = self._parse_nmcli_output(result.stdout)
+                else:
+                    # Fallback to iwlist
+                    networks = self._scan_linux_iwlist()
             else:
                 # Fallback to iwlist
                 networks = self._scan_linux_iwlist()
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Linux WiFi scan failed: {e}")
             raise
 
@@ -302,14 +318,28 @@ class WiFiScanWorker(BaseThread):
         networks = []
 
         try:
+            # Security: Validate iwlist path and sudo access
+            iwlist_path = shutil.which("iwlist")
+            sudo_path = shutil.which("sudo")
+
+            if not iwlist_path or not sudo_path:
+                raise FileNotFoundError(
+                    "Required commands (iwlist/sudo) not found"
+                )
+
             result = subprocess.run(
-                ["sudo", "iwlist", "scan"], capture_output=True, text=True, timeout=30
+                [sudo_path, iwlist_path, "scan"],
+                capture_output=True,
+                text=True,
+                timeout=30,
+                shell=False,
+                check=False,
             )
 
             if result.returncode == 0:
                 networks = self._parse_iwlist_output(result.stdout)
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.warning(f"iwlist scan failed: {e}")
 
         return networks
@@ -319,17 +349,27 @@ class WiFiScanWorker(BaseThread):
         networks = []
 
         try:
-            # Use the built-in airport utility
+            # Use the built-in airport utility - Security: validate path
             airport_path = "/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
 
+            if not os.path.exists(airport_path):
+                raise FileNotFoundError(
+                    "Airport utility not found at expected location"
+                )
+
             result = subprocess.run(
-                [airport_path, "-s"], capture_output=True, text=True, timeout=30
+                [airport_path, "-s"],
+                capture_output=True,
+                text=True,
+                timeout=30,
+                shell=False,
+                check=False,
             )
 
             if result.returncode == 0:
                 networks = self._parse_airport_output(result.stdout)
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"macOS WiFi scan failed: {e}")
             raise
 
@@ -354,7 +394,7 @@ class WiFiScanWorker(BaseThread):
                 channel=data.get("channel", 1),
                 is_ircamera_hotspot=is_ircamera,
             )
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.warning(f"Failed to create network from data: {e}")
             return None
 
@@ -442,7 +482,9 @@ class WiFiManager(BaseManager):
     @property
     def ircamera_networks(self) -> List[WiFiNetwork]:
         """Get list of detected IRCamera hotspots."""
-        return [net for net in self._networks.values() if net.is_ircamera_hotspot]
+        return [
+            net for net in self._networks.values() if net.is_ircamera_hotspot
+        ]
 
     @property
     def current_connection(self) -> Optional[str]:
@@ -459,7 +501,9 @@ class WiFiManager(BaseManager):
         """Get list of WiFi interfaces."""
         return [iface for iface in self._interfaces.values() if iface.is_wifi]
 
-    def start_scanning(self, continuous: bool = False, interval: int = 15) -> None:
+    def start_scanning(
+        self, continuous: bool = False, interval: int = 15
+    ) -> None:
         """
         Start scanning for WiFi networks.
 
@@ -506,7 +550,9 @@ class WiFiManager(BaseManager):
         """Handle scan error."""
         self.error_occurred.emit("scan", error)
 
-    async def connect_to_network(self, ssid: str, password: str = None) -> bool:
+    async def connect_to_network(
+        self, ssid: str, password: str = None
+    ) -> bool:
         """
         Connect to a WiFi network.
 
@@ -540,7 +586,7 @@ class WiFiManager(BaseManager):
                 self.connection_failed.emit(ssid, "Connection failed")
                 return False
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Failed to connect to {ssid}: {e}")
             self.connection_failed.emit(ssid, str(e))
             return False
@@ -558,7 +604,7 @@ class WiFiManager(BaseManager):
             self.network_disconnected.emit(ssid, "User initiated")
             logger.info(f"Disconnected from {ssid}")
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Failed to disconnect: {e}")
             self.error_occurred.emit("disconnect", str(e))
 
@@ -576,7 +622,10 @@ class WiFiManager(BaseManager):
         Returns:
             True if hotspot started successfully
         """
-        if self._hotspot_state in [HotspotState.RUNNING, HotspotState.STARTING]:
+        if self._hotspot_state in [
+            HotspotState.RUNNING,
+            HotspotState.STARTING,
+        ]:
             logger.warning("Hotspot already running or starting")
             return True
 
@@ -589,7 +638,9 @@ class WiFiManager(BaseManager):
             self._hotspot_config["channel"] = channel
 
         self._hotspot_state = HotspotState.STARTING
-        self.hotspot_state_changed.emit(self._hotspot_state, "Starting hotspot...")
+        self.hotspot_state_changed.emit(
+            self._hotspot_state, "Starting hotspot..."
+        )
 
         try:
             success = await self._platform_start_hotspot()
@@ -609,7 +660,7 @@ class WiFiManager(BaseManager):
                 )
                 return False
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Failed to start hotspot: {e}")
             self._hotspot_state = HotspotState.ERROR
             self.hotspot_state_changed.emit(self._hotspot_state, str(e))
@@ -622,15 +673,19 @@ class WiFiManager(BaseManager):
             return
 
         self._hotspot_state = HotspotState.STOPPING
-        self.hotspot_state_changed.emit(self._hotspot_state, "Stopping hotspot...")
+        self.hotspot_state_changed.emit(
+            self._hotspot_state, "Stopping hotspot..."
+        )
 
         try:
             await self._platform_stop_hotspot()
             self._hotspot_state = HotspotState.STOPPED
-            self.hotspot_state_changed.emit(self._hotspot_state, "Hotspot stopped")
+            self.hotspot_state_changed.emit(
+                self._hotspot_state, "Hotspot stopped"
+            )
             logger.info("Hotspot stopped")
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Failed to stop hotspot: {e}")
             self._hotspot_state = HotspotState.ERROR
             self.hotspot_state_changed.emit(self._hotspot_state, str(e))
@@ -642,7 +697,9 @@ class WiFiManager(BaseManager):
     def _init_interfaces(self) -> None:
         """Initialize network interface information."""
         if not PSUTIL_AVAILABLE:
-            logger.warning("Cannot monitor network interfaces - psutil not available")
+            logger.warning(
+                "Cannot monitor network interfaces" "- psutil not available"
+            )
             return
 
         try:
@@ -678,7 +735,7 @@ class WiFiManager(BaseManager):
 
                     self._interfaces[name] = interface
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Failed to initialize network interfaces: {e}")
 
     def _is_wifi_interface(self, name: str) -> bool:
@@ -709,12 +766,16 @@ class WiFiManager(BaseManager):
                     if name in stats:
                         old_status = interface.is_active
                         interface.is_active = stats[name].isup
-                        interface.status = "up" if interface.is_active else "down"
+                        interface.status = (
+                            "up" if interface.is_active else "down"
+                        )
 
                         if old_status != interface.is_active:
-                            self.interface_changed.emit(name, interface.is_active)
+                            self.interface_changed.emit(
+                                name, interface.is_active
+                            )
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Status update failed: {e}")
 
     async def _platform_connect(
@@ -801,7 +862,7 @@ class WiFiManager(BaseManager):
 
             return result.returncode == 0
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Windows hotspot start failed: {e}")
             return False
 
@@ -812,9 +873,10 @@ class WiFiManager(BaseManager):
         if system == "Windows":
             try:
                 subprocess.run(
-                    ["netsh", "wlan", "stop", "hostednetwork"], capture_output=True
+                    ["netsh", "wlan", "stop", "hostednetwork"],
+                    capture_output=True,
                 )
-            except Exception as e:
+            except (OSError, ValueError, RuntimeError) as e:
                 logger.error(f"Failed to stop Windows hotspot: {e}")
 
     async def _get_interface_ip(self) -> Optional[str]:
@@ -824,9 +886,13 @@ class WiFiManager(BaseManager):
 
         try:
             for interface in self._interfaces.values():
-                if interface.is_wifi and interface.is_active and interface.ip_address:
+                if (
+                    interface.is_wifi
+                    and interface.is_active
+                    and interface.ip_address
+                ):
                     return interface.ip_address
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Failed to get interface IP: {e}")
 
         return None

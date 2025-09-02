@@ -62,7 +62,10 @@ class IRCameraApp:
         self._loop: Optional[asyncio.AbstractEventLoop] = None
         self._timer: Optional[QTimer] = None
 
-        logger.info("IRCamera Application initialized with system integration features")
+        logger.info(
+            "IRCamera Application initialized"
+            "with system integration features"
+        )
         components = [
             "Session Manager",
             "Time Sync",
@@ -226,7 +229,7 @@ class IRCameraApp:
                             handle._run()
                     else:
                         break
-            except Exception as e:
+            except (OSError, ValueError, RuntimeError) as e:
                 logger.error(f"Error processing async events: {e}")
 
     async def start_services(self) -> None:
@@ -240,7 +243,7 @@ class IRCameraApp:
 
             logger.info("All services started successfully")
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Failed to start services: {e}")
             raise
 
@@ -260,7 +263,7 @@ class IRCameraApp:
 
             logger.info("All services and system integration managers stopped")
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Error stopping services: {e}")
 
     def run(self) -> int:
@@ -295,7 +298,7 @@ class IRCameraApp:
             # Run Qt event loop
             return self.qt_app.exec_()
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Application error: {e}")
             return 1
         finally:
@@ -310,7 +313,7 @@ class IRCameraApp:
                         self.stop_services(), self._loop
                     )
                     future.result(timeout=5)  # 5 second timeout
-                except Exception as e:
+                except (OSError, ValueError, RuntimeError) as e:
                     logger.error(f"Error during cleanup: {e}")
 
     def _handle_signal(self, signum: int, frame) -> None:

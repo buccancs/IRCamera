@@ -113,13 +113,17 @@ def test_all_components():
             "time_sync": time_sync,
         }
 
-        print(f"   ✓ All {len(all_components)} components integrated successfully")
+        print(f"   ✓ All {len(all_components)} components"
+            "integrated successfully")
 
         # Test component interactions
-        print(f"   ✓ GSR sessions: {len(gsr_ingestor.get_active_sessions())} active")
-        print(f"   ✓ Transfer summary: {file_transfer_manager.get_transfer_summary()}")
+        print(f"   ✓ GSR sessions: {len(gsr_ingestor.get_active_sessions())}"
+            "active")
+        print(f"   ✓ Transfer summary: {file_trans"
+            "fer_manager.get_transfer_summary()}")
         print(
-            f"   ✓ Calibration sessions: {len(camera_calibrator.get_active_calibrations())} active"
+            f"   ✓ Calibration sessions: {len(camera_calibrator.get_active_calibrations())}"
+                "active"
         )
 
         print("\n" + "=" * 60)
@@ -144,7 +148,7 @@ def test_all_components():
 
         return True
 
-    except Exception as e:
+    except (OSError, ValueError, RuntimeError) as e:
         print(f"\n❌ TEST FAILED: {e}")
         import traceback
 
@@ -163,7 +167,9 @@ async def test_gsr_session(gsr_ingestor, session_id):
     device_id = "test_gsr_device"
 
     # Start GSR session
-    success = await gsr_ingestor.start_session(session_id, device_id, GSRMode.LOCAL)
+    success = await gsr_ingestor.start_session(session_id,
+        device_id,
+        GSRMode.LOCAL)
     assert success, "Failed to start GSR session"
 
     # Simulate some GSR samples
@@ -182,7 +188,9 @@ async def test_gsr_session(gsr_ingestor, session_id):
     # End session
     dataset = await gsr_ingestor.end_session(session_id)
     assert dataset is not None, "Failed to end GSR session"
-    assert len(dataset.samples) == 5, f"Expected 5 samples, got {len(dataset.samples)}"
+    assert len(dataset.samples) == 5,
+        f"Expected 5 samples,
+        got {len(dataset.samples)}"
 
 
 async def test_file_transfer(file_transfer_manager, session_id):

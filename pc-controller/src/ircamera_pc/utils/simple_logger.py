@@ -10,7 +10,8 @@ import sys
 # Configure basic logging
 logging.basicConfig(
     level=logging.INFO,
-    format="%(asctime)s | %(levelname)-8s | %(name)s:%(funcName)s:%(lineno)d - %(message)s",
+    format="%(asctime)s | %(levelname)-8s | %(name)s:%(funcName)s:%(lineno)d"
+    "- %(message)s",
     handlers=[
         logging.StreamHandler(sys.stdout),
         logging.FileHandler("ircamera_pc.log"),

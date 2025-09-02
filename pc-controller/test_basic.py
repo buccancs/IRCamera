@@ -94,7 +94,8 @@ def test_basic_functionality():
         if loaded_session:
             print(f"   ✓ Loaded session: {loaded_session.name}")
             print(f"   ✓ Devices in session: {len(loaded_session.devices)}")
-            print(f"   ✓ Sync events in session: {len(loaded_session.sync_events)}")
+            print(f"   ✓ Sync events in session: {l"
+                "en(loaded_session.sync_events)}")
             print("   ✓ Session Persistence: PASS")
         else:
             print("   ✗ Failed to load session")
@@ -157,7 +158,7 @@ def test_basic_functionality():
 
         return True
 
-    except Exception as e:
+    except (OSError, ValueError, RuntimeError) as e:
         print(f"\n❌ TEST FAILED: {e}")
         import traceback
 

@@ -36,7 +36,7 @@ class DeviceListWidget(QListWidget):
     device_selected = pyqtSignal(str)  # device_id
 
     def __init__(self):
-        """Initialize device list widget."""
+        """Initialize device list widget."
         super().__init__()
         self.setMinimumHeight(200)
         self._device_items: Dict[str, QListWidgetItem] = {}
@@ -65,7 +65,9 @@ class DeviceListWidget(QListWidget):
             else:
                 self._add_device_item(device_id, device_info)
 
-    def _add_device_item(self, device_id: str, device_info: DeviceInfo) -> None:
+    def _add_device_item(self,
+        device_id: str,
+        device_info: DeviceInfo) -> None:
         """Add new device item to list."""
         item = QListWidgetItem()
         item.setData(Qt.ItemDataRole.UserRole, device_id)
@@ -74,7 +76,9 @@ class DeviceListWidget(QListWidget):
         self.addItem(item)
         self._update_device_item(device_id, device_info)
 
-    def _update_device_item(self, device_id: str, device_info: DeviceInfo) -> None:
+    def _update_device_item(self,
+        device_id: str,
+        device_info: DeviceInfo) -> None:
         """Update existing device item."""
         item = self._device_items[device_id]
 
@@ -114,7 +118,7 @@ class DeviceListWidget(QListWidget):
 
         if device_info.battery_level is not None:
             battery_icon = "🔋" if device_info.battery_level > 20 else "🪫"
-            status_parts.append(f"Battery: {device_info.battery_level}% {battery_icon}")
+            status_parts.append(f"Battery: {device_info.battery_level}%{battery_icon}")
 
         lines.append(f"   {', '.join(status_parts)}")
 
@@ -358,12 +362,13 @@ class StatusDisplayWidget(QWidget):
                     f"Duration: {hours:02d}:{minutes:02d}:{seconds:02d}"
                 )
 
-            except Exception:
+            except (OSError, ValueError, RuntimeError):
                 self.session_duration_label.setText("Duration: --:--:--")
         else:
             self.session_duration_label.setText("Duration: --:--:--")
 
-    def update_gsr_leader_info(self, leader_info: Optional[DeviceInfo]) -> None:
+    def update_gsr_leader_info(self,
+        leader_info: Optional[DeviceInfo]) -> None:
         """Update GSR leader information display."""
         if leader_info:
             self.gsr_leader_label.setText(
@@ -449,13 +454,17 @@ class BluetoothControlWidget(QGroupBox):
 
             # Set color based on device type and connection state
             if device.is_ircamera:
-                item.setBackground(QColor(220, 255, 220))  # Light green for IRCamera
+                item.setBackground(QColor(220,
+                    255,
+                    220))  # Light green for IRCamera
 
             if (
                 hasattr(device, "connection_state")
                 and device.connection_state.value == "connected"
             ):
-                item.setBackground(QColor(200, 255, 200))  # Green for connected
+                item.setBackground(QColor(200,
+                    255,
+                    200))  # Green for connected
                 item.setFont(QFont("", 9, QFont.Weight.Bold))
 
             self.device_list.addItem(item)
@@ -661,7 +670,8 @@ class WiFiControlWidget(QGroupBox):
 
             # Create list item
             signal_bars = self._get_signal_bars(network.signal_strength)
-            security_icon = "🔒" if network.security_type.value != "open" else "🔓"
+            security_icon = "🔒" if network.security_type.value"
+                "!= "open" else "🔓"
 
             item_text = f"{security_icon} {network.ssid} {signal_bars}"
             if network.is_ircamera_hotspot:
@@ -671,7 +681,9 @@ class WiFiControlWidget(QGroupBox):
 
             # Set color based on network type
             if network.is_ircamera_hotspot:
-                item.setBackground(QColor(220, 255, 220))  # Light green for IRCamera
+                item.setBackground(QColor(220,
+                    255,
+                    220))  # Light green for IRCamera
 
             self.network_list.addItem(item)
 

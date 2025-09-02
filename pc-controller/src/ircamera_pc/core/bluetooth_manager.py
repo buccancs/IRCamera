@@ -16,6 +16,7 @@ try:
     from loguru import logger
 except ImportError:
     from ..utils.simple_logger import get_logger
+
     logger = get_logger(__name__)
 
 try:
@@ -45,7 +46,8 @@ try:
     BLUETOOTH_AVAILABLE = True
 except ImportError:
     logger.warning(
-        "Bluetooth dependencies not available. Install 'bleak' for Bluetooth support"
+        "Bluetooth dependencies not available."
+        "Install 'bleak' for Bluetooth support"
     )
     BLUETOOTH_AVAILABLE = False
 
@@ -130,7 +132,10 @@ class BluetoothManager(BaseManager):
             self._scan_timer = None
 
         if not BLUETOOTH_AVAILABLE:
-            logger.error("Bluetooth functionality not available - missing dependencies")
+            logger.error(
+                "Bluetooth functionality not available"
+                "- missing dependencies"
+            )
 
     def _emit_signal(self, signal_name: str, *args):
         """Emit a signal if PyQt6 is available."""
@@ -157,7 +162,9 @@ class BluetoothManager(BaseManager):
             if device.connection_state == ConnectionState.CONNECTED
         ]
 
-    def start_scanning(self, continuous: bool = False, interval: int = 10) -> None:
+    def start_scanning(
+        self, continuous: bool = False, interval: int = 10
+    ) -> None:
         """
         Start scanning for Bluetooth devices.
 
@@ -166,7 +173,9 @@ class BluetoothManager(BaseManager):
             interval: Scan interval in seconds for continuous scanning
         """
         if not self.is_available:
-            self._emit_signal("error_occurred", "scan", "Bluetooth not available")
+            self._emit_signal(
+                "error_occurred", "scan", "Bluetooth not available"
+            )
             return
 
         if self._scanning:
@@ -197,19 +206,25 @@ class BluetoothManager(BaseManager):
 
             discovered_count = 0
             for device in devices:
-                if device.address not in self._devices or self._should_update_device(
-                    device
+                if (
+                    device.address not in self._devices
+                    or self._should_update_device(device)
                 ):
                     bt_device = self._create_bluetooth_device(device)
                     self._devices[device.address] = bt_device
                     self._emit_signal("device_discovered", bt_device)
                     discovered_count += 1
-                    logger.debug(f"Discovered device: {device.name} ({device.address})")
+                    logger.debug(
+                        f"Discovered device: {device.name}"
+                        "({device.address})"
+                    )
 
             self._emit_signal("scan_completed", discovered_count)
-            logger.info(f"Scan completed - found {discovered_count} new devices")
+            logger.info(
+                f"Scan completed - found {discovered_count}" "new devices"
+            )
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Error during device scan: {e}")
             self._emit_signal("error_occurred", "scan", str(e))
 
@@ -254,7 +269,13 @@ class BluetoothManager(BaseManager):
 
         # Look for IRCamera-specific naming patterns
         name_lower = device.name.lower()
-        ircamera_patterns = ["ircamera", "thermal", "flir", "seek", "hikvision"]
+        ircamera_patterns = [
+            "ircamera",
+            "thermal",
+            "flir",
+            "seek",
+            "hikvision",
+        ]
 
         return any(pattern in name_lower for pattern in ircamera_patterns)
 
@@ -269,7 +290,9 @@ class BluetoothManager(BaseManager):
             True if connection successful, False otherwise
         """
         if not self.is_available:
-            self._emit_signal("error_occurred", "connect", "Bluetooth not available")
+            self._emit_signal(
+                "error_occurred", "connect", "Bluetooth not available"
+            )
             return False
 
         if address not in self._devices:
@@ -308,7 +331,7 @@ class BluetoothManager(BaseManager):
 
             return True
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Failed to connect to {address}: {e}")
             device.connection_state = ConnectionState.ERROR
             self._emit_signal("error_occurred", "connect", str(e))
@@ -328,10 +351,12 @@ class BluetoothManager(BaseManager):
             if address in self._devices:
                 device = self._devices[address]
                 device.connection_state = ConnectionState.DISCONNECTED
-                self._emit_signal("device_disconnected", address, "User initiated")
+                self._emit_signal(
+                    "device_disconnected", address, "User initiated"
+                )
                 logger.info(f"Disconnected from {device.name}")
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Error disconnecting from {address}: {e}")
             self._emit_signal("error_occurred", "disconnect", str(e))
 
@@ -352,19 +377,26 @@ class BluetoothManager(BaseManager):
             )
             return False
 
-        if address not in self._devices or not self._devices[address].is_ircamera:
+        if (
+            address not in self._devices
+            or not self._devices[address].is_ircamera
+        ):
             self._emit_signal(
-                "error_occurred", "send", f"Device {address} is not an IRCamera"
+                "error_occurred",
+                "send",
+                f"Device {address}" "is not an IRCamera",
             )
             return False
 
         try:
             client = self._connections[address]
-            await client.write_gatt_char(self.IRCAMERA_DATA_CHARACTERISTIC, data)
+            await client.write_gatt_char(
+                self.IRCAMERA_DATA_CHARACTERISTIC, data
+            )
             logger.debug(f"Sent {len(data)} bytes to {address}")
             return True
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Error sending data to {address}: {e}")
             self._emit_signal("error_occurred", "send", str(e))
             return False
@@ -373,11 +405,12 @@ class BluetoothManager(BaseManager):
         """Set up notifications for IRCamera data characteristic."""
         try:
             await client.start_notify(
-                self.IRCAMERA_DATA_CHARACTERISTIC, self._handle_ircamera_notification
+                self.IRCAMERA_DATA_CHARACTERISTIC,
+                self._handle_ircamera_notification,
             )
             logger.debug("IRCamera notifications enabled")
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Failed to enable IRCamera notifications: {e}")
 
     def _handle_ircamera_notification(
@@ -389,7 +422,7 @@ class BluetoothManager(BaseManager):
             self._emit_signal("data_received", address, bytes(data))
             logger.debug(f"Received {len(data)} bytes from {address}")
 
-        except Exception as e:
+        except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Error handling notification: {e}")
 
     def get_device_info(self, address: str) -> Optional[BluetoothDevice]:
