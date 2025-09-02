@@ -12,6 +12,7 @@ import android.widget.PopupWindow
 import android.widget.TextView
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.SizeUtils
+import com.topdon.lib.core.databinding.LayoutPopupTipEmissivityBinding
 import com.topdon.lib.core.R
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.RouterConfig
@@ -25,6 +26,8 @@ import com.topdon.lib.core.tools.UnitTools
  * date: 2024/4/7 14:59
  **/
 class EmissivityTipPopup(val context: Context, val isTC007: Boolean) {
+    private lateinit var binding: LayoutPopupTipEmissivityBinding
+
     private var text: String = ""
     private var radiation: Float = 0f
     private var distance: Float = 0f
@@ -38,7 +41,8 @@ class EmissivityTipPopup(val context: Context, val isTC007: Boolean) {
 
     init {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        view = inflater.inflate(R.layout.layout_popup_tip_emissivity, null)
+        binding = LayoutPopupTipEmissivityBinding.inflate(inflater)
+        view = binding.root
     }
 
     fun setTitle(title: String): EmissivityTipPopup {
@@ -66,23 +70,23 @@ class EmissivityTipPopup(val context: Context, val isTC007: Boolean) {
 
     fun build(): PopupWindow {
         if (popupWindow == null) {
-            view.tv_environment_title.text = context.getString(R.string.thermal_config_environment) + ":"
-            view.tv_distance_title.text = context.getString(R.string.thermal_config_distance) + ":"
+            binding.tvEnvironmentTitle.text = context.getString(R.string.thermal_config_environment) + ":"
+            binding.tvDistanceTitle.text = context.getString(R.string.thermal_config_distance) + ":"
 
-            view.tv_title.visibility = View.GONE
+            binding.tvTitle.visibility = View.GONE
             if (text.isNotEmpty()){
-                view.tv_emissivity_materials.text = text
-                view.tv_emissivity_materials.visibility = View.VISIBLE
+                binding.tvEmissivityMaterials.text = text
+                binding.tvEmissivityMaterials.visibility = View.VISIBLE
             }else{
-                view.tv_emissivity_materials.visibility = View.GONE
+                binding.tvEmissivityMaterials.visibility = View.GONE
             }
-            view.dialog_tip_cancel_btn.visibility = View.GONE
-            view.dialog_tip_success_btn.text = context.getString(R.string.tc_modify_params)
-            view.dialog_tip_check.visibility = View.GONE
-            view.tv_emissivity.text = "${context?.getString(R.string.thermal_config_radiation)}: ${
+            binding.dialogTipCancelBtn.visibility = View.GONE
+            binding.dialogTipSuccessBtn.text = context.getString(R.string.tc_modify_params)
+            binding.dialogTipCheck.visibility = View.GONE
+            binding.tvEmissivity.text = "${context?.getString(R.string.thermal_config_radiation)}: ${
                 NumberTools.to02(radiation)}"
-            view.tv_environment_value.text = UnitTools.showC(environment)
-            view.tv_distance_value.text = "${NumberTools.to02(distance)}m"
+            binding.tvEnvironmentValue.text = UnitTools.showC(environment)
+            binding.tvDistanceValue.text = "${NumberTools.to02(distance)}m"
             popupWindow = PopupWindow(
                 view,
                 SizeUtils.dp2px(275f),
@@ -94,7 +98,7 @@ class EmissivityTipPopup(val context: Context, val isTC007: Boolean) {
                 isTouchable = true
                 setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)) // 必要时可以替换为其他Drawable
             }
-            view.dialog_tip_success_btn.setOnClickListener {
+            binding.dialogTipSuccessBtn.setOnClickListener {
                 ARouter.getInstance().build(RouterConfig.IR_SETTING).withBoolean(ExtraKeyConfig.IS_TC007, isTC007).navigation(context)
                 dismiss()
             }

@@ -52,4 +52,5 @@
         <item>@string/china_tw</item>
     </string-array>
 
+    <string name="http_code_z5004">Request timeout, please try again</string>
 </resources>
