@@ -553,8 +553,12 @@ class AdminPrivilegesManager(BaseManager):
             ElevationResult.SUCCESS: "Administrator privileges granted successfully",
             ElevationResult.CANCELLED: "Privilege elevation was cancelled by user",
             ElevationResult.FAILED: "Failed to obtain administrator privileges",
-            ElevationResult.ALREADY_ELEVATED: "Application already running with administrator privileges",
-            ElevationResult.NOT_SUPPORTED: "Privilege elevation not supported on this platform",
+            ElevationResult.ALREADY_ELEVATED: (
+                "Application already running with administrator privileges"
+            ),
+            ElevationResult.NOT_SUPPORTED: (
+                "Privilege elevation not supported on this platform"
+            ),
         }
         return messages.get(result, "Unknown elevation result")
 

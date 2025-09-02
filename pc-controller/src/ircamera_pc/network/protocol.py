@@ -19,7 +19,6 @@ class ValidationError(Exception):
     """Protocol validation error."""
 
 
-
 class MessageDirection(Enum):
     """Message direction types."""
 
