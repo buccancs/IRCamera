@@ -32,19 +32,21 @@ class GSRModelsTest {
             utcTimestamp = 1234567891L,
             conductance = 12.345678,
             resistance = 80.987654,
+            rawValue = 2048,
             sampleIndex = 100L,
             sessionId = "test_session"
         )
 
         val csvRow = sample.toCsvRow()
 
-        assertEquals(6, csvRow.size)
+        assertEquals(7, csvRow.size)  // Updated to expect 7 fields (includes rawValue)
         assertEquals("1234567890", csvRow[0])
         assertEquals("1234567891", csvRow[1])
         assertEquals("12.345678", csvRow[2])
         assertEquals("80.987654", csvRow[3])
-        assertEquals("100", csvRow[4])
-        assertEquals("test_session", csvRow[5])
+        assertEquals("2048", csvRow[4])        // rawValue field
+        assertEquals("100", csvRow[5])         // sampleIndex field
+        assertEquals("test_session", csvRow[6]) // sessionId field
     }
 
     @Test
