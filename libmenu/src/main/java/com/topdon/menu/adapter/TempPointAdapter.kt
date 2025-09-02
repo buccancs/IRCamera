@@ -3,7 +3,8 @@ package com.topdon.menu.adapter
 import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import com.topdon.menu.R
+import com.topdon.menu.R as MenuR
+import com.topdon.lib.core.R
 import com.topdon.menu.constant.TempPointType
 
 /**
@@ -47,9 +48,9 @@ internal class TempPointAdapter : BaseMenuAdapter() {
 
 
     private val dataArray: Array<Data> = arrayOf(
-        Data(R.string.main_tab_second_high_temperature_point, R.drawable.selector_menu2_temp_point_1, TempPointType.HIGH),
-        Data(R.string.main_tab_second_low_temperature_point, R.drawable.selector_menu2_temp_point_2, TempPointType.LOW),
-        Data(R.string.thermal_delete, R.drawable.selector_menu2_del, TempPointType.DELETE),
+        Data(R.string.main_tab_second_high_temperature_point, MenuR.drawable.selector_menu2_temp_point_1, TempPointType.HIGH),
+        Data(R.string.main_tab_second_low_temperature_point, MenuR.drawable.selector_menu2_temp_point_2, TempPointType.LOW),
+        Data(R.string.thermal_delete, MenuR.drawable.selector_menu2_del, TempPointType.DELETE),
     )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

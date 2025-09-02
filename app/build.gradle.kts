@@ -54,10 +54,8 @@ android {
 
     signingConfigs {
         getByName("debug") {
-            storeFile = file("artibox_key/ArtiBox.jks")
-            keyAlias = "Artibox"
-            storePassword = "artibox2017"
-            keyPassword = "artibox2017"
+            // Use default debug keystore - no need to specify custom keystore for debug builds
+            // This allows development without requiring production keystores
         }
         create("release") {
             storeFile = file("artibox_key/ArtiBox.jks")
@@ -114,12 +112,17 @@ android {
                 "META-INF/proguard/coroutines.pro"
             )
             pickFirsts += listOf(
+                "META-INF/LICENSE.md",
+                "META-INF/LICENSE-notice.md"
+            )
+        }
+        jniLibs {
+            useLegacyPackaging = true
+            pickFirsts += listOf(
                 "lib/x86/libc++_shared.so",
                 "lib/x86_64/libc++_shared.so",
                 "lib/arm64-v8a/libc++_shared.so",
                 "lib/armeabi-v7a/libc++_shared.so",
-                "META-INF/LICENSE.md",
-                "META-INF/LICENSE-notice.md",
                 "lib/arm64-v8a/libnative-window.so",
                 "lib/armeabi-v7a/libnative-window.so",
                 "lib/armeabi-v7a/libyuv.so",
@@ -131,9 +134,6 @@ android {
                 "lib/arm64-v8a/liblog.so",
                 "lib/armeabi-v7a/liblog.so"
             )
-        }
-        jniLibs {
-            useLegacyPackaging = true
         }
     }
     

@@ -3,7 +3,8 @@ package com.topdon.menu.adapter
 import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import com.topdon.menu.R
+import com.topdon.menu.R as MenuR
+import com.topdon.lib.core.R
 
 /**
  * 观测模式-菜单2-高低温源菜单 所用 Adapter，单选可全不选中.
@@ -39,9 +40,9 @@ internal class TempSourceAdapter : BaseMenuAdapter() {
 
 
     private val dataArray: Array<Data> = arrayOf(
-        Data(R.string.main_tab_second_dynamic_recognition, R.drawable.selector_menu2_source_1_auto, 0),
-        Data(R.string.main_tab_second_high_temperature_source, R.drawable.selector_menu2_source_2_high, 1),
-        Data(R.string.main_tab_second_low_temperature_source, R.drawable.selector_menu2_source_3_low, 2),
+        Data(R.string.main_tab_second_dynamic_recognition, MenuR.drawable.selector_menu2_source_1_auto, 0),
+        Data(R.string.main_tab_second_high_temperature_source, MenuR.drawable.selector_menu2_source_2_high, 1),
+        Data(R.string.main_tab_second_low_temperature_source, MenuR.drawable.selector_menu2_source_3_low, 2),
     )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

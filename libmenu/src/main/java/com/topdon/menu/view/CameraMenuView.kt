@@ -14,7 +14,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.request.RequestOptions
-import com.topdon.menu.R
+import com.topdon.menu.R as MenuR
+import com.topdon.lib.core.R
 import com.topdon.menu.databinding.ViewCameraMenuBinding
 
 /**
@@ -79,9 +80,9 @@ class CameraMenuView : FrameLayout, View.OnClickListener {
      */
     fun setToNormal() {
         if (isVideoMode) {
-            binding.ivAction.setImageResource(R.drawable.svg_camera_video_normal)
+            binding.ivAction.setImageResource(MenuR.drawable.svg_camera_video_normal)
         } else {
-            binding.ivAction.setImageResource(R.drawable.svg_camera_photo_normal)
+            binding.ivAction.setImageResource(MenuR.drawable.svg_camera_photo_normal)
         }
     }
 
@@ -91,12 +92,12 @@ class CameraMenuView : FrameLayout, View.OnClickListener {
      */
     fun setToRecord(isDelay: Boolean) {
         if (isVideoMode) {
-            binding.ivAction.setImageResource(R.drawable.svg_camera_video_record)
+            binding.ivAction.setImageResource(MenuR.drawable.svg_camera_video_record)
         } else {
             if (isDelay) {
-                binding.ivAction.setImageResource(R.drawable.svg_camera_photo_record_delay)
+                binding.ivAction.setImageResource(MenuR.drawable.svg_camera_photo_record_delay)
             } else {
-                binding.ivAction.setImageResource(R.drawable.svg_camera_photo_record_at_once)
+                binding.ivAction.setImageResource(MenuR.drawable.svg_camera_photo_record_at_once)
             }
         }
     }
@@ -110,8 +111,8 @@ class CameraMenuView : FrameLayout, View.OnClickListener {
                 .load(path)
                 .apply(
                     RequestOptions.bitmapTransform(MultiTransformation(CenterCrop()))
-                        .placeholder(R.drawable.shape_oval_33)
-                        .error(R.drawable.shape_oval_33)
+                        .placeholder(MenuR.drawable.shape_oval_33)
+                        .error(MenuR.drawable.shape_oval_33)
                 )
                 .into(binding.ivGallery)
         } catch (_: Exception) {
@@ -130,7 +131,7 @@ class CameraMenuView : FrameLayout, View.OnClickListener {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
         if (isInEditMode) {
-            LayoutInflater.from(context).inflate(R.layout.view_camera_menu, this, true)
+            LayoutInflater.from(context).inflate(MenuR.layout.view_camera_menu, this, true)
         } else {
             binding = ViewCameraMenuBinding.inflate(LayoutInflater.from(context), this, true)
 
@@ -196,7 +197,7 @@ class CameraMenuView : FrameLayout, View.OnClickListener {
         override fun onPageSelected(position: Int) {
             binding.tvPhoto.isSelected = position == 0
             binding.tvVideo.isSelected = position == 1
-            binding.ivAction.setImageResource(if (position == 1) R.drawable.svg_camera_video_normal else R.drawable.svg_camera_photo_normal)
+            binding.ivAction.setImageResource(if (position == 1) MenuR.drawable.svg_camera_video_normal else MenuR.drawable.svg_camera_photo_normal)
             onCameraClickListener?.invoke(if (position == 1) CODE_TO_VIDEO else CODE_TO_PHOTO)
         }
     }

@@ -11,7 +11,8 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.blankj.utilcode.util.SizeUtils
-import com.topdon.menu.R
+import com.topdon.menu.R as MenuR
+import com.topdon.lib.core.R
 
 /**
  * 测温模式-菜单3-伪彩/观测模式-菜单4-伪彩 其中一个伪彩块.
@@ -58,7 +59,7 @@ class ColorView : View {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
         paint.color = 0xffffffff.toInt()
-        triangleDrawable = ContextCompat.getDrawable(context, R.drawable.svg_color_select)!!
+        triangleDrawable = ContextCompat.getDrawable(context, MenuR.drawable.svg_color_select)!!
     }
 
     @SuppressLint("DrawAllocation")
