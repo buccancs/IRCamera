@@ -3,7 +3,6 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
         maven { url = uri("https://jitpack.io") }
         maven { url = uri("https://maven.zohodl.com") }
         maven { url = uri("https://maven.aliyun.com/repository/public/") }
@@ -16,11 +15,13 @@ dependencyResolutionManagement {
 rootProject.name = "TopInfrared"
 
 include(":app")
+include(":BleModule")
 include(":commonlibrary")
 include(":component:CommonComponent")
 include(":component:edit3d")
 include(":component:house")
 include(":component:pseudo")
+include(":component:thermal")
 include(":component:thermal-hik")
 include(":component:thermal-ir")
 include(":component:thermal-lite")
@@ -33,11 +34,11 @@ include(":libapp")
 include(":libcom")
 include(":libhik")
 include(":libir")
+include(":libir-demo")
+include(":libmatrix")
 include(":libmenu")
 include(":libui")
 include(":LocalRepo:libac020")
 include(":LocalRepo:libcommon")
 include(":LocalRepo:libirutils")
 include(":RangeSeekBar")
-include(":ai-upscale")
-include(":ts004:thermal04")
