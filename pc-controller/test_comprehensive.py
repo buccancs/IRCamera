@@ -117,10 +117,9 @@ def test_all_components():
             "integrated successfully")
 
         # Test component interactions
-        print(f"   ✓ GSR sessions: {len(gsr_ingestor.get_active_sessions())}"
+        print(f"   ✓ GSR sessions: {len(gsr_ingestor.get_active_sessions())} "
             "active")
-        print(f"   ✓ Transfer summary: {file_trans"
-            "fer_manager.get_transfer_summary()}")
+        print(f"   ✓ Transfer summary: {file_transfer_manager.get_transfer_summary()}")
         print(
             f"   ✓ Calibration sessions: {len(camera_calibrator.get_active_calibrations())}"
                 "active"
@@ -187,10 +186,10 @@ async def test_gsr_session(gsr_ingestor, session_id):
 
     # End session
     dataset = await gsr_ingestor.end_session(session_id)
-    assert dataset is not None, "Failed to end GSR session"
-    assert len(dataset.samples) == 5,
-        f"Expected 5 samples,
-        got {len(dataset.samples)}"
+    if dataset is None:
+        raise ValueError("Failed to end GSR session")
+    if len(dataset.samples) != 5:
+        raise ValueError(f"Expected 5 samples, got {len(dataset.samples)}")
 
 
 async def test_file_transfer(file_transfer_manager, session_id):

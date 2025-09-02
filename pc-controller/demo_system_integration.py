@@ -209,8 +209,7 @@ def demonstrate_protocol_extensions():
         try:
             is_valid = manager.validate_message(test_message)
             print(
-                f"   Sample message validation: {'✅ Valid'"
-                    "if is_valid else '❌ Invalid'}"
+                f"   Sample message validation: {'✅ Valid' if is_valid else '❌ Invalid'}"
             )
         except (OSError, ValueError, RuntimeError) as e:
             print(f"   Sample message validation: ❌ {e}")
@@ -299,8 +298,8 @@ def show_usage_examples():
     print("   ```python")
     print("   wifi_manager = WiFiManager()")
     print("   wifi_manager.start_scanning()")
-    print("   await wifi_manager.connect_to_network('IRCamera_Hotspot',
-        'password')")
+    print("   await wifi_manager.connect_to_network('IRCamera_Hotspot', "
+          "'password')")
     print("   ```")
 
     print("\n🔸 Administrator Privilege Elevation:")

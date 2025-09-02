@@ -103,8 +103,7 @@ def test_protocol_extension():
         }
 
         print("✅ Protocol Manager loaded")
-        print(f"   - Message types loaded: {len"
-            "(manager._message_definitions)}")
+        print(f"   - Message types loaded: {len(manager._message_definitions)}")
 
         # Test if our new message types are recognized
         bt_valid = manager.validate_message(bluetooth_scan_msg)

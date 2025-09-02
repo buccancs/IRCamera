@@ -1,8 +1,8 @@
-# PC Controller Requirements - Compatible versions
+# PC Controller Requirements - Compatible versions with security fixes
 # Core GUI framework
 PyQt6>=6.4.0
 
-# Network communication - Compatible versions
+# Network communication - Secure versions
 websockets>=12.0
 asyncio-mqtt>=0.13.0
 
@@ -34,16 +34,18 @@ pytest-qt>=4.2.0
 flake8>=6.0.0
 black>=23.0.0
 
-# Additional dependencies for enhanced functionality - Compatible versions
+# Additional dependencies for enhanced functionality - SECURE VERSIONS
 aiofiles>=23.1.0
-cryptography>=41.0.0
+cryptography>=45.0.7
 typing-extensions>=4.8.0
 
-# Network security dependencies - Compatible versions
-urllib3>=2.0.0
-requests>=2.31.0
-jinja2>=3.1.0
-certifi>=2023.7.22
+# Network security dependencies - SECURITY FIXED VERSIONS
+urllib3>=2.5.0
+requests>=2.32.3
+jinja2>=3.1.6
+certifi>=2025.8.3
+twisted>=24.7.0rc1
+pyjwt>=2.10.1
 
 # Bluetooth control (using modern bleak instead of problematic pybluez)
 bleak>=0.20.0

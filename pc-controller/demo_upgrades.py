@@ -123,8 +123,8 @@ def demo_protocol_features():
         "error",
         error_code="DEVICE_BUSY",
         error_message="Device is currently recording",
-        context={"device_id": "demo_phone_001","
-            ""session_id": "study_2025_001"},
+        context={"device_id": "demo_phone_001",
+            "session_id": "study_2025_001"},
         retry_after_s=30,
     )
 
@@ -164,8 +164,8 @@ def demo_network_server():
 
         # Session start message
         session_start = create_message(
-            "session_start", session_id="demo_session","
-                "session_name="Protocol Demo"
+            "session_start", session_id="demo_session",
+            session_name="Protocol Demo"
         )
         print(f"   • {session_start['message_type']}:"
             "{session_start['session_name']}")
