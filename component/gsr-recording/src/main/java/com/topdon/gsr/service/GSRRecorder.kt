@@ -202,6 +202,9 @@ class GSRRecorder(
                 val utcTime = TimeUtil.getUtcTimestamp()
                 val currentIndex = sampleIndex.getAndIncrement()
                 
+                // Calculate elapsed time from recording start for consistent timing
+                val elapsedMs = currentTime - baseTime
+                
                 currentSession?.let { session ->
                     // Generate realistic GSR data with physiological patterns
                     val timeOffset = currentIndex * sampleIntervalMs

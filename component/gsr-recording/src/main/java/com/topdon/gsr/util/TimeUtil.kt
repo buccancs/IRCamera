@@ -92,12 +92,12 @@ object TimeUtil {
                     detectedProcessor = "Snapdragon_8_Gen_1"
                 }
                 // Additional detection via hardware/SoC if available
-                hardware?.contains("qcom", ignoreCase = true) == true ||
-                soc?.contains("qualcomm", ignoreCase = true) == true -> {
+                hardware.contains("qcom", ignoreCase = true) ||
+                soc.contains("qualcomm", ignoreCase = true) -> {
                     detectedProcessor = "Snapdragon_8_Gen_1"
                 }
-                hardware?.contains("exynos", ignoreCase = true) == true ||
-                soc?.contains("samsung", ignoreCase = true) == true -> {
+                hardware.contains("exynos", ignoreCase = true) ||
+                soc.contains("samsung", ignoreCase = true) -> {
                     detectedProcessor = "Exynos_2200"  
                 }
                 // Generic Samsung S22 detection

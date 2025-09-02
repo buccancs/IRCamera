@@ -35,7 +35,10 @@ class BluetoothManager(private val context: Context) {
         const val STATE_LISTEN = 3
     }
     
-    private val bluetoothAdapter: BluetoothAdapter? = BluetoothAdapter.getDefaultAdapter()
+    private val bluetoothAdapter: BluetoothAdapter? by lazy {
+        val bluetoothManager = context.getSystemService(Context.BLUETOOTH_SERVICE) as android.bluetooth.BluetoothManager
+        bluetoothManager.adapter
+    }
     private val discoveredDevices = mutableListOf<BluetoothDevice>()
     private val listeners = mutableListOf<BluetoothConnectionListener>()
     
@@ -57,7 +60,8 @@ class BluetoothManager(private val context: Context) {
      * Check if Bluetooth is available and enabled
      */
     fun isBluetoothAvailable(): Boolean {
-        return bluetoothAdapter != null && bluetoothAdapter.isEnabled
+        val adapter = bluetoothAdapter
+        return adapter != null && adapter.isEnabled
     }
     
     /**

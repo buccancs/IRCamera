@@ -448,7 +448,7 @@ class ErrorRecoveryManager private constructor() {
     
     private suspend fun recoverBluetoothConnection(error: RecoverableError): RecoveryResult {
         return try {
-            Log.d(TAG, "Attempting Bluetooth connection recovery")
+            Log.d(TAG, "Attempting Bluetooth connection recovery for error: ${error.type}")
             
             // Reset Bluetooth connection and reconnect
             delay(2000L)
@@ -460,7 +460,7 @@ class ErrorRecoveryManager private constructor() {
     
     private suspend fun recoverShimmerDevice(error: RecoverableError): RecoveryResult {
         return try {
-            Log.d(TAG, "Attempting Shimmer device recovery")
+            Log.d(TAG, "Attempting Shimmer device recovery for error: ${error.type}")
             
             // Reset Shimmer device connection
             delay(3000L)
@@ -472,7 +472,7 @@ class ErrorRecoveryManager private constructor() {
     
     private suspend fun recoverSessionData(error: RecoverableError): RecoveryResult {
         return try {
-            Log.d(TAG, "Attempting session data recovery")
+            Log.d(TAG, "Attempting session data recovery for error: ${error.type}")
             
             // Validate and repair session data
             RecoveryResult(true, "Session data recovered")
@@ -483,7 +483,7 @@ class ErrorRecoveryManager private constructor() {
     
     private suspend fun recoverSynchronization(error: RecoverableError): RecoveryResult {
         return try {
-            Log.d(TAG, "Attempting synchronization recovery")
+            Log.d(TAG, "Attempting synchronization recovery for error: ${error.type}")
             
             // Re-establish timing synchronization
             RecoveryResult(true, "Synchronization recovered")
@@ -493,12 +493,13 @@ class ErrorRecoveryManager private constructor() {
     }
     
     private suspend fun handleCriticalBattery(error: RecoverableError): RecoveryResult {
+        Log.w(TAG, "Critical battery detected: ${error.message}")
         return RecoveryResult(false, "Critical battery level - immediate user action required", shouldRetry = false)
     }
     
     private suspend fun recoverFromMemoryExhaustion(error: RecoverableError): RecoveryResult {
         return try {
-            Log.d(TAG, "Attempting memory recovery")
+            Log.d(TAG, "Attempting memory recovery for error: ${error.type}")
             
             // Force garbage collection and reduce memory usage
             System.gc()

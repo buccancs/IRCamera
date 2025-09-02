@@ -1,6 +1,7 @@
 package com.topdon.gsr.service
 
 import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Environment
@@ -88,7 +89,8 @@ class ShimmerGSRRecorder(
      */
     suspend fun initializeDevice(deviceAddress: String? = null): Boolean = withContext(Dispatchers.IO) {
         try {
-            bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+            val bluetoothManager = context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+            bluetoothAdapter = bluetoothManager.adapter
             
             if (bluetoothAdapter?.isEnabled != true) {
                 Log.w(TAG, "Bluetooth is not enabled")
