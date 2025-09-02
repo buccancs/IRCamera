@@ -38,33 +38,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
-    }
-
-    flavorDimensions += "app"
-    productFlavors {
-        create("dev") {
-            dimension = "app"
-        }
-        create("beta") {
-            dimension = "app"
-        }
-        create("prod") {
-            dimension = "app"
-        }
-        create("prodTopdon") {
-            dimension = "app"
-        }
-        create("insideChina") {
-            dimension = "app"
-        }
-        create("prodTopdonInsideChina") {
-            dimension = "app"
-        }
+        jvmTarget = "11"
     }
 
     // Temporarily disable CMake build for configuration optimization

@@ -36,43 +36,24 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
     
     java {
         toolchain {
-            languageVersion.set(JavaLanguageVersion.of(8))
+            languageVersion.set(JavaLanguageVersion.of(11))
         }
     }
     buildFeatures {
+        buildConfig = true
         dataBinding = true
+        viewBinding = true
     }
 
-    flavorDimensions += "app"
-    productFlavors {
-        create("dev") {
-            dimension = "app"
-        }
-        create("beta") {
-            dimension = "app"
-        }
-        create("prod") {
-            dimension = "app"
-        }
-        create("prodTopdon") {
-            dimension = "app"
-        }
-        create("insideChina") {
-            dimension = "app"
-        }
-        create("prodTopdonInsideChina") {
-            dimension = "app"
-        }
-    }
     sourceSets {
         getByName("main") {
             jniLibs.srcDirs("src/main/jniLibs")
@@ -112,12 +93,12 @@ dependencies {
 
     api(Deps.rxjava2)
     api(Deps.rxandroid)
-    // api(Deps.rxpermissions) // Temporary comment out due to dependency resolution issues
-    // api(Deps.rxlifecycle) // Temporary comment out 
-    // api(Deps.rxlifecycle_android)
-    // api(Deps.rxlifecycle_components)
-    // api(Deps.rxlifecycle_ktx)
-    // api(Deps.rxlifecycle_android_lifecycle_ktx)
+    api(Deps.rxpermissions)
+    api(Deps.rxlifecycle)
+    api(Deps.rxlifecycle_android)
+    api(Deps.rxlifecycle_components)
+    api(Deps.rxlifecycle_ktx)
+    api(Deps.rxlifecycle_android_lifecycle_ktx)
 
     api(Deps.arouter_api)
     kapt(Deps.arouter_compiler)

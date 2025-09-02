@@ -10,7 +10,7 @@ import com.topdon.lib.core.R
 import com.topdon.lib.core.bean.ObserveBean
 import com.topdon.lib.core.bean.TargetColorBean
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.itme_target_color.view.*
+// import kotlinx.android.synthetic.main.itme_target_color.view.*  // TODO: Replace with ViewBinding
 
 class TargetColorAdapter(val context: Context,var targetColor: Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
     var listenerTarget: OnItemClickListener? = null

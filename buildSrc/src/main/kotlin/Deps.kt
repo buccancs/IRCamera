@@ -40,11 +40,11 @@ object Deps {
     const val rxjava2 = "io.reactivex.rxjava2:rxjava:2.2.21"
     const val rxandroid = "io.reactivex.rxjava2:rxandroid:2.1.1"
     const val rxpermissions = "com.github.tbruyelle:rxpermissions:0.12"
-    // const val rxlifecycle = "com.trello.rxlifecycle2:rxlifecycle:2.2.2"  // Temporary comment out
-    // const val rxlifecycle_android = "com.trello.rxlifecycle2:rxlifecycle-android:2.2.2"
-    // const val rxlifecycle_components = "com.trello.rxlifecycle2:rxlifecycle-components:2.2.2"
-    // const val rxlifecycle_ktx = "com.trello.rxlifecycle2:rxlifecycle-ktx:2.2.2"
-    // const val rxlifecycle_android_lifecycle_ktx = "com.trello.rxlifecycle2:rxlifecycle-android-lifecycle-ktx:2.2.2"
+    const val rxlifecycle = "com.trello.rxlifecycle2:rxlifecycle:2.2.2"
+    const val rxlifecycle_android = "com.trello.rxlifecycle2:rxlifecycle-android:2.2.2"
+    const val rxlifecycle_components = "com.trello.rxlifecycle2:rxlifecycle-components:2.2.2"
+    const val rxlifecycle_ktx = "com.trello.rxlifecycle2:rxlifecycle-ktx:2.2.2"
+    const val rxlifecycle_android_lifecycle_ktx = "com.trello.rxlifecycle2:rxlifecycle-android-lifecycle-ktx:2.2.2"
     
     // UI Libraries
     const val ucrop = "com.github.yalantis:ucrop:2.2.4"
