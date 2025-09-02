@@ -46,6 +46,13 @@ class MultiModalRecordingActivity : AppCompatActivity() {
             val intent = Intent(context, MultiModalRecordingActivity::class.java)
             context.startActivity(intent)
         }
+        
+        fun startWithTemplate(context: Context, templateId: String) {
+            val intent = Intent(context, MultiModalRecordingActivity::class.java).apply {
+                putExtra("template_id", templateId)
+            }
+            context.startActivity(intent)
+        }
     }
     
     // UI Components
