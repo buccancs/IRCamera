@@ -5,7 +5,6 @@ plugins {
 android {
     namespace = "com.topdon.ble"
     compileSdk = AndroidConfig.compileSdk
-    buildToolsVersion = "30.0.3"
 
     defaultConfig {
         minSdk = AndroidConfig.minSdk

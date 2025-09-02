@@ -427,7 +427,7 @@ class ErrorRecoveryManager private constructor() {
     
     private suspend fun recoverRGBRecording(error: RecoverableError): RecoveryResult {
         return try {
-            Log.d(TAG, "Attempting RGB recording recovery")
+            Log.d(TAG, "Attempting RGB recording recovery for error: ${error.message}")
             
             // Restart RGB recording
             RecoveryResult(true, "RGB recording recovered")
@@ -437,12 +437,12 @@ class ErrorRecoveryManager private constructor() {
     }
     
     private suspend fun recoverStorageSpace(error: RecoverableError): RecoveryResult {
-        return RecoveryResult(false, "Storage full - user intervention required to free space", shouldRetry = false)
+        return RecoveryResult(false, "Storage full - user intervention required to free space for ${error.message}", shouldRetry = false)
     }
     
     private suspend fun recoverStorageAccess(error: RecoverableError): RecoveryResult {
         return try {
-            Log.d(TAG, "Attempting storage access recovery")
+            Log.d(TAG, "Attempting storage access recovery for error: ${error.message}")
             
             // Check and request storage permissions
             RecoveryResult(true, "Storage access recovered")
