@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.topdon.lib.ui.R
+import com.topdon.lib.ui.R as UiR
+import com.topdon.lib.core.R
+import com.topdon.menu.R as MenuR
 
 /**
  * @author: CaiSongL
@@ -29,7 +31,7 @@ class CameraItemAdapter(context: Context) : RecyclerView.Adapter<CameraItemAdapt
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val v = inflater.inflate(R.layout.item_weak, parent, false)
+        val v = inflater.inflate(UiR.layout.item_weak, parent, false)
         return ViewHolder(v)
     }
 
@@ -46,8 +48,8 @@ class CameraItemAdapter(context: Context) : RecyclerView.Adapter<CameraItemAdapt
         val textView: TextView
 
         init {
-            textView = itemView.findViewById<View>(R.id.name) as TextView
-            itemView.findViewById<View>(R.id.container).setOnClickListener(this)
+            textView = itemView.findViewById<View>(UiR.id.name) as TextView
+            itemView.findViewById<View>(UiR.id.container).setOnClickListener(this)
         }
 
         fun showText() {
@@ -63,8 +65,8 @@ class CameraItemAdapter(context: Context) : RecyclerView.Adapter<CameraItemAdapt
         }
 
         fun hideText() {
-            textView.setTextColor(ContextCompat.getColor(textView.context, R.color.ui_main_custom_color))
-            //            textView.setColorFilter(ContextCompat.getColor(imageView.getContext(), R.color.Grey700));
+            textView.setTextColor(ContextCompat.getColor(textView.context, UiR.color.ui_main_custom_color))
+            //            textView.setColorFilter(ContextCompat.getColor(imageView.getContext(), UiR.color.Grey700));
             textView.animate().scaleX(1f).scaleY(1f)
                 .setDuration(100)
                 .start()

@@ -10,7 +10,9 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.bean.ObserveBean
-import com.topdon.lib.ui.R
+import com.topdon.lib.ui.R as UiR
+import com.topdon.lib.core.R
+import com.topdon.menu.R as MenuR
 import com.topdon.lib.ui.bean.ColorBean
 // import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.ui_item_menu_second_view.view.*
 
@@ -40,14 +42,14 @@ class MenuAIAdapter (val context: Context) : RecyclerView.Adapter<RecyclerView.V
 
 
     private val secondBean = arrayListOf(
-        ColorBean(R.drawable.selector_menu2_source_1_auto, context.getString(R.string.main_tab_second_dynamic_recognition), ObserveBean.TYPE_DYN_R),
-        ColorBean(R.drawable.selector_menu2_source_2_high, context.getString(R.string.main_tab_second_high_temperature_source), ObserveBean.TYPE_TMP_H_S),
-        ColorBean(R.drawable.selector_menu2_source_3_low, context.getString(R.string.main_tab_second_low_temperature_source), ObserveBean.TYPE_TMP_L_S),
+        ColorBean(MenuR.drawable.selector_menu2_source_1_auto, context.getString(R.string.main_tab_second_dynamic_recognition), ObserveBean.TYPE_DYN_R),
+        ColorBean(MenuR.drawable.selector_menu2_source_2_high, context.getString(R.string.main_tab_second_high_temperature_source), ObserveBean.TYPE_TMP_H_S),
+        ColorBean(MenuR.drawable.selector_menu2_source_3_low, context.getString(R.string.main_tab_second_low_temperature_source), ObserveBean.TYPE_TMP_L_S),
     )
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.ui_item_menu_second_view, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(UiR.layout.ui_item_menu_second_view, parent, false)
         return ItemView(view)
     }
 
@@ -62,8 +64,8 @@ class MenuAIAdapter (val context: Context) : RecyclerView.Adapter<RecyclerView.V
             holder.name.text = secondBean[position].name
             holder.name.isSelected = secondBean[position].code == selectCode
             holder.name.setTextColor(
-                if (secondBean[position].code == selectCode) ContextCompat.getColor(context, R.color.white)
-                else ContextCompat.getColor(context, R.color.font_third_color)
+                if (secondBean[position].code == selectCode) ContextCompat.getColor(context, UiR.color.white)
+                else ContextCompat.getColor(context, UiR.color.font_third_color)
             )
         }
     }

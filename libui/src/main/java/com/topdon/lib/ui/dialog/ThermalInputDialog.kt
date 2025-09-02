@@ -26,7 +26,9 @@ import com.topdon.lib.core.tools.NumberTools
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.utils.ScreenUtil
-import com.topdon.lib.ui.R
+import com.topdon.lib.ui.R as UiR
+import com.topdon.lib.core.R
+import com.topdon.menu.R as MenuR
 import com.topdon.lib.ui.adapter.ColorSelectAdapter
 // import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_thermal_input.view.*
 import java.math.BigDecimal
@@ -189,7 +191,7 @@ class ThermalInputDialog : Dialog {
             }
             val inflater =
                 context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val view = inflater.inflate(R.layout.dialog_thermal_input, null)
+            val view = inflater.inflate(UiR.layout.dialog_thermal_input, null)
             messageText = view.dialog_tip_msg_text
             successBtn = view.dialog_tip_success_btn
             cancelBtn = view.dialog_tip_cancel_btn

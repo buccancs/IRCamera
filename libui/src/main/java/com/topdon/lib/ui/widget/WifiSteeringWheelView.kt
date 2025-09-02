@@ -5,7 +5,9 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.View.OnClickListener
 import android.widget.LinearLayout
-import com.topdon.lib.ui.R
+import com.topdon.lib.ui.R as UiR
+import com.topdon.lib.core.R
+import com.topdon.menu.R as MenuR
 // import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.ui_wifi_steering_wheel_view.view.*
 
 /**
@@ -42,7 +44,7 @@ class WifiSteeringWheelView : LinearLayout, OnClickListener {
     )
 
     private fun initView() {
-        inflate(context, R.layout.ui_wifi_steering_wheel_view, this)
+        inflate(context, UiR.layout.ui_wifi_steering_wheel_view, this)
         steering_wheel_start_btn.setOnClickListener(this)
         steering_wheel_center_btn.setOnClickListener(this)
         steering_wheel_end_btn.setOnClickListener(this)

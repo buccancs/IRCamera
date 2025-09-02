@@ -21,7 +21,9 @@ import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.listener.BitmapViewListener
-import com.topdon.lib.ui.R
+import com.topdon.lib.ui.R as UiR
+import com.topdon.lib.core.R
+import com.topdon.menu.R as MenuR
 // import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.camera_lay.view.*
 import java.util.*
 
@@ -53,8 +55,8 @@ class CameraPreView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener,
     )
 
     private fun initView() {
-        inflate(context, R.layout.camera_lay, this)
-        mTextureView = findViewById(R.id.camera_texture)
+        inflate(context, UiR.layout.camera_lay, this)
+        mTextureView = findViewById(UiR.id.camera_texture)
         mTextureView.post { cameraWidth = mTextureView.width }
         lis = ScaleGestureDetector(context, this)
         onResumeView()

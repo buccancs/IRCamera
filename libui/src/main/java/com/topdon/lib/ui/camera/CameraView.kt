@@ -21,7 +21,9 @@ import androidx.annotation.NonNull
 import com.blankj.utilcode.util.ThreadUtils.runOnUiThread
 import com.blankj.utilcode.util.ToastUtils
 import com.topdon.lib.core.utils.ScreenUtil
-import com.topdon.lib.ui.R
+import com.topdon.lib.ui.R as UiR
+import com.topdon.lib.core.R
+import com.topdon.menu.R as MenuR
 import java.nio.ByteBuffer
 import java.util.*
 import kotlin.concurrent.thread
@@ -44,8 +46,8 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
     )
 
     private fun initView() {
-        inflate(context, R.layout.camera_lay, this)
-        mTextureView = findViewById(R.id.camera_texture)
+        inflate(context, UiR.layout.camera_lay, this)
+        mTextureView = findViewById(UiR.id.camera_texture)
         mTextureView.alpha = 0.4f
         lis = ScaleGestureDetector(context, this)
 

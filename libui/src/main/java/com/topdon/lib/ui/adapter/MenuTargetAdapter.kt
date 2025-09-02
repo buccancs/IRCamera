@@ -9,7 +9,9 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.bean.ObserveBean
-import com.topdon.lib.ui.R
+import com.topdon.lib.ui.R as UiR
+import com.topdon.lib.core.R
+import com.topdon.menu.R as MenuR
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.lib.ui.config.CameraHelp
 import com.topdon.menu.constant.TargetType
@@ -34,12 +36,12 @@ class MenuTargetAdapter (val context: Context) : RecyclerView.Adapter<RecyclerVi
     }
 
     private val secondBean = arrayListOf(
-        ColorBean(R.drawable.selector_menu2_target_1_person, context.getString(R.string.main_tab_second_measure_mode), CameraHelp.TYPE_SET_MEASURE_MODE),
-        ColorBean(R.drawable.selector_menu2_target_2_style, context.getString(R.string.main_tab_first_target), CameraHelp.TYPE_SET_TARGET_MODE),
-//      ColorBean(R.drawable.ic_menu_second_zoom, context.getString(R.string.main_tab_second_zoom), CameraHelp.TYPE_SET_TARGET_ZOOM),
-        ColorBean(R.drawable.selector_menu2_target_3_color, context.getString(R.string.main_tab_second_target_color), CameraHelp.TYPE_SET_TARGET_COLOR),
-        ColorBean(R.drawable.selector_menu2_del, context.getString(R.string.thermal_delete), CameraHelp.TYPE_SET_TARGET_DELETE),
-        ColorBean(R.drawable.selector_menu2_target_4_help, context.getString(R.string.main_tab_second_target_help), CameraHelp.TYPE_SET_TARGET_HELP),
+        ColorBean(UiR.drawable.selector_menu2_target_1_person, context.getString(R.string.main_tab_second_measure_mode), CameraHelp.TYPE_SET_MEASURE_MODE),
+        ColorBean(UiR.drawable.selector_menu2_target_2_style, context.getString(R.string.main_tab_first_target), CameraHelp.TYPE_SET_TARGET_MODE),
+//      ColorBean(UiR.drawable.ic_menu_second_zoom, context.getString(R.string.main_tab_second_zoom), CameraHelp.TYPE_SET_TARGET_ZOOM),
+        ColorBean(UiR.drawable.selector_menu2_target_3_color, context.getString(R.string.main_tab_second_target_color), CameraHelp.TYPE_SET_TARGET_COLOR),
+        ColorBean(UiR.drawable.selector_menu2_del, context.getString(R.string.thermal_delete), CameraHelp.TYPE_SET_TARGET_DELETE),
+        ColorBean(UiR.drawable.selector_menu2_target_4_help, context.getString(R.string.main_tab_second_target_help), CameraHelp.TYPE_SET_TARGET_HELP),
     )
 
     /**
@@ -49,28 +51,28 @@ class MenuTargetAdapter (val context: Context) : RecyclerView.Adapter<RecyclerVi
         secondBean.clear()
         when (measureMode) {
             ObserveBean.TYPE_MEASURE_PERSON -> {
-                secondBean.add(ColorBean(R.drawable.selector_menu2_target_1_person, context.getString(R.string.main_tab_second_measure_mode), CameraHelp.TYPE_SET_MEASURE_MODE))
+                secondBean.add(ColorBean(UiR.drawable.selector_menu2_target_1_person, context.getString(R.string.main_tab_second_measure_mode), CameraHelp.TYPE_SET_MEASURE_MODE))
             }
             ObserveBean.TYPE_MEASURE_SHEEP -> {
-                secondBean.add(ColorBean(R.drawable.selector_menu2_target_1_sheep, context.getString(R.string.main_tab_second_measure_mode), CameraHelp.TYPE_SET_MEASURE_MODE))
+                secondBean.add(ColorBean(UiR.drawable.selector_menu2_target_1_sheep, context.getString(R.string.main_tab_second_measure_mode), CameraHelp.TYPE_SET_MEASURE_MODE))
             }
             ObserveBean.TYPE_MEASURE_DOG -> {
-                secondBean.add(ColorBean(R.drawable.selector_menu2_target_1_dog, context.getString(R.string.main_tab_second_measure_mode), CameraHelp.TYPE_SET_MEASURE_MODE))
+                secondBean.add(ColorBean(UiR.drawable.selector_menu2_target_1_dog, context.getString(R.string.main_tab_second_measure_mode), CameraHelp.TYPE_SET_MEASURE_MODE))
             }
             ObserveBean.TYPE_MEASURE_BIRD -> {
-                secondBean.add(ColorBean(R.drawable.selector_menu2_target_1_bird, context.getString(R.string.main_tab_second_measure_mode), CameraHelp.TYPE_SET_MEASURE_MODE))
+                secondBean.add(ColorBean(UiR.drawable.selector_menu2_target_1_bird, context.getString(R.string.main_tab_second_measure_mode), CameraHelp.TYPE_SET_MEASURE_MODE))
             }
         }
-        secondBean.add(ColorBean(R.drawable.selector_menu2_target_2_style, context.getString(R.string.main_tab_first_target), CameraHelp.TYPE_SET_TARGET_MODE))
-        secondBean.add(ColorBean(R.drawable.selector_menu2_target_3_color, context.getString(R.string.main_tab_second_target_color), CameraHelp.TYPE_SET_TARGET_COLOR))
-        secondBean.add(ColorBean(R.drawable.selector_menu2_del, context.getString(R.string.thermal_delete), CameraHelp.TYPE_SET_TARGET_DELETE))
-        secondBean.add(ColorBean(R.drawable.selector_menu2_target_4_help, context.getString(R.string.main_tab_second_target_help), CameraHelp.TYPE_SET_TARGET_HELP))
+        secondBean.add(ColorBean(UiR.drawable.selector_menu2_target_2_style, context.getString(R.string.main_tab_first_target), CameraHelp.TYPE_SET_TARGET_MODE))
+        secondBean.add(ColorBean(UiR.drawable.selector_menu2_target_3_color, context.getString(R.string.main_tab_second_target_color), CameraHelp.TYPE_SET_TARGET_COLOR))
+        secondBean.add(ColorBean(UiR.drawable.selector_menu2_del, context.getString(R.string.thermal_delete), CameraHelp.TYPE_SET_TARGET_DELETE))
+        secondBean.add(ColorBean(UiR.drawable.selector_menu2_target_4_help, context.getString(R.string.main_tab_second_target_help), CameraHelp.TYPE_SET_TARGET_HELP))
         notifyDataSetChanged()
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.ui_item_menu_second_view, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(UiR.layout.ui_item_menu_second_view, parent, false)
         return ItemView(view)
     }
 
@@ -82,9 +84,9 @@ class MenuTargetAdapter (val context: Context) : RecyclerView.Adapter<RecyclerVi
 
             holder.img.isSelected = bean.isSelect
             if (bean.isSelect) {
-                holder.name.setTextColor(ContextCompat.getColor(context, R.color.white))
+                holder.name.setTextColor(ContextCompat.getColor(context, UiR.color.white))
             } else {
-                holder.name.setTextColor(ContextCompat.getColor(context, R.color.font_third_color))
+                holder.name.setTextColor(ContextCompat.getColor(context, UiR.color.font_third_color))
             }
 
             holder.lay.setOnClickListener {

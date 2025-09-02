@@ -1,8 +1,8 @@
 plugins {
     id("com.android.library")
     id("kotlin-android")
-    id("kotlin-parcelize")
     id("kotlin-kapt")
+    id("kotlin-android-extensions") // Temporarily re-enabled for synthetic view access - needs ViewBinding migration
 }
 
 kapt {

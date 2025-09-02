@@ -10,7 +10,10 @@ import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.isVisible
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.ui_setting_view.view.*
+import com.topdon.lib.ui.R as UiR
+import com.topdon.lib.core.R
+import com.topdon.menu.R as MenuR
+import kotlinx.android.synthetic.main.ui_setting_view_night.view.*
 
 class SettingNightView : LinearLayout {
 
@@ -72,7 +75,7 @@ class SettingNightView : LinearLayout {
     )
 
     private fun initView() {
-        inflate(context, R.layout.ui_setting_view_night, this)
+        inflate(context, UiR.layout.ui_setting_view_night, this)
         contentText = findViewById(R.id.item_setting_text)
         headImg = findViewById(R.id.item_setting_image)
         endImg = findViewById(R.id.item_setting_end_image)

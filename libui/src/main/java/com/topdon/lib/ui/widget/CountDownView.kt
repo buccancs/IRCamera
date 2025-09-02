@@ -15,7 +15,9 @@ import android.view.animation.LinearInterpolator
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.blankj.utilcode.util.SizeUtils
-import com.topdon.lib.ui.R
+import com.topdon.lib.ui.R as UiR
+import com.topdon.lib.core.R
+import com.topdon.menu.R as MenuR
 
 class CountDownView : View {
 
@@ -72,7 +74,7 @@ class CountDownView : View {
                 R.styleable.CountDownView_ringColor -> mRingColor =
                     ta.getColor(
                         R.styleable.CountDownView_ringColor,
-                        ContextCompat.getColor(context, R.color.colorAccent)
+                        ContextCompat.getColor(context, UiR.color.colorAccent)
                     )
                 R.styleable.CountDownView_ringWidth -> mRingWidth =
                     ta.getDimensionPixelSize(
@@ -87,7 +89,7 @@ class CountDownView : View {
                 R.styleable.CountDownView_progressTextColor -> mProgressTextColor =
                     ta.getColor(
                         R.styleable.CountDownView_progressTextColor,
-                        context.resources.getColor(R.color.colorAccent)
+                        context.resources.getColor(UiR.color.colorAccent)
                     )
                 R.styleable.CountDownView_countdownTime -> mCountdownTime =
                     ta.getInteger(

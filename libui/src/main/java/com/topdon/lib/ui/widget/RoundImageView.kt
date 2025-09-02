@@ -5,7 +5,9 @@ import android.graphics.Canvas
 import android.graphics.Path
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
-import com.topdon.lib.ui.R
+import com.topdon.lib.ui.R as UiR
+import com.topdon.lib.core.R
+import com.topdon.menu.R as MenuR
 
 class RoundImageView : AppCompatImageView {
     companion object {
