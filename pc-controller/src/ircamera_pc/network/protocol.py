@@ -55,7 +55,8 @@ class ProtocolManager:
         Initialize protocol manager.
 
         Args:
-            protocol_file: Path to protocol.json file. If None, uses default location.
+            protocol_file: Path to protocol.json file. If None, uses default
+                location.
         """
         self._protocol_file = protocol_file
         self._protocol_def: Optional[Dict[str, Any]] = None
@@ -77,7 +78,9 @@ class ProtocolManager:
                 self._protocol_def = json.load(f)
 
             self._parse_message_definitions()
-            logger.info(f"Protocol definition loaded: {self.get_protocol_info()}")
+            logger.info(
+                f"Protocol definition loaded: {self.get_protocol_info()}"
+            )
 
         except FileNotFoundError:
             logger.error(f"Protocol file not found: {self._protocol_file}")
@@ -98,7 +101,9 @@ class ProtocolManager:
 
         for category, messages in message_types.items():
             for msg_name, msg_def in messages.items():
-                direction = MessageDirection(msg_def.get("direction", "bidirectional"))
+                direction = MessageDirection(
+                    msg_def.get("direction", "bidirectional")
+                )
 
                 definition = MessageDefinition(
                     name=msg_name,
@@ -111,7 +116,9 @@ class ProtocolManager:
 
                 self._message_definitions[msg_name] = definition
 
-        logger.info(f"Loaded {len(self._message_definitions)}" "message definitions")
+        logger.info(
+            f"Loaded {len(self._message_definitions)}" "message definitions"
+        )
 
     def get_protocol_info(self) -> Dict[str, Any]:
         """Get protocol information."""
@@ -130,11 +137,15 @@ class ProtocolManager:
         """Get list of available message types."""
         return list(self._message_definitions.keys())
 
-    def get_message_definition(self, message_type: str) -> Optional[MessageDefinition]:
+    def get_message_definition(
+        self, message_type: str
+    ) -> Optional[MessageDefinition]:
         """Get definition for a message type."""
         return self._message_definitions.get(message_type)
 
-    def validate_message(self, message: Dict[str, Any], strict: bool = True) -> bool:
+    def validate_message(
+        self, message: Dict[str, Any], strict: bool = True
+    ) -> bool:
         """
         Validate a message against the protocol.
 
@@ -216,9 +227,9 @@ class ProtocolManager:
 
                 # Add format if specified
                 if "format" in field_def:
-                    complete_schema["properties"][field_name]["format"] = field_def[
-                        "format"
-                    ]
+                    complete_schema["properties"][field_name]["format"] = (
+                        field_def["format"]
+                    )
 
         # Add required common fields
         if "required" not in complete_schema:
@@ -241,7 +252,9 @@ class ProtocolManager:
 
         try:
             # Parse ISO 8601 timestamp
-            timestamp = datetime.fromisoformat(timestamp_str.replace("Z", "+00:00"))
+            timestamp = datetime.fromisoformat(
+                timestamp_str.replace("Z", "+00:00")
+            )
 
             # Check timestamp is not too far in the future or past
             now = datetime.now(timezone.utc)
@@ -251,7 +264,9 @@ class ProtocolManager:
             tolerance = abs((timestamp - now).total_seconds() * 1000)
 
             if tolerance > tolerance_ms:
-                logger.warning(f"Timestamp tolerance exceeded: {tolerance:.0f}ms")
+                logger.warning(
+                    f"Timestamp tolerance exceeded: {tolerance:.0f}ms"
+                )
 
         except ValueError as e:
             raise ValidationError(f"Invalid timestamp format: {e}")

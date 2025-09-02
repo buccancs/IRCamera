@@ -2,7 +2,8 @@
 PyQt6-based GUI widgets for IRCamera PC Controller
 
 This module contains all the user interface widgets for the PC Controller
-application, providing device management, network control, and system integration.
+application, providing device management, network control, and system
+integration.
 """
 
 # Placeholder for widgets.py - GUI functionality temporarily disabled
@@ -17,7 +18,9 @@ class DeviceListWidget(QWidget):
 
     def __init__(self):
         super().__init__()
-        self._label = QLabel("Device list temporarily unavailable - GUI under repair")
+        self._label = QLabel(
+            "Device list temporarily unavailable - GUI under repair"
+        )
 
     def update_devices(self, devices):
         """Update device list - placeholder implementation."""
@@ -58,7 +61,9 @@ class WiFiControlWidget(QWidget):
 
     def __init__(self):
         super().__init__()
-        self._label = QLabel("WiFi control temporarily unavailable - GUI under repair")
+        self._label = QLabel(
+            "WiFi control temporarily unavailable - GUI under repair"
+        )
 
 
 class SystemIntegrationWidget(QWidget):
