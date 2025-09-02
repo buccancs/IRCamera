@@ -39,7 +39,7 @@ android {
 }
 
 dependencies {
-    // AAR dependency - using name/version approach with flatDir
-    implementation(name = "libusbirsdk_1.2.3_22041515", version = "", ext = "aar")
+    // AAR dependency - using files approach for flatDir
+    implementation(files("libs/libusbirsdk_1.2.3_22041515.aar"))
     implementation(project(":libapp"))
 }

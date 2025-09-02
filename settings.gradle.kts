@@ -1,13 +1,44 @@
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
+        maven { url = uri("https://maven.aliyun.com/repository/gradle-plugin") }
+        maven { url = uri("https://maven.aliyun.com/repository/central") }
+        maven { url = uri("https://maven.aliyun.com/repository/public") }
+        maven { url = uri("https://maven.aliyun.com/repository/google") }
         google()
         mavenCentral()
-        maven { url = uri("https://jitpack.io") }
+        maven { url = uri("https://www.jitpack.io") }
+        maven { url = uri("https://developer.huawei.com/repo/") }
+        maven { url = uri("https://maven.google.com") }
+        maven { url = uri("https://repo1.maven.org/maven2/") }
         maven { url = uri("https://maven.zohodl.com") }
-        maven { url = uri("https://maven.aliyun.com/repository/public/") }
+        // Local AAR files directories
+        flatDir {
+            dirs("libir-demo/libs")
+        }
         flatDir {
             dirs("libir/libs")
+        }
+        flatDir {
+            dirs("libapp/libs")
+        }
+        flatDir {
+            dirs("LocalRepo/libac020")
+        }
+        flatDir {
+            dirs("LocalRepo/libirutils")
+        }
+        flatDir {
+            dirs("LocalRepo/libcommon")
+        }
+        flatDir {
+            dirs("commonlibrary")
+        }
+        flatDir {
+            dirs("component/thermal04/libs")
+        }
+        flatDir {
+            dirs("component/edit3d/libs")
         }
     }
 }
