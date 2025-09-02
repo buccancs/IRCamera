@@ -99,6 +99,12 @@ android {
         jvmTarget = "1.8"
     }
 
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(8))
+        }
+    }
+
     packaging {
         resources {
             merges += listOf(
@@ -283,4 +289,11 @@ dependencies {
     // UMeng - China versions
     "insideChinaImplementation"(Deps.umeng_common)
     "insideChinaImplementation"(Deps.umeng_asms)
+}
+
+// Fix Google Services task dependency issue for Gradle 8.0+
+tasks.whenTaskAdded {
+    if (name.contains("merge") && name.contains("Resources")) {
+        mustRunAfter(tasks.matching { it.name.contains("processGoogleServices") })
+    }
 }
