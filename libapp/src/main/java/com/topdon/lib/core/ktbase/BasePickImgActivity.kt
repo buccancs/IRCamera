@@ -9,12 +9,11 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.ImageUtils
 import com.blankj.utilcode.util.SizeUtils
-import com.topdon.lib.core.databinding.ActivityBasePickImgBinding
 import com.topdon.lib.core.R
 import com.topdon.lib.core.dialog.ColorSelectDialog
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.view.ImageEditView
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_image_pick_ir_plush.*
+import com.topdon.lib.core.databinding.ActivityImagePickIrPlushBinding
 import kotlinx.coroutines.launch
 import java.io.File
 
@@ -24,7 +23,7 @@ import java.io.File
  * date: 2024/9/3 9:25
  **/
 abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
-    protected lateinit var binding: ActivityBasePickImgBinding
+    protected lateinit var binding: ActivityImagePickIrPlushBinding
 
     /**
      * String 类型 - 拾取的图片在本地的绝对路径.
@@ -47,12 +46,15 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityImagePickIrPlushBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
         //默认选中画圆
         binding.ivEditCircle.isSelected = true
         binding.imageEditView.type = ImageEditView.Type.CIRCLE
-        view_color.setBackgroundColor(binding.imageEditView.color)
+        binding.viewColor.setBackgroundColor(binding.imageEditView.color)
 
-        iv_edit_color.setOnClickListener(this)
+        binding.ivEditColor.setOnClickListener(this)
         binding.ivEditCircle.setOnClickListener(this)
         binding.ivEditRect.setOnClickListener(this)
         binding.ivEditArrow.setOnClickListener(this)
@@ -92,21 +94,21 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
         val wantHeight = (widthPixels * 256f / 192).toInt()
         if (wantHeight <= canUseHeight) {//够用
             binding.fragmentContainerView.layoutParams = binding.fragmentContainerView.layoutParams.apply {
-                width = widthPixels
-                height = wantHeight
+                this.width = widthPixels
+                this.height = wantHeight
             }
             binding.imageEditView.layoutParams = binding.imageEditView.layoutParams.apply {
-                width = widthPixels
-                height = wantHeight
+                this.width = widthPixels
+                this.height = wantHeight
             }
         } else {
             binding.fragmentContainerView.layoutParams = binding.fragmentContainerView.layoutParams.apply {
-                width = (canUseHeight * 192f / 256).toInt()
-                height = canUseHeight
+                this.width = (canUseHeight * 192f / 256).toInt()
+                this.height = canUseHeight
             }
             binding.imageEditView.layoutParams = binding.imageEditView.layoutParams.apply {
-                width = (canUseHeight * 192f / 256).toInt()
-                height = canUseHeight
+                this.width = (canUseHeight * 192f / 256).toInt()
+                this.height = canUseHeight
             }
         }
     }

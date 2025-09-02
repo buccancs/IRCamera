@@ -8,6 +8,7 @@ import android.util.Log
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.appcompat.app.AppCompatActivity
 import com.elvishew.xlog.XLog
 import com.google.gson.Gson

@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import com.topdon.lib.core.R
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_tip.view.*
+import com.topdon.lib.core.databinding.DialogTipBinding
 
 /**
  * 提示窗
@@ -95,8 +95,8 @@ class TipDialog : Dialog {
                 dialog = TipDialog(context, R.style.InfoDialog)
             }
 
-            val view = LayoutInflater.from(context).inflate(R.layout.dialog_tip, null)
-            dialog!!.addContentView(view, LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT))
+            val binding = DialogTipBinding.inflate(LayoutInflater.from(context))
+            dialog!!.addContentView(binding.root, LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT))
             val isPortrait = context.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
             val widthPixels = context.resources.displayMetrics.widthPixels
             val lp = dialog!!.window!!.attributes
@@ -104,46 +104,46 @@ class TipDialog : Dialog {
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceled)
-            view.dialog_tip_success_btn.setOnClickListener {
+            binding.dialogTipSuccessBtn.setOnClickListener {
                 dismiss()
                 positiveEvent?.invoke()
             }
-            view.dialog_tip_cancel_btn.setOnClickListener {
+            binding.dialogTipCancelBtn.setOnClickListener {
                 dismiss()
                 cancelEvent?.invoke()
             }
 
             if (positiveStr != null) {
-                view.dialog_tip_success_btn.text = positiveStr
+                binding.dialogTipSuccessBtn.text = positiveStr
             }
             if (!TextUtils.isEmpty(cancelStr)) {
-                view.space_margin.visibility = View.VISIBLE
-                view.dialog_tip_cancel_btn.visibility = View.VISIBLE
-                view.dialog_tip_cancel_btn.text = cancelStr
+                binding.spaceMargin.visibility = View.VISIBLE
+                binding.dialogTipCancelBtn.visibility = View.VISIBLE
+                binding.dialogTipCancelBtn.text = cancelStr
             } else {
-                view.space_margin.visibility = View.GONE
-                view.dialog_tip_cancel_btn.visibility = View.GONE
-                view.dialog_tip_cancel_btn.text = ""
+                binding.spaceMargin.visibility = View.GONE
+                binding.dialogTipCancelBtn.visibility = View.GONE
+                binding.dialogTipCancelBtn.text = ""
             }
             //msg
             if (message != null) {
-                view.dialog_tip_msg_text.visibility = View.VISIBLE
-                view.dialog_tip_msg_text.setText(message, TextView.BufferType.NORMAL)
+                binding.dialogTipMsgText.visibility = View.VISIBLE
+                binding.dialogTipMsgText.setText(message, TextView.BufferType.NORMAL)
             } else {
-                view.dialog_tip_msg_text.visibility = View.GONE
+                binding.dialogTipMsgText.visibility = View.GONE
             }
 
             //msg
             if (titleMessage != null) {
-                view.dialog_tip_title_msg_text.visibility = View.VISIBLE
-                view.dialog_tip_title_msg_text.setText(titleMessage, TextView.BufferType.NORMAL)
+                binding.dialogTipTitleMsgText.visibility = View.VISIBLE
+                binding.dialogTipTitleMsgText.setText(titleMessage, TextView.BufferType.NORMAL)
             } else {
-                view.dialog_tip_title_msg_text.visibility = View.GONE
+                binding.dialogTipTitleMsgText.visibility = View.GONE
             }
 
-            view.tv_restart_tips.isVisible = isShowRestartTips
+            binding.tvRestartTips.isVisible = isShowRestartTips
 
-            dialog!!.setContentView(view)
+            dialog!!.setContentView(binding.root)
             return dialog as TipDialog
         }
     }

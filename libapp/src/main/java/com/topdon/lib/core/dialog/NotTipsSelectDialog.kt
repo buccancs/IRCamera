@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import com.topdon.lib.core.R
+import com.topdon.lib.core.databinding.DialogNotTipsSelectBinding
 import com.topdon.lib.core.utils.ScreenUtil
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_not_tips_select.*
 
 /**
  * 与 TipDialog 类似，不过多了个 “不再提示” 选中效果的提示弹窗.
@@ -19,6 +19,8 @@ class NotTipsSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
     @StringRes
     private var tipsResId: Int = 0
     private var onConfirmListener: ((isSelect: Boolean) -> Unit)? = null
+    
+    private val binding: DialogNotTipsSelectBinding = DialogNotTipsSelectBinding.inflate(layoutInflater)
 
 
     fun setTipsResId(@StringRes tipsResId: Int): NotTipsSelectDialog {
@@ -40,16 +42,16 @@ class NotTipsSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
         super.onCreate(savedInstanceState)
         setCancelable(false)
         setCanceledOnTouchOutside(false)
-        setContentView(R.layout.dialog_not_tips_select)
+        setContentView(binding.root)
 
         if (tipsResId != 0) {
-            tv_message.setText(tipsResId)
+            binding.tvMessage.setText(tipsResId)
         }
-        tv_select.setOnClickListener {
+        binding.tvSelect.setOnClickListener {
             it.isSelected = !it.isSelected
         }
-        tv_i_know.setOnClickListener {
-            onConfirmListener?.invoke(tv_select.isSelected)
+        binding.tvIKnow.setOnClickListener {
+            onConfirmListener?.invoke(binding.tvSelect.isSelected)
             dismiss()
         }
 

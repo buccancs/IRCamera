@@ -371,6 +371,7 @@ class ErrorRecoveryManager private constructor() {
     // Recovery Action Implementations
     private suspend fun recoverGSRSensorConnection(error: RecoverableError): RecoveryResult {
         return try {
+            Log.w(TAG, "Recovering from GSR sensor error: ${error.message}")
             // Attempt to reconnect GSR sensor
             delay(1000L) // Allow time for sensor to stabilize
             
@@ -385,6 +386,7 @@ class ErrorRecoveryManager private constructor() {
     
     private suspend fun recoverGSRDataStream(error: RecoverableError): RecoveryResult {
         return try {
+            Log.w(TAG, "Recovering from GSR data stream error: ${error.message}")
             Log.d(TAG, "Attempting GSR data stream recovery")
             
             // Reset data stream buffers and restart data collection
@@ -396,6 +398,7 @@ class ErrorRecoveryManager private constructor() {
     
     private suspend fun recoverThermalCameraConnection(error: RecoverableError): RecoveryResult {
         return try {
+            Log.w(TAG, "Recovering from thermal camera error: ${error.message}")
             Log.d(TAG, "Attempting thermal camera reconnection")
             
             // Reinitialize thermal camera connection
@@ -407,6 +410,7 @@ class ErrorRecoveryManager private constructor() {
     
     private suspend fun recoverThermalRecording(error: RecoverableError): RecoveryResult {
         return try {
+            Log.w(TAG, "Recovering from thermal recording error: ${error.message}")
             Log.d(TAG, "Attempting thermal recording recovery")
             
             // Restart thermal recording with current session
@@ -417,6 +421,7 @@ class ErrorRecoveryManager private constructor() {
     }
     
     private suspend fun recoverRGBCameraAccess(error: RecoverableError): RecoveryResult {
+        Log.w(TAG, "RGB camera access error: ${error.message}")
         return RecoveryResult(false, "RGB camera access requires user intervention - check permissions", shouldRetry = false)
     }
     

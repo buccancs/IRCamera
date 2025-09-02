@@ -201,6 +201,15 @@ android {
     }
 }
 
+// Dependency resolution strategy to fix Guava conflicts
+configurations.all {
+    resolutionStrategy {
+        force("com.google.guava:guava:31.1-android")
+        exclude(group = "com.google.guava", module = "listenablefuture")
+        exclude(group = "com.google.guava", module = "guava-jdk5")
+    }
+}
+
 // APK naming function - Updated to use Variant instead of deprecated ApplicationVariant
 fun getApkName(variantName: String, versionName: String): String {
     val nameStr = "TopInfrared_${versionName}.$dayStr"

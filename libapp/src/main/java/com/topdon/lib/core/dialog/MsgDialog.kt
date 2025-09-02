@@ -12,8 +12,8 @@ import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.topdon.lib.core.R
+import com.topdon.lib.core.databinding.DialogMsgBinding
 import com.topdon.lib.core.utils.ScreenUtil
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_msg.view.*
 
 
 /**
@@ -73,14 +73,12 @@ class MsgDialog : Dialog {
             if (dialog == null) {
                 dialog = MsgDialog(context!!, R.style.InfoDialog)
             }
-            val inflater =
-                context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val view = inflater.inflate(R.layout.dialog_msg, null)
-            tipImg = view.dialog_msg_img
-            messageText = view.dialog_msg_text
-            closeImg = view.dialog_msg_close
+            val binding = DialogMsgBinding.inflate(LayoutInflater.from(context!!))
+            tipImg = binding.dialogMsgImg
+            messageText = binding.dialogMsgText
+            closeImg = binding.dialogMsgClose
             dialog!!.addContentView(
-                view, LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
+                binding.root, LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
             )
             val lp = dialog!!.window!!.attributes
             val wRatio =
@@ -116,7 +114,7 @@ class MsgDialog : Dialog {
                 messageText?.visibility = View.GONE
             }
 
-            dialog!!.setContentView(view)
+            dialog!!.setContentView(binding.root)
             return dialog as MsgDialog
         }
     }
