@@ -20,13 +20,14 @@ except ImportError:
     logger = get_logger(__name__)
 
 try:
-    from PyQt6.QtCore import QObject, pyqtSignal, QTimer
+    from PyQt6.QtCore import pyqtSignal, QTimer
     from .base_manager import BaseManager
 
     PYQT_AVAILABLE = True
 
 except ImportError:
     from .base_manager import BaseManager
+
     PYQT_AVAILABLE = False
 
 

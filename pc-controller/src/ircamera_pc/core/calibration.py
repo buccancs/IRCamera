@@ -137,7 +137,7 @@ class ChessboardDetector:
             (pattern_size[0] * pattern_size[1], 3), np.float32
         )
         self.object_points_3d[:, :2] = np.mgrid[
-            0:pattern_size[0], 0:pattern_size[1]
+            0 : pattern_size[0], 0 : pattern_size[1]
         ].T.reshape(-1, 2)
         self.object_points_3d *= square_size
 

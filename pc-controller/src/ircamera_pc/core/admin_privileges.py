@@ -15,7 +15,7 @@ from dataclasses import dataclass
 from enum import Enum
 
 try:
-    from PyQt6.QtCore import QObject, pyqtSignal
+    from PyQt6.QtCore import pyqtSignal
     from PyQt6.QtWidgets import QMessageBox, QApplication
     from .base_manager import BaseManager
 
@@ -23,6 +23,7 @@ try:
 
 except ImportError:
     from .base_manager import BaseManager
+
     PYQT_AVAILABLE = False
 
     # Mock classes for when PyQt6 is not available

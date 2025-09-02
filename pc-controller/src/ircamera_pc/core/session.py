@@ -234,8 +234,7 @@ class SessionManager:
 
         self._save_metadata()
         logger.debug(
-            f"Device added to session: {device_info.get('device_id',
-                'unknown')}"
+            f"Device added to session: {device_info.get('device_id', 'unknown')}"
         )
 
     def add_file(self, file_info: Dict[str, Any]) -> None:
@@ -254,8 +253,7 @@ class SessionManager:
 
         self._save_metadata()
         logger.debug(
-            f"File added to session: {file_info.get('filename',
-            'unknown')}"
+            f"File added to session: {file_info.get('filename', 'unknown')}"
         )
 
     def add_sync_event(
