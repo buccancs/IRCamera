@@ -16,9 +16,9 @@ object Deps {
     const val lifecycle_viewmodel_ktx = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2"
     const val lifecycle_livedata_ktx = "androidx.lifecycle:lifecycle-livedata-ktx:2.6.2"
     
-    // Room
-    const val room_compiler = "androidx.room:room-compiler:2.4.3"
-    const val room_ktx = "androidx.room:room-ktx:2.4.3"
+    // Room - Updated to 2.5.0 for AGP 8.0 compatibility
+    const val room_compiler = "androidx.room:room-compiler:2.5.0"
+    const val room_ktx = "androidx.room:room-ktx:2.5.0"
     
     // Work Manager
     const val work_runtime_ktx = "androidx.work:work-runtime-ktx:2.8.1"
