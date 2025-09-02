@@ -430,8 +430,10 @@ class AdminPrivilegesManager(BaseManager):
 
             if system == "Windows":
                 self._check_windows_permissions()
-            else:
+            elif system in ["Linux", "Darwin"]:
                 self._check_unix_permissions()
+            else:
+                logger.warning(f"Permission checking not implemented for {system}")
 
             self._emit_signal("system_ready", self._permissions)
 
@@ -462,15 +464,28 @@ class AdminPrivilegesManager(BaseManager):
 
     def _check_unix_permissions(self) -> None:
         """Check Unix-specific permissions."""
-        # Basic checks for Unix systems
-        self._permissions.network_config = os.getuid() == 0 or self._can_sudo()
-        self._permissions.bluetooth_control = (
-            os.getuid() == 0 or self._can_sudo()
-        )
-        self._permissions.service_management = (
-            os.getuid() == 0 or self._can_sudo()
-        )
-        self._permissions.hardware_access = os.getuid() == 0
+        # Basic checks for Unix systems - should only be called on Unix-like systems
+        if platform.system() == "Windows":
+            logger.error("_check_unix_permissions called on Windows - this is a bug")
+            return
+            
+        try:
+            is_root = os.getuid() == 0
+            can_sudo = self._can_sudo()
+            
+            self._permissions.network_config = is_root or can_sudo
+            self._permissions.bluetooth_control = is_root or can_sudo
+            self._permissions.service_management = is_root or can_sudo
+            self._permissions.hardware_access = is_root
+        except AttributeError:
+            # os.getuid() not available (shouldn't happen on Unix systems)
+            logger.error("os.getuid() not available - platform detection failed")
+            # Fallback to checking sudo only
+            can_sudo = self._can_sudo()
+            self._permissions.network_config = can_sudo
+            self._permissions.bluetooth_control = can_sudo  
+            self._permissions.service_management = can_sudo
+            self._permissions.hardware_access = False
 
     def _perform_elevation(self, reason: str) -> ElevationResult:
         """Perform the actual privilege elevation."""
@@ -690,6 +705,10 @@ class AdminPrivilegesManager(BaseManager):
 
     def _can_sudo(self) -> bool:
         """Check if user can use sudo."""
+        # sudo is not available on Windows
+        if platform.system() == "Windows":
+            return False
+            
         try:
             result = subprocess.run(
                 ["sudo", "-n", "true"], capture_output=True, timeout=5
