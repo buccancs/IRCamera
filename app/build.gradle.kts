@@ -63,8 +63,10 @@ android {
             keyAlias = "Artibox"
             storePassword = "artibox2017"
             keyPassword = "artibox2017"
-            isV1SigningEnabled = true
-            isV2SigningEnabled = true
+            // Removed deprecated isV1SigningEnabled and isV2SigningEnabled
+            // Modern signing uses enableV1Signing and enableV2Signing
+            enableV1Signing = true
+            enableV2Signing = true
         }
     }
 

@@ -9,6 +9,7 @@ object Deps {
     const val appcompat = "androidx.appcompat:appcompat:1.6.1"
     const val fragment_ktx = "androidx.fragment:fragment-ktx:1.5.5"
     const val material = "com.google.android.material:material:1.8.0"
+    const val multidex = "androidx.multidex:multidex:2.0.1"
     
     // Lifecycle
     const val lifecycle_runtime_ktx = "androidx.lifecycle:lifecycle-runtime-ktx:2.6.2"

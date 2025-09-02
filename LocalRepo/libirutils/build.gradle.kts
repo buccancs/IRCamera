@@ -3,4 +3,4 @@
  * 使用新的导入方式,解决 Direct local .aar file dependencies are not ... 问题
  */
 configurations.maybeCreate("default")
-artifacts.add("default", file('libAC020sdk_USB_IR_1.1.1_2408291439.aar'))
+artifacts.add("default", file("libirutils_1.2.0_2409241055.aar"))

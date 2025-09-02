@@ -3,21 +3,24 @@ plugins {
 }
 
 android {
-    compileSdk = 34
+    compileSdk = AndroidConfig.compileSdk
+    buildToolsVersion = "30.0.3"
 
     defaultConfig {
-        minSdk = 22
-        targetSdk = 28
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = AndroidConfig.minSdk
+        targetSdk = AndroidConfig.targetSdk
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
+    
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -33,6 +36,7 @@ android {
             dimension = "versionCode"
         }
         // ArtiDiag900 ArtiDiag900Lite
+        // ArtiDiag900 ArtiDiag900Lite 打包时需要修改DiagnoseModule和BluetoothModule 中的进程名称 进程名：com.topdon.diagnose.adliteservice  Constants.mAppVersion  此字段也需要修改
         create("artidiag900lite") {
             dimension = "versionCode"
         }
