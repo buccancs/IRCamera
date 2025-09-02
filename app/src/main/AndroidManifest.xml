@@ -148,6 +148,28 @@
             android:name="com.topdon.tc001.gsr.GSRDemoActivity"
             android:screenOrientation="userPortrait"
             android:exported="false" />
+            
+        <!-- Session Management and Research Template Activities -->
+        <activity
+            android:name="com.topdon.tc001.gsr.SessionManagerActivity"
+            android:screenOrientation="userPortrait"
+            android:exported="false"
+            android:label="Session Manager" />
+        <activity
+            android:name="com.topdon.tc001.gsr.ResearchTemplateActivity"
+            android:screenOrientation="userPortrait"
+            android:exported="false"
+            android:label="Research Templates" />
+        <activity
+            android:name="com.topdon.tc001.gsr.SessionDetailActivity"
+            android:screenOrientation="userPortrait"
+            android:exported="false"
+            android:label="Session Details" />
+        <activity
+            android:name="com.topdon.tc001.gsr.SessionExportActivity"
+            android:screenOrientation="userPortrait"
+            android:exported="false"
+            android:label="Export Session" />
     </application>
 
 </manifest>
