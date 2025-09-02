@@ -54,15 +54,9 @@ class CameraIntrinsics:
     @property
     def camera_matrix(self) -> np.ndarray:
         """Get camera matrix as numpy array"""
-        return np.array([[self.fx,
-            0,
-            self.cx],
-            [0,
-            self.fy,
-            self.cy],
-            [0,
-            0,
-            1]])
+        return np.array(
+            [[self.fx, 0, self.cx], [0, self.fy, self.cy], [0, 0, 1]]
+        )
 
     @property
     def distortion_coeffs(self) -> np.ndarray:
@@ -83,7 +77,9 @@ class StereoCalibration:
     essential_matrix: List[List[float]]  # 3x3 essential matrix
     fundamental_matrix: List[List[float]]  # 3x3 fundamental matrix
     rectification_left: List[List[float]]  # 3x3 rectification matrix for left
-    rectification_right: List[List[float]]  # 3x3 rectification matrix for right
+    rectification_right: List[
+        List[float]
+    ]  # 3x3 rectification matrix for right
     projection_left: List[List[float]]  # 3x4 projection matrix for left
     projection_right: List[List[float]]  # 3x4 projection matrix for right
     baseline_mm: float  # Stereo baseline in millimeters
@@ -145,9 +141,9 @@ class ChessboardDetector:
         ].T.reshape(-1, 2)
         self.object_points_3d *= square_size
 
-    def detect_corners(self,
-        image: np.ndarray) -> Tuple[bool,
-        Optional[np.ndarray]]:
+    def detect_corners(
+        self, image: np.ndarray
+    ) -> Tuple[bool, Optional[np.ndarray]]:
         """
         Detect chessboard corners in image
 
@@ -180,13 +176,9 @@ class ChessboardDetector:
                     30,
                     0.001,
                 )
-                corners = cv2.cornerSubPix(gray,
-                    corners,
-                    (11,
-                    11),
-                    (-1,
-                    -1),
-                    criteria)
+                corners = cv2.cornerSubPix(
+                    gray, corners, (11, 11), (-1, -1), criteria
+                )
                 return True, corners
             else:
                 return False, None
@@ -303,8 +295,10 @@ class CameraCalibrator:
             calibration_id = f"{device_id}_{camera_type.value}_{session_id}"
 
             if calibration_id not in self.active_sessions:
-                return {"success": False, "error": "No"
-                    "active calibration session"}
+                return {
+                    "success": False,
+                    "error": "No" "active calibration session",
+                }
 
             session_data = self.active_sessions[calibration_id]
 
@@ -317,22 +311,24 @@ class CameraCalibrator:
 
             # Store image resolution on first image
             if session_data["image_resolution"] is None:
-                session_data["image_resolution"] = (image.shape[1],
-                    image.shape[0])
+                session_data["image_resolution"] = (
+                    image.shape[1],
+                    image.shape[0],
+                )
 
             # Detect chessboard corners
             success, corners = self.detector.detect_corners(image)
 
             if success:
                 # Add points to calibration dataset
-                session_data["object_points"].append(self.detector.object_points_3d)
+                session_data["object_points"].append(
+                    self.detector.object_points_3d
+                )
                 session_data["image_points"].append(corners)
                 session_data["images_collected"] += 1
 
                 # Save calibration image
-                image_filename = (
-                    f"calib_{calibration_id}_{session_data['images_collected']:03d}.png"
-                )
+                image_filename = f"calib_{calibration_id}_{session_data['images_collected']:03d}.png"
                 image_path = self.data_dir / image_filename
                 cv2.imwrite(str(image_path), image)
 
@@ -404,8 +400,10 @@ class CameraCalibrator:
             )
 
             # Calibrate camera
-            ret, camera_matrix, dist_coeffs, rvecs, tvecs = cv2.calibrateCamera(
-                object_points, image_points, image_resolution, None, None
+            ret, camera_matrix, dist_coeffs, rvecs, tvecs = (
+                cv2.calibrateCamera(
+                    object_points, image_points, image_resolution, None, None
+                )
             )
 
             if not ret or ret > self.target_error:
@@ -488,12 +486,32 @@ class CameraCalibrator:
 
             # Placeholder stereo result
             stereo_result = StereoCalibration(
-                rotation_matrix=[[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+                rotation_matrix=[
+                    [1.0, 0.0, 0.0],
+                    [0.0, 1.0, 0.0],
+                    [0.0, 0.0, 1.0],
+                ],
                 translation_vector=[100.0, 0.0, 0.0],  # 100mm baseline
-                essential_matrix=[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]],
-                fundamental_matrix=[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]],
-                rectification_left=[[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-                rectification_right=[[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+                essential_matrix=[
+                    [0.0, 0.0, 0.0],
+                    [0.0, 0.0, 0.0],
+                    [0.0, 0.0, 0.0],
+                ],
+                fundamental_matrix=[
+                    [0.0, 0.0, 0.0],
+                    [0.0, 0.0, 0.0],
+                    [0.0, 0.0, 0.0],
+                ],
+                rectification_left=[
+                    [1.0, 0.0, 0.0],
+                    [0.0, 1.0, 0.0],
+                    [0.0, 0.0, 1.0],
+                ],
+                rectification_right=[
+                    [1.0, 0.0, 0.0],
+                    [0.0, 1.0, 0.0],
+                    [0.0, 0.0, 1.0],
+                ],
                 projection_left=[
                     [800.0, 0.0, 320.0, 0.0],
                     [0.0, 800.0, 240.0, 0.0],
@@ -562,7 +580,9 @@ class CameraCalibrator:
             # Note: This is a simplified reconstruction - full implementation would
             # handle all nested objects properly
 
-            logger.info(f"Loaded calibration result: {device_id}_{camera_type.value}")
+            logger.info(
+                f"Loaded calibration result: {device_id}_{camera_type.value}"
+            )
             return None  # Placeholder - implement full reconstruction
 
         except (OSError, ValueError, RuntimeError) as e:
@@ -581,7 +601,8 @@ class CameraCalibrator:
                 "status": session["status"].value,
                 "images_collected": session["images_collected"],
                 "min_images_needed": self.min_images,
-                "ready_to_calibrate": session["images_collected"] >= self.min_images,
+                "ready_to_calibrate": session["images_collected"]
+                >= self.min_images,
                 "elapsed_time": time.time() - session["start_time"],
             }
         elif calibration_id in self.completed_calibrations:

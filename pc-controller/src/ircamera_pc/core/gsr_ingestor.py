@@ -89,14 +89,20 @@ class GSRIngestor:
         # GSR processing parameters
         self.min_sample_rate = self.config.get("min_sample_rate", 10.0)  # Hz
         self.max_sample_rate = self.config.get("max_sample_rate", 1000.0)  # Hz
-        self.quality_threshold = self.config.get("quality_threshold", 50)  # 0-100
-        self.max_gap_duration = self.config.get("max_gap_duration", 5.0)  # seconds
+        self.quality_threshold = self.config.get(
+            "quality_threshold", 50
+        )  # 0-100
+        self.max_gap_duration = self.config.get(
+            "max_gap_duration", 5.0
+        )  # seconds
 
         # Active sessions and datasets
         self.active_sessions: Dict[str, GSRDataSet] = {}
         self.completed_sessions: Dict[str, GSRDataSet] = {}
 
-        logger.info(f"GSR Ingestor initialized with data directory: {self.data_dir}")
+        logger.info(
+            f"GSR Ingestor initialized with data directory: {self.data_dir}"
+        )
 
     async def start_session(
         self, session_id: str, device_id: str, mode: GSRMode
@@ -161,7 +167,9 @@ class GSRIngestor:
 
             # Parse raw sample data (format: timestamp(8) + value(4) + quality(4))
             if len(sample_data) < 16:
-                logger.warning(f"Invalid GSR sample data length: {len(sample_data)}")
+                logger.warning(
+                    f"Invalid GSR sample data length: {len(sample_data)}"
+                )
                 return False
 
             timestamp, value, quality = struct.unpack("<dfi", sample_data[:16])
@@ -183,7 +191,9 @@ class GSRIngestor:
             return True
 
         except (OSError, ValueError, RuntimeError) as e:
-            logger.error(f"Failed to ingest GSR sample for session {session_id}: {e}")
+            logger.error(
+                f"Failed to ingest GSR sample for session {session_id}: {e}"
+            )
             return False
 
     async def end_session(self, session_id: str) -> Optional[GSRDataSet]:
@@ -198,7 +208,9 @@ class GSRIngestor:
         """
         try:
             if session_id not in self.active_sessions:
-                logger.warning(f"Cannot end inactive GSR session: {session_id}")
+                logger.warning(
+                    f"Cannot end inactive GSR session: {session_id}"
+                )
                 return None
 
             dataset = self.active_sessions[session_id]
@@ -228,7 +240,8 @@ class GSRIngestor:
             await self._save_dataset(dataset)
 
             logger.info(
-                f"Ended GSR session {session_id} with" "{len(dataset.samples)} samples"
+                f"Ended GSR session {session_id} with"
+                "{len(dataset.samples)} samples"
             )
             logger.info(
                 f"Sample rate: {dataset.sample_rate:.1f} Hz, Quality:"
@@ -257,8 +270,13 @@ class GSRIngestor:
             return False
 
         # Check timestamp ordering (if not first sample)
-        if dataset.samples and sample.timestamp <= dataset.samples[-1].timestamp:
-            logger.warning(f"GSR sample timestamp not monotonic: {sample.timestamp}")
+        if (
+            dataset.samples
+            and sample.timestamp <= dataset.samples[-1].timestamp
+        ):
+            logger.warning(
+                f"GSR sample timestamp not monotonic: {sample.timestamp}"
+            )
             return False
 
         # Check for excessive gaps
@@ -313,7 +331,9 @@ class GSRIngestor:
                 data = json.load(f)
 
             # Reconstruct dataset
-            samples = [GSRSample(**sample_data) for sample_data in data["samples"]]
+            samples = [
+                GSRSample(**sample_data) for sample_data in data["samples"]
+            ]
 
             dataset = GSRDataSet(
                 session_id=data["session_id"],

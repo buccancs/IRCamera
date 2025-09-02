@@ -125,7 +125,9 @@ class FileTransferManager:
         self.data_dir.mkdir(parents=True, exist_ok=True)
 
         # Transfer parameters
-        self.chunk_size = self.config.get("chunk_size", 1024 * 1024)  # 1MB chunks
+        self.chunk_size = self.config.get(
+            "chunk_size", 1024 * 1024
+        )  # 1MB chunks
         self.max_concurrent = self.config.get("max_concurrent_transfers", 4)
         self.retry_limit = self.config.get("retry_limit", 3)
         self.timeout = self.config.get("timeout_seconds", 300)  # 5 minutes
@@ -147,7 +149,9 @@ class FileTransferManager:
             f"Chunk size: {self.chunk_size} bytes, Maxconcurrent: {self.max_concurrent}"
         )
 
-    def add_progress_callback(self, callback: Callable[[str, float, float], None]):
+    def add_progress_callback(
+        self, callback: Callable[[str, float, float], None]
+    ):
         """
         Add callback for transfer progress updates
 
@@ -156,7 +160,9 @@ class FileTransferManager:
         """
         self.progress_callbacks.append(callback)
 
-    async def queue_transfer(self, manifest: FileManifest, device_conn: Any) -> str:
+    async def queue_transfer(
+        self, manifest: FileManifest, device_conn: Any
+    ) -> str:
         """
         Queue a file for transfer
 
@@ -181,7 +187,9 @@ class FileTransferManager:
             # Check if file already exists and is complete
             if local_path.exists():
                 if await self._verify_existing_file(local_path, manifest):
-                    logger.info(f"File already exists and verified:{manifest.filename}")
+                    logger.info(
+                        f"File already exists and verified:{manifest.filename}"
+                    )
                     return job_id  # Skip transfer
 
             # Create transfer job
@@ -220,7 +228,9 @@ class FileTransferManager:
             return job_id
 
         except (OSError, ValueError, RuntimeError) as e:
-            logger.error(f"Failed to queue transfer for{manifest.filename}: {e}")
+            logger.error(
+                f"Failed to queue transfer for{manifest.filename}: {e}"
+            )
             raise
 
     async def cancel_transfer(self, job_id: str) -> bool:
@@ -289,7 +299,10 @@ class FileTransferManager:
 
     async def _start_next_transfer(self):
         """Start the next queued transfer"""
-        if not self.transfer_queue or self.concurrent_transfers >= self.max_concurrent:
+        if (
+            not self.transfer_queue
+            or self.concurrent_transfers >= self.max_concurrent
+        ):
             return
 
         job_id = self.transfer_queue.pop(0)
@@ -512,7 +525,9 @@ class FileTransferManager:
                 "progress_percent": 100.0,
                 "bytes_transferred": job.bytes_transferred,
                 "total_bytes": job.manifest.size_bytes,
-                "duration": job.end_time - job.start_time if job.end_time else 0,
+                "duration": (
+                    job.end_time - job.start_time if job.end_time else 0
+                ),
                 "error_message": job.error_message,
             }
         else:
@@ -520,7 +535,10 @@ class FileTransferManager:
 
     def get_active_transfers(self) -> List[Dict[str, Any]]:
         """Get list of all active transfer statuses"""
-        return [self.get_transfer_status(job_id) for job_id in self.active_jobs.keys()]
+        return [
+            self.get_transfer_status(job_id)
+            for job_id in self.active_jobs.keys()
+        ]
 
     def get_transfer_summary(self) -> Dict[str, Any]:
         """Get overall transfer manager status"""
@@ -539,10 +557,12 @@ class FileTransferManager:
 
             state = {
                 "active_jobs": {
-                    job_id: job.to_dict() for job_id, job in self.active_jobs.items()
+                    job_id: job.to_dict()
+                    for job_id, job in self.active_jobs.items()
                 },
                 "completed_jobs": {
-                    job_id: job.to_dict() for job_id, job in self.completed_jobs.items()
+                    job_id: job.to_dict()
+                    for job_id, job in self.completed_jobs.items()
                 },
                 "transfer_queue": self.transfer_queue,
             }
