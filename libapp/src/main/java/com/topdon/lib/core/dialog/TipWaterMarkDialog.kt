@@ -26,7 +26,6 @@ import com.topdon.lib.core.*
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.utils.CommUtils
 import com.topdon.lib.core.utils.ScreenUtil
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 // import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_tip_watermark.view.*
 import java.util.*
 
@@ -229,7 +228,7 @@ class TipWaterMarkDialog : Dialog {
         @SuppressLint("MissingPermission")
         private fun getLocation() : String? {
             //1.获取位置管理器
-            locationManager = context!!.getSystemService(RxAppCompatActivity.LOCATION_SERVICE) as LocationManager
+            locationManager = context!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
             //2.获取位置提供器，GPS或是NetWork
             val providers = locationManager?.getProviders(true)

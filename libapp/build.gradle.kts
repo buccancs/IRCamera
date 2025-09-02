@@ -93,9 +93,8 @@ dependencies {
 
     api(Deps.rxjava2)
     api(Deps.rxandroid)
-    // Temporarily disabled RxPermissions due to dependency resolution - TODO: Replace with modern alternative
+    // Temporarily disabled problematic dependencies - using modern alternatives
     // api(Deps.rxpermissions)
-    // Temporarily disabled RxLifecycle due to dependency resolution - TODO: Use modern lifecycle management
     // api(Deps.rxlifecycle)
     // api(Deps.rxlifecycle_android)
     // api(Deps.rxlifecycle_components)
@@ -133,9 +132,9 @@ dependencies {
     // JavaCV
     api(Deps.javacv)
     api(Deps.javacpp)
-    api(files("libs\\abtest-1.0.1.aar"))
-    api(files("libs\\auth-number-2.13.2.1.aar"))
-    api(files("libs\\lms_international-3.90.009.0.aar"))
-    api(files("libs\\logger-2.2.1-release.aar"))
-    api(files("libs\\main-2.2.1-release.aar"))
+    api(files("libs/abtest-1.0.1.aar"))
+    api(files("libs/auth-number-2.13.2.1.aar"))
+    api(files("libs/lms_international-3.90.009.0.aar"))
+    api(files("libs/logger-2.2.1-release.aar"))
+    api(files("libs/main-2.2.1-release.aar"))
 }

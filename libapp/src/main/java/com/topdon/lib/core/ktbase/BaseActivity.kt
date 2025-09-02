@@ -8,7 +8,7 @@ import android.util.Log
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
+import androidx.appcompat.app.AppCompatActivity
 import com.elvishew.xlog.XLog
 import com.google.gson.Gson
 import com.topdon.lib.core.BaseApplication
@@ -24,7 +24,6 @@ import com.topdon.lib.core.dialog.TipCameraProgressDialog
 import com.topdon.lib.core.dialog.TipProgressDialog
 import com.topdon.lms.sdk.LMS
 import com.topdon.lms.sdk.bean.CommonBean
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -33,7 +32,7 @@ import java.io.File
 /**
  * Created by admin on 2018/6/4.
  */
-abstract class BaseActivity : RxAppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
 
     val TAG = this.javaClass.simpleName
 

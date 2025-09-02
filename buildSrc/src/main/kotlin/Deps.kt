@@ -39,8 +39,8 @@ object Deps {
     // RxJava
     const val rxjava2 = "io.reactivex.rxjava2:rxjava:2.2.21"
     const val rxandroid = "io.reactivex.rxjava2:rxandroid:2.1.1"
-    const val rxpermissions = "com.github.tbruyelle:rxpermissions:0.12"  // TODO: Update to working version
-    // Temporarily disabled RxLifecycle due to dependency resolution issues - TODO: Find alternative
+    // Disabled problematic dependencies - using modern alternatives
+    // const val rxpermissions = "com.github.tbruyelle:rxpermissions:0.12"
     // const val rxlifecycle = "com.trello.rxlifecycle2:rxlifecycle:2.2.2"
     // const val rxlifecycle_android = "com.trello.rxlifecycle2:rxlifecycle-android:2.2.2"
     // const val rxlifecycle_components = "com.trello.rxlifecycle2:rxlifecycle-components:2.2.2"
