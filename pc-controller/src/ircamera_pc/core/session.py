@@ -143,7 +143,9 @@ class SessionManager:
             raise ValueError("No session to start")
 
         if self._current_session.state != SessionState.IDLE.value:
-            raise ValueError(f"Cannot start session in state: {self._current_session.state}")
+            raise ValueError(
+                f"Cannot start session in state: {self._current_session.state}"
+            )
 
         self._current_session.state = SessionState.ACTIVE.value
         self._current_session.started_at = datetime.now(timezone.utc).isoformat()
@@ -163,7 +165,9 @@ class SessionManager:
             raise ValueError("No active session")
 
         if self._current_session.state != SessionState.ACTIVE.value:
-            raise ValueError(f"Cannot begin recording in state: {self._current_session.state}")
+            raise ValueError(
+                f"Cannot begin recording in state: {self._current_session.state}"
+            )
 
         self._current_session.state = SessionState.RECORDING.value
         self._save_metadata()
@@ -223,7 +227,9 @@ class SessionManager:
         )
 
         self._save_metadata()
-        logger.debug(f"Device added to session: {device_info.get('device_id', 'unknown')}")
+        logger.debug(
+            f"Device added to session: {device_info.get('device_id', 'unknown')}"
+        )
 
     def add_file(self, file_info: Dict[str, Any]) -> None:
         """
@@ -242,7 +248,9 @@ class SessionManager:
         self._save_metadata()
         logger.debug(f"File added to session: {file_info.get('filename', 'unknown')}")
 
-    def add_sync_event(self, event_type: str, event_data: Dict[str, Any] = None) -> None:
+    def add_sync_event(
+        self, event_type: str, event_data: Dict[str, Any] = None
+    ) -> None:
         """
         Add synchronization event to current session.
 
@@ -295,12 +303,15 @@ class SessionManager:
             return
 
         metadata_file = (
-            self._get_session_directory(self._current_session.session_id) / "metadata.json"
+            self._get_session_directory(self._current_session.session_id)
+            / "metadata.json"
         )
 
         try:
             with open(metadata_file, "w", encoding="utf-8") as f:
-                json.dump(asdict(self._current_session), f, indent=2, ensure_ascii=False)
+                json.dump(
+                    asdict(self._current_session), f, indent=2, ensure_ascii=False
+                )
 
             logger.debug(f"Session metadata saved: {metadata_file}")
 

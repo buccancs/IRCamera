@@ -12,17 +12,15 @@ from PyQt6.QtWidgets import (
     QLabel,
     QListWidget,
     QListWidgetItem,
-    QProgressBar,
     QGroupBox,
     QGridLayout,
-    QLCDNumber,
     QFrame,
     QLineEdit,
     QSpinBox,
     QMessageBox,
 )
-from PyQt6.QtCore import Qt, pyqtSignal, QTimer
-from PyQt6.QtGui import QFont, QColor, QPalette
+from PyQt6.QtCore import Qt, pyqtSignal
+from PyQt6.QtGui import QFont, QColor
 from typing import Dict, Any, Optional
 from datetime import datetime
 
@@ -123,7 +121,9 @@ class DeviceListWidget(QListWidget):
         # Connection info
         if device_info.last_heartbeat:
             try:
-                last_hb = datetime.fromisoformat(device_info.last_heartbeat.replace("Z", "+00:00"))
+                last_hb = datetime.fromisoformat(
+                    device_info.last_heartbeat.replace("Z", "+00:00")
+                )
                 time_since = (
                     datetime.now().replace(tzinfo=last_hb.tzinfo) - last_hb
                 ).total_seconds()
@@ -195,7 +195,9 @@ class SessionControlWidget(QWidget):
 
         layout.addLayout(button_layout)
 
-    def update_state(self, session: Optional[SessionMetadata], has_devices: bool) -> None:
+    def update_state(
+        self, session: Optional[SessionMetadata], has_devices: bool
+    ) -> None:
         """
         Update widget state based on current session and device status.
 
@@ -213,7 +215,9 @@ class SessionControlWidget(QWidget):
             if session.state == SessionState.IDLE.value:
                 self.session_status_label.setText("Ready to start recording")
             elif session.state == SessionState.ACTIVE.value:
-                self.session_status_label.setText("Session active - preparing to record")
+                self.session_status_label.setText(
+                    "Session active - preparing to record"
+                )
             elif session.state == SessionState.RECORDING.value:
                 self.session_status_label.setText("🔴 Recording in progress")
             else:
@@ -228,7 +232,8 @@ class SessionControlWidget(QWidget):
     def _update_button_states(self) -> None:
         """Update button enabled/disabled states."""
         has_idle_session = (
-            self._current_session and self._current_session.state == SessionState.IDLE.value
+            self._current_session
+            and self._current_session.state == SessionState.IDLE.value
         )
 
         is_recording = self._current_session and self._current_session.state in [
@@ -329,13 +334,19 @@ class StatusDisplayWidget(QWidget):
         # Calculate and display duration
         if session.started_at:
             try:
-                start_time = datetime.fromisoformat(session.started_at.replace("Z", "+00:00"))
+                start_time = datetime.fromisoformat(
+                    session.started_at.replace("Z", "+00:00")
+                )
 
                 if session.ended_at:
-                    end_time = datetime.fromisoformat(session.ended_at.replace("Z", "+00:00"))
+                    end_time = datetime.fromisoformat(
+                        session.ended_at.replace("Z", "+00:00")
+                    )
                     duration = end_time - start_time
                 else:
-                    duration = datetime.now().replace(tzinfo=start_time.tzinfo) - start_time
+                    duration = (
+                        datetime.now().replace(tzinfo=start_time.tzinfo) - start_time
+                    )
 
                 # Format duration as HH:MM:SS
                 total_seconds = int(duration.total_seconds())
@@ -355,7 +366,9 @@ class StatusDisplayWidget(QWidget):
     def update_gsr_leader_info(self, leader_info: Optional[DeviceInfo]) -> None:
         """Update GSR leader information display."""
         if leader_info:
-            self.gsr_leader_label.setText(f"{leader_info.device_id} ({leader_info.gsr_mode})")
+            self.gsr_leader_label.setText(
+                f"{leader_info.device_id} ({leader_info.gsr_mode})"
+            )
         else:
             self.gsr_leader_label.setText("No leader")
 
@@ -364,86 +377,89 @@ class BluetoothControlWidget(QGroupBox):
     """
     Widget for Bluetooth device discovery and connection management.
     """
-    
+
     scan_requested = pyqtSignal()
     connect_requested = pyqtSignal(str)  # device_address
     disconnect_requested = pyqtSignal(str)  # device_address
-    
+
     def __init__(self):
         """Initialize Bluetooth control widget."""
         super().__init__("Bluetooth Control")
         self.setMinimumHeight(300)
-        
+
         self._devices: Dict[str, Any] = {}  # address -> BluetoothDevice
         self._setup_ui()
-    
+
     def _setup_ui(self) -> None:
         """Setup the user interface."""
         layout = QVBoxLayout()
-        
+
         # Control buttons
         button_layout = QHBoxLayout()
-        
+
         self.scan_button = QPushButton("Scan for Devices")
         self.scan_button.clicked.connect(self.scan_requested.emit)
         button_layout.addWidget(self.scan_button)
-        
+
         self.status_label = QLabel("Ready")
         self.status_label.setStyleSheet("color: gray; font-style: italic;")
         button_layout.addWidget(self.status_label)
-        
+
         button_layout.addStretch()
         layout.addLayout(button_layout)
-        
+
         # Device list
         self.device_list = QListWidget()
         self.device_list.setMinimumHeight(200)
         self.device_list.itemDoubleClicked.connect(self._on_device_double_clicked)
         layout.addWidget(self.device_list)
-        
+
         # Connection status
         connection_layout = QHBoxLayout()
-        
+
         self.connect_button = QPushButton("Connect")
         self.connect_button.setEnabled(False)
         self.connect_button.clicked.connect(self._on_connect_clicked)
         connection_layout.addWidget(self.connect_button)
-        
+
         self.disconnect_button = QPushButton("Disconnect")
         self.disconnect_button.setEnabled(False)
         self.disconnect_button.clicked.connect(self._on_disconnect_clicked)
         connection_layout.addWidget(self.disconnect_button)
-        
+
         connection_layout.addStretch()
         layout.addLayout(connection_layout)
-        
+
         self.setLayout(layout)
-    
+
     def update_devices(self, devices: list) -> None:
         """Update the list of discovered Bluetooth devices."""
         self.device_list.clear()
         self._devices.clear()
-        
+
         for device in devices:
             self._devices[device.address] = device
-            
+
             # Create list item
             item_text = f"{device.name} ({device.address})"
             if device.is_ircamera:
                 item_text += " [IR Camera]"
-            
+
             item = QListWidgetItem(item_text)
-            
+
             # Set color based on device type and connection state
             if device.is_ircamera:
                 item.setBackground(QColor(220, 255, 220))  # Light green for IRCamera
-            
-            if hasattr(device, 'connection_state') and device.connection_state.value == 'connected':
+
+            if (
+                hasattr(device, "connection_state")
+                and device.connection_state.value == "connected"
+            ):
                 item.setBackground(QColor(200, 255, 200))  # Green for connected
                 item.setFont(QFont("", 9, QFont.Weight.Bold))
-            
+
             self.device_list.addItem(item)
-    
+
     def set_scanning_status(self, scanning: bool) -> None:
         """Update scanning status."""
         if scanning:
@@ -456,7 +472,7 @@ class BluetoothControlWidget(QGroupBox):
             self.scan_button.setEnabled(True)
             self.status_label.setText("Ready")
             self.status_label.setStyleSheet("color: gray; font-style: italic;")
-    
+
     def set_connection_status(self, address: str, connected: bool) -> None:
         """Update connection status for a device."""
         if connected:
@@ -467,39 +483,39 @@ class BluetoothControlWidget(QGroupBox):
             self.status_label.setText("Ready")
             self.status_label.setStyleSheet("color: gray; font-style: italic;")
             self.disconnect_button.setEnabled(False)
-    
+
     def set_error_status(self, message: str) -> None:
         """Display error status."""
         self.status_label.setText(f"Error: {message}")
         self.status_label.setStyleSheet("color: red; font-weight: bold;")
-    
+
     def _on_device_double_clicked(self, item: QListWidgetItem) -> None:
         """Handle device double-click."""
         self._on_connect_clicked()
-    
+
     def _on_connect_clicked(self) -> None:
         """Handle connect button click."""
         current_item = self.device_list.currentItem()
         if not current_item:
             return
-        
+
         # Extract address from item text
         item_text = current_item.text()
         address = item_text.split("(")[1].split(")")[0]
-        
+
         self.connect_requested.emit(address)
         self.connect_button.setEnabled(False)
-    
+
     def _on_disconnect_clicked(self) -> None:
         """Handle disconnect button click."""
         current_item = self.device_list.currentItem()
         if not current_item:
             return
-        
-        # Extract address from item text  
+
+        # Extract address from item text
         item_text = current_item.text()
         address = item_text.split("(")[1].split(")")[0]
-        
+
         self.disconnect_requested.emit(address)
 
 
@@ -507,156 +523,158 @@ class WiFiControlWidget(QGroupBox):
     """
     Widget for WiFi network scanning and connection management.
     """
-    
+
     scan_requested = pyqtSignal()
     connect_requested = pyqtSignal(str, str)  # ssid, password
     disconnect_requested = pyqtSignal()
     hotspot_start_requested = pyqtSignal(str, str, int)  # ssid, password, channel
     hotspot_stop_requested = pyqtSignal()
-    
+
     def __init__(self):
         """Initialize WiFi control widget."""
         super().__init__("WiFi Control")
         self.setMinimumHeight(400)
-        
+
         self._networks: Dict[str, Any] = {}  # ssid -> WiFiNetwork
         self._current_connection: Optional[str] = None
         self._setup_ui()
-    
+
     def _setup_ui(self) -> None:
         """Setup the user interface."""
         layout = QVBoxLayout()
-        
+
         # Control buttons
         button_layout = QHBoxLayout()
-        
+
         self.scan_button = QPushButton("Scan Networks")
         self.scan_button.clicked.connect(self.scan_requested.emit)
         button_layout.addWidget(self.scan_button)
-        
+
         self.status_label = QLabel("Ready")
         self.status_label.setStyleSheet("color: gray; font-style: italic;")
         button_layout.addWidget(self.status_label)
-        
+
         button_layout.addStretch()
         layout.addLayout(button_layout)
-        
+
         # Network list
         self.network_list = QListWidget()
         self.network_list.setMinimumHeight(200)
-        self.network_list.itemSelectionChanged.connect(self._on_network_selection_changed)
+        self.network_list.itemSelectionChanged.connect(
+            self._on_network_selection_changed
+        )
         layout.addWidget(self.network_list)
-        
+
         # Connection controls
         connection_group = QGroupBox("Connection")
         connection_layout = QVBoxLayout()
-        
+
         # Connection buttons
         conn_button_layout = QHBoxLayout()
-        
+
         self.connect_button = QPushButton("Connect")
         self.connect_button.setEnabled(False)
         self.connect_button.clicked.connect(self._on_connect_clicked)
         conn_button_layout.addWidget(self.connect_button)
-        
+
         self.disconnect_button = QPushButton("Disconnect")
         self.disconnect_button.setEnabled(False)
         self.disconnect_button.clicked.connect(self.disconnect_requested.emit)
         conn_button_layout.addWidget(self.disconnect_button)
-        
+
         conn_button_layout.addStretch()
         connection_layout.addLayout(conn_button_layout)
-        
+
         # Password input (initially hidden)
         self.password_label = QLabel("Password:")
         self.password_input = QLineEdit()
         self.password_input.setEchoMode(QLineEdit.EchoMode.Password)
         self.password_input.setPlaceholderText("Enter network password")
-        
+
         password_layout = QHBoxLayout()
         password_layout.addWidget(self.password_label)
         password_layout.addWidget(self.password_input)
         connection_layout.addLayout(password_layout)
-        
+
         # Hide password controls initially
         self.password_label.setVisible(False)
         self.password_input.setVisible(False)
-        
+
         connection_group.setLayout(connection_layout)
         layout.addWidget(connection_group)
-        
+
         # Hotspot controls
         hotspot_group = QGroupBox("Mobile Hotspot")
         hotspot_layout = QVBoxLayout()
-        
+
         # Hotspot buttons
         hotspot_button_layout = QHBoxLayout()
-        
+
         self.start_hotspot_button = QPushButton("Start Hotspot")
         self.start_hotspot_button.clicked.connect(self._on_start_hotspot_clicked)
         hotspot_button_layout.addWidget(self.start_hotspot_button)
-        
+
         self.stop_hotspot_button = QPushButton("Stop Hotspot")
         self.stop_hotspot_button.setEnabled(False)
         self.stop_hotspot_button.clicked.connect(self.hotspot_stop_requested.emit)
         hotspot_button_layout.addWidget(self.stop_hotspot_button)
-        
+
         hotspot_button_layout.addStretch()
         hotspot_layout.addLayout(hotspot_button_layout)
-        
+
         # Hotspot configuration
         config_layout = QGridLayout()
-        
+
         config_layout.addWidget(QLabel("SSID:"), 0, 0)
         self.hotspot_ssid_input = QLineEdit("IRCamera_PC_Controller")
         config_layout.addWidget(self.hotspot_ssid_input, 0, 1)
-        
+
         config_layout.addWidget(QLabel("Password:"), 1, 0)
         self.hotspot_password_input = QLineEdit("IRCamera123")
         self.hotspot_password_input.setEchoMode(QLineEdit.EchoMode.Password)
         config_layout.addWidget(self.hotspot_password_input, 1, 1)
-        
+
         config_layout.addWidget(QLabel("Channel:"), 2, 0)
         self.hotspot_channel_input = QSpinBox()
         self.hotspot_channel_input.setRange(1, 13)
         self.hotspot_channel_input.setValue(6)
         config_layout.addWidget(self.hotspot_channel_input, 2, 1)
-        
+
         hotspot_layout.addLayout(config_layout)
-        
+
         self.hotspot_status_label = QLabel("Hotspot stopped")
         self.hotspot_status_label.setStyleSheet("color: gray; font-style: italic;")
         hotspot_layout.addWidget(self.hotspot_status_label)
-        
+
         hotspot_group.setLayout(hotspot_layout)
         layout.addWidget(hotspot_group)
-        
+
         self.setLayout(layout)
-    
+
     def update_networks(self, networks: list) -> None:
         """Update the list of available WiFi networks."""
         self.network_list.clear()
         self._networks.clear()
-        
+
         for network in networks:
             self._networks[network.ssid] = network
-            
+
             # Create list item
             signal_bars = self._get_signal_bars(network.signal_strength)
             security_icon = "🔒" if network.security_type.value != "open" else "🔓"
-            
+
             item_text = f"{security_icon} {network.ssid} {signal_bars}"
             if network.is_ircamera_hotspot:
                 item_text += " [IR Camera]"
-            
+
             item = QListWidgetItem(item_text)
-            
+
             # Set color based on network type
             if network.is_ircamera_hotspot:
                 item.setBackground(QColor(220, 255, 220))  # Light green for IRCamera
-            
+
             self.network_list.addItem(item)
-    
+
     def set_scanning_status(self, scanning: bool) -> None:
         """Update scanning status."""
         if scanning:
@@ -669,8 +687,10 @@ class WiFiControlWidget(QGroupBox):
             self.scan_button.setEnabled(True)
             self.status_label.setText("Ready")
             self.status_label.setStyleSheet("color: gray; font-style: italic;")
-    
-    def set_connection_status(self, ssid: str, connected: bool, ip_address: str = None) -> None:
+
+    def set_connection_status(
+        self, ssid: str, connected: bool, ip_address: str = None
+    ) -> None:
         """Update WiFi connection status."""
         if connected:
             self._current_connection = ssid
@@ -687,7 +707,7 @@ class WiFiControlWidget(QGroupBox):
             self.status_label.setStyleSheet("color: gray; font-style: italic;")
             self.disconnect_button.setEnabled(False)
             self.connect_button.setEnabled(True)
-    
+
     def set_hotspot_status(self, state: str, message: str = None) -> None:
         """Update hotspot status."""
         state_colors = {
@@ -695,24 +715,24 @@ class WiFiControlWidget(QGroupBox):
             "starting": "color: blue; font-style: italic;",
             "running": "color: green; font-weight: bold;",
             "stopping": "color: orange; font-style: italic;",
-            "error": "color: red; font-weight: bold;"
+            "error": "color: red; font-weight: bold;",
         }
-        
+
         self.hotspot_status_label.setText(message or f"Hotspot {state}")
         self.hotspot_status_label.setStyleSheet(state_colors.get(state, ""))
-        
+
         if state == "running":
             self.start_hotspot_button.setEnabled(False)
             self.stop_hotspot_button.setEnabled(True)
         else:
             self.start_hotspot_button.setEnabled(True)
             self.stop_hotspot_button.setEnabled(False)
-    
+
     def set_error_status(self, message: str) -> None:
         """Display error status."""
         self.status_label.setText(f"Error: {message}")
         self.status_label.setStyleSheet("color: red; font-weight: bold;")
-    
+
     def _get_signal_bars(self, signal_strength: int) -> str:
         """Convert signal strength to visual bars."""
         if signal_strength >= -50:
@@ -725,7 +745,7 @@ class WiFiControlWidget(QGroupBox):
             return "📶"
         else:
             return "📵"
-    
+
     def _on_network_selection_changed(self) -> None:
         """Handle network selection change."""
         current_item = self.network_list.currentItem()
@@ -733,33 +753,33 @@ class WiFiControlWidget(QGroupBox):
             self.connect_button.setEnabled(False)
             self._hide_password_input()
             return
-        
+
         # Extract SSID from item text
         item_text = current_item.text()
         ssid = self._extract_ssid(item_text)
-        
+
         if ssid and ssid in self._networks:
             network = self._networks[ssid]
             self.connect_button.setEnabled(True)
-            
+
             # Show password input for secured networks
             if network.security_type.value != "open":
                 self._show_password_input()
             else:
                 self._hide_password_input()
-    
+
     def _show_password_input(self) -> None:
         """Show password input controls."""
         self.password_label.setVisible(True)
         self.password_input.setVisible(True)
         self.password_input.setFocus()
-    
+
     def _hide_password_input(self) -> None:
         """Hide password input controls."""
         self.password_label.setVisible(False)
         self.password_input.setVisible(False)
         self.password_input.clear()
-    
+
     def _extract_ssid(self, item_text: str) -> Optional[str]:
         """Extract SSID from list item text."""
         # Remove security icon and signal bars
@@ -770,35 +790,40 @@ class WiFiControlWidget(QGroupBox):
             # Handle case where SSID contains spaces
             if "[IR Camera]" in item_text:
                 # Remove "[IR Camera]" marker
-                ssid_parts = [part for part in ssid_parts if part != "[IR" and part != "Camera]"]
+                ssid_parts = [
+                    part for part in ssid_parts if part != "[IR" and part != "Camera]"
+                ]
             return " ".join(ssid_parts)
         return None
-    
+
     def _on_connect_clicked(self) -> None:
         """Handle connect button click."""
         current_item = self.network_list.currentItem()
         if not current_item:
             return
-        
+
         ssid = self._extract_ssid(current_item.text())
         if not ssid:
             return
-        
+
         password = self.password_input.text() if self.password_input.isVisible() else ""
         self.connect_requested.emit(ssid, password)
         self.connect_button.setEnabled(False)
-    
+
     def _on_start_hotspot_clicked(self) -> None:
         """Handle start hotspot button click."""
         ssid = self.hotspot_ssid_input.text()
         password = self.hotspot_password_input.text()
         channel = self.hotspot_channel_input.value()
-        
+
         if not ssid or not password:
-            QMessageBox.warning(self, "Invalid Configuration", 
-                              "Please provide both SSID and password for the hotspot.")
+            QMessageBox.warning(
+                self,
+                "Invalid Configuration",
+                "Please provide both SSID and password for the hotspot.",
+            )
             return
-        
+
         self.hotspot_start_requested.emit(ssid, password, channel)
 
 
@@ -806,42 +831,42 @@ class SystemIntegrationWidget(QGroupBox):
     """
     Widget for system integration status and administrator privileges.
     """
-    
+
     elevation_requested = pyqtSignal(str)  # reason
-    
+
     def __init__(self):
         """Initialize system integration widget."""
         super().__init__("System Integration")
         self.setMinimumHeight(200)
-        
+
         self._setup_ui()
-    
+
     def _setup_ui(self) -> None:
         """Setup the user interface."""
         layout = QVBoxLayout()
-        
+
         # Privilege status
         privilege_layout = QHBoxLayout()
-        
+
         self.privilege_label = QLabel("Privilege Level:")
         privilege_layout.addWidget(self.privilege_label)
-        
+
         self.privilege_status = QLabel("Unknown")
         self.privilege_status.setStyleSheet("font-weight: bold;")
         privilege_layout.addWidget(self.privilege_status)
-        
+
         privilege_layout.addStretch()
-        
+
         self.elevate_button = QPushButton("Request Administrator")
         self.elevate_button.clicked.connect(self._on_elevate_clicked)
         privilege_layout.addWidget(self.elevate_button)
-        
+
         layout.addLayout(privilege_layout)
-        
+
         # Permissions status
         permissions_group = QGroupBox("System Permissions")
         permissions_layout = QGridLayout()
-        
+
         self.permission_labels = {}
         permissions = [
             ("network_config", "Network Configuration"),
@@ -849,26 +874,26 @@ class SystemIntegrationWidget(QGroupBox):
             ("service_management", "Service Management"),
             ("registry_access", "Registry Access"),
             ("hardware_access", "Hardware Access"),
-            ("firewall_control", "Firewall Control")
+            ("firewall_control", "Firewall Control"),
         ]
-        
+
         for i, (key, label) in enumerate(permissions):
             permissions_layout.addWidget(QLabel(f"{label}:"), i, 0)
-            
+
             status_label = QLabel("Unknown")
             self.permission_labels[key] = status_label
             permissions_layout.addWidget(status_label, i, 1)
-        
+
         permissions_group.setLayout(permissions_layout)
         layout.addWidget(permissions_group)
-        
+
         # Status messages
         self.status_label = QLabel("System integration status unknown")
         self.status_label.setStyleSheet("color: gray; font-style: italic;")
         layout.addWidget(self.status_label)
-        
+
         self.setLayout(layout)
-    
+
     def update_privilege_level(self, level: str) -> None:
         """Update privilege level display."""
         level_colors = {
@@ -876,12 +901,14 @@ class SystemIntegrationWidget(QGroupBox):
             "elevated": "color: blue;",
             "admin": "color: green;",
             "system": "color: purple;",
-            "unknown": "color: gray;"
+            "unknown": "color: gray;",
         }
-        
+
         self.privilege_status.setText(level.title())
-        self.privilege_status.setStyleSheet(f"font-weight: bold; {level_colors.get(level, '')}")
-        
+        self.privilege_status.setStyleSheet(
+            f"font-weight: bold; {level_colors.get(level, '')}"
+        )
+
         # Update elevate button
         if level in ["elevated", "admin", "system"]:
             self.elevate_button.setText("Administrator Access")
@@ -891,7 +918,7 @@ class SystemIntegrationWidget(QGroupBox):
             self.elevate_button.setText("Request Administrator")
             self.elevate_button.setEnabled(True)
             self.elevate_button.setStyleSheet("")
-    
+
     def update_permissions(self, permissions: Dict[str, bool]) -> None:
         """Update system permissions status."""
         for key, has_permission in permissions.items():
@@ -903,7 +930,7 @@ class SystemIntegrationWidget(QGroupBox):
                 else:
                     label.setText("❌ Denied")
                     label.setStyleSheet("color: red;")
-    
+
     def set_status_message(self, message: str, is_error: bool = False) -> None:
         """Set status message."""
         self.status_label.setText(message)
@@ -911,7 +938,9 @@ class SystemIntegrationWidget(QGroupBox):
             self.status_label.setStyleSheet("color: red; font-weight: bold;")
         else:
             self.status_label.setStyleSheet("color: gray; font-style: italic;")
-    
+
     def _on_elevate_clicked(self) -> None:
         """Handle elevate button click."""
-        self.elevation_requested.emit("Full system integration for IRCamera PC Controller")
+        self.elevation_requested.emit(
+            "Full system integration for IRCamera PC Controller"
+        )

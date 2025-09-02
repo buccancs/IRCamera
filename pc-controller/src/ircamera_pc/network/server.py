@@ -9,7 +9,7 @@ import asyncio
 import json
 import uuid
 from datetime import datetime, timezone
-from typing import Dict, Any, Optional, List, Set, Callable
+from typing import Dict, Any, Optional, List, Callable
 from dataclasses import dataclass, asdict
 from enum import Enum
 
@@ -19,7 +19,12 @@ except ImportError:
     from ..utils.simple_logger import logger
 
 from ..core.config import config
-from .protocol import get_protocol_manager, create_message, validate_message, ValidationError
+from .protocol import (
+    get_protocol_manager,
+    create_message,
+    validate_message,
+    ValidationError,
+)
 
 
 class DeviceState(Enum):
@@ -105,13 +110,18 @@ class NetworkServer:
 
         # Configuration
         transport_config = self._protocol.get_transport_config()
-        self._host = config.get("network.server_host", transport_config.get("host", "0.0.0.0"))
-        self._port = config.get("network.server_port", transport_config.get("port", 8080))
+        self._host = config.get(
+            "network.server_host", transport_config.get("host", "0.0.0.0")
+        )
+        self._port = config.get(
+            "network.server_port", transport_config.get("port", 8080)
+        )
         self._max_connections = config.get("network.max_connections", 8)
 
         connection_config = transport_config.get("connection", {})
         self._heartbeat_interval = config.get(
-            "network.heartbeat_interval", connection_config.get("heartbeat_interval_s", 5)
+            "network.heartbeat_interval",
+            connection_config.get("heartbeat_interval_s", 5),
         )
         self._connection_timeout = config.get(
             "network.connection_timeout", connection_config.get("timeout_s", 30)
@@ -119,7 +129,9 @@ class NetworkServer:
 
         # Get max message size from protocol
         framing = transport_config.get("message_framing", {})
-        self._max_message_size = framing.get("max_message_size", 1024 * 1024)  # 1MB default
+        self._max_message_size = framing.get(
+            "max_message_size", 1024 * 1024
+        )  # 1MB default
 
         # Event callbacks
         self._on_device_connected: Optional[Callable] = None
@@ -209,7 +221,9 @@ class NetworkServer:
                 message_length = int.from_bytes(length_data, "big")
 
                 if message_length > self._max_message_size:
-                    logger.warning(f"Message too large from {addr}: {message_length} bytes")
+                    logger.warning(
+                        f"Message too large from {addr}: {message_length} bytes"
+                    )
                     break
 
                 # Read message data
@@ -241,7 +255,9 @@ class NetworkServer:
             writer.close()
             await writer.wait_closed()
 
-    async def _process_message(self, message: Dict[str, Any], writer: asyncio.StreamWriter) -> None:
+    async def _process_message(
+        self, message: Dict[str, Any], writer: asyncio.StreamWriter
+    ) -> None:
         """Process incoming message from device using protocol validation."""
         try:
             # Validate message against protocol
@@ -264,7 +280,9 @@ class NetworkServer:
                     await self._send_message(writer, response)
             else:
                 logger.warning(f"Unknown message type: {message_type}")
-                await self._send_error(writer, f"Unknown message type: {message_type}", message_id)
+                await self._send_error(
+                    writer, f"Unknown message type: {message_type}", message_id
+                )
 
         except ValidationError as e:
             logger.warning(f"Protocol validation error: {e}")
@@ -287,7 +305,10 @@ class NetworkServer:
 
             # Check connection limit
             if len(self._devices) >= self._max_connections:
-                return {"type": MessageType.ERROR.value, "error": "Maximum connections exceeded"}
+                return {
+                    "type": MessageType.ERROR.value,
+                    "error": "Maximum connections exceeded",
+                }
 
             # Get client address
             addr = writer.get_extra_info("peername")
@@ -326,7 +347,9 @@ class NetworkServer:
 
         except Exception as e:
             logger.error(f"Error handling device registration: {e}")
-            return create_message("error", error_code="RESOURCE_UNAVAILABLE", error_message=str(e))
+            return create_message(
+                "error", error_code="RESOURCE_UNAVAILABLE", error_message=str(e)
+            )
 
     async def _handle_device_heartbeat(
         self, message: Dict[str, Any], writer: asyncio.StreamWriter
@@ -335,7 +358,9 @@ class NetworkServer:
         device_id = message.get("device_id")
 
         if device_id in self._devices:
-            self._devices[device_id].last_heartbeat = datetime.now(timezone.utc).isoformat()
+            self._devices[device_id].last_heartbeat = datetime.now(
+                timezone.utc
+            ).isoformat()
 
             # Update device status if provided
             if "battery_level" in message:
@@ -391,7 +416,7 @@ class NetworkServer:
         self, message: Dict[str, Any], writer: asyncio.StreamWriter
     ) -> Dict[str, Any]:
         """Handle time synchronization request using protocol format."""
-        device_id = message.get("device_id")
+        message.get("device_id")
         client_timestamp = message.get("client_timestamp")
 
         server_timestamp = datetime.now(timezone.utc).isoformat()
@@ -408,10 +433,12 @@ class NetworkServer:
     ) -> Dict[str, Any]:
         """Handle GSR data batch using protocol format."""
         device_id = message.get("device_id")
-        session_id = message.get("session_id")
+        message.get("session_id")
         data_points = message.get("data_points", [])
 
-        logger.debug(f"Received GSR data batch from {device_id}: {len(data_points)} points")
+        logger.debug(
+            f"Received GSR data batch from {device_id}: {len(data_points)} points"
+        )
 
         # TODO: Forward to GSR ingestor
 
@@ -515,7 +542,9 @@ class NetworkServer:
                     last_heartbeat = datetime.fromisoformat(
                         device.last_heartbeat.replace("Z", "+00:00")
                     )
-                    time_since_heartbeat = (current_time - last_heartbeat).total_seconds()
+                    time_since_heartbeat = (
+                        current_time - last_heartbeat
+                    ).total_seconds()
 
                     if time_since_heartbeat > self._connection_timeout:
                         logger.warning(f"Device {device_id} heartbeat timeout")
@@ -551,7 +580,9 @@ class NetworkServer:
                 try:
                     await self._send_message(self._clients[device_id], command)
                     results[device_id] = True
-                    logger.debug(f"Command sent to {device_id}: {command.get('message_type')}")
+                    logger.debug(
+                        f"Command sent to {device_id}: {command.get('message_type')}"
+                    )
                 except Exception as e:
                     logger.error(f"Failed to send command to {device_id}: {e}")
                     results[device_id] = False
@@ -594,13 +625,18 @@ class NetworkServer:
     ) -> Dict[str, bool]:
         """Send sync mark to all devices using protocol format."""
         command = create_message(
-            "sync_mark", mark_type=mark_type, mark_id=str(uuid.uuid4()), metadata=metadata or {}
+            "sync_mark",
+            mark_type=mark_type,
+            mark_id=str(uuid.uuid4()),
+            metadata=metadata or {},
         )
 
         logger.info(f"Sending sync mark '{mark_type}' to all devices")
         return await self.broadcast_command(command)
 
-    async def _send_message(self, writer: asyncio.StreamWriter, message: Dict[str, Any]) -> None:
+    async def _send_message(
+        self, writer: asyncio.StreamWriter, message: Dict[str, Any]
+    ) -> None:
         """Send JSON message to client."""
         try:
             message_data = json.dumps(message).encode("utf-8")
@@ -627,15 +663,21 @@ class NetworkServer:
         await self._send_message(writer, error_response)
 
     # Event callback setters
-    def set_device_connected_callback(self, callback: Callable[[DeviceInfo], None]) -> None:
+    def set_device_connected_callback(
+        self, callback: Callable[[DeviceInfo], None]
+    ) -> None:
         """Set callback for device connection events."""
         self._on_device_connected = callback
 
-    def set_device_disconnected_callback(self, callback: Callable[[DeviceInfo], None]) -> None:
+    def set_device_disconnected_callback(
+        self, callback: Callable[[DeviceInfo], None]
+    ) -> None:
         """Set callback for device disconnection events."""
         self._on_device_disconnected = callback
 
-    def set_device_status_update_callback(self, callback: Callable[[DeviceInfo], None]) -> None:
+    def set_device_status_update_callback(
+        self, callback: Callable[[DeviceInfo], None]
+    ) -> None:
         """Set callback for device status updates."""
         self._on_device_status_update = callback
 

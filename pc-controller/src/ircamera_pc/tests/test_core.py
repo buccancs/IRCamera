@@ -99,7 +99,9 @@ class TestSessionManager:
         session_id = session.session_id
 
         # Add some data
-        self.session_manager.add_device({"device_id": "test_device", "device_type": "android"})
+        self.session_manager.add_device(
+            {"device_id": "test_device", "device_type": "android"}
+        )
 
         self.session_manager.add_sync_event("test_event", {"data": "test"})
 
@@ -138,7 +140,9 @@ class TestTimeSyncService:
         assert not self.time_sync_service.is_running
 
         # Start service
-        await self.time_sync_service.start(host="localhost", port=0)  # Use any available port
+        await self.time_sync_service.start(
+            host="localhost", port=0
+        )  # Use any available port
         assert self.time_sync_service.is_running
 
         # Stop service
@@ -153,8 +157,12 @@ class TestTimeSyncService:
         assert len(service.get_all_stats()) == 0
 
         # Simulate sync request
-        request_data = b"\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f"
-        response = service.handle_sync_request("test_device", request_data, ("127.0.0.1", 12345))
+        request_data = (
+            b"\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0"
+        )
+        response = service.handle_sync_request(
+            "test_device", request_data, ("127.0.0.1", 12345)
+        )
 
         # Should have stats now
         stats = service.get_device_stats("test_device")

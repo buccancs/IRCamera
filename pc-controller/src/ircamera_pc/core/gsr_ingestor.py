@@ -98,7 +98,9 @@ class GSRIngestor:
 
         logger.info(f"GSR Ingestor initialized with data directory: {self.data_dir}")
 
-    async def start_session(self, session_id: str, device_id: str, mode: GSRMode) -> bool:
+    async def start_session(
+        self, session_id: str, device_id: str, mode: GSRMode
+    ) -> bool:
         """
         Start GSR data collection for a session
 
@@ -149,7 +151,9 @@ class GSRIngestor:
         """
         try:
             if session_id not in self.active_sessions:
-                logger.warning(f"GSR sample received for inactive session: {session_id}")
+                logger.warning(
+                    f"GSR sample received for inactive session: {session_id}"
+                )
                 return False
 
             dataset = self.active_sessions[session_id]
@@ -162,7 +166,10 @@ class GSRIngestor:
             timestamp, value, quality = struct.unpack("<dfi", sample_data[:16])
 
             sample = GSRSample(
-                timestamp=timestamp, value=value, quality=quality, device_id=dataset.device_id
+                timestamp=timestamp,
+                value=value,
+                quality=quality,
+                device_id=dataset.device_id,
             )
 
             # Validate sample
@@ -199,7 +206,9 @@ class GSRIngestor:
             # Calculate sample rate
             if len(dataset.samples) > 1:
                 duration = dataset.end_time - dataset.start_time
-                dataset.sample_rate = len(dataset.samples) / duration if duration > 0 else 0.0
+                dataset.sample_rate = (
+                    len(dataset.samples) / duration if duration > 0 else 0.0
+                )
 
             # Finalize quality statistics
             if dataset.samples:
@@ -217,7 +226,9 @@ class GSRIngestor:
             # Save dataset to file
             await self._save_dataset(dataset)
 
-            logger.info(f"Ended GSR session {session_id} with {len(dataset.samples)} samples")
+            logger.info(
+                f"Ended GSR session {session_id} with {len(dataset.samples)} samples"
+            )
             logger.info(
                 f"Sample rate: {dataset.sample_rate:.1f} Hz, Quality: {dataset.quality_stats['mean']:.1f}"
             )
@@ -283,7 +294,9 @@ class GSRIngestor:
         except Exception as e:
             logger.error(f"Failed to save GSR dataset: {e}")
 
-    async def load_dataset(self, session_id: str, device_id: str) -> Optional[GSRDataSet]:
+    async def load_dataset(
+        self, session_id: str, device_id: str
+    ) -> Optional[GSRDataSet]:
         """Load GSR dataset from file"""
         try:
             filename = f"gsr_{session_id}_{device_id}.json"

@@ -5,7 +5,6 @@ Handles loading and management of application configuration from YAML files.
 Provides centralized access to configuration settings across all modules.
 """
 
-import os
 import yaml
 from typing import Dict, Any, Optional
 from pathlib import Path
@@ -62,7 +61,11 @@ class ConfigManager:
                 "heartbeat_interval": 5,
                 "connection_timeout": 30,
             },
-            "time_sync": {"sync_interval": 30, "target_accuracy_ms": 5, "max_offset_ms": 15},
+            "time_sync": {
+                "sync_interval": 30,
+                "target_accuracy_ms": 5,
+                "max_offset_ms": 15,
+            },
             "session": {
                 "data_root": "./sessions",
                 "max_session_duration": 7200,

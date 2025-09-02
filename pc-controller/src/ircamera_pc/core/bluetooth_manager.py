@@ -6,43 +6,53 @@ with IRCamera devices for wireless communication.
 """
 
 import asyncio
-import json
 import platform
-from typing import Dict, List, Optional, Callable, Any
+from typing import Dict, List, Optional
 from dataclasses import dataclass
 from enum import Enum
 from datetime import datetime
 
 try:
+    from loguru import logger
+except ImportError:
+    from ..utils.simple_logger import get_logger
+    logger = get_logger(__name__)
+
+try:
     from PyQt6.QtCore import QObject, pyqtSignal, QTimer
+
     PYQT_AVAILABLE = True
-    
+
     class BaseManager(QObject):
         pass
-        
+
 except ImportError:
     PYQT_AVAILABLE = False
-    
+
     class BaseManager:
         def __init__(self):
             pass
-            
+
         def __setattr__(self, name, value):
             # Allow setting any attribute
             super().__setattr__(name, value)
 
+
 try:
-    import bleak
     from bleak import BleakScanner, BleakClient, BleakGATTCharacteristic
     from bleak.backends.device import BLEDevice
+
     BLUETOOTH_AVAILABLE = True
 except ImportError:
-    logger.warning("Bluetooth dependencies not available. Install 'bleak' for Bluetooth support")
+    logger.warning(
+        "Bluetooth dependencies not available. Install 'bleak' for Bluetooth support"
+    )
     BLUETOOTH_AVAILABLE = False
 
 try:
     if platform.system() == "Windows":
-        import bluetooth  # pybluez for classic Bluetooth on Windows
+        pass  # Using bleak for all Bluetooth operations now
+
         CLASSIC_BT_AVAILABLE = True
     else:
         CLASSIC_BT_AVAILABLE = False
@@ -52,7 +62,7 @@ except ImportError:
 
 class BluetoothDeviceType(Enum):
     """Bluetooth device types."""
-    
+
     BLE = "ble"
     CLASSIC = "classic"
     UNKNOWN = "unknown"
@@ -60,7 +70,7 @@ class BluetoothDeviceType(Enum):
 
 class ConnectionState(Enum):
     """Bluetooth connection states."""
-    
+
     DISCONNECTED = "disconnected"
     CONNECTING = "connecting"
     CONNECTED = "connected"
@@ -70,7 +80,7 @@ class ConnectionState(Enum):
 @dataclass
 class BluetoothDevice:
     """Bluetooth device information."""
-    
+
     address: str
     name: str
     device_type: BluetoothDeviceType
@@ -84,7 +94,7 @@ class BluetoothDevice:
 class BluetoothManager(BaseManager):
     """
     Manages Bluetooth connectivity for IRCamera devices.
-    
+
     Provides:
     - BLE (Bluetooth Low Energy) device discovery and connection
     - Classic Bluetooth support (Windows)
@@ -92,7 +102,7 @@ class BluetoothManager(BaseManager):
     - Connection state management
     - Data transmission capabilities
     """
-    
+
     # Signals (only available with PyQt6)
     if PYQT_AVAILABLE:
         device_discovered = pyqtSignal(BluetoothDevice)
@@ -101,55 +111,56 @@ class BluetoothManager(BaseManager):
         data_received = pyqtSignal(str, bytes)  # address, data
         scan_completed = pyqtSignal(int)  # device_count
         error_occurred = pyqtSignal(str, str)  # operation, error_message
-    
+
     # IRCamera service UUIDs (these would be specific to the actual device)
     IRCAMERA_SERVICE_UUID = "12345678-1234-1234-1234-123456789abc"
     IRCAMERA_DATA_CHARACTERISTIC = "87654321-4321-4321-4321-cba987654321"
-    
+
     def __init__(self):
         super().__init__()
         self._devices: Dict[str, BluetoothDevice] = {}
         self._connections: Dict[str, BleakClient] = {}
         self._scanning = False
-        
+
         # Timer for periodic scanning (only available with PyQt6)
         if PYQT_AVAILABLE:
             self._scan_timer = QTimer()
             self._scan_timer.timeout.connect(self._periodic_scan)
         else:
             self._scan_timer = None
-        
+
         if not BLUETOOTH_AVAILABLE:
             logger.error("Bluetooth functionality not available - missing dependencies")
-    
+
     def _emit_signal(self, signal_name: str, *args):
         """Emit a signal if PyQt6 is available."""
         if PYQT_AVAILABLE and hasattr(self, signal_name):
             signal = getattr(self, signal_name)
             signal.emit(*args)
-    
+
     @property
     def is_available(self) -> bool:
         """Check if Bluetooth functionality is available."""
         return BLUETOOTH_AVAILABLE
-    
+
     @property
     def discovered_devices(self) -> List[BluetoothDevice]:
         """Get list of discovered devices."""
         return list(self._devices.values())
-    
+
     @property
     def connected_devices(self) -> List[BluetoothDevice]:
         """Get list of connected devices."""
         return [
-            device for device in self._devices.values() 
+            device
+            for device in self._devices.values()
             if device.connection_state == ConnectionState.CONNECTED
         ]
-    
+
     def start_scanning(self, continuous: bool = False, interval: int = 10) -> None:
         """
         Start scanning for Bluetooth devices.
-        
+
         Args:
             continuous: If True, scan continuously at specified intervals
             interval: Scan interval in seconds for continuous scanning
@@ -157,69 +168,72 @@ class BluetoothManager(BaseManager):
         if not self.is_available:
             self._emit_signal("error_occurred", "scan", "Bluetooth not available")
             return
-        
+
         if self._scanning:
             logger.warning("Already scanning for devices")
             return
-        
+
         self._scanning = True
         logger.info("Starting Bluetooth device scan")
-        
+
         # Start immediate scan
         asyncio.create_task(self._scan_devices())
-        
+
         if continuous and self._scan_timer:
             self._scan_timer.start(interval * 1000)  # Convert to milliseconds
-    
+
     def stop_scanning(self) -> None:
         """Stop scanning for devices."""
         self._scanning = False
         if self._scan_timer:
             self._scan_timer.stop()
         logger.info("Stopped Bluetooth device scanning")
-    
+
     async def _scan_devices(self) -> None:
         """Scan for BLE devices."""
         try:
             logger.debug("Scanning for BLE devices...")
             devices = await BleakScanner.discover(timeout=5.0)
-            
+
             discovered_count = 0
             for device in devices:
-                if device.address not in self._devices or self._should_update_device(device):
+                if device.address not in self._devices or self._should_update_device(
+                    device
+                ):
                     bt_device = self._create_bluetooth_device(device)
                     self._devices[device.address] = bt_device
                     self._emit_signal("device_discovered", bt_device)
                     discovered_count += 1
                     logger.debug(f"Discovered device: {device.name} ({device.address})")
-            
+
             self._emit_signal("scan_completed", discovered_count)
             logger.info(f"Scan completed - found {discovered_count} new devices")
-            
+
         except Exception as e:
             logger.error(f"Error during device scan: {e}")
             self._emit_signal("error_occurred", "scan", str(e))
-    
+
     def _periodic_scan(self) -> None:
         """Periodic scan callback."""
         if self._scanning:
             asyncio.create_task(self._scan_devices())
-    
+
     def _should_update_device(self, device: BLEDevice) -> bool:
         """Check if device information should be updated."""
         if device.address not in self._devices:
             return True
-        
+
         existing = self._devices[device.address]
         # Update if RSSI changed significantly or name became available
-        return (abs(existing.rssi - (device.rssi or -100)) > 10 or
-                (not existing.name and device.name))
-    
+        return abs(existing.rssi - (device.rssi or -100)) > 10 or (
+            not existing.name and device.name
+        )
+
     def _create_bluetooth_device(self, device: BLEDevice) -> BluetoothDevice:
         """Create BluetoothDevice from BLEDevice."""
         # Check if this could be an IRCamera device
         is_ircamera = self._is_ircamera_device(device)
-        
+
         return BluetoothDevice(
             address=device.address,
             name=device.name or "Unknown Device",
@@ -227,9 +241,9 @@ class BluetoothManager(BaseManager):
             rssi=device.rssi or -100,
             services=[],  # Services discovered during connection
             last_seen=datetime.now(),
-            is_ircamera=is_ircamera
+            is_ircamera=is_ircamera,
         )
-    
+
     def _is_ircamera_device(self, device: BLEDevice) -> bool:
         """
         Identify if a device is an IRCamera based on name or advertised services.
@@ -237,160 +251,168 @@ class BluetoothManager(BaseManager):
         """
         if not device.name:
             return False
-        
+
         # Look for IRCamera-specific naming patterns
         name_lower = device.name.lower()
         ircamera_patterns = ["ircamera", "thermal", "flir", "seek", "hikvision"]
-        
+
         return any(pattern in name_lower for pattern in ircamera_patterns)
-    
+
     async def connect_device(self, address: str) -> bool:
         """
         Connect to a Bluetooth device.
-        
+
         Args:
             address: Device MAC address
-            
+
         Returns:
             True if connection successful, False otherwise
         """
         if not self.is_available:
             self._emit_signal("error_occurred", "connect", "Bluetooth not available")
             return False
-        
+
         if address not in self._devices:
-            self._emit_signal("error_occurred", "connect", f"Device {address} not found")
+            self._emit_signal(
+                "error_occurred", "connect", f"Device {address} not found"
+            )
             return False
-        
+
         device = self._devices[address]
         device.connection_state = ConnectionState.CONNECTING
-        
+
         try:
             logger.info(f"Connecting to device {device.name} ({address})")
-            
+
             client = BleakClient(address)
             await client.connect()
-            
+
             # Discover services
             services = await client.get_services()
             device.services = [str(service.uuid) for service in services]
-            
+
             # Check for IRCamera-specific services
             if self.IRCAMERA_SERVICE_UUID in device.services:
                 device.is_ircamera = True
                 logger.info(f"IRCamera service detected on {device.name}")
-            
+
             self._connections[address] = client
             device.connection_state = ConnectionState.CONNECTED
-            
+
             self._emit_signal("device_connected", address, device.name)
             logger.info(f"Successfully connected to {device.name}")
-            
+
             # Set up notifications if it's an IRCamera device
             if device.is_ircamera:
                 await self._setup_ircamera_notifications(client)
-            
+
             return True
-            
+
         except Exception as e:
             logger.error(f"Failed to connect to {address}: {e}")
             device.connection_state = ConnectionState.ERROR
             self._emit_signal("error_occurred", "connect", str(e))
             return False
-    
+
     async def disconnect_device(self, address: str) -> None:
         """Disconnect from a Bluetooth device."""
         if address not in self._connections:
             logger.warning(f"Device {address} not connected")
             return
-        
+
         try:
             client = self._connections[address]
             await client.disconnect()
             del self._connections[address]
-            
+
             if address in self._devices:
                 device = self._devices[address]
                 device.connection_state = ConnectionState.DISCONNECTED
                 self._emit_signal("device_disconnected", address, "User initiated")
                 logger.info(f"Disconnected from {device.name}")
-            
+
         except Exception as e:
             logger.error(f"Error disconnecting from {address}: {e}")
             self._emit_signal("error_occurred", "disconnect", str(e))
-    
+
     async def send_data(self, address: str, data: bytes) -> bool:
         """
         Send data to a connected device.
-        
+
         Args:
             address: Device address
             data: Data to send
-            
+
         Returns:
             True if data sent successfully
         """
         if address not in self._connections:
-            self._emit_signal("error_occurred", "send", f"Device {address} not connected")
+            self._emit_signal(
+                "error_occurred", "send", f"Device {address} not connected"
+            )
             return False
-        
+
         if address not in self._devices or not self._devices[address].is_ircamera:
-            self._emit_signal("error_occurred", "send", f"Device {address} is not an IRCamera")
+            self._emit_signal(
+                "error_occurred", "send", f"Device {address} is not an IRCamera"
+            )
             return False
-        
+
         try:
             client = self._connections[address]
             await client.write_gatt_char(self.IRCAMERA_DATA_CHARACTERISTIC, data)
             logger.debug(f"Sent {len(data)} bytes to {address}")
             return True
-            
+
         except Exception as e:
             logger.error(f"Error sending data to {address}: {e}")
             self._emit_signal("error_occurred", "send", str(e))
             return False
-    
+
     async def _setup_ircamera_notifications(self, client: BleakClient) -> None:
         """Set up notifications for IRCamera data characteristic."""
         try:
             await client.start_notify(
-                self.IRCAMERA_DATA_CHARACTERISTIC,
-                self._handle_ircamera_notification
+                self.IRCAMERA_DATA_CHARACTERISTIC, self._handle_ircamera_notification
             )
             logger.debug("IRCamera notifications enabled")
-            
+
         except Exception as e:
             logger.error(f"Failed to enable IRCamera notifications: {e}")
-    
-    def _handle_ircamera_notification(self, sender: BleakGATTCharacteristic, data: bytearray) -> None:
+
+    def _handle_ircamera_notification(
+        self, sender: BleakGATTCharacteristic, data: bytearray
+    ) -> None:
         """Handle incoming data from IRCamera device."""
         try:
             address = sender.service.client.address
             self._emit_signal("data_received", address, bytes(data))
             logger.debug(f"Received {len(data)} bytes from {address}")
-            
+
         except Exception as e:
             logger.error(f"Error handling notification: {e}")
-    
+
     def get_device_info(self, address: str) -> Optional[BluetoothDevice]:
         """Get information about a specific device."""
         return self._devices.get(address)
-    
+
     def clear_devices(self) -> None:
         """Clear the list of discovered devices."""
         # Don't clear connected devices
         connected_addresses = set(self._connections.keys())
         self._devices = {
-            addr: device for addr, device in self._devices.items()
+            addr: device
+            for addr, device in self._devices.items()
             if addr in connected_addresses
         }
         logger.info("Cleared discovered devices list")
-    
+
     async def cleanup(self) -> None:
         """Clean up all connections and stop scanning."""
         self.stop_scanning()
-        
+
         # Disconnect all devices
         for address in list(self._connections.keys()):
             await self.disconnect_device(address)
-        
+
         logger.info("Bluetooth manager cleanup completed")

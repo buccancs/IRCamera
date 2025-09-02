@@ -18,7 +18,6 @@ from loguru import logger
 class ValidationError(Exception):
     """Protocol validation error."""
 
-    pass
 
 
 class MessageDirection(Enum):
@@ -218,14 +217,19 @@ class ProtocolManager:
 
                 # Add format if specified
                 if "format" in field_def:
-                    complete_schema["properties"][field_name]["format"] = field_def["format"]
+                    complete_schema["properties"][field_name]["format"] = field_def[
+                        "format"
+                    ]
 
         # Add required common fields
         if "required" not in complete_schema:
             complete_schema["required"] = []
 
         for field_name, field_def in common_fields.items():
-            if field_def.get("required", False) and field_name not in complete_schema["required"]:
+            if (
+                field_def.get("required", False)
+                and field_name not in complete_schema["required"]
+            ):
                 complete_schema["required"].append(field_name)
 
         return complete_schema

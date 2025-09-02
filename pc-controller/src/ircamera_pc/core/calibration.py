@@ -115,7 +115,9 @@ class CalibrationResult:
 class ChessboardDetector:
     """Chessboard pattern detector for calibration"""
 
-    def __init__(self, pattern_size: Tuple[int, int] = (9, 6), square_size: float = 25.0):
+    def __init__(
+        self, pattern_size: Tuple[int, int] = (9, 6), square_size: float = 25.0
+    ):
         """
         Initialize chessboard detector
 
@@ -127,10 +129,12 @@ class ChessboardDetector:
         self.square_size = square_size
 
         # Generate 3D object points for the chessboard
-        self.object_points_3d = np.zeros((pattern_size[0] * pattern_size[1], 3), np.float32)
-        self.object_points_3d[:, :2] = np.mgrid[0 : pattern_size[0], 0 : pattern_size[1]].T.reshape(
-            -1, 2
+        self.object_points_3d = np.zeros(
+            (pattern_size[0] * pattern_size[1], 3), np.float32
         )
+        self.object_points_3d[:, :2] = np.mgrid[
+            0 : pattern_size[0], 0 : pattern_size[1]
+        ].T.reshape(-1, 2)
         self.object_points_3d *= square_size
 
     def detect_corners(self, image: np.ndarray) -> Tuple[bool, Optional[np.ndarray]]:
@@ -161,7 +165,11 @@ class ChessboardDetector:
 
             if success:
                 # Refine corner positions to sub-pixel accuracy
-                criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
+                criteria = (
+                    cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER,
+                    30,
+                    0.001,
+                )
                 corners = cv2.cornerSubPix(gray, corners, (11, 11), (-1, -1), criteria)
                 return True, corners
             else:
@@ -208,7 +216,9 @@ class CameraCalibrator:
         self.active_sessions: Dict[str, Dict[str, Any]] = {}
         self.completed_calibrations: Dict[str, CalibrationResult] = {}
 
-        logger.info(f"Camera Calibrator initialized with data directory: {self.data_dir}")
+        logger.info(
+            f"Camera Calibrator initialized with data directory: {self.data_dir}"
+        )
         logger.info(f"Pattern: {self.pattern_size}, Square size: {self.square_size}mm")
 
     async def start_calibration(
@@ -253,7 +263,11 @@ class CameraCalibrator:
             return False
 
     async def process_calibration_image(
-        self, device_id: str, session_id: str, camera_type: CameraType, image_data: bytes
+        self,
+        device_id: str,
+        session_id: str,
+        camera_type: CameraType,
+        image_data: bytes,
     ) -> Dict[str, Any]:
         """
         Process a calibration image from device
@@ -311,10 +325,13 @@ class CameraCalibrator:
                     "corners_detected": True,
                     "images_collected": session_data["images_collected"],
                     "min_images_needed": self.min_images,
-                    "ready_to_calibrate": session_data["images_collected"] >= self.min_images,
+                    "ready_to_calibrate": session_data["images_collected"]
+                    >= self.min_images,
                 }
             else:
-                logger.debug(f"No chessboard pattern detected in image for {calibration_id}")
+                logger.debug(
+                    f"No chessboard pattern detected in image for {calibration_id}"
+                )
                 return {
                     "success": True,
                     "corners_detected": False,
@@ -372,7 +389,9 @@ class CameraCalibrator:
             )
 
             if not ret or ret > self.target_error:
-                logger.warning(f"Calibration error is high: {ret:.3f} > {self.target_error}")
+                logger.warning(
+                    f"Calibration error is high: {ret:.3f} > {self.target_error}"
+                )
 
             # Extract intrinsic parameters
             intrinsics = CameraIntrinsics(
@@ -409,7 +428,9 @@ class CameraCalibrator:
             del self.active_sessions[calibration_id]
 
             logger.info(f"Calibration completed: {calibration_id}")
-            logger.info(f"RMS error: {ret:.3f} pixels, Images used: {len(object_points)}")
+            logger.info(
+                f"RMS error: {ret:.3f} pixels, Images used: {len(object_points)}"
+            )
 
             return result
 
@@ -515,7 +536,7 @@ class CameraCalibrator:
                 return None
 
             with open(filepath, "r") as f:
-                data = json.load(f)
+                json.load(f)
 
             # Reconstruct calibration result
             # Note: This is a simplified reconstruction - full implementation would
@@ -558,7 +579,9 @@ class CameraCalibrator:
         """Get list of active calibration session IDs"""
         return list(self.active_sessions.keys())
 
-    def cancel_calibration(self, device_id: str, camera_type: CameraType, session_id: str) -> bool:
+    def cancel_calibration(
+        self, device_id: str, camera_type: CameraType, session_id: str
+    ) -> bool:
         """Cancel an active calibration session"""
         try:
             calibration_id = f"{device_id}_{camera_type.value}_{session_id}"

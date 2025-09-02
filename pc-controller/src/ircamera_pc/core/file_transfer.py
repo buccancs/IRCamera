@@ -140,8 +140,12 @@ class FileTransferManager:
         # Callbacks for progress updates
         self.progress_callbacks: List[Callable[[str, float, float], None]] = []
 
-        logger.info(f"File Transfer Manager initialized with data directory: {self.data_dir}")
-        logger.info(f"Chunk size: {self.chunk_size} bytes, Max concurrent: {self.max_concurrent}")
+        logger.info(
+            f"File Transfer Manager initialized with data directory: {self.data_dir}"
+        )
+        logger.info(
+            f"Chunk size: {self.chunk_size} bytes, Max concurrent: {self.max_concurrent}"
+        )
 
     def add_progress_callback(self, callback: Callable[[str, float, float], None]):
         """
@@ -177,7 +181,9 @@ class FileTransferManager:
             # Check if file already exists and is complete
             if local_path.exists():
                 if await self._verify_existing_file(local_path, manifest):
-                    logger.info(f"File already exists and verified: {manifest.filename}")
+                    logger.info(
+                        f"File already exists and verified: {manifest.filename}"
+                    )
                     return job_id  # Skip transfer
 
             # Create transfer job
@@ -198,12 +204,16 @@ class FileTransferManager:
             if local_path.exists():
                 job.resume_offset = local_path.stat().st_size
                 job.bytes_transferred = job.resume_offset
-                logger.info(f"Found partial file, will resume from offset: {job.resume_offset}")
+                logger.info(
+                    f"Found partial file, will resume from offset: {job.resume_offset}"
+                )
 
             self.active_jobs[job_id] = job
             self.transfer_queue.append(job_id)
 
-            logger.info(f"Queued transfer: {manifest.filename} ({manifest.size_bytes} bytes)")
+            logger.info(
+                f"Queued transfer: {manifest.filename} ({manifest.size_bytes} bytes)"
+            )
 
             # Start transfer if we have capacity
             if self.concurrent_transfers < self.max_concurrent:
@@ -341,12 +351,16 @@ class FileTransferManager:
 
             # Retry if under limit
             if job.retry_count <= self.retry_limit:
-                logger.info(f"Retrying transfer (attempt {job.retry_count}/{self.retry_limit})")
+                logger.info(
+                    f"Retrying transfer (attempt {job.retry_count}/{self.retry_limit})"
+                )
                 job.status = TransferStatus.PENDING
                 job.error_message = None
                 self.transfer_queue.append(job.job_id)
             else:
-                logger.error(f"Transfer permanently failed after {job.retry_count} attempts")
+                logger.error(
+                    f"Transfer permanently failed after {job.retry_count} attempts"
+                )
 
         finally:
             self.concurrent_transfers -= 1
@@ -394,7 +408,9 @@ class FileTransferManager:
             logger.error(f"Error during chunk transfer: {e}")
             raise
 
-    async def _read_chunk_from_device(self, job: TransferJob, offset: int, size: int) -> bytes:
+    async def _read_chunk_from_device(
+        self, job: TransferJob, offset: int, size: int
+    ) -> bytes:
         """
         Read a chunk of data from the device
 
@@ -445,7 +461,9 @@ class FileTransferManager:
             logger.error(f"Error verifying file integrity: {e}")
             return False
 
-    async def _verify_existing_file(self, filepath: Path, manifest: FileManifest) -> bool:
+    async def _verify_existing_file(
+        self, filepath: Path, manifest: FileManifest
+    ) -> bool:
         """Verify that an existing file matches the expected manifest"""
         try:
             if not filepath.exists():
@@ -522,7 +540,9 @@ class FileTransferManager:
             state_file = self.data_dir / "transfer_state.json"
 
             state = {
-                "active_jobs": {job_id: job.to_dict() for job_id, job in self.active_jobs.items()},
+                "active_jobs": {
+                    job_id: job.to_dict() for job_id, job in self.active_jobs.items()
+                },
                 "completed_jobs": {
                     job_id: job.to_dict() for job_id, job in self.completed_jobs.items()
                 },
@@ -547,7 +567,7 @@ class FileTransferManager:
                 return
 
             with open(state_file, "r") as f:
-                state = json.load(f)
+                json.load(f)
 
             # TODO: Implement state reconstruction from saved data
             # This would involve recreating TransferJob objects and resuming transfers

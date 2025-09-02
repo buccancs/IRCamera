@@ -48,7 +48,7 @@ class IRCameraApp:
         self.gsr_ingestor = GSRIngestor(self.config)
         self.file_transfer_manager = FileTransferManager(self.config)
         self.camera_calibrator = CameraCalibrator(self.config)
-        
+
         # System integration managers
         self.admin_privileges_manager = AdminPrivilegesManager()
         self.bluetooth_manager = BluetoothManager()
@@ -65,14 +65,14 @@ class IRCameraApp:
         logger.info("IRCamera Application initialized with system integration features")
         components = [
             "Session Manager",
-            "Time Sync", 
+            "Time Sync",
             "Network Server",
-            "GSR Ingestor", 
+            "GSR Ingestor",
             "File Transfer",
             "Camera Calibrator",
             "Admin Privileges",
             "Bluetooth Manager",
-            "WiFi Manager"
+            "WiFi Manager",
         ]
         logger.info(f"Components: {', '.join(components)}")
 
@@ -250,10 +250,10 @@ class IRCameraApp:
             # Stop system integration managers first
             if self.wifi_manager:
                 await self.wifi_manager.cleanup()
-            
+
             if self.bluetooth_manager:
                 await self.bluetooth_manager.cleanup()
-            
+
             # Stop core services in reverse order
             await self.network_server.stop()
             await self.time_sync_service.stop()
@@ -306,7 +306,9 @@ class IRCameraApp:
             # Stop services
             if self._loop and not self._loop.is_closed():
                 try:
-                    future = asyncio.run_coroutine_threadsafe(self.stop_services(), self._loop)
+                    future = asyncio.run_coroutine_threadsafe(
+                        self.stop_services(), self._loop
+                    )
                     future.result(timeout=5)  # 5 second timeout
                 except Exception as e:
                     logger.error(f"Error during cleanup: {e}")

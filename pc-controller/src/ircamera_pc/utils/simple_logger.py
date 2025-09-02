@@ -6,14 +6,15 @@ Provides basic logging functionality for development and testing.
 
 import logging
 import sys
-from datetime import datetime
-from typing import Any
 
 # Configure basic logging
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s | %(levelname)-8s | %(name)s:%(funcName)s:%(lineno)d - %(message)s",
-    handlers=[logging.StreamHandler(sys.stdout), logging.FileHandler("ircamera_pc.log")],
+    handlers=[
+        logging.StreamHandler(sys.stdout),
+        logging.FileHandler("ircamera_pc.log"),
+    ],
 )
 
 
@@ -40,11 +41,9 @@ class SimpleLogger:
 
     def remove(self, *args, **kwargs) -> None:
         """Remove handler - no-op for simple logger."""
-        pass
 
     def add(self, *args, **kwargs) -> None:
         """Add handler - no-op for simple logger."""
-        pass
 
 
 # Create global logger instance

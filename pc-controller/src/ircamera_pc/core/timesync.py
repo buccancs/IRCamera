@@ -146,7 +146,9 @@ class TimeSyncService:
             logger.error(f"Error handling sync request from {device_id}: {e}")
             return b""
 
-    def _update_device_stats(self, device_id: str, client_time: float, server_time: float) -> None:
+    def _update_device_stats(
+        self, device_id: str, client_time: float, server_time: float
+    ) -> None:
         """Update synchronization statistics for device."""
         if device_id not in self._device_stats:
             self._device_stats[device_id] = TimeSyncStats(device_id=device_id)
@@ -173,7 +175,9 @@ class TimeSyncService:
 
             # Median
             if n % 2 == 0:
-                stats.median_offset_ms = (sorted_offsets[n // 2 - 1] + sorted_offsets[n // 2]) / 2
+                stats.median_offset_ms = (
+                    sorted_offsets[n // 2 - 1] + sorted_offsets[n // 2]
+                ) / 2
             else:
                 stats.median_offset_ms = sorted_offsets[n // 2]
 
@@ -251,7 +255,9 @@ class TimeSyncService:
             }
 
         synchronized_count = sum(
-            1 for device_id in self._device_stats if self.is_device_synchronized(device_id)
+            1
+            for device_id in self._device_stats
+            if self.is_device_synchronized(device_id)
         )
 
         # Calculate overall metrics
@@ -268,7 +274,9 @@ class TimeSyncService:
 
             # Overall median
             if n % 2 == 0:
-                overall_median = (sorted_offsets[n // 2 - 1] + sorted_offsets[n // 2]) / 2
+                overall_median = (
+                    sorted_offsets[n // 2 - 1] + sorted_offsets[n // 2]
+                ) / 2
             else:
                 overall_median = sorted_offsets[n // 2]
 
@@ -280,7 +288,9 @@ class TimeSyncService:
             "total_devices": len(self._device_stats),
             "synchronized_devices": synchronized_count,
             "synchronization_rate": (
-                synchronized_count / len(self._device_stats) if self._device_stats else 0.0
+                synchronized_count / len(self._device_stats)
+                if self._device_stats
+                else 0.0
             ),
             "overall_median_offset_ms": overall_median,
             "overall_p95_offset_ms": overall_p95,

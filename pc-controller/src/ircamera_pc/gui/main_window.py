@@ -29,11 +29,9 @@ from ..core.session import SessionManager, SessionState
 from ..core.timesync import TimeSyncService
 from ..network.server import NetworkServer, DeviceInfo
 from .widgets import (
-    DeviceListWidget, 
-    SessionControlWidget, 
+    DeviceListWidget,
+    SessionControlWidget,
     StatusDisplayWidget,
-    BluetoothControlWidget,
-    WiFiControlWidget,
     SystemIntegrationWidget,
 )
 
@@ -101,7 +99,7 @@ class MainWindow(QMainWindow):
         self.session_control_widget: Optional[SessionControlWidget] = None
         self.status_display_widget: Optional[StatusDisplayWidget] = None
         self.log_display: Optional[QTextEdit] = None
-        
+
         # New GUI components for system integration
         self.bluetooth_control_widget = None
         self.wifi_control_widget = None
@@ -207,34 +205,40 @@ class MainWindow(QMainWindow):
         """Create the center pane with system integration controls."""
         pane = QWidget()
         layout = QVBoxLayout(pane)
-        
+
         # System integration widget
         if self.admin_privileges_manager:
             self.system_integration_widget = SystemIntegrationWidget()
             layout.addWidget(self.system_integration_widget)
-        
+
         # Bluetooth control widget
         if self.bluetooth_manager:
             from .widgets import BluetoothControlWidget
+
             self.bluetooth_control_widget = BluetoothControlWidget()
             layout.addWidget(self.bluetooth_control_widget)
-        
+
         # WiFi control widget
         if self.wifi_manager:
             from .widgets import WiFiControlWidget
+
             self.wifi_control_widget = WiFiControlWidget()
             layout.addWidget(self.wifi_control_widget)
-        
+
         # If no system integration features available, show a message
-        if not any([self.admin_privileges_manager, self.bluetooth_manager, self.wifi_manager]):
+        if not any(
+            [self.admin_privileges_manager, self.bluetooth_manager, self.wifi_manager]
+        ):
             placeholder = QLabel("System integration features not available")
             placeholder.setAlignment(Qt.AlignmentFlag.AlignCenter)
-            placeholder.setStyleSheet("color: gray; font-style: italic; font-size: 14px;")
+            placeholder.setStyleSheet(
+                "color: gray; font-style: italic; font-size: 14px;"
+            )
             layout.addWidget(placeholder)
-        
+
         # Stretch at bottom
         layout.addStretch()
-        
+
         return pane
 
     def _create_right_pane(self) -> QWidget:
@@ -300,8 +304,12 @@ class MainWindow(QMainWindow):
     def _setup_network_callbacks(self) -> None:
         """Set up network server event callbacks."""
         self.network_server.set_device_connected_callback(self._on_device_connected)
-        self.network_server.set_device_disconnected_callback(self._on_device_disconnected)
-        self.network_server.set_device_status_update_callback(self._on_device_status_updated)
+        self.network_server.set_device_disconnected_callback(
+            self._on_device_disconnected
+        )
+        self.network_server.set_device_status_update_callback(
+            self._on_device_status_updated
+        )
 
     def _setup_system_integration_callbacks(self) -> None:
         """Set up system integration callbacks and connections."""
@@ -312,26 +320,34 @@ class MainWindow(QMainWindow):
                 lambda: self.bluetooth_manager.start_scanning(continuous=False)
             )
             self.bluetooth_control_widget.connect_requested.connect(
-                lambda addr: asyncio.create_task(self.bluetooth_manager.connect_device(addr))
+                lambda addr: asyncio.create_task(
+                    self.bluetooth_manager.connect_device(addr)
+                )
             )
             self.bluetooth_control_widget.disconnect_requested.connect(
-                lambda addr: asyncio.create_task(self.bluetooth_manager.disconnect_device(addr))
+                lambda addr: asyncio.create_task(
+                    self.bluetooth_manager.disconnect_device(addr)
+                )
             )
-            
+
             # Connect manager signals to widget updates
             self.bluetooth_manager.device_discovered.connect(
                 lambda device: self._update_bluetooth_devices()
             )
             self.bluetooth_manager.device_connected.connect(
-                lambda addr, name: self.bluetooth_control_widget.set_connection_status(addr, True)
+                lambda addr, name: self.bluetooth_control_widget.set_connection_status(
+                    addr, True
+                )
             )
             self.bluetooth_manager.device_disconnected.connect(
-                lambda addr, reason: self.bluetooth_control_widget.set_connection_status(addr, False)
+                lambda addr, reason: self.bluetooth_control_widget.set_connection_status(
+                    addr, False
+                )
             )
             self.bluetooth_manager.error_occurred.connect(
                 lambda op, err: self.bluetooth_control_widget.set_error_status(err)
             )
-        
+
         # WiFi manager callbacks
         if self.wifi_manager and self.wifi_control_widget:
             # Connect widget signals to manager methods
@@ -339,7 +355,9 @@ class MainWindow(QMainWindow):
                 lambda: self.wifi_manager.start_scanning(continuous=False)
             )
             self.wifi_control_widget.connect_requested.connect(
-                lambda ssid, pwd: asyncio.create_task(self.wifi_manager.connect_to_network(ssid, pwd))
+                lambda ssid, pwd: asyncio.create_task(
+                    self.wifi_manager.connect_to_network(ssid, pwd)
+                )
             )
             self.wifi_control_widget.disconnect_requested.connect(
                 lambda: asyncio.create_task(self.wifi_manager.disconnect_from_network())
@@ -352,44 +370,54 @@ class MainWindow(QMainWindow):
             self.wifi_control_widget.hotspot_stop_requested.connect(
                 lambda: asyncio.create_task(self.wifi_manager.stop_hotspot())
             )
-            
+
             # Connect manager signals to widget updates
             self.wifi_manager.networks_discovered.connect(
                 lambda networks: self.wifi_control_widget.update_networks(networks)
             )
             self.wifi_manager.network_connected.connect(
-                lambda ssid, ip: self.wifi_control_widget.set_connection_status(ssid, True, ip)
+                lambda ssid, ip: self.wifi_control_widget.set_connection_status(
+                    ssid, True, ip
+                )
             )
             self.wifi_manager.network_disconnected.connect(
-                lambda ssid, reason: self.wifi_control_widget.set_connection_status(ssid, False)
+                lambda ssid, reason: self.wifi_control_widget.set_connection_status(
+                    ssid, False
+                )
             )
             self.wifi_manager.hotspot_state_changed.connect(
-                lambda state, msg: self.wifi_control_widget.set_hotspot_status(state.value, msg)
+                lambda state, msg: self.wifi_control_widget.set_hotspot_status(
+                    state.value, msg
+                )
             )
             self.wifi_manager.error_occurred.connect(
                 lambda op, err: self.wifi_control_widget.set_error_status(err)
             )
-        
+
         # Admin privileges manager callbacks
         if self.admin_privileges_manager and self.system_integration_widget:
             # Connect widget signals to manager methods
             self.system_integration_widget.elevation_requested.connect(
                 lambda reason: self.admin_privileges_manager.request_elevation(reason)
             )
-            
+
             # Connect manager signals to widget updates
             self.admin_privileges_manager.privilege_changed.connect(
-                lambda level: self.system_integration_widget.update_privilege_level(level.value)
+                lambda level: self.system_integration_widget.update_privilege_level(
+                    level.value
+                )
             )
             self.admin_privileges_manager.system_ready.connect(
-                lambda perms: self.system_integration_widget.update_permissions({
-                    'network_config': perms.network_config,
-                    'bluetooth_control': perms.bluetooth_control,
-                    'service_management': perms.service_management,
-                    'registry_access': perms.registry_access,
-                    'hardware_access': perms.hardware_access,
-                    'firewall_control': perms.firewall_control,
-                })
+                lambda perms: self.system_integration_widget.update_permissions(
+                    {
+                        "network_config": perms.network_config,
+                        "bluetooth_control": perms.bluetooth_control,
+                        "service_management": perms.service_management,
+                        "registry_access": perms.registry_access,
+                        "hardware_access": perms.hardware_access,
+                        "firewall_control": perms.firewall_control,
+                    }
+                )
             )
             self.admin_privileges_manager.elevation_completed.connect(
                 lambda result, msg: self.system_integration_widget.set_status_message(
@@ -472,7 +500,8 @@ class MainWindow(QMainWindow):
         # Update sync controls
         can_sync = (
             current_session
-            and current_session.state in [SessionState.ACTIVE.value, SessionState.RECORDING.value]
+            and current_session.state
+            in [SessionState.ACTIVE.value, SessionState.RECORDING.value]
             and has_devices
         )
 
@@ -485,12 +514,15 @@ class MainWindow(QMainWindow):
         try:
             current_session = self.session_manager.get_current_session()
             if not current_session:
-                self._show_error("No session created", "Please create a new session first.")
+                self._show_error(
+                    "No session created", "Please create a new session first."
+                )
                 return
 
             if current_session.state != SessionState.IDLE.value:
                 self._show_error(
-                    "Cannot start session", f"Session is in {current_session.state} state."
+                    "Cannot start session",
+                    f"Session is in {current_session.state} state.",
                 )
                 return
 
@@ -551,7 +583,9 @@ class MainWindow(QMainWindow):
         try:
             # Get session name from user
             name, ok = QInputDialog.getText(
-                self, "New Session", "Enter session name (leave empty for auto-generated):"
+                self,
+                "New Session",
+                "Enter session name (leave empty for auto-generated):",
             )
 
             if not ok:
@@ -604,13 +638,17 @@ class MainWindow(QMainWindow):
             import asyncio
 
             asyncio.create_task(
-                self.network_server.send_sync_mark("manual_mark", {"description": description})
+                self.network_server.send_sync_mark(
+                    "manual_mark", {"description": description}
+                )
             )
 
             # Add sync event to session
             current_session = self.session_manager.get_current_session()
             if current_session:
-                self.session_manager.add_sync_event("manual_mark", {"description": description})
+                self.session_manager.add_sync_event(
+                    "manual_mark", {"description": description}
+                )
 
             logger.info(f"Sync mark added: {description}")
             self._add_log_message(f"Sync mark added: {description}")
@@ -648,7 +686,7 @@ class MainWindow(QMainWindow):
             self._show_warning(
                 "GSR Leader Disconnected",
                 f"GSR leader device {device_info.device_id} has disconnected. "
-                f"A new leader will be elected if available.",
+                "A new leader will be elected if available.",
             )
 
     def _on_device_status_updated(self, device_info: DeviceInfo) -> None:
