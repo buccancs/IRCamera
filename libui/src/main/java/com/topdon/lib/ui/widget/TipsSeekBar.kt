@@ -87,11 +87,11 @@ class TipsSeekBar: ViewGroup, SeekBar.OnSeekBarChangeListener {
         tvTips.setBackgroundResource(UiR.drawable.ic_tips_seek_bar_tips_bg)
         addView(tvTips)
 
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.TipsSeekBar, defStyleAttr, 0)
-        val minText = typedArray.getText(R.styleable.TipsSeekBar_minText)
-        val maxText = typedArray.getText(R.styleable.TipsSeekBar_maxText)
-        tipsPercent = typedArray.getFraction(R.styleable.TipsSeekBar_tipsPercent, 1, 1, 0f)
-        seekPercent = typedArray.getFraction(R.styleable.TipsSeekBar_seekPercent, 1, 1, 0f)
+        val typedArray = context.obtainStyledAttributes(attrs, UiR.styleable.TipsSeekBar, defStyleAttr, 0)
+        val minText = typedArray.getText(UiR.styleable.TipsSeekBar_minText)
+        val maxText = typedArray.getText(UiR.styleable.TipsSeekBar_maxText)
+        tipsPercent = typedArray.getFraction(UiR.styleable.TipsSeekBar_tipsPercent, 1, 1, 0f)
+        seekPercent = typedArray.getFraction(UiR.styleable.TipsSeekBar_seekPercent, 1, 1, 0f)
         typedArray.recycle()
 
         tvMin = TextView(context)
