@@ -11,6 +11,7 @@ kapt {
 }
 
 android {
+    namespace = "com.topdon.component.transfer"
     compileSdk = AndroidConfig.compileSdk
 
     defaultConfig {
@@ -22,6 +23,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            isMinifyEnabled = false
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(

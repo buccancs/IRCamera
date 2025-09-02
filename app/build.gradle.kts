@@ -19,6 +19,7 @@ val dayStr = SimpleDateFormat("yyMMdd", Locale.getDefault()).format(Date())
 val timeStr = SimpleDateFormat("HHmm", Locale.getDefault()).format(Date())
 
 android {
+    namespace = AndroidConfig.applicationId
     compileSdk = AndroidConfig.compileSdk
     
     defaultConfig {
@@ -131,6 +132,7 @@ android {
     }
     
     buildFeatures {
+        buildConfig = true
         dataBinding = true
         viewBinding = true
     }

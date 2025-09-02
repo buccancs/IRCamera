@@ -11,6 +11,7 @@ kapt {
 }
 
 android {
+    namespace = "com.example.thermal_lite"
     compileSdk = AndroidConfig.compileSdk
 
     defaultConfig {
@@ -22,6 +23,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            isMinifyEnabled = false
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -29,6 +33,7 @@ android {
                 "proguard-rules.pro"
             )
         }
+    }
     }
     
     compileOptions {

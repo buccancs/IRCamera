@@ -3,6 +3,7 @@ plugins {
 }
 
 android {
+    namespace = "com.topdon.ble"
     compileSdk = AndroidConfig.compileSdk
     buildToolsVersion = "30.0.3"
 
@@ -12,6 +13,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            isMinifyEnabled = false
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(

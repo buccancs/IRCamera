@@ -24,7 +24,7 @@ object Deps {
     const val work_runtime_ktx = "androidx.work:work-runtime-ktx:2.8.1"
     
     // Kotlin
-    const val kotlin_stdlib = "org.jetbrains.kotlin:kotlin-stdlib:1.7.20"
+    const val kotlin_stdlib = "org.jetbrains.kotlin:kotlin-stdlib:1.8.20"
     const val kotlinx_coroutines_core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
     const val kotlinx_coroutines_android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
     
