@@ -8,19 +8,13 @@ android {
 
     defaultConfig {
         minSdk = AndroidConfig.minSdk
-        targetSdk = AndroidConfig.targetSdk
+        // targetSdk = AndroidConfig.targetSdk  // Deprecated in library modules
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        // 生成包含指定平台的so库的apk
+        // Generate APK with specified platform so libraries
         ndk {
             abiFilters += listOf("arm64-v8a", "armeabi-v7a")
-        }
-        externalNativeBuild {
-            cmake {
-                cppFlags += listOf("-frtti", "-fexceptions")
-                abiFilters("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
-            }
         }
     }
 
@@ -29,14 +23,6 @@ android {
             isMinifyEnabled = false
         }
         release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-        debug {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),

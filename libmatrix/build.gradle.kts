@@ -17,7 +17,7 @@ android {
 
     defaultConfig {
         minSdk = AndroidConfig.minSdk
-        targetSdk = AndroidConfig.targetSdk
+        // targetSdk = AndroidConfig.targetSdk  // Deprecated in library modules
         ndkVersion = AndroidConfig.ndkVersion
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -45,14 +45,25 @@ android {
         jvmTarget = "1.8"
     }
 
+    // Temporarily disable CMake build for configuration optimization
+    /*
     externalNativeBuild {
         cmake {
             path = file("src/main/cpp/CMakeLists.txt")
+            version = "3.18.1"
         }
     }
+    */
+
+    ndkVersion = AndroidConfig.ndkVersion
 
     lint {
         abortOnError = false
+    }
+
+    // Optimize configuration cache for CMake builds
+    buildFeatures {
+        buildConfig = true
     }
 }
 

@@ -11,7 +11,8 @@ android {
 
     defaultConfig {
         minSdk = AndroidConfig.minSdk
-        targetSdk = AndroidConfig.targetSdk
+        // Remove deprecated targetSdk from library module
+        // targetSdk = AndroidConfig.targetSdk
         ndkVersion = AndroidConfig.ndkVersion
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
