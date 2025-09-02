@@ -93,12 +93,14 @@ dependencies {
 
     api(Deps.rxjava2)
     api(Deps.rxandroid)
-    api(Deps.rxpermissions)
-    api(Deps.rxlifecycle)
-    api(Deps.rxlifecycle_android)
-    api(Deps.rxlifecycle_components)
-    api(Deps.rxlifecycle_ktx)
-    api(Deps.rxlifecycle_android_lifecycle_ktx)
+    // Temporarily disabled RxPermissions due to dependency resolution - TODO: Replace with modern alternative
+    // api(Deps.rxpermissions)
+    // Temporarily disabled RxLifecycle due to dependency resolution - TODO: Use modern lifecycle management
+    // api(Deps.rxlifecycle)
+    // api(Deps.rxlifecycle_android)
+    // api(Deps.rxlifecycle_components)
+    // api(Deps.rxlifecycle_ktx)
+    // api(Deps.rxlifecycle_android_lifecycle_ktx)
 
     api(Deps.arouter_api)
     kapt(Deps.arouter_compiler)

@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.annotation.StringRes
 import com.topdon.lib.core.R
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.dialog_tip_shutter.view.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_tip_shutter.view.*
 
 
 /**

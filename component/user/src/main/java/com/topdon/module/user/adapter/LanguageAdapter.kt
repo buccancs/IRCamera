@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.module.user.R
-import kotlinx.android.synthetic.main.item_language.view.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_language.view.*
 
 class LanguageAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

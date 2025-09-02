@@ -11,7 +11,7 @@ import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.activity.IRMonitorActivity
-import kotlinx.android.synthetic.main.fragment_ir_monitor_capture.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_ir_monitor_capture.*
 
 /**
  * 温度监控-实时（即生成温度监控）.

@@ -36,7 +36,7 @@ import com.topdon.module.thermal.chart.MyValueFormatter
 import com.topdon.module.thermal.utils.ArrayUtils
 import com.topdon.module.thermal.view.MyMarkerView
 import com.topdon.module.thermal.viewmodel.LogViewModel
-import kotlinx.android.synthetic.main.activity_monitor_chart.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_monitor_chart.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay

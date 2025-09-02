@@ -47,9 +47,9 @@ import com.topdon.module.user.R
 import com.topdon.module.user.activity.LanguageActivity
 import com.topdon.module.user.activity.MoreActivity
 import com.zoho.salesiqembed.ZohoSalesIQ
-import kotlinx.android.synthetic.main.fragment_mine.*
-import kotlinx.android.synthetic.main.fragment_more.setting_item_unit
-import kotlinx.android.synthetic.main.layout_customer.drag_customer_view
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_mine.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_more.setting_item_unit
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.layout_customer.drag_customer_view
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

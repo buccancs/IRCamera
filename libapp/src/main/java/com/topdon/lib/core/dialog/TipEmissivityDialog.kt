@@ -14,7 +14,7 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.tools.NumberTools
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.dialog_tip_emissivity.view.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_tip_emissivity.view.*
 
 /**
  * 发射率的提示弹窗

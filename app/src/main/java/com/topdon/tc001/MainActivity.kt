@@ -57,7 +57,7 @@ import com.topdon.tc001.utils.AppVersionUtil
 import com.zoho.commons.LauncherModes
 import com.zoho.commons.LauncherProperties
 import com.zoho.salesiqembed.ZohoSalesIQ
-import kotlinx.android.synthetic.main.activity_main.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus

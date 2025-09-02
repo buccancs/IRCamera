@@ -36,8 +36,8 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.utils.DualParamsUtil
 import com.topdon.module.thermal.ir.utils.IRCmdTool
 import com.topdon.module.thermal.ir.utils.IRCmdTool.getSNStr
-import kotlinx.android.synthetic.main.activity_thermal_ir_night.cameraView
-import kotlinx.android.synthetic.main.activity_thermal_ir_night.title_view
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_thermal_ir_night.cameraView
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_thermal_ir_night.title_view
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

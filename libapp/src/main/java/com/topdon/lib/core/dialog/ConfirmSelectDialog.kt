@@ -10,7 +10,7 @@ import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import com.topdon.lib.core.R
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.dialog_confirm_select.view.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_confirm_select.view.*
 
 /**
  * TS004 远端图库删除提示弹框.

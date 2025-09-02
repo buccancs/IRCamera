@@ -34,7 +34,7 @@ import com.topdon.module.thermal.ir.event.ImageGalleryEvent
 import com.topdon.module.thermal.ir.fragment.GalleryFragment
 import com.topdon.module.thermal.ir.frame.FrameTool
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryEditViewModel
-import kotlinx.android.synthetic.main.activity_ir_gallery_detail_01.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_ir_gallery_detail_01.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

@@ -4,7 +4,7 @@ import android.view.WindowManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
-import kotlinx.android.synthetic.main.activity_pdf.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_pdf.*
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException

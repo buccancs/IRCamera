@@ -16,7 +16,7 @@ import com.topdon.module.thermal.ir.event.MonitorSaveEvent
 import com.topdon.tc004.activity.video.PlayFragment
 import com.topdon.thermal07.R
 import com.topdon.thermal07.bean.SelectInfoBean
-import kotlinx.android.synthetic.main.activity_ir_07_monitor_capture2.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_ir_07_monitor_capture2.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

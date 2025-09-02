@@ -11,7 +11,7 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.utils.CommUtils
 import com.topdon.lms.sdk.Config
 import com.topdon.lms.sdk.LMS
-import kotlinx.android.synthetic.main.activity_splash.tv_app_name
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_splash.tv_app_name
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

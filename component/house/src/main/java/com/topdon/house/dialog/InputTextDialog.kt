@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import com.topdon.house.R
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lms.sdk.weiget.TToast
-import kotlinx.android.synthetic.main.dialog_input_text.view.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_input_text.view.*
 
 /**
  * 输入一项文字内容 弹框.

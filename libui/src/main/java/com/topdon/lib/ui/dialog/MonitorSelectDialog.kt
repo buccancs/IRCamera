@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lib.ui.R
-import kotlinx.android.synthetic.main.dialog_monitor_select.view.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_monitor_select.view.*
 
 /**
  * 提示窗

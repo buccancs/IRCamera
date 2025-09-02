@@ -13,7 +13,7 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.utils.ByteUtils.bytesToInt
-import kotlinx.android.synthetic.main.activity_image_3d.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_image_3d.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

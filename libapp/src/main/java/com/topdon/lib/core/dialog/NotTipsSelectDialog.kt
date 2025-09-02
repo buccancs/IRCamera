@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.annotation.StringRes
 import com.topdon.lib.core.R
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.dialog_not_tips_select.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_not_tips_select.*
 
 /**
  * 与 TipDialog 类似，不过多了个 “不再提示” 选中效果的提示弹窗.

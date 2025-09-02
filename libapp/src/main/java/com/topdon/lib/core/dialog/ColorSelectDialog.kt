@@ -10,7 +10,7 @@ import androidx.annotation.ColorInt
 import com.blankj.utilcode.util.SizeUtils
 import com.topdon.lib.core.R
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.dialog_color_select.view.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_color_select.view.*
 
 /**
  * 仅拾取颜色的弹框.

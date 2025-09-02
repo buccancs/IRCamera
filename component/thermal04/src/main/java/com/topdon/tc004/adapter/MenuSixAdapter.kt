@@ -12,9 +12,9 @@ import com.topdon.tc004.R
 import com.topdon.tc004.bean.MenuBean
 import com.topdon.tc004.bean.MonocularBean
 import com.topdon.tc004.config.MonocularHelp
-import kotlinx.android.synthetic.main.item_menu_layout.view.item_menu_tab_img
-import kotlinx.android.synthetic.main.item_menu_layout.view.item_menu_tab_lay
-import kotlinx.android.synthetic.main.item_menu_layout.view.item_menu_tab_text
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_menu_layout.view.item_menu_tab_img
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_menu_layout.view.item_menu_tab_lay
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_menu_layout.view.item_menu_tab_text
 
 class MenuSixAdapter (val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var listener: ((index: Int, code: Int) -> Unit)? = null

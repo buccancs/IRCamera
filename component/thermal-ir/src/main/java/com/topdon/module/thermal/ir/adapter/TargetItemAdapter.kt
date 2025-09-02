@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.bean.ObserveBean
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.itme_target_mode.view.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.itme_target_mode.view.*
 
 class TargetItemAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var listener: ((index: Int, code: Int) -> Unit)? = null

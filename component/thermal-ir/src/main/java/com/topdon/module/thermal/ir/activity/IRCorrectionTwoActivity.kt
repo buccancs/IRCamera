@@ -10,7 +10,7 @@ import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.event.CorrectionFinishEvent
-import kotlinx.android.synthetic.main.activity_ir_correction_two.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_ir_correction_two.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 

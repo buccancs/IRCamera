@@ -17,7 +17,7 @@ import com.topdon.module.thermal.ir.view.TemperatureBaseView.Mode
 import com.topdon.tc004.activity.video.PlayFragment
 import com.topdon.thermal07.R
 import com.topdon.thermal07.bean.SelectInfoBean
-import kotlinx.android.synthetic.main.activity_ir_07_monitor_capture1.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_ir_07_monitor_capture1.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.easydarwin.video.Client

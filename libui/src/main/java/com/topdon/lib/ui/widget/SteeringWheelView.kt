@@ -6,7 +6,7 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.widget.LinearLayout
 import com.topdon.lib.ui.R
-import kotlinx.android.synthetic.main.ui_steering_wheel_view.view.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.ui_steering_wheel_view.view.*
 
 /**
  * 校准方向

@@ -18,16 +18,16 @@ import com.topdon.lib.core.bean.HouseRepPreviewItemBean
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.view.DetectHorizontalScrollView.OnScrollStopListner
-import kotlinx.android.synthetic.main.item_gallery_head_lay.view.*
-import kotlinx.android.synthetic.main.item_gallery_lay.view.*
-import kotlinx.android.synthetic.main.item_report_floor.view.fly_project
-import kotlinx.android.synthetic.main.item_report_floor.view.hsv_report
-import kotlinx.android.synthetic.main.item_report_floor.view.lly_album
-import kotlinx.android.synthetic.main.item_report_floor.view.rcy_album
-import kotlinx.android.synthetic.main.item_report_floor.view.rcy_category
-import kotlinx.android.synthetic.main.item_report_floor.view.rcy_report
-import kotlinx.android.synthetic.main.item_report_floor.view.tv_floor_number
-import kotlinx.android.synthetic.main.item_report_floor.view.view_category_mask
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_gallery_head_lay.view.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_gallery_lay.view.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_report_floor.view.fly_project
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_report_floor.view.hsv_report
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_report_floor.view.lly_album
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_report_floor.view.rcy_album
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_report_floor.view.rcy_category
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_report_floor.view.rcy_report
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_report_floor.view.tv_floor_number
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_report_floor.view.view_category_mask
 
 
 @SuppressLint("NotifyDataSetChanged")

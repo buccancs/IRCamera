@@ -21,7 +21,7 @@ import com.topdon.lib.ui.R
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.lib.ui.config.CameraHelp
 import com.topdon.lib.ui.listener.SingleClickListener
-import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.ui_item_menu_second_view.view.*
 
 
 @Deprecated("旧的设置菜单，已重构过了")

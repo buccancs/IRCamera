@@ -10,7 +10,7 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.event.CorrectionFinishEvent
 import com.topdon.module.thermal.ir.fragment.IRCorrectionFragment
 import com.topdon.module.thermal.ir.view.TimeDownView
-import kotlinx.android.synthetic.main.activity_ir_correction_four.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_ir_correction_four.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

@@ -34,7 +34,7 @@ import com.topdon.module.thermal.ir.bean.DataBean
 import com.topdon.module.thermal.ir.bean.SelectPositionBean
 import com.topdon.module.thermal.ir.event.MonitorSaveEvent
 import com.topdon.module.thermal.ir.repository.ConfigRepository
-import kotlinx.android.synthetic.main.activity_ir_monitor_chart_lite.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_ir_monitor_chart_lite.*
 import kotlinx.coroutines.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe

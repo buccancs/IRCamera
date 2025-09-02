@@ -23,7 +23,7 @@ import com.topdon.menu.constant.TwoLightType
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.event.GalleryAddEvent
 import com.topdon.module.thermal.ir.video.VideoRecordFFmpeg
-import kotlinx.android.synthetic.main.activity_thermal_ir_night.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_thermal_ir_night.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

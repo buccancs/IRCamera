@@ -10,7 +10,7 @@ import android.widget.ImageView
 import androidx.annotation.StringRes
 import com.topdon.lib.core.R
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.dialog_tip_change_device.view.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_tip_change_device.view.*
 
 @Deprecated("3.80使用新首页设备列表逻辑，不需要设备切换提示弹框了")
 class TipChangeDeviceDialog :Dialog {

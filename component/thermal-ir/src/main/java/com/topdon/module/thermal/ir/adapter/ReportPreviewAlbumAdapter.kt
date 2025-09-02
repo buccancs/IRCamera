@@ -17,19 +17,19 @@ import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.ui.widget.RoundImageView
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.report.bean.ReportData
-import kotlinx.android.synthetic.main.activity_report_preview.iv_inspector_signature
-import kotlinx.android.synthetic.main.item_gallery_head_lay.view.*
-import kotlinx.android.synthetic.main.item_gallery_lay.view.*
-import kotlinx.android.synthetic.main.item_report_album_child.view.riv_photo
-import kotlinx.android.synthetic.main.item_report_album_child.view.tv_name
-import kotlinx.android.synthetic.main.item_report_floor_child.view.iv_problem
-import kotlinx.android.synthetic.main.item_report_floor_child.view.iv_repair
-import kotlinx.android.synthetic.main.item_report_floor_child.view.iv_replace
-import kotlinx.android.synthetic.main.item_report_floor_child.view.tv_problem
-import kotlinx.android.synthetic.main.item_report_floor_child.view.tv_project
-import kotlinx.android.synthetic.main.item_report_floor_child.view.tv_remark
-import kotlinx.android.synthetic.main.item_report_floor_child.view.tv_repair
-import kotlinx.android.synthetic.main.item_report_floor_child.view.tv_replace
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_report_preview.iv_inspector_signature
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_gallery_head_lay.view.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_gallery_lay.view.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_report_album_child.view.riv_photo
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_report_album_child.view.tv_name
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_report_floor_child.view.iv_problem
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_report_floor_child.view.iv_repair
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_report_floor_child.view.iv_replace
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_report_floor_child.view.tv_problem
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_report_floor_child.view.tv_project
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_report_floor_child.view.tv_remark
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_report_floor_child.view.tv_repair
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_report_floor_child.view.tv_replace
 
 @SuppressLint("NotifyDataSetChanged")
 class ReportPreviewAlbumAdapter(

@@ -13,9 +13,9 @@ import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.ui.widget.MyItemDecoration
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.view.EmissivityView
-import kotlinx.android.synthetic.main.activity_ir_emissivity.*
-import kotlinx.android.synthetic.main.item_ir_emissivity_title.*
-import kotlinx.android.synthetic.main.item_ir_emissivity_title.view.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_ir_emissivity.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_ir_emissivity_title.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_ir_emissivity_title.view.*
 
 /**
  * 常用材料发射率.

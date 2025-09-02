@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.isVisible
-import kotlinx.android.synthetic.main.ui_setting_view.view.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.ui_setting_view.view.*
 
 class SettingNightView : LinearLayout {
 

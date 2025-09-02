@@ -27,7 +27,7 @@ import com.topdon.lib.core.utils.NetWorkUtils
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.activity.IRThermalNightActivity
 import com.topdon.module.thermal.ir.activity.IRThermalPlusActivity
-import kotlinx.android.synthetic.main.fragment_thermal_ir.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_thermal_ir.*
 
 class IRThermalFragment : BaseFragment(), View.OnClickListener {
 

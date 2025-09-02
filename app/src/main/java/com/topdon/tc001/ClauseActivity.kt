@@ -17,7 +17,7 @@ import com.topdon.lms.sdk.utils.NetworkUtil
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.tc001.app.App
 import com.topdon.tc001.utils.VersionUtils
-import kotlinx.android.synthetic.main.activity_clause.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_clause.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay

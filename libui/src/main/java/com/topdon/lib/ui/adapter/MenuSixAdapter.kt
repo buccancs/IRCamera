@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.ui.R
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.lib.ui.listener.SingleClickListener
-import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.item_menu_tab_img
-import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.item_menu_tab_lay
-import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.item_menu_tab_text
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.ui_item_menu_second_view.view.item_menu_tab_img
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.ui_item_menu_second_view.view.item_menu_tab_lay
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.ui_item_menu_second_view.view.item_menu_tab_text
 
 @Deprecated("看起来是旧版 2D 编辑的菜单，根本没使用了")
 class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

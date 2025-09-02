@@ -11,9 +11,9 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.utils.Constants
 import com.topdon.module.user.R
-import kotlinx.android.synthetic.main.activity_electronic_manual.*
-import kotlinx.android.synthetic.main.item_electronic_manual.view.item_lay
-import kotlinx.android.synthetic.main.item_electronic_manual.view.item_text
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_electronic_manual.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_electronic_manual.view.item_lay
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_electronic_manual.view.item_text
 
 /**
  * 电子说明书 或 FAQ 设备类型选择页面

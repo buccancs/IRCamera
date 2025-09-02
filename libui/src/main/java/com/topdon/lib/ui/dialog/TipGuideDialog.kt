@@ -16,7 +16,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.topdon.lib.ui.R
 import com.topdon.lib.ui.widget.IndicateView
-import kotlinx.android.synthetic.main.dialog_tip_guide.view.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_tip_guide.view.*
 import kotlin.collections.ArrayList
 
 class TipGuideDialog : DialogFragment() {

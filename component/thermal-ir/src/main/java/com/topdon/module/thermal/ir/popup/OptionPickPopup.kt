@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.SizeUtils
 import com.topdon.lib.core.view.MyTextView
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.popup_option_pick.view.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.popup_option_pick.view.*
 
 /**
  * 选项拾取 PopupWindow.

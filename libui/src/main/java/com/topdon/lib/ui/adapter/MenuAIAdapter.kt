@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.bean.ObserveBean
 import com.topdon.lib.ui.R
 import com.topdon.lib.ui.bean.ColorBean
-import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.ui_item_menu_second_view.view.*
 
 @Deprecated("旧的高低温源菜单，已重构过了")
 class MenuAIAdapter (val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

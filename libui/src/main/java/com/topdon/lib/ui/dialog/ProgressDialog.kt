@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup.LayoutParams
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lib.ui.R
-import kotlinx.android.synthetic.main.dialog_progress.view.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_progress.view.*
 
 /**
  * 带进度条的提示弹框.

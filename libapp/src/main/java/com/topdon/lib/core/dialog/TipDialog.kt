@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import com.topdon.lib.core.R
-import kotlinx.android.synthetic.main.dialog_tip.view.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_tip.view.*
 
 /**
  * 提示窗

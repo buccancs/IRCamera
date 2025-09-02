@@ -19,7 +19,7 @@ import androidx.viewpager.widget.ViewPager
 import com.topdon.lib.ui.R
 import com.topdon.lib.ui.widget.IndicateView
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.dialog_tip_preview.view.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_tip_preview.view.*
 import java.util.Timer
 import kotlin.collections.ArrayList
 

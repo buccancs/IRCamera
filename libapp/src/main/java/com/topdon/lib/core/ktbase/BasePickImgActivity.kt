@@ -13,7 +13,7 @@ import com.topdon.lib.core.R
 import com.topdon.lib.core.dialog.ColorSelectDialog
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.view.ImageEditView
-import kotlinx.android.synthetic.main.activity_image_pick_ir_plush.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_image_pick_ir_plush.*
 import kotlinx.coroutines.launch
 import java.io.File
 

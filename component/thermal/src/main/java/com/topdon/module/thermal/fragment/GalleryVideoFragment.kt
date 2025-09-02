@@ -9,7 +9,7 @@ import com.topdon.lib.core.widget.dialog.TipDialog
 import com.topdon.module.thermal.R
 import com.topdon.module.thermal.adapter.GalleryAdapter
 import com.topdon.module.thermal.viewmodel.GalleryViewModel
-import kotlinx.android.synthetic.main.fragment_gallery_video.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_gallery_video.*
 
 /**
  * 图片

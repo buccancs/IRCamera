@@ -117,7 +117,7 @@ import com.topdon.menu.constant.TwoLightType
 import com.topdon.module.thermal.ir.popup.SeekBarPopup
 import com.topdon.module.thermal.ir.view.TemperatureBaseView
 import com.topdon.thermal07.util.WifiAttributeChangeU
-import kotlinx.android.synthetic.main.activity_ir_thermal07.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_ir_thermal07.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

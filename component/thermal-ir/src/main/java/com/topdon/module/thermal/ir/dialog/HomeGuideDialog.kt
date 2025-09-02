@@ -13,10 +13,10 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.core.view.isVisible
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.dialog_home_guide.*
-import kotlinx.android.synthetic.main.layout_home_guide_1.*
-import kotlinx.android.synthetic.main.layout_home_guide_2.*
-import kotlinx.android.synthetic.main.layout_home_guide_3.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_home_guide.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.layout_home_guide_1.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.layout_home_guide_2.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.layout_home_guide_3.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

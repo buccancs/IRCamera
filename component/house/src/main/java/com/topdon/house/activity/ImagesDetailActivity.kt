@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.topdon.house.R
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.ktbase.BaseActivity
-import kotlinx.android.synthetic.main.activity_images_detail.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_images_detail.*
 
 /**
  * 多张图片详情.

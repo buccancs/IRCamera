@@ -11,7 +11,7 @@ import com.blankj.utilcode.util.BarUtils
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.thermal.R
-import kotlinx.android.synthetic.main.activity_video.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_video.*
 import java.io.File
 
 
