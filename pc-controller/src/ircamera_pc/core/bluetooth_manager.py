@@ -21,22 +21,13 @@ except ImportError:
 
 try:
     from PyQt6.QtCore import QObject, pyqtSignal, QTimer
+    from .base_manager import BaseManager
 
     PYQT_AVAILABLE = True
 
-    class BaseManager(QObject):
-        pass
-
 except ImportError:
+    from .base_manager import BaseManager
     PYQT_AVAILABLE = False
-
-    class BaseManager:
-        def __init__(self):
-            pass
-
-        def __setattr__(self, name, value):
-            # Allow setting any attribute
-            super().__setattr__(name, value)
 
 
 try:
@@ -50,6 +41,8 @@ except ImportError:
         "Install 'bleak' for Bluetooth support"
     )
     BLUETOOTH_AVAILABLE = False
+    # Create fallback type for when bleak is not available
+    BLEDevice = object
 
 try:
     if platform.system() == "Windows":
@@ -119,7 +112,7 @@ class BluetoothManager(BaseManager):
     IRCAMERA_DATA_CHARACTERISTIC = "87654321-4321-4321-4321-cba987654321"
 
     def __init__(self):
-        super().__init__()
+        super().__init__("bluetooth_manager")
         self._devices: Dict[str, BluetoothDevice] = {}
         self._connections: Dict[str, BleakClient] = {}
         self._scanning = False

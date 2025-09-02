@@ -137,7 +137,7 @@ class ChessboardDetector:
             (pattern_size[0] * pattern_size[1], 3), np.float32
         )
         self.object_points_3d[:, :2] = np.mgrid[
-            0 : pattern_size[0], 0 : pattern_size[1]
+            0:pattern_size[0], 0:pattern_size[1]
         ].T.reshape(-1, 2)
         self.object_points_3d *= square_size
 
@@ -225,7 +225,8 @@ class CameraCalibrator:
         self.completed_calibrations: Dict[str, CalibrationResult] = {}
 
         logger.info(
-            f"Camera Calibrator initialized with data directory: {self.data_dir}"
+            f"Camera Calibrator initialized with "
+            f"data directory: {self.data_dir}"
         )
         logger.info(
             f"Pattern: {self.pattern_size}, Square size: {self.square_size}mm"

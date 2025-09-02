@@ -453,7 +453,7 @@ class WiFiManager(BaseManager):
     error_occurred = pyqtSignal(str, str)  # operation, error_message
 
     def __init__(self):
-        super().__init__()
+        super().__init__("wifi_manager")
         self._networks: Dict[str, WiFiNetwork] = {}  # SSID -> WiFiNetwork
         self._interfaces: Dict[str, NetworkInterface] = {}
         self._current_connection: Optional[str] = None  # Current SSID

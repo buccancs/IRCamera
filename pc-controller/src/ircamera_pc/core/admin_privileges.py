@@ -17,22 +17,13 @@ from enum import Enum
 try:
     from PyQt6.QtCore import QObject, pyqtSignal
     from PyQt6.QtWidgets import QMessageBox, QApplication
+    from .base_manager import BaseManager
 
     PYQT_AVAILABLE = True
 
-    class BaseManager(QObject):
-        pass
-
 except ImportError:
+    from .base_manager import BaseManager
     PYQT_AVAILABLE = False
-
-    class BaseManager:
-        def __init__(self):
-            pass
-
-        def __setattr__(self, name, value):
-            # Allow setting any attribute
-            super().__setattr__(name, value)
 
     # Mock classes for when PyQt6 is not available
     class QMessageBox:
@@ -133,7 +124,7 @@ class AdminPrivilegesManager(BaseManager):
         system_ready = pyqtSignal(SystemPermissions)
 
     def __init__(self):
-        super().__init__()
+        super().__init__("admin_privileges")
         self._current_privilege = PrivilegeLevel.UNKNOWN
         self._permissions = SystemPermissions()
         self._elevation_requested = False
