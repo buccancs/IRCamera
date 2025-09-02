@@ -73,3 +73,15 @@ ehthumbs.db
 /app/prodTopdon/
 /ai-upscale/
 /ai-upscale/3rdparty/ncnn-android-vulkan-shared/armeabi-v7a/
+
+# Python specific for PC controller
+pc-controller/__pycache__/
+pc-controller/**/__pycache__/
+pc-controller/*.pyc
+pc-controller/**/*.pyc
+pc-controller/logs/
+pc-controller/sessions/
+pc-controller/.pytest_cache/
+pc-controller/venv/
+pc-controller/.env
+
