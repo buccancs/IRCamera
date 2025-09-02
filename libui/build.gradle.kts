@@ -17,13 +17,8 @@ android {
     defaultConfig {
         minSdk = AndroidConfig.minSdk
         targetSdk = AndroidConfig.targetSdk
-        ndkVersion = AndroidConfig.ndkVersion
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        ndk {
-            abiFilters += listOf("armeabi-v7a", "arm64-v8a")
-        }
     }
 
     buildTypes {
@@ -39,11 +34,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    sourceSets {
-        getByName("main") {
-            jniLibs.srcDirs("libs", "src/main/jnilibs")
-        }
-    }
+
     flavorDimensions += "app"
     productFlavors {
         create("dev") {
@@ -68,15 +59,7 @@ android {
 }
 
 dependencies {
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    
-    // AAR dependencies from libs folder
-    api(files("libs/libusbdualsdk_1.3.4_2406271906_standard.aar"))
-    implementation(files("libs/opengl_1.3.2_standard.aar"))
-    api(files("libs/suplib-release.aar"))
-    api(files("libs/ai-upscale-release.aar"))
-    
-    api("com.conghuahuadan:superlayout:1.1.0")
     implementation(project(":libapp"))
-    api(project(":LocalRepo:libcommon"))
+    implementation(project(":libmenu")) // 伪彩条用着 PseudoColorConfig
+    kapt(Deps.arouter_compiler)
 }
