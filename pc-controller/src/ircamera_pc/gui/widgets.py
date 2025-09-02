@@ -17,9 +17,7 @@ class DeviceListWidget(QWidget):
 
     def __init__(self):
         super().__init__()
-        self._label = QLabel(
-            "Device list temporarily unavailable - GUI under repair"
-        )
+        self._label = QLabel("Device list temporarily unavailable - GUI under repair")
 
     def update_devices(self, devices):
         """Update device list - placeholder implementation."""
@@ -60,9 +58,7 @@ class WiFiControlWidget(QWidget):
 
     def __init__(self):
         super().__init__()
-        self._label = QLabel(
-            "WiFi control temporarily unavailable - GUI under repair"
-        )
+        self._label = QLabel("WiFi control temporarily unavailable - GUI under repair")
 
 
 class SystemIntegrationWidget(QWidget):

@@ -55,7 +55,7 @@ class ConfigManager:
         """Return default configuration if file loading fails."""
         return {
             "network": {
-                "server_host": "0.0.0.0",
+                "server_host": "127.0.0.1",  # Safer default - localhost only
                 "server_port": 8080,
                 "max_connections": 8,
                 "heartbeat_interval": 5,
@@ -143,9 +143,7 @@ class ConfigManager:
             self.config_path.parent.mkdir(parents=True, exist_ok=True)
 
             with open(self.config_path, "w", encoding="utf-8") as file:
-                yaml.dump(
-                    self._config, file, default_flow_style=False, indent=2
-                )
+                yaml.dump(self._config, file, default_flow_style=False, indent=2)
 
             logger.info(f"Configuration saved to {self.config_path}")
 

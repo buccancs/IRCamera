@@ -46,19 +46,15 @@ def demonstrate_bluetooth_features():
         )
 
         print_feature("BluetoothManager", "Core Bluetooth device management")
-        print_feature("Device Discovery",
-            "Scan for BLE and classic Bluetooth devices")
+        print_feature("Device Discovery", "Scan for BLE and classic Bluetooth devices")
         print_feature(
-            "IRCamera Detection", "Automatic identification"
-                "of IRCamera devices"
+            "IRCamera Detection", "Automatic identification" "of IRCamera devices"
         )
-        print_feature("Connection Management",
-            "Connect/disconnect to thermal cameras")
+        print_feature("Connection Management", "Connect/disconnect to thermal cameras")
         print_feature("Data Transmission", "Send/receive data via Bluetooth")
         print_feature(
             "Cross-Platform",
-            f"Windows/Linux/macOS support (current:"
-                "{platform_module.system()})",
+            f"Windows/Linux/macOS support (current:" "{platform_module.system()})",
         )
 
         # Create manager instance
@@ -93,10 +89,8 @@ def demonstrate_wifi_features():
 
         print_feature("WiFiManager", "Core WiFi network management")
         print_feature("Network Scanning", "Discover available WiFi networks")
-        print_feature("IRCamera Hotspots",
-            "Detect and connect to camera hotspots")
-        print_feature("Connection Control",
-            "Manage WiFi connections with credentials")
+        print_feature("IRCamera Hotspots", "Detect and connect to camera hotspots")
+        print_feature("Connection Control", "Manage WiFi connections with credentials")
         print_feature(
             "Mobile Hotspot", "Create PC hotspot for direct device connection"
         )
@@ -137,8 +131,7 @@ def demonstrate_admin_privileges():
         print_feature("Privilege Detection", "Detect current privilege level")
         print_feature("UAC Integration", "Windows UAC elevation support")
         print_feature("sudo Support", "Unix/Linux sudo elevation")
-        print_feature("Permission Checking",
-            "Verify system-level access rights")
+        print_feature("Permission Checking", "Verify system-level access rights")
         print_feature("Service Management", "Control system services")
         print_feature("Firewall Control", "Manage Windows Firewall rules")
 
@@ -173,8 +166,7 @@ def demonstrate_protocol_extensions():
         manager = ProtocolManager()
         total_messages = len(manager._message_definitions)
 
-        print_feature("Protocol Manager",
-            f"Loaded {total_messages} message types")
+        print_feature("Protocol Manager", f"Loaded {total_messages} message types")
         print_feature("JSON Validation", "Schema-based message validation")
         print_feature("Message Framing", "Length-prefixed message transport")
         print_feature("Error Handling", "Comprehensive error message support")
@@ -226,15 +218,11 @@ def demonstrate_gui_integration():
         print_feature(
             "Enhanced Main Window", "Three-pane layout with system integration"
         )
-        print_feature("Bluetooth Control Widget",
-            "Device discovery and connection UI")
-        print_feature("WiFi Control Widget",
-            "Network management and hotspot UI")
+        print_feature("Bluetooth Control Widget", "Device discovery and connection UI")
+        print_feature("WiFi Control Widget", "Network management and hotspot UI")
         print_feature("System Integration Widget", "Privilege management UI")
-        print_feature("Real-time Updates",
-            "Live status monitoring and notifications")
-        print_feature("Responsive Design",
-            "Resizable panes and adaptive layout")
+        print_feature("Real-time Updates", "Live status monitoring and notifications")
+        print_feature("Responsive Design", "Resizable panes and adaptive layout")
 
         print("\n🔸 New GUI Components:")
         gui_components = [
@@ -298,8 +286,7 @@ def show_usage_examples():
     print("   ```python")
     print("   wifi_manager = WiFiManager()")
     print("   wifi_manager.start_scanning()")
-    print("   await wifi_manager.connect_to_network('IRCamera_Hotspot', "
-          "'password')")
+    print("   await wifi_manager.connect_to_network('IRCamera_Hotspot', " "'password')")
     print("   ```")
 
     print("\n🔸 Administrator Privilege Elevation:")
@@ -338,16 +325,12 @@ async def main():
             "Bluetooth Device Management",
             "Discover and connect to IR cameras via Bluetooth",
         ),
-        ("WiFi Network Control",
-            "Manage network connections and create hotspots"),
-        ("Administrator Privileges",
-            "Elevate permissions for system-level access"),
-        ("Enhanced GUI Interface",
-            "Intuitive three-pane system integration UI"),
+        ("WiFi Network Control", "Manage network connections and create hotspots"),
+        ("Administrator Privileges", "Elevate permissions for system-level access"),
+        ("Enhanced GUI Interface", "Intuitive three-pane system integration UI"),
         ("Extended Protocol", "11 new message types for device communication"),
         ("Cross-Platform Support", "Windows, Linux, and macOS compatibility"),
-        ("Production Ready",
-            "Enterprise-grade code quality and error handling"),
+        ("Production Ready", "Enterprise-grade code quality and error handling"),
     ]
 
     print("\n✨ Key System Integration Features:")

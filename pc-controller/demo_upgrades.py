@@ -59,8 +59,10 @@ def demo_protocol_features():
         device_name="Research Phone #1",
     )
 
-    print(f"✅ Device Registration: {validate_message(device_msg,
-        strict=False)}")
+    print(
+        f"✅ Device Registration: {validate_message(device_msg,
+        strict=False)}"
+    )
     print(f"   Device: {device_msg['device_id']}")
     print(f"   Type: {device_msg['device_type']}")
     print(f"   Capabilities: {', '.join(device_msg['capabilities'])}")
@@ -86,10 +88,7 @@ def demo_protocol_features():
     print()
 
     # Synchronization
-    sync_msg = create_message("sync_flash",
-        duration_ms=200,
-        intensity=0.8,
-        color="red")
+    sync_msg = create_message("sync_flash", duration_ms=200, intensity=0.8, color="red")
 
     print(f"✅ Sync Flash: {validate_message(sync_msg, strict=False)}")
     print(f"   Duration: {sync_msg['duration_ms']}ms")
@@ -111,8 +110,10 @@ def demo_protocol_features():
         priority=8,
     )
 
-    print(f"✅ File Transfer Request: {validate_message(transfer_msg,
-        strict=False)}")
+    print(
+        f"✅ File Transfer Request: {validate_message(transfer_msg,
+        strict=False)}"
+    )
     print(f"   File: {transfer_msg['file_info']['filename']}")
     print(f"   Size: {transfer_msg['file_info']['file_size']:,} bytes")
     print(f"   Type: {transfer_msg['file_info']['file_type']}")
@@ -123,8 +124,7 @@ def demo_protocol_features():
         "error",
         error_code="DEVICE_BUSY",
         error_message="Device is currently recording",
-        context={"device_id": "demo_phone_001",
-            "session_id": "study_2025_001"},
+        context={"device_id": "demo_phone_001", "session_id": "study_2025_001"},
         retry_after_s=30,
     )
 
@@ -145,7 +145,7 @@ def demo_network_server():
 
     print(
         f"✅ Server initialized with {protocol_info['name']}"
-            "v{protocol_info['version']}"
+        "v{protocol_info['version']}"
     )
     print(f"📍 Host: {server._host}:{server._port}")
     print(f"🔒 Max connections: {server._max_connections}")
@@ -164,19 +164,17 @@ def demo_network_server():
 
         # Session start message
         session_start = create_message(
-            "session_start", session_id="demo_session",
-            session_name="Protocol Demo"
+            "session_start", session_id="demo_session", session_name="Protocol Demo"
         )
-        print(f"   • {session_start['message_type']}:"
-            "{session_start['session_name']}")
+        print(
+            f"   • {session_start['message_type']}:" "{session_start['session_name']}"
+        )
 
         # Sync flash message
-        sync_flash = create_message("sync_flash",
-            duration_ms=100,
-            color="white")
+        sync_flash = create_message("sync_flash", duration_ms=100, color="white")
         print(
             f"   • {sync_flash['message_type']}: {sync_flash['duration_ms']}ms"
-                "{sync_flash['color']}"
+            "{sync_flash['color']}"
         )
 
     except (OSError, ValueError, RuntimeError) as e:
@@ -189,8 +187,7 @@ def show_upgrade_summary():
     print("=" * 60)
 
     upgrades = [
-        ("JSON Protocol Definition",
-            "18 message types with schema validation"),
+        ("JSON Protocol Definition", "18 message types with schema validation"),
         ("PyQt6 Framework", "Latest GUI framework with compatibility fixes"),
         ("Protocol Manager", "Message validation and creation system"),
         ("Network Server", "Protocol-aware message handling"),

@@ -102,9 +102,7 @@ class SessionManager:
             SessionState.ACTIVE.value,
             SessionState.RECORDING.value,
         ]:
-            raise ValueError(
-                "Cannot create new session:" "another session is active"
-            )
+            raise ValueError("Cannot create new session:" "another session is active")
 
         # Generate session ID and name
         session_id = str(uuid.uuid4())
@@ -150,9 +148,7 @@ class SessionManager:
             )
 
         self._current_session.state = SessionState.ACTIVE.value
-        self._current_session.started_at = datetime.now(
-            timezone.utc
-        ).isoformat()
+        self._current_session.started_at = datetime.now(timezone.utc).isoformat()
 
         self._save_metadata()
 
@@ -176,9 +172,7 @@ class SessionManager:
         self._current_session.state = SessionState.RECORDING.value
         self._save_metadata()
 
-        logger.info(
-            f"Recording started for session: {self._current_session.name}"
-        )
+        logger.info(f"Recording started for session: {self._current_session.name}")
 
     def end_session(self) -> SessionMetadata:
         """
@@ -341,9 +335,7 @@ class SessionManager:
         Returns:
             Loaded session metadata or None if not found
         """
-        metadata_file = (
-            self._get_session_directory(session_id) / "metadata.json"
-        )
+        metadata_file = self._get_session_directory(session_id) / "metadata.json"
 
         try:
             if not metadata_file.exists():

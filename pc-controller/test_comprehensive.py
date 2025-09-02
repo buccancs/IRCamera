@@ -113,16 +113,14 @@ def test_all_components():
             "time_sync": time_sync,
         }
 
-        print(f"   ✓ All {len(all_components)} components"
-            "integrated successfully")
+        print(f"   ✓ All {len(all_components)} components" "integrated successfully")
 
         # Test component interactions
-        print(f"   ✓ GSR sessions: {len(gsr_ingestor.get_active_sessions())} "
-            "active")
+        print(f"   ✓ GSR sessions: {len(gsr_ingestor.get_active_sessions())} " "active")
         print(f"   ✓ Transfer summary: {file_transfer_manager.get_transfer_summary()}")
         print(
             f"   ✓ Calibration sessions: {len(camera_calibrator.get_active_calibrations())}"
-                "active"
+            "active"
         )
 
         print("\n" + "=" * 60)
@@ -166,9 +164,7 @@ async def test_gsr_session(gsr_ingestor, session_id):
     device_id = "test_gsr_device"
 
     # Start GSR session
-    success = await gsr_ingestor.start_session(session_id,
-        device_id,
-        GSRMode.LOCAL)
+    success = await gsr_ingestor.start_session(session_id, device_id, GSRMode.LOCAL)
     assert success, "Failed to start GSR session"
 
     # Simulate some GSR samples
