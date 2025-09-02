@@ -68,7 +68,8 @@ android {
 //}
 
 dependencies {
-    api(fileTree(mapOf("include" to listOf("*.jar", "*.aar"), "dir" to "libs")))
+    // Using only JAR files to avoid AGP 8.0+ AAR dependency issues
+    api(fileTree(mapOf("include" to listOf("*.jar"), "dir" to "libs")))
     api(Deps.appcompat)
     api(Deps.fragment_ktx)
     api(Deps.material)
@@ -132,9 +133,11 @@ dependencies {
     // JavaCV
     api(Deps.javacv)
     api(Deps.javacpp)
-    api(files("libs/abtest-1.0.1.aar"))
-    api(files("libs/auth-number-2.13.2.1.aar"))
-    api(files("libs/lms_international-3.90.009.0.aar"))
-    api(files("libs/logger-2.2.1-release.aar"))
-    api(files("libs/main-2.2.1-release.aar"))
+    // Local AAR dependencies - using proper flatDir repository approach
+    // These provide critical functionality (CommonBean, ResponseBean, LMS classes)
+    api("abtest:abtest:1.0.1@aar")
+    api("auth-number:auth-number:2.13.2.1@aar") 
+    api("lms_international:lms_international:3.90.009.0@aar")
+    api("logger:logger:2.2.1-release@aar")
+    api("main:main:2.2.1-release@aar")
 }
