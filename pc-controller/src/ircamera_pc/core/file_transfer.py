@@ -125,8 +125,7 @@ class FileTransferManager:
         self.data_dir.mkdir(parents=True, exist_ok=True)
 
         # Transfer parameters
-        self.chunk_size = self.config.get("chunk_size",
-            1024 * 1024)  # 1MB chunks
+        self.chunk_size = self.config.get("chunk_size", 1024 * 1024)  # 1MB chunks
         self.max_concurrent = self.config.get("max_concurrent_transfers", 4)
         self.retry_limit = self.config.get("retry_limit", 3)
         self.timeout = self.config.get("timeout_seconds", 300)  # 5 minutes
@@ -148,11 +147,7 @@ class FileTransferManager:
             f"Chunk size: {self.chunk_size} bytes, Maxconcurrent: {self.max_concurrent}"
         )
 
-    def add_progress_callback(self,
-        callback: Callable[[str,
-        float,
-        float],
-        None]):
+    def add_progress_callback(self, callback: Callable[[str, float, float], None]):
         """
         Add callback for transfer progress updates
 
@@ -161,9 +156,7 @@ class FileTransferManager:
         """
         self.progress_callbacks.append(callback)
 
-    async def queue_transfer(self,
-        manifest: FileManifest,
-        device_conn: Any) -> str:
+    async def queue_transfer(self, manifest: FileManifest, device_conn: Any) -> str:
         """
         Queue a file for transfer
 
@@ -188,9 +181,7 @@ class FileTransferManager:
             # Check if file already exists and is complete
             if local_path.exists():
                 if await self._verify_existing_file(local_path, manifest):
-                    logger.info(
-                        f"File already exists and verified:{manifest.filename}"
-                    )
+                    logger.info(f"File already exists and verified:{manifest.filename}")
                     return job_id  # Skip transfer
 
             # Create transfer job
@@ -537,7 +528,7 @@ class FileTransferManager:
             "active_transfers": len(self.active_jobs),
             "queued_transfers": len(self.transfer_queue),
             "completed_transfers": len(self.completed_jobs),
-            "concurrent_capacity": f"{self.concurrent_trans}fers}/{self.max_concurrent}",
+            "concurrent_capacity": f"{self.concurrent_transfers}/{self.max_concurrent}",
             "data_directory": str(self.data_dir),
         }
 
@@ -548,12 +539,10 @@ class FileTransferManager:
 
             state = {
                 "active_jobs": {
-                    job_id: job.to_dict() for job_id,
-                        job in self.active_jobs.items()
+                    job_id: job.to_dict() for job_id, job in self.active_jobs.items()
                 },
                 "completed_jobs": {
-                    job_id: job.to_dict() for job_id,
-                        job in self.completed_jobs.items()
+                    job_id: job.to_dict() for job_id, job in self.completed_jobs.items()
                 },
                 "transfer_queue": self.transfer_queue,
             }

@@ -22,10 +22,10 @@ except ImportError:
 
     logger = get_logger(__name__)
 
-from .base_manager import BaseManager, AsyncContextManager
+from .base_manager import BaseManager
 
 try:
-    from PyQt6.QtCore import QTimer, QThread, pyqtSlot
+    from PyQt6.QtCore import QTimer, QThread, pyqtSlot, pyqtSignal
 
     PYQT_AVAILABLE = True
 
@@ -53,8 +53,7 @@ try:
     PSUTIL_AVAILABLE = True
 except ImportError:
     logger.warning(
-        "psutil not available. Install 'psutil'"
-        "for network interface monitoring"
+        "psutil not available. Install 'psutil'" "for network interface monitoring"
     )
     PSUTIL_AVAILABLE = False
 
@@ -180,9 +179,7 @@ class WiFiScanWorker(BaseThread):
             # Security: Use full path for netsh command
             netsh_path = "C:\\Windows\\System32\\netsh.exe"
             if not os.path.exists(netsh_path):
-                raise FileNotFoundError(
-                    "netsh.exe not found at expected location"
-                )
+                raise FileNotFoundError("netsh.exe not found at expected location")
 
             # Run netsh command to get WiFi profiles
             result = subprocess.run(
@@ -323,9 +320,7 @@ class WiFiScanWorker(BaseThread):
             sudo_path = shutil.which("sudo")
 
             if not iwlist_path or not sudo_path:
-                raise FileNotFoundError(
-                    "Required commands (iwlist/sudo) not found"
-                )
+                raise FileNotFoundError("Required commands (iwlist/sudo) not found")
 
             result = subprocess.run(
                 [sudo_path, iwlist_path, "scan"],
@@ -482,9 +477,7 @@ class WiFiManager(BaseManager):
     @property
     def ircamera_networks(self) -> List[WiFiNetwork]:
         """Get list of detected IRCamera hotspots."""
-        return [
-            net for net in self._networks.values() if net.is_ircamera_hotspot
-        ]
+        return [net for net in self._networks.values() if net.is_ircamera_hotspot]
 
     @property
     def current_connection(self) -> Optional[str]:
@@ -501,9 +494,7 @@ class WiFiManager(BaseManager):
         """Get list of WiFi interfaces."""
         return [iface for iface in self._interfaces.values() if iface.is_wifi]
 
-    def start_scanning(
-        self, continuous: bool = False, interval: int = 15
-    ) -> None:
+    def start_scanning(self, continuous: bool = False, interval: int = 15) -> None:
         """
         Start scanning for WiFi networks.
 
@@ -550,9 +541,7 @@ class WiFiManager(BaseManager):
         """Handle scan error."""
         self.error_occurred.emit("scan", error)
 
-    async def connect_to_network(
-        self, ssid: str, password: str = None
-    ) -> bool:
+    async def connect_to_network(self, ssid: str, password: str = None) -> bool:
         """
         Connect to a WiFi network.
 
@@ -638,9 +627,7 @@ class WiFiManager(BaseManager):
             self._hotspot_config["channel"] = channel
 
         self._hotspot_state = HotspotState.STARTING
-        self.hotspot_state_changed.emit(
-            self._hotspot_state, "Starting hotspot..."
-        )
+        self.hotspot_state_changed.emit(self._hotspot_state, "Starting hotspot...")
 
         try:
             success = await self._platform_start_hotspot()
@@ -673,16 +660,12 @@ class WiFiManager(BaseManager):
             return
 
         self._hotspot_state = HotspotState.STOPPING
-        self.hotspot_state_changed.emit(
-            self._hotspot_state, "Stopping hotspot..."
-        )
+        self.hotspot_state_changed.emit(self._hotspot_state, "Stopping hotspot...")
 
         try:
             await self._platform_stop_hotspot()
             self._hotspot_state = HotspotState.STOPPED
-            self.hotspot_state_changed.emit(
-                self._hotspot_state, "Hotspot stopped"
-            )
+            self.hotspot_state_changed.emit(self._hotspot_state, "Hotspot stopped")
             logger.info("Hotspot stopped")
 
         except (OSError, ValueError, RuntimeError) as e:
@@ -697,9 +680,7 @@ class WiFiManager(BaseManager):
     def _init_interfaces(self) -> None:
         """Initialize network interface information."""
         if not PSUTIL_AVAILABLE:
-            logger.warning(
-                "Cannot monitor network interfaces" "- psutil not available"
-            )
+            logger.warning("Cannot monitor network interfaces" "- psutil not available")
             return
 
         try:
@@ -766,14 +747,10 @@ class WiFiManager(BaseManager):
                     if name in stats:
                         old_status = interface.is_active
                         interface.is_active = stats[name].isup
-                        interface.status = (
-                            "up" if interface.is_active else "down"
-                        )
+                        interface.status = "up" if interface.is_active else "down"
 
                         if old_status != interface.is_active:
-                            self.interface_changed.emit(
-                                name, interface.is_active
-                            )
+                            self.interface_changed.emit(name, interface.is_active)
 
         except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Status update failed: {e}")
@@ -886,11 +863,7 @@ class WiFiManager(BaseManager):
 
         try:
             for interface in self._interfaces.values():
-                if (
-                    interface.is_wifi
-                    and interface.is_active
-                    and interface.ip_address
-                ):
+                if interface.is_wifi and interface.is_active and interface.ip_address:
                     return interface.ip_address
         except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Failed to get interface IP: {e}")

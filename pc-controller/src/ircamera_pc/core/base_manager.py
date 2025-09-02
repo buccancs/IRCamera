@@ -8,61 +8,86 @@ to eliminate code duplication and ensure consistent behavior.
 import logging
 from typing import Optional, Dict, Any
 from abc import ABC, abstractmethod
+from typing import Optional, Dict, Any
 
 try:
-    from PyQt6.QtCore import QObject, pyqtSignal
+    from PyQt6.QtCore import QObject as QtQObject, pyqtSignal
+    from abc import ABCMeta
 
     PYQT_AVAILABLE = True
+    
+    class QObjectMeta(type(QtQObject), ABCMeta):
+        """Metaclass to resolve conflict between QObject and ABC"""
+        pass
+    
+    class BaseManager(QtQObject, ABC, metaclass=QObjectMeta):
+        """
+        Unified base manager class for all IRCamera PC Controller components.
+        
+        Provides common functionality including:
+        - Logging setup  
+        - State management
+        - Error handling patterns
+        - PyQt6 signal support
+        """
+        
+        # Common signals
+        status_changed = pyqtSignal(str, dict)  # status_name, details
+        error_occurred = pyqtSignal(str, str)  # error_type, message
+        operation_completed = pyqtSignal(str, bool, str)  # operation, success, message
+        
+        def __init__(self, name: str, parent: Optional[QtQObject] = None):
+            super().__init__(parent)
+            self._setup_base_manager(name)
+
+        def _setup_base_manager(self, name: str):
+            """Common setup for both PyQt and non-PyQt versions"""
+            import logging
+            
+            self._name = name
+            self._logger = logging.getLogger(f"ircamera_pc.{name.lower()}")
+            self._is_initialized = False
+            self._state: Dict[str, Any] = {}
+            self._last_error: Optional[str] = None
+        
 except ImportError:
     PYQT_AVAILABLE = False
 
-    # Mock QObject for non-GUI environments
-    class QObject:
-        def __init__(self, parent=None):
-            self.parent = parent
-
     def pyqtSignal(*args, **kwargs):
         """Mock pyqtSignal decorator"""
-
         def decorator(func):
             return func
-
         return decorator
-
-
-class BaseManager(QObject if PYQT_AVAILABLE else QObject, ABC):
-    """
-    Unified base manager class for all IRCamera PC Controller components.
-
-    Provides common functionality including:
-    - Logging setup
-    - State management
-    - Error handling patterns
-    - Optional PyQt6 signal support
-    """
-
-    # Common signals (only available with PyQt6)
-    if PYQT_AVAILABLE:
-        status_changed = pyqtSignal(str, dict)  # status_name, details
-        error_occurred = pyqtSignal(str, str)  # error_type, message
-        operation_completed = pyqtSignal(
-            str, bool, str
-        )  # operation, success, message
-
-    def __init__(self, name: str, parent: Optional[QObject] = None):
+    
+    class BaseManager(ABC):
         """
-        Initialize base manager.
-
-        Args:
-            name: Manager name for logging
-            parent: Optional parent QObject
+        Unified base manager class for all IRCamera PC Controller components.
+        
+        Provides common functionality including:
+        - Logging setup
+        - State management  
+        - Error handling patterns
+        - No PyQt6 dependencies
         """
-        super().__init__(parent)
-        self._name = name
-        self._logger = logging.getLogger(f"ircamera_pc.{name.lower()}")
-        self._is_initialized = False
-        self._state: Dict[str, Any] = {}
-        self._last_error: Optional[str] = None
+        
+        # Mock signals
+        status_changed = None
+        error_occurred = None
+        operation_completed = None
+        
+        def __init__(self, name: str, parent: Optional[Any] = None):
+            self.parent = parent
+            self._setup_base_manager(name)
+
+        def _setup_base_manager(self, name: str):
+            """Common setup for both PyQt and non-PyQt versions"""
+            import logging
+            
+            self._name = name
+            self._logger = logging.getLogger(f"ircamera_pc.{name.lower()}")
+            self._is_initialized = False
+            self._state: Dict[str, Any] = {}
+            self._last_error: Optional[str] = None
 
     @property
     def name(self) -> str:
@@ -214,7 +239,7 @@ class SingletonManager(BaseManager):
 
     _instances: Dict[str, "SingletonManager"] = {}
 
-    def __new__(cls, name: str, parent: Optional[QObject] = None):
+    def __new__(cls, name: str, parent: Optional[Any] = None):
         """Ensure singleton instance per name."""
         if name not in cls._instances:
             instance = super().__new__(cls)

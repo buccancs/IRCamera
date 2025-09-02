@@ -233,10 +233,11 @@ class CameraCalibrator:
         self.completed_calibrations: Dict[str, CalibrationResult] = {}
 
         logger.info(
-            f"Camera Calibrator initialized withdata directory: {self.data_dir}"
+            f"Camera Calibrator initialized with data directory: {self.data_dir}"
         )
-        logger.info(f"Pattern: {self.pattern_size},
-            Square size: {self.square_size}mm")
+        logger.info(
+            f"Pattern: {self.pattern_size}, Square size: {self.square_size}mm"
+        )
 
     async def start_calibration(
         self, device_id: str, session_id: str, camera_type: CameraType
@@ -448,8 +449,7 @@ class CameraCalibrator:
 
             logger.info(f"Calibration completed: {calibration_id}")
             logger.info(
-                f"RMS error: {ret:.3f} pixels,
-                    Images used: {len(object_points)}"
+                f"RMS error: {ret:.3f} pixels, Images used: {len(object_points)}"
             )
 
             return result
@@ -548,7 +548,7 @@ class CameraCalibrator:
     ) -> Optional[CalibrationResult]:
         """Load calibration result from file"""
         try:
-            filename = f"calibration_{device_id}_{camer}a_type.value}_{session_id}.json"
+            filename = f"calibration_{device_id}_{camera_type.value}_{session_id}.json"
             filepath = self.data_dir / filename
 
             if not filepath.exists():
@@ -562,7 +562,7 @@ class CameraCalibrator:
             # Note: This is a simplified reconstruction - full implementation would
             # handle all nested objects properly
 
-            logger.info(f"Loaded calibration result: {d}evice_id}_{camera_type.value}")
+            logger.info(f"Loaded calibration result: {device_id}_{camera_type.value}")
             return None  # Placeholder - implement full reconstruction
 
         except (OSError, ValueError, RuntimeError) as e:

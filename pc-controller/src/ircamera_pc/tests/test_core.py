@@ -159,7 +159,7 @@ class TestTimeSyncService:
         request_data = (
             b"\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f"
         )
-        response = service.handle_sync_request(
+        service.handle_sync_request(
             "test_device", request_data, ("127.0.0.1", 12345)
         )
 
@@ -234,14 +234,6 @@ class TestNetworkServer:
     def test_message_handling(self):
         """Test message handling logic."""
         server = self.network_server
-
-        # Test device registration message
-        register_msg = {
-            "type": "device_register",
-            "device_id": "test_device",
-            "device_type": "android",
-            "capabilities": ["camera", "thermal"],
-        }
 
         # Mock writer
         mock_writer = Mock()

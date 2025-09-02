@@ -142,7 +142,7 @@ class NetworkServer:
         self._setup_message_handlers()
         protocol_version = self._protocol.get_protocol_info()["version"]
         logger.info(
-            f"Network Server initialized with" "protocol {protocol_version}"
+            f"Network Server initialized with protocol {protocol_version}"
         )
 
     def _setup_message_handlers(self) -> None:
@@ -471,8 +471,7 @@ class NetworkServer:
         data_points = message.get("data_points", [])
 
         logger.debug(
-            f"Received GSR data batch from {device_id}:"
-            "{len(data_points)} points"
+            f"Received GSR data batch from {device_id}: {len(data_points)} points"
         )
 
         # TODO: Forward to GSR ingestor

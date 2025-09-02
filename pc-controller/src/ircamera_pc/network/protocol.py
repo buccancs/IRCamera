@@ -78,7 +78,7 @@ class ProtocolManager:
 
             self._parse_message_definitions()
             logger.info(
-                f"Protocol definition loaded:" "{self.get_protocol_info()}"
+                f"Protocol definition loaded: {self.get_protocol_info()}"
             )
 
         except FileNotFoundError:
@@ -264,7 +264,7 @@ class ProtocolManager:
 
             if tolerance > tolerance_ms:
                 logger.warning(
-                    f"Timestamp tolerance exceeded:" "{tolerance:.0f}ms"
+                    f"Timestamp tolerance exceeded: {tolerance:.0f}ms"
                 )
 
         except ValueError as e:

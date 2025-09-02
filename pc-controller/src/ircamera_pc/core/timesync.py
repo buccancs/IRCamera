@@ -43,7 +43,7 @@ class TimeSyncService:
     Time synchronization service for maintaining clock synchronization across devices.
 
     Implements the Time Synchronisation Service functional requirement (FR3):
-    - Runs SNTP-like service for Android devices to calibrate against PC's reference clock
+    - Runs SNTP-like service for devices to calibrate against PC's clock
     - Maintains millisecond-level accuracy (target: 5ms median, 15ms p95)
     - Provides periodic synchronization and statistics
     """
@@ -57,9 +57,7 @@ class TimeSyncService:
 
         # Configuration
         self._sync_interval = config.get("time_sync.sync_interval", 30)
-        self._target_accuracy_ms = config.get(
-            "time_sync.target_accuracy_ms", 5
-        )
+        self._target_accuracy_ms = config.get("time_sync.target_accuracy_ms", 5)
         self._max_offset_ms = config.get("time_sync.max_offset_ms", 15)
         self._history_size = 100  # Keep last 100 sync measurements
 
@@ -123,15 +121,11 @@ class TimeSyncService:
         try:
             # Parse request
             if len(request_data) < 16:
-                logger.warning(
-                    f"Invalid sync request from" "{device_id}: too short"
-                )
+                logger.warning(f"Invalid sync request from {device_id}: too short")
                 return b""
 
             # Extract client timestamp (when request was sent)
-            client_send_time = (
-                struct.unpack("!Q", request_data[:8])[0] / 1000.0
-            )
+            client_send_time = struct.unpack("!Q", request_data[:8])[0] / 1000.0
 
             # Get current time
             server_time = time.time()
@@ -237,9 +231,7 @@ class TimeSyncService:
             return False
 
         # Check if sync is recent
-        time_since_sync = (
-            datetime.now(timezone.utc) - stats.last_sync
-        ).total_seconds()
+        time_since_sync = (datetime.now(timezone.utc) - stats.last_sync).total_seconds()
         if time_since_sync > self._sync_interval * 2:
             return False
 
@@ -337,9 +329,7 @@ class TimeSyncProtocol(asyncio.DatagramProtocol):
         try:
             # Extract device ID from data
             if len(data) < 16:
-                logger.warning(
-                    f"Invalid time sync request" "from {addr}: too short"
-                )
+                logger.warning(f"Invalid time sync request from {addr}: too short")
                 return
 
             # Simple protocol: first 8 bytes timestamp, next 8 bytes device ID hash
@@ -353,9 +343,7 @@ class TimeSyncProtocol(asyncio.DatagramProtocol):
                 self.transport.sendto(response, addr)
 
         except (OSError, ValueError, RuntimeError) as e:
-            logger.error(
-                f"Error processing time sync" "datagram from {addr}: {e}"
-            )
+            logger.error(f"Error processing time sync datagram from {addr}: {e}")
 
     def error_received(self, exc: Exception) -> None:
         """Handle protocol errors."""
