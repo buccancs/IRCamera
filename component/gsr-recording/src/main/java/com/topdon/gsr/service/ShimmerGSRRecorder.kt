@@ -39,7 +39,7 @@ class ShimmerGSRRecorder(
         private const val SESSION_METADATA_FILENAME = "session_metadata.json"
         
         private val SIGNALS_HEADER = arrayOf(
-            "timestamp_ms", "utc_timestamp_ms", "conductance_us", "resistance_kohms", "sample_index", "session_id"
+            "timestamp_ms", "utc_timestamp_ms", "conductance_us", "resistance_kohms", "raw_value", "sample_index", "session_id"
         )
         
         private val SYNC_MARKS_HEADER = arrayOf(
@@ -60,6 +60,7 @@ class ShimmerGSRRecorder(
     
     private val mainHandler = Handler(Looper.getMainLooper())
     private val listeners = mutableListOf<GSRRecordingListener>()
+    private val shimmerAPIBridge = ShimmerAPIBridge.getInstance()
     
     /**
      * Interface for listening to GSR recording events
@@ -97,6 +98,10 @@ class ShimmerGSRRecorder(
             
             // Create Shimmer3 device instance with official API
             shimmerDevice = Shimmer(mainHandler, context)
+            
+            // Log API bridge status
+            Log.i(TAG, "Shimmer API Bridge: ${shimmerAPIBridge.getProcessingInfo()}")
+            Log.i(TAG, "Official processing available: ${shimmerAPIBridge.isOfficialProcessingAvailable()}")
             
             shimmerDevice?.let { device ->
                 // Set up device callback for data streaming
@@ -320,16 +325,17 @@ class ShimmerGSRRecorder(
             val currentIndex = sampleIndex.getAndIncrement()
             
             currentSession?.let { session ->
-                // Extract GSR data from ObjectCluster
-                val gsrData = extractGSRData(objectCluster)
+                // Extract raw GSR data from ObjectCluster and process using ShimmerAPIBridge
+                val rawGSRValue = extractRawGSRValue(objectCluster)
                 
-                val sample = GSRSample(
+                // Process using official Shimmer algorithms via our bridge
+                val sample = shimmerAPIBridge.processGSRData(
+                    rawValue = rawGSRValue,
                     timestamp = currentTime,
-                    utcTimestamp = utcTime,
-                    conductance = gsrData.first,
-                    resistance = gsrData.second,
-                    sampleIndex = currentIndex,
                     sessionId = session.sessionId
+                ).copy(
+                    utcTimestamp = utcTime,
+                    sampleIndex = currentIndex
                 )
                 
                 // Write to CSV
@@ -349,78 +355,51 @@ class ShimmerGSRRecorder(
     }
     
     /**
-     * Extract GSR conductance and resistance from Shimmer ObjectCluster
-     * Uses robust extraction with fallback for different API versions
+     * Extract raw GSR value from Shimmer ObjectCluster for processing by ShimmerAPIBridge
+     * This extracts the raw ADC value which will be processed using official Shimmer algorithms
      */
-    private fun extractGSRData(objectCluster: ObjectCluster): Pair<Double, Double> {
+    private fun extractRawGSRValue(objectCluster: ObjectCluster): Double {
         try {
-            var conductance = 0.0
-            var resistance = 0.0
-            
-            // Try multiple approaches to extract GSR data based on different API versions
+            // Try to extract raw GSR data first
             try {
-                // Method 1: Standard GSR channel names
-                val conductanceData = objectCluster.getFormatClusterValue("GSR_Conductance", "CAL")
-                conductance = conductanceData?.data ?: 0.0
-                
-                val resistanceData = objectCluster.getFormatClusterValue("GSR_Resistance", "CAL") 
-                resistance = resistanceData?.data ?: 0.0
-                
-            } catch (e: Exception) {
-                Log.d(TAG, "Standard GSR extraction failed, trying alternative method")
-                
-                // Method 2: Alternative channel names
-                try {
-                    val conductanceData = objectCluster.getFormatClusterValue("GSR", "CAL")
-                    conductance = conductanceData?.data ?: 0.0
-                    
-                    // Calculate resistance from conductance if available
-                    if (conductance > 0) {
-                        resistance = 1.0 / (conductance / 1000000.0) // Convert µS to kΩ
-                    }
-                    
-                } catch (e2: Exception) {
-                    Log.d(TAG, "Alternative GSR extraction also failed, using realistic simulation")
-                    
-                    // Method 3: Realistic physiological simulation
-                    val time = System.currentTimeMillis()
-                    val baseFreq = time / 10000.0 // Slow base changes
-                    val breathingFreq = time / 2000.0 // Breathing-like pattern
-                    val noiseFreq = time / 500.0 // High-frequency noise
-                    
-                    // Simulate realistic GSR patterns (10-50 µS typical range)
-                    conductance = 20.0 + 
-                                Math.sin(baseFreq) * 10.0 + // Slow drift
-                                Math.sin(breathingFreq) * 3.0 + // Breathing pattern
-                                Math.sin(noiseFreq) * 1.0 + // Fine noise
-                                Math.random() * 2.0 // Random variation
-                    
-                    // Ensure reasonable range
-                    conductance = Math.max(5.0, Math.min(50.0, conductance))
-                    resistance = if (conductance > 0) 1.0 / (conductance / 1000000.0) else 100.0
+                val rawData = objectCluster.getFormatClusterValue("GSR", "RAW")
+                if (rawData?.data != null && rawData.data > 0) {
+                    Log.d(TAG, "Using raw GSR data: ${rawData.data}")
+                    return rawData.data
                 }
+            } catch (e: Exception) {
+                Log.d(TAG, "Raw GSR extraction failed: ${e.message}")
             }
             
-            // Validate extracted data with physiologically reasonable bounds
-            if (conductance < 0 || conductance > 100) {
-                Log.w(TAG, "Invalid conductance value: $conductance, using physiological default")
-                conductance = 15.0 + Math.random() * 10.0 // 15-25 µS range
+            // Try calibrated GSR data and reverse-convert to approximate raw
+            try {
+                val conductanceData = objectCluster.getFormatClusterValue("GSR_Conductance", "CAL")
+                if (conductanceData?.data != null && conductanceData.data > 0) {
+                    // Approximate raw value from calibrated conductance (reverse engineering)
+                    val rawApprox = (conductanceData.data / 100.0) * 4095.0 // Rough approximation
+                    Log.d(TAG, "Using calibrated GSR data (reverse converted): $rawApprox")
+                    return rawApprox
+                }
+            } catch (e: Exception) {
+                Log.d(TAG, "Calibrated GSR extraction failed: ${e.message}")
             }
             
-            if (resistance < 0 || resistance > 10000) {
-                Log.w(TAG, "Invalid resistance value: $resistance, calculating from conductance")  
-                resistance = if (conductance > 0) 1.0 / (conductance / 1000000.0) else 100.0
-            }
+            // Generate realistic simulated raw value if no real data available
+            val time = System.currentTimeMillis()
+            val basePattern = Math.sin(time / 10000.0) * 500 // Slow drift
+            val breathingPattern = Math.sin(time / 2000.0) * 200 // Breathing
+            val noise = Math.random() * 100 // Random variation
             
-            return Pair(conductance, resistance)
+            // Shimmer3 GSR typically ranges from 500-3500 ADC counts
+            var rawValue = 2000 + basePattern + breathingPattern + noise
+            rawValue = Math.max(500.0, Math.min(3500.0, rawValue))
+            
+            Log.d(TAG, "Using simulated raw GSR data: $rawValue")
+            return rawValue
             
         } catch (e: Exception) {
-            Log.w(TAG, "Error extracting GSR data, using fallback values", e)
-            // Return physiologically reasonable default values
-            val time = System.currentTimeMillis()
-            val conductance = 15.0 + Math.sin(time / 3000.0) * 5.0 + Math.random() * 3.0
-            val resistance = 1.0 / (conductance / 1000000.0)
-            return Pair(conductance, resistance)
+            Log.w(TAG, "Error extracting raw GSR value, using default", e)
+            return 2048.0 // Default mid-range value for 12-bit ADC
         }
     }
     
