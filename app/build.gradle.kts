@@ -99,7 +99,7 @@ android {
         jvmTarget = "1.8"
     }
 
-    packagingOptions {
+    packaging {
         resources {
             merges += listOf(
                 "META-INF/LICENSE-notice.md",
@@ -195,10 +195,10 @@ android {
     }
 }
 
-// APK naming function
-fun getApkName(variant: com.android.build.gradle.api.ApplicationVariant, versionName: String): String {
+// APK naming function - Updated to use Variant instead of deprecated ApplicationVariant
+fun getApkName(variantName: String, versionName: String): String {
     val nameStr = "TopInfrared_${versionName}.$dayStr"
-    return when (variant.name) {
+    return when (variantName) {
         "devDebug" -> "TopInfrared-v$versionName-debug.apk"
         "devRelease" -> "$nameStr-release.apk"
         "betaDebug" -> "${nameStr}_beta_debug.apk"

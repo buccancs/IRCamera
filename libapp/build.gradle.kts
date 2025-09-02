@@ -21,7 +21,6 @@ android {
 
     defaultConfig {
         minSdk = AndroidConfig.minSdk
-        targetSdk = AndroidConfig.targetSdk
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -107,12 +106,12 @@ dependencies {
 
     api(Deps.rxjava2)
     api(Deps.rxandroid)
-    api(Deps.rxpermissions)
-    api(Deps.rxlifecycle)
-    api(Deps.rxlifecycle_android)
-    api(Deps.rxlifecycle_components)
-    api(Deps.rxlifecycle_ktx)
-    api(Deps.rxlifecycle_android_lifecycle_ktx)
+    // api(Deps.rxpermissions) // Temporary comment out due to dependency resolution issues
+    // api(Deps.rxlifecycle) // Temporary comment out 
+    // api(Deps.rxlifecycle_android)
+    // api(Deps.rxlifecycle_components)
+    // api(Deps.rxlifecycle_ktx)
+    // api(Deps.rxlifecycle_android_lifecycle_ktx)
 
     api(Deps.arouter_api)
     kapt(Deps.arouter_compiler)
@@ -121,19 +120,19 @@ dependencies {
     api(Deps.XXPermissions)
     api(Deps.xlog)
     api(Deps.PhotoView)
-    api(Deps.android_pdf_viewr)
+    // api(Deps.android_pdf_viewr) // Temporary comment out due to dependency resolution issues
     api(Deps.lottie)
 
     api(Deps.brvah)
-    api(Deps.refresh_layout_kernel)
-    api(Deps.refresh_header_classics)
-    api(Deps.refresh_header_material)
+    // api(Deps.refresh_layout_kernel) // Temporary comment out
+    // api(Deps.refresh_header_classics) // Temporary comment out
+    // api(Deps.refresh_header_material) // Temporary comment out
 
     api(Deps.logging_interceptor)
     api(Deps.colorpickerview)
-    api(Deps.MNImageBrowser)
+    // api(Deps.MNImageBrowser) // Temporary comment out
     api(Deps.nifty)
-    api(Deps.nifty_effect)
+    // api(Deps.nifty_effect) // Temporary comment out
 
 //    "devApi"(Deps.lms2)
 //    "betaApi"(Deps.lms2)

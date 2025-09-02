@@ -96,7 +96,7 @@ class ErrorRecoveryManager private constructor() {
         val updatedContext: Map<String, Any> = emptyMap()
     )
     
-    private data class RecoveryOperation(
+    internal data class RecoveryOperation(
         val error: RecoverableError,
         val strategy: RecoveryStrategy,
         val attempts: Int = 0,
@@ -508,7 +508,7 @@ class ErrorRecoveryManager private constructor() {
         }
     }
     
-    fun getRecoveryStatus(): Map<String, RecoveryOperation> {
+    internal fun getRecoveryStatus(): Map<String, RecoveryOperation> {
         return activeRecoveries.toMap()
     }
     

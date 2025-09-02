@@ -58,28 +58,6 @@ data class GSRSample(
 }
 
 /**
- * Represents session information and metadata
- */
-data class SessionInfo(
-    val sessionId: String,
-    val startTime: Long,
-    var endTime: Long? = null,
-    val participantId: String? = null,
-    val studyName: String? = null,
-    var sampleCount: Long = 0,
-    var syncMarks: MutableList<SyncMark> = mutableListOf(),
-    val metadata: MutableMap<String, String> = mutableMapOf()
-) {
-    fun getDurationMs(): Long {
-        return if (endTime != null) endTime!! - startTime else System.currentTimeMillis() - startTime
-    }
-    
-    fun isActive(): Boolean {
-        return endTime == null
-    }
-}
-
-/**
  * Represents synchronization marks for cross-modal alignment
  */
 data class SyncMark(

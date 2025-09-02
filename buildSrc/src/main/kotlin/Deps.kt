@@ -40,11 +40,11 @@ object Deps {
     const val rxjava2 = "io.reactivex.rxjava2:rxjava:2.2.21"
     const val rxandroid = "io.reactivex.rxjava2:rxandroid:2.1.1"
     const val rxpermissions = "com.github.tbruyelle:rxpermissions:0.12"
-    const val rxlifecycle = "com.trello.rxlifecycle2:rxlifecycle:2.2.2"
-    const val rxlifecycle_android = "com.trello.rxlifecycle2:rxlifecycle-android:2.2.2"
-    const val rxlifecycle_components = "com.trello.rxlifecycle2:rxlifecycle-components:2.2.2"
-    const val rxlifecycle_ktx = "com.trello.rxlifecycle2:rxlifecycle-ktx:2.2.2"
-    const val rxlifecycle_android_lifecycle_ktx = "com.trello.rxlifecycle2:rxlifecycle-android-lifecycle-ktx:2.2.2"
+    // const val rxlifecycle = "com.trello.rxlifecycle2:rxlifecycle:2.2.2"  // Temporary comment out
+    // const val rxlifecycle_android = "com.trello.rxlifecycle2:rxlifecycle-android:2.2.2"
+    // const val rxlifecycle_components = "com.trello.rxlifecycle2:rxlifecycle-components:2.2.2"
+    // const val rxlifecycle_ktx = "com.trello.rxlifecycle2:rxlifecycle-ktx:2.2.2"
+    // const val rxlifecycle_android_lifecycle_ktx = "com.trello.rxlifecycle2:rxlifecycle-android-lifecycle-ktx:2.2.2"
     
     // UI Libraries
     const val ucrop = "com.github.yalantis:ucrop:2.2.4"
@@ -53,15 +53,15 @@ object Deps {
     const val xpopup = "com.github.li-xiaojun:XPopup:2.9.0"
     const val smart_refresh_layout = "com.scwang.smartrefresh:SmartRefreshLayout:1.1.3"
     const val smart_refresh_header = "com.scwang.smartrefresh:SmartRefreshHeader:1.1.3"
-    const val refresh_layout_kernel = "com.scwang.smart:refresh-layout-kernel:2.0.5"
+    // const val refresh_layout_kernel = "com.scwang.smart:refresh-layout-kernel:2.0.5"  // Temporary comment out
     const val refresh_header_classics = "com.scwang.smart:refresh-header-classics:2.0.5"
     const val refresh_header_material = "com.scwang.smart:refresh-header-material:2.0.5"
     const val brvah = "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.7"
     const val colorpickerview = "com.github.skydoves:colorpickerview:2.2.4"
     const val PhotoView = "com.github.chrisbanes:PhotoView:2.3.0"
-    const val MNImageBrowser = "com.github.maning0303:MNImageBrowser:v2.1.9"
+    // const val MNImageBrowser = "com.github.maning0303:MNImageBrowser:v2.1.9"  // Temporary comment out
     const val nifty = "com.nineoldandroids:library:2.4.0"
-    const val nifty_effect = "com.github.sd6352051:NiftyDialogEffects:1.0.0"
+    // const val nifty_effect = "com.github.sd6352051:NiftyDialogEffects:1.0.0"  // Temporary comment out
     
     // Image Loading
     const val glide = "com.github.bumptech.glide:glide:4.14.2"
@@ -71,7 +71,7 @@ object Deps {
     const val utilcode = "com.blankj:utilcodex:1.31.1"
     const val XXPermissions = "com.github.getActivity:XXPermissions:16.8"
     const val xlog = "com.elvishew:xlog:1.10.1"
-    const val android_pdf_viewr = "com.github.barteksc:AndroidPdfViewer:3.2.0-beta.1"
+    // const val android_pdf_viewr = "com.github.barteksc:AndroidPdfViewer:3.2.0-beta.1"  // Temporary comment out
     const val lottie = "com.airbnb.android:lottie:5.2.0"
     const val eventbus = "org.greenrobot:eventbus:3.3.1"
     

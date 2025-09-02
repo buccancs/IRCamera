@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         minSdk = AndroidConfig.minSdk
-        targetSdk = AndroidConfig.targetSdk
+        // targetSdk = AndroidConfig.targetSdk  // Deprecated in library modules
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -26,7 +26,6 @@ android {
                 "proguard-rules.pro"
             )
         }
-    }
     }
     
     compileOptions {
