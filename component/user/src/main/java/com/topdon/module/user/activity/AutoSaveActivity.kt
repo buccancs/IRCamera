@@ -1,5 +1,6 @@
 package com.topdon.module.user.activity
 
+import androidx.appcompat.widget.SwitchCompat
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
@@ -11,11 +12,17 @@ import com.topdon.module.user.R
 // Legacy ARouter route annotation - now using NavigationManager
 class AutoSaveActivity :BaseActivity(){
 
+    // View references - migrated from synthetic views
+    private lateinit var settingItemSaveSelect: SwitchCompat
+
     override fun initContentView() = R.layout.activity_auto_save
 
     override fun initView() {
-        setting_item_save_select.isChecked = SharedManager.is04AutoSync
-        setting_item_save_select.setOnCheckedChangeListener { _, isChecked ->
+        // Initialize views - migrated from synthetic views
+        settingItemSaveSelect = findViewById(R.id.setting_item_save_select)
+        
+        settingItemSaveSelect.isChecked = SharedManager.is04AutoSync
+        settingItemSaveSelect.setOnCheckedChangeListener { _, isChecked ->
             SharedManager.is04AutoSync = isChecked
         }
     }

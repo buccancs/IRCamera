@@ -74,9 +74,9 @@ object Deps {
     const val lottie = "com.airbnb.android:lottie:5.2.0"
     const val eventbus = "org.greenrobot:eventbus:3.3.1"
     
-    // Compass and sensor libraries - updated to available versions
-    const val andromeda_core = "com.kylecorry.andromeda:core:16.0.1"
-    const val andromeda_sense = "com.kylecorry.andromeda:sense:16.0.1"
+    // Compass and sensor libraries - using stable version from Maven Central
+    const val andromeda_core = "com.kylecorry.andromeda:core:15.3.0"
+    const val andromeda_sense = "com.kylecorry.andromeda:sense:15.3.0"
     
     // JavaCV
     const val javacv = "org.bytedeco:javacv:1.5.7"

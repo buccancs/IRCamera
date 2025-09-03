@@ -3,6 +3,8 @@ package com.topdon.lib.menu
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +14,21 @@ import com.topdon.lib.core.utils.ScreenUtil
  * 3D 编辑的菜单.
  */
 class Menu3DView : ConstraintLayout, View.OnClickListener {
+
+    // View references - migrated from synthetic views
+    private lateinit var viewMenu1Visual: View
+    private lateinit var viewMenu1Mark: View
+    private lateinit var viewMenu1Pseudo: View
+    private lateinit var viewMenu1Mode: View
+    private lateinit var ivMenu1Visual: ImageView
+    private lateinit var tvMenu1Visual: TextView
+    private lateinit var ivMenu1Mark: ImageView
+    private lateinit var tvMenu1Mark: TextView
+    private lateinit var ivMenu1Pseudo: ImageView
+    private lateinit var tvMenu1Pseudo: TextView
+    private lateinit var ivMenu1Mode: ImageView
+    private lateinit var tvMenu1Mode: TextView
+    private lateinit var recyclerView: RecyclerView
 
     /**
      * 视觉(0-3D、1-俯视、2-左视、3-右视、4-正视) 二级菜单切换事件监听.
@@ -76,11 +93,14 @@ class Menu3DView : ConstraintLayout, View.OnClickListener {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes:Int) : super(context, attrs, defStyleAttr, defStyleRes) {
         inflate(context, R.layout.view_menu_3d, this)
         setBackgroundColor(0xff16131e.toInt())
+        
+        // Initialize views - migrated from synthetic views
+        initViews()
 
-        view_menu1_visual.setOnClickListener(this)
-        view_menu1_mark.setOnClickListener(this)
-        view_menu1_pseudo.setOnClickListener(this)
-        view_menu1_mode.setOnClickListener(this)
+        viewMenu1Visual.setOnClickListener(this)
+        viewMenu1Mark.setOnClickListener(this)
+        viewMenu1Pseudo.setOnClickListener(this)
+        viewMenu1Mode.setOnClickListener(this)
 
         visualAdapter = MenuAdapter(context, MenuAdapter.Type.VISUAL)
         markAdapter = MenuAdapter(context, MenuAdapter.Type.MARK)
@@ -92,16 +112,32 @@ class Menu3DView : ConstraintLayout, View.OnClickListener {
         modeAdapter.onItemClickListener = { onModeClickListener?.invoke(it) }
 
         val orientation = if (ScreenUtil.isPortrait(context)) RecyclerView.HORIZONTAL else RecyclerView.VERTICAL
-        recycler_view.layoutManager = LinearLayoutManager(context, orientation, false)
+        recyclerView.layoutManager = LinearLayoutManager(context, orientation, false)
         switchFirstMenu(0)
+    }
+    
+    private fun initViews() {
+        viewMenu1Visual = findViewById(R.id.view_menu1_visual)
+        viewMenu1Mark = findViewById(R.id.view_menu1_mark)
+        viewMenu1Pseudo = findViewById(R.id.view_menu1_pseudo)
+        viewMenu1Mode = findViewById(R.id.view_menu1_mode)
+        ivMenu1Visual = findViewById(R.id.iv_menu1_visual)
+        tvMenu1Visual = findViewById(R.id.tv_menu1_visual)
+        ivMenu1Mark = findViewById(R.id.iv_menu1_mark)
+        tvMenu1Mark = findViewById(R.id.tv_menu1_mark)
+        ivMenu1Pseudo = findViewById(R.id.iv_menu1_pseudo)
+        tvMenu1Pseudo = findViewById(R.id.tv_menu1_pseudo)
+        ivMenu1Mode = findViewById(R.id.iv_menu1_mode)
+        tvMenu1Mode = findViewById(R.id.tv_menu1_mode)
+        recyclerView = findViewById(R.id.recycler_view)
     }
 
     override fun onClick(v: View?) {
         when (v) {
-            view_menu1_visual -> switchFirstMenu(0)
-            view_menu1_mark -> switchFirstMenu(1)
-            view_menu1_pseudo -> switchFirstMenu(2)
-            view_menu1_mode -> switchFirstMenu(3)
+            viewMenu1Visual -> switchFirstMenu(0)
+            viewMenu1Mark -> switchFirstMenu(1)
+            viewMenu1Pseudo -> switchFirstMenu(2)
+            viewMenu1Mode -> switchFirstMenu(3)
         }
     }
 
@@ -111,42 +147,42 @@ class Menu3DView : ConstraintLayout, View.OnClickListener {
         }
         when (selectIndex) {
             0 -> {
-                iv_menu1_visual.isSelected = false
-                tv_menu1_visual.setTextColor(defaultColor)
+                ivMenu1Visual.isSelected = false
+                tvMenu1Visual.setTextColor(defaultColor)
             }
             1 -> {
-                iv_menu1_mark.isSelected = false
-                tv_menu1_mark.setTextColor(defaultColor)
+                ivMenu1Mark.isSelected = false
+                tvMenu1Mark.setTextColor(defaultColor)
             }
             2 -> {
-                iv_menu1_pseudo.isSelected = false
-                tv_menu1_pseudo.setTextColor(defaultColor)
+                ivMenu1Pseudo.isSelected = false
+                tvMenu1Pseudo.setTextColor(defaultColor)
             }
             3 -> {
-                iv_menu1_mode.isSelected = false
-                tv_menu1_mode.setTextColor(defaultColor)
+                ivMenu1Mode.isSelected = false
+                tvMenu1Mode.setTextColor(defaultColor)
             }
         }
         when (index) {
             0 -> {
-                iv_menu1_visual.isSelected = true
-                tv_menu1_visual.setTextColor(selectColor)
-                recycler_view.adapter = visualAdapter
+                ivMenu1Visual.isSelected = true
+                tvMenu1Visual.setTextColor(selectColor)
+                recyclerView.adapter = visualAdapter
             }
             1 -> {
-                iv_menu1_mark.isSelected = true
-                tv_menu1_mark.setTextColor(selectColor)
-                recycler_view.adapter = markAdapter
+                ivMenu1Mark.isSelected = true
+                tvMenu1Mark.setTextColor(selectColor)
+                recyclerView.adapter = markAdapter
             }
             2 -> {
-                iv_menu1_pseudo.isSelected = true
-                tv_menu1_pseudo.setTextColor(selectColor)
-                recycler_view.adapter = pseudoAdapter
+                ivMenu1Pseudo.isSelected = true
+                tvMenu1Pseudo.setTextColor(selectColor)
+                recyclerView.adapter = pseudoAdapter
             }
             3 -> {
-                iv_menu1_mode.isSelected = true
-                tv_menu1_mode.setTextColor(selectColor)
-                recycler_view.adapter = modeAdapter
+                ivMenu1Mode.isSelected = true
+                tvMenu1Mode.setTextColor(selectColor)
+                recyclerView.adapter = modeAdapter
             }
         }
         this.selectIndex = index
