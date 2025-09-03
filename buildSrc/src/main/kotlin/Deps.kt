@@ -35,13 +35,14 @@ object Deps {
     // RxJava
     const val rxjava2 = "io.reactivex.rxjava2:rxjava:2.2.21"
     const val rxandroid = "io.reactivex.rxjava2:rxandroid:2.1.1"
-    // Disabled problematic dependencies - using modern alternatives
-    // const val rxpermissions = "com.github.tbruyelle:rxpermissions:0.12"
-    // const val rxlifecycle = "com.trello.rxlifecycle2:rxlifecycle:2.2.2"
-    // const val rxlifecycle_android = "com.trello.rxlifecycle2:rxlifecycle-android:2.2.2"
-    // const val rxlifecycle_components = "com.trello.rxlifecycle2:rxlifecycle-components:2.2.2"
-    // const val rxlifecycle_ktx = "com.trello.rxlifecycle2:rxlifecycle-ktx:2.2.2"
-    // const val rxlifecycle_android_lifecycle_ktx = "com.trello.rxlifecycle2:rxlifecycle-android-lifecycle-ktx:2.2.2"
+    // Updated RxLifecycle dependencies with available versions
+    const val rxpermissions = "com.github.tbruyelle:rxpermissions:0.10.2"
+    const val rxlifecycle = "com.trello.rxlifecycle2:rxlifecycle:2.2.2"
+    const val rxlifecycle_android = "com.trello.rxlifecycle2:rxlifecycle-android:2.2.2"
+    const val rxlifecycle_components = "com.trello.rxlifecycle2:rxlifecycle-components:2.2.2"
+    // Using available versions for KTX extensions
+    const val rxlifecycle_ktx = "com.trello.rxlifecycle3:rxlifecycle-kotlin:3.1.0"
+    const val rxlifecycle_android_lifecycle_ktx = "com.trello.rxlifecycle3:rxlifecycle-android-lifecycle-kotlin:3.1.0"
     
     // UI Libraries
     const val ucrop = "com.github.yalantis:ucrop:2.2.4"
@@ -50,7 +51,8 @@ object Deps {
     const val xpopup = "com.github.li-xiaojun:XPopup:2.9.0"
     const val smart_refresh_layout = "com.scwang.smartrefresh:SmartRefreshLayout:1.1.3"
     const val smart_refresh_header = "com.scwang.smartrefresh:SmartRefreshHeader:1.1.3"
-    // const val refresh_layout_kernel = "com.scwang.smart:refresh-layout-kernel:2.0.5"  // Temporary comment out
+    // UI Libraries - using available versions
+    const val refresh_layout_kernel = "com.scwang.smart:refresh-layout-kernel:2.0.3"
     const val refresh_header_classics = "com.scwang.smart:refresh-header-classics:2.0.5"
     const val refresh_header_material = "com.scwang.smart:refresh-header-material:2.0.5"
     const val brvah = "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.7"
@@ -71,6 +73,10 @@ object Deps {
     // const val android_pdf_viewr = "com.github.barteksc:AndroidPdfViewer:3.2.0-beta.1"  // Temporary comment out
     const val lottie = "com.airbnb.android:lottie:5.2.0"
     const val eventbus = "org.greenrobot:eventbus:3.3.1"
+    
+    // Compass and sensor libraries - updated to available versions
+    const val andromeda_core = "com.kylecorry.andromeda:core:5.0.0"
+    const val andromeda_sense = "com.kylecorry.andromeda:sense:5.0.0"
     
     // JavaCV
     const val javacv = "org.bytedeco:javacv:1.5.7"

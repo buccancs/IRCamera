@@ -3,7 +3,7 @@ plugins {
     kotlin("android")
     // Temporarily disable KAPT to fix compilation issues
     // kotlin("kapt")
-    id("kotlin-parcelize")
+    id("kotlin-android-extensions")  // Enable synthetic views for legacy code - removed parcelize due to conflict
 }
 
 // kapt {
@@ -89,4 +89,8 @@ dependencies {
     implementation(Deps.material)
     implementation(Deps.utilcode)
     implementation(Deps.glide)
+    
+    // Compass and sensor dependencies commented out to focus on other issues
+    // implementation(Deps.andromeda_core)
+    // implementation(Deps.andromeda_sense)
 }

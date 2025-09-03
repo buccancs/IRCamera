@@ -2,7 +2,7 @@ plugins {
     id("com.android.library")
     kotlin("android")
     kotlin("kapt")
-    id("kotlin-parcelize")
+    id("kotlin-android-extensions")  // Enable synthetic views for legacy code - removed parcelize due to conflict
 }
 
 kapt {

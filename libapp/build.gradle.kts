@@ -95,7 +95,7 @@ dependencies {
 
     api(Deps.rxjava2)
     api(Deps.rxandroid)
-    // Temporarily disabled problematic dependencies - using modern alternatives
+    // Commented out problematic RxLifecycle dependencies to identify actual compilation issues
     // api(Deps.rxpermissions)
     // api(Deps.rxlifecycle)
     // api(Deps.rxlifecycle_android)
@@ -111,7 +111,8 @@ dependencies {
     api(Deps.lottie)
 
     api(Deps.brvah)
-    // api(Deps.refresh_layout_kernel) // Temporary comment out
+    // Commented out problematic refresh layout dependency  
+    // api(Deps.refresh_layout_kernel)
     // api(Deps.refresh_header_classics) // Temporary comment out
     // api(Deps.refresh_header_material) // Temporary comment out
 
