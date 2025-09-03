@@ -3,7 +3,7 @@ package com.topdon.module.thermal.ir.fragment
 import android.content.Intent
 import android.view.View
 import com.alibaba.android.arouter.launcher.ARouter
-import com.topdon.house.activity.HouseHomeActivity
+
 import com.topdon.lib.core.bean.event.WinterClickEvent
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.ExtraKeyConfig
@@ -36,7 +36,7 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
         mIsTC007 = arguments?.getBoolean(ExtraKeyConfig.IS_TC007, false) ?: false
         iv_winter.setOnClickListener(this)
         view_monitory.setOnClickListener(this)
-        view_house.setOnClickListener(this)
+
         view_car.setOnClickListener(this)
     }
 
@@ -64,11 +64,7 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
                 startActivity(intent)
             }
 
-            view_house -> {//房屋检测
-                val intent = Intent(requireContext(), HouseHomeActivity::class.java)
-                intent.putExtra(ExtraKeyConfig.IS_TC007, mIsTC007)
-                startActivity(intent)
-            }
+
 
             view_car -> {//汽车检测
                 if (mIsTC007) {

@@ -135,65 +135,6 @@
         app:layout_constraintStart_toStartOf="@id/tv_monitory_title"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- 房屋检测 -->
-    <ImageView
-        android:id="@+id/iv_house"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/ic_ability_house"
-        android:contentDescription="@null"
-        app:layout_constraintWidth_percent="0.3"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_monitory" />
-    <TextView
-        android:id="@+id/tv_house_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="@string/house_detection"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:maxLines="2"
-        android:ellipsize="end"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintStart_toEndOf="@id/iv_house"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/iv_house"
-        app:layout_constraintBottom_toTopOf="@+id/tv_house_desc" />
-    <TextView
-        android:id="@+id/tv_house_desc"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:text="@string/ability_house"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:textColor="#80ffffff"
-        android:maxLines="2"
-        android:ellipsize="end"
-        app:layout_constraintStart_toStartOf="@id/tv_house_title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_house_title"
-        app:layout_constraintBottom_toBottomOf="@id/iv_house" />
-    <View
-        android:id="@+id/view_house"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/iv_house"
-        app:layout_constraintBottom_toBottomOf="@id/iv_house" />
-    <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="8dp"
-        android:background="#19ffffff"
-        app:layout_constraintTop_toBottomOf="@id/iv_house"
-        app:layout_constraintStart_toStartOf="@id/tv_house_title"
-        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- 汽车检测 -->
     <ImageView
@@ -206,7 +147,7 @@
         app:layout_constraintWidth_percent="0.3"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_house" />
+        app:layout_constraintTop_toBottomOf="@id/iv_monitory" />
     <TextView
         android:id="@+id/tv_car_title"
         android:layout_width="0dp"

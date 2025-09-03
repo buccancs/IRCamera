@@ -76,7 +76,7 @@ dependencies {
     implementation project(':libir')
     implementation project(':libmenu')
     implementation project(':libui')
-    implementation project(':component:house')
+
     implementation project(':component:pseudo')
 
     kapt Deps.arouter_compiler
