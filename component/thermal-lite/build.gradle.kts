@@ -9,6 +9,7 @@ kapt {
     arguments {
         arg("AROUTER_MODULE_NAME", project.name)
     }
+    correctErrorTypes = true
 }
 
 android {
@@ -79,6 +80,7 @@ dependencies {
     implementation(project(":libir"))
     implementation(project(":libui"))
     implementation(project(":libmenu"))
+    implementation(project(":component:thermal-ir"))
     
     kapt(Deps.arouter_compiler)
     

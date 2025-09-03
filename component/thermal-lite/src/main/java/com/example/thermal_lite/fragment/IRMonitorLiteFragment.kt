@@ -53,8 +53,7 @@ import com.topdon.module.thermal.ir.bean.DataBean
 import com.topdon.module.thermal.ir.bean.SelectPositionBean
 import com.topdon.module.thermal.ir.event.ThermalActionEvent
 import com.topdon.module.thermal.ir.repository.ConfigRepository
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_lite_ir_monitor.cameraView
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_lite_ir_monitor.temperatureView
+
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay

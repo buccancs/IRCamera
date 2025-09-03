@@ -11,7 +11,7 @@
 //import com.topdon.lib.core.ktbase.BaseActivity
 //import com.topdon.module.thermal.R
 //import com.topdon.module.thermal.adapter.MonitorLogAdapter
-//import kotlinx.android.synthetic.main.activity_monitor_log.*
+
 //import kotlinx.coroutines.Dispatchers
 //import kotlinx.coroutines.launch
 //
