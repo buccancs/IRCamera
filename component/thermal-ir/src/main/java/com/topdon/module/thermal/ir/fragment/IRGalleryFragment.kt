@@ -285,35 +285,14 @@ class IRGalleryFragment : BaseFragment() {
             }
             tabViewModel.isEditModeLD.value = false
         } else {
-            lifecycleScope.launch {
-                (context as? Activity)?.window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-                showLoadingDialog()
-                val successCount = 0 // TC001 uses USB connection, remote download list not available
-                    if (isSuccess) {
-                        for (galleryBean in downloadList) {
-                            if (galleryBean.path == path) {
-                                galleryBean.hasDownload = true
-                                adapter.notifyDataSetChanged()
-                                break
-                            }
-                        }
-                    }
-                }
-                if (successCount == downloadMap.size) {//全都下载成功
-                    dismissLoadingDialog()
-                    if (isShare) {
-                        shareImage(downloadList)
-                    } else {
-                        ToastTools.showShort(R.string.ts004_download_complete)
-                    }
-                    tabViewModel.isEditModeLD.value = false
-                } else {
-                    dismissLoadingDialog()
-                    ToastTools.showShort(R.string.liveData_save_error)
-                }
-                MediaScannerConnection.scanFile(requireContext(), arrayOf(FileConfig.lineGalleryDir, FileConfig.ts004GalleryDir), null, null)
-                (context as? Activity)?.window?.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            // TC001 uses USB connection, files are already local, no remote download needed
+            if (isShare) {
+                shareImage(downloadList)
+            } else {
+                ToastTools.showShort(R.string.ts004_download_complete)
             }
+            tabViewModel.isEditModeLD.value = false
+            MediaScannerConnection.scanFile(requireContext(), arrayOf(FileConfig.lineGalleryDir, FileConfig.ts004GalleryDir), null, null)
         }
     }
 
@@ -339,3 +318,4 @@ class IRGalleryFragment : BaseFragment() {
         }
         startActivity(Intent.createChooser(shareIntent, getString(R.string.battery_share)))
     }
+}

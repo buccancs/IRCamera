@@ -37,7 +37,7 @@ class IRCorrectionTwoActivity : BaseActivity() {
     override fun initView() {
         isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
 
-        iv_sketch_map.setImageResource(if (isTC007) R.drawable.ic_corrected_tc007 else R.drawable.ic_corrected_line)
+        iv_sketch_map.setImageResource(R.drawable.ic_corrected_line) // Use standard corrected line drawable for TC001
 
         if (if (isTC007) WebSocketProxy.getInstance().isTC007Connect() else DeviceTools.isConnect()) {
             tv_correction.setBackgroundResource(R.drawable.bg_corners05_solid_theme)

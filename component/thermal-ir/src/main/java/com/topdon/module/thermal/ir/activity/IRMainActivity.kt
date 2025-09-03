@@ -99,9 +99,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
                 lifecycleScope.launch {
                     // TC001 uses USB connection, time sync not available via network
                 }
-                if (SharedManager.isConnect07AutoOpen) {
-                    ARouter.getInstance().build(RouterConfig.IR_THERMAL_07).navigation(this)
-                }
+                // TC001 connection logic - removed TC007 auto-open since only TC001 is supported
             } else {
                 iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
             }

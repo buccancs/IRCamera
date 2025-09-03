@@ -123,7 +123,7 @@ class FrameTool {
         if (customPseudoBean.isUseCustomPseudo) {
             //自定义渲染模式
             LibIRProcess.convertYuyvMapToARGBPseudocolor(imageBytesTemp, pixNum.toLong(), CommonParams.PseudoColorType.PSEUDO_1, argbBytes)
-            val colorList: IntArray? = customPseudoBean.getColorList(struct.isTC007())
+            val colorList: IntArray? = customPseudoBean.getColorList(struct.isTC001())
             val places: FloatArray? = customPseudoBean.getPlaceList()
             if (colorList != null) {
                 val customMaxTemp = customPseudoBean.maxTemp
