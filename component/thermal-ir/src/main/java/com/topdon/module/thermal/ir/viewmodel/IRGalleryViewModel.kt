@@ -106,8 +106,6 @@ class IRGalleryViewModel : BaseViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             if (dirType == GalleryRepository.DirType.TS004_REMOTE) {
                 val isSuccess = false // TC001 uses USB connection, remote delete not available
-                    deleteList[it].id
-                })
                 if (isSuccess) {
                     if (isDelLocal) {
                         deleteList.forEach {

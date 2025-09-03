@@ -4,7 +4,6 @@ import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.topdon.lib.core.bean.AlarmBean
 import com.topdon.lib.core.bean.WatermarkBean
-import com.topdon.lib.core.common.ProductType.PRODUCT_NAME_TC007
 import com.topdon.lib.core.utils.ByteUtils
 import com.topdon.lib.core.utils.ByteUtils.toBytes
 import com.topdon.pseudo.bean.CustomPseudoBean
@@ -252,6 +251,6 @@ class FrameStruct() {
 
     }
 
-    fun isTC007(): Boolean = name == PRODUCT_NAME_TC007
+    fun isTC001(): Boolean = name == "TC001"
 
 }

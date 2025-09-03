@@ -13,7 +13,6 @@ import com.topdon.lib.core.common.SaveSettingUtil
 import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.utils.Constants
 import com.topdon.lib.core.utils.Constants.IR_OBSERVE_MODE
-import com.topdon.lib.core.utils.Constants.IR_TC007_MODE
 import com.topdon.lib.core.utils.Constants.IR_TCPLUS_MODE
 import com.topdon.lib.core.utils.Constants.IR_TEMPERATURE_LITE
 import com.topdon.lib.core.utils.Constants.IR_TEMPERATURE_MODE
@@ -88,7 +87,6 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
      * 参数 [Constants.IR_TEMPERATURE_MODE] = 1 测温模式   伪彩条、对比度、锐度、警示、旋转、字体、镜像
      * 参数 [Constants.IR_TCPLUS_MODE] = 5 双光设备        伪彩条、对比度、锐度、警示、旋转、字体、
      * 参数 [Constants.IR_TEMPERATURE_LITE] = 7 Lite设备  伪彩条、对比度、警示、旋转、字体、镜像
-     * 参数 [Constants.IR_TC007_MODE] = 6 TC007          伪彩条、对比度、锐度、警示、字体、镜像
      * else - 2D编辑菜单                                  警示、字体、水印
      * 参数 [Constants.IR_OBSERVE_MODE] = 2 观测模式  指南针、旋转、镜像、对比度
      */
@@ -117,14 +115,6 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
                 fourBean.add(ColorBean(R.drawable.selector_menu2_setting_2, context.getString(R.string.thermal_contrast), CameraHelp.TYPE_SET_ParamLevelContrast))
                 fourBean.add(ColorBean(R.drawable.selector_menu2_setting_6, context.getString(R.string.temp_alarm_alarm), CameraHelp.TYPE_SET_ALARM))
                 fourBean.add(ColorBean(R.drawable.selector_menu2_setting_4, context.getString(R.string.thermal_rotate), CameraHelp.TYPE_SET_ROTATE))
-                fourBean.add(ColorBean(R.drawable.selector_menu2_setting_7, context.getString(R.string.menu_thermal_font), CameraHelp.TYPE_SET_COLOR))
-                fourBean.add(ColorBean(R.drawable.selector_menu2_setting_5, context.getString(R.string.mirror), CameraHelp.TYPE_SET_MIRROR))
-            }
-            IR_TC007_MODE ->{
-                fourBean.add(ColorBean(R.drawable.selector_menu2_setting_1, context.getString(R.string.thermal_pseudo), CameraHelp.TYPE_SET_PSEUDOCOLOR))
-                fourBean.add(ColorBean(R.drawable.selector_menu2_setting_2, context.getString(R.string.thermal_contrast), CameraHelp.TYPE_SET_ParamLevelContrast))
-                fourBean.add(ColorBean(R.drawable.selector_menu2_setting_3, context.getString(R.string.thermal_sharpen), CameraHelp.TYPE_SET_ParamLevelDde))
-                fourBean.add(ColorBean(R.drawable.selector_menu2_setting_6, context.getString(R.string.temp_alarm_alarm), CameraHelp.TYPE_SET_ALARM))
                 fourBean.add(ColorBean(R.drawable.selector_menu2_setting_7, context.getString(R.string.menu_thermal_font), CameraHelp.TYPE_SET_COLOR))
                 fourBean.add(ColorBean(R.drawable.selector_menu2_setting_5, context.getString(R.string.mirror), CameraHelp.TYPE_SET_MIRROR))
             }

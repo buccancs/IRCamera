@@ -339,5 +339,3 @@ class IRGalleryFragment : BaseFragment() {
         }
         startActivity(Intent.createChooser(shareIntent, getString(R.string.battery_share)))
     }
-}
-
