@@ -38,7 +38,7 @@ import java.text.DecimalFormat
 /**
  * TS004 的 “更多” 页面.
  */
-@Route(path = RouterConfig.TS004_MORE)
+@Route(path = RouterConfig.TC_MORE)
 class MoreActivity : BaseActivity(), View.OnClickListener {
 
     private val firmwareViewModel: FirmwareViewModel by viewModels()

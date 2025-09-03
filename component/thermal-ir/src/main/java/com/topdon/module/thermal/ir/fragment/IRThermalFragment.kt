@@ -63,17 +63,15 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
-        if (!isTC007) {
-            checkConnect()
-        }
+        // Only TC001 is supported now
+        checkConnect()
     }
 
     override fun connected() {
         SharedManager.hasTcLine = true
-        if (!isTC007) {
-            cl_connect.isVisible = true
-            cl_not_connect.isVisible = false
-        }
+        // TC001 USB connection
+        cl_connect.isVisible = true
+        cl_not_connect.isVisible = false
     }
 
     override fun disConnected() {
