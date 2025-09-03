@@ -186,7 +186,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
            }
            setting_device_information -> {//TC007设备信息
                if (WebSocketProxy.getInstance().isTC007Connect()) {
-                   ARouter.getInstance()
+                   NavigationManager.getInstance()
                        .build(RouterConfig.DEVICE_INFORMATION)
                        .withBoolean(ExtraKeyConfig.IS_TC007, true)
                        .navigation(requireContext())

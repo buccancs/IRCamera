@@ -11,7 +11,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.alibaba.android.arouter.facade.annotation.Route
+// Removed ARouter import - using NavigationManager instead
 import com.topdon.gsr.model.GSRSample
 import com.topdon.gsr.model.SessionInfo
 import com.topdon.gsr.model.SyncMark
@@ -25,8 +25,8 @@ import java.io.File
 
 /**
  * Full multi-modal recording interface with GSR and thermal coordination
+ * Navigation: Use NavigationManager.getInstance().build(RouterConfig.GSR_MULTI_MODAL).navigation(context)
  */
-@Route(path = RouterConfig.GSR_MULTI_MODAL)
 class MultiModalRecordingActivity : AppCompatActivity() {
     
     companion object {

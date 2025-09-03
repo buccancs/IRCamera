@@ -2,14 +2,16 @@ plugins {
     id("com.android.library")
     id("kotlin-android")
     id("kotlin-parcelize")
-    id("kotlin-kapt")
+    // Removed KAPT - no longer needed without ARouter
+    // id("kotlin-kapt")
 }
 
-kapt {
-    arguments {
-        arg("AROUTER_MODULE_NAME", project.name)
-    }
-}
+// Removed KAPT configuration - no longer needed without ARouter
+// kapt {
+//     arguments {
+//         arg("AROUTER_MODULE_NAME", project.name)
+//     }
+// }
 
 android {
     namespace = "com.infisense.usbir"
