@@ -247,11 +247,10 @@ dependencies {
     implementation(project(":libmenu"))
     implementation(project(":libui"))
 
-    // LocalRepo AAR files moved to app/libs
+    // LocalRepo AAR files moved to app/libs (excluding lms_international which stays in libapp)
     implementation(files("libs/libAC020sdk_USB_IR_1.1.1_2408291439.aar"))
     implementation(files("libs/libirutils_1.2.0_2409241055.aar"))
     implementation(files("libs/libcommon_1.2.0_24052117.aar"))
-    implementation(files("libs/lms_international-3.90.009.0.aar"))
 
     implementation(Deps.jsbridge)
     implementation(Deps.fastjson)

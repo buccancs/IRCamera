@@ -58,8 +58,8 @@ android {
 }
 
 dependencies {
-    // LMS SDK - using proper Maven repository configuration
-    api("com.topdon.lms.sdk:lms_international:3.90.009.0")
+    // LMS SDK - available transitively from libapp
+    // api("com.topdon.lms.sdk:lms_international:3.90.009.0")
     api("androidx.appcompat:appcompat:1.2.0")
     api("org.greenrobot:eventbus:3.2.0")
     api("com.blankj:utilcodex:1.30.6") // 工具包
