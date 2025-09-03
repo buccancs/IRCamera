@@ -110,9 +110,9 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
      * 执行一次固件升级包查询，结果发送往：
      * - [firmwareDataLD] (成功)
      * - [failLD] (失败)
-     * @param isTS004 true-TS004 false-TC007
+     * Note: TC001 does not support firmware upgrade via this method
      */
-    fun queryFirmware(isTS004: Boolean) {
+    fun queryFirmware() {
         if (isRequest) {//别催别催，在查了
             return
         }

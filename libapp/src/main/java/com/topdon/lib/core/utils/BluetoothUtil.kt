@@ -57,8 +57,7 @@ object BluetoothUtil {
     /**
      * 设置低功耗蓝牙搜索回调.
      */
-    fun setLeScanListener(isTS004: Boolean, listener: (name: String) -> Unit) {
-        scanCallback.isTS004 = isTS004
+    fun setLeScanListener(listener: (name: String) -> Unit) {
         scanCallback.listener = listener
     }
 
@@ -116,7 +115,6 @@ object BluetoothUtil {
     }
 
     private class MyScanCallback : ScanCallback() {
-        var isTS004: Boolean = false
         var listener: ((name: String) -> Unit)? = null
 
         @SuppressLint("MissingPermission")

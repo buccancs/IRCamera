@@ -104,9 +104,9 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
                     if (firmwareData != null) {
                         showFirmwareUpDialog(firmwareData)
                     } else {
-                        XLog.i("TS004 固件升级 - 点击查询")
+                        XLog.i("TC001 固件升级 - 点击查询")
                         showCameraLoading()
-                        firmwareViewModel.queryFirmware(true)
+                        firmwareViewModel.queryFirmware()
                     }
 //                } else {
 //                    LMS.getInstance().activityLogin()

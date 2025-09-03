@@ -177,9 +177,9 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
                    if (firmwareData != null) {
                        showFirmwareUpDialog(firmwareData)
                    } else {
-                       XLog.i("TC007 固件升级 - 点击查询")
+                       XLog.i("TC001 固件升级 - 点击查询")
                        showLoadingDialog()
-                       firmwareViewModel.queryFirmware(false)
+                       firmwareViewModel.queryFirmware()
                    }
 //               } else {
 //                   LMS.getInstance().activityLogin()

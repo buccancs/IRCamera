@@ -2,8 +2,6 @@ package com.topdon.lib.core.utils
 
 object Constants {
     const val PRODUCT_TYPE_NAME = "product_type"
-    const val PRODUCT_TS001_NAME = "TS001"
-    const val PRODUCT_TS004_NAME = "TS004"
     const val SETTING_TYPE = "setting_type"
     const val SETTING_BOOK = 0
     const val SETTING_FAQ = 1
