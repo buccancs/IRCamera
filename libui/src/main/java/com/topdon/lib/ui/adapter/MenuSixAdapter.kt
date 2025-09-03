@@ -47,9 +47,9 @@ class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.V
     }
 
     private val fourBean = arrayListOf(
-        ColorBean(UiR.drawable.selector_menu2_setting_1, context.getString(R.string.thermal_pseudo), 1),
-        ColorBean(UiR.drawable.selector_menu2_setting_2, context.getString(R.string.thermal_contrast), 2),
-        ColorBean(UiR.drawable.selector_menu2_setting_3, context.getString(R.string.thermal_sharpen), 3),
+        ColorBean(MenuR.drawable.selector_menu2_setting_1, context.getString(R.string.thermal_pseudo), 1),
+        ColorBean(MenuR.drawable.selector_menu2_setting_2, context.getString(R.string.thermal_contrast), 2),
+        ColorBean(MenuR.drawable.selector_menu2_setting_3, context.getString(R.string.thermal_sharpen), 3),
     )
 
 
