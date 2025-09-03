@@ -13,6 +13,7 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.tools.GlideLoader
+import com.topdon.lib.core.tools.ConstantLanguages
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.report.bean.*
@@ -175,7 +176,7 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
                     .navigation(this)
             }
             tv_preview -> {//预览
-                val appLanguage = SharedManager.getLanguage(this)
+                val appLanguage = ConstantLanguages.ENGLISH
                 val sdkVersion = "1.2.8_23050619"
                 val reportInfoBean: ReportInfoBean? = intent.getParcelableExtra(ExtraKeyConfig.REPORT_INFO)
                 val conditionBean: ReportConditionBean? = intent.getParcelableExtra(ExtraKeyConfig.REPORT_CONDITION)

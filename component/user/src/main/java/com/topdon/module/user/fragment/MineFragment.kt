@@ -33,6 +33,7 @@ import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.AppLanguageUtils
+import com.topdon.lib.core.tools.ConstantLanguages
 import com.topdon.lib.core.tools.GlideLoader
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.utils.Constants
@@ -288,7 +289,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             setting_user_text.layoutParams = layoutParams
             setting_user_text.setText(
                 AppLanguageUtils.attachBaseContext(
-                context, SharedManager.getLanguage(requireContext())).getString(R.string.app_sign_in))
+                context, ConstantLanguages.ENGLISH).getString(R.string.app_sign_in))
             val drawable = ContextCompat.getDrawable(requireContext(), R.mipmap.ic_arrow_login)
             drawable!!.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
             setting_user_text.setCompoundDrawables(null, null, drawable, null)

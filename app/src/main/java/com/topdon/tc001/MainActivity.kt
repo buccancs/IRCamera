@@ -43,6 +43,7 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.repository.GalleryRepository
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.DeviceTools
+import com.topdon.lib.core.tools.ConstantLanguages
 import com.topdon.lib.core.utils.CommUtils
 import com.topdon.lib.core.utils.PermissionUtils
 import com.topdon.lib.core.viewmodel.VersionViewModel
@@ -270,7 +271,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
-        LMS.getInstance().language = SharedManager.getLanguage(this)
+        LMS.getInstance().language = ConstantLanguages.ENGLISH
 //        DeviceTools.isConnect(true)
     }
 

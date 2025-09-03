@@ -26,6 +26,7 @@ import com.topdon.lib.core.repository.TC007Repository
 import com.topdon.lib.core.socket.SocketCmdUtil
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.AppLanguageUtils
+import com.topdon.lib.core.tools.ConstantLanguages
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.lib.core.tools.LocaleContextWrapper
 import com.topdon.lib.core.utils.NetWorkUtils
@@ -117,7 +118,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             popup.onDelListener = {
                 TipDialog.Builder(requireContext())
                     .setTitleMessage(AppLanguageUtils.attachBaseContext(
-                        context, SharedManager.getLanguage(requireContext())).getString(R.string.tc_delete_device))
+                        context, ConstantLanguages.ENGLISH).getString(R.string.tc_delete_device))
                     .setMessage(R.string.tc_delete_device_tips)
                     .setPositiveListener(R.string.report_delete) {
                         when (type) {
@@ -294,7 +295,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
 
             holder.itemView.tv_title.isVisible = hasTitle
             holder.itemView.tv_title.text = AppLanguageUtils.attachBaseContext(
-                holder.itemView.context, SharedManager.getLanguage(holder.itemView.context!!))
+                holder.itemView.context, ConstantLanguages.ENGLISH)
                 .getString(if (type == ConnectType.LINE) R.string.tc_connect_line else R.string.tc_connect_wifi)
 
             holder.itemView.iv_bg.isSelected = hasConnect
@@ -308,7 +309,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             when (type) {
                 ConnectType.LINE -> {
                     holder.itemView.tv_device_name.setText(AppLanguageUtils.attachBaseContext(
-                        holder.itemView.context, SharedManager.getLanguage(holder.itemView.context!!))
+                        holder.itemView.context, ConstantLanguages.ENGLISH)
                         .getString(R.string.tc_has_line_device))
                     if (hasConnect) {
                         holder.itemView.iv_image.setImageResource(R.drawable.ic_main_device_line_connect)
