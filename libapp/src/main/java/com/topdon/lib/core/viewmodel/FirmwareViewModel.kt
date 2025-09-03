@@ -12,8 +12,6 @@ import com.topdon.lib.core.R
 import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.repository.DeviceInfo
 import com.topdon.lib.core.repository.ProductBean
-import com.topdon.lib.core.repository.TC007Repository
-import com.topdon.lib.core.repository.TS004Repository
 import com.topdon.lms.sdk.LMS
 import com.topdon.lms.sdk.UrlConstant
 import com.topdon.lms.sdk.bean.CommonBean
@@ -121,65 +119,11 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
         isRequest = true
 
         viewModelScope.launch(Dispatchers.IO) {
-            //由于双通道方案存在问题，V3.30临时使用 apk 内置固件升级包，以下使用网络的代码先注释
-            /*if (isTS004) {
-                //从 TS004 中获取 SN、激活码
-                val deviceInfo: DeviceInfo? = TS004Repository.getDeviceInfo()?.data
-                if (deviceInfo == null) {
-                    XLog.w("TS004 固件升级 - 从设备查询 SN、激活码 失败!")
-                    failLD.postValue(false)
-                    isRequest = false
-                    return@launch
-                }
-
-                //从 TS004 中获取固件版本
-                val firmware: String? = TS004Repository.getVersion()?.data?.firmware
-                if (firmware == null) {
-                    XLog.w("TS004 固件升级 - 从设备查询 固件版本 失败!")
-                    failLD.postValue(false)
-                    isRequest = false
-                    return@launch
-                }
-
-                val sn: String = if (USE_DEBUG_SN) TS004_DEBUG_SN else deviceInfo.sn
-                val randomNum: String = if (USE_DEBUG_SN) TS004_DEBUG_RANDOM_NUM else deviceInfo.code
-                getInfoFromNetwork(true, sn, randomNum, firmware)
-            } else {
-                //从 TC007 中获取 SN、激活码
-                val productInfo: ProductBean? = TC007Repository.getProductInfo()
-                if (productInfo == null) {
-                    XLog.w("TC007 固件升级 - 从设备查询 SN、激活码 失败!")
-                    failLD.postValue(false)
-                    isRequest = false
-                    return@launch
-                }
-
-                val sn: String = if (USE_DEBUG_SN) TC007_DEBUG_SN else productInfo.ProductSN
-                val randomNum: String = if (USE_DEBUG_SN) TC007_DEBUG_RANDOM_NUM else productInfo.Code
-                val firmware = "V${productInfo.getVersionStr()}"
-                getInfoFromNetwork(false, sn, randomNum, firmware)
-            }*/
-
-
-            //由于双通道方案存在问题，V3.30临时使用 apk 内置固件升级包，以下为临时方案逻辑
-            if (isTS004) {
-                //从 TS004 中获取固件版本
-                val firmware: String? = TS004Repository.getVersion()?.data?.firmware
-                if (firmware == null) {
-                    XLog.w("TS004 固件升级 - 从设备查询 固件版本 失败!")
-                    failLD.postValue(false)
-                    isRequest = false
-                    return@launch
-                }
-
-                getInfoFromAssets(true, firmware)
-            } else {
-                //从 TC007 中获取固件版本
-                val productInfo: ProductBean? = TC007Repository.getProductInfo()
-                if (productInfo == null) {
-                    XLog.w("TC007 固件升级 - 从设备查询 SN、激活码 失败!")
-                    failLD.postValue(false)
-                    isRequest = false
+            // TC001 devices use USB connection and don't support firmware upgrade via this method
+            XLog.w("TC001 firmware upgrade not supported via this method")
+            failLD.postValue(false)
+            isRequest = false
+            return@launch
                     return@launch
                 }
 

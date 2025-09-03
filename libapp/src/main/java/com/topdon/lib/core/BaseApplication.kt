@@ -25,8 +25,6 @@ import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.db.AppDatabase
-import com.topdon.lib.core.repository.FileBean
-import com.topdon.lib.core.repository.TS004Repository
 import com.topdon.lib.core.socket.SocketCmdUtil
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.AppLanguageUtils
@@ -94,7 +92,9 @@ abstract class BaseApplication : Application() {
     }
 
     private fun connectWebSocket() {
-        // Only TC001 is supported - no WiFi connection needed
+        val ssid = WifiUtil.getCurrentWifiSSID(this) ?: return
+        Log.i("WebSocket", "当前连接 Wifi SSID: $ssid")
+        // TC001 uses USB connection, but preserve WiFi capability for other uses
         NetWorkUtils.switchNetwork(true)
     }
 

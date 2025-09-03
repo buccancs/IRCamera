@@ -10,7 +10,7 @@ import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseActivity
-import com.topdon.lib.core.repository.TS004Repository
+
 import com.topdon.lms.sdk.utils.TLog
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.user.R
@@ -55,10 +55,8 @@ class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
     @SuppressLint("SetTextI18n")
     override fun initData() {
         lifecycleScope.launch {
-            val freeSpaceBean = TS004Repository.getFreeSpace()
-            if (freeSpaceBean == null) {
-                TToast.shortToast(this@StorageSpaceActivity, R.string.operation_failed_tips)
-            } else {
+            // TC001 uses USB connection, storage space not available via network
+            TToast.shortToast(this@StorageSpaceActivity, R.string.operation_failed_tips)
                 TLog.d("ts004", "║ response :$freeSpaceBean")
 
                 tv_progress_value.text = "${(freeSpaceBean.hasUseSize() * 100.0 / freeSpaceBean.total).toInt().coerceAtLeast(1)}"
@@ -92,19 +90,8 @@ class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
                     .setMessage(getString(R.string.more_storage_reset1))
                     .setShowRestartTops(true)
                     .setPositiveListener(R.string.app_ok) {
-                        showLoadingDialog()
-                        lifecycleScope.launch {
-                            val isSuccess = TS004Repository.getFormatStorage()
-                            if (isSuccess) {
-                                XLog.d("TS004 格式化存储成功，即将断开连接")
-                                (application as BaseApplication).disconnectWebSocket()
-                                ARouter.getInstance().build(RouterConfig.MAIN).navigation(this@StorageSpaceActivity)
-                                finish()
-                            } else {
-                                delay(500)
-                                dismissLoadingDialog()
-                                TToast.shortToast(this@StorageSpaceActivity, R.string.operation_failed_tips)
-                            }
+                        // TC001 uses USB connection, storage formatting not available via network  
+                        TToast.shortToast(this@StorageSpaceActivity, R.string.operation_failed_tips)
                         }
                     }
                     .setCancelListener(R.string.app_cancel) {

@@ -22,7 +22,6 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.repository.BatteryInfo
-import com.topdon.lib.core.repository.TC007Repository
 import com.topdon.lib.core.socket.SocketCmdUtil
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.AppLanguageUtils
@@ -124,14 +123,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         recycler_view.layoutManager = LinearLayoutManager(requireContext())
         recycler_view.adapter = adapter
 
-        if (WebSocketProxy.getInstance().isTC007Connect()) {
-            lifecycleScope.launch {
-                val batteryInfo: BatteryInfo? = TC007Repository.getBatteryInfo()
-                if (batteryInfo != null) {
-                    adapter.tc007Battery = batteryInfo
-                }
-            }
-        }
+        // TC001 devices use USB connection, no WebSocket battery info needed
         viewLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onResume(owner: LifecycleOwner) {
                 // 要是当前已连接 TS004、TC007，切到流量上，不然登录注册意见反馈那些没网
@@ -172,27 +164,12 @@ class MainFragment : BaseFragment(), View.OnClickListener {
     }
 
     override fun onSocketConnected(isTS004: Boolean) {
-        if (isTS004) {
-            SharedManager.hasTS004 = true
-            adapter.hasConnectTS004 = true
-        } else {
-            SharedManager.hasTC007 = true
-            adapter.hasConnectTC007 = true
-            lifecycleScope.launch {
-                val batteryInfo: BatteryInfo? = TC007Repository.getBatteryInfo()
-                if (batteryInfo != null) {
-                    adapter.tc007Battery = batteryInfo
-                }
-            }
-        }
+        // TC001 uses USB connection, no socket connection handling needed
     }
 
     override fun onSocketDisConnected(isTS004: Boolean) {
-        if (isTS004) {
-            adapter.hasConnectTS004 = false
-        } else {
-            adapter.hasConnectTC007 = false
-        }
+        // TC001 uses USB connection, no socket disconnection handling needed
+    }
     }
 
     override fun onClick(v: View?) {
