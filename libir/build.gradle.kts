@@ -53,11 +53,12 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     
-    // AAR dependencies from libs folder
-    api(files("libs/libusbdualsdk_1.3.4_2406271906_standard.aar"))
-    implementation(files("libs/opengl_1.3.2_standard.aar"))
-    api(files("libs/suplib-release.aar"))
-    api(files("libs/ai-upscale-release.aar"))
+    // AAR dependencies from libs folder - Commented out due to Gradle 8+ AAR packaging restrictions for library modules
+    // These need to be converted to proper Maven dependencies or moved to the app module
+    // api(files("libs/libusbdualsdk_1.3.4_2406271906_standard.aar"))
+    // implementation(files("libs/opengl_1.3.2_standard.aar"))
+    // api(files("libs/suplib-release.aar"))
+    // api(files("libs/ai-upscale-release.aar"))
     
     api("com.conghuahuadan:superlayout:1.1.0")
     implementation(project(":libapp"))

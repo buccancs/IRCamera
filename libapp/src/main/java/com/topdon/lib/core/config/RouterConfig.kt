@@ -102,4 +102,12 @@ object RouterConfig {
     const val GSR_MULTI_MODAL = "/$GROUP_GSR/multimodal"
     const val GSR_DEMO = "/$GROUP_GSR/demo"
 
+    //TC001 Thermal Component Routes
+    const val GALLERY = "/thermal/gallery"
+    const val THERMAL_MONITOR = "/thermal/monitor"
+    const val CONNECT = "/thermal/connect"
+    const val VIDEO = "/thermal/video"
+    const val MONITOR_CHART = "/thermal/monitor/chart"
+    const val LOG_MP_CHART = "/thermal/log/mp/chart"
+
 }
