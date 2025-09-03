@@ -34,19 +34,19 @@ class DeviceTypeActivity : BaseActivity() {
                 clientType = it
                 when (it) {
                     IRDeviceType.TS004 -> {
-                        ARouter.getInstance()
+                        NavigationManager.getInstance()
                             .build(RouterConfig.IR_DEVICE_ADD)
                             .withBoolean("isTS004", true)
                             .navigation(this@DeviceTypeActivity)
                     }
                     IRDeviceType.TC007 -> {
-                        ARouter.getInstance()
+                        NavigationManager.getInstance()
                             .build(RouterConfig.IR_DEVICE_ADD)
                             .withBoolean("isTS004", false)
                             .navigation(this@DeviceTypeActivity)
                     }
                     else -> {
-                        ARouter.getInstance()
+                        NavigationManager.getInstance()
                             .build(RouterConfig.IR_MAIN)
                             .withBoolean(ExtraKeyConfig.IS_TC007, false)
                             .navigation(this@DeviceTypeActivity)

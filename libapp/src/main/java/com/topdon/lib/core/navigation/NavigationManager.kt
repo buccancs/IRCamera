@@ -126,6 +126,21 @@ object NavigationManager {
             // GSR routes  
             RouterConfig.GSR_MULTI_MODAL -> getClassByName("com.topdon.component.gsr.activity.GSRMultiModalActivity")
             RouterConfig.GSR_DEMO -> getClassByName("com.topdon.component.gsr.activity.GSRDemoActivity")
+            
+            // Gallery and Camera Setting routes
+            RouterConfig.IR_GALLERY_HOME -> getClassByName("com.topdon.module.thermal.ir.activity.IRGalleryActivity")
+            RouterConfig.IR_CAMERA_SETTING -> getClassByName("com.topdon.module.thermal.ir.activity.IRCameraSettingActivity")
+            
+            // Question routes
+            RouterConfig.QUESTION_DETAILS -> getClassByName("com.topdon.module.user.activity.QuestionDetailActivity")
+            
+            // PDF route
+            RouterConfig.PDF -> getClassByName("com.topdon.module.user.activity.PDFActivity")
+            
+            // Device and settings routes
+            RouterConfig.DEVICE_INFORMATION -> getClassByName("com.topdon.module.user.activity.DeviceDetailsActivity")
+            RouterConfig.TISR -> getClassByName("com.topdon.module.user.activity.TISRActivity")
+            RouterConfig.AUTO_SAVE -> getClassByName("com.topdon.module.user.activity.AutoSaveActivity")
 
             else -> {
                 throw IllegalArgumentException("Unknown route: $route")

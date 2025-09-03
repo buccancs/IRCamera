@@ -5,7 +5,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.blankj.utilcode.util.ToastUtils
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.BaseApplication
@@ -82,19 +82,19 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v) {
             setting_device_information -> {//设备信息
-                ARouter.getInstance()
+                NavigationManager.getInstance()
                     .build(RouterConfig.DEVICE_INFORMATION)
                     .withBoolean(ExtraKeyConfig.IS_TC007, false)
                     .navigation(this@MoreActivity)
             }
             setting_tisr -> {//设置超分
-                ARouter.getInstance().build(RouterConfig.TISR).navigation(this@MoreActivity)
+                NavigationManager.getInstance().build(RouterConfig.TISR).navigation(this@MoreActivity)
             }
             setting_auto_save -> {//自动保存到手机
-                ARouter.getInstance().build(RouterConfig.AUTO_SAVE).navigation(this@MoreActivity)
+                NavigationManager.getInstance().build(RouterConfig.AUTO_SAVE).navigation(this@MoreActivity)
             }
             setting_storage_space -> {//TS004储存空间
-                ARouter.getInstance().build(RouterConfig.STORAGE_SPACE).navigation(this@MoreActivity)
+                NavigationManager.getInstance().build(RouterConfig.STORAGE_SPACE).navigation(this@MoreActivity)
             }
             setting_version -> {//固件版本
                 //由于双通道方案存在问题，V3.30临时使用 apk 内置固件升级包，此处注释强制登录逻辑

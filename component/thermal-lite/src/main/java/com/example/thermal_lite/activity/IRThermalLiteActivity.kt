@@ -34,7 +34,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -1355,10 +1355,10 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                         videoTimeClose()
                         delay(500)
                     }
-                    ARouter.getInstance()
+                    NavigationManager.getInstance()
                         .build(RouterConfig.IR_GALLERY_HOME)
                         .withInt(ExtraKeyConfig.DIR_TYPE, GalleryRepository.DirType.LINE.ordinal)
-                        .navigation()
+                        .navigation(this)
                 }
             }
             2 -> {//更多菜单
@@ -1393,7 +1393,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                     cameraItemAdapter?.listener = listener@{ position, _ ->
                         when (cameraItemAdapter!!.data[position].type) {
                             CameraItemBean.TYPE_SETTING -> {
-                                ARouter.getInstance().build(RouterConfig.IR_CAMERA_SETTING)
+                                NavigationManager.getInstance().build(RouterConfig.IR_CAMERA_SETTING)
                                     .navigation(this)
                                 return@listener
                             }

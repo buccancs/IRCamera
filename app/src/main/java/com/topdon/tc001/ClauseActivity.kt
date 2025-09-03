@@ -68,7 +68,7 @@ class ClauseActivity : AppCompatActivity() {
                 TToast.shortToast(this, R.string.lms_setting_http_error)
             } else {
                 //服务条款
-                ARouter.getInstance()
+                NavigationManager.getInstance()
                     .build(RouterConfig.POLICY)
                     .withInt(PolicyActivity.KEY_THEME_TYPE, 1)
                     .withInt(PolicyActivity.KEY_USE_TYPE, keyUseType)
@@ -80,7 +80,7 @@ class ClauseActivity : AppCompatActivity() {
                 TToast.shortToast(this, R.string.lms_setting_http_error)
             } else {
                 //隐私条款
-                ARouter.getInstance()
+                NavigationManager.getInstance()
                     .build(RouterConfig.POLICY)
                     .withInt(PolicyActivity.KEY_THEME_TYPE, 2)
                     .withInt(PolicyActivity.KEY_USE_TYPE, keyUseType)
@@ -92,7 +92,7 @@ class ClauseActivity : AppCompatActivity() {
             if (!NetworkUtil.isConnected(this)) {
                 TToast.shortToast(this, R.string.lms_setting_http_error)
             } else {
-                ARouter.getInstance()
+                NavigationManager.getInstance()
                     .build(RouterConfig.POLICY)
                     .withInt(PolicyActivity.KEY_THEME_TYPE, 3)
                     .withInt(PolicyActivity.KEY_USE_TYPE, keyUseType)

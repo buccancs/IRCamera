@@ -3,7 +3,7 @@ package com.topdon.module.user.activity
 import android.annotation.SuppressLint
 import android.view.View
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.config.RouterConfig
@@ -96,7 +96,7 @@ class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
                             if (isSuccess) {
                                 XLog.d("TS004 格式化存储成功，即将断开连接")
                                 (application as BaseApplication).disconnectWebSocket()
-                                ARouter.getInstance().build(RouterConfig.MAIN).navigation(this@StorageSpaceActivity)
+                                NavigationManager.getInstance().build(RouterConfig.MAIN).navigation(this@StorageSpaceActivity)
                                 finish()
                             } else {
                                 delay(500)

@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.user.R
@@ -24,7 +24,7 @@ class QuestionActivity : BaseActivity() {
     override fun initView() {
         val adapter = MyAdapter(FaqRepository.getQuestionList(intent.getBooleanExtra("isTS001", false)))
         adapter.onItemClickListener = {
-            ARouter.getInstance()
+            NavigationManager.getInstance()
                 .build(RouterConfig.QUESTION_DETAILS)
                 .withString("question", it.question)
                 .withString("answer", it.answer)
