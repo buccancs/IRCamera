@@ -52,8 +52,6 @@ class IRCorrectionTwoActivity : BaseActivity() {
                 } else {
                     if (DeviceTools.isTC001LiteConnect()){
                         ARouter.getInstance().build(RouterConfig.IR_CORRECTION_THREE_LITE).navigation(this)
-                    } else if (DeviceTools.isHikConnect()) {
-                        ARouter.getInstance().build(RouterConfig.IR_HIK_CORRECT_THREE).navigation(this)
                     } else{
                         startActivity(Intent(this, IRCorrectionThreeActivity::class.java))
                     }

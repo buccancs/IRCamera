@@ -4,7 +4,6 @@ object RouterConfig {
 
     private const val GROUP_APP = "app"
     private const val GROUP_IR = "ir"
-    private const val GROUP_HIK_IR = "irHik"
     private const val GROUP_USER = "user"
     private const val GROUP_REPORT = "report"
     private const val GROUP_THERMAL04 = "ts004"
@@ -21,12 +20,6 @@ object RouterConfig {
     const val IR_MORE_HELP = "/$GROUP_APP/app/more_help"
     const val IR_GALLERY_EDIT = "/$GROUP_APP/gallery/edit"
     const val WEB_VIEW = "/$GROUP_APP/WebViewActivity"
-
-    //海康热成像
-    const val IR_HIK_MAIN = "/$GROUP_HIK_IR/irHikMain"
-    const val IR_HIK_CORRECT_THREE = "/$GROUP_HIK_IR/correction3"
-    const val IR_HIK_MONITOR_CAPTURE1 = "/$GROUP_HIK_IR/monitorCap1"
-    const val IR_HIK_IMG_PICK = "/$GROUP_HIK_IR/ImagePick"
 
     //ir
     const val IR_MAIN = "/$GROUP_IR/irMain"

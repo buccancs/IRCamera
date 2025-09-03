@@ -82,10 +82,6 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
                         ARouter.getInstance().build(RouterConfig.IR_TCLITE)
                             .withBoolean(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
                             .navigation(activity)
-                    } else if (DeviceTools.isHikConnect()) {
-                        ARouter.getInstance().build(RouterConfig.IR_HIK_MAIN)
-                            .withBoolean(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
-                            .navigation(activity)
                     } else if (DeviceTools.isConnect(isSendConnectEvent = false, true)) {
                         var intent = Intent(requireContext(), IRThermalNightActivity::class.java)
                         intent.putExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)

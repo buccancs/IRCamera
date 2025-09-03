@@ -136,8 +136,6 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
                         startActivityForResult(Intent(requireContext(), IRThermalPlusActivity::class.java), 101)
                     }else if(DeviceTools.isTC001LiteConnect()){
                         ARouter.getInstance().build(RouterConfig.IR_TCLITE).navigation(activity,101)
-                    } else if (DeviceTools.isHikConnect()) {
-                        ARouter.getInstance().build(RouterConfig.IR_HIK_MAIN).navigation(activity)
                     } else {
                         startActivityForResult(Intent(requireContext(), IRThermalNightActivity::class.java), 101)
                     }
