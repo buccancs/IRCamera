@@ -28,9 +28,9 @@ class MenuSecondNightAdapter(val context: Context) : RecyclerView.Adapter<Recycl
     }
 
     private val secondBean = arrayListOf(
-        ColorBean(UiR.drawable.selector_menu2_temp_point_1, context.getString(R.string.main_tab_second_high_temperature_point), CameraHelp.TYPE_SET_HIGHTEMP),
-        ColorBean(UiR.drawable.selector_menu2_temp_point_2, context.getString(R.string.main_tab_second_low_temperature_point), CameraHelp.TYPE_SET_LOWTEMP),
-        ColorBean(UiR.drawable.selector_menu2_del, context.getString(R.string.thermal_delete), CameraHelp.TYPE_SET_DETELE),
+        ColorBean(MenuR.drawable.selector_menu2_temp_point_1, context.getString(R.string.main_tab_second_high_temperature_point), CameraHelp.TYPE_SET_HIGHTEMP),
+        ColorBean(MenuR.drawable.selector_menu2_temp_point_2, context.getString(R.string.main_tab_second_low_temperature_point), CameraHelp.TYPE_SET_LOWTEMP),
+        ColorBean(MenuR.drawable.selector_menu2_del, context.getString(R.string.thermal_delete), CameraHelp.TYPE_SET_DETELE),
     )
 
 
@@ -43,7 +43,7 @@ class MenuSecondNightAdapter(val context: Context) : RecyclerView.Adapter<Recycl
             holder.img.setImageResource(secondBean[position].res)
             holder.name.text = secondBean[position].name
 
-            holder.itemView.item_menu_tab_lay.setOnClickListener {
+            holder.itemView.findViewById<View>(UiR.id.item_menu_tab_lay).setOnClickListener {
                 multipleChoice(position)
             }
 
@@ -82,8 +82,8 @@ class MenuSecondNightAdapter(val context: Context) : RecyclerView.Adapter<Recycl
     }
 
     class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val lay: View = itemView.item_menu_tab_lay
-        val img: ImageView = itemView.item_menu_tab_img
-        val name: TextView = itemView.item_menu_tab_text
+        val lay: View = itemView.findViewById(UiR.id.item_menu_tab_lay)
+        val img: ImageView = itemView.findViewById(UiR.id.item_menu_tab_img)
+        val name: TextView = itemView.findViewById(UiR.id.item_menu_tab_text)
     }
 }

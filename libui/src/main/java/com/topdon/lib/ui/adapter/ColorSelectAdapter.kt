@@ -61,9 +61,9 @@ class ColorSelectAdapter(val context: Context) : RecyclerView.Adapter<RecyclerVi
     }
 
     inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val lay: View = itemView.item_color_lay
-        val img: ImageView = itemView.item_color_img
-        val checkImg: ImageView = itemView.item_color_check
+        val lay: View = itemView.findViewById(UiR.id.item_color_lay)
+        val img: ImageView = itemView.findViewById(UiR.id.item_color_img)
+        val checkImg: ImageView = itemView.findViewById(UiR.id.item_color_check)
     }
 
 

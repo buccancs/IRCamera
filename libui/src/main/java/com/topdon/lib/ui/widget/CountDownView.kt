@@ -68,36 +68,36 @@ class CountDownView : View {
         attrs,
         defStyleAttr
     ) {
-        val ta = context.obtainStyledAttributes(attrs, R.styleable.CountDownView)
+        val ta = context.obtainStyledAttributes(attrs, UiR.styleable.CountDownView)
         for (i in 0 until ta.indexCount) {
             when (ta.getIndex(i)) {
-                R.styleable.CountDownView_ringColor -> mRingColor =
+                UiR.styleable.CountDownView_ringColor -> mRingColor =
                     ta.getColor(
-                        R.styleable.CountDownView_ringColor,
+                        UiR.styleable.CountDownView_ringColor,
                         ContextCompat.getColor(context, UiR.color.colorAccent)
                     )
-                R.styleable.CountDownView_ringWidth -> mRingWidth =
+                UiR.styleable.CountDownView_ringWidth -> mRingWidth =
                     ta.getDimensionPixelSize(
-                        R.styleable.CountDownView_ringWidth,
+                        UiR.styleable.CountDownView_ringWidth,
                         40
                     )
-                R.styleable.CountDownView_progressTextSize -> mRingProgressTextSize =
+                UiR.styleable.CountDownView_progressTextSize -> mRingProgressTextSize =
                     ta.getDimensionPixelSize(
-                        R.styleable.CountDownView_progressTextSize,
+                        UiR.styleable.CountDownView_progressTextSize,
                         20
                     )
-                R.styleable.CountDownView_progressTextColor -> mProgressTextColor =
+                UiR.styleable.CountDownView_progressTextColor -> mProgressTextColor =
                     ta.getColor(
-                        R.styleable.CountDownView_progressTextColor,
+                        UiR.styleable.CountDownView_progressTextColor,
                         context.resources.getColor(UiR.color.colorAccent)
                     )
-                R.styleable.CountDownView_countdownTime -> mCountdownTime =
+                UiR.styleable.CountDownView_countdownTime -> mCountdownTime =
                     ta.getInteger(
-                        R.styleable.CountDownView_countdownTime,
+                        UiR.styleable.CountDownView_countdownTime,
                         60
                     )
-                R.styleable.CountDownView_progressText -> mRingText =
-                    ta.getString(R.styleable.CountDownView_progressText)
+                UiR.styleable.CountDownView_progressText -> mRingText =
+                    ta.getString(UiR.styleable.CountDownView_progressText)
             }
         }
         ta.recycle()

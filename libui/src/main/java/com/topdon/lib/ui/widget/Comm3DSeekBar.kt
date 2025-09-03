@@ -48,12 +48,12 @@ class Comm3DSeekBar: AppCompatSeekBar {
     constructor(context: Context, attrs: AttributeSet?): this(context, attrs, 0)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int): super(context, attrs, defStyleAttr) {
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CommSeekBar, defStyleAttr, 0)
-        orientation = typedArray.getInt(R.styleable.CommSeekBar_android_orientation, 0)
-        mMaxWidth = typedArray.getDimensionPixelSize(R.styleable.CommSeekBar_android_maxWidth, mMaxWidth)
-        mMaxHeight = typedArray.getDimensionPixelSize(R.styleable.CommSeekBar_android_maxHeight, mMaxHeight)
-        mMinWidth = typedArray.getDimensionPixelSize(R.styleable.CommSeekBar_android_minWidth, mMinWidth)
-        mMinHeight = typedArray.getDimensionPixelSize(R.styleable.CommSeekBar_android_minHeight, mMinHeight)
+        val typedArray = context.obtainStyledAttributes(attrs, UiR.styleable.CommSeekBar, defStyleAttr, 0)
+        orientation = typedArray.getInt(UiR.styleable.CommSeekBar_android_orientation, 0)
+        mMaxWidth = typedArray.getDimensionPixelSize(UiR.styleable.CommSeekBar_android_maxWidth, mMaxWidth)
+        mMaxHeight = typedArray.getDimensionPixelSize(UiR.styleable.CommSeekBar_android_maxHeight, mMaxHeight)
+        mMinWidth = typedArray.getDimensionPixelSize(UiR.styleable.CommSeekBar_android_minWidth, mMinWidth)
+        mMinHeight = typedArray.getDimensionPixelSize(UiR.styleable.CommSeekBar_android_minHeight, mMinHeight)
         mPaint = TextPaint()
         mPaint.setAntiAlias(true)
         mPaint.setColor(Color.parseColor("#00574B"))

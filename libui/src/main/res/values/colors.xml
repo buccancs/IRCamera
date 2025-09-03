@@ -4,6 +4,8 @@
     <color name="black">#000000</color>
     
     <color name="colorAccent">#FF2B79D8</color>
+    <color name="font_third_color">#999999</color>
+    <color name="color_FFBA42">#FFFFBA42</color>
 
     <color name="color_default_max">#FFF3812F</color>
     <color name="color_default_min">#FF28C445</color>

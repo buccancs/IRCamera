@@ -22,17 +22,17 @@ class MenuPANightAdapter(data: MutableList<ColorBean>, layoutId : Int, private v
             val with = (ScreenUtils.getScreenWidth() / 2)
             holder.itemView.layoutParams = ViewGroup.LayoutParams(with, ViewGroup.LayoutParams.WRAP_CONTENT)
             val imageSize = (ScreenUtils.getScreenWidth() * 62 / 375f).toInt()
-            val layoutParams =  holder.itemView.item_menu_tab_img.layoutParams
+            val layoutParams = holder.itemView.findViewById<android.widget.ImageView>(UiR.id.item_menu_tab_img).layoutParams
             layoutParams.width = imageSize
             layoutParams.height = imageSize
-            holder.itemView.item_menu_tab_img.layoutParams = layoutParams
+            holder.itemView.findViewById<android.widget.ImageView>(UiR.id.item_menu_tab_img).layoutParams = layoutParams
         }else{
             holder.itemView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             val imageSize = (ScreenUtils.getScreenWidth() * 62 / 375f).toInt()
-            val layoutParams =  holder.itemView.item_menu_tab_img.layoutParams
+            val layoutParams = holder.itemView.findViewById<android.widget.ImageView>(UiR.id.item_menu_tab_img).layoutParams
             layoutParams.width = imageSize
             layoutParams.height = imageSize
-            holder.itemView.item_menu_tab_img.layoutParams = layoutParams
+            holder.itemView.findViewById<android.widget.ImageView>(UiR.id.item_menu_tab_img).layoutParams = layoutParams
         }
         if (item.isSelect){
             holder.setImageResource(UiR.id.item_menu_tab_img,item.res)
