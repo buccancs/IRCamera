@@ -3,7 +3,6 @@ package com.example.thermal_lite.activity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.ToastUtils
 import com.example.thermal_lite.R
 import com.example.thermal_lite.databinding.ActivityIrCorrectionLiteFourBinding
@@ -26,7 +25,7 @@ import org.greenrobot.eventbus.EventBus
  * @author: CaiSongL
  * @date: 2023/8/4 9:06
  */
-@Route(path = RouterConfig.IR_CORRECTION_FOUR_LITE)
+// Legacy ARouter route annotation - now using NavigationManager
 class IRCorrectionLiteFourActivity : BaseActivity() {
 
     private lateinit var binding: ActivityIrCorrectionLiteFourBinding

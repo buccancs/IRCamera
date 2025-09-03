@@ -5,7 +5,6 @@ import android.view.SurfaceView
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.ToastUtils
 import com.energy.iruvc.sdkisp.LibIRProcess
 import com.energy.iruvc.utils.CommonParams
@@ -36,7 +35,7 @@ import java.nio.ByteBuffer
  * @author: CaiSongL
  * @date: 2024/1/17 17:47
  */
-@Route(path = RouterConfig.IR_FRAME_PLUSH)
+// Legacy ARouter route annotation - now using NavigationManager
 class IRThermalPlusActivity : BaseIRPlushActivity() {
     private val irImageHelp by lazy {
         IRImageHelp()

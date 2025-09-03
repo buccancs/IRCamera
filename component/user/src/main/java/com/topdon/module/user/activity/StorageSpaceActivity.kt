@@ -3,7 +3,6 @@ package com.topdon.module.user.activity
 import android.annotation.SuppressLint
 import android.view.View
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.BaseApplication
@@ -19,7 +18,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 
-@Route(path = RouterConfig.STORAGE_SPACE)
+// Legacy ARouter route annotation - now using NavigationManager
 class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
     companion object {
         private fun formatFileSize(fileSize: Long): String = if (fileSize == 0L) {

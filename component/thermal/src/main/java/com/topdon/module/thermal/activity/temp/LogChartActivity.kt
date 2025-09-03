@@ -3,7 +3,6 @@
 //import android.util.Log
 //import androidx.lifecycle.lifecycleScope
 //import androidx.recyclerview.widget.GridLayoutManager
-//import com.alibaba.android.arouter.facade.annotation.Route
 //import com.github.aachartmodel.aainfographics.aachartcreator.*
 //import com.github.aachartmodel.aainfographics.aaoptionsmodel.*
 //import com.github.aachartmodel.aainfographics.aatools.AAGradientColor

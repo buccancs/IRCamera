@@ -4,7 +4,6 @@ import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.BarUtils
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
@@ -14,7 +13,7 @@ import com.topdon.module.thermal.adapter.MenuTabAdapter
 import com.topdon.module.thermal.fragment.event.ThermalActionEvent
 import org.greenrobot.eventbus.EventBus
 
-@Route(path = RouterConfig.THERMAL_MAIN)
+// Legacy ARouter route annotation - now using NavigationManager
 class ThermalActivity : BaseActivity() {
 
     private val menuAdapter by lazy { MenuTabAdapter(this) }

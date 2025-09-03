@@ -34,7 +34,6 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.SizeUtils
@@ -146,7 +145,7 @@ import kotlin.math.abs
  *
  * Created by LCG on 2024/4/28.
  */
-@Route(path = RouterConfig.IR_TCLITE)
+// Legacy ARouter route annotation - now using NavigationManager
 class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
 
     private lateinit var binding: ActivityIrThermalLiteBinding

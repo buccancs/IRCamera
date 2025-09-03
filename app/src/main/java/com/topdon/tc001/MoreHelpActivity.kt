@@ -7,13 +7,13 @@ import android.provider.Settings
 import android.text.*
 import android.text.style.UnderlineSpan
 import android.view.View
-import com.alibaba.android.arouter.facade.annotation.Route
+
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.utils.Constants
 
-@Route(path = RouterConfig.IR_MORE_HELP)
+// Legacy ARouter route annotation - now using NavigationManager
 class MoreHelpActivity:BaseActivity() {
     private var connectionType : Int = 0
     private lateinit var wifiManager: WifiManager

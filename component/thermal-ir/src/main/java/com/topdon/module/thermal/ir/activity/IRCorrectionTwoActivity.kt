@@ -1,7 +1,6 @@
 package com.topdon.module.thermal.ir.activity
 
 import android.content.Intent
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.RouterConfig
@@ -22,7 +21,7 @@ import org.greenrobot.eventbus.ThreadMode
  * 需要传递参数：
  * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
  */
-@Route(path = RouterConfig.IR_CORRECTION_TWO)
+// Legacy ARouter route annotation - now using NavigationManager
 class IRCorrectionTwoActivity : BaseActivity() {
 
     /**

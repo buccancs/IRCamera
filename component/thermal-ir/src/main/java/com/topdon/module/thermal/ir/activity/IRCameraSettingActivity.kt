@@ -12,7 +12,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.ToastUtils
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
@@ -40,7 +39,7 @@ import java.util.*
  * @author: CaiSongL
  * @date: 2023/4/3 15:00
  */
-@Route(path = RouterConfig.IR_CAMERA_SETTING)
+// Legacy ARouter route annotation - now using NavigationManager
 class IRCameraSettingActivity : BaseActivity() {
 
     companion object{

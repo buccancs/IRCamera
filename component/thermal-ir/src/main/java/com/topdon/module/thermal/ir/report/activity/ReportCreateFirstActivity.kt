@@ -11,7 +11,6 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.TimeUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -57,7 +56,7 @@ import java.util.*
  * - 当前编辑的图片绝对路径: [ExtraKeyConfig.FILE_ABSOLUTE_PATH] （本界面不使用，透传）
  * - 当前编辑的图片点线面全图温度数据: [ExtraKeyConfig.IMAGE_TEMP_BEAN] （本界面不使用，透传）
  */
-@Route(path = RouterConfig.REPORT_CREATE_FIRST)
+// Legacy ARouter route annotation - now using NavigationManager
 class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
 
     /**

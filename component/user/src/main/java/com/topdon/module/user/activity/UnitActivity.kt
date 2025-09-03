@@ -1,7 +1,6 @@
 package com.topdon.module.user.activity
 
 import androidx.core.view.isVisible
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
@@ -10,7 +9,7 @@ import com.topdon.module.user.R
 /**
  * 温度单位切换
  */
-@Route(path = RouterConfig.UNIT)
+// Legacy ARouter route annotation - now using NavigationManager
 class UnitActivity : BaseActivity() {
 
     override fun initContentView() = R.layout.activity_unit

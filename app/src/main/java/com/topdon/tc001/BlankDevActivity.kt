@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.module.thermal.ir.activity.IRMainActivity
@@ -21,9 +21,9 @@ class BlankDevActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         if (SharedManager.getHasShowClause()) {
             if (!App.instance.activityNameList.contains(IRMainActivity::class.simpleName)){
-                ARouter.getInstance().build(RouterConfig.MAIN).navigation(this)
+                NavigationManager.build(RouterConfig.MAIN).navigation(this)
                 if (!SharedManager.isConnectAutoOpen){
-                    ARouter.getInstance().build(RouterConfig.IR_MAIN).navigation(this)
+                    NavigationManager.build(RouterConfig.IR_MAIN).navigation(this)
                 }
             }
             finish()

@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
@@ -17,7 +16,7 @@ import java.util.ArrayList
 /**
  * FAQ
  */
-@Route(path = RouterConfig.QUESTION)
+// Legacy ARouter route annotation - now using NavigationManager
 class QuestionActivity : BaseActivity() {
 
     override fun initContentView() = R.layout.activity_question

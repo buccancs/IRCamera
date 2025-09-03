@@ -7,7 +7,6 @@ import android.view.ViewTreeObserver
 import android.view.WindowManager
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.elvishew.xlog.XLog
 import com.energy.ac020library.bean.IrcmdError
 import com.energy.irutilslibrary.LibIRTempAC020
@@ -47,7 +46,7 @@ import java.math.RoundingMode
 /**
  * 选取区域监听
  */
-@Route(path = RouterConfig.IR_THERMAL_MONITOR_LITE)
+// Legacy ARouter route annotation - now using NavigationManager
 open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTempListener {
 
     private lateinit var binding: ActivityIrMonitorLiteBinding

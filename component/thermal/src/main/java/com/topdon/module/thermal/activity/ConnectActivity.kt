@@ -1,13 +1,12 @@
 package com.topdon.module.thermal.activity
 
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.module.thermal.R
 
 //连接设备
-@Route(path = RouterConfig.CONNECT)
+// Legacy ARouter route annotation - now using NavigationManager
 class ConnectActivity : BaseActivity() {
 
     override fun initContentView() = R.layout.activity_connect

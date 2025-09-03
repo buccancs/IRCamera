@@ -5,8 +5,8 @@ import android.text.method.ScrollingMovementMethod
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+
+import com.topdon.lib.core.navigation.NavigationManager
 import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.RouterConfig
@@ -26,7 +26,7 @@ import java.util.*
 /**
  * 条款
  */
-@Route(path = RouterConfig.CLAUSE)
+// Legacy ARouter route annotation - now using NavigationManager
 class ClauseActivity : AppCompatActivity() {
 
     private lateinit var dialog: TipProgressDialog
@@ -120,7 +120,7 @@ class ClauseActivity : AppCompatActivity() {
                 delay(1000)
                 return@async
             }.await().let {
-                ARouter.getInstance().build(RouterConfig.MAIN).navigation(this@ClauseActivity)
+                NavigationManager.build(RouterConfig.MAIN).navigation(this@ClauseActivity)
                 SharedManager.setHasShowClause(true)
                 dismissLoading()
                 finish()

@@ -2,7 +2,6 @@ package com.topdon.module.thermal.ir.activity
 
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.dialog.TipDialog
@@ -21,7 +20,7 @@ import org.greenrobot.eventbus.EventBus
  * @author: CaiSongL
  * @date: 2023/8/4 9:06
  */
-@Route(path = RouterConfig.IR_CORRECTION_FOUR)
+// Legacy ARouter route annotation - now using NavigationManager
 class IRCorrectionFourActivity : BaseActivity() {
 
     val time = 60

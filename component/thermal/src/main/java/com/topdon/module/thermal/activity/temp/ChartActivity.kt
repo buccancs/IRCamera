@@ -2,7 +2,6 @@
 //
 //import android.util.Log
 //import androidx.lifecycle.lifecycleScope
-//import com.alibaba.android.arouter.facade.annotation.Route
 //import com.github.aachartmodel.aainfographics.aachartcreator.*
 //import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAScrollablePlotArea
 //import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAStyle

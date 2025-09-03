@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -41,7 +40,7 @@ import java.io.File
  * - 是否 TC007: [ExtraKeyConfig.IS_TC007]
  * - 一份报告所有信息 [ExtraKeyConfig.REPORT_BEAN]
  */
-@Route(path = RouterConfig.REPORT_PREVIEW_SECOND)
+// Legacy ARouter route annotation - now using NavigationManager
 class ReportPreviewSecondActivity: BaseViewModelActivity<UpReportViewModel>(), View.OnClickListener {
 
     /**

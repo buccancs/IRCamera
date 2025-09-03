@@ -2,7 +2,6 @@ package com.topdon.module.thermal.ir.activity
 
 import android.graphics.Bitmap
 import android.view.View
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BasePickImgActivity
 import com.topdon.module.thermal.ir.R
@@ -13,7 +12,7 @@ import com.topdon.module.thermal.ir.fragment.IRMonitorThermalFragment
  * author: CaiSongL
  * date: 2024/8/24 18:10
  **/
-@Route(path = RouterConfig.IR_IMG_PICK)
+// Legacy ARouter route annotation - now using NavigationManager
 class ImagePickIRActivity : BasePickImgActivity() {
 
     var irFragment : IRMonitorThermalFragment ?= null

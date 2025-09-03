@@ -11,7 +11,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.AppUtils
 import com.hjq.permissions.OnPermissionCallback
@@ -51,7 +50,7 @@ import org.greenrobot.eventbus.EventBus
  *
  * Created by LCG on 2024/4/18.
  */
-@Route(path = RouterConfig.IR_MAIN)
+// Legacy ARouter route annotation - now using NavigationManager
 class IRMainActivity : BaseActivity(), View.OnClickListener {
 
     /**

@@ -12,7 +12,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.bean.GalleryBean
@@ -45,7 +44,7 @@ import java.io.File
 /**
  * 插件式设备、TC007 图片详情
  */
-@Route(path = RouterConfig.IR_GALLERY_DETAIL_01)
+// Legacy ARouter route annotation - now using NavigationManager
 class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
 
     /**

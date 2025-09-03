@@ -5,7 +5,6 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.thermal.R
@@ -13,7 +12,7 @@ import com.topdon.module.thermal.fragment.GalleryPictureFragment
 import com.topdon.module.thermal.fragment.GalleryVideoFragment
 
 
-@Route(path = RouterConfig.GALLERY)
+// Legacy ARouter route annotation - now using NavigationManager
 class GalleryActivity : BaseActivity() {
 
 //    override fun providerVMClass() = GalleryViewModel::class.java

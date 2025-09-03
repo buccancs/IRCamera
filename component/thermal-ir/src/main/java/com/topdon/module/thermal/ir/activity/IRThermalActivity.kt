@@ -25,7 +25,6 @@
 //import androidx.lifecycle.lifecycleScope
 //import androidx.recyclerview.widget.GridLayoutManager
 //import androidx.recyclerview.widget.RecyclerView
-//import com.alibaba.android.arouter.facade.annotation.Route
 //import com.alibaba.android.arouter.launcher.ARouter
 //import com.blankj.utilcode.util.*
 //import com.blankj.utilcode.util.ScreenUtils

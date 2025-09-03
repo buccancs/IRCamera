@@ -5,7 +5,6 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.ToastUtils
 import com.elvishew.xlog.XLog
@@ -38,7 +37,7 @@ import java.text.DecimalFormat
 /**
  * TS004 的 “更多” 页面.
  */
-@Route(path = RouterConfig.TS004_MORE)
+// Legacy ARouter route annotation - now using NavigationManager
 class MoreActivity : BaseActivity(), View.OnClickListener {
 
     private val firmwareViewModel: FirmwareViewModel by viewModels()

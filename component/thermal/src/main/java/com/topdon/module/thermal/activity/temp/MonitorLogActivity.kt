@@ -2,7 +2,6 @@
 //
 //import androidx.lifecycle.lifecycleScope
 //import androidx.recyclerview.widget.LinearLayoutManager
-//import com.alibaba.android.arouter.facade.annotation.Route
 //import com.alibaba.android.arouter.launcher.ARouter
 //import com.topdon.lib.core.common.SharedManager
 //import com.topdon.lib.core.config.RouterConfig

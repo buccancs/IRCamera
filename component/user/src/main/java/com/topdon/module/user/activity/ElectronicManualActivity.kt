@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
@@ -15,7 +14,7 @@ import com.topdon.module.user.R
 /**
  * 电子说明书 或 FAQ 设备类型选择页面
  */
-@Route(path = RouterConfig.ELECTRONIC_MANUAL)
+// Legacy ARouter route annotation - now using NavigationManager
 class ElectronicManualActivity : BaseActivity() {
 
     override fun initContentView() = R.layout.activity_electronic_manual

@@ -7,7 +7,6 @@ import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.SizeUtils
 import com.elvishew.xlog.XLog
 import com.github.mikephil.charting.charts.LineChart
@@ -32,7 +31,7 @@ import com.topdon.module.thermal.viewmodel.LogViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Route(path = RouterConfig.THERMAL_LOG_MP_CHART)
+// Legacy ARouter route annotation - now using NavigationManager
 class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
 
     private val viewModel: LogViewModel by viewModels()

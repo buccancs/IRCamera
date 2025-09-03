@@ -12,7 +12,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.FileUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -41,7 +40,7 @@ import java.io.File
 /**
  * TS004 图片详情
  */
-@Route(path = RouterConfig.IR_GALLERY_DETAIL_04)
+// Legacy ARouter route annotation - now using NavigationManager
 class IRGalleryDetail04Activity : BaseActivity() {
 
     /**

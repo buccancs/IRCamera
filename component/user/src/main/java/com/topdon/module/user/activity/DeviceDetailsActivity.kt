@@ -4,7 +4,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.view.View
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
@@ -22,7 +21,7 @@ import kotlinx.coroutines.launch
  * 需要传递参数：
  * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
  */
-@Route(path = RouterConfig.DEVICE_INFORMATION)
+// Legacy ARouter route annotation - now using NavigationManager
 class DeviceDetailsActivity : BaseActivity(), View.OnClickListener {
 
     /**

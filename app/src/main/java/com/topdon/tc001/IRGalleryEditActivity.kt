@@ -11,8 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.drawToBitmap
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.blankj.utilcode.util.SizeUtils
 import com.elvishew.xlog.XLog
 import com.energy.iruvc.ircmd.IRCMDType
@@ -73,7 +72,7 @@ import java.util.*
 /**
  * 图片二次编辑
  */
-@Route(path = RouterConfig.IR_GALLERY_EDIT)
+// Legacy ARouter route annotation - now using NavigationManager
 class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListener {
 
 
@@ -587,13 +586,13 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                     launch(Dispatchers.Main) {
                         dismissLoadingDialog()
                         if (intent.getBooleanExtra(IS_REPORT_FIRST, true)) {
-                            ARouter.getInstance().build(RouterConfig.REPORT_CREATE_FIRST)
+                            NavigationManager.build(RouterConfig.REPORT_CREATE_FIRST)
                                 .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
                                 .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, fileAbsolutePath)
                                 .withParcelable(ExtraKeyConfig.IMAGE_TEMP_BEAN, buildImageTempBean())
                                 .navigation(this@IRGalleryEditActivity)
                         } else {
-                            ARouter.getInstance().build(RouterConfig.REPORT_CREATE_SECOND)
+                            NavigationManager.build(RouterConfig.REPORT_CREATE_SECOND)
                                 .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
                                 .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, fileAbsolutePath)
                                 .withParcelable(ExtraKeyConfig.IMAGE_TEMP_BEAN, buildImageTempBean())

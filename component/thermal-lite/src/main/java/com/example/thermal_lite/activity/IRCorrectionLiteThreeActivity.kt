@@ -3,7 +3,6 @@ package com.example.thermal_lite.activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.thermal_lite.R
 import com.example.thermal_lite.databinding.ActivityIrCorrectionLiteThreeBinding
 import com.example.thermal_lite.fragment.IRMonitorLiteFragment
@@ -18,7 +17,7 @@ import kotlinx.coroutines.launch
  * @author: CaiSongL
  * @date: 2023/8/4 9:06
  */
-@Route(path = RouterConfig.IR_CORRECTION_THREE_LITE)
+// Legacy ARouter route annotation - now using NavigationManager
 class IRCorrectionLiteThreeActivity : BaseActivity() {
 
     private lateinit var binding: ActivityIrCorrectionLiteThreeBinding

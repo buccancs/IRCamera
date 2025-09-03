@@ -5,7 +5,6 @@ import android.view.View
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.elvishew.xlog.XLog
@@ -32,7 +31,7 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import kotlin.collections.ArrayList
 
-@Route(path = RouterConfig.IR_THERMAL_LOG_MP_CHART)
+// Legacy ARouter route annotation - now using NavigationManager
 class IRLogMPChartActivity : BaseActivity() {
 
     private val viewModel: IRMonitorViewModel by viewModels()

@@ -91,6 +91,10 @@ object NavigationManager {
             RouterConfig.IR_IMG_PICK -> getClassByName("com.topdon.module.thermal.ir.activity.ImagePickIRActivity")
             RouterConfig.IR_IMG_PICK_PLUS -> getClassByName("com.topdon.module.thermal.ir.activity.ImagePickIRPlushActivity")
 
+            // TS004 routes
+            RouterConfig.IR_MONOCULAR -> getClassByName("com.topdon.module.thermal.activity.IRMonocularActivity")
+            RouterConfig.IR_DEVICE_ADD -> getClassByName("com.topdon.module.thermal.activity.DeviceAddActivity")
+
             // Thermal routes
             RouterConfig.GALLERY -> getClassByName("com.topdon.module.thermal.activity.GalleryActivity")
             RouterConfig.THERMAL_MONITOR -> getClassByName("com.topdon.module.thermal.activity.MonitorActivity")

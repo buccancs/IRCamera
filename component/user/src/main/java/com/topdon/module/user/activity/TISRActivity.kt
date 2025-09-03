@@ -1,7 +1,6 @@
 package com.topdon.module.user.activity
 
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.topdon.lib.core.bean.event.SocketMsgEvent
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.RouterConfig
@@ -17,7 +16,7 @@ import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONObject
 
 
-@Route(path = RouterConfig.TISR)
+// Legacy ARouter route annotation - now using NavigationManager
 class TISRActivity : BaseActivity(){
     override fun initContentView() = R.layout.activity_tisr
 

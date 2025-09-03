@@ -2,7 +2,6 @@ package com.topdon.module.user.fragment
 
 import android.os.Build
 import android.view.View
-import com.alibaba.android.arouter.facade.annotation.Route
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -43,7 +42,7 @@ import java.text.DecimalFormat
  * 需要传递参数：
  * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
  */
-@Route(path = RouterConfig.TC_MORE)
+// Legacy ARouter route annotation - now using NavigationManager
 class MoreFragment : BaseFragment(), View.OnClickListener {
 
     /**

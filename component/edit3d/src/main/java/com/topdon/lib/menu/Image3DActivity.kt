@@ -3,7 +3,6 @@ package com.topdon.lib.menu
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.elvishew.xlog.XLog
 import com.example.opengl.IRSurfaceView
 import com.example.opengl.render.IROpen3DTools
@@ -24,7 +23,7 @@ import java.io.File
  * @author: CaiSongL
  * @date: 2023/8/26 14:42
  */
-@Route(path = RouterConfig.IR_GALLERY_3D)
+// Legacy ARouter route annotation - now using NavigationManager
 class Image3DActivity : BaseActivity() {
 
 
