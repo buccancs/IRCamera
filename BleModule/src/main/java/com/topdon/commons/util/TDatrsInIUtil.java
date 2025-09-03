@@ -1,12 +1,14 @@
 package com.topdon.commons.util;
 
-import static com.topdon.lms.sdk.LMS.SUCCESS;
+// LMS SDK temporarily disabled - uncomment when dependency is available
+// import static com.topdon.lms.sdk.LMS.SUCCESS;
 
 import android.text.TextUtils;
-import com.alibaba.fastjson.JSONObject;
-import com.topdon.lms.sdk.LMS;
-import com.topdon.lms.sdk.network.IResponseCallback;
-import com.topdon.lms.sdk.utils.StringUtils;
+// FastJSON temporarily disabled - uncomment when dependency is available
+// import com.alibaba.fastjson.JSONObject;
+// import com.topdon.lms.sdk.LMS;
+// import com.topdon.lms.sdk.network.IResponseCallback;
+// import com.topdon.lms.sdk.utils.StringUtils;
 
 import org.ini4j.Config;
 import org.ini4j.Ini;

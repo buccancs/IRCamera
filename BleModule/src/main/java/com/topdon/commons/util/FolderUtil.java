@@ -3,7 +3,8 @@ package com.topdon.commons.util;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.topdon.lms.sdk.LMS;
+// LMS SDK temporarily disabled - uncomment when dependency is available
+// import com.topdon.lms.sdk.LMS;
 
 import java.io.File;
 
@@ -45,7 +46,9 @@ public class FolderUtil {
 
 
     public static void init() {
-        mUserId = PreUtil.getInstance(Topdon.getApp()).get("VCI_" + LMS.getInstance().getLoginName());
+        // mUserId = PreUtil.getInstance(Topdon.getApp()).get("VCI_" + LMS.getInstance().getLoginName());
+        // Temporarily disabled - LMS SDK not available
+        mUserId = PreUtil.getInstance(Topdon.getApp()).get("VCI_default_user");
         setUserId(mUserId);
         Log.e("bcf", "FolderUtil mUserId: " + mUserId);
         mPath = Topdon.getApp().getExternalFilesDir("").getAbsolutePath();

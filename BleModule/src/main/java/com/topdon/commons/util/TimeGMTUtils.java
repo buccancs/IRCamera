@@ -3,7 +3,8 @@ package com.topdon.commons.util;
 import android.annotation.SuppressLint;
 import android.text.TextUtils;
 
-import com.topdon.lms.sdk.utils.LanguageUtil;
+// LMS SDK temporarily disabled - uncomment when dependency is available
+// import com.topdon.lms.sdk.utils.LanguageUtil;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -54,7 +55,9 @@ public class TimeGMTUtils {
                 return "";
             }
             long longTime = getStringToDate(time, "GMT+00:00", "yyyy-MM-dd HH:mm:ss");
-            Locale curLocale = LanguageUtil.getSystemLocal();
+            // Locale curLocale = LanguageUtil.getSystemLocal();
+            // Temporarily disabled - LMS SDK not available
+            Locale curLocale = Locale.getDefault();
             String gmt = TimeZone.getDefault().getDisplayName(isDaylight(TimeZone.getDefault(), time), TimeZone.SHORT, curLocale);
 //            LLog.w("bcf", "GMT--" + gmt);
             return getDateToString(longTime, gmt, format);
