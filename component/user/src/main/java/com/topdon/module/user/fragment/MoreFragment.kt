@@ -214,12 +214,8 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
 
         if (isConnect) {
             lifecycleScope.launch {
-                val productBean: ProductBean? = TC007Repository.getProductInfo()
-                if (productBean == null) {
-                    TToast.shortToast(requireContext(), R.string.operation_failed_tips)
-                } else {
-                    item_setting_bottom_text.text = getString(R.string.setting_firmware_update_version) + "V" + productBean.getVersionStr()
-                }
+                // TC001 uses USB connection, version info not available via network
+                item_setting_bottom_text.text = getString(R.string.setting_firmware_update_version) + "V" + "N/A"
             }
         } else {
             item_setting_bottom_text.setText(R.string.setting_firmware_update_version)
@@ -281,7 +277,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
             val installDialog = FirmwareInstallDialog(requireContext())
             installDialog.show()
 
-            val isSuccess = TC007Repository.updateFirmware(file)
+            val isSuccess = false // TC001 uses USB connection, firmware update not available via network
             installDialog.dismiss()
             if (isSuccess) {
                 XLog.d("TC007 固件升级 - 固件升级包发送往 TC007 成功，即将断开连接")
@@ -346,12 +342,11 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
     private fun resetAll() {
         showLoadingDialog(R.string.ts004_reset_tip3)
         lifecycleScope.launch {
-            val isSuccess = TC007Repository.resetToFactory()
+            val isSuccess = false // TC001 uses USB connection, factory reset not available via network
             if (isSuccess) {
                 XLog.d("TC007 恢复出厂设置成功，即将断开连接")
                 TToast.shortToast(requireContext(), R.string.ts004_reset_tip4)
                 (requireActivity().application as BaseApplication).disconnectWebSocket()
-                EventBus.getDefault().post(TS004ResetEvent())
                 ARouter.getInstance().build(RouterConfig.MAIN).navigation(requireContext())
                 requireActivity().finish()
             } else {

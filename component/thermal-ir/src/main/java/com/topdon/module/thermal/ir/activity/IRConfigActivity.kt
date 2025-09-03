@@ -22,7 +22,6 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.NumberTools
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.dialog.TipDialog
-import com.topdon.lib.core.repository.TC007Repository
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.ui.widget.MyItemDecoration
 import com.topdon.lms.sdk.weiget.TToast
@@ -121,7 +120,7 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
             if (isTC007 && WebSocketProxy.getInstance().isTC007Connect()) {
                 lifecycleScope.launch {
                     val config = ConfigRepository.readConfig(true)
-                    TC007Repository.setIRConfig(config.environment, config.distance, config.radiation)
+                    // TC001 uses USB connection, IR config not available via network
                 }
             }
         }

@@ -124,11 +124,6 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
             failLD.postValue(false)
             isRequest = false
             return@launch
-                    return@launch
-                }
-
-                getInfoFromAssets(false, "V${productInfo.getVersionStr()}")
-            }
         }
     }
 

@@ -79,9 +79,8 @@ internal class SettingAdapter(menuType: MenuType = MenuType.SINGLE_LIGHT, isObse
                     dataList.add(Data(R.string.thermal_sharpen, R.drawable.selector_menu2_setting_3, SettingType.DETAIL))
                 }
                 dataList.add(Data(R.string.temp_alarm_alarm, R.drawable.selector_menu2_setting_6, SettingType.ALARM))
-                if (menuType != MenuType.TC007) {// TC007 没有旋转
-                    dataList.add(Data(R.string.thermal_rotate, R.drawable.selector_menu2_setting_4, SettingType.ROTATE))
-                }
+                // TC001 supports rotation
+                dataList.add(Data(R.string.thermal_rotate, R.drawable.selector_menu2_setting_4, SettingType.ROTATE))
                 dataList.add(Data(R.string.menu_thermal_font, R.drawable.selector_menu2_setting_7, SettingType.FONT))
                 if (menuType != MenuType.DOUBLE_LIGHT) {// TC001 Plus 没有镜像
                     dataList.add(Data(R.string.mirror, R.drawable.selector_menu2_setting_5, SettingType.MIRROR))

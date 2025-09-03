@@ -92,7 +92,6 @@ class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
                     .setPositiveListener(R.string.app_ok) {
                         // TC001 uses USB connection, storage formatting not available via network  
                         TToast.shortToast(this@StorageSpaceActivity, R.string.operation_failed_tips)
-                        }
                     }
                     .setCancelListener(R.string.app_cancel) {
                     }
