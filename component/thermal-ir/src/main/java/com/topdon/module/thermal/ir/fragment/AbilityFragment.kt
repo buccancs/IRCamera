@@ -13,7 +13,7 @@ import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.lms.sdk.UrlConstant
-import com.topdon.lms.sdk.utils.LanguageUtil
+// LanguageUtil removed - English only app
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.activity.IRThermalNightActivity
 import com.topdon.module.thermal.ir.activity.IRThermalPlusActivity
@@ -50,7 +50,7 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
                 EventBus.getDefault().post(WinterClickEvent())
                 val url = if (UrlConstant.BASE_URL == "https://api.topdon.com/") {
                     "https://app.topdon.com/h5/share/#/detectionGuidanceIndex?showHeader=1&" +
-                            "languageId=${LanguageUtil.getLanguageId(requireContext())}"
+                            "languageId=1" // Fixed to English (languageId=1)
                 } else {
                     "http://172.16.66.77:8081/#/detectionGuidanceIndex?languageId=1&showHeader=1"
                 }

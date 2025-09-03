@@ -28,7 +28,7 @@ import com.topdon.lms.sdk.LMS
 import com.topdon.lms.sdk.UrlConstant
 import com.topdon.lms.sdk.network.HttpProxy
 import com.topdon.lms.sdk.network.IResponseCallback
-import com.topdon.lms.sdk.utils.LanguageUtil
+// LanguageUtil removed - English only app
 import com.topdon.lms.sdk.utils.StringUtils
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.lms.sdk.xutils.http.RequestParams
