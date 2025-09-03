@@ -25,8 +25,7 @@ rootProject.name = "TopInfrared"
 include ':app'
 include ':commonlibrary'
 include ':component:CommonComponent'
-include ':component:edit3d'
-include ':component:house'
+
 include ':component:pseudo'
 include ':component:thermal-ir'
 include ':component:transfer'
