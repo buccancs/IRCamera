@@ -123,7 +123,7 @@ import com.topdon.module.thermal.ir.video.VideoRecordFFmpeg
 import com.topdon.module.thermal.ir.view.TimeDownView
 import com.topdon.pseudo.activity.PseudoSetActivity
 import com.topdon.pseudo.bean.CustomPseudoBean
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_ir_thermal_lite.*
+import com.example.thermal_lite.databinding.ActivityIrThermalLiteBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -149,6 +149,7 @@ import kotlin.math.abs
 @Route(path = RouterConfig.IR_TCLITE)
 class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
 
+    private lateinit var binding: ActivityIrThermalLiteBinding
     private var mPreviewWidth = 256
     private var mPreviewHeight = 192
     private var mPreviewLayoutParams: RelativeLayout.LayoutParams? = null
@@ -282,10 +283,13 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
 
     @SuppressLint("SetTextI18n")
     override fun initView() {
+        binding = ActivityIrThermalLiteBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
         imageRes.width = 256.toChar()
         imageRes.height = 192.toChar()
         isShowC = getTemperature() == 1
-        temperature_seekbar.setIndicatorTextDecimalFormat("0.0")
+        binding.temperatureSeekbar.setIndicatorTextDecimalFormat("0.0")
         initPreviewManager()
         val imageRotate = when (saveSetBean.rotateAngle) {
             270 -> RotateDegree.DEGREE_270
@@ -297,14 +301,14 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
         initCameraSize()
         initUSBMonitorManager()
         DeviceControlManager.getInstance().init()
-        title_view.setLeftClickListener {
+        binding.titleView.setLeftClickListener {
             if (time_down_view.isRunning) {
                 return@setLeftClickListener
             }
             setResult(200)
             finish()
         }
-        title_view.setRightClickListener {
+        binding.titleView.setRightClickListener {
             val config = ConfigRepository.readConfig(false)
             var text = ""
             for (tmp in IRConfigData.irConfigData(this)){
@@ -350,14 +354,14 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
             }
         }
 
-        thermal_recycler_night.isVideoMode = SaveSettingUtil.isVideoMode //恢复拍照/录像状态
-        thermal_recycler_night.fenceSelectType = FenceType.FULL //初始选中全图
-        thermal_recycler_night.isUnitF = SharedManager.getTemperature() == 0 //温度档位单位
-        thermal_recycler_night.setTempLevel(temperatureMode) //选中当前的温度档位
-        thermal_recycler_night.onCameraClickListener = {
+        binding.thermalRecyclerNight.isVideoMode = SaveSettingUtil.isVideoMode //恢复拍照/录像状态
+        binding.thermalRecyclerNight.fenceSelectType = FenceType.FULL //初始选中全图
+        binding.thermalRecyclerNight.isUnitF = SharedManager.getTemperature() == 0 //温度档位单位
+        binding.thermalRecyclerNight.setTempLevel(temperatureMode) //选中当前的温度档位
+        binding.thermalRecyclerNight.onCameraClickListener = {
             setCamera(it)
         }
-        thermal_recycler_night.onFenceListener = { fenceType, isSelected ->
+        binding.thermalRecyclerNight.onFenceListener = { fenceType, isSelected ->
             setTemp(fenceType, isSelected)
         }
         thermal_recycler_night.onColorListener = { _, it, _ ->

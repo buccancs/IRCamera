@@ -35,7 +35,7 @@ import com.topdon.module.thermal.ir.bean.SelectPositionBean
 import com.topdon.module.thermal.ir.event.MonitorSaveEvent
 import com.topdon.module.thermal.ir.event.ThermalActionEvent
 import com.topdon.module.thermal.ir.repository.ConfigRepository
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_ir_monitor_lite.*
+import com.example.thermal_lite.databinding.ActivityIrMonitorLiteBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -50,6 +50,7 @@ import java.math.RoundingMode
 @Route(path = RouterConfig.IR_THERMAL_MONITOR_LITE)
 open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTempListener {
 
+    private lateinit var binding: ActivityIrMonitorLiteBinding
     private var selectIndex: SelectPositionBean? = null//选取点
     val irMonitorLiteFragment = IRMonitorLiteFragment()
     private val bean = ThermalBean()
@@ -58,7 +59,10 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTem
     override fun initContentView() = R.layout.activity_ir_monitor_lite
 
     override fun initView() {
-        motion_btn.setOnClickListener(object : SingleClickListener() {
+        binding = ActivityIrMonitorLiteBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
+        binding.motionBtn.setOnClickListener(object : SingleClickListener() {
             override fun onSingleClick() {
                 MonitorSelectDialog.Builder(this@IRMonitorLiteActivity)
                     .setPositiveListener {
@@ -72,7 +76,7 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTem
                     .create().show()
             }
         })
-        motion_start_btn.setOnClickListener(this)
+        binding.motionStartBtn.setOnClickListener(this)
     }
 
     private fun startChart(){
@@ -85,8 +89,8 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTem
             showTask!!.cancel()
             showTask = null
         }
-        title_view.setRightText(R.string.monitor_finish)
-        title_view.setRightClickListener {
+        binding.titleView.setRightText(R.string.monitor_finish)
+        binding.titleView.setRightClickListener {
             recordJob?.cancel()
             lifecycleScope.launch {
                 delay(500)
@@ -116,7 +120,7 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTem
                         } else {
                             isFirstRead = false
                             lifecycleScope.launch(Dispatchers.Main) {
-                                ll_time.isVisible = true
+                                binding.llTime.isVisible = true
                             }
                         }
                     }
@@ -134,9 +138,9 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTem
         }
 
 
-        monitor_current_vol.text = getString(if (selectIndex!!.type == 1) R.string.chart_temperature else R.string.chart_temperature_high)
-        monitor_real_vol.visibility = if (selectIndex!!.type == 1) View.GONE else View.VISIBLE
-        monitor_real_img.visibility = if (selectIndex!!.type == 1) View.GONE else View.VISIBLE
+        binding.monitorCurrentVol.text = getString(if (selectIndex!!.type == 1) R.string.chart_temperature else R.string.chart_temperature_high)
+        binding.monitorRealVol.visibility = if (selectIndex!!.type == 1) View.GONE else View.VISIBLE
+        binding.monitorRealImg.visibility = if (selectIndex!!.type == 1) View.GONE else View.VISIBLE
         recordThermal()//开始记录
     }
     private var showTask: Job? = null
