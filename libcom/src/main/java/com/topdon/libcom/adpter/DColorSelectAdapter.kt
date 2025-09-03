@@ -60,9 +60,9 @@ class DColorSelectAdapter(val context: Context) : RecyclerView.Adapter<RecyclerV
     }
 
     inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val lay: View = itemView.item_color_lay
-        val img: ImageView = itemView.item_color_img
-        val checkImg: ImageView = itemView.item_color_check
+        val lay: View = itemView.findViewById(R.id.item_color_lay)
+        val img: ImageView = itemView.findViewById(R.id.item_color_img)
+        val checkImg: ImageView = itemView.findViewById(R.id.item_color_check)
     }
 
 
