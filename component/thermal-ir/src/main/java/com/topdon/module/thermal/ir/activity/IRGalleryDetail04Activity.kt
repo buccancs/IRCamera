@@ -34,7 +34,6 @@ import com.topdon.lib.core.bean.event.GalleryDelEvent
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.thermal.ir.event.GalleryDownloadEvent
 import com.topdon.module.thermal.ir.fragment.GalleryFragment
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_ir_gallery_detail_04.*
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import java.io.File

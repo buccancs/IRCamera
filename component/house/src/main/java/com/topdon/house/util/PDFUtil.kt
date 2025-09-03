@@ -26,10 +26,6 @@ import com.topdon.house.R
 import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.db.entity.HouseReport
 import com.topdon.lib.core.utils.ScreenUtil
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.pdf_head.view.*
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.pdf_foot.view.*
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.pdf_tab_item.view.*
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.pdf_image_line.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File

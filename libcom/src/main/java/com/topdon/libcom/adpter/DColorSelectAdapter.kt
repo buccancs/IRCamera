@@ -9,7 +9,6 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.libcom.R
 import com.topdon.libcom.bean.DColorSelectBean
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.d_ui_item_color_select.view.*
 
 @Deprecated("产品要求所有颜色拾取都更改为 ColorPickDialog 那种样式，这个弹框废弃")
 class DColorSelectAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

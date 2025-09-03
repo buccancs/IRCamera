@@ -12,7 +12,6 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.utils.Constants
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_more_help.*
 
 @Route(path = RouterConfig.IR_MORE_HELP)
 class MoreHelpActivity:BaseActivity() {

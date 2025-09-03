@@ -10,7 +10,6 @@ import com.topdon.lib.core.R
 import com.topdon.menu.R as MenuR
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.lib.ui.listener.SingleClickListener
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.ui_item_menu_second_view.view.*
 
 @Deprecated("旧的双光菜单，已重构过了")
 class MenuPANightAdapter(data: MutableList<ColorBean>, layoutId : Int, private val isDual: Boolean) : BaseQuickAdapter<ColorBean, BaseViewHolder>(layoutId,data) {

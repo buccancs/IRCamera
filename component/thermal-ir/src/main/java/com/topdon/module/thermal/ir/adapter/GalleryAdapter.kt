@@ -13,8 +13,6 @@ import com.topdon.lib.core.bean.GalleryTitle
 import com.topdon.lib.core.tools.GlideLoader
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.module.thermal.ir.R
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_gallery_head_lay.view.*
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_gallery_lay.view.*
 
 /**
  * 照片或视频

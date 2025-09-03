@@ -7,7 +7,6 @@ import androidx.core.widget.addTextChangedListener
 import com.topdon.house.R
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.ktbase.BaseActivity
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_text_input.*
 
 /**
  * 房屋检测 - 问题描述文字输入界面.

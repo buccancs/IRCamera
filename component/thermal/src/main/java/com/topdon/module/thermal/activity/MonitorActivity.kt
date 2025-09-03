@@ -9,7 +9,6 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.ui.dialog.MonitorSelectDialog
 import com.topdon.module.thermal.R
 import com.topdon.module.thermal.fragment.event.ThermalActionEvent
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_monitor.*
 import org.greenrobot.eventbus.EventBus
 import java.util.*
 

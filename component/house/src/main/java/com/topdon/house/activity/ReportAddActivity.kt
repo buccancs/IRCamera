@@ -25,7 +25,6 @@ import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.lib.core.tools.PermissionTool
 import com.topdon.libcom.util.ARouterUtil
 import com.topdon.lms.sdk.weiget.TToast
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_report_add.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.io.File

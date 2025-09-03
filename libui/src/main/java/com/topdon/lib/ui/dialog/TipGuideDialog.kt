@@ -18,7 +18,6 @@ import com.topdon.lib.ui.R as UiR
 import com.topdon.lib.core.R
 import com.topdon.menu.R as MenuR
 import com.topdon.lib.ui.widget.IndicateView
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_tip_guide.view.*
 import kotlin.collections.ArrayList
 
 class TipGuideDialog : DialogFragment() {

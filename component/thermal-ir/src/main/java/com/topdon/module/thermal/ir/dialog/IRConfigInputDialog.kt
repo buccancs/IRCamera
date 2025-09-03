@@ -11,7 +11,6 @@ import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.thermal.ir.R
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_ir_config_input.*
 import java.lang.NumberFormatException
 
 /**

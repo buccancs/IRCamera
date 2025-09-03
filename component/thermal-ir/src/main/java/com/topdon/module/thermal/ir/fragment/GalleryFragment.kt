@@ -10,7 +10,6 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.topdon.lib.core.tools.GlideLoader
 import com.topdon.module.thermal.ir.R
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_gallery.*
 import kotlinx.coroutines.launch
 
 class GalleryFragment : Fragment() {

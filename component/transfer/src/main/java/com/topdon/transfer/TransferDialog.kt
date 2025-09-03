@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.topdon.lib.core.utils.ScreenUtil
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_transfer.view.*
 
 /**
  * 相册迁移进度弹框.

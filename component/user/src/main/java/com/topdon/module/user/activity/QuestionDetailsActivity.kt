@@ -4,7 +4,6 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.user.R
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_question_details.*
 
 /**
  * FAQ - 一项 FAQ 详情

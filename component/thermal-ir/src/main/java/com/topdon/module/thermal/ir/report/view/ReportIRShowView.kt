@@ -11,8 +11,6 @@ import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.report.bean.ReportIRBean
 import com.topdon.module.thermal.ir.report.bean.ReportTempBean
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_report_ir_show.view.*
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.view_report_ir_show.view.*
 
 /**
  * 一项红外数据预览 View.

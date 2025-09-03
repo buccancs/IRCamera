@@ -11,7 +11,6 @@ import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lib.ui.R as UiR
 import com.topdon.lib.core.R
 import com.topdon.menu.R as MenuR
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_monitor_select.view.*
 
 /**
  * 提示窗

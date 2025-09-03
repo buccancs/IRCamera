@@ -18,7 +18,6 @@ import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.tools.NumberTools
 import com.topdon.lib.core.tools.UnitTools
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_tip_emissivity.view.*
 
 /**
  * des:

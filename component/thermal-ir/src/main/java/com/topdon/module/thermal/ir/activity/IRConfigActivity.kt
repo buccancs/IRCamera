@@ -34,9 +34,6 @@ import com.topdon.module.thermal.ir.dialog.ConfigGuideDialog
 import com.topdon.module.thermal.ir.dialog.IRConfigInputDialog
 import com.topdon.module.thermal.ir.repository.ConfigRepository
 import com.topdon.module.thermal.ir.viewmodel.IRConfigViewModel
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_ir_config.*
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_ir_config_config.view.*
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_ir_config_foot.view.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

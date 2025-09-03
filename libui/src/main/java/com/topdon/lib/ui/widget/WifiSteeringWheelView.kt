@@ -8,7 +8,6 @@ import android.widget.LinearLayout
 import com.topdon.lib.ui.R as UiR
 import com.topdon.lib.core.R
 import com.topdon.menu.R as MenuR
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.ui_wifi_steering_wheel_view.view.*
 
 /**
  * 校准方向

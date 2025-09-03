@@ -14,7 +14,6 @@ import com.topdon.lib.core.repository.TS004Repository
 import com.topdon.lms.sdk.utils.TLog
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.user.R
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_device_details.*
 import kotlinx.coroutines.launch
 
 /**

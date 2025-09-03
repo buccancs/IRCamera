@@ -16,7 +16,6 @@ import com.topdon.lib.ui.R as UiR
 import com.topdon.lib.core.R
 import com.topdon.menu.R as MenuR
 import com.topdon.lib.ui.bean.TemperatureBean
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.ui_item_menu_five_view.view.*
 
 @Deprecated("旧的温度档位菜单，已重构过了")
 class MenuFiveNightAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

@@ -14,7 +14,6 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.SizeUtils
 import com.topdon.lib.core.utils.ScreenUtil
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_menu_3d.view.*
 
 /**
  * 二级菜单 RecyclerView 所用 Adapter.

@@ -12,7 +12,6 @@ import com.topdon.lib.ui.MenuFirstTabView
 import com.topdon.module.thermal.R
 import com.topdon.module.thermal.adapter.MenuTabAdapter
 import com.topdon.module.thermal.fragment.event.ThermalActionEvent
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_thermal.*
 import org.greenrobot.eventbus.EventBus
 
 @Route(path = RouterConfig.THERMAL_MAIN)

@@ -10,8 +10,6 @@ import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.lib.core.tools.GlideLoader
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.module.thermal.R
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_gallery.view.*
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_log.view.*
 
 class MonitorLogAdapter(val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {

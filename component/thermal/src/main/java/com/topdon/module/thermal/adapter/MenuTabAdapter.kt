@@ -9,8 +9,6 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.module.thermal.R
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_menu_tab_more_view.view.*
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_menu_tab_view.view.*
 
 class MenuTabAdapter(val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {

@@ -21,7 +21,6 @@ import com.topdon.lib.core.R
 import com.topdon.menu.R as MenuR
 import com.topdon.lib.ui.widget.IndicateView
 import io.reactivex.disposables.Disposable
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_tip_preview.view.*
 import java.util.Timer
 import kotlin.collections.ArrayList
 

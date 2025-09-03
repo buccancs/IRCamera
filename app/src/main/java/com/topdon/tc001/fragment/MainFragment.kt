@@ -35,21 +35,6 @@ import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.tc001.DeviceTypeActivity
 import com.topdon.tc001.R
 import com.topdon.tc001.popup.DelPopup
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_main.cl_has_device
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_main.cl_no_device
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_main.iv_add
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_main.recycler_view
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_main.tv_connect_device
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_main.tv_no_device_title
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_main.tv_has_device_title
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_device_connect.view.battery_view
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_device_connect.view.iv_bg
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_device_connect.view.iv_image
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_device_connect.view.tv_battery
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_device_connect.view.tv_device_name
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_device_connect.view.tv_device_state
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_device_connect.view.tv_title
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_device_connect.view.view_device_state
 import kotlinx.coroutines.launch
 import org.bytedeco.librealsense.context
 import org.greenrobot.eventbus.Subscribe

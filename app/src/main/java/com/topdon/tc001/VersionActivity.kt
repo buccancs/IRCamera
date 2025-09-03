@@ -13,9 +13,6 @@ import com.topdon.lms.sdk.LMS
 import com.topdon.lms.sdk.UrlConstant
 import com.topdon.tc001.utils.AppVersionUtil
 import com.topdon.tc001.utils.VersionUtils
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_version.*
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_new_version.cl_new_version
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_new_version.tv_new_version
 import java.util.*
 
 @Route(path = RouterConfig.VERSION)

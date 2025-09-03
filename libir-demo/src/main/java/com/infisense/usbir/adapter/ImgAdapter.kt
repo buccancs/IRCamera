@@ -13,7 +13,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.infisense.usbir.R
 import com.infisense.usbir.bean.ImgBean
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_filter.view.*
 
 class ImgAdapter(
     private val context: Context,

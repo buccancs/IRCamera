@@ -32,7 +32,6 @@ import com.topdon.module.thermal.ir.event.GalleryDirChangeEvent
 import com.topdon.module.thermal.ir.event.GalleryDownloadEvent
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryTabViewModel
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryViewModel
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_ir_gallery.*
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe

@@ -31,7 +31,6 @@ import com.topdon.lib.ui.R as UiR
 import com.topdon.lib.core.R
 import com.topdon.menu.R as MenuR
 import com.topdon.lib.ui.adapter.ColorSelectAdapter
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_thermal_input.view.*
 import java.math.BigDecimal
 
 

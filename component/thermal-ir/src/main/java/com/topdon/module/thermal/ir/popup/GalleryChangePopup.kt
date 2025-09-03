@@ -8,7 +8,6 @@ import android.view.View.MeasureSpec
 import android.widget.PopupWindow
 import com.blankj.utilcode.util.SizeUtils
 import com.topdon.module.thermal.ir.R
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.popup_gallery_change.view.*
 
 /**
  * 图库目录切换 PopupWindow.

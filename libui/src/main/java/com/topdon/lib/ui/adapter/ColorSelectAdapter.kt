@@ -11,7 +11,6 @@ import com.topdon.lib.ui.R as UiR
 import com.topdon.lib.core.R
 import com.topdon.menu.R as MenuR
 import com.topdon.lib.ui.bean.ColorSelectBean
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.ui_item_color_select.view.*
 
 class ColorSelectAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.topdon.house.R
 import com.topdon.lib.core.utils.ScreenUtil
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_image_pick_from.view.*
 
 /**
  * 房屋检测 - 房屋图片拾取来源选择弹框.

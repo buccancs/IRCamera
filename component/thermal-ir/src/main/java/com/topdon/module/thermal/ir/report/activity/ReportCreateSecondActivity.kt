@@ -17,7 +17,6 @@ import com.topdon.lib.core.tools.ConstantLanguages
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.report.bean.*
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_report_create_second.*
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode

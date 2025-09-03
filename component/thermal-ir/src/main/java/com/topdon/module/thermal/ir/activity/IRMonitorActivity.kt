@@ -10,7 +10,6 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.bean.SelectPositionBean
 import com.topdon.module.thermal.ir.event.MonitorSaveEvent
 import com.topdon.module.thermal.ir.event.ThermalActionEvent
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_ir_monitor.*
 import org.greenrobot.eventbus.EventBus
 
 /**

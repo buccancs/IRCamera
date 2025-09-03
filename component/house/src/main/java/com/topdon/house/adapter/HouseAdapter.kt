@@ -11,7 +11,6 @@ import com.topdon.house.R
 import com.topdon.lib.core.db.entity.HouseBase
 import com.topdon.lib.core.tools.GlideLoader
 import com.topdon.lib.core.tools.TimeTool
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_house_list.view.*
 
 /**
  * 检测 及 报告 列表所用 Adapter.

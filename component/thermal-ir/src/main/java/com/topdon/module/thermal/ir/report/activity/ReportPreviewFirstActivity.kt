@@ -6,7 +6,6 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.report.bean.ReportInfoBean
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_report_preview_first.*
 
 /**
  * 生成报告第1步的预览界面.

@@ -25,7 +25,6 @@ import com.topdon.lib.core.listener.BitmapViewListener
 import com.topdon.lib.ui.R as UiR
 import com.topdon.lib.core.R
 import com.topdon.menu.R as MenuR
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.camera_lay.view.*
 import java.util.*
 
 

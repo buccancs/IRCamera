@@ -10,7 +10,6 @@ import com.topdon.house.R
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.ktbase.BaseActivity
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_sign_input.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

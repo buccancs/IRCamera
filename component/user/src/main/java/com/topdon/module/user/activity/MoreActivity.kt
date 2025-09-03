@@ -29,8 +29,6 @@ import com.topdon.module.user.R
 import com.topdon.module.user.dialog.DownloadProDialog
 import com.topdon.module.user.dialog.FirmwareInstallDialog
 import com.topdon.lib.core.dialog.FirmwareUpDialog
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_more.*
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.layout_upgrade.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
