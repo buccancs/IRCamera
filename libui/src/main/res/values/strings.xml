@@ -21,4 +21,7 @@
     <string name="target_tips_step_4">4.Observe the object and the number on the target (the distance between the camera and the object). As shown in the picture below, the distance between the camera and the object is 20 meters.</string>
     <string name="device_loading_tip">Loading…</string>
     <string name="temp_report_no_more">All content is displayed</string>
+    <string name="temp_text_standard">Standard</string>
+    <string name="temp_text_big">Big</string>
+    <string name="temp_text_sup_big">Super Big</string>
 </resources>
