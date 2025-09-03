@@ -30,11 +30,6 @@ import org.greenrobot.eventbus.EventBus
 class WebSocketProxy {
 
     companion object {
-        private const val TS004_URL = "ws://192.168.40.1:888"
-
-        private const val TC007_URL = "ws://192.168.40.1:63206/v1/thermal/temp/template/data"
-
-
         @JvmStatic
         private var mWebSocketProxy: WebSocketProxy? = null
 
@@ -114,7 +109,6 @@ class WebSocketProxy {
 
         // Only TC001 supported - no WebSocket connection needed
         Log.i("WebSocket", "WebSocket not needed for TC001")
-    }
     }
 
     /**
