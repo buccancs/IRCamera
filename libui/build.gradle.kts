@@ -47,5 +47,9 @@ android {
 dependencies {
     implementation(project(":libapp"))
     implementation(project(":libmenu")) // 伪彩条用着 PseudoColorConfig
-    kapt(Deps.arouter_compiler)
+
+    
+    // Smart Refresh Layout for LoadingFooter
+    implementation(Deps.smart_refresh_layout)
+    implementation(Deps.smart_refresh_header)
 }

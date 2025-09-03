@@ -7,7 +7,7 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebSettings
 import android.webkit.WebView
 import androidx.core.view.isVisible
-import com.alibaba.android.arouter.facade.annotation.Route
+
 import com.github.lzyzsd.jsbridge.BridgeWebViewClient
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.RouterConfig
@@ -22,7 +22,7 @@ import com.topdon.tc001.databinding.ActivityWebViewBinding
  *
  * Created by LCG on 2024/12/18.
  */
-@Route(path = RouterConfig.WEB_VIEW)
+// Legacy ARouter route annotation - now using NavigationManager
 class WebViewActivity : BaseBindingActivity<ActivityWebViewBinding>() {
 
     override fun initContentLayoutId(): Int = R.layout.activity_web_view

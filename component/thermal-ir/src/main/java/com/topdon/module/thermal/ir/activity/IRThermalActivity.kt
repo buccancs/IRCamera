@@ -25,8 +25,7 @@
 //import androidx.lifecycle.lifecycleScope
 //import androidx.recyclerview.widget.GridLayoutManager
 //import androidx.recyclerview.widget.RecyclerView
-//import com.alibaba.android.arouter.facade.annotation.Route
-//import com.alibaba.android.arouter.launcher.ARouter
+//import com.topdon.lib.core.navigation.NavigationManager
 //import com.blankj.utilcode.util.*
 //import com.blankj.utilcode.util.ScreenUtils
 //import com.elvishew.xlog.XLog
@@ -89,13 +88,6 @@
 //import com.topdon.module.thermal.ir.view.TimeDownView
 //import com.topdon.pseudo.activity.PseudoSetActivity
 //import com.topdon.pseudo.bean.CustomPseudoBean
-//import kotlinx.android.synthetic.main.activity_ir_gallery_edit.*
-//import kotlinx.android.synthetic.main.activity_thermal_ir.*
-//import kotlinx.android.synthetic.main.activity_thermal_ir.temperature_iv_input
-//import kotlinx.android.synthetic.main.activity_thermal_ir.temperature_iv_lock
-//import kotlinx.android.synthetic.main.activity_thermal_ir.temperature_seekbar
-//import kotlinx.android.synthetic.main.activity_thermal_ir.thermal_recycler
-//import kotlinx.android.synthetic.main.activity_thermal_ir.tv_temp_content
 //import kotlinx.coroutines.*
 //import kotlinx.coroutines.flow.flow
 //import org.greenrobot.eventbus.Subscribe
@@ -470,7 +462,7 @@
 //                    videoTimeClose()
 //                    delay(500)
 //                }
-//                ARouter.getInstance().build(RouterConfig.IR_GALLERY).navigation()
+//                NavigationManager.getInstance().build(RouterConfig.IR_GALLERY).navigation()
 //            }
 //        }
 //        thermal_recycler.fencelistener = {
@@ -1623,7 +1615,7 @@
 //                    cameraItemAdapter.listener = listener@{ position, item ->
 //                        when (cameraItemAdapter.data[position].type){
 //                            CameraItemBean.TYPE_SETTING ->{
-//                                ARouter.getInstance().build(RouterConfig.IR_CAMERA_SETTING)
+//                                NavigationManager.getInstance().build(RouterConfig.IR_CAMERA_SETTING)
 //                                    .navigation(this)
 //                                return@listener
 //                            }

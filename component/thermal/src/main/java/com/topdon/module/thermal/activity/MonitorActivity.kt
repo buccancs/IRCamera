@@ -1,19 +1,17 @@
 package com.topdon.module.thermal.activity
 
 import android.view.View
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import android.widget.Button
 import com.blankj.utilcode.util.BarUtils
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.ui.dialog.MonitorSelectDialog
+import com.topdon.libcom.navigation.NavigationManager
 import com.topdon.module.thermal.R
 import com.topdon.module.thermal.fragment.event.ThermalActionEvent
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_monitor.*
 import org.greenrobot.eventbus.EventBus
 import java.util.*
 
-@Route(path = RouterConfig.THERMAL_MONITOR)
 class MonitorActivity : BaseActivity(), View.OnClickListener {
 
     companion object {
@@ -34,9 +32,9 @@ class MonitorActivity : BaseActivity(), View.OnClickListener {
         mToolBar!!.setBackgroundColor(blackColor)
         BarUtils.setStatusBarColor(this, blackColor)
         BarUtils.setNavBarColor(window, blackColor)
-        motion_log_btn.setOnClickListener(this)
-        motion_btn.setOnClickListener(this)
-        motion_start_btn.setOnClickListener(this)
+        findViewById<Button>(R.id.motion_log_btn).setOnClickListener(this)
+        findViewById<Button>(R.id.motion_btn).setOnClickListener(this)
+        findViewById<Button>(R.id.motion_start_btn).setOnClickListener(this)
 //        if (BaseApplication.instance.isConnected()) {
 //            mHandler.postDelayed({
 //                EventBus.getDefault().post(ThermalActionEvent(action = 2001))
@@ -50,10 +48,10 @@ class MonitorActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            motion_log_btn -> {
-                ARouter.getInstance().build(RouterConfig.THERMAL_LOG_MP_CHART).navigation(this)
+            findViewById<Button>(R.id.motion_log_btn) -> {
+                NavigationManager.getInstance().build(RouterConfig.LOG_MP_CHART).navigation(this)
             }
-            motion_btn -> {
+            findViewById<Button>(R.id.motion_btn) -> {
                 MonitorSelectDialog.Builder(this)
                     .setTitle("请选择监控类型")
                     .setPositiveListener(object : MonitorSelectDialog.OnClickListener {
@@ -71,8 +69,8 @@ class MonitorActivity : BaseActivity(), View.OnClickListener {
                     .setCancelListener(R.string.app_cancel)
                     .create().show()
             }
-            motion_start_btn -> {
-                ARouter.getInstance().build(RouterConfig.MONITOR_CHART)
+            findViewById<Button>(R.id.motion_start_btn) -> {
+                NavigationManager.getInstance().build(RouterConfig.MONITOR_CHART)
                     .withInt("type", selectType)
                     .withIntegerArrayList("select", selectIndex)
                     .navigation(this)
@@ -82,16 +80,19 @@ class MonitorActivity : BaseActivity(), View.OnClickListener {
     }
 
     fun select(selectType: Int, selectIndex: ArrayList<Int>) {
-        motion_start_btn.isEnabled = true
+        findViewById<Button>(R.id.motion_start_btn).isEnabled = true
         this.selectType = selectType
         this.selectIndex = selectIndex
     }
 
     private fun updateUI() {
-        motion_start_btn.isEnabled = false
-        motion_start_btn.visibility = View.VISIBLE
-        motion_log_btn.visibility = View.GONE
-        motion_btn.visibility = View.GONE
+        val motionStartBtn = findViewById<Button>(R.id.motion_start_btn)
+        val motionLogBtn = findViewById<Button>(R.id.motion_log_btn)
+        val motionBtn = findViewById<Button>(R.id.motion_btn)
+        motionStartBtn.isEnabled = false
+        motionStartBtn.visibility = View.VISIBLE
+        motionLogBtn.visibility = View.GONE
+        motionBtn.visibility = View.GONE
     }
 
     //秒

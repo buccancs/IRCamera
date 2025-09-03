@@ -1,10 +1,9 @@
 package com.topdon.tc001
 
 import android.view.WindowManager
-import com.alibaba.android.arouter.facade.annotation.Route
+
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_pdf.*
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -13,7 +12,7 @@ import java.io.OutputStream
 /**
  * create by fylder on 2018/8/9
  **/
-@Route(path = RouterConfig.PDF)
+// Legacy ARouter route annotation - now using NavigationManager
 class PdfActivity : BaseActivity() {
 
     override fun initContentView() = R.layout.activity_pdf

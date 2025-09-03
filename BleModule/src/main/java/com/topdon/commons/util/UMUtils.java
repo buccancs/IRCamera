@@ -1,7 +1,6 @@
 package com.topdon.commons.util;
 
 import android.content.Context;
-
 import com.umeng.analytics.MobclickAgent;
 
 

@@ -11,7 +11,6 @@
 //import com.infisense.iruvc.sdkisp.Libircmd
 //import com.infisense.usbir.R
 //import com.infisense.usbir.camera.IRUVC
-//import kotlinx.android.synthetic.main.layout_shut.view.*
 //
 ////长按相机弹出
 //class PopuMenuShut(context: Context?) {

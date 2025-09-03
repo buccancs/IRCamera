@@ -79,7 +79,7 @@ dependencies {
     implementation(project(":libui"))
     implementation(project(":libmenu"))
     
-    kapt(Deps.arouter_compiler)
+
     
     implementation(Deps.androidx_core)
     implementation(Deps.appcompat)

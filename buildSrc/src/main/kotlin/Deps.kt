@@ -1,8 +1,4 @@
 object Deps {
-    // ARouter
-    const val arouter_compiler = "com.alibaba:arouter-compiler:1.5.2"
-    const val arouter_api = "com.alibaba:arouter-api:1.5.2"
-    
     // AndroidX
     const val androidx_core = "androidx.core:core-ktx:1.9.0"
     const val androidx_appcompat = "androidx.appcompat:appcompat:1.6.1"

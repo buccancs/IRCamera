@@ -3,9 +3,9 @@ package com.example.thermal_lite.activity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.ToastUtils
 import com.example.thermal_lite.R
+import com.example.thermal_lite.databinding.ActivityIrCorrectionLiteFourBinding
 import com.example.thermal_lite.fragment.IRMonitorLiteFragment
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
@@ -13,7 +13,6 @@ import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.view.TitleView
 import com.topdon.module.thermal.ir.event.CorrectionFinishEvent
 import com.topdon.module.thermal.ir.view.TimeDownView
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_ir_thermal_lite.time_down_view
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -26,9 +25,10 @@ import org.greenrobot.eventbus.EventBus
  * @author: CaiSongL
  * @date: 2023/8/4 9:06
  */
-@Route(path = RouterConfig.IR_CORRECTION_FOUR_LITE)
+// Legacy ARouter route annotation - now using NavigationManager
 class IRCorrectionLiteFourActivity : BaseActivity() {
 
+    private lateinit var binding: ActivityIrCorrectionLiteFourBinding
     val time = 60
     var result = false
 
@@ -36,8 +36,8 @@ class IRCorrectionLiteFourActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val titleView: TitleView = findViewById(R.id.title_view)
-        titleView.setLeftClickListener {
+        
+        binding.titleView.setLeftClickListener {
             TipDialog.Builder(this)
                 .setTitleMessage(getString(R.string.app_tip))
                 .setMessage(R.string.tips_cancel_correction)
@@ -65,10 +65,10 @@ class IRCorrectionLiteFourActivity : BaseActivity() {
         }
 
 
-        time_down_view.postDelayed({
+        binding.timeDownView.postDelayed({
             //开始矫正
-            if (time_down_view.downTimeWatcher == null){
-                time_down_view.setOnTimeDownListener(object : TimeDownView.DownTimeWatcher{
+            if (binding.timeDownView.downTimeWatcher == null){
+                binding.timeDownView.setOnTimeDownListener(object : TimeDownView.DownTimeWatcher{
                     override fun onTime(num: Int) {
                         if (num == 35){
                             lifecycleScope.launch(Dispatchers.IO) {
@@ -100,11 +100,13 @@ class IRCorrectionLiteFourActivity : BaseActivity() {
                     }
                 })
             }
-            time_down_view.downSecond(time,false)
+            binding.timeDownView.downSecond(time,false)
         },2000)
     }
 
     override fun initView() {
+        binding = ActivityIrCorrectionLiteFourBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 
     override fun onBackPressed() {
@@ -121,7 +123,7 @@ class IRCorrectionLiteFourActivity : BaseActivity() {
 
     override fun disConnected() {
         super.disConnected()
-        time_down_view.cancel()
+        binding.timeDownView.cancel()
         EventBus.getDefault().post(CorrectionFinishEvent())
         finish()
     }
@@ -138,6 +140,6 @@ class IRCorrectionLiteFourActivity : BaseActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        time_down_view.cancel()
+        binding.timeDownView.cancel()
     }
 }

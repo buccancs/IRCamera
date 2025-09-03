@@ -91,6 +91,9 @@ class IRImageHelp {
                             .toInt() and 0xff) * 256).toFloat()
                     temperature0 = (temperature0 / 64 - 273.15).toFloat()
                     if (temperature0 >= customMinTemp && temperature0 <= customMaxTemp) {
+                        // OpencvTools disabled due to missing AAR dependencies
+                        // Using simple fallback color logic
+                        /*
                         val rgb = OpencvTools.getOneColorByTempUnif(
                             customMaxTemp,
                             customMinTemp,
@@ -103,6 +106,12 @@ class IRImageHelp {
                             imageDst[index + 1] = rgb[1].toByte()
                             imageDst[index + 2] = rgb[2].toByte()
                         }
+                        */
+                        // Simple fallback: use temperature-based grayscale
+                        val intensity = ((temperature0 - customMinTemp) / (customMaxTemp - customMinTemp) * 255).toInt().coerceIn(0, 255)
+                        imageDst[index] = intensity.toByte()
+                        imageDst[index + 1] = intensity.toByte()
+                        imageDst[index + 2] = intensity.toByte()
                     } else if (temperature0 > customMaxTemp) {
                         if (isUseGray) {
                         } else {

@@ -21,8 +21,6 @@ import com.topdon.lib.core.db.entity.DirDetect
 import com.topdon.lib.core.db.entity.ItemDetect
 import com.topdon.lib.core.tools.SpanBuilder
 import com.topdon.lms.sdk.weiget.TToast
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_report_add_default.view.*
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_report_add_head.view.*
 
 /**
  * 检测界面执行检测的列表自定义 View.

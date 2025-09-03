@@ -11,8 +11,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.blankj.utilcode.util.AppUtils
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
@@ -39,7 +38,6 @@ import com.topdon.module.thermal.ir.fragment.IRGalleryTabFragment
 import com.topdon.module.thermal.ir.fragment.IRThermalFragment
 import com.topdon.module.thermal.ir.fragment.AbilityFragment
 import com.topdon.module.thermal.ir.fragment.PDFListFragment
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_ir_main.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
@@ -52,7 +50,7 @@ import org.greenrobot.eventbus.EventBus
  *
  * Created by LCG on 2024/4/18.
  */
-@Route(path = RouterConfig.IR_MAIN)
+// Legacy ARouter route annotation - now using NavigationManager
 class IRMainActivity : BaseActivity(), View.OnClickListener {
 
     /**
@@ -101,7 +99,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
                     TC007Repository.syncTime()
                 }
                 if (SharedManager.isConnect07AutoOpen) {
-                    ARouter.getInstance().build(RouterConfig.IR_THERMAL_07).navigation(this)
+                    NavigationManager.getInstance().build(RouterConfig.IR_THERMAL_07).navigation(this)
                 }
             } else {
                 iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
@@ -366,7 +364,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
                     0 -> AbilityFragment()
                     2 -> IRThermalFragment()
                     3 -> PDFListFragment()
-                    else -> ARouter.getInstance().build(RouterConfig.TC_MORE).navigation() as Fragment
+                    else -> NavigationManager.getInstance().build(RouterConfig.TC_MORE).navigation() as Fragment
                 }
                 fragment.arguments = Bundle().also { it.putBoolean(ExtraKeyConfig.IS_TC007, isTC007) }
                 return fragment

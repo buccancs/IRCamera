@@ -14,7 +14,6 @@ import com.topdon.lib.core.tools.UnitTools
 import com.topdon.pseudo.R
 import com.topdon.pseudo.bean.CustomPseudoBean
 import com.topdon.pseudo.constant.*
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_pseudo_set.*
 import java.lang.NumberFormatException
 import java.math.BigDecimal
 import java.math.RoundingMode

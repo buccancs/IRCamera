@@ -6,7 +6,6 @@ import android.view.View
 import android.view.WindowManager
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.elvishew.xlog.XLog
 import com.energy.ac020library.bean.IrcmdError
 import com.energy.irutilslibrary.LibIRTempAC020
@@ -34,7 +33,7 @@ import com.topdon.module.thermal.ir.bean.DataBean
 import com.topdon.module.thermal.ir.bean.SelectPositionBean
 import com.topdon.module.thermal.ir.event.MonitorSaveEvent
 import com.topdon.module.thermal.ir.repository.ConfigRepository
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_ir_monitor_chart_lite.*
+import com.example.thermal_lite.databinding.ActivityIrMonitorChartLiteBinding
 import kotlinx.coroutines.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -45,9 +44,11 @@ import java.math.RoundingMode
 /**
  * 温度实时监控
  */
-@Route(path = RouterConfig.IR_MONITOR_CHART_LITE)
+// Legacy ARouter route annotation - now using NavigationManager
 class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
 
+    private lateinit var binding: ActivityIrMonitorChartLiteBinding
+    
     /**
      * 从上一界面传递过来的，当前选中的 点/线/面 信息.
      */
@@ -85,7 +86,10 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
     }
 
     override fun initView() {
-        title_view.setRightClickListener {
+        binding = ActivityIrMonitorChartLiteBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
+        binding.titleView.setRightClickListener {
             recordJob?.cancel()
             lifecycleScope.launch {
                 delay(500)
@@ -93,9 +97,9 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
             }
         }
 
-        monitor_current_vol.text = getString(if (selectBean.type == 1) R.string.chart_temperature else R.string.chart_temperature_high)
-        monitor_real_vol.visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
-        monitor_real_img.visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
+        binding.monitorCurrentVol.text = getString(if (selectBean.type == 1) R.string.chart_temperature else R.string.chart_temperature_high)
+        binding.monitorRealVol.visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
+        binding.monitorRealImg.visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
 
     }
 
@@ -134,7 +138,7 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
                         } else {
                             isFirstRead = false
                             lifecycleScope.launch(Dispatchers.Main) {
-                                ll_time.isVisible = true
+                                binding.llTime.isVisible = true
                             }
                         }
                     }
@@ -160,7 +164,7 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
     override fun onResume() {
         super.onResume()
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        mp_chart_view.highlightValue(null) //关闭高亮点Marker
+        binding.mpChartView.highlightValue(null) //关闭高亮点Marker
     }
 
     override fun onPause() {
@@ -213,7 +217,7 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
                     AppDatabase.getInstance().thermalDao().insert(entity)
                     time++
                     launch(Dispatchers.Main) {
-                        mp_chart_view.addPointToChart(bean = entity, selectType = selectBean.type)
+                        binding.mpChartView.addPointToChart(bean = entity, selectType = selectBean.type)
                     }
                     delay(timeMillis)
                 } else {

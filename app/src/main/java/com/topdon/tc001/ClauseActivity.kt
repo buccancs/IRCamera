@@ -5,8 +5,8 @@ import android.text.method.ScrollingMovementMethod
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+
+import com.topdon.lib.core.navigation.NavigationManager
 import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.RouterConfig
@@ -17,7 +17,6 @@ import com.topdon.lms.sdk.utils.NetworkUtil
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.tc001.app.App
 import com.topdon.tc001.utils.VersionUtils
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_clause.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
@@ -27,7 +26,7 @@ import java.util.*
 /**
  * 条款
  */
-@Route(path = RouterConfig.CLAUSE)
+// Legacy ARouter route annotation - now using NavigationManager
 class ClauseActivity : AppCompatActivity() {
 
     private lateinit var dialog: TipProgressDialog
@@ -69,7 +68,7 @@ class ClauseActivity : AppCompatActivity() {
                 TToast.shortToast(this, R.string.lms_setting_http_error)
             } else {
                 //服务条款
-                ARouter.getInstance()
+                NavigationManager.getInstance()
                     .build(RouterConfig.POLICY)
                     .withInt(PolicyActivity.KEY_THEME_TYPE, 1)
                     .withInt(PolicyActivity.KEY_USE_TYPE, keyUseType)
@@ -81,7 +80,7 @@ class ClauseActivity : AppCompatActivity() {
                 TToast.shortToast(this, R.string.lms_setting_http_error)
             } else {
                 //隐私条款
-                ARouter.getInstance()
+                NavigationManager.getInstance()
                     .build(RouterConfig.POLICY)
                     .withInt(PolicyActivity.KEY_THEME_TYPE, 2)
                     .withInt(PolicyActivity.KEY_USE_TYPE, keyUseType)
@@ -93,7 +92,7 @@ class ClauseActivity : AppCompatActivity() {
             if (!NetworkUtil.isConnected(this)) {
                 TToast.shortToast(this, R.string.lms_setting_http_error)
             } else {
-                ARouter.getInstance()
+                NavigationManager.getInstance()
                     .build(RouterConfig.POLICY)
                     .withInt(PolicyActivity.KEY_THEME_TYPE, 3)
                     .withInt(PolicyActivity.KEY_USE_TYPE, keyUseType)
@@ -121,7 +120,7 @@ class ClauseActivity : AppCompatActivity() {
                 delay(1000)
                 return@async
             }.await().let {
-                ARouter.getInstance().build(RouterConfig.MAIN).navigation(this@ClauseActivity)
+                NavigationManager.build(RouterConfig.MAIN).navigation(this@ClauseActivity)
                 SharedManager.setHasShowClause(true)
                 dismissLoading()
                 finish()

@@ -1,12 +1,10 @@
 package com.topdon.module.thermal.ir.report.activity
 
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.report.bean.ReportInfoBean
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_report_preview_first.*
 
 /**
  * 生成报告第1步的预览界面.
@@ -15,7 +13,7 @@ import com.topdon.module.thermal.ir.report.bean.ReportInfoBean
  * - 必选：报告信息 [ExtraKeyConfig.REPORT_INFO]
  * - 可选：检测条件 [ExtraKeyConfig.REPORT_CONDITION]
  */
-@Route(path = RouterConfig.REPORT_PREVIEW_FIRST)
+// Legacy ARouter route annotation - now using NavigationManager
 class ReportPreviewFirstActivity: BaseActivity() {
 
 

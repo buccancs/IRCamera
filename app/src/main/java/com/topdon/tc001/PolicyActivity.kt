@@ -10,13 +10,12 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
+
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseViewModelActivity
 import com.topdon.tc001.viewmodel.PolicyViewModel
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_policy.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -26,7 +25,7 @@ import kotlinx.coroutines.launch
  *
  * 服务返回有错误时,加载默认条款
  */
-@Route(path = RouterConfig.POLICY)
+// Legacy ARouter route annotation - now using NavigationManager
 class PolicyActivity : BaseViewModelActivity<PolicyViewModel>() {
 
     private val mHandler = Handler(Looper.getMainLooper())

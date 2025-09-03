@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.alibaba.android.arouter.facade.annotation.Route
+// Removed ARouter import - using NavigationManager instead
 import com.topdon.gsr.model.GSRSample
 import com.topdon.gsr.model.SessionInfo
 import com.topdon.gsr.model.SyncMark
@@ -17,8 +17,8 @@ import com.topdon.lib.core.config.RouterConfig
 
 /**
  * Simple GSR demonstration activity showing basic functionality
+ * Navigation: Use NavigationManager.getInstance().build(RouterConfig.GSR_DEMO).navigation(context)
  */
-@Route(path = RouterConfig.GSR_DEMO)
 class GSRDemoActivity : AppCompatActivity() {
     
     companion object {

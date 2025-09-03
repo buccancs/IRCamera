@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup.LayoutParams
 import android.widget.*
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.topdon.lib.core.R
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.RouterConfig
@@ -100,9 +100,12 @@ class TipEmissivityDialog : Dialog {
             }
             binding.dialogTipCancelBtn.setOnClickListener {
                 dialog?.onDismissListener?.invoke(hasCheck)
-                ARouter.getInstance().build(RouterConfig.IR_SETTING)
-                    .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
-                    .navigation(context)
+                val ctx = context
+                if (ctx != null) {
+                    NavigationManager.build(RouterConfig.IR_SETTING)
+                        .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
+                        .navigation(ctx)
+                }
                 dismiss()
             }
             val tvEmissivity = binding.tvEmissivity

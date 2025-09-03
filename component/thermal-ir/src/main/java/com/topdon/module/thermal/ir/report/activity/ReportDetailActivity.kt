@@ -5,7 +5,6 @@ import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.config.RouterConfig
@@ -16,7 +15,6 @@ import com.topdon.libcom.PDFHelp
 import com.topdon.module.thermal.ir.report.view.ReportIRShowView
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.report.bean.ReportBean
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_report_detail.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
@@ -27,7 +25,7 @@ import java.io.File
  * 需要传递
  * - 一份报告所有信息 [ExtraKeyConfig.REPORT_BEAN]
  */
-@Route(path = RouterConfig.REPORT_DETAIL)
+// Legacy ARouter route annotation - now using NavigationManager
 class ReportDetailActivity: BaseActivity() {
 
     /**

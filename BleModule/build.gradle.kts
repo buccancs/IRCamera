@@ -13,14 +13,20 @@ android {
     buildTypes {
         debug {
             isMinifyEnabled = false
+            buildConfigField("boolean", "DEBUG", "true")
         }
         release {
             isMinifyEnabled = false
+            buildConfigField("boolean", "DEBUG", "false")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
+    }
+    
+    buildFeatures {
+        buildConfig = true
     }
     
     compileOptions {
@@ -52,11 +58,16 @@ android {
 }
 
 dependencies {
-    api("com.topdon.lms.sdk2:lms:3.80.005")
+    // LMS SDK - using proper Maven repository configuration
+    api("com.topdon.lms.sdk:lms_international:3.90.009.0")
     api("androidx.appcompat:appcompat:1.2.0")
     api("org.greenrobot:eventbus:3.2.0")
     api("com.blankj:utilcodex:1.30.6") // 工具包
     api("com.google.code.gson:gson:2.8.8")
     api("com.elvishew:xlog:1.10.1")
+    // UMeng Analytics - testing dependency availability
+    // api("com.umeng.umsdk:analytics:9.4.0") 
+    // FastJSON - testing dependency availability
+    // api("com.alibaba:fastjson:1.2.83") 
     implementation(files("libs/ini4j-0.5.5.jar"))
 }

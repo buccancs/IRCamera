@@ -15,7 +15,6 @@ import com.topdon.menu.R as MenuR
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.lib.ui.config.CameraHelp
 import com.topdon.menu.constant.TargetType
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.ui_item_menu_second_view.view.*
 
 @Deprecated("旧的标靶菜单，已重构过了")
 class MenuTargetAdapter (val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -36,12 +35,12 @@ class MenuTargetAdapter (val context: Context) : RecyclerView.Adapter<RecyclerVi
     }
 
     private val secondBean = arrayListOf(
-        ColorBean(UiR.drawable.selector_menu2_target_1_person, context.getString(R.string.main_tab_second_measure_mode), CameraHelp.TYPE_SET_MEASURE_MODE),
-        ColorBean(UiR.drawable.selector_menu2_target_2_style, context.getString(R.string.main_tab_first_target), CameraHelp.TYPE_SET_TARGET_MODE),
+        ColorBean(MenuR.drawable.selector_menu2_target_1_person, context.getString(R.string.main_tab_second_measure_mode), CameraHelp.TYPE_SET_MEASURE_MODE),
+        ColorBean(MenuR.drawable.selector_menu2_target_2_style, context.getString(R.string.main_tab_first_target), CameraHelp.TYPE_SET_TARGET_MODE),
 //      ColorBean(UiR.drawable.ic_menu_second_zoom, context.getString(R.string.main_tab_second_zoom), CameraHelp.TYPE_SET_TARGET_ZOOM),
-        ColorBean(UiR.drawable.selector_menu2_target_3_color, context.getString(R.string.main_tab_second_target_color), CameraHelp.TYPE_SET_TARGET_COLOR),
-        ColorBean(UiR.drawable.selector_menu2_del, context.getString(R.string.thermal_delete), CameraHelp.TYPE_SET_TARGET_DELETE),
-        ColorBean(UiR.drawable.selector_menu2_target_4_help, context.getString(R.string.main_tab_second_target_help), CameraHelp.TYPE_SET_TARGET_HELP),
+        ColorBean(MenuR.drawable.selector_menu2_target_3_color, context.getString(R.string.main_tab_second_target_color), CameraHelp.TYPE_SET_TARGET_COLOR),
+        ColorBean(MenuR.drawable.selector_menu2_del, context.getString(R.string.thermal_delete), CameraHelp.TYPE_SET_TARGET_DELETE),
+        ColorBean(MenuR.drawable.selector_menu2_target_4_help, context.getString(R.string.main_tab_second_target_help), CameraHelp.TYPE_SET_TARGET_HELP),
     )
 
     /**
@@ -51,22 +50,22 @@ class MenuTargetAdapter (val context: Context) : RecyclerView.Adapter<RecyclerVi
         secondBean.clear()
         when (measureMode) {
             ObserveBean.TYPE_MEASURE_PERSON -> {
-                secondBean.add(ColorBean(UiR.drawable.selector_menu2_target_1_person, context.getString(R.string.main_tab_second_measure_mode), CameraHelp.TYPE_SET_MEASURE_MODE))
+                secondBean.add(ColorBean(MenuR.drawable.selector_menu2_target_1_person, context.getString(R.string.main_tab_second_measure_mode), CameraHelp.TYPE_SET_MEASURE_MODE))
             }
             ObserveBean.TYPE_MEASURE_SHEEP -> {
-                secondBean.add(ColorBean(UiR.drawable.selector_menu2_target_1_sheep, context.getString(R.string.main_tab_second_measure_mode), CameraHelp.TYPE_SET_MEASURE_MODE))
+                secondBean.add(ColorBean(MenuR.drawable.selector_menu2_target_1_sheep, context.getString(R.string.main_tab_second_measure_mode), CameraHelp.TYPE_SET_MEASURE_MODE))
             }
             ObserveBean.TYPE_MEASURE_DOG -> {
-                secondBean.add(ColorBean(UiR.drawable.selector_menu2_target_1_dog, context.getString(R.string.main_tab_second_measure_mode), CameraHelp.TYPE_SET_MEASURE_MODE))
+                secondBean.add(ColorBean(MenuR.drawable.selector_menu2_target_1_dog, context.getString(R.string.main_tab_second_measure_mode), CameraHelp.TYPE_SET_MEASURE_MODE))
             }
             ObserveBean.TYPE_MEASURE_BIRD -> {
-                secondBean.add(ColorBean(UiR.drawable.selector_menu2_target_1_bird, context.getString(R.string.main_tab_second_measure_mode), CameraHelp.TYPE_SET_MEASURE_MODE))
+                secondBean.add(ColorBean(MenuR.drawable.selector_menu2_target_1_bird, context.getString(R.string.main_tab_second_measure_mode), CameraHelp.TYPE_SET_MEASURE_MODE))
             }
         }
-        secondBean.add(ColorBean(UiR.drawable.selector_menu2_target_2_style, context.getString(R.string.main_tab_first_target), CameraHelp.TYPE_SET_TARGET_MODE))
-        secondBean.add(ColorBean(UiR.drawable.selector_menu2_target_3_color, context.getString(R.string.main_tab_second_target_color), CameraHelp.TYPE_SET_TARGET_COLOR))
-        secondBean.add(ColorBean(UiR.drawable.selector_menu2_del, context.getString(R.string.thermal_delete), CameraHelp.TYPE_SET_TARGET_DELETE))
-        secondBean.add(ColorBean(UiR.drawable.selector_menu2_target_4_help, context.getString(R.string.main_tab_second_target_help), CameraHelp.TYPE_SET_TARGET_HELP))
+        secondBean.add(ColorBean(MenuR.drawable.selector_menu2_target_2_style, context.getString(R.string.main_tab_first_target), CameraHelp.TYPE_SET_TARGET_MODE))
+        secondBean.add(ColorBean(MenuR.drawable.selector_menu2_target_3_color, context.getString(R.string.main_tab_second_target_color), CameraHelp.TYPE_SET_TARGET_COLOR))
+        secondBean.add(ColorBean(MenuR.drawable.selector_menu2_del, context.getString(R.string.thermal_delete), CameraHelp.TYPE_SET_TARGET_DELETE))
+        secondBean.add(ColorBean(MenuR.drawable.selector_menu2_target_4_help, context.getString(R.string.main_tab_second_target_help), CameraHelp.TYPE_SET_TARGET_HELP))
         notifyDataSetChanged()
     }
 
@@ -101,9 +100,9 @@ class MenuTargetAdapter (val context: Context) : RecyclerView.Adapter<RecyclerVi
     }
 
     inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val lay: View = itemView.item_menu_tab_lay
-        val img: ImageView = itemView.item_menu_tab_img
-        val name: TextView = itemView.item_menu_tab_text
+        val lay: View = itemView.findViewById(UiR.id.item_menu_tab_lay)
+        val img: ImageView = itemView.findViewById(UiR.id.item_menu_tab_img)
+        val name: TextView = itemView.findViewById(UiR.id.item_menu_tab_text)
         init {
 //            val canSeeCount = 4.5 //一屏占4个
 //            val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()

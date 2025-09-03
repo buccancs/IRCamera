@@ -9,7 +9,6 @@ import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.github.mikephil.charting.charts.LineChart
@@ -36,7 +35,6 @@ import com.topdon.module.thermal.chart.MyValueFormatter
 import com.topdon.module.thermal.utils.ArrayUtils
 import com.topdon.module.thermal.view.MyMarkerView
 import com.topdon.module.thermal.viewmodel.LogViewModel
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_monitor_chart.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -46,7 +44,7 @@ import java.math.BigDecimal
 /**
  * 温度监控
  */
-@Route(path = RouterConfig.MONITOR_CHART)
+// Legacy ARouter route annotation - now using NavigationManager
 class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueSelectedListener {
 
     private val viewModel: LogViewModel by viewModels()

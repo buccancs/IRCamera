@@ -11,8 +11,7 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.blankj.utilcode.util.TimeUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.github.gzuliyujiang.wheelpicker.DatimePicker
@@ -40,7 +39,6 @@ import com.topdon.module.thermal.ir.report.bean.ImageTempBean
 import com.topdon.module.thermal.ir.report.bean.ReportConditionBean
 import com.topdon.module.thermal.ir.report.bean.ReportInfoBean
 import com.topdon.module.thermal.ir.repository.ConfigRepository
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_report_create_first.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -58,7 +56,7 @@ import java.util.*
  * - 当前编辑的图片绝对路径: [ExtraKeyConfig.FILE_ABSOLUTE_PATH] （本界面不使用，透传）
  * - 当前编辑的图片点线面全图温度数据: [ExtraKeyConfig.IMAGE_TEMP_BEAN] （本界面不使用，透传）
  */
-@Route(path = RouterConfig.REPORT_CREATE_FIRST)
+// Legacy ARouter route annotation - now using NavigationManager
 class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
 
     /**
@@ -171,7 +169,7 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
             tv_preview -> {//预览
                 val reportInfoBean = buildReportInfo()
                 val reportConditionBean = buildReportCondition()
-                ARouter.getInstance().build(RouterConfig.REPORT_PREVIEW_FIRST)
+                NavigationManager.getInstance().build(RouterConfig.REPORT_PREVIEW_FIRST)
                     .withParcelable(ExtraKeyConfig.REPORT_INFO, reportInfoBean)
                     .withParcelable(ExtraKeyConfig.REPORT_CONDITION, reportConditionBean)
                     .navigation(this)
@@ -180,7 +178,7 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
                 val reportInfoBean = buildReportInfo()
                 val reportConditionBean = buildReportCondition()
                 val imageTempBean: ImageTempBean? = intent.getParcelableExtra(ExtraKeyConfig.IMAGE_TEMP_BEAN)
-                ARouter.getInstance().build(RouterConfig.REPORT_CREATE_SECOND)
+                NavigationManager.getInstance().build(RouterConfig.REPORT_CREATE_SECOND)
                     .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
                     .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, intent.getStringExtra(ExtraKeyConfig.FILE_ABSOLUTE_PATH))
                     .withParcelable(ExtraKeyConfig.IMAGE_TEMP_BEAN, imageTempBean)

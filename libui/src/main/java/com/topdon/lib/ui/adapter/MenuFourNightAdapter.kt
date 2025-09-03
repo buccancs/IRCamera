@@ -23,7 +23,6 @@ import com.topdon.menu.R as MenuR
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.lib.ui.config.CameraHelp
 import com.topdon.lib.ui.listener.SingleClickListener
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.ui_item_menu_second_view.view.*
 
 
 @Deprecated("旧的设置菜单，已重构过了")
@@ -98,61 +97,61 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
         fourBean.clear()
         when (modeType) {
             IR_TEMPERATURE_MODE -> {
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_1, context.getString(R.string.thermal_pseudo), CameraHelp.TYPE_SET_PSEUDOCOLOR))
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_2, context.getString(R.string.thermal_contrast), CameraHelp.TYPE_SET_ParamLevelContrast))
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_3, context.getString(R.string.thermal_sharpen), CameraHelp.TYPE_SET_ParamLevelDde))
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_6, context.getString(R.string.temp_alarm_alarm), CameraHelp.TYPE_SET_ALARM))
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_4, context.getString(R.string.thermal_rotate), CameraHelp.TYPE_SET_ROTATE))
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_7, context.getString(R.string.menu_thermal_font), CameraHelp.TYPE_SET_COLOR))
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_5, context.getString(R.string.mirror), CameraHelp.TYPE_SET_MIRROR))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_1, context.getString(R.string.thermal_pseudo), CameraHelp.TYPE_SET_PSEUDOCOLOR))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_2, context.getString(R.string.thermal_contrast), CameraHelp.TYPE_SET_ParamLevelContrast))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_3, context.getString(R.string.thermal_sharpen), CameraHelp.TYPE_SET_ParamLevelDde))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_6, context.getString(R.string.temp_alarm_alarm), CameraHelp.TYPE_SET_ALARM))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_4, context.getString(R.string.thermal_rotate), CameraHelp.TYPE_SET_ROTATE))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_7, context.getString(R.string.menu_thermal_font), CameraHelp.TYPE_SET_COLOR))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_5, context.getString(R.string.mirror), CameraHelp.TYPE_SET_MIRROR))
             }
             IR_TCPLUS_MODE -> {
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_1, context.getString(R.string.thermal_pseudo), CameraHelp.TYPE_SET_PSEUDOCOLOR))
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_2, context.getString(R.string.thermal_contrast), CameraHelp.TYPE_SET_ParamLevelContrast))
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_3, context.getString(R.string.thermal_sharpen), CameraHelp.TYPE_SET_ParamLevelDde))
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_6, context.getString(R.string.temp_alarm_alarm), CameraHelp.TYPE_SET_ALARM))
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_4, context.getString(R.string.thermal_rotate), CameraHelp.TYPE_SET_ROTATE))
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_7, context.getString(R.string.menu_thermal_font), CameraHelp.TYPE_SET_COLOR))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_1, context.getString(R.string.thermal_pseudo), CameraHelp.TYPE_SET_PSEUDOCOLOR))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_2, context.getString(R.string.thermal_contrast), CameraHelp.TYPE_SET_ParamLevelContrast))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_3, context.getString(R.string.thermal_sharpen), CameraHelp.TYPE_SET_ParamLevelDde))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_6, context.getString(R.string.temp_alarm_alarm), CameraHelp.TYPE_SET_ALARM))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_4, context.getString(R.string.thermal_rotate), CameraHelp.TYPE_SET_ROTATE))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_7, context.getString(R.string.menu_thermal_font), CameraHelp.TYPE_SET_COLOR))
             }
             IR_TEMPERATURE_LITE -> {
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_1, context.getString(R.string.thermal_pseudo), CameraHelp.TYPE_SET_PSEUDOCOLOR))
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_2, context.getString(R.string.thermal_contrast), CameraHelp.TYPE_SET_ParamLevelContrast))
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_6, context.getString(R.string.temp_alarm_alarm), CameraHelp.TYPE_SET_ALARM))
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_4, context.getString(R.string.thermal_rotate), CameraHelp.TYPE_SET_ROTATE))
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_7, context.getString(R.string.menu_thermal_font), CameraHelp.TYPE_SET_COLOR))
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_5, context.getString(R.string.mirror), CameraHelp.TYPE_SET_MIRROR))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_1, context.getString(R.string.thermal_pseudo), CameraHelp.TYPE_SET_PSEUDOCOLOR))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_2, context.getString(R.string.thermal_contrast), CameraHelp.TYPE_SET_ParamLevelContrast))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_6, context.getString(R.string.temp_alarm_alarm), CameraHelp.TYPE_SET_ALARM))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_4, context.getString(R.string.thermal_rotate), CameraHelp.TYPE_SET_ROTATE))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_7, context.getString(R.string.menu_thermal_font), CameraHelp.TYPE_SET_COLOR))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_5, context.getString(R.string.mirror), CameraHelp.TYPE_SET_MIRROR))
             }
             IR_TC007_MODE ->{
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_1, context.getString(R.string.thermal_pseudo), CameraHelp.TYPE_SET_PSEUDOCOLOR))
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_2, context.getString(R.string.thermal_contrast), CameraHelp.TYPE_SET_ParamLevelContrast))
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_3, context.getString(R.string.thermal_sharpen), CameraHelp.TYPE_SET_ParamLevelDde))
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_6, context.getString(R.string.temp_alarm_alarm), CameraHelp.TYPE_SET_ALARM))
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_7, context.getString(R.string.menu_thermal_font), CameraHelp.TYPE_SET_COLOR))
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_5, context.getString(R.string.mirror), CameraHelp.TYPE_SET_MIRROR))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_1, context.getString(R.string.thermal_pseudo), CameraHelp.TYPE_SET_PSEUDOCOLOR))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_2, context.getString(R.string.thermal_contrast), CameraHelp.TYPE_SET_ParamLevelContrast))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_3, context.getString(R.string.thermal_sharpen), CameraHelp.TYPE_SET_ParamLevelDde))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_6, context.getString(R.string.temp_alarm_alarm), CameraHelp.TYPE_SET_ALARM))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_7, context.getString(R.string.menu_thermal_font), CameraHelp.TYPE_SET_COLOR))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_5, context.getString(R.string.mirror), CameraHelp.TYPE_SET_MIRROR))
             }
             IR_OBSERVE_MODE -> {
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_8, context.getString(R.string.main_tab_second_compass), CameraHelp.TYPE_SET_COMPASS))
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_4, context.getString(R.string.thermal_rotate), CameraHelp.TYPE_SET_ROTATE))
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_5, context.getString(R.string.mirror), CameraHelp.TYPE_SET_MIRROR))
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_2, context.getString(R.string.thermal_contrast), CameraHelp.TYPE_SET_ParamLevelContrast))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_8, context.getString(R.string.main_tab_second_compass), CameraHelp.TYPE_SET_COMPASS))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_4, context.getString(R.string.thermal_rotate), CameraHelp.TYPE_SET_ROTATE))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_5, context.getString(R.string.mirror), CameraHelp.TYPE_SET_MIRROR))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_2, context.getString(R.string.thermal_contrast), CameraHelp.TYPE_SET_ParamLevelContrast))
             }
             else -> {
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_6, context.getString(R.string.temp_alarm_alarm), CameraHelp.TYPE_SET_ALARM))
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_7, context.getString(R.string.menu_thermal_font), CameraHelp.TYPE_SET_COLOR))
-                fourBean.add(ColorBean(UiR.drawable.selector_menu2_setting_9, context.getString(R.string.app_watemarking), CameraHelp.TYPE_SET_WATERMARK))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_6, context.getString(R.string.temp_alarm_alarm), CameraHelp.TYPE_SET_ALARM))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_7, context.getString(R.string.menu_thermal_font), CameraHelp.TYPE_SET_COLOR))
+                fourBean.add(ColorBean(MenuR.drawable.selector_menu2_setting_9, context.getString(R.string.app_watemarking), CameraHelp.TYPE_SET_WATERMARK))
             }
         }
         notifyDataSetChanged()
     }
 
     private val fourBean = arrayListOf(
-        ColorBean(UiR.drawable.selector_menu2_setting_1, context.getString(R.string.thermal_pseudo), CameraHelp.TYPE_SET_PSEUDOCOLOR),
-        ColorBean(UiR.drawable.selector_menu2_setting_2, context.getString(R.string.thermal_contrast), CameraHelp.TYPE_SET_ParamLevelContrast),
-        ColorBean(UiR.drawable.selector_menu2_setting_3, context.getString(R.string.thermal_sharpen), CameraHelp.TYPE_SET_ParamLevelDde),
-        ColorBean(UiR.drawable.selector_menu2_setting_6, context.getString(R.string.temp_alarm_alarm), CameraHelp.TYPE_SET_ALARM),
-        ColorBean(UiR.drawable.selector_menu2_setting_4, context.getString(R.string.thermal_rotate), CameraHelp.TYPE_SET_ROTATE),
-        ColorBean(UiR.drawable.selector_menu2_setting_7, context.getString(R.string.menu_thermal_font), CameraHelp.TYPE_SET_COLOR),
-        ColorBean(UiR.drawable.selector_menu2_setting_5, context.getString(R.string.mirror), CameraHelp.TYPE_SET_MIRROR),
+        ColorBean(MenuR.drawable.selector_menu2_setting_1, context.getString(R.string.thermal_pseudo), CameraHelp.TYPE_SET_PSEUDOCOLOR),
+        ColorBean(MenuR.drawable.selector_menu2_setting_2, context.getString(R.string.thermal_contrast), CameraHelp.TYPE_SET_ParamLevelContrast),
+        ColorBean(MenuR.drawable.selector_menu2_setting_3, context.getString(R.string.thermal_sharpen), CameraHelp.TYPE_SET_ParamLevelDde),
+        ColorBean(MenuR.drawable.selector_menu2_setting_6, context.getString(R.string.temp_alarm_alarm), CameraHelp.TYPE_SET_ALARM),
+        ColorBean(MenuR.drawable.selector_menu2_setting_4, context.getString(R.string.thermal_rotate), CameraHelp.TYPE_SET_ROTATE),
+        ColorBean(MenuR.drawable.selector_menu2_setting_7, context.getString(R.string.menu_thermal_font), CameraHelp.TYPE_SET_COLOR),
+        ColorBean(MenuR.drawable.selector_menu2_setting_5, context.getString(R.string.mirror), CameraHelp.TYPE_SET_MIRROR),
         )
 
 
@@ -171,16 +170,16 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
             if(bean.code == CameraHelp.TYPE_SET_ROTATE){
                 when (rotateAngle) {
                     0 -> {
-                        holder.img.setImageResource(UiR.drawable.svg_menu2_setting_4_rotate270)
+                        holder.img.setImageResource(MenuR.drawable.svg_menu2_setting_4_rotate270)
                     }
                     90 -> {
-                        holder.img.setImageResource(UiR.drawable.svg_menu2_setting_4_rotate180)
+                        holder.img.setImageResource(MenuR.drawable.svg_menu2_setting_4_rotate180)
                     }
                     180 -> {
-                        holder.img.setImageResource(UiR.drawable.svg_menu2_setting_4_rotate90)
+                        holder.img.setImageResource(MenuR.drawable.svg_menu2_setting_4_rotate90)
                     }
                     270 -> {
-                        holder.img.setImageResource(UiR.drawable.svg_menu2_setting_4_rotate0)
+                        holder.img.setImageResource(MenuR.drawable.svg_menu2_setting_4_rotate0)
                     }
                 }
             }else{
@@ -283,9 +282,9 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
     }
 
     inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val lay: View = itemView.item_menu_tab_lay
-        val img: ImageView = itemView.item_menu_tab_img
-        val name: TextView = itemView.item_menu_tab_text
+        val lay: View = itemView.findViewById(UiR.id.item_menu_tab_lay)
+        val img: ImageView = itemView.findViewById(UiR.id.item_menu_tab_img)
+        val name: TextView = itemView.findViewById(UiR.id.item_menu_tab_text)
     }
 
 

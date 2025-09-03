@@ -12,7 +12,7 @@ import com.blankj.utilcode.util.AppUtils
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.ExtraKeyConfig
@@ -27,7 +27,6 @@ import com.topdon.lib.core.utils.NetWorkUtils
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.activity.IRThermalNightActivity
 import com.topdon.module.thermal.ir.activity.IRThermalPlusActivity
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_thermal_ir.*
 
 class IRThermalFragment : BaseFragment(), View.OnClickListener {
 
@@ -130,14 +129,14 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
         when (v) {
             cl_open_thermal -> {
                 if (isTC007) {
-                    ARouter.getInstance().build(RouterConfig.IR_THERMAL_07).navigation(requireContext())
+                    NavigationManager.getInstance().build(RouterConfig.IR_THERMAL_07).navigation(requireContext())
                 } else {
                     if (DeviceTools.isTC001PlusConnect()) {
                         startActivityForResult(Intent(requireContext(), IRThermalPlusActivity::class.java), 101)
                     }else if(DeviceTools.isTC001LiteConnect()){
-                        ARouter.getInstance().build(RouterConfig.IR_TCLITE).navigation(activity,101)
+                        NavigationManager.getInstance().build(RouterConfig.IR_TCLITE).navigation(activity,101)
                     } else if (DeviceTools.isHikConnect()) {
-                        ARouter.getInstance().build(RouterConfig.IR_HIK_MAIN).navigation(activity)
+                        NavigationManager.getInstance().build(RouterConfig.IR_HIK_MAIN).navigation(activity)
                     } else {
                         startActivityForResult(Intent(requireContext(), IRThermalNightActivity::class.java), 101)
                     }
@@ -187,7 +186,7 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
                 }
             }
             cl_07_connect_tips -> {//TC007 连接提示
-                ARouter.getInstance().build(RouterConfig.IR_CONNECT_TIPS)
+                NavigationManager.getInstance().build(RouterConfig.IR_CONNECT_TIPS)
                     .withBoolean(ExtraKeyConfig.IS_TC007, true)
                     .navigation(requireContext())
             }

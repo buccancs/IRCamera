@@ -2,7 +2,6 @@ package com.topdon.commons.util;
 
 import android.text.TextUtils;
 import android.util.Log;
-
 import com.topdon.lms.sdk.LMS;
 
 import java.io.File;

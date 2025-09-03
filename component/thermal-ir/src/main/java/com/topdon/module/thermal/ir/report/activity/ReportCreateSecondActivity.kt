@@ -3,8 +3,7 @@ package com.topdon.module.thermal.ir.report.activity
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.blankj.utilcode.util.ToastUtils
 import com.topdon.lib.core.bean.event.ReportCreateEvent
 import com.topdon.lib.core.common.SharedManager
@@ -13,10 +12,10 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.tools.GlideLoader
+import com.topdon.lib.core.tools.ConstantLanguages
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.report.bean.*
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_report_create_second.*
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -32,7 +31,7 @@ import org.greenrobot.eventbus.ThreadMode
  * - 可选：检测条件 [ExtraKeyConfig.REPORT_CONDITION]
  * - 可选：当前已确认的图片信息列表 [ExtraKeyConfig.REPORT_IR_LIST]
  */
-@Route(path = RouterConfig.REPORT_CREATE_SECOND)
+// Legacy ARouter route annotation - now using NavigationManager
 class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
 
     /**
@@ -175,14 +174,14 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
                     .navigation(this)
             }
             tv_preview -> {//预览
-                val appLanguage = SharedManager.getLanguage(this)
+                val appLanguage = ConstantLanguages.ENGLISH
                 val sdkVersion = "1.2.8_23050619"
                 val reportInfoBean: ReportInfoBean? = intent.getParcelableExtra(ExtraKeyConfig.REPORT_INFO)
                 val conditionBean: ReportConditionBean? = intent.getParcelableExtra(ExtraKeyConfig.REPORT_CONDITION)
                 val reportIRBeanList = ArrayList<ReportIRBean>(reportIRList)
                 reportIRBeanList.add(buildReportIr(currentFilePath))
                 val reportBean = ReportBean(SoftwareInfo(appLanguage, sdkVersion), reportInfoBean!!, conditionBean!!, reportIRBeanList)
-                ARouter.getInstance().build(RouterConfig.REPORT_PREVIEW_SECOND)
+                NavigationManager.getInstance().build(RouterConfig.REPORT_PREVIEW_SECOND)
                     .withBoolean(ExtraKeyConfig.IS_TC007, intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false))
                     .withParcelable(ExtraKeyConfig.REPORT_BEAN, reportBean)
                     .navigation(this)

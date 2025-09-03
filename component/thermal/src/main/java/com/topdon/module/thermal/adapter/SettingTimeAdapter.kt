@@ -9,8 +9,6 @@ import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.module.thermal.R
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_setting_check.view.*
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_setting_time.view.*
 
 /**
  * 设置时间

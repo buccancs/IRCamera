@@ -9,12 +9,6 @@ plugins {
     id("com.google.firebase.crashlytics")
 }
 
-kapt {
-    arguments {
-        arg("AROUTER_MODULE_NAME", project.name)
-    }
-}
-
 val dayStr = SimpleDateFormat("yyMMdd", Locale.getDefault()).format(Date())
 val timeStr = SimpleDateFormat("HHmm", Locale.getDefault()).format(Date())
 
@@ -242,11 +236,8 @@ fun getApkName(variantName: String, versionName: String): String {
 dependencies {
     implementation(project(":component:edit3d"))
     implementation(project(":component:pseudo"))
-    implementation(project(":component:thermal-hik"))
     implementation(project(":component:thermal-ir"))
     implementation(project(":component:thermal-lite"))
-    implementation(project(":component:thermal04"))
-    implementation(project(":component:thermal07"))
     implementation(project(":component:transfer"))
     implementation(project(":component:user"))
     implementation(project(":component:gsr-recording"))
@@ -255,8 +246,6 @@ dependencies {
     implementation(project(":libir"))
     implementation(project(":libmenu"))
     implementation(project(":libui"))
-
-    kapt(Deps.arouter_compiler)
 
     implementation(Deps.jsbridge)
     implementation(Deps.fastjson)

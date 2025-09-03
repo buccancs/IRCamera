@@ -3,7 +3,8 @@ package com.topdon.commons.util;
 import static com.topdon.lms.sdk.LMS.SUCCESS;
 
 import android.text.TextUtils;
-import com.alibaba.fastjson.JSONObject;
+// Using Gson instead of FastJSON as it's more commonly available
+import com.google.gson.JsonObject;
 import com.topdon.lms.sdk.LMS;
 import com.topdon.lms.sdk.network.IResponseCallback;
 import com.topdon.lms.sdk.utils.StringUtils;

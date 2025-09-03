@@ -2,11 +2,10 @@ package com.topdon.module.user.fragment
 
 import android.os.Build
 import android.view.View
-import com.alibaba.android.arouter.facade.annotation.Route
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.blankj.utilcode.util.ToastUtils
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.BaseApplication
@@ -31,8 +30,6 @@ import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.user.R
 import com.topdon.module.user.dialog.DownloadProDialog
 import com.topdon.module.user.dialog.FirmwareInstallDialog
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_more.*
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.layout_upgrade.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
@@ -45,7 +42,7 @@ import java.text.DecimalFormat
  * 需要传递参数：
  * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
  */
-@Route(path = RouterConfig.TC_MORE)
+// Legacy ARouter route annotation - now using NavigationManager
 class MoreFragment : BaseFragment(), View.OnClickListener {
 
     /**
@@ -161,16 +158,16 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
     override fun onClick(v: View?) {
        when(v){
            setting_item_model -> {//温度修正
-               ARouter.getInstance().build(RouterConfig.IR_SETTING).withBoolean(ExtraKeyConfig.IS_TC007, isTC007).navigation(requireContext())
+               NavigationManager.getInstance().build(RouterConfig.IR_SETTING).withBoolean(ExtraKeyConfig.IS_TC007, isTC007).navigation(requireContext())
            }
            setting_item_dual->{
-               ARouter.getInstance().build(RouterConfig.MANUAL_START).navigation(requireContext())
+               NavigationManager.getInstance().build(RouterConfig.MANUAL_START).navigation(requireContext())
            }
            setting_item_unit -> {//温度单位
-               ARouter.getInstance().build(RouterConfig.UNIT).navigation(requireContext())
+               NavigationManager.getInstance().build(RouterConfig.UNIT).navigation(requireContext())
            }
            setting_item_correction->{//锅盖校正
-               ARouter.getInstance().build(RouterConfig.IR_CORRECTION).withBoolean(ExtraKeyConfig.IS_TC007, isTC007).navigation(requireContext())
+               NavigationManager.getInstance().build(RouterConfig.IR_CORRECTION).withBoolean(ExtraKeyConfig.IS_TC007, isTC007).navigation(requireContext())
            }
            setting_version -> {//TC007固件升级
                //由于双通道方案存在问题，V3.30临时使用 apk 内置固件升级包，此处注释强制登录逻辑
@@ -189,7 +186,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
            }
            setting_device_information -> {//TC007设备信息
                if (WebSocketProxy.getInstance().isTC007Connect()) {
-                   ARouter.getInstance()
+                   NavigationManager.getInstance()
                        .build(RouterConfig.DEVICE_INFORMATION)
                        .withBoolean(ExtraKeyConfig.IS_TC007, true)
                        .navigation(requireContext())
@@ -292,7 +289,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
                     .setTitleMessage(getString(R.string.app_tip))
                     .setMessage(R.string.firmware_up_success)
                     .setPositiveListener(R.string.app_confirm) {
-                        ARouter.getInstance().build(RouterConfig.MAIN).navigation(requireContext())
+                        NavigationManager.getInstance().build(RouterConfig.MAIN).navigation(requireContext())
                         requireActivity().finish()
                     }
                     .setCancelListener(R.string.app_cancel) {
@@ -354,7 +351,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
                 TToast.shortToast(requireContext(), R.string.ts004_reset_tip4)
                 (requireActivity().application as BaseApplication).disconnectWebSocket()
                 EventBus.getDefault().post(TS004ResetEvent())
-                ARouter.getInstance().build(RouterConfig.MAIN).navigation(requireContext())
+                NavigationManager.getInstance().build(RouterConfig.MAIN).navigation(requireContext())
                 requireActivity().finish()
             } else {
                 TToast.shortToast(requireContext(), R.string.operation_failed_tips)

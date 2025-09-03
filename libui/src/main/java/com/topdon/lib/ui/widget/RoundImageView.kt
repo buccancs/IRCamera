@@ -51,9 +51,9 @@ class RoundImageView : AppCompatImageView {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         density = context.resources.displayMetrics.density
 
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.RoundImageView, defStyleAttr, 0)
-        radius = typedArray.getDimensionPixelSize(R.styleable.RoundImageView_round_radius, dp2px(DEFAULT_RADIUS))
-        position = typedArray.getInt(R.styleable.RoundImageView_round_position, DEFAULT_POSITION)
+        val typedArray = context.obtainStyledAttributes(attrs, UiR.styleable.RoundImageView, defStyleAttr, 0)
+        radius = typedArray.getDimensionPixelSize(UiR.styleable.RoundImageView_round_radius, dp2px(DEFAULT_RADIUS))
+        position = typedArray.getInt(UiR.styleable.RoundImageView_round_position, DEFAULT_POSITION)
         typedArray.recycle()
 
     }

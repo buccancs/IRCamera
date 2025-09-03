@@ -21,7 +21,6 @@ import com.topdon.lib.core.db.entity.HouseDetect
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lms.sdk.weiget.TToast
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_detect_list.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

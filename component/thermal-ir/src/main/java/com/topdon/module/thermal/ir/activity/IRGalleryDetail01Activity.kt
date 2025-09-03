@@ -12,8 +12,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.bean.GalleryBean
 import com.topdon.lib.core.config.ExtraKeyConfig
@@ -34,7 +33,6 @@ import com.topdon.module.thermal.ir.event.ImageGalleryEvent
 import com.topdon.module.thermal.ir.fragment.GalleryFragment
 import com.topdon.module.thermal.ir.frame.FrameTool
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryEditViewModel
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_ir_gallery_detail_01.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -46,7 +44,7 @@ import java.io.File
 /**
  * 插件式设备、TC007 图片详情
  */
-@Route(path = RouterConfig.IR_GALLERY_DETAIL_01)
+// Legacy ARouter route annotation - now using NavigationManager
 class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
 
     /**
@@ -262,7 +260,7 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
                         tempLow = frameTool.getSrcTemp().minTemperature
                     }
 //                    dismissLoading()
-                    ARouter.getInstance().build(RouterConfig.IR_GALLERY_3D).withString(ExtraKeyConfig.IR_PATH, irPath)
+                    NavigationManager.getInstance().build(RouterConfig.IR_GALLERY_3D).withString(ExtraKeyConfig.IR_PATH, irPath)
                         .withFloat(ExtraKeyConfig.TEMP_HIGH, tempHigh).withFloat(ExtraKeyConfig.TEMP_LOW, tempLow)
                         .navigation(this@IRGalleryDetail01Activity)
                 }
@@ -290,7 +288,7 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
             ToastTools.showShort(R.string.album_report_on_edit)
             return
         }
-        ARouter.getInstance().build(RouterConfig.IR_GALLERY_EDIT)
+        NavigationManager.getInstance().build(RouterConfig.IR_GALLERY_EDIT)
             .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
             .withBoolean(ExtraKeyConfig.IS_PICK_REPORT_IMG, isReport)
             .withBoolean(IS_REPORT_FIRST, true)

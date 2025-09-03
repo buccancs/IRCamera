@@ -7,13 +7,11 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.DeviceTools
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_device_type.*
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_device_type.view.*
 
 /**
  * 设备类型选择.
@@ -36,19 +34,19 @@ class DeviceTypeActivity : BaseActivity() {
                 clientType = it
                 when (it) {
                     IRDeviceType.TS004 -> {
-                        ARouter.getInstance()
+                        NavigationManager.getInstance()
                             .build(RouterConfig.IR_DEVICE_ADD)
                             .withBoolean("isTS004", true)
                             .navigation(this@DeviceTypeActivity)
                     }
                     IRDeviceType.TC007 -> {
-                        ARouter.getInstance()
+                        NavigationManager.getInstance()
                             .build(RouterConfig.IR_DEVICE_ADD)
                             .withBoolean("isTS004", false)
                             .navigation(this@DeviceTypeActivity)
                     }
                     else -> {
-                        ARouter.getInstance()
+                        NavigationManager.getInstance()
                             .build(RouterConfig.IR_MAIN)
                             .withBoolean(ExtraKeyConfig.IS_TC007, false)
                             .navigation(this@DeviceTypeActivity)

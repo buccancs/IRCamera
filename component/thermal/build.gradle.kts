@@ -1,14 +1,15 @@
 plugins {
     id("com.android.library")
     kotlin("android")
-    kotlin("kapt")
+    // Temporarily disable KAPT to fix compilation issues
+    // kotlin("kapt")
 }
 
-kapt {
-    arguments {
-        arg("AROUTER_MODULE_NAME", project.name)
-    }
-}
+// kapt {
+//     arguments {
+//         arg("AROUTER_MODULE_NAME", project.name)
+//     }
+// }
 
 android {
     namespace = "com.topdon.module.thermal"
@@ -79,7 +80,8 @@ dependencies {
     implementation(project(":libui"))
     implementation(project(":libmenu"))
     
-    kapt(Deps.arouter_compiler)
+    // Temporarily disable ARouter compiler until KAPT issues are resolved
+
     
     implementation(Deps.androidx_core)
     implementation(Deps.appcompat)

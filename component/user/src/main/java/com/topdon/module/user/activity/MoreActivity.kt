@@ -5,8 +5,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.blankj.utilcode.util.ToastUtils
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.BaseApplication
@@ -29,8 +28,6 @@ import com.topdon.module.user.R
 import com.topdon.module.user.dialog.DownloadProDialog
 import com.topdon.module.user.dialog.FirmwareInstallDialog
 import com.topdon.lib.core.dialog.FirmwareUpDialog
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_more.*
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.layout_upgrade.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
@@ -40,7 +37,7 @@ import java.text.DecimalFormat
 /**
  * TS004 的 “更多” 页面.
  */
-@Route(path = RouterConfig.TS004_MORE)
+// Legacy ARouter route annotation - now using NavigationManager
 class MoreActivity : BaseActivity(), View.OnClickListener {
 
     private val firmwareViewModel: FirmwareViewModel by viewModels()
@@ -85,19 +82,19 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v) {
             setting_device_information -> {//设备信息
-                ARouter.getInstance()
+                NavigationManager.getInstance()
                     .build(RouterConfig.DEVICE_INFORMATION)
                     .withBoolean(ExtraKeyConfig.IS_TC007, false)
                     .navigation(this@MoreActivity)
             }
             setting_tisr -> {//设置超分
-                ARouter.getInstance().build(RouterConfig.TISR).navigation(this@MoreActivity)
+                NavigationManager.getInstance().build(RouterConfig.TISR).navigation(this@MoreActivity)
             }
             setting_auto_save -> {//自动保存到手机
-                ARouter.getInstance().build(RouterConfig.AUTO_SAVE).navigation(this@MoreActivity)
+                NavigationManager.getInstance().build(RouterConfig.AUTO_SAVE).navigation(this@MoreActivity)
             }
             setting_storage_space -> {//TS004储存空间
-                ARouter.getInstance().build(RouterConfig.STORAGE_SPACE).navigation(this@MoreActivity)
+                NavigationManager.getInstance().build(RouterConfig.STORAGE_SPACE).navigation(this@MoreActivity)
             }
             setting_version -> {//固件版本
                 //由于双通道方案存在问题，V3.30临时使用 apk 内置固件升级包，此处注释强制登录逻辑
@@ -118,7 +115,7 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
                 restoreFactory()
             }
             setting_disconnect -> {//断开连接
-                ARouter.getInstance().build(RouterConfig.IR_MORE_HELP)
+                NavigationManager.getInstance().build(RouterConfig.IR_MORE_HELP)
                     .withInt(Constants.SETTING_CONNECTION_TYPE, Constants.SETTING_DISCONNECTION)
                     .navigation(this@MoreActivity)
             }
@@ -187,7 +184,7 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
             if (isSuccess) {
                 XLog.d("TS004 固件升级 - 固件升级包发送往 TS004 成功，即将断开连接")
                 (application as BaseApplication).disconnectWebSocket()
-                ARouter.getInstance().build(RouterConfig.MAIN).navigation(this@MoreActivity)
+                NavigationManager.getInstance().build(RouterConfig.MAIN).navigation(this@MoreActivity)
                 finish()
             } else {
                 XLog.w("TS004 固件升级 - 固件升级包发送往 TS004 失败!")
@@ -254,7 +251,7 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
                 TToast.shortToast(this@MoreActivity, R.string.ts004_reset_tip4)
                 (application as BaseApplication).disconnectWebSocket()
                 EventBus.getDefault().post(TS004ResetEvent())
-                ARouter.getInstance().build(RouterConfig.MAIN).navigation(this@MoreActivity)
+                NavigationManager.getInstance().build(RouterConfig.MAIN).navigation(this@MoreActivity)
                 finish()
             } else {
                 TToast.shortToast(this@MoreActivity, R.string.operation_failed_tips)

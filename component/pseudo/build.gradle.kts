@@ -2,6 +2,7 @@ plugins {
     id("com.android.library")
     kotlin("android")
     kotlin("kapt")
+    id("kotlin-parcelize")
 }
 
 kapt {
@@ -79,7 +80,7 @@ dependencies {
     implementation(project(":libui"))
     implementation(project(":libmenu"))
     
-    kapt(Deps.arouter_compiler)
+
     
     implementation(Deps.androidx_core)
     implementation(Deps.appcompat)

@@ -45,7 +45,6 @@ dependencies {
     implementation(project(":libapp"))
     implementation(project(":libui"))
 
-    kapt(Deps.arouter_compiler)
     api(Deps.colorpickerview)
     implementation(Deps.brvah)
 

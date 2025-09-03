@@ -20,7 +20,8 @@ import com.topdon.commons.poster.Tag;
 import com.topdon.commons.poster.ThreadMode;
 import com.topdon.commons.util.LLog;
 import com.topdon.commons.util.StringUtils;
-import com.topdon.lms.sdk.xutils.common.util.MD5;
+// LMS SDK temporarily disabled - uncomment when dependency is available
+// import com.topdon.lms.sdk.xutils.common.util.MD5;
 
 import org.greenrobot.eventbus.EventBus;
 

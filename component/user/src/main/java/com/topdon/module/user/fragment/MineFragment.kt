@@ -13,9 +13,8 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.blankj.utilcode.util.CleanUtils
-import com.blankj.utilcode.util.LanguageUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.bumptech.glide.request.RequestOptions
 import com.elvishew.xlog.XLog
@@ -33,6 +32,7 @@ import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.AppLanguageUtils
+import com.topdon.lib.core.tools.ConstantLanguages
 import com.topdon.lib.core.tools.GlideLoader
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.utils.Constants
@@ -44,12 +44,8 @@ import com.topdon.lms.sdk.bean.FeedBackBean
 import com.topdon.lms.sdk.feedback.activity.FeedbackActivity
 import com.topdon.lms.sdk.utils.LanguageUtil
 import com.topdon.module.user.R
-import com.topdon.module.user.activity.LanguageActivity
 import com.topdon.module.user.activity.MoreActivity
 import com.zoho.salesiqembed.ZohoSalesIQ
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_mine.*
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_more.setting_item_unit
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.layout_customer.drag_customer_view
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -76,7 +72,6 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
     override fun initView() {
         iv_winter.setOnClickListener(this)
-        setting_item_language.setOnClickListener(this)
         setting_item_version.setOnClickListener(this)
         setting_item_clear.setOnClickListener(this)
         setting_user_lay.setOnClickListener(this)
@@ -90,8 +85,8 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
         view_winter_point.isVisible = !SharedManager.hasClickWinter
 
-        if (BaseApplication.instance.isDomestic()) {//国内版不给切换语言
-            setting_item_language.visibility = View.GONE
+        if (BaseApplication.instance.isDomestic()) {//国内版
+            // Language selection removed - English only
         }
 
         viewLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
@@ -127,14 +122,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
     }
 
 
-    private val languagePickResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        if (it.resultCode == Activity.RESULT_OK) {
-            val localeStr: String = it.data?.getStringExtra("localeStr") ?: return@registerForActivityResult
-            SharedManager.setLanguage(requireContext(), localeStr)
-            LanguageUtils.applyLanguage(AppLanguageUtils.getLocaleByLanguage(localeStr))
-            ToastTools.showShort(R.string.tip_save_success)
-        }
-    }
+    // Language picker removed - English only app
 
     override fun onClick(v: View?) {
         when (v) {
@@ -145,13 +133,13 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
                 val url = if (UrlConstant.BASE_URL == "https://api.topdon.com/") {
                     "https://app.topdon.com/h5/share/#/detectionGuidanceIndex?showHeader=1&" +
-                            "languageId=${LanguageUtil.getLanguageId(requireContext())}"
+                            "languageId=1" // Fixed to English (languageId=1)
                 } else {
                     "http://172.16.66.77:8081/#/detectionGuidanceIndex?languageId=1&showHeader=1"
                 }
 
 
-                ARouter.getInstance().build(RouterConfig.WEB_VIEW)
+                NavigationManager.getInstance().build(RouterConfig.WEB_VIEW)
                     .withString(ExtraKeyConfig.URL, url)
                     .navigation(requireContext())
             }
@@ -169,10 +157,10 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                 }
             }
             setting_electronic_manual -> {//电子说明书
-                ARouter.getInstance().build(RouterConfig.ELECTRONIC_MANUAL).withInt(Constants.SETTING_TYPE, Constants.SETTING_BOOK).navigation(requireContext())
+                NavigationManager.getInstance().build(RouterConfig.ELECTRONIC_MANUAL).withInt(Constants.SETTING_TYPE, Constants.SETTING_BOOK).navigation(requireContext())
             }
             setting_faq -> {//FAQ
-                ARouter.getInstance().build(RouterConfig.ELECTRONIC_MANUAL).withInt(Constants.SETTING_TYPE, Constants.SETTING_FAQ).navigation(requireContext())
+                NavigationManager.getInstance().build(RouterConfig.ELECTRONIC_MANUAL).withInt(Constants.SETTING_TYPE, Constants.SETTING_FAQ).navigation(requireContext())
             }
             setting_feedback -> {//意见反馈
                 if (LMS.getInstance().isLogin) {
@@ -192,13 +180,10 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                 }
             }
             setting_item_unit -> {//温度单位
-                ARouter.getInstance().build(RouterConfig.UNIT).navigation(requireContext())
+                NavigationManager.getInstance().build(RouterConfig.UNIT).navigation(requireContext())
             }
             setting_item_version -> {//版本
-                ARouter.getInstance().build(RouterConfig.VERSION).navigation(requireContext())
-            }
-            setting_item_language -> {//语言
-                languagePickResult.launch(Intent(requireContext(), LanguageActivity::class.java))
+                NavigationManager.getInstance().build(RouterConfig.VERSION).navigation(requireContext())
             }
             setting_item_clear -> {//清除缓存，实际已隐藏
                 clearCache()
@@ -288,7 +273,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             setting_user_text.layoutParams = layoutParams
             setting_user_text.setText(
                 AppLanguageUtils.attachBaseContext(
-                context, SharedManager.getLanguage(requireContext())).getString(R.string.app_sign_in))
+                context, ConstantLanguages.ENGLISH).getString(R.string.app_sign_in))
             val drawable = ContextCompat.getDrawable(requireContext(), R.mipmap.ic_arrow_login)
             drawable!!.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
             setting_user_text.setCompoundDrawables(null, null, drawable, null)

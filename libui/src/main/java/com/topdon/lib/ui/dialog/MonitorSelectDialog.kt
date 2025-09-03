@@ -4,11 +4,13 @@ import android.app.Dialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lib.ui.R as UiR
 import com.topdon.lib.core.R
 import com.topdon.menu.R as MenuR
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_monitor_select.view.*
 
 /**
  * 提示窗
@@ -47,43 +49,43 @@ class MonitorSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
             lp.width = (ScreenUtil.getScreenWidth(context) * if (ScreenUtil.isPortrait(context)) 0.85 else 0.35).toInt() //设置宽度
             dialog.window!!.attributes = lp
 
-            view.btn_confirm_or_back.setOnClickListener {
+            view.findViewById<Button>(UiR.id.btn_confirm_or_back).setOnClickListener {
                 if (isFirstStep) {//步骤1->步骤2 逻辑为“确认”
                     if (monitorType == 0) {//还没选取类型不允许点确认
                         return@setOnClickListener
                     }
                     isFirstStep = false
-                    view.btn_cancel.visibility = View.VISIBLE
-                    view.cl_first_step.visibility = View.INVISIBLE
-                    view.cl_second_step.visibility = View.VISIBLE
-                    view.tv_title.text = context.getString(R.string.select_monitor_type_step2)
-                    view.btn_confirm_or_back.text = context.getString(R.string.select_monitor_return)
+                    view.findViewById<Button>(UiR.id.btn_cancel).visibility = View.VISIBLE
+                    view.findViewById<ConstraintLayout>(UiR.id.cl_first_step).visibility = View.INVISIBLE
+                    view.findViewById<ConstraintLayout>(UiR.id.cl_second_step).visibility = View.VISIBLE
+                    view.findViewById<TextView>(UiR.id.tv_title).text = context.getString(R.string.select_monitor_type_step2)
+                    view.findViewById<Button>(UiR.id.btn_confirm_or_back).text = context.getString(R.string.select_monitor_return)
                 } else {//步骤2->步骤1 逻辑为“返回”
                     isFirstStep = true
-                    view.btn_cancel.visibility = View.GONE
-                    view.cl_first_step.visibility = View.VISIBLE
-                    view.cl_second_step.visibility = View.GONE
-                    view.tv_title.text = context.getString(R.string.select_monitor_type_step1)
-                    view.btn_confirm_or_back.text = context.getString(R.string.app_confirm)
+                    view.findViewById<Button>(UiR.id.btn_cancel).visibility = View.GONE
+                    view.findViewById<ConstraintLayout>(UiR.id.cl_first_step).visibility = View.VISIBLE
+                    view.findViewById<ConstraintLayout>(UiR.id.cl_second_step).visibility = View.GONE
+                    view.findViewById<TextView>(UiR.id.tv_title).text = context.getString(R.string.select_monitor_type_step1)
+                    view.findViewById<Button>(UiR.id.btn_confirm_or_back).text = context.getString(R.string.app_confirm)
                 }
             }
 
-            view.btn_cancel.setOnClickListener {
+            view.findViewById<Button>(UiR.id.btn_cancel).setOnClickListener {
                 dialog.dismiss()
             }
 
-            view.btn_select_location.setOnClickListener {
+            view.findViewById<Button>(UiR.id.btn_select_location).setOnClickListener {
                 dialog.dismiss()
                 positiveClickListener?.invoke(monitorType)
             }
 
-            view.tv_point.setOnClickListener {
+            view.findViewById<TextView>(UiR.id.tv_point).setOnClickListener {
                 updateUI(view, 1)
             }
-            view.tv_line.setOnClickListener {
+            view.findViewById<TextView>(UiR.id.tv_line).setOnClickListener {
                 updateUI(view, 2)
             }
-            view.tv_rect.setOnClickListener {
+            view.findViewById<TextView>(UiR.id.tv_rect).setOnClickListener {
                 updateUI(view, 3)
             }
             return dialog
@@ -91,9 +93,9 @@ class MonitorSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
 
 
         private fun updateUI(view: View, index: Int) {
-            view.tv_point.isSelected = index == 1
-            view.tv_line.isSelected = index == 2
-            view.tv_rect.isSelected = index == 3
+            view.findViewById<TextView>(UiR.id.tv_point).isSelected = index == 1
+            view.findViewById<TextView>(UiR.id.tv_line).isSelected = index == 2
+            view.findViewById<TextView>(UiR.id.tv_rect).isSelected = index == 3
             monitorType = index
         }
     }

@@ -3,7 +3,6 @@
 //import android.util.Log
 //import androidx.lifecycle.lifecycleScope
 //import androidx.recyclerview.widget.GridLayoutManager
-//import com.alibaba.android.arouter.facade.annotation.Route
 //import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
 //import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
 //import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement
@@ -18,8 +17,6 @@
 //import com.topdon.lib.core.ktbase.BaseActivity
 //import com.topdon.module.thermal.R
 //import com.topdon.module.thermal.adapter.SettingTimeAdapter
-//import kotlinx.android.synthetic.main.activity_chart.aa_chart_view
-//import kotlinx.android.synthetic.main.activity_log_chart.*
 //import kotlinx.coroutines.Dispatchers
 //import kotlinx.coroutines.delay
 //import kotlinx.coroutines.launch

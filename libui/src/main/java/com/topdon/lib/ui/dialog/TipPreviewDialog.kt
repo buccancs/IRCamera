@@ -21,7 +21,6 @@ import com.topdon.lib.core.R
 import com.topdon.menu.R as MenuR
 import com.topdon.lib.ui.widget.IndicateView
 import io.reactivex.disposables.Disposable
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_tip_preview.view.*
 import java.util.Timer
 import kotlin.collections.ArrayList
 
@@ -63,11 +62,11 @@ class TipPreviewDialog : DialogFragment() {
             getString(R.string.preview_step_1),
             getString(R.string.preview_step_2),
         )
-        checkBox = view.dialog_tip_check
-        imgClose = view.img_close
-        viewPager = view.view_pager
-        tvContent = view.tv_content
-        indicateView = view.indicate_view
+        checkBox = view.findViewById(UiR.id.dialog_tip_check)
+        imgClose = view.findViewById(UiR.id.img_close)
+        viewPager = view.findViewById(UiR.id.view_pager)
+        tvContent = view.findViewById(UiR.id.tv_content)
+        indicateView = view.findViewById(UiR.id.indicate_view)
         val adapter = PageAdapter(childFragmentManager)
         indicateView.itemCount = adapter.count
         viewPager.adapter = adapter
@@ -78,7 +77,7 @@ class TipPreviewDialog : DialogFragment() {
             closeEvent?.invoke(hasCheck)
             dismiss()
         }
-        view.tv_i_know.setOnClickListener {
+        view.findViewById<TextView>(UiR.id.tv_i_know).setOnClickListener {
             closeEvent?.invoke(hasCheck)
             dismiss()
         }

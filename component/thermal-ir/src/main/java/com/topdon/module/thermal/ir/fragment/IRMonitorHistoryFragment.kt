@@ -25,8 +25,6 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.activity.IRLogMPChartActivity
 import com.topdon.module.thermal.ir.event.MonitorCreateEvent
 import com.topdon.module.thermal.ir.viewmodel.IRMonitorViewModel
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_ir_monitor_history.view.*
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_monitory_history.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

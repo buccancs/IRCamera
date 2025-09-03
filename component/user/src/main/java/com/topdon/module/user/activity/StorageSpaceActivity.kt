@@ -3,8 +3,7 @@ package com.topdon.module.user.activity
 import android.annotation.SuppressLint
 import android.view.View
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.config.RouterConfig
@@ -15,12 +14,11 @@ import com.topdon.lms.sdk.utils.TLog
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.user.R
 import com.topdon.module.user.bean.ColorsBean
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_storage_space.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 
-@Route(path = RouterConfig.STORAGE_SPACE)
+// Legacy ARouter route annotation - now using NavigationManager
 class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
     companion object {
         private fun formatFileSize(fileSize: Long): String = if (fileSize == 0L) {
@@ -98,7 +96,7 @@ class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
                             if (isSuccess) {
                                 XLog.d("TS004 格式化存储成功，即将断开连接")
                                 (application as BaseApplication).disconnectWebSocket()
-                                ARouter.getInstance().build(RouterConfig.MAIN).navigation(this@StorageSpaceActivity)
+                                NavigationManager.getInstance().build(RouterConfig.MAIN).navigation(this@StorageSpaceActivity)
                                 finish()
                             } else {
                                 delay(500)

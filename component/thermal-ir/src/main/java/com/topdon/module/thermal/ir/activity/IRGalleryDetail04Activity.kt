@@ -12,7 +12,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.FileUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -34,7 +33,6 @@ import com.topdon.lib.core.bean.event.GalleryDelEvent
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.thermal.ir.event.GalleryDownloadEvent
 import com.topdon.module.thermal.ir.fragment.GalleryFragment
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_ir_gallery_detail_04.*
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import java.io.File
@@ -42,7 +40,7 @@ import java.io.File
 /**
  * TS004 图片详情
  */
-@Route(path = RouterConfig.IR_GALLERY_DETAIL_04)
+// Legacy ARouter route annotation - now using NavigationManager
 class IRGalleryDetail04Activity : BaseActivity() {
 
     /**
@@ -67,17 +65,18 @@ class IRGalleryDetail04Activity : BaseActivity() {
         position = intent.getIntExtra("position", 0)
         dataList = intent.getParcelableArrayListExtra("list")!!
 
-        title_view.setTitleText("${position + 1}/${dataList.size}")
+        val titleView = findViewById<com.topdon.lib.core.view.TitleView>(R.id.title_view)
+        titleView.setTitleText("${position + 1}/${dataList.size}")
 
         cl_bottom.isVisible = isRemote //查看远端时底部才有3个按钮
 
         if (!isRemote) {
-            title_view.setRightDrawable(R.drawable.ic_toolbar_info_svg)
-            title_view.setRight2Drawable(R.drawable.ic_toolbar_share_svg)
-            title_view.setRight3Drawable(R.drawable.ic_toolbar_delete_svg)
-            title_view.setRightClickListener { actionInfo() }
-            title_view.setRight2ClickListener { actionShare() }
-            title_view.setRight3ClickListener { actionDelete() }
+            titleView.setRightDrawable(R.drawable.ic_toolbar_info_svg)
+            titleView.setRight2Drawable(R.drawable.ic_toolbar_share_svg)
+            titleView.setRight3Drawable(R.drawable.ic_toolbar_delete_svg)
+            titleView.setRightClickListener { actionInfo() }
+            titleView.setRight2ClickListener { actionShare() }
+            titleView.setRight3ClickListener { actionDelete() }
         }
 
         initViewPager()
@@ -109,7 +108,7 @@ class IRGalleryDetail04Activity : BaseActivity() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 this@IRGalleryDetail04Activity.position = position
-                title_view.setTitleText("${position + 1}/${dataList.size}")
+                findViewById<com.topdon.lib.core.view.TitleView>(R.id.title_view).setTitleText("${position + 1}/${dataList.size}")
                 iv_download.isSelected = dataList[position].hasDownload
             }
         })

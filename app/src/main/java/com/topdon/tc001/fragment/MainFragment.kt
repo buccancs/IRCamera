@@ -13,7 +13,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.libcom.navigation.NavigationManager
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.bean.event.SocketMsgEvent
 import com.topdon.lib.core.common.SharedManager
@@ -26,6 +26,7 @@ import com.topdon.lib.core.repository.TC007Repository
 import com.topdon.lib.core.socket.SocketCmdUtil
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.AppLanguageUtils
+import com.topdon.lib.core.tools.ConstantLanguages
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.lib.core.tools.LocaleContextWrapper
 import com.topdon.lib.core.utils.NetWorkUtils
@@ -34,21 +35,6 @@ import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.tc001.DeviceTypeActivity
 import com.topdon.tc001.R
 import com.topdon.tc001.popup.DelPopup
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_main.cl_has_device
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_main.cl_no_device
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_main.iv_add
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_main.recycler_view
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_main.tv_connect_device
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_main.tv_no_device_title
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_main.tv_has_device_title
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_device_connect.view.battery_view
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_device_connect.view.iv_bg
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_device_connect.view.iv_image
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_device_connect.view.tv_battery
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_device_connect.view.tv_device_name
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_device_connect.view.tv_device_state
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_device_connect.view.tv_title
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_device_connect.view.view_device_state
 import kotlinx.coroutines.launch
 import org.bytedeco.librealsense.context
 import org.greenrobot.eventbus.Subscribe
@@ -89,23 +75,23 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         adapter.onItemClickListener = {
             when (it) {
                 ConnectType.LINE -> {
-                    ARouter.getInstance()
+                    NavigationManager.getInstance()
                         .build(RouterConfig.IR_MAIN)
                         .withBoolean(ExtraKeyConfig.IS_TC007, false)
                         .navigation(requireContext())
                 }
                 ConnectType.TS004 -> {
                     if (WebSocketProxy.getInstance().isTS004Connect()) {
-                        ARouter.getInstance().build(RouterConfig.IR_MONOCULAR).navigation(requireContext())
+                        NavigationManager.getInstance().build(RouterConfig.IR_MONOCULAR).navigation(requireContext())
                     } else {
-                        ARouter.getInstance()
+                        NavigationManager.getInstance()
                             .build(RouterConfig.IR_DEVICE_ADD)
                             .withBoolean("isTS004", true)
                             .navigation(requireContext())
                     }
                 }
                 ConnectType.TC007 -> {
-                    ARouter.getInstance()
+                    NavigationManager.getInstance()
                         .build(RouterConfig.IR_MAIN)
                         .withBoolean(ExtraKeyConfig.IS_TC007, true)
                         .navigation(requireContext())
@@ -117,7 +103,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             popup.onDelListener = {
                 TipDialog.Builder(requireContext())
                     .setTitleMessage(AppLanguageUtils.attachBaseContext(
-                        context, SharedManager.getLanguage(requireContext())).getString(R.string.tc_delete_device))
+                        context, ConstantLanguages.ENGLISH).getString(R.string.tc_delete_device))
                     .setMessage(R.string.tc_delete_device_tips)
                     .setPositiveListener(R.string.report_delete) {
                         when (type) {
@@ -212,7 +198,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         when (v) {
             tv_connect_device, iv_add -> {//添加设备
                 startActivity(Intent(requireContext(), DeviceTypeActivity::class.java))
-//                ARouter.getInstance().build(RoutePath.UsbIrModule.PAGE_IR_MAIN_ACTIVITY)
+//                NavigationManager.getInstance().build(RoutePath.UsbIrModule.PAGE_IR_MAIN_ACTIVITY)
 //                    .navigation()
 //                startActivity(Intent(requireContext(), IRThermalLiteActivity::class.java))
             }
@@ -294,7 +280,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
 
             holder.itemView.tv_title.isVisible = hasTitle
             holder.itemView.tv_title.text = AppLanguageUtils.attachBaseContext(
-                holder.itemView.context, SharedManager.getLanguage(holder.itemView.context!!))
+                holder.itemView.context, ConstantLanguages.ENGLISH)
                 .getString(if (type == ConnectType.LINE) R.string.tc_connect_line else R.string.tc_connect_wifi)
 
             holder.itemView.iv_bg.isSelected = hasConnect
@@ -308,7 +294,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             when (type) {
                 ConnectType.LINE -> {
                     holder.itemView.tv_device_name.setText(AppLanguageUtils.attachBaseContext(
-                        holder.itemView.context, SharedManager.getLanguage(holder.itemView.context!!))
+                        holder.itemView.context, ConstantLanguages.ENGLISH)
                         .getString(R.string.tc_has_line_device))
                     if (hasConnect) {
                         holder.itemView.iv_image.setImageResource(R.drawable.ic_main_device_line_connect)
@@ -416,13 +402,13 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             .setMessage("Choose GSR recording option:")
             .setPositiveListener("Full Recording") {
                 // Launch full multi-modal recording interface
-                ARouter.getInstance()
+                NavigationManager.getInstance()
                     .build(RouterConfig.GSR_MULTI_MODAL)
                     .navigation(requireContext())
             }
             .setCancelListener("GSR Demo") {
                 // Launch simple GSR demo
-                ARouter.getInstance()
+                NavigationManager.getInstance()
                     .build(RouterConfig.GSR_DEMO)
                     .navigation(requireContext())
             }

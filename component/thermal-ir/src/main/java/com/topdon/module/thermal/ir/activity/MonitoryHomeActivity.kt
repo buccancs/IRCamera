@@ -10,7 +10,6 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.event.MonitorSaveEvent
 import com.topdon.module.thermal.ir.fragment.IRMonitorCaptureFragment
 import com.topdon.module.thermal.ir.fragment.IRMonitorHistoryFragment
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_monitor_home.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 

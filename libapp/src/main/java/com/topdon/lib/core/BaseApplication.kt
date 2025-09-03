@@ -17,7 +17,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.webkit.WebView
 import androidx.annotation.RequiresApi
-import com.alibaba.android.arouter.launcher.ARouter
+
 import com.blankj.utilcode.util.LanguageUtils
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.bean.event.SocketMsgEvent
@@ -31,6 +31,7 @@ import com.topdon.lib.core.repository.TS004Repository
 import com.topdon.lib.core.socket.SocketCmdUtil
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.AppLanguageUtils
+import com.topdon.lib.core.tools.ConstantLanguages
 import com.topdon.lib.core.utils.NetWorkUtils
 import com.topdon.lib.core.utils.WifiUtil
 import com.topdon.lib.core.utils.WsCmdConstants
@@ -75,7 +76,6 @@ abstract class BaseApplication : Application() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             webviewSetPath(this)
         }
-        initARouter()
         onLanguageChange()
 
         WebSocketProxy.getInstance().onMessageListener = {
@@ -227,23 +227,6 @@ abstract class BaseApplication : Application() {
         return null
     }
 
-    private fun initARouter() {
-        try {
-            if (BuildConfig.DEBUG) {
-                Log.e("TopInfrared_LOG", "router init debug")
-                ARouter.openDebug()
-            }
-            ARouter.init(this)
-        } catch (e: Exception) {
-            //异常后建议清除映射表 (官方文档 开发模式会清除)
-            if (SharedManager.getHasShowClause()) {
-                Log.e("TopInfrared_LOG", "router init error: ${e.message}")
-            }
-            ARouter.openDebug()
-            ARouter.init(this)
-        }
-    }
-
     //清除无用数据
     fun clearDb() {
         GlobalScope.launch(Dispatchers.Default) {
@@ -256,31 +239,15 @@ abstract class BaseApplication : Application() {
     }
 
     open fun onLanguageChange() {
-        val selectLan = SharedManager.getLanguage(baseContext)
-        if (TextUtils.isEmpty(selectLan)) {
-            if (isDomestic()) {
-                //国内版默认中文
-                val autoSelect = AppLanguageUtils.getChineseSystemLanguage()
-                val locale = AppLanguageUtils.getLocaleByLanguage(autoSelect)
-                LanguageUtils.applyLanguage(locale)
-                SharedManager.setLanguage(baseContext, autoSelect)
-            } else {
-                //初始语言设置
-                //默认初始语言，跟随系统语言设置，没有则默认英文
-                val autoSelect = AppLanguageUtils.getSystemLanguage()
-                val locale = AppLanguageUtils.getLocaleByLanguage(autoSelect)
-                LanguageUtils.applyLanguage(locale)
-                SharedManager.setLanguage(baseContext, autoSelect)
-            }
-        } else {
-            val locale = AppLanguageUtils.getLocaleByLanguage(SharedManager.getLanguage(this))
-            LanguageUtils.applyLanguage(locale)
-        }
+        // Always set and use English
+        val locale = AppLanguageUtils.getLocaleByLanguage(ConstantLanguages.ENGLISH)
+        LanguageUtils.applyLanguage(locale)
+        SharedManager.setLanguage(baseContext, ConstantLanguages.ENGLISH)
         WebView(this).destroy()
     }
 
     open fun getAppLanguage(context: Context): String? {
-        return SharedManager.getLanguage(context)
+        return ConstantLanguages.ENGLISH
     }
 
     /**

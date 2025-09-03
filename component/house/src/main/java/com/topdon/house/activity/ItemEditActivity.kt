@@ -25,8 +25,6 @@ import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.ui.widget.MyItemDecoration
 import com.topdon.lms.sdk.weiget.TToast
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_item_edit.*
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_edit_item.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

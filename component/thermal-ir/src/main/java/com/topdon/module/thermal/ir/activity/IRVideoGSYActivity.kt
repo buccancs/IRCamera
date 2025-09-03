@@ -7,7 +7,6 @@ import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.BarUtils
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
 import com.shuyu.gsyvideoplayer.player.PlayerFactory
@@ -26,14 +25,13 @@ import com.topdon.lib.core.dialog.ConfirmSelectDialog
 import com.topdon.lib.core.bean.event.GalleryDelEvent
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.thermal.ir.event.GalleryDownloadEvent
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_ir_video_gsy.*
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import tv.danmaku.ijk.media.exo2.Exo2PlayerManager
 import java.io.File
 
 
-@Route(path = RouterConfig.IR_VIDEO_GSY)
+// Legacy ARouter route annotation - now using NavigationManager
 class IRVideoGSYActivity : BaseActivity() {
 
     private var isRemote = false

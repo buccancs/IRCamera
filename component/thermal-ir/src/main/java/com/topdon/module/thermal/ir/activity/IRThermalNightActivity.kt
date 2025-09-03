@@ -24,8 +24,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.blankj.utilcode.util.*
 import com.elvishew.xlog.XLog
 import com.energy.iruvc.ircmd.IRCMD
@@ -107,7 +106,6 @@ import com.topdon.module.thermal.ir.view.TimeDownView
 import com.topdon.module.thermal.ir.view.compass.SensorService
 import com.topdon.pseudo.activity.PseudoSetActivity
 import com.topdon.pseudo.bean.CustomPseudoBean
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_thermal_ir_night.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import org.greenrobot.eventbus.EventBus
@@ -116,7 +114,7 @@ import org.greenrobot.eventbus.ThreadMode
 import kotlin.math.roundToInt
 
 
-@Route(path = RouterConfig.IR_FRAME)
+// Legacy ARouter route annotation - now using NavigationManager
 open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
 
     /**
@@ -2283,7 +2281,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                     cameraItemAdapter?.listener = listener@{ position, _ ->
                         when (cameraItemAdapter!!.data[position].type) {
                             CameraItemBean.TYPE_SETTING -> {
-                                ARouter.getInstance().build(RouterConfig.IR_CAMERA_SETTING)
+                                NavigationManager.getInstance().build(RouterConfig.IR_CAMERA_SETTING)
                                     .navigation(this)
                                 return@listener
                             }

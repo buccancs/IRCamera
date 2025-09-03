@@ -6,11 +6,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup.LayoutParams
+import android.widget.ProgressBar
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lib.ui.R as UiR
 import com.topdon.lib.core.R
 import com.topdon.menu.R as MenuR
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_progress.view.*
 
 /**
  * 带进度条的提示弹框.
@@ -18,13 +18,13 @@ import com.topdon.menu.R as MenuR
 class ProgressDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
     var max: Int = 100
         set(value) {
-            rootView.progress_bar.max = value
+            rootView.findViewById<ProgressBar>(UiR.id.progress_bar).max = value
             field = value
         }
 
     var progress: Int = 0
         set(value) {
-            rootView.progress_bar.progress = value
+            rootView.findViewById<ProgressBar>(UiR.id.progress_bar).progress = value
             field = value
         }
 
@@ -51,7 +51,8 @@ class ProgressDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
 
     override fun show() {
         super.show()
-        rootView.progress_bar.max = max
-        rootView.progress_bar.progress = progress
+        val progressBar = rootView.findViewById<ProgressBar>(UiR.id.progress_bar)
+        progressBar.max = max
+        progressBar.progress = progress
     }
 }

@@ -2,14 +2,12 @@
 //
 //import android.util.Log
 //import androidx.lifecycle.lifecycleScope
-//import com.alibaba.android.arouter.facade.annotation.Route
 //import com.github.aachartmodel.aainfographics.aachartcreator.*
 //import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAScrollablePlotArea
 //import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAStyle
 //import com.topdon.lib.core.config.RouterConfig
 //import com.topdon.lib.core.ktbase.BaseActivity
 //import com.topdon.module.thermal.R
-//import kotlinx.android.synthetic.main.activity_chart.*
 //import kotlinx.coroutines.delay
 //import kotlinx.coroutines.flow.collect
 //import kotlinx.coroutines.flow.flow

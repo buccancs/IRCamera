@@ -1,7 +1,7 @@
 package com.topdon.module.thermal.fragment
 
 import androidx.recyclerview.widget.GridLayoutManager
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.blankj.utilcode.util.ScreenUtils
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseViewModelFragment
@@ -9,7 +9,6 @@ import com.topdon.lib.core.widget.dialog.TipDialog
 import com.topdon.module.thermal.R
 import com.topdon.module.thermal.adapter.GalleryAdapter
 import com.topdon.module.thermal.viewmodel.GalleryViewModel
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_gallery_video.*
 
 /**
  * 图片
@@ -67,7 +66,7 @@ class GalleryVideoFragment : BaseViewModelFragment<GalleryViewModel>() {
 
 
     fun openVideo(path: String) {
-        ARouter.getInstance().build(RouterConfig.VIDEO).withString("video_path", path)
+        NavigationManager.getInstance().build(RouterConfig.VIDEO).withString("video_path", path)
             .navigation(requireContext())
     }
 

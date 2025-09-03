@@ -8,7 +8,6 @@ import android.widget.PopupWindow
 import androidx.core.view.isVisible
 import com.blankj.utilcode.util.SizeUtils
 import com.topdon.house.R
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.popup_three_pick.view.*
 
 /**
  * 房屋检测的选项 Popup 最多 3 个选项，就不跟 TC003 一样搞列表了。

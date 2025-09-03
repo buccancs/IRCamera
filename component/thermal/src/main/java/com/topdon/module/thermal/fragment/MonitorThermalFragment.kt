@@ -36,7 +36,6 @@ import com.topdon.module.thermal.tools.ThermalTool
 import com.topdon.module.thermal.tools.medie.IYapVideoProvider
 import com.topdon.module.thermal.tools.medie.YapVideoEncoder
 import com.topdon.module.thermal.utils.ArrayUtils
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_thermal.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.Subscribe

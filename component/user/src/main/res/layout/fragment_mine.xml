@@ -248,25 +248,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/setting_item_clear"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:setting_icon_night="@drawable/ic_version_night"
                     app:setting_icon_show_night="true"
                     app:setting_line_night="false"
                     app:setting_more_night="true"
                     app:setting_text_night="@string/setting_version"/>
-
-                <com.topdon.lib.ui.SettingNightView
-                    android:id="@+id/setting_item_language"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/setting_item_version"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:setting_icon_night="@drawable/ic_launguage_night"
-                    app:setting_icon_show_night="true"
-                    app:setting_line_night="false"
-                    app:setting_more_night="true"
-                    app:setting_text_night="@string/app_language"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

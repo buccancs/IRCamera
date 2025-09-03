@@ -5,7 +5,6 @@ import android.view.SurfaceView
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.ToastUtils
 import com.energy.iruvc.sdkisp.LibIRProcess
 import com.energy.iruvc.utils.CommonParams
@@ -23,7 +22,6 @@ import com.topdon.menu.constant.TwoLightType
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.event.GalleryAddEvent
 import com.topdon.module.thermal.ir.video.VideoRecordFFmpeg
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_thermal_ir_night.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -37,7 +35,7 @@ import java.nio.ByteBuffer
  * @author: CaiSongL
  * @date: 2024/1/17 17:47
  */
-@Route(path = RouterConfig.IR_FRAME_PLUSH)
+// Legacy ARouter route annotation - now using NavigationManager
 class IRThermalPlusActivity : BaseIRPlushActivity() {
     private val irImageHelp by lazy {
         IRImageHelp()

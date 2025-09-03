@@ -13,7 +13,6 @@
 //import com.infisense.usbir.R
 //import com.infisense.usbir.activity.IRDisplayActivity
 //import com.infisense.usbir.camera.IRUVC
-//import kotlinx.android.synthetic.main.isp.view.*
 //
 //
 ////图像参数

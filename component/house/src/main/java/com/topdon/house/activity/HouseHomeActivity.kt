@@ -20,7 +20,6 @@ import com.topdon.house.viewmodel.ReportViewModel
 import com.topdon.house.viewmodel.TabViewModel
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.ktbase.BaseActivity
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_house_home.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 

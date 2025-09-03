@@ -6,16 +6,14 @@ import android.util.Log
 import android.widget.MediaController
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.BarUtils
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.thermal.R
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_video.*
 import java.io.File
 
 
-@Route(path = RouterConfig.VIDEO)
+// Legacy ARouter route annotation - now using NavigationManager
 class VideoActivity : BaseActivity() {
 
     companion object {

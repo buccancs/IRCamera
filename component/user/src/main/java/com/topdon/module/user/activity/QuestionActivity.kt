@@ -5,22 +5,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.user.R
 import com.topdon.module.user.model.QuestionData
 import com.topdon.module.user.model.FaqRepository
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_question.*
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_question.view.item_question_info
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_question.view.item_question_lay
 import java.util.ArrayList
 
 /**
  * FAQ
  */
-@Route(path = RouterConfig.QUESTION)
+// Legacy ARouter route annotation - now using NavigationManager
 class QuestionActivity : BaseActivity() {
 
     override fun initContentView() = R.layout.activity_question
@@ -28,7 +24,7 @@ class QuestionActivity : BaseActivity() {
     override fun initView() {
         val adapter = MyAdapter(FaqRepository.getQuestionList(intent.getBooleanExtra("isTS001", false)))
         adapter.onItemClickListener = {
-            ARouter.getInstance()
+            NavigationManager.getInstance()
                 .build(RouterConfig.QUESTION_DETAILS)
                 .withString("question", it.question)
                 .withString("answer", it.answer)

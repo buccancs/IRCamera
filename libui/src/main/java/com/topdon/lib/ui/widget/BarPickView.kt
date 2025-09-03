@@ -122,14 +122,14 @@ class BarPickView : View {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes:Int) : super(context, attrs, defStyleAttr, defStyleRes) {
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.BarPickView, 0, 0)
-        max = typedArray.getInt(R.styleable.BarPickView_android_max, 100)
-        min = typedArray.getInt(R.styleable.BarPickView_barMin, 0)
-        progress = typedArray.getInt(R.styleable.BarPickView_android_progress, min).coerceAtMost(max).coerceAtLeast(min)
-        barSize = typedArray.getInt(R.styleable.BarPickView_barSize, SizeUtils.dp2px(4f))
-        rotate = typedArray.getInt(R.styleable.BarPickView_barOrientation, 0)
-        labelText = typedArray.getString(R.styleable.BarPickView_barLabel) ?: ""
-        val textSize = typedArray.getDimensionPixelSize(R.styleable.BarPickView_android_textSize, SizeUtils.sp2px(13f))
+        val typedArray = context.obtainStyledAttributes(attrs, UiR.styleable.BarPickView, 0, 0)
+        max = typedArray.getInt(UiR.styleable.BarPickView_android_max, 100)
+        min = typedArray.getInt(UiR.styleable.BarPickView_barMin, 0)
+        progress = typedArray.getInt(UiR.styleable.BarPickView_android_progress, min).coerceAtMost(max).coerceAtLeast(min)
+        barSize = typedArray.getInt(UiR.styleable.BarPickView_barSize, SizeUtils.dp2px(4f))
+        rotate = typedArray.getInt(UiR.styleable.BarPickView_barOrientation, 0)
+        labelText = typedArray.getString(UiR.styleable.BarPickView_barLabel) ?: ""
+        val textSize = typedArray.getDimensionPixelSize(UiR.styleable.BarPickView_android_textSize, SizeUtils.sp2px(13f))
         typedArray.recycle()
 
         paint.isAntiAlias = true

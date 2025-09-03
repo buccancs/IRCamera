@@ -16,7 +16,6 @@ import com.topdon.lib.ui.R as UiR
 import com.topdon.lib.core.R
 import com.topdon.menu.R as MenuR
 import com.topdon.lib.ui.bean.TemperatureBean
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.ui_item_menu_five_view.view.*
 
 @Deprecated("旧的温度档位菜单，已重构过了")
 class MenuFiveNightAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -31,28 +30,28 @@ class MenuFiveNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
 
     private val fiveBean = arrayListOf(
         TemperatureBean(
-            UiR.drawable.selector_menu2_temp_level_1,
+            MenuR.drawable.selector_menu2_temp_level_1,
             context.getString(R.string.thermal_normal_temperature),
             getTempStr(-20, 150),
             CameraItemBean.TYPE_TMP_C
         ),
         if (DeviceTools.isTC001LiteConnect()) {
             TemperatureBean(
-                UiR.drawable.selector_menu2_temp_level_1,
+                MenuR.drawable.selector_menu2_temp_level_1,
                 context.getString(R.string.thermal_high_temperature),
                 getTempStr(150, 450),
                 CameraItemBean.TYPE_TMP_H
             )
         } else {
             TemperatureBean(
-                UiR.drawable.selector_menu2_temp_level_1,
+                MenuR.drawable.selector_menu2_temp_level_1,
                 context.getString(R.string.thermal_high_temperature),
                 getTempStr(150, 550),
                 CameraItemBean.TYPE_TMP_H
             )
         },
         TemperatureBean(
-            UiR.drawable.selector_menu2_temp_level_2,
+            MenuR.drawable.selector_menu2_temp_level_2,
             context.getString(R.string.thermal_automatic),
             "",
             CameraItemBean.TYPE_TMP_ZD
@@ -109,10 +108,10 @@ class MenuFiveNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
 //            layoutParams.height = imageSize
 //            itemView.item_menu_tab_fl.layoutParams = layoutParams
 //        }
-        val lay: View = itemView.item_menu_tab_lay
-        val img: ImageView = itemView.item_menu_tab_img
-        val name: TextView = itemView.item_menu_tab_text
-        val info: TextView = itemView.item_menu_tab_info_text
+        val lay: View = itemView.findViewById(UiR.id.item_menu_tab_lay)
+        val img: ImageView = itemView.findViewById(UiR.id.item_menu_tab_img)
+        val name: TextView = itemView.findViewById(UiR.id.item_menu_tab_text)
+        val info: TextView = itemView.findViewById(UiR.id.item_menu_tab_info_text)
     }
 
 }

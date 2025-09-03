@@ -18,7 +18,6 @@ import com.topdon.lib.ui.R as UiR
 import com.topdon.lib.core.R
 import com.topdon.menu.R as MenuR
 import com.topdon.lib.ui.widget.IndicateView
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_tip_guide.view.*
 import kotlin.collections.ArrayList
 
 class TipGuideDialog : DialogFragment() {
@@ -57,16 +56,16 @@ class TipGuideDialog : DialogFragment() {
             UiR.drawable.target_guide_pic_3,
             UiR.drawable.target_guide_pic_4,
         )
-        viewPager = view.view_pager
-        tvContent1 = view.tv_content_1
-        tvContent2 = view.tv_content_2
-        tvContent3 = view.tv_content_3
-        indicateView = view.indicate_view
-        ivTarget = view.iv_target
+        viewPager = view.findViewById(UiR.id.view_pager)
+        tvContent1 = view.findViewById(UiR.id.tv_content_1)
+        tvContent2 = view.findViewById(UiR.id.tv_content_2)
+        tvContent3 = view.findViewById(UiR.id.tv_content_3)
+        indicateView = view.findViewById(UiR.id.indicate_view)
+        ivTarget = view.findViewById(UiR.id.iv_target)
         val adapter = PageAdapter(childFragmentManager, imgList)
         indicateView.itemCount = adapter.count
         viewPager.adapter = adapter
-        view.tv_i_know.setOnClickListener {
+        view.findViewById<TextView>(UiR.id.tv_i_know).setOnClickListener {
             closeEvent?.invoke(true)
             dismiss()
         }

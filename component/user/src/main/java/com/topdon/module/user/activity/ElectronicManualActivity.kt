@@ -5,20 +5,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.utils.Constants
 import com.topdon.module.user.R
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_electronic_manual.*
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_electronic_manual.view.item_lay
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_electronic_manual.view.item_text
 
 /**
  * 电子说明书 或 FAQ 设备类型选择页面
  */
-@Route(path = RouterConfig.ELECTRONIC_MANUAL)
+// Legacy ARouter route annotation - now using NavigationManager
 class ElectronicManualActivity : BaseActivity() {
 
     override fun initContentView() = R.layout.activity_electronic_manual
@@ -35,15 +31,15 @@ class ElectronicManualActivity : BaseActivity() {
                     //电子说明书-TS001
                 } else {
                     //FAQ-TS001
-                    ARouter.getInstance().build(RouterConfig.QUESTION).withBoolean("isTS001", true).navigation(this)
+                    NavigationManager.getInstance().build(RouterConfig.QUESTION).withBoolean("isTS001", true).navigation(this)
                 }
             } else {
                 if (productType == Constants.SETTING_BOOK) {
                     //电子说明书-TS004
-                    ARouter.getInstance().build(RouterConfig.PDF).withBoolean("isTS001", false).navigation(this)
+                    NavigationManager.getInstance().build(RouterConfig.PDF).withBoolean("isTS001", false).navigation(this)
                 } else {
                     //FAQ-TS004
-                    ARouter.getInstance().build(RouterConfig.QUESTION).withBoolean("isTS001", false).navigation(this)
+                    NavigationManager.getInstance().build(RouterConfig.QUESTION).withBoolean("isTS001", false).navigation(this)
                 }
             }
         }

@@ -69,5 +69,5 @@ android {
 
 dependencies {
     implementation(project(":libapp"))
-    kapt(Deps.arouter_compiler)
+
 }

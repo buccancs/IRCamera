@@ -14,7 +14,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.RouterConfig
@@ -34,9 +33,6 @@ import com.topdon.module.thermal.ir.dialog.ConfigGuideDialog
 import com.topdon.module.thermal.ir.dialog.IRConfigInputDialog
 import com.topdon.module.thermal.ir.repository.ConfigRepository
 import com.topdon.module.thermal.ir.viewmodel.IRConfigViewModel
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_ir_config.*
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_ir_config_config.view.*
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_ir_config_foot.view.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -46,7 +42,7 @@ import kotlinx.coroutines.launch
  * 需要传递参数：
  * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
  */
-@Route(path = RouterConfig.IR_SETTING)
+// Legacy ARouter route annotation - now using NavigationManager
 class IRConfigActivity : BaseActivity(), View.OnClickListener {
 
     /**

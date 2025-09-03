@@ -2,7 +2,7 @@ package com.topdon.module.thermal.ir.fragment
 
 import android.content.Intent
 import androidx.core.view.isVisible
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseFragment
@@ -11,7 +11,6 @@ import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.activity.IRMonitorActivity
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_ir_monitor_capture.*
 
 /**
  * 温度监控-实时（即生成温度监控）.
@@ -36,16 +35,16 @@ class IRMonitorCaptureFragment : BaseFragment() {
         view_start.setOnClickListener {
             if (isTC007) {
                 if (WebSocketProxy.getInstance().isTC007Connect()) {
-                    ARouter.getInstance().build(RouterConfig.IR_MONITOR_CAPTURE_07).navigation(requireContext())
+                    NavigationManager.getInstance().build(RouterConfig.IR_MONITOR_CAPTURE_07).navigation(requireContext())
                 } else {
                     ToastTools.showShort(R.string.device_connect_tip)
                 }
             } else {
                 if (DeviceTools.isConnect()) {
                     if (DeviceTools.isTC001LiteConnect()){
-                        ARouter.getInstance().build(RouterConfig.IR_THERMAL_MONITOR_LITE).navigation(requireContext())
+                        NavigationManager.getInstance().build(RouterConfig.IR_THERMAL_MONITOR_LITE).navigation(requireContext())
                     } else if (DeviceTools.isHikConnect()) {
-                        ARouter.getInstance().build(RouterConfig.IR_HIK_MONITOR_CAPTURE1).navigation(requireContext())
+                        NavigationManager.getInstance().build(RouterConfig.IR_HIK_MONITOR_CAPTURE1).navigation(requireContext())
                     } else{
                         startActivity(Intent(requireContext(), IRMonitorActivity::class.java))
                     }

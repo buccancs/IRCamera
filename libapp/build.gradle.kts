@@ -7,8 +7,9 @@ plugins {
 
 kapt {
     arguments {
-        arg("AROUTER_MODULE_NAME", project.name)
-//        arg("AROUTER_GENERATE_DOC", "enable")//生成doc文档
+        // Disable ARouter KAPT processing - migrating to modern navigation
+        // arg("AROUTER_MODULE_NAME", project.name)
+        // arg("AROUTER_GENERATE_DOC", "enable")//生成doc文档
         arg("room.schemaLocation", "$projectDir/schemas")
         arg("room.incremental", "true")
         arg("room.expandProjection", "true")
@@ -101,9 +102,6 @@ dependencies {
     // api(Deps.rxlifecycle_components)
     // api(Deps.rxlifecycle_ktx)
     // api(Deps.rxlifecycle_android_lifecycle_ktx)
-
-    api(Deps.arouter_api)
-    kapt(Deps.arouter_compiler)
 
     api(Deps.utilcode)
     api(Deps.XXPermissions)

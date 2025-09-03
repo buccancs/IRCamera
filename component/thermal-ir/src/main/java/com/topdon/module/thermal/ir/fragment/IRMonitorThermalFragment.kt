@@ -34,8 +34,6 @@ import com.topdon.module.thermal.ir.activity.IRMonitorActivity
 import com.topdon.module.thermal.ir.bean.SelectPositionBean
 import com.topdon.module.thermal.ir.event.ThermalActionEvent
 import com.topdon.module.thermal.ir.repository.ConfigRepository
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_thermal_ir_night.cameraView
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.fragment_ir_monitor_thermal.*
 import kotlinx.coroutines.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode

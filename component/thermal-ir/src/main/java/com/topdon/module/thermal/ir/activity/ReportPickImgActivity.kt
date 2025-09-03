@@ -7,8 +7,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.topdon.lib.core.bean.GalleryTitle
 import com.topdon.lib.core.bean.event.ReportCreateEvent
 import com.topdon.lib.core.config.ExtraKeyConfig
@@ -25,7 +24,6 @@ import com.topdon.lib.core.bean.event.GalleryDelEvent
 import com.topdon.lib.core.utils.Constants.IS_REPORT_FIRST
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryViewModel
-// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_report_pick_img.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -40,7 +38,7 @@ import java.io.File
  * - [ExtraKeyConfig.REPORT_CONDITION] - 检测条件
  * - [ExtraKeyConfig.REPORT_IR_LIST] - 当前已添加的图片对应数据列表
  */
-@Route(path = RouterConfig.REPORT_PICK_IMG)
+// Legacy ARouter route annotation - now using NavigationManager
 class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
 
     /**
@@ -172,7 +170,7 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
             val fileName = data.name.substringBeforeLast(".")
             val irPath = "${FileConfig.lineIrGalleryDir}/${fileName}.ir"
             if (File(irPath).exists()) {
-                ARouter.getInstance().build(RouterConfig.IR_GALLERY_EDIT)
+                NavigationManager.getInstance().build(RouterConfig.IR_GALLERY_EDIT)
                     .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
                     .withBoolean(ExtraKeyConfig.IS_PICK_REPORT_IMG, true)
                     .withBoolean(IS_REPORT_FIRST, false)
