@@ -52,31 +52,12 @@ class IRGalleryTabFragment : BaseFragment() {
     override fun initView() {
         hasBackIcon = arguments?.getBoolean(ExtraKeyConfig.HAS_BACK_ICON, false) ?: false
         canSwitchDir = arguments?.getBoolean(ExtraKeyConfig.CAN_SWITCH_DIR, false) ?: false
-        currentDirType = when (arguments?.getInt(ExtraKeyConfig.DIR_TYPE, 0) ?: 0) {
-            DirType.TS004_LOCALE.ordinal -> DirType.TS004_LOCALE
-            DirType.TS004_REMOTE.ordinal -> DirType.TS004_REMOTE
-            DirType.TC007.ordinal -> DirType.TC007
-            else -> DirType.LINE
-        }
+        currentDirType = DirType.LINE // TC001 only - no other device types supported
 
-        tv_title_dir.text = when (currentDirType) {
-            DirType.LINE -> getString(R.string.tc_has_line_device)
-            DirType.TC007 -> "TC007"
-            else -> "TS004"
-        }
+        tv_title_dir.text = getString(R.string.tc_has_line_device) // TC001 only
         tv_title_dir.isVisible = canSwitchDir
         tv_title_dir.setOnClickListener {
-            val popup = GalleryChangePopup(requireContext())
-            popup.onPickListener = { position, str ->
-                currentDirType = when (position) {
-                    0 -> DirType.LINE
-                    1 -> DirType.TS004_LOCALE
-                    else -> DirType.TC007
-                }
-                tv_title_dir.text = str
-                EventBus.getDefault().post(GalleryDirChangeEvent(currentDirType))
-            }
-            popup.show(tv_title_dir)
+            // Directory switching disabled for TC001-only support
         }
 
         title_view.setTitleText(if (canSwitchDir) "" else getString(R.string.app_gallery))

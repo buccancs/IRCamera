@@ -352,7 +352,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
             if (position == 1) {//图库
                 return IRGalleryTabFragment().apply {
                     arguments = Bundle().also {
-                        val dirType = if (isTC007) DirType.TC007.ordinal else DirType.LINE.ordinal
+                        val dirType = DirType.LINE.ordinal // TC001 only
                         it.putBoolean(ExtraKeyConfig.CAN_SWITCH_DIR, false)
                         it.putBoolean(ExtraKeyConfig.HAS_BACK_ICON, false)
                         it.putInt(ExtraKeyConfig.DIR_TYPE, dirType)

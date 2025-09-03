@@ -46,16 +46,18 @@ class IRCorrectionTwoActivity : BaseActivity() {
         }
 
         tv_correction.setOnClickListener {
-            if (if (isTC007) WebSocketProxy.getInstance().isTC007Connect() else DeviceTools.isConnect()) {
-                if (isTC007) {
-                    ARouter.getInstance().build(RouterConfig.IR_CORRECTION_07).navigation(this)
-                } else {
-                    if (DeviceTools.isTC001LiteConnect()){
-                        ARouter.getInstance().build(RouterConfig.IR_CORRECTION_THREE_LITE).navigation(this)
-                    } else{
-                        startActivity(Intent(this, IRCorrectionThreeActivity::class.java))
-                    }
+            if (DeviceTools.isConnect()) {
+                // TC001 only - no TC007 support
+                if (DeviceTools.isTC001LiteConnect()){
+                    ARouter.getInstance().build(RouterConfig.IR_CORRECTION_THREE_LITE).navigation(this)
+                } else{
+                    startActivity(Intent(this, IRCorrectionThreeActivity::class.java))
                 }
+            } else {
+                TipDialog.Builder(this)
+                    .setMessage(R.string.device_connect_tip)
+                    .setPositiveListener(R.string.app_confirm)
+                    .create().show()
             }
         }
     }

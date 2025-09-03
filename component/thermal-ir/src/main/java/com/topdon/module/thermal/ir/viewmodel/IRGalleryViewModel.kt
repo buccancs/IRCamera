@@ -104,30 +104,13 @@ class IRGalleryViewModel : BaseViewModel() {
 
     fun delete(deleteList: List<GalleryBean>, dirType: GalleryRepository.DirType, isDelLocal: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
-            if (dirType == GalleryRepository.DirType.TS004_REMOTE) {
-                val isSuccess = false // TC001 uses USB connection, remote delete not available
-                if (isSuccess) {
-                    if (isDelLocal) {
-                        deleteList.forEach {
-                            if (it.hasDownload) {
-                                val file = File(FileConfig.ts004GalleryDir, it.name)
-                                if (file.exists()) {
-                                    WriteTools.delete(file)
-                                }
-                            }
-                        }
-                    }
-                    deleteResultLD.postValue(true)
-                } else {
-                    deleteResultLD.postValue(false)
+            // TC001 only - uses local USB connection, no remote device support
+            deleteList.forEach {
+                val file = File(it.path)
+                if (file.exists()) {
+                    WriteTools.delete(file)
                 }
-            } else {
-                deleteList.forEach {
-                    val file = File(it.path)
-                    if (file.exists()) {
-                        WriteTools.delete(file)
-                    }
-                }
+            }
                 deleteResultLD.postValue(true)
             }
         }

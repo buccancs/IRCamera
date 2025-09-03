@@ -77,13 +77,13 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
                 TToast.shortToast(this@ReportPickImgActivity, R.string.test_results_delete_success)
                 adapter.isEditMode = false
                 EventBus.getDefault().post(GalleryDelEvent())
-                MediaScannerConnection.scanFile(this, arrayOf(if (isTC007) FileConfig.tc007GalleryDir else FileConfig.lineGalleryDir), null, null)
-                viewModel.queryAllReportImg(if (isTC007) DirType.TC007 else DirType.LINE)
+                MediaScannerConnection.scanFile(this, arrayOf(FileConfig.lineGalleryDir), null, null) // TC001 only
+                viewModel.queryAllReportImg(DirType.LINE)
             } else {
                 TToast.shortToast(this@ReportPickImgActivity, R.string.test_results_delete_failed)
             }
         }
-        viewModel.queryAllReportImg(if (isTC007) DirType.TC007 else DirType.LINE)
+        viewModel.queryAllReportImg(DirType.LINE) // TC001 only
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
@@ -196,7 +196,7 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
                         deleteList.size
                     ))
                 .setPositiveListener(R.string.app_confirm) {
-                    viewModel.delete(deleteList, if (isTC007) DirType.TC007 else DirType.LINE, true)
+                    viewModel.delete(deleteList, DirType.LINE, true) // TC001 only
                 }.setCancelListener(R.string.app_cancel)
                 .create().show()
         } else {

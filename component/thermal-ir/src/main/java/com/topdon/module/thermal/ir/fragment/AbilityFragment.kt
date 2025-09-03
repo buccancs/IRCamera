@@ -67,25 +67,19 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
 
 
             view_car -> {//汽车检测
-                if (mIsTC007) {
-                    if (WebSocketProxy.getInstance().isConnected()) {
-                        ARouter.getInstance().build(RouterConfig.IR_THERMAL_07)
-                            .withBoolean(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
-                            .navigation(requireContext())
-                    }
-                } else {
-                    if (DeviceTools.isTC001PlusConnect()) {
-                        var intent = Intent(requireContext(), IRThermalPlusActivity::class.java)
-                        intent.putExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
-                        startActivity(intent)
-                    } else if (DeviceTools.isTC001LiteConnect()) {
-                        ARouter.getInstance().build(RouterConfig.IR_TCLITE)
-                            .withBoolean(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
-                            .navigation(activity)
-                    } else if (DeviceTools.isConnect(isSendConnectEvent = false, true)) {
-                        var intent = Intent(requireContext(), IRThermalNightActivity::class.java)
-                        intent.putExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
-                        startActivity(intent)
+                // TC001 only - no TC007 support
+                if (DeviceTools.isTC001PlusConnect()) {
+                    var intent = Intent(requireContext(), IRThermalPlusActivity::class.java)
+                    intent.putExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
+                    startActivity(intent)
+                } else if (DeviceTools.isTC001LiteConnect()) {
+                    ARouter.getInstance().build(RouterConfig.IR_TCLITE)
+                        .withBoolean(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
+                        .navigation(activity)
+                } else if (DeviceTools.isConnect(isSendConnectEvent = false, true)) {
+                    var intent = Intent(requireContext(), IRThermalNightActivity::class.java)
+                    intent.putExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
+                    startActivity(intent)
                     } else {
                         TipDialog.Builder(requireContext())
                             .setMessage(R.string.device_connect_tip)
