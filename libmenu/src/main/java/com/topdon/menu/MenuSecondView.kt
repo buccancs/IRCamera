@@ -35,7 +35,7 @@ import kotlinx.coroutines.launch
 @SuppressLint("NotifyDataSetChanged")
 class MenuSecondView : FrameLayout {
     /**
-     * 该菜单的类型，由于不同的设备（单光、双光、Lite、TC007、2D编辑）菜单存在差异，用该枚举区分.
+     * 该菜单的类型，由于不同的设备（单光、双光、Lite、2D编辑）菜单存在差异，用该枚举区分.
      */
     private val menuType: MenuType
 
@@ -109,9 +109,9 @@ class MenuSecondView : FrameLayout {
         }
     /**
      * 测温模式-菜单4-伪彩/观测模式-菜单3-伪彩 伪彩切换事件监听.
-     * index-选中伪彩在列表中的 index，也就 TC007 要用
-     * code-伪彩编码，由于历史遗留跟 index 对不上，非 TC007 时使用
-     * size-预设伪彩数量，也就 TC007 要用
+     * index-选中伪彩在列表中的 index
+     * code-伪彩编码，由于历史遗留跟 index 对不上
+     * size-预设伪彩数量
      */
     var onColorListener: ((index: Int, code: Int, size: Int) -> Unit)?
         get() = colorAdapter.onColorListener
@@ -238,7 +238,7 @@ class MenuSecondView : FrameLayout {
             1 -> MenuType.DOUBLE_LIGHT
             2 -> MenuType.Lite
             4 -> MenuType.GALLERY_EDIT
-            else -> MenuType.TC007
+            else -> MenuType.SINGLE_LIGHT
         }
         typedArray.recycle()
 
@@ -311,7 +311,7 @@ class MenuSecondView : FrameLayout {
         }
 
     /**
-     * 仅 TS001，测温/观测 切换时，关闭延时拍照、连续拍照、录像后，需要重置为拍照状态.
+     * 测温/观测 切换时，关闭延时拍照、连续拍照、录像后，需要重置为拍照状态.
      */
     fun switchToCamera() {
         binding.cameraMenuView.canSwitchMode = true
@@ -371,7 +371,6 @@ class MenuSecondView : FrameLayout {
      * - 单光：  不应该使用这个属性
      * - Lite： 不应该使用这个属性
      * - 双光：  双光1、双光2、红外、可见光
-     * - TC007：双光、红外、可见光、画中画
      */
     var twoLightType: TwoLightType
         get() = twoLightAdapter.twoLightType
@@ -384,7 +383,6 @@ class MenuSecondView : FrameLayout {
      * - 单光：  画中画、融合度
      * - Lite： 画中画、融合度
      * - 双光：  配准、画中画、融合度
-     * - TC007：配准、、融合度
      */
     fun setTwoLightSelected(twoLightType: TwoLightType, isSelected: Boolean) {
         twoLightAdapter.setSelected(twoLightType, isSelected)

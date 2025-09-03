@@ -122,10 +122,8 @@ object BluetoothUtil {
         @SuppressLint("MissingPermission")
         override fun onScanResult(callbackType: Int, result: ScanResult?) {
             val name: String = result?.device?.name ?: return
-            if (name.startsWith(if (isTS004) DeviceConfig.TS004_NAME_START else DeviceConfig.TC007_NAME_START)) {
-                XLog.v("蓝牙扫描出一个目标设备：$name")
-                listener?.invoke(name)
-            }
+            // Only TC001 supported - no Bluetooth scanning needed
+            return
         }
 
         override fun onScanFailed(errorCode: Int) {

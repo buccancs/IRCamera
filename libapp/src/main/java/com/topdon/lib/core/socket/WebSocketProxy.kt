@@ -102,7 +102,7 @@ class WebSocketProxy {
         } else {
             XLog.tag("WebSocket").d("设备由 $currentSSID 切换到 $ssid，关闭旧连接")
             if (reconnectHandler.isReconnecting) {
-                EventBus.getDefault().post(SocketStateEvent(false, ssid.startsWith(DeviceConfig.TS004_NAME_START)))
+                EventBus.getDefault().post(SocketStateEvent(false, false))
             }
             this.network = network
             currentSSID = ssid
@@ -112,17 +112,9 @@ class WebSocketProxy {
 
         XLog.tag("WebSocket").d("$ssid startWebSocket()")
 
-        if (mWsManager == null) {
-            webSocketListener = MyWebSocketListener(ssid, reconnectHandler, onMessageListener) {
-                onFrameListener?.invoke(it)
-            }
-            mWsManager = WsManager.Builder()
-                .client(getOKHttpClient())
-                .wsUrl(if (ssid.startsWith(DeviceConfig.TS004_NAME_START)) TS004_URL else TC007_URL)
-                .setWsStatusListener(webSocketListener)
-                .build()
-        }
-        mWsManager?.startConnect()
+        // Only TC001 supported - no WebSocket connection needed
+        Log.i("WebSocket", "WebSocket not needed for TC001")
+    }
     }
 
     /**
@@ -137,15 +129,11 @@ class WebSocketProxy {
         mWsManager = null
     }
 
-    fun isConnected(): Boolean = isTS004Connect() || isTC007Connect()
+    fun isConnected(): Boolean = false // Only TC001 supported - no WebSocket needed
 
-    fun isTS004Connect(): Boolean {
-        return currentSSID?.startsWith(DeviceConfig.TS004_NAME_START) == true && mWsManager?.isConnect() == true
-    }
+    fun isTS004Connect(): Boolean = false // TS004 not supported
 
-    fun isTC007Connect(): Boolean {
-        return currentSSID?.startsWith(DeviceConfig.TC007_NAME_START) == true && mWsManager?.isConnect() == true
-    }
+    fun isTC007Connect(): Boolean = false // TC007 not supported
 
     fun sendMessage(cmd: String?) {
         mWsManager?.sendMessage(cmd)
@@ -171,7 +159,7 @@ class WebSocketProxy {
             XLog.tag("WebSocket").d("$ssid Socket 连接成功")
             isNeedReconnect = true
             handler.reset()
-            EventBus.getDefault().post(SocketStateEvent(true, ssid.startsWith(DeviceConfig.TS004_NAME_START)))
+            EventBus.getDefault().post(SocketStateEvent(true, false))
         }
 
         override fun onMessage(webSocket: WebSocket, text: String) {
@@ -183,22 +171,8 @@ class WebSocketProxy {
             onMessageListener?.invoke(text)
         }
 
-        /**
-         * TC007 温度帧一秒两帧，每帧都输出太过频繁，用该变量控制
-         */
-        private var needPrint = false
         override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
-            if (ssid.startsWith(DeviceConfig.TC007_NAME_START) && bytes.size == 254 ) {
-                val frameBean = SocketFrameBean(bytes.toByteArray())
-                onFrameListener.invoke(frameBean)
-                needPrint = !needPrint
-                if (needPrint) {
-                    Log.v("WebSocket", "--------- $ssid 打印一帧数据 ---------")
-                    Log.v("WebSocket", frameBean.toString())
-                }
-            } else {
-                XLog.tag("WebSocket").w("$ssid 未知的 bytes 消息，长度 ${bytes.size}")
-            }
+            // Only TC001 supported - no frame processing needed
         }
 
         override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
@@ -211,7 +185,7 @@ class WebSocketProxy {
             } else {
                 XLog.tag("WebSocket").d("$ssid 连接已关闭，原因：$reason")
                 handler.reset()
-                EventBus.getDefault().post(SocketStateEvent(false, ssid.startsWith(DeviceConfig.TS004_NAME_START)))
+                EventBus.getDefault().post(SocketStateEvent(false, false))
             }
             mWebSocketProxy?.currentSSID = ""
         }
@@ -222,13 +196,13 @@ class WebSocketProxy {
             if (checkNeedReconnect()) {
                 handler.handleFail(ssid)
                 if (!handler.isReconnecting) {
-                    EventBus.getDefault().post(SocketStateEvent(false, ssid.startsWith(DeviceConfig.TS004_NAME_START)))
+                    EventBus.getDefault().post(SocketStateEvent(false, false))
                 }
             } else {
                 XLog.tag("WebSocket").w("主动断开连接")
                 handler.reset()
                 getInstance().stopWebSocket()
-                EventBus.getDefault().post(SocketStateEvent(false, ssid.startsWith(DeviceConfig.TS004_NAME_START)))
+                EventBus.getDefault().post(SocketStateEvent(false, false))
             }
             mWebSocketProxy?.currentSSID = ""
         }

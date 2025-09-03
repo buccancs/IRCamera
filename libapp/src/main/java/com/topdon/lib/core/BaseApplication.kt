@@ -94,17 +94,8 @@ abstract class BaseApplication : Application() {
     }
 
     private fun connectWebSocket() {
-        val ssid = WifiUtil.getCurrentWifiSSID(this) ?: return
-        Log.i("WebSocket", "当前连接 Wifi SSID: $ssid")
-        if (ssid.startsWith(DeviceConfig.TS004_NAME_START)) {
-            SharedManager.hasTS004 = true
-            WebSocketProxy.getInstance().startWebSocket(ssid)
-        } else if (ssid.startsWith(DeviceConfig.TC007_NAME_START)) {
-            SharedManager.hasTC007 = true
-            WebSocketProxy.getInstance().startWebSocket(ssid)
-        }else{
-            NetWorkUtils.switchNetwork(true)
-        }
+        // Only TC001 is supported - no WiFi connection needed
+        NetWorkUtils.switchNetwork(true)
     }
 
     fun disconnectWebSocket() {
@@ -120,39 +111,9 @@ abstract class BaseApplication : Application() {
         if (TextUtils.isEmpty(msgJson)) return
         EventBus.getDefault().post(SocketMsgEvent(msgJson))
 
-        if (SharedManager.is04AutoSync) {//自动保存到手机开启
-            when (SocketCmdUtil.getCmdResponse(msgJson)) {
-                WsCmdConstants.AR_COMMAND_SNAPSHOT -> {//拍照事件
-                    autoSaveNewest(false)
-                }
-
-                WsCmdConstants.AR_COMMAND_VRECORD -> {//开始或结束录像事件
-                    try {
-                        val data: JSONObject = JSONObject(msgJson).getJSONObject("data")
-                        val enable: Boolean = data.getBoolean("enable")
-                        if (!enable) {//结束才同步
-                            autoSaveNewest(true)
-                        }
-                    } catch (_: Exception) {
-
-                    }
-                }
-            }
-        }
     }
 
-    private fun autoSaveNewest(isVideo: Boolean) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val fileList: List<FileBean>? = TS004Repository.getNewestFile(if (isVideo) 1 else 0)
-            if (!fileList.isNullOrEmpty()) {
-                val fileBean: FileBean = fileList[0]
-                val url = "http://192.168.40.1:8080/DCIM/${fileBean.name}"
-                val file = File(FileConfig.ts004GalleryDir, fileBean.name)
-                TS004Repository.download(url, file)
-                MediaScannerConnection.scanFile(this@BaseApplication, arrayOf(FileConfig.ts004GalleryDir), null, null)
-            }
-        }
-    }
+
 
     private inner class NetworkChangedReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
