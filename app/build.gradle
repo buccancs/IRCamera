@@ -371,6 +371,11 @@ dependencies {
     prodImplementation files('libs/umeng-common-9.4.4+000.jar')//谷歌定制版
     prodTopdonImplementation files('libs/umeng-common-9.4.4+000.jar')//谷歌定制版
 
+    // Local AAR dependencies moved from LocalRepo
+    implementation files('libs/libAC020sdk_USB_IR_1.1.1_2408291439.aar')
+    implementation files('libs/libcommon_1.2.0_24052117.aar')
+    implementation files('libs/libirutils_1.2.0_2409241055.aar')
+
     //国内版需要添加的
     insideChinaImplementation 'com.umeng.umsdk:common:9.6.7'
     insideChinaImplementation 'com.umeng.umsdk:asms:1.8.0'
