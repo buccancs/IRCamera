@@ -148,7 +148,7 @@ class CountDownView : View {
         mPaint.style = Paint.Style.FILL
         mPaint.strokeWidth = mRingWidth.toFloat()
         canvas.drawArc(mRectF!!, -90f, mCurrentProgress - 360, false, mPaint)
-        val font = ResourcesCompat.getFont(context, R.font.pingfang_bold)
+        val font = Typeface.DEFAULT_BOLD
         //绘制文本
         mTextPaint.isAntiAlias = true
         mTextPaint.textAlign = Paint.Align.CENTER

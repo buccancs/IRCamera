@@ -9,4 +9,19 @@
         <attr name="fraction" format="float" />
     </declare-styleable>
 
+    <declare-styleable name="ReportIRInputView">
+        <attr name="type" format="enum">
+            <enum name="full" value="0" />
+            <enum name="point" value="1" />
+            <enum name="line" value="2" />
+            <enum name="rect" value="3" />
+        </attr>
+        <attr name="index" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="TemperatureBaseView">
+        <attr name="maxCount" format="integer" />
+        <attr name="markerColor" format="color" />
+    </declare-styleable>
+
 </resources>
