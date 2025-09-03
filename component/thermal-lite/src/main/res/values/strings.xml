@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="correction_title">Correction</string>
+    <string name="correction_complete">Correction Complete</string>
+    <string name="tips_cancel_correction">Cancel correction?</string>
+    <string name="app_tip">Tip</string>
+    <string name="app_yes">Yes</string>
+    <string name="app_no">No</string>
+    <string name="app_confirm">Confirm</string>
+</resources>

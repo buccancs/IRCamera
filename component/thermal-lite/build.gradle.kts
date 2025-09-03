@@ -1,16 +1,17 @@
 plugins {
     id("com.android.library")
     kotlin("android")
-    kotlin("kapt")
+    // Temporarily disable KAPT to fix compilation issues
+    // kotlin("kapt")
     kotlin("plugin.parcelize")
 }
 
-kapt {
-    arguments {
-        arg("AROUTER_MODULE_NAME", project.name)
-    }
-    correctErrorTypes = true
-}
+// kapt {
+//     arguments {
+//         arg("AROUTER_MODULE_NAME", project.name)
+//     }
+//     correctErrorTypes = true
+// }
 
 android {
     namespace = "com.example.thermal_lite"
@@ -80,9 +81,11 @@ dependencies {
     implementation(project(":libir"))
     implementation(project(":libui"))
     implementation(project(":libmenu"))
+    // Re-add thermal-ir dependency - needed for thermal-lite functionality
     implementation(project(":component:thermal-ir"))
     
-    kapt(Deps.arouter_compiler)
+    // Temporarily disable ARouter compiler until KAPT issues are resolved
+    // kapt(Deps.arouter_compiler)
     
     implementation(Deps.androidx_core)
     implementation(Deps.appcompat)
