@@ -82,6 +82,21 @@ object Deps {
     const val javacv = "org.bytedeco:javacv:1.5.7"
     const val javacpp = "org.bytedeco:javacpp:1.5.7"
     
+    // IR-specific libraries from user's provided Deps
+    const val ir_layout = "com.github.CoderCaiSL:jitpackMvn:+"
+    const val compass_sense_user = "com.github.kylecorry31.andromeda:sense:6.2.0"  // User's preferred version
+    const val compass_core_user = "com.github.kylecorry31.andromeda:core:6.2.0"    // User's preferred version
+    
+    // LMS SDK from user's Deps
+    const val lms2_user = "com.topdon.lms.sdk3:lms_international:3.90.009.0"
+    const val lms3_user = "com.topdon.lms.sdk3:lms_china:3.90.076"
+    
+    // FFmpeg native libraries for IR processing
+    const val ffmpeg_android_arm64 = "org.bytedeco:ffmpeg:5.0-1.5.7:android-arm64"
+    const val ffmpeg_android_arm = "org.bytedeco:ffmpeg:5.0-1.5.7:android-arm"
+    const val ffmpeg_android_x86_64 = "org.bytedeco:ffmpeg:5.0-1.5.7:android-x86_64"
+    const val ffmpeg_android_x86 = "org.bytedeco:ffmpeg:5.0-1.5.7:android-x86"
+    
     // Third-party services
     const val wechat_sdk = "com.tencent.mm.opensdk:wechat-sdk-android:6.8.0"
     const val umeng_apm = "com.umeng.umsdk:apm:1.9.0"

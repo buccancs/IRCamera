@@ -64,7 +64,14 @@ dependencies {
     api(files("libs/jetified-tas_api-1.0.4.0.aar"))  // TAS API
     api(files("libs/library_1.0.aar"))  // Additional library support
     
+    // Enhanced IR-specific dependencies from user's Deps object
     api("com.conghuahuadan:superlayout:1.1.0")
+    api(Deps.ir_layout)  // IR layout utilities from CoderCaiSL jitpackMvn
+    api(Deps.compass_core_user)  // User's preferred compass core version
+    api(Deps.compass_sense_user)  // User's preferred compass sense version
+    api(Deps.javacv)  // JavaCV for IR image processing
+    api(Deps.javacpp)  // JavaCV native dependencies
+    
     implementation(project(":libapp"))
     // LocalRepo:libcommon moved to app/libs - will be available transitively through app module
 }
