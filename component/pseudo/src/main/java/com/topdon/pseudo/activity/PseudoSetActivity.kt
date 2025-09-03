@@ -20,6 +20,8 @@ import com.topdon.pseudo.bean.CustomPseudoBean
 import com.topdon.pseudo.constant.*
 import com.topdon.pseudo.view.PseudoPickView
 import com.topdon.lib.core.view.ColorSelectView
+import com.topdon.lib.ui.R as RUi  // For string resources from libui
+import com.topdon.lib.core.R as RCore  // For drawable resources from libapp
 import java.lang.NumberFormatException
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -97,12 +99,12 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
         // Initialize views - migrated from synthetic views
         etMaxTemp = findViewById(R.id.et_max_temp)
         etMinTemp = findViewById(R.id.et_min_temp)
-        tvMaxTempUnit = findViewById(R.id.tv_max_temp_unit)
-        tvMinTempUnit = findViewById(R.id.tv_min_temp_unit)
-        pseudoPickView = findViewById(R.id.pseudo_pick_view)
-        colorSelectView = findViewById(R.id.color_select_view)
-        ivCustomAdd = findViewById(R.id.iv_custom_add)
-        ivCustomDel = findViewById(R.id.iv_custom_del)
+        tvMaxTempUnit = findViewById<TextView>(R.id.tv_max_temp_unit)
+        tvMinTempUnit = findViewById<TextView>(R.id.tv_min_temp_unit)
+        pseudoPickView = findViewById<PseudoPickView>(R.id.pseudo_pick_view)
+        colorSelectView = findViewById<ColorSelectView>(R.id.color_select_view)
+        ivCustomAdd = findViewById<ImageView>(R.id.iv_custom_add)
+        ivCustomDel = findViewById<ImageView>(R.id.iv_custom_del)
         viewCustomColor1 = findViewById(R.id.view_custom_color1)
         viewCustomColor2 = findViewById(R.id.view_custom_color2)
         viewCustomColor3 = findViewById(R.id.view_custom_color3)
@@ -316,12 +318,12 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
                 if (clCustomContent.isVisible) {//使用自定义渲染
                     val inputMax = etMaxTemp.text.toString()
                     if (inputMax.isEmpty()) {
-                        ToastUtils.showShort(R.string.tip_input_format)
+                        ToastUtils.showShort(RUi.string.tip_input_format)
                         return
                     }
                     val inputMin = etMinTemp.text.toString()
                     if (inputMin.isEmpty()) {
-                        ToastUtils.showShort(R.string.tip_input_format)
+                        ToastUtils.showShort(RUi.string.tip_input_format)
                         return
                     }
 
@@ -336,11 +338,11 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
                         null
                     }
                     if(maxTemp == null || minTemp == null || maxTemp < minTemp || maxTemp > 550f || minTemp < -20f) {
-                        ToastUtils.showShort(R.string.tip_input_format)
+                        ToastUtils.showShort(RUi.string.tip_input_format)
                         return
                     }
                     if (maxTemp - minTemp < 0.1f) {
-                        ToastUtils.showShort(R.string.tip_input_format)
+                        ToastUtils.showShort(RUi.string.tip_input_format)
                         return
                     }
                     customPseudoBean.maxTemp = maxTemp
@@ -388,8 +390,8 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
         clColorRecommend.isVisible = !isToCustom
         tvColorCustom.setTextColor(if (isToCustom) 0xffffba42.toInt() else 0xffffffff.toInt())
         tvColorRecommend.setTextColor(if (isToCustom) 0xffffffff.toInt() else 0xffffba42.toInt())
-        tvColorCustom.setBackgroundResource(if (isToCustom) R.drawable.bg_corners50_solid_2a183e_stroke_theme else 0)
-        tvColorRecommend.setBackgroundResource(if (isToCustom) 0 else R.drawable.bg_corners50_solid_2a183e_stroke_theme)
+        tvColorCustom.setBackgroundResource(if (isToCustom) RCore.drawable.bg_corners50_solid_2a183e_stroke_theme else 0)
+        tvColorRecommend.setBackgroundResource(if (isToCustom) 0 else RCore.drawable.bg_corners50_solid_2a183e_stroke_theme)
     }
 
     /**
@@ -412,45 +414,45 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
         when (customPseudoBean.customRecommendIndex) {
             0 -> {
                 tvRecommendColor1.setTextColor(0x80ffffff.toInt())
-                viewRecommendBgColor1.setBackgroundResource(R.drawable.bg_corners04_stroke_30_ff)
+                viewRecommendBgColor1.setBackgroundResource(RCore.drawable.bg_corners04_stroke_30_ff)
             }
             1 -> {
                 tvRecommendColor2.setTextColor(0x80ffffff.toInt())
-                viewRecommendBgColor2.setBackgroundResource(R.drawable.bg_corners04_stroke_30_ff)
+                viewRecommendBgColor2.setBackgroundResource(RCore.drawable.bg_corners04_stroke_30_ff)
             }
             2 -> {
                 tvRecommendColor3.setTextColor(0x80ffffff.toInt())
-                viewRecommendBgColor3.setBackgroundResource(R.drawable.bg_corners04_stroke_30_ff)
+                viewRecommendBgColor3.setBackgroundResource(RCore.drawable.bg_corners04_stroke_30_ff)
             }
             3 -> {
                 tvRecommendColor4.setTextColor(0x80ffffff.toInt())
-                viewRecommendBgColor4.setBackgroundResource(R.drawable.bg_corners04_stroke_30_ff)
+                viewRecommendBgColor4.setBackgroundResource(RCore.drawable.bg_corners04_stroke_30_ff)
             }
             4 -> {
                 tvRecommendColor5.setTextColor(0x80ffffff.toInt())
-                viewRecommendBgColor5.setBackgroundResource(R.drawable.bg_corners04_stroke_30_ff)
+                viewRecommendBgColor5.setBackgroundResource(RCore.drawable.bg_corners04_stroke_30_ff)
             }
         }
         when (index) {
             0 -> {
                 tvRecommendColor1.setTextColor(0xffffba42.toInt())
-                viewRecommendBgColor1.setBackgroundResource(R.drawable.bg_corners04_stroke_2dp_ffba42)
+                viewRecommendBgColor1.setBackgroundResource(RCore.drawable.bg_corners04_stroke_2dp_ffba42)
             }
             1 -> {
                 tvRecommendColor2.setTextColor(0xffffba42.toInt())
-                viewRecommendBgColor2.setBackgroundResource(R.drawable.bg_corners04_stroke_2dp_ffba42)
+                viewRecommendBgColor2.setBackgroundResource(RCore.drawable.bg_corners04_stroke_2dp_ffba42)
             }
             2 -> {
                 tvRecommendColor3.setTextColor(0xffffba42.toInt())
-                viewRecommendBgColor3.setBackgroundResource(R.drawable.bg_corners04_stroke_2dp_ffba42)
+                viewRecommendBgColor3.setBackgroundResource(RCore.drawable.bg_corners04_stroke_2dp_ffba42)
             }
             3 -> {
                 tvRecommendColor4.setTextColor(0xffffba42.toInt())
-                viewRecommendBgColor4.setBackgroundResource(R.drawable.bg_corners04_stroke_2dp_ffba42)
+                viewRecommendBgColor4.setBackgroundResource(RCore.drawable.bg_corners04_stroke_2dp_ffba42)
             }
             4 -> {
                 tvRecommendColor5.setTextColor(0xffffba42.toInt())
-                viewRecommendBgColor5.setBackgroundResource(R.drawable.bg_corners04_stroke_2dp_ffba42)
+                viewRecommendBgColor5.setBackgroundResource(RCore.drawable.bg_corners04_stroke_2dp_ffba42)
             }
         }
         customPseudoBean.customRecommendIndex = index
@@ -461,8 +463,8 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
         ivOverColorSelect.isVisible = !isUseGray
         tvOverGrey.setTextColor(if (isUseGray) 0xffffba42.toInt() else 0xffffffff.toInt())
         tvOverColor.setTextColor(if (isUseGray) 0xffffffff.toInt() else 0xffffba42.toInt())
-        clOverGrey.setBackgroundResource(if (isUseGray) R.drawable.bg_corners05_solid_2a183e_stroke_theme else R.drawable.bg_corners05_solid_626569)
-        clOverColor.setBackgroundResource(if (isUseGray) R.drawable.bg_corners05_solid_626569 else R.drawable.bg_corners05_solid_2a183e_stroke_theme)
+        clOverGrey.setBackgroundResource(if (isUseGray) RCore.drawable.bg_corners05_solid_2a183e_stroke_theme else RCore.drawable.bg_corners05_solid_626569)
+        clOverColor.setBackgroundResource(if (isUseGray) RCore.drawable.bg_corners05_solid_626569 else RCore.drawable.bg_corners05_solid_2a183e_stroke_theme)
         customPseudoBean.isUseGray = isUseGray
     }
 
