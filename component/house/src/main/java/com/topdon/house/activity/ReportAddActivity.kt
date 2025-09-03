@@ -5,7 +5,7 @@ import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.UriUtils
 import com.topdon.house.R
@@ -124,7 +124,7 @@ class ReportAddActivity : BaseActivity(), View.OnClickListener {
                 iv_expand.isSelected = isAllExpand
             }
             tv_export_report -> {//导出报告
-                ARouter.getInstance().build(RouterConfig.REPORT_PREVIEW)
+                NavigationManager.getInstance().build(RouterConfig.REPORT_PREVIEW)
                     .withBoolean(ExtraKeyConfig.IS_REPORT, false)
                     .withLong(ExtraKeyConfig.LONG_ID, intent.getLongExtra(ExtraKeyConfig.DETECT_ID, 0))
                     .navigation(this)

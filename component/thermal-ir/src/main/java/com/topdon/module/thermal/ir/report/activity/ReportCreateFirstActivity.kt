@@ -11,7 +11,7 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.blankj.utilcode.util.TimeUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.github.gzuliyujiang.wheelpicker.DatimePicker
@@ -169,7 +169,7 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
             tv_preview -> {//预览
                 val reportInfoBean = buildReportInfo()
                 val reportConditionBean = buildReportCondition()
-                ARouter.getInstance().build(RouterConfig.REPORT_PREVIEW_FIRST)
+                NavigationManager.getInstance().build(RouterConfig.REPORT_PREVIEW_FIRST)
                     .withParcelable(ExtraKeyConfig.REPORT_INFO, reportInfoBean)
                     .withParcelable(ExtraKeyConfig.REPORT_CONDITION, reportConditionBean)
                     .navigation(this)
@@ -178,7 +178,7 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
                 val reportInfoBean = buildReportInfo()
                 val reportConditionBean = buildReportCondition()
                 val imageTempBean: ImageTempBean? = intent.getParcelableExtra(ExtraKeyConfig.IMAGE_TEMP_BEAN)
-                ARouter.getInstance().build(RouterConfig.REPORT_CREATE_SECOND)
+                NavigationManager.getInstance().build(RouterConfig.REPORT_CREATE_SECOND)
                     .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
                     .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, intent.getStringExtra(ExtraKeyConfig.FILE_ABSOLUTE_PATH))
                     .withParcelable(ExtraKeyConfig.IMAGE_TEMP_BEAN, imageTempBean)

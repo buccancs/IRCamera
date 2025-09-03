@@ -2,7 +2,7 @@
 //
 //import androidx.lifecycle.lifecycleScope
 //import androidx.recyclerview.widget.LinearLayoutManager
-//import com.alibaba.android.arouter.launcher.ARouter
+//import com.topdon.lib.core.navigation.NavigationManager
 //import com.topdon.lib.core.common.SharedManager
 //import com.topdon.lib.core.config.RouterConfig
 //import com.topdon.lib.core.db.AppDatabase
@@ -27,7 +27,7 @@
 //        log_recycler.adapter = adapter
 //        adapter.listener = object : MonitorLogAdapter.OnItemClickListener {
 //            override fun onClick(index: Int, thermalId: String) {
-//                ARouter.getInstance().build(RouterConfig.THERMAL_LOG_CHART).navigation(baseContext)
+//                NavigationManager.getInstance().build(RouterConfig.THERMAL_LOG_CHART).navigation(baseContext)
 //            }
 //
 //            override fun onLongClick(index: Int, thermalId: String) {

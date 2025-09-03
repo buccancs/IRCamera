@@ -13,7 +13,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.blankj.utilcode.util.CleanUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.bumptech.glide.request.RequestOptions
@@ -139,7 +139,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                 }
 
 
-                ARouter.getInstance().build(RouterConfig.WEB_VIEW)
+                NavigationManager.getInstance().build(RouterConfig.WEB_VIEW)
                     .withString(ExtraKeyConfig.URL, url)
                     .navigation(requireContext())
             }
@@ -157,10 +157,10 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                 }
             }
             setting_electronic_manual -> {//电子说明书
-                ARouter.getInstance().build(RouterConfig.ELECTRONIC_MANUAL).withInt(Constants.SETTING_TYPE, Constants.SETTING_BOOK).navigation(requireContext())
+                NavigationManager.getInstance().build(RouterConfig.ELECTRONIC_MANUAL).withInt(Constants.SETTING_TYPE, Constants.SETTING_BOOK).navigation(requireContext())
             }
             setting_faq -> {//FAQ
-                ARouter.getInstance().build(RouterConfig.ELECTRONIC_MANUAL).withInt(Constants.SETTING_TYPE, Constants.SETTING_FAQ).navigation(requireContext())
+                NavigationManager.getInstance().build(RouterConfig.ELECTRONIC_MANUAL).withInt(Constants.SETTING_TYPE, Constants.SETTING_FAQ).navigation(requireContext())
             }
             setting_feedback -> {//意见反馈
                 if (LMS.getInstance().isLogin) {
@@ -180,10 +180,10 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                 }
             }
             setting_item_unit -> {//温度单位
-                ARouter.getInstance().build(RouterConfig.UNIT).navigation(requireContext())
+                NavigationManager.getInstance().build(RouterConfig.UNIT).navigation(requireContext())
             }
             setting_item_version -> {//版本
-                ARouter.getInstance().build(RouterConfig.VERSION).navigation(requireContext())
+                NavigationManager.getInstance().build(RouterConfig.VERSION).navigation(requireContext())
             }
             setting_item_clear -> {//清除缓存，实际已隐藏
                 clearCache()

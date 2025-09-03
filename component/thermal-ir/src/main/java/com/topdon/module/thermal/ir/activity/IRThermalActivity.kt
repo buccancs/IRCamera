@@ -25,7 +25,7 @@
 //import androidx.lifecycle.lifecycleScope
 //import androidx.recyclerview.widget.GridLayoutManager
 //import androidx.recyclerview.widget.RecyclerView
-//import com.alibaba.android.arouter.launcher.ARouter
+//import com.topdon.lib.core.navigation.NavigationManager
 //import com.blankj.utilcode.util.*
 //import com.blankj.utilcode.util.ScreenUtils
 //import com.elvishew.xlog.XLog
@@ -462,7 +462,7 @@
 //                    videoTimeClose()
 //                    delay(500)
 //                }
-//                ARouter.getInstance().build(RouterConfig.IR_GALLERY).navigation()
+//                NavigationManager.getInstance().build(RouterConfig.IR_GALLERY).navigation()
 //            }
 //        }
 //        thermal_recycler.fencelistener = {
@@ -1615,7 +1615,7 @@
 //                    cameraItemAdapter.listener = listener@{ position, item ->
 //                        when (cameraItemAdapter.data[position].type){
 //                            CameraItemBean.TYPE_SETTING ->{
-//                                ARouter.getInstance().build(RouterConfig.IR_CAMERA_SETTING)
+//                                NavigationManager.getInstance().build(RouterConfig.IR_CAMERA_SETTING)
 //                                    .navigation(this)
 //                                return@listener
 //                            }

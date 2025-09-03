@@ -1,7 +1,7 @@
 package com.topdon.module.thermal.fragment
 
 import androidx.recyclerview.widget.GridLayoutManager
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.blankj.utilcode.util.ScreenUtils
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseViewModelFragment
@@ -66,7 +66,7 @@ class GalleryVideoFragment : BaseViewModelFragment<GalleryViewModel>() {
 
 
     fun openVideo(path: String) {
-        ARouter.getInstance().build(RouterConfig.VIDEO).withString("video_path", path)
+        NavigationManager.getInstance().build(RouterConfig.VIDEO).withString("video_path", path)
             .navigation(requireContext())
     }
 

@@ -198,7 +198,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         when (v) {
             tv_connect_device, iv_add -> {//添加设备
                 startActivity(Intent(requireContext(), DeviceTypeActivity::class.java))
-//                ARouter.getInstance().build(RoutePath.UsbIrModule.PAGE_IR_MAIN_ACTIVITY)
+//                NavigationManager.getInstance().build(RoutePath.UsbIrModule.PAGE_IR_MAIN_ACTIVITY)
 //                    .navigation()
 //                startActivity(Intent(requireContext(), IRThermalLiteActivity::class.java))
             }

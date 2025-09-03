@@ -12,7 +12,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.blankj.utilcode.util.Utils
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.FileConfig
@@ -221,7 +221,7 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
                 .create().show()
         }
         reportAdapter.jumpDetailListener = {item, position ->
-            ARouter.getInstance().build(RouterConfig.REPORT_DETAIL)
+            NavigationManager.getInstance().build(RouterConfig.REPORT_DETAIL)
                 .withParcelable(ExtraKeyConfig.REPORT_BEAN,reportAdapter.data[position]?.reportContent)
                 .navigation(requireContext())
         }

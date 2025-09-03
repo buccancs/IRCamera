@@ -12,7 +12,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.bean.GalleryBean
 import com.topdon.lib.core.config.ExtraKeyConfig
@@ -260,7 +260,7 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
                         tempLow = frameTool.getSrcTemp().minTemperature
                     }
 //                    dismissLoading()
-                    ARouter.getInstance().build(RouterConfig.IR_GALLERY_3D).withString(ExtraKeyConfig.IR_PATH, irPath)
+                    NavigationManager.getInstance().build(RouterConfig.IR_GALLERY_3D).withString(ExtraKeyConfig.IR_PATH, irPath)
                         .withFloat(ExtraKeyConfig.TEMP_HIGH, tempHigh).withFloat(ExtraKeyConfig.TEMP_LOW, tempLow)
                         .navigation(this@IRGalleryDetail01Activity)
                 }
@@ -288,7 +288,7 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
             ToastTools.showShort(R.string.album_report_on_edit)
             return
         }
-        ARouter.getInstance().build(RouterConfig.IR_GALLERY_EDIT)
+        NavigationManager.getInstance().build(RouterConfig.IR_GALLERY_EDIT)
             .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
             .withBoolean(ExtraKeyConfig.IS_PICK_REPORT_IMG, isReport)
             .withBoolean(IS_REPORT_FIRST, true)

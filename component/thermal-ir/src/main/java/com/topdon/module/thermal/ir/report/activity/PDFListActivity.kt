@@ -4,7 +4,7 @@ import android.text.TextUtils
 import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.blankj.utilcode.util.Utils
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.FileConfig
@@ -121,7 +121,7 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
             viewModel.getReportData(isTC007, ++page)
         }
         reportAdapter.jumpDetailListener = {item, position ->
-            ARouter.getInstance().build(RouterConfig.REPORT_DETAIL)
+            NavigationManager.getInstance().build(RouterConfig.REPORT_DETAIL)
                 .withParcelable(ExtraKeyConfig.REPORT_BEAN,reportAdapter.data[position]?.reportContent)
                 .navigation(this)
         }

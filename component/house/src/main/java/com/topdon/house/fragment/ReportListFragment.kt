@@ -7,7 +7,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.blankj.utilcode.util.FileUtils
 import com.topdon.house.R
 import com.topdon.house.activity.DetectAddActivity
@@ -57,7 +57,7 @@ internal class ReportListFragment : BaseFragment(), View.OnClickListener {
 
         adapter = HouseAdapter(requireContext(), false)
         adapter.onItemClickListener = {
-            ARouter.getInstance().build(RouterConfig.REPORT_PREVIEW)
+            NavigationManager.getInstance().build(RouterConfig.REPORT_PREVIEW)
                 .withBoolean(ExtraKeyConfig.IS_REPORT, true)
                 .withLong(ExtraKeyConfig.LONG_ID, adapter.dataList[it].id)
                 .navigation(requireContext())

@@ -115,7 +115,7 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
                 restoreFactory()
             }
             setting_disconnect -> {//断开连接
-                ARouter.getInstance().build(RouterConfig.IR_MORE_HELP)
+                NavigationManager.getInstance().build(RouterConfig.IR_MORE_HELP)
                     .withInt(Constants.SETTING_CONNECTION_TYPE, Constants.SETTING_DISCONNECTION)
                     .navigation(this@MoreActivity)
             }
@@ -184,7 +184,7 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
             if (isSuccess) {
                 XLog.d("TS004 固件升级 - 固件升级包发送往 TS004 成功，即将断开连接")
                 (application as BaseApplication).disconnectWebSocket()
-                ARouter.getInstance().build(RouterConfig.MAIN).navigation(this@MoreActivity)
+                NavigationManager.getInstance().build(RouterConfig.MAIN).navigation(this@MoreActivity)
                 finish()
             } else {
                 XLog.w("TS004 固件升级 - 固件升级包发送往 TS004 失败!")
@@ -251,7 +251,7 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
                 TToast.shortToast(this@MoreActivity, R.string.ts004_reset_tip4)
                 (application as BaseApplication).disconnectWebSocket()
                 EventBus.getDefault().post(TS004ResetEvent())
-                ARouter.getInstance().build(RouterConfig.MAIN).navigation(this@MoreActivity)
+                NavigationManager.getInstance().build(RouterConfig.MAIN).navigation(this@MoreActivity)
                 finish()
             } else {
                 TToast.shortToast(this@MoreActivity, R.string.operation_failed_tips)

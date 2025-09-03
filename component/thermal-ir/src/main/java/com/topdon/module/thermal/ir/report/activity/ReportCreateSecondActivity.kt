@@ -3,7 +3,7 @@ package com.topdon.module.thermal.ir.report.activity
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.blankj.utilcode.util.ToastUtils
 import com.topdon.lib.core.bean.event.ReportCreateEvent
 import com.topdon.lib.core.common.SharedManager
@@ -181,7 +181,7 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
                 val reportIRBeanList = ArrayList<ReportIRBean>(reportIRList)
                 reportIRBeanList.add(buildReportIr(currentFilePath))
                 val reportBean = ReportBean(SoftwareInfo(appLanguage, sdkVersion), reportInfoBean!!, conditionBean!!, reportIRBeanList)
-                ARouter.getInstance().build(RouterConfig.REPORT_PREVIEW_SECOND)
+                NavigationManager.getInstance().build(RouterConfig.REPORT_PREVIEW_SECOND)
                     .withBoolean(ExtraKeyConfig.IS_TC007, intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false))
                     .withParcelable(ExtraKeyConfig.REPORT_BEAN, reportBean)
                     .navigation(this)

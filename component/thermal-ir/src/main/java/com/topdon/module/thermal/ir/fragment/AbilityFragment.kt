@@ -2,7 +2,7 @@ package com.topdon.module.thermal.ir.fragment
 
 import android.content.Intent
 import android.view.View
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.topdon.house.activity.HouseHomeActivity
 import com.topdon.lib.core.bean.event.WinterClickEvent
 import com.topdon.lib.core.common.SharedManager
@@ -53,7 +53,7 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
                 } else {
                     "http://172.16.66.77:8081/#/detectionGuidanceIndex?languageId=1&showHeader=1"
                 }
-                ARouter.getInstance().build(RouterConfig.WEB_VIEW)
+                NavigationManager.getInstance().build(RouterConfig.WEB_VIEW)
                     .withString(ExtraKeyConfig.URL, url)
                     .navigation(requireContext())
             }
@@ -72,7 +72,7 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
             view_car -> {//汽车检测
                 if (mIsTC007) {
                     if (WebSocketProxy.getInstance().isConnected()) {
-                        ARouter.getInstance().build(RouterConfig.IR_THERMAL_07)
+                        NavigationManager.getInstance().build(RouterConfig.IR_THERMAL_07)
                             .withBoolean(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
                             .navigation(requireContext())
                     }
@@ -82,11 +82,11 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
                         intent.putExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
                         startActivity(intent)
                     } else if (DeviceTools.isTC001LiteConnect()) {
-                        ARouter.getInstance().build(RouterConfig.IR_TCLITE)
+                        NavigationManager.getInstance().build(RouterConfig.IR_TCLITE)
                             .withBoolean(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
                             .navigation(activity)
                     } else if (DeviceTools.isHikConnect()) {
-                        ARouter.getInstance().build(RouterConfig.IR_HIK_MAIN)
+                        NavigationManager.getInstance().build(RouterConfig.IR_HIK_MAIN)
                             .withBoolean(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
                             .navigation(activity)
                     } else if (DeviceTools.isConnect(isSendConnectEvent = false, true)) {

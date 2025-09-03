@@ -1,7 +1,7 @@
 package com.topdon.module.thermal.ir.activity
 
 import android.content.Intent
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
@@ -46,12 +46,12 @@ class IRCorrectionTwoActivity : BaseActivity() {
         tv_correction.setOnClickListener {
             if (if (isTC007) WebSocketProxy.getInstance().isTC007Connect() else DeviceTools.isConnect()) {
                 if (isTC007) {
-                    ARouter.getInstance().build(RouterConfig.IR_CORRECTION_07).navigation(this)
+                    NavigationManager.getInstance().build(RouterConfig.IR_CORRECTION_07).navigation(this)
                 } else {
                     if (DeviceTools.isTC001LiteConnect()){
-                        ARouter.getInstance().build(RouterConfig.IR_CORRECTION_THREE_LITE).navigation(this)
+                        NavigationManager.getInstance().build(RouterConfig.IR_CORRECTION_THREE_LITE).navigation(this)
                     } else if (DeviceTools.isHikConnect()) {
-                        ARouter.getInstance().build(RouterConfig.IR_HIK_CORRECT_THREE).navigation(this)
+                        NavigationManager.getInstance().build(RouterConfig.IR_HIK_CORRECT_THREE).navigation(this)
                     } else{
                         startActivity(Intent(this, IRCorrectionThreeActivity::class.java))
                     }

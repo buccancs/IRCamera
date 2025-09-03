@@ -141,6 +141,12 @@ object NavigationManager {
             RouterConfig.DEVICE_INFORMATION -> getClassByName("com.topdon.module.user.activity.DeviceDetailsActivity")
             RouterConfig.TISR -> getClassByName("com.topdon.module.user.activity.TISRActivity")
             RouterConfig.AUTO_SAVE -> getClassByName("com.topdon.module.user.activity.AutoSaveActivity")
+            
+            // Additional commonly used routes
+            RouterConfig.IR_CORRECTION_TWO -> getClassByName("com.topdon.module.thermal.ir.activity.IRCorrectionTwoActivity")
+            RouterConfig.IR_GALLERY_DETAIL_01 -> getClassByName("com.topdon.module.thermal.ir.activity.IRGalleryDetail01Activity")
+            RouterConfig.REPORT_PICK_IMG -> getClassByName("com.topdon.module.thermal.ir.activity.ReportPickImgActivity")
+            RouterConfig.UNIT -> getClassByName("com.topdon.module.user.activity.UnitActivity")
 
             else -> {
                 throw IllegalArgumentException("Unknown route: $route")
