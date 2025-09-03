@@ -132,7 +132,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
             filePath = intent.getStringExtra(ExtraKeyConfig.FILE_ABSOLUTE_PATH)!!
         }
         isReportPick = intent.getBooleanExtra(ExtraKeyConfig.IS_PICK_REPORT_IMG, false)
-        isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
+        isTC007 = false // TC001 devices only - ignore legacy TC007 parameter
 
         edit_recycler_second.fenceSelectType = FenceType.DEL
         temperature_view.isShowName = isReportPick
@@ -488,7 +488,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
             }
             temperature_iv_input -> {
                 val intent = Intent(this, PseudoSetActivity::class.java)
-                intent.putExtra(ExtraKeyConfig.IS_TC007, isTC007)
+                intent.putExtra(ExtraKeyConfig.IS_TC007, false) // TC001 always false
                 intent.putExtra(ExtraKeyConfig.CUSTOM_PSEUDO_BEAN, struct.customPseudoBean)
                 pseudoSetResult.launch(intent)
             }
@@ -589,13 +589,13 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                         dismissLoadingDialog()
                         if (intent.getBooleanExtra(IS_REPORT_FIRST, true)) {
                             ARouter.getInstance().build(RouterConfig.REPORT_CREATE_FIRST)
-                                .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
+                                .withBoolean(ExtraKeyConfig.IS_TC007, false) // TC001 always false
                                 .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, fileAbsolutePath)
                                 .withParcelable(ExtraKeyConfig.IMAGE_TEMP_BEAN, buildImageTempBean())
                                 .navigation(this@IRGalleryEditActivity)
                         } else {
                             ARouter.getInstance().build(RouterConfig.REPORT_CREATE_SECOND)
-                                .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
+                                .withBoolean(ExtraKeyConfig.IS_TC007, false) // TC001 always false
                                 .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, fileAbsolutePath)
                                 .withParcelable(ExtraKeyConfig.IMAGE_TEMP_BEAN, buildImageTempBean())
                                 .withParcelable(ExtraKeyConfig.REPORT_INFO, intent.getParcelableExtra(ExtraKeyConfig.REPORT_INFO))

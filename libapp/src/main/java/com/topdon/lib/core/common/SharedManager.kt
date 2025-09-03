@@ -499,4 +499,34 @@ object SharedManager {
         SPUtils.getInstance().put(SP_CAR_DETECT, GsonUtils.toJson(bean))
     }
 
+    // Legacy device-specific properties - now defaults for TC001 compatibility
+    
+    /**
+     * TS004 auto sync setting (legacy - TC001 doesn't use this).
+     */
+    var is04AutoSync: Boolean
+        get() = SPUtils.getInstance().getBoolean("is04AutoSync", false)
+        set(value) = SPUtils.getInstance().put("is04AutoSync", value)
+        
+    /**
+     * TS004 TISR setting (legacy - TC001 doesn't use this).
+     */
+    var is04TISR: Boolean
+        get() = SPUtils.getInstance().getBoolean("is04TISR", false)
+        set(value) = SPUtils.getInstance().put("is04TISR", value)
+        
+    /**
+     * TC007 auto connect setting (legacy - TC001 doesn't use this).
+     */
+    var isConnect07AutoOpen: Boolean
+        get() = SPUtils.getInstance().getBoolean("isConnect07AutoOpen", false)
+        set(value) = SPUtils.getInstance().put("isConnect07AutoOpen", value)
+        
+    /**
+     * Free space information (legacy - TC001 doesn't use this).
+     */
+    var freeSpaceBean: com.topdon.lib.core.repository.FreeSpaceBean
+        get() = com.topdon.lib.core.repository.FreeSpaceBean() // Return empty bean for TC001
+        set(value) = Unit // No-op for TC001
+
 }

@@ -104,7 +104,7 @@ class TipEmissivityDialog : Dialog {
             view.dialog_tip_cancel_btn.setOnClickListener {
                 dialog?.onDismissListener?.invoke(hasCheck)
                 ARouter.getInstance().build(RouterConfig.IR_SETTING)
-                    .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
+                    .withBoolean(ExtraKeyConfig.IS_TC007, false) // TC001 always false
                     .navigation(context)
                 dismiss()
             }

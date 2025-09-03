@@ -7,6 +7,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.BaseApplication
+import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseActivity
@@ -57,28 +58,27 @@ class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
         lifecycleScope.launch {
             // TC001 uses USB connection, storage space not available via network
             TToast.shortToast(this@StorageSpaceActivity, R.string.operation_failed_tips)
-                TLog.d("ts004", "║ response :$freeSpaceBean")
+            TLog.d("ts004", "║ response :${SharedManager.freeSpaceBean}")
 
-                tv_progress_value.text = "${(freeSpaceBean.hasUseSize() * 100.0 / freeSpaceBean.total).toInt().coerceAtLeast(1)}"
+            tv_progress_value.text = "${(SharedManager.freeSpaceBean.hasUseSize() * 100.0 / SharedManager.freeSpaceBean.total).toInt().coerceAtLeast(1)}"
 
-                tv_used_value.text = formatFileSize(freeSpaceBean.hasUseSize())
-                tv_used.text = getUnit(freeSpaceBean.hasUseSize())
-                tv_total_value.text = " / " + formatFileSize(freeSpaceBean.total)
-                tv_total.text = getUnit(freeSpaceBean.total)
+            tv_used_value.text = formatFileSize(SharedManager.freeSpaceBean.hasUseSize())
+            tv_used.text = getUnit(SharedManager.freeSpaceBean.hasUseSize())
+            tv_total_value.text = " / " + formatFileSize(SharedManager.freeSpaceBean.total)
+            tv_total.text = getUnit(SharedManager.freeSpaceBean.total)
 
-                list_storage_photo.setRightText(formatFileSize(freeSpaceBean.image_size) + getUnit(freeSpaceBean.image_size))
-                list_storage_video.setRightText(formatFileSize(freeSpaceBean.video_size) + getUnit(freeSpaceBean.video_size))
-                list_storage_system.setRightText(formatFileSize(freeSpaceBean.system) + getUnit(freeSpaceBean.system))
+            list_storage_photo.setRightText(formatFileSize(SharedManager.freeSpaceBean.image_size) + getUnit(SharedManager.freeSpaceBean.image_size))
+            list_storage_video.setRightText(formatFileSize(SharedManager.freeSpaceBean.video_size) + getUnit(SharedManager.freeSpaceBean.video_size))
+            list_storage_system.setRightText(formatFileSize(SharedManager.freeSpaceBean.system) + getUnit(SharedManager.freeSpaceBean.system))
 
-                val systemPercent = (freeSpaceBean.system * 100.0 / freeSpaceBean.total).toInt().coerceAtLeast(1).coerceAtMost(98)
-                val imagePercent = (freeSpaceBean.image_size * 100.0 / freeSpaceBean.total).toInt().coerceAtLeast(1).coerceAtMost(98)
-                val videoPercent = (freeSpaceBean.video_size * 100.0 / freeSpaceBean.total).toInt().coerceAtLeast(1).coerceAtMost(98)
-                val colorList = arrayListOf<ColorsBean>()
-                colorList.add(ColorsBean(0, systemPercent, 0xff8d98a9.toInt()))
-                colorList.add(ColorsBean(systemPercent, systemPercent + imagePercent, 0xff019dff.toInt()))
-                colorList.add(ColorsBean(systemPercent + imagePercent, systemPercent + imagePercent + videoPercent, 0xff70e297.toInt()))
-                custom_view_progress.setSegmentPart(colorList)
-            }
+            val systemPercent = (SharedManager.freeSpaceBean.system * 100.0 / SharedManager.freeSpaceBean.total).toInt().coerceAtLeast(1).coerceAtMost(98)
+            val imagePercent = (SharedManager.freeSpaceBean.image_size * 100.0 / SharedManager.freeSpaceBean.total).toInt().coerceAtLeast(1).coerceAtMost(98)
+            val videoPercent = (SharedManager.freeSpaceBean.video_size * 100.0 / SharedManager.freeSpaceBean.total).toInt().coerceAtLeast(1).coerceAtMost(98)
+            val colorList = arrayListOf<ColorsBean>()
+            colorList.add(ColorsBean(0, systemPercent, 0xff8d98a9.toInt()))
+            colorList.add(ColorsBean(systemPercent, systemPercent + imagePercent, 0xff019dff.toInt()))
+            colorList.add(ColorsBean(systemPercent + imagePercent, systemPercent + imagePercent + videoPercent, 0xff70e297.toInt()))
+            custom_view_progress.setSegmentPart(colorList)
         }
     }
 
@@ -100,3 +100,34 @@ class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
             }
         }
     }
+
+    // Helper methods for displaying file sizes
+    private fun formatFileSize(size: Long): String {
+        if (size <= 0) return "0"
+        val df = DecimalFormat("#.#")
+        val sizeInKB = size / 1024.0
+        val sizeInMB = sizeInKB / 1024.0
+        val sizeInGB = sizeInMB / 1024.0
+        
+        return when {
+            sizeInGB >= 1.0 -> df.format(sizeInGB)
+            sizeInMB >= 1.0 -> df.format(sizeInMB)
+            sizeInKB >= 1.0 -> df.format(sizeInKB)
+            else -> size.toString()
+        }
+    }
+    
+    private fun getUnit(size: Long): String {
+        if (size <= 0) return "B"
+        val sizeInKB = size / 1024.0
+        val sizeInMB = sizeInKB / 1024.0
+        val sizeInGB = sizeInMB / 1024.0
+        
+        return when {
+            sizeInGB >= 1.0 -> "GB"
+            sizeInMB >= 1.0 -> "MB"
+            sizeInKB >= 1.0 -> "KB"
+            else -> "B"
+        }
+    }
+}

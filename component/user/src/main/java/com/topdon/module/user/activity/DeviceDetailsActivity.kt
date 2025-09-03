@@ -17,24 +17,24 @@ import kotlinx.android.synthetic.main.activity_device_details.*
 import kotlinx.coroutines.launch
 
 /**
- * TS004、TC007 设备信息
+ * TC001 设备信息 (legacy TC007/TS004 support removed)
  *
- * 需要传递参数：
- * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
+ * Legacy parameters (now ignored):
+ * - [ExtraKeyConfig.IS_TC007] - Always treated as false for TC001
  */
 @Route(path = RouterConfig.DEVICE_INFORMATION)
 class DeviceDetailsActivity : BaseActivity(), View.OnClickListener {
 
     /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
+     * Legacy TC007 flag - now always false for TC001 devices.
      */
     private var isTC007 = false
 
     override fun initContentView() = R.layout.activity_device_details
 
     override fun initView() {
-        isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
+        // TC001 devices only - ignore legacy TC007 parameter
+        isTC007 = false // Always false for TC001
         cl_layout_copy.setOnClickListener(this)
     }
 

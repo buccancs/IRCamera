@@ -32,3 +32,12 @@ data class BatteryInfo(
     val level: Int = 0,
     val isCharging: Boolean = false
 )
+
+data class FreeSpaceBean(
+    val total: Long = 0L,
+    val image_size: Long = 0L,
+    val video_size: Long = 0L,
+    val system: Long = 0L
+) {
+    fun hasUseSize(): Long = image_size + video_size + system
+}

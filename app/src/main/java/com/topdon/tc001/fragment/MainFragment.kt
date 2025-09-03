@@ -77,23 +77,15 @@ class MainFragment : BaseFragment(), View.OnClickListener {
                 ConnectType.LINE -> {
                     ARouter.getInstance()
                         .build(RouterConfig.IR_MAIN)
-                        .withBoolean(ExtraKeyConfig.IS_TC007, false)
+                        .withBoolean(ExtraKeyConfig.IS_TC007, false) // TC001 always false
                         .navigation(requireContext())
                 }
-                ConnectType.TS004 -> {
-                    if (WebSocketProxy.getInstance().isTS004Connect()) {
-                        ARouter.getInstance().build(RouterConfig.IR_MONOCULAR).navigation(requireContext())
-                    } else {
-                        ARouter.getInstance()
-                            .build(RouterConfig.IR_DEVICE_ADD)
-                            .withBoolean("isTS004", true)
-                            .navigation(requireContext())
-                    }
-                }
-                ConnectType.TC007 -> {
+                // TC007 and TS004 support removed - TC001 only
+                else -> {
+                    // Only TC001 (LINE) is supported
                     ARouter.getInstance()
                         .build(RouterConfig.IR_MAIN)
-                        .withBoolean(ExtraKeyConfig.IS_TC007, true)
+                        .withBoolean(ExtraKeyConfig.IS_TC007, false) // TC001 always false
                         .navigation(requireContext())
                 }
             }
