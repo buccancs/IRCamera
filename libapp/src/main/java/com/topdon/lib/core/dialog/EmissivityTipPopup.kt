@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.PopupWindow
 import android.widget.TextView
-import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.SizeUtils
 import com.topdon.lib.core.databinding.LayoutPopupTipEmissivityBinding
 import com.topdon.lib.core.R
@@ -18,6 +17,7 @@ import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.tools.NumberTools
 import com.topdon.lib.core.tools.UnitTools
+import com.topdon.lib.core.navigation.NavigationManager
 
 /**
  * des:
@@ -98,7 +98,9 @@ class EmissivityTipPopup(val context: Context, val isTC007: Boolean) {
                 setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)) // 必要时可以替换为其他Drawable
             }
             binding.dialogTipSuccessBtn.setOnClickListener {
-                ARouter.getInstance().build(RouterConfig.IR_SETTING).withBoolean(ExtraKeyConfig.IS_TC007, isTC007).navigation(context)
+                NavigationManager.build(RouterConfig.IR_SETTING)
+                    .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
+                    .navigation(context)
                 dismiss()
             }
         }

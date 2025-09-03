@@ -1,4 +1,4 @@
-package com.topdon.libcom.navigation
+package com.topdon.lib.core.navigation
 
 import android.app.Activity
 import android.content.Context

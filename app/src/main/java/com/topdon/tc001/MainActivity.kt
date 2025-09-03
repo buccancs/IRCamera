@@ -17,8 +17,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.lib.core.navigation.NavigationManager
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.Utils
 import com.elvishew.xlog.XLog
@@ -69,7 +68,7 @@ import java.io.IOException
 import java.io.OutputStream
 
 
-@Route(path = RouterConfig.MAIN)
+// Legacy ARouter route annotation - now using NavigationManager
 class MainActivity : BaseActivity(), View.OnClickListener {
 
     private val versionViewModel: VersionViewModel by viewModels()
@@ -137,17 +136,15 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             //仅当设备列表为空时，才执行自动跳转
             if (DeviceTools.isConnect()) {
                 if (!WebSocketProxy.getInstance().isConnected()) {
-                    ARouter.getInstance()
-                        .build(RouterConfig.IR_MAIN)
+                    NavigationManager.build(RouterConfig.IR_MAIN)
                         .withBoolean(ExtraKeyConfig.IS_TC007, false)
                         .navigation(this)
                 }
             } else {
                 if (WebSocketProxy.getInstance().isTS004Connect()) {
-                    ARouter.getInstance().build(RouterConfig.IR_MONOCULAR).navigation(this)
+                    NavigationManager.build(RouterConfig.IR_MONOCULAR).navigation(this)
                 } else if (WebSocketProxy.getInstance().isTC007Connect()) {
-                    ARouter.getInstance()
-                        .build(RouterConfig.IR_MAIN)
+                    NavigationManager.build(RouterConfig.IR_MAIN)
                         .withBoolean(ExtraKeyConfig.IS_TC007, true)
                         .navigation(this)
                 }
@@ -356,7 +353,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     override fun disConnected() {
         if (WebSocketProxy.getInstance().isTS004Connect()) {
-            ARouter.getInstance().build(RouterConfig.IR_MONOCULAR).navigation(this)
+            NavigationManager.build(RouterConfig.IR_MONOCULAR).navigation(this)
         }
         //无连接OTG提示
         if (tipOtgDialog != null && tipOtgDialog!!.isShowing) {
@@ -569,16 +566,16 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             2 -> {
 
                 if (DeviceTools.isTC001PlusConnect()) {
-                    ARouter.getInstance().build(RouterConfig.IR_MAIN).navigation(this@MainActivity)
+                    NavigationManager.build(RouterConfig.IR_MAIN).navigation(this@MainActivity)
                     startActivityForResult(Intent(this@MainActivity, IRThermalPlusActivity::class.java), 101)
                 }else if(DeviceTools.isTC001LiteConnect()){
-                    ARouter.getInstance().build(RouterConfig.IR_MAIN).navigation(this@MainActivity)
+                    NavigationManager.build(RouterConfig.IR_MAIN).navigation(this@MainActivity)
                     startActivityForResult(Intent(this@MainActivity, IRThermalLiteActivity::class.java), 101)
                 } else if (DeviceTools.isHikConnect()) {
-                    ARouter.getInstance().build(RouterConfig.IR_MAIN).navigation(this@MainActivity)
+                    NavigationManager.build(RouterConfig.IR_MAIN).navigation(this@MainActivity)
                     startActivity(Intent(this, IRThermalHikActivity::class.java))
                 } else{
-                    ARouter.getInstance().build(RouterConfig.IR_MAIN).navigation(this@MainActivity)
+                    NavigationManager.build(RouterConfig.IR_MAIN).navigation(this@MainActivity)
                     startActivityForResult(Intent(this@MainActivity, IRThermalNightActivity::class.java), 101)
                 }
             }
