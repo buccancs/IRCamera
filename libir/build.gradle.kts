@@ -57,7 +57,7 @@ dependencies {
     
     // AAR dependencies from libs folder - Conditional enabling for essential components
     // These need to be converted to proper Maven dependencies or moved to the app module
-    // api(files("libs/libusbdualsdk_1.3.4_2406271906_standard.aar"))
+    api(files("libs/libusbdualsdk_1.3.4_2406271906_standard.aar"))  // Required for infisense thermal camera classes
     // implementation(files("libs/opengl_1.3.2_standard.aar"))
     api(files("libs/suplib-release.aar"))  // Required for thermal-lite iruvc classes
     // api(files("libs/ai-upscale-release.aar"))
