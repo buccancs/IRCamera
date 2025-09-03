@@ -81,7 +81,7 @@ dependencies {
     implementation(project(":libmenu"))
     
     // Temporarily disable ARouter compiler until KAPT issues are resolved
-    // kapt(Deps.arouter_compiler)
+
     
     implementation(Deps.androidx_core)
     implementation(Deps.appcompat)

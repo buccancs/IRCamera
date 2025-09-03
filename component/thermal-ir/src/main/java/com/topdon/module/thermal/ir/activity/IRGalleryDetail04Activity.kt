@@ -66,17 +66,18 @@ class IRGalleryDetail04Activity : BaseActivity() {
         position = intent.getIntExtra("position", 0)
         dataList = intent.getParcelableArrayListExtra("list")!!
 
-        title_view.setTitleText("${position + 1}/${dataList.size}")
+        val titleView = findViewById<com.topdon.lib.core.view.TitleView>(R.id.title_view)
+        titleView.setTitleText("${position + 1}/${dataList.size}")
 
         cl_bottom.isVisible = isRemote //查看远端时底部才有3个按钮
 
         if (!isRemote) {
-            title_view.setRightDrawable(R.drawable.ic_toolbar_info_svg)
-            title_view.setRight2Drawable(R.drawable.ic_toolbar_share_svg)
-            title_view.setRight3Drawable(R.drawable.ic_toolbar_delete_svg)
-            title_view.setRightClickListener { actionInfo() }
-            title_view.setRight2ClickListener { actionShare() }
-            title_view.setRight3ClickListener { actionDelete() }
+            titleView.setRightDrawable(R.drawable.ic_toolbar_info_svg)
+            titleView.setRight2Drawable(R.drawable.ic_toolbar_share_svg)
+            titleView.setRight3Drawable(R.drawable.ic_toolbar_delete_svg)
+            titleView.setRightClickListener { actionInfo() }
+            titleView.setRight2ClickListener { actionShare() }
+            titleView.setRight3ClickListener { actionDelete() }
         }
 
         initViewPager()
@@ -108,7 +109,7 @@ class IRGalleryDetail04Activity : BaseActivity() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 this@IRGalleryDetail04Activity.position = position
-                title_view.setTitleText("${position + 1}/${dataList.size}")
+                findViewById<com.topdon.lib.core.view.TitleView>(R.id.title_view).setTitleText("${position + 1}/${dataList.size}")
                 iv_download.isSelected = dataList[position].hasDownload
             }
         })

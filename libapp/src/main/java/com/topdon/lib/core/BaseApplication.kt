@@ -17,7 +17,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.webkit.WebView
 import androidx.annotation.RequiresApi
-import com.alibaba.android.arouter.launcher.ARouter
+
 import com.blankj.utilcode.util.LanguageUtils
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.bean.event.SocketMsgEvent
@@ -76,7 +76,6 @@ abstract class BaseApplication : Application() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             webviewSetPath(this)
         }
-        initARouter()
         onLanguageChange()
 
         WebSocketProxy.getInstance().onMessageListener = {
@@ -226,23 +225,6 @@ abstract class BaseApplication : Application() {
             }
         }
         return null
-    }
-
-    private fun initARouter() {
-        try {
-            if (BuildConfig.DEBUG) {
-                Log.e("TopInfrared_LOG", "router init debug")
-                ARouter.openDebug()
-            }
-            ARouter.init(this)
-        } catch (e: Exception) {
-            //异常后建议清除映射表 (官方文档 开发模式会清除)
-            if (SharedManager.getHasShowClause()) {
-                Log.e("TopInfrared_LOG", "router init error: ${e.message}")
-            }
-            ARouter.openDebug()
-            ARouter.init(this)
-        }
     }
 
     //清除无用数据

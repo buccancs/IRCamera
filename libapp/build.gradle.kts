@@ -102,9 +102,6 @@ dependencies {
     // api(Deps.rxlifecycle_ktx)
     // api(Deps.rxlifecycle_android_lifecycle_ktx)
 
-    api(Deps.arouter_api)
-    kapt(Deps.arouter_compiler)
-
     api(Deps.utilcode)
     api(Deps.XXPermissions)
     api(Deps.xlog)

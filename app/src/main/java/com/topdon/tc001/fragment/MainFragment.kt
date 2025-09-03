@@ -13,7 +13,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.launcher.ARouter
+import com.topdon.libcom.navigation.NavigationManager
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.bean.event.SocketMsgEvent
 import com.topdon.lib.core.common.SharedManager
@@ -75,23 +75,23 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         adapter.onItemClickListener = {
             when (it) {
                 ConnectType.LINE -> {
-                    ARouter.getInstance()
+                    NavigationManager.getInstance()
                         .build(RouterConfig.IR_MAIN)
                         .withBoolean(ExtraKeyConfig.IS_TC007, false)
                         .navigation(requireContext())
                 }
                 ConnectType.TS004 -> {
                     if (WebSocketProxy.getInstance().isTS004Connect()) {
-                        ARouter.getInstance().build(RouterConfig.IR_MONOCULAR).navigation(requireContext())
+                        NavigationManager.getInstance().build(RouterConfig.IR_MONOCULAR).navigation(requireContext())
                     } else {
-                        ARouter.getInstance()
+                        NavigationManager.getInstance()
                             .build(RouterConfig.IR_DEVICE_ADD)
                             .withBoolean("isTS004", true)
                             .navigation(requireContext())
                     }
                 }
                 ConnectType.TC007 -> {
-                    ARouter.getInstance()
+                    NavigationManager.getInstance()
                         .build(RouterConfig.IR_MAIN)
                         .withBoolean(ExtraKeyConfig.IS_TC007, true)
                         .navigation(requireContext())
@@ -402,13 +402,13 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             .setMessage("Choose GSR recording option:")
             .setPositiveListener("Full Recording") {
                 // Launch full multi-modal recording interface
-                ARouter.getInstance()
+                NavigationManager.getInstance()
                     .build(RouterConfig.GSR_MULTI_MODAL)
                     .navigation(requireContext())
             }
             .setCancelListener("GSR Demo") {
                 // Launch simple GSR demo
-                ARouter.getInstance()
+                NavigationManager.getInstance()
                     .build(RouterConfig.GSR_DEMO)
                     .navigation(requireContext())
             }
