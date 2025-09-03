@@ -1,13 +1,11 @@
 package com.topdon.commons.util;
 
 import android.content.Context;
-
-// UMeng analytics temporarily disabled - uncomment when dependency is available
-// import com.umeng.analytics.MobclickAgent;
+import com.umeng.analytics.MobclickAgent;
 
 
 /**
- * @Desc 友盟埋点工具类 (Temporarily disabled)
+ * @Desc 友盟埋点工具类
  * @ClassName UMUtils
  * @Email 616862466@qq.com
  * @Author 子墨
@@ -17,13 +15,11 @@ import android.content.Context;
 public class UMUtils {
 
     public static void onEvent(Context mContext, String var1, String var2) {
-        // MobclickAgent.onEvent(mContext, var1, var2);
-        // Temporarily disabled - UMeng analytics not available
+        MobclickAgent.onEvent(mContext, var1, var2);
     }
 
     public static void onEvent(Context mContext, String var1) {
-        // MobclickAgent.onEvent(mContext, var1);
-        // Temporarily disabled - UMeng analytics not available
+        MobclickAgent.onEvent(mContext, var1);
     }
 
 }

@@ -1,14 +1,13 @@
 package com.topdon.commons.util;
 
-// LMS SDK temporarily disabled - uncomment when dependency is available
-// import static com.topdon.lms.sdk.LMS.SUCCESS;
+import static com.topdon.lms.sdk.LMS.SUCCESS;
 
 import android.text.TextUtils;
-// FastJSON temporarily disabled - uncomment when dependency is available
-// import com.alibaba.fastjson.JSONObject;
-// import com.topdon.lms.sdk.LMS;
-// import com.topdon.lms.sdk.network.IResponseCallback;
-// import com.topdon.lms.sdk.utils.StringUtils;
+// Using Gson instead of FastJSON as it's more commonly available
+import com.google.gson.JsonObject;
+import com.topdon.lms.sdk.LMS;
+import com.topdon.lms.sdk.network.IResponseCallback;
+import com.topdon.lms.sdk.utils.StringUtils;
 
 import org.ini4j.Config;
 import org.ini4j.Ini;

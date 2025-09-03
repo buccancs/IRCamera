@@ -5,8 +5,7 @@ import android.text.TextUtils;
 import com.blankj.utilcode.util.GsonUtils;
 import com.google.gson.reflect.TypeToken;
 import com.topdon.commons.base.entity.UnitDBBean;
-// LMS SDK temporarily disabled - uncomment when dependency is available
-// import com.topdon.lms.sdk.utils.SPUtils;
+import com.topdon.lms.sdk.utils.SPUtils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -57,9 +56,7 @@ public class UnitUtils {
      * 根据类型获取单位数据
      */
     public static HashMap<String, UnitDBBean> getUnitDBBeanHashMap() {
-        // String unit = (String) SPUtils.getInstance(Topdon.getApp()).get("unit", "0");
-        // Temporarily disabled - LMS SDK not available
-        String unit = "0"; // Default to metric
+        String unit = (String) SPUtils.getInstance(Topdon.getApp()).get("unit", "0");
         int unitType = "0".equals(unit) ? 0 : 1;
         return getUnitDBBeanHashMap(unitType);
     }
@@ -91,9 +88,7 @@ public class UnitUtils {
      * @return String[] 第一个值 第二个单位
      */
     public static String[] getCalcResult(HashMap<String, UnitDBBean> hashMap, String preUnit, String numericalValue) {
-        // String unit = (String) SPUtils.getInstance(Topdon.getApp()).get("unit", "0");
-        // Temporarily disabled - LMS SDK not available
-        String unit = "0"; // Default to metric
+        String unit = (String) SPUtils.getInstance(Topdon.getApp()).get("unit", "0");
         int unitType = "0".equals(unit) ? 0 : 1;
         return getCalcResult(unitType, hashMap, preUnit, numericalValue);
     }

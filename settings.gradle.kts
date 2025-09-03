@@ -31,6 +31,12 @@ dependencyResolutionManagement {
         flatDir {
             dirs("LocalRepo/libcommon")
         }
+        
+        // LMS SDK local maven repository
+        maven {
+            url = uri("file://${rootDir}/LocalRepo")
+        }
+        
         flatDir {
             dirs("commonlibrary")
         }
