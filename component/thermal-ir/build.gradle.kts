@@ -3,7 +3,7 @@ plugins {
     kotlin("android")
     // Temporarily disable KAPT to fix compilation issues
     // kotlin("kapt")
-    id("kotlin-android-extensions")  // Enable synthetic views for legacy code - removed parcelize due to conflict
+    id("kotlin-parcelize")
 }
 
 // kapt {
