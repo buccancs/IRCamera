@@ -1,66 +1,78 @@
-/.idea/
-/local.properties
-/.gradle/
-/buildSrc/build/
-/buildSrc/.gradle/
-/ai-upscale/
-/ai-upscale/3rdparty/ncnn-android-vulkan-shared/armeabi-v7a/
+# ===================================================================
+# Recommended .gitignore for Android Projects
+# ===================================================================
 
-# IDE files
-/.idea/
+# IDE - Android Studio
+# -------------------------------------------------------------------
+# User-specific files
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
 
-# Gradle files
-/.gradle/
-/buildSrc/build/
-/buildSrc/.gradle/
-/local.properties
+# Generated files
+*.iml
+.cxx/
+.externalNativeBuild/
+/captures/
 
-# Build directories
+
+# Build
+# -------------------------------------------------------------------
 /build/
 */build/
 **/build/
-
-# App specific directories
-/app/prod/
-/app/prodTopdon/
-
-# AI upscale specific
-/ai-upscale/
-/ai-upscale/3rdparty/ncnn-android-vulkan-shared/armeabi-v7a/
-
-# Android generated files
-*.iml
-.externalNativeBuild
-.cxx
 *.apk
 *.aab
 *.ap_
 *.dex
 *.class
+*.hprof
+*.snapshot
+lint-results-*
 
-# Log files
-*.log
 
-# Local configuration files
+# Gradle
+# -------------------------------------------------------------------
+.gradle/
+.build-cache/
+buildSrc/build/
+buildSrc/.gradle/
+
+
+# Local configuration
+# -------------------------------------------------------------------
+# Contains SDK path, API keys, and other user-specific information.
 local.properties
 
+
 # Signing files
+# -------------------------------------------------------------------
+# Keep these files private and out of version control.
 *.jks
 *.keystore
 
-# Temporary files
-*.tmp
-*.temp
-*~
 
-# OS generated files
+# OS-generated files
+# -------------------------------------------------------------------
 .DS_Store
 .DS_Store?
 ._*
 .Spotlight-V100
 .Trashes
-ehthumbs.db
 Thumbs.db
+ehthumbs.db
+
+
+# App/Project specific directories
+# -------------------------------------------------------------------
+# These are your custom rules, which are perfectly fine to keep.
+/app/prod/
+/app/prodTopdon/
+/ai-upscale/
+/ai-upscale/3rdparty/ncnn-android-vulkan-shared/armeabi-v7a/
 
 # Python specific for PC controller
 pc-controller/__pycache__/
@@ -72,3 +84,4 @@ pc-controller/sessions/
 pc-controller/.pytest_cache/
 pc-controller/venv/
 pc-controller/.env
+

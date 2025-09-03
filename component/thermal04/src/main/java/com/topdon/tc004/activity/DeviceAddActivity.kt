@@ -42,8 +42,8 @@ import com.topdon.lib.core.utils.LocationUtil
 import com.topdon.lib.core.utils.NetWorkUtils
 import com.topdon.lib.core.utils.WifiUtil
 import com.topdon.lms.sdk.weiget.TToast
-import kotlinx.android.synthetic.main.activity_device_add.*
-import kotlinx.android.synthetic.main.item_device_add.view.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_device_add.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_device_add.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

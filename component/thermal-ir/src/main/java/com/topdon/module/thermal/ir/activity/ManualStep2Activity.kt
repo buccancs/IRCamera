@@ -36,9 +36,9 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.event.ManualFinishBean
 import com.topdon.module.thermal.ir.utils.IRCmdTool
 import com.topdon.module.thermal.ir.view.MoveImageView
-import kotlinx.android.synthetic.main.activity_manual_step2.iv_tips
-import kotlinx.android.synthetic.main.activity_manual_step2.ll_seek_bar
-import kotlinx.android.synthetic.main.activity_manual_step2.tv_tips
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_manual_step2.iv_tips
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_manual_step2.ll_seek_bar
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_manual_step2.tv_tips
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import java.io.IOException

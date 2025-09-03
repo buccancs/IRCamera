@@ -5,8 +5,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import com.topdon.lib.core.utils.ScreenUtil
-import com.topdon.lib.ui.R
-import kotlinx.android.synthetic.main.dialog_monitor_select.view.*
+import com.topdon.lib.ui.R as UiR
+import com.topdon.lib.core.R
+import com.topdon.menu.R as MenuR
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_monitor_select.view.*
 
 /**
  * 提示窗
@@ -38,7 +40,7 @@ class MonitorSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
             val dialog = MonitorSelectDialog(context)
             dialog.setCanceledOnTouchOutside(false)
             
-            val view = LayoutInflater.from(context).inflate(R.layout.dialog_monitor_select, null)
+            val view = LayoutInflater.from(context).inflate(UiR.layout.dialog_monitor_select, null)
             dialog.setContentView(view)
 
             val lp = dialog.window!!.attributes

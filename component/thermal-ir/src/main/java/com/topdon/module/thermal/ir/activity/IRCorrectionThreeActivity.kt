@@ -7,7 +7,7 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.fragment.IRCorrectionFragment
-import kotlinx.android.synthetic.main.activity_ir_correction_three.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_ir_correction_three.*
 
 /**
  *

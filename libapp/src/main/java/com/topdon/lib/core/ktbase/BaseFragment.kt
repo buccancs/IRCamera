@@ -11,7 +11,7 @@ import com.topdon.lib.core.R
 import com.topdon.lib.core.bean.event.SocketStateEvent
 import com.topdon.lib.core.bean.event.device.DeviceConnectEvent
 import com.topdon.lib.core.dialog.LoadingDialog
-import com.trello.rxlifecycle2.components.support.RxFragment
+import androidx.fragment.app.Fragment
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -19,7 +19,7 @@ import org.greenrobot.eventbus.ThreadMode
 /**
  * create by fylder on 2018/7/13
  **/
-abstract class BaseFragment : RxFragment() {
+abstract class BaseFragment : Fragment() {
 
     val TAG = BaseFragment::class.java.simpleName
 

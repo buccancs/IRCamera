@@ -5,10 +5,12 @@ import androidx.core.content.ContextCompat
 import com.blankj.utilcode.util.ScreenUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
-import com.topdon.lib.ui.R
+import com.topdon.lib.ui.R as UiR
+import com.topdon.lib.core.R
+import com.topdon.menu.R as MenuR
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.lib.ui.listener.SingleClickListener
-import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.ui_item_menu_second_view.view.*
 
 @Deprecated("旧的双光菜单，已重构过了")
 class MenuPANightAdapter(data: MutableList<ColorBean>, layoutId : Int, private val isDual: Boolean) : BaseQuickAdapter<ColorBean, BaseViewHolder>(layoutId,data) {
@@ -33,20 +35,20 @@ class MenuPANightAdapter(data: MutableList<ColorBean>, layoutId : Int, private v
             holder.itemView.item_menu_tab_img.layoutParams = layoutParams
         }
         if (item.isSelect){
-            holder.setImageResource(R.id.item_menu_tab_img,item.res)
+            holder.setImageResource(UiR.id.item_menu_tab_img,item.res)
         }else{
-            holder.setImageResource(R.id.item_menu_tab_img,item.n_res)
+            holder.setImageResource(UiR.id.item_menu_tab_img,item.n_res)
         }
-        holder.setText(R.id.item_menu_tab_text,item.name)
+        holder.setText(UiR.id.item_menu_tab_text,item.name)
         holder.itemView.setOnClickListener(object :SingleClickListener(){
             override fun onSingleClick() {
                 listener?.invoke(data.indexOf(item))
             }
         })
         if (item.isSelect) {
-            holder.setTextColor(R.id.item_menu_tab_text,ContextCompat.getColor(context, R.color.white))
+            holder.setTextColor(UiR.id.item_menu_tab_text,ContextCompat.getColor(context, UiR.color.white))
         } else {
-            holder.setTextColor(R.id.item_menu_tab_text,ContextCompat.getColor(context, R.color.font_third_color))
+            holder.setTextColor(UiR.id.item_menu_tab_text,ContextCompat.getColor(context, UiR.color.font_third_color))
         }
     }
 }

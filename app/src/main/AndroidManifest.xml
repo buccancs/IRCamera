@@ -1,10 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.topdon.tc001">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    
+    <!-- Android 12+ Bluetooth permissions for Shimmer3 GSR device connections -->
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" android:usesPermissionFlags="neverForLocation" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+    
+    <!-- Storage permissions for GSR data recording -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    
+    <!-- Camera permissions for RGB video recording -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-feature android:name="android.hardware.camera.front" android:required="false" />
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
+    <uses-feature android:name="android.hardware.camera.flash" android:required="false" />
+    
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
@@ -120,6 +137,38 @@
         <activity
             android:name="com.topdon.tc001.WebViewActivity"
             android:screenOrientation="userPortrait" />
+        
+        <!-- GSR Multi-Modal Recording Activities -->
+        <activity
+            android:name="com.topdon.tc001.gsr.MultiModalRecordingActivity"
+            android:screenOrientation="userPortrait"
+            android:exported="false" />
+        <activity
+            android:name="com.topdon.tc001.gsr.GSRDemoActivity"
+            android:screenOrientation="userPortrait"
+            android:exported="false" />
+            
+        <!-- Session Management and Research Template Activities -->
+        <activity
+            android:name="com.topdon.tc001.gsr.SessionManagerActivity"
+            android:screenOrientation="userPortrait"
+            android:exported="false"
+            android:label="Session Manager" />
+        <activity
+            android:name="com.topdon.tc001.gsr.ResearchTemplateActivity"
+            android:screenOrientation="userPortrait"
+            android:exported="false"
+            android:label="Research Templates" />
+        <activity
+            android:name="com.topdon.tc001.gsr.SessionDetailActivity"
+            android:screenOrientation="userPortrait"
+            android:exported="false"
+            android:label="Session Details" />
+        <activity
+            android:name="com.topdon.tc001.gsr.SessionExportActivity"
+            android:screenOrientation="userPortrait"
+            android:exported="false"
+            android:label="Export Session" />
     </application>
 
 </manifest>

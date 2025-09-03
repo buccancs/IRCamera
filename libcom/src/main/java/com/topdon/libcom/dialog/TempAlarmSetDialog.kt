@@ -17,7 +17,7 @@ import com.topdon.libcom.R
 import com.topdon.lib.core.bean.AlarmBean
 import com.topdon.lib.core.common.SaveSettingUtil
 import com.topdon.lib.core.tools.ToastTools
-import kotlinx.android.synthetic.main.dialog_temp_alarm_set.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_temp_alarm_set.*
 
 class TempAlarmSetDialog(
     context: Context,

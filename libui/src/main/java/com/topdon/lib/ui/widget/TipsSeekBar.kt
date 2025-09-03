@@ -9,7 +9,9 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.blankj.utilcode.util.SizeUtils
 import com.topdon.lib.core.utils.ScreenUtil
-import com.topdon.lib.ui.R
+import com.topdon.lib.ui.R as UiR
+import com.topdon.lib.core.R
+import com.topdon.menu.R as MenuR
 
 class TipsSeekBar: ViewGroup, SeekBar.OnSeekBarChangeListener {
     private val tipsPercent: Float
@@ -66,12 +68,12 @@ class TipsSeekBar: ViewGroup, SeekBar.OnSeekBarChangeListener {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int): super(context, attrs, defStyleAttr, defStyleRes) {
         // seekBar 的 maxHeight 在 29 以下只能通过 xml 设置实在太蛋疼了，这里只好给当前 View 设置 maxHeight,在 attr 中传递给 seekBar
-        val thumb = ContextCompat.getDrawable(context, R.drawable.ic_tips_seek_bar_thumb)
+        val thumb = ContextCompat.getDrawable(context, UiR.drawable.ic_tips_seek_bar_thumb)
         val thumbWidth = thumb?.intrinsicWidth ?: 0
         seekBar = SeekBar(context, attrs)
         seekBar.splitTrack = false
         seekBar.thumb = thumb
-        seekBar.progressDrawable = ContextCompat.getDrawable(context, R.drawable.ui_progress_ir_camera_setting)
+        seekBar.progressDrawable = ContextCompat.getDrawable(context, UiR.drawable.ui_progress_ir_camera_setting)
         seekBar.setPadding(thumbWidth / 2, 0, thumbWidth / 2, 0)
         seekBar.setOnSeekBarChangeListener(this)
         addView(seekBar, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
@@ -82,14 +84,14 @@ class TipsSeekBar: ViewGroup, SeekBar.OnSeekBarChangeListener {
         tvTips.gravity = Gravity.CENTER
         tvTips.paint.isFakeBoldText = true
         tvTips.setTextColor(0xff16131e.toInt())
-        tvTips.setBackgroundResource(R.drawable.ic_tips_seek_bar_tips_bg)
+        tvTips.setBackgroundResource(UiR.drawable.ic_tips_seek_bar_tips_bg)
         addView(tvTips)
 
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.TipsSeekBar, defStyleAttr, 0)
-        val minText = typedArray.getText(R.styleable.TipsSeekBar_minText)
-        val maxText = typedArray.getText(R.styleable.TipsSeekBar_maxText)
-        tipsPercent = typedArray.getFraction(R.styleable.TipsSeekBar_tipsPercent, 1, 1, 0f)
-        seekPercent = typedArray.getFraction(R.styleable.TipsSeekBar_seekPercent, 1, 1, 0f)
+        val typedArray = context.obtainStyledAttributes(attrs, UiR.styleable.TipsSeekBar, defStyleAttr, 0)
+        val minText = typedArray.getText(UiR.styleable.TipsSeekBar_minText)
+        val maxText = typedArray.getText(UiR.styleable.TipsSeekBar_maxText)
+        tipsPercent = typedArray.getFraction(UiR.styleable.TipsSeekBar_tipsPercent, 1, 1, 0f)
+        seekPercent = typedArray.getFraction(UiR.styleable.TipsSeekBar_seekPercent, 1, 1, 0f)
         typedArray.recycle()
 
         tvMin = TextView(context)

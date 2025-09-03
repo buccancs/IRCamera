@@ -8,7 +8,7 @@ import com.topdon.lib.core.tools.AppLanguageUtils
 import com.topdon.lib.core.tools.ConstantLanguages
 import com.topdon.module.user.R
 import com.topdon.module.user.adapter.LanguageAdapter
-import kotlinx.android.synthetic.main.activity_language.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_language.*
 
 class LanguageActivity : BaseActivity() {
 

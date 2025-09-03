@@ -16,7 +16,7 @@ import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseViewModelActivity
 import com.topdon.tc001.viewmodel.PolicyViewModel
-import kotlinx.android.synthetic.main.activity_policy.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_policy.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

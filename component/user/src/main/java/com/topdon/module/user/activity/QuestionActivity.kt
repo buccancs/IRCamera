@@ -12,9 +12,9 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.user.R
 import com.topdon.module.user.model.QuestionData
 import com.topdon.module.user.model.FaqRepository
-import kotlinx.android.synthetic.main.activity_question.*
-import kotlinx.android.synthetic.main.item_question.view.item_question_info
-import kotlinx.android.synthetic.main.item_question.view.item_question_lay
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_question.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_question.view.item_question_info
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_question.view.item_question_lay
 import java.util.ArrayList
 
 /**

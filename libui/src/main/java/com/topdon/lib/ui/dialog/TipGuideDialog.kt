@@ -14,9 +14,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
-import com.topdon.lib.ui.R
+import com.topdon.lib.ui.R as UiR
+import com.topdon.lib.core.R
+import com.topdon.menu.R as MenuR
 import com.topdon.lib.ui.widget.IndicateView
-import kotlinx.android.synthetic.main.dialog_tip_guide.view.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_tip_guide.view.*
 import kotlin.collections.ArrayList
 
 class TipGuideDialog : DialogFragment() {
@@ -38,7 +40,7 @@ class TipGuideDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.dialog_tip_guide, container, false)
+        return inflater.inflate(UiR.layout.dialog_tip_guide, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,10 +52,10 @@ class TipGuideDialog : DialogFragment() {
             getString(R.string.target_tips_step_4),
         )
         imgList = arrayListOf(
-            R.drawable.target_guide_pic_1,
-            R.drawable.target_guide_pic_2,
-            R.drawable.target_guide_pic_3,
-            R.drawable.target_guide_pic_4,
+            UiR.drawable.target_guide_pic_1,
+            UiR.drawable.target_guide_pic_2,
+            UiR.drawable.target_guide_pic_3,
+            UiR.drawable.target_guide_pic_4,
         )
         viewPager = view.view_pager
         tvContent1 = view.tv_content_1

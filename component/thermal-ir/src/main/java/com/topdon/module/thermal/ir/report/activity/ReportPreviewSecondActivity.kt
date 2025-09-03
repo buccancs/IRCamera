@@ -29,7 +29,7 @@ import com.topdon.module.thermal.ir.report.view.ReportIRShowView
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.report.bean.ReportBean
 import com.topdon.module.thermal.ir.report.viewmodel.UpReportViewModel
-import kotlinx.android.synthetic.main.activity_report_preview_second.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_report_preview_second.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus

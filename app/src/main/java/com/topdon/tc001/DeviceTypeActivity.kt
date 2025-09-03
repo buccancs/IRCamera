@@ -12,8 +12,8 @@ import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.DeviceTools
-import kotlinx.android.synthetic.main.activity_device_type.*
-import kotlinx.android.synthetic.main.item_device_type.view.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_device_type.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_device_type.view.*
 
 /**
  * 设备类型选择.

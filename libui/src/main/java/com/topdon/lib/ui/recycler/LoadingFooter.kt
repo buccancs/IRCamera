@@ -11,7 +11,9 @@ import com.scwang.smart.refresh.layout.api.RefreshKernel
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.constant.RefreshState
 import com.scwang.smart.refresh.layout.constant.SpinnerStyle
-import com.topdon.lib.ui.R
+import com.topdon.lib.ui.R as UiR
+import com.topdon.lib.core.R
+import com.topdon.menu.R as MenuR
 
 /**
  * 自定义FooterView
@@ -24,10 +26,10 @@ class LoadingFooter : LinearLayout, RefreshFooter {
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs, 0) {
-        inflate(context, R.layout.ui_footer_view, this)
+        inflate(context, UiR.layout.ui_footer_view, this)
 
-        llLoading = findViewById(R.id.ll_loading)
-        clLoadEnd = findViewById(R.id.cl_load_end)
+        llLoading = findViewById(UiR.id.ll_loading)
+        clLoadEnd = findViewById(UiR.id.cl_load_end)
     }
 
 

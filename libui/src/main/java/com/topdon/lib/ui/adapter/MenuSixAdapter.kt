@@ -8,12 +8,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.topdon.lib.ui.R
+import com.topdon.lib.ui.R as UiR
+import com.topdon.lib.core.R
+import com.topdon.menu.R as MenuR
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.lib.ui.listener.SingleClickListener
-import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.item_menu_tab_img
-import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.item_menu_tab_lay
-import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.item_menu_tab_text
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.ui_item_menu_second_view.view.item_menu_tab_img
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.ui_item_menu_second_view.view.item_menu_tab_lay
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.ui_item_menu_second_view.view.item_menu_tab_text
 
 @Deprecated("看起来是旧版 2D 编辑的菜单，根本没使用了")
 class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -45,14 +47,14 @@ class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.V
     }
 
     private val fourBean = arrayListOf(
-        ColorBean(R.drawable.selector_menu2_setting_1, context.getString(R.string.thermal_pseudo), 1),
-        ColorBean(R.drawable.selector_menu2_setting_2, context.getString(R.string.thermal_contrast), 2),
-        ColorBean(R.drawable.selector_menu2_setting_3, context.getString(R.string.thermal_sharpen), 3),
+        ColorBean(UiR.drawable.selector_menu2_setting_1, context.getString(R.string.thermal_pseudo), 1),
+        ColorBean(UiR.drawable.selector_menu2_setting_2, context.getString(R.string.thermal_contrast), 2),
+        ColorBean(UiR.drawable.selector_menu2_setting_3, context.getString(R.string.thermal_sharpen), 3),
     )
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.ui_item_menu_four_view, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(UiR.layout.ui_item_menu_four_view, parent, false)
         return ItemView(view)
     }
 
@@ -89,9 +91,9 @@ class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.V
     private fun iconUI(isActive: Boolean, img: ImageView, nameText: TextView) {
         img.isSelected = isActive
         if (isActive) {
-            nameText.setTextColor(ContextCompat.getColor(context, R.color.white))
+            nameText.setTextColor(ContextCompat.getColor(context, UiR.color.white))
         } else {
-            nameText.setTextColor(ContextCompat.getColor(context, R.color.font_third_color))
+            nameText.setTextColor(ContextCompat.getColor(context, UiR.color.font_third_color))
         }
     }
 

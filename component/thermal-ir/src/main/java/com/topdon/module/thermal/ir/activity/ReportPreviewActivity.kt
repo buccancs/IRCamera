@@ -30,7 +30,7 @@ import com.topdon.lib.core.tools.TimeTool
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.adapter.ReportPreviewAdapter
-import kotlinx.android.synthetic.main.activity_report_preview.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_report_preview.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus

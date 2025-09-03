@@ -39,7 +39,7 @@ import com.topdon.tc004.adapter.MenuSixAdapter
 import com.topdon.tc004.bean.MenuBean
 import com.topdon.tc004.config.MonocularHelp
 import com.topdon.tc004.util.WsUtil
-import kotlinx.android.synthetic.main.activity_monocular_ir.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_monocular_ir.*
 import kotlinx.coroutines.launch
 import org.easydarwin.video.Client
 import org.greenrobot.eventbus.Subscribe

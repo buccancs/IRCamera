@@ -5,7 +5,7 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.module.thermal.R
-import kotlinx.android.synthetic.main.activity_connect.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_connect.*
 
 //连接设备
 @Route(path = RouterConfig.CONNECT)

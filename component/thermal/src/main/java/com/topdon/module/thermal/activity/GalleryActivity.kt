@@ -11,7 +11,7 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.thermal.R
 import com.topdon.module.thermal.fragment.GalleryPictureFragment
 import com.topdon.module.thermal.fragment.GalleryVideoFragment
-import kotlinx.android.synthetic.main.activity_gallery.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_gallery.*
 
 
 @Route(path = RouterConfig.GALLERY)

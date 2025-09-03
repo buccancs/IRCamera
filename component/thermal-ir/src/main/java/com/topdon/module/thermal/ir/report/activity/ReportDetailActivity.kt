@@ -16,7 +16,7 @@ import com.topdon.libcom.PDFHelp
 import com.topdon.module.thermal.ir.report.view.ReportIRShowView
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.report.bean.ReportBean
-import kotlinx.android.synthetic.main.activity_report_detail.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_report_detail.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File

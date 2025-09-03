@@ -11,7 +11,7 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.SpanBuilder
 import com.topdon.lib.core.utils.Constants
 import com.topdon.tc004.R
-import kotlinx.android.synthetic.main.activity_connect_tips.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_connect_tips.*
 
 /**
  * TS004、TC007 连接提示.

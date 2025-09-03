@@ -11,7 +11,7 @@ import com.topdon.lib.core.socket.SocketCmdUtil
 import com.topdon.lib.core.utils.WsCmdConstants
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.user.R
-import kotlinx.android.synthetic.main.activity_tisr.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_tisr.*
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode

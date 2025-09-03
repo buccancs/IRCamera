@@ -21,7 +21,7 @@ import com.topdon.lib.ui.widget.MyItemDecoration
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.adapter.ConfigEmAdapter
 import com.topdon.module.thermal.ir.bean.DataBean
-import kotlinx.android.synthetic.main.dialog_config_guide.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_config_guide.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.R
 import com.topdon.lib.core.bean.ObserveBean
 import com.topdon.lib.core.bean.TargetColorBean
+import com.topdon.lib.core.databinding.ItmeTargetColorBinding
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.itme_target_color.view.*
 
 class TargetColorAdapter(val context: Context,var targetColor: Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
     var listenerTarget: OnItemClickListener? = null
@@ -31,8 +31,9 @@ class TargetColorAdapter(val context: Context,var targetColor: Int) : RecyclerVi
     )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.itme_target_color, parent, false)
-        return ItemView(view)
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ItmeTargetColorBinding.inflate(inflater, parent, false)
+        return ItemView(binding)
     }
 
     override fun getItemCount(): Int {
@@ -62,11 +63,11 @@ class TargetColorAdapter(val context: Context,var targetColor: Int) : RecyclerVi
         }
     }
 
-    inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val lay: View = itemView.item_menu_tab_lay
-        val img: ImageView = itemView.item_target_color
-        val strokeBg: ImageView = itemView.item_target_color_stroke
-        val signBg: ImageView = itemView.item_target_color_sign
+    inner class ItemView(private val binding: ItmeTargetColorBinding) : RecyclerView.ViewHolder(binding.root) {
+        val lay: View = binding.itemMenuTabLay
+        val img: ImageView = binding.itemTargetColor
+        val strokeBg: ImageView = binding.itemTargetColorStroke
+        val signBg: ImageView = binding.itemTargetColorSign
         init {
             val canSeeCount = 5
             val with = (ScreenUtil.getScreenWidth(context) / canSeeCount)

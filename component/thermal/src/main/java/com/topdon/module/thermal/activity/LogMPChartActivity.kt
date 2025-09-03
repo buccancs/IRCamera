@@ -29,7 +29,7 @@ import com.topdon.module.thermal.adapter.SettingTimeAdapter
 import com.topdon.module.thermal.chart.MyValueFormatter
 import com.topdon.module.thermal.view.MyMarkerView
 import com.topdon.module.thermal.viewmodel.LogViewModel
-import kotlinx.android.synthetic.main.activity_log_mp_chart.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_log_mp_chart.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

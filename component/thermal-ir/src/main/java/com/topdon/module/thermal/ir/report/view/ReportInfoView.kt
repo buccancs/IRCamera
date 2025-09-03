@@ -9,7 +9,7 @@ import androidx.core.view.isVisible
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.report.bean.ReportConditionBean
 import com.topdon.module.thermal.ir.report.bean.ReportInfoBean
-import kotlinx.android.synthetic.main.view_report_info.view.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.view_report_info.view.*
 
 /**
  * 报告信息 - 预览 View.

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.SizeUtils
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.utils.IRConfigData
-import kotlinx.android.synthetic.main.item_ir_config_emissivity.view.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.item_ir_config_emissivity.view.*
 
 /**
  * 温度修正（环境温度、测温距离、发射率修改那个页面）常用发射率表 Adapter.

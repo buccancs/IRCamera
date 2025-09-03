@@ -9,7 +9,8 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.media.MediaScannerConnection
 import android.net.ConnectivityManager
-import android.net.NetworkInfo
+import android.net.Network
+import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Process
 import android.text.TextUtils
@@ -85,11 +86,30 @@ abstract class BaseApplication : Application() {
 
     open fun initWebSocket(){
         connectWebSocket()
-        //注册网络变更广播
-        if (Build.VERSION.SDK_INT < 33) {
-            registerReceiver(NetworkChangedReceiver(), IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+        //注册网络变更广播 - using modern network callback for Android 10+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            val manager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val networkRequest = android.net.NetworkRequest.Builder()
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                .build()
+            
+            manager.registerNetworkCallback(networkRequest, object : ConnectivityManager.NetworkCallback() {
+                override fun onAvailable(network: Network) {
+                    super.onAvailable(network)
+                    val capabilities = manager.getNetworkCapabilities(network)
+                    if (capabilities?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) == true) {
+                        connectWebSocket()
+                        Log.i("WebSocket", "WiFi network available: $network")
+                    }
+                }
+            })
         } else {
-            registerReceiver(NetworkChangedReceiver(), IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION), Context.RECEIVER_NOT_EXPORTED)
+            // Fallback for older Android versions
+            if (Build.VERSION.SDK_INT < 33) {
+                registerReceiver(NetworkChangedReceiver(), IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+            } else {
+                registerReceiver(NetworkChangedReceiver(), IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION), Context.RECEIVER_NOT_EXPORTED)
+            }
         }
     }
 
@@ -158,13 +178,25 @@ abstract class BaseApplication : Application() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (ConnectivityManager.CONNECTIVITY_ACTION == intent?.action) {
                 val manager = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-                val activeNetwork: NetworkInfo = manager.activeNetworkInfo ?: return
-                if (activeNetwork.isConnected && activeNetwork.type == ConnectivityManager.TYPE_WIFI) {
-                    connectWebSocket()
-                }else{
-//                    NetWorkUtils.
+                
+                // Use modern API for Android M+ (API 23+)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    val activeNetwork = manager.activeNetwork
+                    val capabilities = manager.getNetworkCapabilities(activeNetwork)
+                    if (capabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true &&
+                        capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                        connectWebSocket()
+                        Log.i("WebSocket", "WiFi network connected: $activeNetwork")
+                    }
+                } else {
+                    // Fallback for API < 23 (Android 6.0)
+                    @Suppress("DEPRECATION")
+                    val activeNetwork = manager.activeNetworkInfo
+                    if (activeNetwork?.isConnected == true && activeNetwork.type == ConnectivityManager.TYPE_WIFI) {
+                        connectWebSocket()
+                        Log.i("WebSocket", "WiFi network connected (legacy): ${activeNetwork.type}")
+                    }
                 }
-                Log.i("WebSocket", "网络切换 Wifi SSID: $activeNetwork"+activeNetwork.type)
             }
         }
     }

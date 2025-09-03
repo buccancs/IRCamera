@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.annotation.StringRes
 import com.topdon.lib.core.R
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.dialog_tip_progress.view.*
+import com.topdon.lib.core.databinding.DialogTipProgressBinding
 
 
 /**
@@ -66,11 +66,10 @@ class TipProgressDialog : Dialog {
             }
             val inflater =
                 context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val view = inflater.inflate(R.layout.dialog_tip_progress, null)
-            messageText = view.dialog_tip_load_msg
+            val binding = DialogTipProgressBinding.inflate(LayoutInflater.from(context!!))
+            messageText = binding.dialogTipLoadMsg
 
-            dialog!!.addContentView(
-                view,
+            dialog!!.addContentView(binding.root,
                 LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
             )
             val lp = dialog!!.window!!.attributes
@@ -94,7 +93,7 @@ class TipProgressDialog : Dialog {
                 messageText?.visibility = View.GONE
             }
 
-            dialog!!.setContentView(view)
+            dialog!!.setContentView(binding.root)
             return dialog as TipProgressDialog
         }
     }

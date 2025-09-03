@@ -3,7 +3,8 @@ package com.topdon.menu.adapter
 import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import com.topdon.menu.R
+import com.topdon.menu.R as MenuR
+import com.topdon.lib.core.R
 import com.topdon.menu.constant.MenuType
 import com.topdon.menu.constant.SettingType
 
@@ -63,28 +64,28 @@ internal class SettingAdapter(menuType: MenuType = MenuType.SINGLE_LIGHT, isObse
 
     init {
         if (isObserver) {
-            dataList.add(Data(R.string.main_tab_second_compass, R.drawable.selector_menu2_setting_8, SettingType.COMPASS))
-            dataList.add(Data(R.string.thermal_rotate, R.drawable.selector_menu2_setting_4, SettingType.ROTATE))
-            dataList.add(Data(R.string.mirror, R.drawable.selector_menu2_setting_5, SettingType.MIRROR))
-            dataList.add(Data(R.string.thermal_contrast, R.drawable.selector_menu2_setting_2, SettingType.CONTRAST))
+            dataList.add(Data(R.string.main_tab_second_compass, MenuR.drawable.selector_menu2_setting_8, SettingType.COMPASS))
+            dataList.add(Data(R.string.thermal_rotate, MenuR.drawable.selector_menu2_setting_4, SettingType.ROTATE))
+            dataList.add(Data(R.string.mirror, MenuR.drawable.selector_menu2_setting_5, SettingType.MIRROR))
+            dataList.add(Data(R.string.thermal_contrast, MenuR.drawable.selector_menu2_setting_2, SettingType.CONTRAST))
         } else {
             if (menuType == MenuType.GALLERY_EDIT) {//2D编辑
-                dataList.add(Data(R.string.temp_alarm_alarm, R.drawable.selector_menu2_setting_6, SettingType.ALARM))
-                dataList.add(Data(R.string.menu_thermal_font, R.drawable.selector_menu2_setting_7, SettingType.FONT))
-                dataList.add(Data(R.string.app_watemarking, R.drawable.selector_menu2_setting_9, SettingType.WATERMARK))
+                dataList.add(Data(R.string.temp_alarm_alarm, MenuR.drawable.selector_menu2_setting_6, SettingType.ALARM))
+                dataList.add(Data(R.string.menu_thermal_font, MenuR.drawable.selector_menu2_setting_7, SettingType.FONT))
+                dataList.add(Data(R.string.app_watemarking, MenuR.drawable.selector_menu2_setting_9, SettingType.WATERMARK))
             } else {
-                dataList.add(Data(R.string.thermal_pseudo, R.drawable.selector_menu2_setting_1, SettingType.PSEUDO_BAR))
-                dataList.add(Data(R.string.thermal_contrast, R.drawable.selector_menu2_setting_2, SettingType.CONTRAST))
+                dataList.add(Data(R.string.thermal_pseudo, MenuR.drawable.selector_menu2_setting_1, SettingType.PSEUDO_BAR))
+                dataList.add(Data(R.string.thermal_contrast, MenuR.drawable.selector_menu2_setting_2, SettingType.CONTRAST))
                 if (menuType != MenuType.Lite) {// Lite 没有细节(锐度)
-                    dataList.add(Data(R.string.thermal_sharpen, R.drawable.selector_menu2_setting_3, SettingType.DETAIL))
+                    dataList.add(Data(R.string.thermal_sharpen, MenuR.drawable.selector_menu2_setting_3, SettingType.DETAIL))
                 }
-                dataList.add(Data(R.string.temp_alarm_alarm, R.drawable.selector_menu2_setting_6, SettingType.ALARM))
+                dataList.add(Data(R.string.temp_alarm_alarm, MenuR.drawable.selector_menu2_setting_6, SettingType.ALARM))
                 if (menuType != MenuType.TC007) {// TC007 没有旋转
-                    dataList.add(Data(R.string.thermal_rotate, R.drawable.selector_menu2_setting_4, SettingType.ROTATE))
+                    dataList.add(Data(R.string.thermal_rotate, MenuR.drawable.selector_menu2_setting_4, SettingType.ROTATE))
                 }
-                dataList.add(Data(R.string.menu_thermal_font, R.drawable.selector_menu2_setting_7, SettingType.FONT))
+                dataList.add(Data(R.string.menu_thermal_font, MenuR.drawable.selector_menu2_setting_7, SettingType.FONT))
                 if (menuType != MenuType.DOUBLE_LIGHT) {// TC001 Plus 没有镜像
-                    dataList.add(Data(R.string.mirror, R.drawable.selector_menu2_setting_5, SettingType.MIRROR))
+                    dataList.add(Data(R.string.mirror, MenuR.drawable.selector_menu2_setting_5, SettingType.MIRROR))
                 }
             }
         }

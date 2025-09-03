@@ -3,7 +3,8 @@ package com.topdon.menu.adapter
 import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import com.topdon.menu.R
+import com.topdon.menu.R as MenuR
+import com.topdon.lib.core.R
 import com.topdon.menu.constant.TargetType
 
 /**
@@ -53,10 +54,10 @@ internal class TargetAdapter : BaseMenuAdapter() {
         for (i in dataArray.indices) {
             if (dataArray[i].targetType == TargetType.MODE) {
                 dataArray[i].drawableId = when (modeCode) {
-                    11 -> R.drawable.selector_menu2_target_1_sheep
-                    12 -> R.drawable.selector_menu2_target_1_dog
-                    13 -> R.drawable.selector_menu2_target_1_bird
-                    else -> R.drawable.selector_menu2_target_1_person
+                    11 -> MenuR.drawable.selector_menu2_target_1_sheep
+                    12 -> MenuR.drawable.selector_menu2_target_1_dog
+                    13 -> MenuR.drawable.selector_menu2_target_1_bird
+                    else -> MenuR.drawable.selector_menu2_target_1_person
                 }
                 notifyItemChanged(i)
                 break
@@ -66,11 +67,11 @@ internal class TargetAdapter : BaseMenuAdapter() {
 
 
     private val dataArray: Array<Data> = arrayOf(
-        Data(R.string.main_tab_second_measure_mode, R.drawable.selector_menu2_target_1_person, TargetType.MODE),
-        Data(R.string.main_tab_first_target, R.drawable.selector_menu2_target_2_style, TargetType.STYLE),
-        Data(R.string.main_tab_second_target_color, R.drawable.selector_menu2_target_3_color, TargetType.COLOR),
-        Data(R.string.thermal_delete, R.drawable.selector_menu2_del, TargetType.DELETE),
-        Data(R.string.main_tab_second_target_help, R.drawable.selector_menu2_target_4_help, TargetType.HELP),
+        Data(R.string.main_tab_second_measure_mode, MenuR.drawable.selector_menu2_target_1_person, TargetType.MODE),
+        Data(R.string.main_tab_first_target, MenuR.drawable.selector_menu2_target_2_style, TargetType.STYLE),
+        Data(R.string.main_tab_second_target_color, MenuR.drawable.selector_menu2_target_3_color, TargetType.COLOR),
+        Data(R.string.thermal_delete, MenuR.drawable.selector_menu2_del, TargetType.DELETE),
+        Data(R.string.main_tab_second_target_help, MenuR.drawable.selector_menu2_target_4_help, TargetType.HELP),
     )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

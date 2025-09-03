@@ -15,7 +15,7 @@ import com.hjq.permissions.XXPermissions
 import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseActivity
-import kotlinx.android.synthetic.main.activity_transfer.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_transfer.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

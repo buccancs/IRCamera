@@ -1,7 +1,13 @@
 plugins {
     `kotlin-dsl`
 }
+
 repositories {
-    mavenCentral()
+    gradlePluginPortal()
     google()
+    mavenCentral()
+}
+
+dependencies {
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.22")
 }

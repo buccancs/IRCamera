@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup.LayoutParams
 import com.topdon.lib.core.utils.ScreenUtil
-import com.topdon.lib.ui.R
-import kotlinx.android.synthetic.main.dialog_progress.view.*
+import com.topdon.lib.ui.R as UiR
+import com.topdon.lib.core.R
+import com.topdon.menu.R as MenuR
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_progress.view.*
 
 /**
  * 带进度条的提示弹框.
@@ -30,7 +32,7 @@ class ProgressDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
 
     private val rootView: View
     init {
-        rootView = LayoutInflater.from(context).inflate(R.layout.dialog_progress, null)
+        rootView = LayoutInflater.from(context).inflate(UiR.layout.dialog_progress, null)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

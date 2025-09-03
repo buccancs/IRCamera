@@ -6,7 +6,7 @@ import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.user.R
-import kotlinx.android.synthetic.main.activity_unit.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.activity_unit.*
 
 /**
  * 温度单位切换

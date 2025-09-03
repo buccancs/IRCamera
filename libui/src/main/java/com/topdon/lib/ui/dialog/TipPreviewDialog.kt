@@ -16,10 +16,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
-import com.topdon.lib.ui.R
+import com.topdon.lib.ui.R as UiR
+import com.topdon.lib.core.R
+import com.topdon.menu.R as MenuR
 import com.topdon.lib.ui.widget.IndicateView
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.dialog_tip_preview.view.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.dialog_tip_preview.view.*
 import java.util.Timer
 import kotlin.collections.ArrayList
 
@@ -52,7 +54,7 @@ class TipPreviewDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.dialog_tip_preview, container, false)
+        return inflater.inflate(UiR.layout.dialog_tip_preview, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -148,13 +150,13 @@ class TipPreviewDialog : DialogFragment() {
         override fun getItem(position: Int): Fragment {
            return when (position) {
                 0 -> {
-                    PageFragment.newInstance(R.drawable.preview_step_1)
+                    PageFragment.newInstance(UiR.drawable.preview_step_1)
                 }
                 1 -> {
-                    PageFragment.newInstance(R.drawable.preview_step_2)
+                    PageFragment.newInstance(UiR.drawable.preview_step_2)
                 }
                 else -> {
-                    PageFragment.newInstance(R.drawable.preview_step_3)
+                    PageFragment.newInstance(UiR.drawable.preview_step_3)
                 }
             }
         }

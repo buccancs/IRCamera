@@ -10,7 +10,9 @@ import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.isVisible
-import kotlinx.android.synthetic.main.ui_setting_view.view.*
+import com.topdon.lib.ui.R as UiR
+import com.topdon.lib.core.R
+import com.topdon.menu.R as MenuR
 
 class SettingNightView : LinearLayout {
 
@@ -21,7 +23,7 @@ class SettingNightView : LinearLayout {
         }
 
     fun setRightTextId(@StringRes resId: Int) {
-        val tvEnd: TextView = findViewById(R.id.tv_end)
+        val tvEnd: TextView = findViewById(UiR.id.tv_end)
         tvEnd.isVisible = resId != 0
         if (resId != 0) {
             tvEnd.setText(resId)
@@ -43,22 +45,22 @@ class SettingNightView : LinearLayout {
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
-        val ta: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.SettingNightView)
+        val ta: TypedArray = context.obtainStyledAttributes(attrs, UiR.styleable.SettingNightView)
         for (i in 0 until ta.indexCount) {
             when (ta.getIndex(i)) {
-                R.styleable.SettingNightView_setting_icon_night -> iconRes =
+                UiR.styleable.SettingNightView_setting_icon_night -> iconRes =
                     ta.getResourceId(
-                        R.styleable.SettingNightView_setting_icon_night,
-                        R.drawable.ic_setting_default_svg
+                        UiR.styleable.SettingNightView_setting_icon_night,
+                        UiR.drawable.ic_setting_default_svg
                     )
-                R.styleable.SettingNightView_setting_text_night -> contentStr =
-                    ta.getString(R.styleable.SettingNightView_setting_text_night).toString()
-                R.styleable.SettingNightView_setting_more_night -> moreShow =
-                    ta.getBoolean(R.styleable.SettingNightView_setting_more_night, true)
-                R.styleable.SettingNightView_setting_line_night -> lineShow =
-                    ta.getBoolean(R.styleable.SettingNightView_setting_line_night, false)
-                R.styleable.SettingNightView_setting_icon_show_night -> iconShow =
-                    ta.getBoolean(R.styleable.SettingNightView_setting_icon_show_night, false)
+                UiR.styleable.SettingNightView_setting_text_night -> contentStr =
+                    ta.getString(UiR.styleable.SettingNightView_setting_text_night).toString()
+                UiR.styleable.SettingNightView_setting_more_night -> moreShow =
+                    ta.getBoolean(UiR.styleable.SettingNightView_setting_more_night, true)
+                UiR.styleable.SettingNightView_setting_line_night -> lineShow =
+                    ta.getBoolean(UiR.styleable.SettingNightView_setting_line_night, false)
+                UiR.styleable.SettingNightView_setting_icon_show_night -> iconShow =
+                    ta.getBoolean(UiR.styleable.SettingNightView_setting_icon_show_night, false)
             }
         }
         ta.recycle()
@@ -72,10 +74,10 @@ class SettingNightView : LinearLayout {
     )
 
     private fun initView() {
-        inflate(context, R.layout.ui_setting_view_night, this)
-        contentText = findViewById(R.id.item_setting_text)
-        headImg = findViewById(R.id.item_setting_image)
-        endImg = findViewById(R.id.item_setting_end_image)
+        inflate(context, UiR.layout.ui_setting_view_night, this)
+        contentText = findViewById(UiR.id.item_setting_text)
+        headImg = findViewById(UiR.id.item_setting_image)
+        endImg = findViewById(UiR.id.item_setting_end_image)
 
         headImg.setImageResource(iconRes)
         if (iconShow) {
@@ -89,6 +91,6 @@ class SettingNightView : LinearLayout {
         } else {
             endImg.visibility = View.GONE
         }
-        item_setting_line.visibility = if (lineShow) View.VISIBLE else View.GONE
+        findViewById<View>(UiR.id.item_setting_line).visibility = if (lineShow) View.VISIBLE else View.GONE
     }
 }

@@ -8,10 +8,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.topdon.lib.ui.R
+import com.topdon.lib.ui.R as UiR
+import com.topdon.lib.core.R
+import com.topdon.menu.R as MenuR
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.lib.ui.config.CameraHelp
-import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.*
+// import kotlinx.android.synthetic.  // TODO: Replace with ViewBindingmain.ui_item_menu_second_view.view.*
 
 @Deprecated("旧的高低温点菜单，已重构过了")
 class MenuSecondNightAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -26,14 +28,14 @@ class MenuSecondNightAdapter(val context: Context) : RecyclerView.Adapter<Recycl
     }
 
     private val secondBean = arrayListOf(
-        ColorBean(R.drawable.selector_menu2_temp_point_1, context.getString(R.string.main_tab_second_high_temperature_point), CameraHelp.TYPE_SET_HIGHTEMP),
-        ColorBean(R.drawable.selector_menu2_temp_point_2, context.getString(R.string.main_tab_second_low_temperature_point), CameraHelp.TYPE_SET_LOWTEMP),
-        ColorBean(R.drawable.selector_menu2_del, context.getString(R.string.thermal_delete), CameraHelp.TYPE_SET_DETELE),
+        ColorBean(UiR.drawable.selector_menu2_temp_point_1, context.getString(R.string.main_tab_second_high_temperature_point), CameraHelp.TYPE_SET_HIGHTEMP),
+        ColorBean(UiR.drawable.selector_menu2_temp_point_2, context.getString(R.string.main_tab_second_low_temperature_point), CameraHelp.TYPE_SET_LOWTEMP),
+        ColorBean(UiR.drawable.selector_menu2_del, context.getString(R.string.thermal_delete), CameraHelp.TYPE_SET_DETELE),
     )
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return ItemView(LayoutInflater.from(parent.context).inflate(R.layout.ui_item_menu_second_view, parent, false))
+        return ItemView(LayoutInflater.from(parent.context).inflate(UiR.layout.ui_item_menu_second_view, parent, false))
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -48,8 +50,8 @@ class MenuSecondNightAdapter(val context: Context) : RecyclerView.Adapter<Recycl
             holder.img.isSelected = curMultipleArray.contains(position)
             holder.name.isSelected = curMultipleArray.contains(position)
             holder.name.setTextColor(
-                if (curMultipleArray.contains(position)) ContextCompat.getColor(context, R.color.white)
-                else ContextCompat.getColor(context, R.color.font_third_color)
+                if (curMultipleArray.contains(position)) ContextCompat.getColor(context, UiR.color.white)
+                else ContextCompat.getColor(context, UiR.color.font_third_color)
             )
         }
     }

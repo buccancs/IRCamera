@@ -13,7 +13,6 @@ import androidx.annotation.RequiresPermission
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.hjq.permissions.Permission
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.Locale
@@ -29,7 +28,7 @@ object LocationUtil {
      */
     @RequiresPermission(Permission.ACCESS_FINE_LOCATION)
     suspend fun getLastLocationStr(context: Context): String? = withContext(Dispatchers.IO) {
-        val locationManager = context.getSystemService(RxAppCompatActivity.LOCATION_SERVICE) as LocationManager
+        val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         var location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
         if (location == null) {
             location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
