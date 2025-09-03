@@ -23,11 +23,11 @@ import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.Utils
 import com.elvishew.xlog.XLog
 import com.example.suplib.wrapper.SupHelp
-import com.example.thermal_lite.activity.IRThermalLiteActivity
+
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
-import com.topdon.hik.activity.IRThermalHikActivity
+
 import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.bean.event.TS004ResetEvent
 import com.topdon.lib.core.bean.event.WinterClickEvent
@@ -571,12 +571,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 if (DeviceTools.isTC001PlusConnect()) {
                     ARouter.getInstance().build(RouterConfig.IR_MAIN).navigation(this@MainActivity)
                     startActivityForResult(Intent(this@MainActivity, IRThermalPlusActivity::class.java), 101)
-                }else if(DeviceTools.isTC001LiteConnect()){
-                    ARouter.getInstance().build(RouterConfig.IR_MAIN).navigation(this@MainActivity)
-                    startActivityForResult(Intent(this@MainActivity, IRThermalLiteActivity::class.java), 101)
-                } else if (DeviceTools.isHikConnect()) {
-                    ARouter.getInstance().build(RouterConfig.IR_MAIN).navigation(this@MainActivity)
-                    startActivity(Intent(this, IRThermalHikActivity::class.java))
                 } else{
                     ARouter.getInstance().build(RouterConfig.IR_MAIN).navigation(this@MainActivity)
                     startActivityForResult(Intent(this@MainActivity, IRThermalNightActivity::class.java), 101)

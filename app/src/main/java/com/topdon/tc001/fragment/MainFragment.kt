@@ -201,7 +201,6 @@ class MainFragment : BaseFragment(), View.OnClickListener {
                 startActivity(Intent(requireContext(), DeviceTypeActivity::class.java))
 //                ARouter.getInstance().build(RoutePath.UsbIrModule.PAGE_IR_MAIN_ACTIVITY)
 //                    .navigation()
-//                startActivity(Intent(requireContext(), IRThermalLiteActivity::class.java))
             }
         }
     }
