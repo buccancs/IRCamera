@@ -41,4 +41,9 @@ dependencies {
     implementation(Deps.utilcode)
 
     implementation(project(":libapp")) // 需要使用 string 资源
+    
+    // Testing dependencies
+    testImplementation(Deps.junit)
+    androidTestImplementation(Deps.test_ext_junit)
+    androidTestImplementation(Deps.test_espresso_core)
 }

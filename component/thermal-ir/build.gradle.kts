@@ -90,7 +90,7 @@ dependencies {
     implementation(Deps.utilcode)
     implementation(Deps.glide)
     
-    // Compass and sensor dependencies commented out to focus on other issues
-    // implementation(Deps.andromeda_core)
-    // implementation(Deps.andromeda_sense)
+    // Compass and sensor dependencies - updated to available versions
+    implementation(Deps.andromeda_core)
+    implementation(Deps.andromeda_sense)
 }

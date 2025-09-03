@@ -75,8 +75,8 @@ object Deps {
     const val eventbus = "org.greenrobot:eventbus:3.3.1"
     
     // Compass and sensor libraries - updated to available versions
-    const val andromeda_core = "com.kylecorry.andromeda:core:5.0.0"
-    const val andromeda_sense = "com.kylecorry.andromeda:sense:5.0.0"
+    const val andromeda_core = "com.kylecorry.andromeda:core:16.0.1"
+    const val andromeda_sense = "com.kylecorry.andromeda:sense:16.0.1"
     
     // JavaCV
     const val javacv = "org.bytedeco:javacv:1.5.7"
@@ -97,6 +97,11 @@ object Deps {
     // UMeng
     const val umeng_common = "com.umeng.umsdk:common:9.6.7"
     const val umeng_asms = "com.umeng.umsdk:asms:1.8.0"
+    
+    // Testing
+    const val junit = "junit:junit:4.13.2"
+    const val test_ext_junit = "androidx.test.ext:junit:1.1.5"
+    const val test_espresso_core = "androidx.test.espresso:espresso-core:3.5.1"
     
     // License (may be commented dependencies)
     const val lms2 = "com.example:lms2:1.0.0" // Placeholder - needs actual implementation

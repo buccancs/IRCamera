@@ -19,6 +19,7 @@ import com.topdon.pseudo.R
 import com.topdon.pseudo.bean.CustomPseudoBean
 import com.topdon.pseudo.constant.*
 import com.topdon.pseudo.view.PseudoPickView
+import com.topdon.lib.core.view.ColorSelectView
 import java.lang.NumberFormatException
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -45,7 +46,7 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
     private lateinit var tvMaxTempUnit: TextView
     private lateinit var tvMinTempUnit: TextView
     private lateinit var pseudoPickView: PseudoPickView
-    private lateinit var colorSelectView: com.topdon.pseudo.view.ColorSelectView
+    private lateinit var colorSelectView: ColorSelectView
     private lateinit var ivCustomAdd: ImageView
     private lateinit var ivCustomDel: ImageView
     private lateinit var viewCustomColor1: View

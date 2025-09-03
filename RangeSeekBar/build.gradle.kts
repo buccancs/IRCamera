@@ -31,6 +31,11 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation("com.android.support:appcompat-v7:28.0.0")
+    
+    // Testing dependencies
+    testImplementation(Deps.junit)
+    androidTestImplementation(Deps.test_ext_junit)
+    androidTestImplementation(Deps.test_espresso_core)
 }
 
 // 指定编码

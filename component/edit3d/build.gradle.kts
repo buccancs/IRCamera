@@ -79,7 +79,8 @@ dependencies {
     implementation(project(":libui"))
     implementation(project(":libmenu"))
     
-
+    // Local AAR dependency for OpenGL functionality
+    implementation(files("libs/opengl_1.3.2_standard.aar"))
     
     implementation(Deps.androidx_core)
     implementation(Deps.appcompat)
