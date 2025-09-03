@@ -64,5 +64,5 @@ dependencies {
     
     api("com.conghuahuadan:superlayout:1.1.0")
     implementation(project(":libapp"))
-    api(project(":LocalRepo:libcommon"))
+    // LocalRepo:libcommon moved to app/libs - will be available transitively through app module
 }
