@@ -34,9 +34,7 @@ dependencyResolutionManagement {
         flatDir {
             dirs("commonlibrary")
         }
-        flatDir {
-            dirs("component/thermal04/libs")
-        }
+
         flatDir {
             dirs("component/edit3d/libs")
         }
@@ -53,11 +51,6 @@ include(":component:edit3d")
 include(":component:house")
 include(":component:pseudo")
 include(":component:thermal")
-include(":component:thermal-hik")
-include(":component:thermal-ir")
-include(":component:thermal-lite")
-include(":component:thermal04")
-include(":component:thermal07")
 include(":component:transfer")
 include(":component:user")
 include(":component:gsr-recording")
