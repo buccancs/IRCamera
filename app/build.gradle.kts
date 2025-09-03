@@ -243,6 +243,7 @@ dependencies {
     implementation(project(":component:edit3d"))
     implementation(project(":component:pseudo"))
     implementation(project(":component:thermal-ir"))
+    implementation(project(":component:thermal-lite"))
     implementation(project(":component:transfer"))
     implementation(project(":component:user"))
     implementation(project(":component:gsr-recording"))
