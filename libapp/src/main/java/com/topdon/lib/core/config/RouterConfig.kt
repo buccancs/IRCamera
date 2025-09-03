@@ -6,8 +6,6 @@ object RouterConfig {
     private const val GROUP_IR = "ir"
     private const val GROUP_USER = "user"
     private const val GROUP_REPORT = "report"
-    private const val GROUP_THERMAL04 = "ts004"
-    private const val GROUP_THERMAL07 = "tc007"
     private const val GROUP_CALIBRATE = "calibrate"
 
 
@@ -40,20 +38,9 @@ object RouterConfig {
     const val IR_IMG_PICK = "/$GROUP_IR/ImagePickIRActivity"
     const val IR_IMG_PICK_PLUS = "/$GROUP_IR/ImagePickIRPlushActivity"
 
-
     const val IR_GALLERY_3D = "/menu/Image3DActivity"
 
-    //TS004
-    const val IR_MONOCULAR = "/$GROUP_THERMAL04/IRMonocularActivity"
-    const val IR_DEVICE_ADD = "/$GROUP_THERMAL04/DeviceAddActivity"
-    const val IR_CONNECT_TIPS = "/$GROUP_THERMAL04/ConnectTipsActivity"
-
-    //TC007
-    const val IR_THERMAL_07 = "/$GROUP_THERMAL07/IRThermal07Activity"
-    const val IR_MONITOR_CAPTURE_07 = "/$GROUP_THERMAL07/MonitorCapture1"
-    const val IR_CORRECTION_07 = "/$GROUP_THERMAL07/IR07CorrectionThreeActivity"
-    const val IR_IMG_PICK_07 = "/$GROUP_THERMAL07/ImagePickTC007Activity"
-
+    // Removed TS004 and TC007 routes - only TC001 (USB) is supported
 
     //report 生成报告
     const val REPORT_CREATE_FIRST = "/$GROUP_REPORT/create/first"
@@ -70,7 +57,6 @@ object RouterConfig {
     const val QUESTION = "/$GROUP_USER/question"//FAQ
     const val QUESTION_DETAILS = "/$GROUP_USER/question/details"//FAQ
     const val UNIT = "/$GROUP_USER/unit"
-    const val TS004_MORE = "/$GROUP_USER/ts004More"
     const val TC_MORE = "/$GROUP_USER/tcMore"
     const val DEVICE_INFORMATION = "/$GROUP_USER/device_information"
     const val TISR = "/$GROUP_USER/tisr"

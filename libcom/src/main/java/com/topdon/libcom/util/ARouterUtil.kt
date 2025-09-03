@@ -15,15 +15,12 @@ import com.topdon.lib.core.tools.ToastTools
  **/
 object ARouterUtil {
     /**
-     * 统一跳转红外拍照界面
+     * 统一跳转红外拍照界面 - Only TC001 supported
      * @param activity Activity
-     * @param isTC007 Boolean
+     * @param imgPath String
      */
-    fun jumpImagePick(activity: Activity,isTC007 : Boolean,imgPath : String){
-        if (isTC007){
-            ARouter.getInstance().build(RouterConfig.IR_IMG_PICK_07).withString(RESULT_IMAGE_PATH,imgPath).navigation(activity,101)
-            return
-        }
+    fun jumpImagePick(activity: Activity, imgPath : String){
+        // Only TC001 variants are supported
         if (DeviceTools.isTC001PlusConnect()){
             ARouter.getInstance().build(RouterConfig.IR_IMG_PICK_PLUS).withString(RESULT_IMAGE_PATH,imgPath).navigation(activity,101)
         }else if (DeviceTools.isTC001LiteConnect()){

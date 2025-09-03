@@ -18,12 +18,11 @@ object ExtraKeyConfig {
      */
     const val HAS_BACK_ICON = "HAS_BACK_ICON"
     /**
-     * boolean 类型 - 图库是否可切换 有线设备、TS004、TC007 目录
+     * boolean 类型 - 图库是否可切换目录 (legacy - TC001 uses single directory)
      */
     const val CAN_SWITCH_DIR = "CAN_SWITCH_DIR"
     /**
-     * boolean 类型 - 设备类型是否为 TC007.
-     * true-TC007 false-其他
+     * boolean 类型 - 设备类型标识 (legacy - now only TC001 is supported).
      */
     const val IS_TC007 = "IS_TC007"
     /**

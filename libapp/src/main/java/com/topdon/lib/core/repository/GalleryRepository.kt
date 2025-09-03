@@ -21,10 +21,8 @@ import java.util.TimeZone
 object GalleryRepository {
 
     enum class DirType {
-        LINE,
-        TC007,
-        TS004_LOCALE,
-        TS004_REMOTE,
+        LINE, // TC001 USB connection
+        // Removed TC007, TS004_LOCALE, TS004_REMOTE - only TC001 is supported
     }
 
     private fun copySourDir(sourceDir: File, targetDir: File): Boolean {
@@ -104,28 +102,24 @@ object GalleryRepository {
     suspend fun loadByPage(isVideo: Boolean, dirType: DirType, pageNum: Int, pageCount: Int): ArrayList<GalleryBean>? {
         return withContext(Dispatchers.IO) {
             val resultList: ArrayList<GalleryBean> = ArrayList()
-            if (dirType == DirType.TS004_REMOTE) {
-                // TS004 support removed - only TC001 supported
-                return@withContext ArrayList()
-            } else {
-                try {
-                    val allFileList = loadAllLocale(isVideo, dirType)
-                    val startIndex = pageNum * pageCount - pageCount
-                    val endIndex = pageNum * pageCount
-                    for (i in startIndex until endIndex) {
-                        if (i >= allFileList.size) {
-                            break
-                        }
-                        resultList.add(GalleryBean(allFileList[i]))
+            // Only LINE (TC001) is supported - no remote loading needed
+            try {
+                val allFileList = loadAllLocale(isVideo, dirType)
+                val startIndex = pageNum * pageCount - pageCount
+                val endIndex = pageNum * pageCount
+                for (i in startIndex until endIndex) {
+                    if (i >= allFileList.size) {
+                        break
                     }
-                    if (resultList.isNotEmpty()) {
-                        resultList.sortByDescending {
-                            it.timeMillis
-                        }
-                    }
-                } catch (e: Exception) {
-                    XLog.e("读取图库失败: ${e.message}")
+                    resultList.add(GalleryBean(allFileList[i]))
                 }
+                if (resultList.isNotEmpty()) {
+                    resultList.sortByDescending {
+                        it.timeMillis
+                    }
+                }
+            } catch (e: Exception) {
+                XLog.e("读取图库失败: ${e.message}")
             }
 
             return@withContext resultList
@@ -169,8 +163,6 @@ object GalleryRepository {
         }
         val dirFile = when (dirType) {
             DirType.LINE -> File(FileConfig.lineGalleryDir)
-            DirType.TC007 -> File(FileConfig.tc007GalleryDir)
-            else -> File(FileConfig.ts004GalleryDir)
         }
         var files = dirFile.listFiles { pathname -> pathname?.isFile == true }
         if (files.isNullOrEmpty()) {
@@ -203,8 +195,6 @@ object GalleryRepository {
         val selection = MediaStore.Images.Media.DATA + " LIKE ?"
         val path = when (dirType) {
             DirType.LINE -> "%DCIM/${CommUtils.getAppName()}%"
-            DirType.TC007 -> "%DCIM/TC007%"
-            else -> "%DCIM/TS004%"
         }
         val selectionArgs = arrayOf(path)
         // 获取MediaStore ContentResolver
