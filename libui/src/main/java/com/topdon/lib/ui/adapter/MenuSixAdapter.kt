@@ -102,9 +102,9 @@ class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.V
     }
 
     inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val lay: View = itemView.item_menu_tab_lay
-        val img: ImageView = itemView.item_menu_tab_img
-        val name: TextView = itemView.item_menu_tab_text
+        val lay: View = itemView.findViewById(UiR.id.item_menu_tab_lay)
+        val img: ImageView = itemView.findViewById(UiR.id.item_menu_tab_img)
+        val name: TextView = itemView.findViewById(UiR.id.item_menu_tab_text)
     }
 
 }

@@ -101,9 +101,9 @@ class MenuTargetAdapter (val context: Context) : RecyclerView.Adapter<RecyclerVi
     }
 
     inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val lay: View = itemView.item_menu_tab_lay
-        val img: ImageView = itemView.item_menu_tab_img
-        val name: TextView = itemView.item_menu_tab_text
+        val lay: View = itemView.findViewById(UiR.id.item_menu_tab_lay)
+        val img: ImageView = itemView.findViewById(UiR.id.item_menu_tab_img)
+        val name: TextView = itemView.findViewById(UiR.id.item_menu_tab_text)
         init {
 //            val canSeeCount = 4.5 //一屏占4个
 //            val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()

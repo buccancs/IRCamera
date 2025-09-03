@@ -51,7 +51,7 @@ class FencePointView : View {
 
     private val drawable: BitmapDrawable by lazy {
         resources.getDrawable(
-            R.mipmap.ic_fence_point,
+            UiR.mipmap.ic_fence_point,
             null
         ) as BitmapDrawable
     }

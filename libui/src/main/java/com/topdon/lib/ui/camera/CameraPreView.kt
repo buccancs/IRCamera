@@ -16,6 +16,7 @@ import android.view.*
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.annotation.NonNull
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -371,9 +372,9 @@ class CameraPreView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener,
 
                 mPreviewSize = getOptimalSize(mapList, width, height)
                 val constraintSet = ConstraintSet()
-                constraintSet.clone(camera_lay_root)
+                constraintSet.clone(findViewById<ConstraintLayout>(UiR.id.camera_lay_root))
                 constraintSet.constrainHeight(mTextureView.id,width * mPreviewSize!!.width / mPreviewSize!!.height)
-                constraintSet.applyTo(camera_lay_root);
+                constraintSet.applyTo(findViewById<ConstraintLayout>(UiR.id.camera_lay_root));
                 XLog.w("mPreviewSize:${mPreviewSize}")
                 // 获取相机支持的最大拍照尺寸
                 val sizes = map.getOutputSizes(ImageFormat.JPEG)
