@@ -100,4 +100,3 @@ class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
             }
         }
     }
-}
