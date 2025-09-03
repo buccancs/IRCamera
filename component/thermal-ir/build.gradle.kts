@@ -90,7 +90,8 @@ dependencies {
     implementation(Deps.utilcode)
     implementation(Deps.glide)
     
-    // Compass and sensor dependencies - updated to available versions
-    implementation(Deps.andromeda_core)
-    implementation(Deps.andromeda_sense)
+    // Compass and sensor dependencies - temporarily disabled due to repository issues
+    // TODO: Re-enable when Andromeda libraries are available in current repositories
+    // implementation("com.kylecorry.andromeda:core:14.4.3")
+    // implementation("com.kylecorry.andromeda:sense:14.4.3")
 }
