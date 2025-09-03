@@ -55,12 +55,14 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     
-    // AAR dependencies from libs folder - Conditional enabling for essential components
-    // These need to be converted to proper Maven dependencies or moved to the app module
+    // Original libir AAR dependencies restored - all essential components enabled
     api(files("libs/libusbdualsdk_1.3.4_2406271906_standard.aar"))  // Required for infisense thermal camera classes
-    // implementation(files("libs/opengl_1.3.2_standard.aar"))
+    implementation(files("libs/opengl_1.3.2_standard.aar"))  // OpenGL functionality
     api(files("libs/suplib-release.aar"))  // Required for thermal-lite iruvc classes
-    // api(files("libs/ai-upscale-release.aar"))
+    api(files("libs/ai-upscale-release.aar"))  // AI upscale functionality
+    api(files("libs/texturegesture-release.aar"))  // Texture gesture functionality
+    api(files("libs/jetified-tas_api-1.0.4.0.aar"))  // TAS API
+    api(files("libs/library_1.0.aar"))  // Additional library support
     
     api("com.conghuahuadan:superlayout:1.1.0")
     implementation(project(":libapp"))
