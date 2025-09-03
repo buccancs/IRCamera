@@ -36,8 +36,5 @@ include ':libhik'
 include ':libir'
 include ':libmenu'
 include ':libui'
-include ':LocalRepo:libac020'
-include ':LocalRepo:libcommon'
-include ':LocalRepo:libirutils'
 include ':ai-upscale'
 

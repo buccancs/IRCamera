@@ -73,7 +73,7 @@ dependencies {
     implementation(name: 'opengl_1.3.2_standard', ext: 'aar')
     api 'com.conghuahuadan:superlayout:1.1.0'
     implementation project(':libapp')
-    api(project(":LocalRepo:libcommon"))
+    api files('../app/libs/libcommon_1.2.0_24052117.aar')
     api(name: 'suplib-release', ext: 'aar')
     api(name: 'ai-upscale-release', ext: 'aar')
 }
