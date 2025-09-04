@@ -6,6 +6,7 @@ plugins {
     id("kotlin-parcelize")
 }
 
+
 // kapt {
 //     arguments {
 //         arg("AROUTER_MODULE_NAME", project.name)
@@ -61,6 +62,7 @@ dependencies {
     
     // ARouter compiler - disabled since annotations are commented out in this module
     // kapt(libs.arouter.compiler)
+    
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

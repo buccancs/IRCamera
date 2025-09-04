@@ -7,7 +7,10 @@ plugins {
 
 kapt {
     arguments {
-        arg("AROUTER_MODULE_NAME", project.name)
+        // Removed AROUTER_MODULE_NAME - migrating to NavigationManager
+        arg("room.schemaLocation", "$projectDir/schemas")
+        arg("room.incremental", "true")
+        arg("room.expandProjection", "true")
     }
     // Enable Kotlin 2.1.0 compatibility
     correctErrorTypes = true

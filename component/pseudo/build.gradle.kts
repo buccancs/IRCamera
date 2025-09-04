@@ -7,7 +7,7 @@ plugins {
 
 kapt {
     arguments {
-        arg("AROUTER_MODULE_NAME", project.name)
+        // arg("AROUTER_MODULE_NAME", project.name)  // Removed for NavigationManager migration
     }
     // Enable Kotlin 2.1.0 compatibility
     correctErrorTypes = true

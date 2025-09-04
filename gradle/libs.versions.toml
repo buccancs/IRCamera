@@ -56,8 +56,8 @@ okhttp = "4.11.0"
 rxjava = "2.2.21"
 rxandroid = "2.1.1"
 
-# Navigation
-arouter = "1.5.2"
+# Navigation - ARouter migration completed, using NavigationManager
+# arouter = "1.5.2"
 
 # RxLifecycle
 rxpermissions = "0.10.2"
@@ -169,9 +169,9 @@ logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-intercep
 rxjava2 = { group = "io.reactivex.rxjava2", name = "rxjava", version.ref = "rxjava" }
 rxandroid = { group = "io.reactivex.rxjava2", name = "rxandroid", version.ref = "rxandroid" }
 
-# Navigation
-arouter-api = { group = "com.alibaba", name = "arouter-api", version.ref = "arouter" }
-arouter-compiler = { group = "com.alibaba", name = "arouter-compiler", version.ref = "arouter" }
+# Navigation - ARouter migration completed, using NavigationManager
+# arouter-api = { group = "com.alibaba", name = "arouter-api", version.ref = "arouter" }
+# arouter-compiler = { group = "com.alibaba", name = "arouter-compiler", version.ref = "arouter" }
 
 # RxLifecycle
 rxpermissions = { group = "com.github.tbruyelle", name = "rxpermissions", version.ref = "rxpermissions" }
