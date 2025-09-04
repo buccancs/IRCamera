@@ -7,12 +7,12 @@ import android.os.Build
 import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.blankj.utilcode.util.ScreenUtils
-import com.maning.imagebrowserlibrary.MNImageBrowser
+// import com.maning.imagebrowserlibrary.MNImageBrowser // Temporarily commented out - dependency not available
 import com.topdon.lib.core.ktbase.BaseViewModelFragment
 import com.topdon.lib.core.widget.dialog.TipDialog
 import com.topdon.module.thermal.R
 import com.topdon.module.thermal.adapter.GalleryAdapter
-import com.topdon.module.thermal.tools.GlideImageEngine
+// import com.topdon.module.thermal.tools.GlideImageEngine // Temporarily commented out - dependency not available
 import com.topdon.module.thermal.viewmodel.GalleryViewModel
 import java.io.File
 
@@ -83,12 +83,16 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
     }
 
     fun previewPicture(path: String) {
+        // TODO: Implement image preview without MNImageBrowser dependency
+        // Temporarily commented out until dependency is available
+        /*
         val imageEngine = GlideImageEngine()
         MNImageBrowser.with(context) //当前位置
             .setCurrentPosition(0) //图片引擎
             .setImageEngine(imageEngine) //图片集合
             .setImageUrl(path)
             .show()
+        */
     }
 
 }
