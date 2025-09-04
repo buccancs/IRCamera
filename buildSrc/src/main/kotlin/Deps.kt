@@ -35,13 +35,19 @@ object Deps {
     // RxJava
     const val rxjava2 = "io.reactivex.rxjava2:rxjava:2.2.21"
     const val rxandroid = "io.reactivex.rxjava2:rxandroid:2.1.1"
-    // Disabled problematic dependencies - using modern alternatives
-    // const val rxpermissions = "com.github.tbruyelle:rxpermissions:0.12"
-    // const val rxlifecycle = "com.trello.rxlifecycle2:rxlifecycle:2.2.2"
-    // const val rxlifecycle_android = "com.trello.rxlifecycle2:rxlifecycle-android:2.2.2"
-    // const val rxlifecycle_components = "com.trello.rxlifecycle2:rxlifecycle-components:2.2.2"
-    // const val rxlifecycle_ktx = "com.trello.rxlifecycle2:rxlifecycle-ktx:2.2.2"
-    // const val rxlifecycle_android_lifecycle_ktx = "com.trello.rxlifecycle2:rxlifecycle-android-lifecycle-ktx:2.2.2"
+    
+    // Navigation
+    const val arouter_api = "com.alibaba:arouter-api:1.5.2"
+    const val arouter_compiler = "com.alibaba:arouter-compiler:1.5.2"
+    
+    // Updated RxLifecycle dependencies with available versions
+    const val rxpermissions = "com.github.tbruyelle:rxpermissions:0.10.2"
+    const val rxlifecycle = "com.trello.rxlifecycle2:rxlifecycle:2.2.2"
+    const val rxlifecycle_android = "com.trello.rxlifecycle2:rxlifecycle-android:2.2.2"
+    const val rxlifecycle_components = "com.trello.rxlifecycle2:rxlifecycle-components:2.2.2"
+    // Using available versions for KTX extensions
+    const val rxlifecycle_ktx = "com.trello.rxlifecycle3:rxlifecycle-kotlin:3.1.0"
+    const val rxlifecycle_android_lifecycle_ktx = "com.trello.rxlifecycle3:rxlifecycle-android-lifecycle-kotlin:3.1.0"
     
     // UI Libraries
     const val ucrop = "com.github.yalantis:ucrop:2.2.4"
@@ -50,7 +56,8 @@ object Deps {
     const val xpopup = "com.github.li-xiaojun:XPopup:2.9.0"
     const val smart_refresh_layout = "com.scwang.smartrefresh:SmartRefreshLayout:1.1.3"
     const val smart_refresh_header = "com.scwang.smartrefresh:SmartRefreshHeader:1.1.3"
-    // const val refresh_layout_kernel = "com.scwang.smart:refresh-layout-kernel:2.0.5"  // Temporary comment out
+    // UI Libraries - using available versions
+    const val refresh_layout_kernel = "com.scwang.smart:refresh-layout-kernel:2.0.3"
     const val refresh_header_classics = "com.scwang.smart:refresh-header-classics:2.0.5"
     const val refresh_header_material = "com.scwang.smart:refresh-header-material:2.0.5"
     const val brvah = "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.7"
@@ -72,9 +79,28 @@ object Deps {
     const val lottie = "com.airbnb.android:lottie:5.2.0"
     const val eventbus = "org.greenrobot:eventbus:3.3.1"
     
+    // Compass and sensor libraries - using stable version from Maven Central
+    const val andromeda_core = "com.kylecorry.andromeda:core:15.3.0"
+    const val andromeda_sense = "com.kylecorry.andromeda:sense:15.3.0"
+    
     // JavaCV
     const val javacv = "org.bytedeco:javacv:1.5.7"
     const val javacpp = "org.bytedeco:javacpp:1.5.7"
+    
+    // IR-specific libraries from user's provided Deps
+    const val ir_layout = "com.github.CoderCaiSL:jitpackMvn:+"
+    const val compass_sense_user = "com.github.kylecorry31.andromeda:sense:6.2.0"  // User's preferred version
+    const val compass_core_user = "com.github.kylecorry31.andromeda:core:6.2.0"    // User's preferred version
+    
+    // LMS SDK from user's Deps
+    const val lms2_user = "com.topdon.lms.sdk3:lms_international:3.90.009.0"
+    const val lms3_user = "com.topdon.lms.sdk3:lms_china:3.90.076"
+    
+    // FFmpeg native libraries for IR processing
+    const val ffmpeg_android_arm64 = "org.bytedeco:ffmpeg:5.0-1.5.7:android-arm64"
+    const val ffmpeg_android_arm = "org.bytedeco:ffmpeg:5.0-1.5.7:android-arm"
+    const val ffmpeg_android_x86_64 = "org.bytedeco:ffmpeg:5.0-1.5.7:android-x86_64"
+    const val ffmpeg_android_x86 = "org.bytedeco:ffmpeg:5.0-1.5.7:android-x86"
     
     // Third-party services
     const val wechat_sdk = "com.tencent.mm.opensdk:wechat-sdk-android:6.8.0"
@@ -91,6 +117,11 @@ object Deps {
     // UMeng
     const val umeng_common = "com.umeng.umsdk:common:9.6.7"
     const val umeng_asms = "com.umeng.umsdk:asms:1.8.0"
+    
+    // Testing
+    const val junit = "junit:junit:4.13.2"
+    const val test_ext_junit = "androidx.test.ext:junit:1.1.5"
+    const val test_espresso_core = "androidx.test.espresso:espresso-core:3.5.1"
     
     // License (may be commented dependencies)
     const val lms2 = "com.example:lms2:1.0.0" // Placeholder - needs actual implementation

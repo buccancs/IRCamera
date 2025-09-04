@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.module.user.R
+import com.topdon.lib.core.R as RCore
 import java.text.DecimalFormat
 
 /**
@@ -37,7 +38,7 @@ class DownloadProDialog(context: Context) : Dialog(context, R.style.InfoDialog) 
      */
     fun refreshProgress(current: Long, total: Long) {
         val progress = (current * 100f / total).toInt()
-        rootView.tv_size.text = "${context.getString(R.string.detail_len)}: ${getFileSizeStr(current)}/${getFileSizeStr(total)}"
+        rootView.tv_size.text = "${context.getString(RCore.string.detail_len)}: ${getFileSizeStr(current)}/${getFileSizeStr(total)}"
         rootView.progress_bar.progress = progress
         rootView.tv_progress.text = "${progress}%"
     }

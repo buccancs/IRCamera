@@ -3,12 +3,16 @@ package com.topdon.module.user.activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.navigation.NavigationManager
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.utils.Constants
+import com.topdon.lib.core.view.TitleView
+import com.topdon.lib.core.R as RCore
 import com.topdon.module.user.R
 
 /**
@@ -17,12 +21,20 @@ import com.topdon.module.user.R
 // Legacy ARouter route annotation - now using NavigationManager
 class ElectronicManualActivity : BaseActivity() {
 
+    // View references - migrated from synthetic views
+    private lateinit var titleView: TitleView
+    private lateinit var electronicManualRecycler: RecyclerView
+
     override fun initContentView() = R.layout.activity_electronic_manual
 
     override fun initView() {
+        // Initialize views - migrated from synthetic views
+        titleView = findViewById(R.id.title_view)
+        electronicManualRecycler = findViewById(R.id.electronic_manual_recycler)
+        
         val productType = intent.getIntExtra(Constants.SETTING_TYPE, 0) //0-电子说明书 1-FAQ
 
-        title_view.setTitleText(if (productType == Constants.SETTING_BOOK) R.string.electronic_manual else R.string.app_question)
+        titleView.setTitleText(if (productType == Constants.SETTING_BOOK) RCore.string.electronic_manual else RCore.string.app_question)
 
         val adapter = MyAdapter(productType == 1)
         adapter.onPickListener = { isTS001 ->
@@ -44,8 +56,8 @@ class ElectronicManualActivity : BaseActivity() {
             }
         }
 
-        electronic_manual_recycler.layoutManager = LinearLayoutManager(this)
-        electronic_manual_recycler.adapter = adapter
+        electronicManualRecycler.layoutManager = LinearLayoutManager(this)
+        electronicManualRecycler.adapter = adapter
     }
 
     override fun initData() {
@@ -75,8 +87,11 @@ class ElectronicManualActivity : BaseActivity() {
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             if (holder is ItemViewHolder) {
-                holder.rootView.item_text.text = optionList[position]
-                holder.rootView.item_lay.setOnClickListener {
+                val itemText: TextView = holder.rootView.findViewById(R.id.item_text)
+                val itemLay: ConstraintLayout = holder.rootView.findViewById(R.id.item_lay)
+                
+                itemText.text = optionList[position]
+                itemLay.setOnClickListener {
                     onPickListener?.invoke(isFAQ && position == 0)
                 }
             }

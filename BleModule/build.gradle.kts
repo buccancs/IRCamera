@@ -30,8 +30,8 @@ android {
     }
     
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     flavorDimensions += "versionCode"
@@ -58,8 +58,9 @@ android {
 }
 
 dependencies {
-    // LMS SDK - using proper Maven repository configuration
-    api("com.topdon.lms.sdk:lms_international:3.90.009.0")
+    // Add libapp dependency to get access to LMS SDK
+    api(project(":libapp"))
+    
     api("androidx.appcompat:appcompat:1.2.0")
     api("org.greenrobot:eventbus:3.2.0")
     api("com.blankj:utilcodex:1.30.6") // 工具包

@@ -1,16 +1,15 @@
 plugins {
     id("com.android.library")
     kotlin("android")
-    // Temporarily disable KAPT to fix compilation issues
-    // kotlin("kapt")
+    kotlin("kapt")  // Re-enabled after findViewById migration completion
     id("kotlin-parcelize")
 }
 
-// kapt {
-//     arguments {
-//         arg("AROUTER_MODULE_NAME", project.name)
-//     }
-// }
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.name)
+    }
+}
 
 android {
     namespace = "com.topdon.module.thermal.ir"
@@ -38,12 +37,12 @@ android {
     }
     
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
 
     buildFeatures {
@@ -81,12 +80,15 @@ dependencies {
     implementation(project(":libui"))
     implementation(project(":libmenu"))
     
-    // Temporarily disable ARouter compiler until KAPT issues are resolved  
-
-    
+    // ARouter compiler - re-enabled after findViewById migration completion
+    kapt(Deps.arouter_compiler)
     implementation(Deps.androidx_core)
     implementation(Deps.appcompat)
     implementation(Deps.material)
     implementation(Deps.utilcode)
     implementation(Deps.glide)
+    
+    // Compass and sensor dependencies - restored with compatible versions
+    implementation(Deps.andromeda_core)  // Using stable version 15.3.0 from Maven Central
+    implementation(Deps.andromeda_sense)  // Using stable version 15.3.0 from Maven Central
 }

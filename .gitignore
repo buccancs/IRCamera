@@ -27,6 +27,17 @@
 *.hprof
 *.snapshot
 lint-results-*
+lint-results*.html
+lint-results*.xml
+/build-cache/
+**/build-cache/
+*.war
+*.jar
+.navigation/
+captures/
+.externalNativeBuild/
+.cxx/
+obj/
 
 
 # Gradle
@@ -35,6 +46,9 @@ lint-results-*
 .build-cache/
 buildSrc/build/
 buildSrc/.gradle/
+gradle-app.setting
+.gradletasknamecache
+gradle/wrapper/gradle-wrapper.jar
 
 
 # Local configuration
@@ -59,6 +73,41 @@ local.properties
 .Trashes
 Thumbs.db
 ehthumbs.db
+desktop.ini
+$RECYCLE.BIN/
+*.tmp
+*.temp
+
+# IDE and cache files
+# -------------------------------------------------------------------
+# IntelliJ IDEA
+.idea/shelf/
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries/
+.idea/vcs.xml
+.idea/jsLibraryMappings.xml
+.idea/datasources.xml
+.idea/datasources/
+.idea/sqlDataSources.xml
+.idea/dynamic.xml
+.idea/uiDesigner.xml
+.idea/libraries/
+.idea/gradle.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+.idea/deploymentTargetDropDown.xml
+.idea/inspectionProfiles/
+.idea/sonarlint/
+
+# Android Studio cache
+.android/
+android.tests.runner/
+.metadata/
+.recommenders/
+.gradle-wrapper/
 
 
 # App/Project specific directories

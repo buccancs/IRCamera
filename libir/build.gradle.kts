@@ -39,11 +39,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
     sourceSets {
         getByName("main") {
@@ -55,14 +55,23 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     
-    // AAR dependencies from libs folder - Conditional enabling for essential components
-    // These need to be converted to proper Maven dependencies or moved to the app module
-    // api(files("libs/libusbdualsdk_1.3.4_2406271906_standard.aar"))
-    // implementation(files("libs/opengl_1.3.2_standard.aar"))
+    // Original libir AAR dependencies restored - all essential components enabled
+    api(files("libs/libusbdualsdk_1.3.4_2406271906_standard.aar"))  // Required for infisense thermal camera classes
+    implementation(files("libs/opengl_1.3.2_standard.aar"))  // OpenGL functionality
     api(files("libs/suplib-release.aar"))  // Required for thermal-lite iruvc classes
-    // api(files("libs/ai-upscale-release.aar"))
+    api(files("libs/ai-upscale-release.aar"))  // AI upscale functionality
+    api(files("libs/texturegesture-release.aar"))  // Texture gesture functionality
+    api(files("libs/jetified-tas_api-1.0.4.0.aar"))  // TAS API
+    api(files("libs/library_1.0.aar"))  // Additional library support
     
+    // Enhanced IR-specific dependencies from user's Deps object
     api("com.conghuahuadan:superlayout:1.1.0")
+    api(Deps.ir_layout)  // IR layout utilities from CoderCaiSL jitpackMvn
+    api(Deps.compass_core_user)  // User's preferred compass core version
+    api(Deps.compass_sense_user)  // User's preferred compass sense version
+    api(Deps.javacv)  // JavaCV for IR image processing
+    api(Deps.javacpp)  // JavaCV native dependencies
+    
     implementation(project(":libapp"))
-    api(project(":LocalRepo:libcommon"))
+    // LocalRepo:libcommon moved to app/libs - will be available transitively through app module
 }

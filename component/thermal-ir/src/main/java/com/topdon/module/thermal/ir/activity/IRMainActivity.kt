@@ -6,6 +6,9 @@ import android.graphics.Shader
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
@@ -59,6 +62,23 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
      */
     private var isTC007 = false
 
+    // View references - migrated from synthetic views  
+    private lateinit var viewPage: ViewPager2
+    private lateinit var clRoot: ConstraintLayout
+    private lateinit var ivMainBg: ImageView
+    private lateinit var clIconMonitor: ConstraintLayout
+    private lateinit var clIconGallery: ConstraintLayout
+    private lateinit var clIconReport: ConstraintLayout
+    private lateinit var clIconMine: ConstraintLayout
+    private lateinit var ivIconMonitor: ImageView
+    private lateinit var ivIconGallery: ImageView
+    private lateinit var ivIconReport: ImageView
+    private lateinit var ivIconMine: ImageView
+    private lateinit var tvIconMonitor: TextView
+    private lateinit var tvIconGallery: TextView
+    private lateinit var tvIconReport: TextView
+    private lateinit var tvIconMine: TextView
+
     override fun initContentView(): Int = R.layout.activity_ir_main
 
     override fun onNewIntent(intent: Intent?) {
@@ -67,23 +87,40 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun initView() {
+        // Initialize views - migrated from synthetic views
+        viewPage = findViewById(R.id.view_page)
+        clRoot = findViewById(R.id.clRoot)
+        ivMainBg = findViewById(R.id.iv_main_bg)
+        clIconMonitor = findViewById(R.id.cl_icon_monitor)
+        clIconGallery = findViewById(R.id.cl_icon_gallery)
+        clIconReport = findViewById(R.id.cl_icon_report)
+        clIconMine = findViewById(R.id.cl_icon_mine)
+        ivIconMonitor = findViewById(R.id.iv_icon_monitor)
+        ivIconGallery = findViewById(R.id.iv_icon_gallery)
+        ivIconReport = findViewById(R.id.iv_icon_report)
+        ivIconMine = findViewById(R.id.iv_icon_mine)
+        tvIconMonitor = findViewById(R.id.tv_icon_monitor)
+        tvIconGallery = findViewById(R.id.tv_icon_gallery)
+        tvIconReport = findViewById(R.id.tv_icon_report)
+        tvIconMine = findViewById(R.id.tv_icon_mine)
+
         isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
 
-        view_page.offscreenPageLimit = 5
-        view_page.isUserInputEnabled = false
-        view_page.adapter = ViewPagerAdapter(this, isTC007)
-        view_page.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        viewPage.offscreenPageLimit = 5
+        viewPage.isUserInputEnabled = false
+        viewPage.adapter = ViewPagerAdapter(this, isTC007)
+        viewPage.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 refreshTabSelect(position)
             }
         })
-        view_page.setCurrentItem(2, false)
+        viewPage.setCurrentItem(2, false)
 
-        cl_icon_monitor.setOnClickListener(this)
-        cl_icon_gallery.setOnClickListener(this)
-        view_main_thermal.setOnClickListener(this)
-        cl_icon_report.setOnClickListener(this)
-        cl_icon_mine.setOnClickListener(this)
+        clIconMonitor.setOnClickListener(this)
+        clIconGallery.setOnClickListener(this)
+        // view_main_thermal.setOnClickListener(this) // Not found in view declarations, likely unused
+        clIconReport.setOnClickListener(this)
+        clIconMine.setOnClickListener(this)
 
         showGuideDialog()
     }
@@ -94,7 +131,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
         if (isTC007) {
             if (WebSocketProxy.getInstance().isTC007Connect()) {
                 NetWorkUtils.switchNetwork(false)
-                iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_connect)
+                ivMainBg.setImageResource(R.drawable.ic_ir_main_bg_connect)
                 lifecycleScope.launch {
                     TC007Repository.syncTime()
                 }
@@ -102,13 +139,13 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
                     NavigationManager.getInstance().build(RouterConfig.IR_THERMAL_07).navigation(this)
                 }
             } else {
-                iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
+                ivMainBg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
             }
         } else {
             if (DeviceTools.isConnect(isAutoRequest = false)) {
-                iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_connect)
+                ivMainBg.setImageResource(R.drawable.ic_ir_main_bg_connect)
             } else {
-                iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
+                ivMainBg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
             }
         }
     }
@@ -124,47 +161,47 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
 
     override fun disConnected() {
         if (!isTC007) {
-            iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
+            ivMainBg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
         }
     }
 
     override fun onSocketConnected(isTS004: Boolean) {
         if (!isTS004 && isTC007) {
-            iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_connect)
+            ivMainBg.setImageResource(R.drawable.ic_ir_main_bg_connect)
         }
     }
 
     override fun onSocketDisConnected(isTS004: Boolean) {
         if (!isTS004 && isTC007) {
-            iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
+            ivMainBg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
         }
     }
 
     override fun onClick(v: View?) {
         when (v) {
-            cl_icon_monitor -> {//监控
-                view_page.setCurrentItem(0, false)
+            clIconMonitor -> {//监控
+                viewPage.setCurrentItem(0, false)
             }
-            cl_icon_gallery -> {//图库
+            clIconGallery -> {//图库
                 checkStoragePermission()
             }
-            view_main_thermal -> {//首页
-                view_page.setCurrentItem(2, false)
-            }
-            cl_icon_report -> {//报告
+            // view_main_thermal -> {//首页 - Commented out as not in view declarations
+            //     viewPage.setCurrentItem(2, false)  
+            // }
+            clIconReport -> {//报告
                 if (LMS.getInstance().isLogin) {
-                    view_page.setCurrentItem(3, false)
+                    viewPage.setCurrentItem(3, false)
                 } else {
                     LMS.getInstance().activityLogin(null) {
                         if (it) {
-                            view_page.setCurrentItem(3, false)
+                            viewPage.setCurrentItem(3, false)
                             EventBus.getDefault().post(PDFEvent())
                         }
                     }
                 }
             }
-            cl_icon_mine -> {//我的
-                view_page.setCurrentItem(4, false)
+            clIconMine -> {//我的
+                viewPage.setCurrentItem(4, false)
             }
         }
     }
@@ -174,31 +211,30 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
      * @param index 当前选中哪个 tab，`[0, 4]`
      */
     private fun refreshTabSelect(index: Int) {
-        iv_icon_monitor.isSelected = false
-        tv_icon_monitor.isSelected = false
-        iv_icon_gallery.isSelected = false
-        tv_icon_gallery.isSelected = false
-        iv_icon_report.isSelected = false
-        tv_icon_report.isSelected = false
-        iv_icon_mine.isSelected = false
-        tv_icon_mine.isSelected = false
-
+        ivIconMonitor.isSelected = false
+        tvIconMonitor.isSelected = false
+        ivIconGallery.isSelected = false
+        tvIconGallery.isSelected = false
+        ivIconReport.isSelected = false
+        tvIconReport.isSelected = false
+        ivIconMine.isSelected = false
+        tvIconMine.isSelected = false
         when (index) {
             0 -> {
-                iv_icon_monitor.isSelected = true
-                tv_icon_monitor.isSelected = true
+                ivIconMonitor.isSelected = true
+                tvIconMonitor.isSelected = true
             }
             1 -> {
-                iv_icon_gallery.isSelected = true
-                tv_icon_gallery.isSelected = true
+                ivIconGallery.isSelected = true
+                tvIconGallery.isSelected = true
             }
             3 -> {
-                iv_icon_report.isSelected = true
-                tv_icon_report.isSelected = true
+                ivIconReport.isSelected = true
+                tvIconReport.isSelected = true
             }
             4 -> {
-                iv_icon_mine.isSelected = true
-                tv_icon_mine.isSelected = true
+                ivIconMine.isSelected = true
+                tvIconMine.isSelected = true
             }
         }
     }
@@ -225,7 +261,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
                     if (Build.VERSION.SDK_INT < 31) {
                         lifecycleScope.launch {
                             delay(100)
-                            guideDialog.blurBg(cl_root)
+                            guideDialog.blurBg(clRoot)
                         }
                     }
                     SharedManager.homeGuideStep = 2
@@ -235,7 +271,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
                     if (Build.VERSION.SDK_INT < 31) {
                         lifecycleScope.launch {
                             delay(100)
-                            guideDialog.blurBg(cl_root)
+                            guideDialog.blurBg(clRoot)
                         }
                     }
                     SharedManager.homeGuideStep = 3
@@ -262,7 +298,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
                 //界面切换及温度监控历史列表加载均需要时间，所以需要等待1000毫秒再去刷新背景
                 //而若等待1000毫秒太过久，界面会非模糊1000毫秒，所以先刷新一次背景占位
                 delay(100)
-                guideDialog.blurBg(cl_root)
+                guideDialog.blurBg(clRoot)
             }
         }
     }

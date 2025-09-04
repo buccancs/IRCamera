@@ -2,6 +2,8 @@ package com.topdon.lib.menu
 
 import android.util.Log
 import android.view.View
+import android.widget.FrameLayout
+import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import com.elvishew.xlog.XLog
 import com.example.opengl.IRSurfaceView
@@ -12,6 +14,7 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.utils.ByteUtils.bytesToInt
+import com.topdon.lib.ui.widget.BarPickView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -26,6 +29,12 @@ import java.io.File
 // Legacy ARouter route annotation - now using NavigationManager
 class Image3DActivity : BaseActivity() {
 
+    // View references - migrated from synthetic views
+    private lateinit var irFrame: FrameLayout
+    private lateinit var menu: com.topdon.lib.menu.Menu3DView
+    private lateinit var tvTemp: TextView
+    private lateinit var barPickViewX: BarPickView
+    private lateinit var barPickViewY: BarPickView
 
     private var ir_path  : String ?= null
     private var temp_high : Float = 0F
@@ -43,6 +52,13 @@ class Image3DActivity : BaseActivity() {
         return R.layout.activity_image_3d
     }
     override fun initView() {
+        // Initialize views - migrated from synthetic views
+        irFrame = findViewById(R.id.ir_frame)
+        menu = findViewById(R.id.menu)
+        tvTemp = findViewById(R.id.tv_temp)
+        barPickViewX = findViewById(R.id.bar_pick_view_x)
+        barPickViewY = findViewById(R.id.bar_pick_view_y)
+
         ir_path = intent.getStringExtra(ExtraKeyConfig.IR_PATH).toString()
         temp_high = intent.getFloatExtra(ExtraKeyConfig.TEMP_HIGH,0f)
         temp_low = intent.getFloatExtra(ExtraKeyConfig.TEMP_LOW,0f)
@@ -67,7 +83,7 @@ class Image3DActivity : BaseActivity() {
             irRender?.initData(temp_high,temp_low,open3DTools)
             irRender?.changeMode(IRRender.TYPE_MODEL_EML)
             irRender?.visualAngle(IRRender.TYPE_3D)
-            ir_frame.addView(ir_sf)
+            irFrame.addView(ir_sf)
             ir_sf.setORenderer(irRender)
             ir_sf.setScaleView(1.3f)
             ir_sf.requestRender()
@@ -85,10 +101,10 @@ class Image3DActivity : BaseActivity() {
                     irRender?.updatePointData(tempY,tempX,temp_high,temp_low,IROpen3DTools.TYPE_SEL_TEMP,temperatureBytes)
                     val temp = open3DTools.getRandomPoint(tempY,tempX,temp_high,temp_low,IROpen3DTools.TYPE_SEL_TEMP,temperatureBytes)
                     ir_sf.requestRender()
-                    tv_temp.text = getXYZText(open3DTools.selTemp,temp[0][0],temp[0][1])
-                    tv_temp.visibility = View.VISIBLE
-                    bar_pick_view_x.visibility = View.VISIBLE
-                    bar_pick_view_y.visibility = View.VISIBLE
+                    tvTemp.text = getXYZText(open3DTools.selTemp,temp[0][0],temp[0][1])
+                    tvTemp.visibility = View.VISIBLE
+                    barPickViewX.visibility = View.VISIBLE
+                    barPickViewY.visibility = View.VISIBLE
 
 //                    tv_temp.setTextColor(Color.GREEN)
                 }
@@ -97,28 +113,28 @@ class Image3DActivity : BaseActivity() {
                     irRender?.updatePointData(0,0,temp_high,temp_low,IROpen3DTools.TYPE_HIGHT_TEMP,temperatureBytes)
                     val temp = open3DTools.getRandomPoint(0,0,temp_high,temp_low,IROpen3DTools.TYPE_HIGHT_TEMP,temperatureBytes)
                     ir_sf.requestRender()
-                    tv_temp.visibility = View.VISIBLE
-                    tv_temp.text = getXYZText(temp_high,temp[0][0],temp[0][1])
-                    bar_pick_view_x.visibility = View.GONE
-                    bar_pick_view_y.visibility = View.GONE
+                    tvTemp.visibility = View.VISIBLE
+                    tvTemp.text = getXYZText(temp_high,temp[0][0],temp[0][1])
+                    barPickViewX.visibility = View.GONE
+                    barPickViewY.visibility = View.GONE
 //                    tv_temp.setTextColor(Color.RED)
                 }
                 2->{
                     irRender?.updatePointData(0,0,temp_high,temp_low,IROpen3DTools.TYPE_LOW_TEMP,temperatureBytes)
                     val temp = open3DTools.getRandomPoint(0,0,temp_high,temp_low,IROpen3DTools.TYPE_LOW_TEMP,temperatureBytes)
                     ir_sf.requestRender()
-                    tv_temp.visibility = View.VISIBLE
-                    tv_temp.text = getXYZText(temp_low,temp[0][0],temp[0][1])
-                    bar_pick_view_x.visibility = View.GONE
-                    bar_pick_view_y.visibility = View.GONE
+                    tvTemp.visibility = View.VISIBLE
+                    tvTemp.text = getXYZText(temp_low,temp[0][0],temp[0][1])
+                    barPickViewX.visibility = View.GONE
+                    barPickViewY.visibility = View.GONE
 //                    tv_temp.setTextColor(Color.BLUE)
                 }
                 3->{
                     irRender?.updatePointData(0,0,temp_high,temp_low,IROpen3DTools.TYPE_HIDE_TEMP,temperatureBytes)
                     ir_sf.requestRender()
-                    tv_temp.visibility = View.GONE
-                    bar_pick_view_x.visibility = View.GONE
-                    bar_pick_view_y.visibility = View.GONE
+                    tvTemp.visibility = View.GONE
+                    barPickViewX.visibility = View.GONE
+                    barPickViewY.visibility = View.GONE
                 }
             }
 
@@ -163,27 +179,27 @@ class Image3DActivity : BaseActivity() {
                 }
             }
         }
-        bar_pick_view_y.setProgressAndRefresh(tempY)
-        bar_pick_view_x.setProgressAndRefresh(tempX)
-        bar_pick_view_y.onProgressChanged = { progress, max ->
+        barPickViewY.setProgressAndRefresh(tempY)
+        barPickViewX.setProgressAndRefresh(tempX)
+        barPickViewY.onProgressChanged = { progress, max ->
             tempY = max - progress
 
             try {
                 irRender?.updatePointData(tempY, tempX, temp_high, temp_low, IROpen3DTools.TYPE_SEL_TEMP,temperatureBytes)
                 val temp = open3DTools.getRandomPoint(tempY, tempX, temp_high, temp_low, IROpen3DTools.TYPE_SEL_TEMP,temperatureBytes)
                 ir_sf.requestRender()
-                tv_temp.text = getXYZText(open3DTools.selTemp, temp[0][0], temp[0][1])
+                tvTemp.text = getXYZText(open3DTools.selTemp, temp[0][0], temp[0][1])
             } catch (e: Exception) {
                 Log.e(TAG, e.message.toString() + tempX + "//" + tempY)
             }
         }
-        bar_pick_view_x.onProgressChanged = { progress, max ->
+        barPickViewX.onProgressChanged = { progress, max ->
             tempX = max - progress
             try {
                 irRender?.updatePointData(tempY, tempX, temp_high, temp_low, IROpen3DTools.TYPE_SEL_TEMP,temperatureBytes)
                 val temp = open3DTools.getRandomPoint(tempY, tempX, temp_high, temp_low, IROpen3DTools.TYPE_SEL_TEMP,temperatureBytes)
                 ir_sf.requestRender()
-                tv_temp.text = getXYZText(open3DTools.selTemp, temp[0][0], temp[0][1])
+                tvTemp.text = getXYZText(open3DTools.selTemp, temp[0][0], temp[0][1])
             } catch (e: Exception) {
                 Log.e(TAG, e.message.toString() + tempX + "//" + tempY)
             }

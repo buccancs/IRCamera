@@ -8,8 +8,11 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.repository.*
 import com.topdon.lib.core.socket.SocketCmdUtil
 import com.topdon.lib.core.utils.WsCmdConstants
+import com.topdon.lib.core.view.TitleView
+import androidx.appcompat.widget.SwitchCompat
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.user.R
+import com.topdon.lib.core.R as RCore
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -18,12 +21,21 @@ import org.json.JSONObject
 
 // Legacy ARouter route annotation - now using NavigationManager
 class TISRActivity : BaseActivity(){
+    
+    // View references - migrated from synthetic views
+    private lateinit var titleView: TitleView
+    private lateinit var settingItemTisrSelect: SwitchCompat
+    
     override fun initContentView() = R.layout.activity_tisr
 
     override fun initView() {
-        title_view.setTitleText("TISR")
-        setting_item_tisr_select.isChecked = SharedManager.is04TISR
-        setting_item_tisr_select.setOnCheckedChangeListener { _, isChecked ->
+        // Initialize views - migrated from synthetic views
+        titleView = findViewById(R.id.title_view)
+        settingItemTisrSelect = findViewById(R.id.setting_item_tisr_select)
+        
+        titleView.setTitleText("TISR")
+        settingItemTisrSelect.isChecked = SharedManager.is04TISR
+        settingItemTisrSelect.setOnCheckedChangeListener { _, isChecked ->
             updateTISR(if(isChecked) 1 else 0)
             SharedManager.is04TISR = isChecked
         }
@@ -34,10 +46,10 @@ class TISRActivity : BaseActivity(){
             val tisrBean = TS004Repository.getTISR()
             if(tisrBean?.isSuccess()!!){
                 val isTISR = tisrBean.data?.enable!! == 1
-                setting_item_tisr_select.isChecked = isTISR
+                settingItemTisrSelect.isChecked = isTISR
                 SharedManager.is04TISR = isTISR
             }else{
-                TToast.shortToast(this@TISRActivity, R.string.operation_failed_tips)
+                TToast.shortToast(this@TISRActivity, RCore.string.operation_failed_tips)
             }
         }
     }
@@ -47,7 +59,7 @@ class TISRActivity : BaseActivity(){
             val isSuccess= TS004Repository.setTISR(state)
             if(isSuccess){
             }else{
-                TToast.shortToast(this@TISRActivity, R.string.operation_failed_tips)
+                TToast.shortToast(this@TISRActivity, RCore.string.operation_failed_tips)
             }
         }
     }
@@ -62,7 +74,7 @@ class TISRActivity : BaseActivity(){
                         val data: JSONObject = JSONObject(event.text).getJSONObject("data")
                         val state: Int = data.getInt("state")
                         val isTISR = state == 1
-                        setting_item_tisr_select.isChecked = isTISR
+                        settingItemTisrSelect.isChecked = isTISR
                         SharedManager.is04TISR = isTISR
                     }
                 } catch (_: Exception) {

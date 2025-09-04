@@ -8,12 +8,16 @@ import android.graphics.drawable.LayerDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.SizeUtils
 import com.topdon.lib.core.utils.ScreenUtil
+import com.topdon.lib.core.R as RCore
 
 /**
  * 二级菜单 RecyclerView 所用 Adapter.
@@ -42,30 +46,30 @@ class MenuAdapter(val context: Context, val type: Type) : RecyclerView.Adapter<M
 
     companion object {
         private val VISUAL_ARRAY = arrayOf(
-            ItemData(R.string.menu_3d_visual_3d, R.drawable.selector_menu2_visual_3d),
-            ItemData(R.string.menu_3d_visual_top, R.drawable.selector_menu2_visual_top),
-            ItemData(R.string.menu_3d_visual_left, R.drawable.selector_menu2_visual_left),
-            ItemData(R.string.menu_3d_visual_right, R.drawable.selector_menu2_visual_right),
-            ItemData(R.string.menu_3d_visual_center, R.drawable.selector_menu2_visual_center),
+            ItemData(RCore.string.menu_3d_visual_3d, R.drawable.selector_menu2_visual_3d),
+            ItemData(RCore.string.menu_3d_visual_top, R.drawable.selector_menu2_visual_top),
+            ItemData(RCore.string.menu_3d_visual_left, R.drawable.selector_menu2_visual_left),
+            ItemData(RCore.string.menu_3d_visual_right, R.drawable.selector_menu2_visual_right),
+            ItemData(RCore.string.menu_3d_visual_center, R.drawable.selector_menu2_visual_center),
         )
         private val MARK_ARRAY = arrayOf(
-            ItemData(R.string.pseudo_custom_title, R.drawable.selector_menu2_mark_custom),
-            ItemData(R.string.thermal_high_temperature, R.drawable.selector_menu2_mark_max_temp),
-            ItemData(R.string.app_Low_temperature, R.drawable.selector_menu2_mark_min_temp),
-//            ItemData(R.string.menu_3d_range_temp, R.drawable.selector_menu2_mark_range_temp),
-            ItemData(R.string.report_delete, R.drawable.selector_menu2_mark_del),
+            ItemData(RCore.string.pseudo_custom_title, R.drawable.selector_menu2_mark_custom),
+            ItemData(RCore.string.thermal_high_temperature, R.drawable.selector_menu2_mark_max_temp),
+            ItemData(RCore.string.app_Low_temperature, R.drawable.selector_menu2_mark_min_temp),
+//            ItemData(RCore.string.menu_3d_range_temp, R.drawable.selector_menu2_mark_range_temp),
+            ItemData(RCore.string.report_delete, R.drawable.selector_menu2_mark_del),
         )
         private val PSEUDO_ARRAY = arrayOf(
-            ItemData(R.string.color_p3),
-            ItemData(R.string.pseudo_type_black_red),
-            ItemData(R.string.pseudo_type_nature),
-            ItemData(R.string.pseudo_type_magma),
-            ItemData(R.string.color_p8_ios),
+            ItemData(RCore.string.color_p3),
+            ItemData(RCore.string.pseudo_type_black_red),
+            ItemData(RCore.string.pseudo_type_nature),
+            ItemData(RCore.string.pseudo_type_magma),
+            ItemData(RCore.string.color_p8_ios),
         )
         private val MODE_ARRAY = arrayOf(
-            ItemData(R.string.thermal_point, R.drawable.selector_menu2_mode_point),
-            ItemData(R.string.thermal_line, R.drawable.selector_menu2_mode_line),
-            ItemData(R.string.thermal_rect, R.drawable.selector_menu2_mode_rect),
+            ItemData(RCore.string.thermal_point, R.drawable.selector_menu2_mode_point),
+            ItemData(RCore.string.thermal_line, R.drawable.selector_menu2_mode_line),
+            ItemData(RCore.string.thermal_rect, R.drawable.selector_menu2_mode_rect),
         )
     }
 
@@ -76,11 +80,11 @@ class MenuAdapter(val context: Context, val type: Type) : RecyclerView.Adapter<M
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
          if(type == Type.PSEUDO){
-            holder.itemView.tv_menu.visibility = View.GONE
-            holder.itemView.iv_pseudo.visibility = View.VISIBLE
+            holder.tvMenu.visibility = View.GONE
+            holder.ivPseudo.visibility = View.VISIBLE
         }else if(type == Type.MODE){
-            holder.itemView.tv_menu.visibility = View.VISIBLE
-            holder.itemView.iv_pseudo.visibility = View.GONE
+            holder.tvMenu.visibility = View.VISIBLE
+            holder.ivPseudo.visibility = View.GONE
         }
         val itemArray = when (type) {
             Type.VISUAL -> VISUAL_ARRAY
@@ -88,10 +92,10 @@ class MenuAdapter(val context: Context, val type: Type) : RecyclerView.Adapter<M
             Type.PSEUDO -> PSEUDO_ARRAY
             Type.MODE -> MODE_ARRAY
         }
-        holder.itemView.tv_menu.isSelected = position == selectIndex
-        holder.itemView.iv_menu.isSelected = position == selectIndex
-        holder.itemView.tv_menu.setText(itemArray[position].textResId)
-        holder.itemView.iv_menu.setImageResource(itemArray[position].imgResId)
+        holder.tvMenu.isSelected = position == selectIndex
+        holder.ivMenu.isSelected = position == selectIndex
+        holder.tvMenu.setText(itemArray[position].textResId)
+        holder.ivMenu.setImageResource(itemArray[position].imgResId)
 
         if (type == Type.PSEUDO) {
             val drawable = when (position) {
@@ -101,13 +105,13 @@ class MenuAdapter(val context: Context, val type: Type) : RecyclerView.Adapter<M
                 3 -> buildRectDrawable(selectIndex == 3, 0xff000000.toInt(), 0xffff0000.toInt())
                 else  -> buildRectDrawable(selectIndex == position, 0xff0000ff.toInt(), 0xffffff00.toInt())
             }
-            holder.itemView.view_pseudo.background = drawable
-            holder.itemView.iv_pseudo.visibility = if(position == selectIndex) View.VISIBLE else View.GONE
+            holder.viewPseudo.background = drawable
+            holder.ivPseudo.visibility = if(position == selectIndex) View.VISIBLE else View.GONE
         }
 
         //单独设置删除文本颜色
         if (type == Type.MARK && position == MARK_ARRAY.size - 1) {
-            holder.itemView.tv_menu.setTextColor(0x66ffffff)
+            holder.tvMenu.setTextColor(0x66ffffff)
         }
     }
 
@@ -144,6 +148,14 @@ class MenuAdapter(val context: Context, val type: Type) : RecyclerView.Adapter<M
 
     @SuppressLint("NotifyDataSetChanged")
     inner class ViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
+        
+        // View references - migrated from synthetic views
+        val tvMenu: TextView = rootView.findViewById(R.id.tv_menu)
+        val ivMenu: ImageView = rootView.findViewById(R.id.iv_menu)
+        val ivPseudo: ImageView = rootView.findViewById(R.id.iv_pseudo)
+        val viewPseudo: View = rootView.findViewById(R.id.view_pseudo)
+        val clRoot: ConstraintLayout = rootView.findViewById(R.id.cl_root)
+        
         init {
             val canSeeCount = itemCount.toFloat() //一屏可见的 item 数量，目前都是全都显示完
             if (ScreenUtil.isPortrait(context)) {
@@ -151,15 +163,15 @@ class MenuAdapter(val context: Context, val type: Type) : RecyclerView.Adapter<M
                 rootView.layoutParams = ViewGroup.LayoutParams(with, ViewGroup.LayoutParams.WRAP_CONTENT)
 
                 val imageSize = (ScreenUtil.getScreenWidth(context) * 62 / 375f).toInt()
-                val layoutParams = rootView.iv_menu.layoutParams
+                val layoutParams = ivMenu.layoutParams
                 layoutParams.width = imageSize
                 layoutParams.height = imageSize
-                rootView.iv_menu.layoutParams = layoutParams
+                ivMenu.layoutParams = layoutParams
             } else {
                 val constraintSet = ConstraintSet()
-                constraintSet.clone(rootView.cl_root)
+                constraintSet.clone(clRoot)
                 constraintSet.setDimensionRatio(R.id.view_bg, (136 * canSeeCount / 436).toString())
-                constraintSet.applyTo(rootView.cl_root)
+                constraintSet.applyTo(clRoot)
             }
 
             rootView.setOnClickListener {

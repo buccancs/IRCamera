@@ -83,17 +83,17 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
 
     java {
         toolchain {
-            languageVersion.set(JavaLanguageVersion.of(11))
+            languageVersion.set(JavaLanguageVersion.of(17))
         }
     }
 
@@ -246,6 +246,11 @@ dependencies {
     implementation(project(":libir"))
     implementation(project(":libmenu"))
     implementation(project(":libui"))
+
+    // LocalRepo AAR files moved to app/libs (excluding lms_international which stays in libapp)
+    implementation(files("libs/libAC020sdk_USB_IR_1.1.1_2408291439.aar"))
+    implementation(files("libs/libirutils_1.2.0_2409241055.aar"))
+    implementation(files("libs/libcommon_1.2.0_24052117.aar"))
 
     implementation(Deps.jsbridge)
     implementation(Deps.fastjson)

@@ -14,27 +14,13 @@ dependencyResolutionManagement {
         maven { url = uri("https://maven.zohodl.com") }
         // Local AAR files directories
         flatDir {
-            dirs("libir-demo/libs")
-        }
-        flatDir {
             dirs("libir/libs")
         }
         flatDir {
             dirs("libapp/libs")
         }
         flatDir {
-            dirs("LocalRepo/libac020")
-        }
-        flatDir {
-            dirs("LocalRepo/libirutils")
-        }
-        flatDir {
-            dirs("LocalRepo/libcommon")
-        }
-        
-        // LMS SDK local maven repository
-        maven {
-            url = uri("file://${rootDir}/LocalRepo")
+            dirs("app/libs")  // Added for LocalRepo AAR files
         }
         
         flatDir {
@@ -66,11 +52,7 @@ include(":libapp")
 include(":libcom")
 include(":libhik")
 include(":libir")
-include(":libir-demo")
 include(":libmatrix")
 include(":libmenu")
 include(":libui")
-include(":LocalRepo:libac020")
-include(":LocalRepo:libcommon")
-include(":LocalRepo:libirutils")
 include(":RangeSeekBar")

@@ -37,16 +37,16 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
     
     java {
         toolchain {
-            languageVersion.set(JavaLanguageVersion.of(11))
+            languageVersion.set(JavaLanguageVersion.of(17))
         }
     }
     buildFeatures {
@@ -95,7 +95,7 @@ dependencies {
 
     api(Deps.rxjava2)
     api(Deps.rxandroid)
-    // Temporarily disabled problematic dependencies - using modern alternatives
+    // Commented out problematic RxLifecycle dependencies to identify actual compilation issues
     // api(Deps.rxpermissions)
     // api(Deps.rxlifecycle)
     // api(Deps.rxlifecycle_android)
@@ -111,7 +111,8 @@ dependencies {
     api(Deps.lottie)
 
     api(Deps.brvah)
-    // api(Deps.refresh_layout_kernel) // Temporary comment out
+    // Commented out problematic refresh layout dependency  
+    // api(Deps.refresh_layout_kernel)
     // api(Deps.refresh_header_classics) // Temporary comment out
     // api(Deps.refresh_header_material) // Temporary comment out
 
@@ -135,7 +136,7 @@ dependencies {
     // These provide critical functionality (CommonBean, ResponseBean, LMS classes)
     api("abtest:abtest:1.0.1@aar")
     api("auth-number:auth-number:2.13.2.1@aar") 
-    api("lms_international:lms_international:3.90.009.0@aar")
+    api(files("libs/lms_international-3.90.009.0.aar"))  // Moved from LocalRepo to libs
     api("logger:logger:2.2.1-release@aar")
     api("main:main:2.2.1-release@aar")
 }
