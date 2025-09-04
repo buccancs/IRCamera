@@ -38,7 +38,7 @@ multidex = "2.0.1"
 lifecycle = "2.7.0"
 
 # Room
-room = "2.6.1"
+room = "2.5.2"
 
 # Work Manager
 work = "2.9.0"
