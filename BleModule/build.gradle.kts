@@ -4,10 +4,10 @@ plugins {
 
 android {
     namespace = "com.topdon.ble"
-    compileSdk = AndroidConfig.compileSdk
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = AndroidConfig.minSdk
+        minSdk = libs.versions.minSdk.get().toInt()
     }
 
     buildTypes {

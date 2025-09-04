@@ -5,11 +5,11 @@ plugins {
 
 android {
     namespace = "com.topdon.gsr"
-    compileSdk = AndroidConfig.compileSdk
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = AndroidConfig.minSdk
-        // targetSdk = AndroidConfig.targetSdk  // Deprecated in library modules
+        minSdk = libs.versions.minSdk.get().toInt()
+        // targetSdk = libs.versions.targetSdk.get().toInt()  // Deprecated in library modules
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")

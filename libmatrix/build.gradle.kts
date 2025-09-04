@@ -13,12 +13,12 @@ kapt {
 
 android {
     namespace = "com.guide.zm04c.matrix"
-    compileSdk = AndroidConfig.compileSdk
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = AndroidConfig.minSdk
-        // targetSdk = AndroidConfig.targetSdk  // Deprecated in library modules
-        ndkVersion = AndroidConfig.ndkVersion
+        minSdk = libs.versions.minSdk.get().toInt()
+        // targetSdk = libs.versions.targetSdk.get().toInt()  // Deprecated in library modules
+        ndkVersion = libs.versions.ndkVersion.get()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -55,7 +55,7 @@ android {
     }
     */
 
-    ndkVersion = AndroidConfig.ndkVersion
+    ndkVersion = libs.versions.ndkVersion.get()
 
     lint {
         abortOnError = false

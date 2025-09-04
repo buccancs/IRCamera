@@ -12,11 +12,11 @@ kapt {
 
 android {
     namespace = "com.topdon.lib.menu"
-    compileSdk = AndroidConfig.compileSdk
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = AndroidConfig.minSdk
-        // targetSdk = AndroidConfig.targetSdk  // Deprecated in library modules
+        minSdk = libs.versions.minSdk.get().toInt()
+        // targetSdk = libs.versions.targetSdk.get().toInt()  // Deprecated in library modules
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -82,11 +82,11 @@ dependencies {
     // Local AAR dependency for OpenGL functionality
     implementation(files("libs/opengl_1.3.2_standard.aar"))
     
-    implementation(Deps.androidx_core)
-    implementation(Deps.appcompat)
-    implementation(Deps.material)
-    implementation(Deps.utilcode)
-    implementation(Deps.glide)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.utilcode)
+    implementation(libs.glide)
     
     // Test dependencies
     testImplementation("junit:junit:4.13.2")

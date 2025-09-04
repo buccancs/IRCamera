@@ -5,10 +5,10 @@ plugins {
 
 android {
     namespace = "com.topdon.libhik"
-    compileSdk = AndroidConfig.compileSdk
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = AndroidConfig.minSdk
+        minSdk = libs.versions.minSdk.get().toInt()
     }
 
     buildTypes {
@@ -39,11 +39,11 @@ dependencies {
     implementation(fileTree(mapOf("include" to listOf("*.jar"), "dir" to "libs")))
 
     implementation("androidx.core:core-ktx:1.10.1")
-    implementation(Deps.appcompat)
-    implementation(Deps.material)
-    implementation(Deps.lifecycle_runtime_ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.lifecycle.runtime.ktx)
 
-    implementation(Deps.xlog)
+    implementation(libs.xlog)
     
     // Test dependencies
     testImplementation("junit:junit:4.13.2")

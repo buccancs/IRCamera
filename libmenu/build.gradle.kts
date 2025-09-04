@@ -7,10 +7,10 @@ plugins {
 
 android {
     namespace = "com.topdon.menu"
-    compileSdk = AndroidConfig.compileSdk
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = AndroidConfig.minSdk
+        minSdk = libs.versions.minSdk.get().toInt()
     }
 
     buildTypes {
@@ -35,15 +35,15 @@ android {
 }
 
 dependencies {
-    implementation(Deps.material) // 需要 ConstraintLayout、ViewPager2
+    implementation(libs.material) // 需要 ConstraintLayout、ViewPager2
 
-    implementation(Deps.glide)
-    implementation(Deps.utilcode)
+    implementation(libs.glide)
+    implementation(libs.utilcode)
 
     implementation(project(":libapp")) // 需要使用 string 资源
     
     // Testing dependencies
-    testImplementation(Deps.junit)
-    androidTestImplementation(Deps.test_ext_junit)
-    androidTestImplementation(Deps.test_espresso_core)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.test.ext.junit)
+    androidTestImplementation(libs.test.espresso.core)
 }

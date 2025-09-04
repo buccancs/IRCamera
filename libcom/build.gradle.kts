@@ -13,11 +13,11 @@ kapt {
 
 android {
     namespace = "com.topdon.libcom"
-    compileSdk = AndroidConfig.compileSdk
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = AndroidConfig.minSdk
-        // targetSdk = AndroidConfig.targetSdk  // Deprecated in library modules
+        minSdk = libs.versions.minSdk.get().toInt()
+        // targetSdk = libs.versions.targetSdk.get().toInt()  // Deprecated in library modules
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -45,8 +45,8 @@ dependencies {
     implementation(project(":libapp"))
     implementation(project(":libui"))
 
-    api(Deps.colorpickerview)
-    implementation(Deps.brvah)
+    api(libs.colorpickerview)
+    implementation(libs.brvah)
 
     implementation("org.apache.poi:poi-ooxml:3.17")
     implementation("org.apache.xmlbeans:xmlbeans:3.1.0")
@@ -55,7 +55,7 @@ dependencies {
     implementation(project(":RangeSeekBar"))
     
     // Test dependencies
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.test.ext.junit)
+    androidTestImplementation(libs.test.espresso.core)
 }

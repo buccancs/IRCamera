@@ -13,10 +13,10 @@ kapt {
 
 android {
     namespace = "com.topdon.pseudo"
-    compileSdk = AndroidConfig.compileSdk
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = AndroidConfig.minSdk
+        minSdk = libs.versions.minSdk.get().toInt()
         // targetSdk removed for library modules - only set in main app module per AGP 8.0+
         
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -82,11 +82,11 @@ dependencies {
     
 
     
-    implementation(Deps.androidx_core)
-    implementation(Deps.appcompat)
-    implementation(Deps.material)
-    implementation(Deps.utilcode)
-    implementation(Deps.glide)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.utilcode)
+    implementation(libs.glide)
     
     // Test dependencies
     testImplementation("junit:junit:4.13.2")

@@ -15,12 +15,12 @@ plugins {
 
 android {
     namespace = "com.infisense.usbir"
-    compileSdk = AndroidConfig.compileSdk
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = AndroidConfig.minSdk
-        // targetSdk = AndroidConfig.targetSdk  // Deprecated in library modules
-        ndkVersion = AndroidConfig.ndkVersion
+        minSdk = libs.versions.minSdk.get().toInt()
+        // targetSdk = libs.versions.targetSdk.get().toInt()  // Deprecated in library modules
+        ndkVersion = libs.versions.ndkVersion.get()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -66,11 +66,11 @@ dependencies {
     
     // Enhanced IR-specific dependencies from user's Deps object
     api("com.conghuahuadan:superlayout:1.1.0")
-    api(Deps.ir_layout)  // IR layout utilities from CoderCaiSL jitpackMvn
-    api(Deps.compass_core_user)  // User's preferred compass core version
-    api(Deps.compass_sense_user)  // User's preferred compass sense version
-    api(Deps.javacv)  // JavaCV for IR image processing
-    api(Deps.javacpp)  // JavaCV native dependencies
+    api(libs.ir.layout)  // IR layout utilities from CoderCaiSL jitpackMvn
+    api(libs.compass.core.user)  // User's preferred compass core version
+    api(libs.compass.sense.user)  // User's preferred compass sense version
+    api(libs.javacv)  // JavaCV for IR image processing
+    api(libs.javacpp)  // JavaCV native dependencies
     
     implementation(project(":libapp"))
     // LocalRepo:libcommon moved to app/libs - will be available transitively through app module
