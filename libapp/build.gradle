@@ -56,7 +56,8 @@ android {
 //}
 
 dependencies {
-    api fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
+    // Only include JAR files in library modules - AAR files cause build errors in library modules
+    api fileTree(include: ['*.jar'], dir: 'libs')
     api libs.androidx.appcompat
     api libs.androidx.fragment.ktx
     api libs.material
@@ -109,21 +110,10 @@ dependencies {
     api libs.nifty
     api libs.nifty.effect
 
-//    devApi libs.lms2.international
-//    betaApi libs.lms2.international
-//    prodApi libs.lms2.international
-//    prodTopdonApi libs.lms2.international
-//    insideChinaApi libs.lms3.china
-//    prodTopdonInsideChinaApi libs.lms3.china
-
-
-
     //javacv
     api libs.javacv
     api libs.javacpp
-    api files('libs\\abtest-1.0.1.aar')
-    api files('libs\\auth-number-2.13.2.1.aar')
-    api files('libs\\lms_international-3.90.009.0.aar')
-    api files('libs\\logger-2.2.1-release.aar')
-    api files('libs\\main-2.2.1-release.aar')
+
+    // Note: LMS AAR dependencies moved to app module due to Gradle limitation
+    // Library modules cannot include AAR file dependencies
 }
