@@ -70,7 +70,7 @@ class GalleryViewModel : BaseViewModel() {
             val file = File(path)
             if (file.isDirectory) {
                 val list = arrayListOf<String>()
-                file.list().forEach {
+                file.list()?.forEach {
                     list.add("${path}/${it}")
                 }
                 emit(list)

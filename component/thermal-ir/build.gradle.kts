@@ -73,9 +73,11 @@ dependencies {
     implementation(libs.andromeda.core)  // Using version from libs.versions.toml (16.0.1) from Maven Central
     implementation(libs.andromeda.sense)  // Using version from libs.versions.toml (16.0.1) from Maven Central
     
-    // GSY VideoPlayer for MyGSYVideoPlayer - exclude cast framework to avoid Jetifier warnings
+    // GSY VideoPlayer for MyGSYVideoPlayer - exclude media3 and cast framework to avoid Jetifier warnings
     implementation(libs.gsy.video.player) {
         exclude(group = "androidx.media3", module = "media3-cast")
+        exclude(group = "androidx.media3", module = "media3-session")
+        exclude(group = "androidx.media3", module = "media3-ui")
         exclude(group = "com.google.android.gms", module = "play-services-cast-framework")
     }
 }
