@@ -111,8 +111,7 @@ class IRGalleryViewModel : BaseViewModel() {
                     WriteTools.delete(file)
                 }
             }
-                deleteResultLD.postValue(true)
-            }
+            deleteResultLD.postValue(true)
         }
     }
 }

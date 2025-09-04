@@ -80,12 +80,11 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
                     var intent = Intent(requireContext(), IRThermalNightActivity::class.java)
                     intent.putExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
                     startActivity(intent)
-                    } else {
-                        TipDialog.Builder(requireContext())
-                            .setMessage(R.string.device_connect_tip)
-                            .setPositiveListener(R.string.app_confirm)
-                            .create().show()
-                    }
+                } else {
+                    TipDialog.Builder(requireContext())
+                        .setMessage(R.string.device_connect_tip)
+                        .setPositiveListener(R.string.app_confirm)
+                        .create().show()
                 }
             }
         }
