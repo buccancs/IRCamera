@@ -34,8 +34,10 @@ android {
         manifestPlaceholders["JPUSH_PKGNAME"] = applicationId!!
         manifestPlaceholders["JPUSH_APPKEY"] = "cbd4eafc9049d751fc5a8c58"
         manifestPlaceholders["JPUSH_CHANNEL"] = "developer-default"
+    }
 
-        setProperty("archivesBaseName", "TC001-v${libs.versions.versionName.get()}.google")
+    base {
+        archivesName = "TC001-v${libs.versions.versionName.get()}.google"
     }
 
     bundle {
