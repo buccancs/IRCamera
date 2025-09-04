@@ -27,7 +27,7 @@ appsecretTopinfraredCn10 = "F4511AAA6C694E54A3676CF2345A4A8E"
 
 # Kotlin and Core
 kotlin = "1.8.22"
-agp = "8.3.2"
+agp = "8.11.0"
 androidxCore = "1.9.0"
 androidxAppcompat = "1.6.1"
 fragmentKtx = "1.5.5"
@@ -126,7 +126,7 @@ firebaseCrashlyticsGradle = "2.7.1"
 huaweiAgcp = "1.6.0.300"
 
 # Build Tools
-androidGradlePlugin = "8.3.2"
+androidGradlePlugin = "8.11.0"
 kotlinGradlePlugin = "1.8.22"
 
 [libraries]
