@@ -5,8 +5,6 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
 }
 
 val dayStr = SimpleDateFormat("yyMMdd", Locale.getDefault()).format(Date())
@@ -197,20 +195,9 @@ dependencies {
     implementation(libs.umeng.apm)
     implementation(libs.zoho.salesiq)
 
-    // Firebase - Production version only
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.crashlytics)
-    implementation(libs.firebase.analytics)
-    implementation(libs.firebase.messaging)
-    implementation(libs.firebase.iid)
+
 
     // UMeng - Google customized version
     implementation(files("libs/umeng-common-9.4.4+000.jar"))
 }
 
-// Fix Google Services task dependency issue for Gradle 8.0+
-tasks.whenTaskAdded {
-    if (name.contains("merge") && name.contains("Resources")) {
-        mustRunAfter(tasks.matching { it.name.contains("processGoogleServices") })
-    }
-}

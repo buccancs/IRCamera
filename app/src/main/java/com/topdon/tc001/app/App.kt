@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.elvishew.xlog.XLog
 import com.example.thermal_lite.IrConst
 import com.example.thermal_lite.util.CommonUtil
-import com.google.firebase.crashlytics.FirebaseCrashlytics
+
 import com.scwang.smart.refresh.header.MaterialHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.topdon.lib.core.BaseApplication
@@ -88,8 +88,7 @@ class App : BaseApplication() {
             UrlConstant.setBaseUrl("${HttpConfig.HOST}/", false)
             SharedManager.setBaseHost(UrlConstant.BASE_URL) //更新app服务地址
         }
-        // Enable Firebase Crashlytics for release builds
-        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true);
+
         CoroutineScope(Dispatchers.IO).launch {
             tau_data_H = CommonUtil.getAssetData(mContext, IrConst.TAU_HIGH_GAIN_ASSET_PATH)
             tau_data_L = CommonUtil.getAssetData(mContext, IrConst.TAU_LOW_GAIN_ASSET_PATH)

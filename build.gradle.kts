@@ -10,7 +10,6 @@ buildscript {
         maven { url = uri("https://www.jitpack.io") }
         // HMS repository for Huawei services
         maven { url = uri("https://developer.huawei.com/repo/") }
-        // FCM repository for Firebase Cloud Messaging
         maven { url = uri("https://maven.google.com") }
         maven { url = uri("https://repo1.maven.org/maven2/") }
         maven { url = uri("https://maven.zohodl.com") }
@@ -20,8 +19,6 @@ buildscript {
         classpath(libs.kotlin.gradle.plugin)
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-        classpath(libs.google.services)
-        classpath(libs.firebase.crashlytics.gradle)
         // HMS configuration for Huawei services
         classpath(libs.huawei.agconnect)
     }

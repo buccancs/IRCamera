@@ -106,9 +106,7 @@ wechatSdk = "6.8.0"
 umengApm = "1.9.0"
 zohoSalesiq = "7.0.0"
 
-# Firebase
-firebaseBom = "28.4.1"
-firebaseMessaging = "21.0.1"
+
 
 # UMeng - Updated to latest versions from Maven Central
 umengCommon = "9.8.8"
@@ -121,8 +119,8 @@ testExtJunit = "1.1.5"
 testEspressoCore = "3.5.1"
 
 # Google Services
-googleServices = "4.3.10"
-firebaseCrashlyticsGradle = "2.7.1"
+
+
 huaweiAgcp = "1.6.0.300"
 
 # Build Tools
@@ -233,12 +231,7 @@ wechat-sdk = { group = "com.tencent.mm.opensdk", name = "wechat-sdk-android", ve
 umeng-apm = { group = "com.umeng.umsdk", name = "apm", version.ref = "umengApm" }
 zoho-salesiq = { group = "com.zoho.salesiq", name = "mobilisten", version.ref = "zohoSalesiq" }
 
-# Firebase
-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
-firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
-firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
-firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging", version.ref = "firebaseMessaging" }
-firebase-iid = { group = "com.google.firebase", name = "firebase-iid" }
+
 
 # UMeng
 umeng-common = { group = "com.umeng.umsdk", name = "common", version.ref = "umengCommon" }
@@ -253,8 +246,8 @@ test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core",
 # Build Tools (for buildscript classpath)
 android-gradle-plugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlinGradlePlugin" }
-google-services = { group = "com.google.gms", name = "google-services", version.ref = "googleServices" }
-firebase-crashlytics-gradle = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "firebaseCrashlyticsGradle" }
+
+
 huawei-agconnect = { group = "com.huawei.agconnect", name = "agcp", version.ref = "huaweiAgcp" }
 
 [bundles]
@@ -264,7 +257,7 @@ rx-lifecycle-ktx = ["rxlifecycle-ktx", "rxlifecycle-android-lifecycle-ktx"]
 retrofit = ["retrofit2", "converter-gson", "adapter-rxjava2", "logging-interceptor"]
 smart-refresh = ["smart-refresh-layout", "smart-refresh-header"]
 smart-refresh-v2 = ["refresh-layout-kernel", "refresh-header-classics", "refresh-header-material"]
-firebase-core = ["firebase-crashlytics", "firebase-analytics", "firebase-messaging", "firebase-iid"]
+
 umeng = ["umeng-common", "umeng-asms", "umeng-analytics"]
 andromeda = ["andromeda-core", "andromeda-sense", "andromeda-views"]
 javacv-core = ["javacv", "javacpp"]
@@ -275,6 +268,5 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
-google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsGradle" }
+
 huawei-agconnect = { id = "com.huawei.agconnect", version.ref = "huaweiAgcp" }
