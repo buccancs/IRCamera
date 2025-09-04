@@ -6,7 +6,7 @@ import com.blankj.utilcode.util.BarUtils
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.ui.dialog.MonitorSelectDialog
-import com.topdon.libcom.navigation.NavigationManager
+import com.topdon.lib.core.navigation.NavigationManager
 import com.topdon.module.thermal.R
 import com.topdon.module.thermal.fragment.event.ThermalActionEvent
 import org.greenrobot.eventbus.EventBus

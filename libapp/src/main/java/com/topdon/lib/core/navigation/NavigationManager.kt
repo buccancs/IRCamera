@@ -107,7 +107,7 @@ object NavigationManager {
             RouterConfig.CONNECT -> getClassByName("com.topdon.module.thermal.activity.ConnectActivity")
             RouterConfig.VIDEO -> getClassByName("com.topdon.module.thermal.activity.VideoActivity")
             RouterConfig.MONITOR_CHART -> getClassByName("com.topdon.module.thermal.activity.MonitorChartActivity")
-            RouterConfig.LOG_MP_CHART -> getClassByName("com.topdon.module.thermal.activity.LogMpChartActivity")
+            RouterConfig.LOG_MP_CHART -> getClassByName("com.topdon.module.thermal.activity.LogMPChartActivity")
 
             // Thermal-lite routes
             RouterConfig.IR_TCLITE -> getClassByName("com.example.thermal_lite.activity.IRThermalLiteActivity")

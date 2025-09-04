@@ -57,8 +57,9 @@ dependencies {
     implementation(project(":libui"))
     implementation(project(":libmenu"))
     
-    implementation(libs.arouter.api)
-    kapt(libs.arouter.compiler)
+    // ARouter removed - now using NavigationManager instead
+    // implementation(libs.arouter.api)
+    // kapt(libs.arouter.compiler)
     
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
