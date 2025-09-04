@@ -76,30 +76,33 @@ class DetectAddActivity : BaseActivity(), View.OnClickListener {
     override fun initView() {
         editId = intent.getLongExtra(ExtraKeyConfig.DETECT_ID, 0)
 
-        title_view.setTitleText(if (editId > 0) R.string.edit_detection_report else R.string.add_detection_report)
-        title_view.setLeftClickListener { showExitTipsDialog() }
+        findViewById<com.topdon.lib.ui.widget.TitleView>(R.id.title_view)
+            .setTitleText(if (editId > 0) R.string.edit_detection_report else R.string.add_detection_report)
+        findViewById<com.topdon.lib.ui.widget.TitleView>(R.id.title_view)
+            .setLeftClickListener { showExitTipsDialog() }
 
-        tv_create_report.setText(if (editId > 0) R.string.person_save else R.string.create_report)
+        findViewById<android.widget.TextView>(R.id.tv_create_report)
+            .setText(if (editId > 0) R.string.person_save else R.string.create_report)
 
         viewModel.detectLD.observe(this) {
             houseDetect = it ?: return@observe
             inputDetectTime = houseDetect.detectTime
-            et_detect_name.setText(houseDetect.name)
-            et_inspector_name.setText(houseDetect.inspectorName)
-            tv_detect_time.text = TimeUtils.millis2String(houseDetect.detectTime, "yyyy-MM-dd HH:mm")
-            et_house_address.setText(houseDetect.address)
+            findViewById<android.widget.EditText>(R.id.et_detect_name).setText(houseDetect.name)
+            findViewById<android.widget.EditText>(R.id.et_inspector_name).setText(houseDetect.inspectorName)
+            findViewById<android.widget.TextView>(R.id.tv_detect_time).text = TimeUtils.millis2String(houseDetect.detectTime, "yyyy-MM-dd HH:mm")
+            findViewById<android.widget.EditText>(R.id.et_house_address).setText(houseDetect.address)
 
-            Glide.with(iv_house_image).load(houseDetect.imagePath).into(iv_house_image)
-            iv_house_image_camera.isVisible = false
-            tv_house_image_camera.isVisible = false
+            Glide.with(findViewById<android.widget.ImageView>(R.id.iv_house_image)).load(houseDetect.imagePath).into(findViewById<android.widget.ImageView>(R.id.iv_house_image))
+            findViewById<android.widget.ImageView>(R.id.iv_house_image_camera).isVisible = false
+            findViewById<android.widget.TextView>(R.id.tv_house_image_camera).isVisible = false
 
-            tv_house_year.text = houseDetect.year?.toString() ?: ""
+            findViewById<android.widget.TextView>(R.id.tv_house_year).text = houseDetect.year?.toString() ?: ""
 
-            et_house_space.setText(houseDetect.houseSpace)
-            tv_house_space_unit.text = resources.getStringArray(R.array.area)[houseDetect.houseSpaceUnit]
+            findViewById<android.widget.EditText>(R.id.et_house_space).setText(houseDetect.houseSpace)
+            findViewById<android.widget.TextView>(R.id.tv_house_space_unit).text = resources.getStringArray(R.array.area)[houseDetect.houseSpaceUnit]
 
-            et_cost.setText(houseDetect.cost)
-            tv_cost_unit.text = resources.getStringArray(R.array.currency)[houseDetect.costUnit]
+            findViewById<android.widget.EditText>(R.id.et_cost).setText(houseDetect.cost)
+            findViewById<android.widget.TextView>(R.id.tv_cost_unit).text = resources.getStringArray(R.array.currency)[houseDetect.costUnit]
         }
 
         if (editId > 0) {
@@ -107,25 +110,25 @@ class DetectAddActivity : BaseActivity(), View.OnClickListener {
         } else {
             houseDetect.houseSpaceUnit = SharedManager.houseSpaceUnit
             houseDetect.costUnit = SharedManager.costUnit
-            tv_house_space_unit.text = resources.getStringArray(R.array.area)[houseDetect.houseSpaceUnit]
-            tv_cost_unit.text = resources.getStringArray(R.array.currency)[houseDetect.costUnit]
+            findViewById<android.widget.TextView>(R.id.tv_house_space_unit).text = resources.getStringArray(R.array.area)[houseDetect.houseSpaceUnit]
+            findViewById<android.widget.TextView>(R.id.tv_cost_unit).text = resources.getStringArray(R.array.currency)[houseDetect.costUnit]
         }
 
 
-        tv_detect_time.setOnClickListener(this)
-        iv_address_location.setOnClickListener(this)
-        iv_house_image.setOnClickListener(this)
-        tv_house_year.setOnClickListener(this)
-        tv_house_space_unit.setOnClickListener(this)
-        tv_cost_unit.setOnClickListener(this)
-        tv_create_report.setOnClickListener(this)
+        findViewById<android.widget.TextView>(R.id.tv_detect_time).setOnClickListener(this)
+        findViewById<android.widget.ImageView>(R.id.iv_address_location).setOnClickListener(this)
+        findViewById<android.widget.ImageView>(R.id.iv_house_image).setOnClickListener(this)
+        findViewById<android.widget.TextView>(R.id.tv_house_year).setOnClickListener(this)
+        findViewById<android.widget.TextView>(R.id.tv_house_space_unit).setOnClickListener(this)
+        findViewById<android.widget.TextView>(R.id.tv_cost_unit).setOnClickListener(this)
+        findViewById<android.widget.TextView>(R.id.tv_create_report).setOnClickListener(this)
 
         // 给各个标题添加红色*号
-        tv_detect_name_title.text = SpanBuilder().appendColor("*", 0xffff4848.toInt()).append(getString(R.string.album_report_name))
-        tv_inspector_name_title.text = SpanBuilder().appendColor("*", 0xffff4848.toInt()).append(getString(R.string.inspector_name))
-        tv_detect_time_title.text = SpanBuilder().appendColor("*", 0xffff4848.toInt()).append(getString(R.string.detect_time))
-        tv_house_address_title.text = SpanBuilder().appendColor("*", 0xffff4848.toInt()).append(getString(R.string.house_detail_address))
-        tv_house_image_title.text = SpanBuilder().appendColor("*", 0xffff4848.toInt()).append(getString(R.string.house_image))
+        findViewById<android.widget.TextView>(R.id.tv_detect_name_title).text = SpanBuilder().appendColor("*", 0xffff4848.toInt()).append(getString(R.string.album_report_name))
+        findViewById<android.widget.TextView>(R.id.tv_inspector_name_title).text = SpanBuilder().appendColor("*", 0xffff4848.toInt()).append(getString(R.string.inspector_name))
+        findViewById<android.widget.TextView>(R.id.tv_detect_time_title).text = SpanBuilder().appendColor("*", 0xffff4848.toInt()).append(getString(R.string.detect_time))
+        findViewById<android.widget.TextView>(R.id.tv_house_address_title).text = SpanBuilder().appendColor("*", 0xffff4848.toInt()).append(getString(R.string.house_detail_address))
+        findViewById<android.widget.TextView>(R.id.tv_house_image_title).text = SpanBuilder().appendColor("*", 0xffff4848.toInt()).append(getString(R.string.house_image))
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {

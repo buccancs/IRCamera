@@ -244,11 +244,11 @@ class HouseDetectView : FrameLayout {
             dirView.tv_warn_count.text = dirDetect.getWarnCountStr()
             dirView.tv_danger_count.text = dirDetect.getDangerCountStr()
             if (dirDetect.isExpand) {
-                dirView.iv_triangle.setImageResource(R.drawable.svg_house_triangle_up)
-                dirView.view_bg_dir.setBackgroundResource(R.drawable.bg_corners10_top_solid_23202e)
+                dirView.findViewById<android.widget.ImageView>(R.id.iv_triangle).setImageResource(R.drawable.svg_house_triangle_up)
+                dirView.findViewById<View>(R.id.view_bg_dir).setBackgroundResource(R.drawable.bg_corners10_top_solid_23202e)
             } else {
-                dirView.iv_triangle.setImageResource(R.drawable.svg_house_triangle_down)
-                dirView.view_bg_dir.setBackgroundResource(R.drawable.bg_corners10_solid_23202e)
+                dirView.findViewById<android.widget.ImageView>(R.id.iv_triangle).setImageResource(R.drawable.svg_house_triangle_down)
+                dirView.findViewById<View>(R.id.view_bg_dir).setBackgroundResource(R.drawable.bg_corners10_solid_23202e)
             }
         }
 
@@ -534,7 +534,7 @@ class HouseDetectView : FrameLayout {
                 titleView.view_bg_dir.setBackgroundResource(R.drawable.bg_corners10_solid_23202e)
             }*/
             if (dataList[seeFirstPosition] is ItemDetect && dataList[seeFirstPosition + 1] is DirDetect) {
-                titleView.view_bg_dir.setBackgroundResource(R.drawable.bg_corners10_solid_23202e)
+                titleView.findViewById<View>(R.id.view_bg_dir).setBackgroundResource(R.drawable.bg_corners10_solid_23202e)
             }
 
 

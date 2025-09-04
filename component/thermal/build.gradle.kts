@@ -2,6 +2,7 @@ plugins {
     id("com.android.library")
     kotlin("android")
     kotlin("kapt")
+    id("kotlin-parcelize")
 }
 
 kapt {
@@ -47,6 +48,8 @@ android {
 
     buildFeatures {
         dataBinding = true
+        // Enable synthetic views for Kotlin backward compatibility
+        viewBinding = true
     }
 }
 

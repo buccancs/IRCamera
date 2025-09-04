@@ -29,7 +29,7 @@ class MonitorActivity : BaseActivity(), View.OnClickListener {
 
     override fun initView() {
         setTitleText(R.string.main_thermal_motion)
-        mToolBar!!.setBackgroundColor(blackColor)
+        mToolBar?.setBackgroundColor(blackColor)
         BarUtils.setStatusBarColor(this, blackColor)
         BarUtils.setNavBarColor(window, blackColor)
         findViewById<Button>(R.id.motion_log_btn).setOnClickListener(this)

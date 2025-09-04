@@ -41,6 +41,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+        isCoreLibraryDesugaringEnabled = true
     }
     
     kotlinOptions {
@@ -68,6 +69,9 @@ dependencies {
     implementation(libs.material)
     implementation(libs.utilcode)
     implementation(libs.glide)
+    
+    // Core library desugaring
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
     
     // Compass and sensor dependencies
     implementation(libs.andromeda.core)  // Using version from libs.versions.toml (16.0.1) from Maven Central

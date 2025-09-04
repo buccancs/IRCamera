@@ -2,6 +2,7 @@ plugins {
     id("com.android.library")
     kotlin("android")
     kotlin("kapt")
+    id("kotlin-parcelize")
 }
 
 kapt {
@@ -14,7 +15,7 @@ kapt {
 }
 
 android {
-    namespace = "com.topdon.component.house"
+    namespace = "com.topdon.house"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
