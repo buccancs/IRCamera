@@ -6,6 +6,8 @@ import android.graphics.BitmapFactory
 import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -28,6 +30,7 @@ import com.topdon.lib.core.common.UserInfoManager
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.db.AppDatabase
+import com.topdon.lib.core.R as RCore
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.socket.WebSocketProxy
@@ -67,23 +70,51 @@ class MineFragment : BaseFragment(), View.OnClickListener {
      * onResume() 阶段是否需要刷新登录状态相关 UI.
      */
     private var isNeedRefreshLogin = false
+    
+    // View references
+    private lateinit var ivWinter: ImageView
+    private lateinit var settingItemVersion: View
+    private lateinit var settingItemClear: View
+    private lateinit var settingUserLay: View
+    private lateinit var settingUserImgNight: ImageView
+    private lateinit var settingUserText: TextView
+    private lateinit var settingElectronicManual: View
+    private lateinit var settingFaq: View
+    private lateinit var settingFeedback: View
+    private lateinit var settingItemUnit: View
+    private lateinit var dragCustomerView: View
+    private lateinit var viewWinterPoint: View
 
     override fun initContentView(): Int = R.layout.fragment_mine
 
     override fun initView() {
-        iv_winter.setOnClickListener(this)
-        setting_item_version.setOnClickListener(this)
-        setting_item_clear.setOnClickListener(this)
-        setting_user_lay.setOnClickListener(this)
-        setting_user_img_night.setOnClickListener(this)
-        setting_user_text.setOnClickListener(this)
-        setting_electronic_manual.setOnClickListener(this)
-        setting_faq.setOnClickListener(this)
-        setting_feedback.setOnClickListener(this)
-        setting_item_unit.setOnClickListener(this)//温度单温
-        drag_customer_view.setOnClickListener(this)
+        // Initialize views
+        ivWinter = requireView().findViewById(R.id.ivWinter)
+        settingItemVersion = requireView().findViewById(R.id.settingItemVersion)
+        settingItemClear = requireView().findViewById(R.id.settingItemClear)
+        settingUserLay = requireView().findViewById(R.id.settingUserLay)
+        settingUserImgNight = requireView().findViewById(R.id.settingUserImgNight)
+        settingUserText = requireView().findViewById(R.id.settingUserText)
+        settingElectronicManual = requireView().findViewById(R.id.settingElectronicManual)
+        settingFaq = requireView().findViewById(R.id.settingFaq)
+        settingFeedback = requireView().findViewById(R.id.settingFeedback)
+        settingItemUnit = requireView().findViewById(R.id.settingItemUnit)
+        dragCustomerView = requireView().findViewById(R.id.dragCustomerView)
+        viewWinterPoint = requireView().findViewById(R.id.viewWinterPoint)
+        
+        ivWinter.setOnClickListener(this)
+        settingItemVersion.setOnClickListener(this)
+        settingItemClear.setOnClickListener(this)
+        settingUserLay.setOnClickListener(this)
+        settingUserImgNight.setOnClickListener(this)
+        settingUserText.setOnClickListener(this)
+        settingElectronicManual.setOnClickListener(this)
+        settingFaq.setOnClickListener(this)
+        settingFeedback.setOnClickListener(this)
+        settingItemUnit.setOnClickListener(this)//温度单温
+        dragCustomerView.setOnClickListener(this)
 
-        view_winter_point.isVisible = !SharedManager.hasClickWinter
+        viewWinterPoint.isVisible = !SharedManager.hasClickWinter
 
         if (BaseApplication.instance.isDomestic()) {//国内版
             // Language selection removed - English only
@@ -109,7 +140,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onWinterClick(event: WinterClickEvent) {
-        view_winter_point.isVisible = false
+        viewWinterPoint.isVisible = false
     }
 
     override fun onResume() {
@@ -126,8 +157,8 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            iv_winter -> {//冬季特辑入口
-                view_winter_point.isVisible = false
+            ivWinter -> {//冬季特辑入口
+                viewWinterPoint.isVisible = false
                 SharedManager.hasClickWinter = true
                 EventBus.getDefault().post(WinterClickEvent())
 
@@ -143,7 +174,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     .withString(ExtraKeyConfig.URL, url)
                     .navigation(requireContext())
             }
-            setting_user_lay, setting_user_img_night -> {
+            settingUserLay, settingUserImgNight -> {
                 if (UserInfoManager.getInstance().isLogin()) {
                     isNeedRefreshLogin = true
                     LMS.getInstance().activityUserInfo()
@@ -151,18 +182,18 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     loginAction()
                 }
             }
-            setting_user_text -> {
+            settingUserText -> {
                 if (!LMS.getInstance().isLogin) {
                     loginAction()
                 }
             }
-            setting_electronic_manual -> {//电子说明书
+            settingElectronicManual -> {//电子说明书
                 NavigationManager.getInstance().build(RouterConfig.ELECTRONIC_MANUAL).withInt(Constants.SETTING_TYPE, Constants.SETTING_BOOK).navigation(requireContext())
             }
-            setting_faq -> {//FAQ
+            settingFaq -> {//FAQ
                 NavigationManager.getInstance().build(RouterConfig.ELECTRONIC_MANUAL).withInt(Constants.SETTING_TYPE, Constants.SETTING_FAQ).navigation(requireContext())
             }
-            setting_feedback -> {//意见反馈
+            settingFeedback -> {//意见反馈
                 if (LMS.getInstance().isLogin) {
                     val devSn = SharedManager.getDeviceSn()
                     FeedBackBean().apply {
@@ -179,16 +210,16 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     loginAction()
                 }
             }
-            setting_item_unit -> {//温度单位
+            settingItemUnit -> {//温度单位
                 NavigationManager.getInstance().build(RouterConfig.UNIT).navigation(requireContext())
             }
-            setting_item_version -> {//版本
+            settingItemVersion -> {//版本
                 NavigationManager.getInstance().build(RouterConfig.VERSION).navigation(requireContext())
             }
-            setting_item_clear -> {//清除缓存，实际已隐藏
+            settingItemClear -> {//清除缓存，实际已隐藏
                 clearCache()
             }
-            drag_customer_view -> {//客服
+            dragCustomerView -> {//客服
 //                ActivityUtil.goSystemCustomer(requireContext())
                 val sn = SharedManager.getDeviceSn()
                 if (!TextUtils.isEmpty(sn)) {
@@ -233,31 +264,31 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             //登录失败
             XLog.e(" 登录失败")
             changeLoginStyle()
-            setting_user_img_night.setImageResource(R.mipmap.ic_default_user_head)//恢复默认头像
+            settingUserImgNight.setImageResource(R.mipmap.ic_default_user_head)//恢复默认头像
         }
     }
 
     private fun changeLoginStyle() {
         if (LMS.getInstance().isLogin) {
             val layoutParams = ConstraintLayout.LayoutParams(0, ConstraintLayout.LayoutParams.WRAP_CONTENT)
-            layoutParams.startToEnd = R.id.setting_user_img_night
+            layoutParams.startToEnd = R.id.settingUserImgNight
             layoutParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
             layoutParams.topToTop = ConstraintLayout.LayoutParams.PARENT_ID
             layoutParams.marginStart = SizeUtils.dp2px(16f)
             layoutParams.marginEnd = SizeUtils.dp2px(16f)
-            setting_user_text.setPadding(0,0,0,0)
-            setting_user_text.gravity = Gravity.LEFT
-            setting_user_text.layoutParams = layoutParams
+            settingUserText.setPadding(0,0,0,0)
+            settingUserText.gravity = Gravity.LEFT
+            settingUserText.layoutParams = layoutParams
             val drawable = ContextCompat.getDrawable(requireContext(), R.color.transparent)
             drawable!!.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
-            setting_user_text.setCompoundDrawables(null, null, drawable, null)
-            setting_user_text.text = SharedManager.getNickname()
+            settingUserText.setCompoundDrawables(null, null, drawable, null)
+            settingUserText.text = SharedManager.getNickname()
             tv_email.text = SharedManager.getUsername()
-            setting_user_lay.visibility = View.VISIBLE
+            settingUserLay.visibility = View.VISIBLE
 
-            if (setting_user_img_night != null) {
+            if (settingUserImgNight != null) {
                 GlideLoader.loadCircle(
-                    setting_user_img_night,
+                    settingUserImgNight,
                     SharedManager.getHeadIcon(),
                     R.mipmap.ic_default_user_head,
                     RequestOptions().optionalCircleCrop()
@@ -265,21 +296,21 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             }
         } else {
             val layoutParams = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT)
-            layoutParams.startToEnd = R.id.setting_user_img_night
-            layoutParams.topToTop = R.id.setting_user_img_night
-            layoutParams.bottomToBottom = R.id.setting_user_img_night
-            setting_user_text.setPadding(SizeUtils.dp2px(16f), SizeUtils.dp2px(16f), SizeUtils.dp2px(16f), SizeUtils.dp2px(16f))
-            setting_user_text.gravity = Gravity.CENTER
-            setting_user_text.layoutParams = layoutParams
-            setting_user_text.setText(
+            layoutParams.startToEnd = R.id.settingUserImgNight
+            layoutParams.topToTop = R.id.settingUserImgNight
+            layoutParams.bottomToBottom = R.id.settingUserImgNight
+            settingUserText.setPadding(SizeUtils.dp2px(16f), SizeUtils.dp2px(16f), SizeUtils.dp2px(16f), SizeUtils.dp2px(16f))
+            settingUserText.gravity = Gravity.CENTER
+            settingUserText.layoutParams = layoutParams
+            settingUserText.setText(
                 AppLanguageUtils.attachBaseContext(
-                context, ConstantLanguages.ENGLISH).getString(R.string.app_sign_in))
+                context, ConstantLanguages.ENGLISH).getString(RCore.string.app_sign_in))
             val drawable = ContextCompat.getDrawable(requireContext(), R.mipmap.ic_arrow_login)
             drawable!!.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
-            setting_user_text.setCompoundDrawables(null, null, drawable, null)
-            setting_user_lay.visibility = View.GONE
+            settingUserText.setCompoundDrawables(null, null, drawable, null)
+            settingUserLay.visibility = View.GONE
             tv_email.text = ""
-            setting_user_img_night.setImageResource(R.mipmap.ic_default_user_head)//恢复默认头像
+            settingUserImgNight.setImageResource(R.mipmap.ic_default_user_head)//恢复默认头像
         }
     }
 
@@ -301,7 +332,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             dismissLoadingDialog()
             delay(50)
             TipDialog.Builder(requireContext())
-                .setMessage(R.string.clear_finish)
+                .setMessage(RCore.string.clear_finish)
                 .setCanceled(true)
                 .create().show()
 

@@ -9,9 +9,10 @@ import com.topdon.lib.core.repository.*
 import com.topdon.lib.core.socket.SocketCmdUtil
 import com.topdon.lib.core.utils.WsCmdConstants
 import com.topdon.lib.core.view.TitleView
-import com.topdon.lib.core.view.SettingItemView
+import androidx.appcompat.widget.SwitchCompat
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.user.R
+import com.topdon.lib.core.R as RCore
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -23,7 +24,7 @@ class TISRActivity : BaseActivity(){
     
     // View references - migrated from synthetic views
     private lateinit var titleView: TitleView
-    private lateinit var settingItemTisrSelect: SettingItemView
+    private lateinit var settingItemTisrSelect: SwitchCompat
     
     override fun initContentView() = R.layout.activity_tisr
 
@@ -48,7 +49,7 @@ class TISRActivity : BaseActivity(){
                 settingItemTisrSelect.isChecked = isTISR
                 SharedManager.is04TISR = isTISR
             }else{
-                TToast.shortToast(this@TISRActivity, R.string.operation_failed_tips)
+                TToast.shortToast(this@TISRActivity, RCore.string.operation_failed_tips)
             }
         }
     }
@@ -58,7 +59,7 @@ class TISRActivity : BaseActivity(){
             val isSuccess= TS004Repository.setTISR(state)
             if(isSuccess){
             }else{
-                TToast.shortToast(this@TISRActivity, R.string.operation_failed_tips)
+                TToast.shortToast(this@TISRActivity, RCore.string.operation_failed_tips)
             }
         }
     }
@@ -73,7 +74,7 @@ class TISRActivity : BaseActivity(){
                         val data: JSONObject = JSONObject(event.text).getJSONObject("data")
                         val state: Int = data.getInt("state")
                         val isTISR = state == 1
-                        setting_item_tisr_select.isChecked = isTISR
+                        settingItemTisrSelect.isChecked = isTISR
                         SharedManager.is04TISR = isTISR
                     }
                 } catch (_: Exception) {

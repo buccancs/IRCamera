@@ -11,11 +11,12 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.repository.TS004Repository
-import com.topdon.lib.core.view.ListItemView
-import com.topdon.lib.core.view.CustomProgressView
+import com.topdon.module.user.view.ListItemView
+import com.topdon.module.user.view.ProgressBarView
 import com.topdon.lms.sdk.utils.TLog
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.user.R
+import com.topdon.lib.core.R as RCore
 import com.topdon.module.user.bean.ColorsBean
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -34,7 +35,7 @@ class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
     private lateinit var listStoragePhoto: ListItemView
     private lateinit var listStorageVideo: ListItemView
     private lateinit var listStorageSystem: ListItemView
-    private lateinit var customViewProgress: CustomProgressView
+    private lateinit var customViewProgress: ProgressBarView
 
     companion object {
         private fun formatFileSize(fileSize: Long): String = if (fileSize == 0L) {
@@ -83,7 +84,7 @@ class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
         lifecycleScope.launch {
             val freeSpaceBean = TS004Repository.getFreeSpace()
             if (freeSpaceBean == null) {
-                TToast.shortToast(this@StorageSpaceActivity, R.string.operation_failed_tips)
+                TToast.shortToast(this@StorageSpaceActivity, RCore.string.operation_failed_tips)
             } else {
                 TLog.d("ts004", "║ response :$freeSpaceBean")
 
@@ -114,10 +115,10 @@ class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
         when (v) {
             tvFormatStorage -> {//格式化存储
                 TipDialog.Builder(this@StorageSpaceActivity)
-                    .setTitleMessage(getString(R.string.more_storage_reset))
-                    .setMessage(getString(R.string.more_storage_reset1))
+                    .setTitleMessage(getString(RCore.string.more_storage_reset))
+                    .setMessage(getString(RCore.string.more_storage_reset1))
                     .setShowRestartTops(true)
-                    .setPositiveListener(R.string.app_ok) {
+                    .setPositiveListener(RCore.string.app_ok) {
                         showLoadingDialog()
                         lifecycleScope.launch {
                             val isSuccess = TS004Repository.getFormatStorage()
@@ -129,11 +130,11 @@ class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
                             } else {
                                 delay(500)
                                 dismissLoadingDialog()
-                                TToast.shortToast(this@StorageSpaceActivity, R.string.operation_failed_tips)
+                                TToast.shortToast(this@StorageSpaceActivity, RCore.string.operation_failed_tips)
                             }
                         }
                     }
-                    .setCancelListener(R.string.app_cancel) {
+                    .setCancelListener(RCore.string.app_cancel) {
                     }
                     .setCanceled(true)
                     .create().show()
