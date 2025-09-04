@@ -50,8 +50,8 @@ object Deps {
     const val logging_interceptor = "com.squareup.okhttp3:logging-interceptor:4.9.0"
     const val colorpickerview = "com.github.skydoves:colorpickerview:2.2.4"
     const val MNImageBrowser = "com.github.maning0303:MNImageBrowser:V1.3.7"
-    const val compass_sense = "com.github.kylecorry31.andromeda:sense:6.2.0"//指南针
-    const val compass_core = "com.github.kylecorry31.andromeda:core:6.2.0"//指南针
+    const val compass_sense = "com.kylecorry.andromeda:sense:16.0.1"//指南针
+    const val compass_core = "com.kylecorry.andromeda:core:16.0.1"//指南针
     const val nifty = "io.github.litao0621:nifty-slider:1.4.6"
     const val nifty_effect = "io.github.litao0621:nifty-slider-effect:1.4.6"
 
