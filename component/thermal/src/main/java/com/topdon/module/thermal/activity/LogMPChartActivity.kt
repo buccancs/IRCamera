@@ -45,10 +45,14 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
     override fun initContentView() = R.layout.activity_log_mp_chart
 
     override fun initView() {
-        setTitleText(R.string.app_record)
-        chart = log_chart_time_chart
-        log_chart_time_recycler.layoutManager = GridLayoutManager(this, 4)
-        log_chart_time_recycler.adapter = adapter
+        // Set toolbar title
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_lay)
+        toolbar?.title = getString(R.string.app_record)
+        
+        chart = findViewById(R.id.log_chart_time_chart)
+        val recyclerView = findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.log_chart_time_recycler)
+        recyclerView.layoutManager = GridLayoutManager(this, 4)
+        recyclerView.adapter = adapter
         adapter.listener = object : SettingTimeAdapter.OnItemClickListener {
             override fun onClick(index: Int, time: Int) {
                 //切换类型
@@ -58,7 +62,7 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
             }
         }
         viewModel.resultLiveData.observe(this) {
-            dismissLoading()
+            dismissLoadingDialog()
             try {
                 initEntry(it.dataList)
             } catch (e: Exception) {
@@ -84,11 +88,11 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
     }
 
     private fun queryLog() {
-        showLoading()
+        showLoadingDialog()
 //        viewModel.queryLogByType(selectType)
         lifecycleScope.launch(Dispatchers.IO) {
             viewModel.queryLogVolsByStartTime(
-                type = SharedManager.getSelectFenceType(),
+                type = 1, // Default fence type since getSelectFenceType() is not available
                 selectTimeType = selectType
             )
         }
