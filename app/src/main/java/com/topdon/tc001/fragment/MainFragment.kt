@@ -162,7 +162,6 @@ class MainFragment : BaseFragment(), View.OnClickListener {
     override fun onSocketDisConnected(isTS004: Boolean) {
         // TC001 uses USB connection, no socket disconnection handling needed
     }
-    }
 
     override fun onClick(v: View?) {
         when (v) {
