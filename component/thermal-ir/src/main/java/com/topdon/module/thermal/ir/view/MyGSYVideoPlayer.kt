@@ -2,6 +2,9 @@ package com.topdon.module.thermal.ir.view
 
 import android.content.Context
 import android.util.AttributeSet
+import android.widget.ImageView
+import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+import com.topdon.module.thermal.ir.R
 
 /**
  * 魔改 StandardGSYVideoPlayer.
@@ -10,12 +13,6 @@ import android.util.AttributeSet
  *
  * Created by chenggeng.lin on 2023/12/8.
  */
-
-// TODO: Fix missing StandardGSYVideoPlayer dependency - class disabled until dependency is available
-/*
-Original implementation requires StandardGSYVideoPlayer which is not available.
-Commenting out until the dependency is properly resolved.
-
 class MyGSYVideoPlayer : StandardGSYVideoPlayer {
 
     override fun getLayoutId(): Int = R.layout.view_my_gsy_video_player
@@ -35,7 +32,3 @@ class MyGSYVideoPlayer : StandardGSYVideoPlayer {
         }
     }
 }
-*/
-
-// Placeholder class to prevent compilation errors
-class MyGSYVideoPlayer(context: Context, attrs: AttributeSet? = null)

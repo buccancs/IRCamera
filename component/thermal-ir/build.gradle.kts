@@ -76,4 +76,7 @@ dependencies {
     // Compass and sensor dependencies
     implementation(libs.andromeda.core)  // Using version from libs.versions.toml (16.0.1) from Maven Central
     implementation(libs.andromeda.sense)  // Using version from libs.versions.toml (16.0.1) from Maven Central
+    
+    // GSY VideoPlayer for MyGSYVideoPlayer
+    implementation(libs.gsy.video.player)
 }

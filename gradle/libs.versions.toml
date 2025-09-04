@@ -38,7 +38,7 @@ multidex = "2.0.1"
 lifecycle = "2.7.0"
 
 # Room
-room = "2.5.2"
+room = "2.6.1"
 
 # Work Manager
 work = "2.9.0"
@@ -80,6 +80,10 @@ nifty = "2.4.0"
 # Image Loading
 glide = "4.15.1"
 mnImageBrowser = "V3.1.2X"
+gsyVideoPlayer = "8.6.0-release-jitpack"
+
+# OpenGL
+opengl = "2.0.0"
 
 # Utils
 utilcode = "1.31.1"
@@ -196,6 +200,10 @@ nifty = { group = "com.nineoldandroids", name = "library", version.ref = "nifty"
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide" }
 mn-image-browser = { group = "com.github.maning0303", name = "MNImageBrowser", version.ref = "mnImageBrowser" }
+gsy-video-player = { group = "com.github.CarGuo", name = "GSYVideoPlayer", version.ref = "gsyVideoPlayer" }
+
+# OpenGL
+opengl-android = { group = "org.khronos", name = "opengl-api", version.ref = "opengl" }
 
 # Utils
 utilcode = { group = "com.blankj", name = "utilcodex", version.ref = "utilcode" }
