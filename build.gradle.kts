@@ -1,10 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     repositories {
-        maven { url = uri("https://maven.aliyun.com/repository/gradle-plugin") }
-        maven { url = uri("https://maven.aliyun.com/repository/central") }
-        maven { url = uri("https://maven.aliyun.com/repository/public") }
-        maven { url = uri("https://maven.aliyun.com/repository/google") }
         google()
         mavenCentral()
         maven { url = uri("https://www.jitpack.io") }
@@ -13,6 +9,11 @@ buildscript {
         maven { url = uri("https://maven.google.com") }
         maven { url = uri("https://repo1.maven.org/maven2/") }
         maven { url = uri("https://maven.zohodl.com") }
+        // Aliyun repositories as fallback
+        maven { url = uri("https://maven.aliyun.com/repository/gradle-plugin") }
+        maven { url = uri("https://maven.aliyun.com/repository/central") }
+        maven { url = uri("https://maven.aliyun.com/repository/public") }
+        maven { url = uri("https://maven.aliyun.com/repository/google") }
     }
     dependencies {
         classpath(libs.android.gradle.plugin)

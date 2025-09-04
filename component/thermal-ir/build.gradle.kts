@@ -70,7 +70,7 @@ dependencies {
     implementation(libs.utilcode)
     implementation(libs.glide)
     
-    // Compass and sensor dependencies - restored with compatible versions
-    implementation(libs.andromeda.core)  // Using stable version 15.3.0 from Maven Central
-    implementation(libs.andromeda.sense)  // Using stable version 15.3.0 from Maven Central
+    // Compass and sensor dependencies
+    implementation(libs.andromeda.core)  // Using version from libs.versions.toml (16.0.1) from Maven Central
+    implementation(libs.andromeda.sense)  // Using version from libs.versions.toml (16.0.1) from Maven Central
 }
