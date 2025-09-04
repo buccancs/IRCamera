@@ -116,4 +116,6 @@ dependencies {
 
     // Note: LMS AAR dependencies moved to app module due to Gradle limitation
     // Library modules cannot include AAR file dependencies
+    // Adding LMS as compileOnly dependency for compilation, app module provides the actual implementation
+    compileOnly files('../app/libs/lms_international-3.90.009.0.aar')
 }

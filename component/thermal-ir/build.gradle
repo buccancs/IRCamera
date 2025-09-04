@@ -68,4 +68,7 @@ dependencies {
     implementation "com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v8.1.4"
     implementation "com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-exo_player2:v8.1.4"
     implementation "com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-armv64:v8.1.4"
+    
+    // Add compileOnly LMS dependency for compilation
+    compileOnly files('../../app/libs/lms_international-3.90.009.0.aar')
 }

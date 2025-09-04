@@ -39,5 +39,7 @@ dependencies {
     implementation project(':libui')
     kapt libs.arouter.compiler
     implementation 'com.zoho.salesiq:mobilisten:7.0.0'
-
+    
+    // Add compileOnly LMS dependency for compilation
+    compileOnly files('../../app/libs/lms_international-3.90.009.0.aar')
 }

@@ -52,7 +52,9 @@ dependencies {
     implementation(name: 'opengl_1.3.2_standard', ext: 'aar')
     api 'com.conghuahuadan:superlayout:1.1.0'
     implementation project(':libapp')
-    api files('../app/libs/libcommon_1.2.0_24052117.aar')
+    // Note: Removed local AAR dependency to avoid build errors in library modules
+    // AAR dependencies are provided by the app module
+    compileOnly files('../app/libs/libcommon_1.2.0_24052117.aar')
     api(name: 'suplib-release', ext: 'aar')
     api(name: 'ai-upscale-release', ext: 'aar')
 }
