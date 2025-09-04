@@ -45,7 +45,6 @@ android {
     }
 
     buildFeatures {
-        viewBinding = true
         dataBinding = true
     }
 
@@ -72,4 +71,5 @@ dependencies {
     implementation(libs.material)
     implementation(libs.utilcode)
     implementation(libs.glide)
+    implementation(libs.mn.image.browser)
 }

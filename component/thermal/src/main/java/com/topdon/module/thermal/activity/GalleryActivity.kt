@@ -17,19 +17,24 @@ class GalleryActivity : BaseActivity() {
 
 //    override fun providerVMClass() = GalleryViewModel::class.java
 
-    private val permissionList by lazy{
+    private val permissionList by lazy {
         if (this.applicationInfo.targetSdkVersion >= 34){
             listOf(
-                Permission.READ_MEDIA_VIDEO,
-                Permission.READ_MEDIA_IMAGES,
-                Permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_MEDIA_VIDEO,
+                Manifest.permission.READ_MEDIA_IMAGES,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
             )
         } else if (this.applicationInfo.targetSdkVersion >= 33){
-            mutableListOf(Permission.READ_MEDIA_VIDEO,
-                Permission.READ_MEDIA_IMAGES,
-                Permission.WRITE_EXTERNAL_STORAGE)
-        }else{
-            mutableListOf(Permission.READ_EXTERNAL_STORAGE,Permission.WRITE_EXTERNAL_STORAGE)
+            mutableListOf(
+                Manifest.permission.READ_MEDIA_VIDEO,
+                Manifest.permission.READ_MEDIA_IMAGES,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+        } else {
+            mutableListOf(
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
         }
     }
 

@@ -1,9 +1,5 @@
 package com.topdon.module.thermal.tools
 
-// TODO: Restore when imagebrowserlibrary dependency is available
-// This class is temporarily commented out due to missing dependency: com.maning.imagebrowserlibrary.ImageEngine
-
-/*
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
@@ -34,8 +30,6 @@ class GlideImageEngine : ImageEngine {
             .load(url)
             .apply(option)
             .fitCenter()
-            .placeholder(R.drawable.ic_default_head_svg)
-            .error(R.drawable.ic_default_head_svg)
             .listener(BitmapRequestListener())
             .into(imageView)
     }
@@ -83,4 +77,3 @@ class GlideImageEngine : ImageEngine {
 
     }
 }
-*/

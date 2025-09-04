@@ -79,6 +79,7 @@ nifty = "2.4.0"
 
 # Image Loading
 glide = "4.15.1"
+mnImageBrowser = "V3.1.2X"
 
 # Utils
 utilcode = "1.31.1"
@@ -194,6 +195,7 @@ nifty = { group = "com.nineoldandroids", name = "library", version.ref = "nifty"
 # Image Loading
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide" }
+mn-image-browser = { group = "com.github.maning0303", name = "MNImageBrowser", version.ref = "mnImageBrowser" }
 
 # Utils
 utilcode = { group = "com.blankj", name = "utilcodex", version.ref = "utilcode" }

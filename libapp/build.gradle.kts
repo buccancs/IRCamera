@@ -118,7 +118,6 @@ dependencies {
 
     api(libs.logging.interceptor)
     api(libs.colorpickerview)
-    // api(libs.MNImageBrowser) // Temporary comment out
     api(libs.nifty)
     // api(libs.nifty.effect) // Temporary comment out
 
