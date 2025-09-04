@@ -188,6 +188,7 @@ dependencies {
     implementation(libs.fastjson)
     implementation(libs.ucrop)
     implementation(libs.play.app.update)
+    implementation(libs.immersionbar)
     implementation(libs.xpopup)
     implementation(libs.smart.refresh.layout)
     implementation(libs.smart.refresh.header)

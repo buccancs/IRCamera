@@ -26,7 +26,7 @@ appsecretTopinfraredCn = "9D33C48FD7CE4440B7D922FBF9B6DE2A"
 appsecretTopinfraredCn10 = "F4511AAA6C694E54A3676CF2345A4A8E"
 
 # Kotlin and Core
-kotlin = "1.9.24"
+kotlin = "2.1.0"
 agp = "8.11.0"
 androidxCore = "1.12.0"
 androidxAppcompat = "1.6.1"
@@ -67,6 +67,7 @@ rxlifecycle3 = "3.1.0"
 # UI Libraries
 ucrop = "2.2.8"
 playAppUpdate = "2.1.0"
+immersionbar = "3.2.2"
 xpopup = "2.10.0"
 smartRefreshLayout = "1.1.3"
 smartRefreshLayoutV2 = "2.0.6"
@@ -123,7 +124,7 @@ huaweiAgcp = "1.6.0.300"
 
 # Build Tools
 androidGradlePlugin = "8.11.0"
-kotlinGradlePlugin = "1.9.24"
+kotlinGradlePlugin = "2.1.0"
 desugarJdkLibs = "2.1.5"
 
 [libraries]
@@ -178,6 +179,7 @@ rxlifecycle-android-lifecycle-ktx = { group = "com.trello.rxlifecycle3", name = 
 # UI Libraries
 ucrop = { group = "com.github.yalantis", name = "ucrop", version.ref = "ucrop" }
 play-app-update = { group = "com.google.android.play", name = "app-update", version.ref = "playAppUpdate" }
+immersionbar = { group = "com.geyifeng.immersionbar", name = "immersionbar", version.ref = "immersionbar" }
 xpopup = { group = "com.github.li-xiaojun", name = "XPopup", version.ref = "xpopup" }
 smart-refresh-layout = { group = "com.scwang.smartrefresh", name = "SmartRefreshLayout", version.ref = "smartRefreshLayout" }
 smart-refresh-header = { group = "com.scwang.smartrefresh", name = "SmartRefreshHeader", version.ref = "smartRefreshLayout" }
