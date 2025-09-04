@@ -1,10 +1,10 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'kotlin-android-extensions'
 }
 
 android {
-
     namespace 'com.energy.commoncomponent'
     compileSdk rootProject.ext.android.compileSdk
 
@@ -13,6 +13,7 @@ android {
         targetSdk rootProject.ext.android.targetSdk
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
 
         // 生成包含指定平台的so库的apk
         ndk {
@@ -48,20 +49,18 @@ android {
 
     buildFeatures {
         viewBinding true
+        dataBinding = true
     }
-
-    dataBinding {
-        enabled = true
-    }
-
 }
 
 dependencies {
+    // AndroidX core dependencies
     implementation libs.androidx.appcompat
     implementation libs.material
     implementation libs.androidx.multidex
     implementation libs.utilcode
 
+    // AndroidX lifecycle dependencies
     implementation libs.androidx.lifecycle.runtime.ktx
     implementation libs.androidx.lifecycle.viewmodel.ktx
     implementation libs.androidx.lifecycle.livedata.ktx

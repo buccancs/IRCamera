@@ -44,4 +44,5 @@
             android:launchMode="singleTop"
             android:screenOrientation="userPortrait" />
     </application>
+    
 </manifest>
