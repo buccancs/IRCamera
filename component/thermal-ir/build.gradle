@@ -38,6 +38,18 @@ android {
     buildFeatures{
         dataBinding = true
     }
+    
+    // Configurations to handle ExoPlayer mixed AndroidX/support library issue
+    configurations.all {
+        resolutionStrategy {
+            // Force use the latest ExoPlayer versions to minimize jetifier issues
+            force 'com.google.android.exoplayer:exoplayer-ui:2.19.1'
+            force 'com.google.android.exoplayer:exoplayer-core:2.19.1'
+            force 'com.google.android.exoplayer:exoplayer-dash:2.19.1'
+            force 'com.google.android.exoplayer:exoplayer-hls:2.19.1'
+            force 'com.google.android.exoplayer:exoplayer-smoothstreaming:2.19.1'
+        }
+    }
 }
 
 dependencies {
@@ -60,10 +72,21 @@ dependencies {
     api libs.andromeda.sense
     api libs.andromeda.core
 
-    // gsy player
-    implementation "com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v8.1.4"
-    implementation "com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-exo_player2:v8.1.4"
-    implementation "com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-armv64:v8.1.4"
+    // gsy player - exclude all ExoPlayer modules to avoid version conflicts
+    implementation("com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v8.1.4") {
+        exclude group: 'com.google.android.exoplayer'
+    }
+    implementation("com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-exo_player2:v8.1.4") {
+        exclude group: 'com.google.android.exoplayer'
+    }
+    implementation("com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-armv64:v8.1.4")
+    
+    // Add the ExoPlayer dependencies that GSYVideoPlayer needs, but with consistent versions
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.19.1'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.19.1'
+    implementation 'com.google.android.exoplayer:exoplayer-dash:2.19.1'
+    implementation 'com.google.android.exoplayer:exoplayer-hls:2.19.1'
+    implementation 'com.google.android.exoplayer:exoplayer-smoothstreaming:2.19.1'
     
     // Add compileOnly LMS dependency for compilation
     compileOnly files('../../app/libs/lms_international-3.90.009.0.aar')
