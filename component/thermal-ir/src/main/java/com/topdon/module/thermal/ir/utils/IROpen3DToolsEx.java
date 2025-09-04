@@ -18,11 +18,13 @@ import static org.opencv.imgproc.Imgproc.cvtColor;
  * @author: CaiSongL
  * @date: 2023/10/26 19:58
  */
-public class IROpen3DToolsEx  extends IROpen3DTools {
+// TODO: Fix missing IROpen3DTools dependency
+// public class IROpen3DToolsEx  extends IROpen3DTools {
+public class IROpen3DToolsEx {
 
     private Mat img ;
 
-    @Override
+    // @Override
     public void init(byte[] image_, int type) {
         long time = System.currentTimeMillis();
         rws = 192;

@@ -43,7 +43,9 @@ class GalleryActivity : BaseActivity() {
     override fun initContentView() = R.layout.activity_gallery
 
     override fun initView() {
-        setTitleText(getString(R.string.gallery))
+        // Set toolbar title
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_lay)
+        toolbar?.title = getString(R.string.gallery)
         
         // Use findViewById instead of synthetic views for Kotlin 2.1.0 compatibility
         val galleryViewPager = findViewById<ViewPager>(R.id.gallery_viewpager)
@@ -52,10 +54,11 @@ class GalleryActivity : BaseActivity() {
         galleryViewPager.adapter = ViewAdapter(this, supportFragmentManager)
         galleryTab.setupWithViewPager(galleryViewPager)
 
-        mRxPermissions!!.request( permissionList)
-            .subscribe {
-
-            }
+        // TODO: Replace with modern permission handling if needed
+        // mRxPermissions!!.request( permissionList)
+        //     .subscribe {
+        // 
+        //     }
     }
 
     override fun initData() {

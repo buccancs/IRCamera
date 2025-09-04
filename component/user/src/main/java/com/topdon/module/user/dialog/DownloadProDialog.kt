@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.topdon.lib.core.utils.ScreenUtil
+import com.topdon.lib.core.R as LibAppR
 import com.topdon.module.user.R
 import com.topdon.lib.core.R as RCore
 import java.text.DecimalFormat
@@ -15,7 +16,7 @@ import java.text.DecimalFormat
  * 下载进度提示弹框.
  * Created by LCG on 2024/3/5.
  */
-class DownloadProDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
+class DownloadProDialog(context: Context) : Dialog(context, LibAppR.style.InfoDialog) {
 
     private val rootView: View = LayoutInflater.from(context).inflate(R.layout.dialog_download_pro, null)
 
