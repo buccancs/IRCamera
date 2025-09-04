@@ -7,7 +7,7 @@ plugins {
 
 kapt {
     arguments {
-        arg("AROUTER_MODULE_NAME", project.name)
+        // arg("AROUTER_MODULE_NAME", project.name)  // Removed for NavigationManager migration
     }
 }
 
@@ -80,8 +80,8 @@ dependencies {
     implementation(project(":libui"))
     implementation(project(":libmenu"))
     
-    // ARouter compiler - re-enabled after findViewById migration completion
-    kapt(libs.arouter.compiler)
+    // ARouter compiler - removed as part of NavigationManager migration
+    // kapt(libs.arouter.compiler)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

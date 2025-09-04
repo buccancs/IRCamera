@@ -1308,10 +1308,10 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                         videoTimeClose()
                         delay(500)
                     }
-                    ARouter.getInstance()
+                    NavigationManager.getInstance()
                         .build(RouterConfig.IR_GALLERY_HOME)
                         .withInt(ExtraKeyConfig.DIR_TYPE, GalleryRepository.DirType.LINE.ordinal)
-                        .navigation()
+                        .navigation(this)
                 }
             }
             2 -> {//更多菜单
