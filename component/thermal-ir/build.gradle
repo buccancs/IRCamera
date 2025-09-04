@@ -38,6 +38,15 @@ android {
     buildFeatures{
         dataBinding = true
     }
+    
+    // Configurations to handle ExoPlayer mixed AndroidX/support library issue
+    configurations.all {
+        resolutionStrategy {
+            // Force use the latest ExoPlayer versions to minimize jetifier issues
+            force 'com.google.android.exoplayer:exoplayer-ui:2.19.1'
+            force 'com.google.android.exoplayer:exoplayer-core:2.19.1'
+        }
+    }
 }
 
 dependencies {
@@ -60,10 +69,20 @@ dependencies {
     api libs.andromeda.sense
     api libs.andromeda.core
 
-    // gsy player
-    implementation "com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v8.1.4"
-    implementation "com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-exo_player2:v8.1.4"
-    implementation "com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-armv64:v8.1.4"
+    // gsy player - exclude problematic ExoPlayer UI and use newer version
+    implementation("com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v8.1.4") {
+        exclude group: 'com.google.android.exoplayer', module: 'exoplayer-ui'
+    }
+    implementation("com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-exo_player2:v8.1.4") {
+        exclude group: 'com.google.android.exoplayer', module: 'exoplayer-ui'
+    }
+    implementation("com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-armv64:v8.1.4")
+    
+    // Use newer ExoPlayer UI - force specific version to avoid jetifier warnings
+    implementation('com.google.android.exoplayer:exoplayer-ui:2.19.1') {
+        // This version still has the mixed reference issue, but it's functional
+        // The jetifier warning can be suppressed as this is a known issue with ExoPlayer 2.x
+    }
     
     // Add compileOnly LMS dependency for compilation
     compileOnly files('../../app/libs/lms_international-3.90.009.0.aar')
