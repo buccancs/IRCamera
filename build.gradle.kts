@@ -16,14 +16,14 @@ buildscript {
         maven { url = uri("https://maven.zohodl.com") }
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:8.3.2")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.22")  // Downgraded to support kotlin-android-extensions
+        classpath(libs.android.gradle.plugin)
+        classpath(libs.kotlin.gradle.plugin)
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-        classpath("com.google.gms:google-services:4.3.10")
-        classpath("com.google.firebase:firebase-crashlytics-gradle:2.7.1")
+        classpath(libs.google.services)
+        classpath(libs.firebase.crashlytics.gradle)
         // HMS configuration for Huawei services
-        classpath("com.huawei.agconnect:agcp:1.6.0.300")
+        classpath(libs.huawei.agconnect)
     }
 }
 
