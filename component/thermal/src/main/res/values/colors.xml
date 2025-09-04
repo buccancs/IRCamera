@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Fallback colors for thermal module -->
+    <color name="font_gray">#808080</color>
+    <color name="backgroundColor">#FFFFFF</color>
+</resources>

@@ -8,7 +8,7 @@ import com.topdon.module.thermal.R
 import kotlinx.android.synthetic.main.activity_connect.*
 
 //连接设备
-@Route(path = RouterConfig.CONNECT)
+@Route(path = RouterConfig.IR_THERMAL_CONNECT)
 class ConnectActivity : BaseActivity() {
 
     override fun initContentView() = R.layout.activity_connect

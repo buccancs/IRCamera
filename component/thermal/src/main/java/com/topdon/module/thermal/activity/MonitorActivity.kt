@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_monitor.*
 import org.greenrobot.eventbus.EventBus
 import java.util.*
 
-@Route(path = RouterConfig.THERMAL_MONITOR)
+@Route(path = RouterConfig.IR_THERMAL_MONITOR)
 class MonitorActivity : BaseActivity(), View.OnClickListener {
 
     companion object {
@@ -51,7 +51,7 @@ class MonitorActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v) {
             motion_log_btn -> {
-                ARouter.getInstance().build(RouterConfig.THERMAL_LOG_MP_CHART).navigation(this)
+                ARouter.getInstance().build(RouterConfig.IR_THERMAL_LOG_MP_CHART).navigation(this)
             }
             motion_btn -> {
                 MonitorSelectDialog.Builder(this)
@@ -72,7 +72,7 @@ class MonitorActivity : BaseActivity(), View.OnClickListener {
                     .create().show()
             }
             motion_start_btn -> {
-                ARouter.getInstance().build(RouterConfig.MONITOR_CHART)
+                ARouter.getInstance().build(RouterConfig.IR_MONITOR_CHART)
                     .withInt("type", selectType)
                     .withIntegerArrayList("select", selectIndex)
                     .navigation(this)

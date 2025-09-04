@@ -14,7 +14,7 @@ import com.topdon.module.thermal.fragment.GalleryVideoFragment
 import kotlinx.android.synthetic.main.activity_gallery.*
 
 
-@Route(path = RouterConfig.GALLERY)
+@Route(path = RouterConfig.IR_GALLERY_HOME)
 class GalleryActivity : BaseActivity() {
 
 //    override fun providerVMClass() = GalleryViewModel::class.java

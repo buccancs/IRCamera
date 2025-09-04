@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_video.*
 import java.io.File
 
 
-@Route(path = RouterConfig.VIDEO)
+@Route(path = RouterConfig.IR_THERMAL_VIDEO)
 class VideoActivity : BaseActivity() {
 
     companion object {

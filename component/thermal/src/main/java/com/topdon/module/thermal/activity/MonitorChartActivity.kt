@@ -46,7 +46,7 @@ import java.math.BigDecimal
 /**
  * 温度监控
  */
-@Route(path = RouterConfig.MONITOR_CHART)
+@Route(path = RouterConfig.IR_MONITOR_CHART)
 class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueSelectedListener {
 
     private val viewModel: LogViewModel by viewModels()

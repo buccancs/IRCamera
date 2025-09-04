@@ -15,7 +15,7 @@ import com.topdon.module.thermal.fragment.event.ThermalActionEvent
 import kotlinx.android.synthetic.main.activity_thermal.*
 import org.greenrobot.eventbus.EventBus
 
-@Route(path = RouterConfig.THERMAL_MAIN)
+@Route(path = RouterConfig.IR_THERMAL_MAIN)
 class ThermalActivity : BaseActivity() {
 
     private val menuAdapter by lazy { MenuTabAdapter(this) }

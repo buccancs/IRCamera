@@ -33,7 +33,7 @@ import kotlinx.android.synthetic.main.activity_log_mp_chart.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Route(path = RouterConfig.THERMAL_LOG_MP_CHART)
+@Route(path = RouterConfig.IR_THERMAL_LOG_MP_CHART)
 class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
 
     private val viewModel: LogViewModel by viewModels()
