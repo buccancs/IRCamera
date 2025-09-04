@@ -87,8 +87,8 @@ xlog = "1.10.1"
 lottie = "5.2.0"
 eventbus = "3.3.1"
 
-# Compass and sensor libraries
-andromeda = "15.3.0"
+# Compass and sensor libraries - Updated to latest versions from Maven Central
+andromeda = "15.3.1"
 andromedaUser = "6.2.0"
 
 # JavaCV
@@ -110,9 +110,10 @@ zohoSalesiq = "7.0.0"
 firebaseBom = "28.4.1"
 firebaseMessaging = "21.0.1"
 
-# UMeng
-umengCommon = "9.6.7"
-umengAsms = "1.8.0"
+# UMeng - Updated to latest versions from Maven Central
+umengCommon = "9.6.8"
+umengAsms = "1.8.1"
+umengAnalytics = "9.6.8"
 
 # Testing
 junit = "4.13.2"
@@ -241,6 +242,7 @@ firebase-iid = { group = "com.google.firebase", name = "firebase-iid" }
 # UMeng
 umeng-common = { group = "com.umeng.umsdk", name = "common", version.ref = "umengCommon" }
 umeng-asms = { group = "com.umeng.umsdk", name = "asms", version.ref = "umengAsms" }
+umeng-analytics = { group = "com.umeng.umsdk", name = "analytics", version.ref = "umengAnalytics" }
 
 # Testing
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -262,7 +264,7 @@ retrofit = ["retrofit2", "converter-gson", "adapter-rxjava2", "logging-intercept
 smart-refresh = ["smart-refresh-layout", "smart-refresh-header"]
 smart-refresh-v2 = ["refresh-layout-kernel", "refresh-header-classics", "refresh-header-material"]
 firebase-core = ["firebase-crashlytics", "firebase-analytics", "firebase-messaging", "firebase-iid"]
-umeng = ["umeng-common", "umeng-asms"]
+umeng = ["umeng-common", "umeng-asms", "umeng-analytics"]
 andromeda = ["andromeda-core", "andromeda-sense"]
 javacv-core = ["javacv", "javacpp"]
 ffmpeg-android = ["ffmpeg-android-arm64", "ffmpeg-android-arm", "ffmpeg-android-x86-64", "ffmpeg-android-x86"]

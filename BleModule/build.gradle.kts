@@ -66,8 +66,8 @@ dependencies {
     api("com.blankj:utilcodex:1.30.6") // 工具包
     api("com.google.code.gson:gson:2.8.8")
     api("com.elvishew:xlog:1.10.1")
-    // UMeng Analytics - testing dependency availability
-    // api("com.umeng.umsdk:analytics:9.4.0") 
+    // UMeng Analytics - now available via version catalog
+    // api(libs.umeng.analytics) 
     // FastJSON - testing dependency availability
     // api("com.alibaba:fastjson:1.2.83") 
     implementation(files("libs/ini4j-0.5.5.jar"))
