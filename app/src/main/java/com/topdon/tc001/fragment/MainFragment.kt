@@ -362,6 +362,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             }
         }
     }
+    }
 
     enum class ConnectType {
         LINE,
