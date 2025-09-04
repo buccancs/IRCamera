@@ -88,7 +88,7 @@ lottie = "5.2.0"
 eventbus = "3.3.1"
 
 # Compass and sensor libraries - Updated to latest versions from Maven Central
-andromeda = "15.3.1"
+andromeda = "16.0.1"
 andromedaUser = "6.2.0"
 
 # JavaCV
@@ -111,9 +111,9 @@ firebaseBom = "28.4.1"
 firebaseMessaging = "21.0.1"
 
 # UMeng - Updated to latest versions from Maven Central
-umengCommon = "9.6.8"
-umengAsms = "1.8.1"
-umengAnalytics = "9.6.8"
+umengCommon = "9.8.8"
+umengAsms = "1.8.7.2"
+umengAnalytics = "9.8.8"
 
 # Testing
 junit = "4.13.2"
@@ -207,6 +207,7 @@ eventbus = { group = "org.greenrobot", name = "eventbus", version.ref = "eventbu
 # Compass and sensor libraries
 andromeda-core = { group = "com.kylecorry.andromeda", name = "core", version.ref = "andromeda" }
 andromeda-sense = { group = "com.kylecorry.andromeda", name = "sense", version.ref = "andromeda" }
+andromeda-views = { group = "com.kylecorry.andromeda", name = "views", version.ref = "andromeda" }
 compass-sense-user = { group = "com.github.kylecorry31.andromeda", name = "sense", version.ref = "andromedaUser" }
 compass-core-user = { group = "com.github.kylecorry31.andromeda", name = "core", version.ref = "andromedaUser" }
 
@@ -265,7 +266,7 @@ smart-refresh = ["smart-refresh-layout", "smart-refresh-header"]
 smart-refresh-v2 = ["refresh-layout-kernel", "refresh-header-classics", "refresh-header-material"]
 firebase-core = ["firebase-crashlytics", "firebase-analytics", "firebase-messaging", "firebase-iid"]
 umeng = ["umeng-common", "umeng-asms", "umeng-analytics"]
-andromeda = ["andromeda-core", "andromeda-sense"]
+andromeda = ["andromeda-core", "andromeda-sense", "andromeda-views"]
 javacv-core = ["javacv", "javacpp"]
 ffmpeg-android = ["ffmpeg-android-arm64", "ffmpeg-android-arm", "ffmpeg-android-x86-64", "ffmpeg-android-x86"]
 
