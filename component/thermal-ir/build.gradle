@@ -38,16 +38,12 @@ android {
     buildFeatures{
         dataBinding = true
     }
-//    repositories {
-//        flatDir {
-//            dirs '../../libir/libs'
-//        }
-//    }
 }
 
 dependencies {
-    implementation(name: 'opengl_1.3.2_standard', ext: 'aar')
-    implementation(name: 'library_1.0', ext: 'aar')
+    // Use compileOnly for AAR dependencies - actual implementation provided by app module
+    compileOnly(name: 'opengl_1.3.2_standard', ext: 'aar')
+    compileOnly(name: 'library_1.0', ext: 'aar')
 
     implementation project(':libapp')
     implementation project(':libcom')

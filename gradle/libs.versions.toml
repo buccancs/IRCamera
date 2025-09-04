@@ -45,7 +45,7 @@ refresh-layout = "2.0.3"
 ir-layout = "+"
 colorpickerview = "2.2.4"
 mn-image-browser = "V1.3.7"
-andromeda = "16.0.1"
+andromeda = "6.2.0"
 nifty = "1.4.6"
 
 # Topdon LMS
@@ -120,8 +120,8 @@ refresh-header-material = { module = "com.scwang.smart:refresh-header-material",
 ir-layout = { module = "com.github.CoderCaiSL:jitpackMvn", version.ref = "ir-layout" }
 colorpickerview = { module = "com.github.skydoves:colorpickerview", version.ref = "colorpickerview" }
 mn-image-browser = { module = "com.github.maning0303:MNImageBrowser", version.ref = "mn-image-browser" }
-andromeda-sense = { module = "com.kylecorry.andromeda:sense", version.ref = "andromeda" }
-andromeda-core = { module = "com.kylecorry.andromeda:core", version.ref = "andromeda" }
+andromeda-sense = { module = "com.github.kylecorry31.andromeda:sense", version.ref = "andromeda" }
+andromeda-core = { module = "com.github.kylecorry31.andromeda:core", version.ref = "andromeda" }
 nifty = { module = "io.github.litao0621:nifty-slider", version.ref = "nifty" }
 nifty-effect = { module = "io.github.litao0621:nifty-slider-effect", version.ref = "nifty" }
 

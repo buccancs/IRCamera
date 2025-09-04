@@ -17,7 +17,7 @@ dependencyResolutionManagement {
 //            allowInsecureProtocol = true
 //        }
         flatDir {
-            dirs 'libir/libs'
+            dirs 'libir/libs', 'app/libs'
         }
     }
 }

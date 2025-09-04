@@ -222,7 +222,7 @@ dependencies {
     // UMeng SDK
     implementation 'com.umeng.umsdk:common:9.8.8'
 
-    // Local AAR dependencies moved from libapp
+    // Local AAR dependencies moved from libapp and libir
     implementation files('libs/libAC020sdk_USB_IR_1.1.1_2408291439.aar')
     implementation files('libs/libcommon_1.2.0_24052117.aar')
     implementation files('libs/libirutils_1.2.0_2409241055.aar')
@@ -231,4 +231,6 @@ dependencies {
     implementation files('libs/lms_international-3.90.009.0.aar')
     implementation files('libs/logger-2.2.1-release.aar')
     implementation files('libs/main-2.2.1-release.aar')
+    implementation files('libs/opengl_1.3.2_standard.aar')
+    implementation files('libs/library_1.0.aar')
 }
