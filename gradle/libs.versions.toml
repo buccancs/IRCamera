@@ -48,6 +48,10 @@ mn-image-browser = "V1.3.7"
 andromeda = "6.2.0"
 nifty = "1.4.6"
 
+# UMeng SDK
+umeng-common = "9.8.8"
+umeng-apm = "1.9.0"
+
 # Topdon LMS
 lms2-international = "3.90.009.0"
 lms3-china = "3.90.076"
@@ -124,6 +128,10 @@ andromeda-sense = { module = "com.github.kylecorry31.andromeda:sense", version.r
 andromeda-core = { module = "com.github.kylecorry31.andromeda:core", version.ref = "andromeda" }
 nifty = { module = "io.github.litao0621:nifty-slider", version.ref = "nifty" }
 nifty-effect = { module = "io.github.litao0621:nifty-slider-effect", version.ref = "nifty" }
+
+# UMeng SDK
+umeng-common = { module = "com.umeng.umsdk:common", version.ref = "umeng-common" }
+umeng-apm = { module = "com.umeng.umsdk:apm", version.ref = "umeng-apm" }
 
 # Topdon LMS
 lms2-international = { module = "com.topdon.lms.sdk3:lms_international", version.ref = "lms2-international" }
