@@ -64,8 +64,8 @@ dependencies {
     // Enhanced IR-specific dependencies from user's Deps object
     api("com.conghuahuadan:superlayout:1.1.0")
     api(libs.ir.layout)  // IR layout utilities from CoderCaiSL jitpackMvn
-    api(libs.compass.core.user)  // User's preferred compass core version
-    api(libs.compass.sense.user)  // User's preferred compass sense version
+    api(libs.andromeda.core)  // Andromeda core for sensor functionality
+    api(libs.andromeda.sense)  // Andromeda sense for compass and sensors
     api(libs.javacv)  // JavaCV for IR image processing
     api(libs.javacpp)  // JavaCV native dependencies
     

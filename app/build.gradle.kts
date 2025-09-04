@@ -71,6 +71,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+        isCoreLibraryDesugaringEnabled = true
     }
     
     kotlinOptions {
@@ -187,7 +188,6 @@ dependencies {
     implementation(libs.fastjson)
     implementation(libs.ucrop)
     implementation(libs.play.app.update)
-    implementation(libs.immersionbar)
     implementation(libs.xpopup)
     implementation(libs.smart.refresh.layout)
     implementation(libs.smart.refresh.header)
@@ -195,7 +195,8 @@ dependencies {
     implementation(libs.umeng.apm)
     implementation(libs.zoho.salesiq)
 
-
+    // Core library desugaring for Java 8+ APIs on older Android versions
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
 
     // UMeng - Referenced directly from Maven Central
     implementation(libs.umeng.common)
