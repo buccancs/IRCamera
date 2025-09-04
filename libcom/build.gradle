@@ -64,9 +64,9 @@ dependencies {
     implementation project(':libui')
     implementation project(':component:CommonComponent')
 
-    kapt Deps.arouter_compiler
-    api Deps.colorpickerview
-    implementation Deps.brvah
+    kapt libs.arouter.compiler
+    api libs.colorpickerview
+    implementation libs.brvah
 
     implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '3.17'
     implementation group: 'org.apache.xmlbeans', name: 'xmlbeans', version: '3.1.0'

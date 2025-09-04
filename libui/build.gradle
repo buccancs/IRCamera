@@ -62,5 +62,5 @@ android {
 dependencies {
     implementation project(':libapp')
     implementation project(':libmenu') //伪彩条用着 PseudoColorConfig
-    kapt Deps.arouter_compiler
+    kapt libs.arouter.compiler
 }

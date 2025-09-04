@@ -80,70 +80,70 @@ android {
 
 dependencies {
     api fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
-    api Deps.appcompat
-    api Deps.fragment_ktx
-    api Deps.material
+    api libs.androidx.appcompat
+    api libs.androidx.fragment.ktx
+    api libs.material
 
-    api Deps.lifecycle_runtime_ktx
-    api Deps.lifecycle_viewmodel_ktx
-    api Deps.lifecycle_livedata_ktx
+    api libs.androidx.lifecycle.runtime.ktx
+    api libs.androidx.lifecycle.viewmodel.ktx
+    api libs.androidx.lifecycle.livedata.ktx
 
-    kapt Deps.room_compiler
-    api Deps.room_ktx
+    kapt libs.androidx.room.compiler
+    api libs.androidx.room.ktx
 
-    api Deps.work_runtime_ktx
+    api libs.androidx.work.runtime.ktx
 
-    api Deps.retrofit2
-    api Deps.converter_gson
-    api Deps.adapter_rxjava2
+    api libs.retrofit2
+    api libs.retrofit2.converter.gson
+    api libs.retrofit2.adapter.rxjava2
 
-    api Deps.eventbus
+    api libs.eventbus
 
-    api Deps.glide
-    kapt Deps.glide_compiler
+    api libs.glide
+    kapt libs.glide.compiler
 
-    api Deps.rxjava2
-    api Deps.rxandroid
-    api Deps.rxpermissions
-    api Deps.rxlifecycle
-    api Deps.rxlifecycle_android
-    api Deps.rxlifecycle_components
-    api Deps.rxlifecycle_ktx
-    api Deps.rxlifecycle_android_lifecycle_ktx
+    api libs.rxjava2
+    api libs.rxandroid
+    api libs.rxpermissions
+    api libs.rxlifecycle
+    api libs.rxlifecycle.android
+    api libs.rxlifecycle.components
+    api libs.rxlifecycle.ktx
+    api libs.rxlifecycle.android.lifecycle.ktx
 
-    api Deps.arouter_api
-    kapt Deps.arouter_compiler
+    api libs.arouter.api
+    kapt libs.arouter.compiler
 
-    api Deps.utilcode
-    api Deps.XXPermissions
-    api Deps.xlog
-    api Deps.PhotoView
-    api Deps.android_pdf_viewr
-    api Deps.lottie
+    api libs.utilcode
+    api libs.xxpermissions
+    api libs.xlog
+    api libs.photoview
+    api libs.android.pdf.viewer
+    api libs.lottie
 
-    api Deps.brvah
-    api Deps.refresh_layout_kernel
-    api Deps.refresh_header_classics
-    api Deps.refresh_header_material
+    api libs.brvah
+    api libs.refresh.layout.kernel
+    api libs.refresh.header.classics
+    api libs.refresh.header.material
 
-    api Deps.logging_interceptor
-    api Deps.colorpickerview
-    api Deps.MNImageBrowser
-    api Deps.nifty
-    api Deps.nifty_effect
+    api libs.okhttp3.logging.interceptor
+    api libs.colorpickerview
+    api libs.mn.image.browser
+    api libs.nifty
+    api libs.nifty.effect
 
-//    devApi Deps.lms2
-//    betaApi Deps.lms2
-//    prodApi Deps.lms2
-//    prodTopdonApi Deps.lms2
-//    insideChinaApi Deps.lms3
-//    prodTopdonInsideChinaApi Deps.lms3
+//    devApi libs.lms2.international
+//    betaApi libs.lms2.international
+//    prodApi libs.lms2.international
+//    prodTopdonApi libs.lms2.international
+//    insideChinaApi libs.lms3.china
+//    prodTopdonInsideChinaApi libs.lms3.china
 
 
 
     //javacv
-    api Deps.javacv
-    api Deps.javacpp
+    api libs.javacv
+    api libs.javacpp
     api files('libs\\abtest-1.0.1.aar')
     api files('libs\\auth-number-2.13.2.1.aar')
     api files('libs\\lms_international-3.90.009.0.aar')

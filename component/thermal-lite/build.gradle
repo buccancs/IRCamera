@@ -61,5 +61,5 @@ dependencies {
     implementation project(':libui')
     implementation project(':libir')
     
-    kapt Deps.arouter_compiler
+    kapt libs.arouter.compiler
 }

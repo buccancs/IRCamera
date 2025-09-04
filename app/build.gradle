@@ -327,7 +327,7 @@ dependencies {
     implementation project(':libmenu')
     implementation project(':libui')
 
-    kapt Deps.arouter_compiler
+    kapt libs.arouter.compiler
 
     implementation 'com.github.lzyzsd:jsbridge:1.0.4'
     implementation 'com.alibaba:fastjson:1.2.78'
