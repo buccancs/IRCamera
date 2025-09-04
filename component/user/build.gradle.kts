@@ -1,17 +1,19 @@
 plugins {
     id("com.android.library")
     kotlin("android")
-    kotlin("kapt")
+    // Disable kapt since ARouter annotations are commented out in this module
+    // kotlin("kapt")
 }
 
-kapt {
-    arguments {
-        // arg("AROUTER_MODULE_NAME", project.name)  // Removed for NavigationManager migration
-    }
-    // Enable Kotlin 2.1.0 compatibility
-    correctErrorTypes = true
-    useBuildCache = true
-}
+
+// kapt {
+//     arguments {
+//         // arg("AROUTER_MODULE_NAME", project.name)  // Removed for NavigationManager migration
+//     }
+//     // Enable Kotlin 2.1.0 compatibility
+//     correctErrorTypes = true
+//     useBuildCache = true
+// }
 
 android {
     namespace = "com.topdon.module.user"
