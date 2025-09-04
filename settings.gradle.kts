@@ -24,10 +24,6 @@ dependencyResolutionManagement {
         }
         
         flatDir {
-            dirs("commonlibrary")
-        }
-
-        flatDir {
             dirs("component/edit3d/libs")
         }
     }
@@ -37,7 +33,6 @@ rootProject.name = "TopInfrared"
 
 include(":app")
 include(":BleModule")
-include(":commonlibrary")
 include(":component:CommonComponent")
 include(":component:edit3d")
 include(":component:house")
