@@ -1,0 +1,22 @@
+# Git LFS Configuration for Binary Files
+# Track large binary files (>1MB) with Git LFS to reduce repository size
+# Android Archive files (.aar)
+*.aar filter=lfs diff=lfs merge=lfs -text
+# Native libraries (.so)
+*.so filter=lfs diff=lfs merge=lfs -text
+# Static libraries (.a)
+*.a filter=lfs diff=lfs merge=lfs -text
+# JAR files
+*.jar filter=lfs diff=lfs merge=lfs -text
+# APK files (if any test APKs exist)
+*.apk filter=lfs diff=lfs merge=lfs -text
+# Large documentation files
+*.pdf filter=lfs diff=lfs merge=lfs -text
+# Video/image samples (if any)
+*.mp4 filter=lfs diff=lfs merge=lfs -text
+*.avi filter=lfs diff=lfs merge=lfs -text
+*.mov filter=lfs diff=lfs merge=lfs -text
+# Large firmware/binary data files
+firmware/* filter=lfs diff=lfs merge=lfs -text
+*.bin filter=lfs diff=lfs merge=lfs -text
+*.hex filter=lfs diff=lfs merge=lfs -text
