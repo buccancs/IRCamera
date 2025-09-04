@@ -35,6 +35,11 @@ object Deps {
     // RxJava
     const val rxjava2 = "io.reactivex.rxjava2:rxjava:2.2.21"
     const val rxandroid = "io.reactivex.rxjava2:rxandroid:2.1.1"
+    
+    // Navigation
+    const val arouter_api = "com.alibaba:arouter-api:1.5.2"
+    const val arouter_compiler = "com.alibaba:arouter-compiler:1.5.2"
+    
     // Updated RxLifecycle dependencies with available versions
     const val rxpermissions = "com.github.tbruyelle:rxpermissions:0.10.2"
     const val rxlifecycle = "com.trello.rxlifecycle2:rxlifecycle:2.2.2"
