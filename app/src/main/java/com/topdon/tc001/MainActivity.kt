@@ -29,7 +29,6 @@ import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
 
 import com.topdon.lib.core.BaseApplication
-import com.topdon.lib.core.bean.event.TS004ResetEvent
 import com.topdon.lib.core.bean.event.WinterClickEvent
 import com.topdon.lib.core.bean.event.device.DevicePermissionEvent
 import com.topdon.lib.core.common.SharedManager
@@ -372,11 +371,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             tipOtgDialog?.show()
             BaseApplication.instance.hasOtgShow = true
         }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onTS004ResetEvent(event: TS004ResetEvent) {
-        showResetTipsDialog()
     }
 
     override fun onSocketConnected(isTS004: Boolean) {

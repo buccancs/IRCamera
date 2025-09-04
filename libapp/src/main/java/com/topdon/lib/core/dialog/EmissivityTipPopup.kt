@@ -95,7 +95,7 @@ class EmissivityTipPopup(val context: Context, val isTC007: Boolean) {
                 setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)) // 必要时可以替换为其他Drawable
             }
             view.dialog_tip_success_btn.setOnClickListener {
-                ARouter.getInstance().build(RouterConfig.IR_SETTING).withBoolean(ExtraKeyConfig.IS_TC007, isTC007).navigation(context)
+                ARouter.getInstance().build(RouterConfig.IR_SETTING).withBoolean(ExtraKeyConfig.IS_TC007, false).navigation(context) // TC001 always false
                 dismiss()
             }
         }

@@ -11,7 +11,7 @@ import java.util.TimeZone
 
 @Parcelize
 open class GalleryBean(
-    val id: Int, //仅TS004远端时，id
+    val id: Int, // Legacy field (unused for TC001 local files)
     val path: String,
     val thumb: String,
     val name: String,

@@ -31,43 +31,28 @@ import kotlinx.android.synthetic.main.fragment_thermal_ir.*
 
 class IRThermalFragment : BaseFragment(), View.OnClickListener {
 
-    /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
-     */
-    private var isTC007 = false
+    // Only TC001 is supported now - no need for device type differentiation
 
     override fun initContentView() = R.layout.fragment_thermal_ir
 
     override fun initView() {
-        isTC007 = arguments?.getBoolean(ExtraKeyConfig.IS_TC007, false) ?: false
-        title_view.setTitleText(if (isTC007) "TC007" else getString(R.string.tc_has_line_device))
+        title_view.setTitleText(getString(R.string.tc_has_line_device))
 
         cl_open_thermal.setOnClickListener(this)
         tv_main_enter.setOnClickListener(this)
-        cl_07_connect_tips.setOnClickListener(this)
-        tv_07_connect.setOnClickListener(this)
 
-        tv_main_enter.isVisible = !isTC007
-        cl_07_connect_tips.isVisible = isTC007
-        tv_07_connect.isVisible = isTC007
+        // Only show TC001 (line device) UI elements
+        tv_main_enter.isVisible = true
+        cl_07_connect_tips.isVisible = false
+        tv_07_connect.isVisible = false
 
-        if (isTC007) {
-            animation_view.setAnimation("TC007AnimationJSON.json")
-            cl_not_connect.isVisible = !WebSocketProxy.getInstance().isTC007Connect()
-            cl_connect.isVisible = WebSocketProxy.getInstance().isTC007Connect()
-        } else {
-            animation_view.setAnimation("TDAnimationJSON.json")
-            checkConnect()
-        }
+        animation_view.setAnimation("TDAnimationJSON.json")
+        checkConnect()
+        
         viewLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onResume(owner: LifecycleOwner) {
-                // 要是当前已连接 TS004、TC007，切到流量上，不然登录注册意见反馈那些没网
-                if (WebSocketProxy.getInstance().isConnected()) {
-                    NetWorkUtils.switchNetwork(true)
-                }else{
-                    NetWorkUtils.connectivityManager.bindProcessToNetwork(null)
-                }
+                // For TC001 USB connection, no need to switch networks
+                NetWorkUtils.connectivityManager.bindProcessToNetwork(null)
             }
         })
     }
@@ -78,38 +63,29 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
-        if (!isTC007) {
-            checkConnect()
-        }
+        // Only TC001 is supported now
+        checkConnect()
     }
 
     override fun connected() {
         SharedManager.hasTcLine = true
-        if (!isTC007) {
-            cl_connect.isVisible = true
-            cl_not_connect.isVisible = false
-        }
+        // TC001 USB connection
+        cl_connect.isVisible = true
+        cl_not_connect.isVisible = false
     }
 
     override fun disConnected() {
-        if (!isTC007) {
-            cl_connect.isVisible = false
-            cl_not_connect.isVisible = true
-        }
+        // For TC001 USB connection
+        cl_connect.isVisible = false
+        cl_not_connect.isVisible = true
     }
 
     override fun onSocketConnected(isTS004: Boolean) {
-        if (isTC007 && !isTS004) {
-            cl_connect.isVisible = true
-            cl_not_connect.isVisible = false
-        }
+        // TC001 doesn't use socket connections - handled via USB
     }
 
     override fun onSocketDisConnected(isTS004: Boolean) {
-        if (isTC007 && !isTS004) {
-            cl_connect.isVisible = false
-            cl_not_connect.isVisible = true
-        }
+        // TC001 doesn't use socket connections - handled via USB
     }
 
     /**
@@ -129,18 +105,13 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v) {
             cl_open_thermal -> {
-                if (isTC007) {
-                    ARouter.getInstance().build(RouterConfig.IR_THERMAL_07).navigation(requireContext())
+                // Only TC001 is supported
+                if (DeviceTools.isTC001PlusConnect()) {
+                    startActivityForResult(Intent(requireContext(), IRThermalPlusActivity::class.java), 101)
+                } else if(DeviceTools.isTC001LiteConnect()){
+                    ARouter.getInstance().build(RouterConfig.IR_TCLITE).navigation(activity,101)
                 } else {
-                    if (DeviceTools.isTC001PlusConnect()) {
-                        startActivityForResult(Intent(requireContext(), IRThermalPlusActivity::class.java), 101)
-                    }else if(DeviceTools.isTC001LiteConnect()){
-                        ARouter.getInstance().build(RouterConfig.IR_TCLITE).navigation(activity,101)
-                    } else if (DeviceTools.isHikConnect()) {
-                        ARouter.getInstance().build(RouterConfig.IR_HIK_MAIN).navigation(activity)
-                    } else {
-                        startActivityForResult(Intent(requireContext(), IRThermalNightActivity::class.java), 101)
-                    }
+                    startActivityForResult(Intent(requireContext(), IRThermalNightActivity::class.java), 101)
                 }
             }
             tv_main_enter -> {
@@ -186,17 +157,7 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
                     }
                 }
             }
-            cl_07_connect_tips -> {//TC007 连接提示
-                ARouter.getInstance().build(RouterConfig.IR_CONNECT_TIPS)
-                    .withBoolean(ExtraKeyConfig.IS_TC007, true)
-                    .navigation(requireContext())
-            }
-            tv_07_connect -> {//TC007 连接设备
-                ARouter.getInstance()
-                    .build(RouterConfig.IR_DEVICE_ADD)
-                    .withBoolean("isTS004", false)
-                    .navigation(requireContext())
-            }
+            // Removed TC007 connection handlers - only TC001 (USB) is supported
         }
     }
 
@@ -218,7 +179,7 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
             tipConnectDialog = TipDialog.Builder(requireContext())
                 .setMessage(getString(R.string.tip_target_sdk))
                 .setPositiveListener(R.string.app_confirm) {
-                    val url = "https://www.topdon.com/pages/pro-down?fuzzy=TS001"
+                    val url = "https://www.topdon.com/pages/pro-down?fuzzy=TC001"
                     val intent = Intent()
                     intent.action = "android.intent.action.VIEW"
                     intent.data = Uri.parse(url)

@@ -25,7 +25,6 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.repository.GalleryRepository.DirType
-import com.topdon.lib.core.repository.TC007Repository
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.lib.core.utils.CommUtils
@@ -98,11 +97,9 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
                 NetWorkUtils.switchNetwork(false)
                 iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_connect)
                 lifecycleScope.launch {
-                    TC007Repository.syncTime()
+                    // TC001 uses USB connection, time sync not available via network
                 }
-                if (SharedManager.isConnect07AutoOpen) {
-                    ARouter.getInstance().build(RouterConfig.IR_THERMAL_07).navigation(this)
-                }
+                // TC001 connection logic - removed TC007 auto-open since only TC001 is supported
             } else {
                 iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
             }
@@ -355,7 +352,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
             if (position == 1) {//图库
                 return IRGalleryTabFragment().apply {
                     arguments = Bundle().also {
-                        val dirType = if (isTC007) DirType.TC007.ordinal else DirType.LINE.ordinal
+                        val dirType = DirType.LINE.ordinal // TC001 only
                         it.putBoolean(ExtraKeyConfig.CAN_SWITCH_DIR, false)
                         it.putBoolean(ExtraKeyConfig.HAS_BACK_ICON, false)
                         it.putInt(ExtraKeyConfig.DIR_TYPE, dirType)

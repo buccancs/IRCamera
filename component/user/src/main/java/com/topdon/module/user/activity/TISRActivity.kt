@@ -33,24 +33,15 @@ class TISRActivity : BaseActivity(){
 
     override fun initData() {
         lifecycleScope.launch {
-            val tisrBean = TS004Repository.getTISR()
-            if(tisrBean?.isSuccess()!!){
-                val isTISR = tisrBean.data?.enable!! == 1
-                setting_item_tisr_select.isChecked = isTISR
-                SharedManager.is04TISR = isTISR
-            }else{
-                TToast.shortToast(this@TISRActivity, R.string.operation_failed_tips)
-            }
+            // TC001 uses USB connection, TISR settings not available via network
+            TToast.shortToast(this@TISRActivity, R.string.operation_failed_tips)
         }
     }
 
     private fun updateTISR(state: Int) {
         lifecycleScope.launch {
-            val isSuccess= TS004Repository.setTISR(state)
-            if(isSuccess){
-            }else{
-                TToast.shortToast(this@TISRActivity, R.string.operation_failed_tips)
-            }
+            // TC001 uses USB connection, TISR settings not available via network
+            TToast.shortToast(this@TISRActivity, R.string.operation_failed_tips)
         }
     }
 

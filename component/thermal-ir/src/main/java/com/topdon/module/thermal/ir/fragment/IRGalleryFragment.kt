@@ -20,7 +20,6 @@ import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.tools.FileTools.getUri
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.repository.GalleryRepository.DirType
-import com.topdon.lib.core.repository.TS004Repository
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.adapter.GalleryAdapter
 import com.topdon.lib.core.dialog.ConfirmSelectDialog
@@ -63,14 +62,11 @@ class IRGalleryFragment : BaseFragment() {
     override fun initContentView() = R.layout.fragment_ir_gallery
 
     override fun initView() {
-        currentDirType = when (arguments?.getInt(ExtraKeyConfig.DIR_TYPE, 0) ?: 0) {
-            DirType.TS004_LOCALE.ordinal -> DirType.TS004_LOCALE
-            DirType.TS004_REMOTE.ordinal -> DirType.TS004_REMOTE
-            DirType.TC007.ordinal -> DirType.TC007
-            else -> DirType.LINE
-        }
+        // Only LINE (TC001) is supported now
+        currentDirType = DirType.LINE
 
-        cl_download.isVisible = currentDirType == DirType.TS004_REMOTE
+        // Remove download UI since TC001 uses USB (no remote download needed)
+        cl_download.isVisible = false
 
         initRecycler()
 
@@ -178,7 +174,7 @@ class IRGalleryFragment : BaseFragment() {
         ir_gallery_recycler.adapter = adapter
         ir_gallery_recycler.layoutManager = gridLayoutManager
 
-        adapter.isTS004Remote = currentDirType == DirType.TS004_REMOTE
+        adapter.isTS004Remote = false // TC001 uses USB, not remote
         adapter.onLongEditListener = {
             tabViewModel.isEditModeLD.value = true
             cl_bottom.isVisible = true
@@ -190,7 +186,7 @@ class IRGalleryFragment : BaseFragment() {
             val galleryBean: GalleryBean = adapter.dataList[it]
             if (galleryBean.name.uppercase().endsWith(".MP4")) {
                 ARouter.getInstance().build(RouterConfig.IR_VIDEO_GSY)
-                    .withBoolean("isRemote", currentDirType == DirType.TS004_REMOTE)
+                    .withBoolean("isRemote", false) // TC001 uses local files
                     .withParcelable("data", adapter.dataList[it])
                     .navigation(requireActivity())
             } else {
@@ -204,19 +200,12 @@ class IRGalleryFragment : BaseFragment() {
                 }
 
 
-                if (currentDirType == DirType.LINE || currentDirType == DirType.TC007) {
-                    ARouter.getInstance().build(RouterConfig.IR_GALLERY_DETAIL_01)
-                        .withBoolean(ExtraKeyConfig.IS_TC007, currentDirType == DirType.TC007)
-                        .withInt("position", position)
-                        .withParcelableArrayList("list", sourceList)
-                        .navigation(requireActivity())
-                } else {
-                    ARouter.getInstance().build(RouterConfig.IR_GALLERY_DETAIL_04)
-                        .withBoolean("isRemote", currentDirType == DirType.TS004_REMOTE)
-                        .withInt("position", position)
-                        .withParcelableArrayList("list", sourceList)
-                        .navigation(requireActivity())
-                }
+                // Only TC001 (LINE) is supported
+                ARouter.getInstance().build(RouterConfig.IR_GALLERY_DETAIL_01)
+                    .withBoolean(ExtraKeyConfig.IS_TC007, false) // TC001, not TC007
+                    .withInt("position", position)
+                    .withParcelableArrayList("list", sourceList)
+                    .navigation(requireActivity())
             }
         }
 
@@ -241,15 +230,8 @@ class IRGalleryFragment : BaseFragment() {
     private fun showDeleteDialog() {
         val deleteList = adapter.buildSelectList()
 
-        var hasOneDownload = false
-        if (currentDirType == DirType.TS004_REMOTE) {
-            for (data in deleteList) {
-                if (data.hasDownload) {
-                    hasOneDownload = true
-                    break
-                }
-            }
-        }
+        // TC001 uses local files - no remote download checking needed
+        val hasOneDownload = false
 
         if (deleteList.size > 0) {
             ConfirmSelectDialog(requireContext()).run {
@@ -258,7 +240,7 @@ class IRGalleryFragment : BaseFragment() {
                     deleteList.size
                 ))
                 setMessageRes(R.string.also_del_from_phone_album)
-                setShowMessage(currentDirType == DirType.TS004_REMOTE && hasOneDownload)
+                setShowMessage(false) // TC001 uses local files only
                 onConfirmClickListener = {
                     showLoadingDialog()
                     viewModel.delete(deleteList, currentDirType, it)
@@ -286,35 +268,14 @@ class IRGalleryFragment : BaseFragment() {
             }
             tabViewModel.isEditModeLD.value = false
         } else {
-            lifecycleScope.launch {
-                (context as? Activity)?.window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-                showLoadingDialog()
-                val successCount = TS004Repository.downloadList(downloadMap) { path, isSuccess ->
-                    if (isSuccess) {
-                        for (galleryBean in downloadList) {
-                            if (galleryBean.path == path) {
-                                galleryBean.hasDownload = true
-                                adapter.notifyDataSetChanged()
-                                break
-                            }
-                        }
-                    }
-                }
-                if (successCount == downloadMap.size) {//全都下载成功
-                    dismissLoadingDialog()
-                    if (isShare) {
-                        shareImage(downloadList)
-                    } else {
-                        ToastTools.showShort(R.string.ts004_download_complete)
-                    }
-                    tabViewModel.isEditModeLD.value = false
-                } else {
-                    dismissLoadingDialog()
-                    ToastTools.showShort(R.string.liveData_save_error)
-                }
-                MediaScannerConnection.scanFile(requireContext(), arrayOf(FileConfig.lineGalleryDir, FileConfig.ts004GalleryDir), null, null)
-                (context as? Activity)?.window?.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            // TC001 uses USB connection, files are already local, no remote download needed
+            if (isShare) {
+                shareImage(downloadList)
+            } else {
+                ToastTools.showShort(R.string.ts004_download_complete)
             }
+            tabViewModel.isEditModeLD.value = false
+            MediaScannerConnection.scanFile(requireContext(), arrayOf(FileConfig.lineGalleryDir, FileConfig.ts004GalleryDir), null, null)
         }
     }
 
@@ -341,4 +302,3 @@ class IRGalleryFragment : BaseFragment() {
         startActivity(Intent.createChooser(shareIntent, getString(R.string.battery_share)))
     }
 }
-

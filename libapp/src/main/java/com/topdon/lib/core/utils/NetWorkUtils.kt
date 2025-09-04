@@ -13,7 +13,6 @@ import android.os.Build
 import android.util.Log
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.BaseApplication
-import com.topdon.lib.core.repository.TS004Repository
 
 /**
  * des:
@@ -159,9 +158,7 @@ object NetWorkUtils {
             override fun onAvailable(network: Network) {
                 super.onAvailable(network)
                 XLog.i("切换到 ${if (isWifi) "WIFI" else "流量"} onAvailable()")
-                if (isWifi) {
-                    TS004Repository.netWork = network
-                }
+                // TC001 uses USB connection, but preserve network switching capability
                 connectivityManager.bindProcessToNetwork(network)
                 connectivityManager.unregisterNetworkCallback(this)
                 listener?.invoke(network)

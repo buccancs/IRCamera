@@ -7,7 +7,6 @@ import com.topdon.lib.core.bean.GalleryTitle
 import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.ktbase.BaseViewModel
 import com.topdon.lib.core.repository.GalleryRepository
-import com.topdon.lib.core.repository.TS004Repository
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.module.thermal.ir.utils.WriteTools
 import kotlinx.coroutines.Dispatchers
@@ -105,34 +104,14 @@ class IRGalleryViewModel : BaseViewModel() {
 
     fun delete(deleteList: List<GalleryBean>, dirType: GalleryRepository.DirType, isDelLocal: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
-            if (dirType == GalleryRepository.DirType.TS004_REMOTE) {
-                val isSuccess = TS004Repository.deleteFiles(Array(deleteList.size) {
-                    deleteList[it].id
-                })
-                if (isSuccess) {
-                    if (isDelLocal) {
-                        deleteList.forEach {
-                            if (it.hasDownload) {
-                                val file = File(FileConfig.ts004GalleryDir, it.name)
-                                if (file.exists()) {
-                                    WriteTools.delete(file)
-                                }
-                            }
-                        }
-                    }
-                    deleteResultLD.postValue(true)
-                } else {
-                    deleteResultLD.postValue(false)
+            // TC001 only - uses local USB connection, no remote device support
+            deleteList.forEach {
+                val file = File(it.path)
+                if (file.exists()) {
+                    WriteTools.delete(file)
                 }
-            } else {
-                deleteList.forEach {
-                    val file = File(it.path)
-                    if (file.exists()) {
-                        WriteTools.delete(file)
-                    }
-                }
-                deleteResultLD.postValue(true)
             }
+            deleteResultLD.postValue(true)
         }
     }
 }

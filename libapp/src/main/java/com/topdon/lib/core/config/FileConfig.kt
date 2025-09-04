@@ -117,8 +117,7 @@ object FileConfig {
 
     fun getGalleryDirByType(currentDirType : DirType) : String = when (currentDirType) {
         DirType.LINE -> lineGalleryDir
-        DirType.TC007 -> tc007GalleryDir
-        else -> ts004GalleryDir
+        // Only LINE (TC001) is supported
     }
 
     /**

@@ -29,7 +29,8 @@ data class CustomPseudoBean (
 
     companion object {
         fun loadFromShared(isTC007: Boolean = false): CustomPseudoBean {
-            val json = if (isTC007) SharedManager.getTC0007CustomPseudo() else SharedManager.getCustomPseudo()
+            // TC001 only uses standard custom pseudo
+            val json = SharedManager.getCustomPseudo()
             return if (json.isNotEmpty()) {
                 Gson().fromJson(json, CustomPseudoBean::class.java)
             } else {
@@ -103,11 +104,8 @@ data class CustomPseudoBean (
     }
 
     fun saveToShared(isTC007: Boolean = false) {
-        if (isTC007) {
-            SharedManager.saveTC007CustomPseudo(Gson().toJson(this))
-        } else {
-            SharedManager.saveCustomPseudo(Gson().toJson(this))
-        }
+        // TC001 only uses standard custom pseudo
+        SharedManager.saveCustomPseudo(Gson().toJson(this))
     }
 
     fun getColorList(isTC007: Boolean = false): IntArray? {

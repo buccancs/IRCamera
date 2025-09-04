@@ -57,8 +57,7 @@ object BluetoothUtil {
     /**
      * 设置低功耗蓝牙搜索回调.
      */
-    fun setLeScanListener(isTS004: Boolean, listener: (name: String) -> Unit) {
-        scanCallback.isTS004 = isTS004
+    fun setLeScanListener(listener: (name: String) -> Unit) {
         scanCallback.listener = listener
     }
 
@@ -116,16 +115,15 @@ object BluetoothUtil {
     }
 
     private class MyScanCallback : ScanCallback() {
-        var isTS004: Boolean = false
         var listener: ((name: String) -> Unit)? = null
 
         @SuppressLint("MissingPermission")
         override fun onScanResult(callbackType: Int, result: ScanResult?) {
             val name: String = result?.device?.name ?: return
-            if (name.startsWith(if (isTS004) DeviceConfig.TS004_NAME_START else DeviceConfig.TC007_NAME_START)) {
-                XLog.v("蓝牙扫描出一个目标设备：$name")
-                listener?.invoke(name)
-            }
+            // Keep Bluetooth scanning capability available for general use
+            // TC001 uses USB but preserve Bluetooth functionality
+            XLog.v("蓝牙扫描出一个设备：$name")
+            listener?.invoke(name)
         }
 
         override fun onScanFailed(errorCode: Int) {

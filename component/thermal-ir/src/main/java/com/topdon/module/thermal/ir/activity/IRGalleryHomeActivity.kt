@@ -31,7 +31,7 @@ class IRGalleryHomeActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        isTS004Remote = intent.getIntExtra(ExtraKeyConfig.DIR_TYPE, 0) == DirType.TS004_REMOTE.ordinal
+        isTS004Remote = false // TC001 only - no TS004 remote support
 
         if (savedInstanceState == null) {
             val bundle = Bundle()

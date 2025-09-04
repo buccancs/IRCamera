@@ -61,33 +61,6 @@ object SharedManager {
             SPUtils.getInstance().put("hasConnectTcLine", value)
         }
 
-    /**
-     * 设备列表中是否有 TS004 设备，默认 false.
-     */
-    var hasTS004: Boolean
-        get() = SPUtils.getInstance().getBoolean("hasConnectTS004", false)
-        set(value) {
-            SPUtils.getInstance().put("hasConnectTS004", value)
-        }
-
-    /**
-     * 设备列表中是否有 TC007 设备，默认 false.
-     */
-    var hasTC007: Boolean
-        get() = SPUtils.getInstance().getBoolean("hasConnectTC007", false)
-        set(value) {
-            SPUtils.getInstance().put("hasConnectTC007", value)
-        }
-
-    /**
-     * TC007 的温度修正参数，JSON 形式.
-     */
-    var irConfigJsonTC007: String
-        get() = SPUtils.getInstance().getString("irConfigJsonTC007")
-        set(value) {
-            SPUtils.getInstance().put("irConfigJsonTC007", value)
-        }
-
 
     /**
      * 首页操作指引要显示的步骤 1-第1步 2-第2步 3-第3步 0-不显示
@@ -118,32 +91,8 @@ object SharedManager {
             SPUtils.getInstance().put("isHideEmissivityTips", value)
         }
 
-    /**
-     * tc007是否显示过发射率提示
-     */
-    var is07HideEmissivityTips: Boolean
-        get() = SPUtils.getInstance().getBoolean("is07HideEmissivityTips", false)
-        set(value) {
-            SPUtils.getInstance().put("is07HideEmissivityTips", value)
-        }
 
-    /**
-     * TS004是否开启”超分“
-     */
-    var is04TISR: Boolean
-        get() = SPUtils.getInstance().getBoolean("is04TISR", false)
-        set(value) {
-            SPUtils.getInstance().put("is04TISR", value)
-        }
 
-    /**
-     * TS004 是否开启”自动保存到手机“
-     */
-    var is04AutoSync: Boolean
-        get() = SPUtils.getInstance().getBoolean("is04AutoSync", false)
-        set(value) {
-            SPUtils.getInstance().put("is04AutoSync", value)
-        }
 
     /**
      * 双光校正旋转角度，取值范围 [0, 2000]，对应 SeekBar 取值.id对应设备的sid作为唯一标识区分
@@ -210,14 +159,7 @@ object SharedManager {
             SPUtils.getInstance().put("isConnectAutoOpen", value)
         }
 
-    /**
-     * 连接 TC007 后是否自动开启画面.
-     */
-    var isConnect07AutoOpen: Boolean
-        get() = SPUtils.getInstance().getBoolean("isConnect07AutoOpen", false)
-        set(value) {
-            SPUtils.getInstance().put("isConnect07AutoOpen", value)
-        }
+
 
     /**
      * 设备断开时，是否需要弹出 OTG 提示弹框.
@@ -335,15 +277,7 @@ object SharedManager {
             SPUtils.getInstance().put("watermarkBean", Gson().toJson(value))
         }
 
-    /**
-     * 点击TS004-是否切换设备，是否需要弹出提示弹框.
-     * true-弹出提示弹框 false-用户点过不再提示，不需要再弹出
-     */
-    var isTipChangeDevice: Boolean
-        get() = SPUtils.getInstance().getBoolean("isTipChangeDevice", true)
-        set(value) {
-            SPUtils.getInstance().put("isTipChangeDevice", value)
-        }
+
 
     /**
      * 设备连接成功，是否切换.
@@ -377,11 +311,6 @@ object SharedManager {
 
     private const val SP_SETTING_IS_PUSH = "sp_setting_is_push" //推送开关
     private const val SP_SETTING_IS_RECOMMEND = "sp_setting_is_recommend"
-
-    /************************TS004************************************/
-    private const val SP_HOT_MODE = "sp_hot_mode"       //白热
-    private const val SP_CHANGE_DEVICE = "sp_change_device"       //ts001与ts004相互切换
-    private const val SP_TC007_CUSTOM_PSEUDO = "sp_tc007_custom_pseudo"//tc007自定义伪彩条
 
     private const val SP_CAR_DETECT = "sp_car_detect"       //汽车检测项目
 
@@ -504,14 +433,6 @@ object SharedManager {
     }
 
 
-    fun saveTC007CustomPseudo(json: String) {
-        SPUtils.getInstance().put(SP_TC007_CUSTOM_PSEUDO, json)
-    }
-
-    fun getTC0007CustomPseudo(): String {
-        return SPUtils.getInstance().getString(SP_TC007_CUSTOM_PSEUDO, "")
-    }
-
     /**
      * 标靶页面是否自动弹框
      */
@@ -562,28 +483,6 @@ object SharedManager {
     fun setImagePermissionsState(value: Boolean) {
         return SPUtils.getInstance().put("storage_permissions_state", value)
     }
-    /************************TS004************************************/
-    /**
-     * TS004主页面-黑热
-     */
-    fun getHotMode(): Int {
-        return SPUtils.getInstance().getInt(SP_HOT_MODE, 1)
-    }
-
-    fun saveHotMode(hotMode: Int) {
-        SPUtils.getInstance().put(SP_HOT_MODE, hotMode)
-    }
-
-    /**
-     * TS004和TS001相互切换 device 0:都无连接  1:TS001连接  2:TS004连接
-     */
-    fun getChangeDevice(): Int {
-        return SPUtils.getInstance().getInt(SP_CHANGE_DEVICE, 0)
-    }
-
-    fun saveChangeDevice(device: Int) {
-        SPUtils.getInstance().put(SP_CHANGE_DEVICE, device)
-    }
 
     fun getCarDetectInfo(): CarDetectChildBean {
         var detectInfo = SPUtils.getInstance().getString(SP_CAR_DETECT, "")
@@ -599,5 +498,35 @@ object SharedManager {
     fun saveCarDetectInfo(bean: CarDetectChildBean) {
         SPUtils.getInstance().put(SP_CAR_DETECT, GsonUtils.toJson(bean))
     }
+
+    // Legacy device-specific properties - now defaults for TC001 compatibility
+    
+    /**
+     * TS004 auto sync setting (legacy - TC001 doesn't use this).
+     */
+    var is04AutoSync: Boolean
+        get() = SPUtils.getInstance().getBoolean("is04AutoSync", false)
+        set(value) = SPUtils.getInstance().put("is04AutoSync", value)
+        
+    /**
+     * TS004 TISR setting (legacy - TC001 doesn't use this).
+     */
+    var is04TISR: Boolean
+        get() = SPUtils.getInstance().getBoolean("is04TISR", false)
+        set(value) = SPUtils.getInstance().put("is04TISR", value)
+        
+    /**
+     * TC007 auto connect setting (legacy - TC001 doesn't use this).
+     */
+    var isConnect07AutoOpen: Boolean
+        get() = SPUtils.getInstance().getBoolean("isConnect07AutoOpen", false)
+        set(value) = SPUtils.getInstance().put("isConnect07AutoOpen", value)
+        
+    /**
+     * Free space information (legacy - TC001 doesn't use this).
+     */
+    var freeSpaceBean: com.topdon.lib.core.repository.FreeSpaceBean
+        get() = com.topdon.lib.core.repository.FreeSpaceBean() // Return empty bean for TC001
+        set(value) = Unit // No-op for TC001
 
 }

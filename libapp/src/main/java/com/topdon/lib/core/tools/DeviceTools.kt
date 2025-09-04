@@ -11,7 +11,6 @@ import com.elvishew.xlog.XLog
 import com.topdon.lib.core.bean.event.device.DeviceConnectEvent
 import com.topdon.lib.core.bean.event.device.DevicePermissionEvent
 import com.topdon.lib.core.broadcast.DeviceBroadcastReceiver
-import com.topdon.lib.core.config.DeviceConfig.isHik256
 import com.topdon.lib.core.config.DeviceConfig.isTcLiteDevice
 import com.topdon.lib.core.config.DeviceConfig.isTcTsDevice
 import com.topdon.lib.core.utils.ByteUtils.toBytes
@@ -93,19 +92,6 @@ object DeviceTools {
         val deviceList: HashMap<String, UsbDevice> =  usbManager.deviceList
         for (usbDevice in deviceList.values) {
             if (usbDevice.isTcLiteDevice()) {
-                return true
-            }
-        }
-        return false
-    }
-
-    /**
-     * 判断海康 256 是否已连接
-     */
-    fun isHikConnect(): Boolean {
-        val usbManager: UsbManager = Utils.getApp().getSystemService(Context.USB_SERVICE) as UsbManager
-        for (usbDevice in usbManager.deviceList.values) {
-            if (usbDevice.isHik256()) {
                 return true
             }
         }

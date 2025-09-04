@@ -34,24 +34,15 @@ class IRMonitorCaptureFragment : BaseFragment() {
         animation_view.setAnimation(if (isTC007) "TC007AnimationJSON.json" else "TDAnimationJSON.json")
 
         view_start.setOnClickListener {
-            if (isTC007) {
-                if (WebSocketProxy.getInstance().isTC007Connect()) {
-                    ARouter.getInstance().build(RouterConfig.IR_MONITOR_CAPTURE_07).navigation(requireContext())
-                } else {
-                    ToastTools.showShort(R.string.device_connect_tip)
+            // TC001 only - no TC007 support
+            if (DeviceTools.isConnect()) {
+                if (DeviceTools.isTC001LiteConnect()){
+                    ARouter.getInstance().build(RouterConfig.IR_THERMAL_MONITOR_LITE).navigation(requireContext())
+                } else{
+                    startActivity(Intent(requireContext(), IRMonitorActivity::class.java))
                 }
             } else {
-                if (DeviceTools.isConnect()) {
-                    if (DeviceTools.isTC001LiteConnect()){
-                        ARouter.getInstance().build(RouterConfig.IR_THERMAL_MONITOR_LITE).navigation(requireContext())
-                    } else if (DeviceTools.isHikConnect()) {
-                        ARouter.getInstance().build(RouterConfig.IR_HIK_MONITOR_CAPTURE1).navigation(requireContext())
-                    } else{
-                        startActivity(Intent(requireContext(), IRMonitorActivity::class.java))
-                    }
-                } else {
-                    ToastTools.showShort(R.string.device_connect_tip)
-                }
+                ToastTools.showShort(R.string.device_connect_tip)
             }
         }
 
