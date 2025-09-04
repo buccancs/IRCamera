@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="gallery">Gallery</string>
+    <string name="app_name">Thermal</string>
+    <string name="app_connect">Connected</string>
+    <string name="app_no_connect">Not Connected</string>
+    <string name="app_record">Record</string>
 </resources>
