@@ -16,19 +16,6 @@ kapt {
 android {
     compileSdk rootProject.ext.android.compileSdk
     
-    configurations.all {
-        resolutionStrategy {
-            force 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
-            force 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
-            force 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
-            force 'androidx.lifecycle:lifecycle-runtime:2.4.1'
-            force 'androidx.lifecycle:lifecycle-viewmodel:2.4.1'
-            force 'androidx.lifecycle:lifecycle-livedata:2.4.1'
-            force 'androidx.lifecycle:lifecycle-common:2.4.1'
-            force 'androidx.lifecycle:lifecycle-livedata-core:2.4.1'
-        }
-    }
-    
     defaultConfig {
         applicationId rootProject.ext.android.applicationId
         minSdk rootProject.ext.android.minSdk
