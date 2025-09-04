@@ -283,7 +283,8 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             drawable!!.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
             settingUserText.setCompoundDrawables(null, null, drawable, null)
             settingUserText.text = SharedManager.getNickname()
-            tv_email.text = SharedManager.getUsername()
+            val tvEmail = requireView().findViewById<TextView>(R.id.tv_email)
+            tvEmail.text = SharedManager.getUsername()
             settingUserLay.visibility = View.VISIBLE
 
             if (settingUserImgNight != null) {
@@ -309,7 +310,8 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             drawable!!.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
             settingUserText.setCompoundDrawables(null, null, drawable, null)
             settingUserLay.visibility = View.GONE
-            tv_email.text = ""
+            val tvEmail = requireView().findViewById<TextView>(R.id.tv_email)
+            tvEmail.text = ""
             settingUserImgNight.setImageResource(R.mipmap.ic_default_user_head)//恢复默认头像
         }
     }

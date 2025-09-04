@@ -118,10 +118,13 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
     }
 
     private fun initRecycler() {
-        monitor_chart_time_recycler.layoutManager = GridLayoutManager(this, 4)
-        monitor_chart_time_recycler.adapter = timeAdapter
-        monitor_chart_setting_recycler.layoutManager = GridLayoutManager(this, 3)
-        monitor_chart_setting_recycler.adapter = adapter
+        val monitorChartTimeRecycler = findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.monitor_chart_time_recycler)
+        val monitorChartSettingRecycler = findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.monitor_chart_setting_recycler)
+        
+        monitorChartTimeRecycler.layoutManager = GridLayoutManager(this, 4)
+        monitorChartTimeRecycler.adapter = timeAdapter
+        monitorChartSettingRecycler.layoutManager = GridLayoutManager(this, 3)
+        monitorChartSettingRecycler.adapter = adapter
         //设置时间段类型(秒 分 时 天)
         timeAdapter.listener = object : SettingTimeAdapter.OnItemClickListener {
             override fun onClick(index: Int, timeType: Int) {

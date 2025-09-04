@@ -5,6 +5,8 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.thermal.R
@@ -42,8 +44,13 @@ class GalleryActivity : BaseActivity() {
 
     override fun initView() {
         setTitleText(getString(R.string.gallery))
-        gallery_viewpager.adapter = ViewAdapter(this, supportFragmentManager)
-        gallery_tab.setupWithViewPager(gallery_viewpager)
+        
+        // Use findViewById instead of synthetic views for Kotlin 2.1.0 compatibility
+        val galleryViewPager = findViewById<ViewPager>(R.id.gallery_viewpager)
+        val galleryTab = findViewById<TabLayout>(R.id.gallery_tab)
+        
+        galleryViewPager.adapter = ViewAdapter(this, supportFragmentManager)
+        galleryTab.setupWithViewPager(galleryViewPager)
 
         mRxPermissions!!.request( permissionList)
             .subscribe {

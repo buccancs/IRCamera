@@ -38,9 +38,13 @@ class DownloadProDialog(context: Context) : Dialog(context, R.style.InfoDialog) 
      */
     fun refreshProgress(current: Long, total: Long) {
         val progress = (current * 100f / total).toInt()
-        rootView.tv_size.text = "${context.getString(RCore.string.detail_len)}: ${getFileSizeStr(current)}/${getFileSizeStr(total)}"
-        rootView.progress_bar.progress = progress
-        rootView.tv_progress.text = "${progress}%"
+        val tvSize = rootView.findViewById<android.widget.TextView>(R.id.tv_size)
+        val progressBar = rootView.findViewById<android.widget.ProgressBar>(R.id.progress_bar)
+        val tvProgress = rootView.findViewById<android.widget.TextView>(R.id.tv_progress)
+        
+        tvSize.text = "${context.getString(RCore.string.detail_len)}: ${getFileSizeStr(current)}/${getFileSizeStr(total)}"
+        progressBar.progress = progress
+        tvProgress.text = "${progress}%"
     }
 
     private fun getFileSizeStr(size: Long): String = if (size < 1024) {

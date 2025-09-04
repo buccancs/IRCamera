@@ -101,7 +101,7 @@ class MonitorActivity : BaseActivity(), View.OnClickListener {
         val mm = time / 60 % 60
         val ssStr = String.format("%02d", ss)
         val mmStr = String.format("%02d", mm)
-        motion_start_btn.text = "${mmStr}:${ssStr}"
+        findViewById<Button>(R.id.motion_start_btn).text = "${mmStr}:${ssStr}"
     }
 
 
