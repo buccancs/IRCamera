@@ -197,7 +197,7 @@ dependencies {
 
 
 
-    // UMeng - Google customized version
-    implementation(files("libs/umeng-common-9.4.4+000.jar"))
+    // UMeng - Updated to version 9.8.8
+    implementation(files("libs/common-9.8.8.aar"))
 }
 
