@@ -51,12 +51,6 @@ android {
     }
 
     signingConfigs {
-        debug {
-            storeFile file('artibox_key/ArtiBox.jks')
-            keyAlias 'Artibox'
-            storePassword 'artibox2017'
-            keyPassword 'artibox2017'
-        }
         release {
             storeFile file('artibox_key/ArtiBox.jks')
             keyAlias 'Artibox'
@@ -69,11 +63,6 @@ android {
 
 
     buildTypes {
-        debug {
-            signingConfig signingConfigs.debug
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
         release {
             signingConfig signingConfigs.release
             minifyEnabled false
@@ -136,13 +125,8 @@ static def getTimeStr() {
 
 def versionApk(variant, defaultConfig) {
     variant.outputs.all {
-        def appName = "TopInfrared.apk"
         def nameStr = "TopInfrared_" + defaultConfig.versionName + "." + dayStr
-        if (variant.name == "debug") {
-            appName = nameStr + "_debug.apk"
-        } else if (variant.name == "release") {
-            appName = nameStr + ".apk"
-        }
+        def appName = nameStr + ".apk"
         outputFileName = appName
     }
 }
@@ -172,17 +156,9 @@ def copyAab(type) {
 }
 
 project.afterEvaluate {
-    assembleDebug.doLast {
-        println "===================== build Debug.apk copy ========================="
-        copyApk("debug")
-    }
     assembleRelease.doLast {
         println "===================== build Release.apk copy ======================="
         copyApk("release")
-    }
-    bundleDebug.doLast {
-        println "===================== build Debug.aab copy ======================="
-        copyAab("debug")
     }
     bundleRelease.doLast {
         println "===================== build Release.aab copy ======================="
