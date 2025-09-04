@@ -47,13 +47,6 @@ android {
     buildFeatures {
         dataBinding = true
     }
-
-    flavorDimensions += "app"
-    productFlavors {
-        create("prod") {
-            dimension = "app"
-        }
-    }
 }
 
 dependencies {
