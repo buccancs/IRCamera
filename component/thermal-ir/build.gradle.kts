@@ -13,10 +13,10 @@ kapt {
 
 android {
     namespace = "com.topdon.module.thermal.ir"
-    compileSdk = AndroidConfig.compileSdk
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = AndroidConfig.minSdk
+        minSdk = libs.versions.minSdk.get().toInt()
         // targetSdk removed for library modules - only set in main app module per AGP 8.0+
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -81,14 +81,14 @@ dependencies {
     implementation(project(":libmenu"))
     
     // ARouter compiler - re-enabled after findViewById migration completion
-    kapt(Deps.arouter_compiler)
-    implementation(Deps.androidx_core)
-    implementation(Deps.appcompat)
-    implementation(Deps.material)
-    implementation(Deps.utilcode)
-    implementation(Deps.glide)
+    kapt(libs.arouter.compiler)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.utilcode)
+    implementation(libs.glide)
     
     // Compass and sensor dependencies - restored with compatible versions
-    implementation(Deps.andromeda_core)  // Using stable version 15.3.0 from Maven Central
-    implementation(Deps.andromeda_sense)  // Using stable version 15.3.0 from Maven Central
+    implementation(libs.andromeda.core)  // Using stable version 15.3.0 from Maven Central
+    implementation(libs.andromeda.sense)  // Using stable version 15.3.0 from Maven Central
 }

@@ -4,11 +4,11 @@ plugins {
 
 android {
     namespace = "com.energy.commoncomponent"
-    compileSdk = AndroidConfig.compileSdk
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = AndroidConfig.minSdk
-        // targetSdk = AndroidConfig.targetSdk  // Deprecated in library modules
+        minSdk = libs.versions.minSdk.get().toInt()
+        // targetSdk = libs.versions.targetSdk.get().toInt()  // Deprecated in library modules
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -43,12 +43,12 @@ android {
 }
 
 dependencies {
-    implementation(Deps.appcompat)
-    implementation(Deps.material)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
     implementation("androidx.multidex:multidex:2.0.1")
-    implementation(Deps.utilcode)
+    implementation(libs.utilcode)
 
-    implementation(Deps.lifecycle_runtime_ktx)
-    implementation(Deps.lifecycle_viewmodel_ktx)
-    implementation(Deps.lifecycle_livedata_ktx)
+    implementation(libs.lifecycle.runtime.ktx)
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.lifecycle.livedata.ktx)
 }

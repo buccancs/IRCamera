@@ -6,10 +6,10 @@ group = "com.github.Jay-Goo"
 
 android {
     namespace = "com.jaygoo.widget"
-    compileSdk = AndroidConfig.compileSdk
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = AndroidConfig.minSdk
+        minSdk = libs.versions.minSdk.get().toInt()
 
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -33,9 +33,9 @@ dependencies {
     implementation("com.android.support:appcompat-v7:28.0.0")
     
     // Testing dependencies
-    testImplementation(Deps.junit)
-    androidTestImplementation(Deps.test_ext_junit)
-    androidTestImplementation(Deps.test_espresso_core)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.test.ext.junit)
+    androidTestImplementation(libs.test.espresso.core)
 }
 
 // 指定编码

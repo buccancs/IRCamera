@@ -18,10 +18,10 @@ kapt {
 
 android {
     namespace = "com.topdon.lib.core"
-    compileSdk = AndroidConfig.compileSdk
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = AndroidConfig.minSdk
+        minSdk = libs.versions.minSdk.get().toInt()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -71,67 +71,67 @@ android {
 dependencies {
     // Using only JAR files to avoid AGP 8.0+ AAR dependency issues
     api(fileTree(mapOf("include" to listOf("*.jar"), "dir" to "libs")))
-    api(Deps.appcompat)
-    api(Deps.fragment_ktx)
-    api(Deps.material)
+    api(libs.androidx.appcompat)
+    api(libs.fragment.ktx)
+    api(libs.material)
 
-    api(Deps.lifecycle_runtime_ktx)
-    api(Deps.lifecycle_viewmodel_ktx)
-    api(Deps.lifecycle_livedata_ktx)
+    api(libs.lifecycle.runtime.ktx)
+    api(libs.lifecycle.viewmodel.ktx)
+    api(libs.lifecycle.livedata.ktx)
 
-    kapt(Deps.room_compiler)
-    api(Deps.room_ktx)
+    kapt(libs.room.compiler)
+    api(libs.room.ktx)
 
-    api(Deps.work_runtime_ktx)
+    api(libs.work.runtime.ktx)
 
-    api(Deps.retrofit2)
-    api(Deps.converter_gson)
-    api(Deps.adapter_rxjava2)
+    api(libs.retrofit2)
+    api(libs.converter.gson)
+    api(libs.adapter.rxjava2)
 
-    api(Deps.eventbus)
+    api(libs.eventbus)
 
-    api(Deps.glide)
-    kapt(Deps.glide_compiler)
+    api(libs.glide)
+    kapt(libs.glide.compiler)
 
-    api(Deps.rxjava2)
-    api(Deps.rxandroid)
+    api(libs.rxjava2)
+    api(libs.rxandroid)
     // Commented out problematic RxLifecycle dependencies to identify actual compilation issues
-    // api(Deps.rxpermissions)
-    // api(Deps.rxlifecycle)
-    // api(Deps.rxlifecycle_android)
-    // api(Deps.rxlifecycle_components)
-    // api(Deps.rxlifecycle_ktx)
-    // api(Deps.rxlifecycle_android_lifecycle_ktx)
+    // api(libs.rxpermissions)
+    // api(libs.rxlifecycle)
+    // api(libs.rxlifecycle.android)
+    // api(libs.rxlifecycle.components)
+    // api(libs.rxlifecycle.ktx)
+    // api(libs.rxlifecycle.android.lifecycle.ktx)
 
-    api(Deps.utilcode)
-    api(Deps.XXPermissions)
-    api(Deps.xlog)
-    api(Deps.PhotoView)
-    // api(Deps.android_pdf_viewr) // Temporary comment out due to dependency resolution issues
-    api(Deps.lottie)
+    api(libs.utilcode)
+    api(libs.xxpermissions)
+    api(libs.xlog)
+    api(libs.photoview)
+    // api(libs.android.pdf.viewr) // Temporary comment out due to dependency resolution issues
+    api(libs.lottie)
 
-    api(Deps.brvah)
+    api(libs.brvah)
     // Commented out problematic refresh layout dependency  
-    // api(Deps.refresh_layout_kernel)
-    // api(Deps.refresh_header_classics) // Temporary comment out
-    // api(Deps.refresh_header_material) // Temporary comment out
+    // api(libs.refresh.layout.kernel)
+    // api(libs.refresh.header.classics) // Temporary comment out
+    // api(libs.refresh.header.material) // Temporary comment out
 
-    api(Deps.logging_interceptor)
-    api(Deps.colorpickerview)
-    // api(Deps.MNImageBrowser) // Temporary comment out
-    api(Deps.nifty)
-    // api(Deps.nifty_effect) // Temporary comment out
+    api(libs.logging.interceptor)
+    api(libs.colorpickerview)
+    // api(libs.MNImageBrowser) // Temporary comment out
+    api(libs.nifty)
+    // api(libs.nifty.effect) // Temporary comment out
 
-//    "devApi"(Deps.lms2)
-//    "betaApi"(Deps.lms2)
-//    "prodApi"(Deps.lms2)
-//    "prodTopdonApi"(Deps.lms2)
-//    "insideChinaApi"(Deps.lms3)
-//    "prodTopdonInsideChinaApi"(Deps.lms3)
+//    "devApi"(libs.lms2.user)
+//    "betaApi"(libs.lms2.user)
+//    "prodApi"(libs.lms2.user)
+//    "prodTopdonApi"(libs.lms2.user)
+//    "insideChinaApi"(libs.lms3.user)
+//    "prodTopdonInsideChinaApi"(libs.lms3.user)
 
     // JavaCV
-    api(Deps.javacv)
-    api(Deps.javacpp)
+    api(libs.javacv)
+    api(libs.javacpp)
     // Local AAR dependencies - using proper flatDir repository approach
     // These provide critical functionality (CommonBean, ResponseBean, LMS classes)
     api("abtest:abtest:1.0.1@aar")

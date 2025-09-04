@@ -13,11 +13,11 @@ kapt {
 
 android {
     namespace = "com.topdon.lib.ui"
-    compileSdk = AndroidConfig.compileSdk
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = AndroidConfig.minSdk
-        // targetSdk = AndroidConfig.targetSdk  // Deprecated in library modules
+        minSdk = libs.versions.minSdk.get().toInt()
+        // targetSdk = libs.versions.targetSdk.get().toInt()  // Deprecated in library modules
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -50,6 +50,6 @@ dependencies {
 
     
     // Smart Refresh Layout for LoadingFooter
-    implementation(Deps.smart_refresh_layout)
-    implementation(Deps.smart_refresh_header)
+    implementation(libs.smart.refresh.layout)
+    implementation(libs.smart.refresh.header)
 }
