@@ -4,4 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="color_CCFFFFFF">#CCFFFFFF</color>
     <color name="c_bg_white">#FF16131E</color>
+    
+    <!-- LMS SDK colors -->
+    <color name="lms_color_333">#333333</color>
 </resources>
