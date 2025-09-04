@@ -23,9 +23,7 @@ android {
     }
 
     buildTypes {
-        debug {
-            isMinifyEnabled = false
-        }
+        
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -51,9 +49,10 @@ android {
 
     flavorDimensions += "app"
     productFlavors {
-        create("dev") {
+        create("prod") {
             dimension = "app"
         }
+    }
         create("beta") {
             dimension = "app"
         }

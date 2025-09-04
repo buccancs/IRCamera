@@ -11,10 +11,7 @@ android {
     }
 
     buildTypes {
-        debug {
-            isMinifyEnabled = false
-            buildConfigField("boolean", "DEBUG", "true")
-        }
+        
         release {
             isMinifyEnabled = false
             buildConfigField("boolean", "DEBUG", "false")
@@ -34,25 +31,10 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    flavorDimensions += "versionCode"
+    flavorDimensions += "app"
     productFlavors {
-        create("nj1000pro") {
-            dimension = "versionCode"
-        }
-        // AD900
-        create("ultradiag") {
-            dimension = "versionCode"
-        }
-        // ArtiDiag900 ArtiDiag900Lite
-        // ArtiDiag900 ArtiDiag900Lite 打包时需要修改DiagnoseModule和BluetoothModule 中的进程名称 进程名：com.topdon.diagnose.adliteservice  Constants.mAppVersion  此字段也需要修改
-        create("artidiag900lite") {
-            dimension = "versionCode"
-        }
-        create("topscan") {
-            dimension = "versionCode"
-        }
-        create("keynow") {
-            dimension = "versionCode"
+        create("prod") {
+            dimension = "app"
         }
     }
 }

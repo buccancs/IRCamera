@@ -23,9 +23,7 @@ android {
     }
 
     buildTypes {
-        debug {
-            isMinifyEnabled = false
-        }
+        
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -51,9 +49,10 @@ android {
 
     flavorDimensions += "app"
     productFlavors {
-        create("dev") {
+        create("prod") {
             dimension = "app"
         }
+    }
         create("beta") {
             dimension = "app"
         }
@@ -78,9 +77,7 @@ dependencies {
     implementation(project(":libir"))
     implementation(project(":libui"))
     implementation(project(":libmenu"))
-    
 
-    
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

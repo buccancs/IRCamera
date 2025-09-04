@@ -47,10 +47,6 @@ android {
     }
 
     signingConfigs {
-        getByName("debug") {
-            // Use default debug keystore - no need to specify custom keystore for debug builds
-            // This allows development without requiring production keystores
-        }
         create("release") {
             storeFile = file("artibox_key/ArtiBox.jks")
             keyAlias = "Artibox"
@@ -64,14 +60,6 @@ android {
     }
 
     buildTypes {
-        getByName("debug") {
-            signingConfig = signingConfigs.getByName("debug")
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android.txt"),
-                "proguard-rules.pro"
-            )
-        }
         getByName("release") {
             signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = false
@@ -140,22 +128,6 @@ android {
     flavorDimensions += "app"
 
     productFlavors {
-        create("dev") {
-            dimension = "app"
-            buildConfigField("int", "ENV_TYPE", "0")
-            buildConfigField("String", "SOFT_CODE", "\"${libs.versions.softcodeTopinfrared.get()}\"")
-            buildConfigField("String", "APP_KEY", "\"${libs.versions.appkeyTopinfrared.get()}\"")
-            buildConfigField("String", "APP_SECRET", "\"${libs.versions.appsecretTopinfrared.get()}\"")
-            manifestPlaceholders["app_name"] = "TopInfrared"
-        }
-        create("beta") {
-            dimension = "app"
-            buildConfigField("int", "ENV_TYPE", "0")
-            buildConfigField("String", "SOFT_CODE", "\"${libs.versions.softcodeTopinfrared.get()}\"")
-            buildConfigField("String", "APP_KEY", "\"${libs.versions.appkeyTopinfrared.get()}\"")
-            buildConfigField("String", "APP_SECRET", "\"${libs.versions.appsecretTopinfrared.get()}\"")
-            manifestPlaceholders["app_name"] = "IRCamera"
-        }
         create("prod") {
             dimension = "app"
             buildConfigField("int", "ENV_TYPE", "0")
@@ -163,34 +135,6 @@ android {
             buildConfigField("String", "APP_KEY", "\"${libs.versions.appkeyTopinfrared.get()}\"")
             buildConfigField("String", "APP_SECRET", "\"${libs.versions.appsecretTopinfrared.get()}\"")
             manifestPlaceholders["app_name"] = "IRCamera"
-        }
-        create("prodTopdon") {
-            dimension = "app"
-            targetSdk = 27
-            buildConfigField("int", "ENV_TYPE", "0")
-            buildConfigField("String", "SOFT_CODE", "\"${libs.versions.softcodeTopinfrared10.get()}\"")
-            buildConfigField("String", "APP_KEY", "\"${libs.versions.appkeyTopinfrared10.get()}\"")
-            buildConfigField("String", "APP_SECRET", "\"${libs.versions.appsecretTopinfrared10.get()}\"")
-            manifestPlaceholders["app_name"] = "IRCamera"
-        }
-        create("insideChina") {
-            dimension = "app"
-            buildConfigField("int", "ENV_TYPE", "1")
-            buildConfigField("String", "SOFT_CODE", "\"${libs.versions.softcodeTopinfraredCn.get()}\"")
-            buildConfigField("String", "APP_KEY", "\"${libs.versions.appkeyTopinfraredCn.get()}\"")
-            buildConfigField("String", "APP_SECRET", "\"${libs.versions.appsecretTopinfraredCn.get()}\"")
-            manifestPlaceholders["app_name"] = "热视界"
-        }
-        create("prodTopdonInsideChina") {
-            dimension = "app"
-            targetSdk = 27
-            buildConfigField("int", "ENV_TYPE", "1")
-            buildConfigField("String", "SOFT_CODE", "\"${libs.versions.softcodeTopinfraredCn10.get()}\"")
-            buildConfigField("String", "APP_KEY", "\"${libs.versions.appkeyTopinfraredCn10.get()}\"")
-            buildConfigField("String", "APP_SECRET", "\"${libs.versions.appsecretTopinfraredCn10.get()}\"")
-            val currentYear = SimpleDateFormat("yy", Locale.getDefault()).format(Date()).toInt()
-            versionCode = libs.versions.versionCode.get().toInt() + currentYear * 10000
-            manifestPlaceholders["app_name"] = "热视界"
         }
     }
 }
@@ -204,22 +148,11 @@ configurations.all {
     }
 }
 
-// APK naming function - Updated to use Variant instead of deprecated ApplicationVariant
+// APK naming function - Simplified for prodRelease only
 fun getApkName(variantName: String, versionName: String): String {
     val nameStr = "TopInfrared_${versionName}.$dayStr"
     return when (variantName) {
-        "devDebug" -> "TopInfrared-v$versionName-debug.apk"
-        "devRelease" -> "$nameStr-release.apk"
-        "betaDebug" -> "${nameStr}_beta_debug.apk"
-        "betaRelease" -> "${nameStr}_beta.apk"
-        "prodDebug" -> "${nameStr}_debug.apk"
         "prodRelease" -> "$nameStr.apk"
-        "prodTopdonDebug" -> "TopInfrared_Android10_${versionName}.${dayStr}_debug.apk"
-        "prodTopdonRelease" -> "TopInfrared_Android10_${versionName}.$dayStr.apk"
-        "insideChinaDebug" -> "${nameStr}_debug.apk"
-        "insideChinaRelease" -> "$nameStr.apk"
-        "prodTopdonInsideChinaDebug" -> "${nameStr}_debug.apk"
-        "prodTopdonInsideChinaRelease" -> "$nameStr.apk"
         else -> "TopInfrared.apk"
     }
 }
@@ -264,34 +197,15 @@ dependencies {
     implementation(libs.umeng.apm)
     implementation(libs.zoho.salesiq)
 
-    // Firebase - International versions
+    // Firebase - Production version only
     implementation(platform(libs.firebase.bom))
-    "devImplementation"(libs.firebase.crashlytics)
-    "devImplementation"(libs.firebase.analytics)
-    "devImplementation"(libs.firebase.messaging)
-    "devImplementation"(libs.firebase.iid)
-    "betaImplementation"(libs.firebase.crashlytics)
-    "betaImplementation"(libs.firebase.analytics)
-    "betaImplementation"(libs.firebase.messaging)
-    "betaImplementation"(libs.firebase.iid)
-    "prodImplementation"(libs.firebase.crashlytics)
-    "prodImplementation"(libs.firebase.analytics)
-    "prodImplementation"(libs.firebase.messaging)
-    "prodImplementation"(libs.firebase.iid)
-    "prodTopdonImplementation"(libs.firebase.crashlytics)
-    "prodTopdonImplementation"(libs.firebase.analytics)
-    "prodTopdonImplementation"(libs.firebase.messaging)
-    "prodTopdonImplementation"(libs.firebase.iid)
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.messaging)
+    implementation(libs.firebase.iid)
 
     // UMeng - Google customized version
-    "betaImplementation"(files("libs/umeng-common-9.4.4+000.jar"))
-    "devImplementation"(files("libs/umeng-common-9.4.4+000.jar"))
-    "prodImplementation"(files("libs/umeng-common-9.4.4+000.jar"))
-    "prodTopdonImplementation"(files("libs/umeng-common-9.4.4+000.jar"))
-
-    // UMeng - China versions
-    "insideChinaImplementation"(libs.umeng.common)
-    "insideChinaImplementation"(libs.umeng.asms)
+    implementation(files("libs/umeng-common-9.4.4+000.jar"))
 }
 
 // Fix Google Services task dependency issue for Gradle 8.0+

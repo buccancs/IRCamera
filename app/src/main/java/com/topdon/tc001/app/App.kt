@@ -84,20 +84,12 @@ class App : BaseApplication() {
             }
         }
         if (!isDomestic()) {
-            if (!BuildConfig.DEBUG) {
-                // 正式版本,服务地址强制转换正式地址,并且不可更换
-                // 测试版本,可自由切换
-                UrlConstant.setBaseUrl("${HttpConfig.HOST}/", false)
-            } else {
-                if (SharedManager.getHasShowClause()) {
-                    XLog.w("lms host: ${UrlConstant.BASE_URL}")
-                }
-            }
+            // Production version - force production URL and disable URL switching
+            UrlConstant.setBaseUrl("${HttpConfig.HOST}/", false)
             SharedManager.setBaseHost(UrlConstant.BASE_URL) //更新app服务地址
         }
-        if(BuildConfig.DEBUG) {
-            FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(false);
-        }
+        // Enable Firebase Crashlytics for release builds
+        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true);
         CoroutineScope(Dispatchers.IO).launch {
             tau_data_H = CommonUtil.getAssetData(mContext, IrConst.TAU_HIGH_GAIN_ASSET_PATH)
             tau_data_L = CommonUtil.getAssetData(mContext, IrConst.TAU_LOW_GAIN_ASSET_PATH)
