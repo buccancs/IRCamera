@@ -1,10 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     repositories {
-        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
-        maven { url 'https://maven.aliyun.com/repository/central' }
-        maven { url 'https://maven.aliyun.com/repository/public' }
-        maven { url 'https://maven.aliyun.com/repository/google' }
         google()
         mavenCentral()
         maven { url 'https://www.jitpack.io' }
@@ -16,6 +12,11 @@ buildscript {
         maven {
             url 'https://maven.zohodl.com'
         }
+        // Aliyun repositories as fallback
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        maven { url 'https://maven.aliyun.com/repository/central' }
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.1.3'
@@ -45,6 +46,30 @@ subprojects {
                 androidTestImplementation 'androidx.test.ext:junit:1.1.5'
                 androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
             }
+        }
+    }
+    
+    // Force compatible AndroidX lifecycle versions for AGP 7.1.3
+    configurations.all {
+        resolutionStrategy {
+            force 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
+            force 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
+            force 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
+            force 'androidx.lifecycle:lifecycle-common:2.4.1'
+            force 'androidx.lifecycle:lifecycle-process:2.4.1'
+            force 'androidx.lifecycle:lifecycle-viewmodel-savedstate:2.4.1'
+            force 'androidx.lifecycle:lifecycle-service:2.4.1'
+            force 'androidx.lifecycle:lifecycle-livedata-core-ktx:2.4.1'
+            force 'androidx.core:core:1.8.0'
+            force 'androidx.core:core-ktx:1.8.0'
+            
+            // Force compatible Kotlin stdlib and coroutines versions for Kotlin 1.7.20
+            force 'org.jetbrains.kotlin:kotlin-stdlib:1.7.20'
+            force 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.20'
+            force 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.20'
+            force 'org.jetbrains.kotlin:kotlin-stdlib-common:1.7.20'
+            force 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
+            force 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
         }
     }
 }

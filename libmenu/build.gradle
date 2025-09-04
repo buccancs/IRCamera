@@ -28,35 +28,13 @@ android {
     buildFeatures{
         dataBinding = true
     }
-
-    flavorDimensions 'app'
-    productFlavors {
-        dev {
-            dimension 'app'
-        }
-        beta {
-            dimension 'app'
-        }
-        prod {
-            dimension 'app'
-        }
-        prodTopdon {
-            dimension 'app'
-        }
-        insideChina {
-            dimension 'app'
-        }
-        prodTopdonInsideChina {
-            dimension 'app'
-        }
-    }
 }
 
 dependencies {
-    implementation Deps.material //需要 ConstraintLayout、ViewPager2
+    implementation libs.material //需要 ConstraintLayout、ViewPager2
 
-    implementation Deps.glide
-    implementation Deps.utilcode
+    implementation libs.glide
+    implementation libs.utilcode
 
     implementation project(':libapp') //需要使用 string 资源
 }

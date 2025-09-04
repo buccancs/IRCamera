@@ -58,12 +58,12 @@ android {
 }
 
 dependencies {
-    implementation Deps.appcompat
-    implementation Deps.material
-    implementation Deps.multidex
-    implementation Deps.utilcode
+    implementation libs.androidx.appcompat
+    implementation libs.material
+    implementation libs.androidx.multidex
+    implementation libs.utilcode
 
-    implementation Deps.lifecycle_runtime_ktx
-    implementation Deps.lifecycle_viewmodel_ktx
-    implementation Deps.lifecycle_livedata_ktx
+    implementation libs.androidx.lifecycle.runtime.ktx
+    implementation libs.androidx.lifecycle.viewmodel.ktx
+    implementation libs.androidx.lifecycle.livedata.ktx
 }

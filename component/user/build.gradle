@@ -32,34 +32,14 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
-    flavorDimensions 'app'
-    productFlavors {
-        dev {
-            dimension 'app'
-        }
-        beta {
-            dimension 'app'
-        }
-        prod {
-            dimension 'app'
-        }
-        prodTopdon {
-            dimension 'app'
-        }
-        insideChina {
-            dimension 'app'
-        }
-        prodTopdonInsideChina {
-            dimension 'app'
-        }
-    }
 }
 
 dependencies {
     implementation project(':libapp')
     implementation project(':libui')
-    kapt Deps.arouter_compiler
+    kapt libs.arouter.compiler
     implementation 'com.zoho.salesiq:mobilisten:7.0.0'
-
+    
+    // Add compileOnly LMS dependency for compilation
+    compileOnly files('../../app/libs/lms_international-3.90.009.0.aar')
 }

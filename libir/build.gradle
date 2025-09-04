@@ -43,37 +43,18 @@ android {
             jniLibs.srcDirs = ['libs', 'src/main/jnilibs']
         }
     }
-    flavorDimensions 'app'
-    productFlavors {
-        dev {
-            dimension 'app'
-        }
-        beta {
-            dimension 'app'
-        }
-        prod {
-            dimension 'app'
-        }
-        prodTopdon {
-            dimension 'app'
-        }
-        insideChina {
-            dimension 'app'
-        }
-        prodTopdonInsideChina {
-            dimension 'app'
-        }
-    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 //    implementation(name: 'libusbirsdk_1.2.0', ext: 'aar')
     api(name: 'libusbdualsdk_1.3.4_2406271906_standard', ext: 'aar')
-    implementation(name: 'opengl_1.3.2_standard', ext: 'aar')
+    compileOnly(name: 'opengl_1.3.2_standard', ext: 'aar')
     api 'com.conghuahuadan:superlayout:1.1.0'
     implementation project(':libapp')
-    api files('../app/libs/libcommon_1.2.0_24052117.aar')
+    // Note: Removed local AAR dependency to avoid build errors in library modules
+    // AAR dependencies are provided by the app module
+    compileOnly files('../app/libs/libcommon_1.2.0_24052117.aar')
     api(name: 'suplib-release', ext: 'aar')
     api(name: 'ai-upscale-release', ext: 'aar')
 }

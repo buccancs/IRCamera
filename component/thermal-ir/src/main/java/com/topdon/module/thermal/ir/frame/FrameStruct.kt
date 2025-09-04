@@ -252,5 +252,10 @@ class FrameStruct() {
     }
 
     fun isTC001(): Boolean = name == "TC001"
+    
+    /**
+     * Check if device is TC007 (legacy compatibility - always false for TC001 only build)
+     */
+    fun isTC007(): Boolean = false // TC001 only - no TC007 support
 
 }

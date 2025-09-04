@@ -8,6 +8,7 @@ dependencyResolutionManagement {
         maven {
             url 'https://maven.zohodl.com'
         }
+        // Aliyun repository as fallback
         maven {
             url 'https://maven.aliyun.com/repository/public/'
         }
@@ -17,7 +18,7 @@ dependencyResolutionManagement {
 //            allowInsecureProtocol = true
 //        }
         flatDir {
-            dirs 'libir/libs'
+            dirs 'libir/libs', 'app/libs'
         }
     }
 }

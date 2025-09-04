@@ -36,37 +36,15 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
-    flavorDimensions 'app'
-    productFlavors {
-        dev {
-            dimension 'app'
-        }
-        beta {
-            dimension 'app'
-        }
-        prod {
-            dimension 'app'
-        }
-        prodTopdon {
-            dimension 'app'
-        }
-        insideChina {
-            dimension 'app'
-        }
-        prodTopdonInsideChina {
-            dimension 'app'
-        }
-    }
 }
 dependencies {
     implementation project(':libapp')
     implementation project(':libui')
     implementation project(':component:CommonComponent')
 
-    kapt Deps.arouter_compiler
-    api Deps.colorpickerview
-    implementation Deps.brvah
+    kapt libs.arouter.compiler
+    api libs.colorpickerview
+    implementation libs.brvah
 
     implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '3.17'
     implementation group: 'org.apache.xmlbeans', name: 'xmlbeans', version: '3.1.0'
