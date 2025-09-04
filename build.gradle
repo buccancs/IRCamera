@@ -47,6 +47,15 @@ subprojects {
                 androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
             }
         }
+        
+        // Configure Kotlin options to suppress kotlin-android-extensions deprecation warnings
+        if (project.plugins.hasPlugin('kotlin-android')) {
+            project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+                kotlinOptions {
+                    freeCompilerArgs += ["-Xsuppress-version-warnings"]
+                }
+            }
+        }
     }
     
     // Force compatible AndroidX lifecycle versions for AGP 7.1.3

@@ -63,7 +63,7 @@ javacpp = "1.5.8"
 ffmpeg = "5.0-1.5.7"
 
 # Video Player
-gsy-video-player = "v8.1.4"
+gsy-video-player = "v8.5.0-release-jitpack"
 
 [libraries]
 # AndroidX
@@ -151,7 +151,7 @@ ffmpeg-android-x86 = { module = "org.bytedeco:ffmpeg", version = "5.0-1.5.7:andr
 
 # Video Player
 gsy-video-player-java = { module = "com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java", version.ref = "gsy-video-player" }
-gsy-video-player-exo2 = { module = "com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-exo_player2", version.ref = "gsy-video-player" }
+gsy-video-player-exo2 = { module = "com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-ex_so", version.ref = "gsy-video-player" }
 gsy-video-player-armv7a = { module = "com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-armv7a", version.ref = "gsy-video-player" }
 gsy-video-player-arm64 = { module = "com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-arm64", version.ref = "gsy-video-player" }
 
