@@ -197,7 +197,7 @@ dependencies {
 
 
 
-    // UMeng - Updated to version 9.8.8
-    implementation(files("libs/common-9.8.8.aar"))
+    // UMeng - Referenced directly from Maven Central
+    implementation(libs.umeng.common)
 }
 
