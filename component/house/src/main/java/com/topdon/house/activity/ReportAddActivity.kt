@@ -23,7 +23,7 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.lib.core.tools.PermissionTool
-import com.topdon.libcom.util.ARouterUtil
+import com.topdon.libcom.navigation.NavigationManager
 import com.topdon.lms.sdk.weiget.TToast
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -185,7 +185,7 @@ class ReportAddActivity : BaseActivity(), View.OnClickListener {
                         } else {
                             val fileName = "Item${System.currentTimeMillis()}.png"
                             val file = FileConfig.getDetectImageDir(this, fileName)
-                            ARouterUtil.jumpImagePick(this@ReportAddActivity, isTC007, file.absolutePath)
+                            NavigationManager.jumpImagePick(this@ReportAddActivity, isTC007, file.absolutePath)
                         }
                     }
                 }

@@ -7,7 +7,7 @@ plugins {
 
 kapt {
     arguments {
-        arg("AROUTER_MODULE_NAME", project.name)
+        // arg("AROUTER_MODULE_NAME", project.name)  // Removed for NavigationManager migration
     }
 }
 
