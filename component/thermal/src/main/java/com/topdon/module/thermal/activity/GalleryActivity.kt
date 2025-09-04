@@ -9,6 +9,7 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
+import com.topdon.lib.core.tools.PermissionTool
 import com.topdon.module.thermal.R
 import com.topdon.module.thermal.fragment.GalleryPictureFragment
 import com.topdon.module.thermal.fragment.GalleryVideoFragment
@@ -43,10 +44,6 @@ class GalleryActivity : BaseActivity() {
     override fun initContentView() = R.layout.activity_gallery
 
     override fun initView() {
-        // Set toolbar title
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_lay)
-        toolbar?.title = getString(R.string.gallery)
-        
         // Use findViewById instead of synthetic views for Kotlin 2.1.0 compatibility
         val galleryViewPager = findViewById<ViewPager>(R.id.gallery_viewpager)
         val galleryTab = findViewById<TabLayout>(R.id.gallery_tab)
@@ -54,11 +51,10 @@ class GalleryActivity : BaseActivity() {
         galleryViewPager.adapter = ViewAdapter(this, supportFragmentManager)
         galleryTab.setupWithViewPager(galleryViewPager)
 
-        // TODO: Replace with modern permission handling if needed
-        // mRxPermissions!!.request( permissionList)
-        //     .subscribe {
-        // 
-        //     }
+        // Request media permissions using modern PermissionTool
+        PermissionTool.requestFile(this) {
+            // Permission granted, gallery can now access media files
+        }
     }
 
     override fun initData() {
