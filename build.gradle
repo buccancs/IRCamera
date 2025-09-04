@@ -3,12 +3,11 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        maven { url 'https://www.jitpack.io' }
-        // hms�� �������ɻ�Ϊ����ͨ������ֱ������
+        maven { url 'https://jitpack.io' }
+        // hms推送 服务端配置为推送通用代码直接引用
         maven { url 'https://developer.huawei.com/repo/'}
-        // fcm�� �������� FCM ͨ������ֱ������
+        // fcm推送 服务端配置 FCM 通用代码直接引用  
         maven { url "https://maven.google.com" }
-        maven { url 'https://repo1.maven.org/maven2/' }
         maven {
             url 'https://maven.zohodl.com'
         }

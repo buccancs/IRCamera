@@ -17,6 +17,9 @@ android {
     defaultConfig {
         minSdk rootProject.ext.android.minSdk
         targetSdk rootProject.ext.android.targetSdk
+        
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -25,10 +28,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -39,11 +44,16 @@ android {
 }
 
 dependencies {
+    // Core library dependencies
     implementation project(':libapp')
     implementation project(':libui')
+    
+    // ARouter
     kapt libs.arouter.compiler
+    
+    // Third-party dependencies
     implementation 'com.zoho.salesiq:mobilisten:7.0.0'
     
-    // Add compileOnly LMS dependency for compilation
+    // AAR dependencies - compileOnly since actual implementation is in app module
     compileOnly files('../../app/libs/lms_international-3.90.009.0.aar')
 }

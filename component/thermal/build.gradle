@@ -18,6 +18,7 @@ android {
         minSdk rootProject.ext.android.minSdk
         targetSdk rootProject.ext.android.targetSdk
 
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
 
@@ -27,10 +28,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -41,9 +44,14 @@ android {
 }
 
 dependencies {
+    // Core library dependencies
     implementation project(':libapp')
     implementation project(':libui')
     implementation project(':libmatrix')
-    implementation 'com.google.android.mediahome:video:1.0.0'
+    
+    // ARouter
     kapt libs.arouter.compiler
+    
+    // Video dependencies
+    implementation 'com.google.android.mediahome:video:1.0.0'
 }

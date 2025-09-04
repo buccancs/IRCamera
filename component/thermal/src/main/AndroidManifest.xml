@@ -5,28 +5,36 @@
     <application>
         <activity
             android:name=".activity.ThermalActivity"
-            android:screenOrientation="behind" />
+            android:launchMode="singleTop"
+            android:screenOrientation="userPortrait" />
         <activity
             android:name=".activity.MonitorActivity"
-            android:screenOrientation="behind" />
+            android:launchMode="singleTop"
+            android:screenOrientation="userPortrait" />
         <activity
             android:name=".activity.ConnectActivity"
-            android:screenOrientation="behind" />
+            android:launchMode="singleTop"
+            android:screenOrientation="userPortrait" />
         <activity
             android:name=".activity.GalleryActivity"
-            android:screenOrientation="behind" />
+            android:launchMode="singleTop"
+            android:screenOrientation="userPortrait" />
         <activity
             android:name=".activity.VideoActivity"
-            android:screenOrientation="behind" />
+            android:launchMode="singleTop"
+            android:screenOrientation="userPortrait" />
         <activity
             android:name=".activity.temp.ChartActivity"
-            android:screenOrientation="behind" />
+            android:launchMode="singleTop"
+            android:screenOrientation="userPortrait" />
         <activity
             android:name=".activity.MonitorChartActivity"
-            android:screenOrientation="behind" />
+            android:launchMode="singleTop"
+            android:screenOrientation="userPortrait" />
         <activity
             android:name=".activity.LogMPChartActivity"
-            android:screenOrientation="behind" />
+            android:launchMode="singleTop"
+            android:screenOrientation="userPortrait" />
     </application>
 
 </manifest>
