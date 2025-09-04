@@ -366,10 +366,10 @@ dependencies {
             'essaging:21.0.1'
     prodTopdonImplementation "com.google.firebase:firebase-iid"
 
-    betaImplementation files('libs/umeng-common-9.4.4+000.jar')//谷歌定制版
-    devImplementation files('libs/umeng-common-9.4.4+000.jar')//谷歌定制版
-    prodImplementation files('libs/umeng-common-9.4.4+000.jar')//谷歌定制版
-    prodTopdonImplementation files('libs/umeng-common-9.4.4+000.jar')//谷歌定制版
+    betaImplementation 'com.umeng.umsdk:common:9.8.8'
+    devImplementation 'com.umeng.umsdk:common:9.8.8'
+    prodImplementation 'com.umeng.umsdk:common:9.8.8'
+    prodTopdonImplementation 'com.umeng.umsdk:common:9.8.8'
 
     // Local AAR dependencies moved from LocalRepo
     implementation files('libs/libAC020sdk_USB_IR_1.1.1_2408291439.aar')
