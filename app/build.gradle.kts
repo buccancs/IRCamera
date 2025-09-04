@@ -126,6 +126,40 @@ android {
         viewBinding = true
     }
     
+    packaging {
+        resources {
+            excludes += listOf(
+                "META-INF/DEPENDENCIES",
+                "META-INF/LICENSE",
+                "META-INF/LICENSE.txt",
+                "META-INF/license.txt",
+                "META-INF/NOTICE",
+                "META-INF/NOTICE.txt",
+                "META-INF/notice.txt",
+                "META-INF/ASL2.0"
+            )
+        }
+        jniLibs {
+            pickFirsts += listOf(
+                "lib/arm64-v8a/libijkffmpeg.so",
+                "lib/arm64-v8a/libijkplayer.so",
+                "lib/arm64-v8a/libijksdl.so",
+                "lib/armeabi/libijkffmpeg.so",
+                "lib/armeabi/libijkplayer.so",
+                "lib/armeabi/libijksdl.so",
+                "lib/armeabi-v7a/libijkffmpeg.so",
+                "lib/armeabi-v7a/libijkplayer.so",
+                "lib/armeabi-v7a/libijksdl.so",
+                "lib/x86/libijkffmpeg.so",
+                "lib/x86/libijkplayer.so",
+                "lib/x86/libijksdl.so",
+                "lib/x86_64/libijkffmpeg.so",
+                "lib/x86_64/libijkplayer.so",
+                "lib/x86_64/libijksdl.so"
+            )
+        }
+    }
+    
     flavorDimensions += "app"
 
     productFlavors {

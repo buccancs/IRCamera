@@ -80,7 +80,7 @@ nifty = "2.4.0"
 # Image Loading
 glide = "4.15.1"
 mnImageBrowser = "V3.1.2X"
-gsyVideoPlayer = "8.6.0-release-jitpack"
+gsyVideoPlayer = "v8.6.0-release-jitpack"
 
 # OpenGL
 opengl = "2.0.0"
