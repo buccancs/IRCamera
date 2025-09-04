@@ -182,7 +182,9 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             }
             try {
                 val battery: JSONObject = JSONObject(event.text).getJSONObject("battery")
-                adapter.tc007Battery = BatteryInfo(battery.getString("status"), battery.getString("remaining"))
+                val level = battery.getString("remaining").toIntOrNull() ?: 0
+                val charging = battery.getString("status") == "charging"
+                adapter.tc007Battery = BatteryInfo(level, charging)
             } catch (_: Exception) {
 
             }
@@ -282,13 +284,13 @@ class MainFragment : BaseFragment(), View.OnClickListener {
                 ConnectType.TC007 -> {
                     holder.itemView.tv_device_name.text = "TC007"
                     if (hasConnect) {
-                        holder.itemView.iv_image.setImageResource(R.drawable.ic_main_device_tc007_connect)
+                        holder.itemView.iv_image.setImageResource(R.drawable.ic_main_device_line_connect)
                     } else {
-                        holder.itemView.iv_image.setImageResource(R.drawable.ic_main_device_tc007_disconnect)
+                        holder.itemView.iv_image.setImageResource(R.drawable.ic_main_device_line_disconnect)
                     }
                     holder.itemView.tv_battery.text = "${tc007Battery?.getBattery()}%"
                     holder.itemView.battery_view.battery = tc007Battery?.getBattery() ?: 0
-                    holder.itemView.battery_view.isCharging = tc007Battery?.isCharging() ?: false
+                    holder.itemView.battery_view.isCharging = tc007Battery?.isCharging ?: false
                 }
             }
         }

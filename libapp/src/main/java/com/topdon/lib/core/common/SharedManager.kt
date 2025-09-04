@@ -61,6 +61,20 @@ object SharedManager {
             SPUtils.getInstance().put("hasConnectTcLine", value)
         }
 
+    /**
+     * 设备列表中是否有 TS004 设备，默认 false. (TC001 only - legacy compatibility)
+     */
+    var hasTS004: Boolean
+        get() = false // TC001 only - no TS004 support
+        set(value) = Unit // TC001 only - no TS004 support
+
+    /**
+     * 设备列表中是否有 TC007 设备，默认 false. (TC001 only - legacy compatibility)
+     */
+    var hasTC007: Boolean
+        get() = false // TC001 only - no TC007 support  
+        set(value) = Unit // TC001 only - no TC007 support
+
 
     /**
      * 首页操作指引要显示的步骤 1-第1步 2-第2步 3-第3步 0-不显示
