@@ -7,4 +7,7 @@
     <color name="temp_bg_line_color">#5B5961</color>
     <color name="font_four_unit_color">#EEEEEE</color>
     <color name="ir_bg_color">#FF16131E</color>
+    
+    <!-- LMS SDK colors - fallback definitions for test builds -->
+    <color name="lms_red">#FF0000</color>
 </resources>
