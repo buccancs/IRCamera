@@ -191,7 +191,7 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
                     .navigation(requireContext())
             }
             tv_07_connect -> {//TC007 连接设备
-                ARouter.getInstance()
+                NavigationManager.getInstance()
                     .build(RouterConfig.IR_DEVICE_ADD)
                     .withBoolean("isTS004", false)
                     .navigation(requireContext())

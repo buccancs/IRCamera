@@ -165,7 +165,7 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
                 }
                 val reportIRBeanList = ArrayList<ReportIRBean>(reportIRList)
                 reportIRBeanList.add(buildReportIr(currentFilePath))
-                ARouter.getInstance()
+                NavigationManager.getInstance()
                     .build(RouterConfig.REPORT_PICK_IMG)
                     .withBoolean(ExtraKeyConfig.IS_TC007, intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false))
                     .withParcelable(ExtraKeyConfig.REPORT_INFO, intent.getParcelableExtra(ExtraKeyConfig.REPORT_INFO))

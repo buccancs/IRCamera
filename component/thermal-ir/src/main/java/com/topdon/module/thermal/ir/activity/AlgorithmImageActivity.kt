@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.open3d.JNITool
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.module.thermal.ir.R
