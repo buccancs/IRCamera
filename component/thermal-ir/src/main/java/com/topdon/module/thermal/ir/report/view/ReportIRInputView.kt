@@ -5,6 +5,7 @@ import android.content.Context
 import android.text.InputFilter.LengthFilter
 import android.text.InputType
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.appcompat.widget.SwitchCompat
@@ -12,10 +13,11 @@ import androidx.core.view.isVisible
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.report.bean.ImageTempBean
-import kotlinx.android.synthetic.main.item_report_ir_input.view.*
-import kotlinx.android.synthetic.main.view_report_ir_input.view.*
+import com.topdon.module.thermal.ir.databinding.ViewReportIrInputBinding
 
 class ReportIRInputView: LinearLayout {
+
+    private val binding: ViewReportIrInputBinding
 
     companion object {
         private const val TYPE_FULL = 0 //全图
@@ -30,23 +32,23 @@ class ReportIRInputView: LinearLayout {
 
     @SuppressLint("SetTextI18n")
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        inflate(context, R.layout.view_report_ir_input, this)
+        binding = ViewReportIrInputBinding.inflate(LayoutInflater.from(context), this, true)
 
-        cl_explain.et_item.inputType = InputType.TYPE_CLASS_TEXT
-        cl_explain.et_item.filters = arrayOf(LengthFilter(150))
+        binding.clExplain.etItem.inputType = InputType.TYPE_CLASS_TEXT
+        binding.clExplain.etItem.filters = arrayOf(LengthFilter(150))
 
-        setSwitchListener(cl_max.switch_item, cl_max.et_item)
-        setSwitchListener(cl_min.switch_item, cl_min.et_item)
-        setSwitchListener(cl_average.switch_item, cl_average.et_item)
-        setSwitchListener(cl_explain.switch_item, cl_explain.et_item)
+        setSwitchListener(binding.clMax.switchItem, binding.clMax.etItem)
+        setSwitchListener(binding.clMin.switchItem, binding.clMin.etItem)
+        setSwitchListener(binding.clAverage.switchItem, binding.clAverage.etItem)
+        setSwitchListener(binding.clExplain.switchItem, binding.clExplain.etItem)
 
         val typeArray = context.obtainStyledAttributes(attrs, R.styleable.ReportIRInputView)
         val type = typeArray.getInt(R.styleable.ReportIRInputView_type, TYPE_FULL)
         val index = typeArray.getInt(R.styleable.ReportIRInputView_index, 0)
         typeArray.recycle()
 
-        cl_title.isVisible = index == 0
-        view_line.isVisible = index > 0
+        binding.clTitle.isVisible = index == 0
+        binding.viewLine.isVisible = index > 0
 
         when (type) {
             TYPE_FULL -> {

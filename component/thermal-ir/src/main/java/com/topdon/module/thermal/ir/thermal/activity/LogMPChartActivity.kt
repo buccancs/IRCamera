@@ -29,13 +29,14 @@ import com.topdon.module.thermal.ir.thermal.adapter.SettingTimeAdapter
 import com.topdon.module.thermal.ir.thermal.chart.MyValueFormatter
 import com.topdon.module.thermal.ir.thermal.view.MyMarkerView
 import com.topdon.module.thermal.ir.thermal.viewmodel.LogViewModel
-import kotlinx.android.synthetic.main.activity_log_mp_chart.*
+import com.topdon.module.thermal.ir.databinding.ActivityLogMpChartBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Route(path = RouterConfig.IR_THERMAL_LOG_MP_CHART)
 class LogMPChartActivity : BaseIRActivity(), OnChartValueSelectedListener {
 
+    private lateinit var binding: ActivityLogMpChartBinding
     private val viewModel: LogViewModel by viewModels()
     private val adapter: SettingTimeAdapter by lazy { SettingTimeAdapter(this) }
 
@@ -43,11 +44,15 @@ class LogMPChartActivity : BaseIRActivity(), OnChartValueSelectedListener {
     private lateinit var chart: LineChart
     private var selectType = 1
 
-    override fun initContentView() = R.layout.activity_log_mp_chart
+    override fun initContentView(): Int {
+        binding = ActivityLogMpChartBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        return 0
+    }
 
     override fun initView() {
         // Title handling removed as toolbar_lay doesn't support it
-        chart = log_chart_time_chart
+        chart = binding.logChartTimeChart
         log_chart_time_recycler.layoutManager = GridLayoutManager(this, 4)
         log_chart_time_recycler.adapter = adapter
         adapter.listener = object : SettingTimeAdapter.OnItemClickListener {
