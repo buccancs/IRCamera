@@ -66,6 +66,13 @@ dependencies {
     implementation(project(":component:thermal"))
     implementation(project(":component:house"))
     
+    // Critical AAR dependency for com.energy.iruvc classes
+    implementation(files("$rootDir/libir/libs/libusbdualsdk_1.3.4_2406271906_standard.aar"))
+    
+    // Optional AAR dependencies - comment out for now to isolate issues
+    // implementation(files("$rootDir/libir/libs/opengl_1.3.2_standard.aar"))
+    // implementation(files("$rootDir/libir/libs/library_1.0.aar"))
+    
     // ARouter compiler - disabled since annotations are commented out in this module
     // kapt(libs.arouter.compiler)
     
@@ -74,6 +81,11 @@ dependencies {
     implementation(libs.material)
     implementation(libs.utilcode)
     implementation(libs.glide)
+    
+    // Lottie animation library
+    implementation(libs.lottie)
+    // EasySwipeMenuLayout
+    implementation("com.github.anzaizai:EasySwipeMenuLayout:1.1.4")
     
     // Core library desugaring
     coreLibraryDesugaring(libs.desugar.jdk.libs)
