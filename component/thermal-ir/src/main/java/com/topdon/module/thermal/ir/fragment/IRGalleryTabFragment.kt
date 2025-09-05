@@ -16,6 +16,12 @@ import com.topdon.module.thermal.ir.popup.GalleryChangePopup
 import com.topdon.module.thermal.ir.popup.OptionPickPopup
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryTabViewModel
 import org.greenrobot.eventbus.EventBus
+import com.topdon.lib.core.view.TitleView
+import com.topdon.lib.core.view.MyTextView
+import com.google.android.material.tabs.TabLayout
+import androidx.viewpager2.widget.ViewPager2
+import com.topdon.lib.ui.R as UiR
+import com.topdon.lib.core.R as LibCoreR
 
 /**
  * 图库 Tab 页，下分图片和视频.
@@ -45,6 +51,12 @@ class IRGalleryTabFragment : BaseFragment() {
     private val viewModel: IRGalleryTabViewModel by activityViewModels()
 
     private var viewPagerAdapter: ViewPagerAdapter? = null
+
+    // findViewById declarations
+    private val titleView: TitleView by lazy { findViewById(R.id.title_view) }
+    private val tvTitleDir: MyTextView by lazy { findViewById(R.id.tv_title_dir) }
+    private val tabLayout: TabLayout by lazy { findViewById(R.id.tab_layout) }
+    private val viewPager2: ViewPager2 by lazy { findViewById(R.id.view_pager2) }
 
     override fun initContentView(): Int = R.layout.fragment_gallery_tab
 
@@ -78,9 +90,9 @@ class IRGalleryTabFragment : BaseFragment() {
             popup.show(tvTitleDir)
         }
 
-        title_view.setTitleText(if (canSwitchDir) "" else getString(R.string.app_gallery))
-        title_view.setLeftDrawable(if (hasBackIcon) R.drawable.ic_back_white_svg else 0)
-        title_view.setLeftClickListener {
+        titleView.setTitleText(if (canSwitchDir) "" else getString(R.string.app_gallery))
+        titleView.setLeftDrawable(if (hasBackIcon) UiR.drawable.ic_back_white_svg else 0)
+        titleView.setLeftClickListener {
             if (viewModel.isEditModeLD.value == true) {//当前为编辑状态，退出编辑
                 viewModel.isEditModeLD.value = false
             } else {//当前为非编辑状态，退出页面
@@ -89,45 +101,45 @@ class IRGalleryTabFragment : BaseFragment() {
                 }
             }
         }
-        title_view.setRightDrawable(R.drawable.ic_toolbar_check_svg)
-        title_view.setRightClickListener {
+        titleView.setRightDrawable(UiR.drawable.ic_toolbar_check_svg)
+        titleView.setRightClickListener {
             if (viewModel.isEditModeLD.value == true) {//当前为编辑状态，全选
-                viewModel.selectAllIndex.value = view_pager2.currentItem
+                viewModel.selectAllIndex.value = viewPager2.currentItem
             } else {//当前为非编辑状态，进入编辑
                 viewModel.isEditModeLD.value = true
             }
         }
 
         viewPagerAdapter = ViewPagerAdapter(this)
-        view_pager2.adapter = viewPagerAdapter
-        TabLayoutMediator(tab_layout, view_pager2) { tab, position ->
+        viewPager2.adapter = viewPagerAdapter
+        TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
             tab.setText(if (position == 0) R.string.album_menu_Photos else R.string.app_video)
         }.attach()
 
         viewModel.isEditModeLD.observe(viewLifecycleOwner) { isEditMode ->
             if (isEditMode) {
-                title_view.setLeftDrawable(R.drawable.svg_x_cc)
+                titleView.setLeftDrawable(LibCoreR.drawable.svg_x_cc)
             } else {
-                title_view.setLeftDrawable(if (hasBackIcon) R.drawable.ic_back_white_svg else 0)
+                titleView.setLeftDrawable(if (hasBackIcon) UiR.drawable.ic_back_white_svg else 0)
             }
-            title_view.setRightDrawable(if (isEditMode) 0 else R.drawable.ic_toolbar_check_svg)
-            title_view.setRightText(if (isEditMode) getString(R.string.report_select_all) else "")
-            tab_layout.isVisible = !isEditMode
-            view_pager2.isUserInputEnabled = !isEditMode
+            titleView.setRightDrawable(if (isEditMode) 0 else UiR.drawable.ic_toolbar_check_svg)
+            titleView.setRightText(if (isEditMode) getString(R.string.report_select_all) else "")
+            tabLayout.isVisible = !isEditMode
+            viewPager2.isUserInputEnabled = !isEditMode
             if (isEditMode) {
-                title_view.setTitleText(getString(R.string.chosen_item, viewModel.selectSizeLD.value))
+                titleView.setTitleText(getString(R.string.chosen_item, viewModel.selectSizeLD.value))
                 tvTitleDir.isVisible = false
             } else {
-                title_view.setTitleText(if (canSwitchDir) "" else getString(R.string.app_gallery))
+                titleView.setTitleText(if (canSwitchDir) "" else getString(R.string.app_gallery))
                 tvTitleDir.isVisible = canSwitchDir
             }
         }
         viewModel.selectSizeLD.observe(viewLifecycleOwner) {
             if (viewModel.isEditModeLD.value == true) {
-                title_view.setTitleText(getString(R.string.chosen_item, it))
+                titleView.setTitleText(getString(R.string.chosen_item, it))
                 tvTitleDir.isVisible = false
             } else {
-                title_view.setTitleText(if (canSwitchDir) "" else getString(R.string.app_gallery))
+                titleView.setTitleText(if (canSwitchDir) "" else getString(R.string.app_gallery))
                 tvTitleDir.isVisible = canSwitchDir
             }
         }

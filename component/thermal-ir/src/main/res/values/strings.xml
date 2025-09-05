@@ -106,4 +106,7 @@
     <string name="thermal_false_color">False Color</string>
     <string name="app_setting">Settings</string>
     <string name="func_temper_ruler">Temperature Ruler</string>
+    <string name="thermal_point">点</string>
+    <string name="thermal_line">线</string>
+    <string name="thermal_rect">矩形</string>
 </resources>
