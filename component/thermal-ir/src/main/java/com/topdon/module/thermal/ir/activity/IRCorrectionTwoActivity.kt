@@ -27,10 +27,13 @@ import org.greenrobot.eventbus.ThreadMode
 class IRCorrectionTwoActivity : BaseActivity() {
 
     /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
+     * From上一界面传递过来的，当前是否为 TC007 设备类型.
      * true-TC007 false-其他插件式设备
      */
     private var isTC007 = false
+    
+    // Modern findViewById references
+    private lateinit var tvCorrection: TextView
 
     override fun initContentView(): Int = R.layout.activity_ir_correction_two
 
@@ -38,7 +41,7 @@ class IRCorrectionTwoActivity : BaseActivity() {
         isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
 
         val ivSketchMap = findViewById<ImageView>(R.id.iv_sketch_map)
-        val tvCorrection = findViewById<TextView>(R.id.tv_correction)
+        tvCorrection = findViewById(R.id.tv_correction)
         
         ivSketchMap.setImageResource(if (isTC007) R.drawable.ic_corrected_tc007 else R.drawable.ic_corrected_line)
 

@@ -92,7 +92,8 @@ import com.topdon.menu.constant.TargetType
 import com.topdon.menu.constant.TempPointType
 import com.topdon.menu.constant.TwoLightType
 import com.topdon.module.thermal.ir.R
-import com.topdon.lib.core.R as LibAppR
+import com.topdon.lib.core.R as LibcoreR
+import com.topdon.lib.app.R as LibAppR
 import com.topdon.module.thermal.ir.adapter.CameraItemAdapter
 import com.topdon.module.thermal.ir.adapter.MeasureItemAdapter
 import com.topdon.module.thermal.ir.adapter.TargetItemAdapter
@@ -178,6 +179,12 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     
     // View references (migrated from synthetic views)
     private lateinit var cameraView: com.infisense.usbir.view.CameraView
+    private lateinit var thermalRecyclerNight: RecyclerView
+    private lateinit var temperatureView: TextView
+    private lateinit var compassView: com.topdon.module.thermal.ir.view.compass.LinearCompassView
+    private lateinit var spaceChart: View
+    private lateinit var clTrendOpen: ConstraintLayout
+    private lateinit var llTrendClose: LinearLayout
     private lateinit var thermalRecyclerNight: RecyclerView
     private lateinit var temperatureView: com.infisense.usbir.view.TemperatureView
 
@@ -332,12 +339,16 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         val tvTempContent = findViewById<TextView>(R.id.tv_temp_content)
         val clSeekBar = findViewById<ConstraintLayout>(R.id.cl_seek_bar)
         val viewChartTrend = findViewById<View>(R.id.view_chart_trend)
-        val clTrendOpen = findViewById<ConstraintLayout>(R.id.cl_trend_open)
-        val llTrendClose = findViewById<LinearLayout>(R.id.ll_trend_close)
+        clTrendOpen = findViewById(R.id.cl_trend_open)
+        llTrendClose = findViewById(R.id.ll_trend_close)
         val thermalText = findViewById<TextView>(R.id.thermal_text)
         val thermalLay = findViewById<View>(R.id.thermal_lay)
         val ivTrendClose = findViewById<ImageView>(R.id.iv_trend_close)
         val ivTrendOpen = findViewById<ImageView>(R.id.iv_trend_open)
+        
+        // Missing findViewById declarations for synthetic views
+        compassView = findViewById(R.id.compassView)
+        spaceChart = findViewById(R.id.space_chart)
         
         titleView.setLeftClickListener {
             if (timeDownView.isRunning) {
@@ -631,9 +642,9 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             temperatureView.visibility = View.INVISIBLE
             temperatureView.temperatureRegionMode = REGION_MODE_CLEAN
             hasClickTrendDel = true
-            space_chart.isVisible = false
-            cl_trend_open.isVisible = false
-            ll_trend_close.isVisible = false
+            spaceChart.isVisible = false
+            clTrendOpen.isVisible = false
+            llTrendClose.isVisible = false
             showCross(false)
 
             //切换到低温模式
@@ -671,8 +682,8 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             //弹出观测模式说明提示框
             if (SharedManager.isTipObservePhoto) {
                 TipObserveDialog.Builder(this)
-                    .setTitle(R.string.app_tip)
-                    .setMessage(R.string.tips_observe_photo_content)
+                    .setTitle(LibAppR.string.app_tip)
+                    .setMessage(LibappR.string.tips_observe_photo_content)
                     .setCancelListener { isCheck ->
                         SharedManager.isTipObservePhoto = !isCheck
                     }
@@ -994,7 +1005,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 temperatureView.clear()
                 temperatureView.temperatureRegionMode = REGION_MODE_CENTER
                 hasClickTrendDel = true
-                space_chart.isVisible = false
+                spaceChart.isVisible = false
                 cl_trend_open.isVisible = false
                 ll_trend_close.isVisible = false
                 // thermalRecyclerNight.fenceSelectType - synthetic property removed
@@ -1122,7 +1133,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         thermalRecyclerNight.onColorListener = { _, it, _ ->
             if (customPseudoBean.isUseCustomPseudo) {
                 TipDialog.Builder(this)
-                    .setTitleMessage(getString(R.string.app_tip))
+                    .setTitleMessage(getString(LibAppR.string.app_tip))
                     .setMessage(R.string.tip_change_pseudo_mode)
                     .setPositiveListener(R.string.app_yes) {
                         customPseudoBean.isUseCustomPseudo = false
@@ -1440,10 +1451,10 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 }
                 temperatureView.visibility = View.VISIBLE
                 temperatureView.temperatureRegionMode = REGION_NODE_TREND
-                if (!space_chart.isVisible) {//当前趋势图如果已显示着的话，则不去更改
-                    space_chart.isVisible = true
-                    cl_trend_open.isVisible = false
-                    ll_trend_close.isVisible = true
+                if (!spaceChart.isVisible) {//当前趋势图如果已显示着的话，则不去更改
+                    spaceChart.isVisible = true
+                    clTrendOpen.isVisible = false
+                    llTrendClose.isVisible = true
                 }
                 showCross(true)
             }
@@ -1452,9 +1463,9 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 temperatureView.clear()
                 temperatureView.visibility = View.INVISIBLE
                 temperatureView.temperatureRegionMode = REGION_MODE_CLEAN
-                space_chart.isVisible = false
-                cl_trend_open.isVisible = false
-                ll_trend_close.isVisible = false
+                spaceChart.isVisible = false
+                clTrendOpen.isVisible = false
+                llTrendClose.isVisible = false
                 showCross(false)
             }
         }
@@ -3080,7 +3091,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                             return
                         }
                         TipDialog.Builder(this@IRThermalNightActivity)
-                            .setTitleMessage(getString(R.string.app_tip))
+                            .setTitleMessage(getString(LibAppR.string.app_tip))
                             .setMessage(getString(R.string.app_camera_content))
                             .setPositiveListener(R.string.app_open) {
                                 AppUtils.launchAppDetailsSettings()
@@ -3161,7 +3172,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                             return
                         }
                         TipDialog.Builder(this@IRThermalNightActivity)
-                            .setTitleMessage(getString(R.string.app_tip))
+                            .setTitleMessage(getString(LibAppR.string.app_tip))
                             .setMessage(getString(R.string.app_microphone_content))
                             .setPositiveListener(R.string.app_open) {
                                 AppUtils.launchAppDetailsSettings()
@@ -3226,7 +3237,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                             return
                         }
                         TipDialog.Builder(this@IRThermalNightActivity)
-                            .setTitleMessage(getString(R.string.app_tip))
+                            .setTitleMessage(getString(LibAppR.string.app_tip))
                             .setMessage(R.string.app_storage_content)
                             .setPositiveListener(R.string.app_open) {
                                 AppUtils.launchAppDetailsSettings()
