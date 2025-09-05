@@ -116,9 +116,9 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
             if (result == 0){
                 // 关闭控件
                 // if (thermalSteeringView.isVisible) {
-                    // thermalSteeringView.visibility = View.GONE
+                //    thermalSteeringView.visibility = View.GONE
                     thermalRecyclerNight.setTwoLightSelected(TwoLightType.CORRECT, false)
-                }
+                // }
             }else{
                 ToastUtils.showShort(R.string.correction_fail)
             }

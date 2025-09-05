@@ -67,4 +67,13 @@
     <string name="abnormal_item1">Abnormal Item 1</string>
     <string name="correction_fail">Correction Failed</string>
     <string name="album_report_max_image_tips">Maximum number of images reached</string>
+    <string name="tip_save_success">Save successful</string>
+    <string name="detail_date">time</string>
+    <string name="detail_info">info</string>
+    <string name="detail_len">size</string>
+    <string name="detail_path">path</string>
+    <string name="battery_share">Share</string>
+    <string name="tip_delete">Delete</string>
+    <string name="also_del_from_phone_album">Also delete from phone album</string>
+    <string name="test_results_delete_success">Delete successful</string>
 </resources>

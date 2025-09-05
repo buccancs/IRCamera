@@ -251,7 +251,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     private val zoomView by lazy { findViewById<com.infisense.usbir.view.ZoomCaliperView>(R.id.zoomView) }
     protected val temperatureSeekbar by lazy { findViewById<com.topdon.lib.ui.widget.seekbar.RangeSeekBar>(R.id.temperature_seekbar) }
     // Additional view references for findViewById modernization
-    // private val recyclerView by lazy { findViewById<RecyclerView>(R.id.recyclerView) }  // ID doesn't exist
+    // private val recyclerView by lazy { findViewById<RecyclerView>(R.id.recycler_view) }  // ID doesn't exist
     private val tvTitleTemp by lazy { findViewById<TextView>(R.id.tv_title_temp) }
     private val tvTitleObserve by lazy { findViewById<TextView>(R.id.tv_title_observe) }
     // private val drawIndPath by lazy { findViewById<View>(R.id.draw_ind_path) }  // ID doesn't exist
@@ -1703,7 +1703,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         popupWindow?.setBackgroundDrawable(ColorDrawable(0))
         contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
         val contentHeight = contentView.measuredHeight
-        val recyclerView = contentView.findViewById<RecyclerView>(R.id.recyclerView)
+        val recyclerView = contentView.findViewById<RecyclerView>(R.id.recycler_view)
         val measureItemAdapter = MeasureItemAdapter(this)
         recyclerView?.layoutManager = if (ScreenUtil.isPortrait(this)) {
             GridLayoutManager(this, measureItemAdapter.itemCount)
@@ -1752,7 +1752,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         popupWindow?.isOutsideTouchable
         contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
         val contentHeight = contentView.measuredHeight
-        val recyclerView = contentView.findViewById<RecyclerView>(R.id.recyclerView)
+        val recyclerView = contentView.findViewById<RecyclerView>(R.id.recycler_view)
         val targetItemAdapter = TargetItemAdapter(this)
         // Camera setting disabled - recyclerView not available
         /*
@@ -1839,7 +1839,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
 
     private val imageBytes = ByteArray(imageWidth * imageHeight * 2) //图像数据
     private val temperatureBytes = ByteArray(imageWidth * imageHeight * 2) //温度数据
-    private var imageEditBytes = ByteArray(imageWidth * imageHeight * 4) //编辑图像数据
+    protected var imageEditBytes = ByteArray(imageWidth * imageHeight * 4) //编辑图像数据
     private val syncimage = SynchronizedBitmap()
 
     private var temperaturerun = false
@@ -2365,8 +2365,8 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
 
                             CameraItemBean.TYPE_DELAY -> {
                                 // if (timeDownView.isRunning) {
-                                    return@listener
-                                }
+                                //    return@listener
+                                // }
                                 cameraItemAdapter!!.data[position].changeDelayType()
                                 cameraItemAdapter!!.notifyItemChanged(position)
                                 when (cameraItemAdapter!!.data[position].time) {
@@ -2443,6 +2443,8 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                     }
                     // recyclerView.adapter = cameraItemAdapter  // Commented out as recyclerView doesn't exist
             // ViewStubCamera layout resource doesn't exist - commented out ViewStub callback
+            //     }
+            // }
         } else {
             // ViewStub removed - resource not found
         }
@@ -2595,9 +2597,9 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     }
 
 
-    private var isVideo = false
+    protected var isVideo = false
 
-    private var videoRecord: VideoRecordFFmpeg? = null
+    protected var videoRecord: VideoRecordFFmpeg? = null
 
     /**
      * 初始化视频采集组件

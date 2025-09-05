@@ -18,6 +18,7 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.FileTools
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.lib.core.dialog.TipDialog
+import com.topdon.lib.ui.R as UiR
 import com.topdon.lib.core.repository.TS004Repository
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.module.thermal.ir.R
@@ -39,10 +40,13 @@ class IRVideoGSYActivity : BaseActivity() {
     private lateinit var data: GalleryBean
     
     // View declarations
-    private lateinit var titleView: com.topdon.lib.ui.view.TitleView
+    private lateinit var titleView: com.topdon.lib.core.view.TitleView
     private lateinit var clBottom: androidx.constraintlayout.widget.ConstraintLayout
     private lateinit var clDownload: androidx.constraintlayout.widget.ConstraintLayout
     private lateinit var clShare: androidx.constraintlayout.widget.ConstraintLayout
+    private lateinit var clDelete: androidx.constraintlayout.widget.ConstraintLayout
+    private lateinit var ivDownload: android.widget.ImageView
+    private lateinit var gsyPlay: com.topdon.module.thermal.ir.view.MyGSYVideoPlayer
     
     override fun initContentView() = R.layout.activity_ir_video_gsy
 
@@ -52,8 +56,11 @@ class IRVideoGSYActivity : BaseActivity() {
         clBottom = findViewById(R.id.cl_bottom)
         clDownload = findViewById(R.id.cl_download)
         clShare = findViewById(R.id.cl_share)
+        clDelete = findViewById(R.id.cl_delete)
+        ivDownload = findViewById(R.id.iv_download)
+        gsyPlay = findViewById(R.id.gsy_play)
         
-        BarUtils.setNavBarColor(this, ContextCompat.getColor(this, R.color.black))
+        BarUtils.setNavBarColor(this, ContextCompat.getColor(this, UiR.color.black))
 
         isRemote = intent.getBooleanExtra("isRemote", false)
         data = intent.getParcelableExtra("data") ?: throw NullPointerException("传递 data")
@@ -61,9 +68,9 @@ class IRVideoGSYActivity : BaseActivity() {
         clBottom.isVisible = isRemote //查看远端时底部才有3个按钮
 
         if (!isRemote) {
-            titleView.setRightDrawable(R.drawable.ic_toolbar_info_svg)
-            titleView.setRight2Drawable(R.drawable.ic_toolbar_share_svg)
-            titleView.setRight3Drawable(R.drawable.ic_toolbar_delete_svg)
+            titleView.setRightDrawable(UiR.drawable.ic_toolbar_info_svg)
+            titleView.setRight2Drawable(UiR.drawable.ic_toolbar_share_svg)
+            titleView.setRight3Drawable(UiR.drawable.ic_toolbar_delete_svg)
             titleView.setRightClickListener { actionInfo() }
             titleView.setRight2ClickListener { actionShare() }
             titleView.setRight3ClickListener { showDeleteDialog() }
@@ -79,12 +86,12 @@ class IRVideoGSYActivity : BaseActivity() {
                 actionDownload(true)
             }
         }
-        cl_delete.setOnClickListener {
+        clDelete.setOnClickListener {
             showDeleteDialog()
         }
 
-        iv_download.isSelected = data.hasDownload
-        iv_download.setImageResource(if (isRemote) R.drawable.selector_download else R.drawable.ic_toolbar_info_svg)
+        ivDownload.isSelected = data.hasDownload
+        ivDownload.setImageResource(if (isRemote) R.drawable.selector_download else UiR.drawable.ic_toolbar_info_svg)
 
         previewVideo(isRemote, data.path)
     }
@@ -128,7 +135,7 @@ class IRVideoGSYActivity : BaseActivity() {
                 ToastTools.showShort(R.string.tip_save_success)
                 EventBus.getDefault().post(GalleryDownloadEvent(data.name))
                 data.hasDownload = true
-                iv_download.isSelected = true
+                ivDownload.isSelected = true
                 if (isToShare) {
                     actionShare()
                 }
