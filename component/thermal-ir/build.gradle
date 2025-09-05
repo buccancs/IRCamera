@@ -42,6 +42,7 @@ android {
     
     buildFeatures {
         dataBinding = true
+        viewBinding = true
     }
     
     lint {
@@ -58,19 +59,23 @@ dependencies {
     implementation project(':libir')
     implementation project(':libmenu')
     implementation project(':libui')
+    implementation project(':libmatrix')
 
     implementation project(':component:pseudo')
 
     // ARouter
     kapt libs.arouter.compiler
     
-    // UI components
+    // UI components and dialogs
     api libs.lottie
     api 'com.github.anzaizai:EasySwipeMenuLayout:1.1.4'
 
     // Compass functionality
     api libs.andromeda.sense
     api libs.andromeda.core
+
+    // Permissions
+    api libs.xxpermissions
 
     // Video player - GSY with ExoPlayer exclusions to avoid conflicts
     implementation("com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v8.1.4") {
@@ -87,6 +92,16 @@ dependencies {
     implementation 'com.google.android.exoplayer:exoplayer-dash:2.19.1'
     implementation 'com.google.android.exoplayer:exoplayer-hls:2.19.1'
     implementation 'com.google.android.exoplayer:exoplayer-smoothstreaming:2.19.1'
+
+    // Video dependencies
+    implementation 'com.google.android.mediahome:video:1.0.0'
+    
+    // Image picking - use available version
+    api 'com.github.LuckSiege.PictureSelector:picture_library:v2.6.0'
+    
+    // Glide for image loading
+    implementation libs.glide
+    kapt libs.glide.compiler
     
     // AAR dependencies - compileOnly since actual implementation is in app module
     compileOnly(name: 'opengl_1.3.2_standard', ext: 'aar')

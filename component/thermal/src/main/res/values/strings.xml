@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- LMS SDK strings -->
-    <string name="lms_http_code998">No data available</string>
-    
-    <!-- Permission request strings -->
-    <string name="permission_request_camera">Camera permission is required to capture thermal images</string>
-</resources>
