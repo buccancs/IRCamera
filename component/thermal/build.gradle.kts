@@ -66,11 +66,9 @@ dependencies {
     // implementation(libs.arouter.api)
     // kapt(libs.arouter.compiler)
     
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
+    // Use shared UI bundle for common dependencies
+    implementation(libs.bundles.ui.common)
     implementation(libs.utilcode)
-    implementation(libs.glide)
     implementation(libs.mn.image.browser)
     
     // Core library desugaring

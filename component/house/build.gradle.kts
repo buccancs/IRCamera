@@ -62,11 +62,9 @@ dependencies {
     implementation(project(":libui"))
     implementation(project(":libmenu"))
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
+    // Use shared UI bundle for common dependencies
+    implementation(libs.bundles.ui.common)
     implementation(libs.utilcode)
-    implementation(libs.glide)
     
     // Core library desugaring
     coreLibraryDesugaring(libs.desugar.jdk.libs)
