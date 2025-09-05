@@ -9,13 +9,11 @@ kapt {
     arguments {
         arg("AROUTER_MODULE_NAME", project.getName())
 //        arg("AROUTER_GENERATE_DOC", "enable")//生成doc文档
-        // Room arguments temporarily disabled
-        // arg("room.schemaLocation", "$projectDir/schemas".toString())
-        // arg("room.incremental", "false")
-        // arg("room.expandProjection", "true")
     }
     correctErrorTypes = true
     useBuildCache = false
+    // Fix data binding compiler issues with Gradle 8.11
+    includeCompileClasspath = false
 }
 
 android {

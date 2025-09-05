@@ -62,7 +62,7 @@ gradle.settingsEvaluated {
             local {
                 enabled = true
                 directory = file("build-cache")
-                removeUnusedEntriesAfterDays = 30
+                // Removed deprecated removeUnusedEntriesAfterDays - Gradle 8.11+ handles cache cleanup automatically
             }
         }
     }

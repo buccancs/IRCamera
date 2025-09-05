@@ -55,45 +55,49 @@ subprojects {
                         "-Xsuppress-version-warnings",
                         "-opt-in=kotlin.RequiresOptIn",
                         "-Xskip-prerelease-check",
-                        // Kotlin 2.0 performance optimizations
-                        "-Xuse-k2",
+                        // Modern Kotlin 2.0 compiler optimizations
                         "-Xallow-any-scripts-in-source-roots",
-                        "-Xjsr305=strict"
-                    ]
-                    jvmTarget = '17'
-                    // Enhanced performance optimizations for Gradle 8.11
-                    freeCompilerArgs += [
-                        "-Xallow-jvm-ir-dependencies",
+                        "-Xjsr305=strict",
                         "-Xuse-fast-jar-file-system"
                     ]
+                    jvmTarget = '17'
+                    // Use language version 2.0 instead of deprecated -Xuse-k2 flag
+                    languageVersion = "2.0"
+                    apiVersion = "2.0"
                     // Enable parallel compilation
                     allWarningsAsErrors = false
                     suppressWarnings = false
                 }
             }
             
-            // Enhanced kapt configuration for Gradle 8.11
+            // Enhanced kapt configuration for Gradle 8.11 - disabled to avoid conflicts with module configs
+            /* 
             if (project.plugins.hasPlugin('kotlin-kapt')) {
                 project.kapt {
                     javacOptions {
                         option("-source", "17")
                         option("-target", "17")
                     }
-                    // Advanced performance optimizations for kapt
-                    correctErrorTypes = true
-                    useBuildCache = true
-                    showProcessorStats = false
-                    includeCompileClasspath = false
-                    
-                    // Gradle 8.11 kapt performance improvements
-                    keepJavacAnnotationProcessors = true
-                    arguments {
-                        arg("room.schemaLocation", "$projectDir/schemas")
-                        arg("room.incremental", "true")
-                        arg("room.expandProjection", "true")
+                    // Advanced performance optimizations for kapt - avoid conflicts with local configs
+                    if (project.findProperty('AROUTER_MODULE_NAME') == null) {
+                        correctErrorTypes = true
+                        useBuildCache = true
+                        showProcessorStats = false
+                        includeCompileClasspath = false
+                        
+                        // Gradle 8.11 kapt performance improvements for Room modules only
+                        keepJavacAnnotationProcessors = true
+                        if (project.name.contains('room') || project.dependencies.find { it.name?.contains('room') }) {
+                            arguments {
+                                arg("room.schemaLocation", "$projectDir/schemas")
+                                arg("room.incremental", "true")
+                                arg("room.expandProjection", "true")
+                            }
+                        }
                     }
                 }
             }
+            */
         }
 
         // Modern Android build optimizations for Gradle 8.11
