@@ -110,7 +110,7 @@ class HouseHomeActivity : BaseActivity(), View.OnClickListener {
             }
         })
         TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
-            tab.setText(if (position == 0) R.string.app_detection else R.string.app_report)
+            tab.setText(if (position == 0) LibR.string.app_detection else LibR.string.app_report)
         }.attach()
     }
 

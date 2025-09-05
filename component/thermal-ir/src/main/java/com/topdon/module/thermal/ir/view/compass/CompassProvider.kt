@@ -53,7 +53,7 @@ class CompassProvider(private val context: Context) {
             }
         }
 
-        return compass // Remove FilterCompassWrapper dependency
+        return compass as ICompass // Cast to ICompass for compatibility
     }
 
 //    fun getOrientationSensor(): IOrientationSensor? {
