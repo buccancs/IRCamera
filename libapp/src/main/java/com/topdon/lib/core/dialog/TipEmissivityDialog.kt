@@ -8,10 +8,10 @@ import android.view.View
 import android.view.ViewGroup.LayoutParams
 import android.widget.*
 import com.alibaba.android.arouter.launcher.ARouter
-import com.topdon.libapp.R
+import com.topdon.lib.core.R
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.RouterConfig
-import com.topdon.libapp.databinding.DialogTipEmissivityBinding
+import com.topdon.lib.core.databinding.DialogTipEmissivityBinding
 import com.topdon.lib.core.tools.NumberTools
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.utils.ScreenUtil

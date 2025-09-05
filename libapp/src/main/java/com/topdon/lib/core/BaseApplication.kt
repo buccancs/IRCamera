@@ -18,7 +18,7 @@ import android.webkit.WebView
 import androidx.annotation.RequiresApi
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.LanguageUtils
-import com.topdon.libapp.BuildConfig
+import com.topdon.lib.core.BuildConfig
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.bean.event.SocketMsgEvent
 import com.topdon.lib.core.broadcast.DeviceBroadcastReceiver

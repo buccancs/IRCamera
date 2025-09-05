@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.Utils
-import com.topdon.libapp.R
+import com.topdon.lib.core.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

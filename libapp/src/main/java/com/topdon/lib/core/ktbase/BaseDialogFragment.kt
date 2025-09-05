@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentActivity
-import com.topdon.libapp.R
+import com.topdon.lib.core.R
 
 /**
  * 使用 DataBinding 的基础 DialogFragment.

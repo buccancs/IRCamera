@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.topdon.libapp.R
-import com.topdon.libapp.databinding.DialogLongTextBinding
+import com.topdon.lib.core.R
+import com.topdon.lib.core.databinding.DialogLongTextBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**

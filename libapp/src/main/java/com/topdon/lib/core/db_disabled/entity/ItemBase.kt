@@ -7,7 +7,7 @@ import androidx.room.ForeignKey
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.blankj.utilcode.util.Utils
-import com.topdon.libapp.R
+import com.topdon.lib.core.R
 
 /**
  * 检测 或 报告 所属的一项项目.

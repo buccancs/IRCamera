@@ -19,7 +19,7 @@ kapt {
 }
 
 android {
-    namespace 'com.topdon.libapp'
+    namespace 'com.topdon.lib.core'
     compileSdk rootProject.ext.android.compileSdk
 
     defaultConfig {

@@ -12,7 +12,7 @@ kapt {
 
 
 android {
-    namespace 'com.topdon.libui'
+    namespace 'com.topdon.lib.ui'
     compileSdk rootProject.ext.android.compileSdk
 
     defaultConfig {

@@ -11,8 +11,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import com.topdon.libapp.R
-import com.topdon.libapp.databinding.DialogMsgBinding
+import com.topdon.lib.core.R
+import com.topdon.lib.core.databinding.DialogMsgBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 

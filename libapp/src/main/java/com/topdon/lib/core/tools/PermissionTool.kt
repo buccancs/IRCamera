@@ -8,7 +8,7 @@ import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
 import com.topdon.lib.core.BaseApplication
-import com.topdon.libapp.R
+import com.topdon.lib.core.R
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lms.sdk.weiget.TToast
 

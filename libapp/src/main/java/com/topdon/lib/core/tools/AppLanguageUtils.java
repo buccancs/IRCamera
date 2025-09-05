@@ -11,7 +11,7 @@ import android.util.DisplayMetrics;
 
 import com.blankj.utilcode.util.LanguageUtils;
 import com.topdon.lib.core.BaseApplication;
-import com.topdon.libapp.BuildConfig;
+import com.topdon.lib.core.BuildConfig;
 
 import java.util.HashMap;
 import java.util.Locale;

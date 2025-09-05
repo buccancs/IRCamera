@@ -12,10 +12,10 @@ import android.widget.PopupWindow
 import android.widget.TextView
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.SizeUtils
-import com.topdon.libapp.R
+import com.topdon.lib.core.R
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.RouterConfig
-import com.topdon.libapp.databinding.LayoutPopupTipEmissivityBinding
+import com.topdon.lib.core.databinding.LayoutPopupTipEmissivityBinding
 import com.topdon.lib.core.tools.NumberTools
 import com.topdon.lib.core.tools.UnitTools
 
