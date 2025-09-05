@@ -53,8 +53,9 @@ private class ConcreteIRCMD(
         return 0
     }
     
-    override fun setPropImageParams(param: CommonParams.PropImageParams, value: Any) {
+    override fun setPropImageParams(param: CommonParams.PropImageParams, value: Any): Int {
         // Stub implementation - would interface with actual hardware
+        return 0
     }
     
     override fun setPropAutoShutterParameter(param: CommonParams.PropAutoShutterParameter, value: Any) {

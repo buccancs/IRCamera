@@ -243,8 +243,9 @@ object IRCmdTool {
         return try {
             if (dualView != null) {
                 dualView?.dualUVCCamera!!.setDisp(value)
+                0 // Return success
             } else {
-                0
+                -1 // Return error
             }
         } catch (e: Exception) {
             XLog.w("设置配准异常[${value}]: ${e.message}")
@@ -295,7 +296,7 @@ object IRCmdTool {
      * @param lowC 温度下限，单位摄氏度
      */
     fun setIsoColorOpen(dualUVCCamera: DualUVCCamera?, highC: Float, lowC: Float) {
-        dualUVCCamera?.setIsothermal(DualCameraParams.IsothermalState.ON)
+        dualUVCCamera?.setIsothermal(true) // Convert IsothermalState.ON to true
         val normalHighTemp = (highC + 273).toDouble() //单位k
         val normalLowTemp = (lowC + 273).toDouble() //单位k
         val highTemp = ceil(normalHighTemp * 16 * 4).toInt() // 高温向上取整
@@ -308,15 +309,15 @@ object IRCmdTool {
         lowData[1] = (lowTemp shr 8).toByte()
         val tempHFin = (highData[0].toInt() and 0x00ff) + (highData[1].toInt() and 0x00ff shl 8)
         val tempLFin = (lowData[0].toInt() and 0x00ff) + (lowData[1].toInt() and 0x00ff shl 8)
-        dualUVCCamera?.setTempL(tempLFin) //低温
-        dualUVCCamera?.setTempH(tempHFin) //高温
+        dualUVCCamera?.setTempL(tempLFin.toFloat()) //低温 - convert Int to Float
+        dualUVCCamera?.setTempH(tempHFin.toFloat()) //高温 - convert Int to Float
     }
 
     /**
      * 关闭等温尺
      */
     fun setIsoColorClose(dualUVCCamera: DualUVCCamera?) {
-        dualUVCCamera?.setIsothermal(DualCameraParams.IsothermalState.OFF)
+        dualUVCCamera?.setIsothermal(false) // Convert IsothermalState.OFF to false
     }
 
     /**

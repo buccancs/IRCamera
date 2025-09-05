@@ -23,7 +23,7 @@ abstract class IRCMD {
         srcType: CommonParams.Y16ModePreviewSrcType
     ): Int
     
-    abstract fun setPropImageParams(param: CommonParams.PropImageParams, value: Any)
+    abstract fun setPropImageParams(param: CommonParams.PropImageParams, value: Any): Int
     
     abstract fun setPropAutoShutterParameter(param: CommonParams.PropAutoShutterParameter, value: Any)
     
@@ -34,7 +34,7 @@ abstract class IRCMD {
     open fun setAutoShutter(isAutoShutter: Boolean) {}
     open fun setPropDdeLevel(level: Int) {}
     open fun setContrast(contrast: Int) {}
-    open fun setPropTPDParams(param1: Any, param2: Any) {}
+    open fun setPropTPDParams(param1: Any, param2: Any): Int = 0
     open fun tc1bShutterManual() {}
     open fun updateOOCOrB(type: Any) {}
     open fun onDestroy() {}
