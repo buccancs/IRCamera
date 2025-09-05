@@ -9,6 +9,14 @@ import com.topdon.lib.core.utils.CommUtils
 import java.io.File
 
 object FileConfig {
+    
+    /**
+     * Gallery path for thermal images.
+     */
+    @JvmStatic
+    val galleryPath: String
+        get() = gallerySourDir
+    
     /**
      * 获取房屋检测缓存目录下指定文件.
      * 注意，不执行子文件创建逻辑，若有需要需自行创建.

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- LMS SDK strings -->
+    <string name="lms_setting_http_error">Network connection error</string>
+</resources>

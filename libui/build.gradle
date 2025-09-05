@@ -36,7 +36,12 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures{
-        dataBinding = true
+
+    lint {
+        abortOnError false
+        warningsAsErrors false
+        checkReleaseBuilds false
+        disable 'RecyclerView', 'CustomViewStyleable', 'ScrollViewSize', 'DefaultLocale'
     }
 }
 

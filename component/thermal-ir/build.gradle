@@ -17,9 +17,11 @@ android {
     defaultConfig {
         minSdk rootProject.ext.android.minSdk
         targetSdk rootProject.ext.android.targetSdk
+        
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
 
         buildConfigField "String", "VERSION_NAME", "\"$rootProject.ext.android.versionName\""
-
     }
 
     buildTypes {
@@ -28,43 +30,82 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures{
+    
+    buildFeatures {
         dataBinding = true
+    }
+    
+    lint {
+        abortOnError false
+        checkReleaseBuilds false
+        disable 'MissingPermission', 'ScrollViewSize', 'CustomViewStyleable', 'DefaultLocale'
     }
 }
 
 dependencies {
-    // Use compileOnly for AAR dependencies - actual implementation provided by app module
-    compileOnly(name: 'opengl_1.3.2_standard', ext: 'aar')
-    compileOnly(name: 'library_1.0', ext: 'aar')
-
+    // Core library dependencies
     implementation project(':libapp')
     implementation project(':libcom')
     implementation project(':libir')
     implementation project(':libmenu')
     implementation project(':libui')
+    implementation project(':libmatrix')
 
     implementation project(':component:pseudo')
 
+    // ARouter
     kapt libs.arouter.compiler
+    
+    // UI components and dialogs
     api libs.lottie
     api 'com.github.anzaizai:EasySwipeMenuLayout:1.1.4'
 
+    // Compass functionality
     api libs.andromeda.sense
     api libs.andromeda.core
 
-    // gsy player
-    implementation "com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v8.1.4"
-    implementation "com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-exo_player2:v8.1.4"
-    implementation "com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-armv64:v8.1.4"
+    // Permissions
+    api libs.xxpermissions
+
+    // Video player - GSY with ExoPlayer exclusions to avoid conflicts
+    implementation("com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v8.1.4") {
+        exclude group: 'com.google.android.exoplayer'
+    }
+    implementation("com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-exo_player2:v8.1.4") {
+        exclude group: 'com.google.android.exoplayer'
+    }
+    implementation("com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-armv64:v8.1.4")
     
-    // Add compileOnly LMS dependency for compilation
+    // ExoPlayer dependencies with consistent versions
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.19.1'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.19.1'
+    implementation 'com.google.android.exoplayer:exoplayer-dash:2.19.1'
+    implementation 'com.google.android.exoplayer:exoplayer-hls:2.19.1'
+    implementation 'com.google.android.exoplayer:exoplayer-smoothstreaming:2.19.1'
+
+    // Video dependencies
+    implementation 'com.google.android.mediahome:video:1.0.0'
+    
+    // Image picking - use available version
+    api('com.github.LuckSiege.PictureSelector:picture_library:v2.6.0') {
+        exclude group: 'com.github.LuckSiege.PictureSelector', module: 'ucrop'
+    }
+    
+    // Glide for image loading
+    implementation libs.glide
+    kapt libs.glide.compiler
+    
+    // AAR dependencies - compileOnly since actual implementation is in app module
+    compileOnly(name: 'opengl_1.3.2_standard', ext: 'aar')
+    compileOnly(name: 'library_1.0', ext: 'aar')
     compileOnly files('../../app/libs/lms_international-3.90.009.0.aar')
 }

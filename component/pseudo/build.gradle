@@ -1,6 +1,6 @@
 plugins {
     id 'com.android.library'
-    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
 }
@@ -17,6 +17,9 @@ android {
     defaultConfig {
         minSdk rootProject.ext.android.minSdk
         targetSdk rootProject.ext.android.targetSdk
+        
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -25,18 +28,26 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    
+    buildFeatures {
+        dataBinding = true
     }
 }
 
 dependencies {
+    // Core library dependencies
     implementation project(':libapp')
     implementation project(':libui')
 
+    // ARouter
     kapt libs.arouter.compiler
 }

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- LMS SDK colors - fallback definitions for test builds -->
+    <color name="lms_color_717171">#717171</color>
+</resources>
