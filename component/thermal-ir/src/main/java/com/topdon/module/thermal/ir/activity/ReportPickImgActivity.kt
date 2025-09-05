@@ -19,6 +19,7 @@ import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.repository.GalleryRepository.DirType
 import com.topdon.module.thermal.ir.R
+import com.topdon.lib.core.R as LibR
 import com.topdon.module.thermal.ir.adapter.GalleryAdapter
 import com.topdon.lib.core.bean.event.GalleryDelEvent
 import com.topdon.lib.core.utils.Constants.IS_REPORT_FIRST
@@ -78,7 +79,7 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
                 MediaScannerConnection.scanFile(this, arrayOf(if (isTC007) FileConfig.tc007GalleryDir else FileConfig.lineGalleryDir), null, null)
                 viewModel.queryAllReportImg(if (isTC007) DirType.TC007 else DirType.LINE)
             } else {
-                TToast.shortToast(this@ReportPickImgActivity, R.string.test_results_delete_failed)
+                TToast.shortToast(this@ReportPickImgActivity, LibR.string.test_results_delete_failed)
             }
         }
         viewModel.queryAllReportImg(if (isTC007) DirType.TC007 else DirType.LINE)

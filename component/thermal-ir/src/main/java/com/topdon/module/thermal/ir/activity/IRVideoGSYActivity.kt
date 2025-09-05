@@ -178,7 +178,7 @@ class IRVideoGSYActivity : BaseActivity() {
                     finish()
                 } else {
                     dismissCameraLoading()
-                    TToast.shortToast(this@IRVideoGSYActivity, R.string.test_results_delete_failed)
+                    TToast.shortToast(this@IRVideoGSYActivity, LibR.string.test_results_delete_failed)
                 }
             }
         } else {

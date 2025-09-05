@@ -35,6 +35,7 @@ import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.utils.CommUtils
 import com.topdon.module.thermal.ir.BuildConfig
 import com.topdon.module.thermal.ir.R
+import com.topdon.lib.core.R as LibR
 import com.topdon.module.thermal.ir.report.bean.ImageTempBean
 import com.topdon.module.thermal.ir.report.bean.ReportConditionBean
 import com.topdon.module.thermal.ir.report.bean.ReportInfoBean
@@ -372,7 +373,7 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
                             dismissLoadingDialog()
                             if (addressText == null){
                                 TipDialog.Builder(this@ReportCreateFirstActivity)
-                                    .setMessage(R.string.get_Location_failed)
+                                    .setMessage(LibR.string.get_Location_failed)
                                     .setPositiveListener(R.string.app_ok)
                                     .setCanceled(false)
                                     .create().show()

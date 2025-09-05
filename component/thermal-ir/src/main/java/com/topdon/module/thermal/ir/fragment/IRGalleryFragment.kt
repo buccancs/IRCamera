@@ -100,7 +100,7 @@ class IRGalleryFragment : BaseFragment() {
 
         viewModel.pageListLD.observe(this) {
             if (it == null) {
-                TToast.shortToast(requireContext(), R.string.operation_failed_tips)
+                TToast.shortToast(requireContext(), LibR.string.operation_failed_tips)
             }
             refresh_layout.finishRefresh(it != null)
             refresh_layout.finishLoadMore(it != null)
@@ -117,7 +117,7 @@ class IRGalleryFragment : BaseFragment() {
                 MediaScannerConnection.scanFile(requireContext(), arrayOf(FileConfig.lineGalleryDir, FileConfig.ts004GalleryDir), null, null)
                 EventBus.getDefault().post(GalleryDelEvent())
             } else {
-                TToast.shortToast(requireContext(), R.string.test_results_delete_failed)
+                TToast.shortToast(requireContext(), LibR.string.test_results_delete_failed)
             }
         }
         tabViewModel.isEditModeLD.observe(this) {
