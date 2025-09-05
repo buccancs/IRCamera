@@ -54,7 +54,7 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
         binding.settingTisr.setOnClickListener(this)
         binding.settingStorageSpace.setOnClickListener(this)
         binding.settingReset.setOnClickListener(this)
-        binding.settingVersion.setOnClickListener(this)
+        binding.settingVersion.root.setOnClickListener(this)
         binding.settingDisconnect.setOnClickListener(this)
         binding.settingAutoSave.setOnClickListener(this)
 
@@ -62,14 +62,14 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
             setting_version.isVisible = false
         }*/
         // 2024-5-30 09:16 TS004项目APP沟通群决定，3.30版本先把固件升级隐藏
-        binding.settingVersion.isVisible = false
+        binding.settingVersion.root.isVisible = false
     }
 
     override fun initData() {
         updateVersion()
 
         firmwareViewModel.firmwareDataLD.observe(this) {
-            binding.tvUpgradePoint.isVisible = it != null
+            binding.settingVersion.tvUpgradePoint.isVisible = it != null
             dismissCameraLoading()
             if (it == null) {//请求成功但没有固件升级包，即已是最新
                 ToastUtils.showShort(R.string.setting_firmware_update_latest_version)
@@ -80,7 +80,7 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
         firmwareViewModel.failLD.observe(this) {
             dismissCameraLoading()
             TToast.shortToast(this, if (it) R.string.upgrade_bind_error else R.string.http_code_z5000)
-            binding.tvUpgradePoint.isVisible = false
+            binding.settingVersion.tvUpgradePoint.isVisible = false
         }
     }
 
@@ -101,7 +101,7 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
             binding.settingStorageSpace -> {//TS004储存空间
                 ARouter.getInstance().build(RouterConfig.STORAGE_SPACE).navigation(this@MoreActivity)
             }
-            binding.settingVersion -> {//固件版本
+            binding.settingVersion.root -> {//固件版本
                 //由于双通道方案存在问题，V3.30临时使用 apk 内置固件升级包，此处注释强制登录逻辑
 //                if (LMS.getInstance().isLogin) {
                     val firmwareData = firmwareViewModel.firmwareDataLD.value
@@ -224,7 +224,7 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
     private fun updateVersion() {
         lifecycleScope.launch {
             // TC001 uses USB connection, version info not available via network
-            binding.itemSettingBottomText.text = getString(R.string.setting_firmware_update_version) + "V" + "N/A"
+            binding.settingVersion.itemSettingBottomText.text = getString(R.string.setting_firmware_update_version) + "V" + "N/A"
         }
     }
 

@@ -90,7 +90,8 @@ class MineFragment : BaseFragment(), View.OnClickListener {
         binding.settingFaq.setOnClickListener(this)
         binding.settingFeedback.setOnClickListener(this)
         binding.settingItemUnit.setOnClickListener(this)//温度单温
-        binding.dragCustomerView.setOnClickListener(this)
+        // TODO: Fix view reference - dragCustomerView may not exist in current layout
+        // binding.dragCustomerView.setOnClickListener(this)
 
         binding.viewWinterPoint.isVisible = !SharedManager.hasClickWinter
 
@@ -207,15 +208,16 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             binding.settingItemClear -> {//清除缓存，实际已隐藏
                 clearCache()
             }
-            binding.dragCustomerView -> {//客服
+            // TODO: Fix view reference - dragCustomerView may not exist in current layout
+            // binding.dragCustomerView -> {//客服
 //                ActivityUtil.goSystemCustomer(requireContext())
-                val sn = SharedManager.getDeviceSn()
-                if (!TextUtils.isEmpty(sn)) {
-                    ZohoSalesIQ.Visitor.addInfo("SN", sn)
-                }
-                ZohoSalesIQ.Visitor.addInfo("Model", "Topinfrared")
-                ZohoSalesIQ.Chat.show()
-            }
+//                val sn = SharedManager.getDeviceSn()
+//                if (!TextUtils.isEmpty(sn)) {
+//                    ZohoSalesIQ.Visitor.addInfo("SN", sn)
+//                }
+//                ZohoSalesIQ.Visitor.addInfo("Model", "Topinfrared")
+//                ZohoSalesIQ.Chat.show()
+//            }
         }
     }
 

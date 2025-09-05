@@ -119,7 +119,7 @@ import kotlin.math.roundToInt
 @Route(path = RouterConfig.IR_FRAME)
 open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
 
-    private lateinit var binding: ActivityThermalIrNightBinding
+    protected lateinit var binding: ActivityThermalIrNightBinding
 
     /**
      * 数据流模式。

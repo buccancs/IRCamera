@@ -27,7 +27,7 @@ import com.topdon.lib.core.tools.TimeTool
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.ui.listener.SingleClickListener
 import com.topdon.lib.core.utils.CommUtils
-import com.topdon.module.thermal.ir.BuildConfig
+import com.topdon.module.thermal.BuildConfig
 import com.topdon.module.thermal.R
 import com.topdon.module.thermal.databinding.ActivityIrCameraSettingBinding
 import kotlinx.coroutines.Dispatchers
@@ -124,26 +124,26 @@ class IRCameraSettingActivity : BaseActivity() {
             continuousBean.isOpen = isChecked
             SharedManager.continuousBean = continuousBean
         }
-        switch_watermark.setOnCheckedChangeListener { _, isChecked ->
+        binding.switchWatermark.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked){
-                cl_watermark_more.visibility = View.VISIBLE
-                cl_show_ep.visibility = View.VISIBLE
+                binding.clWatermarkMore.visibility = View.VISIBLE
+                binding.clShowEp.visibility = View.VISIBLE
             }else{
-                cl_watermark_more.visibility = View.GONE
-                cl_show_ep.visibility = View.GONE
+                binding.clWatermarkMore.visibility = View.GONE
+                binding.clShowEp.visibility = View.GONE
             }
             watermarkBean.isOpen = isChecked
         }
-        switch_time.setOnCheckedChangeListener { _, isChecked ->
+        binding.switchTime.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked){
-                tv_time_show.text = TimeTool.getNowTime()
-                tv_time_show.visibility = View.VISIBLE
+                binding.tvTimeShow.text = TimeTool.getNowTime()
+                binding.tvTimeShow.visibility = View.VISIBLE
             }else{
-                tv_time_show.visibility = View.GONE
+                binding.tvTimeShow.visibility = View.GONE
             }
             watermarkBean.isAddTime = isChecked
         }
-        ed_title.addTextChangedListener(object : TextWatcher{
+        binding.edTitle.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 

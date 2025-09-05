@@ -69,14 +69,14 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
         binding.settingItemCorrection.setOnClickListener(this)//图像校正
         binding.settingItemDual.setOnClickListener(this)//双光校正
         binding.settingItemUnit.setOnClickListener(this)//温度单温
-        binding.settingVersion.setOnClickListener(this) //TC007固件升级
+        binding.settingVersion.root.setOnClickListener(this) //TC007固件升级
         binding.settingDeviceInformation.setOnClickListener(this)//TC007设备信息
         binding.settingReset.setOnClickListener(this)//TC007恢复出厂设置
 
         //根据 2024/5/23 评审会结论，TC007没有多少需要恢复出厂的配置，产品决定砍掉
         binding.settingReset.isVisible = false
 
-        binding.settingVersion.isVisible = isTC007 && Build.VERSION.SDK_INT >= 29
+        binding.settingVersion.root.isVisible = isTC007 && Build.VERSION.SDK_INT >= 29
         binding.settingDeviceInformation.isVisible = isTC007
         binding.settingItemDual.isVisible = !isTC007 && DeviceTools.isTC001PlusConnect()
 
@@ -122,7 +122,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
         }
 
         firmwareViewModel.firmwareDataLD.observe(this) {
-            binding.tvUpgradePoint.isVisible = it != null
+            binding.settingVersion.tvUpgradePoint.isVisible = it != null
             dismissLoadingDialog()
             if (it == null) {//请求成功但没有固件升级包，即已是最新
                 ToastUtils.showShort(R.string.setting_firmware_update_latest_version)
@@ -133,7 +133,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
         firmwareViewModel.failLD.observe(this) {
             dismissLoadingDialog()
             TToast.shortToast(requireContext(), if (it) R.string.upgrade_bind_error else R.string.http_code_z5000)
-            binding.tvUpgradePoint.isVisible = false
+            binding.settingVersion.tvUpgradePoint.isVisible = false
         }
     }
 
@@ -174,7 +174,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
            binding.settingItemCorrection->{//锅盖校正
                ARouter.getInstance().build(RouterConfig.IR_CORRECTION).withBoolean(ExtraKeyConfig.IS_TC007, isTC007).navigation(requireContext())
            }
-           binding.settingVersion -> {//TC007固件升级
+           binding.settingVersion.root -> {//TC007固件升级
                //由于双通道方案存在问题，V3.30临时使用 apk 内置固件升级包，此处注释强制登录逻辑
 //               if (LMS.getInstance().isLogin) {
                    val firmwareData = firmwareViewModel.firmwareDataLD.value
