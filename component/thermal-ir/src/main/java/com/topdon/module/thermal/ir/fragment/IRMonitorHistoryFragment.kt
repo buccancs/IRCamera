@@ -25,8 +25,8 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.activity.IRLogMPChartActivity
 import com.topdon.module.thermal.ir.event.MonitorCreateEvent
 import com.topdon.module.thermal.ir.viewmodel.IRMonitorViewModel
-import kotlinx.android.synthetic.main.fragment_ir_monitor_history.view.*
-import kotlinx.android.synthetic.main.item_monitory_history.view.*
+import com.topdon.module.thermal.ir.databinding.FragmentIrMonitorHistoryBinding
+import com.topdon.module.thermal.ir.databinding.ItemMonitoryHistoryBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -37,6 +37,9 @@ import java.util.Calendar
 
 class IRMonitorHistoryFragment : Fragment() {
 
+    private var _binding: FragmentIrMonitorHistoryBinding? = null
+    private val binding get() = _binding!!
+
     private val adapter = MyAdapter(ArrayList())
 
     private val viewModel: IRMonitorViewModel by viewModels()
@@ -44,7 +47,8 @@ class IRMonitorHistoryFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         EventBus.getDefault().register(this)
-        return inflater.inflate(R.layout.fragment_ir_monitor_history, container)
+        _binding = FragmentIrMonitorHistoryBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -73,8 +77,8 @@ class IRMonitorHistoryFragment : Fragment() {
         adapter.loadMoreModule.setOnLoadMoreListener {
             adapter.loadMoreModule.loadMoreEnd()
         }
-        view.recycler_view.layoutManager = LinearLayoutManager(context)
-        view.recycler_view.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.adapter = adapter
         adapter.isUseEmpty = true
         viewModel.recordListLD.observe(viewLifecycleOwner) {
             lifecycleScope.launch {
@@ -110,6 +114,7 @@ class IRMonitorHistoryFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         EventBus.getDefault().unregister(this)
+        _binding = null
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -139,33 +144,35 @@ class IRMonitorHistoryFragment : Fragment() {
             val month = calendar.get(Calendar.MONTH) + 1
             val day =  calendar.get(Calendar.DAY_OF_MONTH)
 
+            val binding = ItemMonitoryHistoryBinding.bind(holder.itemView)
+
             if (item.showTitle || position == 0 || data.size == 1) {
-                holder.itemView.group_title.isVisible = true
-                holder.itemView.view_line_top.isVisible = false
+                binding.groupTitle.isVisible = true
+                binding.viewLineTop.isVisible = false
             } else {
                 val beforeCalendar = Calendar.getInstance()
                 beforeCalendar.timeInMillis = data[position - 1].startTime
                 val beforeYear = beforeCalendar.get(Calendar.YEAR)
                 val beforeMonth = beforeCalendar.get(Calendar.MONTH) + 1
-                holder.itemView.group_title.isVisible = beforeMonth != month && beforeYear != year
-                holder.itemView.view_line_top.isVisible = beforeMonth != month && beforeYear != year
+                binding.groupTitle.isVisible = beforeMonth != month && beforeYear != year
+                binding.viewLineTop.isVisible = beforeMonth != month && beforeYear != year
             }
 
-            holder.itemView.tv_date.text = "$year-$month"
-            holder.itemView.tv_time.text = "$month-$day"
-            holder.itemView.tv_duration.text = TimeTool.showVideoTime(record.duration * 1000L)
+            binding.tvDate.text = "$year-$month"
+            binding.tvTime.text = "$month-$day"
+            binding.tvDuration.text = TimeTool.showVideoTime(record.duration * 1000L)
             when (record.type) {
-                "point" -> holder.itemView.tv_type.setText(R.string.thermal_point)
-                "line" -> holder.itemView.tv_type.setText(R.string.thermal_line)
-                "fence" -> holder.itemView.tv_type.setText(R.string.thermal_rect)
+                "point" -> binding.tvType.setText(R.string.thermal_point)
+                "line" -> binding.tvType.setText(R.string.thermal_line)
+                "fence" -> binding.tvType.setText(R.string.thermal_rect)
             }
 
-            holder.itemView.view_content_bg.setOnClickListener {
+            binding.viewContentBg.setOnClickListener {
                 if (position != RecyclerView.NO_POSITION) {
                     onItemClickListener?.invoke(position)
                 }
             }
-            holder.itemView.view_content_bg.setOnLongClickListener {
+            binding.viewContentBg.setOnLongClickListener {
                 if (position != RecyclerView.NO_POSITION) {
                     onItemLongClickListener?.invoke(position)
                 }

@@ -40,7 +40,7 @@ import com.topdon.module.thermal.ir.report.bean.ImageTempBean
 import com.topdon.module.thermal.ir.report.bean.ReportConditionBean
 import com.topdon.module.thermal.ir.report.bean.ReportInfoBean
 import com.topdon.module.thermal.ir.repository.ConfigRepository
-import kotlinx.android.synthetic.main.activity_report_create_first.*
+import com.topdon.module.thermal.ir.databinding.ActivityReportCreateFirstBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -61,6 +61,8 @@ import java.util.*
 @Route(path = RouterConfig.REPORT_CREATE_FIRST)
 class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
 
+    private lateinit var binding: ActivityReportCreateFirstBinding
+
     /**
      * 从上一界面传递过来的，当前是否为 TC007 设备类型.
      * true-TC007 false-其他插件式设备
@@ -69,7 +71,11 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
     private var locationManager: LocationManager? = null
     private var locationProvider: String? = null
 
-    override fun initContentView() = R.layout.activity_report_create_first
+    override fun initContentView(): Int {
+        binding = ActivityReportCreateFirstBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        return 0
+    }
 
     private val permissionList = listOf(
         Permission.ACCESS_FINE_LOCATION,

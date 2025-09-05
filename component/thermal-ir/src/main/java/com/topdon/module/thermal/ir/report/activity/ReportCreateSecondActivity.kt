@@ -16,7 +16,7 @@ import com.topdon.lib.core.tools.GlideLoader
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.report.bean.*
-import kotlinx.android.synthetic.main.activity_report_create_second.*
+import com.topdon.module.thermal.ir.databinding.ActivityReportCreateSecondBinding
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -35,6 +35,8 @@ import org.greenrobot.eventbus.ThreadMode
 @Route(path = RouterConfig.REPORT_CREATE_SECOND)
 class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
 
+    private lateinit var binding: ActivityReportCreateSecondBinding
+
     /**
      * 当前已添加的图片信息列表.
      */
@@ -52,7 +54,11 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
 
 
 
-    override fun initContentView() = R.layout.activity_report_create_second
+    override fun initContentView(): Int {
+        binding = ActivityReportCreateSecondBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        return 0
+    }
 
     override fun initView() {
         currentFilePath = intent.getStringExtra(ExtraKeyConfig.FILE_ABSOLUTE_PATH)!!
