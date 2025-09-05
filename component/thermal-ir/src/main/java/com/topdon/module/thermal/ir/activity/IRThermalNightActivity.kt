@@ -1400,12 +1400,15 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     private fun updateVideoDelayView(){
         try {
             // if (timeDownView.isRunning) {
-                lifecycleScope.launch(Dispatchers.Main) {
-                    thermalRecyclerNight.setToRecord(true)
-                }
+            //     lifecycleScope.launch(Dispatchers.Main) {
+            //         thermalRecyclerNight.setToRecord(true)
+            //     }
+            // }
+            lifecycleScope.launch(Dispatchers.Main) {
+                thermalRecyclerNight.setToRecord(true)
             }
         } catch (e: Exception) {
-            Log.e("线程", e.message.toString())
+            Log.e("updateVideoDelayView", e.message ?: "Unknown error")
         }
     }
 
@@ -1415,16 +1418,16 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     private fun updateDelayView() {
         try {
             // if (timeDownView.isRunning) {
-                lifecycleScope.launch(Dispatchers.Main) {
-                    thermalRecyclerNight.setToRecord(true)
-                }
-            } else {
+            //     lifecycleScope.launch(Dispatchers.Main) {
+            //         thermalRecyclerNight.setToRecord(true)
+            //     }
+            // } else {
                 lifecycleScope.launch(Dispatchers.Main) {
                     thermalRecyclerNight.refreshImg()
                 }
-            }
+            // }
         } catch (e: Exception) {
-            Log.e("线程", e.message.toString())
+            Log.e("updateDelayView", e.message ?: "Unknown error")
         }
     }
 
