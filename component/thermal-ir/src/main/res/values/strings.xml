@@ -32,4 +32,26 @@
     <string name="coordinate_tips">Display coordinates for precise thermal measurement</string>
     <string name="app_cancel">Cancel</string>
     <string name="app_confirm">Confirm</string>
+    
+    <!-- Missing string resources -->
+    <string name="thermal_trend_tips">Thermal trend analysis</string>
+    <string name="off_photography">Off Photography</string>
+    <string name="seconds_dalay_3">3 Second Delay</string>
+    <string name="seconds_dalay_6">6 Second Delay</string>
+    <string name="app_Manual_Shutter">Manual Shutter</string>
+    <string name="shutter_tips">Shutter Tips</string>
+    <string name="tip_video_record">Video Recording</string>
+    <string name="auto_open">Auto Open</string>
+    <string name="auto_close">Auto Close</string>
+    <string name="thermal_threshold_setting">Thermal Threshold Setting</string>
+    <string name="app_close">Close</string>
+    <string name="permission_request_camera_app">Camera permission required</string>
+    <string name="scan_ble_tip_authorize">Bluetooth authorization required</string>
+    <string name="app_storage_content">Storage permission required</string>
+    <string name="app_camera_content">Camera permission required</string>
+    <string name="app_microphone_content">Microphone permission required</string>
+    <string name="app_open">Open</string>
+    <string name="abnormal_item">Abnormal Item</string>
+    <string name="permission_request_storage_app">Storage permission required for app</string>
+    <string name="abnormal_item1">Abnormal Item 1</string>
 </resources>

@@ -21,6 +21,7 @@ import com.topdon.module.thermal.ir.view.TimeDownView
 import com.topdon.pseudo.activity.PseudoSetActivity
 import androidx.core.view.isVisible
 import androidx.core.view.postDelayed
+import androidx.core.view.drawToBitmap
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -242,11 +243,19 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     private val popTimeText by lazy { findViewById<TextView>(R.id.pop_time_text) }
     private val layCarDetectPrompt by lazy { findViewById<View>(R.id.lay_car_detect_prompt) }
     private val temp_bg by lazy { findViewById<com.topdon.libcom.view.TempLayout>(R.id.temp_bg) }
-    private val cl_seek_bar by lazy { findViewById<ConstraintLayout>(R.id.cl_seek_bar) }
+    private val cl_seek_bar by lazy { findViewById<com.topdon.lib.ui.widget.BitmapConstraintLayout>(R.id.cl_seek_bar) }
     private val cameraPreview by lazy { findViewById<com.topdon.lib.ui.camera.CameraPreView>(R.id.cameraPreview) }
     private val distance_measure_view by lazy { findViewById<View>(R.id.distance_measure_view) }
     private val zoomView by lazy { findViewById<com.infisense.usbir.view.ZoomCaliperView>(R.id.zoomView) }
     private val temperatureSeekbar by lazy { findViewById<com.topdon.lib.ui.widget.seekbar.RangeSeekBar>(R.id.temperature_seekbar) }
+    // Additional view references for findViewById modernization
+    private val recyclerView by lazy { findViewById<RecyclerView>(R.id.recyclerView) }
+    private val tvTitleTemp by lazy { findViewById<TextView>(R.id.tv_title_temp) }
+    private val tvTitleObserve by lazy { findViewById<TextView>(R.id.tv_title_observe) }
+    private val drawIndPath by lazy { findViewById<View>(R.id.draw_ind_path) }
+    private val viewCarDetect by lazy { findViewById<View>(R.id.view_car_detect) }
+    private val tvDetectPrompt by lazy { findViewById<TextView>(R.id.tv_detect_prompt) }
+    private val rlContent by lazy { findViewById<View>(R.id.rl_content) }
     // Removed viewStubCamera references as the layout resource doesn't exist
     
     private val bitmapWidth: Int
@@ -545,9 +554,6 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         if (isToTemp == isTs001TempMode) {
             return
         }
-        val tvTitleTemp = findViewById<TextView>(R.id.tv_title_temp)
-        val tvTitleObserve = findViewById<TextView>(R.id.tv_title_observe)
-        val timeDownView = findViewById<TimeDownView>(R.id.timeDownView)
         
         tvTitleTemp.isSelected = isToTemp
         tvTitleObserve.isSelected = !isToTemp
@@ -1371,7 +1377,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                     NavigationManager.getInstance()
                         .build(RouterConfig.IR_GALLERY_HOME)
                         .withInt(ExtraKeyConfig.DIR_TYPE, GalleryRepository.DirType.LINE.ordinal)
-                        .navigation(this)
+                        .navigation(this@IRThermalNightActivity)
                 }
             }
             2 -> {//更多菜单
@@ -2046,8 +2052,8 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 HtmlCompat.fromHtml(infoBuilder.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
             if (str.contains("Mini256", true)) {
                 lifecycleScope.launch(Dispatchers.Main){
-                    tv_title_temp.isVisible = true
-                    tv_title_observe.isVisible = true
+                    tvTitleTemp.isVisible = true
+                    tvTitleObserve.isVisible = true
                 }
                 // 根据不同的高低增益加载不同的等效大气透过率表
 //                getUTable()
@@ -2142,7 +2148,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         } else {
             temperatureIvLock.visibility = View.VISIBLE
             tvTempContent.visibility = View.GONE
-            temperature_iv_input.setImageResource(R.drawable.ic_color_edit)
+            temperatureIvInput.setImageResource(R.drawable.ic_color_edit)
             thermalRecyclerNight.setPseudoColor(pseudoColorMode)
         }
         // thermalRecyclerNight.setSettingSelected - synthetic method removed
@@ -2215,10 +2221,10 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     private fun closeCustomPseudo() {
         setCustomPseudoColorList(null, null, true, 0f, 0f)
         temperatureSeekbar.setColorList(null)
-        temperature_iv_lock.visibility = View.VISIBLE
+        temperatureIvLock.visibility = View.VISIBLE
         thermalRecyclerNight.setPseudoColor(pseudoColorMode)
         tvTempContent.visibility = View.GONE
-        temperature_iv_input.setImageResource(R.drawable.ic_color_edit)
+        temperatureIvInput.setImageResource(R.drawable.ic_color_edit)
     }
 
     /**
@@ -2250,7 +2256,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         )
         tvTempContent.visibility = View.VISIBLE
         thermalRecyclerNight.setPseudoColor(-1)
-        temperature_iv_input.setImageResource(R.drawable.ir_model)
+        temperatureIvInput.setImageResource(R.drawable.ir_model)
     }
 
     private val permissionList by lazy {
@@ -2327,9 +2333,9 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     private fun settingCamera() {
         showCameraSetting = !showCameraSetting
         if (showCameraSetting) {
-            ViewStubUtils.showViewStub(viewStubCamera, true, callback = { view: View? ->
-                view?.let {
-                    val recyclerView = it.findViewById<RecyclerView>(R.id.recyclerView)
+            // ViewStubCamera layout resource doesn't exist - using recyclerView directly
+            // ViewStubUtils.showViewStub(viewStubCamera, true, callback = { view: View? ->
+            //     view?.let {
                     if (ScreenUtil.isPortrait(this)) {
                         recyclerView.layoutManager = GridLayoutManager(this, cameraItemBeanList.size)
                     } else {
@@ -2342,7 +2348,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                         when (cameraItemAdapter!!.data[position].type) {
                             CameraItemBean.TYPE_SETTING -> {
                                 NavigationManager.getInstance().build(RouterConfig.IR_CAMERA_SETTING)
-                                    .navigation(this)
+                                    .navigation(this@IRThermalNightActivity)
                                 return@listener
                             }
 
@@ -2425,8 +2431,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                         cameraItemAdapter!!.notifyItemChanged(position)
                     }
                     recyclerView.adapter = cameraItemAdapter
-                }
-            })
+            // ViewStubCamera layout resource doesn't exist - commented out ViewStub callback
         } else {
             // ViewStub removed - resource not found
         }
@@ -3256,7 +3261,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
 
     private fun setCarDetectPrompt(){
         var carDetectInfo = SharedManager.getCarDetectInfo()
-        var tvDetectPrompt = view_car_detect.findViewById<TextView>(R.id.tv_detect_prompt)
+        var tvDetectPrompt = viewCarDetect.findViewById<TextView>(R.id.tv_detect_prompt)
         if(carDetectInfo == null){
             tvDetectPrompt.text =  getString(R.string.abnormal_item1) + TemperatureUtil.getTempStr(40, 70)
         }else{
@@ -3265,7 +3270,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         }
         val test = intent.getBooleanExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER,false)
         layCarDetectPrompt.visibility = if(intent.getBooleanExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER,false)) View.VISIBLE else View.GONE
-        view_car_detect.findViewById<RelativeLayout>(R.id.rl_content).setOnClickListener {
+        viewCarDetect.findViewById<RelativeLayout>(R.id.rl_content).setOnClickListener {
             CarDetectDialog(this) {
                 var temperature = it.temperature.split("~")
                 tvDetectPrompt.text =  it.item + TemperatureUtil.getTempStr(temperature[0].toInt(), temperature[1].toInt())
