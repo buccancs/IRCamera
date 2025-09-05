@@ -27,8 +27,8 @@ import com.topdon.module.user.R
 import com.topdon.module.user.dialog.DownloadProDialog
 import com.topdon.module.user.dialog.FirmwareInstallDialog
 import com.topdon.lib.core.dialog.FirmwareUpDialog
-import kotlinx.android.synthetic.main.activity_more.*
-import kotlinx.android.synthetic.main.layout_upgrade.*
+import com.topdon.module.user.databinding.ActivityMoreBinding
+import com.topdon.module.user.databinding.LayoutUpgradeBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
@@ -41,31 +41,35 @@ import java.text.DecimalFormat
 @Route(path = RouterConfig.TC_MORE)
 class MoreActivity : BaseActivity(), View.OnClickListener {
 
+    private lateinit var binding: ActivityMoreBinding
     private val firmwareViewModel: FirmwareViewModel by viewModels()
 
     override fun initContentView() = R.layout.activity_more
 
     override fun initView() {
-        setting_device_information.setOnClickListener(this)
-        setting_tisr.setOnClickListener(this)
-        setting_storage_space.setOnClickListener(this)
-        setting_reset.setOnClickListener(this)
-        setting_version.setOnClickListener(this)
-        setting_disconnect.setOnClickListener(this)
-        setting_auto_save.setOnClickListener(this)
+        binding = ActivityMoreBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
+        binding.settingDeviceInformation.setOnClickListener(this)
+        binding.settingTisr.setOnClickListener(this)
+        binding.settingStorageSpace.setOnClickListener(this)
+        binding.settingReset.setOnClickListener(this)
+        binding.settingVersion.setOnClickListener(this)
+        binding.settingDisconnect.setOnClickListener(this)
+        binding.settingAutoSave.setOnClickListener(this)
 
         /*if (Build.VERSION.SDK_INT < 29) {//低于 Android10
             setting_version.isVisible = false
         }*/
         // 2024-5-30 09:16 TS004项目APP沟通群决定，3.30版本先把固件升级隐藏
-        setting_version.isVisible = false
+        binding.settingVersion.isVisible = false
     }
 
     override fun initData() {
         updateVersion()
 
         firmwareViewModel.firmwareDataLD.observe(this) {
-            tv_upgrade_point.isVisible = it != null
+            binding.tvUpgradePoint.isVisible = it != null
             dismissCameraLoading()
             if (it == null) {//请求成功但没有固件升级包，即已是最新
                 ToastUtils.showShort(R.string.setting_firmware_update_latest_version)
@@ -76,28 +80,28 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
         firmwareViewModel.failLD.observe(this) {
             dismissCameraLoading()
             TToast.shortToast(this, if (it) R.string.upgrade_bind_error else R.string.http_code_z5000)
-            tv_upgrade_point.isVisible = false
+            binding.tvUpgradePoint.isVisible = false
         }
     }
 
     override fun onClick(v: View?) {
         when (v) {
-            setting_device_information -> {//设备信息
+            binding.settingDeviceInformation -> {//设备信息
                 ARouter.getInstance()
                     .build(RouterConfig.DEVICE_INFORMATION)
                     .withBoolean(ExtraKeyConfig.IS_TC007, false)
                     .navigation(this@MoreActivity)
             }
-            setting_tisr -> {//设置超分
+            binding.settingTisr -> {//设置超分
                 ARouter.getInstance().build(RouterConfig.TISR).navigation(this@MoreActivity)
             }
-            setting_auto_save -> {//自动保存到手机
+            binding.settingAutoSave -> {//自动保存到手机
                 ARouter.getInstance().build(RouterConfig.AUTO_SAVE).navigation(this@MoreActivity)
             }
-            setting_storage_space -> {//TS004储存空间
+            binding.settingStorageSpace -> {//TS004储存空间
                 ARouter.getInstance().build(RouterConfig.STORAGE_SPACE).navigation(this@MoreActivity)
             }
-            setting_version -> {//固件版本
+            binding.settingVersion -> {//固件版本
                 //由于双通道方案存在问题，V3.30临时使用 apk 内置固件升级包，此处注释强制登录逻辑
 //                if (LMS.getInstance().isLogin) {
                     val firmwareData = firmwareViewModel.firmwareDataLD.value
@@ -112,10 +116,10 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
 //                    LMS.getInstance().activityLogin()
 //                }
             }
-            setting_reset -> {//恢复出厂设置
+            binding.settingReset -> {//恢复出厂设置
                 restoreFactory()
             }
-            setting_disconnect -> {//断开连接
+            binding.settingDisconnect -> {//断开连接
                 ARouter.getInstance().build(RouterConfig.IR_MORE_HELP)
                     .withInt(Constants.SETTING_CONNECTION_TYPE, Constants.SETTING_DISCONNECTION)
                     .navigation(this@MoreActivity)
@@ -220,7 +224,7 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
     private fun updateVersion() {
         lifecycleScope.launch {
             // TC001 uses USB connection, version info not available via network
-            item_setting_bottom_text.text = getString(R.string.setting_firmware_update_version) + "V" + "N/A"
+            binding.itemSettingBottomText.text = getString(R.string.setting_firmware_update_version) + "V" + "N/A"
         }
     }
 

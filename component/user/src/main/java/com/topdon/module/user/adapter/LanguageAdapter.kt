@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.module.user.R
-import kotlinx.android.synthetic.main.item_language.view.*
+import com.topdon.module.user.databinding.ItemLanguageBinding
 
 class LanguageAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -23,18 +23,19 @@ class LanguageAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return ItemViewHolder(LayoutInflater.from(context).inflate(R.layout.item_language, parent, false))
+        val binding = ItemLanguageBinding.inflate(LayoutInflater.from(context), parent, false)
+        return ItemViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ItemViewHolder) {
             if (position == selectIndex) {
-                holder.img.visibility = View.VISIBLE
+                holder.binding.itemLanguageImg.visibility = View.VISIBLE
             } else {
-                holder.img.visibility = View.INVISIBLE
+                holder.binding.itemLanguageImg.visibility = View.INVISIBLE
             }
-            holder.name.text = languages[position]
-            holder.lay.setOnClickListener {
+            holder.binding.itemLanguageText.text = languages[position]
+            holder.binding.itemLanguageLay.setOnClickListener {
                 listener?.onClick(position)
             }
         }
@@ -44,11 +45,7 @@ class LanguageAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.
         return languages.size
     }
 
-    inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var lay: View = itemView.item_language_lay
-        var name: TextView = itemView.item_language_text
-        var img: ImageView = itemView.item_language_img
-    }
+    inner class ItemViewHolder(val binding: ItemLanguageBinding) : RecyclerView.ViewHolder(binding.root)
 
     interface ItemOnClickListener {
         fun onClick(position: Int)
