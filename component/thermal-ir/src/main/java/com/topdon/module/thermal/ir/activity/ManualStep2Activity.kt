@@ -36,9 +36,7 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.event.ManualFinishBean
 import com.topdon.module.thermal.ir.utils.IRCmdTool
 import com.topdon.module.thermal.ir.view.MoveImageView
-import kotlinx.android.synthetic.main.activity_manual_step2.iv_tips
-import kotlinx.android.synthetic.main.activity_manual_step2.ll_seek_bar
-import kotlinx.android.synthetic.main.activity_manual_step2.tv_tips
+import com.topdon.module.thermal.ir.databinding.ActivityManualStep2Binding
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import java.io.IOException
@@ -50,6 +48,7 @@ import java.io.InputStream
 class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
     View.OnClickListener {
 
+    private lateinit var binding: ActivityManualStep2Binding
 
     override fun initContentView(): Int {
         return R.layout.activity_manual_step2
@@ -128,10 +127,13 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
      */
     private var beforeTime = 0L
     public override fun initView() {
-        ivTakePhoto = findViewById(R.id.tv_photo_or_confirm)
-        seek_bar = findViewById(R.id.seek_bar)
-        dualTextureView = findViewById(R.id.dualTextureView)
-        moveImageView = findViewById(R.id.moveImageView)
+        binding = ActivityManualStep2Binding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
+        ivTakePhoto = binding.tvPhotoOrConfirm
+        seek_bar = binding.seekBar
+        dualTextureView = binding.dualTextureView
+        moveImageView = binding.moveImageView
         mThisActivity = this
         ivTakePhoto?.setVisibility(View.VISIBLE)
         ivTakePhoto?.setOnClickListener(View.OnClickListener {
@@ -139,9 +141,9 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
                 //拍照
                 takePhoto()
                 ivTakePhoto?.setText(R.string.app_ok)
-                tv_tips.text = getString(R.string.dual_light_correction_tips_3)
-                iv_tips.visibility = View.GONE
-                ll_seek_bar.visibility = View.VISIBLE
+                binding.tvTips.text = getString(R.string.dual_light_correction_tips_3)
+                binding.ivTips.visibility = View.GONE
+                binding.llSeekBar.visibility = View.VISIBLE
             }else{
                 SharedManager.setManualAngle(snStr,seek_bar!!.progress)
                 val byteArray = ByteArray(24)
@@ -169,7 +171,7 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
             }
         })
-        ll_seek_bar.visibility = View.GONE
+        binding.llSeekBar.visibility = View.GONE
         seek_bar?.max = 2000
         seek_bar?.setEnabled(false)
         moveImageView?.setEnabled(false)

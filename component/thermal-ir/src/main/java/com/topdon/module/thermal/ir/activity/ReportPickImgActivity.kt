@@ -25,7 +25,7 @@ import com.topdon.lib.core.bean.event.GalleryDelEvent
 import com.topdon.lib.core.utils.Constants.IS_REPORT_FIRST
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryViewModel
-import kotlinx.android.synthetic.main.activity_report_pick_img.*
+import com.topdon.module.thermal.ir.databinding.ActivityReportPickImgBinding
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -43,6 +43,8 @@ import java.io.File
 @Route(path = RouterConfig.REPORT_PICK_IMG)
 class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
 
+    private lateinit var binding: ActivityReportPickImgBinding
+
     /**
      * 从上一界面传递过来的，当前是否为 TC007 设备类型.
      * true-TC007 false-其他插件式设备
@@ -56,15 +58,18 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
     override fun initContentView() = R.layout.activity_report_pick_img
 
     override fun initView() {
+        binding = ActivityReportPickImgBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
         isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
 
-        title_view.setRightDrawable(R.drawable.ic_toolbar_check_svg)
-        title_view.setRightClickListener { setEditMode(true) }
+        binding.titleView.setRightDrawable(R.drawable.ic_toolbar_check_svg)
+        binding.titleView.setRightClickListener { setEditMode(true) }
 
         initRecycler()
 
-        cl_share.setOnClickListener(this)
-        cl_delete.setOnClickListener(this)
+        binding.clShare.setOnClickListener(this)
+        binding.clDelete.setOnClickListener(this)
 
         showLoadingDialog()
 
@@ -105,19 +110,19 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
 
     private fun setEditMode(isEditMode: Boolean) {
         adapter.isEditMode = isEditMode
-        group_bottom.isVisible = isEditMode
-        title_view.setTitleText(if (isEditMode) getString(R.string.chosen_item, adapter.selectList.size) else getString(R.string.app_gallery))
-        title_view.setLeftDrawable(if (isEditMode) R.drawable.svg_x_cc else R.drawable.ic_back_white_svg)
-        title_view.setLeftClickListener {
+        binding.groupBottom.isVisible = isEditMode
+        binding.titleView.setTitleText(if (isEditMode) getString(R.string.chosen_item, adapter.selectList.size) else getString(R.string.app_gallery))
+        binding.titleView.setLeftDrawable(if (isEditMode) R.drawable.svg_x_cc else R.drawable.ic_back_white_svg)
+        binding.titleView.setLeftClickListener {
             if (isEditMode) {
                 setEditMode(false)
             } else {
                 finish()
             }
         }
-        title_view.setRightDrawable(if (isEditMode) 0 else R.drawable.ic_toolbar_check_svg)
-        title_view.setRightText(if (isEditMode) getString(R.string.report_select_all) else "")
-        title_view.setRightClickListener {
+        binding.titleView.setRightDrawable(if (isEditMode) 0 else R.drawable.ic_toolbar_check_svg)
+        binding.titleView.setRightText(if (isEditMode) getString(R.string.report_select_all) else "")
+        binding.titleView.setRightClickListener {
             if (isEditMode) {
                 adapter.selectAll()
             } else {
@@ -128,10 +133,10 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            cl_share -> {
+            binding.clShare -> {
                 shareImage()
             }
-            cl_delete -> {
+            binding.clDelete -> {
                 deleteImage()
             }
         }
@@ -146,26 +151,26 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
                 return if (adapter.dataList[position] is GalleryTitle) spanCount else 1
             }
         }
-        ir_gallery_recycler.adapter = adapter
-        ir_gallery_recycler.layoutManager = gridLayoutManager
+        binding.irGalleryRecycler.adapter = adapter
+        binding.irGalleryRecycler.layoutManager = gridLayoutManager
 
         adapter.onLongEditListener = {
             // adapter 里面的切换编辑太乱了，先这么顶着
-            group_bottom.isVisible = true
-            title_view.setTitleText(getString(R.string.chosen_item, adapter.selectList.size))
-            title_view.setLeftDrawable(R.drawable.svg_x_cc)
-            title_view.setLeftClickListener {
+            binding.groupBottom.isVisible = true
+            binding.titleView.setTitleText(getString(R.string.chosen_item, adapter.selectList.size))
+            binding.titleView.setLeftDrawable(R.drawable.svg_x_cc)
+            binding.titleView.setLeftClickListener {
                 setEditMode(false)
             }
-            title_view.setRightDrawable(0)
-            title_view.setRightText(R.string.report_select_all)
-            title_view.setRightClickListener {
+            binding.titleView.setRightDrawable(0)
+            binding.titleView.setRightText(R.string.report_select_all)
+            binding.titleView.setRightClickListener {
                 adapter.selectAll()
             }
         }
 
         adapter.selectCallback = {
-            title_view.setTitleText(getString(R.string.chosen_item, it.size))
+            binding.titleView.setTitleText(getString(R.string.chosen_item, it.size))
         }
         adapter.itemClickCallback = {
             val data = adapter.dataList[it]
