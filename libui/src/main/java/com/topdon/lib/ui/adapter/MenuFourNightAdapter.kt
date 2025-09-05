@@ -20,7 +20,7 @@ import com.topdon.lib.ui.R
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.lib.ui.config.CameraHelp
 import com.topdon.lib.ui.listener.SingleClickListener
-import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.*
+import com.topdon.lib.ui.databinding.UiItemMenuSecondViewBinding
 
 
 @Deprecated("旧的设置菜单，已重构过了")
@@ -145,36 +145,36 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.ui_item_menu_second_view, parent, false)
+        val binding = UiItemMenuSecondViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         compassEnable = SaveSettingUtil.isOpenCompass
-        return ItemView(view)
+        return ItemView(binding)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, @SuppressLint("RecyclerView") position: Int) {
         if (holder is ItemView) {
             //更新切换Tab的item宽度
-            updateViewWidth(holder.itemView,holder.img)
+            updateViewWidth(holder.itemView,holder.binding.itemMenuTabImg)
             val bean = fourBean[position]
-            holder.name.text = bean.name
+            holder.binding.itemMenuTabText.text = bean.name
             if(bean.code == CameraHelp.TYPE_SET_ROTATE){
                 when (rotateAngle) {
                     0 -> {
-                        holder.img.setImageResource(R.drawable.svg_menu2_setting_4_rotate270)
+                        holder.binding.itemMenuTabImg.setImageResource(R.drawable.svg_menu2_setting_4_rotate270)
                     }
                     90 -> {
-                        holder.img.setImageResource(R.drawable.svg_menu2_setting_4_rotate180)
+                        holder.binding.itemMenuTabImg.setImageResource(R.drawable.svg_menu2_setting_4_rotate180)
                     }
                     180 -> {
-                        holder.img.setImageResource(R.drawable.svg_menu2_setting_4_rotate90)
+                        holder.binding.itemMenuTabImg.setImageResource(R.drawable.svg_menu2_setting_4_rotate90)
                     }
                     270 -> {
-                        holder.img.setImageResource(R.drawable.svg_menu2_setting_4_rotate0)
+                        holder.binding.itemMenuTabImg.setImageResource(R.drawable.svg_menu2_setting_4_rotate0)
                     }
                 }
             }else{
-                holder.img.setImageResource(bean.res)
+                holder.binding.itemMenuTabImg.setImageResource(bean.res)
             }
-            holder.lay.setOnClickListener(object : SingleClickListener(){
+            holder.binding.itemMenuTabLay.setOnClickListener(object : SingleClickListener(){
                 override fun onSingleClick() {
                     listener?.invoke(position, bean.code)
                 }
@@ -183,42 +183,42 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
                 CameraHelp.TYPE_SET_ROTATE -> {
                     when (rotateAngle) {
                         0 -> {
-                            holder.name.setTextColor(ContextCompat.getColor(context, R.color.white))
+                            holder.binding.itemMenuTabText.setTextColor(ContextCompat.getColor(context, R.color.white))
                         }
                         90 -> {
-                            holder.name.setTextColor(ContextCompat.getColor(context, R.color.white))
+                            holder.binding.itemMenuTabText.setTextColor(ContextCompat.getColor(context, R.color.white))
                         }
                         180 -> {
-                            holder.name.setTextColor(ContextCompat.getColor(context, R.color.white))
+                            holder.binding.itemMenuTabText.setTextColor(ContextCompat.getColor(context, R.color.white))
                         }
                         270 -> {
-                            holder.name.setTextColor(ContextCompat.getColor(context, R.color.font_third_color))
+                            holder.binding.itemMenuTabText.setTextColor(ContextCompat.getColor(context, R.color.font_third_color))
                         }
                     }
                 }
                 CameraHelp.TYPE_SET_ParamLevelDde -> {
-                    iconUI(ddeEnable, holder.img, holder.name)
+                    iconUI(ddeEnable, holder.binding.itemMenuTabImg, holder.binding.itemMenuTabText)
                 }
                 CameraHelp.TYPE_SET_ParamLevelContrast -> {
-                    iconUI(contrastEnable, holder.img, holder.name)
+                    iconUI(contrastEnable, holder.binding.itemMenuTabImg, holder.binding.itemMenuTabText)
                 }
                 CameraHelp.TYPE_SET_PSEUDOCOLOR -> {
-                    iconUI(colorEnable, holder.img, holder.name)
+                    iconUI(colorEnable, holder.binding.itemMenuTabImg, holder.binding.itemMenuTabText)
                 }
                 CameraHelp.TYPE_SET_ALARM -> {
-                    iconUI(alarmEnable, holder.img, holder.name)
+                    iconUI(alarmEnable, holder.binding.itemMenuTabImg, holder.binding.itemMenuTabText)
                 }
                 CameraHelp.TYPE_SET_COLOR -> {
-                    iconUI(textColorEnable, holder.img, holder.name)
+                    iconUI(textColorEnable, holder.binding.itemMenuTabImg, holder.binding.itemMenuTabText)
                 }
                 CameraHelp.TYPE_SET_MIRROR -> {
-                    iconUI(mirrorEnable, holder.img, holder.name)
+                    iconUI(mirrorEnable, holder.binding.itemMenuTabImg, holder.binding.itemMenuTabText)
                 }
                 CameraHelp.TYPE_SET_COMPASS -> {
-                    iconUI(compassEnable, holder.img, holder.name)
+                    iconUI(compassEnable, holder.binding.itemMenuTabImg, holder.binding.itemMenuTabText)
                 }
                 CameraHelp.TYPE_SET_WATERMARK -> {
-                    iconUI(waterMarkEnable, holder.img, holder.name)
+                    iconUI(waterMarkEnable, holder.binding.itemMenuTabImg, holder.binding.itemMenuTabText)
                 }
             }
         }
@@ -270,11 +270,7 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
 //        }
     }
 
-    inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val lay: View = itemView.item_menu_tab_lay
-        val img: ImageView = itemView.item_menu_tab_img
-        val name: TextView = itemView.item_menu_tab_text
-    }
+    inner class ItemView(val binding: UiItemMenuSecondViewBinding) : RecyclerView.ViewHolder(binding.root)
 
 
 }

@@ -14,7 +14,7 @@ import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.lib.ui.R
 import com.topdon.lib.ui.bean.TemperatureBean
-import kotlinx.android.synthetic.main.ui_item_menu_five_view.view.*
+import com.topdon.lib.ui.databinding.UiItemMenuFiveViewBinding
 
 @Deprecated("旧的温度档位菜单，已重构过了")
 class MenuFiveNightAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -65,27 +65,27 @@ class MenuFiveNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.ui_item_menu_five_view, parent, false)
-        return ItemView(view)
+        val binding = UiItemMenuFiveViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ItemView(binding)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ItemView) {
-            holder.img.setImageResource(fiveBean[position].res)
-            holder.lay.setOnClickListener {
+            holder.binding.itemMenuTabImg.setImageResource(fiveBean[position].res)
+            holder.binding.itemMenuTabLay.setOnClickListener {
                 onTempLevelListener?.invoke(fiveBean[position].code)
                 selected(fiveBean[position].code)
             }
-            holder.img.isSelected = fiveBean[position].code == selectedCode
-            holder.name.text = fiveBean[position].name
-            holder.info.text = fiveBean[position].info
-            holder.name.isSelected = fiveBean[position].code == selectedCode
-            holder.info.isSelected = fiveBean[position].code == selectedCode
-            holder.name.setTextColor(
+            holder.binding.itemMenuTabImg.isSelected = fiveBean[position].code == selectedCode
+            holder.binding.itemMenuTabText.text = fiveBean[position].name
+            holder.binding.itemMenuTabInfoText.text = fiveBean[position].info
+            holder.binding.itemMenuTabText.isSelected = fiveBean[position].code == selectedCode
+            holder.binding.itemMenuTabInfoText.isSelected = fiveBean[position].code == selectedCode
+            holder.binding.itemMenuTabText.setTextColor(
                 if (fiveBean[position].code == selectedCode) ContextCompat.getColor(context, R.color.white)
                 else ContextCompat.getColor(context, R.color.font_third_color)
             )
-            holder.info.setTextColor(
+            holder.binding.itemMenuTabInfoText.setTextColor(
                 if (fiveBean[position].code == selectedCode) ContextCompat.getColor(context, R.color.color_FFBA42)
                 else ContextCompat.getColor(context, R.color.font_third_color)
             )
@@ -96,21 +96,6 @@ class MenuFiveNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
         return fiveBean.size
     }
 
-    inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        //        init {
-//            val canSeeCount = itemCount.toFloat() //一屏可见的 item 数量，目前都是全都显示完
-//            val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()
-//            itemView.layoutParams = ViewGroup.LayoutParams(with, ViewGroup.LayoutParams.WRAP_CONTENT)
-//            val imageSize = (ScreenUtils.getScreenWidth() * 62 / 375f).toInt()
-//            val layoutParams = itemView.item_menu_tab_fl.layoutParams
-//            layoutParams.width = imageSize
-//            layoutParams.height = imageSize
-//            itemView.item_menu_tab_fl.layoutParams = layoutParams
-//        }
-        val lay: View = itemView.item_menu_tab_lay
-        val img: ImageView = itemView.item_menu_tab_img
-        val name: TextView = itemView.item_menu_tab_text
-        val info: TextView = itemView.item_menu_tab_info_text
-    }
+    inner class ItemView(val binding: UiItemMenuFiveViewBinding) : RecyclerView.ViewHolder(binding.root)
 
 }

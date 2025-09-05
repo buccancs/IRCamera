@@ -16,7 +16,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.topdon.lib.ui.R
 import com.topdon.lib.ui.widget.IndicateView
-import kotlinx.android.synthetic.main.dialog_tip_guide.view.*
+import com.topdon.lib.ui.databinding.DialogTipGuideBinding
 import kotlin.collections.ArrayList
 
 class TipGuideDialog : DialogFragment() {
@@ -38,11 +38,13 @@ class TipGuideDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.dialog_tip_guide, container, false)
+        val binding = DialogTipGuideBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val binding = DialogTipGuideBinding.bind(view)
         titleList = arrayListOf(
             getString(R.string.target_tips_step_1),
             getString(R.string.target_tips_step_2),
@@ -55,16 +57,16 @@ class TipGuideDialog : DialogFragment() {
             R.drawable.target_guide_pic_3,
             R.drawable.target_guide_pic_4,
         )
-        viewPager = view.view_pager
-        tvContent1 = view.tv_content_1
-        tvContent2 = view.tv_content_2
-        tvContent3 = view.tv_content_3
-        indicateView = view.indicate_view
-        ivTarget = view.iv_target
+        viewPager = binding.viewPager
+        tvContent1 = binding.tvContent1
+        tvContent2 = binding.tvContent2
+        tvContent3 = binding.tvContent3
+        indicateView = binding.indicateView
+        ivTarget = binding.ivTarget
         val adapter = PageAdapter(childFragmentManager, imgList)
         indicateView.itemCount = adapter.count
         viewPager.adapter = adapter
-        view.tv_i_know.setOnClickListener {
+        binding.tvIKnow.setOnClickListener {
             closeEvent?.invoke(true)
             dismiss()
         }

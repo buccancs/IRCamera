@@ -28,7 +28,7 @@ import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lib.ui.R
 import com.topdon.lib.ui.adapter.ColorSelectAdapter
-import kotlinx.android.synthetic.main.dialog_thermal_input.view.*
+import com.topdon.lib.ui.databinding.DialogThermalInputBinding
 import java.math.BigDecimal
 
 
@@ -189,25 +189,26 @@ class ThermalInputDialog : Dialog {
             }
             val inflater =
                 context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val view = inflater.inflate(R.layout.dialog_thermal_input, null)
-            messageText = view.dialog_tip_msg_text
-            successBtn = view.dialog_tip_success_btn
-            cancelBtn = view.dialog_tip_cancel_btn
-            upEdit = view.dialog_up_edit
-            downEdit = view.dialog_down_edit
-            upUnit = view.dialog_up_unit_text
-            downUnit = view.dialog_down_unit_text
-            colorPickerView = view.color_picker_view
-            recycler = view.color_picker_recycler
-            view.color_picker_view_lay.visibility = View.GONE
-            view.dialog_input_lay.visibility = View.VISIBLE
+            val binding = DialogThermalInputBinding.inflate(inflater)
+            val view = binding.root
+            messageText = binding.dialogTipMsgText
+            successBtn = binding.dialogTipSuccessBtn
+            cancelBtn = binding.dialogTipCancelBtn
+            upEdit = binding.dialogUpEdit
+            downEdit = binding.dialogDownEdit
+            upUnit = binding.dialogUpUnitText
+            downUnit = binding.dialogDownUnitText
+            colorPickerView = binding.colorPickerView
+            recycler = binding.colorPickerRecycler
+            binding.colorPickerViewLay.visibility = View.GONE
+            binding.dialogInputLay.visibility = View.VISIBLE
             //隐藏颜色
             if(isIconEdit){
-                view.dialog_up_color.visibility = View.GONE
-                view.dialog_down_color.visibility = View.GONE
+                binding.dialogUpColor.visibility = View.GONE
+                binding.dialogDownColor.visibility = View.GONE
             }else{
-                view.dialog_up_color.visibility = View.VISIBLE
-                view.dialog_down_color.visibility = View.VISIBLE
+                binding.dialogUpColor.visibility = View.VISIBLE
+                binding.dialogDownColor.visibility = View.VISIBLE
             }
             messageText.text = message
             //初始化颜色
@@ -215,8 +216,8 @@ class ThermalInputDialog : Dialog {
             if (minColor != 0) downColor = minColor
             upUnit.text = UnitTools.showUnit()
             downUnit.text = UnitTools.showUnit()
-            view.dialog_up_color.setColorFilter(upColor)
-            view.dialog_down_color.setColorFilter(downColor)
+            binding.dialogUpColor.setColorFilter(upColor)
+            binding.dialogDownColor.setColorFilter(downColor)
             colorPickerView.setInitialColor(upColor)
 
             recycler.layoutManager = GridLayoutManager(context!!, 6)
@@ -246,22 +247,22 @@ class ThermalInputDialog : Dialog {
             successBtn.setOnClickListener {
 
 
-                if (view.color_picker_view_lay.isVisible) {
+                if (binding.colorPickerViewLay.isVisible) {
                     //选取颜色,返回上一步
-                    view.color_picker_view_lay.visibility = View.GONE
-                    view.dialog_input_lay.visibility = View.VISIBLE
+                    binding.colorPickerViewLay.visibility = View.GONE
+                    binding.dialogInputLay.visibility = View.VISIBLE
                     messageText.text = message
                     if (dialog!!.action == 201) {
                         if (selectColor != 0) {
                             upColor = selectColor
                         }
-                        view.dialog_up_color.setColorFilter(upColor)
+                        binding.dialogUpColor.setColorFilter(upColor)
                     }
                     if (dialog!!.action == 301) {
                         if (selectColor != 0) {
                             downColor = selectColor
                         }
-                        view.dialog_down_color.setColorFilter(downColor)
+                        binding.dialogDownColor.setColorFilter(downColor)
                     }
                     dialog!!.action = 100
                     return@setOnClickListener
@@ -324,10 +325,10 @@ class ThermalInputDialog : Dialog {
                 }
             }
             cancelBtn.setOnClickListener {
-                if (view.color_picker_view_lay.isVisible) {
+                if (binding.colorPickerViewLay.isVisible) {
                     //返回上一步
-                    view.color_picker_view_lay.visibility = View.GONE
-                    view.dialog_input_lay.visibility = View.VISIBLE
+                    binding.colorPickerViewLay.visibility = View.GONE
+                    binding.dialogInputLay.visibility = View.VISIBLE
                     messageText.text = message
                     dialog!!.action = 100
                     return@setOnClickListener
@@ -335,17 +336,17 @@ class ThermalInputDialog : Dialog {
                 dismiss()
                 cancelEvent?.invoke()
             }
-            view.dialog_up_color.setOnClickListener {
+            binding.dialogUpColor.setOnClickListener {
                 dialog!!.action = 201
-                view.color_picker_view_lay.visibility = View.VISIBLE
-                view.dialog_input_lay.visibility = View.GONE
+                binding.colorPickerViewLay.visibility = View.VISIBLE
+                binding.dialogInputLay.visibility = View.GONE
                 messageText.text = context!!.getString(R.string.color_board)
                 colorPickerView.setInitialColor(upColor)
             }
-            view.dialog_down_color.setOnClickListener {
+            binding.dialogDownColor.setOnClickListener {
                 dialog!!.action = 301
-                view.color_picker_view_lay.visibility = View.VISIBLE
-                view.dialog_input_lay.visibility = View.GONE
+                binding.colorPickerViewLay.visibility = View.VISIBLE
+                binding.dialogInputLay.visibility = View.GONE
                 messageText.text = context!!.getString(R.string.color_board)
                 colorPickerView.setInitialColor(downColor)
             }
