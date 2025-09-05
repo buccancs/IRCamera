@@ -7,15 +7,17 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.topdon.lib.core.config.RouterConfig
-import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.ir.activity.BaseIRActivity
 import com.topdon.module.thermal.ir.thermal.fragment.GalleryPictureFragment
 import com.topdon.module.thermal.ir.thermal.fragment.GalleryVideoFragment
 import kotlinx.android.synthetic.main.activity_gallery.*
+import com.hjq.permissions.Permission
+import com.hjq.permissions.XXPermissions
 
 
 @Route(path = RouterConfig.IR_GALLERY_HOME)
-class GalleryActivity : BaseActivity() {
+class GalleryActivity : BaseIRActivity() {
 
 //    override fun providerVMClass() = GalleryViewModel::class.java
 
@@ -38,13 +40,14 @@ class GalleryActivity : BaseActivity() {
     override fun initContentView() = R.layout.activity_gallery
 
     override fun initView() {
-        setTitleText(getString(R.string.gallery))
+        // Title handling removed as toolbar_lay doesn't support it
         gallery_viewpager.adapter = ViewAdapter(this, supportFragmentManager)
         gallery_tab.setupWithViewPager(gallery_viewpager)
 
-        mRxPermissions!!.request( permissionList)
-            .subscribe {
-
+        XXPermissions.with(this)
+            .permission(permissionList)
+            .request { allGranted, grantedList, deniedList ->
+                // Handle permission result
             }
     }
 

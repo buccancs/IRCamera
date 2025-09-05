@@ -6,6 +6,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.BarUtils
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
+import com.topdon.module.thermal.ir.activity.BaseIRActivity
 import com.topdon.lib.ui.dialog.MonitorSelectDialog
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.thermal.fragment.event.ThermalActionEvent
@@ -14,7 +15,7 @@ import org.greenrobot.eventbus.EventBus
 import java.util.*
 
 @Route(path = RouterConfig.IR_THERMAL_MONITOR)
-class MonitorActivity : BaseActivity(), View.OnClickListener {
+class MonitorActivity : BaseIRActivity(), View.OnClickListener {
 
     companion object {
         const val STATS_START = 101
@@ -30,10 +31,11 @@ class MonitorActivity : BaseActivity(), View.OnClickListener {
     override fun initContentView() = R.layout.activity_monitor
 
     override fun initView() {
-        setTitleText(R.string.main_thermal_motion)
-        mToolBar!!.setBackgroundColor(blackColor)
-        BarUtils.setStatusBarColor(this, blackColor)
-        BarUtils.setNavBarColor(window, blackColor)
+        // Title and toolbar handling commented out - using toolbar_lay layout
+        // setTitleText(R.string.main_thermal_motion)
+        // mToolBar!!.setBackgroundColor(blackColor)
+        // BarUtils.setStatusBarColor(this, blackColor)
+        // BarUtils.setNavBarColor(window, blackColor)
         motion_log_btn.setOnClickListener(this)
         motion_btn.setOnClickListener(this)
         motion_start_btn.setOnClickListener(this)

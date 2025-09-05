@@ -18,9 +18,12 @@ import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.ScreenUtils
 import com.guide.zm04c.matrix.GuideInterface
 import com.guide.zm04c.matrix.IrSurfaceView
+import com.hjq.permissions.XXPermissions
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.topdon.lib.app.utils.ScreenBean
+import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.config.FileConfig.galleryPath
+import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.utils.ByteUtils.getIndex
 import com.topdon.lib.app.utils.ScreenShotUtils
@@ -28,6 +31,7 @@ import com.topdon.lib.ui.dialog.SeekDialog
 import com.topdon.lib.ui.dialog.ThermalInputDialog
 import com.topdon.lib.ui.fence.FenceLineView
 import com.topdon.lib.ui.fence.FencePointView
+import kotlinx.android.synthetic.main.fragment_thermal.*
 import com.topdon.lib.ui.fence.FenceView
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.thermal.base.BaseThermalFragment

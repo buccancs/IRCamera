@@ -543,4 +543,12 @@ object SharedManager {
         get() = com.topdon.lib.core.repository.FreeSpaceBean() // Return empty bean for TC001
         set(value) = Unit // No-op for TC001
 
+    /**
+     * Selected fence type for thermal analysis.
+     * Methods getSelectFenceType() and setSelectFenceType() are automatically generated.
+     */
+    var selectFenceType: Int
+        get() = SPUtils.getInstance().getInt("selectFenceType", 1)
+        set(value) = SPUtils.getInstance().put("selectFenceType", value)
+
 }

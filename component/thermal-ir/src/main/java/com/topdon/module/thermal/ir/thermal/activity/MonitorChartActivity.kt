@@ -28,6 +28,8 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.db.AppDatabase
 import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.lib.core.ktbase.BaseActivity
+import com.topdon.lib.core.tools.NumberTools
+import com.topdon.module.thermal.ir.activity.BaseIRActivity
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.thermal.adapter.SettingCheckAdapter
@@ -47,7 +49,7 @@ import java.math.BigDecimal
  * 温度监控
  */
 @Route(path = RouterConfig.IR_MONITOR_CHART)
-class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueSelectedListener {
+class MonitorChartActivity : BaseIRActivity(), View.OnClickListener, OnChartValueSelectedListener {
 
     private val viewModel: LogViewModel by viewModels()
 
@@ -130,7 +132,7 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
                 selectTimeType = timeType
                 chart.highlightValue(null) //关闭高亮点Marker
                 latestTime = 0L
-                showLoading()
+                showLoadingDialog()
                 lifecycleScope.launch {
                     delay(500)
                     queryLog(2)
@@ -520,7 +522,7 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
     }
 
     private fun resultVol(bean: LogViewModel.ChartList) {
-        dismissLoading()
+        dismissLoadingDialog()
         if (selectTimeType != 1 && bean.dataList.size > 0) {
             val logTime = TimeTool.showDateType(bean.dataList.last().createTime, selectTimeType)
             val nowTime = TimeTool.showDateType(System.currentTimeMillis(), selectTimeType)
