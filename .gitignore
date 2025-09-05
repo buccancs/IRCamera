@@ -39,6 +39,50 @@ captures/
 .cxx/
 obj/
 
+# Additional Build Artifacts and Generated Files
+# -------------------------------------------------------------------
+# Generated AAR files in build outputs
+build/outputs/**/*.aar
+*/build/outputs/**/*.aar
+**/build/outputs/**/*.aar
+
+# Generated Java files in build directories
+build/generated/**/*.java
+*/build/generated/**/*.java
+**/build/generated/**/*.java
+
+# Generated resource directories in build
+build/generated/**/res/
+*/build/generated/**/res/
+**/build/generated/**/res/
+build/intermediates/**/res/
+*/build/intermediates/**/res/
+**/build/intermediates/**/res/
+
+# Generated layout directories in build
+build/generated/**/layout/
+*/build/generated/**/layout/
+**/build/generated/**/layout/
+build/intermediates/**/layout/
+*/build/intermediates/**/layout/
+**/build/intermediates/**/layout/
+
+# Build output APKs and AABs
+build/outputs/apk/
+*/build/outputs/apk/
+**/build/outputs/apk/
+build/outputs/bundle/
+*/build/outputs/bundle/
+**/build/outputs/bundle/
+
+# Generated native libraries in build
+build/intermediates/**/*.so
+*/build/intermediates/**/*.so
+**/build/intermediates/**/*.so
+build/outputs/**/*.so
+*/build/outputs/**/*.so
+**/build/outputs/**/*.so
+
 
 # Gradle
 # -------------------------------------------------------------------
