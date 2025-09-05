@@ -5,6 +5,8 @@ import android.content.Intent
 import android.media.MediaScannerConnection
 import android.os.Bundle
 import android.view.WindowManager
+import android.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.exifinterface.media.ExifInterface
 import androidx.fragment.app.Fragment
@@ -28,6 +30,7 @@ import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.repository.TS004Repository
 import com.topdon.module.thermal.ir.R
+import com.topdon.lib.core.R as LibR
 import com.topdon.lib.core.dialog.ConfirmSelectDialog
 import com.topdon.lib.core.bean.event.GalleryDelEvent
 import com.topdon.lms.sdk.weiget.TToast
@@ -68,12 +71,12 @@ class IRGalleryDetail04Activity : BaseActivity() {
         val titleView = findViewById<com.topdon.lib.core.view.TitleView>(R.id.title_view)
         titleView.setTitleText("${position + 1}/${dataList.size}")
 
-        cl_bottom.isVisible = isRemote //查看远端时底部才有3个按钮
+        findViewById<ConstraintLayout>(R.id.cl_bottom).isVisible = isRemote //查看远端时底部才有3个按钮
 
         if (!isRemote) {
-            titleView.setRightDrawable(R.drawable.ic_toolbar_info_svg)
-            titleView.setRight2Drawable(R.drawable.ic_toolbar_share_svg)
-            titleView.setRight3Drawable(R.drawable.ic_toolbar_delete_svg)
+            titleView.setRightDrawable(LibR.drawable.ic_toolbar_info_svg)
+            titleView.setRight2Drawable(LibR.drawable.ic_toolbar_share_svg)
+            titleView.setRight3Drawable(LibR.drawable.ic_toolbar_delete_svg)
             titleView.setRightClickListener { actionInfo() }
             titleView.setRight2ClickListener { actionShare() }
             titleView.setRight3ClickListener { actionDelete() }
@@ -81,17 +84,17 @@ class IRGalleryDetail04Activity : BaseActivity() {
 
         initViewPager()
 
-        cl_download.setOnClickListener {
+        findViewById<ConstraintLayout>(R.id.cl_download).setOnClickListener {
             actionDownload(false)
         }
-        cl_share.setOnClickListener {
+        findViewById<ConstraintLayout>(R.id.cl_share).setOnClickListener {
             if (dataList[position].hasDownload) {
                 actionShare()
             } else {
                 actionDownload(true)
             }
         }
-        cl_delete.setOnClickListener {
+        findViewById<ConstraintLayout>(R.id.cl_delete).setOnClickListener {
             actionDelete()
         }
     }
@@ -125,15 +128,15 @@ class IRGalleryDetail04Activity : BaseActivity() {
             val sizeStr = FileTools.getFileSize(data.path)
 
             val str = StringBuilder()
-            str.append(getString(R.string.detail_date)).append("\n")
+            str.append(getString(LibR.string.detail_date)).append("\n")
             str.append(TimeTool.showDateType(data.timeMillis)).append("\n\n")
-            str.append(getString(R.string.detail_info)).append("\n")
-            str.append("${getString(R.string.detail_size)}: ").append(whStr).append("\n")
-            str.append("${getString(R.string.detail_len)}: ").append(sizeStr).append("\n")
-            str.append("${getString(R.string.detail_path)}: ").append(data.path).append("\n")
+            str.append(getString(LibR.string.detail_info)).append("\n")
+            str.append("${getString(LibR.string.detail_size)}: ").append(whStr).append("\n")
+            str.append("${getString(LibR.string.detail_len)}: ").append(sizeStr).append("\n")
+            str.append("${getString(LibR.string.detail_path)}: ").append(data.path).append("\n")
             TipDialog.Builder(this).setMessage(str.toString()).setCanceled(true).create().show()
         } catch (e: Exception) {
-            ToastTools.showShort(R.string.status_error_load_fail)
+            ToastTools.showShort(LibR.string.status_error_load_fail)
         }
     }
 
@@ -144,13 +147,13 @@ class IRGalleryDetail04Activity : BaseActivity() {
         shareIntent.action = Intent.ACTION_SEND
         shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
         shareIntent.type = "image/jpeg"
-        startActivity(Intent.createChooser(shareIntent, getString(R.string.battery_share)))
+        startActivity(Intent.createChooser(shareIntent, getString(LibR.string.battery_share)))
     }
 
     private fun actionDelete() {
         ConfirmSelectDialog(this).run {
-            setTitleRes(R.string.tip_delete)
-            setMessageRes(R.string.also_del_from_phone_album)
+            setTitleRes(LibR.string.tip_delete)
+            setMessageRes(LibR.string.also_del_from_phone_album)
             setShowMessage(isRemote && dataList[position].hasDownload)
             onConfirmClickListener = {
                 deleteFile(it)
@@ -173,7 +176,7 @@ class IRGalleryDetail04Activity : BaseActivity() {
                     }
 
                     dismissCameraLoading()
-                    ToastTools.showShort(R.string.test_results_delete_success)
+                    ToastTools.showShort(LibR.string.test_results_delete_success)
                     EventBus.getDefault().post(GalleryDelEvent())
                     if (dataList.size == 1) {
                         finish()
@@ -186,7 +189,7 @@ class IRGalleryDetail04Activity : BaseActivity() {
                     }
                 } else {
                     dismissCameraLoading()
-                    TToast.shortToast(this@IRGalleryDetail04Activity, R.string.test_results_delete_failed)
+                    TToast.shortToast(this@IRGalleryDetail04Activity, LibR.string.test_results_delete_failed)
                 }
             }
         } else {
@@ -219,7 +222,7 @@ class IRGalleryDetail04Activity : BaseActivity() {
         Glide.with(this).downloadOnly().load(data.path).addListener(object : RequestListener<File> {
                 override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<File>?, isFirstResource: Boolean): Boolean {
                     dismissCameraLoading()
-                    ToastTools.showShort(R.string.liveData_save_error)
+                    ToastTools.showShort(LibR.string.liveData_save_error)
                     window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
                     return false
                 }
@@ -231,7 +234,7 @@ class IRGalleryDetail04Activity : BaseActivity() {
                     dismissCameraLoading()
                     FileUtils.copy(resource, File(FileConfig.ts004GalleryDir, data.name))
                     MediaScannerConnection.scanFile(this@IRGalleryDetail04Activity, arrayOf(FileConfig.ts004GalleryDir), null, null)
-                    ToastTools.showShort(R.string.tip_save_success)
+                    ToastTools.showShort(LibR.string.tip_save_success)
                     data.hasDownload = true
                     iv_download.isSelected = dataList[position].hasDownload
                     if (isToShare) {

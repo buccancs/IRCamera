@@ -33,6 +33,10 @@ object NavigationManager {
             extras.putInt(key, value)
         }
         
+        fun withFloat(key: String, value: Float) = apply {
+            extras.putFloat(key, value)
+        }
+        
         fun withLong(key: String, value: Long) = apply {
             extras.putLong(key, value)
         }

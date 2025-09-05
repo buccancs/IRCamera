@@ -1,6 +1,7 @@
 package com.topdon.module.thermal.ir.activity
 
 import android.content.Intent
+import android.widget.TextView
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
