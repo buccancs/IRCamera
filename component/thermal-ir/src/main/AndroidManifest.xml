@@ -122,9 +122,7 @@
         <activity
             android:name=".activity.MonitoryHomeActivity"
             android:screenOrientation="userPortrait" />
-        <activity
-            android:name=".activity.ReportPreviewActivity"
-            android:screenOrientation="userPortrait" />
+
         <activity android:name=".activity.ImagePickIRPlushActivity"
             android:screenOrientation="userPortrait" />
         <activity android:name=".activity.ImagePickIRActivity"

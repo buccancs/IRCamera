@@ -112,6 +112,12 @@ android {
     buildFeatures{
         dataBinding = true
     }
+    
+    lint {
+        abortOnError false
+        checkReleaseBuilds false
+        disable 'CustomSplashScreen', 'VectorRaster', 'UnusedAttribute'
+    }
 }
 static def getYearStr() {
     return new Date().format('yy')

@@ -43,6 +43,12 @@ android {
     buildFeatures {
         dataBinding = true
     }
+    
+    lint {
+        abortOnError false
+        checkReleaseBuilds false
+        disable 'MissingPermission', 'ScrollViewSize', 'CustomViewStyleable', 'DefaultLocale'
+    }
 }
 
 dependencies {

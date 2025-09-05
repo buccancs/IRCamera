@@ -3,6 +3,7 @@ package com.topdon.module.thermal.ir.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
@@ -21,6 +22,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+
+import androidx.core.app.ActivityCompat;
 
 import com.maning.imagebrowserlibrary.listeners.OnClickListener;
 import com.topdon.module.thermal.ir.R;
@@ -360,6 +363,14 @@ public class TestRecordActivity extends Activity{
 
             bufferSize = AudioRecord.getMinBufferSize(sampleAudioRateInHz,
                     AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);
+            
+            // Check for RECORD_AUDIO permission before creating AudioRecord
+            if (ActivityCompat.checkSelfPermission(TestRecordActivity.this, android.Manifest.permission.RECORD_AUDIO) 
+                    != PackageManager.PERMISSION_GRANTED) {
+                Log.w(LOG_TAG, "RECORD_AUDIO permission not granted, AudioRecord creation skipped");
+                return;
+            }
+            
             audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC, sampleAudioRateInHz,
                     AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize);
 
