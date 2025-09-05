@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import com.topdon.lib.core.R
+import com.topdon.libapp.R
 import com.topdon.lib.core.bean.event.SocketStateEvent
 import com.topdon.lib.core.bean.event.device.DeviceConnectEvent
 import com.topdon.lib.core.common.SharedManager

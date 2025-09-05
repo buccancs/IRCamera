@@ -13,7 +13,7 @@ import com.topdon.lib.core.repository.ProductBean
 import com.topdon.lms.sdk.utils.TLog
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.user.R
-import kotlinx.android.synthetic.main.activity_device_details.*
+import com.topdon.module.user.databinding.Activity_device_detailsBinding
 import kotlinx.coroutines.launch
 
 /**

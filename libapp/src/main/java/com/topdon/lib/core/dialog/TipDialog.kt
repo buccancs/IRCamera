@@ -10,8 +10,8 @@ import android.view.ViewGroup.LayoutParams
 import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
-import com.topdon.lib.core.R
-import com.topdon.lib.core.databinding.DialogTipBinding
+import com.topdon.libapp.R
+import com.topdon.libapp.databinding.DialogTipBinding
 
 /**
  * 提示窗

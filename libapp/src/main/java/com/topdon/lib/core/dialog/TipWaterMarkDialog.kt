@@ -20,11 +20,11 @@ import androidx.appcompat.widget.SwitchCompat
 import com.blankj.utilcode.util.ToastUtils
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.XXPermissions
-import com.topdon.lib.core.R
+import com.topdon.libapp.R
 import com.topdon.lib.core.bean.WatermarkBean
 import com.topdon.lib.core.*
 import com.topdon.lib.core.common.SharedManager
-import com.topdon.lib.core.databinding.DialogTipWatermarkBinding
+import com.topdon.libapp.databinding.DialogTipWatermarkBinding
 import com.topdon.lib.core.utils.CommUtils
 import com.topdon.lib.core.utils.ScreenUtil
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
@@ -90,18 +90,18 @@ class TipWaterMarkDialog : Dialog {
                 dismiss()
                 closeEvent?.invoke(
                     WatermarkBean(
-                        view.switch_watermark.isChecked,
-                        view.ed_title.text.toString(),
-                        view.ed_address.text.toString(),
-                        view.switch_date_time.isChecked,
+                        binding.switchWatermark.isChecked,
+                        binding.edTitle.text.toString(),
+                        binding.edAddress.text.toString(),
+                        binding.switchDateTime.isChecked,
                     )
                 )
             }
             imgLocation.setOnClickListener {
                 checkLocationPermission()
             }
-            view.switch_watermark.isChecked = watermarkBean.isOpen
-            view.switch_date_time.isChecked = watermarkBean.isAddTime
+            binding.switchWatermark.isChecked = watermarkBean.isOpen
+            binding.switchDateTime.isChecked = watermarkBean.isAddTime
             binding.edTitle.setText(watermarkBean.title.ifEmpty { SharedManager.watermarkBean.title })
             binding.edAddress.setText(watermarkBean.address)
 

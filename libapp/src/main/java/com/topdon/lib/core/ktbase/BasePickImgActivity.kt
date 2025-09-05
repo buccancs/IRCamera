@@ -9,8 +9,8 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.ImageUtils
 import com.blankj.utilcode.util.SizeUtils
-import com.topdon.lib.core.R
-import com.topdon.lib.core.databinding.ActivityImagePickIrPlushBinding
+import com.topdon.libapp.R
+import com.topdon.libapp.databinding.ActivityImagePickIrPlushBinding
 import com.topdon.lib.core.dialog.ColorSelectDialog
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.view.ImageEditView

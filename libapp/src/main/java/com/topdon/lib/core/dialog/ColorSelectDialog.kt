@@ -8,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import com.blankj.utilcode.util.SizeUtils
-import com.topdon.lib.core.R
-import com.topdon.lib.core.databinding.DialogColorSelectBinding
+import com.topdon.libapp.R
+import com.topdon.libapp.databinding.DialogColorSelectBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**

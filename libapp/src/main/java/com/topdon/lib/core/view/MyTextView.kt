@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import androidx.annotation.DrawableRes
 import androidx.appcompat.widget.AppCompatTextView
 import com.blankj.utilcode.util.SizeUtils
-import com.topdon.lib.core.R
+import com.topdon.libapp.R
 
 /**
  * 魔改 TextView.

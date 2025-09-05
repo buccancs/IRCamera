@@ -11,8 +11,8 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.annotation.StringRes
-import com.topdon.lib.core.R
-import com.topdon.lib.core.databinding.DialogTipOtgBinding
+import com.topdon.libapp.R
+import com.topdon.libapp.databinding.DialogTipOtgBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 

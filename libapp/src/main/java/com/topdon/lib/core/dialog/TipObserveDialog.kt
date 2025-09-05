@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup.LayoutParams
 import android.widget.*
-import com.topdon.lib.core.R
-import com.topdon.lib.core.databinding.DialogTipObserveBinding
+import com.topdon.libapp.R
+import com.topdon.libapp.databinding.DialogTipObserveBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**

@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import com.topdon.lib.core.R
-import com.topdon.lib.core.databinding.DialogFirmwareUpBinding
+import com.topdon.libapp.R
+import com.topdon.libapp.databinding.DialogFirmwareUpBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**

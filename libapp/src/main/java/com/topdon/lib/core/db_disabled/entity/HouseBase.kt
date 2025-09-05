@@ -7,7 +7,7 @@ import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.blankj.utilcode.util.TimeUtils
 import com.blankj.utilcode.util.Utils
-import com.topdon.lib.core.R
+import com.topdon.libapp.R
 
 /**
  * 房屋检测 - 检测与报告都有的栏位.

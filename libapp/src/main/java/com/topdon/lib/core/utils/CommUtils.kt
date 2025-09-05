@@ -4,7 +4,7 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import com.blankj.utilcode.util.Utils
 import com.elvishew.xlog.XLog
-import com.topdon.lib.core.R
+import com.topdon.libapp.R
 
 /**
  * des:

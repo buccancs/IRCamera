@@ -6,32 +6,38 @@ import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.user.R
-import kotlinx.android.synthetic.main.activity_unit.*
+import com.topdon.module.user.databinding.ActivityUnitBinding
 
 /**
  * 温度单位切换
  */
 @Route(path = RouterConfig.UNIT)
 class UnitActivity : BaseActivity() {
+    
+    private lateinit var binding: ActivityUnitBinding
 
-    override fun initContentView() = R.layout.activity_unit
+    override fun initContentView(): Int {
+        binding = ActivityUnitBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        return R.layout.activity_unit
+    }
 
     override fun initView() {
-        title_view.setRightClickListener {
-            SharedManager.setTemperature(if (iv_degrees_celsius.isVisible) 1 else 0)
+        binding.titleView.setRightClickListener {
+            SharedManager.setTemperature(if (binding.ivDegreesCelsius.isVisible) 1 else 0)
             finish()
         }
 
-        iv_degrees_celsius.isVisible = SharedManager.getTemperature() == 1
-        iv_fahrenheit.isVisible = SharedManager.getTemperature() == 0
+        binding.ivDegreesCelsius.isVisible = SharedManager.getTemperature() == 1
+        binding.ivFahrenheit.isVisible = SharedManager.getTemperature() == 0
 
-        constraint_degrees_celsius.setOnClickListener {
-            iv_degrees_celsius.isVisible = true
-            iv_fahrenheit.isVisible = false
+        binding.constraintDegreesCelsius.setOnClickListener {
+            binding.ivDegreesCelsius.isVisible = true
+            binding.ivFahrenheit.isVisible = false
         }
-        constraint_fahrenheit.setOnClickListener {
-            iv_degrees_celsius.isVisible = false
-            iv_fahrenheit.isVisible = true
+        binding.constraintFahrenheit.setOnClickListener {
+            binding.ivDegreesCelsius.isVisible = false
+            binding.ivFahrenheit.isVisible = true
         }
     }
 

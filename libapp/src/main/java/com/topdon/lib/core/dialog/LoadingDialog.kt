@@ -8,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
-import com.topdon.lib.core.R
-import com.topdon.lib.core.databinding.DialogLoadingBinding
+import com.topdon.libapp.R
+import com.topdon.libapp.databinding.DialogLoadingBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
