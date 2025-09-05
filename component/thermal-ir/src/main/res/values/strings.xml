@@ -100,4 +100,10 @@
     <string name="tip_target_sdk">Target SDK version</string>
     <string name="request_fail">Request failed</string>
     <string name="tip_no_more_data">No more data available</string>
+    
+    <!-- Additional adapter resources -->
+    <string name="menu_3d_calibrate">3D Calibrate</string>
+    <string name="thermal_false_color">False Color</string>
+    <string name="app_setting">Settings</string>
+    <string name="func_temper_ruler">Temperature Ruler</string>
 </resources>
