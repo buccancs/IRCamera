@@ -54,4 +54,6 @@
     <string name="abnormal_item">Abnormal Item</string>
     <string name="permission_request_storage_app">Storage permission required for app</string>
     <string name="abnormal_item1">Abnormal Item 1</string>
+    <string name="correction_fail">Correction Failed</string>
+    <string name="album_report_max_image_tips">Maximum number of images reached</string>
 </resources>

@@ -43,8 +43,8 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
 
     // Synthetic view properties - migrated from kotlin-android-extensions
     private val dualTextureViewNativeCamera by lazy { findViewById<SurfaceView>(R.id.dualTextureViewNativeCamera) }
-    private val thermalSteeringView by lazy { findViewById<View>(R.id.thermalSteeringView) }  
-    private val thermalRecyclerNight by lazy { findViewById<com.topdon.menu.MenuSecondView>(R.id.thermalRecyclerNight) }
+    private val thermalSteeringView by lazy { findViewById<com.topdon.lib.ui.widget.SteeringWheelView>(R.id.thermalSteeringView) }  
+    // thermalRecyclerNight inherited from parent class
 
 
     override fun initContentView() = R.layout.activity_ir_thermal_double
@@ -191,7 +191,7 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
 
     override fun setPColor(code: Int) {
         pseudoColorMode = code
-        temperature_seekbar.setPseudocode(pseudoColorMode)
+        temperatureSeekbar.setPseudocode(pseudoColorMode)
         /**
          * 设置伪彩【set pseudocolor】
          * 固件机芯实现(部分伪彩为预留,设置后可能无效果)
@@ -265,7 +265,7 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
     override fun irStop() {
         try {
             configJob?.cancel()
-            time_down_view?.cancel()
+            timeDownView?.cancel()
             if (isVideo) {
                 isVideo = false
                 videoRecord?.stopRecord()
@@ -298,13 +298,13 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
             cl_seek_bar,
             temp_bg,
             compassView, dualView,
-            carView = lay_car_detect_prompt
+            carView = layCarDetectPrompt
         )
     }
 
     override fun irStart() {
         if (!isrun) {
-            tv_type_ind.isVisible = false
+            tvTypeInd.isVisible = false
             startUSB(false,false)
             startISP()
             isrun = true

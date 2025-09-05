@@ -180,9 +180,8 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     private var audioPosition: Int = 0
     
     // View references (migrated from synthetic views)
-    private lateinit var cameraView: com.infisense.usbir.view.CameraView
-    private lateinit var temperatureView: com.infisense.usbir.view.TemperatureView
-    private lateinit var compassView: com.topdon.module.thermal.ir.view.compass.LinearCompassView
+    protected lateinit var cameraView: com.infisense.usbir.view.CameraView
+    protected lateinit var temperatureView: com.infisense.usbir.view.TemperatureView
     private lateinit var spaceChart: View
     private lateinit var clTrendOpen: ConstraintLayout
     private lateinit var llTrendClose: LinearLayout
@@ -233,21 +232,21 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     
     // Common view lazy properties to replace synthetic views
     private val titleView by lazy { findViewById<MainTitleView>(R.id.title_view) }
-    private val thermalRecyclerNight by lazy { findViewById<com.topdon.menu.MenuSecondView>(R.id.thermal_recycler_night) }
+    protected val thermalRecyclerNight by lazy { findViewById<com.topdon.menu.MenuSecondView>(R.id.thermal_recycler_night) }
     private val thermalLay by lazy { findViewById<ConstraintLayout>(R.id.thermal_lay) }
-    private val tvTypeInd by lazy { findViewById<TextView>(R.id.tv_type_ind) }
-    private val timeDownView by lazy { findViewById<com.topdon.module.thermal.ir.view.TimeDownView>(R.id.timeDownView) }
+    protected val tvTypeInd by lazy { findViewById<TextView>(R.id.tv_type_ind) }
+    protected val timeDownView by lazy { findViewById<com.topdon.module.thermal.ir.view.TimeDownView>(R.id.timeDownView) }
     private val temperatureIvLock by lazy { findViewById<ImageView>(R.id.temperature_iv_lock) }
     private val temperatureIvInput by lazy { findViewById<ImageView>(R.id.temperature_iv_input) }
     private val popTimeLay by lazy { findViewById<View>(R.id.pop_time_lay) }
     private val popTimeText by lazy { findViewById<TextView>(R.id.pop_time_text) }
-    private val layCarDetectPrompt by lazy { findViewById<View>(R.id.lay_car_detect_prompt) }
-    private val temp_bg by lazy { findViewById<com.topdon.libcom.view.TempLayout>(R.id.temp_bg) }
-    private val cl_seek_bar by lazy { findViewById<com.topdon.lib.ui.widget.BitmapConstraintLayout>(R.id.cl_seek_bar) }
-    private val cameraPreview by lazy { findViewById<com.topdon.lib.ui.camera.CameraPreView>(R.id.cameraPreview) }
+    protected val layCarDetectPrompt by lazy { findViewById<View>(R.id.lay_car_detect_prompt) }
+    protected val temp_bg by lazy { findViewById<com.topdon.libcom.view.TempLayout>(R.id.temp_bg) }
+    protected val cl_seek_bar by lazy { findViewById<com.topdon.lib.ui.widget.BitmapConstraintLayout>(R.id.cl_seek_bar) }
+    protected val cameraPreview by lazy { findViewById<com.topdon.lib.ui.camera.CameraPreView>(R.id.cameraPreview) }
     private val distance_measure_view by lazy { findViewById<View>(R.id.distance_measure_view) }
     private val zoomView by lazy { findViewById<com.infisense.usbir.view.ZoomCaliperView>(R.id.zoomView) }
-    private val temperatureSeekbar by lazy { findViewById<com.topdon.lib.ui.widget.seekbar.RangeSeekBar>(R.id.temperature_seekbar) }
+    protected val temperatureSeekbar by lazy { findViewById<com.topdon.lib.ui.widget.seekbar.RangeSeekBar>(R.id.temperature_seekbar) }
     // Additional view references for findViewById modernization
     private val recyclerView by lazy { findViewById<RecyclerView>(R.id.recyclerView) }
     private val tvTitleTemp by lazy { findViewById<TextView>(R.id.tv_title_temp) }
@@ -256,6 +255,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     private val viewCarDetect by lazy { findViewById<View>(R.id.view_car_detect) }
     private val tvDetectPrompt by lazy { findViewById<TextView>(R.id.tv_detect_prompt) }
     private val rlContent by lazy { findViewById<View>(R.id.rl_content) }
+    protected var compassView: com.topdon.module.thermal.ir.view.compass.LinearCompassView? = null
     // Removed viewStubCamera references as the layout resource doesn't exist
     
     private val bitmapWidth: Int
@@ -343,11 +343,11 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         temperatureView = findViewById(R.id.temperatureView)
         // titleView, thermalRecyclerNight, thermalLay, tvTypeInd, timeDownView already handled by lazy properties
         
-        val tvTitleTemp = findViewById<TextView>(R.id.tv_title_temp)
-        val tvTitleObserve = findViewById<TextView>(R.id.tv_title_observe)
-        val viewCarDetect = findViewById<ViewGroup>(R.id.view_car_detect)
+        
+        // Use lazy properties instead of redundant findViewById calls
         viewMenuFirst = findViewById(R.id.view_menu_first)
         tvTempContent = findViewById(R.id.tv_temp_content)
+        compassView = findViewById(R.id.compassView)
         val clSeekBar = findViewById<ConstraintLayout>(R.id.cl_seek_bar)
         val viewChartTrend = findViewById<View>(R.id.view_chart_trend)
         clTrendOpen = findViewById(R.id.cl_trend_open)
@@ -358,7 +358,6 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         val ivTrendOpen = findViewById<ImageView>(R.id.iv_trend_open)
         
         // Missing findViewById declarations for synthetic views
-        compassView = findViewById(R.id.compassView)
         // tvTypeInd already handled by lazy property
         spaceChart = findViewById(R.id.space_chart)
         
