@@ -14,7 +14,7 @@ class ConnectActivity : BaseActivity() {
 
     override fun initView() {
         // Set toolbar title
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_lay)
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(com.topdon.lib.core.R.id.toolbar_lay)
         toolbar?.title = getString(R.string.app_name)
         
         val bluetoothBtn = findViewById<TextView>(R.id.bluetooth_btn)

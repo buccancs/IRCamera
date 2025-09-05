@@ -2,6 +2,7 @@ package com.topdon.module.thermal.activity
 
 import android.view.View
 import android.widget.Button
+import androidx.core.content.ContextCompat
 import com.blankj.utilcode.util.BarUtils
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
@@ -28,8 +29,12 @@ class MonitorActivity : BaseActivity(), View.OnClickListener {
     override fun initContentView() = R.layout.activity_monitor
 
     override fun initView() {
-        setTitleText(R.string.main_thermal_motion)
-        mToolBar?.setBackgroundColor(blackColor)
+        // Set toolbar title
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(com.topdon.lib.core.R.id.toolbar_lay)
+        toolbar?.title = getString(R.string.main_thermal_motion)
+        
+        val blackColor = ContextCompat.getColor(this, com.topdon.lib.core.R.color.black)
+        toolbar?.setBackgroundColor(blackColor)
         BarUtils.setStatusBarColor(this, blackColor)
         BarUtils.setNavBarColor(window, blackColor)
         findViewById<Button>(R.id.motion_log_btn).setOnClickListener(this)
@@ -53,26 +58,20 @@ class MonitorActivity : BaseActivity(), View.OnClickListener {
             }
             findViewById<Button>(R.id.motion_btn) -> {
                 MonitorSelectDialog.Builder(this)
-                    .setTitle("请选择监控类型")
-                    .setPositiveListener(object : MonitorSelectDialog.OnClickListener {
-                        override fun onClick(select: Int) {
-                            updateUI()
-                            when (select) {
-                                1 -> EventBus.getDefault().post(ThermalActionEvent(action = 2001))
-                                2 -> EventBus.getDefault().post(ThermalActionEvent(action = 2002))
-                                else -> EventBus.getDefault()
-                                    .post(ThermalActionEvent(action = 2003))
-                            }
+                    .setPositiveListener { select ->
+                        updateUI()
+                        when (select) {
+                            1 -> EventBus.getDefault().post(ThermalActionEvent(action = 2001))
+                            2 -> EventBus.getDefault().post(ThermalActionEvent(action = 2002))
+                            else -> EventBus.getDefault()
+                                .post(ThermalActionEvent(action = 2003))
                         }
-
-                    })
-                    .setCancelListener(R.string.app_cancel)
+                    }
                     .create().show()
             }
             findViewById<Button>(R.id.motion_start_btn) -> {
                 NavigationManager.getInstance().build(RouterConfig.MONITOR_CHART)
                     .withInt("type", selectType)
-                    .withIntegerArrayList("select", selectIndex)
                     .navigation(this)
                 finish()
             }
