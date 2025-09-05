@@ -29,7 +29,7 @@ import com.topdon.lib.ui.listener.SingleClickListener
 import com.topdon.lib.core.utils.CommUtils
 import com.topdon.module.thermal.ir.BuildConfig
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.activity_ir_camera_setting.*
+import com.topdon.module.thermal.ir.databinding.ActivityIrCameraSettingBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -44,6 +44,8 @@ import java.util.*
 @Route(path = RouterConfig.IR_CAMERA_SETTING)
 class IRCameraSettingActivity : BaseActivity() {
 
+    private lateinit var binding: ActivityIrCameraSettingBinding
+    
     companion object{
         const val KEY_PRODUCT_TYPE = "key_product_type"
     }
@@ -64,6 +66,9 @@ class IRCameraSettingActivity : BaseActivity() {
     override fun initContentView(): Int = R.layout.activity_ir_camera_setting
 
     override fun initView() {
+        binding = ActivityIrCameraSettingBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
         productName = intent.getStringExtra(KEY_PRODUCT_TYPE) ?: ""
         if (isTC007()){
             watermarkBean = SharedManager.wifiWatermarkBean//TC007只有水印
@@ -73,48 +78,48 @@ class IRCameraSettingActivity : BaseActivity() {
             continuousBean = SharedManager.continuousBean
         }
 
-        bar_pick_view_time.setProgressAndRefresh((continuousBean.continuaTime / 100).toInt())
-        bar_pick_view_time.onStopTrackingTouch = { progress, _ ->
+        binding.barPickViewTime.setProgressAndRefresh((continuousBean.continuaTime / 100).toInt())
+        binding.barPickViewTime.onStopTrackingTouch = { progress, _ ->
             continuousBean.continuaTime = progress.toLong() * 100
             SharedManager.continuousBean = continuousBean
         }
-        bar_pick_view_time.valueFormatListener = {
+        binding.barPickViewTime.valueFormatListener = {
             (it / 10).toString() + if (it % 10 == 0) "" else ("." + (it % 10).toString())
         }
 
-        bar_pick_view_count.setProgressAndRefresh(continuousBean.count)
-        bar_pick_view_count.onStopTrackingTouch = { progress, _ ->
+        binding.barPickViewCount.setProgressAndRefresh(continuousBean.count)
+        binding.barPickViewCount.onStopTrackingTouch = { progress, _ ->
             continuousBean.count = progress
             SharedManager.continuousBean = continuousBean
         }
 
 
-        switch_time.isChecked = watermarkBean.isAddTime
-        switch_watermark.isChecked = watermarkBean.isOpen
-        switch_delay.isChecked = continuousBean.isOpen
+        binding.switchTime.isChecked = watermarkBean.isAddTime
+        binding.switchWatermark.isChecked = watermarkBean.isOpen
+        binding.switchDelay.isChecked = continuousBean.isOpen
 
-        cl_delay_more.isVisible = continuousBean.isOpen
-        cl_watermark_more.isVisible = watermarkBean.isOpen
-        cl_show_ep.isVisible = watermarkBean.isOpen
+        binding.clDelayMore.isVisible = continuousBean.isOpen
+        binding.clWatermarkMore.isVisible = watermarkBean.isOpen
+        binding.clShowEp.isVisible = watermarkBean.isOpen
 
-        tv_time_show.text = TimeTool.getNowTime()
-        tv_time_show.isVisible = watermarkBean.isAddTime
+        binding.tvTimeShow.text = TimeTool.getNowTime()
+        binding.tvTimeShow.isVisible = watermarkBean.isAddTime
 
-        tv_address.inputType = InputType.TYPE_NULL
+        binding.tvAddress.inputType = InputType.TYPE_NULL
         if (TextUtils.isEmpty(watermarkBean.address)){
-            tv_address.visibility = View.GONE
+            binding.tvAddress.visibility = View.GONE
         }else{
-            tv_address.visibility = View.VISIBLE
-            tv_address.text = watermarkBean.address
+            binding.tvAddress.visibility = View.VISIBLE
+            binding.tvAddress.text = watermarkBean.address
         }
-        ed_title.setText(watermarkBean.title)
-        ed_address.setText(watermarkBean.address)
-        tv_title_show.text = watermarkBean.title
-        switch_delay.setOnCheckedChangeListener { _, isChecked ->
+        binding.edTitle.setText(watermarkBean.title)
+        binding.edAddress.setText(watermarkBean.address)
+        binding.tvTitleShow.text = watermarkBean.title
+        binding.switchDelay.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked){
-                cl_delay_more.visibility = View.VISIBLE
+                binding.clDelayMore.visibility = View.VISIBLE
             }else{
-                cl_delay_more.visibility = View.GONE
+                binding.clDelayMore.visibility = View.GONE
             }
             continuousBean.isOpen = isChecked
             SharedManager.continuousBean = continuousBean
