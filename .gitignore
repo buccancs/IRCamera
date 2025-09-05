@@ -7,9 +7,78 @@
 # User-specific files
 .idea/
 *.aar
-*.xml
 *.so
 *.jar
+
+# Google Gemini Compatibility - Exclude Android resource files to stay under 1000 file limit
+# -------------------------------------------------------------------
+# Android resource XML files (layout, drawable, values, etc.)
+**/res/**/*.xml
+**/layout/**/*.xml
+**/drawable/**/*.xml
+**/values/**/*.xml
+**/menu/**/*.xml
+**/color/**/*.xml
+**/anim/**/*.xml
+**/animator/**/*.xml
+**/interpolator/**/*.xml
+**/transition/**/*.xml
+**/font/**/*.xml
+**/raw/**/*.xml
+**/xml/**/*.xml
+
+# Android resource images and assets
+**/res/**/*.png
+**/res/**/*.webp
+**/res/**/*.jpg
+**/res/**/*.jpeg
+**/res/**/*.gif
+**/res/**/*.svg
+**/res/**/*.9.png
+
+# Additional files to reduce count for Google Gemini compatibility (under 1000 files)
+# -------------------------------------------------------------------
+# Documentation and strategy files (can be viewed on GitHub web interface)
+*.md
+docs/
+migration_backup*/
+ANTI_PATTERN_ANALYSIS_REPORT.md
+DEPENDENCY_MANAGEMENT.md
+GEMINI_COMPATIBILITY_SUMMARY.md
+GIT_HISTORY_OPTIMIZATION_STRATEGY.md
+GSR_README.md
+PRODUCTION_DEPLOYMENT_GUIDE.md
+REPOSITORY_SIZE_OPTIMIZATION.md
+SHIMMER3_PRODUCTION_GUIDE.md
+SYNCHRONIZATION_ARCHITECTURE.md
+SYNTHETIC_REPLACEMENT_SUGGESTIONS.txt
+THERMAL_GSR_SYNCHRONIZATION.md
+VIEWBINDING_MIGRATION_GUIDE.md
+ANDROID_COMPATIBILITY.md
+
+# Build scripts and validation tools (core Android project preserved)
+validate_repository_size.sh
+build_*.sh
+build_*.bat
+download_dependencies.sh
+
+# Test files and optional components for file count reduction
+**/test/**
+**/androidTest/**
+**/src/test/**
+**/src/androidTest/**
+
+# Non-essential modules for Google Gemini scanning (core thermal-IR functionality preserved)
+component/user/
+component/house/
+component/pseudo/
+component/transfer/
+component/CommonComponent/
+pc-controller/
+BleModule/
+RangeSeekBar/
+libmenu/
+libmatrix/
 
 # Generated files
 *.iml
