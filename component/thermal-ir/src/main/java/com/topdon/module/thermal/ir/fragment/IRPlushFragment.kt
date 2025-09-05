@@ -1,15 +1,17 @@
 package com.topdon.module.thermal.ir.fragment
 
 import android.graphics.Bitmap
+import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.SurfaceView
 import android.view.View
+import android.view.ViewGroup
 import com.infisense.usbdual.Const
 import com.infisense.usbdual.camera.DualViewWithExternalCameraCommonApi
 import com.infisense.usbir.view.TemperatureView
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.activity.BaseIRPlushFragment
-import kotlinx.android.synthetic.main.fragment_ir_plush.dualTextureViewNativeCamera
-import kotlinx.android.synthetic.main.fragment_ir_plush.temperature_view
+import com.topdon.module.thermal.ir.databinding.FragmentIrPlushBinding
 
 /**
  * des:
@@ -18,12 +20,15 @@ import kotlinx.android.synthetic.main.fragment_ir_plush.temperature_view
  **/
 class IRPlushFragment : BaseIRPlushFragment() {
 
+    private var _binding: FragmentIrPlushBinding? = null
+    private val binding get() = _binding!!
+
     override fun getSurfaceView(): SurfaceView {
-        return dualTextureViewNativeCamera
+        return binding.dualTextureViewNativeCamera
     }
 
     override fun getTemperatureDualView(): TemperatureView {
-        return temperature_view
+        return binding.temperatureView
     }
 
     override suspend fun onDualViewCreate(dualView: DualViewWithExternalCameraCommonApi?) {
@@ -42,6 +47,11 @@ class IRPlushFragment : BaseIRPlushFragment() {
         return R.layout.fragment_ir_plush
     }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        _binding = FragmentIrPlushBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
     override fun initData() {
     }
 
@@ -55,6 +65,11 @@ class IRPlushFragment : BaseIRPlushFragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     fun getBitmap() : Bitmap?{
