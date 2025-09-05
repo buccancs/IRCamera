@@ -30,10 +30,6 @@ object RouterConfig {
     const val IR_GALLERY_DETAIL_01 = "/$GROUP_IR/gallery/detail01"
     const val IR_GALLERY_DETAIL_04 = "/$GROUP_IR/gallery/detail04"
     const val IR_VIDEO_GSY = "/$GROUP_IR/video/gsy"
-    const val IR_THERMAL_MAIN = "/$GROUP_IR/thermal/main"
-    const val IR_THERMAL_CONNECT = "/$GROUP_IR/thermal/connect"
-    const val IR_THERMAL_VIDEO = "/$GROUP_IR/thermal/video"
-    const val VIDEO = "/$GROUP_IR/video" // Generic video route for thermal module
     const val IR_CAMERA_SETTING = "/$GROUP_IR/camera/setting"
     const val IR_CORRECTION = "/$GROUP_IR/correction"
     const val IR_CORRECTION_TWO = "/$GROUP_IR/correction2"

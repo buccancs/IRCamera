@@ -27,7 +27,7 @@ include ':app'
 include ':commonlibrary'
 include ':component:CommonComponent'
 include ':component:pseudo'
-include ':component:thermal'
+
 include ':component:thermal-ir'
 include ':component:thermal-lite'
 include ':component:transfer'
