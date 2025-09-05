@@ -236,7 +236,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     private val popTimeLay by lazy { findViewById<View>(R.id.pop_time_lay) }
     private val popTimeText by lazy { findViewById<TextView>(R.id.pop_time_text) }
     private val layCarDetectPrompt by lazy { findViewById<View>(R.id.lay_car_detect_prompt) }
-    private val temp_bg by lazy { findViewById<View>(R.id.temp_bg) }
+    private val temp_bg by lazy { findViewById<com.topdon.libcom.view.TempLayout>(R.id.temp_bg) }
     private val cl_seek_bar by lazy { findViewById<ConstraintLayout>(R.id.cl_seek_bar) }
     private val cameraPreview by lazy { findViewById<com.topdon.lib.ui.camera.CameraPreView>(R.id.cameraPreview) }
     private val distance_measure_view by lazy { findViewById<View>(R.id.distance_measure_view) }
@@ -839,7 +839,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             temperatureSeekbar.setPlaces(customPseudoBean.getPlaceList())
             if (it.isUseCustomPseudo) {
                 temperatureIvLock.visibility = View.INVISIBLE
-                tv_temp_content.visibility = View.VISIBLE
+                tvTempContent.visibility = View.VISIBLE
                 updateTemperatureSeekBar(false)//加锁
                 temperatureSeekbar.setRangeAndPro(
                     UnitTools.showUnitValue(it.minTemp),
@@ -855,7 +855,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 if (this.customPseudoBean.isUseCustomPseudo) {
                     setDefLimit()
                 }
-                tv_temp_content.visibility = View.GONE
+                tvTempContent.visibility = View.GONE
                 temperatureIvInput.setImageResource(R.drawable.ic_color_edit)
             }
             setCustomPseudoColorList(
@@ -1006,8 +1006,8 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 temperatureView.temperatureRegionMode = REGION_MODE_CENTER
                 hasClickTrendDel = true
                 spaceChart.isVisible = false
-                cl_trend_open.isVisible = false
-                ll_trend_close.isVisible = false
+                clTrendOpen.isVisible = false
+                llTrendClose.isVisible = false
                 // thermalRecyclerNight.fenceSelectType - synthetic property removed
             }
             setRotate(rotateAngle)
@@ -2138,7 +2138,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             updateCustomPseudo()
         } else {
             temperatureIvLock.visibility = View.VISIBLE
-            tv_temp_content.visibility = View.GONE
+            tvTempContent.visibility = View.GONE
             temperature_iv_input.setImageResource(R.drawable.ic_color_edit)
             thermalRecyclerNight.setPseudoColor(pseudoColorMode)
         }
@@ -2214,7 +2214,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         temperatureSeekbar.setColorList(null)
         temperature_iv_lock.visibility = View.VISIBLE
         thermalRecyclerNight.setPseudoColor(pseudoColorMode)
-        tv_temp_content.visibility = View.GONE
+        tvTempContent.visibility = View.GONE
         temperature_iv_input.setImageResource(R.drawable.ic_color_edit)
     }
 
@@ -2245,7 +2245,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             UnitTools.showUnitValue(customPseudoBean.minTemp),
             UnitTools.showUnitValue(customPseudoBean.maxTemp)
         )
-        tv_temp_content.visibility = View.VISIBLE
+        tvTempContent.visibility = View.VISIBLE
         thermalRecyclerNight.setPseudoColor(-1)
         temperature_iv_input.setImageResource(R.drawable.ir_model)
     }
