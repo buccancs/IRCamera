@@ -268,37 +268,45 @@ class HouseDetectView : FrameLayout {
             if (holder is HeadViewHolder) {
                 val dirDetect: DirDetect = dataList[position] as DirDetect
                 refreshDir(holder.itemView, dirDetect)
-            } else {
+            } else if (holder is ItemViewHolder) {
                 val itemDetect: ItemDetect = dataList[position] as ItemDetect
-                holder.itemView.tv_item_name.text = itemDetect.itemName
-                holder.itemView.tv_good.isSelected = itemDetect.state == 1
-                holder.itemView.tv_warn.isSelected = itemDetect.state == 2
-                holder.itemView.tv_danger.isSelected = itemDetect.state == 3
-                holder.itemView.tv_state.text = itemDetect.getStateStr(context)
-                holder.itemView.tv_input_text.text = itemDetect.inputText
-                holder.itemView.tv_input_text.isVisible = itemDetect.inputText.isNotEmpty()
+                
+                // Use findViewById for views not available as properties in the ViewHolder
+                val tvItemName = holder.itemView.findViewById<TextView>(R.id.tv_item_name)
+                val tvState = holder.itemView.findViewById<TextView>(R.id.tv_state)
+                val tvInputText = holder.itemView.findViewById<TextView>(R.id.tv_input_text)
+                val clImage = holder.itemView.findViewById<View>(R.id.cl_image)
+                val tvImageCountTips = holder.itemView.findViewById<TextView>(R.id.tv_image_count_tips)
+                
+                tvItemName.text = itemDetect.itemName
+                holder.tvGood.isSelected = itemDetect.state == 1
+                holder.tvWarn.isSelected = itemDetect.state == 2
+                holder.tvDanger.isSelected = itemDetect.state == 3
+                tvState.text = itemDetect.getStateStr(context)
+                tvInputText.text = itemDetect.inputText
+                tvInputText.isVisible = itemDetect.inputText.isNotEmpty()
 
-                holder.itemView.cl_image.isVisible = itemDetect.image1.isNotEmpty()
-                holder.itemView.iv_image1.isVisible = itemDetect.image1.isNotEmpty()
-                holder.itemView.iv_del_image1.isVisible = itemDetect.image1.isNotEmpty()
-                holder.itemView.iv_image2.isVisible = itemDetect.image2.isNotEmpty()
-                holder.itemView.iv_del_image2.isVisible = itemDetect.image2.isNotEmpty()
-                holder.itemView.iv_image3.isVisible = itemDetect.image3.isNotEmpty()
-                holder.itemView.iv_del_image3.isVisible = itemDetect.image3.isNotEmpty()
-                holder.itemView.iv_image4.isVisible = itemDetect.image4.isNotEmpty()
-                holder.itemView.iv_del_image4.isVisible = itemDetect.image4.isNotEmpty()
-                holder.itemView.tv_image_count_tips.text = SpanBuilder(itemDetect.getImageSize().toString()).appendColor("/4", 0x80ffffff.toInt())
+                clImage.isVisible = itemDetect.image1.isNotEmpty()
+                holder.ivImage1.isVisible = itemDetect.image1.isNotEmpty()
+                holder.ivDelImage1.isVisible = itemDetect.image1.isNotEmpty()
+                holder.ivImage2.isVisible = itemDetect.image2.isNotEmpty()
+                holder.ivDelImage2.isVisible = itemDetect.image2.isNotEmpty()
+                holder.ivImage3.isVisible = itemDetect.image3.isNotEmpty()
+                holder.ivDelImage3.isVisible = itemDetect.image3.isNotEmpty()
+                holder.ivImage4.isVisible = itemDetect.image4.isNotEmpty()
+                holder.ivDelImage4.isVisible = itemDetect.image4.isNotEmpty()
+                tvImageCountTips.text = SpanBuilder(itemDetect.getImageSize().toString()).appendColor("/4", 0x80ffffff.toInt())
                 if (itemDetect.image1.isNotEmpty()) {
-                    Glide.with(context).load(itemDetect.image1).into(holder.itemView.iv_image1)
+                    Glide.with(context).load(itemDetect.image1).into(holder.ivImage1)
                 }
                 if (itemDetect.image2.isNotEmpty()) {
-                    Glide.with(context).load(itemDetect.image2).into(holder.itemView.iv_image2)
+                    Glide.with(context).load(itemDetect.image2).into(holder.ivImage2)
                 }
                 if (itemDetect.image3.isNotEmpty()) {
-                    Glide.with(context).load(itemDetect.image3).into(holder.itemView.iv_image3)
+                    Glide.with(context).load(itemDetect.image3).into(holder.ivImage3)
                 }
                 if (itemDetect.image4.isNotEmpty()) {
-                    Glide.with(context).load(itemDetect.image4).into(holder.itemView.iv_image4)
+                    Glide.with(context).load(itemDetect.image4).into(holder.ivImage4)
                 }
 
                 if (position == dataList.size - 1 || dataList[position + 1] is DirDetect) {
@@ -314,6 +322,9 @@ class HouseDetectView : FrameLayout {
         override fun getItemCount(): Int = dataList.size
 
         inner class HeadViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
+            private val viewDirEdit = rootView.findViewById<View>(R.id.view_dir_edit)
+            private val viewDirCopy = rootView.findViewById<View>(R.id.view_dir_copy)
+            
             init {
                 rootView.setOnClickListener {
                     val position = bindingAdapterPosition
@@ -321,7 +332,7 @@ class HouseDetectView : FrameLayout {
                         switchExpand(position)
                     }
                 }
-                rootView.view_dir_edit.setOnClickListener {//编辑目录
+                viewDirEdit.setOnClickListener {//编辑目录
                     val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         val intent = Intent(context, ItemEditActivity::class.java)
@@ -329,7 +340,7 @@ class HouseDetectView : FrameLayout {
                         context.startActivity(intent)
                     }
                 }
-                rootView.view_dir_copy.setOnClickListener {//复制目录
+                viewDirCopy.setOnClickListener {//复制目录
                     val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         onDirCopyListener?.invoke(Pair(position, dataList[position] as DirDetect))
@@ -339,41 +350,58 @@ class HouseDetectView : FrameLayout {
         }
 
         inner class ItemViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
+            val tvGood = rootView.findViewById<TextView>(R.id.tv_good)
+            val tvWarn = rootView.findViewById<TextView>(R.id.tv_warn)
+            val tvDanger = rootView.findViewById<TextView>(R.id.tv_danger)
+            val ivImage1 = rootView.findViewById<ImageView>(R.id.iv_image1)
+            val ivImage2 = rootView.findViewById<ImageView>(R.id.iv_image2)
+            val ivImage3 = rootView.findViewById<ImageView>(R.id.iv_image3)
+            val ivImage4 = rootView.findViewById<ImageView>(R.id.iv_image4)
+            val ivDelImage1 = rootView.findViewById<ImageView>(R.id.iv_del_image1)
+            val ivDelImage2 = rootView.findViewById<ImageView>(R.id.iv_del_image2)
+            val ivDelImage3 = rootView.findViewById<ImageView>(R.id.iv_del_image3)
+            val ivDelImage4 = rootView.findViewById<ImageView>(R.id.iv_del_image4)
+            private val tvItemAddImg = rootView.findViewById<TextView>(R.id.tv_item_add_img)
+            private val tvItemAddText = rootView.findViewById<TextView>(R.id.tv_item_add_text)
+            private val tvItemCopy = rootView.findViewById<TextView>(R.id.tv_item_copy)
+            private val tvItemDel = rootView.findViewById<TextView>(R.id.tv_item_del)
+            private val swipeMenuLayout = rootView.findViewById<View>(R.id.swipe_menu_layout)
+            
             init {
-                rootView.tv_good.setOnClickListener {
+                tvGood.setOnClickListener {
                     handleStateChange(1)
                 }
-                rootView.tv_warn.setOnClickListener {
+                tvWarn.setOnClickListener {
                     handleStateChange(2)
                 }
-                rootView.tv_danger.setOnClickListener {
+                tvDanger.setOnClickListener {
                     handleStateChange(3)
                 }
-                rootView.iv_image1.setOnClickListener {
+                ivImage1.setOnClickListener {
                     handleImageClick(0)
                 }
-                rootView.iv_image2.setOnClickListener {
+                ivImage2.setOnClickListener {
                     handleImageClick(1)
                 }
-                rootView.iv_image3.setOnClickListener {
+                ivImage3.setOnClickListener {
                     handleImageClick(2)
                 }
-                rootView.iv_image4.setOnClickListener {
+                ivImage4.setOnClickListener {
                     handleImageClick(3)
                 }
-                rootView.iv_del_image1.setOnClickListener {
+                ivDelImage1.setOnClickListener {
                     handleImageDel(1)
                 }
-                rootView.iv_del_image2.setOnClickListener {
+                ivDelImage2.setOnClickListener {
                     handleImageDel(2)
                 }
-                rootView.iv_del_image3.setOnClickListener {
+                ivDelImage3.setOnClickListener {
                     handleImageDel(3)
                 }
-                rootView.iv_del_image4.setOnClickListener {
+                ivDelImage4.setOnClickListener {
                     handleImageDel(4)
                 }
-                rootView.tv_item_add_img.setOnClickListener {//添加图片
+                tvItemAddImg.setOnClickListener {//添加图片
                     val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         val itemDetect: ItemDetect = dataList[position] as ItemDetect
@@ -384,22 +412,22 @@ class HouseDetectView : FrameLayout {
                         }
                     }
                 }
-                rootView.tv_item_add_text.setOnClickListener { //添加文字
+                tvItemAddText.setOnClickListener { //添加文字
                     val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         onTextInputListener?.invoke(Pair(position, dataList[position] as ItemDetect))
                     }
                 }
-                rootView.tv_item_copy.setOnClickListener {
+                tvItemCopy.setOnClickListener {
                     val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         onItemCopyListener?.invoke(Pair(position, dataList[position] as ItemDetect))
                     }
                 }
-                rootView.tv_item_del.setOnClickListener {
+                tvItemDel.setOnClickListener {
                     val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
-                        rootView.swipe_menu_layout.switchState()
+                        swipeMenuLayout.switchState()
                     }
                 }
                 rootView.findViewById<ImageView>(R.id.iv_red_del).setOnClickListener {

@@ -155,7 +155,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
 
     override fun connected() {
         if (!isTC007) {
-            iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_connect)
+            ivMainBg.setImageResource(R.drawable.ic_ir_main_bg_connect)
         }
     }
 
@@ -248,16 +248,16 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
         }
 
         when (SharedManager.homeGuideStep) {
-            1 -> view_page.setCurrentItem(0, false)
-            2 -> view_page.setCurrentItem(4, false)
-            3 -> view_page.setCurrentItem(2, false)
+            1 -> viewPage.setCurrentItem(0, false)
+            2 -> viewPage.setCurrentItem(4, false)
+            3 -> viewPage.setCurrentItem(2, false)
         }
 
         val guideDialog = HomeGuideDialog(this, SharedManager.homeGuideStep)
         guideDialog.onNextClickListener = {
             when (it) {
                 1 -> {
-                    view_page.setCurrentItem(4, false)
+                    viewPage.setCurrentItem(4, false)
                     if (Build.VERSION.SDK_INT < 31) {
                         lifecycleScope.launch {
                             delay(100)
@@ -267,7 +267,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
                     SharedManager.homeGuideStep = 2
                 }
                 2 -> {
-                    view_page.setCurrentItem(2, false)
+                    viewPage.setCurrentItem(2, false)
                     if (Build.VERSION.SDK_INT < 31) {
                         lifecycleScope.launch {
                             delay(100)
@@ -350,7 +350,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
      */
     private fun initStoragePermission(permissionList: List<String>) {
         if (PermissionUtils.isVisualUser()){
-            view_page.setCurrentItem(1, false)
+            viewPage.setCurrentItem(1, false)
             return
         }
         XXPermissions.with(this)
@@ -358,7 +358,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
             .request(object : OnPermissionCallback {
                 override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
                     if (allGranted) {
-                        view_page.setCurrentItem(1, false)
+                        viewPage.setCurrentItem(1, false)
                     }
                 }
 
