@@ -129,7 +129,7 @@ class IREmissivityActivity : BaseActivity() {
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             val itemBean: ItemBean = dataArray[position]
             if (holder is TitleViewHolder) {
-                holder.itemView.tv_title.text = itemBean.name
+                holder.itemView.findViewById<TextView>(R.id.tv_title).text = itemBean.name
                 holder.itemView.emissivity_view.isAlignTop = true
                 holder.itemView.emissivity_view.drawTopLine = true
                 holder.itemView.emissivity_view.refreshText(itemBean.buildTextList(context))

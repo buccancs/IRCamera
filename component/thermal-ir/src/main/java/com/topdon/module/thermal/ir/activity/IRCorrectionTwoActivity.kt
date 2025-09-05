@@ -43,9 +43,9 @@ class IRCorrectionTwoActivity : BaseActivity() {
         ivSketchMap.setImageResource(if (isTC007) R.drawable.ic_corrected_tc007 else R.drawable.ic_corrected_line)
 
         if (if (isTC007) WebSocketProxy.getInstance().isTC007Connect() else DeviceTools.isConnect()) {
-            tvCorrection.setBackgroundResource(R.drawable.bg_corners05_solid_theme)
+            tvCorrection.setBackgroundResource(com.topdon.lib.core.R.drawable.bg_corners05_solid_theme)
         } else {
-            tvCorrection.setBackgroundResource(R.drawable.bg_corners05_solid_50_theme)
+            tvCorrection.setBackgroundResource(com.topdon.lib.core.R.drawable.bg_corners05_solid_50_theme)
         }
 
         tvCorrection.setOnClickListener {
@@ -68,25 +68,25 @@ class IRCorrectionTwoActivity : BaseActivity() {
 
     override fun connected() {
         if (!isTC007) {
-            findViewById<TextView>(R.id.tv_correction).setBackgroundResource(R.drawable.bg_corners05_solid_theme)
+            findViewById<TextView>(R.id.tv_correction).setBackgroundResource(com.topdon.lib.core.R.drawable.bg_corners05_solid_theme)
         }
     }
 
     override fun disConnected() {
         if (!isTC007) {
-            findViewById<TextView>(R.id.tv_correction).setBackgroundResource(R.drawable.bg_corners05_solid_50_theme)
+            findViewById<TextView>(R.id.tv_correction).setBackgroundResource(com.topdon.lib.core.R.drawable.bg_corners05_solid_50_theme)
         }
     }
 
     override fun onSocketConnected(isTS004: Boolean) {
         if (isTC007 && !isTS004) {
-            findViewById<TextView>(R.id.tv_correction).setBackgroundResource(R.drawable.bg_corners05_solid_theme)
+            findViewById<TextView>(R.id.tv_correction).setBackgroundResource(com.topdon.lib.core.R.drawable.bg_corners05_solid_theme)
         }
     }
 
     override fun onSocketDisConnected(isTS004: Boolean) {
         if (isTC007 && !isTS004) {
-            findViewById<TextView>(R.id.tv_correction).setBackgroundResource(R.drawable.bg_corners05_solid_50_theme)
+            findViewById<TextView>(R.id.tv_correction).setBackgroundResource(com.topdon.lib.core.R.drawable.bg_corners05_solid_50_theme)
         }
     }
 
