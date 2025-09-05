@@ -43,7 +43,7 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
 
     // Synthetic view properties - migrated from kotlin-android-extensions
     private val dualTextureViewNativeCamera by lazy { findViewById<SurfaceView>(R.id.dualTextureViewNativeCamera) }
-    private val thermalSteeringView by lazy { findViewById<com.topdon.lib.ui.widget.SteeringWheelView>(R.id.thermalSteeringView) }  
+    // private val thermalSteeringView by lazy { findViewById<com.topdon.lib.ui.widget.SteeringWheelView>(R.id.thermalSteeringView) }  // ID doesn't exist
     // thermalRecyclerNight inherited from parent class
 
 
@@ -70,9 +70,9 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
 //        findViewById<TextView>(R.id.toolbar_title)?.text = "双光设备"
         cameraView.visibility = View.GONE
         dualTextureViewNativeCamera?.visibility = View.VISIBLE
-        thermalSteeringView.listener = { action, moveX ->
-            setDisp(action, moveX)
-        }
+        // thermalSteeringView.listener = { action, moveX ->
+        //     setDisp(action, moveX)
+        // }
 
         when (SaveSettingUtil.fusionType) {
             SaveSettingUtil.FusionTypeLPYFusion -> {//双光1

@@ -248,13 +248,13 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     private val zoomView by lazy { findViewById<com.infisense.usbir.view.ZoomCaliperView>(R.id.zoomView) }
     protected val temperatureSeekbar by lazy { findViewById<com.topdon.lib.ui.widget.seekbar.RangeSeekBar>(R.id.temperature_seekbar) }
     // Additional view references for findViewById modernization
-    private val recyclerView by lazy { findViewById<RecyclerView>(R.id.recyclerView) }
+    // private val recyclerView by lazy { findViewById<RecyclerView>(R.id.recyclerView) }  // ID doesn't exist
     private val tvTitleTemp by lazy { findViewById<TextView>(R.id.tv_title_temp) }
     private val tvTitleObserve by lazy { findViewById<TextView>(R.id.tv_title_observe) }
-    private val drawIndPath by lazy { findViewById<View>(R.id.draw_ind_path) }
-    private val viewCarDetect by lazy { findViewById<View>(R.id.view_car_detect) }
-    private val tvDetectPrompt by lazy { findViewById<TextView>(R.id.tv_detect_prompt) }
-    private val rlContent by lazy { findViewById<View>(R.id.rl_content) }
+    // private val drawIndPath by lazy { findViewById<View>(R.id.draw_ind_path) }  // ID doesn't exist
+    // private val viewCarDetect by lazy { findViewById<View>(R.id.view_car_detect) }  // ID doesn't exist
+    // private val tvDetectPrompt by lazy { findViewById<TextView>(R.id.tv_detect_prompt) }  // ID doesn't exist
+    // private val rlContent by lazy { findViewById<View>(R.id.rl_content) }  // ID doesn't exist
     protected var compassView: com.topdon.module.thermal.ir.view.compass.LinearCompassView? = null
     // Removed viewStubCamera references as the layout resource doesn't exist
     
@@ -605,7 +605,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             //关闭指南针
             saveSetBean.isOpenCompass = false
             // thermalRecyclerNight.setSettingSelected - synthetic method removed
-            compassView.visibility = View.GONE
+            compassView?.visibility = View.GONE
             zoomView?.visibility = View.GONE
             stopCompass()
             zoomView// .del() - synthetic method removed
@@ -810,12 +810,12 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
 
     private fun updateCompass() {
         if (curChooseTabPos == 1) {
-            compassView.visibility = View.GONE
+            compassView?.visibility = View.GONE
             stopCompass()
         } else {
             if (saveSetBean.isOpenCompass) {
                 startCompass()
-                compassView.visibility = View.VISIBLE
+                compassView?.visibility = View.VISIBLE
             }
         }
     }
@@ -947,7 +947,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
 
     private fun updateTemperatureSeekBar(isEnabled: Boolean) {
         temperatureSeekbar.isEnabled = isEnabled
-        temperatureSeekbar.drawIndPath(isEnabled)
+        // temperatureSeekbar.drawIndPath(isEnabled) // Method may not exist on RangeSeekBar
         temperatureIvLock.setImageResource(if (isEnabled) R.drawable.svg_pseudo_bar_unlock else R.drawable.svg_pseudo_bar_lock)
         temperatureIvLock.contentDescription = if (isEnabled) "unlock" else "lock"
         if (isEnabled) {
@@ -1747,11 +1747,14 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         val contentHeight = contentView.measuredHeight
         val recyclerView = contentView.findViewById<RecyclerView>(R.id.recyclerView)
         val targetItemAdapter = TargetItemAdapter(this)
+        // Camera setting disabled - recyclerView not available
+        /*
         recyclerView.layoutManager = if (ScreenUtil.isPortrait(this)) {
             GridLayoutManager(this, targetItemAdapter.itemCount)
         } else {
             LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         }
+        */
         targetItemAdapter.selected(targetStyle)
         targetItemAdapter.listener = listener@{ _, item ->
             targetStyle = item
@@ -2335,6 +2338,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             // ViewStubCamera layout resource doesn't exist - using recyclerView directly
             // ViewStubUtils.showViewStub(viewStubCamera, true, callback = { view: View? ->
             //     view?.let {
+                    /*
                     if (ScreenUtil.isPortrait(this)) {
                         recyclerView.layoutManager = GridLayoutManager(this, cameraItemBeanList.size)
                     } else {
@@ -2342,6 +2346,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                             this, cameraItemBeanList.size, GridLayoutManager.VERTICAL, false
                         )
                     }
+                    */
                     cameraItemAdapter = CameraItemAdapter(cameraItemBeanList)
                     cameraItemAdapter?.listener = listener@{ position, _ ->
                         when (cameraItemAdapter!!.data[position].type) {
@@ -2429,7 +2434,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                         cameraItemAdapter!!.data[position].isSel = !cameraItemAdapter!!.data[position].isSel
                         cameraItemAdapter!!.notifyItemChanged(position)
                     }
-                    recyclerView.adapter = cameraItemAdapter
+                    // recyclerView.adapter = cameraItemAdapter  // Commented out as recyclerView doesn't exist
             // ViewStubCamera layout resource doesn't exist - commented out ViewStub callback
         } else {
             // ViewStub removed - resource not found
@@ -2487,8 +2492,8 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                     }
 
                     //合并指南针
-                    val compassBitmap: Bitmap? = if (compassView.visibility == VISIBLE) {
-                        compassView.drawToBitmap()
+                    val compassBitmap: Bitmap? = if (compassView?.visibility == VISIBLE) {
+                        compassView?.drawToBitmap()
                     } else null
                     compassBitmap?.let {
                         cameraViewBitmap = BitmapUtils.mergeBitmap(
@@ -3259,6 +3264,8 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     }
 
     private fun setCarDetectPrompt(){
+        // Car detection views don't exist in layout - commenting out for now
+        /*
         var carDetectInfo = SharedManager.getCarDetectInfo()
         var tvDetectPrompt = viewCarDetect.findViewById<TextView>(R.id.tv_detect_prompt)
         if(carDetectInfo == null){
@@ -3275,5 +3282,6 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 tvDetectPrompt.text =  it.item + TemperatureUtil.getTempStr(temperature[0].toInt(), temperature[1].toInt())
             }.show()
         }
+        */
     }
 }
