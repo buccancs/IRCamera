@@ -201,7 +201,6 @@ class LogMPChartActivity : BaseIRActivity(), OnChartValueSelectedListener {
                     chart.xAxis.valueFormatter =
                         MyValueFormatter(startTime = startTime, type = selectType)
                     XLog.w("chart init startTime:$startTime")
-                    data[0].type = "default"
                     when (data[0].type) {
                         "point" -> {
                             var set = lineData.getDataSetByIndex(0)//读取x为0的坐标点
