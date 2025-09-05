@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
     id 'kotlin-kapt'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
@@ -14,6 +13,7 @@ kapt {
 }
 
 android {
+    namespace 'com.topdon.tc001'
     compileSdk rootProject.ext.android.compileSdk
     
     defaultConfig {
@@ -76,8 +76,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     packagingOptions {
         //解决第三方so依赖冲突 merge（合并）  pickFirst（选取第一个）
@@ -107,9 +107,11 @@ android {
         doNotStrip "**/*.so"
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
     buildFeatures{
+        buildConfig = true
+        viewBinding = true
         dataBinding = true
     }
     
