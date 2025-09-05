@@ -62,6 +62,7 @@ dependencies {
     implementation(project(":libir"))
     implementation(project(":libui"))
     implementation(project(":libmenu"))
+    implementation(project(":component:pseudo"))
     
     // ARouter compiler - disabled since annotations are commented out in this module
     // kapt(libs.arouter.compiler)
