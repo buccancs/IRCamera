@@ -50,9 +50,9 @@ class ConfigGuideDialog(context: Context, val isTC007: Boolean, val dataBean: Da
         val itemDecoration = MyItemDecoration(context)
         itemDecoration.wholeBottom = 20f
 
-        recycler_view.addItemDecoration(itemDecoration)
-        recycler_view.layoutManager = LinearLayoutManager(context)
-        recycler_view.adapter = ConfigEmAdapter(context)
+        recyclerView.addItemDecoration(itemDecoration)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = ConfigEmAdapter(context)
 
         cl_step1.isVisible = SharedManager.configGuideStep == 1
         cl_step2_top.isVisible = SharedManager.configGuideStep == 2

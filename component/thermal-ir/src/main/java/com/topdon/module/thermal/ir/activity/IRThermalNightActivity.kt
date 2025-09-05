@@ -328,7 +328,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     override fun initView() {
         // Initialize camera view
         cameraView = findViewById(R.id.cameraView)
-        thermalRecyclerNight = findViewById(R.id.thermal_recycler_night)
+        thermalRecyclerNight = findViewById(R.id.thermalRecyclerNight)
         temperatureView = findViewById(R.id.temperatureView)
         titleView = findViewById(R.id.titleView)  // Now using class property
         
@@ -1691,7 +1691,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         popupWindow?.setBackgroundDrawable(ColorDrawable(0))
         contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
         val contentHeight = contentView.measuredHeight
-        val recyclerView = contentView?.findViewById<RecyclerView>(R.id.recycler_view)
+        val recyclerView = contentView?.findViewById<RecyclerView>(R.id.recyclerView)
         val measureItemAdapter = MeasureItemAdapter(this)
         recyclerView?.layoutManager = if (ScreenUtil.isPortrait(this)) {
             GridLayoutManager(this, measureItemAdapter.itemCount)
@@ -1740,7 +1740,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         popupWindow?.isOutsideTouchable
         contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
         val contentHeight = contentView.measuredHeight
-        val recyclerView = contentView.findViewById<RecyclerView>(R.id.recycler_view)
+        val recyclerView = contentView.findViewById<RecyclerView>(R.id.recyclerView)
         val targetItemAdapter = TargetItemAdapter(this)
         recyclerView.layoutManager = if (ScreenUtil.isPortrait(this)) {
             GridLayoutManager(this, targetItemAdapter.itemCount)
@@ -2329,7 +2329,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         if (showCameraSetting) {
             ViewStubUtils.showViewStub(viewStubCamera, true, callback = { view: View? ->
                 view?.let {
-                    val recyclerView = it.findViewById<RecyclerView>(R.id.recycler_view)
+                    val recyclerView = it.findViewById<RecyclerView>(R.id.recyclerView)
                     if (ScreenUtil.isPortrait(this)) {
                         recyclerView.layoutManager = GridLayoutManager(this, cameraItemBeanList.size)
                     } else {

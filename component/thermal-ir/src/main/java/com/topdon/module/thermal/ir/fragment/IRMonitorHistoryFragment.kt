@@ -71,8 +71,8 @@ class IRMonitorHistoryFragment : Fragment() {
         adapter.loadMoreModule.setOnLoadMoreListener {
             adapter.loadMoreModule.loadMoreEnd()
         }
-        view.recycler_view.layoutManager = LinearLayoutManager(context)
-        view.recycler_view.adapter = adapter
+        view.recyclerView.layoutManager = LinearLayoutManager(context)
+        view.recyclerView.adapter = adapter
         adapter.isUseEmpty = true
         viewModel.recordListLD.observe(viewLifecycleOwner) {
             lifecycleScope.launch {

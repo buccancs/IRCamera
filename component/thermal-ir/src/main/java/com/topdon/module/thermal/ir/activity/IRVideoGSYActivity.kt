@@ -103,12 +103,12 @@ class IRVideoGSYActivity : BaseActivity() {
 
         GSYVideoOptionBuilder()
             .setUrl(url)
-            .build(gsy_play)
+            .build(gsyPlay)
         //界面设置
-        gsy_play.isNeedShowWifiTip = false //不显示消耗流量弹框
-        gsy_play.titleTextView.visibility = View.GONE
-        gsy_play.backButton.visibility = View.GONE
-        gsy_play.fullscreenButton.visibility = View.GONE
+        gsyPlay.isNeedShowWifiTip = false //不显示消耗流量弹框
+        gsyPlay.titleTextView.visibility = View.GONE
+        gsyPlay.backButton.visibility = View.GONE
+        gsyPlay.fullscreenButton.visibility = View.GONE
     }
 
     private fun actionDownload(isToShare: Boolean) {
@@ -213,10 +213,10 @@ class IRVideoGSYActivity : BaseActivity() {
     }
 
     private fun getCurPlay(): GSYVideoPlayer {
-        return if (gsy_play.fullWindowPlayer != null) {
-            gsy_play.fullWindowPlayer
+        return if (gsyPlay.fullWindowPlayer != null) {
+            gsyPlay.fullWindowPlayer
         } else {
-            gsy_play
+            gsyPlay
         }
     }
 }

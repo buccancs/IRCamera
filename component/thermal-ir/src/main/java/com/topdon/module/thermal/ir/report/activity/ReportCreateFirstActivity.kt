@@ -81,7 +81,7 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
 
         et_report_name.setText("TC${TimeUtils.millis2String(System.currentTimeMillis(), "yyyyMMdd_HHmm")}")
         et_report_author.setText(SaveSettingUtil.reportAuthorName)
-        tv_report_date.text = TimeUtils.millis2String(System.currentTimeMillis(), "yyyy.MM.dd HH:mm")
+        tvReportDate.text = TimeUtils.millis2String(System.currentTimeMillis(), "yyyy.MM.dd HH:mm")
         et_report_watermark.setText(SaveSettingUtil.reportWatermarkText)
         tv_ambient_temperature.text = getString(R.string.thermal_config_environment) + "(${UnitTools.showUnit()})"
         tv_emissivity.text = getString(R.string.album_report_emissivity) + "(0~1)"
@@ -97,7 +97,7 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
             et_report_author.isVisible = isChecked
         }
         switch_report_date.setOnCheckedChangeListener { _, isChecked ->
-            tv_report_date.isVisible = isChecked
+            tvReportDate.isVisible = isChecked
         }
         switch_report_place.setOnCheckedChangeListener { _, isChecked ->
             et_report_place.isVisible = isChecked
@@ -132,7 +132,7 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
             }
         }
 
-        tv_report_date.setOnClickListener(this)
+        tvReportDate.setOnClickListener(this)
         tv_preview.setOnClickListener(this)
         tv_next.setOnClickListener(this)
         img_location.setOnClickListener(this)
@@ -164,7 +164,7 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            tv_report_date -> {//报告日期
+            tvReportDate -> {//报告日期
                 selectTime()
             }
             tv_preview -> {//预览
@@ -266,7 +266,7 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
         et_report_name.text.toString(),
         et_report_author.text.toString(),
         if (switch_report_author.isChecked && et_report_author.text.isNotEmpty()) 1 else 0,
-        tv_report_date.text.toString(),
+        tvReportDate.text.toString(),
         if (switch_report_date.isChecked) 1 else 0,
         et_report_place.text.toString(),
         if (switch_report_place.isChecked && et_report_place.text.isNotEmpty()) 1 else 0,
@@ -308,7 +308,7 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
             val timeStr = "$year-$month-$day $hour:$minute:$second"
             val pattern = "yyyy-MM-dd HH:mm:ss"
             val time: Long = SimpleDateFormat(pattern, Locale.getDefault()).parse(timeStr, ParsePosition(0)).time
-            tv_report_date.text = TimeUtils.millis2String(time, "yyyy.MM.dd HH:mm")
+            tvReportDate.text = TimeUtils.millis2String(time, "yyyy.MM.dd HH:mm")
             startTime = time
         }
 

@@ -50,18 +50,18 @@ class IRConfigInputDialog(context: Context, val type: Type, val isTC007: Boolean
         when (type) {
             Type.TEMP -> {
                 tv_title.text = "${context.getString(R.string.thermal_config_environment)} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
-                tv_unit.text = UnitTools.showUnit()
-                tv_unit.isVisible = true
+                tvUnit.text = UnitTools.showUnit()
+                tvUnit.isVisible = true
             }
             Type.DIS -> {
                 tv_title.text = "${context.getString(R.string.thermal_config_distance)} (0.2~${if (isTC007) 4 else 5}m)"
-                tv_unit.text = "m"
-                tv_unit.isVisible = true
+                tvUnit.text = "m"
+                tvUnit.isVisible = true
             }
             Type.EM -> {
                 tv_title.text = "${context.getString(R.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
-                tv_unit.text = ""
-                tv_unit.isVisible = false
+                tvUnit.text = ""
+                tvUnit.isVisible = false
             }
         }
         et_input.setText(if (value == null) "" else value.toString())

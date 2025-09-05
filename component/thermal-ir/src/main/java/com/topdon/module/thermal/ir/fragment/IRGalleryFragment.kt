@@ -102,9 +102,9 @@ class IRGalleryFragment : BaseFragment() {
             if (it == null) {
                 TToast.shortToast(requireContext(), LibR.string.operation_failed_tips)
             }
-            refresh_layout.finishRefresh(it != null)
-            refresh_layout.finishLoadMore(it != null)
-            refresh_layout.setNoMoreData(it != null && it.size < IRGalleryViewModel.PAGE_COUNT)
+            refreshLayout.finishRefresh(it != null)
+            refreshLayout.finishLoadMore(it != null)
+            refreshLayout.setNoMoreData(it != null && it.size < IRGalleryViewModel.PAGE_COUNT)
         }
         viewModel.showListLD.observe(this) {
             adapter.refreshList(it)
@@ -221,19 +221,19 @@ class IRGalleryFragment : BaseFragment() {
         }
 
 
-        refresh_layout.setOnRefreshListener {
+        refreshLayout.setOnRefreshListener {
             refresh()
         }
-        refresh_layout.setOnLoadMoreListener {
+        refreshLayout.setOnLoadMoreListener {
             viewModel.queryGalleryByPage(isVideo, currentDirType)
         }
-        refresh_layout.setEnableScrollContentWhenLoaded(false)
+        refreshLayout.setEnableScrollContentWhenLoaded(false)
 
-        refresh_layout.autoRefresh()
+        refreshLayout.autoRefresh()
     }
 
     private fun refresh() {
-        refresh_layout.setEnableLoadMore(true)
+        refreshLayout.setEnableLoadMore(true)
         viewModel.hasLoadPage = 0
         viewModel.queryGalleryByPage(isVideo, currentDirType)
     }

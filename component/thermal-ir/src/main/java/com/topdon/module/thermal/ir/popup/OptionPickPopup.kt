@@ -61,8 +61,8 @@ class OptionPickPopup(private val context: Context, private val strArray: Array<
             dismiss()
             onPickListener?.invoke(it, strArray[it])
         }
-        contentView.recycler_view.adapter = adapter
-        contentView.recycler_view.layoutManager = LinearLayoutManager(context)
+        contentView.recyclerView.adapter = adapter
+        contentView.recyclerView.layoutManager = LinearLayoutManager(context)
     }
 
     fun show(anchor: View) {

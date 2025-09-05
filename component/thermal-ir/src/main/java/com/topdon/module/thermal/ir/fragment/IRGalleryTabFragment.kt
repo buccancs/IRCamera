@@ -58,13 +58,13 @@ class IRGalleryTabFragment : BaseFragment() {
             else -> DirType.LINE
         }
 
-        tv_title_dir.text = when (currentDirType) {
+        tvTitleDir.text = when (currentDirType) {
             DirType.LINE -> getString(R.string.tc_has_line_device)
             DirType.TC007 -> "TC007"
             else -> "TS004"
         }
-        tv_title_dir.isVisible = canSwitchDir
-        tv_title_dir.setOnClickListener {
+        tvTitleDir.isVisible = canSwitchDir
+        tvTitleDir.setOnClickListener {
             val popup = GalleryChangePopup(requireContext())
             popup.onPickListener = { position, str ->
                 currentDirType = when (position) {
@@ -72,10 +72,10 @@ class IRGalleryTabFragment : BaseFragment() {
                     1 -> DirType.TS004_LOCALE
                     else -> DirType.TC007
                 }
-                tv_title_dir.text = str
+                tvTitleDir.text = str
                 EventBus.getDefault().post(GalleryDirChangeEvent(currentDirType))
             }
-            popup.show(tv_title_dir)
+            popup.show(tvTitleDir)
         }
 
         title_view.setTitleText(if (canSwitchDir) "" else getString(R.string.app_gallery))
@@ -116,19 +116,19 @@ class IRGalleryTabFragment : BaseFragment() {
             view_pager2.isUserInputEnabled = !isEditMode
             if (isEditMode) {
                 title_view.setTitleText(getString(R.string.chosen_item, viewModel.selectSizeLD.value))
-                tv_title_dir.isVisible = false
+                tvTitleDir.isVisible = false
             } else {
                 title_view.setTitleText(if (canSwitchDir) "" else getString(R.string.app_gallery))
-                tv_title_dir.isVisible = canSwitchDir
+                tvTitleDir.isVisible = canSwitchDir
             }
         }
         viewModel.selectSizeLD.observe(viewLifecycleOwner) {
             if (viewModel.isEditModeLD.value == true) {
                 title_view.setTitleText(getString(R.string.chosen_item, it))
-                tv_title_dir.isVisible = false
+                tvTitleDir.isVisible = false
             } else {
                 title_view.setTitleText(if (canSwitchDir) "" else getString(R.string.app_gallery))
-                tv_title_dir.isVisible = canSwitchDir
+                tvTitleDir.isVisible = canSwitchDir
             }
         }
     }

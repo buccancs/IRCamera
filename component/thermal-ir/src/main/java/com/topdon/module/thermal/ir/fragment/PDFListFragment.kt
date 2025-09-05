@@ -83,7 +83,7 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
             }
             if (it == null) {
                 if (page == 1) {
-                    fragment_pdf_recycler_lay.finishRefresh(false)
+                    fragmentPdfRecyclerLay.finishRefresh(false)
                 } else {
                     reportAdapter.loadMoreModule.loadMoreComplete()
                 }
@@ -96,9 +96,9 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
                     //刷新
                     if (data.code == LMS.SUCCESS){
                         reportAdapter.loadMoreModule.isEnableLoadMore = !data.data?.records.isNullOrEmpty()
-                        fragment_pdf_recycler_lay.finishRefresh()
+                        fragmentPdfRecyclerLay.finishRefresh()
                     }else{
-                        fragment_pdf_recycler_lay.finishRefresh(false)
+                        fragmentPdfRecyclerLay.finishRefresh(false)
                     }
                     reportAdapter.setNewInstance(data.data?.records)
                 } else {
@@ -124,7 +124,7 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
                 }
                 if (!hasLoadData) {
                     hasLoadData = true
-                    fragment_pdf_recycler_lay.autoRefresh()
+                    fragmentPdfRecyclerLay.autoRefresh()
                 }
             }
         })
@@ -233,12 +233,12 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
 
         fragment_pdf_recycler.adapter = reportAdapter
         fragment_pdf_recycler.layoutManager = LinearLayoutManager(requireContext())
-        fragment_pdf_recycler_lay.setOnRefreshListener {
+        fragmentPdfRecyclerLay.setOnRefreshListener {
             //刷新
             page = 1
             viewModel.getReportData(isTC007, page)
         }
 
-        fragment_pdf_recycler_lay.setEnableLoadMore(false)
+        fragmentPdfRecyclerLay.setEnableLoadMore(false)
     }
 }

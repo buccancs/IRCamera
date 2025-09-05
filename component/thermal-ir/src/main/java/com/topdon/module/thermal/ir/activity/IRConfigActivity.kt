@@ -72,7 +72,7 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
         val viewDefaultTempBg = findViewById<android.view.View>(R.id.view_default_temp_bg)
         val viewDefaultDisBg = findViewById<android.view.View>(R.id.view_default_dis_bg)
         val tvDefaultEmValue = findViewById<android.widget.TextView>(R.id.tv_default_em_value)
-        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         val tvDefaultTempValue = findViewById<android.widget.TextView>(R.id.tv_default_temp_value)
         val tvDefaultDisValue = findViewById<android.widget.TextView>(R.id.tv_default_dis_value)
 
