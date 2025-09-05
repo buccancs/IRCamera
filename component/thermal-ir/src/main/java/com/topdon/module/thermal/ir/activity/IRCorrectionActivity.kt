@@ -7,7 +7,7 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.event.CorrectionFinishEvent
-import kotlinx.android.synthetic.main.activity_ir_correction.*
+import com.topdon.module.thermal.ir.databinding.ActivityIrCorrectionBinding
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -23,10 +23,15 @@ import org.greenrobot.eventbus.ThreadMode
 @Route(path = RouterConfig.IR_CORRECTION)
 class IRCorrectionActivity : BaseActivity() {
 
+    private lateinit var binding: ActivityIrCorrectionBinding
+
     override fun initContentView(): Int = R.layout.activity_ir_correction
 
     override fun initView() {
-        tv_correction.setOnClickListener {
+        binding = ActivityIrCorrectionBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
+        binding.tvCorrection.setOnClickListener {
             val jumpIntent = Intent(this,IRCorrectionTwoActivity::class.java)
             jumpIntent.putExtra(ExtraKeyConfig.IS_TC007, intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false))
             startActivity(jumpIntent)

@@ -13,9 +13,8 @@ import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.ui.widget.MyItemDecoration
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.view.EmissivityView
-import kotlinx.android.synthetic.main.activity_ir_emissivity.*
-import kotlinx.android.synthetic.main.item_ir_emissivity_title.*
-import kotlinx.android.synthetic.main.item_ir_emissivity_title.view.*
+import com.topdon.module.thermal.ir.databinding.ActivityIrEmissivityBinding
+import com.topdon.module.thermal.ir.databinding.ItemIrEmissivityTitleBinding
 
 /**
  * 常用材料发射率.
@@ -24,21 +23,26 @@ import kotlinx.android.synthetic.main.item_ir_emissivity_title.view.*
  */
 class IREmissivityActivity : BaseActivity() {
 
+    private lateinit var binding: ActivityIrEmissivityBinding
+
     override fun initContentView(): Int = R.layout.activity_ir_emissivity
 
     override fun initView() {
+        binding = ActivityIrEmissivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
         val dataArray: Array<ItemBean> = buildDataArray()
-        tv_title.text = dataArray[0].name
-        emissivity_view.refreshText(dataArray[0].buildTextList(this))
+        binding.tvTitle.text = dataArray[0].name
+        binding.emissivityView.refreshText(dataArray[0].buildTextList(this))
 
         val itemDecoration = MyItemDecoration(this)
         itemDecoration.wholeBottom = 20f
 
         val layoutManager = LinearLayoutManager(this)
-        recycler_view.layoutManager = layoutManager
-        recycler_view.adapter = MyAdapter(this, dataArray)
-        recycler_view.addItemDecoration(itemDecoration)
-        recycler_view.addOnScrollListener(MyOnScrollListener(cl_title, layoutManager, dataArray))
+        binding.recyclerView.layoutManager = layoutManager
+        binding.recyclerView.adapter = MyAdapter(this, dataArray)
+        binding.recyclerView.addItemDecoration(itemDecoration)
+        binding.recyclerView.addOnScrollListener(MyOnScrollListener(binding.clTitle, layoutManager, dataArray))
     }
 
     override fun initData() {
@@ -116,7 +120,8 @@ class IREmissivityActivity : BaseActivity() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             return if (viewType == 0) {//标题
-                TitleViewHolder(LayoutInflater.from(context).inflate(R.layout.item_ir_emissivity_title, parent, false))
+                val binding = ItemIrEmissivityTitleBinding.inflate(LayoutInflater.from(context), parent, false)
+                TitleViewHolder(binding)
             } else {//内容
                 val emissivityView = EmissivityView(context)
                 emissivityView.setPadding(SizeUtils.dp2px(12f), 0, SizeUtils.dp2px(12f), 0)
@@ -127,10 +132,10 @@ class IREmissivityActivity : BaseActivity() {
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             val itemBean: ItemBean = dataArray[position]
             if (holder is TitleViewHolder) {
-                holder.itemView.tv_title.text = itemBean.name
-                holder.itemView.emissivity_view.isAlignTop = true
-                holder.itemView.emissivity_view.drawTopLine = true
-                holder.itemView.emissivity_view.refreshText(itemBean.buildTextList(context))
+                holder.binding.tvTitle.text = itemBean.name
+                holder.binding.emissivityView.isAlignTop = true
+                holder.binding.emissivityView.drawTopLine = true
+                holder.binding.emissivityView.refreshText(itemBean.buildTextList(context))
             } else if (holder is ValueViewHolder) {
                 holder.emissivityView.refreshText(itemBean.buildTextList(context))
             }
@@ -139,7 +144,7 @@ class IREmissivityActivity : BaseActivity() {
         override fun getItemCount(): Int = dataArray.size
 
 
-        private class TitleViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView)
+        private class TitleViewHolder(val binding: ItemIrEmissivityTitleBinding) : RecyclerView.ViewHolder(binding.root)
 
         private class ValueViewHolder(val emissivityView: EmissivityView) : RecyclerView.ViewHolder(emissivityView)
     }

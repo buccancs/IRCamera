@@ -34,7 +34,7 @@ import com.topdon.module.thermal.ir.event.ImageGalleryEvent
 import com.topdon.module.thermal.ir.fragment.GalleryFragment
 import com.topdon.module.thermal.ir.frame.FrameTool
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryEditViewModel
-import kotlinx.android.synthetic.main.activity_ir_gallery_detail_01.*
+import com.topdon.module.thermal.ir.databinding.ActivityIrGalleryDetail01Binding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -48,6 +48,8 @@ import java.io.File
  */
 @Route(path = RouterConfig.IR_GALLERY_DETAIL_01)
 class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
+
+    private lateinit var binding: ActivityIrGalleryDetail01Binding
 
     /**
      * 从上一界面传递过来的，当前是否为 TC007 设备类型.
@@ -71,21 +73,24 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
     private val frameTool by lazy { FrameTool() }
 
     override fun initView() {
+        binding = ActivityIrGalleryDetail01Binding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
         position = intent.getIntExtra("position", 0)
         dataList = intent.getParcelableArrayListExtra("list")!!
         isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
 
-        title_view.setTitleText("${position + 1}/${dataList.size}")
-        title_view.setRightClickListener { actionInfo() }
-        title_view.setRight2ClickListener { actionShare() }
-        title_view.setRight3ClickListener { deleteImage() }
+        binding.titleView.setTitleText("${position + 1}/${dataList.size}")
+        binding.titleView.setRightClickListener { actionInfo() }
+        binding.titleView.setRight2ClickListener { actionShare() }
+        binding.titleView.setRight3ClickListener { deleteImage() }
 
         initViewPager()
 
-        ll_ir_edit_2D?.setOnClickListener(this)
-        ll_ir_edit_3D?.setOnClickListener(this)
-        ll_ir_report?.setOnClickListener(this)
-        ll_ir_ex?.setOnClickListener(this)
+        binding.llIrEdit2D?.setOnClickListener(this)
+        binding.llIrEdit3D?.setOnClickListener(this)
+        binding.llIrReport?.setOnClickListener(this)
+        binding.llIrEx?.setOnClickListener(this)
 
         irViewModel.resultLiveData.observe(this) {
             lifecycleScope.launch {
@@ -125,23 +130,23 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
 
     @SuppressLint("SetTextI18n")
     private fun initViewPager() {
-        ir_gallery_viewpager.adapter = GalleryViewPagerAdapter(this)
-        ir_gallery_viewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        binding.irGalleryViewpager.adapter = GalleryViewPagerAdapter(this)
+        binding.irGalleryViewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
 
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 this@IRGalleryDetail01Activity.position = position
-                title_view.setTitleText("${position + 1}/${dataList.size}")
+                binding.titleView.setTitleText("${position + 1}/${dataList.size}")
 
                 irPath = "${FileConfig.lineIrGalleryDir}/${dataList[position].name.substringBeforeLast(".")}.ir"
                 val hasIrData = File(irPath!!).exists()
-                ll_ir_edit_3D?.isVisible = hasIrData
-                ll_ir_report?.isVisible = hasIrData
-                ll_ir_edit_2D?.isVisible = hasIrData
-                ll_ir_ex?.isVisible = hasIrData
+                binding.llIrEdit3D?.isVisible = hasIrData
+                binding.llIrReport?.isVisible = hasIrData
+                binding.llIrEdit2D?.isVisible = hasIrData
+                binding.llIrEx?.isVisible = hasIrData
             }
         })
-        ir_gallery_viewpager?.setCurrentItem(position, false)
+        binding.irGalleryViewpager?.setCurrentItem(position, false)
     }
 
     private fun actionInfo() {
@@ -224,12 +229,12 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            ll_ir_edit_2D -> {
+            binding.llIrEdit2D -> {
                 //2d编辑
                 actionEditOrReport(false)
             }
 
-            ll_ir_edit_3D -> {
+            binding.llIrEdit3D -> {
                 //跳转到3D
                 val data = dataList[position]
                 val fileName = data.name.substringBeforeLast(".")
@@ -269,12 +274,12 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
 
             }
 
-            ll_ir_report -> {
+            binding.llIrReport -> {
                 //报告
                 actionEditOrReport(true)
             }
 
-            ll_ir_ex -> {
+            binding.llIrEx -> {
                 TipDialog.Builder(this).setMessage(R.string.tip_album_temp_exportfile).setPositiveListener(R.string.app_confirm) {
                         actionExcel()
                     }.setCancelListener(R.string.app_cancel) {}.setCanceled(true).create().show()

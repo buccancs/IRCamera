@@ -6,7 +6,7 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.event.ManualFinishBean
-import kotlinx.android.synthetic.main.activity_manual_step1.tv_manual
+import com.topdon.module.thermal.ir.databinding.ActivityManualStep1Binding
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -17,10 +17,15 @@ import org.greenrobot.eventbus.ThreadMode
 @Route(path = RouterConfig.MANUAL_START)
 class ManualStep1Activity : BaseActivity() {
 
+    private lateinit var binding: ActivityManualStep1Binding
+
     override fun initContentView(): Int = R.layout.activity_manual_step1
 
     override fun initView() {
-        tv_manual.setOnClickListener {
+        binding = ActivityManualStep1Binding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
+        binding.tvManual.setOnClickListener {
             startActivity(Intent(this, ManualStep2Activity::class.java))
         }
     }
