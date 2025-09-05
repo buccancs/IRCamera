@@ -4,6 +4,7 @@ import android.content.Intent
 import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
@@ -20,11 +21,13 @@ import com.topdon.lib.core.tools.GlideLoader
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.utils.NetWorkUtils
+import com.topdon.lib.core.view.TitleView
 import com.topdon.libcom.PDFHelp
 import com.topdon.lms.sdk.LMS
 import com.topdon.lms.sdk.utils.StringUtils
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.thermal.ir.report.view.ReportIRShowView
+import com.topdon.module.thermal.ir.report.view.ReportInfoView
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.report.bean.ReportBean
 import com.topdon.module.thermal.ir.report.viewmodel.UpReportViewModel
@@ -59,22 +62,32 @@ class ReportPreviewSecondActivity: BaseViewModelActivity<UpReportViewModel>(), V
      */
     private var pdfFilePath: String? = null
 
+    // View references - migrated from synthetic views
+    private lateinit var titleView: TitleView
+    private lateinit var reportInfoView: ReportInfoView
+    private lateinit var llContent: LinearLayout
+
 
     override fun initContentView() = R.layout.activity_report_preview_second
 
     override fun providerVMClass() = UpReportViewModel::class.java
 
     override fun initView() {
+        // Initialize views - migrated from synthetic views
+        titleView = findViewById(R.id.title_view)
+        reportInfoView = findViewById(R.id.report_info_view)
+        llContent = findViewById(R.id.ll_content)
+        
         reportBean = intent.getParcelableExtra(ExtraKeyConfig.REPORT_BEAN)
         isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
 
-        title_view.setTitleText(R.string.album_edit_preview)
-        title_view.setLeftDrawable(R.drawable.svg_arrow_left_e8)
-        title_view.setRightDrawable(R.drawable.ic_report_exit_svg)
-        title_view.setLeftClickListener {
+        titleView.setTitleText(R.string.album_edit_preview)
+        titleView.setLeftDrawable(R.drawable.svg_arrow_left_e8)
+        titleView.setRightDrawable(R.drawable.ic_report_exit_svg)
+        titleView.setLeftClickListener {
             finish()
         }
-        title_view.setRightClickListener {
+        titleView.setRightClickListener {
             TipDialog.Builder(this)
                 .setMessage(R.string.album_report_exit_tips)
                 .setPositiveListener(R.string.app_ok){
@@ -87,11 +100,13 @@ class ReportPreviewSecondActivity: BaseViewModelActivity<UpReportViewModel>(), V
                 .create().show()
         }
 
-        report_info_view.refreshInfo(reportBean?.report_info)
-        report_info_view.refreshCondition(reportBean?.detection_condition)
+        reportInfoView.refreshInfo(reportBean?.report_info)
+        reportInfoView.refreshCondition(reportBean?.detection_condition)
 
         if (reportBean?.report_info?.is_report_watermark == 1) {
-            watermark_view.watermarkText = reportBean?.report_info?.report_watermark
+            val watermarkView = findViewById<View>(R.id.watermark_view)
+            // Set watermark text - may need to cast to specific type based on actual view
+            (watermarkView as? com.topdon.lib.core.view.WatermarkView)?.watermarkText = reportBean?.report_info?.report_watermark
         }
 
         val irList = reportBean?.infrared_data
@@ -103,12 +118,14 @@ class ReportPreviewSecondActivity: BaseViewModelActivity<UpReportViewModel>(), V
                     val drawable = GlideLoader.getDrawable(this@ReportPreviewSecondActivity, irList[i].picture_url)
                     reportShowView.setImageDrawable(drawable)
                 }
-                ll_content.addView(reportShowView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                llContent.addView(reportShowView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             }
         }
 
-        tv_to_pdf.setOnClickListener(this)
-        tv_complete.setOnClickListener(this)
+        val tvToPdf = findViewById<View>(R.id.tv_to_pdf)
+        val tvComplete = findViewById<View>(R.id.tv_complete)
+        tvToPdf.setOnClickListener(this)
+        tvComplete.setOnClickListener(this)
         lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onResume(owner: LifecycleOwner) {
                 // 要是当前已连接 TS004、TC007，切到流量上，不然登录注册意见反馈那些没网
@@ -202,10 +219,10 @@ class ReportPreviewSecondActivity: BaseViewModelActivity<UpReportViewModel>(), V
      */
     private fun getPrintViewList(): ArrayList<View> {
         val result = ArrayList<View>()
-        result.add(report_info_view)
-        val childCount = ll_content.childCount
+        result.add(reportInfoView)
+        val childCount = llContent.childCount
         for (i in 0 until  childCount) {
-            val childView = ll_content.getChildAt(i)
+            val childView = llContent.getChildAt(i)
             if (childView is ReportIRShowView) {
                 result.addAll(childView.getPrintViewList())
             }
