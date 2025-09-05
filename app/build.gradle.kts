@@ -254,7 +254,10 @@ dependencies {
         implementation(files("libs/libAC020sdk_USB_IR_1.1.1_2408291439.aar"))
     }
     implementation(files("libs/libirutils_1.2.0_2409241055.aar"))
-    implementation(files("libs/libcommon_1.2.0_24052117.aar"))
+    // Large dependencies - downloaded at build time  
+    if (file("libs/libcommon_1.2.0_24052117.aar").exists()) {
+        implementation(files("libs/libcommon_1.2.0_24052117.aar"))
+    }
 
     implementation(libs.jsbridge)
     implementation(libs.fastjson)
@@ -316,8 +319,13 @@ tasks.register<Exec>("downloadDependencies") {
     onlyIf {
         !file("libir/libs/library_1.0.aar").exists() ||
         !file("libir/libs/suplib-release.aar").exists() ||
+        !file("libir/libs/libusbdualsdk_1.3.4_2406271906_standard.aar").exists() ||
         !file("libapp/libs/lms_international-3.90.009.0.aar").exists() ||
-        !file("app/libs/libAC020sdk_USB_IR_1.1.1_2408291439.aar").exists()
+        !file("libapp/libs/auth-number-2.13.2.1.aar").exists() ||
+        !file("app/libs/libAC020sdk_USB_IR_1.1.1_2408291439.aar").exists() ||
+        !file("app/libs/libcommon_1.2.0_24052117.aar").exists() ||
+        !file("app/src/main/assets/TS004.pdf").exists() ||
+        !file("app/src/main/assets/TC001.pdf").exists()
     }
 }
 

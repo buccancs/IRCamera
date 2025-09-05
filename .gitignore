@@ -134,6 +134,21 @@ external-deps/
 libir/libs/library_1.0.aar
 libir/libs/suplib-release.aar
 libir/libs/ai-upscale-release.aar
+libir/libs/libusbdualsdk_1.3.4_2406271906_standard.aar
 libapp/libs/lms_international-3.90.009.0.aar
+libapp/libs/auth-number-2.13.2.1.aar
 app/libs/libAC020sdk_USB_IR_1.1.1_2408291439.aar
+app/libs/libcommon_1.2.0_24052117.aar
+
+# Large asset files - downloaded at build time
+app/src/main/assets/TS004.pdf
+app/src/main/assets/TC001.pdf
+
+# Large drawable resources - downloaded at build time
+component/thermal-ir/src/main/res/drawable-xxhdpi/ic_report_bg_top.png
+component/thermal-ir/src/main/res/drawable-xxhdpi/ic_main_connect_bg.webp
+
+# X86 architecture libraries - not needed for most Android devices
+libmatrix/libs/x86/
+libmatrix/libs/x86_64/
 

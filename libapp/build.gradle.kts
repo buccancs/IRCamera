@@ -135,8 +135,10 @@ dependencies {
     // Local AAR dependencies - using proper flatDir repository approach
     // These provide critical functionality (CommonBean, ResponseBean, LMS classes)
     api("abtest:abtest:1.0.1@aar")
-    api("auth-number:auth-number:2.13.2.1@aar") 
     // Large dependencies - downloaded at build time
+    if (file("libs/auth-number-2.13.2.1.aar").exists()) {
+        api(files("libs/auth-number-2.13.2.1.aar"))
+    }
     if (file("libs/lms_international-3.90.009.0.aar").exists()) {
         api(files("libs/lms_international-3.90.009.0.aar"))  // Moved from LocalRepo to libs
     }

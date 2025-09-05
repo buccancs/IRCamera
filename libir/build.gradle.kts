@@ -56,7 +56,10 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     
     // Original libir AAR dependencies restored - all essential components enabled
-    api(files("libs/libusbdualsdk_1.3.4_2406271906_standard.aar"))  // Required for infisense thermal camera classes
+    // Large dependencies - downloaded at build time
+    if (file("libs/libusbdualsdk_1.3.4_2406271906_standard.aar").exists()) {
+        api(files("libs/libusbdualsdk_1.3.4_2406271906_standard.aar"))  // Required for infisense thermal camera classes
+    }
     implementation(files("libs/opengl_1.3.2_standard.aar"))  // OpenGL functionality
     // Large dependencies - downloaded at build time
     if (file("libs/suplib-release.aar").exists()) {
