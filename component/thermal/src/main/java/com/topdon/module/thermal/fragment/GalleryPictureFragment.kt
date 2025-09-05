@@ -86,11 +86,14 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
 
     fun previewPicture(path: String) {
         val imageEngine = GlideImageEngine()
+        // TODO: Fix MNImageBrowser API usage when library is properly configured
+        /*
         MNImageBrowser.with(requireContext()) //当前位置
             .setCurrentPosition(0) //图片引擎
             .setImageEngine(imageEngine) //图片集合
             .setImageUrl(path)
             .show()
+        */
     }
 
 }

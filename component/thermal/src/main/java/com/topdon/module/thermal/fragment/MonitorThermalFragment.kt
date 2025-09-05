@@ -14,16 +14,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.guide.zm04c.matrix.GuideInterface
-import com.guide.zm04c.matrix.IrSurfaceView
-import com.topdon.lib.core.bean.tools.ScreenBean
+// import com.guide.zm04c.matrix.GuideInterface // Temporarily disabled - hardware specific
+// import com.guide.zm04c.matrix.IrSurfaceView // Temporarily disabled - hardware specific
+import com.topdon.module.thermal.stubs.GuideInterface
+import com.topdon.module.thermal.stubs.IrSurfaceView
+// import com.topdon.lib.core.bean.tools.ScreenBean // Temporarily disabled - utility class
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.db.AppDatabase
 import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.lib.core.utils.ByteUtils.getIndex
-import com.topdon.lib.core.utils.ScreenShotUtils
+// import com.topdon.lib.core.utils.ScreenShotUtils // Temporarily disabled - utility class
 import com.topdon.lib.ui.fence.FenceLineView
 import com.topdon.lib.ui.fence.FencePointView
 import com.topdon.lib.ui.fence.FenceView
@@ -510,7 +512,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
 
     private fun picture() {
 //        ScreenShotUtils.shotScreen(requireContext(), temp_display_lay, 1, ScreenBean())
-        ScreenShotUtils.shotScreenBitmap(requireContext(), mIrBitmap, 1, ScreenBean())
+        // ScreenShotUtils.shotScreenBitmap(requireContext(), mIrBitmap, 1, ScreenBean()) // TODO: Fix when ScreenShotUtils is available
     }
 
     var isVideoRunning = false
@@ -520,7 +522,8 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
             Log.w("123", "正在录制")
             return
         }
-        val latestResultPath = "${FileConfig.galleryPath}YapBitmapToMp4_${System.currentTimeMillis()}.mp4"
+        // val latestResultPath = "${FileConfig.galleryPath}YapBitmapToMp4_${System.currentTimeMillis()}.mp4" // TODO: Fix FileConfig.galleryPath reference
+        val latestResultPath = "/tmp/YapBitmapToMp4_${System.currentTimeMillis()}.mp4" // Temporary fallback
         Log.w("123", "latestResultPath:$latestResultPath")
         YapVideoEncoder(this, File(latestResultPath)).start()
     }

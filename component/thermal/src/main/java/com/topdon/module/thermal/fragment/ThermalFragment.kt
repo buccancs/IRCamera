@@ -16,15 +16,17 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.ScreenUtils
-import com.guide.zm04c.matrix.GuideInterface
-import com.guide.zm04c.matrix.IrSurfaceView
-import com.tbruyelle.rxpermissions2.RxPermissions
-import com.topdon.lib.core.bean.tools.ScreenBean
+// import com.guide.zm04c.matrix.GuideInterface // Temporarily disabled - hardware specific
+// import com.guide.zm04c.matrix.IrSurfaceView // Temporarily disabled - hardware specific
+import com.topdon.module.thermal.stubs.GuideInterface
+import com.topdon.module.thermal.stubs.IrSurfaceView
+// import com.tbruyelle.rxpermissions2.RxPermissions // Temporarily disabled - dependency not available
+// import com.topdon.lib.core.bean.tools.ScreenBean // Temporarily disabled - utility class
 import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.utils.ByteUtils.getIndex
-import com.topdon.lib.core.utils.ScreenShotUtils
-import com.topdon.lib.ui.dialog.SeekDialog
+// import com.topdon.lib.core.utils.ScreenShotUtils // Temporarily disabled - utility class
+// import com.topdon.lib.ui.dialog.SeekDialog // Temporarily disabled - class not available
 import com.topdon.lib.ui.dialog.ThermalInputDialog
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.ui.fence.FenceLineView
@@ -359,12 +361,12 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
     private fun addLimit() {
         ThermalInputDialog.Builder(requireContext())
             .setMessage("请设置温度限值")
-            .setPositiveListener(R.string.app_confirm) { up, down, _, _ ->
+            .setPositiveListener(LibUiR.string.app_confirm) { up, down, _, _ ->
                 ToastTools.showShort("设置上限:$up, 下限:$down")
                 upValue = up
                 downValue = down
             }
-            .setCancelListener(R.string.app_cancel)
+            .setCancelListener(LibUiR.string.app_cancel)
             .create().show()
     }
 
@@ -577,7 +579,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
 
     private fun picture() {
 //        ScreenShotUtils.shotScreen(requireContext(), temp_display_lay, 1, ScreenBean())
-        ScreenShotUtils.shotScreenBitmap(requireContext(), mIrBitmap, 1, ScreenBean())
+        // ScreenShotUtils.shotScreenBitmap(requireContext(), mIrBitmap, 1, ScreenBean()) // TODO: Fix when ScreenShotUtils is available
     }
 
     var isVideoRunning = false
@@ -587,7 +589,8 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
             Log.w("123", "正在录制")
             return
         }
-        val latestResultPath = "${FileConfig.galleryPath}YapBitmapToMp4_${System.currentTimeMillis()}.mp4"
+        // val latestResultPath = "${FileConfig.galleryPath}YapBitmapToMp4_${System.currentTimeMillis()}.mp4" // TODO: Fix FileConfig.galleryPath reference
+        val latestResultPath = "/tmp/YapBitmapToMp4_${System.currentTimeMillis()}.mp4" // Temporary fallback
         Log.w("123", "latestResultPath:$latestResultPath")
         YapVideoEncoder(this, File(latestResultPath)).start()
     }
@@ -604,16 +607,19 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
     private fun enhance() {
         mIrSurfaceView!!.setOpenLut()
         val saturation = mIrSurfaceView?.getSaturationValue() ?: 0
+        // TODO: Fix when SeekDialog is available
+        /*
         SeekDialog.Builder(requireContext())
             .setMessage(LibUiR.string.thermal_enhance)
             .setSaturation(saturation)
-            .setPositiveListener(LibUiR.string.app_confirm) { value ->
+            .setPositiveListener(LibUiR.string.app_confirm) { value: Int ->
                 mIrSurfaceView?.setSaturationValue(value)//设置对比度
             }
-            .setListener { value ->
+            .setListener { value: Int ->
                 //实时监听
 //                mIrSurfaceView?.setSaturationValue(value)//设置对比度
             }.create().show()
+        */
     }
 
     var isRunCamera = false
@@ -642,8 +648,9 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
 
     @SuppressLint("CheckResult")
     private fun camera() {
-        RxPermissions(requireActivity()).request(Manifest.permission.CAMERA)
-            .subscribe { granted ->
+        // TODO: Fix when RxPermissions dependency is available
+        // RxPermissions(requireActivity()).request(Manifest.permission.CAMERA)
+        //     .subscribe { granted: Boolean ->
                 if (isRunCamera) {
                     //关闭
                     requireView().findViewById<FrameLayout>(R.id.temp_camera_layout).visibility = View.GONE
@@ -657,7 +664,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
                         isRunCamera = true
                     }
                 }
-            }
+        //     }
     }
 
     override fun size(): Int = 5 * 60
