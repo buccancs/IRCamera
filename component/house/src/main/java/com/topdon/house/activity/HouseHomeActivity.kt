@@ -14,8 +14,9 @@ import com.google.android.material.tabs.TabLayoutMediator
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
+import com.topdon.house.R
+import com.topdon.lib.core.R as LibR
 import com.topdon.house.event.HouseReportAddEvent
 import com.topdon.house.fragment.DetectListFragment
 import com.topdon.house.fragment.ReportListFragment
@@ -102,9 +103,9 @@ class HouseHomeActivity : BaseActivity(), View.OnClickListener {
         viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 if (position == 0) {//检测
-                    iv_edit.isEnabled = !detectViewModel.detectListLD.value.isNullOrEmpty()
+                    ivEdit.isEnabled = !detectViewModel.detectListLD.value.isNullOrEmpty()
                 } else {//报告
-                    iv_edit.isEnabled = !reportViewModel.reportListLD.value.isNullOrEmpty()
+                    ivEdit.isEnabled = !reportViewModel.reportListLD.value.isNullOrEmpty()
                 }
             }
         })
