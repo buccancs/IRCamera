@@ -43,7 +43,7 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
 
     // Synthetic view properties - migrated from kotlin-android-extensions
     private val dualTextureViewNativeCamera by lazy { findViewById<SurfaceView>(R.id.dualTextureViewNativeCamera) }
-    // private val thermalSteeringView by lazy { findViewById<com.topdon.lib.ui.widget.SteeringWheelView>(R.id.thermalSteeringView) }  // ID doesn't exist
+    // // private val thermalSteeringView by lazy { findViewById<com.topdon.lib.ui.widget.SteeringWheelView>(R.id.thermalSteeringView) }  // ID doesn't exist
     // thermalRecyclerNight inherited from parent class
 
 
@@ -70,7 +70,7 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
 //        findViewById<TextView>(R.id.toolbar_title)?.text = "双光设备"
         cameraView.visibility = View.GONE
         dualTextureViewNativeCamera?.visibility = View.VISIBLE
-        // thermalSteeringView.listener = { action, moveX ->
+        // // thermalSteeringView.listener = { action, moveX ->
         //     setDisp(action, moveX)
         // }
 
@@ -115,8 +115,8 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
 //            SharedManager.setIrDualDisp(dualDisp)
             if (result == 0){
                 // 关闭控件
-                if (thermalSteeringView.isVisible) {
-                    thermalSteeringView.visibility = View.GONE
+                // if (thermalSteeringView.isVisible) {
+                    // thermalSteeringView.visibility = View.GONE
                     thermalRecyclerNight.setTwoLightSelected(TwoLightType.CORRECT, false)
                 }
             }else{
@@ -143,18 +143,18 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
                 SaveSettingUtil.fusionType = SaveSettingUtil.FusionTypeIROnly
                 setFusion(mCurrentFusionType)
                 thermalRecyclerNight.setTwoLightSelected(TwoLightType.CORRECT, false)
-                thermalSteeringView.visibility = View.GONE
+                // thermalSteeringView.visibility = View.GONE
             }
             TwoLightType.LIGHT -> {//单可见光
                 mCurrentFusionType = DualCameraParams.FusionType.VLOnly
                 SaveSettingUtil.fusionType = SaveSettingUtil.FusionTypeVLOnly
                 setFusion(mCurrentFusionType)
-                thermalSteeringView.visibility = View.GONE
+                // thermalSteeringView.visibility = View.GONE
                 thermalRecyclerNight.setTwoLightSelected(TwoLightType.CORRECT, false)
             }
             TwoLightType.CORRECT -> {//配准
                 if (isSelected){
-                    thermalSteeringView.visibility = View.VISIBLE
+                    // thermalSteeringView.visibility = View.VISIBLE
                     if (mCurrentFusionType != DualCameraParams.FusionType.LPYFusion && mCurrentFusionType != DualCameraParams.FusionType.MeanFusion) {
                         mCurrentFusionType = DualCameraParams.FusionType.LPYFusion
                         thermalRecyclerNight.twoLightType = TwoLightType.TWO_LIGHT_1
@@ -162,7 +162,7 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
                         setFusion(DualCameraParams.FusionType.LPYFusion)
                     }
                 }else{
-                    thermalSteeringView.visibility = View.GONE
+                    // thermalSteeringView.visibility = View.GONE
                 }
             }
             else -> {
@@ -223,7 +223,7 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
     override fun setRotate(rotateInt: Int) {
         super.setRotate(rotateInt)
         runOnUiThread {
-            thermalSteeringView.rotationIR = rotateInt
+            // thermalSteeringView.rotationIR = rotateInt
         }
         //双光的旋转角度不同
         when (rotateInt) {
@@ -315,7 +315,7 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
         }
     }
     override fun setDispViewData(dualDisp: Int) {
-        thermalSteeringView.moveX = dualDisp
+        // thermalSteeringView.moveX = dualDisp
     }
     override fun autoConfig() {
         lifecycleScope.launch(Dispatchers.IO) {

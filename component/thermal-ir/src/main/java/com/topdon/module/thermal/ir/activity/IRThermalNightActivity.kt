@@ -187,13 +187,15 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     private lateinit var llTrendClose: LinearLayout
     private lateinit var viewMenuFirst: com.topdon.menu.MenuFirstTabView
     private lateinit var tvTempContent: TextView
-
-    override fun initContentView() = R.layout.activity_thermal_ir_night
-
+    
     //指南针定义
     private var hasCompass = true
     private lateinit var compass: ICompass
     private lateinit var sensorService: SensorService
+    // Add missing compass view property - commented out as it doesn't exist in layout
+    // private lateinit var compassView: View
+
+    override fun initContentView() = R.layout.activity_thermal_ir_night
 
     /**
      * 双光-融合度、设置-对比度、设置-锐度、标靶-测量模式、标靶-风格
@@ -235,7 +237,8 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     protected val thermalRecyclerNight by lazy { findViewById<com.topdon.menu.MenuSecondView>(R.id.thermal_recycler_night) }
     private val thermalLay by lazy { findViewById<ConstraintLayout>(R.id.thermal_lay) }
     protected val tvTypeInd by lazy { findViewById<TextView>(R.id.tv_type_ind) }
-    protected val timeDownView by lazy { findViewById<com.topdon.module.thermal.ir.view.TimeDownView>(R.id.timeDownView) }
+    // TimeDownView not found in current layout - commented out for now  
+    // // protected val timeDownView by lazy { findViewById<com.topdon.module.thermal.ir.view.TimeDownView>(R.id.timeDownView) }
     private val temperatureIvLock by lazy { findViewById<ImageView>(R.id.temperature_iv_lock) }
     private val temperatureIvInput by lazy { findViewById<ImageView>(R.id.temperature_iv_input) }
     private val popTimeLay by lazy { findViewById<View>(R.id.pop_time_lay) }
@@ -341,7 +344,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         // Initialize camera view
         cameraView = findViewById(R.id.cameraView)
         temperatureView = findViewById(R.id.temperatureView)
-        // titleView, thermalRecyclerNight, thermalLay, tvTypeInd, timeDownView already handled by lazy properties
+        // // titleView, thermalRecyclerNight, thermalLay, tvTypeInd, timeDownView already handled by lazy properties
         
         
         // Use lazy properties instead of redundant findViewById calls
@@ -362,9 +365,10 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         spaceChart = findViewById(R.id.space_chart)
         
         titleView.setLeftClickListener {
-            if (timeDownView.isRunning) {
-                return@setLeftClickListener
-            }
+            // timeDownView check commented out since view doesn't exist
+            // if (timeDownView.isRunning) {
+            //     return@setLeftClickListener
+            // }
             setResult(200)
             finish()
         }
@@ -571,8 +575,8 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         autoJob?.cancel()
 
         //结束正在执行的延迟拍照
-        if (timeDownView.isRunning) {
-            timeDownView.cancel()
+        // if (timeDownView.isRunning) {
+            // timeDownView.cancel()
             updateDelayView()
         }
 
@@ -1339,12 +1343,12 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 if (cameraDelaySecond > 0) {
                     autoJob?.cancel()
                 }
-                if (timeDownView.isRunning) {
-                    timeDownView.cancel()
+                // if (timeDownView.isRunning) {
+                    // timeDownView.cancel()
                     updateDelayView()
                 } else {
-                    if (timeDownView.downTimeWatcher == null) {
-                        timeDownView.setOnTimeDownListener(object : TimeDownView.DownTimeWatcher {
+                    // if (timeDownView.downTimeWatcher == null) {
+                        // timeDownView.setOnTimeDownListener(object : TimeDownView.DownTimeWatcher {
                             override fun onTime(num: Int) {
                                 updateDelayView()
                             }
@@ -1362,7 +1366,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                             }
                         })
                     }
-                    timeDownView.downSecond(cameraDelaySecond)
+                    // timeDownView.downSecond(cameraDelaySecond)
                 }
             }
             1 -> {//图库
@@ -1395,7 +1399,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
 
     private fun updateVideoDelayView(){
         try {
-            if (timeDownView.isRunning) {
+            // if (timeDownView.isRunning) {
                 lifecycleScope.launch(Dispatchers.Main) {
                     thermalRecyclerNight.setToRecord(true)
                 }
@@ -1410,7 +1414,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
      */
     private fun updateDelayView() {
         try {
-            if (timeDownView.isRunning) {
+            // if (timeDownView.isRunning) {
                 lifecycleScope.launch(Dispatchers.Main) {
                     thermalRecyclerNight.setToRecord(true)
                 }
@@ -2165,7 +2169,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     open fun irStop() {
         try {
             configJob?.cancel()
-            timeDownView?.cancel()
+            // timeDownView?.cancel()
             imageThread?.interrupt()
             imageThread?.join()
             syncimage.valid = false
@@ -2193,7 +2197,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         super.onDestroy()
         AlarmHelp.getInstance(application).onDestroy(SaveSettingUtil.isSaveSetting)
         temp_bg?.stopAnimation()
-        timeDownView?.cancel()
+        // timeDownView?.cancel()
         stopCompass()
         try {
             iruvc?.stopPreview()
@@ -2357,7 +2361,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                             }
 
                             CameraItemBean.TYPE_DELAY -> {
-                                if (timeDownView.isRunning) {
+                                // if (timeDownView.isRunning) {
                                     return@listener
                                 }
                                 cameraItemAdapter!!.data[position].changeDelayType()
