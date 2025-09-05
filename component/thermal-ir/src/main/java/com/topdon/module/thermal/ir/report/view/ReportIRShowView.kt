@@ -11,8 +11,8 @@ import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.report.bean.ReportIRBean
 import com.topdon.module.thermal.ir.report.bean.ReportTempBean
-import kotlinx.android.synthetic.main.item_report_ir_show.view.*
-import kotlinx.android.synthetic.main.view_report_ir_show.view.*
+import com.topdon.module.thermal.ir.databinding.ViewReportIrShowBinding
+import com.topdon.module.thermal.ir.databinding.ItemReportIrShowBinding
 
 /**
  * 一项红外数据预览 View.
@@ -27,21 +27,23 @@ class ReportIRShowView: LinearLayout {
         private const val TYPE_RECT = 3 //面
     }
 
+    private val binding: ViewReportIrShowBinding
 
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        inflate(context, R.layout.view_report_ir_show, this)
+        val inflater = View.inflate(context, R.layout.view_report_ir_show, this)
+        binding = ViewReportIrShowBinding.bind(inflater)
 
-        initTitleText(cl_full, TYPE_FULL, 0)
+        initTitleText(binding.clFull, TYPE_FULL, 0)
 
-        initTitleText(cl_point1, TYPE_POINT, 0)
-        initTitleText(cl_point2, TYPE_POINT, 1)
-        initTitleText(cl_point3, TYPE_POINT, 2)
-        initTitleText(cl_point4, TYPE_POINT, 3)
-        initTitleText(cl_point5, TYPE_POINT, 4)
+        initTitleText(binding.clPoint1, TYPE_POINT, 0)
+        initTitleText(binding.clPoint2, TYPE_POINT, 1)
+        initTitleText(binding.clPoint3, TYPE_POINT, 2)
+        initTitleText(binding.clPoint4, TYPE_POINT, 3)
+        initTitleText(binding.clPoint5, TYPE_POINT, 4)
 
         initTitleText(cl_line1, TYPE_LINE, 0)
         initTitleText(cl_line2, TYPE_LINE, 1)

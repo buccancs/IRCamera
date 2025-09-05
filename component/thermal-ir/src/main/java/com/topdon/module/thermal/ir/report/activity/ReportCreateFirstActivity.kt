@@ -86,52 +86,52 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
     override fun initView() {
         isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
 
-        et_report_name.setText("TC${TimeUtils.millis2String(System.currentTimeMillis(), "yyyyMMdd_HHmm")}")
-        et_report_author.setText(SaveSettingUtil.reportAuthorName)
-        tv_report_date.text = TimeUtils.millis2String(System.currentTimeMillis(), "yyyy.MM.dd HH:mm")
-        et_report_watermark.setText(SaveSettingUtil.reportWatermarkText)
-        tv_ambient_temperature.text = getString(R.string.thermal_config_environment) + "(${UnitTools.showUnit()})"
-        tv_emissivity.text = getString(R.string.album_report_emissivity) + "(0~1)"
+        binding.etReportName.setText("TC${TimeUtils.millis2String(System.currentTimeMillis(), "yyyyMMdd_HHmm")}")
+        binding.etReportAuthor.setText(SaveSettingUtil.reportAuthorName)
+        binding.tvReportDate.text = TimeUtils.millis2String(System.currentTimeMillis(), "yyyy.MM.dd HH:mm")
+        binding.etReportWatermark.setText(SaveSettingUtil.reportWatermarkText)
+        binding.tvAmbientTemperature.text = getString(R.string.thermal_config_environment) + "(${UnitTools.showUnit()})"
+        binding.tvEmissivity.text = getString(R.string.album_report_emissivity) + "(0~1)"
 
-        et_report_author.addTextChangedListener {
+        binding.etReportAuthor.addTextChangedListener {
             SaveSettingUtil.reportAuthorName = it?.toString() ?: ""
         }
-        et_report_watermark.addTextChangedListener {
+        binding.etReportWatermark.addTextChangedListener {
             SaveSettingUtil.reportWatermarkText = it?.toString() ?: ""
         }
 
-        switch_report_author.setOnCheckedChangeListener { _, isChecked ->
-            et_report_author.isVisible = isChecked
+        binding.switchReportAuthor.setOnCheckedChangeListener { _, isChecked ->
+            binding.etReportAuthor.isVisible = isChecked
         }
-        switch_report_date.setOnCheckedChangeListener { _, isChecked ->
-            tv_report_date.isVisible = isChecked
+        binding.switchReportDate.setOnCheckedChangeListener { _, isChecked ->
+            binding.tvReportDate.isVisible = isChecked
         }
-        switch_report_place.setOnCheckedChangeListener { _, isChecked ->
-            et_report_place.isVisible = isChecked
+        binding.switchReportPlace.setOnCheckedChangeListener { _, isChecked ->
+            binding.etReportPlace.isVisible = isChecked
         }
-        switch_report_watermark.setOnCheckedChangeListener { _, isChecked ->
-            et_report_watermark.isVisible = isChecked
+        binding.switchReportWatermark.setOnCheckedChangeListener { _, isChecked ->
+            binding.etReportWatermark.isVisible = isChecked
         }
-        switch_ambient_humidity.setOnCheckedChangeListener { _, isChecked ->
-            tip_seek_humidity.isVisible = isChecked
+        binding.switchAmbientHumidity.setOnCheckedChangeListener { _, isChecked ->
+            binding.tipSeekHumidity.isVisible = isChecked
         }
-        switch_ambient_temperature.setOnCheckedChangeListener { _, isChecked ->
-            et_ambient_temperature.isVisible = isChecked
+        binding.switchAmbientTemperature.setOnCheckedChangeListener { _, isChecked ->
+            binding.etAmbientTemperature.isVisible = isChecked
         }
-        switch_emissivity.setOnCheckedChangeListener { _, isChecked ->
-            tip_seek_emissivity.isVisible = isChecked
+        binding.switchEmissivity.setOnCheckedChangeListener { _, isChecked ->
+            binding.tipSeekEmissivity.isVisible = isChecked
         }
-        switch_test_distance.setOnCheckedChangeListener { _, isChecked ->
-            et_test_distance.isVisible = isChecked
+        binding.switchTestDistance.setOnCheckedChangeListener { _, isChecked ->
+            binding.etTestDistance.isVisible = isChecked
         }
-        tip_seek_humidity.progress = SaveSettingUtil.reportHumidity
-        tip_seek_humidity.onStopTrackingTouch = {
+        binding.tipSeekHumidity.progress = SaveSettingUtil.reportHumidity
+        binding.tipSeekHumidity.onStopTrackingTouch = {
             SaveSettingUtil.reportHumidity = it
         }
-        tip_seek_humidity.valueFormatListener = {
+        binding.tipSeekHumidity.valueFormatListener = {
             if (it % 10 == 0) "${it / 10}%" else "${it / 10}.${it % 10}%"
         }
-        tip_seek_emissivity.valueFormatListener = {
+        binding.tipSeekEmissivity.valueFormatListener = {
             when (it) {
                 0 -> "0"
                 100 -> "1"
@@ -139,10 +139,10 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
             }
         }
 
-        tv_report_date.setOnClickListener(this)
-        tv_preview.setOnClickListener(this)
-        tv_next.setOnClickListener(this)
-        img_location.setOnClickListener(this)
+        binding.tvReportDate.setOnClickListener(this)
+        binding.tvPreview.setOnClickListener(this)
+        binding.tvNext.setOnClickListener(this)
+        binding.imgLocation.setOnClickListener(this)
 
         readConfig()
     }
@@ -156,9 +156,9 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
         distance = config.distance
         radiation = config.radiation
         environment = config.environment
-        et_ambient_temperature.setText(NumberTools.to01(UnitTools.showUnitValue(environment)))
-        et_test_distance.setText(NumberTools.to02(distance) + "m")
-        tip_seek_emissivity.progress = (radiation * 100).toInt()
+        binding.etAmbientTemperature.setText(NumberTools.to01(UnitTools.showUnitValue(environment)))
+        binding.etTestDistance.setText(NumberTools.to02(distance) + "m")
+        binding.tipSeekEmissivity.progress = (radiation * 100).toInt()
     }
 
     override fun initData() {

@@ -31,7 +31,6 @@ import com.topdon.lib.ui.dialog.SeekDialog
 import com.topdon.lib.ui.dialog.ThermalInputDialog
 import com.topdon.lib.ui.fence.FenceLineView
 import com.topdon.lib.ui.fence.FencePointView
-import kotlinx.android.synthetic.main.fragment_thermal.*
 import com.topdon.lib.ui.fence.FenceView
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.thermal.base.BaseThermalFragment
