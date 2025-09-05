@@ -35,6 +35,9 @@ class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(c
      */
     var onSkinClickListener: (() -> Unit)? = null
 
+    // Initialize view as class property for coroutine access
+    private lateinit var ivBlurBg: ImageView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,13 +46,15 @@ class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(c
         setContentView(LayoutInflater.from(context).inflate(R.layout.dialog_home_guide, null))
 
         // Initialize views with findViewById
-        val ivBlurBg: ImageView = findViewById(R.id.iv_blur_bg)
+        ivBlurBg = findViewById(R.id.iv_blur_bg)
         val clGuide1: View = findViewById(R.id.cl_guide_1)
         val clGuide2: View = findViewById(R.id.cl_guide_2)
         val clGuide3: View = findViewById(R.id.cl_guide_3)
         val tvNext1: View = findViewById(R.id.tv_next1)
         val tvNext2: View = findViewById(R.id.tv_next2)
         val tvIKnow: View = findViewById(R.id.tv_i_know)
+        val tvSkin1: View = findViewById(R.id.tv_skin1)
+        val tvSkin2: View = findViewById(R.id.tv_skin2)
 
         when (currentStep) {
             1 -> {
@@ -85,11 +90,11 @@ class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(c
         }
 
 
-        tv_skin1.setOnClickListener {
+        tvSkin1.setOnClickListener {
             onSkinClickListener?.invoke()
             dismiss()
         }
-        tv_skin2.setOnClickListener {
+        tvSkin2.setOnClickListener {
             onSkinClickListener?.invoke()
             dismiss()
         }

@@ -63,7 +63,7 @@ class ConfigGuideDialog(context: Context, val isTC007: Boolean, val dataBean: Da
         tvSpaceEmTitle = findViewById(R.id.tv_space_em_title)
         tvDefaultEmTitle = findViewById(R.id.tv_default_em_title)
         tvDefaultEmValue = findViewById(R.id.tv_default_em_value)
-        recyclerView = findViewById(R.id.recyclerView)
+        recyclerView = findViewById(R.id.recycler_view)
         clStep1 = findViewById(R.id.cl_step1)
         clStep2Top = findViewById(R.id.cl_step2_top)
         clStep2Bottom = findViewById(R.id.cl_step2_bottom)

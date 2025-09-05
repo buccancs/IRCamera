@@ -10,6 +10,12 @@
         <item name="android:windowIsFloating">true</item>
     </style>
 
+    <style name="TransparentDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
     <style name="TempTitleStyle">
         <item name="android:textColor">@color/temp_font_color</item>
         <item name="android:textSize">@dimen/app_font_15</item>
