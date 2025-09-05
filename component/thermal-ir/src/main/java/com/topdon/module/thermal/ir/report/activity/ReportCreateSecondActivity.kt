@@ -68,8 +68,8 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
         refreshImg(currentFilePath)
         refreshData(imageTempBean)
 
-        tv_add_image.setOnClickListener(this)
-        tv_preview.setOnClickListener(this)
+        binding.tvAddImage.setOnClickListener(this)
+        binding.tvPreview.setOnClickListener(this)
     }
 
     override fun initData() {
@@ -85,87 +85,87 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
             val drawable = GlideLoader.getDrawable(this@ReportCreateSecondActivity, absolutePath)
             val isLand = (drawable?.intrinsicWidth ?: 0) > (drawable?.intrinsicHeight ?: 0)
             val width = (ScreenUtil.getScreenWidth(this@ReportCreateSecondActivity) * (if (isLand) 234 else 175) / 375f).toInt()
-            val layoutParams = iv_image.layoutParams
+            val layoutParams = binding.ivImage.layoutParams
             layoutParams.width = width
             layoutParams.height = (width * (drawable?.intrinsicHeight ?: 0).toFloat() / (drawable?.intrinsicWidth ?: 1)).toInt()
-            iv_image.layoutParams = layoutParams
-            iv_image.setImageDrawable(drawable)
+            binding.ivImage.layoutParams = layoutParams
+            binding.ivImage.setImageDrawable(drawable)
         }
     }
 
     private fun refreshData(imageTempBean: ImageTempBean?) {
-        scroll_view.scrollTo(0, 0)
+        binding.scrollView.scrollTo(0, 0)
 
-        report_temp_view_full.isVisible = imageTempBean?.full != null
-        report_temp_view_full.refreshData(imageTempBean?.full)
+        binding.reportTempViewFull.isVisible = imageTempBean?.full != null
+        binding.reportTempViewFull.refreshData(imageTempBean?.full)
 
-        report_temp_view_point1.isVisible = (imageTempBean?.pointList?.size ?: 0) > 0
+        binding.reportTempViewPoint1.isVisible = (imageTempBean?.pointList?.size ?: 0) > 0
         if ((imageTempBean?.pointList?.size ?: 0) > 0) {
-            report_temp_view_point1.refreshData(imageTempBean?.pointList?.get(0))
+            binding.reportTempViewPoint1.refreshData(imageTempBean?.pointList?.get(0))
         }
-        report_temp_view_point2.isVisible = (imageTempBean?.pointList?.size ?: 0) > 1
+        binding.reportTempViewPoint2.isVisible = (imageTempBean?.pointList?.size ?: 0) > 1
         if ((imageTempBean?.pointList?.size ?: 0) > 1) {
-            report_temp_view_point2.refreshData(imageTempBean?.pointList?.get(1))
+            binding.reportTempViewPoint2.refreshData(imageTempBean?.pointList?.get(1))
         }
-        report_temp_view_point3.isVisible = (imageTempBean?.pointList?.size ?: 0) > 2
+        binding.reportTempViewPoint3.isVisible = (imageTempBean?.pointList?.size ?: 0) > 2
         if ((imageTempBean?.pointList?.size ?: 0) > 2) {
-            report_temp_view_point3.refreshData(imageTempBean?.pointList?.get(2))
+            binding.reportTempViewPoint3.refreshData(imageTempBean?.pointList?.get(2))
         }
-        report_temp_view_point4.isVisible = (imageTempBean?.pointList?.size ?: 0) > 3
+        binding.reportTempViewPoint4.isVisible = (imageTempBean?.pointList?.size ?: 0) > 3
         if ((imageTempBean?.pointList?.size ?: 0) > 3) {
-            report_temp_view_point4.refreshData(imageTempBean?.pointList?.get(3))
+            binding.reportTempViewPoint4.refreshData(imageTempBean?.pointList?.get(3))
         }
-        report_temp_view_point5.isVisible = (imageTempBean?.pointList?.size ?: 0) > 4
+        binding.reportTempViewPoint5.isVisible = (imageTempBean?.pointList?.size ?: 0) > 4
         if ((imageTempBean?.pointList?.size ?: 0) > 4) {
-            report_temp_view_point5.refreshData(imageTempBean?.pointList?.get(4))
+            binding.reportTempViewPoint5.refreshData(imageTempBean?.pointList?.get(4))
         }
 
-        report_temp_view_line1.isVisible = (imageTempBean?.lineList?.size ?: 0) > 0
+        binding.reportTempViewLine1.isVisible = (imageTempBean?.lineList?.size ?: 0) > 0
         if ((imageTempBean?.lineList?.size ?: 0) > 0) {
-            report_temp_view_line1.refreshData(imageTempBean?.lineList?.get(0))
+            binding.reportTempViewLine1.refreshData(imageTempBean?.lineList?.get(0))
         }
-        report_temp_view_line2.isVisible = (imageTempBean?.lineList?.size ?: 0) > 1
+        binding.reportTempViewLine2.isVisible = (imageTempBean?.lineList?.size ?: 0) > 1
         if ((imageTempBean?.lineList?.size ?: 0) > 1) {
-            report_temp_view_line2.refreshData(imageTempBean?.lineList?.get(1))
+            binding.reportTempViewLine2.refreshData(imageTempBean?.lineList?.get(1))
         }
-        report_temp_view_line3.isVisible = (imageTempBean?.lineList?.size ?: 0) > 2
+        binding.reportTempViewLine3.isVisible = (imageTempBean?.lineList?.size ?: 0) > 2
         if ((imageTempBean?.lineList?.size ?: 0) > 2) {
-            report_temp_view_line3.refreshData(imageTempBean?.lineList?.get(2))
+            binding.reportTempViewLine3.refreshData(imageTempBean?.lineList?.get(2))
         }
-        report_temp_view_line4.isVisible = (imageTempBean?.lineList?.size ?: 0) > 3
+        binding.reportTempViewLine4.isVisible = (imageTempBean?.lineList?.size ?: 0) > 3
         if ((imageTempBean?.lineList?.size ?: 0) > 3) {
-            report_temp_view_line4.refreshData(imageTempBean?.lineList?.get(3))
+            binding.reportTempViewLine4.refreshData(imageTempBean?.lineList?.get(3))
         }
-        report_temp_view_line5.isVisible = (imageTempBean?.lineList?.size ?: 0) > 4
+        binding.reportTempViewLine5.isVisible = (imageTempBean?.lineList?.size ?: 0) > 4
         if ((imageTempBean?.lineList?.size ?: 0) > 4) {
-            report_temp_view_line5.refreshData(imageTempBean?.lineList?.get(4))
+            binding.reportTempViewLine5.refreshData(imageTempBean?.lineList?.get(4))
         }
 
-        report_temp_view_rect1.isVisible = (imageTempBean?.rectList?.size ?: 0) > 0
+        binding.reportTempViewRect1.isVisible = (imageTempBean?.rectList?.size ?: 0) > 0
         if ((imageTempBean?.rectList?.size ?: 0) > 0) {
-            report_temp_view_rect1.refreshData(imageTempBean?.rectList?.get(0))
+            binding.reportTempViewRect1.refreshData(imageTempBean?.rectList?.get(0))
         }
-        report_temp_view_rect2.isVisible = (imageTempBean?.rectList?.size ?: 0) > 1
+        binding.reportTempViewRect2.isVisible = (imageTempBean?.rectList?.size ?: 0) > 1
         if ((imageTempBean?.rectList?.size ?: 0) > 1) {
-            report_temp_view_rect2.refreshData(imageTempBean?.rectList?.get(1))
+            binding.reportTempViewRect2.refreshData(imageTempBean?.rectList?.get(1))
         }
-        report_temp_view_rect3.isVisible = (imageTempBean?.rectList?.size ?: 0) > 2
+        binding.reportTempViewRect3.isVisible = (imageTempBean?.rectList?.size ?: 0) > 2
         if ((imageTempBean?.rectList?.size ?: 0) > 2) {
-            report_temp_view_rect3.refreshData(imageTempBean?.rectList?.get(2))
+            binding.reportTempViewRect3.refreshData(imageTempBean?.rectList?.get(2))
         }
-        report_temp_view_rect4.isVisible = (imageTempBean?.rectList?.size ?: 0) > 3
+        binding.reportTempViewRect4.isVisible = (imageTempBean?.rectList?.size ?: 0) > 3
         if ((imageTempBean?.rectList?.size ?: 0) > 3) {
-            report_temp_view_rect4.refreshData(imageTempBean?.rectList?.get(3))
+            binding.reportTempViewRect4.refreshData(imageTempBean?.rectList?.get(3))
         }
-        report_temp_view_rect5.isVisible = (imageTempBean?.rectList?.size ?: 0) > 4
+        binding.reportTempViewRect5.isVisible = (imageTempBean?.rectList?.size ?: 0) > 4
         if ((imageTempBean?.rectList?.size ?: 0) > 4) {
-            report_temp_view_rect5.refreshData(imageTempBean?.rectList?.get(4))
+            binding.reportTempViewRect5.refreshData(imageTempBean?.rectList?.get(4))
         }
     }
 
     override fun onClick(v: View?) {
         when (v) {
-            tv_add_image -> {//添加图片
+            binding.tvAddImage -> {//添加图片
                 if (reportIRList.size >= 9) {
                     ToastUtils.showShort(R.string.album_report_max_image_tips)
                     return
@@ -180,7 +180,7 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
                     .withParcelableArrayList(ExtraKeyConfig.REPORT_IR_LIST, reportIRBeanList)
                     .navigation(this)
             }
-            tv_preview -> {//预览
+            binding.tvPreview -> {//预览
                 val appLanguage = SharedManager.getLanguage(this)
                 val sdkVersion = "1.2.8_23050619"
                 val reportInfoBean: ReportInfoBean? = intent.getParcelableExtra(ExtraKeyConfig.REPORT_INFO)
@@ -199,12 +199,12 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
     private fun buildReportIr(filePath: String): ReportIRBean {
         val full: ReportTempBean? = if (imageTempBean?.full != null) {
             ReportTempBean(
-                if (report_temp_view_full.getMaxInput().isNotEmpty()) report_temp_view_full.getMaxInput() + UnitTools.showUnit() else "",
-                if (report_temp_view_full.isSwitchMaxCheck() && report_temp_view_full.getMaxInput().isNotEmpty()) 1 else 0,
-                if (report_temp_view_full.getMinInput().isNotEmpty()) report_temp_view_full.getMinInput() + UnitTools.showUnit() else "",
-                if (report_temp_view_full.isSwitchMinCheck() && report_temp_view_full.getMinInput().isNotEmpty()) 1 else 0,
-                report_temp_view_full.getExplainInput(),
-                if (report_temp_view_full.isSwitchExplainCheck() && report_temp_view_full.getExplainInput().isNotEmpty()) 1 else 0
+                if (binding.reportTempViewFull.getMaxInput().isNotEmpty()) binding.reportTempViewFull.getMaxInput() + UnitTools.showUnit() else "",
+                if (binding.reportTempViewFull.isSwitchMaxCheck() && binding.reportTempViewFull.getMaxInput().isNotEmpty()) 1 else 0,
+                if (binding.reportTempViewFull.getMinInput().isNotEmpty()) binding.reportTempViewFull.getMinInput() + UnitTools.showUnit() else "",
+                if (binding.reportTempViewFull.isSwitchMinCheck() && binding.reportTempViewFull.getMinInput().isNotEmpty()) 1 else 0,
+                binding.reportTempViewFull.getExplainInput(),
+                if (binding.reportTempViewFull.isSwitchExplainCheck() && binding.reportTempViewFull.getExplainInput().isNotEmpty()) 1 else 0
             )
         } else {
             null
@@ -231,27 +231,27 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
             val reportTempView = when (type) {
                 1 -> { //点
                     when (i) {
-                        0 -> report_temp_view_point1
-                        1 -> report_temp_view_point2
-                        2 -> report_temp_view_point3
-                        3 -> report_temp_view_point4
-                        else -> report_temp_view_point5
+                        0 -> binding.reportTempViewPoint1
+                        1 -> binding.reportTempViewPoint2
+                        2 -> binding.reportTempViewPoint3
+                        3 -> binding.reportTempViewPoint4
+                        else -> binding.reportTempViewPoint5
                     }
                 }
                 2 -> { //线
                     when (i) {
-                        0 -> report_temp_view_line1
-                        1 -> report_temp_view_line2
-                        2 -> report_temp_view_line3
-                        3 -> report_temp_view_line4
-                        else -> report_temp_view_line5
+                        0 -> binding.reportTempViewLine1
+                        1 -> binding.reportTempViewLine2
+                        2 -> binding.reportTempViewLine3
+                        3 -> binding.reportTempViewLine4
+                        else -> binding.reportTempViewLine5
                     }
                 }
                 else -> { //面
                     when (i) {
-                        0 -> report_temp_view_rect1
-                        1 -> report_temp_view_rect2
-                        else -> report_temp_view_rect3
+                        0 -> binding.reportTempViewRect1
+                        1 -> binding.reportTempViewRect2
+                        else -> binding.reportTempViewRect3
                     }
                 }
             }
