@@ -16,7 +16,7 @@ import com.topdon.libcom.PDFHelp
 import com.topdon.module.thermal.ir.report.view.ReportIRShowView
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.report.bean.ReportBean
-import kotlinx.android.synthetic.main.activity_report_detail.*
+import com.topdon.module.thermal.ir.databinding.ActivityReportDetailBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
@@ -30,6 +30,8 @@ import java.io.File
 @Route(path = RouterConfig.REPORT_DETAIL)
 class ReportDetailActivity: BaseActivity() {
 
+    private lateinit var binding: ActivityReportDetailBinding
+
     /**
      * 从上一界面传递过来的，报告所有信息.
      */
@@ -41,7 +43,11 @@ class ReportDetailActivity: BaseActivity() {
     private var pdfFilePath: String? = null
 
 
-    override fun initContentView() = R.layout.activity_report_detail
+    override fun initContentView(): Int {
+        binding = ActivityReportDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        return 0
+    }
 
     override fun initView() {
         reportBean = intent.getParcelableExtra(ExtraKeyConfig.REPORT_BEAN)

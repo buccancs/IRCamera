@@ -29,7 +29,7 @@ import com.topdon.module.thermal.ir.report.view.ReportIRShowView
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.report.bean.ReportBean
 import com.topdon.module.thermal.ir.report.viewmodel.UpReportViewModel
-import kotlinx.android.synthetic.main.activity_report_preview_second.*
+import com.topdon.module.thermal.ir.databinding.ActivityReportPreviewSecondBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
@@ -44,6 +44,8 @@ import java.io.File
  */
 @Route(path = RouterConfig.REPORT_PREVIEW_SECOND)
 class ReportPreviewSecondActivity: BaseViewModelActivity<UpReportViewModel>(), View.OnClickListener {
+
+    private lateinit var binding: ActivityReportPreviewSecondBinding
 
     /**
      * 从上一界面传递过来的，当前是否为 TC007 设备类型.
@@ -62,7 +64,11 @@ class ReportPreviewSecondActivity: BaseViewModelActivity<UpReportViewModel>(), V
     private var pdfFilePath: String? = null
 
 
-    override fun initContentView() = R.layout.activity_report_preview_second
+    override fun initContentView(): Int {
+        binding = ActivityReportPreviewSecondBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        return 0
+    }
 
     override fun providerVMClass() = UpReportViewModel::class.java
 
