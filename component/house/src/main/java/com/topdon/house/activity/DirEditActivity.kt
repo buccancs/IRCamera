@@ -5,8 +5,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +16,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.topdon.house.R
 import com.topdon.house.event.DetectDirListEvent
 import com.topdon.house.viewmodel.DetectViewModel
 import com.topdon.lib.core.config.ExtraKeyConfig
@@ -167,11 +166,11 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
      */
     private fun showExitTipsDialog() {
         TipDialog.Builder(this)
-            .setMessage(R.string.diy_tip_save)
-            .setPositiveListener(R.string.app_exit) {
+            .setMessage(LibR.string.diy_tip_save)
+            .setPositiveListener(LibR.string.app_exit) {
                 finish()
             }
-            .setCancelListener(R.string.app_cancel)
+            .setCancelListener(LibR.string.app_cancel)
             .create().show()
     }
 
@@ -287,8 +286,8 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.itemView.iv_select.isSelected = dataList[position].hasSelect
-            holder.itemView.et_input_name.setText(dataList[position].dirName)
+            holder.itemView.findViewById<ImageView>(R.id.iv_select).isSelected = dataList[position].hasSelect
+            holder.itemView.findViewById<EditText>(R.id.et_input_name).setText(dataList[position].dirName)
         }
 
         override fun getItemCount(): Int = dataList.size
@@ -301,11 +300,11 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
                         val dir: DirDetect = dataList[position]
                         dir.hasSelect = !dir.hasSelect
                         selectCount += if (dir.hasSelect) 1 else -1
-                        rootView.iv_select.isSelected = dir.hasSelect
+                        rootView.findViewById<ImageView>(R.id.iv_select).isSelected = dir.hasSelect
                         onSelectChangeListener?.invoke(selectCount)
                     }
                 }
-                rootView.et_input_name.addTextChangedListener {
+                rootView.findViewById<EditText>(R.id.et_input_name).addTextChangedListener {
                     val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         dataList[position].dirName = it?.toString() ?: ""
