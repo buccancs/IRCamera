@@ -14,7 +14,7 @@
 //import com.topdon.lib.core.db.entity.ThermalEntity
 //import com.topdon.lib.core.ktbase.BaseActivity
 //import com.topdon.lib.core.tools.TimeTool
-//import com.topdon.module.thermal.ir.thermal.R
+//import com.topdon.module.thermal.ir.R
 //import com.topdon.module.thermal.ir.thermal.adapter.SettingTimeAdapter
 //import kotlinx.android.synthetic.main.activity_chart.aa_chart_view
 //import kotlinx.android.synthetic.main.activity_log_chart.*

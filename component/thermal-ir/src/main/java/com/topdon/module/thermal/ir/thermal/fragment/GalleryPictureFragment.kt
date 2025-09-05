@@ -10,7 +10,7 @@ import com.blankj.utilcode.util.ScreenUtils
 import com.maning.imagebrowserlibrary.MNImageBrowser
 import com.topdon.lib.core.ktbase.BaseViewModelFragment
 import com.topdon.lib.core.widget.dialog.TipDialog
-import com.topdon.module.thermal.ir.thermal.R
+import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.thermal.adapter.GalleryAdapter
 import com.topdon.module.thermal.ir.thermal.tools.GlideImageEngine
 import com.topdon.module.thermal.ir.thermal.viewmodel.GalleryViewModel

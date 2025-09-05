@@ -16,18 +16,18 @@ import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.guide.zm04c.matrix.GuideInterface
 import com.guide.zm04c.matrix.IrSurfaceView
-import com.topdon.lib.core.bean.tools.ScreenBean
+import com.topdon.lib.core.bean.tools.com.topdon.lib.app.utils.ScreenBean
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.FileConfig.galleryPath
 import com.topdon.lib.core.db.AppDatabase
 import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.lib.core.utils.ByteUtils.getIndex
-import com.topdon.lib.core.utils.ScreenShotUtils
+import com.topdon.lib.core.utils.com.topdon.lib.app.utils.ScreenShotUtils
 import com.topdon.lib.ui.fence.FenceLineView
 import com.topdon.lib.ui.fence.FencePointView
 import com.topdon.lib.ui.fence.FenceView
-import com.topdon.module.thermal.ir.thermal.R
+import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.thermal.activity.MonitorActivity
 import com.topdon.module.thermal.ir.thermal.base.BaseThermalFragment
 import com.topdon.module.thermal.ir.thermal.fragment.event.ThermalActionEvent
@@ -510,8 +510,8 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
     }
 
     private fun picture() {
-//        ScreenShotUtils.shotScreen(requireContext(), temp_display_lay, 1, ScreenBean())
-        ScreenShotUtils.shotScreenBitmap(requireContext(), mIrBitmap, 1, ScreenBean())
+//        com.topdon.lib.app.utils.ScreenShotUtils.shotScreen(requireContext(), temp_display_lay, 1, com.topdon.lib.app.utils.ScreenBean())
+        com.topdon.lib.app.utils.ScreenShotUtils.shotScreenBitmap(requireContext(), mIrBitmap, 1, com.topdon.lib.app.utils.ScreenBean())
     }
 
     var isVideoRunning = false
@@ -521,7 +521,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
             Log.w("123", "正在录制")
             return
         }
-        val latestResultPath = "${galleryPath}YapBitmapToMp4_${System.currentTimeMillis()}.mp4"
+        val latestResultPath = "${com.topdon.lib.core.config.FileConfig.galleryPath}YapBitmapToMp4_${System.currentTimeMillis()}.mp4"
         Log.w("123", "latestResultPath:$latestResultPath")
         YapVideoEncoder(this, File(latestResultPath)).start()
     }

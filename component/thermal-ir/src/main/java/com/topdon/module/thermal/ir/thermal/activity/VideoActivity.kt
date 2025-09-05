@@ -10,7 +10,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.BarUtils
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
-import com.topdon.module.thermal.ir.thermal.R
+import com.topdon.module.thermal.ir.R
 import kotlinx.android.synthetic.main.activity_video.*
 import java.io.File
 

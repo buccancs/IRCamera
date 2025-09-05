@@ -7,7 +7,7 @@ import com.blankj.utilcode.util.BarUtils
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.ui.dialog.MonitorSelectDialog
-import com.topdon.module.thermal.ir.thermal.R
+import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.thermal.fragment.event.ThermalActionEvent
 import kotlinx.android.synthetic.main.activity_monitor.*
 import org.greenrobot.eventbus.EventBus

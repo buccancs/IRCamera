@@ -66,7 +66,7 @@ class GalleryViewModel : BaseViewModel() {
 
     private fun getVideoList(): Flow<ArrayList<String>> {
         val flow = flow {
-            val path = galleryPath
+            val path = com.topdon.lib.core.config.FileConfig.galleryPath
             val file = File(path)
             if (file.isDirectory) {
                 val list = arrayListOf<String>()

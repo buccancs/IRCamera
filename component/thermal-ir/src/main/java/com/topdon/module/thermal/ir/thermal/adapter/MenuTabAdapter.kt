@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.topdon.module.thermal.ir.thermal.R
+import com.topdon.module.thermal.ir.R
 import kotlinx.android.synthetic.main.item_menu_tab_more_view.view.*
 import kotlinx.android.synthetic.main.item_menu_tab_view.view.*
 

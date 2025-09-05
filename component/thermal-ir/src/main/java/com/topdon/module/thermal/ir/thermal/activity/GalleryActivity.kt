@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
-import com.topdon.module.thermal.ir.thermal.R
+import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.thermal.fragment.GalleryPictureFragment
 import com.topdon.module.thermal.ir.thermal.fragment.GalleryVideoFragment
 import kotlinx.android.synthetic.main.activity_gallery.*

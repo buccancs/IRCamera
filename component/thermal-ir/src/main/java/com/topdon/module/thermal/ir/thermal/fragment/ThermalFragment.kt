@@ -19,17 +19,17 @@ import com.blankj.utilcode.util.ScreenUtils
 import com.guide.zm04c.matrix.GuideInterface
 import com.guide.zm04c.matrix.IrSurfaceView
 import com.tbruyelle.rxpermissions2.RxPermissions
-import com.topdon.lib.core.bean.tools.ScreenBean
+import com.topdon.lib.app.utils.ScreenBean
 import com.topdon.lib.core.config.FileConfig.galleryPath
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.utils.ByteUtils.getIndex
-import com.topdon.lib.core.utils.ScreenShotUtils
+import com.topdon.lib.app.utils.ScreenShotUtils
 import com.topdon.lib.ui.dialog.SeekDialog
 import com.topdon.lib.ui.dialog.ThermalInputDialog
 import com.topdon.lib.ui.fence.FenceLineView
 import com.topdon.lib.ui.fence.FencePointView
 import com.topdon.lib.ui.fence.FenceView
-import com.topdon.module.thermal.ir.thermal.R
+import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.thermal.base.BaseThermalFragment
 import com.topdon.module.thermal.ir.thermal.fragment.event.ThermalActionEvent
 import com.topdon.module.thermal.ir.thermal.tools.Fence
@@ -575,8 +575,8 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
     }
 
     private fun picture() {
-//        ScreenShotUtils.shotScreen(requireContext(), temp_display_lay, 1, ScreenBean())
-        ScreenShotUtils.shotScreenBitmap(requireContext(), mIrBitmap, 1, ScreenBean())
+//        com.topdon.lib.app.utils.ScreenShotUtils.shotScreen(requireContext(), temp_display_lay, 1, com.topdon.lib.app.utils.ScreenBean())
+        com.topdon.lib.app.utils.ScreenShotUtils.shotScreenBitmap(requireContext(), mIrBitmap, 1, com.topdon.lib.app.utils.ScreenBean())
     }
 
     var isVideoRunning = false
@@ -586,7 +586,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
             Log.w("123", "正在录制")
             return
         }
-        val latestResultPath = "${galleryPath}YapBitmapToMp4_${System.currentTimeMillis()}.mp4"
+        val latestResultPath = "${com.topdon.lib.core.config.FileConfig.galleryPath}YapBitmapToMp4_${System.currentTimeMillis()}.mp4"
         Log.w("123", "latestResultPath:$latestResultPath")
         YapVideoEncoder(this, File(latestResultPath)).start()
     }
@@ -603,7 +603,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
     private fun enhance() {
         mIrSurfaceView!!.setOpenLut()
         val saturation = mIrSurfaceView?.getSaturationValue() ?: 0
-        SeekDialog.Builder(requireContext())
+        com.topdon.lib.ui.dialog.SeekDialog.Builder(requireContext())
             .setMessage(R.string.thermal_enhance)
             .setSaturation(saturation)
             .setPositiveListener(R.string.app_confirm) {
