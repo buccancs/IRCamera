@@ -543,4 +543,18 @@ object SharedManager {
         get() = com.topdon.lib.core.repository.FreeSpaceBean() // Return empty bean for TC001
         set(value) = Unit // No-op for TC001
 
+    /**
+     * Selected fence type for thermal analysis.
+     */
+    var selectFenceType: Int
+        get() = SPUtils.getInstance().getInt("selectFenceType", 1)
+        set(value) = SPUtils.getInstance().put("selectFenceType", value)
+
+    /**
+     * Get time zone for thermal data display.
+     */
+    fun getShowZone(): String {
+        return SPUtils.getInstance().getString("showZone", "GMT")
+    }
+
 }

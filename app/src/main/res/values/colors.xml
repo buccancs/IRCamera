@@ -4,4 +4,11 @@
     <color name="white">#FFFFFFFF</color>
     <color name="color_CCFFFFFF">#CCFFFFFF</color>
     <color name="c_bg_white">#FF16131E</color>
+    
+    <!-- LMS SDK colors -->
+    <color name="lms_color_333">#333333</color>
+    
+    <!-- Missing thermal colors -->
+    <color name="temp_font_title_item_color">#FFFFFF</color>
+    <color name="ir_bg_color">#000000</color>
 </resources>

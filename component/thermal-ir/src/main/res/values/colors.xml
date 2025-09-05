@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="temp_font_color">#ffffff</color>
-    <color name="temp_font_second_color">#ffffff</color>
-    <color name="temp_font_second_item_color">#96ffffff</color>
-    <color name="temp_font_title_item_color">#7Dffffff</color>
-    <color name="temp_bg_line_color">#5B5961</color>
-    <color name="font_four_unit_color">#EEEEEE</color>
-    <color name="ir_bg_color">#FF16131E</color>
+    <!-- Fallback colors for thermal module -->
+    <color name="font_gray">#808080</color>
+    <color name="backgroundColor">#FFFFFF</color>
+    <color name="blackColor">#000000</color>
+    
+    <!-- Thermal temperature font colors -->
+    <color name="temp_font_color">#FFFFFF</color>
+    <color name="temp_font_second_color">#CCCCCC</color>
+    <color name="temp_font_title_item_color">#FFFFFF</color>
+    <color name="ir_bg_color">#000000</color>
+    
+    <!-- LMS SDK fallback colors -->
+    <color name="lms_red">#FF0000</color>
 </resources>

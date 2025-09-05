@@ -122,12 +122,56 @@
         <activity
             android:name=".activity.MonitoryHomeActivity"
             android:screenOrientation="userPortrait" />
-        <activity
-            android:name=".activity.ReportPreviewActivity"
-            android:screenOrientation="userPortrait" />
+
         <activity android:name=".activity.ImagePickIRPlushActivity"
             android:screenOrientation="userPortrait" />
         <activity android:name=".activity.ImagePickIRActivity"
+            android:screenOrientation="userPortrait" />
+
+        <!-- Thermal Activities -->
+        <activity
+            android:name=".thermal.activity.ThermalActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".thermal.activity.MonitorActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".thermal.activity.ConnectActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".thermal.activity.GalleryActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".thermal.activity.VideoActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".thermal.activity.temp.ChartActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".thermal.activity.MonitorChartActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".thermal.activity.LogMPChartActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".thermal.activity.temp.LogChartActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".thermal.activity.temp.LogSingleChartActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".thermal.activity.temp.MonitorLogActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="userPortrait" />
     </application>
 
