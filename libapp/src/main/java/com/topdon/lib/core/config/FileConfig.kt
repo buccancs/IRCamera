@@ -198,6 +198,29 @@ object FileConfig {
 
 
     /**
+     * Default gallery path for thermal images
+     */
+    @JvmStatic
+    val galleryPath: String
+        get() = lineGalleryDir
+
+    /**
+     * Thermal gallery directory 
+     */
+    @JvmStatic
+    val thermalGalleryDir: String
+        get() {
+            val dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
+            val path = dir + File.separator + "Thermal"
+            val file = File(path)
+            if (!file.exists()) {
+                file.mkdirs()
+            }
+            return path
+        }
+
+
+    /**
      * 外部存储/Documents/APP名称/house
      */
     @JvmStatic

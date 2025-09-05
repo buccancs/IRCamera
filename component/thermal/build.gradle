@@ -46,12 +46,31 @@ android {
 dependencies {
     // Core library dependencies
     implementation project(':libapp')
+    implementation project(':libcom')
+    implementation project(':libir')
+    implementation project(':libmenu')
     implementation project(':libui')
     implementation project(':libmatrix')
+    
+    // Component dependencies
+    implementation project(':component:pseudo')
     
     // ARouter
     kapt libs.arouter.compiler
     
+    // UI components and dialogs
+    api libs.lottie
+    
+    // Permissions
+    api libs.xxpermissions
+    
     // Video dependencies
     implementation 'com.google.android.mediahome:video:1.0.0'
+    
+    // Image picking - use available version
+    api 'com.github.LuckSiege.PictureSelector:picture_library:v2.6.0'
+    
+    // Glide for image loading
+    implementation libs.glide
+    kapt libs.glide.compiler
 }
