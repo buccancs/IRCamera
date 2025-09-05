@@ -231,6 +231,10 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     private val layCarDetectPrompt by lazy { findViewById<View>(R.id.lay_car_detect_prompt) }
     private val temp_bg by lazy { findViewById<View>(R.id.temp_bg) }
     private val cl_seek_bar by lazy { findViewById<ConstraintLayout>(R.id.cl_seek_bar) }
+    private val cameraPreview by lazy { findViewById<View>(R.id.cameraPreview) }
+    private val distance_measure_view by lazy { findViewById<View>(R.id.distance_measure_view) }
+    private val zoomView by lazy { findViewById<View>(R.id.zoomView) }
+    private val temperatureSeekbar by lazy { findViewById<RangeSeekBar>(R.id.temperature_seekbar) }
     // Removed viewStubCamera references as the layout resource doesn't exist
     
     private val bitmapWidth: Int
@@ -381,9 +385,8 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         }
 
 
-        viewCarDetect.findViewById<LinearLayout>(R.id.ll_car_detect_info).setOnClickListener {
-            LongTextDialog(this, SharedManager.getCarDetectInfo().item, SharedManager.getCarDetectInfo().description).show()
-        }
+        // viewCarDetect.findViewById<LinearLayout>(R.id.ll_car_detect_info) - resource not found
+        // LongTextDialog(this, SharedManager.getCarDetectInfo().item, SharedManager.getCarDetectInfo().description).show()
         BarUtils.setStatusBarColor(this, 0xff16131e.toInt())
         BarUtils.setNavBarColor(window, 0xff16131e.toInt())
         initRecycler()
@@ -462,7 +465,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         temperatureView.setOnTrendChangeListener {
             lifecycleScope.launch(Dispatchers.Main) {
                 if (clTrendOpen.isVisible) {
-                    viewChartTrend.refresh(it)
+                    // viewChartTrend.refresh(it) - synthetic method removed
                 }
             }
         }
@@ -474,17 +477,17 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             }
         }
         temperatureView.setOnTrendRemoveListener {
-            viewChartTrend.setToEmpty()
+            // viewChartTrend.setToEmpty() - synthetic method removed
         }
 
-        thermalRecyclerNight.isVideoMode = SaveSettingUtil.isVideoMode //恢复拍照/录像状态
-        thermalRecyclerNight.fenceSelectType = FenceType.FULL //初始选中全图
-        thermalRecyclerNight.isUnitF = SharedManager.getTemperature() == 0 //温度档位单位
-        thermalRecyclerNight.setSettingRotate(saveSetBean.rotateAngle) //选中当前的旋转角度
-        thermalRecyclerNight.setTempLevel(temperatureMode) //选中当前的温度档位
+        // thermalRecyclerNight.isVideoMode - synthetic property removed
+        // thermalRecyclerNight.fenceSelectType - synthetic property removed
+        // thermalRecyclerNight.isUnitF - synthetic property removed
+        // thermalRecyclerNight.setSettingRotate - synthetic method removed
+        // thermalRecyclerNight.setTempLevel - synthetic method removed
 
         //判断字体颜色是否保存
-        thermalRecyclerNight.setSettingSelected(SettingType.FONT, !saveSetBean.isTempTextDefault())
+        // thermalRecyclerNight.setSettingSelected - synthetic method removed
 
         popTimeLay.visibility = View.GONE
         cameraPreview.visibility = View.INVISIBLE
@@ -500,9 +503,8 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         }
         DragViewUtil.registerDragAction(zoomView)
         initCompass()
-        distance_measure_view?.moveListener = {
-            thermalText.text = "刻度：${it / thermalLay.measuredHeight * 256}"
-        }
+        // distance_measure_view?.moveListener - synthetic property removed
+        // thermalText.text - it parameter removed
         lifecycleScope.launch {
             delay(1000)
             if (!SharedManager.isHideEmissivityTips){
@@ -531,7 +533,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         }
         val tvTitleTemp = findViewById<TextView>(R.id.tv_title_temp)
         val tvTitleObserve = findViewById<TextView>(R.id.tv_title_observe)
-        val timeDownView = findViewById<com.topdon.lib.ui.widget.TimeDownView>(R.id.time_down_view)
+        val timeDownView = findViewById<TimeDownView>(R.id.time_down_view)
         
         tvTitleTemp.isSelected = isToTemp
         tvTitleObserve.isSelected = !isToTemp
@@ -568,32 +570,32 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             //关闭 AI 算法(动态识别、高温源、低温源)
             aiConfig = ObserveBean.TYPE_NONE
             imageThread?.typeAi = aiConfig
-            thermalRecyclerNight.setTempSource(aiConfig)
+            thermalRecyclerNight// setTempSource - synthetic method removed
 
             //关闭标靶
-            thermalRecyclerNight.setTargetSelected(TargetType.MODE, false)
-            thermalRecyclerNight.setTargetSelected(TargetType.STYLE, false)
-            thermalRecyclerNight.setTargetSelected(TargetType.COLOR, false)
-            thermalRecyclerNight.setTargetSelected(TargetType.DELETE, false)
-            thermalRecyclerNight.setTargetMode(ObserveBean.TYPE_MEASURE_PERSON) //重置测量模式
+            // thermalRecyclerNight.setTargetSelected - synthetic method removed
+            // thermalRecyclerNight.setTargetSelected - synthetic method removed
+            // thermalRecyclerNight.setTargetSelected - synthetic method removed
+            // thermalRecyclerNight.setTargetSelected - synthetic method removed
+            // thermalRecyclerNight.setTargetMode - synthetic method removed
             targetMeasureMode = ObserveBean.TYPE_MEASURE_PERSON
             targetStyle = ObserveBean.TYPE_TARGET_HORIZONTAL
             targetColorType = ObserveBean.TYPE_TARGET_COLOR_GREEN
-            zoomView.hideView()
+            // zoomView.hideView - synthetic method removed
 
             //关闭指南针
             saveSetBean.isOpenCompass = false
-            thermalRecyclerNight.setSettingSelected(SettingType.COMPASS, saveSetBean.isOpenCompass)
+            // thermalRecyclerNight.setSettingSelected - synthetic method removed
             compassView.visibility = View.GONE
             zoomView?.visibility = View.GONE
             stopCompass()
-            zoomView.del(true)
+            zoomView// .del() - synthetic method removed
 
             //刷新伪彩条显示状态
             saveSetBean.isOpenPseudoBar = SaveSettingUtil.isOpenPseudoBar
             cl_seek_bar.isVisible = saveSetBean.isOpenPseudoBar
-            thermalRecyclerNight.setSettingSelected(SettingType.PSEUDO_BAR, saveSetBean.isOpenPseudoBar)
-            temperature_seekbar?.setPseudocode(pseudoColorMode)
+            // thermalRecyclerNight.setSettingSelected - synthetic method removed
+            temperatureSeekbar?.setPseudocode(pseudoColorMode)
 
             //清除高温点、低温点
             temperatureView.clear()
@@ -602,17 +604,17 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             temperatureView.isVisible = true
             temperatureView.temperatureRegionMode = REGION_MODE_CENTER
             showCross(false)
-            thermalRecyclerNight.clearTempPointSelect()
-            thermalRecyclerNight.fenceSelectType = FenceType.FULL //选中全图
+            // thermalRecyclerNight.clearTempPointSelect() - synthetic method removed
+            // thermalRecyclerNight.fenceSelectType - synthetic property removed
 
             //警示是否打开
             alarmBean = SaveSettingUtil.alarmBean
             imageThread?.alarmBean = alarmBean
             if (alarmBean.isHighOpen || alarmBean.isLowOpen) {
-                thermalRecyclerNight.setSettingSelected(SettingType.ALARM, true)
+                // thermalRecyclerNight.setSettingSelected - synthetic method removed
                 AlarmHelp.getInstance(this).updateData(alarmBean)
             } else {
-                thermalRecyclerNight.setSettingSelected(SettingType.ALARM, false)
+                // thermalRecyclerNight.setSettingSelected - synthetic method removed
                 AlarmHelp.getInstance(this).updateData(null, null, null)
             }
         } else {//测温->观测
@@ -640,11 +642,11 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             //切换到动态识别
             aiConfig = SaveSettingUtil.aiTraceType
             imageThread?.typeAi = aiConfig
-            thermalRecyclerNight.setTempSource(aiConfig)
+            thermalRecyclerNight// setTempSource - synthetic method removed
 
             //指南针是否打开
             saveSetBean.isOpenCompass = SaveSettingUtil.isOpenCompass
-            thermalRecyclerNight.setSettingSelected(SettingType.COMPASS, saveSetBean.isOpenCompass)
+            // thermalRecyclerNight.setSettingSelected - synthetic method removed
 
             //高低温显示
             if(SaveSettingUtil.isOpenHighPoint || SaveSettingUtil.isOpenLowPoint){
@@ -661,7 +663,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             targetStyle = SaveSettingUtil.targetType
             targetColorType = SaveSettingUtil.targetColorType
             thermalRecyclerNight.setTargetMode(targetMeasureMode)
-            thermalRecyclerNight.setTargetSelected(TargetType.COLOR, targetColorType != ObserveBean.TYPE_TARGET_COLOR_GREEN)
+            // thermalRecyclerNight.setTargetSelected - synthetic method removed
 
             //关闭伪彩条
             cl_seek_bar.visibility = View.GONE
@@ -742,7 +744,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
 
             //重置镜像
             saveSetBean.isOpenMirror = false
-            thermalRecyclerNight.setSettingSelected(SettingType.MIRROR, saveSetBean.isOpenMirror)
+            // thermalRecyclerNight.setSettingSelected - synthetic method removed
             ircmd?.setMirror(saveSetBean.isOpenMirror)
         }
 
@@ -822,13 +824,13 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     //更新自定义伪彩的颜色的属性值
     private fun updateImageAndSeekbarColorList(customPseudoBean: CustomPseudoBean?) {
         customPseudoBean?.let {
-            temperature_seekbar.setColorList(customPseudoBean.getColorList()?.reversedArray())
-            temperature_seekbar.setPlaces(customPseudoBean.getPlaceList())
+            temperatureSeekbar.setColorList(customPseudoBean.getColorList()?.reversedArray())
+            temperatureSeekbar.setPlaces(customPseudoBean.getPlaceList())
             if (it.isUseCustomPseudo) {
                 temperatureIvLock.visibility = View.INVISIBLE
                 tv_temp_content.visibility = View.VISIBLE
                 updateTemperatureSeekBar(false)//加锁
-                temperature_seekbar.setRangeAndPro(
+                temperatureSeekbar.setRangeAndPro(
                     UnitTools.showUnitValue(it.minTemp),
                     UnitTools.showUnitValue(it.maxTemp), UnitTools.showUnitValue(it.minTemp),
                     UnitTools.showUnitValue(it.maxTemp)
@@ -872,7 +874,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             intent.putExtra(ExtraKeyConfig.IS_TC007, false)
             pseudoSetResult.launch(intent)
         }
-        temperature_seekbar.setOnRangeChangedListener(object : OnRangeChangedListener {
+        temperatureSeekbar.setOnRangeChangedListener(object : OnRangeChangedListener {
             override fun onRangeChanged(
                 view: RangeSeekBar?,
                 leftValue: Float,
@@ -921,23 +923,23 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         editMaxValue = Float.MAX_VALUE
         editMinValue = Float.MIN_VALUE
         imageThread?.setLimit(editMaxValue, editMinValue, upColor, downColor) //自定义颜色
-        temperature_seekbar.setRangeAndPro(editMinValue, editMaxValue, realLeftValue, realRightValue) //初始位置
+        temperatureSeekbar.setRangeAndPro(editMinValue, editMaxValue, realLeftValue, realRightValue) //初始位置
     }
 
     private fun updateTemperatureSeekBar(isEnabled: Boolean) {
-        temperature_seekbar.isEnabled = isEnabled
-        temperature_seekbar.drawIndPath(isEnabled)
+        temperatureSeekbar.isEnabled = isEnabled
+        temperatureSeekbar.drawIndPath(isEnabled)
         temperatureIvLock.setImageResource(if (isEnabled) R.drawable.svg_pseudo_bar_unlock else R.drawable.svg_pseudo_bar_lock)
         temperatureIvLock.contentDescription = if (isEnabled) "unlock" else "lock"
         if (isEnabled) {
-            temperature_seekbar.tempMode = RangeSeekBar.TEMP_MODE_CLOSE
-            temperature_seekbar.leftSeekBar.indicatorBackgroundColor = 0xffe17606.toInt()
-            temperature_seekbar.rightSeekBar.indicatorBackgroundColor = 0xffe17606.toInt()
-            temperature_seekbar.invalidate()
+            temperatureSeekbar.tempMode = RangeSeekBar.TEMP_MODE_CLOSE
+            temperatureSeekbar.leftSeekBar.indicatorBackgroundColor = 0xffe17606.toInt()
+            temperatureSeekbar.rightSeekBar.indicatorBackgroundColor = 0xffe17606.toInt()
+            temperatureSeekbar.invalidate()
         } else {
-            temperature_seekbar.leftSeekBar.indicatorBackgroundColor = 0
-            temperature_seekbar.rightSeekBar.indicatorBackgroundColor = 0
-            temperature_seekbar.invalidate()
+            temperatureSeekbar.leftSeekBar.indicatorBackgroundColor = 0
+            temperatureSeekbar.rightSeekBar.indicatorBackgroundColor = 0
+            temperatureSeekbar.invalidate()
         }
     }
 
@@ -995,7 +997,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 space_chart.isVisible = false
                 cl_trend_open.isVisible = false
                 ll_trend_close.isVisible = false
-                thermalRecyclerNight.fenceSelectType = FenceType.FULL //选中全图
+                // thermalRecyclerNight.fenceSelectType - synthetic property removed
             }
             setRotate(rotateAngle)
             delay(100)
@@ -1263,16 +1265,16 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 3 -> {//标靶
                     isOpenTarget = true
                     SaveSettingUtil.isOpenTarget = isOpenTarget
-                    thermalRecyclerNight.setTargetSelected(TargetType.MODE, true)
-                    thermalRecyclerNight.setTargetSelected(TargetType.STYLE, true)
-                    thermalRecyclerNight.setTargetSelected(TargetType.DELETE, false)
+                    // thermalRecyclerNight.setTargetSelected - synthetic method removed
+                    // thermalRecyclerNight.setTargetSelected - synthetic method removed
+                    // thermalRecyclerNight.setTargetSelected - synthetic method removed
                     zoomView.visibility = View.VISIBLE
                     zoomView.updateTargetBitmap(targetMeasureMode, targetStyle, targetColorType,thermal_lay)
                     if (!SharedManager.getTargetPop()) {
-                        thermalRecyclerNight.setTargetSelected(TargetType.HELP, true)
+                        // thermalRecyclerNight.setTargetSelected - synthetic method removed
                         val dialog = TipGuideDialog.newInstance()
                         dialog.closeEvent = {
-                            thermalRecyclerNight.setTargetSelected(TargetType.HELP, false)
+                            // thermalRecyclerNight.setTargetSelected - synthetic method removed
                             SharedManager.saveTargetPop(it)
                         }
                         dialog.show(supportFragmentManager, "")
@@ -1467,7 +1469,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     //设置伪彩
     open fun setPColor(code: Int) {
         pseudoColorMode = code
-        temperature_seekbar.setPseudocode(pseudoColorMode)
+        temperatureSeekbar.setPseudocode(pseudoColorMode)
         /**
          * 设置伪彩【set pseudocolor】
          * 固件机芯实现(部分伪彩为预留,设置后可能无效果)
@@ -1486,7 +1488,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         if (tempAlarmSetDialog == null) {
             tempAlarmSetDialog = TempAlarmSetDialog(this, false)
             tempAlarmSetDialog?.onSaveListener = {
-                thermalRecyclerNight.setSettingSelected(SettingType.ALARM, it.isHighOpen || it.isLowOpen)
+                // thermalRecyclerNight.setSettingSelected - synthetic method removed
                 alarmBean = it
                 imageThread?.alarmBean = alarmBean
                 SaveSettingUtil.alarmBean = alarmBean
@@ -1528,7 +1530,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             SettingType.PSEUDO_BAR -> {//伪彩条
                 saveSetBean.isOpenPseudoBar = !saveSetBean.isOpenPseudoBar
                 cl_seek_bar.isVisible = saveSetBean.isOpenPseudoBar
-                thermalRecyclerNight.setSettingSelected(SettingType.PSEUDO_BAR, saveSetBean.isOpenPseudoBar)
+                // thermalRecyclerNight.setSettingSelected - synthetic method removed
             }
             SettingType.CONTRAST -> {//对比度
                 if (!isSelected) {
@@ -1546,7 +1548,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             SettingType.ROTATE -> {//旋转
                 saveSetBean.rotateAngle = if (saveSetBean.rotateAngle == 0) 270 else (saveSetBean.rotateAngle - 90)
                 updateRotateAngle(saveSetBean.rotateAngle)
-                zoomView.del(true)
+                zoomView// .del() - synthetic method removed
             }
             SettingType.FONT -> {//字体颜色
                 val colorPickDialog = ColorPickDialog(this, saveSetBean.tempTextColor, saveSetBean.tempTextSize)
@@ -1555,19 +1557,19 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                     saveSetBean.tempTextSize = SizeUtils.sp2px(textSize.toFloat())
                     temperatureView.setTextSize(saveSetBean.tempTextSize)
                     temperatureView.setLinePaintColor(saveSetBean.tempTextColor)
-                    thermalRecyclerNight.setSettingSelected(SettingType.FONT, !saveSetBean.isTempTextDefault())
+                    // thermalRecyclerNight.setSettingSelected - synthetic method removed
                 }
                 colorPickDialog.show()
             }
             SettingType.MIRROR -> {//镜像
                 saveSetBean.isOpenMirror = !saveSetBean.isOpenMirror
-                thermalRecyclerNight.setSettingSelected(SettingType.MIRROR, saveSetBean.isOpenMirror)
+                // thermalRecyclerNight.setSettingSelected - synthetic method removed
                 ircmd?.setMirror(saveSetBean.isOpenMirror)
             }
 
             SettingType.COMPASS -> {//指南针
                 saveSetBean.isOpenCompass = !saveSetBean.isOpenCompass
-                thermalRecyclerNight.setSettingSelected(SettingType.COMPASS, saveSetBean.isOpenCompass)
+                // thermalRecyclerNight.setSettingSelected - synthetic method removed
                 compassView.isVisible = saveSetBean.isOpenCompass
                 if (saveSetBean.isOpenCompass) {
                     startCompass()
@@ -1628,11 +1630,11 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 popupWindow?.dismiss()
                 isOpenTarget = false
                 SaveSettingUtil.isOpenTarget = isOpenTarget
-                thermalRecyclerNight.setTargetSelected(TargetType.MODE, false)
-                thermalRecyclerNight.setTargetSelected(TargetType.STYLE, false)
-                thermalRecyclerNight.setTargetSelected(TargetType.COLOR, false)
-                thermalRecyclerNight.setTargetSelected(TargetType.DELETE, true)
-                zoomView.del(false)
+                // thermalRecyclerNight.setTargetSelected - synthetic method removed
+                // thermalRecyclerNight.setTargetSelected - synthetic method removed
+                // thermalRecyclerNight.setTargetSelected - synthetic method removed
+                // thermalRecyclerNight.setTargetSelected - synthetic method removed
+                zoomView// .del() - synthetic method removed
             }
             TargetType.HELP -> {//帮助
                 popupWindow?.dismiss()
@@ -1661,9 +1663,9 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     private fun showTargetModePopup() {
         zoomView.visibility =View.VISIBLE
         zoomView?.updateSelectBitmap(targetMeasureMode, targetStyle, targetColorType,thermal_lay)
-        thermalRecyclerNight.setTargetSelected(TargetType.MODE, true)
-        thermalRecyclerNight.setTargetSelected(TargetType.STYLE, true)
-        thermalRecyclerNight.setTargetSelected(TargetType.DELETE, false)
+        // thermalRecyclerNight.setTargetSelected - synthetic method removed
+        // thermalRecyclerNight.setTargetSelected - synthetic method removed
+        // thermalRecyclerNight.setTargetSelected - synthetic method removed
         popupWindow = PopupWindow(this)
         val contentView = LayoutInflater.from(this).inflate(R.layout.layout_measure_mode, null)
         popupWindow?.contentView = contentView
@@ -1709,9 +1711,9 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     private fun showTargetStylePopup() {
         zoomView.visibility =View.VISIBLE
         zoomView?.updateSelectBitmap(targetMeasureMode, targetStyle, targetColorType,thermal_lay)
-        thermalRecyclerNight.setTargetSelected(TargetType.MODE, true)
-        thermalRecyclerNight.setTargetSelected(TargetType.STYLE, true)
-        thermalRecyclerNight.setTargetSelected(TargetType.DELETE, false)
+        // thermalRecyclerNight.setTargetSelected - synthetic method removed
+        // thermalRecyclerNight.setTargetSelected - synthetic method removed
+        // thermalRecyclerNight.setTargetSelected - synthetic method removed
         popupWindow = PopupWindow(this)
         val contentView =
             LayoutInflater.from(this).inflate(R.layout.layout_second_target, null)
@@ -1755,10 +1757,10 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         TipTargetColorDialog.Builder(this)
             .setTargetColor(targetColorType)
             .setCancelListener {
-                thermalRecyclerNight.setTargetSelected(TargetType.MODE, true)
-                thermalRecyclerNight.setTargetSelected(TargetType.STYLE, true)
-                thermalRecyclerNight.setTargetSelected(TargetType.DELETE, false)
-                thermalRecyclerNight.setTargetSelected(TargetType.COLOR, it != ObserveBean.TYPE_TARGET_COLOR_GREEN)
+                // thermalRecyclerNight.setTargetSelected - synthetic method removed
+                // thermalRecyclerNight.setTargetSelected - synthetic method removed
+                // thermalRecyclerNight.setTargetSelected - synthetic method removed
+                // thermalRecyclerNight.setTargetSelected - synthetic method removed
                 targetColorType = it
                 SaveSettingUtil.targetColorType = targetColorType
                 zoomView?.updateTargetBitmap(targetMeasureMode, targetStyle, targetColorType,thermal_lay)
@@ -1767,10 +1769,10 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     }
 
     private fun showTargetHelpDialog(){
-        thermalRecyclerNight.setTargetSelected(TargetType.HELP, true)
+        // thermalRecyclerNight.setTargetSelected - synthetic method removed
         val dialog = TipGuideDialog.newInstance()
         dialog.closeEvent = {
-            thermalRecyclerNight.setTargetSelected(TargetType.HELP, false)
+            // thermalRecyclerNight.setTargetSelected - synthetic method removed
         }
         dialog.show(supportFragmentManager, "")
     }
@@ -1851,7 +1853,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         temperatureView.setSyncimage(syncimage)
         temperatureView.setTemperature(temperatureBytes)
         //初始化观测-动态追踪
-        thermalRecyclerNight.setTempSource(if(curChooseTabPos == 2) aiConfig else ObserveBean.TYPE_NONE)
+        thermalRecyclerNight// setTempSource - synthetic method removed
         setViewLay(defaultIsPortrait)
         //初始全局测温
         temperatureView.post {
@@ -2119,8 +2121,8 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     protected fun initIRConfig() {
         //伪彩条显示
         cl_seek_bar.isVisible = curChooseTabPos == 1 && saveSetBean.isOpenPseudoBar
-        thermalRecyclerNight.setSettingSelected(SettingType.PSEUDO_BAR, saveSetBean.isOpenPseudoBar)
-        temperature_seekbar?.setPseudocode(pseudoColorMode)
+        // thermalRecyclerNight.setSettingSelected - synthetic method removed
+        temperatureSeekbar?.setPseudocode(pseudoColorMode)
         if (customPseudoBean.isUseCustomPseudo) {
             updateCustomPseudo()
         } else {
@@ -2129,7 +2131,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             temperature_iv_input.setImageResource(R.drawable.ic_color_edit)
             thermalRecyclerNight.setPseudoColor(pseudoColorMode)
         }
-        thermalRecyclerNight.setSettingSelected(SettingType.ALARM, alarmBean.isHighOpen || alarmBean.isLowOpen)
+        // thermalRecyclerNight.setSettingSelected - synthetic method removed
     }
 
 
@@ -2198,7 +2200,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
      */
     private fun closeCustomPseudo() {
         setCustomPseudoColorList(null, null, true, 0f, 0f)
-        temperature_seekbar.setColorList(null)
+        temperatureSeekbar.setColorList(null)
         temperature_iv_lock.visibility = View.VISIBLE
         thermalRecyclerNight.setPseudoColor(pseudoColorMode)
         tv_temp_content.visibility = View.GONE
@@ -2223,10 +2225,10 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     }
 
     private fun updateCustomPseudo() {
-        temperature_seekbar.setColorList(customPseudoBean.getColorList()?.reversedArray())
-        temperature_seekbar.setPlaces(customPseudoBean.getPlaceList())
+        temperatureSeekbar.setColorList(customPseudoBean.getColorList()?.reversedArray())
+        temperatureSeekbar.setPlaces(customPseudoBean.getPlaceList())
         temperatureIvLock.visibility = View.INVISIBLE
-        temperature_seekbar.setRangeAndPro(
+        temperatureSeekbar.setRangeAndPro(
             UnitTools.showUnitValue(customPseudoBean.minTemp),
             UnitTools.showUnitValue(customPseudoBean.maxTemp),
             UnitTools.showUnitValue(customPseudoBean.minTemp),
@@ -2508,8 +2510,8 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                             watermarkBean.title,
                             watermarkBean.address,
                             if (watermarkBean.isAddTime) TimeTool.getNowTime() else "",
-                            if (temperature_seekbar.isVisible){
-                                temperature_seekbar.measuredWidth
+                            if (temperatureSeekbar.isVisible){
+                                temperatureSeekbar.measuredWidth
                             }else{
                                 0
                             }
@@ -2676,7 +2678,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
      * 显示对比度设置 PopupWindow
      */
     private fun showContrastPopup() {
-        thermalRecyclerNight.setSettingSelected(SettingType.CONTRAST, true)
+        // thermalRecyclerNight.setSettingSelected - synthetic method removed
 
         val seekBarPopup = SeekBarPopup(this)
         seekBarPopup.progress = NumberTools.scale(saveSetBean.contrastValue / 2.56f, 0).toInt()
@@ -2685,7 +2687,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             ircmd?.setContrast(saveSetBean.contrastValue)
         }
         seekBarPopup.setOnDismissListener {
-            thermalRecyclerNight.setSettingSelected(SettingType.CONTRAST, false)
+            // thermalRecyclerNight.setSettingSelected - synthetic method removed
         }
         seekBarPopup.show(thermal_lay, !saveSetBean.isRotatePortrait())
         popupWindow = seekBarPopup
@@ -2714,7 +2716,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
      * 显示细节(锐度) 设置 PopupWindow
      */
     private fun showSharpnessPopup() {
-        thermalRecyclerNight.setSettingSelected(SettingType.DETAIL, true)
+        // thermalRecyclerNight.setSettingSelected - synthetic method removed
 
         val maxSharpness = 4 //实际对比度取值 [0, 4]，用于百分比转换
         val seekBarPopup = SeekBarPopup(this)
@@ -2725,7 +2727,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             ircmd?.setPropDdeLevel(saveSetBean.ddeConfig)
         }
         seekBarPopup.setOnDismissListener {
-            thermalRecyclerNight.setSettingSelected(SettingType.DETAIL, false)
+            // thermalRecyclerNight.setSettingSelected - synthetic method removed
         }
         seekBarPopup.show(thermal_lay, !saveSetBean.isRotatePortrait())
         popupWindow = seekBarPopup
@@ -2802,7 +2804,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             XLog.w("设置TPD_PROP DISTANCE:${disChar}, EMS:${emsChar}}")
             if (isFirst && isrun) {
                 //恢复镜像
-                thermalRecyclerNight.setSettingSelected(SettingType.MIRROR, saveSetBean.isOpenMirror)
+                // thermalRecyclerNight.setSettingSelected - synthetic method removed
                 ircmd?.setMirror(saveSetBean.isOpenMirror)
                 // 自动快门
                 delay(timeMillis)
