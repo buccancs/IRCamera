@@ -42,17 +42,18 @@ abstract class IRCMD {
     open fun restoreDefaultConfig() {}
     open fun rmCoverStsSwitch(enable: Boolean) {}
     open fun rmCoverAutoCalc() {}
-    open fun getPropTPDParams(): Any = Any()
+    open fun getPropTPDParams(param: Any, value: Any): Int = 0
+    open fun getDeviceInfo(infoType: Any, buffer: ByteArray): Int = 0
     open fun oemRead(cmd: Any): Any = Any()
     open fun getPropImageParams(): Any = Any()
     open fun setAlignTranslateParameter(param: Any) {}
     open fun setIsothermal(value: Any) {}
     open fun setTempL(temp: Any) {}
     open fun setTempH(temp: Any) {}
-    open fun zoomCenterUp() {}
-    open fun zoomCenterDown() {}
-    open fun zoomCenterLeft() {}
-    open fun zoomCenterRight() {}
+    open fun zoomCenterUp(channel: Any = Any(), step: Any = Any()) {}
+    open fun zoomCenterDown(channel: Any = Any(), step: Any = Any()) {}
+    open fun zoomCenterLeft(channel: Any = Any(), step: Any = Any()) {}
+    open fun zoomCenterRight(channel: Any = Any(), step: Any = Any()) {}
     open fun autoGainSwitch(data: ByteArray, imageRes: Any, info: Any, param: Any, callback: Any) {}
     open fun avoidOverexposure(
         flag: Boolean,
