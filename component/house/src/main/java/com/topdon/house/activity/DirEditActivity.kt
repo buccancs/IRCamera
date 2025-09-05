@@ -5,8 +5,11 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
@@ -49,35 +52,36 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
     override fun initContentView(): Int = R.layout.activity_dir_edit
 
     override fun initView() {
-        iv_copy.isEnabled = false
-        tv_copy.isEnabled = false
-        iv_del.isEnabled = false
-        tv_del.isEnabled = false
-        view_copy.isEnabled = false
-        view_del.isEnabled = false
+        findViewById<ImageView>(R.id.iv_copy).isEnabled = false
+        findViewById<TextView>(R.id.tv_copy).isEnabled = false
+        findViewById<ImageView>(R.id.iv_del).isEnabled = false
+        findViewById<TextView>(R.id.tv_del).isEnabled = false
+        findViewById<View>(R.id.view_copy).isEnabled = false
+        findViewById<View>(R.id.view_del).isEnabled = false
 
-        iv_exit.setOnClickListener(this)
-        iv_save.setOnClickListener(this)
-        view_select_all.setOnClickListener(this)
-        view_copy.setOnClickListener(this)
-        view_del.setOnClickListener(this)
-        tv_add.setOnClickListener(this)
+        findViewById<ImageView>(R.id.iv_exit).setOnClickListener(this)
+        findViewById<ImageView>(R.id.iv_save).setOnClickListener(this)
+        findViewById<View>(R.id.view_select_all).setOnClickListener(this)
+        findViewById<View>(R.id.view_copy).setOnClickListener(this)
+        findViewById<View>(R.id.view_del).setOnClickListener(this)
+        findViewById<TextView>(R.id.tv_add).setOnClickListener(this)
 
         adapter.onSelectChangeListener = {
-            iv_copy.isEnabled = it > 0
-            tv_copy.isEnabled = it > 0
-            iv_del.isEnabled = it > 0
-            tv_del.isEnabled = it > 0
-            view_copy.isEnabled = it > 0
-            view_del.isEnabled = it > 0
-            iv_select_all.isSelected = adapter.isSelectAll
-            tv_select_all.setText(if (adapter.isSelectAll) R.string.app_cancel_select_all else R.string.report_select_all)
-            tv_title.text = if (it > 0) getString(R.string.chosen_item, it) else getString(R.string.not_selected)
+            findViewById<ImageView>(R.id.iv_copy).isEnabled = it > 0
+            findViewById<TextView>(R.id.tv_copy).isEnabled = it > 0
+            findViewById<ImageView>(R.id.iv_del).isEnabled = it > 0
+            findViewById<TextView>(R.id.tv_del).isEnabled = it > 0
+            findViewById<View>(R.id.view_copy).isEnabled = it > 0
+            findViewById<View>(R.id.view_del).isEnabled = it > 0
+            findViewById<ImageView>(R.id.iv_select_all).isSelected = adapter.isSelectAll
+            findViewById<TextView>(R.id.tv_select_all).setText(if (adapter.isSelectAll) R.string.app_cancel_select_all else R.string.report_select_all)
+            findViewById<TextView>(R.id.tv_title).text = if (it > 0) getString(R.string.chosen_item, it) else getString(R.string.not_selected)
         }
-        recycler_view.setHasFixedSize(true)
-        recycler_view.layoutManager = LinearLayoutManager(this)
-        recycler_view.adapter = adapter
-        ItemTouchHelper(itemTouchCallback).attachToRecyclerView(recycler_view)
+        val recyclerView = findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recycler_view)
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
+        ItemTouchHelper(itemTouchCallback).attachToRecyclerView(recyclerView)
 
         viewModel.detectLD.observe(this) {
             if (it != null) {
@@ -99,8 +103,8 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            iv_exit -> showExitTipsDialog()
-            iv_save -> {//保存
+            findViewById<ImageView>(R.id.iv_exit) -> showExitTipsDialog()
+            findViewById<ImageView>(R.id.iv_save) -> {//保存
                 val houseDetect: HouseDetect = viewModel.detectLD.value ?: return
                 showLoadingDialog()
                 lifecycleScope.launch(Dispatchers.IO) {
@@ -114,14 +118,14 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
                     }
                 }
             }
-            view_select_all -> {//全选、取消全选
+            findViewById<View>(R.id.view_select_all) -> {//全选、取消全选
                 adapter.isSelectAll = !adapter.isSelectAll
             }
-            view_copy -> {//复制
+            findViewById<View>(R.id.view_copy) -> {//复制
                 adapter.copySelect()
                 TToast.shortToast(this@DirEditActivity, R.string.ts004_copy_success)
             }
-            view_del -> {//删除
+            findViewById<View>(R.id.view_del) -> {//删除
                 TipDialog.Builder(this)
                     .setTitleMessage(getString(R.string.tips_del_item_title))
                     .setMessage(R.string.tips_del_item_content)
@@ -129,17 +133,23 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
                     }
                     .setPositiveListener(R.string.report_delete) {
                         adapter.delSelect()
-                        recycler_view.isVisible = adapter.dataList.isNotEmpty()
-                        cl_bottom.isVisible = adapter.dataList.isNotEmpty()
-                        cl_empty.isVisible = adapter.dataList.isEmpty()
+                        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+                        val clBottom = findViewById<ConstraintLayout>(R.id.cl_bottom)
+                        val clEmpty = findViewById<ConstraintLayout>(R.id.cl_empty)
+                        recyclerView.isVisible = adapter.dataList.isNotEmpty()
+                        clBottom.isVisible = adapter.dataList.isNotEmpty()
+                        clEmpty.isVisible = adapter.dataList.isEmpty()
                         TToast.shortToast(this@DirEditActivity, R.string.test_results_delete_success)
                     }
                     .create().show()
             }
-            tv_add -> {//新增默认目录
-                recycler_view.isVisible = true
-                cl_bottom.isVisible = true
-                cl_empty.isVisible = false
+            findViewById<TextView>(R.id.tv_add) -> {//新增默认目录
+                val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+                val clBottom = findViewById<ConstraintLayout>(R.id.cl_bottom)
+                val clEmpty = findViewById<ConstraintLayout>(R.id.cl_empty)
+                recyclerView.isVisible = true
+                clBottom.isVisible = true
+                clEmpty.isVisible = false
                 val houseDetect: HouseDetect = viewModel.detectLD.value ?: return
                 val dirList: ArrayList<DirDetect> = DirDetect.buildDefaultDirList(parentId = houseDetect.id)
                 for (i in dirList.indices) {

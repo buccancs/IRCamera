@@ -465,10 +465,10 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
 
     private val fillColor by lazy { ContextCompat.getDrawable(this, R.drawable.bg_chart_fill2) }
     private val lineRed by lazy { ContextCompat.getColor(this, com.topdon.lib.core.R.color.chart_line_max) }
-    private val lineBlue by lazy { ContextCompat.getColor(this, R.color.chart_line_min) }
-    private val lineGreen by lazy { ContextCompat.getColor(this, R.color.chart_line_center) }
-    private val whiteColors by lazy { ContextCompat.getColor(this, R.color.circle_white) }
-    private val textColor by lazy { ContextCompat.getColor(this, R.color.chart_text) }
+    private val lineBlue by lazy { ContextCompat.getColor(this, com.topdon.lib.core.R.color.chart_line_min) }
+    private val lineGreen by lazy { ContextCompat.getColor(this, com.topdon.lib.core.R.color.chart_line_center) }
+    private val whiteColors by lazy { ContextCompat.getColor(this, com.topdon.lib.core.R.color.circle_white) }
+    private val textColor by lazy { ContextCompat.getColor(this, com.topdon.lib.core.R.color.chart_text) }
 
     /**
      * 曲线样式
@@ -531,7 +531,7 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
     }
 
     private fun resultVol(bean: LogViewModel.ChartList) {
-        dismissLoading()
+        dismissLoadingDialog()
         if (selectTimeType != 1 && bean.dataList.size > 0) {
             val logTime = TimeTool.showDateType(bean.dataList.last().createTime, selectTimeType)
             val nowTime = TimeTool.showDateType(System.currentTimeMillis(), selectTimeType)
