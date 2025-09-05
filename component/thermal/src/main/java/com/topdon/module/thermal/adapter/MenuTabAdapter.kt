@@ -8,7 +8,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import android.widget.TextView
 import com.topdon.module.thermal.R
 
 class MenuTabAdapter(val context: Context) :

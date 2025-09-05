@@ -1,6 +1,7 @@
 package com.topdon.module.thermal.fragment
 
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.navigation.NavigationManager
 import com.blankj.utilcode.util.ScreenUtils
 import com.topdon.lib.core.config.RouterConfig
@@ -22,8 +23,9 @@ class GalleryVideoFragment : BaseViewModelFragment<GalleryViewModel>() {
 
     override fun initView() {
         val span = if (ScreenUtils.isLandscape()) 6 else 3
-        gallery_video_recycler.layoutManager = GridLayoutManager(requireContext(), span)
-        gallery_video_recycler.adapter = adapter
+        val galleryVideoRecycler = requireView().findViewById<RecyclerView>(R.id.gallery_video_recycler)
+        galleryVideoRecycler.layoutManager = GridLayoutManager(requireContext(), span)
+        galleryVideoRecycler.adapter = adapter
 
         viewModel.galleryLiveData.observe(this) {
             adapter.datas = it

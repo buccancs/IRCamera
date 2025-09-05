@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Build
 import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ScreenUtils
 import com.maning.imagebrowserlibrary.MNImageBrowser
 import com.topdon.lib.core.ktbase.BaseViewModelFragment
@@ -30,8 +31,9 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
 
     override fun initView() {
         val span = if (ScreenUtils.isLandscape()) 6 else 3
-        gallery_recycler.layoutManager = GridLayoutManager(requireContext(), span)
-        gallery_recycler.adapter = adapter
+        val galleryRecycler = requireView().findViewById<RecyclerView>(R.id.gallery_recycler)
+        galleryRecycler.layoutManager = GridLayoutManager(requireContext(), span)
+        galleryRecycler.adapter = adapter
 
         viewModel.galleryLiveData.observe(this) {
             adapter.datas = it
@@ -84,7 +86,7 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
 
     fun previewPicture(path: String) {
         val imageEngine = GlideImageEngine()
-        MNImageBrowser.with(context) //当前位置
+        MNImageBrowser.with(requireContext()) //当前位置
             .setCurrentPosition(0) //图片引擎
             .setImageEngine(imageEngine) //图片集合
             .setImageUrl(path)
