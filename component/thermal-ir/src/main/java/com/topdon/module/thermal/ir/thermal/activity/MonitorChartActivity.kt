@@ -38,7 +38,7 @@ import com.topdon.module.thermal.ir.thermal.chart.MyValueFormatter
 import com.topdon.module.thermal.ir.thermal.utils.ArrayUtils
 import com.topdon.module.thermal.ir.thermal.view.MyMarkerView
 import com.topdon.module.thermal.ir.thermal.viewmodel.LogViewModel
-import kotlinx.android.synthetic.main.activity_monitor_chart.*
+import com.topdon.module.thermal.ir.databinding.ActivityMonitorChartBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -50,6 +50,8 @@ import java.math.BigDecimal
  */
 @Route(path = RouterConfig.IR_MONITOR_CHART)
 class MonitorChartActivity : BaseIRActivity(), View.OnClickListener, OnChartValueSelectedListener {
+
+    private lateinit var binding: ActivityMonitorChartBinding
 
     private val viewModel: LogViewModel by viewModels()
 
@@ -67,7 +69,11 @@ class MonitorChartActivity : BaseIRActivity(), View.OnClickListener, OnChartValu
 
     private lateinit var chart: LineChart
 
-    override fun initContentView() = R.layout.activity_monitor_chart
+    override fun initContentView(): Int {
+        binding = ActivityMonitorChartBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        return 0
+    }
 
     override fun initView() {
         // setTitleText(R.string.main_thermal_motion) // Commented out - method not available in BaseIRActivity
