@@ -1,8 +1,10 @@
 package com.topdon.lib.core.utils
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.view.View
 import com.topdon.lib.core.bean.tools.ScreenBean
+import com.topdon.lib.core.utils.ImageUtils
 
 /**
  * Screen shot utility for thermal imaging
@@ -40,5 +42,30 @@ object ScreenShotUtils {
             width = bitmap.width,
             height = bitmap.height
         )
+    }
+    
+    /**
+     * Take screenshot and save bitmap
+     */
+    fun shotScreenBitmap(context: Context, bitmap: Bitmap?, type: Int, screenBean: ScreenBean) {
+        if (bitmap != null) {
+            try {
+                val fileName = ImageUtils.save(bitmap)
+                // Callback or update UI here
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+    
+    /**
+     * Take screenshot of view
+     */
+    fun shotScreen(context: Context, view: View, type: Int, screenBean: ScreenBean) {
+        takeScreenShot(view) { bean ->
+            if (bean.bitmap != null) {
+                shotScreenBitmap(context, bean.bitmap, type, screenBean)
+            }
+        }
     }
 }

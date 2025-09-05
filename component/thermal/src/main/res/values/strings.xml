@@ -5,4 +5,7 @@
     
     <!-- Permission request strings -->
     <string name="permission_request_camera">Camera permission is required to capture thermal images</string>
+    
+    <!-- Video strings -->
+    <string name="video">Video</string>
 </resources>

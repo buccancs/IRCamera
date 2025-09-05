@@ -543,4 +543,11 @@ object SharedManager {
         get() = com.topdon.lib.core.repository.FreeSpaceBean() // Return empty bean for TC001
         set(value) = Unit // No-op for TC001
 
+    /**
+     * Get show zone for time display
+     */
+    fun getShowZone(): String {
+        return SPUtils.getInstance().getString("showZone", "GMT")
+    }
+
 }
