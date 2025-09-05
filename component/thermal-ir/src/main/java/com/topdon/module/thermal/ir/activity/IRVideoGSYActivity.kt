@@ -21,6 +21,7 @@ import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.repository.TS004Repository
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.module.thermal.ir.R
+import com.topdon.lib.core.R as LibR
 import com.topdon.lib.core.dialog.ConfirmSelectDialog
 import com.topdon.lib.core.bean.event.GalleryDelEvent
 import com.topdon.lms.sdk.weiget.TToast
@@ -119,7 +120,7 @@ class IRVideoGSYActivity : BaseActivity() {
                     actionShare()
                 }
             } else {
-                ToastTools.showShort(R.string.liveData_save_error)
+                ToastTools.showShort(LibR.string.liveData_save_error)
             }
             window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         }

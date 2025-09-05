@@ -66,7 +66,7 @@ class IRLogMPChartActivity : BaseActivity() {
             dismissLoadingDialog()
 
             val isPoint = it?.isNotEmpty() == true && it.first().type == "point"
-            findViewById<TextView>(R.id.monitor_current_vol).text = getString(if (isPoint) LibLibR.string.chart_temperature else LibLibR.string.chart_temperature_high)
+            findViewById<TextView>(R.id.monitor_current_vol).text = getString(if (isPoint) LibR.string.chart_temperature else LibR.string.chart_temperature_high)
             findViewById<TextView>(R.id.monitor_real_vol).visibility = if (isPoint) View.GONE else View.VISIBLE
             findViewById<ImageView>(R.id.monitor_real_img).visibility = if (isPoint) View.GONE else View.VISIBLE
 
@@ -81,8 +81,8 @@ class IRLogMPChartActivity : BaseActivity() {
 
         findViewById<View>(R.id.btn_ex)?.setOnClickListener {
             TipDialog.Builder(this)
-                .setMessage(LibLibR.string.tip_album_temp_exportfile)
-                .setPositiveListener(LibLibR.string.app_confirm) {
+                .setMessage(LibR.string.tip_album_temp_exportfile)
+                .setPositiveListener(LibR.string.app_confirm) {
                     val tempData = viewModel.detailListLD.value
                     if (tempData?.isEmpty() == true) {
                         ToastTools.showShort(LibR.string.http_code998)
@@ -152,7 +152,7 @@ class IRLogMPChartActivity : BaseActivity() {
                 .setCanceled(true)
                 .create().show()
         }
-        tv_save_path?.text = getString(LibR.string.temp_export_path) + ": " + FileConfig.excelDir
+        findViewById<TextView>(R.id.tv_save_path)?.text = getString(LibR.string.temp_export_path) + ": " + FileConfig.excelDir
         viewModel.queryDetail(startTime)
 
     }

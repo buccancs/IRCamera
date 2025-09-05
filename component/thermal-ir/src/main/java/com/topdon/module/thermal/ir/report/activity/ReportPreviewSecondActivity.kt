@@ -147,7 +147,7 @@ class ReportPreviewSecondActivity: BaseViewModelActivity<UpReportViewModel>(), V
 
                 if (LMS.getInstance().isLogin) {
                     if (!NetworkUtils.isConnected()) {
-                        TToast.shortToast(this, R.string.setting_http_error)
+                        TToast.shortToast(this, LibR.string.http_code_z5004)
                         return
                     }
                     showCameraLoading()

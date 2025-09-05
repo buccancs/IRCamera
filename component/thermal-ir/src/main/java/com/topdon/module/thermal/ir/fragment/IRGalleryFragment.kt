@@ -22,6 +22,7 @@ import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.repository.GalleryRepository.DirType
 import com.topdon.lib.core.repository.TS004Repository
 import com.topdon.module.thermal.ir.R
+import com.topdon.lib.core.R as LibR
 import com.topdon.module.thermal.ir.adapter.GalleryAdapter
 import com.topdon.lib.core.dialog.ConfirmSelectDialog
 import com.topdon.module.thermal.ir.event.GalleryAddEvent
@@ -309,7 +310,7 @@ class IRGalleryFragment : BaseFragment() {
                     tabViewModel.isEditModeLD.value = false
                 } else {
                     dismissLoadingDialog()
-                    ToastTools.showShort(R.string.liveData_save_error)
+                    ToastTools.showShort(LibR.string.liveData_save_error)
                 }
                 MediaScannerConnection.scanFile(requireContext(), arrayOf(FileConfig.lineGalleryDir, FileConfig.ts004GalleryDir), null, null)
                 (context as? Activity)?.window?.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)

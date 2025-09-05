@@ -14,14 +14,15 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.module.thermal.ir.R
+import com.topdon.lib.core.R as LibR
 
 class ChartTrendView : LineChart {
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle) {
-        val textColor: Int = ContextCompat.getColor(context, R.color.chart_text)
-        val axisChartColors: Int = ContextCompat.getColor(context, R.color.chart_axis)
+        val textColor: Int = ContextCompat.getColor(context, LibR.color.chart_text)
+        val axisChartColors: Int = ContextCompat.getColor(context, LibR.color.chart_axis)
 
         this.isDragEnabled = false
         this.isScaleYEnabled = false //禁止Y轴缩放
@@ -40,8 +41,8 @@ class ChartTrendView : LineChart {
             SizeUtils.dp2px(4f).toFloat()
         )//图表区域偏移
 
-        setNoDataText(context.getString(R.string.http_code998))
-        setNoDataTextColor(ContextCompat.getColor(context, R.color.chart_text))
+        setNoDataText(context.getString(LibR.string.http_code998))
+        setNoDataTextColor(ContextCompat.getColor(context, LibR.color.chart_text))
 
         val mv = MyMarkerView(context, R.layout.marker_lay)
         mv.chartView = this

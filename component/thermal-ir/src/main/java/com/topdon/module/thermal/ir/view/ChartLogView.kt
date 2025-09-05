@@ -18,6 +18,7 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.module.thermal.ir.R
+import com.topdon.lib.core.R as LibR
 import com.topdon.module.thermal.ir.chart.IRMyValueFormatter
 import com.topdon.module.thermal.ir.chart.YValueFormatter
 import com.topdon.module.thermal.ir.utils.ChartTools
@@ -237,9 +238,9 @@ class ChartLogView : LineChart {
     )
 
     private val linePointColors = intArrayOf(
-        R.color.chart_point_max,
-        R.color.chart_point_min,
-        R.color.chart_point_center
+        LibR.color.chart_point_max,
+        LibR.color.chart_point_min,
+        LibR.color.chart_point_center
     )
 
     /**
