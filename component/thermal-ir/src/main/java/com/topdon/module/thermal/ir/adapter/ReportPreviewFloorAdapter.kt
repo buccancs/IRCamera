@@ -87,13 +87,13 @@ class ReportPreviewFloorAdapter(
     }
 
     inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvProject: TextView = itemView.tv_project
-        val tvProblem: TextView = itemView.tv_problem
-        val ivProblemState: ImageView = itemView.iv_problem
-        val tvRepair: TextView = itemView.tv_repair
-        val ivRepairState: ImageView = itemView.iv_repair
-        val tvReplace: TextView = itemView.tv_replace
-        val ivReplaceState: ImageView = itemView.iv_replace
-        val tvRemark: TextView = itemView.tv_remark
+        val tvProject: TextView = itemView.findViewById(R.id.tv_project)
+        val tvProblem: TextView = itemView.findViewById(R.id.tv_problem)
+        val ivProblemState: ImageView = itemView.findViewById(R.id.iv_problem)
+        val tvRepair: TextView = itemView.findViewById(R.id.tv_repair)
+        val ivRepairState: ImageView = itemView.findViewById(R.id.iv_repair)
+        val tvReplace: TextView = itemView.findViewById(R.id.tv_replace)
+        val ivReplaceState: ImageView = itemView.findViewById(R.id.iv_replace)
+        val tvRemark: TextView = itemView.findViewById(R.id.tv_remark)
     }
 }
