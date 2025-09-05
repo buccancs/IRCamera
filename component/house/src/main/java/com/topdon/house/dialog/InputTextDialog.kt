@@ -18,7 +18,7 @@ import com.topdon.lms.sdk.weiget.TToast
  * @param inputText 预输入的文字内容
  */
 class InputTextDialog(context: Context, private val inputText: String, private val onConfirmListener: (text: String) -> Unit) :
-    Dialog(context, R.style.TextInputDialog), View.OnClickListener {
+    Dialog(context, LibR.style.TextInputDialog), View.OnClickListener {
 
     private lateinit var contentView: View
 

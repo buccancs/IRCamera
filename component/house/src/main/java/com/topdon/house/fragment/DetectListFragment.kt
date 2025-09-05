@@ -118,9 +118,11 @@ internal class DetectListFragment : BaseFragment(), View.OnClickListener {
             tvDel.isEnabled = it > 0
         }
 
+        val groupEmpty = requireView().findViewById<android.view.View>(R.id.group_empty)
+        
         viewModel.detectListLD.observe(viewLifecycleOwner) {
-            group_empty.isVisible = it.isEmpty()
-            recycler_view.isVisible = it.isNotEmpty()
+            groupEmpty.isVisible = it.isEmpty()
+            recyclerView.isVisible = it.isNotEmpty()
             adapter.refresh(it)
         }
         viewModel.detectLD.observe(viewLifecycleOwner) {

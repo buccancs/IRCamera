@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.SizeUtils
 import com.bumptech.glide.Glide
 import com.topdon.house.R
+import com.topdon.lib.core.R as LibR
 import com.topdon.house.activity.ImagesDetailActivity
 import com.topdon.house.activity.ItemEditActivity
 import com.topdon.lib.core.config.ExtraKeyConfig
@@ -77,12 +78,12 @@ class HouseDetectView : FrameLayout {
         titleView.setOnClickListener {
             adapter.switchExpand(currentPosition)
         }
-        titleView.view_dir_edit.setOnClickListener {
+        titleView.findViewById<android.view.View>(R.id.view_dir_edit).setOnClickListener {
             val intent = Intent(context, ItemEditActivity::class.java)
             intent.putExtra(ExtraKeyConfig.DIR_ID, (dataList[currentPosition] as DirDetect).id)
             context.startActivity(intent)
         }
-        titleView.view_dir_copy.setOnClickListener {
+        titleView.findViewById<android.view.View>(R.id.view_dir_copy).setOnClickListener {
             onDirCopyListener?.invoke(Pair(currentPosition, dataList[currentPosition] as DirDetect))
         }
     }
@@ -365,7 +366,7 @@ class HouseDetectView : FrameLayout {
             private val tvItemAddText = rootView.findViewById<TextView>(R.id.tv_item_add_text)
             private val tvItemCopy = rootView.findViewById<TextView>(R.id.tv_item_copy)
             private val tvItemDel = rootView.findViewById<TextView>(R.id.tv_item_del)
-            private val swipeMenuLayout = rootView.findViewById<View>(R.id.swipe_menu_layout)
+            private val swipeMenuLayout = rootView.findViewById<com.topdon.house.view.MyEasySwipeMenuLayout>(R.id.swipe_menu_layout)
             
             init {
                 tvGood.setOnClickListener {
@@ -408,7 +409,7 @@ class HouseDetectView : FrameLayout {
                         if (itemDetect.getImageSize() < 4) {
                             onImageAddListener?.invoke(position, it, itemDetect)
                         } else {
-                            TToast.shortToast(context, R.string.upload_img_limit)
+                            TToast.shortToast(context, LibR.string.upload_img_limit)
                         }
                     }
                 }
