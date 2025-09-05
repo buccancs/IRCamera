@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.SizeUtils
 import com.topdon.house.R
+import com.topdon.lib.core.R as LibR
 import com.topdon.house.event.DetectItemListEvent
 import com.topdon.house.viewmodel.DetectViewModel
 import com.topdon.lib.core.config.ExtraKeyConfig
@@ -70,6 +71,8 @@ class ItemEditActivity : BaseActivity(), View.OnClickListener {
     private lateinit var tvDangerCount: TextView
     private lateinit var recyclerView: RecyclerView
     private lateinit var ivTriangle: ImageView
+    private lateinit var clEmpty: View
+    private lateinit var clBottom: View
 
     override fun initContentView(): Int = R.layout.activity_item_edit
 
@@ -94,6 +97,8 @@ class ItemEditActivity : BaseActivity(), View.OnClickListener {
         val tvDangerCount = findViewById<TextView>(R.id.tv_danger_count)
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
         ivTriangle = findViewById(R.id.iv_triangle)
+        clEmpty = findViewById(R.id.cl_empty)
+        clBottom = findViewById(R.id.cl_bottom)
         
         ivCopy.isEnabled = false
         tvCopy.isEnabled = false
@@ -215,9 +220,9 @@ class ItemEditActivity : BaseActivity(), View.OnClickListener {
                     .setCancelListener(R.string.app_cancel) {
                     }
                     .setPositiveListener(R.string.report_delete) {
-                        cl_empty.isVisible = adapter.isSelectAll
-                        cl_bottom.isVisible = !adapter.isSelectAll
-                        cl_dir.isVisible = !adapter.isSelectAll
+                        clEmpty.isVisible = adapter.isSelectAll
+                        clBottom.isVisible = !adapter.isSelectAll
+                        clDir.isVisible = !adapter.isSelectAll
                         adapter.delSelect()
                         TToast.shortToast(this@ItemEditActivity, R.string.test_results_delete_success)
                     }
@@ -231,8 +236,8 @@ class ItemEditActivity : BaseActivity(), View.OnClickListener {
      */
     private fun showExitTipsDialog() {
         TipDialog.Builder(this)
-            .setMessage(R.string.diy_tip_save)
-            .setPositiveListener(R.string.app_exit) {
+            .setMessage(LibR.string.diy_tip_save)
+            .setPositiveListener(LibR.string.app_exit) {
                 finish()
             }
             .setCancelListener(R.string.app_cancel)
@@ -457,10 +462,10 @@ class ItemEditActivity : BaseActivity(), View.OnClickListener {
                 onStateChangeListener?.invoke(itemDetect.state, newState)
                 itemDetect.state = newState
 
-                itemView.tv_good.isSelected = itemDetect.state == 1
-                itemView.tv_warn.isSelected = itemDetect.state == 2
-                itemView.tv_danger.isSelected = itemDetect.state == 3
-                itemView.tv_state.text = itemDetect.getStateStr(context)
+                tvGood.isSelected = itemDetect.state == 1
+                tvWarn.isSelected = itemDetect.state == 2
+                tvDanger.isSelected = itemDetect.state == 3
+                tvState.text = itemDetect.getStateStr(context)
             }
         }
     }

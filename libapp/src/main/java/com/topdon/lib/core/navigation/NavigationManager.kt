@@ -32,6 +32,10 @@ object NavigationManager {
         fun withInt(key: String, value: Int) = apply {
             extras.putInt(key, value)
         }
+        
+        fun withLong(key: String, value: Long) = apply {
+            extras.putLong(key, value)
+        }
 
         fun withParcelable(key: String, value: Parcelable) = apply {
             extras.putParcelable(key, value)
