@@ -49,7 +49,7 @@ class ReportInfoView: LinearLayout {
         tvReportAuthor = findViewById(R.id.tv_report_author)
         groupReportPlace = findViewById(R.id.group_report_place)
         tvReportPlace = findViewById(R.id.tv_report_place)
-        tvReportDate = findViewById(R.id.tvReportDate)
+        tvReportDate = findViewById(R.id.tv_report_date)
         clReportCondition = findViewById(R.id.cl_report_condition)
         groupAmbientTemperature = findViewById(R.id.group_ambient_temperature)
         tvAmbientTemperature = findViewById(R.id.tv_ambient_temperature)

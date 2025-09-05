@@ -1,6 +1,7 @@
 package com.topdon.module.thermal.ir.report.activity
 
 import android.view.View
+import android.widget.ImageView
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.topdon.lib.core.navigation.NavigationManager
@@ -39,23 +40,23 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
     private lateinit var tvAddImage: View
     private lateinit var tvPreview: View
     private lateinit var scrollView: View
-    private lateinit var ivImage: View
-    private lateinit var reportTempViewFull: View
-    private lateinit var reportTempViewPoint1: View
-    private lateinit var reportTempViewPoint2: View
-    private lateinit var reportTempViewPoint3: View
-    private lateinit var reportTempViewPoint4: View
-    private lateinit var reportTempViewPoint5: View
-    private lateinit var reportTempViewLine1: View
-    private lateinit var reportTempViewLine2: View
-    private lateinit var reportTempViewLine3: View
-    private lateinit var reportTempViewLine4: View
-    private lateinit var reportTempViewLine5: View
-    private lateinit var reportTempViewRect1: View
-    private lateinit var reportTempViewRect2: View
-    private lateinit var reportTempViewRect3: View
-    private lateinit var reportTempViewRect4: View
-    private lateinit var reportTempViewRect5: View
+    private lateinit var ivImage: ImageView
+    private lateinit var reportTempViewFull: ReportIRInputView
+    private lateinit var reportTempViewPoint1: ReportIRInputView
+    private lateinit var reportTempViewPoint2: ReportIRInputView
+    private lateinit var reportTempViewPoint3: ReportIRInputView
+    private lateinit var reportTempViewPoint4: ReportIRInputView
+    private lateinit var reportTempViewPoint5: ReportIRInputView
+    private lateinit var reportTempViewLine1: ReportIRInputView
+    private lateinit var reportTempViewLine2: ReportIRInputView
+    private lateinit var reportTempViewLine3: ReportIRInputView
+    private lateinit var reportTempViewLine4: ReportIRInputView
+    private lateinit var reportTempViewLine5: ReportIRInputView
+    private lateinit var reportTempViewRect1: ReportIRInputView
+    private lateinit var reportTempViewRect2: ReportIRInputView
+    private lateinit var reportTempViewRect3: ReportIRInputView
+    private lateinit var reportTempViewRect4: ReportIRInputView
+    private lateinit var reportTempViewRect5: ReportIRInputView
 
     /**
      * 当前已添加的图片信息列表.
@@ -82,22 +83,22 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
         tvPreview = findViewById(R.id.tvPreview)
         scrollView = findViewById(R.id.scrollView)
         ivImage = findViewById(R.id.ivImage)
-        reportTempViewFull = findViewById(R.id.reportTempViewFull)
-        reportTempViewPoint1 = findViewById(R.id.reportTempViewPoint1)
-        reportTempViewPoint2 = findViewById(R.id.reportTempViewPoint2)
-        reportTempViewPoint3 = findViewById(R.id.reportTempViewPoint3)
-        reportTempViewPoint4 = findViewById(R.id.reportTempViewPoint4)
-        reportTempViewPoint5 = findViewById(R.id.reportTempViewPoint5)
-        reportTempViewLine1 = findViewById(R.id.reportTempViewLine1)
-        reportTempViewLine2 = findViewById(R.id.reportTempViewLine2)
-        reportTempViewLine3 = findViewById(R.id.reportTempViewLine3)
-        reportTempViewLine4 = findViewById(R.id.reportTempViewLine4)
-        reportTempViewLine5 = findViewById(R.id.reportTempViewLine5)
-        reportTempViewRect1 = findViewById(R.id.reportTempViewRect1)
-        reportTempViewRect2 = findViewById(R.id.reportTempViewRect2)
-        reportTempViewRect3 = findViewById(R.id.reportTempViewRect3)
-        reportTempViewRect4 = findViewById(R.id.reportTempViewRect4)
-        reportTempViewRect5 = findViewById(R.id.reportTempViewRect5)
+        reportTempViewFull = findViewById(R.id.report_temp_view_full)
+        reportTempViewPoint1 = findViewById(R.id.report_temp_view_point1)
+        reportTempViewPoint2 = findViewById(R.id.report_temp_view_point2)
+        reportTempViewPoint3 = findViewById(R.id.report_temp_view_point3)
+        reportTempViewPoint4 = findViewById(R.id.report_temp_view_point4)
+        reportTempViewPoint5 = findViewById(R.id.report_temp_view_point5)
+        reportTempViewLine1 = findViewById(R.id.report_temp_view_line1)
+        reportTempViewLine2 = findViewById(R.id.report_temp_view_line2)
+        reportTempViewLine3 = findViewById(R.id.report_temp_view_line3)
+        reportTempViewLine4 = findViewById(R.id.report_temp_view_line4)
+        reportTempViewLine5 = findViewById(R.id.report_temp_view_line5)
+        reportTempViewRect1 = findViewById(R.id.report_temp_view_rect1)
+        reportTempViewRect2 = findViewById(R.id.report_temp_view_rect2)
+        reportTempViewRect3 = findViewById(R.id.report_temp_view_rect3)
+        reportTempViewRect4 = findViewById(R.id.report_temp_view_rect4)
+        reportTempViewRect5 = findViewById(R.id.report_temp_view_rect5)
 
         currentFilePath = intent.getStringExtra(ExtraKeyConfig.FILE_ABSOLUTE_PATH)!!
         imageTempBean = intent.getParcelableExtra(ExtraKeyConfig.IMAGE_TEMP_BEAN)
@@ -213,8 +214,8 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
                 NavigationManager.getInstance()
                     .build(RouterConfig.REPORT_PICK_IMG)
                     .withBoolean(ExtraKeyConfig.IS_TC007, intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false))
-                    .withParcelable(ExtraKeyConfig.REPORT_INFO, intent.getParcelableExtra(ExtraKeyConfig.REPORT_INFO))
-                    .withParcelable(ExtraKeyConfig.REPORT_CONDITION, intent.getParcelableExtra(ExtraKeyConfig.REPORT_CONDITION))
+                    .withParcelable(ExtraKeyConfig.REPORT_INFO, intent.getParcelableExtra<ReportInfoBean>(ExtraKeyConfig.REPORT_INFO))
+                    .withParcelable(ExtraKeyConfig.REPORT_CONDITION, intent.getParcelableExtra<ReportConditionBean>(ExtraKeyConfig.REPORT_CONDITION))
                     .withParcelableArrayList(ExtraKeyConfig.REPORT_IR_LIST, reportIRBeanList)
                     .navigation(this)
             }

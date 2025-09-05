@@ -78,6 +78,7 @@ import com.topdon.lib.core.utils.CommUtils
 import com.topdon.lib.core.utils.Constants
 import com.topdon.lib.core.utils.ImageUtils
 import com.topdon.lib.core.utils.ScreenUtil
+import com.topdon.lib.core.view.MainTitleView
 import com.topdon.lib.core.utils.TemperatureUtil
 import com.topdon.lib.ui.dialog.ThermalInputDialog
 import com.topdon.lib.ui.dialog.TipGuideDialog
@@ -179,7 +180,6 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     
     // View references (migrated from synthetic views)
     private lateinit var cameraView: com.infisense.usbir.view.CameraView
-    private lateinit var thermalRecyclerNight: com.topdon.menu.MenuSecondView
     private lateinit var temperatureView: com.infisense.usbir.view.TemperatureView
     private lateinit var compassView: com.topdon.module.thermal.ir.view.compass.LinearCompassView
     private lateinit var spaceChart: View
@@ -187,8 +187,6 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     private lateinit var llTrendClose: LinearLayout
     private lateinit var viewMenuFirst: com.topdon.menu.MenuFirstTabView
     private lateinit var tvTempContent: TextView
-    private lateinit var thermalLay: View  // Migrated from synthetic view thermalLay
-    private var tvTypeInd: TextView? = null  // Migrated from synthetic view tvTypeInd
 
     override fun initContentView() = R.layout.activity_thermal_ir_night
 
@@ -233,6 +231,11 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     protected var isOpenAmplify = SaveSettingUtil.isOpenAmplify
     
     // Common view lazy properties to replace synthetic views
+    private val titleView by lazy { findViewById<MainTitleView>(R.id.title_view) }
+    private val thermalRecyclerNight by lazy { findViewById<com.topdon.menu.MenuSecondView>(R.id.thermal_recycler_night) }
+    private val thermalLay by lazy { findViewById<ConstraintLayout>(R.id.thermal_lay) }
+    private val tvTypeInd by lazy { findViewById<TextView>(R.id.tv_type_ind) }
+    private val timeDownView by lazy { findViewById<com.topdon.module.thermal.ir.view.TimeDownView>(R.id.time_down_view) }
     private val temperatureIvLock by lazy { findViewById<ImageView>(R.id.temperature_iv_lock) }
     private val temperatureIvInput by lazy { findViewById<ImageView>(R.id.temperature_iv_input) }
     private val popTimeLay by lazy { findViewById<View>(R.id.pop_time_lay) }

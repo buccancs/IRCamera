@@ -28,7 +28,7 @@ class IREmissivityActivity : BaseActivity() {
         val dataArray: Array<ItemBean> = buildDataArray()
         val tvTitle = findViewById<TextView>(R.id.tv_title)
         val emissivityView = findViewById<EmissivityView>(R.id.emissivity_view)
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
         val clTitle = findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.cl_title)
         
         tvTitle.text = dataArray[0].name
