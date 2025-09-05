@@ -52,8 +52,20 @@ class ReportPreviewActivity : BaseActivity(), View.OnClickListener {
     private lateinit var toolbarBackImg: android.widget.ImageView
     private lateinit var clSign: androidx.constraintlayout.widget.ConstraintLayout
     private lateinit var layAppbar: com.google.android.material.appbar.AppBarLayout
+    private lateinit var layToolbar: androidx.appcompat.widget.Toolbar
     private lateinit var llSave: android.widget.LinearLayout
     private lateinit var scrollView: androidx.core.widget.NestedScrollView
+    private lateinit var ivHeaderBg: android.widget.ImageView
+    private lateinit var tvAddress: android.widget.TextView
+    private lateinit var tvHouseName: android.widget.TextView
+    private lateinit var tvDetectTime: android.widget.TextView
+    private lateinit var ivInspectorSignature: android.widget.ImageView
+    private lateinit var ivHouseOwnerSignature: android.widget.ImageView
+    private lateinit var tvInspector: android.widget.TextView
+    private lateinit var tvBuildYear: android.widget.TextView
+    private lateinit var tvArea: android.widget.TextView
+    private lateinit var tvCost: android.widget.TextView
+    private lateinit var rcyFloor: androidx.recyclerview.widget.RecyclerView
 
     /**
      * true-查看报告即查看 false-查看检测即生成
@@ -72,8 +84,21 @@ class ReportPreviewActivity : BaseActivity(), View.OnClickListener {
         toolbarBackImg = findViewById(R.id.toolbar_back_img)
         clSign = findViewById(R.id.cl_sign)
         layAppbar = findViewById(R.id.lay_appbar)
+        layToolbar = findViewById(R.id.lay_toolbar)
         llSave = findViewById(R.id.ll_save)
         scrollView = findViewById(R.id.scroll_view)
+        ivHeaderBg = findViewById(R.id.iv_header_bg)
+        tvAddress = findViewById(R.id.tv_address)
+        tvHouseName = findViewById(R.id.tv_house_name)
+        tvDetectTime = findViewById(R.id.tv_detect_time)
+        ivInspectorSignature = findViewById(R.id.iv_inspector_signature)
+        ivHouseOwnerSignature = findViewById(R.id.iv_house_owner_signature)
+        tvInspector = findViewById(R.id.tv_inspector)
+        tvBuildYear = findViewById(R.id.tv_build_year)
+        tvArea = findViewById(R.id.tv_area)
+        tvCost = findViewById(R.id.tv_cost)
+        rcyFloor = findViewById(R.id.rcy_floor)
+        
         showLoadingDialog("")
         isReport = intent.getBooleanExtra(ExtraKeyConfig.IS_REPORT, false)
         tvSave.isEnabled = false
@@ -123,10 +148,10 @@ class ReportPreviewActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun setAvatorChange() {
-        lay_appbar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+        layAppbar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
             //verticalOffset始终为0以下的负数
             val percent = abs(verticalOffset * 1.0f) / appBarLayout.totalScrollRange
-            lay_toolbar.setBackgroundColor(changeAlpha(getColor(R.color.color_23202E), percent))
+            layToolbar.setBackgroundColor(changeAlpha(getColor(R.color.color_23202E), percent))
         }
     }
 
@@ -140,17 +165,17 @@ class ReportPreviewActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            toolbar_back_img -> {
+            toolbarBackImg -> {
                 finish()
             }
 
-            rly_inspector_signature -> {
+            rlyInspectorSignature -> {
                 var intent = Intent(this, SignInputActivity::class.java)
                 intent.putExtra(ExtraKeyConfig.IS_PICK_INSPECTOR, true)
                 startActivityForResult(intent, 1000)
             }
 
-            rly_house_owner_signature -> {
+            rlyHouseOwnerSignature -> {
                 var intent = Intent(this, SignInputActivity::class.java)
                 intent.putExtra(ExtraKeyConfig.IS_PICK_INSPECTOR, false)
                 startActivityForResult(intent, 1001)
@@ -206,14 +231,14 @@ class ReportPreviewActivity : BaseActivity(), View.OnClickListener {
             when (requestCode) {
                 1000 -> {
                     //检测师签名
-                    Glide.with(this).load(whitePath).into(iv_inspector_signature)
+                    Glide.with(this).load(whitePath).into(ivInspectorSignature)
                     houseReport.inspectorWhitePath = whitePath
                     houseReport.inspectorBlackPath = blackPath
                 }
 
                 1001 -> {
                     //房主签名
-                    Glide.with(this).load(whitePath).into(iv_house_owner_signature)
+                    Glide.with(this).load(whitePath).into(ivHouseOwnerSignature)
                     houseReport.houseOwnerWhitePath = whitePath
                     houseReport.houseOwnerBlackPath = blackPath
                 }
@@ -299,22 +324,22 @@ class ReportPreviewActivity : BaseActivity(), View.OnClickListener {
 
     private fun setAdapter() {
         mPreviewBean?.let {
-            Glide.with(this).load(it.housePhoto).into(iv_header_bg)
-            tv_address.text = it.houseAddress
-            tv_house_name.text = it.houseName
-            tv_detect_time.text = it.detectTime
-            tv_inspector.text = it.inspectorName
-            tv_build_year.text = it.houseYear
-            tv_area.text = it.houseArea
-            tv_cost.text = it.expenses
+            Glide.with(this).load(it.housePhoto).into(ivHeaderBg)
+            tvAddress.text = it.houseAddress
+            tvHouseName.text = it.houseName
+            tvDetectTime.text = it.detectTime
+            tvInspector.text = it.inspectorName
+            tvBuildYear.text = it.houseYear
+            tvArea.text = it.houseArea
+            tvCost.text = it.expenses
 
-            rcy_floor.layoutManager = LinearLayoutManager(this)
+            rcyFloor.layoutManager = LinearLayoutManager(this)
             val reportPreviewAdapter = ReportPreviewAdapter(this, it.itemBeans)
-            rcy_floor.isNestedScrollingEnabled = false
-            rcy_floor?.adapter = reportPreviewAdapter
+            rcyFloor.isNestedScrollingEnabled = false
+            rcyFloor.adapter = reportPreviewAdapter
 
-            Glide.with(this).load(it.inspectorWhitePath).into(iv_inspector_signature)
-            Glide.with(this).load(it.houseOwnerWhitePath).into(iv_house_owner_signature)
+            Glide.with(this).load(it.inspectorWhitePath).into(ivInspectorSignature)
+            Glide.with(this).load(it.houseOwnerWhitePath).into(ivHouseOwnerSignature)
         }
     }
 }

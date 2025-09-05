@@ -86,4 +86,18 @@
     <string name="chart_real_time">Chart Real Time</string>
     <string name="album_report_on_edit">Report On Edit</string>
     <string name="tip_delete_chosen">Delete Chosen</string>
+    
+    <!-- Additional missing strings -->
+    <string name="tip_least_select">Please select at least one image</string>
+    <string name="Limite_di_9carte">Limited to 9 cards maximum</string>
+    <string name="finalize_and_save">Finalize and Save</string>
+    <string name="color_23202E">#23202E</string>
+    <string name="pdf_sign_tips">PDF signature tips</string>
+    <string name="pdf_saved_tips">PDF saved successfully</string>
+    <string name="detect_time">Detection Time</string>
+    <string name="year">Year</string>
+    <string name="device_connect_tip">Please connect device</string>
+    <string name="tip_target_sdk">Target SDK version</string>
+    <string name="request_fail">Request failed</string>
+    <string name="tip_no_more_data">No more data available</string>
 </resources>

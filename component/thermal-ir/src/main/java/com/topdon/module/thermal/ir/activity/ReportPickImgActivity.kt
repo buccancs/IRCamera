@@ -189,15 +189,23 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
             val fileName = data.name.substringBeforeLast(".")
             val irPath = "${FileConfig.lineIrGalleryDir}/${fileName}.ir"
             if (File(irPath).exists()) {
-                NavigationManager.getInstance().build(RouterConfig.IR_GALLERY_EDIT)
+                val navigation = NavigationManager.getInstance().build(RouterConfig.IR_GALLERY_EDIT)
                     .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
                     .withBoolean(ExtraKeyConfig.IS_PICK_REPORT_IMG, true)
                     .withBoolean(IS_REPORT_FIRST, false)
                     .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, irPath)
-                    .withParcelable(ExtraKeyConfig.REPORT_INFO, intent.getParcelableExtra<ReportInfoBean>(ExtraKeyConfig.REPORT_INFO) as android.os.Parcelable?)
-                    .withParcelable(ExtraKeyConfig.REPORT_CONDITION, intent.getParcelableExtra<ReportConditionBean>(ExtraKeyConfig.REPORT_CONDITION) as android.os.Parcelable?)
-                    .withParcelableArrayList(ExtraKeyConfig.REPORT_IR_LIST, intent.getParcelableArrayListExtra<ReportIRBean>(ExtraKeyConfig.REPORT_IR_LIST) as java.util.ArrayList<out android.os.Parcelable>?)
-                    .navigation(this)
+                
+                intent.getParcelableExtra<ReportInfoBean>(ExtraKeyConfig.REPORT_INFO)?.let {
+                    navigation.withParcelable(ExtraKeyConfig.REPORT_INFO, it)
+                }
+                intent.getParcelableExtra<ReportConditionBean>(ExtraKeyConfig.REPORT_CONDITION)?.let {
+                    navigation.withParcelable(ExtraKeyConfig.REPORT_CONDITION, it)
+                }
+                intent.getParcelableArrayListExtra<ReportIRBean>(ExtraKeyConfig.REPORT_IR_LIST)?.let {
+                    navigation.withParcelableArrayList(ExtraKeyConfig.REPORT_IR_LIST, it)
+                }
+                
+                navigation.navigation(this)
             } else {
                 ToastTools.showShort(R.string.album_report_on_edit)
             }

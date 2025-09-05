@@ -28,6 +28,7 @@ import com.topdon.libcom.PDFHelp
 import com.topdon.libcom.view.CommLoadMoreView
 import com.topdon.lms.sdk.Config
 import com.topdon.lms.sdk.LMS
+import com.topdon.lms.sdk.utils.LanguageUtil
 import com.topdon.lms.sdk.UrlConstant
 import com.topdon.lms.sdk.network.HttpProxy
 import com.topdon.lms.sdk.network.IResponseCallback
@@ -229,9 +230,11 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
                 .create().show()
         }
         reportAdapter.jumpDetailListener = {item, position ->
-            NavigationManager.getInstance().build(RouterConfig.REPORT_DETAIL)
-                .withParcelable(ExtraKeyConfig.REPORT_BEAN,reportAdapter.data[position]?.reportContent)
-                .navigation(requireContext())
+            reportAdapter.data[position]?.reportContent?.let { reportBean ->
+                NavigationManager.getInstance().build(RouterConfig.REPORT_DETAIL)
+                    .withParcelable(ExtraKeyConfig.REPORT_BEAN, reportBean)
+                    .navigation(requireContext())
+            }
         }
         reportAdapter.loadMoreModule.loadMoreView = CommLoadMoreView()
         reportAdapter.loadMoreModule.setOnLoadMoreListener {
