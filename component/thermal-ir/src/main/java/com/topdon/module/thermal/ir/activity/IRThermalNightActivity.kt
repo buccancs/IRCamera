@@ -235,7 +235,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     private val thermalRecyclerNight by lazy { findViewById<com.topdon.menu.MenuSecondView>(R.id.thermal_recycler_night) }
     private val thermalLay by lazy { findViewById<ConstraintLayout>(R.id.thermal_lay) }
     private val tvTypeInd by lazy { findViewById<TextView>(R.id.tv_type_ind) }
-    private val timeDownView by lazy { findViewById<com.topdon.module.thermal.ir.view.TimeDownView>(R.id.time_down_view) }
+    private val timeDownView by lazy { findViewById<com.topdon.module.thermal.ir.view.TimeDownView>(R.id.timeDownView) }
     private val temperatureIvLock by lazy { findViewById<ImageView>(R.id.temperature_iv_lock) }
     private val temperatureIvInput by lazy { findViewById<ImageView>(R.id.temperature_iv_input) }
     private val popTimeLay by lazy { findViewById<View>(R.id.pop_time_lay) }
@@ -331,29 +331,26 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     override fun initView() {
         // Initialize camera view
         cameraView = findViewById(R.id.cameraView)
-        thermalRecyclerNight = findViewById(R.id.thermalRecyclerNight)
         temperatureView = findViewById(R.id.temperatureView)
-        titleView = findViewById(R.id.titleView)  // Now using class property
+        // titleView, thermalRecyclerNight, thermalLay, tvTypeInd, timeDownView already handled by lazy properties
         
-        val timeDownView = findViewById<TimeDownView>(R.id.time_down_view)
         val tvTitleTemp = findViewById<TextView>(R.id.tv_title_temp)
         val tvTitleObserve = findViewById<TextView>(R.id.tv_title_observe)
         val viewCarDetect = findViewById<ViewGroup>(R.id.view_car_detect)
         viewMenuFirst = findViewById(R.id.view_menu_first)
-        temperatureSeekbar = findViewById(R.id.temperature_seekbar)  // Now using class property
         tvTempContent = findViewById(R.id.tv_temp_content)
         val clSeekBar = findViewById<ConstraintLayout>(R.id.cl_seek_bar)
         val viewChartTrend = findViewById<View>(R.id.view_chart_trend)
         clTrendOpen = findViewById(R.id.cl_trend_open)
         llTrendClose = findViewById(R.id.ll_trend_close)
         val thermalText = findViewById<TextView>(R.id.thermal_text)
-        thermalLay = findViewById(R.id.thermalLay)  // Now using class property
+        // thermalLay already handled by lazy property
         val ivTrendClose = findViewById<ImageView>(R.id.iv_trend_close)
         val ivTrendOpen = findViewById<ImageView>(R.id.iv_trend_open)
         
         // Missing findViewById declarations for synthetic views
         compassView = findViewById(R.id.compassView)
-        tvTypeInd = findViewById(R.id.tvTypeInd)  // May be null if not present in layout
+        // tvTypeInd already handled by lazy property
         spaceChart = findViewById(R.id.space_chart)
         
         titleView.setLeftClickListener {
@@ -550,7 +547,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         }
         val tvTitleTemp = findViewById<TextView>(R.id.tv_title_temp)
         val tvTitleObserve = findViewById<TextView>(R.id.tv_title_observe)
-        val timeDownView = findViewById<TimeDownView>(R.id.time_down_view)
+        val timeDownView = findViewById<TimeDownView>(R.id.timeDownView)
         
         tvTitleTemp.isSelected = isToTemp
         tvTitleObserve.isSelected = !isToTemp
@@ -1393,7 +1390,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
 
     private fun updateVideoDelayView(){
         try {
-            if (time_down_view.isRunning) {
+            if (timeDownView.isRunning) {
                 lifecycleScope.launch(Dispatchers.Main) {
                     thermalRecyclerNight.setToRecord(true)
                 }
@@ -2160,7 +2157,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     open fun irStop() {
         try {
             configJob?.cancel()
-            time_down_view?.cancel()
+            timeDownView?.cancel()
             imageThread?.interrupt()
             imageThread?.join()
             syncimage.valid = false
@@ -2188,7 +2185,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         super.onDestroy()
         AlarmHelp.getInstance(application).onDestroy(SaveSettingUtil.isSaveSetting)
         temp_bg?.stopAnimation()
-        time_down_view?.cancel()
+        timeDownView?.cancel()
         stopCompass()
         try {
             iruvc?.stopPreview()
