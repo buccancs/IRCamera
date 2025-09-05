@@ -97,9 +97,9 @@ class GalleryEditMenuAdapter(val context: Context) : RecyclerView.Adapter<Recycl
         var name: TextView
 
         init {
-            lay = itemView.item_edit_menu_tab_lay
-            img = itemView.item_edit_menu_tab_img
-            name = itemView.item_edit_menu_tab_text
+            lay = itemView.findViewById(R.id.item_edit_menu_tab_lay)
+            img = itemView.findViewById(R.id.item_edit_menu_tab_img)
+            name = itemView.findViewById(R.id.item_edit_menu_tab_text)
         }
     }
 

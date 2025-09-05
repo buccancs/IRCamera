@@ -1,6 +1,8 @@
 package com.topdon.module.thermal.ir.activity
 
 import android.content.Intent
+import android.widget.ImageView
+import android.widget.TextView
 import com.topdon.lib.core.navigation.NavigationManager
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.RouterConfig
@@ -35,15 +37,18 @@ class IRCorrectionTwoActivity : BaseActivity() {
     override fun initView() {
         isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
 
-        iv_sketch_map.setImageResource(if (isTC007) R.drawable.ic_corrected_tc007 else R.drawable.ic_corrected_line)
+        val ivSketchMap = findViewById<ImageView>(R.id.iv_sketch_map)
+        val tvCorrection = findViewById<TextView>(R.id.tv_correction)
+        
+        ivSketchMap.setImageResource(if (isTC007) R.drawable.ic_corrected_tc007 else R.drawable.ic_corrected_line)
 
         if (if (isTC007) WebSocketProxy.getInstance().isTC007Connect() else DeviceTools.isConnect()) {
-            tv_correction.setBackgroundResource(R.drawable.bg_corners05_solid_theme)
+            tvCorrection.setBackgroundResource(R.drawable.bg_corners05_solid_theme)
         } else {
-            tv_correction.setBackgroundResource(R.drawable.bg_corners05_solid_50_theme)
+            tvCorrection.setBackgroundResource(R.drawable.bg_corners05_solid_50_theme)
         }
 
-        tv_correction.setOnClickListener {
+        tvCorrection.setOnClickListener {
             if (if (isTC007) WebSocketProxy.getInstance().isTC007Connect() else DeviceTools.isConnect()) {
                 if (isTC007) {
                     NavigationManager.getInstance().build(RouterConfig.IR_CORRECTION_07).navigation(this)
@@ -63,25 +68,25 @@ class IRCorrectionTwoActivity : BaseActivity() {
 
     override fun connected() {
         if (!isTC007) {
-            tv_correction.setBackgroundResource(R.drawable.bg_corners05_solid_theme)
+            findViewById<TextView>(R.id.tv_correction).setBackgroundResource(R.drawable.bg_corners05_solid_theme)
         }
     }
 
     override fun disConnected() {
         if (!isTC007) {
-            tv_correction.setBackgroundResource(R.drawable.bg_corners05_solid_50_theme)
+            findViewById<TextView>(R.id.tv_correction).setBackgroundResource(R.drawable.bg_corners05_solid_50_theme)
         }
     }
 
     override fun onSocketConnected(isTS004: Boolean) {
         if (isTC007 && !isTS004) {
-            tv_correction.setBackgroundResource(R.drawable.bg_corners05_solid_theme)
+            findViewById<TextView>(R.id.tv_correction).setBackgroundResource(R.drawable.bg_corners05_solid_theme)
         }
     }
 
     override fun onSocketDisConnected(isTS004: Boolean) {
         if (isTC007 && !isTS004) {
-            tv_correction.setBackgroundResource(R.drawable.bg_corners05_solid_50_theme)
+            findViewById<TextView>(R.id.tv_correction).setBackgroundResource(R.drawable.bg_corners05_solid_50_theme)
         }
     }
 

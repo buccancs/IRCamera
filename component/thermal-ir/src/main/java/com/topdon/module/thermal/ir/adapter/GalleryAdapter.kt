@@ -181,12 +181,12 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     inner class ItemHeadView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val name: TextView = itemView.item_gallery_head_text
+        val name: TextView = itemView.findViewById(R.id.item_gallery_head_text)
     }
 
     inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val img: ImageView = itemView.item_gallery_img
-        val info: TextView = itemView.item_gallery_text
+        val img: ImageView = itemView.findViewById(R.id.item_gallery_img)
+        val info: TextView = itemView.findViewById(R.id.item_gallery_text)
     }
 
 
