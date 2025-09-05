@@ -40,13 +40,17 @@ abstract class IRCMD {
     open fun onDestroy() {}
     open fun setTPDKtBtRecalPoint(point: Any) {}
     open fun restoreDefaultConfig(param: Any): Int = 0
-    open fun setTPDKtBtRecalPoint(point: Any, extra: Any) {}
+    open fun setTPDKtBtRecalPoint(point: Any, extra: Any): Int = 0
     open fun rmCoverStsSwitch(enable: Any): Int = 0
-    open fun rmCoverAutoCalc(param: Any) {}
+    open fun rmCoverAutoCalc(param: Any): Int = 0
     open fun getPropTPDParams(param: Any, value: Any): Int = 0
     open fun getDeviceInfo(infoType: Any, buffer: ByteArray): Int = 0
     open fun oemRead(cmd: Any, extra: Any): Any = Any()
     open fun getPropImageParams(param: Any, value: Any): Any = Any()
+    open fun setAlignTranslateParameter(param: Any) {}
+    open fun setIsothermal(enable: Boolean) {}
+    open fun setTempL(temp: Float) {}
+    open fun setTempH(temp: Float) {}
     open fun setAlignTranslateParameter(param: Any) {}
     open fun setIsothermal(enable: Boolean) {}
     open fun setTempL(temp: Float) {}

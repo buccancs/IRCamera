@@ -17,6 +17,10 @@ interface DualUVCCamera {
     fun setContrast(contrast: Int)
     fun setMirror(mirror: Boolean)
     fun setPropDdeLevel(level: Int)
+    fun setAlignTranslateParameter(param: Any)
+    fun setIsothermal(enable: Boolean)
+    fun setTempL(temp: Float)
+    fun setTempH(temp: Float)
 }
 
 /**
@@ -32,4 +36,8 @@ class StubDualUVCCamera : DualUVCCamera {
     override fun setContrast(contrast: Int) {}
     override fun setMirror(mirror: Boolean) {}
     override fun setPropDdeLevel(level: Int) {}
+    override fun setAlignTranslateParameter(param: Any) {}
+    override fun setIsothermal(enable: Boolean) {}
+    override fun setTempL(temp: Float) {}
+    override fun setTempH(temp: Float) {}
 }
