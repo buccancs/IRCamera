@@ -15,6 +15,7 @@
     <string name="tips_tisr_on">Super resolution enabled</string>
     <string name="tips_tisr_off">Super resolution disabled</string>
     <string name="app_got_it">Got it</string>
+    <string name="album_edit_report">Edit Report</string>
     
     <!-- Dialog and tip strings -->
     <string name="app_tip">Tip</string>
