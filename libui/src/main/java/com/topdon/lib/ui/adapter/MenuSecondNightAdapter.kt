@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.ui.R
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.lib.ui.config.CameraHelp
-import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.*
 
 @Deprecated("旧的高低温点菜单，已重构过了")
 class MenuSecondNightAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -41,7 +40,7 @@ class MenuSecondNightAdapter(val context: Context) : RecyclerView.Adapter<Recycl
             holder.img.setImageResource(secondBean[position].res)
             holder.name.text = secondBean[position].name
 
-            holder.itemView.item_menu_tab_lay.setOnClickListener {
+            holder.lay.setOnClickListener {
                 multipleChoice(position)
             }
 
@@ -80,8 +79,8 @@ class MenuSecondNightAdapter(val context: Context) : RecyclerView.Adapter<Recycl
     }
 
     class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val lay: View = itemView.item_menu_tab_lay
-        val img: ImageView = itemView.item_menu_tab_img
-        val name: TextView = itemView.item_menu_tab_text
+        val lay: View = itemView.findViewById(R.id.item_menu_tab_lay)
+        val img: ImageView = itemView.findViewById(R.id.item_menu_tab_img)
+        val name: TextView = itemView.findViewById(R.id.item_menu_tab_text)
     }
 }
