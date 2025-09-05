@@ -27,9 +27,9 @@ import com.infisense.usbdual.Const
 // import com.infisense.usbdual.camera.DualViewWithExternalCameraCommonApi // Temporarily disabled - hardware specific
 // import com.infisense.usbdual.camera.IRUVCDual // Temporarily disabled - hardware specific
 // import com.infisense.usbdual.camera.USBMonitorManager // Temporarily disabled - hardware specific
-import com.topdon.module.thermal.ir.stubs.DualViewWithExternalCameraCommonApi
-import com.topdon.module.thermal.ir.stubs.IRUVCDual
-import com.topdon.module.thermal.ir.stubs.USBMonitorManager
+import com.infisense.usbdual.camera.DualViewWithExternalCameraCommonApi
+import com.infisense.usbdual.camera.IRUVCDual
+import com.infisense.usbdual.camera.USBMonitorManager
 import com.infisense.usbdual.inf.OnUSBConnectListener
 import com.infisense.usbir.utils.PseudocodeUtils
 import com.infisense.usbir.view.TemperatureView

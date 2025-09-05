@@ -85,7 +85,7 @@ class IRLogMPChartActivity : BaseActivity() {
                 .setPositiveListener(LibR.string.app_confirm) {
                     val tempData = viewModel.detailListLD.value
                     if (tempData?.isEmpty() == true) {
-                        ToastTools.showShort(LibR.string.http_code998)
+                        ToastTools.showShort("No data available")
                     } else {
                         XXPermissions.with(this)
                             .permission(

@@ -1,16 +1,39 @@
 package com.energy.iruvc.ircmd
 
+import com.energy.iruvc.utils.CommonParams
+import com.energy.iruvc.utils.DeviceType
+
 /**
- * Stub implementation for IRCMD hardware SDK class
- * TODO: Replace with actual hardware library when available
+ * IRCMD interface for thermal camera hardware control
+ * This is the base interface for infrared camera command operations
  */
-open class IRCMD {
-    // Stub implementation - all methods are no-ops
+abstract class IRCMD {
+    
+    // Preview and control methods used by hardware library
+    abstract fun startPreview(
+        channel: CommonParams.PreviewPathChannel,
+        source: CommonParams.StartPreviewSource,
+        fps: Int,
+        mode: CommonParams.StartPreviewMode,
+        dataFlowMode: CommonParams.DataFlowMode
+    ): Int
+    
+    abstract fun startY16ModePreview(
+        channel: CommonParams.PreviewPathChannel,
+        srcType: CommonParams.Y16ModePreviewSrcType
+    ): Int
+    
+    abstract fun setPropImageParams(param: CommonParams.PropImageParams, value: Any)
+    
+    abstract fun setPropAutoShutterParameter(param: CommonParams.PropAutoShutterParameter, value: Any)
+    
+    abstract fun isTempReplacedWithTNREnabled(deviceType: DeviceType): Boolean
+    
+    // Additional methods that may be needed by thermal-ir component
     open fun setMirror(mirror: Boolean) {}
     open fun setAutoShutter(isAutoShutter: Boolean) {}
     open fun setPropDdeLevel(level: Int) {}
     open fun setContrast(contrast: Int) {}
-    open fun setPropImageParams(param1: Any, param2: Any) {}
     open fun setPropTPDParams(param1: Any, param2: Any) {}
     open fun tc1bShutterManual() {}
     open fun updateOOCOrB(type: Any) {}
@@ -23,12 +46,24 @@ open class IRCMD {
     open fun oemRead(cmd: Any): Any = Any()
     open fun getPropImageParams(): Any = Any()
     open fun setAlignTranslateParameter(param: Any) {}
-    open fun setPropAutoShutterParameter(param: Any) {}
     open fun setIsothermal(value: Any) {}
     open fun setTempL(temp: Any) {}
     open fun setTempH(temp: Any) {}
     open fun zoomCenterUp() {}
     open fun zoomCenterDown() {}
-    
-    // Add other methods as needed by the hardware SDK
+    open fun zoomCenterLeft() {}
+    open fun zoomCenterRight() {}
+    open fun autoGainSwitch(data: ByteArray, imageRes: Any, info: Any, param: Any, callback: Any) {}
+    open fun avoidOverexposure(
+        flag: Boolean,
+        gainStatus: Any,
+        data: ByteArray,
+        imageRes: Any,
+        lowTemp: Int,
+        highTemp: Int,
+        pixelProp: Float,
+        switchFrameCount: Int,
+        closeFrameCount: Int,
+        callback: Any
+    ) {}
 }

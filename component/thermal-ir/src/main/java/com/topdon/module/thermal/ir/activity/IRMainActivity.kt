@@ -34,7 +34,6 @@ import com.topdon.lib.core.utils.CommUtils
 import com.topdon.lib.core.utils.NetWorkUtils
 import com.topdon.lib.core.utils.PermissionUtils
 import com.topdon.lms.sdk.LMS
-import com.topdon.module.thermal.ir.BuildConfig
 import com.topdon.module.thermal.ir.R
 import com.topdon.lib.core.R as LibR
 import com.topdon.module.thermal.ir.dialog.HomeGuideDialog
@@ -383,7 +382,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
 
 
 
-    private class ViewPagerAdapter(activity: FragmentActivity, val isTC007: Boolean) : FragmentStateAdapter(activity) {
+    private class ViewPagerAdapter(val activity: FragmentActivity, val isTC007: Boolean) : FragmentStateAdapter(activity) {
         override fun getItemCount() = 5
 
         override fun createFragment(position: Int): Fragment {
@@ -401,7 +400,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
                     0 -> AbilityFragment()
                     2 -> IRThermalFragment()
                     3 -> PDFListFragment()
-                    else -> NavigationManager.getInstance().build(RouterConfig.TC_MORE).navigation() as Fragment
+                    else -> NavigationManager.getInstance().build(RouterConfig.TC_MORE).navigation(activity) as Fragment
                 }
                 fragment.arguments = Bundle().also { it.putBoolean(ExtraKeyConfig.IS_TC007, isTC007) }
                 return fragment
