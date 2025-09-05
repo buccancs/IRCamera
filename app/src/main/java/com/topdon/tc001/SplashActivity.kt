@@ -11,17 +11,20 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.utils.CommUtils
 import com.topdon.lms.sdk.Config
 import com.topdon.lms.sdk.LMS
-import kotlinx.android.synthetic.main.activity_splash.tv_app_name
+import com.topdon.tc001.databinding.ActivitySplashBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class SplashActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivitySplashBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         LMS.getInstance().screenOrientation = Config.SCREEN_PORTRAIT
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        setContentView(R.layout.activity_splash)
+        binding = ActivitySplashBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         window.navigationBarColor = ContextCompat.getColor(this, R.color.toolbar_16131E)
 
         lifecycleScope.launch {
@@ -33,7 +36,7 @@ class SplashActivity : AppCompatActivity() {
             }
             finish()
         }
-        tv_app_name.text = CommUtils.getAppName()
+        binding.tvAppName.text = CommUtils.getAppName()
     }
 
     override fun onBackPressed() {
