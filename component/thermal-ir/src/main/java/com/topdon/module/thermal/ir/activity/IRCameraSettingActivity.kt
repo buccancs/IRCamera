@@ -151,33 +151,33 @@ class IRCameraSettingActivity : BaseActivity() {
             }
             override fun afterTextChanged(s: Editable?) {
 
-                watermarkBean.title = ed_title.text.toString()
-                tv_title_show.text = watermarkBean.title
+                watermarkBean.title = binding.edTitle.text.toString()
+                binding.tvTitleShow.text = watermarkBean.title
             }
         })
-        ed_address.addTextChangedListener(object : TextWatcher{
+        binding.edAddress.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
             override fun afterTextChanged(s: Editable?) {
-                watermarkBean.address = ed_address.text.toString()
-                tv_address.text = watermarkBean.address
+                watermarkBean.address = binding.edAddress.text.toString()
+                binding.tvAddress.text = watermarkBean.address
                 if (!watermarkBean.address.isNullOrEmpty()){
-                    tv_address.visibility = View.VISIBLE
+                    binding.tvAddress.visibility = View.VISIBLE
                 }else{
-                    tv_address.visibility = View.GONE
+                    binding.tvAddress.visibility = View.GONE
                 }
             }
         })
-        img_location.setOnClickListener(object : SingleClickListener() {
+        binding.imgLocation.setOnClickListener(object : SingleClickListener() {
             override fun onSingleClick() {
                 checkStoragePermission()
             }
         })
         //TC007设备不需要延迟拍照
-        ly_auto.visibility = if (isTC007()) View.GONE else View.VISIBLE
+        binding.lyAuto.visibility = if (isTC007()) View.GONE else View.VISIBLE
     }
 
     fun isTC007() : Boolean
@@ -340,9 +340,9 @@ class IRCameraSettingActivity : BaseActivity() {
                                 ToastUtils.showShort(R.string.get_Location_failed)
                             }else{
                                 watermarkBean.address = addressText as String
-                                ed_address.setText(addressText)
-                                tv_address.visibility = View.VISIBLE
-                                tv_address.setText(addressText)
+                                binding.edAddress.setText(addressText)
+                                binding.tvAddress.visibility = View.VISIBLE
+                                binding.tvAddress.setText(addressText)
                             }
                         }
                     }else{

@@ -78,8 +78,8 @@ class IRMonitorActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun updateUI() {
-        motion_start_btn.visibility = View.VISIBLE
-        motion_btn.visibility = View.GONE
+        binding.motionStartBtn.visibility = View.VISIBLE
+        binding.motionBtn.visibility = View.GONE
     }
 
     override fun disConnected() {

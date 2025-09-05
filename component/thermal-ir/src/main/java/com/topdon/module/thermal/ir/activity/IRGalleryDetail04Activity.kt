@@ -239,7 +239,7 @@ class IRGalleryDetail04Activity : BaseActivity() {
                     MediaScannerConnection.scanFile(this@IRGalleryDetail04Activity, arrayOf(FileConfig.ts004GalleryDir), null, null)
                     ToastTools.showShort(R.string.tip_save_success)
                     data.hasDownload = true
-                    iv_download.isSelected = dataList[position].hasDownload
+                    binding.ivDownload.isSelected = dataList[position].hasDownload
                     if (isToShare) {
                         actionShare()
                     }

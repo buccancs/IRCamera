@@ -94,8 +94,8 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
         selectBean = intent.getParcelableExtra("select")!!
 
         binding.monitorCurrentVol.text = getString(if (selectBean.type == 1) R.string.chart_temperature else R.string.chart_temperature_high)
-        monitor_real_vol.visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
-        monitor_real_img.visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
+        binding.monitorRealVol.visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
+        binding.monitorRealImg.visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
 
         binding.temperatureView.isEnabled = false
         binding.temperatureView.setTextSize(SaveSettingUtil.tempTextSize)
@@ -138,7 +138,7 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
                     } else {
                         isFirstRead = false
                         lifecycleScope.launch(Dispatchers.Main) {
-                            ll_time.isVisible = true
+                            binding.llTime.isVisible = true
                         }
                     }
                 }
@@ -263,7 +263,7 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
                         delay(100)
                     }
                     lifecycleScope.launch(Dispatchers.Main) {
-                        tv_time.text = TimeTool.showVideoLongTime(System.currentTimeMillis() - startTime)
+                        binding.tvTime.text = TimeTool.showVideoLongTime(System.currentTimeMillis() - startTime)
                     }
                 }
             }
@@ -549,20 +549,20 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
     }
 
     private fun setViewLay() {
-        thermal_lay.post {
-            val params = thermal_lay.layoutParams
+        binding.thermalLay.post {
+            val params = binding.thermalLay.layoutParams
             if (ScreenUtil.isPortrait(this)) {
-                params.height = thermal_lay.height
+                params.height = binding.thermalLay.height
                 var w = params.height * imageWidth / imageHeight
                 if (w > ScreenUtil.getScreenWidth(this)) {
                     w = ScreenUtil.getScreenWidth(this)
                 }
                 params.width = w
             } else {
-                params.width = thermal_lay.width
+                params.width = binding.thermalLay.width
                 params.height = params.width * imageWidth / imageHeight
             }
-            thermal_lay.layoutParams = params
+            binding.thermalLay.layoutParams = params
         }
     }
 

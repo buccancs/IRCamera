@@ -31,7 +31,7 @@ import com.topdon.lib.core.utils.CommUtils
 import com.topdon.lib.core.utils.NetWorkUtils
 import com.topdon.lib.core.utils.PermissionUtils
 import com.topdon.lms.sdk.LMS
-import com.topdon.module.thermal.ir.BuildConfig
+import com.topdon.module.thermal.BuildConfig
 import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.dialog.HomeGuideDialog
 import com.topdon.module.thermal.ir.fragment.IRGalleryTabFragment
@@ -216,30 +216,30 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
         }
 
         when (SharedManager.homeGuideStep) {
-            1 -> view_page.setCurrentItem(0, false)
-            2 -> view_page.setCurrentItem(4, false)
-            3 -> view_page.setCurrentItem(2, false)
+            1 -> binding.viewPage.setCurrentItem(0, false)
+            2 -> binding.viewPage.setCurrentItem(4, false)
+            3 -> binding.viewPage.setCurrentItem(2, false)
         }
 
         val guideDialog = HomeGuideDialog(this, SharedManager.homeGuideStep)
         guideDialog.onNextClickListener = {
             when (it) {
                 1 -> {
-                    view_page.setCurrentItem(4, false)
+                    binding.viewPage.setCurrentItem(4, false)
                     if (Build.VERSION.SDK_INT < 31) {
                         lifecycleScope.launch {
                             delay(100)
-                            guideDialog.blurBg(cl_root)
+                            guideDialog.blurBg(binding.clRoot)
                         }
                     }
                     SharedManager.homeGuideStep = 2
                 }
                 2 -> {
-                    view_page.setCurrentItem(2, false)
+                    binding.viewPage.setCurrentItem(2, false)
                     if (Build.VERSION.SDK_INT < 31) {
                         lifecycleScope.launch {
                             delay(100)
-                            guideDialog.blurBg(cl_root)
+                            guideDialog.blurBg(binding.clRoot)
                         }
                     }
                     SharedManager.homeGuideStep = 3
@@ -266,7 +266,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
                 //界面切换及温度监控历史列表加载均需要时间，所以需要等待1000毫秒再去刷新背景
                 //而若等待1000毫秒太过久，界面会非模糊1000毫秒，所以先刷新一次背景占位
                 delay(100)
-                guideDialog.blurBg(cl_root)
+                guideDialog.blurBg(binding.clRoot)
             }
         }
     }
@@ -318,7 +318,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
      */
     private fun initStoragePermission(permissionList: List<String>) {
         if (PermissionUtils.isVisualUser()){
-            view_page.setCurrentItem(1, false)
+            binding.viewPage.setCurrentItem(1, false)
             return
         }
         XXPermissions.with(this)
@@ -326,7 +326,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
             .request(object : OnPermissionCallback {
                 override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
                     if (allGranted) {
-                        view_page.setCurrentItem(1, false)
+                        binding.viewPage.setCurrentItem(1, false)
                     }
                 }
 

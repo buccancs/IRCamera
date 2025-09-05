@@ -32,8 +32,8 @@ class IREmissivityActivity : BaseActivity() {
         setContentView(binding.root)
         
         val dataArray: Array<ItemBean> = buildDataArray()
-        binding.tvTitle.text = dataArray[0].name
-        binding.emissivityView.refreshText(dataArray[0].buildTextList(this))
+        binding.clTitle.tvTitle.text = dataArray[0].name
+        binding.clTitle.emissivityView.refreshText(dataArray[0].buildTextList(this))
 
         val itemDecoration = MyItemDecoration(this)
         itemDecoration.wholeBottom = 20f
@@ -42,7 +42,7 @@ class IREmissivityActivity : BaseActivity() {
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = MyAdapter(this, dataArray)
         binding.recyclerView.addItemDecoration(itemDecoration)
-        binding.recyclerView.addOnScrollListener(MyOnScrollListener(binding.clTitle, layoutManager, dataArray))
+        binding.recyclerView.addOnScrollListener(MyOnScrollListener(binding.clTitle.root, layoutManager, dataArray))
     }
 
     override fun initData() {

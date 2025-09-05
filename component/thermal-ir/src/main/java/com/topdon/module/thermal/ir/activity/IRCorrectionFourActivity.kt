@@ -113,7 +113,7 @@ class IRCorrectionFourActivity : BaseActivity() {
 
     override fun disConnected() {
         super.disConnected()
-        time_down_view.cancel()
+        binding.timeDownView.cancel()
         EventBus.getDefault().post(CorrectionFinishEvent())
         finish()
     }
@@ -130,6 +130,6 @@ class IRCorrectionFourActivity : BaseActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        time_down_view.cancel()
+        binding.timeDownView.cancel()
     }
 }
