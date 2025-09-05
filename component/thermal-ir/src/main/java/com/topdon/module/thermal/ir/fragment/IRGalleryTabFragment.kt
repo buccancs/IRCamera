@@ -97,7 +97,7 @@ class IRGalleryTabFragment : BaseFragment() {
         }
 
         titleView.setTitleText(if (canSwitchDir) "" else getString(R.string.app_gallery))
-        titleView.setLeftDrawable(if (hasBackIcon) UiR.drawable.ic_back_white_svg else 0)
+        titleView.setLeftDrawable(if (hasBackIcon) R.drawable.ic_back_white_svg else 0)
         titleView.setLeftClickListener {
             if (viewModel.isEditModeLD.value == true) {//当前为编辑状态，退出编辑
                 viewModel.isEditModeLD.value = false
@@ -126,7 +126,7 @@ class IRGalleryTabFragment : BaseFragment() {
             if (isEditMode) {
                 titleView.setLeftDrawable(LibCoreR.drawable.svg_x_cc)
             } else {
-                titleView.setLeftDrawable(if (hasBackIcon) UiR.drawable.ic_back_white_svg else 0)
+                titleView.setLeftDrawable(if (hasBackIcon) R.drawable.ic_back_white_svg else 0)
             }
             titleView.setRightDrawable(if (isEditMode) 0 else UiR.drawable.ic_toolbar_check_svg)
             titleView.setRightText(if (isEditMode) getString(R.string.report_select_all) else "")

@@ -51,7 +51,7 @@ class IRConfigInputDialog(context: Context, val type: Type, val isTC007: Boolean
 
         // Initialize views with findViewById
         val tvTitle: TextView = findViewById(R.id.tv_title)
-        val tvUnit: TextView = findViewById(R.id.tvUnit)
+        val tvUnit: TextView = findViewById(R.id.tv_unit)
         val etInput: EditText = findViewById(R.id.et_input)
         val tvCancel: TextView = findViewById(R.id.tv_cancel)
         val tvConfirm: TextView = findViewById(R.id.tv_confirm)
