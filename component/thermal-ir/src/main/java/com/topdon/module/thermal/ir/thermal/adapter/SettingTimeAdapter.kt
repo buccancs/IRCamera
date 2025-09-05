@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.topdon.module.thermal.ir.R
-import com.topdon.module.thermal.ir.databinding.ItemSettingTimeBinding
+import com.topdon.module.thermal.R
+import com.topdon.module.thermal.databinding.ItemSettingTimeBinding
 
 /**
  * 设置时间

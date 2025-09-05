@@ -5,9 +5,9 @@ import android.os.Bundle
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.fragment.IRCorrectionFragment
-import com.topdon.module.thermal.ir.databinding.ActivityIrCorrectionThreeBinding
+import com.topdon.module.thermal.databinding.ActivityIrCorrectionThreeBinding
 
 /**
  *

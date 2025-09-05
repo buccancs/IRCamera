@@ -14,9 +14,9 @@ import com.topdon.lib.core.tools.GlideLoader
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.libcom.PDFHelp
 import com.topdon.module.thermal.ir.report.view.ReportIRShowView
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.report.bean.ReportBean
-import com.topdon.module.thermal.ir.databinding.ActivityReportDetailBinding
+import com.topdon.module.thermal.databinding.ActivityReportDetailBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File

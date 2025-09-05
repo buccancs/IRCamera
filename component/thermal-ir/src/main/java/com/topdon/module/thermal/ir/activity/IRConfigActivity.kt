@@ -25,7 +25,7 @@ import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.ui.widget.MyItemDecoration
 import com.topdon.lms.sdk.weiget.TToast
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.adapter.ConfigEmAdapter
 import com.topdon.module.thermal.ir.bean.DataBean
 import com.topdon.module.thermal.ir.bean.ModelBean
@@ -33,9 +33,9 @@ import com.topdon.module.thermal.ir.dialog.ConfigGuideDialog
 import com.topdon.module.thermal.ir.dialog.IRConfigInputDialog
 import com.topdon.module.thermal.ir.repository.ConfigRepository
 import com.topdon.module.thermal.ir.viewmodel.IRConfigViewModel
-import com.topdon.module.thermal.ir.databinding.ActivityIrConfigBinding
-import com.topdon.module.thermal.ir.databinding.ItemIrConfigConfigBinding
-import com.topdon.module.thermal.ir.databinding.ItemIrConfigFootBinding
+import com.topdon.module.thermal.databinding.ActivityIrConfigBinding
+import com.topdon.module.thermal.databinding.ItemIrConfigConfigBinding
+import com.topdon.module.thermal.databinding.ItemIrConfigFootBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

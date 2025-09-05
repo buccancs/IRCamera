@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.PopupWindow
 import android.widget.SeekBar
 import androidx.core.view.isVisible
-import com.topdon.module.thermal.ir.databinding.PopSeekBarBinding
+import com.topdon.module.thermal.databinding.PopSeekBarBinding
 
 /**
  * 有一根 SeekBar 用于拾取值的 PopupWindow.

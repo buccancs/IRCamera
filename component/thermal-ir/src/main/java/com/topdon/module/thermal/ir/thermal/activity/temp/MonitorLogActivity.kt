@@ -9,8 +9,8 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.db.AppDatabase
 import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.lib.core.ktbase.BaseActivity
-import com.topdon.module.thermal.ir.R
-import com.topdon.module.thermal.ir.databinding.ActivityMonitorLogBinding
+import com.topdon.module.thermal.R
+import com.topdon.module.thermal.databinding.ActivityMonitorLogBinding
 import com.topdon.module.thermal.ir.thermal.adapter.MonitorLogAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

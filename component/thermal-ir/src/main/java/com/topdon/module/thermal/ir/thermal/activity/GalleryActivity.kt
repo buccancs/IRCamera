@@ -7,11 +7,11 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.topdon.lib.core.config.RouterConfig
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.activity.BaseIRActivity
 import com.topdon.module.thermal.ir.thermal.fragment.GalleryPictureFragment
 import com.topdon.module.thermal.ir.thermal.fragment.GalleryVideoFragment
-import com.topdon.module.thermal.ir.databinding.ActivityGalleryBinding
+import com.topdon.module.thermal.databinding.ActivityGalleryBinding
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
 

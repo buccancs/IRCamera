@@ -14,9 +14,9 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.tools.GlideLoader
 import com.topdon.lib.core.utils.ScreenUtil
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.report.bean.*
-import com.topdon.module.thermal.ir.databinding.ActivityReportCreateSecondBinding
+import com.topdon.module.thermal.databinding.ActivityReportCreateSecondBinding
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode

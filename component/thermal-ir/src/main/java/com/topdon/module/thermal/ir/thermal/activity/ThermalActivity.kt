@@ -10,11 +10,11 @@ import com.blankj.utilcode.util.BarUtils
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.menu.MenuFirstTabView
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.activity.BaseIRActivity
 import com.topdon.module.thermal.ir.thermal.adapter.MenuTabAdapter
 import com.topdon.module.thermal.ir.thermal.fragment.event.ThermalActionEvent
-import com.topdon.module.thermal.ir.databinding.ActivityThermalBinding
+import com.topdon.module.thermal.databinding.ActivityThermalBinding
 import org.greenrobot.eventbus.EventBus
 
 @Route(path = RouterConfig.IR_THERMAL_MAIN)

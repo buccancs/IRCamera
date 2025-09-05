@@ -27,7 +27,7 @@ import com.topdon.lib.app.utils.ScreenShotUtils
 import com.topdon.lib.ui.fence.FenceLineView
 import com.topdon.lib.ui.fence.FencePointView
 import com.topdon.lib.ui.fence.FenceView
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.thermal.activity.MonitorActivity
 import com.topdon.module.thermal.ir.thermal.base.BaseThermalFragment
 import com.topdon.module.thermal.ir.thermal.fragment.event.ThermalActionEvent
@@ -36,7 +36,7 @@ import com.topdon.module.thermal.ir.thermal.tools.ThermalTool
 import com.topdon.module.thermal.ir.thermal.tools.medie.IYapVideoProvider
 import com.topdon.module.thermal.ir.thermal.tools.medie.YapVideoEncoder
 import com.topdon.module.thermal.ir.thermal.utils.ArrayUtils
-import com.topdon.module.thermal.ir.databinding.FragmentMonitorThermalBinding
+import com.topdon.module.thermal.databinding.FragmentMonitorThermalBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.Subscribe

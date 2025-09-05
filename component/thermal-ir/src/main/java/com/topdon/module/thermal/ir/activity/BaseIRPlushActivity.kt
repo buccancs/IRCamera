@@ -32,7 +32,7 @@ import com.infisense.usbir.utils.PseudocodeUtils
 import com.infisense.usbir.view.TemperatureView
 import com.topdon.lib.core.common.SaveSettingUtil
 import com.topdon.lib.core.dialog.TipDialog
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.utils.DualParamsUtil
 import com.topdon.module.thermal.ir.utils.IRCmdTool
 import com.topdon.module.thermal.ir.utils.IRCmdTool.getSNStr

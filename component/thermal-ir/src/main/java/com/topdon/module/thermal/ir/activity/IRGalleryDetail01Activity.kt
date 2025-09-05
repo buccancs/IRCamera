@@ -27,14 +27,14 @@ import com.topdon.lib.core.utils.ByteUtils.bytesToInt
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.ui.dialog.ProgressDialog
 import com.topdon.libcom.ExcelUtil
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.lib.core.bean.event.GalleryDelEvent
 import com.topdon.lib.core.utils.Constants.IS_REPORT_FIRST
 import com.topdon.module.thermal.ir.event.ImageGalleryEvent
 import com.topdon.module.thermal.ir.fragment.GalleryFragment
 import com.topdon.module.thermal.ir.frame.FrameTool
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryEditViewModel
-import com.topdon.module.thermal.ir.databinding.ActivityIrGalleryDetail01Binding
+import com.topdon.module.thermal.databinding.ActivityIrGalleryDetail01Binding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

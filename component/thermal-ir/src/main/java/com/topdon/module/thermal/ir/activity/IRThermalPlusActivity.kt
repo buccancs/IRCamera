@@ -20,8 +20,8 @@ import com.topdon.lib.core.common.SaveSettingUtil
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.menu.constant.TwoLightType
-import com.topdon.module.thermal.ir.R
-import com.topdon.module.thermal.ir.databinding.ActivityThermalIrNightBinding
+import com.topdon.module.thermal.R
+import com.topdon.module.thermal.databinding.ActivityThermalIrNightBinding
 import com.topdon.module.thermal.ir.event.GalleryAddEvent
 import com.topdon.module.thermal.ir.video.VideoRecordFFmpeg
 import kotlinx.coroutines.CoroutineScope

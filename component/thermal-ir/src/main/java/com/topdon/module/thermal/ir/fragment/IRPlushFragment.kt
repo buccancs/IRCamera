@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import com.infisense.usbdual.Const
 import com.infisense.usbdual.camera.DualViewWithExternalCameraCommonApi
 import com.infisense.usbir.view.TemperatureView
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.activity.BaseIRPlushFragment
-import com.topdon.module.thermal.ir.databinding.FragmentIrPlushBinding
+import com.topdon.module.thermal.databinding.FragmentIrPlushBinding
 
 /**
  * des:

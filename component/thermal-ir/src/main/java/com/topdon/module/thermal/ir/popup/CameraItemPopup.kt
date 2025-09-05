@@ -14,8 +14,8 @@ import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.dialog.TipShutterDialog
 import com.topdon.libcom.bean.SaveSettingBean
-import com.topdon.module.thermal.ir.R
-import com.topdon.module.thermal.ir.databinding.PopCameraItemBinding
+import com.topdon.module.thermal.R
+import com.topdon.module.thermal.databinding.PopCameraItemBinding
 
 /**
  * 热成像 拍照/录像 菜单.

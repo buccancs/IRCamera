@@ -31,14 +31,14 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.NumberTools
 import com.topdon.module.thermal.ir.activity.BaseIRActivity
 import com.topdon.lib.core.tools.TimeTool
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.thermal.adapter.SettingCheckAdapter
 import com.topdon.module.thermal.ir.thermal.adapter.SettingTimeAdapter
 import com.topdon.module.thermal.ir.thermal.chart.MyValueFormatter
 import com.topdon.module.thermal.ir.thermal.utils.ArrayUtils
 import com.topdon.module.thermal.ir.thermal.view.MyMarkerView
 import com.topdon.module.thermal.ir.thermal.viewmodel.LogViewModel
-import com.topdon.module.thermal.ir.databinding.ActivityMonitorChartBinding
+import com.topdon.module.thermal.databinding.ActivityMonitorChartBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay

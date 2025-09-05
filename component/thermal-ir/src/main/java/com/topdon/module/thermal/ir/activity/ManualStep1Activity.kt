@@ -4,9 +4,9 @@ import android.content.Intent
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.event.ManualFinishBean
-import com.topdon.module.thermal.ir.databinding.ActivityManualStep1Binding
+import com.topdon.module.thermal.databinding.ActivityManualStep1Binding
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 

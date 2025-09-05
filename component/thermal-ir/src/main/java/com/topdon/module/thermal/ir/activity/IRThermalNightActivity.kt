@@ -92,7 +92,7 @@ import com.topdon.menu.constant.SettingType
 import com.topdon.menu.constant.TargetType
 import com.topdon.menu.constant.TempPointType
 import com.topdon.menu.constant.TwoLightType
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.adapter.CameraItemAdapter
 import com.topdon.module.thermal.ir.adapter.MeasureItemAdapter
 import com.topdon.module.thermal.ir.adapter.TargetItemAdapter
@@ -107,7 +107,7 @@ import com.topdon.module.thermal.ir.view.TimeDownView
 import com.topdon.module.thermal.ir.view.compass.SensorService
 import com.topdon.pseudo.activity.PseudoSetActivity
 import com.topdon.pseudo.bean.CustomPseudoBean
-import com.topdon.module.thermal.ir.databinding.ActivityThermalIrNightBinding
+import com.topdon.module.thermal.databinding.ActivityThermalIrNightBinding
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import org.greenrobot.eventbus.EventBus

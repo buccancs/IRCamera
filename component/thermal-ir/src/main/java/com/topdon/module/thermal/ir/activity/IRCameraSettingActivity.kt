@@ -28,8 +28,8 @@ import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.ui.listener.SingleClickListener
 import com.topdon.lib.core.utils.CommUtils
 import com.topdon.module.thermal.ir.BuildConfig
-import com.topdon.module.thermal.ir.R
-import com.topdon.module.thermal.ir.databinding.ActivityIrCameraSettingBinding
+import com.topdon.module.thermal.R
+import com.topdon.module.thermal.databinding.ActivityIrCameraSettingBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

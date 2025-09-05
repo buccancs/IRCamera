@@ -13,12 +13,12 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.repository.GalleryRepository.DirType
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.event.GalleryDirChangeEvent
 import com.topdon.module.thermal.ir.popup.GalleryChangePopup
 import com.topdon.module.thermal.ir.popup.OptionPickPopup
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryTabViewModel
-import com.topdon.module.thermal.ir.databinding.FragmentGalleryTabBinding
+import com.topdon.module.thermal.databinding.FragmentGalleryTabBinding
 import org.greenrobot.eventbus.EventBus
 
 /**

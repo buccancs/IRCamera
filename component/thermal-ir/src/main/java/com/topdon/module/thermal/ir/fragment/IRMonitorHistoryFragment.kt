@@ -21,12 +21,12 @@ import com.topdon.lib.core.db.dao.ThermalDao
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.libcom.view.CommLoadMoreView
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.activity.IRLogMPChartActivity
 import com.topdon.module.thermal.ir.event.MonitorCreateEvent
 import com.topdon.module.thermal.ir.viewmodel.IRMonitorViewModel
-import com.topdon.module.thermal.ir.databinding.FragmentIrMonitorHistoryBinding
-import com.topdon.module.thermal.ir.databinding.ItemMonitoryHistoryBinding
+import com.topdon.module.thermal.databinding.FragmentIrMonitorHistoryBinding
+import com.topdon.module.thermal.databinding.ItemMonitoryHistoryBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

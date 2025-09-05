@@ -10,8 +10,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.bean.ObserveBean
 import com.topdon.lib.ui.bean.ColorBean
-import com.topdon.module.thermal.ir.R
-import com.topdon.module.thermal.ir.databinding.ItmeTargetModeBinding
+import com.topdon.module.thermal.R
+import com.topdon.module.thermal.databinding.ItmeTargetModeBinding
 
 class TargetItemAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var listener: ((index: Int, code: Int) -> Unit)? = null

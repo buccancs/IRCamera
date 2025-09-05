@@ -8,11 +8,11 @@ import android.widget.LinearLayout
 import androidx.core.view.isVisible
 import com.blankj.utilcode.util.SizeUtils
 import com.topdon.lib.core.utils.ScreenUtil
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.report.bean.ReportIRBean
 import com.topdon.module.thermal.ir.report.bean.ReportTempBean
-import com.topdon.module.thermal.ir.databinding.ViewReportIrShowBinding
-import com.topdon.module.thermal.ir.databinding.ItemReportIrShowBinding
+import com.topdon.module.thermal.databinding.ViewReportIrShowBinding
+import com.topdon.module.thermal.databinding.ItemReportIrShowBinding
 
 /**
  * 一项红外数据预览 View.

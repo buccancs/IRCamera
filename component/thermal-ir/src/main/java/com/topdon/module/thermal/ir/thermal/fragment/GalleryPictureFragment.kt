@@ -14,11 +14,11 @@ import com.blankj.utilcode.util.ScreenUtils
 import com.maning.imagebrowserlibrary.MNImageBrowser
 import com.topdon.lib.core.ktbase.BaseViewModelFragment
 import com.topdon.lib.core.dialog.TipDialog
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.thermal.adapter.GalleryAdapter
 import com.topdon.module.thermal.ir.thermal.tools.GlideImageEngine
 import com.topdon.module.thermal.ir.thermal.viewmodel.GalleryViewModel
-import com.topdon.module.thermal.ir.databinding.FragmentGalleryPictureBinding
+import com.topdon.module.thermal.databinding.FragmentGalleryPictureBinding
 import java.io.File
 
 

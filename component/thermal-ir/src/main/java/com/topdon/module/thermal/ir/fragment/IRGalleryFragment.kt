@@ -24,7 +24,7 @@ import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.tools.FileTools.getUri
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.repository.GalleryRepository.DirType
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.adapter.GalleryAdapter
 import com.topdon.lib.core.dialog.ConfirmSelectDialog
 import com.topdon.module.thermal.ir.event.GalleryAddEvent
@@ -35,7 +35,7 @@ import com.topdon.module.thermal.ir.event.GalleryDirChangeEvent
 import com.topdon.module.thermal.ir.event.GalleryDownloadEvent
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryTabViewModel
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryViewModel
-import com.topdon.module.thermal.ir.databinding.FragmentIrGalleryBinding
+import com.topdon.module.thermal.databinding.FragmentIrGalleryBinding
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe

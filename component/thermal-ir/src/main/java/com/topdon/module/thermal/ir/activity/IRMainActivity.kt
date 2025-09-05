@@ -32,13 +32,13 @@ import com.topdon.lib.core.utils.NetWorkUtils
 import com.topdon.lib.core.utils.PermissionUtils
 import com.topdon.lms.sdk.LMS
 import com.topdon.module.thermal.ir.BuildConfig
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.dialog.HomeGuideDialog
 import com.topdon.module.thermal.ir.fragment.IRGalleryTabFragment
 import com.topdon.module.thermal.ir.fragment.IRThermalFragment
 import com.topdon.module.thermal.ir.fragment.AbilityFragment
 import com.topdon.module.thermal.ir.fragment.PDFListFragment
-import com.topdon.module.thermal.ir.databinding.ActivityIrMainBinding
+import com.topdon.module.thermal.databinding.ActivityIrMainBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus

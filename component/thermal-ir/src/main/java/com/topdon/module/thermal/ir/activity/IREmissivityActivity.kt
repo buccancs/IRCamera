@@ -11,10 +11,10 @@ import com.blankj.utilcode.util.SizeUtils
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.ui.widget.MyItemDecoration
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.view.EmissivityView
-import com.topdon.module.thermal.ir.databinding.ActivityIrEmissivityBinding
-import com.topdon.module.thermal.ir.databinding.ItemIrEmissivityTitleBinding
+import com.topdon.module.thermal.databinding.ActivityIrEmissivityBinding
+import com.topdon.module.thermal.databinding.ItemIrEmissivityTitleBinding
 
 /**
  * 常用材料发射率.

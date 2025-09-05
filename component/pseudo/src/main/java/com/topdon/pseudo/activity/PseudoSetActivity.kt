@@ -11,10 +11,10 @@ import com.topdon.lib.core.common.ProductType
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.UnitTools
-import com.topdon.pseudo.R
+import com.topdon.module.pseudo.R
 import com.topdon.pseudo.bean.CustomPseudoBean
 import com.topdon.pseudo.constant.*
-import com.topdon.pseudo.databinding.ActivityPseudoSetBinding
+import com.topdon.module.pseudo.databinding.ActivityPseudoSetBinding
 import java.lang.NumberFormatException
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -59,7 +59,7 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
         //加载自定义颜色配置
         binding.pseudoPickView.onSelectChangeListener = {
             reset6CustomColor()
-            color_select_view.reset()
+            binding.colorSelectView.reset()
             when (binding.pseudoPickView.sourceColors[it]) {
                 0xff0000ff.toInt() -> binding.viewCustomColor1.isSelected = true
                 0xffff0000.toInt() -> binding.viewCustomColor2.isSelected = true
@@ -68,7 +68,7 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
                 0xff000000.toInt() -> binding.viewCustomColor5.isSelected = true
                 0xffffffff.toInt() -> binding.viewCustomColor6.isSelected = true
             }
-            color_select_view.selectColor(binding.pseudoPickView.sourceColors[it])
+            binding.colorSelectView.selectColor(binding.pseudoPickView.sourceColors[it])
             binding.ivCustomAdd.isEnabled = binding.pseudoPickView.sourceColors.size < 7
             binding.ivCustomDel.isEnabled = binding.pseudoPickView.sourceColors.size > 3 && !binding.pseudoPickView.isCurrentOnlyLimit()
         }
@@ -112,7 +112,7 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
         binding.tvConfirm.setOnClickListener(this)
         binding.tvCancel.setOnClickListener(this)
 
-        color_select_view.onSelectListener = {
+        binding.colorSelectView.onSelectListener = {
             reset6CustomColor()
             when (it) {
                 0xff0000ff.toInt() -> binding.viewCustomColor1.isSelected = true
@@ -148,37 +148,37 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
             binding.viewCustomColor1 -> {//颜色-自定义-颜色值拾取1
                 reset6CustomColor()
                 binding.viewCustomColor1.isSelected = true
-                color_select_view.selectColor(0xff0000ff.toInt())
+                binding.colorSelectView.selectColor(0xff0000ff.toInt())
                 binding.pseudoPickView.refreshColor(0xff0000ff.toInt())
             }
             binding.viewCustomColor2 -> {//颜色-自定义-颜色值拾取2
                 reset6CustomColor()
                 binding.viewCustomColor2.isSelected = true
-                color_select_view.selectColor(0xffff0000.toInt())
+                binding.colorSelectView.selectColor(0xffff0000.toInt())
                 binding.pseudoPickView.refreshColor(0xffff0000.toInt())
             }
             binding.viewCustomColor3 -> {//颜色-自定义-颜色值拾取3
                 reset6CustomColor()
                 binding.viewCustomColor3.isSelected = true
-                color_select_view.selectColor(0xff00ff00.toInt())
+                binding.colorSelectView.selectColor(0xff00ff00.toInt())
                 binding.pseudoPickView.refreshColor(0xff00ff00.toInt())
             }
             binding.viewCustomColor4 -> {//颜色-自定义-颜色值拾取4
                 reset6CustomColor()
                 binding.viewCustomColor4.isSelected = true
-                color_select_view.selectColor(0xffffff00.toInt())
+                binding.colorSelectView.selectColor(0xffffff00.toInt())
                 binding.pseudoPickView.refreshColor(0xffffff00.toInt())
             }
             binding.viewCustomColor5 -> {//颜色-自定义-颜色值拾取5
                 reset6CustomColor()
                 binding.viewCustomColor5.isSelected = true
-                color_select_view.selectColor(0xff000000.toInt())
+                binding.colorSelectView.selectColor(0xff000000.toInt())
                 binding.pseudoPickView.refreshColor(0xff000000.toInt())
             }
             binding.viewCustomColor6 -> {//颜色-自定义-颜色值拾取6
                 reset6CustomColor()
                 binding.viewCustomColor6.isSelected = true
-                color_select_view.selectColor(0xffffffff.toInt())
+                binding.colorSelectView.selectColor(0xffffffff.toInt())
                 binding.pseudoPickView.refreshColor(0xffffffff.toInt())
             }
 

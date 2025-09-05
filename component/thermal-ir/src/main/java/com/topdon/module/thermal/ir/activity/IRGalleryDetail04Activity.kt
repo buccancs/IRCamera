@@ -28,13 +28,13 @@ import com.topdon.lib.core.tools.TimeTool
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.dialog.TipDialog
 
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.lib.core.dialog.ConfirmSelectDialog
 import com.topdon.lib.core.bean.event.GalleryDelEvent
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.thermal.ir.event.GalleryDownloadEvent
 import com.topdon.module.thermal.ir.fragment.GalleryFragment
-import com.topdon.module.thermal.ir.databinding.ActivityIrGalleryDetail04Binding
+import com.topdon.module.thermal.databinding.ActivityIrGalleryDetail04Binding
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import java.io.File

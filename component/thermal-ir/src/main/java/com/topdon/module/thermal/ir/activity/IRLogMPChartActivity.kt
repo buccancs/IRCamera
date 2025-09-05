@@ -24,9 +24,9 @@ import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.libcom.ExcelUtil
 import com.topdon.lms.sdk.BuildConfig
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.viewmodel.IRMonitorViewModel
-import com.topdon.module.thermal.ir.databinding.ActivityIrLogMpChartBinding
+import com.topdon.module.thermal.databinding.ActivityIrLogMpChartBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

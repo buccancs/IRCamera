@@ -14,10 +14,10 @@
 //import com.topdon.lib.core.db.entity.ThermalEntity
 //import com.topdon.lib.core.ktbase.BaseActivity
 //import com.topdon.lib.core.tools.TimeTool
-//import com.topdon.module.thermal.ir.R
+//import com.topdon.module.thermal.R
 //import com.topdon.module.thermal.ir.thermal.adapter.SettingTimeAdapter
-//import com.topdon.module.thermal.ir.databinding.ActivityLogChartBinding
-//import com.topdon.module.thermal.ir.databinding.ActivityChartBinding
+//import com.topdon.module.thermal.databinding.ActivityLogChartBinding
+//import com.topdon.module.thermal.databinding.ActivityChartBinding
 //import kotlinx.coroutines.Dispatchers
 //import kotlinx.coroutines.delay
 //import kotlinx.coroutines.launch

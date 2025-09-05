@@ -80,7 +80,7 @@
 //import com.topdon.libcom.dialog.ColorDialog
 //import com.topdon.libcom.dialog.TempAlarmSetDialog
 //import com.topdon.module.thermal.ir.KotlinEx.showChangePseudoDialog
-//import com.topdon.module.thermal.ir.R
+//import com.topdon.module.thermal.R
 //import com.topdon.module.thermal.ir.adapter.CameraItemAdapter
 //import com.topdon.module.thermal.ir.extension.countDownCoroutines
 //import com.topdon.module.thermal.ir.frame.FrameStructTool
@@ -89,8 +89,8 @@
 //import com.topdon.module.thermal.ir.view.TimeDownView
 //import com.topdon.pseudo.activity.PseudoSetActivity
 //import com.topdon.pseudo.bean.CustomPseudoBean
-//import com.topdon.module.thermal.ir.databinding.ActivityThermalIrBinding
-//import com.topdon.module.thermal.ir.databinding.ActivityIrGalleryEditBinding
+//import com.topdon.module.thermal.databinding.ActivityThermalIrBinding
+//import com.topdon.module.thermal.databinding.ActivityIrGalleryEditBinding
 //import kotlinx.coroutines.*
 //import kotlinx.coroutines.flow.flow
 //import org.greenrobot.eventbus.Subscribe

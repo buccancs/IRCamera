@@ -19,13 +19,13 @@ import com.topdon.lib.core.tools.FileTools.getUri
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.repository.GalleryRepository.DirType
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.adapter.GalleryAdapter
 import com.topdon.lib.core.bean.event.GalleryDelEvent
 import com.topdon.lib.core.utils.Constants.IS_REPORT_FIRST
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryViewModel
-import com.topdon.module.thermal.ir.databinding.ActivityReportPickImgBinding
+import com.topdon.module.thermal.databinding.ActivityReportPickImgBinding
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode

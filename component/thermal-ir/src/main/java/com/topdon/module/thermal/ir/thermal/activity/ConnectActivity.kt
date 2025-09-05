@@ -3,9 +3,9 @@ package com.topdon.module.thermal.ir.thermal.activity
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.tools.DeviceTools
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.activity.BaseIRActivity
-import com.topdon.module.thermal.ir.databinding.ActivityConnectBinding
+import com.topdon.module.thermal.databinding.ActivityConnectBinding
 
 //连接设备
 @Route(path = RouterConfig.IR_THERMAL_CONNECT)

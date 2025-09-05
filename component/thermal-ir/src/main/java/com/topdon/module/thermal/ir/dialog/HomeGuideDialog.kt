@@ -12,11 +12,11 @@ import android.renderscript.ScriptIntrinsicBlur
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.view.isVisible
-import com.topdon.module.thermal.ir.R
-import com.topdon.module.thermal.ir.databinding.DialogHomeGuideBinding
-import com.topdon.module.thermal.ir.databinding.LayoutHomeGuide1Binding
-import com.topdon.module.thermal.ir.databinding.LayoutHomeGuide2Binding
-import com.topdon.module.thermal.ir.databinding.LayoutHomeGuide3Binding
+import com.topdon.module.thermal.R
+import com.topdon.module.thermal.databinding.DialogHomeGuideBinding
+import com.topdon.module.thermal.databinding.LayoutHomeGuide1Binding
+import com.topdon.module.thermal.databinding.LayoutHomeGuide2Binding
+import com.topdon.module.thermal.databinding.LayoutHomeGuide3Binding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

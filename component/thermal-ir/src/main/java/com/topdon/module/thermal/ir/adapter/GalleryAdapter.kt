@@ -12,9 +12,9 @@ import com.topdon.lib.core.bean.GalleryBean
 import com.topdon.lib.core.bean.GalleryTitle
 import com.topdon.lib.core.tools.GlideLoader
 import com.topdon.lib.core.tools.TimeTool
-import com.topdon.module.thermal.ir.R
-import com.topdon.module.thermal.ir.databinding.ItemGalleryHeadLayBinding
-import com.topdon.module.thermal.ir.databinding.ItemGalleryLayBinding
+import com.topdon.module.thermal.R
+import com.topdon.module.thermal.databinding.ItemGalleryHeadLayBinding
+import com.topdon.module.thermal.databinding.ItemGalleryLayBinding
 
 /**
  * 照片或视频

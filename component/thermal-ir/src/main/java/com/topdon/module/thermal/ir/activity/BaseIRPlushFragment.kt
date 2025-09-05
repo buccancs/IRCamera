@@ -49,7 +49,7 @@ import com.topdon.module.thermal.ir.repository.ConfigRepository
 import com.topdon.module.thermal.ir.utils.DualParamsUtil
 import com.topdon.module.thermal.ir.utils.IRCmdTool
 import com.topdon.module.thermal.ir.utils.IRCmdTool.getSNStr
-import com.topdon.module.thermal.ir.databinding.ActivityThermalIrNightBinding
+import com.topdon.module.thermal.databinding.ActivityThermalIrNightBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async

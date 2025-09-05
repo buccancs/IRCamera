@@ -10,8 +10,8 @@ import androidx.core.view.isVisible
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lms.sdk.weiget.TToast
-import com.topdon.module.thermal.ir.R
-import com.topdon.module.thermal.ir.databinding.DialogIrConfigInputBinding
+import com.topdon.module.thermal.R
+import com.topdon.module.thermal.databinding.DialogIrConfigInputBinding
 import java.lang.NumberFormatException
 
 /**

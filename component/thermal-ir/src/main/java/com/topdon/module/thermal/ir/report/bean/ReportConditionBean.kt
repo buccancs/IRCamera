@@ -1,7 +1,7 @@
 package com.topdon.module.thermal.ir.report.bean
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 /**
  * 检测条件.

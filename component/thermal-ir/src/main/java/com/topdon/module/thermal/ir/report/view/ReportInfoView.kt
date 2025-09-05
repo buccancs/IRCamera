@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import androidx.core.view.isVisible
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.report.bean.ReportConditionBean
 import com.topdon.module.thermal.ir.report.bean.ReportInfoBean
-import com.topdon.module.thermal.ir.databinding.ViewReportInfoBinding
+import com.topdon.module.thermal.databinding.ViewReportInfoBinding
 
 /**
  * 报告信息 - 预览 View.

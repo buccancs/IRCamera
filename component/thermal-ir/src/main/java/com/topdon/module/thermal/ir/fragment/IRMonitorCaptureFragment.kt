@@ -13,9 +13,9 @@ import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.lib.core.tools.ToastTools
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.activity.IRMonitorActivity
-import com.topdon.module.thermal.ir.databinding.FragmentIrMonitorCaptureBinding
+import com.topdon.module.thermal.databinding.FragmentIrMonitorCaptureBinding
 
 /**
  * 温度监控-实时（即生成温度监控）.

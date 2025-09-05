@@ -10,10 +10,10 @@ import com.blankj.utilcode.util.ScreenUtils
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseViewModelFragment
 import com.topdon.lib.core.dialog.TipDialog
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.thermal.adapter.GalleryAdapter
 import com.topdon.module.thermal.ir.thermal.viewmodel.GalleryViewModel
-import com.topdon.module.thermal.ir.databinding.FragmentGalleryVideoBinding
+import com.topdon.module.thermal.databinding.FragmentGalleryVideoBinding
 
 /**
  * 图片

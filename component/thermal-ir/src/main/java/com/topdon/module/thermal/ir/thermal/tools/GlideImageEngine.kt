@@ -12,7 +12,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.maning.imagebrowserlibrary.ImageEngine
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 
 
 class GlideImageEngine : ImageEngine {

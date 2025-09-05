@@ -23,13 +23,13 @@ import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.lib.core.tools.ToastTools
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.activity.BaseIRActivity
 import com.topdon.module.thermal.ir.thermal.adapter.SettingTimeAdapter
 import com.topdon.module.thermal.ir.thermal.chart.MyValueFormatter
 import com.topdon.module.thermal.ir.thermal.view.MyMarkerView
 import com.topdon.module.thermal.ir.thermal.viewmodel.LogViewModel
-import com.topdon.module.thermal.ir.databinding.ActivityLogMpChartBinding
+import com.topdon.module.thermal.databinding.ActivityLogMpChartBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

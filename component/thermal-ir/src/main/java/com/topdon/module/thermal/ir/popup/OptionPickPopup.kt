@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.SizeUtils
 import com.topdon.lib.core.view.MyTextView
-import com.topdon.module.thermal.ir.R
-import com.topdon.module.thermal.ir.databinding.PopupOptionPickBinding
+import com.topdon.module.thermal.R
+import com.topdon.module.thermal.databinding.PopupOptionPickBinding
 
 /**
  * 选项拾取 PopupWindow.

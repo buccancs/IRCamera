@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.topdon.module.thermal.ir.R
-import com.topdon.module.thermal.ir.databinding.ItemSettingCheckBinding
+import com.topdon.module.thermal.R
+import com.topdon.module.thermal.databinding.ItemSettingCheckBinding
 
 class SettingCheckAdapter(val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {

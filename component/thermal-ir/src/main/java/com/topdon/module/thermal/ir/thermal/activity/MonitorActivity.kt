@@ -8,9 +8,9 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.thermal.ir.activity.BaseIRActivity
 import com.topdon.lib.ui.dialog.MonitorSelectDialog
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.thermal.fragment.event.ThermalActionEvent
-import com.topdon.module.thermal.ir.databinding.ActivityMonitorBinding
+import com.topdon.module.thermal.databinding.ActivityMonitorBinding
 import org.greenrobot.eventbus.EventBus
 import java.util.*
 

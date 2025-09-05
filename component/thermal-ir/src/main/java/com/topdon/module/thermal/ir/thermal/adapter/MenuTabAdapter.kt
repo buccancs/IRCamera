@@ -8,9 +8,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.topdon.module.thermal.ir.R
-import com.topdon.module.thermal.ir.databinding.ItemMenuTabViewBinding
-import com.topdon.module.thermal.ir.databinding.ItemMenuTabMoreViewBinding
+import com.topdon.module.thermal.R
+import com.topdon.module.thermal.databinding.ItemMenuTabViewBinding
+import com.topdon.module.thermal.databinding.ItemMenuTabMoreViewBinding
 
 class MenuTabAdapter(val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {

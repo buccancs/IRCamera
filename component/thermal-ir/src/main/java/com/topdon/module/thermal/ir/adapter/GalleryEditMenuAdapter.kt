@@ -9,8 +9,8 @@ import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.topdon.module.thermal.ir.R
-import com.topdon.module.thermal.ir.databinding.ItemGalleryEditMenuBinding
+import com.topdon.module.thermal.R
+import com.topdon.module.thermal.databinding.ItemGalleryEditMenuBinding
 
 @Deprecated("旧的2D编辑一级菜单，已重构过了")
 class GalleryEditMenuAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

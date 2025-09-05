@@ -11,9 +11,9 @@ import android.widget.LinearLayout
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.isVisible
 import com.topdon.lib.core.tools.UnitTools
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.report.bean.ImageTempBean
-import com.topdon.module.thermal.ir.databinding.ViewReportIrInputBinding
+import com.topdon.module.thermal.databinding.ViewReportIrInputBinding
 
 class ReportIRInputView: LinearLayout {
 

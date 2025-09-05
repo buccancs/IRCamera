@@ -7,8 +7,8 @@ import android.view.View
 import android.view.View.MeasureSpec
 import android.widget.PopupWindow
 import com.blankj.utilcode.util.SizeUtils
-import com.topdon.module.thermal.ir.R
-import com.topdon.module.thermal.ir.databinding.PopupGalleryChangeBinding
+import com.topdon.module.thermal.R
+import com.topdon.module.thermal.databinding.PopupGalleryChangeBinding
 
 /**
  * 图库目录切换 PopupWindow.

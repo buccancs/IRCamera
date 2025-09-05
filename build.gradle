@@ -47,7 +47,7 @@ subprojects {
             }
         }
         
-        // Configure Kotlin options to suppress kotlin-android-extensions deprecation warnings
+        // Configure Kotlin options for Kotlin 2.0.0 compatibility
         if (project.plugins.hasPlugin('kotlin-android')) {
             project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
                 kotlinOptions {

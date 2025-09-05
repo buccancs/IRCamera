@@ -6,11 +6,11 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.ktbase.BaseActivity
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.event.MonitorSaveEvent
 import com.topdon.module.thermal.ir.fragment.IRMonitorCaptureFragment
 import com.topdon.module.thermal.ir.fragment.IRMonitorHistoryFragment
-import com.topdon.module.thermal.ir.databinding.ActivityMonitorHomeBinding
+import com.topdon.module.thermal.databinding.ActivityMonitorHomeBinding
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 

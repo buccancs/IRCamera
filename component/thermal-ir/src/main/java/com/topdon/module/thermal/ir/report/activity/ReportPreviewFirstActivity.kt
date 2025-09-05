@@ -4,9 +4,9 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.report.bean.ReportInfoBean
-import com.topdon.module.thermal.ir.databinding.ActivityReportPreviewFirstBinding
+import com.topdon.module.thermal.databinding.ActivityReportPreviewFirstBinding
 
 /**
  * 生成报告第1步的预览界面.

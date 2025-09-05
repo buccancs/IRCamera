@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.tools.GlideLoader
-import com.topdon.module.thermal.ir.R
-import com.topdon.module.thermal.ir.databinding.ItemGalleryBinding
+import com.topdon.module.thermal.R
+import com.topdon.module.thermal.databinding.ItemGalleryBinding
 
 class GalleryAdapter(val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
