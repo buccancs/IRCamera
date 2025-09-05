@@ -168,9 +168,9 @@ object PDFUtil {
                         canvas = page.canvas
                         canvas.translate(0f, SizeUtils.dp2px(13f).toFloat())
                         hasUseHeight = SizeUtils.dp2px(13f)
-                        tabItemView.view_top_line.isVisible = true
+                        tabItemView.findViewById<View>(R.id.view_top_line).isVisible = true
                     } else {
-                        tabItemView.view_top_line.isVisible = false
+                        tabItemView.findViewById<View>(R.id.view_top_line).isVisible = false
                     }
 
                     tabItemView.draw(canvas)
@@ -203,17 +203,17 @@ object PDFUtil {
                 val photoText = TextView(context)
                 photoText.textSize = 8f
                 photoText.paint.isFakeBoldText = true
-                photoText.setText(R.string.album_menu_Photos)
+                photoText.setText(com.topdon.lib.core.R.string.album_menu_Photos)
                 photoText.setTextColor(0xff333333.toInt())
                 photoText.setPadding(SizeUtils.dp2px(13f), SizeUtils.dp2px(10f), SizeUtils.dp2px(13f), 0)
                 photoText.measure(MeasureSpec.makeMeasureSpec(pageWidth, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED))
                 photoText.layout(0, 0, photoText.measuredWidth, photoText.measuredHeight)
 
                 val imgLineView = LayoutInflater.from(context).inflate(R.layout.pdf_image_line, null)
-                imgLineView.tv_item_name1.text = dataList[0].itemName
-                imgLineView.tv_item_name2.text = if (dataList.size > 1) dataList[1].itemName else ""
-                imgLineView.tv_item_name3.text = if (dataList.size > 2) dataList[2].itemName else ""
-                imgLineView.tv_item_name4.text = if (dataList.size > 3) dataList[3].itemName else ""
+                imgLineView.findViewById<TextView>(R.id.tv_item_name1).text = dataList[0].itemName
+                imgLineView.findViewById<TextView>(R.id.tv_item_name2).text = if (dataList.size > 1) dataList[1].itemName else ""
+                imgLineView.findViewById<TextView>(R.id.tv_item_name3).text = if (dataList.size > 2) dataList[2].itemName else ""
+                imgLineView.findViewById<TextView>(R.id.tv_item_name4).text = if (dataList.size > 3) dataList[3].itemName else ""
                 imgLineView.measure(MeasureSpec.makeMeasureSpec(pageWidth, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED))
                 imgLineView.layout(0, 0, imgLineView.measuredWidth, imgLineView.measuredHeight)
 
