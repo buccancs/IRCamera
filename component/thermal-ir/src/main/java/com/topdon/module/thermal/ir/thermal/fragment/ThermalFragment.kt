@@ -580,7 +580,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
 
     private fun picture() {
 //        com.topdon.lib.app.utils.ScreenShotUtils.shotScreen(requireContext(), temp_display_lay, 1, com.topdon.lib.app.utils.ScreenBean())
-        com.topdon.lib.app.utils.ScreenShotUtils.shotScreenBitmap(requireContext(), mIrBitmap, 1, com.topdon.lib.app.utils.ScreenBean())
+        ScreenShotUtils.shotScreenBitmap(temp_display_layout)
     }
 
     var isVideoRunning = false
@@ -607,7 +607,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
     private fun enhance() {
         mIrSurfaceView!!.setOpenLut()
         val saturation = mIrSurfaceView?.getSaturationValue() ?: 0
-        com.topdon.lib.ui.dialog.SeekDialog.Builder(requireContext())
+        SeekDialog.Builder(requireContext())
             .setMessage(R.string.thermal_enhance)
             .setSaturation(saturation)
             .setPositiveListener(R.string.app_confirm) {
@@ -622,9 +622,9 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
     var isRunCamera = false
 
     private fun checkCameraPermission() {
-        if (!XXPermissions.isGranted(this,Manifest.permission.CAMERA)) {
+        if (!XXPermissions.isGranted(requireContext(), Manifest.permission.CAMERA)) {
             if (BaseApplication.instance.isDomestic()) {
-                TipDialog.Builder(this)
+                TipDialog.Builder(requireContext())
                     .setMessage(getString(R.string.permission_request_camera))
                     .setCancelListener(R.string.app_cancel)
                     .setPositiveListener(R.string.app_confirm) {

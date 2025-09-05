@@ -16,14 +16,14 @@ import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.guide.zm04c.matrix.GuideInterface
 import com.guide.zm04c.matrix.IrSurfaceView
-import com.topdon.lib.core.bean.tools.com.topdon.lib.app.utils.ScreenBean
+import com.topdon.lib.app.utils.ScreenBean
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.FileConfig.galleryPath
 import com.topdon.lib.core.db.AppDatabase
 import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.lib.core.utils.ByteUtils.getIndex
-import com.topdon.lib.core.utils.com.topdon.lib.app.utils.ScreenShotUtils
+import com.topdon.lib.app.utils.ScreenShotUtils
 import com.topdon.lib.ui.fence.FenceLineView
 import com.topdon.lib.ui.fence.FencePointView
 import com.topdon.lib.ui.fence.FenceView
@@ -511,7 +511,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
 
     private fun picture() {
 //        com.topdon.lib.app.utils.ScreenShotUtils.shotScreen(requireContext(), temp_display_lay, 1, com.topdon.lib.app.utils.ScreenBean())
-        com.topdon.lib.app.utils.ScreenShotUtils.shotScreenBitmap(requireContext(), mIrBitmap, 1, com.topdon.lib.app.utils.ScreenBean())
+        ScreenShotUtils.shotScreenBitmap(temp_display_layout)
     }
 
     var isVideoRunning = false

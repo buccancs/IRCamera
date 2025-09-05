@@ -5,7 +5,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.ScreenUtils
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseViewModelFragment
-import com.topdon.lib.core.widget.dialog.TipDialog
+import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.thermal.adapter.GalleryAdapter
 import com.topdon.module.thermal.ir.thermal.viewmodel.GalleryViewModel
