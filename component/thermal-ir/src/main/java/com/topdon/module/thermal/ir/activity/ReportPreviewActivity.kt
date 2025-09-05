@@ -45,6 +45,16 @@ class ReportPreviewActivity : BaseActivity(), View.OnClickListener {
     private val detectViewModel: DetectViewModel by viewModels()
     private val reportViewModel: ReportViewModel by viewModels()
 
+    // View declarations
+    private lateinit var tvSave: android.widget.TextView
+    private lateinit var rlyInspectorSignature: android.widget.RelativeLayout
+    private lateinit var rlyHouseOwnerSignature: android.widget.RelativeLayout
+    private lateinit var toolbarBackImg: android.widget.ImageView
+    private lateinit var clSign: androidx.constraintlayout.widget.ConstraintLayout
+    private lateinit var layAppbar: com.google.android.material.appbar.AppBarLayout
+    private lateinit var llSave: android.widget.LinearLayout
+    private lateinit var scrollView: androidx.core.widget.NestedScrollView
+
     /**
      * true-查看报告即查看 false-查看检测即生成
      */
@@ -55,25 +65,34 @@ class ReportPreviewActivity : BaseActivity(), View.OnClickListener {
     override fun initContentView() = R.layout.activity_report_preview
 
     override fun initView() {
+        // Initialize views
+        tvSave = findViewById(R.id.tv_save)
+        rlyInspectorSignature = findViewById(R.id.rly_inspector_signature)
+        rlyHouseOwnerSignature = findViewById(R.id.rly_house_owner_signature)
+        toolbarBackImg = findViewById(R.id.toolbar_back_img)
+        clSign = findViewById(R.id.cl_sign)
+        layAppbar = findViewById(R.id.lay_appbar)
+        llSave = findViewById(R.id.ll_save)
+        scrollView = findViewById(R.id.scroll_view)
         showLoadingDialog("")
         isReport = intent.getBooleanExtra(ExtraKeyConfig.IS_REPORT, false)
-        tv_save.isEnabled = false
-        rly_inspector_signature.isEnabled = !isReport
-        rly_house_owner_signature.isEnabled = !isReport
-        tv_save.text = if (isReport) getString(R.string.battery_share) else getString(R.string.finalize_and_save)
-        toolbar_back_img.setOnClickListener(this)
-        tv_save.setOnClickListener(this)
-        rly_inspector_signature.setOnClickListener(this)
-        rly_house_owner_signature.setOnClickListener(this)
+        tvSave.isEnabled = false
+        rlyInspectorSignature.isEnabled = !isReport
+        rlyHouseOwnerSignature.isEnabled = !isReport
+        tvSave.text = if (isReport) getString(R.string.battery_share) else getString(R.string.finalize_and_save)
+        toolbarBackImg.setOnClickListener(this)
+        tvSave.setOnClickListener(this)
+        rlyInspectorSignature.setOnClickListener(this)
+        rlyHouseOwnerSignature.setOnClickListener(this)
 
-        if(cl_sign.isShown){
-            val mAppBarChildAt: View = lay_appbar.getChildAt(0)
+        if(clSign.isShown){
+            val mAppBarChildAt: View = layAppbar.getChildAt(0)
             val mAppBarParams = mAppBarChildAt.layoutParams as AppBarLayout.LayoutParams
             mAppBarParams.scrollFlags = 0
         }
 
         detectViewModel.detectLD.observe(this) {
-            tv_save.isEnabled = it != null
+            tvSave.isEnabled = it != null
             if (it != null) {
                 houseReport = it.toHouseReport()
                 mPreviewBean = convertDataModel(houseReport)
@@ -82,7 +101,7 @@ class ReportPreviewActivity : BaseActivity(), View.OnClickListener {
             dismissLoadingDialog()
         }
         reportViewModel.reportLD.observe(this) {
-            tv_save.isEnabled = it != null
+            tvSave.isEnabled = it != null
             if (it != null) {
                 houseReport = it
                 mPreviewBean = convertDataModel(it)
@@ -137,7 +156,7 @@ class ReportPreviewActivity : BaseActivity(), View.OnClickListener {
                 startActivityForResult(intent, 1001)
             }
 
-            tv_save -> {
+            tvSave -> {
                 if (isReport) {//分享
                     lifecycleScope.launch {
                         showLoadingDialog()
@@ -154,9 +173,9 @@ class ReportPreviewActivity : BaseActivity(), View.OnClickListener {
                     }
                 } else {//定稿并保存
                     if (houseReport.inspectorWhitePath.isEmpty() || houseReport.houseOwnerWhitePath.isEmpty()) {
-                        if (cl_sign.bottom + lay_appbar.height > ll_save.top) {
-                            lay_appbar.setExpanded(false, true)
-                            scroll_view.smoothScrollTo(0, cl_sign.top)
+                        if (clSign.bottom + layAppbar.height > llSave.top) {
+                            layAppbar.setExpanded(false, true)
+                            scrollView.smoothScrollTo(0, clSign.top)
                         }
                         TToast.shortToast(this, R.string.pdf_sign_tips)
                         return

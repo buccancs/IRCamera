@@ -64,6 +64,7 @@ dependencies {
     implementation(project(":libmenu"))
     implementation(project(":component:pseudo"))
     implementation(project(":component:thermal"))
+    implementation(project(":component:house"))
     
     // ARouter compiler - disabled since annotations are commented out in this module
     // kapt(libs.arouter.compiler)
