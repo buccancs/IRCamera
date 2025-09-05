@@ -5,8 +5,9 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.View.OnClickListener
 import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.ImageView
 import com.topdon.lib.ui.R
-import kotlinx.android.synthetic.main.ui_steering_wheel_view.view.*
 
 /**
  * 校准方向
@@ -19,14 +20,19 @@ class SteeringWheelView : LinearLayout, OnClickListener {
     set(value) {
         field = value
         if (value == 270 || value == 90){
-            tv_confirm?.rotation = 270f
+            tvConfirm.rotation = 270f
             rotation = 90f
         }else{
-            tv_confirm?.rotation = 0f
+            tvConfirm.rotation = 0f
             rotation = 0f
         }
         requestLayout()
     }
+
+    private lateinit var steeringWheelStartBtn: ImageView
+    private lateinit var steeringWheelCenterBtn: ImageView
+    private lateinit var steeringWheelEndBtn: ImageView
+    private lateinit var tvConfirm: TextView
 
     constructor(context: Context) : this(context, null)
 
@@ -42,31 +48,36 @@ class SteeringWheelView : LinearLayout, OnClickListener {
 
     private fun initView() {
         inflate(context, R.layout.ui_steering_wheel_view, this)
-        steering_wheel_start_btn.setOnClickListener(this)
-        steering_wheel_center_btn.setOnClickListener(this)
-        steering_wheel_end_btn.setOnClickListener(this)
+        steeringWheelStartBtn = findViewById(R.id.steering_wheel_start_btn)
+        steeringWheelCenterBtn = findViewById(R.id.steering_wheel_center_btn)
+        steeringWheelEndBtn = findViewById(R.id.steering_wheel_end_btn)
+        tvConfirm = findViewById(R.id.tv_confirm)
+        
+        steeringWheelStartBtn.setOnClickListener(this)
+        steeringWheelCenterBtn.setOnClickListener(this)
+        steeringWheelEndBtn.setOnClickListener(this)
         if (rotationIR == 270 || rotationIR == 90){
-            tv_confirm.rotation = 270f
+            tvConfirm.rotation = 270f
             rotation = 90f
         }else{
-            tv_confirm.rotation = 0f
+            tvConfirm.rotation = 0f
             rotation = 0f
         }
     }
 
     override fun onClick(v: View?) {
         when (v) {
-            steering_wheel_start_btn -> {
+            steeringWheelStartBtn -> {
                 moveX += 10
                 if (moveX > 60) {
                     moveX = 60
                 }
                 listener?.invoke(-1, moveX)
             }
-            steering_wheel_center_btn -> {
+            steeringWheelCenterBtn -> {
                 listener?.invoke(0, moveX)
             }
-            steering_wheel_end_btn -> {
+            steeringWheelEndBtn -> {
                 moveX -= 10
                 if (moveX < -20) {
                     moveX = -20
