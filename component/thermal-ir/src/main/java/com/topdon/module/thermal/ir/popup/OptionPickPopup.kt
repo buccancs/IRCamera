@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.SizeUtils
 import com.topdon.lib.core.view.MyTextView
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.popup_option_pick.view.*
+import com.topdon.module.thermal.ir.databinding.PopupOptionPickBinding
 
 /**
  * 选项拾取 PopupWindow.
@@ -21,6 +21,8 @@ import kotlinx.android.synthetic.main.popup_option_pick.view.*
  * Created by LCG on 2024/1/5.
  */
 class OptionPickPopup(private val context: Context, private val strArray: Array<String>, private val resIdArray: Array<Int>? = null) : PopupWindow() {
+
+    private lateinit var binding: PopupOptionPickBinding
 
     companion object {
         /**
@@ -51,7 +53,8 @@ class OptionPickPopup(private val context: Context, private val strArray: Array<
         val contentHeight = SizeUtils.dp2px(14f) + itemHeight * canSeeItem
         val contentWidth = (contentHeight * 120f / 81f).toInt()
 
-        contentView = LayoutInflater.from(context).inflate(R.layout.popup_option_pick, null)
+        binding = PopupOptionPickBinding.inflate(LayoutInflater.from(context))
+        contentView = binding.root
         width = contentWidth
         height = contentHeight
 
@@ -62,8 +65,8 @@ class OptionPickPopup(private val context: Context, private val strArray: Array<
             dismiss()
             onPickListener?.invoke(it, strArray[it])
         }
-        contentView.recycler_view.adapter = adapter
-        contentView.recycler_view.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
     }
 
     fun show(anchor: View) {

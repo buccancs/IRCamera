@@ -25,7 +25,7 @@ import com.topdon.lib.core.dialog.ConfirmSelectDialog
 import com.topdon.lib.core.bean.event.GalleryDelEvent
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.thermal.ir.event.GalleryDownloadEvent
-import kotlinx.android.synthetic.main.activity_ir_video_gsy.*
+import com.topdon.module.thermal.ir.databinding.ActivityIrVideoGsyBinding
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import tv.danmaku.ijk.media.exo2.Exo2PlayerManager
@@ -35,43 +35,47 @@ import java.io.File
 @Route(path = RouterConfig.IR_VIDEO_GSY)
 class IRVideoGSYActivity : BaseActivity() {
 
+    private lateinit var binding: ActivityIrVideoGsyBinding
     private var isRemote = false
     private lateinit var data: GalleryBean
     override fun initContentView() = R.layout.activity_ir_video_gsy
 
     override fun initView() {
+        binding = ActivityIrVideoGsyBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
         BarUtils.setNavBarColor(this, ContextCompat.getColor(this, R.color.black))
 
         isRemote = intent.getBooleanExtra("isRemote", false)
         data = intent.getParcelableExtra("data") ?: throw NullPointerException("传递 data")
 
-        cl_bottom.isVisible = isRemote //查看远端时底部才有3个按钮
+        binding.clBottom.isVisible = isRemote //查看远端时底部才有3个按钮
 
         if (!isRemote) {
-            title_view.setRightDrawable(R.drawable.ic_toolbar_info_svg)
-            title_view.setRight2Drawable(R.drawable.ic_toolbar_share_svg)
-            title_view.setRight3Drawable(R.drawable.ic_toolbar_delete_svg)
-            title_view.setRightClickListener { actionInfo() }
-            title_view.setRight2ClickListener { actionShare() }
-            title_view.setRight3ClickListener { showDeleteDialog() }
+            binding.titleView.setRightDrawable(R.drawable.ic_toolbar_info_svg)
+            binding.titleView.setRight2Drawable(R.drawable.ic_toolbar_share_svg)
+            binding.titleView.setRight3Drawable(R.drawable.ic_toolbar_delete_svg)
+            binding.titleView.setRightClickListener { actionInfo() }
+            binding.titleView.setRight2ClickListener { actionShare() }
+            binding.titleView.setRight3ClickListener { showDeleteDialog() }
         }
 
-        cl_download.setOnClickListener {
+        binding.clDownload.setOnClickListener {
             actionDownload(false)
         }
-        cl_share.setOnClickListener {
+        binding.clShare.setOnClickListener {
             if (data.hasDownload) {
                 actionShare()
             } else {
                 actionDownload(true)
             }
         }
-        cl_delete.setOnClickListener {
+        binding.clDelete.setOnClickListener {
             showDeleteDialog()
         }
 
-        iv_download.isSelected = data.hasDownload
-        iv_download.setImageResource(if (isRemote) R.drawable.selector_download else R.drawable.ic_toolbar_info_svg)
+        binding.ivDownload.isSelected = data.hasDownload
+        binding.ivDownload.setImageResource(if (isRemote) R.drawable.selector_download else R.drawable.ic_toolbar_info_svg)
 
         previewVideo(isRemote, data.path)
     }
@@ -90,12 +94,12 @@ class IRVideoGSYActivity : BaseActivity() {
 
         GSYVideoOptionBuilder()
             .setUrl(url)
-            .build(gsy_play)
+            .build(binding.gsyPlay)
         //界面设置
-        gsy_play.isNeedShowWifiTip = false //不显示消耗流量弹框
-        gsy_play.titleTextView.visibility = View.GONE
-        gsy_play.backButton.visibility = View.GONE
-        gsy_play.fullscreenButton.visibility = View.GONE
+        binding.gsyPlay.isNeedShowWifiTip = false //不显示消耗流量弹框
+        binding.gsyPlay.titleTextView.visibility = View.GONE
+        binding.gsyPlay.backButton.visibility = View.GONE
+        binding.gsyPlay.fullscreenButton.visibility = View.GONE
     }
 
     private fun actionDownload(isToShare: Boolean) {
@@ -115,7 +119,7 @@ class IRVideoGSYActivity : BaseActivity() {
                 ToastTools.showShort(R.string.tip_save_success)
                 EventBus.getDefault().post(GalleryDownloadEvent(data.name))
                 data.hasDownload = true
-                iv_download.isSelected = true
+                binding.ivDownload.isSelected = true
                 if (isToShare) {
                     actionShare()
                 }
@@ -200,8 +204,8 @@ class IRVideoGSYActivity : BaseActivity() {
     }
 
     private fun getCurPlay(): GSYVideoPlayer {
-        return if (gsy_play.fullWindowPlayer != null) {
-            gsy_play.fullWindowPlayer
+        return if (binding.gsyPlay.fullWindowPlayer != null) {
+            binding.gsyPlay.fullWindowPlayer
         } else {
             gsy_play
         }
