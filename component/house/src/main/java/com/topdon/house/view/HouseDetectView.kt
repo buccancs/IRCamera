@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -239,10 +241,10 @@ class HouseDetectView : FrameLayout {
         }
 
         fun refreshDir(dirView: View, dirDetect: DirDetect) {
-            dirView.tv_dir_name.text = dirDetect.dirName
-            dirView.tv_good_count.text = dirDetect.getGoodCountStr()
-            dirView.tv_warn_count.text = dirDetect.getWarnCountStr()
-            dirView.tv_danger_count.text = dirDetect.getDangerCountStr()
+            dirView.findViewById<TextView>(R.id.tv_dir_name).text = dirDetect.dirName
+            dirView.findViewById<TextView>(R.id.tv_good_count).text = dirDetect.getGoodCountStr()
+            dirView.findViewById<TextView>(R.id.tv_warn_count).text = dirDetect.getWarnCountStr()
+            dirView.findViewById<TextView>(R.id.tv_danger_count).text = dirDetect.getDangerCountStr()
             if (dirDetect.isExpand) {
                 dirView.findViewById<android.widget.ImageView>(R.id.iv_triangle).setImageResource(R.drawable.svg_house_triangle_up)
                 dirView.findViewById<View>(R.id.view_bg_dir).setBackgroundResource(R.drawable.bg_corners10_top_solid_23202e)
@@ -400,7 +402,7 @@ class HouseDetectView : FrameLayout {
                         rootView.swipe_menu_layout.switchState()
                     }
                 }
-                rootView.iv_red_del.setOnClickListener {
+                rootView.findViewById<ImageView>(R.id.iv_red_del).setOnClickListener {
                     val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         onItemDelListener?.invoke(Pair(position, dataList[position] as ItemDetect))
@@ -433,9 +435,9 @@ class HouseDetectView : FrameLayout {
                 notifyItemChanged(dirPosition)
                 notifyItemChanged(position)
                 if (dirPosition == currentPosition) {
-                    titleView.tv_good_count.text = dirDetect.getGoodCountStr()
-                    titleView.tv_warn_count.text = dirDetect.getWarnCountStr()
-                    titleView.tv_danger_count.text = dirDetect.getDangerCountStr()
+                    titleView.findViewById<TextView>(R.id.tv_good_count).text = dirDetect.getGoodCountStr()
+                    titleView.findViewById<TextView>(R.id.tv_warn_count).text = dirDetect.getWarnCountStr()
+                    titleView.findViewById<TextView>(R.id.tv_danger_count).text = dirDetect.getDangerCountStr()
                 }
                 onDirChangeListener?.invoke(dirDetect)
                 onItemChangeListener?.invoke(itemDetect)

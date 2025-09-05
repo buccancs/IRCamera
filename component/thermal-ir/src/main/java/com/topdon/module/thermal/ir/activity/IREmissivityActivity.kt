@@ -25,17 +25,22 @@ class IREmissivityActivity : BaseActivity() {
 
     override fun initView() {
         val dataArray: Array<ItemBean> = buildDataArray()
-        tv_title.text = dataArray[0].name
-        emissivity_view.refreshText(dataArray[0].buildTextList(this))
+        val tvTitle = findViewById<TextView>(R.id.tv_title)
+        val emissivityView = findViewById<EmissivityView>(R.id.emissivity_view)
+        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+        val clTitle = findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.cl_title)
+        
+        tvTitle.text = dataArray[0].name
+        emissivityView.refreshText(dataArray[0].buildTextList(this))
 
         val itemDecoration = MyItemDecoration(this)
         itemDecoration.wholeBottom = 20f
 
         val layoutManager = LinearLayoutManager(this)
-        recycler_view.layoutManager = layoutManager
-        recycler_view.adapter = MyAdapter(this, dataArray)
-        recycler_view.addItemDecoration(itemDecoration)
-        recycler_view.addOnScrollListener(MyOnScrollListener(cl_title, layoutManager, dataArray))
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = MyAdapter(this, dataArray)
+        recyclerView.addItemDecoration(itemDecoration)
+        recyclerView.addOnScrollListener(MyOnScrollListener(clTitle, layoutManager, dataArray))
     }
 
     override fun initData() {

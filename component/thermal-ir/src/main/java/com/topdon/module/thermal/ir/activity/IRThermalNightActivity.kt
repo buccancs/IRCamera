@@ -295,14 +295,21 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
 
     @SuppressLint("SetTextI18n")
     override fun initView() {
-        title_view.setLeftClickListener {
-            if (time_down_view.isRunning) {
+        val titleView = findViewById<com.topdon.lib.core.view.TitleView>(R.id.title_view)
+        val timeDownView = findViewById<com.topdon.lib.ui.widget.TimeDownView>(R.id.time_down_view)
+        val tvTitleTemp = findViewById<TextView>(R.id.tv_title_temp)
+        val tvTitleObserve = findViewById<TextView>(R.id.tv_title_observe)
+        val viewCarDetect = findViewById<ViewGroup>(R.id.view_car_detect)
+        val viewMenuFirst = findViewById<com.topdon.menu.view.MenuFirstTabView>(R.id.view_menu_first)
+        
+        titleView.setLeftClickListener {
+            if (timeDownView.isRunning) {
                 return@setLeftClickListener
             }
             setResult(200)
             finish()
         }
-        title_view.setRight2ClickListener{
+        titleView.setRight2ClickListener{
             if (SupHelp.getInstance().loadOpenclSuccess){
                 switchAmplify()
             }else{
@@ -313,7 +320,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                     .create().show()
             }
         }
-        title_view.setRightClickListener {
+        titleView.setRightClickListener {
             val config = ConfigRepository.readConfig(false)
             var text = ""
             for (tmp in IRConfigData.irConfigData(this@IRThermalNightActivity)){
@@ -330,24 +337,24 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             EmissivityTipPopup(this@IRThermalNightActivity, false)
                 .setDataBean(config.environment,config.distance,config.radiation,text)
                 .build()
-                .showAsDropDown(title_view, 0, 0, Gravity.END)
+                .showAsDropDown(titleView, 0, 0, Gravity.END)
         }
-        tv_title_temp.isSelected = true
-        tv_title_temp.setOnClickListener {
+        tvTitleTemp.isSelected = true
+        tvTitleTemp.setOnClickListener {
             switchTs001Mode(true)
         }
-        tv_title_observe.setOnClickListener {
+        tvTitleObserve.setOnClickListener {
             switchTs001Mode(false)
         }
 
 
-        view_car_detect.findViewById<LinearLayout>(R.id.ll_car_detect_info).setOnClickListener {
+        viewCarDetect.findViewById<LinearLayout>(R.id.ll_car_detect_info).setOnClickListener {
             LongTextDialog(this, SharedManager.getCarDetectInfo().item, SharedManager.getCarDetectInfo().description).show()
         }
         BarUtils.setStatusBarColor(this, 0xff16131e.toInt())
         BarUtils.setNavBarColor(window, 0xff16131e.toInt())
         initRecycler()
-        view_menu_first.onTabClickListener = {
+        viewMenuFirst.onTabClickListener = {
             ViewStubUtils.showViewStub(view_stub_camera, false, null)
             popupWindow?.dismiss()
             temperatureView.isEnabled = it.selectPosition == 1

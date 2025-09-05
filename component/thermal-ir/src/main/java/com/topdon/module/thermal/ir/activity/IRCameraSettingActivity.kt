@@ -75,6 +75,18 @@ class IRCameraSettingActivity : BaseActivity() {
         val barPickViewTime = findViewById<BarPickView>(R.id.bar_pick_view_time)
         val barPickViewCount = findViewById<BarPickView>(R.id.bar_pick_view_count)
         val switchTime = findViewById<Switch>(R.id.switch_time)
+        val switchWatermark = findViewById<Switch>(R.id.switch_watermark)
+        val switchDelay = findViewById<Switch>(R.id.switch_delay)
+        val clDelayMore = findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.cl_delay_more)
+        val clWatermarkMore = findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.cl_watermark_more)
+        val clShowEp = findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.cl_show_ep)
+        val tvTimeShow = findViewById<android.widget.TextView>(R.id.tv_time_show)
+        val tvAddress = findViewById<android.widget.TextView>(R.id.tv_address)
+        val edTitle = findViewById<android.widget.EditText>(R.id.ed_title)
+        val edAddress = findViewById<android.widget.EditText>(R.id.ed_address)
+        val tvTitleShow = findViewById<android.widget.TextView>(R.id.tv_title_show)
+        val imgLocation = findViewById<android.widget.ImageView>(R.id.img_location)
+        val lyAuto = findViewById<android.widget.LinearLayout>(R.id.ly_auto)
         
         barPickViewTime.setProgressAndRefresh((continuousBean.continuaTime / 100).toInt())
         barPickViewTime.onStopTrackingTouch = { progress, _ ->
@@ -93,55 +105,55 @@ class IRCameraSettingActivity : BaseActivity() {
 
 
         switchTime.isChecked = watermarkBean.isAddTime
-        switch_watermark.isChecked = watermarkBean.isOpen
-        switch_delay.isChecked = continuousBean.isOpen
+        switchWatermark.isChecked = watermarkBean.isOpen
+        switchDelay.isChecked = continuousBean.isOpen
 
-        cl_delay_more.isVisible = continuousBean.isOpen
-        cl_watermark_more.isVisible = watermarkBean.isOpen
-        cl_show_ep.isVisible = watermarkBean.isOpen
+        clDelayMore.isVisible = continuousBean.isOpen
+        clWatermarkMore.isVisible = watermarkBean.isOpen
+        clShowEp.isVisible = watermarkBean.isOpen
 
-        tv_time_show.text = TimeTool.getNowTime()
-        tv_time_show.isVisible = watermarkBean.isAddTime
+        tvTimeShow.text = TimeTool.getNowTime()
+        tvTimeShow.isVisible = watermarkBean.isAddTime
 
-        tv_address.inputType = InputType.TYPE_NULL
+        tvAddress.inputType = InputType.TYPE_NULL
         if (TextUtils.isEmpty(watermarkBean.address)){
-            tv_address.visibility = View.GONE
+            tvAddress.visibility = View.GONE
         }else{
-            tv_address.visibility = View.VISIBLE
-            tv_address.text = watermarkBean.address
+            tvAddress.visibility = View.VISIBLE
+            tvAddress.text = watermarkBean.address
         }
-        ed_title.setText(watermarkBean.title)
-        ed_address.setText(watermarkBean.address)
-        tv_title_show.text = watermarkBean.title
-        switch_delay.setOnCheckedChangeListener { _, isChecked ->
+        edTitle.setText(watermarkBean.title)
+        edAddress.setText(watermarkBean.address)
+        tvTitleShow.text = watermarkBean.title
+        switchDelay.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked){
-                cl_delay_more.visibility = View.VISIBLE
+                clDelayMore.visibility = View.VISIBLE
             }else{
-                cl_delay_more.visibility = View.GONE
+                clDelayMore.visibility = View.GONE
             }
             continuousBean.isOpen = isChecked
             SharedManager.continuousBean = continuousBean
         }
-        switch_watermark.setOnCheckedChangeListener { _, isChecked ->
+        switchWatermark.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked){
-                cl_watermark_more.visibility = View.VISIBLE
-                cl_show_ep.visibility = View.VISIBLE
+                clWatermarkMore.visibility = View.VISIBLE
+                clShowEp.visibility = View.VISIBLE
             }else{
-                cl_watermark_more.visibility = View.GONE
-                cl_show_ep.visibility = View.GONE
+                clWatermarkMore.visibility = View.GONE
+                clShowEp.visibility = View.GONE
             }
             watermarkBean.isOpen = isChecked
         }
-        switch_time.setOnCheckedChangeListener { _, isChecked ->
+        switchTime.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked){
-                tv_time_show.text = TimeTool.getNowTime()
-                tv_time_show.visibility = View.VISIBLE
+                tvTimeShow.text = TimeTool.getNowTime()
+                tvTimeShow.visibility = View.VISIBLE
             }else{
-                tv_time_show.visibility = View.GONE
+                tvTimeShow.visibility = View.GONE
             }
             watermarkBean.isAddTime = isChecked
         }
-        ed_title.addTextChangedListener(object : TextWatcher{
+        edTitle.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
@@ -149,33 +161,33 @@ class IRCameraSettingActivity : BaseActivity() {
             }
             override fun afterTextChanged(s: Editable?) {
 
-                watermarkBean.title = ed_title.text.toString()
-                tv_title_show.text = watermarkBean.title
+                watermarkBean.title = edTitle.text.toString()
+                tvTitleShow.text = watermarkBean.title
             }
         })
-        ed_address.addTextChangedListener(object : TextWatcher{
+        edAddress.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
             override fun afterTextChanged(s: Editable?) {
-                watermarkBean.address = ed_address.text.toString()
-                tv_address.text = watermarkBean.address
+                watermarkBean.address = edAddress.text.toString()
+                tvAddress.text = watermarkBean.address
                 if (!watermarkBean.address.isNullOrEmpty()){
-                    tv_address.visibility = View.VISIBLE
+                    tvAddress.visibility = View.VISIBLE
                 }else{
-                    tv_address.visibility = View.GONE
+                    tvAddress.visibility = View.GONE
                 }
             }
         })
-        img_location.setOnClickListener(object : SingleClickListener() {
+        imgLocation.setOnClickListener(object : SingleClickListener() {
             override fun onSingleClick() {
                 checkStoragePermission()
             }
         })
         //TC007设备不需要延迟拍照
-        ly_auto.visibility = if (isTC007()) View.GONE else View.VISIBLE
+        lyAuto.visibility = if (isTC007()) View.GONE else View.VISIBLE
     }
 
     fun isTC007() : Boolean
