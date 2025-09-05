@@ -24,6 +24,7 @@ import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.module.thermal.ir.R
 import com.topdon.lib.core.R as LibR
+import com.topdon.module.thermal.R as ThermalR
 import com.topdon.module.thermal.ir.chart.IRMyValueFormatter
 import com.topdon.module.thermal.ir.chart.YValueFormatter
 import com.topdon.module.thermal.ir.utils.ChartTools
@@ -74,7 +75,7 @@ class ChartMonitorView : LineChart, OnChartGestureListener {
                 SizeUtils.dp2px(8f).toFloat(),
                 SizeUtils.dp2px(4f).toFloat()
             )//图表区域偏移
-            setNoDataText(context.getString(LibR.string.http_code998))
+            setNoDataText(context.getString(ThermalR.string.lms_http_code998))
             setNoDataTextColor(ContextCompat.getColor(context, LibR.color.chart_text))
             val mv = MyMarkerView(context, R.layout.marker_lay)
             mv.chartView = this
