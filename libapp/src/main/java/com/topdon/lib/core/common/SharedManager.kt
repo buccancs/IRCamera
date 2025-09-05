@@ -545,25 +545,10 @@ object SharedManager {
 
     /**
      * Selected fence type for thermal analysis.
-     * Methods getSelectFenceType() and setSelectFenceType() are automatically generated.
      */
     var selectFenceType: Int
         get() = SPUtils.getInstance().getInt("selectFenceType", 1)
         set(value) = SPUtils.getInstance().put("selectFenceType", value)
-
-    /**
-     * Get select fence type for thermal analysis.
-     */
-    fun getSelectFenceType(): Int {
-        return selectFenceType
-    }
-
-    /**
-     * Set select fence type for thermal analysis.
-     */
-    fun setSelectFenceType(value: Int) {
-        selectFenceType = value
-    }
 
     /**
      * Get time zone for thermal data display.

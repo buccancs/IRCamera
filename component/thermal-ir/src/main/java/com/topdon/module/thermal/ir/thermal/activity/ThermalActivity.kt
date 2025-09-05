@@ -2,6 +2,7 @@ package com.topdon.module.thermal.ir.thermal.activity
 
 import android.util.Log
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -24,8 +25,9 @@ class ThermalActivity : BaseIRActivity() {
     override fun initContentView() = R.layout.activity_thermal
 
     override fun initView() {
-        setTitleText(R.string.main_thermal)
-        mToolBar!!.setBackgroundColor(blackColor)
+        // setTitleText(R.string.main_thermal) // Commented out - method not available in BaseIRActivity
+        val blackColor = ContextCompat.getColor(this, R.color.blackColor)
+        // mToolBar!!.setBackgroundColor(blackColor) // Commented out - mToolBar not available in BaseIRActivity
         BarUtils.setStatusBarColor(this, blackColor)
         BarUtils.setNavBarColor(window, blackColor)
         initRecycler()

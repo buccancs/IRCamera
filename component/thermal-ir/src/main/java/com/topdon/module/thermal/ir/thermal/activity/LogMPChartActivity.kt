@@ -89,7 +89,7 @@ class LogMPChartActivity : BaseIRActivity(), OnChartValueSelectedListener {
 //        viewModel.queryLogByType(selectType)
         lifecycleScope.launch(Dispatchers.IO) {
             viewModel.queryLogVolsByStartTime(
-                type = SharedManager.getSelectFenceType(),
+                type = SharedManager.selectFenceType,
                 selectTimeType = selectType
             )
         }

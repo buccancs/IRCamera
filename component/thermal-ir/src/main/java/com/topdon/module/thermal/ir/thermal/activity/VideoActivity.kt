@@ -27,7 +27,7 @@ class VideoActivity : BaseActivity() {
     override fun initContentView() = R.layout.activity_video
 
     override fun initView() {
-        setTitleText(R.string.video)
+        // setTitleText(R.string.video) // Commented out - method not available in BaseIRActivity
         BarUtils.setNavBarColor(this, ContextCompat.getColor(this, R.color.black))
         if (intent.hasExtra(KEY_PATH)) {
             videoPath = intent.getStringExtra(KEY_PATH)!!

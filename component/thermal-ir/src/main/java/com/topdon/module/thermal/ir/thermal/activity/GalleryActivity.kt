@@ -46,7 +46,7 @@ class GalleryActivity : BaseIRActivity() {
 
         XXPermissions.with(this)
             .permission(permissionList)
-            .request { allGranted, grantedList, deniedList ->
+            .request { allGranted, grantedList ->
                 // Handle permission result
             }
     }

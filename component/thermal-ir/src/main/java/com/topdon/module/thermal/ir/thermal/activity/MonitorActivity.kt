@@ -57,17 +57,16 @@ class MonitorActivity : BaseIRActivity(), View.OnClickListener {
             }
             motion_btn -> {
                 MonitorSelectDialog.Builder(this)
-                    .setTitle("请选择监控类型")
-                    .setPositiveListener(object : MonitorSelectDialog.OnClickListener {
-                        override fun onClick(select: Int) {
-                            updateUI()
-                            when (select) {
-                                1 -> EventBus.getDefault().post(ThermalActionEvent(action = 2001))
-                                2 -> EventBus.getDefault().post(ThermalActionEvent(action = 2002))
-                                else -> EventBus.getDefault()
-                                    .post(ThermalActionEvent(action = 2003))
-                            }
+                    // .setTitle("请选择监控类型") // Commented out - method not available
+                    .setPositiveListener { select ->
+                        updateUI()
+                        when (select) {
+                            1 -> EventBus.getDefault().post(ThermalActionEvent(action = 2001))
+                            2 -> EventBus.getDefault().post(ThermalActionEvent(action = 2002))
+                            else -> EventBus.getDefault()
+                                .post(ThermalActionEvent(action = 2003))
                         }
+                    }
 
                     })
                     .setCancelListener(R.string.app_cancel)

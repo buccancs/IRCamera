@@ -70,12 +70,12 @@ class MonitorChartActivity : BaseIRActivity(), View.OnClickListener, OnChartValu
     override fun initContentView() = R.layout.activity_monitor_chart
 
     override fun initView() {
-        setTitleText(R.string.main_thermal_motion)
+        // setTitleText(R.string.main_thermal_motion) // Commented out - method not available in BaseIRActivity
         selectType = intent.getIntExtra("type", 3)
         selectIndex = intent.getIntegerArrayListExtra("select")!!
         Log.w("123", "selectType:$selectType")
         Log.w("123", "selectIndex:${selectIndex.joinToString()}")
-        SharedManager.setSelectFenceType(selectType)
+        SharedManager.selectFenceType = selectType
         type = when (selectType) {
             1 -> "point"
             2 -> "line"
