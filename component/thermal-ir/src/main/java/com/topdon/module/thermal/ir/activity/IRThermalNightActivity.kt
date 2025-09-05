@@ -18,6 +18,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.text.HtmlCompat
 import com.topdon.module.thermal.ir.view.TimeDownView
+import com.topdon.pseudo.activity.PseudoSetActivity
 import androidx.core.view.isVisible
 import androidx.core.view.postDelayed
 import androidx.lifecycle.lifecycleScope
@@ -186,6 +187,8 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     private lateinit var llTrendClose: LinearLayout
     private lateinit var viewMenuFirst: com.topdon.menu.MenuFirstTabView
     private lateinit var tvTempContent: TextView
+    private lateinit var thermalLay: View  // Migrated from synthetic view thermalLay
+    private var tvTypeInd: TextView? = null  // Migrated from synthetic view tvTypeInd
 
     override fun initContentView() = R.layout.activity_thermal_ir_night
 
@@ -239,8 +242,8 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     private val cl_seek_bar by lazy { findViewById<ConstraintLayout>(R.id.cl_seek_bar) }
     private val cameraPreview by lazy { findViewById<com.topdon.lib.ui.camera.CameraPreView>(R.id.cameraPreview) }
     private val distance_measure_view by lazy { findViewById<View>(R.id.distance_measure_view) }
-    private val zoomView by lazy { findViewById<View>(R.id.zoomView) }
-    private val temperatureSeekbar by lazy { findViewById<RangeSeekBar>(R.id.temperature_seekbar) }
+    private val zoomView by lazy { findViewById<com.infisense.usbir.view.ZoomCaliperView>(R.id.zoomView) }
+    private val temperatureSeekbar by lazy { findViewById<com.topdon.lib.ui.widget.seekbar.RangeSeekBar>(R.id.temperature_seekbar) }
     // Removed viewStubCamera references as the layout resource doesn't exist
     
     private val bitmapWidth: Int
@@ -284,7 +287,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             imageThread?.setOpenAmplify(isOpenAmplify)
             cameraView.bitmap = bitmap
             cameraView.isOpenAmplify = isOpenAmplify
-            val titleView = findViewById<com.topdon.lib.core.view.TitleView>(R.id.title_view)
+            // titleView already initialized as class property
             titleView.setRight2Drawable(if (isOpenAmplify) R.drawable.svg_tisr_on else R.drawable.svg_tisr_off)
             SaveSettingUtil.isOpenAmplify = isOpenAmplify
             if (isOpenAmplify){
@@ -298,7 +301,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
 
      open fun initAmplify(show : Boolean){
         lifecycleScope.launch {
-            val titleView = findViewById<com.topdon.lib.core.view.TitleView>(R.id.title_view)
+            // titleView already initialized as class property
             if (show){
                 titleView.setRight2Drawable(if (isOpenAmplify) R.drawable.svg_tisr_on else R.drawable.svg_tisr_off)
             }else{
@@ -327,26 +330,27 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         cameraView = findViewById(R.id.cameraView)
         thermalRecyclerNight = findViewById(R.id.thermal_recycler_night)
         temperatureView = findViewById(R.id.temperatureView)
+        titleView = findViewById(R.id.titleView)  // Now using class property
         
-        val titleView = findViewById<com.topdon.lib.core.view.TitleView>(R.id.title_view)
         val timeDownView = findViewById<TimeDownView>(R.id.time_down_view)
         val tvTitleTemp = findViewById<TextView>(R.id.tv_title_temp)
         val tvTitleObserve = findViewById<TextView>(R.id.tv_title_observe)
         val viewCarDetect = findViewById<ViewGroup>(R.id.view_car_detect)
         viewMenuFirst = findViewById(R.id.view_menu_first)
-        val temperatureSeekbar = findViewById<RangeSeekBar>(R.id.temperature_seekbar)
+        temperatureSeekbar = findViewById(R.id.temperature_seekbar)  // Now using class property
         tvTempContent = findViewById(R.id.tv_temp_content)
         val clSeekBar = findViewById<ConstraintLayout>(R.id.cl_seek_bar)
         val viewChartTrend = findViewById<View>(R.id.view_chart_trend)
         clTrendOpen = findViewById(R.id.cl_trend_open)
         llTrendClose = findViewById(R.id.ll_trend_close)
         val thermalText = findViewById<TextView>(R.id.thermal_text)
-        val thermalLay = findViewById<View>(R.id.thermal_lay)
+        thermalLay = findViewById(R.id.thermalLay)  // Now using class property
         val ivTrendClose = findViewById<ImageView>(R.id.iv_trend_close)
         val ivTrendOpen = findViewById<ImageView>(R.id.iv_trend_open)
         
         // Missing findViewById declarations for synthetic views
         compassView = findViewById(R.id.compassView)
+        tvTypeInd = findViewById(R.id.tvTypeInd)  // May be null if not present in layout
         spaceChart = findViewById(R.id.space_chart)
         
         titleView.setLeftClickListener {
@@ -1069,7 +1073,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
    open fun irStart(){
         if (!isrun) {
             syncimage.valid = true
-            tv_type_ind?.visibility = GONE
+            tvTypeInd?.visibility = GONE
             startISP()
             temperatureView.start()
             cameraView?.start()
@@ -1092,7 +1096,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         thermalRecyclerNight.refreshImg()
         startOrientation()
         if (curChooseTabPos != 1 && isOpenTarget && zoomView.visibility == View.VISIBLE) {
-            zoomView?.updateSelectBitmap(targetMeasureMode, targetStyle, targetColorType,thermal_lay)
+            zoomView?.updateSelectBitmap(targetMeasureMode, targetStyle, targetColorType,thermalLay)
         }
         setCarDetectPrompt()
     }
@@ -1279,7 +1283,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                     // thermalRecyclerNight.setTargetSelected - synthetic method removed
                     // thermalRecyclerNight.setTargetSelected - synthetic method removed
                     zoomView.visibility = View.VISIBLE
-                    zoomView.updateTargetBitmap(targetMeasureMode, targetStyle, targetColorType,thermal_lay)
+                    zoomView.updateTargetBitmap(targetMeasureMode, targetStyle, targetColorType,thermalLay)
                     if (!SharedManager.getTargetPop()) {
                         // thermalRecyclerNight.setTargetSelected - synthetic method removed
                         val dialog = TipGuideDialog.newInstance()
@@ -1672,7 +1676,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
      */
     private fun showTargetModePopup() {
         zoomView.visibility =View.VISIBLE
-        zoomView?.updateSelectBitmap(targetMeasureMode, targetStyle, targetColorType,thermal_lay)
+        zoomView?.updateSelectBitmap(targetMeasureMode, targetStyle, targetColorType,thermalLay)
         // thermalRecyclerNight.setTargetSelected - synthetic method removed
         // thermalRecyclerNight.setTargetSelected - synthetic method removed
         // thermalRecyclerNight.setTargetSelected - synthetic method removed
@@ -1698,7 +1702,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         measureItemAdapter.listener = listener@{ _, item ->
             targetMeasureMode = item
             SaveSettingUtil.targetMeasureMode = targetMeasureMode
-            zoomView?.updateSelectBitmap(targetMeasureMode, targetStyle, targetColorType,thermal_lay)
+            zoomView?.updateSelectBitmap(targetMeasureMode, targetStyle, targetColorType,thermalLay)
             thermalRecyclerNight.setTargetMode(item)
         }
         recyclerView?.adapter = measureItemAdapter
@@ -1711,7 +1715,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
 //            thermalRecyclerNight.modeStats = 620
 //        }
         //在控件上方显示
-        popupWindow?.showAsDropDown(thermal_lay, 0, getPopupWindowY(contentHeight), Gravity.NO_GRAVITY)
+        popupWindow?.showAsDropDown(thermalLay, 0, getPopupWindowY(contentHeight), Gravity.NO_GRAVITY)
         curTargetStyle = 1
     }
 
@@ -1720,7 +1724,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
      */
     private fun showTargetStylePopup() {
         zoomView.visibility =View.VISIBLE
-        zoomView?.updateSelectBitmap(targetMeasureMode, targetStyle, targetColorType,thermal_lay)
+        zoomView?.updateSelectBitmap(targetMeasureMode, targetStyle, targetColorType,thermalLay)
         // thermalRecyclerNight.setTargetSelected - synthetic method removed
         // thermalRecyclerNight.setTargetSelected - synthetic method removed
         // thermalRecyclerNight.setTargetSelected - synthetic method removed
@@ -1747,7 +1751,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         targetItemAdapter.listener = listener@{ _, item ->
             targetStyle = item
             SaveSettingUtil.targetType = targetStyle
-            zoomView?.updateSelectBitmap(targetMeasureMode, targetStyle, targetColorType,thermal_lay)
+            zoomView?.updateSelectBitmap(targetMeasureMode, targetStyle, targetColorType,thermalLay)
         }
         recyclerView?.adapter = targetItemAdapter
 //        popupWindow?.setOnDismissListener {
@@ -1755,7 +1759,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
 //        }
         //在控件上方显示
         popupWindow?.showAsDropDown(
-            thermal_lay,
+            thermalLay,
             0,
             getPopupWindowY(contentHeight),
             Gravity.NO_GRAVITY
@@ -1773,7 +1777,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 // thermalRecyclerNight.setTargetSelected - synthetic method removed
                 targetColorType = it
                 SaveSettingUtil.targetColorType = targetColorType
-                zoomView?.updateTargetBitmap(targetMeasureMode, targetStyle, targetColorType,thermal_lay)
+                zoomView?.updateTargetBitmap(targetMeasureMode, targetStyle, targetColorType,thermalLay)
             }
             .create().show()
     }
@@ -1804,7 +1808,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         seekBarPopup.setOnDismissListener {
             thermalRecyclerNight.setTwoLightSelected(TwoLightType.BLEND_EXTENT, false)
         }
-        seekBarPopup.show(thermal_lay, !saveSetBean.isRotatePortrait())
+        seekBarPopup.show(thermalLay, !saveSetBean.isRotatePortrait())
         popupWindow = seekBarPopup
     }
 
@@ -1886,35 +1890,35 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
      * @param isPortrait    true: 竖屏
      */
     private fun setViewLay(isPortrait: Boolean) {
-        val params = thermal_lay.layoutParams as ConstraintLayout.LayoutParams
+        val params = thermalLay.layoutParams as ConstraintLayout.LayoutParams
         if (isPortrait) {
             params.dimensionRatio = "192:256"
         } else {
             params.dimensionRatio = "256:192"
         }
         runOnUiThread {
-            thermal_lay.layoutParams = params
+            thermalLay.layoutParams = params
         }
-        thermal_lay.post {
+        thermalLay.post {
             cl_seek_bar.requestLayout()
         }
-        thermal_lay.viewTreeObserver.addOnGlobalLayoutListener(
+        thermalLay.viewTreeObserver.addOnGlobalLayoutListener(
             object : ViewTreeObserver.OnGlobalLayoutListener {
                 override fun onGlobalLayout() {
-                    if (saveSetBean.isRotatePortrait() && thermal_lay.measuredHeight > thermal_lay.measuredWidth) {
+                    if (saveSetBean.isRotatePortrait() && thermalLay.measuredHeight > thermalLay.measuredWidth) {
                         val childLayoutParams  = temperatureView.layoutParams
-                        childLayoutParams.width = thermal_lay.measuredWidth
-                        childLayoutParams.height = thermal_lay.measuredHeight
+                        childLayoutParams.width = thermalLay.measuredWidth
+                        childLayoutParams.height = thermalLay.measuredHeight
                         temperatureView.layoutParams = childLayoutParams
-                        zoomView.setImageSize(imageHeight, imageWidth, thermal_lay.width, thermal_lay.height)
-                        thermal_lay.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                    } else if (!saveSetBean.isRotatePortrait() && thermal_lay.measuredHeight < thermal_lay.measuredWidth) {
+                        zoomView.setImageSize(imageHeight, imageWidth, thermalLay.width, thermalLay.height)
+                        thermalLay.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    } else if (!saveSetBean.isRotatePortrait() && thermalLay.measuredHeight < thermalLay.measuredWidth) {
                         val childLayoutParams  = temperatureView.layoutParams
-                        childLayoutParams.width = thermal_lay.measuredWidth
-                        childLayoutParams.height = thermal_lay.measuredHeight
+                        childLayoutParams.width = thermalLay.measuredWidth
+                        childLayoutParams.height = thermalLay.measuredHeight
                         temperatureView.layoutParams = childLayoutParams
-                        zoomView.setImageSize(imageWidth, imageHeight, thermal_lay.width, thermal_lay.height)
-                        thermal_lay.viewTreeObserver.removeOnGlobalLayoutListener(this);
+                        zoomView.setImageSize(imageWidth, imageHeight, thermalLay.width, thermalLay.height)
+                        thermalLay.viewTreeObserver.removeOnGlobalLayoutListener(this);
                     }
                 }
             });
@@ -2699,7 +2703,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         seekBarPopup.setOnDismissListener {
             // thermalRecyclerNight.setSettingSelected - synthetic method removed
         }
-        seekBarPopup.show(thermal_lay, !saveSetBean.isRotatePortrait())
+        seekBarPopup.show(thermalLay, !saveSetBean.isRotatePortrait())
         popupWindow = seekBarPopup
     }
 
@@ -2709,13 +2713,13 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             return 0
         }
         val location = IntArray(2)
-        thermal_lay.getLocationInWindow(location)
+        thermalLay.getLocationInWindow(location)
         val menuLocation = IntArray(2)
         thermalRecyclerNight.getLocationInWindow(menuLocation)
-        return if (location[1] + thermal_lay.measuredHeight > menuLocation[1]) {
-            thermal_lay.measuredHeight - contentHeight - (location[1] + thermal_lay.measuredHeight - menuLocation[1])
+        return if (location[1] + thermalLay.measuredHeight > menuLocation[1]) {
+            thermalLay.measuredHeight - contentHeight - (location[1] + thermalLay.measuredHeight - menuLocation[1])
         } else {
-            thermal_lay.measuredHeight - contentHeight
+            thermalLay.measuredHeight - contentHeight
         }
     }
 
@@ -2739,7 +2743,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         seekBarPopup.setOnDismissListener {
             // thermalRecyclerNight.setSettingSelected - synthetic method removed
         }
-        seekBarPopup.show(thermal_lay, !saveSetBean.isRotatePortrait())
+        seekBarPopup.show(thermalLay, !saveSetBean.isRotatePortrait())
         popupWindow = seekBarPopup
     }
 
@@ -3205,10 +3209,10 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                                         onTick = {
                                             camera()
                                         }, onStart = {
-                                            tv_type_ind?.visibility = VISIBLE
+                                            tvTypeInd?.visibility = VISIBLE
                                             isAutoCamera = true
                                         }, onFinish = {
-                                            tv_type_ind?.visibility = GONE
+                                            tvTypeInd?.visibility = GONE
                                             isAutoCamera = false
                                         })
                                     autoJob?.start()
