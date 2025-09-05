@@ -8,7 +8,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageView
-import com.infisense.usbir.R
+import com.topdon.libir.R
 
 /**
  * 卡尺图片

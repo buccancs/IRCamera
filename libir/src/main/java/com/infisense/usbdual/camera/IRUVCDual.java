@@ -23,7 +23,7 @@ import com.energy.iruvc.uvc.ConnectCallback;
 import com.energy.iruvc.uvc.UVCCamera;
 import com.energy.iruvc.uvc.UVCType;
 import com.infisense.usbdual.Const;
-import com.infisense.usbir.R;
+import com.topdon.libir.R;
 
 import java.util.ArrayList;
 import java.util.List;

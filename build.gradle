@@ -19,7 +19,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.1.4'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.25"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.0"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -89,13 +89,13 @@ subprojects {
             force 'com.google.android.exoplayer:exoplayer-hls:2.19.1'
             force 'com.google.android.exoplayer:exoplayer-smoothstreaming:2.19.1'
             
-            // Force compatible Kotlin stdlib and coroutines versions for Kotlin 1.9.25
-            force 'org.jetbrains.kotlin:kotlin-stdlib:1.9.25'
-            force 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.25'
-            force 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.25'
-            force 'org.jetbrains.kotlin:kotlin-stdlib-common:1.9.25'
-            force 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3'
-            force 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+            // Force compatible Kotlin stdlib and coroutines versions for Kotlin 2.0.0
+            force 'org.jetbrains.kotlin:kotlin-stdlib:2.0.0'
+            force 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.0'
+            force 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.0.0'
+            force 'org.jetbrains.kotlin:kotlin-stdlib-common:2.0.0'
+            force 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0'
+            force 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0'
         }
     }
 }
