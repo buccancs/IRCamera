@@ -1,7 +1,11 @@
 package com.topdon.module.thermal.ir.fragment
 
 import android.graphics.Bitmap
+import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
 import android.yt.jni.Usbcontorl
 import androidx.lifecycle.lifecycleScope
@@ -27,7 +31,7 @@ import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.repository.ConfigRepository
 import com.topdon.module.thermal.ir.utils.CalibrationTools
-import kotlinx.android.synthetic.main.fragment_ir_monitor_thermal.*
+import com.topdon.module.thermal.ir.databinding.FragmentIrMonitorThermalBinding
 import kotlinx.coroutines.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -37,12 +41,20 @@ import org.greenrobot.eventbus.ThreadMode
  */
 class IRCorrectionFragment : BaseFragment(),ITsTempListener{
 
+    private var _binding: FragmentIrMonitorThermalBinding? = null
+    private val binding get() = _binding!!
+
     /** 默认数据流模式：图像+温度复合数据 */
     protected var defaultDataFlowMode = CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT
 
     private var ircmd: IRCMD? = null
 
-    override fun initContentView() = R.layout.fragment_ir_monitor_thermal
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        _binding = FragmentIrMonitorThermalBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun initContentView() = 0  // Not used with ViewBinding
 
     private var rotateAngle = 270 //校对默认角度270
 

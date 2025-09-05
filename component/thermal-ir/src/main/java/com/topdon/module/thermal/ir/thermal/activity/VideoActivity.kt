@@ -11,12 +11,14 @@ import com.blankj.utilcode.util.BarUtils
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.activity_video.*
+import com.topdon.module.thermal.ir.databinding.ActivityVideoBinding
 import java.io.File
 
 
 @Route(path = RouterConfig.IR_THERMAL_VIDEO)
 class VideoActivity : BaseActivity() {
+
+    private lateinit var binding: ActivityVideoBinding
 
     companion object {
         const val KEY_PATH = "video_path"
@@ -24,7 +26,11 @@ class VideoActivity : BaseActivity() {
 
     var videoPath = ""
 
-    override fun initContentView() = R.layout.activity_video
+    override fun initContentView(): Int {
+        binding = ActivityVideoBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        return 0
+    }
 
     override fun initView() {
         // setTitleText(R.string.video) // Commented out - method not available in BaseIRActivity
@@ -49,7 +55,7 @@ class VideoActivity : BaseActivity() {
             Uri.fromFile(file)
         }
         Log.w("123", "打开文件uri:$uri")
-        val videoView = video_play
+        val videoView = binding.videoPlay
         videoView.setVideoURI(uri)
         videoView.setMediaController(MediaController(this))
         videoView.start()
