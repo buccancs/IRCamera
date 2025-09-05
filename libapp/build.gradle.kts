@@ -7,9 +7,7 @@ plugins {
 
 kapt {
     arguments {
-        // Disable ARouter KAPT processing - migrating to modern navigation
-        // arg("AROUTER_MODULE_NAME", project.name)
-        // arg("AROUTER_GENERATE_DOC", "enable")//生成doc文档
+        // Remove unrecognized AROUTER arguments to fix kapt warnings
         arg("room.schemaLocation", "$projectDir/schemas")
         arg("room.incremental", "true")
         arg("room.expandProjection", "true")

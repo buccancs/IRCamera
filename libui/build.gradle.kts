@@ -51,11 +51,14 @@ android {
 dependencies {
     // Core library desugaring support
     coreLibraryDesugaring(libs.desugar.jdk.libs)
+    
+    // Project dependencies
     implementation(project(":libapp"))
     implementation(project(":libmenu")) // 伪彩条用着 PseudoColorConfig
 
+    // Use shared UI bundle instead of individual dependencies
+    implementation(libs.bundles.ui.common)
     
-    // Smart Refresh Layout for LoadingFooter
-    implementation(libs.smart.refresh.layout)
-    implementation(libs.smart.refresh.header)
+    // Smart Refresh Layout for LoadingFooter - use shared bundle
+    implementation(libs.bundles.smart.refresh)
 }

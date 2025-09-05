@@ -267,6 +267,11 @@ retrofit = ["retrofit2", "converter-gson", "adapter-rxjava2", "logging-intercept
 smart-refresh = ["smart-refresh-layout", "smart-refresh-header"]
 smart-refresh-v2 = ["refresh-layout-kernel", "refresh-header-classics", "refresh-header-material"]
 
+# Common UI dependencies bundle to reduce duplication across modules
+ui-common = ["androidx-core-ktx", "androidx-appcompat", "material", "glide"]
+# Thermal camera common dependencies 
+thermal-common = ["androidx-core-ktx", "androidx-appcompat", "material", "glide", "xxpermissions", "eventbus"]
+
 umeng = ["umeng-common", "umeng-asms", "umeng-analytics"]
 andromeda = ["andromeda-core", "andromeda-sense", "andromeda-views"]
 javacv-core = ["javacv", "javacpp"]
