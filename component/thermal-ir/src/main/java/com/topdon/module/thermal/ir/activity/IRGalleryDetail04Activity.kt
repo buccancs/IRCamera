@@ -5,7 +5,7 @@ import android.content.Intent
 import android.media.MediaScannerConnection
 import android.os.Bundle
 import android.view.WindowManager
-import android.widget.ConstraintLayout
+import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.exifinterface.media.ExifInterface
@@ -31,6 +31,7 @@ import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.repository.TS004Repository
 import com.topdon.module.thermal.ir.R
 import com.topdon.lib.core.R as LibR
+import com.topdon.lib.ui.R as UiR
 import com.topdon.lib.core.dialog.ConfirmSelectDialog
 import com.topdon.lib.core.bean.event.GalleryDelEvent
 import com.topdon.lms.sdk.weiget.TToast
@@ -74,9 +75,9 @@ class IRGalleryDetail04Activity : BaseActivity() {
         findViewById<ConstraintLayout>(R.id.cl_bottom).isVisible = isRemote //查看远端时底部才有3个按钮
 
         if (!isRemote) {
-            titleView.setRightDrawable(LibR.drawable.ic_toolbar_info_svg)
-            titleView.setRight2Drawable(LibR.drawable.ic_toolbar_share_svg)
-            titleView.setRight3Drawable(LibR.drawable.ic_toolbar_delete_svg)
+            titleView.setRightDrawable(UiR.drawable.ic_toolbar_info_svg)
+            titleView.setRight2Drawable(UiR.drawable.ic_toolbar_share_svg)
+            titleView.setRight3Drawable(UiR.drawable.ic_toolbar_delete_svg)
             titleView.setRightClickListener { actionInfo() }
             titleView.setRight2ClickListener { actionShare() }
             titleView.setRight3ClickListener { actionDelete() }
@@ -105,17 +106,18 @@ class IRGalleryDetail04Activity : BaseActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun initViewPager() {
-        ir_gallery_viewpager.adapter = GalleryViewPagerAdapter(this)
-        ir_gallery_viewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        val irGalleryViewpager = findViewById<ViewPager2>(R.id.ir_gallery_viewpager)
+        irGalleryViewpager.adapter = GalleryViewPagerAdapter(this)
+        irGalleryViewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
 
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 this@IRGalleryDetail04Activity.position = position
                 findViewById<com.topdon.lib.core.view.TitleView>(R.id.title_view).setTitleText("${position + 1}/${dataList.size}")
-                iv_download.isSelected = dataList[position].hasDownload
+                findViewById<ImageView>(R.id.iv_download).isSelected = dataList[position].hasDownload
             }
         })
-        ir_gallery_viewpager?.setCurrentItem(position, false)
+        irGalleryViewpager?.setCurrentItem(position, false)
     }
 
     private fun actionInfo() {
@@ -236,7 +238,7 @@ class IRGalleryDetail04Activity : BaseActivity() {
                     MediaScannerConnection.scanFile(this@IRGalleryDetail04Activity, arrayOf(FileConfig.ts004GalleryDir), null, null)
                     ToastTools.showShort(LibR.string.tip_save_success)
                     data.hasDownload = true
-                    iv_download.isSelected = dataList[position].hasDownload
+                    findViewById<ImageView>(R.id.iv_download).isSelected = dataList[position].hasDownload
                     if (isToShare) {
                         actionShare()
                     }
