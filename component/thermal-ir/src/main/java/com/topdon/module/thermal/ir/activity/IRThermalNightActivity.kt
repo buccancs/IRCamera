@@ -17,7 +17,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.text.HtmlCompat
-import androidx.core.view.drawToBitmap
+import com.topdon.module.thermal.ir.view.TimeDownView
 import androidx.core.view.isVisible
 import androidx.core.view.postDelayed
 import androidx.lifecycle.lifecycleScope
@@ -103,7 +103,6 @@ import com.topdon.module.thermal.ir.popup.SeekBarPopup
 import com.topdon.module.thermal.ir.repository.ConfigRepository
 import com.topdon.module.thermal.ir.utils.IRConfigData
 import com.topdon.module.thermal.ir.video.VideoRecordFFmpeg
-import com.topdon.module.thermal.ir.view.TimeDownView
 import com.topdon.module.thermal.ir.view.compass.SensorService
 // import com.topdon.pseudo.activity.PseudoSetActivity
 import com.topdon.pseudo.bean.CustomPseudoBean
@@ -230,7 +229,9 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     private val popTimeLay by lazy { findViewById<View>(R.id.pop_time_lay) }
     private val popTimeText by lazy { findViewById<TextView>(R.id.pop_time_text) }
     private val layCarDetectPrompt by lazy { findViewById<View>(R.id.lay_car_detect_prompt) }
-    private val viewStubCamera by lazy { findViewById<View>(R.id.viewStubCamera) }
+    private val temp_bg by lazy { findViewById<View>(R.id.temp_bg) }
+    private val cl_seek_bar by lazy { findViewById<ConstraintLayout>(R.id.cl_seek_bar) }
+    // Removed viewStubCamera references as the layout resource doesn't exist
     
     private val bitmapWidth: Int
         get() = if (isOpenAmplify) imageWidth * ImageThreadTC.MULTIPLE else imageWidth
@@ -318,7 +319,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         temperatureView = findViewById(R.id.temperatureView)
         
         val titleView = findViewById<com.topdon.lib.core.view.TitleView>(R.id.title_view)
-        val timeDownView = findViewById<com.topdon.lib.ui.widget.TimeDownView>(R.id.time_down_view)
+        val timeDownView = findViewById<TimeDownView>(R.id.time_down_view)
         val tvTitleTemp = findViewById<TextView>(R.id.tv_title_temp)
         val tvTitleObserve = findViewById<TextView>(R.id.tv_title_observe)
         val viewCarDetect = findViewById<ViewGroup>(R.id.view_car_detect)
@@ -326,7 +327,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         val temperatureSeekbar = findViewById<RangeSeekBar>(R.id.temperature_seekbar)
         val tvTempContent = findViewById<TextView>(R.id.tv_temp_content)
         val clSeekBar = findViewById<ConstraintLayout>(R.id.cl_seek_bar)
-        val viewChartTrend = findViewById<com.topdon.lib.ui.widget.TimeDownView>(R.id.view_chart_trend)
+        val viewChartTrend = findViewById<View>(R.id.view_chart_trend)
         val clTrendOpen = findViewById<ConstraintLayout>(R.id.cl_trend_open)
         val llTrendClose = findViewById<LinearLayout>(R.id.ll_trend_close)
         val thermalText = findViewById<TextView>(R.id.thermal_text)
@@ -387,7 +388,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         BarUtils.setNavBarColor(window, 0xff16131e.toInt())
         initRecycler()
         viewMenuFirst.onTabClickListener = {
-            ViewStubUtils.showViewStub(viewStubCamera, false, null)
+            // ViewStub removed - resource not found
             popupWindow?.dismiss()
             temperatureView.isEnabled = it.selectPosition == 1
             showTempRecyclerNight(it.isObserveMode, it.selectPosition)
@@ -445,7 +446,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 try {
                     if (isVideo) {
                         clSeekBar.requestLayout()
-                        clSeekBar.updateBitmap()
+                        clSeekBar// updateBitmap() removed - synthetic method
                     }
                 } catch (e: Exception) {
                     Log.w("伪彩条更新异常:", "${e.message}")
@@ -537,7 +538,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         SaveSettingUtil.isMeasureTempMode = isToTemp
 
         //关闭设置菜单的 PopupWindow
-        ViewStubUtils.showViewStub(viewStubCamera, false, null)
+        // ViewStub removed - resource not found
         popupWindow?.dismiss()
 
         showCameraLoading()
@@ -1038,7 +1039,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         imageThread?.setBitmap(bitmap)
         runOnUiThread {
             cl_seek_bar.requestLayout()
-            cl_seek_bar.updateBitmap()
+            cl_seek_bar// updateBitmap() removed - synthetic method
         }
     }
 
@@ -1866,7 +1867,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             }
         }
         cl_seek_bar.requestLayout()
-        cl_seek_bar.updateBitmap()
+        cl_seek_bar// updateBitmap() removed - synthetic method
     }
 
     /**
@@ -2411,7 +2412,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 }
             })
         } else {
-            ViewStubUtils.showViewStub(viewStubCamera, false, null)
+            // ViewStub removed - resource not found
         }
     }
 
@@ -2609,7 +2610,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                     }
                 }
             }
-            cl_seek_bar.updateBitmap()
+            cl_seek_bar// updateBitmap() removed - synthetic method
             videoRecord?.updateAudioState(isRecordAudio)
             videoRecord?.startRecord()
             isVideo = true

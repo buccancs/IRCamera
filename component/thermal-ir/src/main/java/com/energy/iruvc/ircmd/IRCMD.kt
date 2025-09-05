@@ -45,16 +45,11 @@ abstract class IRCMD {
     open fun rmCoverAutoCalc(param: Any): Int = 0
     open fun getPropTPDParams(param: Any, value: Any): Int = 0
     open fun getDeviceInfo(infoType: Any, buffer: ByteArray): Int = 0
-    open fun oemRead(cmd: Any, extra: Any): Any = Any()
-    open fun getPropImageParams(param: Any, value: Any): Any = Any()
-    open fun setAlignTranslateParameter(param: Any) {}
-    open fun setIsothermal(enable: Boolean) {}
-    open fun setTempL(temp: Float) {}
-    open fun setTempH(temp: Float) {}
-    open fun setAlignTranslateParameter(param: Any) {}
-    open fun setIsothermal(enable: Boolean) {}
-    open fun setTempL(temp: Float) {}
-    open fun setTempH(temp: Float) {}
+    open fun oemRead(cmd: Any, extra: Any): Int = 0
+    open fun getPropImageParams(param: Any, value: Any): Int = 0
+    open fun setIsothermal(enable: Any) {}
+    open fun setTempL(temp: Any) {}
+    open fun setTempH(temp: Any) {}
     open fun zoomCenterUp(channel: Any = Any(), step: Any = Any()) {}
     open fun zoomCenterDown(channel: Any = Any(), step: Any = Any()) {}
     open fun zoomCenterLeft(channel: Any = Any(), step: Any = Any()) {}
@@ -72,5 +67,4 @@ abstract class IRCMD {
         closeFrameCount: Int,
         callback: Any
     ) {}
-}
 }
