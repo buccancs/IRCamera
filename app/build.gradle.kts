@@ -202,6 +202,8 @@ fun getApkName(variantName: String, versionName: String): String {
 // }
 
 dependencies {
+    // Core library desugaring support
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
     implementation(project(":component:edit3d"))
     implementation(project(":component:pseudo"))
     implementation(project(":component:thermal-ir"))
