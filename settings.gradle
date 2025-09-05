@@ -47,7 +47,7 @@ dependencyResolutionManagement {
         
         // Local repository for custom libraries
         flatDir {
-            dirs("libir/libs", "app/libs")
+            dirs("libir/libs", "app/libs", "libir-demo/libs", "BleModule/libs")
         }
     }
     
