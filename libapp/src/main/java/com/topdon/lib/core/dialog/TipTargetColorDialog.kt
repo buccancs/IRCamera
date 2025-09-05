@@ -11,11 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.R
 import com.topdon.lib.core.adapter.TargetColorAdapter
 import com.topdon.lib.core.bean.ObserveBean
+import com.topdon.lib.core.databinding.DialogTipTargetColorBinding
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.dialog_tip_observe.view.img_close
-import kotlinx.android.synthetic.main.dialog_tip_observe.view.tv_i_know
-import kotlinx.android.synthetic.main.dialog_tip_observe.view.tv_title
-import kotlinx.android.synthetic.main.dialog_tip_target_color.view.*
 
 /**
  * 观测-标靶颜色
@@ -66,16 +63,16 @@ class TipTargetColorDialog : Dialog {
             }
             val inflater =
                 context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val view = inflater.inflate(R.layout.dialog_tip_target_color, null)
+            val binding = DialogTipTargetColorBinding.inflate(inflater)
 
-            view.tv_i_know.setOnClickListener {
+            binding.tvIKnow.setOnClickListener {
                 dismiss()
                 closeEvent?.invoke(targetColor)
             }
 
-            titleText = view.tv_title
-            imgClose = view.img_close
-            recyclerView = view.recycler_view
+            titleText = binding.tvTitle
+            imgClose = binding.imgClose
+            recyclerView = binding.recyclerView
             recyclerView.layoutManager = LinearLayoutManager(context!!, RecyclerView.HORIZONTAL, false)
             val targetColorAdapter = TargetColorAdapter(context!!,targetColor)
             targetColorAdapter.listener = listener@{ _, item ->
@@ -84,7 +81,7 @@ class TipTargetColorDialog : Dialog {
             }
             recyclerView?.adapter = targetColorAdapter
             dialog!!.addContentView(
-                view,
+                binding.root,
                 LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
             )
             val lp = dialog!!.window!!.attributes
@@ -104,7 +101,7 @@ class TipTargetColorDialog : Dialog {
                 dismiss()
 //              closeEvent?.invoke(targetColor)
             }
-            dialog!!.setContentView(view)
+            dialog!!.setContentView(binding.root)
             return dialog as TipTargetColorDialog
         }
     }
