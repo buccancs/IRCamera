@@ -469,7 +469,8 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
             isOpenAmplify = !isOpenAmplify
             dualView?.isOpenAmplify = isOpenAmplify
 
-            title_view.setRight2Drawable(if (isOpenAmplify) R.drawable.svg_tisr_on else R.drawable.svg_tisr_off)
+            val titleView = findViewById<com.topdon.lib.core.view.TitleView>(com.topdon.lib.core.R.id.title_view)
+            titleView?.setRight2Drawable(if (isOpenAmplify) R.drawable.svg_tisr_on else R.drawable.svg_tisr_off)
             SaveSettingUtil.isOpenAmplify = isOpenAmplify
             if (isOpenAmplify){
                 ToastUtils.showShort(R.string.tips_tisr_on)
@@ -481,7 +482,8 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
 
     override fun initAmplify(show: Boolean) {
         lifecycleScope.launch {
-            title_view.setRight2Drawable(if (isOpenAmplify) R.drawable.svg_tisr_on else R.drawable.svg_tisr_off)
+            val titleView = findViewById<com.topdon.lib.core.view.TitleView>(com.topdon.lib.core.R.id.title_view)
+            titleView?.setRight2Drawable(if (isOpenAmplify) R.drawable.svg_tisr_on else R.drawable.svg_tisr_off)
             withContext(Dispatchers.IO){
                 if (isOpenAmplify){
                     SupHelp.getInstance().initA4KCPP()

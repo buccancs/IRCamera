@@ -6,7 +6,7 @@ import com.topdon.lib.core.navigation.NavigationManager
 import com.blankj.utilcode.util.ScreenUtils
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseViewModelFragment
-import com.topdon.lib.core.widget.dialog.TipDialog
+import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.module.thermal.R
 import com.topdon.module.thermal.adapter.GalleryAdapter
 import com.topdon.module.thermal.viewmodel.GalleryViewModel

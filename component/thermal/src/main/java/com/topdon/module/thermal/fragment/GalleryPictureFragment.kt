@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ScreenUtils
 import com.maning.imagebrowserlibrary.MNImageBrowser
 import com.topdon.lib.core.ktbase.BaseViewModelFragment
-import com.topdon.lib.core.widget.dialog.TipDialog
+import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.module.thermal.R
 import com.topdon.module.thermal.adapter.GalleryAdapter
 import com.topdon.module.thermal.tools.GlideImageEngine

@@ -18,7 +18,7 @@ import com.guide.zm04c.matrix.GuideInterface
 import com.guide.zm04c.matrix.IrSurfaceView
 import com.topdon.lib.core.bean.tools.ScreenBean
 import com.topdon.lib.core.common.SharedManager
-import com.topdon.lib.core.config.FileConfig.galleryPath
+import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.db.AppDatabase
 import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.lib.core.tools.TimeTool
@@ -80,16 +80,16 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
     override fun initView() {
         requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         rotateType = 3//默认旋转270度
-        mCenterTextView = temp_display
-        mMaxTextView = max_temp_display
-        mMinTextView = min_temp_display
-        maxImg = max_img
-        minImg = min_img
-        mDisplayFrameLayout = temp_display_layout
-        mFenceLayout = fence_lay
+        mCenterTextView = requireView().findViewById(R.id.temp_display)
+        mMaxTextView = requireView().findViewById(R.id.max_temp_display)
+        mMinTextView = requireView().findViewById(R.id.min_temp_display)
+        maxImg = requireView().findViewById(R.id.max_img)
+        minImg = requireView().findViewById(R.id.min_img)
+        mDisplayFrameLayout = requireView().findViewById(R.id.temp_display_layout)
+        mFenceLayout = requireView().findViewById(R.id.fence_lay)
         mDisplayFrameLayout!!.visibility = View.GONE
         mFenceLayout!!.visibility = View.GONE
-        mIrSurfaceViewLayout = final_ir_layout
+        mIrSurfaceViewLayout = requireView().findViewById(R.id.final_ir_layout)
         mIrSurfaceView = IrSurfaceView(requireContext())
         val ifrSurfaceViewLayoutParams = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.MATCH_PARENT,
@@ -464,9 +464,9 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
         if (fenceFlag.getIndex(index) == 0) {
             fenceFlag = 1.shl(4 * (index - 1)) //设置001 or 010 or 100
             mFenceLayout!!.visibility = View.VISIBLE
-            fence_point_view.visibility = if (fenceFlag.getIndex(1) > 0) View.VISIBLE else View.GONE
-            fence_line_view.visibility = if (fenceFlag.getIndex(2) > 0) View.VISIBLE else View.GONE
-            fence_view.visibility = if (fenceFlag.getIndex(3) > 0) View.VISIBLE else View.GONE
+            requireView().findViewById<com.topdon.lib.ui.fence.FencePointView>(R.id.fence_point_view).visibility = if (fenceFlag.getIndex(1) > 0) View.VISIBLE else View.GONE
+            requireView().findViewById<com.topdon.lib.ui.fence.FenceLineView>(R.id.fence_line_view).visibility = if (fenceFlag.getIndex(2) > 0) View.VISIBLE else View.GONE
+            requireView().findViewById<com.topdon.lib.ui.fence.FenceView>(R.id.fence_view).visibility = if (fenceFlag.getIndex(3) > 0) View.VISIBLE else View.GONE
         } else {
             fenceFlag = 0x000
             mFenceLayout!!.visibility = View.GONE
@@ -476,7 +476,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
     var selectIndex: ArrayList<Int> = arrayListOf()//选取点
 
     private fun initFence() {
-        fence_point_view.listener = object : FencePointView.CallBack {
+        requireView().findViewById<com.topdon.lib.ui.fence.FencePointView>(R.id.fence_point_view).listener = object : FencePointView.CallBack {
             override fun callback(startPoint: IntArray, srcRect: IntArray) {
                 //获取点
                 val activity: MonitorActivity = requireActivity() as MonitorActivity
@@ -486,7 +486,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
                 activity.select(1, selectIndex)
             }
         }
-        fence_line_view.listener = object : FenceLineView.CallBack {
+        requireView().findViewById<com.topdon.lib.ui.fence.FenceLineView>(R.id.fence_line_view).listener = object : FenceLineView.CallBack {
             override fun callback(startPoint: IntArray, endPoint: IntArray, srcRect: IntArray) {
                 //获取线
                 selectIndex = Fence(srcRect = srcRect, rotateType = rotateType)
@@ -496,7 +496,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
             }
 
         }
-        fence_view.listener = object : FenceView.CallBack {
+        requireView().findViewById<com.topdon.lib.ui.fence.FenceView>(R.id.fence_view).listener = object : FenceView.CallBack {
             override fun callback(startPoint: IntArray, endPoint: IntArray, srcRect: IntArray) {
                 //获取面
                 selectIndex = Fence(srcRect = srcRect, rotateType = rotateType)
@@ -520,7 +520,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
             Log.w("123", "正在录制")
             return
         }
-        val latestResultPath = "${galleryPath}YapBitmapToMp4_${System.currentTimeMillis()}.mp4"
+        val latestResultPath = "${FileConfig.galleryPath}YapBitmapToMp4_${System.currentTimeMillis()}.mp4"
         Log.w("123", "latestResultPath:$latestResultPath")
         YapVideoEncoder(this, File(latestResultPath)).start()
     }
