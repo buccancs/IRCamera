@@ -3,6 +3,7 @@ plugins {
 }
 
 android {
+    namespace 'com.topdon.ble'
     compileSdk rootProject.ext.android.compileSdk
 
     defaultConfig {

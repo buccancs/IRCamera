@@ -6,6 +6,7 @@ plugins {
 
 
 android {
+    namespace 'com.topdon.libir.demo'
     compileSdk rootProject.ext.android.compileSdk
 
     defaultConfig {

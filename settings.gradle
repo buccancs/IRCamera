@@ -1,40 +1,90 @@
+pluginManagement {
+    repositories {
+        google {
+            mavenContent {
+                includeGroupAndSubgroups("androidx")
+                includeGroupAndSubgroups("com.android")
+                includeGroupAndSubgroups("com.google")
+            }
+        }
+        mavenCentral()
+        gradlePluginPortal()
+        // Enhanced plugin repositories for better performance
+        maven { url = uri("https://jitpack.io") }
+        maven { url = uri("https://maven.aliyun.com/repository/gradle-plugin") }
+    }
+}
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        google()
+        google {
+            mavenContent {
+                includeGroupAndSubgroups("androidx")
+                includeGroupAndSubgroups("com.android")
+                includeGroupAndSubgroups("com.google")
+            }
+        }
         mavenCentral()
-        maven { url 'https://jitpack.io' }
+        maven { url = uri("https://jitpack.io") }
+        maven { url = uri("https://maven.zohodl.com") }
+        // Aliyun repository as fallback with enhanced configuration
         maven {
-            url 'https://maven.zohodl.com'
+            url = uri("https://maven.aliyun.com/repository/public/")
+            mavenContent {
+                // Exclude sensitive groups for security
+                excludeGroup("com.google.android.gms")
+                excludeGroup("com.google.firebase")
+            }
         }
-        // Aliyun repository as fallback
-        maven {
-            url 'https://maven.aliyun.com/repository/public/'
+        // Huawei HMS repository
+        maven { 
+            url = uri("https://developer.huawei.com/repo/")
+            mavenContent {
+                includeGroupAndSubgroups("com.huawei")
+            }
         }
-//        maven {
-//            // http://172.16.50.94:8081/#browse/browse:topdon
-//            url 'http://172.16.50.94:8081/repository/topdon'
-//            allowInsecureProtocol = true
-//        }
+        
+        // Local repository for custom libraries
         flatDir {
-            dirs 'libir/libs', 'app/libs'
+            dirs("libir/libs", "app/libs")
+        }
+    }
+    
+    // Version catalog configuration is automatically loaded from gradle/libs.versions.toml
+    // No need to explicitly declare it in Gradle 8.11+
+}
+
+// Enhanced Gradle Enterprise configuration for build insights
+gradle.settingsEvaluated {
+    if (System.getenv("CI") != null) {
+        buildCache {
+            local {
+                enabled = true
+                directory = file("build-cache")
+                removeUnusedEntriesAfterDays = 30
+            }
         }
     }
 }
-rootProject.name = "TopInfrared"
-include ':app'
-include ':commonlibrary'
-include ':component:CommonComponent'
-include ':component:pseudo'
 
-include ':component:thermal-ir'
-include ':component:thermal-lite'
-include ':component:transfer'
-include ':component:user'
-include ':libapp'
-include ':libcom'
-include ':libir'
-include ':libmatrix'
-include ':libmenu'
-include ':libui'
+rootProject.name = "TopInfrared"
+
+// Include all modules with modern syntax
+include(":app")
+include(":commonlibrary")
+include(":component:CommonComponent")
+include(":component:pseudo")
+include(":component:thermal-ir")
+include(":component:thermal-lite")
+include(":component:transfer")
+include(":component:user")
+include(":libapp")
+include(":libcom")
+include(":libir")
+include(":libmatrix")
+include(":libmenu")
+include(":libui")
+include(":libir-demo")
+include(":BleModule")
 
