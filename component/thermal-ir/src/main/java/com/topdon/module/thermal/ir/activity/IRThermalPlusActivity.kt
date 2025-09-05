@@ -265,7 +265,7 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
     override fun irStop() {
         try {
             configJob?.cancel()
-            timeDownView?.cancel()
+            // timeDownView?.cancel()  // View doesn't exist in current layout
             if (isVideo) {
                 isVideo = false
                 videoRecord?.stopRecord()

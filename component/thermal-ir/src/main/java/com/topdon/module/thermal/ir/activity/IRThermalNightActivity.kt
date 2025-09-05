@@ -576,9 +576,9 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
 
         //结束正在执行的延迟拍照
         // if (timeDownView.isRunning) {
-            // timeDownView.cancel()
-            updateDelayView()
-        }
+        //     timeDownView.cancel()
+        //     updateDelayView()
+        // }
 
         //重置等温尺
         setDefLimit()
@@ -1824,7 +1824,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         popupWindow = seekBarPopup
     }
 
-    protected var bitmap: Bitmap? = null
+    private var bitmap: Bitmap? = null
     private var imageThread: ImageThreadTC? = null
     private var iruvc: IRUVCTC? = null
 
@@ -1836,7 +1836,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
 
     private val imageBytes = ByteArray(imageWidth * imageHeight * 2) //图像数据
     private val temperatureBytes = ByteArray(imageWidth * imageHeight * 2) //温度数据
-    protected var imageEditBytes = ByteArray(imageWidth * imageHeight * 4) //编辑图像数据
+    private var imageEditBytes = ByteArray(imageWidth * imageHeight * 4) //编辑图像数据
     private val syncimage = SynchronizedBitmap()
 
     private var temperaturerun = false
@@ -2592,9 +2592,9 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     }
 
 
-    protected var isVideo = false
+    private var isVideo = false
 
-    protected var videoRecord: VideoRecordFFmpeg? = null
+    private var videoRecord: VideoRecordFFmpeg? = null
 
     /**
      * 初始化视频采集组件
