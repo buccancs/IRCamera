@@ -10,4 +10,6 @@
     <string name="monitor_create_chart">Create Chart</string>
     <string name="monitor_start">Start</string>
     <string name="lms_http_code998">Connection error</string>
+    <string name="main_thermal">Thermal</string>
+    <string name="video">Video</string>
 </resources>
