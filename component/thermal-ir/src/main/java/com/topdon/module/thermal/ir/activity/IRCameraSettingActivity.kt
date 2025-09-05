@@ -9,7 +9,9 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.Switch
 import android.widget.Toast
+import com.topdon.lib.ui.widget.BarPickView
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.ToastUtils
@@ -26,7 +28,6 @@ import com.topdon.lib.core.tools.TimeTool
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.ui.listener.SingleClickListener
 import com.topdon.lib.core.utils.CommUtils
-import com.topdon.module.thermal.ir.BuildConfig
 import com.topdon.module.thermal.ir.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -71,23 +72,27 @@ class IRCameraSettingActivity : BaseActivity() {
             continuousBean = SharedManager.continuousBean
         }
 
-        bar_pick_view_time.setProgressAndRefresh((continuousBean.continuaTime / 100).toInt())
-        bar_pick_view_time.onStopTrackingTouch = { progress, _ ->
+        val barPickViewTime = findViewById<BarPickView>(R.id.bar_pick_view_time)
+        val barPickViewCount = findViewById<BarPickView>(R.id.bar_pick_view_count)
+        val switchTime = findViewById<Switch>(R.id.switch_time)
+        
+        barPickViewTime.setProgressAndRefresh((continuousBean.continuaTime / 100).toInt())
+        barPickViewTime.onStopTrackingTouch = { progress, _ ->
             continuousBean.continuaTime = progress.toLong() * 100
             SharedManager.continuousBean = continuousBean
         }
-        bar_pick_view_time.valueFormatListener = {
+        barPickViewTime.valueFormatListener = {
             (it / 10).toString() + if (it % 10 == 0) "" else ("." + (it % 10).toString())
         }
 
-        bar_pick_view_count.setProgressAndRefresh(continuousBean.count)
-        bar_pick_view_count.onStopTrackingTouch = { progress, _ ->
+        barPickViewCount.setProgressAndRefresh(continuousBean.count)
+        barPickViewCount.onStopTrackingTouch = { progress, _ ->
             continuousBean.count = progress
             SharedManager.continuousBean = continuousBean
         }
 
 
-        switch_time.isChecked = watermarkBean.isAddTime
+        switchTime.isChecked = watermarkBean.isAddTime
         switch_watermark.isChecked = watermarkBean.isOpen
         switch_delay.isChecked = continuousBean.isOpen
 

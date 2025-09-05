@@ -3,13 +3,15 @@ package com.topdon.module.thermal.ir.stubs
 import android.view.SurfaceView
 import com.energy.iruvc.utils.IIRFrameCallback
 import com.energy.iruvc.utils.DualCameraParams
+import com.energy.iruvc.utils.CommonParams
+import com.energy.iruvc.ircmd.IRCMD
 
 // TODO: Temporary stubs for thermal camera hardware SDK - replace when hardware libraries are available
 
 class DualViewWithExternalCameraCommonApi(
     surfaceView: SurfaceView,
     uvcCamera: Any?,
-    dataFlowMode: Int,
+    dataFlowMode: CommonParams.DataFlowMode,
     imageHeight: Int,
     imageWidth: Int,
     vlCameraWidth: Int,
@@ -22,9 +24,9 @@ class DualViewWithExternalCameraCommonApi(
 ) {
     var isOpenAmplify: Boolean = false
     private val stubDualUVCCamera = StubDualUVCCamera()
-    val dualUVCCamera: StubDualUVCCamera = stubDualUVCCamera
+    val dualUVCCamera: Any = stubDualUVCCamera
     
-    fun getDualUVCCamera(): StubDualUVCCamera = stubDualUVCCamera
+    fun getDualUVCCamera(): Any = stubDualUVCCamera
     fun addFrameCallback(callback: Any) {}
     fun removeFrameCallback(callback: Any) {}
     fun startPreview() {}
@@ -39,6 +41,12 @@ class StubDualUVCCamera {
     fun loadPseudocolor(type: Any, data: ByteArray) {}
     fun onPausePreview() {}
     fun updateFrame(format: Int, data: ByteArray, width: Int, height: Int) {}
+    
+    // Add missing methods for extension functions
+    fun setAutoShutter(isAutoShutter: Boolean) {}
+    fun setContrast(contrast: Int) {}
+    fun setMirror(mirror: Boolean) {}
+    fun setPropDdeLevel(level: Int) {}
 }
 
 class IRUVCDual(
@@ -66,10 +74,10 @@ class IRUVCDual(
 object USBMonitorManager {
     var isReStart: Boolean = false
     var uvcCamera: Any? = null
-    var ircmd: Any? = null
+    var ircmd: IRCMD? = null
     
     fun getInstance() = this
-    fun init(irPid: Int, isUseIRISP: Boolean, dataFlowMode: Int) {}
+    fun init(irPid: Int, isUseIRISP: Boolean, dataFlowMode: CommonParams.DataFlowMode) {}
     fun addOnUSBConnectListener(listener: Any) {}
     fun removeOnUSBConnectListener(listener: Any) {}
     fun registerUSB() {}

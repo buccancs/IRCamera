@@ -34,10 +34,6 @@ import com.topdon.module.thermal.ir.stubs.DualViewWithExternalCameraCommonApi
 import com.topdon.module.thermal.ir.stubs.IRUVCDual
 import com.topdon.module.thermal.ir.stubs.USBMonitorManager
 import com.infisense.usbdual.inf.OnUSBConnectListener
-import com.infisense.usbir.extension.setAutoShutter
-import com.infisense.usbir.extension.setContrast
-import com.infisense.usbir.extension.setMirror
-import com.infisense.usbir.extension.setPropDdeLevel
 import com.infisense.usbir.utils.FileUtil
 import com.infisense.usbir.utils.PseudocodeUtils
 import com.infisense.usbir.utils.ScreenUtils
