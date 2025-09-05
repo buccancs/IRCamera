@@ -61,6 +61,10 @@ kotlin-js-store/
 # Build scan data
 .gradle/build-scan-data/
 
+# Build cache directory - should not be committed
+build-cache/
+/build-cache/
+
 # R8/ProGuard mappings
 mapping.txt
 seeds.txt
