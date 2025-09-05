@@ -37,29 +37,42 @@ class IRVideoGSYActivity : BaseActivity() {
 
     private var isRemote = false
     private lateinit var data: GalleryBean
+    
+    // View declarations
+    private lateinit var titleView: com.topdon.lib.ui.view.TitleView
+    private lateinit var clBottom: androidx.constraintlayout.widget.ConstraintLayout
+    private lateinit var clDownload: androidx.constraintlayout.widget.ConstraintLayout
+    private lateinit var clShare: androidx.constraintlayout.widget.ConstraintLayout
+    
     override fun initContentView() = R.layout.activity_ir_video_gsy
 
     override fun initView() {
+        // Initialize views
+        titleView = findViewById(R.id.title_view)
+        clBottom = findViewById(R.id.cl_bottom)
+        clDownload = findViewById(R.id.cl_download)
+        clShare = findViewById(R.id.cl_share)
+        
         BarUtils.setNavBarColor(this, ContextCompat.getColor(this, R.color.black))
 
         isRemote = intent.getBooleanExtra("isRemote", false)
         data = intent.getParcelableExtra("data") ?: throw NullPointerException("传递 data")
 
-        cl_bottom.isVisible = isRemote //查看远端时底部才有3个按钮
+        clBottom.isVisible = isRemote //查看远端时底部才有3个按钮
 
         if (!isRemote) {
-            title_view.setRightDrawable(R.drawable.ic_toolbar_info_svg)
-            title_view.setRight2Drawable(R.drawable.ic_toolbar_share_svg)
-            title_view.setRight3Drawable(R.drawable.ic_toolbar_delete_svg)
-            title_view.setRightClickListener { actionInfo() }
-            title_view.setRight2ClickListener { actionShare() }
-            title_view.setRight3ClickListener { showDeleteDialog() }
+            titleView.setRightDrawable(R.drawable.ic_toolbar_info_svg)
+            titleView.setRight2Drawable(R.drawable.ic_toolbar_share_svg)
+            titleView.setRight3Drawable(R.drawable.ic_toolbar_delete_svg)
+            titleView.setRightClickListener { actionInfo() }
+            titleView.setRight2ClickListener { actionShare() }
+            titleView.setRight3ClickListener { showDeleteDialog() }
         }
 
-        cl_download.setOnClickListener {
+        clDownload.setOnClickListener {
             actionDownload(false)
         }
-        cl_share.setOnClickListener {
+        clShare.setOnClickListener {
             if (data.hasDownload) {
                 actionShare()
             } else {

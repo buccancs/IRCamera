@@ -68,25 +68,25 @@ class IRCorrectionTwoActivity : BaseActivity() {
 
     override fun connected() {
         if (!isTC007) {
-            findViewById<TextView>(R.id.tv_correction).setBackgroundResource(com.topdon.lib.core.R.drawable.bg_corners05_solid_theme)
+            tvCorrection.setBackgroundResource(com.topdon.lib.core.R.drawable.bg_corners05_solid_theme)
         }
     }
 
     override fun disConnected() {
         if (!isTC007) {
-            findViewById<TextView>(R.id.tv_correction).setBackgroundResource(com.topdon.lib.core.R.drawable.bg_corners05_solid_50_theme)
+            tvCorrection.setBackgroundResource(com.topdon.lib.core.R.drawable.bg_corners05_solid_50_theme)
         }
     }
 
     override fun onSocketConnected(isTS004: Boolean) {
         if (isTC007 && !isTS004) {
-            findViewById<TextView>(R.id.tv_correction).setBackgroundResource(com.topdon.lib.core.R.drawable.bg_corners05_solid_theme)
+            tvCorrection.setBackgroundResource(com.topdon.lib.core.R.drawable.bg_corners05_solid_theme)
         }
     }
 
     override fun onSocketDisConnected(isTS004: Boolean) {
         if (isTC007 && !isTS004) {
-            findViewById<TextView>(R.id.tv_correction).setBackgroundResource(com.topdon.lib.core.R.drawable.bg_corners05_solid_50_theme)
+            tvCorrection.setBackgroundResource(com.topdon.lib.core.R.drawable.bg_corners05_solid_50_theme)
         }
     }
 

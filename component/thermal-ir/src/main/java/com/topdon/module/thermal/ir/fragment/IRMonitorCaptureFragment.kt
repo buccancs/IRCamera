@@ -29,16 +29,22 @@ class IRMonitorCaptureFragment : BaseFragment() {
      * true-TC007 false-其他插件式设备
      */
     private var isTC007 = false
+    
+    // View properties
+    private lateinit var animationView: LottieAnimationView
+    private lateinit var viewStart: View
+    private lateinit var ivIcon: ImageView
+    private lateinit var tvStart: TextView
 
     override fun initContentView(): Int = R.layout.fragment_ir_monitor_capture
 
     override fun initView() {
         isTC007 = arguments?.getBoolean(ExtraKeyConfig.IS_TC007, false) ?: false
         
-        val animationView = requireView().findViewById<LottieAnimationView>(R.id.animation_view)
-        val viewStart = requireView().findViewById<View>(R.id.view_start)
-        val ivIcon = requireView().findViewById<ImageView>(R.id.iv_icon)
-        val tvStart = requireView().findViewById<TextView>(R.id.tv_start)
+        animationView = requireView().findViewById(R.id.animation_view)
+        viewStart = requireView().findViewById(R.id.view_start)
+        ivIcon = requireView().findViewById(R.id.iv_icon)
+        tvStart = requireView().findViewById(R.id.tv_start)
         
         animationView.setAnimation(if (isTC007) "TC007AnimationJSON.json" else "TDAnimationJSON.json")
 
@@ -79,10 +85,10 @@ class IRMonitorCaptureFragment : BaseFragment() {
      * 刷新连接状态
      */
     private fun refreshUI(isConnect: Boolean) {
-        requireView().findViewById<LottieAnimationView>(R.id.animation_view).isVisible = !isConnect
-        requireView().findViewById<ImageView>(R.id.iv_icon).isVisible = isConnect
-        requireView().findViewById<View>(R.id.view_start).isVisible = isConnect
-        requireView().findViewById<TextView>(R.id.tv_start).isVisible = isConnect
+        animationView.isVisible = !isConnect
+        ivIcon.isVisible = isConnect
+        viewStart.isVisible = isConnect
+        tvStart.isVisible = isConnect
     }
 
     override fun connected() {
