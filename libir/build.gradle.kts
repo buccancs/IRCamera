@@ -58,11 +58,18 @@ dependencies {
     // Original libir AAR dependencies restored - all essential components enabled
     api(files("libs/libusbdualsdk_1.3.4_2406271906_standard.aar"))  // Required for infisense thermal camera classes
     implementation(files("libs/opengl_1.3.2_standard.aar"))  // OpenGL functionality
-    api(files("libs/suplib-release.aar"))  // Required for thermal-lite iruvc classes
-    api(files("libs/ai-upscale-release.aar"))  // AI upscale functionality
+    // Large dependencies - downloaded at build time
+    if (file("libs/suplib-release.aar").exists()) {
+        api(files("libs/suplib-release.aar"))  // Required for thermal-lite iruvc classes
+    }
+    if (file("libs/ai-upscale-release.aar").exists()) {
+        api(files("libs/ai-upscale-release.aar"))  // AI upscale functionality
+    }
+    if (file("libs/library_1.0.aar").exists()) {
+        api(files("libs/library_1.0.aar"))  // Additional library support
+    }
     api(files("libs/texturegesture-release.aar"))  // Texture gesture functionality
     api(files("libs/jetified-tas_api-1.0.4.0.aar"))  // TAS API
-    api(files("libs/library_1.0.aar"))  // Additional library support
     
     // Enhanced IR-specific dependencies from user's Deps object
     api("com.conghuahuadan:superlayout:1.1.0")

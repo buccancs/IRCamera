@@ -136,7 +136,10 @@ dependencies {
     // These provide critical functionality (CommonBean, ResponseBean, LMS classes)
     api("abtest:abtest:1.0.1@aar")
     api("auth-number:auth-number:2.13.2.1@aar") 
-    api(files("libs/lms_international-3.90.009.0.aar"))  // Moved from LocalRepo to libs
+    // Large dependencies - downloaded at build time
+    if (file("libs/lms_international-3.90.009.0.aar").exists()) {
+        api(files("libs/lms_international-3.90.009.0.aar"))  // Moved from LocalRepo to libs
+    }
     api("logger:logger:2.2.1-release@aar")
     api("main:main:2.2.1-release@aar")
 }

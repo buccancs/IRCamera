@@ -6,28 +6,51 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     
     <!-- Android 12+ Bluetooth permissions for Shimmer3 GSR device connections -->
-    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" android:usesPermissionFlags="neverForLocation" />
-    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" 
+                     android:usesPermissionFlags="neverForLocation"
+                     android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" 
+                     android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" 
+                     android:maxSdkVersion="32" />
     
-    <!-- Storage permissions for GSR data recording -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- Android 13+ runtime permissions for media access -->
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" 
+                     android:minSdkVersion="33" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" 
+                     android:minSdkVersion="33" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" 
+                     android:minSdkVersion="34" />
+    
+    <!-- Legacy storage permissions for Android < 13 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" 
+                     android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" 
+                     android:maxSdkVersion="32" />
+                     
+    <!-- Modern storage permissions -->
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" 
+                     android:minSdkVersion="30" />
+    
+    <!-- Essential permissions for all Android versions -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <!-- Camera permissions for RGB video recording -->
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
     <uses-feature android:name="android.hardware.camera.front" android:required="false" />
     <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
     <uses-feature android:name="android.hardware.camera.flash" android:required="false" />
     
-    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
+    <!-- USB host support for thermal cameras - optional for broader device support -->
     <uses-feature
         android:name="android.hardware.usb.host"
-        android:required="true" />
+        android:required="false" />
 
     <application
         android:name="com.topdon.tc001.app.App"
@@ -42,7 +65,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:replace="android:label">
+        android:extractNativeLibs="true"
+        android:largeHeap="true"
+        tools:replace="android:label,android:allowNativeHeapPointerTagging"
+        tools:targetApi="34">
 
         <uses-native-library android:name="libOpenCL.so" android:required="false" />
         <uses-native-library android:name="libcutils.so" android:required="false" />

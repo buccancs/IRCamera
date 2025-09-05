@@ -28,7 +28,8 @@ android {
         multiDexEnabled = true
         
         ndk {
-            abiFilters += listOf("arm64-v8a")
+            // Support multiple ABIs for broader device compatibility
+            abiFilters += listOf("arm64-v8a", "armeabi-v7a")
         }
 
         buildConfigField("String", "VERSION_DATE", "\"$dayStr\"")
@@ -248,7 +249,10 @@ dependencies {
     implementation(project(":libui"))
 
     // LocalRepo AAR files moved to app/libs (excluding lms_international which stays in libapp)
-    implementation(files("libs/libAC020sdk_USB_IR_1.1.1_2408291439.aar"))
+    // Large dependencies - downloaded at build time
+    if (file("libs/libAC020sdk_USB_IR_1.1.1_2408291439.aar").exists()) {
+        implementation(files("libs/libAC020sdk_USB_IR_1.1.1_2408291439.aar"))
+    }
     implementation(files("libs/libirutils_1.2.0_2409241055.aar"))
     implementation(files("libs/libcommon_1.2.0_24052117.aar"))
 
@@ -299,4 +303,25 @@ tasks.whenTaskAdded {
     if (name.contains("merge") && name.contains("Resources")) {
         mustRunAfter(tasks.matching { it.name.contains("processGoogleServices") })
     }
+}
+
+// Task to download dependencies automatically before build
+tasks.register<Exec>("downloadDependencies") {
+    description = "Download large dependencies to reduce repository size"
+    group = "build setup"
+    
+    commandLine("bash", "./download_dependencies.sh")
+    
+    // Only run if dependencies are missing
+    onlyIf {
+        !file("libir/libs/library_1.0.aar").exists() ||
+        !file("libir/libs/suplib-release.aar").exists() ||
+        !file("libapp/libs/lms_international-3.90.009.0.aar").exists() ||
+        !file("app/libs/libAC020sdk_USB_IR_1.1.1_2408291439.aar").exists()
+    }
+}
+
+// Make all compile tasks depend on dependency download
+tasks.matching { it.name.startsWith("compile") }.configureEach {
+    dependsOn("downloadDependencies")
 }

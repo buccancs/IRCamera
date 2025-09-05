@@ -129,3 +129,11 @@ pc-controller/.pytest_cache/
 pc-controller/venv/
 pc-controller/.env
 
+# Large dependency files - downloaded at build time
+external-deps/
+libir/libs/library_1.0.aar
+libir/libs/suplib-release.aar
+libir/libs/ai-upscale-release.aar
+libapp/libs/lms_international-3.90.009.0.aar
+app/libs/libAC020sdk_USB_IR_1.1.1_2408291439.aar
+
