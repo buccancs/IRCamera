@@ -93,7 +93,6 @@ import com.topdon.menu.constant.TempPointType
 import com.topdon.menu.constant.TwoLightType
 import com.topdon.module.thermal.ir.R
 import com.topdon.lib.core.R as LibcoreR
-import com.topdon.lib.app.R as LibAppR
 import com.topdon.module.thermal.ir.adapter.CameraItemAdapter
 import com.topdon.module.thermal.ir.adapter.MeasureItemAdapter
 import com.topdon.module.thermal.ir.adapter.TargetItemAdapter
@@ -374,7 +373,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             for (tmp in IRConfigData.irConfigData(this@IRThermalNightActivity)){
                 if (config.radiation.toString() == tmp.value){
                     if (text.isEmpty()){
-                        text = "${resources.getString(LibAppR.string.tc_temp_test_materials)} : "
+                        text = "${resources.getString(LibcoreR.string.tc_temp_test_materials)} : "
                     }
                     text += "${tmp.name}/"
                 }
@@ -783,7 +782,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         for (tmp in IRConfigData.irConfigData(this)){
             if (config.radiation.toString() == tmp.value){
                 if (text.isEmpty()){
-                    text = "${resources.getString(LibAppR.string.tc_temp_test_materials)} : "
+                    text = "${resources.getString(LibcoreR.string.tc_temp_test_materials)} : "
                 }
                 text += "${tmp.name}/"
             }
@@ -3091,7 +3090,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                             return
                         }
                         TipDialog.Builder(this@IRThermalNightActivity)
-                            .setTitleMessage(getString(LibAppR.string.app_tip))
+                            .setTitleMessage(getString(LibcoreR.string.app_tip))
                             .setMessage(getString(R.string.app_camera_content))
                             .setPositiveListener(R.string.app_open) {
                                 AppUtils.launchAppDetailsSettings()
