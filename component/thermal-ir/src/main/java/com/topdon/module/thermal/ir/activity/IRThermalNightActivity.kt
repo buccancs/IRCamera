@@ -1589,7 +1589,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             SettingType.COMPASS -> {//指南针
                 saveSetBean.isOpenCompass = !saveSetBean.isOpenCompass
                 // thermalRecyclerNight.setSettingSelected - synthetic method removed
-                compassView.isVisible = saveSetBean.isOpenCompass
+                compassView?.isVisible = saveSetBean.isOpenCompass
                 if (saveSetBean.isOpenCompass) {
                     startCompass()
                 } else {
@@ -1696,7 +1696,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         popupWindow?.setBackgroundDrawable(ColorDrawable(0))
         contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
         val contentHeight = contentView.measuredHeight
-        val recyclerView = contentView?.findViewById<RecyclerView>(R.id.recyclerView)
+        val recyclerView = contentView.findViewById<RecyclerView>(R.id.recyclerView)
         val measureItemAdapter = MeasureItemAdapter(this)
         recyclerView?.layoutManager = if (ScreenUtil.isPortrait(this)) {
             GridLayoutManager(this, measureItemAdapter.itemCount)
@@ -3018,7 +3018,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
      */
     private fun onCompassUpdate(): Boolean {
         val azimuthTxt = formatDegrees(compass.bearing.value, replace360 = true)
-        compassView.setCurAzimuth(azimuthTxt.first.toInt())
+        compassView?.setCurAzimuth(azimuthTxt.first.toInt())
         return true
     }
 

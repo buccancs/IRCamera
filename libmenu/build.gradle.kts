@@ -30,6 +30,7 @@ android {
     }
     buildFeatures {
         dataBinding = true
+        viewBinding = true
     }
 }
 
@@ -39,9 +40,6 @@ dependencies {
     implementation(libs.material) // 需要 ConstraintLayout、ViewPager2
 
     implementation(libs.glide)
-    // Core library desugaring support
-coreLibraryDesugaring(libs.desugar.jdk.libs)
-
 
     implementation(project(":libapp")) // 需要使用 string 资源
     

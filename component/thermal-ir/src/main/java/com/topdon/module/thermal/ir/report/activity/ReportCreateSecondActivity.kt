@@ -214,8 +214,8 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
                 NavigationManager.getInstance()
                     .build(RouterConfig.REPORT_PICK_IMG)
                     .withBoolean(ExtraKeyConfig.IS_TC007, intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false))
-                    .withParcelable(ExtraKeyConfig.REPORT_INFO, intent.getParcelableExtra(ExtraKeyConfig.REPORT_INFO) as? ReportInfoBean)
-                    .withParcelable(ExtraKeyConfig.REPORT_CONDITION, intent.getParcelableExtra(ExtraKeyConfig.REPORT_CONDITION) as? ReportConditionBean)
+                    .withParcelable(ExtraKeyConfig.REPORT_INFO, intent.getParcelableExtra<ReportInfoBean>(ExtraKeyConfig.REPORT_INFO))
+                    .withParcelable(ExtraKeyConfig.REPORT_CONDITION, intent.getParcelableExtra<ReportConditionBean>(ExtraKeyConfig.REPORT_CONDITION))
                     .withParcelableArrayList(ExtraKeyConfig.REPORT_IR_LIST, reportIRBeanList)
                     .navigation(this)
             }
