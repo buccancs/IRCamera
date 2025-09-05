@@ -11,9 +11,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.infisense.usbir.R
+import com.topdon.libir.demo.R
 import com.infisense.usbir.bean.ImgBean
-import com.infisense.usbir.databinding.ItemFilterBinding
+import com.topdon.libir.demo.databinding.ItemFilterBinding
 
 class ImgAdapter(
     private val context: Context,

@@ -10,7 +10,7 @@ import android.os.Environment;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.infisense.usbir.R;
+import com.topdon.libir.demo.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

@@ -26,7 +26,7 @@ import com.infisense.iruvc.utils.SynchronizedBitmap;
 import com.infisense.iruvc.uvc.ConcreateUVCBuilder;
 import com.infisense.iruvc.uvc.UVCCamera;
 import com.infisense.iruvc.uvc.UVCType;
-import com.infisense.usbir.R;
+import com.topdon.libir.demo.R;
 import com.infisense.usbir.config.MsgCode;
 import com.infisense.usbir.utils.BitmapUtils;
 
