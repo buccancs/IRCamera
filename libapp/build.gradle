@@ -8,10 +8,13 @@ kapt {
     arguments {
         arg("AROUTER_MODULE_NAME", project.getName())
 //        arg("AROUTER_GENERATE_DOC", "enable")//生成doc文档
-        arg("room.schemaLocation", "$projectDir/schemas".toString())
-        arg("room.incremental", "true")
-        arg("room.expandProjection", "true")
+        // Room arguments temporarily disabled
+        // arg("room.schemaLocation", "$projectDir/schemas".toString())
+        // arg("room.incremental", "false")
+        // arg("room.expandProjection", "true")
     }
+    correctErrorTypes = true
+    useBuildCache = false
 }
 
 android {
@@ -68,6 +71,7 @@ dependencies {
     api libs.androidx.lifecycle.viewmodel.ktx
     api libs.androidx.lifecycle.livedata.ktx
 
+    // Room with compatible version for Kotlin 1.9.25
     kapt libs.androidx.room.compiler
     api libs.androidx.room.ktx
 
