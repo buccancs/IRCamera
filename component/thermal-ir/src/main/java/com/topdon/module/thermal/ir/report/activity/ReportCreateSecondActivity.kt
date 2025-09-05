@@ -2,6 +2,8 @@ package com.topdon.module.thermal.ir.report.activity
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.ScrollView
+import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.topdon.lib.core.navigation.NavigationManager
@@ -36,27 +38,27 @@ import org.greenrobot.eventbus.ThreadMode
 // Legacy ARouter route annotation - now using NavigationManager
 class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
 
-    // Synthetic view properties - migrated from kotlin-android-extensions
-    private lateinit var tvAddImage: View
-    private lateinit var tvPreview: View
-    private lateinit var scrollView: View
-    private lateinit var ivImage: ImageView
-    private lateinit var reportTempViewFull: ReportIRInputView
-    private lateinit var reportTempViewPoint1: ReportIRInputView
-    private lateinit var reportTempViewPoint2: ReportIRInputView
-    private lateinit var reportTempViewPoint3: ReportIRInputView
-    private lateinit var reportTempViewPoint4: ReportIRInputView
-    private lateinit var reportTempViewPoint5: ReportIRInputView
-    private lateinit var reportTempViewLine1: ReportIRInputView
-    private lateinit var reportTempViewLine2: ReportIRInputView
-    private lateinit var reportTempViewLine3: ReportIRInputView
-    private lateinit var reportTempViewLine4: ReportIRInputView
-    private lateinit var reportTempViewLine5: ReportIRInputView
-    private lateinit var reportTempViewRect1: ReportIRInputView
-    private lateinit var reportTempViewRect2: ReportIRInputView
-    private lateinit var reportTempViewRect3: ReportIRInputView
-    private lateinit var reportTempViewRect4: ReportIRInputView
-    private lateinit var reportTempViewRect5: ReportIRInputView
+    // View references using findViewById with lazy initialization
+    private val tvAddImage: TextView by lazy { findViewById(R.id.tv_add_image) }
+    private val tvPreview: TextView by lazy { findViewById(R.id.tv_preview) }
+    private val scrollView: ScrollView by lazy { findViewById(R.id.scroll_view) }
+    private val ivImage: ImageView by lazy { findViewById(R.id.iv_image) }
+    private val reportTempViewFull: ReportIRInputView by lazy { findViewById(R.id.report_temp_view_full) }
+    private val reportTempViewPoint1: ReportIRInputView by lazy { findViewById(R.id.report_temp_view_point1) }
+    private val reportTempViewPoint2: ReportIRInputView by lazy { findViewById(R.id.report_temp_view_point2) }
+    private val reportTempViewPoint3: ReportIRInputView by lazy { findViewById(R.id.report_temp_view_point3) }
+    private val reportTempViewPoint4: ReportIRInputView by lazy { findViewById(R.id.report_temp_view_point4) }
+    private val reportTempViewPoint5: ReportIRInputView by lazy { findViewById(R.id.report_temp_view_point5) }
+    private val reportTempViewLine1: ReportIRInputView by lazy { findViewById(R.id.report_temp_view_line1) }
+    private val reportTempViewLine2: ReportIRInputView by lazy { findViewById(R.id.report_temp_view_line2) }
+    private val reportTempViewLine3: ReportIRInputView by lazy { findViewById(R.id.report_temp_view_line3) }
+    private val reportTempViewLine4: ReportIRInputView by lazy { findViewById(R.id.report_temp_view_line4) }
+    private val reportTempViewLine5: ReportIRInputView by lazy { findViewById(R.id.report_temp_view_line5) }
+    private val reportTempViewRect1: ReportIRInputView by lazy { findViewById(R.id.report_temp_view_rect1) }
+    private val reportTempViewRect2: ReportIRInputView by lazy { findViewById(R.id.report_temp_view_rect2) }
+    private val reportTempViewRect3: ReportIRInputView by lazy { findViewById(R.id.report_temp_view_rect3) }
+    private val reportTempViewRect4: ReportIRInputView by lazy { findViewById(R.id.report_temp_view_rect4) }
+    private val reportTempViewRect5: ReportIRInputView by lazy { findViewById(R.id.report_temp_view_rect5) }
 
     /**
      * 当前已添加的图片信息列表.
@@ -78,28 +80,8 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
     override fun initContentView() = R.layout.activity_report_create_second
 
     override fun initView() {
-        // Initialize views - migrated from synthetic views
-        tvAddImage = findViewById(R.id.tvAddImage)
-        tvPreview = findViewById(R.id.tvPreview)
-        scrollView = findViewById(R.id.scrollView)
-        ivImage = findViewById(R.id.ivImage)
-        reportTempViewFull = findViewById(R.id.report_temp_view_full)
-        reportTempViewPoint1 = findViewById(R.id.report_temp_view_point1)
-        reportTempViewPoint2 = findViewById(R.id.report_temp_view_point2)
-        reportTempViewPoint3 = findViewById(R.id.report_temp_view_point3)
-        reportTempViewPoint4 = findViewById(R.id.report_temp_view_point4)
-        reportTempViewPoint5 = findViewById(R.id.report_temp_view_point5)
-        reportTempViewLine1 = findViewById(R.id.report_temp_view_line1)
-        reportTempViewLine2 = findViewById(R.id.report_temp_view_line2)
-        reportTempViewLine3 = findViewById(R.id.report_temp_view_line3)
-        reportTempViewLine4 = findViewById(R.id.report_temp_view_line4)
-        reportTempViewLine5 = findViewById(R.id.report_temp_view_line5)
-        reportTempViewRect1 = findViewById(R.id.report_temp_view_rect1)
-        reportTempViewRect2 = findViewById(R.id.report_temp_view_rect2)
-        reportTempViewRect3 = findViewById(R.id.report_temp_view_rect3)
-        reportTempViewRect4 = findViewById(R.id.report_temp_view_rect4)
-        reportTempViewRect5 = findViewById(R.id.report_temp_view_rect5)
-
+        // Views are now initialized using lazy properties - no manual findViewById needed
+        
         currentFilePath = intent.getStringExtra(ExtraKeyConfig.FILE_ABSOLUTE_PATH)!!
         imageTempBean = intent.getParcelableExtra(ExtraKeyConfig.IMAGE_TEMP_BEAN)
         reportIRList = intent.getParcelableArrayListExtra(ExtraKeyConfig.REPORT_IR_LIST) ?: ArrayList(10)
@@ -211,13 +193,17 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
                 }
                 val reportIRBeanList = ArrayList<ReportIRBean>(reportIRList)
                 reportIRBeanList.add(buildReportIr(currentFilePath))
-                NavigationManager.getInstance()
-                    .build(RouterConfig.REPORT_PICK_IMG)
-                    .withBoolean(ExtraKeyConfig.IS_TC007, intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false))
-                    .withParcelable(ExtraKeyConfig.REPORT_INFO, intent.getParcelableExtra<ReportInfoBean>(ExtraKeyConfig.REPORT_INFO))
-                    .withParcelable(ExtraKeyConfig.REPORT_CONDITION, intent.getParcelableExtra<ReportConditionBean>(ExtraKeyConfig.REPORT_CONDITION))
-                    .withParcelableArrayList(ExtraKeyConfig.REPORT_IR_LIST, reportIRBeanList)
-                    .navigation(this)
+                val reportInfo = intent.getParcelableExtra<ReportInfoBean>(ExtraKeyConfig.REPORT_INFO)
+                val reportCondition = intent.getParcelableExtra<ReportConditionBean>(ExtraKeyConfig.REPORT_CONDITION)
+                if (reportInfo != null && reportCondition != null) {
+                    NavigationManager.getInstance()
+                        .build(RouterConfig.REPORT_PICK_IMG)
+                        .withBoolean(ExtraKeyConfig.IS_TC007, intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false))
+                        .withParcelable(ExtraKeyConfig.REPORT_INFO, reportInfo)
+                        .withParcelable(ExtraKeyConfig.REPORT_CONDITION, reportCondition)
+                        .withParcelableArrayList(ExtraKeyConfig.REPORT_IR_LIST, reportIRBeanList)
+                        .navigation(this)
+                }
             }
             tvPreview -> {//预览
                 val appLanguage = ConstantLanguages.ENGLISH

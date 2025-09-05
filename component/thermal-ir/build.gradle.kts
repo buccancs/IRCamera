@@ -87,6 +87,10 @@ dependencies {
     // EasySwipeMenuLayout
     implementation("com.github.anzaizai:EasySwipeMenuLayout:1.1.4")
     
+    // SmartRefreshLayout for pull-to-refresh functionality
+    implementation(libs.smart.refresh.layout)
+    implementation(libs.smart.refresh.header)
+    
     // Core library desugaring
     coreLibraryDesugaring(libs.desugar.jdk.libs)
     

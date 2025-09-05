@@ -12,6 +12,8 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.topdon.lib.core.navigation.NavigationManager
 import com.blankj.utilcode.util.Utils
 import com.topdon.lib.core.config.ExtraKeyConfig
@@ -21,6 +23,7 @@ import com.topdon.lib.core.ktbase.BaseViewModelFragment
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.utils.NetWorkUtils
+import com.topdon.lib.core.view.TitleView
 import com.topdon.libcom.PDFHelp
 import com.topdon.libcom.view.CommLoadMoreView
 import com.topdon.lms.sdk.Config
@@ -45,6 +48,11 @@ import java.io.File
  * @date: 2023/5/12 11:34
  */
 class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
+
+    // View references using findViewById
+    private val titleView: TitleView by lazy { requireView().findViewById(R.id.title_view) }
+    private val fragmentPdfRecyclerLay: SmartRefreshLayout by lazy { requireView().findViewById(R.id.fragment_pdf_recycler_lay) }
+    private val fragmentPdfRecycler: RecyclerView by lazy { requireView().findViewById(R.id.fragment_pdf_recycler) }
 
     /**
      * 从上一界面传递过来的，当前是否为 TC007 设备类型.
@@ -231,8 +239,8 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
             viewModel.getReportData(isTC007, ++page)
         }
 
-        fragment_pdf_recycler.adapter = reportAdapter
-        fragment_pdf_recycler.layoutManager = LinearLayoutManager(requireContext())
+        fragmentPdfRecycler.adapter = reportAdapter
+        fragmentPdfRecycler.layoutManager = LinearLayoutManager(requireContext())
         fragmentPdfRecyclerLay.setOnRefreshListener {
             //刷新
             page = 1

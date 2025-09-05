@@ -48,6 +48,11 @@
     <string name="shutter_tips">Shutter Tips</string>
     <string name="tip_video_record">Video Recording</string>
     <string name="auto_open">Auto Open</string>
+    <string name="tip_config_delete">Delete report "%s"?</string>
+    <string name="chart_start_time">Chart Start Time</string>
+    <string name="thermal_config_environment">Environment Configuration</string>
+    <string name="album_report_emissivity">Report Emissivity</string>
+    <string name="tc_has_line_device">Wired Device</string>
     <string name="auto_close">Auto Close</string>
     <string name="thermal_threshold_setting">Thermal Threshold Setting</string>
     <string name="app_close">Close</string>

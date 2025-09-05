@@ -33,7 +33,6 @@ import com.topdon.lib.core.tools.NumberTools
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.utils.CommUtils
-import com.topdon.module.thermal.ir.BuildConfig
 import com.topdon.module.thermal.ir.R
 import com.topdon.lib.core.R as LibR
 import com.topdon.module.thermal.ir.report.bean.ImageTempBean
@@ -86,7 +85,8 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
     private val switchEmissivity: android.widget.Switch by lazy { findViewById(R.id.switch_emissivity) }
     private val etTestDistance: android.widget.EditText by lazy { findViewById(R.id.et_test_distance) }
     private val switchTestDistance: android.widget.Switch by lazy { findViewById(R.id.switch_test_distance) }
-    private val chartStartTime: android.widget.TextView by lazy { findViewById(R.id.chart_start_time) }
+    // Chart start time view not found in current layout - commented out for now
+    // private val chartStartTime: android.widget.TextView by lazy { findViewById(R.id.chart_start_time) }
     private val tvAmbientTemperature: android.widget.TextView by lazy { findViewById(R.id.tv_ambient_temperature) }
     private val tvEmissivity: android.widget.TextView by lazy { findViewById(R.id.tv_emissivity) }
 
@@ -185,8 +185,8 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        when (v) {
-            tvReportDate -> {//报告日期
+        when (v?.id) {
+            R.id.tv_report_date -> {//报告日期
                 selectTime()
             }
             R.id.tv_preview -> {//预览
@@ -201,13 +201,16 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
                 val reportInfoBean = buildReportInfo()
                 val reportConditionBean = buildReportCondition()
                 val imageTempBean: ImageTempBean? = intent.getParcelableExtra(ExtraKeyConfig.IMAGE_TEMP_BEAN)
-                NavigationManager.getInstance().build(RouterConfig.REPORT_CREATE_SECOND)
-                    .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
-                    .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, intent.getStringExtra(ExtraKeyConfig.FILE_ABSOLUTE_PATH))
-                    .withParcelable(ExtraKeyConfig.IMAGE_TEMP_BEAN, imageTempBean)
-                    .withParcelable(ExtraKeyConfig.REPORT_INFO, reportInfoBean)
-                    .withParcelable(ExtraKeyConfig.REPORT_CONDITION, reportConditionBean)
-                    .navigation(this)
+                val fileAbsolutePath = intent.getStringExtra(ExtraKeyConfig.FILE_ABSOLUTE_PATH)
+                if (fileAbsolutePath != null && imageTempBean != null) {
+                    NavigationManager.getInstance().build(RouterConfig.REPORT_CREATE_SECOND)
+                        .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
+                        .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, fileAbsolutePath)
+                        .withParcelable(ExtraKeyConfig.IMAGE_TEMP_BEAN, imageTempBean)
+                        .withParcelable(ExtraKeyConfig.REPORT_INFO, reportInfoBean)
+                        .withParcelable(ExtraKeyConfig.REPORT_CONDITION, reportConditionBean)
+                        .navigation(this)
+                }
             }
             R.id.img_location -> {
                 checkLocationPermission()
