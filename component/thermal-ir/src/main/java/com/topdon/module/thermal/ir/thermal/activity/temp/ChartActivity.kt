@@ -9,7 +9,7 @@
 //import com.topdon.lib.core.config.RouterConfig
 //import com.topdon.lib.core.ktbase.BaseActivity
 //import com.topdon.module.thermal.ir.R
-//import kotlinx.android.synthetic.main.activity_chart.*
+//import com.topdon.module.thermal.ir.databinding.ActivityChartBinding
 //import kotlinx.coroutines.delay
 //import kotlinx.coroutines.flow.collect
 //import kotlinx.coroutines.flow.flow

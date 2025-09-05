@@ -16,8 +16,8 @@
 //import com.topdon.lib.core.tools.TimeTool
 //import com.topdon.module.thermal.ir.R
 //import com.topdon.module.thermal.ir.thermal.adapter.SettingTimeAdapter
-//import kotlinx.android.synthetic.main.activity_chart.aa_chart_view
-//import kotlinx.android.synthetic.main.activity_log_chart.*
+//import com.topdon.module.thermal.ir.databinding.ActivityLogChartBinding
+//import com.topdon.module.thermal.ir.databinding.ActivityChartBinding
 //import kotlinx.coroutines.Dispatchers
 //import kotlinx.coroutines.delay
 //import kotlinx.coroutines.launch
