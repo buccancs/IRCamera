@@ -47,8 +47,8 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
     override fun initContentView() = R.layout.activity_more
 
     override fun initView() {
-        binding = ActivityMoreBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        val titleView = findViewById<View>(R.id.title_view)
+        binding = ActivityMoreBinding.bind(titleView.parent as View)
         
         binding.settingDeviceInformation.setOnClickListener(this)
         binding.settingTisr.setOnClickListener(this)

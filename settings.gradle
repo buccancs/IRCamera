@@ -88,3 +88,8 @@ include(":libui")
 include(":libir-demo")
 include(":BleModule")
 
+// LocalRepo modules for AAR dependencies
+include(":LocalRepo:libac020")
+include(":LocalRepo:libcommon")
+include(":LocalRepo:libirutils")
+
