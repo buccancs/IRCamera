@@ -179,14 +179,14 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     
     // View references (migrated from synthetic views)
     private lateinit var cameraView: com.infisense.usbir.view.CameraView
-    private lateinit var thermalRecyclerNight: RecyclerView
-    private lateinit var temperatureView: TextView
+    private lateinit var thermalRecyclerNight: com.topdon.menu.MenuSecondView
+    private lateinit var temperatureView: com.infisense.usbir.view.TemperatureView
     private lateinit var compassView: com.topdon.module.thermal.ir.view.compass.LinearCompassView
     private lateinit var spaceChart: View
     private lateinit var clTrendOpen: ConstraintLayout
     private lateinit var llTrendClose: LinearLayout
-    private lateinit var thermalRecyclerNight: RecyclerView
-    private lateinit var temperatureView: com.infisense.usbir.view.TemperatureView
+    private lateinit var viewMenuFirst: com.topdon.menu.MenuFirstTabView
+    private lateinit var tvTempContent: TextView
 
     override fun initContentView() = R.layout.activity_thermal_ir_night
 
@@ -238,7 +238,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     private val layCarDetectPrompt by lazy { findViewById<View>(R.id.lay_car_detect_prompt) }
     private val temp_bg by lazy { findViewById<View>(R.id.temp_bg) }
     private val cl_seek_bar by lazy { findViewById<ConstraintLayout>(R.id.cl_seek_bar) }
-    private val cameraPreview by lazy { findViewById<View>(R.id.cameraPreview) }
+    private val cameraPreview by lazy { findViewById<com.topdon.lib.ui.camera.CameraPreView>(R.id.cameraPreview) }
     private val distance_measure_view by lazy { findViewById<View>(R.id.distance_measure_view) }
     private val zoomView by lazy { findViewById<View>(R.id.zoomView) }
     private val temperatureSeekbar by lazy { findViewById<RangeSeekBar>(R.id.temperature_seekbar) }
@@ -334,9 +334,9 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         val tvTitleTemp = findViewById<TextView>(R.id.tv_title_temp)
         val tvTitleObserve = findViewById<TextView>(R.id.tv_title_observe)
         val viewCarDetect = findViewById<ViewGroup>(R.id.view_car_detect)
-        val viewMenuFirst = findViewById<com.topdon.menu.MenuFirstTabView>(R.id.view_menu_first)
+        viewMenuFirst = findViewById(R.id.view_menu_first)
         val temperatureSeekbar = findViewById<RangeSeekBar>(R.id.temperature_seekbar)
-        val tvTempContent = findViewById<TextView>(R.id.tv_temp_content)
+        tvTempContent = findViewById(R.id.tv_temp_content)
         val clSeekBar = findViewById<ConstraintLayout>(R.id.cl_seek_bar)
         val viewChartTrend = findViewById<View>(R.id.view_chart_trend)
         clTrendOpen = findViewById(R.id.cl_trend_open)
@@ -459,8 +459,8 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 }
                 try {
                     if (isVideo) {
-                        clSeekBar.requestLayout()
-                        clSeekBar// updateBitmap() removed - synthetic method
+                        cl_seek_bar.requestLayout()
+                        // cl_seek_bar.updateBitmap() - synthetic method removed
                     }
                 } catch (e: Exception) {
                     Log.w("伪彩条更新异常:", "${e.message}")
@@ -682,8 +682,8 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             //弹出观测模式说明提示框
             if (SharedManager.isTipObservePhoto) {
                 TipObserveDialog.Builder(this)
-                    .setTitle(LibAppR.string.app_tip)
-                    .setMessage(LibappR.string.tips_observe_photo_content)
+                    .setTitle(R.string.app_tip)
+                    .setMessage(R.string.tips_observe_photo_content)
                     .setCancelListener { isCheck ->
                         SharedManager.isTipObservePhoto = !isCheck
                     }
@@ -762,7 +762,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         curChooseTabPos = if (isToTemp) Constants.IR_TEMPERATURE_MODE else Constants.IR_OBSERVE_MODE
         isTs001TempMode = isToTemp
         thermalRecyclerNight.selectPosition(if (isToTemp) 0 else 10)
-        view_menu_first.isObserveMode = !isToTemp
+        viewMenuFirst.isObserveMode = !isToTemp
 
         //指南针显示状态改变
         updateCompass()
@@ -1133,7 +1133,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         thermalRecyclerNight.onColorListener = { _, it, _ ->
             if (customPseudoBean.isUseCustomPseudo) {
                 TipDialog.Builder(this)
-                    .setTitleMessage(getString(LibAppR.string.app_tip))
+                    .setTitleMessage(getString(R.string.app_tip))
                     .setMessage(R.string.tip_change_pseudo_mode)
                     .setPositiveListener(R.string.app_yes) {
                         customPseudoBean.isUseCustomPseudo = false
@@ -3172,7 +3172,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                             return
                         }
                         TipDialog.Builder(this@IRThermalNightActivity)
-                            .setTitleMessage(getString(LibAppR.string.app_tip))
+                            .setTitleMessage(getString(R.string.app_tip))
                             .setMessage(getString(R.string.app_microphone_content))
                             .setPositiveListener(R.string.app_open) {
                                 AppUtils.launchAppDetailsSettings()
@@ -3237,7 +3237,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                             return
                         }
                         TipDialog.Builder(this@IRThermalNightActivity)
-                            .setTitleMessage(getString(LibAppR.string.app_tip))
+                            .setTitleMessage(getString(R.string.app_tip))
                             .setMessage(R.string.app_storage_content)
                             .setPositiveListener(R.string.app_open) {
                                 AppUtils.launchAppDetailsSettings()
