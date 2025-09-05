@@ -216,9 +216,9 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
                     val bigDecimal = BigDecimal.valueOf(rotateData[centerIndex].toDouble())
                     val maxBigDecimal = BigDecimal.valueOf(rotateData[maxTempIndex].toDouble())
                     val minBigDecimal = BigDecimal.valueOf(rotateData[minTempIndex].toDouble())
-                    mCenter = bigDecimal.setScale(1, BigDecimal.ROUND_HALF_UP).toFloat()
-                    mMaxTemp = maxBigDecimal.setScale(1, BigDecimal.ROUND_HALF_UP).toFloat()
-                    mMinTemp = minBigDecimal.setScale(1, BigDecimal.ROUND_HALF_UP).toFloat()
+                    mCenter = bigDecimal.setScale(1, java.math.RoundingMode.HALF_UP).toFloat()
+                    mMaxTemp = maxBigDecimal.setScale(1, java.math.RoundingMode.HALF_UP).toFloat()
+                    mMinTemp = minBigDecimal.setScale(1, java.math.RoundingMode.HALF_UP).toFloat()
                 } catch (e: Exception) {
                     e.printStackTrace()
                     Log.e(TAG, "提取温度异常:${e.message}")

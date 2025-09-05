@@ -79,7 +79,7 @@ class IRImageHelp {
      */
     fun customPseudoColor(imageDst: ByteArray, temperatureSrc:ByteArray, imageWidth : Int, imageHeight : Int) : ByteArray{
         try {
-            if (colorList != null && temperatureSrc != null) {
+            if (colorList != null) {
                 var j = 0
                 val imageDstLength: Int = imageWidth * imageHeight * 4
                 // 遍历像素点，过滤温度阈值

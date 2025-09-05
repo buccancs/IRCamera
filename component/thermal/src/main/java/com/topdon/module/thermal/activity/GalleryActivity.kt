@@ -4,7 +4,7 @@ import android.Manifest
 import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.topdon.lib.core.config.RouterConfig
@@ -60,7 +60,7 @@ class GalleryActivity : BaseActivity() {
     override fun initData() {
     }
 
-    inner class ViewAdapter : FragmentPagerAdapter {
+    inner class ViewAdapter : FragmentStatePagerAdapter {
         private var titles: Array<String> = arrayOf()
 
         constructor (context: Context, fm: FragmentManager) : super(

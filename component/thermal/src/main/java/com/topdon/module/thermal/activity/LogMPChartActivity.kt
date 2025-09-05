@@ -193,7 +193,7 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
                     return@launch
                 }
                 Log.i("chart", "update chart start")
-                val lineData: LineData = chart.data
+                val lineData: LineData? = chart.data
                 if (lineData != null) {
                     Log.w(
                         "123",

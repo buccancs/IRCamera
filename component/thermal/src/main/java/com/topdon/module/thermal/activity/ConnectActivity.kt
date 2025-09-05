@@ -18,8 +18,8 @@ class ConnectActivity : BaseActivity() {
         toolbar?.title = getString(R.string.app_name)
         
         val bluetoothBtn = findViewById<TextView>(R.id.bluetooth_btn)
-        val device = DeviceTools.isConnect()
-        if (device == null) {
+        val isDeviceConnected = DeviceTools.isConnect()
+        if (!isDeviceConnected) {
             //未连接
             bluetoothBtn.text = getString(R.string.app_no_connect)
         } else {
