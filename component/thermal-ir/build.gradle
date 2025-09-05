@@ -96,7 +96,9 @@ dependencies {
     implementation 'com.google.android.mediahome:video:1.0.0'
     
     // Image picking - use available version
-    api 'com.github.LuckSiege.PictureSelector:picture_library:v2.6.0'
+    api('com.github.LuckSiege.PictureSelector:picture_library:v2.6.0') {
+        exclude group: 'com.github.LuckSiege.PictureSelector', module: 'ucrop'
+    }
     
     // Glide for image loading
     implementation libs.glide

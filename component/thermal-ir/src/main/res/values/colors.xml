@@ -8,4 +8,6 @@
     <!-- Thermal temperature font colors -->
     <color name="temp_font_color">#FFFFFF</color>
     <color name="temp_font_second_color">#CCCCCC</color>
+    <color name="temp_font_title_item_color">#FFFFFF</color>
+    <color name="ir_bg_color">#000000</color>
 </resources>

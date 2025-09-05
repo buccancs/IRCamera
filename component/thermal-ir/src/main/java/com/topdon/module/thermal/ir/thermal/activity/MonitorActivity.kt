@@ -67,9 +67,6 @@ class MonitorActivity : BaseIRActivity(), View.OnClickListener {
                                 .post(ThermalActionEvent(action = 2003))
                         }
                     }
-
-                    })
-                    .setCancelListener(R.string.app_cancel)
                     .create().show()
             }
             motion_start_btn -> {
