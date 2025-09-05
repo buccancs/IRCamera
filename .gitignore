@@ -6,6 +6,10 @@
 # -------------------------------------------------------------------
 # User-specific files
 .idea/
+*.aar
+*.xml
+*.so
+*.jar
 
 # Generated files
 *.iml
