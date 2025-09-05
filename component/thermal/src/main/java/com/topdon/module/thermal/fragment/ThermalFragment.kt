@@ -15,6 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
+import java.math.RoundingMode
 import com.blankj.utilcode.util.ScreenUtils
 // import com.guide.zm04c.matrix.GuideInterface // Temporarily disabled - hardware specific
 // import com.guide.zm04c.matrix.IrSurfaceView // Temporarily disabled - hardware specific
@@ -256,9 +257,9 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
                     val bigDecimal = BigDecimal.valueOf(rotateData[centerIndex].toDouble())
                     val maxBigDecimal = BigDecimal.valueOf(rotateData[maxTempIndex].toDouble())
                     val minBigDecimal = BigDecimal.valueOf(rotateData[minTempIndex].toDouble())
-                    mCenter = bigDecimal.setScale(1, BigDecimal.ROUND_HALF_UP).toFloat()
-                    mMaxTemp = maxBigDecimal.setScale(1, BigDecimal.ROUND_HALF_UP).toFloat()
-                    mMinTemp = minBigDecimal.setScale(1, BigDecimal.ROUND_HALF_UP).toFloat()
+                    mCenter = bigDecimal.setScale(1, RoundingMode.HALF_UP).toFloat()
+                    mMaxTemp = maxBigDecimal.setScale(1, RoundingMode.HALF_UP).toFloat()
+                    mMinTemp = minBigDecimal.setScale(1, RoundingMode.HALF_UP).toFloat()
                 } catch (e: Exception) {
                     e.printStackTrace()
                     Log.e(TAG, "提取温度异常:${e.message}")

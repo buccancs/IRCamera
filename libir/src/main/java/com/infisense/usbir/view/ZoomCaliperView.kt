@@ -323,7 +323,7 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
         this.visibility = View.VISIBLE
         m = TargetUtils.getMeasureSize(targetMeasureMode)
         val targetIcon = TargetUtils.getSelectTargetDraw(targetMeasureMode, targetType, targetColorType)
-        originalBitmap = (androidx.core.content.ContextCompat.getDrawable(context, targetIcon) as? BitmapDrawable)?.bitmap
+        originalBitmap = (androidx.core.content.ContextCompat.getDrawable(context, targetIcon) as? BitmapDrawable)?.bitmap ?: return
         (mTextureView as ImageView ).setImageBitmap(originalBitmap)
 //        Log.e("测试","旋转后的宽高updateSelectBitmap"+parentCameraView!!.width+"---"+parentCameraView!!.height)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {

@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import java.math.RoundingMode
 import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.github.mikephil.charting.charts.LineChart
@@ -193,9 +194,9 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
                     val bigDecimal = BigDecimal.valueOf(rotateData[centerTempIndex].toDouble())
                     val maxBigDecimal = BigDecimal.valueOf(rotateData[maxTempIndex].toDouble())
                     val minBigDecimal = BigDecimal.valueOf(rotateData[minTempIndex].toDouble())
-                    bean.centerTemp = bigDecimal.setScale(1, BigDecimal.ROUND_HALF_UP).toFloat()
-                    bean.maxTemp = maxBigDecimal.setScale(1, BigDecimal.ROUND_HALF_UP).toFloat()
-                    bean.minTemp = minBigDecimal.setScale(1, BigDecimal.ROUND_HALF_UP).toFloat()
+                    bean.centerTemp = bigDecimal.setScale(1, RoundingMode.HALF_UP).toFloat()
+                    bean.maxTemp = maxBigDecimal.setScale(1, RoundingMode.HALF_UP).toFloat()
+                    bean.minTemp = minBigDecimal.setScale(1, RoundingMode.HALF_UP).toFloat()
                     bean.createTime = System.currentTimeMillis()
                 } catch (e: Exception) {
                     e.printStackTrace()

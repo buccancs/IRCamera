@@ -16,6 +16,7 @@ import com.topdon.lib.core.tools.ConstantLanguages
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.report.bean.*
+import com.topdon.module.thermal.ir.report.view.ReportIRInputView
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -192,12 +193,12 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
     private fun buildReportIr(filePath: String): ReportIRBean {
         val full: ReportTempBean? = if (imageTempBean?.full != null) {
             ReportTempBean(
-                if (report_temp_view_full.getMaxInput().isNotEmpty()) report_temp_view_full.getMaxInput() + UnitTools.showUnit() else "",
-                if (report_temp_view_full.isSwitchMaxCheck() && report_temp_view_full.getMaxInput().isNotEmpty()) 1 else 0,
-                if (report_temp_view_full.getMinInput().isNotEmpty()) report_temp_view_full.getMinInput() + UnitTools.showUnit() else "",
-                if (report_temp_view_full.isSwitchMinCheck() && report_temp_view_full.getMinInput().isNotEmpty()) 1 else 0,
-                report_temp_view_full.getExplainInput(),
-                if (report_temp_view_full.isSwitchExplainCheck() && report_temp_view_full.getExplainInput().isNotEmpty()) 1 else 0
+                if ((report_temp_view_full as? ReportIRInputView)?.getMaxInput()?.isNotEmpty() == true) (report_temp_view_full as ReportIRInputView).getMaxInput() + UnitTools.showUnit() else "",
+                if ((report_temp_view_full as? ReportIRInputView)?.isSwitchMaxCheck() == true && (report_temp_view_full as ReportIRInputView).getMaxInput().isNotEmpty()) 1 else 0,
+                if ((report_temp_view_full as? ReportIRInputView)?.getMinInput()?.isNotEmpty() == true) (report_temp_view_full as ReportIRInputView).getMinInput() + UnitTools.showUnit() else "",
+                if ((report_temp_view_full as? ReportIRInputView)?.isSwitchMinCheck() == true && (report_temp_view_full as ReportIRInputView).getMinInput().isNotEmpty()) 1 else 0,
+                (report_temp_view_full as? ReportIRInputView)?.getExplainInput() ?: "",
+                if ((report_temp_view_full as? ReportIRInputView)?.isSwitchExplainCheck() == true && (report_temp_view_full as ReportIRInputView).getExplainInput().isNotEmpty()) 1 else 0
             )
         } else {
             null
@@ -250,21 +251,21 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
             }
             val reportTempBean = if (type == 1) {//点的数据封装不太一样
                 ReportTempBean(
-                    if (reportTempView.getMaxInput().isNotEmpty()) reportTempView.getMaxInput() + UnitTools.showUnit() else "",
-                    if (reportTempView.isSwitchMaxCheck() && reportTempView.getMaxInput().isNotEmpty()) 1 else 0,
-                    reportTempView.getExplainInput(),
-                    if (reportTempView.isSwitchExplainCheck() && reportTempView.getExplainInput().isNotEmpty()) 1 else 0
+                    if ((reportTempView as? ReportIRInputView)?.getMaxInput()?.isNotEmpty() == true) (reportTempView as ReportIRInputView).getMaxInput() + UnitTools.showUnit() else "",
+                    if ((reportTempView as? ReportIRInputView)?.isSwitchMaxCheck() == true && (reportTempView as ReportIRInputView).getMaxInput().isNotEmpty()) 1 else 0,
+                    (reportTempView as? ReportIRInputView)?.getExplainInput() ?: "",
+                    if ((reportTempView as? ReportIRInputView)?.isSwitchExplainCheck() == true && (reportTempView as ReportIRInputView).getExplainInput().isNotEmpty()) 1 else 0
                 )
             } else {
                 ReportTempBean(
-                    if (reportTempView.getMaxInput().isNotEmpty()) reportTempView.getMaxInput() + UnitTools.showUnit() else "",
-                    if (reportTempView.isSwitchMaxCheck() && reportTempView.getMaxInput().isNotEmpty()) 1 else 0,
-                    if (reportTempView.getMinInput().isNotEmpty()) reportTempView.getMinInput() + UnitTools.showUnit() else "",
-                    if (reportTempView.isSwitchMinCheck() && reportTempView.getMinInput().isNotEmpty()) 1 else 0,
-                    reportTempView.getExplainInput(),
-                    if (reportTempView.isSwitchExplainCheck() && reportTempView.getExplainInput().isNotEmpty()) 1 else 0,
-                    if (reportTempView.getAverageInput().isNotEmpty()) reportTempView.getAverageInput() + UnitTools.showUnit() else "",
-                    if (reportTempView.isSwitchAverageCheck() && reportTempView.getAverageInput().isNotEmpty()) 1 else 0
+                    if ((reportTempView as? ReportIRInputView)?.getMaxInput()?.isNotEmpty() == true) (reportTempView as ReportIRInputView).getMaxInput() + UnitTools.showUnit() else "",
+                    if ((reportTempView as? ReportIRInputView)?.isSwitchMaxCheck() == true && (reportTempView as ReportIRInputView).getMaxInput().isNotEmpty()) 1 else 0,
+                    if ((reportTempView as? ReportIRInputView)?.getMinInput()?.isNotEmpty() == true) (reportTempView as ReportIRInputView).getMinInput() + UnitTools.showUnit() else "",
+                    if ((reportTempView as? ReportIRInputView)?.isSwitchMinCheck() == true && (reportTempView as ReportIRInputView).getMinInput().isNotEmpty()) 1 else 0,
+                    (reportTempView as? ReportIRInputView)?.getExplainInput() ?: "",
+                    if ((reportTempView as? ReportIRInputView)?.isSwitchExplainCheck() == true && (reportTempView as ReportIRInputView).getExplainInput().isNotEmpty()) 1 else 0,
+                    if ((reportTempView as? ReportIRInputView)?.getAverageInput()?.isNotEmpty() == true) (reportTempView as ReportIRInputView).getAverageInput() + UnitTools.showUnit() else "",
+                    if ((reportTempView as? ReportIRInputView)?.isSwitchAverageCheck() == true && (reportTempView as ReportIRInputView).getAverageInput().isNotEmpty()) 1 else 0
                 )
             }
             resultList.add(reportTempBean)
