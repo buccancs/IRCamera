@@ -18,17 +18,16 @@ buildscript {
         maven { url 'https://maven.aliyun.com/repository/google' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.2'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.22"
+        classpath 'com.android.tools.build:gradle:8.1.4'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.25"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
 //        classpath "com.alibaba:arouter-register:1.0.2"
-        classpath 'com.google.gms:google-services:4.3.10'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.7.1'
-        classpath 'com.google.gms:google-services:4.3.8'
+        classpath 'com.google.gms:google-services:4.4.2'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:3.0.2'
         // hms���������ɻ�Ϊ����ͨ������ֱ������
-        classpath 'com.huawei.agconnect:agcp:1.6.0.300'
+        classpath 'com.huawei.agconnect:agcp:1.9.1.300'
     }
 }
 apply from: "depend.gradle"
@@ -52,7 +51,7 @@ subprojects {
             project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
                 kotlinOptions {
                     freeCompilerArgs += ["-Xsuppress-version-warnings"]
-                    jvmTarget = '1.8'
+                    jvmTarget = '17'
                 }
             }
             
@@ -60,8 +59,8 @@ subprojects {
             if (project.plugins.hasPlugin('kotlin-kapt')) {
                 project.kapt {
                     javacOptions {
-                        option("-source", "8")
-                        option("-target", "8")
+                        option("-source", "17")
+                        option("-target", "17")
                     }
                 }
             }
@@ -71,16 +70,16 @@ subprojects {
     // Force compatible AndroidX lifecycle versions for AGP 7.4.2
     configurations.all {
         resolutionStrategy {
-            force 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.2'
-            force 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2'
-            force 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.2'
-            force 'androidx.lifecycle:lifecycle-common:2.6.2'
-            force 'androidx.lifecycle:lifecycle-process:2.6.2'
-            force 'androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.2'
-            force 'androidx.lifecycle:lifecycle-service:2.6.2'
-            force 'androidx.lifecycle:lifecycle-livedata-core-ktx:2.6.2'
-            force 'androidx.core:core:1.10.1'
-            force 'androidx.core:core-ktx:1.10.1'
+            force 'androidx.lifecycle:lifecycle-runtime-ktx:2.8.4'
+            force 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.4'
+            force 'androidx.lifecycle:lifecycle-livedata-ktx:2.8.4'
+            force 'androidx.lifecycle:lifecycle-common:2.8.4'
+            force 'androidx.lifecycle:lifecycle-process:2.8.4'
+            force 'androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.4'
+            force 'androidx.lifecycle:lifecycle-service:2.8.4'
+            force 'androidx.lifecycle:lifecycle-livedata-core-ktx:2.8.4'
+            force 'androidx.core:core:1.13.1'
+            force 'androidx.core:core-ktx:1.13.1'
             
             // Force compatible ExoPlayer versions to avoid AndroidX conflicts
             force 'com.google.android.exoplayer:exoplayer-core:2.19.1'
@@ -89,13 +88,13 @@ subprojects {
             force 'com.google.android.exoplayer:exoplayer-hls:2.19.1'
             force 'com.google.android.exoplayer:exoplayer-smoothstreaming:2.19.1'
             
-            // Force compatible Kotlin stdlib and coroutines versions for Kotlin 1.7.22
-            force 'org.jetbrains.kotlin:kotlin-stdlib:1.7.22'
-            force 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.22'
-            force 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.22'
-            force 'org.jetbrains.kotlin:kotlin-stdlib-common:1.7.22'
-            force 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
-            force 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+            // Force compatible Kotlin stdlib and coroutines versions for Kotlin 1.9.25
+            force 'org.jetbrains.kotlin:kotlin-stdlib:1.9.25'
+            force 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.25'
+            force 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.25'
+            force 'org.jetbrains.kotlin:kotlin-stdlib-common:1.9.25'
+            force 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1'
+            force 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1'
         }
     }
 }
