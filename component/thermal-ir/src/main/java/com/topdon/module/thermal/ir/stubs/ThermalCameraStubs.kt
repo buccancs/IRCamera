@@ -5,6 +5,8 @@ import com.energy.iruvc.utils.IIRFrameCallback
 import com.energy.iruvc.utils.DualCameraParams
 import com.energy.iruvc.utils.CommonParams
 import com.energy.iruvc.ircmd.IRCMD
+import com.energy.iruvc.dual.DualUVCCamera
+import com.energy.iruvc.dual.StubDualUVCCamera
 
 // TODO: Temporary stubs for thermal camera hardware SDK - replace when hardware libraries are available
 
@@ -24,9 +26,9 @@ class DualViewWithExternalCameraCommonApi(
 ) {
     var isOpenAmplify: Boolean = false
     private val stubDualUVCCamera = StubDualUVCCamera()
-    val dualUVCCamera: Any = stubDualUVCCamera
+    val dualUVCCamera: DualUVCCamera = stubDualUVCCamera
     
-    fun getDualUVCCamera(): Any = stubDualUVCCamera
+    fun getDualUVCCamera(): DualUVCCamera = stubDualUVCCamera
     fun addFrameCallback(callback: Any) {}
     fun removeFrameCallback(callback: Any) {}
     fun startPreview() {}
@@ -35,19 +37,7 @@ class DualViewWithExternalCameraCommonApi(
     fun setCurrentFusionType(fusion: DualCameraParams.FusionType) {}
 }
 
-class StubDualUVCCamera {
-    fun loadParameters(parameters: ByteArray?, typeLoadParameters: DualCameraParams.TypeLoadParameters): Any? = null
-    fun setDisp(disp: Int) {}
-    fun loadPseudocolor(type: Any, data: ByteArray) {}
-    fun onPausePreview() {}
-    fun updateFrame(format: Int, data: ByteArray, width: Int, height: Int) {}
-    
-    // Add missing methods for extension functions
-    fun setAutoShutter(isAutoShutter: Boolean) {}
-    fun setContrast(contrast: Int) {}
-    fun setMirror(mirror: Boolean) {}
-    fun setPropDdeLevel(level: Int) {}
-}
+class StubDualUVCCamera : DualUVCCamera
 
 class IRUVCDual(
     cameraWidth: Int,

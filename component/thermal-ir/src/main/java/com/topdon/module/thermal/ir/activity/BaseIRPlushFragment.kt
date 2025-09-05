@@ -496,7 +496,7 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
         )
         vlUVCCamera = IRUVCDual(cameraWidth,
             cameraHeight,
-            context,
+            requireContext(),
             pid,
             fps,
             object : ConnectCallback {
