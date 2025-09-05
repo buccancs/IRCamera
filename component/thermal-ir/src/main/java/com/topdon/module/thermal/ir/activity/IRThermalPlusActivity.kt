@@ -186,7 +186,7 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
     }
 
     override fun startUSB(isRestart: Boolean, isBadFrames: Boolean) {
-
+        // Empty implementation for dual IR device
     }
 
     override fun setPColor(code: Int) {
@@ -196,7 +196,7 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
          * 设置伪彩【set pseudocolor】
          * 固件机芯实现(部分伪彩为预留,设置后可能无效果)
          */
-//        dualView?.dualUVCCamera?.setPseudocolor(PseudocodeUtils.changeDualPseudocodeModelByOld(pseudoColorMode))
+        // dualView?.dualUVCCamera?.setPseudocolor(PseudocodeUtils.changeDualPseudocodeModelByOld(pseudoColorMode))
         SaveSettingUtil.pseudoColorMode = pseudoColorMode
         thermalRecyclerNight.setPseudoColor(code)
     }

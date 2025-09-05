@@ -1344,30 +1344,30 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                     autoJob?.cancel()
                 }
                 // if (timeDownView.isRunning) {
-                    // timeDownView.cancel()
-                    updateDelayView()
-                } else {
-                    // if (timeDownView.downTimeWatcher == null) {
-                        // timeDownView.setOnTimeDownListener(object : TimeDownView.DownTimeWatcher {
-                            override fun onTime(num: Int) {
-                                updateDelayView()
-                            }
-
-                            override fun onLastTime(num: Int) {
-                            }
-
-                            override fun onLastTimeFinish(num: Int) {
-                                if(thermalRecyclerNight.isVideoMode){
-                                    updateVideoDelayView()
-                                }else{
-                                    updateDelayView()
-                                }
-                                centerCamera()
-                            }
-                        })
-                    }
-                    // timeDownView.downSecond(cameraDelaySecond)
-                }
+                //     timeDownView.cancel()
+                //     updateDelayView()
+                // } else {
+                //     if (timeDownView.downTimeWatcher == null) {
+                //         timeDownView.setOnTimeDownListener(object : TimeDownView.DownTimeWatcher {
+                //             override fun onTime(num: Int) {
+                //                 updateDelayView()
+                //             }
+                // 
+                //             override fun onLastTime(num: Int) {
+                //             }
+                // 
+                //             override fun onLastTimeFinish(num: Int) {
+                //                 if(thermalRecyclerNight.isVideoMode){
+                //                     updateVideoDelayView()
+                //                 }else{
+                //                     updateDelayView()
+                //                 }
+                //                 centerCamera()
+                //             }
+                //         })
+                //     }
+                //     timeDownView.downSecond(cameraDelaySecond)
+                // }
             }
             1 -> {//图库
                 lifecycleScope.launch {
