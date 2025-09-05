@@ -4,12 +4,15 @@ import android.app.Activity
 import android.content.Intent
 import android.media.MediaScannerConnection
 import android.net.Uri
+import android.view.View
 import android.view.WindowManager
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.topdon.lib.core.navigation.NavigationManager
 import com.topdon.lib.core.bean.GalleryBean
 import com.topdon.lib.core.bean.GalleryTitle
@@ -54,6 +57,14 @@ class IRGalleryFragment : BaseFragment() {
     private val tabViewModel: IRGalleryTabViewModel by activityViewModels()
 
     private val adapter = GalleryAdapter()
+    
+    // View references
+    private lateinit var refreshLayout: SmartRefreshLayout
+    private lateinit var clDownload: View
+    private lateinit var clShare: View  
+    private lateinit var clDelete: View
+    private lateinit var clBottom: View
+    private lateinit var irGalleryRecycler: RecyclerView
 
     /**
      * 从上一界面传递过来的，当前是查看照片还是查看视频.
@@ -63,6 +74,14 @@ class IRGalleryFragment : BaseFragment() {
     override fun initContentView() = R.layout.fragment_ir_gallery
 
     override fun initView() {
+        // Initialize views with findViewById
+        refreshLayout = requireView().findViewById(R.id.refreshLayout)
+        clDownload = requireView().findViewById(R.id.cl_download)
+        clShare = requireView().findViewById(R.id.cl_share)
+        clDelete = requireView().findViewById(R.id.cl_delete)
+        clBottom = requireView().findViewById(R.id.cl_bottom)
+        irGalleryRecycler = requireView().findViewById(R.id.ir_gallery_recycler)
+        
         currentDirType = when (arguments?.getInt(ExtraKeyConfig.DIR_TYPE, 0) ?: 0) {
             DirType.TS004_LOCALE.ordinal -> DirType.TS004_LOCALE
             DirType.TS004_REMOTE.ordinal -> DirType.TS004_REMOTE
@@ -70,11 +89,11 @@ class IRGalleryFragment : BaseFragment() {
             else -> DirType.LINE
         }
 
-        cl_download.isVisible = currentDirType == DirType.TS004_REMOTE
+        clDownload.isVisible = currentDirType == DirType.TS004_REMOTE
 
         initRecycler()
 
-        cl_share.setOnClickListener {
+        clShare.setOnClickListener {
             val selectList = adapter.buildSelectList()
             if (selectList.size == 0) {
                 ToastTools.showShort(getString(R.string.tip_least_select))
@@ -86,10 +105,10 @@ class IRGalleryFragment : BaseFragment() {
             }
             downloadList(selectList, true)
         }
-        cl_delete.setOnClickListener {
+        clDelete.setOnClickListener {
             showDeleteDialog()
         }
-        cl_download.setOnClickListener {
+        clDownload.setOnClickListener {
             val selectList = adapter.buildSelectList()
             if (selectList.size == 0) {
                 ToastTools.showShort(getString(R.string.tip_least_select))
@@ -122,7 +141,7 @@ class IRGalleryFragment : BaseFragment() {
         }
         tabViewModel.isEditModeLD.observe(this) {
             adapter.isEditMode = it
-            cl_bottom.isVisible = it
+            clBottom.isVisible = it
         }
         tabViewModel.selectAllIndex.observe(this) {
             if ((isVideo && it == 1) || (!isVideo && it == 0)) {
@@ -175,13 +194,13 @@ class IRGalleryFragment : BaseFragment() {
                 return if (adapter.dataList[position] is GalleryTitle) spanCount else 1
             }
         }
-        ir_gallery_recycler.adapter = adapter
-        ir_gallery_recycler.layoutManager = gridLayoutManager
+        irGalleryRecycler.adapter = adapter
+        irGalleryRecycler.layoutManager = gridLayoutManager
 
         adapter.isTS004Remote = currentDirType == DirType.TS004_REMOTE
         adapter.onLongEditListener = {
             tabViewModel.isEditModeLD.value = true
-            cl_bottom.isVisible = true
+            clBottom.isVisible = true
         }
         adapter.selectCallback = {
             tabViewModel.selectSizeLD.value = it.size

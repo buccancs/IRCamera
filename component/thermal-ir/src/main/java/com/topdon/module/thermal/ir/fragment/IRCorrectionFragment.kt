@@ -19,6 +19,8 @@ import com.infisense.usbir.thread.ImageThreadTC
 import com.infisense.usbir.utils.USBMonitorCallback
 import com.infisense.usbir.view.ITsTempListener
 import com.infisense.usbir.view.TemperatureView.*
+import com.infisense.usbir.view.TemperatureView
+import com.infisense.usbir.view.CameraView
 import com.topdon.lib.core.bean.event.device.DeviceCameraEvent
 import com.topdon.lib.core.common.SaveSettingUtil
 import com.topdon.lib.core.config.DeviceConfig
@@ -40,6 +42,10 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
     protected var defaultDataFlowMode = CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT
 
     private var ircmd: IRCMD? = null
+    
+    // View references
+    private lateinit var temperatureView: TemperatureView
+    private var cameraView: CameraView? = null
 
     override fun initContentView() = R.layout.fragment_ir_monitor_thermal
 
@@ -47,6 +53,11 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
 
     override fun initView() {
         requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        
+        // Initialize views with findViewById  
+        temperatureView = requireView().findViewById(R.id.temperatureView)
+        cameraView = requireView().findViewById(R.id.cameraView)
+        
         initDataIR()
     }
 

@@ -52,15 +52,21 @@ class IRGalleryTabFragment : BaseFragment() {
 
     private var viewPagerAdapter: ViewPagerAdapter? = null
 
-    // findViewById declarations
-    private val titleView: TitleView by lazy { findViewById(R.id.title_view) }
-    private val tvTitleDir: MyTextView by lazy { findViewById(R.id.tv_title_dir) }
-    private val tabLayout: TabLayout by lazy { findViewById(R.id.tab_layout) }
-    private val viewPager2: ViewPager2 by lazy { findViewById(R.id.view_pager2) }
+    // View references - initialized in initView
+    private lateinit var titleView: TitleView
+    private lateinit var tvTitleDir: MyTextView
+    private lateinit var tabLayout: TabLayout
+    private lateinit var viewPager2: ViewPager2
 
     override fun initContentView(): Int = R.layout.fragment_gallery_tab
 
     override fun initView() {
+        // Initialize views with findViewById
+        titleView = requireView().findViewById(R.id.title_view)
+        tvTitleDir = requireView().findViewById(R.id.tv_title_dir)
+        tabLayout = requireView().findViewById(R.id.tab_layout)
+        viewPager2 = requireView().findViewById(R.id.view_pager2)
+        
         hasBackIcon = arguments?.getBoolean(ExtraKeyConfig.HAS_BACK_ICON, false) ?: false
         canSwitchDir = arguments?.getBoolean(ExtraKeyConfig.CAN_SWITCH_DIR, false) ?: false
         currentDirType = when (arguments?.getInt(ExtraKeyConfig.DIR_TYPE, 0) ?: 0) {

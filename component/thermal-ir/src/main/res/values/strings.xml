@@ -17,6 +17,14 @@
     <string name="app_got_it">Got it</string>
     <string name="album_edit_report">Edit Report</string>
     
+    <string name="thermal_config_environment">Environment Temperature</string>
+    <string name="thermal_config_distance">Distance</string>
+    <string name="thermal_config_radiation">Emissivity</string>
+    <string name="tip_input_format">Please enter a valid number</string>
+    <string name="album_menu_Photos">Photos</string>
+    <string name="app_video">Video</string>
+    <string name="ts004_download_complete">Download complete</string>
+    
     <!-- Dialog and tip strings -->
     <string name="app_tip">Tip</string>
     <string name="tips_observe_photo_content">Switch to observation mode to capture images with enhanced thermal analysis features.</string>
@@ -50,7 +58,6 @@
     <string name="auto_open">Auto Open</string>
     <string name="tip_config_delete">Delete report "%s"?</string>
     <string name="chart_start_time">Chart Start Time</string>
-    <string name="thermal_config_environment">Environment Configuration</string>
     <string name="album_report_emissivity">Report Emissivity</string>
     <string name="tc_has_line_device">Wired Device</string>
     <string name="auto_close">Auto Close</string>
