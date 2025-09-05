@@ -16,6 +16,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import android.widget.TextView
+import com.topdon.house.R
+import com.topdon.lib.core.R as LibR
 import com.topdon.house.event.DetectDirListEvent
 import com.topdon.house.viewmodel.DetectViewModel
 import com.topdon.lib.core.config.ExtraKeyConfig
@@ -73,8 +76,8 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
             findViewById<View>(R.id.view_copy).isEnabled = it > 0
             findViewById<View>(R.id.view_del).isEnabled = it > 0
             findViewById<ImageView>(R.id.iv_select_all).isSelected = adapter.isSelectAll
-            findViewById<TextView>(R.id.tv_select_all).setText(if (adapter.isSelectAll) R.string.app_cancel_select_all else R.string.report_select_all)
-            findViewById<TextView>(R.id.tv_title).text = if (it > 0) getString(R.string.chosen_item, it) else getString(R.string.not_selected)
+        findViewById<TextView>(R.id.tv_select_all).setText(if (adapter.isSelectAll) LibR.string.app_cancel_select_all else LibR.string.report_select_all)
+            findViewById<TextView>(R.id.tv_title).text = if (it > 0) getString(LibR.string.chosen_item, it) else getString(LibR.string.not_selected)
         }
         val recyclerView = findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recycler_view)
         recyclerView.setHasFixedSize(true)
@@ -109,7 +112,7 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
                 lifecycleScope.launch(Dispatchers.IO) {
                     AppDatabase.getInstance().houseDetectDao().refreshDetect(houseDetect)
                     withContext(Dispatchers.Main) {
-                        TToast.shortToast(this@DirEditActivity, R.string.tip_save_success)
+                        TToast.shortToast(this@DirEditActivity, LibR.string.tip_save_success)
                         dismissLoadingDialog()
                         EventBus.getDefault().post(DetectDirListEvent(houseDetect.id))
                         delay(100)
@@ -122,15 +125,15 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
             }
             findViewById<View>(R.id.view_copy) -> {//复制
                 adapter.copySelect()
-                TToast.shortToast(this@DirEditActivity, R.string.ts004_copy_success)
+                TToast.shortToast(this@DirEditActivity, LibR.string.ts004_copy_success)
             }
             findViewById<View>(R.id.view_del) -> {//删除
                 TipDialog.Builder(this)
-                    .setTitleMessage(getString(R.string.tips_del_item_title))
-                    .setMessage(R.string.tips_del_item_content)
-                    .setCancelListener(R.string.app_cancel) {
+                    .setTitleMessage(getString(LibR.string.tips_del_item_title))
+                    .setMessage(LibR.string.tips_del_item_content)
+                    .setCancelListener(LibR.string.app_cancel) {
                     }
-                    .setPositiveListener(R.string.report_delete) {
+                    .setPositiveListener(LibR.string.report_delete) {
                         adapter.delSelect()
                         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
                         val clBottom = findViewById<ConstraintLayout>(R.id.cl_bottom)
@@ -138,7 +141,7 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
                         recyclerView.isVisible = adapter.dataList.isNotEmpty()
                         clBottom.isVisible = adapter.dataList.isNotEmpty()
                         clEmpty.isVisible = adapter.dataList.isEmpty()
-                        TToast.shortToast(this@DirEditActivity, R.string.test_results_delete_success)
+                        TToast.shortToast(this@DirEditActivity, LibR.string.test_results_delete_success)
                     }
                     .create().show()
             }
