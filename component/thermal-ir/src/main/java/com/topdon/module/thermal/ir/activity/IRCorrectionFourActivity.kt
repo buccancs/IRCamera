@@ -7,10 +7,10 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.ir.databinding.ActivityIrCorrectionFourBinding
 import com.topdon.module.thermal.ir.event.CorrectionFinishEvent
 import com.topdon.module.thermal.ir.fragment.IRCorrectionFragment
 import com.topdon.module.thermal.ir.view.TimeDownView
-import kotlinx.android.synthetic.main.activity_ir_correction_four.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -25,13 +25,17 @@ import org.greenrobot.eventbus.EventBus
 @Route(path = RouterConfig.IR_CORRECTION_FOUR)
 class IRCorrectionFourActivity : BaseActivity() {
 
+    private lateinit var binding: ActivityIrCorrectionFourBinding
     val time = 60
 
     override fun initContentView(): Int = R.layout.activity_ir_correction_four
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        title_view.setLeftClickListener {
+        binding = ActivityIrCorrectionFourBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
+        binding.titleView.setLeftClickListener {
             TipDialog.Builder(this)
                 .setTitleMessage(getString(R.string.app_tip))
                 .setMessage(R.string.tips_cancel_correction)
@@ -47,20 +51,20 @@ class IRCorrectionFourActivity : BaseActivity() {
         val irFragment = if (savedInstanceState == null) {
             IRCorrectionFragment()
         } else {
-            supportFragmentManager.findFragmentById(R.id.fragment_container_view) as IRCorrectionFragment
+            supportFragmentManager.findFragmentById(binding.fragmentContainerView.id) as IRCorrectionFragment
         }
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .setReorderingAllowed(true)
-                .add(R.id.fragment_container_view, irFragment)
+                .add(binding.fragmentContainerView.id, irFragment)
                 .commit()
         }
 
 
-        time_down_view.postDelayed({
+        binding.timeDownView.postDelayed({
             //开始矫正
-            if (time_down_view.downTimeWatcher == null){
-                time_down_view.setOnTimeDownListener(object : TimeDownView.DownTimeWatcher{
+            if (binding.timeDownView.downTimeWatcher == null){
+                binding.timeDownView.setOnTimeDownListener(object : TimeDownView.DownTimeWatcher{
                     override fun onTime(num: Int) {
                         if (num == 50){
                             lifecycleScope.launch(Dispatchers.IO) {
@@ -88,7 +92,7 @@ class IRCorrectionFourActivity : BaseActivity() {
                     }
                 })
             }
-            time_down_view.downSecond(time,false)
+            binding.timeDownView.downSecond(time,false)
         },2000)
     }
 
@@ -109,7 +113,7 @@ class IRCorrectionFourActivity : BaseActivity() {
 
     override fun disConnected() {
         super.disConnected()
-        time_down_view.cancel()
+        binding.timeDownView.cancel()
         EventBus.getDefault().post(CorrectionFinishEvent())
         finish()
     }
@@ -126,6 +130,6 @@ class IRCorrectionFourActivity : BaseActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        time_down_view.cancel()
+        binding.timeDownView.cancel()
     }
 }
