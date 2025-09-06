@@ -1,6 +1,7 @@
 package com.topdon.transfer
 
 import android.media.MediaScannerConnection
+import android.view.View
 import android.view.WindowManager
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
@@ -15,7 +16,7 @@ import com.hjq.permissions.XXPermissions
 import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseActivity
-import kotlinx.android.synthetic.main.activity_transfer.*
+import com.topdon.transfer.databinding.ActivityTransferBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -34,11 +35,14 @@ import java.util.zip.ZipFile
 class TransferActivity : BaseActivity() {
 
     private lateinit var transferDialog: TransferDialog
+    private lateinit var binding: ActivityTransferBinding
 
     override fun initContentView(): Int = R.layout.activity_transfer
 
     override fun initView() {
-        iv_back.setOnClickListener {
+        binding = ActivityTransferBinding.bind(findViewById<View>(android.R.id.content))
+        
+        binding.ivBack.setOnClickListener {
             finish()
         }
 
@@ -99,7 +103,7 @@ class TransferActivity : BaseActivity() {
             window?.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
             transferDialog.dismiss()
-            cl_success.isVisible = true
+            binding.clSuccess.isVisible = true
         }
     }
 

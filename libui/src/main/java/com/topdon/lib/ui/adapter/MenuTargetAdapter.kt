@@ -12,8 +12,8 @@ import com.topdon.lib.core.bean.ObserveBean
 import com.topdon.lib.ui.R
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.lib.ui.config.CameraHelp
+import com.topdon.lib.ui.databinding.UiItemMenuSecondViewBinding
 import com.topdon.menu.constant.TargetType
-import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.*
 
 @Deprecated("旧的标靶菜单，已重构过了")
 class MenuTargetAdapter (val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -70,8 +70,8 @@ class MenuTargetAdapter (val context: Context) : RecyclerView.Adapter<RecyclerVi
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.ui_item_menu_second_view, parent, false)
-        return ItemView(view)
+        val binding = UiItemMenuSecondViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ItemView(binding)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -98,14 +98,14 @@ class MenuTargetAdapter (val context: Context) : RecyclerView.Adapter<RecyclerVi
         return secondBean.size
     }
 
-    inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val lay: View = itemView.item_menu_tab_lay
-        val img: ImageView = itemView.item_menu_tab_img
-        val name: TextView = itemView.item_menu_tab_text
+    inner class ItemView(val binding: UiItemMenuSecondViewBinding) : RecyclerView.ViewHolder(binding.root) {
+        val lay: View = binding.itemMenuTabLay
+        val img: ImageView = binding.itemMenuTabImg
+        val name: TextView = binding.itemMenuTabText
         init {
 //            val canSeeCount = 4.5 //一屏占4个
 //            val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()
-            itemView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            binding.root.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
 //            val imageSize = (ScreenUtils.getScreenWidth() * 62 / 375f).toInt()
 //            val layoutParams = itemView.item_menu_tab_img.layoutParams
 //            layoutParams.width = imageSize

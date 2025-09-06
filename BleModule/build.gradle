@@ -50,11 +50,11 @@ android {
 }
 
 dependencies {
-    api 'com.topdon.lms.sdk2:lms:3.80.005'
-    api 'androidx.appcompat:appcompat:1.4.2'
-    api 'org.greenrobot:eventbus:3.2.0'
-    api 'com.blankj:utilcodex:1.31.0'//工具包
-    api 'com.google.code.gson:gson:2.8.8'
-    api 'com.elvishew:xlog:1.11.0'
+    implementation 'com.topdon.lms.sdk2:lms:3.80.005'
+    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'org.greenrobot:eventbus:3.2.0'
+    implementation 'com.blankj:utilcodex:1.31.0'//工具包
+    implementation 'com.google.code.gson:gson:2.8.8'
+    implementation 'com.elvishew:xlog:1.11.0'
     implementation files('libs/ini4j-0.5.5.jar')
 }

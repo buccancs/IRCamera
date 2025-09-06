@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lib.ui.R
-import kotlinx.android.synthetic.main.dialog_monitor_select.view.*
+import com.topdon.lib.ui.databinding.DialogMonitorSelectBinding
 
 /**
  * 提示窗
@@ -38,60 +38,60 @@ class MonitorSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
             val dialog = MonitorSelectDialog(context)
             dialog.setCanceledOnTouchOutside(false)
             
-            val view = LayoutInflater.from(context).inflate(R.layout.dialog_monitor_select, null)
-            dialog.setContentView(view)
+            val binding = DialogMonitorSelectBinding.inflate(LayoutInflater.from(context))
+            dialog.setContentView(binding.root)
 
             val lp = dialog.window!!.attributes
             lp.width = (ScreenUtil.getScreenWidth(context) * if (ScreenUtil.isPortrait(context)) 0.85 else 0.35).toInt() //设置宽度
             dialog.window!!.attributes = lp
 
-            view.btn_confirm_or_back.setOnClickListener {
+            binding.btnConfirmOrBack.setOnClickListener {
                 if (isFirstStep) {//步骤1->步骤2 逻辑为“确认”
                     if (monitorType == 0) {//还没选取类型不允许点确认
                         return@setOnClickListener
                     }
                     isFirstStep = false
-                    view.btn_cancel.visibility = View.VISIBLE
-                    view.cl_first_step.visibility = View.INVISIBLE
-                    view.cl_second_step.visibility = View.VISIBLE
-                    view.tv_title.text = context.getString(R.string.select_monitor_type_step2)
-                    view.btn_confirm_or_back.text = context.getString(R.string.select_monitor_return)
+                    binding.btnCancel.visibility = View.VISIBLE
+                    binding.clFirstStep.visibility = View.INVISIBLE
+                    binding.clSecondStep.visibility = View.VISIBLE
+                    binding.tvTitle.text = context.getString(R.string.select_monitor_type_step2)
+                    binding.btnConfirmOrBack.text = context.getString(R.string.select_monitor_return)
                 } else {//步骤2->步骤1 逻辑为“返回”
                     isFirstStep = true
-                    view.btn_cancel.visibility = View.GONE
-                    view.cl_first_step.visibility = View.VISIBLE
-                    view.cl_second_step.visibility = View.GONE
-                    view.tv_title.text = context.getString(R.string.select_monitor_type_step1)
-                    view.btn_confirm_or_back.text = context.getString(R.string.app_confirm)
+                    binding.btnCancel.visibility = View.GONE
+                    binding.clFirstStep.visibility = View.VISIBLE
+                    binding.clSecondStep.visibility = View.GONE
+                    binding.tvTitle.text = context.getString(R.string.select_monitor_type_step1)
+                    binding.btnConfirmOrBack.text = context.getString(R.string.app_confirm)
                 }
             }
 
-            view.btn_cancel.setOnClickListener {
+            binding.btnCancel.setOnClickListener {
                 dialog.dismiss()
             }
 
-            view.btn_select_location.setOnClickListener {
+            binding.btnSelectLocation.setOnClickListener {
                 dialog.dismiss()
                 positiveClickListener?.invoke(monitorType)
             }
 
-            view.tv_point.setOnClickListener {
-                updateUI(view, 1)
+            binding.tvPoint.setOnClickListener {
+                updateUI(binding, 1)
             }
-            view.tv_line.setOnClickListener {
-                updateUI(view, 2)
+            binding.tvLine.setOnClickListener {
+                updateUI(binding, 2)
             }
-            view.tv_rect.setOnClickListener {
-                updateUI(view, 3)
+            binding.tvRect.setOnClickListener {
+                updateUI(binding, 3)
             }
             return dialog
         }
 
 
-        private fun updateUI(view: View, index: Int) {
-            view.tv_point.isSelected = index == 1
-            view.tv_line.isSelected = index == 2
-            view.tv_rect.isSelected = index == 3
+        private fun updateUI(binding: DialogMonitorSelectBinding, index: Int) {
+            binding.tvPoint.isSelected = index == 1
+            binding.tvLine.isSelected = index == 2
+            binding.tvRect.isSelected = index == 3
             monitorType = index
         }
     }

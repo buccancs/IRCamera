@@ -53,10 +53,10 @@ import com.topdon.module.user.fragment.MineFragment
 import com.topdon.tc001.app.App
 import com.topdon.tc001.fragment.MainFragment
 import com.topdon.tc001.utils.AppVersionUtil
+import com.topdon.tc001.databinding.ActivityMainBinding
 import com.zoho.commons.LauncherModes
 import com.zoho.commons.LauncherProperties
 import com.zoho.salesiqembed.ZohoSalesIQ
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
@@ -71,6 +71,7 @@ import java.io.OutputStream
 @Route(path = RouterConfig.MAIN)
 class MainActivity : BaseActivity(), View.OnClickListener {
 
+    private lateinit var binding: ActivityMainBinding
     private val versionViewModel: VersionViewModel by viewModels()
 
     private var checkPermissionType: Int = -1 //0 initData数据 1 图库  2 connect方法
@@ -101,27 +102,29 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun initView() {
+        binding = ActivityMainBinding.bind(findViewById<View>(android.R.id.content).rootView)
+        
         logInfo()
         lifecycleScope.launch(Dispatchers.IO){
             SupHelp.getInstance().initAiUpScaler(Utils.getApp())
         }
-        view_page.offscreenPageLimit = 3
-        view_page.isUserInputEnabled = false
-        view_page.adapter = ViewPagerAdapter(this)
-        view_page.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        binding.viewPage.offscreenPageLimit = 3
+        binding.viewPage.isUserInputEnabled = false
+        binding.viewPage.adapter = ViewPagerAdapter(this)
+        binding.viewPage.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 refreshTabSelect(position)
             }
         })
         if (savedInstanceState == null) {
-            view_page.setCurrentItem(1, false)
+            binding.viewPage.setCurrentItem(1, false)
         }
 
-        view_mine_point.isVisible = !SharedManager.hasClickWinter
+        binding.viewMinePoint.isVisible = !SharedManager.hasClickWinter
 
-        cl_icon_gallery.setOnClickListener(this)
-        view_main.setOnClickListener(this)
-        cl_icon_mine.setOnClickListener(this)
+        binding.clIconGallery.setOnClickListener(this)
+        binding.viewMain.setOnClickListener(this)
+        binding.clIconMine.setOnClickListener(this)
         App.instance.initWebSocket()
         copyFile("SR.pb", File(filesDir, "SR.pb"))
         BaseApplication.instance.clearDb()
@@ -278,15 +281,15 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            cl_icon_gallery -> {//图库
+            binding.clIconGallery -> {//图库
                 checkPermissionType = 1
                 checkStoragePermission()
             }
-            view_main -> {//首页
-                view_page.setCurrentItem(1, false)
+            binding.viewMain -> {//首页
+                binding.viewPage.setCurrentItem(1, false)
             }
-            cl_icon_mine -> {//我的
-                view_page.setCurrentItem(2, false)
+            binding.clIconMine -> {//我的
+                binding.viewPage.setCurrentItem(2, false)
             }
         }
     }
@@ -314,7 +317,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onWinterClick(event: WinterClickEvent) {
-        view_mine_point.isVisible = false
+        binding.viewMinePoint.isVisible = false
     }
 
     /**
@@ -322,23 +325,23 @@ class MainActivity : BaseActivity(), View.OnClickListener {
      * @param index 当前选中哪个 tab，`[0, 2]`
      */
     private fun refreshTabSelect(index: Int) {
-        iv_icon_gallery.isSelected = false
-        tv_icon_gallery.isSelected = false
-        iv_icon_mine.isSelected = false
-        tv_icon_mine.isSelected = false
-        iv_bottom_main_bg.setImageResource(R.drawable.ic_main_bg_not_select)
+        binding.ivIconGallery.isSelected = false
+        binding.tvIconGallery.isSelected = false
+        binding.ivIconMine.isSelected = false
+        binding.tvIconMine.isSelected = false
+        binding.ivBottomMainBg.setImageResource(R.drawable.ic_main_bg_not_select)
 
         when (index) {
             0 -> {//图库
-                iv_icon_gallery.isSelected = true
-                tv_icon_gallery.isSelected = true
+                binding.ivIconGallery.isSelected = true
+                binding.tvIconGallery.isSelected = true
             }
             1 -> {
-                iv_bottom_main_bg.setImageResource(R.drawable.ic_main_bg_select)
+                binding.ivBottomMainBg.setImageResource(R.drawable.ic_main_bg_select)
             }
             2 -> {//我的
-                iv_icon_mine.isSelected = true
-                tv_icon_mine.isSelected = true
+                binding.ivIconMine.isSelected = true
+                binding.tvIconMine.isSelected = true
             }
         }
     }
@@ -557,7 +560,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 DeviceTools.isConnect(isSendConnectEvent = true)
             }
             1 -> {
-                view_page.setCurrentItem(0, false)
+                binding.viewPage.setCurrentItem(0, false)
             }
             2 -> {
 

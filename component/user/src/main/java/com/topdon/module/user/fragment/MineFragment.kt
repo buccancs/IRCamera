@@ -46,10 +46,9 @@ import com.topdon.lms.sdk.utils.LanguageUtil
 import com.topdon.module.user.R
 import com.topdon.module.user.activity.LanguageActivity
 import com.topdon.module.user.activity.MoreActivity
+import com.topdon.module.user.databinding.FragmentMineBinding
+import com.topdon.module.user.databinding.LayoutCustomerBinding
 import com.zoho.salesiqembed.ZohoSalesIQ
-import kotlinx.android.synthetic.main.fragment_mine.*
-import kotlinx.android.synthetic.main.fragment_more.setting_item_unit
-import kotlinx.android.synthetic.main.layout_customer.drag_customer_view
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -67,6 +66,12 @@ import org.greenrobot.eventbus.ThreadMode
  */
 class MineFragment : BaseFragment(), View.OnClickListener {
 
+    private var _binding: FragmentMineBinding? = null
+    private val binding get() = _binding!!
+    
+    private var _customerBinding: LayoutCustomerBinding? = null
+    private val customerBinding get() = _customerBinding!!
+
     /**
      * onResume() 阶段是否需要刷新登录状态相关 UI.
      */
@@ -75,23 +80,26 @@ class MineFragment : BaseFragment(), View.OnClickListener {
     override fun initContentView(): Int = R.layout.fragment_mine
 
     override fun initView() {
-        iv_winter.setOnClickListener(this)
-        setting_item_language.setOnClickListener(this)
-        setting_item_version.setOnClickListener(this)
-        setting_item_clear.setOnClickListener(this)
-        setting_user_lay.setOnClickListener(this)
-        setting_user_img_night.setOnClickListener(this)
-        setting_user_text.setOnClickListener(this)
-        setting_electronic_manual.setOnClickListener(this)
-        setting_faq.setOnClickListener(this)
-        setting_feedback.setOnClickListener(this)
-        setting_item_unit.setOnClickListener(this)//温度单温
-        drag_customer_view.setOnClickListener(this)
+        _binding = FragmentMineBinding.bind(requireView())
+        _customerBinding = binding.includeCustomer
+        
+        binding.ivWinter.setOnClickListener(this)
+        binding.settingItemLanguage.setOnClickListener(this)
+        binding.settingItemVersion.setOnClickListener(this)
+        binding.settingItemClear.setOnClickListener(this)
+        binding.settingUserLay.setOnClickListener(this)
+        binding.settingUserImgNight.setOnClickListener(this)
+        binding.settingUserText.setOnClickListener(this)
+        binding.settingElectronicManual.setOnClickListener(this)
+        binding.settingFaq.setOnClickListener(this)
+        binding.settingFeedback.setOnClickListener(this)
+        binding.settingItemUnit.setOnClickListener(this)//温度单温
+        customerBinding.dragCustomerView.setOnClickListener(this)
 
-        view_winter_point.isVisible = !SharedManager.hasClickWinter
+        binding.viewWinterPoint.isVisible = !SharedManager.hasClickWinter
 
         if (BaseApplication.instance.isDomestic()) {//国内版不给切换语言
-            setting_item_language.visibility = View.GONE
+            binding.settingItemLanguage.visibility = View.GONE
         }
 
         viewLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
@@ -138,8 +146,8 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            iv_winter -> {//冬季特辑入口
-                view_winter_point.isVisible = false
+            binding.ivWinter -> {//冬季特辑入口
+                binding.viewWinterPoint.isVisible = false
                 SharedManager.hasClickWinter = true
                 EventBus.getDefault().post(WinterClickEvent())
 
@@ -155,7 +163,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     .withString(ExtraKeyConfig.URL, url)
                     .navigation(requireContext())
             }
-            setting_user_lay, setting_user_img_night -> {
+            binding.settingUserLay, binding.settingUserImgNight -> {
                 if (UserInfoManager.getInstance().isLogin()) {
                     isNeedRefreshLogin = true
                     LMS.getInstance().activityUserInfo()
@@ -163,18 +171,18 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     loginAction()
                 }
             }
-            setting_user_text -> {
+            binding.settingUserText -> {
                 if (!LMS.getInstance().isLogin) {
                     loginAction()
                 }
             }
-            setting_electronic_manual -> {//电子说明书
+            binding.settingElectronicManual -> {//电子说明书
                 ARouter.getInstance().build(RouterConfig.ELECTRONIC_MANUAL).withInt(Constants.SETTING_TYPE, Constants.SETTING_BOOK).navigation(requireContext())
             }
-            setting_faq -> {//FAQ
+            binding.settingFaq -> {//FAQ
                 ARouter.getInstance().build(RouterConfig.ELECTRONIC_MANUAL).withInt(Constants.SETTING_TYPE, Constants.SETTING_FAQ).navigation(requireContext())
             }
-            setting_feedback -> {//意见反馈
+            binding.settingFeedback -> {//意见反馈
                 if (LMS.getInstance().isLogin) {
                     val devSn = SharedManager.getDeviceSn()
                     FeedBackBean().apply {
@@ -191,19 +199,19 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     loginAction()
                 }
             }
-            setting_item_unit -> {//温度单位
+            binding.settingItemUnit -> {//温度单位
                 ARouter.getInstance().build(RouterConfig.UNIT).navigation(requireContext())
             }
-            setting_item_version -> {//版本
+            binding.settingItemVersion -> {//版本
                 ARouter.getInstance().build(RouterConfig.VERSION).navigation(requireContext())
             }
-            setting_item_language -> {//语言
+            binding.settingItemLanguage -> {//语言
                 languagePickResult.launch(Intent(requireContext(), LanguageActivity::class.java))
             }
-            setting_item_clear -> {//清除缓存，实际已隐藏
+            binding.settingItemClear -> {//清除缓存，实际已隐藏
                 clearCache()
             }
-            drag_customer_view -> {//客服
+            customerBinding.dragCustomerView -> {//客服
 //                ActivityUtil.goSystemCustomer(requireContext())
                 val sn = SharedManager.getDeviceSn()
                 if (!TextUtils.isEmpty(sn)) {
@@ -248,7 +256,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             //登录失败
             XLog.e(" 登录失败")
             changeLoginStyle()
-            setting_user_img_night.setImageResource(R.mipmap.ic_default_user_head)//恢复默认头像
+            binding.settingUserImgNight.setImageResource(R.mipmap.ic_default_user_head)//恢复默认头像
         }
     }
 
@@ -260,19 +268,19 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             layoutParams.topToTop = ConstraintLayout.LayoutParams.PARENT_ID
             layoutParams.marginStart = SizeUtils.dp2px(16f)
             layoutParams.marginEnd = SizeUtils.dp2px(16f)
-            setting_user_text.setPadding(0,0,0,0)
-            setting_user_text.gravity = Gravity.LEFT
-            setting_user_text.layoutParams = layoutParams
+            binding.settingUserText.setPadding(0,0,0,0)
+            binding.settingUserText.gravity = Gravity.LEFT
+            binding.settingUserText.layoutParams = layoutParams
             val drawable = ContextCompat.getDrawable(requireContext(), R.color.transparent)
             drawable!!.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
-            setting_user_text.setCompoundDrawables(null, null, drawable, null)
-            setting_user_text.text = SharedManager.getNickname()
-            tv_email.text = SharedManager.getUsername()
-            setting_user_lay.visibility = View.VISIBLE
+            binding.settingUserText.setCompoundDrawables(null, null, drawable, null)
+            binding.settingUserText.text = SharedManager.getNickname()
+            binding.tvEmail.text = SharedManager.getUsername()
+            binding.settingUserLay.visibility = View.VISIBLE
 
-            if (setting_user_img_night != null) {
+            if (binding.settingUserImgNight != null) {
                 GlideLoader.loadCircle(
-                    setting_user_img_night,
+                    binding.settingUserImgNight,
                     SharedManager.getHeadIcon(),
                     R.mipmap.ic_default_user_head,
                     RequestOptions().optionalCircleCrop()
@@ -283,19 +291,25 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             layoutParams.startToEnd = R.id.setting_user_img_night
             layoutParams.topToTop = R.id.setting_user_img_night
             layoutParams.bottomToBottom = R.id.setting_user_img_night
-            setting_user_text.setPadding(SizeUtils.dp2px(16f), SizeUtils.dp2px(16f), SizeUtils.dp2px(16f), SizeUtils.dp2px(16f))
-            setting_user_text.gravity = Gravity.CENTER
-            setting_user_text.layoutParams = layoutParams
-            setting_user_text.setText(
+            binding.settingUserText.setPadding(SizeUtils.dp2px(16f), SizeUtils.dp2px(16f), SizeUtils.dp2px(16f), SizeUtils.dp2px(16f))
+            binding.settingUserText.gravity = Gravity.CENTER
+            binding.settingUserText.layoutParams = layoutParams
+            binding.settingUserText.setText(
                 AppLanguageUtils.attachBaseContext(
                 context, SharedManager.getLanguage(requireContext())).getString(R.string.app_sign_in))
             val drawable = ContextCompat.getDrawable(requireContext(), R.mipmap.ic_arrow_login)
             drawable!!.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
-            setting_user_text.setCompoundDrawables(null, null, drawable, null)
-            setting_user_lay.visibility = View.GONE
-            tv_email.text = ""
-            setting_user_img_night.setImageResource(R.mipmap.ic_default_user_head)//恢复默认头像
+            binding.settingUserText.setCompoundDrawables(null, null, drawable, null)
+            binding.settingUserLay.visibility = View.GONE
+            binding.tvEmail.text = ""
+            binding.settingUserImgNight.setImageResource(R.mipmap.ic_default_user_head)//恢复默认头像
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        _customerBinding = null
     }
 
     /**

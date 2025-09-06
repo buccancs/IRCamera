@@ -2,7 +2,7 @@ package com.topdon.module.thermal.ir.report.bean
 
 import android.os.Parcelable
 import com.blankj.utilcode.util.GsonUtils
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 /**
  * 从服务器接口返回的，一页报告信息中的一条报告信息.
