@@ -185,13 +185,17 @@ class SessionManagerActivity : AppCompatActivity() {
         if (metadataFile.exists()) {
             try {
                 metadataFile.readLines().forEach { line ->
-                    val (key, value) = line.split(":", 2)
-                    when (key.trim()) {
-                        "participantId" -> sessionInfo.participantId = value.trim()
-                        "studyName" -> sessionInfo.studyName = value.trim()
-                        "endTime" -> sessionInfo.endTime = value.trim().toLongOrNull()
-                        "sampleCount" -> sessionInfo.sampleCount = value.trim().toLongOrNull() ?: 0
-                        else -> sessionInfo.metadata[key.trim()] = value.trim()
+                    val parts = line.split(":", limit = 2)
+                    if (parts.size >= 2) {
+                        val key = parts[0]
+                        val value = parts[1]
+                        when (key.trim()) {
+                            "participantId" -> sessionInfo.participantId = value.trim()
+                            "studyName" -> sessionInfo.studyName = value.trim()
+                            "endTime" -> sessionInfo.endTime = value.trim().toLongOrNull()
+                            "sampleCount" -> sessionInfo.sampleCount = value.trim().toLongOrNull() ?: 0
+                            else -> sessionInfo.metadata[key.trim()] = value.trim()
+                        }
                     }
                 }
             } catch (e: Exception) {
