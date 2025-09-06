@@ -6,6 +6,7 @@ import android.hardware.usb.UsbManager
 import android.os.Build
 import com.blankj.utilcode.util.TimeUtils
 import com.blankj.utilcode.util.Utils
+import com.csl.irCamera.BuildConfig
 import com.elvishew.xlog.LogConfiguration
 import com.elvishew.xlog.LogLevel
 import com.elvishew.xlog.XLog
@@ -47,12 +48,8 @@ object InitUtil {
             .cleanStrategy(cleanStrategy) //指定日志文件清除策略
             .flattener(PatternFlattener(pattern)) //自定义日志格式
             .build()
-        if (BuildConfig.DEBUG) {
-            XLog.init(config, androidPrinter, filePrinter)
-        } else {
-            // release不使用logcat
-            XLog.init(config, filePrinter)
-        }
+        // Release build - only use file logging, not logcat
+        XLog.init(config, filePrinter)
     }
 
     fun initLms(){
@@ -70,7 +67,7 @@ object InitUtil {
                 productType = "TC001"
                 setLoginType(ConstantUtil.LOGIN_TS001_TYPE)
                 softwareCode = BaseApplication.instance.getSoftWareCode()
-                setEnabledLog(BuildConfig.DEBUG)
+                setEnabledLog(false)
                 setPrivacyPolicy(privacyPolicyUrl)
                 setServicesAgreement(servicesAgreementUrl)
                 if (!BaseApplication.instance.isDomestic()) {
