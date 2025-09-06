@@ -75,6 +75,7 @@ class WebViewActivity : BaseActivity() {
             }
 
             override fun onReceivedError(view: BridgeWebView?, request: WebResourceRequest?, error: WebResourceError?) {
+                super.onReceivedError(view, request, error)
                 dismissLoadingDialog()
                 viewCover.isVisible = false
                 if (request?.isForMainFrame == true) {

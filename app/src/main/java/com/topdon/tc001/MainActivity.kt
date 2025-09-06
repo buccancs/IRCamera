@@ -26,7 +26,7 @@ import com.example.thermal_lite.activity.IRThermalLiteActivity
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
-import com.topdon.hik.activity.IRThermalHikActivity
+// import com.topdon.hik.activity.IRThermalHikActivity // TODO: Implement HIK activity
 import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.bean.event.TS004ResetEvent
 import com.topdon.lib.core.bean.event.WinterClickEvent
@@ -74,6 +74,9 @@ import java.io.OutputStream
 class MainActivity : BaseActivity(), View.OnClickListener {
 
     private val versionViewModel: VersionViewModel by viewModels()
+    
+    // findViewById declarations  
+    private val viewPage: ViewPager2 by lazy { findViewById(R.id.view_page) }
 
     private var checkPermissionType: Int = -1 //0 initData数据 1 图库  2 connect方法
     override fun initContentView() = R.layout.activity_main
@@ -108,16 +111,16 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         lifecycleScope.launch(Dispatchers.IO){
             SupHelp.getInstance().initAiUpScaler(Utils.getApp())
         }
-        view_page.offscreenPageLimit = 3
-        view_page.isUserInputEnabled = false
-        view_page.adapter = ViewPagerAdapter(this)
-        view_page.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        viewPage.offscreenPageLimit = 3
+        viewPage.isUserInputEnabled = false
+        viewPage.adapter = ViewPagerAdapter(this)
+        viewPage.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 refreshTabSelect(position)
             }
         })
         if (savedInstanceState == null) {
-            view_page.setCurrentItem(1, false)
+            viewPage.setCurrentItem(1, false)
         }
 
         view_mine_point.isVisible = !SharedManager.hasClickWinter
@@ -284,10 +287,10 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 checkStoragePermission()
             }
             view_main -> {//首页
-                view_page.setCurrentItem(1, false)
+                viewPage.setCurrentItem(1, false)
             }
             cl_icon_mine -> {//我的
-                view_page.setCurrentItem(2, false)
+                viewPage.setCurrentItem(2, false)
             }
         }
     }
@@ -563,7 +566,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 DeviceTools.isConnect(isSendConnectEvent = true)
             }
             1 -> {
-                view_page.setCurrentItem(0, false)
+                viewPage.setCurrentItem(0, false)
             }
             2 -> {
 
@@ -575,7 +578,8 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                     startActivityForResult(Intent(this@MainActivity, IRThermalLiteActivity::class.java), 101)
                 } else if (DeviceTools.isHikConnect()) {
                     NavigationManager.build(RouterConfig.IR_MAIN).navigation(this@MainActivity)
-                    startActivity(Intent(this, IRThermalHikActivity::class.java))
+                    // TODO: Implement IRThermalHikActivity or use alternative thermal activity
+                    startActivityForResult(Intent(this@MainActivity, IRThermalNightActivity::class.java), 101)
                 } else{
                     NavigationManager.build(RouterConfig.IR_MAIN).navigation(this@MainActivity)
                     startActivityForResult(Intent(this@MainActivity, IRThermalNightActivity::class.java), 101)

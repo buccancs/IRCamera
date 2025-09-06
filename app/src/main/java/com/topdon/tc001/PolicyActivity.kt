@@ -61,7 +61,7 @@ class PolicyActivity : BaseViewModelActivity<PolicyViewModel>() {
         }
 
         // Initialize views using findViewById
-        policyWeb = findViewById(R.id.policyWeb)
+        policyWeb = findViewById(R.id.policy_web)
 
         findViewById<View>(R.id.title_view).apply {
             // Set title text if the view has such method

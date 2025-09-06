@@ -1,6 +1,8 @@
 package com.topdon.tc001
 
 import android.view.WindowManager
+import com.github.barteksc.pdfviewer.PDFView
+import com.csl.irCamera.R
 
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
@@ -14,12 +16,15 @@ import java.io.OutputStream
  **/
 // Legacy ARouter route annotation - now using NavigationManager
 class PdfActivity : BaseActivity() {
+    
+    // findViewById declarations
+    private val pdfView: PDFView by lazy { findViewById(R.id.pdf_view) }
 
     override fun initContentView() = R.layout.activity_pdf
 
     override fun initView() {
         //本地说明书
-        pdf_view.fromAsset(if (intent.getBooleanExtra("isTS001", false)) "TC001.pdf" else "TS004.pdf")
+        pdfView.fromAsset(if (intent.getBooleanExtra("isTS001", false)) "TC001.pdf" else "TS004.pdf")
             .enableSwipe(true) // allows to block changing pages using swipe
             .swipeHorizontal(false)
             .enableDoubletap(true)
