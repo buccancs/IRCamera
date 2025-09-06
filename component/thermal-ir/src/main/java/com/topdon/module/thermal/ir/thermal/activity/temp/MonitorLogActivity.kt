@@ -46,7 +46,7 @@ class MonitorLogActivity : BaseActivity() {
     override fun initData() {
         lifecycleScope.launch(Dispatchers.IO) {
             val datas = AppDatabase.getInstance(baseContext).thermalDao()
-                .getThermalId(SharedManager.getUserId())
+                .getAllThermalByDate(SharedManager.getUserId())
             adapter.datas = datas as ArrayList<ThermalEntity>
         }
 

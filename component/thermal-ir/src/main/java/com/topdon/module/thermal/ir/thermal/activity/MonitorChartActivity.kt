@@ -87,7 +87,7 @@ class MonitorChartActivity : BaseIRActivity(), View.OnClickListener, OnChartValu
             2 -> "line"
             else -> "fence"
         }
-        chart = mp_chart_view
+        chart = binding.mpChartView
         initChart()
         initRecycler()
         viewModel.resultLiveData.observe(this)
@@ -128,10 +128,10 @@ class MonitorChartActivity : BaseIRActivity(), View.OnClickListener, OnChartValu
     }
 
     private fun initRecycler() {
-        monitor_chart_time_recycler.layoutManager = GridLayoutManager(this, 4)
-        monitor_chart_time_recycler.adapter = timeAdapter
-        monitor_chart_setting_recycler.layoutManager = GridLayoutManager(this, 3)
-        monitor_chart_setting_recycler.adapter = adapter
+        binding.monitorChartTimeRecycler.layoutManager = GridLayoutManager(this, 4)
+        binding.monitorChartTimeRecycler.adapter = timeAdapter
+        binding.monitorChartSettingRecycler.layoutManager = GridLayoutManager(this, 3)
+        binding.monitorChartSettingRecycler.adapter = adapter
         //设置时间段类型(秒 分 时 天)
         timeAdapter.listener = object : SettingTimeAdapter.OnItemClickListener {
             override fun onClick(index: Int, timeType: Int) {

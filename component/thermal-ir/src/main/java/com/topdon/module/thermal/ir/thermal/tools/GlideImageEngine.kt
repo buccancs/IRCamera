@@ -42,19 +42,15 @@ class GlideImageEngine : ImageEngine {
             model: Any?,
             target: Target<Drawable>?,
             isFirstResource: Boolean
-        ): Boolean {
-            return false
-        }
+        ): Boolean = false
 
         override fun onResourceReady(
-            resource: Drawable?,
+            resource: Drawable,
             model: Any?,
             target: Target<Drawable>?,
             dataSource: DataSource?,
             isFirstResource: Boolean
-        ): Boolean {
-            return false
-        }
+        ): Boolean = false
     }
 
     class BitmapRequestListener : RequestListener<Bitmap> {
@@ -63,19 +59,14 @@ class GlideImageEngine : ImageEngine {
             model: Any?,
             target: Target<Bitmap>?,
             isFirstResource: Boolean
-        ): Boolean {
-            return false
-        }
+        ): Boolean = false
 
         override fun onResourceReady(
-            resource: Bitmap?,
+            resource: Bitmap,
             model: Any?,
             target: Target<Bitmap>?,
             dataSource: DataSource?,
             isFirstResource: Boolean
-        ): Boolean {
-            return false
-        }
-
+        ): Boolean = false
     }
 }

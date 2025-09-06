@@ -53,8 +53,8 @@ class LogMPChartActivity : BaseIRActivity(), OnChartValueSelectedListener {
     override fun initView() {
         // Title handling removed as toolbar_lay doesn't support it
         chart = binding.logChartTimeChart
-        log_chart_time_recycler.layoutManager = GridLayoutManager(this, 4)
-        log_chart_time_recycler.adapter = adapter
+        binding.logChartTimeRecycler.layoutManager = GridLayoutManager(this, 4)
+        binding.logChartTimeRecycler.adapter = adapter
         adapter.listener = object : SettingTimeAdapter.OnItemClickListener {
             override fun onClick(index: Int, time: Int) {
                 //切换类型

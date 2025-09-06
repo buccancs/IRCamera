@@ -469,9 +469,9 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
         if (fenceFlag.getIndex(index) == 0) {
             fenceFlag = 1.shl(4 * (index - 1)) //设置001 or 010 or 100
             mFenceLayout!!.visibility = View.VISIBLE
-            fence_point_view.visibility = if (fenceFlag.getIndex(1) > 0) View.VISIBLE else View.GONE
-            fence_line_view.visibility = if (fenceFlag.getIndex(2) > 0) View.VISIBLE else View.GONE
-            fence_view.visibility = if (fenceFlag.getIndex(3) > 0) View.VISIBLE else View.GONE
+            binding.fencePointView.visibility = if (fenceFlag.getIndex(1) > 0) View.VISIBLE else View.GONE
+            binding.fenceLineView.visibility = if (fenceFlag.getIndex(2) > 0) View.VISIBLE else View.GONE
+            binding.fenceView.visibility = if (fenceFlag.getIndex(3) > 0) View.VISIBLE else View.GONE
         } else {
             fenceFlag = 0x000
             mFenceLayout!!.visibility = View.GONE
@@ -481,7 +481,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
     var selectIndex: ArrayList<Int> = arrayListOf()//选取点
 
     private fun initFence() {
-        fence_point_view.listener = object : FencePointView.CallBack {
+        binding.fencePointView.listener = object : FencePointView.CallBack {
             override fun callback(startPoint: IntArray, srcRect: IntArray) {
                 //获取点
                 val activity: MonitorActivity = requireActivity() as MonitorActivity
@@ -491,7 +491,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
                 activity.select(1, selectIndex)
             }
         }
-        fence_line_view.listener = object : FenceLineView.CallBack {
+        binding.fenceLineView.listener = object : FenceLineView.CallBack {
             override fun callback(startPoint: IntArray, endPoint: IntArray, srcRect: IntArray) {
                 //获取线
                 selectIndex = Fence(srcRect = srcRect, rotateType = rotateType)
@@ -501,7 +501,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
             }
 
         }
-        fence_view.listener = object : FenceView.CallBack {
+        binding.fenceView.listener = object : FenceView.CallBack {
             override fun callback(startPoint: IntArray, endPoint: IntArray, srcRect: IntArray) {
                 //获取面
                 selectIndex = Fence(srcRect = srcRect, rotateType = rotateType)
