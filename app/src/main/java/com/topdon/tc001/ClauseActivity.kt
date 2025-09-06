@@ -3,6 +3,8 @@ package com.topdon.tc001
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.view.View
+import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 
@@ -30,6 +32,19 @@ import java.util.*
 class ClauseActivity : AppCompatActivity() {
 
     private lateinit var dialog: TipProgressDialog
+    
+    // findViewById declarations
+    private val clauseYearTxt by lazy { findViewById<TextView>(R.id.clause_year_txt) }
+    private val clauseAgreeBtn by lazy { findViewById<Button>(R.id.clause_agree_btn) }
+    private val clauseDisagreeBtn by lazy { findViewById<Button>(R.id.clause_disagree_btn) }
+    private val clauseItem by lazy { findViewById<View>(R.id.clause_item) }
+    private val clauseItem2 by lazy { findViewById<View>(R.id.clause_item2) }
+    private val clauseItem3 by lazy { findViewById<View>(R.id.clause_item3) }
+    private val tvPrivacy by lazy { findViewById<TextView>(R.id.tv_privacy) }
+    private val tvWelcome by lazy { findViewById<TextView>(R.id.tv_welcome) }
+    private val tvVersion by lazy { findViewById<TextView>(R.id.tv_version) }
+    private val clauseName by lazy { findViewById<TextView>(R.id.clause_name) }
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_clause)
@@ -44,12 +59,12 @@ class ClauseActivity : AppCompatActivity() {
             .create()
 
         val year = Calendar.getInstance().get(Calendar.YEAR)
-        clause_year_txt.text = getString(R.string.version_year, "2023-$year")
+        clauseYearTxt.text = getString(R.string.version_year, "2023-$year")
 
-        clause_agree_btn.setOnClickListener {
+        clauseAgreeBtn.setOnClickListener {
             confirmInitApp()
         }
-        clause_disagree_btn.setOnClickListener {
+        clauseDisagreeBtn.setOnClickListener {
             //再次弹框确认是否退出
             TipDialog.Builder(this)
                 .setMessage(getString(R.string.privacy_tips))
@@ -63,7 +78,7 @@ class ClauseActivity : AppCompatActivity() {
                 .create().show()
         }
         val keyUseType = if (BaseApplication.instance.isDomestic()) 1 else 0
-        clause_item.setOnClickListener {
+        clauseItem.setOnClickListener {
             if (!NetworkUtil.isConnected(this)) {
                 TToast.shortToast(this, R.string.lms_setting_http_error)
             } else {
@@ -75,7 +90,7 @@ class ClauseActivity : AppCompatActivity() {
                     .navigation(this)
             }
         }
-        clause_item2.setOnClickListener {
+        clauseItem2.setOnClickListener {
             if (!NetworkUtil.isConnected(this)) {
                 TToast.shortToast(this, R.string.lms_setting_http_error)
             } else {
@@ -87,7 +102,7 @@ class ClauseActivity : AppCompatActivity() {
                     .navigation(this)
             }
         }
-        clause_item3.setOnClickListener {
+        clauseItem3.setOnClickListener {
             //第三方
             if (!NetworkUtil.isConnected(this)) {
                 TToast.shortToast(this, R.string.lms_setting_http_error)
@@ -101,13 +116,13 @@ class ClauseActivity : AppCompatActivity() {
         }
 
         if (BaseApplication.instance.isDomestic()) {
-            tv_privacy.text = "    ${getString(R.string.privacy_agreement_tips_new, CommUtils.getAppName())}"
-            tv_privacy.visibility = View.VISIBLE
-            tv_privacy.movementMethod = ScrollingMovementMethod.getInstance()
+            tvPrivacy.text = "    ${getString(R.string.privacy_agreement_tips_new, CommUtils.getAppName())}"
+            tvPrivacy.visibility = View.VISIBLE
+            tvPrivacy.movementMethod = ScrollingMovementMethod.getInstance()
         }
-        tv_welcome.text = getString(R.string.welcome_use_app, CommUtils.getAppName())
-        tv_version.text = "${getString(R.string.set_version)}V${VersionUtils.getCodeStr(this)}"
-        clause_name.text = CommUtils.getAppName()
+        tvWelcome.text = getString(R.string.welcome_use_app, CommUtils.getAppName())
+        tvVersion.text = "${getString(R.string.set_version)}V${VersionUtils.getCodeStr(this)}"
+        clauseName.text = CommUtils.getAppName()
     }
 
     private fun confirmInitApp() {
