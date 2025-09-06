@@ -57,6 +57,8 @@ dependencies {
     
     // Original libir AAR dependencies restored - all essential components enabled
     api(files("libs/libusbdualsdk_1.3.4_2406271906_standard.aar"))  // Required for infisense thermal camera classes
+    api(files("libs/libAC020sdk_USB_IR_1.1.1_2408291439.aar"))  // AC020 SDK for thermal-lite functionality
+    api(files("libs/libirutils_1.2.0_2409241055.aar"))  // IR utilities for thermal-lite
     implementation(files("libs/opengl_1.3.2_standard.aar"))  // OpenGL functionality
     api(files("libs/suplib-release.aar"))  // Required for thermal-lite iruvc classes
     api(files("libs/ai-upscale-release.aar"))  // AI upscale functionality
