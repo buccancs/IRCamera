@@ -1,4 +1,4 @@
-package com.example.thermal_lite.it.activity
+package com.example.thermal_lite.activity
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.ProgressDialog
@@ -26,7 +26,7 @@ import android.widget.PopupWindow
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.it.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.view.drawToBitmap
@@ -39,10 +39,10 @@ import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.elvishew.xlog.XLog
-import com.energy.ac020library.it.bean.IrcmdError
-import com.energy.commoncomponent.it.bean.RotateDegree
+import com.energy.ac020library.bean.IrcmdError
+import com.energy.commoncomponent.bean.RotateDegree
 import com.energy.irutilslibrary.LibIRTempAC020
-import com.energy.irutilslibrary.it.bean.GainStatus
+import com.energy.irutilslibrary.bean.GainStatus
 import com.energy.iruvc.sdkisp.LibIRProcess
 import com.energy.iruvc.utils.CommonParams
 import com.energy.iruvc.utils.SynchronizedBitmap
