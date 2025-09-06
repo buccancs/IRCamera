@@ -36,7 +36,7 @@ import com.topdon.module.thermal.ir.thermal.tools.ThermalTool
 import com.topdon.module.thermal.ir.thermal.tools.medie.IYapVideoProvider
 import com.topdon.module.thermal.ir.thermal.tools.medie.YapVideoEncoder
 import com.topdon.module.thermal.ir.thermal.utils.ArrayUtils
-import kotlinx.android.synthetic.main.fragment_thermal.*
+import com.topdon.module.thermal.ir.databinding.FragmentThermalBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.Subscribe
@@ -50,11 +50,19 @@ import java.util.*
  */
 class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
 
+    private var _binding: FragmentThermalBinding? = null
+    private val binding get() = _binding!!
+
     protected var mIrSurfaceViewLayout: FrameLayout? = null
     protected var mIrSurfaceView: IrSurfaceView? = null
 
     override fun initContentView() = R.layout.fragment_monitor_thermal
     private val msgLiveData by lazy { MutableLiveData<Int>() }
+
+    override fun onCreateView(inflater: android.view.LayoutInflater, container: android.view.ViewGroup?, savedInstanceState: android.os.Bundle?): android.view.View? {
+        _binding = FragmentThermalBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     //设置温度展示的位置
     private fun setViewPosition(imageView: ImageView, index: Int) {
@@ -81,16 +89,16 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
     override fun initView() {
         requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         rotateType = 3//默认旋转270度
-        mCenterTextView = temp_display
-        mMaxTextView = max_temp_display
-        mMinTextView = min_temp_display
-        maxImg = max_img
-        minImg = min_img
-        mDisplayFrameLayout = temp_display_layout
-        mFenceLayout = fence_lay
+        mCenterTextView = binding.tempDisplay
+        mMaxTextView = binding.maxTempDisplay
+        mMinTextView = binding.minTempDisplay
+        maxImg = binding.maxImg
+        minImg = binding.minImg
+        mDisplayFrameLayout = binding.tempDisplayLayout
+        mFenceLayout = binding.fenceLay
         mDisplayFrameLayout!!.visibility = View.GONE
         mFenceLayout!!.visibility = View.GONE
-        mIrSurfaceViewLayout = final_ir_layout
+        mIrSurfaceViewLayout = binding.finalIrLayout
         mIrSurfaceView = IrSurfaceView(requireContext())
         val ifrSurfaceViewLayoutParams = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.MATCH_PARENT,
@@ -167,6 +175,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
 
     override fun onDestroyView() {
         super.onDestroyView()
+        _binding = null
         isRecord = false
         onIrVideoStop()
 
@@ -511,7 +520,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
 
     private fun picture() {
 //        com.topdon.lib.app.utils.ScreenShotUtils.shotScreen(requireContext(), temp_display_lay, 1, com.topdon.lib.app.utils.ScreenBean())
-        ScreenShotUtils.shotScreenBitmap(temp_display_layout)
+        ScreenShotUtils.shotScreenBitmap(binding.tempDisplayLayout)
     }
 
     var isVideoRunning = false

@@ -10,7 +10,7 @@ import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.item_gallery_edit_menu.view.*
+import com.topdon.module.thermal.ir.databinding.ItemGalleryEditMenuBinding
 
 @Deprecated("旧的2D编辑一级菜单，已重构过了")
 class GalleryEditMenuAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -50,7 +50,8 @@ class GalleryEditMenuAdapter(val context: Context) : RecyclerView.Adapter<Recycl
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return ItemView(LayoutInflater.from(parent.context).inflate(R.layout.item_gallery_edit_menu, parent, false))
+        val binding = ItemGalleryEditMenuBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ItemView(binding)
     }
 
     override fun getItemCount(): Int {
@@ -92,16 +93,10 @@ class GalleryEditMenuAdapter(val context: Context) : RecyclerView.Adapter<Recycl
         }
     }
 
-    inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var lay: View
-        var img: ImageView
-        var name: TextView
-
-        init {
-            lay = itemView.item_edit_menu_tab_lay
-            img = itemView.item_edit_menu_tab_img
-            name = itemView.item_edit_menu_tab_text
-        }
+    inner class ItemView(private val binding: ItemGalleryEditMenuBinding) : RecyclerView.ViewHolder(binding.root) {
+        val lay: View = binding.itemEditMenuTabLay
+        val img: ImageView = binding.itemEditMenuTabImg
+        val name: TextView = binding.itemEditMenuTabText
     }
 
     data class IconBean(val name: String, @DrawableRes val icon: Int, val code: Int)
