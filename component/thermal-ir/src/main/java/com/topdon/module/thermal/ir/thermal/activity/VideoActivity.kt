@@ -11,7 +11,7 @@ import com.blankj.utilcode.util.BarUtils
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.activity_video.*
+import com.topdon.module.thermal.ir.databinding.ActivityVideoBinding
 import java.io.File
 
 
@@ -23,10 +23,15 @@ class VideoActivity : BaseActivity() {
     }
 
     var videoPath = ""
+    
+    private lateinit var binding: ActivityVideoBinding
 
     override fun initContentView() = R.layout.activity_video
 
     override fun initView() {
+        binding = ActivityVideoBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
         // setTitleText(R.string.video) // Commented out - method not available in BaseIRActivity
         BarUtils.setNavBarColor(this, ContextCompat.getColor(this, R.color.black))
         if (intent.hasExtra(KEY_PATH)) {
@@ -49,7 +54,7 @@ class VideoActivity : BaseActivity() {
             Uri.fromFile(file)
         }
         Log.w("123", "打开文件uri:$uri")
-        val videoView = video_play
+        val videoView = binding.videoPlay
         videoView.setVideoURI(uri)
         videoView.setMediaController(MediaController(this))
         videoView.start()

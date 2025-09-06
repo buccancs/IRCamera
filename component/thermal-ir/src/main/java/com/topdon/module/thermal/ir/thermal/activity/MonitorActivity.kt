@@ -10,7 +10,7 @@ import com.topdon.module.thermal.ir.activity.BaseIRActivity
 import com.topdon.lib.ui.dialog.MonitorSelectDialog
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.thermal.fragment.event.ThermalActionEvent
-import kotlinx.android.synthetic.main.activity_monitor.*
+import com.topdon.module.thermal.ir.databinding.ActivityMonitorBinding
 import org.greenrobot.eventbus.EventBus
 import java.util.*
 
@@ -25,20 +25,25 @@ class MonitorActivity : BaseIRActivity(), View.OnClickListener {
 
     var MONITOR_ACTION = STATS_START
 
+    private lateinit var binding: ActivityMonitorBinding
+
     private var selectType = 1//选取点类型(点 线 面)
     private var selectIndex: ArrayList<Int> = arrayListOf()//选取点
 
     override fun initContentView() = R.layout.activity_monitor
 
     override fun initView() {
+        binding = ActivityMonitorBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
         // Title and toolbar handling commented out - using toolbar_lay layout
         // setTitleText(R.string.main_thermal_motion)
         // mToolBar!!.setBackgroundColor(blackColor)
         // BarUtils.setStatusBarColor(this, blackColor)
         // BarUtils.setNavBarColor(window, blackColor)
-        motion_log_btn.setOnClickListener(this)
-        motion_btn.setOnClickListener(this)
-        motion_start_btn.setOnClickListener(this)
+        binding.motionLogBtn.setOnClickListener(this)
+        binding.motionBtn.setOnClickListener(this)
+        binding.motionStartBtn.setOnClickListener(this)
 //        if (BaseApplication.instance.isConnected()) {
 //            mHandler.postDelayed({
 //                EventBus.getDefault().post(ThermalActionEvent(action = 2001))
@@ -52,10 +57,10 @@ class MonitorActivity : BaseIRActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            motion_log_btn -> {
+            binding.motionLogBtn -> {
                 ARouter.getInstance().build(RouterConfig.IR_THERMAL_LOG_MP_CHART).navigation(this)
             }
-            motion_btn -> {
+            binding.motionBtn -> {
                 MonitorSelectDialog.Builder(this)
                     // .setTitle("请选择监控类型") // Commented out - method not available
                     .setPositiveListener { select ->
@@ -69,7 +74,7 @@ class MonitorActivity : BaseIRActivity(), View.OnClickListener {
                     }
                     .create().show()
             }
-            motion_start_btn -> {
+            binding.motionStartBtn -> {
                 ARouter.getInstance().build(RouterConfig.IR_MONITOR_CHART)
                     .withInt("type", selectType)
                     .withIntegerArrayList("select", selectIndex)
@@ -80,16 +85,16 @@ class MonitorActivity : BaseIRActivity(), View.OnClickListener {
     }
 
     fun select(selectType: Int, selectIndex: ArrayList<Int>) {
-        motion_start_btn.isEnabled = true
+        binding.motionStartBtn.isEnabled = true
         this.selectType = selectType
         this.selectIndex = selectIndex
     }
 
     private fun updateUI() {
-        motion_start_btn.isEnabled = false
-        motion_start_btn.visibility = View.VISIBLE
-        motion_log_btn.visibility = View.GONE
-        motion_btn.visibility = View.GONE
+        binding.motionStartBtn.isEnabled = false
+        binding.motionStartBtn.visibility = View.VISIBLE
+        binding.motionLogBtn.visibility = View.GONE
+        binding.motionBtn.visibility = View.GONE
     }
 
     //秒
@@ -98,7 +103,7 @@ class MonitorActivity : BaseIRActivity(), View.OnClickListener {
         val mm = time / 60 % 60
         val ssStr = String.format("%02d", ss)
         val mmStr = String.format("%02d", mm)
-        motion_start_btn.text = "${mmStr}:${ssStr}"
+        binding.motionStartBtn.text = "${mmStr}:${ssStr}"
     }
 
 

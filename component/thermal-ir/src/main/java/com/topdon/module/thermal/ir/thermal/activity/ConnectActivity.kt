@@ -5,23 +5,28 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.activity.BaseIRActivity
-import kotlinx.android.synthetic.main.activity_connect.*
+import com.topdon.module.thermal.ir.databinding.ActivityConnectBinding
 
 //连接设备
 @Route(path = RouterConfig.IR_THERMAL_CONNECT)
 class ConnectActivity : BaseIRActivity() {
 
+    private lateinit var binding: ActivityConnectBinding
+
     override fun initContentView() = R.layout.activity_connect
 
     override fun initView() {
+        binding = ActivityConnectBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
         // Title handling removed as toolbar_lay doesn't support it
         val device = DeviceTools.isConnect()
         if (device == null) {
             //未连接
-            bluetooth_btn.text = getString(R.string.app_no_connect)
+            binding.bluetoothBtn.text = getString(R.string.app_no_connect)
         } else {
             //已连接
-            bluetooth_btn.text = getString(R.string.app_connect)
+            binding.bluetoothBtn.text = getString(R.string.app_connect)
         }
     }
 
