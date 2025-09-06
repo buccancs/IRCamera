@@ -48,6 +48,12 @@
     <string name="app_confirm">Confirm</string>
     
     <!-- Missing string resources -->
+    <!-- Chart temperature strings -->
+    <string name="chart_temperature">Temperature</string>
+    <string name="chart_temperature_high">High Temperature</string>
+    <string name="chart_temperature_low">Low Temperature</string>
+    
+    <!-- Additional thermal strings -->
     <string name="thermal_trend_tips">Thermal trend analysis</string>
     <string name="off_photography">Off Photography</string>
     <string name="seconds_dalay_3">3 Second Delay</string>
