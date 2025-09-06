@@ -27,7 +27,7 @@ import com.topdon.lms.sdk.xutils.http.RequestParams
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.adapter.PDFAdapter
 import com.topdon.module.thermal.ir.report.viewmodel.PdfViewModel
-import kotlinx.android.synthetic.main.activity_pdf_list.*
+import com.topdon.module.thermal.ir.databinding.ActivityPdfListBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -52,12 +52,17 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
     var page = 1
     override fun providerVMClass() = PdfViewModel::class.java
     var reportAdapter = PDFAdapter(R.layout.item_pdf)
+    
+    private lateinit var binding: ActivityPdfListBinding
 
     override fun initContentView(): Int {
         return R.layout.activity_pdf_list
     }
 
     override fun initView() {
+        binding = ActivityPdfListBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
         isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
 
         viewModel.listData.observe(this) {
@@ -67,7 +72,7 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
             }
             if (it == null) {
                 if (page == 1) {
-                    fragment_pdf_recycler_lay.finishRefresh(false)
+                    binding.fragmentPdfRecyclerLay.finishRefresh(false)
                 } else {
                     reportAdapter.loadMoreModule.loadMoreComplete()
                 }
@@ -77,9 +82,9 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
                     //刷新
                     if (data.code == LMS.SUCCESS){
                         reportAdapter.loadMoreModule.isEnableLoadMore = !data.data?.records.isNullOrEmpty()
-                        fragment_pdf_recycler_lay.finishRefresh()
+                        binding.fragmentPdfRecyclerLay.finishRefresh()
                     }else{
-                        fragment_pdf_recycler_lay.finishRefresh(false)
+                        binding.fragmentPdfRecyclerLay.finishRefresh(false)
                     }
                     reportAdapter.setNewInstance(data.data?.records)
                 } else {
@@ -109,15 +114,15 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
     }
 
     private fun initRecycler() {
-        fragment_pdf_recycler.layoutManager = LinearLayoutManager(this)
-        fragment_pdf_recycler_lay.setOnRefreshListener {
+        binding.fragmentPdfRecycler.layoutManager = LinearLayoutManager(this)
+        binding.fragmentPdfRecyclerLay.setOnRefreshListener {
             //刷新
             page = 1
             viewModel.getReportData(isTC007, page)
         }
-        fragment_pdf_recycler_lay.setEnableLoadMore(false)
+        binding.fragmentPdfRecyclerLay.setEnableLoadMore(false)
         reportAdapter.loadMoreModule.loadMoreView = CommLoadMoreView()
-        fragment_pdf_recycler_lay.autoRefresh()
+        binding.fragmentPdfRecyclerLay.autoRefresh()
         reportAdapter.loadMoreModule.setOnLoadMoreListener {
             //加载更多
             viewModel.getReportData(isTC007, ++page)
@@ -191,7 +196,7 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
                 .create().show()
         }
 
-        fragment_pdf_recycler.adapter = reportAdapter
+        binding.fragmentPdfRecycler.adapter = reportAdapter
 //        viewModel.getReportData(1)
     }
 }
