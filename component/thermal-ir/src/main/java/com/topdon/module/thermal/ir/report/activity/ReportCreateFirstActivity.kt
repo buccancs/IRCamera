@@ -34,7 +34,7 @@ import com.topdon.lib.core.tools.NumberTools
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.utils.CommUtils
-import com.topdon.module.thermal.ir.BuildConfig
+import com.topdon.module.thermal.BuildConfig
 import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.report.bean.ImageTempBean
 import com.topdon.module.thermal.ir.report.bean.ReportConditionBean
@@ -171,10 +171,10 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            tv_report_date -> {//报告日期
+            binding.tvReportDate -> {//报告日期
                 selectTime()
             }
-            tv_preview -> {//预览
+            binding.tvPreview -> {//预览
                 val reportInfoBean = buildReportInfo()
                 val reportConditionBean = buildReportCondition()
                 ARouter.getInstance().build(RouterConfig.REPORT_PREVIEW_FIRST)
@@ -182,7 +182,7 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
                     .withParcelable(ExtraKeyConfig.REPORT_CONDITION, reportConditionBean)
                     .navigation(this)
             }
-            tv_next -> {//下一步
+            binding.tvNext -> {//下一步
                 val reportInfoBean = buildReportInfo()
                 val reportConditionBean = buildReportCondition()
                 val imageTempBean: ImageTempBean? = intent.getParcelableExtra(ExtraKeyConfig.IMAGE_TEMP_BEAN)
@@ -194,7 +194,7 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
                     .withParcelable(ExtraKeyConfig.REPORT_CONDITION, reportConditionBean)
                     .navigation(this)
             }
-            img_location -> {
+            binding.imgLocation -> {
                 checkLocationPermission()
             }
         }
@@ -270,10 +270,10 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
     }
 
     private fun buildReportInfo(): ReportInfoBean = ReportInfoBean(
-        et_report_name.text.toString(),
-        et_report_author.text.toString(),
-        if (switch_report_author.isChecked && et_report_author.text.isNotEmpty()) 1 else 0,
-        tv_report_date.text.toString(),
+        binding.etReportName.text.toString(),
+        binding.etReportAuthor.text.toString(),
+        if (binding.switchReportAuthor.isChecked && binding.etReportAuthor.text.isNotEmpty()) 1 else 0,
+        binding.tvReportDate.text.toString(),
         if (switch_report_date.isChecked) 1 else 0,
         et_report_place.text.toString(),
         if (switch_report_place.isChecked && et_report_place.text.isNotEmpty()) 1 else 0,
@@ -315,7 +315,7 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
             val timeStr = "$year-$month-$day $hour:$minute:$second"
             val pattern = "yyyy-MM-dd HH:mm:ss"
             val time: Long = SimpleDateFormat(pattern, Locale.getDefault()).parse(timeStr, ParsePosition(0)).time
-            tv_report_date.text = TimeUtils.millis2String(time, "yyyy.MM.dd HH:mm")
+            binding.tvReportDate.text = TimeUtils.millis2String(time, "yyyy.MM.dd HH:mm")
             startTime = time
         }
 
