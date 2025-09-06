@@ -15,7 +15,7 @@ import com.topdon.module.thermal.ir.event.GalleryDirChangeEvent
 import com.topdon.module.thermal.ir.popup.GalleryChangePopup
 import com.topdon.module.thermal.ir.popup.OptionPickPopup
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryTabViewModel
-import kotlinx.android.synthetic.main.fragment_gallery_tab.*
+import com.topdon.module.thermal.ir.databinding.FragmentGalleryTabBinding
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -46,8 +46,14 @@ class IRGalleryTabFragment : BaseFragment() {
     private val viewModel: IRGalleryTabViewModel by activityViewModels()
 
     private var viewPagerAdapter: ViewPagerAdapter? = null
+    
+    private var _binding: FragmentGalleryTabBinding? = null
+    private val binding get() = _binding!!
 
-    override fun initContentView(): Int = R.layout.fragment_gallery_tab
+    override fun initContentView(): Int {
+        _binding = FragmentGalleryTabBinding.inflate(layoutInflater)
+        return R.layout.fragment_gallery_tab
+    }
 
     override fun initView() {
         hasBackIcon = arguments?.getBoolean(ExtraKeyConfig.HAS_BACK_ICON, false) ?: false
