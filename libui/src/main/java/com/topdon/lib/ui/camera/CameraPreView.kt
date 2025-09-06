@@ -22,7 +22,7 @@ import com.blankj.utilcode.util.ToastUtils
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.listener.BitmapViewListener
 import com.topdon.lib.ui.R
-import kotlinx.android.synthetic.main.camera_lay.view.*
+import com.topdon.lib.ui.databinding.CameraLayBinding
 import java.util.*
 
 
@@ -34,6 +34,7 @@ class CameraPreView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener,
     private var cameraCharacteristics: CameraCharacteristics ?= null
     private var isReverse : Boolean = false
     private lateinit var mTextureView: TextureView
+    private lateinit var binding: CameraLayBinding
     private var cameraWidth = 0
 
     var isPreviewing = false
@@ -53,8 +54,8 @@ class CameraPreView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener,
     )
 
     private fun initView() {
-        inflate(context, R.layout.camera_lay, this)
-        mTextureView = findViewById(R.id.camera_texture)
+        binding = CameraLayBinding.inflate(LayoutInflater.from(context), this, true)
+        mTextureView = binding.cameraTexture
         mTextureView.post { cameraWidth = mTextureView.width }
         lis = ScaleGestureDetector(context, this)
         onResumeView()
@@ -93,9 +94,9 @@ class CameraPreView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener,
                 scaleH = mTextureView.height * (scale - 1) / 2f
                 startX = event.x - mTextureView.x
                 startY = event.y - mTextureView.y
-                val view: View = mTextureView.parent as View
-                parentViewW = view.width.toFloat()
-                parentViewH = view.height.toFloat()
+                val parentView: View = binding.root
+                parentViewW = parentView.width.toFloat()
+                parentViewH = parentView.height.toFloat()
             }
             MotionEvent.ACTION_MOVE -> {
                 //滑动

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.bean.ObserveBean
 import com.topdon.lib.ui.R
 import com.topdon.lib.ui.bean.ColorBean
-import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.*
+import com.topdon.lib.ui.databinding.UiItemMenuSecondViewBinding
 
 @Deprecated("旧的高低温源菜单，已重构过了")
 class MenuAIAdapter (val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -47,8 +47,8 @@ class MenuAIAdapter (val context: Context) : RecyclerView.Adapter<RecyclerView.V
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.ui_item_menu_second_view, parent, false)
-        return ItemView(view)
+        val binding = UiItemMenuSecondViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ItemView(binding)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -72,7 +72,7 @@ class MenuAIAdapter (val context: Context) : RecyclerView.Adapter<RecyclerView.V
         return secondBean.size
     }
 
-    inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ItemView(private val binding: UiItemMenuSecondViewBinding) : RecyclerView.ViewHolder(binding.root) {
 //        init {
 //            val canSeeCount = itemCount.toFloat() //一屏可见的 item 数量，目前都是全都显示完
 //            val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()
@@ -83,8 +83,8 @@ class MenuAIAdapter (val context: Context) : RecyclerView.Adapter<RecyclerView.V
 //            layoutParams.height = imageSize
 //            itemView.item_menu_tab_img.layoutParams = layoutParams
 //        }
-        val lay: View = itemView.item_menu_tab_lay
-        val img: ImageView = itemView.item_menu_tab_img
-        val name: TextView = itemView.item_menu_tab_text
+        val lay: View = binding.itemMenuTabLay
+        val img: ImageView = binding.itemMenuTabImg
+        val name: TextView = binding.itemMenuTabText
     }
 }
