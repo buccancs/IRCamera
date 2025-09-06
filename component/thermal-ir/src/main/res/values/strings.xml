@@ -52,6 +52,7 @@
     <string name="chart_temperature">Temperature</string>
     <string name="chart_temperature_high">High Temperature</string>
     <string name="chart_temperature_low">Low Temperature</string>
+    <string name="tc_temp_test_materials">Test Materials</string>
     
     <!-- Additional thermal strings -->
     <string name="thermal_trend_tips">Thermal trend analysis</string>

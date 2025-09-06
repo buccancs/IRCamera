@@ -22,4 +22,5 @@
     <string name="motion_start_btn">Start Motion</string>
     <string name="thermal_fragment">Thermal Fragment</string>
     <string name="motion_action_lay">Motion Action Layout</string>
+    <string name="scan_ble_tip_authorize">Please authorize BLE access</string>
 </resources>
