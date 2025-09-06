@@ -49,6 +49,18 @@
     <!-- OTG strings -->
     <string name="tip_otg">OTG connection detected</string>
     
+    <!-- Update/Download strings -->
+    <string name="updata_new_version_update">New version available for update</string>
+    <string name="installation_package_downloading">Installation package downloading</string>
+    <string name="installation_package_downloading_tips">Please wait for download to complete</string>
+    <string name="tips_download_information">Download Information</string>
+    <string name="installation_package_download_progress">Installation package download progress</string>
+    
+    <!-- WebView strings -->
+    <string name="testing_guidance">Testing Guidance</string>
+    <string name="loading_failed_hint">Loading failed, please check your network connection</string>
+    <string name="app_error_reload">Reload</string>
+    
     <!-- Permission strings -->
     <string name="permission_request_camera_app">Camera permission is required</string>
     <string name="permission_request_storage_app">Storage permission is required</string>
