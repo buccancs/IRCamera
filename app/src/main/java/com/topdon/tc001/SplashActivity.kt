@@ -27,7 +27,7 @@ class SplashActivity : AppCompatActivity() {
         LMS.getInstance().screenOrientation = Config.SCREEN_PORTRAIT
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setContentView(R.layout.activity_splash)
-        window.navigationBarColor = ContextCompat.getColor(this, R.color.toolbar_16131E)
+        window.navigationBarColor = ContextCompat.getColor(this, android.R.color.black)
 
         lifecycleScope.launch {
             delay(if (BuildConfig.DEBUG) 3000 else 1000)
