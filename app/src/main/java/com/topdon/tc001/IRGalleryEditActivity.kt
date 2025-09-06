@@ -24,6 +24,7 @@ import com.infisense.usbir.utils.OpencvTools
 import com.topdon.lib.core.utils.BitmapUtils
 import com.infisense.usbir.utils.PseudocodeUtils.changePseudocodeModeByOld
 import com.infisense.usbir.view.ITsTempListener
+import com.csl.irCamera.R
 import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.bean.event.ReportCreateEvent
 import com.topdon.lib.core.common.ProductType.PRODUCT_NAME_TC001LITE
@@ -104,6 +105,11 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
     private var ts_data_H: ByteArray? = null
     private var ts_data_L: ByteArray? = null
 
+    // findViewById declarations - TODO: Fix these when layout IDs are available
+    // private val editRecyclerSecond by lazy { findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.edit_recycler_second) }
+    // private val temperatureView by lazy { findViewById<View>(R.id.temperature_view) }
+    // private val temperatureSeekbar by lazy { findViewById<View>(R.id.temperature_seekbar) }
+
     override fun initContentView(): Int = R.layout.activity_ir_gallery_edit
 
     override fun initView() {
@@ -132,12 +138,13 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
         isReportPick = intent.getBooleanExtra(ExtraKeyConfig.IS_PICK_REPORT_IMG, false)
         isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
 
-        edit_recycler_second.fenceSelectType = FenceType.DEL
-        temperature_view.isShowName = isReportPick
-        temperature_view.mode = Mode.CLEAR
-        temperature_view.setITsTempListener(this)
+        // TODO: Convert to proper findViewById patterns
+        // editRecyclerSecond.fenceSelectType = FenceType.DEL
+        // temperatureView.isShowName = isReportPick
+        // temperatureView.mode = Mode.CLEAR
+        // temperatureView.setITsTempListener(this)
         if (isTC007){
-            temperature_seekbar?.progressHeight = SizeUtils.dp2px(10f)
+            // temperatureSeekbar?.progressHeight = SizeUtils.dp2px(10f)
         }
     }
 

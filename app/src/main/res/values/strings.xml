@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TOPINFRARED</string>
+    
+    <!-- Clause/Privacy strings -->
+    <string name="version_year">Copyright %s TOPDON Technology Co.,Ltd.\nAll Rights Reserved.</string>
+    <string name="privacy_tips">If you disagree, you will not be able to use our product or service.</string>
+    <string name="privacy_confirm">Agree and Use</string>
+    <string name="privacy_cancel">Disagree and Cancel</string>
+    <string name="welcome_use_app">Welcome to %1$s</string>
+    <string name="set_version">Version</string>
+    <string name="privacy_agreement_tips_new">To enhance your experience with %s and ensure the secure and stable operation of our app, we have integrated a third-party software development kit (SDK) to enable certain functionalities. \nRest assured that we prioritize your data security and conduct rigorous testing on the SDK. We will not collect information in a coercive or bundled manner solely based on your agreement with the privacy policy. \nBy tapping the button, you agree to accept our services.</string>
+    
+    <!-- Network/Device strings -->
+    <string name="lms_setting_http_error">Network Error</string>
+    <string name="tc_connect_line">Wired Connection</string>
+    <string name="tc_connect_wifi">Wireless Connection</string>
+</resources>

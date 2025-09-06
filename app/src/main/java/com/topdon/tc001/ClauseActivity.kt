@@ -18,6 +18,7 @@ import com.topdon.lib.core.utils.CommUtils
 import com.topdon.lms.sdk.utils.NetworkUtil
 import com.topdon.lms.sdk.weiget.TToast
 import com.csl.irCamera.R
+import com.topdon.lib.core.R as LibCoreR
 import com.topdon.tc001.app.App
 import com.topdon.tc001.utils.VersionUtils
 import kotlinx.coroutines.Dispatchers
@@ -55,7 +56,7 @@ class ClauseActivity : AppCompatActivity() {
 
     private fun initView() {
         dialog = TipProgressDialog.Builder(this)
-            .setMessage(com.topdon.lib.core.R.string.tip_loading)
+            .setMessage(LibCoreR.string.tip_loading)
             .setCanceleable(false)
             .create()
 
