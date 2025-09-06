@@ -16,7 +16,7 @@ import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseViewModelActivity
 import com.topdon.tc001.viewmodel.PolicyViewModel
-import kotlinx.android.synthetic.main.activity_policy.*
+import com.topdon.lib.core.view.TitleView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -41,11 +41,18 @@ class PolicyActivity : BaseViewModelActivity<PolicyViewModel>() {
     private var reloadCount = 1
     private var keyUseType = 0
 
+    private lateinit var titleView: TitleView
+    private lateinit var policyWeb: WebView
+
     override fun providerVMClass() = PolicyViewModel::class.java
 
     override fun initContentView() = R.layout.activity_policy
 
     override fun initView() {
+        // Initialize views
+        titleView = findViewById(R.id.titleView)
+        policyWeb = findViewById(R.id.policyWeb)
+        
         if (intent.hasExtra(KEY_THEME_TYPE)) {
             themeType = intent.getIntExtra(KEY_THEME_TYPE, 1)
         }
@@ -59,18 +66,18 @@ class PolicyActivity : BaseViewModelActivity<PolicyViewModel>() {
             else -> getString(R.string.user_services_agreement)
         }
 
-        title_view.setTitleText(themeStr)
+        titleView.setTitleText(themeStr)
         viewModel.htmlViewData.observe(this) {
             dismissCameraLoading()
             if (it.action == 1) {
                 initWeb(it.body ?: "")
             } else {
-                loadHttp(policy_web)
+                loadHttp(policyWeb)
                 delayShowWebView()
             }
         }
         if (keyUseType != 0) {
-            loadHttpWhenNotInit(policy_web)
+            loadHttpWhenNotInit(policyWeb)
             delayShowWebView()
         }
     }
@@ -87,7 +94,7 @@ class PolicyActivity : BaseViewModelActivity<PolicyViewModel>() {
         lifecycleScope.launch(Dispatchers.IO) {
             delay(200)
             launch(Dispatchers.Main) {
-                policy_web.visibility = View.VISIBLE
+                policyWeb.visibility = View.VISIBLE
             }
         }
     }
@@ -101,11 +108,11 @@ class PolicyActivity : BaseViewModelActivity<PolicyViewModel>() {
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun initWeb(url: String) {
-        policy_web.visibility = View.INVISIBLE
-        val webSettings: WebSettings = policy_web.settings
+        policyWeb.visibility = View.INVISIBLE
+        val webSettings: WebSettings = policyWeb.settings
         webSettings.javaScriptEnabled = true //设置支持javascript
 
-        policy_web.webViewClient = object : WebViewClient() {
+        policyWeb.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 view.loadUrl(url)
                 return true
@@ -117,7 +124,7 @@ class PolicyActivity : BaseViewModelActivity<PolicyViewModel>() {
             }
         }
 
-        policy_web.webChromeClient = object : WebChromeClient() {
+        policyWeb.webChromeClient = object : WebChromeClient() {
 
             override fun onProgressChanged(view: WebView, newProgress: Int) {
                 super.onProgressChanged(view, newProgress)
@@ -130,15 +137,15 @@ class PolicyActivity : BaseViewModelActivity<PolicyViewModel>() {
                     delayShowWebView()
                 } else {
                     mHandler.postDelayed({
-                        policy_web.visibility = View.VISIBLE
+                        policyWeb.visibility = View.VISIBLE
                     }, 200)
                 }
             }
 
         }
 
-        policy_web.settings.defaultTextEncodingName = "utf-8"
-        policy_web.loadDataWithBaseURL(null, url, "text/html", "utf-8", null)
+        policyWeb.settings.defaultTextEncodingName = "utf-8"
+        policyWeb.loadDataWithBaseURL(null, url, "text/html", "utf-8", null)
 
     }
 
@@ -159,7 +166,7 @@ class PolicyActivity : BaseViewModelActivity<PolicyViewModel>() {
 
     override fun httpErrorTip(text: String, requestUrl: String) {
         XLog.w("声明接口异常,打开默认链接")
-        loadHttp(policy_web)
+        loadHttp(policyWeb)
         delayShowWebView()
     }
 
