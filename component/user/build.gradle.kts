@@ -61,8 +61,9 @@ dependencies {
     implementation(project(":libui"))
     implementation(project(":libmenu"))
     
+    // Compile-time access to LMS SDK for user component classes that import LMS classes
+    compileOnly(files("../../shared/libs/lms_international-3.90.009.0.aar"))
 
-    
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

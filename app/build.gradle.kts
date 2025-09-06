@@ -217,17 +217,21 @@ dependencies {
     implementation(project(":libmenu"))
     implementation(project(":libui"))
 
-    // LocalRepo AAR files moved to app/libs (excluding lms_international which stays in libapp)
+    // LocalRepo AAR files moved to app/libs
     implementation(files("libs/libAC020sdk_USB_IR_1.1.1_2408291439.aar"))
     implementation(files("libs/libirutils_1.2.0_2409241055.aar"))
     implementation(files("libs/libcommon_1.2.0_24052117.aar"))
     
-    // Additional AAR dependencies from libir module
-    implementation(fileTree(mapOf("include" to listOf("opengl_1.3.2_standard.aar"), "dir" to "component/edit3d/libs")))
-    implementation(fileTree(mapOf("include" to listOf("suplib-release.aar", "ai-upscale-release.aar", "texturegesture-release.aar", "jetified-tas_api-1.0.4.0.aar", "library_1.0.aar"), "dir" to "libir/libs")))
+    // libapp AAR dependencies - now handled at app level due to AGP 8.0+ restrictions
+    implementation(files("libs/lms_international-3.90.009.0.aar"))  // LMS SDK for libapp
+    implementation(files("libs/abtest-1.0.1.aar"))
+    implementation(files("libs/auth-number-2.13.2.1.aar"))
+    implementation(files("libs/logger-2.2.1-release.aar"))
+    implementation(files("libs/main-2.2.1-release.aar"))
     
-    // libapp AAR dependencies
-    implementation(fileTree(mapOf("include" to listOf("*.aar"), "dir" to "libapp/libs")))
+    // Additional AAR dependencies from libir module - all libir AAR files now handled at app level  
+    implementation(fileTree(mapOf("include" to listOf("opengl_1.3.2_standard.aar"), "dir" to "component/edit3d/libs")))
+    implementation(fileTree(mapOf("include" to listOf("*.aar"), "dir" to "libir/libs")))  // All libir AAR files
 
     implementation(libs.jsbridge)
     implementation(libs.fastjson)

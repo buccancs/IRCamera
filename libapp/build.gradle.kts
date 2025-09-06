@@ -133,11 +133,19 @@ dependencies {
     // JavaCV
     api(libs.javacv)
     api(libs.javacpp)
-    // Local AAR dependencies - using proper flatDir repository approach
-    // These provide critical functionality (CommonBean, ResponseBean, LMS classes)
-    api("abtest:abtest:1.0.1@aar")
-    api("auth-number:auth-number:2.13.2.1@aar") 
-    api(files("libs/lms_international-3.90.009.0.aar"))  // Moved from LocalRepo to libs
-    api("logger:logger:2.2.1-release@aar")
-    api("main:main:2.2.1-release@aar")
+    
+    // Compile-time access to LMS SDK classes without packaging in AAR
+    // The app module provides the actual implementation
+    compileOnly(files("../shared/libs/lms_international-3.90.009.0.aar"))
+    
+    // NOTE: All local AAR dependencies MUST be handled at the app level due to AGP 8.0+ restrictions
+    // Library modules cannot include local AAR files when building AARs
+    // Classes from LMS SDK and other AARs will be available transitively from the app module
+    
+    // The following dependencies are now handled by the app module:
+    // - lms_international-3.90.009.0.aar (LMS SDK) - using compileOnly above for compilation
+    // - abtest-1.0.1.aar
+    // - auth-number-2.13.2.1.aar
+    // - logger-2.2.1-release.aar
+    // - main-2.2.1-release.aar
 }

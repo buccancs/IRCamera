@@ -70,6 +70,8 @@ dependencies {
     // AAR dependencies as compileOnly for compilation but not packaging
     compileOnly(files("../../libir/libs/libAC020sdk_USB_IR_1.1.1_2408291439.aar"))  // AC020 SDK for thermal-lite functionality
     compileOnly(files("../../libir/libs/libirutils_1.2.0_2409241055.aar"))  // IR utilities for thermal-lite
+    compileOnly(files("../../libir/libs/libusbdualsdk_1.3.4_2406271906_standard.aar"))  // Required for iruvc classes
+    compileOnly(files("../../shared/libs/lms_international-3.90.009.0.aar"))  // LMS SDK for thermal-lite classes
     
     // Temporarily disable ARouter compiler until KAPT issues are resolved
 

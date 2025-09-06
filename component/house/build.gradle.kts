@@ -62,6 +62,9 @@ dependencies {
     implementation(project(":libui"))
     implementation(project(":libmenu"))
 
+    // Compile-time access to LMS SDK for house component classes that import LMS classes  
+    compileOnly(files("../../shared/libs/lms_international-3.90.009.0.aar"))
+
     // Use shared UI bundle for common dependencies
     implementation(libs.bundles.ui.common)
     implementation(libs.utilcode)

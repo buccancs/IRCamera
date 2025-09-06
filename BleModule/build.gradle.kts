@@ -40,6 +40,9 @@ dependencies {
     // Add libapp dependency to get access to LMS SDK
     api(project(":libapp"))
     
+    // Compile-time access to LMS SDK for BleModule classes that directly import LMS classes
+    compileOnly(files("../shared/libs/lms_international-3.90.009.0.aar"))
+    
     api("androidx.appcompat:appcompat:1.2.0")
     api("org.greenrobot:eventbus:3.2.0")
     api("com.blankj:utilcodex:1.30.6") // 工具包
