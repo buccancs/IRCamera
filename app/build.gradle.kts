@@ -232,6 +232,9 @@ dependencies {
     // Additional AAR dependencies from libir module - all libir AAR files now handled at app level  
     implementation(fileTree(mapOf("include" to listOf("opengl_1.3.2_standard.aar"), "dir" to "component/edit3d/libs")))
     implementation(fileTree(mapOf("include" to listOf("*.aar"), "dir" to "libir/libs")))  // All libir AAR files
+    
+    // Explicit AAR dependencies for app module compilation (ensuring classpath resolution)
+    implementation(files("../libir/libs/libusbdualsdk_1.3.4_2406271906_standard.aar"))  // Required for iruvc classes in app module
 
     implementation(libs.jsbridge)
     implementation(libs.fastjson)
