@@ -274,28 +274,28 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
         binding.etReportAuthor.text.toString(),
         if (binding.switchReportAuthor.isChecked && binding.etReportAuthor.text.isNotEmpty()) 1 else 0,
         binding.tvReportDate.text.toString(),
-        if (switch_report_date.isChecked) 1 else 0,
-        et_report_place.text.toString(),
-        if (switch_report_place.isChecked && et_report_place.text.isNotEmpty()) 1 else 0,
-        et_report_watermark.text.toString(),
-        if (switch_report_watermark.isChecked && et_report_watermark.text.isNotEmpty()) 1 else 0
+        if (binding.switchReportDate.isChecked) 1 else 0,
+        binding.etReportPlace.text.toString(),
+        if (binding.switchReportPlace.isChecked && binding.etReportPlace.text.isNotEmpty()) 1 else 0,
+        binding.etReportWatermark.text.toString(),
+        if (binding.switchReportWatermark.isChecked && binding.etReportWatermark.text.isNotEmpty()) 1 else 0
     )
 
     private fun buildReportCondition(): ReportConditionBean {
         val temperature = try {
-            "${et_ambient_temperature.text.toString().toFloat()}${UnitTools.showUnit()}"
+            "${binding.etAmbientTemperature.text.toString().toFloat()}${UnitTools.showUnit()}"
         } catch (ignore: NumberFormatException) {
             null
         }
         return ReportConditionBean(
-            tip_seek_humidity.valueText,
-            if (switch_ambient_humidity.isChecked) 1 else 0,
+            binding.tipSeekHumidity.valueText,
+            if (binding.switchAmbientHumidity.isChecked) 1 else 0,
             temperature,
-            if (switch_ambient_temperature.isChecked && temperature != null) 1 else 0,
-            tip_seek_emissivity.valueText,
-            if (switch_emissivity.isChecked) 1 else 0,
-            et_test_distance.text.toString(),
-            if (switch_test_distance.isChecked && et_test_distance.text.isNotEmpty()) 1 else 0
+            if (binding.switchAmbientTemperature.isChecked && temperature != null) 1 else 0,
+            binding.tipSeekEmissivity.valueText,
+            if (binding.switchEmissivity.isChecked) 1 else 0,
+            binding.etTestDistance.text.toString(),
+            if (binding.switchTestDistance.isChecked && binding.etTestDistance.text.isNotEmpty()) 1 else 0
         )
     }
 
@@ -385,7 +385,7 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
                                     .setCanceled(false)
                                     .create().show()
                             }else{
-                                et_report_place.setText(addressText)
+                                binding.etReportPlace.setText(addressText)
                             }
                         }
                     }else{
