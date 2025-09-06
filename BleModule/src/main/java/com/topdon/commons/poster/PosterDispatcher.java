@@ -145,7 +145,9 @@ public class PosterDispatcher {
                     e.printStackTrace();
                 }
             });
-        } catch (Exception ignore) {
+        } catch (SecurityException | IllegalArgumentException e) {
+            // Handle specific reflection-related exceptions
+            e.printStackTrace();
         }
     }
 

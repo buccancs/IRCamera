@@ -88,7 +88,9 @@ class ObserverMethodHelper {
             Method[] ms = null;
             try {
                 ms = cls.getDeclaredMethods();
-            } catch (Throwable ignore) {
+            } catch (SecurityException | NoClassDefFoundError e) {
+                // Handle specific reflection-related exceptions
+                e.printStackTrace();
             }
             if (ms != null) {
                 for (Method m : ms) {
