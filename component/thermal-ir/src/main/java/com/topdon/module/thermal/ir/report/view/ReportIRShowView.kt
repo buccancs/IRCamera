@@ -3,16 +3,18 @@ package com.topdon.module.thermal.ir.report.view
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.core.view.isVisible
 import com.blankj.utilcode.util.SizeUtils
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.report.bean.ReportIRBean
 import com.topdon.module.thermal.ir.report.bean.ReportTempBean
-import kotlinx.android.synthetic.main.item_report_ir_show.view.*
-import kotlinx.android.synthetic.main.view_report_ir_show.view.*
+import com.topdon.module.thermal.ir.databinding.ViewReportIrShowBinding
+import com.topdon.module.thermal.ir.databinding.ItemReportIrShowBinding
 
 /**
  * 一项红外数据预览 View.
@@ -20,6 +22,9 @@ import kotlinx.android.synthetic.main.view_report_ir_show.view.*
  * 包含一张图片对应的 全图、点、线、面 预览信息.
  */
 class ReportIRShowView: LinearLayout {
+
+    private val binding: ViewReportIrShowBinding
+
     companion object {
         private const val TYPE_FULL = 0 //全图
         private const val TYPE_POINT = 1//点
@@ -27,49 +32,53 @@ class ReportIRShowView: LinearLayout {
         private const val TYPE_RECT = 3 //面
     }
 
-
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        inflate(context, R.layout.view_report_ir_show, this)
+        binding = ViewReportIrShowBinding.inflate(LayoutInflater.from(context), this, true)
 
-        initTitleText(cl_full, TYPE_FULL, 0)
+        initTitleText(binding.clFull.root, TYPE_FULL, 0)
 
-        initTitleText(cl_point1, TYPE_POINT, 0)
-        initTitleText(cl_point2, TYPE_POINT, 1)
-        initTitleText(cl_point3, TYPE_POINT, 2)
-        initTitleText(cl_point4, TYPE_POINT, 3)
-        initTitleText(cl_point5, TYPE_POINT, 4)
+        initTitleText(binding.clPoint1.root, TYPE_POINT, 0)
+        initTitleText(binding.clPoint2.root, TYPE_POINT, 1)
+        initTitleText(binding.clPoint3.root, TYPE_POINT, 2)
+        initTitleText(binding.clPoint4.root, TYPE_POINT, 3)
+        initTitleText(binding.clPoint5.root, TYPE_POINT, 4)
 
-        initTitleText(cl_line1, TYPE_LINE, 0)
-        initTitleText(cl_line2, TYPE_LINE, 1)
-        initTitleText(cl_line3, TYPE_LINE, 2)
-        initTitleText(cl_line4, TYPE_LINE, 3)
-        initTitleText(cl_line5, TYPE_LINE, 4)
+        initTitleText(binding.clLine1.root, TYPE_LINE, 0)
+        initTitleText(binding.clLine2.root, TYPE_LINE, 1)
+        initTitleText(binding.clLine3.root, TYPE_LINE, 2)
+        initTitleText(binding.clLine4.root, TYPE_LINE, 3)
+        initTitleText(binding.clLine5.root, TYPE_LINE, 4)
 
-        initTitleText(cl_rect1, TYPE_RECT, 0)
-        initTitleText(cl_rect2, TYPE_RECT, 1)
-        initTitleText(cl_rect3, TYPE_RECT, 2)
-        initTitleText(cl_rect4, TYPE_RECT, 3)
-        initTitleText(cl_rect5, TYPE_RECT, 4)
+        initTitleText(binding.clRect1.root, TYPE_RECT, 0)
+        initTitleText(binding.clRect2.root, TYPE_RECT, 1)
+        initTitleText(binding.clRect3.root, TYPE_RECT, 2)
+        initTitleText(binding.clRect4.root, TYPE_RECT, 3)
+        initTitleText(binding.clRect5.root, TYPE_RECT, 4)
     }
 
     private fun initTitleText(itemRoot: View, type: Int, index: Int) {
-        itemRoot.tv_title.isVisible = index == 0
-        itemRoot.tv_title.text = when (type) {
+        // Use findViewById to access views from included layout for compatibility
+        val tvTitle = itemRoot.findViewById<TextView>(R.id.tv_title)
+        val tvAverageTitle = itemRoot.findViewById<TextView>(R.id.tv_average_title)  
+        val tvExplainTitle = itemRoot.findViewById<TextView>(R.id.tv_explain_title)
+        
+        tvTitle.isVisible = index == 0
+        tvTitle.text = when (type) {
             TYPE_FULL -> context.getString(R.string.thermal_full_rect)
             TYPE_POINT -> context.getString(R.string.thermal_point) + "(P)"
             TYPE_LINE -> context.getString(R.string.thermal_line) + "(L)"
             else -> context.getString(R.string.thermal_rect) + "(R)"
         }
-        itemRoot.tv_average_title.text = when (type) {
+        tvAverageTitle.text = when (type) {
             TYPE_FULL, TYPE_POINT -> "" //全图、点没有平均温
             TYPE_LINE -> "L${index + 1} " + context.getString(R.string.album_report_mean_temperature)
             else -> "R${index + 1} " + context.getString(R.string.album_report_mean_temperature)
         }
-        itemRoot.tv_explain_title.text = when (type) {
+        tvExplainTitle.text = when (type) {
             TYPE_FULL -> context.getString(R.string.album_report_comment)
             TYPE_POINT -> "P${index + 1} " + context.getString(R.string.album_report_comment)
             TYPE_LINE -> "L${index + 1} " + context.getString(R.string.album_report_comment)
@@ -82,27 +91,27 @@ class ReportIRShowView: LinearLayout {
      */
     fun getPrintViewList(): ArrayList<View> {
         val result = ArrayList<View>()
-        result.add(cl_image)
+        result.add(binding.clImage)
 
-        getItemChild(cl_full, result)
+        getItemChild(binding.clFull.root, result)
 
-        getItemChild(cl_point1, result)
-        getItemChild(cl_point2, result)
-        getItemChild(cl_point3, result)
-        getItemChild(cl_point4, result)
-        getItemChild(cl_point5, result)
+        getItemChild(binding.clPoint1.root, result)
+        getItemChild(binding.clPoint2.root, result)
+        getItemChild(binding.clPoint3.root, result)
+        getItemChild(binding.clPoint4.root, result)
+        getItemChild(binding.clPoint5.root, result)
 
-        getItemChild(cl_line1, result)
-        getItemChild(cl_line2, result)
-        getItemChild(cl_line3, result)
-        getItemChild(cl_line4, result)
-        getItemChild(cl_line5, result)
+        getItemChild(binding.clLine1.root, result)
+        getItemChild(binding.clLine2.root, result)
+        getItemChild(binding.clLine3.root, result)
+        getItemChild(binding.clLine4.root, result)
+        getItemChild(binding.clLine5.root, result)
 
-        getItemChild(cl_rect1, result)
-        getItemChild(cl_rect2, result)
-        getItemChild(cl_rect3, result)
-        getItemChild(cl_rect4, result)
-        getItemChild(cl_rect5, result)
+        getItemChild(binding.clRect1.root, result)
+        getItemChild(binding.clRect2.root, result)
+        getItemChild(binding.clRect3.root, result)
+        getItemChild(binding.clRect4.root, result)
+        getItemChild(binding.clRect5.root, result)
         return result
     }
 
