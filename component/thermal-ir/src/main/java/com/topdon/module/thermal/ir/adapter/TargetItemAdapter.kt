@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.bean.ObserveBean
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.itme_target_mode.view.*
+import com.topdon.module.thermal.ir.databinding.ItmeTargetModeBinding
 
 class TargetItemAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var listener: ((index: Int, code: Int) -> Unit)? = null
@@ -35,22 +35,22 @@ class TargetItemAdapter(val context: Context) : RecyclerView.Adapter<RecyclerVie
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.itme_target_mode, parent, false)
-        return ItemView(view)
+        val binding = ItmeTargetModeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ItemView(binding)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ItemView) {
             val bean = secondBean[position]
-            holder.img.setImageResource(bean.res)
-            holder.lay.setOnClickListener {
+            holder.binding.itemMenuTabImg.setImageResource(bean.res)
+            holder.binding.itemMenuTabLay.setOnClickListener {
                 listener?.invoke(position, bean.code)
                 selected(bean.code)
             }
-            holder.img.isSelected = bean.code == selected
-            holder.name.text = bean.name
-            holder.name.isSelected = bean.code == selected
-            holder.name.setTextColor(
+            holder.binding.itemMenuTabImg.isSelected = bean.code == selected
+            holder.binding.itemMenuTabText.text = bean.name
+            holder.binding.itemMenuTabText.isSelected = bean.code == selected
+            holder.binding.itemMenuTabText.setTextColor(
                 if (position == selected) ContextCompat.getColor(context, R.color.white)
                 else ContextCompat.getColor(context, R.color.font_third_color)
             )
@@ -61,10 +61,7 @@ class TargetItemAdapter(val context: Context) : RecyclerView.Adapter<RecyclerVie
         return secondBean.size
     }
 
-    inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val lay: View = itemView.item_menu_tab_lay
-        val img: ImageView = itemView.item_menu_tab_img
-        val name: TextView = itemView.item_menu_tab_text
+    inner class ItemView(val binding: ItmeTargetModeBinding) : RecyclerView.ViewHolder(binding.root) {
 //        init {
 //            val canSeeCount = itemCount.toFloat() //一屏可见的 item 数量，目前都是全都显示完
 //            val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()

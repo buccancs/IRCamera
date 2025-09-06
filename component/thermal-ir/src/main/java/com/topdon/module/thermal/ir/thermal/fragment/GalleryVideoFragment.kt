@@ -9,22 +9,25 @@ import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.thermal.adapter.GalleryAdapter
 import com.topdon.module.thermal.ir.thermal.viewmodel.GalleryViewModel
-import kotlinx.android.synthetic.main.fragment_gallery_video.*
+import com.topdon.module.thermal.ir.databinding.FragmentGalleryVideoBinding
 
 /**
  * 图片
  */
 class GalleryVideoFragment : BaseViewModelFragment<GalleryViewModel>() {
     private val adapter by lazy { GalleryAdapter(requireContext()) }
+    private lateinit var binding: FragmentGalleryVideoBinding
 
     override fun providerVMClass() = GalleryViewModel::class.java
 
     override fun initContentView() = R.layout.fragment_gallery_video
 
     override fun initView() {
+        binding = FragmentGalleryVideoBinding.bind(requireView())
+        
         val span = if (ScreenUtils.isLandscape()) 6 else 3
-        gallery_video_recycler.layoutManager = GridLayoutManager(requireContext(), span)
-        gallery_video_recycler.adapter = adapter
+        binding.galleryVideoRecycler.layoutManager = GridLayoutManager(requireContext(), span)
+        binding.galleryVideoRecycler.adapter = adapter
 
         viewModel.galleryLiveData.observe(this) {
             adapter.datas = it
