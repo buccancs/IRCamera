@@ -3,6 +3,7 @@ package com.topdon.lib.ui
 import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -10,14 +11,16 @@ import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.isVisible
-import kotlinx.android.synthetic.main.ui_setting_view.view.*
+import com.topdon.lib.ui.databinding.UiSettingViewNightBinding
 
 class SettingNightView : LinearLayout {
 
+    private lateinit var binding: UiSettingViewNightBinding
+
     var isRightArrowVisible: Boolean
-        get() = endImg.isVisible
+        get() = binding.itemSettingEndImage.isVisible
         set(value) {
-            endImg.isVisible = value
+            binding.itemSettingEndImage.isVisible = value
         }
 
     fun setRightTextId(@StringRes resId: Int) {
@@ -35,10 +38,6 @@ class SettingNightView : LinearLayout {
     private var moreShow: Boolean = true
     private var lineShow: Boolean = false
     private var iconShow: Boolean = false
-
-    private lateinit var headImg: ImageView
-    private lateinit var endImg: ImageView
-    private lateinit var contentText: TextView
 
     constructor(context: Context) : this(context, null)
 
@@ -72,23 +71,20 @@ class SettingNightView : LinearLayout {
     )
 
     private fun initView() {
-        inflate(context, R.layout.ui_setting_view_night, this)
-        contentText = findViewById(R.id.item_setting_text)
-        headImg = findViewById(R.id.item_setting_image)
-        endImg = findViewById(R.id.item_setting_end_image)
-
-        headImg.setImageResource(iconRes)
+        binding = UiSettingViewNightBinding.inflate(LayoutInflater.from(context), this, true)
+        
+        binding.itemSettingImage.setImageResource(iconRes)
         if (iconShow) {
-            headImg.visibility = View.VISIBLE
+            binding.itemSettingImage.visibility = View.VISIBLE
         } else {
-            headImg.visibility = View.GONE
+            binding.itemSettingImage.visibility = View.GONE
         }
-        contentText.text = contentStr
+        binding.itemSettingText.text = contentStr
         if (moreShow) {
-            endImg.visibility = View.VISIBLE
+            binding.itemSettingEndImage.visibility = View.VISIBLE
         } else {
-            endImg.visibility = View.GONE
+            binding.itemSettingEndImage.visibility = View.GONE
         }
-        item_setting_line.visibility = if (lineShow) View.VISIBLE else View.GONE
+        binding.itemSettingLine.visibility = if (lineShow) View.VISIBLE else View.GONE
     }
 }
