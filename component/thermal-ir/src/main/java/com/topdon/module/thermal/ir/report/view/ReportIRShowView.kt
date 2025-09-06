@@ -129,14 +129,14 @@ class ReportIRShowView: LinearLayout {
         val layoutParams = iv_image.layoutParams
         layoutParams.width = width
         layoutParams.height = height
-        iv_image.layoutParams = layoutParams
-        iv_image.setImageDrawable(drawable)
+        binding.ivImage.layoutParams = layoutParams
+        binding.ivImage.setImageDrawable(drawable)
     }
 
     fun refreshData(isFirst: Boolean, isLast: Boolean, reportIRBean: ReportIRBean) {
-        tv_head.isVisible = isFirst
-        view_not_head.isVisible = !isFirst
-        view_image_bg.setBackgroundResource(if (isFirst) R.drawable.layer_report_ir_show_top_bg else R.drawable.layer_report_ir_show_item_bg)
+        binding.tvHead.isVisible = isFirst
+        binding.viewNotHead.isVisible = !isFirst
+        binding.viewImageBg.setBackgroundResource(if (isFirst) R.drawable.layer_report_ir_show_top_bg else R.drawable.layer_report_ir_show_item_bg)
         binding.clImage.setPadding(0, if (isFirst) SizeUtils.dp2px(20f) else 0, 0, 0)
 
         refreshItem(binding.clFull, reportIRBean.full_graph_data, TYPE_FULL, 0)

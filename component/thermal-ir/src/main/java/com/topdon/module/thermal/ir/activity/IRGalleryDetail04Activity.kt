@@ -222,17 +222,10 @@ class IRGalleryDetail04Activity : BaseActivity() {
         }
         showCameraLoading()
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        Glide.with(this).downloadOnly().load(data.path).addListener(object : RequestListener<File> {
-                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<File>?, isFirstResource: Boolean): Boolean {
-                    dismissCameraLoading()
-                    ToastTools.showShort(R.string.liveData_save_error)
-                    window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-                    return false
-                }
-
-                override fun onResourceReady(
-                    resource: File?, model: Any?, target: Target<File>?, dataSource: DataSource?, isFirstResource: Boolean
-                ): Boolean {
+        Glide.with(this).downloadOnly().load(data.path).submit().let { futureTarget ->
+            lifecycleScope.launch {
+                try {
+                    val resource = futureTarget.get()
                     EventBus.getDefault().post(GalleryDownloadEvent(data.name))
                     dismissCameraLoading()
                     FileUtils.copy(resource, File(FileConfig.ts004GalleryDir, data.name))
@@ -244,9 +237,13 @@ class IRGalleryDetail04Activity : BaseActivity() {
                         actionShare()
                     }
                     window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-                    return false
+                } catch (e: Exception) {
+                    dismissCameraLoading()
+                    ToastTools.showShort(R.string.liveData_save_error)
+                    window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
                 }
-            }).preload()
+            }
+        }
     }
 
     inner class GalleryViewPagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
