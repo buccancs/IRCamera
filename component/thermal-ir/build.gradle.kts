@@ -66,7 +66,10 @@ dependencies {
     implementation(project(":component:thermal"))
     implementation(project(":component:house"))
     
-    // AAR dependencies now handled by libir module, no direct dependencies needed here
+    // AAR dependencies as compileOnly for compilation but not packaging
+    compileOnly(files("../../libir/libs/suplib-release.aar"))  // Required for SupHelp class
+    compileOnly(files("../../libir/libs/ai-upscale-release.aar"))  // AI upscale functionality
+    compileOnly(files("../../libir/libs/texturegesture-release.aar"))  // Texture gesture functionality
     
     // ARouter compiler - disabled since annotations are commented out in this module
     // kapt(libs.arouter.compiler)

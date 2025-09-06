@@ -72,6 +72,7 @@ dependencies {
     coreLibraryDesugaring(libs.desugar.jdk.libs)
     // Using only JAR files to avoid AGP 8.0+ AAR dependency issues
     api(fileTree(mapOf("include" to listOf("*.jar"), "dir" to "libs")))
+    // Note: AAR dependencies moved to app module to avoid AGP 8.0+ issues
     api(libs.androidx.appcompat)
     api(libs.fragment.ktx)
     api(libs.material)

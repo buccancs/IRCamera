@@ -57,14 +57,16 @@ dependencies {
     
     // Original libir AAR dependencies restored - all essential components enabled
     api(files("libs/libusbdualsdk_1.3.4_2406271906_standard.aar"))  // Required for infisense thermal camera classes
-    api(files("libs/libAC020sdk_USB_IR_1.1.1_2408291439.aar"))  // AC020 SDK for thermal-lite functionality
-    api(files("libs/libirutils_1.2.0_2409241055.aar"))  // IR utilities for thermal-lite
-    implementation(files("libs/opengl_1.3.2_standard.aar"))  // OpenGL functionality
-    api(files("libs/suplib-release.aar"))  // Required for thermal-lite iruvc classes
-    api(files("libs/ai-upscale-release.aar"))  // AI upscale functionality
-    api(files("libs/texturegesture-release.aar"))  // Texture gesture functionality
-    api(files("libs/jetified-tas_api-1.0.4.0.aar"))  // TAS API
-    api(files("libs/library_1.0.aar"))  // Additional library support
+    // AAR dependencies as compileOnly for compilation but not packaging (runtime provided by app module)
+    compileOnly(files("libs/libAC020sdk_USB_IR_1.1.1_2408291439.aar"))  // AC020 SDK for thermal-lite functionality
+    compileOnly(files("libs/libirutils_1.2.0_2409241055.aar"))  // IR utilities for thermal-lite
+    compileOnly(files("libs/opengl_1.3.2_standard.aar"))  // OpenGL functionality
+    compileOnly(files("libs/suplib-release.aar"))  // Required for thermal-lite iruvc classes
+    compileOnly(files("libs/ai-upscale-release.aar"))  // AI upscale functionality
+    compileOnly(files("libs/texturegesture-release.aar"))  // Texture gesture functionality
+    compileOnly(files("libs/jetified-tas_api-1.0.4.0.aar"))  // TAS API
+    compileOnly(files("libs/library_1.0.aar"))  // Additional library support
+    compileOnly(files("libs/libusbdualsdk_1.3.4_2406271906_standard.aar"))  // USB dual SDK
     
     // Enhanced IR-specific dependencies from user's Deps object
     api("com.conghuahuadan:superlayout:1.1.0")

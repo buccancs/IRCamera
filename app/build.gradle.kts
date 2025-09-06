@@ -221,6 +221,13 @@ dependencies {
     implementation(files("libs/libAC020sdk_USB_IR_1.1.1_2408291439.aar"))
     implementation(files("libs/libirutils_1.2.0_2409241055.aar"))
     implementation(files("libs/libcommon_1.2.0_24052117.aar"))
+    
+    // Additional AAR dependencies from libir module
+    implementation(fileTree(mapOf("include" to listOf("opengl_1.3.2_standard.aar"), "dir" to "component/edit3d/libs")))
+    implementation(fileTree(mapOf("include" to listOf("suplib-release.aar", "ai-upscale-release.aar", "texturegesture-release.aar", "jetified-tas_api-1.0.4.0.aar", "library_1.0.aar"), "dir" to "libir/libs")))
+    
+    // libapp AAR dependencies
+    implementation(fileTree(mapOf("include" to listOf("*.aar"), "dir" to "libapp/libs")))
 
     implementation(libs.jsbridge)
     implementation(libs.fastjson)
