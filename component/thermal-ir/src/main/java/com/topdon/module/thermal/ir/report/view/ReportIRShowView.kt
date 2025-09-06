@@ -151,10 +151,10 @@ class ReportIRShowView: LinearLayout {
                 4 -> refreshItem(binding.clPoint5, pointList[i], TYPE_POINT, i)
             }
         }
-        binding.clPoint2.binding.tvTitle.isVisible = !binding.clPoint1.isVisible
-        binding.clPoint3.binding.tvTitle.isVisible = !binding.clPoint1.isVisible && !binding.clPoint2.isVisible
-        binding.clPoint4.binding.tvTitle.isVisible = !binding.clPoint1.isVisible && !binding.clPoint2.isVisible && !binding.clPoint3.isVisible
-        binding.clPoint5.binding.tvTitle.isVisible = !binding.clPoint1.isVisible && !binding.clPoint2.isVisible && !binding.clPoint3.isVisible && !binding.clPoint4.isVisible
+        binding.clPoint2.tvTitle.isVisible = !binding.clPoint1.root.isVisible
+        binding.clPoint3.tvTitle.isVisible = !binding.clPoint1.root.isVisible && !binding.clPoint2.root.isVisible
+        binding.clPoint4.tvTitle.isVisible = !binding.clPoint1.root.isVisible && !binding.clPoint2.root.isVisible && !binding.clPoint3.root.isVisible
+        binding.clPoint5.tvTitle.isVisible = !binding.clPoint1.root.isVisible && !binding.clPoint2.root.isVisible && !binding.clPoint3.root.isVisible && !binding.clPoint4.root.isVisible
 
         val lineList = reportIRBean.line_data
         for (i in lineList.indices) {
@@ -166,10 +166,10 @@ class ReportIRShowView: LinearLayout {
                 4 -> refreshItem(binding.clLine5, lineList[i], TYPE_LINE, i)
             }
         }
-        binding.clLine2.binding.tvTitle.isVisible = !binding.clLine1.isVisible
-        binding.clLine3.binding.tvTitle.isVisible = !binding.clLine1.isVisible && !binding.clLine2.isVisible
-        binding.clLine4.binding.tvTitle.isVisible = !binding.clLine1.isVisible && !binding.clLine2.isVisible && !binding.clLine3.isVisible
-        binding.clLine5.binding.tvTitle.isVisible = !binding.clLine1.isVisible && !binding.clLine2.isVisible && !binding.clLine3.isVisible && !binding.clLine4.isVisible
+        binding.clLine2.tvTitle.isVisible = !binding.clLine1.root.isVisible
+        binding.clLine3.tvTitle.isVisible = !binding.clLine1.root.isVisible && !binding.clLine2.root.isVisible
+        binding.clLine4.tvTitle.isVisible = !binding.clLine1.root.isVisible && !binding.clLine2.root.isVisible && !binding.clLine3.root.isVisible
+        binding.clLine5.tvTitle.isVisible = !binding.clLine1.root.isVisible && !binding.clLine2.root.isVisible && !binding.clLine3.root.isVisible && !binding.clLine4.root.isVisible
 
         val rectList = reportIRBean.surface_data
         for (i in rectList.indices) {
@@ -181,10 +181,10 @@ class ReportIRShowView: LinearLayout {
                 4 -> refreshItem(binding.clRect5, rectList[i], TYPE_RECT, i)
             }
         }
-        binding.clRect2.binding.tvTitle.isVisible = !binding.clRect1.isVisible
-        binding.clRect3.binding.tvTitle.isVisible = !binding.clRect1.isVisible && !binding.clRect2.isVisible
-        binding.clRect4.binding.tvTitle.isVisible = !binding.clRect1.isVisible && !binding.clRect2.isVisible && !binding.clRect3.isVisible
-        binding.clRect5.binding.tvTitle.isVisible = !binding.clRect1.isVisible && !binding.clRect2.isVisible && !binding.clRect3.isVisible && !binding.clRect4.isVisible
+        binding.clRect2.tvTitle.isVisible = !binding.clRect1.root.isVisible
+        binding.clRect3.tvTitle.isVisible = !binding.clRect1.root.isVisible && !binding.clRect2.root.isVisible
+        binding.clRect4.tvTitle.isVisible = !binding.clRect1.root.isVisible && !binding.clRect2.root.isVisible && !binding.clRect3.root.isVisible
+        binding.clRect5.tvTitle.isVisible = !binding.clRect1.root.isVisible && !binding.clRect2.root.isVisible && !binding.clRect3.root.isVisible && !binding.clRect4.root.isVisible
 
         // 把最后一条分割线藏起来
         if (rectList.isNotEmpty()) {
@@ -220,45 +220,45 @@ class ReportIRShowView: LinearLayout {
         hideLastLine(isLast, binding.clFull, reportIRBean.full_graph_data, TYPE_FULL)
     }
 
-    private fun hideLastLine(isLast: Boolean, itemRoot: View, tempBean: ReportTempBean?, type: Int) {
+    private fun hideLastLine(isLast: Boolean, itemBinding: ItemReportIrShowBinding, tempBean: ReportTempBean?, type: Int) {
         if (tempBean == null) {
             return
         }
         if (tempBean.isExplainOpen()) {
-            itemRoot.view_line_explain.isVisible = false
-            itemRoot.binding.clExplain.setPadding(0, 0, 0, SizeUtils.dp2px(if (isLast) 12f else 20f))
+            itemBinding.viewLineExplain.isVisible = false
+            itemBinding.clExplain.setPadding(0, 0, 0, SizeUtils.dp2px(if (isLast) 12f else 20f))
             if (isLast) {
-                itemRoot.binding.clExplain.setBackgroundResource(R.drawable.layer_report_ir_show_bottom_bg)
+                itemBinding.clExplain.setBackgroundResource(R.drawable.layer_report_ir_show_bottom_bg)
             }
             return
         }
         if ((type == TYPE_LINE || type == TYPE_RECT) && tempBean.isAverageOpen()) {
-            itemRoot.view_line_average.isVisible = false
-            itemRoot.binding.clAverage.setPadding(0, 0, 0, SizeUtils.dp2px(if (isLast) 12f else 20f))
+            itemBinding.viewLineAverage.isVisible = false
+            itemBinding.clAverage.setPadding(0, 0, 0, SizeUtils.dp2px(if (isLast) 12f else 20f))
             if (isLast) {
-                itemRoot.binding.clAverage.setBackgroundResource(R.drawable.layer_report_ir_show_bottom_bg)
+                itemBinding.clAverage.setBackgroundResource(R.drawable.layer_report_ir_show_bottom_bg)
             }
             return
         }
-        itemRoot.view_line_range.isVisible = false
-        itemRoot.binding.clRange.setPadding(0, 0, 0, SizeUtils.dp2px(if (isLast) 12f else 20f))
+        itemBinding.viewLineRange.isVisible = false
+        itemBinding.clRange.setPadding(0, 0, 0, SizeUtils.dp2px(if (isLast) 12f else 20f))
         if (isLast) {
-            itemRoot.binding.clRange.setBackgroundResource(R.drawable.layer_report_ir_show_bottom_bg)
+            itemBinding.clRange.setBackgroundResource(R.drawable.layer_report_ir_show_bottom_bg)
         }
     }
 
-    private fun refreshItem(itemRoot: View, tempBean: ReportTempBean?, type: Int, index: Int) {
+    private fun refreshItem(itemBinding: ItemReportIrShowBinding, tempBean: ReportTempBean?, type: Int, index: Int) {
         if (tempBean == null) {
-            itemRoot.isVisible = false
+            itemBinding.root.isVisible = false
             return
         }
 
-        itemRoot.isVisible = when (type) {
+        itemBinding.root.isVisible = when (type) {
             TYPE_FULL -> tempBean.isMaxOpen() || tempBean.isMinOpen() || tempBean.isExplainOpen()
             TYPE_POINT -> tempBean.isTempOpen() || tempBean.isExplainOpen()
             else -> tempBean.isMaxOpen() || tempBean.isMinOpen() || tempBean.isAverageOpen() || tempBean.isExplainOpen()
         }
-        if (!itemRoot.isVisible) {
+        if (!itemBinding.root.isVisible) {
             return
         }
 
@@ -290,14 +290,14 @@ class ReportIRShowView: LinearLayout {
             }
         }
 
-        itemRoot.tv_range_title.isVisible = if (type == TYPE_POINT) tempBean.isTempOpen() else tempBean.isMinOpen() || tempBean.isMaxOpen()
-        itemRoot.tv_range_value.isVisible = if (type == TYPE_POINT) tempBean.isTempOpen() else tempBean.isMinOpen() || tempBean.isMaxOpen()
-        itemRoot.view_line_range.isVisible = if (type == TYPE_POINT) tempBean.isTempOpen() else tempBean.isMinOpen() || tempBean.isMaxOpen()
-        itemRoot.binding.clAverage.isVisible = (type == TYPE_LINE || type == TYPE_RECT) && tempBean.isAverageOpen()
-        itemRoot.binding.clExplain.isVisible = tempBean.isExplainOpen()
-        itemRoot.tv_range_title.text = rangeTitle
-        itemRoot.tv_range_value.text = rangeValue
-        itemRoot.tv_average_value.text = tempBean.mean_temperature
-        itemRoot.tv_explain_value.text = tempBean.comment
+        itemBinding.tvRangeTitle.isVisible = if (type == TYPE_POINT) tempBean.isTempOpen() else tempBean.isMinOpen() || tempBean.isMaxOpen()
+        itemBinding.tvRangeValue.isVisible = if (type == TYPE_POINT) tempBean.isTempOpen() else tempBean.isMinOpen() || tempBean.isMaxOpen()
+        itemBinding.viewLineRange.isVisible = if (type == TYPE_POINT) tempBean.isTempOpen() else tempBean.isMinOpen() || tempBean.isMaxOpen()
+        itemBinding.clAverage.isVisible = (type == TYPE_LINE || type == TYPE_RECT) && tempBean.isAverageOpen()
+        itemBinding.clExplain.isVisible = tempBean.isExplainOpen()
+        itemBinding.tvRangeTitle.text = rangeTitle
+        itemBinding.tvRangeValue.text = rangeValue
+        itemBinding.tvAverageValue.text = tempBean.mean_temperature
+        itemBinding.tvExplainValue.text = tempBean.comment
     }
 }

@@ -32,41 +32,6 @@ class GlideImageEngine : ImageEngine {
             .fitCenter()
             .placeholder(R.drawable.ic_default_head_svg)
             .error(R.drawable.ic_default_head_svg)
-            .listener(BitmapRequestListener())
             .into(imageView)
-    }
-
-    class DrawableRequestListener : RequestListener<Drawable> {
-        override fun onLoadFailed(
-            e: GlideException?,
-            model: Any?,
-            target: Target<Drawable>?,
-            isFirstResource: Boolean
-        ): Boolean = false
-
-        override fun onResourceReady(
-            resource: Drawable,
-            model: Any?,
-            target: Target<Drawable>?,
-            dataSource: DataSource?,
-            isFirstResource: Boolean
-        ): Boolean = false
-    }
-
-    class BitmapRequestListener : RequestListener<Bitmap> {
-        override fun onLoadFailed(
-            e: GlideException?,
-            model: Any?,
-            target: Target<Bitmap>?,
-            isFirstResource: Boolean
-        ): Boolean = false
-
-        override fun onResourceReady(
-            resource: Bitmap,
-            model: Any?,
-            target: Target<Bitmap>?,
-            dataSource: DataSource?,
-            isFirstResource: Boolean
-        ): Boolean = false
     }
 }
