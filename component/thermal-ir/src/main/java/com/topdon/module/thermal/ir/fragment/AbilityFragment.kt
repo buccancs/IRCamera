@@ -18,7 +18,7 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.activity.IRThermalNightActivity
 import com.topdon.module.thermal.ir.activity.IRThermalPlusActivity
 import com.topdon.module.thermal.ir.activity.MonitoryHomeActivity
-import kotlinx.android.synthetic.main.fragment_ability.*
+import com.topdon.module.thermal.ir.databinding.FragmentAbilityBinding
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -30,14 +30,20 @@ import org.greenrobot.eventbus.EventBus
 class AbilityFragment : BaseFragment(), View.OnClickListener {
     private var mIsTC007 = false
 
-    override fun initContentView() = R.layout.fragment_ability
+    private var _binding: FragmentAbilityBinding? = null
+    private val binding get() = _binding!!
+
+    override fun initContentView(): Int {
+        _binding = FragmentAbilityBinding.inflate(layoutInflater)
+        return R.layout.fragment_ability
+    }
 
     override fun initView() {
         mIsTC007 = arguments?.getBoolean(ExtraKeyConfig.IS_TC007, false) ?: false
-        iv_winter.setOnClickListener(this)
-        view_monitory.setOnClickListener(this)
+        binding.ivWinter.setOnClickListener(this)
+        binding.viewMonitory.setOnClickListener(this)
 
-        view_car.setOnClickListener(this)
+        binding.viewCar.setOnClickListener(this)
     }
 
     override fun initData() {
@@ -45,7 +51,7 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            iv_winter -> {//冬季特辑入口
+            binding.ivWinter -> {//冬季特辑入口
                 SharedManager.hasClickWinter = true
                 EventBus.getDefault().post(WinterClickEvent())
                 val url = if (UrlConstant.BASE_URL == "https://api.topdon.com/") {
@@ -58,7 +64,7 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
                     .withString(ExtraKeyConfig.URL, url)
                     .navigation(requireContext())
             }
-            view_monitory -> {//温度监控
+            binding.viewMonitory -> {//温度监控
                 val intent = Intent(requireContext(), MonitoryHomeActivity::class.java)
                 intent.putExtra(ExtraKeyConfig.IS_TC007, mIsTC007)
                 startActivity(intent)
@@ -66,7 +72,7 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
 
 
 
-            view_car -> {//汽车检测
+            binding.viewCar -> {//汽车检测
                 // TC001 only - no TC007 support
                 if (DeviceTools.isTC001PlusConnect()) {
                     var intent = Intent(requireContext(), IRThermalPlusActivity::class.java)
@@ -88,5 +94,10 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

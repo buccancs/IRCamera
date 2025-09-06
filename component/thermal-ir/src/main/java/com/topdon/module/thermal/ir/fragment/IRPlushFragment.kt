@@ -8,8 +8,7 @@ import com.infisense.usbdual.camera.DualViewWithExternalCameraCommonApi
 import com.infisense.usbir.view.TemperatureView
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.activity.BaseIRPlushFragment
-import kotlinx.android.synthetic.main.fragment_ir_plush.dualTextureViewNativeCamera
-import kotlinx.android.synthetic.main.fragment_ir_plush.temperature_view
+import com.topdon.module.thermal.ir.databinding.FragmentIrPlushBinding
 
 /**
  * des:
@@ -18,12 +17,15 @@ import kotlinx.android.synthetic.main.fragment_ir_plush.temperature_view
  **/
 class IRPlushFragment : BaseIRPlushFragment() {
 
+    private var _binding: FragmentIrPlushBinding? = null
+    private val binding get() = _binding!!
+
     override fun getSurfaceView(): SurfaceView {
-        return dualTextureViewNativeCamera
+        return binding.dualTextureViewNativeCamera
     }
 
     override fun getTemperatureDualView(): TemperatureView {
-        return temperature_view
+        return binding.temperatureView
     }
 
     override suspend fun onDualViewCreate(dualView: DualViewWithExternalCameraCommonApi?) {
@@ -39,6 +41,7 @@ class IRPlushFragment : BaseIRPlushFragment() {
     }
 
     override fun initContentView(): Int {
+        _binding = FragmentIrPlushBinding.inflate(layoutInflater)
         return R.layout.fragment_ir_plush
     }
 
@@ -47,6 +50,11 @@ class IRPlushFragment : BaseIRPlushFragment() {
 
     override fun initView() {
         super.initView()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onStop() {
