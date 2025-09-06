@@ -53,37 +53,37 @@ class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(c
         setContentView(binding.root)
         
         // Initialize sub-layout bindings
-        guide1Binding = LayoutHomeGuide1Binding.bind(binding.clGuide1)
-        guide2Binding = LayoutHomeGuide2Binding.bind(binding.clGuide2)
-        guide3Binding = LayoutHomeGuide3Binding.bind(binding.clGuide3)
+        guide1Binding = LayoutHomeGuide1Binding.bind(binding.clGuide1.root)
+        guide2Binding = LayoutHomeGuide2Binding.bind(binding.clGuide2.root)
+        guide3Binding = LayoutHomeGuide3Binding.bind(binding.clGuide3.root)
 
         when (currentStep) {
             1 -> {
-                binding.clGuide1.isVisible = true
-                binding.clGuide2.isVisible = false
-                binding.clGuide3.isVisible = false
+                binding.clGuide1.root.isVisible = true
+                binding.clGuide2.root.isVisible = false
+                binding.clGuide3.root.isVisible = false
             }
             2 -> {
-                binding.clGuide1.isVisible = false
-                binding.clGuide2.isVisible = true
-                binding.clGuide3.isVisible = false
+                binding.clGuide1.root.isVisible = false
+                binding.clGuide2.root.isVisible = true
+                binding.clGuide3.root.isVisible = false
             }
             3 -> {
-                binding.clGuide1.isVisible = false
-                binding.clGuide2.isVisible = false
-                binding.clGuide3.isVisible = true
+                binding.clGuide1.root.isVisible = false
+                binding.clGuide2.root.isVisible = false
+                binding.clGuide3.root.isVisible = true
             }
         }
 
         guide1Binding.tvNext1.setOnClickListener {
             onNextClickListener?.invoke(1)
-            binding.clGuide1.isVisible = false
-            binding.clGuide2.isVisible = true
+            binding.clGuide1.root.isVisible = false
+            binding.clGuide2.root.isVisible = true
         }
         guide2Binding.tvNext2.setOnClickListener {
             onNextClickListener?.invoke(2)
-            binding.clGuide2.isVisible = false
-            binding.clGuide3.isVisible = true
+            binding.clGuide2.root.isVisible = false
+            binding.clGuide3.root.isVisible = true
         }
         guide3Binding.tvIKnow.setOnClickListener {
             onNextClickListener?.invoke(3)

@@ -207,7 +207,7 @@ class IRVideoGSYActivity : BaseActivity() {
         return if (binding.gsyPlay.fullWindowPlayer != null) {
             binding.gsyPlay.fullWindowPlayer
         } else {
-            gsy_play
+            binding.gsyPlay
         }
     }
 }

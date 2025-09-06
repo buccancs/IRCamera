@@ -59,19 +59,20 @@ class ReportIRShowView: LinearLayout {
     }
 
     private fun initTitleText(itemRoot: View, type: Int, index: Int) {
-        itemRoot.findViewById<TextView>(R.id.tv_title).isVisible = index == 0
-        itemRoot.findViewById<TextView>(R.id.tv_title).text = when (type) {
+        val itemBinding = ItemReportIrShowBinding.bind(itemRoot)
+        itemBinding.tvTitle.isVisible = index == 0
+        itemBinding.tvTitle.text = when (type) {
             TYPE_FULL -> context.getString(R.string.thermal_full_rect)
             TYPE_POINT -> context.getString(R.string.thermal_point) + "(P)"
             TYPE_LINE -> context.getString(R.string.thermal_line) + "(L)"
             else -> context.getString(R.string.thermal_rect) + "(R)"
         }
-        itemRoot.findViewById<TextView>(R.id.tv_average_title).text = when (type) {
+        itemBinding.tvAverageTitle.text = when (type) {
             TYPE_FULL, TYPE_POINT -> "" //全图、点没有平均温
             TYPE_LINE -> "L${index + 1} " + context.getString(R.string.album_report_mean_temperature)
             else -> "R${index + 1} " + context.getString(R.string.album_report_mean_temperature)
         }
-        itemRoot.findViewById<TextView>(R.id.tv_explain_title).text = when (type) {
+        itemBinding.tvExplainTitle.text = when (type) {
             TYPE_FULL -> context.getString(R.string.album_report_comment)
             TYPE_POINT -> "P${index + 1} " + context.getString(R.string.album_report_comment)
             TYPE_LINE -> "L${index + 1} " + context.getString(R.string.album_report_comment)
@@ -110,14 +111,15 @@ class ReportIRShowView: LinearLayout {
 
     private fun getItemChild(itemRoot: View, resultList: ArrayList<View>) {
         if (itemRoot.isVisible) {
-            if (itemRoot.binding.clRange.isVisible) {
-                resultList.add(itemRoot.binding.clRange)
+            val itemBinding = ItemReportIrShowBinding.bind(itemRoot)
+            if (itemBinding.clRange.isVisible) {
+                resultList.add(itemBinding.clRange)
             }
-            if (itemRoot.binding.clAverage.isVisible) {
-                resultList.add(itemRoot.binding.clAverage)
+            if (itemBinding.clAverage.isVisible) {
+                resultList.add(itemBinding.clAverage)
             }
-            if (itemRoot.binding.clExplain.isVisible) {
-                resultList.add(itemRoot.binding.clExplain)
+            if (itemBinding.clExplain.isVisible) {
+                resultList.add(itemBinding.clExplain)
             }
         }
     }
@@ -126,7 +128,7 @@ class ReportIRShowView: LinearLayout {
         val isLand = (drawable?.intrinsicWidth ?: 0) > (drawable?.intrinsicHeight ?: 0)
         val width = (ScreenUtil.getScreenWidth(context) * (if (isLand) 234 else 175) / 375f).toInt()
         val height = (width * (drawable?.intrinsicHeight ?: 0).toFloat() / (drawable?.intrinsicWidth ?: 1)).toInt()
-        val layoutParams = iv_image.layoutParams
+        val layoutParams = binding.ivImage.layoutParams
         layoutParams.width = width
         layoutParams.height = height
         binding.ivImage.layoutParams = layoutParams

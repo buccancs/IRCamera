@@ -113,15 +113,15 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
     }
 
     private fun initRecycler() {
-        fragment_pdf_recycler.layoutManager = LinearLayoutManager(this)
-        fragment_pdf_recycler_lay.setOnRefreshListener {
+        binding.fragmentPdfRecycler.layoutManager = LinearLayoutManager(this)
+        binding.fragmentPdfRecyclerLay.setOnRefreshListener {
             //刷新
             page = 1
             viewModel.getReportData(isTC007, page)
         }
-        fragment_pdf_recycler_lay.setEnableLoadMore(false)
+        binding.fragmentPdfRecyclerLay.setEnableLoadMore(false)
         reportAdapter.loadMoreModule.loadMoreView = CommLoadMoreView()
-        fragment_pdf_recycler_lay.autoRefresh()
+        binding.fragmentPdfRecyclerLay.autoRefresh()
         reportAdapter.loadMoreModule.setOnLoadMoreListener {
             //加载更多
             viewModel.getReportData(isTC007, ++page)
@@ -195,7 +195,7 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
                 .create().show()
         }
 
-        fragment_pdf_recycler.adapter = reportAdapter
+        binding.fragmentPdfRecycler.adapter = reportAdapter
 //        viewModel.getReportData(1)
     }
 }

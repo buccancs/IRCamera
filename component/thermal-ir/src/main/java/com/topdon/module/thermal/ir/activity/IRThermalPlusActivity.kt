@@ -39,7 +39,6 @@ import java.nio.ByteBuffer
  */
 @Route(path = RouterConfig.IR_FRAME_PLUSH)
 class IRThermalPlusActivity : BaseIRPlushActivity() {
-    protected lateinit var binding: ActivityThermalIrNightBinding
     private val irImageHelp by lazy {
         IRImageHelp()
     }

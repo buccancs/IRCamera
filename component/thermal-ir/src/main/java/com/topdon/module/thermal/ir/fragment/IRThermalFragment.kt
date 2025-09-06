@@ -21,7 +21,7 @@ import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.utils.CommUtils
-import com.topdon.module.thermal.ir.BuildConfig
+import com.topdon.module.thermal.BuildConfig
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.utils.NetWorkUtils
 import com.topdon.module.thermal.R
@@ -75,14 +75,14 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
     override fun connected() {
         SharedManager.hasTcLine = true
         // TC001 USB connection
-        cl_connect.isVisible = true
-        cl_not_connect.isVisible = false
+        binding.clConnect.isVisible = true
+        binding.clNotConnect.isVisible = false
     }
 
     override fun disConnected() {
         // For TC001 USB connection
-        cl_connect.isVisible = false
-        cl_not_connect.isVisible = true
+        binding.clConnect.isVisible = false
+        binding.clNotConnect.isVisible = true
     }
 
     override fun onSocketConnected(isTS004: Boolean) {

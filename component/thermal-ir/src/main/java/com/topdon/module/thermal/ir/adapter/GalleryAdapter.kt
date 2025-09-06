@@ -186,7 +186,7 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val name: TextView = binding.itemGalleryHeadText
     }
 
-    inner class ItemView(private val binding: ItemGalleryLayBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ItemView(val binding: ItemGalleryLayBinding) : RecyclerView.ViewHolder(binding.root) {
         val img: ImageView = binding.itemGalleryImg
         val info: TextView = binding.itemGalleryText
     }
