@@ -660,9 +660,8 @@ public class FileUtil {
             }
             return result;
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            throw new RuntimeException("MD5 algorithm not available - critical system configuration issue", e);
         }
-        return "";
     }
 
     /**

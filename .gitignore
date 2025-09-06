@@ -46,6 +46,15 @@ gradle-app.setting
 *.swo
 *~
 
+# Kotlin build artifacts
+.kotlin/
+build-cache/
+kotlin-js-store/
+
+# Additional Gradle caches
+/.gradle/
+*/.gradle/
+
 # JVM crash logs
 hs_err_pid*
 
