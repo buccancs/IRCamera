@@ -11,7 +11,9 @@ import com.topdon.lib.core.utils.CommUtils
 import com.topdon.lms.sdk.LMS
 import com.topdon.lms.sdk.UrlConstant
 import com.topdon.tc001.utils.AppVersionUtil
+import com.csl.irCamera.R
 import com.topdon.tc001.utils.VersionUtils
+import com.csl.irCamera.R
 import java.util.*
 
 // Legacy ARouter route annotation - now using NavigationManager

@@ -54,6 +54,8 @@ import com.topdon.module.user.fragment.MineFragment
 import com.topdon.tc001.app.App
 import com.topdon.tc001.fragment.MainFragment
 import com.topdon.tc001.utils.AppVersionUtil
+import com.csl.irCamera.R
+import com.csl.irCamera.BuildConfig
 import com.zoho.commons.LauncherModes
 import com.zoho.commons.LauncherProperties
 import com.zoho.salesiqembed.ZohoSalesIQ

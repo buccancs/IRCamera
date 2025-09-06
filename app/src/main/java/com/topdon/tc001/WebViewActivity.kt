@@ -13,6 +13,7 @@ import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseBindingActivity
 import com.topdon.tc001.databinding.ActivityWebViewBinding
+import com.csl.irCamera.R
 
 /**
  * 使用 WebView 加载网页的 Activity.
