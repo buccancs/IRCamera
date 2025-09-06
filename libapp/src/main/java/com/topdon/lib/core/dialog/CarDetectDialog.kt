@@ -29,20 +29,22 @@ import com.topdon.lib.core.databinding.ToolbarLayBinding
  */
 class CarDetectDialog(context: Context, val listener: ((bean: CarDetectChildBean) -> Unit)) :
     Dialog(context, R.style.DefaultDialog) {
+    
+    private lateinit var binding: DialogCarDetectBinding
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setCancelable(true)
         setCanceledOnTouchOutside(false)
 
+        binding = DialogCarDetectBinding.inflate(LayoutInflater.from(context))
+        setContentView(binding.root)
 
-        val rootView: View = LayoutInflater.from(context).inflate(R.layout.dialog_car_detect, null)
-        setContentView(rootView)
+        binding.titleView.setLeftClickListener { dismiss() }
 
-        rootView.title_view.setLeftClickListener { dismiss() }
-
-        rootView.rcy_detect.layoutManager =
+        binding.rcyDetect.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        rootView.rcy_detect?.adapter = CarDetectAdapter(context, getDetectList())
+        binding.rcyDetect.adapter = CarDetectAdapter(context, getDetectList())
 
 
         /*window?.let {
@@ -220,9 +222,8 @@ class CarDetectDialog(context: Context, val listener: ((bean: CarDetectChildBean
     inner class CarDetectAdapter(val act: Context, private var carDetects: List<CarDetectBean>) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_car_detect_layout, parent, false)
-            return ItemView(view)
+            val binding = ItemCarDetectLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            return ItemView(binding)
         }
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -265,9 +266,9 @@ class CarDetectDialog(context: Context, val listener: ((bean: CarDetectChildBean
             return carDetects.size
         }
 
-        inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            val tvTitle: TextView = itemView.tv_title
-            val rcyDetectChild: RecyclerView = itemView.rcy_detect_child
+        inner class ItemView(val binding: ItemCarDetectLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+            val tvTitle: TextView = binding.tvTitle
+            val rcyDetectChild: RecyclerView = binding.rcyDetectChild
         }
     }
 
@@ -280,9 +281,8 @@ class CarDetectDialog(context: Context, val listener: ((bean: CarDetectChildBean
         var listener: ((index: Int, bean: CarDetectChildBean) -> Unit)? = null
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_car_detect_child_layout, parent, false)
-            return ItemView(view)
+            val binding = ItemCarDetectChildLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            return ItemView(binding)
         }
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -302,11 +302,11 @@ class CarDetectDialog(context: Context, val listener: ((bean: CarDetectChildBean
             return carChildDetects.size
         }
 
-        inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            val rlyParent: RelativeLayout = itemView.rly_parent
-            val tvTitle: TextView = itemView.tv_name
-            val ivSelectState: ImageView = itemView.iv_select_state
-            val viewLine: View = itemView.view_line
+        inner class ItemView(val binding: ItemCarDetectChildLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+            val rlyParent: RelativeLayout = binding.rlyParent
+            val tvTitle: TextView = binding.tvName
+            val ivSelectState: ImageView = binding.ivSelectState
+            val viewLine: View = binding.viewLine
         }
     }
 }

@@ -38,7 +38,7 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun initView() {
-        binding = ActivityImagePickIrPlushBinding.bind(findViewById(R.id.title_view).parent as View)
+        binding = ActivityImagePickIrPlushBinding.bind(findViewById<View>(R.id.title_view).parent as View)
     }
 
     override fun initData() {

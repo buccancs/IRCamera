@@ -19,62 +19,63 @@ import com.topdon.lib.core.utils.ScreenUtil
  */
 class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog), View.OnClickListener {
 
+    private lateinit var binding: DialogConfirmSelectBinding
     var onConfirmClickListener: ((isSelect: Boolean) -> Unit)? = null
 
     /**
      * 是否显示顶部信息图标，默认不显示.
      */
     fun setShowIcon(isShowIcon: Boolean) {
-        rootView.iv_icon.isVisible = isShowIcon
+        binding.ivIcon.isVisible = isShowIcon
     }
 
     fun setTitleRes(@StringRes titleRes: Int) {
-        rootView.tv_title.setText(titleRes)
+        binding.tvTitle.setText(titleRes)
     }
 
     fun setTitleStr(titleStr: String) {
-        rootView.tv_title.text = titleStr
+        binding.tvTitle.text = titleStr
     }
 
     /**
      * 是否显示提示文字及选中效果，默认不显示.
      */
     fun setShowMessage(isShowMessage: Boolean) {
-        rootView.rl_message.isVisible = isShowMessage
+        binding.rlMessage.isVisible = isShowMessage
     }
 
     fun setMessageRes(@StringRes messageRes: Int) {
-        rootView.tv_message.setText(messageRes)
+        binding.tvMessage.setText(messageRes)
     }
 
     /**
      * 是否显示取消按钮，默认显示且默认文字为“取消”.
      */
     fun setShowCancel(isShowCancel: Boolean) {
-        rootView.tv_cancel.isVisible = isShowCancel
+        binding.tvCancel.isVisible = isShowCancel
     }
     /**
      * 设置取消按钮文字，默认为“取消”.
      */
     fun setCancelText(@StringRes cancelRes: Int) {
-        rootView.tv_cancel.setText(cancelRes)
+        binding.tvCancel.setText(cancelRes)
     }
 
     /**
      * 设置确认按钮文字，默认为“删除"
      */
     fun setConfirmText(@StringRes confirmRes: Int) {
-        rootView.tv_confirm.setText(confirmRes)
+        binding.tvConfirm.setText(confirmRes)
     }
 
-
-    private val rootView: View = LayoutInflater.from(context).inflate(R.layout.dialog_confirm_select, null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setCancelable(true)
         setCanceledOnTouchOutside(true)
-        setContentView(rootView)
+        
+        binding = DialogConfirmSelectBinding.inflate(LayoutInflater.from(context))
+        setContentView(binding.root)
 
         window?.let {
             val layoutParams = it.attributes
@@ -83,22 +84,22 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
             it.attributes = layoutParams
         }
 
-        rootView.rl_message.setOnClickListener(this)
-        rootView.tv_cancel.setOnClickListener(this)
-        rootView.tv_confirm.setOnClickListener(this)
+        binding.rlMessage.setOnClickListener(this)
+        binding.tvCancel.setOnClickListener(this)
+        binding.tvConfirm.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v) {
-            rootView.rl_message -> {//选中状态
-                rootView.iv_select.isSelected = !rootView.iv_select.isSelected
+            binding.rlMessage -> {//选中状态
+                binding.ivSelect.isSelected = !binding.ivSelect.isSelected
             }
-            rootView.tv_cancel -> {//取消
+            binding.tvCancel -> {//取消
                 dismiss()
             }
-            rootView.tv_confirm -> {//确认
+            binding.tvConfirm -> {//确认
                 dismiss()
-                onConfirmClickListener?.invoke(rootView.iv_select.isSelected)
+                onConfirmClickListener?.invoke(binding.ivSelect.isSelected)
             }
         }
     }
