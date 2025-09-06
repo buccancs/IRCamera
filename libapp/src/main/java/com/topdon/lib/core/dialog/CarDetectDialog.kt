@@ -19,10 +19,10 @@ import com.topdon.lib.core.R
 import com.topdon.lib.core.bean.CarDetectBean
 import com.topdon.lib.core.bean.CarDetectChildBean
 import com.topdon.lib.core.common.SharedManager
-import kotlinx.android.synthetic.main.dialog_car_detect.view.*
-import kotlinx.android.synthetic.main.item_car_detect_child_layout.view.*
-import kotlinx.android.synthetic.main.item_car_detect_layout.view.*
-import kotlinx.android.synthetic.main.toolbar_lay.view.*
+import com.topdon.lib.core.databinding.DialogCarDetectBinding
+import com.topdon.lib.core.databinding.ItemCarDetectChildLayoutBinding
+import com.topdon.lib.core.databinding.ItemCarDetectLayoutBinding
+import com.topdon.lib.core.databinding.ToolbarLayBinding
 
 /**
  * 汽车检测类型拾取弹框.

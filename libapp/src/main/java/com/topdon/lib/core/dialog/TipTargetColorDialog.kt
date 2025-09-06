@@ -5,17 +5,13 @@ import android.content.Context
 import android.content.res.Configuration
 import android.view.LayoutInflater
 import android.view.ViewGroup.LayoutParams
-import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.R
 import com.topdon.lib.core.adapter.TargetColorAdapter
 import com.topdon.lib.core.bean.ObserveBean
+import com.topdon.lib.core.databinding.DialogTipTargetColorBinding
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.dialog_tip_observe.view.img_close
-import kotlinx.android.synthetic.main.dialog_tip_observe.view.tv_i_know
-import kotlinx.android.synthetic.main.dialog_tip_observe.view.tv_title
-import kotlinx.android.synthetic.main.dialog_tip_target_color.view.*
 
 /**
  * 观测-标靶颜色
@@ -33,9 +29,7 @@ class TipTargetColorDialog : Dialog {
         private var canceled = false
         private var targetColor = ObserveBean.TYPE_TARGET_COLOR_GREEN
 
-        private lateinit var titleText: TextView
-        private lateinit var imgClose: ImageView
-        private lateinit var recyclerView: RecyclerView
+        private lateinit var binding: DialogTipTargetColorBinding
 
         constructor(context: Context) {
             this.context = context
@@ -66,23 +60,21 @@ class TipTargetColorDialog : Dialog {
             }
             val inflater =
                 context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val view = inflater.inflate(R.layout.dialog_tip_target_color, null)
+            binding = DialogTipTargetColorBinding.inflate(inflater)
+            val view = binding.root
 
-            view.tv_i_know.setOnClickListener {
+            binding.tvIKnow.setOnClickListener {
                 dismiss()
                 closeEvent?.invoke(targetColor)
             }
 
-            titleText = view.tv_title
-            imgClose = view.img_close
-            recyclerView = view.recycler_view
-            recyclerView.layoutManager = LinearLayoutManager(context!!, RecyclerView.HORIZONTAL, false)
+            binding.recyclerView.layoutManager = LinearLayoutManager(context!!, RecyclerView.HORIZONTAL, false)
             val targetColorAdapter = TargetColorAdapter(context!!,targetColor)
             targetColorAdapter.listener = listener@{ _, item ->
                 targetColor = item
                 targetColorAdapter.selectedCode(item)
             }
-            recyclerView?.adapter = targetColorAdapter
+            binding.recyclerView.adapter = targetColorAdapter
             dialog!!.addContentView(
                 view,
                 LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
@@ -100,7 +92,7 @@ class TipTargetColorDialog : Dialog {
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceled)
-            imgClose.setOnClickListener {
+            binding.imgClose.setOnClickListener {
                 dismiss()
 //              closeEvent?.invoke(targetColor)
             }
