@@ -37,25 +37,25 @@ class ReportIRShowView: LinearLayout {
         val inflater = View.inflate(context, R.layout.view_report_ir_show, this)
         binding = ViewReportIrShowBinding.bind(inflater)
 
-        initTitleText(binding.clFull, TYPE_FULL, 0)
+        initTitleText(binding.clFull.root, TYPE_FULL, 0)
 
-        initTitleText(binding.clPoint1, TYPE_POINT, 0)
-        initTitleText(binding.clPoint2, TYPE_POINT, 1)
-        initTitleText(binding.clPoint3, TYPE_POINT, 2)
-        initTitleText(binding.clPoint4, TYPE_POINT, 3)
-        initTitleText(binding.clPoint5, TYPE_POINT, 4)
+        initTitleText(binding.clPoint1.root, TYPE_POINT, 0)
+        initTitleText(binding.clPoint2.root, TYPE_POINT, 1)
+        initTitleText(binding.clPoint3.root, TYPE_POINT, 2)
+        initTitleText(binding.clPoint4.root, TYPE_POINT, 3)
+        initTitleText(binding.clPoint5.root, TYPE_POINT, 4)
 
-        initTitleText(binding.clLine1, TYPE_LINE, 0)
-        initTitleText(binding.clLine2, TYPE_LINE, 1)
-        initTitleText(binding.clLine3, TYPE_LINE, 2)
-        initTitleText(binding.clLine4, TYPE_LINE, 3)
-        initTitleText(binding.clLine5, TYPE_LINE, 4)
+        initTitleText(binding.clLine1.root, TYPE_LINE, 0)
+        initTitleText(binding.clLine2.root, TYPE_LINE, 1)
+        initTitleText(binding.clLine3.root, TYPE_LINE, 2)
+        initTitleText(binding.clLine4.root, TYPE_LINE, 3)
+        initTitleText(binding.clLine5.root, TYPE_LINE, 4)
 
-        initTitleText(binding.clRect1, TYPE_RECT, 0)
-        initTitleText(binding.clRect2, TYPE_RECT, 1)
-        initTitleText(binding.clRect3, TYPE_RECT, 2)
-        initTitleText(binding.clRect4, TYPE_RECT, 3)
-        initTitleText(binding.clRect5, TYPE_RECT, 4)
+        initTitleText(binding.clRect1.root, TYPE_RECT, 0)
+        initTitleText(binding.clRect2.root, TYPE_RECT, 1)
+        initTitleText(binding.clRect3.root, TYPE_RECT, 2)
+        initTitleText(binding.clRect4.root, TYPE_RECT, 3)
+        initTitleText(binding.clRect5.root, TYPE_RECT, 4)
     }
 
     private fun initTitleText(itemRoot: View, type: Int, index: Int) {
@@ -87,25 +87,25 @@ class ReportIRShowView: LinearLayout {
         val result = ArrayList<View>()
         result.add(binding.clImage)
 
-        getItemChild(binding.clFull, result)
+        getItemChild(binding.clFull.root, result)
 
-        getItemChild(binding.clPoint1, result)
-        getItemChild(binding.clPoint2, result)
-        getItemChild(binding.clPoint3, result)
-        getItemChild(binding.clPoint4, result)
-        getItemChild(binding.clPoint5, result)
+        getItemChild(binding.clPoint1.root, result)
+        getItemChild(binding.clPoint2.root, result)
+        getItemChild(binding.clPoint3.root, result)
+        getItemChild(binding.clPoint4.root, result)
+        getItemChild(binding.clPoint5.root, result)
 
-        getItemChild(binding.clLine1, result)
-        getItemChild(binding.clLine2, result)
-        getItemChild(binding.clLine3, result)
-        getItemChild(binding.clLine4, result)
-        getItemChild(binding.clLine5, result)
+        getItemChild(binding.clLine1.root, result)
+        getItemChild(binding.clLine2.root, result)
+        getItemChild(binding.clLine3.root, result)
+        getItemChild(binding.clLine4.root, result)
+        getItemChild(binding.clLine5.root, result)
 
-        getItemChild(binding.clRect1, result)
-        getItemChild(binding.clRect2, result)
-        getItemChild(binding.clRect3, result)
-        getItemChild(binding.clRect4, result)
-        getItemChild(binding.clRect5, result)
+        getItemChild(binding.clRect1.root, result)
+        getItemChild(binding.clRect2.root, result)
+        getItemChild(binding.clRect3.root, result)
+        getItemChild(binding.clRect4.root, result)
+        getItemChild(binding.clRect5.root, result)
         return result
     }
 

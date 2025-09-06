@@ -53,61 +53,61 @@ class ReportIRInputView: LinearLayout {
         when (type) {
             TYPE_FULL -> {
                 binding.tvTitle.setText(R.string.thermal_full_rect)
-                binding.clMin.isVisible = true
-                binding.clAverage.isVisible = false
-                binding.clMax.tv_item_name.text = context.getString(R.string.chart_temperature_high) + " (${UnitTools.showUnit()})"
-                binding.clMin.tv_item_name.text = context.getString(R.string.chart_temperature_low) + " (${UnitTools.showUnit()})"
-                binding.clExplain.tv_item_name.text = context.getString(R.string.album_report_comment)
+                binding.clMin.root.isVisible = true
+                binding.clAverage.root.isVisible = false
+                binding.clMax.tvItemName.text = context.getString(R.string.chart_temperature_high) + " (${UnitTools.showUnit()})"
+                binding.clMin.tvItemName.text = context.getString(R.string.chart_temperature_low) + " (${UnitTools.showUnit()})"
+                binding.clExplain.tvItemName.text = context.getString(R.string.album_report_comment)
             }
             TYPE_POINT -> {
                 binding.tvTitle.text = context.getString(R.string.thermal_point) + "(P)"
-                binding.clMin.isVisible = false
-                binding.clAverage.isVisible = false
-                binding.clMax.tv_item_name.text = "P${index + 1} " + context.getString(R.string.chart_temperature) + " (${UnitTools.showUnit()})"
-                binding.clExplain.tv_item_name.text = "P${index + 1} " + context.getString(R.string.album_report_comment)
+                binding.clMin.root.isVisible = false
+                binding.clAverage.root.isVisible = false
+                binding.clMax.tvItemName.text = "P${index + 1} " + context.getString(R.string.chart_temperature) + " (${UnitTools.showUnit()})"
+                binding.clExplain.tvItemName.text = "P${index + 1} " + context.getString(R.string.album_report_comment)
             }
             TYPE_LINE -> {
                 binding.tvTitle.text = context.getString(R.string.thermal_line) + "(L)"
-                binding.clMin.isVisible = true
-                binding.clAverage.isVisible = true
-                binding.clMax.tv_item_name.text = "L${index + 1} " + context.getString(R.string.chart_temperature_high) + " (${UnitTools.showUnit()})"
-                binding.clMin.tv_item_name.text = "L${index + 1} " + context.getString(R.string.chart_temperature_low) + " (${UnitTools.showUnit()})"
-                binding.clAverage.tv_item_name.text = "L${index + 1} " + context.getString(R.string.album_report_mean_temperature) + " (${UnitTools.showUnit()})"
-                binding.clExplain.tv_item_name.text = "L${index + 1} " + context.getString(R.string.album_report_comment)
+                binding.clMin.root.isVisible = true
+                binding.clAverage.root.isVisible = true
+                binding.clMax.tvItemName.text = "L${index + 1} " + context.getString(R.string.chart_temperature_high) + " (${UnitTools.showUnit()})"
+                binding.clMin.tvItemName.text = "L${index + 1} " + context.getString(R.string.chart_temperature_low) + " (${UnitTools.showUnit()})"
+                binding.clAverage.tvItemName.text = "L${index + 1} " + context.getString(R.string.album_report_mean_temperature) + " (${UnitTools.showUnit()})"
+                binding.clExplain.tvItemName.text = "L${index + 1} " + context.getString(R.string.album_report_comment)
             }
             TYPE_RECT -> {
                 binding.tvTitle.text = context.getString(R.string.thermal_rect) + "(R)"
-                binding.clMin.isVisible = true
-                binding.clAverage.isVisible = true
-                binding.clMax.tv_item_name.text = "R${index + 1} " + context.getString(R.string.chart_temperature_high) + " (${UnitTools.showUnit()})"
-                binding.clMin.tv_item_name.text = "R${index + 1} " + context.getString(R.string.chart_temperature_low) + " (${UnitTools.showUnit()})"
-                binding.clAverage.tv_item_name.text = "R${index + 1} " + context.getString(R.string.album_report_mean_temperature) + " (${UnitTools.showUnit()})"
-                binding.clExplain.tv_item_name.text = "R${index + 1} " + context.getString(R.string.album_report_comment)
+                binding.clMin.root.isVisible = true
+                binding.clAverage.root.isVisible = true
+                binding.clMax.tvItemName.text = "R${index + 1} " + context.getString(R.string.chart_temperature_high) + " (${UnitTools.showUnit()})"
+                binding.clMin.tvItemName.text = "R${index + 1} " + context.getString(R.string.chart_temperature_low) + " (${UnitTools.showUnit()})"
+                binding.clAverage.tvItemName.text = "R${index + 1} " + context.getString(R.string.album_report_mean_temperature) + " (${UnitTools.showUnit()})"
+                binding.clExplain.tvItemName.text = "R${index + 1} " + context.getString(R.string.album_report_comment)
             }
         }
     }
 
-    fun isSwitchMaxCheck() = binding.clMax.switch_item.isChecked
-    fun isSwitchMinCheck() = binding.clMin.switch_item.isChecked
-    fun isSwitchAverageCheck() = binding.clAverage.switch_item.isChecked
-    fun isSwitchExplainCheck() = binding.clExplain.switch_item.isChecked
+    fun isSwitchMaxCheck() = binding.clMax.switchItem.isChecked
+    fun isSwitchMinCheck() = binding.clMin.switchItem.isChecked
+    fun isSwitchAverageCheck() = binding.clAverage.switchItem.isChecked
+    fun isSwitchExplainCheck() = binding.clExplain.switchItem.isChecked
 
-    fun getMaxInput() = binding.clMax.et_item.text.toString()
-    fun getMinInput() = binding.clMin.et_item.text.toString()
-    fun getAverageInput() = binding.clAverage.et_item.text.toString()
-    fun getExplainInput() = binding.clExplain.et_item.text.toString()
+    fun getMaxInput() = binding.clMax.etItem.text.toString()
+    fun getMinInput() = binding.clMin.etItem.text.toString()
+    fun getAverageInput() = binding.clAverage.etItem.text.toString()
+    fun getExplainInput() = binding.clExplain.etItem.text.toString()
 
     fun refreshData(tempBean: ImageTempBean.TempBean?) {
         tempBean?.max?.let {
-            binding.clMax.et_item.setText(UnitTools.showUnitValue(it.toFloat())?.toString())
+            binding.clMax.etItem.setText(UnitTools.showUnitValue(it.toFloat())?.toString())
         }
         tempBean?.min?.let {
-            binding.clMin.et_item.setText(UnitTools.showUnitValue(it.toFloat())?.toString())
+            binding.clMin.etItem.setText(UnitTools.showUnitValue(it.toFloat())?.toString())
         }
         tempBean?.average?.let {
-            binding.clAverage.et_item.setText(UnitTools.showUnitValue(it.toFloat())?.toString())
+            binding.clAverage.etItem.setText(UnitTools.showUnitValue(it.toFloat())?.toString())
         }
-        binding.clExplain.et_item.setText("")
+        binding.clExplain.etItem.setText("")
     }
 
     private fun setSwitchListener(switchCompat: SwitchCompat, editText: EditText) {
