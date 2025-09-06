@@ -10,10 +10,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.ui.R
 import com.topdon.lib.ui.bean.ColorBean
+import com.topdon.lib.ui.databinding.UiItemMenuFourViewBinding
 import com.topdon.lib.ui.listener.SingleClickListener
-import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.item_menu_tab_img
-import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.item_menu_tab_lay
-import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.item_menu_tab_text
 
 @Deprecated("看起来是旧版 2D 编辑的菜单，根本没使用了")
 class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -52,8 +50,8 @@ class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.V
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.ui_item_menu_four_view, parent, false)
-        return ItemView(view)
+        val binding = UiItemMenuFourViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ItemView(binding)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -99,10 +97,10 @@ class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.V
         return fourBean.size
     }
 
-    inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val lay: View = itemView.item_menu_tab_lay
-        val img: ImageView = itemView.item_menu_tab_img
-        val name: TextView = itemView.item_menu_tab_text
+    inner class ItemView(val binding: UiItemMenuFourViewBinding) : RecyclerView.ViewHolder(binding.root) {
+        val lay: View = binding.itemMenuTabLay
+        val img: ImageView = binding.itemMenuTabImg
+        val name: TextView = binding.itemMenuTabText
     }
 
 }
