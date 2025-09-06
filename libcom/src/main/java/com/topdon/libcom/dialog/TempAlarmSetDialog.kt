@@ -17,7 +17,7 @@ import com.topdon.libcom.R
 import com.topdon.lib.core.bean.AlarmBean
 import com.topdon.lib.core.common.SaveSettingUtil
 import com.topdon.lib.core.tools.ToastTools
-import kotlinx.android.synthetic.main.dialog_temp_alarm_set.*
+import com.topdon.libcom.databinding.DialogTempAlarmSetBinding
 
 class TempAlarmSetDialog(
     context: Context,
@@ -41,12 +41,15 @@ class TempAlarmSetDialog(
 
     public var hideAlarmMark = false
 
+    private lateinit var binding: DialogTempAlarmSetBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setCancelable(false)
         setCanceledOnTouchOutside(false)
-        setContentView(LayoutInflater.from(context).inflate(R.layout.dialog_temp_alarm_set, null))
+        binding = DialogTempAlarmSetBinding.inflate(LayoutInflater.from(context))
+        setContentView(binding.root)
         initView()
 
         window?.let {
@@ -62,42 +65,42 @@ class TempAlarmSetDialog(
     }
 
     private fun initView() {
-        cl_root.setOnClickListener { dismiss() }
-        cl_close.setOnClickListener { dismiss() }
-        tv_save.setOnClickListener { save() }
-        iv_ringtone1.setOnClickListener { selectRingtone(0) }
-        iv_ringtone2.setOnClickListener { selectRingtone(1) }
-        iv_ringtone3.setOnClickListener { selectRingtone(2) }
-        iv_ringtone4.setOnClickListener { selectRingtone(3) }
-        iv_ringtone5.setOnClickListener { selectRingtone(4) }
-        switch_alarm_high.setOnCheckedChangeListener(this)
-        switch_alarm_low.setOnCheckedChangeListener(this)
-        switch_alarm_mark.setOnCheckedChangeListener(this)
-        switch_alarm_ringtone.setOnCheckedChangeListener(this)
+        binding.clRoot.setOnClickListener { dismiss() }
+        binding.clClose.setOnClickListener { dismiss() }
+        binding.tvSave.setOnClickListener { save() }
+        binding.ivRingtone1.setOnClickListener { selectRingtone(0) }
+        binding.ivRingtone2.setOnClickListener { selectRingtone(1) }
+        binding.ivRingtone3.setOnClickListener { selectRingtone(2) }
+        binding.ivRingtone4.setOnClickListener { selectRingtone(3) }
+        binding.ivRingtone5.setOnClickListener { selectRingtone(4) }
+        binding.switchAlarmHigh.setOnCheckedChangeListener(this)
+        binding.switchAlarmLow.setOnCheckedChangeListener(this)
+        binding.switchAlarmMark.setOnCheckedChangeListener(this)
+        binding.switchAlarmRingtone.setOnCheckedChangeListener(this)
 
-        img_mark_high.setOnClickListener {
+        binding.imgMarkHigh.setOnClickListener {
             showColorDialog(true)
         }
-        img_mark_low.setOnClickListener {
+        binding.imgMarkLow.setOnClickListener {
             showColorDialog(false)
         }
-        iv_check_stoke.setOnClickListener {
-            if (!iv_check_stoke.isSelected) {
-                iv_check_stoke.isSelected = true
-                iv_check_matrix.isSelected = false
+        binding.ivCheckStoke.setOnClickListener {
+            if (!binding.ivCheckStoke.isSelected) {
+                binding.ivCheckStoke.isSelected = true
+                binding.ivCheckMatrix.isSelected = false
                 alarmBean.markType = AlarmBean.TYPE_ALARM_MARK_STROKE
             }
         }
-        iv_check_matrix.setOnClickListener {
-            if (!iv_check_matrix.isSelected) {
-                iv_check_stoke.isSelected = false
-                iv_check_matrix.isSelected = true
+        binding.ivCheckMatrix.setOnClickListener {
+            if (!binding.ivCheckMatrix.isSelected) {
+                binding.ivCheckStoke.isSelected = false
+                binding.ivCheckMatrix.isSelected = true
                 alarmBean.markType = AlarmBean.TYPE_ALARM_MARK_MATRIX
             }
         }
 
-        tv_alarm_high_unit.text = UnitTools.showUnit()
-        tv_alarm_low_unit.text = UnitTools.showUnit()
+        binding.tvAlarmHighUnit.text = UnitTools.showUnit()
+        binding.tvAlarmLowUnit.text = UnitTools.showUnit()
     }
 
     override fun show() {
@@ -106,62 +109,62 @@ class TempAlarmSetDialog(
     }
 
     private fun refreshAlarmView() {
-        switch_alarm_high.isChecked = alarmBean.isHighOpen
-        switch_alarm_low.isChecked = alarmBean.isLowOpen
-        switch_alarm_mark.isChecked = isEdit || alarmBean.isMarkOpen
+        binding.switchAlarmHigh.isChecked = alarmBean.isHighOpen
+        binding.switchAlarmLow.isChecked = alarmBean.isLowOpen
+        binding.switchAlarmMark.isChecked = isEdit || alarmBean.isMarkOpen
         if (!isEdit) {
-            switch_alarm_ringtone.isChecked = alarmBean.isRingtoneOpen
+            binding.switchAlarmRingtone.isChecked = alarmBean.isRingtoneOpen
         }
-        iv_check_stoke.isSelected = alarmBean.markType == AlarmBean.TYPE_ALARM_MARK_STROKE
-        iv_check_matrix.isSelected = alarmBean.markType == AlarmBean.TYPE_ALARM_MARK_MATRIX
-        Glide.with(context).load(ColorDrawable(alarmBean.highColor)).into(img_c_alarm_high)
-        Glide.with(context).load(ColorDrawable(alarmBean.lowColor)).into(img_c_alarm_low)
+        binding.ivCheckStoke.isSelected = alarmBean.markType == AlarmBean.TYPE_ALARM_MARK_STROKE
+        binding.ivCheckMatrix.isSelected = alarmBean.markType == AlarmBean.TYPE_ALARM_MARK_MATRIX
+        Glide.with(context).load(ColorDrawable(alarmBean.highColor)).into(binding.imgCAlarmHigh)
+        Glide.with(context).load(ColorDrawable(alarmBean.lowColor)).into(binding.imgCAlarmLow)
 
-        et_alarm_high.isEnabled = switch_alarm_high.isChecked
-        et_alarm_low.isEnabled = switch_alarm_low.isChecked
-        cl_alarm_mark.isVisible = isEdit || switch_alarm_mark.isChecked
-        cl_ringtone_select.isVisible = !isEdit && switch_alarm_ringtone.isChecked
-        tv_alarm_ringtone.isVisible = !isEdit
-        switch_alarm_ringtone.isVisible = !isEdit
+        binding.etAlarmHigh.isEnabled = binding.switchAlarmHigh.isChecked
+        binding.etAlarmLow.isEnabled = binding.switchAlarmLow.isChecked
+        binding.clAlarmMark.isVisible = isEdit || binding.switchAlarmMark.isChecked
+        binding.clRingtoneSelect.isVisible = !isEdit && binding.switchAlarmRingtone.isChecked
+        binding.tvAlarmRingtone.isVisible = !isEdit
+        binding.switchAlarmRingtone.isVisible = !isEdit
         if (hideAlarmMark){
-            tv_alarm_mark.visibility = View.GONE
-            switch_alarm_mark.visibility = View.GONE
-            cl_alarm_mark.visibility = View.GONE
+            binding.tvAlarmMark.visibility = View.GONE
+            binding.switchAlarmMark.visibility = View.GONE
+            binding.clAlarmMark.visibility = View.GONE
         }
-        switch_alarm_mark.isVisible = !isEdit
+        binding.switchAlarmMark.isVisible = !isEdit
         if (alarmBean.highTemp == Float.MAX_VALUE) {
-            et_alarm_high.setText("")
+            binding.etAlarmHigh.setText("")
         } else {
-            et_alarm_high.setText(UnitTools.showUnitValue(alarmBean.highTemp).toString())
+            binding.etAlarmHigh.setText(UnitTools.showUnitValue(alarmBean.highTemp).toString())
         }
         if (alarmBean.lowTemp == Float.MIN_VALUE) {
-            et_alarm_low.setText("")
+            binding.etAlarmLow.setText("")
         } else {
-            et_alarm_low.setText(UnitTools.showUnitValue(alarmBean.lowTemp).toString())
+            binding.etAlarmLow.setText(UnitTools.showUnitValue(alarmBean.lowTemp).toString())
         }
-        iv_ringtone1.isSelected = false
-        iv_ringtone2.isSelected = false
-        iv_ringtone3.isSelected = false
-        iv_ringtone4.isSelected = false
-        iv_ringtone5.isSelected = false
+        binding.ivRingtone1.isSelected = false
+        binding.ivRingtone2.isSelected = false
+        binding.ivRingtone3.isSelected = false
+        binding.ivRingtone4.isSelected = false
+        binding.ivRingtone5.isSelected = false
         when (alarmBean.ringtoneType) {
-            0 -> iv_ringtone1.isSelected = true
-            1 -> iv_ringtone2.isSelected = true
-            2 -> iv_ringtone3.isSelected = true
-            3 -> iv_ringtone4.isSelected = true
-            4 -> iv_ringtone5.isSelected = true
+            0 -> binding.ivRingtone1.isSelected = true
+            1 -> binding.ivRingtone2.isSelected = true
+            2 -> binding.ivRingtone3.isSelected = true
+            3 -> binding.ivRingtone4.isSelected = true
+            4 -> binding.ivRingtone5.isSelected = true
         }
     }
 
     private fun save() {
         try {
-            val inputHigh = if (switch_alarm_high.isChecked) {
-                if (et_alarm_high.text.isNotEmpty()) UnitTools.showToCValue(et_alarm_high.text.toString().toFloat()) else null
+            val inputHigh = if (binding.switchAlarmHigh.isChecked) {
+                if (binding.etAlarmHigh.text.isNotEmpty()) UnitTools.showToCValue(binding.etAlarmHigh.text.toString().toFloat()) else null
             } else {
                 null
             }
-            val inputLow = if (switch_alarm_low.isChecked) {
-                if (et_alarm_low.text.isNotEmpty()) UnitTools.showToCValue(et_alarm_low.text.toString().toFloat()) else null
+            val inputLow = if (binding.switchAlarmLow.isChecked) {
+                if (binding.etAlarmLow.text.isNotEmpty()) UnitTools.showToCValue(binding.etAlarmLow.text.toString().toFloat()) else null
             } else {
                 null
             }
@@ -174,8 +177,8 @@ class TempAlarmSetDialog(
             return
         }
 
-        val inputHigh = if (et_alarm_high.text.isNotEmpty()) et_alarm_high.text.toString() else ""
-        val inputLow = if (et_alarm_low.text.isNotEmpty()) et_alarm_low.text.toString() else ""
+        val inputHigh = if (binding.etAlarmHigh.text.isNotEmpty()) binding.etAlarmHigh.text.toString() else ""
+        val inputLow = if (binding.etAlarmLow.text.isNotEmpty()) binding.etAlarmLow.text.toString() else ""
         var highValue: Float? = null
         var lowValue: Float? = null
         try {
@@ -186,9 +189,9 @@ class TempAlarmSetDialog(
         }
         alarmBean.highTemp = highValue ?: Float.MAX_VALUE
         alarmBean.lowTemp = lowValue ?: Float.MIN_VALUE
-        alarmBean.isHighOpen = switch_alarm_high.isChecked
-        alarmBean.isLowOpen = switch_alarm_low.isChecked
-        alarmBean.isRingtoneOpen = switch_alarm_ringtone.isChecked
+        alarmBean.isHighOpen = binding.switchAlarmHigh.isChecked
+        alarmBean.isLowOpen = binding.switchAlarmLow.isChecked
+        alarmBean.isRingtoneOpen = binding.switchAlarmRingtone.isChecked
 
         onSaveListener?.invoke(alarmBean)
 
@@ -200,10 +203,10 @@ class TempAlarmSetDialog(
         colorPickDialog.onPickListener = { it: Int, i1: Int ->
             if (isHigh) {
                 alarmBean.highColor = it
-                Glide.with(context).load(ColorDrawable(it)).into(img_c_alarm_high)
+                Glide.with(context).load(ColorDrawable(it)).into(binding.imgCAlarmHigh)
             } else {
                 alarmBean.lowColor = it
-                Glide.with(context).load(ColorDrawable(it)).into(img_c_alarm_low)
+                Glide.with(context).load(ColorDrawable(it)).into(binding.imgCAlarmLow)
             }
         }
         colorPickDialog.show()
@@ -226,22 +229,22 @@ class TempAlarmSetDialog(
     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
         when (buttonView?.id) {
             R.id.switch_alarm_high -> {//高温报警
-                et_alarm_high.isEnabled = isChecked
+                binding.etAlarmHigh.isEnabled = isChecked
                 alarmBean.isHighOpen = isChecked
             }
 
             R.id.switch_alarm_low -> {//低温报警
-                et_alarm_low.isEnabled = isChecked
+                binding.etAlarmLow.isEnabled = isChecked
                 alarmBean.isLowOpen = isChecked
             }
 
             R.id.switch_alarm_mark -> {//区域标记
-                cl_alarm_mark.isVisible = isChecked
+                binding.clAlarmMark.isVisible = isChecked
                 alarmBean.isMarkOpen = isChecked
             }
 
             R.id.switch_alarm_ringtone -> {//报警铃声
-                cl_ringtone_select.isVisible = isChecked
+                binding.clRingtoneSelect.isVisible = isChecked
                 if (isChecked) {
                     selectRingtone(alarmBean.ringtoneType)
                 } else {
@@ -267,17 +270,17 @@ class TempAlarmSetDialog(
         }
         alarmBean.ringtoneType = position
 
-        iv_ringtone1.isSelected = false
-        iv_ringtone2.isSelected = false
-        iv_ringtone3.isSelected = false
-        iv_ringtone4.isSelected = false
-        iv_ringtone5.isSelected = false
+        binding.ivRingtone1.isSelected = false
+        binding.ivRingtone2.isSelected = false
+        binding.ivRingtone3.isSelected = false
+        binding.ivRingtone4.isSelected = false
+        binding.ivRingtone5.isSelected = false
         when (position) {
-            0 -> iv_ringtone1.isSelected = true
-            1 -> iv_ringtone2.isSelected = true
-            2 -> iv_ringtone3.isSelected = true
-            3 -> iv_ringtone4.isSelected = true
-            4 -> iv_ringtone5.isSelected = true
+            0 -> binding.ivRingtone1.isSelected = true
+            1 -> binding.ivRingtone2.isSelected = true
+            2 -> binding.ivRingtone3.isSelected = true
+            3 -> binding.ivRingtone4.isSelected = true
+            4 -> binding.ivRingtone5.isSelected = true
         }
         when (position) {
             0 -> mediaPlayer = MediaPlayer.create(context, R.raw.ringtone1)
