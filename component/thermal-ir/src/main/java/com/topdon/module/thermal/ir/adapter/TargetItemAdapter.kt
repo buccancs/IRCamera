@@ -10,8 +10,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.bean.ObserveBean
 import com.topdon.lib.ui.bean.ColorBean
-import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.itme_target_mode.view.*
+import com.topdon.module.thermal.R
+import com.topdon.module.thermal.databinding.ItmeTargetModeBinding
 
 class TargetItemAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var listener: ((index: Int, code: Int) -> Unit)? = null
@@ -35,8 +35,8 @@ class TargetItemAdapter(val context: Context) : RecyclerView.Adapter<RecyclerVie
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.itme_target_mode, parent, false)
-        return ItemView(view)
+        val binding = ItmeTargetModeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ItemView(binding)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -61,10 +61,10 @@ class TargetItemAdapter(val context: Context) : RecyclerView.Adapter<RecyclerVie
         return secondBean.size
     }
 
-    inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val lay: View = itemView.item_menu_tab_lay
-        val img: ImageView = itemView.item_menu_tab_img
-        val name: TextView = itemView.item_menu_tab_text
+    inner class ItemView(private val binding: ItmeTargetModeBinding) : RecyclerView.ViewHolder(binding.root) {
+        val lay: View = binding.itemMenuTabLay
+        val img: ImageView = binding.itemMenuTabImg
+        val name: TextView = binding.itemMenuTabText
 //        init {
 //            val canSeeCount = itemCount.toFloat() //一屏可见的 item 数量，目前都是全都显示完
 //            val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()

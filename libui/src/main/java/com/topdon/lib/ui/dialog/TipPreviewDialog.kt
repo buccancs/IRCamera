@@ -19,7 +19,7 @@ import androidx.viewpager.widget.ViewPager
 import com.topdon.lib.ui.R
 import com.topdon.lib.ui.widget.IndicateView
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.dialog_tip_preview.view.*
+import com.topdon.lib.ui.databinding.DialogTipPreviewBinding
 import java.util.Timer
 import kotlin.collections.ArrayList
 
@@ -52,20 +52,22 @@ class TipPreviewDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.dialog_tip_preview, container, false)
+        val binding = DialogTipPreviewBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val binding = DialogTipPreviewBinding.bind(view)
         titleList = arrayListOf(
             getString(R.string.preview_step_1),
             getString(R.string.preview_step_2),
         )
-        checkBox = view.dialog_tip_check
-        imgClose = view.img_close
-        viewPager = view.view_pager
-        tvContent = view.tv_content
-        indicateView = view.indicate_view
+        checkBox = binding.dialogTipCheck
+        imgClose = binding.imgClose
+        viewPager = binding.viewPager
+        tvContent = binding.tvContent
+        indicateView = binding.indicateView
         val adapter = PageAdapter(childFragmentManager)
         indicateView.itemCount = adapter.count
         viewPager.adapter = adapter
@@ -76,7 +78,7 @@ class TipPreviewDialog : DialogFragment() {
             closeEvent?.invoke(hasCheck)
             dismiss()
         }
-        view.tv_i_know.setOnClickListener {
+        binding.tvIKnow.setOnClickListener {
             closeEvent?.invoke(hasCheck)
             dismiss()
         }

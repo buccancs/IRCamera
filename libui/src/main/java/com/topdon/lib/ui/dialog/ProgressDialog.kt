@@ -3,12 +3,11 @@ package com.topdon.lib.ui.dialog
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup.LayoutParams
+import androidx.databinding.DataBindingUtil
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lib.ui.R
-import kotlinx.android.synthetic.main.dialog_progress.view.*
+import com.topdon.lib.ui.databinding.DialogProgressBinding
 
 /**
  * 带进度条的提示弹框.
@@ -16,28 +15,33 @@ import kotlinx.android.synthetic.main.dialog_progress.view.*
 class ProgressDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
     var max: Int = 100
         set(value) {
-            rootView.progress_bar.max = value
+            binding.progressBar.max = value
             field = value
         }
 
     var progress: Int = 0
         set(value) {
-            rootView.progress_bar.progress = value
+            binding.progressBar.progress = value
             field = value
         }
 
 
 
-    private val rootView: View
+    private val binding: DialogProgressBinding
     init {
-        rootView = LayoutInflater.from(context).inflate(R.layout.dialog_progress, null)
+        binding = DataBindingUtil.inflate(
+            android.view.LayoutInflater.from(context), 
+            R.layout.dialog_progress, 
+            null, 
+            false
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setCancelable(false)
         setCanceledOnTouchOutside(false)
-        setContentView(rootView)
+        setContentView(binding.root)
 
         window?.let {
             val layoutParams = it.attributes
@@ -49,7 +53,7 @@ class ProgressDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
 
     override fun show() {
         super.show()
-        rootView.progress_bar.max = max
-        rootView.progress_bar.progress = progress
+        binding.progressBar.max = max
+        binding.progressBar.progress = progress
     }
 }

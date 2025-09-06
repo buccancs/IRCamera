@@ -13,7 +13,7 @@ import com.topdon.lib.core.repository.ProductBean
 import com.topdon.lms.sdk.utils.TLog
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.user.R
-import kotlinx.android.synthetic.main.activity_device_details.*
+import com.topdon.module.user.databinding.ActivityDeviceDetailsBinding
 import kotlinx.coroutines.launch
 
 /**
@@ -25,6 +25,8 @@ import kotlinx.coroutines.launch
 @Route(path = RouterConfig.DEVICE_INFORMATION)
 class DeviceDetailsActivity : BaseActivity(), View.OnClickListener {
 
+    private lateinit var binding: ActivityDeviceDetailsBinding
+
     /**
      * Legacy TC007 flag - now always false for TC001 devices.
      */
@@ -33,9 +35,10 @@ class DeviceDetailsActivity : BaseActivity(), View.OnClickListener {
     override fun initContentView() = R.layout.activity_device_details
 
     override fun initView() {
+        binding = ActivityDeviceDetailsBinding.bind(findViewById(android.R.id.content))
         // TC001 devices only - ignore legacy TC007 parameter
         isTC007 = false // Always false for TC001
-        cl_layout_copy.setOnClickListener(this)
+        binding.clLayoutCopy.setOnClickListener(this)
     }
 
     override fun initData() {
@@ -51,8 +54,8 @@ class DeviceDetailsActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            cl_layout_copy -> {//复制信息
-                val text = "${tv_sn.text}:${tv_sn_value.text}  ${tv_device_model.text}:${tv_device_model_value.text}"
+            binding.clLayoutCopy -> {//复制信息
+                val text = "${binding.tvSn.text}:${binding.tvSnValue.text}  ${binding.tvDeviceModel.text}:${binding.tvDeviceModelValue.text}"
                 val cm = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager?
                 val mClipData = ClipData.newPlainText("text", text)
                 cm!!.setPrimaryClip(mClipData)

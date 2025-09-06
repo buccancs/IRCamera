@@ -31,9 +31,8 @@ import com.topdon.lib.ui.dialog.SeekDialog
 import com.topdon.lib.ui.dialog.ThermalInputDialog
 import com.topdon.lib.ui.fence.FenceLineView
 import com.topdon.lib.ui.fence.FencePointView
-import kotlinx.android.synthetic.main.fragment_thermal.*
 import com.topdon.lib.ui.fence.FenceView
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.thermal.base.BaseThermalFragment
 import com.topdon.module.thermal.ir.thermal.fragment.event.ThermalActionEvent
 import com.topdon.module.thermal.ir.thermal.tools.Fence
@@ -42,7 +41,7 @@ import com.topdon.module.thermal.ir.thermal.tools.medie.IYapVideoProvider
 import com.topdon.module.thermal.ir.thermal.tools.medie.YapVideoEncoder
 import com.topdon.module.thermal.ir.thermal.utils.ArrayUtils
 import com.topdon.module.thermal.ir.thermal.viewmodel.ThermalViewModel
-import kotlinx.android.synthetic.main.fragment_thermal.*
+import com.topdon.module.thermal.databinding.FragmentThermalBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.Subscribe
@@ -54,6 +53,9 @@ import java.math.BigDecimal
  * 热成像
  */
 class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
+
+    private var _binding: FragmentThermalBinding? = null
+    private val binding get() = _binding!!
 
     private val viewModel: ThermalViewModel by viewModels()
 
@@ -87,19 +89,20 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
 
 
     override fun initView() {
+        _binding = FragmentThermalBinding.bind(requireView())
         requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         rotateType = 3//默认旋转270度
-        mCenterTextView = temp_display
-        mMaxTextView = max_temp_display
-        mMinTextView = min_temp_display
-        maxImg = max_img
-        minImg = min_img
-        mDisplayFrameLayout = temp_display_layout
-        mFenceLayout = fence_lay
-        mCameraLayout = temp_camera_layout
+        mCenterTextView = binding.tempDisplay
+        mMaxTextView = binding.maxTempDisplay
+        mMinTextView = binding.minTempDisplay
+        maxImg = binding.maxImg
+        minImg = binding.minImg
+        mDisplayFrameLayout = binding.tempDisplayLayout
+        mFenceLayout = binding.fenceLay
+        mCameraLayout = binding.tempCameraLayout
         mDisplayFrameLayout!!.visibility = View.GONE
         mFenceLayout!!.visibility = View.GONE
-        mIrSurfaceViewLayout = final_ir_layout
+        mIrSurfaceViewLayout = binding.finalIrLayout
         mIrSurfaceView = IrSurfaceView(requireContext())
         val ifrSurfaceViewLayoutParams = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.MATCH_PARENT,
@@ -206,6 +209,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
     override fun onDestroyView() {
         super.onDestroyView()
         onIrVideoStop()
+        _binding = null
     }
 
 
@@ -491,9 +495,9 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
         mFenceLayout!!.visibility = View.GONE
         fenceFlag = 0x000
         selectIndex.clear()
-        fence_view.clear()
-        fence_line_view.clear()
-        fence_point_view.clear()
+        binding.fenceView.clear()
+        binding.fenceLineView.clear()
+        binding.fencePointView.clear()
     }
 
     /**
@@ -537,9 +541,9 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
         if (fenceFlag.getIndex(index) == 0) {
             fenceFlag = 1.shl(4 * (index - 1)) //设置001 or 010 or 100
             mFenceLayout!!.visibility = View.VISIBLE
-            fence_point_view.visibility = if (fenceFlag.getIndex(1) > 0) View.VISIBLE else View.GONE
-            fence_line_view.visibility = if (fenceFlag.getIndex(2) > 0) View.VISIBLE else View.GONE
-            fence_view.visibility = if (fenceFlag.getIndex(3) > 0) View.VISIBLE else View.GONE
+            binding.fencePointView.visibility = if (fenceFlag.getIndex(1) > 0) View.VISIBLE else View.GONE
+            binding.fenceLineView.visibility = if (fenceFlag.getIndex(2) > 0) View.VISIBLE else View.GONE
+            binding.fenceView.visibility = if (fenceFlag.getIndex(3) > 0) View.VISIBLE else View.GONE
         } else {
             fenceFlag = 0x000
             mFenceLayout!!.visibility = View.GONE
@@ -550,7 +554,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
     private var selectIndex: ArrayList<Int> = arrayListOf()
 
     private fun initFence() {
-        fence_point_view.listener = object : FencePointView.CallBack {
+        binding.fencePointView.listener = object : FencePointView.CallBack {
             override fun callback(startPoint: IntArray, srcRect: IntArray) {
                 //获取点
                 selectType = 1
@@ -559,7 +563,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
             }
 
         }
-        fence_line_view.listener = object : FenceLineView.CallBack {
+        binding.fenceLineView.listener = object : FenceLineView.CallBack {
             override fun callback(startPoint: IntArray, endPoint: IntArray, srcRect: IntArray) {
                 //获取线
                 selectType = 2
@@ -567,7 +571,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
                     .getLineIndex(startPoint, endPoint)
             }
         }
-        fence_view.listener = object : FenceView.CallBack {
+        binding.fenceView.listener = object : FenceView.CallBack {
             override fun callback(startPoint: IntArray, endPoint: IntArray, srcRect: IntArray) {
                 //获取面
                 selectType = 3
@@ -580,7 +584,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
 
     private fun picture() {
 //        com.topdon.lib.app.utils.ScreenShotUtils.shotScreen(requireContext(), temp_display_lay, 1, com.topdon.lib.app.utils.ScreenBean())
-        ScreenShotUtils.shotScreenBitmap(temp_display_layout)
+        ScreenShotUtils.shotScreenBitmap(binding.tempDisplayLayout)
     }
 
     var isVideoRunning = false
@@ -645,13 +649,13 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
             .subscribe {
                 if (isRunCamera) {
                     //关闭
-                    temp_camera_layout.visibility = View.GONE
+                    binding.tempCameraLayout.visibility = View.GONE
                     isRunCamera = false
                 } else {
                     //打开
-                    temp_camera_layout.visibility = View.VISIBLE
-                    temp_camera_view.post {
-                        temp_camera_view.openCamera()
+                    binding.tempCameraLayout.visibility = View.VISIBLE
+                    binding.tempCameraView.post {
+                        binding.tempCameraView.openCamera()
                         isRunCamera = true
                     }
                 }

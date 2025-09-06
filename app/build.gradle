@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
     id 'kotlin-kapt'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
@@ -14,6 +13,7 @@ kapt {
 }
 
 android {
+    namespace 'com.topdon.tc001'
     compileSdk rootProject.ext.android.compileSdk
     
     defaultConfig {
@@ -41,8 +41,6 @@ android {
                 JPUSH_CHANNEL : "developer-default",
                 app_name: "IRCamera",
         ]
-
-        setProperty("archivesBaseName", "TC001-v${versionName}.google")
     }
 
     bundle {
@@ -62,7 +60,6 @@ android {
         }
     }
 
-
     buildTypes {
         release {
             signingConfig signingConfigs.release
@@ -76,9 +73,10 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
+    
     packagingOptions {
         //解决第三方so依赖冲突 merge（合并）  pickFirst（选取第一个）
         //如果合并不能解决问题就选择其中一个
@@ -106,18 +104,26 @@ android {
         pickFirst 'lib/armeabi-v7a/liblog.so'
         doNotStrip "**/*.so"
     }
+    
     kotlinOptions {
-        jvmTarget = '1.8'
-    }
-    buildFeatures{
-        dataBinding = true
+        jvmTarget = '17'
     }
     
+    buildFeatures{
+        buildConfig = true
+        viewBinding = true
+        dataBinding = true
+    }
+
     lint {
         abortOnError false
         checkReleaseBuilds false
         disable 'CustomSplashScreen', 'VectorRaster', 'UnusedAttribute'
     }
+}
+
+base {
+    archivesName = "TC001-v${rootProject.ext.android.versionName}.google"
 }
 static def getYearStr() {
     return new Date().format('yy')
@@ -163,13 +169,26 @@ def copyAab(type) {
 }
 
 project.afterEvaluate {
-    assembleRelease.doLast {
-        println "===================== build Release.apk copy ======================="
-        copyApk("release")
+    try {
+        tasks.named("assembleRelease").configure {
+            doLast {
+                println "===================== build Release.apk copy ======================="
+                copyApk("release")
+            }
+        }
+    } catch (UnknownTaskException e) {
+        // Task doesn't exist, ignore
     }
-    bundleRelease.doLast {
-        println "===================== build Release.aab copy ======================="
-        copyAab("release")
+    
+    try {
+        tasks.named("bundleRelease").configure {
+            doLast {
+                println "===================== build Release.aab copy ======================="
+                copyAab("release")
+            }
+        }
+    } catch (UnknownTaskException e) {
+        // Task doesn't exist, ignore  
     }
 }
 

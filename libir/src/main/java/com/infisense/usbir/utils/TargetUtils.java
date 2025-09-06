@@ -1,6 +1,6 @@
 package com.infisense.usbir.utils;
 
-import com.infisense.usbir.R;
+import com.topdon.libir.R;
 import com.topdon.lib.core.bean.ObserveBean;
 
 public class TargetUtils {

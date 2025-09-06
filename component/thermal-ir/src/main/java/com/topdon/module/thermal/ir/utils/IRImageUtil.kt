@@ -4,7 +4,7 @@ import android.graphics.Bitmap
 import android.util.Log
 import android.widget.ImageView
 import androidx.annotation.FloatRange
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import org.bytedeco.opencv.global.opencv_core.BORDER_DEFAULT
 import org.bytedeco.opencv.global.opencv_core.CV_16S
 import org.opencv.android.Utils

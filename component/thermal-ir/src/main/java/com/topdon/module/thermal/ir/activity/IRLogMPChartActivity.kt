@@ -24,9 +24,9 @@ import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.libcom.ExcelUtil
 import com.topdon.lms.sdk.BuildConfig
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.viewmodel.IRMonitorViewModel
-import kotlinx.android.synthetic.main.activity_ir_log_mp_chart.*
+import com.topdon.module.thermal.databinding.ActivityIrLogMpChartBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -36,6 +36,7 @@ import kotlin.collections.ArrayList
 @Route(path = RouterConfig.IR_THERMAL_LOG_MP_CHART)
 class IRLogMPChartActivity : BaseActivity() {
 
+    private lateinit var binding: ActivityIrLogMpChartBinding
     private val viewModel: IRMonitorViewModel by viewModels()
 
     /**
@@ -60,23 +61,26 @@ class IRLogMPChartActivity : BaseActivity() {
     override fun initContentView() = R.layout.activity_ir_log_mp_chart
 
     override fun initView() {
+        binding = ActivityIrLogMpChartBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
         startTime = intent.getLongExtra(ExtraKeyConfig.TIME_MILLIS, 0)
         viewModel.detailListLD.observe(this) {
             dismissLoadingDialog()
 
             val isPoint = it?.isNotEmpty() == true && it.first().type == "point"
-            monitor_current_vol.text = getString(if (isPoint) R.string.chart_temperature else R.string.chart_temperature_high)
-            monitor_real_vol.visibility = if (isPoint) View.GONE else View.VISIBLE
-            monitor_real_img.visibility = if (isPoint) View.GONE else View.VISIBLE
+            binding.monitorCurrentVol.text = getString(if (isPoint) R.string.chart_temperature else R.string.chart_temperature_high)
+            binding.monitorRealVol.visibility = if (isPoint) View.GONE else View.VISIBLE
+            binding.monitorRealImg.visibility = if (isPoint) View.GONE else View.VISIBLE
 
             try {
-                log_chart_time_chart.initEntry(it as ArrayList<ThermalEntity>)
+                binding.logChartTimeChart.initEntry(it as ArrayList<ThermalEntity>)
             } catch (e: Exception) {
                 XLog.e("刷新图表异常:${e.message}")
             }
         }
 
-        btn_ex?.setOnClickListener {
+        binding.btnEx?.setOnClickListener {
             TipDialog.Builder(this)
                 .setMessage(R.string.tip_album_temp_exportfile)
                 .setPositiveListener(R.string.app_confirm) {
@@ -149,7 +153,7 @@ class IRLogMPChartActivity : BaseActivity() {
                 .setCanceled(true)
                 .create().show()
         }
-        tv_save_path?.text = getString(R.string.temp_export_path) + ": " + FileConfig.excelDir
+        binding.tvSavePath?.text = getString(R.string.temp_export_path) + ": " + FileConfig.excelDir
         viewModel.queryDetail(startTime)
 
     }

@@ -2,7 +2,7 @@ package com.topdon.module.thermal.ir.report.bean
 
 import android.os.Parcelable
 import com.topdon.lib.core.utils.CommUtils
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 /**
  * 报告信息.

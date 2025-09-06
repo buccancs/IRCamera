@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.isVisible
-import kotlinx.android.synthetic.main.ui_setting_view.view.*
 
 class SettingNightView : LinearLayout {
 
@@ -39,6 +38,7 @@ class SettingNightView : LinearLayout {
     private lateinit var headImg: ImageView
     private lateinit var endImg: ImageView
     private lateinit var contentText: TextView
+    private lateinit var settingLine: View
 
     constructor(context: Context) : this(context, null)
 
@@ -76,6 +76,7 @@ class SettingNightView : LinearLayout {
         contentText = findViewById(R.id.item_setting_text)
         headImg = findViewById(R.id.item_setting_image)
         endImg = findViewById(R.id.item_setting_end_image)
+        settingLine = findViewById(R.id.item_setting_line)
 
         headImg.setImageResource(iconRes)
         if (iconShow) {
@@ -89,6 +90,6 @@ class SettingNightView : LinearLayout {
         } else {
             endImg.visibility = View.GONE
         }
-        item_setting_line.visibility = if (lineShow) View.VISIBLE else View.GONE
+        settingLine.visibility = if (lineShow) View.VISIBLE else View.GONE
     }
 }

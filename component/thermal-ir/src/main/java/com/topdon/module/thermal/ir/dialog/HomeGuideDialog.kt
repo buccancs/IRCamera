@@ -12,11 +12,11 @@ import android.renderscript.ScriptIntrinsicBlur
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.view.isVisible
-import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.dialog_home_guide.*
-import kotlinx.android.synthetic.main.layout_home_guide_1.*
-import kotlinx.android.synthetic.main.layout_home_guide_2.*
-import kotlinx.android.synthetic.main.layout_home_guide_3.*
+import com.topdon.module.thermal.R
+import com.topdon.module.thermal.databinding.DialogHomeGuideBinding
+import com.topdon.module.thermal.databinding.LayoutHomeGuide1Binding
+import com.topdon.module.thermal.databinding.LayoutHomeGuide2Binding
+import com.topdon.module.thermal.databinding.LayoutHomeGuide3Binding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -27,6 +27,11 @@ import kotlinx.coroutines.launch
  * Created by LCG on 2024/4/8.
  */
 class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(context, R.style.TransparentDialog) {
+
+    private lateinit var binding: DialogHomeGuideBinding
+    private lateinit var guide1Binding: LayoutHomeGuide1Binding
+    private lateinit var guide2Binding: LayoutHomeGuide2Binding  
+    private lateinit var guide3Binding: LayoutHomeGuide3Binding
 
     /**
      * 下一步点击事件监听，step：当前处于第`[1,3]`，在该步骤点击的下一步
@@ -43,47 +48,54 @@ class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(c
         super.onCreate(savedInstanceState)
         setCancelable(true)
         setCanceledOnTouchOutside(false)
-        setContentView(LayoutInflater.from(context).inflate(R.layout.dialog_home_guide, null))
+        
+        binding = DialogHomeGuideBinding.inflate(LayoutInflater.from(context))
+        setContentView(binding.root)
+        
+        // Initialize sub-layout bindings
+        guide1Binding = LayoutHomeGuide1Binding.bind(binding.clGuide1.root)
+        guide2Binding = LayoutHomeGuide2Binding.bind(binding.clGuide2.root)
+        guide3Binding = LayoutHomeGuide3Binding.bind(binding.clGuide3.root)
 
         when (currentStep) {
             1 -> {
-                cl_guide_1.isVisible = true
-                cl_guide_2.isVisible = false
-                cl_guide_3.isVisible = false
+                binding.clGuide1.root.isVisible = true
+                binding.clGuide2.root.isVisible = false
+                binding.clGuide3.root.isVisible = false
             }
             2 -> {
-                cl_guide_1.isVisible = false
-                cl_guide_2.isVisible = true
-                cl_guide_3.isVisible = false
+                binding.clGuide1.root.isVisible = false
+                binding.clGuide2.root.isVisible = true
+                binding.clGuide3.root.isVisible = false
             }
             3 -> {
-                cl_guide_1.isVisible = false
-                cl_guide_2.isVisible = false
-                cl_guide_3.isVisible = true
+                binding.clGuide1.root.isVisible = false
+                binding.clGuide2.root.isVisible = false
+                binding.clGuide3.root.isVisible = true
             }
         }
 
-        tv_next1.setOnClickListener {
+        guide1Binding.tvNext1.setOnClickListener {
             onNextClickListener?.invoke(1)
-            cl_guide_1.isVisible = false
-            cl_guide_2.isVisible = true
+            binding.clGuide1.root.isVisible = false
+            binding.clGuide2.root.isVisible = true
         }
-        tv_next2.setOnClickListener {
+        guide2Binding.tvNext2.setOnClickListener {
             onNextClickListener?.invoke(2)
-            cl_guide_2.isVisible = false
-            cl_guide_3.isVisible = true
+            binding.clGuide2.root.isVisible = false
+            binding.clGuide3.root.isVisible = true
         }
-        tv_i_know.setOnClickListener {
+        guide3Binding.tvIKnow.setOnClickListener {
             onNextClickListener?.invoke(3)
             dismiss()
         }
 
 
-        tv_skin1.setOnClickListener {
+        guide1Binding.tvSkin1.setOnClickListener {
             onSkinClickListener?.invoke()
             dismiss()
         }
-        tv_skin2.setOnClickListener {
+        guide2Binding.tvSkin2.setOnClickListener {
             onSkinClickListener?.invoke()
             dismiss()
         }
@@ -114,8 +126,8 @@ class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(c
                 renderScript.destroy()
 
                 launch(Dispatchers.Main) {
-                    iv_blur_bg.isVisible = true
-                    iv_blur_bg.setImageBitmap(outputBitmap)
+                    binding.ivBlurBg.isVisible = true
+                    binding.ivBlurBg.setImageBitmap(outputBitmap)
                 }
             } catch (_: Exception) {
 

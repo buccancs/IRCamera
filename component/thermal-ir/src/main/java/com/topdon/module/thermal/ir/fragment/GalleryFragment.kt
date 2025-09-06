@@ -9,11 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.topdon.lib.core.tools.GlideLoader
-import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.fragment_gallery.*
+import com.topdon.module.thermal.R
+import com.topdon.module.thermal.databinding.FragmentGalleryBinding
 import kotlinx.coroutines.launch
 
 class GalleryFragment : Fragment() {
+
+    private var _binding: FragmentGalleryBinding? = null
+    private val binding get() = _binding!!
 
     private var path = ""
 
@@ -22,13 +25,19 @@ class GalleryFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_gallery, container)
+        _binding = FragmentGalleryBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         path = requireArguments().getString("path")!!
-        Glide.with(this).load(path).into(fragment_gallery_img)
+        Glide.with(this).load(path).into(binding.fragmentGalleryImg)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

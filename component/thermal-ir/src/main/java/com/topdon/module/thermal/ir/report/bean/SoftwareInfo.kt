@@ -4,8 +4,8 @@ import android.os.Build
 import android.os.Parcelable
 import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.tools.AppLanguageUtils
-import com.topdon.module.thermal.ir.BuildConfig
-import kotlinx.android.parcel.Parcelize
+import com.topdon.module.thermal.BuildConfig
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class SoftwareInfo(

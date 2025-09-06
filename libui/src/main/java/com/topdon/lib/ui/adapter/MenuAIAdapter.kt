@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.bean.ObserveBean
 import com.topdon.lib.ui.R
 import com.topdon.lib.ui.bean.ColorBean
-import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.*
 
 @Deprecated("旧的高低温源菜单，已重构过了")
 class MenuAIAdapter (val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -83,8 +82,8 @@ class MenuAIAdapter (val context: Context) : RecyclerView.Adapter<RecyclerView.V
 //            layoutParams.height = imageSize
 //            itemView.item_menu_tab_img.layoutParams = layoutParams
 //        }
-        val lay: View = itemView.item_menu_tab_lay
-        val img: ImageView = itemView.item_menu_tab_img
-        val name: TextView = itemView.item_menu_tab_text
+        val lay: View = itemView.findViewById(R.id.item_menu_tab_lay)
+        val img: ImageView = itemView.findViewById(R.id.item_menu_tab_img)
+        val name: TextView = itemView.findViewById(R.id.item_menu_tab_text)
     }
 }

@@ -9,7 +9,7 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.core.view.drawToBitmap
 import com.blankj.utilcode.util.SizeUtils
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.utils.getPixelLinear
 import com.topdon.module.thermal.ir.utils.getValuesBetween
 import com.topdon.module.thermal.ir.utils.realX

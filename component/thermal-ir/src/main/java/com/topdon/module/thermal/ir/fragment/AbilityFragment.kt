@@ -1,7 +1,10 @@
 package com.topdon.module.thermal.ir.fragment
 
 import android.content.Intent
+import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.alibaba.android.arouter.launcher.ARouter
 
 import com.topdon.lib.core.bean.event.WinterClickEvent
@@ -14,11 +17,11 @@ import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.lms.sdk.UrlConstant
 import com.topdon.lms.sdk.utils.LanguageUtil
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.activity.IRThermalNightActivity
 import com.topdon.module.thermal.ir.activity.IRThermalPlusActivity
 import com.topdon.module.thermal.ir.activity.MonitoryHomeActivity
-import kotlinx.android.synthetic.main.fragment_ability.*
+import com.topdon.module.thermal.databinding.FragmentAbilityBinding
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -28,16 +31,27 @@ import org.greenrobot.eventbus.EventBus
  * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007（不使用，透传）
  */
 class AbilityFragment : BaseFragment(), View.OnClickListener {
+    
+    private var _binding: FragmentAbilityBinding? = null
+    private val binding get() = _binding!!
+    
     private var mIsTC007 = false
 
-    override fun initContentView() = R.layout.fragment_ability
+    override fun initContentView(): Int {
+        return R.layout.fragment_ability
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        _binding = FragmentAbilityBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun initView() {
         mIsTC007 = arguments?.getBoolean(ExtraKeyConfig.IS_TC007, false) ?: false
-        iv_winter.setOnClickListener(this)
-        view_monitory.setOnClickListener(this)
+        binding.ivWinter.setOnClickListener(this)
+        binding.viewMonitory.setOnClickListener(this)
 
-        view_car.setOnClickListener(this)
+        binding.viewCar.setOnClickListener(this)
     }
 
     override fun initData() {
@@ -45,7 +59,7 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            iv_winter -> {//冬季特辑入口
+            binding.ivWinter -> {//冬季特辑入口
                 SharedManager.hasClickWinter = true
                 EventBus.getDefault().post(WinterClickEvent())
                 val url = if (UrlConstant.BASE_URL == "https://api.topdon.com/") {
@@ -58,7 +72,7 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
                     .withString(ExtraKeyConfig.URL, url)
                     .navigation(requireContext())
             }
-            view_monitory -> {//温度监控
+            binding.viewMonitory -> {//温度监控
                 val intent = Intent(requireContext(), MonitoryHomeActivity::class.java)
                 intent.putExtra(ExtraKeyConfig.IS_TC007, mIsTC007)
                 startActivity(intent)
@@ -66,7 +80,7 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
 
 
 
-            view_car -> {//汽车检测
+            binding.viewCar -> {//汽车检测
                 // TC001 only - no TC007 support
                 if (DeviceTools.isTC001PlusConnect()) {
                     var intent = Intent(requireContext(), IRThermalPlusActivity::class.java)
@@ -88,5 +102,10 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

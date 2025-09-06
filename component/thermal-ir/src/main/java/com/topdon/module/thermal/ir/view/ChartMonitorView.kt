@@ -22,7 +22,7 @@ import com.github.mikephil.charting.listener.OnChartGestureListener
 import com.topdon.lib.core.bean.tools.ThermalBean
 import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.lib.core.tools.TimeTool
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.chart.IRMyValueFormatter
 import com.topdon.module.thermal.ir.chart.YValueFormatter
 import com.topdon.module.thermal.ir.utils.ChartTools

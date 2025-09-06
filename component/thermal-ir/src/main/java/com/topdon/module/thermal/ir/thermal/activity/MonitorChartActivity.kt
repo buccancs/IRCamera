@@ -31,14 +31,14 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.NumberTools
 import com.topdon.module.thermal.ir.activity.BaseIRActivity
 import com.topdon.lib.core.tools.TimeTool
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.thermal.adapter.SettingCheckAdapter
 import com.topdon.module.thermal.ir.thermal.adapter.SettingTimeAdapter
 import com.topdon.module.thermal.ir.thermal.chart.MyValueFormatter
 import com.topdon.module.thermal.ir.thermal.utils.ArrayUtils
 import com.topdon.module.thermal.ir.thermal.view.MyMarkerView
 import com.topdon.module.thermal.ir.thermal.viewmodel.LogViewModel
-import kotlinx.android.synthetic.main.activity_monitor_chart.*
+import com.topdon.module.thermal.databinding.ActivityMonitorChartBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -50,6 +50,8 @@ import java.math.BigDecimal
  */
 @Route(path = RouterConfig.IR_MONITOR_CHART)
 class MonitorChartActivity : BaseIRActivity(), View.OnClickListener, OnChartValueSelectedListener {
+
+    private lateinit var binding: ActivityMonitorChartBinding
 
     private val viewModel: LogViewModel by viewModels()
 
@@ -67,7 +69,11 @@ class MonitorChartActivity : BaseIRActivity(), View.OnClickListener, OnChartValu
 
     private lateinit var chart: LineChart
 
-    override fun initContentView() = R.layout.activity_monitor_chart
+    override fun initContentView(): Int {
+        binding = ActivityMonitorChartBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        return 0
+    }
 
     override fun initView() {
         // setTitleText(R.string.main_thermal_motion) // Commented out - method not available in BaseIRActivity
@@ -81,7 +87,7 @@ class MonitorChartActivity : BaseIRActivity(), View.OnClickListener, OnChartValu
             2 -> "line"
             else -> "fence"
         }
-        chart = mp_chart_view
+        chart = binding.mpChartView
         initChart()
         initRecycler()
         viewModel.resultLiveData.observe(this)
@@ -122,10 +128,10 @@ class MonitorChartActivity : BaseIRActivity(), View.OnClickListener, OnChartValu
     }
 
     private fun initRecycler() {
-        monitor_chart_time_recycler.layoutManager = GridLayoutManager(this, 4)
-        monitor_chart_time_recycler.adapter = timeAdapter
-        monitor_chart_setting_recycler.layoutManager = GridLayoutManager(this, 3)
-        monitor_chart_setting_recycler.adapter = adapter
+        binding.monitorChartTimeRecycler.layoutManager = GridLayoutManager(this, 4)
+        binding.monitorChartTimeRecycler.adapter = timeAdapter
+        binding.monitorChartSettingRecycler.layoutManager = GridLayoutManager(this, 3)
+        binding.monitorChartSettingRecycler.adapter = adapter
         //设置时间段类型(秒 分 时 天)
         timeAdapter.listener = object : SettingTimeAdapter.OnItemClickListener {
             override fun onClick(index: Int, timeType: Int) {

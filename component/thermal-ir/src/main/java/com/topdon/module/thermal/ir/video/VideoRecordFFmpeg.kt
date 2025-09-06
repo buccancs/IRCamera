@@ -48,7 +48,7 @@ import com.topdon.lib.ui.camera.CameraPreView
 import com.topdon.lib.ui.widget.BitmapConstraintLayout
 import com.topdon.lib.ui.widget.LiteSurfaceView
 import com.topdon.libcom.view.TempLayout
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.view.HikSurfaceView
 import com.topdon.module.thermal.ir.view.TemperatureHikView
 import com.topdon.module.thermal.ir.view.compass.LinearCompassView

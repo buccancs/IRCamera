@@ -1,19 +1,31 @@
 [versions]
-# AndroidX - Using versions compatible with AGP 7.4.2 and modern AndroidX
-appcompat = "1.6.1"
-fragment-ktx = "1.5.7" 
+# Kotlin & Core
+kotlin = "2.0.0"
+coroutines = "1.8.0"
+
+# AndroidX - Using latest stable versions compatible with AGP 8.1.4
+appcompat = "1.7.0"
+fragment-ktx = "1.6.2" 
 multidex = "2.0.1"
-lifecycle = "2.6.2"
-core = "1.10.1"
-room = "2.5.0"
-work-runtime-ktx = "2.8.1"
+lifecycle = "2.8.4"
+core = "1.13.1"
+room = "2.6.1"
+work-runtime-ktx = "2.9.1"
+recyclerview = "1.3.2"
+constraintlayout = "2.1.4"
+
+# Security & Privacy
+security-crypto = "1.1.0-alpha06"
+biometric = "1.2.0-alpha05"
 
 # Google
-material = "1.6.1"
+material = "1.12.0"
+play-services-base = "18.4.0"
 
-# Network
-retrofit2 = "2.9.0"
-okhttp3-logging-interceptor = "4.9.3"
+# Network - Updated for security
+retrofit2 = "2.11.0"
+okhttp3-logging-interceptor = "4.12.0"
+gson = "2.10.1"
 
 # Reactive
 rxjava2 = "2.2.21"
@@ -24,27 +36,33 @@ rxlifecycle = "2.2.2"
 # EventBus
 eventbus = "3.3.1"
 
-# Image Loading
-glide = "4.13.2"
+# Image Loading - Updated
+glide = "4.16.0"
 
 # Routing
 arouter = "1.5.2"
 
-# Utils
-utilcode = "1.31.0"
+# Utils - Updated versions
+utilcode = "1.31.1"
 xxpermissions = "20.0"
 xlog = "1.11.0"
 photoview = "2.3.0"
-android-pdf-viewer = "2.8.1"
-lottie = "6.0.0"
+android-pdf-viewer = "3.2.0-beta.1"
+lottie = "6.4.1"
 
 # RecyclerView
 brvah = "3.0.10"
 refresh-layout = "2.0.3"
 
+# Testing - Modern versions
+junit = "4.13.2"
+androidx-test-junit = "1.1.5"
+espresso = "3.5.1"
+mockito = "5.12.0"
+
 # Custom Libraries
 ir-layout = "+"
-colorpickerview = "2.2.4"
+colorpickerview = "2.3.0"
 mn-image-browser = "V1.3.7"
 andromeda = "6.2.0"
 nifty = "1.4.6"
@@ -59,12 +77,13 @@ lms2-international = "3.90.009.0"
 lms3-china = "3.90.076"
 
 # JavaCV
-javacv = "1.5.8"
-javacpp = "1.5.8"
-ffmpeg = "5.0-1.5.7"
+javacv = "1.5.10"
+javacpp = "1.5.10"
+ffmpeg = "6.0-1.5.9"
 
 # Video Player
-gsy-video-player = "v8.5.0-release-jitpack"
+gsy-video-player = "v8.6.0-release-jitpack"
+exoplayer = "2.19.1"
 
 [libraries]
 # AndroidX
@@ -73,6 +92,8 @@ androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref
 androidx-multidex = { module = "androidx.multidex:multidex", version.ref = "multidex" }
 androidx-core = { module = "androidx.core:core", version.ref = "core" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "core" }
+androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
+androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" }
@@ -85,14 +106,27 @@ androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref =
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "work-runtime-ktx" }
 
+# Security & Privacy
+androidx-security-crypto = { module = "androidx.security:security-crypto", version.ref = "security-crypto" }
+androidx-biometric = { module = "androidx.biometric:biometric", version.ref = "biometric" }
+
 # Google
 material = { module = "com.google.android.material:material", version.ref = "material" }
+play-services-base = { module = "com.google.android.gms:play-services-base", version.ref = "play-services-base" }
 
-# Network
+# Network - Updated versions
 retrofit2 = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit2" }
 retrofit2-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit2" }
 retrofit2-adapter-rxjava2 = { module = "com.squareup.retrofit2:adapter-rxjava2", version.ref = "retrofit2" }
 okhttp3-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp3-logging-interceptor" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+
+# Testing - Modern versions
+junit = { module = "junit:junit", version.ref = "junit" }
+androidx-test-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-test-junit" }
+androidx-test-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
+mockito-android = { module = "org.mockito:mockito-android", version.ref = "mockito" }
 
 # Reactive
 rxjava2 = { module = "io.reactivex.rxjava2:rxjava", version.ref = "rxjava2" }
@@ -151,11 +185,17 @@ lms3-china = { module = "com.topdon.lms.sdk3:lms_china", version.ref = "lms3-chi
 javacv = { module = "org.bytedeco:javacv", version.ref = "javacv" }
 javacpp = { module = "org.bytedeco:javacpp", version.ref = "javacpp" }
 
-# FFmpeg
-ffmpeg-android-arm64 = { module = "org.bytedeco:ffmpeg", version = "5.0-1.5.7:android-arm64" }
-ffmpeg-android-arm = { module = "org.bytedeco:ffmpeg", version = "5.0-1.5.7:android-arm" }
-ffmpeg-android-x86-64 = { module = "org.bytedeco:ffmpeg", version = "5.0-1.5.7:android-x86_64" }
-ffmpeg-android-x86 = { module = "org.bytedeco:ffmpeg", version = "5.0-1.5.7:android-x86" }
+# FFmpeg - Updated to v6.0
+ffmpeg-android-arm64 = { module = "org.bytedeco:ffmpeg", version = "6.0-1.5.9:android-arm64" }
+ffmpeg-android-arm = { module = "org.bytedeco:ffmpeg", version = "6.0-1.5.9:android-arm" }
+ffmpeg-android-x86-64 = { module = "org.bytedeco:ffmpeg", version = "6.0-1.5.9:android-x86_64" }
+ffmpeg-android-x86 = { module = "org.bytedeco:ffmpeg", version = "6.0-1.5.9:android-x86" }
+
+# ExoPlayer - Modern versions for better compatibility
+exoplayer-core = { module = "com.google.android.exoplayer:exoplayer-core", version.ref = "exoplayer" }
+exoplayer-ui = { module = "com.google.android.exoplayer:exoplayer-ui", version.ref = "exoplayer" }
+exoplayer-dash = { module = "com.google.android.exoplayer:exoplayer-dash", version.ref = "exoplayer" }
+exoplayer-hls = { module = "com.google.android.exoplayer:exoplayer-hls", version.ref = "exoplayer" }
 
 # Video Player
 gsy-video-player-java = { module = "com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java", version.ref = "gsy-video-player" }
@@ -164,13 +204,30 @@ gsy-video-player-armv7a = { module = "com.github.CarGuo.GSYVideoPlayer:gsyVideoP
 gsy-video-player-arm64 = { module = "com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-arm64", version.ref = "gsy-video-player" }
 
 [bundles]
-# Common AndroidX bundle
+# Common AndroidX bundle - Enhanced
 androidx-common = [
     "androidx-appcompat", 
     "androidx-fragment-ktx", 
     "androidx-multidex",
     "androidx-core",
-    "androidx-core-ktx"
+    "androidx-core-ktx",
+    "androidx-recyclerview",
+    "androidx-constraintlayout"
+]
+
+# Security bundle - New
+androidx-security = [
+    "androidx-security-crypto",
+    "androidx-biometric"
+]
+
+# Testing bundle - Comprehensive
+testing-common = [
+    "junit",
+    "androidx-test-junit",
+    "androidx-test-espresso-core",
+    "mockito-core",
+    "mockito-android"
 ]
 
 # Complete Lifecycle bundle
@@ -233,6 +290,14 @@ javacv = [
     "javacpp"
 ]
 
+# ExoPlayer bundle - Comprehensive media support
+exoplayer = [
+    "exoplayer-core",
+    "exoplayer-ui", 
+    "exoplayer-dash",
+    "exoplayer-hls"
+]
+
 # GSY Video Player bundle
 gsy-video-player = [
     "gsy-video-player-java",
@@ -242,4 +307,19 @@ gsy-video-player = [
 ]
 
 [plugins]
-# You can define plugins here if needed
+# Android plugins
+android-application = { id = "com.android.application", version = "8.1.4" }
+android-library = { id = "com.android.library", version = "8.1.4" }
+
+# Kotlin plugins
+kotlin-android = { id = "org.jetbrains.kotlin.android", version = "2.0.0" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version = "2.0.0" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version = "2.0.0" }
+
+# Google services
+google-services = { id = "com.google.gms.google-services", version = "4.4.2" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version = "3.0.2" }
+
+# Performance & Security
+gradle-versions = { id = "com.github.ben-manes.versions", version = "0.51.0" }
+dependency-guard = { id = "com.dropbox.dependency-guard", version = "0.5.0" }

@@ -9,9 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.lib.core.tools.GlideLoader
 import com.topdon.lib.core.tools.TimeTool
-import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.item_gallery.view.*
-import kotlinx.android.synthetic.main.item_log.view.*
+import com.topdon.module.thermal.R
+import com.topdon.module.thermal.databinding.ItemLogBinding
 
 class MonitorLogAdapter(val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -25,20 +24,19 @@ class MonitorLogAdapter(val context: Context) :
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_log, parent, false)
-        return ItemView(view)
+        val binding = ItemLogBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ItemView(binding)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ItemView) {
             val data = datas[position]
-            holder.indexText.text = "${position + 1}"
-            holder.timeText.text = TimeTool.showTimeSecond(data.createTime)
-            holder.lay.setOnClickListener {
+            holder.binding.itemLogIndexText.text = "${position + 1}"
+            holder.binding.itemLogTimeText.text = TimeTool.showTimeSecond(data.createTime)
+            holder.binding.itemLogLay.setOnClickListener {
                 listener?.onClick(position, data.thermalId)
             }
-            holder.lay.setOnLongClickListener(View.OnLongClickListener {
+            holder.binding.itemLogLay.setOnLongClickListener(View.OnLongClickListener {
                 listener?.onLongClick(position, data.thermalId)
                 return@OnLongClickListener true
             })
@@ -49,11 +47,7 @@ class MonitorLogAdapter(val context: Context) :
         return datas.size
     }
 
-    inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val lay = itemView.item_log_lay
-        val indexText = itemView.item_log_index_text
-        val timeText = itemView.item_log_time_text
-    }
+    inner class ItemView(val binding: ItemLogBinding) : RecyclerView.ViewHolder(binding.root)
 
 
     interface OnItemClickListener {

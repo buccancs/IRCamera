@@ -1,6 +1,7 @@
 package com.guide.zm04c.matrix
 
 import android.util.Log
+import com.topdon.libmatrix.BuildConfig
 import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter

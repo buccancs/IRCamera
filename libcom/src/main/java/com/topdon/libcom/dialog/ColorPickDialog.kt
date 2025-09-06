@@ -14,12 +14,7 @@ import com.jaygoo.widget.OnRangeChangedListener
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.libcom.R
 import com.topdon.libcom.util.ColorUtils
-import kotlinx.android.synthetic.main.dialog_color_pick.nifty_slider_view
-import kotlinx.android.synthetic.main.dialog_color_pick.tv_nifty_left
-import kotlinx.android.synthetic.main.dialog_color_pick.tv_nifty_right
-import kotlinx.android.synthetic.main.dialog_color_pick.tv_size_title
-import kotlinx.android.synthetic.main.dialog_color_pick.tv_size_value
-import kotlinx.android.synthetic.main.dialog_color_pick.view.*
+import com.topdon.libcom.databinding.DialogColorPickBinding
 
 /**
  * 颜色拾取弹框.
@@ -33,14 +28,14 @@ class ColorPickDialog(context: Context, @ColorInt private var color: Int,var tex
      */
     var onPickListener: ((color: Int,textSize : Int) -> Unit)? = null
 
-    private val rootView: View = LayoutInflater.from(context).inflate(R.layout.dialog_color_pick, null)
+    private val binding: DialogColorPickBinding = DialogColorPickBinding.inflate(LayoutInflater.from(context))
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setCancelable(true)
         setCanceledOnTouchOutside(true)
-        setContentView(rootView)
+        setContentView(binding.root)
 
         window?.let {
             val layoutParams = it.attributes
@@ -55,26 +50,26 @@ class ColorPickDialog(context: Context, @ColorInt private var color: Int,var tex
             ColorUtils.setColorAlpha(ContextCompat.getColor(context, R.color.we_read_theme_color), 0.7f)
 
         when (color) {
-            0xff0000ff.toInt() -> rootView.view_color1.isSelected = true
-            0xffff0000.toInt() -> rootView.view_color2.isSelected = true
-            0xff00ff00.toInt() -> rootView.view_color3.isSelected = true
-            0xffffff00.toInt() -> rootView.view_color4.isSelected = true
-            0xff000000.toInt() -> rootView.view_color5.isSelected = true
-            0xffffffff.toInt() -> rootView.view_color6.isSelected = true
-            else -> rootView.color_select_view.selectColor(color)
+            0xff0000ff.toInt() -> binding.viewColor1.isSelected = true
+            0xffff0000.toInt() -> binding.viewColor2.isSelected = true
+            0xff00ff00.toInt() -> binding.viewColor3.isSelected = true
+            0xffffff00.toInt() -> binding.viewColor4.isSelected = true
+            0xff000000.toInt() -> binding.viewColor5.isSelected = true
+            0xffffffff.toInt() -> binding.viewColor6.isSelected = true
+            else -> binding.colorSelectView.selectColor(color)
         }
 
-        rootView.color_select_view.onSelectListener = {
+        binding.colorSelectView.onSelectListener = {
             unSelect6Color()
             color = it
         }
         if (textSize != -1){
-            tv_size_title.visibility = View.VISIBLE
-            tv_size_value.visibility = View.VISIBLE
-            tv_nifty_left.visibility = View.VISIBLE
-            tv_nifty_right.visibility = View.VISIBLE
-            nifty_slider_view.visibility = View.VISIBLE
-            nifty_slider_view.setOnRangeChangedListener(object : OnRangeChangedListener{
+            binding.tvSizeTitle.visibility = View.VISIBLE
+            binding.tvSizeValue.visibility = View.VISIBLE
+            binding.tvNiftyLeft.visibility = View.VISIBLE
+            binding.tvNiftyRight.visibility = View.VISIBLE
+            binding.niftySliderView.visibility = View.VISIBLE
+            binding.niftySliderView.setOnRangeChangedListener(object : OnRangeChangedListener{
                 override fun onRangeChanged(
                     view: DefRangeSeekBar?,
                     leftValue: Float,
@@ -92,7 +87,7 @@ class ColorPickDialog(context: Context, @ColorInt private var color: Int,var tex
                         textSize = 18
                         context.getString(R.string.temp_text_sup_big)
                     }
-                    tv_size_value?.text = text
+                    binding.tvSizeValue?.text = text
                 }
 
                 override fun onStartTrackingTouch(view: DefRangeSeekBar?, isLeft: Boolean) {
@@ -102,18 +97,18 @@ class ColorPickDialog(context: Context, @ColorInt private var color: Int,var tex
                 }
 
             })
-            nifty_slider_view.setProgress(textSizeToNifyValue(textSize,textSizeIsDP))
+            binding.niftySliderView.setProgress(textSizeToNifyValue(textSize,textSizeIsDP))
         }else{
-            nifty_slider_view.visibility = View.GONE
+            binding.niftySliderView.visibility = View.GONE
         }
-        rootView.view_color1.setOnClickListener(this)
-        rootView.view_color2.setOnClickListener(this)
-        rootView.view_color3.setOnClickListener(this)
-        rootView.view_color4.setOnClickListener(this)
-        rootView.view_color5.setOnClickListener(this)
-        rootView.view_color6.setOnClickListener(this)
-        rootView.rl_close.setOnClickListener(this)
-        rootView.tv_save.setOnClickListener(this)
+        binding.viewColor1.setOnClickListener(this)
+        binding.viewColor2.setOnClickListener(this)
+        binding.viewColor3.setOnClickListener(this)
+        binding.viewColor4.setOnClickListener(this)
+        binding.viewColor5.setOnClickListener(this)
+        binding.viewColor6.setOnClickListener(this)
+        binding.rlClose.setOnClickListener(this)
+        binding.tvSave.setOnClickListener(this)
     }
 
     private fun textSizeToNifyValue(size: Int, isTC007: Boolean) : Float{
@@ -133,47 +128,47 @@ class ColorPickDialog(context: Context, @ColorInt private var color: Int,var tex
 
     override fun onClick(v: View?) {
         when (v) {
-            rootView.rl_close -> dismiss()
+            binding.rlClose -> dismiss()
 
-            rootView.tv_save -> {//保存
+            binding.tvSave -> {//保存
                 dismiss()
                 onPickListener?.invoke(color,textSize)
             }
 
-            rootView.view_color1 -> {
+            binding.viewColor1 -> {
                 unSelect6Color()
-                rootView.color_select_view.reset()
-                rootView.view_color1.isSelected = true
+                binding.colorSelectView.reset()
+                binding.viewColor1.isSelected = true
                 color = 0xff0000ff.toInt()
             }
-            rootView.view_color2 -> {
+            binding.viewColor2 -> {
                 unSelect6Color()
-                rootView.color_select_view.reset()
-                rootView.view_color2.isSelected = true
+                binding.colorSelectView.reset()
+                binding.viewColor2.isSelected = true
                 color = 0xffff0000.toInt()
             }
-            rootView.view_color3 -> {
+            binding.viewColor3 -> {
                 unSelect6Color()
-                rootView.color_select_view.reset()
-                rootView.view_color3.isSelected = true
+                binding.colorSelectView.reset()
+                binding.viewColor3.isSelected = true
                 color = 0xff00ff00.toInt()
             }
-            rootView.view_color4 -> {
+            binding.viewColor4 -> {
                 unSelect6Color()
-                rootView.color_select_view.reset()
-                rootView.view_color4.isSelected = true
+                binding.colorSelectView.reset()
+                binding.viewColor4.isSelected = true
                 color = 0xffffff00.toInt()
             }
-            rootView.view_color5 -> {
+            binding.viewColor5 -> {
                 unSelect6Color()
-                rootView.color_select_view.reset()
-                rootView.view_color5.isSelected = true
+                binding.colorSelectView.reset()
+                binding.viewColor5.isSelected = true
                 color = 0xff000000.toInt()
             }
-            rootView.view_color6 -> {
+            binding.viewColor6 -> {
                 unSelect6Color()
-                rootView.color_select_view.reset()
-                rootView.view_color6.isSelected = true
+                binding.colorSelectView.reset()
+                binding.viewColor6.isSelected = true
                 color = 0xffffffff.toInt()
             }
         }
@@ -183,11 +178,11 @@ class ColorPickDialog(context: Context, @ColorInt private var color: Int,var tex
      * 将 6 个固定的颜色按钮重置为未选中状态.
      */
     private fun unSelect6Color() {
-        rootView.view_color1.isSelected = false
-        rootView.view_color2.isSelected = false
-        rootView.view_color3.isSelected = false
-        rootView.view_color4.isSelected = false
-        rootView.view_color5.isSelected = false
-        rootView.view_color6.isSelected = false
+        binding.viewColor1.isSelected = false
+        binding.viewColor2.isSelected = false
+        binding.viewColor3.isSelected = false
+        binding.viewColor4.isSelected = false
+        binding.viewColor5.isSelected = false
+        binding.viewColor6.isSelected = false
     }
 }

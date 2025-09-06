@@ -1,7 +1,7 @@
 package com.topdon.module.thermal.ir.utils
 
 import android.content.Context
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 
 /**
  * des:
