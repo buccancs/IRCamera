@@ -14,7 +14,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.blankj.utilcode.util.SizeUtils
-import com.topdon.tc001.R
+import com.csl.irCamera.R
 
 
 class ConnectionGuideView: LinearLayout {

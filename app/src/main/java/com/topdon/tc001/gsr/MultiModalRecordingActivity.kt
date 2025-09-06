@@ -20,7 +20,7 @@ import com.topdon.gsr.service.MultiModalRecordingService
 import com.topdon.gsr.service.SessionManager
 import com.topdon.gsr.util.TimeUtil
 import com.topdon.lib.core.config.RouterConfig
-import com.topdon.tc001.R
+import com.csl.irCamera.R
 import java.io.File
 
 /**

@@ -8,8 +8,8 @@ import com.elvishew.xlog.XLog
 import com.example.thermal_lite.IrConst
 import com.example.thermal_lite.util.CommonUtil
 
-import com.scwang.smart.refresh.header.MaterialHeader
-import com.scwang.smart.refresh.layout.SmartRefreshLayout
+// import com.scwang.smart.refresh.layout.SmartRefreshLayout
+// import com.scwang.smart.refresh.header.MaterialHeader
 import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.HttpConfig
@@ -34,16 +34,17 @@ import kotlinx.coroutines.launch
 
 class App : BaseApplication() {
 
-    init {
-        SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, _ ->
-            MaterialHeader(
-                context
-            )
-        }
-        SmartRefreshLayout.setDefaultRefreshFooterCreator { context, _ ->
-            LoadingFooter(context)
-        }
-    }
+    // Temporarily commented out due to dependency issues
+    // init {
+    //     SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, _ ->
+    //         MaterialHeader(
+    //             context
+    //         )
+    //     }
+    //     SmartRefreshLayout.setDefaultRefreshFooterCreator { context, _ ->
+    //         LoadingFooter(context)
+    //     }
+    // }
 
     companion object{
         lateinit var instance: App

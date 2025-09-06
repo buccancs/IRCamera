@@ -33,7 +33,7 @@ import com.topdon.lib.core.utils.NetWorkUtils
 import com.topdon.lib.core.utils.WsCmdConstants
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.tc001.DeviceTypeActivity
-import com.topdon.tc001.R
+import com.csl.irCamera.R
 import com.topdon.tc001.popup.DelPopup
 import kotlinx.coroutines.launch
 import org.bytedeco.librealsense.context

@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.gsr.model.SessionInfo
 import com.topdon.gsr.service.SessionManager
-import com.topdon.tc001.R
+import com.csl.irCamera.R
 import kotlinx.coroutines.*
 import java.io.File
 import java.text.SimpleDateFormat

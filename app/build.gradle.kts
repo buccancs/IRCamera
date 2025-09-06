@@ -235,8 +235,7 @@ dependencies {
     implementation(libs.play.app.update)
     implementation(libs.immersionbar)
     implementation(libs.xpopup)
-    implementation(libs.smart.refresh.layout)
-    implementation(libs.smart.refresh.header)
+    // implementation(libs.bundles.smart.refresh) // Temporarily commented out due to jitpack.io issues
     implementation(libs.wechat.sdk)
     implementation(libs.umeng.apm)
     implementation(libs.zoho.salesiq)

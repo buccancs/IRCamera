@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.gsr.model.ResearchTemplate
-import com.topdon.tc001.R
+import com.csl.irCamera.R
 
 /**
  * Research Template Selection Activity

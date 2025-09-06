@@ -15,6 +15,7 @@ import com.elvishew.xlog.XLog
 import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseViewModelActivity
+import com.csl.irCamera.R
 import com.topdon.tc001.viewmodel.PolicyViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

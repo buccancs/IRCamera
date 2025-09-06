@@ -17,6 +17,7 @@ import com.topdon.lib.core.dialog.TipProgressDialog
 import com.topdon.lib.core.utils.CommUtils
 import com.topdon.lms.sdk.utils.NetworkUtil
 import com.topdon.lms.sdk.weiget.TToast
+import com.csl.irCamera.R
 import com.topdon.tc001.app.App
 import com.topdon.tc001.utils.VersionUtils
 import kotlinx.coroutines.Dispatchers
