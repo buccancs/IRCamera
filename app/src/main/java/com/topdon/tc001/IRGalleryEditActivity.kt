@@ -109,10 +109,10 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
     private var ts_data_L: ByteArray? = null
 
     // findViewById declarations
-    private val titleView by lazy { findViewById<com.topdon.lib.core.view.TitleView>(R.id.titleView) }
+    private val titleView by lazy { findViewById<com.topdon.lib.core.view.TitleView>(R.id.title_view) }
     private val editRecyclerSecond by lazy { findViewById<com.topdon.menu.MenuSecondView>(R.id.edit_recycler_second) }
-    private val editRecyclerFirst by lazy { findViewById<com.topdon.menu.MenuEditView>(R.id.editRecyclerFirst) }
-    private val irImageView by lazy { findViewById<android.widget.ImageView>(R.id.irImageView) }
+    private val editRecyclerFirst by lazy { findViewById<com.topdon.menu.MenuEditView>(R.id.edit_recycler_first) }
+    private val irImageView by lazy { findViewById<android.widget.ImageView>(R.id.ir_image_view) }
     private val temperatureView by lazy { findViewById<com.topdon.module.thermal.ir.view.TemperatureEditView>(R.id.temperature_view) }
     private val temperatureSeekbar by lazy { findViewById<com.topdon.lib.ui.widget.seekbar.VerticalRangeSeekBar>(R.id.temperature_seekbar) }
     private val temperatureIvLock by lazy { findViewById<android.widget.ImageView>(R.id.temperature_iv_lock) }
