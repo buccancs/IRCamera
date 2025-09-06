@@ -156,7 +156,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
     
     // View declarations using findViewById pattern
     private val spaceChart by lazy { findViewById<View>(R.id.space_chart) }
-    private val thermalTrendTips by lazy { findViewById<View>(R.id.thermal_trend_tips) }
+    // private val thermalTrendTips by lazy { findViewById<View>(R.id.thermal_trend_tips) } // View not found in layout
     private val tvTypeInd by lazy { findViewById<TextView>(R.id.tv_type_ind) }
     private val popTimeText by lazy { findViewById<TextView>(R.id.pop_time_text) }
     private val popTimeLay by lazy { findViewById<View>(R.id.pop_time_lay) }
@@ -337,10 +337,10 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                 .build()
                 .showAsDropDown(binding.titleView, 0, 0, Gravity.END)
         }
-        // Car detect click listener - simplified to avoid missing layout IDs
-        binding.viewCarDetect?.setOnClickListener {
-            LongTextDialog(this, SharedManager.getCarDetectInfo().item, SharedManager.getCarDetectInfo()?.description).show()
-        }
+        // Car detect click listener - commented out due to missing viewCarDetect in layout
+        // binding.viewCarDetect?.setOnClickListener {
+        //     LongTextDialog(this, SharedManager.getCarDetectInfo().item, SharedManager.getCarDetectInfo()?.description).show()
+        // }
         binding.cameraPreview.cameraPreViewCloseListener = {
             if (isOpenPreview) {
                 popupWindow?.dismiss()
@@ -1737,12 +1737,12 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                             }
                         )
                     }
-                    //添加汽车检测
-                    if (binding.layCarDetectPrompt.isVisible){
-                        cameraViewBitmap = BitmapUtils.mergeBitmap(
-                            cameraViewBitmap,
-                            binding.layCarDetectPrompt.drawToBitmap(), 0, 0)
-                    }
+                    //添加汽车检测 - disabled due to missing layout
+                    // if (binding.layCarDetectPrompt.isVisible){
+                    //     cameraViewBitmap = BitmapUtils.mergeBitmap(
+                    //         cameraViewBitmap,
+                    //         binding.layCarDetectPrompt.drawToBitmap(), 0, 0)
+                    // }
 
                     var name = ""
                     cameraViewBitmap?.let {
@@ -1802,7 +1802,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
             binding.clSeekBar,
             binding.tempBg,
             null, null,
-            carView = binding.layCarDetectPrompt
+            carView = null // binding.layCarDetectPrompt - disabled due to missing layout
         )
     }
     private fun video() {
@@ -2064,21 +2064,22 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
     }
 
     private fun setCarDetectPrompt(){
-        var carDetectInfo = SharedManager.getCarDetectInfo()
-        var tvDetectPrompt = binding.viewCarDetect.findViewById<TextView>(R.id.tv_detect_prompt)
-        if(carDetectInfo == null){
-            tvDetectPrompt.text =  getString(R.string.abnormal_item1) + TemperatureUtil.getTempStr(40, 70)
-        }else{
-            var temperature = carDetectInfo.temperature.split("~")
-            tvDetectPrompt.text =  carDetectInfo.item + TemperatureUtil.getTempStr(temperature[0].toInt(), temperature[1].toInt())
-        }
-        binding.layCarDetectPrompt.visibility = if(intent.getBooleanExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER,false)) View.VISIBLE else View.GONE
-        binding.viewCarDetect.setOnClickListener {
-            CarDetectDialog(this) {
-                var temperature = it.temperature.split("~")
-                tvDetectPrompt.text =  it.item + TemperatureUtil.getTempStr(temperature[0].toInt(), temperature[1].toInt())
-            }.show()
-        }
+        // Car detection feature not available in thermal-lite layout
+        // var carDetectInfo = SharedManager.getCarDetectInfo()
+        // var tvDetectPrompt = binding.viewCarDetect.findViewById<TextView>(R.id.tv_detect_prompt)
+        // if(carDetectInfo == null){
+        //     tvDetectPrompt.text =  getString(R.string.abnormal_item1) + TemperatureUtil.getTempStr(40, 70)
+        // }else{
+        //     var temperature = carDetectInfo.temperature.split("~")
+        //     tvDetectPrompt.text =  carDetectInfo.item + TemperatureUtil.getTempStr(temperature[0].toInt(), temperature[1].toInt())
+        // }
+        // binding.layCarDetectPrompt.visibility = if(intent.getBooleanExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER,false)) View.VISIBLE else View.GONE
+        // binding.viewCarDetect.setOnClickListener {
+        //     CarDetectDialog(this) {
+        //         var temperature = it.temperature.split("~")
+        //         tvDetectPrompt.text =  it.item + TemperatureUtil.getTempStr(temperature[0].toInt(), temperature[1].toInt())
+        //     }.show()
+        // }
     }
     var config : DataBean ?= null
     val basicGainGetValue = IntArray(1)
