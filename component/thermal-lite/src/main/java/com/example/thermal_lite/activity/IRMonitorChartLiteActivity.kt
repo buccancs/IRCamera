@@ -224,7 +224,7 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
                     delay(100)
                 }
                 lifecycleScope.launch(Dispatchers.Main) {
-                    tv_time.text = TimeTool.showVideoLongTime(System.currentTimeMillis() - startTime)
+                    binding.tvTime.text = TimeTool.showVideoLongTime(System.currentTimeMillis() - startTime)
                 }
             }
             XLog.w("停止记录, 数据量:$time")
