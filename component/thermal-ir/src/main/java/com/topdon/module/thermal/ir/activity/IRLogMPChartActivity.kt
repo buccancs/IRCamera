@@ -71,9 +71,8 @@ class IRLogMPChartActivity : BaseActivity() {
             findViewById<ImageView>(R.id.monitor_real_img).visibility = if (isPoint) View.GONE else View.VISIBLE
 
             try {
-                val chartView = findViewById<View>(R.id.log_chart_time_chart)
-                // TODO: Fix chart initialization - determine correct view type and method
-                // chartView.initEntry(it as ArrayList<ThermalEntity>)
+                val chartView = findViewById<com.topdon.module.thermal.ir.view.ChartLogView>(R.id.log_chart_time_chart)
+                chartView.initEntry(it as ArrayList<ThermalEntity>)
             } catch (e: Exception) {
                 XLog.e("刷新图表异常:${e.message}")
             }

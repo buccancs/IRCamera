@@ -270,12 +270,14 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
         }
     }
 
-    override fun initContentView(): Int = R.layout.activity_ir_thermal_lite
+    override fun initContentView(): Int {
+        binding = ActivityIrThermalLiteBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        return 0 // Return dummy value since setContentView is already called
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityIrThermalLiteBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         
         USBMonitorManager.getInstance().registerMonitor()
         lifecycleScope.launch(Dispatchers.IO) {

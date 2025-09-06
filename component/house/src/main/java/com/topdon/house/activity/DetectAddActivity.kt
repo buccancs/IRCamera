@@ -57,6 +57,18 @@ import java.util.Locale
 class DetectAddActivity : BaseActivity(), View.OnClickListener {
     private val viewModel: DetectViewModel  by viewModels()
 
+    // View references for performance
+    private val titleView by lazy { findViewById<com.topdon.lib.core.view.TitleView>(R.id.title_view) }
+    private val tvCreateReport by lazy { findViewById<android.widget.TextView>(R.id.tv_create_report) }
+    private val etDetectName by lazy { findViewById<android.widget.EditText>(R.id.et_detect_name) }
+    private val etInspectorName by lazy { findViewById<android.widget.EditText>(R.id.et_inspector_name) }
+    private val tvDetectTime by lazy { findViewById<android.widget.TextView>(R.id.tv_detect_time) }
+    private val etHouseAddress by lazy { findViewById<android.widget.EditText>(R.id.et_house_address) }
+    private val ivHouseImage by lazy { findViewById<android.widget.ImageView>(R.id.iv_house_image) }
+    private val ivHouseImageCamera by lazy { findViewById<android.widget.ImageView>(R.id.iv_house_image_camera) }
+    private val tvHouseImageCamera by lazy { findViewById<android.widget.TextView>(R.id.tv_house_image_camera) }
+    private val tvHouseYear by lazy { findViewById<android.widget.TextView>(R.id.tv_house_year) }
+
     /**
      * 仅当编辑模式时，从上一界面传递过来的，要编辑的房屋检测 Id.
      */
@@ -77,27 +89,24 @@ class DetectAddActivity : BaseActivity(), View.OnClickListener {
     override fun initView() {
         editId = intent.getLongExtra(ExtraKeyConfig.DETECT_ID, 0)
 
-        findViewById<com.topdon.lib.core.view.TitleView>(R.id.title_view)
-            .setTitleText(if (editId > 0) LibR.string.edit_detection_report else LibR.string.add_detection_report)
-        findViewById<com.topdon.lib.core.view.TitleView>(R.id.title_view)
-            .setLeftClickListener { showExitTipsDialog() }
+        titleView.setTitleText(if (editId > 0) LibR.string.edit_detection_report else LibR.string.add_detection_report)
+        titleView.setLeftClickListener { showExitTipsDialog() }
 
-        findViewById<android.widget.TextView>(R.id.tv_create_report)
-            .setText(if (editId > 0) LibR.string.person_save else LibR.string.create_report)
+        tvCreateReport.setText(if (editId > 0) LibR.string.person_save else LibR.string.create_report)
 
         viewModel.detectLD.observe(this) {
             houseDetect = it ?: return@observe
             inputDetectTime = houseDetect.detectTime
-            findViewById<android.widget.EditText>(R.id.et_detect_name).setText(houseDetect.name)
-            findViewById<android.widget.EditText>(R.id.et_inspector_name).setText(houseDetect.inspectorName)
-            findViewById<android.widget.TextView>(R.id.tv_detect_time).text = TimeUtils.millis2String(houseDetect.detectTime, "yyyy-MM-dd HH:mm")
-            findViewById<android.widget.EditText>(R.id.et_house_address).setText(houseDetect.address)
+            etDetectName.setText(houseDetect.name)
+            etInspectorName.setText(houseDetect.inspectorName)
+            tvDetectTime.text = TimeUtils.millis2String(houseDetect.detectTime, "yyyy-MM-dd HH:mm")
+            etHouseAddress.setText(houseDetect.address)
 
-            Glide.with(findViewById<android.widget.ImageView>(R.id.iv_house_image)).load(houseDetect.imagePath).into(findViewById<android.widget.ImageView>(R.id.iv_house_image))
-            findViewById<android.widget.ImageView>(R.id.iv_house_image_camera).isVisible = false
-            findViewById<android.widget.TextView>(R.id.tv_house_image_camera).isVisible = false
+            Glide.with(ivHouseImage).load(houseDetect.imagePath).into(ivHouseImage)
+            ivHouseImageCamera.isVisible = false
+            tvHouseImageCamera.isVisible = false
 
-            findViewById<android.widget.TextView>(R.id.tv_house_year).text = houseDetect.year?.toString() ?: ""
+            tvHouseYear.text = houseDetect.year?.toString() ?: ""
 
             findViewById<android.widget.EditText>(R.id.et_house_space).setText(houseDetect.houseSpace)
             findViewById<android.widget.TextView>(R.id.tv_house_space_unit).text = resources.getStringArray(R.array.area)[houseDetect.houseSpaceUnit]

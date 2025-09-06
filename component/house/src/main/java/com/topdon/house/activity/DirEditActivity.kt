@@ -289,13 +289,16 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.itemView.findViewById<ImageView>(R.id.iv_select).isSelected = dataList[position].hasSelect
-            holder.itemView.findViewById<EditText>(R.id.et_input_name).setText(dataList[position].dirName)
+            holder.ivSelect.isSelected = dataList[position].hasSelect
+            holder.etInputName.setText(dataList[position].dirName)
         }
 
         override fun getItemCount(): Int = dataList.size
 
         inner class ViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
+            val ivSelect: ImageView = rootView.findViewById(R.id.iv_select)
+            val etInputName: EditText = rootView.findViewById(R.id.et_input_name)
+            
             init {
                 rootView.setOnClickListener {
                     val position = bindingAdapterPosition

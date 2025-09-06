@@ -626,25 +626,20 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
     var isRunCamera = false
 
     private fun checkCameraPermission() {
-        // Simplified permission check - just call camera directly for now
-        camera()
-        /* TODO: Fix permission checking when XXPermissions and BaseApplication are available
-        if (!XXPermissions.isGranted(requireActivity(), Manifest.permission.CAMERA)) {
-            if (BaseApplication.instance.isDomestic()) {
-                TipDialog.Builder(requireActivity())
-                    .setMessage(getString(LibUiR.string.permission_request_camera))
-                    .setCancelListener(LibUiR.string.app_cancel)
-                    .setPositiveListener(LibUiR.string.app_confirm) {
-                        camera()
-                    }
-                    .create().show()
-            } else {
-                camera()
-            }
+        // Check camera permission using modern Android APIs
+        if (requireContext().checkSelfPermission(android.Manifest.permission.CAMERA) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+            camera()
         } else {
+            // Request camera permission
+            requestPermissions(arrayOf(android.Manifest.permission.CAMERA), 100)
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 100 && grantResults.isNotEmpty() && grantResults[0] == android.content.pm.PackageManager.PERMISSION_GRANTED) {
             camera()
         }
-        */
     }
 
     @SuppressLint("CheckResult")

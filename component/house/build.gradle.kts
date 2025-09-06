@@ -66,9 +66,6 @@ dependencies {
     implementation(libs.bundles.ui.common)
     implementation(libs.utilcode)
     
-    // Core library desugaring
-    coreLibraryDesugaring(libs.desugar.jdk.libs)
-    
     // Test dependencies
     testImplementation(libs.junit)
     androidTestImplementation(libs.test.ext.junit)
