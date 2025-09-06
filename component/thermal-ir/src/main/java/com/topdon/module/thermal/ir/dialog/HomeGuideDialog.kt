@@ -13,10 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.core.view.isVisible
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.dialog_home_guide.*
-import kotlinx.android.synthetic.main.layout_home_guide_1.*
-import kotlinx.android.synthetic.main.layout_home_guide_2.*
-import kotlinx.android.synthetic.main.layout_home_guide_3.*
+import com.topdon.module.thermal.ir.databinding.DialogHomeGuideBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -27,6 +24,8 @@ import kotlinx.coroutines.launch
  * Created by LCG on 2024/4/8.
  */
 class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(context, R.style.TransparentDialog) {
+
+    private lateinit var binding: DialogHomeGuideBinding
 
     /**
      * 下一步点击事件监听，step：当前处于第`[1,3]`，在该步骤点击的下一步
@@ -43,11 +42,12 @@ class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(c
         super.onCreate(savedInstanceState)
         setCancelable(true)
         setCanceledOnTouchOutside(false)
-        setContentView(LayoutInflater.from(context).inflate(R.layout.dialog_home_guide, null))
+        binding = DialogHomeGuideBinding.inflate(LayoutInflater.from(context))
+        setContentView(binding.root)
 
         when (currentStep) {
             1 -> {
-                cl_guide_1.isVisible = true
+                binding.clGuide1.isVisible = true
                 cl_guide_2.isVisible = false
                 cl_guide_3.isVisible = false
             }
