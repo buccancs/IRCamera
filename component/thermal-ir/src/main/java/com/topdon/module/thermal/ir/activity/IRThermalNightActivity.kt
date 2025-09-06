@@ -459,7 +459,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         addTemperatureListener()
         binding.cameraView.postDelayed(500) {
             if (SaveSettingUtil.isOpenTwoLight && XXPermissions.isGranted(this, Permission.CAMERA)) {
-                binding.cameraPreviewConfig(false)
+                cameraPreviewConfig(false)
             }
         }
         if (ScreenTool.isIPad(this)) {
@@ -525,7 +525,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         if (isToTemp) {//观测->测温
             //恢复可见光
             if (SaveSettingUtil.isOpenTwoLight && XXPermissions.isGranted(this, Permission.CAMERA)) {
-                binding.cameraPreviewConfig(false)
+                cameraPreviewConfig(false)
             }
 
             //关闭 AI 算法(动态识别、高温源、低温源)
@@ -1126,7 +1126,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         binding.cameraPreview.cameraPreViewCloseListener = {
             if (isOpenPreview) {
                 popupWindow?.dismiss()
-                binding.cameraPreviewConfig(false)
+                cameraPreviewConfig(false)
             }
         }
         binding.thermalRecyclerNight.onTempSourceListener = {
@@ -1467,11 +1467,11 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         popupWindow?.dismiss()
         when (twoLightType) {
             TwoLightType.P_IN_P -> {//画中画
-                binding.cameraPreviewConfig(true)
+                cameraPreviewConfig(true)
             }
             TwoLightType.BLEND_EXTENT -> {//融合度
                 if (!isOpenPreview && isSelected) {//未打开画中画时自动打开画中画
-                    binding.cameraPreviewConfig(false)
+                    cameraPreviewConfig(false)
                 }
                 if (isSelected) {
                     showBlendExtentPopup()
@@ -2616,7 +2616,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 }
             }.collect {
                 launch(Dispatchers.Main) {
-                    pop_time_text.text = TimeTool.showVideoTime(it * 1000L)
+                    binding.popTimeText.text = TimeTool.showVideoTime(it * 1000L)
                 }
                 if (it == time - 1) {
                     //停止
@@ -2846,7 +2846,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     /**
      * 切换 画中画 开启或关闭 状态
      */
-    private fun binding.cameraPreviewConfig(needShowTip: Boolean) {
+    private fun cameraPreviewConfig(needShowTip: Boolean) {
         if (!CheckDoubleClick.isFastDoubleClick()) {
             if (isOpenPreview) {
                 //关闭相机
@@ -3203,7 +3203,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
 
     private fun setCarDetectPrompt(){
         var carDetectInfo = SharedManager.getCarDetectInfo()
-        var tvDetectPrompt = binding.viewCarDetect.findViewById<TextView>(R.id.tv_detect_prompt)
+        var tvDetectPrompt = binding.viewCarDetect.root.findViewById<TextView>(com.topdon.lib.ui.R.id.tv_detect_prompt)
         if(carDetectInfo == null){
             tvDetectPrompt.text =  getString(R.string.abnormal_item1) + TemperatureUtil.getTempStr(40, 70)
         }else{
@@ -3211,8 +3211,8 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             tvDetectPrompt.text =  carDetectInfo.item + TemperatureUtil.getTempStr(temperature[0].toInt(), temperature[1].toInt())
         }
         val test = intent.getBooleanExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER,false)
-        lay_car_detect_prompt.visibility = if(intent.getBooleanExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER,false)) View.VISIBLE else View.GONE
-        binding.viewCarDetect.findViewById<RelativeLayout>(R.id.rl_content).setOnClickListener {
+        binding.layCarDetectPrompt.visibility = if(intent.getBooleanExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER,false)) View.VISIBLE else View.GONE
+        binding.viewCarDetect.root.findViewById<RelativeLayout>(com.topdon.lib.ui.R.id.rl_content).setOnClickListener {
             CarDetectDialog(this) {
                 var temperature = it.temperature.split("~")
                 tvDetectPrompt.text =  it.item + TemperatureUtil.getTempStr(temperature[0].toInt(), temperature[1].toInt())
