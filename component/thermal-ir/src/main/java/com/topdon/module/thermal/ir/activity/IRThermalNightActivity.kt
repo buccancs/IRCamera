@@ -107,7 +107,7 @@ import com.topdon.module.thermal.ir.view.TimeDownView
 import com.topdon.module.thermal.ir.view.compass.SensorService
 import com.topdon.pseudo.activity.PseudoSetActivity
 import com.topdon.pseudo.bean.CustomPseudoBean
-import kotlinx.android.synthetic.main.activity_thermal_ir_night.*
+import com.topdon.module.thermal.ir.databinding.ActivityThermalIrNightBinding
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import org.greenrobot.eventbus.EventBus
@@ -118,6 +118,8 @@ import kotlin.math.roundToInt
 
 @Route(path = RouterConfig.IR_FRAME)
 open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
+
+    protected lateinit var binding: ActivityThermalIrNightBinding
 
     /**
      * 数据流模式。
@@ -178,7 +180,11 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     private var isOpenTarget = SaveSettingUtil.isOpenTarget
     private var audioPosition: Int = 0
 
-    override fun initContentView() = R.layout.activity_thermal_ir_night
+    override fun initContentView(): Int {
+        binding = ActivityThermalIrNightBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        return 0
+    }
 
     //指南针定义
     private var hasCompass = true

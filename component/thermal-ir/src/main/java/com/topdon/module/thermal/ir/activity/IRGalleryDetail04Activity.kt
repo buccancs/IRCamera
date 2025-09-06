@@ -34,7 +34,7 @@ import com.topdon.lib.core.bean.event.GalleryDelEvent
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.thermal.ir.event.GalleryDownloadEvent
 import com.topdon.module.thermal.ir.fragment.GalleryFragment
-import kotlinx.android.synthetic.main.activity_ir_gallery_detail_04.*
+import com.topdon.module.thermal.ir.databinding.ActivityIrGalleryDetail04Binding
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import java.io.File
@@ -44,6 +44,8 @@ import java.io.File
  */
 @Route(path = RouterConfig.IR_GALLERY_DETAIL_04)
 class IRGalleryDetail04Activity : BaseActivity() {
+
+    private lateinit var binding: ActivityIrGalleryDetail04Binding
 
     /**
      * 是否查看远端数据.
@@ -59,7 +61,11 @@ class IRGalleryDetail04Activity : BaseActivity() {
      */
     private lateinit var dataList: ArrayList<GalleryBean>
 
-    override fun initContentView() = R.layout.activity_ir_gallery_detail_04
+    override fun initContentView(): Int {
+        binding = ActivityIrGalleryDetail04Binding.inflate(layoutInflater)
+        setContentView(binding.root)
+        return 0
+    }
 
     @SuppressLint("SetTextI18n")
     override fun initView() {
@@ -67,32 +73,32 @@ class IRGalleryDetail04Activity : BaseActivity() {
         position = intent.getIntExtra("position", 0)
         dataList = intent.getParcelableArrayListExtra("list")!!
 
-        title_view.setTitleText("${position + 1}/${dataList.size}")
+        binding.titleView.setTitleText("${position + 1}/${dataList.size}")
 
-        cl_bottom.isVisible = isRemote //查看远端时底部才有3个按钮
+        binding.clBottom.isVisible = isRemote //查看远端时底部才有3个按钮
 
         if (!isRemote) {
-            title_view.setRightDrawable(R.drawable.ic_toolbar_info_svg)
-            title_view.setRight2Drawable(R.drawable.ic_toolbar_share_svg)
-            title_view.setRight3Drawable(R.drawable.ic_toolbar_delete_svg)
-            title_view.setRightClickListener { actionInfo() }
-            title_view.setRight2ClickListener { actionShare() }
-            title_view.setRight3ClickListener { actionDelete() }
+            binding.titleView.setRightDrawable(R.drawable.ic_toolbar_info_svg)
+            binding.titleView.setRight2Drawable(R.drawable.ic_toolbar_share_svg)
+            binding.titleView.setRight3Drawable(R.drawable.ic_toolbar_delete_svg)
+            binding.titleView.setRightClickListener { actionInfo() }
+            binding.titleView.setRight2ClickListener { actionShare() }
+            binding.titleView.setRight3ClickListener { actionDelete() }
         }
 
         initViewPager()
 
-        cl_download.setOnClickListener {
+        binding.clDownload.setOnClickListener {
             actionDownload(false)
         }
-        cl_share.setOnClickListener {
+        binding.clShare.setOnClickListener {
             if (dataList[position].hasDownload) {
                 actionShare()
             } else {
                 actionDownload(true)
             }
         }
-        cl_delete.setOnClickListener {
+        binding.clDelete.setOnClickListener {
             actionDelete()
         }
     }
@@ -103,17 +109,17 @@ class IRGalleryDetail04Activity : BaseActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun initViewPager() {
-        ir_gallery_viewpager.adapter = GalleryViewPagerAdapter(this)
-        ir_gallery_viewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        binding.irGalleryViewpager.adapter = GalleryViewPagerAdapter(this)
+        binding.irGalleryViewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
 
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 this@IRGalleryDetail04Activity.position = position
-                title_view.setTitleText("${position + 1}/${dataList.size}")
-                iv_download.isSelected = dataList[position].hasDownload
+                binding.titleView.setTitleText("${position + 1}/${dataList.size}")
+                binding.ivDownload.isSelected = dataList[position].hasDownload
             }
         })
-        ir_gallery_viewpager?.setCurrentItem(position, false)
+        binding.irGalleryViewpager?.setCurrentItem(position, false)
     }
 
     private fun actionInfo() {
@@ -234,7 +240,7 @@ class IRGalleryDetail04Activity : BaseActivity() {
                     MediaScannerConnection.scanFile(this@IRGalleryDetail04Activity, arrayOf(FileConfig.ts004GalleryDir), null, null)
                     ToastTools.showShort(R.string.tip_save_success)
                     data.hasDownload = true
-                    iv_download.isSelected = dataList[position].hasDownload
+                    binding.ivDownload.isSelected = dataList[position].hasDownload
                     if (isToShare) {
                         actionShare()
                     }
