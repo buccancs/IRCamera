@@ -41,9 +41,6 @@ class PdfActivity : BaseActivity() {
         .load()
         */
     }
-            .spacing(0)
-            .load()
-    }
 
     override fun initData() {
         val tc001File = File(getExternalFilesDir("pdf")!!, "TC001.pdf")

@@ -53,6 +53,16 @@
     <string name="permission_request_camera_app">Camera permission is required</string>
     <string name="permission_request_storage_app">Storage permission is required</string>
     
+    <!-- Photo save strings -->
+    <string name="tip_photo_saved">Photo saved successfully</string>
+    
+    <!-- Pseudo mode strings -->
+    <string name="tip_change_pseudo_mode">Change pseudo color mode</string>
+    
+    <!-- Navigation strings -->
+    <string name="app_next">Next</string>
+    <string name="person_save">Save</string>
+    
     <!-- More Help Activity strings -->
     <string name="ts004_guide_text6">Connection Guide</string>
     <string name="ts004_guide_text8">How to Connect</string>
