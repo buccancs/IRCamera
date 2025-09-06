@@ -66,14 +66,14 @@ class MainFragment : BaseFragment(), View.OnClickListener {
     override fun initContentView(): Int = R.layout.fragment_main
 
     override fun initView() {
-        // Initialize views
-        tvConnectDevice = findViewById(R.id.tv_connect_device)
-        ivAdd = findViewById(R.id.iv_add)
-        tvNoDeviceTitle = findViewById(R.id.tv_no_device_title)
-        tvHasDeviceTitle = findViewById(R.id.tv_has_device_title)
-        recyclerView = findViewById(R.id.recycler_view)
-        clHasDevice = findViewById(R.id.cl_has_device)
-        clNoDevice = findViewById(R.id.cl_no_device)
+        // Initialize views using view?.findViewById since this is a fragment
+        tvConnectDevice = view?.findViewById(R.id.tv_connect_device)!!
+        ivAdd = view?.findViewById(R.id.iv_add)!!
+        tvNoDeviceTitle = view?.findViewById(R.id.tv_no_device_title)!!
+        tvHasDeviceTitle = view?.findViewById(R.id.tv_has_device_title)!!
+        recyclerView = view?.findViewById(R.id.recycler_view)!!
+        clHasDevice = view?.findViewById(R.id.cl_has_device)!!
+        clNoDevice = view?.findViewById(R.id.cl_no_device)!!
         
         adapter = MyAdapter()
         tvConnectDevice.setOnClickListener(this)
