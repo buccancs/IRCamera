@@ -64,7 +64,7 @@ class Image3DActivity : BaseActivity() {
         temp_low = intent.getFloatExtra(ExtraKeyConfig.TEMP_LOW,0f)
         lifecycleScope.launch {
             withContext(Dispatchers.IO){
-                val file = File(ir_path)
+                val file = File(ir_path ?: "")
                 if (!file.exists()) {
                     XLog.w("IR文件不存在: ${file.absolutePath}")
                     return@withContext

@@ -64,6 +64,8 @@ dependencies {
     implementation(project(":component:pseudo"))
     // Re-add thermal-ir dependency - needed for thermal-lite functionality
     implementation(project(":component:thermal-ir"))
+    // Add commonlibrary dependency for thermal-lite
+    implementation(project(":commonlibrary"))
     
     // Temporarily disable ARouter compiler until KAPT issues are resolved
 
