@@ -21,32 +21,37 @@ import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.utils.CommUtils
-import com.topdon.module.thermal.ir.BuildConfig
+import com.topdon.module.thermal.BuildConfig
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.utils.NetWorkUtils
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.activity.IRThermalNightActivity
 import com.topdon.module.thermal.ir.activity.IRThermalPlusActivity
-import kotlinx.android.synthetic.main.fragment_thermal_ir.*
+import com.topdon.module.thermal.databinding.FragmentThermalIrBinding
 
 class IRThermalFragment : BaseFragment(), View.OnClickListener {
+
+    private var _binding: FragmentThermalIrBinding? = null
+    private val binding get() = _binding!!
 
     // Only TC001 is supported now - no need for device type differentiation
 
     override fun initContentView() = R.layout.fragment_thermal_ir
 
     override fun initView() {
-        title_view.setTitleText(getString(R.string.tc_has_line_device))
+        _binding = FragmentThermalIrBinding.inflate(layoutInflater)
+        
+        binding.titleView.setTitleText(getString(R.string.tc_has_line_device))
 
-        cl_open_thermal.setOnClickListener(this)
-        tv_main_enter.setOnClickListener(this)
+        binding.clOpenThermal.setOnClickListener(this)
+        binding.tvMainEnter.setOnClickListener(this)
 
         // Only show TC001 (line device) UI elements
-        tv_main_enter.isVisible = true
-        cl_07_connect_tips.isVisible = false
-        tv_07_connect.isVisible = false
+        binding.tvMainEnter.isVisible = true
+        binding.cl07ConnectTips.isVisible = false
+        binding.tv07Connect.isVisible = false
 
-        animation_view.setAnimation("TDAnimationJSON.json")
+        binding.animationView.setAnimation("TDAnimationJSON.json")
         checkConnect()
         
         viewLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
@@ -70,14 +75,14 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
     override fun connected() {
         SharedManager.hasTcLine = true
         // TC001 USB connection
-        cl_connect.isVisible = true
-        cl_not_connect.isVisible = false
+        binding.clConnect.isVisible = true
+        binding.clNotConnect.isVisible = false
     }
 
     override fun disConnected() {
         // For TC001 USB connection
-        cl_connect.isVisible = false
-        cl_not_connect.isVisible = true
+        binding.clConnect.isVisible = false
+        binding.clNotConnect.isVisible = true
     }
 
     override fun onSocketConnected(isTS004: Boolean) {
@@ -104,7 +109,7 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            cl_open_thermal -> {
+            binding.clOpenThermal -> {
                 // Only TC001 is supported
                 if (DeviceTools.isTC001PlusConnect()) {
                     startActivityForResult(Intent(requireContext(), IRThermalPlusActivity::class.java), 101)
@@ -114,7 +119,7 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
                     startActivityForResult(Intent(requireContext(), IRThermalNightActivity::class.java), 101)
                 }
             }
-            tv_main_enter -> {
+            binding.tvMainEnter -> {
                 if (!DeviceTools.isConnect()) {
                     //没有接入设备不需要提示，有系统授权提示框
                     if (DeviceTools.findUsbDevice() == null) {
@@ -235,6 +240,9 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
 
     }
 
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
 }

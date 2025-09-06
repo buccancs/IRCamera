@@ -1,7 +1,11 @@
 package com.topdon.module.thermal.ir.fragment
 
 import android.graphics.Bitmap
+import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
 import android.yt.jni.Usbcontorl
 import androidx.lifecycle.lifecycleScope
@@ -24,10 +28,10 @@ import com.topdon.lib.core.common.SaveSettingUtil
 import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.utils.ScreenUtil
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.repository.ConfigRepository
 import com.topdon.module.thermal.ir.utils.CalibrationTools
-import kotlinx.android.synthetic.main.fragment_ir_monitor_thermal.*
+import com.topdon.module.thermal.databinding.FragmentIrMonitorThermalBinding
 import kotlinx.coroutines.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -37,12 +41,20 @@ import org.greenrobot.eventbus.ThreadMode
  */
 class IRCorrectionFragment : BaseFragment(),ITsTempListener{
 
+    private var _binding: FragmentIrMonitorThermalBinding? = null
+    private val binding get() = _binding!!
+
     /** 默认数据流模式：图像+温度复合数据 */
     protected var defaultDataFlowMode = CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT
 
     private var ircmd: IRCMD? = null
 
-    override fun initContentView() = R.layout.fragment_ir_monitor_thermal
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        _binding = FragmentIrMonitorThermalBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun initContentView() = 0  // Not used with ViewBinding
 
     private var rotateAngle = 270 //校对默认角度270
 
@@ -82,30 +94,30 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
     private fun initDataIR() {
         imageWidth = cameraHeight - tempHeight
         imageHeight = cameraWidth
-        temperatureView.setTextSize(SaveSettingUtil.tempTextSize)
+        binding.temperatureView.setTextSize(SaveSettingUtil.tempTextSize)
         if (ScreenUtil.isPortrait(requireContext())) {
             bitmap = Bitmap.createBitmap(imageWidth, imageHeight, Bitmap.Config.ARGB_8888)
-            temperatureView.setImageSize(imageWidth, imageHeight,this@IRCorrectionFragment)
+            binding.temperatureView.setImageSize(imageWidth, imageHeight,this@IRCorrectionFragment)
             rotateAngle = DeviceConfig.S_ROTATE_ANGLE
         } else {
             bitmap = Bitmap.createBitmap(imageHeight, imageWidth, Bitmap.Config.ARGB_8888)
-            temperatureView.setImageSize(imageHeight, imageWidth,this@IRCorrectionFragment)
+            binding.temperatureView.setImageSize(imageHeight, imageWidth,this@IRCorrectionFragment)
             rotateAngle = DeviceConfig.ROTATE_ANGLE
         }
-        cameraView!!.setSyncimage(syncimage)
-        cameraView!!.bitmap = bitmap
-        cameraView.isDrawLine = false
-        temperatureView.setSyncimage(syncimage)
-        temperatureView.setTemperature(temperature)
-        temperatureView.isEnabled = false
+        binding.cameraView.setSyncimage(syncimage)
+        binding.cameraView.bitmap = bitmap
+        binding.cameraView.isDrawLine = false
+        binding.temperatureView.setSyncimage(syncimage)
+        binding.temperatureView.setTemperature(temperature)
+        binding.temperatureView.isEnabled = false
         setViewLay()
         // 某些特定客户的特殊设备需要使用该命令关闭sensor
         if (Usbcontorl.isload) {
             Usbcontorl.usb3803_mode_setting(1) //打开5V
             Log.w("123", "打开5V")
         }
-        temperatureView.clear()
-        temperatureView.temperatureRegionMode = REGION_MODE_CLEAN
+        binding.temperatureView.clear()
+        binding.temperatureView.temperatureRegionMode = REGION_MODE_CLEAN
     }
 
     /**
@@ -186,12 +198,12 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
         Log.w(TAG, "onStart")
         if (!isrun) {
             //初始配置,伪彩铁红
-            temperatureView.postDelayed({
+            binding.temperatureView.postDelayed({
                 pseudocolorMode = 3
                 startUSB(false)
                 startISP()
-                temperatureView.start()
-                cameraView?.start()
+                binding.temperatureView.start()
+                binding.cameraView.start()
                 isrun = true
                 //恢复配置
                 configParam()
@@ -208,8 +220,8 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
         }
         imageThread?.interrupt()
         syncimage.valid = false
-        temperatureView.stop()
-        cameraView?.stop()
+        binding.temperatureView.stop()
+        binding.cameraView.stop()
         isrun = false
     }
 
@@ -236,18 +248,18 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
     }
 
     private fun setViewLay() {
-        thermal_lay.post {
+        binding.thermalLay.post {
             if (ScreenUtil.isPortrait(requireContext())) {
-                val params = thermal_lay.layoutParams
+                val params = binding.thermalLay.layoutParams
                 params.width = ScreenUtil.getScreenWidth(requireContext())
                 params.height = params.width * imageHeight / imageWidth
-                thermal_lay.layoutParams = params
+                binding.thermalLay.layoutParams = params
             } else {
                 // 横屏
-                val params = thermal_lay.layoutParams
-                params.height = thermal_lay.height
+                val params = binding.thermalLay.layoutParams
+                params.height = binding.thermalLay.height
                 params.width = params.height * imageHeight / imageWidth
-                thermal_lay.layoutParams = params
+                binding.thermalLay.layoutParams = params
             }
         }
     }

@@ -7,8 +7,8 @@ import android.view.View
 import android.widget.FrameLayout
 import androidx.core.view.isVisible
 import com.blankj.utilcode.util.SizeUtils
-import com.topdon.module.thermal.ir.R
-import com.topdon.module.thermal.ir.databinding.ViewTrendBinding
+import com.topdon.module.thermal.R
+import com.topdon.module.thermal.databinding.ViewTrendBinding
 import kotlin.math.min
 
 /**

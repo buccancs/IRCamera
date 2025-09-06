@@ -18,13 +18,14 @@ import android.webkit.WebView
 import androidx.annotation.RequiresApi
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.LanguageUtils
+import com.topdon.lib.core.BuildConfig
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.bean.event.SocketMsgEvent
 import com.topdon.lib.core.broadcast.DeviceBroadcastReceiver
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.config.FileConfig
-import com.topdon.lib.core.db.AppDatabase
+// import com.topdon.lib.core.db.AppDatabase  // Database removed as requested
 import com.topdon.lib.core.socket.SocketCmdUtil
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.AppLanguageUtils
@@ -175,11 +176,11 @@ abstract class BaseApplication : Application() {
 
     //清除无用数据
     fun clearDb() {
+        // Database functionality removed - placeholder method
         GlobalScope.launch(Dispatchers.Default) {
             try {
-                AppDatabase.getInstance().thermalDao().deleteZero(SharedManager.getUserId())
+                // AppDatabase.getInstance().thermalDao().deleteZero(SharedManager.getUserId()) // Database removed
             } catch (e: Exception) {
-                XLog.e("delete db error: ${e.message}")
             }
         }
     }

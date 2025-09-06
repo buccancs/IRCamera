@@ -13,7 +13,7 @@ import android.widget.LinearLayout
 import android.widget.Magnifier
 import androidx.core.content.ContextCompat
 import com.blankj.utilcode.util.SizeUtils
-import com.infisense.usbir.R
+import com.topdon.libir.R
 import com.infisense.usbir.utils.TargetUtils
 import com.topdon.lib.core.bean.ObserveBean
 

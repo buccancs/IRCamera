@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.item_setting_check.view.*
+import com.topdon.module.thermal.R
+import com.topdon.module.thermal.databinding.ItemSettingCheckBinding
 
 class SettingCheckAdapter(val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -27,22 +27,21 @@ class SettingCheckAdapter(val context: Context) :
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_setting_check, parent, false)
-        return ItemView(view)
+        val binding = ItemSettingCheckBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ItemView(binding)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ItemView) {
-            holder.btn.text = datas[position]
+            holder.binding.itemSettingCheckBtn.text = datas[position]
             if (position == selectTime) {
-                holder.btn.setBackgroundResource(R.drawable.ui_radio_active_btn)
-                holder.btn.setTextColor(ContextCompat.getColor(context, R.color.white))
+                holder.binding.itemSettingCheckBtn.setBackgroundResource(R.drawable.ui_radio_active_btn)
+                holder.binding.itemSettingCheckBtn.setTextColor(ContextCompat.getColor(context, R.color.white))
             } else {
-                holder.btn.setBackgroundResource(R.drawable.ui_radio_btn)
-                holder.btn.setTextColor(ContextCompat.getColor(context, R.color.font_gray))
+                holder.binding.itemSettingCheckBtn.setBackgroundResource(R.drawable.ui_radio_btn)
+                holder.binding.itemSettingCheckBtn.setTextColor(ContextCompat.getColor(context, R.color.font_gray))
             }
-            holder.btn.setOnClickListener {
+            holder.binding.itemSettingCheckBtn.setOnClickListener {
                 Log.w("123", "文件: ${datas[position]}")
                 listener?.onClick(position, dataTimes[position])
             }
@@ -54,9 +53,7 @@ class SettingCheckAdapter(val context: Context) :
         return datas.size
     }
 
-    inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val btn: Button = itemView.item_setting_check_btn
-    }
+    inner class ItemView(val binding: ItemSettingCheckBinding) : RecyclerView.ViewHolder(binding.root)
 
 
     interface OnItemClickListener {

@@ -11,22 +11,26 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.utils.Constants
 import com.topdon.module.user.R
-import kotlinx.android.synthetic.main.activity_electronic_manual.*
-import kotlinx.android.synthetic.main.item_electronic_manual.view.item_lay
-import kotlinx.android.synthetic.main.item_electronic_manual.view.item_text
+import com.topdon.module.user.databinding.ActivityElectronicManualBinding
+import com.topdon.module.user.databinding.ItemElectronicManualBinding
 
 /**
  * 电子说明书 或 FAQ 设备类型选择页面
  */
 @Route(path = RouterConfig.ELECTRONIC_MANUAL)
 class ElectronicManualActivity : BaseActivity() {
+    
+    private lateinit var binding: ActivityElectronicManualBinding
 
     override fun initContentView() = R.layout.activity_electronic_manual
 
     override fun initView() {
+        binding = ActivityElectronicManualBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
         val productType = intent.getIntExtra(Constants.SETTING_TYPE, 0) //0-电子说明书 1-FAQ
 
-        title_view.setTitleText(if (productType == Constants.SETTING_BOOK) R.string.electronic_manual else R.string.app_question)
+        binding.titleView.setTitleText(if (productType == Constants.SETTING_BOOK) R.string.electronic_manual else R.string.app_question)
 
         val adapter = MyAdapter(productType == 1)
         adapter.onPickListener = { isTS001 ->
@@ -48,8 +52,8 @@ class ElectronicManualActivity : BaseActivity() {
             }
         }
 
-        electronic_manual_recycler.layoutManager = LinearLayoutManager(this)
-        electronic_manual_recycler.adapter = adapter
+        binding.electronicManualRecycler.layoutManager = LinearLayoutManager(this)
+        binding.electronicManualRecycler.adapter = adapter
     }
 
     override fun initData() {
@@ -74,13 +78,14 @@ class ElectronicManualActivity : BaseActivity() {
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-            return ItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_electronic_manual, parent, false))
+            val binding = ItemElectronicManualBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            return ItemViewHolder(binding)
         }
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             if (holder is ItemViewHolder) {
-                holder.rootView.item_text.text = optionList[position]
-                holder.rootView.item_lay.setOnClickListener {
+                holder.binding.itemText.text = optionList[position]
+                holder.binding.itemLay.setOnClickListener {
                     onPickListener?.invoke(isFAQ && position == 0)
                 }
             }
@@ -88,7 +93,7 @@ class ElectronicManualActivity : BaseActivity() {
 
         override fun getItemCount(): Int = optionList.size
 
-        private class ItemViewHolder(val rootView: View) : RecyclerView.ViewHolder(rootView)
+        private class ItemViewHolder(val binding: ItemElectronicManualBinding) : RecyclerView.ViewHolder(binding.root)
     }
 
 }

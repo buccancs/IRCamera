@@ -4,17 +4,21 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.blankj.utilcode.util.ScreenUtils
 import com.maning.imagebrowserlibrary.MNImageBrowser
 import com.topdon.lib.core.ktbase.BaseViewModelFragment
 import com.topdon.lib.core.dialog.TipDialog
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.thermal.adapter.GalleryAdapter
 import com.topdon.module.thermal.ir.thermal.tools.GlideImageEngine
 import com.topdon.module.thermal.ir.thermal.viewmodel.GalleryViewModel
-import kotlinx.android.synthetic.main.fragment_gallery_picture.*
+import com.topdon.module.thermal.databinding.FragmentGalleryPictureBinding
 import java.io.File
 
 
@@ -23,16 +27,24 @@ import java.io.File
  */
 class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
 
+    private var _binding: FragmentGalleryPictureBinding? = null
+    private val binding get() = _binding!!
+
     private val adapter by lazy { GalleryAdapter(requireContext()) }
 
     override fun providerVMClass() = GalleryViewModel::class.java
-    override fun initContentView() = R.layout.fragment_gallery_picture
-
+    
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        _binding = FragmentGalleryPictureBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+    
+    override fun initContentView() = 0  // Not used with ViewBinding
 
     override fun initView() {
         val span = if (ScreenUtils.isLandscape()) 6 else 3
-        gallery_recycler.layoutManager = GridLayoutManager(requireContext(), span)
-        gallery_recycler.adapter = adapter
+        binding.galleryRecycler.layoutManager = GridLayoutManager(requireContext(), span)
+        binding.galleryRecycler.adapter = adapter
 
         viewModel.galleryLiveData.observe(this) {
             adapter.datas = it
@@ -92,4 +104,8 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
             .show()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

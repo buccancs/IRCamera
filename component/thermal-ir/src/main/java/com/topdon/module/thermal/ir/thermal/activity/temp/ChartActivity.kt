@@ -8,8 +8,8 @@
 //import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAStyle
 //import com.topdon.lib.core.config.RouterConfig
 //import com.topdon.lib.core.ktbase.BaseActivity
-//import com.topdon.module.thermal.ir.R
-//import kotlinx.android.synthetic.main.activity_chart.*
+//import com.topdon.module.thermal.R
+//import com.topdon.module.thermal.databinding.ActivityChartBinding
 //import kotlinx.coroutines.delay
 //import kotlinx.coroutines.flow.collect
 //import kotlinx.coroutines.flow.flow

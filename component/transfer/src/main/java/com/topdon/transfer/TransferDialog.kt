@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.dialog_transfer.view.*
+import com.topdon.transfer.databinding.DialogTransferBinding
 
 /**
  * 相册迁移进度弹框.
@@ -15,29 +15,28 @@ import kotlinx.android.synthetic.main.dialog_transfer.view.*
  * Created by LCG on 2024/3/26.
  */
 class TransferDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
+    
+    private val binding: DialogTransferBinding = DialogTransferBinding.inflate(LayoutInflater.from(context))
 
     var max: Int
-        get() = contentView.seek_bar.max
+        get() = binding.seekBar.max
         set(value) {
-            contentView.seek_bar.max = value
+            binding.seekBar.max = value
         }
 
     var progress: Int
-        get() = contentView.seek_bar.progress
+        get() = binding.seekBar.progress
         set(value) {
-            contentView.seek_bar.progress = value
+            binding.seekBar.progress = value
         }
-
-
-    private val contentView: View = LayoutInflater.from(context).inflate(R.layout.dialog_transfer, null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setCancelable(false)
         setCanceledOnTouchOutside(false)
 
-        contentView.seek_bar.isEnabled = false
-        setContentView(contentView)
+        binding.seekBar.isEnabled = false
+        setContentView(binding.root)
 
         window?.let {
             val layoutParams = it.attributes

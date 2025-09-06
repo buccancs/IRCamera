@@ -8,9 +8,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.item_menu_tab_more_view.view.*
-import kotlinx.android.synthetic.main.item_menu_tab_view.view.*
+import com.topdon.module.thermal.R
+import com.topdon.module.thermal.databinding.ItemMenuTabViewBinding
+import com.topdon.module.thermal.databinding.ItemMenuTabMoreViewBinding
 
 class MenuTabAdapter(val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -109,13 +109,11 @@ class MenuTabAdapter(val context: Context) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == TYPE_ITEM) {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_menu_tab_view, parent, false)
-            ItemView(view)
+            val binding = ItemMenuTabViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemView(binding)
         } else {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_menu_tab_more_view, parent, false)
-            ItemMoreView(view)
+            val binding = ItemMenuTabMoreViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemMoreView(binding)
         }
 
     }
@@ -157,20 +155,20 @@ class MenuTabAdapter(val context: Context) :
         lateinit var img: ImageView
     }
 
-    inner class ItemView(itemView: View) : BaseItemView(itemView) {
+    inner class ItemView(val binding: ItemMenuTabViewBinding) : BaseItemView(binding.root) {
         var name: TextView
 
         init {
-            lay = itemView.item_menu_tab_lay
-            img = itemView.item_menu_tab_img
-            name = itemView.item_menu_tab_text
+            lay = binding.itemMenuTabLay
+            img = binding.itemMenuTabImg
+            name = binding.itemMenuTabText
         }
     }
 
-    inner class ItemMoreView(itemView: View) : BaseItemView(itemView) {
+    inner class ItemMoreView(val binding: ItemMenuTabMoreViewBinding) : BaseItemView(binding.root) {
         init {
-            lay = itemView.item_menu_tab_more_lay
-            img = itemView.item_menu_tab_more_img
+            lay = binding.itemMenuTabMoreLay
+            img = binding.itemMenuTabMoreImg
         }
     }
 

@@ -3,12 +3,12 @@ plugins {
 }
 
 android {
-    compileSdk 34
-    buildToolsVersion "30.0.3"
+    namespace 'com.topdon.ble'
+    compileSdk rootProject.ext.android.compileSdk
 
     defaultConfig {
-        minSdk 22
-        targetSdk 28
+        minSdk rootProject.ext.android.minSdk
+        targetSdk rootProject.ext.android.targetSdk
         versionCode 1
         versionName "1.0"
         
@@ -23,8 +23,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     productFlavors {
@@ -50,11 +50,15 @@ android {
 }
 
 dependencies {
-    api 'com.topdon.lms.sdk2:lms:3.80.005'
+    // Temporarily comment out problematic LMS SDK dependency
+    // implementation(name: 'lms_international-3.90.009.0', ext: 'aar')
     api 'androidx.appcompat:appcompat:1.4.2'
     api 'org.greenrobot:eventbus:3.2.0'
     api 'com.blankj:utilcodex:1.31.0'//工具包
     api 'com.google.code.gson:gson:2.8.8'
     api 'com.elvishew:xlog:1.11.0'
     implementation files('libs/ini4j-0.5.5.jar')
+    
+    // Add Material Components for missing theme
+    api 'com.google.android.material:material:1.9.0'
 }

@@ -4,7 +4,7 @@ import android.view.WindowManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
-import kotlinx.android.synthetic.main.activity_pdf.*
+import com.topdon.tc001.databinding.ActivityPdfBinding
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -16,11 +16,17 @@ import java.io.OutputStream
 @Route(path = RouterConfig.PDF)
 class PdfActivity : BaseActivity() {
 
-    override fun initContentView() = R.layout.activity_pdf
+    private lateinit var binding: ActivityPdfBinding
+
+    override fun initContentView(): Int {
+        binding = ActivityPdfBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        return R.layout.activity_pdf
+    }
 
     override fun initView() {
         //本地说明书
-        pdf_view.fromAsset(if (intent.getBooleanExtra("isTS001", false)) "TC001.pdf" else "TS004.pdf")
+        binding.pdfView.fromAsset(if (intent.getBooleanExtra("isTS001", false)) "TC001.pdf" else "TS004.pdf")
             .enableSwipe(true) // allows to block changing pages using swipe
             .swipeHorizontal(false)
             .enableDoubletap(true)

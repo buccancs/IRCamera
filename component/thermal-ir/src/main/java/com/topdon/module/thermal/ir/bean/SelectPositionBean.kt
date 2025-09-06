@@ -3,7 +3,7 @@ package com.topdon.module.thermal.ir.bean
 import android.graphics.Point
 import android.graphics.Rect
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 /**
  * 温度监控 第1步 第2步 之间传递的要监控的信息.

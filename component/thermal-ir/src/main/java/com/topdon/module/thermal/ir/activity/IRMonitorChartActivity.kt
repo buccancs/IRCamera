@@ -41,11 +41,11 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.NumberTools
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.lib.core.utils.ScreenUtil
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.bean.SelectPositionBean
 import com.topdon.module.thermal.ir.event.MonitorSaveEvent
 import com.topdon.module.thermal.ir.repository.ConfigRepository
-import kotlinx.android.synthetic.main.activity_ir_monitor_chart.*
+import com.topdon.module.thermal.databinding.ActivityIrMonitorChartBinding
 import kotlinx.coroutines.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -58,6 +58,8 @@ import java.math.RoundingMode
  */
 @Route(path = RouterConfig.IR_MONITOR_CHART)
 class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
+
+    private lateinit var binding: ActivityIrMonitorChartBinding
 
     /** 默认数据流模式：图像+温度复合数据 */
     protected var defaultDataFlowMode = CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT
@@ -77,7 +79,10 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
     override fun initContentView() = R.layout.activity_ir_monitor_chart
 
     override fun initView() {
-        title_view.setRightClickListener {
+        binding = ActivityIrMonitorChartBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
+        binding.titleView.setRightClickListener {
             recordJob?.cancel()
             lifecycleScope.launch {
                 delay(200)
@@ -88,12 +93,12 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
         ts_data_L = CommonUtils.getTauData(this@IRMonitorChartActivity, "ts/TS001_L.bin")
         selectBean = intent.getParcelableExtra("select")!!
 
-        monitor_current_vol.text = getString(if (selectBean.type == 1) R.string.chart_temperature else R.string.chart_temperature_high)
-        monitor_real_vol.visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
-        monitor_real_img.visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
+        binding.monitorCurrentVol.text = getString(if (selectBean.type == 1) R.string.chart_temperature else R.string.chart_temperature_high)
+        binding.monitorRealVol.visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
+        binding.monitorRealImg.visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
 
-        temperatureView.isEnabled = false
-        temperatureView.setTextSize(SaveSettingUtil.tempTextSize)
+        binding.temperatureView.isEnabled = false
+        binding.temperatureView.setTextSize(SaveSettingUtil.tempTextSize)
 
 
         initDataIR()
@@ -117,9 +122,9 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
             while (true) {
                 delay(1000)
                 val result: LibIRTemp.TemperatureSampleResult = when (selectBean.type) {
-                    1 -> temperatureView.getPointTemp(selectBean.startPosition)
-                    2 -> temperatureView.getLineTemp(Line(selectBean.startPosition, selectBean.endPosition))
-                    else -> temperatureView.getRectTemp(selectBean.getRect())
+                    1 -> binding.temperatureView.getPointTemp(selectBean.startPosition)
+                    2 -> binding.temperatureView.getLineTemp(Line(selectBean.startPosition, selectBean.endPosition))
+                    else -> binding.temperatureView.getRectTemp(selectBean.getRect())
                 } ?: continue
                 if (isFirstRead) {
                     if (result.maxTemperature > 200f || result.minTemperature < -200f) {
@@ -133,7 +138,7 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
                     } else {
                         isFirstRead = false
                         lifecycleScope.launch(Dispatchers.Main) {
-                            ll_time.isVisible = true
+                            binding.llTime.isVisible = true
                         }
                     }
                 }
@@ -155,15 +160,15 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
         isStop = false
         if (!isrun) {
             configParam()
-            temperatureView.postDelayed({
+            binding.temperatureView.postDelayed({
                 //初始配置,伪彩铁红
                 try {
                     if (!isStop){
                         pseudoColorMode = 3
                         startUSB(false)
                         startISP()
-                        temperatureView.start()
-                        cameraView.start()
+                        binding.temperatureView.start()
+                        binding.cameraView.start()
                         isrun = true
                         if (!isRecord){
                             recordThermal()//开始记录
@@ -179,7 +184,7 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
     override fun onResume() {
         super.onResume()
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        mp_chart_view.highlightValue(null) //关闭高亮点Marker
+        binding.mpChartView.highlightValue(null) //关闭高亮点Marker
     }
 
     override fun onPause() {
@@ -197,8 +202,8 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
         }
         imageThread?.interrupt()
         syncimage.valid = false
-        temperatureView.stop()
-        cameraView.stop()
+        binding.temperatureView.stop()
+        binding.cameraView.stop()
         isrun = false
     }
 
@@ -251,14 +256,14 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
                         AppDatabase.getInstance().thermalDao().insert(entity)
                         time++
                         launch(Dispatchers.Main) {
-                            mp_chart_view.addPointToChart(bean = entity, selectType = selectBean.type)
+                            binding.mpChartView.addPointToChart(bean = entity, selectType = selectBean.type)
                         }
                         delay(timeMillis)
                     } else {
                         delay(100)
                     }
                     lifecycleScope.launch(Dispatchers.Main) {
-                        tv_time.text = TimeTool.showVideoLongTime(System.currentTimeMillis() - startTime)
+                        binding.tvTime.text = TimeTool.showVideoLongTime(System.currentTimeMillis() - startTime)
                     }
                 }
             }
@@ -302,17 +307,17 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
         imageHeight = cameraWidth
         if (ScreenUtil.isPortrait(this)) {
             bitmap = Bitmap.createBitmap(imageWidth, imageHeight, Bitmap.Config.ARGB_8888)
-            temperatureView.setImageSize(imageWidth, imageHeight,this@IRMonitorChartActivity)
+            binding.temperatureView.setImageSize(imageWidth, imageHeight,this@IRMonitorChartActivity)
             rotateAngle = DeviceConfig.S_ROTATE_ANGLE
         } else {
             bitmap = Bitmap.createBitmap(imageHeight, imageWidth, Bitmap.Config.ARGB_8888)
-            temperatureView.setImageSize(imageHeight, imageWidth,this@IRMonitorChartActivity)
+            binding.temperatureView.setImageSize(imageHeight, imageWidth,this@IRMonitorChartActivity)
             rotateAngle = DeviceConfig.ROTATE_ANGLE
         }
-        cameraView.setSyncimage(syncimage)
-        cameraView.bitmap = bitmap
-        temperatureView.setSyncimage(syncimage)
-        temperatureView.setTemperature(temperatureBytes)
+        binding.cameraView.setSyncimage(syncimage)
+        binding.cameraView.bitmap = bitmap
+        binding.temperatureView.setSyncimage(syncimage)
+        binding.temperatureView.setTemperature(temperatureBytes)
         setViewLay()
         // 某些特定客户的特殊设备需要使用该命令关闭sensor
         if (Usbcontorl.isload) {
@@ -510,26 +515,26 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
      * 绘制点线面
      */
     private fun addTempLine() {
-        temperatureView.visibility = View.VISIBLE
+        binding.temperatureView.visibility = View.VISIBLE
         when (selectBean.type) {
             1 -> {
                 //点
-                temperatureView.addScalePoint(selectBean.startPosition)
-                temperatureView.temperatureRegionMode = REGION_MODE_POINT
+                binding.temperatureView.addScalePoint(selectBean.startPosition)
+                binding.temperatureView.temperatureRegionMode = REGION_MODE_POINT
             }
             2 -> {
                 //线
-                temperatureView.addScaleLine(
+                binding.temperatureView.addScaleLine(
                     Line(
                         selectBean.startPosition,
                         selectBean.endPosition
                     )
                 )
-                temperatureView.temperatureRegionMode = REGION_MODE_LINE
+                binding.temperatureView.temperatureRegionMode = REGION_MODE_LINE
             }
             3 -> {
                 //面
-                temperatureView.addScaleRectangle(
+                binding.temperatureView.addScaleRectangle(
                     Rect(
                         selectBean.startPosition!!.x,
                         selectBean.startPosition!!.y,
@@ -537,27 +542,27 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
                         selectBean.endPosition!!.y,
                     )
                 )
-                temperatureView.temperatureRegionMode = REGION_MODE_RECTANGLE
+                binding.temperatureView.temperatureRegionMode = REGION_MODE_RECTANGLE
             }
         }
-        temperatureView.drawLine()
+        binding.temperatureView.drawLine()
     }
 
     private fun setViewLay() {
-        thermal_lay.post {
-            val params = thermal_lay.layoutParams
+        binding.thermalLay.post {
+            val params = binding.thermalLay.layoutParams
             if (ScreenUtil.isPortrait(this)) {
-                params.height = thermal_lay.height
+                params.height = binding.thermalLay.height
                 var w = params.height * imageWidth / imageHeight
                 if (w > ScreenUtil.getScreenWidth(this)) {
                     w = ScreenUtil.getScreenWidth(this)
                 }
                 params.width = w
             } else {
-                params.width = thermal_lay.width
+                params.width = binding.thermalLay.width
                 params.height = params.width * imageWidth / imageHeight
             }
-            thermal_lay.layoutParams = params
+            binding.thermalLay.layoutParams = params
         }
     }
 

@@ -16,8 +16,8 @@ import com.topdon.lib.core.utils.CommUtils
 import com.topdon.lms.sdk.utils.NetworkUtil
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.tc001.app.App
+import com.topdon.tc001.databinding.ActivityClauseBinding
 import com.topdon.tc001.utils.VersionUtils
-import kotlinx.android.synthetic.main.activity_clause.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
@@ -30,10 +30,13 @@ import java.util.*
 @Route(path = RouterConfig.CLAUSE)
 class ClauseActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityClauseBinding
     private lateinit var dialog: TipProgressDialog
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_clause)
+        binding = ActivityClauseBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         initView()
     }
 
@@ -45,12 +48,12 @@ class ClauseActivity : AppCompatActivity() {
             .create()
 
         val year = Calendar.getInstance().get(Calendar.YEAR)
-        clause_year_txt.text = getString(R.string.version_year, "2023-$year")
+        binding.clauseYearTxt.text = getString(R.string.version_year, "2023-$year")
 
-        clause_agree_btn.setOnClickListener {
+        binding.clauseAgreeBtn.setOnClickListener {
             confirmInitApp()
         }
-        clause_disagree_btn.setOnClickListener {
+        binding.clauseDisagreeBtn.setOnClickListener {
             //再次弹框确认是否退出
             TipDialog.Builder(this)
                 .setMessage(getString(R.string.privacy_tips))
@@ -64,7 +67,7 @@ class ClauseActivity : AppCompatActivity() {
                 .create().show()
         }
         val keyUseType = if (BaseApplication.instance.isDomestic()) 1 else 0
-        clause_item.setOnClickListener {
+        binding.clauseItem.setOnClickListener {
             if (!NetworkUtil.isConnected(this)) {
                 TToast.shortToast(this, R.string.lms_setting_http_error)
             } else {
@@ -76,7 +79,7 @@ class ClauseActivity : AppCompatActivity() {
                     .navigation(this)
             }
         }
-        clause_item2.setOnClickListener {
+        binding.clauseItem2.setOnClickListener {
             if (!NetworkUtil.isConnected(this)) {
                 TToast.shortToast(this, R.string.lms_setting_http_error)
             } else {
@@ -88,7 +91,7 @@ class ClauseActivity : AppCompatActivity() {
                     .navigation(this)
             }
         }
-        clause_item3.setOnClickListener {
+        binding.clauseItem3.setOnClickListener {
             //第三方
             if (!NetworkUtil.isConnected(this)) {
                 TToast.shortToast(this, R.string.lms_setting_http_error)
@@ -102,13 +105,13 @@ class ClauseActivity : AppCompatActivity() {
         }
 
         if (BaseApplication.instance.isDomestic()) {
-            tv_privacy.text = "    ${getString(R.string.privacy_agreement_tips_new, CommUtils.getAppName())}"
-            tv_privacy.visibility = View.VISIBLE
-            tv_privacy.movementMethod = ScrollingMovementMethod.getInstance()
+            binding.tvPrivacy.text = "    ${getString(R.string.privacy_agreement_tips_new, CommUtils.getAppName())}"
+            binding.tvPrivacy.visibility = View.VISIBLE
+            binding.tvPrivacy.movementMethod = ScrollingMovementMethod.getInstance()
         }
-        tv_welcome.text = getString(R.string.welcome_use_app, CommUtils.getAppName())
-        tv_version.text = "${getString(R.string.set_version)}V${VersionUtils.getCodeStr(this)}"
-        clause_name.text = CommUtils.getAppName()
+        binding.tvWelcome.text = getString(R.string.welcome_use_app, CommUtils.getAppName())
+        binding.tvVersion.text = "${getString(R.string.set_version)}V${VersionUtils.getCodeStr(this)}"
+        binding.clauseName.text = CommUtils.getAppName()
     }
 
     private fun confirmInitApp() {

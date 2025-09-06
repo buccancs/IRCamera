@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.module.user.R
-import kotlinx.android.synthetic.main.dialog_download_pro.view.*
+import com.topdon.module.user.databinding.DialogDownloadProBinding
 import java.text.DecimalFormat
 
 /**
@@ -17,13 +17,13 @@ import java.text.DecimalFormat
  */
 class DownloadProDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
 
-    private val rootView: View = LayoutInflater.from(context).inflate(R.layout.dialog_download_pro, null)
+    private val binding: DialogDownloadProBinding = DialogDownloadProBinding.inflate(LayoutInflater.from(context))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setCancelable(false)
         setCanceledOnTouchOutside(false)
-        setContentView(rootView)
+        setContentView(binding.root)
 
         window?.let {
             val layoutParams = it.attributes
@@ -38,9 +38,9 @@ class DownloadProDialog(context: Context) : Dialog(context, R.style.InfoDialog) 
      */
     fun refreshProgress(current: Long, total: Long) {
         val progress = (current * 100f / total).toInt()
-        rootView.tv_size.text = "${context.getString(R.string.detail_len)}: ${getFileSizeStr(current)}/${getFileSizeStr(total)}"
-        rootView.progress_bar.progress = progress
-        rootView.tv_progress.text = "${progress}%"
+        binding.tvSize.text = "${context.getString(R.string.detail_len)}: ${getFileSizeStr(current)}/${getFileSizeStr(total)}"
+        binding.progressBar.progress = progress
+        binding.tvProgress.text = "${progress}%"
     }
 
     private fun getFileSizeStr(size: Long): String = if (size < 1024) {

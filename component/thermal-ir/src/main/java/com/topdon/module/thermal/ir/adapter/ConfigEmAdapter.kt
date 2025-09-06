@@ -11,9 +11,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.SizeUtils
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.utils.IRConfigData
-import kotlinx.android.synthetic.main.item_ir_config_emissivity.view.*
+import com.topdon.module.thermal.databinding.ItemIrConfigEmissivityBinding
 
 /**
  * 温度修正（环境温度、测温距离、发射率修改那个页面）常用发射率表 Adapter.
@@ -23,19 +23,20 @@ class ConfigEmAdapter(val context: Context) : RecyclerView.Adapter<ConfigEmAdapt
     private val dataList: ArrayList<IRConfigData> = IRConfigData.irConfigData(context)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_ir_config_emissivity, parent, false))
+        val binding = ItemIrConfigEmissivityBinding.inflate(LayoutInflater.from(context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.itemView.tv_em_name.text = dataList[position].name
-        holder.itemView.tv_em_num.text = dataList[position].value
-        holder.itemView.tv_em_name.background = EmBgDrawable(false, position == dataList.size - 1)
-        holder.itemView.tv_em_num.background = EmBgDrawable(true, position == dataList.size - 1)
+        holder.binding.tvEmName.text = dataList[position].name
+        holder.binding.tvEmNum.text = dataList[position].value
+        holder.binding.tvEmName.background = EmBgDrawable(false, position == dataList.size - 1)
+        holder.binding.tvEmNum.background = EmBgDrawable(true, position == dataList.size - 1)
     }
 
     override fun getItemCount(): Int = dataList.size
 
-    class ViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView)
+    class ViewHolder(val binding: ItemIrConfigEmissivityBinding) : RecyclerView.ViewHolder(binding.root)
 
     private class EmBgDrawable(val drawRight: Boolean, val drawBottom: Boolean) : Drawable() {
         private val paint = Paint()

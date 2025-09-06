@@ -18,11 +18,14 @@
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <include
+        android:id="@+id/cl_guide_1"
         layout="@layout/layout_home_guide_1" />
     <include
+        android:id="@+id/cl_guide_2"
         layout="@layout/layout_home_guide_2"
         tools:visibility="gone" />
     <include
+        android:id="@+id/cl_guide_3"
         layout="@layout/layout_home_guide_3"
         tools:visibility="gone"/>
 

@@ -13,7 +13,7 @@ import android.view.View
 import androidx.annotation.ColorInt
 import com.blankj.utilcode.util.SizeUtils
 import com.topdon.lib.core.utils.ScreenUtil
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 
 /**
  * 3D 编辑使用的，长地像 SeekBar 的那个条条.
@@ -79,7 +79,7 @@ class TargetBarPickView : View {
     /**
      * 条条当前进度.
      */
-    private var progress: Int
+    private var progress: Int = 0
         set(value) {
             if (field != value) {
                 field = value.coerceAtLeast(min).coerceAtMost(max)

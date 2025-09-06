@@ -11,9 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.ui.R
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.lib.ui.listener.SingleClickListener
-import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.item_menu_tab_img
-import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.item_menu_tab_lay
-import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.item_menu_tab_text
+import com.topdon.lib.ui.databinding.UiItemMenuFourViewBinding
 
 @Deprecated("看起来是旧版 2D 编辑的菜单，根本没使用了")
 class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -52,16 +50,16 @@ class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.V
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.ui_item_menu_four_view, parent, false)
-        return ItemView(view)
+        val binding = UiItemMenuFourViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ItemView(binding)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ItemView) {
             val bean = fourBean[position]
-            holder.name.text = bean.name
-            holder.img.setImageResource(bean.res)
-            holder.lay.setOnClickListener(object : SingleClickListener() {
+            holder.binding.itemMenuTabText.text = bean.name
+            holder.binding.itemMenuTabImg.setImageResource(bean.res)
+            holder.binding.itemMenuTabLay.setOnClickListener(object : SingleClickListener() {
                 override fun onSingleClick() {
                     listener?.invoke(position, bean.code)
                     selected(bean.code)
@@ -70,16 +68,16 @@ class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.V
             })
             when (bean.code) {
                 1 -> {
-                    iconUI(colorEnable, holder.img, holder.name)
+                    iconUI(colorEnable, holder.binding.itemMenuTabImg, holder.binding.itemMenuTabText)
                 }
                 2 -> {
-                    iconUI(contrastEnable, holder.img, holder.name)
+                    iconUI(contrastEnable, holder.binding.itemMenuTabImg, holder.binding.itemMenuTabText)
                 }
                 3 -> {
-                    iconUI(ddeEnable, holder.img, holder.name)
+                    iconUI(ddeEnable, holder.binding.itemMenuTabImg, holder.binding.itemMenuTabText)
                 }
                 else -> {
-                    iconUI(bean.code == selected, holder.img, holder.name)
+                    iconUI(bean.code == selected, holder.binding.itemMenuTabImg, holder.binding.itemMenuTabText)
                 }
             }
         }
@@ -99,10 +97,6 @@ class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.V
         return fourBean.size
     }
 
-    inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val lay: View = itemView.item_menu_tab_lay
-        val img: ImageView = itemView.item_menu_tab_img
-        val name: TextView = itemView.item_menu_tab_text
-    }
+    inner class ItemView(val binding: UiItemMenuFourViewBinding) : RecyclerView.ViewHolder(binding.root)
 
 }

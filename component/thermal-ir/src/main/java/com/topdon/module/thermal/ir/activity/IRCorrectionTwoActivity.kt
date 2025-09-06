@@ -9,9 +9,9 @@ import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.DeviceTools
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.event.CorrectionFinishEvent
-import kotlinx.android.synthetic.main.activity_ir_correction_two.*
+import com.topdon.module.thermal.databinding.ActivityIrCorrectionTwoBinding
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -27,6 +27,8 @@ import org.greenrobot.eventbus.ThreadMode
 @Route(path = RouterConfig.IR_CORRECTION_TWO)
 class IRCorrectionTwoActivity : BaseActivity() {
 
+    private lateinit var binding: ActivityIrCorrectionTwoBinding
+
     /**
      * 从上一界面传递过来的，当前是否为 TC007 设备类型.
      * true-TC007 false-其他插件式设备
@@ -36,17 +38,20 @@ class IRCorrectionTwoActivity : BaseActivity() {
     override fun initContentView(): Int = R.layout.activity_ir_correction_two
 
     override fun initView() {
+        binding = ActivityIrCorrectionTwoBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
         isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
 
-        iv_sketch_map.setImageResource(R.drawable.ic_corrected_line) // Use standard corrected line drawable for TC001
+        binding.ivSketchMap.setImageResource(R.drawable.ic_corrected_line) // Use standard corrected line drawable for TC001
 
         if (if (isTC007) WebSocketProxy.getInstance().isTC007Connect() else DeviceTools.isConnect()) {
-            tv_correction.setBackgroundResource(R.drawable.bg_corners05_solid_theme)
+            binding.tvCorrection.setBackgroundResource(R.drawable.bg_corners05_solid_theme)
         } else {
-            tv_correction.setBackgroundResource(R.drawable.bg_corners05_solid_50_theme)
+            binding.tvCorrection.setBackgroundResource(R.drawable.bg_corners05_solid_50_theme)
         }
 
-        tv_correction.setOnClickListener {
+        binding.tvCorrection.setOnClickListener {
             if (DeviceTools.isConnect()) {
                 // TC001 only - no TC007 support
                 if (DeviceTools.isTC001LiteConnect()){
@@ -66,25 +71,25 @@ class IRCorrectionTwoActivity : BaseActivity() {
 
     override fun connected() {
         if (!isTC007) {
-            tv_correction.setBackgroundResource(R.drawable.bg_corners05_solid_theme)
+            binding.tvCorrection.setBackgroundResource(R.drawable.bg_corners05_solid_theme)
         }
     }
 
     override fun disConnected() {
         if (!isTC007) {
-            tv_correction.setBackgroundResource(R.drawable.bg_corners05_solid_50_theme)
+            binding.tvCorrection.setBackgroundResource(R.drawable.bg_corners05_solid_50_theme)
         }
     }
 
     override fun onSocketConnected(isTS004: Boolean) {
         if (isTC007 && !isTS004) {
-            tv_correction.setBackgroundResource(R.drawable.bg_corners05_solid_theme)
+            binding.tvCorrection.setBackgroundResource(R.drawable.bg_corners05_solid_theme)
         }
     }
 
     override fun onSocketDisConnected(isTS004: Boolean) {
         if (isTC007 && !isTS004) {
-            tv_correction.setBackgroundResource(R.drawable.bg_corners05_solid_50_theme)
+            binding.tvCorrection.setBackgroundResource(R.drawable.bg_corners05_solid_50_theme)
         }
     }
 

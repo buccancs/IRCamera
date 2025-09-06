@@ -12,7 +12,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.maning.imagebrowserlibrary.ImageEngine
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 
 
 class GlideImageEngine : ImageEngine {
@@ -32,50 +32,6 @@ class GlideImageEngine : ImageEngine {
             .fitCenter()
             .placeholder(R.drawable.ic_default_head_svg)
             .error(R.drawable.ic_default_head_svg)
-            .listener(BitmapRequestListener())
             .into(imageView)
-    }
-
-    class DrawableRequestListener : RequestListener<Drawable> {
-        override fun onLoadFailed(
-            e: GlideException?,
-            model: Any?,
-            target: Target<Drawable>?,
-            isFirstResource: Boolean
-        ): Boolean {
-            return false
-        }
-
-        override fun onResourceReady(
-            resource: Drawable?,
-            model: Any?,
-            target: Target<Drawable>?,
-            dataSource: DataSource?,
-            isFirstResource: Boolean
-        ): Boolean {
-            return false
-        }
-    }
-
-    class BitmapRequestListener : RequestListener<Bitmap> {
-        override fun onLoadFailed(
-            e: GlideException?,
-            model: Any?,
-            target: Target<Bitmap>?,
-            isFirstResource: Boolean
-        ): Boolean {
-            return false
-        }
-
-        override fun onResourceReady(
-            resource: Bitmap?,
-            model: Any?,
-            target: Target<Bitmap>?,
-            dataSource: DataSource?,
-            isFirstResource: Boolean
-        ): Boolean {
-            return false
-        }
-
     }
 }

@@ -11,10 +11,10 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.topdon.lib.core.R
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.RouterConfig
+import com.topdon.lib.core.databinding.DialogTipEmissivityBinding
 import com.topdon.lib.core.tools.NumberTools
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.dialog_tip_emissivity.view.*
 
 /**
  * 发射率的提示弹窗
@@ -91,27 +91,27 @@ class TipEmissivityDialog : Dialog {
 
             val inflater =
                 context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val view = inflater.inflate(R.layout.dialog_tip_emissivity, null)
+            val binding = DialogTipEmissivityBinding.inflate(inflater)
 
 
-            view.tv_environment_title.text = context!!.getString(R.string.thermal_config_environment) + ":"
-            view.tv_distance_title.text = context!!.getString(R.string.thermal_config_distance) + ":"
+            binding.tvEnvironmentTitle.text = context!!.getString(R.string.thermal_config_environment) + ":"
+            binding.tvDistanceTitle.text = context!!.getString(R.string.thermal_config_distance) + ":"
 
-            view.dialog_tip_success_btn.setOnClickListener {
+            binding.dialogTipSuccessBtn.setOnClickListener {
                 dialog?.onDismissListener?.invoke(hasCheck)
                 dismiss()
             }
-            view.dialog_tip_cancel_btn.setOnClickListener {
+            binding.dialogTipCancelBtn.setOnClickListener {
                 dialog?.onDismissListener?.invoke(hasCheck)
                 ARouter.getInstance().build(RouterConfig.IR_SETTING)
                     .withBoolean(ExtraKeyConfig.IS_TC007, false) // TC001 always false
                     .navigation(context)
                 dismiss()
             }
-            val tvEmissivity = view.tv_emissivity
-            val tvEmissivityMaterials = view.tv_emissivity_materials
-            val tvEnvironmentValue = view.tv_environment_value
-            val tvDistanceValue = view.tv_distance_value
+            val tvEmissivity = binding.tvEmissivity
+            val tvEmissivityMaterials = binding.tvEmissivityMaterials
+            val tvEnvironmentValue = binding.tvEnvironmentValue
+            val tvDistanceValue = binding.tvDistanceValue
 
             if (text.isNotEmpty()){
                 tvEmissivityMaterials.text = text
@@ -124,12 +124,12 @@ class TipEmissivityDialog : Dialog {
             tvEnvironmentValue.text = UnitTools.showC(environment)
             tvDistanceValue.text = "${
                 NumberTools.to02(distance)}m"
-            titleText = view.tv_title
-            messageText = view.dialog_tip_msg_text
-            checkBox = view.dialog_tip_check
-            imgClose = view.img_close
+            titleText = binding.tvTitle
+            messageText = binding.dialogTipMsgText
+            checkBox = binding.dialogTipCheck
+            imgClose = binding.imgClose
             dialog!!.addContentView(
-                view,
+                binding.root,
                 LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
             )
             val lp = dialog!!.window!!.attributes
@@ -165,7 +165,7 @@ class TipEmissivityDialog : Dialog {
 //            } else {
 //                messageText.visibility = View.GONE
 //            }
-            dialog!!.setContentView(view)
+            dialog!!.setContentView(binding.root)
             return dialog as TipEmissivityDialog
         }
     }

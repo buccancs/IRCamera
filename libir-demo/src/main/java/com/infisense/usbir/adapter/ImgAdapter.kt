@@ -11,9 +11,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.infisense.usbir.R
+import com.topdon.libir.demo.R
 import com.infisense.usbir.bean.ImgBean
-import kotlinx.android.synthetic.main.item_filter.view.*
+import com.topdon.libir.demo.databinding.ItemFilterBinding
 
 class ImgAdapter(
     private val context: Context,
@@ -28,8 +28,8 @@ class ImgAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view: View = LayoutInflater.from(context).inflate(R.layout.item_filter, parent, false)
-        return ViewHolder(view)
+        val binding = ItemFilterBinding.inflate(LayoutInflater.from(context), parent, false)
+        return ViewHolder(binding)
     }
 
     fun setBitmap(bitmap: Bitmap?) {
@@ -60,7 +60,7 @@ class ImgAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val filterBean = mDataList[position]
         holder.tvName.text = filterBean.titleName
-        holder.filter_img.setImageResource(filterBean.img)
+        holder.filterImg.setImageResource(filterBean.img)
         holder.rlRoot.setOnClickListener {
             listenter.onClick(
                 position
@@ -72,10 +72,10 @@ class ImgAdapter(
         return mDataList.size
     }
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var textureView: TextureView = view.textureView
-        var tvName: TextView = view.filter_name
-        var filter_img: ImageView = view.filter_img
-        var rlRoot: View = view.rl_root
+    inner class ViewHolder(private val binding: ItemFilterBinding) : RecyclerView.ViewHolder(binding.root) {
+        var textureView: TextureView = binding.textureView
+        var tvName: TextView = binding.filterName
+        var filterImg: ImageView = binding.filterImg
+        var rlRoot: View = binding.rlRoot
     }
 }

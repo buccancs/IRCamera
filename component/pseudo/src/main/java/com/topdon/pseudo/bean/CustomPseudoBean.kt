@@ -4,7 +4,7 @@ import android.os.Parcelable
 import com.google.gson.Gson
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.pseudo.constant.ColorRecommend
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import java.nio.ByteBuffer
 
 /**

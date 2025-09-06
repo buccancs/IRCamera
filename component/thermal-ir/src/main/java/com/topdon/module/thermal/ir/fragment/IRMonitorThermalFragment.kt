@@ -29,13 +29,12 @@ import com.topdon.lib.core.common.SaveSettingUtil
 import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.utils.ScreenUtil
-import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.R
 import com.topdon.module.thermal.ir.activity.IRMonitorActivity
 import com.topdon.module.thermal.ir.bean.SelectPositionBean
 import com.topdon.module.thermal.ir.event.ThermalActionEvent
 import com.topdon.module.thermal.ir.repository.ConfigRepository
-import kotlinx.android.synthetic.main.activity_thermal_ir_night.cameraView
-import kotlinx.android.synthetic.main.fragment_ir_monitor_thermal.*
+import com.topdon.module.thermal.databinding.FragmentIrMonitorThermalBinding
 import kotlinx.coroutines.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -44,6 +43,9 @@ import org.greenrobot.eventbus.ThreadMode
  * 热成像选取点
  */
 class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
+
+    private var _binding: FragmentIrMonitorThermalBinding? = null
+    private val binding get() = _binding!!
 
     /** 默认数据流模式：图像+温度复合数据 */
     protected var defaultDataFlowMode = CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT
@@ -69,6 +71,7 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
     }
 
     override fun initView() {
+        _binding = FragmentIrMonitorThermalBinding.bind(requireView())
         ts_data_H = CommonUtils.getTauData(context, "ts/TS001_H.bin")
         ts_data_L = CommonUtils.getTauData(context, "ts/TS001_L.bin")
         requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
@@ -89,25 +92,25 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun action(event: ThermalActionEvent) {
-        temperatureView.isEnabled = true
+        binding.temperatureView.isEnabled = true
         Log.w("123", "event:${event.action}")
         when (event.action) {
             2001 -> {
                 //点
-                temperatureView.visibility = View.VISIBLE
-                temperatureView.temperatureRegionMode = REGION_MODE_POINT
+                binding.temperatureView.visibility = View.VISIBLE
+                binding.temperatureView.temperatureRegionMode = REGION_MODE_POINT
                 readPosition(1)
             }
             2002 -> {
                 //线
-                temperatureView.visibility = View.VISIBLE
-                temperatureView.temperatureRegionMode = REGION_MODE_LINE
+                binding.temperatureView.visibility = View.VISIBLE
+                binding.temperatureView.temperatureRegionMode = REGION_MODE_LINE
                 readPosition(2)
             }
             2003 -> {
                 //面
-                temperatureView.visibility = View.VISIBLE
-                temperatureView.temperatureRegionMode = REGION_MODE_RECTANGLE
+                binding.temperatureView.visibility = View.VISIBLE
+                binding.temperatureView.temperatureRegionMode = REGION_MODE_RECTANGLE
                 readPosition(3)
             }
         }
@@ -142,21 +145,21 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
     private fun initDataIR() {
         imageWidth = cameraHeight - tempHeight
         imageHeight = cameraWidth
-        temperatureView.setTextSize(SaveSettingUtil.tempTextSize)
+        binding.temperatureView.setTextSize(SaveSettingUtil.tempTextSize)
         if (ScreenUtil.isPortrait(requireContext())) {
             bitmap = Bitmap.createBitmap(imageWidth, imageHeight, Bitmap.Config.ARGB_8888)
-            temperatureView.setImageSize(imageWidth, imageHeight,this@IRMonitorThermalFragment)
+            binding.temperatureView.setImageSize(imageWidth, imageHeight,this@IRMonitorThermalFragment)
             rotateAngle = DeviceConfig.S_ROTATE_ANGLE
         } else {
             bitmap = Bitmap.createBitmap(imageHeight, imageWidth, Bitmap.Config.ARGB_8888)
-            temperatureView.setImageSize(imageHeight, imageWidth,this@IRMonitorThermalFragment)
+            binding.temperatureView.setImageSize(imageHeight, imageWidth,this@IRMonitorThermalFragment)
             rotateAngle = DeviceConfig.ROTATE_ANGLE
         }
-        cameraView!!.setSyncimage(syncimage)
-        cameraView!!.bitmap = bitmap
-        temperatureView.setSyncimage(syncimage)
-        temperatureView.setTemperature(temperature)
-        temperatureView.isEnabled = false
+        binding.cameraView.setSyncimage(syncimage)
+        binding.cameraView.bitmap = bitmap
+        binding.temperatureView.setSyncimage(syncimage)
+        binding.temperatureView.setTemperature(temperature)
+        binding.temperatureView.isEnabled = false
         setViewLay()
         // 某些特定客户的特殊设备需要使用该命令关闭sensor
         if (Usbcontorl.isload) {
@@ -164,11 +167,11 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
             Log.w("123", "打开5V")
         }
         //初始全局测温
-        temperatureView.post {
+        binding.temperatureView.post {
             if (!temperaturerun) {
                 temperaturerun = true
                 //需等待渲染完成再显示
-                temperatureView.visibility = View.VISIBLE
+                binding.temperatureView.visibility = View.VISIBLE
             }
         }
     }
@@ -279,8 +282,8 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
             }
             startUSB(false)
             startISP()
-            temperatureView.start()
-            cameraView!!.start()
+            binding.temperatureView.start()
+            binding.cameraView.start()
             isrun = true
             //恢复配置
             configParam()
@@ -296,9 +299,14 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
         }
         imageThread?.interrupt()
         syncimage.valid = false
-        temperatureView.stop()
-        cameraView?.stop()
+        binding.temperatureView.stop()
+        binding.cameraView.stop()
         isrun = false
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onDestroy() {
@@ -348,41 +356,41 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
         val contentRectF = RectF(0f,0f,192f,256f)
         when (type) {
             1 -> {
-                if (temperatureView.point != null &&
-                    contentRectF.contains(temperatureView.point.x.toFloat(),
-                        temperatureView.point.y.toFloat()
+                if (binding.temperatureView.point != null &&
+                    contentRectF.contains(binding.temperatureView.point.x.toFloat(),
+                        binding.temperatureView.point.y.toFloat()
                     )) {
-                    result = SelectPositionBean(1, temperatureView.point)
+                    result = SelectPositionBean(1, binding.temperatureView.point)
                 }
             }
             2 -> {
-                if (temperatureView.line != null) {
+                if (binding.temperatureView.line != null) {
                     result = SelectPositionBean(
                         2,
-                        temperatureView.line.start,
-                        temperatureView.line.end
+                        binding.temperatureView.line.start,
+                        binding.temperatureView.line.end
                     )
                 }
             }
             3 -> {
-                if (temperatureView.rectangle != null &&
+                if (binding.temperatureView.rectangle != null &&
                     contentRectF.contains(
                         RectF(
-                            temperatureView.rectangle.left.toFloat(),
-                            temperatureView.rectangle.top.toFloat(),
-                            temperatureView.rectangle.right.toFloat(),
-                            temperatureView.rectangle.bottom.toFloat()
+                            binding.temperatureView.rectangle.left.toFloat(),
+                            binding.temperatureView.rectangle.top.toFloat(),
+                            binding.temperatureView.rectangle.right.toFloat(),
+                            binding.temperatureView.rectangle.bottom.toFloat()
                         )
                     )) {
                     result = SelectPositionBean(
                         3,
                         Point(
-                            temperatureView.rectangle.left,
-                            temperatureView.rectangle.top
+                            binding.temperatureView.rectangle.left,
+                            binding.temperatureView.rectangle.top
                         ),
                         Point(
-                            temperatureView.rectangle.right,
-                            temperatureView.rectangle.bottom
+                            binding.temperatureView.rectangle.right,
+                            binding.temperatureView.rectangle.bottom
                         )
                     )
                 }
@@ -393,18 +401,18 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
     }
 
     private fun setViewLay() {
-        thermal_lay.post {
+        binding.thermalLay.post {
             if (ScreenUtil.isPortrait(requireContext())) {
-                val params = thermal_lay.layoutParams
+                val params = binding.thermalLay.layoutParams
                 params.width = ScreenUtil.getScreenWidth(requireContext())
                 params.height = params.width * imageHeight / imageWidth
-                thermal_lay.layoutParams = params
+                binding.thermalLay.layoutParams = params
             } else {
                 // 横屏
-                val params = thermal_lay.layoutParams
-                params.height = thermal_lay.height
+                val params = binding.thermalLay.layoutParams
+                params.height = binding.thermalLay.height
                 params.width = params.height * imageHeight / imageWidth
-                thermal_lay.layoutParams = params
+                binding.thermalLay.layoutParams = params
             }
         }
     }
@@ -494,7 +502,7 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
     }
 
     fun getBitmap() : Bitmap{
-        return cameraView.scaledBitmap
+        return binding.cameraView.scaledBitmap
     }
 
     fun startCoverStsSwitchReady() : Int{
