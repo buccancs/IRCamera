@@ -8,8 +8,11 @@ import android.os.Bundle
 import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -21,7 +24,7 @@ import com.topdon.lib.core.navigation.NavigationManager
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.Utils
 import com.elvishew.xlog.XLog
-import com.example.suplib.wrapper.SupHelp
+// import com.example.suplib.wrapper.SupHelp // TODO: Fix SupHelp library access
 import com.example.thermal_lite.activity.IRThermalLiteActivity
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
@@ -77,6 +80,15 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     
     // findViewById declarations  
     private val viewPage: ViewPager2 by lazy { findViewById(R.id.view_page) }
+    private val viewMain: View by lazy { findViewById(R.id.view_main) }
+    private val clIconGallery: ConstraintLayout by lazy { findViewById(R.id.cl_icon_gallery) }
+    private val clIconMine: ConstraintLayout by lazy { findViewById(R.id.cl_icon_mine) }
+    private val ivIconGallery: ImageView by lazy { findViewById(R.id.iv_icon_gallery) }
+    private val ivIconMine: ImageView by lazy { findViewById(R.id.iv_icon_mine) }
+    private val tvIconMine: TextView by lazy { findViewById(R.id.tv_icon_mine) }
+    private val tvIconGallery: TextView by lazy { findViewById(R.id.tv_icon_gallery) }
+    private val ivBottomMainBg: ImageView by lazy { findViewById(R.id.iv_bottom_main_bg) }
+    private val viewMinePoint: View by lazy { findViewById(R.id.view_mine_point) }
 
     private var checkPermissionType: Int = -1 //0 initData数据 1 图库  2 connect方法
     override fun initContentView() = R.layout.activity_main
@@ -109,7 +121,8 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     override fun initView() {
         logInfo()
         lifecycleScope.launch(Dispatchers.IO){
-            SupHelp.getInstance().initAiUpScaler(Utils.getApp())
+            // TODO: Fix SupHelp library access
+            // SupHelp.getInstance().initAiUpScaler(Utils.getApp())
         }
         viewPage.offscreenPageLimit = 3
         viewPage.isUserInputEnabled = false
@@ -123,11 +136,11 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             viewPage.setCurrentItem(1, false)
         }
 
-        view_mine_point.isVisible = !SharedManager.hasClickWinter
+        viewMinePoint.isVisible = !SharedManager.hasClickWinter
 
-        cl_icon_gallery.setOnClickListener(this)
-        view_main.setOnClickListener(this)
-        cl_icon_mine.setOnClickListener(this)
+        clIconGallery.setOnClickListener(this)
+        viewMain.setOnClickListener(this)
+        clIconMine.setOnClickListener(this)
         App.instance.initWebSocket()
         copyFile("SR.pb", File(filesDir, "SR.pb"))
         BaseApplication.instance.clearDb()
@@ -282,14 +295,14 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            cl_icon_gallery -> {//图库
+            clIconGallery -> {//图库
                 checkPermissionType = 1
                 checkStoragePermission()
             }
-            view_main -> {//首页
+            viewMain -> {//首页
                 viewPage.setCurrentItem(1, false)
             }
-            cl_icon_mine -> {//我的
+            clIconMine -> {//我的
                 viewPage.setCurrentItem(2, false)
             }
         }
@@ -318,7 +331,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onWinterClick(event: WinterClickEvent) {
-        view_mine_point.isVisible = false
+        viewMinePoint.isVisible = false
     }
 
     /**
@@ -326,23 +339,23 @@ class MainActivity : BaseActivity(), View.OnClickListener {
      * @param index 当前选中哪个 tab，`[0, 2]`
      */
     private fun refreshTabSelect(index: Int) {
-        iv_icon_gallery.isSelected = false
-        tv_icon_gallery.isSelected = false
-        iv_icon_mine.isSelected = false
-        tv_icon_mine.isSelected = false
-        iv_bottom_main_bg.setImageResource(R.drawable.ic_main_bg_not_select)
+        ivIconGallery.isSelected = false
+        tvIconGallery.isSelected = false
+        ivIconMine.isSelected = false
+        tvIconMine.isSelected = false
+        ivBottomMainBg.setImageResource(R.drawable.ic_main_bg_not_select)
 
         when (index) {
             0 -> {//图库
-                iv_icon_gallery.isSelected = true
-                tv_icon_gallery.isSelected = true
+                ivIconGallery.isSelected = true
+                tvIconGallery.isSelected = true
             }
             1 -> {
-                iv_bottom_main_bg.setImageResource(R.drawable.ic_main_bg_select)
+                ivBottomMainBg.setImageResource(R.drawable.ic_main_bg_select)
             }
             2 -> {//我的
-                iv_icon_mine.isSelected = true
-                tv_icon_mine.isSelected = true
+                ivIconMine.isSelected = true
+                tvIconMine.isSelected = true
             }
         }
     }

@@ -6,6 +6,7 @@ import android.view.View
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
 import android.webkit.WebSettings
+import android.webkit.WebView
 import com.github.lzyzsd.jsbridge.BridgeWebView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -68,13 +69,13 @@ class WebViewActivity : BaseActivity() {
         webSettings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
 
         webView.webViewClient = object : BridgeWebViewClient(webView) {
-            override fun onPageFinished(view: BridgeWebView?, url: String?) {
+            override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
                 dismissLoadingDialog()
                 viewCover.isVisible = false
             }
 
-            override fun onReceivedError(view: BridgeWebView?, request: WebResourceRequest?, error: WebResourceError?) {
+            override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
                 super.onReceivedError(view, request, error)
                 dismissLoadingDialog()
                 viewCover.isVisible = false
