@@ -31,7 +31,7 @@ import com.topdon.module.thermal.ir.event.GalleryDirChangeEvent
 import com.topdon.module.thermal.ir.event.GalleryDownloadEvent
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryTabViewModel
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryViewModel
-import kotlinx.android.synthetic.main.fragment_ir_gallery.*
+import com.topdon.module.thermal.ir.databinding.FragmentIrGalleryBinding
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -42,6 +42,8 @@ import java.io.File
  * 图库
  */
 class IRGalleryFragment : BaseFragment() {
+
+    private lateinit var binding: FragmentIrGalleryBinding
 
     /**
      * 从上一界面传递过来的，进入图库时初始的目录类型
@@ -62,15 +64,17 @@ class IRGalleryFragment : BaseFragment() {
     override fun initContentView() = R.layout.fragment_ir_gallery
 
     override fun initView() {
+        binding = FragmentIrGalleryBinding.bind(requireView())
+        
         // Only LINE (TC001) is supported now
         currentDirType = DirType.LINE
 
         // Remove download UI since TC001 uses USB (no remote download needed)
-        cl_download.isVisible = false
+        binding.clDownload.isVisible = false
 
         initRecycler()
 
-        cl_share.setOnClickListener {
+        binding.clShare.setOnClickListener {
             val selectList = adapter.buildSelectList()
             if (selectList.size == 0) {
                 ToastTools.showShort(getString(R.string.tip_least_select))
@@ -82,10 +86,10 @@ class IRGalleryFragment : BaseFragment() {
             }
             downloadList(selectList, true)
         }
-        cl_delete.setOnClickListener {
+        binding.clDelete.setOnClickListener {
             showDeleteDialog()
         }
-        cl_download.setOnClickListener {
+        binding.clDownload.setOnClickListener {
             val selectList = adapter.buildSelectList()
             if (selectList.size == 0) {
                 ToastTools.showShort(getString(R.string.tip_least_select))
@@ -118,7 +122,7 @@ class IRGalleryFragment : BaseFragment() {
         }
         tabViewModel.isEditModeLD.observe(this) {
             adapter.isEditMode = it
-            cl_bottom.isVisible = it
+            binding.clBottom.isVisible = it
         }
         tabViewModel.selectAllIndex.observe(this) {
             if ((isVideo && it == 1) || (!isVideo && it == 0)) {
@@ -171,13 +175,13 @@ class IRGalleryFragment : BaseFragment() {
                 return if (adapter.dataList[position] is GalleryTitle) spanCount else 1
             }
         }
-        ir_gallery_recycler.adapter = adapter
-        ir_gallery_recycler.layoutManager = gridLayoutManager
+        binding.irGalleryRecycler.adapter = adapter
+        binding.irGalleryRecycler.layoutManager = gridLayoutManager
 
         adapter.isTS004Remote = false // TC001 uses USB, not remote
         adapter.onLongEditListener = {
             tabViewModel.isEditModeLD.value = true
-            cl_bottom.isVisible = true
+            binding.clBottom.isVisible = true
         }
         adapter.selectCallback = {
             tabViewModel.selectSizeLD.value = it.size
