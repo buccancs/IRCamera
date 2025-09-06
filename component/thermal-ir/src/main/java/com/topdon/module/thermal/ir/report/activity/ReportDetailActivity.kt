@@ -16,7 +16,7 @@ import com.topdon.libcom.PDFHelp
 import com.topdon.module.thermal.ir.report.view.ReportIRShowView
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.report.bean.ReportBean
-import kotlinx.android.synthetic.main.activity_report_detail.*
+import com.topdon.module.thermal.ir.databinding.ActivityReportDetailBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
@@ -29,6 +29,8 @@ import java.io.File
  */
 @Route(path = RouterConfig.REPORT_DETAIL)
 class ReportDetailActivity: BaseActivity() {
+
+    private lateinit var binding: ActivityReportDetailBinding
 
     /**
      * 从上一界面传递过来的，报告所有信息.
@@ -43,16 +45,22 @@ class ReportDetailActivity: BaseActivity() {
 
     override fun initContentView() = R.layout.activity_report_detail
 
+    override fun onCreate(savedInstanceState: android.os.Bundle?) {
+        binding = ActivityReportDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        super.onCreate(savedInstanceState)
+    }
+
     override fun initView() {
         reportBean = intent.getParcelableExtra(ExtraKeyConfig.REPORT_BEAN)
 
-        title_view.setTitleText(R.string.album_edit_report)
-        title_view.setLeftDrawable(R.drawable.svg_arrow_left_e8)
-        title_view.setRightDrawable(R.drawable.ic_share_black_svg)
-        title_view.setLeftClickListener {
+        binding.titleView.setTitleText(R.string.album_edit_report)
+        binding.titleView.setLeftDrawable(R.drawable.svg_arrow_left_e8)
+        binding.titleView.setRightDrawable(R.drawable.ic_share_black_svg)
+        binding.titleView.setLeftClickListener {
             finish()
         }
-        title_view.setRightClickListener {
+        binding.titleView.setRightClickListener {
             saveWithPDF()
         }
 
@@ -60,7 +68,7 @@ class ReportDetailActivity: BaseActivity() {
         report_info_view.refreshCondition(reportBean?.detection_condition)
 
         if (reportBean?.report_info?.is_report_watermark == 1) {
-            watermark_view.watermarkText = reportBean?.report_info?.report_watermark
+            binding.watermarkView.watermarkText = reportBean?.report_info?.report_watermark
         }
 
         val irList = reportBean?.infrared_data
@@ -72,7 +80,7 @@ class ReportDetailActivity: BaseActivity() {
                     val drawable = GlideLoader.getDrawable(this@ReportDetailActivity, irList[i].picture_url)
                     reportShowView.setImageDrawable(drawable)
                 }
-                ll_content.addView(reportShowView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                binding.llContent.addView(reportShowView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             }
         }
     }
@@ -96,7 +104,7 @@ class ReportDetailActivity: BaseActivity() {
                     }
                 }
                 pdfFilePath = PDFHelp.savePdfFileByListView(name?:System.currentTimeMillis().toString(),
-                    scroll_view, getPrintViewList(),watermark_view)
+                    binding.scrollView, getPrintViewList(),binding.watermarkView)
                 lifecycleScope.launch {
                     dismissCameraLoading()
                     actionShare()
@@ -122,10 +130,10 @@ class ReportDetailActivity: BaseActivity() {
      */
     private fun getPrintViewList(): ArrayList<View> {
         val result = ArrayList<View>()
-        result.add(report_info_view)
-        val childCount = ll_content.childCount
+        result.add(binding.reportInfoView)
+        val childCount = binding.llContent.childCount
         for (i in 0 until  childCount) {
-            val childView = ll_content.getChildAt(i)
+            val childView = binding.llContent.getChildAt(i)
             if (childView is ReportIRShowView) {
                 result.addAll(childView.getPrintViewList())
             }
