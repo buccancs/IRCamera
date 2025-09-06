@@ -9,7 +9,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.libcom.R
 import com.topdon.libcom.bean.DColorSelectBean
-import kotlinx.android.synthetic.main.d_ui_item_color_select.view.*
+import com.topdon.libcom.databinding.DUiItemColorSelectBinding
 
 @Deprecated("产品要求所有颜色拾取都更改为 ColorPickDialog 那种样式，这个弹框废弃")
 class DColorSelectAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -34,23 +34,22 @@ class DColorSelectAdapter(val context: Context) : RecyclerView.Adapter<RecyclerV
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.d_ui_item_color_select, parent, false)
-        return ItemView(view)
+        val binding = DUiItemColorSelectBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ItemView(binding)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ItemView) {
-            holder.img.setImageResource(colorBean[position].colorRes)
-            holder.lay.setOnClickListener {
+            holder.binding.itemColorImg.setImageResource(colorBean[position].colorRes)
+            holder.binding.itemColorLay.setOnClickListener {
                 listener?.invoke(position, Color.parseColor(colorBean[position].color))
                 selected(position)
             }
-            holder.img.isSelected = position == selected
+            holder.binding.itemColorImg.isSelected = position == selected
             if (position == selected) {
-                holder.checkImg.visibility = View.VISIBLE
+                holder.binding.itemColorCheck.visibility = View.VISIBLE
             } else {
-                holder.checkImg.visibility = View.GONE
+                holder.binding.itemColorCheck.visibility = View.GONE
             }
         }
     }
@@ -59,11 +58,7 @@ class DColorSelectAdapter(val context: Context) : RecyclerView.Adapter<RecyclerV
         return colorBean.size
     }
 
-    inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val lay: View = itemView.item_color_lay
-        val img: ImageView = itemView.item_color_img
-        val checkImg: ImageView = itemView.item_color_check
-    }
+    inner class ItemView(val binding: DUiItemColorSelectBinding) : RecyclerView.ViewHolder(binding.root)
 
 
 }
