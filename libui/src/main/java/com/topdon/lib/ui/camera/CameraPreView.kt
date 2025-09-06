@@ -370,9 +370,9 @@ class CameraPreView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener,
 
                 mPreviewSize = getOptimalSize(mapList, width, height)
                 val constraintSet = ConstraintSet()
-                constraintSet.clone(camera_lay_root)
+                constraintSet.clone(binding.cameraLayRoot)
                 constraintSet.constrainHeight(mTextureView.id,width * mPreviewSize!!.width / mPreviewSize!!.height)
-                constraintSet.applyTo(camera_lay_root);
+                constraintSet.applyTo(binding.cameraLayRoot);
                 XLog.w("mPreviewSize:${mPreviewSize}")
                 // 获取相机支持的最大拍照尺寸
                 val sizes = map.getOutputSizes(ImageFormat.JPEG)

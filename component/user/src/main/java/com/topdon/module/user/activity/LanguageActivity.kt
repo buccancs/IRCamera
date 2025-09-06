@@ -8,18 +8,22 @@ import com.topdon.lib.core.tools.AppLanguageUtils
 import com.topdon.lib.core.tools.ConstantLanguages
 import com.topdon.module.user.R
 import com.topdon.module.user.adapter.LanguageAdapter
-import kotlinx.android.synthetic.main.activity_language.*
+import com.topdon.module.user.databinding.ActivityLanguageBinding
 
 class LanguageActivity : BaseActivity() {
 
     private val adapter by lazy { LanguageAdapter(this) }
+    private lateinit var binding: ActivityLanguageBinding
 
     private var selectIndex = 0
 
     override fun initContentView() = R.layout.activity_language
 
     override fun initView() {
-        title_view.setRightClickListener {//保存
+        binding = ActivityLanguageBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
+        binding.titleView.setRightClickListener {//保存
             val localeStr: String = when (selectIndex) {
                 0 -> ConstantLanguages.ENGLISH
                 1 -> ConstantLanguages.RU
@@ -41,8 +45,8 @@ class LanguageActivity : BaseActivity() {
             finish()
         }
 
-        language_recycler.layoutManager = LinearLayoutManager(this)
-        language_recycler.adapter = adapter
+        binding.languageRecycler.layoutManager = LinearLayoutManager(this)
+        binding.languageRecycler.adapter = adapter
         adapter.listener = object : LanguageAdapter.ItemOnClickListener {
             override fun onClick(position: Int) {
                 adapter.setSelect(position)

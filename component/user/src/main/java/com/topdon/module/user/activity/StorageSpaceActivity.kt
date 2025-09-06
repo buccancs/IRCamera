@@ -16,7 +16,7 @@ import com.topdon.lms.sdk.utils.TLog
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.user.R
 import com.topdon.module.user.bean.ColorsBean
-import kotlinx.android.synthetic.main.activity_storage_space.*
+import com.topdon.module.user.databinding.ActivityStorageSpaceBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
