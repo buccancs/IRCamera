@@ -7,13 +7,11 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup.LayoutParams
-import android.widget.Button
-import android.widget.CheckBox
 import android.widget.TextView
 import androidx.annotation.StringRes
 import com.topdon.lib.core.R
+import com.topdon.lib.core.databinding.DialogTipOtgBinding
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.dialog_tip_otg.view.*
 
 
 /**
@@ -38,10 +36,7 @@ class TipOtgDialog : Dialog {
         private var canceled = false
         private var hasCheck = false
 
-        private lateinit var messageText: TextView
-        private lateinit var checkBox: CheckBox
-        private lateinit var successBtn: Button
-        private lateinit var cancelBtn: Button
+        private lateinit var binding: DialogTipOtgBinding
 
         constructor(context: Context) {
             this.context = context
@@ -96,11 +91,9 @@ class TipOtgDialog : Dialog {
             }
             val inflater =
                 context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val view = inflater.inflate(R.layout.dialog_tip_otg, null)
-            messageText = view.dialog_tip_msg_text
-            checkBox = view.dialog_tip_check
-            successBtn = view.dialog_tip_success_btn
-            cancelBtn = view.dialog_tip_cancel_btn
+            binding = DialogTipOtgBinding.inflate(inflater)
+            val view = binding.root
+            
             dialog!!.addContentView(
                 view,
                 LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
@@ -118,36 +111,36 @@ class TipOtgDialog : Dialog {
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceled)
-            checkBox.isChecked = false
+            binding.dialogTipCheck.isChecked = false
             hasCheck = false
-            checkBox.setOnCheckedChangeListener { _, isChecked ->
+            binding.dialogTipCheck.setOnCheckedChangeListener { _, isChecked ->
                 hasCheck = isChecked
             }
-            successBtn.setOnClickListener {
+            binding.dialogTipSuccessBtn.setOnClickListener {
                 dismiss()
                 positiveEvent?.invoke(hasCheck)
             }
-            cancelBtn.setOnClickListener {
+            binding.dialogTipCancelBtn.setOnClickListener {
                 dismiss()
                 cancelEvent?.invoke()
             }
 
             if (positiveStr != null) {
-                successBtn.text = positiveStr
+                binding.dialogTipSuccessBtn.text = positiveStr
             }
             if (!TextUtils.isEmpty(cancelStr)) {
-                cancelBtn.visibility = View.VISIBLE
-                cancelBtn.text = cancelStr
+                binding.dialogTipCancelBtn.visibility = View.VISIBLE
+                binding.dialogTipCancelBtn.text = cancelStr
             } else {
-                cancelBtn.visibility = View.GONE
-                cancelBtn.text = ""
+                binding.dialogTipCancelBtn.visibility = View.GONE
+                binding.dialogTipCancelBtn.text = ""
             }
             //msg
             if (message != null) {
-                messageText.visibility = View.VISIBLE
-                messageText.setText(message, TextView.BufferType.NORMAL)
+                binding.dialogTipMsgText.visibility = View.VISIBLE
+                binding.dialogTipMsgText.setText(message, TextView.BufferType.NORMAL)
             } else {
-                messageText.visibility = View.GONE
+                binding.dialogTipMsgText.visibility = View.GONE
             }
 
             dialog!!.setContentView(view)

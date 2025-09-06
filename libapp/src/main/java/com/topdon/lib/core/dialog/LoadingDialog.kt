@@ -4,13 +4,12 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import com.topdon.lib.core.R
+import com.topdon.lib.core.databinding.DialogLoadingBinding
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.dialog_loading.view.*
 
 /**
  * 新版 UI 的那个 LMS 的加载中弹框，由于 LMS 的弹框没有文字，只好自己再搞一个了。
@@ -19,24 +18,25 @@ import kotlinx.android.synthetic.main.dialog_loading.view.*
  */
 class LoadingDialog(context: Context) : Dialog(context, R.style.TransparentDialog) {
 
+    private lateinit var binding: DialogLoadingBinding
+
     fun setTips(@StringRes resId: Int) {
-        rootView.tv_tips.setText(resId)
-        rootView.tv_tips.isVisible = true
+        binding.tvTips.setText(resId)
+        binding.tvTips.isVisible = true
     }
 
     fun setTips(text: CharSequence?) {
-        rootView.tv_tips.text = text
-        rootView.tv_tips.isVisible = text?.isNotEmpty() == true
+        binding.tvTips.text = text
+        binding.tvTips.isVisible = text?.isNotEmpty() == true
     }
-
-
-    private val rootView: View = LayoutInflater.from(context).inflate(R.layout.dialog_loading, null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setCancelable(false)
         setCanceledOnTouchOutside(false)
-        setContentView(rootView)
+        
+        binding = DialogLoadingBinding.inflate(LayoutInflater.from(context))
+        setContentView(binding.root)
 
         window?.let {
             val layoutParams = it.attributes
