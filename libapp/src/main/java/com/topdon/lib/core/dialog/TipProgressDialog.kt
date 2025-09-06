@@ -10,8 +10,8 @@ import android.view.ViewGroup.LayoutParams
 import android.widget.TextView
 import androidx.annotation.StringRes
 import com.topdon.lib.core.R
+import com.topdon.lib.core.databinding.DialogTipProgressBinding
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.dialog_tip_progress.view.*
 
 
 /**
@@ -34,7 +34,7 @@ class TipProgressDialog : Dialog {
         private var message: String? = null
         private var canceleable = true
 
-        private var messageText: TextView? = null
+        private lateinit var binding: DialogTipProgressBinding
 
         constructor(context: Context) {
             this.context = context
@@ -66,8 +66,8 @@ class TipProgressDialog : Dialog {
             }
             val inflater =
                 context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val view = inflater.inflate(R.layout.dialog_tip_progress, null)
-            messageText = view.dialog_tip_load_msg
+            binding = DialogTipProgressBinding.inflate(inflater)
+            val view = binding.root
 
             dialog!!.addContentView(
                 view,
@@ -88,10 +88,10 @@ class TipProgressDialog : Dialog {
             dialog!!.setCanceledOnTouchOutside(canceleable)
             //msg
             if (message != null) {
-                messageText?.visibility = View.VISIBLE
-                messageText?.setText(message, TextView.BufferType.NORMAL)
+                binding.dialogTipLoadMsg.visibility = View.VISIBLE
+                binding.dialogTipLoadMsg.setText(message, TextView.BufferType.NORMAL)
             } else {
-                messageText?.visibility = View.GONE
+                binding.dialogTipLoadMsg.visibility = View.GONE
             }
 
             dialog!!.setContentView(view)
