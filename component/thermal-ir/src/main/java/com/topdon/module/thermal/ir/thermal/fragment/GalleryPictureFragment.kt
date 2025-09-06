@@ -14,7 +14,7 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.thermal.adapter.GalleryAdapter
 import com.topdon.module.thermal.ir.thermal.tools.GlideImageEngine
 import com.topdon.module.thermal.ir.thermal.viewmodel.GalleryViewModel
-import kotlinx.android.synthetic.main.fragment_gallery_picture.*
+import com.topdon.module.thermal.ir.databinding.FragmentGalleryPictureBinding
 import java.io.File
 
 

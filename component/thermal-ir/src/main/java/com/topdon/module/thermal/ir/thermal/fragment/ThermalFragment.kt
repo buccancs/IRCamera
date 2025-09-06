@@ -31,7 +31,7 @@ import com.topdon.lib.ui.dialog.SeekDialog
 import com.topdon.lib.ui.dialog.ThermalInputDialog
 import com.topdon.lib.ui.fence.FenceLineView
 import com.topdon.lib.ui.fence.FencePointView
-import kotlinx.android.synthetic.main.fragment_thermal.*
+import com.topdon.module.thermal.ir.databinding.FragmentThermalBinding
 import com.topdon.lib.ui.fence.FenceView
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.thermal.base.BaseThermalFragment
@@ -42,7 +42,6 @@ import com.topdon.module.thermal.ir.thermal.tools.medie.IYapVideoProvider
 import com.topdon.module.thermal.ir.thermal.tools.medie.YapVideoEncoder
 import com.topdon.module.thermal.ir.thermal.utils.ArrayUtils
 import com.topdon.module.thermal.ir.thermal.viewmodel.ThermalViewModel
-import kotlinx.android.synthetic.main.fragment_thermal.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.Subscribe

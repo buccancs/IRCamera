@@ -34,7 +34,7 @@ import com.topdon.module.thermal.ir.event.ImageGalleryEvent
 import com.topdon.module.thermal.ir.fragment.GalleryFragment
 import com.topdon.module.thermal.ir.frame.FrameTool
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryEditViewModel
-import kotlinx.android.synthetic.main.activity_ir_gallery_detail_01.*
+import com.topdon.module.thermal.ir.databinding.ActivityIrGalleryDetail01Binding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -48,6 +48,8 @@ import java.io.File
  */
 @Route(path = RouterConfig.IR_GALLERY_DETAIL_01)
 class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
+
+    private lateinit var binding: ActivityIrGalleryDetail01Binding
 
     /**
      * 从上一界面传递过来的，当前是否为 TC007 设备类型.
@@ -67,7 +69,11 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
     private var irPath: String? = null
     private val irViewModel: IRGalleryEditViewModel by viewModels()
 
-    override fun initContentView() = R.layout.activity_ir_gallery_detail_01
+    override fun initContentView(): Int {
+        binding = ActivityIrGalleryDetail01Binding.inflate(layoutInflater)
+        setContentView(binding.root)
+        return 0
+    }
     private val frameTool by lazy { FrameTool() }
 
     override fun initView() {
