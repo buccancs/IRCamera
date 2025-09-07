@@ -12,6 +12,7 @@ import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.pseudo.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.pseudo.bean.CustomPseudoBean
 import com.topdon.pseudo.constant.*
 import com.topdon.pseudo.databinding.ActivityPseudoSetBinding
@@ -215,12 +216,12 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
                 if (binding.clCustomContent.isVisible) {//使用自定义渲染
                     val inputMax = binding.etMaxTemp.text.toString()
                     if (inputMax.isEmpty()) {
-                        ToastUtils.showShort(R.string.tip_input_format)
+                        ToastUtils.showShort(LibAppR.string.tip_input_format)
                         return
                     }
                     val inputMin = binding.etMinTemp.text.toString()
                     if (inputMin.isEmpty()) {
-                        ToastUtils.showShort(R.string.tip_input_format)
+                        ToastUtils.showShort(LibAppR.string.tip_input_format)
                         return
                     }
 
@@ -235,11 +236,11 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
                         null
                     }
                     if(maxTemp == null || minTemp == null || maxTemp < minTemp || maxTemp > 550f || minTemp < -20f) {
-                        ToastUtils.showShort(R.string.tip_input_format)
+                        ToastUtils.showShort(LibAppR.string.tip_input_format)
                         return
                     }
                     if (maxTemp - minTemp < 0.1f) {
-                        ToastUtils.showShort(R.string.tip_input_format)
+                        ToastUtils.showShort(LibAppR.string.tip_input_format)
                         return
                     }
                     customPseudoBean.maxTemp = maxTemp
@@ -287,8 +288,8 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
         binding.clColorRecommend.isVisible = !isToCustom
         binding.tvColorCustom.setTextColor(if (isToCustom) 0xffffba42.toInt() else 0xffffffff.toInt())
         binding.tvColorRecommend.setTextColor(if (isToCustom) 0xffffffff.toInt() else 0xffffba42.toInt())
-        binding.tvColorCustom.setBackgroundResource(if (isToCustom) R.drawable.bg_corners50_solid_2a183e_stroke_theme else 0)
-        binding.tvColorRecommend.setBackgroundResource(if (isToCustom) 0 else R.drawable.bg_corners50_solid_2a183e_stroke_theme)
+        binding.tvColorCustom.setBackgroundResource(if (isToCustom) LibAppR.drawable.bg_corners50_solid_2a183e_stroke_theme else 0)
+        binding.tvColorRecommend.setBackgroundResource(if (isToCustom) 0 else LibAppR.drawable.bg_corners50_solid_2a183e_stroke_theme)
     }
 
     /**
@@ -311,45 +312,45 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
         when (customPseudoBean.customRecommendIndex) {
             0 -> {
                 binding.tvRecommendColor1.setTextColor(0x80ffffff.toInt())
-                binding.viewRecommendBgColor1.setBackgroundResource(R.drawable.bg_corners04_stroke_30_ff)
+                binding.viewRecommendBgColor1.setBackgroundResource(LibAppR.drawable.bg_corners04_stroke_30_ff)
             }
             1 -> {
                 binding.tvRecommendColor2.setTextColor(0x80ffffff.toInt())
-                binding.viewRecommendBgColor2.setBackgroundResource(R.drawable.bg_corners04_stroke_30_ff)
+                binding.viewRecommendBgColor2.setBackgroundResource(LibAppR.drawable.bg_corners04_stroke_30_ff)
             }
             2 -> {
                 binding.tvRecommendColor3.setTextColor(0x80ffffff.toInt())
-                binding.viewRecommendBgColor3.setBackgroundResource(R.drawable.bg_corners04_stroke_30_ff)
+                binding.viewRecommendBgColor3.setBackgroundResource(LibAppR.drawable.bg_corners04_stroke_30_ff)
             }
             3 -> {
                 binding.tvRecommendColor4.setTextColor(0x80ffffff.toInt())
-                binding.viewRecommendBgColor4.setBackgroundResource(R.drawable.bg_corners04_stroke_30_ff)
+                binding.viewRecommendBgColor4.setBackgroundResource(LibAppR.drawable.bg_corners04_stroke_30_ff)
             }
             4 -> {
                 binding.tvRecommendColor5.setTextColor(0x80ffffff.toInt())
-                binding.viewRecommendBgColor5.setBackgroundResource(R.drawable.bg_corners04_stroke_30_ff)
+                binding.viewRecommendBgColor5.setBackgroundResource(LibAppR.drawable.bg_corners04_stroke_30_ff)
             }
         }
         when (index) {
             0 -> {
                 binding.tvRecommendColor1.setTextColor(0xffffba42.toInt())
-                binding.viewRecommendBgColor1.setBackgroundResource(R.drawable.bg_corners04_stroke_2dp_ffba42)
+                binding.viewRecommendBgColor1.setBackgroundResource(LibAppR.drawable.bg_corners04_stroke_2dp_ffba42)
             }
             1 -> {
                 binding.tvRecommendColor2.setTextColor(0xffffba42.toInt())
-                binding.viewRecommendBgColor2.setBackgroundResource(R.drawable.bg_corners04_stroke_2dp_ffba42)
+                binding.viewRecommendBgColor2.setBackgroundResource(LibAppR.drawable.bg_corners04_stroke_2dp_ffba42)
             }
             2 -> {
                 binding.tvRecommendColor3.setTextColor(0xffffba42.toInt())
-                binding.viewRecommendBgColor3.setBackgroundResource(R.drawable.bg_corners04_stroke_2dp_ffba42)
+                binding.viewRecommendBgColor3.setBackgroundResource(LibAppR.drawable.bg_corners04_stroke_2dp_ffba42)
             }
             3 -> {
                 binding.tvRecommendColor4.setTextColor(0xffffba42.toInt())
-                binding.viewRecommendBgColor4.setBackgroundResource(R.drawable.bg_corners04_stroke_2dp_ffba42)
+                binding.viewRecommendBgColor4.setBackgroundResource(LibAppR.drawable.bg_corners04_stroke_2dp_ffba42)
             }
             4 -> {
                 binding.tvRecommendColor5.setTextColor(0xffffba42.toInt())
-                binding.viewRecommendBgColor5.setBackgroundResource(R.drawable.bg_corners04_stroke_2dp_ffba42)
+                binding.viewRecommendBgColor5.setBackgroundResource(LibAppR.drawable.bg_corners04_stroke_2dp_ffba42)
             }
         }
         customPseudoBean.customRecommendIndex = index
@@ -360,8 +361,8 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
         binding.ivOverColorSelect.isVisible = !isUseGray
         binding.tvOverGrey.setTextColor(if (isUseGray) 0xffffba42.toInt() else 0xffffffff.toInt())
         binding.tvOverColor.setTextColor(if (isUseGray) 0xffffffff.toInt() else 0xffffba42.toInt())
-        binding.clOverGrey.setBackgroundResource(if (isUseGray) R.drawable.bg_corners05_solid_2a183e_stroke_theme else R.drawable.bg_corners05_solid_626569)
-        binding.clOverColor.setBackgroundResource(if (isUseGray) R.drawable.bg_corners05_solid_626569 else R.drawable.bg_corners05_solid_2a183e_stroke_theme)
+        binding.clOverGrey.setBackgroundResource(if (isUseGray) LibAppR.drawable.bg_corners05_solid_2a183e_stroke_theme else LibAppR.drawable.bg_corners05_solid_626569)
+        binding.clOverColor.setBackgroundResource(if (isUseGray) LibAppR.drawable.bg_corners05_solid_626569 else LibAppR.drawable.bg_corners05_solid_2a183e_stroke_theme)
         customPseudoBean.isUseGray = isUseGray
     }
 

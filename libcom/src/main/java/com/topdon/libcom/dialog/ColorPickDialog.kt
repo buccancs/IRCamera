@@ -13,6 +13,7 @@ import com.jaygoo.widget.DefRangeSeekBar
 import com.jaygoo.widget.OnRangeChangedListener
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.libcom.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.libcom.databinding.DialogColorPickBinding
 import com.topdon.libcom.util.ColorUtils
 
@@ -21,7 +22,7 @@ import com.topdon.libcom.util.ColorUtils
  *
  * Created by chenggeng.lin on 2023/12/18.
  */
-class ColorPickDialog(context: Context, @ColorInt private var color: Int,var textSize: Int,var textSizeIsDP : Boolean = false) : Dialog(context, R.style.InfoDialog), View.OnClickListener {
+class ColorPickDialog(context: Context, @ColorInt private var color: Int,var textSize: Int,var textSizeIsDP : Boolean = false) : Dialog(context, LibAppR.style.InfoDialog), View.OnClickListener {
 
     /**
      * 颜色值拾取事件监听.
@@ -80,13 +81,13 @@ class ColorPickDialog(context: Context, @ColorInt private var color: Int,var tex
                     var text = "标准"
                     text = if (leftValue <= 0){
                         textSize = 14
-                        context.getString(R.string.temp_text_standard)
+                        context.getString(LibAppR.string.temp_text_standard)
                     }else if(leftValue <= 50){
                         textSize = 16
-                        context.getString(R.string.temp_text_big)
+                        context.getString(LibAppR.string.temp_text_big)
                     }else{
                         textSize = 18
-                        context.getString(R.string.temp_text_sup_big)
+                        context.getString(LibAppR.string.temp_text_sup_big)
                     }
                     binding.tvSizeValue?.text = text
                 }

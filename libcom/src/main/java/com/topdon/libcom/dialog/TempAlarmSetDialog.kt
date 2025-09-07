@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.libcom.AlarmHelp
 import com.topdon.libcom.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.lib.core.bean.AlarmBean
 import com.topdon.lib.core.common.SaveSettingUtil
 import com.topdon.lib.core.tools.ToastTools
@@ -169,11 +170,11 @@ class TempAlarmSetDialog(
                 null
             }
             if (inputHigh != null && inputLow != null && inputLow > inputHigh) {
-                ToastTools.showShort(R.string.tip_input_format)
+                ToastTools.showShort(LibAppR.string.tip_input_format)
                 return
             }
         } catch (e: Exception) {
-            ToastTools.showShort(R.string.tip_input_format)
+            ToastTools.showShort(LibAppR.string.tip_input_format)
             return
         }
 

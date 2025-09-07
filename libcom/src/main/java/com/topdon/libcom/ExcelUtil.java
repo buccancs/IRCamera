@@ -124,9 +124,9 @@ public class ExcelUtil {
             Workbook wb = new XSSFWorkbook();
             // 创建工作表
             Sheet sheet = wb.createSheet();
-            String[] title = {Utils.getApp().getString(R.string.detail_date), Utils.getApp().getString(R.string.chart_temperature_low), Utils.getApp().getString(R.string.chart_temperature_high)};
+            String[] title = {Utils.getApp().getString(com.csl.irCamera.libapp.R.string.detail_date), Utils.getApp().getString(com.csl.irCamera.libapp.R.string.chart_temperature_low), Utils.getApp().getString(com.csl.irCamera.libapp.R.string.chart_temperature_high)};
             if (isPoint){
-                title = new String[]{Utils.getApp().getString(R.string.detail_date), Utils.getApp().getString(R.string.chart_temperature)};
+                title = new String[]{Utils.getApp().getString(com.csl.irCamera.libapp.R.string.detail_date), Utils.getApp().getString(com.csl.irCamera.libapp.R.string.chart_temperature)};
             }
             //创建行对象
             Row row = sheet.createRow(0);
