@@ -1,4 +1,5 @@
 package com.topdon.tc001.view
+import com.csl.irCamera.R
 
 import android.content.Context
 import android.content.res.TypedArray
@@ -14,7 +15,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.blankj.utilcode.util.SizeUtils
-import com.topdon.tc001.R
 
 
 class ConnectionGuideView: LinearLayout {

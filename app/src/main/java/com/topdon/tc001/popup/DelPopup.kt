@@ -1,4 +1,5 @@
 package com.topdon.tc001.popup
+import com.csl.irCamera.R
 
 import android.content.Context
 import android.view.Gravity
@@ -10,7 +11,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
 import com.blankj.utilcode.util.SizeUtils
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
-import com.topdon.tc001.R
 
 /**
  * 首页-设备列表-删除设备确认 PopupWindow.

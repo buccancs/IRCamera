@@ -1,4 +1,5 @@
 package com.topdon.tc001
+import com.csl.irCamera.R
 
 import android.annotation.SuppressLint
 import android.content.Intent

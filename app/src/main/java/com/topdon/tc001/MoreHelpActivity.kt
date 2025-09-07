@@ -1,4 +1,5 @@
 package com.topdon.tc001
+import com.csl.irCamera.R
 import android.content.Context
 import android.content.Intent
 import android.net.wifi.WifiManager

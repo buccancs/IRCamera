@@ -1,4 +1,5 @@
 package com.topdon.tc001
+import com.csl.irCamera.R
 
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
