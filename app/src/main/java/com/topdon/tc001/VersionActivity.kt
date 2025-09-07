@@ -1,6 +1,7 @@
 package com.topdon.tc001
 
 import android.view.View
+import android.widget.TextView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.topdon.lib.core.BaseApplication
@@ -24,7 +25,7 @@ class VersionActivity : BaseActivity(), View.OnClickListener {
 
     override fun initView() {
         // Bind to the actual root view that was set by BaseActivity
-        binding = ActivityVersionBinding.bind(findViewById(R.id.title_view).parent as View)
+        binding = ActivityVersionBinding.bind(findViewById<View>(android.R.id.content).rootView)
         
         binding.versionCodeText.text = "${getString(R.string.set_version)}V${VersionUtils.getCodeStr(this)}"
         val year = Calendar.getInstance().get(Calendar.YEAR)
@@ -38,7 +39,7 @@ class VersionActivity : BaseActivity(), View.OnClickListener {
                 LMS.getInstance().activityEnv()
             }
         }
-        binding.clNewVersion.setOnClickListener {
+        findViewById<View>(R.id.cl_new_version).setOnClickListener {
             if (!CheckDoubleClick.isFastDoubleClick()) {
                 checkAppVersion(true)
             }
@@ -82,11 +83,11 @@ class VersionActivity : BaseActivity(), View.OnClickListener {
         if (appVersionUtil == null) {
             appVersionUtil = AppVersionUtil(this, object : AppVersionUtil.DotIsShowListener {
                 override fun isShow(show: Boolean) {
-                    binding.clNewVersion.visibility = View.VISIBLE
+                    findViewById<View>(R.id.cl_new_version).visibility = View.VISIBLE
                 }
 
                 override fun version(version: String) {
-                    binding.tvNewVersion.text = "$version"
+                    findViewById<TextView>(R.id.tv_new_version).text = "$version"
                 }
             })
         }

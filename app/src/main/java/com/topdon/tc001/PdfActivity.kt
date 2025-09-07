@@ -1,5 +1,6 @@
 package com.topdon.tc001
 
+import android.view.View
 import android.view.WindowManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.topdon.lib.core.config.RouterConfig
@@ -21,7 +22,7 @@ class PdfActivity : BaseActivity() {
     override fun initContentView() = R.layout.activity_pdf
 
     override fun initView() {
-        binding = ActivityPdfBinding.bind(findViewById(R.id.title_view).parent as View)
+        binding = ActivityPdfBinding.bind(findViewById<View>(android.R.id.content).rootView)
         
         //本地说明书
         binding.pdfView.fromAsset(if (intent.getBooleanExtra("isTS001", false)) "TC001.pdf" else "TS004.pdf")

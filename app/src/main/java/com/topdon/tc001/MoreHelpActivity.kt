@@ -23,7 +23,7 @@ class MoreHelpActivity:BaseActivity() {
     override fun initContentView() = R.layout.activity_more_help
 
     override fun initView() {
-        binding = ActivityMoreHelpBinding.bind(findViewById(R.id.title_view).parent as View)
+        binding = ActivityMoreHelpBinding.bind(findViewById<View>(android.R.id.content).rootView)
         initIntent()
         wifiManager = getSystemService(Context.WIFI_SERVICE) as WifiManager
     }
