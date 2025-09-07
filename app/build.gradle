@@ -13,6 +13,7 @@ kapt {
 }
 
 android {
+    namespace 'com.csl.irCamera'
     compileSdk rootProject.ext.android.compileSdk
     
     defaultConfig {
@@ -111,6 +112,7 @@ android {
     buildFeatures{
         dataBinding = true
         viewBinding = true
+        buildConfig = true
     }
     
     lint {
@@ -162,14 +164,18 @@ def copyAab(type) {
     }
 }
 
-project.afterEvaluate {
-    assembleRelease.doLast {
-        println "===================== build Release.apk copy ======================="
-        copyApk("release")
+tasks.whenTaskAdded { task ->
+    if (task.name == "assembleRelease") {
+        task.doLast {
+            println "===================== build Release.apk copy ======================="
+            copyApk("release")
+        }
     }
-    bundleRelease.doLast {
-        println "===================== build Release.aab copy ======================="
-        copyAab("release")
+    if (task.name == "bundleRelease") {
+        task.doLast {
+            println "===================== build Release.aab copy ======================="
+            copyAab("release")
+        }
     }
 }
 

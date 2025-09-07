@@ -12,6 +12,7 @@ kapt {
 }
 
 android {
+    namespace 'com.csl.irCamera.component.pseudo'
     compileSdk rootProject.ext.android.compileSdk
 
     defaultConfig {

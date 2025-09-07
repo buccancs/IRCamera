@@ -11,6 +11,7 @@ kapt {
     }
 }
 android {
+    namespace 'com.csl.irCamera.libir'
     compileSdk rootProject.ext.android.compileSdk
 
     defaultConfig {

@@ -19,16 +19,15 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.4.2'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.22"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.22"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
 //        classpath "com.alibaba:arouter-register:1.0.2"
-        classpath 'com.google.gms:google-services:4.3.10'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.7.1'
-        classpath 'com.google.gms:google-services:4.3.8'
-        // hms���������ɻ�Ϊ����ͨ������ֱ������
-        classpath 'com.huawei.agconnect:agcp:1.6.0.300'
+        classpath 'com.google.gms:google-services:4.4.2'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.9'
+        // hms推送 服务端配置为推送通用代码直接引用
+        classpath 'com.huawei.agconnect:agcp:1.9.1.301'
     }
 }
 apply from: "depend.gradle"
@@ -89,13 +88,13 @@ subprojects {
             force 'com.google.android.exoplayer:exoplayer-hls:2.19.1'
             force 'com.google.android.exoplayer:exoplayer-smoothstreaming:2.19.1'
             
-            // Force compatible Kotlin stdlib and coroutines versions for Kotlin 1.7.22
-            force 'org.jetbrains.kotlin:kotlin-stdlib:1.7.22'
-            force 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.22'
-            force 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.22'
-            force 'org.jetbrains.kotlin:kotlin-stdlib-common:1.7.22'
-            force 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
-            force 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+            // Force compatible Kotlin stdlib and coroutines versions for Kotlin 1.8.22
+            force 'org.jetbrains.kotlin:kotlin-stdlib:1.8.22'
+            force 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22'
+            force 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22'
+            force 'org.jetbrains.kotlin:kotlin-stdlib-common:1.8.22'
+            force 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3'
+            force 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
         }
     }
 }

@@ -3,6 +3,7 @@ plugins {
 }
 
 android {
+    namespace 'com.csl.irCamera.BleModule'
     compileSdk 34
     buildToolsVersion "30.0.3"
 

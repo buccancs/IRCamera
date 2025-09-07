@@ -13,6 +13,7 @@ kapt {
 
 
 android {
+    namespace 'com.csl.irCamera.libcom'
     compileSdk rootProject.ext.android.compileSdk
 
     defaultConfig {

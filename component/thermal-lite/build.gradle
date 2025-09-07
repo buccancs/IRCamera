@@ -12,6 +12,7 @@ kapt {
 }
 
 android {
+    namespace 'com.csl.irCamera.component.thermal_lite'
     compileSdk rootProject.ext.android.compileSdk
 
     defaultConfig {
