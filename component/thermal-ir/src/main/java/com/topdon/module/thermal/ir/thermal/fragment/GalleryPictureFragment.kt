@@ -24,15 +24,23 @@ import java.io.File
 class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
 
     private val adapter by lazy { GalleryAdapter(requireContext()) }
+    private var _binding: FragmentGalleryPictureBinding? = null
+    private val binding get() = _binding!!
 
     override fun providerVMClass() = GalleryViewModel::class.java
     override fun initContentView() = R.layout.fragment_gallery_picture
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
     override fun initView() {
+        _binding = FragmentGalleryPictureBinding.bind(requireView())
+        
         val span = if (ScreenUtils.isLandscape()) 6 else 3
-        gallery_recycler.layoutManager = GridLayoutManager(requireContext(), span)
-        gallery_recycler.adapter = adapter
+        binding.galleryRecycler.layoutManager = GridLayoutManager(requireContext(), span)
+        binding.galleryRecycler.adapter = adapter
 
         viewModel.galleryLiveData.observe(this) {
             adapter.datas = it

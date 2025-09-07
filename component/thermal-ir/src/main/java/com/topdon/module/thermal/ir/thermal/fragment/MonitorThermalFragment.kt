@@ -36,7 +36,7 @@ import com.topdon.module.thermal.ir.thermal.tools.ThermalTool
 import com.topdon.module.thermal.ir.thermal.tools.medie.IYapVideoProvider
 import com.topdon.module.thermal.ir.thermal.tools.medie.YapVideoEncoder
 import com.topdon.module.thermal.ir.thermal.utils.ArrayUtils
-import com.topdon.module.thermal.ir.databinding.FragmentThermalBinding
+import com.topdon.module.thermal.ir.databinding.FragmentMonitorThermalBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.Subscribe
@@ -50,7 +50,7 @@ import java.util.*
  */
 class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
 
-    private var _binding: FragmentThermalBinding? = null
+    private var _binding: FragmentMonitorThermalBinding? = null
     private val binding get() = _binding!!
 
     protected var mIrSurfaceViewLayout: FrameLayout? = null
@@ -60,7 +60,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
     private val msgLiveData by lazy { MutableLiveData<Int>() }
 
     override fun onCreateView(inflater: android.view.LayoutInflater, container: android.view.ViewGroup?, savedInstanceState: android.os.Bundle?): android.view.View? {
-        _binding = FragmentThermalBinding.inflate(inflater, container, false)
+        _binding = FragmentMonitorThermalBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -474,9 +474,9 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
         if (fenceFlag.getIndex(index) == 0) {
             fenceFlag = 1.shl(4 * (index - 1)) //设置001 or 010 or 100
             mFenceLayout!!.visibility = View.VISIBLE
-            fence_point_view.visibility = if (fenceFlag.getIndex(1) > 0) View.VISIBLE else View.GONE
-            fence_line_view.visibility = if (fenceFlag.getIndex(2) > 0) View.VISIBLE else View.GONE
-            fence_view.visibility = if (fenceFlag.getIndex(3) > 0) View.VISIBLE else View.GONE
+            binding.fencePointView.visibility = if (fenceFlag.getIndex(1) > 0) View.VISIBLE else View.GONE
+            binding.fenceLineView.visibility = if (fenceFlag.getIndex(2) > 0) View.VISIBLE else View.GONE
+            binding.fenceView.visibility = if (fenceFlag.getIndex(3) > 0) View.VISIBLE else View.GONE
         } else {
             fenceFlag = 0x000
             mFenceLayout!!.visibility = View.GONE
@@ -486,7 +486,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
     var selectIndex: ArrayList<Int> = arrayListOf()//选取点
 
     private fun initFence() {
-        fence_point_view.listener = object : FencePointView.CallBack {
+        binding.fencePointView.listener = object : FencePointView.CallBack {
             override fun callback(startPoint: IntArray, srcRect: IntArray) {
                 //获取点
                 val activity: MonitorActivity = requireActivity() as MonitorActivity
@@ -496,7 +496,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
                 activity.select(1, selectIndex)
             }
         }
-        fence_line_view.listener = object : FenceLineView.CallBack {
+        binding.fenceLineView.listener = object : FenceLineView.CallBack {
             override fun callback(startPoint: IntArray, endPoint: IntArray, srcRect: IntArray) {
                 //获取线
                 selectIndex = Fence(srcRect = srcRect, rotateType = rotateType)
@@ -506,7 +506,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
             }
 
         }
-        fence_view.listener = object : FenceView.CallBack {
+        binding.fenceView.listener = object : FenceView.CallBack {
             override fun callback(startPoint: IntArray, endPoint: IntArray, srcRect: IntArray) {
                 //获取面
                 selectIndex = Fence(srcRect = srcRect, rotateType = rotateType)

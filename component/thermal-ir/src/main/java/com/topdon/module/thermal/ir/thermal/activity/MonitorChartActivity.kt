@@ -132,8 +132,8 @@ class MonitorChartActivity : BaseIRActivity(), View.OnClickListener, OnChartValu
     private fun initRecycler() {
         binding.monitorChartTimeRecycler.layoutManager = GridLayoutManager(this, 4)
         binding.monitorChartTimeRecycler.adapter = timeAdapter
-        monitor_chart_setting_recycler.layoutManager = GridLayoutManager(this, 3)
-        monitor_chart_setting_recycler.adapter = adapter
+        binding.monitorChartSettingRecycler.layoutManager = GridLayoutManager(this, 3)
+        binding.monitorChartSettingRecycler.adapter = adapter
         //设置时间段类型(秒 分 时 天)
         timeAdapter.listener = object : SettingTimeAdapter.OnItemClickListener {
             override fun onClick(index: Int, timeType: Int) {
