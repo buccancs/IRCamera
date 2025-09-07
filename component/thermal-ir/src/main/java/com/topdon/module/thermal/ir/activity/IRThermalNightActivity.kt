@@ -264,8 +264,8 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             }
             imageThread?.setBitmap(bitmap)
             imageThread?.setOpenAmplify(isOpenAmplify)
-            binding.binding.cameraView.bitmap = bitmap
-            binding.binding.cameraView.isOpenAmplify = isOpenAmplify
+            binding.cameraView.bitmap = bitmap
+            binding.cameraView.isOpenAmplify = isOpenAmplify
             binding.titleView.setRight2Drawable(if (isOpenAmplify) R.drawable.svg_tisr_on else R.drawable.svg_tisr_off)
             SaveSettingUtil.isOpenAmplify = isOpenAmplify
             if (isOpenAmplify){
@@ -296,8 +296,8 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             }
             imageThread?.setBitmap(bitmap)
             imageThread?.setOpenAmplify(isOpenAmplify)
-            binding.binding.cameraView.bitmap = bitmap
-            binding.binding.cameraView.isOpenAmplify = isOpenAmplify
+            binding.cameraView.bitmap = bitmap
+            binding.cameraView.isOpenAmplify = isOpenAmplify
         }
     }
 
@@ -478,11 +478,11 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             }
         }
 
-        iv_trend_close.setOnClickListener {
+        binding.ivTrendClose.setOnClickListener {
             binding.clTrendOpen.isVisible = false
             binding.llTrendClose.isVisible = true
         }
-        iv_trend_open.setOnClickListener {
+        binding.ivTrendOpen.setOnClickListener {
             binding.clTrendOpen.isVisible = true
             binding.llTrendClose.isVisible = false
         }
@@ -502,7 +502,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         SaveSettingUtil.isMeasureTempMode = isToTemp
 
         //关闭设置菜单的 PopupWindow
-        ViewStubUtils.showViewStub(view_stub_camera, false, null)
+        ViewStubUtils.showViewStub(binding.viewStubCamera, false, null)
         popupWindow?.dismiss()
 
         showCameraLoading()
@@ -713,7 +713,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         curChooseTabPos = if (isToTemp) Constants.IR_TEMPERATURE_MODE else Constants.IR_OBSERVE_MODE
         isTs001TempMode = isToTemp
         binding.thermalRecyclerNight.selectPosition(if (isToTemp) 0 else 10)
-        view_menu_first.isObserveMode = !isToTemp
+        binding.viewMenuFirst.isObserveMode = !isToTemp
 
         //指南针显示状态改变
         updateCompass()
@@ -1021,7 +1021,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
    open fun irStart(){
         if (!isrun) {
             syncimage.valid = true
-            tv_type_ind?.visibility = GONE
+            binding.tvTypeInd?.visibility = GONE
             startISP()
             binding.temperatureView.start()
             binding.cameraView?.start()
@@ -1994,8 +1994,8 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 HtmlCompat.fromHtml(infoBuilder.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
             if (str.contains("Mini256", true)) {
                 lifecycleScope.launch(Dispatchers.Main){
-                    tv_title_temp.isVisible = true
-                    tv_title_observe.isVisible = true
+                    binding.tvTitleTemp.isVisible = true
+                    binding.tvTitleObserve.isVisible = true
                 }
                 // 根据不同的高低增益加载不同的等效大气透过率表
 //                getUTable()
@@ -2275,7 +2275,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     private fun settingCamera() {
         showCameraSetting = !showCameraSetting
         if (showCameraSetting) {
-            ViewStubUtils.showViewStub(view_stub_camera, true, callback = { view: View? ->
+            ViewStubUtils.showViewStub(binding.viewStubCamera, true, callback = { view: View? ->
                 view?.let {
                     val recyclerView = it.findViewById<RecyclerView>(R.id.recycler_view)
                     if (ScreenUtil.isPortrait(this)) {
@@ -2376,7 +2376,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 }
             })
         } else {
-            ViewStubUtils.showViewStub(view_stub_camera, false, null)
+            ViewStubUtils.showViewStub(binding.viewStubCamera, false, null)
         }
     }
 
@@ -2617,7 +2617,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 }
             }.collect {
                 launch(Dispatchers.Main) {
-                    pop_time_text.text = TimeTool.showVideoTime(it * 1000L)
+                    binding.popTimeText.text = TimeTool.showVideoTime(it * 1000L)
                 }
                 if (it == time - 1) {
                     //停止
@@ -3157,10 +3157,10 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                                         onTick = {
                                             camera()
                                         }, onStart = {
-                                            tv_type_ind?.visibility = VISIBLE
+                                            binding.tvTypeInd?.visibility = VISIBLE
                                             isAutoCamera = true
                                         }, onFinish = {
-                                            tv_type_ind?.visibility = GONE
+                                            binding.tvTypeInd?.visibility = GONE
                                             isAutoCamera = false
                                         })
                                     autoJob?.start()
@@ -3204,7 +3204,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
 
     private fun setCarDetectPrompt(){
         var carDetectInfo = SharedManager.getCarDetectInfo()
-        var tvDetectPrompt = view_car_detect.findViewById<TextView>(R.id.tv_detect_prompt)
+        var tvDetectPrompt = binding.viewCarDetect.findViewById<TextView>(R.id.tv_detect_prompt)
         if(carDetectInfo == null){
             tvDetectPrompt.text =  getString(R.string.abnormal_item1) + TemperatureUtil.getTempStr(40, 70)
         }else{
@@ -3213,7 +3213,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         }
         val test = intent.getBooleanExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER,false)
         binding.layCarDetectPrompt.visibility = if(intent.getBooleanExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER,false)) View.VISIBLE else View.GONE
-        view_car_detect.findViewById<RelativeLayout>(R.id.rl_content).setOnClickListener {
+        binding.viewCarDetect.findViewById<RelativeLayout>(R.id.rl_content).setOnClickListener {
             CarDetectDialog(this) {
                 var temperature = it.temperature.split("~")
                 tvDetectPrompt.text =  it.item + TemperatureUtil.getTempStr(temperature[0].toInt(), temperature[1].toInt())
