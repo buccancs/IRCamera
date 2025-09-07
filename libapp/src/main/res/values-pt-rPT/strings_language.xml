@@ -174,7 +174,7 @@
     <string name="question3">O TC001、TS001 pode detectar as cenas debaixo de água, através da janela de vidro, cobertas por roupa ou sob a pele?</string>
     <string name="answer3">O detector de infravermelhos é utilizado para detectar a região de infravermelhos de onda longa de 8~14um, e só pode medir a temperatura da superfície do objecto. Não pode medir a temperatura através da água ou do vidro.</string>
     <string name="question4">Porque é que a temperatura medida não é precisa?</string>
-    <string name="answer4">A resolução da temperatura de TC001、TS001 é de ±2% com um intervalo de temperatura normal de -20~150°C (-4~302°F) , e um intervalo de temperatura elevada de 150-550°C (302~1022°F). Por favor, seleccione a gama correspondente no APP antes de testar.</string>
+    <string name="answer4">A resolução da temperatura de TC001、TS001 é de ±2%% com um intervalo de temperatura normal de -20~150°C (-4~302°F) , e um intervalo de temperatura elevada de 150-550°C (302~1022°F). Por favor, seleccione a gama correspondente no APP antes de testar.</string>
     <string name="question5">O TC001、TS001 emite radiação e prejudica a saúde das pessoas?</string>
     <string name="answer5">O TC001、TS001 não emite qualquer radiação nociva e apenas recolhe informação sobre o calor do objecto, por isso, sinta-se à vontade para o utilizar sem preocupações.</string>
     <string name="question6">Porque é que a leitura da temperatura aumentará quando nos aproximarmos do dispositivo?</string>

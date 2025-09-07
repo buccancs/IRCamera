@@ -1,5 +1,6 @@
 package com.topdon.lib.core.bean
 
+import android.os.Parcel
 import android.os.Parcelable
 import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.repository.FileBean
@@ -48,5 +49,23 @@ class GalleryTitle(timeMillis: Long) : GalleryBean(
     duration = 0L,
     timeMillis = timeMillis,
     hasDownload = true,
-)
+) {
+    companion object CREATOR : Parcelable.Creator<GalleryTitle> {
+        override fun createFromParcel(parcel: Parcel): GalleryTitle {
+            // Read the timeMillis from the parent's parcel data
+            val id = parcel.readInt()
+            val path = parcel.readString() ?: ""
+            val thumb = parcel.readString() ?: ""
+            val name = parcel.readString() ?: ""
+            val duration = parcel.readLong()
+            val timeMillis = parcel.readLong()
+            val hasDownload = parcel.readByte() != 0.toByte()
+            return GalleryTitle(timeMillis)
+        }
+
+        override fun newArray(size: Int): Array<GalleryTitle?> {
+            return arrayOfNulls(size)
+        }
+    }
+}
 

@@ -174,7 +174,7 @@
     <string name="question3">Kann der TC001、TS001 Szenen unter Wasser, durch das Glasfenster, durch Kleidung verdeckt oder unter der Haut erkennen?</string>
     <string name="answer3">Der Infrarotdetektor wird benutzt, um den langwelligen Infrarotbereich von 8 ~ 14 um zu erkennen und kann nur die Temperatur der Oberfläche des Objekts messen. Es kann keine Temperatur durch Wasser oder Glas messen.</string>
     <string name="question4">Warum ist die gemessene Temperatur nicht genau?</string>
-    <string name="answer4">Die Temperaturauflösung vom TC001、TS001 beträgt ±2 % bei einem normalen Temperaturbereich von -20 bis 150 °C (-4 bis 302 °F) und einem Hochtemperaturbereich von 150 bis 550 °C (302 bis 1022 °F). Bitte wählen Sie vor dem Testen den entsprechenden Bereich in der APP aus.</string>
+    <string name="answer4">Die Temperaturauflösung vom TC001、TS001 beträgt ±2 %% bei einem normalen Temperaturbereich von -20 bis 150 °C (-4 bis 302 °F) und einem Hochtemperaturbereich von 150 bis 550 °C (302 bis 1022 °F). Bitte wählen Sie vor dem Testen den entsprechenden Bereich in der APP aus.</string>
     <string name="question5">Gibt TC001、TS001 Strahlung ab und schadet der Gesundheit?</string>
     <string name="answer5">TC001、TS001 gibt keine schädliche Strahlung ab und sammelt nur Wärmeinformationen über das Objekt, also können Sie es ohne Bedenken verwenden.</string>
     <string name="question6">Warum steigt die Temperaturanzeige, wenn man sich dem Gerät nähert?</string>

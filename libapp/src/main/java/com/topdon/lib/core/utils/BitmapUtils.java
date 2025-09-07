@@ -9,6 +9,7 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.media.MediaScannerConnection;
+import android.os.Environment;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
@@ -284,11 +285,11 @@ public class BitmapUtils {
      */
     public static void savaRawFile(byte[] bytes, byte[] bytes2) {
         try {
-            File path = new File("/sdcard");
+            File path = Environment.getExternalStorageDirectory();
             if (!path.exists() && path.isDirectory()) {
                 path.mkdirs();
             }
-            File file = new File("/sdcard/", "xxx.raw");
+            File file = new File(path, "xxx.raw");
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(bytes);
             fos.write(bytes2);

@@ -344,11 +344,11 @@
     <string name="album_report_on_edit">This image lacks temperature data and does not support editing.</string>
     <string name="tips_two_light_not_video">Video recording is currently not supported in dual light mode</string>
     <string name="start_fail_and_restart">Start failed! Please exit the app and reopen it</string>
-    <string name="thermal_mirror">Mirroring</string>
+    <string name="thermal_mirror" translatable="false">Mirroring</string>
     <string name="app_Low_temperature">low temperature</string>
 
-    <string name="status_error_load_fail">Loading failed, please try again~</string>
-    <string name="status_check_more">View More</string>
+    <string name="status_error_load_fail" translatable="false">Loading failed, please try again~</string>
+    <string name="status_check_more" translatable="false">View More</string>
     <string name="edit_image_error_tip">This image lacks temperature data and does not support editing.</string>
 
     <string name="monitor_finish">Stop</string>
@@ -376,7 +376,7 @@
     <string name="tip_correction_2_content">The surface temperature should be uniform (it could be a black metal plate, wooden board, or plastic plate, etc.) \n· The distance between the device and the surface should be 5-10cm\n· The shooting image should be covered by the surface\n· The calibration process should be performed in a dark environment.</string>
     <string name="tip_correction_3">3. Face the thermal imager to the black board, tap "Start calibration", and wait for 60 seconds to complete the calibration process. Do not turn off the screen or switch to other apps during the calibration process.</string>
     <string name="correction_title">Image Calibration</string>
-    <string name="dual_light_title">Dual light correction</string>
+    <string name="dual_light_title" translatable="false">Dual light correction</string>
     <string name="button_correction">Calibrate</string>
     <string name="start_correction">Start Calibration</string>
     <string name="stop_correction">Stop Calibration</string>

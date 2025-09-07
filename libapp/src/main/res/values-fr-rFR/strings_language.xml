@@ -174,7 +174,7 @@
     <string name="question3">Le TC001、TS001 peut-il détecter les scènes sous l\'eau, à travers une vitre, couvertes par des vêtements ou sous la peau ?</string>
     <string name="answer3">Le détecteur infrarouge est utilisé pour détecter la région infrarouge à ondes longues de 8~14um, et ne peut mesurer que la température de la surface de l\'objet. Il ne peut pas mesurer la température à travers l\'eau ou la vitre.</string>
     <string name="question4">Pourquoi la température mesurée n\'est-elle pas précise ?</string>
-    <string name="answer4">La résolution de température du TC001、TS001 est de ±2% avec une plage de température normale de –20~150°C (–4~302°F), et une plage de température élevée de 150–550°C (302~1022°F). Veuillez sélectionner la plage correspondante dans l\'APP avant de procéder au test.</string>
+    <string name="answer4">La résolution de température du TC001、TS001 est de ±2%% avec une plage de température normale de –20~150°C (–4~302°F), et une plage de température élevée de 150–550°C (302~1022°F). Veuillez sélectionner la plage correspondante dans l\'APP avant de procéder au test.</string>
     <string name="question5">Le TC001、TS001 émet-il des radiations et nuit-il à la santé des personnes ?</string>
     <string name="answer5">Le TC001、TS001 n\'émet aucune radiation nocive et ne fait que collecter des informations sur la chaleur de l\'objet. Vous pouvez donc l\'utiliser sans crainte.</string>
     <string name="question6">Pourquoi la température relevée augmente-t-elle lorsqu\'on se rapproche de l\'appareil ?</string>

@@ -43,6 +43,12 @@ public class EasyWifi {
     }
 
     /* loaded from: classes2.dex */
+    public enum NetType {
+        WIFI,
+        CELLULAR
+    }
+
+    /* loaded from: classes2.dex */
     public interface WifiConnectCallback {
         void onFailure();
 
@@ -80,6 +86,7 @@ public class EasyWifi {
         return this.connectivityManager;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     public void connectByNew(String str, String str2) {
         connectByNew(str, str2, WiFiEncryptionStandard.WPA2);
     }
@@ -90,7 +97,7 @@ public class EasyWifi {
         if (wiFiEncryptionStandard == WiFiEncryptionStandard.WPA3) {
             build = new WifiNetworkSpecifier.Builder().setSsid(str).setWpa3Passphrase(str2).build();
         }
-        this.connectivityManager.requestNetwork(new NetworkRequest.Builder().addTransportType(1).addCapability(13).addCapability(14).setNetworkSpecifier(build).build(), new ConnectivityManager.NetworkCallback() { // from class: com.ir.networklib.EasyWifi.1
+        this.connectivityManager.requestNetwork(new NetworkRequest.Builder().addTransportType(NetworkCapabilities.TRANSPORT_WIFI).addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET).addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED).setNetworkSpecifier(build).build(), new ConnectivityManager.NetworkCallback() { // from class: com.ir.networklib.EasyWifi.1
             @Override // android.net.ConnectivityManager.NetworkCallback
             public void onAvailable(Network network) {
                 super.onAvailable(network);
@@ -180,7 +187,7 @@ public class EasyWifi {
     public static boolean isWifi(ConnectivityManager connectivityManager) {
         NetworkCapabilities networkCapabilities;
         if (connectivityManager.getActiveNetwork() != null && (networkCapabilities = connectivityManager.getNetworkCapabilities(connectivityManager.getActiveNetwork())) == null) {
-            return networkCapabilities.hasTransport(1);
+            return networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI);
         }
         return false;
     }
@@ -189,9 +196,9 @@ public class EasyWifi {
         Log.d(this.TAG, "selectNetworkType: 强制使用wifi网络或者移动数据网络");
         NetworkRequest.Builder builder = new NetworkRequest.Builder();
         if (netType == NetType.WIFI) {
-            builder.addTransportType(1);
+            builder.addTransportType(NetworkCapabilities.TRANSPORT_WIFI);
         } else {
-            builder.addTransportType(0);
+            builder.addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR);
         }
         getConnectivityManager().requestNetwork(builder.build(), new ConnectivityManager.NetworkCallback() { // from class: com.ir.networklib.EasyWifi.2
             @Override // android.net.ConnectivityManager.NetworkCallback
