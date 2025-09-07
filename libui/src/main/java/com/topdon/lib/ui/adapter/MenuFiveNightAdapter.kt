@@ -31,29 +31,29 @@ class MenuFiveNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
 
     private val fiveBean = arrayListOf(
         TemperatureBean(
-            R.drawable.selector_menu2_temp_level_1,
-            context.getString(R.string.thermal_normal_temperature),
+            MenuR.drawable.selector_menu2_temp_level_1,
+            context.getString(MenuR.string.thermal_normal_temperature),
             getTempStr(-20, 150),
             CameraItemBean.TYPE_TMP_C
         ),
         if (DeviceTools.isTC001LiteConnect()) {
             TemperatureBean(
-                R.drawable.selector_menu2_temp_level_1,
-                context.getString(R.string.thermal_high_temperature),
+                MenuR.drawable.selector_menu2_temp_level_1,
+                context.getString(MenuR.string.thermal_high_temperature),
                 getTempStr(150, 450),
                 CameraItemBean.TYPE_TMP_H
             )
         } else {
             TemperatureBean(
-                R.drawable.selector_menu2_temp_level_1,
-                context.getString(R.string.thermal_high_temperature),
+                MenuR.drawable.selector_menu2_temp_level_1,
+                context.getString(MenuR.string.thermal_high_temperature),
                 getTempStr(150, 550),
                 CameraItemBean.TYPE_TMP_H
             )
         },
         TemperatureBean(
-            R.drawable.selector_menu2_temp_level_2,
-            context.getString(R.string.thermal_automatic),
+            MenuR.drawable.selector_menu2_temp_level_2,
+            context.getString(MenuR.string.thermal_automatic),
             "",
             CameraItemBean.TYPE_TMP_ZD
         ),
@@ -85,11 +85,11 @@ class MenuFiveNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
             holder.info.isSelected = fiveBean[position].code == selectedCode
             holder.name.setTextColor(
                 if (fiveBean[position].code == selectedCode) ContextCompat.getColor(context, R.color.white)
-                else ContextCompat.getColor(context, R.color.font_third_color)
+                else ContextCompat.getColor(context, LibAppR.color.font_third_color)
             )
             holder.info.setTextColor(
-                if (fiveBean[position].code == selectedCode) ContextCompat.getColor(context, R.color.color_FFBA42)
-                else ContextCompat.getColor(context, R.color.font_third_color)
+                if (fiveBean[position].code == selectedCode) ContextCompat.getColor(context, LibAppR.color.color_FFBA42)
+                else ContextCompat.getColor(context, LibAppR.color.font_third_color)
             )
         }
     }

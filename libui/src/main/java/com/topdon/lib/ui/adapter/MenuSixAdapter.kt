@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.csl.irCamera.libui.R
 import com.topdon.lib.ui.bean.ColorBean
 import com.csl.irCamera.libui.databinding.UiItemMenuFourViewBinding
+import com.topdon.menu.R as MenuR
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.lib.ui.listener.SingleClickListener
 
 @Deprecated("看起来是旧版 2D 编辑的菜单，根本没使用了")
@@ -43,9 +45,9 @@ class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.V
     }
 
     private val fourBean = arrayListOf(
-        ColorBean(R.drawable.selector_menu2_setting_1, context.getString(R.string.thermal_pseudo), 1),
-        ColorBean(R.drawable.selector_menu2_setting_2, context.getString(R.string.thermal_contrast), 2),
-        ColorBean(R.drawable.selector_menu2_setting_3, context.getString(R.string.thermal_sharpen), 3),
+        ColorBean(MenuR.drawable.selector_menu2_setting_1, context.getString(MenuR.string.thermal_pseudo), 1),
+        ColorBean(MenuR.drawable.selector_menu2_setting_2, context.getString(MenuR.string.thermal_contrast), 2),
+        ColorBean(MenuR.drawable.selector_menu2_setting_3, context.getString(MenuR.string.thermal_sharpen), 3),
     )
 
 
@@ -89,7 +91,7 @@ class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.V
         if (isActive) {
             nameText.setTextColor(ContextCompat.getColor(context, R.color.white))
         } else {
-            nameText.setTextColor(ContextCompat.getColor(context, R.color.font_third_color))
+            nameText.setTextColor(ContextCompat.getColor(context, LibAppR.color.font_third_color))
         }
     }
 

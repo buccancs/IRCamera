@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.csl.irCamera.libui.R
+import com.csl.irCamera.libapp.R as LibAppR
 
 /**
  * @author: CaiSongL
@@ -17,8 +18,8 @@ import com.csl.irCamera.libui.R
 class CameraItemAdapter(context: Context) : RecyclerView.Adapter<CameraItemAdapter.ViewHolder>() {
 
     val data: List<String> = listOf(
-        context.getString(R.string.person_headshot_camera),
-        context.getString(R.string.app_video)
+        context.getString(LibAppR.string.person_headshot_camera),
+        context.getString(LibAppR.string.app_video)
     )
 
     private var parentRecycler: RecyclerView? = null

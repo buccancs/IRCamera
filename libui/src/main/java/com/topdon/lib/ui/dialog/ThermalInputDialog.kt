@@ -27,6 +27,7 @@ import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.utils.ScreenUtil
 import com.csl.irCamera.libui.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.lib.ui.adapter.ColorSelectAdapter
 import com.csl.irCamera.libui.databinding.DialogThermalInputBinding
 import java.math.BigDecimal
@@ -186,7 +187,7 @@ class ThermalInputDialog : Dialog {
 
         fun create(): ThermalInputDialog {
             if (dialog == null) {
-                dialog = ThermalInputDialog(context!!, R.style.InfoDialog)
+                dialog = ThermalInputDialog(context!!, LibAppR.style.InfoDialog)
             }
             val inflater =
                 context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -269,7 +270,7 @@ class ThermalInputDialog : Dialog {
                     return@setOnClickListener
                 }
                 if (upEdit.text.isNullOrEmpty() || downEdit.text.isNullOrEmpty()){
-                    ToastTools.showShort(com.topdon.lib.core.R.string.ui_fill_in_the_complete)
+                    ToastTools.showShort(LibAppR.string.ui_fill_in_the_complete)
                     return@setOnClickListener
                 }
 
@@ -277,23 +278,23 @@ class ThermalInputDialog : Dialog {
                 val downValue = downEdit.text.trim().toString()
                 try {
                     if (upValue.toFloat() < downValue.toFloat()){
-                        ToastTools.showShort(com.topdon.lib.core.R.string.tip_input_format)
+                        ToastTools.showShort(LibAppR.string.tip_input_format)
                         return@setOnClickListener
                     }
                 }catch (e:Exception){
-                    ToastTools.showShort(com.topdon.lib.core.R.string.tip_input_format)
+                    ToastTools.showShort(LibAppR.string.tip_input_format)
                     return@setOnClickListener
                 }
                 if (sub(upValue,downValue) < 0.1f){
-                    ToastTools.showShort(com.topdon.lib.core.R.string.tip_input_format)
+                    ToastTools.showShort(LibAppR.string.tip_input_format)
                     return@setOnClickListener
                 }
 //                if (upValue.isBlank() && downValue.isBlank()) {
-//                    ToastTools.showShort(R.string.ui_fill_in_the_complete)
+//                    ToastTools.showShort(LibAppR.string.ui_fill_in_the_complete)
 //                    return@setOnClickListener
 //                }
                 if ((upValue.isNotBlank() && downValue.isNotBlank()) && upValue.toFloat() < downValue.toFloat()) {
-                    ToastTools.showShort(R.string.tip_input_format)
+                    ToastTools.showShort(LibAppR.string.tip_input_format)
                     return@setOnClickListener
                 }
 
@@ -341,14 +342,14 @@ class ThermalInputDialog : Dialog {
                 dialog!!.action = 201
                 binding.colorPickerViewLay.visibility = View.VISIBLE
                 binding.dialogInputLay.visibility = View.GONE
-                messageText.text = context!!.getString(R.string.color_board)
+                messageText.text = context!!.getString(LibAppR.string.color_board)
                 colorPickerView.setInitialColor(upColor)
             }
             binding.dialogDownColor.setOnClickListener {
                 dialog!!.action = 301
                 binding.colorPickerViewLay.visibility = View.VISIBLE
                 binding.dialogInputLay.visibility = View.GONE
-                messageText.text = context!!.getString(R.string.color_board)
+                messageText.text = context!!.getString(LibAppR.string.color_board)
                 colorPickerView.setInitialColor(downColor)
             }
             colorPickerView.setColorListener(object : ColorEnvelopeListener {

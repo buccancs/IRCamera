@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.csl.irCamera.libui.R
 import com.csl.irCamera.libui.databinding.DialogTipPreviewBinding
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.lib.ui.widget.IndicateView
 import io.reactivex.disposables.Disposable
 import java.util.Timer
@@ -55,8 +56,8 @@ class TipPreviewDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         titleList = arrayListOf(
-            getString(R.string.preview_step_1),
-            getString(R.string.preview_step_2),
+            getString(LibAppR.string.preview_step_1),
+            getString(LibAppR.string.preview_step_2),
         )
         val adapter = PageAdapter(childFragmentManager)
         binding.indicateView.itemCount = adapter.count

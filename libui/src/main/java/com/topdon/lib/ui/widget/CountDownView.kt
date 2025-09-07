@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.blankj.utilcode.util.SizeUtils
 import com.csl.irCamera.libui.R
+import com.csl.irCamera.libapp.R as LibAppR
 
 class CountDownView : View {
 
@@ -72,7 +73,7 @@ class CountDownView : View {
                 R.styleable.CountDownView_ringColor -> mRingColor =
                     ta.getColor(
                         R.styleable.CountDownView_ringColor,
-                        ContextCompat.getColor(context, R.color.colorAccent)
+                        ContextCompat.getColor(context, LibAppR.color.colorAccent)
                     )
                 R.styleable.CountDownView_ringWidth -> mRingWidth =
                     ta.getDimensionPixelSize(
@@ -87,7 +88,7 @@ class CountDownView : View {
                 R.styleable.CountDownView_progressTextColor -> mProgressTextColor =
                     ta.getColor(
                         R.styleable.CountDownView_progressTextColor,
-                        context.resources.getColor(R.color.colorAccent)
+                        context.resources.getColor(LibAppR.color.colorAccent)
                     )
                 R.styleable.CountDownView_countdownTime -> mCountdownTime =
                     ta.getInteger(
@@ -146,7 +147,7 @@ class CountDownView : View {
         mPaint.style = Paint.Style.FILL
         mPaint.strokeWidth = mRingWidth.toFloat()
         canvas.drawArc(mRectF!!, -90f, mCurrentProgress - 360, false, mPaint)
-        val font = ResourcesCompat.getFont(context, R.font.pingfang_bold)
+        val font = null // Use default system font
         //绘制文本
         mTextPaint.isAntiAlias = true
         mTextPaint.textAlign = Paint.Align.CENTER

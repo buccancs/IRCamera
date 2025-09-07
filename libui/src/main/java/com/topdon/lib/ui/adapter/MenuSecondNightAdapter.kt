@@ -12,6 +12,8 @@ import com.csl.irCamera.libui.R
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.lib.ui.config.CameraHelp
 import com.csl.irCamera.libui.databinding.UiItemMenuSecondViewBinding
+import com.topdon.menu.R as MenuR
+import com.csl.irCamera.libapp.R as LibAppR
 
 @Deprecated("旧的高低温点菜单，已重构过了")
 class MenuSecondNightAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -26,9 +28,9 @@ class MenuSecondNightAdapter(val context: Context) : RecyclerView.Adapter<Recycl
     }
 
     private val secondBean = arrayListOf(
-        ColorBean(R.drawable.selector_menu2_temp_point_1, context.getString(R.string.main_tab_second_high_temperature_point), CameraHelp.TYPE_SET_HIGHTEMP),
-        ColorBean(R.drawable.selector_menu2_temp_point_2, context.getString(R.string.main_tab_second_low_temperature_point), CameraHelp.TYPE_SET_LOWTEMP),
-        ColorBean(R.drawable.selector_menu2_del, context.getString(R.string.thermal_delete), CameraHelp.TYPE_SET_DETELE),
+        ColorBean(MenuR.drawable.selector_menu2_temp_point_1, context.getString(MenuR.string.main_tab_second_high_temperature_point), CameraHelp.TYPE_SET_HIGHTEMP),
+        ColorBean(MenuR.drawable.selector_menu2_temp_point_2, context.getString(MenuR.string.main_tab_second_low_temperature_point), CameraHelp.TYPE_SET_LOWTEMP),
+        ColorBean(MenuR.drawable.selector_menu2_del, context.getString(MenuR.string.thermal_delete), CameraHelp.TYPE_SET_DETELE),
     )
 
 
@@ -49,7 +51,7 @@ class MenuSecondNightAdapter(val context: Context) : RecyclerView.Adapter<Recycl
             holder.name.isSelected = curMultipleArray.contains(position)
             holder.name.setTextColor(
                 if (curMultipleArray.contains(position)) ContextCompat.getColor(context, R.color.white)
-                else ContextCompat.getColor(context, R.color.font_third_color)
+                else ContextCompat.getColor(context, LibAppR.color.font_third_color)
             )
         }
     }

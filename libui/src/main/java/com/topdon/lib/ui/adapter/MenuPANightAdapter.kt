@@ -6,6 +6,7 @@ import com.blankj.utilcode.util.ScreenUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.csl.irCamera.libui.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.lib.ui.listener.SingleClickListener
 
@@ -47,7 +48,7 @@ class MenuPANightAdapter(data: MutableList<ColorBean>, layoutId : Int, private v
         if (item.isSelect) {
             holder.setTextColor(R.id.item_menu_tab_text,ContextCompat.getColor(context, R.color.white))
         } else {
-            holder.setTextColor(R.id.item_menu_tab_text,ContextCompat.getColor(context, R.color.font_third_color))
+            holder.setTextColor(R.id.item_menu_tab_text,ContextCompat.getColor(context, LibAppR.color.font_third_color))
         }
     }
 }

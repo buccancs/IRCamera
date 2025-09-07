@@ -7,12 +7,13 @@ import android.view.View
 import com.topdon.lib.core.utils.ScreenUtil
 import com.csl.irCamera.libui.R
 import com.csl.irCamera.libui.databinding.DialogMonitorSelectBinding
+import com.csl.irCamera.libapp.R as LibAppR
 
 /**
  * 提示窗
  * create by fylder on 2018/6/15
  **/
-class MonitorSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
+class MonitorSelectDialog(context: Context) : Dialog(context, LibAppR.style.InfoDialog) {
 
     class Builder(private val context: Context) {
         /**
@@ -54,15 +55,15 @@ class MonitorSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
                     binding.btnCancel.visibility = View.VISIBLE
                     binding.clFirstStep.visibility = View.INVISIBLE
                     binding.clSecondStep.visibility = View.VISIBLE
-                    binding.tvTitle.text = context.getString(R.string.select_monitor_type_step2)
-                    binding.btnConfirmOrBack.text = context.getString(R.string.select_monitor_return)
+                    binding.tvTitle.text = context.getString(LibAppR.string.select_monitor_type_step2)
+                    binding.btnConfirmOrBack.text = context.getString(LibAppR.string.select_monitor_return)
                 } else {//步骤2->步骤1 逻辑为“返回”
                     isFirstStep = true
                     binding.btnCancel.visibility = View.GONE
                     binding.clFirstStep.visibility = View.VISIBLE
                     binding.clSecondStep.visibility = View.GONE
-                    binding.tvTitle.text = context.getString(R.string.select_monitor_type_step1)
-                    binding.btnConfirmOrBack.text = context.getString(R.string.app_confirm)
+                    binding.tvTitle.text = context.getString(LibAppR.string.select_monitor_type_step1)
+                    binding.btnConfirmOrBack.text = context.getString(LibAppR.string.app_confirm)
                 }
             }
 

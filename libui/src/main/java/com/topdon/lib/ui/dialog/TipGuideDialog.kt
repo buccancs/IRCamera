@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.csl.irCamera.libui.R
 import com.csl.irCamera.libui.databinding.DialogTipGuideBinding
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.lib.ui.widget.IndicateView
 import kotlin.collections.ArrayList
 
@@ -40,10 +41,10 @@ class TipGuideDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         titleList = arrayListOf(
-            getString(R.string.target_tips_step_1),
-            getString(R.string.target_tips_step_2),
-            getString(R.string.target_tips_step_3),
-            getString(R.string.target_tips_step_4),
+            getString(LibAppR.string.target_tips_step_1),
+            getString(LibAppR.string.target_tips_step_2),
+            getString(LibAppR.string.target_tips_step_3),
+            getString(LibAppR.string.target_tips_step_4),
         )
         imgList = arrayListOf(
             R.drawable.target_guide_pic_1,
