@@ -5,8 +5,8 @@ import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.topdon.lib.core.R
-import com.topdon.lib.core.databinding.DialogLongTextBinding
+import com.csl.irCamera.libapp.R
+import com.csl.irCamera.libapp.databinding.DialogLongTextBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**

@@ -15,14 +15,14 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.BaseApplication
-import com.topdon.lib.core.R
+import com.csl.irCamera.libapp.R
 import com.topdon.lib.core.bean.CarDetectBean
 import com.topdon.lib.core.bean.CarDetectChildBean
 import com.topdon.lib.core.common.SharedManager
-import com.topdon.lib.core.databinding.DialogCarDetectBinding
-import com.topdon.lib.core.databinding.ItemCarDetectChildLayoutBinding
-import com.topdon.lib.core.databinding.ItemCarDetectLayoutBinding
-import com.topdon.lib.core.databinding.ToolbarLayBinding
+import com.csl.irCamera.libapp.databinding.DialogCarDetectBinding
+import com.csl.irCamera.libapp.databinding.ItemCarDetectChildLayoutBinding
+import com.csl.irCamera.libapp.databinding.ItemCarDetectLayoutBinding
+import com.csl.irCamera.libapp.databinding.ToolbarLayBinding
 
 /**
  * 汽车检测类型拾取弹框.

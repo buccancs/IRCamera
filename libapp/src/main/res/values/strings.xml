@@ -35,6 +35,9 @@
     <!--    荷兰语-->
     <string name="dutch" translatable="false">Nederlands</string>
 
+    <!--    Networking and error strings -->
+    <string name="http_code_z5004">Abnormal data</string>
+
     <string-array name="setting_language_list">
         <item>@string/english</item>
         <item>@string/russian</item>

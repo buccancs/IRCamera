@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
-import com.topdon.lib.core.R
-import com.topdon.lib.core.databinding.DialogLoadingBinding
+import com.csl.irCamera.libapp.R
+import com.csl.irCamera.libapp.databinding.DialogLoadingBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**

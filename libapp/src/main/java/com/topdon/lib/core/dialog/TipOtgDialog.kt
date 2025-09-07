@@ -9,8 +9,8 @@ import android.view.View
 import android.view.ViewGroup.LayoutParams
 import android.widget.TextView
 import androidx.annotation.StringRes
-import com.topdon.lib.core.R
-import com.topdon.lib.core.databinding.DialogTipOtgBinding
+import com.csl.irCamera.libapp.R
+import com.csl.irCamera.libapp.databinding.DialogTipOtgBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 

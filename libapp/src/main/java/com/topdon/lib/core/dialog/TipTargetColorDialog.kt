@@ -7,10 +7,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup.LayoutParams
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.topdon.lib.core.R
+import com.csl.irCamera.libapp.R
 import com.topdon.lib.core.adapter.TargetColorAdapter
 import com.topdon.lib.core.bean.ObserveBean
-import com.topdon.lib.core.databinding.DialogTipTargetColorBinding
+import com.csl.irCamera.libapp.databinding.DialogTipTargetColorBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**

@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import com.blankj.utilcode.util.SizeUtils
-import com.topdon.lib.core.R
-import com.topdon.lib.core.databinding.DialogColorSelectBinding
+import com.csl.irCamera.libapp.R
+import com.csl.irCamera.libapp.databinding.DialogColorSelectBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**

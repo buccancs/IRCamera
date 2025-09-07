@@ -6,8 +6,8 @@ import android.content.res.Configuration
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.StringRes
-import com.topdon.lib.core.R
-import com.topdon.lib.core.databinding.DialogTipChangeDeviceBinding
+import com.csl.irCamera.libapp.R
+import com.csl.irCamera.libapp.databinding.DialogTipChangeDeviceBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 @Deprecated("3.80使用新首页设备列表逻辑，不需要设备切换提示弹框了")
