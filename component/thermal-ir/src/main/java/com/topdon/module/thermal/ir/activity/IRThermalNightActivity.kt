@@ -349,24 +349,24 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         }
 
 
-        view_car_detect.findViewById<LinearLayout>(R.id.ll_car_detect_info).setOnClickListener {
+        binding.viewCarDetect.llCarDetectInfo.setOnClickListener {
             LongTextDialog(this, SharedManager.getCarDetectInfo().item, SharedManager.getCarDetectInfo().description).show()
         }
         BarUtils.setStatusBarColor(this, 0xff16131e.toInt())
         BarUtils.setNavBarColor(window, 0xff16131e.toInt())
         initRecycler()
-        view_menu_first.onTabClickListener = {
-            ViewStubUtils.showViewStub(view_stub_camera, false, null)
+        binding.viewMenuFirst.onTabClickListener = {
+            ViewStubUtils.showViewStub(binding.viewStubCamera, false, null)
             popupWindow?.dismiss()
-            temperatureView.isEnabled = it.selectPosition == 1
+            binding.temperatureView.isEnabled = it.selectPosition == 1
             showTempRecyclerNight(it.isObserveMode, it.selectPosition)
         }
-        temperature_seekbar.setIndicatorTextDecimalFormat("0.0")
+        binding.temperatureSeekbar.setIndicatorTextDecimalFormat("0.0")
         updateTemperatureSeekBar(false)//加锁
         isShowC = getTemperature() == 1
-        temperatureView.setTextSize(saveSetBean.tempTextSize)
-        temperatureView.setLinePaintColor(saveSetBean.tempTextColor)
-        temperatureView.listener = TempListener { max, min, _ ->
+        binding.temperatureView.setTextSize(saveSetBean.tempTextSize)
+        binding.temperatureView.setLinePaintColor(saveSetBean.tempTextColor)
+        binding.temperatureView.listener = TempListener { max, min, _ ->
             realLeftValue = UnitTools.showUnitValue(min, isShowC)
             realRightValue = UnitTools.showUnitValue(max, isShowC)
             this@IRThermalNightActivity.runOnUiThread {
@@ -497,8 +497,8 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         if (isToTemp == isTs001TempMode) {
             return
         }
-        tv_title_temp.isSelected = isToTemp
-        tv_title_observe.isSelected = !isToTemp
+        binding.tvTitleTemp.isSelected = isToTemp
+        binding.tvTitleObserve.isSelected = !isToTemp
         SaveSettingUtil.isMeasureTempMode = isToTemp
 
         //关闭设置菜单的 PopupWindow
