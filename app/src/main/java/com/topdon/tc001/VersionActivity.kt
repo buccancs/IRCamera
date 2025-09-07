@@ -1,5 +1,7 @@
 package com.topdon.tc001
 import com.csl.irCamera.R
+import com.csl.irCamera.BuildConfig
+import com.csl.irCamera.libapp.R as LibAppR
 
 import android.view.View
 import android.widget.TextView
@@ -28,9 +30,9 @@ class VersionActivity : BaseActivity(), View.OnClickListener {
         // Bind to the actual root view that was set by BaseActivity
         binding = ActivityVersionBinding.bind(findViewById<View>(android.R.id.content).rootView)
         
-        binding.versionCodeText.text = "${getString(R.string.set_version)}V${VersionUtils.getCodeStr(this)}"
+        binding.versionCodeText.text = "${getString(LibAppR.string.set_version)}V${VersionUtils.getCodeStr(this)}"
         val year = Calendar.getInstance().get(Calendar.YEAR)
-        binding.versionYearTxt.text = getString(R.string.version_year, "2023-$year")
+        binding.versionYearTxt.text = getString(LibAppR.string.version_year, "2023-$year")
         binding.versionStatementPrivateTxt.setOnClickListener(this)
         binding.versionStatementPolicyTxt.setOnClickListener(this)
         binding.versionStatementCopyrightTxt.setOnClickListener(this)

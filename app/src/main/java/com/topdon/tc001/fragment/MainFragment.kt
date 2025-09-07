@@ -33,7 +33,6 @@ import com.topdon.lib.core.utils.NetWorkUtils
 import com.topdon.lib.core.utils.WsCmdConstants
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.tc001.DeviceTypeActivity
-import com.topdon.tc001.R
 import com.csl.irCamera.databinding.FragmentMainBinding
 import com.csl.irCamera.databinding.ItemDeviceConnectBinding
 import com.topdon.tc001.popup.DelPopup
@@ -90,9 +89,9 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             popup.onDelListener = {
                 TipDialog.Builder(requireContext())
                     .setTitleMessage(AppLanguageUtils.attachBaseContext(
-                        context, SharedManager.getLanguage(requireContext())).getString(R.string.tc_delete_device))
-                    .setMessage(R.string.tc_delete_device_tips)
-                    .setPositiveListener(R.string.report_delete) {
+                        context, SharedManager.getLanguage(requireContext())).getString(LibAppR.string.tc_delete_device))
+                    .setMessage(LibAppR.string.tc_delete_device_tips)
+                    .setPositiveListener(LibAppR.string.report_delete) {
                         when (type) {
                             ConnectType.LINE -> SharedManager.hasTcLine = false
                             ConnectType.TS004 -> SharedManager.hasTS004 = false

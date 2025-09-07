@@ -45,7 +45,7 @@ class ClauseActivity : AppCompatActivity() {
 
     private fun initView() {
         dialog = TipProgressDialog.Builder(this)
-            .setMessage(com.topdon.lib.core.R.string.tip_loading)
+            .setMessage(getString(LibAppR.string.tip_loading))
             .setCanceleable(false)
             .create()
 

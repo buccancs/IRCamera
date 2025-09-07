@@ -18,7 +18,7 @@ import com.topdon.lms.sdk.Config
 import com.topdon.lms.sdk.LMS.mContext
 import com.topdon.lms.sdk.UrlConstant
 import com.topdon.lms.sdk.utils.SPUtils
-import com.topdon.tc001.BuildConfig
+import com.csl.irCamera.BuildConfig
 import com.topdon.tc001.InitUtil.initJPush
 import com.topdon.tc001.InitUtil.initLms
 import com.topdon.tc001.InitUtil.initLog

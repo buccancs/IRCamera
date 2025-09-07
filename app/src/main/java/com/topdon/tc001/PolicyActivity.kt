@@ -1,5 +1,6 @@
 package com.topdon.tc001
 import com.csl.irCamera.R
+import com.csl.irCamera.libapp.R as LibAppR
 
 import android.annotation.SuppressLint
 import android.os.Handler
@@ -58,10 +59,10 @@ class PolicyActivity : BaseViewModelActivity<PolicyViewModel>() {
             keyUseType = intent.getIntExtra(KEY_USE_TYPE, 0)
         }
         themeStr = when (themeType) {
-            1 -> getString(R.string.user_services_agreement)
-            2 -> getString(R.string.privacy_policy)
-            3 -> getString(R.string.third_party_components)
-            else -> getString(R.string.user_services_agreement)
+            1 -> getString(LibAppR.string.user_services_agreement)
+            2 -> getString(LibAppR.string.privacy_policy)
+            3 -> getString(LibAppR.string.third_party_components)
+            else -> getString(LibAppR.string.user_services_agreement)
         }
 
         binding.titleView.setTitleText(themeStr)

@@ -176,7 +176,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         //版本下载
         versionViewModel.updateLiveData.observe(this) {
             FirmwareUpDialog(this).apply {
-                titleStr = getString(com.topdon.lib.core.R.string.update_new_version)
+                titleStr = getString(LibAppR.string.update_new_version)
                 sizeStr = it.versionNo
                 contentStr = it.description
                 isShowCancel = !it.isForcedUpgrade

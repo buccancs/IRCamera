@@ -1,5 +1,7 @@
 package com.topdon.tc001
 import com.csl.irCamera.R
+import com.csl.irCamera.BuildConfig
+import com.csl.irCamera.libapp.R as LibAppR
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
@@ -26,7 +28,7 @@ class SplashActivity : AppCompatActivity() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        window.navigationBarColor = ContextCompat.getColor(this, R.color.toolbar_16131E)
+        window.navigationBarColor = ContextCompat.getColor(this, LibAppR.color.toolbar_16131E)
 
         lifecycleScope.launch {
             delay(if (BuildConfig.DEBUG) 3000 else 1000)
