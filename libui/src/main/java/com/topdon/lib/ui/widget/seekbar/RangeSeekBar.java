@@ -25,7 +25,7 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.IntDef;
 import androidx.annotation.Nullable;
 
-import com.topdon.lib.ui.R;
+import com.csl.irCamera.libui.R;
 import com.topdon.menu.util.PseudoColorConfig;
 
 import java.lang.annotation.Retention;

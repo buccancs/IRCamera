@@ -26,7 +26,7 @@ import com.topdon.lib.core.tools.NumberTools
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.utils.ScreenUtil
-import com.topdon.lib.ui.R
+import com.csl.irCamera.libui.R
 import com.topdon.lib.ui.adapter.ColorSelectAdapter
 import com.topdon.lib.ui.databinding.DialogThermalInputBinding
 import java.math.BigDecimal

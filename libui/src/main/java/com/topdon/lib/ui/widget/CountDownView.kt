@@ -15,7 +15,7 @@ import android.view.animation.LinearInterpolator
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.blankj.utilcode.util.SizeUtils
-import com.topdon.lib.ui.R
+import com.csl.irCamera.libui.R
 
 class CountDownView : View {
 

@@ -21,7 +21,7 @@ import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.listener.BitmapViewListener
-import com.topdon.lib.ui.R
+import com.csl.irCamera.libui.R
 import com.topdon.lib.ui.databinding.CameraLayBinding
 import java.util.*
 

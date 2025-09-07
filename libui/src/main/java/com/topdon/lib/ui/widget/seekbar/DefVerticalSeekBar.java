@@ -6,7 +6,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 
-import com.topdon.lib.ui.R;
+import com.csl.irCamera.libui.R;
 
 import static com.topdon.lib.ui.widget.seekbar.DefVerticalRangeSeekBar.DIRECTION_LEFT;
 import static com.topdon.lib.ui.widget.seekbar.DefVerticalRangeSeekBar.DIRECTION_RIGHT;

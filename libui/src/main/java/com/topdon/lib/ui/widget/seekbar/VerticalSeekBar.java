@@ -11,7 +11,7 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.Log;
 
-import com.topdon.lib.ui.R;
+import com.csl.irCamera.libui.R;
 
 
 /**

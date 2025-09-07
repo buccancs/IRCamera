@@ -12,7 +12,7 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.annotation.ColorInt
 import com.blankj.utilcode.util.SizeUtils
-import com.topdon.lib.ui.R
+import com.csl.irCamera.libui.R
 
 /**
  * 3D 编辑使用的，长地像 SeekBar 的那个条条.

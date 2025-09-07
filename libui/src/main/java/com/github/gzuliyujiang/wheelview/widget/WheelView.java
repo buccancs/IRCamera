@@ -50,7 +50,7 @@ import com.github.gzuliyujiang.wheelview.annotation.ScrollState;
 import com.github.gzuliyujiang.wheelview.contract.OnWheelChangedListener;
 import com.github.gzuliyujiang.wheelview.contract.TextProvider;
 import com.github.gzuliyujiang.wheelview.contract.WheelFormatter;
-import com.topdon.lib.ui.R;
+import com.csl.irCamera.libui.R;
 
 import java.util.ArrayList;
 import java.util.List;

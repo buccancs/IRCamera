@@ -28,7 +28,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 
-import com.topdon.lib.ui.R;
+import com.csl.irCamera.libui.R;
 
 /**
  * 屏幕底部弹出对话框

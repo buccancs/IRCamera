@@ -21,7 +21,7 @@ import androidx.annotation.NonNull
 import com.blankj.utilcode.util.ThreadUtils.runOnUiThread
 import com.blankj.utilcode.util.ToastUtils
 import com.topdon.lib.core.utils.ScreenUtil
-import com.topdon.lib.ui.R
+import com.csl.irCamera.libui.R
 import java.nio.ByteBuffer
 import java.util.*
 import kotlin.concurrent.thread

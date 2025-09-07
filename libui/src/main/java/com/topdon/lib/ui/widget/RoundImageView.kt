@@ -5,7 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Path
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
-import com.topdon.lib.ui.R
+import com.csl.irCamera.libui.R
 
 class RoundImageView : AppCompatImageView {
     companion object {

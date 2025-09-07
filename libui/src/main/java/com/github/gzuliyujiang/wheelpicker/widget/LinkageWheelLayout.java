@@ -28,7 +28,7 @@ import com.github.gzuliyujiang.wheelview.annotation.ItemTextAlign;
 import com.github.gzuliyujiang.wheelview.annotation.ScrollState;
 import com.github.gzuliyujiang.wheelview.contract.WheelFormatter;
 import com.github.gzuliyujiang.wheelview.widget.WheelView;
-import com.topdon.lib.ui.R;
+import com.csl.irCamera.libui.R;
 
 import java.util.Arrays;
 import java.util.List;

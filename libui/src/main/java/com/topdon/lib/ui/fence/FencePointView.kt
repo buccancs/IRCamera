@@ -12,7 +12,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import com.blankj.utilcode.util.SizeUtils
-import com.topdon.lib.ui.R
+import com.csl.irCamera.libui.R
 
 class FencePointView : View {
 

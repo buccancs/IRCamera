@@ -27,7 +27,7 @@ import com.github.gzuliyujiang.wheelpicker.contract.OnOptionSelectedListener;
 import com.github.gzuliyujiang.wheelview.annotation.CurtainCorner;
 import com.github.gzuliyujiang.wheelview.annotation.ItemTextAlign;
 import com.github.gzuliyujiang.wheelview.widget.WheelView;
-import com.topdon.lib.ui.R;
+import com.csl.irCamera.libui.R;
 
 import java.util.Collections;
 import java.util.List;

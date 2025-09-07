@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.topdon.lib.core.ktbase.BaseFragment;
-import com.topdon.lib.ui.R;
+import com.csl.irCamera.libui.R;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.IntDef;
 
-import com.topdon.lib.ui.R;
+import com.csl.irCamera.libui.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

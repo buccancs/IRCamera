@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.topdon.lib.ui.R
+import com.csl.irCamera.libui.R
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.lib.ui.databinding.UiItemMenuFourViewBinding
 import com.topdon.lib.ui.listener.SingleClickListener

@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.widget.LinearLayout
-import com.topdon.lib.ui.R
+import com.csl.irCamera.libui.R
 import com.topdon.lib.ui.databinding.UiWifiSteeringWheelViewBinding
 
 /**

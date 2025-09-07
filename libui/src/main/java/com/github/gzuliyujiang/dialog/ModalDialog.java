@@ -32,7 +32,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 
-import com.topdon.lib.ui.R;
+import com.csl.irCamera.libui.R;
 
 /**
  * @author 贵州山野羡民（1032694760@qq.com）

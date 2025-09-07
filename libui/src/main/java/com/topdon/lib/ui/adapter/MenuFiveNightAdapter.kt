@@ -12,7 +12,7 @@ import com.topdon.lib.core.bean.CameraItemBean
 import com.topdon.lib.core.common.SaveSettingUtil
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.tools.DeviceTools
-import com.topdon.lib.ui.R
+import com.csl.irCamera.libui.R
 import com.topdon.lib.ui.bean.TemperatureBean
 import com.topdon.lib.ui.databinding.UiItemMenuFiveViewBinding
 

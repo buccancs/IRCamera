@@ -26,7 +26,7 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.IntDef;
 import androidx.core.content.ContextCompat;
 
-import com.topdon.lib.ui.R;
+import com.csl.irCamera.libui.R;
 
 import java.text.DecimalFormat;
 import java.util.Locale;

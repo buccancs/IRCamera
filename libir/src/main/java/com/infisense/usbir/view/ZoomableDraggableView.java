@@ -13,7 +13,7 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.infisense.usbir.R;
+import com.csl.irCamera.libir.R;
 import com.topdon.lib.core.utils.BitmapUtils;
 
 public class ZoomableDraggableView extends View {
