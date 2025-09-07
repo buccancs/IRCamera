@@ -34,6 +34,8 @@ import com.topdon.module.thermal.ir.dialog.IRConfigInputDialog
 import com.topdon.module.thermal.ir.repository.ConfigRepository
 import com.topdon.module.thermal.ir.viewmodel.IRConfigViewModel
 import com.topdon.module.thermal.ir.databinding.ActivityIrConfigBinding
+import com.topdon.module.thermal.ir.databinding.ItemIrConfigConfigBinding
+import com.topdon.module.thermal.ir.databinding.ItemIrConfigFootBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -229,9 +231,9 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             return if (viewType == 0) {
-                ItemViewHolder(LayoutInflater.from(context).inflate(R.layout.item_ir_config_config, parent, false))
+                ItemViewHolder(ItemIrConfigConfigBinding.inflate(LayoutInflater.from(context), parent, false))
             } else {
-                FootViewHolder(LayoutInflater.from(context).inflate(R.layout.item_ir_config_foot, parent, false))
+                FootViewHolder(ItemIrConfigFootBinding.inflate(LayoutInflater.from(context), parent, false))
             }
         }
 
@@ -239,72 +241,72 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             if (holder is ItemViewHolder) {
                 val dataBean = dataList[position]
-                holder.itemView.tv_name.text = "${context.getString(R.string.thermal_custom_mode)}${dataBean.name}"
-                holder.itemView.iv_selector.isSelected = dataBean.use
+                holder.binding.tvName.text = "${context.getString(R.string.thermal_custom_mode)}${dataBean.name}"
+                holder.binding.ivSelector.isSelected = dataBean.use
 
-                holder.itemView.tv_temp_title.text = "${context.getString(R.string.thermal_config_environment)} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
-                holder.itemView.tv_dis_title.text = "${context.getString(R.string.thermal_config_distance)} (0.2~${if (isTC007) 4 else 5}m)"
-                holder.itemView.tv_em_title.text = "${context.getString(R.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
-                holder.itemView.tv_temp_unit.text = UnitTools.showUnit()
+                holder.binding.tvTempTitle.text = "${context.getString(R.string.thermal_config_environment)} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
+                holder.binding.tvDisTitle.text = "${context.getString(R.string.thermal_config_distance)} (0.2~${if (isTC007) 4 else 5}m)"
+                holder.binding.tvEmTitle.text = "${context.getString(R.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
+                holder.binding.tvTempUnit.text = UnitTools.showUnit()
 
-                holder.itemView.tv_temp_value.text = NumberTools.to02(UnitTools.showUnitValue(dataBean.environment))
-                holder.itemView.tv_dis_value.text = NumberTools.to02(dataBean.distance)
-                holder.itemView.tv_em_value.text = NumberTools.to02(dataBean.radiation)
+                holder.binding.tvTempValue.text = NumberTools.to02(UnitTools.showUnitValue(dataBean.environment))
+                holder.binding.tvDisValue.text = NumberTools.to02(dataBean.distance)
+                holder.binding.tvEmValue.text = NumberTools.to02(dataBean.radiation)
             } else if (holder is FootViewHolder) {
-                holder.itemView.tv_add.setTextColor(if (dataList.size >= 10) 0x80ffffff.toInt() else 0xccffffff.toInt())
+                holder.binding.tvAdd.setTextColor(if (dataList.size >= 10) 0x80ffffff.toInt() else 0xccffffff.toInt())
             }
         }
 
         override fun getItemCount(): Int = dataList.size + 1
 
 
-        inner class ItemViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
+        inner class ItemViewHolder(val binding: ItemIrConfigConfigBinding) : RecyclerView.ViewHolder(binding.root) {
             init {
-                rootView.iv_selector.setOnClickListener {
+                binding.ivSelector.setOnClickListener {
                     val position: Int = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         onSelectListener?.invoke(dataList[position].id)
                     }
                 }
-                rootView.iv_del.setOnClickListener {
+                binding.ivDel.setOnClickListener {
                     val position: Int = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         onDeleteListener?.invoke(dataList[position])
                     }
                 }
-                rootView.view_temp_bg.setOnClickListener {
+                binding.viewTempBg.setOnClickListener {
                     val position: Int = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         IRConfigInputDialog(context, IRConfigInputDialog.Type.TEMP, isTC007)
                             .setInput(UnitTools.showUnitValue(dataList[position].environment))
                             .setConfirmListener {
-                                itemView.tv_temp_value.text = NumberTools.to02(UnitTools.showToCValue(it))
+                                binding.tvTempValue.text = NumberTools.to02(UnitTools.showToCValue(it))
                                 dataList[position].environment = UnitTools.showToCValue(it)
                                 onUpdateListener?.invoke(dataList[position])
                             }
                             .show()
                     }
                 }
-                rootView.view_dis_bg.setOnClickListener {
+                binding.viewDisBg.setOnClickListener {
                     val position: Int = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         IRConfigInputDialog(context, IRConfigInputDialog.Type.DIS, isTC007)
                             .setInput(dataList[position].distance)
                             .setConfirmListener {
-                                itemView.tv_dis_value.text = it.toString()
+                                binding.tvDisValue.text = it.toString()
                                 dataList[position].distance = it
                                 onUpdateListener?.invoke(dataList[position])
                             }
                             .show()
                     }
                 }
-                rootView.tv_em_value.setOnClickListener {
+                binding.tvEmValue.setOnClickListener {
                     val position: Int = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         IRConfigInputDialog(context, IRConfigInputDialog.Type.EM, isTC007)
                             .setInput(dataList[position].radiation)
                             .setConfirmListener {
-                                itemView.tv_em_value.text = it.toString()
+                                binding.tvEmValue.text = it.toString()
                                 dataList[position].radiation = it
                                 onUpdateListener?.invoke(dataList[position])
                             }
@@ -314,9 +316,9 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
             }
         }
 
-        inner class FootViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
+        inner class FootViewHolder(val binding: ItemIrConfigFootBinding) : RecyclerView.ViewHolder(binding.root) {
             init {
-                rootView.view_add.setOnClickListener {
+                binding.viewAdd.setOnClickListener {
                     if (dataList.size < 10) {
                         val position: Int = bindingAdapterPosition
                         if (position != RecyclerView.NO_POSITION) {
@@ -326,7 +328,7 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
                         TToast.shortToast(context, R.string.config_add_tip)
                     }
                 }
-                rootView.tv_all_emissivity.setOnClickListener {
+                binding.tvAllEmissivity.setOnClickListener {
                     context.startActivity(Intent(context, IREmissivityActivity::class.java))
                 }
             }

@@ -340,9 +340,9 @@ class IRCameraSettingActivity : BaseActivity() {
                                 ToastUtils.showShort(R.string.get_Location_failed)
                             }else{
                                 watermarkBean.address = addressText as String
-                                ed_address.setText(addressText)
-                                tv_address.visibility = View.VISIBLE
-                                tv_address.setText(addressText)
+                                binding.edAddress.setText(addressText)
+                                binding.tvAddress.visibility = View.VISIBLE
+                                binding.tvAddress.setText(addressText)
                             }
                         }
                     }else{
