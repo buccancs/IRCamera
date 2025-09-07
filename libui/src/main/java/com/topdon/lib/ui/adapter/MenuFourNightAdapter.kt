@@ -19,7 +19,7 @@ import com.topdon.lib.core.utils.Constants.IR_TEMPERATURE_MODE
 import com.csl.irCamera.libui.R
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.lib.ui.config.CameraHelp
-import com.topdon.lib.ui.databinding.UiItemMenuSecondViewBinding
+import com.csl.irCamera.libui.databinding.UiItemMenuSecondViewBinding
 import com.topdon.lib.ui.listener.SingleClickListener
 
 

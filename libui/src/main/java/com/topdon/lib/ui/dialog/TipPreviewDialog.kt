@@ -17,7 +17,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.csl.irCamera.libui.R
-import com.topdon.lib.ui.databinding.DialogTipPreviewBinding
+import com.csl.irCamera.libui.databinding.DialogTipPreviewBinding
 import com.topdon.lib.ui.widget.IndicateView
 import io.reactivex.disposables.Disposable
 import java.util.Timer

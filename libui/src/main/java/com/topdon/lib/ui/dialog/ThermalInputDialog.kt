@@ -28,7 +28,7 @@ import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.utils.ScreenUtil
 import com.csl.irCamera.libui.R
 import com.topdon.lib.ui.adapter.ColorSelectAdapter
-import com.topdon.lib.ui.databinding.DialogThermalInputBinding
+import com.csl.irCamera.libui.databinding.DialogThermalInputBinding
 import java.math.BigDecimal
 
 

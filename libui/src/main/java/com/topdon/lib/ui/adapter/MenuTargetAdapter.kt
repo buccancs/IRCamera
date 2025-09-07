@@ -12,7 +12,7 @@ import com.topdon.lib.core.bean.ObserveBean
 import com.csl.irCamera.libui.R
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.lib.ui.config.CameraHelp
-import com.topdon.lib.ui.databinding.UiItemMenuSecondViewBinding
+import com.csl.irCamera.libui.databinding.UiItemMenuSecondViewBinding
 import com.topdon.menu.constant.TargetType
 
 @Deprecated("旧的标靶菜单，已重构过了")

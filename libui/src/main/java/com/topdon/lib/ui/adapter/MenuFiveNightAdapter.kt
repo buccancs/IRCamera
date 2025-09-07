@@ -12,9 +12,11 @@ import com.topdon.lib.core.bean.CameraItemBean
 import com.topdon.lib.core.common.SaveSettingUtil
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.tools.DeviceTools
+import com.csl.irCamera.libui.databinding.UiItemMenuFiveViewBinding
 import com.csl.irCamera.libui.R
 import com.topdon.lib.ui.bean.TemperatureBean
-import com.topdon.lib.ui.databinding.UiItemMenuFiveViewBinding
+import com.topdon.menu.R as MenuR
+import com.csl.irCamera.libapp.R as LibAppR
 
 @Deprecated("旧的温度档位菜单，已重构过了")
 class MenuFiveNightAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

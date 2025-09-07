@@ -7,7 +7,7 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.widget.LinearLayout
 import com.csl.irCamera.libui.R
-import com.topdon.lib.ui.databinding.UiSteeringWheelViewBinding
+import com.csl.irCamera.libui.databinding.UiSteeringWheelViewBinding
 
 /**
  * 校准方向

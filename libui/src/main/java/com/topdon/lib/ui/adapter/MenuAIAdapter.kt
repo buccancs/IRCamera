@@ -10,9 +10,11 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.bean.ObserveBean
+import com.csl.irCamera.libui.databinding.UiItemMenuSecondViewBinding
 import com.csl.irCamera.libui.R
 import com.topdon.lib.ui.bean.ColorBean
-import com.topdon.lib.ui.databinding.UiItemMenuSecondViewBinding
+import com.topdon.menu.R as MenuR
+import com.csl.irCamera.libapp.R as LibAppR
 
 @Deprecated("旧的高低温源菜单，已重构过了")
 class MenuAIAdapter (val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -40,9 +42,9 @@ class MenuAIAdapter (val context: Context) : RecyclerView.Adapter<RecyclerView.V
 
 
     private val secondBean = arrayListOf(
-        ColorBean(R.drawable.selector_menu2_source_1_auto, context.getString(R.string.main_tab_second_dynamic_recognition), ObserveBean.TYPE_DYN_R),
-        ColorBean(R.drawable.selector_menu2_source_2_high, context.getString(R.string.main_tab_second_high_temperature_source), ObserveBean.TYPE_TMP_H_S),
-        ColorBean(R.drawable.selector_menu2_source_3_low, context.getString(R.string.main_tab_second_low_temperature_source), ObserveBean.TYPE_TMP_L_S),
+        ColorBean(MenuR.drawable.selector_menu2_source_1_auto, context.getString(MenuR.string.main_tab_second_dynamic_recognition), ObserveBean.TYPE_DYN_R),
+        ColorBean(MenuR.drawable.selector_menu2_source_2_high, context.getString(MenuR.string.main_tab_second_high_temperature_source), ObserveBean.TYPE_TMP_H_S),
+        ColorBean(MenuR.drawable.selector_menu2_source_3_low, context.getString(MenuR.string.main_tab_second_low_temperature_source), ObserveBean.TYPE_TMP_L_S),
     )
 
 
@@ -63,7 +65,7 @@ class MenuAIAdapter (val context: Context) : RecyclerView.Adapter<RecyclerView.V
             holder.name.isSelected = secondBean[position].code == selectCode
             holder.name.setTextColor(
                 if (secondBean[position].code == selectCode) ContextCompat.getColor(context, R.color.white)
-                else ContextCompat.getColor(context, R.color.font_third_color)
+                else ContextCompat.getColor(context, LibAppR.color.font_third_color)
             )
         }
     }

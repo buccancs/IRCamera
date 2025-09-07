@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.csl.irCamera.libui.R
 import com.topdon.lib.ui.bean.ColorBean
-import com.topdon.lib.ui.databinding.UiItemMenuFourViewBinding
+import com.csl.irCamera.libui.databinding.UiItemMenuFourViewBinding
 import com.topdon.lib.ui.listener.SingleClickListener
 
 @Deprecated("看起来是旧版 2D 编辑的菜单，根本没使用了")

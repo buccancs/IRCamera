@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup.LayoutParams
 import com.topdon.lib.core.utils.ScreenUtil
 import com.csl.irCamera.libui.R
-import com.topdon.lib.ui.databinding.DialogProgressBinding
+import com.csl.irCamera.libui.databinding.DialogProgressBinding
 
 /**
  * 带进度条的提示弹框.

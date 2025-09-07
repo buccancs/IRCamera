@@ -22,7 +22,7 @@ import com.blankj.utilcode.util.ToastUtils
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.listener.BitmapViewListener
 import com.csl.irCamera.libui.R
-import com.topdon.lib.ui.databinding.CameraLayBinding
+import com.csl.irCamera.libui.databinding.CameraLayBinding
 import java.util.*
 
 

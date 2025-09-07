@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import com.topdon.lib.core.utils.ScreenUtil
 import com.csl.irCamera.libui.R
-import com.topdon.lib.ui.databinding.DialogMonitorSelectBinding
+import com.csl.irCamera.libui.databinding.DialogMonitorSelectBinding
 
 /**
  * 提示窗

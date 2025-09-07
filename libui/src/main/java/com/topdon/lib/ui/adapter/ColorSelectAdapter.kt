@@ -9,7 +9,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.csl.irCamera.libui.R
 import com.topdon.lib.ui.bean.ColorSelectBean
-import com.topdon.lib.ui.databinding.UiItemColorSelectBinding
+import com.csl.irCamera.libui.databinding.UiItemColorSelectBinding
 
 class ColorSelectAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

@@ -11,7 +11,8 @@ import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.isVisible
-import com.topdon.lib.ui.databinding.UiSettingViewNightBinding
+import com.csl.irCamera.libui.databinding.UiSettingViewNightBinding
+import com.csl.irCamera.libui.R
 
 class SettingNightView : LinearLayout {
 
