@@ -267,7 +267,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             imageThread?.setOpenAmplify(isOpenAmplify)
             binding.cameraView.bitmap = bitmap
             binding.cameraView.isOpenAmplify = isOpenAmplify
-            binding.titleView.setRight2Drawable(if (isOpenAmplify) LibAppR.drawable.svg_tisr_on else LibAppR.drawable.svg_tisr_off)
+            binding.titleView.setRight2Drawable(if (isOpenAmplify) R.drawable.svg_tisr_on else R.drawable.svg_tisr_off)
             SaveSettingUtil.isOpenAmplify = isOpenAmplify
             if (isOpenAmplify){
                 ToastUtils.showShort(LibAppR.string.tips_tisr_on)
@@ -281,7 +281,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
      open fun initAmplify(show : Boolean){
         lifecycleScope.launch {
             if (show){
-                binding.titleView.setRight2Drawable(if (isOpenAmplify) LibAppR.drawable.svg_tisr_on else LibAppR.drawable.svg_tisr_off)
+                binding.titleView.setRight2Drawable(if (isOpenAmplify) R.drawable.svg_tisr_on else R.drawable.svg_tisr_off)
             }else{
                 binding.titleView.setRight2Drawable(0)
             }
@@ -800,7 +800,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 )
                 setDefLimit()
                 binding.thermalRecyclerNight.setPseudoColor(-1)
-                binding.temperatureIvInput.setImageResource(LibAppR.drawable.ir_model)
+                binding.temperatureIvInput.setImageResource(R.drawable.ir_model)
             } else {
                 binding.temperatureIvLock.visibility = View.VISIBLE
                 binding.thermalRecyclerNight.setPseudoColor(pseudoColorMode)
@@ -808,7 +808,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                     setDefLimit()
                 }
                 binding.tvTempContent.visibility = View.GONE
-                binding.temperatureIvInput.setImageResource(LibAppR.drawable.ic_color_edit)
+                binding.temperatureIvInput.setImageResource(R.drawable.ic_color_edit)
             }
             setCustomPseudoColorList(
                 customPseudoBean.getColorList(),
@@ -892,7 +892,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     private fun updateTemperatureSeekBar(isEnabled: Boolean) {
         binding.temperatureSeekbar.isEnabled = isEnabled
         binding.temperatureSeekbar.drawIndPath(isEnabled)
-        binding.temperatureIvLock.setImageResource(if (isEnabled) LibAppR.drawable.svg_pseudo_bar_unlock else LibAppR.drawable.svg_pseudo_bar_lock)
+        binding.temperatureIvLock.setImageResource(if (isEnabled) R.drawable.svg_pseudo_bar_unlock else R.drawable.svg_pseudo_bar_lock)
         binding.temperatureIvLock.contentDescription = if (isEnabled) "unlock" else "lock"
         if (isEnabled) {
             binding.temperatureSeekbar.tempMode = RangeSeekBar.TEMP_MODE_CLOSE
@@ -1111,7 +1111,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             if (it == CameraItemBean.TYPE_TMP_H && SharedManager.isTipHighTemp) {//切换到高温档
                 val message = SpanBuilder(getString(LibAppR.string.tc_high_temp_test_tips1))
                     .appendDrawable(this@IRThermalNightActivity,
-                        LibAppR.drawable.svg_title_temp, SizeUtils.sp2px(24f))
+                        R.drawable.svg_title_temp, SizeUtils.sp2px(24f))
                     .append(getString(LibAppR.string.tc_high_temp_test_tips2))
                 TipShutterDialog.Builder(this)
                     .setTitle(LibAppR.string.tc_high_temp_test)
@@ -1634,7 +1634,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         popupWindow?.contentView = contentView
         popupWindow?.isFocusable = false
         popupWindow?.isOutsideTouchable = false
-        popupWindow?.animationStyle = LibAppR.style.SeekBarAnimation
+        popupWindow?.animationStyle = R.style.SeekBarAnimation
         popupWindow?.width = WindowManager.LayoutParams.MATCH_PARENT
         popupWindow?.height = WindowManager.LayoutParams.WRAP_CONTENT
         popupWindow?.setBackgroundDrawable(ColorDrawable(0))
@@ -1682,7 +1682,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             LayoutInflater.from(this).inflate(R.layout.layout_second_target, null)
         popupWindow?.contentView = contentView
         popupWindow?.isFocusable = false
-        popupWindow?.animationStyle = LibAppR.style.SeekBarAnimation
+        popupWindow?.animationStyle = R.style.SeekBarAnimation
         popupWindow?.width = WindowManager.LayoutParams.MATCH_PARENT
         popupWindow?.height = WindowManager.LayoutParams.WRAP_CONTENT
         popupWindow?.setBackgroundDrawable(ColorDrawable(0))
@@ -2091,7 +2091,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         } else {
             binding.temperatureIvLock.visibility = View.VISIBLE
             binding.tvTempContent.visibility = View.GONE
-            binding.temperatureIvInput.setImageResource(LibAppR.drawable.ic_color_edit)
+            binding.temperatureIvInput.setImageResource(R.drawable.ic_color_edit)
             binding.thermalRecyclerNight.setPseudoColor(pseudoColorMode)
         }
         binding.thermalRecyclerNight.setSettingSelected(SettingType.ALARM, alarmBean.isHighOpen || alarmBean.isLowOpen)
@@ -2167,7 +2167,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         binding.temperatureIvLock.visibility = View.VISIBLE
         binding.thermalRecyclerNight.setPseudoColor(pseudoColorMode)
         binding.tvTempContent.visibility = View.GONE
-        binding.temperatureIvInput.setImageResource(LibAppR.drawable.ic_color_edit)
+        binding.temperatureIvInput.setImageResource(R.drawable.ic_color_edit)
     }
 
     /**
@@ -2199,7 +2199,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         )
         binding.tvTempContent.visibility = View.VISIBLE
         binding.thermalRecyclerNight.setPseudoColor(-1)
-        binding.temperatureIvInput.setImageResource(LibAppR.drawable.ir_model)
+        binding.temperatureIvInput.setImageResource(R.drawable.ir_model)
     }
 
     private val permissionList by lazy {

@@ -34,17 +34,17 @@ class MenuTabAdapter(val context: Context) :
 
     //拍摄
     private val firstMenus =
-        arrayListOf(LibAppR.drawable.ic_menu_thermal1001_svg, LibAppR.drawable.ic_menu_thermal1002_svg)
+        arrayListOf(R.drawable.ic_menu_thermal1001_svg, R.drawable.ic_menu_thermal1002_svg)
 
     //选框
     private val secondMenus =
         arrayListOf(
-            LibAppR.drawable.ic_menu_thermal2002,
-            LibAppR.drawable.ic_menu_thermal2003,
-            LibAppR.drawable.ic_menu_thermal2004,
-            LibAppR.drawable.ic_menu_thermal2001,
-            LibAppR.drawable.ic_menu_thermal2005,
-            LibAppR.drawable.ic_menu_thermal2006
+            R.drawable.ic_menu_thermal2002,
+            R.drawable.ic_menu_thermal2003,
+            R.drawable.ic_menu_thermal2004,
+            R.drawable.ic_menu_thermal2001,
+            R.drawable.ic_menu_thermal2005,
+            R.drawable.ic_menu_thermal2006
         )
 
     //选框
@@ -70,25 +70,25 @@ class MenuTabAdapter(val context: Context) :
     //色彩
     private val thirdMenus =
         arrayListOf(
-            LibAppR.drawable.ic_menu_thermal3001,
-            LibAppR.drawable.ic_menu_thermal3002,
-            LibAppR.drawable.ic_menu_thermal3003,
-            LibAppR.drawable.ic_menu_thermal3004,
-            LibAppR.drawable.ic_menu_thermal3005,
-            LibAppR.drawable.ic_menu_thermal3006,
-            LibAppR.drawable.ic_menu_thermal3007,
-            LibAppR.drawable.ic_menu_thermal3008,
-            LibAppR.drawable.ic_menu_thermal3009,
-            LibAppR.drawable.ic_menu_thermal3010
+            R.drawable.ic_menu_thermal3001,
+            R.drawable.ic_menu_thermal3002,
+            R.drawable.ic_menu_thermal3003,
+            R.drawable.ic_menu_thermal3004,
+            R.drawable.ic_menu_thermal3005,
+            R.drawable.ic_menu_thermal3006,
+            R.drawable.ic_menu_thermal3007,
+            R.drawable.ic_menu_thermal3008,
+            R.drawable.ic_menu_thermal3009,
+            R.drawable.ic_menu_thermal3010
         )
 
     //设置
     private val fourthMenus =
         arrayListOf(
-            LibAppR.drawable.ic_menu_thermal4001_svg,
-            LibAppR.drawable.ic_menu_thermal4002_svg,
-            LibAppR.drawable.ic_menu_thermal4003_svg,
-            LibAppR.drawable.ic_menu_thermal4004_svg
+            R.drawable.ic_menu_thermal4001_svg,
+            R.drawable.ic_menu_thermal4002_svg,
+            R.drawable.ic_menu_thermal4003_svg,
+            R.drawable.ic_menu_thermal4004_svg
         )
 
     fun initType(type: Int) {

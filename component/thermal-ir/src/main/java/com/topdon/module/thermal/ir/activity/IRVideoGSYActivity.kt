@@ -54,9 +54,9 @@ class IRVideoGSYActivity : BaseActivity() {
         binding.clBottom.isVisible = isRemote //查看远端时底部才有3个按钮
 
         if (!isRemote) {
-            binding.titleView.setRightDrawable(LibAppR.drawable.ic_toolbar_info_svg)
-            binding.titleView.setRight2Drawable(LibAppR.drawable.ic_toolbar_share_svg)
-            binding.titleView.setRight3Drawable(LibAppR.drawable.ic_toolbar_delete_svg)
+            binding.titleView.setRightDrawable(LibUiR.drawable.ic_toolbar_info_svg)
+            binding.titleView.setRight2Drawable(LibUiR.drawable.ic_toolbar_share_svg)
+            binding.titleView.setRight3Drawable(LibUiR.drawable.ic_toolbar_delete_svg)
             binding.titleView.setRightClickListener { actionInfo() }
             binding.titleView.setRight2ClickListener { actionShare() }
             binding.titleView.setRight3ClickListener { showDeleteDialog() }

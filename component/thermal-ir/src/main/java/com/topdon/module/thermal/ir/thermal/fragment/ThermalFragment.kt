@@ -632,7 +632,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
         if (!XXPermissions.isGranted(requireContext(), Manifest.permission.CAMERA)) {
             if (BaseApplication.instance.isDomestic()) {
                 TipDialog.Builder(requireContext())
-                    .setMessage(getString(LibAppR.string.permission_request_camera))
+                    .setMessage(getString(R.string.permission_request_camera))
                     .setCancelListener(LibAppR.string.app_cancel)
                     .setPositiveListener(LibAppR.string.app_confirm) {
                         camera()

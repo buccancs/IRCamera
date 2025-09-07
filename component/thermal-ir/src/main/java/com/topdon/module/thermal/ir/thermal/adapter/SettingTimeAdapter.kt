@@ -39,11 +39,11 @@ class SettingTimeAdapter(val context: Context) :
         if (holder is ItemView) {
             holder.btn.text = datas[position]
             if (position == select) {
-                holder.btn.setBackgroundResource(LibAppR.drawable.ui_btn_round_theme)
+                holder.btn.setBackgroundResource(R.drawable.ui_btn_round_theme)
                 holder.btn.setTextColor(ContextCompat.getColor(context, LibAppR.color.white))
             } else {
                 holder.btn.background = null
-                holder.btn.setTextColor(ContextCompat.getColor(context, LibAppR.color.font_gray))
+                holder.btn.setTextColor(ContextCompat.getColor(context, R.color.font_gray))
             }
             holder.btn.setOnClickListener {
                 listener?.onClick(position, dataTimes[position])

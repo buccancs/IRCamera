@@ -31,8 +31,8 @@ class GlideImageEngine : ImageEngine {
             .load(url)
             .apply(option)
             .fitCenter()
-            .placeholder(LibAppR.drawable.ic_default_head_svg)
-            .error(LibAppR.drawable.ic_default_head_svg)
+            .placeholder(R.drawable.ic_default_head_svg)
+            .error(R.drawable.ic_default_head_svg)
             .listener(BitmapRequestListener())
             .into(imageView)
     }

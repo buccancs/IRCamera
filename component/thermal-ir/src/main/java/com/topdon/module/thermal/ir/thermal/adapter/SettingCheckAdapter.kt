@@ -36,11 +36,11 @@ class SettingCheckAdapter(val context: Context) :
         if (holder is ItemView) {
             holder.btn.text = datas[position]
             if (position == selectTime) {
-                holder.btn.setBackgroundResource(LibAppR.drawable.ui_radio_active_btn)
+                holder.btn.setBackgroundResource(R.drawable.ui_radio_active_btn)
                 holder.btn.setTextColor(ContextCompat.getColor(context, LibAppR.color.white))
             } else {
-                holder.btn.setBackgroundResource(LibAppR.drawable.ui_radio_btn)
-                holder.btn.setTextColor(ContextCompat.getColor(context, LibAppR.color.font_gray))
+                holder.btn.setBackgroundResource(R.drawable.ui_radio_btn)
+                holder.btn.setTextColor(ContextCompat.getColor(context, R.color.font_gray))
             }
             holder.btn.setOnClickListener {
                 Log.w("123", "文件: ${datas[position]}")
