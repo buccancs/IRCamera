@@ -25,7 +25,10 @@ open class BitmapConstraintLayout : ConstraintLayout {
         }
         try {
             viewBitmap = this.drawToBitmap()
-        } catch (_: Exception) {
+        } catch (e: IllegalStateException) {
+            // View not attached to window or not laid out
+        } catch (e: IllegalArgumentException) {
+            // Invalid bitmap configuration
         }
     }
 }

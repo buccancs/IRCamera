@@ -9,6 +9,8 @@ import android.net.NetworkRequest;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiNetworkSpecifier;
+import android.os.Build;
+import androidx.annotation.RequiresApi;
 
 import com.topdon.lib.core.BaseApplication;
 
@@ -82,6 +84,7 @@ public class EasyWifi {
         connectByNew(str, str2, WiFiEncryptionStandard.WPA2);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     public void connectByNew(String str, String str2, WiFiEncryptionStandard wiFiEncryptionStandard) {
         WifiNetworkSpecifier build = new WifiNetworkSpecifier.Builder().setSsid(str).setWpa2Passphrase(str2).build();
         if (wiFiEncryptionStandard == WiFiEncryptionStandard.WPA3) {
@@ -117,10 +120,18 @@ public class EasyWifi {
     }
 
     private WifiConfiguration isExist(String str) {
-        for (WifiConfiguration wifiConfiguration : this.wifiManager.getConfiguredNetworks()) {
-            if (wifiConfiguration.SSID.equals("\"" + str + "\"")) {
-                return wifiConfiguration;
+        try {
+            if (this.wifiManager.getConfiguredNetworks() == null) {
+                return null;
             }
+            for (WifiConfiguration wifiConfiguration : this.wifiManager.getConfiguredNetworks()) {
+                if (wifiConfiguration.SSID.equals("\"" + str + "\"")) {
+                    return wifiConfiguration;
+                }
+            }
+        } catch (SecurityException e) {
+            // Permission denied, cannot access configured networks
+            Log.w(TAG, "Permission denied accessing WiFi configured networks", e);
         }
         return null;
     }

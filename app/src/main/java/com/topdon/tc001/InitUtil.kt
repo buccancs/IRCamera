@@ -122,7 +122,9 @@ object InitUtil {
     fun initReceiver() {
         try {
             BaseApplication.instance.unregisterReceiver(BaseApplication.usbObserver)
-        } catch (e: Exception) { }
+        } catch (e: IllegalArgumentException) { 
+            // Receiver not registered
+        }
         //必须动态注册,否则部分机型无法收到usb状态
         val filter = IntentFilter()
         filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED)

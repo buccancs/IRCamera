@@ -13,6 +13,7 @@ import androidx.annotation.RequiresPermission
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.hjq.permissions.Permission
+import java.io.IOException
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -44,7 +45,10 @@ object LocationUtil {
             }
             val address = resultList[0]
             return@withContext (address.adminArea ?: "") + (address.locality ?: "") + (address.subLocality ?: "")//省-市-区
-        } catch (e: Exception) {
+        } catch (e: IOException) {
+            e.printStackTrace()
+            return@withContext null
+        } catch (e: IllegalArgumentException) {
             e.printStackTrace()
             return@withContext null
         }
