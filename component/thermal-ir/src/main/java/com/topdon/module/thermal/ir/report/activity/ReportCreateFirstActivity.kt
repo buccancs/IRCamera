@@ -387,7 +387,7 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
                                     .setCanceled(false)
                                     .create().show()
                             }else{
-                                et_report_place.setText(addressText)
+                                binding.etReportPlace.setText(addressText)
                             }
                         }
                     }else{

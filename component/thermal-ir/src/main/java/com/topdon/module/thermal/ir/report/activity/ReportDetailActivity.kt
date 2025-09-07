@@ -64,8 +64,8 @@ class ReportDetailActivity: BaseActivity() {
             saveWithPDF()
         }
 
-        report_info_view.refreshInfo(reportBean?.report_info)
-        report_info_view.refreshCondition(reportBean?.detection_condition)
+        binding.reportInfoView.refreshInfo(reportBean?.report_info)
+        binding.reportInfoView.refreshCondition(reportBean?.detection_condition)
 
         if (reportBean?.report_info?.is_report_watermark == 1) {
             binding.watermarkView.watermarkText = reportBean?.report_info?.report_watermark

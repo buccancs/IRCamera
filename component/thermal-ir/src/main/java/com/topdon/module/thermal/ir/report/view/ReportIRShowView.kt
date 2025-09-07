@@ -136,94 +136,94 @@ class ReportIRShowView: LinearLayout {
         val isLand = (drawable?.intrinsicWidth ?: 0) > (drawable?.intrinsicHeight ?: 0)
         val width = (ScreenUtil.getScreenWidth(context) * (if (isLand) 234 else 175) / 375f).toInt()
         val height = (width * (drawable?.intrinsicHeight ?: 0).toFloat() / (drawable?.intrinsicWidth ?: 1)).toInt()
-        val layoutParams = iv_image.layoutParams
+        val layoutParams = binding.ivImage.layoutParams
         layoutParams.width = width
         layoutParams.height = height
-        iv_image.layoutParams = layoutParams
-        iv_image.setImageDrawable(drawable)
+        binding.ivImage.layoutParams = layoutParams
+        binding.ivImage.setImageDrawable(drawable)
     }
 
     fun refreshData(isFirst: Boolean, isLast: Boolean, reportIRBean: ReportIRBean) {
-        tv_head.isVisible = isFirst
-        view_not_head.isVisible = !isFirst
-        view_image_bg.setBackgroundResource(if (isFirst) R.drawable.layer_report_ir_show_top_bg else R.drawable.layer_report_ir_show_item_bg)
-        cl_image.setPadding(0, if (isFirst) SizeUtils.dp2px(20f) else 0, 0, 0)
+        binding.tvHead.isVisible = isFirst
+        binding.viewNotHead.isVisible = !isFirst
+        binding.viewImageBg.setBackgroundResource(if (isFirst) R.drawable.layer_report_ir_show_top_bg else R.drawable.layer_report_ir_show_item_bg)
+        binding.clImage.setPadding(0, if (isFirst) SizeUtils.dp2px(20f) else 0, 0, 0)
 
         refreshItem(binding.clFull.root, reportIRBean.full_graph_data, TYPE_FULL, 0)
 
         val pointList = reportIRBean.point_data
         for (i in pointList.indices) {
             when (i) {
-                0 -> refreshItem(cl_point1, pointList[i], TYPE_POINT, i)
-                1 -> refreshItem(cl_point2, pointList[i], TYPE_POINT, i)
-                2 -> refreshItem(cl_point3, pointList[i], TYPE_POINT, i)
-                3 -> refreshItem(cl_point4, pointList[i], TYPE_POINT, i)
-                4 -> refreshItem(cl_point5, pointList[i], TYPE_POINT, i)
+                0 -> refreshItem(binding.clPoint1.root, pointList[i], TYPE_POINT, i)
+                1 -> refreshItem(binding.clPoint2.root, pointList[i], TYPE_POINT, i)
+                2 -> refreshItem(binding.clPoint3.root, pointList[i], TYPE_POINT, i)
+                3 -> refreshItem(binding.clPoint4.root, pointList[i], TYPE_POINT, i)
+                4 -> refreshItem(binding.clPoint5.root, pointList[i], TYPE_POINT, i)
             }
         }
-        cl_point2.tv_title.isVisible = !cl_point1.isVisible
-        cl_point3.tv_title.isVisible = !cl_point1.isVisible && !cl_point2.isVisible
-        cl_point4.tv_title.isVisible = !cl_point1.isVisible && !cl_point2.isVisible && !cl_point3.isVisible
-        cl_point5.tv_title.isVisible = !cl_point1.isVisible && !cl_point2.isVisible && !cl_point3.isVisible && !cl_point4.isVisible
+        binding.clPoint2.root.findViewById<TextView>(R.id.tv_title).isVisible = !binding.clPoint1.root.isVisible
+        binding.clPoint3.root.findViewById<TextView>(R.id.tv_title).isVisible = !binding.clPoint1.root.isVisible && !binding.clPoint2.root.isVisible
+        binding.clPoint4.root.findViewById<TextView>(R.id.tv_title).isVisible = !binding.clPoint1.root.isVisible && !binding.clPoint2.root.isVisible && !binding.clPoint3.root.isVisible
+        binding.clPoint5.root.findViewById<TextView>(R.id.tv_title).isVisible = !binding.clPoint1.root.isVisible && !binding.clPoint2.root.isVisible && !binding.clPoint3.root.isVisible && !binding.clPoint4.root.isVisible
 
         val lineList = reportIRBean.line_data
         for (i in lineList.indices) {
             when (i) {
-                0 -> refreshItem(cl_line1, lineList[i], TYPE_LINE, i)
-                1 -> refreshItem(cl_line2, lineList[i], TYPE_LINE, i)
-                2 -> refreshItem(cl_line3, lineList[i], TYPE_LINE, i)
-                3 -> refreshItem(cl_line4, lineList[i], TYPE_LINE, i)
-                4 -> refreshItem(cl_line5, lineList[i], TYPE_LINE, i)
+                0 -> refreshItem(binding.clLine1.root, lineList[i], TYPE_LINE, i)
+                1 -> refreshItem(binding.clLine2.root, lineList[i], TYPE_LINE, i)
+                2 -> refreshItem(binding.clLine3.root, lineList[i], TYPE_LINE, i)
+                3 -> refreshItem(binding.clLine4.root, lineList[i], TYPE_LINE, i)
+                4 -> refreshItem(binding.clLine5.root, lineList[i], TYPE_LINE, i)
             }
         }
-        cl_line2.tv_title.isVisible = !cl_line1.isVisible
-        cl_line3.tv_title.isVisible = !cl_line1.isVisible && !cl_line2.isVisible
-        cl_line4.tv_title.isVisible = !cl_line1.isVisible && !cl_line2.isVisible && !cl_line3.isVisible
-        cl_line5.tv_title.isVisible = !cl_line1.isVisible && !cl_line2.isVisible && !cl_line3.isVisible && !cl_line4.isVisible
+        binding.clLine2.root.findViewById<TextView>(R.id.tv_title).isVisible = !binding.clLine1.root.isVisible
+        binding.clLine3.root.findViewById<TextView>(R.id.tv_title).isVisible = !binding.clLine1.root.isVisible && !binding.clLine2.root.isVisible
+        binding.clLine4.root.findViewById<TextView>(R.id.tv_title).isVisible = !binding.clLine1.root.isVisible && !binding.clLine2.root.isVisible && !binding.clLine3.root.isVisible
+        binding.clLine5.root.findViewById<TextView>(R.id.tv_title).isVisible = !binding.clLine1.root.isVisible && !binding.clLine2.root.isVisible && !binding.clLine3.root.isVisible && !binding.clLine4.root.isVisible
 
         val rectList = reportIRBean.surface_data
         for (i in rectList.indices) {
             when (i) {
-                0 -> refreshItem(cl_rect1, rectList[i], TYPE_RECT, i)
-                1 -> refreshItem(cl_rect2, rectList[i], TYPE_RECT, i)
-                2 -> refreshItem(cl_rect3, rectList[i], TYPE_RECT, i)
-                3 -> refreshItem(cl_rect4, rectList[i], TYPE_RECT, i)
-                4 -> refreshItem(cl_rect5, rectList[i], TYPE_RECT, i)
+                0 -> refreshItem(binding.clRect1.root, rectList[i], TYPE_RECT, i)
+                1 -> refreshItem(binding.clRect2.root, rectList[i], TYPE_RECT, i)
+                2 -> refreshItem(binding.clRect3.root, rectList[i], TYPE_RECT, i)
+                3 -> refreshItem(binding.clRect4.root, rectList[i], TYPE_RECT, i)
+                4 -> refreshItem(binding.clRect5.root, rectList[i], TYPE_RECT, i)
             }
         }
-        cl_rect2.tv_title.isVisible = !cl_rect1.isVisible
-        cl_rect3.tv_title.isVisible = !cl_rect1.isVisible && !cl_rect2.isVisible
-        cl_rect4.tv_title.isVisible = !cl_rect1.isVisible && !cl_rect2.isVisible && !cl_rect3.isVisible
-        cl_rect5.tv_title.isVisible = !cl_rect1.isVisible && !cl_rect2.isVisible && !cl_rect3.isVisible && !cl_rect4.isVisible
+        binding.clRect2.root.findViewById<TextView>(R.id.tv_title).isVisible = !binding.clRect1.root.isVisible
+        binding.clRect3.root.findViewById<TextView>(R.id.tv_title).isVisible = !binding.clRect1.root.isVisible && !binding.clRect2.root.isVisible
+        binding.clRect4.root.findViewById<TextView>(R.id.tv_title).isVisible = !binding.clRect1.root.isVisible && !binding.clRect2.root.isVisible && !binding.clRect3.root.isVisible
+        binding.clRect5.root.findViewById<TextView>(R.id.tv_title).isVisible = !binding.clRect1.root.isVisible && !binding.clRect2.root.isVisible && !binding.clRect3.root.isVisible && !binding.clRect4.root.isVisible
 
         // 把最后一条分割线藏起来
         if (rectList.isNotEmpty()) {
             when (rectList.size) {
-                1 -> hideLastLine(isLast, cl_rect1, rectList[0], TYPE_RECT)
-                2 -> hideLastLine(isLast, cl_rect2, rectList[1], TYPE_RECT)
-                3 -> hideLastLine(isLast, cl_rect3, rectList[2], TYPE_RECT)
-                4 -> hideLastLine(isLast, cl_rect4, rectList[3], TYPE_RECT)
-                5 -> hideLastLine(isLast, cl_rect5, rectList[4], TYPE_RECT)
+                1 -> hideLastLine(isLast, binding.clRect1.root, rectList[0], TYPE_RECT)
+                2 -> hideLastLine(isLast, binding.clRect2.root, rectList[1], TYPE_RECT)
+                3 -> hideLastLine(isLast, binding.clRect3.root, rectList[2], TYPE_RECT)
+                4 -> hideLastLine(isLast, binding.clRect4.root, rectList[3], TYPE_RECT)
+                5 -> hideLastLine(isLast, binding.clRect5.root, rectList[4], TYPE_RECT)
             }
             return
         }
         if (lineList.isNotEmpty()) {
             when (lineList.size) {
-                1 -> hideLastLine(isLast, cl_line1, lineList[0], TYPE_LINE)
-                2 -> hideLastLine(isLast, cl_line2, lineList[1], TYPE_LINE)
-                3 -> hideLastLine(isLast, cl_line3, lineList[2], TYPE_LINE)
-                4 -> hideLastLine(isLast, cl_line4, lineList[3], TYPE_LINE)
-                5 -> hideLastLine(isLast, cl_line5, lineList[4], TYPE_LINE)
+                1 -> hideLastLine(isLast, binding.clLine1.root, lineList[0], TYPE_LINE)
+                2 -> hideLastLine(isLast, binding.clLine2.root, lineList[1], TYPE_LINE)
+                3 -> hideLastLine(isLast, binding.clLine3.root, lineList[2], TYPE_LINE)
+                4 -> hideLastLine(isLast, binding.clLine4.root, lineList[3], TYPE_LINE)
+                5 -> hideLastLine(isLast, binding.clLine5.root, lineList[4], TYPE_LINE)
             }
             return
         }
         if (pointList.isNotEmpty()) {
             when (pointList.size) {
-                1 -> hideLastLine(isLast, cl_point1, pointList[0], TYPE_POINT)
-                2 -> hideLastLine(isLast, cl_point2, pointList[1], TYPE_POINT)
-                3 -> hideLastLine(isLast, cl_point3, pointList[2], TYPE_POINT)
-                4 -> hideLastLine(isLast, cl_point4, pointList[3], TYPE_POINT)
-                5 -> hideLastLine(isLast, cl_point5, pointList[4], TYPE_POINT)
+                1 -> hideLastLine(isLast, binding.clPoint1.root, pointList[0], TYPE_POINT)
+                2 -> hideLastLine(isLast, binding.clPoint2.root, pointList[1], TYPE_POINT)
+                3 -> hideLastLine(isLast, binding.clPoint3.root, pointList[2], TYPE_POINT)
+                4 -> hideLastLine(isLast, binding.clPoint4.root, pointList[3], TYPE_POINT)
+                5 -> hideLastLine(isLast, binding.clPoint5.root, pointList[4], TYPE_POINT)
             }
             return
         }
