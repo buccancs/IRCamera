@@ -13,7 +13,7 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.utils.Constants
-import com.topdon.tc001.databinding.ActivityMoreHelpBinding
+import com.csl.irCamera.databinding.ActivityMoreHelpBinding
 
 @Route(path = RouterConfig.IR_MORE_HELP)
 class MoreHelpActivity:BaseActivity() {

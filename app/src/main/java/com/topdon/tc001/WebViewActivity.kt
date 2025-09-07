@@ -13,7 +13,7 @@ import com.github.lzyzsd.jsbridge.BridgeWebViewClient
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseBindingActivity
-import com.topdon.tc001.databinding.ActivityWebViewBinding
+import com.csl.irCamera.databinding.ActivityWebViewBinding
 
 /**
  * 使用 WebView 加载网页的 Activity.

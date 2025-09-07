@@ -1,5 +1,6 @@
 package com.topdon.tc001
 
+import com.csl.irCamera.BuildConfig
 import android.content.Context
 import android.content.IntentFilter
 import android.hardware.usb.UsbManager

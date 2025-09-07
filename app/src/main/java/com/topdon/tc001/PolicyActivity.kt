@@ -17,7 +17,7 @@ import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseViewModelActivity
 import com.topdon.tc001.viewmodel.PolicyViewModel
-import com.topdon.tc001.databinding.ActivityPolicyBinding
+import com.csl.irCamera.databinding.ActivityPolicyBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

@@ -1,5 +1,8 @@
 package com.topdon.tc001
 import com.csl.irCamera.R
+import com.csl.irCamera.libapp.R as LibAppR
+import com.csl.irCamera.libui.R as LibUiR
+import com.topdon.module.thermal.ir.R as ThermalIrR
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -63,7 +66,7 @@ import com.topdon.module.thermal.ir.view.TemperatureBaseView.Mode
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryEditViewModel
 import com.topdon.pseudo.activity.PseudoSetActivity
 import com.topdon.pseudo.bean.CustomPseudoBean
-import com.topdon.tc001.databinding.ActivityIrGalleryEditBinding
+import com.csl.irCamera.databinding.ActivityIrGalleryEditBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -213,7 +216,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
             binding.temperatureView.textColor = struct.textColor
             binding.temperatureView.tempTextSize = struct.textSize
             binding.temperatureView.setData(frameTool.getTempBytes(rotate = rotate))
-            updateTemperatureSeekBar(false, R.drawable.svg_pseudo_bar_lock, "lock")//加锁
+            updateTemperatureSeekBar(false, ThermalIrR.drawable.svg_pseudo_bar_lock, "lock")//加锁
             binding.temperatureSeekbar.setPseudocode(pseudocodeMode)
             binding.temperatureSeekbar.setOnRangeChangedListener(object : OnRangeChangedListener {
                 override fun onRangeChanged(
@@ -261,7 +264,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                 binding.tvTempContent.text = "Max:${UnitTools.showC(tempCorrect(tempResult.maxTemperature),isShowC)}\nMin:${UnitTools.showC(tempCorrect(tempResult.minTemperature),isShowC)}"
                 rightValue = showUnitValue(struct.customPseudoBean.maxTemp,isShowC)
                 leftValue = showUnitValue(struct.customPseudoBean.minTemp,isShowC)
-                binding.temperatureIvInput.setImageResource(R.drawable.ir_model)
+                binding.temperatureIvInput.setImageResource(ThermalIrR.drawable.ir_model)
                 binding.temperatureIvLock.visibility = View.INVISIBLE
                 binding.temperatureSeekbar.setColorList(struct.customPseudoBean.getColorList(struct.isTC007())?.reversedArray())
                 binding.temperatureSeekbar.setPlaces(struct.customPseudoBean.getPlaceList())
@@ -270,7 +273,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                 binding.tvTempContent.text = "Max:${UnitTools.showC(tempCorrect(tempResult.maxTemperature),isShowC)}\nMin:${UnitTools.showC(tempCorrect(tempResult.minTemperature),isShowC)}"
                 rightValue = showUnitValue(tempCorrect(tempResult.maxTemperature),isShowC)
                 leftValue = showUnitValue(tempCorrect(tempResult.minTemperature),isShowC)
-                binding.temperatureIvInput.setImageResource(R.drawable.ic_color_edit)
+                binding.temperatureIvInput.setImageResource(ThermalIrR.drawable.ic_color_edit)
                 binding.temperatureIvLock.visibility = View.VISIBLE
             }
             binding.temperatureSeekbar.setRange(leftValue, rightValue, 0.1f) //初始温度范围
@@ -343,14 +346,14 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
         binding.editRecyclerSecond.onColorListener = { _, it, _ ->
             if (struct.customPseudoBean.isUseCustomPseudo) {
                 TipDialog.Builder(this)
-                    .setTitleMessage(getString(R.string.app_tip))
-                    .setMessage(R.string.tip_change_pseudo_mode)
-                    .setPositiveListener(R.string.app_yes) {
+                    .setTitleMessage(getString(LibAppR.string.app_tip))
+                    .setMessage(LibAppR.string.tip_change_pseudo_mode)
+                    .setPositiveListener(LibAppR.string.app_yes) {
                         struct.customPseudoBean.isUseCustomPseudo = false
                         setDefLimit()
                         setPColor(it)
                         updateImageAndSeekbarColorList(struct.customPseudoBean)
-                    }.setCancelListener(R.string.app_no) {
+                    }.setCancelListener(LibAppR.string.app_no) {
 
                     }
                     .create().show()
@@ -480,12 +483,12 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                 if (binding.temperatureIvLock.contentDescription == "lock") {
                     updateTemperatureSeekBar(
                         true,
-                        R.drawable.svg_pseudo_bar_unlock,
+                        ThermalIrR.drawable.svg_pseudo_bar_unlock,
                         "unlock"
                     )//解锁
                 } else {
                     setDefLimit()
-                    updateTemperatureSeekBar(false, R.drawable.svg_pseudo_bar_lock, "lock")//加锁
+                    updateTemperatureSeekBar(false, ThermalIrR.drawable.svg_pseudo_bar_lock, "lock")//加锁
                 }
             }
             binding.temperatureIvInput -> {
@@ -526,14 +529,14 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
             if (it.isUseCustomPseudo) {
                 binding.temperatureIvLock.visibility = View.INVISIBLE
                 binding.tvTempContent.visibility = View.VISIBLE
-                updateTemperatureSeekBar(false, R.drawable.svg_pseudo_bar_lock, "lock")//加锁
+                updateTemperatureSeekBar(false, ThermalIrR.drawable.svg_pseudo_bar_lock, "lock")//加锁
                 binding.temperatureSeekbar.setRangeAndPro(
                     UnitTools.showUnitValue(it.minTemp,isShowC),
                     UnitTools.showUnitValue(it.maxTemp,isShowC), UnitTools.showUnitValue(it.minTemp,isShowC),
                     UnitTools.showUnitValue(it.maxTemp,isShowC)
                 )
                 binding.editRecyclerSecond.setPseudoColor(-1)
-                binding.temperatureIvInput.setImageResource(R.drawable.ir_model)
+                binding.temperatureIvInput.setImageResource(ThermalIrR.drawable.ir_model)
             } else {
                 binding.temperatureIvLock.visibility = View.VISIBLE
                 if (struct.customPseudoBean.isUseCustomPseudo) {
@@ -541,7 +544,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                 }
                 binding.tvTempContent.visibility = View.GONE
                 binding.editRecyclerSecond.setPseudoColor(pseudocodeMode)
-                binding.temperatureIvInput.setImageResource(R.drawable.ic_color_edit)
+                binding.temperatureIvInput.setImageResource(ThermalIrR.drawable.ic_color_edit)
             }
             struct.customPseudoBean = customPseudoBean
             binding.temperatureSeekbar.setColorList(customPseudoBean.getColorList(struct.isTC007())?.reversedArray())
@@ -563,7 +566,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                 saveImage()
             }
         }
-        binding.titleView.setRightText(if (isReportPick) R.string.app_next else R.string.person_save)
+        binding.titleView.setRightText(if (isReportPick) LibAppR.string.app_next else LibAppR.string.person_save)
         binding.titleView.setRightClickListener {
             if (!isReportPick) {
                 updateIconSave()
@@ -664,11 +667,11 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
 
     private fun saveImage() {
         TipDialog.Builder(this)
-            .setTitleMessage(getString(R.string.app_tip))
-            .setMessage(R.string.app_save_image)
-            .setPositiveListener(R.string.app_yes) {
+            .setTitleMessage(getString(LibAppR.string.app_tip))
+            .setMessage(LibAppR.string.app_save_image)
+            .setPositiveListener(LibAppR.string.app_yes) {
                 updateIconSave()
-            }.setCancelListener(R.string.app_no) {
+            }.setCancelListener(LibAppR.string.app_no) {
                 finish()
             }
             .create().show()
@@ -698,7 +701,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                 name = ImageUtils.save(bitmap = it,isTC007)
             }
             ImageUtils.saveFrame(bs = mFrame, capital = getCapital(), name = name)
-            ToastTools.showShort(R.string.tip_photo_saved)
+            ToastTools.showShort(LibAppR.string.tip_photo_saved)
             EventBus.getDefault().post(GalleryAddEvent())
             MediaScannerConnection.scanFile(
                 this@IRGalleryEditActivity,

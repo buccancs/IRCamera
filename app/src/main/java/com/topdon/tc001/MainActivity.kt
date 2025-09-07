@@ -1,5 +1,7 @@
 package com.topdon.tc001
 import com.csl.irCamera.R
+import com.csl.irCamera.BuildConfig
+import com.csl.irCamera.libapp.R as LibAppR
 
 import android.Manifest
 import android.content.Intent
@@ -54,7 +56,7 @@ import com.topdon.module.user.fragment.MineFragment
 import com.topdon.tc001.app.App
 import com.topdon.tc001.fragment.MainFragment
 import com.topdon.tc001.utils.AppVersionUtil
-import com.topdon.tc001.databinding.ActivityMainBinding
+import com.csl.irCamera.databinding.ActivityMainBinding
 import com.zoho.commons.LauncherModes
 import com.zoho.commons.LauncherProperties
 import com.zoho.salesiqembed.ZohoSalesIQ
@@ -222,8 +224,8 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         disconnectDialog?.dismiss()
         if (resetTipsDialog == null) {
             resetTipsDialog = TipDialog.Builder(this)
-                .setMessage(R.string.device_reset_alert)
-                .setPositiveListener(R.string.app_got_it) {
+                .setMessage(LibAppR.string.device_reset_alert)
+                .setPositiveListener(LibAppR.string.app_got_it) {
                 }
                 .create()
         }
@@ -238,8 +240,8 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         }
         if (disconnectDialog == null) {
             disconnectDialog = TipDialog.Builder(this)
-                .setMessage(R.string.device_disconnect_alert)
-                .setPositiveListener(R.string.app_got_it) {
+                .setMessage(LibAppR.string.device_disconnect_alert)
+                .setPositiveListener(LibAppR.string.app_got_it) {
                 }
                 .create()
         }
@@ -299,9 +301,9 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             TipDialog.Builder(this)
-                .setMessage(getString(R.string.main_exit, CommUtils.getAppName()))
-                .setCancelListener(R.string.app_no)
-                .setPositiveListener(R.string.app_yes) {
+                .setMessage(getString(LibAppR.string.main_exit, CommUtils.getAppName()))
+                .setCancelListener(LibAppR.string.app_no)
+                .setPositiveListener(LibAppR.string.app_yes) {
                     BaseApplication.instance.exitAll()
                     finish()
                 }
@@ -366,8 +368,8 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         }
         if (SharedManager.isTipOTG && !BaseApplication.instance.hasOtgShow) {
             tipOtgDialog = TipOtgDialog.Builder(this)
-                .setMessage(R.string.tip_otg)
-                .setPositiveListener(R.string.app_confirm) {
+                .setMessage(LibAppR.string.tip_otg)
+                .setPositiveListener(LibAppR.string.app_confirm) {
                     SharedManager.isTipOTG = !it
                 }
                 .create()
@@ -416,7 +418,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
      */
     private fun getNeedPermissionList(): SparseArray<List<String>> {
         val sparseArray = SparseArray<List<String>>()
-        sparseArray.append(R.string.permission_request_camera_app, listOf(Manifest.permission.CAMERA))
+        sparseArray.append(LibAppR.string.permission_request_camera_app, listOf(Manifest.permission.CAMERA))
         (if (this.applicationInfo.targetSdkVersion >= 34){
             listOf(
                 Permission.READ_MEDIA_VIDEO,
@@ -432,7 +434,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         } else {
             listOf(Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE)
         }).let {
-            sparseArray.append(R.string.permission_request_storage_app, it)
+            sparseArray.append(LibAppR.string.permission_request_storage_app, it)
         }
         return sparseArray
     }
@@ -440,7 +442,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     private fun checkCameraPermission() {
         if (!PermissionUtils.isVisualUser() && !XXPermissions.isGranted(
                 this,
-                getNeedPermissionList()[R.string.permission_request_camera_app]
+                getNeedPermissionList()[LibAppR.string.permission_request_camera_app]
             )
         ) {
             if (BaseApplication.instance.isDomestic()) {
@@ -449,9 +451,9 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                     return
                 }
                 TipDialog.Builder(this)
-                    .setMessage(getString(R.string.permission_request_camera_app, CommUtils.getAppName()))
-                    .setCancelListener(R.string.app_cancel)
-                    .setPositiveListener(R.string.app_confirm) {
+                    .setMessage(getString(LibAppR.string.permission_request_camera_app, CommUtils.getAppName()))
+                    .setCancelListener(LibAppR.string.app_cancel)
+                    .setPositiveListener(LibAppR.string.app_confirm) {
                         initCameraPermission()
                     }
                     .create().show()
@@ -468,7 +470,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
      */
     private fun initCameraPermission() {
         XXPermissions.with(this)
-            .permission(getNeedPermissionList()[R.string.permission_request_camera_app])
+            .permission(getNeedPermissionList()[LibAppR.string.permission_request_camera_app])
             .request(object : OnPermissionCallback {
                 override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
                     if (allGranted) {
@@ -483,14 +485,14 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                     if (doNotAskAgain) {
                         //拒绝授权并且不再提醒
                         TipDialog.Builder(this@MainActivity)
-                            .setTitleMessage(getString(R.string.app_tip))
+                            .setTitleMessage(getString(LibAppR.string.app_tip))
                             .setMessage(if (PermissionUtils.hasCameraPermission())
-                                getString(R.string.app_album_content)
-                                else getString(R.string.app_camera_content))
-                            .setPositiveListener(R.string.app_open) {
+                                getString(LibAppR.string.app_album_content)
+                                else getString(LibAppR.string.app_camera_content))
+                            .setPositiveListener(LibAppR.string.app_open) {
                                 AppUtils.launchAppDetailsSettings()
                             }
-                            .setCancelListener(R.string.app_cancel) {
+                            .setCancelListener(LibAppR.string.app_cancel) {
                             }
                             .setCanceled(true)
                             .create().show()
@@ -500,12 +502,12 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun checkStoragePermission() {
-        if (!XXPermissions.isGranted(this, getNeedPermissionList()[R.string.permission_request_storage_app])) {
+        if (!XXPermissions.isGranted(this, getNeedPermissionList()[LibAppR.string.permission_request_storage_app])) {
             if (BaseApplication.instance.isDomestic()) {
                 TipDialog.Builder(this)
-                    .setMessage(getString(R.string.permission_request_storage_app, CommUtils.getAppName()))
-                    .setCancelListener(R.string.app_cancel)
-                    .setPositiveListener(R.string.app_confirm) {
+                    .setMessage(getString(LibAppR.string.permission_request_storage_app, CommUtils.getAppName()))
+                    .setCancelListener(LibAppR.string.app_cancel)
+                    .setPositiveListener(LibAppR.string.app_confirm) {
                         initStoragePermission()
                     }
                     .create().show()
@@ -527,7 +529,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         }
         XXPermissions.with(this)
             .permission(
-                getNeedPermissionList()[R.string.permission_request_storage_app]
+                getNeedPermissionList()[LibAppR.string.permission_request_storage_app]
             )
             .request(object : OnPermissionCallback {
                 override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
@@ -540,12 +542,12 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                     if (doNotAskAgain) {
                         //拒绝授权并且不再提醒
                         TipDialog.Builder(this@MainActivity)
-                            .setTitleMessage(getString(R.string.app_tip))
-                            .setMessage(getString(R.string.app_album_content))
-                            .setPositiveListener(R.string.app_open) {
+                            .setTitleMessage(getString(LibAppR.string.app_tip))
+                            .setMessage(getString(LibAppR.string.app_album_content))
+                            .setPositiveListener(LibAppR.string.app_open) {
                                 AppUtils.launchAppDetailsSettings()
                             }
-                            .setCancelListener(R.string.app_cancel) {
+                            .setCancelListener(LibAppR.string.app_cancel) {
                             }
                             .setCanceled(true)
                             .create().show()

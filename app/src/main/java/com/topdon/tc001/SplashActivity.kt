@@ -12,7 +12,7 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.utils.CommUtils
 import com.topdon.lms.sdk.Config
 import com.topdon.lms.sdk.LMS
-import com.topdon.tc001.databinding.ActivitySplashBinding
+import com.csl.irCamera.databinding.ActivitySplashBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

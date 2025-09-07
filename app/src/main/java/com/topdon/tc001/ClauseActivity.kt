@@ -18,7 +18,7 @@ import com.topdon.lib.core.utils.CommUtils
 import com.topdon.lms.sdk.utils.NetworkUtil
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.tc001.app.App
-import com.topdon.tc001.databinding.ActivityClauseBinding
+import com.csl.irCamera.databinding.ActivityClauseBinding
 import com.topdon.tc001.utils.VersionUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async

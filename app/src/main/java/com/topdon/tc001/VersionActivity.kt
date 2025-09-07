@@ -13,7 +13,7 @@ import com.topdon.lib.core.tools.CheckDoubleClick
 import com.topdon.lib.core.utils.CommUtils
 import com.topdon.lms.sdk.LMS
 import com.topdon.lms.sdk.UrlConstant
-import com.topdon.tc001.databinding.ActivityVersionBinding
+import com.csl.irCamera.databinding.ActivityVersionBinding
 import com.topdon.tc001.utils.AppVersionUtil
 import com.topdon.tc001.utils.VersionUtils
 import java.util.*

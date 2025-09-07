@@ -1,5 +1,6 @@
 package com.topdon.tc001
 import com.csl.irCamera.R
+import com.csl.irCamera.libapp.R as LibAppR
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -13,8 +14,8 @@ import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.DeviceTools
-import com.topdon.tc001.databinding.ActivityDeviceTypeBinding
-import com.topdon.tc001.databinding.ItemDeviceTypeBinding
+import com.csl.irCamera.databinding.ActivityDeviceTypeBinding
+import com.csl.irCamera.databinding.ItemDeviceTypeBinding
 
 /**
  * 设备类型选择.
@@ -86,7 +87,7 @@ class DeviceTypeActivity : BaseActivity() {
             val firstType: IRDeviceType = dataList[position].firstType
             val secondType: IRDeviceType? = dataList[position].secondType
             holder.binding.tvTitle.isVisible = dataList[position].isTitle
-            holder.binding.tvTitle.text = context.getString(if (firstType.isLine()) R.string.tc_connect_line else R.string.tc_connect_wifi)
+            holder.binding.tvTitle.text = context.getString(if (firstType.isLine()) LibAppR.string.tc_connect_line else LibAppR.string.tc_connect_wifi)
 
             holder.binding.tvItem1.text = firstType.getDeviceName()
             when (firstType) {

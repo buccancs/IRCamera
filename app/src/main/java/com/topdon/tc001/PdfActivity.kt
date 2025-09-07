@@ -6,7 +6,7 @@ import android.view.WindowManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
-import com.topdon.tc001.databinding.ActivityPdfBinding
+import com.csl.irCamera.databinding.ActivityPdfBinding
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
