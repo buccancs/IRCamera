@@ -216,7 +216,7 @@ dependencies {
 //    implementation 'com.topdon.aliyun:main:2.2.1:release@aar'
 
     //Google Firebase and services
-    implementation platform('com.google.firebase:firebase-bom:32.7.4')
+    implementation platform('com.google.firebase:firebase-bom:32.2.0')
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-messaging'

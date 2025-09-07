@@ -19,8 +19,7 @@
 //import com.topdon.module.thermal.ir.R
 import com.csl.irCamera.libapp.R as LibAppR
 //import com.topdon.module.thermal.ir.thermal.adapter.SettingTimeAdapter
-//import kotlinx.android.synthetic.main.activity_chart.aa_chart_view
-//import kotlinx.android.synthetic.main.activity_log_chart.*
+
 //import kotlinx.coroutines.Dispatchers
 //import kotlinx.coroutines.delay
 //import kotlinx.coroutines.launch
