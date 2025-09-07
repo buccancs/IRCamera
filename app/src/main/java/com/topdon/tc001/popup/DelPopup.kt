@@ -1,5 +1,6 @@
 package com.topdon.tc001.popup
 import com.csl.irCamera.R
+import com.csl.irCamera.libapp.R as LibAppR
 
 import android.content.Context
 import android.view.Gravity
@@ -25,7 +26,7 @@ class DelPopup(val context: Context) : PopupWindow() {
         val widthPixels = context.resources.displayMetrics.widthPixels
         val textView = TextView(context)
         textView.setPadding(SizeUtils.dp2px(16f))
-        textView.setText(R.string.report_delete)
+        textView.setText(LibAppR.string.report_delete)
         textView.textSize = 14f
         textView.setTextColor(0xffffffff.toInt())
         textView.compoundDrawablePadding = SizeUtils.dp2px(8f)

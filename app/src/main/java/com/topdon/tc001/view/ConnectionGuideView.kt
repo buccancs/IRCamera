@@ -1,5 +1,6 @@
 package com.topdon.tc001.view
 import com.csl.irCamera.R
+import com.csl.irCamera.libui.R as LibUiR
 
 import android.content.Context
 import android.content.res.TypedArray
@@ -27,15 +28,15 @@ class ConnectionGuideView: LinearLayout {
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
-        val ta: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.ConnectionGuideView)
+        val ta: TypedArray = context.obtainStyledAttributes(attrs, LibUiR.styleable.ConnectionGuideView)
         for (i in 0 until ta.indexCount) {
             when (ta.getIndex(i)) {
-                R.styleable.ConnectionGuideView_guide_icon ->iconRes =
-                    ta.getResourceId(R.styleable.ConnectionGuideView_guide_icon, 0)
-               R.styleable.ConnectionGuideView_guide_text -> contentStr =
-                    ta.getString(R.styleable.ConnectionGuideView_guide_text).toString()
-                R.styleable.ConnectionGuideView_guide_icon_show -> iconShow =
-                    ta.getBoolean(R.styleable.ConnectionGuideView_guide_icon_show, false)
+                LibUiR.styleable.ConnectionGuideView_guide_icon ->iconRes =
+                    ta.getResourceId(LibUiR.styleable.ConnectionGuideView_guide_icon, 0)
+               LibUiR.styleable.ConnectionGuideView_guide_text -> contentStr =
+                    ta.getString(LibUiR.styleable.ConnectionGuideView_guide_text).toString()
+                LibUiR.styleable.ConnectionGuideView_guide_icon_show -> iconShow =
+                    ta.getBoolean(LibUiR.styleable.ConnectionGuideView_guide_icon_show, false)
             }
         }
         ta.recycle()
@@ -77,7 +78,7 @@ class ConnectionGuideView: LinearLayout {
         if (contentText == null) return
         var mContent = "$content  "//插入空格是为了后面替换图片
         val spannableString = SpannableString(mContent)
-        val drawable = context.getDrawable(R.drawable.ic_connection_press_tip)
+        val drawable = context.getDrawable(LibUiR.drawable.ic_connection_press_tip)
         drawable!!.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
         spannableString.setSpan(ImageSpan(drawable), mContent.length - 1, mContent.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         contentText.text = spannableString

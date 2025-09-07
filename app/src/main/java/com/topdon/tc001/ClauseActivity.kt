@@ -1,5 +1,6 @@
 package com.topdon.tc001
 import com.csl.irCamera.R
+import com.csl.irCamera.libapp.R as LibAppR
 
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
@@ -49,7 +50,7 @@ class ClauseActivity : AppCompatActivity() {
             .create()
 
         val year = Calendar.getInstance().get(Calendar.YEAR)
-        binding.clauseYearTxt.text = getString(R.string.version_year, "2023-$year")
+        binding.clauseYearTxt.text = getString(LibAppR.string.version_year, "2023-$year")
 
         binding.clauseAgreeBtn.setOnClickListener {
             confirmInitApp()
@@ -57,11 +58,11 @@ class ClauseActivity : AppCompatActivity() {
         binding.clauseDisagreeBtn.setOnClickListener {
             //再次弹框确认是否退出
             TipDialog.Builder(this)
-                .setMessage(getString(R.string.privacy_tips))
-                .setPositiveListener(R.string.privacy_confirm) {
+                .setMessage(getString(LibAppR.string.privacy_tips))
+                .setPositiveListener(LibAppR.string.privacy_confirm) {
                     confirmInitApp()
                 }
-                .setCancelListener(R.string.privacy_cancel) {
+                .setCancelListener(LibAppR.string.privacy_cancel) {
                     this.finish()
                 }
                 .setCanceled(true)
@@ -106,12 +107,12 @@ class ClauseActivity : AppCompatActivity() {
         }
 
         if (BaseApplication.instance.isDomestic()) {
-            binding.tvPrivacy.text = "    ${getString(R.string.privacy_agreement_tips_new, CommUtils.getAppName())}"
+            binding.tvPrivacy.text = "    ${getString(LibAppR.string.privacy_tips)}"
             binding.tvPrivacy.visibility = View.VISIBLE
             binding.tvPrivacy.movementMethod = ScrollingMovementMethod.getInstance()
         }
-        binding.tvWelcome.text = getString(R.string.welcome_use_app, CommUtils.getAppName())
-        binding.tvVersion.text = "${getString(R.string.set_version)}V${VersionUtils.getCodeStr(this)}"
+        binding.tvWelcome.text = getString(LibAppR.string.welcome_use_app, CommUtils.getAppName())
+        binding.tvVersion.text = "${getString(LibAppR.string.set_version)}V${VersionUtils.getCodeStr(this)}"
         binding.clauseName.text = CommUtils.getAppName()
     }
 

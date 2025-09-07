@@ -1,5 +1,6 @@
 package com.topdon.tc001.fragment
 import com.csl.irCamera.R
+import com.csl.irCamera.libapp.R as LibAppR
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -34,6 +35,7 @@ import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.tc001.DeviceTypeActivity
 import com.topdon.tc001.R
 import com.topdon.tc001.databinding.FragmentMainBinding
+import com.topdon.tc001.databinding.ItemDeviceConnectBinding
 import com.topdon.tc001.popup.DelPopup
 import kotlinx.coroutines.launch
 import org.bytedeco.librealsense.context
@@ -97,9 +99,9 @@ class MainFragment : BaseFragment(), View.OnClickListener {
                             ConnectType.TC007 -> SharedManager.hasTC007 = false
                         }
                         refresh()
-                        TToast.shortToast(requireContext(), R.string.test_results_delete_success)
+                        TToast.shortToast(requireContext(), LibAppR.string.test_results_delete_success)
                     }
-                    .setCancelListener(R.string.app_cancel)
+                    .setCancelListener(LibAppR.string.app_cancel)
                     .create().show()
             }
             popup.show(view)
@@ -229,7 +231,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         var onItemLongClickListener: ((view: View, type: ConnectType) -> Unit)? = null
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val binding = com.topdon.tc001.databinding.ItemDeviceConnectBinding.inflate(
+            val binding = ItemDeviceConnectBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
             return ViewHolder(binding)
@@ -252,7 +254,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             holder.binding.tvTitle.isVisible = hasTitle
             holder.binding.tvTitle.text = AppLanguageUtils.attachBaseContext(
                 holder.binding.root.context, SharedManager.getLanguage(holder.binding.root.context))
-                .getString(if (type == ConnectType.LINE) R.string.tc_connect_line else R.string.tc_connect_wifi)
+                .getString(if (type == ConnectType.LINE) LibAppR.string.tc_connect_line else LibAppR.string.tc_connect_wifi)
 
             holder.binding.ivBg.isSelected = hasConnect
             holder.binding.tvDeviceName.isSelected = hasConnect
@@ -266,7 +268,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
                 ConnectType.LINE -> {
                     holder.binding.tvDeviceName.setText(AppLanguageUtils.attachBaseContext(
                         holder.binding.root.context, SharedManager.getLanguage(holder.binding.root.context))
-                        .getString(R.string.tc_has_line_device))
+                        .getString(LibAppR.string.tc_has_line_device))
                     if (hasConnect) {
                         holder.binding.ivImage.setImageResource(R.drawable.ic_main_device_line_connect)
                     } else {
@@ -309,7 +311,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             return result
         }
 
-        inner class ViewHolder(val binding: com.topdon.tc001.databinding.ItemDeviceConnectBinding) : RecyclerView.ViewHolder(binding.root) {
+        inner class ViewHolder(val binding: ItemDeviceConnectBinding) : RecyclerView.ViewHolder(binding.root) {
             init {
                 binding.ivBg.setOnClickListener {
                     val position = bindingAdapterPosition
@@ -339,7 +341,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
                                 }
                             }
                         }
-                        onItemLongClickListener?.invoke(it, deviceType)
+                        onItemLongClickListener?.invoke(binding.root, deviceType)
                     }
                     true
                 }
