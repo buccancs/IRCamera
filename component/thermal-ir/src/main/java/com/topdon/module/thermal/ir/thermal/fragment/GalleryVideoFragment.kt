@@ -7,6 +7,7 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseViewModelFragment
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.thermal.adapter.GalleryAdapter
 import com.topdon.module.thermal.ir.thermal.viewmodel.GalleryViewModel
 import com.topdon.module.thermal.ir.databinding.FragmentGalleryVideoBinding

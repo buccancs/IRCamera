@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.tools.GlideLoader
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.databinding.ItemGalleryBinding
 
 class GalleryAdapter(val context: Context) :

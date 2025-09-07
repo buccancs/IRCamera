@@ -5,6 +5,7 @@ import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.report.bean.ReportInfoBean
 import com.topdon.module.thermal.ir.databinding.ActivityReportPreviewFirstBinding
 
@@ -29,7 +30,7 @@ class ReportPreviewFirstActivity: BaseActivity() {
     }
 
     override fun initView() {
-        binding.titleView.setLeftDrawable(R.drawable.svg_arrow_left_e8)
+        binding.titleView.setLeftDrawable(LibAppR.drawable.svg_arrow_left_e8)
         binding.titleView.setLeftClickListener {
             finish()
         }

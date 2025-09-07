@@ -29,6 +29,7 @@ import com.topdon.lib.ui.listener.SingleClickListener
 import com.topdon.lib.core.utils.CommUtils
 import com.topdon.module.thermal.ir.BuildConfig
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.databinding.ActivityIrCameraSettingBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -329,7 +330,7 @@ class IRCameraSettingActivity : BaseActivity() {
             ).request(object :OnPermissionCallback{
                 override fun onGranted(permissions: MutableList<String>, all: Boolean) {
                     if (all){
-                        showLoadingDialog(R.string.get_current_address)
+                        showLoadingDialog(LibAppR.string.get_current_address)
                         lifecycleScope.launch{
                             var addressText : String ?= ""
                             withContext(Dispatchers.IO){
@@ -337,7 +338,7 @@ class IRCameraSettingActivity : BaseActivity() {
                             }
                             dismissLoadingDialog()
                             if (addressText == null){
-                                ToastUtils.showShort(R.string.get_Location_failed)
+                                ToastUtils.showShort(LibAppR.string.get_Location_failed)
                             }else{
                                 watermarkBean.address = addressText as String
                                 binding.edAddress.setText(addressText)
@@ -346,28 +347,28 @@ class IRCameraSettingActivity : BaseActivity() {
                             }
                         }
                     }else{
-                        ToastUtils.showShort(R.string.scan_ble_tip_authorize)
+                        ToastUtils.showShort(LibAppR.string.scan_ble_tip_authorize)
                     }
                 }
                 override fun onDenied(permissions: MutableList<String>, never: Boolean) {
                     if (never) {
                         // 如果是被永久拒绝就跳转到应用权限系统设置页面
                         if (BaseApplication.instance.isDomestic()){
-                            ToastUtils.showShort(getString(R.string.app_location_content))
+                            ToastUtils.showShort(getString(LibAppR.string.app_location_content))
                         }else{
                             TipDialog.Builder(this@IRCameraSettingActivity)
-                                .setTitleMessage(getString(R.string.app_tip))
-                                .setMessage(getString(R.string.app_location_content))
-                                .setPositiveListener(R.string.app_open){
+                                .setTitleMessage(getString(LibAppR.string.app_tip))
+                                .setMessage(getString(LibAppR.string.app_location_content))
+                                .setPositiveListener(LibAppR.string.app_open){
                                     XXPermissions.startPermissionActivity(this@IRCameraSettingActivity, permissions);
                                 }
-                                .setCancelListener(R.string.app_cancel){
+                                .setCancelListener(LibAppR.string.app_cancel){
                                 }
                                 .setCanceled(true)
                                 .create().show()
                         }
                     } else {
-                        ToastUtils.showShort(R.string.scan_ble_tip_authorize)
+                        ToastUtils.showShort(LibAppR.string.scan_ble_tip_authorize)
                     }
                 }
 
@@ -378,9 +379,9 @@ class IRCameraSettingActivity : BaseActivity() {
         if (!XXPermissions.isGranted(this, permissionList)) {
             if (BaseApplication.instance.isDomestic()) {
                 TipDialog.Builder(this)
-                    .setMessage(getString(R.string.permission_request_location_app, CommUtils.getAppName()))
-                    .setCancelListener(R.string.app_cancel)
-                    .setPositiveListener(R.string.app_confirm) {
+                    .setMessage(getString(LibAppR.string.permission_request_location_app, CommUtils.getAppName()))
+                    .setCancelListener(LibAppR.string.app_cancel)
+                    .setPositiveListener(LibAppR.string.app_confirm) {
                         initLocationPermission()
                     }
                     .create().show()

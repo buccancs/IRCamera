@@ -7,6 +7,7 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.ui.dialog.MonitorSelectDialog
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.bean.SelectPositionBean
 import com.topdon.module.thermal.ir.databinding.ActivityIrMonitorBinding
 import com.topdon.module.thermal.ir.event.MonitorSaveEvent

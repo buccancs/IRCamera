@@ -11,6 +11,7 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.menu.MenuFirstTabView
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.activity.BaseIRActivity
 import com.topdon.module.thermal.ir.thermal.adapter.MenuTabAdapter
 import com.topdon.module.thermal.ir.thermal.fragment.event.ThermalActionEvent
@@ -30,8 +31,8 @@ class ThermalActivity : BaseIRActivity() {
         binding = ActivityThermalBinding.inflate(layoutInflater)
         setContentView(binding.root)
         
-        // setTitleText(R.string.main_thermal) // Commented out - method not available in BaseIRActivity
-        val blackColor = ContextCompat.getColor(this, R.color.blackColor)
+        // setTitleText(LibAppR.string.main_thermal) // Commented out - method not available in BaseIRActivity
+        val blackColor = ContextCompat.getColor(this, LibAppR.color.blackColor)
         // mToolBar!!.setBackgroundColor(blackColor) // Commented out - mToolBar not available in BaseIRActivity
         BarUtils.setStatusBarColor(this, blackColor)
         BarUtils.setNavBarColor(window, blackColor)

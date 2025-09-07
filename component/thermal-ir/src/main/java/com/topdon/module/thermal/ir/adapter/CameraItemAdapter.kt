@@ -6,6 +6,7 @@ import com.topdon.lib.core.bean.CameraItemBean
 import com.topdon.lib.ui.listener.SingleClickListener
 import com.topdon.lib.ui.widget.CountDownView
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 
 /**
  * @author: CaiSongL
@@ -27,7 +28,7 @@ class CameraItemAdapter(
         })
         when (item.type) {
             CameraItemBean.TYPE_DELAY -> {
-                holder.setImageResource(R.id.img,R.drawable.svg_camera_delay_0)
+                holder.setImageResource(R.id.img,LibAppR.drawable.svg_camera_delay_0)
                 if (CameraItemBean.DELAY_TIME_0 == item.time){
                     holder.setVisible(R.id.img,true)
                     holder.setGone(R.id.count_down_view,true)
@@ -40,19 +41,19 @@ class CameraItemAdapter(
                 }
             }
             CameraItemBean.TYPE_ZDKM -> {
-                holder.setImageResource(R.id.img,if (item.isSel) R.drawable.svg_camera_auto_select_yes
-                else R.drawable.svg_camera_auto_select_not)
+                holder.setImageResource(R.id.img,if (item.isSel) LibAppR.drawable.svg_camera_auto_select_yes
+                else LibAppR.drawable.svg_camera_auto_select_not)
             }
             CameraItemBean.TYPE_SDKM -> {
-                holder.setImageResource(R.id.img,if (item.isSel) R.drawable.svg_camera_shutter_select_yes
-                else R.drawable.svg_camera_shutter_select_not )
+                holder.setImageResource(R.id.img,if (item.isSel) LibAppR.drawable.svg_camera_shutter_select_yes
+                else LibAppR.drawable.svg_camera_shutter_select_not )
             }
             CameraItemBean.TYPE_AUDIO -> {
-                holder.setImageResource(R.id.img,if (item.isSel) R.drawable.svg_camera_audio_select_yes
-                else R.drawable.svg_camera_audio_select_not )
+                holder.setImageResource(R.id.img,if (item.isSel) LibAppR.drawable.svg_camera_audio_select_yes
+                else LibAppR.drawable.svg_camera_audio_select_not )
             }
             else -> {
-                holder.setImageResource(R.id.img,R.drawable.svg_camera_setting)
+                holder.setImageResource(R.id.img,LibAppR.drawable.svg_camera_setting)
             }
         }
     }

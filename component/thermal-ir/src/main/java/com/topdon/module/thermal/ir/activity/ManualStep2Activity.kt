@@ -33,6 +33,7 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.utils.ByteUtils.toLittleBytes
 import com.topdon.lms.sdk.weiget.LmsLoadDialog
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.databinding.ActivityManualStep2Binding
 import com.topdon.module.thermal.ir.event.ManualFinishBean
 import com.topdon.module.thermal.ir.utils.IRCmdTool
@@ -140,8 +141,8 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
             if (!canOperate){
                 //拍照
                 takePhoto()
-                ivTakePhoto?.setText(R.string.app_ok)
-                binding.tvTips.text = getString(R.string.dual_light_correction_tips_3)
+                ivTakePhoto?.setText(LibAppR.string.app_ok)
+                binding.tvTips.text = getString(LibAppR.string.dual_light_correction_tips_3)
                 binding.ivTips.visibility = View.GONE
                 binding.llSeekBar.visibility = View.VISIBLE
             }else{

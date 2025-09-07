@@ -27,6 +27,7 @@ import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.lib.core.viewmodel.FirmwareViewModel
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.user.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.user.databinding.FragmentMoreBinding
 import com.topdon.module.user.databinding.LayoutUpgradeBinding
 import com.topdon.module.user.dialog.DownloadProDialog
@@ -102,15 +103,15 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
         binding.settingItemConfigSelect.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 TipDialog.Builder(requireContext())
-                    .setMessage(R.string.save_setting_tips)
-                    .setPositiveListener(R.string.app_ok) {
+                    .setMessage(LibAppR.string.save_setting_tips)
+                    .setPositiveListener(LibAppR.string.app_ok) {
                         if (isTC007){
                             WifiSaveSettingUtil.isSaveSetting = true
                         }else{
                             SaveSettingUtil.isSaveSetting = true
                         }
                     }
-                    .setCancelListener(R.string.app_cancel) {
+                    .setCancelListener(LibAppR.string.app_cancel) {
                         binding.settingItemConfigSelect.isChecked = false
                     }
                     .setCanceled(false)
@@ -130,14 +131,14 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
             upgradeBinding.tvUpgradePoint.isVisible = it != null
             dismissLoadingDialog()
             if (it == null) {//请求成功但没有固件升级包，即已是最新
-                ToastUtils.showShort(R.string.setting_firmware_update_latest_version)
+                ToastUtils.showShort(LibAppR.string.setting_firmware_update_latest_version)
             } else {
                 showFirmwareUpDialog(it)
             }
         }
         firmwareViewModel.failLD.observe(this) {
             dismissLoadingDialog()
-            TToast.shortToast(requireContext(), if (it) R.string.upgrade_bind_error else R.string.http_code_z5000)
+            TToast.shortToast(requireContext(), if (it) LibAppR.string.upgrade_bind_error else LibAppR.string.http_code_else)
             upgradeBinding.tvUpgradePoint.isVisible = false
         }
     }
@@ -216,18 +217,18 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
      */
     private fun refresh07Connect(isConnect: Boolean) {
         binding.settingDeviceInformation.isRightArrowVisible = isConnect
-        binding.settingDeviceInformation.setRightTextId(if (isConnect) 0 else R.string.app_no_connect)
+        binding.settingDeviceInformation.setRightTextId(if (isConnect) 0 else LibAppR.string.app_no_connect)
         binding.settingReset.isRightArrowVisible = isConnect
-        binding.settingReset.setRightTextId(if (isConnect) 0 else R.string.app_no_connect)
+        binding.settingReset.setRightTextId(if (isConnect) 0 else LibAppR.string.app_no_connect)
         upgradeBinding.tvRightText.isVisible = isConnect
 
         if (isConnect) {
             lifecycleScope.launch {
                 // TC001 uses USB connection, version info not available via network
-                upgradeBinding.itemSettingBottomText.text = getString(R.string.setting_firmware_update_version) + "V" + "N/A"
+                upgradeBinding.itemSettingBottomText.text = getString(LibAppR.string.setting_firmware_update_version) + "V" + "N/A"
             }
         } else {
-            upgradeBinding.itemSettingBottomText.setText(R.string.setting_firmware_update_version)
+            upgradeBinding.itemSettingBottomText.setText(LibAppR.string.setting_firmware_update_version)
         }
     }
 
@@ -243,8 +244,8 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
      */
     private fun showFirmwareUpDialog(firmwareData: FirmwareViewModel.FirmwareData) {
         val dialog = FirmwareUpDialog(requireContext())
-        dialog.titleStr = "${getString(R.string.update_new_version)} ${firmwareData.version}"
-        dialog.sizeStr = "${getString(R.string.detail_len)}: ${getFileSizeStr(firmwareData.size)}"
+        dialog.titleStr = "${getString(LibAppR.string.update_new_version)} ${firmwareData.version}"
+        dialog.sizeStr = "${getString(LibAppR.string.detail_len)}: ${getFileSizeStr(firmwareData.size)}"
         dialog.contentStr = firmwareData.updateStr
         dialog.isShowRestartTips = true
         dialog.onConfirmClickListener = {
@@ -298,13 +299,13 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
                 XLog.d("TC007 固件升级 - 固件升级包发送往 TC007 成功，即将断开连接")
                 (requireActivity().application as BaseApplication).disconnectWebSocket()
                 TipDialog.Builder(requireContext())
-                    .setTitleMessage(getString(R.string.app_tip))
-                    .setMessage(R.string.firmware_up_success)
-                    .setPositiveListener(R.string.app_confirm) {
+                    .setTitleMessage(getString(LibAppR.string.app_tip))
+                    .setMessage(LibAppR.string.firmware_up_success)
+                    .setPositiveListener(LibAppR.string.app_confirm) {
                         ARouter.getInstance().build(RouterConfig.MAIN).navigation(requireContext())
                         requireActivity().finish()
                     }
-                    .setCancelListener(R.string.app_cancel) {
+                    .setCancelListener(LibAppR.string.app_cancel) {
 
                     }
                     .create().show()
@@ -318,9 +319,9 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
     private fun showReInstallDialog(file: File) {
         val dialog = ConfirmSelectDialog(requireContext())
         dialog.setShowIcon(true)
-        dialog.setTitleRes(R.string.ts004_install_tips)
-        dialog.setCancelText(R.string.ts004_install_cancel)
-        dialog.setConfirmText(R.string.ts004_install_continue)
+        dialog.setTitleRes(LibAppR.string.ts004_install_tips)
+        dialog.setCancelText(LibAppR.string.ts004_install_cancel)
+        dialog.setConfirmText(LibAppR.string.ts004_install_continue)
         dialog.onConfirmClickListener = {
             installFirmware(file)
         }
@@ -330,9 +331,9 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
     private fun showReDownloadDialog(firmwareData: FirmwareViewModel.FirmwareData) {
         val dialog = ConfirmSelectDialog(requireContext())
         dialog.setShowIcon(true)
-        dialog.setTitleRes(R.string.ts004_download_tips)
-        dialog.setCancelText(R.string.ts004_download_cancel)
-        dialog.setConfirmText(R.string.ts004_download_continue)
+        dialog.setTitleRes(LibAppR.string.ts004_download_tips)
+        dialog.setCancelText(LibAppR.string.ts004_download_cancel)
+        dialog.setConfirmText(LibAppR.string.ts004_download_continue)
         dialog.onConfirmClickListener = {
             downloadFirmware(firmwareData)
         }
@@ -342,12 +343,12 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
 
     private fun restoreFactory() {
         TipDialog.Builder(requireContext())
-            .setTitleMessage(getString(R.string.ts004_reset_tip1, "TC007"))
-            .setMessage(getString(R.string.ts004_reset_tip2))
-            .setPositiveListener(R.string.app_ok) {
+            .setTitleMessage(getString(LibAppR.string.ts004_reset_tip1, "TC007"))
+            .setMessage(getString(LibAppR.string.ts004_reset_tip2))
+            .setPositiveListener(LibAppR.string.app_ok) {
                 resetAll()
             }
-            .setCancelListener(R.string.app_cancel) {
+            .setCancelListener(LibAppR.string.app_cancel) {
             }
             .setCanceled(true)
             .create().show()
@@ -355,17 +356,17 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
 
 
     private fun resetAll() {
-        showLoadingDialog(R.string.ts004_reset_tip3)
+        showLoadingDialog(LibAppR.string.ts004_reset_tip3)
         lifecycleScope.launch {
             val isSuccess = false // TC001 uses USB connection, factory reset not available via network
             if (isSuccess) {
                 XLog.d("TC007 恢复出厂设置成功，即将断开连接")
-                TToast.shortToast(requireContext(), R.string.ts004_reset_tip4)
+                TToast.shortToast(requireContext(), LibAppR.string.ts004_reset_tip4)
                 (requireActivity().application as BaseApplication).disconnectWebSocket()
                 ARouter.getInstance().build(RouterConfig.MAIN).navigation(requireContext())
                 requireActivity().finish()
             } else {
-                TToast.shortToast(requireContext(), R.string.operation_failed_tips)
+                TToast.shortToast(requireContext(), LibAppR.string.operation_failed_tips)
             }
             delay(500)
             dismissLoadingDialog()

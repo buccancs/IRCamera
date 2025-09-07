@@ -25,6 +25,7 @@ import com.topdon.lms.sdk.utils.StringUtils
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.lms.sdk.xutils.http.RequestParams
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.adapter.PDFAdapter
 import com.topdon.module.thermal.ir.report.viewmodel.PdfViewModel
 import com.topdon.module.thermal.ir.databinding.ActivityPdfListBinding
@@ -136,8 +137,8 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
         reportAdapter.delListener = {item, position ->
             val reportBean = item.reportContent
             TipDialog.Builder(this)
-                .setMessage(getString(R.string.tip_config_delete, reportBean?.report_info?.report_name ?: ""))
-                .setPositiveListener(R.string.app_confirm) {
+                .setMessage(getString(LibAppR.string.tip_config_delete, reportBean?.report_info?.report_name ?: ""))
+                .setPositiveListener(LibAppR.string.app_confirm) {
                     lifecycleScope.launch {
                         showLoadingDialog()
                         withContext(Dispatchers.IO){
@@ -190,7 +191,7 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
                     }
 
                 }
-                .setCancelListener(R.string.app_cancel) {
+                .setCancelListener(LibAppR.string.app_cancel) {
 
                 }
                 .create().show()

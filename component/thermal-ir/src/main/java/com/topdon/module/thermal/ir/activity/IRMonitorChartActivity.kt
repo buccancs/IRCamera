@@ -42,6 +42,7 @@ import com.topdon.lib.core.tools.NumberTools
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.bean.SelectPositionBean
 import com.topdon.module.thermal.ir.databinding.ActivityIrMonitorChartBinding
 import com.topdon.module.thermal.ir.event.MonitorSaveEvent
@@ -93,7 +94,7 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
         ts_data_L = CommonUtils.getTauData(this@IRMonitorChartActivity, "ts/TS001_L.bin")
         selectBean = intent.getParcelableExtra("select")!!
 
-        binding.monitorCurrentVol.text = getString(if (selectBean.type == 1) R.string.chart_temperature else R.string.chart_temperature_high)
+        binding.monitorCurrentVol.text = getString(if (selectBean.type == 1) LibAppR.string.chart_temperature else LibAppR.string.chart_temperature_high)
         binding.monitorRealVol.visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
         binding.monitorRealImg.visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
 

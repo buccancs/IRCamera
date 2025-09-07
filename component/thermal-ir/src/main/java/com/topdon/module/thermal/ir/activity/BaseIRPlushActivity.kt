@@ -33,6 +33,7 @@ import com.infisense.usbir.view.TemperatureView
 import com.topdon.lib.core.common.SaveSettingUtil
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.utils.DualParamsUtil
 import com.topdon.module.thermal.ir.utils.IRCmdTool
 import com.topdon.module.thermal.ir.utils.IRCmdTool.getSNStr
@@ -455,8 +456,8 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
                     SupHelp.getInstance().loadOpenclSuccess = false
                     runOnUiThread {
                         TipDialog.Builder(this@BaseIRPlushActivity)
-                            .setMessage(R.string.tips_tisr_fail)
-                            .setPositiveListener(R.string.app_got_it) {
+                            .setMessage(LibAppR.string.tips_tisr_fail)
+                            .setPositiveListener(LibAppR.string.app_got_it) {
                             }
                             .create().show()
                     }
@@ -469,19 +470,19 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
             isOpenAmplify = !isOpenAmplify
             dualView?.isOpenAmplify = isOpenAmplify
 
-            // TODO: Fix ViewBinding - title_view.setRight2Drawable(if (isOpenAmplify) R.drawable.svg_tisr_on else R.drawable.svg_tisr_off)
+            // TODO: Fix ViewBinding - title_view.setRight2Drawable(if (isOpenAmplify) LibAppR.drawable.svg_tisr_on else LibAppR.drawable.svg_tisr_off)
             SaveSettingUtil.isOpenAmplify = isOpenAmplify
             if (isOpenAmplify){
-                ToastUtils.showShort(R.string.tips_tisr_on)
+                ToastUtils.showShort(LibAppR.string.tips_tisr_on)
             }else{
-                ToastUtils.showShort(R.string.tips_tisr_off)
+                ToastUtils.showShort(LibAppR.string.tips_tisr_off)
             }
         }
     }
 
     override fun initAmplify(show: Boolean) {
         lifecycleScope.launch {
-            // TODO: Fix ViewBinding - title_view.setRight2Drawable(if (isOpenAmplify) R.drawable.svg_tisr_on else R.drawable.svg_tisr_off)
+            // TODO: Fix ViewBinding - title_view.setRight2Drawable(if (isOpenAmplify) LibAppR.drawable.svg_tisr_on else LibAppR.drawable.svg_tisr_off)
             withContext(Dispatchers.IO){
                 if (isOpenAmplify){
                     SupHelp.getInstance().initA4KCPP()

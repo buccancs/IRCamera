@@ -10,6 +10,7 @@ import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.lib.core.tools.GlideLoader
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.databinding.ItemLogBinding
 
 class MonitorLogAdapter(val context: Context) :

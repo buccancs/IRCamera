@@ -15,6 +15,7 @@ import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.lms.sdk.UrlConstant
 import com.topdon.lms.sdk.utils.LanguageUtil
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.activity.IRThermalNightActivity
 import com.topdon.module.thermal.ir.activity.IRThermalPlusActivity
 import com.topdon.module.thermal.ir.activity.MonitoryHomeActivity
@@ -88,8 +89,8 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
                     startActivity(intent)
                 } else {
                     TipDialog.Builder(requireContext())
-                        .setMessage(R.string.device_connect_tip)
-                        .setPositiveListener(R.string.app_confirm)
+                        .setMessage(LibAppR.string.device_connect_tip)
+                        .setPositiveListener(LibAppR.string.app_confirm)
                         .create().show()
                 }
             }

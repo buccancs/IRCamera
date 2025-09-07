@@ -24,6 +24,7 @@ import com.topdon.lib.core.viewmodel.FirmwareViewModel
 import com.topdon.lms.sdk.LMS
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.user.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.user.databinding.ActivityMoreBinding
 import com.topdon.module.user.databinding.LayoutUpgradeBinding
 import com.topdon.module.user.dialog.DownloadProDialog
@@ -74,14 +75,14 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
             binding.settingVersion.tvUpgradePoint.isVisible = it != null
             dismissCameraLoading()
             if (it == null) {//请求成功但没有固件升级包，即已是最新
-                ToastUtils.showShort(R.string.setting_firmware_update_latest_version)
+                ToastUtils.showShort(LibAppR.string.setting_firmware_update_latest_version)
             } else {
                 showFirmwareUpDialog(it)
             }
         }
         firmwareViewModel.failLD.observe(this) {
             dismissCameraLoading()
-            TToast.shortToast(this, if (it) R.string.upgrade_bind_error else R.string.http_code_z5000)
+            TToast.shortToast(this, if (it) LibAppR.string.upgrade_bind_error else LibAppR.string.http_code_else)
             binding.settingVersion.tvUpgradePoint.isVisible = false
         }
     }
@@ -134,8 +135,8 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
      */
     private fun showFirmwareUpDialog(firmwareData: FirmwareViewModel.FirmwareData) {
         val dialog = FirmwareUpDialog(this)
-        dialog.titleStr = "${getString(R.string.update_new_version)} ${firmwareData.version}"
-        dialog.sizeStr = "${getString(R.string.detail_len)}: ${getFileSizeStr(firmwareData.size)}"
+        dialog.titleStr = "${getString(LibAppR.string.update_new_version)} ${firmwareData.version}"
+        dialog.sizeStr = "${getString(LibAppR.string.detail_len)}: ${getFileSizeStr(firmwareData.size)}"
         dialog.contentStr = firmwareData.updateStr
         dialog.isShowRestartTips = true
         dialog.onConfirmClickListener = {
@@ -194,7 +195,7 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
                 ARouter.getInstance().build(RouterConfig.MAIN).navigation(this@MoreActivity)
                 finish()
             } else {
-                TToast.shortToast(this@MoreActivity, R.string.operation_failed_tips)
+                TToast.shortToast(this@MoreActivity, LibAppR.string.operation_failed_tips)
             }
         }
     }
@@ -202,9 +203,9 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
     private fun showReInstallDialog(file: File) {
         val dialog = ConfirmSelectDialog(this)
         dialog.setShowIcon(true)
-        dialog.setTitleRes(R.string.ts004_install_tips)
-        dialog.setCancelText(R.string.ts004_install_cancel)
-        dialog.setConfirmText(R.string.ts004_install_continue)
+        dialog.setTitleRes(LibAppR.string.ts004_install_tips)
+        dialog.setCancelText(LibAppR.string.ts004_install_cancel)
+        dialog.setConfirmText(LibAppR.string.ts004_install_continue)
         dialog.onConfirmClickListener = {
             installFirmware(file)
         }
@@ -214,9 +215,9 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
     private fun showReDownloadDialog(firmwareData: FirmwareViewModel.FirmwareData) {
         val dialog = ConfirmSelectDialog(this)
         dialog.setShowIcon(true)
-        dialog.setTitleRes(R.string.ts004_download_tips)
-        dialog.setCancelText(R.string.ts004_download_cancel)
-        dialog.setConfirmText(R.string.ts004_download_continue)
+        dialog.setTitleRes(LibAppR.string.ts004_download_tips)
+        dialog.setCancelText(LibAppR.string.ts004_download_cancel)
+        dialog.setConfirmText(LibAppR.string.ts004_download_continue)
         dialog.onConfirmClickListener = {
             downloadFirmware(firmwareData)
         }
@@ -232,30 +233,30 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
 
     private fun restoreFactory() {
         TipDialog.Builder(this)
-            .setTitleMessage(getString(R.string.ts004_reset_tip1, "TS004"))
-            .setMessage(getString(R.string.ts004_reset_tip2))
-            .setPositiveListener(R.string.app_ok) {
+            .setTitleMessage(getString(LibAppR.string.ts004_reset_tip1, "TS004"))
+            .setMessage(getString(LibAppR.string.ts004_reset_tip2))
+            .setPositiveListener(LibAppR.string.app_ok) {
                 resetAll()
             }
-            .setCancelListener(R.string.app_cancel) {
+            .setCancelListener(LibAppR.string.app_cancel) {
             }
             .setCanceled(true)
             .create().show()
     }
 
     private fun resetAll() {
-        showLoadingDialog(R.string.ts004_reset_tip3)
+        showLoadingDialog(LibAppR.string.ts004_reset_tip3)
         lifecycleScope.launch {
             XLog.i("准备调用恢复出厂设置接口")
             val isSuccess = false // TC001 uses USB connection, factory reset not available via network
             XLog.i("恢复出厂设置接口调用 ${if (isSuccess) "成功" else "失败"}")
             if (isSuccess) {
-                TToast.shortToast(this@MoreActivity, R.string.ts004_reset_tip4)
+                TToast.shortToast(this@MoreActivity, LibAppR.string.ts004_reset_tip4)
                 (application as BaseApplication).disconnectWebSocket()
                 ARouter.getInstance().build(RouterConfig.MAIN).navigation(this@MoreActivity)
                 finish()
             } else {
-                TToast.shortToast(this@MoreActivity, R.string.operation_failed_tips)
+                TToast.shortToast(this@MoreActivity, LibAppR.string.operation_failed_tips)
             }
             delay(500)
             dismissLoadingDialog()

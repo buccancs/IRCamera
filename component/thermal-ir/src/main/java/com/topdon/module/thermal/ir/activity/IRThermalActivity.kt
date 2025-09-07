@@ -81,6 +81,7 @@
 //import com.topdon.libcom.dialog.TempAlarmSetDialog
 //import com.topdon.module.thermal.ir.KotlinEx.showChangePseudoDialog
 //import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 //import com.topdon.module.thermal.ir.adapter.CameraItemAdapter
 //import com.topdon.module.thermal.ir.extension.countDownCoroutines
 //import com.topdon.module.thermal.ir.frame.FrameStructTool
@@ -140,7 +141,7 @@
 //
 //    override fun initView() {
 //
-//        setTitleText(R.string.main_thermal)
+//        setTitleText(LibAppR.string.main_thermal)
 //        setToolListener {
 //            if (time_down_view.isRunning){
 //                return@setToolListener
@@ -148,7 +149,7 @@
 //            setResult(200)
 //            finish()
 //        }
-//        setRightSecondImg(R.drawable.ic_info_svg) {
+//        setRightSecondImg(LibAppR.drawable.ic_info_svg) {
 //            showInfo()
 //        }
 //        thermal_back_img.setOnClickListener {
@@ -174,7 +175,7 @@
 //            }
 //        })
 //        temperature_seekbar.setIndicatorTextDecimalFormat("0.0")
-//        updateTemperatureSeekBar(false,R.drawable.ic_edit_pseudo_lock_svg,"lock")//加锁
+//        updateTemperatureSeekBar(false,LibAppR.drawable.ic_edit_pseudo_lock_svg,"lock")//加锁
 //        isShowC = getTemperature() == 1
 //        temperatureView.listener = TempListener { max, min ,tempData->
 //            realLeftValue = UnitTools.showUnitValue(min,isShowC)
@@ -260,12 +261,12 @@
 //            if (it.isUseCustomPseudo){
 //                temperature_iv_lock.visibility = View.INVISIBLE
 //                tv_temp_content.visibility = View.VISIBLE
-//                updateTemperatureSeekBar(false,R.drawable.ic_edit_pseudo_lock_svg,"lock")//加锁
+//                updateTemperatureSeekBar(false,LibAppR.drawable.ic_edit_pseudo_lock_svg,"lock")//加锁
 //                temperature_seekbar.setRangeAndPro(UnitTools.showUnitValue(it.minTemp),
 //                    UnitTools.showUnitValue(it.maxTemp),UnitTools.showUnitValue(it.minTemp),
 //                    UnitTools.showUnitValue(it.maxTemp))
 //                thermal_recycler.setPseudoColor(-1)
-//                temperature_iv_input.setImageResource(R.drawable.ir_model)
+//                temperature_iv_input.setImageResource(LibAppR.drawable.ir_model)
 //            }else{
 //                temperature_iv_lock.visibility = View.VISIBLE
 //                thermal_recycler.setPseudoColor(pseudocolorMode)
@@ -273,7 +274,7 @@
 //                    setDefLimit()
 //                }
 //                tv_temp_content.visibility = View.GONE
-//                temperature_iv_input.setImageResource(R.drawable.ic_color_edit)
+//                temperature_iv_input.setImageResource(LibAppR.drawable.ic_color_edit)
 //            }
 //            this.customPseudoBean = it
 //        }
@@ -286,10 +287,10 @@
 //                return@setOnClickListener
 //            }
 //            if (temperature_iv_lock.contentDescription == "lock") {
-//                updateTemperatureSeekBar(true,R.drawable.ic_edit_pseudo_unlock_svg,"unlock")//解锁
+//                updateTemperatureSeekBar(true,LibAppR.drawable.ic_edit_pseudo_unlock_svg,"unlock")//解锁
 //            } else {
 //                setDefLimit()
-//                updateTemperatureSeekBar(false,R.drawable.ic_edit_pseudo_lock_svg,"lock")//加锁
+//                updateTemperatureSeekBar(false,LibAppR.drawable.ic_edit_pseudo_lock_svg,"lock")//加锁
 //            }
 //        }
 //        temperature_iv_input.setOnClickListener {
@@ -344,12 +345,12 @@
 //        temperature_iv_lock.setImageResource(resource)
 //        temperature_iv_lock.contentDescription = content
 //        if(isEnabled){
-//            temperature_seekbar.leftSeekBar.indicatorBackgroundColor = ContextCompat.getColor(this, R.color.orgen)
-//            temperature_seekbar.rightSeekBar.indicatorBackgroundColor = ContextCompat.getColor(this, R.color.orgen)
+//            temperature_seekbar.leftSeekBar.indicatorBackgroundColor = ContextCompat.getColor(this, LibAppR.color.orgen)
+//            temperature_seekbar.rightSeekBar.indicatorBackgroundColor = ContextCompat.getColor(this, LibAppR.color.orgen)
 //            temperature_seekbar.invalidate()
 //        }else{
-//            temperature_seekbar.leftSeekBar.indicatorBackgroundColor = ContextCompat.getColor(this, R.color.app_color_transparent)
-//            temperature_seekbar.rightSeekBar.indicatorBackgroundColor = ContextCompat.getColor(this, R.color.app_color_transparent)
+//            temperature_seekbar.leftSeekBar.indicatorBackgroundColor = ContextCompat.getColor(this, LibAppR.color.app_color_transparent)
+//            temperature_seekbar.rightSeekBar.indicatorBackgroundColor = ContextCompat.getColor(this, LibAppR.color.app_color_transparent)
 //            temperature_seekbar.invalidate()
 //        }
 //    }
@@ -775,7 +776,7 @@
 //        val contentView = LayoutInflater.from(this).inflate(R.layout.layout_camera_seek_bar_t,null)
 //        popupWindow?.contentView = contentView
 //        popupWindow?.isFocusable = false
-//        popupWindow?.animationStyle = R.style.SeekBarAnimation
+//        popupWindow?.animationStyle = LibAppR.style.SeekBarAnimation
 //        popupWindow?.width = WindowManager.LayoutParams.MATCH_PARENT
 //        popupWindow?.height = WindowManager.LayoutParams.WRAP_CONTENT
 //        popupWindow?.setBackgroundDrawable(ColorDrawable(0))
@@ -1339,11 +1340,11 @@
 //                UnitTools.showUnitValue(customPseudoBean.maxTemp))
 //            tv_temp_content.visibility = View.VISIBLE
 //            thermal_recycler.setPseudoColor(-1)
-//            temperature_iv_input.setImageResource(R.drawable.ir_model)
+//            temperature_iv_input.setImageResource(LibAppR.drawable.ir_model)
 //        }else{
 //            temperature_iv_lock.visibility = View.VISIBLE
 //            tv_temp_content.visibility = View.GONE
-//            temperature_iv_input.setImageResource(R.drawable.ic_color_edit)
+//            temperature_iv_input.setImageResource(LibAppR.drawable.ic_color_edit)
 //            thermal_recycler.setPseudoColor(CameraLiveDateUtil.getInstance().getCameraSBeanData().irSettingBean.pseudoColorMode)
 //        }
 //        if (alarmBean.openHigh || alarmBean.openLow){
@@ -1551,7 +1552,7 @@
 //                                        }, onStart = {
 //                                            tv_type_ind.visibility = VISIBLE
 //                                            isAutoCamera = true
-////                                        ToastTools.showShort(R.string.app_auto_photo)
+////                                        ToastTools.showShort(LibAppR.string.app_auto_photo)
 //                                        },onFinish = {
 //                                            tv_type_ind.visibility = GONE
 //                                            isAutoCamera = false
@@ -1569,7 +1570,7 @@
 //                            video()
 //                        }
 //                    } else {
-//                        ToastUtils.showShort(R.string.scan_ble_tip_authorize)
+//                        ToastUtils.showShort(LibAppR.string.scan_ble_tip_authorize)
 //                    }
 //                }
 //
@@ -1577,12 +1578,12 @@
 //                    if (doNotAskAgain){
 //                        //拒绝授权并且不再提醒
 //                        TipDialog.Builder(this@IRThermalActivity)
-//                            .setTitleMessage(getString(R.string.app_tip))
-//                            .setMessage(R.string.app_storage_content)
-//                            .setPositiveListener(R.string.app_open){
+//                            .setTitleMessage(getString(LibAppR.string.app_tip))
+//                            .setMessage(LibAppR.string.app_storage_content)
+//                            .setPositiveListener(LibAppR.string.app_open){
 //                                AppUtils.launchAppDetailsSettings()
 //                            }
-//                            .setCancelListener(R.string.app_cancel){
+//                            .setCancelListener(LibAppR.string.app_cancel){
 //                            }
 //                            .setCanceled(true)
 //                            .create().show()
@@ -1635,13 +1636,13 @@
 //                                cameraItemAdapter.notifyItemChanged(position)
 //                                when (cameraItemAdapter.data[position].time) {
 //                                    CameraItemBean.DELAY_TIME_0 -> {
-//                                        ToastUtils.showShort(R.string.off_photography)
+//                                        ToastUtils.showShort(LibAppR.string.off_photography)
 //                                    }
 //                                    CameraItemBean.DELAY_TIME_3 -> {
-//                                        ToastUtils.showShort(R.string.seconds_dalay_3)
+//                                        ToastUtils.showShort(LibAppR.string.seconds_dalay_3)
 //                                    }
 //                                    CameraItemBean.DELAY_TIME_6 -> {
-//                                        ToastUtils.showShort(R.string.seconds_dalay_6)
+//                                        ToastUtils.showShort(LibAppR.string.seconds_dalay_6)
 //                                    }
 //                                }
 //                                cameraSBean.delayTime = cameraItemAdapter.data[position].time
@@ -1667,7 +1668,7 @@
 //                                                        cameraItemAdapter.notifyItemChanged(position)
 //                                                        CameraLiveDateUtil.getInstance().saveAllConfig(cameraSBean)
 //                                                    } else {
-//                                                        ToastUtils.showShort(R.string.scan_ble_tip_authorize)
+//                                                        ToastUtils.showShort(LibAppR.string.scan_ble_tip_authorize)
 //                                                    }
 //                                                }catch (e:Exception){
 //                                                    Log.e("录音启动失败",""+e.message)
@@ -1681,12 +1682,12 @@
 //                                                if (doNotAskAgain){
 //                                                    //拒绝授权并且不再提醒
 //                                                    TipDialog.Builder(this@IRThermalActivity)
-//                                                        .setTitleMessage(getString(R.string.app_tip))
-//                                                        .setMessage(getString(R.string.app_microphone_content))
-//                                                        .setPositiveListener(R.string.app_open){
+//                                                        .setTitleMessage(getString(LibAppR.string.app_tip))
+//                                                        .setMessage(getString(LibAppR.string.app_microphone_content))
+//                                                        .setPositiveListener(LibAppR.string.app_open){
 //                                                            AppUtils.launchAppDetailsSettings()
 //                                                        }
-//                                                        .setCancelListener(R.string.app_cancel){
+//                                                        .setCancelListener(LibAppR.string.app_cancel){
 //                                                        }
 //                                                        .setCanceled(true)
 //                                                        .create().show()
@@ -1717,7 +1718,7 @@
 //                                } else {
 //                                    ircmd?.updateOOCOrB(CommonParams.UpdateOOCOrBType.B_UPDATE)
 //                                }
-//                                ToastUtils.showShort(R.string.app_Manual_Shutter)
+//                                ToastUtils.showShort(LibAppR.string.app_Manual_Shutter)
 //                                return@listener
 //                            }
 //                            CameraItemBean.TYPE_ZDKM -> {
@@ -1730,7 +1731,7 @@
 //                                if(CameraLiveDateUtil.getInstance().needShowShutterTip() &&
 //                                    !CameraLiveDateUtil.getInstance().getAutoShutter()){
 //                                    val dialog = TipShutterDialog.Builder(this)
-//                                        .setMessage(R.string.shutter_tips)
+//                                        .setMessage(LibAppR.string.shutter_tips)
 //                                        .setCancelListener{isCheck ->
 //                                            CameraLiveDateUtil.getInstance().setShowShutterTip(isCheck)
 //                                        }
@@ -1897,7 +1898,7 @@
 //                    if (isShowVideoRecordTips){
 //                        try {
 //                            val dialog = TipDialog.Builder(this@IRThermalActivity)
-//                                .setMessage(R.string.tip_video_record)
+//                                .setMessage(LibAppR.string.tip_video_record)
 //                                .create()
 //                            dialog?.show()
 //                        }catch (e:Exception){
@@ -1991,7 +1992,7 @@
 //        popupWindow?.contentView = contentView
 //        popupWindow?.isFocusable = false
 //        popupWindow?.isOutsideTouchable = false
-//        popupWindow?.animationStyle = R.style.SeekBarAnimation
+//        popupWindow?.animationStyle = LibAppR.style.SeekBarAnimation
 //        popupWindow?.width = WindowManager.LayoutParams.MATCH_PARENT
 //        popupWindow?.height = WindowManager.LayoutParams.WRAP_CONTENT
 //        popupWindow?.setBackgroundDrawable(ColorDrawable(0))
@@ -2073,7 +2074,7 @@
 //        val contentView = LayoutInflater.from(this).inflate(R.layout.layout_camera_zoom,null)
 //        popupWindow?.contentView = contentView
 //        popupWindow?.isFocusable = false
-//        popupWindow?.animationStyle = R.style.SeekBarAnimation
+//        popupWindow?.animationStyle = LibAppR.style.SeekBarAnimation
 //        popupWindow?.width = WindowManager.LayoutParams.MATCH_PARENT
 //        popupWindow?.height = WindowManager.LayoutParams.WRAP_CONTENT
 //        popupWindow?.setBackgroundDrawable(ColorDrawable(0))
@@ -2084,14 +2085,14 @@
 //        val tvZoom = contentView?.findViewById<TextView>(R.id.tv_zoom)
 //        tvZoom?.text = nowZoomLevel.toString()
 //        if (nowZoomLevel <= 1){
-//            imgDown?.setImageResource(R.drawable.ic_reduce_disable)
-//            imgUp?.setImageResource(R.drawable.ic_add_nor)
+//            imgDown?.setImageResource(LibAppR.drawable.ic_reduce_disable)
+//            imgUp?.setImageResource(LibAppR.drawable.ic_add_nor)
 //        }else if (nowZoomLevel >= 5){
-//            imgDown?.setImageResource(R.drawable.ic_reduce_nor)
-//            imgUp?.setImageResource(R.drawable.ic_add_disable)
+//            imgDown?.setImageResource(LibAppR.drawable.ic_reduce_nor)
+//            imgUp?.setImageResource(LibAppR.drawable.ic_add_disable)
 //        }else{
-//            imgDown?.setImageResource(R.drawable.ic_reduce_nor)
-//            imgUp?.setImageResource(R.drawable.ic_add_nor)
+//            imgDown?.setImageResource(LibAppR.drawable.ic_reduce_nor)
+//            imgUp?.setImageResource(LibAppR.drawable.ic_add_nor)
 //        }
 //        imgUp?.setOnClickListener {
 //            if (nowZoomLevel >= 5){
@@ -2107,14 +2108,14 @@
 ////            )
 //            nowZoomLevel ++
 //            if (nowZoomLevel <= 1){
-//                imgDown?.setImageResource(R.drawable.ic_reduce_disable)
-//                imgUp?.setImageResource(R.drawable.ic_add_nor)
+//                imgDown?.setImageResource(LibAppR.drawable.ic_reduce_disable)
+//                imgUp?.setImageResource(LibAppR.drawable.ic_add_nor)
 //            }else if (nowZoomLevel >= 5){
-//                imgDown?.setImageResource(R.drawable.ic_reduce_nor)
-//                imgUp?.setImageResource(R.drawable.ic_add_disable)
+//                imgDown?.setImageResource(LibAppR.drawable.ic_reduce_nor)
+//                imgUp?.setImageResource(LibAppR.drawable.ic_add_disable)
 //            }else{
-//                imgDown?.setImageResource(R.drawable.ic_reduce_nor)
-//                imgUp?.setImageResource(R.drawable.ic_add_nor)
+//                imgDown?.setImageResource(LibAppR.drawable.ic_reduce_nor)
+//                imgUp?.setImageResource(LibAppR.drawable.ic_add_nor)
 //            }
 //            tvZoom?.text = nowZoomLevel.toString()
 //            temperatureView.nowZoomLevel = nowZoomLevel
@@ -2134,14 +2135,14 @@
 ////            )
 //            nowZoomLevel --
 //            if (nowZoomLevel <= 1){
-//                imgDown?.setImageResource(R.drawable.ic_reduce_disable)
-//                imgUp?.setImageResource(R.drawable.ic_add_nor)
+//                imgDown?.setImageResource(LibAppR.drawable.ic_reduce_disable)
+//                imgUp?.setImageResource(LibAppR.drawable.ic_add_nor)
 //            }else if (nowZoomLevel >= 5){
-//                imgDown?.setImageResource(R.drawable.ic_reduce_nor)
-//                imgUp?.setImageResource(R.drawable.ic_add_disable)
+//                imgDown?.setImageResource(LibAppR.drawable.ic_reduce_nor)
+//                imgUp?.setImageResource(LibAppR.drawable.ic_add_disable)
 //            }else{
-//                imgDown?.setImageResource(R.drawable.ic_reduce_nor)
-//                imgUp?.setImageResource(R.drawable.ic_add_nor)
+//                imgDown?.setImageResource(LibAppR.drawable.ic_reduce_nor)
+//                imgUp?.setImageResource(LibAppR.drawable.ic_add_nor)
 //            }
 //            tvZoom?.text = nowZoomLevel.toString()
 //            temperatureView.nowZoomLevel = nowZoomLevel
@@ -2168,7 +2169,7 @@
 //        val contentView = LayoutInflater.from(this).inflate(R.layout.layout_camera_seek_bar,null)
 //        popupWindow?.contentView = contentView
 //        popupWindow?.isFocusable = false
-//        popupWindow?.animationStyle = R.style.SeekBarAnimation
+//        popupWindow?.animationStyle = LibAppR.style.SeekBarAnimation
 //        popupWindow?.width = WindowManager.LayoutParams.MATCH_PARENT
 //        popupWindow?.height = WindowManager.LayoutParams.WRAP_CONTENT
 //        popupWindow?.setBackgroundDrawable(ColorDrawable(0))
@@ -2257,10 +2258,10 @@
 //            iruvc?.let {
 //                if (!it.auto_gain_switch) {
 //                    it.auto_gain_switch = true
-//                    ToastTools.showShort(R.string.auto_open)
+//                    ToastTools.showShort(LibAppR.string.auto_open)
 //                } else {
 //                    it.auto_gain_switch = false
-//                    ToastTools.showShort(R.string.auto_close)
+//                    ToastTools.showShort(LibAppR.string.auto_close)
 //                }
 //                gainSelChar = -1
 //            }
@@ -2437,10 +2438,10 @@
 //    //温度范围
 //    private fun addLimit() {
 //        ThermalInputDialog.Builder(this)
-//            .setMessage(getString(R.string.thermal_threshold_setting))
+//            .setMessage(getString(LibAppR.string.thermal_threshold_setting))
 //            .setNum(max = upValue, min = downValue)
 //            .setColor(maxColor = upColor, minColor = downColor)
-//            .setPositiveListener(R.string.app_confirm) { up, down, upColor, downColor ->
+//            .setPositiveListener(LibAppR.string.app_confirm) { up, down, upColor, downColor ->
 //                this.upValue = up
 //                this.downValue = down
 //                this.upColor = upColor
@@ -2454,7 +2455,7 @@
 //                    thermal_recycler.limitStats = 461
 //                }
 //            }
-//            .setCancelListener(getString(R.string.app_close)) {
+//            .setCancelListener(getString(LibAppR.string.app_close)) {
 //                upValue = -273f
 //                downValue = -273f
 //                thermal_recycler.limitStats = 460
@@ -2508,7 +2509,7 @@
 //                                    }
 //                                } else {
 //                                    thermal_recycler.cameraPreviewStats = 450
-//                                    ToastUtils.showShort(R.string.scan_ble_tip_authorize)
+//                                    ToastUtils.showShort(LibAppR.string.scan_ble_tip_authorize)
 //                                }
 //                            }catch (e:Exception){
 //                                XLog.e("画中画"+e.message)
@@ -2522,12 +2523,12 @@
 //                            if (doNotAskAgain){
 //                                //拒绝授权并且不再提醒
 //                                TipDialog.Builder(this@IRThermalActivity)
-//                                    .setTitleMessage(getString(R.string.app_tip))
-//                                    .setMessage(getString(R.string.app_camera_content))
-//                                    .setPositiveListener(R.string.app_open){
+//                                    .setTitleMessage(getString(LibAppR.string.app_tip))
+//                                    .setMessage(getString(LibAppR.string.app_camera_content))
+//                                    .setPositiveListener(LibAppR.string.app_open){
 //                                        AppUtils.launchAppDetailsSettings()
 //                                    }
-//                                    .setCancelListener(R.string.app_cancel){
+//                                    .setCancelListener(LibAppR.string.app_cancel){
 //                                    }
 //                                    .setCanceled(true)
 //                                    .create().show()
@@ -2553,8 +2554,8 @@
 //        if (iruvc == null) {
 //            return
 //        }
-//        TipDialog.Builder(this).setMessage(R.string.reset_device)
-//            .setPositiveListener(R.string.app_confirm) {
+//        TipDialog.Builder(this).setMessage(LibAppR.string.reset_device)
+//            .setPositiveListener(LibAppR.string.app_confirm) {
 //                GlobalScope.launch {
 //                    launch(Dispatchers.Main) {
 //                        showLoading()

@@ -18,6 +18,7 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.chart.IRMyValueFormatter
 import com.topdon.module.thermal.ir.chart.YValueFormatter
 import com.topdon.module.thermal.ir.utils.ChartTools
@@ -44,9 +45,9 @@ class ChartLogView : LineChart {
         mHandler.removeCallbacksAndMessages(null)
     }
 
-    private val textColor by lazy { ContextCompat.getColor(context, R.color.chart_text) }
-    private val axisChartColors by lazy { ContextCompat.getColor(context, R.color.chart_axis) }
-    private val axisLine by lazy { ContextCompat.getColor(context, R.color.circle_white) }
+    private val textColor by lazy { ContextCompat.getColor(context, LibAppR.color.chart_text) }
+    private val axisChartColors by lazy { ContextCompat.getColor(context, LibAppR.color.chart_axis) }
+    private val axisLine by lazy { ContextCompat.getColor(context, LibAppR.color.circle_white) }
 
     //MPChart
     private fun initChart() {
@@ -55,7 +56,7 @@ class ChartLogView : LineChart {
             this.isDragEnabled = true
             this.setDrawGridBackground(false)
             this.description = null//图标描述文本
-            this.setBackgroundResource(R.color.chart_bg)
+            this.setBackgroundResource(LibAppR.color.chart_bg)
             this.setScaleEnabled(false)//缩放
             this.setPinchZoom(false)//禁用后，可以分别在x轴和y轴上进行缩放
             this.isDoubleTapToZoomEnabled = false//双击不可缩放
@@ -67,8 +68,8 @@ class ChartLogView : LineChart {
                 SizeUtils.dp2px(8f).toFloat(),
                 SizeUtils.dp2px(4f).toFloat()
             )//图表区域偏移
-            setNoDataText(context.getString(R.string.http_code998))
-            setNoDataTextColor(ContextCompat.getColor(context, R.color.chart_text))
+            setNoDataText(context.getString(LibAppR.string.http_code_else))
+            setNoDataTextColor(ContextCompat.getColor(context, LibAppR.color.chart_text))
             val mv = MyMarkerView(context, R.layout.marker_lay)
             mv.chartView = this
             marker = mv//设置点击坐标显示提示框
@@ -231,15 +232,15 @@ class ChartLogView : LineChart {
         R.drawable.bg_chart_fill3
     )
     private val lineChartColors = intArrayOf(
-        R.color.chart_line_max,
-        R.color.chart_line_min,
-        R.color.chart_line_center
+        LibAppR.color.chart_line_max,
+        LibAppR.color.chart_line_min,
+        LibAppR.color.chart_line_center
     )
 
     private val linePointColors = intArrayOf(
-        R.color.chart_point_max,
-        R.color.chart_point_min,
-        R.color.chart_point_center
+        LibAppR.color.chart_point_max,
+        LibAppR.color.chart_point_min,
+        LibAppR.color.chart_point_center
     )
 
     /**

@@ -13,6 +13,7 @@ import com.topdon.lib.core.bean.GalleryTitle
 import com.topdon.lib.core.tools.GlideLoader
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.databinding.ItemGalleryHeadLayBinding
 import com.topdon.module.thermal.ir.databinding.ItemGalleryLayBinding
 

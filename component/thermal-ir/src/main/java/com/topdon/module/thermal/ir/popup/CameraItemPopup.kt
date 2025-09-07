@@ -15,6 +15,7 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.dialog.TipShutterDialog
 import com.topdon.libcom.bean.SaveSettingBean
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.databinding.PopCameraItemBinding
 
 /**
@@ -91,15 +92,15 @@ class CameraItemPopup(val context: Context, private val saveSetBean: SaveSetting
                 when (saveSetBean.delayCaptureSecond) {
                     0 -> {
                         saveSetBean.delayCaptureSecond = 3
-                        ToastUtils.showShort(R.string.seconds_dalay_3)
+                        ToastUtils.showShort(LibAppR.string.seconds_dalay_3)
                     }
                     3 -> {
                         saveSetBean.delayCaptureSecond = 6
-                        ToastUtils.showShort(R.string.seconds_dalay_6)
+                        ToastUtils.showShort(LibAppR.string.seconds_dalay_6)
                     }
                     6 -> {
                         saveSetBean.delayCaptureSecond = 0
-                        ToastUtils.showShort(R.string.off_photography)
+                        ToastUtils.showShort(LibAppR.string.off_photography)
                     }
                 }
                 binding.ivDelay.setImageLevel(saveSetBean.delayCaptureSecond)
@@ -109,7 +110,7 @@ class CameraItemPopup(val context: Context, private val saveSetBean: SaveSetting
                 binding.ivAuto.isSelected = saveSetBean.isAutoShutter
                 if (SharedManager.isTipShutter && !saveSetBean.isAutoShutter) {
                     TipShutterDialog.Builder(context)
-                        .setMessage(R.string.shutter_tips)
+                        .setMessage(LibAppR.string.shutter_tips)
                         .setCancelListener { isCheck ->
                             SharedManager.isTipShutter = !isCheck
                         }

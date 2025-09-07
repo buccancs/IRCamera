@@ -36,6 +36,7 @@ import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.utils.CommUtils
 import com.topdon.module.thermal.ir.BuildConfig
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.report.bean.ImageTempBean
 import com.topdon.module.thermal.ir.report.bean.ReportConditionBean
 import com.topdon.module.thermal.ir.report.bean.ReportInfoBean
@@ -92,8 +93,8 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
         binding.etReportAuthor.setText(SaveSettingUtil.reportAuthorName)
         binding.tvReportDate.text = TimeUtils.millis2String(System.currentTimeMillis(), "yyyy.MM.dd HH:mm")
         binding.etReportWatermark.setText(SaveSettingUtil.reportWatermarkText)
-        binding.tvAmbientTemperature.text = getString(R.string.thermal_config_environment) + "(${UnitTools.showUnit()})"
-        binding.tvEmissivity.text = getString(R.string.album_report_emissivity) + "(0~1)"
+        binding.tvAmbientTemperature.text = getString(LibAppR.string.thermal_config_environment) + "(${UnitTools.showUnit()})"
+        binding.tvEmissivity.text = getString(LibAppR.string.album_report_emissivity) + "(0~1)"
 
         binding.etReportAuthor.addTextChangedListener {
             SaveSettingUtil.reportAuthorName = it?.toString() ?: ""
@@ -312,7 +313,7 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
      */
     private fun selectTime() {
         val picker = DatimePicker(this)
-        picker.setTitle(R.string.chart_start_time)
+        picker.setTitle(LibAppR.string.chart_start_time)
         picker.setOnDatimePickedListener { year, month, day, hour, minute, second ->
             val timeStr = "$year-$month-$day $hour:$minute:$second"
             val pattern = "yyyy-MM-dd HH:mm:ss"
@@ -351,9 +352,9 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
         if (!XXPermissions.isGranted(this, permissionList)) {
             if (BaseApplication.instance.isDomestic()) {
                 TipDialog.Builder(this)
-                    .setMessage(getString(R.string.permission_request_location_app, CommUtils.getAppName()))
-                    .setCancelListener(R.string.app_cancel)
-                    .setPositiveListener(R.string.app_confirm) {
+                    .setMessage(getString(LibAppR.string.permission_request_location_app, CommUtils.getAppName()))
+                    .setCancelListener(LibAppR.string.app_cancel)
+                    .setPositiveListener(LibAppR.string.app_confirm) {
                         initLocationPermission()
                     }
                     .create().show()
@@ -373,7 +374,7 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
             ).request(object : OnPermissionCallback {
                 override fun onGranted(permissions: MutableList<String>, all: Boolean) {
                     if (all){
-                        showLoadingDialog(R.string.get_current_address)
+                        showLoadingDialog(LibAppR.string.get_current_address)
                         lifecycleScope.launch{
                             var addressText : String ?= ""
                             withContext(Dispatchers.IO){
@@ -382,8 +383,8 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
                             dismissLoadingDialog()
                             if (addressText == null){
                                 TipDialog.Builder(this@ReportCreateFirstActivity)
-                                    .setMessage(R.string.get_Location_failed)
-                                    .setPositiveListener(R.string.app_ok)
+                                    .setMessage(LibAppR.string.get_Location_failed)
+                                    .setPositiveListener(LibAppR.string.app_ok)
                                     .setCanceled(false)
                                     .create().show()
                             }else{
@@ -391,28 +392,28 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
                             }
                         }
                     }else{
-                        ToastUtils.showShort(R.string.scan_ble_tip_authorize)
+                        ToastUtils.showShort(LibAppR.string.scan_ble_tip_authorize)
                     }
                 }
                 override fun onDenied(permissions: MutableList<String>, never: Boolean) {
                     if (never) {
                         // 如果是被永久拒绝就跳转到应用权限系统设置页面
                         if (BaseApplication.instance.isDomestic()){
-                            ToastUtils.showShort(getString(R.string.app_location_content))
+                            ToastUtils.showShort(getString(LibAppR.string.app_location_content))
                             return
                         }
                         TipDialog.Builder(this@ReportCreateFirstActivity)
-                            .setTitleMessage(getString(R.string.app_tip))
-                            .setMessage(getString(R.string.app_location_content))
-                            .setPositiveListener(R.string.app_open){
+                            .setTitleMessage(getString(LibAppR.string.app_tip))
+                            .setMessage(getString(LibAppR.string.app_location_content))
+                            .setPositiveListener(LibAppR.string.app_open){
                                 XXPermissions.startPermissionActivity(this@ReportCreateFirstActivity, permissions);
                             }
-                            .setCancelListener(R.string.app_cancel){
+                            .setCancelListener(LibAppR.string.app_cancel){
                             }
                             .setCanceled(true)
                             .create().show()
                     } else {
-                        ToastUtils.showShort(R.string.scan_ble_tip_authorize)
+                        ToastUtils.showShort(LibAppR.string.scan_ble_tip_authorize)
                     }
                 }
 

@@ -36,7 +36,7 @@ class PdfViewModel : BaseViewModel() {
     //获取报告列表
     fun getReportData(isTC007: Boolean, page: Int){
         if (!NetworkUtil.isConnected(Utils.getApp())) {
-            TToast.shortToast(Utils.getApp(), R.string.lms_setting_http_error)
+            TToast.shortToast(Utils.getApp(), LibAppR.string.lms_setting_http_error)
             listData.postValue(null)
             return
         }

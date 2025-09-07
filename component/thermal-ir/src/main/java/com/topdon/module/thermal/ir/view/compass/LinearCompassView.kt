@@ -10,6 +10,7 @@ import android.view.View
 import androidx.core.view.drawToBitmap
 import com.blankj.utilcode.util.SizeUtils
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.utils.getPixelLinear
 import com.topdon.module.thermal.ir.utils.getValuesBetween
 import com.topdon.module.thermal.ir.utils.realX
@@ -228,14 +229,14 @@ class LinearCompassView : View {
     }
 
     private fun getPositionText(position: Int): String = when (position) {
-        -90, 270 -> resources.getString(R.string.compass_west)
-        -45, 315 -> resources.getString(R.string.compass_northwest)
-        0, 360 -> resources.getString(R.string.compass_north)
-        45, 405 -> resources.getString(R.string.compass_northeast)
-        90, 450 -> resources.getString(R.string.compass_east)
-        135, 495 -> resources.getString(R.string.compass_southeast)
-        -180, 180 -> resources.getString(R.string.compass_south)
-        -135, 225 -> resources.getString(R.string.compass_southwest)
+        -90, 270 -> resources.getString(LibAppR.string.compass_west)
+        -45, 315 -> resources.getString(LibAppR.string.compass_northwest)
+        0, 360 -> resources.getString(LibAppR.string.compass_north)
+        45, 405 -> resources.getString(LibAppR.string.compass_northeast)
+        90, 450 -> resources.getString(LibAppR.string.compass_east)
+        135, 495 -> resources.getString(LibAppR.string.compass_southeast)
+        -180, 180 -> resources.getString(LibAppR.string.compass_south)
+        -135, 225 -> resources.getString(LibAppR.string.compass_southwest)
         else -> ""
     }
 

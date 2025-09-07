@@ -9,6 +9,7 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.thermal.ir.activity.BaseIRActivity
 import com.topdon.lib.ui.dialog.MonitorSelectDialog
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.thermal.fragment.event.ThermalActionEvent
 import com.topdon.module.thermal.ir.databinding.ActivityMonitorBinding
 import org.greenrobot.eventbus.EventBus
@@ -37,7 +38,7 @@ class MonitorActivity : BaseIRActivity(), View.OnClickListener {
         setContentView(binding.root)
         
         // Title and toolbar handling commented out - using toolbar_lay layout
-        // setTitleText(R.string.main_thermal_motion)
+        // setTitleText(LibAppR.string.main_thermal_motion)
         // mToolBar!!.setBackgroundColor(blackColor)
         // BarUtils.setStatusBarColor(this, blackColor)
         // BarUtils.setNavBarColor(window, blackColor)

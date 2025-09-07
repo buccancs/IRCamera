@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.core.view.isVisible
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.databinding.DialogHomeGuideBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -23,7 +24,7 @@ import kotlinx.coroutines.launch
  *
  * Created by LCG on 2024/4/8.
  */
-class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(context, R.style.TransparentDialog) {
+class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(context, LibAppR.style.TransparentDialog) {
 
     private lateinit var binding: DialogHomeGuideBinding
 

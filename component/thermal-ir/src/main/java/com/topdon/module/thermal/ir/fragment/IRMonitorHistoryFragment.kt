@@ -22,6 +22,7 @@ import com.topdon.lib.core.tools.TimeTool
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.libcom.view.CommLoadMoreView
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.activity.IRLogMPChartActivity
 import com.topdon.module.thermal.ir.event.MonitorCreateEvent
 import com.topdon.module.thermal.ir.viewmodel.IRMonitorViewModel
@@ -63,12 +64,12 @@ class IRMonitorHistoryFragment : Fragment() {
         }
         adapter.onItemLongClickListener = {
             TipDialog.Builder(requireContext())
-                .setMessage(getString(R.string.tip_config_delete, ""))
-                .setPositiveListener(R.string.app_confirm) {
+                .setMessage(getString(LibAppR.string.tip_config_delete, ""))
+                .setPositiveListener(LibAppR.string.app_confirm) {
                     viewModel.delDetail(adapter.data[it].startTime)
                     adapter.removeAt(it)
                 }
-                .setCancelListener(R.string.app_cancel) {
+                .setCancelListener(LibAppR.string.app_cancel) {
 
                 }
                 .create().show()
@@ -160,9 +161,9 @@ class IRMonitorHistoryFragment : Fragment() {
             binding.tvTime.text = "$month-$day"
             binding.tvDuration.text = TimeTool.showVideoTime(record.duration * 1000L)
             when (record.type) {
-                "point" -> binding.tvType.setText(R.string.thermal_point)
-                "line" -> binding.tvType.setText(R.string.thermal_line)
-                "fence" -> binding.tvType.setText(R.string.thermal_rect)
+                "point" -> binding.tvType.setText(LibAppR.string.thermal_point)
+                "line" -> binding.tvType.setText(LibAppR.string.thermal_line)
+                "fence" -> binding.tvType.setText(LibAppR.string.thermal_rect)
             }
 
             binding.viewContentBg.setOnClickListener {

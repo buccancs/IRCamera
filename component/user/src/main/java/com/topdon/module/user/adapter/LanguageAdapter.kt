@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.module.user.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.user.databinding.ItemLanguageBinding
 
 class LanguageAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -15,7 +16,7 @@ class LanguageAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.
     var listener: ItemOnClickListener? = null
 
     private var selectIndex = 0
-    private var languages: Array<out CharSequence> = context.resources.getTextArray(R.array.setting_language_list)
+    private var languages: Array<out CharSequence> = context.resources.getTextArray(LibAppR.array.setting_language_list)
 
     fun setSelect(index: Int) {
         selectIndex = index

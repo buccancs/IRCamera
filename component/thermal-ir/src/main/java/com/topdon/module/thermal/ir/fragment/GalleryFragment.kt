@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.topdon.lib.core.tools.GlideLoader
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.databinding.FragmentGalleryBinding
 import kotlinx.coroutines.launch
 

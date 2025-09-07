@@ -13,6 +13,7 @@ import com.topdon.lib.core.repository.ProductBean
 import com.topdon.lms.sdk.utils.TLog
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.user.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.user.databinding.ActivityDeviceDetailsBinding
 import kotlinx.coroutines.launch
 
@@ -49,7 +50,7 @@ class DeviceDetailsActivity : BaseActivity(), View.OnClickListener {
     private fun getDeviceDetails() {
         lifecycleScope.launch {
             // Only TC001 is supported - device details not available via network for USB connection
-            TToast.shortToast(this@DeviceDetailsActivity, R.string.operation_failed_tips)
+            TToast.shortToast(this@DeviceDetailsActivity, LibAppR.string.operation_failed_tips)
         }
     }
 
@@ -60,7 +61,7 @@ class DeviceDetailsActivity : BaseActivity(), View.OnClickListener {
                 val cm = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager?
                 val mClipData = ClipData.newPlainText("text", text)
                 cm!!.setPrimaryClip(mClipData)
-                TToast.shortToast(this@DeviceDetailsActivity, R.string.ts004_copy_success)
+                TToast.shortToast(this@DeviceDetailsActivity, LibAppR.string.ts004_copy_success)
             }
         }
     }

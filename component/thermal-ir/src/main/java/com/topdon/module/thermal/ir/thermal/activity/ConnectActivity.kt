@@ -4,6 +4,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.activity.BaseIRActivity
 import com.topdon.module.thermal.ir.databinding.ActivityConnectBinding
 
@@ -23,10 +24,10 @@ class ConnectActivity : BaseIRActivity() {
         val device = DeviceTools.isConnect()
         if (device == null) {
             //未连接
-            binding.bluetoothBtn.text = getString(R.string.app_no_connect)
+            binding.bluetoothBtn.text = getString(LibAppR.string.app_no_connect)
         } else {
             //已连接
-            binding.bluetoothBtn.text = getString(R.string.app_connect)
+            binding.bluetoothBtn.text = getString(LibAppR.string.app_connect)
         }
     }
 

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.bean.ObserveBean
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.databinding.ItmeTargetModeBinding
 
 class MeasureItemAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -24,10 +25,10 @@ class MeasureItemAdapter(val context: Context) : RecyclerView.Adapter<RecyclerVi
     }
 
     private val secondBean = arrayListOf(
-        ColorBean(R.drawable.ic_menu_thermal7001, "1.8m", ObserveBean.TYPE_MEASURE_PERSON),
-        ColorBean(R.drawable.ic_menu_thermal7002, "1.0m", ObserveBean.TYPE_MEASURE_SHEEP),
-        ColorBean(R.drawable.ic_menu_thermal7003, "0.5m", ObserveBean.TYPE_MEASURE_DOG),
-        ColorBean(R.drawable.ic_menu_thermal7004, "0.2m", ObserveBean.TYPE_MEASURE_BIRD),
+        ColorBean(LibAppR.drawable.ic_menu_thermal7001, "1.8m", ObserveBean.TYPE_MEASURE_PERSON),
+        ColorBean(LibAppR.drawable.ic_menu_thermal7002, "1.0m", ObserveBean.TYPE_MEASURE_SHEEP),
+        ColorBean(LibAppR.drawable.ic_menu_thermal7003, "0.5m", ObserveBean.TYPE_MEASURE_DOG),
+        ColorBean(LibAppR.drawable.ic_menu_thermal7004, "0.2m", ObserveBean.TYPE_MEASURE_BIRD),
     )
 
 
@@ -48,9 +49,9 @@ class MeasureItemAdapter(val context: Context) : RecyclerView.Adapter<RecyclerVi
             holder.binding.itemMenuTabText.visibility = View.VISIBLE
             holder.binding.itemMenuTabText.text = bean.name
             holder.binding.itemMenuTabText.isSelected = bean.code == selected
-            holder.binding.itemMenuTabText.setTextColor(ContextCompat.getColor(context, R.color.white)
-//               if (position == selected) ContextCompat.getColor(context, R.color.white)
-//                else ContextCompat.getColor(context, R.color.font_third_color)
+            holder.binding.itemMenuTabText.setTextColor(ContextCompat.getColor(context, LibAppR.color.white)
+//               if (position == selected) ContextCompat.getColor(context, LibAppR.color.white)
+//                else ContextCompat.getColor(context, LibAppR.color.font_third_color)
             )
         }
     }

@@ -10,6 +10,8 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
+import com.csl.irCamera.libui.R as LibUiR
 import com.topdon.module.thermal.ir.databinding.ActivityIrCorrectionTwoBinding
 import com.topdon.module.thermal.ir.event.CorrectionFinishEvent
 import org.greenrobot.eventbus.Subscribe
@@ -45,9 +47,9 @@ class IRCorrectionTwoActivity : BaseActivity() {
         binding.ivSketchMap.setImageResource(R.drawable.ic_corrected_line) // Use standard corrected line drawable for TC001
 
         if (if (isTC007) WebSocketProxy.getInstance().isTC007Connect() else DeviceTools.isConnect()) {
-            binding.tvCorrection.setBackgroundResource(R.drawable.bg_corners05_solid_theme)
+            binding.tvCorrection.setBackgroundResource(LibAppR.drawable.bg_corners05_solid_theme)
         } else {
-            binding.tvCorrection.setBackgroundResource(R.drawable.bg_corners05_solid_50_theme)
+            binding.tvCorrection.setBackgroundResource(LibAppR.drawable.bg_corners05_solid_50_theme)
         }
 
         binding.tvCorrection.setOnClickListener {
@@ -60,8 +62,8 @@ class IRCorrectionTwoActivity : BaseActivity() {
                 }
             } else {
                 TipDialog.Builder(this)
-                    .setMessage(R.string.device_connect_tip)
-                    .setPositiveListener(R.string.app_confirm)
+                    .setMessage(LibAppR.string.device_connect_tip)
+                    .setPositiveListener(LibAppR.string.app_confirm)
                     .create().show()
             }
         }
@@ -70,25 +72,25 @@ class IRCorrectionTwoActivity : BaseActivity() {
 
     override fun connected() {
         if (!isTC007) {
-            binding.tvCorrection.setBackgroundResource(R.drawable.bg_corners05_solid_theme)
+            binding.tvCorrection.setBackgroundResource(LibAppR.drawable.bg_corners05_solid_theme)
         }
     }
 
     override fun disConnected() {
         if (!isTC007) {
-            binding.tvCorrection.setBackgroundResource(R.drawable.bg_corners05_solid_50_theme)
+            binding.tvCorrection.setBackgroundResource(LibAppR.drawable.bg_corners05_solid_50_theme)
         }
     }
 
     override fun onSocketConnected(isTS004: Boolean) {
         if (isTC007 && !isTS004) {
-            binding.tvCorrection.setBackgroundResource(R.drawable.bg_corners05_solid_theme)
+            binding.tvCorrection.setBackgroundResource(LibAppR.drawable.bg_corners05_solid_theme)
         }
     }
 
     override fun onSocketDisConnected(isTS004: Boolean) {
         if (isTC007 && !isTS004) {
-            binding.tvCorrection.setBackgroundResource(R.drawable.bg_corners05_solid_50_theme)
+            binding.tvCorrection.setBackgroundResource(LibAppR.drawable.bg_corners05_solid_50_theme)
         }
     }
 

@@ -28,6 +28,7 @@ import com.topdon.lib.ui.fence.FenceLineView
 import com.topdon.lib.ui.fence.FencePointView
 import com.topdon.lib.ui.fence.FenceView
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.thermal.activity.MonitorActivity
 import com.topdon.module.thermal.ir.thermal.base.BaseThermalFragment
 import com.topdon.module.thermal.ir.thermal.fragment.event.ThermalActionEvent

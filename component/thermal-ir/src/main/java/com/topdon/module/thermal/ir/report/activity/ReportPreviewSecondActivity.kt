@@ -27,6 +27,7 @@ import com.topdon.lms.sdk.utils.StringUtils
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.thermal.ir.report.view.ReportIRShowView
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.report.bean.ReportBean
 import com.topdon.module.thermal.ir.report.viewmodel.UpReportViewModel
 import com.topdon.module.thermal.ir.databinding.ActivityReportPreviewSecondBinding
@@ -76,20 +77,20 @@ class ReportPreviewSecondActivity: BaseViewModelActivity<UpReportViewModel>(), V
         reportBean = intent.getParcelableExtra(ExtraKeyConfig.REPORT_BEAN)
         isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
 
-        binding.titleView.setTitleText(R.string.album_edit_preview)
-        binding.titleView.setLeftDrawable(R.drawable.svg_arrow_left_e8)
-        binding.titleView.setRightDrawable(R.drawable.ic_report_exit_svg)
+        binding.titleView.setTitleText(LibAppR.string.album_edit_preview)
+        binding.titleView.setLeftDrawable(LibAppR.drawable.svg_arrow_left_e8)
+        binding.titleView.setRightDrawable(LibAppR.drawable.ic_report_exit_svg)
         binding.titleView.setLeftClickListener {
             finish()
         }
         binding.titleView.setRightClickListener {
             TipDialog.Builder(this)
-                .setMessage(R.string.album_report_exit_tips)
-                .setPositiveListener(R.string.app_ok){
+                .setMessage(LibAppR.string.album_report_exit_tips)
+                .setPositiveListener(LibAppR.string.app_ok){
                     EventBus.getDefault().post(ReportCreateEvent())
                     finish()
                 }
-                .setCancelListener(R.string.app_cancel){
+                .setCancelListener(LibAppR.string.app_cancel){
                 }
                 .setCanceled(false)
                 .create().show()
@@ -155,7 +156,7 @@ class ReportPreviewSecondActivity: BaseViewModelActivity<UpReportViewModel>(), V
 
                 if (LMS.getInstance().isLogin) {
                     if (!NetworkUtils.isConnected()) {
-                        TToast.shortToast(this, R.string.setting_http_error)
+                        TToast.shortToast(this, LibAppR.string.setting_http_error)
                         return
                     }
                     showCameraLoading()
@@ -185,7 +186,7 @@ class ReportPreviewSecondActivity: BaseViewModelActivity<UpReportViewModel>(), V
                 pdfFilePath = PDFHelp.savePdfFileByListView(name?:System.currentTimeMillis().toString(),
                     binding.scrollView, getPrintViewList(),binding.watermarkView)
                 lifecycleScope.launch {
-                    binding.tvToPdf.text = getString(R.string.battery_share)
+                    binding.tvToPdf.text = getString(LibAppR.string.battery_share)
                     dismissCameraLoading()
                     actionShare()
                 }
@@ -201,7 +202,7 @@ class ReportPreviewSecondActivity: BaseViewModelActivity<UpReportViewModel>(), V
         shareIntent.action = Intent.ACTION_SEND
         shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
         shareIntent.type = "application/pdf"
-        startActivity(Intent.createChooser(shareIntent, getString(R.string.battery_share)))
+        startActivity(Intent.createChooser(shareIntent, getString(LibAppR.string.battery_share)))
     }
 
     /**

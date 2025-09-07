@@ -29,6 +29,8 @@ import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.dialog.TipDialog
 
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
+import com.csl.irCamera.libui.R as LibUiR
 import com.topdon.lib.core.dialog.ConfirmSelectDialog
 import com.topdon.lib.core.bean.event.GalleryDelEvent
 import com.topdon.lms.sdk.weiget.TToast
@@ -78,9 +80,9 @@ class IRGalleryDetail04Activity : BaseActivity() {
         binding.clBottom.isVisible = isRemote //查看远端时底部才有3个按钮
 
         if (!isRemote) {
-            binding.titleView.setRightDrawable(R.drawable.ic_toolbar_info_svg)
-            binding.titleView.setRight2Drawable(R.drawable.ic_toolbar_share_svg)
-            binding.titleView.setRight3Drawable(R.drawable.ic_toolbar_delete_svg)
+            binding.titleView.setRightDrawable(LibUiR.drawable.ic_toolbar_info_svg)
+            binding.titleView.setRight2Drawable(LibUiR.drawable.ic_toolbar_share_svg)
+            binding.titleView.setRight3Drawable(LibUiR.drawable.ic_toolbar_delete_svg)
             binding.titleView.setRightClickListener { actionInfo() }
             binding.titleView.setRight2ClickListener { actionShare() }
             binding.titleView.setRight3ClickListener { actionDelete() }
@@ -132,15 +134,15 @@ class IRGalleryDetail04Activity : BaseActivity() {
             val sizeStr = FileTools.getFileSize(data.path)
 
             val str = StringBuilder()
-            str.append(getString(R.string.detail_date)).append("\n")
+            str.append(getString(LibAppR.string.detail_date)).append("\n")
             str.append(TimeTool.showDateType(data.timeMillis)).append("\n\n")
-            str.append(getString(R.string.detail_info)).append("\n")
-            str.append("${getString(R.string.detail_size)}: ").append(whStr).append("\n")
-            str.append("${getString(R.string.detail_len)}: ").append(sizeStr).append("\n")
-            str.append("${getString(R.string.detail_path)}: ").append(data.path).append("\n")
+            str.append(getString(LibAppR.string.detail_info)).append("\n")
+            str.append("${getString(LibAppR.string.detail_size)}: ").append(whStr).append("\n")
+            str.append("${getString(LibAppR.string.detail_len)}: ").append(sizeStr).append("\n")
+            str.append("${getString(LibAppR.string.detail_path)}: ").append(data.path).append("\n")
             TipDialog.Builder(this).setMessage(str.toString()).setCanceled(true).create().show()
         } catch (e: Exception) {
-            ToastTools.showShort(R.string.status_error_load_fail)
+            ToastTools.showShort(LibAppR.string.status_error_load_fail)
         }
     }
 
@@ -151,13 +153,13 @@ class IRGalleryDetail04Activity : BaseActivity() {
         shareIntent.action = Intent.ACTION_SEND
         shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
         shareIntent.type = "image/jpeg"
-        startActivity(Intent.createChooser(shareIntent, getString(R.string.battery_share)))
+        startActivity(Intent.createChooser(shareIntent, getString(LibAppR.string.battery_share)))
     }
 
     private fun actionDelete() {
         ConfirmSelectDialog(this).run {
-            setTitleRes(R.string.tip_delete)
-            setMessageRes(R.string.also_del_from_phone_album)
+            setTitleRes(LibAppR.string.tip_delete)
+            setMessageRes(LibAppR.string.also_del_from_phone_album)
             setShowMessage(isRemote && dataList[position].hasDownload)
             onConfirmClickListener = {
                 deleteFile(it)
@@ -180,7 +182,7 @@ class IRGalleryDetail04Activity : BaseActivity() {
                     }
 
                     dismissCameraLoading()
-                    ToastTools.showShort(R.string.test_results_delete_success)
+                    ToastTools.showShort(LibAppR.string.test_results_delete_success)
                     EventBus.getDefault().post(GalleryDelEvent())
                     if (dataList.size == 1) {
                         finish()
@@ -193,7 +195,7 @@ class IRGalleryDetail04Activity : BaseActivity() {
                     }
                 } else {
                     dismissCameraLoading()
-                    TToast.shortToast(this@IRGalleryDetail04Activity, R.string.test_results_delete_failed)
+                    TToast.shortToast(this@IRGalleryDetail04Activity, LibAppR.string.test_results_delete_failed)
                 }
             }
         } else {
@@ -226,7 +228,7 @@ class IRGalleryDetail04Activity : BaseActivity() {
         Glide.with(this).downloadOnly().load(data.path).addListener(object : RequestListener<File> {
                 override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<File>?, isFirstResource: Boolean): Boolean {
                     dismissCameraLoading()
-                    ToastTools.showShort(R.string.liveData_save_error)
+                    ToastTools.showShort(LibAppR.string.liveData_save_error)
                     window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
                     return false
                 }
@@ -238,7 +240,7 @@ class IRGalleryDetail04Activity : BaseActivity() {
                     dismissCameraLoading()
                     FileUtils.copy(resource, File(FileConfig.ts004GalleryDir, data.name))
                     MediaScannerConnection.scanFile(this@IRGalleryDetail04Activity, arrayOf(FileConfig.ts004GalleryDir), null, null)
-                    ToastTools.showShort(R.string.tip_save_success)
+                    ToastTools.showShort(LibAppR.string.tip_save_success)
                     data.hasDownload = true
                     binding.ivDownload.isSelected = dataList[position].hasDownload
                     if (isToShare) {

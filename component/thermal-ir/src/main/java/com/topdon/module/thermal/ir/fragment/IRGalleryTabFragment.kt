@@ -11,6 +11,7 @@ import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.repository.GalleryRepository.DirType
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.event.GalleryDirChangeEvent
 import com.topdon.module.thermal.ir.popup.GalleryChangePopup
 import com.topdon.module.thermal.ir.popup.OptionPickPopup
@@ -60,14 +61,14 @@ class IRGalleryTabFragment : BaseFragment() {
         canSwitchDir = arguments?.getBoolean(ExtraKeyConfig.CAN_SWITCH_DIR, false) ?: false
         currentDirType = DirType.LINE // TC001 only - no other device types supported
 
-        binding.tvTitleDir.text = getString(R.string.tc_has_line_device) // TC001 only
+        binding.tvTitleDir.text = getString(LibAppR.string.tc_has_line_device) // TC001 only
         binding.tvTitleDir.isVisible = canSwitchDir
         binding.tvTitleDir.setOnClickListener {
             // Directory switching disabled for TC001-only support
         }
 
-        binding.titleView.setTitleText(if (canSwitchDir) "" else getString(R.string.app_gallery))
-        binding.titleView.setLeftDrawable(if (hasBackIcon) R.drawable.ic_back_white_svg else 0)
+        binding.titleView.setTitleText(if (canSwitchDir) "" else getString(LibAppR.string.app_gallery))
+        binding.titleView.setLeftDrawable(if (hasBackIcon) LibAppR.drawable.ic_back_white_svg else 0)
         binding.titleView.setLeftClickListener {
             if (viewModel.isEditModeLD.value == true) {//当前为编辑状态，退出编辑
                 viewModel.isEditModeLD.value = false
@@ -77,7 +78,7 @@ class IRGalleryTabFragment : BaseFragment() {
                 }
             }
         }
-        binding.titleView.setRightDrawable(R.drawable.ic_toolbar_check_svg)
+        binding.titleView.setRightDrawable(LibAppR.drawable.ic_toolbar_check_svg)
         binding.titleView.setRightClickListener {
             if (viewModel.isEditModeLD.value == true) {//当前为编辑状态，全选
                 viewModel.selectAllIndex.value = binding.viewPager2.currentItem
@@ -89,33 +90,33 @@ class IRGalleryTabFragment : BaseFragment() {
         viewPagerAdapter = ViewPagerAdapter(this)
         binding.viewPager2.adapter = viewPagerAdapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager2) { tab, position ->
-            tab.setText(if (position == 0) R.string.album_menu_Photos else R.string.app_video)
+            tab.setText(if (position == 0) LibAppR.string.album_menu_Photos else LibAppR.string.app_video)
         }.attach()
 
         viewModel.isEditModeLD.observe(viewLifecycleOwner) { isEditMode ->
             if (isEditMode) {
-                binding.titleView.setLeftDrawable(R.drawable.svg_x_cc)
+                binding.titleView.setLeftDrawable(LibAppR.drawable.svg_x_cc)
             } else {
-                binding.titleView.setLeftDrawable(if (hasBackIcon) R.drawable.ic_back_white_svg else 0)
+                binding.titleView.setLeftDrawable(if (hasBackIcon) LibAppR.drawable.ic_back_white_svg else 0)
             }
-            binding.titleView.setRightDrawable(if (isEditMode) 0 else R.drawable.ic_toolbar_check_svg)
-            binding.titleView.setRightText(if (isEditMode) getString(R.string.report_select_all) else "")
+            binding.titleView.setRightDrawable(if (isEditMode) 0 else LibAppR.drawable.ic_toolbar_check_svg)
+            binding.titleView.setRightText(if (isEditMode) getString(LibAppR.string.report_select_all) else "")
             binding.tabLayout.isVisible = !isEditMode
             binding.viewPager2.isUserInputEnabled = !isEditMode
             if (isEditMode) {
-                binding.titleView.setTitleText(getString(R.string.chosen_item, viewModel.selectSizeLD.value))
+                binding.titleView.setTitleText(getString(LibAppR.string.chosen_item, viewModel.selectSizeLD.value))
                 binding.tvTitleDir.isVisible = false
             } else {
-                binding.titleView.setTitleText(if (canSwitchDir) "" else getString(R.string.app_gallery))
+                binding.titleView.setTitleText(if (canSwitchDir) "" else getString(LibAppR.string.app_gallery))
                 binding.tvTitleDir.isVisible = canSwitchDir
             }
         }
         viewModel.selectSizeLD.observe(viewLifecycleOwner) {
             if (viewModel.isEditModeLD.value == true) {
-                binding.titleView.setTitleText(getString(R.string.chosen_item, it))
+                binding.titleView.setTitleText(getString(LibAppR.string.chosen_item, it))
                 binding.tvTitleDir.isVisible = false
             } else {
-                binding.titleView.setTitleText(if (canSwitchDir) "" else getString(R.string.app_gallery))
+                binding.titleView.setTitleText(if (canSwitchDir) "" else getString(LibAppR.string.app_gallery))
                 binding.tvTitleDir.isVisible = canSwitchDir
             }
         }

@@ -32,6 +32,7 @@ import com.topdon.lib.core.tools.NumberTools
 import com.topdon.module.thermal.ir.activity.BaseIRActivity
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.thermal.adapter.SettingCheckAdapter
 import com.topdon.module.thermal.ir.thermal.adapter.SettingTimeAdapter
 import com.topdon.module.thermal.ir.thermal.chart.MyValueFormatter
@@ -78,7 +79,7 @@ class MonitorChartActivity : BaseIRActivity(), View.OnClickListener, OnChartValu
     }
 
     override fun initView() {
-        // setTitleText(R.string.main_thermal_motion) // Commented out - method not available in BaseIRActivity
+        // setTitleText(LibAppR.string.main_thermal_motion) // Commented out - method not available in BaseIRActivity
         selectType = intent.getIntExtra("type", 3)
         selectIndex = intent.getIntegerArrayListExtra("select")!!
         Log.w("123", "selectType:$selectType")
@@ -284,7 +285,7 @@ class MonitorChartActivity : BaseIRActivity(), View.OnClickListener, OnChartValu
         chart.isDragEnabled = true
         chart.setDrawGridBackground(false)
         chart.description = null//图标描述文本
-        chart.setBackgroundResource(R.color.chart_bg)
+        chart.setBackgroundResource(LibAppR.color.chart_bg)
         chart.setScaleEnabled(true)//缩放
         chart.setPinchZoom(false)//禁用后，可以分别在x轴和y轴上进行缩放
         chart.isDoubleTapToZoomEnabled = false//双击不可缩放
@@ -295,7 +296,7 @@ class MonitorChartActivity : BaseIRActivity(), View.OnClickListener, OnChartValu
             SizeUtils.dp2px(8f).toFloat(),
             SizeUtils.dp2px(4f).toFloat()
         )//图表区域偏移
-        chart.setNoDataText(getString(R.string.lms_http_code998))
+        chart.setNoDataText(getString(LibAppR.string.lms_http_code998))
         chart.setNoDataTextColor(textColor)
         val mv = MyMarkerView(this, R.layout.marker_lay)
         mv.chartView = chart
@@ -462,12 +463,12 @@ class MonitorChartActivity : BaseIRActivity(), View.OnClickListener, OnChartValu
         }
     }
 
-    private val fillColor by lazy { ContextCompat.getDrawable(this, R.drawable.bg_chart_fill2) }
-    private val lineRed by lazy { ContextCompat.getColor(this, R.color.chart_line_max) }
-    private val lineBlue by lazy { ContextCompat.getColor(this, R.color.chart_line_min) }
-    private val lineGreen by lazy { ContextCompat.getColor(this, R.color.chart_line_center) }
-    private val whiteColors by lazy { ContextCompat.getColor(this, R.color.circle_white) }
-    private val textColor by lazy { ContextCompat.getColor(this, R.color.chart_text) }
+    private val fillColor by lazy { ContextCompat.getDrawable(this, LibAppR.drawable.bg_chart_fill2) }
+    private val lineRed by lazy { ContextCompat.getColor(this, LibAppR.color.chart_line_max) }
+    private val lineBlue by lazy { ContextCompat.getColor(this, LibAppR.color.chart_line_min) }
+    private val lineGreen by lazy { ContextCompat.getColor(this, LibAppR.color.chart_line_center) }
+    private val whiteColors by lazy { ContextCompat.getColor(this, LibAppR.color.circle_white) }
+    private val textColor by lazy { ContextCompat.getColor(this, LibAppR.color.chart_text) }
 
     /**
      * 曲线样式

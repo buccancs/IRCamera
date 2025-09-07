@@ -11,6 +11,7 @@ import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.databinding.DialogIrConfigInputBinding
 import java.lang.NumberFormatException
 
@@ -19,7 +20,7 @@ import java.lang.NumberFormatException
  *
  * Created by LCG on 2024/10/24.
  */
-class IRConfigInputDialog(context: Context, val type: Type, val isTC007: Boolean) : Dialog(context, R.style.TextInputDialog) {
+class IRConfigInputDialog(context: Context, val type: Type, val isTC007: Boolean) : Dialog(context, LibAppR.style.TextInputDialog) {
 
     private lateinit var binding: DialogIrConfigInputBinding
     private var value: Float? = null
@@ -52,17 +53,17 @@ class IRConfigInputDialog(context: Context, val type: Type, val isTC007: Boolean
 
         when (type) {
             Type.TEMP -> {
-                binding.tvTitle.text = "${context.getString(R.string.thermal_config_environment)} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
+                binding.tvTitle.text = "${context.getString(LibAppR.string.thermal_config_environment)} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
                 binding.tvUnit.text = UnitTools.showUnit()
                 binding.tvUnit.isVisible = true
             }
             Type.DIS -> {
-                binding.tvTitle.text = "${context.getString(R.string.thermal_config_distance)} (0.2~${if (isTC007) 4 else 5}m)"
+                binding.tvTitle.text = "${context.getString(LibAppR.string.thermal_config_distance)} (0.2~${if (isTC007) 4 else 5}m)"
                 binding.tvUnit.text = "m"
                 binding.tvUnit.isVisible = true
             }
             Type.EM -> {
-                binding.tvTitle.text = "${context.getString(R.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
+                binding.tvTitle.text = "${context.getString(LibAppR.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
                 binding.tvUnit.text = ""
                 binding.tvUnit.isVisible = false
             }
@@ -84,10 +85,10 @@ class IRConfigInputDialog(context: Context, val type: Type, val isTC007: Boolean
                     dismiss()
                     onConfirmListener?.invoke(input)
                 } else {
-                    TToast.shortToast(context, R.string.tip_input_format)
+                    TToast.shortToast(context, LibAppR.string.tip_input_format)
                 }
             } catch (e: NumberFormatException) {
-                TToast.shortToast(context, R.string.tip_input_format)
+                TToast.shortToast(context, LibAppR.string.tip_input_format)
             }
         }
 

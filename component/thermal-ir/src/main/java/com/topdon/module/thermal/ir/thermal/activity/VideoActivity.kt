@@ -11,6 +11,7 @@ import com.blankj.utilcode.util.BarUtils
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.databinding.ActivityVideoBinding
 import java.io.File
 
@@ -32,8 +33,8 @@ class VideoActivity : BaseActivity() {
         binding = ActivityVideoBinding.inflate(layoutInflater)
         setContentView(binding.root)
         
-        // setTitleText(R.string.video) // Commented out - method not available in BaseIRActivity
-        BarUtils.setNavBarColor(this, ContextCompat.getColor(this, R.color.black))
+        // setTitleText(LibAppR.string.video) // Commented out - method not available in BaseIRActivity
+        BarUtils.setNavBarColor(this, ContextCompat.getColor(this, LibAppR.color.black))
         if (intent.hasExtra(KEY_PATH)) {
             videoPath = intent.getStringExtra(KEY_PATH)!!
         }

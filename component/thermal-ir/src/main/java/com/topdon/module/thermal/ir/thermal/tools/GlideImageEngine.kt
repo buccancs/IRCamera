@@ -13,6 +13,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.maning.imagebrowserlibrary.ImageEngine
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 
 
 class GlideImageEngine : ImageEngine {
@@ -30,8 +31,8 @@ class GlideImageEngine : ImageEngine {
             .load(url)
             .apply(option)
             .fitCenter()
-            .placeholder(R.drawable.ic_default_head_svg)
-            .error(R.drawable.ic_default_head_svg)
+            .placeholder(LibAppR.drawable.ic_default_head_svg)
+            .error(LibAppR.drawable.ic_default_head_svg)
             .listener(BitmapRequestListener())
             .into(imageView)
     }

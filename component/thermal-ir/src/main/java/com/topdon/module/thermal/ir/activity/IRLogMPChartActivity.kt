@@ -25,6 +25,7 @@ import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.libcom.ExcelUtil
 import com.topdon.lms.sdk.BuildConfig
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.databinding.ActivityIrLogMpChartBinding
 import com.topdon.module.thermal.ir.viewmodel.IRMonitorViewModel
 import kotlinx.coroutines.Dispatchers
@@ -69,7 +70,7 @@ class IRLogMPChartActivity : BaseActivity() {
             dismissLoadingDialog()
 
             val isPoint = it?.isNotEmpty() == true && it.first().type == "point"
-            binding.monitorCurrentVol.text = getString(if (isPoint) R.string.chart_temperature else R.string.chart_temperature_high)
+            binding.monitorCurrentVol.text = getString(if (isPoint) LibAppR.string.chart_temperature else LibAppR.string.chart_temperature_high)
             binding.monitorRealVol.visibility = if (isPoint) View.GONE else View.VISIBLE
             binding.monitorRealImg.visibility = if (isPoint) View.GONE else View.VISIBLE
 
@@ -82,11 +83,11 @@ class IRLogMPChartActivity : BaseActivity() {
 
         binding.btnEx?.setOnClickListener {
             TipDialog.Builder(this)
-                .setMessage(R.string.tip_album_temp_exportfile)
-                .setPositiveListener(R.string.app_confirm) {
+                .setMessage(LibAppR.string.tip_album_temp_exportfile)
+                .setPositiveListener(LibAppR.string.app_confirm) {
                     val tempData = viewModel.detailListLD.value
                     if (tempData?.isEmpty() == true) {
-                        ToastTools.showShort(R.string.http_code998)
+                        ToastTools.showShort(LibAppR.string.http_code_else)
                     } else {
                         XXPermissions.with(this)
                             .permission(
@@ -108,18 +109,18 @@ class IRLogMPChartActivity : BaseActivity() {
                                             }
                                             dismissLoadingDialog()
                                             if (filePath.isNullOrEmpty()) {
-                                                ToastTools.showShort(R.string.liveData_save_error)
+                                                ToastTools.showShort(LibAppR.string.liveData_save_error)
                                             } else {
                                                 val uri = FileTools.getUri(File(filePath))
                                                 val shareIntent = Intent()
                                                 shareIntent.action = Intent.ACTION_SEND
                                                 shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
                                                 shareIntent.type = "application/xlsx"
-                                                startActivity(Intent.createChooser(shareIntent, getString(R.string.battery_share)))
+                                                startActivity(Intent.createChooser(shareIntent, getString(LibAppR.string.battery_share)))
                                             }
                                         }
                                     } else {
-                                        ToastTools.showShort(R.string.scan_ble_tip_authorize)
+                                        ToastTools.showShort(LibAppR.string.scan_ble_tip_authorize)
                                     }
                                 }
 
@@ -130,16 +131,16 @@ class IRLogMPChartActivity : BaseActivity() {
                                     if (doNotAskAgain) {
                                         //拒绝授权并且不再提醒
                                         if (BaseApplication.instance.isDomestic()){
-                                            ToastUtils.showShort(getString(R.string.app_storage_content))
+                                            ToastUtils.showShort(getString(LibAppR.string.app_storage_content))
                                             return
                                         }
                                         TipDialog.Builder(this@IRLogMPChartActivity)
-                                            .setTitleMessage(getString(R.string.app_tip))
-                                            .setMessage(getString(R.string.app_storage_content))
-                                            .setPositiveListener(R.string.app_open) {
+                                            .setTitleMessage(getString(LibAppR.string.app_tip))
+                                            .setMessage(getString(LibAppR.string.app_storage_content))
+                                            .setPositiveListener(LibAppR.string.app_open) {
                                                 AppUtils.launchAppDetailsSettings()
                                             }
-                                            .setCancelListener(R.string.app_cancel) {
+                                            .setCancelListener(LibAppR.string.app_cancel) {
                                             }
                                             .setCanceled(true)
                                             .create().show()
@@ -148,12 +149,12 @@ class IRLogMPChartActivity : BaseActivity() {
 
                             })
                     }
-                }.setCancelListener(R.string.app_cancel){
+                }.setCancelListener(LibAppR.string.app_cancel){
                 }
                 .setCanceled(true)
                 .create().show()
         }
-        binding.tvSavePath?.text = getString(R.string.temp_export_path) + ": " + FileConfig.excelDir
+        binding.tvSavePath?.text = getString(LibAppR.string.temp_export_path) + ": " + FileConfig.excelDir
         viewModel.queryDetail(startTime)
 
     }

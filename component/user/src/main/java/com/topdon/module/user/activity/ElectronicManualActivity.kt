@@ -11,6 +11,7 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.utils.Constants
 import com.topdon.module.user.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.user.databinding.ActivityElectronicManualBinding
 import com.topdon.module.user.databinding.ItemElectronicManualBinding
 
@@ -30,7 +31,7 @@ class ElectronicManualActivity : BaseActivity() {
         
         val productType = intent.getIntExtra(Constants.SETTING_TYPE, 0) //0-电子说明书 1-FAQ
 
-        binding.titleView.setTitleText(if (productType == Constants.SETTING_BOOK) R.string.electronic_manual else R.string.app_question)
+        binding.titleView.setTitleText(if (productType == Constants.SETTING_BOOK) LibAppR.string.electronic_manual else LibAppR.string.app_question)
 
         val adapter = MyAdapter(productType == 1)
         adapter.onPickListener = { isTS001 ->

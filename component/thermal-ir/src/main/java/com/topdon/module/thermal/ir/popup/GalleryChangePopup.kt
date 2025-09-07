@@ -8,6 +8,7 @@ import android.view.View.MeasureSpec
 import android.widget.PopupWindow
 import com.blankj.utilcode.util.SizeUtils
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.databinding.PopupGalleryChangeBinding
 
 /**
@@ -39,7 +40,7 @@ class GalleryChangePopup(private val context: Context) : PopupWindow() {
 
         binding.tvLine.setOnClickListener {
             dismiss()
-            onPickListener?.invoke(0, context.getString(R.string.tc_has_line_device))
+            onPickListener?.invoke(0, context.getString(LibAppR.string.tc_has_line_device))
         }
         binding.tvTs004.setOnClickListener {
             dismiss()

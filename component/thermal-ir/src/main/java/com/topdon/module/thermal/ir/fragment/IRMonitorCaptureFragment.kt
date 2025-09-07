@@ -10,6 +10,7 @@ import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.activity.IRMonitorActivity
 import com.topdon.module.thermal.ir.databinding.FragmentIrMonitorCaptureBinding
 
@@ -48,7 +49,7 @@ class IRMonitorCaptureFragment : BaseFragment() {
                     startActivity(Intent(requireContext(), IRMonitorActivity::class.java))
                 }
             } else {
-                ToastTools.showShort(R.string.device_connect_tip)
+                ToastTools.showShort(LibAppR.string.device_connect_tip)
             }
         }
 

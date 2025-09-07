@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.widget.ImageView
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 
 /**
  * 魔改 StandardGSYVideoPlayer.

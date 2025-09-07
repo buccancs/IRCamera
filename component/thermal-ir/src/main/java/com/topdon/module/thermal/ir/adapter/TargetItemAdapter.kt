@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.bean.ObserveBean
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.databinding.ItmeTargetModeBinding
 
 class TargetItemAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -28,9 +29,9 @@ class TargetItemAdapter(val context: Context) : RecyclerView.Adapter<RecyclerVie
     }
 
     private val secondBean = arrayListOf(
-        ColorBean(R.drawable.ic_menu_thermal6002, "", ObserveBean.TYPE_TARGET_HORIZONTAL),
-        ColorBean(R.drawable.ic_menu_thermal6001, "", ObserveBean.TYPE_TARGET_VERTICAL),
-        ColorBean(R.drawable.ic_menu_thermal6003, "", ObserveBean.TYPE_TARGET_CIRCLE),
+        ColorBean(LibAppR.drawable.ic_menu_thermal6002, "", ObserveBean.TYPE_TARGET_HORIZONTAL),
+        ColorBean(LibAppR.drawable.ic_menu_thermal6001, "", ObserveBean.TYPE_TARGET_VERTICAL),
+        ColorBean(LibAppR.drawable.ic_menu_thermal6003, "", ObserveBean.TYPE_TARGET_CIRCLE),
     )
 
 
@@ -51,8 +52,8 @@ class TargetItemAdapter(val context: Context) : RecyclerView.Adapter<RecyclerVie
             holder.binding.itemMenuTabText.text = bean.name
             holder.binding.itemMenuTabText.isSelected = bean.code == selected
             holder.binding.itemMenuTabText.setTextColor(
-                if (position == selected) ContextCompat.getColor(context, R.color.white)
-                else ContextCompat.getColor(context, R.color.font_third_color)
+                if (position == selected) ContextCompat.getColor(context, LibAppR.color.white)
+                else ContextCompat.getColor(context, LibAppR.color.font_third_color)
             )
         }
     }

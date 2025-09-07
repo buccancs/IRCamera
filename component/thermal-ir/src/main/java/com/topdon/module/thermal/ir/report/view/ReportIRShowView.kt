@@ -11,6 +11,7 @@ import androidx.core.view.isVisible
 import com.blankj.utilcode.util.SizeUtils
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.report.bean.ReportIRBean
 import com.topdon.module.thermal.ir.report.bean.ReportTempBean
 import com.topdon.module.thermal.ir.databinding.ViewReportIrShowBinding
@@ -68,21 +69,21 @@ class ReportIRShowView: LinearLayout {
         
         tvTitle.isVisible = index == 0
         tvTitle.text = when (type) {
-            TYPE_FULL -> context.getString(R.string.thermal_full_rect)
-            TYPE_POINT -> context.getString(R.string.thermal_point) + "(P)"
-            TYPE_LINE -> context.getString(R.string.thermal_line) + "(L)"
-            else -> context.getString(R.string.thermal_rect) + "(R)"
+            TYPE_FULL -> context.getString(LibAppR.string.thermal_full_rect)
+            TYPE_POINT -> context.getString(LibAppR.string.thermal_point) + "(P)"
+            TYPE_LINE -> context.getString(LibAppR.string.thermal_line) + "(L)"
+            else -> context.getString(LibAppR.string.thermal_rect) + "(R)"
         }
         tvAverageTitle.text = when (type) {
             TYPE_FULL, TYPE_POINT -> "" //全图、点没有平均温
-            TYPE_LINE -> "L${index + 1} " + context.getString(R.string.album_report_mean_temperature)
-            else -> "R${index + 1} " + context.getString(R.string.album_report_mean_temperature)
+            TYPE_LINE -> "L${index + 1} " + context.getString(LibAppR.string.album_report_mean_temperature)
+            else -> "R${index + 1} " + context.getString(LibAppR.string.album_report_mean_temperature)
         }
         tvExplainTitle.text = when (type) {
-            TYPE_FULL -> context.getString(R.string.album_report_comment)
-            TYPE_POINT -> "P${index + 1} " + context.getString(R.string.album_report_comment)
-            TYPE_LINE -> "L${index + 1} " + context.getString(R.string.album_report_comment)
-            else -> "R${index + 1} " + context.getString(R.string.album_report_comment)
+            TYPE_FULL -> context.getString(LibAppR.string.album_report_comment)
+            TYPE_POINT -> "P${index + 1} " + context.getString(LibAppR.string.album_report_comment)
+            TYPE_LINE -> "L${index + 1} " + context.getString(LibAppR.string.album_report_comment)
+            else -> "R${index + 1} " + context.getString(LibAppR.string.album_report_comment)
         }
     }
 
@@ -146,7 +147,7 @@ class ReportIRShowView: LinearLayout {
     fun refreshData(isFirst: Boolean, isLast: Boolean, reportIRBean: ReportIRBean) {
         binding.tvHead.isVisible = isFirst
         binding.viewNotHead.isVisible = !isFirst
-        binding.viewImageBg.setBackgroundResource(if (isFirst) R.drawable.layer_report_ir_show_top_bg else R.drawable.layer_report_ir_show_item_bg)
+        binding.viewImageBg.setBackgroundResource(if (isFirst) LibAppR.drawable.layer_report_ir_show_top_bg else LibAppR.drawable.layer_report_ir_show_item_bg)
         binding.clImage.setPadding(0, if (isFirst) SizeUtils.dp2px(20f) else 0, 0, 0)
 
         refreshItem(binding.clFull.root, reportIRBean.full_graph_data, TYPE_FULL, 0)
@@ -239,7 +240,7 @@ class ReportIRShowView: LinearLayout {
             val clExplain = itemRoot.findViewById<View>(R.id.cl_explain)
             clExplain.setPadding(0, 0, 0, SizeUtils.dp2px(if (isLast) 12f else 20f))
             if (isLast) {
-                clExplain.setBackgroundResource(R.drawable.layer_report_ir_show_bottom_bg)
+                clExplain.setBackgroundResource(LibAppR.drawable.layer_report_ir_show_bottom_bg)
             }
             return
         }
@@ -248,7 +249,7 @@ class ReportIRShowView: LinearLayout {
             val clAverage = itemRoot.findViewById<View>(R.id.cl_average)
             clAverage.setPadding(0, 0, 0, SizeUtils.dp2px(if (isLast) 12f else 20f))
             if (isLast) {
-                clAverage.setBackgroundResource(R.drawable.layer_report_ir_show_bottom_bg)
+                clAverage.setBackgroundResource(LibAppR.drawable.layer_report_ir_show_bottom_bg)
             }
             return
         }
@@ -256,7 +257,7 @@ class ReportIRShowView: LinearLayout {
         val clRange = itemRoot.findViewById<View>(R.id.cl_range)
         clRange.setPadding(0, 0, 0, SizeUtils.dp2px(if (isLast) 12f else 20f))
         if (isLast) {
-            clRange.setBackgroundResource(R.drawable.layer_report_ir_show_bottom_bg)
+            clRange.setBackgroundResource(LibAppR.drawable.layer_report_ir_show_bottom_bg)
         }
     }
 
@@ -276,7 +277,7 @@ class ReportIRShowView: LinearLayout {
         }
 
         val rangeTitle = if (type == TYPE_POINT) {
-            "P${index + 1} " + context.getString(R.string.chart_temperature)
+            "P${index + 1} " + context.getString(LibAppR.string.chart_temperature)
         } else {
             val prefix = when (type) {
                 TYPE_LINE -> "L${index + 1} "
@@ -284,11 +285,11 @@ class ReportIRShowView: LinearLayout {
                 else -> ""
             }
             prefix + if (tempBean.isMinOpen() && tempBean.isMaxOpen()) {
-                context.getString(R.string.chart_temperature_low) + "-" + context.getString(R.string.chart_temperature_high)
+                context.getString(LibAppR.string.chart_temperature_low) + "-" + context.getString(LibAppR.string.chart_temperature_high)
             } else if (tempBean.isMinOpen()) {
-                context.getString(R.string.chart_temperature_low)
+                context.getString(LibAppR.string.chart_temperature_low)
             } else {
-                context.getString(R.string.chart_temperature_high)
+                context.getString(LibAppR.string.chart_temperature_high)
             }
         }
         val rangeValue = if (type == TYPE_POINT) {

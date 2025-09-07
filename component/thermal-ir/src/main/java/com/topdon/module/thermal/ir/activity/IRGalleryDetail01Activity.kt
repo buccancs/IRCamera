@@ -28,6 +28,7 @@ import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.ui.dialog.ProgressDialog
 import com.topdon.libcom.ExcelUtil
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.lib.core.bean.event.GalleryDelEvent
 import com.topdon.lib.core.utils.Constants.IS_REPORT_FIRST
 import com.topdon.module.thermal.ir.event.ImageGalleryEvent
@@ -112,14 +113,14 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
                 }
                 progressDialog?.dismiss()
                 if (filePath.isNullOrEmpty()) {
-                    ToastTools.showShort(R.string.liveData_save_error)
+                    ToastTools.showShort(LibAppR.string.liveData_save_error)
                 } else {
                     val uri = FileTools.getUri(File(filePath))
                     val shareIntent = Intent()
                     shareIntent.action = Intent.ACTION_SEND
                     shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
                     shareIntent.type = "application/xlsx"
-                    startActivity(Intent.createChooser(shareIntent, getString(R.string.battery_share)))
+                    startActivity(Intent.createChooser(shareIntent, getString(LibAppR.string.battery_share)))
                 }
             }
         }
@@ -160,15 +161,15 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
             val sizeStr = FileTools.getFileSize(data.path)
 
             val str = StringBuilder()
-            str.append(getString(R.string.detail_date)).append("\n")
+            str.append(getString(LibAppR.string.detail_date)).append("\n")
             str.append(TimeTool.showDateType(data.timeMillis)).append("\n\n")
-            str.append(getString(R.string.detail_info)).append("\n")
-            str.append("${getString(R.string.detail_size)}: ").append(whStr).append("\n")
-            str.append("${getString(R.string.detail_len)}: ").append(sizeStr).append("\n")
-            str.append("${getString(R.string.detail_path)}: ").append(data.path).append("\n")
+            str.append(getString(LibAppR.string.detail_info)).append("\n")
+            str.append("${getString(LibAppR.string.detail_size)}: ").append(whStr).append("\n")
+            str.append("${getString(LibAppR.string.detail_len)}: ").append(sizeStr).append("\n")
+            str.append("${getString(LibAppR.string.detail_path)}: ").append(data.path).append("\n")
             TipDialog.Builder(this).setMessage(str.toString()).setCanceled(true).create().show()
         } catch (e: Exception) {
-            ToastTools.showShort(R.string.status_error_load_fail)
+            ToastTools.showShort(LibAppR.string.status_error_load_fail)
         }
     }
 
@@ -179,13 +180,13 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
         shareIntent.action = Intent.ACTION_SEND
         shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
         shareIntent.type = "image/jpeg"
-        startActivity(Intent.createChooser(shareIntent, getString(R.string.battery_share)))
+        startActivity(Intent.createChooser(shareIntent, getString(LibAppR.string.battery_share)))
     }
 
     private fun deleteImage() {
         TipDialog.Builder(this)
-            .setMessage(getString(R.string.tip_delete))
-            .setPositiveListener(R.string.app_confirm) {
+            .setMessage(getString(LibAppR.string.tip_delete))
+            .setPositiveListener(LibAppR.string.app_confirm) {
                 val data = dataList[position]
                 if (dataList.size == 1) {
                     File(data.path).delete()
@@ -200,7 +201,7 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
                 }
                 EventBus.getDefault().post(GalleryDelEvent())
             }
-            .setCancelListener(R.string.app_cancel)
+            .setCancelListener(LibAppR.string.app_cancel)
             .create()
             .show()
     }
@@ -220,7 +221,7 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
         excelName = dataList[position].name.substringBeforeLast(".")
         val irPath = "${FileConfig.lineIrGalleryDir}/${excelName}.ir"
         if (!File(irPath).exists()) {
-            ToastTools.showShort(getString(R.string.album_report_on_edit))
+            ToastTools.showShort(getString(LibAppR.string.album_report_on_edit))
             progressDialog?.dismiss()
             return
         }
@@ -241,7 +242,7 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
                 val fileName = data.name.substringBeforeLast(".")
                 val irPath = "${FileConfig.lineIrGalleryDir}/${fileName}.ir"
                 if (!File(irPath).exists()) {
-                    ToastTools.showShort(R.string.album_report_on_edit)
+                    ToastTools.showShort(LibAppR.string.album_report_on_edit)
                     return
                 }
                 var tempHigh = 0f
@@ -281,9 +282,9 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
             }
 
             binding.llIrEx -> {
-                TipDialog.Builder(this).setMessage(R.string.tip_album_temp_exportfile).setPositiveListener(R.string.app_confirm) {
+                TipDialog.Builder(this).setMessage(LibAppR.string.tip_album_temp_exportfile).setPositiveListener(LibAppR.string.app_confirm) {
                         actionExcel()
-                    }.setCancelListener(R.string.app_cancel) {}.setCanceled(true).create().show()
+                    }.setCancelListener(LibAppR.string.app_cancel) {}.setCanceled(true).create().show()
             }
         }
     }
@@ -293,7 +294,7 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
         val fileName = data.name.substringBeforeLast(".")
         val irPath = "${FileConfig.lineIrGalleryDir}/${fileName}.ir"
         if (!File(irPath).exists()) {
-            ToastTools.showShort(R.string.album_report_on_edit)
+            ToastTools.showShort(LibAppR.string.album_report_on_edit)
             return
         }
         ARouter.getInstance().build(RouterConfig.IR_GALLERY_EDIT)

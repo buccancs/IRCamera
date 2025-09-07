@@ -24,6 +24,7 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.activity.BaseIRActivity
 import com.topdon.module.thermal.ir.thermal.adapter.SettingTimeAdapter
 import com.topdon.module.thermal.ir.thermal.chart.MyValueFormatter
@@ -110,7 +111,7 @@ class LogMPChartActivity : BaseIRActivity(), OnChartValueSelectedListener {
         chart.isDragEnabled = true
         chart.setDrawGridBackground(false)
         chart.description = null//图标描述文本
-        chart.setBackgroundResource(R.color.chart_bg)
+        chart.setBackgroundResource(LibAppR.color.chart_bg)
         chart.setScaleEnabled(true)//缩放
         chart.setPinchZoom(false)//禁用后，可以分别在x轴和y轴上进行缩放
         chart.isDoubleTapToZoomEnabled = false//双击不可缩放
@@ -121,7 +122,7 @@ class LogMPChartActivity : BaseIRActivity(), OnChartValueSelectedListener {
             SizeUtils.dp2px(8f).toFloat(),
             SizeUtils.dp2px(4f).toFloat()
         )//图表区域偏移
-        chart.setNoDataText(getString(R.string.lms_http_code998))
+        chart.setNoDataText(getString(LibAppR.string.lms_http_code998))
         chart.setNoDataTextColor(textColor)
         val mv = MyMarkerView(this, R.layout.marker_lay)
         mv.chartView = chart
@@ -154,16 +155,16 @@ class LogMPChartActivity : BaseIRActivity(), OnChartValueSelectedListener {
     }
 
     private val bgChartColors = intArrayOf(
-        R.drawable.bg_chart_fill,
-        R.drawable.bg_chart_fill2,
-        R.drawable.bg_chart_fill3
+        LibAppR.drawable.bg_chart_fill,
+        LibAppR.drawable.bg_chart_fill2,
+        LibAppR.drawable.bg_chart_fill3
     )
     private val lineChartColors = intArrayOf(
-        R.color.chart_line_max,
-        R.color.chart_line_min,
-        R.color.chart_line_center
+        LibAppR.color.chart_line_max,
+        LibAppR.color.chart_line_min,
+        LibAppR.color.chart_line_center
     )
-    private val textColor by lazy { ContextCompat.getColor(this, R.color.chart_text) }
+    private val textColor by lazy { ContextCompat.getColor(this, LibAppR.color.chart_text) }
 
     /**
      * 曲线样式
@@ -176,14 +177,14 @@ class LogMPChartActivity : BaseIRActivity(), OnChartValueSelectedListener {
         set.fillDrawable = ContextCompat.getDrawable(this, bgChartColors[index])//设置填充颜色渐变
         set.axisDependency = YAxis.AxisDependency.LEFT
         set.color = ContextCompat.getColor(this, lineChartColors[index])//曲线颜色
-        set.setCircleColor(ContextCompat.getColor(this, R.color.white))//坐标颜色
-//        set.fillColor = ContextCompat.getColor(this, R.color.purple_500)
-//        set.highLightColor = ContextCompat.getColor(this, R.color.white)
+        set.setCircleColor(ContextCompat.getColor(this, LibAppR.color.white))//坐标颜色
+//        set.fillColor = ContextCompat.getColor(this, LibAppR.color.purple_500)
+//        set.highLightColor = ContextCompat.getColor(this, LibAppR.color.white)
         set.valueTextColor = Color.WHITE
         set.lineWidth = 2f
         set.circleRadius = 1f//不显示坐标点
         set.setCircleColor(ContextCompat.getColor(this, lineChartColors[index]))//坐标颜色(隐藏处理)
-//        set.setCircleColor(ContextCompat.getColor(this, R.color.white))//坐标颜色(隐藏处理)
+//        set.setCircleColor(ContextCompat.getColor(this, LibAppR.color.white))//坐标颜色(隐藏处理)
         set.fillAlpha = 200
         set.valueTextSize = 10f
         set.setDrawValues(false)//设置是否显示坐标值文本

@@ -34,6 +34,7 @@ import com.topdon.lib.ui.fence.FencePointView
 import com.topdon.module.thermal.ir.databinding.FragmentThermalBinding
 import com.topdon.lib.ui.fence.FenceView
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.thermal.base.BaseThermalFragment
 import com.topdon.module.thermal.ir.thermal.fragment.event.ThermalActionEvent
 import com.topdon.module.thermal.ir.thermal.tools.Fence
@@ -368,12 +369,12 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
     private fun addLimit() {
         ThermalInputDialog.Builder(requireContext())
             .setMessage("请设置温度限值")
-            .setPositiveListener(R.string.app_confirm) { up, down, _, _ ->
+            .setPositiveListener(LibAppR.string.app_confirm) { up, down, _, _ ->
                 ToastTools.showShort("设置上限:$up, 下限:$down")
                 upValue = up
                 downValue = down
             }
-            .setCancelListener(R.string.app_cancel)
+            .setCancelListener(LibAppR.string.app_cancel)
             .create().show()
     }
 
@@ -614,9 +615,9 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
         mIrSurfaceView!!.setOpenLut()
         val saturation = mIrSurfaceView?.getSaturationValue() ?: 0
         SeekDialog.Builder(requireContext())
-            .setMessage(R.string.thermal_enhance)
+            .setMessage(LibAppR.string.thermal_enhance)
             .setSaturation(saturation)
-            .setPositiveListener(R.string.app_confirm) {
+            .setPositiveListener(LibAppR.string.app_confirm) {
                 mIrSurfaceView?.setSaturationValue(it)//设置对比度
             }
             .setListener {
@@ -631,9 +632,9 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
         if (!XXPermissions.isGranted(requireContext(), Manifest.permission.CAMERA)) {
             if (BaseApplication.instance.isDomestic()) {
                 TipDialog.Builder(requireContext())
-                    .setMessage(getString(R.string.permission_request_camera))
-                    .setCancelListener(R.string.app_cancel)
-                    .setPositiveListener(R.string.app_confirm) {
+                    .setMessage(getString(LibAppR.string.permission_request_camera))
+                    .setCancelListener(LibAppR.string.app_cancel)
+                    .setPositiveListener(LibAppR.string.app_confirm) {
                         camera()
                     }
                     .create().show()

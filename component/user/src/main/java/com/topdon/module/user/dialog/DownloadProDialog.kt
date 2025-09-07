@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.module.user.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.user.databinding.DialogDownloadProBinding
 import java.text.DecimalFormat
 
@@ -15,7 +16,7 @@ import java.text.DecimalFormat
  * 下载进度提示弹框.
  * Created by LCG on 2024/3/5.
  */
-class DownloadProDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
+class DownloadProDialog(context: Context) : Dialog(context, LibAppR.style.InfoDialog) {
 
     private lateinit var binding: DialogDownloadProBinding
 
@@ -40,7 +41,7 @@ class DownloadProDialog(context: Context) : Dialog(context, R.style.InfoDialog) 
      */
     fun refreshProgress(current: Long, total: Long) {
         val progress = (current * 100f / total).toInt()
-        binding.tvSize.text = "${context.getString(R.string.detail_len)}: ${getFileSizeStr(current)}/${getFileSizeStr(total)}"
+        binding.tvSize.text = "${context.getString(LibAppR.string.detail_len)}: ${getFileSizeStr(current)}/${getFileSizeStr(total)}"
         binding.progressBar.progress = progress
         binding.tvProgress.text = "${progress}%"
     }

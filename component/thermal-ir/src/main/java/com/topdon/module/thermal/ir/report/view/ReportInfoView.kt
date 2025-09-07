@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.LinearLayout
 import androidx.core.view.isVisible
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.report.bean.ReportConditionBean
 import com.topdon.module.thermal.ir.report.bean.ReportInfoBean
 import com.topdon.module.thermal.ir.databinding.ViewReportInfoBinding

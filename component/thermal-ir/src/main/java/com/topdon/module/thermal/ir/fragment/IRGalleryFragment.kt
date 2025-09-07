@@ -21,6 +21,7 @@ import com.topdon.lib.core.tools.FileTools.getUri
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.repository.GalleryRepository.DirType
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.adapter.GalleryAdapter
 import com.topdon.lib.core.dialog.ConfirmSelectDialog
 import com.topdon.module.thermal.ir.event.GalleryAddEvent
@@ -77,11 +78,11 @@ class IRGalleryFragment : BaseFragment() {
         binding.clShare.setOnClickListener {
             val selectList = adapter.buildSelectList()
             if (selectList.size == 0) {
-                ToastTools.showShort(getString(R.string.tip_least_select))
+                ToastTools.showShort(getString(LibAppR.string.tip_least_select))
                 return@setOnClickListener
             }
             if (selectList.size > 9) {
-                ToastTools.showShort(getString(R.string.Limite_di_9carte))
+                ToastTools.showShort(getString(LibAppR.string.Limite_di_9carte))
                 return@setOnClickListener
             }
             downloadList(selectList, true)
@@ -92,7 +93,7 @@ class IRGalleryFragment : BaseFragment() {
         binding.clDownload.setOnClickListener {
             val selectList = adapter.buildSelectList()
             if (selectList.size == 0) {
-                ToastTools.showShort(getString(R.string.tip_least_select))
+                ToastTools.showShort(getString(LibAppR.string.tip_least_select))
                 return@setOnClickListener
             }
             downloadList(selectList, false)
@@ -100,7 +101,7 @@ class IRGalleryFragment : BaseFragment() {
 
         viewModel.pageListLD.observe(this) {
             if (it == null) {
-                TToast.shortToast(requireContext(), R.string.operation_failed_tips)
+                TToast.shortToast(requireContext(), LibAppR.string.operation_failed_tips)
             }
             binding.refreshLayout.finishRefresh(it != null)
             binding.refreshLayout.finishLoadMore(it != null)
@@ -112,12 +113,12 @@ class IRGalleryFragment : BaseFragment() {
         viewModel.deleteResultLD.observe(this) {
             dismissLoadingDialog()
             if (it) {
-                TToast.shortToast(requireContext(), R.string.test_results_delete_success)
+                TToast.shortToast(requireContext(), LibAppR.string.test_results_delete_success)
                 tabViewModel.isEditModeLD.value = false
                 MediaScannerConnection.scanFile(requireContext(), arrayOf(FileConfig.lineGalleryDir, FileConfig.ts004GalleryDir), null, null)
                 EventBus.getDefault().post(GalleryDelEvent())
             } else {
-                TToast.shortToast(requireContext(), R.string.test_results_delete_failed)
+                TToast.shortToast(requireContext(), LibAppR.string.test_results_delete_failed)
             }
         }
         tabViewModel.isEditModeLD.observe(this) {
@@ -240,10 +241,10 @@ class IRGalleryFragment : BaseFragment() {
         if (deleteList.size > 0) {
             ConfirmSelectDialog(requireContext()).run {
                 setTitleStr(getString(
-                    R.string.tip_delete_chosen,
+                    LibAppR.string.tip_delete_chosen,
                     deleteList.size
                 ))
-                setMessageRes(R.string.also_del_from_phone_album)
+                setMessageRes(LibAppR.string.also_del_from_phone_album)
                 setShowMessage(false) // TC001 uses local files only
                 onConfirmClickListener = {
                     showLoadingDialog()
@@ -252,7 +253,7 @@ class IRGalleryFragment : BaseFragment() {
                 show()
             }
         } else {
-            ToastTools.showShort(getString(R.string.tip_least_select))
+            ToastTools.showShort(getString(LibAppR.string.tip_least_select))
         }
     }
 
@@ -268,7 +269,7 @@ class IRGalleryFragment : BaseFragment() {
             if (isShare) {
                 shareImage(downloadList)
             } else {
-                ToastTools.showShort(R.string.ts004_download_complete)
+                ToastTools.showShort(LibAppR.string.ts004_download_complete)
             }
             tabViewModel.isEditModeLD.value = false
         } else {
@@ -276,7 +277,7 @@ class IRGalleryFragment : BaseFragment() {
             if (isShare) {
                 shareImage(downloadList)
             } else {
-                ToastTools.showShort(R.string.ts004_download_complete)
+                ToastTools.showShort(LibAppR.string.ts004_download_complete)
             }
             tabViewModel.isEditModeLD.value = false
             MediaScannerConnection.scanFile(requireContext(), arrayOf(FileConfig.lineGalleryDir, FileConfig.ts004GalleryDir), null, null)
@@ -303,6 +304,6 @@ class IRGalleryFragment : BaseFragment() {
             shareIntent.action = Intent.ACTION_SEND_MULTIPLE
             shareIntent.putExtra(Intent.EXTRA_STREAM, imageUris)
         }
-        startActivity(Intent.createChooser(shareIntent, getString(R.string.battery_share)))
+        startActivity(Intent.createChooser(shareIntent, getString(LibAppR.string.battery_share)))
     }
 }

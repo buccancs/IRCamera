@@ -26,6 +26,7 @@ import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.ui.widget.MyItemDecoration
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.adapter.ConfigEmAdapter
 import com.topdon.module.thermal.ir.bean.DataBean
 import com.topdon.module.thermal.ir.bean.ModelBean
@@ -69,9 +70,9 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
         
         isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
 
-        binding.tvDefaultTempTitle.text = "${getString(R.string.thermal_config_environment)} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
-        binding.tvDefaultDisTitle.text = "${getString(R.string.thermal_config_distance)} (0.2~${if (isTC007) 4 else 5}m)"
-        binding.tvDefaultEmTitle.text = "${getString(R.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
+        binding.tvDefaultTempTitle.text = "${getString(LibAppR.string.thermal_config_environment)} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
+        binding.tvDefaultDisTitle.text = "${getString(LibAppR.string.thermal_config_distance)} (0.2~${if (isTC007) 4 else 5}m)"
+        binding.tvDefaultEmTitle.text = "${getString(LibAppR.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
         binding.tvDefaultTempUnit.text = UnitTools.showUnit()
 
         binding.ivDefaultSelector.setOnClickListener(this)
@@ -85,11 +86,11 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
         }
         adapter.onDeleteListener = {
             TipDialog.Builder(this)
-                .setMessage(getString(R.string.tip_config_delete, "${getString(R.string.thermal_custom_mode)}${it.name}"))
-                .setPositiveListener(R.string.app_confirm) {
+                .setMessage(getString(LibAppR.string.tip_config_delete, "${getString(LibAppR.string.thermal_custom_mode)}${it.name}"))
+                .setPositiveListener(LibAppR.string.app_confirm) {
                     viewModel.deleteConfig(isTC007, it.id)
                 }
-                .setCancelListener(R.string.app_cancel)
+                .setCancelListener(LibAppR.string.app_cancel)
                 .create().show()
         }
         adapter.onUpdateListener = {
@@ -97,11 +98,11 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
         }
         adapter.onAddListener = View.OnClickListener {
             TipDialog.Builder(this)
-                .setMessage(R.string.tip_myself_model)
-                .setPositiveListener(R.string.app_confirm) {
+                .setMessage(LibAppR.string.tip_myself_model)
+                .setPositiveListener(LibAppR.string.app_confirm) {
                     viewModel.addConfig(isTC007)
                 }
-                .setCancelListener(R.string.app_cancel)
+                .setCancelListener(LibAppR.string.app_cancel)
                 .create().show()
         }
 
@@ -241,12 +242,12 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             if (holder is ItemViewHolder) {
                 val dataBean = dataList[position]
-                holder.binding.tvName.text = "${context.getString(R.string.thermal_custom_mode)}${dataBean.name}"
+                holder.binding.tvName.text = "${context.getString(LibAppR.string.thermal_custom_mode)}${dataBean.name}"
                 holder.binding.ivSelector.isSelected = dataBean.use
 
-                holder.binding.tvTempTitle.text = "${context.getString(R.string.thermal_config_environment)} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
-                holder.binding.tvDisTitle.text = "${context.getString(R.string.thermal_config_distance)} (0.2~${if (isTC007) 4 else 5}m)"
-                holder.binding.tvEmTitle.text = "${context.getString(R.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
+                holder.binding.tvTempTitle.text = "${context.getString(LibAppR.string.thermal_config_environment)} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
+                holder.binding.tvDisTitle.text = "${context.getString(LibAppR.string.thermal_config_distance)} (0.2~${if (isTC007) 4 else 5}m)"
+                holder.binding.tvEmTitle.text = "${context.getString(LibAppR.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
                 holder.binding.tvTempUnit.text = UnitTools.showUnit()
 
                 holder.binding.tvTempValue.text = NumberTools.to02(UnitTools.showUnitValue(dataBean.environment))
@@ -325,7 +326,7 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
                             onAddListener?.onClick(it)
                         }
                     } else {
-                        TToast.shortToast(context, R.string.config_add_tip)
+                        TToast.shortToast(context, LibAppR.string.config_add_tip)
                     }
                 }
                 binding.tvAllEmissivity.setOnClickListener {

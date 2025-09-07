@@ -7,6 +7,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.databinding.ActivityMonitorHomeBinding
 import com.topdon.module.thermal.ir.event.MonitorSaveEvent
 import com.topdon.module.thermal.ir.fragment.IRMonitorCaptureFragment
@@ -36,7 +37,7 @@ class MonitoryHomeActivity : BaseActivity() {
         val isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
         binding.viewPager2.adapter = ViewPagerAdapter(this, isTC007)
         TabLayoutMediator(binding.tabLayout, binding.viewPager2) { tab, position ->
-            tab.setText(if (position == 0) R.string.chart_history else R.string.chart_real_time)
+            tab.setText(if (position == 0) LibAppR.string.chart_history else LibAppR.string.chart_real_time)
         }.attach()
     }
 

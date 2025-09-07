@@ -15,6 +15,7 @@ import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.tools.GlideLoader
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.report.bean.*
 import com.topdon.module.thermal.ir.databinding.ActivityReportCreateSecondBinding
 import kotlinx.coroutines.launch
@@ -166,7 +167,7 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
         when (v) {
             binding.tvAddImage -> {//添加图片
                 if (reportIRList.size >= 9) {
-                    ToastUtils.showShort(R.string.album_report_max_image_tips)
+                    ToastUtils.showShort(LibAppR.string.album_report_max_image_tips)
                     return
                 }
                 val reportIRBeanList = ArrayList<ReportIRBean>(reportIRList)

@@ -33,6 +33,8 @@ import com.topdon.lib.core.utils.PermissionUtils
 import com.topdon.lms.sdk.LMS
 import com.topdon.module.thermal.ir.BuildConfig
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
+import com.csl.irCamera.libui.R as LibUiR
 import com.topdon.module.thermal.ir.dialog.HomeGuideDialog
 import com.topdon.module.thermal.ir.fragment.IRGalleryTabFragment
 import com.topdon.module.thermal.ir.fragment.IRThermalFragment
@@ -300,9 +302,9 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
         if (!XXPermissions.isGranted(this, permissionList)) {
             if (BaseApplication.instance.isDomestic()) {
                 TipDialog.Builder(this)
-                    .setMessage(getString(R.string.permission_request_storage_app, CommUtils.getAppName()))
-                    .setCancelListener(R.string.app_cancel)
-                    .setPositiveListener(R.string.app_confirm) {
+                    .setMessage(getString(LibAppR.string.permission_request_storage_app, CommUtils.getAppName()))
+                    .setCancelListener(LibAppR.string.app_cancel)
+                    .setPositiveListener(LibAppR.string.app_confirm) {
                         initStoragePermission(permissionList)
                     }
                     .create().show()
@@ -335,12 +337,12 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
                     if (doNotAskAgain) {
                         //拒绝授权并且不再提醒
                         TipDialog.Builder(this@IRMainActivity)
-                            .setTitleMessage(getString(R.string.app_tip))
-                            .setMessage(getString(R.string.app_album_content))
-                            .setPositiveListener(R.string.app_open) {
+                            .setTitleMessage(getString(LibAppR.string.app_tip))
+                            .setMessage(getString(LibAppR.string.app_album_content))
+                            .setPositiveListener(LibAppR.string.app_open) {
                                 AppUtils.launchAppDetailsSettings()
                             }
-                            .setCancelListener(R.string.app_cancel) {
+                            .setCancelListener(LibAppR.string.app_cancel) {
                             }
                             .setCanceled(true)
                             .create().show()

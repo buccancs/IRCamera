@@ -33,6 +33,7 @@ import com.topdon.lms.sdk.utils.StringUtils
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.lms.sdk.xutils.http.RequestParams
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.adapter.PDFAdapter
 import com.topdon.module.thermal.ir.report.viewmodel.PdfViewModel
 import com.topdon.module.thermal.ir.databinding.FragmentPdfListBinding
@@ -95,7 +96,7 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
             }
             it?.let {data->
                 val tvEmpty: TextView? = reportAdapter.emptyLayout?.findViewById(R.id.tv_empty)
-                tvEmpty?.setText(if (page == 1 && data.code != LMS.SUCCESS) R.string.request_fail else R.string.tip_no_more_data)
+                tvEmpty?.setText(if (page == 1 && data.code != LMS.SUCCESS) LibAppR.string.request_fail else LibAppR.string.tip_no_more_data)
 
                 if (page == 1) {
                     //刷新
@@ -166,8 +167,8 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
         reportAdapter.delListener = {item, position ->
             val reportBean = item.reportContent
             TipDialog.Builder(requireContext())
-                .setMessage(getString(R.string.tip_config_delete, reportBean?.report_info?.report_name ?: ""))
-                .setPositiveListener(R.string.app_confirm) {
+                .setMessage(getString(LibAppR.string.tip_config_delete, reportBean?.report_info?.report_name ?: ""))
+                .setPositiveListener(LibAppR.string.app_confirm) {
                     lifecycleScope.launch {
                         showLoadingDialog()
                         withContext(Dispatchers.IO){
@@ -220,7 +221,7 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
                     }
 
                 }
-                .setCancelListener(R.string.app_cancel) {
+                .setCancelListener(LibAppR.string.app_cancel) {
 
                 }
                 .create().show()

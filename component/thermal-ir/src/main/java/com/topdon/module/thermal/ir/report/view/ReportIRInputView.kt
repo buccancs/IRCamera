@@ -12,6 +12,7 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.isVisible
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.report.bean.ImageTempBean
 import com.topdon.module.thermal.ir.databinding.ViewReportIrInputBinding
 import com.topdon.module.thermal.ir.databinding.ItemReportIrInputBinding
@@ -53,37 +54,37 @@ class ReportIRInputView: LinearLayout {
 
         when (type) {
             TYPE_FULL -> {
-                binding.tvTitle.setText(R.string.thermal_full_rect)
+                binding.tvTitle.setText(LibAppR.string.thermal_full_rect)
                 binding.clMin.root.isVisible = true
                 binding.clAverage.root.isVisible = false
-                binding.clMax.tvItemName.text = context.getString(R.string.chart_temperature_high) + " (${UnitTools.showUnit()})"
-                binding.clMin.tvItemName.text = context.getString(R.string.chart_temperature_low) + " (${UnitTools.showUnit()})"
-                binding.clExplain.tvItemName.text = context.getString(R.string.album_report_comment)
+                binding.clMax.tvItemName.text = context.getString(LibAppR.string.chart_temperature_high) + " (${UnitTools.showUnit()})"
+                binding.clMin.tvItemName.text = context.getString(LibAppR.string.chart_temperature_low) + " (${UnitTools.showUnit()})"
+                binding.clExplain.tvItemName.text = context.getString(LibAppR.string.album_report_comment)
             }
             TYPE_POINT -> {
-                binding.tvTitle.text = context.getString(R.string.thermal_point) + "(P)"
+                binding.tvTitle.text = context.getString(LibAppR.string.thermal_point) + "(P)"
                 binding.clMin.root.isVisible = false
                 binding.clAverage.root.isVisible = false
-                binding.clMax.tvItemName.text = "P${index + 1} " + context.getString(R.string.chart_temperature) + " (${UnitTools.showUnit()})"
-                binding.clExplain.tvItemName.text = "P${index + 1} " + context.getString(R.string.album_report_comment)
+                binding.clMax.tvItemName.text = "P${index + 1} " + context.getString(LibAppR.string.chart_temperature) + " (${UnitTools.showUnit()})"
+                binding.clExplain.tvItemName.text = "P${index + 1} " + context.getString(LibAppR.string.album_report_comment)
             }
             TYPE_LINE -> {
-                binding.tvTitle.text = context.getString(R.string.thermal_line) + "(L)"
+                binding.tvTitle.text = context.getString(LibAppR.string.thermal_line) + "(L)"
                 binding.clMin.root.isVisible = true
                 binding.clAverage.root.isVisible = true
-                binding.clMax.tvItemName.text = "L${index + 1} " + context.getString(R.string.chart_temperature_high) + " (${UnitTools.showUnit()})"
-                binding.clMin.tvItemName.text = "L${index + 1} " + context.getString(R.string.chart_temperature_low) + " (${UnitTools.showUnit()})"
-                binding.clAverage.tvItemName.text = "L${index + 1} " + context.getString(R.string.album_report_mean_temperature) + " (${UnitTools.showUnit()})"
-                binding.clExplain.tvItemName.text = "L${index + 1} " + context.getString(R.string.album_report_comment)
+                binding.clMax.tvItemName.text = "L${index + 1} " + context.getString(LibAppR.string.chart_temperature_high) + " (${UnitTools.showUnit()})"
+                binding.clMin.tvItemName.text = "L${index + 1} " + context.getString(LibAppR.string.chart_temperature_low) + " (${UnitTools.showUnit()})"
+                binding.clAverage.tvItemName.text = "L${index + 1} " + context.getString(LibAppR.string.album_report_mean_temperature) + " (${UnitTools.showUnit()})"
+                binding.clExplain.tvItemName.text = "L${index + 1} " + context.getString(LibAppR.string.album_report_comment)
             }
             TYPE_RECT -> {
-                binding.tvTitle.text = context.getString(R.string.thermal_rect) + "(R)"
+                binding.tvTitle.text = context.getString(LibAppR.string.thermal_rect) + "(R)"
                 binding.clMin.root.isVisible = true
                 binding.clAverage.root.isVisible = true
-                binding.clMax.tvItemName.text = "R${index + 1} " + context.getString(R.string.chart_temperature_high) + " (${UnitTools.showUnit()})"
-                binding.clMin.tvItemName.text = "R${index + 1} " + context.getString(R.string.chart_temperature_low) + " (${UnitTools.showUnit()})"
-                binding.clAverage.tvItemName.text = "R${index + 1} " + context.getString(R.string.album_report_mean_temperature) + " (${UnitTools.showUnit()})"
-                binding.clExplain.tvItemName.text = "R${index + 1} " + context.getString(R.string.album_report_comment)
+                binding.clMax.tvItemName.text = "R${index + 1} " + context.getString(LibAppR.string.chart_temperature_high) + " (${UnitTools.showUnit()})"
+                binding.clMin.tvItemName.text = "R${index + 1} " + context.getString(LibAppR.string.chart_temperature_low) + " (${UnitTools.showUnit()})"
+                binding.clAverage.tvItemName.text = "R${index + 1} " + context.getString(LibAppR.string.album_report_mean_temperature) + " (${UnitTools.showUnit()})"
+                binding.clExplain.tvItemName.text = "R${index + 1} " + context.getString(LibAppR.string.album_report_comment)
             }
         }
     }

@@ -15,6 +15,7 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lms.sdk.utils.TLog
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.user.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.user.bean.ColorsBean
 import com.topdon.module.user.databinding.ActivityStorageSpaceBinding
 import kotlinx.coroutines.delay
@@ -62,7 +63,7 @@ class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
     override fun initData() {
         lifecycleScope.launch {
             // TC001 uses USB connection, storage space not available via network
-            TToast.shortToast(this@StorageSpaceActivity, R.string.operation_failed_tips)
+            TToast.shortToast(this@StorageSpaceActivity, LibAppR.string.operation_failed_tips)
             TLog.d("ts004", "║ response :${SharedManager.freeSpaceBean}")
 
             binding.tvProgressValue.text = "${(SharedManager.freeSpaceBean.hasUseSize() * 100.0 / SharedManager.freeSpaceBean.total).toInt().coerceAtLeast(1)}"
@@ -91,14 +92,14 @@ class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
         when (v) {
             binding.tvFormatStorage -> {//格式化存储
                 TipDialog.Builder(this@StorageSpaceActivity)
-                    .setTitleMessage(getString(R.string.more_storage_reset))
-                    .setMessage(getString(R.string.more_storage_reset1))
+                    .setTitleMessage(getString(LibAppR.string.more_storage_reset))
+                    .setMessage(getString(LibAppR.string.more_storage_reset1))
                     .setShowRestartTops(true)
-                    .setPositiveListener(R.string.app_ok) {
+                    .setPositiveListener(LibAppR.string.app_ok) {
                         // TC001 uses USB connection, storage formatting not available via network  
-                        TToast.shortToast(this@StorageSpaceActivity, R.string.operation_failed_tips)
+                        TToast.shortToast(this@StorageSpaceActivity, LibAppR.string.operation_failed_tips)
                     }
-                    .setCancelListener(R.string.app_cancel) {
+                    .setCancelListener(LibAppR.string.app_cancel) {
                     }
                     .setCanceled(true)
                     .create().show()

@@ -20,6 +20,8 @@ import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.repository.GalleryRepository.DirType
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
+import com.csl.irCamera.libui.R as LibUiR
 import com.topdon.module.thermal.ir.adapter.GalleryAdapter
 import com.topdon.lib.core.bean.event.GalleryDelEvent
 import com.topdon.lib.core.utils.Constants.IS_REPORT_FIRST
@@ -63,7 +65,7 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
         
         isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
 
-        binding.titleView.setRightDrawable(R.drawable.ic_toolbar_check_svg)
+        binding.titleView.setRightDrawable(LibAppR.drawable.ic_toolbar_check_svg)
         binding.titleView.setRightClickListener { setEditMode(true) }
 
         initRecycler()
@@ -79,13 +81,13 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
         }
         viewModel.deleteResultLD.observe(this) {
             if (it) {
-                TToast.shortToast(this@ReportPickImgActivity, R.string.test_results_delete_success)
+                TToast.shortToast(this@ReportPickImgActivity, LibAppR.string.test_results_delete_success)
                 adapter.isEditMode = false
                 EventBus.getDefault().post(GalleryDelEvent())
                 MediaScannerConnection.scanFile(this, arrayOf(FileConfig.lineGalleryDir), null, null) // TC001 only
                 viewModel.queryAllReportImg(DirType.LINE)
             } else {
-                TToast.shortToast(this@ReportPickImgActivity, R.string.test_results_delete_failed)
+                TToast.shortToast(this@ReportPickImgActivity, LibAppR.string.test_results_delete_failed)
             }
         }
         viewModel.queryAllReportImg(DirType.LINE) // TC001 only
@@ -111,8 +113,8 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
     private fun setEditMode(isEditMode: Boolean) {
         adapter.isEditMode = isEditMode
         binding.groupBottom.isVisible = isEditMode
-        binding.titleView.setTitleText(if (isEditMode) getString(R.string.chosen_item, adapter.selectList.size) else getString(R.string.app_gallery))
-        binding.titleView.setLeftDrawable(if (isEditMode) R.drawable.svg_x_cc else R.drawable.ic_back_white_svg)
+        binding.titleView.setTitleText(if (isEditMode) getString(LibAppR.string.chosen_item, adapter.selectList.size) else getString(LibAppR.string.app_gallery))
+        binding.titleView.setLeftDrawable(if (isEditMode) LibAppR.drawable.svg_x_cc else LibAppR.drawable.ic_back_white_svg)
         binding.titleView.setLeftClickListener {
             if (isEditMode) {
                 setEditMode(false)
@@ -120,8 +122,8 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
                 finish()
             }
         }
-        binding.titleView.setRightDrawable(if (isEditMode) 0 else R.drawable.ic_toolbar_check_svg)
-        binding.titleView.setRightText(if (isEditMode) getString(R.string.report_select_all) else "")
+        binding.titleView.setRightDrawable(if (isEditMode) 0 else LibAppR.drawable.ic_toolbar_check_svg)
+        binding.titleView.setRightText(if (isEditMode) getString(LibAppR.string.report_select_all) else "")
         binding.titleView.setRightClickListener {
             if (isEditMode) {
                 adapter.selectAll()
@@ -157,20 +159,20 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
         adapter.onLongEditListener = {
             // adapter 里面的切换编辑太乱了，先这么顶着
             binding.groupBottom.isVisible = true
-            binding.titleView.setTitleText(getString(R.string.chosen_item, adapter.selectList.size))
-            binding.titleView.setLeftDrawable(R.drawable.svg_x_cc)
+            binding.titleView.setTitleText(getString(LibAppR.string.chosen_item, adapter.selectList.size))
+            binding.titleView.setLeftDrawable(LibAppR.drawable.svg_x_cc)
             binding.titleView.setLeftClickListener {
                 setEditMode(false)
             }
             binding.titleView.setRightDrawable(0)
-            binding.titleView.setRightText(R.string.report_select_all)
+            binding.titleView.setRightText(LibAppR.string.report_select_all)
             binding.titleView.setRightClickListener {
                 adapter.selectAll()
             }
         }
 
         adapter.selectCallback = {
-            binding.titleView.setTitleText(getString(R.string.chosen_item, it.size))
+            binding.titleView.setTitleText(getString(LibAppR.string.chosen_item, it.size))
         }
         adapter.itemClickCallback = {
             val data = adapter.dataList[it]
@@ -187,7 +189,7 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
                     .withParcelableArrayList(ExtraKeyConfig.REPORT_IR_LIST, intent.getParcelableArrayListExtra(ExtraKeyConfig.REPORT_IR_LIST))
                     .navigation(this)
             } else {
-                ToastTools.showShort(R.string.album_report_on_edit)
+                ToastTools.showShort(LibAppR.string.album_report_on_edit)
             }
         }
     }
@@ -197,26 +199,26 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
         if (deleteList.size > 0) {
             TipDialog.Builder(this)
                 .setMessage(getString(
-                        R.string.tip_delete_chosen,
+                        LibAppR.string.tip_delete_chosen,
                         deleteList.size
                     ))
-                .setPositiveListener(R.string.app_confirm) {
+                .setPositiveListener(LibAppR.string.app_confirm) {
                     viewModel.delete(deleteList, DirType.LINE, true) // TC001 only
-                }.setCancelListener(R.string.app_cancel)
+                }.setCancelListener(LibAppR.string.app_cancel)
                 .create().show()
         } else {
-            ToastTools.showShort(getString(R.string.tip_least_select))
+            ToastTools.showShort(getString(LibAppR.string.tip_least_select))
         }
     }
 
     private fun shareImage() {
         val data = adapter.buildSelectList()
         if (data.size == 0) {
-            ToastTools.showShort(getString(R.string.tip_least_select))
+            ToastTools.showShort(getString(LibAppR.string.tip_least_select))
             return
         }
         if (data.size > 9) {
-            ToastTools.showShort(getString(R.string.Limite_di_9carte))
+            ToastTools.showShort(getString(LibAppR.string.Limite_di_9carte))
             return
         }
         val imageUris = ArrayList<Uri>()
@@ -238,7 +240,7 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
             shareIntent.action = Intent.ACTION_SEND_MULTIPLE
             shareIntent.putExtra(Intent.EXTRA_STREAM, imageUris)
         }
-        startActivity(Intent.createChooser(shareIntent, getString(R.string.battery_share)))
+        startActivity(Intent.createChooser(shareIntent, getString(LibAppR.string.battery_share)))
     }
 }
 

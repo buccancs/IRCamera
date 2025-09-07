@@ -7,6 +7,7 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.databinding.ActivityIrCorrectionFourBinding
 import com.topdon.module.thermal.ir.event.CorrectionFinishEvent
 import com.topdon.module.thermal.ir.fragment.IRCorrectionFragment
@@ -37,12 +38,12 @@ class IRCorrectionFourActivity : BaseActivity() {
         
         binding.titleView.setLeftClickListener {
             TipDialog.Builder(this)
-                .setTitleMessage(getString(R.string.app_tip))
-                .setMessage(R.string.tips_cancel_correction)
-                .setPositiveListener(R.string.app_yes) {
+                .setTitleMessage(getString(LibAppR.string.app_tip))
+                .setMessage(LibAppR.string.tips_cancel_correction)
+                .setPositiveListener(LibAppR.string.app_yes) {
                     EventBus.getDefault().post(CorrectionFinishEvent())
                     finish()
-                }.setCancelListener(R.string.app_no){
+                }.setCancelListener(LibAppR.string.app_no){
                 }
                 .create().show()
         }
@@ -79,8 +80,8 @@ class IRCorrectionFourActivity : BaseActivity() {
                         try {
                             if (!this@IRCorrectionFourActivity.isFinishing){
                                 TipDialog.Builder(this@IRCorrectionFourActivity)
-                                    .setMessage(R.string.correction_complete)
-                                    .setPositiveListener(R.string.app_confirm) {
+                                    .setMessage(LibAppR.string.correction_complete)
+                                    .setPositiveListener(LibAppR.string.app_confirm) {
                                         EventBus.getDefault().post(CorrectionFinishEvent())
                                         finish()
                                     }
@@ -101,12 +102,12 @@ class IRCorrectionFourActivity : BaseActivity() {
 
     override fun onBackPressed() {
         TipDialog.Builder(this)
-            .setTitleMessage(getString(R.string.app_tip))
-            .setMessage(R.string.tips_cancel_correction)
-            .setPositiveListener(R.string.app_yes) {
+            .setTitleMessage(getString(LibAppR.string.app_tip))
+            .setMessage(LibAppR.string.tips_cancel_correction)
+            .setPositiveListener(LibAppR.string.app_yes) {
                 EventBus.getDefault().post(CorrectionFinishEvent())
                 super.onBackPressed()
-            }.setCancelListener(R.string.app_no){
+            }.setCancelListener(LibAppR.string.app_no){
             }
             .create().show()
     }

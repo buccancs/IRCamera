@@ -21,6 +21,7 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.menu.constant.TwoLightType
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.event.GalleryAddEvent
 import com.topdon.module.thermal.ir.video.VideoRecordFFmpeg
 import com.topdon.module.thermal.ir.databinding.ActivityThermalIrNightBinding
@@ -117,7 +118,7 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
                     binding.thermalRecyclerNight.setTwoLightSelected(TwoLightType.CORRECT, false)
                 }
             }else{
-                ToastUtils.showShort(R.string.correction_fail)
+                ToastUtils.showShort(LibAppR.string.correction_fail)
             }
 
         }
@@ -319,7 +320,7 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
             dualView?.let {
                 if (!it.auto_gain_switch) {
                     switchAutoGain(true)
-                    ToastTools.showShort(R.string.auto_open)
+                    ToastTools.showShort(LibAppR.string.auto_open)
                 }
                 gainSelChar = CameraItemBean.TYPE_TMP_ZD
             }

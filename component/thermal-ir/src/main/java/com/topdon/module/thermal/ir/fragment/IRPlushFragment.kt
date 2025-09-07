@@ -7,6 +7,7 @@ import com.infisense.usbdual.Const
 import com.infisense.usbdual.camera.DualViewWithExternalCameraCommonApi
 import com.infisense.usbir.view.TemperatureView
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.activity.BaseIRPlushFragment
 import com.topdon.module.thermal.ir.databinding.FragmentIrPlushBinding
 

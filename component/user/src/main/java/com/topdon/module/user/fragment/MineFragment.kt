@@ -44,6 +44,7 @@ import com.topdon.lms.sdk.bean.FeedBackBean
 import com.topdon.lms.sdk.feedback.activity.FeedbackActivity
 import com.topdon.lms.sdk.utils.LanguageUtil
 import com.topdon.module.user.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.user.activity.LanguageActivity
 import com.topdon.module.user.activity.MoreActivity
 import com.topdon.module.user.databinding.FragmentMineBinding
@@ -140,7 +141,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             val localeStr: String = it.data?.getStringExtra("localeStr") ?: return@registerForActivityResult
             SharedManager.setLanguage(requireContext(), localeStr)
             LanguageUtils.applyLanguage(AppLanguageUtils.getLocaleByLanguage(localeStr))
-            ToastTools.showShort(R.string.tip_save_success)
+            ToastTools.showShort(LibAppR.string.tip_save_success)
         }
     }
 
@@ -226,7 +227,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
     private fun loginAction() {
         isNeedRefreshLogin = true
         //activityLogin()回调不可靠，但必然触发onResume()
-        val bgBitmap = BitmapFactory.decodeResource(resources, R.mipmap.bg_login)
+        val bgBitmap = BitmapFactory.decodeResource(resources, LibAppR.mipmap.bg_default_img)
         LMS.getInstance().activityLogin(null, null, false, null, bgBitmap)
     }
 
@@ -256,7 +257,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             //登录失败
             XLog.e(" 登录失败")
             changeLoginStyle()
-            binding.settingUserImgNight.setImageResource(R.mipmap.ic_default_user_head)//恢复默认头像
+            binding.settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head)//恢复默认头像
         }
     }
 
@@ -271,7 +272,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             binding.settingUserText.setPadding(0,0,0,0)
             binding.settingUserText.gravity = Gravity.LEFT
             binding.settingUserText.layoutParams = layoutParams
-            val drawable = ContextCompat.getDrawable(requireContext(), R.color.transparent)
+            val drawable = ContextCompat.getDrawable(requireContext(), LibAppR.color.transparent)
             drawable!!.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
             binding.settingUserText.setCompoundDrawables(null, null, drawable, null)
             binding.settingUserText.text = SharedManager.getNickname()
@@ -282,7 +283,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                 GlideLoader.loadCircle(
                     binding.settingUserImgNight,
                     SharedManager.getHeadIcon(),
-                    R.mipmap.ic_default_user_head,
+                    LibAppR.mipmap.ic_default_user_head,
                     RequestOptions().optionalCircleCrop()
                 )
             }
@@ -296,13 +297,13 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             binding.settingUserText.layoutParams = layoutParams
             binding.settingUserText.setText(
                 AppLanguageUtils.attachBaseContext(
-                context, SharedManager.getLanguage(requireContext())).getString(R.string.app_sign_in))
+                context, SharedManager.getLanguage(requireContext())).getString(LibAppR.string.app_sign_in))
             val drawable = ContextCompat.getDrawable(requireContext(), R.mipmap.ic_arrow_login)
             drawable!!.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
             binding.settingUserText.setCompoundDrawables(null, null, drawable, null)
             binding.settingUserLay.visibility = View.GONE
             binding.tvEmail.text = ""
-            binding.settingUserImgNight.setImageResource(R.mipmap.ic_default_user_head)//恢复默认头像
+            binding.settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head)//恢复默认头像
         }
     }
 
@@ -330,7 +331,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             dismissLoadingDialog()
             delay(50)
             TipDialog.Builder(requireContext())
-                .setMessage(R.string.clear_finish)
+                .setMessage(LibAppR.string.clear_finish)
                 .setCanceled(true)
                 .create().show()
 

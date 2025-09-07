@@ -19,6 +19,7 @@ import com.topdon.lib.core.tools.NumberTools
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.ui.widget.MyItemDecoration
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.adapter.ConfigEmAdapter
 import com.topdon.module.thermal.ir.bean.DataBean
 import com.topdon.module.thermal.ir.databinding.DialogConfigGuideBinding
@@ -31,7 +32,7 @@ import kotlinx.coroutines.launch
  *
  * Created by LCG on 2024/11/13.
  */
-class ConfigGuideDialog(context: Context, val isTC007: Boolean, val dataBean: DataBean) : Dialog(context, R.style.TransparentDialog) {
+class ConfigGuideDialog(context: Context, val isTC007: Boolean, val dataBean: DataBean) : Dialog(context, LibAppR.style.TransparentDialog) {
 
     private lateinit var binding: DialogConfigGuideBinding
 
@@ -43,11 +44,11 @@ class ConfigGuideDialog(context: Context, val isTC007: Boolean, val dataBean: Da
         binding = DialogConfigGuideBinding.inflate(LayoutInflater.from(context))
         setContentView(binding.root)
 
-        binding.tvDefaultTempTitle.text = "${context.getString(R.string.thermal_config_environment)} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
-        binding.tvDefaultDisTitle.text = "${context.getString(R.string.thermal_config_distance)} (0.2~${if (isTC007) 4 else 5}m)"
-        binding.tvSpaceEmTitle.text = "${context.getString(R.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
+        binding.tvDefaultTempTitle.text = "${context.getString(LibAppR.string.thermal_config_environment)} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
+        binding.tvDefaultDisTitle.text = "${context.getString(LibAppR.string.thermal_config_distance)} (0.2~${if (isTC007) 4 else 5}m)"
+        binding.tvSpaceEmTitle.text = "${context.getString(LibAppR.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
 
-        binding.tvDefaultEmTitle.text = "${context.getString(R.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
+        binding.tvDefaultEmTitle.text = "${context.getString(LibAppR.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
         binding.tvDefaultEmValue.text = NumberTools.to02(dataBean.radiation)
 
 

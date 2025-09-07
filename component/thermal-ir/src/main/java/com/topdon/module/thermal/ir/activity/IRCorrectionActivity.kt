@@ -6,6 +6,7 @@ import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.databinding.ActivityIrCorrectionBinding
 import com.topdon.module.thermal.ir.event.CorrectionFinishEvent
 import org.greenrobot.eventbus.Subscribe

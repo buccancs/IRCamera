@@ -11,6 +11,7 @@ import com.topdon.lib.core.socket.SocketCmdUtil
 import com.topdon.lib.core.utils.WsCmdConstants
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.user.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.user.databinding.ActivityTisrBinding
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.Subscribe
@@ -39,14 +40,14 @@ class TISRActivity : BaseActivity(){
     override fun initData() {
         lifecycleScope.launch {
             // TC001 uses USB connection, TISR settings not available via network
-            TToast.shortToast(this@TISRActivity, R.string.operation_failed_tips)
+            TToast.shortToast(this@TISRActivity, LibAppR.string.operation_failed_tips)
         }
     }
 
     private fun updateTISR(state: Int) {
         lifecycleScope.launch {
             // TC001 uses USB connection, TISR settings not available via network
-            TToast.shortToast(this@TISRActivity, R.string.operation_failed_tips)
+            TToast.shortToast(this@TISRActivity, LibAppR.string.operation_failed_tips)
         }
     }
 

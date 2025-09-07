@@ -25,6 +25,7 @@ import com.topdon.module.thermal.ir.BuildConfig
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.utils.NetWorkUtils
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.activity.IRThermalNightActivity
 import com.topdon.module.thermal.ir.activity.IRThermalPlusActivity
 import com.topdon.module.thermal.ir.databinding.FragmentThermalIrBinding
@@ -42,7 +43,7 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
     }
 
     override fun initView() {
-        binding.titleView.setTitleText(getString(R.string.tc_has_line_device))
+        binding.titleView.setTitleText(getString(LibAppR.string.tc_has_line_device))
 
         binding.clOpenThermal.setOnClickListener(this)
         binding.tvMainEnter.setOnClickListener(this)
@@ -126,8 +127,8 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
                     if (DeviceTools.findUsbDevice() == null) {
                         activity?.let {
                             TipDialog.Builder(it)
-                                .setMessage(R.string.device_connect_tip)
-                                .setPositiveListener(R.string.app_confirm)
+                                .setMessage(LibAppR.string.device_connect_tip)
+                                .setPositiveListener(LibAppR.string.app_confirm)
                                 .create().show()
                         }
                     } else {
@@ -147,12 +148,12 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
                                         //拒绝授权并且不再提醒
                                         context?.let {
                                             TipDialog.Builder(it)
-                                                .setTitleMessage(getString(R.string.app_tip))
-                                                .setMessage(getString(R.string.app_camera_content))
-                                                .setPositiveListener(R.string.app_open) {
+                                                .setTitleMessage(getString(LibAppR.string.app_tip))
+                                                .setMessage(getString(LibAppR.string.app_camera_content))
+                                                .setPositiveListener(LibAppR.string.app_open) {
                                                     AppUtils.launchAppDetailsSettings()
                                                 }
-                                                .setCancelListener(R.string.app_cancel) {
+                                                .setCancelListener(LibAppR.string.app_cancel) {
                                                 }
                                                 .setCanceled(true)
                                                 .create().show()
@@ -183,14 +184,14 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
                 return
             }
             tipConnectDialog = TipDialog.Builder(requireContext())
-                .setMessage(getString(R.string.tip_target_sdk))
-                .setPositiveListener(R.string.app_confirm) {
+                .setMessage(getString(LibAppR.string.tip_target_sdk))
+                .setPositiveListener(LibAppR.string.app_confirm) {
                     val url = "https://www.topdon.com/pages/pro-down?fuzzy=TC001"
                     val intent = Intent()
                     intent.action = "android.intent.action.VIEW"
                     intent.data = Uri.parse(url)
                     startActivity(intent)
-                }.setCancelListener(R.string.app_cancel, {
+                }.setCancelListener(LibAppR.string.app_cancel, {
                     isCancelUpdateVersion = true
                 })
                 .create()
@@ -219,9 +220,9 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
             if (BaseApplication.instance.isDomestic()) {
                 context?.let {
                     TipDialog.Builder(it)
-                        .setMessage(getString(R.string.permission_request_storage_app, CommUtils.getAppName()))
-                        .setCancelListener(R.string.app_cancel)
-                        .setPositiveListener(R.string.app_confirm) {
+                        .setMessage(getString(LibAppR.string.permission_request_storage_app, CommUtils.getAppName()))
+                        .setCancelListener(LibAppR.string.app_cancel)
+                        .setPositiveListener(LibAppR.string.app_confirm) {
                             initStoragePermission(permissionList)
                         }
                         .create().show()
