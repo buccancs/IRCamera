@@ -12,7 +12,7 @@ kapt {
 }
 
 android {
-    namespace 'com.csl.irCamera.component.user'
+    namespace 'com.topdon.module.user'
     compileSdk rootProject.ext.android.compileSdk
 
     defaultConfig {

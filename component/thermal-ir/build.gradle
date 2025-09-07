@@ -12,7 +12,7 @@ kapt {
 }
 
 android {
-    namespace 'com.csl.irCamera.component.thermal_ir'
+    namespace 'com.topdon.module.thermal.ir'
     compileSdk rootProject.ext.android.compileSdk
 
     defaultConfig {
