@@ -296,7 +296,7 @@ class MonitorChartActivity : BaseIRActivity(), View.OnClickListener, OnChartValu
             SizeUtils.dp2px(8f).toFloat(),
             SizeUtils.dp2px(4f).toFloat()
         )//图表区域偏移
-        chart.setNoDataText(getString(LibAppR.string.lms_http_code998))
+        chart.setNoDataText(getString(R.string.lms_http_code998))
         chart.setNoDataTextColor(textColor)
         val mv = MyMarkerView(this, R.layout.marker_lay)
         mv.chartView = chart
@@ -463,7 +463,7 @@ class MonitorChartActivity : BaseIRActivity(), View.OnClickListener, OnChartValu
         }
     }
 
-    private val fillColor by lazy { ContextCompat.getDrawable(this, LibAppR.drawable.bg_chart_fill2) }
+    private val fillColor by lazy { ContextCompat.getDrawable(this, R.drawable.bg_chart_fill2) }
     private val lineRed by lazy { ContextCompat.getColor(this, LibAppR.color.chart_line_max) }
     private val lineBlue by lazy { ContextCompat.getColor(this, LibAppR.color.chart_line_min) }
     private val lineGreen by lazy { ContextCompat.getColor(this, LibAppR.color.chart_line_center) }

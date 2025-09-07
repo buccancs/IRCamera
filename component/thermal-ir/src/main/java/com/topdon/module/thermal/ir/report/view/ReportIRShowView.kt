@@ -147,7 +147,7 @@ class ReportIRShowView: LinearLayout {
     fun refreshData(isFirst: Boolean, isLast: Boolean, reportIRBean: ReportIRBean) {
         binding.tvHead.isVisible = isFirst
         binding.viewNotHead.isVisible = !isFirst
-        binding.viewImageBg.setBackgroundResource(if (isFirst) LibAppR.drawable.layer_report_ir_show_top_bg else LibAppR.drawable.layer_report_ir_show_item_bg)
+        binding.viewImageBg.setBackgroundResource(if (isFirst) R.drawable.layer_report_ir_show_top_bg else R.drawable.layer_report_ir_show_item_bg)
         binding.clImage.setPadding(0, if (isFirst) SizeUtils.dp2px(20f) else 0, 0, 0)
 
         refreshItem(binding.clFull.root, reportIRBean.full_graph_data, TYPE_FULL, 0)
@@ -240,7 +240,7 @@ class ReportIRShowView: LinearLayout {
             val clExplain = itemRoot.findViewById<View>(R.id.cl_explain)
             clExplain.setPadding(0, 0, 0, SizeUtils.dp2px(if (isLast) 12f else 20f))
             if (isLast) {
-                clExplain.setBackgroundResource(LibAppR.drawable.layer_report_ir_show_bottom_bg)
+                clExplain.setBackgroundResource(R.drawable.layer_report_ir_show_bottom_bg)
             }
             return
         }
@@ -249,7 +249,7 @@ class ReportIRShowView: LinearLayout {
             val clAverage = itemRoot.findViewById<View>(R.id.cl_average)
             clAverage.setPadding(0, 0, 0, SizeUtils.dp2px(if (isLast) 12f else 20f))
             if (isLast) {
-                clAverage.setBackgroundResource(LibAppR.drawable.layer_report_ir_show_bottom_bg)
+                clAverage.setBackgroundResource(R.drawable.layer_report_ir_show_bottom_bg)
             }
             return
         }
@@ -257,7 +257,7 @@ class ReportIRShowView: LinearLayout {
         val clRange = itemRoot.findViewById<View>(R.id.cl_range)
         clRange.setPadding(0, 0, 0, SizeUtils.dp2px(if (isLast) 12f else 20f))
         if (isLast) {
-            clRange.setBackgroundResource(LibAppR.drawable.layer_report_ir_show_bottom_bg)
+            clRange.setBackgroundResource(R.drawable.layer_report_ir_show_bottom_bg)
         }
     }
 

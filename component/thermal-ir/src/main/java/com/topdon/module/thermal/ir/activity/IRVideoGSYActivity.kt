@@ -77,7 +77,7 @@ class IRVideoGSYActivity : BaseActivity() {
         }
 
         binding.ivDownload.isSelected = data.hasDownload
-        binding.ivDownload.setImageResource(if (isRemote) LibAppR.drawable.selector_download else LibAppR.drawable.ic_toolbar_info_svg)
+        binding.ivDownload.setImageResource(if (isRemote) R.drawable.selector_download else LibUiR.drawable.ic_toolbar_info_svg)
 
         previewVideo(isRemote, data.path)
     }

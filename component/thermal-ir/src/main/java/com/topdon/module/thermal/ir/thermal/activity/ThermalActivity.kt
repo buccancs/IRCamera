@@ -32,7 +32,7 @@ class ThermalActivity : BaseIRActivity() {
         setContentView(binding.root)
         
         // setTitleText(LibAppR.string.main_thermal) // Commented out - method not available in BaseIRActivity
-        val blackColor = ContextCompat.getColor(this, LibAppR.color.blackColor)
+        val blackColor = ContextCompat.getColor(this, R.color.blackColor)
         // mToolBar!!.setBackgroundColor(blackColor) // Commented out - mToolBar not available in BaseIRActivity
         BarUtils.setStatusBarColor(this, blackColor)
         BarUtils.setNavBarColor(window, blackColor)

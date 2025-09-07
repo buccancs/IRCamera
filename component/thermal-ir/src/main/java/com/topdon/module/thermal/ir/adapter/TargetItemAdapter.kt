@@ -12,6 +12,7 @@ import com.topdon.lib.core.bean.ObserveBean
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.module.thermal.ir.R
 import com.csl.irCamera.libapp.R as LibAppR
+import com.csl.irCamera.libui.R as LibUiR
 import com.topdon.module.thermal.ir.databinding.ItmeTargetModeBinding
 
 class TargetItemAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -29,9 +30,9 @@ class TargetItemAdapter(val context: Context) : RecyclerView.Adapter<RecyclerVie
     }
 
     private val secondBean = arrayListOf(
-        ColorBean(LibAppR.drawable.ic_menu_thermal6002, "", ObserveBean.TYPE_TARGET_HORIZONTAL),
-        ColorBean(LibAppR.drawable.ic_menu_thermal6001, "", ObserveBean.TYPE_TARGET_VERTICAL),
-        ColorBean(LibAppR.drawable.ic_menu_thermal6003, "", ObserveBean.TYPE_TARGET_CIRCLE),
+        ColorBean(LibUiR.drawable.ic_menu_thermal6002, "", ObserveBean.TYPE_TARGET_HORIZONTAL),
+        ColorBean(LibUiR.drawable.ic_menu_thermal6001, "", ObserveBean.TYPE_TARGET_VERTICAL),
+        ColorBean(LibUiR.drawable.ic_menu_thermal6003, "", ObserveBean.TYPE_TARGET_CIRCLE),
     )
 
 

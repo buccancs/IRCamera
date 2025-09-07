@@ -96,7 +96,7 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
             }
             it?.let {data->
                 val tvEmpty: TextView? = reportAdapter.emptyLayout?.findViewById(R.id.tv_empty)
-                tvEmpty?.setText(if (page == 1 && data.code != LMS.SUCCESS) LibAppR.string.request_fail else LibAppR.string.tip_no_more_data)
+                tvEmpty?.setText(if (page == 1 && data.code != LMS.SUCCESS) LibAppR.string.http_code_else else LibAppR.string.tip_no_more_data)
 
                 if (page == 1) {
                     //刷新

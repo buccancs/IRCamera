@@ -122,7 +122,7 @@ class LogMPChartActivity : BaseIRActivity(), OnChartValueSelectedListener {
             SizeUtils.dp2px(8f).toFloat(),
             SizeUtils.dp2px(4f).toFloat()
         )//图表区域偏移
-        chart.setNoDataText(getString(LibAppR.string.lms_http_code998))
+        chart.setNoDataText(getString(R.string.lms_http_code998))
         chart.setNoDataTextColor(textColor)
         val mv = MyMarkerView(this, R.layout.marker_lay)
         mv.chartView = chart
@@ -155,9 +155,9 @@ class LogMPChartActivity : BaseIRActivity(), OnChartValueSelectedListener {
     }
 
     private val bgChartColors = intArrayOf(
-        LibAppR.drawable.bg_chart_fill,
-        LibAppR.drawable.bg_chart_fill2,
-        LibAppR.drawable.bg_chart_fill3
+        R.drawable.bg_chart_fill,
+        R.drawable.bg_chart_fill2,
+        R.drawable.bg_chart_fill3
     )
     private val lineChartColors = intArrayOf(
         LibAppR.color.chart_line_max,

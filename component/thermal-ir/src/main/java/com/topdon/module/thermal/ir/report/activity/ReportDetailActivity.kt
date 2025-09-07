@@ -16,6 +16,7 @@ import com.topdon.libcom.PDFHelp
 import com.topdon.module.thermal.ir.report.view.ReportIRShowView
 import com.topdon.module.thermal.ir.R
 import com.csl.irCamera.libapp.R as LibAppR
+import com.csl.irCamera.libui.R as LibUiR
 import com.topdon.module.thermal.ir.report.bean.ReportBean
 import com.topdon.module.thermal.ir.databinding.ActivityReportDetailBinding
 import kotlinx.coroutines.Dispatchers
@@ -56,8 +57,8 @@ class ReportDetailActivity: BaseActivity() {
         reportBean = intent.getParcelableExtra(ExtraKeyConfig.REPORT_BEAN)
 
         binding.titleView.setTitleText(LibAppR.string.album_edit_report)
-        binding.titleView.setLeftDrawable(LibAppR.drawable.svg_arrow_left_e8)
-        binding.titleView.setRightDrawable(LibAppR.drawable.ic_share_black_svg)
+        binding.titleView.setLeftDrawable(LibUiR.drawable.svg_arrow_left_e8)
+        binding.titleView.setRightDrawable(R.drawable.ic_share_black_svg)
         binding.titleView.setLeftClickListener {
             finish()
         }

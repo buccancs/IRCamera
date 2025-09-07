@@ -65,7 +65,7 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
         
         isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
 
-        binding.titleView.setRightDrawable(LibAppR.drawable.ic_toolbar_check_svg)
+        binding.titleView.setRightDrawable(LibUiR.drawable.ic_toolbar_check_svg)
         binding.titleView.setRightClickListener { setEditMode(true) }
 
         initRecycler()
@@ -122,7 +122,7 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
                 finish()
             }
         }
-        binding.titleView.setRightDrawable(if (isEditMode) 0 else LibAppR.drawable.ic_toolbar_check_svg)
+        binding.titleView.setRightDrawable(if (isEditMode) 0 else LibUiR.drawable.ic_toolbar_check_svg)
         binding.titleView.setRightText(if (isEditMode) getString(LibAppR.string.report_select_all) else "")
         binding.titleView.setRightClickListener {
             if (isEditMode) {

@@ -12,6 +12,7 @@ import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.repository.GalleryRepository.DirType
 import com.topdon.module.thermal.ir.R
 import com.csl.irCamera.libapp.R as LibAppR
+import com.csl.irCamera.libui.R as LibUiR
 import com.topdon.module.thermal.ir.event.GalleryDirChangeEvent
 import com.topdon.module.thermal.ir.popup.GalleryChangePopup
 import com.topdon.module.thermal.ir.popup.OptionPickPopup
@@ -78,7 +79,7 @@ class IRGalleryTabFragment : BaseFragment() {
                 }
             }
         }
-        binding.titleView.setRightDrawable(LibAppR.drawable.ic_toolbar_check_svg)
+        binding.titleView.setRightDrawable(LibUiR.drawable.ic_toolbar_check_svg)
         binding.titleView.setRightClickListener {
             if (viewModel.isEditModeLD.value == true) {//当前为编辑状态，全选
                 viewModel.selectAllIndex.value = binding.viewPager2.currentItem
@@ -99,7 +100,7 @@ class IRGalleryTabFragment : BaseFragment() {
             } else {
                 binding.titleView.setLeftDrawable(if (hasBackIcon) LibAppR.drawable.ic_back_white_svg else 0)
             }
-            binding.titleView.setRightDrawable(if (isEditMode) 0 else LibAppR.drawable.ic_toolbar_check_svg)
+            binding.titleView.setRightDrawable(if (isEditMode) 0 else LibUiR.drawable.ic_toolbar_check_svg)
             binding.titleView.setRightText(if (isEditMode) getString(LibAppR.string.report_select_all) else "")
             binding.tabLayout.isVisible = !isEditMode
             binding.viewPager2.isUserInputEnabled = !isEditMode

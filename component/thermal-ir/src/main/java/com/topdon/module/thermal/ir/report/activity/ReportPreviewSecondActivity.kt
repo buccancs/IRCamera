@@ -28,6 +28,7 @@ import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.thermal.ir.report.view.ReportIRShowView
 import com.topdon.module.thermal.ir.R
 import com.csl.irCamera.libapp.R as LibAppR
+import com.csl.irCamera.libui.R as LibUiR
 import com.topdon.module.thermal.ir.report.bean.ReportBean
 import com.topdon.module.thermal.ir.report.viewmodel.UpReportViewModel
 import com.topdon.module.thermal.ir.databinding.ActivityReportPreviewSecondBinding
@@ -78,8 +79,8 @@ class ReportPreviewSecondActivity: BaseViewModelActivity<UpReportViewModel>(), V
         isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
 
         binding.titleView.setTitleText(LibAppR.string.album_edit_preview)
-        binding.titleView.setLeftDrawable(LibAppR.drawable.svg_arrow_left_e8)
-        binding.titleView.setRightDrawable(LibAppR.drawable.ic_report_exit_svg)
+        binding.titleView.setLeftDrawable(LibUiR.drawable.svg_arrow_left_e8)
+        binding.titleView.setRightDrawable(R.drawable.ic_report_exit_svg)
         binding.titleView.setLeftClickListener {
             finish()
         }
