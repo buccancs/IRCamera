@@ -46,14 +46,15 @@ class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(c
         binding = DialogHomeGuideBinding.inflate(LayoutInflater.from(context))
         setContentView(binding.root)
 
-        val clGuide1 = binding.clGuide1
-        val clGuide2 = binding.clGuide2
-        val clGuide3 = binding.clGuide3
-        val tvNext1 = binding.tvNext1
-        val tvNext2 = binding.tvNext2
-        val tvIKnow = binding.tvIKnow
-        val tvSkin1 = binding.tvSkin1
-        val tvSkin2 = binding.tvSkin2
+        // Access views from included layouts
+        val clGuide1 = binding.includeGuide1.clGuide1
+        val clGuide2 = binding.includeGuide2.clGuide2
+        val clGuide3 = binding.includeGuide3.clGuide3
+        val tvNext1 = binding.includeGuide1.tvNext1
+        val tvNext2 = binding.includeGuide2.tvNext2
+        val tvIKnow = binding.includeGuide3.tvIKnow
+        val tvSkin1 = binding.includeGuide1.tvSkin1
+        val tvSkin2 = binding.includeGuide2.tvSkin2
 
         when (currentStep) {
             1 -> {

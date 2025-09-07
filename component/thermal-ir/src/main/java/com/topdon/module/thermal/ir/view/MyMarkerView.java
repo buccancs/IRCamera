@@ -53,18 +53,18 @@ public class MyMarkerView extends MarkerView {
                     int index = highlight.getDataIndex();//曲线序号
                     StringBuilder str = new StringBuilder();
                     if (index == 0) {
-                        str.append(com.blankj.utilcode.util.Utils.getApp().getString(R.string.chart_temperature) + ": ").append(UnitTools.showC(data.getThermal()));
+                        str.append(com.blankj.utilcode.util.Utils.getApp().getString(com.csl.irCamera.libapp.R.string.chart_temperature) + ": ").append(UnitTools.showC(data.getThermal()));
                     } else if (index == 1) {
-                        str.append(com.blankj.utilcode.util.Utils.getApp().getString(R.string.chart_temperature_high) + ": ").append(UnitTools.showC(data.getThermalMax()));
-                        str.append(System.getProperty("line.separator")).append(com.blankj.utilcode.util.Utils.getApp().getString(R.string.chart_temperature_low) + ": ").append(UnitTools.showC(data.getThermalMin()));
+                        str.append(com.blankj.utilcode.util.Utils.getApp().getString(com.csl.irCamera.libapp.R.string.chart_temperature_high) + ": ").append(UnitTools.showC(data.getThermalMax()));
+                        str.append(System.getProperty("line.separator")).append(com.blankj.utilcode.util.Utils.getApp().getString(com.csl.irCamera.libapp.R.string.chart_temperature_low) + ": ").append(UnitTools.showC(data.getThermalMin()));
                     } else {
-                        str.append(com.blankj.utilcode.util.Utils.getApp().getString(R.string.chart_temperature_high) + ": ").append(UnitTools.showC(data.getThermalMax()));
-                        str.append(System.getProperty("line.separator")).append(com.blankj.utilcode.util.Utils.getApp().getString(R.string.chart_temperature_low) + ": ").append(UnitTools.showC(data.getThermalMin()));
+                        str.append(com.blankj.utilcode.util.Utils.getApp().getString(com.csl.irCamera.libapp.R.string.chart_temperature_high) + ": ").append(UnitTools.showC(data.getThermalMax()));
+                        str.append(System.getProperty("line.separator")).append(com.blankj.utilcode.util.Utils.getApp().getString(com.csl.irCamera.libapp.R.string.chart_temperature_low) + ": ").append(UnitTools.showC(data.getThermalMin()));
                     }
                     tvContent.setText(str.toString());
                     timeText.setText(TimeTool.INSTANCE.showTimeSecond(data.getCreateTime()));
                 } else {
-                    tvContent.setText(com.blankj.utilcode.util.Utils.getApp().getString(R.string.chart_temperature) + ": " + String.format(Locale.ENGLISH, "%.1f", e.getY()) + UnitTools.showUnit());
+                    tvContent.setText(com.blankj.utilcode.util.Utils.getApp().getString(com.csl.irCamera.libapp.R.string.chart_temperature) + ": " + String.format(Locale.ENGLISH, "%.1f", e.getY()) + UnitTools.showUnit());
                     timeText.setVisibility(View.GONE);
                 }
             }
