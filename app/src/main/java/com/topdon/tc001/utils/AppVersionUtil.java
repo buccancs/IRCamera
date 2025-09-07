@@ -268,8 +268,10 @@ public class AppVersionUtil {
             params.addBodyParameter(params1[0], params1[1]);
             params.addBodyParameter(params2[0], params2[1]);
             params.addBodyParameter(params3[0], params3[1]);
-        } catch (Exception e) {
-            XLog.e("bcf", "升级接口解析异常");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            XLog.e("bcf", "URL parameter parsing array index error");
+        } catch (IllegalArgumentException e) {
+            XLog.e("bcf", "URL parameter format error");
         }
         fileName = "topinfrared" + System.currentTimeMillis() + ".zip";
         String path = mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() + File.separator + fileName;

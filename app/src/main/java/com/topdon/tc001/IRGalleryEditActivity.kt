@@ -795,9 +795,13 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                 newTemp = IRTool.temperatureCorrection(temp,paramsArray,BaseApplication.instance.tau_data_H!!,
                     BaseApplication.instance.tau_data_L!!,struct.gainStatus)
             }
-        }catch (e : Exception){
-            XLog.e("$TAG:tempCorrect-${e.message}")
-        }finally {
+        } catch (e: ArrayIndexOutOfBoundsException) {
+            XLog.e("$TAG:tempCorrect-Array index error: ${e.message}")
+        } catch (e: NumberFormatException) {
+            XLog.e("$TAG:tempCorrect-Number format error: ${e.message}")
+        } catch (e: IllegalArgumentException) {
+            XLog.e("$TAG:tempCorrect-Invalid argument: ${e.message}")
+        } finally {
             return newTemp
         }
     }

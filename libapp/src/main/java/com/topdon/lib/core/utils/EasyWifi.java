@@ -199,8 +199,10 @@ public class EasyWifi {
                 try {
                     Log.d(EasyWifi.this.TAG, "设置网络类型时onAvailable: ");
                     EasyWifi.this.getConnectivityManager().bindProcessToNetwork(network);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } catch (SecurityException e) {
+                    Log.w(EasyWifi.this.TAG, "Permission denied binding to network", e);
+                } catch (IllegalStateException e) {
+                    Log.w(EasyWifi.this.TAG, "Invalid state binding to network", e);
                 }
             }
         });

@@ -23,8 +23,10 @@ object CommUtils {
             )
         try {
             msg = appInfo.metaData.getString("app_name")?.toString() ?: ""
-        }catch (e : Exception){
-            XLog.w("获取app名称异常： ${e.message}")
+        } catch (e: NullPointerException) {
+            XLog.w("MetaData is null: ${e.message}")
+        } catch (e: ClassCastException) {
+            XLog.w("MetaData type error: ${e.message}")
         }
         return msg
 

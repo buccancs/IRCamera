@@ -16,7 +16,13 @@ object ScreenShotUtils {
             val canvas = Canvas(bitmap)
             view.draw(canvas)
             bitmap
-        } catch (e: Exception) {
+        } catch (e: IllegalStateException) {
+            e.printStackTrace()
+            null
+        } catch (e: IllegalArgumentException) {
+            e.printStackTrace()
+            null
+        } catch (e: OutOfMemoryError) {
             e.printStackTrace()
             null
         }
