@@ -66,7 +66,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
 
     override fun initView() {
         _binding = FragmentMoreBinding.bind(requireView())
-        _upgradeBinding = binding.layoutUpgradeInclude
+        _upgradeBinding = binding.settingVersion
         
         isTC007 = arguments?.getBoolean(ExtraKeyConfig.IS_TC007, false) ?: false
 
@@ -74,14 +74,14 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
         binding.settingItemCorrection.setOnClickListener(this)//图像校正
         binding.settingItemDual.setOnClickListener(this)//双光校正
         binding.settingItemUnit.setOnClickListener(this)//温度单温
-        binding.settingVersion.setOnClickListener(this) //TC007固件升级
+        upgradeBinding.root.setOnClickListener(this) //TC007固件升级
         binding.settingDeviceInformation.setOnClickListener(this)//TC007设备信息
         binding.settingReset.setOnClickListener(this)//TC007恢复出厂设置
 
         //根据 2024/5/23 评审会结论，TC007没有多少需要恢复出厂的配置，产品决定砍掉
         binding.settingReset.isVisible = false
 
-        binding.settingVersion.isVisible = isTC007 && Build.VERSION.SDK_INT >= 29
+        upgradeBinding.root.isVisible = isTC007 && Build.VERSION.SDK_INT >= 29
         binding.settingDeviceInformation.isVisible = isTC007
         binding.settingItemDual.isVisible = !isTC007 && DeviceTools.isTC001PlusConnect()
 
@@ -179,7 +179,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
            binding.settingItemCorrection->{//锅盖校正
                ARouter.getInstance().build(RouterConfig.IR_CORRECTION).withBoolean(ExtraKeyConfig.IS_TC007, isTC007).navigation(requireContext())
            }
-           binding.settingVersion -> {//TC007固件升级
+           upgradeBinding.root -> {//TC007固件升级
                //由于双通道方案存在问题，V3.30临时使用 apk 内置固件升级包，此处注释强制登录逻辑
 //               if (LMS.getInstance().isLogin) {
                    val firmwareData = firmwareViewModel.firmwareDataLD.value

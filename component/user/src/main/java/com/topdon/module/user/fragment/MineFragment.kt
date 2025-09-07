@@ -122,7 +122,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onWinterClick(event: WinterClickEvent) {
-        view_winter_point.isVisible = false
+        binding.viewWinterPoint.isVisible = false
     }
 
     override fun onResume() {

@@ -274,6 +274,8 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <include layout="@layout/layout_customer" />
+    <include 
+        android:id="@+id/include_customer"
+        layout="@layout/layout_customer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

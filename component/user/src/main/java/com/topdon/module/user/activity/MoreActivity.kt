@@ -25,6 +25,7 @@ import com.topdon.lms.sdk.LMS
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.user.R
 import com.topdon.module.user.databinding.ActivityMoreBinding
+import com.topdon.module.user.databinding.LayoutUpgradeBinding
 import com.topdon.module.user.dialog.DownloadProDialog
 import com.topdon.module.user.dialog.FirmwareInstallDialog
 import com.topdon.lib.core.dialog.FirmwareUpDialog
@@ -40,24 +41,30 @@ import java.text.DecimalFormat
 @Route(path = RouterConfig.TC_MORE)
 class MoreActivity : BaseActivity(), View.OnClickListener {
 
+    private lateinit var binding: ActivityMoreBinding
+    private lateinit var upgradeBinding: LayoutUpgradeBinding
     private val firmwareViewModel: FirmwareViewModel by viewModels()
 
     override fun initContentView() = R.layout.activity_more
 
     override fun initView() {
-        setting_device_information.setOnClickListener(this)
-        setting_tisr.setOnClickListener(this)
-        setting_storage_space.setOnClickListener(this)
-        setting_reset.setOnClickListener(this)
-        setting_version.setOnClickListener(this)
-        setting_disconnect.setOnClickListener(this)
-        setting_auto_save.setOnClickListener(this)
+        binding = ActivityMoreBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        upgradeBinding = binding.settingVersion
+        
+        binding.settingDeviceInformation.setOnClickListener(this)
+        binding.settingTisr.setOnClickListener(this)
+        binding.settingStorageSpace.setOnClickListener(this)
+        binding.settingReset.setOnClickListener(this)
+        upgradeBinding.root.setOnClickListener(this)
+        binding.settingDisconnect.setOnClickListener(this)
+        binding.settingAutoSave.setOnClickListener(this)
 
         /*if (Build.VERSION.SDK_INT < 29) {//低于 Android10
-            setting_version.isVisible = false
+            upgradeBinding.root.isVisible = false
         }*/
         // 2024-5-30 09:16 TS004项目APP沟通群决定，3.30版本先把固件升级隐藏
-        setting_version.isVisible = false
+        upgradeBinding.root.isVisible = false
     }
 
     override fun initData() {
@@ -96,7 +103,7 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
             binding.settingStorageSpace -> {//TS004储存空间
                 ARouter.getInstance().build(RouterConfig.STORAGE_SPACE).navigation(this@MoreActivity)
             }
-            binding.settingVersion -> {//固件版本
+            upgradeBinding.root -> {//固件版本
                 //由于双通道方案存在问题，V3.30临时使用 apk 内置固件升级包，此处注释强制登录逻辑
 //                if (LMS.getInstance().isLogin) {
                     val firmwareData = firmwareViewModel.firmwareDataLD.value
@@ -219,7 +226,7 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
     private fun updateVersion() {
         lifecycleScope.launch {
             // TC001 uses USB connection, version info not available via network
-            binding.settingVersion.itemSettingBottomText.text = getString(R.string.setting_firmware_update_version) + "V" + "N/A"
+            // binding.settingVersion.itemSettingBottomText.text = getString(R.string.setting_firmware_update_version) + "V" + "N/A"
         }
     }
 
