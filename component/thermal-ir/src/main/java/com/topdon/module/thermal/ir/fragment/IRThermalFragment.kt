@@ -76,14 +76,14 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
     override fun connected() {
         SharedManager.hasTcLine = true
         // TC001 USB connection
-        cl_connect.isVisible = true
-        cl_not_connect.isVisible = false
+        binding.clConnect.isVisible = true
+        binding.clNotConnect.isVisible = false
     }
 
     override fun disConnected() {
         // For TC001 USB connection
-        cl_connect.isVisible = false
-        cl_not_connect.isVisible = true
+        binding.clConnect.isVisible = false
+        binding.clNotConnect.isVisible = true
     }
 
     override fun onSocketConnected(isTS004: Boolean) {

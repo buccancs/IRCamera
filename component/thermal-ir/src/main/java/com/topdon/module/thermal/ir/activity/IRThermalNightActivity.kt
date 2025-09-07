@@ -373,7 +373,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 if (!customPseudoBean.isUseCustomPseudo) {
                     //动态渲染模式
                     try {
-                        temperature_seekbar.setRangeAndPro(
+                        binding.temperatureSeekbar.setRangeAndPro(
                             UnitTools.showUnitValue(editMinValue, isShowC),
                             UnitTools.showUnitValue(editMaxValue, isShowC),
                             realLeftValue,
@@ -389,7 +389,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                         Log.e("温度图层更新失败", e.message.toString())
                     }
                     try {
-                        tv_temp_content.text = "Max:${UnitTools.showC(max, isShowC)}\nMin:${
+                        binding.tvTempContent.text = "Max:${UnitTools.showC(max, isShowC)}\nMin:${
                             UnitTools.showC(
                                 min,
                                 isShowC
@@ -401,7 +401,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 } else {
                     //自定义渲染
                     try {
-                        tv_temp_content.text = " Max:${UnitTools.showC(max, isShowC)}\n Min:${
+                        binding.tvTempContent.text = " Max:${UnitTools.showC(max, isShowC)}\n Min:${
                             UnitTools.showC(
                                 min,
                                 isShowC
@@ -413,46 +413,46 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 }
                 try {
                     if (isVideo) {
-                        cl_seek_bar.requestLayout()
-                        cl_seek_bar.updateBitmap()
+                        binding.clSeekBar.requestLayout()
+                        binding.clSeekBar.updateBitmap()
                     }
                 } catch (e: Exception) {
                     Log.w("伪彩条更新异常:", "${e.message}")
                 }
                 try {
-                    AlarmHelp.getInstance(application).alarmData(max, min, temp_bg)
+                    AlarmHelp.getInstance(application).alarmData(max, min, binding.tempBg)
                 } catch (e: Exception) {
                     Log.e("温度图层更新失败", e.message.toString())
                 }
             }
 
         }
-        temperatureView.setOnTrendChangeListener {
+        binding.temperatureView.setOnTrendChangeListener {
             lifecycleScope.launch(Dispatchers.Main) {
-                if (cl_trend_open.isVisible) {
-                    view_chart_trend.refresh(it)
+                if (binding.clTrendOpen.isVisible) {
+                    binding.viewChartTrend.refresh(it)
                 }
             }
         }
-        temperatureView.setOnTrendAddListener {
+        binding.temperatureView.setOnTrendAddListener {
             if (hasClickTrendDel) {
                 hasClickTrendDel = false
-                cl_trend_open.isVisible = true
-                ll_trend_close.isVisible = false
+                binding.clTrendOpen.isVisible = true
+                binding.llTrendClose.isVisible = false
             }
         }
-        temperatureView.setOnTrendRemoveListener {
-            view_chart_trend.setToEmpty()
+        binding.temperatureView.setOnTrendRemoveListener {
+            binding.viewChartTrend.setToEmpty()
         }
 
-        thermal_recycler_night.isVideoMode = SaveSettingUtil.isVideoMode //恢复拍照/录像状态
-        thermal_recycler_night.fenceSelectType = FenceType.FULL //初始选中全图
-        thermal_recycler_night.isUnitF = SharedManager.getTemperature() == 0 //温度档位单位
-        thermal_recycler_night.setSettingRotate(saveSetBean.rotateAngle) //选中当前的旋转角度
-        thermal_recycler_night.setTempLevel(temperatureMode) //选中当前的温度档位
+        binding.thermalRecyclerNight.isVideoMode = SaveSettingUtil.isVideoMode //恢复拍照/录像状态
+        binding.thermalRecyclerNight.fenceSelectType = FenceType.FULL //初始选中全图
+        binding.thermalRecyclerNight.isUnitF = SharedManager.getTemperature() == 0 //温度档位单位
+        binding.thermalRecyclerNight.setSettingRotate(saveSetBean.rotateAngle) //选中当前的旋转角度
+        binding.thermalRecyclerNight.setTempLevel(temperatureMode) //选中当前的温度档位
 
         //判断字体颜色是否保存
-        thermal_recycler_night.setSettingSelected(SettingType.FONT, !saveSetBean.isTempTextDefault())
+        binding.thermalRecyclerNight.setSettingSelected(SettingType.FONT, !saveSetBean.isTempTextDefault())
 
         pop_time_lay.visibility = View.GONE
         cameraPreview.visibility = View.INVISIBLE
