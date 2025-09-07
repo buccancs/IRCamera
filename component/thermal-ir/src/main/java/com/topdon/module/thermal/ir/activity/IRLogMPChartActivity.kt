@@ -153,7 +153,7 @@ class IRLogMPChartActivity : BaseActivity() {
                 .setCanceled(true)
                 .create().show()
         }
-        tv_save_path?.text = getString(R.string.temp_export_path) + ": " + FileConfig.excelDir
+        binding.tvSavePath?.text = getString(R.string.temp_export_path) + ": " + FileConfig.excelDir
         viewModel.queryDetail(startTime)
 
     }

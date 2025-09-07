@@ -73,8 +73,8 @@ class ReportInfoView: LinearLayout {
      */
     fun getPrintViewList(): ArrayList<View> {
         val result = ArrayList<View>()
-        result.add(cl_top)
-        result.add(cl_report_condition)
+        result.add(binding.clTop)
+        result.add(binding.clReportCondition)
         return result
     }
 }

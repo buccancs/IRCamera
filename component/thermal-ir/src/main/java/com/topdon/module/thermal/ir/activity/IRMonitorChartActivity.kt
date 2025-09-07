@@ -97,8 +97,8 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
         binding.monitorRealVol.visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
         binding.monitorRealImg.visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
 
-        binding.binding.temperatureView.isEnabled = false
-        binding.binding.temperatureView.setTextSize(SaveSettingUtil.tempTextSize)
+        binding.temperatureView.isEnabled = false
+        binding.temperatureView.setTextSize(SaveSettingUtil.tempTextSize)
 
 
         initDataIR()
@@ -122,9 +122,9 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
             while (true) {
                 delay(1000)
                 val result: LibIRTemp.TemperatureSampleResult = when (selectBean.type) {
-                    1 -> binding.binding.temperatureView.getPointTemp(selectBean.startPosition)
-                    2 -> binding.binding.temperatureView.getLineTemp(Line(selectBean.startPosition, selectBean.endPosition))
-                    else -> binding.binding.temperatureView.getRectTemp(selectBean.getRect())
+                    1 -> binding.temperatureView.getPointTemp(selectBean.startPosition)
+                    2 -> binding.temperatureView.getLineTemp(Line(selectBean.startPosition, selectBean.endPosition))
+                    else -> binding.temperatureView.getRectTemp(selectBean.getRect())
                 } ?: continue
                 if (isFirstRead) {
                     if (result.maxTemperature > 200f || result.minTemperature < -200f) {
@@ -138,7 +138,7 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
                     } else {
                         isFirstRead = false
                         lifecycleScope.launch(Dispatchers.Main) {
-                            ll_time.isVisible = true
+                            binding.llTime.isVisible = true
                         }
                     }
                 }

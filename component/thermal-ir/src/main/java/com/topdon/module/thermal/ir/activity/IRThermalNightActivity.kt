@@ -264,9 +264,9 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             }
             imageThread?.setBitmap(bitmap)
             imageThread?.setOpenAmplify(isOpenAmplify)
-            cameraView.bitmap = bitmap
-            cameraView.isOpenAmplify = isOpenAmplify
-            title_view.setRight2Drawable(if (isOpenAmplify) R.drawable.svg_tisr_on else R.drawable.svg_tisr_off)
+            binding.cameraView.bitmap = bitmap
+            binding.cameraView.isOpenAmplify = isOpenAmplify
+            binding.titleView.setRight2Drawable(if (isOpenAmplify) R.drawable.svg_tisr_on else R.drawable.svg_tisr_off)
             SaveSettingUtil.isOpenAmplify = isOpenAmplify
             if (isOpenAmplify){
                 ToastUtils.showShort(R.string.tips_tisr_on)
@@ -280,9 +280,9 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
      open fun initAmplify(show : Boolean){
         lifecycleScope.launch {
             if (show){
-                title_view.setRight2Drawable(if (isOpenAmplify) R.drawable.svg_tisr_on else R.drawable.svg_tisr_off)
+                binding.titleView.setRight2Drawable(if (isOpenAmplify) R.drawable.svg_tisr_on else R.drawable.svg_tisr_off)
             }else{
-                title_view.setRight2Drawable(0)
+                binding.titleView.setRight2Drawable(0)
             }
             withContext(Dispatchers.IO){
                 if (isOpenAmplify){
@@ -296,21 +296,21 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             }
             imageThread?.setBitmap(bitmap)
             imageThread?.setOpenAmplify(isOpenAmplify)
-            cameraView.bitmap = bitmap
-            cameraView.isOpenAmplify = isOpenAmplify
+            binding.cameraView.bitmap = bitmap
+            binding.cameraView.isOpenAmplify = isOpenAmplify
         }
     }
 
     @SuppressLint("SetTextI18n")
     override fun initView() {
-        title_view.setLeftClickListener {
-            if (time_down_view.isRunning) {
+        binding.titleView.setLeftClickListener {
+            if (binding.timeDownView.isRunning) {
                 return@setLeftClickListener
             }
             setResult(200)
             finish()
         }
-        title_view.setRight2ClickListener{
+        binding.titleView.setRight2ClickListener{
             if (SupHelp.getInstance().loadOpenclSuccess){
                 switchAmplify()
             }else{
@@ -321,7 +321,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                     .create().show()
             }
         }
-        title_view.setRightClickListener {
+        binding.titleView.setRightClickListener {
             val config = ConfigRepository.readConfig(false)
             var text = ""
             for (tmp in IRConfigData.irConfigData(this@IRThermalNightActivity)){
@@ -338,13 +338,13 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             EmissivityTipPopup(this@IRThermalNightActivity, false)
                 .setDataBean(config.environment,config.distance,config.radiation,text)
                 .build()
-                .showAsDropDown(title_view, 0, 0, Gravity.END)
+                .showAsDropDown(binding.titleView, 0, 0, Gravity.END)
         }
-        tv_title_temp.isSelected = true
-        tv_title_temp.setOnClickListener {
+        binding.tvTitleTemp.isSelected = true
+        binding.tvTitleTemp.setOnClickListener {
             switchTs001Mode(true)
         }
-        tv_title_observe.setOnClickListener {
+        binding.tvTitleObserve.setOnClickListener {
             switchTs001Mode(false)
         }
 

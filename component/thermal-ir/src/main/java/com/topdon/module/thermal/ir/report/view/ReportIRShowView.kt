@@ -117,14 +117,17 @@ class ReportIRShowView: LinearLayout {
 
     private fun getItemChild(itemRoot: View, resultList: ArrayList<View>) {
         if (itemRoot.isVisible) {
-            if (itemRoot.cl_range.isVisible) {
-                resultList.add(itemRoot.cl_range)
+            val clRange = itemRoot.findViewById<View>(R.id.cl_range)
+            if (clRange.isVisible) {
+                resultList.add(clRange)
             }
-            if (itemRoot.cl_average.isVisible) {
-                resultList.add(itemRoot.cl_average)
+            val clAverage = itemRoot.findViewById<View>(R.id.cl_average)
+            if (clAverage.isVisible) {
+                resultList.add(clAverage)
             }
-            if (itemRoot.cl_explain.isVisible) {
-                resultList.add(itemRoot.cl_explain)
+            val clExplain = itemRoot.findViewById<View>(R.id.cl_explain)
+            if (clExplain.isVisible) {
+                resultList.add(clExplain)
             }
         }
     }
@@ -146,7 +149,7 @@ class ReportIRShowView: LinearLayout {
         view_image_bg.setBackgroundResource(if (isFirst) R.drawable.layer_report_ir_show_top_bg else R.drawable.layer_report_ir_show_item_bg)
         cl_image.setPadding(0, if (isFirst) SizeUtils.dp2px(20f) else 0, 0, 0)
 
-        refreshItem(cl_full, reportIRBean.full_graph_data, TYPE_FULL, 0)
+        refreshItem(binding.clFull.root, reportIRBean.full_graph_data, TYPE_FULL, 0)
 
         val pointList = reportIRBean.point_data
         for (i in pointList.indices) {
@@ -224,7 +227,7 @@ class ReportIRShowView: LinearLayout {
             }
             return
         }
-        hideLastLine(isLast, cl_full, reportIRBean.full_graph_data, TYPE_FULL)
+        hideLastLine(isLast, binding.clFull.root, reportIRBean.full_graph_data, TYPE_FULL)
     }
 
     private fun hideLastLine(isLast: Boolean, itemRoot: View, tempBean: ReportTempBean?, type: Int) {
@@ -232,25 +235,28 @@ class ReportIRShowView: LinearLayout {
             return
         }
         if (tempBean.isExplainOpen()) {
-            itemRoot.view_line_explain.isVisible = false
-            itemRoot.cl_explain.setPadding(0, 0, 0, SizeUtils.dp2px(if (isLast) 12f else 20f))
+            itemRoot.findViewById<View>(R.id.view_line_explain).isVisible = false
+            val clExplain = itemRoot.findViewById<View>(R.id.cl_explain)
+            clExplain.setPadding(0, 0, 0, SizeUtils.dp2px(if (isLast) 12f else 20f))
             if (isLast) {
-                itemRoot.cl_explain.setBackgroundResource(R.drawable.layer_report_ir_show_bottom_bg)
+                clExplain.setBackgroundResource(R.drawable.layer_report_ir_show_bottom_bg)
             }
             return
         }
         if ((type == TYPE_LINE || type == TYPE_RECT) && tempBean.isAverageOpen()) {
-            itemRoot.view_line_average.isVisible = false
-            itemRoot.cl_average.setPadding(0, 0, 0, SizeUtils.dp2px(if (isLast) 12f else 20f))
+            itemRoot.findViewById<View>(R.id.view_line_average).isVisible = false
+            val clAverage = itemRoot.findViewById<View>(R.id.cl_average)
+            clAverage.setPadding(0, 0, 0, SizeUtils.dp2px(if (isLast) 12f else 20f))
             if (isLast) {
-                itemRoot.cl_average.setBackgroundResource(R.drawable.layer_report_ir_show_bottom_bg)
+                clAverage.setBackgroundResource(R.drawable.layer_report_ir_show_bottom_bg)
             }
             return
         }
-        itemRoot.view_line_range.isVisible = false
-        itemRoot.cl_range.setPadding(0, 0, 0, SizeUtils.dp2px(if (isLast) 12f else 20f))
+        itemRoot.findViewById<View>(R.id.view_line_range).isVisible = false
+        val clRange = itemRoot.findViewById<View>(R.id.cl_range)
+        clRange.setPadding(0, 0, 0, SizeUtils.dp2px(if (isLast) 12f else 20f))
         if (isLast) {
-            itemRoot.cl_range.setBackgroundResource(R.drawable.layer_report_ir_show_bottom_bg)
+            clRange.setBackgroundResource(R.drawable.layer_report_ir_show_bottom_bg)
         }
     }
 
@@ -297,14 +303,14 @@ class ReportIRShowView: LinearLayout {
             }
         }
 
-        itemRoot.tv_range_title.isVisible = if (type == TYPE_POINT) tempBean.isTempOpen() else tempBean.isMinOpen() || tempBean.isMaxOpen()
-        itemRoot.tv_range_value.isVisible = if (type == TYPE_POINT) tempBean.isTempOpen() else tempBean.isMinOpen() || tempBean.isMaxOpen()
-        itemRoot.view_line_range.isVisible = if (type == TYPE_POINT) tempBean.isTempOpen() else tempBean.isMinOpen() || tempBean.isMaxOpen()
-        itemRoot.cl_average.isVisible = (type == TYPE_LINE || type == TYPE_RECT) && tempBean.isAverageOpen()
-        itemRoot.cl_explain.isVisible = tempBean.isExplainOpen()
-        itemRoot.tv_range_title.text = rangeTitle
-        itemRoot.tv_range_value.text = rangeValue
-        itemRoot.tv_average_value.text = tempBean.mean_temperature
-        itemRoot.tv_explain_value.text = tempBean.comment
+        itemRoot.findViewById<View>(R.id.tv_range_title).isVisible = if (type == TYPE_POINT) tempBean.isTempOpen() else tempBean.isMinOpen() || tempBean.isMaxOpen()
+        itemRoot.findViewById<View>(R.id.tv_range_value).isVisible = if (type == TYPE_POINT) tempBean.isTempOpen() else tempBean.isMinOpen() || tempBean.isMaxOpen()
+        itemRoot.findViewById<View>(R.id.view_line_range).isVisible = if (type == TYPE_POINT) tempBean.isTempOpen() else tempBean.isMinOpen() || tempBean.isMaxOpen()
+        itemRoot.findViewById<View>(R.id.cl_average).isVisible = (type == TYPE_LINE || type == TYPE_RECT) && tempBean.isAverageOpen()
+        itemRoot.findViewById<View>(R.id.cl_explain).isVisible = tempBean.isExplainOpen()
+        itemRoot.findViewById<TextView>(R.id.tv_range_title).text = rangeTitle
+        itemRoot.findViewById<TextView>(R.id.tv_range_value).text = rangeValue
+        itemRoot.findViewById<TextView>(R.id.tv_average_value).text = tempBean.mean_temperature
+        itemRoot.findViewById<TextView>(R.id.tv_explain_value).text = tempBean.comment
     }
 }
