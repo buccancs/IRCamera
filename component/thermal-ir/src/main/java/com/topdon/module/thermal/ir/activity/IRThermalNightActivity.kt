@@ -3204,7 +3204,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
 
     private fun setCarDetectPrompt(){
         var carDetectInfo = SharedManager.getCarDetectInfo()
-        var tvDetectPrompt = binding.viewCarDetect.findViewById<TextView>(R.id.tv_detect_prompt)
+        var tvDetectPrompt = binding.viewCarDetect.tvDetectPrompt
         if(carDetectInfo == null){
             tvDetectPrompt.text =  getString(R.string.abnormal_item1) + TemperatureUtil.getTempStr(40, 70)
         }else{
@@ -3213,7 +3213,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         }
         val test = intent.getBooleanExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER,false)
         binding.layCarDetectPrompt.visibility = if(intent.getBooleanExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER,false)) View.VISIBLE else View.GONE
-        binding.viewCarDetect.findViewById<RelativeLayout>(R.id.rl_content).setOnClickListener {
+        binding.viewCarDetect.rlContent.setOnClickListener {
             CarDetectDialog(this) {
                 var temperature = it.temperature.split("~")
                 tvDetectPrompt.text =  it.item + TemperatureUtil.getTempStr(temperature[0].toInt(), temperature[1].toInt())

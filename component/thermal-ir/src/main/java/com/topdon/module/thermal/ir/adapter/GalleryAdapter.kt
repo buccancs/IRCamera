@@ -124,30 +124,32 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == TYPE_HEAD) {
-            ItemHeadView(LayoutInflater.from(parent.context).inflate(R.layout.item_gallery_head_lay, parent, false))
+            val binding = ItemGalleryHeadLayBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemHeadView(binding)
         } else {
-            ItemView(LayoutInflater.from(parent.context).inflate(R.layout.item_gallery_lay, parent, false))
+            val binding = ItemGalleryLayBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemView(binding)
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val data = dataList[position]
         if (holder is ItemView) {
-            GlideLoader.load(holder.img, data.thumb)
+            GlideLoader.load(holder.binding.itemGalleryImg, data.thumb)
             if (data.name.uppercase().endsWith(".MP4")) {
-                holder.info.text = TimeTool.showVideoTime(data.duration)
-                holder.itemView.iv_video_time.isVisible = true
+                holder.binding.itemGalleryText.text = TimeTool.showVideoTime(data.duration)
+                holder.binding.ivVideoTime.isVisible = true
             } else {
-                holder.info.text = ""
-                holder.itemView.iv_video_time.isVisible = false
+                holder.binding.itemGalleryText.text = ""
+                holder.binding.ivVideoTime.isVisible = false
             }
 
-            holder.itemView.iv_has_download.isVisible = isTS004Remote && data.hasDownload
+            holder.binding.ivHasDownload.isVisible = isTS004Remote && data.hasDownload
 
-            holder.itemView.iv_check.isVisible = isEditMode
-            holder.itemView.iv_check.isSelected = selectList.contains(position)
+            holder.binding.ivCheck.isVisible = isEditMode
+            holder.binding.ivCheck.isSelected = selectList.contains(position)
 
-            holder.img.setOnClickListener {
+            holder.binding.itemGalleryImg.setOnClickListener {
                 if (isEditMode) {
                     if (selectList.contains(position)) {
                         selectList.remove(position)
@@ -156,25 +158,25 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     }
                     selectCallback?.invoke(selectList)
 
-                    holder.itemView.iv_check.isSelected = selectList.contains(position)
+                    holder.binding.ivCheck.isSelected = selectList.contains(position)
                 } else {
                     itemClickCallback?.invoke(position)
                 }
             }
-            holder.img.setOnLongClickListener {
+            holder.binding.itemGalleryImg.setOnLongClickListener {
                 if (!isEditMode) {
                     selectList.add(position)
                     selectCallback?.invoke(selectList)
-                    holder.itemView.iv_check.isVisible = true
-                    holder.itemView.iv_check.isSelected = true
+                    holder.binding.ivCheck.isVisible = true
+                    holder.binding.ivCheck.isSelected = true
                     isEditMode = true
                     onLongEditListener?.invoke()
                 }
                 return@setOnLongClickListener true
             }
         } else if (holder is ItemHeadView) {
-            holder.name.text = TimeTool.showDateType(data.timeMillis, 4)
-            holder.name.setTextColor(0x80ffffff.toInt())
+            holder.binding.itemGalleryHeadText.text = TimeTool.showDateType(data.timeMillis, 4)
+            holder.binding.itemGalleryHeadText.setTextColor(0x80ffffff.toInt())
         }
     }
 
@@ -182,14 +184,9 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return dataList.size
     }
 
-    inner class ItemHeadView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val name: TextView = itemView.item_gallery_head_text
-    }
+    inner class ItemHeadView(val binding: ItemGalleryHeadLayBinding) : RecyclerView.ViewHolder(binding.root)
 
-    inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val img: ImageView = itemView.item_gallery_img
-        val info: TextView = itemView.item_gallery_text
-    }
+    inner class ItemView(val binding: ItemGalleryLayBinding) : RecyclerView.ViewHolder(binding.root)
 
 
 }

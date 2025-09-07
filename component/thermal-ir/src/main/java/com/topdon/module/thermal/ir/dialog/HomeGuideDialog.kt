@@ -45,45 +45,54 @@ class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(c
         binding = DialogHomeGuideBinding.inflate(LayoutInflater.from(context))
         setContentView(binding.root)
 
+        val clGuide1 = findViewById<View>(R.id.cl_guide_1)
+        val clGuide2 = findViewById<View>(R.id.cl_guide_2)
+        val clGuide3 = findViewById<View>(R.id.cl_guide_3)
+        val tvNext1 = findViewById<View>(R.id.tv_next1)
+        val tvNext2 = findViewById<View>(R.id.tv_next2)
+        val tvIKnow = findViewById<View>(R.id.tv_i_know)
+        val tvSkin1 = findViewById<View>(R.id.tv_skin1)
+        val tvSkin2 = findViewById<View>(R.id.tv_skin2)
+
         when (currentStep) {
             1 -> {
-                binding.clGuide1.isVisible = true
-                cl_guide_2.isVisible = false
-                cl_guide_3.isVisible = false
+                clGuide1.isVisible = true
+                clGuide2.isVisible = false
+                clGuide3.isVisible = false
             }
             2 -> {
-                cl_guide_1.isVisible = false
-                cl_guide_2.isVisible = true
-                cl_guide_3.isVisible = false
+                clGuide1.isVisible = false
+                clGuide2.isVisible = true
+                clGuide3.isVisible = false
             }
             3 -> {
-                cl_guide_1.isVisible = false
-                cl_guide_2.isVisible = false
-                cl_guide_3.isVisible = true
+                clGuide1.isVisible = false
+                clGuide2.isVisible = false
+                clGuide3.isVisible = true
             }
         }
 
-        tv_next1.setOnClickListener {
+        tvNext1.setOnClickListener {
             onNextClickListener?.invoke(1)
-            cl_guide_1.isVisible = false
-            cl_guide_2.isVisible = true
+            clGuide1.isVisible = false
+            clGuide2.isVisible = true
         }
-        tv_next2.setOnClickListener {
+        tvNext2.setOnClickListener {
             onNextClickListener?.invoke(2)
-            cl_guide_2.isVisible = false
-            cl_guide_3.isVisible = true
+            clGuide2.isVisible = false
+            clGuide3.isVisible = true
         }
-        tv_i_know.setOnClickListener {
+        tvIKnow.setOnClickListener {
             onNextClickListener?.invoke(3)
             dismiss()
         }
 
 
-        tv_skin1.setOnClickListener {
+        tvSkin1.setOnClickListener {
             onSkinClickListener?.invoke()
             dismiss()
         }
-        tv_skin2.setOnClickListener {
+        tvSkin2.setOnClickListener {
             onSkinClickListener?.invoke()
             dismiss()
         }
@@ -114,8 +123,8 @@ class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(c
                 renderScript.destroy()
 
                 launch(Dispatchers.Main) {
-                    iv_blur_bg.isVisible = true
-                    iv_blur_bg.setImageBitmap(outputBitmap)
+                    binding.ivBlurBg.isVisible = true
+                    binding.ivBlurBg.setImageBitmap(outputBitmap)
                 }
             } catch (_: Exception) {
 

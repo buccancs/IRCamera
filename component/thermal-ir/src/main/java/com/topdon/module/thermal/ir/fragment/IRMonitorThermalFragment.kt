@@ -395,18 +395,18 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
     }
 
     private fun setViewLay() {
-        thermal_lay.post {
+        binding.thermalLay.post {
             if (ScreenUtil.isPortrait(requireContext())) {
-                val params = thermal_lay.layoutParams
+                val params = binding.thermalLay.layoutParams
                 params.width = ScreenUtil.getScreenWidth(requireContext())
                 params.height = params.width * imageHeight / imageWidth
-                thermal_lay.layoutParams = params
+                binding.thermalLay.layoutParams = params
             } else {
                 // 横屏
-                val params = thermal_lay.layoutParams
-                params.height = thermal_lay.height
+                val params = binding.thermalLay.layoutParams
+                params.height = binding.thermalLay.height
                 params.width = params.height * imageHeight / imageWidth
-                thermal_lay.layoutParams = params
+                binding.thermalLay.layoutParams = params
             }
         }
     }
