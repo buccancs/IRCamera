@@ -169,7 +169,10 @@ class FileTransferManager:
         """
         try:
             # Generate unique job ID
-            job_id = f"transfer_{manifest.device_id}_{manifest.session_id}_{int(time.time())}"
+            job_id = (
+                f"transfer_{manifest.device_id}_{manifest.session_id}_"
+                f"{int(time.time())}"
+            )
 
             # Determine local file path
             session_dir = self.data_dir / manifest.session_id
@@ -383,7 +386,6 @@ class FileTransferManager:
                     # Determine chunk size for this iteration
                     chunk_size = min(self.chunk_size, bytes_remaining)
 
-                    # Simulate reading chunk from device (replace with actual network read)
                     chunk_data = await self._read_chunk_from_device(
                         job, bytes_transferred, chunk_size
                     )

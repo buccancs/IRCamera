@@ -758,7 +758,6 @@ private class DrawThread extends Thread {
         if (tempResultBean.size() <= 0) {
             return;
         }
-);
         int y = 10;
         int x = 10;
 

@@ -345,7 +345,7 @@ class MainWindow(QMainWindow):
                 )
             )
             self.bluetooth_manager.device_disconnected.connect(
-                lambda addr, reason: self.bluetooth_control_widget.set_connection_status(
+                lambda addr, reason: self.bluetooth_control_widget.set_connection_status(  # noqa: E501
                     addr, False
                 )
             )

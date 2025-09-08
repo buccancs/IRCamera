@@ -324,7 +324,8 @@ class CameraCalibrator:
                 cv2.imwrite(str(image_path), image)
 
                 logger.info(
-                    f"Calibration image {session_data['images_collected']}accepted for {calibration_id}"
+                    f"Calibration image {session_data['images_collected']} "
+                    f"accepted for {calibration_id}"
                 )
 
                 return {
@@ -377,7 +378,8 @@ class CameraCalibrator:
             # Check if we have enough images
             if session_data["images_collected"] < self.min_images:
                 logger.error(
-                    f"Not enough images for calibration: {session_data['images_collected']}< {self.min_images}"
+                    f"Not enough images for calibration: "
+                    f"{session_data['images_collected']} < {self.min_images}"
                 )
                 return None
 
@@ -387,7 +389,8 @@ class CameraCalibrator:
             image_points = session_data["image_points"]
 
             logger.info(
-                f"Computing calibration for {calibration_id}with {len(object_points)} images"
+                f"Computing calibration for {calibration_id} "
+                f"with {len(object_points)} images"
             )
 
             # Calibrate camera
@@ -539,7 +542,10 @@ class CameraCalibrator:
     async def _save_calibration_result(self, result: CalibrationResult):
         """Save calibration result to JSON file"""
         try:
-            filename = f"calibration_{result.device_id}_{result.camera_type.value}_{result.session_id}.json"
+            filename = (
+                f"calibration_{result.device_id}_{result.camera_type.value}_"
+                f"{result.session_id}.json"
+            )
             filepath = self.data_dir / filename
 
             with open(filepath, "w") as f:

@@ -1,4 +1,4 @@
-# !/usr/bin/env python
+#!/usr/bin/env python3
 """
 Basic functionality test for IRCamera PC Controller
 Tests core components without GUI dependencies.
@@ -8,9 +8,6 @@ import asyncio
 import sys
 from pathlib import Path
 
-# Add src directory to path
-sys.path.insert(0, str(Path(__file__).parent / "src"))
-
 from ircamera_pc.core.session import SessionManager
 from ircamera_pc.network.protocol import (
     create_message,
@@ -18,6 +15,9 @@ from ircamera_pc.network.protocol import (
     validate_message,
 )
 from ircamera_pc.network.server import NetworkServer
+
+# Add src directory to path
+sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 
 def test_protocol_manager():

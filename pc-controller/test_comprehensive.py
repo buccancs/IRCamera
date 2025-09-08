@@ -119,8 +119,8 @@ def test_all_components():
         print(f"   ✓ GSR sessions: {len(gsr_ingestor.get_active_sessions())} " "active")
         print(f"   ✓ Transfer summary: {file_transfer_manager.get_transfer_summary()}")
         print(
-            f"   ✓ Calibration sessions: {len(camera_calibrator.get_active_calibrations())}"
-            "active"
+            f"   ✓ Calibration sessions: "
+            f"{len(camera_calibrator.get_active_calibrations())} active"
         )
 
         print("\n" + "=" * 60)
@@ -175,7 +175,8 @@ async def test_gsr_session(gsr_ingestor, session_id):
         value = 50000.0 + i * 1000  # GSR resistance in ohms
         quality = 80 + i * 2
 
-        # Format: timestamp(8 bytes double) + value(4 bytes float) + quality(4 bytes int)
+        # Format: timestamp(8 bytes double) + value(4 bytes float) +
+        # quality(4 bytes int)
         sample_data = struct.pack("<dfi", timestamp, value, quality)
         success = await gsr_ingestor.ingest_sample(session_id, sample_data)
         assert success, f"Failed to ingest GSR sample {i}"

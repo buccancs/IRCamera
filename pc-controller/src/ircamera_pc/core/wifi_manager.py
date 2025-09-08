@@ -344,8 +344,10 @@ class WiFiScanWorker(BaseThread):
         networks = []
 
         try:
-            # Use the built-in airport utility - Security: validate path
-            airport_path = "/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
+            airport_path = (
+                "/System/Library/PrivateFrameworks/Apple80211.framework/"
+                "Versions/Current/Resources/airport"
+            )
 
             if not os.path.exists(airport_path):
                 raise FileNotFoundError(
