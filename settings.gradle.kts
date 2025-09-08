@@ -15,7 +15,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "MPDC4GSR"
+rootProject.name = "IRCamera"
 
 // Core application modules
 include(":app")

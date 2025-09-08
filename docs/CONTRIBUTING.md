@@ -1,6 +1,6 @@
-# Contributing to MPDC4GSR
+# Contributing to IRCamera
 
-We welcome contributions to the Multi-Modal Physiological Sensing Platform! This guide will help you get started.
+We welcome contributions to the IRCamera - Enterprise Multi-Device Thermal Imaging Platform! This guide will help you get started.
 
 ## [target] How to Contribute
 

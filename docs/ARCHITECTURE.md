@@ -1,6 +1,6 @@
-# Architecture Guide - MPDC4GSR Platform
+# Architecture Guide - IRCamera Platform
 
-Comprehensive system architecture documentation for the Multi-Modal Physiological Sensing Platform.
+Comprehensive system architecture documentation for the IRCamera - Enterprise Multi-Device Thermal Imaging Platform.
 
 ## [building] System Overview
 

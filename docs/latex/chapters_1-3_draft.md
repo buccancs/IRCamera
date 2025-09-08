@@ -1,4 +1,4 @@
-# Academic Research Chapters 1-3: Multi-Modal Physiological Sensing Platform
+# Academic Research Chapters 1-3: IRCamera - Enterprise Multi-Device Thermal Imaging Platform
 
 ## Chapter 1: Introduction
 

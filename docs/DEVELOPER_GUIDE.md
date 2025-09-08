@@ -1,6 +1,6 @@
-# Developer Guide - MPDC4GSR Platform
+# Developer Guide - IRCamera Platform
 
-Comprehensive development guide for the Multi-Modal Physiological Sensing Platform.
+Comprehensive development guide for the IRCamera - Enterprise Multi-Device Thermal Imaging Platform.
 
 ## [construction] Architecture Overview
 

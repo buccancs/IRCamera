@@ -1,6 +1,6 @@
-# Quick Start Guide - MPDC4GSR Platform
+# Quick Start Guide - IRCamera Platform
 
-Get up and running with the Multi-Modal Physiological Sensing Platform in under 10 minutes.
+Get up and running with the IRCamera - Enterprise Multi-Device Thermal Imaging Platform in under 10 minutes.
 
 ## [target] Prerequisites
 

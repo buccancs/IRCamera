@@ -1,6 +1,6 @@
-# User Manual - MPDC4GSR Platform
+# User Manual - IRCamera Platform
 
-Complete guide for using the Multi-Modal Physiological Sensing Platform.
+Complete guide for using the IRCamera - Enterprise Multi-Device Thermal Imaging Platform.
 
 ## [book] Table of Contents
 

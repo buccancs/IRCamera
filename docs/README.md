@@ -1,6 +1,6 @@
-# Documentation Index - MPDC4GSR Platform
+# Documentation Index - IRCamera Platform
 
-Welcome to the comprehensive documentation for the Multi-Modal Physiological Sensing Platform.
+Welcome to the comprehensive documentation for the IRCamera - Enterprise Multi-Device Thermal Imaging Platform.
 
 ## [books] Essential Documentation
 

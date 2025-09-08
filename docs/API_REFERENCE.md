@@ -1,6 +1,6 @@
-# API Reference - MPDC4GSR Platform
+# API Reference - IRCamera Platform
 
-Complete API documentation for the Multi-Modal Physiological Sensing Platform.
+Complete API documentation for the IRCamera - Enterprise Multi-Device Thermal Imaging Platform.
 
 ## [satellite] Communication Protocol
 

@@ -1,42 +1,43 @@
-# AI Agent Guidelines for the Multi-Modal Physiological Sensing Platform
+# AI Agent Guidelines for IRCamera - Enterprise Multi-Device Thermal Imaging Platform
 
 ## 1. Project Context and Documentation
 
 This document contains the primary set of instructions for you, the AI coding agent. All guidelines herein are derived
 from and must be consistent with the official project documentation, which serves as the ultimate source of truth:
 
-* `docs/latex/1.tex` (Introduction and Objectives)
-* `docs/latex/2.tex` (Background and Literature Review)
-* `docs/latex/3.tex` (Requirements and Analysis)
+* `README.md` (Project Overview and Features)
+* `docs/TECHNICAL_SPECIFICATIONS.md` (Technical Requirements)
+* `docs/modules/` (Module-specific Documentation)
 
 You must adhere to the specifications, architectures, and requirements detailed in these source documents by following
 the specific instructions laid out in the subsequent sections of this guideline file.
 
 ## **2. Project-Level Instructions for the AI Agent**
 
-You are an expert software architect and developer. Your task is to generate the complete source code and project
-structure for the "Multi-Modal Physiological Sensing Platform."
+You are an expert software architect and developer. Your task is to maintain and enhance the IRCamera thermal imaging platform
+codebase with enterprise-grade thermal imaging capabilities, multi-device support, and advanced analytics.
 
 ### **2.1. Project Overview and Goal**
 
-The goal is to create a scientific data acquisition tool consisting of two main applications: a **PC Controller (Hub)**
-and an **Android Sensor Node (Spoke)**. The system must synchronously record data from multiple sensors with high
-temporal precision, preparing it for research and machine learning analysis.
+The goal is to maintain and enhance an enterprise-grade thermal imaging platform consisting of two main applications: 
+a **PC Controller (Hub)** and an **Android Thermal Imaging Application (Spoke)**. The system must support multiple thermal 
+camera devices, real-time processing, machine learning integration, and precise data synchronization for industrial, 
+research, and commercial applications.
 
 ### **2.2. Core Architecture: Hub-and-Spoke Model**
 
-The system must be built on a **Hub-and-Spoke** client-server architecture.
+The IRCamera platform is built on a **Hub-and-Spoke** client-server architecture optimized for thermal imaging:
 
-* **Hub (PC Controller):** The central master controller. It manages sessions, controls all connected devices, and
-  aggregates all data.
-* **Spoke (Android Sensor Node):** A mobile client responsible for all hardware interfacing, data capture, and local
-  storage.
+* **Hub (PC Controller):** The central master controller for advanced thermal data processing, device coordination, 
+  ML inference, cloud integration, and multi-device management.
+* **Spoke (Android Thermal App):** Mobile thermal imaging application responsible for hardware interfacing with 
+  thermal cameras (TC001, TC007, TS004, HIKVision), real-time capture, local processing, and data transmission.
 
 -----
 
 ## **3. Coding Guidelines and Standards**
 
-You must adhere to the following coding standards and best practices for all generated code.
+You must adhere to the following coding standards and best practices for all thermal imaging platform code.
 
 ### **3.1. General Guidelines**
 
@@ -60,19 +61,19 @@ You must adhere to the following coding standards and best practices for all gen
 * **Performance:** For performance-critical operations (e.g., real-time sensor data processing, video frame handling),
   you must implement the logic in the C++ `native_backend` and expose it to Python via PyBind11.
 
-### **3.3. Kotlin (Android Spoke) Guidelines**
+### **3.3. Kotlin (Android Thermal Imaging) Guidelines**
 
 * **Style Guide:** Adhere strictly to the official **Kotlin Style Guide** recommended by Google for Android development.
 * **Architecture:** The application **must** follow the **MVVM (Model-View-ViewModel)** architecture. Separate UI
   logic (Activities/Fragments) from business logic (ViewModels) and data sources (Repositories).
-* **Asynchronicity:** **All** asynchronous operations (network requests, file I/O, database access) must be handled
+* **Asynchronicity:** **All** asynchronous operations (thermal camera interfacing, network requests, file I/O, database access) must be handled
   using **Kotlin Coroutines**.
 * **Lifecycle Awareness:** All components that interact with the Android framework must be lifecycle-aware. Use Android
   Architecture Components like `ViewModel` and `LiveData` to manage UI state and data across configuration changes.
-* **Resource Management:** Use the `use` block for all `Closeable` resources (e.g., file streams) to ensure they are
+* **Resource Management:** Use the `use` block for all `Closeable` resources (e.g., thermal camera connections, file streams) to ensure they are
   properly closed, even in the event of an exception.
-* **Modularity:** Any new sensor integration must implement the common `SensorRecorder` interface to ensure a consistent
-  API for the `RecordingController`.
+* **Modularity:** Any new thermal camera integration must implement the common thermal camera interface to ensure a consistent
+  API for the thermal recording controller.
 
 ### **3.4. Version Control (Git) Guidelines**
 
@@ -93,96 +94,102 @@ You must adhere to the following coding standards and best practices for all gen
 * **Language:** Python 3.11+
 * **GUI Framework:** PyQt6
 * **Performance-Critical Backend:** C++ integrated via PyBind11
-* **Dependencies:** `zeroconf`, `PyQtGraph`, `pandas`, `h5py`.
+* **Dependencies:** `opencv-python`, `PyQtGraph`, `pandas`, `h5py`, `numpy`.
 
 ### **4.2. Project Structure**
 
-Generate the following directory structure for the PC Controller:
+The PC Controller follows this directory structure:
 
 ```plaintext
 /pc_controller/
 +-- src/
 |   +-- main.py           # Main application entry point
-|   +-- gui/              # GUI modules (GUIManager, DeviceWidget)
-|   +-- network/          # Network modules (NetworkController, WorkerThread)
-|   +-- core/             # Core logic (SessionManager, TimeSyncService)
-|   +-- data/             # Data handling (DataAggregator, HDF5Exporter)
+|   +-- gui/              # GUI modules (thermal display, device management)
+|   +-- network/          # Network modules (device communication, data sync)
+|   +-- core/             # Core logic (thermal processing, device management)
+|   +-- data/             # Data handling (thermal data aggregation, export)
 +-- native_backend/       # C++ source for PyBind11 extension
 +-- tests/                # Pytest unit tests
 ```
 
 ### 4.3. Key Module Implementation
 
-* **`GUIManager`:** Implement a tabbed interface (Dashboard, Logs, Playback). The Dashboard must use a dynamic grid to
-  display live video previews (`QLabel`) and real-time GSR plots (`PyQtGraph`).
-* **`NetworkController`:** Must use `zeroconf` for device discovery. It must run a TCP server in a background `QThread`
-  and spawn a new `WorkerThread` for each connected Android device to handle non-blocking communication.
+* **`ThermalGUIManager`:** Implement a tabbed interface (Live View, Analysis, Device Management). Must use real-time
+  thermal image display and temperature analysis plots using `PyQtGraph`.
+* **`NetworkController`:** Must handle TCP/IP communication with Android thermal imaging devices for real-time data streaming.
 * **`native_backend` (C++):**
-    * Create a `NativeShimmer` class to connect to a docked Shimmer sensor via a serial port (e.g., "COM3"). This must
-      run in a dedicated C++ thread and use a thread-safe, lock-free queue to pass data to Python.
-    * Create a `NativeWebcam` class using OpenCV to capture frames from a local PC webcam, also in a C++ thread. Use
-      zero-copy memory sharing to expose frames to Python as NumPy arrays.
+    * Create thermal image processing classes for real-time temperature analysis and calibration.
+    * Implement efficient thermal data structures and algorithms for high-performance processing.
 
 -----
 
-## **5. Android Sensor Node (Spoke) Specifications**
+## **5. Android Thermal Imaging Application (Spoke) Specifications**
 
 ### **5.1. Technology Stack**
 
 * **Language:** Kotlin
 * **Architecture:** Follow the **MVVM (Model-View-ViewModel)** pattern.
 * **Asynchronicity:** Use Kotlin Coroutines for all background tasks.
-* **Key Libraries:** CameraX, Nordic BLE Library, `UVCCamera` (for thermal).
+* **Key Libraries:** CameraX (for visible light), `UVCCamera` (for thermal), USB/network communication.
 
 ### **5.2. Project Structure**
 
-Generate the following package structure for the Android application:
+The Android application follows this package structure:
 
 ```plaintext
-/com/yourcompany/sensorspoke/
-+-- ui/                 # UI Layer (MainActivity, MainViewModel)
-+-- service/            # Background Service Layer (RecordingService)
-+-- controller/         # Core Logic (RecordingController)
-+-- sensors/            # Sensor Integration Layer (SensorRecorder interface and implementations)
-|   +-- rgb/
-|   +-- thermal/
-|   +-- gsr/
-+-- network/            # Network Communication Layer (NetworkClient, FileTransferManager)
-+-- data/               # Data Models and Storage (model/, storage/)
-+-- utils/              # Utility and Helper Classes (TimeManager)
+/com/topdon/ircamera/
++-- ui/                 # UI Layer (MainActivity, thermal display activities)
++-- service/            # Background Service Layer (thermal capture services)
++-- controller/         # Core Logic (thermal recording, device management)
++-- thermal/            # Thermal Camera Integration Layer
+|   +-- tc001/          # TC001 thermal camera support
+|   +-- tc007/          # TC007 thermal camera support
+|   +-- ts004/          # TS004 thermal camera support
+|   +-- hikvision/      # HIKVision thermal camera support
++-- network/            # Network Communication Layer (PC Controller communication)
++-- data/               # Data Models and Storage (thermal data, device profiles)
++-- utils/              # Utility and Helper Classes (temperature conversion, calibration)
 ```
 
-### **5.3. Sensor Integration Logic**
+### **5.3. Thermal Camera Integration Logic**
 
-* **`RgbCameraRecorder`:** Use CameraX to configure two simultaneous streams: a 1080p MP4 video file and a continuous
-  stream of high-resolution, timestamped JPEG images (FR5). [1, 1]
-* **`ThermalCameraRecorder`:** Use the `UVCCamera` library to interface with the Topdon TC001. Implement the frame
-  callback to parse the raw thermal data and write each frame as a new row in a CSV file, prefixed with a nanosecond
-  timestamp.
-* **`ShimmerRecorder`:**
-    * Use the Nordic BLE library for robust communication.
-    * Implement logic to send start (`0x07`) and stop (`0x20`) commands.
-    * In the notification callback, parse the incoming data packets.
-    * **Critical Technical Detail:** The GSR value must be calculated from the raw sensor value using the correct *
-      *12-bit ADC resolution (0-4095 range)**, not 16-bit. This is a mandatory requirement for data accuracy.
-    * Log the converted GSR (in microsiemens) and raw PPG values to a timestamped CSV file.
+* **`TC001ThermalRecorder`:** Use the TC001 SDK to interface with Topdon TC001 thermal cameras. Implement real-time
+  thermal frame capture with temperature calibration and radiometric data processing.
+* **`TC007ThermalRecorder`:** Interface with TC007 thermal cameras using the appropriate SDK. Handle thermal image
+  processing and temperature measurement with high precision.
+* **`TS004ThermalRecorder`:** Use the TS004 specifications to implement thermal data capture with proper temperature
+  range handling and calibration.
+* **`HIKThermalRecorder`:** Implement HIKVision thermal camera integration for enterprise-grade thermal imaging with
+  advanced features and network connectivity.
 
 -----
 
-## **6. Communication and Synchronization**
+## **6. Communication and Data Synchronization**
 
-* **Protocol:** All communication between the Hub and Spokes must be over a **TLS 1.2+ secured TCP/IP socket**. All
-  control messages must be **JSON-formatted** (FR7, NFR5). [1, 1]
-* **Time Synchronization:** Implement an NTP-like handshake upon connection to calculate the clock offset between the PC
-  and each Android device. All data must be timestamped using a local high-precision monotonic clock. The final
-  alignment will be done in post-processing using the calculated offset, with a target accuracy of \<5 ms (FR3,
-  NFR2). [1, 1]
+* **Protocol:** All communication between the Hub and Thermal Imaging Applications must be over **TLS 1.2+ secured TCP/IP socket**. All
+  control messages must be **JSON-formatted** for thermal device control and data streaming.
+* **Time Synchronization:** Implement precise timestamp synchronization for thermal data correlation between PC and Android devices.
+  All thermal data must be timestamped using a local high-precision monotonic clock. The final alignment will be done in
+  post-processing using calculated offset, with target accuracy of <10ms for thermal imaging applications.
 
 -----
 
 ## **7. Testing and Verification**
 
-* **Mandatory Unit Tests:** You must generate unit tests for all new code.
+* **Mandatory Unit Tests:** You must generate unit tests for all new thermal imaging code.
+* **Frameworks:** Use `pytest` for the Python PC Controller and `JUnit`/`Robolectric` for the Android application.
+* **Verification:** The system's thermal data synchronization must be verifiable. Implement thermal calibration tests
+  to ensure temperature accuracy across all supported thermal camera models.
+
+-----
+
+## **8. Security and Data Handling**
+
+* **Data Protection:** The Android app must use AES256-GCM encryption via the Android Keystore for local thermal data storage.
+  The PC controller must require authentication for thermal device access.
+* **Anonymization:** The system must use device ID codes and must not store personal identifiers with thermal data.
+  Implement privacy features for thermal imaging data where applicable.
+* **Device Safety:** Ensure all thermal camera configurations adhere to safety specifications and device limitations.
 * **Frameworks:** Use `pytest` for the Python PC Controller and `JUnit`/`Robolectric` for the Android application.
 * **Verification:** The system's end-to-end temporal synchronization must be verifiable. Implement a "Flash Sync"
   command that causes all Android screens to flash simultaneously. This will be used to confirm that timestamps across
@@ -203,44 +210,35 @@ Generate the following package structure for the Android application:
 
 ## **9. Mandatory Libraries and SDKs**
 
-You **must** use the following official and community-provided libraries for all hardware and data streaming
-integration. Do not use generic or alternative libraries for these specific tasks unless explicitly instructed.
+You **must** use the following official and community-provided libraries for thermal camera hardware integration and
+data processing. Do not use generic alternatives unless explicitly instructed.
 
 ### **9.1. PC Controller (Hub) Libraries**
 
-* **Shimmer Sensor Communication (Python Layer):**
-    * **Repository:** `https://github.com/seemoo-lab/pyshimmer`
-    * **Purpose:** This library must be used for all Python-level interactions with the Shimmer sensor, including device
-      discovery, connection, and data streaming when the sensor is connected via the PC's Bluetooth or serial dock.
+* **Thermal Image Processing (Python Layer):**
+    * **Libraries:** `opencv-python`, `numpy`, `scipy` for thermal image processing and analysis
+    * **Purpose:** Core thermal image processing, temperature calibration, and advanced analytics on the PC controller.
 
-* **Shimmer Sensor Communication (C++ Backend):**
-    * **Repository:** `https://github.com/ShimmerEngineering/Shimmer-C-API`
-    * **Purpose:** The high-performance `native_backend` C++ module must be built using the official Shimmer C-API. This
-      ensures the lowest-level, most reliable communication with a docked Shimmer sensor for the "High-Integrity Mode."
+* **Thermal Processing Backend (C++):**
+    * **Libraries:** OpenCV C++, Eigen for high-performance thermal data processing
+    * **Purpose:** Real-time thermal image processing, temperature analysis, and performance-critical operations.
 
-### **9.2. Android Sensor Node (Spoke) Libraries**
-
-* **Shimmer Sensor Communication (Kotlin/Android):**
-    * **Repository:** `https://github.com/ShimmerEngineering/ShimmerAndroidAPI`
-    * **Purpose:** This is the **official and mandatory** API for all Shimmer3 GSR+ sensor interactions on Android. Use
-      it for BLE connection, sending start/stop commands, and parsing incoming data packets for the "High-Mobility
-      Mode."
+### **9.2. Android Thermal Imaging Application Libraries**
 
 * **Thermal Camera Integration (Kotlin/Android):**
-    * **Primary Repository:** `https://github.com/buccancs/topdon-sdk`
-    * **Alternative/Reference:** `https://github.com/CoderCaiSL/IRCamera`
-    * **Purpose:** You must use a dedicated SDK for the Topdon TC001 thermal camera instead of a generic UVC library.
-      The `topdon-sdk` is preferred as it provides a direct, stable interface to the hardware. This will ensure access
-      to all device-specific features and improve reliability.
+    * **Primary Repository:** `https://github.com/buccancs/topdon-sdk` 
+    * **Alternative/Reference:** Native UVC libraries for USB thermal cameras
+    * **Purpose:** Direct interface with Topdon thermal cameras (TC001, TC007, TS004) and other supported thermal devices.
 
-### **9.3. Data Streaming and Synchronization**
+* **USB Communication:**
+    * **Library:** `UVCCamera` library for USB thermal camera communication
+    * **Purpose:** Handle USB communication with thermal cameras that support UVC protocol.
 
-* **Lab Streaming Layer (LSL):**
-    * **Repository:** `https://github.com/sccn/labstreaminglayer`
-    * **Purpose:** LSL is to be used for **complementary, real-time data monitoring only**. The Android app should
-      create an LSL outlet to stream live GSR data for external visualization or debugging.
-    * **Constraint:** LSL **must not** be used for the primary, persistent data recording or for the core time
-      synchronization between the Hub and Spokes. The primary synchronization must be handled by the custom NTP-like
-      protocol.
+### **9.3. Data Processing and Analytics**
+
+* **Thermal Analysis Libraries:**
+    * **Python:** `numpy`, `scipy`, `matplotlib` for thermal data analysis and visualization
+    * **Android:** Native image processing libraries for real-time thermal analysis
+    * **Purpose:** Temperature analysis, thermal pattern recognition, and data visualization.
 
 -----
