@@ -18,7 +18,7 @@ public class DefaultAxisValueFormatter extends ValueFormatter
      */
     protected int digits;
 
-        /**
+    /**
      * Constructor that specifies to how many digits the value should be
      * formatted.
      *
@@ -43,7 +43,7 @@ public class DefaultAxisValueFormatter extends ValueFormatter
         return mFormat.format(value);
     }
 
-        /**
+    /**
      * Returns the number of decimal digits this formatter uses or -1, if unspecified.
      *
      * @return

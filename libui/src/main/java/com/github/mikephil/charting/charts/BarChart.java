@@ -14,12 +14,12 @@ import com.github.mikephil.charting.interfaces.dataprovider.BarDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.renderer.BarChartRenderer;
 
-    /**
-     * Chart that draws bars.
-     *
-     * @author Philipp Jahoda
-     */
-    public class BarChart extends BarLineChartBase<BarData> implements BarDataProvider {
+/**
+ * Chart that draws bars.
+ *
+ * @author Philipp Jahoda
+ */
+public class BarChart extends BarLineChartBase<BarData> implements BarDataProvider {
 
     /**
      * flag that indicates whether the highlight should be full-bar oriented, or single-value?
@@ -103,7 +103,7 @@ import com.github.mikephil.charting.renderer.BarChartRenderer;
         }
     }
 
-        /**
+    /**
      * Returns the bounding box of the specified Entry in the specified DataSet. Returns null if the Entry could not be
      * found in the charts data.  Performance-intensive code should use void getBarBounds(BarEntry, RectF) instead.
      *
@@ -118,7 +118,7 @@ import com.github.mikephil.charting.renderer.BarChartRenderer;
         return bounds;
     }
 
-        /**
+    /**
      * The passed outputRect will be assigned the values of the bounding box of the specified Entry in the specified DataSet.
      * The rect will be assigned Float.MIN_VALUE in all locations if the Entry could not be found in the charts data.
      *
@@ -151,7 +151,7 @@ import com.github.mikephil.charting.renderer.BarChartRenderer;
         getTransformer(set.getAxisDependency()).rectValueToPixel(outputRect);
     }
 
-        /**
+    /**
      * If set to true, all values are drawn above their bars, instead of below their top.
      *
      * @param enabled
@@ -160,7 +160,7 @@ import com.github.mikephil.charting.renderer.BarChartRenderer;
         mDrawValueAboveBar = enabled;
     }
 
-        /**
+    /**
      * returns true if drawing values above bars is enabled, false if not
      *
      * @return
@@ -169,7 +169,7 @@ import com.github.mikephil.charting.renderer.BarChartRenderer;
         return mDrawValueAboveBar;
     }
 
-        /**
+    /**
      * If set to true, a grey area is drawn behind each bar that indicates the maximum value. Enabling his will reduce
      * performance by about 50%.
      *
@@ -179,7 +179,7 @@ import com.github.mikephil.charting.renderer.BarChartRenderer;
         mDrawBarShadow = enabled;
     }
 
-        /**
+    /**
      * returns true if drawing shadows (maxvalue) for each bar is enabled, false if not
      *
      * @return
@@ -188,7 +188,7 @@ import com.github.mikephil.charting.renderer.BarChartRenderer;
         return mDrawBarShadow;
     }
 
-        /**
+    /**
      * Set this to true to make the highlight operation full-bar oriented, false to make it highlight single values (relevant
      * only for stacked). If enabled, highlighting operations will highlight the whole bar, even if only a single stack entry
      * was tapped.
@@ -208,7 +208,7 @@ import com.github.mikephil.charting.renderer.BarChartRenderer;
         return mHighlightFullBarEnabled;
     }
 
-        /**
+    /**
      * Highlights the value at the given x-value in the given DataSet. Provide
      * -1 as the dataSetIndex to undo all highlighting.
      *
@@ -225,7 +225,7 @@ import com.github.mikephil.charting.renderer.BarChartRenderer;
         return mData;
     }
 
-        /**
+    /**
      * Adds half of the bar width to each side of the x-axis range in order to allow the bars of the barchart to be
      * fully displayed.
      * Default: false
@@ -236,7 +236,7 @@ import com.github.mikephil.charting.renderer.BarChartRenderer;
         mFitBars = enabled;
     }
 
-        /**
+    /**
      * Groups all BarDataSet objects this data object holds together by modifying the x-value of their entries.
      * Previously set x-values of entries will be overwritten. Leaves space between bars and groups as specified
      * by the parameters.

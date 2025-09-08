@@ -9,10 +9,10 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.data.RadarEntry;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
-    /**
-     * Class to format all values before they are drawn as labels.
-     */
-    public abstract class ValueFormatter implements IAxisValueFormatter, IValueFormatter{
+/**
+ * Class to format all values before they are drawn as labels.
+ */
+public abstract class ValueFormatter implements IAxisValueFormatter, IValueFormatter{
 
     /**
      * <b>DO NOT USE</b>, only for backwards compatibility and will be removed in future versions.
@@ -41,7 +41,7 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
         return getFormattedValue(value);
     }
 
-        /**
+    /**
      * Called when drawing any label, used to change numbers into formatted strings.
      *
      * @param value float to be formatted
@@ -51,7 +51,7 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
         return String.valueOf(value);
     }
 
-        /**
+    /**
      * Used to draw axis labels, calls {@link #getFormattedValue(float)} by default.
      *
      * @param value float to be formatted
@@ -62,7 +62,7 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
         return getFormattedValue(value);
     }
 
-        /**
+    /**
      * Used to draw bar labels, calls {@link #getFormattedValue(float)} by default.
      *
      * @param barEntry bar being labeled
@@ -72,7 +72,7 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
         return getFormattedValue(barEntry.getY());
     }
 
-        /**
+    /**
      * Used to draw stacked bar labels, calls {@link #getFormattedValue(float)} by default.
      *
      * @param value        current value to be formatted
@@ -83,7 +83,7 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
         return getFormattedValue(value);
     }
 
-        /**
+    /**
      * Used to draw line and scatter labels, calls {@link #getFormattedValue(float)} by default.
      *
      * @param entry point being labeled, contains X value
@@ -93,7 +93,7 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
         return getFormattedValue(entry.getY());
     }
 
-        /**
+    /**
      * Used to draw pie value labels, calls {@link #getFormattedValue(float)} by default.
      *
      * @param value    float to be formatted, may have been converted to percentage
@@ -104,7 +104,7 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
         return getFormattedValue(value);
     }
 
-        /**
+    /**
      * Used to draw radar value labels, calls {@link #getFormattedValue(float)} by default.
      *
      * @param radarEntry entry being labeled
@@ -114,7 +114,7 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
         return getFormattedValue(radarEntry.getY());
     }
 
-        /**
+    /**
      * Used to draw bubble size labels, calls {@link #getFormattedValue(float)} by default.
      *
      * @param bubbleEntry bubble being labeled, also contains X and Y values
@@ -124,7 +124,7 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
         return getFormattedValue(bubbleEntry.getSize());
     }
 
-        /**
+    /**
      * Used to draw high labels, calls {@link #getFormattedValue(float)} by default.
      *
      * @param candleEntry candlestick being labeled

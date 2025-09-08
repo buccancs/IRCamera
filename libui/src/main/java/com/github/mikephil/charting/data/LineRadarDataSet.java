@@ -10,12 +10,12 @@ import com.github.mikephil.charting.utils.Utils;
 
 import java.util.List;
 
-    /**
-     * Base dataset for line and radar DataSets.
-     *
-     * @author Philipp Jahoda
-     */
-    public abstract class LineRadarDataSet<T extends Entry> extends LineScatterCandleRadarDataSet<T> implements ILineRadarDataSet<T> {
+/**
+ * Base dataset for line and radar DataSets.
+ *
+ * @author Philipp Jahoda
+ */
+public abstract class LineRadarDataSet<T extends Entry> extends LineScatterCandleRadarDataSet<T> implements ILineRadarDataSet<T> {
 
     /**
      * the color that is used for filling the line surface
@@ -42,6 +42,7 @@ import java.util.List;
      */
     private boolean mDrawFilled = false;
 
+
     public LineRadarDataSet(List<T> yVals, String label) {
         super(yVals, label);
     }
@@ -51,7 +52,7 @@ import java.util.List;
         return mFillColor;
     }
 
-        /**
+    /**
      * Sets the color that is used for filling the area below the line.
      * Resets an eventually set "fillDrawable".
      *
@@ -82,7 +83,7 @@ import java.util.List;
         return mFillAlpha;
     }
 
-        /**
+    /**
      * sets the alpha value (transparency) that is used for filling the line
      * surface (0-255), default: 85
      *
@@ -92,7 +93,7 @@ import java.util.List;
         mFillAlpha = alpha;
     }
 
-        /**
+    /**
      * set the line width of the chart (min = 0.2f, max = 10f); default 1f NOTE:
      * thinner line == better performance, thicker line == worse performance
      *

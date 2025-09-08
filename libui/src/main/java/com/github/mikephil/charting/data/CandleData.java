@@ -5,12 +5,7 @@ import com.github.mikephil.charting.interfaces.datasets.ICandleDataSet;
 import java.util.ArrayList;
 import java.util.List;
 
-    /**
-     * CandleData class.
-     *
-     * Provides candledata functionality.
-     */
-    public class CandleData extends BarLineScatterCandleBubbleData<ICandleDataSet> {
+public class CandleData extends BarLineScatterCandleBubbleData<ICandleDataSet> {
 
     public CandleData() {
         super();

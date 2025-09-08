@@ -696,7 +696,6 @@ interface GravityDef {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (!isEnable) return false;
-+"// ");
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 touchDownX = getEventX(event);

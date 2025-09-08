@@ -7,16 +7,16 @@ import android.graphics.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-    /**
-     * Class that holds predefined color integer arrays (e.g.
-     * ColorTemplate.VORDIPLOM_COLORS) and convenience methods for loading colors
-     * from resources.
-     *
-     * @author Philipp Jahoda
-     */
-    public class ColorTemplate {
+/**
+ * Class that holds predefined color integer arrays (e.g.
+ * ColorTemplate.VORDIPLOM_COLORS) and convenience methods for loading colors
+ * from resources.
+ *
+ * @author Philipp Jahoda
+ */
+public class ColorTemplate {
 
-        /**
+    /**
      * an "invalid" color that indicates that no color is set
      */
     public static final int COLOR_NONE = 0x00112233;
@@ -55,7 +55,7 @@ import java.util.List;
             rgb("#2ecc71"), rgb("#f1c40f"), rgb("#e74c3c"), rgb("#3498db")
     };
 
-        /**
+    /**
      * Converts the given hex-color-string to rgb.
      *
      * @param hex
@@ -69,7 +69,7 @@ import java.util.List;
         return Color.rgb(r, g, b);
     }
 
-        /**
+    /**
      * Returns the Android ICS holo blue light color.
      *
      * @return
@@ -78,7 +78,7 @@ import java.util.List;
         return Color.rgb(51, 181, 229);
     }
 
-        /**
+    /**
      * Sets the alpha component of the given color.
      *
      * @param color
@@ -89,7 +89,7 @@ import java.util.List;
         return (color & 0xffffff) | ((alpha & 0xff) << 24);
     }
 
-        /**
+    /**
      * turn an array of resource-colors (contains resource-id integers) into an
      * array list of actual color integers
      *
@@ -108,7 +108,7 @@ import java.util.List;
         return result;
     }
 
-        /**
+    /**
      * Turns an array of colors (integer color values) into an ArrayList of
      * colors.
      *

@@ -22,12 +22,12 @@ import com.github.mikephil.charting.listener.PieRadarChartTouchListener;
 import com.github.mikephil.charting.utils.MPPointF;
 import com.github.mikephil.charting.utils.Utils;
 
-    /**
-     * Baseclass of PieChart and RadarChart.
-     *
-     * @author Philipp Jahoda
-     */
-    public abstract class PieRadarChartBase<T extends ChartData<? extends IDataSet<? extends Entry>>>
+/**
+ * Baseclass of PieChart and RadarChart.
+ *
+ * @author Philipp Jahoda
+ */
+public abstract class PieRadarChartBase<T extends ChartData<? extends IDataSet<? extends Entry>>>
         extends Chart<T> {
 
     /**
@@ -71,7 +71,7 @@ import com.github.mikephil.charting.utils.Utils;
 
     @Override
     protected void calcMinMax() {
-        // mXAxis.mAxisRange = mData.getXVals().size() - 1;
+        //mXAxis.mAxisRange = mData.getXVals().size() - 1;
     }
 
     @Override
@@ -249,7 +249,7 @@ import com.github.mikephil.charting.utils.Utils;
                     + ", offsetRight: " + offsetRight + ", offsetBottom: " + offsetBottom);
     }
 
-        /**
+    /**
      * returns the angle relative to the chart center for the given point on the
      * chart in degrees. The angle is always between 0 and 360°, 0° is NORTH,
      * 90° is EAST, ...
@@ -283,7 +283,7 @@ import com.github.mikephil.charting.utils.Utils;
         return angle;
     }
 
-        /**
+    /**
      * Returns a recyclable MPPointF instance.
      * Calculates the position around a center point, depending on the distance
      * from the center, and the angle of the position around the center.
@@ -305,7 +305,7 @@ import com.github.mikephil.charting.utils.Utils;
         outputPoint.y = (float) (center.y + dist * Math.sin(Math.toRadians(angle)));
     }
 
-        /**
+    /**
      * Returns the distance of a certain point on the chart to the center of the
      * chart.
      *
@@ -362,7 +362,7 @@ import com.github.mikephil.charting.utils.Utils;
         mRotationAngle = Utils.getNormalizedAngle(mRawRotationAngle);
     }
 
-        /**
+    /**
      * gets the raw version of the current rotation angle of the pie chart the
      * returned value could be any value, negative or positive, outside of the
      * 360 degrees. this is used when working with rotation direction, mainly by
@@ -374,7 +374,7 @@ import com.github.mikephil.charting.utils.Utils;
         return mRawRotationAngle;
     }
 
-        /**
+    /**
      * gets a normalized version of the current rotation angle of the pie chart,
      * which will always be between 0.0 < 360.0
      *
@@ -394,7 +394,7 @@ import com.github.mikephil.charting.utils.Utils;
         mRotateEnabled = enabled;
     }
 
-        /**
+    /**
      * Returns true if rotation of the chart by touch is enabled, false if not.
      *
      * @return
@@ -403,21 +403,21 @@ import com.github.mikephil.charting.utils.Utils;
         return mRotateEnabled;
     }
 
-        /**
+    /**
      * Gets the minimum offset (padding) around the chart, defaults to 0.f
      */
     public float getMinOffset() {
         return mMinOffset;
     }
 
-        /**
+    /**
      * Sets the minimum offset (padding) around the chart, defaults to 0.f
      */
     public void setMinOffset(float minOffset) {
         mMinOffset = minOffset;
     }
 
-        /**
+    /**
      * returns the diameter of the pie- or radar-chart
      *
      * @return
@@ -431,7 +431,7 @@ import com.github.mikephil.charting.utils.Utils;
         return Math.min(content.width(), content.height());
     }
 
-        /**
+    /**
      * Returns the radius of the chart in pixels.
      *
      * @return

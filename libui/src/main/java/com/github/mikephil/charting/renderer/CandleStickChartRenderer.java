@@ -20,12 +20,7 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.util.List;
 
-    /**
-     * CandleStickChartRenderer class.
-     *
-     * Provides candlestickchartrenderer functionality.
-     */
-    public class CandleStickChartRenderer extends LineScatterCandleRadarRenderer {
+public class CandleStickChartRenderer extends LineScatterCandleRadarRenderer {
 
     protected CandleDataProvider mChart;
 

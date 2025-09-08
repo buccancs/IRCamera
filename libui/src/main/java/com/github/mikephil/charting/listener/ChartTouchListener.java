@@ -12,11 +12,6 @@ import com.github.mikephil.charting.highlight.Highlight;
  */
 public abstract class ChartTouchListener<T extends Chart<?>> extends GestureDetector.SimpleOnGestureListener implements View.OnTouchListener {
 
-        /**
-     * ChartGesture class.
-     *
-     * Provides chartgesture functionality.
-     */
     public enum ChartGesture {
         NONE, DRAG, X_ZOOM, Y_ZOOM, PINCH_ZOOM, ROTATE, SINGLE_TAP, DOUBLE_TAP, LONG_PRESS, FLING
     }
@@ -61,7 +56,7 @@ public abstract class ChartTouchListener<T extends Chart<?>> extends GestureDete
         mGestureDetector = new GestureDetector(chart.getContext(), this);
     }
 
-        /**
+    /**
      * Calls the OnChartGestureListener to do the start callback
      *
      * @param me
@@ -74,7 +69,7 @@ public abstract class ChartTouchListener<T extends Chart<?>> extends GestureDete
             l.onChartGestureStart(me, mLastGesture);
     }
 
-        /**
+    /**
      * Calls the OnChartGestureListener to do the end callback
      *
      * @param me
@@ -87,7 +82,7 @@ public abstract class ChartTouchListener<T extends Chart<?>> extends GestureDete
             l.onChartGestureEnd(me, mLastGesture);
     }
 
-        /**
+    /**
      * Sets the last value that was highlighted via touch.
      *
      * @param high
@@ -96,7 +91,7 @@ public abstract class ChartTouchListener<T extends Chart<?>> extends GestureDete
         mLastHighlighted = high;
     }
 
-        /**
+    /**
      * returns the touch mode the listener is currently in
      *
      * @return
@@ -105,7 +100,7 @@ public abstract class ChartTouchListener<T extends Chart<?>> extends GestureDete
         return mTouchMode;
     }
 
-        /**
+    /**
      * Returns the last gesture that has been performed on the chart.
      *
      * @return
@@ -113,6 +108,7 @@ public abstract class ChartTouchListener<T extends Chart<?>> extends GestureDete
     public ChartGesture getLastGesture() {
         return mLastGesture;
     }
+
 
     /**
      * Perform a highlight operation.

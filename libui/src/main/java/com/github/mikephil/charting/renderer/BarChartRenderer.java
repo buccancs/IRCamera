@@ -24,12 +24,7 @@ import com.github.mikephil.charting.model.GradientColor;
 
 import java.util.List;
 
-    /**
-     * BarChartRenderer class.
-     *
-     * Provides barchartrenderer functionality.
-     */
-    public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
+public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
 
     protected BarDataProvider mChart;
 
@@ -194,6 +189,7 @@ import java.util.List;
                         dataSet.getGradientColor(j / 4).getEndColor(),
                         android.graphics.Shader.TileMode.MIRROR));
             }
+
 
             c.drawRect(buffer.buffer[j], buffer.buffer[j + 1], buffer.buffer[j + 2],
                     buffer.buffer[j + 3], mRenderPaint);

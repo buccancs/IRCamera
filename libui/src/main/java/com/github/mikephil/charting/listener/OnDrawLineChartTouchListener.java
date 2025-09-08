@@ -5,12 +5,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 
-    /**
-     * OnDrawLineChartTouchListener class.
-     *
-     * Provides ondrawlinecharttouchlistener functionality.
-     */
-    public class OnDrawLineChartTouchListener extends SimpleOnGestureListener implements OnTouchListener {
+public class OnDrawLineChartTouchListener extends SimpleOnGestureListener implements OnTouchListener {
 
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {

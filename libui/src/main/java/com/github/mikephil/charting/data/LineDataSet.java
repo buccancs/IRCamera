@@ -15,12 +15,7 @@ import com.github.mikephil.charting.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
-    /**
-     * LineDataSet class.
-     *
-     * Provides linedataset functionality.
-     */
-    public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet {
+public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet {
 
     /**
      * Drawing mode for this line dataset
@@ -68,6 +63,7 @@ import java.util.List;
     private boolean mDrawCircles = true;
 
     private boolean mDrawCircleHole = true;
+
 
     public LineDataSet(List<Entry> yVals, String label) {
         super(yVals, label);
@@ -121,7 +117,7 @@ import java.util.List;
         return mMode;
     }
 
-        /**
+    /**
      * Returns the drawing mode for this LineDataSet
      *
      * @return
@@ -130,7 +126,7 @@ import java.util.List;
         mMode = mode;
     }
 
-        /**
+    /**
      * Sets the intensity for cubic lines (if enabled). Max = 1f = very cubic,
      * Min = 0.05f = low cubic effect, Default: 0.2f
      *
@@ -151,7 +147,8 @@ import java.util.List;
         return mCubicIntensity;
     }
 
-        /**
+
+    /**
      * Sets the radius of the drawn circles.
      * Default radius = 4f, Min = 1f
      *
@@ -171,7 +168,7 @@ import java.util.List;
         return mCircleRadius;
     }
 
-        /**
+    /**
      * Sets the hole radius of the drawn circles.
      * Default radius = 2f, Min = 0.5f
      *
@@ -212,7 +209,7 @@ import java.util.List;
         return getCircleRadius();
     }
 
-        /**
+    /**
      * Enables the line to be drawn in dashed mode, e.g. like this
      * "- - - - - -". THIS ONLY WORKS IF HARDWARE-ACCELERATION IS TURNED OFF.
      * Keep in mind that hardware acceleration boosts performance.
@@ -227,7 +224,7 @@ import java.util.List;
         }, phase);
     }
 
-        /**
+    /**
      * Disables the line to be drawn in dashed mode.
      */
     public void disableDashedLine() {
@@ -244,7 +241,7 @@ import java.util.List;
         return mDashPathEffect;
     }
 
-        /**
+    /**
      * set this to true to enable the drawing of circle indicators for this
      * DataSet, default true
      *
@@ -273,7 +270,7 @@ import java.util.List;
 
     /** ALL CODE BELOW RELATED TO CIRCLE-COLORS */
 
-        /**
+    /**
      * returns all colors specified for the circles
      *
      * @return
@@ -292,7 +289,7 @@ import java.util.List;
         return mCircleColors.size();
     }
 
-        /**
+    /**
      * Sets the colors that should be used for the circles of this DataSet.
      * Colors are reused as soon as the number of Entries the DataSet represents
      * is higher than the size of the colors array. Make sure that the colors
@@ -305,7 +302,7 @@ import java.util.List;
         mCircleColors = colors;
     }
 
-        /**
+    /**
      * Sets the colors that should be used for the circles of this DataSet.
      * Colors are reused as soon as the number of Entries the DataSet represents
      * is higher than the size of the colors array. Make sure that the colors
@@ -318,7 +315,7 @@ import java.util.List;
         this.mCircleColors = ColorTemplate.createColors(colors);
     }
 
-        /**
+    /**
      * ets the colors that should be used for the circles of this DataSet.
      * Colors are reused as soon as the number of Entries the DataSet represents
      * is higher than the size of the colors array. You can use
@@ -343,7 +340,7 @@ import java.util.List;
         mCircleColors = clrs;
     }
 
-        /**
+    /**
      * Sets the one and ONLY color that should be used for this DataSet.
      * Internally, this recreates the colors array and adds the specified color.
      *
@@ -354,7 +351,7 @@ import java.util.List;
         mCircleColors.add(color);
     }
 
-        /**
+    /**
      * resets the circle-colors array and creates a new one
      */
     public void resetCircleColors() {
@@ -364,7 +361,7 @@ import java.util.List;
         mCircleColors.clear();
     }
 
-        /**
+    /**
      * Sets the color of the inner circle of the line-circles.
      *
      * @param color
@@ -378,7 +375,7 @@ import java.util.List;
         return mCircleHoleColor;
     }
 
-        /**
+    /**
      * Set this to true to allow drawing a hole in each data circle.
      *
      * @param enabled
@@ -392,7 +389,7 @@ import java.util.List;
         return mDrawCircleHole;
     }
 
-        /**
+    /**
      * Sets a custom IFillFormatter to the chart that handles the position of the
      * filled-line for each DataSet. Set this to null to use the default logic.
      *
@@ -411,11 +408,6 @@ import java.util.List;
         return mFillFormatter;
     }
 
-        /**
-     * Mode class.
-     *
-     * Provides mode functionality.
-     */
     public enum Mode {
         LINEAR,
         STEPPED,

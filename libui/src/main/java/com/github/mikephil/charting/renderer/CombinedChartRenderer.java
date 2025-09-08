@@ -16,10 +16,10 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-    /**
-     * Renderer class that is responsible for rendering multiple different data-types.
-     */
-    public class CombinedChartRenderer extends DataRenderer {
+/**
+ * Renderer class that is responsible for rendering multiple different data-types.
+ */
+public class CombinedChartRenderer extends DataRenderer {
 
     /**
      * all rederers for the different kinds of data this combined-renderer can draw
@@ -34,7 +34,7 @@ import java.util.List;
         createRenderers();
     }
 
-        /**
+    /**
      * Creates the renderers needed for this combined-renderer in the required order. Also takes the DrawOrder into
      * consideration.
      */
@@ -144,7 +144,7 @@ import java.util.List;
         }
     }
 
-        /**
+    /**
      * Returns the sub-renderer object at the specified index.
      *
      * @param index
@@ -157,7 +157,7 @@ import java.util.List;
             return mRenderers.get(index);
     }
 
-        /**
+    /**
      * Returns all sub-renderers.
      *
      * @return

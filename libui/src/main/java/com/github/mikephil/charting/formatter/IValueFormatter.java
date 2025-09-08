@@ -10,12 +10,7 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
  * @deprecated Extend {@link ValueFormatter} instead
  */
 @Deprecated
-    /**
-     * IValueFormatter class.
-     *
-     * Provides ivalueformatter functionality.
-     */
-    public interface IValueFormatter
+public interface IValueFormatter
 {
 
     /**
@@ -24,12 +19,7 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
      * and memory allocations inside this method.
      *
      * @param value           the value to be formatted
-     * @param entry           the entry the value belongs to - in e.g. BarChart, this is of/**
- * BarEntry class.
- * 
- * Provides barentry functionality.
- */
- class BarEntry
+     * @param entry           the entry the value belongs to - in e.g. BarChart, this is of class BarEntry
      * @param dataSetIndex    the index of the DataSet the entry in focus belongs to
      * @param viewPortHandler provides information about the current chart state (scale, translation, ...)
      * @return the formatted label ready for being drawn

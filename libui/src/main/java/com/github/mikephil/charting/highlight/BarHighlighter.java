@@ -42,7 +42,7 @@ public class BarHighlighter extends ChartHighlighter<BarDataProvider> {
         return high;
     }
 
-        /**
+    /**
      * This method creates the Highlight object that also indicates which value of a stacked BarEntry has been
      * selected.
      *

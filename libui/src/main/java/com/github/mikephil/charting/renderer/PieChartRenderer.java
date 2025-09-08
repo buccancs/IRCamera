@@ -32,12 +32,7 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-    /**
-     * PieChartRenderer class.
-     *
-     * Provides piechartrenderer functionality.
-     */
-    public class PieChartRenderer extends DataRenderer {
+public class PieChartRenderer extends DataRenderer {
 
     protected PieChart mChart;
 
@@ -770,7 +765,7 @@ import java.util.List;
                         Layout.Alignment.ALIGN_CENTER, 1.f, 0.f, false);
             }
 
-            // float layoutWidth = Utils.getStaticLayoutMaxWidth(mCenterTextLayout);
+            //float layoutWidth = Utils.getStaticLayoutMaxWidth(mCenterTextLayout);
             float layoutHeight = mCenterTextLayout.getHeight();
 
             c.save();
@@ -1045,7 +1040,7 @@ import java.util.List;
         MPPointF.recycleInstance(center);
     }
 
-        /**
+    /**
      * Releases the drawing bitmap. This should be called when {@link LineChart#onDetachedFromWindow()}.
      */
     public void releaseBitmap() {

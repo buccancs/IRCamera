@@ -5,12 +5,7 @@ import com.github.mikephil.charting.interfaces.datasets.IScatterDataSet;
 
 import java.util.List;
 
-    /**
-     * ScatterData class.
-     *
-     * Provides scatterdata functionality.
-     */
-    public class ScatterData extends BarLineScatterCandleBubbleData<IScatterDataSet> {
+public class ScatterData extends BarLineScatterCandleBubbleData<IScatterDataSet> {
 
     public ScatterData() {
         super();
@@ -24,7 +19,7 @@ import java.util.List;
         super(dataSets);
     }
 
-        /**
+    /**
      * Returns the maximum shape-size across all DataSets.
      *
      * @return

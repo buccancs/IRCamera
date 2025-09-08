@@ -6,22 +6,12 @@ import android.graphics.drawable.Drawable;
 import com.github.mikephil.charting.highlight.Range;
 
 /**
- * Entry/**
- * for class.
- * 
- * Provides for functionality.
- */
- class for the BarChart. (especially stacked bars)
+ * Entry class for the BarChart. (especially stacked bars)
  *
  * @author Philipp Jahoda
  */
 @SuppressLint("ParcelCreator")
-    /**
-     * BarEntry class.
-     *
-     * Provides barentry functionality.
-     */
-    public class BarEntry extends Entry {
+public class BarEntry extends Entry {
 
     /**
      * the values the stacked barchart holds
@@ -43,7 +33,7 @@ import com.github.mikephil.charting.highlight.Range;
      */
     private float mPositiveSum;
 
-        /**
+    /**
      * Constructor for normal bars (not stacked).
      *
      * @param x
@@ -53,7 +43,7 @@ import com.github.mikephil.charting.highlight.Range;
         super(x, y);
     }
 
-        /**
+    /**
      * Constructor for normal bars (not stacked).
      *
      * @param x
@@ -64,7 +54,7 @@ import com.github.mikephil.charting.highlight.Range;
         super(x, y, data);
     }
 
-        /**
+    /**
      * Constructor for normal bars (not stacked).
      *
      * @param x
@@ -75,7 +65,7 @@ import com.github.mikephil.charting.highlight.Range;
         super(x, y, icon);
     }
 
-        /**
+    /**
      * Constructor for normal bars (not stacked).
      *
      * @param x
@@ -87,7 +77,7 @@ import com.github.mikephil.charting.highlight.Range;
         super(x, y, icon, data);
     }
 
-        /**
+    /**
      * Constructor for stacked bar entries. One data object for whole stack
      *
      * @param x
@@ -101,7 +91,7 @@ import com.github.mikephil.charting.highlight.Range;
         calcRanges();
     }
 
-        /**
+    /**
      * Constructor for stacked bar entries. One data object for whole stack
      *
      * @param x
@@ -116,7 +106,7 @@ import com.github.mikephil.charting.highlight.Range;
         calcRanges();
     }
 
-        /**
+    /**
      * Constructor for stacked bar entries. One data object for whole stack
      *
      * @param x
@@ -131,7 +121,7 @@ import com.github.mikephil.charting.highlight.Range;
         calcRanges();
     }
 
-        /**
+    /**
      * Constructor for stacked bar entries. One data object for whole stack
      *
      * @param x
@@ -147,7 +137,7 @@ import com.github.mikephil.charting.highlight.Range;
         calcRanges();
     }
 
-        /**
+    /**
      * Returns an exact copy of the BarEntry.
      */
     public BarEntry copy() {
@@ -157,7 +147,7 @@ import com.github.mikephil.charting.highlight.Range;
         return copied;
     }
 
-        /**
+    /**
      * Returns the stacked values this BarEntry represents, or null, if only a single value is represented (then, use
      * getY()).
      *
@@ -167,7 +157,7 @@ import com.github.mikephil.charting.highlight.Range;
         return mYVals;
     }
 
-        /**
+    /**
      * Set the array of values this BarEntry should represent.
      *
      * @param vals
@@ -189,7 +179,7 @@ import com.github.mikephil.charting.highlight.Range;
         return super.getY();
     }
 
-        /**
+    /**
      * Returns the ranges of the individual stack-entries. Will return null if this entry is not stacked.
      *
      * @return
@@ -198,7 +188,7 @@ import com.github.mikephil.charting.highlight.Range;
         return mRanges;
     }
 
-        /**
+    /**
      * Returns true if this BarEntry is stacked (has a values array), false if not.
      *
      * @return
@@ -231,7 +221,7 @@ import com.github.mikephil.charting.highlight.Range;
         return remainder;
     }
 
-        /**
+    /**
      * Reuturns the sum of all positive values this entry (if stacked) contains.
      *
      * @return
@@ -240,7 +230,7 @@ import com.github.mikephil.charting.highlight.Range;
         return mPositiveSum;
     }
 
-        /**
+    /**
      * Returns the sum of all negative values this entry (if stacked) contains. (this is a positive number)
      *
      * @return
@@ -316,4 +306,5 @@ import com.github.mikephil.charting.highlight.Range;
         }
     }
 }
+
 

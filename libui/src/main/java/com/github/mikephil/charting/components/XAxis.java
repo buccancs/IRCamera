@@ -3,16 +3,16 @@ package com.github.mikephil.charting.components;
 
 import com.github.mikephil.charting.utils.Utils;
 
-    /**
-     * Class representing the x-axis labels settings. Only use the setter methods to
-     * modify it. Do not access public variables directly. Be aware that not all
-     * features the XLabels class provides are suitable for the RadarChart.
-     *
-     * @author Philipp Jahoda
-     */
-    public class XAxis extends AxisBase {
+/**
+ * Class representing the x-axis labels settings. Only use the setter methods to
+ * modify it. Do not access public variables directly. Be aware that not all
+ * features the XLabels class provides are suitable for the RadarChart.
+ *
+ * @author Philipp Jahoda
+ */
+public class XAxis extends AxisBase {
 
-        /**
+    /**
      * width of the x-axis labels in pixels - this is automatically
      * calculated by the computeSize() methods in the renderers
      */
@@ -52,19 +52,10 @@ import com.github.mikephil.charting.utils.Utils;
      */
     private XAxisPosition mPosition = XAxisPosition.TOP;
 
-    /**    /**
- * for class.
- * 
- * Provides for functionality.
- */
- enum for the position of the x-labels relative to the chart
-     */
     /**
- * XAxisPosition class.
- * 
- * Provides xaxisposition functionality.
- */
-public enum XAxisPosition {
+     * enum for the position of the x-labels relative to the chart
+     */
+    public enum XAxisPosition {
         TOP, BOTTOM, BOTH_SIDED, TOP_INSIDE, BOTTOM_INSIDE
     }
 
@@ -74,14 +65,14 @@ public enum XAxisPosition {
         mYOffset = Utils.convertDpToPixel(4.f); // -3
     }
 
-        /**
+    /**
      * returns the position of the x-labels
      */
     public XAxisPosition getPosition() {
         return mPosition;
     }
 
-        /**
+    /**
      * sets the position of the x-labels
      *
      * @param pos
@@ -90,14 +81,14 @@ public enum XAxisPosition {
         mPosition = pos;
     }
 
-        /**
+    /**
      * returns the angle for drawing the X axis labels (in degrees)
      */
     public float getLabelRotationAngle() {
         return mLabelRotationAngle;
     }
 
-        /**
+    /**
      * sets the angle for drawing the X axis labels (in degrees)
      *
      * @param angle the angle in degrees
@@ -106,7 +97,7 @@ public enum XAxisPosition {
         mLabelRotationAngle = angle;
     }
 
-        /**
+    /**
      * if set to true, the chart will avoid that the first and last label entry
      * in the chart "clip" off the edge of the chart or the screen
      *
@@ -116,7 +107,7 @@ public enum XAxisPosition {
         mAvoidFirstLastClipping = enabled;
     }
 
-        /**
+    /**
      * returns true if avoid-first-lastclipping is enabled, false if not
      *
      * @return
@@ -124,6 +115,7 @@ public enum XAxisPosition {
     public boolean isAvoidFirstLastClippingEnabled() {
         return mAvoidFirstLastClipping;
     }
+
 
     /**
      * 是否要跳过第1个标签的绘制.

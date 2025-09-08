@@ -3,11 +3,11 @@ package com.github.mikephil.charting.utils;
 
 import java.util.List;
 
-    /**
-     * Class for describing width and height dimensions in some arbitrary
-     * unit. Replacement for the android.Util.SizeF which is available only on API >= 21.
-     */
-    public final class FSize extends ObjectPool.Poolable{
+/**
+ * Class for describing width and height dimensions in some arbitrary
+ * unit. Replacement for the android.Util.SizeF which is available only on API >= 21.
+ */
+public final class FSize extends ObjectPool.Poolable{
 
     // TODO : Encapsulate width & height
 
@@ -20,6 +20,7 @@ import java.util.List;
         pool = ObjectPool.create(256, new FSize(0,0));
         pool.setReplenishPercentage(0.5f);
     }
+
 
     protected ObjectPool.Poolable instantiate(){
         return new FSize(0,0);

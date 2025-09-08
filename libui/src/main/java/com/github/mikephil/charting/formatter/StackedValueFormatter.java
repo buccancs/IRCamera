@@ -25,7 +25,7 @@ public class StackedValueFormatter extends ValueFormatter
 
     private DecimalFormat mFormat;
 
-        /**
+    /**
      * Constructor.
      *
      * @param drawWholeStack if true, all stack values of the stacked bar entry are drawn, else only top

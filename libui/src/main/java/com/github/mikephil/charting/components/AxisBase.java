@@ -11,12 +11,12 @@ import com.github.mikephil.charting.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
-    /**
-     * Base-class of all axes (previously called labels).
-     *
-     * @author Philipp Jahoda
-     */
-    public abstract class AxisBase extends ComponentBase {
+/**
+ * Base-class of all axes (previously called labels).
+ *
+ * @author Philipp Jahoda
+ */
+public abstract class AxisBase extends ComponentBase {
 
     /**
      * custom formatter that is used instead of the auto-formatter if set
@@ -31,17 +31,17 @@ import java.util.List;
 
     private float mAxisLineWidth = 1f;
 
-        /**
+    /**
      * the actual array of entries
      */
     public float[] mEntries = new float[]{};
 
-        /**
+    /**
      * axis label entries only used for centered labels
      */
     public float[] mCenteredEntries = new float[]{};
 
-        /**
+    /**
      * the number of entries the legend contains
      */
     public int mEntryCount;
@@ -161,7 +161,7 @@ import java.util.List;
         this.mLimitLines = new ArrayList<LimitLine>();
     }
 
-        /**
+    /**
      * Set this to true to enable drawing the grid lines for this axis.
      *
      * @param enabled
@@ -170,7 +170,7 @@ import java.util.List;
         mDrawGridLines = enabled;
     }
 
-        /**
+    /**
      * Returns true if drawing grid lines is enabled for this axis.
      *
      * @return
@@ -179,7 +179,7 @@ import java.util.List;
         return mDrawGridLines;
     }
 
-        /**
+    /**
      * Set this to true if the line alongside the axis should be drawn or not.
      *
      * @param enabled
@@ -188,7 +188,7 @@ import java.util.List;
         mDrawAxisLine = enabled;
     }
 
-        /**
+    /**
      * Returns true if the line alongside the axis should be drawn.
      *
      * @return
@@ -197,7 +197,7 @@ import java.util.List;
         return mDrawAxisLine;
     }
 
-        /**
+    /**
      * Centers the axis labels instead of drawing them at their original position.
      * This is useful especially for grouped BarChart.
      *
@@ -211,7 +211,7 @@ import java.util.List;
         return mCenterAxisLabels && mEntryCount > 0;
     }
 
-        /**
+    /**
      * Sets the color of the grid lines for this axis (the horizontal lines
      * coming from each label).
      *
@@ -221,7 +221,7 @@ import java.util.List;
         mGridColor = color;
     }
 
-        /**
+    /**
      * Returns the color of the grid lines for this axis (the horizontal lines
      * coming from each label).
      *
@@ -231,7 +231,7 @@ import java.util.List;
         return mGridColor;
     }
 
-        /**
+    /**
      * Sets the width of the border surrounding the chart in dp.
      *
      * @param width
@@ -240,7 +240,7 @@ import java.util.List;
         mAxisLineWidth = Utils.convertDpToPixel(width);
     }
 
-        /**
+    /**
      * Returns the width of the axis line (line alongside the axis).
      *
      * @return
@@ -249,7 +249,7 @@ import java.util.List;
         return mAxisLineWidth;
     }
 
-        /**
+    /**
      * Sets the width of the grid lines that are drawn away from each axis
      * label.
      *
@@ -259,7 +259,7 @@ import java.util.List;
         mGridLineWidth = Utils.convertDpToPixel(width);
     }
 
-        /**
+    /**
      * Returns the width of the grid lines that are drawn away from each axis
      * label.
      *
@@ -269,7 +269,7 @@ import java.util.List;
         return mGridLineWidth;
     }
 
-        /**
+    /**
      * Sets the color of the border surrounding the chart.
      *
      * @param color
@@ -278,7 +278,7 @@ import java.util.List;
         mAxisLineColor = color;
     }
 
-        /**
+    /**
      * Returns the color of the axis line (line alongside the axis).
      *
      * @return
@@ -287,7 +287,7 @@ import java.util.List;
         return mAxisLineColor;
     }
 
-        /**
+    /**
      * Set this to true to enable drawing the labels of this axis (this will not
      * affect drawing the grid lines or axis lines).
      *
@@ -297,7 +297,7 @@ import java.util.List;
         mDrawLabels = enabled;
     }
 
-        /**
+    /**
      * Returns true if drawing the labels is enabled for this axis.
      *
      * @return
@@ -306,7 +306,7 @@ import java.util.List;
         return mDrawLabels;
     }
 
-        /**
+    /**
      * Sets the number of label entries for the y-axis max = 25, min = 2, default: 6, be aware
      * that this number is not fixed.
      *
@@ -323,7 +323,7 @@ import java.util.List;
         mForceLabels = false;
     }
 
-        /**
+    /**
      * sets the number of label entries for the y-axis max = 25, min = 2, default: 6, be aware
      * that this number is not
      * fixed (if force == false) and can only be approximated.
@@ -340,7 +340,7 @@ import java.util.List;
         mForceLabels = force;
     }
 
-        /**
+    /**
      * Returns true if focing the y-label count is enabled. Default: false
      *
      * @return
@@ -349,7 +349,7 @@ import java.util.List;
         return mForceLabels;
     }
 
-        /**
+    /**
      * Returns the number of label entries the y-axis should have
      *
      * @return
@@ -358,7 +358,7 @@ import java.util.List;
         return mLabelCount;
     }
 
-        /**
+    /**
      * @return true if granularity is enabled
      */
     public boolean isGranularityEnabled() {
@@ -375,14 +375,14 @@ import java.util.List;
         mGranularityEnabled = enabled;
     }
 
-        /**
+    /**
      * @return the minimum interval between axis values
      */
     public float getGranularity() {
         return mGranularity;
     }
 
-        /**
+    /**
      * Set a minimum interval for the axis when zooming in. The axis is not allowed to go below
      * that limit. This can be used to avoid label duplicating when zooming in.
      *
@@ -394,7 +394,7 @@ import java.util.List;
         mGranularityEnabled = true;
     }
 
-        /**
+    /**
      * Adds a new LimitLine to this axis.
      *
      * @param l
@@ -409,7 +409,7 @@ import java.util.List;
         }
     }
 
-        /**
+    /**
      * Removes the specified LimitLine from the axis.
      *
      * @param l
@@ -418,14 +418,14 @@ import java.util.List;
         mLimitLines.remove(l);
     }
 
-        /**
+    /**
      * Removes all LimitLines from the axis.
      */
     public void removeAllLimitLines() {
         mLimitLines.clear();
     }
 
-        /**
+    /**
      * Returns the LimitLines of this axis.
      *
      * @return
@@ -434,7 +434,7 @@ import java.util.List;
         return mLimitLines;
     }
 
-        /**
+    /**
      * If this is set to true, the LimitLines are drawn behind the actual data,
      * otherwise on top. Default: false
      *
@@ -448,7 +448,7 @@ import java.util.List;
         return mDrawLimitLineBehindData;
     }
 
-        /**
+    /**
      * If this is set to false, the grid lines are draw on top of the actual data,
      * otherwise behind. Default: true
      *
@@ -460,7 +460,7 @@ import java.util.List;
         return mDrawGridLinesBehindData;
     }
 
-        /**
+    /**
      * Returns the longest formatted label (in terms of characters), this axis
      * contains.
      *
@@ -488,7 +488,7 @@ import java.util.List;
             return getValueFormatter().getAxisLabel(mEntries[index], this);
     }
 
-        /**
+    /**
      * Sets the formatter to be used for formatting the axis labels. If no formatter is set, the
      * chart will
      * automatically determine a reasonable formatting (concerning decimals) for all the values
@@ -505,7 +505,7 @@ import java.util.List;
             mAxisValueFormatter = f;
     }
 
-        /**
+    /**
      * Returns the formatter used for formatting the axis labels.
      *
      * @return
@@ -520,7 +520,7 @@ import java.util.List;
         return mAxisValueFormatter;
     }
 
-        /**
+    /**
      * Enables the grid line to be drawn in dashed mode, e.g. like this
      * "- - - - - -". THIS ONLY WORKS IF HARDWARE-ACCELERATION IS TURNED OFF.
      * Keep in mind that hardware acceleration boosts performance.
@@ -535,7 +535,7 @@ import java.util.List;
         }, phase);
     }
 
-        /**
+    /**
      * Enables the grid line to be drawn in dashed mode, e.g. like this
      * "- - - - - -". THIS ONLY WORKS IF HARDWARE-ACCELERATION IS TURNED OFF.
      * Keep in mind that hardware acceleration boosts performance.
@@ -546,14 +546,14 @@ import java.util.List;
         mGridDashPathEffect = effect;
     }
 
-        /**
+    /**
      * Disables the grid line to be drawn in dashed mode.
      */
     public void disableGridDashedLine() {
         mGridDashPathEffect = null;
     }
 
-        /**
+    /**
      * Returns true if the grid dashed-line effect is enabled, false if not.
      *
      * @return
@@ -562,7 +562,7 @@ import java.util.List;
         return mGridDashPathEffect == null ? false : true;
     }
 
-        /**
+    /**
      * returns the DashPathEffect that is set for grid line
      *
      * @return
@@ -571,7 +571,8 @@ import java.util.List;
         return mGridDashPathEffect;
     }
 
-        /**
+
+    /**
      * Enables the axis line to be drawn in dashed mode, e.g. like this
      * "- - - - - -". THIS ONLY WORKS IF HARDWARE-ACCELERATION IS TURNED OFF.
      * Keep in mind that hardware acceleration boosts performance.
@@ -586,7 +587,7 @@ import java.util.List;
         }, phase);
     }
 
-        /**
+    /**
      * Enables the axis line to be drawn in dashed mode, e.g. like this
      * "- - - - - -". THIS ONLY WORKS IF HARDWARE-ACCELERATION IS TURNED OFF.
      * Keep in mind that hardware acceleration boosts performance.
@@ -597,14 +598,14 @@ import java.util.List;
         mAxisLineDashPathEffect = effect;
     }
 
-        /**
+    /**
      * Disables the axis line to be drawn in dashed mode.
      */
     public void disableAxisLineDashedLine() {
         mAxisLineDashPathEffect = null;
     }
 
-        /**
+    /**
      * Returns true if the axis dashed-line effect is enabled, false if not.
      *
      * @return
@@ -613,7 +614,7 @@ import java.util.List;
         return mAxisLineDashPathEffect == null ? false : true;
     }
 
-        /**
+    /**
      * returns the DashPathEffect that is set for axis line
      *
      * @return
@@ -622,9 +623,10 @@ import java.util.List;
         return mAxisLineDashPathEffect;
     }
 
-        /**
+    /**
      * ###### BELOW CODE RELATED TO CUSTOM AXIS VALUES ######
      */
+
     public float getAxisMaximum() {
         return mAxisMaximum;
     }
@@ -633,7 +635,7 @@ import java.util.List;
         return mAxisMinimum;
     }
 
-        /**
+    /**
      * By calling this method, any custom maximum value that has been previously set is reseted,
      * and the calculation is
      * done automatically.
@@ -642,7 +644,7 @@ import java.util.List;
         mCustomAxisMax = false;
     }
 
-        /**
+    /**
      * Returns true if the axis max value has been customized (and is not calculated automatically)
      *
      * @return
@@ -651,7 +653,7 @@ import java.util.List;
         return mCustomAxisMax;
     }
 
-        /**
+    /**
      * By calling this method, any custom minimum value that has been previously set is reseted,
      * and the calculation is
      * done automatically.
@@ -660,7 +662,7 @@ import java.util.List;
         mCustomAxisMin = false;
     }
 
-        /**
+    /**
      * Returns true if the axis min value has been customized (and is not calculated automatically)
      *
      * @return
@@ -669,7 +671,7 @@ import java.util.List;
         return mCustomAxisMin;
     }
 
-        /**
+    /**
      * Set a custom minimum value for this axis. If set, this value will not be calculated
      * automatically depending on
      * the provided data. Use resetAxisMinValue() to undo this. Do not forget to call
@@ -694,7 +696,7 @@ import java.util.List;
         setAxisMinimum(min);
     }
 
-        /**
+    /**
      * Set a custom maximum value for this axis. If set, this value will not be calculated
      * automatically depending on
      * the provided data. Use resetAxisMaxValue() to undo this.
@@ -746,7 +748,7 @@ import java.util.List;
         this.mAxisRange = Math.abs(max - min);
     }
 
-        /**
+    /**
      * Gets extra spacing for `axisMinimum` to be added to automatically calculated `axisMinimum`
      */
     public float getSpaceMin()
@@ -754,7 +756,7 @@ import java.util.List;
         return mSpaceMin;
     }
 
-        /**
+    /**
      * Sets extra spacing for `axisMinimum` to be added to automatically calculated `axisMinimum`
      */
     public void setSpaceMin(float mSpaceMin)
@@ -762,7 +764,7 @@ import java.util.List;
         this.mSpaceMin = mSpaceMin;
     }
 
-        /**
+    /**
      * Gets extra spacing for `axisMaximum` to be added to automatically calculated `axisMaximum`
      */
     public float getSpaceMax()
@@ -770,7 +772,7 @@ import java.util.List;
         return mSpaceMax;
     }
 
-        /**
+    /**
      * Sets extra spacing for `axisMaximum` to be added to automatically calculated `axisMaximum`
      */
     public void setSpaceMax(float mSpaceMax)

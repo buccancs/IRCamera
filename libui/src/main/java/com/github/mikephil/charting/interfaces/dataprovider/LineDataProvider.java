@@ -3,12 +3,7 @@ package com.github.mikephil.charting.interfaces.dataprovider;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.LineData;
 
-    /**
-     * LineDataProvider class.
-     *
-     * Provides linedataprovider functionality.
-     */
-    public interface LineDataProvider extends BarLineScatterCandleBubbleDataProvider {
+public interface LineDataProvider extends BarLineScatterCandleBubbleDataProvider {
 
     LineData getLineData();
 

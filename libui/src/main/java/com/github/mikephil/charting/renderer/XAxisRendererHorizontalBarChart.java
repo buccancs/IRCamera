@@ -19,12 +19,7 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.util.List;
 
-    /**
-     * XAxisRendererHorizontalBarChart class.
-     *
-     * Provides xaxisrendererhorizontalbarchart functionality.
-     */
-    public class XAxisRendererHorizontalBarChart extends XAxisRenderer {
+public class XAxisRendererHorizontalBarChart extends XAxisRenderer {
 
     protected BarChart mChart;
 

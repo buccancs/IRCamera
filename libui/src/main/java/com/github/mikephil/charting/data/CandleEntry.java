@@ -5,22 +5,12 @@ import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 
 /**
- * Sub/**
- * of class.
- * 
- * Provides of functionality.
- */
-class of Entry that holds all values for one entry in a CandleStickChart.
+ * Subclass of Entry that holds all values for one entry in a CandleStickChart.
  * 
  * @author Philipp Jahoda
  */
 @SuppressLint("ParcelCreator")
-    /**
-     * CandleEntry class.
-     *
-     * Provides candleentry functionality.
-     */
-    public class CandleEntry extends Entry {
+public class CandleEntry extends Entry {
 
     /** shadow-high value */
     private float mShadowHigh = 0f;
@@ -34,9 +24,9 @@ class of Entry that holds all values for one entry in a CandleStickChart.
     /** open value */
     private float mOpen = 0f;
 
-        /**
+    /**
      * Constructor.
-     *
+     * 
      * @param x The value on the x-axis
      * @param shadowH The (shadow) high value
      * @param shadowL The (shadow) low value
@@ -52,7 +42,7 @@ class of Entry that holds all values for one entry in a CandleStickChart.
         this.mClose = close;
     }
 
-        /**
+    /**
      * Constructor.
      *
      * @param x The value on the x-axis
@@ -72,7 +62,7 @@ class of Entry that holds all values for one entry in a CandleStickChart.
         this.mClose = close;
     }
 
-        /**
+    /**
      * Constructor.
      *
      * @param x The value on the x-axis
@@ -92,7 +82,7 @@ class of Entry that holds all values for one entry in a CandleStickChart.
         this.mClose = close;
     }
 
-        /**
+    /**
      * Constructor.
      *
      * @param x The value on the x-axis
@@ -113,19 +103,19 @@ class of Entry that holds all values for one entry in a CandleStickChart.
         this.mClose = close;
     }
 
-        /**
+    /**
      * Returns the overall range (difference) between shadow-high and
      * shadow-low.
-     *
+     * 
      * @return
      */
     public float getShadowRange() {
         return Math.abs(mShadowHigh - mShadowLow);
     }
 
-        /**
+    /**
      * Returns the body size (difference between open and close).
-     *
+     * 
      * @return
      */
     public float getBodyRange() {
@@ -149,9 +139,9 @@ class of Entry that holds all values for one entry in a CandleStickChart.
         return c;
     }
 
-        /**
+    /**
      * Returns the upper shadows highest value.
-     *
+     * 
      * @return
      */
     public float getHigh() {
@@ -162,9 +152,9 @@ class of Entry that holds all values for one entry in a CandleStickChart.
         this.mShadowHigh = mShadowHigh;
     }
 
-        /**
+    /**
      * Returns the lower shadows lowest value.
-     *
+     * 
      * @return
      */
     public float getLow() {
@@ -175,9 +165,9 @@ class of Entry that holds all values for one entry in a CandleStickChart.
         this.mShadowLow = mShadowLow;
     }
 
-        /**
+    /**
      * Returns the bodys close value.
-     *
+     * 
      * @return
      */
     public float getClose() {
@@ -188,9 +178,9 @@ class of Entry that holds all values for one entry in a CandleStickChart.
         this.mClose = mClose;
     }
 
-        /**
+    /**
      * Returns the bodys open value.
-     *
+     * 
      * @return
      */
     public float getOpen() {

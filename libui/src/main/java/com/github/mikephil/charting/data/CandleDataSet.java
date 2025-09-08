@@ -10,12 +10,12 @@ import com.github.mikephil.charting.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
-    /**
-     * DataSet for the CandleStickChart.
-     *
-     * @author Philipp Jahoda
-     */
-    public class CandleDataSet extends LineScatterCandleRadarDataSet<CandleEntry> implements ICandleDataSet {
+/**
+ * DataSet for the CandleStickChart.
+ *
+ * @author Philipp Jahoda
+ */
+public class CandleDataSet extends LineScatterCandleRadarDataSet<CandleEntry> implements ICandleDataSet {
 
     /**
      * the width of the shadow of the candle
@@ -131,7 +131,7 @@ import java.util.List;
             mYMax = e.getLow();
     }
 
-        /**
+    /**
      * Sets the space that is left out on the left and right side of each
      * candle, default 0.1f (10%), max 0.45f, min 0f
      *
@@ -152,7 +152,7 @@ import java.util.List;
         return mBarSpace;
     }
 
-        /**
+    /**
      * Sets the width of the candle-shadow-line in pixels. Default 3f.
      *
      * @param width
@@ -166,7 +166,7 @@ import java.util.List;
         return mShadowWidth;
     }
 
-        /**
+    /**
      * Sets whether the candle bars should show?
      *
      * @param showCandleBar
@@ -182,12 +182,7 @@ import java.util.List;
 
     // TODO
     /**
-     * It is necessary to implement ColorsList/**
- * that class.
- * 
- * Provides that functionality.
- */
- class that will encapsulate
+     * It is necessary to implement ColorsList class that will encapsulate
      * colors list functionality, because It's wrong to copy paste setColor,
      * addColor, ... resetColors for each time when we want to add a coloring
      * options for one of objects
@@ -197,7 +192,7 @@ import java.util.List;
 
     /** BELOW THIS COLOR HANDLING */
 
-        /**
+    /**
      * Sets the one and ONLY color that should be used for this DataSet when
      * open == close.
      *
@@ -212,7 +207,7 @@ import java.util.List;
         return mNeutralColor;
     }
 
-        /**
+    /**
      * Sets the one and ONLY color that should be used for this DataSet when
      * open <= close.
      *
@@ -227,7 +222,7 @@ import java.util.List;
         return mIncreasingColor;
     }
 
-        /**
+    /**
      * Sets the one and ONLY color that should be used for this DataSet when
      * open > close.
      *
@@ -247,7 +242,7 @@ import java.util.List;
         return mIncreasingPaintStyle;
     }
 
-        /**
+    /**
      * Sets paint style when open < close
      *
      * @param paintStyle
@@ -261,7 +256,7 @@ import java.util.List;
         return mDecreasingPaintStyle;
     }
 
-        /**
+    /**
      * Sets paint style when open > close
      *
      * @param decreasingPaintStyle
@@ -275,7 +270,7 @@ import java.util.List;
         return mShadowColor;
     }
 
-        /**
+    /**
      * Sets shadow color for all entries
      *
      * @param shadowColor
@@ -289,7 +284,7 @@ import java.util.List;
         return mShadowColorSameAsCandle;
     }
 
-        /**
+    /**
      * Sets shadow color to be the same color as the candle color
      *
      * @param shadowColorSameAsCandle

@@ -5,13 +5,13 @@ import android.graphics.Matrix;
 import android.graphics.RectF;
 import android.view.View;
 
-    /**
-     * Class that contains information about the charts current viewport settings, including offsets, scale & translation
-     * levels, ...
-     *
-     * @author Philipp Jahoda
-     */
-    public class ViewPortHandler {
+/**
+ * Class that contains information about the charts current viewport settings, including offsets, scale & translation
+ * levels, ...
+ *
+ * @author Philipp Jahoda
+ */
+public class ViewPortHandler {
 
     /**
      * matrix used for touch events
@@ -76,19 +76,20 @@ import android.view.View;
      */
     private float mTransOffsetY = 0f;
 
-        /**
+    /**
      * Constructor - don't forget calling setChartDimens(...)
      */
     public ViewPortHandler() {
 
     }
 
-        /**
+    /**
      * Sets the width and height of the chart.
      *
      * @param width
      * @param height
      */
+
     public void setChartDimens(float width, float height) {
 
         float offsetLeft = this.offsetLeft();
@@ -171,7 +172,7 @@ import android.view.View;
         return mChartWidth;
     }
 
-        /**
+    /**
      * Returns the smallest extension of the content rect (width or height).
      *
      * @return
@@ -185,7 +186,7 @@ import android.view.View;
      */
     /** CODE BELOW THIS RELATED TO SCALING AND GESTURES */
 
-        /**
+    /**
      * Zooms in by 1.4f, x and y are the coordinates (in pixels) of the zoom
      * center.
      *
@@ -205,7 +206,7 @@ import android.view.View;
         outputMatrix.postScale(1.4f, 1.4f, x, y);
     }
 
-        /**
+    /**
      * Zooms out by 0.7f, x and y are the coordinates (in pixels) of the zoom
      * center.
      */
@@ -222,7 +223,7 @@ import android.view.View;
         outputMatrix.postScale(0.7f, 0.7f, x, y);
     }
 
-        /**
+    /**
      * Zooms out to original size.
      * @param outputMatrix
      */
@@ -232,7 +233,7 @@ import android.view.View;
         outputMatrix.postScale(1.0f, 1.0f, 0.0f, 0.0f);
     }
 
-        /**
+    /**
      * Post-scales by the specified scale factors.
      *
      * @param scaleX
@@ -252,7 +253,7 @@ import android.view.View;
         outputMatrix.postScale(scaleX, scaleY);
     }
 
-        /**
+    /**
      * Post-scales by the specified scale factors. x and y is pivot.
      *
      * @param scaleX
@@ -274,7 +275,7 @@ import android.view.View;
         outputMatrix.postScale(scaleX, scaleY, x, y);
     }
 
-        /**
+    /**
      * Sets the scale factor to the specified values.
      *
      * @param scaleX
@@ -294,7 +295,7 @@ import android.view.View;
         outputMatrix.setScale(scaleX, scaleY);
     }
 
-        /**
+    /**
      * Sets the scale factor to the specified values. x and y is pivot.
      *
      * @param scaleX
@@ -315,7 +316,7 @@ import android.view.View;
 
     protected float[] valsBufferForFitScreen = new float[9];
 
-        /**
+    /**
      * Resets all zooming and dragging and makes the chart fit exactly it's
      * bounds.
      */
@@ -326,7 +327,7 @@ import android.view.View;
         return save;
     }
 
-        /**
+    /**
      * Resets all zooming and dragging and makes the chart fit exactly it's
      * bounds.  Output Matrix is available for those who wish to cache the object.
      */
@@ -352,7 +353,7 @@ import android.view.View;
         outputMatrix.setValues(vals);
     }
 
-        /**
+    /**
      * Post-translates to the specified points.  Less Performant.
      *
      * @param transformedPts
@@ -365,7 +366,7 @@ import android.view.View;
         return save;
     }
 
-        /**
+    /**
      * Post-translates to the specified points.  Output matrix allows for caching objects.
      *
      * @param transformedPts
@@ -381,7 +382,7 @@ import android.view.View;
 
     protected Matrix mCenterViewPortMatrixBuffer = new Matrix();
 
-        /**
+    /**
      * Centers the viewport around the specified position (x-index and y-value)
      * in the chart. Centering the viewport outside the bounds of the chart is
      * not possible. Makes most sense in combination with the
@@ -410,7 +411,7 @@ import android.view.View;
      */
     protected final float[] matrixBuffer = new float[9];
 
-        /**
+    /**
      * call this method to refresh the graph with a given matrix
      *
      * @param newMatrix
@@ -430,7 +431,7 @@ import android.view.View;
         return newMatrix;
     }
 
-        /**
+    /**
      * limits the maximum scale and X translation of the given matrix
      *
      * @param matrix
@@ -474,7 +475,7 @@ import android.view.View;
         matrix.setValues(matrixBuffer);
     }
 
-        /**
+    /**
      * Sets the minimum scale factor for the x-axis
      *
      * @param xScale
@@ -489,7 +490,7 @@ import android.view.View;
         limitTransAndScale(mMatrixTouch, mContentRect);
     }
 
-        /**
+    /**
      * Sets the maximum scale factor for the x-axis
      *
      * @param xScale
@@ -504,7 +505,7 @@ import android.view.View;
         limitTransAndScale(mMatrixTouch, mContentRect);
     }
 
-        /**
+    /**
      * Sets the minimum and maximum scale factors for the x-axis
      *
      * @param minScaleX
@@ -524,7 +525,7 @@ import android.view.View;
         limitTransAndScale(mMatrixTouch, mContentRect);
     }
 
-        /**
+    /**
      * Sets the minimum scale factor for the y-axis
      *
      * @param yScale
@@ -539,7 +540,7 @@ import android.view.View;
         limitTransAndScale(mMatrixTouch, mContentRect);
     }
 
-        /**
+    /**
      * Sets the maximum scale factor for the y-axis
      *
      * @param yScale
@@ -568,7 +569,7 @@ import android.view.View;
         limitTransAndScale(mMatrixTouch, mContentRect);
     }
 
-        /**
+    /**
      * Returns the charts-touch matrix used for translation and scale on touch.
      *
      * @return
@@ -580,9 +581,10 @@ import android.view.View;
     /**
      * ################ ################ ################ ################
      */
-        /**
+    /**
      * BELOW METHODS FOR BOUNDS CHECK
      */
+
     public boolean isInBoundsX(float x) {
         return isInBoundsLeft(x) && isInBoundsRight(x);
     }
@@ -613,14 +615,14 @@ import android.view.View;
         return mContentRect.bottom >= y;
     }
 
-        /**
+    /**
      * returns the current x-scale factor
      */
     public float getScaleX() {
         return mScaleX;
     }
 
-        /**
+    /**
      * returns the current y-scale factor
      */
     public float getScaleY() {
@@ -661,7 +663,7 @@ import android.view.View;
         return mTransY;
     }
 
-        /**
+    /**
      * if the chart is fully zoomed out, return true
      *
      * @return
@@ -671,7 +673,7 @@ import android.view.View;
         return isFullyZoomedOutX() && isFullyZoomedOutY();
     }
 
-        /**
+    /**
      * Returns true if the chart is fully zoomed out on it's y-axis (vertical).
      *
      * @return
@@ -680,7 +682,7 @@ import android.view.View;
         return !(mScaleY > mMinScaleY || mMinScaleY > 1f);
     }
 
-        /**
+    /**
      * Returns true if the chart is fully zoomed out on it's x-axis
      * (horizontal).
      *
@@ -690,7 +692,7 @@ import android.view.View;
         return !(mScaleX > mMinScaleX || mMinScaleX > 1f);
     }
 
-        /**
+    /**
      * Set an offset in dp that allows the user to drag the chart over it's
      * bounds on the x-axis.
      *
@@ -700,7 +702,7 @@ import android.view.View;
         mTransOffsetX = Utils.convertDpToPixel(offset);
     }
 
-        /**
+    /**
      * Set an offset in dp that allows the user to drag the chart over it's
      * bounds on the y-axis.
      *
@@ -710,7 +712,7 @@ import android.view.View;
         mTransOffsetY = Utils.convertDpToPixel(offset);
     }
 
-        /**
+    /**
      * Returns true if both drag offsets (x and y) are zero or smaller.
      *
      * @return
@@ -719,7 +721,7 @@ import android.view.View;
         return mTransOffsetX <= 0 && mTransOffsetY <= 0;
     }
 
-        /**
+    /**
      * Returns true if the chart is not yet fully zoomed out on the x-axis
      *
      * @return
@@ -728,7 +730,7 @@ import android.view.View;
         return mScaleX > mMinScaleX;
     }
 
-        /**
+    /**
      * Returns true if the chart is not yet fully zoomed in on the x-axis
      *
      * @return
@@ -737,7 +739,7 @@ import android.view.View;
         return mScaleX < mMaxScaleX;
     }
 
-        /**
+    /**
      * Returns true if the chart is not yet fully zoomed out on the y-axis
      *
      * @return
@@ -746,7 +748,7 @@ import android.view.View;
         return mScaleY > mMinScaleY;
     }
 
-        /**
+    /**
      * Returns true if the chart is not yet fully zoomed in on the y-axis
      *
      * @return

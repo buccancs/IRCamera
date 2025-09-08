@@ -6,12 +6,12 @@ import android.graphics.Typeface;
 
 import com.github.mikephil.charting.utils.Utils;
 
-    /**
-     * This class encapsulates everything both Axis, Legend and LimitLines have in common.
-     *
-     * @author Philipp Jahoda
-     */
-    public abstract class ComponentBase {
+/**
+ * This class encapsulates everything both Axis, Legend and LimitLines have in common.
+ *
+ * @author Philipp Jahoda
+ */
+public abstract class ComponentBase {
 
     /**
      * flag that indicates if this axis / legend is enabled or not
@@ -43,11 +43,12 @@ import com.github.mikephil.charting.utils.Utils;
      */
     protected int mTextColor = Color.BLACK;
 
+
     public ComponentBase() {
 
     }
 
-        /**
+    /**
      * Returns the used offset on the x-axis for drawing the axis or legend
      * labels. This offset is applied before and after the label.
      *
@@ -57,7 +58,7 @@ import com.github.mikephil.charting.utils.Utils;
         return mXOffset;
     }
 
-        /**
+    /**
      * Sets the used x-axis offset for the labels on this axis.
      *
      * @param xOffset
@@ -66,7 +67,7 @@ import com.github.mikephil.charting.utils.Utils;
         mXOffset = Utils.convertDpToPixel(xOffset);
     }
 
-        /**
+    /**
      * Returns the used offset on the x-axis for drawing the axis labels. This
      * offset is applied before and after the label.
      *
@@ -76,7 +77,7 @@ import com.github.mikephil.charting.utils.Utils;
         return mYOffset;
     }
 
-        /**
+    /**
      * Sets the used y-axis offset for the labels on this axis. For the legend,
      * higher offset means the legend as a whole will be placed further away
      * from the top.
@@ -87,7 +88,7 @@ import com.github.mikephil.charting.utils.Utils;
         mYOffset = Utils.convertDpToPixel(yOffset);
     }
 
-        /**
+    /**
      * returns the Typeface used for the labels, returns null if none is set
      *
      * @return
@@ -96,7 +97,7 @@ import com.github.mikephil.charting.utils.Utils;
         return mTypeface;
     }
 
-        /**
+    /**
      * sets a specific Typeface for the labels
      *
      * @param tf
@@ -105,7 +106,7 @@ import com.github.mikephil.charting.utils.Utils;
         mTypeface = tf;
     }
 
-        /**
+    /**
      * sets the size of the label text in density pixels min = 6f, max = 24f, default
      * 10f
      *
@@ -121,7 +122,7 @@ import com.github.mikephil.charting.utils.Utils;
         mTextSize = Utils.convertDpToPixel(size);
     }
 
-        /**
+    /**
      * returns the text size that is currently set for the labels, in pixels
      *
      * @return
@@ -130,7 +131,8 @@ import com.github.mikephil.charting.utils.Utils;
         return mTextSize;
     }
 
-        /**
+
+    /**
      * Sets the text color to use for the labels. Make sure to use
      * getResources().getColor(...) when using a color from the resources.
      *
@@ -140,7 +142,7 @@ import com.github.mikephil.charting.utils.Utils;
         mTextColor = color;
     }
 
-        /**
+    /**
      * Returns the text color that is set for the labels.
      *
      * @return
@@ -149,7 +151,7 @@ import com.github.mikephil.charting.utils.Utils;
         return mTextColor;
     }
 
-        /**
+    /**
      * Set this to true if this component should be enabled (should be drawn),
      * false if not. If disabled, nothing of this component will be drawn.
      * Default: true
@@ -160,7 +162,7 @@ import com.github.mikephil.charting.utils.Utils;
         mEnabled = enabled;
     }
 
-        /**
+    /**
      * Returns true if this comonent is enabled (should be drawn), false if not.
      *
      * @return

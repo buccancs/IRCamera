@@ -20,13 +20,13 @@ import com.github.mikephil.charting.utils.MPPointF;
 import com.github.mikephil.charting.utils.TransformerHorizontalBarChart;
 import com.github.mikephil.charting.utils.Utils;
 
-    /**
-     * BarChart with horizontal bar orientation. In this implementation, x- and y-axis are switched, meaning the YAxis class
-     * represents the horizontal values and the XAxis class represents the vertical values.
-     *
-     * @author Philipp Jahoda
-     */
-    public class HorizontalBarChart extends BarChart {
+/**
+ * BarChart with horizontal bar orientation. In this implementation, x- and y-axis are switched, meaning the YAxis class
+ * represents the horizontal values and the XAxis class represents the vertical values.
+ *
+ * @author Philipp Jahoda
+ */
+public class HorizontalBarChart extends BarChart {
 
     public HorizontalBarChart(Context context) {
         super(context);

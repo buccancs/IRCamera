@@ -8,12 +8,7 @@ import com.github.mikephil.charting.utils.MPPointF;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
-    /**
-     * XAxisRendererRadarChart class.
-     *
-     * Provides xaxisrendererradarchart functionality.
-     */
-    public class XAxisRendererRadarChart extends XAxisRenderer {
+public class XAxisRendererRadarChart extends XAxisRenderer {
 
     private RadarChart mChart;
 

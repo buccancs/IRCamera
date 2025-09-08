@@ -7,12 +7,7 @@ import com.github.mikephil.charting.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
-    /**
-     * BubbleDataSet class.
-     *
-     * Provides bubbledataset functionality.
-     */
-    public class BubbleDataSet extends BarLineScatterCandleBubbleDataSet<BubbleEntry> implements IBubbleDataSet {
+public class BubbleDataSet extends BarLineScatterCandleBubbleDataSet<BubbleEntry> implements IBubbleDataSet {
 
     protected float mMaxSize;
     protected boolean mNormalizeSize = true;

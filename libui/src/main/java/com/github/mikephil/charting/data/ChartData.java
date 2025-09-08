@@ -11,13 +11,13 @@ import com.github.mikephil.charting.interfaces.datasets.IDataSet;
 import java.util.ArrayList;
 import java.util.List;
 
-    /**
-     * Class that holds all relevant data that represents the chart. That involves
-     * at least one (or more) DataSets, and an array of x-values.
-     *
-     * @author Philipp Jahoda
-     */
-    public abstract class ChartData<T extends IDataSet<? extends Entry>> {
+/**
+ * Class that holds all relevant data that represents the chart. That involves
+ * at least one (or more) DataSets, and an array of x-values.
+ *
+ * @author Philipp Jahoda
+ */
+public abstract class ChartData<T extends IDataSet<? extends Entry>> {
 
     /**
      * maximum y-value in the value array across all axes
@@ -39,6 +39,7 @@ import java.util.List;
      */
     protected float mXMin = Float.MAX_VALUE;
 
+
     protected float mLeftAxisMax = -Float.MAX_VALUE;
 
     protected float mLeftAxisMin = Float.MAX_VALUE;
@@ -52,14 +53,14 @@ import java.util.List;
      */
     protected List<T> mDataSets;
 
-        /**
+    /**
      * Default constructor.
      */
     public ChartData() {
         mDataSets = new ArrayList<T>();
     }
 
-        /**
+    /**
      * Constructor taking single or multiple DataSet objects.
      *
      * @param dataSets
@@ -86,7 +87,7 @@ import java.util.List;
         return list;
     }
 
-        /**
+    /**
      * constructor for chart data
      *
      * @param sets the dataset array
@@ -96,7 +97,7 @@ import java.util.List;
         notifyDataChanged();
     }
 
-        /**
+    /**
      * Call this method to let the ChartData know that the underlying data has
      * changed. Calling this performs all necessary recalculations needed when
      * the contained data has changed.
@@ -105,7 +106,7 @@ import java.util.List;
         calcMinMax();
     }
 
-        /**
+    /**
      * Calc minimum and maximum y-values over all DataSets.
      * Tell DataSets to recalculate their min and max y-values, this is only needed for autoScaleMinMax.
      *
@@ -185,7 +186,7 @@ import java.util.List;
 
     /** ONLY GETTERS AND SETTERS BELOW THIS */
 
-        /**
+    /**
      * returns the number of LineDataSets this object contains
      *
      * @return
@@ -196,7 +197,7 @@ import java.util.List;
         return mDataSets.size();
     }
 
-        /**
+    /**
      * Returns the smallest y-value the data object contains.
      *
      * @return
@@ -205,7 +206,7 @@ import java.util.List;
         return mYMin;
     }
 
-        /**
+    /**
      * Returns the minimum y-value for the specified axis.
      *
      * @param axis
@@ -226,7 +227,7 @@ import java.util.List;
         }
     }
 
-        /**
+    /**
      * Returns the greatest y-value the data object contains.
      *
      * @return
@@ -235,7 +236,7 @@ import java.util.List;
         return mYMax;
     }
 
-        /**
+    /**
      * Returns the maximum y-value for the specified axis.
      *
      * @param axis
@@ -256,7 +257,7 @@ import java.util.List;
         }
     }
 
-        /**
+    /**
      * Returns the minimum x-value this data object contains.
      *
      * @return
@@ -265,7 +266,7 @@ import java.util.List;
         return mXMin;
     }
 
-        /**
+    /**
      * Returns the maximum x-value this data object contains.
      *
      * @return
@@ -274,7 +275,7 @@ import java.util.List;
         return mXMax;
     }
 
-        /**
+    /**
      * Returns all DataSet objects this ChartData object holds.
      *
      * @return
@@ -310,7 +311,7 @@ import java.util.List;
         return -1;
     }
 
-        /**
+    /**
      * Returns the labels of all DataSets as a string array.
      *
      * @return
@@ -326,7 +327,7 @@ import java.util.List;
         return types;
     }
 
-        /**
+    /**
      * Get the Entry for a corresponding highlight object
      *
      * @param highlight
@@ -340,7 +341,7 @@ import java.util.List;
         }
     }
 
-        /**
+    /**
      * Returns the DataSet object with the given label. Search can be case
      * sensitive or not. IMPORTANT: This method does calculations at runtime.
      * Use with care in performance critical situations.
@@ -367,7 +368,7 @@ import java.util.List;
         return mDataSets.get(index);
     }
 
-        /**
+    /**
      * Adds a DataSet dynamically.
      *
      * @param d
@@ -382,7 +383,7 @@ import java.util.List;
         mDataSets.add(d);
     }
 
-        /**
+    /**
      * Removes the given DataSet from this data object. Also recalculates all
      * minimum and maximum values. Returns true if a DataSet was removed, false
      * if no DataSet could be removed.
@@ -404,7 +405,7 @@ import java.util.List;
         return removed;
     }
 
-        /**
+    /**
      * Removes the DataSet at the given index in the DataSet array from the data
      * object. Also recalculates all minimum and maximum values. Returns true if
      * a DataSet was removed, false if no DataSet could be removed.
@@ -420,7 +421,7 @@ import java.util.List;
         return removeDataSet(set);
     }
 
-        /**
+    /**
      * Adds an Entry to the DataSet at the specified index.
      * Entries are added to the end of the list.
      *
@@ -506,7 +507,7 @@ import java.util.List;
         }
     }
 
-        /**
+    /**
      * Removes the given Entry object from the DataSet at the specified index.
      *
      * @param e
@@ -533,7 +534,7 @@ import java.util.List;
             return false;
     }
 
-        /**
+    /**
      * Removes the Entry object closest to the given DataSet at the
      * specified index. Returns true if an Entry was removed, false if no Entry
      * was found that meets the specified requirements.
@@ -556,7 +557,7 @@ import java.util.List;
         return removeEntry(e, dataSetIndex);
     }
 
-        /**
+    /**
      * Returns the DataSet that contains the provided Entry, or null, if no
      * DataSet contains this Entry.
      *
@@ -581,7 +582,7 @@ import java.util.List;
         return null;
     }
 
-        /**
+    /**
      * Returns all colors used across all DataSet objects this object
      * represents.
      *
@@ -614,7 +615,7 @@ import java.util.List;
         return colors;
     }
 
-        /**
+    /**
      * Returns the index of the provided DataSet in the DataSet array of this data object, or -1 if it does not exist.
      *
      * @param dataSet
@@ -638,7 +639,7 @@ import java.util.List;
         return null;
     }
 
-        /**
+    /**
      * Returns the first DataSet from the datasets-array that has it's dependency on the right axis.
      * Returns null if no DataSet with right dependency could be found.
      *
@@ -652,7 +653,7 @@ import java.util.List;
         return null;
     }
 
-        /**
+    /**
      * Sets a custom IValueFormatter for all DataSets this data object contains.
      *
      * @param f
@@ -667,7 +668,7 @@ import java.util.List;
         }
     }
 
-        /**
+    /**
      * Sets the color of the value-text (color in which the value-labels are
      * drawn) for all DataSets this data object contains.
      *
@@ -679,7 +680,7 @@ import java.util.List;
         }
     }
 
-        /**
+    /**
      * Sets the same list of value-colors for all DataSets this
      * data object contains.
      *
@@ -691,7 +692,7 @@ import java.util.List;
         }
     }
 
-        /**
+    /**
      * Sets the Typeface for all value-labels for all DataSets this data object
      * contains.
      *
@@ -703,7 +704,7 @@ import java.util.List;
         }
     }
 
-        /**
+    /**
      * Sets the size (in dp) of the value-text for all DataSets this data object
      * contains.
      *
@@ -738,7 +739,7 @@ import java.util.List;
         }
     }
 
-        /**
+    /**
      * Returns true if highlighting of all underlying values is enabled, false
      * if not.
      *
@@ -752,7 +753,7 @@ import java.util.List;
         return true;
     }
 
-        /**
+    /**
      * Clears this data object from all DataSets and removes all Entries. Don't
      * forget to invalidate the chart after this.
      */
@@ -763,7 +764,7 @@ import java.util.List;
         notifyDataChanged();
     }
 
-        /**
+    /**
      * Checks if this data object contains the specified DataSet. Returns true
      * if so, false if not.
      *
@@ -780,7 +781,7 @@ import java.util.List;
         return false;
     }
 
-        /**
+    /**
      * Returns the total entry count across all DataSet objects this data object contains.
      *
      * @return
@@ -796,7 +797,7 @@ import java.util.List;
         return count;
     }
 
-        /**
+    /**
      * Returns the DataSet object with the maximum number of entries or null if there are no DataSets.
      *
      * @return

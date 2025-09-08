@@ -9,13 +9,13 @@ import com.github.mikephil.charting.interfaces.datasets.IBarLineScatterCandleBub
 import java.util.ArrayList;
 import java.util.List;
 
-    /**
-     * Data object that allows the combination of Line-, Bar-, Scatter-, Bubble- and
-     * CandleData. Used in the CombinedChart class.
-     *
-     * @author Philipp Jahoda
-     */
-    public class CombinedData extends BarLineScatterCandleBubbleData<IBarLineScatterCandleBubbleDataSet<? extends Entry>> {
+/**
+ * Data object that allows the combination of Line-, Bar-, Scatter-, Bubble- and
+ * CandleData. Used in the CombinedChart class.
+ *
+ * @author Philipp Jahoda
+ */
+public class CombinedData extends BarLineScatterCandleBubbleData<IBarLineScatterCandleBubbleDataSet<? extends Entry>> {
 
     private LineData mLineData;
     private BarData mBarData;
@@ -126,7 +126,7 @@ import java.util.List;
         return mCandleData;
     }
 
-        /**
+    /**
      * Returns all data objects in row: line-bar-scatter-candle-bubble if not null.
      *
      * @return
@@ -198,7 +198,7 @@ import java.util.List;
         return null;
     }
 
-        /**
+    /**
      * Get dataset for highlight
      *
      * @param highlight current highlight

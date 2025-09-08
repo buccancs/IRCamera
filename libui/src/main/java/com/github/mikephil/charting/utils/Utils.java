@@ -23,15 +23,15 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.util.List;
 
-    /**
-     * Utilities class that has some helper methods. Needs to be initialized by
-     * calling Utils.init(...) before usage. Inside the Chart.init() method, this is
-     * done, if the Utils are used before that, Utils.init(...) needs to be called
-     * manually.
-     *
-     * @author Philipp Jahoda
-     */
-    public abstract class Utils {
+/**
+ * Utilities class that has some helper methods. Needs to be initialized by
+ * calling Utils.init(...) before usage. Inside the Chart.init() method, this is
+ * done, if the Utils are used before that, Utils.init(...) needs to be called
+ * manually.
+ *
+ * @author Philipp Jahoda
+ */
+public abstract class Utils {
 
     private static DisplayMetrics mMetrics;
     private static int mMinimumFlingVelocity = 50;
@@ -89,7 +89,7 @@ import java.util.List;
         mMaximumFlingVelocity = ViewConfiguration.getMaximumFlingVelocity();
     }
 
-        /**
+    /**
      * This method converts dp unit to equivalent pixels, depending on device
      * density. NEEDS UTILS TO BE INITIALIZED BEFORE USAGE.
      *
@@ -112,7 +112,7 @@ import java.util.List;
         return dp * mMetrics.density;
     }
 
-        /**
+    /**
      * This method converts device specific pixels to density independent
      * pixels. NEEDS UTILS TO BE INITIALIZED BEFORE USAGE.
      *
@@ -133,7 +133,7 @@ import java.util.List;
         return px / mMetrics.density;
     }
 
-        /**
+    /**
      * calculates the approximate width of a text, depending on a demo text
      * avoid repeated calls (e.g. inside drawing methods)
      *
@@ -146,7 +146,7 @@ import java.util.List;
     }
 
     private static Rect mCalcTextHeightRect = new Rect();
-        /**
+    /**
      * calculates the approximate height of a text, depending on a demo text
      * avoid repeated calls (e.g. inside drawing methods)
      *
@@ -182,7 +182,7 @@ import java.util.List;
         return fontMetrics.ascent - fontMetrics.top + fontMetrics.bottom;
     }
 
-        /**
+    /**
      * Returns a recyclable FSize instance.
      * calculates the approximate size of a text, depending on a demo text
      * avoid repeated calls (e.g. inside drawing methods)
@@ -199,7 +199,7 @@ import java.util.List;
     }
 
     private static Rect mCalcTextSizeRect = new Rect();
-        /**
+    /**
      * calculates the approximate size of a text, depending on a demo text
      * avoid repeated calls (e.g. inside drawing methods)
      *
@@ -216,6 +216,7 @@ import java.util.List;
         outputFSize.height = r.height();
 
     }
+
 
     /**
      * Math.pow(...) is very expensive, so avoid calling it and create it
@@ -237,7 +238,7 @@ import java.util.List;
         return mDefaultValueFormatter;
     }
 
-        /**
+    /**
      * Formats the given number to the given number of decimals, and returns the
      * number as a string, maximum 35 characters. If thousands are separated, the separating
      * character is a dot (".").
@@ -251,7 +252,7 @@ import java.util.List;
         return formatNumber(number, digitCount, separateThousands, '.');
     }
 
-        /**
+    /**
      * Formats the given number to the given number of decimals, and returns the
      * number as a string, maximum 35 characters.
      *
@@ -341,7 +342,7 @@ import java.util.List;
         return String.valueOf(out, start, out.length - start);
     }
 
-        /**
+    /**
      * rounds the given number to the next significant number
      *
      * @param number
@@ -360,7 +361,7 @@ import java.util.List;
         return shifted / magnitude;
     }
 
-        /**
+    /**
      * Returns the appropriate number of decimals to be used for the provided
      * number.
      *
@@ -377,7 +378,7 @@ import java.util.List;
         return (int) Math.ceil(-Math.log10(i)) + 2;
     }
 
-        /**
+    /**
      * Converts the provided Integer List to an int array.
      *
      * @param integers
@@ -399,7 +400,7 @@ import java.util.List;
         }
     }
 
-        /**
+    /**
      * Converts the provided String List to a String array.
      *
      * @param strings
@@ -423,7 +424,7 @@ import java.util.List;
         }
     }
 
-        /**
+    /**
      * Replacement for the Math.nextUp(...) method that is only available in
      * HONEYCOMB and higher. Dat's some seeeeek sheeet.
      *
@@ -440,7 +441,7 @@ import java.util.List;
         }
     }
 
-        /**
+    /**
      * Returns a recyclable MPPointF instance.
      * Calculates the position around a center point, depending on the distance
      * from the center, and the angle of the position around the center.
@@ -510,7 +511,7 @@ import java.util.List;
         return mMaximumFlingVelocity;
     }
 
-        /**
+    /**
      * returns an angle between 0.f < 360.f (not less than zero, less than 360)
      */
     public static float getNormalizedAngle(float angle) {
@@ -703,10 +704,11 @@ import java.util.List;
                 (int) Math.max(Math.ceil(constrainedToSize.width), 1.f),
                 Layout.Alignment.ALIGN_NORMAL, 1.f, 0.f, false);
 
+
         drawMultilineText(c, textLayout, x, y, paint, anchor, angleDegrees);
     }
 
-        /**
+    /**
      * Returns a recyclable FSize instance.
      * Represents size of a rotated rectangle by degrees.
      *
@@ -720,7 +722,7 @@ import java.util.List;
                 radians);
     }
 
-        /**
+    /**
      * Returns a recyclable FSize instance.
      * Represents size of a rotated rectangle by radians.
      *
@@ -733,7 +735,7 @@ import java.util.List;
                 radians);
     }
 
-        /**
+    /**
      * Returns a recyclable FSize instance.
      * Represents size of a rotated rectangle by degrees.
      *
@@ -748,7 +750,7 @@ import java.util.List;
         return getSizeOfRotatedRectangleByRadians(rectangleWidth, rectangleHeight, radians);
     }
 
-        /**
+    /**
      * Returns a recyclable FSize instance.
      * Represents size of a rotated rectangle by radians.
      *

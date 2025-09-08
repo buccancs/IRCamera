@@ -7,11 +7,11 @@ import java.util.List;
  *
  *
  * Cost/Benefit :
- * Cost - The pool can only contain objects extending Poolable.
- * Benefit - The pool can very quickly determine if an object is elligable for storage without iteration.
- * Benefit - The pool can also know if an instance of Poolable is already stored in a different pool instance.
- * Benefit - The pool can grow as needed, if it is empty
- * Cost - However, refilling the pool when it is empty might incur a time cost with sufficiently large capacity.  Set the replenishPercentage to a lower number if this is a concern.
+ *   Cost - The pool can only contain objects extending Poolable.
+ *   Benefit - The pool can very quickly determine if an object is elligable for storage without iteration.
+ *   Benefit - The pool can also know if an instance of Poolable is already stored in a different pool instance.
+ *   Benefit - The pool can grow as needed, if it is empty
+ *   Cost - However, refilling the pool when it is empty might incur a time cost with sufficiently large capacity.  Set the replenishPercentage to a lower number if this is a concern.
  *
  * Created by Tony Patino on 6/20/16.
  */
@@ -26,7 +26,8 @@ public class ObjectPool<T extends ObjectPool.Poolable> {
     private T modelObject;
     private float replenishPercentage;
 
-        /**
+
+    /**
      * Returns the id of the given pool instance.
      *
      * @return an integer ID belonging to this pool instance.
@@ -35,7 +36,7 @@ public class ObjectPool<T extends ObjectPool.Poolable> {
         return poolId;
     }
 
-        /**
+    /**
      * Returns an ObjectPool instance, of a given starting capacity, that recycles instances of a given Poolable object.
      *
      * @param withCapacity A positive integer value.
@@ -62,7 +63,7 @@ public class ObjectPool<T extends ObjectPool.Poolable> {
         this.refillPool();
     }
 
-        /**
+    /**
      * Set the percentage of the pool to replenish on empty.  Valid values are between
      * 0.00f and 1.00f
      *
@@ -102,7 +103,7 @@ public class ObjectPool<T extends ObjectPool.Poolable> {
         objectsPointer = portionOfCapacity - 1;
     }
 
-        /**
+    /**
      * Returns an instance of Poolable.  If get() is called with an empty pool, the pool will be
      * replenished.  If the pool capacity is sufficiently large, this could come at a performance
      * cost.
@@ -122,7 +123,7 @@ public class ObjectPool<T extends ObjectPool.Poolable> {
         return result;
     }
 
-        /**
+    /**
      * Recycle an instance of Poolable that this pool is capable of generating.
      * The T instance passed must not already exist inside this or any other ObjectPool instance.
      *
@@ -147,7 +148,7 @@ public class ObjectPool<T extends ObjectPool.Poolable> {
 
     }
 
-        /**
+    /**
      * Recycle a List of Poolables that this pool is capable of generating.
      * The T instances passed must not already exist inside this or any other ObjectPool instance.
      *
@@ -185,7 +186,7 @@ public class ObjectPool<T extends ObjectPool.Poolable> {
         this.objects = temp;
     }
 
-        /**
+    /**
      * Returns the capacity of this object pool.  Note : The pool will automatically resize
      * to contain additional objects if the user tries to add more objects than the pool's
      * capacity allows, but this comes at a performance cost.
@@ -196,7 +197,7 @@ public class ObjectPool<T extends ObjectPool.Poolable> {
         return this.objects.length;
     }
 
-        /**
+    /**
      * Returns the number of objects remaining in the pool, for diagnostic purposes.
      *
      * @return The number of objects remaining in the pool.
@@ -205,12 +206,8 @@ public class ObjectPool<T extends ObjectPool.Poolable> {
         return this.objectsPointer + 1;
     }
 
-    public static/**
- * Poolable class.
- * 
- * Provides poolable functionality.
- */
- abstract class Poolable{
+
+    public static abstract class Poolable{
 
         public static int NO_OWNER = -1;
         int currentOwnerId = NO_OWNER;

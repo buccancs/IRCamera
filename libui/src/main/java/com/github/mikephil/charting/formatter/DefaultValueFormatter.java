@@ -2,13 +2,13 @@ package com.github.mikephil.charting.formatter;
 
 import java.text.DecimalFormat;
 
-    /**
-     * Default formatter used for formatting values inside the chart. Uses a DecimalFormat with
-     * pre-calculated number of digits (depending on max and min value).
-     *
-     * @author Philipp Jahoda
-     */
-    public class DefaultValueFormatter extends ValueFormatter
+/**
+ * Default formatter used for formatting values inside the chart. Uses a DecimalFormat with
+ * pre-calculated number of digits (depending on max and min value).
+ *
+ * @author Philipp Jahoda
+ */
+public class DefaultValueFormatter extends ValueFormatter
 {
 
     /**
@@ -18,7 +18,7 @@ import java.text.DecimalFormat;
 
     protected int mDecimalDigits;
 
-        /**
+    /**
      * Constructor that specifies to how many digits the value should be
      * formatted.
      *
@@ -28,7 +28,7 @@ import java.text.DecimalFormat;
         setup(digits);
     }
 
-        /**
+    /**
      * Sets up the formatter with a given number of decimal digits.
      *
      * @param digits
@@ -56,7 +56,7 @@ import java.text.DecimalFormat;
         return mFormat.format(value);
     }
 
-        /**
+    /**
      * Returns the number of decimal digits this formatter uses.
      *
      * @return

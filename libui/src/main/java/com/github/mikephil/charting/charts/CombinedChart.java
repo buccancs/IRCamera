@@ -19,19 +19,20 @@ import com.github.mikephil.charting.interfaces.dataprovider.CombinedDataProvider
 import com.github.mikephil.charting.interfaces.datasets.IDataSet;
 import com.github.mikephil.charting.renderer.CombinedChartRenderer;
 
-    /**
-     * This chart class allows the combination of lines, bars, scatter and candle
-     * data all displayed in one chart area.
-     *
-     * @author Philipp Jahoda
-     */
-    public class CombinedChart extends BarLineChartBase<CombinedData> implements CombinedDataProvider {
+/**
+ * This chart class allows the combination of lines, bars, scatter and candle
+ * data all displayed in one chart area.
+ *
+ * @author Philipp Jahoda
+ */
+public class CombinedChart extends BarLineChartBase<CombinedData> implements CombinedDataProvider {
 
     /**
      * if set to true, all values are drawn above their bars, instead of below
      * their top
      */
     private boolean mDrawValueAboveBar = true;
+
 
     /**
      * flag that indicates whether the highlight should be full-bar oriented, or single-value?
@@ -46,18 +47,9 @@ import com.github.mikephil.charting.renderer.CombinedChartRenderer;
 
     protected DrawOrder[] mDrawOrder;
 
-    /**    /**
- * that class.
- * 
- * Provides that functionality.
- */
- enum that allows to specify the order in which the different data objects
+    /**
+     * enum that allows to specify the order in which the different data objects
      * for the combined-chart are drawn
-     */
-        /**
-     * DrawOrder class.
-     *
-     * Provides draworder functionality.
      */
     public enum DrawOrder {
         BAR, BUBBLE, LINE, CANDLE, SCATTER
@@ -176,7 +168,7 @@ import com.github.mikephil.charting.renderer.CombinedChartRenderer;
         return mDrawValueAboveBar;
     }
 
-        /**
+    /**
      * If set to true, all values are drawn above their bars, instead of below
      * their top.
      *
@@ -186,7 +178,8 @@ import com.github.mikephil.charting.renderer.CombinedChartRenderer;
         mDrawValueAboveBar = enabled;
     }
 
-        /**
+
+    /**
      * If set to true, a grey area is drawn behind each bar that indicates the
      * maximum value. Enabling his will reduce performance by about 50%.
      *
@@ -196,7 +189,7 @@ import com.github.mikephil.charting.renderer.CombinedChartRenderer;
         mDrawBarShadow = enabled;
     }
 
-        /**
+    /**
      * Set this to true to make the highlight operation full-bar oriented,
      * false to make it highlight single values (relevant only for stacked).
      *
@@ -214,7 +207,7 @@ import com.github.mikephil.charting.renderer.CombinedChartRenderer;
         return mHighlightFullBarEnabled;
     }
 
-        /**
+    /**
      * Returns the currently set draw order.
      *
      * @return
@@ -223,7 +216,7 @@ import com.github.mikephil.charting.renderer.CombinedChartRenderer;
         return mDrawOrder;
     }
 
-        /**
+    /**
      * Sets the order in which the provided data objects should be drawn. The
      * earlier you place them in the provided array, the further they will be in
      * the background. e.g. if you provide new DrawOrer[] { DrawOrder.BAR,

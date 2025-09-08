@@ -11,20 +11,15 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-    /**
-     * Class representing the legend of the chart. The legend will contain one entry
-     * per color and DataSet. Multiple colors in one DataSet are grouped together.
-     * The legend object is NOT available before setting data to the chart.
-     *
-     * @author Philipp Jahoda
-     */
-    public class Legend extends ComponentBase {
+/**
+ * Class representing the legend of the chart. The legend will contain one entry
+ * per color and DataSet. Multiple colors in one DataSet are grouped together.
+ * The legend object is NOT available before setting data to the chart.
+ *
+ * @author Philipp Jahoda
+ */
+public class Legend extends ComponentBase {
 
-        /**
-     * LegendForm class.
-     *
-     * Provides legendform functionality.
-     */
     public enum LegendForm {
         /**
          * Avoid drawing a form
@@ -57,38 +52,18 @@ import java.util.List;
         LINE
     }
 
-        /**
-     * LegendHorizontalAlignment class.
-     *
-     * Provides legendhorizontalalignment functionality.
-     */
     public enum LegendHorizontalAlignment {
         LEFT, CENTER, RIGHT
     }
 
-        /**
-     * LegendVerticalAlignment class.
-     *
-     * Provides legendverticalalignment functionality.
-     */
     public enum LegendVerticalAlignment {
         TOP, CENTER, BOTTOM
     }
 
-        /**
-     * LegendOrientation class.
-     *
-     * Provides legendorientation functionality.
-     */
     public enum LegendOrientation {
         HORIZONTAL, VERTICAL
     }
 
-        /**
-     * LegendDirection class.
-     *
-     * Provides legenddirection functionality.
-     */
     public enum LegendDirection {
         LEFT_TO_RIGHT, RIGHT_TO_LEFT
     }
@@ -167,7 +142,7 @@ import java.util.List;
      */
     private float mMaxSizePercent = 0.95f;
 
-        /**
+    /**
      * default constructor
      */
     public Legend() {
@@ -177,7 +152,7 @@ import java.util.List;
         this.mYOffset = Utils.convertDpToPixel(3f); // 2
     }
 
-        /**
+    /**
      * Constructor. Provide entries for the legend.
      *
      * @param entries
@@ -192,7 +167,7 @@ import java.util.List;
         this.mEntries = entries;
     }
 
-        /**
+    /**
      * This method sets the automatically computed colors for the legend. Use setCustom(...) to set custom colors.
      *
      * @param entries
@@ -205,7 +180,7 @@ import java.util.List;
         return mEntries;
     }
 
-        /**
+    /**
      * returns the maximum length in pixels across all legend labels + formsize
      * + formtotextspace
      *
@@ -237,7 +212,7 @@ import java.util.List;
         return max + maxFormSize + formToTextSpace;
     }
 
-        /**
+    /**
      * returns the maximum height in pixels across all legend labels
      *
      * @param p the paint object used for rendering the text
@@ -275,7 +250,7 @@ import java.util.List;
         mExtraEntries = entries;
     }
 
-        /**
+    /**
      * Entries that will be appended to the end of the auto calculated
      *   entries after calculating the legend.
      * (if the legend has already been calculated, you will need to call notifyDataSetChanged()
@@ -302,7 +277,7 @@ import java.util.List;
         mExtraEntries = entries.toArray(new LegendEntry[entries.size()]);
     }
 
-        /**
+    /**
      * Sets a custom legend's entries array.
      * * A null label will start a group.
      * This will disable the feature that automatically calculates the legend
@@ -316,7 +291,7 @@ import java.util.List;
         mIsLegendCustom = true;
     }
 
-        /**
+    /**
      * Sets a custom legend's entries array.
      * * A null label will start a group.
      * This will disable the feature that automatically calculates the legend
@@ -330,7 +305,7 @@ import java.util.List;
         mIsLegendCustom = true;
     }
 
-        /**
+    /**
      * Calling this will disable the custom legend entries (set by
      * setCustom(...)). Instead, the entries will again be calculated
      * automatically (after notifyDataSetChanged() is called).
@@ -339,7 +314,7 @@ import java.util.List;
         mIsLegendCustom = false;
     }
 
-        /**
+    /**
      * @return true if a custom legend entries has been set default
      * false (automatic legend)
      */
@@ -347,7 +322,7 @@ import java.util.List;
         return mIsLegendCustom;
     }
 
-        /**
+    /**
      * returns the horizontal alignment of the legend
      *
      * @return
@@ -356,7 +331,7 @@ import java.util.List;
         return mHorizontalAlignment;
     }
 
-        /**
+    /**
      * sets the horizontal alignment of the legend
      *
      * @param value
@@ -365,7 +340,7 @@ import java.util.List;
         mHorizontalAlignment = value;
     }
 
-        /**
+    /**
      * returns the vertical alignment of the legend
      *
      * @return
@@ -374,7 +349,7 @@ import java.util.List;
         return mVerticalAlignment;
     }
 
-        /**
+    /**
      * sets the vertical alignment of the legend
      *
      * @param value
@@ -383,7 +358,7 @@ import java.util.List;
         mVerticalAlignment = value;
     }
 
-        /**
+    /**
      * returns the orientation of the legend
      *
      * @return
@@ -392,7 +367,7 @@ import java.util.List;
         return mOrientation;
     }
 
-        /**
+    /**
      * sets the orientation of the legend
      *
      * @param value
@@ -401,7 +376,7 @@ import java.util.List;
         mOrientation = value;
     }
 
-        /**
+    /**
      * returns whether the legend will draw inside the chart or outside
      *
      * @return
@@ -410,7 +385,7 @@ import java.util.List;
         return mDrawInside;
     }
 
-        /**
+    /**
      * sets whether the legend will draw inside the chart or outside
      *
      * @param value
@@ -419,7 +394,7 @@ import java.util.List;
         mDrawInside = value;
     }
 
-        /**
+    /**
      * returns the text direction of the legend
      *
      * @return
@@ -428,7 +403,7 @@ import java.util.List;
         return mDirection;
     }
 
-        /**
+    /**
      * sets the text direction of the legend
      *
      * @param pos
@@ -455,7 +430,7 @@ import java.util.List;
         mShape = shape;
     }
 
-        /**
+    /**
      * sets the size in dp of the legend forms, default 8f
      *
      * @param size
@@ -464,7 +439,7 @@ import java.util.List;
         mFormSize = size;
     }
 
-        /**
+    /**
      * returns the size in dp of the legend forms
      *
      * @return
@@ -473,7 +448,7 @@ import java.util.List;
         return mFormSize;
     }
 
-        /**
+    /**
      * sets the line width in dp for forms that consist of lines, default 3f
      *
      * @param size
@@ -482,7 +457,7 @@ import java.util.List;
         mFormLineWidth = size;
     }
 
-        /**
+    /**
      * returns the line width in dp for drawing forms that consist of lines
      *
      * @return
@@ -491,7 +466,7 @@ import java.util.List;
         return mFormLineWidth;
     }
 
-        /**
+    /**
      * Sets the line dash path effect used for shapes that consist of lines.
      *
      * @param dashPathEffect
@@ -500,14 +475,14 @@ import java.util.List;
         mFormLineDashEffect = dashPathEffect;
     }
 
-        /**
+    /**
      * @return The line dash path effect used for shapes that consist of lines.
      */
     public DashPathEffect getFormLineDashEffect() {
         return mFormLineDashEffect;
     }
 
-        /**
+    /**
      * returns the space between the legend entries on a horizontal axis in
      * pixels
      *
@@ -517,7 +492,7 @@ import java.util.List;
         return mXEntrySpace;
     }
 
-        /**
+    /**
      * sets the space between the legend entries on a horizontal axis in pixels,
      * converts to dp internally
      *
@@ -527,7 +502,7 @@ import java.util.List;
         mXEntrySpace = space;
     }
 
-        /**
+    /**
      * returns the space between the legend entries on a vertical axis in pixels
      *
      * @return
@@ -536,7 +511,7 @@ import java.util.List;
         return mYEntrySpace;
     }
 
-        /**
+    /**
      * sets the space between the legend entries on a vertical axis in pixels,
      * converts to dp internally
      *
@@ -565,7 +540,7 @@ import java.util.List;
         this.mFormToTextSpace = space;
     }
 
-        /**
+    /**
      * returns the space that is left out between stacked forms (with no label)
      *
      * @return
@@ -574,7 +549,7 @@ import java.util.List;
         return mStackSpace;
     }
 
-        /**
+    /**
      * sets the space that is left out between stacked forms (with no label)
      *
      * @param space
@@ -583,7 +558,7 @@ import java.util.List;
         mStackSpace = space;
     }
 
-        /**
+    /**
      * the total width of the legend (needed width space)
      */
     public float mNeededWidth = 0f;
@@ -615,7 +590,7 @@ import java.util.List;
         mWordWrapEnabled = enabled;
     }
 
-        /**
+    /**
      * If this is set, then word wrapping the legend is enabled. This means the
      * legend will not be cut off if too long.
      *
@@ -667,7 +642,7 @@ import java.util.List;
         return mCalculatedLineSizes;
     }
 
-        /**
+    /**
      * Calculates the dimensions of the Legend. This includes the maximum width
      * and height of a single entry, as well as the total width and height of
      * the Legend.

@@ -15,13 +15,13 @@ import com.github.mikephil.charting.interfaces.datasets.IScatterDataSet;
 
 import java.util.List;
 
-    /**
-     * Transformer class that contains all matrices and is responsible for
-     * transforming values into pixels on the screen and backwards.
-     *
-     * @author Philipp Jahoda
-     */
-    public class Transformer {
+/**
+ * Transformer class that contains all matrices and is responsible for
+ * transforming values into pixels on the screen and backwards.
+ *
+ * @author Philipp Jahoda
+ */
+public class Transformer {
 
     /**
      * matrix to map the values to the screen pixels
@@ -39,7 +39,7 @@ import java.util.List;
         this.mViewPortHandler = viewPortHandler;
     }
 
-        /**
+    /**
      * Prepares the matrix that transforms values to pixels. Calculates the
      * scale factors from the charts size and offsets.
      *
@@ -66,7 +66,7 @@ import java.util.List;
         mMatrixValueToPx.postScale(scaleX, -scaleY);
     }
 
-        /**
+    /**
      * Prepares the matrix that contains all offsets.
      *
      * @param inverted
@@ -89,7 +89,7 @@ import java.util.List;
 
     protected float[] valuePointsForGenerateTransformedValuesScatter = new float[1];
 
-        /**
+    /**
      * Transforms an List of Entry into a float array containing the x and
      * y values transformed with all matrices for the SCATTERCHART.
      *
@@ -126,7 +126,7 @@ import java.util.List;
 
     protected float[] valuePointsForGenerateTransformedValuesBubble = new float[1];
 
-        /**
+    /**
      * Transforms an List of Entry into a float array containing the x and
      * y values transformed with all matrices for the BUBBLECHART.
      *
@@ -162,7 +162,7 @@ import java.util.List;
 
     protected float[] valuePointsForGenerateTransformedValuesLine = new float[1];
 
-        /**
+    /**
      * Transforms an List of Entry into a float array containing the x and
      * y values transformed with all matrices for the LINECHART.
      *
@@ -172,7 +172,7 @@ import java.util.List;
     public float[] generateTransformedValuesLine(ILineDataSet data,
                                                  float phaseX, float phaseY,
                                                  int min, int max) {
-        // TODO java.lang.NegativeArraySizeException: -434
+        //TODO java.lang.NegativeArraySizeException: -434
         if (max < min) {
             XLog.w("generateTransformedValuesLine error: max:" + max + ", min:" + min + ", phaseX:" + phaseX);
             return new float[0];
@@ -204,7 +204,7 @@ import java.util.List;
 
     protected float[] valuePointsForGenerateTransformedValuesCandle = new float[1];
 
-        /**
+    /**
      * Transforms an List of Entry into a float array containing the x and
      * y values transformed with all matrices for the CANDLESTICKCHART.
      *
@@ -239,7 +239,7 @@ import java.util.List;
         return valuePoints;
     }
 
-        /**
+    /**
      * transform a path with all the given matrices VERY IMPORTANT: keep order
      * to value-touch-offset
      *
@@ -252,7 +252,7 @@ import java.util.List;
         path.transform(mMatrixOffset);
     }
 
-        /**
+    /**
      * Transforms multiple paths will all matrices.
      *
      * @param paths
@@ -264,7 +264,7 @@ import java.util.List;
         }
     }
 
-        /**
+    /**
      * Transform an array of points with all matrices. VERY IMPORTANT: Keep
      * matrix order "value-touch-offset" when transforming.
      *
@@ -277,7 +277,7 @@ import java.util.List;
         mMatrixOffset.mapPoints(pts);
     }
 
-        /**
+    /**
      * Transform a rectangle with all matrices.
      *
      * @param r
@@ -289,7 +289,7 @@ import java.util.List;
         mMatrixOffset.mapRect(r);
     }
 
-        /**
+    /**
      * Transform a rectangle with all matrices with potential animation phases.
      *
      * @param r
@@ -317,7 +317,7 @@ import java.util.List;
         mMatrixOffset.mapRect(r);
     }
 
-        /**
+    /**
      * Transform a rectangle with all matrices with potential animation phases.
      *
      * @param r
@@ -329,7 +329,7 @@ import java.util.List;
         mMatrixOffset.mapRect(r);
     }
 
-        /**
+    /**
      * Transform a rectangle with all matrices with potential animation phases.
      *
      * @param r
@@ -346,7 +346,7 @@ import java.util.List;
         mMatrixOffset.mapRect(r);
     }
 
-        /**
+    /**
      * transforms multiple rects with all matrices
      *
      * @param rects
@@ -361,7 +361,7 @@ import java.util.List;
 
     protected Matrix mPixelToValueMatrixBuffer = new Matrix();
 
-        /**
+    /**
      * Transforms the given array of touch positions (pixels) (x, y, x, y, ...)
      * into values on the chart.
      *
@@ -417,7 +417,7 @@ import java.util.List;
         outputPoint.y = ptsBuffer[1];
     }
 
-        /**
+    /**
      * Returns a recyclable MPPointD instance.
      * Returns the x and y coordinates (pixels) for a given x and y value in the chart.
      *

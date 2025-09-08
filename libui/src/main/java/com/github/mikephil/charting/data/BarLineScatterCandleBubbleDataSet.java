@@ -7,12 +7,12 @@ import com.github.mikephil.charting.interfaces.datasets.IBarLineScatterCandleBub
 
 import java.util.List;
 
-    /**
-     * Baseclass of all DataSets for Bar-, Line-, Scatter- and CandleStickChart.
-     *
-     * @author Philipp Jahoda
-     */
-    public abstract class BarLineScatterCandleBubbleDataSet<T extends Entry>
+/**
+ * Baseclass of all DataSets for Bar-, Line-, Scatter- and CandleStickChart.
+ *
+ * @author Philipp Jahoda
+ */
+public abstract class BarLineScatterCandleBubbleDataSet<T extends Entry>
         extends DataSet<T>
         implements IBarLineScatterCandleBubbleDataSet<T> {
 
@@ -25,7 +25,7 @@ import java.util.List;
         super(yVals, label);
     }
 
-        /**
+    /**
      * Sets the color that is used for drawing the highlight indicators. Dont
      * forget to resolve the color using getResources().getColor(...) or
      * Color.rgb(...).

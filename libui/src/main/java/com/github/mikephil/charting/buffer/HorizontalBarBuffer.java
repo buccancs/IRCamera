@@ -4,12 +4,7 @@ package com.github.mikephil.charting.buffer;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 
-    /**
-     * HorizontalBarBuffer class.
-     *
-     * Provides horizontalbarbuffer functionality.
-     */
-    public class HorizontalBarBuffer extends BarBuffer {
+public class HorizontalBarBuffer extends BarBuffer {
 
     public HorizontalBarBuffer(int size, int dataSetCount, boolean containsStacks) {
         super(size, dataSetCount, containsStacks);

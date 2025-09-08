@@ -3,13 +3,13 @@ package com.github.mikephil.charting.listener;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 
-    /**
-     * Listener for callbacks when selecting values inside the chart by
-     * touch-gesture.
-     *
-     * @author Philipp Jahoda
-     */
-    public interface OnChartValueSelectedListener {
+/**
+ * Listener for callbacks when selecting values inside the chart by
+ * touch-gesture.
+ *
+ * @author Philipp Jahoda
+ */
+public interface OnChartValueSelectedListener {
 
     /**
      * Called when a value has been selected inside the chart.

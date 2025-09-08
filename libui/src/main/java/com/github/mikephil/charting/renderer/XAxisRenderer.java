@@ -19,12 +19,7 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.util.List;
 
-    /**
-     * XAxisRenderer class.
-     *
-     * Provides xaxisrenderer functionality.
-     */
-    public class XAxisRenderer extends AxisRenderer {
+public class XAxisRenderer extends AxisRenderer {
 
     protected XAxis mXAxis;
 
@@ -94,6 +89,7 @@ import java.util.List;
                 labelWidth,
                 labelHeight,
                 mXAxis.getLabelRotationAngle());
+
 
         mXAxis.mLabelWidth = Math.round(labelWidth);
         mXAxis.mLabelHeight = Math.round(labelHeight);
@@ -224,11 +220,11 @@ import java.util.List;
                         x += width / 2;
                     }
                 }
-                // chart 绘制刻度文本  -------- start --------
+                //chart 绘制刻度文本  -------- start --------
 
                 if (i == 0 && mXAxis.isJumpFirstLabel()) {
-                    // 不是哥们，你好歹好个参数来保存要不要绘制啊，查了我半天结果是因为你这里给跳过了
-                    // 起始刻度不需要绘制
+                    //不是哥们，你好歹好个参数来保存要不要绘制啊，查了我半天结果是因为你这里给跳过了
+                    //起始刻度不需要绘制
                     continue;
                 }
 
@@ -269,8 +265,9 @@ import java.util.List;
         Path gridLinePath = mRenderGridLinesPath;
         gridLinePath.reset();
 
+
         for (int i = 0; i < positions.length; i += 2) {
-            // chart 绘制刻度线   -------- start --------
+            //chart 绘制刻度线   -------- start --------
 
             if (i == 0) {
                 continue;
@@ -386,6 +383,7 @@ import java.util.List;
             mLimitLinePaint.setColor(limitLine.getTextColor());
             mLimitLinePaint.setStrokeWidth(0.5f);
             mLimitLinePaint.setTextSize(limitLine.getTextSize());
+
 
             float xOffset = limitLine.getLineWidth() + limitLine.getXOffset();
 

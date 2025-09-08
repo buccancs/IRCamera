@@ -16,12 +16,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
-    /**
-     * ScatterDataSet class.
-     *
-     * Provides scatterdataset functionality.
-     */
-    public class ScatterDataSet extends LineScatterCandleRadarDataSet<Entry> implements IScatterDataSet {
+public class ScatterDataSet extends LineScatterCandleRadarDataSet<Entry> implements IScatterDataSet {
 
     /**
      * the size the scattershape will have, in density pixels
@@ -69,7 +64,7 @@ import java.util.List;
         scatterDataSet.mScatterShapeHoleColor = mScatterShapeHoleColor;
     }
 
-        /**
+    /**
      * Sets the size in density pixels the drawn scattershape will have. This
      * only applies for non custom shapes.
      *
@@ -84,7 +79,7 @@ import java.util.List;
         return mShapeSize;
     }
 
-        /**
+    /**
      * Sets the ScatterShape this DataSet should be drawn with. This will search for an available IShapeRenderer and set this
      * renderer for the DataSet.
      *
@@ -94,7 +89,7 @@ import java.util.List;
         mShapeRenderer = getRendererForShape(shape);
     }
 
-        /**
+    /**
      * Sets a new IShapeRenderer responsible for drawing this DataSet.
      * This can also be used to set a custom IShapeRenderer aside from the default ones.
      *
@@ -109,7 +104,7 @@ import java.util.List;
         return mShapeRenderer;
     }
 
-        /**
+    /**
      * Sets the radius of the hole in the shape (applies to Square, Circle and Triangle)
      * Set this to <= 0 to remove holes.
      *
@@ -124,7 +119,7 @@ import java.util.List;
         return mScatterShapeHoleRadius;
     }
 
-        /**
+    /**
      * Sets the color for the hole in the shape.
      *
      * @param holeColor

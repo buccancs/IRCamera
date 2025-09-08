@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 /**
  * Implemented according to Wiki-Pseudocode {@link}
- * http:// en.wikipedia.org/wiki/Ramer�Douglas�Peucker_algorithm
+ * http://en.wikipedia.org/wiki/Ramer�Douglas�Peucker_algorithm
  *
  * @author Philipp Baldauf & Phliipp Jahoda
  */
@@ -69,12 +69,7 @@ public class Approximator {
         return result;
     }
 
-    /**
- * Line class.
- * 
- * Provides line functionality.
- */
-private class Line {
+    private class Line {
 
         private float[] points;
 
