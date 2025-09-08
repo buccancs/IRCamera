@@ -8,10 +8,11 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.activity.BaseIRActivity
 import com.topdon.module.thermal.ir.thermal.fragment.GalleryPictureFragment
 import com.topdon.module.thermal.ir.thermal.fragment.GalleryVideoFragment
-import kotlinx.android.synthetic.main.activity_gallery.*
+import com.topdon.module.thermal.ir.databinding.ActivityGalleryBinding
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
 
@@ -20,6 +21,8 @@ import com.hjq.permissions.XXPermissions
 class GalleryActivity : BaseIRActivity() {
 
 //    override fun providerVMClass() = GalleryViewModel::class.java
+
+    private lateinit var binding: ActivityGalleryBinding
 
     private val permissionList by lazy{
         if (this.applicationInfo.targetSdkVersion >= 34){
@@ -40,9 +43,12 @@ class GalleryActivity : BaseIRActivity() {
     override fun initContentView() = R.layout.activity_gallery
 
     override fun initView() {
+        binding = ActivityGalleryBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
         // Title handling removed as toolbar_lay doesn't support it
-        gallery_viewpager.adapter = ViewAdapter(this, supportFragmentManager)
-        gallery_tab.setupWithViewPager(gallery_viewpager)
+        binding.galleryViewpager.adapter = ViewAdapter(this, supportFragmentManager)
+        binding.galleryTab.setupWithViewPager(binding.galleryViewpager)
 
         XXPermissions.with(this)
             .permission(permissionList)
@@ -61,7 +67,7 @@ class GalleryActivity : BaseIRActivity() {
             fm,
             BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
         ) {
-            titles = arrayOf("图片", "视频")
+            titles = arrayOf("", "")
         }
 
         override fun getCount(): Int {

@@ -13,30 +13,26 @@ import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.SizeUtils
 import com.topdon.lib.core.view.MyTextView
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.popup_option_pick.view.*
+import com.csl.irCamera.libapp.R as LibAppR
+import com.topdon.module.thermal.ir.databinding.PopupOptionPickBinding
 
+ *  PopupWindow.
 /**
- * 选项拾取 PopupWindow.
- *
- * Created by LCG on 2024/1/5.
+ * @author LCG
+ * @since Unknown
  */
 class OptionPickPopup(private val context: Context, private val strArray: Array<String>, private val resIdArray: Array<Int>? = null) : PopupWindow() {
 
     companion object {
-        /**
-         * 选项文字大小，单位 ***sp***
-         */
+         * ***sp***
         private const val TEXT_SIZE_SP: Float = 14f
-        /**
-         * 选项文字顶部或底部 padding，单位 ***dp***
-         */
+         *  padding ***dp***
         private const val TEXT_PADDING: Float = 7f
     }
 
 
-    /**
-     * 一个选项被选中事件监听.
-     */
+     * .
+    /** onPickListener property */
     var onPickListener: ((position: Int, str: String) -> Unit)? = null
 
 
@@ -51,7 +47,8 @@ class OptionPickPopup(private val context: Context, private val strArray: Array<
         val contentHeight = SizeUtils.dp2px(14f) + itemHeight * canSeeItem
         val contentWidth = (contentHeight * 120f / 81f).toInt()
 
-        contentView = LayoutInflater.from(context).inflate(R.layout.popup_option_pick, null)
+        val binding = PopupOptionPickBinding.inflate(LayoutInflater.from(context))
+        contentView = binding.root
         width = contentWidth
         height = contentHeight
 
@@ -62,28 +59,29 @@ class OptionPickPopup(private val context: Context, private val strArray: Array<
             dismiss()
             onPickListener?.invoke(it, strArray[it])
         }
-        contentView.recycler_view.adapter = adapter
-        contentView.recycler_view.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
     }
 
+    /**
+     * Function description.
+     */
     fun show(anchor: View) {
         val locationArray = IntArray(2)
         anchor.getLocationInWindow(locationArray)
 
         val x = locationArray[0] + anchor.width - width + SizeUtils.dp2px(5f)
 
-        if (context.resources.displayMetrics.heightPixels - locationArray[1] - anchor.height > height - SizeUtils.dp2px(5f)) {//在 anchor 底部放得下
+        if (context.resources.displayMetrics.heightPixels - locationArray[1] - anchor.height > height - SizeUtils.dp2px(5f)) {// anchor
             showAtLocation(anchor, Gravity.NO_GRAVITY, x, locationArray[1] + anchor.height - SizeUtils.dp2px(5f))
-        } else {//下面放不下就放上面吧
+        } else {//
             showAtLocation(anchor, Gravity.NO_GRAVITY, x, (locationArray[1] - height + SizeUtils.dp2px(5f)).coerceAtLeast(0))
         }
     }
 
 
     private inner class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
-        /**
-         * item 点击事件监听.
-         */
+         * item .
         var onItemClickListener: ((position: Int) -> Unit)? = null
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

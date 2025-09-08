@@ -14,50 +14,43 @@ import androidx.annotation.ColorInt
 import com.blankj.utilcode.util.SizeUtils
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
+import com.csl.irCamera.libui.R as LibUiR
 
-/**
- * 3D 编辑使用的，长地像 SeekBar 的那个条条.
- */
+ * 3D  SeekBar .
 class TargetBarPickView : View {
 
     companion object {
-        /**
-         * 默认条条背景颜色.
-         */
+         * .
         @ColorInt
         private const val DEFAULT_BG_COLOR = 0x7F000000.toInt()
-        /**
-         * 默认进度条颜色.
-         */
+         * .
         @ColorInt
         private const val DEFAULT_PROGRESS_COLOR = 0xffffffff.toInt()
 
-        /**
-         * Thumb 圆角尺寸，单位 dp.
-         */
+         * Thumb  dp.
         private const val THUMB_CORNERS = 4f
-        /**
-         * Thumb 描边尺寸，单位 dp.
-         */
+         * Thumb  dp.
         private const val THUMB_STROKE_WIDTH = 1.5f
     }
 
+    /** onStartTrackingTouch property */
     var onStartTrackingTouch: ((progress: Int, max: Int) -> Unit)? = null
 
+    /** onProgressChanged property */
     var onProgressChanged: ((progress: Int, max: Int) -> Unit)? = null
 
+    /** onStopTrackingTouch property */
     var onStopTrackingTouch: ((progress: Int, max: Int) -> Unit)? = null
 
-    /**
-     * 根据进度格式化指示 View 文字.
-     */
+     *  View .
+    /** valueFormatListener property */
     var valueFormatListener: ((progress: Int) -> String) = {
         it.toString()
     }
 
-    /**
-     * 条条进度最大值.
-     */
+     * .
+    /** max property */
     var max: Int = 100
         set(value) {
             if (field != value) {
@@ -66,6 +59,7 @@ class TargetBarPickView : View {
             }
         }
 
+    /** min property */
     var min: Int = 0
         set(value) {
             if (field != value) {
@@ -76,10 +70,8 @@ class TargetBarPickView : View {
 
 
 
-    /**
-     * 条条当前进度.
-     */
-    private var progress: Int
+     * .
+    private var progress: Int = 0
         set(value) {
             if (field != value) {
                 field = value.coerceAtLeast(min).coerceAtMost(max)
@@ -87,22 +79,19 @@ class TargetBarPickView : View {
             }
         }
 
+    /**
+     * Function description.
+     */
     fun setProgressAndRefresh(progress: Int) {
         this.progress = progress
         onProgressChanged?.invoke(this.progress, max)
     }
 
-    /**
-     * 条条尺寸，单位 px（横向时是高度，竖向时是宽度）
-     */
+     * px
     private val barSize: Int
-    /**
-     * 顺时针旋转角度，仅支持 0、90、180、270.
-     */
+     * 090180270.
     private val rotate: Int
-    /**
-     * 标签文字.
-     */
+     * .
     private val labelText: String
 
 
@@ -121,14 +110,14 @@ class TargetBarPickView : View {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes:Int) : super(context, attrs, defStyleAttr, defStyleRes) {
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.BarPickView, 0, 0)
-        max = typedArray.getInt(R.styleable.BarPickView_android_max, 100)
-        min = typedArray.getInt(R.styleable.BarPickView_barMin, 0)
-        progress = typedArray.getInt(R.styleable.BarPickView_android_progress, min).coerceAtMost(max).coerceAtLeast(min)
-        barSize = typedArray.getInt(R.styleable.BarPickView_barSize, SizeUtils.dp2px(4f))
-        rotate = typedArray.getInt(R.styleable.BarPickView_barOrientation, 0)
-        labelText = typedArray.getString(R.styleable.BarPickView_barLabel) ?: ""
-        val textSize = typedArray.getDimensionPixelSize(R.styleable.BarPickView_android_textSize, SizeUtils.sp2px(13f))
+        val typedArray = context.obtainStyledAttributes(attrs, LibUiR.styleable.BarPickView, 0, 0)
+        max = typedArray.getInt(LibUiR.styleable.BarPickView_android_max, 100)
+        min = typedArray.getInt(LibUiR.styleable.BarPickView_barMin, 0)
+        progress = typedArray.getInt(LibUiR.styleable.BarPickView_android_progress, min).coerceAtMost(max).coerceAtLeast(min)
+        barSize = typedArray.getInt(LibUiR.styleable.BarPickView_barSize, SizeUtils.dp2px(4f))
+        rotate = typedArray.getInt(LibUiR.styleable.BarPickView_barOrientation, 0)
+        labelText = typedArray.getString(LibUiR.styleable.BarPickView_barLabel) ?: ""
+        val textSize = typedArray.getDimensionPixelSize(LibUiR.styleable.BarPickView_android_textSize, SizeUtils.sp2px(13f))
         typedArray.recycle()
 
         paint.isAntiAlias = true
@@ -163,9 +152,7 @@ class TargetBarPickView : View {
         return true
     }
 
-    /**
-     * 计算 Thumb 宽度，单位 px.
-     */
+     *  Thumb  px.
     private fun computeThumbWidth(): Int {
         val minTextWidth = paint.measureText(valueFormatListener.invoke(min)).toInt()
         val maxTextWidth = paint.measureText(valueFormatListener.invoke(max)).toInt()
@@ -356,7 +343,7 @@ class TargetBarPickView : View {
             }
         } else {
             val thumbHeight = paint.fontMetricsInt.bottom - paint.fontMetricsInt.top + SizeUtils.dp2px(4f)
-            val progressHeight = (barRect.height() * (progress - min)  / (max - min).toFloat()).toInt()
+            val progressHeight = (barRect.height() * (progress - min) / (max - min).toFloat()).toInt()
             if (progressHeight == 0) {
                 return
             }

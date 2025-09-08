@@ -5,8 +5,9 @@ import java.util.regex.Pattern
 
 object VersionTool {
 
-    /**
      * V1.0 => 1.0
+    /**
+     * Function description.
      */
     fun getVersion(str: String): String {
         var versionStr = "1.0"
@@ -18,7 +19,7 @@ object VersionTool {
                 str.toFloat()
                 versionStr = str
             } catch (e: Exception) {
-                //str 不是1.01类型数据
+                //str 1.01
             }
         }
 
@@ -26,7 +27,7 @@ object VersionTool {
     }
 
     /**
-     * 检查是否需要更新最新版本
+     * Function description.
      */
     fun checkNewVersion(serverVersionStr: String, localVersionStr: String): Boolean {
         try {
@@ -35,13 +36,14 @@ object VersionTool {
             return serverV.toFloat() > localV.toFloat()
 //            return serverV.toFloat() != localV.toFloat()
         } catch (e: Exception) {
-            XLog.e("对比固件版本异常: ${e.message}")
+            XLog.e(": ${e.message}")
             return false
         }
     }
 
+     * app
     /**
-     * 比较app版本大小
+     * Function description.
      */
     fun checkVersion(remoteStr: String, localStr: String): Boolean {
         try {
@@ -60,7 +62,7 @@ object VersionTool {
             }
             return result
         } catch (e: Exception) {
-            XLog.e("版本比较出错: ${e.message}, remoteStr: $remoteStr, localStr: $localStr")
+            XLog.e(": ${e.message}, remoteStr: $remoteStr, localStr: $localStr")
             return false
         }
     }

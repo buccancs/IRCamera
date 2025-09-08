@@ -1,15 +1,12 @@
-/*
- * Copyright (c) 2016-present 贵州纳雍穿青人李裕江<1032694760@qq.com>
- *
+ * Copyright (c) 2016-present <1032694760@qq.com>
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
  *     http://license.coscl.org.cn/MulanPSL2
- * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
+ * THIS SOFTWARE IS PROVIDED ON AN AS IS BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
  * See the Mulan PSL v2 for more details.
- */
 
 package com.github.gzuliyujiang.wheelpicker;
 
@@ -24,32 +21,43 @@ import com.github.gzuliyujiang.wheelpicker.contract.OnCarPlatePickedListener;
 import com.github.gzuliyujiang.wheelpicker.contract.OnLinkagePickedListener;
 import com.github.gzuliyujiang.wheelpicker.widget.CarPlateWheelLayout;
 
-/**
- * 中国大陆车牌号滚轮选择
- *
- * @author 贵州山野羡民（1032694760@qq.com）
+ * @author 1032694760@qq.com
  * @since 2016/12/18 10:47
- */
 @SuppressWarnings({"unused"})
 public class CarPlatePicker extends LinkagePicker {
+    /**
+     * Private method description.
+     */
     private OnCarPlatePickedListener onCarPlatePickedListener;
 
+    /**
+     * Method description.
+     */
     public CarPlatePicker(@NonNull Activity activity) {
         super(activity);
     }
 
+    /**
+     * Method description.
+     */
     public CarPlatePicker(@NonNull Activity activity, @StyleRes int themeResId) {
         super(activity, themeResId);
     }
 
     @Deprecated
     @Override
+    /**
+     * Method description.
+     */
     public void setData(@NonNull LinkageProvider data) {
         throw new UnsupportedOperationException("Data already preset");
     }
 
     @Deprecated
     @Override
+    /**
+     * Method description.
+     */
     public void setOnLinkagePickedListener(OnLinkagePickedListener onLinkagePickedListener) {
         throw new UnsupportedOperationException("Use setOnCarPlatePickedListener instead");
     }
@@ -71,6 +79,9 @@ public class CarPlatePicker extends LinkagePicker {
     }
 
 
+    /**
+     * Method description.
+     */
     public void setOnCarPlatePickedListener(OnCarPlatePickedListener onCarPlatePickedListener) {
         this.onCarPlatePickedListener = onCarPlatePickedListener;
     }

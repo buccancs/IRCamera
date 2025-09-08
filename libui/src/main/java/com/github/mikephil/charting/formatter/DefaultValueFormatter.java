@@ -24,6 +24,9 @@ public class DefaultValueFormatter extends ValueFormatter
      *
      * @param digits
      */
+    /**
+     * Method description.
+     */
     public DefaultValueFormatter(int digits) {
         setup(digits);
     }
@@ -32,6 +35,9 @@ public class DefaultValueFormatter extends ValueFormatter
      * Sets up the formatter with a given number of decimal digits.
      *
      * @param digits
+     */
+    /**
+     * Method description.
      */
     public void setup(int digits) {
 
@@ -48,6 +54,9 @@ public class DefaultValueFormatter extends ValueFormatter
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public String getFormattedValue(float value) {
 
         // put more logic here ...
@@ -60,6 +69,9 @@ public class DefaultValueFormatter extends ValueFormatter
      * Returns the number of decimal digits this formatter uses.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public int getDecimalDigits() {
         return mDecimalDigits;

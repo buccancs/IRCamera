@@ -4,15 +4,15 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.View;
 
-/**
  * ================================================
- * 作    者：JayGoo
- * 版    本：
- * 创建日期：2018/5/8
- * 描    述:
+ *     JayGoo
+ * 2018/5/8
+ *     :
  * ================================================
- */
 public class SavedState extends View.BaseSavedState {
+    /**
+     * Method description.
+     */
     public float minValue;
     public float maxValue;
     public float rangeInterval;
@@ -24,6 +24,9 @@ public class SavedState extends View.BaseSavedState {
         super(superState);
     }
 
+    /**
+     * Private method description.
+     */
     private SavedState(Parcel in) {
         super(in);
         minValue = in.readFloat();
@@ -35,6 +38,9 @@ public class SavedState extends View.BaseSavedState {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void writeToParcel(Parcel out, int flags) {
         super.writeToParcel(out, flags);
         out.writeFloat(minValue);
@@ -45,6 +51,9 @@ public class SavedState extends View.BaseSavedState {
         out.writeFloat(currSelectedMax);
     }
 
+    /**
+     * Method description.
+     */
     public static final Creator<SavedState> CREATOR = new Creator<SavedState>() {
         public SavedState createFromParcel(Parcel in) {
             return new SavedState(in);

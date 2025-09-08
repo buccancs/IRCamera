@@ -9,12 +9,14 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.item_menu_tab_more_view.view.*
-import kotlinx.android.synthetic.main.item_menu_tab_view.view.*
+import com.csl.irCamera.libapp.R as LibAppR
+import com.topdon.module.thermal.ir.databinding.ItemMenuTabViewBinding
+import com.topdon.module.thermal.ir.databinding.ItemMenuTabMoreViewBinding
 
 class MenuTabAdapter(val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    /** listener property */
     var listener: OnItemClickListener? = null
     private var type = 0
     private var datas = arrayListOf<Int>()
@@ -26,16 +28,17 @@ class MenuTabAdapter(val context: Context) :
         private const val TYPE_ITEM_MORE = 301
     }
 
+    /**
+     * Function description.
+     */
     fun selected(index: Int) {
         selected = index
         notifyDataSetChanged()
     }
 
-    //拍摄
     private val firstMenus =
         arrayListOf(R.drawable.ic_menu_thermal1001_svg, R.drawable.ic_menu_thermal1002_svg)
 
-    //选框
     private val secondMenus =
         arrayListOf(
             R.drawable.ic_menu_thermal2002,
@@ -46,27 +49,24 @@ class MenuTabAdapter(val context: Context) :
             R.drawable.ic_menu_thermal2006
         )
 
-    //选框
     private val secondMenusStr =
         arrayListOf(
-            "点",
-            "线",
-            "面",
-            "添加",
-            "全图",
-            "删除"
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
         )
 
-    //选框
     private val fourthMenusStr =
         arrayListOf(
-            "旋转",
-            "增强",
-            "画中画",
-            "色带",
+            "",
+            "",
+            "",
+            "",
         )
 
-    //色彩
     private val thirdMenus =
         arrayListOf(
             R.drawable.ic_menu_thermal3001,
@@ -81,7 +81,6 @@ class MenuTabAdapter(val context: Context) :
             R.drawable.ic_menu_thermal3010
         )
 
-    //设置
     private val fourthMenus =
         arrayListOf(
             R.drawable.ic_menu_thermal4001_svg,
@@ -90,6 +89,9 @@ class MenuTabAdapter(val context: Context) :
             R.drawable.ic_menu_thermal4004_svg
         )
 
+    /**
+     * Function description.
+     */
     fun initType(type: Int) {
         this.type = type
         datas = when (type) {
@@ -109,15 +111,12 @@ class MenuTabAdapter(val context: Context) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == TYPE_ITEM) {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_menu_tab_view, parent, false)
-            ItemView(view)
+            val binding = ItemMenuTabViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemView(binding)
         } else {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_menu_tab_more_view, parent, false)
-            ItemMoreView(view)
+            val binding = ItemMenuTabMoreViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemMoreView(binding)
         }
-
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -133,8 +132,8 @@ class MenuTabAdapter(val context: Context) :
                 holder.name.text = dataStrList[position]
                 holder.name.isSelected = position == selected
                 holder.name.setTextColor(
-                    if (position == selected) ContextCompat.getColor(context, R.color.white)
-                    else ContextCompat.getColor(context, R.color.font_third_color)
+                    if (position == selected) ContextCompat.getColor(context, LibAppR.color.white)
+                    else ContextCompat.getColor(context, LibAppR.color.font_third_color)
                 )
             }
         }
@@ -157,20 +156,20 @@ class MenuTabAdapter(val context: Context) :
         lateinit var img: ImageView
     }
 
-    inner class ItemView(itemView: View) : BaseItemView(itemView) {
+    inner class ItemView(val binding: ItemMenuTabViewBinding) : BaseItemView(binding.root) {
         var name: TextView
 
         init {
-            lay = itemView.item_menu_tab_lay
-            img = itemView.item_menu_tab_img
-            name = itemView.item_menu_tab_text
+            lay = binding.itemMenuTabLay
+            img = binding.itemMenuTabImg
+            name = binding.itemMenuTabText
         }
     }
 
-    inner class ItemMoreView(itemView: View) : BaseItemView(itemView) {
+    inner class ItemMoreView(val binding: ItemMenuTabMoreViewBinding) : BaseItemView(binding.root) {
         init {
-            lay = itemView.item_menu_tab_more_lay
-            img = itemView.item_menu_tab_more_img
+            lay = binding.itemMenuTabMoreLay
+            img = binding.itemMenuTabMoreImg
         }
     }
 

@@ -18,10 +18,13 @@ import java.util.List;
 
 public class TDatrsInIUtil {
 
+    /**
+     * Method description.
+     */
     public static String getTdartsVersion(String path) {
         File file = new File(path + "T-darts.ini");
         if (!file.exists()) {
-            LLog.e("bcf", "  ini不存在：" + file.getPath());
+            LLog.e("bcf", " ini：" + file.getPath());
             return "";
         }
         Config cfg = new Config();
@@ -46,11 +49,14 @@ public class TDatrsInIUtil {
         return "";
     }
 
+    /**
+     * Method description.
+     */
     public static HashMap<String, String> getTdarts(String path) {
         HashMap<String, String> hashMap = new HashMap<>();
         File file = new File(path + "T-darts.ini");
         if (!file.exists()) {
-            LLog.e("bcf", "  ini不存在：" + file.getPath());
+            LLog.e("bcf", " ini：" + file.getPath());
             return hashMap;
         }
         Config cfg = new Config();
@@ -91,6 +97,9 @@ public class TDatrsInIUtil {
     }
 
 
+    /**
+     * Method description.
+     */
     public static String getBinPath(int data) {
         String path = FolderUtil.getTdartsUpgradePath();
         if (data == 0) {

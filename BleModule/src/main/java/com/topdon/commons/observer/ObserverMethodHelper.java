@@ -12,11 +12,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
  * date: 2019/8/9 15:13
  * author: chuanfeng.bi
- */
 class ObserverMethodHelper {
+    /**
+     * Private method description.
+     */
     private static final Map<Class<?>, Map<String, Method>> METHOD_CACHE = new ConcurrentHashMap<>();
     private boolean isObserveAnnotationRequired;
 
@@ -28,9 +29,6 @@ class ObserverMethodHelper {
         METHOD_CACHE.clear();
     }
 
-    /**
-     * 生成任务
-     */
     Runnable generateRunnable(Observer observer, Method method, MethodInfo info) {
         MethodInfo.Parameter[] parameters = info.getParameters();
         if (parameters == null || parameters.length == 0) {
@@ -57,9 +55,6 @@ class ObserverMethodHelper {
         }
     }
 
-    /**
-     * 生成方法唯一识别字符串
-     */
     String generateKey(String tag, String name, Class<?>[] paramTypes) {
         StringBuilder sb = new StringBuilder();
         if (tag.isEmpty()) {
@@ -73,9 +68,6 @@ class ObserverMethodHelper {
         return sb.toString();
     }
 
-    /**
-     * 查找观察者监听的方法
-     */
     Map<String, Method> findObserverMethod(Observer observer) {
         Map<String, Method> map = METHOD_CACHE.get(observer.getClass());
         if (map != null) {
@@ -88,12 +80,14 @@ class ObserverMethodHelper {
             Method[] ms = null;
             try {
                 ms = cls.getDeclaredMethods();
-            } catch (Throwable ignore) {
+            } catch (SecurityException | NoClassDefFoundError e) {
+                // Handle specific reflection-related exceptions
+                e.printStackTrace();
             }
             if (ms != null) {
                 for (Method m : ms) {
                     int ignore = Modifier.ABSTRACT | Modifier.STATIC | 0x40 | 0x1000;
-                    if ((m.getModifiers() & Modifier.PUBLIC) != 0 && (m.getModifiers() & ignore) == 0 &&  !contains(methods, m)) {
+                    if ((m.getModifiers() & Modifier.PUBLIC) != 0 && (m.getModifiers() & ignore) == 0 && !contains(methods, m)) {
                         methods.add(m);
                     }
                 }
@@ -101,7 +95,7 @@ class ObserverMethodHelper {
             cls = cls.getSuperclass();
         }
         for (Method method : methods) {
-            Observe anno = method.getAnnotation(Observe.class);          
+            Observe anno = method.getAnnotation(Observe.class);
             if (anno != null || !isObserveAnnotationRequired) {
                 Tag tagAnno = method.getAnnotation(Tag.class);
                 String tag = tagAnno == null ? "" : tagAnno.value();
@@ -115,6 +109,9 @@ class ObserverMethodHelper {
         return map;
     }
 
+    /**
+     * Private method description.
+     */
     private static boolean contains(List<Method> methods, Method method) {
         for (Method m : methods) {
             if (m.getName().equals(method.getName()) && m.getReturnType().equals(method.getReturnType()) &&
@@ -125,6 +122,9 @@ class ObserverMethodHelper {
         return false;
     }
 
+    /**
+     * Private method description.
+     */
     private static boolean equalParamTypes(Class<?>[] params1, Class<?>[] params2) {
         if (params1.length == params2.length) {
             for (int i = 0; i < params1.length; i++) {

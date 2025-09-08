@@ -17,10 +17,16 @@ import java.util.List;
  */
 public class PieData extends ChartData<IPieDataSet> {
 
+    /**
+     * Method description.
+     */
     public PieData() {
         super();
     }
 
+    /**
+     * Method description.
+     */
     public PieData(IPieDataSet dataSet) {
         super(dataSet);
     }
@@ -29,6 +35,9 @@ public class PieData extends ChartData<IPieDataSet> {
      * Sets the PieDataSet this data object should represent.
      *
      * @param dataSet
+     */
+    /**
+     * Method description.
      */
     public void setDataSet(IPieDataSet dataSet) {
         mDataSets.clear();
@@ -42,6 +51,9 @@ public class PieData extends ChartData<IPieDataSet> {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public IPieDataSet getDataSet() {
         return mDataSets.get(0);
     }
@@ -53,17 +65,26 @@ public class PieData extends ChartData<IPieDataSet> {
      * @return
      */
     @Override
+    /**
+     * Method description.
+     */
     public IPieDataSet getDataSetByIndex(int index) {
         return index == 0 ? getDataSet() : null;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public IPieDataSet getDataSetByLabel(String label, boolean ignorecase) {
         return ignorecase ? label.equalsIgnoreCase(mDataSets.get(0).getLabel()) ? mDataSets.get(0)
                 : null : label.equals(mDataSets.get(0).getLabel()) ? mDataSets.get(0) : null;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public Entry getEntryForHighlight(Highlight highlight) {
         return getDataSet().getEntryForIndex((int) highlight.getX());
     }
@@ -72,6 +93,9 @@ public class PieData extends ChartData<IPieDataSet> {
      * Returns the sum of all values in this PieData object.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public float getYValueSum() {
 

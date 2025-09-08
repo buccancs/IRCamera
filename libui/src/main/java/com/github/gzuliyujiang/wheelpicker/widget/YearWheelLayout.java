@@ -1,15 +1,12 @@
-/*
- * Copyright (c) 2016-present 贵州纳雍穿青人李裕江<1032694760@qq.com>
- *
+ * Copyright (c) 2016-present <1032694760@qq.com>
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
  *     http://license.coscl.org.cn/MulanPSL2
- * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
+ * THIS SOFTWARE IS PROVIDED ON AN AS IS BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
  * See the Mulan PSL v2 for more details.
- */
 
 package com.github.gzuliyujiang.wheelpicker.widget;
 
@@ -32,35 +29,46 @@ import com.github.gzuliyujiang.wheelview.annotation.ItemTextAlign;
 import com.github.gzuliyujiang.wheelview.annotation.ScrollState;
 import com.github.gzuliyujiang.wheelview.widget.NumberWheelView;
 import com.github.gzuliyujiang.wheelview.widget.WheelView;
-import com.topdon.lib.ui.R;
+import com.csl.irCamera.libui.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 日期时间滚轮控件
- *
- * @author 贵州山野羡民（1032694760@qq.com）
+ * @author 1032694760@qq.com
  * @since 2019/5/14 15:26
- */
 @SuppressWarnings("unused")
 public class YearWheelLayout extends BaseWheelLayout {
+    /**
+     * Private method description.
+     */
     private DateWheelLayout dateWheelLayout;
     private DatimeEntity startValue;
     private DatimeEntity endValue;
 
+    /**
+     * Method description.
+     */
     public YearWheelLayout(Context context) {
         super(context);
     }
 
+    /**
+     * Method description.
+     */
     public YearWheelLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * Method description.
+     */
     public YearWheelLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
+    /**
+     * Method description.
+     */
     public YearWheelLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
@@ -86,7 +94,6 @@ public class YearWheelLayout extends BaseWheelLayout {
     protected void onInit(@NonNull Context context) {
         dateWheelLayout = findViewById(R.id.wheel_picker_date_wheel);
 
-        //初始颜色
         setCurtainEnabled(true);
         getMonthLabelView().setBackgroundColor(0x1A2B79D7);
         getYearLabelView().setBackgroundColor(0x1A2B79D7);
@@ -144,38 +151,53 @@ public class YearWheelLayout extends BaseWheelLayout {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onWheelSelected(WheelView view, int position) {
         dateWheelLayout.onWheelSelected(view, position);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onWheelScrolled(WheelView view, int offset) {
         dateWheelLayout.onWheelScrolled(view, offset);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onWheelScrollStateChanged(WheelView view, @ScrollState int state) {
         dateWheelLayout.onWheelScrollStateChanged(view, state);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onWheelLoopFinished(WheelView view) {
         dateWheelLayout.onWheelLoopFinished(view);
     }
 
+    /**
+     * Method description.
+     */
     public void setDateMode(@DateMode int dateMode) {
         dateWheelLayout.setDateMode(dateMode);
     }
 
     /**
-     * 设置日期时间范围
+     * Method description.
      */
     public void setRange(DatimeEntity startValue, DatimeEntity endValue) {
         setRange(startValue, endValue, null);
     }
 
     /**
-     * 设置日期时间范围
+     * Method description.
      */
     public void setRange(DatimeEntity startValue, DatimeEntity endValue, DatimeEntity defaultValue) {
         if (startValue == null) {
@@ -192,6 +214,9 @@ public class YearWheelLayout extends BaseWheelLayout {
         this.endValue = endValue;
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultValue(DatimeEntity defaultValue) {
         if (defaultValue == null) {
             defaultValue = DatimeEntity.now();
@@ -199,70 +224,121 @@ public class YearWheelLayout extends BaseWheelLayout {
         dateWheelLayout.setDefaultValue(defaultValue.getDate());
     }
 
+    /**
+     * Method description.
+     */
     public void setDateFormatter(DateFormatter dateFormatter) {
         dateWheelLayout.setDateFormatter(dateFormatter);
     }
 
+    /**
+     * Method description.
+     */
     public void setDateLabel(CharSequence year, CharSequence month, CharSequence day) {
         dateWheelLayout.setDateLabel(year, month, day);
     }
 
+    /**
+     * Method description.
+     */
     public void setResetWhenLinkage(boolean dateResetWhenLinkage, boolean timeResetWhenLinkage) {
         dateWheelLayout.setResetWhenLinkage(dateResetWhenLinkage);
     }
 
+    /**
+     * Method description.
+     */
     public final DatimeEntity getStartValue() {
         return startValue;
     }
 
+    /**
+     * Method description.
+     */
     public final DatimeEntity getEndValue() {
         return endValue;
     }
 
+    /**
+     * Method description.
+     */
     public final DateWheelLayout getDateWheelLayout() {
         return dateWheelLayout;
     }
 
+    /**
+     * Method description.
+     */
     public final NumberWheelView getYearWheelView() {
         return dateWheelLayout.getYearWheelView();
     }
 
+    /**
+     * Method description.
+     */
     public final NumberWheelView getMonthWheelView() {
         return dateWheelLayout.getMonthWheelView();
     }
 
+    /**
+     * Method description.
+     */
     public final NumberWheelView getDayWheelView() {
         return dateWheelLayout.getDayWheelView();
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getYearLabelView() {
         return dateWheelLayout.getYearLabelView();
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getMonthLabelView() {
         return dateWheelLayout.getMonthLabelView();
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getDayLabelView() {
         return dateWheelLayout.getDayLabelView();
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getSpaceStartView() {
         return dateWheelLayout.getSpaceStartView();
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getSpaceEndView() {
         return dateWheelLayout.getSpaceEndView();
     }
 
+    /**
+     * Method description.
+     */
     public final int getSelectedYear() {
         return dateWheelLayout.getSelectedYear();
     }
 
+    /**
+     * Method description.
+     */
     public final int getSelectedMonth() {
         return dateWheelLayout.getSelectedMonth();
     }
 
+    /**
+     * Method description.
+     */
     public final int getSelectedDay() {
         return dateWheelLayout.getSelectedDay();
     }

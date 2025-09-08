@@ -7,6 +7,9 @@ object ByteUtils {
     /**
      * byte[] => int
      */
+    /**
+     * Function description.
+     */
     fun byteToInt(bytes: ByteArray): Int {
         var count = 0
         var b = 0

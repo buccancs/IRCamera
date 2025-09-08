@@ -15,14 +15,14 @@
             android:id="@+id/btnMonitorConnect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="测试USBMonitor的简单连接"
+            android:text="USBMonitor"
             android:textAllCaps="false" />
 
         <Button
             android:id="@+id/btnIRDisplay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="红外出图流程以及SDK功能测试"
+            android:text="SDK"
             android:textAllCaps="false" />
 
     </LinearLayout>

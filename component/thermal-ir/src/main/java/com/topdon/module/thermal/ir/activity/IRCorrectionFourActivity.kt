@@ -7,38 +7,40 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
+import com.topdon.module.thermal.ir.databinding.ActivityIrCorrectionFourBinding
 import com.topdon.module.thermal.ir.event.CorrectionFinishEvent
 import com.topdon.module.thermal.ir.fragment.IRCorrectionFragment
 import com.topdon.module.thermal.ir.view.TimeDownView
-import kotlinx.android.synthetic.main.activity_ir_correction_four.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.greenrobot.eventbus.EventBus
 
-/**
- *
- * 锅盖矫正
  * @author: CaiSongL
  * @date: 2023/8/4 9:06
- */
 @Route(path = RouterConfig.IR_CORRECTION_FOUR)
 class IRCorrectionFourActivity : BaseActivity() {
 
+    private lateinit var binding: ActivityIrCorrectionFourBinding
+    /** time property */
     val time = 60
 
     override fun initContentView(): Int = R.layout.activity_ir_correction_four
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        title_view.setLeftClickListener {
+        binding = ActivityIrCorrectionFourBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
+        binding.titleView.setLeftClickListener {
             TipDialog.Builder(this)
-                .setTitleMessage(getString(R.string.app_tip))
-                .setMessage(R.string.tips_cancel_correction)
-                .setPositiveListener(R.string.app_yes) {
+                .setTitleMessage(getString(LibAppR.string.app_tip))
+                .setMessage(LibAppR.string.tips_cancel_correction)
+                .setPositiveListener(LibAppR.string.app_yes) {
                     EventBus.getDefault().post(CorrectionFinishEvent())
                     finish()
-                }.setCancelListener(R.string.app_no){
+                }.setCancelListener(LibAppR.string.app_no){
                 }
                 .create().show()
         }
@@ -47,20 +49,19 @@ class IRCorrectionFourActivity : BaseActivity() {
         val irFragment = if (savedInstanceState == null) {
             IRCorrectionFragment()
         } else {
-            supportFragmentManager.findFragmentById(R.id.fragment_container_view) as IRCorrectionFragment
+            supportFragmentManager.findFragmentById(binding.fragmentContainerView.id) as IRCorrectionFragment
         }
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .setReorderingAllowed(true)
-                .add(R.id.fragment_container_view, irFragment)
+                .add(binding.fragmentContainerView.id, irFragment)
                 .commit()
         }
 
 
-        time_down_view.postDelayed({
-            //开始矫正
-            if (time_down_view.downTimeWatcher == null){
-                time_down_view.setOnTimeDownListener(object : TimeDownView.DownTimeWatcher{
+        binding.timeDownView.postDelayed({
+            if (binding.timeDownView.downTimeWatcher == null){
+                binding.timeDownView.setOnTimeDownListener(object : TimeDownView.DownTimeWatcher{
                     override fun onTime(num: Int) {
                         if (num == 50){
                             lifecycleScope.launch(Dispatchers.IO) {
@@ -75,8 +76,8 @@ class IRCorrectionFourActivity : BaseActivity() {
                         try {
                             if (!this@IRCorrectionFourActivity.isFinishing){
                                 TipDialog.Builder(this@IRCorrectionFourActivity)
-                                    .setMessage(R.string.correction_complete)
-                                    .setPositiveListener(R.string.app_confirm) {
+                                    .setMessage(LibAppR.string.correction_complete)
+                                    .setPositiveListener(LibAppR.string.app_confirm) {
                                         EventBus.getDefault().post(CorrectionFinishEvent())
                                         finish()
                                     }
@@ -88,7 +89,7 @@ class IRCorrectionFourActivity : BaseActivity() {
                     }
                 })
             }
-            time_down_view.downSecond(time,false)
+            binding.timeDownView.downSecond(time,false)
         },2000)
     }
 
@@ -97,19 +98,19 @@ class IRCorrectionFourActivity : BaseActivity() {
 
     override fun onBackPressed() {
         TipDialog.Builder(this)
-            .setTitleMessage(getString(R.string.app_tip))
-            .setMessage(R.string.tips_cancel_correction)
-            .setPositiveListener(R.string.app_yes) {
+            .setTitleMessage(getString(LibAppR.string.app_tip))
+            .setMessage(LibAppR.string.tips_cancel_correction)
+            .setPositiveListener(LibAppR.string.app_yes) {
                 EventBus.getDefault().post(CorrectionFinishEvent())
                 super.onBackPressed()
-            }.setCancelListener(R.string.app_no){
+            }.setCancelListener(LibAppR.string.app_no){
             }
             .create().show()
     }
 
     override fun disConnected() {
         super.disConnected()
-        time_down_view.cancel()
+        binding.timeDownView.cancel()
         EventBus.getDefault().post(CorrectionFinishEvent())
         finish()
     }
@@ -126,6 +127,6 @@ class IRCorrectionFourActivity : BaseActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        time_down_view.cancel()
+        binding.timeDownView.cancel()
     }
 }

@@ -1,15 +1,12 @@
-/*
- * Copyright (c) 2016-present 贵州纳雍穿青人李裕江<1032694760@qq.com>
- *
+ * Copyright (c) 2016-present <1032694760@qq.com>
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
  *     http://license.coscl.org.cn/MulanPSL2
- * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
+ * THIS SOFTWARE IS PROVIDED ON AN AS IS BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
  * See the Mulan PSL v2 for more details.
- */
 
 package com.github.gzuliyujiang.wheelpicker;
 
@@ -25,31 +22,36 @@ import com.github.gzuliyujiang.dialog.ModalDialog;
 import com.github.gzuliyujiang.wheelpicker.contract.OnOptionPickedListener;
 import com.github.gzuliyujiang.wheelpicker.widget.OptionWheelLayout;
 import com.github.gzuliyujiang.wheelview.widget.WheelView;
-import com.topdon.lib.ui.R;
+import com.csl.irCamera.libui.R;
 
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * 单项选择器
- *
- * @author 贵州山野羡民（1032694760@qq.com）
+ * @author 1032694760@qq.com
  * @see com.github.gzuliyujiang.wheelview.contract.TextProvider
  * @since 2019/5/8 10:04
- */
 @SuppressWarnings({"unused"})
 public class OptionPicker extends ModalDialog {
     protected OptionWheelLayout wheelLayout;
+    /**
+     * Private method description.
+     */
     private OnOptionPickedListener onOptionPickedListener;
     private boolean initialized = false;
     private List<?> data;
     private Object defaultValue;
     protected int defaultPosition = -1;
 
+    /**
+     * Method description.
+     */
     public OptionPicker(@NonNull Activity activity) {
         super(activity);
     }
 
+    /**
+     * Method description.
+     */
     public OptionPicker(@NonNull Activity activity, @StyleRes int themeResId) {
         super(activity, themeResId);
     }
@@ -58,10 +60,10 @@ public class OptionPicker extends ModalDialog {
     @Override
     protected View createBodyView() {
         wheelLayout = new OptionWheelLayout(activity);
-        wheelLayout.setCurtainEnabled(true);//选中栏是否有背景颜色
-        wheelLayout.setCurtainColor(ContextCompat.getColor(getContext(), R.color.wheel_select_bg));       //选中栏背景颜色
-        wheelLayout.setSelectedTextColor(ContextCompat.getColor(getContext(), R.color.wheel_select_text));//选中文字颜色
-        wheelLayout.setTextColor(ContextCompat.getColor(getContext(), R.color.wheel_unselect_text));      //未选中文字颜色
+        wheelLayout.setCurtainEnabled(true);//
+        wheelLayout.setCurtainColor(ContextCompat.getColor(getContext(), R.color.wheel_select_bg)); //
+        wheelLayout.setSelectedTextColor(ContextCompat.getColor(getContext(), R.color.wheel_select_text));//
+        wheelLayout.setTextColor(ContextCompat.getColor(getContext(), R.color.wheel_unselect_text)); //
         return wheelLayout;
     }
 
@@ -99,14 +101,23 @@ public class OptionPicker extends ModalDialog {
         return null;
     }
 
+    /**
+     * Method description.
+     */
     public final boolean isInitialized() {
         return initialized;
     }
 
+    /**
+     * Method description.
+     */
     public void setData(Object... data) {
         setData(Arrays.asList(data));
     }
 
+    /**
+     * Method description.
+     */
     public void setData(List<?> data) {
         this.data = data;
         if (initialized) {
@@ -114,6 +125,9 @@ public class OptionPicker extends ModalDialog {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultValue(Object item) {
         this.defaultValue = item;
         if (initialized) {
@@ -121,6 +135,9 @@ public class OptionPicker extends ModalDialog {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultPosition(int position) {
         this.defaultPosition = position;
         if (initialized) {
@@ -128,18 +145,30 @@ public class OptionPicker extends ModalDialog {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setOnOptionPickedListener(OnOptionPickedListener onOptionPickedListener) {
         this.onOptionPickedListener = onOptionPickedListener;
     }
 
+    /**
+     * Method description.
+     */
     public final OptionWheelLayout getWheelLayout() {
         return wheelLayout;
     }
 
+    /**
+     * Method description.
+     */
     public final WheelView getWheelView() {
         return wheelLayout.getWheelView();
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getLabelView() {
         return wheelLayout.getLabelView();
     }

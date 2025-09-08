@@ -6,6 +6,9 @@ import org.json.JSONException
 import org.json.JSONObject
 
 object SocketCmdUtil {
+    /**
+     * Function description.
+     */
     fun getSocketCmd(cmd: Int): String?{
         var cmdJson: String? = null
         try {
@@ -20,6 +23,9 @@ object SocketCmdUtil {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun getCmdResponse(response: String?): Int? {
         var cmd: Int? = null
         if (TextUtils.isEmpty(response)) return null
@@ -32,6 +38,9 @@ object SocketCmdUtil {
         return cmd
     }
 
+    /**
+     * Function description.
+     */
     fun getIpResponse(response: String?): String? {
         var ip: String? = null
         if (TextUtils.isEmpty(response)) return null

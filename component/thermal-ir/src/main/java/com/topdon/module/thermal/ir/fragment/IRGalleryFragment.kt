@@ -21,6 +21,7 @@ import com.topdon.lib.core.tools.FileTools.getUri
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.repository.GalleryRepository.DirType
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.adapter.GalleryAdapter
 import com.topdon.lib.core.dialog.ConfirmSelectDialog
 import com.topdon.module.thermal.ir.event.GalleryAddEvent
@@ -31,21 +32,17 @@ import com.topdon.module.thermal.ir.event.GalleryDirChangeEvent
 import com.topdon.module.thermal.ir.event.GalleryDownloadEvent
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryTabViewModel
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryViewModel
-import kotlinx.android.synthetic.main.fragment_ir_gallery.*
+import com.topdon.module.thermal.ir.databinding.FragmentIrGalleryBinding
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.io.File
 
-/**
- * 图库
- */
 class IRGalleryFragment : BaseFragment() {
 
-    /**
-     * 从上一界面传递过来的，进入图库时初始的目录类型
-     */
+    private lateinit var binding: FragmentIrGalleryBinding
+
     private var currentDirType = DirType.LINE
 
     private val viewModel: IRGalleryViewModel by viewModels()
@@ -54,41 +51,41 @@ class IRGalleryFragment : BaseFragment() {
 
     private val adapter = GalleryAdapter()
 
-    /**
-     * 从上一界面传递过来的，当前是查看照片还是查看视频.
-     */
+     * .
     private var isVideo = false
 
     override fun initContentView() = R.layout.fragment_ir_gallery
 
     override fun initView() {
+        binding = FragmentIrGalleryBinding.bind(requireView())
+        
         // Only LINE (TC001) is supported now
         currentDirType = DirType.LINE
 
         // Remove download UI since TC001 uses USB (no remote download needed)
-        cl_download.isVisible = false
+        binding.clDownload.isVisible = false
 
         initRecycler()
 
-        cl_share.setOnClickListener {
+        binding.clShare.setOnClickListener {
             val selectList = adapter.buildSelectList()
             if (selectList.size == 0) {
-                ToastTools.showShort(getString(R.string.tip_least_select))
+                ToastTools.showShort(getString(LibAppR.string.tip_least_select))
                 return@setOnClickListener
             }
             if (selectList.size > 9) {
-                ToastTools.showShort(getString(R.string.Limite_di_9carte))
+                ToastTools.showShort(getString(LibAppR.string.Limite_di_9carte))
                 return@setOnClickListener
             }
             downloadList(selectList, true)
         }
-        cl_delete.setOnClickListener {
+        binding.clDelete.setOnClickListener {
             showDeleteDialog()
         }
-        cl_download.setOnClickListener {
+        binding.clDownload.setOnClickListener {
             val selectList = adapter.buildSelectList()
             if (selectList.size == 0) {
-                ToastTools.showShort(getString(R.string.tip_least_select))
+                ToastTools.showShort(getString(LibAppR.string.tip_least_select))
                 return@setOnClickListener
             }
             downloadList(selectList, false)
@@ -96,11 +93,11 @@ class IRGalleryFragment : BaseFragment() {
 
         viewModel.pageListLD.observe(this) {
             if (it == null) {
-                TToast.shortToast(requireContext(), R.string.operation_failed_tips)
+                TToast.shortToast(requireContext(), LibAppR.string.operation_failed_tips)
             }
-            refresh_layout.finishRefresh(it != null)
-            refresh_layout.finishLoadMore(it != null)
-            refresh_layout.setNoMoreData(it != null && it.size < IRGalleryViewModel.PAGE_COUNT)
+            binding.refreshLayout.finishRefresh(it != null)
+            binding.refreshLayout.finishLoadMore(it != null)
+            binding.refreshLayout.setNoMoreData(it != null && it.size < IRGalleryViewModel.PAGE_COUNT)
         }
         viewModel.showListLD.observe(this) {
             adapter.refreshList(it)
@@ -108,17 +105,17 @@ class IRGalleryFragment : BaseFragment() {
         viewModel.deleteResultLD.observe(this) {
             dismissLoadingDialog()
             if (it) {
-                TToast.shortToast(requireContext(), R.string.test_results_delete_success)
+                TToast.shortToast(requireContext(), LibAppR.string.test_results_delete_success)
                 tabViewModel.isEditModeLD.value = false
                 MediaScannerConnection.scanFile(requireContext(), arrayOf(FileConfig.lineGalleryDir, FileConfig.ts004GalleryDir), null, null)
                 EventBus.getDefault().post(GalleryDelEvent())
             } else {
-                TToast.shortToast(requireContext(), R.string.test_results_delete_failed)
+                TToast.shortToast(requireContext(), LibAppR.string.test_results_delete_failed)
             }
         }
         tabViewModel.isEditModeLD.observe(this) {
             adapter.isEditMode = it
-            cl_bottom.isVisible = it
+            binding.clBottom.isVisible = it
         }
         tabViewModel.selectAllIndex.observe(this) {
             if ((isVideo && it == 1) || (!isVideo && it == 0)) {
@@ -134,12 +131,18 @@ class IRGalleryFragment : BaseFragment() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun galleryDirChange(event: GalleryDirChangeEvent) {
         currentDirType = event.dirType
         refresh()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun galleryDownload(event: GalleryDownloadEvent) {
         for (i in adapter.dataList.indices) {
             val data = adapter.dataList[i]
@@ -153,11 +156,17 @@ class IRGalleryFragment : BaseFragment() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun galleryAdd(event: GalleryAddEvent) {
         refresh()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun galleryDel(event: GalleryDelEvent) {
         refresh()
     }
@@ -165,19 +174,19 @@ class IRGalleryFragment : BaseFragment() {
     private fun initRecycler() {
         val spanCount = 3
         val gridLayoutManager = GridLayoutManager(requireActivity(), spanCount)
-        //动态设置span
+        //span
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return if (adapter.dataList[position] is GalleryTitle) spanCount else 1
             }
         }
-        ir_gallery_recycler.adapter = adapter
-        ir_gallery_recycler.layoutManager = gridLayoutManager
+        binding.irGalleryRecycler.adapter = adapter
+        binding.irGalleryRecycler.layoutManager = gridLayoutManager
 
         adapter.isTS004Remote = false // TC001 uses USB, not remote
         adapter.onLongEditListener = {
             tabViewModel.isEditModeLD.value = true
-            cl_bottom.isVisible = true
+            binding.clBottom.isVisible = true
         }
         adapter.selectCallback = {
             tabViewModel.selectSizeLD.value = it.size
@@ -210,19 +219,19 @@ class IRGalleryFragment : BaseFragment() {
         }
 
 
-        refresh_layout.setOnRefreshListener {
+        binding.refreshLayout.setOnRefreshListener {
             refresh()
         }
-        refresh_layout.setOnLoadMoreListener {
+        binding.refreshLayout.setOnLoadMoreListener {
             viewModel.queryGalleryByPage(isVideo, currentDirType)
         }
-        refresh_layout.setEnableScrollContentWhenLoaded(false)
+        binding.refreshLayout.setEnableScrollContentWhenLoaded(false)
 
-        refresh_layout.autoRefresh()
+        binding.refreshLayout.autoRefresh()
     }
 
     private fun refresh() {
-        refresh_layout.setEnableLoadMore(true)
+        binding.refreshLayout.setEnableLoadMore(true)
         viewModel.hasLoadPage = 0
         viewModel.queryGalleryByPage(isVideo, currentDirType)
     }
@@ -236,10 +245,10 @@ class IRGalleryFragment : BaseFragment() {
         if (deleteList.size > 0) {
             ConfirmSelectDialog(requireContext()).run {
                 setTitleStr(getString(
-                    R.string.tip_delete_chosen,
+                    LibAppR.string.tip_delete_chosen,
                     deleteList.size
                 ))
-                setMessageRes(R.string.also_del_from_phone_album)
+                setMessageRes(LibAppR.string.also_del_from_phone_album)
                 setShowMessage(false) // TC001 uses local files only
                 onConfirmClickListener = {
                     showLoadingDialog()
@@ -248,7 +257,7 @@ class IRGalleryFragment : BaseFragment() {
                 show()
             }
         } else {
-            ToastTools.showShort(getString(R.string.tip_least_select))
+            ToastTools.showShort(getString(LibAppR.string.tip_least_select))
         }
     }
 
@@ -264,7 +273,7 @@ class IRGalleryFragment : BaseFragment() {
             if (isShare) {
                 shareImage(downloadList)
             } else {
-                ToastTools.showShort(R.string.ts004_download_complete)
+                ToastTools.showShort(LibAppR.string.ts004_download_complete)
             }
             tabViewModel.isEditModeLD.value = false
         } else {
@@ -272,7 +281,7 @@ class IRGalleryFragment : BaseFragment() {
             if (isShare) {
                 shareImage(downloadList)
             } else {
-                ToastTools.showShort(R.string.ts004_download_complete)
+                ToastTools.showShort(LibAppR.string.ts004_download_complete)
             }
             tabViewModel.isEditModeLD.value = false
             MediaScannerConnection.scanFile(requireContext(), arrayOf(FileConfig.lineGalleryDir, FileConfig.ts004GalleryDir), null, null)
@@ -299,6 +308,6 @@ class IRGalleryFragment : BaseFragment() {
             shareIntent.action = Intent.ACTION_SEND_MULTIPLE
             shareIntent.putExtra(Intent.EXTRA_STREAM, imageUris)
         }
-        startActivity(Intent.createChooser(shareIntent, getString(R.string.battery_share)))
+        startActivity(Intent.createChooser(shareIntent, getString(LibAppR.string.battery_share)))
     }
 }

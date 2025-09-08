@@ -15,57 +15,38 @@ import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sqrt
 
+ *  View.
 /**
- * 给一张图画 圆、矩形、箭头的自定义 View.
- *
- * Created by LCG on 2024/1/27.
+ * @author LCG
+ * @since Unknown
  */
 class ImageEditView : View {
     companion object {
-        /**
-         * 默认画笔宽度，单位 px.
-         */
+         * px.
         private const val PAINT_WIDTH = 6
-        /**
-         * 默认画笔宽度的一半，单位px.
-         */
+         * px.
         private const val HALF_PAINT_WIDTH = 3
-        /**
-         * 箭头等边三角形边长，照钉钉截图估算，线宽3，边长16，故而视为画笔宽度5倍.
-         */
+         * 3165.
         private const val ARROW_WIDTH = 30
-        /**
-         * 默认画笔颜色.
-         */
+         * .
         private const val PAINT_COLOR = 0xffe22400.toInt()
     }
 
     enum class Type {
-        /**
-         * 圆
-         */
         CIRCLE,
 
-        /**
-         * 矩形
-         */
         RECT,
 
-        /**
-         * 箭头
-         */
         ARROW,
     }
 
 
-    /**
-     * 当前绘制的类型，默认圆形.
-     */
+     * .
+    /** type property */
     var type: Type = Type.CIRCLE
 
-    /**
-     * 画笔颜色.
-     */
+     * .
+    /** color property */
     var color: Int
         get() = paint.color
         set(value) {
@@ -73,12 +54,11 @@ class ImageEditView : View {
             invalidate()
         }
 
-    /**
-     * 在该 bitmap 上放绘制编辑内容如圆、矩形、箭头.
-     */
+     *  bitmap .
+    /** sourceBitmap property */
     var sourceBitmap: Bitmap? = null
         set(value) {
-            if (value == null) {//没有把背景图清掉的需求，故而此处直接 return
+            if (value == null) {//， return
                 return
             }
             if (width == 0 || height == 0) {
@@ -92,26 +72,18 @@ class ImageEditView : View {
 
 
 
-    /**
-     * 当前是否有编辑内容.
-     */
+     * .
     private var hasEditData = false
-    /**
-     * 保存背景图片的 Bitmap.
-     */
+     *  Bitmap.
     private var bgBitmap: Bitmap? = null
-    /**
-     * 保存当前绘制编辑内容的 Bitmap.
-     */
+     *  Bitmap.
     private var editBitmap: Bitmap? = null
 
     private var canvas: Canvas? = null
 
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.FILTER_BITMAP_FLAG)
 
-    /**
-     * 绘制三角形的路径.
-     */
+     * .
     private val path = Path()
 
 
@@ -128,12 +100,18 @@ class ImageEditView : View {
         paint.isDither = true
     }
 
+    /**
+     * Function description.
+     */
     fun clear() {
         hasEditData = false
         canvas?.drawColor(0x00000000, PorterDuff.Mode.CLEAR)
         invalidate()
     }
 
+    /**
+     * Function description.
+     */
     fun buildResultBitmap(): Bitmap? {
         val bgBitmap = this.bgBitmap ?: return null
         val editBitmap = this.editBitmap
@@ -208,8 +186,7 @@ class ImageEditView : View {
                 paint.style = Paint.Style.FILL
                 path.reset()
 
-                if (downX == currentX) {//垂直于X轴的直线
-                    //由于直线有一定的宽度，而三角形顶点为一个点，此处绘制的直线往后退一点
+                if (downX == currentX) {//X
                     val endY = if (downY > currentY) currentY + PAINT_WIDTH else (currentY - PAINT_WIDTH)
                     canvas?.drawLine(downX.toFloat(), downY.toFloat(), currentX.toFloat(), endY.toFloat(), paint)
 
@@ -224,8 +201,7 @@ class ImageEditView : View {
                     path.lineTo(x2, y)
                     path.close()
                     canvas?.drawPath(path, paint)
-                } else if (downY == currentY) {//垂直于Y轴的直线
-                    //由于直线有一定的宽度，而三角形顶点为一个点，此处绘制的直线往后退一点
+                } else if (downY == currentY) {//Y
                     val endX = if (downX > currentX) currentX + PAINT_WIDTH else (currentX - PAINT_WIDTH)
                     canvas?.drawLine(downX.toFloat(), downY.toFloat(), endX.toFloat(), currentY.toFloat(), paint)
 
@@ -241,47 +217,45 @@ class ImageEditView : View {
                     path.close()
                     canvas?.drawPath(path, paint)
                 } else {
-                    //有两条直线：
-                    // y = k1 * x + b1 是用户绘制的直线，称为直线1
-                    // y = k2 * x + b2 是垂直于直线1且过三角形交点的直线，称为直线2
+                    // y = k1 * x + b1 1
+                    // y = k2 * x + b2 12
                     val k1: Float = (downY - currentY).toFloat() / (downX - currentX).toFloat()
                     val b1: Float = downY - k1 * downX
                     val a1: Float = -b1 / k1
 
-                    //由于直线有一定的宽度，而三角形顶点为一个点，此处绘制的直线往后退一点
                     val backWidth = PAINT_WIDTH
                     val endY: Float = if (k1 > 0) {
-                        val hypotenuse: Float = sqrt((currentX - a1).pow(2) + currentY.toFloat().pow(2)) //斜边长
-                        if (currentX > downX) {//左上到右下
+                        val hypotenuse: Float = sqrt((currentX - a1).pow(2) + currentY.toFloat().pow(2)) //
+                        if (currentX > downX) {//
                             currentY * (hypotenuse - backWidth) / hypotenuse
-                        } else {//右下到左上
+                        } else {//
                             currentY * (hypotenuse + backWidth) / hypotenuse
                         }
                     } else {
-                        val hypotenuse: Float = sqrt((a1 - currentX).pow(2) + currentY.toFloat().pow(2)) //斜边长
-                        if (currentX > downX) {//左下到右上
+                        val hypotenuse: Float = sqrt((a1 - currentX).pow(2) + currentY.toFloat().pow(2)) //
+                        if (currentX > downX) {//
                             currentY * (hypotenuse + backWidth) / hypotenuse
-                        } else {//右上到左下
+                        } else {//
                             currentY * (hypotenuse - backWidth) / hypotenuse
                         }
                     }
                     val endX = (endY - b1) / k1
                     canvas?.drawLine(downX.toFloat(), downY.toFloat(), endX, endY, paint)
 
-                    //计算两条直线的交点 x,y
+                    // x,y
                     val triangleH: Float = (ARROW_WIDTH / 2) * sqrt(3f)
                     val y: Float = if (k1 > 0) {
-                        val hypotenuse: Float = sqrt((currentX - a1).pow(2) + currentY.toFloat().pow(2)) //斜边长
-                        if (currentX > downX) {//左上到右下
+                        val hypotenuse: Float = sqrt((currentX - a1).pow(2) + currentY.toFloat().pow(2)) //
+                        if (currentX > downX) {//
                             currentY * (hypotenuse - triangleH) / hypotenuse
-                        } else {//右下到左上
+                        } else {//
                             currentY * (hypotenuse + triangleH) / hypotenuse
                         }
                     } else {
-                        val hypotenuse: Float = sqrt((a1 - currentX).pow(2) + currentY.toFloat().pow(2)) //斜边长
-                        if (currentX > downX) {//左下到右上
+                        val hypotenuse: Float = sqrt((a1 - currentX).pow(2) + currentY.toFloat().pow(2)) //
+                        if (currentX > downX) {//
                             currentY * (hypotenuse + triangleH) / hypotenuse
-                        } else {//右上到左下
+                        } else {//
                             currentY * (hypotenuse - triangleH) / hypotenuse
                         }
                     }
@@ -291,7 +265,7 @@ class ImageEditView : View {
                     val b2: Float = y - k2 * x
                     val a2: Float = -b2 / k2
 
-                    val hypotenuse2: Float = sqrt((if (k2 > 0) x - a2 else (a2 - x)).pow(2) + y.pow(2)) //斜边长
+                    val hypotenuse2: Float = sqrt((if (k2 > 0) x - a2 else (a2 - x)).pow(2) + y.pow(2)) //
                     val yLeft = y * (hypotenuse2 - ARROW_WIDTH / 2) / hypotenuse2
                     val yRight = y * (hypotenuse2 + ARROW_WIDTH / 2) / hypotenuse2
                     val xLeft = (yLeft - b2) / k2

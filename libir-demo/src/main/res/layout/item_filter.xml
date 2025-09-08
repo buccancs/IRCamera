@@ -30,7 +30,7 @@
         android:gravity="center"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-        android:text="铁红"
+        android:text=""
         android:textColor="@color/white"
         android:textSize="@dimen/app_font_10"
         app:layout_constraintBottom_toBottomOf="parent"

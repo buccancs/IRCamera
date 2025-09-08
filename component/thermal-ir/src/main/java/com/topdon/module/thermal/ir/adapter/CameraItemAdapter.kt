@@ -6,6 +6,7 @@ import com.topdon.lib.core.bean.CameraItemBean
 import com.topdon.lib.ui.listener.SingleClickListener
 import com.topdon.lib.ui.widget.CountDownView
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 
 /**
  * @author: CaiSongL
@@ -15,6 +16,7 @@ class CameraItemAdapter(
     data: MutableList<CameraItemBean>? = null) : BaseQuickAdapter<CameraItemBean, BaseViewHolder>(R.layout.item_camera,data) {
 
 
+    /** listener property */
     var listener: ((index: Int,item: CameraItemBean) -> Unit)? = null
 
     override fun convert(holder: BaseViewHolder, item: CameraItemBean) {

@@ -9,19 +9,19 @@ import com.topdon.lms.sdk.weiget.TToast;
 import com.topdon.module.user.R;
 
 public class ActivityUtil {
+     * @param mContext
     /**
-     * 跳转系统浏览器
-     * @param mContext 上下文
+     * Method description.
      */
     public static void goSystemCustomer(Context mContext) {
-        Log.w("bcf", "客服点击事件");
+        Log.w("bcf", "");
         String url = "https://www.topdon.cc/tc-chat";
         goSystemBrowser(mContext, url);
     }
 
+     * @param mContext
     /**
-     * 跳转系统浏览器
-     * @param mContext 上下文
+     * Method description.
      */
     public static void goSystemBrowser(Context mContext, String url) {
         Log.w("bcf", "goSystemBrowser");

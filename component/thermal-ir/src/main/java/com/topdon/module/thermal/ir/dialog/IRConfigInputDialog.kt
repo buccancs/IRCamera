@@ -11,28 +11,31 @@ import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.dialog_ir_config_input.*
+import com.csl.irCamera.libapp.R as LibAppR
+import com.topdon.module.thermal.ir.databinding.DialogIrConfigInputBinding
 import java.lang.NumberFormatException
 
+ *  .
 /**
- * 温度修正 环境温度、测温距离、发射率 修改值时输入弹框.
- *
- * Created by LCG on 2024/10/24.
+ * @author LCG
+ * @since Unknown
  */
-class IRConfigInputDialog(context: Context, val type: Type, val isTC007: Boolean) : Dialog(context, R.style.TextInputDialog) {
+class IRConfigInputDialog(context: Context, val type: Type, val isTC007: Boolean) : Dialog(context, LibAppR.style.TextInputDialog) {
 
+    private lateinit var binding: DialogIrConfigInputBinding
     private var value: Float? = null
     private var onConfirmListener: ((value: Float) -> Unit)? = null
 
     /**
-     * 设置输入框默认值
+     * Function description.
      */
     fun setInput(value: Float?): IRConfigInputDialog {
         this.value = value
         return this
     }
+     * .
     /**
-     * 设置确认点击事件监听.
+     * Function description.
      */
     fun setConfirmListener(l: (value: Float) -> Unit): IRConfigInputDialog {
         this.onConfirmListener = l
@@ -46,33 +49,34 @@ class IRConfigInputDialog(context: Context, val type: Type, val isTC007: Boolean
         setCancelable(true)
         setCanceledOnTouchOutside(true)
 
-        setContentView(R.layout.dialog_ir_config_input)
+        binding = DialogIrConfigInputBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         when (type) {
             Type.TEMP -> {
-                tv_title.text = "${context.getString(R.string.thermal_config_environment)} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
-                tv_unit.text = UnitTools.showUnit()
-                tv_unit.isVisible = true
+                binding.tvTitle.text = "${context.getString(LibAppR.string.thermal_config_environment)} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
+                binding.tvUnit.text = UnitTools.showUnit()
+                binding.tvUnit.isVisible = true
             }
             Type.DIS -> {
-                tv_title.text = "${context.getString(R.string.thermal_config_distance)} (0.2~${if (isTC007) 4 else 5}m)"
-                tv_unit.text = "m"
-                tv_unit.isVisible = true
+                binding.tvTitle.text = "${context.getString(LibAppR.string.thermal_config_distance)} (0.2~${if (isTC007) 4 else 5}m)"
+                binding.tvUnit.text = "m"
+                binding.tvUnit.isVisible = true
             }
             Type.EM -> {
-                tv_title.text = "${context.getString(R.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
-                tv_unit.text = ""
-                tv_unit.isVisible = false
+                binding.tvTitle.text = "${context.getString(LibAppR.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
+                binding.tvUnit.text = ""
+                binding.tvUnit.isVisible = false
             }
         }
-        et_input.setText(if (value == null) "" else value.toString())
-        et_input.setSelection(0, et_input.length())
-        et_input.requestFocus()
+        binding.etInput.setText(if (value == null) "" else value.toString())
+        binding.etInput.setSelection(0, binding.etInput.length())
+        binding.etInput.requestFocus()
 
-        tv_cancel.setOnClickListener { dismiss() }
-        tv_confirm.setOnClickListener {
+        binding.tvCancel.setOnClickListener { dismiss() }
+        binding.tvConfirm.setOnClickListener {
             try {
-                val input: Float = et_input.text.toString().toFloat()
+                val input: Float = binding.etInput.text.toString().toFloat()
                 val isRight = when (type) {
                     Type.TEMP -> input in UnitTools.showUnitValue(-10f) .. UnitTools.showUnitValue(if (isTC007) 50f else 55f)
                     Type.DIS -> input in 0.2f .. if (isTC007) 4f else 5f
@@ -82,10 +86,10 @@ class IRConfigInputDialog(context: Context, val type: Type, val isTC007: Boolean
                     dismiss()
                     onConfirmListener?.invoke(input)
                 } else {
-                    TToast.shortToast(context, R.string.tip_input_format)
+                    TToast.shortToast(context, LibAppR.string.tip_input_format)
                 }
             } catch (e: NumberFormatException) {
-                TToast.shortToast(context, R.string.tip_input_format)
+                TToast.shortToast(context, LibAppR.string.tip_input_format)
             }
         }
 
@@ -99,19 +103,10 @@ class IRConfigInputDialog(context: Context, val type: Type, val isTC007: Boolean
     }
 
     enum class Type {
-        /**
-         * 环境温度
-         */
         TEMP,
 
-        /**
-         * 测温距离
-         */
         DIS,
 
-        /**
-         * 发射率
-         */
         EM,
     }
 }

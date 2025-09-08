@@ -11,9 +11,15 @@ public final class FSize extends ObjectPool.Poolable{
 
     // TODO : Encapsulate width & height
 
+    /**
+     * Method description.
+     */
     public float width;
     public float height;
 
+    /**
+     * Private method description.
+     */
     private static ObjectPool<FSize> pool;
 
     static {
@@ -26,6 +32,9 @@ public final class FSize extends ObjectPool.Poolable{
         return new FSize(0,0);
     }
 
+    /**
+     * Method description.
+     */
     public static FSize getInstance(final float width, final float height){
         FSize result = pool.get();
         result.width = width;
@@ -33,23 +42,38 @@ public final class FSize extends ObjectPool.Poolable{
         return result;
     }
 
+    /**
+     * Method description.
+     */
     public static void recycleInstance(FSize instance){
         pool.recycle(instance);
     }
 
+    /**
+     * Method description.
+     */
     public static void recycleInstances(List<FSize> instances){
         pool.recycle(instances);
     }
 
+    /**
+     * Method description.
+     */
     public FSize() {
     }
 
+    /**
+     * Method description.
+     */
     public FSize(final float width, final float height) {
         this.width = width;
         this.height = height;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean equals(final Object obj) {
         if (obj == null) {
             return false;
@@ -65,6 +89,9 @@ public final class FSize extends ObjectPool.Poolable{
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public String toString() {
         return width + "x" + height;
     }
@@ -73,6 +100,9 @@ public final class FSize extends ObjectPool.Poolable{
      * {@inheritDoc}
      */
     @Override
+    /**
+     * Method description.
+     */
     public int hashCode() {
         return Float.floatToIntBits(width) ^ Float.floatToIntBits(height);
     }

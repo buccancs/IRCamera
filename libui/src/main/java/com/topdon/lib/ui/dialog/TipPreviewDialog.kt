@@ -16,10 +16,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
-import com.topdon.lib.ui.R
+import com.csl.irCamera.libui.R
+import com.csl.irCamera.libui.databinding.DialogTipPreviewBinding
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.lib.ui.widget.IndicateView
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.dialog_tip_preview.view.*
 import java.util.Timer
 import kotlin.collections.ArrayList
 
@@ -27,15 +28,12 @@ class TipPreviewDialog : DialogFragment() {
 
     private lateinit var titleList: ArrayList<String>
     private var dis: Disposable?=null
+    /** closeEvent property */
     var closeEvent: ((check: Boolean) -> Unit)? = null
     private var canceled = false
     private var hasCheck = false
 
-    private lateinit var tvContent: TextView
-    private lateinit var checkBox: CheckBox
-    private lateinit var imgClose: ImageView
-    private lateinit var viewPager : ViewPager
-    private lateinit var indicateView: IndicateView
+    private lateinit var binding: DialogTipPreviewBinding
     private var index : Int = -1
     private val pageCount = 2
     private var timer : Timer?= Timer()
@@ -52,36 +50,32 @@ class TipPreviewDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.dialog_tip_preview, container, false)
+        binding = DialogTipPreviewBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         titleList = arrayListOf(
-            getString(R.string.preview_step_1),
-            getString(R.string.preview_step_2),
+            getString(LibAppR.string.preview_step_1),
+            getString(LibAppR.string.preview_step_2),
         )
-        checkBox = view.dialog_tip_check
-        imgClose = view.img_close
-        viewPager = view.view_pager
-        tvContent = view.tv_content
-        indicateView = view.indicate_view
         val adapter = PageAdapter(childFragmentManager)
-        indicateView.itemCount = adapter.count
-        viewPager.adapter = adapter
-        checkBox.setOnCheckedChangeListener { _, isChecked ->
+        binding.indicateView.itemCount = adapter.count
+        binding.viewPager.adapter = adapter
+        binding.dialogTipCheck.setOnCheckedChangeListener { _, isChecked ->
             hasCheck = isChecked
         }
-        imgClose.setOnClickListener {
+        binding.imgClose.setOnClickListener {
             closeEvent?.invoke(hasCheck)
             dismiss()
         }
-        view.tv_i_know.setOnClickListener {
+        binding.tvIKnow.setOnClickListener {
             closeEvent?.invoke(hasCheck)
             dismiss()
         }
         updateIndex(0)
-        viewPager.addOnPageChangeListener(object :ViewPager.OnPageChangeListener{
+        binding.viewPager.addOnPageChangeListener(object :ViewPager.OnPageChangeListener{
             override fun onPageScrolled(
                 position: Int,
                 positionOffset: Float,
@@ -100,13 +94,16 @@ class TipPreviewDialog : DialogFragment() {
     }
 
 
+    /**
+     * Function description.
+     */
     fun updateIndex(position : Int){
         if (index == position){
             return
         }
-        indicateView.currentIndex = position
-        viewPager.setCurrentItem(position,true)
-        tvContent.text = titleList[position]
+        binding.indicateView.currentIndex = position
+        binding.viewPager.setCurrentItem(position,true)
+        binding.tvContent.text = titleList[position]
         index = position
     }
 

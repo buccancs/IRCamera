@@ -8,38 +8,41 @@ import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
 import com.topdon.lib.core.BaseApplication
-import com.topdon.lib.core.R
+import com.csl.irCamera.libapp.R
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lms.sdk.weiget.TToast
 
 object PermissionTool {
 
+     *  RECORD_AUDIO .
     /**
-     * 请求 RECORD_AUDIO 权限.
+     * Function description.
      */
     fun requestRecordAudio(context: Context, callback: () -> Unit) = request(context, Type.RECORD_AUDIO, callback)
 
+     *  CAMERA .
     /**
-     * 请求 CAMERA 权限.
+     * Function description.
      */
     fun requestCamera(context: Context, callback: () -> Unit) = request(context, Type.CAMERA, callback)
 
+     *  ACCESS_FINE_LOCATION .
     /**
-     * 请求 ACCESS_FINE_LOCATION 权限.
+     * Function description.
      */
     fun requestLocation(context: Context, callback: () -> Unit) = request(context, Type.LOCATION, callback)
 
+     *   .
     /**
-     * 请求 图片读取 权限.
+     * Function description.
      */
     fun requestImageRead(context: Context, callback: () -> Unit) = request(context, Type.IMAGE, callback)
 
+     * Android 10
+     * Android 11Android 12Android 12L
+     * Android 13
     /**
-     * Android 10 及以下：请求外部存储文件读、写权限
-     *
-     * Android 11、Android 12、Android 12L：请求外部存储读权限
-     *
-     * Android 13 及以上：请求媒体-视频、媒体-图片权限
+     * Function description.
      */
     fun requestFile(context: Context, callback: () -> Unit) = request(context, Type.FILE, callback)
 
@@ -53,11 +56,11 @@ object PermissionTool {
             Type.CAMERA -> listOf(Permission.CAMERA)
             Type.LOCATION -> listOf(Permission.ACCESS_COARSE_LOCATION, Permission.ACCESS_FINE_LOCATION)
             Type.IMAGE -> listOf(if (context.applicationInfo.targetSdkVersion < 33) Permission.READ_EXTERNAL_STORAGE else Permission.READ_MEDIA_IMAGES)
-            Type.FILE -> if (context.applicationInfo.targetSdkVersion < 30) {//Android 10及以下
+            Type.FILE -> if (context.applicationInfo.targetSdkVersion < 30) {//Android 10
                 listOf(Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE)
-            } else if (context.applicationInfo.targetSdkVersion < 33) {//Android 13以下
+            } else if (context.applicationInfo.targetSdkVersion < 33) {//Android 13
                 listOf(Permission.READ_EXTERNAL_STORAGE)
-            } else {//Android 13及以上
+            } else {//Android 13
                 listOf(Permission.READ_MEDIA_VIDEO, Permission.READ_MEDIA_IMAGES)
             }
         }
@@ -82,7 +85,7 @@ object PermissionTool {
                             Type.IMAGE -> R.string.app_album_content
                             Type.FILE -> R.string.app_storage_content
                         }
-                        if (BaseApplication.instance.isDomestic()) {//国内版
+                        if (BaseApplication.instance.isDomestic()) {//
                             TToast.shortToast(context, tipsResId)
                         } else {
                             TipDialog.Builder(context)
@@ -105,24 +108,26 @@ object PermissionTool {
 
 
 
+     *  ACCESS_FINE_LOCATIONBLUETOOTH_SCANBLUETOOTH_CONNECT
+     *  Android12
     /**
-     * 判断是否具有 ACCESS_FINE_LOCATION、BLUETOOTH_SCAN、BLUETOOTH_CONNECT 权限。
-     * 低于 Android12 视为具有。
+     * Function description.
      */
     fun hasBtPermission(context: Context): Boolean {
-        return if (Build.VERSION.SDK_INT < 31) {//低于 Android12
+        return if (Build.VERSION.SDK_INT < 31) {// Android12
             XXPermissions.isGranted(context, Permission.ACCESS_FINE_LOCATION)
         } else {
             XXPermissions.isGranted(context, Permission.ACCESS_FINE_LOCATION, Permission.BLUETOOTH_SCAN, Permission.BLUETOOTH_CONNECT)
         }
     }
 
+     *  Android12  BLUETOOTH_SCANBLUETOOTH_CONNECT
+     * @param isBtFirst true- false
     /**
-     * 仅当 Android12 及以上版本时，请求 BLUETOOTH_SCAN、BLUETOOTH_CONNECT 权限
-     * @param isBtFirst true-永久拒绝时优先提示蓝牙 false-永久拒绝时优先提示定位
+     * Function description.
      */
     fun requestBluetooth(context: Context, isBtFirst: Boolean, callback: Callback) {
-        val permissionList: List<String> = if (Build.VERSION.SDK_INT < 31) {//低于 Android12
+        val permissionList: List<String> = if (Build.VERSION.SDK_INT < 31) {// Android12
             arrayListOf(Permission.ACCESS_FINE_LOCATION, Permission.ACCESS_COARSE_LOCATION)
         } else {
             arrayListOf(Permission.ACCESS_FINE_LOCATION, Permission.ACCESS_COARSE_LOCATION, Permission.BLUETOOTH_SCAN, Permission.BLUETOOTH_CONNECT)
@@ -149,7 +154,6 @@ object PermissionTool {
                                 isLocationNever = true
                             }
                         }
-                        // 如果是被永久拒绝就跳转到应用权限系统设置页面
                         TipDialog.Builder(context)
                             .setTitleMessage(context.getString(R.string.app_tip))
                             .setMessage(if (!isLocationNever || (isBtNever && isBtFirst)) R.string.app_bluetooth_content else R.string.app_location_content)
@@ -170,14 +174,10 @@ object PermissionTool {
     }
 
     interface Callback {
-        /**
-         * 未被永久拒绝时，全部授予 或 有部分未授予 回调.
-         */
+         * .
         fun onResult(allGranted: Boolean)
 
-        /**
-         * 永久拒绝时，跳转弹框 去打开 或 取消 回调.
-         */
+         * .
         fun onNever(isJump: Boolean)
     }
 }

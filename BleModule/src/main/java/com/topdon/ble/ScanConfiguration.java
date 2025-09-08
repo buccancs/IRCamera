@@ -12,12 +12,8 @@ import androidx.annotation.RequiresApi;
 
 import java.util.List;
 
-/**
- * 搜索配置
- * 
  * date: 2021/8/12 15:31
  * author: bichuanfeng
- */
 public class ScanConfiguration {
     int scanPeriodMillis = 10000;
     boolean acceptSysConnectedDevice;
@@ -26,37 +22,54 @@ public class ScanConfiguration {
     int rssiLowLimit = -120;
     List<ScanFilter> filters;
 
+    /**
+     * Method description.
+     */
     public int getScanPeriodMillis() {
         return scanPeriodMillis;
     }
 
+    /**
+     * Method description.
+     */
     public boolean isAcceptSysConnectedDevice() {
         return acceptSysConnectedDevice;
     }
 
+    /**
+     * Method description.
+     */
     public ScanSettings getScanSettings() {
         return scanSettings;
     }
 
+    /**
+     * Method description.
+     */
     public boolean isOnlyAcceptBleDevice() {
         return onlyAcceptBleDevice;
     }
 
+    /**
+     * Method description.
+     */
     public int getRssiLowLimit() {
         return rssiLowLimit;
     }
 
+    /**
+     * Method description.
+     */
     public List<ScanFilter> getFilters() {
         return filters;
     }
 
+     * @param scanPeriodMillis
     /**
-     * 搜索周期
-     *
-     * @param scanPeriodMillis 搜索一次的毫秒值
+     * Method description.
      */
     public ScanConfiguration setScanPeriodMillis(int scanPeriodMillis) {
-        //至少1秒
+        //1
         if (scanPeriodMillis >= 1000) {
             this.scanPeriodMillis = scanPeriodMillis;
         }
@@ -64,25 +77,27 @@ public class ScanConfiguration {
     }
 
     /**
-     * 是否将通过系统蓝牙配对连接的设备添加到搜索结果中（有些手机无法获取到系统已连接的蓝牙设备）
+     * Method description.
      */
     public ScanConfiguration setAcceptSysConnectedDevice(boolean acceptSysConnectedDevice) {
         this.acceptSysConnectedDevice = acceptSysConnectedDevice;
         return this;
     }
 
-    /**
-     * {@link BluetoothLeScanner}的搜索设置
-     */
+     * {@link BluetoothLeScanner}
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    /**
+     * Method description.
+     */
     public ScanConfiguration setScanSettings(ScanSettings scanSettings) {
         Inspector.requireNonNull(scanSettings, "scanSettings can't be null");
         this.scanSettings = scanSettings;
         return this;
     }
 
+     * ble
     /**
-     * 是否过滤非ble设备
+     * Method description.
      */
     public ScanConfiguration setOnlyAcceptBleDevice(boolean onlyAcceptBleDevice) {
         this.onlyAcceptBleDevice = onlyAcceptBleDevice;
@@ -90,17 +105,18 @@ public class ScanConfiguration {
     }
 
     /**
-     * 根据信号强度过滤
+     * Method description.
      */
     public ScanConfiguration setRssiLowLimit(int rssiLowLimit) {
         this.rssiLowLimit = rssiLowLimit;
         return this;
     }
 
-    /**
-     * 搜索过滤器。{@link BluetoothLeScanner#startScan(List, ScanSettings, ScanCallback)}
-     */
+     * {@link BluetoothLeScanner#startScan(List, ScanSettings, ScanCallback)}
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    /**
+     * Method description.
+     */
     public ScanConfiguration setFilters(List<ScanFilter> filters) {
         this.filters = filters;
         return this;

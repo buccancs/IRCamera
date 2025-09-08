@@ -23,6 +23,9 @@ public class XAxisRenderer extends AxisRenderer {
 
     protected XAxis mXAxis;
 
+    /**
+     * Method description.
+     */
     public XAxisRenderer(ViewPortHandler viewPortHandler, XAxis xAxis, Transformer trans) {
         super(viewPortHandler, trans, xAxis);
 
@@ -40,6 +43,9 @@ public class XAxisRenderer extends AxisRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void computeAxis(float min, float max, boolean inverted) {
 
         // calculate the starting and entry point of the y-labels (depending on
@@ -101,6 +107,9 @@ public class XAxisRenderer extends AxisRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void renderAxisLabels(Canvas c) {
 
         if (!mXAxis.isEnabled() || !mXAxis.isDrawLabelsEnabled())
@@ -145,6 +154,9 @@ public class XAxisRenderer extends AxisRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void renderAxisLine(Canvas c) {
 
         if (!mXAxis.isDrawAxisLineEnabled() || !mXAxis.isEnabled())
@@ -171,11 +183,8 @@ public class XAxisRenderer extends AxisRenderer {
         }
     }
 
-    /**
      * draws the x-labels on the specified y-position
-     *
      * @param pos
-     */
     protected void drawLabels(Canvas c, float pos, MPPointF anchor) {
 
         final float labelRotationAngleDegrees = mXAxis.getLabelRotationAngle();
@@ -220,15 +229,13 @@ public class XAxisRenderer extends AxisRenderer {
                         x += width / 2;
                     }
                 }
-                //chart 绘制刻度文本  -------- start --------
+                //chart   -------- start
 
                 if (i == 0 && mXAxis.isJumpFirstLabel()) {
-                    //不是哥们，你好歹好个参数来保存要不要绘制啊，查了我半天结果是因为你这里给跳过了
-                    //起始刻度不需要绘制
                     continue;
                 }
 
-                // -------- end --------
+                // end
                 drawLabel(c, label, x, pos, anchor, labelRotationAngleDegrees);
             }
         }
@@ -240,6 +247,9 @@ public class XAxisRenderer extends AxisRenderer {
     protected Path mRenderGridLinesPath = new Path();
     protected float[] mRenderGridLinesBuffer = new float[2];
     @Override
+    /**
+     * Method description.
+     */
     public void renderGridLines(Canvas c) {
 
         if (!mXAxis.isDrawGridLinesEnabled() || !mXAxis.isEnabled())
@@ -267,13 +277,13 @@ public class XAxisRenderer extends AxisRenderer {
 
 
         for (int i = 0; i < positions.length; i += 2) {
-            //chart 绘制刻度线   -------- start --------
+            //chart    -------- start
 
             if (i == 0) {
                 continue;
             }
 
-            // -------- end --------
+            // end
             drawGridLine(c, positions[i], positions[i + 1], gridLinePath);
         }
 
@@ -282,20 +292,20 @@ public class XAxisRenderer extends AxisRenderer {
 
     protected RectF mGridClippingRect = new RectF();
 
+    /**
+     * Method description.
+     */
     public RectF getGridClippingRect() {
         mGridClippingRect.set(mViewPortHandler.getContentRect());
         mGridClippingRect.inset(-mAxis.getGridLineWidth(), 0.f);
         return mGridClippingRect;
     }
 
-    /**
      * Draws the grid line at the specified position using the provided path.
-     *
      * @param c
      * @param x
      * @param y
      * @param gridLinePath
-     */
     protected void drawGridLine(Canvas c, float x, float y, Path gridLinePath) {
 
         gridLinePath.moveTo(x, mViewPortHandler.contentBottom());
@@ -310,12 +320,12 @@ public class XAxisRenderer extends AxisRenderer {
     protected float[] mRenderLimitLinesBuffer = new float[2];
     protected RectF mLimitLineClippingRect = new RectF();
 
-    /**
      * Draws the LimitLines associated with this axis to the screen.
-     *
      * @param c
-     */
     @Override
+    /**
+     * Method description.
+     */
     public void renderLimitLines(Canvas c) {
 
         List<LimitLine> limitLines = mXAxis.getLimitLines();
@@ -352,8 +362,14 @@ public class XAxisRenderer extends AxisRenderer {
     }
 
     float[] mLimitLineSegmentsBuffer = new float[4];
+    /**
+     * Private method description.
+     */
     private Path mLimitLinePath = new Path();
 
+    /**
+     * Method description.
+     */
     public void renderLimitLineLine(Canvas c, LimitLine limitLine, float[] position) {
         mLimitLineSegmentsBuffer[0] = position[0];
         mLimitLineSegmentsBuffer[1] = mViewPortHandler.contentTop();
@@ -372,6 +388,9 @@ public class XAxisRenderer extends AxisRenderer {
         c.drawPath(mLimitLinePath, mLimitLinePaint);
     }
 
+    /**
+     * Method description.
+     */
     public void renderLimitLineLabel(Canvas c, LimitLine limitLine, float[] position, float yOffset) {
         String label = limitLine.getLabel();
 

@@ -9,26 +9,32 @@ object SupRUtils {
 
 
     /**
-     * 是否能开启超分
+     * Function description.
      */
     fun canOpenSupR() :Boolean{
         return true
     }
 
     /**
-     * 由此统一弹
+     * Function description.
      */
     fun showOpenSupRTipsDialog(activity : Activity){
 
     }
 
 
+    /**
+     * Function description.
+     */
     fun bitmapToByteArray(bitmap: Bitmap): ByteArray {
         val byteArrayOutputStream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
         return byteArrayOutputStream.toByteArray()
     }
 
+    /**
+     * Function description.
+     */
     fun byteArrayToBitmap(byteArray: ByteArray): Bitmap {
         return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
     }

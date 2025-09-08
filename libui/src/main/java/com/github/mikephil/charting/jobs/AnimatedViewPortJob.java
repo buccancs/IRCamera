@@ -22,6 +22,9 @@ public abstract class AnimatedViewPortJob extends ViewPortJob implements ValueAn
     protected float xOrigin;
     protected float yOrigin;
 
+    /**
+     * Method description.
+     */
     public AnimatedViewPortJob(ViewPortHandler viewPortHandler, float xValue, float yValue, Transformer trans, View v, float xOrigin, float yOrigin, long duration) {
         super(viewPortHandler, xValue, yValue, trans, v);
         this.xOrigin = xOrigin;
@@ -34,26 +37,44 @@ public abstract class AnimatedViewPortJob extends ViewPortJob implements ValueAn
 
     @SuppressLint("NewApi")
     @Override
+    /**
+     * Method description.
+     */
     public void run() {
         animator.start();
     }
 
+    /**
+     * Method description.
+     */
     public float getPhase() {
         return phase;
     }
 
+    /**
+     * Method description.
+     */
     public void setPhase(float phase) {
         this.phase = phase;
     }
 
+    /**
+     * Method description.
+     */
     public float getXOrigin() {
         return xOrigin;
     }
 
+    /**
+     * Method description.
+     */
     public float getYOrigin() {
         return yOrigin;
     }
 
+    /**
+     * Method description.
+     */
     public abstract void recycleSelf();
 
     protected void resetAnimator(){
@@ -65,11 +86,17 @@ public abstract class AnimatedViewPortJob extends ViewPortJob implements ValueAn
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onAnimationStart(Animator animation) {
 
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onAnimationEnd(Animator animation) {
         try{
             recycleSelf();
@@ -79,6 +106,9 @@ public abstract class AnimatedViewPortJob extends ViewPortJob implements ValueAn
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onAnimationCancel(Animator animation) {
         try{
             recycleSelf();
@@ -88,11 +118,17 @@ public abstract class AnimatedViewPortJob extends ViewPortJob implements ValueAn
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onAnimationRepeat(Animator animation) {
 
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onAnimationUpdate(ValueAnimator animation) {
 
     }

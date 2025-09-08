@@ -13,11 +13,12 @@ import com.blankj.utilcode.util.SizeUtils
 
 class FenceView : View {
 
+    /** listener property */
     var listener: CallBack? = null
 
     private val mPaint by lazy { Paint() }
-    private val rect: Rect = Rect(0, 0, 0, 0) //手动绘制矩形
-    private val strokeWidth by lazy { SizeUtils.dp2px(2f).toFloat() } //线宽度
+    private val rect: Rect = Rect(0, 0, 0, 0) //
+    private val strokeWidth by lazy { SizeUtils.dp2px(2f).toFloat() } //
 
 
     constructor (context: Context) : super(context)
@@ -43,19 +44,22 @@ class FenceView : View {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-//        //设置无锯齿
 //        canvas.drawARGB(50, 255, 227, 0)
 //        mPaint.color = Color.GREEN
-//        // 绘制绿色实心矩形
 //        canvas.drawRect(100f, 200f, 400f, 200f + 400, mPaint)
 //        mPaint.color = Color.RED
         canvas.drawRect(rect, mPaint)
     }
 
+    /** mX property */
     var mX = 0f
+    /** mY property */
     var mY = 0f
+    /** old property */
     var old = Rect(0, 0, 0, 0)
+    /** startPoint property */
     var startPoint = intArrayOf(0, 0)
+    /** endPoint property */
     var endPoint = intArrayOf(0, 0)
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -123,7 +127,6 @@ class FenceView : View {
     private fun result() {
         val point1 = intArrayOf(startPoint[0], startPoint[1])
         val point2 = intArrayOf(endPoint[0], endPoint[1])
-        //调整位置
         for (i in 0..1) {
             if (startPoint[i] > endPoint[i]) {
                 point1[i] = endPoint[i]
@@ -132,14 +135,17 @@ class FenceView : View {
         }
         Log.i(
             "123",
-            "原始坐标 start:${startPoint.contentToString()}, end:${endPoint.contentToString()}"
+            " start:${startPoint.contentToString()}, end:${endPoint.contentToString()}"
         )
-        Log.w("123", "修正坐标 start:${point1.contentToString()}, end:${point2.contentToString()}")
+        Log.w("123", " start:${point1.contentToString()}, end:${point2.contentToString()}")
         if (listener != null) {
             listener!!.callback(point1, point2, intArrayOf(width, height))
         }
     }
 
+    /**
+     * Function description.
+     */
     fun clear() {
         startPoint = intArrayOf(0, 0)
         endPoint = intArrayOf(0, 0)
@@ -152,10 +158,8 @@ class FenceView : View {
     }
 
     interface CallBack {
-        /**
-         * startPoint: 左上角
-         * endPoint: 右下角
-         */
+         * startPoint:
+         * endPoint:
         fun callback(startPoint: IntArray, endPoint: IntArray, srcRect: IntArray)
     }
 }

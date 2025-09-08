@@ -1,15 +1,12 @@
-/*
- * Copyright (c) 2016-present 贵州纳雍穿青人李裕江<1032694760@qq.com>
- *
+ * Copyright (c) 2016-present <1032694760@qq.com>
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
  *     http://license.coscl.org.cn/MulanPSL2
- * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
+ * THIS SOFTWARE IS PROVIDED ON AN AS IS BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
  * See the Mulan PSL v2 for more details.
- */
 
 package com.github.gzuliyujiang.wheelpicker.entity;
 
@@ -18,33 +15,34 @@ import androidx.annotation.NonNull;
 import java.io.Serializable;
 import java.util.Calendar;
 
-/**
- * 日期时间数据实体。
  * <pre>
- *     时间单位换算：
- *         // 1分 = 60秒
- *         // 1刻 = 15分
- *         // 1时 = 60分
- *         // 1日 = 12辰
- *         // 1日 = 24时
- *         // 1周 = 7日
- *         // 1月 = 30日
- *         // 1季 = 3月
- *         // 1年 = 12月
- *         // 1世 = 30年
- *         // 1运 = 12世 = 360年
- *         // 1会 = 30运 = 10800年
- *         // 1元 = 12会 = 129600年
+ *         // 1 = 60
+ *         // 1 = 15
+ *         // 1 = 60
+ *         // 1 = 12
+ *         // 1 = 24
+ *         // 1 = 7
+ *         // 1 = 30
+ *         // 1 = 3
+ *         // 1 = 12
+ *         // 1 = 30
+ *         // 1 = 12 = 360
+ *         // 1 = 30 = 10800
+ *         // 1 = 12 = 129600
  * </pre>
- *
- * @author 贵州山野羡民（1032694760@qq.com）
+ * @author 1032694760@qq.com
  * @since 2019/5/14 17:30
- */
 @SuppressWarnings({"unused"})
 public class DatimeEntity implements Serializable {
+    /**
+     * Private method description.
+     */
     private DateEntity date;
     private TimeEntity time;
 
+    /**
+     * Method description.
+     */
     public static DatimeEntity now() {
         DatimeEntity entity = new DatimeEntity();
         entity.setDate(DateEntity.today());
@@ -52,52 +50,82 @@ public class DatimeEntity implements Serializable {
         return entity;
     }
 
+    /**
+     * Method description.
+     */
     public static DatimeEntity minuteOnFuture(int minute) {
         DatimeEntity entity = now();
         entity.setTime(TimeEntity.minuteOnFuture(minute));
         return entity;
     }
 
+    /**
+     * Method description.
+     */
     public static DatimeEntity hourOnFuture(int hour) {
         DatimeEntity entity = now();
         entity.setTime(TimeEntity.hourOnFuture(hour));
         return entity;
     }
 
+    /**
+     * Method description.
+     */
     public static DatimeEntity dayOnFuture(int day) {
         DatimeEntity entity = now();
         entity.setDate(DateEntity.dayOnFuture(day));
         return entity;
     }
 
+    /**
+     * Method description.
+     */
     public static DatimeEntity monthOnFuture(int month) {
         DatimeEntity entity = now();
         entity.setDate(DateEntity.monthOnFuture(month));
         return entity;
     }
 
+    /**
+     * Method description.
+     */
     public static DatimeEntity yearOnFuture(int year) {
         DatimeEntity entity = now();
         entity.setDate(DateEntity.yearOnFuture(year));
         return entity;
     }
 
+    /**
+     * Method description.
+     */
     public DateEntity getDate() {
         return date;
     }
 
+    /**
+     * Method description.
+     */
     public void setDate(DateEntity date) {
         this.date = date;
     }
 
+    /**
+     * Method description.
+     */
     public TimeEntity getTime() {
         return time;
     }
 
+    /**
+     * Method description.
+     */
     public void setTime(TimeEntity time) {
         this.time = time;
     }
 
+    /**
+     * Method description.
+     */
     public long toTimeInMillis() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, date.getYear());
@@ -112,6 +140,9 @@ public class DatimeEntity implements Serializable {
 
     @NonNull
     @Override
+    /**
+     * Method description.
+     */
     public String toString() {
         return date.toString() + " " + time.toString();
     }

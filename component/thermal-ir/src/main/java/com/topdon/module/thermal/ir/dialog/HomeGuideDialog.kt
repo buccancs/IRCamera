@@ -13,29 +13,27 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.core.view.isVisible
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.dialog_home_guide.*
-import kotlinx.android.synthetic.main.layout_home_guide_1.*
-import kotlinx.android.synthetic.main.layout_home_guide_2.*
-import kotlinx.android.synthetic.main.layout_home_guide_3.*
+import com.csl.irCamera.libapp.R as LibAppR
+import com.topdon.module.thermal.ir.databinding.DialogHomeGuideBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+ * .
 /**
- * 首页操作指引弹框.
- *
- * Created by LCG on 2024/4/8.
+ * @author LCG
+ * @since Unknown
  */
-class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(context, R.style.TransparentDialog) {
+class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(context, LibAppR.style.TransparentDialog) {
 
-    /**
-     * 下一步点击事件监听，step：当前处于第`[1,3]`，在该步骤点击的下一步
-     */
+    private lateinit var binding: DialogHomeGuideBinding
+
+     * step`[1,3]`
+    /** onNextClickListener property */
     var onNextClickListener: ((step: Int) -> Unit)? = null
 
-    /**
-     * 跳过点击事件监听.
-     */
+     * .
+    /** onSkinClickListener property */
     var onSkinClickListener: (() -> Unit)? = null
 
 
@@ -43,47 +41,58 @@ class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(c
         super.onCreate(savedInstanceState)
         setCancelable(true)
         setCanceledOnTouchOutside(false)
-        setContentView(LayoutInflater.from(context).inflate(R.layout.dialog_home_guide, null))
+        binding = DialogHomeGuideBinding.inflate(LayoutInflater.from(context))
+        setContentView(binding.root)
+
+        // Access views from included layouts
+        val clGuide1 = binding.includeGuide1.clGuide1
+        val clGuide2 = binding.includeGuide2.clGuide2
+        val clGuide3 = binding.includeGuide3.clGuide3
+        val tvNext1 = binding.includeGuide1.tvNext1
+        val tvNext2 = binding.includeGuide2.tvNext2
+        val tvIKnow = binding.includeGuide3.tvIKnow
+        val tvSkin1 = binding.includeGuide1.tvSkin1
+        val tvSkin2 = binding.includeGuide2.tvSkin2
 
         when (currentStep) {
             1 -> {
-                cl_guide_1.isVisible = true
-                cl_guide_2.isVisible = false
-                cl_guide_3.isVisible = false
+                clGuide1.isVisible = true
+                clGuide2.isVisible = false
+                clGuide3.isVisible = false
             }
             2 -> {
-                cl_guide_1.isVisible = false
-                cl_guide_2.isVisible = true
-                cl_guide_3.isVisible = false
+                clGuide1.isVisible = false
+                clGuide2.isVisible = true
+                clGuide3.isVisible = false
             }
             3 -> {
-                cl_guide_1.isVisible = false
-                cl_guide_2.isVisible = false
-                cl_guide_3.isVisible = true
+                clGuide1.isVisible = false
+                clGuide2.isVisible = false
+                clGuide3.isVisible = true
             }
         }
 
-        tv_next1.setOnClickListener {
+        tvNext1.setOnClickListener {
             onNextClickListener?.invoke(1)
-            cl_guide_1.isVisible = false
-            cl_guide_2.isVisible = true
+            clGuide1.isVisible = false
+            clGuide2.isVisible = true
         }
-        tv_next2.setOnClickListener {
+        tvNext2.setOnClickListener {
             onNextClickListener?.invoke(2)
-            cl_guide_2.isVisible = false
-            cl_guide_3.isVisible = true
+            clGuide2.isVisible = false
+            clGuide3.isVisible = true
         }
-        tv_i_know.setOnClickListener {
+        tvIKnow.setOnClickListener {
             onNextClickListener?.invoke(3)
             dismiss()
         }
 
 
-        tv_skin1.setOnClickListener {
+        tvSkin1.setOnClickListener {
             onSkinClickListener?.invoke()
             dismiss()
         }
-        tv_skin2.setOnClickListener {
+        tvSkin2.setOnClickListener {
             onSkinClickListener?.invoke()
             dismiss()
         }
@@ -94,6 +103,9 @@ class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(c
         onSkinClickListener?.invoke()
     }
 
+    /**
+     * Function description.
+     */
     fun blurBg(rootView: View) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -114,8 +126,8 @@ class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(c
                 renderScript.destroy()
 
                 launch(Dispatchers.Main) {
-                    iv_blur_bg.isVisible = true
-                    iv_blur_bg.setImageBitmap(outputBitmap)
+                    binding.ivBlurBg.isVisible = true
+                    binding.ivBlurBg.setImageBitmap(outputBitmap)
                 }
             } catch (_: Exception) {
 

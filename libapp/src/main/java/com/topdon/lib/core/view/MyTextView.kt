@@ -6,41 +6,27 @@ import android.util.AttributeSet
 import androidx.annotation.DrawableRes
 import androidx.appcompat.widget.AppCompatTextView
 import com.blankj.utilcode.util.SizeUtils
-import com.topdon.lib.core.R
+import com.csl.irCamera.libapp.R
 
+ *  TextView.
+ *  TextView  drawable  TextView .
+ *  wrap_content  textSize>0.
 /**
- * 魔改 TextView.
- *
- * 原生 TextView 附加的 drawable 尺寸不可设置，这个 TextView 可以设置高度，宽度等比缩放.
- *
- * 其中 wrap_content 使用原生逻辑，不设置则使用 textSize（默认），指定值>0则使用指定值.
- *
- * Created by chenggeng.lin on 2023/11/21.
+ * @author chenggeng.lin
+ * @since Unknown
  */
 class MyTextView : AppCompatTextView {
-    /**
-     * drawableTop 高度，单位 **px**
-     */
+     * drawableTop  **px**
     private var topHeight = 0
-    /**
-     * drawableBottom 高度，单位 **px**
-     */
+     * drawableBottom  **px**
     private var bottomHeight = 0
-    /**
-     * drawableStart 高度，单位 **px**
-     */
+     * drawableStart  **px**
     private var startHeight = 0
-    /**
-     * drawableEnd 高度，单位 **px**
-     */
+     * drawableEnd  **px**
     private var endHeight = 0
-    /**
-     * drawableLeft 高度，单位 **px**
-     */
+     * drawableLeft  **px**
     private var leftHeight = 0
-    /**
-     * drawableRight 高度，单位 **px**
-     */
+     * drawableRight  **px**
     private var rightHeight = 0
 
     constructor(context: Context) : this(context, null)
@@ -58,7 +44,7 @@ class MyTextView : AppCompatTextView {
         rightHeight = typedArray.getDimensionPixelSize(R.styleable.MyTextView_right_height, drawableHeight)
         typedArray.recycle()
 
-        //取出设置的各个Drawable
+        //Drawable
         val drawables = compoundDrawables
         val relativeDrawables = compoundDrawablesRelative
         val left = drawables[0]
@@ -100,8 +86,9 @@ class MyTextView : AppCompatTextView {
     }
 
 
+     *  TextView  compound drawable **px**.
     /**
-     * 统一设置该 TextView 所有 compound drawable 高度，单位**px**.
+     * Function description.
      */
     fun setDrawableHeightPx(pxHeight: Int) {
         topHeight = pxHeight
@@ -114,22 +101,25 @@ class MyTextView : AppCompatTextView {
     }
 
 
+     *  drawableStart  drawableXX  null.
     /**
-     * 设置 drawableStart 并将其他 drawableXX 置为 null.
+     * Function description.
      */
     fun setOnlyDrawableStart(drawable: Drawable?) {
         setCompoundDrawablesRelative(drawable, null, null, null)
     }
+     *  drawableStart  drawableXX  null.
     /**
-     * 设置 drawableStart 并将其他 drawableXX 置为 null.
+     * Function description.
      */
     fun setOnlyDrawableStart(@DrawableRes start: Int) {
         setCompoundDrawablesRelativeWithIntrinsicBounds(start, 0, 0, 0)
     }
 
+     *  drawable.
+     * true- drawable false
     /**
-     * 判断是否有设置任意 drawable.
-     * true-至少有一个 drawable false-一个都没有
+     * Function description.
      */
     fun hasAnyDrawable(): Boolean {
         for (drawable in compoundDrawables) {
@@ -145,9 +135,7 @@ class MyTextView : AppCompatTextView {
         return false
     }
 
-    /**
-     * 为指定 drawable 设置指定高度，宽度等比缩放 bounds.
-     */
+     *  drawable  bounds.
     private fun setDrawableBounds(drawable: Drawable?, height: Int) {
         if (drawable != null && height > 0) {
             drawable.setBounds(0, 0, (height * 1f * drawable.intrinsicWidth / drawable.intrinsicHeight).toInt(), height)

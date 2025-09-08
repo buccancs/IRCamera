@@ -16,6 +16,9 @@ public class BarEntry extends Entry {
     /**
      * the values the stacked barchart holds
      */
+    /**
+     * Private method description.
+     */
     private float[] mYVals;
 
     /**
@@ -39,6 +42,9 @@ public class BarEntry extends Entry {
      * @param x
      * @param y
      */
+    /**
+     * Method description.
+     */
     public BarEntry(float x, float y) {
         super(x, y);
     }
@@ -50,6 +56,9 @@ public class BarEntry extends Entry {
      * @param y
      * @param data - Spot for additional data this Entry represents.
      */
+    /**
+     * Method description.
+     */
     public BarEntry(float x, float y, Object data) {
         super(x, y, data);
     }
@@ -60,6 +69,9 @@ public class BarEntry extends Entry {
      * @param x
      * @param y
      * @param icon - icon image
+     */
+    /**
+     * Method description.
      */
     public BarEntry(float x, float y, Drawable icon) {
         super(x, y, icon);
@@ -73,6 +85,9 @@ public class BarEntry extends Entry {
      * @param icon - icon image
      * @param data - Spot for additional data this Entry represents.
      */
+    /**
+     * Method description.
+     */
     public BarEntry(float x, float y, Drawable icon, Object data) {
         super(x, y, icon, data);
     }
@@ -82,6 +97,9 @@ public class BarEntry extends Entry {
      *
      * @param x
      * @param vals - the stack values, use at least 2
+     */
+    /**
+     * Method description.
      */
     public BarEntry(float x, float[] vals) {
         super(x, calcSum(vals));
@@ -98,6 +116,9 @@ public class BarEntry extends Entry {
      * @param vals - the stack values, use at least 2
      * @param data - Spot for additional data this Entry represents.
      */
+    /**
+     * Method description.
+     */
     public BarEntry(float x, float[] vals, Object data) {
         super(x, calcSum(vals), data);
 
@@ -112,6 +133,9 @@ public class BarEntry extends Entry {
      * @param x
      * @param vals - the stack values, use at least 2
      * @param icon - icon image
+     */
+    /**
+     * Method description.
      */
     public BarEntry(float x, float[] vals, Drawable icon) {
         super(x, calcSum(vals), icon);
@@ -129,6 +153,9 @@ public class BarEntry extends Entry {
      * @param icon - icon image
      * @param data - Spot for additional data this Entry represents.
      */
+    /**
+     * Method description.
+     */
     public BarEntry(float x, float[] vals, Drawable icon, Object data) {
         super(x, calcSum(vals), icon, data);
 
@@ -139,6 +166,9 @@ public class BarEntry extends Entry {
 
     /**
      * Returns an exact copy of the BarEntry.
+     */
+    /**
+     * Method description.
      */
     public BarEntry copy() {
 
@@ -153,6 +183,9 @@ public class BarEntry extends Entry {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public float[] getYVals() {
         return mYVals;
     }
@@ -161,6 +194,9 @@ public class BarEntry extends Entry {
      * Set the array of values this BarEntry should represent.
      *
      * @param vals
+     */
+    /**
+     * Method description.
      */
     public void setVals(float[] vals) {
         setY(calcSum(vals));
@@ -175,6 +211,9 @@ public class BarEntry extends Entry {
      * @return
      */
     @Override
+    /**
+     * Method description.
+     */
     public float getY() {
         return super.getY();
     }
@@ -183,6 +222,9 @@ public class BarEntry extends Entry {
      * Returns the ranges of the individual stack-entries. Will return null if this entry is not stacked.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public Range[] getRanges() {
         return mRanges;
@@ -193,6 +235,9 @@ public class BarEntry extends Entry {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public boolean isStacked() {
         return mYVals != null;
     }
@@ -201,10 +246,16 @@ public class BarEntry extends Entry {
      * Use `getSumBelow(stackIndex)` instead.
      */
     @Deprecated
+    /**
+     * Method description.
+     */
     public float getBelowSum(int stackIndex) {
         return getSumBelow(stackIndex);
     }
 
+    /**
+     * Method description.
+     */
     public float getSumBelow(int stackIndex) {
 
         if (mYVals == null)
@@ -226,6 +277,9 @@ public class BarEntry extends Entry {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public float getPositiveSum() {
         return mPositiveSum;
     }
@@ -235,10 +289,16 @@ public class BarEntry extends Entry {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public float getNegativeSum() {
         return mNegativeSum;
     }
 
+    /**
+     * Private method description.
+     */
     private void calcPosNegSum() {
 
         if (mYVals == null) {
@@ -266,6 +326,9 @@ public class BarEntry extends Entry {
      *
      * @param vals
      * @return
+     */
+    /**
+     * Private method description.
      */
     private static float calcSum(float[] vals) {
 

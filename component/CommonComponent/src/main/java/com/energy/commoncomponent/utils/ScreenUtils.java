@@ -16,25 +16,29 @@ import android.widget.PopupWindow;
 
 import java.lang.reflect.Method;
 
-/*
- * @Description:
- * @Author:         brilliantzhao
- * @CreateDate:     2022.9.8 10:25
- * @UpdateUser:
- * @UpdateDate:     2022.9.8 10:25
- * @UpdateRemark:
+/**
+ * Utility class.
+ * 
+ * @author brilliantzhao
+ * @since 2022.9.8 10:25
  */
 public class ScreenUtils {
+    /**
+     * Private method description.
+     */
     private ScreenUtils() {
         /* cannot be instantiated */
         throw new UnsupportedOperationException("cannot be instantiated");
     }
 
     /**
-     * 获得屏幕高度
+     * Method description.
      *
-     * @param context
-     * @return
+     * @param parameter parameter description
+     * @return return value
+     */
+    /**
+     * Method description.
      */
     public static int getScreenWidth(Context context) {
         WindowManager wm = (WindowManager) context
@@ -45,10 +49,13 @@ public class ScreenUtils {
     }
 
     /**
-     * 获得屏幕宽度
+     * Method description.
      *
-     * @param context
-     * @return
+     * @param parameter parameter description
+     * @return return value
+     */
+    /**
+     * Method description.
      */
     public static int getScreenHeight(Context context) {
         WindowManager wm = (WindowManager) context
@@ -59,10 +66,13 @@ public class ScreenUtils {
     }
 
     /**
-     * 获得状态栏的高度
+     * Method description.
      *
-     * @param context
-     * @return
+     * @param parameter parameter description
+     * @return return value
+     */
+    /**
+     * Method description.
      */
     public static int getStatusHeight(Context context) {
 
@@ -80,10 +90,13 @@ public class ScreenUtils {
     }
 
     /**
-     * 获取当前屏幕截图，包含状态栏
+     * Method description.
      *
-     * @param activity
-     * @return
+     * @param parameter parameter description
+     * @return return value
+     */
+    /**
+     * Method description.
      */
     public static Bitmap snapShotWithStatusBar(Activity activity) {
         View view = activity.getWindow().getDecorView();
@@ -100,17 +113,26 @@ public class ScreenUtils {
     }
 
     /**
-     * 得到设备的dpi
+     * Gets the screen density DPI.
+     * 
+     * @param context the application context
+     * @return the screen density DPI
+     */
+    /**
+     * Method description.
      */
     public static int getScreenDensityDpi(Context context) {
         return context.getResources().getDisplayMetrics().densityDpi;
     }
 
     /**
-     * 获取当前屏幕截图，不包含状态栏
+     * Method description.
      *
-     * @param activity
-     * @return
+     * @param parameter parameter description
+     * @return return value
+     */
+    /**
+     * Method description.
      */
     public static Bitmap snapShotWithoutStatusBar(Activity activity) {
         View view = activity.getWindow().getDecorView();
@@ -132,10 +154,13 @@ public class ScreenUtils {
     }
 
     /**
-     * 获取 虚拟按键的高度
+     * Method description.
      *
-     * @param context
-     * @return
+     * @param parameter parameter description
+     * @return return value
+     */
+    /**
+     * Method description.
      */
     public static int getBottomStatusHeight(Context context) {
         int totalHeight = getDpi(context);
@@ -145,7 +170,9 @@ public class ScreenUtils {
         return totalHeight - contentHeight;
     }
 
-    //获取屏幕原始尺寸高度，包括虚拟功能键高度
+    /**
+     * Method description.
+     */
     public static int getDpi(Context context) {
         int dpi = 0;
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -166,36 +193,52 @@ public class ScreenUtils {
     }
 
     /**
-     * dp转px
-     * 16dp - 48px
-     * 17dp - 51px
+     * Converts density-independent pixels to pixels.
+     * Example: 16dp → 48px, 17dp → 51px
+     * 
+     * @param dpValue the value in density-independent pixels
+     * @return the value in pixels
+     */
+    /**
+     * Method description.
      */
     public static int dp2px(float dpValue) {
         final float scale = Resources.getSystem().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
 
+    /**
+     * Method description.
+     */
     public static int sp2px(final float spValue) {
         final float fontScale = Resources.getSystem().getDisplayMetrics().scaledDensity;
         return (int) (spValue * fontScale + 0.5f);
     }
 
     /**
-     * 屏幕密度比例
+     * Method description.
      */
     public static float getScreenDendity(Context context) {
         return context.getResources().getDisplayMetrics().density;//3
     }
 
     /**
-     * @param context
-     * @param info
+     * Shows a normal information dialog.
+     * 
+     * @param context the application context
+     * @param info the information message to display
+     * @param dismissListener the dismiss listener callback
+     * @return the created dialog
+     */
+    /**
+     * Method description.
      */
     public static Dialog showNormalDialog(Context context, String info, PopupWindow.OnDismissListener dismissListener) {
-        /* @setIcon 设置对话框图标
-         * @setTitle 设置对话框标题
-         * @setMessage 设置对话框消息提示
-         * setXXX方法返回Dialog对象，因此可以链式设置属性
+        /*
+         * @setIcon - sets dialog icon
+         * @setTitle - sets dialog title
+         * @setMessage - sets dialog message
+         * setXXXDialog - configures dialog type
          */
         final AlertDialog.Builder normalDialog =
                 new AlertDialog.Builder(context);
@@ -210,7 +253,6 @@ public class ScreenUtils {
                         dismissListener.onDismiss();
                     }
                 });
-        // 显示
         return normalDialog.show();
     }
 

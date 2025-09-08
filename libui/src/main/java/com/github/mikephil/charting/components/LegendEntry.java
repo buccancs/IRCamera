@@ -6,6 +6,9 @@ import android.graphics.DashPathEffect;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 public class LegendEntry {
+    /**
+     * Method description.
+     */
     public LegendEntry() {
 
     }
@@ -18,6 +21,9 @@ public class LegendEntry {
      * @param formLineWidth Set to NaN to use the legend's default.
      * @param formLineDashEffect Set to nil to use the legend's default.
      * @param formColor The color for drawing the form.
+     */
+    /**
+     * Method description.
      */
     public LegendEntry(String label,
                        Legend.LegendForm form,

@@ -22,10 +22,15 @@ import java.io.File
 import java.util.concurrent.CountDownLatch
 
 class UpReportViewModel : BaseViewModel() {
+    /** commonBeanLD property */
     val commonBeanLD = SingleLiveEvent<CommonBean>()
 
+    /** exceptionLD property */
     val exceptionLD = SingleLiveEvent<Exception?>()
 
+    /**
+     * Function description.
+     */
     fun upload(isTC007: Boolean, reportBean: ReportBean?) {
         viewModelScope.launch {
             uploadImages(reportBean)
@@ -52,12 +57,12 @@ class UpReportViewModel : BaseViewModel() {
                             reportIrBean.picture_id = jsonObject.getString("fileSecret")
                             reportIrBean.picture_url = jsonObject.getString("url")
                         }
-                        XLog.i("上传完一张图")
+                        XLog.i("")
                         downLatch.countDown()
                     }
                 }
                 downLatch.await()
-                XLog.i("${irList.size} 张图上传完毕")
+                XLog.i("${irList.size} ")
             }
         }
     }

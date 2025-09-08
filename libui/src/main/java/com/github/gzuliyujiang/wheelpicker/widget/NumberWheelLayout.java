@@ -1,15 +1,12 @@
-/*
- * Copyright (c) 2016-present 贵州纳雍穿青人李裕江<1032694760@qq.com>
- *
+ * Copyright (c) 2016-present <1032694760@qq.com>
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
  *     http://license.coscl.org.cn/MulanPSL2
- * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
+ * THIS SOFTWARE IS PROVIDED ON AN AS IS BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
  * See the Mulan PSL v2 for more details.
- */
 
 package com.github.gzuliyujiang.wheelpicker.widget;
 
@@ -25,32 +22,43 @@ import com.github.gzuliyujiang.wheelpicker.contract.OnOptionSelectedListener;
 import com.github.gzuliyujiang.wheelview.annotation.CurtainCorner;
 import com.github.gzuliyujiang.wheelview.annotation.ItemTextAlign;
 import com.github.gzuliyujiang.wheelview.widget.WheelView;
-import com.topdon.lib.ui.R;
+import com.csl.irCamera.libui.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 数字滚轮控件
- *
- * @author 贵州山野羡民（1032694760@qq.com）
+ * @author 1032694760@qq.com
  * @since 2021/6/5 18:35
- */
 public class NumberWheelLayout extends OptionWheelLayout {
+    /**
+     * Private method description.
+     */
     private OnNumberSelectedListener onNumberSelectedListener;
 
+    /**
+     * Method description.
+     */
     public NumberWheelLayout(Context context) {
         super(context);
     }
 
+    /**
+     * Method description.
+     */
     public NumberWheelLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * Method description.
+     */
     public NumberWheelLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
+    /**
+     * Method description.
+     */
     public NumberWheelLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
@@ -99,6 +107,9 @@ public class NumberWheelLayout extends OptionWheelLayout {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onWheelSelected(WheelView view, int position) {
         if (onNumberSelectedListener != null) {
             Object item = getWheelView().getItem(position);
@@ -106,32 +117,40 @@ public class NumberWheelLayout extends OptionWheelLayout {
         }
     }
 
-    /**
-     * @deprecated 使用 {@link #setRange} 代替
-     */
+     * @deprecated  {@link #setRange}
     @Deprecated
     @Override
+    /**
+     * Method description.
+     */
     public void setData(List<?> data) {
         throw new UnsupportedOperationException("Use setRange instead");
     }
 
-    /**
-     * @deprecated 使用 {@link #setOnNumberSelectedListener} 代替
-     */
+     * @deprecated  {@link #setOnNumberSelectedListener}
     @Deprecated
     @Override
+    /**
+     * Method description.
+     */
     public void setOnOptionSelectedListener(OnOptionSelectedListener onOptionSelectedListener) {
         throw new UnsupportedOperationException("Use setOnNumberSelectedListener instead");
     }
 
+    /**
+     * Method description.
+     */
     public void setOnNumberSelectedListener(OnNumberSelectedListener onNumberSelectedListener) {
         this.onNumberSelectedListener = onNumberSelectedListener;
     }
 
+    /**
+     * Method description.
+     */
     public void setRange(int min, int max, int step) {
         int minValue = Math.min(min, max);
         int maxValue = Math.max(min, max);
-        // 指定初始容量，避免OutOfMemory
+        // OutOfMemory
         int capacity = (maxValue - minValue) / step;
         List<Integer> data = new ArrayList<>(capacity);
         for (int i = minValue; i <= maxValue; i = i + step) {
@@ -140,10 +159,13 @@ public class NumberWheelLayout extends OptionWheelLayout {
         super.setData(data);
     }
 
+    /**
+     * Method description.
+     */
     public void setRange(float min, float max, float step) {
         float minValue = Math.min(min, max);
         float maxValue = Math.max(min, max);
-        // 指定初始容量，避免OutOfMemory
+        // OutOfMemory
         int capacity = (int) ((maxValue - minValue) / step);
         List<Float> data = new ArrayList<>(capacity);
         for (float i = minValue; i <= maxValue; i = i + step) {

@@ -27,6 +27,9 @@ public class BubbleChartRenderer extends BarLineScatterCandleBubbleRenderer {
 
     protected BubbleDataProvider mChart;
 
+    /**
+     * Method description.
+     */
     public BubbleChartRenderer(BubbleDataProvider chart, ChartAnimator animator,
                                ViewPortHandler viewPortHandler) {
         super(animator, viewPortHandler);
@@ -39,11 +42,17 @@ public class BubbleChartRenderer extends BarLineScatterCandleBubbleRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void initBuffers() {
 
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawData(Canvas c) {
 
         BubbleData bubbleData = mChart.getBubbleData();
@@ -55,6 +64,9 @@ public class BubbleChartRenderer extends BarLineScatterCandleBubbleRenderer {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private float[] sizeBuffer = new float[4];
     private float[] pointBuffer = new float[2];
 
@@ -116,6 +128,9 @@ public class BubbleChartRenderer extends BarLineScatterCandleBubbleRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawValues(Canvas c) {
 
         BubbleData bubbleData = mChart.getBubbleData();
@@ -197,18 +212,30 @@ public class BubbleChartRenderer extends BarLineScatterCandleBubbleRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawValue(Canvas c, String valueText, float x, float y, int color) {
         mValuePaint.setColor(color);
         c.drawText(valueText, x, y, mValuePaint);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawExtras(Canvas c) {
     }
 
+    /**
+     * Private method description.
+     */
     private float[] _hsvBuffer = new float[3];
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawHighlighted(Canvas c, Highlight[] indices) {
 
         BubbleData bubbleData = mChart.getBubbleData();

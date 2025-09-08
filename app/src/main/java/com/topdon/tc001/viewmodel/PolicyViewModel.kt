@@ -10,10 +10,12 @@ import kotlinx.coroutines.launch
 
 class PolicyViewModel : BaseViewModel() {
 
+    /** htmlViewData property */
     val htmlViewData = SingleLiveEvent<HtmlBean>()
 
+     * @param type 1:  2:  3:
     /**
-     * @param type 1: 用户服务协议 2: 隐私政策 3: 第三方组件
+     * Function description.
      */
     fun getUrl(type: Int) {
         viewModelScope.launch(Dispatchers.IO) {

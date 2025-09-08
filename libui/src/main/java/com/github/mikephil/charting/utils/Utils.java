@@ -33,9 +33,15 @@ import java.util.List;
  */
 public abstract class Utils {
 
+    /**
+     * Private method description.
+     */
     private static DisplayMetrics mMetrics;
     private static int mMinimumFlingVelocity = 50;
     private static int mMaximumFlingVelocity = 8000;
+    /**
+     * Method description.
+     */
     public final static double DEG2RAD = (Math.PI / 180.0);
     public final static float FDEG2RAD = ((float) Math.PI / 180.f);
 
@@ -79,6 +85,9 @@ public abstract class Utils {
      * @param res
      */
     @Deprecated
+    /**
+     * Method description.
+     */
     public static void init(Resources res) {
 
         mMetrics = res.getDisplayMetrics();
@@ -97,6 +106,9 @@ public abstract class Utils {
      *           to convert into pixels
      * @return A float value to represent px equivalent to dp depending on
      * device density
+     */
+    /**
+     * Method description.
      */
     public static float convertDpToPixel(float dp) {
 
@@ -118,6 +130,9 @@ public abstract class Utils {
      *
      * @param px A value in px (pixels) unit. Which we need to convert into db
      * @return A float value to represent dp equivalent to px value
+     */
+    /**
+     * Method description.
      */
     public static float convertPixelsToDp(float px) {
 
@@ -141,10 +156,16 @@ public abstract class Utils {
      * @param demoText
      * @return
      */
+    /**
+     * Method description.
+     */
     public static int calcTextWidth(Paint paint, String demoText) {
         return (int) paint.measureText(demoText);
     }
 
+    /**
+     * Private method description.
+     */
     private static Rect mCalcTextHeightRect = new Rect();
     /**
      * calculates the approximate height of a text, depending on a demo text
@@ -154,6 +175,9 @@ public abstract class Utils {
      * @param demoText
      * @return
      */
+    /**
+     * Method description.
+     */
     public static int calcTextHeight(Paint paint, String demoText) {
 
         Rect r = mCalcTextHeightRect;
@@ -162,21 +186,36 @@ public abstract class Utils {
         return r.height();
     }
 
+    /**
+     * Private method description.
+     */
     private static Paint.FontMetrics mFontMetrics = new Paint.FontMetrics();
 
+    /**
+     * Method description.
+     */
     public static float getLineHeight(Paint paint) {
         return getLineHeight(paint, mFontMetrics);
     }
 
+    /**
+     * Method description.
+     */
     public static float getLineHeight(Paint paint, Paint.FontMetrics fontMetrics){
         paint.getFontMetrics(fontMetrics);
         return fontMetrics.descent - fontMetrics.ascent;
     }
 
+    /**
+     * Method description.
+     */
     public static float getLineSpacing(Paint paint) {
         return getLineSpacing(paint, mFontMetrics);
     }
 
+    /**
+     * Method description.
+     */
     public static float getLineSpacing(Paint paint, Paint.FontMetrics fontMetrics){
         paint.getFontMetrics(fontMetrics);
         return fontMetrics.ascent - fontMetrics.top + fontMetrics.bottom;
@@ -191,6 +230,9 @@ public abstract class Utils {
      * @param demoText
      * @return A Recyclable FSize instance
      */
+    /**
+     * Method description.
+     */
     public static FSize calcTextSize(Paint paint, String demoText) {
 
         FSize result = FSize.getInstance(0,0);
@@ -198,6 +240,9 @@ public abstract class Utils {
         return result;
     }
 
+    /**
+     * Private method description.
+     */
     private static Rect mCalcTextSizeRect = new Rect();
     /**
      * calculates the approximate size of a text, depending on a demo text
@@ -206,6 +251,9 @@ public abstract class Utils {
      * @param paint
      * @param demoText
      * @param outputFSize An output variable, modified by the function.
+     */
+    /**
+     * Method description.
      */
     public static void calcTextSize(Paint paint, String demoText, FSize outputFSize) {
 
@@ -222,10 +270,16 @@ public abstract class Utils {
      * Math.pow(...) is very expensive, so avoid calling it and create it
      * yourself.
      */
+    /**
+     * Private method description.
+     */
     private static final int POW_10[] = {
             1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000
     };
 
+    /**
+     * Private method description.
+     */
     private static ValueFormatter mDefaultValueFormatter = generateDefaultValueFormatter();
 
     private static ValueFormatter generateDefaultValueFormatter() {
@@ -233,6 +287,9 @@ public abstract class Utils {
     }
 
     /// - returns: The default value formatter used for all chart components that needs a default
+    /**
+     * Method description.
+     */
     public static ValueFormatter getDefaultValueFormatter()
     {
         return mDefaultValueFormatter;
@@ -248,6 +305,9 @@ public abstract class Utils {
      * @param separateThousands set this to true to separate thousands values
      * @return
      */
+    /**
+     * Method description.
+     */
     public static String formatNumber(float number, int digitCount, boolean separateThousands) {
         return formatNumber(number, digitCount, separateThousands, '.');
     }
@@ -261,6 +321,9 @@ public abstract class Utils {
      * @param separateThousands set this to true to separate thousands values
      * @param separateChar      a caracter to be paced between the "thousands"
      * @return
+     */
+    /**
+     * Method description.
      */
     public static String formatNumber(float number, int digitCount, boolean separateThousands,
                                       char separateChar) {
@@ -348,6 +411,9 @@ public abstract class Utils {
      * @param number
      * @return
      */
+    /**
+     * Method description.
+     */
     public static float roundToNextSignificant(double number) {
         if (Double.isInfinite(number) ||
             Double.isNaN(number) ||
@@ -368,6 +434,9 @@ public abstract class Utils {
      * @param number
      * @return
      */
+    /**
+     * Method description.
+     */
     public static int getDecimals(float number) {
 
         float i = roundToNextSignificant(number);
@@ -384,6 +453,9 @@ public abstract class Utils {
      * @param integers
      * @return
      */
+    /**
+     * Method description.
+     */
     public static int[] convertIntegers(List<Integer> integers) {
 
         int[] ret = new int[integers.size()];
@@ -393,6 +465,9 @@ public abstract class Utils {
         return ret;
     }
 
+    /**
+     * Method description.
+     */
     public static void copyIntegers(List<Integer> from, int[] to){
         int count = to.length < from.size() ? to.length : from.size();
         for(int i = 0 ; i < count ; i++){
@@ -406,6 +481,9 @@ public abstract class Utils {
      * @param strings
      * @return
      */
+    /**
+     * Method description.
+     */
     public static String[] convertStrings(List<String> strings) {
 
         String[] ret = new String[strings.size()];
@@ -417,6 +495,9 @@ public abstract class Utils {
         return ret;
     }
 
+    /**
+     * Method description.
+     */
     public static void copyStrings(List<String> from, String[] to){
         int count = to.length < from.size() ? to.length : from.size();
         for(int i = 0 ; i < count ; i++){
@@ -430,6 +511,9 @@ public abstract class Utils {
      *
      * @param d
      * @return
+     */
+    /**
+     * Method description.
      */
     public static double nextUp(double d) {
         if (d == Double.POSITIVE_INFINITY)
@@ -451,6 +535,9 @@ public abstract class Utils {
      * @param angle  in degrees, converted to radians internally
      * @return
      */
+    /**
+     * Method description.
+     */
     public static MPPointF getPosition(MPPointF center, float dist, float angle) {
 
         MPPointF p = MPPointF.getInstance(0,0);
@@ -458,11 +545,17 @@ public abstract class Utils {
         return p;
     }
 
+    /**
+     * Method description.
+     */
     public static void getPosition(MPPointF center, float dist, float angle, MPPointF outputPoint){
         outputPoint.x = (float) (center.x + dist * Math.cos(Math.toRadians(angle)));
         outputPoint.y = (float) (center.y + dist * Math.sin(Math.toRadians(angle)));
     }
 
+    /**
+     * Method description.
+     */
     public static void velocityTrackerPointerUpCleanUpIfNecessary(MotionEvent ev,
                                                                   VelocityTracker tracker) {
 
@@ -496,6 +589,9 @@ public abstract class Utils {
      * @param view
      */
     @SuppressLint("NewApi")
+    /**
+     * Method description.
+     */
     public static void postInvalidateOnAnimation(View view) {
         if (Build.VERSION.SDK_INT >= 16)
             view.postInvalidateOnAnimation();
@@ -503,16 +599,25 @@ public abstract class Utils {
             view.postInvalidateDelayed(10);
     }
 
+    /**
+     * Method description.
+     */
     public static int getMinimumFlingVelocity() {
         return mMinimumFlingVelocity;
     }
 
+    /**
+     * Method description.
+     */
     public static int getMaximumFlingVelocity() {
         return mMaximumFlingVelocity;
     }
 
     /**
      * returns an angle between 0.f < 360.f (not less than zero, less than 360)
+     */
+    /**
+     * Method description.
      */
     public static float getNormalizedAngle(float angle) {
         while (angle < 0.f)
@@ -521,8 +626,14 @@ public abstract class Utils {
         return angle % 360.f;
     }
 
+    /**
+     * Private method description.
+     */
     private static Rect mDrawableBoundsCache = new Rect();
 
+    /**
+     * Method description.
+     */
     public static void drawImage(Canvas canvas,
                                  Drawable drawable,
                                  int x, int y,
@@ -546,9 +657,15 @@ public abstract class Utils {
         canvas.restoreToCount(saveId);
     }
 
+    /**
+     * Private method description.
+     */
     private static Rect mDrawTextRectBuffer = new Rect();
     private static Paint.FontMetrics mFontMetricsBuffer = new Paint.FontMetrics();
 
+    /**
+     * Method description.
+     */
     public static void drawXAxisValue(Canvas c, String text, float x, float y,
                                       Paint paint,
                                       MPPointF anchor, float angleDegrees) {
@@ -615,6 +732,9 @@ public abstract class Utils {
         paint.setTextAlign(originalTextAlign);
     }
 
+    /**
+     * Method description.
+     */
     public static void drawMultilineText(Canvas c, StaticLayout textLayout,
                                          float x, float y,
                                          TextPaint paint,
@@ -692,6 +812,9 @@ public abstract class Utils {
         paint.setTextAlign(originalTextAlign);
     }
 
+    /**
+     * Method description.
+     */
     public static void drawMultilineText(Canvas c, String text,
                                          float x, float y,
                                          TextPaint paint,
@@ -716,6 +839,9 @@ public abstract class Utils {
      * @param degrees
      * @return A Recyclable FSize instance
      */
+    /**
+     * Method description.
+     */
     public static FSize getSizeOfRotatedRectangleByDegrees(FSize rectangleSize, float degrees) {
         final float radians = degrees * FDEG2RAD;
         return getSizeOfRotatedRectangleByRadians(rectangleSize.width, rectangleSize.height,
@@ -730,6 +856,9 @@ public abstract class Utils {
      * @param radians
      * @return A Recyclable FSize instance
      */
+    /**
+     * Method description.
+     */
     public static FSize getSizeOfRotatedRectangleByRadians(FSize rectangleSize, float radians) {
         return getSizeOfRotatedRectangleByRadians(rectangleSize.width, rectangleSize.height,
                 radians);
@@ -743,6 +872,9 @@ public abstract class Utils {
      * @param rectangleHeight
      * @param degrees
      * @return A Recyclable FSize instance
+     */
+    /**
+     * Method description.
      */
     public static FSize getSizeOfRotatedRectangleByDegrees(float rectangleWidth, float
             rectangleHeight, float degrees) {
@@ -759,6 +891,9 @@ public abstract class Utils {
      * @param radians
      * @return A Recyclable FSize instance
      */
+    /**
+     * Method description.
+     */
     public static FSize getSizeOfRotatedRectangleByRadians(float rectangleWidth, float
             rectangleHeight, float radians) {
         return FSize.getInstance(
@@ -769,6 +904,9 @@ public abstract class Utils {
         );
     }
 
+    /**
+     * Method description.
+     */
     public static int getSDKInt() {
         return Build.VERSION.SDK_INT;
     }

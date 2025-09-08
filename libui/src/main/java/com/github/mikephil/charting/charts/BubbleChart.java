@@ -18,14 +18,23 @@ import com.github.mikephil.charting.renderer.BubbleChartRenderer;
  */
 public class BubbleChart extends BarLineChartBase<BubbleData> implements BubbleDataProvider {
 
+    /**
+     * Method description.
+     */
     public BubbleChart(Context context) {
         super(context);
     }
 
+    /**
+     * Method description.
+     */
     public BubbleChart(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * Method description.
+     */
     public BubbleChart(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
@@ -37,6 +46,9 @@ public class BubbleChart extends BarLineChartBase<BubbleData> implements BubbleD
         mRenderer = new BubbleChartRenderer(this, mAnimator, mViewPortHandler);
     }
 
+    /**
+     * Method description.
+     */
     public BubbleData getBubbleData() {
         return mData;
     }

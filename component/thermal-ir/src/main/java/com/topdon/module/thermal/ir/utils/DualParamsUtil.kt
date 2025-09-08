@@ -3,14 +3,15 @@ package com.topdon.module.thermal.ir.utils
 import com.energy.iruvc.utils.DualCameraParams
 import com.topdon.lib.core.common.SaveSettingUtil
 
-/**
 author: CaiSongL
 date: 2024/2/1 17:59
-des:艾睿枚举参数转换工具
- **/
+des:
 object DualParamsUtil {
 
 
+    /**
+     * Function description.
+     */
     fun wifiFusionTypeToParams(fusionType: Int) : Int{
         return when(fusionType){
             SaveSettingUtil.FusionTypeVLOnly -> 3
@@ -22,6 +23,9 @@ object DualParamsUtil {
     }
 
 
+    /**
+     * Function description.
+     */
     fun fusionTypeToParams(fusionType: Int) : DualCameraParams.FusionType {
         return when(fusionType){
             SaveSettingUtil.FusionTypeVLOnly -> DualCameraParams.FusionType.VLOnly
@@ -34,9 +38,12 @@ object DualParamsUtil {
             else -> DualCameraParams.FusionType.LPYFusion
         }
     }
+    /**
+     * Function description.
+     */
     fun paramsToFusionType(fusionTypeP: DualCameraParams.FusionType) : Int{
         return when(fusionTypeP){
-            DualCameraParams.FusionType.VLOnly  -> SaveSettingUtil.FusionTypeVLOnly
+            DualCameraParams.FusionType.VLOnly -> SaveSettingUtil.FusionTypeVLOnly
             DualCameraParams.FusionType.IROnlyNoFusion -> SaveSettingUtil.FusionTypeIROnlyNoFusion
             DualCameraParams.FusionType.ScreenFusion -> SaveSettingUtil.FusionTypeScreenFusion
             DualCameraParams.FusionType.HSLFusion -> SaveSettingUtil.FusionTypeHSLFusion

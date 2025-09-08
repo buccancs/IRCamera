@@ -1,15 +1,12 @@
-/*
- * Copyright (c) 2016-present 贵州纳雍穿青人李裕江<1032694760@qq.com>
- *
+ * Copyright (c) 2016-present <1032694760@qq.com>
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
  *     http://license.coscl.org.cn/MulanPSL2
- * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
+ * THIS SOFTWARE IS PROVIDED ON AN AS IS BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
  * See the Mulan PSL v2 for more details.
- */
 
 package com.github.gzuliyujiang.wheelpicker.widget;
 
@@ -32,19 +29,18 @@ import com.github.gzuliyujiang.wheelview.annotation.ScrollState;
 import com.github.gzuliyujiang.wheelview.contract.WheelFormatter;
 import com.github.gzuliyujiang.wheelview.widget.NumberWheelView;
 import com.github.gzuliyujiang.wheelview.widget.WheelView;
-import com.topdon.lib.ui.R;
+import com.csl.irCamera.libui.R;
 
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * 日期滚轮控件
- *
- * @author 贵州山野羡民（1032694760@qq.com）
+ * @author 1032694760@qq.com
  * @since 2021/6/5 16:12
- */
 @SuppressWarnings("unused")
 public class DateWheelLayout extends BaseWheelLayout {
+    /**
+     * Private method description.
+     */
     private NumberWheelView yearWheelView;
     private NumberWheelView monthWheelView;
     private NumberWheelView dayWheelView;
@@ -61,18 +57,30 @@ public class DateWheelLayout extends BaseWheelLayout {
     private OnDateSelectedListener onDateSelectedListener;
     private boolean resetWhenLinkage = true;
 
+    /**
+     * Method description.
+     */
     public DateWheelLayout(Context context) {
         super(context);
     }
 
+    /**
+     * Method description.
+     */
     public DateWheelLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * Method description.
+     */
     public DateWheelLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
+    /**
+     * Method description.
+     */
     public DateWheelLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
@@ -103,7 +111,6 @@ public class DateWheelLayout extends BaseWheelLayout {
         spaceStartView = findViewById(R.id.wheel_picker_date_start_view);
         spaceEndView = findViewById(R.id.wheel_picker_date_end_view);
 
-        //设置高度
         post(new Runnable() {
             @Override
             public void run() {
@@ -159,6 +166,9 @@ public class DateWheelLayout extends BaseWheelLayout {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onWheelSelected(WheelView view, int position) {
         int id = view.getId();
         if (id == R.id.wheel_picker_date_year_wheel) {
@@ -187,6 +197,9 @@ public class DateWheelLayout extends BaseWheelLayout {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onWheelScrollStateChanged(WheelView view, @ScrollState int state) {
         int id = view.getId();
         if (id == R.id.wheel_picker_date_year_wheel) {
@@ -205,6 +218,9 @@ public class DateWheelLayout extends BaseWheelLayout {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void dateSelectedCallback() {
         if (onDateSelectedListener == null) {
             return;
@@ -217,6 +233,9 @@ public class DateWheelLayout extends BaseWheelLayout {
         });
     }
 
+    /**
+     * Method description.
+     */
     public void setDateMode(@DateMode int dateMode) {
         yearWheelView.setVisibility(View.VISIBLE);
         yearLabelView.setVisibility(View.VISIBLE);
@@ -252,14 +271,14 @@ public class DateWheelLayout extends BaseWheelLayout {
     }
 
     /**
-     * 设置日期时间范围
+     * Method description.
      */
     public void setRange(DateEntity startValue, DateEntity endValue) {
         setRange(startValue, endValue, null);
     }
 
     /**
-     * 设置日期时间范围
+     * Method description.
      */
     public void setRange(DateEntity startValue, DateEntity endValue, DateEntity defaultValue) {
         if (startValue == null) {
@@ -285,10 +304,16 @@ public class DateWheelLayout extends BaseWheelLayout {
         changeYear();
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultValue(DateEntity defaultValue) {
         setRange(startValue, endValue, defaultValue);
     }
 
+    /**
+     * Method description.
+     */
     public void setDateFormatter(final DateFormatter dateFormatter) {
         if (dateFormatter == null) {
             return;
@@ -313,6 +338,9 @@ public class DateWheelLayout extends BaseWheelLayout {
         });
     }
 
+    /**
+     * Method description.
+     */
     public void setDateLabel(CharSequence year, CharSequence month, CharSequence day) {
         yearLabelView.setText(year);
         monthLabelView.setText(month);
@@ -323,67 +351,115 @@ public class DateWheelLayout extends BaseWheelLayout {
 //        dayLabelView.setBackgroundColor(0xffff00ff);
     }
 
+    /**
+     * Method description.
+     */
     public void setOnDateSelectedListener(OnDateSelectedListener onDateSelectedListener) {
         this.onDateSelectedListener = onDateSelectedListener;
     }
 
+    /**
+     * Method description.
+     */
     public void setResetWhenLinkage(boolean resetWhenLinkage) {
         this.resetWhenLinkage = resetWhenLinkage;
     }
 
+    /**
+     * Method description.
+     */
     public final DateEntity getStartValue() {
         return startValue;
     }
 
+    /**
+     * Method description.
+     */
     public final DateEntity getEndValue() {
         return endValue;
     }
 
+    /**
+     * Method description.
+     */
     public final NumberWheelView getYearWheelView() {
         return yearWheelView;
     }
 
+    /**
+     * Method description.
+     */
     public final NumberWheelView getMonthWheelView() {
         return monthWheelView;
     }
 
+    /**
+     * Method description.
+     */
     public final NumberWheelView getDayWheelView() {
         return dayWheelView;
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getYearLabelView() {
         return yearLabelView;
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getMonthLabelView() {
         return monthLabelView;
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getDayLabelView() {
         return dayLabelView;
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getSpaceStartView() {
         return spaceStartView;
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getSpaceEndView() {
         return spaceEndView;
     }
 
 
+    /**
+     * Method description.
+     */
     public final int getSelectedYear() {
         return yearWheelView.getCurrentItem();
     }
 
+    /**
+     * Method description.
+     */
     public final int getSelectedMonth() {
         return monthWheelView.getCurrentItem();
     }
 
+    /**
+     * Method description.
+     */
     public final int getSelectedDay() {
         return dayWheelView.getCurrentItem();
     }
 
+    /**
+     * Private method description.
+     */
     private void changeYear() {
         final int min = Math.min(startValue.getYear(), endValue.getYear());
         final int max = Math.max(startValue.getYear(), endValue.getYear());
@@ -398,24 +474,23 @@ public class DateWheelLayout extends BaseWheelLayout {
         changeMonth(selectedYear);
     }
 
+    /**
+     * Private method description.
+     */
     private void changeMonth(int year) {
         final int min, max;
-        //开始年份和结束年份相同（即只有一个年份，这种情况建议使用月日模式）
         if (startValue.getYear() == endValue.getYear()) {
             min = Math.min(startValue.getMonth(), endValue.getMonth());
             max = Math.max(startValue.getMonth(), endValue.getMonth());
         }
-        //当前所选年份和开始年份相同
         else if (year == startValue.getYear()) {
             min = startValue.getMonth();
             max = 12;
         }
-        //当前所选年份和结束年份相同
         else if (year == endValue.getYear()) {
             min = 1;
             max = endValue.getMonth();
         }
-        //当前所选年份在开始年份和结束年份之间
         else {
             min = 1;
             max = 12;
@@ -431,20 +506,20 @@ public class DateWheelLayout extends BaseWheelLayout {
         changeDay(year, selectedMonth);
     }
 
+    /**
+     * Private method description.
+     */
     private void changeDay(int year, int month) {
         final int min, max;
-        //开始年月及结束年月相同情况
         if (year == startValue.getYear() && month == startValue.getMonth()
                 && year == endValue.getYear() && month == endValue.getMonth()) {
             min = startValue.getDay();
             max = endValue.getDay();
         }
-        //开始年月相同情况
         else if (year == startValue.getYear() && month == startValue.getMonth()) {
             min = startValue.getDay();
             max = getTotalDaysInMonth(year, month);
         }
-        //结束年月相同情况
         else if (year == endValue.getYear() && month == endValue.getMonth()) {
             min = 1;
             max = endValue.getDay();
@@ -462,8 +537,9 @@ public class DateWheelLayout extends BaseWheelLayout {
         dayWheelView.setDefaultValue(selectedDay);
     }
 
+     * {@link java.util.Calendar#getActualMaximum(int)}
     /**
-     * 根据年份及月份获取每月的天数，类似于{@link java.util.Calendar#getActualMaximum(int)}
+     * Private method description.
      */
     private int getTotalDaysInMonth(int year, int month) {
         switch (month) {
@@ -474,20 +550,19 @@ public class DateWheelLayout extends BaseWheelLayout {
             case 8:
             case 10:
             case 12:
-                // 大月月份为31天
+                // 31
                 return 31;
             case 4:
             case 6:
             case 9:
             case 11:
-                // 小月月份为30天
+                // 30
                 return 30;
             case 2:
-                // 二月需要判断是否闰年
                 if (year <= 0) {
                     return 29;
                 }
-                // 是否闰年：能被4整除但不能被100整除；能被400整除；
+                // 4100400
                 boolean isLeap = (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
                 if (isLeap) {
                     return 29;

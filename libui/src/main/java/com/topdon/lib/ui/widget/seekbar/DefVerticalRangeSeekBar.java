@@ -9,7 +9,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 
-import com.topdon.lib.ui.R;
+import com.csl.irCamera.libui.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -17,42 +17,50 @@ import java.lang.annotation.RetentionPolicy;
 import androidx.annotation.IntDef;
 
 
-/**
  * ================================================
- * 作    者：JayGoo
- * 版    本：
- * 创建日期：2018/5/10
- * 描    述:
+ *     JayGoo
+ * 2018/5/10
+ *     :
  * ================================================
- */
 public class DefVerticalRangeSeekBar extends RangeSeekBar {
 
     //text direction of VerticalRangeSeekBar. include indicator and tickMark
 
-    /**
      * @hide
-     */
     @IntDef({TEXT_DIRECTION_VERTICAL, TEXT_DIRECTION_HORIZONTAL})
     @Retention(RetentionPolicy.SOURCE)
+    /**
+     * Method description.
+     */
     public @interface TextDirectionDef {
     }
 
+    /**
+     * Method description.
+     */
     public final static int TEXT_DIRECTION_VERTICAL = 1;
     public final static int TEXT_DIRECTION_HORIZONTAL = 2;
 
     //direction of VerticalRangeSeekBar
 
-    /**
      * @hide
-     */
     @IntDef({DIRECTION_LEFT, DIRECTION_RIGHT})
     @Retention(RetentionPolicy.SOURCE)
+    /**
+     * Method description.
+     */
     public @interface DirectionDef {
     }
 
+    /**
+     * Method description.
+     */
     public final static int DIRECTION_LEFT = 1;
     public final static int DIRECTION_RIGHT = 2;
 
+    /**
+     * Private method description.
+     */
     private int orientation = DIRECTION_LEFT;
     private int tickMarkDirection = TEXT_DIRECTION_VERTICAL;
 
@@ -62,12 +70,18 @@ public class DefVerticalRangeSeekBar extends RangeSeekBar {
         this(context, null);
     }
 
+    /**
+     * Method description.
+     */
     public DefVerticalRangeSeekBar(Context context, AttributeSet attrs) {
         super(context, attrs);
         initAttrs(attrs);
         initSeekBar(attrs);
     }
 
+    /**
+     * Private method description.
+     */
     private void initAttrs(AttributeSet attrs) {
         try {
             TypedArray t = getContext().obtainStyledAttributes(attrs, R.styleable.VerticalRangeSeekBar);
@@ -95,12 +109,10 @@ public class DefVerticalRangeSeekBar extends RangeSeekBar {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int widthSize = MeasureSpec.getSize(widthMeasureSpec);
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
-        /*
-         * onMeasure传入的widthMeasureSpec和heightMeasureSpec不是一般的尺寸数值，而是将模式和尺寸组合在一起的数值
-         * MeasureSpec.EXACTLY 是精确尺寸
-         * MeasureSpec.AT_MOST 是最大尺寸
-         * MeasureSpec.UNSPECIFIED 是未指定尺寸
-         */
+         * onMeasurewidthMeasureSpecheightMeasureSpec
+         * MeasureSpec.EXACTLY
+         * MeasureSpec.AT_MOST
+         * MeasureSpec.UNSPECIFIED
 
         if (widthMode == MeasureSpec.EXACTLY) {
             widthSize = MeasureSpec.makeMeasureSpec(widthSize, MeasureSpec.EXACTLY);
@@ -141,7 +153,6 @@ public class DefVerticalRangeSeekBar extends RangeSeekBar {
                 if (TextUtils.isEmpty(text2Draw)) continue;
                 paint.getTextBounds(text2Draw, 0, text2Draw.length(), tickMarkTextRect);
                 paint.setColor(getTickMarkTextColor());
-                //平分显示
                 float x;
                 if (getTickMarkMode() == TRICK_MARK_MODE_OTHER) {
                     if (getTickMarkGravity() == TICK_MARK_GRAVITY_RIGHT) {
@@ -157,7 +168,6 @@ public class DefVerticalRangeSeekBar extends RangeSeekBar {
                     if (Utils.compareFloat(num, states[0].value) != -1 && Utils.compareFloat(num, states[1].value) != 1 && (getSeekBarMode() == SEEKBAR_MODE_RANGE)) {
                         paint.setColor(getTickMarkInRangeTextColor());
                     }
-                    //按实际比例显示
                     x = getProgressLeft() + getProgressWidth() * (num - getMinProgress()) / (getMaxProgress() - getMinProgress())
                             - tickMarkTextRect.width() / 2f;
                 }
@@ -208,12 +218,18 @@ public class DefVerticalRangeSeekBar extends RangeSeekBar {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setTickMarkTextSize(int tickMarkTextSize) {
         super.setTickMarkTextSize(tickMarkTextSize);
         maxTickMarkWidth = 0;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setTickMarkTextArray(CharSequence[] tickMarkTextArray) {
         super.setTickMarkTextArray(tickMarkTextArray);
         maxTickMarkWidth = 0;
@@ -237,42 +253,53 @@ public class DefVerticalRangeSeekBar extends RangeSeekBar {
         }
     }
 
-    /**
      * if is single mode, please use it to get the SeekBar
-     *
      * @return left seek bar
+    /**
+     * Method description.
      */
     public DefVerticalSeekBar getLeftSeekBar() {
         return (DefVerticalSeekBar) leftSB;
     }
 
+    /**
+     * Method description.
+     */
     public DefVerticalSeekBar getRightSeekBar() {
         return (DefVerticalSeekBar) rightSB;
     }
 
+    /**
+     * Method description.
+     */
     public int getOrientation() {
         return orientation;
     }
 
-    /**
      * set VerticalRangeSeekBar Orientation
      * {@link #DIRECTION_LEFT}
      * {@link #DIRECTION_RIGHT}
      * @param orientation
+    /**
+     * Method description.
      */
     public void setOrientation(@DirectionDef int orientation) {
         this.orientation = orientation;
     }
 
+    /**
+     * Method description.
+     */
     public int getTickMarkDirection() {
         return tickMarkDirection;
     }
 
-    /**
      * set tick mark text direction
      * {@link #TEXT_DIRECTION_VERTICAL}
      * {@link #TEXT_DIRECTION_HORIZONTAL}
      * @param tickMarkDirection
+    /**
+     * Method description.
      */
     public void setTickMarkDirection(@TextDirectionDef int tickMarkDirection) {
         this.tickMarkDirection = tickMarkDirection;

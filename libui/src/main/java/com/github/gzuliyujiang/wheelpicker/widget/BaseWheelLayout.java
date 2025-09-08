@@ -1,15 +1,12 @@
-/*
- * Copyright (c) 2016-present 贵州纳雍穿青人李裕江<1032694760@qq.com>
- *
+ * Copyright (c) 2016-present <1032694760@qq.com>
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
  *     http://license.coscl.org.cn/MulanPSL2
- * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
+ * THIS SOFTWARE IS PROVIDED ON AN AS IS BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
  * See the Mulan PSL v2 for more details.
- */
 
 package com.github.gzuliyujiang.wheelpicker.widget;
 
@@ -33,22 +30,24 @@ import com.github.gzuliyujiang.wheelview.annotation.ItemTextAlign;
 import com.github.gzuliyujiang.wheelview.annotation.ScrollState;
 import com.github.gzuliyujiang.wheelview.contract.OnWheelChangedListener;
 import com.github.gzuliyujiang.wheelview.widget.WheelView;
-import com.topdon.lib.ui.R;
+import com.csl.irCamera.libui.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 抽象的滚轮控件
- *
- * @author 贵州山野羡民（1032694760@qq.com）
+ * @author 1032694760@qq.com
  * @since 2021/6/5 16:18
- */
 @SuppressWarnings("unused")
 public abstract class BaseWheelLayout extends LinearLayout implements OnWheelChangedListener {
+    /**
+     * Private method description.
+     */
     private final List<WheelView> wheelViews = new ArrayList<>();
     private AttributeSet attrs;
 
+    /**
+     * Method description.
+     */
     public BaseWheelLayout(Context context) {
         super(context);
         init(context, null);
@@ -57,6 +56,9 @@ public abstract class BaseWheelLayout extends LinearLayout implements OnWheelCha
         onAttributeSet(context, a);
     }
 
+    /**
+     * Method description.
+     */
     public BaseWheelLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
@@ -66,6 +68,9 @@ public abstract class BaseWheelLayout extends LinearLayout implements OnWheelCha
         a.recycle();
     }
 
+    /**
+     * Method description.
+     */
     public BaseWheelLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
@@ -75,6 +80,9 @@ public abstract class BaseWheelLayout extends LinearLayout implements OnWheelCha
         a.recycle();
     }
 
+    /**
+     * Method description.
+     */
     public BaseWheelLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
@@ -84,6 +92,9 @@ public abstract class BaseWheelLayout extends LinearLayout implements OnWheelCha
         a.recycle();
     }
 
+    /**
+     * Private method description.
+     */
     private void init(Context context, AttributeSet attrs) {
         this.attrs = attrs;
         setOrientation(VERTICAL);
@@ -111,6 +122,9 @@ public abstract class BaseWheelLayout extends LinearLayout implements OnWheelCha
 
     protected abstract List<WheelView> provideWheelViews();
 
+    /**
+     * Method description.
+     */
     public void setStyle(@StyleRes int style) {
         if (attrs == null) {
             DialogLog.print("Please use " + getClass().getSimpleName() + " in xml");
@@ -124,21 +138,33 @@ public abstract class BaseWheelLayout extends LinearLayout implements OnWheelCha
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onWheelScrolled(WheelView view, int offset) {
 
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onWheelScrollStateChanged(WheelView view, @ScrollState int state) {
 
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onWheelLoopFinished(WheelView view) {
 
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
         for (WheelView wheelView : wheelViews) {
@@ -146,102 +172,153 @@ public abstract class BaseWheelLayout extends LinearLayout implements OnWheelCha
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setVisibleItemCount(int visibleItemCount) {
         for (WheelView wheelView : wheelViews) {
             wheelView.setVisibleItemCount(visibleItemCount);
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setItemSpace(@Px int space) {
         for (WheelView wheelView : wheelViews) {
             wheelView.setItemSpace(space);
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setSameWidthEnabled(boolean sameWidthEnabled) {
         for (WheelView wheelView : wheelViews) {
             wheelView.setSameWidthEnabled(sameWidthEnabled);
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultItemPosition(int position) {
         for (WheelView wheelView : wheelViews) {
             wheelView.setDefaultPosition(position);
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setCurtainEnabled(boolean hasCurtain) {
         for (WheelView wheelView : wheelViews) {
             wheelView.setCurtainEnabled(hasCurtain);
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setCurtainColor(@ColorInt int color) {
         for (WheelView wheelView : wheelViews) {
             wheelView.setCurtainColor(color);
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setCurtainCorner(@CurtainCorner int corner) {
         for (WheelView wheelView : wheelViews) {
             wheelView.setCurtainCorner(corner);
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setCurtainRadius(@Px float radius) {
         for (WheelView wheelView : wheelViews) {
             wheelView.setCurtainRadius(radius);
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setAtmosphericEnabled(boolean hasAtmospheric) {
         for (WheelView wheelView : wheelViews) {
             wheelView.setAtmosphericEnabled(hasAtmospheric);
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setCurvedEnabled(boolean curved) {
         for (WheelView wheelView : wheelViews) {
             wheelView.setCurvedEnabled(curved);
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setCurvedMaxAngle(int curvedMaxAngle) {
         for (WheelView wheelView : wheelViews) {
             wheelView.setCurvedMaxAngle(curvedMaxAngle);
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setCurvedIndicatorSpace(@Px int space) {
         for (WheelView wheelView : wheelViews) {
             wheelView.setCurvedIndicatorSpace(space);
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setCyclicEnabled(boolean cyclic) {
         for (WheelView wheelView : wheelViews) {
             wheelView.setCyclicEnabled(cyclic);
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorEnabled(boolean hasIndicator) {
         for (WheelView wheelView : wheelViews) {
             wheelView.setIndicatorEnabled(hasIndicator);
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorSize(@Px float size) {
         for (WheelView wheelView : wheelViews) {
             wheelView.setIndicatorSize(size);
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorColor(@ColorInt int color) {
         for (WheelView wheelView : wheelViews) {
             wheelView.setIndicatorColor(color);
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setMaxWidthText(String text) {
         if (TextUtils.isEmpty(text)) {
             return;
@@ -251,36 +328,54 @@ public abstract class BaseWheelLayout extends LinearLayout implements OnWheelCha
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setTextSize(@Px float textSize) {
         for (WheelView wheelView : wheelViews) {
             wheelView.setTextSize(textSize);
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setSelectedTextSize(@Px float textSize) {
         for (WheelView wheelView : wheelViews) {
             wheelView.setSelectedTextSize(textSize);
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setTextColor(@ColorInt int color) {
         for (WheelView wheelView : wheelViews) {
             wheelView.setTextColor(color);
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setSelectedTextColor(@ColorInt int color) {
         for (WheelView wheelView : wheelViews) {
             wheelView.setSelectedTextColor(color);
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setSelectedTextBold(boolean bold) {
         for (WheelView wheelView : wheelViews) {
             wheelView.setSelectedTextBold(bold);
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setTextAlign(@ItemTextAlign int align) {
         for (WheelView wheelView : wheelViews) {
             wheelView.setTextAlign(align);

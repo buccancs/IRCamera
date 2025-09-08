@@ -14,6 +14,9 @@ public class BarDataSet extends BarLineScatterCandleBubbleDataSet<BarEntry> impl
      * the maximum number of bars that are stacked upon each other, this value
      * is calculated from the Entries that are added to the DataSet
      */
+    /**
+     * Private method description.
+     */
     private int mStackSize = 1;
 
     /**
@@ -42,6 +45,9 @@ public class BarDataSet extends BarLineScatterCandleBubbleDataSet<BarEntry> impl
             "Stack"
     };
 
+    /**
+     * Method description.
+     */
     public BarDataSet(List<BarEntry> yVals, String label) {
         super(yVals, label);
 
@@ -52,6 +58,9 @@ public class BarDataSet extends BarLineScatterCandleBubbleDataSet<BarEntry> impl
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public DataSet<BarEntry> copy() {
         List<BarEntry> entries = new ArrayList<BarEntry>();
         for (int i = 0; i < mValues.size(); i++) {
@@ -75,6 +84,9 @@ public class BarDataSet extends BarLineScatterCandleBubbleDataSet<BarEntry> impl
      * Calculates the total number of entries this DataSet represents, including
      * stacks. All values belonging to a stack are calculated separately.
      */
+    /**
+     * Private method description.
+     */
     private void calcEntryCountIncludingStacks(List<BarEntry> yVals) {
 
         mEntryCountStacks = 0;
@@ -93,6 +105,9 @@ public class BarDataSet extends BarLineScatterCandleBubbleDataSet<BarEntry> impl
     /**
      * calculates the maximum stacksize that occurs in the Entries array of this
      * DataSet
+     */
+    /**
+     * Private method description.
      */
     private void calcStackSize(List<BarEntry> yVals) {
 
@@ -131,11 +146,17 @@ public class BarDataSet extends BarLineScatterCandleBubbleDataSet<BarEntry> impl
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int getStackSize() {
         return mStackSize;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean isStacked() {
         return mStackSize > 1 ? true : false;
     }
@@ -145,6 +166,9 @@ public class BarDataSet extends BarLineScatterCandleBubbleDataSet<BarEntry> impl
      * individually
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public int getEntryCountStacks() {
         return mEntryCountStacks;
@@ -157,11 +181,17 @@ public class BarDataSet extends BarLineScatterCandleBubbleDataSet<BarEntry> impl
      *
      * @param color
      */
+    /**
+     * Method description.
+     */
     public void setBarShadowColor(int color) {
         mBarShadowColor = color;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int getBarShadowColor() {
         return mBarShadowColor;
     }
@@ -171,6 +201,9 @@ public class BarDataSet extends BarLineScatterCandleBubbleDataSet<BarEntry> impl
      * If borderWidth == 0, no border will be drawn.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public void setBarBorderWidth(float width) {
         mBarBorderWidth = width;
@@ -183,6 +216,9 @@ public class BarDataSet extends BarLineScatterCandleBubbleDataSet<BarEntry> impl
      * @return
      */
     @Override
+    /**
+     * Method description.
+     */
     public float getBarBorderWidth() {
         return mBarBorderWidth;
     }
@@ -191,6 +227,9 @@ public class BarDataSet extends BarLineScatterCandleBubbleDataSet<BarEntry> impl
      * Sets the color drawing borders around the bars.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public void setBarBorderColor(int color) {
         mBarBorderColor = color;
@@ -202,6 +241,9 @@ public class BarDataSet extends BarLineScatterCandleBubbleDataSet<BarEntry> impl
      * @return
      */
     @Override
+    /**
+     * Method description.
+     */
     public int getBarBorderColor() {
         return mBarBorderColor;
     }
@@ -212,11 +254,17 @@ public class BarDataSet extends BarLineScatterCandleBubbleDataSet<BarEntry> impl
      *
      * @param alpha
      */
+    /**
+     * Method description.
+     */
     public void setHighLightAlpha(int alpha) {
         mHighLightAlpha = alpha;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int getHighLightAlpha() {
         return mHighLightAlpha;
     }
@@ -226,11 +274,17 @@ public class BarDataSet extends BarLineScatterCandleBubbleDataSet<BarEntry> impl
      *
      * @param labels
      */
+    /**
+     * Method description.
+     */
     public void setStackLabels(String[] labels) {
         mStackLabels = labels;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public String[] getStackLabels() {
         return mStackLabels;
     }

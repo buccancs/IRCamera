@@ -3,66 +3,103 @@ package com.energy.commoncomponent.view.tempcanvas;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 
-/**
  * Created by fengjibo on 2023/6/28.
- */
 public abstract class BaseView {
     protected String mId;
-    protected String mLabel; //标记内容
-    protected String mNote; //备注
-    protected double mMaxTemp;//最大温度
-    protected double mMinTemp;//最大温度
-    protected double mAvgTemp;//最小温度
+    protected String mLabel; //
+    protected String mNote; //
+    protected double mMaxTemp;//
+    protected double mMinTemp;//
+    protected double mAvgTemp;//
     protected int mPointSize = 0;
+    /**
+     * Method description.
+     */
     public String getId() {
         return mId;
     }
 
+    /**
+     * Method description.
+     */
     public void setId(String id) {
         this.mId = id;
     }
 
+    /**
+     * Method description.
+     */
     public String getLabel() {
         return mLabel;
     }
 
+    /**
+     * Method description.
+     */
     public void setLabel(String label) {
         this.mLabel = label;
     }
 
+    /**
+     * Method description.
+     */
     public double getMaxTemp() {
         return mMaxTemp;
     }
 
+    /**
+     * Method description.
+     */
     public void setMaxTemp(double maxTemp) {
         this.mMaxTemp = maxTemp;
     }
 
+    /**
+     * Method description.
+     */
     public double getMinTemp() {
         return mMinTemp;
     }
 
+    /**
+     * Method description.
+     */
     public void setMinTemp(double minTemp) {
         this.mMinTemp = minTemp;
     }
 
+    /**
+     * Method description.
+     */
     public double getAvgTemp() {
         return mAvgTemp;
     }
 
+    /**
+     * Method description.
+     */
     public void setAvgTemp(double avgTemp) {
         this.mAvgTemp = avgTemp;
     }
 
+    /**
+     * Method description.
+     */
     public String getNote() {
         return mNote;
     }
 
+    /**
+     * Method description.
+     */
     public void setNote(String note) {
         this.mNote = note;
     }
 
 
+    /**
+     * Method description.
+     */
     public Bitmap getCustomSizeImg(Bitmap rootImg, int goalW, int goalH) {
         int rootW = rootImg.getWidth();
         int rootH = rootImg.getHeight();

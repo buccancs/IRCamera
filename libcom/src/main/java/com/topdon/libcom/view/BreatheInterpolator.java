@@ -2,14 +2,15 @@ package com.topdon.libcom.view;
 
 import android.animation.TimeInterpolator;
 
-/**
  * @author: CaiSongL
  * @date: 2023/4/28 16:09
- */
 class BreatheInterpolator implements TimeInterpolator {
 
     @Override
 
+    /**
+     * Method description.
+     */
     public float getInterpolation(float input) {
 
         float x = 6 * input;
@@ -18,7 +19,7 @@ class BreatheInterpolator implements TimeInterpolator {
 
         int t = 6;
 
-        int n = 1;//控制函数周期，这里取此函数的第一个周期
+        int n = 1;//，
 
         float PI = 3.1416f;
 
@@ -38,6 +39,9 @@ class BreatheInterpolator implements TimeInterpolator {
 
     }
 
+    /**
+     * Method description.
+     */
     public void updateTime(){
         String a = "";
         String[] as = a.split("");

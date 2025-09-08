@@ -12,12 +12,10 @@ import java.io.IOException
 import java.nio.ByteBuffer
 import kotlin.concurrent.thread
 
-/**
  * @author YaphetZhao
  * @email yaphetzhao@gmail.com
  * @data 2020-07-30
  * @wechat yaphetzhao92
- */
 class YapVideoEncoder(
     private val IProvider: IYapVideoProvider<Bitmap>,
     private val out: File,
@@ -125,6 +123,9 @@ class YapVideoEncoder(
         isRunning = true
     }
 
+    /**
+     * Function description.
+     */
     fun start() {
         if (Looper.myLooper() == Looper.getMainLooper()) {
             thread(start = true) {
@@ -238,7 +239,7 @@ class YapVideoEncoder(
             try {
                 mediaCodec!!.signalEndOfInputStream()
             } catch (e: Exception) {
-                Log.e("123", "录制错误:${e.message}")
+                Log.e("123", ":${e.message}")
                 e.printStackTrace()
             }
         }

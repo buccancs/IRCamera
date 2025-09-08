@@ -1,4 +1,7 @@
 package com.topdon.tc001
+import com.csl.irCamera.R
+import com.csl.irCamera.BuildConfig
+import com.csl.irCamera.libapp.R as LibAppR
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
@@ -11,18 +14,21 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.utils.CommUtils
 import com.topdon.lms.sdk.Config
 import com.topdon.lms.sdk.LMS
-import kotlinx.android.synthetic.main.activity_splash.tv_app_name
+import com.csl.irCamera.databinding.ActivitySplashBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class SplashActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivitySplashBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         LMS.getInstance().screenOrientation = Config.SCREEN_PORTRAIT
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        setContentView(R.layout.activity_splash)
-        window.navigationBarColor = ContextCompat.getColor(this, R.color.toolbar_16131E)
+        binding = ActivitySplashBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        window.navigationBarColor = ContextCompat.getColor(this, LibAppR.color.toolbar_16131E)
 
         lifecycleScope.launch {
             delay(if (BuildConfig.DEBUG) 3000 else 1000)
@@ -33,7 +39,7 @@ class SplashActivity : AppCompatActivity() {
             }
             finish()
         }
-        tv_app_name.text = CommUtils.getAppName()
+        binding.tvAppName.text = CommUtils.getAppName()
     }
 
     override fun onBackPressed() {

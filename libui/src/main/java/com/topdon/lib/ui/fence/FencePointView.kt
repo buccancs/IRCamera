@@ -12,10 +12,11 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import com.blankj.utilcode.util.SizeUtils
-import com.topdon.lib.ui.R
+import com.csl.irCamera.libui.R
 
 class FencePointView : View {
 
+    /** listener property */
     var listener: CallBack? = null
     private val iconSize = SizeUtils.dp2px(32f)
 
@@ -44,7 +45,9 @@ class FencePointView : View {
         }
     }
 
+    /** destW property */
     var destW = 0
+    /** destH property */
     var destH = 0
 
     private val drawable: BitmapDrawable by lazy {
@@ -95,9 +98,13 @@ class FencePointView : View {
         canvas.drawBitmap(bitmap, src, dst, mPaint)
     }
 
+    /** mX property */
     var mX = 0f
+    /** mY property */
     var mY = 0f
+    /** old property */
     var old = Rect(0, 0, 0, 0)
+    /** startPoint property */
     var startPoint = intArrayOf(0, 0)
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -110,7 +117,7 @@ class FencePointView : View {
                 invalidate()
             }
             MotionEvent.ACTION_UP -> {
-//                Log.i("123", "onTouchEvent: ACTION_UP")
+//                Log.i(123, onTouchEvent: ACTION_UP)
                 startPoint[0] = mX.toInt()
                 startPoint[1] = mY.toInt()
                 result()
@@ -142,12 +149,15 @@ class FencePointView : View {
             //bottom
             point1[1] = height - destH / 2
         }
-        Log.w("123", "坐标 point:${point1.contentToString()}")
+        Log.w("123", " point:${point1.contentToString()}")
         if (listener != null) {
             listener!!.callback(point1, intArrayOf(width, height))
         }
     }
 
+    /**
+     * Function description.
+     */
     fun clear() {
         startPoint = intArrayOf(0, 0)
         result()
@@ -155,10 +165,8 @@ class FencePointView : View {
     }
 
     interface CallBack {
-        /**
-         * startPoint: 左上角
-         * endPoint: 右下角
-         */
+         * startPoint:
+         * endPoint:
         fun callback(startPoint: IntArray, srcRect: IntArray)
     }
 }

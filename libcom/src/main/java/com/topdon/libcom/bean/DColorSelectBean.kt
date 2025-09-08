@@ -1,8 +1,11 @@
 package com.topdon.libcom.bean
 
-@Deprecated("产品要求所有颜色拾取都更改为 ColorPickDialog 那种样式，这个弹框废弃")
+@Deprecated(" ColorPickDialog ，")
 data class DColorSelectBean(
+    /** colorRes property */
     val colorRes: Int,
+    /** color property */
     val color: String,
+    /** code property */
     val code: Int,
 )

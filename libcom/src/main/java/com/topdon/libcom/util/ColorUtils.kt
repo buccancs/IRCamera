@@ -14,26 +14,41 @@ import kotlin.math.roundToInt
  */
 object ColorUtils {
 
+    /**
+     * Function description.
+     */
     fun setColorAlpha(@ColorInt color: Int, alpha: Float): Int {
         val origin = (0xff ) and 0xff
         return color and 0x00ffffff or ((alpha * origin).toInt() shl 24)
     }
 
+    /**
+     * Function description.
+     */
     fun toHexColorString(@ColorInt color: Int):String{
         return "#%06X".format(0xFFFFFF and color)
     }
 
+    /**
+     * Function description.
+     */
     fun dpToPx(@Dimension(unit = Dimension.DP) dp: Int): Int {
         val r = Resources.getSystem()
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), r.displayMetrics).roundToInt()
     }
 
+    /**
+     * Function description.
+     */
     fun dpToPxF(@Dimension(unit = Dimension.DP) dp: Float): Float {
         val r = Resources.getSystem()
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.displayMetrics)
     }
 
 
+    /**
+     * Function description.
+     */
     fun formatVideoTime(milliseconds:Long):String{
         val totalSeconds = floor(milliseconds.toDouble() / 1000)
         val secondsLeft = totalSeconds % 3600

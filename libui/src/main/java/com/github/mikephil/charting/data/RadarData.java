@@ -15,16 +15,28 @@ import java.util.List;
  */
 public class RadarData extends ChartData<IRadarDataSet> {
 
+    /**
+     * Private method description.
+     */
     private List<String> mLabels;
 
+    /**
+     * Method description.
+     */
     public RadarData() {
         super();
     }
 
+    /**
+     * Method description.
+     */
     public RadarData(List<IRadarDataSet> dataSets) {
         super(dataSets);
     }
 
+    /**
+     * Method description.
+     */
     public RadarData(IRadarDataSet... dataSets) {
         super(dataSets);
     }
@@ -33,6 +45,9 @@ public class RadarData extends ChartData<IRadarDataSet> {
      * Sets the labels that should be drawn around the RadarChart at the end of each web line.
      *
      * @param labels
+     */
+    /**
+     * Method description.
      */
     public void setLabels(List<String> labels) {
         this.mLabels = labels;
@@ -43,15 +58,24 @@ public class RadarData extends ChartData<IRadarDataSet> {
      *
      * @param labels
      */
+    /**
+     * Method description.
+     */
     public void setLabels(String... labels) {
         this.mLabels = Arrays.asList(labels);
     }
 
+    /**
+     * Method description.
+     */
     public List<String> getLabels() {
         return mLabels;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public Entry getEntryForHighlight(Highlight highlight) {
         return getDataSetByIndex(highlight.getDataSetIndex()).getEntryForIndex((int) highlight.getX());
     }

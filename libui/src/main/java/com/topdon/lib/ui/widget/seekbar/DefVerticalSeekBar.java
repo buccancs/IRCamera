@@ -6,17 +6,16 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 
-import com.topdon.lib.ui.R;
+import com.csl.irCamera.libui.R;
 
 import static com.topdon.lib.ui.widget.seekbar.DefVerticalRangeSeekBar.DIRECTION_LEFT;
 import static com.topdon.lib.ui.widget.seekbar.DefVerticalRangeSeekBar.DIRECTION_RIGHT;
 import static com.topdon.lib.ui.widget.seekbar.DefVerticalRangeSeekBar.TEXT_DIRECTION_VERTICAL;
 
 
-/**
  * //                       _ooOoo_
  * //                      o8888888o
- * //                      88" . "88
+ * //                      88 . 88
  * //                      (| -_- |)
  * //                       O\ = /O
  * //                   ____/`---'\____
@@ -27,31 +26,38 @@ import static com.topdon.lib.ui.widget.seekbar.DefVerticalRangeSeekBar.TEXT_DIRE
  * //                | \_| ''\---/'' | |
  * //                 \ .-\__ `-` ___/-. /
  * //              ______`. .' /--.--\ `. . __
- * //           ."" '< `.___\_<|>_/___.' >'"".
+ * //           . '< `.___\_<|>_/___.' >'.
  * //          | | : `- \`.;`\ _ /`;.`/ - ` : | |
  * //            \ \ `-. \_ __\ /__ _/ .-` / /
  * //    ======`-.____`-.___\_____/___.-`____.-'======
  * //                       `=---='
- * //
  * //    .............................................
- * //             佛祖保佑             永无BUG
+ * //                          BUG
  * =====================================================
- * 作    者：JayGoo
- * 创建日期：2019-06-05
- * 描    述:
+ *     JayGoo
+ * 2019-06-05
+ *     :
  * =====================================================
- */
 public class DefVerticalSeekBar extends SeekBar {
 
+    /**
+     * Private method description.
+     */
     private int indicatorTextOrientation;
     DefVerticalRangeSeekBar verticalSeekBar;
 
+    /**
+     * Method description.
+     */
     public DefVerticalSeekBar(RangeSeekBar rangeSeekBar, AttributeSet attrs, boolean isLeft) {
         super(rangeSeekBar, attrs, isLeft);
         initAttrs(attrs);
         verticalSeekBar = (DefVerticalRangeSeekBar) rangeSeekBar;
     }
 
+    /**
+     * Private method description.
+     */
     private void initAttrs(AttributeSet attrs) {
         try {
             TypedArray t = getContext().obtainStyledAttributes(attrs, R.styleable.VerticalRangeSeekBar);
@@ -162,10 +168,16 @@ public class DefVerticalSeekBar extends SeekBar {
         }
     }
 
+    /**
+     * Method description.
+     */
     public int getIndicatorTextOrientation() {
         return indicatorTextOrientation;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorTextOrientation(@VerticalRangeSeekBar.TextDirectionDef int orientation) {
         this.indicatorTextOrientation = orientation;
     }

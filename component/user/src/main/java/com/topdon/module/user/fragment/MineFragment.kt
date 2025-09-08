@@ -44,12 +44,12 @@ import com.topdon.lms.sdk.bean.FeedBackBean
 import com.topdon.lms.sdk.feedback.activity.FeedbackActivity
 import com.topdon.lms.sdk.utils.LanguageUtil
 import com.topdon.module.user.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.user.activity.LanguageActivity
 import com.topdon.module.user.activity.MoreActivity
+import com.topdon.module.user.databinding.FragmentMineBinding
+import com.topdon.module.user.databinding.LayoutCustomerBinding
 import com.zoho.salesiqembed.ZohoSalesIQ
-import kotlinx.android.synthetic.main.fragment_mine.*
-import kotlinx.android.synthetic.main.fragment_more.setting_item_unit
-import kotlinx.android.synthetic.main.layout_customer.drag_customer_view
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -58,45 +58,52 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
+ * “”
+ * [MoreActivity] - TS004 “”
+ * [MoreFragment] -  “”
 /**
- * 公共设置页，即公共 “我的”
- * [MoreActivity] - TS004 “我的”
- * [MoreFragment] - 插件式 “我的”
- *
- * Created by LCG on 2024/4/19.
+ * @author LCG
+ * @since Unknown
  */
 class MineFragment : BaseFragment(), View.OnClickListener {
 
-    /**
-     * onResume() 阶段是否需要刷新登录状态相关 UI.
-     */
+    private var _binding: FragmentMineBinding? = null
+    private val binding get() = _binding!!
+    
+    private var _customerBinding: LayoutCustomerBinding? = null
+    private val customerBinding get() = _customerBinding!!
+
+     * onResume()  UI.
     private var isNeedRefreshLogin = false
 
     override fun initContentView(): Int = R.layout.fragment_mine
 
     override fun initView() {
-        iv_winter.setOnClickListener(this)
-        setting_item_language.setOnClickListener(this)
-        setting_item_version.setOnClickListener(this)
-        setting_item_clear.setOnClickListener(this)
-        setting_user_lay.setOnClickListener(this)
-        setting_user_img_night.setOnClickListener(this)
-        setting_user_text.setOnClickListener(this)
-        setting_electronic_manual.setOnClickListener(this)
-        setting_faq.setOnClickListener(this)
-        setting_feedback.setOnClickListener(this)
-        setting_item_unit.setOnClickListener(this)//温度单温
-        drag_customer_view.setOnClickListener(this)
+        _binding = FragmentMineBinding.bind(requireView())
+        _customerBinding = binding.includeCustomer
+        
+        binding.ivWinter.setOnClickListener(this)
+        binding.settingItemLanguage.setOnClickListener(this)
+        binding.settingItemVersion.setOnClickListener(this)
+        binding.settingItemClear.setOnClickListener(this)
+        binding.settingUserLay.setOnClickListener(this)
+        binding.settingUserImgNight.setOnClickListener(this)
+        binding.settingUserText.setOnClickListener(this)
+        binding.settingElectronicManual.setOnClickListener(this)
+        binding.settingFaq.setOnClickListener(this)
+        binding.settingFeedback.setOnClickListener(this)
+        binding.settingItemUnit.setOnClickListener(this)//
+        customerBinding.dragCustomerView.setOnClickListener(this)
 
-        view_winter_point.isVisible = !SharedManager.hasClickWinter
+        binding.viewWinterPoint.isVisible = !SharedManager.hasClickWinter
 
-        if (BaseApplication.instance.isDomestic()) {//国内版不给切换语言
-            setting_item_language.visibility = View.GONE
+        if (BaseApplication.instance.isDomestic()) {//
+            binding.settingItemLanguage.visibility = View.GONE
         }
 
         viewLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onResume(owner: LifecycleOwner) {
-                // 要是当前已连接 TS004、TC007，切到流量上，不然登录注册意见反馈那些没网
+                //  TS004TC007
                 if (WebSocketProxy.getInstance().isConnected()) {
                     NetWorkUtils.switchNetwork(false)
                 }
@@ -108,13 +115,19 @@ class MineFragment : BaseFragment(), View.OnClickListener {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun updatePDF(event: PDFEvent) {
         isNeedRefreshLogin = true
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun onWinterClick(event: WinterClickEvent) {
-        view_winter_point.isVisible = false
+        binding.viewWinterPoint.isVisible = false
     }
 
     override fun onResume() {
@@ -132,14 +145,14 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             val localeStr: String = it.data?.getStringExtra("localeStr") ?: return@registerForActivityResult
             SharedManager.setLanguage(requireContext(), localeStr)
             LanguageUtils.applyLanguage(AppLanguageUtils.getLocaleByLanguage(localeStr))
-            ToastTools.showShort(R.string.tip_save_success)
+            ToastTools.showShort(LibAppR.string.tip_save_success)
         }
     }
 
     override fun onClick(v: View?) {
         when (v) {
-            iv_winter -> {//冬季特辑入口
-                view_winter_point.isVisible = false
+            binding.ivWinter -> {//
+                binding.viewWinterPoint.isVisible = false
                 SharedManager.hasClickWinter = true
                 EventBus.getDefault().post(WinterClickEvent())
 
@@ -155,7 +168,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     .withString(ExtraKeyConfig.URL, url)
                     .navigation(requireContext())
             }
-            setting_user_lay, setting_user_img_night -> {
+            binding.settingUserLay, binding.settingUserImgNight -> {
                 if (UserInfoManager.getInstance().isLogin()) {
                     isNeedRefreshLogin = true
                     LMS.getInstance().activityUserInfo()
@@ -163,25 +176,25 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     loginAction()
                 }
             }
-            setting_user_text -> {
+            binding.settingUserText -> {
                 if (!LMS.getInstance().isLogin) {
                     loginAction()
                 }
             }
-            setting_electronic_manual -> {//电子说明书
+            binding.settingElectronicManual -> {//
                 ARouter.getInstance().build(RouterConfig.ELECTRONIC_MANUAL).withInt(Constants.SETTING_TYPE, Constants.SETTING_BOOK).navigation(requireContext())
             }
-            setting_faq -> {//FAQ
+            binding.settingFaq -> {//FAQ
                 ARouter.getInstance().build(RouterConfig.ELECTRONIC_MANUAL).withInt(Constants.SETTING_TYPE, Constants.SETTING_FAQ).navigation(requireContext())
             }
-            setting_feedback -> {//意见反馈
+            binding.settingFeedback -> {//
                 if (LMS.getInstance().isLogin) {
                     val devSn = SharedManager.getDeviceSn()
                     FeedBackBean().apply {
                         logPath = logPath
                         sn = devSn
                         lastConnectSn = devSn
-                        XLog.e("bcf","sn $sn  logPath $logPath")
+                        XLog.e("bcf","sn $sn logPath $logPath")
                     }.let { feedBackBean ->
                         val intent = Intent(requireContext(), FeedbackActivity::class.java)
                         intent.putExtra(FeedbackActivity.FEEDBACKBEAN, feedBackBean)
@@ -191,19 +204,19 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     loginAction()
                 }
             }
-            setting_item_unit -> {//温度单位
+            binding.settingItemUnit -> {//
                 ARouter.getInstance().build(RouterConfig.UNIT).navigation(requireContext())
             }
-            setting_item_version -> {//版本
+            binding.settingItemVersion -> {//
                 ARouter.getInstance().build(RouterConfig.VERSION).navigation(requireContext())
             }
-            setting_item_language -> {//语言
+            binding.settingItemLanguage -> {//
                 languagePickResult.launch(Intent(requireContext(), LanguageActivity::class.java))
             }
-            setting_item_clear -> {//清除缓存，实际已隐藏
+            binding.settingItemClear -> {//，
                 clearCache()
             }
-            drag_customer_view -> {//客服
+            customerBinding.dragCustomerView -> {//
 //                ActivityUtil.goSystemCustomer(requireContext())
                 val sn = SharedManager.getDeviceSn()
                 if (!TextUtils.isEmpty(sn)) {
@@ -217,14 +230,13 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
     private fun loginAction() {
         isNeedRefreshLogin = true
-        //activityLogin()回调不可靠，但必然触发onResume()
-        val bgBitmap = BitmapFactory.decodeResource(resources, R.mipmap.bg_login)
+        //activityLogin()onResume()
+        val bgBitmap = BitmapFactory.decodeResource(resources, LibAppR.mipmap.bg_default_img)
         LMS.getInstance().activityLogin(null, null, false, null, bgBitmap)
     }
 
     private fun checkLoginResult() {
         if (LMS.getInstance().isLogin) {
-            //登录成功
             LMS.getInstance().getUserInfo { userinfo: CommonBean ->
                 try {
                     val json = userinfo.data
@@ -238,17 +250,16 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                         headUrl = infoData.avatar,
                     )
 
-                    //更新ui
+                    //ui
                     changeLoginStyle()
                 } catch (e: Exception) {
-                    XLog.e(" 登录异常: ${e.message}")
+                    XLog.e(" : ${e.message}")
                 }
             }
         } else {
-            //登录失败
-            XLog.e(" 登录失败")
+            XLog.e(" ")
             changeLoginStyle()
-            setting_user_img_night.setImageResource(R.mipmap.ic_default_user_head)//恢复默认头像
+            binding.settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head)//
         }
     }
 
@@ -260,21 +271,21 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             layoutParams.topToTop = ConstraintLayout.LayoutParams.PARENT_ID
             layoutParams.marginStart = SizeUtils.dp2px(16f)
             layoutParams.marginEnd = SizeUtils.dp2px(16f)
-            setting_user_text.setPadding(0,0,0,0)
-            setting_user_text.gravity = Gravity.LEFT
-            setting_user_text.layoutParams = layoutParams
-            val drawable = ContextCompat.getDrawable(requireContext(), R.color.transparent)
+            binding.settingUserText.setPadding(0,0,0,0)
+            binding.settingUserText.gravity = Gravity.LEFT
+            binding.settingUserText.layoutParams = layoutParams
+            val drawable = ContextCompat.getDrawable(requireContext(), LibAppR.color.transparent)
             drawable!!.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
-            setting_user_text.setCompoundDrawables(null, null, drawable, null)
-            setting_user_text.text = SharedManager.getNickname()
-            tv_email.text = SharedManager.getUsername()
-            setting_user_lay.visibility = View.VISIBLE
+            binding.settingUserText.setCompoundDrawables(null, null, drawable, null)
+            binding.settingUserText.text = SharedManager.getNickname()
+            binding.tvEmail.text = SharedManager.getUsername()
+            binding.settingUserLay.visibility = View.VISIBLE
 
-            if (setting_user_img_night != null) {
+            if (binding.settingUserImgNight != null) {
                 GlideLoader.loadCircle(
-                    setting_user_img_night,
+                    binding.settingUserImgNight,
                     SharedManager.getHeadIcon(),
-                    R.mipmap.ic_default_user_head,
+                    LibAppR.mipmap.ic_default_user_head,
                     RequestOptions().optionalCircleCrop()
                 )
             }
@@ -283,24 +294,27 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             layoutParams.startToEnd = R.id.setting_user_img_night
             layoutParams.topToTop = R.id.setting_user_img_night
             layoutParams.bottomToBottom = R.id.setting_user_img_night
-            setting_user_text.setPadding(SizeUtils.dp2px(16f), SizeUtils.dp2px(16f), SizeUtils.dp2px(16f), SizeUtils.dp2px(16f))
-            setting_user_text.gravity = Gravity.CENTER
-            setting_user_text.layoutParams = layoutParams
-            setting_user_text.setText(
+            binding.settingUserText.setPadding(SizeUtils.dp2px(16f), SizeUtils.dp2px(16f), SizeUtils.dp2px(16f), SizeUtils.dp2px(16f))
+            binding.settingUserText.gravity = Gravity.CENTER
+            binding.settingUserText.layoutParams = layoutParams
+            binding.settingUserText.setText(
                 AppLanguageUtils.attachBaseContext(
-                context, SharedManager.getLanguage(requireContext())).getString(R.string.app_sign_in))
+                context, SharedManager.getLanguage(requireContext())).getString(LibAppR.string.app_sign_in))
             val drawable = ContextCompat.getDrawable(requireContext(), R.mipmap.ic_arrow_login)
             drawable!!.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
-            setting_user_text.setCompoundDrawables(null, null, drawable, null)
-            setting_user_lay.visibility = View.GONE
-            tv_email.text = ""
-            setting_user_img_night.setImageResource(R.mipmap.ic_default_user_head)//恢复默认头像
+            binding.settingUserText.setCompoundDrawables(null, null, drawable, null)
+            binding.settingUserLay.visibility = View.GONE
+            binding.tvEmail.text = ""
+            binding.settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head)//
         }
     }
 
-    /**
-     * 清除缓存
-     */
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        _customerBinding = null
+    }
+
     private fun clearCache() {
         lifecycleScope.launch {
             showLoadingDialog()
@@ -309,14 +323,14 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     AppDatabase.getInstance().thermalDao().deleteByUserId(SharedManager.getUserId())
                     CleanUtils.cleanExternalCache()
                 } catch (e: Exception) {
-                    XLog.w("清除缓存异常: ${e.message}")
+                    XLog.w(": ${e.message}")
                 }
                 delay(1000)
             }
             dismissLoadingDialog()
             delay(50)
             TipDialog.Builder(requireContext())
-                .setMessage(R.string.clear_finish)
+                .setMessage(LibAppR.string.clear_finish)
                 .setCanceled(true)
                 .create().show()
 

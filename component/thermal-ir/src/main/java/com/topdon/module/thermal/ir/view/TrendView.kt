@@ -8,18 +8,19 @@ import android.widget.FrameLayout
 import androidx.core.view.isVisible
 import com.blankj.utilcode.util.SizeUtils
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.databinding.ViewTrendBinding
 import kotlin.math.min
 
+ * .
 /**
- * 趋势图折线图及对应箭头等的封装.
- *
- * Created by LCG on 2024/12/31.
+ * @author LCG
+ * @since Unknown
  */
 class TrendView : FrameLayout {
 
     /**
-     * 展开趋势图
+     * Function description.
      */
     fun expand() {
         binding.clOpen.isVisible = true
@@ -27,16 +28,16 @@ class TrendView : FrameLayout {
     }
 
     /**
-     * 收起趋势图
+     * Function description.
      */
     fun close() {
         binding.clOpen.isVisible = false
         binding.llClose.isVisible = true
     }
 
+     * @param tempList
     /**
-     * 根据指定的数据刷新折线图数据
-     * @param tempList 温度值列表，单位摄氏度
+     * Function description.
      */
     fun refreshChart(tempList: List<Float>) {
         if (isVisible && binding.clOpen.isVisible) {
@@ -45,7 +46,7 @@ class TrendView : FrameLayout {
     }
 
     /**
-     * 将折线图清空
+     * Function description.
      */
     fun setToEmpty() {
         binding.viewChartTrend.setToEmpty()
@@ -89,7 +90,7 @@ class TrendView : FrameLayout {
         val heightMode = MeasureSpec.getMode(heightMeasureSpec)
         val heightSize = MeasureSpec.getSize(heightMeasureSpec)
 
-        //宽度为 UNSPECIFIED 的情况目前不存在，不考虑
+        // UNSPECIFIED
         val wantHeight: Int = SizeUtils.dp2px(34f) + (widthSize * 158 / 264f).toInt()
         val height = when (heightMode) {
             MeasureSpec.EXACTLY -> heightSize

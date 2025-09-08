@@ -18,13 +18,17 @@ import com.energy.commoncomponent.utils.ScreenUtils;
 import java.util.LinkedList;
 import java.util.UUID;
 
-/**
  * Created by fengjibo on 2024/2/1.
- */
 public class RectDraw extends BaseDraw {
+    /**
+     * Private method description.
+     */
     private static final String TAG = "BaseTemperatureView RectDraw";
 
     private static final int MAX_RECT_COUNT = 3;
+    /**
+     * Method description.
+     */
     public static final int OPERATE_STATUS_RECTANGLE_LEFT_TOP_CORNER = 0;
     public static final int OPERATE_STATUS_RECTANGLE_RIGHT_TOP_CORNER = 1;
     public static final int OPERATE_STATUS_RECTANGLE_RIGHT_BOTTOM_CORNER = 2;
@@ -50,7 +54,7 @@ public class RectDraw extends BaseDraw {
     private int mBgColor = Color.parseColor("#CC1A1A1A");
 
     private final int STROKE_WIDTH = 8;
-    private final int TEXT_SIZE = 14; // 文字大小
+    private final int TEXT_SIZE = 14; //
     private final int TOUCH_TOLERANCE = 48;
     private RectView mTempRect;
 
@@ -81,21 +85,27 @@ public class RectDraw extends BaseDraw {
         mBgPaint.setStrokeWidth(ScreenUtils.dp2px(1));
     }
 
+    /**
+     * Method description.
+     */
     public int getOperateStatus() {
         return mOperateStatus;
     }
 
+    /**
+     * Method description.
+     */
     public void setOperateStatus(int mOperateStatus) {
         this.mOperateStatus = mOperateStatus;
         Log.d(TAG, "setOperateStatus = " + mOperateStatus);
     }
 
-    /**
-     * 添加一个矩形数据
      * @param startX
      * @param startY
      * @param endX
      * @param endY
+    /**
+     * Method description.
      */
     public void addRect(int startX, int startY, int endX, int endY) {
         if (Math.abs(endX - startX) > TOUCH_TOLERANCE || Math.abs(endY - startY) > TOUCH_TOLERANCE) {
@@ -108,7 +118,6 @@ public class RectDraw extends BaseDraw {
                 boolean hasSame = false;
                 for (int i = 0; i < mRectList.size(); i ++) {
                     if (mRectList.get(i).getLabel().equals(newLabel)) {
-                        //存在一样的
                         hasSame = true;
                         Log.d(TAG, "addRect is same");
                         break;
@@ -138,9 +147,9 @@ public class RectDraw extends BaseDraw {
         }
     }
 
-    /**
-     * 删除一个矩形数据
      * @param index
+    /**
+     * Method description.
      */
     public void removeRect(int index) {
         if (mRectList.size() > index) {
@@ -149,17 +158,17 @@ public class RectDraw extends BaseDraw {
     }
 
     /**
-     * 删除所有框数据
+     * Method description.
      */
     public void removeRect() {
         mRectList.clear();
     }
 
 
-    /**
-     * 更新选中框的手势位置状态
      * @param startX
      * @param startY
+    /**
+     * Method description.
      */
     public void changeTouchRectOperateStatus(float startX, float startY) {
         if (mTouchIndex < 0 || mTouchIndex >= mRectList.size()) {
@@ -187,11 +196,11 @@ public class RectDraw extends BaseDraw {
         }
     }
 
-    /**
-     * 修改选中的框坐标
      * @param touchIndex
      * @param moveX
      * @param moveY
+    /**
+     * Method description.
      */
     public void changeTouchLineLocationByIndex(int touchIndex, float moveX, float moveY) {
         if (touchIndex < 0 || touchIndex >= mRectList.size()) {
@@ -341,13 +350,13 @@ public class RectDraw extends BaseDraw {
         }
     }
 
-    /**
-     * 绘制临时点
      * @param canvas
      * @param startX
      * @param startY
      * @param endX
      * @param endY
+    /**
+     * Method description.
      */
     public void onTempDraw(Canvas canvas, int startX, int startY, int endX, int endY) {
         if (mTempRect == null) {
@@ -361,11 +370,11 @@ public class RectDraw extends BaseDraw {
         canvas.drawRect(mTempRect.mMovingLeft, mTempRect.mMovingTop, mTempRect.mMovingRight, mTempRect.mMovingBottom, mRectPaint);
     }
 
-    /**
-     * 检查当前是否存在手势选中的框
      * @param x
      * @param y
      * @return
+    /**
+     * Method description.
      */
     public int checkTouchRectInclude(int x, int y) {
         mTouchIndex = -1;
@@ -381,6 +390,9 @@ public class RectDraw extends BaseDraw {
 
     }
 
+    /**
+     * Method description.
+     */
     public void changeTouchRectLocation() {
         if (mTouchIndex < 0 || mTouchIndex >= mRectList.size()) {
             return;
@@ -388,12 +400,15 @@ public class RectDraw extends BaseDraw {
         mRectList.get(mTouchIndex).changeRectLocation();
     }
 
+    /**
+     * Private method description.
+     */
     private void drawLabel(Canvas canvas, RectView rectView) {
         canvas.save();
         canvas.rotate(mScreenDegree, rectView.mMovingLeft + (rectView.mMovingRight - rectView.mMovingLeft) / 2,
                 rectView.mMovingTop + (rectView.mMovingBottom - rectView.mMovingTop) / 2);
 
-        //label中心点
+        //label
         RectF tempRectF = new RectF();
 
         tempRectF.top = rectView.mMovingTop + (float) (rectView.mMovingBottom - rectView.mMovingTop) / 2;
@@ -405,18 +420,19 @@ public class RectDraw extends BaseDraw {
         canvas.restore();
     }
 
+    /**
+     * Private method description.
+     */
     private RectF drawCustomTextBg(Canvas canvas, String text, RectF rectF) {
         int rectWidth = (int) mTextPaint.measureText(text) * 2;
         float left = rectF.left - rectWidth / 2;
         float right = rectF.right + rectWidth / 2;
         float top = rectF.top;
         float bottom = rectF.bottom;
-        //左侧超出
         if (left < 0) {
             left = 0;
             right = rectWidth;
         }
-        //右侧超出
         if (right > mViewWidth) {
             left = mViewWidth - rectWidth;
             right = mViewWidth;
@@ -444,9 +460,12 @@ public class RectDraw extends BaseDraw {
         return rectF;
     }
 
+    /**
+     * Method description.
+     */
     public static class RectView extends BaseView {
         private Rect mRect;
-        private static final float TOUCH_EXTRA = 10;//额外的触摸范围
+        private static final float TOUCH_EXTRA = 10;//
         private Bitmap mHighPointBitmap;
         private Bitmap mLowPointBitmap;
         private Point mHighTempPoint;
@@ -536,6 +555,9 @@ public class RectDraw extends BaseDraw {
         }
     }
 
+    /**
+     * Method description.
+     */
     public LinkedList<RectView> getRectViewList() {
         return mRectList;
     }

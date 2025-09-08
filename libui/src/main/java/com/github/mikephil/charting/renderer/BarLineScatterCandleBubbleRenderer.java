@@ -18,6 +18,9 @@ public abstract class BarLineScatterCandleBubbleRenderer extends DataRenderer {
      */
     protected XBounds mXBounds = new XBounds();
 
+    /**
+     * Method description.
+     */
     public BarLineScatterCandleBubbleRenderer(ChartAnimator animator, ViewPortHandler viewPortHandler) {
         super(animator, viewPortHandler);
     }

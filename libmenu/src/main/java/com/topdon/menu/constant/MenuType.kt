@@ -1,9 +1,9 @@
 package com.topdon.menu.constant
 
+ * （、、Lite、2D），.
 /**
- * 由于不同的设备（单光、双光、Lite、2D编辑）菜单存在差异，用该枚举区分.
- *
- * Created by LCG on 2024/11/18.
+ * @author LCG
+ * @since Unknown
  */
 enum class MenuType {
     SINGLE_LIGHT,

@@ -6,6 +6,9 @@ import com.topdon.lib.core.utils.TemperatureUtil;
  * @author qiang.lv
  */
 public class CarDetectChildBean {
+    /**
+     * Method description.
+     */
     public int type;
     public int pos;
     public String description;
@@ -21,6 +24,9 @@ public class CarDetectChildBean {
         this.temperature = temperature;
     }
 
+    /**
+     * Method description.
+     */
     public String buildString() {
         String[] temperatures = temperature.split("~");
         return item + TemperatureUtil.INSTANCE.getTempStr(Integer.parseInt(temperatures[0]), Integer.parseInt(temperatures[1]));

@@ -10,40 +10,37 @@ import android.widget.SeekBar
 import androidx.core.view.isVisible
 import com.topdon.module.thermal.ir.databinding.PopSeekBarBinding
 
+ *  SeekBar  PopupWindow.
+ *  ()()()
 /**
- * 有一根 SeekBar 用于拾取值的 PopupWindow.
- *
- * 用于 融合度(带标题)、对比度(无标题)、锐度(无标题) 设置
- *
- * Created by LCG on 2024/12/3.
- *
- * @param hasTitle 是否有标题文字
+ * @author LCG
+ * @since Unknown
  */
+ * @param hasTitle
 @SuppressLint("SetTextI18n")
 class SeekBarPopup(context: Context, hasTitle: Boolean = false) : PopupWindow() {
 
+    /** progress property */
     var progress: Int
         get() = binding.seekBar.progress
         set(value) {
             binding.seekBar.progress = value
         }
 
+    /** max property */
     var max: Int
         get() = binding.seekBar.max
         set(value) {
             binding.seekBar.max = value
         }
 
-    /**
-     * 是否在滑动过程中实时触发回调.
-     *
-     * true-实时触发  false-滑动停止(stop)时才触发
-     */
+     * .
+     * true-  false-(stop)
+    /** isRealTimeTrigger property */
     var isRealTimeTrigger = false
 
-    /**
-     * 进度值拾取事件监听.
-     */
+     * .
+    /** onValuePickListener property */
     var onValuePickListener: ((progress: Int) -> Unit)? = null
 
 
@@ -77,8 +74,9 @@ class SeekBarPopup(context: Context, hasTitle: Boolean = false) : PopupWindow() 
         isOutsideTouchable = false
     }
 
+     * @param isDropDown true-anchor false-anchor
     /**
-     * @param isDropDown true-放置于anchor下方 false-底边缘与anchor对齐
+     * Function description.
      */
     fun show(anchor: View, isDropDown: Boolean) {
         if (isDropDown) {

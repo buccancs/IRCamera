@@ -3,11 +3,9 @@ package com.topdon.lib.ui.recycler
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.LinearLayout
-import com.topdon.lib.ui.R
+import com.csl.irCamera.libui.R
 
-/**
- * 自定义FooterView
- */
+ * FooterView
 class LoadingView : LinearLayout {
 
     constructor(context: Context) : this(context, null)

@@ -7,24 +7,25 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseViewModelFragment
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.thermal.adapter.GalleryAdapter
 import com.topdon.module.thermal.ir.thermal.viewmodel.GalleryViewModel
-import kotlinx.android.synthetic.main.fragment_gallery_video.*
+import com.topdon.module.thermal.ir.databinding.FragmentGalleryVideoBinding
 
-/**
- * 图片
- */
 class GalleryVideoFragment : BaseViewModelFragment<GalleryViewModel>() {
     private val adapter by lazy { GalleryAdapter(requireContext()) }
+    private lateinit var binding: FragmentGalleryVideoBinding
 
     override fun providerVMClass() = GalleryViewModel::class.java
 
     override fun initContentView() = R.layout.fragment_gallery_video
 
     override fun initView() {
+        binding = FragmentGalleryVideoBinding.bind(requireView())
+        
         val span = if (ScreenUtils.isLandscape()) 6 else 3
-        gallery_video_recycler.layoutManager = GridLayoutManager(requireContext(), span)
-        gallery_video_recycler.adapter = adapter
+        binding.galleryVideoRecycler.layoutManager = GridLayoutManager(requireContext(), span)
+        binding.galleryVideoRecycler.adapter = adapter
 
         viewModel.galleryLiveData.observe(this) {
             adapter.datas = it
@@ -35,8 +36,8 @@ class GalleryVideoFragment : BaseViewModelFragment<GalleryViewModel>() {
             }
 
             override fun onLongClick(index: Int, path: String) {
-                TipDialog.Builder(requireContext()).setMessage("导出图片")
-                    .setPositiveListener("分享") {
+                TipDialog.Builder(requireContext()).setMessage("")
+                    .setPositiveListener("") {
 //                            share(path)
                     }
                     .create().show()
@@ -66,6 +67,9 @@ class GalleryVideoFragment : BaseViewModelFragment<GalleryViewModel>() {
 //    }
 
 
+    /**
+     * Function description.
+     */
     fun openVideo(path: String) {
         ARouter.getInstance().build(RouterConfig.VIDEO).withString("video_path", path)
             .navigation(requireContext())

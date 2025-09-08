@@ -26,43 +26,54 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.IntDef;
 import androidx.core.content.ContextCompat;
 
-import com.topdon.lib.ui.R;
+import com.csl.irCamera.libui.R;
 
 import java.text.DecimalFormat;
 import java.util.Locale;
 
 
-/**
  * ================================================
- * 作    者：JayGoo
- * 版    本：
- * 创建日期：2018/5/8
- * 描    述:
+ *     JayGoo
+ * 2018/5/8
+ *     :
  * ================================================
- */
 
 public class SeekBar {
     //the indicator show mode
+    /**
+     * Method description.
+     */
     public static final int INDICATOR_SHOW_WHEN_TOUCH = 0;
     public static final int INDICATOR_ALWAYS_HIDE = 1;
     public static final int INDICATOR_ALWAYS_SHOW_AFTER_TOUCH = 2;
     public static final int INDICATOR_ALWAYS_SHOW = 3;
+    /**
+     * Private method description.
+     */
     private boolean thumbShow;
 
     @IntDef({INDICATOR_SHOW_WHEN_TOUCH, INDICATOR_ALWAYS_HIDE, INDICATOR_ALWAYS_SHOW_AFTER_TOUCH, INDICATOR_ALWAYS_SHOW})
+    /**
+     * Method description.
+     */
     public @interface IndicatorModeDef {
     }
 
+    /**
+     * Method description.
+     */
     public static final int WRAP_CONTENT = -1;
     public static final int MATCH_PARENT = -2;
 
+    /**
+     * Private method description.
+     */
     private int indicatorShowMode;
 
-    //进度提示背景的高度，宽度如果是0的话会自适应调整
+    //0
     //Progress prompted the background height, width,
     private int indicatorHeight;
     private int indicatorWidth;
-    //进度提示背景与按钮之间的距离
     //The progress indicates the distance between the background and the button
     private int indicatorMargin;
     private int indicatorDrawableId;
@@ -112,6 +123,9 @@ public class SeekBar {
         initVariables();
     }
 
+    /**
+     * Private method description.
+     */
     private void initAttrs(AttributeSet attrs) {
         TypedArray t = getContext().obtainStyledAttributes(attrs, R.styleable.RangeSeekBar);
         if (t == null) return;
@@ -149,17 +163,23 @@ public class SeekBar {
         }
     }
 
+    /**
+     * Method description.
+     */
     public Context getContext() {
         return rangeSeekBar.getContext();
     }
 
+    /**
+     * Method description.
+     */
     public Resources getResources() {
         if (getContext() != null) return getContext().getResources();
         return null;
     }
 
     /**
-     * 初始化进度提示的背景
+     * Private method description.
      */
     private void initBitmap() {
         setIndicatorDrawableId(indicatorDrawableId);
@@ -167,13 +187,9 @@ public class SeekBar {
         setThumbInactivatedDrawableId(thumbInactivatedDrawableId, thumbWidth, thumbHeight);
     }
 
-    /**
-     * 计算每个按钮的位置和尺寸
      * Calculates the position and size of each button
-     *
      * @param x position x
      * @param y position y
-     */
     protected void onSizeChanged(int x, int y) {
         initVariables();
         initBitmap();
@@ -184,6 +200,9 @@ public class SeekBar {
     }
 
 
+    /**
+     * Method description.
+     */
     public void scaleThumb() {
         scaleThumbWidth = (int) getThumbScaleWidth();
         scaleThumbHeight = (int) getThumbScaleHeight();
@@ -193,6 +212,9 @@ public class SeekBar {
         setThumbDrawableId(thumbDrawableId, scaleThumbWidth, scaleThumbHeight);
     }
 
+    /**
+     * Method description.
+     */
     public void resetThumb() {
         scaleThumbWidth = getThumbWidth();
         scaleThumbHeight = getThumbHeight();
@@ -202,22 +224,24 @@ public class SeekBar {
         setThumbDrawableId(thumbDrawableId, scaleThumbWidth, scaleThumbHeight);
     }
 
+    /**
+     * Method description.
+     */
     public float getRawHeight() {
         return getIndicatorHeight() + getIndicatorArrowSize() + getIndicatorMargin() + getThumbScaleHeight();
     }
+    /**
+     * Private method description.
+     */
     private boolean noNegativeNumber = false;
     /**
-     * 临时处理负数
+     * Method description.
      */
     public void setNoNegativeNumber(Boolean noNegativeNumber){
         this.noNegativeNumber = noNegativeNumber;
     }
-    /**
-     * 绘制按钮和提示背景和文字
      * Draw buttons and tips for background and text
-     *
      * @param canvas Canvas
-     */
     protected void draw(Canvas canvas, boolean isLeft) {
         if (!isVisible) {
             return;
@@ -228,57 +252,43 @@ public class SeekBar {
         // translate canvas, then don't care left
         canvas.translate(left, 0);
         if (isShowIndicator) {
-            onDrawIndicator(canvas, paint, formatCurrentIndicatorText(userText2Draw)); //滑动轴外标签
+            onDrawIndicator(canvas, paint, formatCurrentIndicatorText(userText2Draw)); //
         }
 //        if (isLeft) {
-//            //设置上指示图标
 //            setThumbDrawableId(R.drawable.ic_seekbar_high_svg, thumbWidth, thumbHeight);
 //        } else {
-//            //设置下指示图标
 //            setThumbDrawableId(R.drawable.ic_seekbar_low_svg, thumbWidth, thumbHeight);
 //        }
         if (thumbShow){
             onDrawThumb(canvas);
         }else {
-            onDrawThumb(canvas, isLeft); //轴上标签
+            onDrawThumb(canvas, isLeft); //
         }
         canvas.restore();
     }
 
 
-    /**
-     * 绘制按钮
-     * 如果没有图片资源，则绘制默认按钮
      * <p>
      * draw the thumb button
      * If there is no image resource, draw the default button
-     *
      * @param canvas canvas
-     */
     protected void onDrawThumb(Canvas canvas) {
         if (thumbInactivatedBitmap != null && !isActivate) {
             canvas.drawBitmap(thumbInactivatedBitmap, 0, rangeSeekBar.getProgressTop() + (rangeSeekBar.getProgressHeight() - scaleThumbHeight) / 2f, null);
         } else if (thumbBitmap != null) {
-            //绘制标签
             canvas.drawBitmap(thumbBitmap, 0, rangeSeekBar.getProgressTop() + (rangeSeekBar.getProgressHeight() - scaleThumbHeight) / 2f, null);
         }
     }
 
-    /**
-     * 绘制按钮
-     * 如果没有图片资源，则绘制默认按钮
      * <p>
      * draw the thumb button
      * If there is no image resource, draw the default button
-     *
      * @param canvas canvas
-     * @param isLeft 区分上下,用于旋转
-     */
+     * @param isLeft ,
     protected void onDrawThumb(Canvas canvas, Boolean isLeft) {
         if (thumbInactivatedBitmap != null && !isActivate) {
 //            canvas.drawBitmap(thumbInactivatedBitmap, 0, rangeSeekBar.getProgressTop() + (rangeSeekBar.getProgressHeight() - scaleThumbHeight) / 2f, null);
         } else if (thumbBitmap != null) {
-            //绘制标签
             Matrix matrix = new Matrix();
             int offX = thumbBitmap.getWidth() / 2;
             int offY = thumbBitmap.getHeight() / 2;
@@ -295,13 +305,9 @@ public class SeekBar {
         }
     }
 
-    /**
-     * 格式化提示文字
      * format the indicator text
-     *
      * @param text2Draw
      * @return
-     */
     protected String formatCurrentIndicatorText(String text2Draw) {
         SeekBarState[] states = rangeSeekBar.getRangeSeekBarState();
         if (TextUtils.isEmpty(text2Draw)) {
@@ -329,13 +335,10 @@ public class SeekBar {
 
 
 
-    /**
      * This method will draw the indicator background dynamically according to the text.
      * you can use to set padding
-     *
      * @param canvas    Canvas
      * @param text2Draw Indicator text
-     */
     protected void onDrawIndicator(Canvas canvas, Paint paint, String text2Draw) {
         try {
             if (text2Draw == null) return;
@@ -378,7 +381,7 @@ public class SeekBar {
                 canvas.drawPath(indicatorArrowPath, paint);
                 indicatorRect.bottom -= indicatorArrowSize;
                 indicatorRect.top -= indicatorArrowSize;
-                Log.w("伪彩条刷新","///");
+                Log.w("","///");
             }
 
             //indicator background edge processing
@@ -428,15 +431,11 @@ public class SeekBar {
             paint.setColor(indicatorTextColor);
             canvas.drawText(text2Draw, tx, ty, paint);
         }catch (Exception e){
-            Log.w("渲染异常",e.getMessage()+"");
+            Log.w("",e.getMessage()+"");
         }
     }
 
-    /**
-     * 拖动检测
-     *
      * @return is collide
-     */
     protected boolean collide(float x, float y) {
         int offset = (int) (rangeSeekBar.getProgressWidth() * currPercent);
         return x > left + offset && x < right + offset && y > top && y < bottom;
@@ -464,6 +463,9 @@ public class SeekBar {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void materialRestore() {
         if (anim != null) anim.cancel();
         anim = ValueAnimator.ofFloat(material, 0);
@@ -484,26 +486,44 @@ public class SeekBar {
         anim.start();
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorText(String text) {
         userText2Draw = text;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorTextDecimalFormat(String formatPattern) {
         indicatorTextDecimalFormat = new DecimalFormat(formatPattern);
     }
 
+    /**
+     * Method description.
+     */
     public DecimalFormat getIndicatorTextDecimalFormat() {
         return indicatorTextDecimalFormat;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorTextStringFormat(String formatPattern) {
         indicatorTextStringFormat = formatPattern;
     }
 
+    /**
+     * Method description.
+     */
     public int getIndicatorDrawableId() {
         return indicatorDrawableId;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorDrawableId(@DrawableRes int indicatorDrawableId) {
         if (indicatorDrawableId != 0) {
             this.indicatorDrawableId = indicatorDrawableId;
@@ -519,83 +539,128 @@ public class SeekBar {
     }
 
 
+    /**
+     * Method description.
+     */
     public int getIndicatorArrowSize() {
         return indicatorArrowSize;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorArrowSize(int indicatorArrowSize) {
         this.indicatorArrowSize = indicatorArrowSize;
     }
 
+    /**
+     * Method description.
+     */
     public int getIndicatorPaddingLeft() {
         return indicatorPaddingLeft;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorPaddingLeft(int indicatorPaddingLeft) {
         this.indicatorPaddingLeft = indicatorPaddingLeft;
     }
 
+    /**
+     * Method description.
+     */
     public int getIndicatorPaddingRight() {
         return indicatorPaddingRight;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorPaddingRight(int indicatorPaddingRight) {
         this.indicatorPaddingRight = indicatorPaddingRight;
     }
 
+    /**
+     * Method description.
+     */
     public int getIndicatorPaddingTop() {
         return indicatorPaddingTop;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorPaddingTop(int indicatorPaddingTop) {
         this.indicatorPaddingTop = indicatorPaddingTop;
     }
 
+    /**
+     * Method description.
+     */
     public int getIndicatorPaddingBottom() {
         return indicatorPaddingBottom;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorPaddingBottom(int indicatorPaddingBottom) {
         this.indicatorPaddingBottom = indicatorPaddingBottom;
     }
 
+    /**
+     * Method description.
+     */
     public int getIndicatorMargin() {
         return indicatorMargin;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorMargin(int indicatorMargin) {
         this.indicatorMargin = indicatorMargin;
     }
 
+    /**
+     * Method description.
+     */
     public int getIndicatorShowMode() {
         return indicatorShowMode;
     }
 
-    /**
      * the indicator show mode
      * {@link #INDICATOR_SHOW_WHEN_TOUCH}
      * {@link #INDICATOR_ALWAYS_SHOW}
      * {@link #INDICATOR_ALWAYS_SHOW_AFTER_TOUCH}
      * {@link #INDICATOR_ALWAYS_SHOW}
-     *
      * @param indicatorShowMode
+    /**
+     * Method description.
      */
     public void setIndicatorShowMode(@IndicatorModeDef int indicatorShowMode) {
         this.indicatorShowMode = indicatorShowMode;
     }
 
+    /**
+     * Method description.
+     */
     public void showIndicator(boolean isShown) {
         isShowIndicator = isShown;
     }
 
+    /**
+     * Method description.
+     */
     public boolean isShowIndicator() {
         return isShowIndicator;
     }
 
-    /**
-     * include indicator text Height、padding、margin
-     *
+     * include indicator text Heightpaddingmargin
      * @return The actual occupation height of indicator
+    /**
+     * Method description.
      */
     public int getIndicatorRawHeight() {
         if (indicatorHeight > 0) {
@@ -613,50 +678,86 @@ public class SeekBar {
         }
     }
 
+    /**
+     * Method description.
+     */
     public int getIndicatorHeight() {
         return indicatorHeight;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorHeight(int indicatorHeight) {
         this.indicatorHeight = indicatorHeight;
     }
 
+    /**
+     * Method description.
+     */
     public int getIndicatorWidth() {
         return indicatorWidth;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorWidth(int indicatorWidth) {
         this.indicatorWidth = indicatorWidth;
     }
 
+    /**
+     * Method description.
+     */
     public int getIndicatorTextSize() {
         return indicatorTextSize;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorTextSize(int indicatorTextSize) {
         this.indicatorTextSize = indicatorTextSize;
     }
 
+    /**
+     * Method description.
+     */
     public int getIndicatorTextColor() {
         return indicatorTextColor;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorTextColor(@ColorInt int indicatorTextColor) {
         this.indicatorTextColor = indicatorTextColor;
     }
 
+    /**
+     * Method description.
+     */
     public int getIndicatorBackgroundColor() {
         return indicatorBackgroundColor;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorBackgroundColor(@ColorInt int indicatorBackgroundColor) {
         this.indicatorBackgroundColor = indicatorBackgroundColor;
     }
 
+    /**
+     * Method description.
+     */
     public int getThumbInactivatedDrawableId() {
         return thumbInactivatedDrawableId;
     }
 
+    /**
+     * Method description.
+     */
     public void setThumbInactivatedDrawableId(@DrawableRes int thumbInactivatedDrawableId, int width, int height) {
         if (thumbInactivatedDrawableId != 0 && getResources() != null) {
             this.thumbInactivatedDrawableId = thumbInactivatedDrawableId;
@@ -668,10 +769,16 @@ public class SeekBar {
         }
     }
 
+    /**
+     * Method description.
+     */
     public int getThumbDrawableId() {
         return thumbDrawableId;
     }
 
+    /**
+     * Method description.
+     */
     public void setThumbDrawableId(@DrawableRes int thumbDrawableId, int width, int height) {
         if (thumbDrawableId != 0 && getResources() != null && width > 0 && height > 0) {
             this.thumbDrawableId = thumbDrawableId;
@@ -683,6 +790,9 @@ public class SeekBar {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setThumbDrawableId(@DrawableRes int thumbDrawableId) {
         if (thumbWidth <= 0 || thumbHeight <= 0) {
             throw new IllegalArgumentException("please set thumbWidth and thumbHeight first!");
@@ -697,34 +807,58 @@ public class SeekBar {
         }
     }
 
+    /**
+     * Method description.
+     */
     public int getThumbWidth() {
         return thumbWidth;
     }
 
+    /**
+     * Method description.
+     */
     public void setThumbWidth(int thumbWidth) {
         this.thumbWidth = thumbWidth;
     }
 
+    /**
+     * Method description.
+     */
     public float getThumbScaleHeight() {
         return thumbHeight * thumbScaleRatio;
     }
 
+    /**
+     * Method description.
+     */
     public float getThumbScaleWidth() {
         return thumbWidth * thumbScaleRatio;
     }
 
+    /**
+     * Method description.
+     */
     public int getThumbHeight() {
         return thumbHeight;
     }
 
+    /**
+     * Method description.
+     */
     public void setThumbHeight(int thumbHeight) {
         this.thumbHeight = thumbHeight;
     }
 
+    /**
+     * Method description.
+     */
     public float getIndicatorRadius() {
         return indicatorRadius;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorRadius(float indicatorRadius) {
         this.indicatorRadius = indicatorRadius;
     }
@@ -737,33 +871,42 @@ public class SeekBar {
         isActivate = activate;
     }
 
+    /**
+     * Method description.
+     */
     public void setTypeface(Typeface typeFace) {
         paint.setTypeface(typeFace);
     }
 
 
-    /**
      * when you touch or move, the thumb will scale, default not scale
-     *
      * @return default 1.0f
+    /**
+     * Method description.
      */
     public float getThumbScaleRatio() {
         return thumbScaleRatio;
     }
 
+    /**
+     * Method description.
+     */
     public boolean isVisible() {
         return isVisible;
     }
 
-    /**
      * if visble is false, will clear the Canvas
-     *
      * @param visible
+    /**
+     * Method description.
      */
     public void setVisible(boolean visible) {
         isVisible = visible;
     }
 
+    /**
+     * Method description.
+     */
     public float getProgress() {
         float range = rangeSeekBar.getMaxProgress() - rangeSeekBar.getMinProgress();
         return rangeSeekBar.getMinProgress() + range * currPercent;

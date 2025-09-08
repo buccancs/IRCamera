@@ -8,13 +8,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.tools.GlideLoader
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.item_gallery.view.*
+import com.csl.irCamera.libapp.R as LibAppR
+import com.topdon.module.thermal.ir.databinding.ItemGalleryBinding
 
 class GalleryAdapter(val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    /** listener property */
     var listener: OnItemClickListener? = null
 
+    /** datas property */
     var datas = arrayListOf<String>()
         set(value) {
             field = value
@@ -22,23 +25,22 @@ class GalleryAdapter(val context: Context) :
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_gallery, parent, false)
-        return ItemView(view)
+        val binding = ItemGalleryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ItemView(binding)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ItemView) {
-            GlideLoader.load(holder.img, datas[position])
-            holder.lay.setOnClickListener {
-                Log.w("123", "文件: ${datas[position]}")
+            GlideLoader.load(holder.binding.itemGalleryImg, datas[position])
+            holder.binding.itemGalleryLay.setOnClickListener {
+                Log.w("123", ": ${datas[position]}")
                 listener?.onClick(position, datas[position])
             }
-            holder.lay.setOnLongClickListener(View.OnLongClickListener {
-                Log.w("123", "文件: ${datas[position]}")
+            holder.binding.itemGalleryLay.setOnLongClickListener {
+                Log.w("123", ": ${datas[position]}")
                 listener?.onLongClick(position, datas[position])
-                return@OnLongClickListener true
-            })
+                return@setOnLongClickListener true
+            }
         }
     }
 
@@ -46,10 +48,7 @@ class GalleryAdapter(val context: Context) :
         return datas.size
     }
 
-    inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val lay = itemView.item_gallery_lay
-        val img = itemView.item_gallery_img
-    }
+    inner class ItemView(val binding: ItemGalleryBinding) : RecyclerView.ViewHolder(binding.root)
 
 
     interface OnItemClickListener {

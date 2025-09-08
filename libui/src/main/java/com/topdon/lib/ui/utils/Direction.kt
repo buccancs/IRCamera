@@ -1,10 +1,8 @@
 package com.topdon.lib.ui.utils
 
-/**
  * @author: CaiSongL
  * @date: 2023/4/1 14:12
- */
-@Deprecated("热成像-菜单-拍照已重构，不需要这个类了")
+@Deprecated("--，")
 enum class Direction {
     START {
         override fun applyTo(delta: Int): Int {

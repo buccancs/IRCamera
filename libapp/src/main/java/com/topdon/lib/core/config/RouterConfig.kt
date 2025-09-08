@@ -53,7 +53,7 @@ object RouterConfig {
 
     // Removed TS004 and TC007 routes - only TC001 (USB) is supported
 
-    //report 生成报告
+    //report
     const val REPORT_CREATE_FIRST = "/$GROUP_REPORT/create/first"
     const val REPORT_CREATE_SECOND = "/$GROUP_REPORT/create/second"
     const val REPORT_PREVIEW_FIRST = "/$GROUP_REPORT/preview/first"
@@ -75,7 +75,6 @@ object RouterConfig {
     const val STORAGE_SPACE = "/$GROUP_USER/storage_space"
     const val AUTO_SAVE = "/$GROUP_USER/auto_save"
 
-    //双光
     const val MANUAL_START = "/$GROUP_CALIBRATE/manual/first"
     const val IR_FRAME_PLUSH = "/$GROUP_IR/frame/plush"
 

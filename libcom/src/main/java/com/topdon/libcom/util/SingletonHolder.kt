@@ -10,6 +10,9 @@ open class SingletonHolder<out T, in A>(creator: (A) -> T) {
     @Volatile
     private var instance: T? = null
 
+    /**
+     * Function description.
+     */
     fun getInstance(arg: A): T {
         val i = instance
         if (i != null) {

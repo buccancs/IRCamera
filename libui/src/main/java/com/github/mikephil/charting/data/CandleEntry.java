@@ -13,6 +13,9 @@ import android.graphics.drawable.Drawable;
 public class CandleEntry extends Entry {
 
     /** shadow-high value */
+    /**
+     * Private method description.
+     */
     private float mShadowHigh = 0f;
 
     /** shadow-low value */
@@ -33,6 +36,9 @@ public class CandleEntry extends Entry {
      * @param open The open value
      * @param close The close value
      */
+    /**
+     * Method description.
+     */
     public CandleEntry(float x, float shadowH, float shadowL, float open, float close) {
         super(x, (shadowH + shadowL) / 2f);
 
@@ -51,6 +57,9 @@ public class CandleEntry extends Entry {
      * @param open
      * @param close
      * @param data Spot for additional data this Entry represents
+     */
+    /**
+     * Method description.
      */
     public CandleEntry(float x, float shadowH, float shadowL, float open, float close,
                        Object data) {
@@ -71,6 +80,9 @@ public class CandleEntry extends Entry {
      * @param open
      * @param close
      * @param icon Icon image
+     */
+    /**
+     * Method description.
      */
     public CandleEntry(float x, float shadowH, float shadowL, float open, float close,
                        Drawable icon) {
@@ -93,6 +105,9 @@ public class CandleEntry extends Entry {
      * @param icon Icon image
      * @param data Spot for additional data this Entry represents
      */
+    /**
+     * Method description.
+     */
     public CandleEntry(float x, float shadowH, float shadowL, float open, float close,
                        Drawable icon, Object data) {
         super(x, (shadowH + shadowL) / 2f, icon, data);
@@ -109,6 +124,9 @@ public class CandleEntry extends Entry {
      * 
      * @return
      */
+    /**
+     * Method description.
+     */
     public float getShadowRange() {
         return Math.abs(mShadowHigh - mShadowLow);
     }
@@ -117,6 +135,9 @@ public class CandleEntry extends Entry {
      * Returns the body size (difference between open and close).
      * 
      * @return
+     */
+    /**
+     * Method description.
      */
     public float getBodyRange() {
         return Math.abs(mOpen - mClose);
@@ -127,10 +148,16 @@ public class CandleEntry extends Entry {
      * low)
      */
     @Override
+    /**
+     * Method description.
+     */
     public float getY() {
         return super.getY();
     }
 
+    /**
+     * Method description.
+     */
     public CandleEntry copy() {
 
         CandleEntry c = new CandleEntry(getX(), mShadowHigh, mShadowLow, mOpen,
@@ -144,10 +171,16 @@ public class CandleEntry extends Entry {
      * 
      * @return
      */
+    /**
+     * Method description.
+     */
     public float getHigh() {
         return mShadowHigh;
     }
 
+    /**
+     * Method description.
+     */
     public void setHigh(float mShadowHigh) {
         this.mShadowHigh = mShadowHigh;
     }
@@ -157,10 +190,16 @@ public class CandleEntry extends Entry {
      * 
      * @return
      */
+    /**
+     * Method description.
+     */
     public float getLow() {
         return mShadowLow;
     }
 
+    /**
+     * Method description.
+     */
     public void setLow(float mShadowLow) {
         this.mShadowLow = mShadowLow;
     }
@@ -170,10 +209,16 @@ public class CandleEntry extends Entry {
      * 
      * @return
      */
+    /**
+     * Method description.
+     */
     public float getClose() {
         return mClose;
     }
 
+    /**
+     * Method description.
+     */
     public void setClose(float mClose) {
         this.mClose = mClose;
     }
@@ -183,10 +228,16 @@ public class CandleEntry extends Entry {
      * 
      * @return
      */
+    /**
+     * Method description.
+     */
     public float getOpen() {
         return mOpen;
     }
 
+    /**
+     * Method description.
+     */
     public void setOpen(float mOpen) {
         this.mOpen = mOpen;
     }

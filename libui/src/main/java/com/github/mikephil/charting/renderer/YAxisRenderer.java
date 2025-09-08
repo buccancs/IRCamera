@@ -24,6 +24,9 @@ public class YAxisRenderer extends AxisRenderer {
 
     protected Paint mZeroLinePaint;
 
+    /**
+     * Method description.
+     */
     public YAxisRenderer(ViewPortHandler viewPortHandler, YAxis yAxis, Transformer trans) {
         super(viewPortHandler, trans, yAxis);
 
@@ -45,6 +48,9 @@ public class YAxisRenderer extends AxisRenderer {
      * draws the y-axis labels to the screen
      */
     @Override
+    /**
+     * Method description.
+     */
     public void renderAxisLabels(Canvas c) {
 
         if (!mYAxis.isEnabled() || !mYAxis.isDrawLabelsEnabled())
@@ -89,6 +95,9 @@ public class YAxisRenderer extends AxisRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void renderAxisLine(Canvas c) {
 
         if (!mYAxis.isEnabled() || !mYAxis.isDrawAxisLineEnabled())
@@ -130,6 +139,9 @@ public class YAxisRenderer extends AxisRenderer {
 
     protected Path mRenderGridLinesPath = new Path();
     @Override
+    /**
+     * Method description.
+     */
     public void renderGridLines(Canvas c) {
 
         if (!mYAxis.isEnabled())
@@ -167,6 +179,9 @@ public class YAxisRenderer extends AxisRenderer {
 
     protected RectF mGridClippingRect = new RectF();
 
+    /**
+     * Method description.
+     */
     public RectF getGridClippingRect() {
         mGridClippingRect.set(mViewPortHandler.getContentRect());
         mGridClippingRect.inset(0.f, -mAxis.getGridLineWidth());
@@ -252,6 +267,9 @@ public class YAxisRenderer extends AxisRenderer {
      * @param c
      */
     @Override
+    /**
+     * Method description.
+     */
     public void renderLimitLines(Canvas c) {
 
         List<LimitLine> limitLines = mYAxis.getLimitLines();

@@ -10,8 +10,14 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 
 public class XAxisRendererRadarChart extends XAxisRenderer {
 
+    /**
+     * Private method description.
+     */
     private RadarChart mChart;
 
+    /**
+     * Method description.
+     */
     public XAxisRendererRadarChart(ViewPortHandler viewPortHandler, XAxis xAxis, RadarChart chart) {
         super(viewPortHandler, xAxis, null);
 
@@ -19,6 +25,9 @@ public class XAxisRendererRadarChart extends XAxisRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void renderAxisLabels(Canvas c) {
 
         if (!mXAxis.isEnabled() || !mXAxis.isDrawLabelsEnabled())

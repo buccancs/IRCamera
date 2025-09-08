@@ -16,22 +16,34 @@ import com.energy.commoncomponent.R;
  */
 public class ItemComponentView extends LinearLayout {
 
+    /**
+     * Private method description.
+     */
     private OnItemClickListener mOnItemClickListener;
     private Button mPlayButtonView;
     private TextView mTitleTextView;
     private SwitchCompat mSwitchCompat;
     private TextView mValueTextView;
 
+    /**
+     * Method description.
+     */
     public ItemComponentView(Context context) {
         super(context);
         initView(null);
     }
 
+    /**
+     * Method description.
+     */
     public ItemComponentView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initView(attrs);
     }
 
+    /**
+     * Private method description.
+     */
     private void initView(AttributeSet attrs) {
         inflate(getContext(), R.layout.layout_item_component, this);
         mTitleTextView = findViewById(R.id.tv_title);
@@ -72,46 +84,79 @@ public class ItemComponentView extends LinearLayout {
         });
     }
 
+    /**
+     * Method description.
+     */
     public interface OnItemClickListener {
         void onItemClick();
     }
 
+    /**
+     * Method description.
+     */
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
     }
 
+    /**
+     * Method description.
+     */
     public void setTitle(String text) {
         mTitleTextView.setText(text);
     }
 
+    /**
+     * Method description.
+     */
     public String getTitle() {
         return mTitleTextView.getText().toString();
     }
 
+    /**
+     * Method description.
+     */
     public void setPlayButtonText(String text) {
         mPlayButtonView.setText(text);
     }
 
+    /**
+     * Method description.
+     */
     public void setValueText(String text) {
         mValueTextView.setText(text);
     }
 
+    /**
+     * Method description.
+     */
     public void setSwitchCompatEnable(boolean switchCompatEnable) {
         mSwitchCompat.setVisibility(switchCompatEnable? View.VISIBLE : View.GONE);
     }
 
+    /**
+     * Method description.
+     */
     public void setPlayButtonEnable(boolean playButtonEnable) {
         mPlayButtonView.setVisibility(playButtonEnable? View.VISIBLE : View.GONE);
     }
 
+    /**
+     * Method description.
+     */
     public void setValueTextViewEnable(boolean valueTextViewEnable) {
         mValueTextView.setVisibility(valueTextViewEnable? View.VISIBLE : View.GONE);
     }
 
+    /**
+     * Method description.
+     */
     public void setSwitchCompatChecked(boolean switchCompatChecked) {
         mSwitchCompat.setChecked(switchCompatChecked);
     }
 
+    /**
+     * Method description.
+     */
     public void setSwitchCompatCheckListener(OnSwitchCompatCheckListener onSwitchCompatCheckListener) {
         mSwitchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -123,6 +168,9 @@ public class ItemComponentView extends LinearLayout {
         });
     }
 
+    /**
+     * Method description.
+     */
     public void setButtonClickListener(OnButtonClickListener onButtonClickListener) {
         mPlayButtonView.setOnClickListener(new OnClickListener() {
             @Override
@@ -134,10 +182,16 @@ public class ItemComponentView extends LinearLayout {
         });
     }
 
+    /**
+     * Method description.
+     */
     public interface OnSwitchCompatCheckListener {
         void onCheckedChanged(CompoundButton buttonView, boolean isChecked, int id);
     }
 
+    /**
+     * Method description.
+     */
     public interface OnButtonClickListener {
         void onClick(View view, int id);
     }

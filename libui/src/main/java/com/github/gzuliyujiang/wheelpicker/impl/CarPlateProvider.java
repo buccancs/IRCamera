@@ -1,15 +1,12 @@
-/*
- * Copyright (c) 2016-present 贵州纳雍穿青人李裕江<1032694760@qq.com>
- *
+ * Copyright (c) 2016-present <1032694760@qq.com>
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
  *     http://license.coscl.org.cn/MulanPSL2
- * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
+ * THIS SOFTWARE IS PROVIDED ON AN AS IS BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
  * See the Mulan PSL v2 for more details.
- */
 
 package com.github.gzuliyujiang.wheelpicker.impl;
 
@@ -21,31 +18,40 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * 数据参见 http://www.360doc.com/content/12/0602/07/3899427_215339300.shtml
- *
- * @author 贵州山野羡民（1032694760@qq.com）
+ *  http://www.360doc.com/content/12/0602/07/3899427_215339300.shtml
+ * @author 1032694760@qq.com
  * @since 2021/6/9 11:31
- */
 public class CarPlateProvider implements LinkageProvider {
+    /**
+     * Private method description.
+     */
     private static final String[] ABBREVIATIONS = {
-            "京", "津", "冀", "晋", "蒙", "辽", "吉", "黑", "沪",
-            "苏", "浙", "皖", "闽", "赣", "鲁", "豫", "鄂", "湘",
-            "粤", "桂", "琼", "渝", "川", "贵", "云", "藏", "陕",
-            "甘", "青", "宁", "新"};
+            "", "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "", "",
+            "", "", "", "", "", "", "", "", "",
+            "", "", "", ""};
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean firstLevelVisible() {
         return true;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean thirdLevelVisible() {
         return false;
     }
 
     @NonNull
     @Override
+    /**
+     * Method description.
+     */
     public List<String> provideFirstData() {
         List<String> provinces = new ArrayList<>();
         Collections.addAll(provinces, ABBREVIATIONS);
@@ -54,6 +60,9 @@ public class CarPlateProvider implements LinkageProvider {
 
     @NonNull
     @Override
+    /**
+     * Method description.
+     */
     public List<String> linkageSecondData(int firstIndex) {
         List<String> letters = new ArrayList<>();
         if (firstIndex == INDEX_NO_FOUND) {
@@ -61,20 +70,20 @@ public class CarPlateProvider implements LinkageProvider {
         }
         String province = provideFirstData().get(firstIndex);
         switch (province) {
-            case "京":
+            case "":
                 for (char i = 'A'; i <= 'M'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 letters.remove("I");
                 letters.add("Y");
                 break;
-            case "津":
-            case "青":
+            case "":
+            case "":
                 for (char i = 'A'; i <= 'H'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 break;
-            case "冀":
+            case "":
                 for (char i = 'A'; i <= 'H'; i++) {
                     letters.add(String.valueOf(i));
                 }
@@ -83,70 +92,70 @@ public class CarPlateProvider implements LinkageProvider {
                 letters.add("S");
                 letters.add("T");
                 break;
-            case "晋":
+            case "":
                 for (char i = 'A'; i <= 'M'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 letters.remove("G");
                 letters.remove("I");
                 break;
-            case "蒙":
-            case "赣":
+            case "":
+            case "":
                 for (char i = 'A'; i <= 'M'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 letters.remove("I");
                 break;
-            case "辽":
-            case "甘":
+            case "":
+            case "":
                 for (char i = 'A'; i <= 'P'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 letters.remove("I");
                 letters.remove("O");
                 break;
-            case "吉":
-            case "闽":
+            case "":
+            case "":
                 for (char i = 'A'; i <= 'K'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 letters.remove("I");
                 break;
-            case "黑":
-            case "新":
+            case "":
+            case "":
                 for (char i = 'A'; i <= 'R'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 letters.remove("I");
                 letters.remove("O");
                 break;
-            case "沪":
+            case "":
                 for (char i = 'A'; i <= 'D'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 letters.add("R");
                 break;
-            case "苏":
+            case "":
                 for (char i = 'A'; i <= 'N'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 letters.remove("I");
                 break;
-            case "浙":
+            case "":
                 for (char i = 'A'; i <= 'L'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 letters.remove("I");
                 break;
-            case "皖":
-            case "鄂":
+            case "":
+            case "":
                 for (char i = 'A'; i <= 'S'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 letters.remove("I");
                 letters.remove("O");
                 break;
-            case "鲁":
+            case "":
                 for (char i = 'A'; i <= 'V'; i++) {
                     letters.add(String.valueOf(i));
                 }
@@ -154,14 +163,14 @@ public class CarPlateProvider implements LinkageProvider {
                 letters.remove("O");
                 letters.add("Y");
                 break;
-            case "豫":
+            case "":
                 for (char i = 'A'; i <= 'U'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 letters.remove("I");
                 letters.remove("O");
                 break;
-            case "湘":
+            case "":
                 for (char i = 'A'; i <= 'N'; i++) {
                     letters.add(String.valueOf(i));
                 }
@@ -169,14 +178,14 @@ public class CarPlateProvider implements LinkageProvider {
                 letters.remove("O");
                 letters.add("U");
                 break;
-            case "粤":
+            case "":
                 for (char i = 'A'; i <= 'Z'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 letters.remove("I");
                 letters.remove("O");
                 break;
-            case "桂":
+            case "":
                 for (char i = 'A'; i <= 'P'; i++) {
                     letters.add(String.valueOf(i));
                 }
@@ -184,20 +193,20 @@ public class CarPlateProvider implements LinkageProvider {
                 letters.remove("O");
                 letters.add("R");
                 break;
-            case "琼":
-            case "宁":
+            case "":
+            case "":
                 for (char i = 'A'; i <= 'E'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 break;
-            case "渝":
+            case "":
                 for (char i = 'A'; i <= 'D'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 letters.remove("D");
                 letters.remove("E");
                 break;
-            case "川":
+            case "":
                 for (char i = 'A'; i <= 'Z'; i++) {
                     letters.add(String.valueOf(i));
                 }
@@ -205,15 +214,15 @@ public class CarPlateProvider implements LinkageProvider {
                 letters.remove("I");
                 letters.remove("O");
                 break;
-            case "贵":
-            case "藏":
+            case "":
+            case "":
                 for (char i = 'A'; i <= 'J'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 letters.remove("I");
                 break;
-            case "云":
-                // “A-V”为昆明市东川区（原东川市）
+            case "":
+                // “A-V”
                 letters.add("A-V");
                 for (char i = 'A'; i <= 'S'; i++) {
                     letters.add(String.valueOf(i));
@@ -222,7 +231,7 @@ public class CarPlateProvider implements LinkageProvider {
                 letters.remove("I");
                 letters.remove("O");
                 break;
-            case "陕":
+            case "":
                 for (char i = 'A'; i <= 'K'; i++) {
                     letters.add(String.valueOf(i));
                 }
@@ -235,11 +244,17 @@ public class CarPlateProvider implements LinkageProvider {
 
     @NonNull
     @Override
+    /**
+     * Method description.
+     */
     public List<?> linkageThirdData(int firstIndex, int secondIndex) {
         return new ArrayList<>();
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int findFirstIndex(Object firstValue) {
         if (firstValue == null) {
             return INDEX_NO_FOUND;
@@ -254,6 +269,9 @@ public class CarPlateProvider implements LinkageProvider {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int findSecondIndex(int firstIndex, Object secondValue) {
         if (secondValue == null) {
             return INDEX_NO_FOUND;
@@ -269,6 +287,9 @@ public class CarPlateProvider implements LinkageProvider {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int findThirdIndex(int firstIndex, int secondIndex, Object thirdValue) {
         return 0;
     }

@@ -1,15 +1,12 @@
-/*
- * Copyright (c) 2016-present 贵州纳雍穿青人李裕江<1032694760@qq.com>
- *
+ * Copyright (c) 2016-present <1032694760@qq.com>
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
  *     http://license.coscl.org.cn/MulanPSL2
- * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
+ * THIS SOFTWARE IS PROVIDED ON AN AS IS BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
  * See the Mulan PSL v2 for more details.
- */
 
 package com.github.gzuliyujiang.wheelpicker;
 
@@ -28,33 +25,47 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 性别选择器
- *
- * @author 贵州山野羡民（1032694760@qq.com）
+ * @author 1032694760@qq.com
  * @since 2019/6/23 11:48
- */
 @SuppressWarnings("WeakerAccess")
 public class SexPicker extends OptionPicker {
-    public static String JSON = "[{\"id\":0,\"name\":\"保密\",\"english\":\"Secrecy\"},\n" +
-            "{\"id\":1,\"name\":\"男\",\"english\":\"Male\"},\n" +
-            "{\"id\":2,\"name\":\"女\",\"english\":\"Female\"}]";
+    /**
+     * Method description.
+     */
+    public static String JSON = "[{\"id\":0,\"name\":\"\",\"english\":\"Secrecy\"},\n" +
+            "{\"id\":1,\"name\":\"\",\"english\":\"Male\"},\n" +
+            "{\"id\":2,\"name\":\"\",\"english\":\"Female\"}]";
+    /**
+     * Private method description.
+     */
     private boolean includeSecrecy;
 
+    /**
+     * Method description.
+     */
     public SexPicker(Activity activity) {
         super(activity);
     }
 
+    /**
+     * Method description.
+     */
     public SexPicker(@NonNull Activity activity, @StyleRes int themeResId) {
         super(activity, themeResId);
     }
 
+    /**
+     * Method description.
+     */
     public void setIncludeSecrecy(boolean includeSecrecy) {
         this.includeSecrecy = includeSecrecy;
         setData(provideData());
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setDefaultValue(Object item) {
         if (item instanceof String) {
             setDefaultValueByName(item.toString());
@@ -63,12 +74,18 @@ public class SexPicker extends OptionPicker {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultValueByName(String name) {
         SexEntity entity = new SexEntity();
         entity.setName(name);
         super.setDefaultValue(entity);
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultValueByEnglish(String english) {
         SexEntity entity = new SexEntity();
         entity.setEnglish(english);

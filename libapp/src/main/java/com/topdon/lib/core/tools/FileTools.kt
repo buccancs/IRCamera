@@ -12,6 +12,9 @@ import java.lang.Exception
 
 object FileTools {
 
+    /**
+     * Function description.
+     */
     fun getFileSize(path: String): String {
         var str = ""
         try {
@@ -31,11 +34,17 @@ object FileTools {
         return str
     }
 
+    /**
+     * Function description.
+     */
     fun getUri(file: File): Uri {
         val authority = "${Utils.getApp().packageName}.fileprovider"
         return FileProvider.getUriForFile(Utils.getApp(), authority, file)
     }
 
+    /**
+     * Function description.
+     */
     fun getImagePathFromURI(path: String): Uri? {
         val cr: ContentResolver = Utils.getApp().contentResolver
         val buffer = StringBuffer()

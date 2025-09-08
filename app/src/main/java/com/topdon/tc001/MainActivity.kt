@@ -1,4 +1,7 @@
 package com.topdon.tc001
+import com.csl.irCamera.R
+import com.csl.irCamera.BuildConfig
+import com.csl.irCamera.libapp.R as LibAppR
 
 import android.Manifest
 import android.content.Intent
@@ -53,10 +56,10 @@ import com.topdon.module.user.fragment.MineFragment
 import com.topdon.tc001.app.App
 import com.topdon.tc001.fragment.MainFragment
 import com.topdon.tc001.utils.AppVersionUtil
+import com.csl.irCamera.databinding.ActivityMainBinding
 import com.zoho.commons.LauncherModes
 import com.zoho.commons.LauncherProperties
 import com.zoho.salesiqembed.ZohoSalesIQ
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
@@ -71,12 +74,12 @@ import java.io.OutputStream
 @Route(path = RouterConfig.MAIN)
 class MainActivity : BaseActivity(), View.OnClickListener {
 
+    private lateinit var binding: ActivityMainBinding
     private val versionViewModel: VersionViewModel by viewModels()
 
-    private var checkPermissionType: Int = -1 //0 initData数据 1 图库  2 connect方法
+    private var checkPermissionType: Int = -1 //0 initData 1 2 connect
     override fun initContentView() = R.layout.activity_main
 
-    //记录设备信息
     private fun logInfo() {
         try {
             val str = StringBuilder()
@@ -101,27 +104,29 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun initView() {
+        binding = ActivityMainBinding.bind(findViewById<View>(android.R.id.content).rootView)
+        
         logInfo()
         lifecycleScope.launch(Dispatchers.IO){
             SupHelp.getInstance().initAiUpScaler(Utils.getApp())
         }
-        view_page.offscreenPageLimit = 3
-        view_page.isUserInputEnabled = false
-        view_page.adapter = ViewPagerAdapter(this)
-        view_page.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        binding.viewPage.offscreenPageLimit = 3
+        binding.viewPage.isUserInputEnabled = false
+        binding.viewPage.adapter = ViewPagerAdapter(this)
+        binding.viewPage.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 refreshTabSelect(position)
             }
         })
         if (savedInstanceState == null) {
-            view_page.setCurrentItem(1, false)
+            binding.viewPage.setCurrentItem(1, false)
         }
 
-        view_mine_point.isVisible = !SharedManager.hasClickWinter
+        binding.viewMinePoint.isVisible = !SharedManager.hasClickWinter
 
-        cl_icon_gallery.setOnClickListener(this)
-        view_main.setOnClickListener(this)
-        cl_icon_mine.setOnClickListener(this)
+        binding.clIconGallery.setOnClickListener(this)
+        binding.viewMain.setOnClickListener(this)
+        binding.clIconMine.setOnClickListener(this)
         App.instance.initWebSocket()
         copyFile("SR.pb", File(filesDir, "SR.pb"))
         BaseApplication.instance.clearDb()
@@ -132,7 +137,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         }
 
         if (!SharedManager.hasTcLine && !SharedManager.hasTS004 && !SharedManager.hasTC007) {
-            //仅当设备列表为空时，才执行自动跳转
             if (DeviceTools.isConnect()) {
                 if (!WebSocketProxy.getInstance().isConnected()) {
                     ARouter.getInstance()
@@ -167,10 +171,9 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     override fun onStart() {
         super.onStart()
 
-        //版本下载
         versionViewModel.updateLiveData.observe(this) {
             FirmwareUpDialog(this).apply {
-                titleStr = getString(com.topdon.lib.core.R.string.update_new_version)
+                titleStr = getString(LibAppR.string.update_new_version)
                 sizeStr = it.versionNo
                 contentStr = it.description
                 isShowCancel = !it.isForcedUpgrade
@@ -178,7 +181,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                     updateApk(it.downPageUrl)
                 }
                 onCancelClickListener = {
-                    SharedManager.setVersionCheckDate(System.currentTimeMillis())//刷新版本提示时间
+                    SharedManager.setVersionCheckDate(System.currentTimeMillis())//
                 }
             }.show()
         }
@@ -186,7 +189,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     private fun updateApk(url : String) {
         if (applicationInfo.targetSdkVersion < Build.VERSION_CODES.P) {
-            //目标版本27默认跳到官网下载
+            //27
             val intent = Intent()
             intent.action = "android.intent.action.VIEW"
             intent.data = Uri.parse(url)
@@ -218,8 +221,8 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         disconnectDialog?.dismiss()
         if (resetTipsDialog == null) {
             resetTipsDialog = TipDialog.Builder(this)
-                .setMessage(R.string.device_reset_alert)
-                .setPositiveListener(R.string.app_got_it) {
+                .setMessage(LibAppR.string.device_reset_alert)
+                .setPositiveListener(LibAppR.string.app_got_it) {
                 }
                 .create()
         }
@@ -234,8 +237,8 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         }
         if (disconnectDialog == null) {
             disconnectDialog = TipDialog.Builder(this)
-                .setMessage(R.string.device_disconnect_alert)
-                .setPositiveListener(R.string.app_got_it) {
+                .setMessage(LibAppR.string.device_disconnect_alert)
+                .setPositiveListener(LibAppR.string.app_got_it) {
                 }
                 .create()
         }
@@ -243,7 +246,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun copyFile(filename: String, targetFile: File) {
-        if (targetFile.exists()) {//已存在就不覆盖了
+        if (targetFile.exists()) {//
             return
         }
         try {
@@ -278,15 +281,15 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            cl_icon_gallery -> {//图库
+            binding.clIconGallery -> {//
                 checkPermissionType = 1
                 checkStoragePermission()
             }
-            view_main -> {//首页
-                view_page.setCurrentItem(1, false)
+            binding.viewMain -> {//
+                binding.viewPage.setCurrentItem(1, false)
             }
-            cl_icon_mine -> {//我的
-                view_page.setCurrentItem(2, false)
+            binding.clIconMine -> {//
+                binding.viewPage.setCurrentItem(2, false)
             }
         }
     }
@@ -295,9 +298,9 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             TipDialog.Builder(this)
-                .setMessage(getString(R.string.main_exit, CommUtils.getAppName()))
-                .setCancelListener(R.string.app_no)
-                .setPositiveListener(R.string.app_yes) {
+                .setMessage(getString(LibAppR.string.main_exit, CommUtils.getAppName()))
+                .setCancelListener(LibAppR.string.app_no)
+                .setPositiveListener(LibAppR.string.app_yes) {
                     BaseApplication.instance.exitAll()
                     finish()
                 }
@@ -308,37 +311,41 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun getDevicePermission(event: DevicePermissionEvent) {
         DeviceTools.requestUsb(this, 0, event.device)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun onWinterClick(event: WinterClickEvent) {
-        view_mine_point.isVisible = false
+        binding.viewMinePoint.isVisible = false
     }
 
-    /**
-     * 刷新 3 个 tab 的选中状态
-     * @param index 当前选中哪个 tab，`[0, 2]`
-     */
+     *  3  tab
+     * @param index  tab`[0, 2]`
     private fun refreshTabSelect(index: Int) {
-        iv_icon_gallery.isSelected = false
-        tv_icon_gallery.isSelected = false
-        iv_icon_mine.isSelected = false
-        tv_icon_mine.isSelected = false
-        iv_bottom_main_bg.setImageResource(R.drawable.ic_main_bg_not_select)
+        binding.ivIconGallery.isSelected = false
+        binding.tvIconGallery.isSelected = false
+        binding.ivIconMine.isSelected = false
+        binding.tvIconMine.isSelected = false
+        binding.ivBottomMainBg.setImageResource(R.drawable.ic_main_bg_not_select)
 
         when (index) {
-            0 -> {//图库
-                iv_icon_gallery.isSelected = true
-                tv_icon_gallery.isSelected = true
+            0 -> {//
+                binding.ivIconGallery.isSelected = true
+                binding.tvIconGallery.isSelected = true
             }
             1 -> {
-                iv_bottom_main_bg.setImageResource(R.drawable.ic_main_bg_select)
+                binding.ivBottomMainBg.setImageResource(R.drawable.ic_main_bg_select)
             }
-            2 -> {//我的
-                iv_icon_mine.isSelected = true
-                tv_icon_mine.isSelected = true
+            2 -> {//
+                binding.ivIconMine.isSelected = true
+                binding.tvIconMine.isSelected = true
             }
         }
     }
@@ -356,14 +363,14 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         if (WebSocketProxy.getInstance().isTS004Connect()) {
             ARouter.getInstance().build(RouterConfig.IR_MONOCULAR).navigation(this)
         }
-        //无连接OTG提示
+        //OTG
         if (tipOtgDialog != null && tipOtgDialog!!.isShowing) {
             return
         }
         if (SharedManager.isTipOTG && !BaseApplication.instance.hasOtgShow) {
             tipOtgDialog = TipOtgDialog.Builder(this)
-                .setMessage(R.string.tip_otg)
-                .setPositiveListener(R.string.app_confirm) {
+                .setMessage(LibAppR.string.tip_otg)
+                .setPositiveListener(LibAppR.string.app_confirm) {
                     SharedManager.isTipOTG = !it
                 }
                 .create()
@@ -377,7 +384,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun onSocketDisConnected(isTS004: Boolean) {
-        if (lifecycle.currentState.isAtLeast(Lifecycle.State.CREATED) && isTS004) {//TC007不用
+        if (lifecycle.currentState.isAtLeast(Lifecycle.State.CREATED) && isTS004) {//TC007
             dialogDisconnect()
         }
     }
@@ -405,14 +412,11 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     }
 
 
-    /**
-     * 权限检测
-     * 因申请权限前需要弹窗提示用户，所以修改成key value形式
-     * @return key：权限种类 value：具体权限
-     */
+     * key value
+     * @return key value
     private fun getNeedPermissionList(): SparseArray<List<String>> {
         val sparseArray = SparseArray<List<String>>()
-        sparseArray.append(R.string.permission_request_camera_app, listOf(Manifest.permission.CAMERA))
+        sparseArray.append(LibAppR.string.permission_request_camera_app, listOf(Manifest.permission.CAMERA))
         (if (this.applicationInfo.targetSdkVersion >= 34){
             listOf(
                 Permission.READ_MEDIA_VIDEO,
@@ -428,7 +432,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         } else {
             listOf(Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE)
         }).let {
-            sparseArray.append(R.string.permission_request_storage_app, it)
+            sparseArray.append(LibAppR.string.permission_request_storage_app, it)
         }
         return sparseArray
     }
@@ -436,18 +440,17 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     private fun checkCameraPermission() {
         if (!PermissionUtils.isVisualUser() && !XXPermissions.isGranted(
                 this,
-                getNeedPermissionList()[R.string.permission_request_camera_app]
+                getNeedPermissionList()[LibAppR.string.permission_request_camera_app]
             )
         ) {
             if (BaseApplication.instance.isDomestic()) {
                 if (SharedManager.getMainPermissionsState()) {
-                    //国内版拒绝授权之后就别再授权了华为上架不通过
                     return
                 }
                 TipDialog.Builder(this)
-                    .setMessage(getString(R.string.permission_request_camera_app, CommUtils.getAppName()))
-                    .setCancelListener(R.string.app_cancel)
-                    .setPositiveListener(R.string.app_confirm) {
+                    .setMessage(getString(LibAppR.string.permission_request_camera_app, CommUtils.getAppName()))
+                    .setCancelListener(LibAppR.string.app_cancel)
+                    .setPositiveListener(LibAppR.string.app_confirm) {
                         initCameraPermission()
                     }
                     .create().show()
@@ -459,12 +462,9 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    /**
-     * 动态申请权限
-     */
     private fun initCameraPermission() {
         XXPermissions.with(this)
-            .permission(getNeedPermissionList()[R.string.permission_request_camera_app])
+            .permission(getNeedPermissionList()[LibAppR.string.permission_request_camera_app])
             .request(object : OnPermissionCallback {
                 override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
                     if (allGranted) {
@@ -477,16 +477,15 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                         SharedManager.setMainPermissionsState(true)
                     }
                     if (doNotAskAgain) {
-                        //拒绝授权并且不再提醒
                         TipDialog.Builder(this@MainActivity)
-                            .setTitleMessage(getString(R.string.app_tip))
+                            .setTitleMessage(getString(LibAppR.string.app_tip))
                             .setMessage(if (PermissionUtils.hasCameraPermission())
-                                getString(R.string.app_album_content)
-                                else getString(R.string.app_camera_content))
-                            .setPositiveListener(R.string.app_open) {
+                                getString(LibAppR.string.app_album_content)
+                                else getString(LibAppR.string.app_camera_content))
+                            .setPositiveListener(LibAppR.string.app_open) {
                                 AppUtils.launchAppDetailsSettings()
                             }
-                            .setCancelListener(R.string.app_cancel) {
+                            .setCancelListener(LibAppR.string.app_cancel) {
                             }
                             .setCanceled(true)
                             .create().show()
@@ -496,12 +495,12 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun checkStoragePermission() {
-        if (!XXPermissions.isGranted(this, getNeedPermissionList()[R.string.permission_request_storage_app])) {
+        if (!XXPermissions.isGranted(this, getNeedPermissionList()[LibAppR.string.permission_request_storage_app])) {
             if (BaseApplication.instance.isDomestic()) {
                 TipDialog.Builder(this)
-                    .setMessage(getString(R.string.permission_request_storage_app, CommUtils.getAppName()))
-                    .setCancelListener(R.string.app_cancel)
-                    .setPositiveListener(R.string.app_confirm) {
+                    .setMessage(getString(LibAppR.string.permission_request_storage_app, CommUtils.getAppName()))
+                    .setCancelListener(LibAppR.string.app_cancel)
+                    .setPositiveListener(LibAppR.string.app_confirm) {
                         initStoragePermission()
                     }
                     .create().show()
@@ -513,9 +512,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    /**
-     * 动态申请权限
-     */
     private fun initStoragePermission() {
         if (PermissionUtils.isVisualUser()){
             jumpIRActivity()
@@ -523,7 +519,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         }
         XXPermissions.with(this)
             .permission(
-                getNeedPermissionList()[R.string.permission_request_storage_app]
+                getNeedPermissionList()[LibAppR.string.permission_request_storage_app]
             )
             .request(object : OnPermissionCallback {
                 override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
@@ -534,14 +530,13 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
                 override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
                     if (doNotAskAgain) {
-                        //拒绝授权并且不再提醒
                         TipDialog.Builder(this@MainActivity)
-                            .setTitleMessage(getString(R.string.app_tip))
-                            .setMessage(getString(R.string.app_album_content))
-                            .setPositiveListener(R.string.app_open) {
+                            .setTitleMessage(getString(LibAppR.string.app_tip))
+                            .setMessage(getString(LibAppR.string.app_album_content))
+                            .setPositiveListener(LibAppR.string.app_open) {
                                 AppUtils.launchAppDetailsSettings()
                             }
-                            .setCancelListener(R.string.app_cancel) {
+                            .setCancelListener(LibAppR.string.app_cancel) {
                             }
                             .setCanceled(true)
                             .create().show()
@@ -551,13 +546,16 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     }
 
 
+    /**
+     * Function description.
+     */
     fun jumpIRActivity(){
         when (checkPermissionType) {
             0 -> {
                 DeviceTools.isConnect(isSendConnectEvent = true)
             }
             1 -> {
-                view_page.setCurrentItem(0, false)
+                binding.viewPage.setCurrentItem(0, false)
             }
             2 -> {
 

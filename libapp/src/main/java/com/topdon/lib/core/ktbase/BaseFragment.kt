@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
-import com.topdon.lib.core.R
+import com.csl.irCamera.libapp.R
 import com.topdon.lib.core.bean.event.SocketStateEvent
 import com.topdon.lib.core.bean.event.device.DeviceConnectEvent
 import com.topdon.lib.core.dialog.LoadingDialog
@@ -16,11 +16,10 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-/**
  * create by fylder on 2018/7/13
- **/
 abstract class BaseFragment : RxFragment() {
 
+    /** TAG property */
     val TAG = BaseFragment::class.java.simpleName
 
     abstract fun initContentView(): Int
@@ -43,10 +42,9 @@ abstract class BaseFragment : RxFragment() {
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (hidden) {
-            // 不在最前端显示 相当于调用了onPause();
+            //  onPause();
 
-        } else {  // 在最前端显示 相当于调用了onResume();
-            //网络数据刷新
+        } else { // onResume();
             initData()
         }
     }
@@ -59,12 +57,11 @@ abstract class BaseFragment : RxFragment() {
 
 
 
-    /**
-     * 新版 LMS 风格的加载中弹框.
-     */
+     *  LMS .
     private var loadingDialog: LoadingDialog? = null
+     *  LMS .
     /**
-     * 显示 LMS 风格的加载中弹框.
+     * Function description.
      */
     fun showLoadingDialog(@StringRes resId: Int = 0) {
         if (loadingDialog == null) {
@@ -73,8 +70,9 @@ abstract class BaseFragment : RxFragment() {
         loadingDialog?.setTips(if (resId == 0) R.string.tip_loading else resId)
         loadingDialog?.show()
     }
+     *  LMS .
     /**
-     * 显示 LMS 风格的加载中弹框.
+     * Function description.
      */
     fun showLoadingDialog(text: CharSequence) {
         if (loadingDialog == null) {
@@ -83,8 +81,9 @@ abstract class BaseFragment : RxFragment() {
         loadingDialog?.setTips(text)
         loadingDialog?.show()
     }
+     *  LMS .
     /**
-     * 关闭 LMS 风格的加载中弹框.
+     * Function description.
      */
     fun dismissLoadingDialog() {
         loadingDialog?.dismiss()
@@ -93,6 +92,9 @@ abstract class BaseFragment : RxFragment() {
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun getConnectState(event: DeviceConnectEvent) {
         if (event.isConnect) {
             connected()
@@ -109,6 +111,9 @@ abstract class BaseFragment : RxFragment() {
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun onSocketConnectState(event: SocketStateEvent) {
         if (event.isConnect) {
             onSocketConnected(event.isTS004)

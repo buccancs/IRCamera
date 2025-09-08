@@ -15,13 +15,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-/**
  * date: 2021/8/12 17:06
  * author: bichuanfeng
- */
 public class ConnectionConfiguration {
     /**
-     * 无限重连
+     * Method description.
      */
     public static final int TRY_RECONNECT_TIMES_INFINITE = -1;
     int discoverServicesDelayMillis = 600;
@@ -36,6 +34,9 @@ public class ConnectionConfiguration {
     int phy = BluetoothDevice.PHY_LE_1M_MASK;
     @NonNull
     final List<Pair<Integer, Integer>> scanIntervalPairsInAutoReconnection;
+    /**
+     * Private method description.
+     */
     private final Map<String, WriteOptions> defaultWriteOptionsMap = new HashMap<>();
 
     public ConnectionConfiguration() {
@@ -48,7 +49,7 @@ public class ConnectionConfiguration {
     }
 
     /**
-     * 连接成功后延时多久开始执行发现服务
+     * Method description.
      */
     public ConnectionConfiguration setDiscoverServicesDelayMillis(int discoverServicesDelayMillis) {
         this.discoverServicesDelayMillis = discoverServicesDelayMillis;
@@ -56,7 +57,7 @@ public class ConnectionConfiguration {
     }
 
     /**
-     * 连接超时时长
+     * Method description.
      */
     public ConnectionConfiguration setConnectTimeoutMillis(int connectTimeoutMillis) {
         if (requestTimeoutMillis >= 1000) {
@@ -66,7 +67,7 @@ public class ConnectionConfiguration {
     }
 
     /**
-     * 请求超时时长
+     * Method description.
      */
     public ConnectionConfiguration setRequestTimeoutMillis(int requestTimeoutMillis) {
         if (requestTimeoutMillis >= 1000) {
@@ -76,15 +77,16 @@ public class ConnectionConfiguration {
     }
 
     /**
-     * 最大尝试自动重连次数
+     * Method description.
      */
     public ConnectionConfiguration setTryReconnectMaxTimes(int tryReconnectMaxTimes) {
         this.tryReconnectMaxTimes = tryReconnectMaxTimes;
         return this;
     }
 
+     * MAC
     /**
-     * 不经过搜索，直接使用之间的MAC地址连接的次数，重连达到此次数后，恢复搜索到设备再进行连接
+     * Method description.
      */
     public ConnectionConfiguration setReconnectImmediatelyMaxTimes(int reconnectImmediatelyMaxTimes) {
         this.reconnectImmediatelyMaxTimes = reconnectImmediatelyMaxTimes;
@@ -92,35 +94,35 @@ public class ConnectionConfiguration {
     }
 
     /**
-     * 是否自动重连
+     * Method description.
      */
     public ConnectionConfiguration setAutoReconnect(boolean autoReconnect) {
         isAutoReconnect = autoReconnect;
         return this;
     }
 
-    /**
-     * 双模蓝牙的传输模式
-     *
-     * @param transport {@link BluetoothDevice#TRANSPORT_AUTO}其中之一
-     */
+     * @param transport {@link BluetoothDevice#TRANSPORT_AUTO}
     @RequiresApi(Build.VERSION_CODES.M)
+    /**
+     * Method description.
+     */
     public ConnectionConfiguration setTransport(int transport) {
         this.transport = transport;
         return this;
     }
 
-    /**
-     * 物理层的模式
-     */
     @RequiresApi(Build.VERSION_CODES.O)
+    /**
+     * Method description.
+     */
     public ConnectionConfiguration setPhy(int phy) {
         this.phy = phy;
         return this;
     }
 
+     * firstsecond12530
     /**
-     * 自动重连时，搜索次数与间隔的对应关系，first：已尝试次数，second：间隔，单位为毫秒。如搜索了1次，间隔2秒，搜索了5次，间隔30秒等
+     * Method description.
      */
     public ConnectionConfiguration setScanIntervalPairsInAutoReconnection(List<Pair<Integer, Integer>> parameters) {
         Inspector.requireNonNull(parameters, "parameters can't be null");
@@ -129,12 +131,11 @@ public class ConnectionConfiguration {
         return this;
     }
 
+     * @param service        UUID
+     * @param characteristic UUID
+     * @param options
     /**
-     * 设置默认的写特征配置
-     *
-     * @param service        特征所在的服务UUID
-     * @param characteristic 特征的UUID
-     * @param options        配置
+     * Method description.
      */
     public ConnectionConfiguration setDefaultWriteOptions(UUID service, UUID characteristic, WriteOptions options) {
         Inspector.requireNonNull(service, "service can't be null");

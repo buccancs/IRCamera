@@ -7,9 +7,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import java.util.concurrent.atomic.AtomicBoolean
 
+ * LiveData
 /**
- * 解决LiveData粘性事件
- * Created by jzh on 2020-12-28.
+ * @author jzh
+ * @since Unknown
  */
 class SingleLiveEvent<T> : MutableLiveData<T>() {
 
@@ -24,15 +25,16 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
     }
 
     @MainThread
-    override fun setValue(@Nullable t: T?) {
+    override fun setValue(t: T?) {
         mPending.set(true)
         super.setValue(t)
     }
 
-    /**
      * Used for cases where T is Void, to make calls cleaner.
-     */
     @MainThread
+    /**
+     * Function description.
+     */
     fun call() {
         this.setValue(null)
     }

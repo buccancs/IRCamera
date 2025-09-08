@@ -2,14 +2,14 @@ package com.topdon.lib.core.tools
 
 import android.content.Context
 import com.blankj.utilcode.util.Utils
-import com.topdon.lib.core.R
+import com.csl.irCamera.libapp.R
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.tools.ConstantLanguages
 
 object LanguageTool {
 
     /**
-     * 获取显示各国语言
+     * Function description.
      */
     fun showLanguage(context: Context): String {
         return when (SharedManager.getLanguage(context)) {
@@ -31,9 +31,9 @@ object LanguageTool {
         }
     }
 
+     * ()
     /**
-     * 获取各国语言简称
-     * (用于服务端多语言的识别)
+     * Function description.
      */
     fun useLanguage(context: Context): String {
         return when (SharedManager.getLanguage(context)) {
@@ -55,9 +55,9 @@ object LanguageTool {
         }
     }
 
+     * ()
     /**
-     * 获取各国语言简称
-     * (用于声明接口)
+     * Function description.
      */
     fun useStatementLanguage(): String {
         return when (SharedManager.getLanguage(Utils.getApp())) {

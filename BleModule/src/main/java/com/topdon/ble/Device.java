@@ -13,13 +13,14 @@ import androidx.annotation.RequiresApi;
 
 import java.util.Objects;
 
-/**
- * BLE设备实体类
+ * BLE
  * <p>
  * date: 2021/8/12 00:08
  * author: bichuanfeng
- */
 public class Device implements Comparable<Device>, Cloneable, Parcelable {
+    /**
+     * Private method description.
+     */
     private final BluetoothDevice originDevice;
     ConnectionState connectionState = ConnectionState.DISCONNECTED;
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -31,6 +32,9 @@ public class Device implements Comparable<Device>, Cloneable, Parcelable {
     String address = "";
     int rssi = -120;
 
+    /**
+     * Method description.
+     */
     public Device(BluetoothDevice originDevice) {
         this.originDevice = originDevice;
         this.name = originDevice.getName() == null ? "" : originDevice.getName();
@@ -38,50 +42,80 @@ public class Device implements Comparable<Device>, Cloneable, Parcelable {
     }
 
     @NonNull
+    /**
+     * Method description.
+     */
     public BluetoothDevice getOriginDevice() {
         return originDevice;
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     @Nullable
+    /**
+     * Method description.
+     */
     public ScanResult getScanResult() {
         return scanResult;
     }
 
     @Nullable
+    /**
+     * Method description.
+     */
     public byte[] getScanRecord() {
         return scanRecord;
     }
 
+    /**
+     * Method description.
+     */
     public void setRssi(int rssi) {
         this.rssi = rssi;
     }
 
     @NonNull
+    /**
+     * Method description.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Method description.
+     */
     public void setName(String name) {
         this.name = name;
     }
 
     @NonNull
+    /**
+     * Method description.
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     * Method description.
+     */
     public int getRssi() {
         return rssi;
     }
 
     @NonNull
+    /**
+     * Method description.
+     */
     public ConnectionState getConnectionState() {
         Connection connection = EasyBLE.getInstance().getConnection(this);
         return connection == null ? connectionState : connection.getConnectionState();
     }
 
     @Nullable
+    /**
+     * Method description.
+     */
     public Boolean isConnectable() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             if (scanResult != null) {
@@ -94,14 +128,14 @@ public class Device implements Comparable<Device>, Cloneable, Parcelable {
     }
 
     /**
-     * 是否已连接并成功发现服务
+     * Method description.
      */
     public boolean isConnected() {
         return getConnectionState() == ConnectionState.SERVICE_DISCOVERED;
     }
 
     /**
-     * 是否已断开连接
+     * Method description.
      */
     public boolean isDisconnected() {
         ConnectionState state = getConnectionState();
@@ -109,7 +143,7 @@ public class Device implements Comparable<Device>, Cloneable, Parcelable {
     }
 
     /**
-     * 是否正在连接
+     * Method description.
      */
     public boolean isConnecting() {
         ConnectionState state = getConnectionState();
@@ -118,6 +152,9 @@ public class Device implements Comparable<Device>, Cloneable, Parcelable {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Device)) return false;
@@ -128,11 +165,17 @@ public class Device implements Comparable<Device>, Cloneable, Parcelable {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int hashCode() {
         return address.hashCode();
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int compareTo(Device other) {
         if (rssi == 0) {
             return -1;
@@ -149,6 +192,9 @@ public class Device implements Comparable<Device>, Cloneable, Parcelable {
 
     @NonNull
     @Override
+    /**
+     * Method description.
+     */
     public String toString() {
         return "Device{" +
                 "name='" + name + '\'' +
@@ -157,11 +203,17 @@ public class Device implements Comparable<Device>, Cloneable, Parcelable {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int describeContents() {
         return 0;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(this.originDevice, flags);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -189,6 +241,9 @@ public class Device implements Comparable<Device>, Cloneable, Parcelable {
         readFromParcel(in);
     }
 
+    /**
+     * Method description.
+     */
     public void readFromParcel(Parcel in) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             this.scanResult = in.readParcelable(ScanResult.class.getClassLoader());
@@ -205,6 +260,9 @@ public class Device implements Comparable<Device>, Cloneable, Parcelable {
         this.connectionState = ConnectionState.valueOf(in.readString());
     }
 
+    /**
+     * Method description.
+     */
     public static final Creator<Device> CREATOR = new Creator<Device>() {
         @Override
         public Device createFromParcel(Parcel source) {

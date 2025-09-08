@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.blankj.utilcode.util.SizeUtils
 import com.topdon.lib.core.utils.ScreenUtil
-import com.topdon.lib.ui.R
+import com.csl.irCamera.libui.R
 
 class TipsSeekBar: ViewGroup, SeekBar.OnSeekBarChangeListener {
     private val tipsPercent: Float
@@ -20,6 +20,7 @@ class TipsSeekBar: ViewGroup, SeekBar.OnSeekBarChangeListener {
     private val tvMin: TextView
     private val tvMax: TextView
 
+    /** progress property */
     var progress: Int
         get() {
             return seekBar.progress
@@ -31,9 +32,8 @@ class TipsSeekBar: ViewGroup, SeekBar.OnSeekBarChangeListener {
             }
         }
 
-    /**
-     * 指示 View 当前显示的文字.
-     */
+     *  View .
+    /** valueText property */
     var valueText: String
         get() {
             return tvTips.text.toString()
@@ -41,17 +41,14 @@ class TipsSeekBar: ViewGroup, SeekBar.OnSeekBarChangeListener {
         set(value) {
             tvTips.text = value
         }
-    /**
-     * seekBar 的 onProgressChange 事件监听.
-     */
+     * seekBar  onProgressChange .
+    /** onProgressChangeListener property */
     var onProgressChangeListener: ((progress: Int, fromUser: Boolean) -> Unit)? = null
-    /**
-     * seekBar 的 onStopTrackingTouch 事件监听.
-     */
+     * seekBar  onStopTrackingTouch .
+    /** onStopTrackingTouch property */
     var onStopTrackingTouch: ((progress: Int) -> Unit)? = null
-    /**
-     * 根据进度格式化指示 View 文字.
-     */
+     *  View .
+    /** valueFormatListener property */
     var valueFormatListener: ((progress: Int) -> CharSequence?)? = null
         set(value) {
             tvTips.text = value?.invoke(seekBar.progress)
@@ -65,7 +62,7 @@ class TipsSeekBar: ViewGroup, SeekBar.OnSeekBarChangeListener {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int): this(context, attrs, defStyleAttr, 0)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int): super(context, attrs, defStyleAttr, defStyleRes) {
-        // seekBar 的 maxHeight 在 29 以下只能通过 xml 设置实在太蛋疼了，这里只好给当前 View 设置 maxHeight,在 attr 中传递给 seekBar
+        // seekBar  maxHeight  29  xml  View  maxHeight, attr  seekBar
         val thumb = ContextCompat.getDrawable(context, R.drawable.ic_tips_seek_bar_thumb)
         val thumbWidth = thumb?.intrinsicWidth ?: 0
         seekBar = SeekBar(context, attrs)
@@ -112,7 +109,7 @@ class TipsSeekBar: ViewGroup, SeekBar.OnSeekBarChangeListener {
         val heightSize = MeasureSpec.getSize(heightMeasureSpec)
         val width = if (widthMode == MeasureSpec.UNSPECIFIED) ScreenUtil.getScreenWidth(context) else widthSize
 
-        for (i in 0 until  childCount) {
+        for (i in 0 until childCount) {
             when (val child = getChildAt(i)) {
                 seekBar -> {
                     val childWidthSpec = MeasureSpec.makeMeasureSpec((width * seekPercent).toInt(), MeasureSpec.EXACTLY)
@@ -137,7 +134,7 @@ class TipsSeekBar: ViewGroup, SeekBar.OnSeekBarChangeListener {
     }
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
-        for (i in 0 until  childCount) {
+        for (i in 0 until childCount) {
             val child = getChildAt(i)
             val childWidth = child.measuredWidth
             val childHeight = child.measuredHeight

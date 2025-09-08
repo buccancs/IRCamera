@@ -21,6 +21,9 @@ public abstract class BarLineScatterCandleBubbleDataSet<T extends Entry>
      */
     protected int mHighLightColor = Color.rgb(255, 187, 115);
 
+    /**
+     * Method description.
+     */
     public BarLineScatterCandleBubbleDataSet(List<T> yVals, String label) {
         super(yVals, label);
     }
@@ -32,11 +35,17 @@ public abstract class BarLineScatterCandleBubbleDataSet<T extends Entry>
      *
      * @param color
      */
+    /**
+     * Method description.
+     */
     public void setHighLightColor(int color) {
         mHighLightColor = color;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int getHighLightColor() {
         return mHighLightColor;
     }

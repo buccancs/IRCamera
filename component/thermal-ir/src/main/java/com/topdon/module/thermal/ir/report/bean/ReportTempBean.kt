@@ -1,23 +1,33 @@
 package com.topdon.module.thermal.ir.report.bean
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ReportTempBean(
-    val max_temperature: String?, //带单位符号的最高温，单位跟随用户配置
-    val is_max_temperature: Int,  //是否显示最高温
-    val min_temperature: String?, //带单位符号的最低温，单位跟随用户配置
-    val is_min_temperature: Int,  //是否显示最低温
+    /** max_temperature property */
+    val max_temperature: String?, //，
+    /** is_max_temperature property */
+    val is_max_temperature: Int, //
+    /** min_temperature property */
+    val min_temperature: String?, //，
+    /** is_min_temperature property */
+    val is_min_temperature: Int, //
 
-    val comment: String?,//注释
-    val is_comment: Int, //是否显示注释
+    /** comment property */
+    val comment: String?,//
+    /** is_comment property */
+    val is_comment: Int, //
 
-    val mean_temperature: String? = null,//带单位符号的平均温，单位跟随用户配置
-    val is_mean_temperature: Int = 0,    //是否显示平均温
+    /** mean_temperature property */
+    val mean_temperature: String? = null,//，
+    /** is_mean_temperature property */
+    val is_mean_temperature: Int = 0, //
 
-    val temperature: String? = null,//带单位符号的点温度，单位跟随用户配置
-    val is_temperature: Int = 0,    //是否显示点温度
+    /** temperature property */
+    val temperature: String? = null,//，
+    /** is_temperature property */
+    val is_temperature: Int = 0, //
 ): Parcelable {
 
     constructor(temperature: String?, is_temperature: Int, comment: String?, is_comment: Int): this(
@@ -33,10 +43,25 @@ data class ReportTempBean(
         is_temperature
     )
 
+    /**
+     * Function description.
+     */
     fun isMaxOpen() = is_max_temperature == 1
+    /**
+     * Function description.
+     */
     fun isMinOpen() = is_min_temperature == 1
+    /**
+     * Function description.
+     */
     fun isAverageOpen() = is_mean_temperature == 1
+    /**
+     * Function description.
+     */
     fun isExplainOpen() = is_comment == 1
 
+    /**
+     * Function description.
+     */
     fun isTempOpen() = is_temperature == 1
 }

@@ -26,6 +26,9 @@ import java.util.List;
  */
 public class FileUtils {
 
+    /**
+     * Private method description.
+     */
     private static final String LOG = "MPChart-FileUtils";
 
     /**
@@ -33,6 +36,9 @@ public class FileUtils {
      * 
      * @param path the name of the file on the sd-card (+ path if needed)
      * @return
+     */
+    /**
+     * Method description.
      */
     public static List<Entry> loadEntriesFromFile(String path) {
 
@@ -105,6 +111,9 @@ public class FileUtils {
      * @param am
      * @param path the name of the file in the assets folder (+ path if needed)
      * @return
+     */
+    /**
+     * Method description.
      */
     public static List<Entry> loadEntriesFromAssets(AssetManager am, String path) {
 
@@ -194,6 +203,9 @@ public class FileUtils {
      * @param entries
      * @param path
      */
+    /**
+     * Method description.
+     */
     public static void saveToSdCard(List<Entry> entries, String path) {
 
         File sdcard = Environment.getExternalStorageDirectory();
@@ -227,6 +239,9 @@ public class FileUtils {
         }
     }
 
+    /**
+     * Method description.
+     */
     public static List<BarEntry> loadBarEntriesFromAssets(AssetManager am, String path) {
 
         List<BarEntry> entries = new ArrayList<BarEntry>();

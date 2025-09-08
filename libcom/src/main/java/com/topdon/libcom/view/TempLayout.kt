@@ -12,24 +12,24 @@ import android.widget.LinearLayout
 import com.topdon.libcom.R
 
 
-/**
- *
- * 高低温闪烁动画
  * @author: CaiSongL
  * @date: 2023/4/28 15:52
- */
 class TempLayout : LinearLayout {
     companion object{
-        val TYPE_HOT = 1 //高温预警
-        val TYPE_LT = 2 //低温预警
-        val TYPE_A = 3  //高低温交叉预警
+        val TYPE_HOT = 1 //
+        val TYPE_LT = 2 //
+        val TYPE_A = 3 //
     }
 
     private var alphaAnimator: ObjectAnimator? = null
+    /** rootV property */
     var rootV : View?= null
+    /** bg property */
     var bg : View ? = null
-    var isHot : Boolean  = true
-    var type  = -1
+    /** isHot property */
+    var isHot : Boolean = true
+    /** type property */
+    var type = -1
 
     constructor(context: Context) : this(context, null)
 
@@ -37,6 +37,7 @@ class TempLayout : LinearLayout {
         initView()
     }
 
+    /** animatorAlpha property */
     var animatorAlpha = 1f
 
     private fun initView() {
@@ -45,10 +46,10 @@ class TempLayout : LinearLayout {
         alphaAnimator = ObjectAnimator.ofFloat(this, "alpha", 0f, 1f)
         alphaAnimator?.duration = 500
         alphaAnimator?.interpolator =
-            BreatheInterpolator() //使用自定义的插值器
+            BreatheInterpolator() //
         alphaAnimator?.addUpdateListener {
             animatorAlpha = it.getAnimatedValue("alpha") as Float
-//            Log.w("透明值进度","$animatorAlpha")
+//            Log.w(,$animatorAlpha)
         }
         alphaAnimator?.repeatCount = ValueAnimator.INFINITE
     }
@@ -61,6 +62,9 @@ class TempLayout : LinearLayout {
 
 
 
+    /**
+     * Function description.
+     */
     fun startAnimation(type : Int){
         this.visibility = View.VISIBLE
         if (this.type != type){
@@ -88,6 +92,7 @@ class TempLayout : LinearLayout {
 
     }
 
+    /** animatorListener property */
     var animatorListener: Animator.AnimatorListener = object : Animator.AnimatorListener {
         override fun onAnimationStart(animation: Animator) {
         }
@@ -106,6 +111,9 @@ class TempLayout : LinearLayout {
         override fun onAnimationRepeat(animation: Animator) {}
     }
 
+    /**
+     * Function description.
+     */
     fun stopAnimation(){
         this.type = -1
         alphaAnimator?.removeAllListeners()
@@ -113,6 +121,9 @@ class TempLayout : LinearLayout {
         alphaAnimator?.cancel()
     }
 
+    /**
+     * Function description.
+     */
     fun startAlphaBreathAnimation() {
         alphaAnimator?.start()
     }

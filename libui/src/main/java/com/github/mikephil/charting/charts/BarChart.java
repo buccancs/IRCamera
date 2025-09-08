@@ -29,6 +29,9 @@ public class BarChart extends BarLineChartBase<BarData> implements BarDataProvid
     /**
      * if set to true, all values are drawn above their bars, instead of below their top
      */
+    /**
+     * Private method description.
+     */
     private boolean mDrawValueAboveBar = true;
 
     /**
@@ -38,14 +41,23 @@ public class BarChart extends BarLineChartBase<BarData> implements BarDataProvid
 
     private boolean mFitBars = false;
 
+    /**
+     * Method description.
+     */
     public BarChart(Context context) {
         super(context);
     }
 
+    /**
+     * Method description.
+     */
     public BarChart(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * Method description.
+     */
     public BarChart(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
@@ -87,6 +99,9 @@ public class BarChart extends BarLineChartBase<BarData> implements BarDataProvid
      * @return
      */
     @Override
+    /**
+     * Method description.
+     */
     public Highlight getHighlightByTouchPoint(float x, float y) {
 
         if (mData == null) {
@@ -110,6 +125,9 @@ public class BarChart extends BarLineChartBase<BarData> implements BarDataProvid
      * @param e
      * @return
      */
+    /**
+     * Method description.
+     */
     public RectF getBarBounds(BarEntry e) {
 
         RectF bounds = new RectF();
@@ -124,6 +142,9 @@ public class BarChart extends BarLineChartBase<BarData> implements BarDataProvid
      *
      * @param e
      * @return
+     */
+    /**
+     * Method description.
      */
     public void getBarBounds(BarEntry e, RectF outputRect) {
 
@@ -156,6 +177,9 @@ public class BarChart extends BarLineChartBase<BarData> implements BarDataProvid
      *
      * @param enabled
      */
+    /**
+     * Method description.
+     */
     public void setDrawValueAboveBar(boolean enabled) {
         mDrawValueAboveBar = enabled;
     }
@@ -164,6 +188,9 @@ public class BarChart extends BarLineChartBase<BarData> implements BarDataProvid
      * returns true if drawing values above bars is enabled, false if not
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public boolean isDrawValueAboveBarEnabled() {
         return mDrawValueAboveBar;
@@ -175,6 +202,9 @@ public class BarChart extends BarLineChartBase<BarData> implements BarDataProvid
      *
      * @param enabled
      */
+    /**
+     * Method description.
+     */
     public void setDrawBarShadow(boolean enabled) {
         mDrawBarShadow = enabled;
     }
@@ -183,6 +213,9 @@ public class BarChart extends BarLineChartBase<BarData> implements BarDataProvid
      * returns true if drawing shadows (maxvalue) for each bar is enabled, false if not
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public boolean isDrawBarShadowEnabled() {
         return mDrawBarShadow;
@@ -196,6 +229,9 @@ public class BarChart extends BarLineChartBase<BarData> implements BarDataProvid
      *
      * @param enabled
      */
+    /**
+     * Method description.
+     */
     public void setHighlightFullBarEnabled(boolean enabled) {
         mHighlightFullBarEnabled = enabled;
     }
@@ -204,6 +240,9 @@ public class BarChart extends BarLineChartBase<BarData> implements BarDataProvid
      * @return true the highlight operation is be full-bar oriented, false if single-value
      */
     @Override
+    /**
+     * Method description.
+     */
     public boolean isHighlightFullBarEnabled() {
         return mHighlightFullBarEnabled;
     }
@@ -216,11 +255,17 @@ public class BarChart extends BarLineChartBase<BarData> implements BarDataProvid
      * @param dataSetIndex
      * @param stackIndex   the index inside the stack - only relevant for stacked entries
      */
+    /**
+     * Method description.
+     */
     public void highlightValue(float x, int dataSetIndex, int stackIndex) {
         highlightValue(new Highlight(x, dataSetIndex, stackIndex), false);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public BarData getBarData() {
         return mData;
     }
@@ -231,6 +276,9 @@ public class BarChart extends BarLineChartBase<BarData> implements BarDataProvid
      * Default: false
      *
      * @param enabled
+     */
+    /**
+     * Method description.
      */
     public void setFitBars(boolean enabled) {
         mFitBars = enabled;
@@ -245,6 +293,9 @@ public class BarChart extends BarLineChartBase<BarData> implements BarDataProvid
      * @param fromX      the starting point on the x-axis where the grouping should begin
      * @param groupSpace the space between groups of bars in values (not pixels) e.g. 0.8f for bar width 1f
      * @param barSpace   the space between individual bars in values (not pixels) e.g. 0.1f for bar width 1f
+     */
+    /**
+     * Method description.
      */
     public void groupBars(float fromX, float groupSpace, float barSpace) {
 

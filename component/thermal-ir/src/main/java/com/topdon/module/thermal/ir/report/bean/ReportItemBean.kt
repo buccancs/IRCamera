@@ -2,22 +2,28 @@ package com.topdon.module.thermal.ir.report.bean
 
 import android.os.Parcelable
 import com.blankj.utilcode.util.GsonUtils
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
-/**
- * 从服务器接口返回的，一页报告信息中的一条报告信息.
- */
+ * .
 @Parcelize
 data class ReportItemBean(
+    /** testReportId property */
     val testReportId: String?,
-    val testInfo: String?, //上传的 JSON
+    /** testInfo property */
+    val testInfo: String?, // JSON
+    /** testTime property */
     val testTime: String?,
-    val uploadTime: String?, //上传时间
+    /** uploadTime property */
+    val uploadTime: String?, //
+    /** sn property */
     val sn: String?,
+    /** url property */
     val url: String?,
+    /** status property */
     val status: Int?
 ) : Parcelable {
 
+    /** reportBean property */
     var reportBean: ReportBean? = null
         get() {
             if (field == null) {
@@ -26,6 +32,8 @@ data class ReportItemBean(
             return field
         }
 
+    /** isFirst property */
     var isFirst: Boolean = false
+    /** isTitle property */
     var isTitle: Boolean = false
 }

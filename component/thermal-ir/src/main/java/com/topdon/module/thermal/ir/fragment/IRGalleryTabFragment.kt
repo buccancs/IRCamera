@@ -11,111 +11,114 @@ import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.repository.GalleryRepository.DirType
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
+import com.csl.irCamera.libui.R as LibUiR
 import com.topdon.module.thermal.ir.event.GalleryDirChangeEvent
 import com.topdon.module.thermal.ir.popup.GalleryChangePopup
 import com.topdon.module.thermal.ir.popup.OptionPickPopup
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryTabViewModel
-import kotlinx.android.synthetic.main.fragment_gallery_tab.*
+import com.topdon.module.thermal.ir.databinding.FragmentGalleryTabBinding
 import org.greenrobot.eventbus.EventBus
 
+ *  Tab .
+ * [ExtraKeyConfig.HAS_BACK_ICON] -  false
+ * [ExtraKeyConfig.CAN_SWITCH_DIR] -  TS004TC007  true
+ * [ExtraKeyConfig.DIR_TYPE] -   [DirType]
 /**
- * 图库 Tab 页，下分图片和视频.
- *
- * 需要传递参数：
- * - [ExtraKeyConfig.HAS_BACK_ICON] - 图库是否有返回箭头，默认 false
- * - [ExtraKeyConfig.CAN_SWITCH_DIR] - 图库是否可切换 有线设备、TS004、TC007 目录，默认 true
- * - [ExtraKeyConfig.DIR_TYPE] - 进入图库时初始的目录类型 具体取值由 [DirType] 定义
- *
- * Created by chenggeng.lin on 2023/11/14.
+ * @author chenggeng.lin
+ * @since Unknown
  */
 class IRGalleryTabFragment : BaseFragment() {
-    /**
-     * 从上一界面传递过来的，图库是否有返回箭头
-     */
     private var hasBackIcon = false
-    /**
-     * 从上一界面传递过来的，图库是否可切换 有线设备、TS004、TC007 目录
-     */
+     * TS004TC007
     private var canSwitchDir = true
-    /**
-     * 从上一界面传递过来的，进入图库时初始的目录类型
-     */
     private var currentDirType = DirType.LINE
 
 
     private val viewModel: IRGalleryTabViewModel by activityViewModels()
 
     private var viewPagerAdapter: ViewPagerAdapter? = null
+    
+    private var _binding: FragmentGalleryTabBinding? = null
+    private val binding get() = _binding!!
 
-    override fun initContentView(): Int = R.layout.fragment_gallery_tab
+    override fun initContentView(): Int {
+        _binding = FragmentGalleryTabBinding.inflate(layoutInflater)
+        return R.layout.fragment_gallery_tab
+    }
 
     override fun initView() {
         hasBackIcon = arguments?.getBoolean(ExtraKeyConfig.HAS_BACK_ICON, false) ?: false
         canSwitchDir = arguments?.getBoolean(ExtraKeyConfig.CAN_SWITCH_DIR, false) ?: false
         currentDirType = DirType.LINE // TC001 only - no other device types supported
 
-        tv_title_dir.text = getString(R.string.tc_has_line_device) // TC001 only
-        tv_title_dir.isVisible = canSwitchDir
-        tv_title_dir.setOnClickListener {
+        binding.tvTitleDir.text = getString(LibAppR.string.tc_has_line_device) // TC001 only
+        binding.tvTitleDir.isVisible = canSwitchDir
+        binding.tvTitleDir.setOnClickListener {
             // Directory switching disabled for TC001-only support
         }
 
-        title_view.setTitleText(if (canSwitchDir) "" else getString(R.string.app_gallery))
-        title_view.setLeftDrawable(if (hasBackIcon) R.drawable.ic_back_white_svg else 0)
-        title_view.setLeftClickListener {
-            if (viewModel.isEditModeLD.value == true) {//当前为编辑状态，退出编辑
+        binding.titleView.setTitleText(if (canSwitchDir) "" else getString(LibAppR.string.app_gallery))
+        binding.titleView.setLeftDrawable(if (hasBackIcon) LibAppR.drawable.ic_back_white_svg else 0)
+        binding.titleView.setLeftClickListener {
+            if (viewModel.isEditModeLD.value == true) {//，
                 viewModel.isEditModeLD.value = false
-            } else {//当前为非编辑状态，退出页面
+            } else {//，
                 if (hasBackIcon) {
                     requireActivity().finish()
                 }
             }
         }
-        title_view.setRightDrawable(R.drawable.ic_toolbar_check_svg)
-        title_view.setRightClickListener {
-            if (viewModel.isEditModeLD.value == true) {//当前为编辑状态，全选
-                viewModel.selectAllIndex.value = view_pager2.currentItem
-            } else {//当前为非编辑状态，进入编辑
+        binding.titleView.setRightDrawable(LibUiR.drawable.ic_toolbar_check_svg)
+        binding.titleView.setRightClickListener {
+            if (viewModel.isEditModeLD.value == true) {//，
+                viewModel.selectAllIndex.value = binding.viewPager2.currentItem
+            } else {//，
                 viewModel.isEditModeLD.value = true
             }
         }
 
         viewPagerAdapter = ViewPagerAdapter(this)
-        view_pager2.adapter = viewPagerAdapter
-        TabLayoutMediator(tab_layout, view_pager2) { tab, position ->
-            tab.setText(if (position == 0) R.string.album_menu_Photos else R.string.app_video)
+        binding.viewPager2.adapter = viewPagerAdapter
+        TabLayoutMediator(binding.tabLayout, binding.viewPager2) { tab, position ->
+            tab.setText(if (position == 0) LibAppR.string.album_menu_Photos else LibAppR.string.app_video)
         }.attach()
 
         viewModel.isEditModeLD.observe(viewLifecycleOwner) { isEditMode ->
             if (isEditMode) {
-                title_view.setLeftDrawable(R.drawable.svg_x_cc)
+                binding.titleView.setLeftDrawable(LibAppR.drawable.svg_x_cc)
             } else {
-                title_view.setLeftDrawable(if (hasBackIcon) R.drawable.ic_back_white_svg else 0)
+                binding.titleView.setLeftDrawable(if (hasBackIcon) LibAppR.drawable.ic_back_white_svg else 0)
             }
-            title_view.setRightDrawable(if (isEditMode) 0 else R.drawable.ic_toolbar_check_svg)
-            title_view.setRightText(if (isEditMode) getString(R.string.report_select_all) else "")
-            tab_layout.isVisible = !isEditMode
-            view_pager2.isUserInputEnabled = !isEditMode
+            binding.titleView.setRightDrawable(if (isEditMode) 0 else LibUiR.drawable.ic_toolbar_check_svg)
+            binding.titleView.setRightText(if (isEditMode) getString(LibAppR.string.report_select_all) else "")
+            binding.tabLayout.isVisible = !isEditMode
+            binding.viewPager2.isUserInputEnabled = !isEditMode
             if (isEditMode) {
-                title_view.setTitleText(getString(R.string.chosen_item, viewModel.selectSizeLD.value))
-                tv_title_dir.isVisible = false
+                binding.titleView.setTitleText(getString(LibAppR.string.chosen_item, viewModel.selectSizeLD.value))
+                binding.tvTitleDir.isVisible = false
             } else {
-                title_view.setTitleText(if (canSwitchDir) "" else getString(R.string.app_gallery))
-                tv_title_dir.isVisible = canSwitchDir
+                binding.titleView.setTitleText(if (canSwitchDir) "" else getString(LibAppR.string.app_gallery))
+                binding.tvTitleDir.isVisible = canSwitchDir
             }
         }
         viewModel.selectSizeLD.observe(viewLifecycleOwner) {
             if (viewModel.isEditModeLD.value == true) {
-                title_view.setTitleText(getString(R.string.chosen_item, it))
-                tv_title_dir.isVisible = false
+                binding.titleView.setTitleText(getString(LibAppR.string.chosen_item, it))
+                binding.tvTitleDir.isVisible = false
             } else {
-                title_view.setTitleText(if (canSwitchDir) "" else getString(R.string.app_gallery))
-                tv_title_dir.isVisible = canSwitchDir
+                binding.titleView.setTitleText(if (canSwitchDir) "" else getString(LibAppR.string.app_gallery))
+                binding.tvTitleDir.isVisible = canSwitchDir
             }
         }
     }
 
     override fun initData() {
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private inner class ViewPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {

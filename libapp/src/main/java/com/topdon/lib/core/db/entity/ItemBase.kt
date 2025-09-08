@@ -7,67 +7,57 @@ import androidx.room.ForeignKey
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.blankj.utilcode.util.Utils
-import com.topdon.lib.core.R
+import com.csl.irCamera.libapp.R
 
+ *    .
 /**
- * 检测 或 报告 所属的一项项目.
- *
- * Created by LCG on 2024/8/19.
+ * @author LCG
+ * @since Unknown
  */
 open class ItemBase {
     @PrimaryKey(autoGenerate = true)
+    /** id property */
     var id: Long = 0
 
-    /**
-     * 所对应的检测或报告目录 Id
-     */
+     *  Id
     @ColumnInfo(index = true)
     open var parentId: Long = 0
 
-    /**
-     * 该项目在目录中的 index.
-     */
+     *  index.
     @ColumnInfo
+    /** position property */
     var position: Int = 0
 
-    /**
-     * 项目名，如“管道”
-     */
+     * “”
     @ColumnInfo
+    /** itemName property */
     var itemName: String = ""
 
-    /**
-     * 状态 0-未选择 1-没问题 2-需维修 3-需更换
-     */
+     *  0- 1- 2- 3
     @ColumnInfo
+    /** state property */
     var state: Int = 0
 
-    /**
-     * 用户输入字符，""表示未输入
-     */
     @ColumnInfo
+    /** inputText property */
     var inputText: String = ""
 
 
-    /**
-     * 用户上传的图片1在本地绝对路径
-     */
+     * 1
     @ColumnInfo
+    /** image1 property */
     var image1: String = ""
-    /**
-     * 用户上传的图片2在本地绝对路径
-     */
+     * 2
     @ColumnInfo
+    /** image2 property */
     var image2: String = ""
-    /**
-     * 用户上传的图片3在本地绝对路径
-     */
+     * 3
     @ColumnInfo
+    /** image3 property */
     var image3: String = ""
-    /**
-     * 用户上传的图片4在本地绝对路径
-     */
+     * 4
     @ColumnInfo
+    /** image4 property */
     var image4: String = ""
 
 
@@ -78,8 +68,9 @@ open class ItemBase {
     override fun hashCode(): Int = id.toInt()
 
 
+     *  state .
     /**
-     * 获取 state 对应的文字描述.
+     * Function description.
      */
     fun getStateStr(context: Context): String = when (state) {
         1 -> context.getString(R.string.house_state_good)
@@ -88,6 +79,9 @@ open class ItemBase {
         else -> ""
     }
 
+    /**
+     * Function description.
+     */
     fun getImageSize(): Int {
         var result = 0
         if (image1.isNotEmpty()) {
@@ -105,6 +99,9 @@ open class ItemBase {
         return result
     }
 
+    /**
+     * Function description.
+     */
     fun buildImageList(): ArrayList<String> {
         val resultList: ArrayList<String> = ArrayList(4)
         if (image1.isNotEmpty()) {
@@ -122,6 +119,9 @@ open class ItemBase {
         return resultList
     }
 
+    /**
+     * Function description.
+     */
     fun addOneImage(imagePath: String?) {
         if (imagePath.isNullOrEmpty()) {
             return
@@ -137,9 +137,10 @@ open class ItemBase {
         }
     }
 
-    /**
-     * 删除指定位置的一张图片.
+     * .
      * @param imageNum `[1,4]`
+    /**
+     * Function description.
      */
     fun delOneImage(imageNum: Int) {
         when (imageNum) {
@@ -147,7 +148,7 @@ open class ItemBase {
                 image4 = ""
             }
             3 -> {
-                if (image4.isEmpty()) {//只有3张删第3张
+                if (image4.isEmpty()) {//33
                     image3 = ""
                 } else {
                     image3 = image4
@@ -155,7 +156,7 @@ open class ItemBase {
                 }
             }
             2 -> {
-                if (image3.isEmpty()) {//只有2张删第2张
+                if (image3.isEmpty()) {//22
                     image2 = ""
                 } else {
                     image2 = image3
@@ -168,7 +169,7 @@ open class ItemBase {
                 }
             }
             1 -> {
-                if (image2.isEmpty()) {//只有1张删第1张
+                if (image2.isEmpty()) {//11
                     image1 = ""
                 } else {
                     image1 = image2
@@ -191,9 +192,7 @@ open class ItemBase {
 
 
 
-/**
- * 检测所属的一项项目.
- */
+ * .
 @Entity(foreignKeys = [ForeignKey(
     entity = DirDetect::class,
     parentColumns = ["id"],
@@ -208,31 +207,29 @@ class ItemDetect() : ItemBase() {
         this.itemName = itemName
     }
 
-    /**
-     * 所对应的检测目录 Id
-     */
+     *  Id
     @ColumnInfo(index = true)
     override var parentId: Long = 0
 
-    /**
-     * 该目录是否已选中，仅用于项目编辑界面.
-     */
+     * .
     @Ignore
+    /** hasSelect property */
     var hasSelect = false
 
-    /**
-     * 该项目所属的目录.
-     */
+     * .
     @Ignore
+    /** dirDetect property */
     var dirDetect = DirDetect()
 
+     *  3 (1) 50  [0,51)
     /**
-     * 在当前项目名后添加 3 个字符：(1)，然后若超出 50 个字符则截取 [0,51)
+     * Function description.
      */
     fun copyName(): String = "$itemName(1)"
 
+     *  id  0parentIdpositionitemName .
     /**
-     * 返回一个 id 为 0，parentId、position、itemName 为指定值，其余属性完全一致的新对象.
+     * Function description.
      */
     fun copyOne(parentId: Long = this.parentId, position: Int = this.position, itemName: String = this.itemName): ItemDetect {
         val newItemDetect = ItemDetect()
@@ -251,8 +248,9 @@ class ItemDetect() : ItemBase() {
         return newItemDetect
     }
 
+     *  item  item idparent  0.
     /**
-     * 将当前检测 item 转换为报告 item，注意 id、parent 重置为 0.
+     * Function description.
      */
     fun toItemReport(): ItemReport {
         val itemReport = ItemReport()
@@ -271,9 +269,7 @@ class ItemDetect() : ItemBase() {
 
 
     companion object {
-        /**
-         * 根据指定的默认目录位置，获取对应的默认项目列表.
-         */
+         * .
         fun buildDefaultItemList(parentId: Long, position: Int): ArrayList<ItemDetect> = when (position) {
             0 -> arrayListOf(
                 ItemDetect(parentId, 0, Utils.getApp().getString(R.string.detect_item1)),
@@ -360,9 +356,7 @@ class ItemDetect() : ItemBase() {
 
 
 
-/**
- * 报告所属的一项项目.
- */
+ * .
 @Entity(foreignKeys = [ForeignKey(
     entity = DirReport::class,
     parentColumns = ["id"],
@@ -370,9 +364,7 @@ class ItemDetect() : ItemBase() {
     onDelete = ForeignKey.CASCADE,
     onUpdate = ForeignKey.CASCADE,)])
 class ItemReport : ItemBase() {
-    /**
-     * 所对应的报告目录 Id
-     */
+     *  Id
     @ColumnInfo(index = true)
     override var parentId: Long = 0
 }

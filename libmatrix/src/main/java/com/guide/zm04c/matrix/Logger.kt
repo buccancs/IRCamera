@@ -1,6 +1,7 @@
 package com.guide.zm04c.matrix
 
 import android.util.Log
+import com.csl.irCamera.libmatrix.BuildConfig
 import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
@@ -10,11 +11,12 @@ import java.util.*
 
 object Logger {
 
-    /**
      * ERROR
-     */
 
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun e(clazz: Class<*>, msg: String) {
         if (BuildConfig.DEBUG) {
             Log.e(clazz.simpleName, msg + "")
@@ -22,16 +24,20 @@ object Logger {
     }
 
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun e(tag: String?, msg: String) {
         if (BuildConfig.DEBUG) {
             Log.e(tag, msg + "")
         }
     }
 
-    /**
      * WARN
-     */
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun w(clazz: Class<*>, msg: String) {
         if (BuildConfig.DEBUG) {
             Log.w(clazz.simpleName, msg + "")
@@ -39,17 +45,21 @@ object Logger {
     }
 
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun w(tag: String?, msg: String) {
         if (BuildConfig.DEBUG) {
             Log.w(tag, msg + "")
         }
     }
 
-    /**
      * INFO
-     */
 
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun i(clazz: Class<*>, msg: String) {
         if (BuildConfig.DEBUG) {
             Log.i(clazz.simpleName, msg + "")
@@ -57,17 +67,21 @@ object Logger {
     }
 
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun i(tag: String?, msg: String) {
         if (BuildConfig.DEBUG) {
             Log.i(tag, msg + "")
         }
     }
 
-    /**
      * DEBUG
-     */
 
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun d(clazz: Class<*>, msg: String) {
         if (BuildConfig.DEBUG) {
             Log.d(clazz.simpleName, msg + "")
@@ -75,23 +89,30 @@ object Logger {
     }
 
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun d(tag: String?, msg: String) {
         if (BuildConfig.DEBUG) {
             Log.d(tag, msg + "")
         }
     }
 
-    /**
      * VERBOSE
-     */
 
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun v(clazz: Class<*>, msg: String) {
         if (BuildConfig.DEBUG) {
             Log.v(clazz.simpleName, msg + "")
         }
     }
 
+    /**
+     * Function description.
+     */
     fun v(tag: String?, msg: String) {
         if (BuildConfig.DEBUG) {
             Log.v(tag, msg + "")
@@ -99,24 +120,24 @@ object Logger {
     }
 
 
-    private val MYLOG_PATH_SDCARD_DIR = "/sdcard/Guide/log" // 日志文件在sdcard中的路径
+    private val MYLOG_PATH_SDCARD_DIR = "/sdcard/Guide/log" // sdcard
 
-    private val MYLOGFILEName = "Log.txt" // 本类输出的日志文件名称
+    private val MYLOGFILEName = "Log.txt" //
 
-    private val myLogSdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss") // 日志的输出格式
+    private val myLogSdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss") //
 
-    private val logfile = SimpleDateFormat("yyyy-MM-dd") // 日志文件格式
+    private val logfile = SimpleDateFormat("yyyy-MM-dd") //
 
-    /**
-     * 打开日志文件并写入日志
      * @param mylogtype
      * @param tag
      * @param text
+    /**
+     * Function description.
      */
-    fun f(tag: String, text: String) { // 新建或打开日志文件
+    fun f(tag: String, text: String) { //
         val nowtime = Date()
         val needWriteFiel = logfile.format(nowtime)
-        val needWriteMessage = myLogSdf.format(nowtime) + "    " + "    " + tag + "    " + text
+        val needWriteMessage = myLogSdf.format(nowtime) + " " + " " + tag + " " + text
         val dirsFile = File(MYLOG_PATH_SDCARD_DIR)
         if (!dirsFile.exists()) {
             dirsFile.mkdirs()
@@ -129,7 +150,7 @@ object Logger {
             }
         }
         try {
-            val filerWriter = FileWriter(file, true) // 后面这个参数代表是不是要接上文件中原来的数据，不进行覆盖
+            val filerWriter = FileWriter(file, true) // ，
             val bufWriter = BufferedWriter(filerWriter)
             bufWriter.write(needWriteMessage)
             bufWriter.newLine()

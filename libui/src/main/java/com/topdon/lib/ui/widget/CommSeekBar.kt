@@ -6,23 +6,20 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import androidx.appcompat.widget.AppCompatSeekBar
-import com.topdon.lib.ui.R
+import com.csl.irCamera.libui.R
 import kotlin.math.roundToInt
 
-/**
- * 支持竖向的 SeekBar。
- * 暂不支持 thumbOffset.
- */
+ *  SeekBar
+ *  thumbOffset.
 class CommSeekBar: AppCompatSeekBar {
-    /**
-     * 0-横向 1-竖向
-     */
+     * 0- 1
     private val orientation: Int
 
     private var mMaxWidth = 48
     private var mMaxHeight = 48
     private var mMinWidth = 24
     private var mMinHeight = 24
+    /** level property */
     var level = 0;
 
     private var onSeekBarChangeListener: OnSeekBarChangeListener? = null
@@ -182,7 +179,7 @@ class CommSeekBar: AppCompatSeekBar {
     }
 
     /**
-     * 通过级别分层进行粘性处理
+     * Function description.
      */
     fun stopTrackTouchLevel(){
         if (level > 0){

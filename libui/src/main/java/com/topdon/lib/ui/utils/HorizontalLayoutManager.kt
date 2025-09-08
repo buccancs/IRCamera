@@ -17,11 +17,9 @@ import com.topdon.lib.ui.utils.Direction.Companion.fromDelta
 import java.util.*
 import kotlin.math.abs
 
-/**
  * @author: CaiSongL
  * @date: 2023/4/1 14:13
- */
-@Deprecated("热成像-菜单-拍照已重构，不需要这个类了")
+@Deprecated("--，")
 class HorizontalLayoutManager(
     private val context: Context,
     scrollStateListener: ScrollStateListener,
@@ -33,6 +31,7 @@ class HorizontalLayoutManager(
     private var currentViewCenter: Point
     private var childHalfWidth = 0
     private var childHalfHeight = 0
+    /** extraLayoutSpace property */
     var extraLayoutSpace = 0
         private set
 
@@ -41,6 +40,7 @@ class HorizontalLayoutManager(
     private var currentScrollState = 0
     private var scrolled = 0
     private var pendingScroll = 0
+    /** currentPosition property */
     var currentPosition: Int
         private set
     private var pendingPosition: Int
@@ -360,9 +360,7 @@ class HorizontalLayoutManager(
         currentScrollState = state
     }
 
-    /**
      * @return true if scroll is ended and we don't need to settle items
-     */
     private fun onScrollEnd(): Boolean {
         if (pendingPosition != NO_POSITION) {
             currentPosition = pendingPosition
@@ -406,6 +404,9 @@ class HorizontalLayoutManager(
         pendingScroll = 0
     }
 
+    /**
+     * Function description.
+     */
     fun onFling(velocityX: Int, velocityY: Int) {
         val velocity = orientationHelper.getFlingVelocity(velocityX, velocityY)
         val throttleValue = if (shouldSlideOnFling) Math.abs(velocity / flingThreshold) else 1
@@ -420,6 +421,9 @@ class HorizontalLayoutManager(
         }
     }
 
+    /**
+     * Function description.
+     */
     fun returnToCurrentPosition() {
         pendingScroll = -scrolled
         if (pendingScroll != 0) {
@@ -555,6 +559,7 @@ class HorizontalLayoutManager(
         )
     }
 
+    /** nextPosition property */
     val nextPosition: Int
         get() = if (scrolled == 0) {
             currentPosition
@@ -564,35 +569,56 @@ class HorizontalLayoutManager(
             currentPosition + fromDelta(scrolled).applyTo(1)
         }
 
+    /**
+     * Function description.
+     */
     fun setItemTransformer(itemTransformer: HorizontalScrollItemTransformer?) {
         this.itemTransformer = itemTransformer
     }
 
+    /**
+     * Function description.
+     */
     fun setTimeForItemSettle(timeForItemSettle: Int) {
         this.timeForItemSettle = timeForItemSettle
     }
 
+    /**
+     * Function description.
+     */
     fun setOffscreenItems(offscreenItems: Int) {
         this.offscreenItems = offscreenItems
         extraLayoutSpace = scrollToChangeCurrent * offscreenItems
         recyclerViewProxy.requestLayout()
     }
 
+    /**
+     * Function description.
+     */
     fun setTransformClampItemCount(transformClampItemCount: Int) {
         this.transformClampItemCount = transformClampItemCount
         applyItemTransformToChildren()
     }
 
+    /**
+     * Function description.
+     */
     fun setOrientation(orientation: DSVOrientation) {
         orientationHelper = orientation.createHelper()
         recyclerViewProxy.removeAllViews()
         recyclerViewProxy.requestLayout()
     }
 
+    /**
+     * Function description.
+     */
     fun setShouldSlideOnFling(result: Boolean) {
         shouldSlideOnFling = result
     }
 
+    /**
+     * Function description.
+     */
     fun setSlideOnFlingThreshold(threshold: Int) {
         flingThreshold = threshold
     }
@@ -634,8 +660,10 @@ class HorizontalLayoutManager(
 
     private val isAnotherItemCloserThanCurrent: Boolean
         private get() = abs(scrolled) >= scrollToChangeCurrent * SCROLL_TO_SNAP_TO_ANOTHER_ITEM
+    /** firstChild property */
     val firstChild: View?
         get() = recyclerViewProxy.getChildAt(0)
+    /** lastChild property */
     val lastChild: View?
         get() = recyclerViewProxy.getChildAt(recyclerViewProxy.childCount - 1)
 

@@ -13,14 +13,23 @@ import java.util.List;
  */
 public class LineData extends BarLineScatterCandleBubbleData<ILineDataSet> {
 
+    /**
+     * Method description.
+     */
     public LineData() {
         super();
     }
 
+    /**
+     * Method description.
+     */
     public LineData(ILineDataSet... dataSets) {
         super(dataSets);
     }
 
+    /**
+     * Method description.
+     */
     public LineData(List<ILineDataSet> dataSets) {
         super(dataSets);
     }

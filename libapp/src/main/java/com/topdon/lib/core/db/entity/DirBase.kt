@@ -6,51 +6,45 @@ import androidx.room.ForeignKey
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.blankj.utilcode.util.Utils
-import com.topdon.lib.core.R
+import com.csl.irCamera.libapp.R
 
+ *   .
 /**
- * 检测 或 报告的一项目录.
- *
- * Created by LCG on 2024/8/19.
+ * @author LCG
+ * @since Unknown
  */
 open class DirBase {
     @PrimaryKey(autoGenerate = true)
+    /** id property */
     var id: Long = 0
 
-    /**
-     * 所对应的检测或报告目录 Id
-     */
+     *  Id
     @ColumnInfo(index = true)
     open var parentId: Long = 0
 
-    /**
-     * 该目录在检测或报告目录列表中的 index.
-     */
+     *  index.
     @ColumnInfo
+    /** position property */
     var position: Int = 0
 
-    /**
-     * 目录名，如“一楼”
-     */
+     * “”
     @ColumnInfo
+    /** dirName property */
     var dirName: String = ""
 
-    /**
-     * 没问题项目的数量.
-     */
+     * .
     @ColumnInfo
+    /** goodCount property */
     var goodCount: Int = 0
 
-    /**
-     * 需维修项目的数量.
-     */
+     * .
     @ColumnInfo
+    /** warnCount property */
     var warnCount: Int = 0
 
-    /**
-     * 需更换项目的数量.
-     */
+     * .
     @ColumnInfo
+    /** dangerCount property */
     var dangerCount: Int = 0
 
 
@@ -60,18 +54,25 @@ open class DirBase {
 
     override fun hashCode(): Int = id.toInt()
 
+    /**
+     * Function description.
+     */
     fun getGoodCountStr(): String = if (goodCount > 99) "99+" else goodCount.toString()
 
+    /**
+     * Function description.
+     */
     fun getWarnCountStr(): String = if (warnCount > 99) "99+" else warnCount.toString()
 
+    /**
+     * Function description.
+     */
     fun getDangerCountStr(): String = if (dangerCount > 99) "99+" else dangerCount.toString()
 }
 
 
 
-/**
- * 检测所属的一项目录.
- */
+ * .
 @Entity(foreignKeys = [ForeignKey(
     entity = HouseDetect::class,
     parentColumns = ["id"],
@@ -86,38 +87,31 @@ class DirDetect() : DirBase() {
         this.dirName = dirName
     }
 
-    /**
-     * 所对应的检测 Id
-     */
+     *  Id
     @ColumnInfo(index = true)
     override var parentId: Long = 0
 
-    /**
-     * 该目录是否已选中，仅用于目录编辑界面.
-     */
+     * .
     @Ignore
+    /** hasSelect property */
     var hasSelect = false
 
-    /**
-     * 该目录是否处于展开状态
-     */
     @Ignore
+    /** isExpand property */
     var isExpand: Boolean = false
 
-    /**
-     * 该目录所属的检测.
-     */
+     * .
     @Ignore
+    /** houseDetect property */
     var houseDetect = HouseDetect()
 
-    /**
-     * 该目录下的项目列表
-     */
     @Ignore
+    /** itemList property */
     var itemList: ArrayList<ItemDetect> = ArrayList()
 
+     *  id  0 (1)position + 1itemList .
     /**
-     * 返回一个 id 为 0，名称添加 (1)，position + 1，itemList 复制，其余属性完全一致的新对象.
+     * Function description.
      */
     fun copyOne(): DirDetect {
         val newDirDetect = DirDetect()
@@ -139,8 +133,9 @@ class DirDetect() : DirBase() {
         return newDirDetect
     }
 
+     * idparent  0.
     /**
-     * 将当前检测目录转换为报告目录，注意 id、parent 重置为 0，无效目录剔除.
+     * Function description.
      */
     fun toDirReport(): DirReport {
         val dirReport = DirReport()
@@ -163,9 +158,7 @@ class DirDetect() : DirBase() {
     }
 
     companion object {
-        /**
-         * 构建默认的检测目录列表.
-         */
+         * .
         fun buildDefaultDirList(parentId: Long): ArrayList<DirDetect> = arrayListOf(
             DirDetect(parentId, 0, Utils.getApp().getString(R.string.detect_dir1_root)),
             DirDetect(parentId, 1, Utils.getApp().getString(R.string.detect_dir2_root)),
@@ -184,9 +177,7 @@ class DirDetect() : DirBase() {
 
 
 
-/**
- * 报告所属的一项目录.
- */
+ * .
 @Entity(foreignKeys = [ForeignKey(
     entity = HouseReport::class,
     parentColumns = ["id"],
@@ -194,15 +185,11 @@ class DirDetect() : DirBase() {
     onDelete = ForeignKey.CASCADE,
     onUpdate = ForeignKey.CASCADE,)])
 class DirReport : DirBase() {
-    /**
-     * 所对应的报告 Id
-     */
+     *  Id
     @ColumnInfo(index = true)
     override var parentId: Long = 0
 
-    /**
-     * 该目录下的项目列表
-     */
     @Ignore
+    /** itemList property */
     var itemList: ArrayList<ItemReport> = ArrayList()
 }

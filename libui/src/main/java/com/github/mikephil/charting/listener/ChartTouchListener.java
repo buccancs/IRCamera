@@ -12,6 +12,9 @@ import com.github.mikephil.charting.highlight.Highlight;
  */
 public abstract class ChartTouchListener<T extends Chart<?>> extends GestureDetector.SimpleOnGestureListener implements View.OnTouchListener {
 
+    /**
+     * Method description.
+     */
     public enum ChartGesture {
         NONE, DRAG, X_ZOOM, Y_ZOOM, PINCH_ZOOM, ROTATE, SINGLE_TAP, DOUBLE_TAP, LONG_PRESS, FLING
     }
@@ -50,6 +53,9 @@ public abstract class ChartTouchListener<T extends Chart<?>> extends GestureDete
      */
     protected T mChart;
 
+    /**
+     * Method description.
+     */
     public ChartTouchListener(T chart) {
         this.mChart = chart;
 
@@ -60,6 +66,9 @@ public abstract class ChartTouchListener<T extends Chart<?>> extends GestureDete
      * Calls the OnChartGestureListener to do the start callback
      *
      * @param me
+     */
+    /**
+     * Method description.
      */
     public void startAction(MotionEvent me) {
 
@@ -74,6 +83,9 @@ public abstract class ChartTouchListener<T extends Chart<?>> extends GestureDete
      *
      * @param me
      */
+    /**
+     * Method description.
+     */
     public void endAction(MotionEvent me) {
 
         OnChartGestureListener l = mChart.getOnChartGestureListener();
@@ -87,6 +99,9 @@ public abstract class ChartTouchListener<T extends Chart<?>> extends GestureDete
      *
      * @param high
      */
+    /**
+     * Method description.
+     */
     public void setLastHighlighted(Highlight high) {
         mLastHighlighted = high;
     }
@@ -96,6 +111,9 @@ public abstract class ChartTouchListener<T extends Chart<?>> extends GestureDete
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public int getTouchMode() {
         return mTouchMode;
     }
@@ -104,6 +122,9 @@ public abstract class ChartTouchListener<T extends Chart<?>> extends GestureDete
      * Returns the last gesture that has been performed on the chart.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public ChartGesture getLastGesture() {
         return mLastGesture;

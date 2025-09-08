@@ -1,15 +1,16 @@
 package com.topdon.lib.core.repository
 
 import com.elvishew.xlog.XLog
-import com.topdon.lib.core.BuildConfig
+import com.csl.irCamera.libapp.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Response
 import okio.Buffer
 import java.nio.charset.StandardCharsets
 
+ * OKHttpClient  Interceptor.
 /**
- * OKHttpClient 所用，用于输出日志为目的的 Interceptor.
- * Created by LCG on 2024/4/28.
+ * @author LCG
+ * @since Unknown
  */
 class OKLogInterceptor(val isTC007: Boolean) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -22,7 +23,7 @@ class OKLogInterceptor(val isTC007: Boolean) : Interceptor {
             if (requestBody != null && (contentType == null || contentType == "application/json")) {
                 val buffer = Buffer()
                 requestBody.writeTo(buffer)
-                XLog.tag("RetrofitLog").v("请求：${buffer.readString(StandardCharsets.UTF_8)}")
+                XLog.tag("RetrofitLog").v("：${buffer.readString(StandardCharsets.UTF_8)}")
             }
         }
 
@@ -45,9 +46,9 @@ class OKLogInterceptor(val isTC007: Boolean) : Interceptor {
                 source.request(Long.MAX_VALUE)
                 val responseStr = source.buffer.clone().readString(StandardCharsets.UTF_8)
                 if (responseStr.length > 1024) {
-                    XLog.tag("RetrofitLog").v("响应：${responseStr.substring(0, 1024)} ...太长了后面省略")
+                    XLog.tag("RetrofitLog").v("：${responseStr.substring(0, 1024)} ...")
                 } else {
-                    XLog.tag("RetrofitLog").v("响应：$responseStr")
+                    XLog.tag("RetrofitLog").v("：$responseStr")
                 }
             }
         }

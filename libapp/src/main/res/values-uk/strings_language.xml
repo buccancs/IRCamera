@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<!--	乌克兰-->
 	<string name="main_exit">Ви впевнені, що бажаєте вийти з %s?</string>
 	<string name="app_yes">Так</string>
 	<string name="app_no">Немає</string>
@@ -240,7 +239,7 @@
 	<string name="third_party_components">сторонніх компонентів</string>
 	<string name="edit_image_error_tip">Зображення не має температурних даних і не підтримує редагування.</string>
 
-	<!-- 乌克兰2.00版本 -->
+	<!-- 2.00 -->
 	<string name="app_lapsePhotography">Фото з таймером</string>
 	<string name="app_Manual_Shutter">Ручний затвор</string>
 	<string name="app_record_sound">Запис аудіо</string>
@@ -500,7 +499,6 @@
 	<string name="installation_package_downloading_tips">Він починає завантажуватися. Будь ласка, слідкуйте за ходом виконання в повідомленнях</string>
 	<string name="welcome_use_app">Вітаємо у %1$s</string>
 
-	<!--乌克兰（机翻）-->
 
 	<string name="dual_light_correction">Подвійна світлова корекція</string>
 	<string name="dual_light_correction_tips_1">Оскільки фокуси двох камер не вирівняні, зображення, зняті двома камерами з різних відстаней, не будуть вирівняні.\nЦя функція може допомогти з вирівнюванням зображення окремо.</string>
@@ -602,7 +600,7 @@
 	<string name="ts004_faq_q5">Як переглянути отримані теплові зображення на ПК?</string>
 	<string name="ts004_faq_a5">Підключіть TS004 до ПК за допомогою USB-кабелю, після чого ви зможете переглядати теплові зображення, збережені на TS004.</string>
 
-	<!-- TC001 老 APP 引流 -->
+	<!-- TC001  APP  -->
 	<string name="gallery_transfer">Перенесення галереї</string>
 	<string name="gallery_transfer_wait">Дані передаються. Будь ласка, зачекайте.</string>
 	<string name="gallery_transfer_complete">Передачу даних завершено</string>
@@ -653,7 +651,6 @@
 	<string name="wifi_connect_loading">Очікується, що це займе 15 секунд…</string>
 	<string name="tc007_done_fast">Часті операції</string>
 
-	<!-- 房屋检测 -->
 	<string name="main_professional_test">Професійне тестування</string>
 	<string name="main_temperature_test">Температурне тестування</string>
 	<string name="main_thermal_tips">Професійне тепловізійне тестування</string>
@@ -822,7 +819,6 @@
 	<string name="abnormal_description17">Температура підігрівача заднього дзеркала піддається впливу температури навколишнього середовища і навантаження на підігрівач і інших багатьох факторів. Контролювати температуру підігрівача тепловізором, і тоді ви можете оцінити, чи можна ефективно нагрівати дзеркало заднього виду.</string>
 	<string name="abnormal_description18">Температура двигуна склопідіймача піддається впливу температури навколишнього середовища, навантаження на двигун і інших багатьох факторів. Контролювати температуру двигуна тепловізором. Якщо температура занадто висока, це може призвести до несправності механізму підйому вікна або самого двигуна.</string>
 
-	<!-- 房屋检测新增 -->
 	<string name="vehicle_function">функція</string>
 	<string name="ability_find">знайти</string>
 	<string name="ability_monitory">Перегляд температури об’ єкта у реальному часі для створення даних</string>

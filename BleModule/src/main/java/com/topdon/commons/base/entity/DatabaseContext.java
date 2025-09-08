@@ -10,37 +10,48 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 
-/**
  * date: 2019/8/6 12:49
  * author: chuanfeng.bi
- */
 public class DatabaseContext extends ContextWrapper {
+    /**
+     * Private method description.
+     */
     private File dbDir;
     
+     * @param base
+     * @param dbDir
     /**
-     * @param base 上下文
-     * @param dbDir 数据库文件要存放的目录
+     * Method description.
      */
     public DatabaseContext(Context base, @NonNull File dbDir) {
         super(base);
-        Objects.requireNonNull(dbDir, "dbDir is null");   
+        Objects.requireNonNull(dbDir, "dbDir is null");
         this.dbDir = dbDir;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public File getDatabasePath(String name) {
         if (!dbDir.exists()) {
             dbDir.mkdirs();
-        }        
+        }
         return new File(dbDir, name);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public SQLiteDatabase openOrCreateDatabase(String name, int mode, SQLiteDatabase.CursorFactory factory, DatabaseErrorHandler errorHandler) {
         return SQLiteDatabase.openOrCreateDatabase(getDatabasePath(name), factory);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public SQLiteDatabase openOrCreateDatabase(String name, int mode, SQLiteDatabase.CursorFactory factory) {
         return super.openOrCreateDatabase(getDatabasePath(name).getName(), mode, factory);
     }

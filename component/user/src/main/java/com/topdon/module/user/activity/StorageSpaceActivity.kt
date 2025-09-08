@@ -15,8 +15,9 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lms.sdk.utils.TLog
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.user.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.user.bean.ColorsBean
-import kotlinx.android.synthetic.main.activity_storage_space.*
+import com.topdon.module.user.databinding.ActivityStorageSpaceBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
@@ -47,29 +48,34 @@ class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
         }
     }
     
+    private lateinit var binding: ActivityStorageSpaceBinding
+    
     override fun initContentView() = R.layout.activity_storage_space
 
     override fun initView() {
-        tv_format_storage.setOnClickListener(this)
+        binding = ActivityStorageSpaceBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
+        binding.tvFormatStorage.setOnClickListener(this)
     }
 
     @SuppressLint("SetTextI18n")
     override fun initData() {
         lifecycleScope.launch {
             // TC001 uses USB connection, storage space not available via network
-            TToast.shortToast(this@StorageSpaceActivity, R.string.operation_failed_tips)
+            TToast.shortToast(this@StorageSpaceActivity, LibAppR.string.operation_failed_tips)
             TLog.d("ts004", "║ response :${SharedManager.freeSpaceBean}")
 
-            tv_progress_value.text = "${(SharedManager.freeSpaceBean.hasUseSize() * 100.0 / SharedManager.freeSpaceBean.total).toInt().coerceAtLeast(1)}"
+            binding.tvProgressValue.text = "${(SharedManager.freeSpaceBean.hasUseSize() * 100.0 / SharedManager.freeSpaceBean.total).toInt().coerceAtLeast(1)}"
 
-            tv_used_value.text = formatFileSize(SharedManager.freeSpaceBean.hasUseSize())
-            tv_used.text = getUnit(SharedManager.freeSpaceBean.hasUseSize())
-            tv_total_value.text = " / " + formatFileSize(SharedManager.freeSpaceBean.total)
-            tv_total.text = getUnit(SharedManager.freeSpaceBean.total)
+            binding.tvUsedValue.text = formatFileSize(SharedManager.freeSpaceBean.hasUseSize())
+            binding.tvUsed.text = getUnit(SharedManager.freeSpaceBean.hasUseSize())
+            binding.tvTotalValue.text = " / " + formatFileSize(SharedManager.freeSpaceBean.total)
+            binding.tvTotal.text = getUnit(SharedManager.freeSpaceBean.total)
 
-            list_storage_photo.setRightText(formatFileSize(SharedManager.freeSpaceBean.image_size) + getUnit(SharedManager.freeSpaceBean.image_size))
-            list_storage_video.setRightText(formatFileSize(SharedManager.freeSpaceBean.video_size) + getUnit(SharedManager.freeSpaceBean.video_size))
-            list_storage_system.setRightText(formatFileSize(SharedManager.freeSpaceBean.system) + getUnit(SharedManager.freeSpaceBean.system))
+            binding.listStoragePhoto.setRightText(formatFileSize(SharedManager.freeSpaceBean.image_size) + getUnit(SharedManager.freeSpaceBean.image_size))
+            binding.listStorageVideo.setRightText(formatFileSize(SharedManager.freeSpaceBean.video_size) + getUnit(SharedManager.freeSpaceBean.video_size))
+            binding.listStorageSystem.setRightText(formatFileSize(SharedManager.freeSpaceBean.system) + getUnit(SharedManager.freeSpaceBean.system))
 
             val systemPercent = (SharedManager.freeSpaceBean.system * 100.0 / SharedManager.freeSpaceBean.total).toInt().coerceAtLeast(1).coerceAtMost(98)
             val imagePercent = (SharedManager.freeSpaceBean.image_size * 100.0 / SharedManager.freeSpaceBean.total).toInt().coerceAtLeast(1).coerceAtMost(98)
@@ -78,22 +84,22 @@ class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
             colorList.add(ColorsBean(0, systemPercent, 0xff8d98a9.toInt()))
             colorList.add(ColorsBean(systemPercent, systemPercent + imagePercent, 0xff019dff.toInt()))
             colorList.add(ColorsBean(systemPercent + imagePercent, systemPercent + imagePercent + videoPercent, 0xff70e297.toInt()))
-            custom_view_progress.setSegmentPart(colorList)
+            binding.customViewProgress.setSegmentPart(colorList)
         }
     }
 
     override fun onClick(v: View?) {
         when (v) {
-            tv_format_storage -> {//格式化存储
+            binding.tvFormatStorage -> {//
                 TipDialog.Builder(this@StorageSpaceActivity)
-                    .setTitleMessage(getString(R.string.more_storage_reset))
-                    .setMessage(getString(R.string.more_storage_reset1))
+                    .setTitleMessage(getString(LibAppR.string.more_storage_reset))
+                    .setMessage(getString(LibAppR.string.more_storage_reset1))
                     .setShowRestartTops(true)
-                    .setPositiveListener(R.string.app_ok) {
-                        // TC001 uses USB connection, storage formatting not available via network  
-                        TToast.shortToast(this@StorageSpaceActivity, R.string.operation_failed_tips)
+                    .setPositiveListener(LibAppR.string.app_ok) {
+                        // TC001 uses USB connection, storage formatting not available via network
+                        TToast.shortToast(this@StorageSpaceActivity, LibAppR.string.operation_failed_tips)
                     }
-                    .setCancelListener(R.string.app_cancel) {
+                    .setCancelListener(LibAppR.string.app_cancel) {
                     }
                     .setCanceled(true)
                     .create().show()

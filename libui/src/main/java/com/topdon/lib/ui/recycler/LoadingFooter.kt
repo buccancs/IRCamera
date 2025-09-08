@@ -11,11 +11,9 @@ import com.scwang.smart.refresh.layout.api.RefreshKernel
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.constant.RefreshState
 import com.scwang.smart.refresh.layout.constant.SpinnerStyle
-import com.topdon.lib.ui.R
+import com.csl.irCamera.libui.R
 
-/**
- * 自定义FooterView
- */
+ * FooterView
 class LoadingFooter : LinearLayout, RefreshFooter {
 
     private val llLoading: LinearLayout

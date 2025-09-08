@@ -20,12 +20,16 @@ import com.infisense.usbdual.inf.OnUSBConnectListener;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
  * Created by fengjibo on 2024/1/5.
- */
 public class USBMonitorDualManager {
 
+    /**
+     * Method description.
+     */
     public static final String TAG = "USBMonitorDualManager";
+    /**
+     * Private method description.
+     */
     private USBMonitor mUSBMonitor;
 
     private IRCMD mIrcmd;
@@ -46,8 +50,14 @@ public class USBMonitorDualManager {
     private USBMonitorDualManager() {
     }
 
+    /**
+     * Private method description.
+     */
     private static USBMonitorDualManager mInstance;
 
+    /**
+     * Method description.
+     */
     public static synchronized USBMonitorDualManager getInstance() {
         if (mInstance == null) {
             mInstance = new USBMonitorDualManager();
@@ -55,14 +65,23 @@ public class USBMonitorDualManager {
         return mInstance;
     }
 
+    /**
+     * Method description.
+     */
     public void addOnUSBConnectListener(OnUSBConnectListener onUSBConnectListener) {
         mOnUSBConnectListeners.add(onUSBConnectListener);
     }
 
+    /**
+     * Method description.
+     */
     public void removeOnUSBConnectListener(OnUSBConnectListener onUSBConnectListener) {
         mOnUSBConnectListeners.remove(onUSBConnectListener);
     }
 
+    /**
+     * Method description.
+     */
     public void init(int irPid, int irFPS, int irWidth, int irHeight, float irBandWith,
                      int vlPid, int vlFPS, int vlWidth, int vlHeight, float vlBandWith, IFrameCallback frameCallback) {
         this.mVlIFrameCallback = frameCallback;
@@ -146,18 +165,27 @@ public class USBMonitorDualManager {
 
     }
 
+    /**
+     * Method description.
+     */
     public void registerUSB() {
         if (mUSBMonitor != null) {
             mUSBMonitor.register();
         }
     }
 
+    /**
+     * Method description.
+     */
     public void unregisterUSB() {
         if (mUSBMonitor != null) {
             mUSBMonitor.unregister();
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void openIrUVCCamera(int pid, int irWidth, int irHeight, int irFps, float irBandWidth, UsbDevice device, USBMonitor.UsbControlBlock controlBlock) {
         Log.w(TAG, "USBMonitor-openIrUVCCamera 1 " + device.getProductId());
         synchronized (mSyncs) {
@@ -173,12 +201,8 @@ public class USBMonitorDualManager {
                         .build();
                 mIrUvcCamera.setDefaultBandwidth(irBandWidth);
                 mIrUvcCamera.setDefaultPreviewMaxFps(irFps);
-                // uvc开启
+                // uvc
                 mIrUvcCamera.openUVCCamera(controlBlock);
-                /**
-                 * 调整带宽
-                 * 部分分辨率或在部分机型上，会出现无法出图，或出图一段时间后卡顿的问题，需要配置对应的带宽
-                 */
 
                 initIRCMD();
                 mIrUvcCamera.setUSBPreviewSize(irWidth, irHeight);
@@ -191,6 +215,9 @@ public class USBMonitorDualManager {
 
     }
 
+    /**
+     * Method description.
+     */
     public void initIRCMD() {
 
         // IRCMD init
@@ -206,6 +233,9 @@ public class USBMonitorDualManager {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void openVlUVCCamera(int pid, int vlWidth, int vlHeight, int vlFps, float vlBandWidth, UsbDevice device, USBMonitor.UsbControlBlock controlBlock) {
         synchronized (mSyncs) {
             Log.w(TAG, "USBMonitor-openVlUVCCamera 1" + device.getProductId());
@@ -224,12 +254,8 @@ public class USBMonitorDualManager {
                 mVlUvcCamera.setDefaultPreviewMode(CommonParams.FRAMEFORMATType.FRAME_FORMAT_MJPEG);
                 mVlUvcCamera.setDefaultBandwidth(vlBandWidth);
                 mVlUvcCamera.setDefaultPreviewMaxFps(vlFps);
-                // uvc开启
+                // uvc
                 mVlUvcCamera.openUVCCamera(controlBlock);
-                /**
-                 * 调整带宽
-                 * 部分分辨率或在部分机型上，会出现无法出图，或出图一段时间后卡顿的问题，需要配置对应的带宽
-                 */
 
                 mVlUvcCamera.setUSBPreviewSize(vlWidth, vlHeight);
                 if (mVlIFrameCallback != null) {
@@ -242,6 +268,9 @@ public class USBMonitorDualManager {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void stopIrUVCCamera() {
         Log.i(TAG, "stopIrUVCCamera");
         if (mIrUvcCamera != null) {
@@ -253,6 +282,9 @@ public class USBMonitorDualManager {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void stopVlUVCCamera() {
         Log.i(TAG, "stopVlUVCCamera");
         if (mVlUvcCamera != null) {
@@ -264,18 +296,30 @@ public class USBMonitorDualManager {
         }
     }
 
+    /**
+     * Method description.
+     */
     public IRCMD getIrcmd() {
         return mIrcmd;
     }
 
+    /**
+     * Method description.
+     */
     public UVCCamera getIrUvcCamera() {
         return mIrUvcCamera;
     }
 
+    /**
+     * Method description.
+     */
     public UVCCamera getVlUvcCamera() {
         return mVlUvcCamera;
     }
 
+    /**
+     * Method description.
+     */
     public void onRelease() {
         mVlIFrameCallback = null;
         mUSBMonitor = null;

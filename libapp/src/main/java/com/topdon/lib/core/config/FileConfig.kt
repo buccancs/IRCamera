@@ -10,16 +10,16 @@ import java.io.File
 
 object FileConfig {
     
-    /**
      * Gallery path for thermal images.
-     */
     @JvmStatic
+    /** galleryPath property */
     val galleryPath: String
         get() = gallerySourDir
     
+     * .
+     * .
     /**
-     * 获取房屋检测缓存目录下指定文件.
-     * 注意，不执行子文件创建逻辑，若有需要需自行创建.
+     * Function description.
      */
     fun getDetectImageDir(context: Context, child: String): File {
         val externalDir = context.getExternalFilesDir("detect")
@@ -34,9 +34,10 @@ object FileConfig {
         }
     }
 
+     * .
+     * .
     /**
-     * 获取房屋检测-签名图片缓存目录.
-     * 注意，不执行子文件创建逻辑，若有需要需自行创建.
+     * Function description.
      */
     fun getSignImageDir(context: Context, child: String): File {
         val externalDir = context.getExternalFilesDir("sign")
@@ -51,15 +52,17 @@ object FileConfig {
         }
     }
 
+     * .
     /**
-     * 固件升级包安装目录.
+     * Function description.
      */
     fun getFirmwareFile(filename: String): File = File(Utils.getApp().getExternalFilesDir("firmware"), filename)
 
-    /**
-     * 图片报告路径.
-     */
+     * .
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun getPdfDir(): String {
         return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             val dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).absolutePath
@@ -74,10 +77,9 @@ object FileConfig {
         }
     }
 
-    /**
-     * 温度监控导出 Excel 目录.
-     */
+     *  Excel .
     @JvmStatic
+    /** excelDir property */
     val excelDir: String
         get() {
             return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
@@ -94,10 +96,8 @@ object FileConfig {
         }
 
 
-    /**
-     * 原有图库目录
-     */
     @JvmStatic
+    /** gallerySourDir property */
     val gallerySourDir: String
         get() {
             val result = Utils.getApp().getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!.absolutePath + File.separator + "TopInfrared"
@@ -108,10 +108,9 @@ object FileConfig {
             return result
         }
 
-    /**
-     * 老 APP TC001 图库目录，仅用于相册迁移
-     */
+     *  APP TC001
     @JvmStatic
+    /** oldTc001GalleryDir property */
     val oldTc001GalleryDir: String
         get() {
             val dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
@@ -123,15 +122,16 @@ object FileConfig {
             return path
         }
 
+    /**
+     * Function description.
+     */
     fun getGalleryDirByType(currentDirType : DirType) : String = when (currentDirType) {
         DirType.LINE -> lineGalleryDir
         // Only LINE (TC001) is supported
     }
 
-    /**
-     * 有线设备 图库目录
-     */
     @JvmStatic
+    /** lineGalleryDir property */
     val lineGalleryDir: String
         get() {
             val dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
@@ -143,10 +143,9 @@ object FileConfig {
             return path
         }
 
-    /**
-     * TS004 手机本地图库目录
-     */
+     * TS004
     @JvmStatic
+    /** ts004GalleryDir property */
     val ts004GalleryDir: String
         get() {
             val dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
@@ -158,10 +157,9 @@ object FileConfig {
             return path
         }
 
-    /**
-     * TC007 手机本地图库目录
-     */
+     * TC007
     @JvmStatic
+    /** tc007GalleryDir property */
     val tc007GalleryDir: String
         get() {
             val dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
@@ -173,10 +171,8 @@ object FileConfig {
             return path
         }
 
-    /**
-     * 有线设备 手机本地图库温度数据目录
-     */
     @JvmStatic
+    /** lineIrGalleryDir property */
     val lineIrGalleryDir: String
         get() {
             val dir = Utils.getApp().getExternalFilesDir(Environment.DIRECTORY_DCIM)!!.absolutePath
@@ -188,10 +184,9 @@ object FileConfig {
             return path
         }
 
-    /**
-     * TC007 手机本地图库温度数据目录
-     */
+     * TC007
     @JvmStatic
+    /** tc007IrGalleryDir property */
     val tc007IrGalleryDir: String
         get() {
             val dir = Utils.getApp().getExternalFilesDir(Environment.DIRECTORY_DCIM)!!.absolutePath
@@ -205,10 +200,9 @@ object FileConfig {
 
 
 
-    /**
-     * 外部存储/Documents/APP名称/house
-     */
+     * /Documents/APP/house
     @JvmStatic
+    /** documentsDir property */
     val documentsDir: String
         get() {
             return if (Build.VERSION.SDK_INT < 29) {

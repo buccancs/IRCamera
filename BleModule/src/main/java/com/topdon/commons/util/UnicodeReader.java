@@ -15,6 +15,9 @@ public class UnicodeReader extends Reader {
     InputStreamReader internalIn2 = null;
     String defaultEnc;
 
+    /**
+     * Private method description.
+     */
     private static final int BOM_SIZE = 4;
 
     /**
@@ -27,6 +30,9 @@ public class UnicodeReader extends Reader {
         this.defaultEnc = defaultEnc;
     }
 
+    /**
+     * Method description.
+     */
     public String getDefaultEncoding() {
         return defaultEnc;
     }
@@ -34,6 +40,9 @@ public class UnicodeReader extends Reader {
     /**
      * Get stream encoding or NULL if stream is uninitialized. Call init() or
      * read() method to initialize it.
+     */
+    /**
+     * Method description.
      */
     public String getEncoding() {
         if (internalIn2 == null)
@@ -90,11 +99,17 @@ public class UnicodeReader extends Reader {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void close() throws IOException {
         init();
         internalIn2.close();
     }
 
+    /**
+     * Method description.
+     */
     public int read(char[] cbuf, int off, int len) throws IOException {
         init();
         return internalIn2.read(cbuf, off, len);

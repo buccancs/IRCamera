@@ -1,15 +1,12 @@
-/*
- * Copyright (c) 2016-present 贵州纳雍穿青人李裕江<1032694760@qq.com>
- *
+ * Copyright (c) 2016-present <1032694760@qq.com>
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
  *     http://license.coscl.org.cn/MulanPSL2
- * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
+ * THIS SOFTWARE IS PROVIDED ON AN AS IS BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
  * See the Mulan PSL v2 for more details.
- */
 
 package com.github.gzuliyujiang.dialog;
 
@@ -41,16 +38,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 
-import com.topdon.lib.ui.R;
+import com.csl.irCamera.libui.R;
 
-/**
- * 屏幕底部弹出对话框
- *
- * @author 贵州山野羡民（1032694760@qq.com）
+ * @author 1032694760@qq.com
  * @since 2017/4/12
- */
 @SuppressWarnings({"WeakerAccess", "unused"})
 public abstract class BaseDialog extends Dialog implements DialogInterface.OnShowListener, DialogInterface.OnDismissListener {
+    /**
+     * Method description.
+     */
     public static final int MATCH_PARENT = ViewGroup.LayoutParams.MATCH_PARENT;
     public static final int WRAP_CONTENT = ViewGroup.LayoutParams.WRAP_CONTENT;
     protected Activity activity;
@@ -60,21 +56,28 @@ public abstract class BaseDialog extends Dialog implements DialogInterface.OnSho
         this(activity, R.style.DialogTheme_Base);
     }
 
+    /**
+     * Method description.
+     */
     public BaseDialog(@NonNull Activity activity, @StyleRes int themeResId) {
         super(activity, themeResId);
         init(activity);
     }
 
+    /**
+     * Method description.
+     */
     public final View getContentView() {
         return contentView;
     }
 
+    /**
+     * Private method description.
+     */
     private void init(Activity activity) {
         this.activity = activity;
         setOwnerActivity(activity);
-        //触摸屏幕取消窗体
         setCanceledOnTouchOutside(false);
-        //按返回键取消窗体
         setCancelable(false);
         super.setOnShowListener(this);
         super.setOnDismissListener(this);
@@ -88,7 +91,7 @@ public abstract class BaseDialog extends Dialog implements DialogInterface.OnSho
             window.getDecorView().setPadding(0, 0, 0, 0);
         }
         onInit(null);
-        // 调用create或show才能触发onCreate
+        // createshowonCreate
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             super.create();
         } else {
@@ -96,9 +99,7 @@ public abstract class BaseDialog extends Dialog implements DialogInterface.OnSho
         }
     }
 
-    /**
-     * @deprecated 使用 {@link #onInit(Bundle)} 代替
-     */
+     * @deprecated  {@link #onInit(Bundle)}
     @Deprecated
     @CallSuper
     protected void onInit(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
@@ -120,6 +121,9 @@ public abstract class BaseDialog extends Dialog implements DialogInterface.OnSho
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void readyView() {
         contentView = createContentView();
         contentView.setFocusable(true);
@@ -131,9 +135,7 @@ public abstract class BaseDialog extends Dialog implements DialogInterface.OnSho
     @NonNull
     protected abstract View createContentView();
 
-    /**
-     * @deprecated 使用 {@link #initView()}  代替
-     */
+     * @deprecated  {@link #initView()}
     @SuppressWarnings("DeprecatedIsStillUsed")
     @Deprecated
     @CallSuper
@@ -147,20 +149,32 @@ public abstract class BaseDialog extends Dialog implements DialogInterface.OnSho
         initView(contentView);
     }
 
+    /**
+     * Method description.
+     */
     public final void disableCancel() {
         setCancelable(false);
         setCanceledOnTouchOutside(false);
     }
 
+    /**
+     * Method description.
+     */
     public final void setBackgroundColor(@ColorInt int color) {
         setBackgroundColor(CornerRound.No, color);
     }
 
 
+    /**
+     * Method description.
+     */
     public final void setBackgroundColor(@CornerRound int cornerRound, @ColorInt int color) {
         setBackgroundColor(cornerRound, 20, color);
     }
 
+    /**
+     * Method description.
+     */
     public final void setBackgroundColor(@CornerRound int cornerRound, @Dimension(unit = Dimension.DP) int radius, @ColorInt int color) {
         if (contentView == null) {
             return;
@@ -188,6 +202,9 @@ public abstract class BaseDialog extends Dialog implements DialogInterface.OnSho
         contentView.setBackground(drawable);
     }
 
+    /**
+     * Method description.
+     */
     public final void setBackgroundResource(@DrawableRes int resId) {
         if (contentView == null) {
             return;
@@ -195,6 +212,9 @@ public abstract class BaseDialog extends Dialog implements DialogInterface.OnSho
         contentView.setBackgroundResource(resId);
     }
 
+    /**
+     * Method description.
+     */
     public final void setBackgroundDrawable(Drawable drawable) {
         if (contentView == null) {
             return;
@@ -202,31 +222,52 @@ public abstract class BaseDialog extends Dialog implements DialogInterface.OnSho
         contentView.setBackground(drawable);
     }
 
+    /**
+     * Method description.
+     */
     public final void setLayout(int width, int height) {
         getWindow().setLayout(width, height);
     }
 
+    /**
+     * Method description.
+     */
     public final void setWidth(int width) {
         getWindow().setLayout(width, getWindow().getAttributes().height);
     }
 
+    /**
+     * Method description.
+     */
     public final void setHeight(int height) {
         getWindow().setLayout(getWindow().getAttributes().width, height);
     }
 
+    /**
+     * Method description.
+     */
     public final void setGravity(int gravity) {
         getWindow().setGravity(gravity);
     }
 
+    /**
+     * Method description.
+     */
     public final void setDimAmount(@FloatRange(from = 0, to = 1) float amount) {
         getWindow().setDimAmount(amount);
     }
 
+    /**
+     * Method description.
+     */
     public final void setAnimationStyle(@StyleRes int animRes) {
         getWindow().setWindowAnimations(animRes);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setOnShowListener(@Nullable OnShowListener listener) {
         if (listener == null) {
             return;
@@ -239,6 +280,9 @@ public abstract class BaseDialog extends Dialog implements DialogInterface.OnSho
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setOnDismissListener(@Nullable OnDismissListener listener) {
         if (listener == null) {
             return;
@@ -252,6 +296,9 @@ public abstract class BaseDialog extends Dialog implements DialogInterface.OnSho
 
     @CallSuper
     @Override
+    /**
+     * Method description.
+     */
     public void show() {
         if (isShowing()) {
             return;
@@ -269,6 +316,9 @@ public abstract class BaseDialog extends Dialog implements DialogInterface.OnSho
 
     @CallSuper
     @Override
+    /**
+     * Method description.
+     */
     public void dismiss() {
         if (!isShowing()) {
             return;
@@ -285,6 +335,9 @@ public abstract class BaseDialog extends Dialog implements DialogInterface.OnSho
 
     @CallSuper
     @Override
+    /**
+     * Method description.
+     */
     public void onAttachedToWindow() {
         DialogLog.print("dialog attached to window");
         super.onAttachedToWindow();
@@ -298,25 +351,30 @@ public abstract class BaseDialog extends Dialog implements DialogInterface.OnSho
 
     @CallSuper
     @Override
+    /**
+     * Method description.
+     */
     public void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         DialogLog.print("dialog detached from window");
     }
 
-    /**
      * @see #onAttachedToWindow()
-     */
     @CallSuper
     @Override
+    /**
+     * Method description.
+     */
     public void onShow(DialogInterface dialog) {
         DialogLog.print("dialog onShow");
     }
 
-    /**
      * @see #onDetachedFromWindow()
-     */
     @CallSuper
     @Override
+    /**
+     * Method description.
+     */
     public void onDismiss(DialogInterface dialog) {
         DialogLog.print("dialog onDismiss");
     }

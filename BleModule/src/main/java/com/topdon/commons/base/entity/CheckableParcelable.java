@@ -10,11 +10,17 @@ import android.os.Parcelable;
  */
 public class CheckableParcelable<T extends Parcelable> extends CheckableItem<T> implements Parcelable {
     @Override
+    /**
+     * Method description.
+     */
     public int describeContents() {
         return 0;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void writeToParcel(Parcel dest, int flags) {
         Bundle bundle = new Bundle();
         bundle.putParcelable("items", getData());
@@ -22,6 +28,9 @@ public class CheckableParcelable<T extends Parcelable> extends CheckableItem<T> 
         dest.writeByte(isChecked() ? (byte) 1 : (byte) 0);
     }
 
+    /**
+     * Method description.
+     */
     public CheckableParcelable() {
     }
 	
@@ -29,6 +38,9 @@ public class CheckableParcelable<T extends Parcelable> extends CheckableItem<T> 
         super(data);
     }
 
+    /**
+     * Method description.
+     */
     public CheckableParcelable(T data, boolean isChecked) {
         super(data, isChecked);
     }
@@ -42,6 +54,9 @@ public class CheckableParcelable<T extends Parcelable> extends CheckableItem<T> 
         setChecked(in.readByte() != 0);
     }
 
+    /**
+     * Method description.
+     */
     public static final Creator<CheckableParcelable> CREATOR = new Creator<CheckableParcelable>() {
         @Override
         public CheckableParcelable createFromParcel(Parcel source) {

@@ -14,10 +14,7 @@ import java.io.File
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-/**
- * 硬编码
  * bitmap -> mp4
- */
 class VideoRecordMedia(
     private var cameraView: CameraView,
     private var temperatureView: TemperatureView
@@ -27,14 +24,15 @@ class VideoRecordMedia(
     private var encoder: Encoder = MP4Encoder()
     private var isRunning = false
 
+    /** width property */
     var width = 480
+    /** height property */
     var height = 640
 
     init {
         encoder.setFrameDelay(25)
         width = 480
         height = width * cameraView.height / cameraView.width
-        //宽高不能出现奇数
         if (height % 2 == 1) {
             height -= 1
         }
@@ -50,13 +48,13 @@ class VideoRecordMedia(
         }
         encoder.setOutputFilePath(exportedFile.path)
 //        if (bitmap == null) {
-//            Log.w("123", "录制准备失败")
+//            Log.w(123, )
 //            return
 //        }
         encoder.setOutputSize(width, height)
         encoder.startEncode()
         isRunning = true
-        //默认帧率20,间隔50ms一帧
+        //20,50ms
         exportDisposable = Observable.interval(50, TimeUnit.MILLISECONDS)
             .map {
                 createBitmapFromView()
@@ -85,7 +83,7 @@ class VideoRecordMedia(
     private fun createBitmapFromView(): Bitmap {
         var cameraViewBitmap = cameraView.bitmap
         if (temperatureView.temperatureRegionMode != TemperatureView.REGION_MODE_CLEAN) {
-            // 获取温度图层的数据，包括点线框，温度值等，重新合成bitmap
+            // bitmap
             cameraViewBitmap = BitmapUtils.mergeBitmap(
                 cameraViewBitmap,
                 temperatureView.regionAndValueBitmap,

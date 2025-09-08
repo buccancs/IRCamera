@@ -29,6 +29,9 @@ import java.util.List;
  */
 public class HorizontalBarChartRenderer extends BarChartRenderer {
 
+    /**
+     * Method description.
+     */
     public HorizontalBarChartRenderer(BarDataProvider chart, ChartAnimator animator,
                                       ViewPortHandler viewPortHandler) {
         super(chart, animator, viewPortHandler);
@@ -37,6 +40,9 @@ public class HorizontalBarChartRenderer extends BarChartRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void initBuffers() {
 
         BarData barData = mChart.getBarData();
@@ -49,6 +55,9 @@ public class HorizontalBarChartRenderer extends BarChartRenderer {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private RectF mBarShadowRectBuffer = new RectF();
 
     @Override
@@ -142,6 +151,9 @@ public class HorizontalBarChartRenderer extends BarChartRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawValues(Canvas c) {
         // if values are drawn
         if (isDrawingValuesAllowed(mChart)) {
@@ -393,6 +405,9 @@ public class HorizontalBarChartRenderer extends BarChartRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawValue(Canvas c, String valueText, float x, float y, int color) {
         mValuePaint.setColor(color);
         c.drawText(valueText, x, y, mValuePaint);

@@ -15,6 +15,9 @@ import android.graphics.drawable.Drawable;
 public class BubbleEntry extends Entry {
 
     /** size value */
+    /**
+     * Private method description.
+     */
     private float mSize = 0f;
 
     /**
@@ -23,6 +26,9 @@ public class BubbleEntry extends Entry {
      * @param x The value on the x-axis.
      * @param y The value on the y-axis.
      * @param size The size of the bubble.
+     */
+    /**
+     * Method description.
      */
     public BubbleEntry(float x, float y, float size) {
         super(x, y);
@@ -37,6 +43,9 @@ public class BubbleEntry extends Entry {
      * @param size The size of the bubble.
      * @param data Spot for additional data this Entry represents.
      */
+    /**
+     * Method description.
+     */
     public BubbleEntry(float x, float y, float size, Object data) {
         super(x, y, data);
         this.mSize = size;
@@ -49,6 +58,9 @@ public class BubbleEntry extends Entry {
      * @param y The value on the y-axis.
      * @param size The size of the bubble.
      * @param icon Icon image
+     */
+    /**
+     * Method description.
      */
     public BubbleEntry(float x, float y, float size, Drawable icon) {
         super(x, y, icon);
@@ -64,11 +76,17 @@ public class BubbleEntry extends Entry {
      * @param icon Icon image
      * @param data Spot for additional data this Entry represents.
      */
+    /**
+     * Method description.
+     */
     public BubbleEntry(float x, float y, float size, Drawable icon, Object data) {
         super(x, y, icon, data);
         this.mSize = size;
     }
 
+    /**
+     * Method description.
+     */
     public BubbleEntry copy() {
 
         BubbleEntry c = new BubbleEntry(getX(), getY(), mSize, getData());
@@ -80,10 +98,16 @@ public class BubbleEntry extends Entry {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public float getSize() {
         return mSize;
     }
 
+    /**
+     * Method description.
+     */
     public void setSize(float size) {
         this.mSize = size;
     }

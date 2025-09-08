@@ -7,9 +7,7 @@ import com.topdon.module.thermal.ir.utils.ChartTools
 import java.text.SimpleDateFormat
 import java.util.*
 
-/**
- * X轴文本格式
- */
+ * X
 class IRMyValueFormatter(private val startTime: Long, private val type: Int = 1) :
     IndexAxisValueFormatter() {
 
@@ -21,18 +19,21 @@ class IRMyValueFormatter(private val startTime: Long, private val type: Int = 1)
     }
 
     override fun getFormattedValue(value: Float): String {
-        //TODO (秒)传入1000,有可能返回999,确保数据稳定 2022-03-24
+        //TODO ()1000,999, 2022-03-24
         val time = if (value.toLong() % 1000 == 999L) {
             value.toLong() + 1L
         } else {
             value.toLong()
         }
-        val realTime = startTime + time * ChartTools.scale(type)//还原
+        val realTime = startTime + time * ChartTools.scale(type)//
         return showDateSecond(realTime)
     }
 
 
     @SuppressLint("SimpleDateFormat")
+    /**
+     * Function description.
+     */
     fun showDateSecond(time: Long): String {
         val date = Date(time)
         //yyyy-MM-dd HH:mm:ss

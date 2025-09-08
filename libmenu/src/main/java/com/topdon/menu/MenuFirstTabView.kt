@@ -8,17 +8,15 @@ import android.widget.FrameLayout
 import com.topdon.menu.databinding.ViewMenuFirstTabBinding
 
 /**
- * 热成像页面所用底部菜单栏.
- *
- * 共有两种模式：
- * - 测温模式：拍照、点线面、双光、伪彩、设置、高低温档
- * - 观测模式：拍照、高低温源、伪彩、标靶、高低温点、设置
+ * Custom view for the first tab menu with 6 menu items.
+ * Manages selection state and observe mode for menu items.
  */
 class MenuFirstTabView : FrameLayout, View.OnClickListener {
 
     /**
-     * 当前选中那个 tab，取值 `[0,5]`
+     * Currently selected tab position in range [0,5].
      */
+    /** selectPosition property */
     var selectPosition = -1
         set(value) {
             if (field != value) {
@@ -33,8 +31,9 @@ class MenuFirstTabView : FrameLayout, View.OnClickListener {
         }
 
     /**
-     * 是否观测模式，观测模式的图标不同.
+     * Whether the menu is in observe mode, which changes the icon resources.
      */
+    /** isObserveMode property */
     var isObserveMode = false
         set(value) {
             if (field != value) {
@@ -48,18 +47,35 @@ class MenuFirstTabView : FrameLayout, View.OnClickListener {
             }
         }
 
+    /**
+     * Click listener callback for tab selection events.
+     */
+    /** onTabClickListener property */
     var onTabClickListener: ((v: MenuFirstTabView) -> Unit)? = null
 
-
-
+    /**
+     * ViewBinding instance for this custom view.
+     */
     private lateinit var binding: ViewMenuFirstTabBinding
 
+    /**
+     * Primary constructor with context only.
+     */
     constructor(context: Context) : this(context, null)
 
+    /**
+     * Constructor with context and attributes.
+     */
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
+    /**
+     * Constructor with context, attributes, and default style attribute.
+     */
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
 
+    /**
+     * Full constructor with all parameters.
+     */
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int): super(context, attrs, defStyleAttr, defStyleRes) {
         if (isInEditMode) {
             LayoutInflater.from(context).inflate(R.layout.view_menu_first_tab, this, true)
@@ -76,6 +92,11 @@ class MenuFirstTabView : FrameLayout, View.OnClickListener {
         }
     }
 
+    /**
+     * Handles click events for menu items and updates the selected position.
+     * 
+     * @param v The clicked view
+     */
     override fun onClick(v: View?) {
         when (v) {
             binding.clMenu1 -> selectPosition = 0

@@ -16,6 +16,9 @@ public abstract class AbstractBuffer<T> {
     protected int index = 0;
 
     /** float-buffer that holds the data points to draw, order: x,y,x,y,... */
+    /**
+     * Method description.
+     */
     public final float[] buffer;
 
     /** animation phase x-axis */
@@ -41,6 +44,9 @@ public abstract class AbstractBuffer<T> {
     }
 
     /** limits the drawing on the x-axis */
+    /**
+     * Method description.
+     */
     public void limitFrom(int from) {
         if (from < 0)
             from = 0;
@@ -48,6 +54,9 @@ public abstract class AbstractBuffer<T> {
     }
 
     /** limits the drawing on the x-axis */
+    /**
+     * Method description.
+     */
     public void limitTo(int to) {
         if (to < 0)
             to = 0;
@@ -56,6 +65,9 @@ public abstract class AbstractBuffer<T> {
 
     /**
      * Resets the buffer index to 0 and makes the buffer reusable.
+     */
+    /**
+     * Method description.
      */
     public void reset() {
         index = 0;
@@ -66,6 +78,9 @@ public abstract class AbstractBuffer<T> {
      * 
      * @return
      */
+    /**
+     * Method description.
+     */
     public int size() {
         return buffer.length;
     }
@@ -75,6 +90,9 @@ public abstract class AbstractBuffer<T> {
      * 
      * @param phaseX
      * @param phaseY
+     */
+    /**
+     * Method description.
      */
     public void setPhases(float phaseX, float phaseY) {
         this.phaseX = phaseX;

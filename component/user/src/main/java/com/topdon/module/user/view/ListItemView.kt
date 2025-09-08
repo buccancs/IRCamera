@@ -58,23 +58,35 @@ class ListItemView : LinearLayout {
         mLineView.visibility = if(lineShow) View.VISIBLE else View.GONE
     }
 
+    /**
+     * Function description.
+     */
     fun setLeftText(text: CharSequence?) {
         if (mIvLeftContent == null || TextUtils.isEmpty(text)) return
         mIvLeftContent.text = text
         mIvLeftContent.movementMethod = LinkMovementMethod.getInstance()
     }
 
+    /**
+     * Function description.
+     */
     fun getLeftText(): String{
         if (mIvLeftContent == null) return ""
         return mIvLeftContent.text.toString()
     }
 
+    /**
+     * Function description.
+     */
     fun setRightText(text: CharSequence?) {
         if (mIvLeftContent == null || TextUtils.isEmpty(text)) return
         mIvRightContent.text = text
         mIvRightContent.movementMethod = LinkMovementMethod.getInstance()
     }
 
+    /**
+     * Function description.
+     */
     fun getRightText(): String{
         if (mIvRightContent == null) return ""
         return mIvRightContent.text.toString()

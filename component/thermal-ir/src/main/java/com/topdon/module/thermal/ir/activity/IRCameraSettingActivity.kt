@@ -29,18 +29,16 @@ import com.topdon.lib.ui.listener.SingleClickListener
 import com.topdon.lib.core.utils.CommUtils
 import com.topdon.module.thermal.ir.BuildConfig
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.activity_ir_camera_setting.*
+import com.csl.irCamera.libapp.R as LibAppR
+import com.topdon.module.thermal.ir.databinding.ActivityIrCameraSettingBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
 
 
-/**
- * 摄像头属性值设置
  * @author: CaiSongL
  * @date: 2023/4/3 15:00
- */
 @Route(path = RouterConfig.IR_CAMERA_SETTING)
 class IRCameraSettingActivity : BaseActivity() {
 
@@ -48,6 +46,7 @@ class IRCameraSettingActivity : BaseActivity() {
         const val KEY_PRODUCT_TYPE = "key_product_type"
     }
 
+    private lateinit var binding: ActivityIrCameraSettingBinding
     private var locationManager: LocationManager? = null
     private var locationProvider: String? = null
 
@@ -61,84 +60,88 @@ class IRCameraSettingActivity : BaseActivity() {
         Permission.ACCESS_COARSE_LOCATION
     )
 
-    override fun initContentView(): Int = R.layout.activity_ir_camera_setting
+    override fun initContentView(): Int {
+        binding = ActivityIrCameraSettingBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        return 0
+    }
 
     override fun initView() {
         productName = intent.getStringExtra(KEY_PRODUCT_TYPE) ?: ""
         if (isTC007()){
-            watermarkBean = SharedManager.wifiWatermarkBean//TC007只有水印
+            watermarkBean = SharedManager.wifiWatermarkBean//TC007
             continuousBean = SharedManager.continuousBean
         }else{
             watermarkBean = SharedManager.watermarkBean
             continuousBean = SharedManager.continuousBean
         }
 
-        bar_pick_view_time.setProgressAndRefresh((continuousBean.continuaTime / 100).toInt())
-        bar_pick_view_time.onStopTrackingTouch = { progress, _ ->
+        binding.barPickViewTime.setProgressAndRefresh((continuousBean.continuaTime / 100).toInt())
+        binding.barPickViewTime.onStopTrackingTouch = { progress, _ ->
             continuousBean.continuaTime = progress.toLong() * 100
             SharedManager.continuousBean = continuousBean
         }
-        bar_pick_view_time.valueFormatListener = {
+        binding.barPickViewTime.valueFormatListener = {
             (it / 10).toString() + if (it % 10 == 0) "" else ("." + (it % 10).toString())
         }
 
-        bar_pick_view_count.setProgressAndRefresh(continuousBean.count)
-        bar_pick_view_count.onStopTrackingTouch = { progress, _ ->
+        binding.barPickViewCount.setProgressAndRefresh(continuousBean.count)
+        binding.barPickViewCount.onStopTrackingTouch = { progress, _ ->
             continuousBean.count = progress
             SharedManager.continuousBean = continuousBean
         }
 
 
-        switch_time.isChecked = watermarkBean.isAddTime
-        switch_watermark.isChecked = watermarkBean.isOpen
-        switch_delay.isChecked = continuousBean.isOpen
+        binding.switchTime.isChecked = watermarkBean.isAddTime
+        binding.switchWatermark.isChecked = watermarkBean.isOpen
+        binding.switchDelay.isChecked = continuousBean.isOpen
 
-        cl_delay_more.isVisible = continuousBean.isOpen
-        cl_watermark_more.isVisible = watermarkBean.isOpen
-        cl_show_ep.isVisible = watermarkBean.isOpen
+        binding.clDelayMore.isVisible = continuousBean.isOpen
+        binding.clWatermarkMore.isVisible = watermarkBean.isOpen
+        binding.clShowEp.isVisible = watermarkBean.isOpen
 
-        tv_time_show.text = TimeTool.getNowTime()
-        tv_time_show.isVisible = watermarkBean.isAddTime
+        binding.tvTimeShow.text = TimeTool.getNowTime()
+        binding.tvTimeShow.isVisible = watermarkBean.isAddTime
 
-        tv_address.inputType = InputType.TYPE_NULL
+        binding.tvAddress.inputType = InputType.TYPE_NULL
         if (TextUtils.isEmpty(watermarkBean.address)){
-            tv_address.visibility = View.GONE
+            binding.tvAddress.visibility = View.GONE
         }else{
-            tv_address.visibility = View.VISIBLE
-            tv_address.text = watermarkBean.address
+            binding.tvAddress.visibility = View.VISIBLE
+            binding.tvAddress.text = watermarkBean.address
         }
-        ed_title.setText(watermarkBean.title)
-        ed_address.setText(watermarkBean.address)
-        tv_title_show.text = watermarkBean.title
-        switch_delay.setOnCheckedChangeListener { _, isChecked ->
+        binding.edTitle.setText(watermarkBean.title)
+        binding.edAddress.setText(watermarkBean.address)
+        binding.tvTitleShow.text = watermarkBean.title
+        binding.switchDelay.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked){
-                cl_delay_more.visibility = View.VISIBLE
+                binding.clDelayMore.visibility = View.VISIBLE
             }else{
-                cl_delay_more.visibility = View.GONE
+                binding.clDelayMore.visibility = View.GONE
             }
             continuousBean.isOpen = isChecked
             SharedManager.continuousBean = continuousBean
         }
-        switch_watermark.setOnCheckedChangeListener { _, isChecked ->
+        binding.switchWatermark.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked){
-                cl_watermark_more.visibility = View.VISIBLE
-                cl_show_ep.visibility = View.VISIBLE
+                binding.clWatermarkMore.visibility = View.VISIBLE
+                binding.clShowEp.visibility = View.VISIBLE
             }else{
-                cl_watermark_more.visibility = View.GONE
-                cl_show_ep.visibility = View.GONE
+                binding.clWatermarkMore.visibility = View.GONE
+                binding.clShowEp.visibility = View.GONE
             }
             watermarkBean.isOpen = isChecked
         }
-        switch_time.setOnCheckedChangeListener { _, isChecked ->
+        binding.switchTime.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked){
-                tv_time_show.text = TimeTool.getNowTime()
-                tv_time_show.visibility = View.VISIBLE
+                binding.tvTimeShow.text = TimeTool.getNowTime()
+                binding.tvTimeShow.visibility = View.VISIBLE
             }else{
-                tv_time_show.visibility = View.GONE
+                binding.tvTimeShow.visibility = View.GONE
             }
             watermarkBean.isAddTime = isChecked
         }
-        ed_title.addTextChangedListener(object : TextWatcher{
+        binding.edTitle.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
@@ -146,51 +149,54 @@ class IRCameraSettingActivity : BaseActivity() {
             }
             override fun afterTextChanged(s: Editable?) {
 
-                watermarkBean.title = ed_title.text.toString()
-                tv_title_show.text = watermarkBean.title
+                watermarkBean.title = binding.edTitle.text.toString()
+                binding.tvTitleShow.text = watermarkBean.title
             }
         })
-        ed_address.addTextChangedListener(object : TextWatcher{
+        binding.edAddress.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
             override fun afterTextChanged(s: Editable?) {
-                watermarkBean.address = ed_address.text.toString()
-                tv_address.text = watermarkBean.address
+                watermarkBean.address = binding.edAddress.text.toString()
+                binding.tvAddress.text = watermarkBean.address
                 if (!watermarkBean.address.isNullOrEmpty()){
-                    tv_address.visibility = View.VISIBLE
+                    binding.tvAddress.visibility = View.VISIBLE
                 }else{
-                    tv_address.visibility = View.GONE
+                    binding.tvAddress.visibility = View.GONE
                 }
             }
         })
-        img_location.setOnClickListener(object : SingleClickListener() {
+        binding.imgLocation.setOnClickListener(object : SingleClickListener() {
             override fun onSingleClick() {
                 checkStoragePermission()
             }
         })
-        //TC007设备不需要延迟拍照
-        ly_auto.visibility = if (isTC007()) View.GONE else View.VISIBLE
+        //TC007
+        binding.lyAuto.visibility = if (isTC007()) View.GONE else View.VISIBLE
     }
 
+    /**
+     * Function description.
+     */
     fun isTC007() : Boolean
     {
         return productName.contains("TC007")
     }
     @SuppressLint("MissingPermission")
     private fun getLocation() : String? {
-        //1.获取位置管理器
+        //1.
         locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
 
-        //2.获取位置提供器，GPS或是NetWork
+        //2.GPSNetWork
         val providers = locationManager?.getProviders(true)
         locationProvider = if (providers!!.contains(LocationManager.GPS_PROVIDER)) {
-            //如果是GPS
+            //GPS
             LocationManager.GPS_PROVIDER
         } else if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
-            //如果是Network
+            //Network
             LocationManager.NETWORK_PROVIDER
         } else {
             return null
@@ -207,33 +213,33 @@ class IRCameraSettingActivity : BaseActivity() {
         }
     }
 
+    /** locationListener property */
     var locationListener: LocationListener = object : LocationListener {
-        // Provider的状态在可用、暂时不可用和无服务三个状态直接切换时触发此函数
+        // Provider
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {
             Toast.makeText(
                 this@IRCameraSettingActivity, provider, Toast.LENGTH_SHORT
             ).show()
         }
 
-        // Provider被enable时触发此函数，比如GPS被打开
+        // ProviderenableGPS
         override fun onProviderEnabled(provider: String) {
             Toast.makeText(
-                this@IRCameraSettingActivity, "GPS打开", Toast.LENGTH_SHORT
+                this@IRCameraSettingActivity, "GPS", Toast.LENGTH_SHORT
             ).show()
             getLocation()
         }
 
-        // Provider被disable时触发此函数，比如GPS被关闭
+        // ProviderdisableGPS
         override fun onProviderDisabled(provider: String) {
             Toast.makeText(
-                this@IRCameraSettingActivity, "GPS关闭", Toast.LENGTH_SHORT
+                this@IRCameraSettingActivity, "GPS", Toast.LENGTH_SHORT
             ).show()
         }
 
-        //当坐标改变时触发此函数，如果Provider传进相同的坐标，它就不会被触发
+        //Provider
         override fun onLocationChanged(location: Location) {
             if (location != null) {
-                //如果位置发生变化，重新显示地理位置经纬度
                 Toast.makeText(
                     this@IRCameraSettingActivity, location.longitude.toString() + " " +
                             location.latitude + "", Toast.LENGTH_SHORT
@@ -249,14 +255,14 @@ class IRCameraSettingActivity : BaseActivity() {
         for (provider in providers) {
             val l: Location = locationManager!!.getLastKnownLocation(provider) ?: continue
             if (bestLocation == null || l.accuracy < bestLocation.accuracy) {
-                // Found best last known location: %s", l);
+                // Found best last known location: %s, l);
                 bestLocation = l
             }
         }
         return bestLocation
     }
 
-    //获取地址信息:城市、街道等信息
+    //:
     private fun getAddress(location: Location?): String {
         var result: List<Address?>? = null
         try {
@@ -266,7 +272,7 @@ class IRCameraSettingActivity : BaseActivity() {
                     location.latitude,
                     location.longitude, 1
                 )
-                Log.v("TAG", "获取地址信息：$result")
+                Log.v("TAG", "：$result")
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -274,15 +280,15 @@ class IRCameraSettingActivity : BaseActivity() {
         var str = ""
         if (result!=null && result.isNotEmpty()){
             result?.get(0)?.let {
-                str +=  getNullString(it.adminArea)
+                str += getNullString(it.adminArea)
                 if (TextUtils.isEmpty(it.subLocality) && !str.contains(getNullString(it.subAdminArea))){
-                    str +=  getNullString(it.subAdminArea)
+                    str += getNullString(it.subAdminArea)
                 }
                 if (!str.contains(getNullString(it.locality))){
-                    str +=  getNullString(it.locality)
+                    str += getNullString(it.locality)
                 }
                 if (!str.contains(getNullString(it.subLocality))){
-                    str +=  getNullString(it.subLocality)
+                    str += getNullString(it.subLocality)
                 }
             }
         }
@@ -324,45 +330,44 @@ class IRCameraSettingActivity : BaseActivity() {
             ).request(object :OnPermissionCallback{
                 override fun onGranted(permissions: MutableList<String>, all: Boolean) {
                     if (all){
-                        showLoadingDialog(R.string.get_current_address)
+                        showLoadingDialog(LibAppR.string.get_current_address)
                         lifecycleScope.launch{
                             var addressText : String ?= ""
                             withContext(Dispatchers.IO){
-                                addressText =  getLocation()
+                                addressText = getLocation()
                             }
                             dismissLoadingDialog()
                             if (addressText == null){
-                                ToastUtils.showShort(R.string.get_Location_failed)
+                                ToastUtils.showShort(LibAppR.string.get_Location_failed)
                             }else{
                                 watermarkBean.address = addressText as String
-                                ed_address.setText(addressText)
-                                tv_address.visibility = View.VISIBLE
-                                tv_address.setText(addressText)
+                                binding.edAddress.setText(addressText)
+                                binding.tvAddress.visibility = View.VISIBLE
+                                binding.tvAddress.setText(addressText)
                             }
                         }
                     }else{
-                        ToastUtils.showShort(R.string.scan_ble_tip_authorize)
+                        ToastUtils.showShort(LibAppR.string.scan_ble_tip_authorize)
                     }
                 }
                 override fun onDenied(permissions: MutableList<String>, never: Boolean) {
                     if (never) {
-                        // 如果是被永久拒绝就跳转到应用权限系统设置页面
                         if (BaseApplication.instance.isDomestic()){
-                            ToastUtils.showShort(getString(R.string.app_location_content))
+                            ToastUtils.showShort(getString(LibAppR.string.app_location_content))
                         }else{
                             TipDialog.Builder(this@IRCameraSettingActivity)
-                                .setTitleMessage(getString(R.string.app_tip))
-                                .setMessage(getString(R.string.app_location_content))
-                                .setPositiveListener(R.string.app_open){
+                                .setTitleMessage(getString(LibAppR.string.app_tip))
+                                .setMessage(getString(LibAppR.string.app_location_content))
+                                .setPositiveListener(LibAppR.string.app_open){
                                     XXPermissions.startPermissionActivity(this@IRCameraSettingActivity, permissions);
                                 }
-                                .setCancelListener(R.string.app_cancel){
+                                .setCancelListener(LibAppR.string.app_cancel){
                                 }
                                 .setCanceled(true)
                                 .create().show()
                         }
                     } else {
-                        ToastUtils.showShort(R.string.scan_ble_tip_authorize)
+                        ToastUtils.showShort(LibAppR.string.scan_ble_tip_authorize)
                     }
                 }
 
@@ -373,9 +378,9 @@ class IRCameraSettingActivity : BaseActivity() {
         if (!XXPermissions.isGranted(this, permissionList)) {
             if (BaseApplication.instance.isDomestic()) {
                 TipDialog.Builder(this)
-                    .setMessage(getString(R.string.permission_request_location_app, CommUtils.getAppName()))
-                    .setCancelListener(R.string.app_cancel)
-                    .setPositiveListener(R.string.app_confirm) {
+                    .setMessage(getString(LibAppR.string.permission_request_location_app, CommUtils.getAppName()))
+                    .setCancelListener(LibAppR.string.app_cancel)
+                    .setPositiveListener(LibAppR.string.app_confirm) {
                         initLocationPermission()
                     }
                     .create().show()

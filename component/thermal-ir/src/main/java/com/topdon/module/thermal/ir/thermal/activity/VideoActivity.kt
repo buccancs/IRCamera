@@ -11,7 +11,8 @@ import com.blankj.utilcode.util.BarUtils
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.activity_video.*
+import com.csl.irCamera.libapp.R as LibAppR
+import com.topdon.module.thermal.ir.databinding.ActivityVideoBinding
 import java.io.File
 
 
@@ -22,13 +23,19 @@ class VideoActivity : BaseActivity() {
         const val KEY_PATH = "video_path"
     }
 
+    /** videoPath property */
     var videoPath = ""
+    
+    private lateinit var binding: ActivityVideoBinding
 
     override fun initContentView() = R.layout.activity_video
 
     override fun initView() {
-        // setTitleText(R.string.video) // Commented out - method not available in BaseIRActivity
-        BarUtils.setNavBarColor(this, ContextCompat.getColor(this, R.color.black))
+        binding = ActivityVideoBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
+        // setTitleText(LibAppR.string.video) // Commented out - method not available in BaseIRActivity
+        BarUtils.setNavBarColor(this, ContextCompat.getColor(this, LibAppR.color.black))
         if (intent.hasExtra(KEY_PATH)) {
             videoPath = intent.getStringExtra(KEY_PATH)!!
         }
@@ -39,17 +46,17 @@ class VideoActivity : BaseActivity() {
     }
 
     private fun previewVideo(path: String) {
-        Log.w("123", "打开文件:$path")
+        Log.w("123", ":$path")
         val file = File(path.replace("//", "/"))
-        Log.i("123", "打开文件file:$file")
+        Log.i("123", "file:$file")
         val uri: Uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             val authority = "${packageName}.fileprovider"
             FileProvider.getUriForFile(this, authority, file)
         } else {
             Uri.fromFile(file)
         }
-        Log.w("123", "打开文件uri:$uri")
-        val videoView = video_play
+        Log.w("123", "uri:$uri")
+        val videoView = binding.videoPlay
         videoView.setVideoURI(uri)
         videoView.setMediaController(MediaController(this))
         videoView.start()

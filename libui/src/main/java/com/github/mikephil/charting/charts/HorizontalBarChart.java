@@ -28,14 +28,23 @@ import com.github.mikephil.charting.utils.Utils;
  */
 public class HorizontalBarChart extends BarChart {
 
+    /**
+     * Method description.
+     */
     public HorizontalBarChart(Context context) {
         super(context);
     }
 
+    /**
+     * Method description.
+     */
     public HorizontalBarChart(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * Method description.
+     */
     public HorizontalBarChart(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
@@ -58,9 +67,15 @@ public class HorizontalBarChart extends BarChart {
         mXAxisRenderer = new XAxisRendererHorizontalBarChart(mViewPortHandler, mXAxis, mLeftAxisTransformer, this);
     }
 
+    /**
+     * Private method description.
+     */
     private RectF mOffsetsBuffer = new RectF();
 
     @Override
+    /**
+     * Method description.
+     */
     public void calculateOffsets() {
 
         float offsetLeft = 0f, offsetRight = 0f, offsetTop = 0f, offsetBottom = 0f;
@@ -139,6 +154,9 @@ public class HorizontalBarChart extends BarChart {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void getBarBounds(BarEntry e, RectF outputRect) {
 
         RectF bounds = outputRect;
@@ -175,6 +193,9 @@ public class HorizontalBarChart extends BarChart {
      * @return
      */
     @Override
+    /**
+     * Method description.
+     */
     public MPPointF getPosition(Entry e, AxisDependency axis) {
 
         if (e == null)
@@ -198,6 +219,9 @@ public class HorizontalBarChart extends BarChart {
      * @return
      */
     @Override
+    /**
+     * Method description.
+     */
     public Highlight getHighlightByTouchPoint(float x, float y) {
 
         if (mData == null) {
@@ -209,6 +233,9 @@ public class HorizontalBarChart extends BarChart {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public float getLowestVisibleX() {
         getTransformer(AxisDependency.LEFT).getValuesByTouchPoint(mViewPortHandler.contentLeft(),
                 mViewPortHandler.contentBottom(), posForGetLowestVisibleX);
@@ -217,6 +244,9 @@ public class HorizontalBarChart extends BarChart {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public float getHighestVisibleX() {
         getTransformer(AxisDependency.LEFT).getValuesByTouchPoint(mViewPortHandler.contentLeft(),
                 mViewPortHandler.contentTop(), posForGetHighestVisibleX);
@@ -229,18 +259,27 @@ public class HorizontalBarChart extends BarChart {
      */
 
     @Override
+    /**
+     * Method description.
+     */
     public void setVisibleXRangeMaximum(float maxXRange) {
         float xScale = mXAxis.mAxisRange / (maxXRange);
         mViewPortHandler.setMinimumScaleY(xScale);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setVisibleXRangeMinimum(float minXRange) {
         float xScale = mXAxis.mAxisRange / (minXRange);
         mViewPortHandler.setMaximumScaleY(xScale);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setVisibleXRange(float minXRange, float maxXRange) {
         float minScale = mXAxis.mAxisRange / minXRange;
         float maxScale = mXAxis.mAxisRange / maxXRange;
@@ -248,18 +287,27 @@ public class HorizontalBarChart extends BarChart {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setVisibleYRangeMaximum(float maxYRange, AxisDependency axis) {
         float yScale = getAxisRange(axis) / maxYRange;
         mViewPortHandler.setMinimumScaleX(yScale);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setVisibleYRangeMinimum(float minYRange, AxisDependency axis) {
         float yScale = getAxisRange(axis) / minYRange;
         mViewPortHandler.setMaximumScaleX(yScale);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setVisibleYRange(float minYRange, float maxYRange, AxisDependency axis) {
         float minScale = getAxisRange(axis) / minYRange;
         float maxScale = getAxisRange(axis) / maxYRange;

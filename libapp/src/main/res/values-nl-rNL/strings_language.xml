@@ -178,7 +178,7 @@
 	<string name="question5">Geeft de TC001、TS001 straling af en schaadt het de gezondheid van mensen?</string>
 	<string name="answer5">TC001、TS001 zendt geen schadelijke straling uit en verzamelt alleen warmte-informatie over een object, dus gebruik dit product gerust zonder zorgen.</string>
 	<string name="question6">Waarom neemt de temperatuurmeting toe als men dichter bij het apparaat komt?</string>
-	<string name="answer6">Infraroodstraling verzwakt na het passeren van een bepaalde afstand. Hoe langer de afstand, hoe sterker de demping, waardoor de nauwkeurigheid van de op afstand gemeten temperatuur afneemt. Gebruikers die nauwkeurige temperatuurgegevens willen verkrijgen, kunnen de te meten afstand (maximaal 5 meter) invoeren in Persoonlijke informatie - Instellingen - Temperatuurcorrectie - Afstand tot meetpunt,  om de gecorrigeerde temperatuur te krijgen.</string>
+	<string name="answer6">Infraroodstraling verzwakt na het passeren van een bepaalde afstand. Hoe langer de afstand, hoe sterker de demping, waardoor de nauwkeurigheid van de op afstand gemeten temperatuur afneemt. Gebruikers die nauwkeurige temperatuurgegevens willen verkrijgen, kunnen de te meten afstand (maximaal 5 meter) invoeren in Persoonlijke informatie - Instellingen - Temperatuurcorrectie - Afstand tot meetpunt, om de gecorrigeerde temperatuur te krijgen.</string>
 	<string name="question7">Waarom is er een klikgeluid? Wat betekent "luik beweegt"?</string>
 	<string name="answer7">De temperatuur van de infraroodcamera zal tijdens gebruik iets veranderen. Daarom is een periodieke interne temperatuurkalibratie nodig. De micromotorgestuurde activering of deactivering van een dergelijke interne kalibratie maakt een dergelijk geluid, dat in de branche bekend staat als ?€?Shutter beweegt".</string>
 	<string name="question8">Welke externe factoren zijn van invloed op de infrarood temperatuurmeting?</string>
@@ -240,8 +240,8 @@
 	<string name="edit_image_error_tip">De afbeelding mist temperatuurgegevens en ondersteunt geen bewerking.</string>
 
 
-	<!--	荷兰dutch-->
-	<!-- 2.00版本 -->
+	<!--	dutch-->
+	<!-- 2.00 -->
 	<string name="app_lapsePhotography">Getimede foto</string>
 	<string name="app_Manual_Shutter">Handmatige Sluiter</string>
 	<string name="app_record_sound">Audio opnemen</string>
@@ -268,7 +268,7 @@
 	<string name="seconds_dalay_6">6s</string>
 	<string name="shutter_open">Auto Sluiter aan</string>
 	<string name="shutter_off">Auto Sluiter uit</string>
-	<string name="shutter_tips">Om nauwkeurige tijdgebaseerde metingen te waarborgen  wordt de sluiter van de warmtebeeldcamera elke tientallen seconden geactiveerd, waardoor de video zal stotteren. Als u een vloeiendere video prefereert, schakelt u de Auto Sluiter uit.</string>
+	<string name="shutter_tips">Om nauwkeurige tijdgebaseerde metingen te waarborgen wordt de sluiter van de warmtebeeldcamera elke tientallen seconden geactiveerd, waardoor de video zal stotteren. Als u een vloeiendere video prefereert, schakelt u de Auto Sluiter uit.</string>
 	<string name="mirror">Spiegelen</string>
 	<string name="operation_guide">Bedieningshandleiding</string>
 	<string name="preview_step_1">1. Afbeelding slepen</string>
@@ -498,7 +498,6 @@
 	<string name="installation_package_downloading_tips">Het downloaden begint. Controleer de voortgang in de meldingen</string>
 	<string name="welcome_use_app">Welkom bij %1$s</string>
 
-	<!--荷兰语（机翻）-->
 
 	<string name="dual_light_correction">Dubbele lichtcorrectie</string>
 	<string name="dual_light_correction_tips_1">Omdat de scherpstellingen van de twee camera\'s niet op elkaar zijn afgestemd, zullen de afbeeldingen die door de twee camera\'s vanaf verschillende afstanden zijn vastgelegd niet op elkaar afgestemd worden.\nDeze functie kan afzonderlijk helpen bij het uitlijnen van de afbeeldingen.</string>
@@ -601,7 +600,7 @@
 	<string name="ts004_faq_q5">Hoe bekijk ik de vastgelegde warmtebeelden op een pc?</string>
 	<string name="ts004_faq_a5">Sluit TS004 aan op een pc via de USB-kabel, waarna u de warmtebeelden kunt bekijken die zijn opgeslagen op TS004.</string>
 
-	<!-- TC001 老 APP 引流 -->
+	<!-- TC001  APP  -->
 	<string name="gallery_transfer">Galerij overzetten</string>
 	<string name="gallery_transfer_wait">De gegevens worden overgezet. Even geduld.</string>
 	<string name="gallery_transfer_complete">Gegevens overzetten voltooid</string>
@@ -652,7 +651,6 @@
 	<string name="wifi_connect_loading">Het zal naar verwachting 15 seconden duren…</string>
 	<string name="tc007_done_fast">Frequente operaties</string>
 
-	<!-- 房屋检测 -->
 	<string name="main_professional_test">Professionele testen</string>
 	<string name="main_temperature_test">Temperatuur testen</string>
 	<string name="main_thermal_tips">Professionele warmtebeeld testen</string>
@@ -821,7 +819,6 @@
 	<string name="abnormal_description17">De temperatuur van de achterruitverwarming wordt door veel factoren beïnvloed, zoals omgevingstemperatuur en belasting van de verwarming. Controleer de verwarmingstemperatuur met een warmtebeeldcamera en dan kunt u beoordelen of de achteruitkijkspiegel effectief kan worden verwarmd.</string>
 	<string name="abnormal_description18">De temperatuur van de raammotor wordt door veel factoren beïnvloed, zoals omgevingstemperatuur en motorbelasting. Controleer de motortemperatuur met een warmtebeeldcamera. Als de temperatuur te hoog is, kan dit worden veroorzaakt door een defect aan het hefmechanisme voor de ramen of de motor zelf.</string>
 
-	<!-- 房屋检测新增 -->
 	<string name="vehicle_function">Functie</string>
 	<string name="ability_find">vinden</string>
 	<string name="ability_monitory">Realtime weergave van objecttemperatuur om gegevens te genereren</string>

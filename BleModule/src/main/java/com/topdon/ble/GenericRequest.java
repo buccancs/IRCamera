@@ -9,12 +9,13 @@ import java.util.Queue;
 import java.util.UUID;
 
 
-/**
  * date: 2021/8/12 13:44
  * author: bichuanfeng
- */
 class GenericRequest implements Request, Comparable<GenericRequest> {
     Device device;
+    /**
+     * Private method description.
+     */
     private final String tag;
     RequestType type;
     UUID service;
@@ -24,11 +25,9 @@ class GenericRequest implements Request, Comparable<GenericRequest> {
     int priority;
     RequestCallback callback;
     WriteOptions writeOptions;
-    byte[] descriptorTemp;//临时保存描述符的值
-    //---------  分包发送相关  ---------
+    byte[] descriptorTemp;//
     Queue<byte[]> remainQueue;
     byte[] sendingBytes;
-    //--------------------------------
 
     GenericRequest(RequestBuilder builder) {
         tag = builder.tag;
@@ -43,50 +42,65 @@ class GenericRequest implements Request, Comparable<GenericRequest> {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int compareTo(GenericRequest other) {
         return Integer.compare(other.priority, priority);
     }
 
-    /**
-     * 设备
-     */
     @NonNull
+    /**
+     * Method description.
+     */
     public Device getDevice() {
         return device;
     }
 
-    /**
-     * 请求类型
-     */
     @NonNull
+    /**
+     * Method description.
+     */
     public RequestType getType() {
         return type;
     }
 
-    /**
-     * 请求标识
-     */
     @Nullable
+    /**
+     * Method description.
+     */
     public String getTag() {
         return tag;
     }
 
     @Nullable
+    /**
+     * Method description.
+     */
     public UUID getService() {
         return service;
     }
 
     @Nullable
+    /**
+     * Method description.
+     */
     public UUID getCharacteristic() {
         return characteristic;
     }
 
     @Nullable
+    /**
+     * Method description.
+     */
     public UUID getDescriptor() {
         return descriptor;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void execute(Connection connection) {
         if (connection != null) {
             connection.execute(this);

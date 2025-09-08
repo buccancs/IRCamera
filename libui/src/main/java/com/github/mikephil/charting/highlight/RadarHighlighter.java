@@ -13,6 +13,9 @@ import java.util.List;
  */
 public class RadarHighlighter extends PieRadarHighlighter<RadarChart> {
 
+    /**
+     * Method description.
+     */
     public RadarHighlighter(RadarChart chart) {
         super(chart);
     }

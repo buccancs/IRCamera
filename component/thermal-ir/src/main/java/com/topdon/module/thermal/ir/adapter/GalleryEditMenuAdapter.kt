@@ -10,47 +10,63 @@ import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.item_gallery_edit_menu.view.*
+import com.csl.irCamera.libapp.R as LibAppR
+import com.topdon.menu.R as MenuR
+import com.topdon.module.thermal.ir.databinding.ItemGalleryEditMenuBinding
 
-@Deprecated("旧的2D编辑一级菜单，已重构过了")
+@Deprecated("2D，")
 class GalleryEditMenuAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    /** listener property */
     var listener: ((code: Int) -> Unit)? = null
 
-    private var pointColor = false //点
-    private var pseudoColor = false //伪彩
-    private var pseudoColorBar = false //伪彩条
-    private var settingColorBar = false //设置
+    private var pointColor = false //
+    private var pseudoColor = false //
+    private var pseudoColorBar = false //
+    private var settingColorBar = false //
 
     private val bean = arrayListOf(
-        IconBean(name = context.getString(R.string.menu_3d_calibrate), icon = R.drawable.selector_menu_first_2_5, code = 1000), //标定
-        IconBean(name = context.getString(R.string.thermal_false_color), icon = R.drawable.selector_menu_first_4_3, code = 2000), //伪彩
-        IconBean(name = context.getString(R.string.app_setting), icon = R.drawable.selector_menu_first_5_6, code = 4000), //设置
-        IconBean(name = context.getString(R.string.func_temper_ruler), icon = R.drawable.selector_menu_first_edit_4, code = 3000), //等温尺
+        IconBean(name = context.getString(LibAppR.string.menu_3d_calibrate), icon = MenuR.drawable.selector_menu_first_2_5, code = 1000), //
+        IconBean(name = context.getString(LibAppR.string.thermal_false_color), icon = MenuR.drawable.selector_menu_first_4_3, code = 2000), //
+        IconBean(name = context.getString(LibAppR.string.app_setting), icon = MenuR.drawable.selector_menu_first_5_6, code = 4000), //
+        IconBean(name = context.getString(LibAppR.string.func_temper_ruler), icon = MenuR.drawable.selector_menu_first_edit_4, code = 3000), //
     )
 
+    /**
+     * Function description.
+     */
     fun enPointColor(pointColor: Boolean) {
         this.pointColor = pointColor
         notifyDataSetChanged()
     }
 
+    /**
+     * Function description.
+     */
     fun enPseudoColor(pseudoColor: Boolean) {
         this.pseudoColor = pseudoColor
         notifyDataSetChanged()
     }
 
+    /**
+     * Function description.
+     */
     fun enPseudoColorBar(pseudoColorBar: Boolean) {
         this.pseudoColorBar = pseudoColorBar
         notifyDataSetChanged()
     }
 
+    /**
+     * Function description.
+     */
     fun enSettingColorBar(settingColorBar: Boolean) {
         this.settingColorBar = settingColorBar
         notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return ItemView(LayoutInflater.from(parent.context).inflate(R.layout.item_gallery_edit_menu, parent, false))
+        val binding = ItemGalleryEditMenuBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ItemView(binding)
     }
 
     override fun getItemCount(): Int {
@@ -82,26 +98,19 @@ class GalleryEditMenuAdapter(val context: Context) : RecyclerView.Adapter<Recycl
         }
     }
 
-    // 状态变化
     private fun iconUI(isActive: Boolean, img: ImageView, nameText: TextView) {
         img.isSelected = isActive
         if (isActive) {
-            nameText.setTextColor(ContextCompat.getColor(context, R.color.white))
+            nameText.setTextColor(ContextCompat.getColor(context, LibAppR.color.white))
         } else {
-            nameText.setTextColor(ContextCompat.getColor(context, R.color.font_third_color))
+            nameText.setTextColor(ContextCompat.getColor(context, LibAppR.color.font_third_color))
         }
     }
 
-    inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var lay: View
-        var img: ImageView
-        var name: TextView
-
-        init {
-            lay = itemView.item_edit_menu_tab_lay
-            img = itemView.item_edit_menu_tab_img
-            name = itemView.item_edit_menu_tab_text
-        }
+    inner class ItemView(private val binding: ItemGalleryEditMenuBinding) : RecyclerView.ViewHolder(binding.root) {
+        val lay: View = binding.itemEditMenuTabLay
+        val img: ImageView = binding.itemEditMenuTabImg
+        val name: TextView = binding.itemEditMenuTabText
     }
 
     data class IconBean(val name: String, @DrawableRes val icon: Int, val code: Int)

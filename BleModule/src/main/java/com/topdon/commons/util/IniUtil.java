@@ -15,10 +15,10 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 
-/**
- *
- */
 public class IniUtil {
+    /**
+     * Private method description.
+     */
     private static String NAME = "Link";
     private static final String LINK = "link";
     private static final String LINK_NAME = "name";
@@ -27,6 +27,9 @@ public class IniUtil {
     private static final String MAINTENANCE = "maintenance";
     private static final String SYSTEM = "system";
 
+    /**
+     * Method description.
+     */
     public static String getLink(String path) {
         File file = new File(path + "/Diag.ini");
         if (!file.exists())
@@ -49,31 +52,29 @@ public class IniUtil {
         }
     }
 
-    /**
-     * 获取车型名字
-     *
-     * @param path 车型路径
+     * @param path
      * @return String
+    /**
+     * Method description.
      */
     public static String getVehicleName(String path) {
         File file = new File(path + "/Diag.ini");
         if (!file.exists()) {
             return "INI_LOST";
         }
-//        return UTF8StringUtils.readByUtf8WithOutBom(path + "/Diag.ini");
+//        return UTF8StringUtils.readByUtf8WithOutBom(path + /Diag.ini);
         return readFileInfo(path + "/Diag.ini");
     }
 
 
+     * @param path
     /**
-     * 读取文件
-     *
-     * @param path 路径
+     * Private method description.
      */
     private static String readFileInfo(String path) {
         String name = "";
         File file = new File(path);
-        //如果path是传递过来的参数，可以做一个非目录的判断
+        //path
         if (file.isDirectory()) {
             LLog.d("TestFile", "The File doesn't not exist.");
         } else {
@@ -82,7 +83,6 @@ public class IniUtil {
                 InputStreamReader inputreader = new InputStreamReader(instream);
                 BufferedReader buffreader = new BufferedReader(inputreader);
                 String line;
-                //分行读取
                 while ((line = buffreader.readLine()) != null) {
                     LLog.e("TestFile", "ReadTxtFile: " + line);
                     name = line;
@@ -101,10 +101,13 @@ public class IniUtil {
     }
 
 
+    /**
+     * Method description.
+     */
     public static String getVersion(String path, String name) {
         File file = new File(path + "/Diag.ini");
         if (!file.exists()) {
-            LLog.e("bcf", name + "  ini不存在：" + file.getPath());
+            LLog.e("bcf", name + " ini：" + file.getPath());
             return "INI_LOST";
         }
         Config cfg = new Config();
@@ -125,6 +128,9 @@ public class IniUtil {
         }
     }
 
+    /**
+     * Method description.
+     */
     public static String getName(String language, String path) {
         File file = new File(path + "/Diag.ini");
         Config cfg = new Config();
@@ -148,18 +154,17 @@ public class IniUtil {
     }
 
 
-    /**
-     * 获取保养类型
-     *
      * @param path
      * @param name
      * @return
+    /**
+     * Method description.
      */
     public static HashMap<String, String> getMaintenance(String path, String name) {
         HashMap<String, String> hashMap = new HashMap<>();
         File file = new File(path + "/Diag.ini");
         if (!file.exists()) {
-            LLog.e("bcf", name + "  ini不存在：" + file.getPath());
+            LLog.e("bcf", name + " ini：" + file.getPath());
             return hashMap;
         }
         Config cfg = new Config();
@@ -308,18 +313,17 @@ public class IniUtil {
     }
 
 
-    /**
-     * 获取保养类型
-     *
      * @param path
      * @param name
      * @return
+    /**
+     * Method description.
      */
     public static HashMap<String, String> getIniSysTem(String path, String name) {
         HashMap<String, String> hashMap = new HashMap<>();
         File file = new File(path + "/Diag.ini");
         if (!file.exists()) {
-            LLog.e("bcf", name + "  ini不存在：" + file.getPath());
+            LLog.e("bcf", name + " ini：" + file.getPath());
             return hashMap;
         }
         Config cfg = new Config();

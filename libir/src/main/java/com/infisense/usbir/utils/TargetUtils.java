@@ -1,9 +1,12 @@
 package com.infisense.usbir.utils;
 
-import com.infisense.usbir.R;
+import com.csl.irCamera.libir.R;
 import com.topdon.lib.core.bean.ObserveBean;
 
 public class TargetUtils {
+    /**
+     * Method description.
+     */
     public static int getSelectTargetDraw(int targetMeasureMode, int targetType, int targetColorType){
         int currentSelectDraw = R.drawable.svg_ic_target_horizontal_person_green;
         if(targetColorType == ObserveBean.TYPE_TARGET_COLOR_GREEN){
@@ -250,25 +253,31 @@ public class TargetUtils {
         return currentSelectDraw;
     }
 
+    /**
+     * Method description.
+     */
     public static float getMeasureSize(int targetMeasureMode){
         float mMeasureSize = 180f;
         switch (targetMeasureMode) {
-            case ObserveBean.TYPE_MEASURE_PERSON://人
+            case ObserveBean.TYPE_MEASURE_PERSON://
                 mMeasureSize = 180f;
                 break;
-            case ObserveBean.TYPE_MEASURE_SHEEP://羊
+            case ObserveBean.TYPE_MEASURE_SHEEP://
                 mMeasureSize = 100f;
                 break;
-            case ObserveBean.TYPE_MEASURE_DOG://狗
+            case ObserveBean.TYPE_MEASURE_DOG://
                 mMeasureSize = 50f;
                 break;
-            case ObserveBean.TYPE_MEASURE_BIRD://鸟
+            case ObserveBean.TYPE_MEASURE_BIRD://
                 mMeasureSize = 20f;
                 break;
         }
         return mMeasureSize;
     }
 
+    /**
+     * Method description.
+     */
     public static boolean isScaleMode(int targetMeasureMode){
         boolean isScaleFlag = false;
         if(targetMeasureMode == ObserveBean.TYPE_MEASURE_DOG ||

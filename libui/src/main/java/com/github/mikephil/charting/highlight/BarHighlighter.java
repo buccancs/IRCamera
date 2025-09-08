@@ -12,11 +12,17 @@ import com.github.mikephil.charting.utils.MPPointD;
  */
 public class BarHighlighter extends ChartHighlighter<BarDataProvider> {
 
+    /**
+     * Method description.
+     */
     public BarHighlighter(BarDataProvider chart) {
         super(chart);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public Highlight getHighlight(float x, float y) {
         Highlight high = super.getHighlight(x, y);
 
@@ -51,6 +57,9 @@ public class BarHighlighter extends ChartHighlighter<BarDataProvider> {
      * @param xVal
      * @param yVal
      * @return
+     */
+    /**
+     * Method description.
      */
     public Highlight getStackedHighlight(Highlight high, IBarDataSet set, float xVal, float yVal) {
 

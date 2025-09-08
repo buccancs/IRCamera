@@ -30,7 +30,7 @@ import com.energy.iruvc.utils.Line;
 import com.energy.iruvc.utils.SynchronizedBitmap;
 import com.infisense.usbdual.Const;
 import com.infisense.usbdual.camera.BaseDualView;
-import com.infisense.usbir.R;
+import com.csl.irCamera.libir.R;
 import com.infisense.usbir.inf.ILiteListener;
 import com.infisense.usbir.utils.TempDrawHelper;
 import com.infisense.usbir.utils.TempUtil;
@@ -44,24 +44,23 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
- * @Description:
- * @Author:         brilliantzhao
- * @CreateDate:     2022.7.19 17:20
- * @UpdateUser:
- * @UpdateDate:     2022.7.19 17:20
- * @UpdateRemark:
+/**
+ * Utility class.
+ * 
+ * @author brilliantzhao
+ * @since 2022.9.8 10:25
  */
 public class TemperatureView extends SurfaceView implements SurfaceHolder.Callback,
         View.OnTouchListener, BaseDualView.OnFrameCallback {
 
+    /**
+     * Private method description.
+     */
     private static final String TAG = "TemperatureView";
 
 
-    /**
-     * 选中操作灵敏度，当 Touch Down 坐标与点线面坐标偏差在该值范围内，视为选中，单位 px.<br>
-     * 删除操作灵敏度，当 Touch UP 与 Touch Down 坐标偏差在该值范围内，视为删除，单位 px.
-     */
+     * Touch Down  px.<br>
+     * Touch UP  Touch Down  px.
     private static final int TOUCH_TOLERANCE = SizeUtils.sp2px(7f);
 
 
@@ -72,35 +71,27 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     private final int RECTANGLE_MAX_COUNT;
 
 
-    /**
-     * 对温度数据的解析和处理，以及温度的二次修正等计算.
-     */
+     * .
     @Nullable
     private LibIRTemp irtemp;
 
+     * {@link #viewWidth} / {@link #temperatureWidth} .
     /**
-     * {@link #viewWidth} / {@link #temperatureWidth} 的比值.
+     * Private method description.
      */
     private float xScale = 0;
+     * {@link #viewHeight} / {@link #temperatureHeight} .
     /**
-     * {@link #viewHeight} / {@link #temperatureHeight} 的比值.
+     * Private method description.
      */
     private float yScale = 0;
-    /**
-     * 当前 View 去除 padding 后剩余的可用宽度，单位 px.
-     */
+     *  View  padding  px.
     private int viewWidth = 0;
-    /**
-     * 当前 View 去除 padding 后剩余的可用高度，单位 px.
-     */
+     *  View  padding  px.
     private int viewHeight = 0;
-    /**
-     * 温度数据宽度，单位 px.
-     */
+     * px.
     private int temperatureWidth;
-    /**
-     * 温度数据高度，单位 px.
-     */
+     * px.
     private int temperatureHeight;
 
 
@@ -108,49 +99,48 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
 
 
 
+     *  .
     /**
-     * 温度区域模式 - 高低温点重置.
+     * Method description.
      */
     public static final int REGION_MODE_RESET = -1;
-    /**
-     * 温度区域模式 - 点.
-     */
+     *  .
     public static final int REGION_MODE_POINT = 0;
-    /**
-     * 温度区域模式 - 线.
-     */
+     *  .
     public static final int REGION_MODE_LINE = 1;
-    /**
-     * 温度区域模式 - 面.
-     */
+     *  .
     public static final int REGION_MODE_RECTANGLE = 2;
-    /**
-     * 温度区域模式 - 全图.
-     */
+     *  .
     public static final int REGION_MODE_CENTER = 3;
-    /**
-     * 温度区域模式 - 趋势图，也就是只一条线.
-     */
+     *  .
     public static final int REGION_NODE_TREND = 4;
-    /**
-     * 温度区域模式 - 清除.
-     */
+     *  .
     public static final int REGION_MODE_CLEAN = 5;
 
     @IntDef({REGION_MODE_RESET, REGION_MODE_POINT, REGION_MODE_LINE, REGION_MODE_RECTANGLE, REGION_MODE_CENTER, REGION_NODE_TREND, REGION_MODE_CLEAN})
     @Retention(RetentionPolicy.SOURCE)
+    /**
+     * Private method description.
+     */
     private @interface RegionMode {
     }
 
-    /**
-     * 温度区域模式，由 REGION_MODE_** 定义，默认清除.
-     */
+     * REGION_MODE_** .
     @RegionMode
+    /**
+     * Private method description.
+     */
     private int temperatureRegionMode = REGION_MODE_CLEAN;
     @RegionMode
+    /**
+     * Method description.
+     */
     public int getTemperatureRegionMode() {
         return this.temperatureRegionMode;
     }
+    /**
+     * Method description.
+     */
     public void setTemperatureRegionMode(@RegionMode int temperatureRegionMode) {
         this.temperatureRegionMode = temperatureRegionMode;
         if (temperatureRegionMode == REGION_MODE_CENTER) {
@@ -160,13 +150,20 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+     * .
     /**
-     * 当前是否显示了全图.
+     * Private method description.
      */
     private boolean isShowFull;
+    /**
+     * Method description.
+     */
     public boolean isShowFull() {
         return isShowFull;
     }
+    /**
+     * Method description.
+     */
     public void setShowFull(boolean showFull) {
         isShowFull = showFull;
         if (temperatureRegionMode == REGION_MODE_CLEAN) {
@@ -175,16 +172,25 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     }
 
 
+    /**
+     * Method description.
+     */
     public void setTextSize(int textSize){
         helper.setTextSize(textSize);
         refreshRegion();
     }
 
+    /**
+     * Method description.
+     */
     public void setLinePaintColor(@ColorInt int color) {
         helper.setTextColor(color);
         refreshRegion();
     }
 
+    /**
+     * Private method description.
+     */
     private void refreshRegion() {
         Canvas surfaceViewCanvas = getHolder().lockCanvas();
         if (surfaceViewCanvas != null) {
@@ -197,91 +203,147 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
 
 
     @Nullable
+    /**
+     * Private method description.
+     */
     private OnTrendChangeListener onTrendChangeListener = null;
     /**
-     * 设置趋势图温度变化时监听，注意，回调不在主线程！！
+     * Method description.
      */
     public void setOnTrendChangeListener(@Nullable OnTrendChangeListener onTrendChangeListener) {
         this.onTrendChangeListener = onTrendChangeListener;
     }
 
     @Nullable
-    private Runnable onTrendAddListener = null;
     /**
-     * 设置趋势图添加事件监听，放心，回调在主线程.
+     * Private method description.
+     */
+    private Runnable onTrendAddListener = null;
+     * .
+    /**
+     * Method description.
      */
     public void setOnTrendAddListener(@Nullable Runnable onTrendAddListener) {
         this.onTrendAddListener = onTrendAddListener;
     }
 
     @Nullable
-    private Runnable onTrendRemoveListener = null;
     /**
-     * 设置趋势图移除事件监听，放心，回调在主线程.
+     * Private method description.
+     */
+    private Runnable onTrendRemoveListener = null;
+     * .
+    /**
+     * Method description.
      */
     public void setOnTrendRemoveListener(@Nullable Runnable onTrendRemoveListener) {
         this.onTrendRemoveListener = onTrendRemoveListener;
     }
 
+    /**
+     * Private method description.
+     */
     private ILiteListener iLiteListener = null;
+    /**
+     * Method description.
+     */
     public void setiLiteListener(ILiteListener iLiteListener) {
         this.iLiteListener = iLiteListener;
     }
 
 
     /**
-     * 单位摄氏度
+     * Private method description.
      */
     private TempListener listener;
+    /**
+     * Method description.
+     */
     public TempListener getListener() {
         return listener;
     }
+    /**
+     * Method description.
+     */
     public void setListener(TempListener listener) {
         this.listener = listener;
     }
 
 
-    private boolean isMonitor = false;//如果是温度监控，则进行实时校验点线面的比例
+    /**
+     * Private method description.
+     */
+    private boolean isMonitor = false;//，
+    /**
+     * Method description.
+     */
     public void setMonitor(boolean monitor) {
         isMonitor = monitor;
     }
 
 
     /**
-     * 观测模式时高温点是否开启
+     * Private method description.
      */
     private boolean isUserHighTemp = false;
+    /**
+     * Method description.
+     */
     public boolean isUserHighTemp() {
         return isUserHighTemp;
     }
+    /**
+     * Method description.
+     */
     public void setUserHighTemp(boolean isUserHighTemp) {
         this.isUserHighTemp = isUserHighTemp;
     }
 
     /**
-     * 观测模式时低温点是否开启
+     * Private method description.
      */
     private boolean isUserLowTemp = false;
+    /**
+     * Method description.
+     */
     public boolean isUserLowTemp() {
         return isUserLowTemp;
     }
+    /**
+     * Method description.
+     */
     public void setUserLowTemp(boolean isUserLowTemp) {
         this.isUserLowTemp = isUserLowTemp;
     }
 
 
+    /**
+     * Private method description.
+     */
     private SynchronizedBitmap syncimage;
+    /**
+     * Method description.
+     */
     public void setSyncimage(SynchronizedBitmap syncimage) {
         this.syncimage = syncimage;
     }
 
 
-    private  byte[] temperature;
+    /**
+     * Private method description.
+     */
+    private byte[] temperature;
+    /**
+     * Method description.
+     */
     public void setTemperature(byte[] temperature) {
         this.temperature = temperature;
     }
 
 
+    /**
+     * Private method description.
+     */
     private void setDefPoint(Point point) {
         if (point.x > temperatureWidth && point.x > 0) {
             point.x = temperatureWidth;
@@ -296,6 +358,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
             point.y = 0;
         }
     }
+    /**
+     * Method description.
+     */
     public LibIRTemp.TemperatureSampleResult getPointTemp(Point point) {
         if (irtemp == null) {
             return null;
@@ -304,6 +369,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
             return irtemp.getTemperatureOfPoint(point);
         }
     }
+    /**
+     * Method description.
+     */
     public LibIRTemp.TemperatureSampleResult getLineTemp(Line line) {
         if (irtemp == null) {
             return null;
@@ -313,6 +381,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
             return irtemp.getTemperatureOfLine(line);
         }
     }
+    /**
+     * Method description.
+     */
     public LibIRTemp.TemperatureSampleResult getRectTemp(Rect rect) {
         if (irtemp == null) {
             return null;
@@ -335,25 +406,23 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
 
 
 
+    /**
+     * Method description.
+     */
     public int productType = Const.TYPE_IR;
 
 
-    /**
-     * 以 View 尺寸为坐标系，当前已添加的趋势图对应直线，坐标为修正过后的坐标，null 表示未绘制.
-     */
+     *  View null .
     @Nullable
+    /**
+     * Private method description.
+     */
     private Line trendLine;
-    /**
-     * 以 View 尺寸为坐标系，当前已添加的点列表，坐标为修正过后的坐标.
-     */
+     *  View .
     private final ArrayList<Point> pointList = new ArrayList<>();
-    /**
-     * 以 View 尺寸为坐标系，当前已添加的点列表，坐标为修正过后的坐标.
-     */
+     *  View .
     private final ArrayList<Line> lineList = new ArrayList<>();
-    /**
-     * 当前绘制的面列表，坐标采用 view 的宽高坐标.
-     */
+     * view .
     private final ArrayList<Rect> rectList = new ArrayList<>();
 
     private final ArrayList<LibIRTemp.TemperatureSampleResult> pointResultList = new ArrayList<>(3);
@@ -369,6 +438,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     public Bitmap getRegionBitmap() {
         return regionAndValueBitmap;
     }
+    /**
+     * Method description.
+     */
     public Bitmap getRegionAndValueBitmap() {
         synchronized (regionLock) {
             return regionAndValueBitmap;
@@ -376,18 +448,22 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     }
 
 
+    /**
+     * Private method description.
+     */
     private final Runnable runnable;
     private Thread temperatureThread;
     private final Object regionLock = new Object();
     private volatile boolean runflag = false;
 
-    /**
-     * true-使用摄氏度 flase-使用华氏度
-     */
+     * true- flase
     private final boolean isShowC = SharedManager.INSTANCE.getTemperature() == 1;
 
     private WeakReference<ITsTempListener> iTsTempListenerWeakReference;
 
+    /**
+     * Method description.
+     */
     public void setImageSize(int imageWidth, int imageHeight, ITsTempListener iTsTempListener) {
         if (iTsTempListener != null) {
             iTsTempListenerWeakReference = new WeakReference<>(iTsTempListener);
@@ -411,6 +487,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+    /**
+     * Method description.
+     */
     public void restView(){
         viewWidth = 0;
         viewHeight = 0;
@@ -420,8 +499,14 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         yScale = (float) viewHeight / (float) temperatureHeight;
     }
 
+    /**
+     * Private method description.
+     */
     private boolean isShow = false;
 
+    /**
+     * Method description.
+     */
     public void start() {
         if (!runflag){
             runflag = true;
@@ -435,6 +520,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+    /**
+     * Method description.
+     */
     public void stop() {
         runflag = false;
         isShow = getVisibility() == View.VISIBLE;
@@ -449,6 +537,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+    /**
+     * Method description.
+     */
     public void clear() {
         if (onTrendRemoveListener != null) {
             onTrendRemoveListener.run();
@@ -477,6 +568,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+    /**
+     * Method description.
+     */
     public void addScalePoint(Point point) {
         float sx = getMeasuredWidth() / (float) temperatureWidth;
         float sy = getMeasuredHeight() / (float) temperatureHeight;
@@ -488,6 +582,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         pointList.add(new Point(viewX, viewY));
     }
 
+    /**
+     * Method description.
+     */
     public void addScaleLine(Line l) {
         float sx = getMeasuredWidth() / (float) temperatureWidth;
         float sy = getMeasuredHeight() / (float) temperatureHeight;
@@ -502,6 +599,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         lineList.add(line);
     }
 
+    /**
+     * Method description.
+     */
     public void addScaleRectangle(Rect r) {
         float sx = getMeasuredWidth() / (float) temperatureWidth;
         float sy = getMeasuredHeight() / (float) temperatureHeight;
@@ -521,6 +621,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+    /**
+     * Method description.
+     */
     public Point getPoint() {
         if (pointList.isEmpty()) {
             return null;
@@ -528,6 +631,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         return new Point((int) (pointList.get(0).x / xScale), (int) (pointList.get(0).y / yScale));
     }
 
+    /**
+     * Method description.
+     */
     public Line getLine() {
         if (!lineList.isEmpty()) {
             Line line = new Line(new Point(), new Point());
@@ -541,6 +647,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+    /**
+     * Method description.
+     */
     public Rect getRectangle() {
         if (!rectList.isEmpty()) {
             Rect rect = new Rect();
@@ -554,6 +663,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+    /**
+     * Method description.
+     */
     public void drawLine() {
         setBitmap();
     }
@@ -561,17 +673,26 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
 
 
 
+    /**
+     * Method description.
+     */
     public TemperatureView(final Context context) {
         this(context, null, 0);
     }
 
+    /**
+     * Method description.
+     */
     public TemperatureView(final Context context, final AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
+    /**
+     * Method description.
+     */
     public TemperatureView(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
-        // 注意这个方法尽早执行(可以在构造方法里面执行)，解决在小米mix2(Android7.0)上出现的surfaceView内容不展示问题
+        // ()mix2(Android7.0)surfaceView
         setZOrderOnTop(true);
 
         getHolder().addCallback(this);
@@ -599,7 +720,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
                             Log.d(TAG, "remapTempData == NULL");
                             if (dualUVCCamera != null && llTempData != null
                                     && dualUVCCamera.getTempData(llTempData) != 0) {
-                                //获取映射后的温度数据失败
                                 Log.d(TAG, "--------error----------");
                                 SystemClock.sleep(1000);
                                 continue;
@@ -622,7 +742,7 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
                 }else {
                     try {
                         synchronized (syncimage.dataLock) {
-                            // 用来关联温度数据和TemperatureView,方便后面的点线框测温
+                            // TemperatureView,
                             irtemp.setTempData(temperature);
                             if (syncimage.type == 1) irtemp.setScale(16);
                         }
@@ -642,13 +762,11 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
                         yScale = (float) viewHeight / (float) temperatureHeight;
                     }
                     LibIRTemp.TemperatureSampleResult temperatureSampleResult = irtemp.getTemperatureOfRect(new Rect(0, 0, temperatureWidth / 2, temperatureHeight - 1));
-                    // 点线框
                     if (regionAndValueBitmap != null) {
                         synchronized (regionLock) {
                             Canvas canvas = new Canvas(regionAndValueBitmap);
                             canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
                             canvas.drawBitmap(regionBitmap, new Rect(0, 0, viewWidth, viewHeight), new Rect(0, 0, viewWidth, viewHeight), null);
-                            // 获取最高温和最低温的数据
                             float fullMaxTemp;
                             float fullMinTemp;
                             LibIRTemp.TemperatureSampleResult fullResult = irtemp.getTemperatureOfRect(new Rect(0, 0, temperatureWidth - 1, temperatureHeight - 1));
@@ -658,7 +776,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
                                 listener.getTemp((int) (fullMaxTemp * 100) / 100f, (int) (fullMinTemp * 100) / 100f, temperature);
                             }
 
-                            // 最低温
                             if (isShowFull) {
                                 String minTem = UnitTools.showC(fullMinTemp, isShowC);
                                 int x = TempDrawHelper.Companion.correct(fullResult.minTemperaturePixel.x * xScale, getWidth());
@@ -673,7 +790,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
                                 drawCircle(canvas, x, y, false);
                             }
 
-                            // 最高温
                             if (isShowFull) {
                                 String maxTem = UnitTools.showC(fullMaxTemp, isShowC);
                                 int x = TempDrawHelper.Companion.correct(fullResult.maxTemperaturePixel.x * xScale, getWidth());
@@ -688,7 +804,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
                                 drawCircle(canvas, x, y, true);
                             }
 
-                            //趋势图
                             Line trendLine = this.trendLine;
                             if (trendLine != null) {
                                 int startX = (int) (trendLine.start.x / xScale);
@@ -762,7 +877,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
                                     drawTempText(canvas, max, point.x, point.y);
                                 }
                             }
-                            //中心温度
                             if (isShowFull || (!lineList.isEmpty() || !pointList.isEmpty() || !rectList.isEmpty())) {
                                 drawPoint(canvas, getWidth() / 2, getHeight() / 2);
                                 temperatureSampleResult = irtemp.getTemperatureOfPoint(new Point(temperatureWidth / 2, temperatureHeight / 2));
@@ -793,15 +907,24 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void surfaceCreated(SurfaceHolder holder) {
         holder.setFormat(PixelFormat.TRANSLUCENT);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void surfaceDestroyed(@NonNull SurfaceHolder holder) {
     }
 
@@ -826,9 +949,10 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
 
 
     /* **************************************** Touch **************************************** */
+     *   <br>
+     * true- false
     /**
-     * 是否为添加 点线面 模式。<br>
-     * true-添加一个新点线面 false-移动一个已有点线面
+     * Private method description.
      */
     private boolean isAddAction = true;
 
@@ -837,6 +961,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     private int downY = 0;
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean onTouch(View v, MotionEvent event) {
         switch (temperatureRegionMode) {
             case REGION_MODE_POINT:
@@ -852,15 +979,17 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
-    /* **************************************** 点 **************************************** */
 
+    /**
+     * Private method description.
+     */
     private boolean handleTouchPoint(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN: {
                 downX = TempDrawHelper.Companion.correctPoint(event.getX(), getWidth());
                 downY = TempDrawHelper.Companion.correctPoint(event.getY(), getHeight());
                 Point point = getPoint(downX, downY);
-                if (point == null) {//新增
+                if (point == null) {//
                     isAddAction = true;
                     if (pointList.size() == POINT_MAX_COUNT) {
                         synchronized (regionLock) {
@@ -873,7 +1002,7 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
                     surfaceViewCanvas.drawBitmap(regionBitmap, new Rect(0, 0, viewWidth, viewHeight), new Rect(0, 0, viewWidth, viewHeight), null);
                     drawPoint(surfaceViewCanvas, downX, downY);
                     getHolder().unlockCanvasAndPost(surfaceViewCanvas);
-                } else {//移动或删除
+                } else {//
                     isAddAction = false;
                     synchronized (regionLock) {
                         pointList.remove(point);
@@ -930,6 +1059,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     }
 
     @Nullable
+    /**
+     * Private method description.
+     */
     private Point getPoint(int x, int y) {
         for (int i = pointList.size() - 1; i >= 0; i--) {
             Point point = pointList.get(i);
@@ -941,13 +1073,15 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     }
 
 
-    /* **************************************** 线 **************************************** */
 
+    /**
+     * Private method description.
+     */
     private Line movingLine;
 
     private enum LineMoveType { ALL, START, END }
     /**
-     * 线移动方式：整体移动、仅变更头、仅变更尾。
+     * Private method description.
      */
     private LineMoveType lineMoveType = LineMoveType.ALL;
 
@@ -971,14 +1105,14 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
                     }
                     if (isTrend) {
                         synchronized (regionLock) {
-                            trendLine = null; //手势操作过程中不需要绘制温度，置为 null
+                            trendLine = null; //， null
                         }
                         if (onTrendRemoveListener != null) {
                             onTrendRemoveListener.run();
                         }
                     } else {
                         synchronized (regionLock) {
-                            // 真是醉了，Line 没有重写 equals 方法，不过好在这个 line 本来就是从 lineList 里取出来的，所以 remove 没问题
+                            // Line  equals  line  lineList  remove
                             lineList.remove(line);
                         }
                     }
@@ -1064,7 +1198,7 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
                     surfaceViewCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
                     Canvas bitmapCanvas = new Canvas(regionBitmap);
 
-                    // TODO: 2024/12/13 这里有历史遗留问题，拖动的时候可以把直线拖成点
+                    // TODO: 2024/12/13
                     if (Math.abs(x - downX) > TOUCH_TOLERANCE || Math.abs(y - downY) > TOUCH_TOLERANCE) {
                         Point start = new Point();
                         Point end = new Point();
@@ -1117,8 +1251,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+     *  (x, y)  Line .
     /**
-     * 指定坐标 (x, y) 是否视为指定 Line 的选中.
+     * Private method description.
      */
     private static boolean isLineConcat(@NonNull Line line, int x, int y) {
         int tempDistance = ((line.end.y - line.start.y) * x - (line.end.x - line.start.x) * y + line.end.x * line.start.y - line.start.x * line.end.y);
@@ -1127,6 +1262,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     }
 
     @Nullable
+    /**
+     * Private method description.
+     */
     private Line getLine(int x, int y, boolean isTrend) {
         if (isTrend) {
             if (trendLine != null && isLineConcat(trendLine, x, y)) {
@@ -1144,27 +1282,32 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     }
 
 
-    /* **************************************** 面 **************************************** */
+    /**
+     * Private method description.
+     */
     private Rect movingRect;
 
     
     private enum RectMoveType { ALL, EDGE, CORNER }
+     * 4-4
     /**
-     * 面移动方式：点击面内部-整体移动、点击面4条边-边移动、点击面4个角-角移动。
+     * Private method description.
      */
     private RectMoveType rectMoveType = RectMoveType.ALL;
 
 
     private enum RectMoveEdge { LEFT, TOP, RIGHT, BOTTOM }
+     * .
     /**
-     * 仅边移动模式时，移动的是哪条边.
+     * Private method description.
      */
     private RectMoveEdge rectMoveEdge = RectMoveEdge.LEFT;
     
     
     private enum RectMoveCorner { LT, RT, RB, LB }
+     * .
     /**
-     * 仅角移动模式时，移动的是哪个角.
+     * Private method description.
      */
     private RectMoveCorner rectMoveCorner = RectMoveCorner.LT;
 
@@ -1181,7 +1324,7 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
                     isAddAction = false;
                     movingRect = rect;
 
-                    if (isIn(downX, rect.left)) {//选中最左那条边
+                    if (isIn(downX, rect.left)) {//
                         if (isIn(downY, rect.top)) {
                             rectMoveType = RectMoveType.CORNER;
                             rectMoveCorner = RectMoveCorner.LT;
@@ -1192,7 +1335,7 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
                             rectMoveType = RectMoveType.EDGE;
                             rectMoveEdge = RectMoveEdge.LEFT;
                         }
-                    } else if (isIn(downX, rect.right)) {//选中最右那条边
+                    } else if (isIn(downX, rect.right)) {//
                         if (isIn(downY, rect.top)) {
                             rectMoveType = RectMoveType.CORNER;
                             rectMoveCorner = RectMoveCorner.RT;
@@ -1203,10 +1346,10 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
                             rectMoveType = RectMoveType.EDGE;
                             rectMoveEdge = RectMoveEdge.RIGHT;
                         }
-                    } else if (isIn(downY, rect.top)) {//选中顶边
+                    } else if (isIn(downY, rect.top)) {//
                         rectMoveType = RectMoveType.EDGE;
                         rectMoveEdge = RectMoveEdge.TOP;
-                    } else if (isIn(downY, rect.bottom)) {//选中底边
+                    } else if (isIn(downY, rect.bottom)) {//
                         rectMoveType = RectMoveType.EDGE;
                         rectMoveEdge = RectMoveEdge.BOTTOM;
                     } else {
@@ -1302,7 +1445,7 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
                     Canvas surfaceViewCanvas = getHolder().lockCanvas();
                     surfaceViewCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
                     Canvas bitmapCanvas = new Canvas(regionBitmap);
-                    // TODO: 2024/12/13 这里有历史遗留问题，拖动的时候可以把矩形拖成直线
+                    // TODO: 2024/12/13
                     if (Math.abs(x - downX) > TOUCH_TOLERANCE || Math.abs(y - downY) > TOUCH_TOLERANCE) {
                         switch (rectMoveType) {
                             case ALL:
@@ -1380,6 +1523,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     }
 
     @Nullable
+    /**
+     * Private method description.
+     */
     private Rect getRect(int x, int y) {
         for (int i = rectList.size() - 1; i >= 0; i--) {
             Rect rect = rectList.get(i);
@@ -1391,6 +1537,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         return null;
     }
 
+    /**
+     * Private method description.
+     */
     private boolean isIn(int a, int b) {
         return a > b - TOUCH_TOLERANCE && a < b + TOUCH_TOLERANCE;
     }
@@ -1400,20 +1549,21 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
 
     /* **************************************** Draw **************************************** */
 
+     *  View  (x,y) .<br>
+     * xy
     /**
-     * 以 View 尺寸为坐标系，在 (x,y) 画一个十字.<br>
-     * 注意，不对 x、y 进行处理，传进来是哪就在哪绘制。
+     * Private method description.
      */
     private void drawPoint(Canvas canvas, int x, int y) {
         helper.drawPoint(canvas, x, y);
     }
 
+     *  View  x,y  View
     /**
-     * 绘制以 View 尺寸为坐标的一根线段，这里的 x,y 为 View 坐标原始值
+     * Private method description.
      */
     private void drawLine(Canvas canvas, int x1, int y1, int x2, int y2, boolean isTrend) {
-        // 由于线段与实心点的的绘制是分开的，线段使用当前 View 坐标，而实心点使用温度(192x256)坐标转换为 View 坐标
-        // 故而这里需要把当前的坐标，尽量贴近温度坐标的整数倍，否则会出现实心圆偏离直线太远的情况
+        // View (192x256) View
         int startX = (int) ((int) (x1 / xScale) * xScale);
         int startY = (int) ((int) (y1 / yScale) * yScale);
         int stopX = (int) ((int) (x2 / xScale) * xScale);
@@ -1425,8 +1575,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+     *  View  x,y  View
     /**
-     * 绘制以 View 尺寸为坐标的一根线段，这里的 x,y 为 View 坐标原始值
+     * Private method description.
      */
     private void drawRect(Canvas canvas, float x1, float y1, float x2, float y2) {
         int left = (int) ((int) (x1 / xScale) * xScale);
@@ -1436,36 +1587,40 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         helper.drawRect(canvas, left, top, right, bottom);
     }
 
+     *  View  (x,y) .
+     * @param isMax true- false
     /**
-     * 以 View 尺寸为坐标系，在 (x,y) 画一个实心圆.
-     * @param isMax true-最高温红色 false-最低温蓝色
+     * Private method description.
      */
     private void drawCircle(Canvas canvas, int x, int y, boolean isMax) {
         helper.drawCircle(canvas, x, y, isMax);
     }
 
+     *  canvas  point .
+     * @param point (192x256)
+     * @param isMax true- false
     /**
-     * 在指定 canvas 上，以指定 point 坐标为中心，绘制一个实心圆.
-     * @param point 以温度尺寸(192x256)为坐标系的点
-     * @param isMax true-最高温红色 false-最低温蓝色
+     * Private method description.
      */
     private void drawDot(Canvas canvas, Point point, boolean isMax) {
-        //这里的 (x,y) 是通过温度坐标转换来的，所以已经是温度坐标的整数倍
+        // (x,y)
         int x = TempDrawHelper.Companion.correct(point.x * xScale, getWidth());
         int y = TempDrawHelper.Companion.correct(point.y * yScale, getHeight());
         helper.drawCircle(canvas, x, y, isMax);
     }
 
 
+     *  View  (x,y) .
     /**
-     * 以 View 尺寸为坐标系，以 (x,y) 为基准，绘制温度值文字.
+     * Private method description.
      */
     private void drawTempText(Canvas canvas, String text, int x, int y) {
         helper.drawTempText(canvas, text, getWidth(), x, y);
     }
+     *  canvas  point .
+     * @param point (192x256)
     /**
-     * 在指定 canvas 上，以指定 point 坐标为中心，绘制指定的文字.
-     * @param point 以温度尺寸(192x256)为坐标系的点
+     * Private method description.
      */
     private void drawTempText(Canvas canvas, String text, Point point) {
         int x = TempDrawHelper.Companion.correct(point.x * xScale, getWidth());
@@ -1475,6 +1630,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
 
 
 
+    /**
+     * Private method description.
+     */
     private void setBitmap() {
         regionBitmap = Bitmap.createBitmap(viewWidth, viewHeight, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(regionBitmap);
@@ -1494,17 +1652,22 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
 
 
     /**
-     * 趋势图对应的温度数据变更监听。
-     * 注意！回调不在主线程！！
+     * Method description.
      */
     public interface OnTrendChangeListener {
         void onChange(List<Float> temps);
     }
 
+    /**
+     * Method description.
+     */
     public interface TempListener {
         void getTemp(float max, float min, byte[] tempData);
     }
 
+    /**
+     * Method description.
+     */
     public float getCompensateTemp(float temp){
         if (iLiteListener != null){
             return iLiteListener.compensateTemp(temp);
@@ -1513,6 +1676,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+    /**
+     * Method description.
+     */
     public float getTSTemp(float temp) {
         if (iTsTempListenerWeakReference != null && iTsTempListenerWeakReference.get() != null) {
             return iTsTempListenerWeakReference.get().tempCorrectByTs(getCompensateTemp(temp));
@@ -1521,30 +1687,42 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
-    /**
-     *  ----------------------双光设备--------------------------------
-     */
 
+    /**
+     * Method description.
+     */
     public void setUseIRISP(boolean useIRISP) {
         if (irtemp != null) {
             irtemp.setScale(useIRISP ? 16 : 64);
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setCurrentFusionType(@NonNull DualCameraParams.FusionType currentFusionType) {
         this.mCurrentFusionType = currentFusionType;
     }
 
+    /**
+     * Method description.
+     */
     public void setDualUVCCamera(@NonNull DualUVCCamera dualUVCCamera) {
         this.dualUVCCamera = dualUVCCamera;
 
     }
+    /**
+     * Private method description.
+     */
     private DualCameraParams.FusionType mCurrentFusionType;
     private byte[] remapTempData;
     private DualUVCCamera dualUVCCamera;
     private byte[] llTempData;
 
     @Override
+    /**
+     * Method description.
+     */
     public void onFame(byte[] mixData, byte[] tempData, double fpsText) {
         if (Const.TYPE_IR_DUAL == productType){
             if (mCurrentFusionType == DualCameraParams.FusionType.IROnlyNoFusion) {

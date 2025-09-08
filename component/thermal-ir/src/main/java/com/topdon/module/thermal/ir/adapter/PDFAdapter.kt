@@ -6,18 +6,19 @@ import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.topdon.lib.core.tools.GlideLoader
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.report.bean.ReportData
 
-/**
  * @author: CaiSongL
  * @date: 2023/5/12 15:38
- */
 class PDFAdapter : BaseQuickAdapter<ReportData.Records?, BaseViewHolder>,LoadMoreModule {
 
     constructor(layoutResId: Int) : super(layoutResId) {}
     constructor(layoutResId: Int, data: MutableList<ReportData.Records?>?) : super(layoutResId, data) {}
 
+    /** delListener property */
     var delListener : ((item : ReportData.Records,position:Int) -> Unit) ?= null
+    /** jumpDetailListener property */
     var jumpDetailListener : ((item : ReportData.Records,position:Int) -> Unit) ?= null
 
 
@@ -68,7 +69,6 @@ class PDFAdapter : BaseQuickAdapter<ReportData.Records?, BaseViewHolder>,LoadMor
             if (i == 0){
                 dataList[i]?.isShowTitleTime = true
             }else {
-                //上一次
                 val lastTimes = dataList[i-1]?.uploadTime?.split(" ")
                 val times = dataList[i]?.uploadTime?.split(" ")
                 if (lastTimes?.size!! > 1 && times?.size!! > 1){

@@ -241,7 +241,7 @@
     <string name="device_loading_tip">Loading…</string>
 
 
-    <!-- 2.00版本 -->
+    <!-- 2.00 -->
     <string name="app_lapsePhotography">Timed Photo</string>
     <string name="app_Manual_Shutter">Manual Shutter</string>
     <string name="app_record_sound">Record Audio</string>
@@ -286,7 +286,7 @@
     <string name="tip_video_record">Each recording time is up to 60 minutes</string>
 
 
-    <!-- 2.10版本 -->
+    <!-- 2.10 -->
     <string name="temp_alarm_alarm">Alarm</string>
     <string name="temp_alarm_high_alarm">High Temp. Alarm</string>
     <string name="temp_alarm_low_alarm">Low Temp. Alarm</string>
@@ -344,11 +344,11 @@
     <string name="album_report_on_edit">This image lacks temperature data and does not support editing.</string>
     <string name="tips_two_light_not_video">Video recording is currently not supported in dual light mode</string>
     <string name="start_fail_and_restart">Start failed! Please exit the app and reopen it</string>
-    <string name="thermal_mirror">Mirroring</string>
+    <string name="thermal_mirror" translatable="false">Mirroring</string>
     <string name="app_Low_temperature">low temperature</string>
 
-    <string name="status_error_load_fail">Loading failed, please try again~</string>
-    <string name="status_check_more">View More</string>
+    <string name="status_error_load_fail" translatable="false">Loading failed, please try again~</string>
+    <string name="status_check_more" translatable="false">View More</string>
     <string name="edit_image_error_tip">This image lacks temperature data and does not support editing.</string>
 
     <string name="monitor_finish">Stop</string>
@@ -376,7 +376,7 @@
     <string name="tip_correction_2_content">The surface temperature should be uniform (it could be a black metal plate, wooden board, or plastic plate, etc.) \n· The distance between the device and the surface should be 5-10cm\n· The shooting image should be covered by the surface\n· The calibration process should be performed in a dark environment.</string>
     <string name="tip_correction_3">3. Face the thermal imager to the black board, tap "Start calibration", and wait for 60 seconds to complete the calibration process. Do not turn off the screen or switch to other apps during the calibration process.</string>
     <string name="correction_title">Image Calibration</string>
-    <string name="dual_light_title">Dual light correction</string>
+    <string name="dual_light_title" translatable="false">Dual light correction</string>
     <string name="button_correction">Calibrate</string>
     <string name="start_correction">Start Calibration</string>
     <string name="stop_correction">Stop Calibration</string>
@@ -457,7 +457,6 @@
     <string name="target_tips_step_4">4.Observe the object and the number on the target (the distance between the camera and the object). As shown in the picture below, the distance between the camera and the object is 20 meters.</string>
     <string name="target_tips_tip_content">Note: Currently, referential heights for 4 types of objects are available.</string>
 
-    <!--国内上架用-->
     <string name="permission_request_camera_app">%1$s is requesting permission for your camera to allow changing your profile picture or taking photos to give feedback.</string>
     <string name="permission_request_location_app">%1$s is requesting permission for your location to search for nearby Bluetooth devices.</string>
     <string name="permission_request_storage_app">%1$s is requesting storage permission to save local files or read pictures for profile setting.</string>
@@ -484,8 +483,8 @@
     <string name="dual_light_correction_tips_2">1. Let a heat source (such as your palm) stay in the image with a distance of about 0.5 meter from the camera. \n2. Tap to take a photo.</string>
     <string name="dual_light_correction_tips_3">1. Drag the images to align them. \n2. Scroll the progress bar to adjust the angle for alignment. \n3. Press the OK button to complete correction.</string>
 
-    <string name="dual_menu_1">Dual Light1</string>
-    <string name="dual_menu_2">Dual Light2</string>
+    <string name="dual_menu_1">Dual Light</string>
+    <string name="dual_menu_2">Dual Light 2</string>
 
     <string name="menu_thermal_visible_light">Visible Light</string>
     <string name="menu_thermal_imaging">Infrared</string>
@@ -615,7 +614,7 @@
     <string name="ts004_faq_q5">How do I view the captured thermal images on a PC?</string>
     <string name="ts004_faq_a5">Connect TS004 to a PC via the USB cable, and then you can view the thermal images stored on TS004.</string>
 
-    <!-- TC001 老 APP 引流 -->
+    <!-- TC001  APP  -->
     <string name="gallery_transfer">Gallery Transfer</string>
     <string name="gallery_transfer_wait">Data is being transferred. Please wait.</string>
     <string name="gallery_transfer_complete">Data Transfer Completed</string>
@@ -666,7 +665,6 @@
     <string name="wifi_connect_loading">It is expected to take 15s…</string>
     <string name="tc007_done_fast">Frequent operations</string>
 
-    <!-- 房屋检测 -->
     <string name="main_professional_test">Professional Testing</string>
     <string name="main_temperature_test">Temperature Testing</string>
     <string name="main_thermal_tips">Professional Thermal Imaging Testing</string>
@@ -761,7 +759,7 @@
     <string name="detect_dir9_item5">Exhaust Systems</string>
     <string name="detect_dir10_root">Fireplaces and Fuel-Burning Appliances</string>
     <string name="detect_dir10_item2">Fireplaces, Stoves &amp; Inserts</string>
-    <string name="detect_dir10_item3">Fuel-buring Accessories</string>
+    <string name="detect_dir10_item3">Fuel-burning Accessories</string>
     <string name="detect_dir10_item4">Chimney &amp; Vent Systems</string>
     <string name="detect_dir11_root">Laundry</string>
     <string name="app_rename">Rename</string>
@@ -835,7 +833,6 @@
     <string name="abnormal_description17">The temperature of the rear mirror heater is affected by many factors, such as ambient temperature, and heater load. Monitor the heater temperature with a thermal imager, and then you can assess whether the rear mirror can be heated effectively.</string>
     <string name="abnormal_description18">The window motor temperature is affected by many factors, such as ambient temperature, and motor load. Monitor the motor temperature with a thermal imager. If the temperature is too high, it may be caused by the failure of the window lifting mechanism or the motor itself.</string>
 
-    <!-- 房屋检测新增 -->
     <string name="vehicle_function">Function</string>
     <string name="ability_find">find</string>
     <string name="ability_monitory">Real time viewing of object temperature to generate data</string>

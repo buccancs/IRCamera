@@ -8,6 +8,9 @@ import android.graphics.drawable.Drawable;
 public abstract class BaseEntry {
 
     /** the y value */
+    /**
+     * Private method description.
+     */
     private float y = 0f;
 
     /** optional spot for additional data this Entry represents */
@@ -16,24 +19,39 @@ public abstract class BaseEntry {
     /** optional icon image */
     private Drawable mIcon = null;
 
+    /**
+     * Method description.
+     */
     public BaseEntry() {
 
     }
 
+    /**
+     * Method description.
+     */
     public BaseEntry(float y) {
         this.y = y;
     }
 
+    /**
+     * Method description.
+     */
     public BaseEntry(float y, Object data) {
         this(y);
         this.mData = data;
     }
 
+    /**
+     * Method description.
+     */
     public BaseEntry(float y, Drawable icon) {
         this(y);
         this.mIcon = icon;
     }
 
+    /**
+     * Method description.
+     */
     public BaseEntry(float y, Drawable icon, Object data) {
         this(y);
         this.mIcon = icon;
@@ -45,6 +63,9 @@ public abstract class BaseEntry {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public float getY() {
         return y;
     }
@@ -53,6 +74,9 @@ public abstract class BaseEntry {
      * Sets the icon drawable
      *
      * @param icon
+     */
+    /**
+     * Method description.
      */
     public void setIcon(Drawable icon) {
         this.mIcon = icon;
@@ -63,6 +87,9 @@ public abstract class BaseEntry {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public Drawable getIcon() {
         return mIcon;
     }
@@ -71,6 +98,9 @@ public abstract class BaseEntry {
      * Sets the y-value for the Entry.
      *
      * @param y
+     */
+    /**
+     * Method description.
      */
     public void setY(float y) {
         this.y = y;
@@ -82,6 +112,9 @@ public abstract class BaseEntry {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public Object getData() {
         return mData;
     }
@@ -90,6 +123,9 @@ public abstract class BaseEntry {
      * Sets additional data this Entry should represent.
      *
      * @param data
+     */
+    /**
+     * Method description.
      */
     public void setData(Object data) {
         this.mData = data;

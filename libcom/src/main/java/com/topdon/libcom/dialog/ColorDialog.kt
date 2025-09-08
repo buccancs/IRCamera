@@ -16,18 +16,18 @@ import com.skydoves.colorpickerview.listeners.ColorListener
 import com.topdon.libcom.R
 import com.topdon.libcom.adpter.DColorSelectAdapter
 
-/**
- * 调色板
  * @author: CaiSongL
  * @date: 2023/4/23 16:07
- */
-@Deprecated("产品要求所有颜色拾取都更改为 ColorPickDialog 那种样式，这个弹框废弃")
+@Deprecated(" ColorPickDialog ，")
 class ColorDialog(color: Int) : DialogFragment() {
 
 
-    var positiveEvent  : ((color: Int)->Unit)? = null
+    /** positiveEvent property */
+    var positiveEvent : ((color: Int)->Unit)? = null
+    /** cancelEvent property */
     var cancelEvent: (() -> Unit)? = null
 
+    /** selColor property */
     var selColor : Int = color
 
     override fun onCreateView(
@@ -39,7 +39,7 @@ class ColorDialog(color: Int) : DialogFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val cyView =  view.findViewById<RecyclerView>(R.id.color_picker_recycler)
+        val cyView = view.findViewById<RecyclerView>(R.id.color_picker_recycler)
         val pView = view.findViewById<ColorPickerView>(R.id.color_picker_view)
         val colorAdapter = DColorSelectAdapter(requireContext())
         for (tmp in colorAdapter.colorBean){

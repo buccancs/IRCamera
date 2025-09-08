@@ -5,14 +5,12 @@ import android.content.Context
 import android.content.res.Configuration
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.ImageView
 import androidx.annotation.StringRes
-import com.topdon.lib.core.R
+import com.csl.irCamera.libapp.R
+import com.csl.irCamera.libapp.databinding.DialogTipChangeDeviceBinding
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.dialog_tip_change_device.view.*
 
-@Deprecated("3.80使用新首页设备列表逻辑，不需要设备切换提示弹框了")
+@Deprecated("3.80，")
 class TipChangeDeviceDialog :Dialog {
     constructor(context: Context, themeResId: Int) : super(context, themeResId)
     class Builder {
@@ -23,8 +21,7 @@ class TipChangeDeviceDialog :Dialog {
         private var canceled = false
         private var hasCheck = false
 
-        private lateinit var checkBox: CheckBox
-        private lateinit var imgClose: ImageView
+        private lateinit var binding: DialogTipChangeDeviceBinding
 
         constructor(context: Context) {
             this.context = context
@@ -62,15 +59,14 @@ class TipChangeDeviceDialog :Dialog {
             }
             val inflater =
                 context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val view = inflater.inflate(R.layout.dialog_tip_change_device, null)
+            binding = DialogTipChangeDeviceBinding.inflate(inflater)
+            val view = binding.root
 
-            view.tv_i_know.setOnClickListener {
+            binding.tvIKnow.setOnClickListener {
                 dismiss()
                 closeEvent?.invoke(hasCheck)
             }
 
-            checkBox = view.dialog_tip_check
-            imgClose = view.img_close
             dialog!!.addContentView(
                 view,
                 ViewGroup.LayoutParams(
@@ -81,22 +77,20 @@ class TipChangeDeviceDialog :Dialog {
             val lp = dialog!!.window!!.attributes
             val wRatio =
                 if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    //竖屏
                     0.85
                 } else {
-                    //横屏
                     0.35
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() //设置宽度
+            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() //
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceled)
-            checkBox.isChecked = false
+            binding.dialogTipCheck.isChecked = false
             hasCheck = false
-            checkBox.setOnCheckedChangeListener { _, isChecked ->
+            binding.dialogTipCheck.setOnCheckedChangeListener { _, isChecked ->
                 hasCheck = isChecked
             }
-            imgClose.setOnClickListener {
+            binding.imgClose.setOnClickListener {
                 dismiss()
                 closeEvent?.invoke(hasCheck)
             }

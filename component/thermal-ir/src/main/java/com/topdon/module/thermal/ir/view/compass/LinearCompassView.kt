@@ -10,6 +10,7 @@ import android.view.View
 import androidx.core.view.drawToBitmap
 import com.blankj.utilcode.util.SizeUtils
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.utils.getPixelLinear
 import com.topdon.module.thermal.ir.utils.getValuesBetween
 import com.topdon.module.thermal.ir.utils.realX
@@ -20,9 +21,7 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlin.coroutines.EmptyCoroutineContext
 
-/**
- * 横向的指南针View
- */
+ * View
 class LinearCompassView : View {
 
     private val paint = Paint()
@@ -46,10 +45,11 @@ class LinearCompassView : View {
     private var markerSize = SizeUtils.sp2px(2f).toFloat()
     private var backgroundColor = Color.BLACK
 
-    private var lastDrawTime = 0L //执行时间
-    private var step = 1000/10 //一秒绘制的帧数
+    private var lastDrawTime = 0L //
+    private var step = 1000/10 //
     private val scope = CoroutineScope(EmptyCoroutineContext)
-    var curBitmap:Bitmap?= null //当前view的bitmap
+    /** curBitmap property */
+    var curBitmap:Bitmap?= null //viewbitmap
 
     constructor(context: Context) : this(context, null) {
         initView()
@@ -150,12 +150,10 @@ class LinearCompassView : View {
         drawCompassLine()
     }
 
-    //绘制背景
     private fun drawBackGround() {
         canvas.drawRect(0f, 0f, width.toFloat(), height.toFloat(), paint)
     }
 
-    //绘制角度
     private fun drawAzimuthArrow() {
         if (!showAzimuthArrow) {
             return
@@ -165,14 +163,11 @@ class LinearCompassView : View {
         canvas.drawText(text, realX(text, endWidth,textPaint), realY(text, endHeight,textPaint), textPaint)
     }
 
-    //绘制标记线
     private fun drawCompassLine() {
-        //计算指南针的线有几等份
 //        val values = getValuesBetween(getRawMinimum(), getRawMaximum(), 5f).map { it.toInt() }
         drawCompass()
         val bottomHeight = height * 7 / 10f
         canvas.drawLine(0f, (bottomHeight - 1), width.toFloat(), bottomHeight, shortLinePaint)
-        //在中间位置绘制标志线
         canvas.drawLine(
             width / 2f + markerSize / 2,
             height * (3 / 10f),
@@ -182,6 +177,9 @@ class LinearCompassView : View {
         )
     }
 
+    /**
+     * Function description.
+     */
     fun setCurAzimuth(azimuth: Int) {
         scope.launch(Dispatchers.IO) {
             this@LinearCompassView.azimuth = azimuth.toFloat()
@@ -201,25 +199,23 @@ class LinearCompassView : View {
         getValuesBetween(getRawMinimum(), getRawMaximum(), 5f).map {
             it.toInt()
         }.toMutableList().forEach {
-            //计算实际X的坐标
+            //X
             val x = toPixel(it.toFloat())
 
-            // 最短：15度 最长：90度 起始点x坐标
+            // 15 90 x
             val lineHeight = when {
                 it % 90 == 0 -> (3 / 10f) * height
                 it % 15 == 0 -> (4 / 10f) * height
                 else -> (5 / 10f) * height
             }
-            //起始点y
+            //y
             val bottomHeight = height * 7 / 10f
 
-            //绘制标记线
             when {
                 it % 90 == 0 -> canvas.drawLine(x, lineHeight, x, bottomHeight, longLinePaint)
                 else -> canvas.drawLine(x, lineHeight, x, bottomHeight, shortLinePaint)
             }
 
-            //绘制底部方位文本
             if (it % 45 == 0) {
                 val coord = getPositionText(it)
                 canvas.drawText(coord, realX(coord, x,positionPaint), realY(coord, height - 2f,positionPaint), positionPaint)
@@ -228,14 +224,14 @@ class LinearCompassView : View {
     }
 
     private fun getPositionText(position: Int): String = when (position) {
-        -90, 270 -> resources.getString(R.string.compass_west)
-        -45, 315 -> resources.getString(R.string.compass_northwest)
-        0, 360 -> resources.getString(R.string.compass_north)
-        45, 405 -> resources.getString(R.string.compass_northeast)
-        90, 450 -> resources.getString(R.string.compass_east)
-        135, 495 -> resources.getString(R.string.compass_southeast)
-        -180, 180 -> resources.getString(R.string.compass_south)
-        -135, 225 -> resources.getString(R.string.compass_southwest)
+        -90, 270 -> resources.getString(LibAppR.string.compass_west)
+        -45, 315 -> resources.getString(LibAppR.string.compass_northwest)
+        0, 360 -> resources.getString(LibAppR.string.compass_north)
+        45, 405 -> resources.getString(LibAppR.string.compass_northeast)
+        90, 450 -> resources.getString(LibAppR.string.compass_east)
+        135, 495 -> resources.getString(LibAppR.string.compass_southeast)
+        -180, 180 -> resources.getString(LibAppR.string.compass_south)
+        -135, 225 -> resources.getString(LibAppR.string.compass_southwest)
         else -> ""
     }
 

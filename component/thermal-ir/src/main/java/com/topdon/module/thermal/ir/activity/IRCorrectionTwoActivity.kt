@@ -10,43 +10,41 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
+import com.csl.irCamera.libui.R as LibUiR
+import com.topdon.module.thermal.ir.databinding.ActivityIrCorrectionTwoBinding
 import com.topdon.module.thermal.ir.event.CorrectionFinishEvent
-import kotlinx.android.synthetic.main.activity_ir_correction_two.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-/**
- *
- * 锅盖矫正
  * @author: CaiSongL
  * @date: 2023/8/4 9:06
- *
- * 需要传递参数：
- * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
- */
+ * [ExtraKeyConfig.IS_TC007] -  TC007
 @Route(path = RouterConfig.IR_CORRECTION_TWO)
 class IRCorrectionTwoActivity : BaseActivity() {
 
-    /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
-     */
+    private lateinit var binding: ActivityIrCorrectionTwoBinding
+     * TC007 .
+     * true-TC007 false
     private var isTC007 = false
 
     override fun initContentView(): Int = R.layout.activity_ir_correction_two
 
     override fun initView() {
+        binding = ActivityIrCorrectionTwoBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
         isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
 
-        iv_sketch_map.setImageResource(R.drawable.ic_corrected_line) // Use standard corrected line drawable for TC001
+        binding.ivSketchMap.setImageResource(R.drawable.ic_corrected_line) // Use standard corrected line drawable for TC001
 
         if (if (isTC007) WebSocketProxy.getInstance().isTC007Connect() else DeviceTools.isConnect()) {
-            tv_correction.setBackgroundResource(R.drawable.bg_corners05_solid_theme)
+            binding.tvCorrection.setBackgroundResource(LibAppR.drawable.bg_corners05_solid_theme)
         } else {
-            tv_correction.setBackgroundResource(R.drawable.bg_corners05_solid_50_theme)
+            binding.tvCorrection.setBackgroundResource(LibAppR.drawable.bg_corners05_solid_50_theme)
         }
 
-        tv_correction.setOnClickListener {
+        binding.tvCorrection.setOnClickListener {
             if (DeviceTools.isConnect()) {
                 // TC001 only - no TC007 support
                 if (DeviceTools.isTC001LiteConnect()){
@@ -56,8 +54,8 @@ class IRCorrectionTwoActivity : BaseActivity() {
                 }
             } else {
                 TipDialog.Builder(this)
-                    .setMessage(R.string.device_connect_tip)
-                    .setPositiveListener(R.string.app_confirm)
+                    .setMessage(LibAppR.string.device_connect_tip)
+                    .setPositiveListener(LibAppR.string.app_confirm)
                     .create().show()
             }
         }
@@ -66,31 +64,34 @@ class IRCorrectionTwoActivity : BaseActivity() {
 
     override fun connected() {
         if (!isTC007) {
-            tv_correction.setBackgroundResource(R.drawable.bg_corners05_solid_theme)
+            binding.tvCorrection.setBackgroundResource(LibAppR.drawable.bg_corners05_solid_theme)
         }
     }
 
     override fun disConnected() {
         if (!isTC007) {
-            tv_correction.setBackgroundResource(R.drawable.bg_corners05_solid_50_theme)
+            binding.tvCorrection.setBackgroundResource(LibAppR.drawable.bg_corners05_solid_50_theme)
         }
     }
 
     override fun onSocketConnected(isTS004: Boolean) {
         if (isTC007 && !isTS004) {
-            tv_correction.setBackgroundResource(R.drawable.bg_corners05_solid_theme)
+            binding.tvCorrection.setBackgroundResource(LibAppR.drawable.bg_corners05_solid_theme)
         }
     }
 
     override fun onSocketDisConnected(isTS004: Boolean) {
         if (isTC007 && !isTS004) {
-            tv_correction.setBackgroundResource(R.drawable.bg_corners05_solid_50_theme)
+            binding.tvCorrection.setBackgroundResource(LibAppR.drawable.bg_corners05_solid_50_theme)
         }
     }
 
     override fun initData() {}
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun finishCorrection(event: CorrectionFinishEvent) {
         finish()
     }

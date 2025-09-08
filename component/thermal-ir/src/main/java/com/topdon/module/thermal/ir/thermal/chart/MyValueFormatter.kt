@@ -23,6 +23,9 @@ class MyValueFormatter(private val startTime: Long, private val type: Int = 1) :
     }
 
     @SuppressLint("SimpleDateFormat")
+    /**
+     * Function description.
+     */
     fun showDateSecond(time: Long): String {
         val date = Date(time)
         //yyyy-MM-dd HH:mm:ss

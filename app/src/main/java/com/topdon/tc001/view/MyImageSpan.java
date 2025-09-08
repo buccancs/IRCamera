@@ -6,11 +6,20 @@ import android.graphics.drawable.Drawable;
 import android.text.style.ImageSpan;
 
 public class MyImageSpan extends ImageSpan {
+    /**
+     * Method description.
+     */
     public MyImageSpan(Drawable drawable) {
         super(drawable);
 
     }
     @Override
+    /**
+     * Method description.
+     */
+    /**
+     * Method description.
+     */
     public void draw(Canvas canvas, CharSequence text, int start, int end, float x, int top, int y, int bottom,
                      Paint paint) {
         Drawable drawable = getDrawable();

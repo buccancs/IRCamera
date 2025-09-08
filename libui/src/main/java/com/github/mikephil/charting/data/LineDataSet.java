@@ -20,6 +20,9 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
     /**
      * Drawing mode for this line dataset
      **/
+    /**
+     * Private method description.
+     */
     private Mode mMode = Mode.LINEAR;
 
     /**
@@ -65,6 +68,9 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
     private boolean mDrawCircleHole = true;
 
 
+    /**
+     * Method description.
+     */
     public LineDataSet(List<Entry> yVals, String label) {
         super(yVals, label);
 
@@ -83,6 +89,9 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public DataSet<Entry> copy() {
         List<Entry> entries = new ArrayList<Entry>();
         for (int i = 0; i < mValues.size(); i++) {
@@ -113,6 +122,9 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
      * @return
      */
     @Override
+    /**
+     * Method description.
+     */
     public Mode getMode() {
         return mMode;
     }
@@ -121,6 +133,9 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
      * Returns the drawing mode for this LineDataSet
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public void setMode(Mode mode) {
         mMode = mode;
@@ -131,6 +146,9 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
      * Min = 0.05f = low cubic effect, Default: 0.2f
      *
      * @param intensity
+     */
+    /**
+     * Method description.
      */
     public void setCubicIntensity(float intensity) {
 
@@ -143,6 +161,9 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public float getCubicIntensity() {
         return mCubicIntensity;
     }
@@ -154,6 +175,9 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
      *
      * @param radius
      */
+    /**
+     * Method description.
+     */
     public void setCircleRadius(float radius) {
 
         if (radius >= 1f) {
@@ -164,6 +188,9 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public float getCircleRadius() {
         return mCircleRadius;
     }
@@ -173,6 +200,9 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
      * Default radius = 2f, Min = 0.5f
      *
      * @param holeRadius
+     */
+    /**
+     * Method description.
      */
     public void setCircleHoleRadius(float holeRadius) {
 
@@ -184,6 +214,9 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public float getCircleHoleRadius() {
         return mCircleHoleRadius;
     }
@@ -197,6 +230,9 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
      * @param size
      */
     @Deprecated
+    /**
+     * Method description.
+     */
     public void setCircleSize(float size) {
         setCircleRadius(size);
     }
@@ -205,6 +241,9 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
      * This function is deprecated because of unclarity. Use getCircleRadius instead.
      */
     @Deprecated
+    /**
+     * Method description.
+     */
     public float getCircleSize() {
         return getCircleRadius();
     }
@@ -218,6 +257,9 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
      * @param spaceLength the length of space in between the pieces
      * @param phase       offset, in degrees (normally, use 0)
      */
+    /**
+     * Method description.
+     */
     public void enableDashedLine(float lineLength, float spaceLength, float phase) {
         mDashPathEffect = new DashPathEffect(new float[]{
                 lineLength, spaceLength
@@ -227,16 +269,25 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
     /**
      * Disables the line to be drawn in dashed mode.
      */
+    /**
+     * Method description.
+     */
     public void disableDashedLine() {
         mDashPathEffect = null;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean isDashedLineEnabled() {
         return mDashPathEffect == null ? false : true;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public DashPathEffect getDashPathEffect() {
         return mDashPathEffect;
     }
@@ -247,23 +298,35 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
      *
      * @param enabled
      */
+    /**
+     * Method description.
+     */
     public void setDrawCircles(boolean enabled) {
         this.mDrawCircles = enabled;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean isDrawCirclesEnabled() {
         return mDrawCircles;
     }
 
     @Deprecated
     @Override
+    /**
+     * Method description.
+     */
     public boolean isDrawCubicEnabled() {
         return mMode == Mode.CUBIC_BEZIER;
     }
 
     @Deprecated
     @Override
+    /**
+     * Method description.
+     */
     public boolean isDrawSteppedEnabled() {
         return mMode == Mode.STEPPED;
     }
@@ -275,16 +338,25 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public List<Integer> getCircleColors() {
         return mCircleColors;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int getCircleColor(int index) {
         return mCircleColors.get(index);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int getCircleColorCount() {
         return mCircleColors.size();
     }
@@ -297,6 +369,9 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
      * adding them to the DataSet.
      *
      * @param colors
+     */
+    /**
+     * Method description.
      */
     public void setCircleColors(List<Integer> colors) {
         mCircleColors = colors;
@@ -311,6 +386,9 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
      *
      * @param colors
      */
+    /**
+     * Method description.
+     */
     public void setCircleColors(int... colors) {
         this.mCircleColors = ColorTemplate.createColors(colors);
     }
@@ -324,6 +402,9 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
      * getResources().getColor(...)
      *
      * @param colors
+     */
+    /**
+     * Method description.
      */
     public void setCircleColors(int[] colors, Context c) {
 
@@ -346,6 +427,9 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
      *
      * @param color
      */
+    /**
+     * Method description.
+     */
     public void setCircleColor(int color) {
         resetCircleColors();
         mCircleColors.add(color);
@@ -353,6 +437,9 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
 
     /**
      * resets the circle-colors array and creates a new one
+     */
+    /**
+     * Method description.
      */
     public void resetCircleColors() {
         if (mCircleColors == null) {
@@ -366,11 +453,17 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
      *
      * @param color
      */
+    /**
+     * Method description.
+     */
     public void setCircleHoleColor(int color) {
         mCircleHoleColor = color;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int getCircleHoleColor() {
         return mCircleHoleColor;
     }
@@ -380,11 +473,17 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
      *
      * @param enabled
      */
+    /**
+     * Method description.
+     */
     public void setDrawCircleHole(boolean enabled) {
         mDrawCircleHole = enabled;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean isDrawCircleHoleEnabled() {
         return mDrawCircleHole;
     }
@@ -395,6 +494,9 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
      *
      * @param formatter
      */
+    /**
+     * Method description.
+     */
     public void setFillFormatter(IFillFormatter formatter) {
 
         if (formatter == null)
@@ -404,10 +506,16 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public IFillFormatter getFillFormatter() {
         return mFillFormatter;
     }
 
+    /**
+     * Method description.
+     */
     public enum Mode {
         LINEAR,
         STEPPED,

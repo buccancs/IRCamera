@@ -10,8 +10,14 @@ import java.util.List;
  */
 public class MPPointF extends ObjectPool.Poolable {
 
+    /**
+     * Private method description.
+     */
     private static ObjectPool<MPPointF> pool;
 
+    /**
+     * Method description.
+     */
     public float x;
     public float y;
 
@@ -20,14 +26,23 @@ public class MPPointF extends ObjectPool.Poolable {
         pool.setReplenishPercentage(0.5f);
     }
 
+    /**
+     * Method description.
+     */
     public MPPointF() {
     }
 
+    /**
+     * Method description.
+     */
     public MPPointF(float x, float y) {
         this.x = x;
         this.y = y;
     }
 
+    /**
+     * Method description.
+     */
     public static MPPointF getInstance(float x, float y) {
         MPPointF result = pool.get();
         result.x = x;
@@ -35,10 +50,16 @@ public class MPPointF extends ObjectPool.Poolable {
         return result;
     }
 
+    /**
+     * Method description.
+     */
     public static MPPointF getInstance() {
         return pool.get();
     }
 
+    /**
+     * Method description.
+     */
     public static MPPointF getInstance(MPPointF copy) {
         MPPointF result = pool.get();
         result.x = copy.x;
@@ -46,14 +67,23 @@ public class MPPointF extends ObjectPool.Poolable {
         return result;
     }
 
+    /**
+     * Method description.
+     */
     public static void recycleInstance(MPPointF instance){
         pool.recycle(instance);
     }
 
+    /**
+     * Method description.
+     */
     public static void recycleInstances(List<MPPointF> instances){
         pool.recycle(instances);
     }
 
+    /**
+     * Method description.
+     */
     public static final Parcelable.Creator<MPPointF> CREATOR = new Parcelable.Creator<MPPointF>() {
         /**
          * Return a new point from the data in the specified parcel.
@@ -79,15 +109,24 @@ public class MPPointF extends ObjectPool.Poolable {
      *
      * @param in The parcel to read the point's coordinates from
      */
+    /**
+     * Method description.
+     */
     public void my_readFromParcel(Parcel in) {
         x = in.readFloat();
         y = in.readFloat();
     }
 
+    /**
+     * Method description.
+     */
     public float getX(){
         return this.x;
     }
 
+    /**
+     * Method description.
+     */
     public float getY(){
         return this.y;
     }

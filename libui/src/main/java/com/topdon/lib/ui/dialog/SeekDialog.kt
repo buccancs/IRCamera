@@ -57,25 +57,40 @@ class SeekDialog private constructor(private val context: Context) {
         }
     }
     
+    /**
+     * Function description.
+     */
     fun setTitle(title: String): SeekDialog {
         this.title = title
         return this
     }
     
+    /**
+     * Function description.
+     */
     fun setPositiveListener(listener: (Int) -> Unit): SeekDialog {
         this.positiveListener = listener
         return this
     }
     
+    /**
+     * Function description.
+     */
     fun setCancelListener(listener: () -> Unit): SeekDialog {
         this.cancelListener = listener
         return this
     }
     
+    /**
+     * Function description.
+     */
     fun show() {
         create().show()
     }
     
+    /**
+     * Function description.
+     */
     fun create(): AlertDialog {
         return AlertDialog.Builder(context)
             .setTitle(title)

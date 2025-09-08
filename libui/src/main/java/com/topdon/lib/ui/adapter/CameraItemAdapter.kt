@@ -7,18 +7,18 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.topdon.lib.ui.R
+import com.csl.irCamera.libui.R
+import com.csl.irCamera.libapp.R as LibAppR
 
-/**
  * @author: CaiSongL
  * @date: 2023/4/1 13:48
- */
-@Deprecated("热成像-菜单-拍照已重构，不需要这个类了")
+@Deprecated("--，")
 class CameraItemAdapter(context: Context) : RecyclerView.Adapter<CameraItemAdapter.ViewHolder>() {
 
+    /** data property */
     val data: List<String> = listOf(
-        context.getString(R.string.person_headshot_camera),
-        context.getString(R.string.app_video)
+        context.getString(LibAppR.string.person_headshot_camera),
+        context.getString(LibAppR.string.app_video)
     )
 
     private var parentRecycler: RecyclerView? = null

@@ -15,6 +15,9 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
  */
 public class ZoomJob extends ViewPortJob {
 
+    /**
+     * Private method description.
+     */
     private static ObjectPool<ZoomJob> pool;
 
     static {
@@ -22,6 +25,9 @@ public class ZoomJob extends ViewPortJob {
         pool.setReplenishPercentage(0.5f);
     }
 
+    /**
+     * Method description.
+     */
     public static ZoomJob getInstance(ViewPortHandler viewPortHandler, float scaleX, float scaleY, float xValue, float yValue,
                                       Transformer trans, YAxis.AxisDependency axis, View v) {
         ZoomJob result = pool.get();
@@ -36,6 +42,9 @@ public class ZoomJob extends ViewPortJob {
         return result;
     }
 
+    /**
+     * Method description.
+     */
     public static void recycleInstance(ZoomJob instance) {
         pool.recycle(instance);
     }
@@ -45,6 +54,9 @@ public class ZoomJob extends ViewPortJob {
 
     protected YAxis.AxisDependency axisDependency;
 
+    /**
+     * Method description.
+     */
     public ZoomJob(ViewPortHandler viewPortHandler, float scaleX, float scaleY, float xValue, float yValue, Transformer trans,
                    YAxis.AxisDependency axis, View v) {
         super(viewPortHandler, xValue, yValue, trans, v);
@@ -57,6 +69,9 @@ public class ZoomJob extends ViewPortJob {
     protected Matrix mRunMatrixBuffer = new Matrix();
 
     @Override
+    /**
+     * Method description.
+     */
     public void run() {
 
         Matrix save = mRunMatrixBuffer;

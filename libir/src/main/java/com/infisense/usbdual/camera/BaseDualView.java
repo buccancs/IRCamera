@@ -5,24 +5,25 @@ import com.infisense.usbdual.Const;
 
 import java.util.ArrayList;
 
-/**
  * Created by fengjibo on 2022/7/28.
- */
 public abstract class BaseDualView {
 
     protected ArrayList<OnFrameCallback> onFrameCallbacks;
+    /**
+     * Method description.
+     */
     public DualUVCCamera dualUVCCamera;
 
     protected int fusionLength;
     protected int irSize;
     protected int vlSize;
     protected int remapTempSize;
-    protected byte[] remapTempData;//裁剪后的温度数据
-    protected byte[] mixData;//融合数据
-    protected byte[] normalTempData;//原始温度数据
+    protected byte[] remapTempData;//
+    protected byte[] mixData;//
+    protected byte[] normalTempData;//
     protected byte[] mixDataRotate;
-    protected byte[] irData;//原始红外数据
-    public byte[] vlData;//原始可见光数据
+    protected byte[] irData;//
+    public byte[] vlData;//
     public byte[] vlARGBData;
 
     public BaseDualView() {
@@ -39,14 +40,23 @@ public abstract class BaseDualView {
         vlARGBData = new byte[fusionLength];
     }
 
+    /**
+     * Method description.
+     */
     public interface OnFrameCallback {
         void onFame(byte[] mixData, byte[] remapTempData, double fpsText);
     }
 
+    /**
+     * Method description.
+     */
     public void addFrameCallback(OnFrameCallback onFrameCallback) {
         onFrameCallbacks.add(onFrameCallback);
     }
 
+    /**
+     * Method description.
+     */
     public void removeFrameCallback(OnFrameCallback onFrameCallback) {
         onFrameCallbacks.remove(onFrameCallback);
     }

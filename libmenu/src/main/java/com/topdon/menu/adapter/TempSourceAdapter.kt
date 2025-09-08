@@ -5,24 +5,20 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.topdon.menu.R
 
+ * -2- Adapter，.
 /**
- * 观测模式-菜单2-高低温源菜单 所用 Adapter，单选可全不选中.
- *
- * 动态识别、高温源、低温源
- *
- * Created by LCG on 2024/11/29.
+ * @author LCG
+ * @since Unknown
  */
 @SuppressLint("NotifyDataSetChanged")
 internal class TempSourceAdapter : BaseMenuAdapter() {
-    /**
-     * 当前选中的选项 code.
-     *
-     * 由于历史遗留（已保存在 SharedPreferences 中），这里 code 取值为
-     * - 什么都未选中：-1
-     * - 动态识别：0
-     * - 高温源：1
-     * - 低温源：2
-     */
+     * code.
+     * （ SharedPreferences ）， code
+     * - ：-1
+     * - ：0
+     * - ：1
+     * - ：2
+    /** selectCode property */
     var selectCode: Int = -1
         set(value) {
             if (field != value) {
@@ -31,9 +27,8 @@ internal class TempSourceAdapter : BaseMenuAdapter() {
             }
         }
 
-    /**
-     * 观测模式-菜单2-高低温源 点击事件监听，单选。
-     */
+     * -2- ，。
+    /** onTempSourceListener property */
     var onTempSourceListener: ((code: Int) -> Unit)? = null
 
 

@@ -15,13 +15,22 @@ import java.text.DecimalFormat;
 public class LargeValueFormatter extends ValueFormatter
 {
 
+    /**
+     * Private method description.
+     */
     private String[] mSuffix = new String[]{
             "", "k", "m", "b", "t"
     };
+    /**
+     * Private method description.
+     */
     private int mMaxLength = 5;
     private DecimalFormat mFormat;
     private String mText = "";
 
+    /**
+     * Method description.
+     */
     public LargeValueFormatter() {
         mFormat = new DecimalFormat("###E00");
     }
@@ -31,12 +40,18 @@ public class LargeValueFormatter extends ValueFormatter
      *
      * @param appendix a text that will be appended
      */
+    /**
+     * Method description.
+     */
     public LargeValueFormatter(String appendix) {
         this();
         mText = appendix;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public String getFormattedValue(float value) {
         return makePretty(value) + mText;
     }
@@ -45,6 +60,9 @@ public class LargeValueFormatter extends ValueFormatter
      * Set an appendix text to be added at the end of the formatted value.
      *
      * @param appendix
+     */
+    /**
+     * Method description.
      */
     public void setAppendix(String appendix) {
         this.mText = appendix;
@@ -56,10 +74,16 @@ public class LargeValueFormatter extends ValueFormatter
      *
      * @param suffix new suffix
      */
+    /**
+     * Method description.
+     */
     public void setSuffix(String[] suffix) {
         this.mSuffix = suffix;
     }
 
+    /**
+     * Method description.
+     */
     public void setMaxLength(int maxLength) {
         this.mMaxLength = maxLength;
     }
@@ -67,6 +91,9 @@ public class LargeValueFormatter extends ValueFormatter
     /**
      * Formats each number properly. Special thanks to Roman Gromov
      * (https://github.com/romangromov) for this piece of code.
+     */
+    /**
+     * Private method description.
      */
     private String makePretty(double number) {
 
@@ -85,6 +112,9 @@ public class LargeValueFormatter extends ValueFormatter
         return r;
     }
 
+    /**
+     * Method description.
+     */
     public int getDecimalDigits() {
         return 0;
     }

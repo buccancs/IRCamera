@@ -8,26 +8,27 @@ import android.view.View.MeasureSpec
 import android.widget.PopupWindow
 import com.blankj.utilcode.util.SizeUtils
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.popup_gallery_change.view.*
+import com.csl.irCamera.libapp.R as LibAppR
+import com.topdon.module.thermal.ir.databinding.PopupGalleryChangeBinding
 
+ *  PopupWindow.
 /**
- * 图库目录切换 PopupWindow.
- *
- * Created by LCG on 2024/1/5.
+ * @author LCG
+ * @since Unknown
  */
 class GalleryChangePopup(private val context: Context) : PopupWindow() {
 
 
-    /**
-     * 一个选项被选中事件监听.
-     */
+     * .
+    /** onPickListener property */
     var onPickListener: ((position: Int, str: String) -> Unit)? = null
 
 
     init {
         val widthMeasureSpec = MeasureSpec.makeMeasureSpec((context.resources.displayMetrics.widthPixels * 0.6).toInt(), MeasureSpec.EXACTLY)
         val heightMeasureSpec = MeasureSpec.makeMeasureSpec(context.resources.displayMetrics.heightPixels, MeasureSpec.AT_MOST)
-        contentView = LayoutInflater.from(context).inflate(R.layout.popup_gallery_change, null)
+        val binding = PopupGalleryChangeBinding.inflate(LayoutInflater.from(context))
+        contentView = binding.root
         contentView.measure(widthMeasureSpec, heightMeasureSpec)
 
         width = contentView.measuredWidth
@@ -36,20 +37,23 @@ class GalleryChangePopup(private val context: Context) : PopupWindow() {
         isOutsideTouchable = true
 
 
-        contentView.tv_line.setOnClickListener {
+        binding.tvLine.setOnClickListener {
             dismiss()
-            onPickListener?.invoke(0, context.getString(R.string.tc_has_line_device))
+            onPickListener?.invoke(0, context.getString(LibAppR.string.tc_has_line_device))
         }
-        contentView.tv_ts004.setOnClickListener {
+        binding.tvTs004.setOnClickListener {
             dismiss()
             onPickListener?.invoke(1, "TS004")
         }
-        contentView.tv_tc007.setOnClickListener {
+        binding.tvTc007.setOnClickListener {
             dismiss()
             onPickListener?.invoke(2, "TC007")
         }
     }
 
+    /**
+     * Function description.
+     */
     fun show(anchor: View) {
         val locationArray = IntArray(2)
         anchor.getLocationInWindow(locationArray)

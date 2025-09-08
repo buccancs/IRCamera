@@ -21,6 +21,9 @@ public class YAxis extends AxisBase {
     /**
      * indicates if the bottom y-label entry is drawn or not
      */
+    /**
+     * Private method description.
+     */
     private boolean mDrawBottomYLabelEntry = true;
 
     /**
@@ -76,12 +79,18 @@ public class YAxis extends AxisBase {
     /**
      * enum for the position of the y-labels relative to the chart
      */
+    /**
+     * Method description.
+     */
     public enum YAxisLabelPosition {
         OUTSIDE_CHART, INSIDE_CHART
     }
 
     /**
      * the side this axis object represents
+     */
+    /**
+     * Private method description.
      */
     private AxisDependency mAxisDependency;
 
@@ -104,10 +113,16 @@ public class YAxis extends AxisBase {
      *
      * @author Philipp Jahoda
      */
+    /**
+     * Method description.
+     */
     public enum AxisDependency {
         LEFT, RIGHT
     }
 
+    /**
+     * Method description.
+     */
     public YAxis() {
         super();
 
@@ -116,18 +131,27 @@ public class YAxis extends AxisBase {
         this.mYOffset = 0f;
     }
 
+    /**
+     * Method description.
+     */
     public YAxis(AxisDependency position) {
         super();
         this.mAxisDependency = position;
         this.mYOffset = 0f;
     }
 
+    /**
+     * Method description.
+     */
     public AxisDependency getAxisDependency() {
         return mAxisDependency;
     }
 
     /**
      * @return the minimum width that the axis should take (in dp).
+     */
+    /**
+     * Method description.
      */
     public float getMinWidth() {
         return mMinWidth;
@@ -138,12 +162,18 @@ public class YAxis extends AxisBase {
      *
      * @param minWidth
      */
+    /**
+     * Method description.
+     */
     public void setMinWidth(float minWidth) {
         mMinWidth = minWidth;
     }
 
     /**
      * @return the maximum width that the axis can take (in dp).
+     */
+    /**
+     * Method description.
      */
     public float getMaxWidth() {
         return mMaxWidth;
@@ -154,12 +184,18 @@ public class YAxis extends AxisBase {
      *
      * @param maxWidth
      */
+    /**
+     * Method description.
+     */
     public void setMaxWidth(float maxWidth) {
         mMaxWidth = maxWidth;
     }
 
     /**
      * returns the position of the y-labels
+     */
+    /**
+     * Method description.
      */
     public YAxisLabelPosition getLabelPosition() {
         return mPosition;
@@ -170,6 +206,9 @@ public class YAxis extends AxisBase {
      *
      * @param pos
      */
+    /**
+     * Method description.
+     */
     public void setPosition(YAxisLabelPosition pos) {
         mPosition = pos;
     }
@@ -179,6 +218,9 @@ public class YAxis extends AxisBase {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public boolean isDrawTopYLabelEntryEnabled() {
         return mDrawTopYLabelEntry;
     }
@@ -187,6 +229,9 @@ public class YAxis extends AxisBase {
      * returns true if drawing the bottom y-axis label entry is enabled
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public boolean isDrawBottomYLabelEntryEnabled() {
         return mDrawBottomYLabelEntry;
@@ -199,6 +244,9 @@ public class YAxis extends AxisBase {
      *
      * @param enabled
      */
+    /**
+     * Method description.
+     */
     public void setDrawTopYLabelEntry(boolean enabled) {
         mDrawTopYLabelEntry = enabled;
     }
@@ -210,6 +258,9 @@ public class YAxis extends AxisBase {
      *
      * @param enabled
      */
+    /**
+     * Method description.
+     */
     public void setInverted(boolean enabled) {
         mInverted = enabled;
     }
@@ -218,6 +269,9 @@ public class YAxis extends AxisBase {
      * If this returns true, the y-axis is inverted.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public boolean isInverted() {
         return mInverted;
@@ -230,6 +284,9 @@ public class YAxis extends AxisBase {
      * @param startAtZero
      */
     @Deprecated
+    /**
+     * Method description.
+     */
     public void setStartAtZero(boolean startAtZero) {
         if (startAtZero)
             setAxisMinimum(0f);
@@ -242,6 +299,9 @@ public class YAxis extends AxisBase {
      *
      * @param percent
      */
+    /**
+     * Method description.
+     */
     public void setSpaceTop(float percent) {
         mSpacePercentTop = percent;
     }
@@ -250,6 +310,9 @@ public class YAxis extends AxisBase {
      * Returns the top axis space in percent of the full range. Default 10f
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public float getSpaceTop() {
         return mSpacePercentTop;
@@ -260,6 +323,9 @@ public class YAxis extends AxisBase {
      *
      * @param percent
      */
+    /**
+     * Method description.
+     */
     public void setSpaceBottom(float percent) {
         mSpacePercentBottom = percent;
     }
@@ -269,10 +335,16 @@ public class YAxis extends AxisBase {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public float getSpaceBottom() {
         return mSpacePercentBottom;
     }
 
+    /**
+     * Method description.
+     */
     public boolean isDrawZeroLineEnabled() {
         return mDrawZeroLine;
     }
@@ -283,10 +355,16 @@ public class YAxis extends AxisBase {
      *
      * @param mDrawZeroLine
      */
+    /**
+     * Method description.
+     */
     public void setDrawZeroLine(boolean mDrawZeroLine) {
         this.mDrawZeroLine = mDrawZeroLine;
     }
 
+    /**
+     * Method description.
+     */
     public int getZeroLineColor() {
         return mZeroLineColor;
     }
@@ -296,10 +374,16 @@ public class YAxis extends AxisBase {
      *
      * @param color
      */
+    /**
+     * Method description.
+     */
     public void setZeroLineColor(int color) {
         mZeroLineColor = color;
     }
 
+    /**
+     * Method description.
+     */
     public float getZeroLineWidth() {
         return mZeroLineWidth;
     }
@@ -308,6 +392,9 @@ public class YAxis extends AxisBase {
      * Sets the width of the zero line in dp
      *
      * @param width
+     */
+    /**
+     * Method description.
      */
     public void setZeroLineWidth(float width) {
         this.mZeroLineWidth = Utils.convertDpToPixel(width);
@@ -318,6 +405,9 @@ public class YAxis extends AxisBase {
      *
      * @param p
      * @return
+     */
+    /**
+     * Method description.
      */
     public float getRequiredWidthSpace(Paint p) {
 
@@ -346,6 +436,9 @@ public class YAxis extends AxisBase {
      * @param p
      * @return
      */
+    /**
+     * Method description.
+     */
     public float getRequiredHeightSpace(Paint p) {
 
         p.setTextSize(mTextSize);
@@ -359,6 +452,9 @@ public class YAxis extends AxisBase {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public boolean needsOffset() {
         if (isEnabled() && isDrawLabelsEnabled() && getLabelPosition() == YAxisLabelPosition
                 .OUTSIDE_CHART)
@@ -371,6 +467,9 @@ public class YAxis extends AxisBase {
      * Returns true if autoscale restriction for axis min value is enabled
      */
     @Deprecated
+    /**
+     * Method description.
+     */
     public boolean isUseAutoScaleMinRestriction( ) {
         return mUseAutoScaleRestrictionMin;
     }
@@ -379,6 +478,9 @@ public class YAxis extends AxisBase {
      * Sets autoscale restriction for axis min value as enabled/disabled
      */
     @Deprecated
+    /**
+     * Method description.
+     */
     public void setUseAutoScaleMinRestriction( boolean isEnabled ) {
         mUseAutoScaleRestrictionMin = isEnabled;
     }
@@ -387,6 +489,9 @@ public class YAxis extends AxisBase {
      * Returns true if autoscale restriction for axis max value is enabled
      */
     @Deprecated
+    /**
+     * Method description.
+     */
     public boolean isUseAutoScaleMaxRestriction() {
         return mUseAutoScaleRestrictionMax;
     }
@@ -395,12 +500,18 @@ public class YAxis extends AxisBase {
      * Sets autoscale restriction for axis max value as enabled/disabled
      */
     @Deprecated
+    /**
+     * Method description.
+     */
     public void setUseAutoScaleMaxRestriction( boolean isEnabled ) {
         mUseAutoScaleRestrictionMax = isEnabled;
     }
 
 
     @Override
+    /**
+     * Method description.
+     */
     public void calculate(float dataMin, float dataMax) {
 
         float min = dataMin;

@@ -10,35 +10,25 @@ import android.util.AttributeSet
 import android.view.View
 import com.blankj.utilcode.util.SizeUtils
 
+ *  .
 /**
- * 常用材料发射率 页面所用，一行常用材料发射率.
- *
- * Created by LCG on 2024/10/14.
+ * @author LCG
+ * @since Unknown
  */
 class EmissivityView : View {
     companion object {
-        /**
-         * 默认描边尺寸，单位 dp.
-         */
+         * dp.
         private const val DEFAULT_STROKE_WIDTH: Float = 0.5f
     }
 
-    /**
-     * 是否顶部对齐
-     */
+    /** isAlignTop property */
     var isAlignTop = false
-    /**
-     * 是否需要绘制顶部横线
-     */
+    /** drawTopLine property */
     var drawTopLine = false
 
-    /**
-     * 要显示的文字列表.
-     */
+     * .
     private val textList: ArrayList<CharSequence> = ArrayList(3)
-    /**
-     * 执行绘制的 Layout 列表.
-     */
+     *  Layout .
     private val layoutList: ArrayList<StaticLayout> = ArrayList(3)
 
 
@@ -58,6 +48,9 @@ class EmissivityView : View {
         linePaint.strokeWidth = strokeWidth
     }
 
+    /**
+     * Function description.
+     */
     fun refreshText(newList: List<String>) {
         textList.clear()
         textList.addAll(newList)
@@ -70,17 +63,17 @@ class EmissivityView : View {
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val widthSize: Int = MeasureSpec.getSize(widthMeasureSpec) - paddingStart - paddingEnd
-        val firstWidth: Int = (widthSize * 135 / 335f).toInt()// 3 列的比例为 135:100:100
+        val firstWidth: Int = (widthSize * 135 / 335f).toInt()// 3 135:100:100
         val elseWidth: Int = (widthSize - firstWidth) / 2
         val contentWidth: Int = firstWidth + elseWidth * 2
 
-        //初始化 layoutList
+        // layoutList
         layoutList.clear()
         for (i in textList.indices) {
             val textWidth: Int = if (textList.size == 1) {
-                contentWidth - SizeUtils.dp2px(24f)//左右各 12dp padding
+                contentWidth - SizeUtils.dp2px(24f)// 12dp padding
             } else {
-                (if (i == 0) firstWidth else elseWidth) - SizeUtils.dp2px(24f)//左右各 12dp padding
+                (if (i == 0) firstWidth else elseWidth) - SizeUtils.dp2px(24f)// 12dp padding
             }
             layoutList.add(
                 StaticLayout.Builder.obtain(textList[i], 0, textList[i].length, textPaint, textWidth)
@@ -89,17 +82,16 @@ class EmissivityView : View {
             )
         }
 
-        //计算最大高度
         var maxHeight = 0
         for (layout in layoutList) {
             maxHeight = maxHeight.coerceAtLeast(layout.height)
         }
-        if (maxHeight == 0) {//没有设置要显示的字符时，给个占位的高度好了
+        if (maxHeight == 0) {//，
             maxHeight = textPaint.fontMetricsInt.bottom - textPaint.fontMetricsInt.top
         }
-        maxHeight += SizeUtils.dp2px(12f)//上下各 6dp padding
+        maxHeight += SizeUtils.dp2px(12f)// 6dp padding
 
-        //宽度为 UNSPECIFIED 的情况目前不存在，不考虑
+        // UNSPECIFIED
         setMeasuredDimension(contentWidth + paddingStart + paddingEnd, maxHeight)
     }
 

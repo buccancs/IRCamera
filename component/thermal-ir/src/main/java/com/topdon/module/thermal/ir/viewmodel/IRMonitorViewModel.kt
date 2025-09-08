@@ -10,8 +10,12 @@ import kotlinx.coroutines.*
 
 class IRMonitorViewModel : BaseViewModel() {
 
+    /** recordListLD property */
     val recordListLD = MutableLiveData<List<ThermalDao.Record>>()
 
+    /**
+     * Function description.
+     */
     fun queryRecordList() {
         viewModelScope.launch(Dispatchers.IO) {
             val recordList: List<ThermalDao.Record> = AppDatabase.getInstance().thermalDao().queryRecordList()
@@ -23,8 +27,12 @@ class IRMonitorViewModel : BaseViewModel() {
 
 
 
+    /** detailListLD property */
     val detailListLD = MutableLiveData<List<ThermalEntity>>()
 
+    /**
+     * Function description.
+     */
     fun queryDetail(startTime: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             val detailList: List<ThermalEntity> = AppDatabase.getInstance().thermalDao().queryDetail(startTime)
@@ -32,6 +40,9 @@ class IRMonitorViewModel : BaseViewModel() {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun delDetail(startTime: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             AppDatabase.getInstance().thermalDao().delDetail(startTime)

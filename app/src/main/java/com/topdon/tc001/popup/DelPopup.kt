@@ -1,4 +1,6 @@
 package com.topdon.tc001.popup
+import com.csl.irCamera.R
+import com.csl.irCamera.libapp.R as LibAppR
 
 import android.content.Context
 import android.view.Gravity
@@ -10,22 +12,22 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
 import com.blankj.utilcode.util.SizeUtils
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
-import com.topdon.tc001.R
 
+ * PopupWindow.
 /**
- * 首页-设备列表-删除设备确认 PopupWindow.
- *
- * Created by LCG on 2024/4/24.
+ * @author LCG
+ * @since Unknown
  */
 class DelPopup(val context: Context) : PopupWindow() {
 
+    /** onDelListener property */
     var onDelListener: (() -> Unit)? = null
 
     init {
         val widthPixels = context.resources.displayMetrics.widthPixels
         val textView = TextView(context)
         textView.setPadding(SizeUtils.dp2px(16f))
-        textView.setText(R.string.report_delete)
+        textView.setText(LibAppR.string.report_delete)
         textView.textSize = 14f
         textView.setTextColor(0xffffffff.toInt())
         textView.compoundDrawablePadding = SizeUtils.dp2px(8f)
@@ -51,6 +53,9 @@ class DelPopup(val context: Context) : PopupWindow() {
         height = textView.measuredHeight
     }
 
+    /**
+     * Function description.
+     */
     fun show(anchor: View) {
         val locationArray = IntArray(2)
         anchor.getLocationInWindow(locationArray)

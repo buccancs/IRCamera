@@ -5,21 +5,28 @@ import android.os.Looper;
 
 import java.lang.ref.WeakReference;
 
-/**
- * @Desc Handle软引用工具类
+ * @Desc Handle
  * @ClassName WeakReferenceHandler
  * @Email 616862466@qq.com
- * @Author 子墨
+ * @Author
  * @Date 2022/10/12 9:25
- */
 public class WeakReferenceHandler<T> extends Handler {
 
+    /**
+     * Private method description.
+     */
     private final WeakReference<T> mReference;
 
+    /**
+     * Method description.
+     */
     public WeakReferenceHandler(T referencedObject) {
         mReference = new WeakReference<T>(referencedObject);
     }
 
+    /**
+     * Method description.
+     */
     public WeakReferenceHandler(Looper looper, T referencedObject) {
         super(looper);
         mReference = new WeakReference<T>(referencedObject);

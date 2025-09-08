@@ -9,15 +9,12 @@ import android.view.View
 import android.view.ViewGroup.LayoutParams
 import android.widget.TextView
 import androidx.annotation.StringRes
-import com.topdon.lib.core.R
+import com.csl.irCamera.libapp.R
+import com.csl.irCamera.libapp.databinding.DialogTipProgressBinding
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.dialog_tip_progress.view.*
 
 
-/**
- * 提示窗
  * create by fylder on 2018/6/15
- **/
 class TipProgressDialog : Dialog {
 
 
@@ -34,7 +31,7 @@ class TipProgressDialog : Dialog {
         private var message: String? = null
         private var canceleable = true
 
-        private var messageText: TextView? = null
+        private lateinit var binding: DialogTipProgressBinding
 
         constructor(context: Context) {
             this.context = context
@@ -66,8 +63,8 @@ class TipProgressDialog : Dialog {
             }
             val inflater =
                 context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val view = inflater.inflate(R.layout.dialog_tip_progress, null)
-            messageText = view.dialog_tip_load_msg
+            binding = DialogTipProgressBinding.inflate(inflater)
+            val view = binding.root
 
             dialog!!.addContentView(
                 view,
@@ -76,22 +73,20 @@ class TipProgressDialog : Dialog {
             val lp = dialog!!.window!!.attributes
             val wRatio =
                 if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    //竖屏
                     0.52
                 } else {
-                    //横屏
                     0.35
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() //设置宽度
+            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() //
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceleable)
             //msg
             if (message != null) {
-                messageText?.visibility = View.VISIBLE
-                messageText?.setText(message, TextView.BufferType.NORMAL)
+                binding.dialogTipLoadMsg.visibility = View.VISIBLE
+                binding.dialogTipLoadMsg.setText(message, TextView.BufferType.NORMAL)
             } else {
-                messageText?.visibility = View.GONE
+                binding.dialogTipLoadMsg.visibility = View.GONE
             }
 
             dialog!!.setContentView(view)
@@ -100,9 +95,6 @@ class TipProgressDialog : Dialog {
     }
 
 
-    /**
-     * 提交回调
-     */
     interface OnClickListener {
         fun onClick(dialog: DialogInterface)
     }

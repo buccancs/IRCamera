@@ -7,16 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.topdon.lib.ui.R
+import com.csl.irCamera.libui.R
 import com.topdon.lib.ui.bean.ColorSelectBean
-import kotlinx.android.synthetic.main.ui_item_color_select.view.*
+import com.csl.irCamera.libui.databinding.UiItemColorSelectBinding
 
 class ColorSelectAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    /** listener property */
     var listener: ((code: Int, color: Int) -> Unit)? = null
     private var type = 0
     private var selected = -1
 
+    /**
+     * Function description.
+     */
     fun selected(index: Int) {
         selected = index
         notifyDataSetChanged()
@@ -33,9 +37,8 @@ class ColorSelectAdapter(val context: Context) : RecyclerView.Adapter<RecyclerVi
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.ui_item_color_select, parent, false)
-        return ItemView(view)
+        val binding = UiItemColorSelectBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ItemView(binding)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -58,10 +61,10 @@ class ColorSelectAdapter(val context: Context) : RecyclerView.Adapter<RecyclerVi
         return colorBean.size
     }
 
-    inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val lay: View = itemView.item_color_lay
-        val img: ImageView = itemView.item_color_img
-        val checkImg: ImageView = itemView.item_color_check
+    inner class ItemView(private val binding: UiItemColorSelectBinding) : RecyclerView.ViewHolder(binding.root) {
+        val lay: View = binding.itemColorLay
+        val img: ImageView = binding.itemColorImg
+        val checkImg: ImageView = binding.itemColorCheck
     }
 
 

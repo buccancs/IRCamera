@@ -15,52 +15,54 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.libcom.PDFHelp
 import com.topdon.module.thermal.ir.report.view.ReportIRShowView
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
+import com.csl.irCamera.libui.R as LibUiR
 import com.topdon.module.thermal.ir.report.bean.ReportBean
-import kotlinx.android.synthetic.main.activity_report_detail.*
+import com.topdon.module.thermal.ir.databinding.ActivityReportDetailBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
 
-/**
- * 报告详情界面.
- *
- * 需要传递
- * - 一份报告所有信息 [ExtraKeyConfig.REPORT_BEAN]
- */
+ * .
+ * [ExtraKeyConfig.REPORT_BEAN]
 @Route(path = RouterConfig.REPORT_DETAIL)
 class ReportDetailActivity: BaseActivity() {
 
-    /**
-     * 从上一界面传递过来的，报告所有信息.
-     */
+    private lateinit var binding: ActivityReportDetailBinding
+
+     * .
     private var reportBean: ReportBean? = null
 
-    /**
-     * 当前预览页面已生成的 PDF 文件绝对路径
-     */
+     *  PDF
     private var pdfFilePath: String? = null
 
 
     override fun initContentView() = R.layout.activity_report_detail
 
+    override fun onCreate(savedInstanceState: android.os.Bundle?) {
+        binding = ActivityReportDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        super.onCreate(savedInstanceState)
+    }
+
     override fun initView() {
         reportBean = intent.getParcelableExtra(ExtraKeyConfig.REPORT_BEAN)
 
-        title_view.setTitleText(R.string.album_edit_report)
-        title_view.setLeftDrawable(R.drawable.svg_arrow_left_e8)
-        title_view.setRightDrawable(R.drawable.ic_share_black_svg)
-        title_view.setLeftClickListener {
+        binding.titleView.setTitleText(LibAppR.string.album_edit_report)
+        binding.titleView.setLeftDrawable(LibUiR.drawable.svg_arrow_left_e8)
+        binding.titleView.setRightDrawable(R.drawable.ic_share_black_svg)
+        binding.titleView.setLeftClickListener {
             finish()
         }
-        title_view.setRightClickListener {
+        binding.titleView.setRightClickListener {
             saveWithPDF()
         }
 
-        report_info_view.refreshInfo(reportBean?.report_info)
-        report_info_view.refreshCondition(reportBean?.detection_condition)
+        binding.reportInfoView.refreshInfo(reportBean?.report_info)
+        binding.reportInfoView.refreshCondition(reportBean?.detection_condition)
 
         if (reportBean?.report_info?.is_report_watermark == 1) {
-            watermark_view.watermarkText = reportBean?.report_info?.report_watermark
+            binding.watermarkView.watermarkText = reportBean?.report_info?.report_watermark
         }
 
         val irList = reportBean?.infrared_data
@@ -72,7 +74,7 @@ class ReportDetailActivity: BaseActivity() {
                     val drawable = GlideLoader.getDrawable(this@ReportDetailActivity, irList[i].picture_url)
                     reportShowView.setImageDrawable(drawable)
                 }
-                ll_content.addView(reportShowView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                binding.llContent.addView(reportShowView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             }
         }
     }
@@ -96,7 +98,7 @@ class ReportDetailActivity: BaseActivity() {
                     }
                 }
                 pdfFilePath = PDFHelp.savePdfFileByListView(name?:System.currentTimeMillis().toString(),
-                    scroll_view, getPrintViewList(),watermark_view)
+                    binding.scrollView, getPrintViewList(),binding.watermarkView)
                 lifecycleScope.launch {
                     dismissCameraLoading()
                     actionShare()
@@ -113,19 +115,17 @@ class ReportDetailActivity: BaseActivity() {
         shareIntent.action = Intent.ACTION_SEND
         shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
         shareIntent.type = "application/pdf"
-        startActivity(Intent.createChooser(shareIntent, getString(R.string.battery_share)))
+        startActivity(Intent.createChooser(shareIntent, getString(LibAppR.string.battery_share)))
     }
 
-    /**
-     * 获取需要转为 PDF 的所有 View 列表.
-     * 注意：水印 View 不在列表内，需要自行处理.
-     */
+     *  PDF  View .
+     * View .
     private fun getPrintViewList(): ArrayList<View> {
         val result = ArrayList<View>()
-        result.add(report_info_view)
-        val childCount = ll_content.childCount
-        for (i in 0 until  childCount) {
-            val childView = ll_content.getChildAt(i)
+        result.add(binding.reportInfoView)
+        val childCount = binding.llContent.childCount
+        for (i in 0 until childCount) {
+            val childView = binding.llContent.getChildAt(i)
             if (childView is ReportIRShowView) {
                 result.addAll(childView.getPrintViewList())
             }

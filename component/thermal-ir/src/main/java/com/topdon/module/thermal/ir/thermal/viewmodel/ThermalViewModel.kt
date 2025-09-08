@@ -3,10 +3,11 @@ package com.topdon.module.thermal.ir.thermal.viewmodel
 import com.topdon.lib.core.ktbase.BaseViewModel
 
 class ThermalViewModel : BaseViewModel() {
-    /**
-     * 修改yuv温度上下限的数据
+     * yuv
      * white:82 FF
      * black:82 00
+    /**
+     * Function description.
      */
     fun yuvArea(yuv: ByteArray, temp: FloatArray, max: Float, min: Float) {
         for (i in temp.indices) {

@@ -11,11 +11,8 @@ import java.lang.ref.WeakReference
 import java.nio.ShortBuffer
 
 
-/**
- * 音频采集并且与视频合并一起
  * @author: CaiSongL
  * @date: 2023/3/28
- */
 class AudioRecordHelp private constructor() {
     private var audioRecord: AudioRecord? = null
     private var audioRecordRunnable: AudioRecordRunnable? = null
@@ -24,13 +21,18 @@ class AudioRecordHelp private constructor() {
     private var recordingAudio = false
     private var startTime: Long = 0
     @Volatile
+    /** runAudioThread property */
     var runAudioThread = true
+    /** audioData property */
     var audioData : ShortBuffer?=null
+    /** bufferReadResult property */
     var bufferReadResult: Int = 0
+    /** bufferSize property */
     val bufferSize: Int = AudioRecord.getMinBufferSize(
         VideoRecordFFmpeg.SAMPLE_AUDIO_RETE_INHZ,
         AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT
     )
+    /** type property */
     var type : Int = 0
     private var startRecordTime : Long = 0L
 
@@ -39,6 +41,9 @@ class AudioRecordHelp private constructor() {
     }
 
     @SuppressLint("MissingPermission")
+    /**
+     * Function description.
+     */
     fun startRecording(recorder: FFmpegFrameRecorder,startRecordTime : Long) {
         this.startRecordTime = startRecordTime
         type = 1
@@ -78,20 +83,17 @@ class AudioRecordHelp private constructor() {
                 audioData = ShortBuffer.allocate(bufferSize)
             }
             audioRecord!!.startRecording()
-            /**
-             * 音频进行循环编码
-             */
             try {
                 while (runAudioThread) {
                     bufferReadResult = audioRecord!!.read(audioData!!.array(), 0, audioData!!.capacity())
                     if (recordingAudio) {
                         if (bufferReadResult > 0) {
                             audioData?.limit(bufferReadResult)
-                            Log.w("音频采集",bufferReadResult.toString()+"//"+bufferReadResult)
+                            Log.w("",bufferReadResult.toString()+"//"+bufferReadResult)
                             recorder?.get()?.recordSamples(
                                 VideoRecordFFmpeg.SAMPLE_AUDIO_RETE_INHZ,
                                 VideoRecordFFmpeg.AUDIO_CHANNELS, audioData)
-//                            Log.w("音频采集中2",""+recorder?.get()?.frameNumber)
+//                            Log.w(2,+recorder?.get()?.frameNumber)
                         }
                     }else{
                         for (i in 0 until bufferSize) {
@@ -103,9 +105,9 @@ class AudioRecordHelp private constructor() {
                         Thread.sleep(1000L/VideoRecordFFmpeg.RATE)
                     }
                 }
-//                Log.w("停止采集",""+recorder?.get()?.frameNumber)
+//                Log.w(,+recorder?.get()?.frameNumber)
             }catch (e:Exception){
-                XLog.e("采集容器异常")
+                XLog.e("")
             }
         }
     }
@@ -114,6 +116,9 @@ class AudioRecordHelp private constructor() {
         recordingAudio = boolean
     }
 
+    /**
+     * Function description.
+     */
     fun stopAudioRecording() {
         type = 2
         if (!runAudioThread){
@@ -133,6 +138,9 @@ class AudioRecordHelp private constructor() {
         recordingAudio = false
     }
 
+    /**
+     * Function description.
+     */
     fun stopRecording(){
         if (!runAudioThread){
             return

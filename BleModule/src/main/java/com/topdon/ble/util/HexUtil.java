@@ -8,16 +8,19 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-/**
  * HexUtil
- * HEX转字符串工具类
- *
+ * HEX
  * @author chuanfeng.bi
  * @date 2021/8/27 10:33
- */
 public class HexUtil {
+    /**
+     * Private method description.
+     */
     private static FileInputStream in;
 
+    /**
+     * Method description.
+     */
     public static String bytesToHexString(byte[] bArray) {
         if (bArray == null || bArray.length <= 0)
             return "BYTE IS NULL";
@@ -33,6 +36,9 @@ public class HexUtil {
         return sb.toString();
     }
 
+    /**
+     * Method description.
+     */
     public static String byteToHex(byte byte1) {
         StringBuffer sb = new StringBuffer(1);
         String sTemp;
@@ -45,10 +51,10 @@ public class HexUtil {
         return sb.toString();
     }
 
+     * 16
+     * @param hexStr 16
     /**
-     * 进16进制字符串转换成字节数组
-     *
-     * @param hexStr 16进制的字符串
+     * Method description.
      */
     public static byte[] toByteArray(String hexStr) {
         String s = hexStr.replaceAll("", "");
@@ -62,6 +68,9 @@ public class HexUtil {
         return bytes;
     }
 
+    /**
+     * Method description.
+     */
     public static byte[] toByteArray1(String hexStr) {
         String s = hexStr.replaceAll("", "");
         if (s.length() % 2 != 0) {
@@ -80,6 +89,9 @@ public class HexUtil {
         return bytes;
     }
 
+    /**
+     * Method description.
+     */
     public static byte[] getString2HexBytes(String src) {
         byte[] ret = new byte[src.length() / 2];
         byte[] tmp = src.getBytes();
@@ -89,6 +101,9 @@ public class HexUtil {
         return ret;
     }
 
+    /**
+     * Method description.
+     */
     public static byte[] HexString2Bytes(String src) {
         int len = src.length() / 2;
         byte[] ret = new byte[len];
@@ -99,6 +114,9 @@ public class HexUtil {
         return ret;
     }
 
+    /**
+     * Method description.
+     */
     public static byte uniteBytes(byte src0, byte src1) {
         byte _b0 = Byte.decode("0x" + new String(new byte[]{src0})).byteValue();
         _b0 = (byte) (_b0 << 4);
@@ -107,15 +125,15 @@ public class HexUtil {
         return ret;
     }
 
-    /**
-     * hex转byte数组
-     *
+     * hexbyte
      * @param hex
      * @return
+    /**
+     * Method description.
      */
     public static byte[] hexToByte(String hex) {
         int m = 0, n = 0;
-        int byteLen = hex.length() / 2; // 每两个字符描述一个字节
+        int byteLen = hex.length() / 2; //
         byte[] ret = new byte[byteLen];
         for (int i = 0; i < byteLen; i++) {
             m = i * 2 + 1;
@@ -126,16 +144,22 @@ public class HexUtil {
         return ret;
     }
 
+    /**
+     * Method description.
+     */
     public static String hexToString(String bytes) {
         bytes = bytes.toUpperCase();
         String hexString = "0123456789ABCDEFabcdef";
         ByteArrayOutputStream baos = new ByteArrayOutputStream(bytes.length() / 2);
-        // 将每2位16进制整数组装成一个字节
+        // 216
         for (int i = 0; i < bytes.length(); i += 2)
             baos.write((hexString.indexOf(bytes.charAt(i)) << 4 | hexString.indexOf(bytes.charAt(i + 1))));
         return new String(baos.toByteArray());
     }
 
+    /**
+     * Method description.
+     */
     public static byte[] readFileToByteArray(String path) {
         File file = new File(path);
         if (!file.exists()) {
@@ -144,14 +168,14 @@ public class HexUtil {
         }
         try {
             in = new FileInputStream(file);
-            long inSize = in.getChannel().size();//判断FileInputStream中是否有内容
+            long inSize = in.getChannel().size();//FileInputStream
             if (inSize == 0) {
                 Log.d("bcf", "The FileInputStream has no content!");
                 return null;
             }
 
-            byte[] buffer = new byte[in.available()];//in.available() 表示要读取的文件中的数据长度
-            in.read(buffer);  //将文件中的数据读到buffer中
+            byte[] buffer = new byte[in.available()];//in.available()
+            in.read(buffer); //buffer
             return buffer;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -168,6 +192,9 @@ public class HexUtil {
         }
     }
 
+    /**
+     * Method description.
+     */
     public static byte[] byteSub(byte[] data, int start, int length) {
         byte[] bt = new byte[length];
         if (start + length > data.length) {

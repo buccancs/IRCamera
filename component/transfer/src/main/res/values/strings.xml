@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Transfer component strings -->
+    <string name="app_album_content">Album access permission is required to transfer photos.</string>
+    <string name="app_cancel">Cancel</string>
+    <string name="app_open">Open Settings</string>
+    <string name="app_tip">Permission Required</string>
+    <string name="scan_ble_tip_authorize">Please grant the required permissions.</string>
+</resources>

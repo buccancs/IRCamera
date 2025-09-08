@@ -13,6 +13,9 @@ public class Description extends ComponentBase {
     /**
      * the text used in the description
      */
+    /**
+     * Private method description.
+     */
     private String text = "Description Label";
 
     /**
@@ -25,6 +28,9 @@ public class Description extends ComponentBase {
      */
     private Paint.Align mTextAlign = Paint.Align.RIGHT;
 
+    /**
+     * Method description.
+     */
     public Description() {
         super();
 
@@ -38,6 +44,9 @@ public class Description extends ComponentBase {
      *
      * @param text
      */
+    /**
+     * Method description.
+     */
     public void setText(String text) {
         this.text = text;
     }
@@ -46,6 +55,9 @@ public class Description extends ComponentBase {
      * Returns the description text.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public String getText() {
         return text;
@@ -56,6 +68,9 @@ public class Description extends ComponentBase {
      *
      * @param x - xcoordinate
      * @param y - ycoordinate
+     */
+    /**
+     * Method description.
      */
     public void setPosition(float x, float y) {
         if (mPosition == null) {
@@ -71,6 +86,9 @@ public class Description extends ComponentBase {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public MPPointF getPosition() {
         return mPosition;
     }
@@ -80,6 +98,9 @@ public class Description extends ComponentBase {
      *
      * @param align
      */
+    /**
+     * Method description.
+     */
     public void setTextAlign(Paint.Align align) {
         this.mTextAlign = align;
     }
@@ -88,6 +109,9 @@ public class Description extends ComponentBase {
      * Returns the text alignment of the description.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public Paint.Align getTextAlign() {
         return mTextAlign;

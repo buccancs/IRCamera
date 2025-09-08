@@ -10,30 +10,31 @@ import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.activity.IRMonitorActivity
-import kotlinx.android.synthetic.main.fragment_ir_monitor_capture.*
+import com.topdon.module.thermal.ir.databinding.FragmentIrMonitorCaptureBinding
 
-/**
- * 温度监控-实时（即生成温度监控）.
- *
- * 需要传递参数：
- * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
- */
+ * .
+ * [ExtraKeyConfig.IS_TC007] -  TC007
 class IRMonitorCaptureFragment : BaseFragment() {
 
-    /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
-     */
+     * TC007 .
+     * true-TC007 false
     private var isTC007 = false
 
-    override fun initContentView(): Int = R.layout.fragment_ir_monitor_capture
+    private var _binding: FragmentIrMonitorCaptureBinding? = null
+    private val binding get() = _binding!!
+
+    override fun initContentView(): Int {
+        _binding = FragmentIrMonitorCaptureBinding.inflate(layoutInflater)
+        return R.layout.fragment_ir_monitor_capture
+    }
 
     override fun initView() {
         isTC007 = arguments?.getBoolean(ExtraKeyConfig.IS_TC007, false) ?: false
-        animation_view.setAnimation(if (isTC007) "TC007AnimationJSON.json" else "TDAnimationJSON.json")
+        binding.animationView.setAnimation(if (isTC007) "TC007AnimationJSON.json" else "TDAnimationJSON.json")
 
-        view_start.setOnClickListener {
+        binding.viewStart.setOnClickListener {
             // TC001 only - no TC007 support
             if (DeviceTools.isConnect()) {
                 if (DeviceTools.isTC001LiteConnect()){
@@ -42,7 +43,7 @@ class IRMonitorCaptureFragment : BaseFragment() {
                     startActivity(Intent(requireContext(), IRMonitorActivity::class.java))
                 }
             } else {
-                ToastTools.showShort(R.string.device_connect_tip)
+                ToastTools.showShort(LibAppR.string.device_connect_tip)
             }
         }
 
@@ -57,14 +58,11 @@ class IRMonitorCaptureFragment : BaseFragment() {
     override fun initData() {
     }
 
-    /**
-     * 刷新连接状态
-     */
     private fun refreshUI(isConnect: Boolean) {
-        animation_view.isVisible = !isConnect
-        iv_icon.isVisible = isConnect
-        view_start.isVisible = isConnect
-        tv_start.isVisible = isConnect
+        binding.animationView.isVisible = !isConnect
+        binding.ivIcon.isVisible = isConnect
+        binding.viewStart.isVisible = isConnect
+        binding.tvStart.isVisible = isConnect
     }
 
     override fun connected() {
@@ -89,5 +87,10 @@ class IRMonitorCaptureFragment : BaseFragment() {
         if (isTC007 && !isTS004) {
             refreshUI(false)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

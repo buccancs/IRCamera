@@ -6,11 +6,17 @@ import android.util.AttributeSet;
 import android.widget.HorizontalScrollView;
 
 public class DetectHorizontalScrollView extends HorizontalScrollView {
+    /**
+     * Private method description.
+     */
     private Runnable scrollerTask;
     private int intitPosition;
     private int newCheck = 100;
     private int childWidth = 0;
 
+    /**
+     * Method description.
+     */
     public interface OnScrollStopListner {
         /**
          * scroll have stoped
@@ -35,8 +41,14 @@ public class DetectHorizontalScrollView extends HorizontalScrollView {
         void onScrollChanged(int l, int t, int oldl, int oldt);
     }
 
+    /**
+     * Private method description.
+     */
     private OnScrollStopListner onScrollstopListner;
 
+    /**
+     * Method description.
+     */
     public DetectHorizontalScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
         scrollerTask = new Runnable() {
@@ -65,16 +77,25 @@ public class DetectHorizontalScrollView extends HorizontalScrollView {
         };
     }
 
+    /**
+     * Method description.
+     */
     public void setOnScrollStopListner(OnScrollStopListner listner) {
         onScrollstopListner = listner;
     }
 
+    /**
+     * Method description.
+     */
     public void startScrollerTask() {
         intitPosition = getScrollX();
         postDelayed(scrollerTask, newCheck);
         checkTotalWidth();
     }
 
+    /**
+     * Private method description.
+     */
     private void checkTotalWidth() {
         if (childWidth > 0) {
             return;

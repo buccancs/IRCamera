@@ -12,27 +12,33 @@ import androidx.annotation.NonNull;
 import com.topdon.ble.callback.ScanListener;
 import com.topdon.ble.util.Logger;
 
-/**
- * 蓝牙搜索器
  * <p>
  * date: 2021/8/12 12:30
  * author: bichuanfeng
- */
 class LeScanner extends AbstractScanner {
+    /**
+     * Private method description.
+     */
     private BluetoothLeScanner bleScanner;
 
     LeScanner(EasyBLE easyBle, BluetoothAdapter bluetoothAdapter) {
-        super(easyBle, bluetoothAdapter);       
+        super(easyBle, bluetoothAdapter);
     }
 
+    /**
+     * Private method description.
+     */
     private BluetoothLeScanner getLeScanner() {
         if (bleScanner == null) {
-            //如果蓝牙未开启的时候，获取到是null
+            //null
             bleScanner = bluetoothAdapter.getBluetoothLeScanner();
         }
         return bleScanner;
     }
 
+    /**
+     * Private method description.
+     */
     private final ScanCallback scanCallback = new ScanCallback() {
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
@@ -74,6 +80,9 @@ class LeScanner extends AbstractScanner {
 
     @NonNull
     @Override
+    /**
+     * Method description.
+     */
     public ScannerType getType() {
         return ScannerType.LE;
     }

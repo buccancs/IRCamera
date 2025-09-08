@@ -57,6 +57,9 @@ public class LineChartRenderer extends LineRadarRenderer {
     protected Path cubicPath = new Path();
     protected Path cubicFillPath = new Path();
 
+    /**
+     * Method description.
+     */
     public LineChartRenderer(LineDataProvider chart, ChartAnimator animator,
                              ViewPortHandler viewPortHandler) {
         super(animator, viewPortHandler);
@@ -68,10 +71,16 @@ public class LineChartRenderer extends LineRadarRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void initBuffers() {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawData(Canvas c) {
 
         int width = (int) mViewPortHandler.getChartWidth();
@@ -286,6 +295,9 @@ public class LineChartRenderer extends LineRadarRenderer {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private float[] mLineBuffer = new float[4];
 
     /**
@@ -484,6 +496,9 @@ public class LineChartRenderer extends LineRadarRenderer {
      * @param outputPath The path object that will be assigned the chart data.
      * @return
      */
+    /**
+     * Private method description.
+     */
     private void generateFilledPath(final ILineDataSet dataSet, final int startIndex, final int endIndex, final Path outputPath) {
 
         final float fillMin = dataSet.getFillFormatter().getFillLinePosition(dataSet, mChart);
@@ -523,6 +538,9 @@ public class LineChartRenderer extends LineRadarRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawValues(Canvas c) {
 
         if (isDrawingValuesAllowed(mChart)) {
@@ -594,18 +612,27 @@ public class LineChartRenderer extends LineRadarRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawValue(Canvas c, String valueText, float x, float y, int color) {
         mValuePaint.setColor(color);
         c.drawText(valueText, x, y, mValuePaint);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawExtras(Canvas c) {
         drawCircles(c);
     }
 
     /**
      * cache for the circle bitmaps of all datasets
+     */
+    /**
+     * Private method description.
      */
     private HashMap<IDataSet, DataSetImageCache> mImageCaches = new HashMap<>();
 
@@ -693,6 +720,9 @@ public class LineChartRenderer extends LineRadarRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawHighlighted(Canvas c, Highlight[] indices) {
 
         LineData lineData = mChart.getLineData();
@@ -726,6 +756,9 @@ public class LineChartRenderer extends LineRadarRenderer {
      *
      * @param config
      */
+    /**
+     * Method description.
+     */
     public void setBitmapConfig(Bitmap.Config config) {
         mBitmapConfig = config;
         releaseBitmap();
@@ -736,12 +769,18 @@ public class LineChartRenderer extends LineRadarRenderer {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public Bitmap.Config getBitmapConfig() {
         return mBitmapConfig;
     }
 
     /**
      * Releases the drawing bitmap. This should be called when {@link LineChart#onDetachedFromWindow()}.
+     */
+    /**
+     * Method description.
      */
     public void releaseBitmap() {
         if (mBitmapCanvas != null) {
@@ -758,6 +797,9 @@ public class LineChartRenderer extends LineRadarRenderer {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private class DataSetImageCache {
 
         private Path mCirclePathBuffer = new Path();

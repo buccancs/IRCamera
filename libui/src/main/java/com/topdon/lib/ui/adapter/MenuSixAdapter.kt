@@ -8,52 +8,65 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.topdon.lib.ui.R
+import com.csl.irCamera.libui.R
 import com.topdon.lib.ui.bean.ColorBean
+import com.csl.irCamera.libui.databinding.UiItemMenuFourViewBinding
+import com.topdon.menu.R as MenuR
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.lib.ui.listener.SingleClickListener
-import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.item_menu_tab_img
-import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.item_menu_tab_lay
-import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.item_menu_tab_text
 
-@Deprecated("看起来是旧版 2D 编辑的菜单，根本没使用了")
+@Deprecated(" 2D ，")
 class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    /** listener property */
     var listener: ((index: Int, code: Int) -> Unit)? = null
     private var type = 0
     private var selected = -1
-    private var colorEnable = false //伪彩条
-    private var contrastEnable = false //对比度
-    private var ddeEnable = false //细节
+    private var colorEnable = false //
+    private var contrastEnable = false //
+    private var ddeEnable = false //
 
+    /**
+     * Function description.
+     */
     fun selected(index: Int) {
         selected = index
         notifyDataSetChanged()
     }
 
+    /**
+     * Function description.
+     */
     fun enColor(colorEnable: Boolean) {
         this.colorEnable = colorEnable
         notifyDataSetChanged()
     }
 
+    /**
+     * Function description.
+     */
     fun enContrast(param: Boolean) {
         this.contrastEnable = param
         notifyDataSetChanged()
     }
 
+    /**
+     * Function description.
+     */
     fun enDde(param: Boolean) {
         this.ddeEnable = param
         notifyDataSetChanged()
     }
 
     private val fourBean = arrayListOf(
-        ColorBean(R.drawable.selector_menu2_setting_1, context.getString(R.string.thermal_pseudo), 1),
-        ColorBean(R.drawable.selector_menu2_setting_2, context.getString(R.string.thermal_contrast), 2),
-        ColorBean(R.drawable.selector_menu2_setting_3, context.getString(R.string.thermal_sharpen), 3),
+        ColorBean(MenuR.drawable.selector_menu2_setting_1, context.getString(MenuR.string.thermal_pseudo), 1),
+        ColorBean(MenuR.drawable.selector_menu2_setting_2, context.getString(MenuR.string.thermal_contrast), 2),
+        ColorBean(MenuR.drawable.selector_menu2_setting_3, context.getString(MenuR.string.thermal_sharpen), 3),
     )
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.ui_item_menu_four_view, parent, false)
-        return ItemView(view)
+        val binding = UiItemMenuFourViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ItemView(binding)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -85,13 +98,12 @@ class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.V
         }
     }
 
-    // 状态变化
     private fun iconUI(isActive: Boolean, img: ImageView, nameText: TextView) {
         img.isSelected = isActive
         if (isActive) {
             nameText.setTextColor(ContextCompat.getColor(context, R.color.white))
         } else {
-            nameText.setTextColor(ContextCompat.getColor(context, R.color.font_third_color))
+            nameText.setTextColor(ContextCompat.getColor(context, LibAppR.color.font_third_color))
         }
     }
 
@@ -99,10 +111,10 @@ class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.V
         return fourBean.size
     }
 
-    inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val lay: View = itemView.item_menu_tab_lay
-        val img: ImageView = itemView.item_menu_tab_img
-        val name: TextView = itemView.item_menu_tab_text
+    inner class ItemView(val binding: UiItemMenuFourViewBinding) : RecyclerView.ViewHolder(binding.root) {
+        val lay: View = binding.itemMenuTabLay
+        val img: ImageView = binding.itemMenuTabImg
+        val name: TextView = binding.itemMenuTabText
     }
 
 }

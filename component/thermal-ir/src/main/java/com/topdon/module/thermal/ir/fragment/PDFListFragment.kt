@@ -33,37 +33,36 @@ import com.topdon.lms.sdk.utils.StringUtils
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.lms.sdk.xutils.http.RequestParams
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.adapter.PDFAdapter
 import com.topdon.module.thermal.ir.report.viewmodel.PdfViewModel
-import kotlinx.android.synthetic.main.fragment_pdf_list.*
+import com.topdon.module.thermal.ir.databinding.FragmentPdfListBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 
-/**
  * @author: CaiSongL
  * @date: 2023/5/12 11:34
- */
 class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
 
-    /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
-     */
+     * TC007 .
+     * true-TC007 false
     private var isTC007 = false
 
     private var page = 1
     private var reportAdapter = PDFAdapter(R.layout.item_pdf)
+    
+    private var _binding: FragmentPdfListBinding? = null
+    private val binding get() = _binding!!
 
-    /**
-     * LMS 登录及退出登录广播.
-     */
+     * LMS .
     private val loginBroadcastReceiver = LoginBroadcastReceiver()
 
     override fun providerVMClass() = PdfViewModel::class.java
 
     override fun initContentView(): Int {
+        _binding = FragmentPdfListBinding.inflate(layoutInflater)
         return R.layout.fragment_pdf_list
     }
 
@@ -84,22 +83,21 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
             }
             if (it == null) {
                 if (page == 1) {
-                    fragment_pdf_recycler_lay.finishRefresh(false)
+                    binding.fragmentPdfRecyclerLay.finishRefresh(false)
                 } else {
                     reportAdapter.loadMoreModule.loadMoreComplete()
                 }
             }
             it?.let {data->
                 val tvEmpty: TextView? = reportAdapter.emptyLayout?.findViewById(R.id.tv_empty)
-                tvEmpty?.setText(if (page == 1 && data.code != LMS.SUCCESS) R.string.request_fail else R.string.tip_no_more_data)
+                tvEmpty?.setText(if (page == 1 && data.code != LMS.SUCCESS) LibAppR.string.http_code_else else LibAppR.string.tip_no_more_data)
 
                 if (page == 1) {
-                    //刷新
                     if (data.code == LMS.SUCCESS){
                         reportAdapter.loadMoreModule.isEnableLoadMore = !data.data?.records.isNullOrEmpty()
-                        fragment_pdf_recycler_lay.finishRefresh()
+                        binding.fragmentPdfRecyclerLay.finishRefresh()
                     }else{
-                        fragment_pdf_recycler_lay.finishRefresh(false)
+                        binding.fragmentPdfRecyclerLay.finishRefresh(false)
                     }
                     reportAdapter.setNewInstance(data.data?.records)
                 } else {
@@ -125,15 +123,12 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
                 }
                 if (!hasLoadData) {
                     hasLoadData = true
-                    fragment_pdf_recycler_lay.autoRefresh()
+                    binding.fragmentPdfRecyclerLay.autoRefresh()
                 }
             }
         })
     }
 
-    /**
-     * 是否已调用过加载初始数据
-     */
     private var hasLoadData = false
 
     override fun initData() {
@@ -162,8 +157,8 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
         reportAdapter.delListener = {item, position ->
             val reportBean = item.reportContent
             TipDialog.Builder(requireContext())
-                .setMessage(getString(R.string.tip_config_delete, reportBean?.report_info?.report_name ?: ""))
-                .setPositiveListener(R.string.app_confirm) {
+                .setMessage(getString(LibAppR.string.tip_config_delete, reportBean?.report_info?.report_name ?: ""))
+                .setPositiveListener(LibAppR.string.app_confirm) {
                     lifecycleScope.launch {
                         showLoadingDialog()
                         withContext(Dispatchers.IO){
@@ -172,7 +167,7 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
                             params.addBodyParameter("modelId", if (isTC007) 1783 else 950) //TC001-950, TC002-951, TC003-952 TC007-1783
                             params.addBodyParameter("testReportIds", arrayOf(item.testReportId))
                             params.addBodyParameter("status", 1)
-                            params.addBodyParameter("languageId",  LanguageUtil.getLanguageId(Utils.getApp()))
+                            params.addBodyParameter("languageId", LanguageUtil.getLanguageId(Utils.getApp()))
                             params.addBodyParameter("reportType", 2)
                             HttpProxy.instant.post(url,params, object :
                                 IResponseCallback {
@@ -182,7 +177,7 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
                                     if (file.exists()) {
                                         file.delete()
                                     }
-                                    Log.w("删除成功",response.toString())
+                                    Log.w("",response.toString())
                                 }
 
                                 override fun onFail(exception: Exception?) {
@@ -216,7 +211,7 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
                     }
 
                 }
-                .setCancelListener(R.string.app_cancel) {
+                .setCancelListener(LibAppR.string.app_cancel) {
 
                 }
                 .create().show()
@@ -228,18 +223,21 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
         }
         reportAdapter.loadMoreModule.loadMoreView = CommLoadMoreView()
         reportAdapter.loadMoreModule.setOnLoadMoreListener {
-            //加载更多
             viewModel.getReportData(isTC007, ++page)
         }
 
-        fragment_pdf_recycler.adapter = reportAdapter
-        fragment_pdf_recycler.layoutManager = LinearLayoutManager(requireContext())
-        fragment_pdf_recycler_lay.setOnRefreshListener {
-            //刷新
+        binding.fragmentPdfRecycler.adapter = reportAdapter
+        binding.fragmentPdfRecycler.layoutManager = LinearLayoutManager(requireContext())
+        binding.fragmentPdfRecyclerLay.setOnRefreshListener {
             page = 1
             viewModel.getReportData(isTC007, page)
         }
 
-        fragment_pdf_recycler_lay.setEnableLoadMore(false)
+        binding.fragmentPdfRecyclerLay.setEnableLoadMore(false)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

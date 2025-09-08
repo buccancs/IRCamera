@@ -19,6 +19,9 @@ class MenuRecyclerView : RecyclerView {
         defStyleAttr
     )
 
+    /**
+     * Function description.
+     */
     fun initType(type: Int) {
         val span = when (type) {
             1 -> 2

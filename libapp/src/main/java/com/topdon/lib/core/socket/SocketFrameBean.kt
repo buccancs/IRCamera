@@ -1,180 +1,298 @@
 package com.topdon.lib.core.socket
 
-/**
- * TC007 Socket 一帧数据.
- * @param isMaxShow 最高温点是否显示
- * @param isMinShow 最低温点是否显示
- * @param isCenterShow 中心点是否显示
- * @param maxX 最高温点 X 轴坐标
- * @param maxY 最高温点 Y 轴坐标
- * @param maxValue 最高温点温度值，单位摄氏度*10
- * @param minX 最低温点 X 轴坐标
- * @param minY 最低温点 Y 轴坐标
- * @param minValue 最低温点温度值，单位摄氏度*10
- * @param centerX 中心点 X 轴坐标
- * @param centerY 中心点 Y 轴坐标
- * @param centerValue 中心点温度值，单位摄氏度*10
- * @param isMaxWarn 整帧高温点报警是否开启
- * @param isMinWarn 整帧低温点报警是否开启
- * @param isCenterWarn 整帧中心点报警是否开启
- *
- * @param isP1Show 点1是否显示
- * @param p1X 点1 X 轴坐标
- * @param p1Y 点1 Y 轴坐标
- * @param p1Value 点1温度值，单位摄氏度*10
- * @param isP1MaxWarn 点1高温点报警是否开启
- * @param isP1MinWarn 点1低温点报警是否开启
- * @param isP1CenterWarn 点1中心点报警是否开启
- *
- * @param isL1Show 线1是否显示
- * @param l1StartX 线1起始点 X 轴坐标
- * @param l1StartY 线1起始点 Y 轴坐标
- * @param l1EndX 线1终止点 X 轴坐标
- * @param l1EndY 线1终止点 Y 轴坐标
- * @param l1MaxX 线1最高温点 X 轴坐标
- * @param l1MaxY 线1最高温点 Y 轴坐标
- * @param l1MaxValue 线1最高温点温度值，单位摄氏度*10
- * @param l1MinX 线1最低温点 X 轴坐标
- * @param l1MinY 线1最低温点 Y 轴坐标
- * @param l1MinValue 线1最低温点温度值，单位摄氏度*10
- * @param l1AveValue 线1平均温，单位摄氏度*10
- * @param isL1MaxWarn 线1高温点报警是否开启
- * @param isL1MinWarn 线1低温点报警是否开启
- * @param isL1CenterWarn 线1中心点报警是否开启
- */
+ * TC007 Socket .
+ * @param isMaxShow
+ * @param isMinShow
+ * @param isCenterShow
+ * @param maxX  X
+ * @param maxY  Y
+ * @param maxValue *10
+ * @param minX  X
+ * @param minY  Y
+ * @param minValue *10
+ * @param centerX  X
+ * @param centerY  Y
+ * @param centerValue *10
+ * @param isMaxWarn
+ * @param isMinWarn
+ * @param isCenterWarn
+ * @param isP1Show 1
+ * @param p1X 1 X
+ * @param p1Y 1 Y
+ * @param p1Value 1*10
+ * @param isP1MaxWarn 1
+ * @param isP1MinWarn 1
+ * @param isP1CenterWarn 1
+ * @param isL1Show 1
+ * @param l1StartX 1 X
+ * @param l1StartY 1 Y
+ * @param l1EndX 1 X
+ * @param l1EndY 1 Y
+ * @param l1MaxX 1 X
+ * @param l1MaxY 1 Y
+ * @param l1MaxValue 1*10
+ * @param l1MinX 1 X
+ * @param l1MinY 1 Y
+ * @param l1MinValue 1*10
+ * @param l1AveValue 1*10
+ * @param isL1MaxWarn 1
+ * @param isL1MinWarn 1
+ * @param isL1CenterWarn 1
 data class SocketFrameBean(
-    //整帧测温结果
+    /** isMaxShow property */
     val isMaxShow: Boolean,
+    /** isMinShow property */
     val isMinShow: Boolean,
+    /** isCenterShow property */
     val isCenterShow: Boolean,
+    /** maxX property */
     val maxX: Int,
+    /** maxY property */
     val maxY: Int,
+    /** maxValue property */
     val maxValue: Int,
+    /** minX property */
     val minX: Int,
+    /** minY property */
     val minY: Int,
+    /** minValue property */
     val minValue: Int,
+    /** centerX property */
     val centerX: Int,
+    /** centerY property */
     val centerY: Int,
+    /** centerValue property */
     val centerValue: Int,
+    /** isMaxWarn property */
     val isMaxWarn: Boolean,
+    /** isMinWarn property */
     val isMinWarn: Boolean,
+    /** isCenterWarn property */
     val isCenterWarn: Boolean,
 
-    //点测温结果
+    /** isP1Show property */
     val isP1Show: Boolean,
+    /** p1X property */
     val p1X: Int,
+    /** p1Y property */
     val p1Y: Int,
+    /** p1Value property */
     val p1Value: Int,
+    /** isP1MaxWarn property */
     val isP1MaxWarn: Boolean,
+    /** isP1MinWarn property */
     val isP1MinWarn: Boolean,
+    /** isP1CenterWarn property */
     val isP1CenterWarn: Boolean,
+    /** isP2Show property */
     val isP2Show: Boolean,
+    /** p2X property */
     val p2X: Int,
+    /** p2Y property */
     val p2Y: Int,
+    /** p2Value property */
     val p2Value: Int,
+    /** isP2MaxWarn property */
     val isP2MaxWarn: Boolean,
+    /** isP2MinWarn property */
     val isP2MinWarn: Boolean,
+    /** isP2CenterWarn property */
     val isP2CenterWarn: Boolean,
+    /** isP3Show property */
     val isP3Show: Boolean,
+    /** p3X property */
     val p3X: Int,
+    /** p3Y property */
     val p3Y: Int,
+    /** p3Value property */
     val p3Value: Int,
+    /** isP3MaxWarn property */
     val isP3MaxWarn: Boolean,
+    /** isP3MinWarn property */
     val isP3MinWarn: Boolean,
+    /** isP3CenterWarn property */
     val isP3CenterWarn: Boolean,
 
-    //线测温结果
+    /** isL1Show property */
     val isL1Show: Boolean,
+    /** l1StartX property */
     val l1StartX: Int,
+    /** l1StartY property */
     val l1StartY: Int,
+    /** l1EndX property */
     val l1EndX: Int,
+    /** l1EndY property */
     val l1EndY: Int,
+    /** l1MaxX property */
     val l1MaxX: Int,
+    /** l1MaxY property */
     val l1MaxY: Int,
+    /** l1MaxValue property */
     val l1MaxValue: Int,
+    /** l1MinX property */
     val l1MinX: Int,
+    /** l1MinY property */
     val l1MinY: Int,
+    /** l1MinValue property */
     val l1MinValue: Int,
+    /** l1AveValue property */
     val l1AveValue: Int,
+    /** isL1MaxWarn property */
     val isL1MaxWarn: Boolean,
+    /** isL1MinWarn property */
     val isL1MinWarn: Boolean,
+    /** isL1CenterWarn property */
     val isL1CenterWarn: Boolean,
+    /** isL2Show property */
     val isL2Show: Boolean,
+    /** l2StartX property */
     val l2StartX: Int,
+    /** l2StartY property */
     val l2StartY: Int,
+    /** l2EndX property */
     val l2EndX: Int,
+    /** l2EndY property */
     val l2EndY: Int,
+    /** l2MaxX property */
     val l2MaxX: Int,
+    /** l2MaxY property */
     val l2MaxY: Int,
+    /** l2MaxValue property */
     val l2MaxValue: Int,
+    /** l2MinX property */
     val l2MinX: Int,
+    /** l2MinY property */
     val l2MinY: Int,
+    /** l2MinValue property */
     val l2MinValue: Int,
+    /** l2AveValue property */
     val l2AveValue: Int,
+    /** isL2MaxWarn property */
     val isL2MaxWarn: Boolean,
+    /** isL2MinWarn property */
     val isL2MinWarn: Boolean,
+    /** isL2CenterWarn property */
     val isL2CenterWarn: Boolean,
+    /** isL3Show property */
     val isL3Show: Boolean,
+    /** l3StartX property */
     val l3StartX: Int,
+    /** l3StartY property */
     val l3StartY: Int,
+    /** l3EndX property */
     val l3EndX: Int,
+    /** l3EndY property */
     val l3EndY: Int,
+    /** l3MaxX property */
     val l3MaxX: Int,
+    /** l3MaxY property */
     val l3MaxY: Int,
+    /** l3MaxValue property */
     val l3MaxValue: Int,
+    /** l3MinX property */
     val l3MinX: Int,
+    /** l3MinY property */
     val l3MinY: Int,
+    /** l3MinValue property */
     val l3MinValue: Int,
+    /** l3AveValue property */
     val l3AveValue: Int,
+    /** isL3MaxWarn property */
     val isL3MaxWarn: Boolean,
+    /** isL3MinWarn property */
     val isL3MinWarn: Boolean,
+    /** isL3CenterWarn property */
     val isL3CenterWarn: Boolean,
 
-    //区域测温结果
+    /** isR1Show property */
     val isR1Show: Boolean,
+    /** r1StartX property */
     val r1StartX: Int,
+    /** r1StartY property */
     val r1StartY: Int,
+    /** r1EndX property */
     val r1EndX: Int,
+    /** r1EndY property */
     val r1EndY: Int,
+    /** r1MaxX property */
     val r1MaxX: Int,
+    /** r1MaxY property */
     val r1MaxY: Int,
+    /** r1MaxValue property */
     val r1MaxValue: Int,
+    /** r1MinX property */
     val r1MinX: Int,
+    /** r1MinY property */
     val r1MinY: Int,
+    /** r1MinValue property */
     val r1MinValue: Int,
+    /** r1AveValue property */
     val r1AveValue: Int,
+    /** isR1MaxWarn property */
     val isR1MaxWarn: Boolean,
+    /** isR1MinWarn property */
     val isR1MinWarn: Boolean,
+    /** isR1CenterWarn property */
     val isR1CenterWarn: Boolean,
+    /** isR2Show property */
     val isR2Show: Boolean,
+    /** r2StartX property */
     val r2StartX: Int,
+    /** r2StartY property */
     val r2StartY: Int,
+    /** r2EndX property */
     val r2EndX: Int,
+    /** r2EndY property */
     val r2EndY: Int,
+    /** r2MaxX property */
     val r2MaxX: Int,
+    /** r2MaxY property */
     val r2MaxY: Int,
+    /** r2MaxValue property */
     val r2MaxValue: Int,
+    /** r2MinX property */
     val r2MinX: Int,
+    /** r2MinY property */
     val r2MinY: Int,
+    /** r2MinValue property */
     val r2MinValue: Int,
+    /** r2AveValue property */
     val r2AveValue: Int,
+    /** isR2MaxWarn property */
     val isR2MaxWarn: Boolean,
+    /** isR2MinWarn property */
     val isR2MinWarn: Boolean,
+    /** isR2CenterWarn property */
     val isR2CenterWarn: Boolean,
+    /** isR3Show property */
     val isR3Show: Boolean,
+    /** r3StartX property */
     val r3StartX: Int,
+    /** r3StartY property */
     val r3StartY: Int,
+    /** r3EndX property */
     val r3EndX: Int,
+    /** r3EndY property */
     val r3EndY: Int,
+    /** r3MaxX property */
     val r3MaxX: Int,
+    /** r3MaxY property */
     val r3MaxY: Int,
+    /** r3MaxValue property */
     val r3MaxValue: Int,
+    /** r3MinX property */
     val r3MinX: Int,
+    /** r3MinY property */
     val r3MinY: Int,
+    /** r3MinValue property */
     val r3MinValue: Int,
+    /** r3AveValue property */
     val r3AveValue: Int,
+    /** isR3MaxWarn property */
     val isR3MaxWarn: Boolean,
+    /** isR3MinWarn property */
     val isR3MinWarn: Boolean,
+    /** isR3CenterWarn property */
     val isR3CenterWarn: Boolean,
 ) {
 
@@ -311,7 +429,7 @@ data class SocketFrameBean(
     )
 
     companion object {
-        private fun Boolean.openText(): String = if (this) "开启" else "关闭"
+        private fun Boolean.openText(): String = if (this) "" else ""
 
         private fun Int.toCStr(): String = "${this / 10}${if (this % 10 == 0) "" else ".${this % 10}"}°C"
     }
@@ -320,55 +438,55 @@ data class SocketFrameBean(
         val stringBuilder = StringBuilder()
 
         if (isMaxShow) {
-            stringBuilder.append("高温点 ($maxX, $maxY) 温度${maxValue.toCStr()} 报警${isMaxWarn.openText()}\n")
+            stringBuilder.append(" ($maxX, $maxY) ${maxValue.toCStr()} ${isMaxWarn.openText()}\n")
         }
         if (isMinShow) {
-            stringBuilder.append("低温点 ($minX, $minY) 温度${minValue.toCStr()} 报警${isMinWarn.openText()}\n")
+            stringBuilder.append(" ($minX, $minY) ${minValue.toCStr()} ${isMinWarn.openText()}\n")
         }
         if (isCenterShow) {
-            stringBuilder.append("中心点 ($centerX, $centerY) 温度${centerValue.toCStr()} 报警${isCenterWarn.openText()}\n")
+            stringBuilder.append(" ($centerX, $centerY) ${centerValue.toCStr()} ${isCenterWarn.openText()}\n")
         }
 
         if (isP1Show) {
-            stringBuilder.append("点1 ($p1X, $p1Y) 温度${p1Value.toCStr()}\n")
+            stringBuilder.append("1 ($p1X, $p1Y) ${p1Value.toCStr()}\n")
         }
         if (isP2Show) {
-            stringBuilder.append("点2 ($p2X, $p2Y) 温度${p2Value.toCStr()}\n")
+            stringBuilder.append("2 ($p2X, $p2Y) ${p2Value.toCStr()}\n")
         }
         if (isP3Show) {
-            stringBuilder.append("点3 ($p3X, $p3Y) 温度${p3Value.toCStr()}\n")
+            stringBuilder.append("3 ($p3X, $p3Y) ${p3Value.toCStr()}\n")
         }
 
         if (isL1Show) {
-            stringBuilder.append("线1 ($l1StartX, $l1StartY)-($l1EndX, $l1EndY) ")
-            stringBuilder.append("最低温${l1MinValue.toCStr()}($l1MinX, $l1MinY) 最高温${l1MaxValue.toCStr()}($l1MaxX, $l1MaxY) ")
-            stringBuilder.append("平均温${l1AveValue.toCStr()}\n")
+            stringBuilder.append("1 ($l1StartX, $l1StartY)-($l1EndX, $l1EndY) ")
+            stringBuilder.append("${l1MinValue.toCStr()}($l1MinX, $l1MinY) ${l1MaxValue.toCStr()}($l1MaxX, $l1MaxY) ")
+            stringBuilder.append("${l1AveValue.toCStr()}\n")
         }
         if (isL2Show) {
-            stringBuilder.append("线2 ($l2StartX, $l2StartY)-($l2EndX, $l2EndY) ")
-            stringBuilder.append("最低温${l2MinValue.toCStr()}($l2MinX, $l2MinY) 最高温${l2MaxValue.toCStr()}($l2MaxX, $l2MaxY) ")
-            stringBuilder.append("平均温${l2AveValue.toCStr()}\n")
+            stringBuilder.append("2 ($l2StartX, $l2StartY)-($l2EndX, $l2EndY) ")
+            stringBuilder.append("${l2MinValue.toCStr()}($l2MinX, $l2MinY) ${l2MaxValue.toCStr()}($l2MaxX, $l2MaxY) ")
+            stringBuilder.append("${l2AveValue.toCStr()}\n")
         }
         if (isL3Show) {
-            stringBuilder.append("线3 ($l3StartX, $l3StartY)-($l3EndX, $l3EndY) ")
-            stringBuilder.append("最低温${l3MinValue.toCStr()}($l3MinX, $l3MinY) 最高温${l3MaxValue.toCStr()}($l3MaxX, $l3MaxY) ")
-            stringBuilder.append("平均温${l3AveValue.toCStr()}\n")
+            stringBuilder.append("3 ($l3StartX, $l3StartY)-($l3EndX, $l3EndY) ")
+            stringBuilder.append("${l3MinValue.toCStr()}($l3MinX, $l3MinY) ${l3MaxValue.toCStr()}($l3MaxX, $l3MaxY) ")
+            stringBuilder.append("${l3AveValue.toCStr()}\n")
         }
 
         if (isR1Show) {
-            stringBuilder.append("面1 ($r1StartX, $r1StartY)-($r1EndX, $r1EndY) ")
-            stringBuilder.append("最低温${r1MinValue.toCStr()}($r1MinX, $r1MinY) 最高温${r1MaxValue.toCStr()}($r1MaxX, $r1MaxY) ")
-            stringBuilder.append("平均温${r1AveValue.toCStr()}\n")
+            stringBuilder.append("1 ($r1StartX, $r1StartY)-($r1EndX, $r1EndY) ")
+            stringBuilder.append("${r1MinValue.toCStr()}($r1MinX, $r1MinY) ${r1MaxValue.toCStr()}($r1MaxX, $r1MaxY) ")
+            stringBuilder.append("${r1AveValue.toCStr()}\n")
         }
         if (isR2Show) {
-            stringBuilder.append("面2 ($r2StartX, $r2StartY)-($r2EndX, $r2EndY) ")
-            stringBuilder.append("最低温${r2MinValue.toCStr()}($r2MinX, $r2MinY) 最高温${r2MaxValue.toCStr()}($r2MaxX, $r2MaxY) ")
-            stringBuilder.append("平均温${l2AveValue.toCStr()}\n")
+            stringBuilder.append("2 ($r2StartX, $r2StartY)-($r2EndX, $r2EndY) ")
+            stringBuilder.append("${r2MinValue.toCStr()}($r2MinX, $r2MinY) ${r2MaxValue.toCStr()}($r2MaxX, $r2MaxY) ")
+            stringBuilder.append("${l2AveValue.toCStr()}\n")
         }
         if (isR3Show) {
-            stringBuilder.append("面3 ($r3StartX, $r3StartY)-($r3EndX, $r3EndY) ")
-            stringBuilder.append("最低温${r3MinValue.toCStr()}($r3MinX, $r3MinY) 最高温${r3MaxValue.toCStr()}($r3MaxX, $r3MaxY) ")
-            stringBuilder.append("平均温${r3AveValue.toCStr()}\n")
+            stringBuilder.append("3 ($r3StartX, $r3StartY)-($r3EndX, $r3EndY) ")
+            stringBuilder.append("${r3MinValue.toCStr()}($r3MinX, $r3MinY) ${r3MaxValue.toCStr()}($r3MaxX, $r3MaxY) ")
+            stringBuilder.append("${r3AveValue.toCStr()}\n")
         }
         return stringBuilder.toString()
     }

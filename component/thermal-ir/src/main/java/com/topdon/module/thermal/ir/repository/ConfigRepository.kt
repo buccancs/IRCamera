@@ -8,21 +8,27 @@ import java.lang.Exception
 
 object ConfigRepository {
 
+    /**
+     * Function description.
+     */
     fun read(isTC007: Boolean): ModelBean = try {
         // Only TC001 is supported now, always use the standard IR config
         Gson().fromJson(SharedManager.getIRConfig(), ModelBean::class.java)
     } catch (_: Exception) {
-        //当SP里没数据必定抛异常，所以这里返回一个默认的
+        //SP
         ModelBean(DataBean(id = 0, use = true))
     }
 
+    /**
+     * Function description.
+     */
     fun update(isTC007: Boolean, bean: ModelBean) {
         // Only TC001 is supported now, always use the standard IR config
         SharedManager.setIRConfig(Gson().toJson(bean))
     }
 
     /**
-     * 读取选中的配置信息
+     * Function description.
      */
     fun readConfig(isTC007: Boolean): DataBean {
         val config = read(isTC007)

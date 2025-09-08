@@ -21,11 +21,13 @@ import com.topdon.lib.core.tools.TimeTool
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
+import com.csl.irCamera.libui.R as LibUiR
+import com.topdon.module.thermal.ir.databinding.ActivityIrVideoGsyBinding
 import com.topdon.lib.core.dialog.ConfirmSelectDialog
 import com.topdon.lib.core.bean.event.GalleryDelEvent
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.thermal.ir.event.GalleryDownloadEvent
-import kotlinx.android.synthetic.main.activity_ir_video_gsy.*
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import tv.danmaku.ijk.media.exo2.Exo2PlayerManager
@@ -35,43 +37,47 @@ import java.io.File
 @Route(path = RouterConfig.IR_VIDEO_GSY)
 class IRVideoGSYActivity : BaseActivity() {
 
+    private lateinit var binding: ActivityIrVideoGsyBinding
     private var isRemote = false
     private lateinit var data: GalleryBean
     override fun initContentView() = R.layout.activity_ir_video_gsy
 
     override fun initView() {
-        BarUtils.setNavBarColor(this, ContextCompat.getColor(this, R.color.black))
+        binding = ActivityIrVideoGsyBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
+        BarUtils.setNavBarColor(this, ContextCompat.getColor(this, LibAppR.color.black))
 
         isRemote = intent.getBooleanExtra("isRemote", false)
-        data = intent.getParcelableExtra("data") ?: throw NullPointerException("传递 data")
+        data = intent.getParcelableExtra("data") ?: throw NullPointerException(" data")
 
-        cl_bottom.isVisible = isRemote //查看远端时底部才有3个按钮
+        binding.clBottom.isVisible = isRemote //3
 
         if (!isRemote) {
-            title_view.setRightDrawable(R.drawable.ic_toolbar_info_svg)
-            title_view.setRight2Drawable(R.drawable.ic_toolbar_share_svg)
-            title_view.setRight3Drawable(R.drawable.ic_toolbar_delete_svg)
-            title_view.setRightClickListener { actionInfo() }
-            title_view.setRight2ClickListener { actionShare() }
-            title_view.setRight3ClickListener { showDeleteDialog() }
+            binding.titleView.setRightDrawable(LibUiR.drawable.ic_toolbar_info_svg)
+            binding.titleView.setRight2Drawable(LibUiR.drawable.ic_toolbar_share_svg)
+            binding.titleView.setRight3Drawable(LibUiR.drawable.ic_toolbar_delete_svg)
+            binding.titleView.setRightClickListener { actionInfo() }
+            binding.titleView.setRight2ClickListener { actionShare() }
+            binding.titleView.setRight3ClickListener { showDeleteDialog() }
         }
 
-        cl_download.setOnClickListener {
+        binding.clDownload.setOnClickListener {
             actionDownload(false)
         }
-        cl_share.setOnClickListener {
+        binding.clShare.setOnClickListener {
             if (data.hasDownload) {
                 actionShare()
             } else {
                 actionDownload(true)
             }
         }
-        cl_delete.setOnClickListener {
+        binding.clDelete.setOnClickListener {
             showDeleteDialog()
         }
 
-        iv_download.isSelected = data.hasDownload
-        iv_download.setImageResource(if (isRemote) R.drawable.selector_download else R.drawable.ic_toolbar_info_svg)
+        binding.ivDownload.isSelected = data.hasDownload
+        binding.ivDownload.setImageResource(if (isRemote) R.drawable.selector_download else LibUiR.drawable.ic_toolbar_info_svg)
 
         previewVideo(isRemote, data.path)
     }
@@ -90,16 +96,15 @@ class IRVideoGSYActivity : BaseActivity() {
 
         GSYVideoOptionBuilder()
             .setUrl(url)
-            .build(gsy_play)
-        //界面设置
-        gsy_play.isNeedShowWifiTip = false //不显示消耗流量弹框
-        gsy_play.titleTextView.visibility = View.GONE
-        gsy_play.backButton.visibility = View.GONE
-        gsy_play.fullscreenButton.visibility = View.GONE
+            .build(binding.gsyPlay)
+        binding.gsyPlay.isNeedShowWifiTip = false //
+        binding.gsyPlay.titleTextView.visibility = View.GONE
+        binding.gsyPlay.backButton.visibility = View.GONE
+        binding.gsyPlay.fullscreenButton.visibility = View.GONE
     }
 
     private fun actionDownload(isToShare: Boolean) {
-        if (data.hasDownload) {//已下载
+        if (data.hasDownload) {//
             if (isToShare) {
                 actionShare()
             }
@@ -112,15 +117,15 @@ class IRVideoGSYActivity : BaseActivity() {
             MediaScannerConnection.scanFile(this@IRVideoGSYActivity, arrayOf(FileConfig.ts004GalleryDir), null, null)
             dismissCameraLoading()
             if (isSuccess) {
-                ToastTools.showShort(R.string.tip_save_success)
+                ToastTools.showShort(LibAppR.string.tip_save_success)
                 EventBus.getDefault().post(GalleryDownloadEvent(data.name))
                 data.hasDownload = true
-                iv_download.isSelected = true
+                binding.ivDownload.isSelected = true
                 if (isToShare) {
                     actionShare()
                 }
             } else {
-                ToastTools.showShort(R.string.liveData_save_error)
+                ToastTools.showShort(LibAppR.string.liveData_save_error)
             }
             window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         }
@@ -129,12 +134,12 @@ class IRVideoGSYActivity : BaseActivity() {
     private fun actionInfo() {
         val sizeStr = FileTools.getFileSize(data.path)
         val str = StringBuilder()
-        str.append(getString(R.string.detail_date)).append("\n")
+        str.append(getString(LibAppR.string.detail_date)).append("\n")
         str.append(TimeTool.showDateType(data.timeMillis)).append("\n\n")
-        str.append(getString(R.string.detail_info)).append("\n")
-//        str.append("尺寸: ").append(whStr).append("\n")
-        str.append("${getString(R.string.detail_len)}: ").append(sizeStr).append("\n")
-        str.append("${getString(R.string.detail_path)}: ").append(data.path).append("\n")
+        str.append(getString(LibAppR.string.detail_info)).append("\n")
+//        str.append(: ).append(whStr).append(\n)
+        str.append("${getString(LibAppR.string.detail_len)}: ").append(sizeStr).append("\n")
+        str.append("${getString(LibAppR.string.detail_path)}: ").append(data.path).append("\n")
         TipDialog.Builder(this)
             .setMessage(str.toString())
             .setCanceled(true)
@@ -147,13 +152,13 @@ class IRVideoGSYActivity : BaseActivity() {
         shareIntent.action = Intent.ACTION_SEND
         shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
         shareIntent.type = "video/*"
-        startActivity(Intent.createChooser(shareIntent, getString(R.string.battery_share)))
+        startActivity(Intent.createChooser(shareIntent, getString(LibAppR.string.battery_share)))
     }
 
     private fun showDeleteDialog() {
         ConfirmSelectDialog(this).run {
-            setTitleRes(R.string.tip_delete)
-            setMessageRes(R.string.also_del_from_phone_album)
+            setTitleRes(LibAppR.string.tip_delete)
+            setMessageRes(LibAppR.string.also_del_from_phone_album)
             setShowMessage(isRemote && data.hasDownload)
             onConfirmClickListener = {
                 deleteFile(it)
@@ -173,12 +178,12 @@ class IRVideoGSYActivity : BaseActivity() {
                         MediaScannerConnection.scanFile(this@IRVideoGSYActivity, arrayOf(FileConfig.ts004GalleryDir), null, null)
                     }
                     dismissCameraLoading()
-                    ToastTools.showShort(R.string.test_results_delete_success)
+                    ToastTools.showShort(LibAppR.string.test_results_delete_success)
                     EventBus.getDefault().post(GalleryDelEvent())
                     finish()
                 } else {
                     dismissCameraLoading()
-                    TToast.shortToast(this@IRVideoGSYActivity, R.string.test_results_delete_failed)
+                    TToast.shortToast(this@IRVideoGSYActivity, LibAppR.string.test_results_delete_failed)
                 }
             }
         } else {
@@ -200,10 +205,10 @@ class IRVideoGSYActivity : BaseActivity() {
     }
 
     private fun getCurPlay(): GSYVideoPlayer {
-        return if (gsy_play.fullWindowPlayer != null) {
-            gsy_play.fullWindowPlayer
+        return if (binding.gsyPlay.fullWindowPlayer != null) {
+            binding.gsyPlay.fullWindowPlayer
         } else {
-            gsy_play
+            binding.gsyPlay
         }
     }
 }

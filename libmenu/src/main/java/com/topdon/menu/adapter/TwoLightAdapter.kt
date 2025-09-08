@@ -7,34 +7,25 @@ import com.topdon.menu.R
 import com.topdon.menu.constant.MenuType
 import com.topdon.menu.constant.TwoLightType
 
+ * -3- Adapter.
+ * - Lite： 、
+ * - ： 1、2、、、、、
+ * - 2D：
+ * 、Lite：、
+ * ：1、2、、 ； 、、
 /**
- * 测温模式-菜单3-双光 菜单所用 Adapter.
- *
- * - 单光：  画中画、融合度
- * - Lite： 画中画、融合度
- * - 双光：  双光1、双光2、红外、可见光、配准、画中画、融合度
- * - 2D编辑：无该菜单
- *
- * 单光、Lite：画中画、融合度 独立可选
- *
- * 双光：双光1、双光2、红外、可见光 互斥； 配准、画中画、融合度 独立可选
- *
- * Created by LCG on 2024/11/20.
+ * @author LCG
+ * @since Unknown
  */
 @SuppressLint("NotifyDataSetChanged")
 internal class TwoLightAdapter(private val menuType: MenuType) : BaseMenuAdapter() {
 
-    /**
-     * 双光菜单点击事件监听。
-     */
+    /** onTwoLightListener property */
     var onTwoLightListener: ((twoLightType: TwoLightType, isSelected: Boolean) -> Unit)? = null
 
-    /**
-     * 当前单选的双光类型
-     * - 单光：  不应该使用这个属性
-     * - Lite： 不应该使用这个属性
-     * - 双光：  双光1、双光2、红外、可见光
-     */
+     * - Lite：
+     * - ： 1、2、、
+    /** twoLightType property */
     var twoLightType: TwoLightType
         get() {
             for (data in dataList) {
@@ -59,17 +50,15 @@ internal class TwoLightAdapter(private val menuType: MenuType) : BaseMenuAdapter
             notifyDataSetChanged()
         }
 
+     * - Lite： 、
     /**
-     * 设置多选状态
-     * - 单光：  画中画、融合度
-     * - Lite： 画中画、融合度
-     * - 双光：  配准、画中画、融合度
+     * Function description.
      */
     fun setSelected(twoLightType: TwoLightType, isSelected: Boolean) {
-        if (twoLightType == TwoLightType.TWO_LIGHT_1 || twoLightType == TwoLightType.TWO_LIGHT_2) {//双光1、双光2
+        if (twoLightType == TwoLightType.TWO_LIGHT_1 || twoLightType == TwoLightType.TWO_LIGHT_2) {//1、2
             return
         }
-        if (twoLightType == TwoLightType.IR || twoLightType == TwoLightType.LIGHT) {//单红外、可见光
+        if (twoLightType == TwoLightType.IR || twoLightType == TwoLightType.LIGHT) {//、
             return
         }
         for (data in dataList) {
@@ -103,12 +92,12 @@ internal class TwoLightAdapter(private val menuType: MenuType) : BaseMenuAdapter
         holder.binding.ivIcon.isSelected = data.isSelected
         holder.binding.tvText.isSelected = data.isSelected
         holder.binding.clRoot.setOnClickListener {
-            if (data.isSingle) {//单选
-                if (!data.isSelected) {//单选的情况下重复点击忽略掉
+            if (data.isSingle) {//
+                if (!data.isSelected) {//
                     twoLightType = data.twoLightType
                     onTwoLightListener?.invoke(data.twoLightType, true)
                 }
-            } else {//多选
+            } else {//
                 data.isSelected = !data.isSelected
                 holder.binding.ivIcon.isSelected = data.isSelected
                 holder.binding.tvText.isSelected = data.isSelected
@@ -119,10 +108,8 @@ internal class TwoLightAdapter(private val menuType: MenuType) : BaseMenuAdapter
 
     override fun getItemCount(): Int = dataList.size
 
-    /**
-     * @param isSingle 是否单选，目前只有1组互斥的单选，故而 Boolean 足够用了
-     * @param isSelected 当前是否选中
-     */
+     * @param isSingle ，1， Boolean
+     * @param isSelected
     data class Data(
         @StringRes val stringId: Int,
         @DrawableRes val drawableId: Int,

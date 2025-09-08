@@ -33,34 +33,38 @@ import com.topdon.lib.core.utils.PermissionUtils
 import com.topdon.lms.sdk.LMS
 import com.topdon.module.thermal.ir.BuildConfig
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
+import com.csl.irCamera.libui.R as LibUiR
 import com.topdon.module.thermal.ir.dialog.HomeGuideDialog
 import com.topdon.module.thermal.ir.fragment.IRGalleryTabFragment
 import com.topdon.module.thermal.ir.fragment.IRThermalFragment
 import com.topdon.module.thermal.ir.fragment.AbilityFragment
 import com.topdon.module.thermal.ir.fragment.PDFListFragment
-import kotlinx.android.synthetic.main.activity_ir_main.*
+import com.topdon.module.thermal.ir.databinding.ActivityIrMainBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 
+ *   TC007 .
+ * [ExtraKeyConfig.IS_TC007] -  TC007
 /**
- * 插件式 或 TC007 首页.
- *
- * 需要传递参数：
- * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
- *
- * Created by LCG on 2024/4/18.
+ * @author LCG
+ * @since Unknown
  */
 @Route(path = RouterConfig.IR_MAIN)
 class IRMainActivity : BaseActivity(), View.OnClickListener {
 
-    /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
-     */
+    private lateinit var binding: ActivityIrMainBinding
+
+     * TC007 .
+     * true-TC007 false
     private var isTC007 = false
 
-    override fun initContentView(): Int = R.layout.activity_ir_main
+    override fun initContentView(): Int {
+        binding = ActivityIrMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        return 0
+    }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
@@ -70,21 +74,21 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
     override fun initView() {
         isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
 
-        view_page.offscreenPageLimit = 5
-        view_page.isUserInputEnabled = false
-        view_page.adapter = ViewPagerAdapter(this, isTC007)
-        view_page.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        binding.viewPage.offscreenPageLimit = 5
+        binding.viewPage.isUserInputEnabled = false
+        binding.viewPage.adapter = ViewPagerAdapter(this, isTC007)
+        binding.viewPage.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 refreshTabSelect(position)
             }
         })
-        view_page.setCurrentItem(2, false)
+        binding.viewPage.setCurrentItem(2, false)
 
-        cl_icon_monitor.setOnClickListener(this)
-        cl_icon_gallery.setOnClickListener(this)
-        view_main_thermal.setOnClickListener(this)
-        cl_icon_report.setOnClickListener(this)
-        cl_icon_mine.setOnClickListener(this)
+        binding.clIconMonitor.setOnClickListener(this)
+        binding.clIconGallery.setOnClickListener(this)
+        binding.viewMainThermal.setOnClickListener(this)
+        binding.clIconReport.setOnClickListener(this)
+        binding.clIconMine.setOnClickListener(this)
 
         showGuideDialog()
     }
@@ -95,19 +99,19 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
         if (isTC007) {
             if (WebSocketProxy.getInstance().isTC007Connect()) {
                 NetWorkUtils.switchNetwork(false)
-                iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_connect)
+                binding.ivMainBg.setImageResource(R.drawable.ic_ir_main_bg_connect)
                 lifecycleScope.launch {
                     // TC001 uses USB connection, time sync not available via network
                 }
                 // TC001 connection logic - removed TC007 auto-open since only TC001 is supported
             } else {
-                iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
+                binding.ivMainBg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
             }
         } else {
             if (DeviceTools.isConnect(isAutoRequest = false)) {
-                iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_connect)
+                binding.ivMainBg.setImageResource(R.drawable.ic_ir_main_bg_connect)
             } else {
-                iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
+                binding.ivMainBg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
             }
         }
     }
@@ -117,124 +121,120 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
 
     override fun connected() {
         if (!isTC007) {
-            iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_connect)
+            binding.ivMainBg.setImageResource(R.drawable.ic_ir_main_bg_connect)
         }
     }
 
     override fun disConnected() {
         if (!isTC007) {
-            iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
+            binding.ivMainBg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
         }
     }
 
     override fun onSocketConnected(isTS004: Boolean) {
         if (!isTS004 && isTC007) {
-            iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_connect)
+            binding.ivMainBg.setImageResource(R.drawable.ic_ir_main_bg_connect)
         }
     }
 
     override fun onSocketDisConnected(isTS004: Boolean) {
         if (!isTS004 && isTC007) {
-            iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
+            binding.ivMainBg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
         }
     }
 
     override fun onClick(v: View?) {
         when (v) {
-            cl_icon_monitor -> {//监控
-                view_page.setCurrentItem(0, false)
+            binding.clIconMonitor -> {//
+                binding.viewPage.setCurrentItem(0, false)
             }
-            cl_icon_gallery -> {//图库
+            binding.clIconGallery -> {//
                 checkStoragePermission()
             }
-            view_main_thermal -> {//首页
-                view_page.setCurrentItem(2, false)
+            binding.viewMainThermal -> {//
+                binding.viewPage.setCurrentItem(2, false)
             }
-            cl_icon_report -> {//报告
+            binding.clIconReport -> {//
                 if (LMS.getInstance().isLogin) {
-                    view_page.setCurrentItem(3, false)
+                    binding.viewPage.setCurrentItem(3, false)
                 } else {
                     LMS.getInstance().activityLogin(null) {
                         if (it) {
-                            view_page.setCurrentItem(3, false)
+                            binding.viewPage.setCurrentItem(3, false)
                             EventBus.getDefault().post(PDFEvent())
                         }
                     }
                 }
             }
-            cl_icon_mine -> {//我的
-                view_page.setCurrentItem(4, false)
+            binding.clIconMine -> {//
+                binding.viewPage.setCurrentItem(4, false)
             }
         }
     }
 
-    /**
-     * 刷新 5 个 tab 的选中状态
-     * @param index 当前选中哪个 tab，`[0, 4]`
-     */
+     *  5  tab
+     * @param index  tab`[0, 4]`
     private fun refreshTabSelect(index: Int) {
-        iv_icon_monitor.isSelected = false
-        tv_icon_monitor.isSelected = false
-        iv_icon_gallery.isSelected = false
-        tv_icon_gallery.isSelected = false
-        iv_icon_report.isSelected = false
-        tv_icon_report.isSelected = false
-        iv_icon_mine.isSelected = false
-        tv_icon_mine.isSelected = false
+        binding.ivIconMonitor.isSelected = false
+        binding.tvIconMonitor.isSelected = false
+        binding.ivIconGallery.isSelected = false
+        binding.tvIconGallery.isSelected = false
+        binding.ivIconReport.isSelected = false
+        binding.tvIconReport.isSelected = false
+        binding.ivIconMine.isSelected = false
+        binding.tvIconMine.isSelected = false
 
         when (index) {
             0 -> {
-                iv_icon_monitor.isSelected = true
-                tv_icon_monitor.isSelected = true
+                binding.ivIconMonitor.isSelected = true
+                binding.tvIconMonitor.isSelected = true
             }
             1 -> {
-                iv_icon_gallery.isSelected = true
-                tv_icon_gallery.isSelected = true
+                binding.ivIconGallery.isSelected = true
+                binding.tvIconGallery.isSelected = true
             }
             3 -> {
-                iv_icon_report.isSelected = true
-                tv_icon_report.isSelected = true
+                binding.ivIconReport.isSelected = true
+                binding.tvIconReport.isSelected = true
             }
             4 -> {
-                iv_icon_mine.isSelected = true
-                tv_icon_mine.isSelected = true
+                binding.ivIconMine.isSelected = true
+                binding.tvIconMine.isSelected = true
             }
         }
     }
 
-    /**
-     * 显示操作指引弹框.
-     */
+     * .
     private fun showGuideDialog() {
-        if (SharedManager.homeGuideStep == 0) {//已看过或不再提示
+        if (SharedManager.homeGuideStep == 0) {//
             return
         }
 
         when (SharedManager.homeGuideStep) {
-            1 -> view_page.setCurrentItem(0, false)
-            2 -> view_page.setCurrentItem(4, false)
-            3 -> view_page.setCurrentItem(2, false)
+            1 -> binding.viewPage.setCurrentItem(0, false)
+            2 -> binding.viewPage.setCurrentItem(4, false)
+            3 -> binding.viewPage.setCurrentItem(2, false)
         }
 
         val guideDialog = HomeGuideDialog(this, SharedManager.homeGuideStep)
         guideDialog.onNextClickListener = {
             when (it) {
                 1 -> {
-                    view_page.setCurrentItem(4, false)
+                    binding.viewPage.setCurrentItem(4, false)
                     if (Build.VERSION.SDK_INT < 31) {
                         lifecycleScope.launch {
                             delay(100)
-                            guideDialog.blurBg(cl_root)
+                            guideDialog.blurBg(binding.clRoot)
                         }
                     }
                     SharedManager.homeGuideStep = 2
                 }
                 2 -> {
-                    view_page.setCurrentItem(2, false)
+                    binding.viewPage.setCurrentItem(2, false)
                     if (Build.VERSION.SDK_INT < 31) {
                         lifecycleScope.launch {
                             delay(100)
-                            guideDialog.blurBg(cl_root)
+                            guideDialog.blurBg(binding.clRoot)
                         }
                     }
                     SharedManager.homeGuideStep = 3
@@ -258,10 +258,10 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
             window?.decorView?.setRenderEffect(RenderEffect.createBlurEffect(20f, 20f, Shader.TileMode.MIRROR))
         } else {
             lifecycleScope.launch {
-                //界面切换及温度监控历史列表加载均需要时间，所以需要等待1000毫秒再去刷新背景
-                //而若等待1000毫秒太过久，界面会非模糊1000毫秒，所以先刷新一次背景占位
+                //1000
+                //10001000
                 delay(100)
-                guideDialog.blurBg(cl_root)
+                guideDialog.blurBg(binding.clRoot)
             }
         }
     }
@@ -294,9 +294,9 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
         if (!XXPermissions.isGranted(this, permissionList)) {
             if (BaseApplication.instance.isDomestic()) {
                 TipDialog.Builder(this)
-                    .setMessage(getString(R.string.permission_request_storage_app, CommUtils.getAppName()))
-                    .setCancelListener(R.string.app_cancel)
-                    .setPositiveListener(R.string.app_confirm) {
+                    .setMessage(getString(LibAppR.string.permission_request_storage_app, CommUtils.getAppName()))
+                    .setCancelListener(LibAppR.string.app_cancel)
+                    .setPositiveListener(LibAppR.string.app_confirm) {
                         initStoragePermission(permissionList)
                     }
                     .create().show()
@@ -308,12 +308,9 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    /**
-     * 动态申请权限
-     */
     private fun initStoragePermission(permissionList: List<String>) {
         if (PermissionUtils.isVisualUser()){
-            view_page.setCurrentItem(1, false)
+            binding.viewPage.setCurrentItem(1, false)
             return
         }
         XXPermissions.with(this)
@@ -321,20 +318,19 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
             .request(object : OnPermissionCallback {
                 override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
                     if (allGranted) {
-                        view_page.setCurrentItem(1, false)
+                        binding.viewPage.setCurrentItem(1, false)
                     }
                 }
 
                 override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
                     if (doNotAskAgain) {
-                        //拒绝授权并且不再提醒
                         TipDialog.Builder(this@IRMainActivity)
-                            .setTitleMessage(getString(R.string.app_tip))
-                            .setMessage(getString(R.string.app_album_content))
-                            .setPositiveListener(R.string.app_open) {
+                            .setTitleMessage(getString(LibAppR.string.app_tip))
+                            .setMessage(getString(LibAppR.string.app_album_content))
+                            .setPositiveListener(LibAppR.string.app_open) {
                                 AppUtils.launchAppDetailsSettings()
                             }
-                            .setCancelListener(R.string.app_cancel) {
+                            .setCancelListener(LibAppR.string.app_cancel) {
                             }
                             .setCanceled(true)
                             .create().show()
@@ -349,7 +345,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
         override fun getItemCount() = 5
 
         override fun createFragment(position: Int): Fragment {
-            if (position == 1) {//图库
+            if (position == 1) {//
                 return IRGalleryTabFragment().apply {
                     arguments = Bundle().also {
                         val dirType = DirType.LINE.ordinal // TC001 only

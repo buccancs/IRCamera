@@ -6,11 +6,17 @@ import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 
 public class HorizontalBarBuffer extends BarBuffer {
 
+    /**
+     * Method description.
+     */
     public HorizontalBarBuffer(int size, int dataSetCount, boolean containsStacks) {
         super(size, dataSetCount, containsStacks);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void feed(IBarDataSet data) {
 
         float size = data.getEntryCount() * phaseX;

@@ -1,4 +1,6 @@
 package com.topdon.tc001
+import com.csl.irCamera.R
+import com.csl.irCamera.libapp.R as LibAppR
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -12,26 +14,28 @@ import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.DeviceTools
-import kotlinx.android.synthetic.main.activity_device_type.*
-import kotlinx.android.synthetic.main.item_device_type.view.*
+import com.csl.irCamera.databinding.ActivityDeviceTypeBinding
+import com.csl.irCamera.databinding.ItemDeviceTypeBinding
 
+ * .
 /**
- * 设备类型选择.
- *
- * Created by LCG on 2024/4/22.
+ * @author LCG
+ * @since Unknown
  */
 class DeviceTypeActivity : BaseActivity() {
 
-    /**
-     * 当前点击的设备类型.
-     */
+    private lateinit var binding: ActivityDeviceTypeBinding
+    
+     * .
     private var clientType: IRDeviceType? = null
 
     override fun initContentView(): Int = R.layout.activity_device_type
 
     override fun initView() {
-        recycler_view.layoutManager = LinearLayoutManager(this)
-        recycler_view.adapter = MyAdapter(this).apply {
+        binding = ActivityDeviceTypeBinding.bind(findViewById<View>(android.R.id.content).rootView)
+        
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.adapter = MyAdapter(this).apply {
             onItemClickListener = {
                 clientType = it
                 when (it) {
@@ -73,40 +77,41 @@ class DeviceTypeActivity : BaseActivity() {
         )
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_device_type, parent, false))
+            val binding = ItemDeviceTypeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            return ViewHolder(binding)
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val firstType: IRDeviceType = dataList[position].firstType
             val secondType: IRDeviceType? = dataList[position].secondType
-            holder.itemView.tv_title.isVisible = dataList[position].isTitle
-            holder.itemView.tv_title.text = context.getString(if (firstType.isLine()) R.string.tc_connect_line else R.string.tc_connect_wifi)
+            holder.binding.tvTitle.isVisible = dataList[position].isTitle
+            holder.binding.tvTitle.text = context.getString(if (firstType.isLine()) LibAppR.string.tc_connect_line else LibAppR.string.tc_connect_wifi)
 
-            holder.itemView.tv_item1.text = firstType.getDeviceName()
+            holder.binding.tvItem1.text = firstType.getDeviceName()
             when (firstType) {
-                IRDeviceType.TC001 -> holder.itemView.iv_item1.setImageResource(R.drawable.ic_device_type_tc001)
+                IRDeviceType.TC001 -> holder.binding.ivItem1.setImageResource(R.drawable.ic_device_type_tc001)
             }
 
-            holder.itemView.group_item2.isVisible = secondType != null
+            holder.binding.groupItem2.isVisible = secondType != null
             if (secondType != null) {
-                holder.itemView.tv_item2.text = secondType.getDeviceName()
+                holder.binding.tvItem2.text = secondType.getDeviceName()
                 when (secondType) {
-                    IRDeviceType.TC001 -> holder.itemView.iv_item2.setImageResource(R.drawable.ic_device_type_tc001)
+                    IRDeviceType.TC001 -> holder.binding.ivItem2.setImageResource(R.drawable.ic_device_type_tc001)
                 }
             }
         }
 
         override fun getItemCount(): Int = dataList.size
 
-        inner class ViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
+        inner class ViewHolder(val binding: ItemDeviceTypeBinding) : RecyclerView.ViewHolder(binding.root) {
             init {
-                rootView.view_bg_item1.setOnClickListener {
+                binding.viewBgItem1.setOnClickListener {
                     val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         onItemClickListener?.invoke(dataList[position].firstType)
                     }
                 }
-                rootView.view_bg_item2.setOnClickListener {
+                binding.viewBgItem2.setOnClickListener {
                     val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         val irDeviceType: IRDeviceType = dataList[position].secondType ?: return@setOnClickListener
@@ -117,9 +122,7 @@ class DeviceTypeActivity : BaseActivity() {
         }
     }
 
-    /**
-     * 支持的热成像设备类型.
-     */
+     * .
     enum class IRDeviceType {
         TC001 {
             override fun isLine(): Boolean = true

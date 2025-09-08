@@ -239,8 +239,8 @@
 	<string name="third_party_components">komponenty třetích stran</string>
 	<string name="edit_image_error_tip">Obraz postrádá údaje o teplotě a nepodporuje úpravy.</string>
 
-	<!--	捷克czech-->
-	<!-- 2.00版本 -->
+	<!--	czech-->
+	<!-- 2.00 -->
 	<string name="app_lapsePhotography">Časovaná Fotografie</string>
 	<string name="app_Manual_Shutter">Ruční Závěrka</string>
 	<string name="app_record_sound">Záznam Zvuku</string>
@@ -500,7 +500,6 @@
 	<string name="welcome_use_app">Vítejte v %1$s</string>
 
 
-	<!--捷克-->
 
 	<string name="dual_light_correction">Duální Korekce Světla</string>
 	<string name="dual_light_correction_tips_1">Vzhledem k tomu, že zaostření obou kamer není zarovnáno, obrázky zachycené z různých vzdáleností těmito dvěma kamerami nebudou zarovnány.\nTato funkce může pomoci se zarovnáním obrazu samostatně.</string>
@@ -603,7 +602,7 @@
 	<string name="ts004_faq_q5">Jak zobrazím pořízené termosnímky na počítači?</string>
 	<string name="ts004_faq_a5">Připojte TS004 k PC pomocí USB kabelu a poté si můžete prohlížet termosnímky uložené v TS004.</string>
 
-	<!-- TC001 老 APP 引流 -->
+	<!-- TC001  APP  -->
 	<string name="gallery_transfer">Přenos Galerie</string>
 	<string name="gallery_transfer_wait">Data se přenášejí. Prosím, čekejte.</string>
 	<string name="gallery_transfer_complete">Přenos Dat Dokončen</string>
@@ -654,7 +653,6 @@
 	<string name="wifi_connect_loading">Očekává se, že to bude trvat 15s…</string>
 	<string name="tc007_done_fast">Časté operace</string>
 
-	<!-- 房屋检测 -->
 	<string name="main_professional_test">Profesionální Testování</string>
 	<string name="main_temperature_test">Testování Teploty</string>
 	<string name="main_thermal_tips">Profesionální Termovizní Testování</string>
@@ -823,7 +821,6 @@
 	<string name="abnormal_description17">Teplota ohřívače zpětného zrcátka je ovlivněna mnoha faktory, jako je okolní teplota a zatížení ohřívače. Monitorujte teplotu ohřívače pomocí termokamery a poté můžete posoudit, zda lze zadní zrcátko účinně zahřívat.</string>
 	<string name="abnormal_description18">Teplota motoru okna je ovlivněna mnoha faktory, jako je okolní teplota a zatížení motoru. Monitorujte teplotu motoru pomocí termokamery. Pokud je teplota příliš vysoká, může to být způsobeno poruchou mechanismu zvedání okna nebo samotného motoru.</string>
 
-	<!-- 房屋检测新增 -->
 	<string name="vehicle_function">Funkce</string>
 	<string name="ability_find">najít</string>
 	<string name="ability_monitory">Zobrazení teploty objektu v reálném čase pro generování dat</string>

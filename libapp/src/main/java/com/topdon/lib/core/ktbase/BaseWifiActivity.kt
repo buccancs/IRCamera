@@ -7,11 +7,9 @@ import android.view.WindowManager
 import com.hjq.permissions.Permission
 import com.topdon.lib.core.utils.NetWorkUtils
 
-/**
  * des:
  * author: CaiSongL
  * date: 2024/4/28 17:08
- **/
 abstract class BaseWifiActivity : BaseActivity() {
 
 
@@ -32,7 +30,7 @@ abstract class BaseWifiActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         if (Build.VERSION.SDK_INT >= 29) {
-            //Android10 及以上
+            //Android10
             NetWorkUtils.switchNetwork(true)
         }
         super.onCreate(savedInstanceState)
@@ -46,7 +44,7 @@ abstract class BaseWifiActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (Build.VERSION.SDK_INT >= 29) {//Android10 及以上
+        if (Build.VERSION.SDK_INT >= 29) {//Android10
             NetWorkUtils.switchNetwork(true)
         }
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)

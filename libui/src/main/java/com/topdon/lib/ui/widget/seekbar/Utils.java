@@ -16,22 +16,28 @@ import android.util.Log;
 import androidx.annotation.ColorRes;
 import androidx.core.content.ContextCompat;
 
-/**
  * ================================================
- * 作    者：JayGoo
- * 版    本：
- * 创建日期：2018/5/8
- * 描    述:
+ *     JayGoo
+ * 2018/5/8
+ *     :
  * ================================================
- */
 public class Utils {
 
+    /**
+     * Private method description.
+     */
     private static final String TAG = "RangeSeekBar";
 
+    /**
+     * Method description.
+     */
     public static void print(String log) {
         Log.d(TAG, log);
     }
 
+    /**
+     * Method description.
+     */
     public static void print(Object... logs) {
         StringBuilder stringBuilder = new StringBuilder();
         for (Object log : logs) {
@@ -40,6 +46,9 @@ public class Utils {
         Log.d(TAG, stringBuilder.toString());
     }
 
+    /**
+     * Method description.
+     */
     public static Bitmap drawableToBitmap(Context context, int width, int height, int drawableId) {
         if (context == null || width <= 0 || height <= 0 || drawableId == 0) return null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -49,11 +58,11 @@ public class Utils {
         }
     }
 
-    /**
      * make a drawable to a bitmap
-     *
      * @param drawable drawable you want convert
      * @return converted bitmap
+    /**
+     * Method description.
      */
     public static Bitmap drawableToBitmap(int width, int height, Drawable drawable) {
         Bitmap bitmap = null;
@@ -80,12 +89,12 @@ public class Utils {
         return bitmap;
     }
 
-    /**
      * draw 9Path
-     *
      * @param canvas Canvas
      * @param bmp    9path bitmap
      * @param rect   9path rect
+    /**
+     * Method description.
      */
     public static void drawNinePath(Canvas canvas, Bitmap bmp, Rect rect) {
         NinePatch.isNinePatchChunk(bmp.getNinePatchChunk());
@@ -93,6 +102,9 @@ public class Utils {
         patch.draw(canvas, rect);
     }
 
+    /**
+     * Method description.
+     */
     public static void drawBitmap(Canvas canvas, Paint paint, Bitmap bmp, Rect rect) {
         try {
             if (NinePatch.isNinePatchChunk(bmp.getNinePatchChunk())) {
@@ -104,20 +116,23 @@ public class Utils {
         canvas.drawBitmap(bmp, rect.left, rect.top, paint);
     }
 
+    /**
+     * Method description.
+     */
     public static int dp2px(Context context, float dpValue) {
         if (context == null || compareFloat(0f, dpValue) == 0) return 0;
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
 
-    /**
      * Compare the size of two floating point numbers
-     *
      * @param a
      * @param b
      * @return 1 is a > b
-     * -1 is a < b
+     * 1 is a < b
      * 0 is a == b
+    /**
+     * Method description.
      */
     public static int compareFloat(float a, float b) {
         int ta = Math.round(a * 1000000);
@@ -131,14 +146,14 @@ public class Utils {
         }
     }
 
-    /**
      * Compare the size of two floating point numbers with accuracy
-     *
      * @param a
      * @param b
      * @return 1 is a > b
-     * -1 is a < b
+     * 1 is a < b
      * 0 is a == b
+    /**
+     * Method description.
      */
     public static int compareFloat(float a, float b, int degree) {
         if (Math.abs(a-b) < Math.pow(0.1, degree)) {
@@ -152,6 +167,9 @@ public class Utils {
         }
     }
 
+    /**
+     * Method description.
+     */
     public static float parseFloat(String s) {
         try {
             return Float.parseFloat(s);
@@ -160,6 +178,9 @@ public class Utils {
         }
     }
 
+    /**
+     * Method description.
+     */
     public static Rect measureText(String text, float textSize) {
         Paint paint = new Paint();
         Rect textRect = new Rect();
@@ -169,6 +190,9 @@ public class Utils {
         return textRect;
     }
 
+    /**
+     * Method description.
+     */
     public static boolean verifyBitmap(Bitmap bitmap) {
         if (bitmap == null || bitmap.isRecycled() || bitmap.getWidth() <= 0 || bitmap.getHeight() <= 0) {
             return false;
@@ -176,6 +200,9 @@ public class Utils {
         return true;
     }
 
+    /**
+     * Method description.
+     */
     public static int getColor(Context context, @ColorRes int colorId) {
         if (context != null) {
             return ContextCompat.getColor(context.getApplicationContext(), colorId);

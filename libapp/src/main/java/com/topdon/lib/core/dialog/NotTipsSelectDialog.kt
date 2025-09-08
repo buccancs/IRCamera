@@ -5,29 +5,34 @@ import android.content.Context
 import android.os.Bundle
 import android.view.ViewGroup
 import androidx.annotation.StringRes
-import com.topdon.lib.core.R
+import com.csl.irCamera.libapp.R
+import com.csl.irCamera.libapp.databinding.DialogNotTipsSelectBinding
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.dialog_not_tips_select.*
 
+ *  TipDialog  “” .
 /**
- * 与 TipDialog 类似，不过多了个 “不再提示” 选中效果的提示弹窗.
- *
- * Created by LCG on 2024/10/26.
+ * @author LCG
+ * @since Unknown
  */
 class NotTipsSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
 
     @StringRes
     private var tipsResId: Int = 0
     private var onConfirmListener: ((isSelect: Boolean) -> Unit)? = null
+    private lateinit var binding: DialogNotTipsSelectBinding
 
 
+    /**
+     * Function description.
+     */
     fun setTipsResId(@StringRes tipsResId: Int): NotTipsSelectDialog {
         this.tipsResId = tipsResId
         return this
     }
 
+     *  “” .
     /**
-     * 点击 “我知道了” 事件监听.
+     * Function description.
      */
     fun setOnConfirmListener(l: ((isSelect: Boolean) -> Unit)?): NotTipsSelectDialog {
         onConfirmListener = l
@@ -40,16 +45,18 @@ class NotTipsSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
         super.onCreate(savedInstanceState)
         setCancelable(false)
         setCanceledOnTouchOutside(false)
-        setContentView(R.layout.dialog_not_tips_select)
+        
+        binding = DialogNotTipsSelectBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         if (tipsResId != 0) {
-            tv_message.setText(tipsResId)
+            binding.tvMessage.setText(tipsResId)
         }
-        tv_select.setOnClickListener {
+        binding.tvSelect.setOnClickListener {
             it.isSelected = !it.isSelected
         }
-        tv_i_know.setOnClickListener {
-            onConfirmListener?.invoke(tv_select.isSelected)
+        binding.tvIKnow.setOnClickListener {
+            onConfirmListener?.invoke(binding.tvSelect.isSelected)
             dismiss()
         }
 

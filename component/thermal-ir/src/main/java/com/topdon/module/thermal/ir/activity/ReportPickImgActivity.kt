@@ -20,51 +20,52 @@ import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.repository.GalleryRepository.DirType
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
+import com.csl.irCamera.libui.R as LibUiR
 import com.topdon.module.thermal.ir.adapter.GalleryAdapter
 import com.topdon.lib.core.bean.event.GalleryDelEvent
 import com.topdon.lib.core.utils.Constants.IS_REPORT_FIRST
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryViewModel
-import kotlinx.android.synthetic.main.activity_report_pick_img.*
+import com.topdon.module.thermal.ir.databinding.ActivityReportPickImgBinding
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.io.File
 
-/**
- * 生成报告图片拾取.
- *
- * 需要传递参数：
- * - 是否 TC007: [ExtraKeyConfig.IS_TC007] 进入目录不同
- * - [ExtraKeyConfig.REPORT_INFO] - 报告信息
- * - [ExtraKeyConfig.REPORT_CONDITION] - 检测条件
- * - [ExtraKeyConfig.REPORT_IR_LIST] - 当前已添加的图片对应数据列表
- */
+ * .
+ * TC007: [ExtraKeyConfig.IS_TC007]
+ * [ExtraKeyConfig.REPORT_INFO]
+ * [ExtraKeyConfig.REPORT_CONDITION]
+ * [ExtraKeyConfig.REPORT_IR_LIST]
 @Route(path = RouterConfig.REPORT_PICK_IMG)
 class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
 
-    /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
-     */
+     * TC007 .
+     * true-TC007 false
     private var isTC007 = false
 
     private val viewModel: IRGalleryViewModel by viewModels()
 
     private val adapter = GalleryAdapter()
 
+    private lateinit var binding: ActivityReportPickImgBinding
+
     override fun initContentView() = R.layout.activity_report_pick_img
 
     override fun initView() {
+        binding = ActivityReportPickImgBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
         isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
 
-        title_view.setRightDrawable(R.drawable.ic_toolbar_check_svg)
-        title_view.setRightClickListener { setEditMode(true) }
+        binding.titleView.setRightDrawable(LibUiR.drawable.ic_toolbar_check_svg)
+        binding.titleView.setRightClickListener { setEditMode(true) }
 
         initRecycler()
 
-        cl_share.setOnClickListener(this)
-        cl_delete.setOnClickListener(this)
+        binding.clShare.setOnClickListener(this)
+        binding.clDelete.setOnClickListener(this)
 
         showLoadingDialog()
 
@@ -74,19 +75,22 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
         }
         viewModel.deleteResultLD.observe(this) {
             if (it) {
-                TToast.shortToast(this@ReportPickImgActivity, R.string.test_results_delete_success)
+                TToast.shortToast(this@ReportPickImgActivity, LibAppR.string.test_results_delete_success)
                 adapter.isEditMode = false
                 EventBus.getDefault().post(GalleryDelEvent())
                 MediaScannerConnection.scanFile(this, arrayOf(FileConfig.lineGalleryDir), null, null) // TC001 only
                 viewModel.queryAllReportImg(DirType.LINE)
             } else {
-                TToast.shortToast(this@ReportPickImgActivity, R.string.test_results_delete_failed)
+                TToast.shortToast(this@ReportPickImgActivity, LibAppR.string.test_results_delete_failed)
             }
         }
         viewModel.queryAllReportImg(DirType.LINE) // TC001 only
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    /**
+     * Function description.
+     */
     fun onReportCreate(event: ReportCreateEvent) {
         finish()
     }
@@ -105,19 +109,19 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
 
     private fun setEditMode(isEditMode: Boolean) {
         adapter.isEditMode = isEditMode
-        group_bottom.isVisible = isEditMode
-        title_view.setTitleText(if (isEditMode) getString(R.string.chosen_item, adapter.selectList.size) else getString(R.string.app_gallery))
-        title_view.setLeftDrawable(if (isEditMode) R.drawable.svg_x_cc else R.drawable.ic_back_white_svg)
-        title_view.setLeftClickListener {
+        binding.groupBottom.isVisible = isEditMode
+        binding.titleView.setTitleText(if (isEditMode) getString(LibAppR.string.chosen_item, adapter.selectList.size) else getString(LibAppR.string.app_gallery))
+        binding.titleView.setLeftDrawable(if (isEditMode) LibAppR.drawable.svg_x_cc else LibAppR.drawable.ic_back_white_svg)
+        binding.titleView.setLeftClickListener {
             if (isEditMode) {
                 setEditMode(false)
             } else {
                 finish()
             }
         }
-        title_view.setRightDrawable(if (isEditMode) 0 else R.drawable.ic_toolbar_check_svg)
-        title_view.setRightText(if (isEditMode) getString(R.string.report_select_all) else "")
-        title_view.setRightClickListener {
+        binding.titleView.setRightDrawable(if (isEditMode) 0 else LibUiR.drawable.ic_toolbar_check_svg)
+        binding.titleView.setRightText(if (isEditMode) getString(LibAppR.string.report_select_all) else "")
+        binding.titleView.setRightClickListener {
             if (isEditMode) {
                 adapter.selectAll()
             } else {
@@ -128,10 +132,10 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            cl_share -> {
+            binding.clShare -> {
                 shareImage()
             }
-            cl_delete -> {
+            binding.clDelete -> {
                 deleteImage()
             }
         }
@@ -140,32 +144,32 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
     private fun initRecycler() {
         val spanCount = 3
         val gridLayoutManager = GridLayoutManager(this, spanCount)
-        //动态设置span
+        //span
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return if (adapter.dataList[position] is GalleryTitle) spanCount else 1
             }
         }
-        ir_gallery_recycler.adapter = adapter
-        ir_gallery_recycler.layoutManager = gridLayoutManager
+        binding.irGalleryRecycler.adapter = adapter
+        binding.irGalleryRecycler.layoutManager = gridLayoutManager
 
         adapter.onLongEditListener = {
-            // adapter 里面的切换编辑太乱了，先这么顶着
-            group_bottom.isVisible = true
-            title_view.setTitleText(getString(R.string.chosen_item, adapter.selectList.size))
-            title_view.setLeftDrawable(R.drawable.svg_x_cc)
-            title_view.setLeftClickListener {
+            // adapter
+            binding.groupBottom.isVisible = true
+            binding.titleView.setTitleText(getString(LibAppR.string.chosen_item, adapter.selectList.size))
+            binding.titleView.setLeftDrawable(LibAppR.drawable.svg_x_cc)
+            binding.titleView.setLeftClickListener {
                 setEditMode(false)
             }
-            title_view.setRightDrawable(0)
-            title_view.setRightText(R.string.report_select_all)
-            title_view.setRightClickListener {
+            binding.titleView.setRightDrawable(0)
+            binding.titleView.setRightText(LibAppR.string.report_select_all)
+            binding.titleView.setRightClickListener {
                 adapter.selectAll()
             }
         }
 
         adapter.selectCallback = {
-            title_view.setTitleText(getString(R.string.chosen_item, it.size))
+            binding.titleView.setTitleText(getString(LibAppR.string.chosen_item, it.size))
         }
         adapter.itemClickCallback = {
             val data = adapter.dataList[it]
@@ -182,7 +186,7 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
                     .withParcelableArrayList(ExtraKeyConfig.REPORT_IR_LIST, intent.getParcelableArrayListExtra(ExtraKeyConfig.REPORT_IR_LIST))
                     .navigation(this)
             } else {
-                ToastTools.showShort(R.string.album_report_on_edit)
+                ToastTools.showShort(LibAppR.string.album_report_on_edit)
             }
         }
     }
@@ -192,26 +196,26 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
         if (deleteList.size > 0) {
             TipDialog.Builder(this)
                 .setMessage(getString(
-                        R.string.tip_delete_chosen,
+                        LibAppR.string.tip_delete_chosen,
                         deleteList.size
                     ))
-                .setPositiveListener(R.string.app_confirm) {
+                .setPositiveListener(LibAppR.string.app_confirm) {
                     viewModel.delete(deleteList, DirType.LINE, true) // TC001 only
-                }.setCancelListener(R.string.app_cancel)
+                }.setCancelListener(LibAppR.string.app_cancel)
                 .create().show()
         } else {
-            ToastTools.showShort(getString(R.string.tip_least_select))
+            ToastTools.showShort(getString(LibAppR.string.tip_least_select))
         }
     }
 
     private fun shareImage() {
         val data = adapter.buildSelectList()
         if (data.size == 0) {
-            ToastTools.showShort(getString(R.string.tip_least_select))
+            ToastTools.showShort(getString(LibAppR.string.tip_least_select))
             return
         }
         if (data.size > 9) {
-            ToastTools.showShort(getString(R.string.Limite_di_9carte))
+            ToastTools.showShort(getString(LibAppR.string.Limite_di_9carte))
             return
         }
         val imageUris = ArrayList<Uri>()
@@ -233,7 +237,7 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
             shareIntent.action = Intent.ACTION_SEND_MULTIPLE
             shareIntent.putExtra(Intent.EXTRA_STREAM, imageUris)
         }
-        startActivity(Intent.createChooser(shareIntent, getString(R.string.battery_share)))
+        startActivity(Intent.createChooser(shareIntent, getString(LibAppR.string.battery_share)))
     }
 }
 

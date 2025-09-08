@@ -12,6 +12,9 @@ public class PieDataSet extends DataSet<PieEntry> implements IPieDataSet {
     /**
      * the space in pixels between the chart-slices, default 0f
      */
+    /**
+     * Private method description.
+     */
     private float mSliceSpace = 0f;
     private boolean mAutomaticallyDisableSliceSpacing;
 
@@ -30,12 +33,18 @@ public class PieDataSet extends DataSet<PieEntry> implements IPieDataSet {
     private float mValueLinePart2Length = 0.4f;
     private boolean mValueLineVariableLength = true;
 
+    /**
+     * Method description.
+     */
     public PieDataSet(List<PieEntry> yVals, String label) {
         super(yVals, label);
 //        mShift = Utils.convertDpToPixel(12f);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public DataSet<PieEntry> copy() {
         List<PieEntry> entries = new ArrayList<>();
         for (int i = 0; i < mValues.size(); i++) {
@@ -65,6 +74,9 @@ public class PieDataSet extends DataSet<PieEntry> implements IPieDataSet {
      *
      * @param spaceDp
      */
+    /**
+     * Method description.
+     */
     public void setSliceSpace(float spaceDp) {
 
         if (spaceDp > 20)
@@ -76,6 +88,9 @@ public class PieDataSet extends DataSet<PieEntry> implements IPieDataSet {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public float getSliceSpace() {
         return mSliceSpace;
     }
@@ -85,6 +100,9 @@ public class PieDataSet extends DataSet<PieEntry> implements IPieDataSet {
      * smaller than the slice spacing itself.
      *
      * @param autoDisable
+     */
+    /**
+     * Method description.
      */
     public void setAutomaticallyDisableSliceSpacing(boolean autoDisable) {
         mAutomaticallyDisableSliceSpacing = autoDisable;
@@ -97,6 +115,9 @@ public class PieDataSet extends DataSet<PieEntry> implements IPieDataSet {
      * @return
      */
     @Override
+    /**
+     * Method description.
+     */
     public boolean isAutomaticallyDisableSliceSpacingEnabled() {
         return mAutomaticallyDisableSliceSpacing;
     }
@@ -107,29 +128,47 @@ public class PieDataSet extends DataSet<PieEntry> implements IPieDataSet {
      *
      * @param shift
      */
+    /**
+     * Method description.
+     */
     public void setSelectionShift(float shift) {
         mShift = Utils.convertDpToPixel(shift);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public float getSelectionShift() {
         return mShift;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public ValuePosition getXValuePosition() {
         return mXValuePosition;
     }
 
+    /**
+     * Method description.
+     */
     public void setXValuePosition(ValuePosition xValuePosition) {
         this.mXValuePosition = xValuePosition;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public ValuePosition getYValuePosition() {
         return mYValuePosition;
     }
 
+    /**
+     * Method description.
+     */
     public void setYValuePosition(ValuePosition yValuePosition) {
         this.mYValuePosition = yValuePosition;
     }
@@ -138,10 +177,16 @@ public class PieDataSet extends DataSet<PieEntry> implements IPieDataSet {
      * When valuePosition is OutsideSlice, use slice colors as line color if true
      */
     @Override
+    /**
+     * Method description.
+     */
     public boolean isUsingSliceColorAsValueLineColor() {
         return mUsingSliceColorAsValueLineColor;
     }
 
+    /**
+     * Method description.
+     */
     public void setUsingSliceColorAsValueLineColor(boolean usingSliceColorAsValueLineColor) {
         this.mUsingSliceColorAsValueLineColor = usingSliceColorAsValueLineColor;
     }
@@ -150,10 +195,16 @@ public class PieDataSet extends DataSet<PieEntry> implements IPieDataSet {
      * When valuePosition is OutsideSlice, indicates line color
      */
     @Override
+    /**
+     * Method description.
+     */
     public int getValueLineColor() {
         return mValueLineColor;
     }
 
+    /**
+     * Method description.
+     */
     public void setValueLineColor(int valueLineColor) {
         this.mValueLineColor = valueLineColor;
     }
@@ -162,10 +213,16 @@ public class PieDataSet extends DataSet<PieEntry> implements IPieDataSet {
      * When valuePosition is OutsideSlice, indicates line width
      */
     @Override
+    /**
+     * Method description.
+     */
     public float getValueLineWidth() {
         return mValueLineWidth;
     }
 
+    /**
+     * Method description.
+     */
     public void setValueLineWidth(float valueLineWidth) {
         this.mValueLineWidth = valueLineWidth;
     }
@@ -174,10 +231,16 @@ public class PieDataSet extends DataSet<PieEntry> implements IPieDataSet {
      * When valuePosition is OutsideSlice, indicates offset as percentage out of the slice size
      */
     @Override
+    /**
+     * Method description.
+     */
     public float getValueLinePart1OffsetPercentage() {
         return mValueLinePart1OffsetPercentage;
     }
 
+    /**
+     * Method description.
+     */
     public void setValueLinePart1OffsetPercentage(float valueLinePart1OffsetPercentage) {
         this.mValueLinePart1OffsetPercentage = valueLinePart1OffsetPercentage;
     }
@@ -186,10 +249,16 @@ public class PieDataSet extends DataSet<PieEntry> implements IPieDataSet {
      * When valuePosition is OutsideSlice, indicates length of first half of the line
      */
     @Override
+    /**
+     * Method description.
+     */
     public float getValueLinePart1Length() {
         return mValueLinePart1Length;
     }
 
+    /**
+     * Method description.
+     */
     public void setValueLinePart1Length(float valueLinePart1Length) {
         this.mValueLinePart1Length = valueLinePart1Length;
     }
@@ -198,10 +267,16 @@ public class PieDataSet extends DataSet<PieEntry> implements IPieDataSet {
      * When valuePosition is OutsideSlice, indicates length of second half of the line
      */
     @Override
+    /**
+     * Method description.
+     */
     public float getValueLinePart2Length() {
         return mValueLinePart2Length;
     }
 
+    /**
+     * Method description.
+     */
     public void setValueLinePart2Length(float valueLinePart2Length) {
         this.mValueLinePart2Length = valueLinePart2Length;
     }
@@ -210,14 +285,23 @@ public class PieDataSet extends DataSet<PieEntry> implements IPieDataSet {
      * When valuePosition is OutsideSlice, this allows variable line length
      */
     @Override
+    /**
+     * Method description.
+     */
     public boolean isValueLineVariableLength() {
         return mValueLineVariableLength;
     }
 
+    /**
+     * Method description.
+     */
     public void setValueLineVariableLength(boolean valueLineVariableLength) {
         this.mValueLineVariableLength = valueLineVariableLength;
     }
 
+    /**
+     * Method description.
+     */
     public enum ValuePosition {
         INSIDE_SLICE,
         OUTSIDE_SLICE

@@ -8,24 +8,39 @@ import android.util.Log;
  * author: bichuanfeng
  */
 public class DefaultLogger implements Logger {
+    /**
+     * Private method description.
+     */
     private final String tag;
     private boolean isEnabled;
 
+    /**
+     * Method description.
+     */
     public DefaultLogger(String tag) {
         this.tag = tag;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setEnabled(boolean isEnabled) {
         this.isEnabled = isEnabled;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean isEnabled() {
         return isEnabled;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void log(int priority, int type, String msg) {
         if (isEnabled) {
             Log.println(priority, tag, msg);
@@ -33,6 +48,9 @@ public class DefaultLogger implements Logger {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void log(int priority, int type, String msg, Throwable th) {
         if (isEnabled) {
             if (msg != null) {

@@ -15,28 +15,35 @@ import java.io.File
 
 class GalleryViewModel : BaseViewModel() {
 
+    /** galleryLiveData property */
     val galleryLiveData = SingleLiveEvent<ArrayList<String>>()
 
+    /**
+     * Function description.
+     */
     fun getData() {
         viewModelScope.launch {
             getGalleryList().collect { it ->
                 if (it.size == 0) {
-                    Log.w("123", "文件不存在")
+                    Log.w("123", "")
                 } else {
-//                    it.forEach { Log.w("123", "it:$it") }
+//                    it.forEach { Log.w(123, it:$it) }
                     galleryLiveData.postValue(it)
                 }
             }
         }
     }
 
+    /**
+     * Function description.
+     */
     fun getVideoData() {
         viewModelScope.launch {
             getVideoList().collect { it ->
                 if (it.size == 0) {
-                    Log.w("123", "文件不存在")
+                    Log.w("123", "")
                 } else {
-//                    it.forEach { Log.w("123", "it:$it") }
+//                    it.forEach { Log.w(123, it:$it) }
                     galleryLiveData.postValue(it)
                 }
             }

@@ -41,6 +41,9 @@ public class LegendRenderer extends Renderer {
      */
     protected Legend mLegend;
 
+    /**
+     * Method description.
+     */
     public LegendRenderer(ViewPortHandler viewPortHandler, Legend legend) {
         super(viewPortHandler);
 
@@ -59,6 +62,9 @@ public class LegendRenderer extends Renderer {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public Paint getLabelPaint() {
         return mLegendLabelPaint;
     }
@@ -67,6 +73,9 @@ public class LegendRenderer extends Renderer {
      * Returns the Paint object used for drawing the Legend forms.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public Paint getFormPaint() {
         return mLegendFormPaint;
@@ -79,6 +88,9 @@ public class LegendRenderer extends Renderer {
      * Prepares the legend and calculates all needed forms, labels and colors.
      *
      * @param data
+     */
+    /**
+     * Method description.
      */
     public void computeLegend(ChartData<?> data) {
 
@@ -222,6 +234,9 @@ public class LegendRenderer extends Renderer {
 
     protected Paint.FontMetrics legendFontMetrics = new Paint.FontMetrics();
 
+    /**
+     * Method description.
+     */
     public void renderLegend(Canvas c) {
 
         if (!mLegend.isEnabled())
@@ -465,6 +480,9 @@ public class LegendRenderer extends Renderer {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private Path mLineFormPath = new Path();
 
     /**

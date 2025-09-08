@@ -13,14 +13,23 @@ import java.util.List;
 public abstract class BarLineScatterCandleBubbleData<T extends IBarLineScatterCandleBubbleDataSet<? extends Entry>>
         extends ChartData<T> {
     
+    /**
+     * Method description.
+     */
     public BarLineScatterCandleBubbleData() {
         super();
     }
 
+    /**
+     * Method description.
+     */
     public BarLineScatterCandleBubbleData(T... sets) {
         super(sets);
     }
 
+    /**
+     * Method description.
+     */
     public BarLineScatterCandleBubbleData(List<T> sets) {
         super(sets);
     }

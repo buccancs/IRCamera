@@ -41,6 +41,9 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
     /**
      * label that describes the DataSet or the data the DataSet represents
      */
+    /**
+     * Private method description.
+     */
     private String mLabel = "DataSet";
 
     /**
@@ -96,6 +99,9 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
     /**
      * Default constructor.
      */
+    /**
+     * Method description.
+     */
     public BaseDataSet() {
         mColors = new ArrayList<Integer>();
         mValueColors = new ArrayList<Integer>();
@@ -110,6 +116,9 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
      *
      * @param label
      */
+    /**
+     * Method description.
+     */
     public BaseDataSet(String label) {
         this();
         this.mLabel = label;
@@ -117,6 +126,9 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
 
     /**
      * Use this method to tell the data set that the underlying data has changed.
+     */
+    /**
+     * Method description.
      */
     public void notifyDataSetChanged() {
         calcMinMax();
@@ -128,35 +140,56 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
      */
 
     @Override
+    /**
+     * Method description.
+     */
     public List<Integer> getColors() {
         return mColors;
     }
 
+    /**
+     * Method description.
+     */
     public List<Integer> getValueColors() {
         return mValueColors;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int getColor() {
         return mColors.get(0);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int getColor(int index) {
         return mColors.get(index % mColors.size());
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public GradientColor getGradientColor() {
         return mGradientColor;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public List<GradientColor> getGradientColors() {
         return mGradientColors;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public GradientColor getGradientColor(int index) {
         return mGradientColors.get(index % mGradientColors.size());
     }
@@ -174,6 +207,9 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
      *
      * @param colors
      */
+    /**
+     * Method description.
+     */
     public void setColors(List<Integer> colors) {
         this.mColors = colors;
     }
@@ -186,6 +222,9 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
      * getResources().getColor(...)) before adding them to the DataSet.
      *
      * @param colors
+     */
+    /**
+     * Method description.
      */
     public void setColors(int... colors) {
         this.mColors = ColorTemplate.createColors(colors);
@@ -200,6 +239,9 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
      * getResources().getColor(...)
      *
      * @param colors
+     */
+    /**
+     * Method description.
      */
     public void setColors(int[] colors, Context c) {
 
@@ -219,6 +261,9 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
      *
      * @param color
      */
+    /**
+     * Method description.
+     */
     public void addColor(int color) {
         if (mColors == null)
             mColors = new ArrayList<Integer>();
@@ -231,6 +276,9 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
      *
      * @param color
      */
+    /**
+     * Method description.
+     */
     public void setColor(int color) {
         resetColors();
         mColors.add(color);
@@ -242,6 +290,9 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
      * @param startColor
      * @param endColor
      */
+    /**
+     * Method description.
+     */
     public void setGradientColor(int startColor, int endColor) {
         mGradientColor = new GradientColor(startColor, endColor);
     }
@@ -250,6 +301,9 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
      * Sets the start and end color for gradient colors, ONLY color that should be used for this DataSet.
      *
      * @param gradientColors
+     */
+    /**
+     * Method description.
      */
     public void setGradientColors(List<GradientColor> gradientColors) {
         this.mGradientColors = gradientColors;
@@ -261,6 +315,9 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
      * @param color
      * @param alpha from 0-255
      */
+    /**
+     * Method description.
+     */
     public void setColor(int color, int alpha) {
         setColor(Color.argb(alpha, Color.red(color), Color.green(color), Color.blue(color)));
     }
@@ -271,6 +328,9 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
      * @param colors
      * @param alpha
      */
+    /**
+     * Method description.
+     */
     public void setColors(int[] colors, int alpha) {
         resetColors();
         for (int color : colors) {
@@ -280,6 +340,9 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
 
     /**
      * Resets all colors of this DataSet and recreates the colors array.
+     */
+    /**
+     * Method description.
      */
     public void resetColors() {
         if (mColors == null) {
@@ -293,26 +356,41 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
      */
 
     @Override
+    /**
+     * Method description.
+     */
     public void setLabel(String label) {
         mLabel = label;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public String getLabel() {
         return mLabel;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setHighlightEnabled(boolean enabled) {
         mHighlightEnabled = enabled;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean isHighlightEnabled() {
         return mHighlightEnabled;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setValueFormatter(ValueFormatter f) {
 
         if (f == null)
@@ -322,6 +400,9 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public ValueFormatter getValueFormatter() {
         if (needsFormatter())
             return Utils.getDefaultValueFormatter();
@@ -329,108 +410,174 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean needsFormatter() {
         return mValueFormatter == null;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setValueTextColor(int color) {
         mValueColors.clear();
         mValueColors.add(color);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setValueTextColors(List<Integer> colors) {
         mValueColors = colors;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setValueTypeface(Typeface tf) {
         mValueTypeface = tf;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setValueTextSize(float size) {
         mValueTextSize = Utils.convertDpToPixel(size);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int getValueTextColor() {
         return mValueColors.get(0);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int getValueTextColor(int index) {
         return mValueColors.get(index % mValueColors.size());
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public Typeface getValueTypeface() {
         return mValueTypeface;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public float getValueTextSize() {
         return mValueTextSize;
     }
 
+    /**
+     * Method description.
+     */
     public void setForm(Legend.LegendForm form) {
         mForm = form;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public Legend.LegendForm getForm() {
         return mForm;
     }
 
+    /**
+     * Method description.
+     */
     public void setFormSize(float formSize) {
         mFormSize = formSize;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public float getFormSize() {
         return mFormSize;
     }
 
+    /**
+     * Method description.
+     */
     public void setFormLineWidth(float formLineWidth) {
         mFormLineWidth = formLineWidth;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public float getFormLineWidth() {
         return mFormLineWidth;
     }
 
+    /**
+     * Method description.
+     */
     public void setFormLineDashEffect(DashPathEffect dashPathEffect) {
         mFormLineDashEffect = dashPathEffect;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public DashPathEffect getFormLineDashEffect() {
         return mFormLineDashEffect;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setDrawValues(boolean enabled) {
         this.mDrawValues = enabled;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean isDrawValuesEnabled() {
         return mDrawValues;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setDrawIcons(boolean enabled) {
         mDrawIcons = enabled;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean isDrawIconsEnabled() {
         return mDrawIcons;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setIconsOffset(MPPointF offsetDp) {
 
         mIconsOffset.x = offsetDp.x;
@@ -438,26 +585,41 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public MPPointF getIconsOffset() {
         return mIconsOffset;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setVisible(boolean visible) {
         mVisible = visible;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean isVisible() {
         return mVisible;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public YAxis.AxisDependency getAxisDependency() {
         return mAxisDependency;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setAxisDependency(YAxis.AxisDependency dependency) {
         mAxisDependency = dependency;
     }
@@ -468,6 +630,9 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
      */
 
     @Override
+    /**
+     * Method description.
+     */
     public int getIndexInEntries(int xIndex) {
 
         for (int i = 0; i < getEntryCount(); i++) {
@@ -479,6 +644,9 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean removeFirst() {
 
         if (getEntryCount() > 0) {
@@ -490,6 +658,9 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean removeLast() {
 
         if (getEntryCount() > 0) {
@@ -501,6 +672,9 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean removeEntryByXValue(float xValue) {
 
         T e = getEntryForXValue(xValue, Float.NaN);
@@ -508,6 +682,9 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean removeEntry(int index) {
 
         T e = getEntryForIndex(index);
@@ -515,6 +692,9 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean contains(T e) {
 
         for (int i = 0; i < getEntryCount(); i++) {

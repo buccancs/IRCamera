@@ -2,9 +2,9 @@ package com.guide.zm04c.matrix.utils
 
 import android.graphics.Paint
 import android.graphics.Rect
-
 /**
- * Created by 02881hy on 2018/9/18.
+ * @author 02881hy
+ * @since Unknown
  */
 
 class StringUtils {
@@ -46,13 +46,10 @@ class StringUtils {
             return false
         }
 
-        /**
-         * 根据字体大小返回字符串需要的宽高数组，int[]{宽,高}
-         *
+         * int[]{,}
          * @param str
          * @param textSizePxVal
-         * @return int[] 索引0代表宽，索引1代表高
-         */
+         * @return int[] 01
         public fun getStringSize(str: String, textSizePxVal: Float): IntArray {
             if (textSizePxVal < 0) {
                 throw IllegalArgumentException("textSizePxVal > 0 need")

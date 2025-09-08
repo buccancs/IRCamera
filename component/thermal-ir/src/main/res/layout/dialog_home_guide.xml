@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- 低于 Android12 显示操作指引时模糊背景图片 -->
+    <!--  Android12  -->
     <ImageView
         android:id="@+id/iv_blur_bg"
         android:layout_width="0dp"
@@ -18,11 +18,14 @@
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <include
+        android:id="@+id/include_guide_1"
         layout="@layout/layout_home_guide_1" />
     <include
+        android:id="@+id/include_guide_2"
         layout="@layout/layout_home_guide_2"
         tools:visibility="gone" />
     <include
+        android:id="@+id/include_guide_3"
         layout="@layout/layout_home_guide_3"
         tools:visibility="gone"/>
 

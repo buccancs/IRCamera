@@ -9,6 +9,9 @@ import com.github.mikephil.charting.interfaces.datasets.IPieDataSet;
  */
 public class PieHighlighter extends PieRadarHighlighter<PieChart> {
 
+    /**
+     * Method description.
+     */
     public PieHighlighter(PieChart chart) {
         super(chart);
     }

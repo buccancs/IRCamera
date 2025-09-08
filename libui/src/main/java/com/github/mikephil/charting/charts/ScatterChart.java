@@ -17,14 +17,23 @@ import com.github.mikephil.charting.renderer.ScatterChartRenderer;
  */
 public class ScatterChart extends BarLineChartBase<ScatterData> implements ScatterDataProvider {
 
+    /**
+     * Method description.
+     */
     public ScatterChart(Context context) {
         super(context);
     }
 
+    /**
+     * Method description.
+     */
     public ScatterChart(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * Method description.
+     */
     public ScatterChart(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
@@ -41,6 +50,9 @@ public class ScatterChart extends BarLineChartBase<ScatterData> implements Scatt
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public ScatterData getScatterData() {
         return mData;
     }
@@ -48,6 +60,9 @@ public class ScatterChart extends BarLineChartBase<ScatterData> implements Scatt
     /**
      * Predefined ScatterShapes that allow the specification of a shape a ScatterDataSet should be drawn with.
      * If a ScatterShape is specified for a ScatterDataSet, the required renderer is set.
+     */
+    /**
+     * Method description.
      */
     public enum ScatterShape {
 

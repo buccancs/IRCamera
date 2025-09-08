@@ -1,15 +1,12 @@
-/*
- * Copyright (c) 2016-present 贵州纳雍穿青人李裕江<1032694760@qq.com>
- *
+ * Copyright (c) 2016-present <1032694760@qq.com>
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
  *     http://license.coscl.org.cn/MulanPSL2
- * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
+ * THIS SOFTWARE IS PROVIDED ON AN AS IS BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
  * See the Mulan PSL v2 for more details.
- */
 
 package com.github.gzuliyujiang.wheelpicker;
 
@@ -24,22 +21,27 @@ import com.github.gzuliyujiang.wheelpicker.contract.OnTimeMeridiemPickedListener
 import com.github.gzuliyujiang.wheelpicker.contract.OnTimePickedListener;
 import com.github.gzuliyujiang.wheelpicker.widget.TimeWheelLayout;
 
-/**
- * 时间选择器
- *
- * @author 贵州山野羡民（1032694760@qq.com）
+ * @author 1032694760@qq.com
  * @since 2021/6/5 18:19
- */
 @SuppressWarnings("unused")
 public class TimePicker extends ModalDialog {
     protected TimeWheelLayout wheelLayout;
+    /**
+     * Private method description.
+     */
     private OnTimePickedListener onTimePickedListener;
     private OnTimeMeridiemPickedListener onTimeMeridiemPickedListener;
 
+    /**
+     * Method description.
+     */
     public TimePicker(@NonNull Activity activity) {
         super(activity);
     }
 
+    /**
+     * Method description.
+     */
     public TimePicker(@NonNull Activity activity, @StyleRes int themeResId) {
         super(activity, themeResId);
     }
@@ -69,14 +71,23 @@ public class TimePicker extends ModalDialog {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setOnTimePickedListener(OnTimePickedListener onTimePickedListener) {
         this.onTimePickedListener = onTimePickedListener;
     }
 
+    /**
+     * Method description.
+     */
     public void setOnTimeMeridiemPickedListener(OnTimeMeridiemPickedListener onTimeMeridiemPickedListener) {
         this.onTimeMeridiemPickedListener = onTimeMeridiemPickedListener;
     }
 
+    /**
+     * Method description.
+     */
     public final TimeWheelLayout getWheelLayout() {
         return wheelLayout;
     }

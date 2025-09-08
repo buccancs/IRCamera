@@ -22,6 +22,9 @@ import java.lang.ref.WeakReference;
  */
 public class MarkerView extends RelativeLayout implements IMarker {
 
+    /**
+     * Private method description.
+     */
     private MPPointF mOffset = new MPPointF();
     private MPPointF mOffset2 = new MPPointF();
     private WeakReference<Chart> mWeakChart;
@@ -32,6 +35,9 @@ public class MarkerView extends RelativeLayout implements IMarker {
      * @param context
      * @param layoutResource the layout resource to use for the MarkerView
      */
+    /**
+     * Method description.
+     */
     public MarkerView(Context context, int layoutResource) {
         super(context);
         setupLayoutResource(layoutResource);
@@ -41,6 +47,9 @@ public class MarkerView extends RelativeLayout implements IMarker {
      * Sets the layout resource for a custom MarkerView.
      *
      * @param layoutResource
+     */
+    /**
+     * Private method description.
      */
     private void setupLayoutResource(int layoutResource) {
 
@@ -53,6 +62,9 @@ public class MarkerView extends RelativeLayout implements IMarker {
         inflated.layout(0, 0, inflated.getMeasuredWidth(), inflated.getMeasuredHeight());
     }
 
+    /**
+     * Method description.
+     */
     public void setOffset(MPPointF offset) {
         mOffset = offset;
 
@@ -61,25 +73,40 @@ public class MarkerView extends RelativeLayout implements IMarker {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setOffset(float offsetX, float offsetY) {
         mOffset.x = offsetX;
         mOffset.y = offsetY;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public MPPointF getOffset() {
         return mOffset;
     }
 
+    /**
+     * Method description.
+     */
     public void setChartView(Chart chart) {
         mWeakChart = new WeakReference<>(chart);
     }
 
+    /**
+     * Method description.
+     */
     public Chart getChartView() {
         return mWeakChart == null ? null : mWeakChart.get();
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public MPPointF getOffsetForDrawingAtPoint(float posX, float posY) {
 
         MPPointF offset = getOffset();
@@ -107,6 +134,9 @@ public class MarkerView extends RelativeLayout implements IMarker {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void refreshContent(Entry e, Highlight highlight) {
 
         measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
@@ -116,6 +146,9 @@ public class MarkerView extends RelativeLayout implements IMarker {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void draw(Canvas canvas, float posX, float posY) {
 
         MPPointF offset = getOffsetForDrawingAtPoint(posX, posY);

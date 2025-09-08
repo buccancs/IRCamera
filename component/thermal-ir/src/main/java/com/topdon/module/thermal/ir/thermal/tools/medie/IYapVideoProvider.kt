@@ -13,6 +13,9 @@ interface IYapVideoProvider<Bitmap> {
      *
      * return bitmapList.size()
      */
+    /**
+     * Function description.
+     */
     fun size(): Int
 
     /**
@@ -24,6 +27,9 @@ interface IYapVideoProvider<Bitmap> {
      * progress
      * If 1f is returned, progress is complete
      * A return of -1 indicates failure
+     */
+    /**
+     * Function description.
      */
     fun progress(progress: Float)
 

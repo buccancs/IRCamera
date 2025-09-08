@@ -15,14 +15,23 @@ import com.github.mikephil.charting.renderer.CandleStickChartRenderer;
  */
 public class CandleStickChart extends BarLineChartBase<CandleData> implements CandleDataProvider {
 
+    /**
+     * Method description.
+     */
     public CandleStickChart(Context context) {
         super(context);
     }
 
+    /**
+     * Method description.
+     */
     public CandleStickChart(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * Method description.
+     */
     public CandleStickChart(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
@@ -38,6 +47,9 @@ public class CandleStickChart extends BarLineChartBase<CandleData> implements Ca
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public CandleData getCandleData() {
         return mData;
     }

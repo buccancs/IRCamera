@@ -1,5 +1,4 @@
 //package com.infisense.iruvc.usb;
-//
 //import android.annotation.SuppressLint;
 //import android.annotation.TargetApi;
 //import android.app.PendingIntent;
@@ -16,10 +15,8 @@
 //import android.text.TextUtils;
 //import android.util.Log;
 //import android.util.SparseArray;
-//
 //import com.infisense.iruvc.utils.BuildCheck;
 //import com.infisense.iruvc.utils.HandlerThreadHandler;
-//
 //import java.io.UnsupportedEncodingException;
 //import java.lang.ref.WeakReference;
 //import java.util.ArrayList;
@@ -29,16 +26,13 @@
 //import java.util.Locale;
 //import java.util.Set;
 //import java.util.concurrent.ConcurrentHashMap;
-//
-///**
-// * 替换libusbirsdk_1.2.0.aar类,为兼容android 12
-// */
+// * libusbirsdk_1.2.0.aar,android 12
 //public class USBMonitor {
 //    private static final boolean DEBUG = false;
-//    private static final String TAG = "USBMonitor";
-//    private static final String ACTION_USB_PERMISSION_BASE = "com.serenegiant.USB_PERMISSION.";
-//    private final String ACTION_USB_PERMISSION = "com.serenegiant.USB_PERMISSION." + this.hashCode();
-//    public static final String ACTION_USB_DEVICE_ATTACHED = "android.hardware.usb.action.USB_DEVICE_ATTACHED";
+//    private static final String TAG = USBMonitor;
+//    private static final String ACTION_USB_PERMISSION_BASE = com.serenegiant.USB_PERMISSION.;
+//    private final String ACTION_USB_PERMISSION = com.serenegiant.USB_PERMISSION. + this.hashCode();
+//    public static final String ACTION_USB_DEVICE_ATTACHED = android.hardware.usb.action.USB_DEVICE_ATTACHED;
 //    private final ConcurrentHashMap<UsbDevice, UsbControlBlock> mCtrlBlocks = new ConcurrentHashMap();
 //    private final SparseArray<WeakReference<UsbDevice>> mHasPermissions = new SparseArray();
 //    private final WeakReference<Context> mWeakContext;
@@ -54,8 +48,8 @@
 //                String action = intent.getAction();
 //                if (USBMonitor.this.ACTION_USB_PERMISSION.equals(action)) {
 //                    synchronized (USBMonitor.this) {
-//                        UsbDevice devicex = (UsbDevice) intent.getParcelableExtra("device");
-//                        if (intent.getBooleanExtra("permission", false)) {
+//                        UsbDevice devicex = (UsbDevice) intent.getParcelableExtra(device);
+//                        if (intent.getBooleanExtra(permission, false)) {
 //                            if (devicex != null) {
 //                                USBMonitor.this.processConnect(devicex);
 //                            }
@@ -65,24 +59,22 @@
 //                    }
 //                } else {
 //                    UsbDevice device;
-//                    if ("android.hardware.usb.action.USB_DEVICE_ATTACHED".equals(action)) {
-//                        device = (UsbDevice) intent.getParcelableExtra("device");
+//                    if (android.hardware.usb.action.USB_DEVICE_ATTACHED.equals(action)) {
+//                        device = (UsbDevice) intent.getParcelableExtra(device);
 //                        USBMonitor.this.updatePermission(device, USBMonitor.this.hasPermission(device));
 //                        USBMonitor.this.processAttach(device);
-//                    } else if ("android.hardware.usb.action.USB_DEVICE_DETACHED".equals(action)) {
-//                        device = (UsbDevice) intent.getParcelableExtra("device");
+//                    } else if (android.hardware.usb.action.USB_DEVICE_DETACHED.equals(action)) {
+//                        device = (UsbDevice) intent.getParcelableExtra(device);
 //                        if (device != null) {
 //                            USBMonitor.UsbControlBlock ctrlBlock = (USBMonitor.UsbControlBlock) USBMonitor.this.mCtrlBlocks.remove(device);
 //                            if (ctrlBlock != null) {
 //                                ctrlBlock.close();
 //                            }
-//
 //                            USBMonitor.this.mDeviceCounts = 0;
 //                            USBMonitor.this.processDettach(device);
 //                        }
 //                    }
 //                }
-//
 //            }
 //        }
 //    };
@@ -98,18 +90,15 @@
 //                    hasPermissionCounts = USBMonitor.this.mHasPermissions.size();
 //                    USBMonitor.this.mHasPermissions.clear();
 //                    Iterator var6 = devices.iterator();
-//
 //                    while (true) {
 //                        if (!var6.hasNext()) {
 //                            m = USBMonitor.this.mHasPermissions.size();
 //                            break;
 //                        }
-//
 //                        UsbDevice device = (UsbDevice) var6.next();
 //                        USBMonitor.this.hasPermission(device);
 //                    }
 //                }
-//
 //                if (n > USBMonitor.this.mDeviceCounts || m > hasPermissionCounts) {
 //                    USBMonitor.this.mDeviceCounts = n;
 //                    if (USBMonitor.this.mOnDeviceConnectListener != null) {
@@ -123,7 +112,6 @@
 //                        }
 //                    }
 //                }
-//
 //                USBMonitor.this.mAsyncHandler.postDelayed(this, 2000L);
 //            }
 //        }
@@ -214,19 +202,17 @@
 //    private static final int USB_DT_CS_INTERFACE = 36;
 //    private static final int USB_DT_CS_ENDPOINT = 37;
 //    private static final int USB_DT_DEVICE_SIZE = 18;
-//
 //    public USBMonitor(Context context, USBMonitor.OnDeviceConnectListener listener) {
 //        if (listener == null) {
-//            throw new IllegalArgumentException("OnDeviceConnectListener should not null.");
+//            throw new IllegalArgumentException(OnDeviceConnectListener should not null.);
 //        } else {
 //            this.mWeakContext = new WeakReference(context);
-//            this.mUsbManager = (UsbManager) context.getSystemService("usb");
+//            this.mUsbManager = (UsbManager) context.getSystemService(usb);
 //            this.mOnDeviceConnectListener = listener;
-//            this.mAsyncHandler = HandlerThreadHandler.createHandler("USBMonitor");
+//            this.mAsyncHandler = HandlerThreadHandler.createHandler(USBMonitor);
 //            this.destroyed = false;
 //        }
 //    }
-//
 //    public void destroy() {
 //        this.unregister();
 //        if (!this.destroyed) {
@@ -235,7 +221,6 @@
 //            if (keys != null) {
 //                try {
 //                    Iterator var3 = keys.iterator();
-//
 //                    while (var3.hasNext()) {
 //                        UsbDevice key = (UsbDevice) var3.next();
 //                        USBMonitor.UsbControlBlock ctrlBlock = (USBMonitor.UsbControlBlock) this.mCtrlBlocks.remove(key);
@@ -244,29 +229,25 @@
 //                        }
 //                    }
 //                } catch (Exception var6) {
-//                    Log.e("USBMonitor", "destroy:", var6);
+//                    Log.e(USBMonitor, destroy:, var6);
 //                }
 //            }
-//
 //            this.mCtrlBlocks.clear();
-//
 //            try {
 //                this.mAsyncHandler.getLooper().quit();
 //            } catch (Exception var5) {
-//                Log.e("USBMonitor", "destroy:", var5);
+//                Log.e(USBMonitor, destroy:, var5);
 //            }
 //        }
-//
 //    }
-//
 //    public synchronized void register() throws IllegalStateException {
 //        if (this.destroyed) {
-//            throw new IllegalStateException("already destroyed");
+//            throw new IllegalStateException(already destroyed);
 //        } else {
 //            if (this.mPermissionIntent == null) {
 //                Context context = (Context) this.mWeakContext.get();
 //                if (context != null) {
-//                    //TODO 修复"libusbirsdk_1.2.0.aar"兼容android12引起的崩溃  2022-12-15
+//                    //TODO libusbirsdk_1.2.0.aarandroid12  2022-12-15
 //                    int flag;
 //                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 //                        flag = PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT;
@@ -275,135 +256,114 @@
 //                    }
 //                    this.mPermissionIntent = PendingIntent.getBroadcast(context, 0, new Intent(this.ACTION_USB_PERMISSION), flag);
 //                    IntentFilter filter = new IntentFilter(this.ACTION_USB_PERMISSION);
-//                    filter.addAction("android.hardware.usb.action.USB_DEVICE_ATTACHED");
-//                    filter.addAction("android.hardware.usb.action.USB_DEVICE_DETACHED");
+//                    filter.addAction(android.hardware.usb.action.USB_DEVICE_ATTACHED);
+//                    filter.addAction(android.hardware.usb.action.USB_DEVICE_DETACHED);
 //                    context.registerReceiver(this.mUsbReceiver, filter);
 //                }
-//
 //                this.mDeviceCounts = 0;
 //                this.mAsyncHandler.postDelayed(this.mDeviceCheckRunnable, 1000L);
 //            }
-//
 //        }
 //    }
-//
 //    public synchronized void unregister() throws IllegalStateException {
 //        this.mDeviceCounts = 0;
 //        if (!this.destroyed) {
 //            this.mAsyncHandler.removeCallbacks(this.mDeviceCheckRunnable);
 //        }
-//
 //        if (this.mPermissionIntent != null) {
 //            Context context = (Context) this.mWeakContext.get();
-//
 //            try {
 //                if (context != null) {
 //                    context.unregisterReceiver(this.mUsbReceiver);
 //                }
 //            } catch (Exception var3) {
-//                Log.w("USBMonitor", var3);
+//                Log.w(USBMonitor, var3);
 //            }
-//
 //            this.mPermissionIntent = null;
 //        }
-//
 //    }
-//
 //    public synchronized boolean isRegistered() {
 //        return !this.destroyed && this.mPermissionIntent != null;
 //    }
-//
 //    public void setDeviceFilter(DeviceFilter filter) throws IllegalStateException {
 //        if (this.destroyed) {
-//            throw new IllegalStateException("already destroyed");
+//            throw new IllegalStateException(already destroyed);
 //        } else {
 //            this.mDeviceFilters.clear();
 //            this.mDeviceFilters.add(filter);
 //        }
 //    }
-//
 //    public void addDeviceFilter(DeviceFilter filter) throws IllegalStateException {
 //        if (this.destroyed) {
-//            throw new IllegalStateException("already destroyed");
+//            throw new IllegalStateException(already destroyed);
 //        } else {
 //            this.mDeviceFilters.add(filter);
 //        }
 //    }
-//
 //    public void removeDeviceFilter(DeviceFilter filter) throws IllegalStateException {
 //        if (this.destroyed) {
-//            throw new IllegalStateException("already destroyed");
+//            throw new IllegalStateException(already destroyed);
 //        } else {
 //            this.mDeviceFilters.remove(filter);
 //        }
 //    }
-//
 //    public void setDeviceFilter(List<DeviceFilter> filters) throws IllegalStateException {
 //        if (this.destroyed) {
-//            throw new IllegalStateException("already destroyed");
+//            throw new IllegalStateException(already destroyed);
 //        } else {
 //            this.mDeviceFilters.clear();
 //            this.mDeviceFilters.addAll(filters);
 //        }
 //    }
-//
 //    public void addDeviceFilter(List<DeviceFilter> filters) throws IllegalStateException {
 //        if (this.destroyed) {
-//            throw new IllegalStateException("already destroyed");
+//            throw new IllegalStateException(already destroyed);
 //        } else {
 //            this.mDeviceFilters.addAll(filters);
 //        }
 //    }
-//
 //    public void removeDeviceFilter(List<DeviceFilter> filters) throws IllegalStateException {
 //        if (this.destroyed) {
-//            throw new IllegalStateException("already destroyed");
+//            throw new IllegalStateException(already destroyed);
 //        } else {
 //            this.mDeviceFilters.removeAll(filters);
 //        }
 //    }
-//
 //    public int getDeviceCount() throws IllegalStateException {
 //        if (this.destroyed) {
-//            throw new IllegalStateException("already destroyed");
+//            throw new IllegalStateException(already destroyed);
 //        } else {
 //            return this.getDeviceList().size();
 //        }
 //    }
-//
 //    public List<UsbDevice> getDeviceList() throws IllegalStateException {
 //        if (this.destroyed) {
-//            throw new IllegalStateException("already destroyed");
+//            throw new IllegalStateException(already destroyed);
 //        } else {
 //            return this.getDeviceList(this.mDeviceFilters);
 //        }
 //    }
-//
 //    public List<UsbDevice> getDeviceList(List<DeviceFilter> filters) throws IllegalStateException {
 //        if (this.destroyed) {
-//            throw new IllegalStateException("already destroyed");
+//            throw new IllegalStateException(already destroyed);
 //        } else {
 //            HashMap<String, UsbDevice> deviceList = this.mUsbManager.getDeviceList();
 //            List<UsbDevice> result = new ArrayList();
 //            if (deviceList != null) {
 //                if (filters != null && !filters.isEmpty()) {
 //                    Iterator var4 = deviceList.values().iterator();
-//
 //                    label42:
 //                    while (var4.hasNext()) {
 //                        UsbDevice device = (UsbDevice) var4.next();
 //                        Iterator var6 = filters.iterator();
-//
 //                        while (true) {
 //                            DeviceFilter filter;
 //                            do {
 //                                if (!var6.hasNext()) {
 //                                    continue label42;
 //                                }
-//
 //                                filter = (DeviceFilter) var6.next();
 //                            } while ((filter == null || !filter.matches(device)) && (filter == null || filter.mSubclass != device.getDeviceSubclass()));
-//
 //                            if (!filter.isExclude) {
 //                                result.add(device);
 //                            }
@@ -413,30 +373,25 @@
 //                    result.addAll(deviceList.values());
 //                }
 //            }
-//
 //            return result;
 //        }
 //    }
-//
 //    public List<UsbDevice> getDeviceList(DeviceFilter filter) throws IllegalStateException {
 //        if (this.destroyed) {
-//            throw new IllegalStateException("already destroyed");
+//            throw new IllegalStateException(already destroyed);
 //        } else {
 //            HashMap<String, UsbDevice> deviceList = this.mUsbManager.getDeviceList();
 //            List<UsbDevice> result = new ArrayList();
 //            if (deviceList != null) {
 //                Iterator var4 = deviceList.values().iterator();
-//
 //                while (true) {
 //                    UsbDevice device;
 //                    do {
 //                        if (!var4.hasNext()) {
 //                            return result;
 //                        }
-//
 //                        device = (UsbDevice) var4.next();
 //                    } while (filter != null && (!filter.matches(device) || filter.isExclude));
-//
 //                    result.add(device);
 //                }
 //            } else {
@@ -444,21 +399,18 @@
 //            }
 //        }
 //    }
-//
 //    public Iterator<UsbDevice> getDevices() throws IllegalStateException {
 //        if (this.destroyed) {
-//            throw new IllegalStateException("already destroyed");
+//            throw new IllegalStateException(already destroyed);
 //        } else {
 //            Iterator<UsbDevice> iterator = null;
 //            HashMap<String, UsbDevice> list = this.mUsbManager.getDeviceList();
 //            if (list != null) {
 //                iterator = list.values().iterator();
 //            }
-//
 //            return iterator;
 //        }
 //    }
-//
 //    public final void dumpDevices() {
 //        HashMap<String, UsbDevice> list = this.mUsbManager.getDeviceList();
 //        if (list != null) {
@@ -466,36 +418,30 @@
 //            if (keys != null && keys.size() > 0) {
 //                StringBuilder sb = new StringBuilder();
 //                Iterator var4 = keys.iterator();
-//
 //                while (var4.hasNext()) {
 //                    String key = (String) var4.next();
 //                    UsbDevice device = (UsbDevice) list.get(key);
 //                    int num_interface = device != null ? device.getInterfaceCount() : 0;
 //                    sb.setLength(0);
-//
 //                    for (int i = 0; i < num_interface; ++i) {
-//                        sb.append(String.format(Locale.US, "interface%d:%s", i, device.getInterface(i).toString()));
+//                        sb.append(String.format(Locale.US, interface%d:%s, i, device.getInterface(i).toString()));
 //                    }
-//
-//                    Log.i("USBMonitor", "key=" + key + ":" + device + ":" + sb.toString());
+//                    Log.i(USBMonitor, key= + key + : + device + : + sb.toString());
 //                }
 //            } else {
-//                Log.i("USBMonitor", "no device");
+//                Log.i(USBMonitor, no device);
 //            }
 //        } else {
-//            Log.i("USBMonitor", "no device");
+//            Log.i(USBMonitor, no device);
 //        }
-//
 //    }
-//
 //    public final boolean hasPermission(UsbDevice device) throws IllegalStateException {
 //        if (this.destroyed) {
-//            throw new IllegalStateException("already destroyed");
+//            throw new IllegalStateException(already destroyed);
 //        } else {
 //            return this.updatePermission(device, device != null && this.mUsbManager.hasPermission(device));
 //        }
 //    }
-//
 //    private boolean updatePermission(UsbDevice device, boolean hasPermission) {
 //        int deviceKey = getDeviceKey(device, true);
 //        synchronized (this.mHasPermissions) {
@@ -506,11 +452,9 @@
 //            } else {
 //                this.mHasPermissions.remove(deviceKey);
 //            }
-//
 //            return hasPermission;
 //        }
 //    }
-//
 //    public synchronized boolean requestPermission(UsbDevice device) {
 //        boolean result = false;
 //        if (this.isRegistered()) {
@@ -521,7 +465,7 @@
 //                    try {
 //                        this.mUsbManager.requestPermission(device, this.mPermissionIntent);
 //                    } catch (Exception var4) {
-//                        Log.w("USBMonitor", var4);
+//                        Log.w(USBMonitor, var4);
 //                        this.processCancel(device);
 //                        result = true;
 //                    }
@@ -534,10 +478,8 @@
 //            this.processCancel(device);
 //            result = true;
 //        }
-//
 //        return result;
 //    }
-//
 //    public USBMonitor.UsbControlBlock openDevice(UsbDevice device) throws SecurityException {
 //        if (this.hasPermission(device)) {
 //            USBMonitor.UsbControlBlock result = (USBMonitor.UsbControlBlock) this.mCtrlBlocks.get(device);
@@ -545,13 +487,11 @@
 //                result = new USBMonitor.UsbControlBlock(this, device);
 //                this.mCtrlBlocks.put(device, result);
 //            }
-//
 //            return result;
 //        } else {
-//            throw new SecurityException("has no permission");
+//            throw new SecurityException(has no permission);
 //        }
 //    }
-//
 //    private final void processConnect(final UsbDevice device) {
 //        if (!this.destroyed) {
 //            this.updatePermission(device, true);
@@ -566,16 +506,13 @@
 //                    } else {
 //                        createNew = false;
 //                    }
-//
 //                    if (USBMonitor.this.mOnDeviceConnectListener != null) {
 //                        USBMonitor.this.mOnDeviceConnectListener.onConnect(device, ctrlBlock, createNew);
 //                    }
-//
 //                }
 //            });
 //        }
 //    }
-//
 //    private final void processCancel(final UsbDevice device) {
 //        if (!this.destroyed) {
 //            this.updatePermission(device, false);
@@ -586,10 +523,8 @@
 //                    }
 //                });
 //            }
-//
 //        }
 //    }
-//
 //    private final void processAttach(final UsbDevice device) {
 //        if (!this.destroyed) {
 //            if (this.mOnDeviceConnectListener != null) {
@@ -599,10 +534,8 @@
 //                    }
 //                });
 //            }
-//
 //        }
 //    }
-//
 //    private final void processDettach(final UsbDevice device) {
 //        if (!this.destroyed) {
 //            if (this.mOnDeviceConnectListener != null) {
@@ -612,82 +545,67 @@
 //                    }
 //                });
 //            }
-//
 //        }
 //    }
-//
 //    public static final String getDeviceKeyName(UsbDevice device) {
 //        return getDeviceKeyName(device, (String) null, false);
 //    }
-//
 //    public static final String getDeviceKeyName(UsbDevice device, boolean useNewAPI) {
 //        return getDeviceKeyName(device, (String) null, useNewAPI);
 //    }
-//
-//    @SuppressLint({"NewApi"})
+//    @SuppressLint({NewApi})
 //    public static final String getDeviceKeyName(UsbDevice device, String serial, boolean useNewAPI) {
 //        if (device == null) {
-//            return "";
+//            return ;
 //        } else {
 //            StringBuilder sb = new StringBuilder();
 //            sb.append(device.getVendorId());
-//            sb.append("#");
+//            sb.append(#);
 //            sb.append(device.getProductId());
-//            sb.append("#");
+//            sb.append(#);
 //            sb.append(device.getDeviceClass());
-//            sb.append("#");
+//            sb.append(#);
 //            sb.append(device.getDeviceSubclass());
-//            sb.append("#");
+//            sb.append(#);
 //            sb.append(device.getDeviceProtocol());
 //            if (!TextUtils.isEmpty(serial)) {
 //            }
-//
 //            return sb.toString();
 //        }
 //    }
-//
 //    public static final int getDeviceKey(UsbDevice device) {
 //        return device != null ? getDeviceKeyName(device, (String) null, false).hashCode() : 0;
 //    }
-//
 //    public static final int getDeviceKey(UsbDevice device, boolean useNewAPI) {
 //        return device != null ? getDeviceKeyName(device, (String) null, useNewAPI).hashCode() : 0;
 //    }
-//
 //    public static final int getDeviceKey(UsbDevice device, String serial, boolean useNewAPI) {
 //        return device != null ? getDeviceKeyName(device, serial, useNewAPI).hashCode() : 0;
 //    }
-//
 //    private static String getString(UsbDeviceConnection connection, int id, int languageCount, byte[] languages) {
 //        byte[] work = new byte[256];
 //        String result = null;
-//
 //        for (int i = 1; i <= languageCount; ++i) {
 //            int ret = connection.controlTransfer(128, 6, 768 | id, languages[i], work, 256, 0);
 //            if (ret > 2 && work[0] == ret && work[1] == 3) {
 //                try {
-//                    result = new String(work, 2, ret - 2, "UTF-16LE");
-//                    if (!"Љ".equals(result)) {
+//                    result = new String(work, 2, ret - 2, UTF-16LE);
+//                    if (!Љ.equals(result)) {
 //                        break;
 //                    }
-//
 //                    result = null;
 //                } catch (UnsupportedEncodingException var9) {
 //                }
 //            }
 //        }
-//
 //        return result;
 //    }
-//
 //    public USBMonitor.UsbDeviceInfo getDeviceInfo(UsbDevice device) {
 //        return updateDeviceInfo(this.mUsbManager, device, (USBMonitor.UsbDeviceInfo) null);
 //    }
-//
 //    public static USBMonitor.UsbDeviceInfo getDeviceInfo(Context context, UsbDevice device) {
-//        return updateDeviceInfo((UsbManager) context.getSystemService("usb"), device, new USBMonitor.UsbDeviceInfo());
+//        return updateDeviceInfo((UsbManager) context.getSystemService(usb), device, new USBMonitor.UsbDeviceInfo());
 //    }
-//
 //    @TargetApi(23)
 //    public static USBMonitor.UsbDeviceInfo updateDeviceInfo(UsbManager manager, UsbDevice device, USBMonitor.UsbDeviceInfo _info) {
 //        USBMonitor.UsbDeviceInfo info = _info != null ? _info : new USBMonitor.UsbDeviceInfo();
@@ -698,48 +616,38 @@
 //                info.product = device.getProductName();
 //                info.serial = device.getSerialNumber();
 //            }
-//
 //            if (BuildCheck.isMarshmallow()) {
 //                info.usb_version = device.getVersion();
 //            }
-//
 //            if (manager != null && manager.hasPermission(device)) {
 //                UsbDeviceConnection connection = manager.openDevice(device);
 //                if (connection == null) {
 //                    return null;
 //                }
-//
 //                byte[] desc = connection.getRawDescriptors();
 //                if (TextUtils.isEmpty(info.usb_version)) {
-//                    info.usb_version = String.format("%x.%02x", desc[3] & 255, desc[2] & 255);
+//                    info.usb_version = String.format(%x.%02x, desc[3] & 255, desc[2] & 255);
 //                }
-//
 //                if (TextUtils.isEmpty(info.version)) {
-//                    info.version = String.format("%x.%02x", desc[13] & 255, desc[12] & 255);
+//                    info.version = String.format(%x.%02x, desc[13] & 255, desc[12] & 255);
 //                }
-//
 //                if (TextUtils.isEmpty(info.serial)) {
 //                    info.serial = connection.getSerial();
 //                }
-//
 //                byte[] languages = new byte[256];
 //                int languageCount = 0;
-//
 //                try {
 //                    int result = connection.controlTransfer(128, 6, 768, 0, languages, 256, 0);
 //                    if (result > 0) {
 //                        languageCount = (result - 2) / 2;
 //                    }
-//
 //                    if (languageCount > 0) {
 //                        if (TextUtils.isEmpty(info.manufacturer)) {
 //                            info.manufacturer = getString(connection, desc[14], languageCount, languages);
 //                        }
-//
 //                        if (TextUtils.isEmpty(info.product)) {
 //                            info.product = getString(connection, desc[15], languageCount, languages);
 //                        }
-//
 //                        if (TextUtils.isEmpty(info.serial)) {
 //                            info.serial = getString(connection, desc[16], languageCount, languages);
 //                        }
@@ -748,23 +656,18 @@
 //                    connection.close();
 //                }
 //            }
-//
 //            if (TextUtils.isEmpty(info.manufacturer)) {
 //                info.manufacturer = USBVendorId.vendorName(device.getVendorId());
 //            }
-//
 //            if (TextUtils.isEmpty(info.manufacturer)) {
-//                info.manufacturer = String.format("%04x", device.getVendorId());
+//                info.manufacturer = String.format(%04x, device.getVendorId());
 //            }
-//
 //            if (TextUtils.isEmpty(info.product)) {
-//                info.product = String.format("%04x", device.getProductId());
+//                info.product = String.format(%04x, device.getProductId());
 //            }
 //        }
-//
 //        return info;
 //    }
-//
 //    public static final class UsbControlBlock implements Cloneable {
 //        private final WeakReference<USBMonitor> mWeakMonitor;
 //        private final WeakReference<UsbDevice> mWeakDevice;
@@ -773,7 +676,6 @@
 //        private final int mBusNum;
 //        private final int mDevNum;
 //        private final SparseArray<SparseArray<UsbInterface>> mInterfaces;
-//
 //        private UsbControlBlock(USBMonitor monitor, UsbDevice device) {
 //            this.mInterfaces = new SparseArray();
 //            this.mWeakMonitor = new WeakReference(monitor);
@@ -781,36 +683,33 @@
 //            this.mConnection = monitor.mUsbManager.openDevice(device);
 //            this.mInfo = USBMonitor.updateDeviceInfo(monitor.mUsbManager, device, (USBMonitor.UsbDeviceInfo) null);
 //            String name = device.getDeviceName();
-//            String[] v = !TextUtils.isEmpty(name) ? name.split("/") : null;
+//            String[] v = !TextUtils.isEmpty(name) ? name.split(/) : null;
 //            int busnum = 0;
 //            int devnum = 0;
 //            if (v != null) {
 //                busnum = Integer.parseInt(v[v.length - 2]);
 //                devnum = Integer.parseInt(v[v.length - 1]);
 //            }
-//
 //            this.mBusNum = busnum;
 //            this.mDevNum = devnum;
 //            if (this.mConnection != null) {
 //                int desc = this.mConnection.getFileDescriptor();
 //                byte[] rawDesc = this.mConnection.getRawDescriptors();
-//                Log.i("USBMonitor", String.format(Locale.US, "name=%s,desc=%d,busnum=%d,devnum=%d,rawDesc=", name, desc, busnum, devnum) + rawDesc);
+//                Log.i(USBMonitor, String.format(Locale.US, name=%s,desc=%d,busnum=%d,devnum=%d,rawDesc=, name, desc, busnum, devnum) + rawDesc);
 //            } else {
-//                Log.e("USBMonitor", "could not connect to device " + name);
+//                Log.e(USBMonitor, could not connect to device  + name);
 //            }
-//
 //        }
-//
 //        private UsbControlBlock(USBMonitor.UsbControlBlock src) throws IllegalStateException {
 //            this.mInterfaces = new SparseArray();
 //            USBMonitor monitor = src.getUSBMonitor();
 //            UsbDevice device = src.getDevice();
 //            if (device == null) {
-//                throw new IllegalStateException("device may already be removed");
+//                throw new IllegalStateException(device may already be removed);
 //            } else {
 //                this.mConnection = monitor.mUsbManager.openDevice(device);
 //                if (this.mConnection == null) {
-//                    throw new IllegalStateException("device may already be removed or have no permission");
+//                    throw new IllegalStateException(device may already be removed or have no permission);
 //                } else {
 //                    this.mInfo = USBMonitor.updateDeviceInfo(monitor.mUsbManager, device, (USBMonitor.UsbDeviceInfo) null);
 //                    this.mWeakMonitor = new WeakReference(monitor);
@@ -820,7 +719,6 @@
 //                }
 //            }
 //        }
-//
 //        public USBMonitor.UsbControlBlock clone() throws CloneNotSupportedException {
 //            try {
 //                USBMonitor.UsbControlBlock ctrlblock = new USBMonitor.UsbControlBlock(this);
@@ -829,114 +727,88 @@
 //                throw new CloneNotSupportedException(var3.getMessage());
 //            }
 //        }
-//
 //        public USBMonitor getUSBMonitor() {
 //            return (USBMonitor) this.mWeakMonitor.get();
 //        }
-//
 //        public final UsbDevice getDevice() {
 //            return (UsbDevice) this.mWeakDevice.get();
 //        }
-//
 //        public String getDeviceName() {
 //            UsbDevice device = (UsbDevice) this.mWeakDevice.get();
-//            return device != null ? device.getDeviceName() : "";
+//            return device != null ? device.getDeviceName() : ;
 //        }
-//
 //        public int getDeviceId() {
 //            UsbDevice device = (UsbDevice) this.mWeakDevice.get();
 //            return device != null ? device.getDeviceId() : 0;
 //        }
-//
 //        public String getDeviceKeyName() {
 //            return USBMonitor.getDeviceKeyName((UsbDevice) this.mWeakDevice.get());
 //        }
-//
 //        public String getDeviceKeyName(boolean useNewAPI) throws IllegalStateException {
 //            if (useNewAPI) {
 //                this.checkConnection();
 //            }
-//
 //            return USBMonitor.getDeviceKeyName((UsbDevice) this.mWeakDevice.get(), this.mInfo.serial, useNewAPI);
 //        }
-//
 //        public int getDeviceKey() throws IllegalStateException {
 //            this.checkConnection();
 //            return USBMonitor.getDeviceKey((UsbDevice) this.mWeakDevice.get());
 //        }
-//
 //        public int getDeviceKey(boolean useNewAPI) throws IllegalStateException {
 //            if (useNewAPI) {
 //                this.checkConnection();
 //            }
-//
 //            return USBMonitor.getDeviceKey((UsbDevice) this.mWeakDevice.get(), this.mInfo.serial, useNewAPI);
 //        }
-//
 //        public String getDeviceKeyNameWithSerial() {
 //            return USBMonitor.getDeviceKeyName((UsbDevice) this.mWeakDevice.get(), this.mInfo.serial, false);
 //        }
-//
 //        public int getDeviceKeyWithSerial() {
 //            return this.getDeviceKeyNameWithSerial().hashCode();
 //        }
-//
 //        public synchronized UsbDeviceConnection getConnection() {
 //            return this.mConnection;
 //        }
-//
 //        public synchronized int getFileDescriptor() throws IllegalStateException {
 //            this.checkConnection();
 //            return this.mConnection.getFileDescriptor();
 //        }
-//
 //        public synchronized byte[] getRawDescriptors() throws IllegalStateException {
 //            this.checkConnection();
 //            return this.mConnection.getRawDescriptors();
 //        }
-//
 //        public int getVenderId() {
 //            UsbDevice device = (UsbDevice) this.mWeakDevice.get();
 //            return device != null ? device.getVendorId() : 0;
 //        }
-//
 //        public int getProductId() {
 //            UsbDevice device = (UsbDevice) this.mWeakDevice.get();
 //            return device != null ? device.getProductId() : 0;
 //        }
-//
 //        public String getUsbVersion() {
 //            return this.mInfo.usb_version;
 //        }
-//
 //        public String getManufacture() {
 //            return this.mInfo.manufacturer;
 //        }
-//
 //        public String getProductName() {
 //            return this.mInfo.product;
 //        }
-//
 //        public String getVersion() {
 //            return this.mInfo.version;
 //        }
-//
 //        public String getSerial() {
 //            return this.mInfo.serial;
 //        }
-//
 //        public int getBusNum() {
 //            return this.mBusNum;
 //        }
-//
 //        public int getDevNum() {
 //            return this.mDevNum;
 //        }
-//
 //        public synchronized UsbInterface getInterface(int interface_id) throws IllegalStateException {
 //            return this.getInterface(interface_id, 0);
 //        }
-//
 //        public synchronized UsbInterface getInterface(int interface_id, int altsetting) throws IllegalStateException {
 //            this.checkConnection();
 //            SparseArray<UsbInterface> intfs = (SparseArray) this.mInterfaces.get(interface_id);
@@ -944,12 +816,10 @@
 //                intfs = new SparseArray();
 //                this.mInterfaces.put(interface_id, intfs);
 //            }
-//
 //            UsbInterface intf = (UsbInterface) intfs.get(altsetting);
 //            if (intf == null) {
 //                UsbDevice device = (UsbDevice) this.mWeakDevice.get();
 //                int n = device.getInterfaceCount();
-//
 //                for (int i = 0; i < n; ++i) {
 //                    UsbInterface temp = device.getInterface(i);
 //                    if (temp.getId() == interface_id && temp.getAlternateSetting() == altsetting) {
@@ -957,24 +827,19 @@
 //                        break;
 //                    }
 //                }
-//
 //                if (intf != null) {
 //                    intfs.append(altsetting, intf);
 //                }
 //            }
-//
 //            return intf;
 //        }
-//
 //        public synchronized void claimInterface(UsbInterface intf) {
 //            this.claimInterface(intf, true);
 //        }
-//
 //        public synchronized void claimInterface(UsbInterface intf, boolean force) {
 //            this.checkConnection();
 //            this.mConnection.claimInterface(intf, force);
 //        }
-//
 //        public synchronized void releaseInterface(UsbInterface intf) throws IllegalStateException {
 //            this.checkConnection();
 //            SparseArray<UsbInterface> intfs = (SparseArray) this.mInterfaces.get(intf.getId());
@@ -985,28 +850,22 @@
 //                    this.mInterfaces.remove(intf.getId());
 //                }
 //            }
-//
 //            this.mConnection.releaseInterface(intf);
 //        }
-//
 //        public synchronized void close() {
 //            if (this.mConnection != null) {
 //                int n = this.mInterfaces.size();
-//
 //                for (int i = 0; i < n; ++i) {
 //                    SparseArray<UsbInterface> intfs = (SparseArray) this.mInterfaces.valueAt(i);
 //                    if (intfs != null) {
 //                        int m = intfs.size();
-//
 //                        for (int j = 0; j < m; ++j) {
 //                            UsbInterface intf = (UsbInterface) intfs.valueAt(j);
 //                            this.mConnection.releaseInterface(intf);
 //                        }
-//
 //                        intfs.clear();
 //                    }
 //                }
-//
 //                this.mInterfaces.clear();
 //                this.mConnection.close();
 //                this.mConnection = null;
@@ -1015,13 +874,10 @@
 //                    if (monitor.mOnDeviceConnectListener != null) {
 //                        monitor.mOnDeviceConnectListener.onDisconnect((UsbDevice) this.mWeakDevice.get(), this);
 //                    }
-//
 //                    monitor.mCtrlBlocks.remove(this.getDevice());
 //                }
 //            }
-//
 //        }
-//
 //        public boolean equals(Object o) {
 //            if (o == null) {
 //                return false;
@@ -1032,42 +888,32 @@
 //                return o instanceof UsbDevice ? o.equals(this.mWeakDevice.get()) : super.equals(o);
 //            }
 //        }
-//
 //        private synchronized void checkConnection() throws IllegalStateException {
 //            if (this.mConnection == null) {
-//                throw new IllegalStateException("already closed");
+//                throw new IllegalStateException(already closed);
 //            }
 //        }
 //    }
-//
 //    public static class UsbDeviceInfo {
 //        public String usb_version;
 //        public String manufacturer;
 //        public String product;
 //        public String version;
 //        public String serial;
-//
 //        public UsbDeviceInfo() {
 //        }
-//
 //        private void clear() {
 //            this.usb_version = this.manufacturer = this.product = this.version = this.serial = null;
 //        }
-//
 //        public String toString() {
-//            return String.format("UsbDevice:usb_version=%s,manufacturer=%s,product=%s,version=%s,serial=%s", this.usb_version != null ? this.usb_version : "", this.manufacturer != null ? this.manufacturer : "", this.product != null ? this.product : "", this.version != null ? this.version : "", this.serial != null ? this.serial : "");
+//            return String.format(UsbDevice:usb_version=%s,manufacturer=%s,product=%s,version=%s,serial=%s, this.usb_version != null ? this.usb_version : , this.manufacturer != null ? this.manufacturer : , this.product != null ? this.product : , this.version != null ? this.version : , this.serial != null ? this.serial : );
 //        }
 //    }
-//
 //    public interface OnDeviceConnectListener {
 //        void onAttach(UsbDevice var1);
-//
 //        void onDettach(UsbDevice var1);
-//
 //        void onConnect(UsbDevice var1, USBMonitor.UsbControlBlock var2, boolean var3);
-//
 //        void onDisconnect(UsbDevice var1, USBMonitor.UsbControlBlock var2);
-//
 //        void onCancel(UsbDevice var1);
 //    }
 //}

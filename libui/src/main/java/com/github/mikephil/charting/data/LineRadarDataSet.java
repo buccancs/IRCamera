@@ -20,6 +20,9 @@ public abstract class LineRadarDataSet<T extends Entry> extends LineScatterCandl
     /**
      * the color that is used for filling the line surface
      */
+    /**
+     * Private method description.
+     */
     private int mFillColor = Color.rgb(140, 234, 255);
 
     /**
@@ -43,11 +46,17 @@ public abstract class LineRadarDataSet<T extends Entry> extends LineScatterCandl
     private boolean mDrawFilled = false;
 
 
+    /**
+     * Method description.
+     */
     public LineRadarDataSet(List<T> yVals, String label) {
         super(yVals, label);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int getFillColor() {
         return mFillColor;
     }
@@ -58,12 +67,18 @@ public abstract class LineRadarDataSet<T extends Entry> extends LineScatterCandl
      *
      * @param color
      */
+    /**
+     * Method description.
+     */
     public void setFillColor(int color) {
         mFillColor = color;
         mFillDrawable = null;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public Drawable getFillDrawable() {
         return mFillDrawable;
     }
@@ -74,11 +89,17 @@ public abstract class LineRadarDataSet<T extends Entry> extends LineScatterCandl
      * @param drawable
      */
     @TargetApi(18)
+    /**
+     * Method description.
+     */
     public void setFillDrawable(Drawable drawable) {
         this.mFillDrawable = drawable;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int getFillAlpha() {
         return mFillAlpha;
     }
@@ -88,6 +109,9 @@ public abstract class LineRadarDataSet<T extends Entry> extends LineScatterCandl
      * surface (0-255), default: 85
      *
      * @param alpha
+     */
+    /**
+     * Method description.
      */
     public void setFillAlpha(int alpha) {
         mFillAlpha = alpha;
@@ -99,6 +123,9 @@ public abstract class LineRadarDataSet<T extends Entry> extends LineScatterCandl
      *
      * @param width
      */
+    /**
+     * Method description.
+     */
     public void setLineWidth(float width) {
 
         if (width < 0.0f)
@@ -109,16 +136,25 @@ public abstract class LineRadarDataSet<T extends Entry> extends LineScatterCandl
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public float getLineWidth() {
         return mLineWidth;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setDrawFilled(boolean filled) {
         mDrawFilled = filled;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean isDrawFilledEnabled() {
         return mDrawFilled;
     }

@@ -4,6 +4,9 @@ import android.content.Context
 import java.io.IOException
 
 object CommonUtil {
+    /**
+     * Function description.
+     */
     fun getAssetData(context: Context, assetPath: String): ByteArray? {
         return try {
             context.assets.open(assetPath).use { inputStream ->

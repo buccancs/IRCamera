@@ -1,5 +1,4 @@
 //package com.infisense.usbir.view
-//
 //import android.content.Context
 //import android.graphics.drawable.ColorDrawable
 //import android.util.Log
@@ -13,21 +12,14 @@
 //import com.infisense.usbir.R
 //import com.infisense.usbir.activity.IRDisplayActivity
 //import com.infisense.usbir.camera.IRUVC
-//import kotlinx.android.synthetic.main.isp.view.*
-//
-//
-////图像参数
+
 //class PopuMenuISP(context: Context, mainActivity: IRDisplayActivity) {
-//
 //    private val popupWindow: PopupWindow
-//
 //    var usbcamera: IRUVC? = null
 //    var mainActivity: IRDisplayActivity
-//
 //    private val adapterm4: ArrayAdapter<String>
 //    private val adapterm7: ArrayAdapter<String>
 //    var layView: View
-//
 //    private val imageParam: Unit
 //        private get() {
 //            val mode = CharArray(1)
@@ -60,25 +52,25 @@
 //                mode,
 //                usbcamera!!.uvcCamera.nativePtr
 //            )
-//            layView.MAXGAIN!!.setText(mode[0] + 0 + "")
+//            layView.MAXGAIN!!.setText(mode[0] + 0 + )
 //            Libircmd.get_prop_image_params(
 //                Libircmd.IMAGE_PROP_LEVEL_BOS,
 //                mode,
 //                usbcamera!!.uvcCamera.nativePtr
 //            )
-//            layView.BOS!!.setText(mode[0] + 0 + "")
+//            layView.BOS!!.setText(mode[0] + 0 + )
 //            Libircmd.get_prop_image_params(
 //                Libircmd.IMAGE_PROP_LEVEL_CONTRAST,
 //                mode,
 //                usbcamera!!.uvcCamera.nativePtr
 //            )
-//            layView.CONTRAST!!.setText(mode[0] + 0 + "")
+//            layView.CONTRAST!!.setText(mode[0] + 0 + )
 //            Libircmd.get_prop_image_params(
 //                Libircmd.IMAGE_PROP_LEVEL_BRIGHTNESS,
 //                mode,
 //                usbcamera!!.uvcCamera.nativePtr
 //            )
-//            layView.BRIGHTNESS!!.setText(mode[0] + 0 + "")
+//            layView.BRIGHTNESS!!.setText(mode[0] + 0 + )
 //            Libircmd.get_prop_image_params(
 //                Libircmd.IMAGE_PROP_ONOFF_AGC,
 //                mode,
@@ -125,7 +117,6 @@
 //                            }
 //                        }
 //                    }
-//
 //                    override fun onNothingSelected(adapterView: AdapterView<*>?) {}
 //                }
 //            layView.TNR!!.onItemSelectedListener = spinner
@@ -133,22 +124,18 @@
 //            layView.DDE!!.onItemSelectedListener = spinner
 //            layView.AGC!!.onItemSelectedListener = spinner
 //        }
-//
 //    fun showheight(linearLayout: LinearLayout?, popupheight: Int) {
 //        popupWindow.showAtLocation(linearLayout, Gravity.NO_GRAVITY, 0, popupheight)
 //        if (usbcamera != null && usbcamera!!.uvcCamera != null) imageParam
 //    }
-//
 //    private fun showShortMsg(msg: String) {
 //        Toast.makeText(layView.context, msg, Toast.LENGTH_SHORT).show()
 //    }
-//
 //    companion object {
-//        private const val TAG = "PopuMenuISP"
-//        private val m4 = arrayOf("0", "1", "2", "3")
-//        private val m7 = arrayOf("0", "1", "2", "3", "4", "5", "6")
+//        private const val TAG = PopuMenuISP
+//        private val m4 = arrayOf(0, 1, 2, 3)
+//        private val m7 = arrayOf(0, 1, 2, 3, 4, 5, 6)
 //    }
-//
 //    init {
 ////        adapterm4 = ArrayAdapter(context, R.layout.simple_spinner_item, m4)
 ////        adapterm7 = ArrayAdapter(context, R.layout.simple_spinner_item, m7)
@@ -167,7 +154,7 @@
 //            )
 //        }
 //        val handler = View.OnClickListener { view ->
-//            Log.d(TAG, "onViewClicked: " + view.id)
+//            Log.d(TAG, onViewClicked:  + view.id)
 //            when (view.id) {
 //                R.id.rotate -> mainActivity.setRotate(true)
 //                R.id.derotate -> mainActivity.setRotate(false)
@@ -251,10 +238,9 @@
 //        popupWindow.height = ViewGroup.LayoutParams.WRAP_CONTENT
 //        popupWindow.isFocusable = true
 //        popupWindow.isOutsideTouchable = false
-//        popupWindow.setBackgroundDrawable(ColorDrawable(0x00000000)) // 解决 7.0 手机，点击外部不消失
+//        popupWindow.setBackgroundDrawable(ColorDrawable(0x00000000)) //  7.0
 //        popupWindow.animationStyle = R.style.contextMenuAnim
 //        layView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
-//        //创建布局管理
 //        val layoutManager = LinearLayoutManager(context)
 //        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
 //    }

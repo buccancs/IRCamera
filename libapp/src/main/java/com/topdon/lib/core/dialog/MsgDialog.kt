@@ -7,19 +7,15 @@ import android.content.res.Configuration
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup.LayoutParams
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import com.topdon.lib.core.R
+import com.csl.irCamera.libapp.R
+import com.csl.irCamera.libapp.databinding.DialogMsgBinding
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.dialog_msg.view.*
 
 
-/**
- * 消息提示窗
  * create by fylder on 2018/6/15
- **/
 class MsgDialog : Dialog {
 
     constructor(context: Context) : super(context)
@@ -36,9 +32,7 @@ class MsgDialog : Dialog {
         private var message: String? = null
         private var positiveClickListener: OnClickListener? = null
 
-        private var tipImg: ImageView? = null
-        private var messageText: TextView? = null
-        private var closeImg: ImageView? = null
+        private lateinit var binding: DialogMsgBinding
 
         constructor(context: Context) {
             this.context = context
@@ -75,27 +69,24 @@ class MsgDialog : Dialog {
             }
             val inflater =
                 context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val view = inflater.inflate(R.layout.dialog_msg, null)
-            tipImg = view.dialog_msg_img
-            messageText = view.dialog_msg_text
-            closeImg = view.dialog_msg_close
+            binding = DialogMsgBinding.inflate(inflater)
+            val view = binding.root
+            
             dialog!!.addContentView(
                 view, LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
             )
             val lp = dialog!!.window!!.attributes
             val wRatio =
                 if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    //竖屏
                     0.9
                 } else {
-                    //横屏
                     0.3
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() //设置宽度
+            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() //
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(false)
-            closeImg!!.setOnClickListener {
+            binding.dialogMsgClose.setOnClickListener {
                 dismiss()
                 if (positiveClickListener != null) {
                     positiveClickListener!!.onClick(dialog!!)
@@ -103,17 +94,17 @@ class MsgDialog : Dialog {
             }
             //img
             if (imgRes != 0) {
-                tipImg?.visibility = View.VISIBLE
-                tipImg?.setImageResource(imgRes)
+                binding.dialogMsgImg.visibility = View.VISIBLE
+                binding.dialogMsgImg.setImageResource(imgRes)
             } else {
-                tipImg?.visibility = View.GONE
+                binding.dialogMsgImg.visibility = View.GONE
             }
             //msg
             if (message != null) {
-                messageText?.visibility = View.VISIBLE
-                messageText?.setText(message, TextView.BufferType.NORMAL)
+                binding.dialogMsgText.visibility = View.VISIBLE
+                binding.dialogMsgText.setText(message, TextView.BufferType.NORMAL)
             } else {
-                messageText?.visibility = View.GONE
+                binding.dialogMsgText.visibility = View.GONE
             }
 
             dialog!!.setContentView(view)
@@ -122,9 +113,6 @@ class MsgDialog : Dialog {
     }
 
 
-    /**
-     * 提交回调
-     */
     interface OnClickListener {
         fun onClick(dialog: DialogInterface)
     }

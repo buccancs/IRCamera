@@ -1,26 +1,27 @@
 package com.topdon.menu.constant
 
 /**
- * 点、线、面、全图、趋势图(可选)、删除 菜单类型.
- *
- * Created by LCG on 2024/11/18.
+ * Enumeration of fence types for thermal measurement areas.
+ * 
+ * @author LCG
+ * @since 2024/11/18
  */
 enum class FenceType {
-    /** 点 */
+    /** Point-based measurement fence */
     POINT,
 
-    /** 线 */
+    /** Line-based measurement fence */
     LINE,
 
-    /** 面 */
+    /** Rectangular measurement fence */
     RECT,
 
-    /** 全图 */
+    /** Full screen measurement fence */
     FULL,
 
-    /** 趋势图 */
+    /** Trend analysis fence */
     TREND,
 
-    /** 删除 */
+    /** Delete fence action */
     DEL,
 }

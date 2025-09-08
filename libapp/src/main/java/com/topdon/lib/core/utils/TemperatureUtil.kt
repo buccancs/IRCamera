@@ -7,6 +7,9 @@ import com.topdon.lib.core.common.SharedManager
  * @date: 2024/8/26 9:59
  */
 object TemperatureUtil {
+    /**
+     * Function description.
+     */
     fun getTempStr(min: Int, max: Int): String = if (SharedManager.getTemperature() == 1) {
         "${min}°C~${max}°C"
     } else {

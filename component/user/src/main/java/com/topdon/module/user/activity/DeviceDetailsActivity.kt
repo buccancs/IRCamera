@@ -13,29 +13,29 @@ import com.topdon.lib.core.repository.ProductBean
 import com.topdon.lms.sdk.utils.TLog
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.user.R
-import kotlinx.android.synthetic.main.activity_device_details.*
+import com.csl.irCamera.libapp.R as LibAppR
+import com.topdon.module.user.databinding.ActivityDeviceDetailsBinding
 import kotlinx.coroutines.launch
 
-/**
- * TC001 设备信息 (legacy TC007/TS004 support removed)
- *
+ * TC001  (legacy TC007/TS004 support removed)
  * Legacy parameters (now ignored):
- * - [ExtraKeyConfig.IS_TC007] - Always treated as false for TC001
- */
+ * [ExtraKeyConfig.IS_TC007] - Always treated as false for TC001
 @Route(path = RouterConfig.DEVICE_INFORMATION)
 class DeviceDetailsActivity : BaseActivity(), View.OnClickListener {
 
-    /**
      * Legacy TC007 flag - now always false for TC001 devices.
-     */
     private var isTC007 = false
+    private lateinit var binding: ActivityDeviceDetailsBinding
 
     override fun initContentView() = R.layout.activity_device_details
 
     override fun initView() {
+        binding = ActivityDeviceDetailsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
         // TC001 devices only - ignore legacy TC007 parameter
         isTC007 = false // Always false for TC001
-        cl_layout_copy.setOnClickListener(this)
+        binding.clLayoutCopy.setOnClickListener(this)
     }
 
     override fun initData() {
@@ -45,18 +45,18 @@ class DeviceDetailsActivity : BaseActivity(), View.OnClickListener {
     private fun getDeviceDetails() {
         lifecycleScope.launch {
             // Only TC001 is supported - device details not available via network for USB connection
-            TToast.shortToast(this@DeviceDetailsActivity, R.string.operation_failed_tips)
+            TToast.shortToast(this@DeviceDetailsActivity, LibAppR.string.operation_failed_tips)
         }
     }
 
     override fun onClick(v: View?) {
         when (v) {
-            cl_layout_copy -> {//复制信息
-                val text = "${tv_sn.text}:${tv_sn_value.text}  ${tv_device_model.text}:${tv_device_model_value.text}"
+            binding.clLayoutCopy -> {//
+                val text = "${binding.tvSn.text}:${binding.tvSnValue.text} ${binding.tvDeviceModel.text}:${binding.tvDeviceModelValue.text}"
                 val cm = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager?
                 val mClipData = ClipData.newPlainText("text", text)
                 cm!!.setPrimaryClip(mClipData)
-                TToast.shortToast(this@DeviceDetailsActivity, R.string.ts004_copy_success)
+                TToast.shortToast(this@DeviceDetailsActivity, LibAppR.string.ts004_copy_success)
             }
         }
     }

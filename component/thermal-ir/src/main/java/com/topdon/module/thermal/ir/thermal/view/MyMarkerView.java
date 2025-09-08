@@ -17,17 +17,20 @@ import com.topdon.lib.core.tools.TimeTool;
 import com.topdon.module.thermal.ir.R;
 
 
-/**
  * Custom implementation of the MarkerView.
- *
  * @author Philipp Jahoda
- */
 @SuppressLint("ViewConstructor")
 public class MyMarkerView extends MarkerView {
 
+    /**
+     * Private method description.
+     */
     private final TextView tvContent;
     private final TextView timeText;
 
+    /**
+     * Method description.
+     */
     public MyMarkerView(Context context, int layoutResource) {
         super(context, layoutResource);
         tvContent = findViewById(R.id.tvContent);
@@ -38,8 +41,11 @@ public class MyMarkerView extends MarkerView {
     // content (user-interface)
     @SuppressLint("DefaultLocale")
     @Override
+    /**
+     * Method description.
+     */
     public void refreshContent(Entry e, Highlight highlight) {
-        int index = highlight.getDataIndex();//曲线序号
+        int index = highlight.getDataIndex();//
         ThermalEntity data = (ThermalEntity) e.getData();
         if (e instanceof CandleEntry) {
             CandleEntry ce = (CandleEntry) e;
@@ -50,13 +56,13 @@ public class MyMarkerView extends MarkerView {
             String thermalMaxStr = NumberTools.INSTANCE.to02(data.getThermalMax());
             String thermalMinStr = NumberTools.INSTANCE.to02(data.getThermalMin());
             if (index == 0) {
-                str.append("温度:").append(thermalStr);
+                str.append(":").append(thermalStr);
             } else if (index == 1) {
-                str.append("最高温度:").append(thermalMaxStr);
-                str.append(System.getProperty("line.separator")).append("最低温度:").append(thermalMinStr);
+                str.append(":").append(thermalMaxStr);
+                str.append(System.getProperty("line.separator")).append(":").append(thermalMinStr);
             } else {
-                str.append("最高温度:").append(thermalMaxStr);
-                str.append(System.getProperty("line.separator")).append("最低温度:").append(thermalMinStr);
+                str.append(":").append(thermalMaxStr);
+                str.append(System.getProperty("line.separator")).append(":").append(thermalMinStr);
             }
             tvContent.setText(str.toString());
             timeText.setText(TimeTool.INSTANCE.showTimeSecond(data.getCreateTime()));
@@ -65,6 +71,9 @@ public class MyMarkerView extends MarkerView {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public MPPointF getOffset() {
         return new MPPointF(-(getWidth() / 2f), -getHeight());
     }

@@ -14,6 +14,9 @@ import java.lang.reflect.Method;
 import java.util.Set;
 
 public class PreUtil {
+    /**
+     * Private method description.
+     */
     private WeakReference<Context> mContext;
     private SharedPreferences preferences;
     private final String DATA_URL = "/data/data/";
@@ -22,42 +25,37 @@ public class PreUtil {
 
     private static PreUtil instance;
 
-    /**
-     * 构造方法
-     *
      * @param context
-     */
     private PreUtil(Context context) {
         this(context, SHARE_NAME);
     }
 
-    /**
-     * 构造方法
-     *
      * @param context
      * @param shareName
+    /**
+     * Private method description.
      */
     private PreUtil(Context context, String shareName) {
         mContext = new WeakReference<>(context);
         preferences = context.getSharedPreferences(shareName, Context.MODE_PRIVATE);
     }
 
-    /**
-     * 得到单例模式的PreferencesManager对象
-     *
-     * @param context 上下文
+     * PreferencesManager
+     * @param context
      * @return
+    /**
+     * Method description.
      */
     public static PreUtil getInstance(Context context) {
         return getInstance(context, SHARE_NAME);
     }
 
-    /**
-     * 得到单例模式的PreferencesManager对象
-     *
-     * @param context   上下文
-     * @param shareName 文件名称
+     * PreferencesManager
+     * @param context
+     * @param shareName
      * @return
+    /**
+     * Method description.
      */
     public static PreUtil getInstance(Context context,
                                       String shareName) {
@@ -71,6 +69,9 @@ public class PreUtil {
         return instance;
     }
 
+    /**
+     * Method description.
+     */
     public void put(String key, boolean value) {
         Editor edit = preferences.edit();
         if (edit != null) {
@@ -82,6 +83,9 @@ public class PreUtil {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void put(String key, String value) {
         Editor edit = preferences.edit();
         if (edit != null) {
@@ -93,6 +97,9 @@ public class PreUtil {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void put(String key, int value) {
         Editor edit = preferences.edit();
         if (edit != null) {
@@ -104,6 +111,9 @@ public class PreUtil {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void put(String key, float value) {
         Editor edit = preferences.edit();
         if (edit != null) {
@@ -115,6 +125,9 @@ public class PreUtil {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void put(String key, long value) {
         Editor edit = preferences.edit();
         if (edit != null) {
@@ -126,6 +139,9 @@ public class PreUtil {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void put(String key, Set<String> value) {
         Editor edit = preferences.edit();
         if (edit != null) {
@@ -137,12 +153,12 @@ public class PreUtil {
         }
     }
 
-    /**
-     * 直接存放对象，反射将根据对象的属性作为key，并将对应的值保存。
-     *
+     * key
      * @param t
-     */
     @SuppressWarnings("rawtypes")
+    /**
+     * Method description.
+     */
     public <T> void put(T t) {
         try {
             String methodName = "";
@@ -176,6 +192,9 @@ public class PreUtil {
         }
     }
 
+    /**
+     * Method description.
+     */
     public String get(String key) {
         if (!TextUtils.isEmpty(key)) {
             key = key.toLowerCase();
@@ -183,6 +202,9 @@ public class PreUtil {
         return preferences.getString(key, "");
     }
 
+    /**
+     * Method description.
+     */
     public String get(String key, String defValue) {
         if (!TextUtils.isEmpty(key)) {
             key = key.toLowerCase();
@@ -190,6 +212,9 @@ public class PreUtil {
         return preferences.getString(key, defValue);
     }
 
+    /**
+     * Method description.
+     */
     public boolean get(String key, boolean defValue) {
         if (!TextUtils.isEmpty(key)) {
             key = key.toLowerCase();
@@ -197,6 +222,9 @@ public class PreUtil {
         return preferences.getBoolean(key, defValue);
     }
 
+    /**
+     * Method description.
+     */
     public int get(String key, int defValue) {
         if (!TextUtils.isEmpty(key)) {
             key = key.toLowerCase();
@@ -204,6 +232,9 @@ public class PreUtil {
         return preferences.getInt(key, defValue);
     }
 
+    /**
+     * Method description.
+     */
     public float get(String key, float defValue) {
         if (!TextUtils.isEmpty(key)) {
             key = key.toLowerCase();
@@ -211,6 +242,9 @@ public class PreUtil {
         return preferences.getFloat(key, defValue);
     }
 
+    /**
+     * Method description.
+     */
     public long get(String key, long defValue) {
         if (!TextUtils.isEmpty(key)) {
             key = key.toLowerCase();
@@ -219,6 +253,9 @@ public class PreUtil {
     }
 
     @SuppressLint("NewApi")
+    /**
+     * Method description.
+     */
     public Set<String> get(String key, Set<String> defValue) {
         if (!TextUtils.isEmpty(key)) {
             key = key.toLowerCase();
@@ -227,6 +264,9 @@ public class PreUtil {
     }
 
     @SuppressLint("CommitPrefEdits")
+    /**
+     * Method description.
+     */
     public void put(String key, Object defaultObj) {
         if (defaultObj instanceof String) {
             preferences.edit().putString(key, (String) defaultObj);
@@ -242,6 +282,9 @@ public class PreUtil {
         preferences.edit().commit();
     }
 
+    /**
+     * Method description.
+     */
     public Object get(String key, Object defaultObj) {
         if (defaultObj instanceof String) {
             return preferences.getString(key, (String) defaultObj);
@@ -257,11 +300,11 @@ public class PreUtil {
         return null;
     }
 
-    /**
-     * 获取整个对象，跟put(T t)对应使用， 利用反射得到对象的属性，然后从preferences获取
-     *
+     * put(T t) preferences
      * @param cls
      * @return
+    /**
+     * Method description.
      */
     public <T> Object get(Class<T> cls) {
         Object obj = null;
@@ -286,6 +329,9 @@ public class PreUtil {
         return obj;
     }
 
+    /**
+     * Method description.
+     */
     public void clearAll() {
         try {
             String fileName = SHARE_NAME + ".xml";

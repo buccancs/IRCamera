@@ -11,24 +11,39 @@ import com.topdon.module.user.bean.ColorsBean;
 import java.util.List;
 
 public class ProgressBarView extends View {
+    /**
+     * Private method description.
+     */
     private Paint paint;
     private int totalParts = 100;
     private List<ColorsBean> colorsBeanList;
+    /**
+     * Method description.
+     */
     public ProgressBarView(Context context) {
         super(context);
         init();
     }
 
+    /**
+     * Method description.
+     */
     public ProgressBarView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
+    /**
+     * Method description.
+     */
     public ProgressBarView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
 
+    /**
+     * Private method description.
+     */
     private void init() {
         paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
@@ -54,6 +69,9 @@ public class ProgressBarView extends View {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setSegmentPart(List<ColorsBean> colorsBeans) {
         this.colorsBeanList = colorsBeans;
         invalidate();

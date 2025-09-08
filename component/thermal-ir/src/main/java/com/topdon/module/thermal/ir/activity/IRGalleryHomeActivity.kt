@@ -10,16 +10,15 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.repository.GalleryRepository.DirType
 import com.topdon.lib.core.utils.NetWorkUtils
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.fragment.IRGalleryTabFragment
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryTabViewModel
 
+ * .
+ * [ExtraKeyConfig.DIR_TYPE] -   [DirType]
 /**
- * 图库.
- *
- * 需要传递参数：
- * - [ExtraKeyConfig.DIR_TYPE] - 要查看的目录类型 具体取值由 [DirType] 定义
- *
- * Created by LCG on 2024/2/22.
+ * @author LCG
+ * @since Unknown
  */
 @Route(path = RouterConfig.IR_GALLERY_HOME)
 class IRGalleryHomeActivity : BaseActivity() {

@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import com.topdon.lib.core.R
+import com.csl.irCamera.libapp.R
 import com.topdon.lib.core.bean.event.SocketStateEvent
 import com.topdon.lib.core.bean.event.device.DeviceConnectEvent
 import com.topdon.lib.core.common.SharedManager
@@ -22,21 +22,18 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.io.File
 
+ *  DataBinding  Activity.
+ *  BaseActivity
+ *  BaseActivity .
 /**
- * 使用 DataBinding 的基础 Activity.
- *
- * 由于 BaseActivity 子类实在太多没法一下子全改完，
- * 所以 BaseActivity 里的逻辑改一个搬一个吧，等全部改完再来优化继承.
- *
- * Created by LCG on 2024/10/14.
+ * @author LCG
+ * @since Unknown
  */
 abstract class BaseBindingActivity<B : ViewDataBinding> : AppCompatActivity() {
 
     protected lateinit var binding: B
 
-    /**
-     * 子类实现该方法，返回使用 DataBinding 的 layout 资源 Id.
-     */
+     * DataBinding  layout  Id.
     @LayoutRes
     protected abstract fun initContentLayoutId(): Int
 
@@ -63,6 +60,9 @@ abstract class BaseBindingActivity<B : ViewDataBinding> : AppCompatActivity() {
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun onUSBLineStateChange(event: DeviceConnectEvent) {
         if (event.isConnect) {
             connected()
@@ -81,6 +81,9 @@ abstract class BaseBindingActivity<B : ViewDataBinding> : AppCompatActivity() {
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun onSocketConnectState(event: SocketStateEvent) {
         if (event.isConnect) {
             onSocketConnected(event.isTS004)
@@ -96,18 +99,18 @@ abstract class BaseBindingActivity<B : ViewDataBinding> : AppCompatActivity() {
     }
 
 
-    /**
-     * 新版 LMS 风格的加载中弹框.
-     */
+     *  LMS .
     private var loadingDialog: LoadingDialog? = null
+     * .
     /**
-     * 显示加载中弹框.
+     * Function description.
      */
     fun showLoadingDialog(@StringRes resId: Int = R.string.tip_loading) {
         showLoadingDialog(getString(resId))
     }
+     * .
     /**
-     * 显示加载中弹框.
+     * Function description.
      */
     fun showLoadingDialog(text: CharSequence?) {
         if (loadingDialog == null) {
@@ -116,8 +119,9 @@ abstract class BaseBindingActivity<B : ViewDataBinding> : AppCompatActivity() {
         loadingDialog?.setTips(text)
         loadingDialog?.show()
     }
+     * .
     /**
-     * 关闭加载中弹框.
+     * Function description.
      */
     fun dismissLoadingDialog() {
         loadingDialog?.dismiss()

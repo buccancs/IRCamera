@@ -8,12 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.module.user.R
+import com.csl.irCamera.libapp.R as LibAppR
 
+ * .
 /**
- * 固件安装中提示弹窗.
- * Created by LCG on 2024/3/4.
+ * @author LCG
+ * @since Unknown
  */
-class FirmwareInstallDialog(context: Context) : Dialog(context, R.style.TransparentDialog) {
+class FirmwareInstallDialog(context: Context) : Dialog(context, LibAppR.style.TransparentDialog) {
 
     private val rootView: View = LayoutInflater.from(context).inflate(R.layout.dialog_firmware_install, null)
 

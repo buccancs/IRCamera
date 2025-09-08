@@ -15,14 +15,23 @@ import com.github.mikephil.charting.renderer.LineChartRenderer;
  */
 public class LineChart extends BarLineChartBase<LineData> implements LineDataProvider {
 
+    /**
+     * Method description.
+     */
     public LineChart(Context context) {
         super(context);
     }
 
+    /**
+     * Method description.
+     */
     public LineChart(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * Method description.
+     */
     public LineChart(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
@@ -35,6 +44,9 @@ public class LineChart extends BarLineChartBase<LineData> implements LineDataPro
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public LineData getLineData() {
         return mData;
     }

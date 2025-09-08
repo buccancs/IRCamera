@@ -5,34 +5,39 @@ import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
+import com.csl.irCamera.libui.R as LibUiR
 import com.topdon.module.thermal.ir.report.bean.ReportInfoBean
-import kotlinx.android.synthetic.main.activity_report_preview_first.*
+import com.topdon.module.thermal.ir.databinding.ActivityReportPreviewFirstBinding
 
-/**
- * 生成报告第1步的预览界面.
- *
- * 需要传递
- * - 必选：报告信息 [ExtraKeyConfig.REPORT_INFO]
- * - 可选：检测条件 [ExtraKeyConfig.REPORT_CONDITION]
- */
+ * 1.
+ * [ExtraKeyConfig.REPORT_INFO]
+ * [ExtraKeyConfig.REPORT_CONDITION]
 @Route(path = RouterConfig.REPORT_PREVIEW_FIRST)
 class ReportPreviewFirstActivity: BaseActivity() {
 
+    private lateinit var binding: ActivityReportPreviewFirstBinding
 
     override fun initContentView() = R.layout.activity_report_preview_first
 
+    override fun onCreate(savedInstanceState: android.os.Bundle?) {
+        binding = ActivityReportPreviewFirstBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        super.onCreate(savedInstanceState)
+    }
+
     override fun initView() {
-        title_view.setLeftDrawable(R.drawable.svg_arrow_left_e8)
-        title_view.setLeftClickListener {
+        binding.titleView.setLeftDrawable(LibUiR.drawable.svg_arrow_left_e8)
+        binding.titleView.setLeftClickListener {
             finish()
         }
 
         val reportInfoBean: ReportInfoBean? = intent.getParcelableExtra(ExtraKeyConfig.REPORT_INFO)
-        report_info_view.refreshInfo(reportInfoBean)
-        report_info_view.refreshCondition(intent.getParcelableExtra(ExtraKeyConfig.REPORT_CONDITION))
+        binding.reportInfoView.refreshInfo(reportInfoBean)
+        binding.reportInfoView.refreshCondition(intent.getParcelableExtra(ExtraKeyConfig.REPORT_CONDITION))
 
         if (reportInfoBean?.is_report_watermark == 1) {
-            watermark_view.watermarkText = reportInfoBean.report_watermark
+            binding.watermarkView.watermarkText = reportInfoBean.report_watermark
         }
     }
 

@@ -9,21 +9,23 @@ import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.module.thermal.ir.R
-import kotlinx.android.synthetic.main.item_setting_check.view.*
-import kotlinx.android.synthetic.main.item_setting_time.view.*
+import com.csl.irCamera.libapp.R as LibAppR
+import com.topdon.module.thermal.ir.databinding.ItemSettingTimeBinding
 
-/**
- * 设置时间
- */
 class SettingTimeAdapter(val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var datas = arrayOf("秒", "分", "时", "天")
+    private var datas = arrayOf("", "", "", "")
     private var dataTimes = arrayOf(1, 2, 3, 4)
 
+    /** listener property */
     var listener: OnItemClickListener? = null
+    /** select property */
     var select = 0
 
+    /**
+     * Function description.
+     */
     fun setCheck(index: Int) {
         this.select = index
         notifyDataSetChanged()
@@ -31,9 +33,8 @@ class SettingTimeAdapter(val context: Context) :
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_setting_time, parent, false)
-        return ItemView(view)
+        val binding = ItemSettingTimeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ItemView(binding)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -41,7 +42,7 @@ class SettingTimeAdapter(val context: Context) :
             holder.btn.text = datas[position]
             if (position == select) {
                 holder.btn.setBackgroundResource(R.drawable.ui_btn_round_theme)
-                holder.btn.setTextColor(ContextCompat.getColor(context, R.color.white))
+                holder.btn.setTextColor(ContextCompat.getColor(context, LibAppR.color.white))
             } else {
                 holder.btn.background = null
                 holder.btn.setTextColor(ContextCompat.getColor(context, R.color.font_gray))
@@ -58,8 +59,8 @@ class SettingTimeAdapter(val context: Context) :
         return datas.size
     }
 
-    inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val btn: Button = itemView.item_setting_time_btn
+    inner class ItemView(private val binding: ItemSettingTimeBinding) : RecyclerView.ViewHolder(binding.root) {
+        val btn: Button = binding.itemSettingTimeBtn
     }
 
 

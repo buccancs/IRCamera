@@ -13,10 +13,13 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.infisense.usbir.R;
+import com.csl.irCamera.libir.R;
 import com.topdon.lib.core.utils.BitmapUtils;
 
 public class ZoomableDraggableView extends View {
+    /**
+     * Private method description.
+     */
     private ScaleGestureDetector scaleGestureDetector;
     private GestureDetector gestureDetector;
     private Matrix matrix = new Matrix();
@@ -26,7 +29,6 @@ public class ZoomableDraggableView extends View {
     private float focusX, focusY;
     private float lastX, lastY;
 
-    //原始图片
     private Bitmap originalBitmap;
     private int imageWidth;
     private int imageHeight;
@@ -45,16 +47,25 @@ public class ZoomableDraggableView extends View {
 
     private Bitmap showBitmap;
 
+    /**
+     * Method description.
+     */
     public ZoomableDraggableView(Context context) {
         super(context);
         init(context);
     }
 
+    /**
+     * Method description.
+     */
     public ZoomableDraggableView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
+    /**
+     * Private method description.
+     */
     private void init(Context context) {
         scaleGestureDetector = new ScaleGestureDetector(context, new ScaleListener());
         gestureDetector = new GestureDetector(context, new GestureListener());
@@ -64,6 +75,9 @@ public class ZoomableDraggableView extends View {
     }
 
 
+    /**
+     * Method description.
+     */
     public void setImageSize(int imageWidth, int imageHeight) {
         this.imageWidth = imageWidth;
         this.imageHeight = imageHeight;
@@ -87,18 +101,23 @@ public class ZoomableDraggableView extends View {
         if (showBitmap!=null){
             canvas.drawBitmap(showBitmap,matrix,paint);
         }
-        // 在此处绘制你的内容
         super.onDraw(canvas);
         canvas.restore();
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean onTouchEvent(MotionEvent event) {
         scaleGestureDetector.onTouchEvent(event);
         gestureDetector.onTouchEvent(event);
         return true;
     }
 
+    /**
+     * Private method description.
+     */
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
@@ -116,6 +135,9 @@ public class ZoomableDraggableView extends View {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private class GestureListener extends GestureDetector.SimpleOnGestureListener {
         @Override
         public boolean onDown(MotionEvent e) {
@@ -132,7 +154,6 @@ public class ZoomableDraggableView extends View {
             lastX = e2.getX();
             lastY = e2.getY();
 
-            // 将滚动距离根据缩放因子进行调整
             deltaX /= scaleFactor;
             deltaY /= scaleFactor;
 

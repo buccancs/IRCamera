@@ -7,31 +7,35 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
+import com.topdon.module.thermal.ir.databinding.ActivityMonitorHomeBinding
 import com.topdon.module.thermal.ir.event.MonitorSaveEvent
 import com.topdon.module.thermal.ir.fragment.IRMonitorCaptureFragment
 import com.topdon.module.thermal.ir.fragment.IRMonitorHistoryFragment
-import kotlinx.android.synthetic.main.activity_monitor_home.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
+ *  Tab
+ * [IRMonitorHistoryFragment]
+ * [IRMonitorCaptureFragment]
+ * [ExtraKeyConfig.IS_TC007] -  TC007
 /**
- * 温度监控 Tab 页，包含
- * - 历史 [IRMonitorHistoryFragment]
- * - 实时 [IRMonitorCaptureFragment]
- *
- * 需要传递参数：
- * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
- *
- * Created by LCG on 2024/8/20.
+ * @author LCG
+ * @since Unknown
  */
 class MonitoryHomeActivity : BaseActivity() {
+    private lateinit var binding: ActivityMonitorHomeBinding
+    
     override fun initContentView(): Int = R.layout.activity_monitor_home
 
     override fun initView() {
+        binding = ActivityMonitorHomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
         val isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
-        view_pager2.adapter = ViewPagerAdapter(this, isTC007)
-        TabLayoutMediator(tab_layout, view_pager2) { tab, position ->
-            tab.setText(if (position == 0) R.string.chart_history else R.string.chart_real_time)
+        binding.viewPager2.adapter = ViewPagerAdapter(this, isTC007)
+        TabLayoutMediator(binding.tabLayout, binding.viewPager2) { tab, position ->
+            tab.setText(if (position == 0) LibAppR.string.chart_history else LibAppR.string.chart_real_time)
         }.attach()
     }
 
@@ -39,8 +43,11 @@ class MonitoryHomeActivity : BaseActivity() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun onMonitorCreate(event: MonitorSaveEvent) {
-        view_pager2.currentItem = 0
+        binding.viewPager2.currentItem = 0
     }
 
     private class ViewPagerAdapter(activity: MonitoryHomeActivity, val isTC007: Boolean) : FragmentStateAdapter(activity) {

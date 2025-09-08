@@ -15,6 +15,9 @@ import com.github.mikephil.charting.animation.Easing.EasingFunction;
 public class ChartAnimator {
 
     /** object that is updated upon animation update */
+    /**
+     * Private method description.
+     */
     private AnimatorUpdateListener mListener;
 
     /** The phase of drawn values on the y-axis. 0 - 1 */
@@ -25,14 +28,23 @@ public class ChartAnimator {
     @SuppressWarnings("WeakerAccess")
     protected float mPhaseX = 1f;
 
+    /**
+     * Method description.
+     */
     public ChartAnimator() { }
 
     @RequiresApi(11)
+    /**
+     * Method description.
+     */
     public ChartAnimator(AnimatorUpdateListener listener) {
         mListener = listener;
     }
 
     @RequiresApi(11)
+    /**
+     * Private method description.
+     */
     private ObjectAnimator xAnimator(int duration, EasingFunction easing) {
 
         ObjectAnimator animatorX = ObjectAnimator.ofFloat(this, "phaseX", 0f, 1f);
@@ -43,6 +55,9 @@ public class ChartAnimator {
     }
 
     @RequiresApi(11)
+    /**
+     * Private method description.
+     */
     private ObjectAnimator yAnimator(int duration, EasingFunction easing) {
 
         ObjectAnimator animatorY = ObjectAnimator.ofFloat(this, "phaseY", 0f, 1f);
@@ -58,6 +73,9 @@ public class ChartAnimator {
      * @param durationMillis animation duration
      */
     @RequiresApi(11)
+    /**
+     * Method description.
+     */
     public void animateX(int durationMillis) {
         animateX(durationMillis, Easing.Linear);
     }
@@ -69,6 +87,9 @@ public class ChartAnimator {
      * @param easing EasingFunction
      */
     @RequiresApi(11)
+    /**
+     * Method description.
+     */
     public void animateX(int durationMillis, EasingFunction easing) {
 
         ObjectAnimator animatorX = xAnimator(durationMillis, easing);
@@ -83,6 +104,9 @@ public class ChartAnimator {
      * @param durationMillisY animation duration along the Y axis
      */
     @RequiresApi(11)
+    /**
+     * Method description.
+     */
     public void animateXY(int durationMillisX, int durationMillisY) {
         animateXY(durationMillisX, durationMillisY, Easing.Linear, Easing.Linear);
     }
@@ -95,6 +119,9 @@ public class ChartAnimator {
      * @param easing EasingFunction for both axes
      */
     @RequiresApi(11)
+    /**
+     * Method description.
+     */
     public void animateXY(int durationMillisX, int durationMillisY, EasingFunction easing) {
 
         ObjectAnimator xAnimator = xAnimator(durationMillisX, easing);
@@ -119,6 +146,9 @@ public class ChartAnimator {
      * @param easingY EasingFunction for the Y axis
      */
     @RequiresApi(11)
+    /**
+     * Method description.
+     */
     public void animateXY(int durationMillisX, int durationMillisY, EasingFunction easingX,
                           EasingFunction easingY) {
 
@@ -141,6 +171,9 @@ public class ChartAnimator {
      * @param durationMillis animation duration
      */
     @RequiresApi(11)
+    /**
+     * Method description.
+     */
     public void animateY(int durationMillis) {
         animateY(durationMillis, Easing.Linear);
     }
@@ -152,6 +185,9 @@ public class ChartAnimator {
      * @param easing EasingFunction
      */
     @RequiresApi(11)
+    /**
+     * Method description.
+     */
     public void animateY(int durationMillis, EasingFunction easing) {
 
         ObjectAnimator animatorY = yAnimator(durationMillis, easing);
@@ -164,6 +200,9 @@ public class ChartAnimator {
      *
      * @return float value of {@link #mPhaseY}
      */
+    /**
+     * Method description.
+     */
     public float getPhaseY() {
         return mPhaseY;
     }
@@ -172,6 +211,9 @@ public class ChartAnimator {
      * Sets the Y axis phase of the animation.
      *
      * @param phase float value between 0 - 1
+     */
+    /**
+     * Method description.
      */
     public void setPhaseY(float phase) {
         if (phase > 1f) {
@@ -187,6 +229,9 @@ public class ChartAnimator {
      *
      * @return float value of {@link #mPhaseX}
      */
+    /**
+     * Method description.
+     */
     public float getPhaseX() {
         return mPhaseX;
     }
@@ -195,6 +240,9 @@ public class ChartAnimator {
      * Sets the X axis phase of the animation.
      *
      * @param phase float value between 0 - 1
+     */
+    /**
+     * Method description.
      */
     public void setPhaseX(float phase) {
         if (phase > 1f) {

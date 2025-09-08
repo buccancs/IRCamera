@@ -19,6 +19,9 @@ public class ColorTemplate {
     /**
      * an "invalid" color that indicates that no color is set
      */
+    /**
+     * Method description.
+     */
     public static final int COLOR_NONE = 0x00112233;
 
     /**
@@ -35,22 +38,37 @@ public class ColorTemplate {
             Color.rgb(207, 248, 246), Color.rgb(148, 212, 212), Color.rgb(136, 180, 187),
             Color.rgb(118, 174, 175), Color.rgb(42, 109, 130)
     };
+    /**
+     * Method description.
+     */
     public static final int[] JOYFUL_COLORS = {
             Color.rgb(217, 80, 138), Color.rgb(254, 149, 7), Color.rgb(254, 247, 120),
             Color.rgb(106, 167, 134), Color.rgb(53, 194, 209)
     };
+    /**
+     * Method description.
+     */
     public static final int[] PASTEL_COLORS = {
             Color.rgb(64, 89, 128), Color.rgb(149, 165, 124), Color.rgb(217, 184, 162),
             Color.rgb(191, 134, 134), Color.rgb(179, 48, 80)
     };
+    /**
+     * Method description.
+     */
     public static final int[] COLORFUL_COLORS = {
             Color.rgb(193, 37, 82), Color.rgb(255, 102, 0), Color.rgb(245, 199, 0),
             Color.rgb(106, 150, 31), Color.rgb(179, 100, 53)
     };
+    /**
+     * Method description.
+     */
     public static final int[] VORDIPLOM_COLORS = {
             Color.rgb(192, 255, 140), Color.rgb(255, 247, 140), Color.rgb(255, 208, 140),
             Color.rgb(140, 234, 255), Color.rgb(255, 140, 157)
     };
+    /**
+     * Method description.
+     */
     public static final int[] MATERIAL_COLORS = {
             rgb("#2ecc71"), rgb("#f1c40f"), rgb("#e74c3c"), rgb("#3498db")
     };
@@ -60,6 +78,9 @@ public class ColorTemplate {
      *
      * @param hex
      * @return
+     */
+    /**
+     * Method description.
      */
     public static int rgb(String hex) {
         int color = (int) Long.parseLong(hex.replace("#", ""), 16);
@@ -74,6 +95,9 @@ public class ColorTemplate {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public static int getHoloBlue() {
         return Color.rgb(51, 181, 229);
     }
@@ -84,6 +108,9 @@ public class ColorTemplate {
      * @param color
      * @param alpha 0 - 255
      * @return
+     */
+    /**
+     * Method description.
      */
     public static int colorWithAlpha(int color, int alpha) {
         return (color & 0xffffff) | ((alpha & 0xff) << 24);
@@ -96,6 +123,9 @@ public class ColorTemplate {
      * @param r
      * @param colors an integer array of resource id's of colors
      * @return
+     */
+    /**
+     * Method description.
      */
     public static List<Integer> createColors(Resources r, int[] colors) {
 
@@ -114,6 +144,9 @@ public class ColorTemplate {
      *
      * @param colors
      * @return
+     */
+    /**
+     * Method description.
      */
     public static List<Integer> createColors(int[] colors) {
 

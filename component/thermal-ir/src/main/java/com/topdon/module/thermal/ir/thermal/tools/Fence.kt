@@ -4,6 +4,7 @@ import android.util.Log
 
 class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateType: Int = 0) {
 
+    /** scale property */
     var scale = 0f
 
     init {
@@ -22,7 +23,7 @@ class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateTyp
     }
 
     /**
-     * 获取线坐标
+     * Function description.
      */
     fun getSinglePoint(start: IntArray): ArrayList<IntArray> {
         val startPoint: IntArray = start
@@ -36,7 +37,7 @@ class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateTyp
     }
 
     /**
-     * 获取点坐标序号
+     * Function description.
      */
     fun getPointIndex(start: IntArray): ArrayList<Int> {
         val lineList = getSinglePoint(start)
@@ -44,7 +45,7 @@ class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateTyp
     }
 
     /**
-     * 获取线坐标
+     * Function description.
      */
     fun getLinePoint(start: IntArray, end: IntArray): ArrayList<IntArray> {
         val startPoint: IntArray
@@ -76,7 +77,7 @@ class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateTyp
     }
 
     /**
-     * 获取线坐标序号
+     * Function description.
      */
     fun getLineIndex(start: IntArray, end: IntArray): ArrayList<Int> {
         val lineList = getLinePoint(start, end)
@@ -84,7 +85,7 @@ class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateTyp
     }
 
     /**
-     * 获取面积坐标点
+     * Function description.
      */
     fun getAreaPoint(start: IntArray, end: IntArray): ArrayList<IntArray> {
         val startX: Int = (start[0] * scale).toInt()
@@ -101,7 +102,7 @@ class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateTyp
     }
 
     /**
-     * 获取面积坐标序号
+     * Function description.
      */
     fun getAreaIndex(start: IntArray, end: IntArray): ArrayList<Int> {
         val lineList = getAreaPoint(start, end)
@@ -109,6 +110,9 @@ class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateTyp
     }
 
 
+    /**
+     * Function description.
+     */
     fun pointToIndex(lineList: ArrayList<IntArray>): ArrayList<Int> {
         val indexList = arrayListOf<Int>()
         lineList.forEach {

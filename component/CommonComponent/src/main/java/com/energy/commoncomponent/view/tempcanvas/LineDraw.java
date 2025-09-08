@@ -15,11 +15,15 @@ import com.energy.commoncomponent.utils.ScreenUtils;
 import java.util.LinkedList;
 import java.util.UUID;
 
-/**
  * Created by fengjibo on 2024/1/31.
- */
 public class LineDraw extends BaseDraw {
+    /**
+     * Private method description.
+     */
     private static final String TAG = "BaseTemperatureView LineDraw";
+    /**
+     * Method description.
+     */
     public static final int OPERATE_STATUS_LINE_IN_TOUCH_START = 0;
     public static final int OPERATE_STATUS_LINE_IN_TOUCH_CENTER = 1;
     public static final int OPERATE_STATUS_LINE_IN_TOUCH_END = 2;
@@ -39,10 +43,10 @@ public class LineDraw extends BaseDraw {
     private int mBgColor = Color.parseColor("#CC1A1A1A");
 
     private final int STROKE_WIDTH = 8;
-    private final int TEXT_SIZE = 14; // 文字大小
+    private final int TEXT_SIZE = 14; //
     private final int TOUCH_TOLERANCE = 48;
 
-    private LineView mTempLine;//临时绘制的line，比如手势移动过程中
+    private LineView mTempLine;//line，
 
     private int mOperateStatus = -1;
 
@@ -69,21 +73,27 @@ public class LineDraw extends BaseDraw {
         mBgPaint.setStrokeWidth(ScreenUtils.dp2px(1));
     }
 
+    /**
+     * Method description.
+     */
     public int getOperateStatus() {
         return mOperateStatus;
     }
 
+    /**
+     * Method description.
+     */
     public void setOperateStatus(int mOperateStatus) {
         this.mOperateStatus = mOperateStatus;
         Log.d(TAG, "setOperateStatus = " + mOperateStatus);
     }
 
-    /**
-     * 添加一个线数据
      * @param startX
      * @param startY
      * @param endX
      * @param endY
+    /**
+     * Method description.
      */
     public void addLine(int startX, int startY, int endX, int endY) {
         if (Math.abs(endX - startX) > TOUCH_TOLERANCE || Math.abs(endY - startY) > TOUCH_TOLERANCE) {
@@ -96,7 +106,6 @@ public class LineDraw extends BaseDraw {
                 boolean hasSame = false;
                 for (int i = 0; i < mLineList.size(); i ++) {
                     if (mLineList.get(i).getLabel().equals(newLabel)) {
-                        //存在一样的
                         hasSame = true;
                         Log.d(TAG, "addLine is same");
                         break;
@@ -126,9 +135,9 @@ public class LineDraw extends BaseDraw {
         }
     }
 
-    /**
-     * 删除一个线数据
      * @param index
+    /**
+     * Method description.
      */
     public void removeLine(int index) {
         if (mLineList.size() > index) {
@@ -137,17 +146,17 @@ public class LineDraw extends BaseDraw {
     }
 
     /**
-     * 删除所有线数据
+     * Method description.
      */
     public void removeLine() {
         mLineList.clear();
     }
 
-    /**
-     * 绘制所有线
      * @param canvas
-     */
     @Override
+    /**
+     * Method description.
+     */
     public void onDraw(Canvas canvas, boolean isScroll) {
         for (int i = 0; i < mLineList.size(); i ++) {
             LineView lineView = mLineList.get(i);
@@ -164,13 +173,13 @@ public class LineDraw extends BaseDraw {
         }
     }
 
-    /**
-     * 绘制临时线
      * @param canvas
      * @param startX
      * @param startY
      * @param endX
      * @param endY
+    /**
+     * Method description.
      */
     public void onTempDraw(Canvas canvas, int startX, int startY, int endX, int endY) {
         if (mTempLine == null) {
@@ -183,6 +192,9 @@ public class LineDraw extends BaseDraw {
         canvas.drawLine(mTempLine.mStartMovingLineX, mTempLine.mStartMovingLineY, mTempLine.mEndMovingLineX, mTempLine.mEndMovingLineY, mLinePaint);
     }
 
+    /**
+     * Private method description.
+     */
     private void drawLabel(Canvas canvas, LineView lineView) {
         canvas.save();
         canvas.rotate(mScreenDegree, lineView.mStartMovingLineX + (lineView.mEndMovingLineX - lineView.mStartMovingLineX) / 2,
@@ -198,18 +210,19 @@ public class LineDraw extends BaseDraw {
         canvas.restore();
     }
 
+    /**
+     * Private method description.
+     */
     private RectF drawCustomTextBg(Canvas canvas, String text, RectF rectF) {
         int rectWidth = (int) mTextPaint.measureText(text) * 2;
         float left = rectF.left - rectWidth / 2;
         float right = rectF.right + rectWidth / 2;
         float top = rectF.top;
         float bottom = rectF.bottom;
-        //左侧超出
         if (left < 0) {
             left = 0;
             right = rectWidth;
         }
-        //右侧超出
         if (right > mViewWidth) {
             left = mViewWidth - rectWidth;
             right = mViewWidth;
@@ -237,10 +250,10 @@ public class LineDraw extends BaseDraw {
         return rectF;
     }
 
-    /**
-     * 更新选中线的手势位置状态
      * @param startX
      * @param startY
+    /**
+     * Method description.
      */
     public void changeTouchLineOperateStatus(float startX, float startY) {
         if (mTouchIndex < 0 || mTouchIndex >= mLineList.size()) {
@@ -257,10 +270,10 @@ public class LineDraw extends BaseDraw {
 
     }
 
-    /**
-     * 修改选中的线坐标
      * @param moveX
      * @param moveY
+    /**
+     * Method description.
      */
     public void changeTouchLineLocationByIndex(float moveX, float moveY) {
         if (mTouchIndex < 0 || mTouchIndex >= mLineList.size()) {
@@ -327,7 +340,6 @@ public class LineDraw extends BaseDraw {
 
             mLineList.get(mTouchIndex).changeLocation(startMovingLineX, startMovingLineY, endMovingLineX, endMovingLineY);
         } else if (mOperateStatus == OPERATE_STATUS_LINE_IN_TOUCH_CENTER) {
-            // 防止数据越界到图像外部
             int startMovingLineX = (int)(lineView.mStartPoint.x + moveX);
             int startMovingLineY = (int)(lineView.mStartPoint.y + moveY);
             int endMovingLineX = (int)(lineView.mEndPoint.x + moveX);
@@ -358,8 +370,9 @@ public class LineDraw extends BaseDraw {
         }
     }
 
+     * Point
     /**
-     * 修改选中的线Point
+     * Method description.
      */
     public void changeTouchPointLocation() {
         if (mTouchIndex < 0 || mTouchIndex >= mLineList.size()) {
@@ -368,11 +381,11 @@ public class LineDraw extends BaseDraw {
         mLineList.get(mTouchIndex).changePointLocation();
     }
 
-    /**
-     * 检查当前是否存在手势选中的线
      * @param x
      * @param y
      * @return
+    /**
+     * Method description.
      */
     public int checkTouchLineInclude(int x, int y) {
         mTouchIndex = -1;
@@ -390,10 +403,13 @@ public class LineDraw extends BaseDraw {
         return mTouchIndex;
     }
 
+    /**
+     * Method description.
+     */
     public static class LineView extends BaseView {
-        private Point mStartPoint; //起点
-        private Point mEndPoint; //终点
-        private static final float TOUCH_EXTRA = 10;//额外的触摸范围
+        private Point mStartPoint; //
+        private Point mEndPoint; //
+        private static final float TOUCH_EXTRA = 10;//
         private Bitmap mHighPointBitmap;
         private Bitmap mLowPointBitmap;
         private Point mHighTempPoint;
@@ -480,6 +496,9 @@ public class LineDraw extends BaseDraw {
         }
     }
 
+    /**
+     * Method description.
+     */
     public LinkedList<LineView> getLineViewList() {
         return mLineList;
     }

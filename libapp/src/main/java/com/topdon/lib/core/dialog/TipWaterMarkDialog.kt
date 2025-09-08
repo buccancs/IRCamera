@@ -13,26 +13,20 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup.LayoutParams
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.LinearLayout
-import androidx.appcompat.widget.SwitchCompat
 import com.blankj.utilcode.util.ToastUtils
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.XXPermissions
-import com.topdon.lib.core.R
+import com.csl.irCamera.libapp.R
 import com.topdon.lib.core.bean.WatermarkBean
 import com.topdon.lib.core.*
 import com.topdon.lib.core.common.SharedManager
+import com.csl.irCamera.libapp.databinding.DialogTipWatermarkBinding
 import com.topdon.lib.core.utils.CommUtils
 import com.topdon.lib.core.utils.ScreenUtil
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
-import kotlinx.android.synthetic.main.dialog_tip_watermark.view.*
 import java.util.*
 
-/**
- * 2D-编辑 水印
- */
+ * 2D
 class TipWaterMarkDialog : Dialog {
     constructor(context: Context) : super(context)
     constructor(context: Context, themeResId: Int) : super(context, themeResId)
@@ -42,12 +36,7 @@ class TipWaterMarkDialog : Dialog {
         private var closeEvent: ((WatermarkBean) -> Unit)? = null
         private var canceled = false
 
-        private lateinit var imgClose: ImageView
-        private lateinit var mEtTitle: EditText
-        private lateinit var mEtAddress: EditText
-        private lateinit var imgLocation: ImageView
-        private lateinit var llWatermarkContent: LinearLayout
-        private lateinit var switchDateTime: SwitchCompat
+        private lateinit var binding: DialogTipWatermarkBinding
         private var locationManager: LocationManager? = null
         private var locationProvider: String? = null
 
@@ -71,39 +60,35 @@ class TipWaterMarkDialog : Dialog {
                 dialog = TipWaterMarkDialog(context!!, R.style.InfoDialog)
             }
             val inflater = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val view = inflater.inflate(R.layout.dialog_tip_watermark, null)
-            imgClose = view.img_close
-            llWatermarkContent = view.ll_watermark_content
-            mEtTitle = view.ed_title
-            mEtAddress = view.ed_address
-            imgLocation = view.img_location
-            switchDateTime = view.switch_date_time
+            binding = DialogTipWatermarkBinding.inflate(inflater)
+            val view = binding.root
+            
             updateWaterMark(false)
 
-            view.switch_watermark.setOnCheckedChangeListener { _, isChecked ->
+            binding.switchWatermark.setOnCheckedChangeListener { _, isChecked ->
                 updateWaterMark(isChecked)
             }
-            view.switch_date_time.setOnCheckedChangeListener { _, _ ->
+            binding.switchDateTime.setOnCheckedChangeListener { _, _ ->
 
             }
-            view.tv_i_know.setOnClickListener {
+            binding.tvIKnow.setOnClickListener {
                 dismiss()
                 closeEvent?.invoke(
                     WatermarkBean(
-                        view.switch_watermark.isChecked,
-                        view.ed_title.text.toString(),
-                        view.ed_address.text.toString(),
-                        view.switch_date_time.isChecked,
+                        binding.switchWatermark.isChecked,
+                        binding.edTitle.text.toString(),
+                        binding.edAddress.text.toString(),
+                        binding.switchDateTime.isChecked,
                     )
                 )
             }
-            imgLocation.setOnClickListener {
+            binding.imgLocation.setOnClickListener {
                 checkLocationPermission()
             }
-            view.switch_watermark.isChecked = watermarkBean.isOpen
-            view.switch_date_time.isChecked = watermarkBean.isAddTime
-            view.ed_title.setText(watermarkBean.title.ifEmpty { SharedManager.watermarkBean.title })
-            view.ed_address.setText(watermarkBean.address)
+            binding.switchWatermark.isChecked = watermarkBean.isOpen
+            binding.switchDateTime.isChecked = watermarkBean.isAddTime
+            binding.edTitle.setText(watermarkBean.title.ifEmpty { SharedManager.watermarkBean.title })
+            binding.edAddress.setText(watermarkBean.address)
 
 
             dialog!!.addContentView(
@@ -113,24 +98,22 @@ class TipWaterMarkDialog : Dialog {
             val lp = dialog!!.window!!.attributes
             val wRatio =
                 if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    //竖屏
                     0.85
                 } else {
-                    //横屏
                     0.35
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context) * wRatio).toInt() //设置宽度
+            lp.width = (ScreenUtil.getScreenWidth(context) * wRatio).toInt() //
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceled)
-            imgClose.setOnClickListener {
+            binding.imgClose.setOnClickListener {
                 dismiss()
 //              closeEvent?.invoke(
 //                    WatermarkBean(
-//                        view.switch_watermark.isChecked,
-//                        view.ed_title.text.toString(),
-//                        view.ed_address.text.toString(),
-//                        view.switch_date_time.isChecked,
+//                        binding.switchWatermark.isChecked,
+//                        binding.edTitle.text.toString(),
+//                        binding.edAddress.text.toString(),
+//                        binding.switchDateTime.isChecked,
 //                    )
 //                )
             }
@@ -164,7 +147,6 @@ class TipWaterMarkDialog : Dialog {
         }
 
         private fun initLocationPermission() {
-            //定位
             XXPermissions.with(context)
                 .permission(
                     Manifest.permission.ACCESS_FINE_LOCATION,
@@ -176,7 +158,7 @@ class TipWaterMarkDialog : Dialog {
                             if (addressText == null){
                                 ToastUtils.showShort(R.string.get_Location_failed)
                             }else{
-                                mEtAddress.setText(addressText)
+                                binding.edAddress.setText(addressText)
                             }
                         }else{
                             ToastUtils.showShort(R.string.scan_ble_tip_authorize)
@@ -184,7 +166,6 @@ class TipWaterMarkDialog : Dialog {
                     }
                     override fun onDenied(permissions: MutableList<String>, never: Boolean) {
                         if (never) {
-                            // 如果是被永久拒绝就跳转到应用权限系统设置页面
                             if (BaseApplication.instance.isDomestic()){
                                 ToastUtils.showShort(R.string.app_location_content)
                                 return
@@ -210,34 +191,34 @@ class TipWaterMarkDialog : Dialog {
 
         private fun updateWaterMark(isCheck: Boolean){
             if(isCheck){
-                llWatermarkContent.alpha = 1f
-                llWatermarkContent.isEnabled = true
-                switchDateTime.isEnabled = true
-                mEtTitle.isEnabled = true
-                mEtAddress.isEnabled = true
-                imgLocation.isEnabled = true
+                binding.llWatermarkContent.alpha = 1f
+                binding.llWatermarkContent.isEnabled = true
+                binding.switchDateTime.isEnabled = true
+                binding.edTitle.isEnabled = true
+                binding.edAddress.isEnabled = true
+                binding.imgLocation.isEnabled = true
             }else{
-                llWatermarkContent.alpha = 0.5f
-                llWatermarkContent.isEnabled = false
-                switchDateTime.isEnabled = false
-                mEtTitle.isEnabled = false
-                mEtAddress.isEnabled = false
-                imgLocation.isEnabled = false
+                binding.llWatermarkContent.alpha = 0.5f
+                binding.llWatermarkContent.isEnabled = false
+                binding.switchDateTime.isEnabled = false
+                binding.edTitle.isEnabled = false
+                binding.edAddress.isEnabled = false
+                binding.imgLocation.isEnabled = false
             }
         }
 
         @SuppressLint("MissingPermission")
         private fun getLocation() : String? {
-            //1.获取位置管理器
+            //1.
             locationManager = context!!.getSystemService(RxAppCompatActivity.LOCATION_SERVICE) as LocationManager
 
-            //2.获取位置提供器，GPS或是NetWork
+            //2.GPSNetWork
             val providers = locationManager?.getProviders(true)
             locationProvider = if (providers!!.contains(LocationManager.GPS_PROVIDER)) {
-                //如果是GPS
+                //GPS
                 LocationManager.GPS_PROVIDER
             } else if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
-                //如果是Network
+                //Network
                 LocationManager.NETWORK_PROVIDER
             } else {
                 return null
@@ -253,7 +234,7 @@ class TipWaterMarkDialog : Dialog {
             }
         }
 
-        //获取地址信息:城市、街道等信息
+        //:
         private fun getAddress(location: Location?): String {
             var result: List<Address?>? = null
             try {
@@ -263,7 +244,7 @@ class TipWaterMarkDialog : Dialog {
                         location.latitude,
                         location.longitude, 1
                     )
-                    Log.v("TAG", "获取地址信息：$result")
+                    Log.v("TAG", "：$result")
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -271,15 +252,15 @@ class TipWaterMarkDialog : Dialog {
             var str = ""
             if (result!=null && result.isNotEmpty()){
                 result?.get(0)?.let {
-                    str +=  getNullString(it.adminArea)
+                    str += getNullString(it.adminArea)
                     if (TextUtils.isEmpty(it.subLocality) && !str.contains(getNullString(it.subAdminArea))){
-                        str +=  getNullString(it.subAdminArea)
+                        str += getNullString(it.subAdminArea)
                     }
                     if (!str.contains(getNullString(it.locality))){
-                        str +=  getNullString(it.locality)
+                        str += getNullString(it.locality)
                     }
                     if (!str.contains(getNullString(it.subLocality))){
-                        str +=  getNullString(it.subLocality)
+                        str += getNullString(it.subLocality)
                     }
                 }
             }

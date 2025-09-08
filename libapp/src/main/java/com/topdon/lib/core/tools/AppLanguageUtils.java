@@ -11,19 +11,20 @@ import android.util.DisplayMetrics;
 
 import com.blankj.utilcode.util.LanguageUtils;
 import com.topdon.lib.core.BaseApplication;
-import com.topdon.lib.core.BuildConfig;
+import com.csl.irCamera.libapp.BuildConfig;
 
 import java.util.HashMap;
 import java.util.Locale;
 
 
-/**
  * @author YanLu
  * @since 17/5/12
- */
 
 public class AppLanguageUtils {
 
+    /**
+     * Private method description.
+     */
     private static HashMap<String, Locale> mAllLanguages = new HashMap<String, Locale>(14) {{
         put(ConstantLanguages.ZH_CN, Locale.SIMPLIFIED_CHINESE);
         put(ConstantLanguages.ZH_TW, Locale.TRADITIONAL_CHINESE);
@@ -41,12 +42,15 @@ public class AppLanguageUtils {
         put(ConstantLanguages.NL, new Locale(ConstantLanguages.NL, "NL"));
     }};
 
+    /**
+     * Method description.
+     */
     public static String getChineseSystemLanguage() {
         return ConstantLanguages.ZH_CN;
     }
 
     /**
-     * 获取系统默认语言
+     * Method description.
      */
     public static String getSystemLanguage() {
         Locale locale = LanguageUtils.getSystemLanguage();
@@ -89,6 +93,9 @@ public class AppLanguageUtils {
     }
 
     @SuppressWarnings("deprecation")
+    /**
+     * Method description.
+     */
     public static void changeAppLanguage(Context context, String newLanguage) {
         Resources resources = context.getResources();
         Configuration configuration = resources.getConfiguration();
@@ -101,15 +108,24 @@ public class AppLanguageUtils {
         resources.updateConfiguration(configuration, dm);
     }
 
+    /**
+     * Method description.
+     */
     public static void getConf(){
 
     }
 
 
+    /**
+     * Private method description.
+     */
     private static boolean isSupportLanguage(String language) {
         return mAllLanguages.containsKey(language);
     }
 
+    /**
+     * Method description.
+     */
     public static String getSupportLanguage(String language) {
         if (isSupportLanguage(language)) {
             return language;
@@ -118,11 +134,11 @@ public class AppLanguageUtils {
         return ConstantLanguages.ENGLISH;
     }
 
-    /**
-     * 获取指定语言的locale信息，如果指定语言不存在{@link #mAllLanguages}，返回本机语言，如果本机语言不是语言集合中的一种{@link #mAllLanguages}，返回英语
-     *
+     * locale{@link #mAllLanguages}{@link #mAllLanguages}
      * @param language language
      * @return
+    /**
+     * Method description.
      */
     public static Locale getLocaleByLanguage(String language) {
         if (isSupportLanguage(language)) {
@@ -139,6 +155,9 @@ public class AppLanguageUtils {
     }
 
 
+    /**
+     * Method description.
+     */
     public static Context attachBaseContext(Context context, String language) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return updateResources(context, language);
@@ -149,6 +168,9 @@ public class AppLanguageUtils {
 
 
     @TargetApi(Build.VERSION_CODES.N)
+    /**
+     * Private method description.
+     */
     private static Context updateResources(Context context, String language) {
         Resources resources = context.getResources();
         Locale locale = AppLanguageUtils.getLocaleByLanguage(language);

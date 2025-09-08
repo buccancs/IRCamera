@@ -17,15 +17,22 @@ open class BitmapConstraintLayout : ConstraintLayout {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     @Volatile
+    /** viewBitmap property */
     var viewBitmap: Bitmap? = null
 
+    /**
+     * Function description.
+     */
     fun updateBitmap() {
         if (!isShown) {
             return
         }
         try {
             viewBitmap = this.drawToBitmap()
-        } catch (_: Exception) {
+        } catch (e: IllegalStateException) {
+            // View not attached to window or not laid out
+        } catch (e: IllegalArgumentException) {
+            // Invalid bitmap configuration
         }
     }
 }

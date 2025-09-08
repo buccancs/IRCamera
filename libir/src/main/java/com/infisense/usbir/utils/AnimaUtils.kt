@@ -4,28 +4,22 @@ import android.view.animation.Animation
 import android.view.animation.RotateAnimation
 import android.view.animation.ScaleAnimation
 
-/**
  * @author: CaiSongL
  * @date: 2022/6/9 22:14
- */
 public object AnimaUtils{
-    /**
-     * 默认动画持续时间
-     */
     const val DEFAULT_ANIMATION_DURATION: Long = 400
 
+     * @param fromDegrees
+     * @param toDegrees
+     * @param pivotXType        X
+     * @param pivotXValue       X
+     * @param pivotYType        Y
+     * @param pivotYValue       Y
+     * @param durationMillis
+     * @param animationListener
+     * @return
     /**
-     * 获取一个旋转动画
-     *
-     * @param fromDegrees       开始角度
-     * @param toDegrees         结束角度
-     * @param pivotXType        旋转中心点X轴坐标相对类型
-     * @param pivotXValue       旋转中心点X轴坐标
-     * @param pivotYType        旋转中心点Y轴坐标相对类型
-     * @param pivotYValue       旋转中心点Y轴坐标
-     * @param durationMillis    持续时间
-     * @param animationListener 动画监听器
-     * @return 一个旋转动画
+     * Function description.
      */
     fun getRotateAnimation(
         fromDegrees: Float,
@@ -48,12 +42,11 @@ public object AnimaUtils{
         return rotateAnimation
     }
 
+     * @param durationMillis
+     * @param animationListener
+     * @return
     /**
-     * 获取一个根据视图自身中心点旋转的动画
-     *
-     * @param durationMillis    动画持续时间
-     * @param animationListener 动画监听器
-     * @return 一个根据中心点旋转的动画
+     * Function description.
      */
     fun getRotateAnimationByCenter(
         durationMillis: Long,
@@ -66,21 +59,19 @@ public object AnimaUtils{
         )
     }
 
+     * @param duration
+     * @return
     /**
-     * 获取一个根据中心点旋转的动画
-     *
-     * @param duration 动画持续时间
-     * @return 一个根据中心点旋转的动画
+     * Function description.
      */
     fun getRotateAnimationByCenter(duration: Long): RotateAnimation {
         return getRotateAnimationByCenter(duration, null)
     }
 
+     * @param animationListener
+     * @return
     /**
-     * 获取一个根据视图自身中心点旋转的动画
-     *
-     * @param animationListener 动画监听器
-     * @return 一个根据中心点旋转的动画
+     * Function description.
      */
     fun getRotateAnimationByCenter(animationListener: Animation.AnimationListener?): RotateAnimation {
         return getRotateAnimationByCenter(
@@ -89,22 +80,18 @@ public object AnimaUtils{
         )
     }
 
-    /**
-     * 获取一个根据中心点旋转的动画
-     *
-     * @return 一个根据中心点旋转的动画，默认持续时间为DEFAULT_ANIMATION_DURATION
-     */
+     * @return DEFAULT_ANIMATION_DURATION
+    /** rotateAnimationByCenter property */
     val rotateAnimationByCenter: RotateAnimation
         get() = getRotateAnimationByCenter(DEFAULT_ANIMATION_DURATION, null)
 
+     * @param fromAlpha
+     * @param toAlpha
+     * @param durationMillis
+     * @param animationListener
+     * @return
     /**
-     * 获取一个透明度渐变动画
-     *
-     * @param fromAlpha         开始时的透明度
-     * @param toAlpha           结束时的透明度都
-     * @param durationMillis    持续时间
-     * @param animationListener 动画监听器
-     * @return 一个透明度渐变动画
+     * Function description.
      */
     fun getAlphaAnimation(
         fromAlpha: Float,
@@ -120,13 +107,12 @@ public object AnimaUtils{
         return alphaAnimation
     }
 
+     * @param fromAlpha
+     * @param toAlpha
+     * @param durationMillis
+     * @return
     /**
-     * 获取一个透明度渐变动画
-     *
-     * @param fromAlpha      开始时的透明度
-     * @param toAlpha        结束时的透明度都
-     * @param durationMillis 持续时间
-     * @return 一个透明度渐变动画
+     * Function description.
      */
     fun getAlphaAnimation(
         fromAlpha: Float,
@@ -136,13 +122,12 @@ public object AnimaUtils{
         return getAlphaAnimation(fromAlpha, toAlpha, durationMillis, null)
     }
 
+     * @param fromAlpha
+     * @param toAlpha
+     * @param animationListener
+     * @return DEFAULT_ANIMATION_DURATION
     /**
-     * 获取一个透明度渐变动画
-     *
-     * @param fromAlpha         开始时的透明度
-     * @param toAlpha           结束时的透明度都
-     * @param animationListener 动画监听器
-     * @return 一个透明度渐变动画，默认持续时间为DEFAULT_ANIMATION_DURATION
+     * Function description.
      */
     fun getAlphaAnimation(
         fromAlpha: Float,
@@ -155,12 +140,11 @@ public object AnimaUtils{
         )
     }
 
+     * @param fromAlpha
+     * @param toAlpha
+     * @return DEFAULT_ANIMATION_DURATION
     /**
-     * 获取一个透明度渐变动画
-     *
-     * @param fromAlpha 开始时的透明度
-     * @param toAlpha   结束时的透明度都
-     * @return 一个透明度渐变动画，默认持续时间为DEFAULT_ANIMATION_DURATION
+     * Function description.
      */
     fun getAlphaAnimation(fromAlpha: Float, toAlpha: Float): AlphaAnimation {
         return getAlphaAnimation(
@@ -169,12 +153,11 @@ public object AnimaUtils{
         )
     }
 
+     * @param durationMillis
+     * @param animationListener
+     * @return
     /**
-     * 获取一个由完全显示变为不可见的透明度渐变动画
-     *
-     * @param durationMillis    持续时间
-     * @param animationListener 动画监听器
-     * @return 一个由完全显示变为不可见的透明度渐变动画
+     * Function description.
      */
     fun getHiddenAlphaAnimation(
         durationMillis: Long,
@@ -183,21 +166,19 @@ public object AnimaUtils{
         return getAlphaAnimation(1.0f, 0.0f, durationMillis, animationListener)
     }
 
+     * @param durationMillis
+     * @return
     /**
-     * 获取一个由完全显示变为不可见的透明度渐变动画
-     *
-     * @param durationMillis 持续时间
-     * @return 一个由完全显示变为不可见的透明度渐变动画
+     * Function description.
      */
     fun getHiddenAlphaAnimation(durationMillis: Long): AlphaAnimation {
         return getHiddenAlphaAnimation(durationMillis, null)
     }
 
+     * @param animationListener
+     * @return DEFAULT_ANIMATION_DURATION
     /**
-     * 获取一个由完全显示变为不可见的透明度渐变动画
-     *
-     * @param animationListener 动画监听器
-     * @return 一个由完全显示变为不可见的透明度渐变动画，默认持续时间为DEFAULT_ANIMATION_DURATION
+     * Function description.
      */
     fun getHiddenAlphaAnimation(animationListener: Animation.AnimationListener?): AlphaAnimation {
         return getHiddenAlphaAnimation(
@@ -206,20 +187,16 @@ public object AnimaUtils{
         )
     }
 
-    /**
-     * 获取一个由完全显示变为不可见的透明度渐变动画
-     *
-     * @return 一个由完全显示变为不可见的透明度渐变动画，默认持续时间为DEFAULT_ANIMATION_DURATION
-     */
+     * @return DEFAULT_ANIMATION_DURATION
+    /** hiddenAlphaAnimation property */
     val hiddenAlphaAnimation: AlphaAnimation
         get() = getHiddenAlphaAnimation(DEFAULT_ANIMATION_DURATION, null)
 
+     * @param durationMillis
+     * @param animationListener
+     * @return
     /**
-     * 获取一个由不可见变为完全显示的透明度渐变动画
-     *
-     * @param durationMillis    持续时间
-     * @param animationListener 动画监听器
-     * @return 一个由不可见变为完全显示的透明度渐变动画
+     * Function description.
      */
     fun getShowAlphaAnimation(
         durationMillis: Long,
@@ -228,21 +205,19 @@ public object AnimaUtils{
         return getAlphaAnimation(0.0f, 1.0f, durationMillis, animationListener)
     }
 
+     * @param durationMillis
+     * @return
     /**
-     * 获取一个由不可见变为完全显示的透明度渐变动画
-     *
-     * @param durationMillis 持续时间
-     * @return 一个由不可见变为完全显示的透明度渐变动画
+     * Function description.
      */
     fun getShowAlphaAnimation(durationMillis: Long): AlphaAnimation {
         return getAlphaAnimation(0.0f, 1.0f, durationMillis, null)
     }
 
+     * @param animationListener
+     * @return DEFAULT_ANIMATION_DURATION
     /**
-     * 获取一个由不可见变为完全显示的透明度渐变动画
-     *
-     * @param animationListener 动画监听器
-     * @return 一个由不可见变为完全显示的透明度渐变动画，默认持续时间为DEFAULT_ANIMATION_DURATION
+     * Function description.
      */
     fun getShowAlphaAnimation(animationListener: Animation.AnimationListener?): AlphaAnimation {
         return getAlphaAnimation(
@@ -251,20 +226,16 @@ public object AnimaUtils{
         )
     }
 
-    /**
-     * 获取一个由不可见变为完全显示的透明度渐变动画
-     *
-     * @return 一个由不可见变为完全显示的透明度渐变动画，默认持续时间为DEFAULT_ANIMATION_DURATION
-     */
+     * @return DEFAULT_ANIMATION_DURATION
+    /** showAlphaAnimation property */
     val showAlphaAnimation: AlphaAnimation
         get() = getAlphaAnimation(0.0f, 1.0f, DEFAULT_ANIMATION_DURATION, null)
 
+     * @param durationMillis
+     * @param animationListener
+     * @return
     /**
-     * 获取一个缩小动画
-     *
-     * @param durationMillis   时间
-     * @param animationListener  监听
-     * @return 一个缩小动画
+     * Function description.
      */
     fun getLessenScaleAnimation(
         durationMillis: Long,
@@ -280,21 +251,19 @@ public object AnimaUtils{
         return scaleAnimation
     }
 
+     * @param durationMillis
+     * @return
     /**
-     * 获取一个缩小动画
-     *
-     * @param durationMillis 时间
-     * @return 一个缩小动画
+     * Function description.
      */
     fun getLessenScaleAnimation(durationMillis: Long): ScaleAnimation {
         return getLessenScaleAnimation(durationMillis, null)
     }
 
+     * @param animationListener
+     * @return
     /**
-     * 获取一个缩小动画
-     *
-     * @param animationListener  监听
-     * @return 返回一个缩小的动画
+     * Function description.
      */
     fun getLessenScaleAnimation(animationListener: Animation.AnimationListener?): ScaleAnimation {
         return getLessenScaleAnimation(
@@ -303,12 +272,11 @@ public object AnimaUtils{
         )
     }
 
+     * @param durationMillis
+     * @param animationListener
+     * @return
     /**
-     * 获取一个放大动画
-     * @param durationMillis   时间
-     * @param animationListener  监听
-     *
-     * @return 返回一个放大的效果
+     * Function description.
      */
     fun getAmplificationAnimation(
         durationMillis: Long,
@@ -324,22 +292,19 @@ public object AnimaUtils{
         return scaleAnimation
     }
 
+     * @param durationMillis
+     * @return
     /**
-     * 获取一个放大动画
-     *
-     * @param durationMillis   时间
-     *
-     * @return 返回一个放大的效果
+     * Function description.
      */
     fun getAmplificationAnimation(durationMillis: Long): ScaleAnimation {
         return getAmplificationAnimation(durationMillis, null)
     }
 
+     * @param animationListener
+     * @return
     /**
-     * 获取一个放大动画
-     *
-     * @param animationListener  监听
-     * @return 返回一个放大的效果
+     * Function description.
      */
     fun getAmplificationAnimation(animationListener: Animation.AnimationListener?): ScaleAnimation {
         return getAmplificationAnimation(

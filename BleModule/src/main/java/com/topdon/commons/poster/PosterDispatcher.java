@@ -7,19 +7,22 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.concurrent.ExecutorService;
 
-/**
- * 任务分配
  * <p>
  * date: 2019/8/7 10:18
  * author: chuanfeng.bi
- */
 public class PosterDispatcher {
+    /**
+     * Private method description.
+     */
     private final ThreadMode defaultMode;
     private final Poster backgroundPoster;
     private final Poster mainThreadPoster;
     private final ExecutorService executorService;
     private final Poster asyncPoster;
 
+    /**
+     * Method description.
+     */
     public PosterDispatcher(@NonNull ExecutorService executorService, @NonNull ThreadMode defaultMode) {
         this.defaultMode = defaultMode;
         this.executorService = executorService;
@@ -29,21 +32,21 @@ public class PosterDispatcher {
     }
 
     /**
-     * 获取默认运行线程
+     * Method description.
      */
     public ThreadMode getDefaultMode() {
         return defaultMode;
     }
 
     /**
-     * 获取线程池
+     * Method description.
      */
     public ExecutorService getExecutorService() {
         return executorService;
     }
 
     /**
-     * 清除所有队列中任务，存在执行的无法停止
+     * Method description.
      */
     public void clearTasks() {
         backgroundPoster.clear();
@@ -51,11 +54,11 @@ public class PosterDispatcher {
         asyncPoster.clear();
     }
 
+     * {@link RunOn}post
+     * @param method
+     * @param runnable
     /**
-     * 根据方法上带的{@link RunOn}注解，将任务post到指定线程执行。如果方法上没有带注解，使用配置的默认值
-     *
-     * @param method   方法
-     * @param runnable 要执行的任务
+     * Method description.
      */
     public void post(@Nullable Method method, @NonNull Runnable runnable) {
         if (method != null) {
@@ -68,11 +71,11 @@ public class PosterDispatcher {
         }
     }
 
+     * post
+     * @param mode
+     * @param runnable
     /**
-     * 将任务post到指定线程执行。
-     *
-     * @param mode     指定任务执行线程
-     * @param runnable 要执行的任务
+     * Method description.
      */
     public void post(@NonNull ThreadMode mode, @NonNull Runnable runnable) {
         if (mode == ThreadMode.UNSPECIFIED) {
@@ -94,13 +97,13 @@ public class PosterDispatcher {
         }
     }
 
-    /**
-     * 将任务post到指定线程执行
-     *
-     * @param owner      方法的所在的对象实例
-     * @param methodName 方法名
+     * post
+     * @param owner
+     * @param methodName
      * @param tag        {@link Tag#value()}
-     * @param parameters 参数信息
+     * @param parameters
+    /**
+     * Method description.
      */
     public void post(@NonNull Object owner, @NonNull String methodName, @NonNull String tag,
                      @Nullable MethodInfo.Parameter... parameters) {
@@ -145,10 +148,15 @@ public class PosterDispatcher {
                     e.printStackTrace();
                 }
             });
-        } catch (Exception ignore) {
+        } catch (SecurityException | IllegalArgumentException e) {
+            // Handle specific reflection-related exceptions
+            e.printStackTrace();
         }
     }
 
+    /**
+     * Private method description.
+     */
     private boolean equalParamTypes(Class<?>[] params1, Class<?>[] params2) {
         if (params1.length == params2.length) {
             for (int i = 0; i < params1.length; i++) {
@@ -160,22 +168,22 @@ public class PosterDispatcher {
         return false;
     }
 
+     * post
+     * @param owner
+     * @param methodName
+     * @param parameters
     /**
-     * 将任务post到指定线程执行
-     *
-     * @param owner      方法的所在的对象实例
-     * @param methodName 方法名
-     * @param parameters 参数信息
+     * Method description.
      */
     public void post(@NonNull final Object owner, @NonNull String methodName, @Nullable MethodInfo.Parameter... parameters) {
         post(owner, methodName, "", parameters);
     }
 
+     * post
+     * @param owner
+     * @param methodInfo
     /**
-     * 将任务post到指定线程执行
-     *
-     * @param owner      方法的所在的对象实例
-     * @param methodInfo 方法信息实例
+     * Method description.
      */
     public void post(@NonNull Object owner, @NonNull MethodInfo methodInfo) {
         post(owner, methodInfo.getName(), methodInfo.getTag(), methodInfo.getParameters());

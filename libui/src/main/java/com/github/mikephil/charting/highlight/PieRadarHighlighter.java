@@ -19,11 +19,17 @@ public abstract class PieRadarHighlighter<T extends PieRadarChartBase> implement
      */
     protected List<Highlight> mHighlightBuffer = new ArrayList<Highlight>();
 
+    /**
+     * Method description.
+     */
     public PieRadarHighlighter(T chart) {
         this.mChart = chart;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public Highlight getHighlight(float x, float y) {
 
         float touchDistanceToCenter = mChart.distanceToCenter(x, y);

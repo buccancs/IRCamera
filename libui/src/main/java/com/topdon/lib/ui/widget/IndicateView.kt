@@ -7,21 +7,23 @@ import android.util.AttributeSet
 import android.view.View
 import com.blankj.utilcode.util.SizeUtils
 import com.topdon.lib.core.utils.ScreenUtil
-import com.topdon.lib.ui.R
+import com.csl.irCamera.libui.R
 
+ * ViewPager  View.
 /**
- * ViewPager 指示 View.
- *
- * Created by chenggeng.lin on 2023/11/13.
+ * @author chenggeng.lin
+ * @since Unknown
  */
 class IndicateView : View {
 
+    /** itemCount property */
     var itemCount: Int = 0
         set(value) {
             field = value
             requestLayout()
         }
 
+    /** currentIndex property */
     var currentIndex: Int = 0
         set(value) {
             field = value

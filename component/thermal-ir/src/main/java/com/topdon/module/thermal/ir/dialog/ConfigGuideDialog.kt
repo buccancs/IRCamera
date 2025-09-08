@@ -19,58 +19,65 @@ import com.topdon.lib.core.tools.NumberTools
 import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.ui.widget.MyItemDecoration
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.adapter.ConfigEmAdapter
 import com.topdon.module.thermal.ir.bean.DataBean
-import kotlinx.android.synthetic.main.dialog_config_guide.*
+import com.topdon.module.thermal.ir.databinding.DialogConfigGuideBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+ * .
 /**
- * 温度修正操作指引.
- *
- * Created by LCG on 2024/11/13.
+ * @author LCG
+ * @since Unknown
  */
-class ConfigGuideDialog(context: Context, val isTC007: Boolean, val dataBean: DataBean) : Dialog(context, R.style.TransparentDialog) {
+class ConfigGuideDialog(context: Context, val isTC007: Boolean, val dataBean: DataBean) : Dialog(context, LibAppR.style.TransparentDialog) {
+
+    private lateinit var binding: DialogConfigGuideBinding
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setCancelable(false)
         setCanceledOnTouchOutside(false)
-        setContentView(LayoutInflater.from(context).inflate(R.layout.dialog_config_guide, null))
+        binding = DialogConfigGuideBinding.inflate(LayoutInflater.from(context))
+        setContentView(binding.root)
 
-        tv_default_temp_title.text = "${context.getString(R.string.thermal_config_environment)} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
-        tv_default_dis_title.text = "${context.getString(R.string.thermal_config_distance)} (0.2~${if (isTC007) 4 else 5}m)"
-        tv_space_em_title.text = "${context.getString(R.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
+        binding.tvDefaultTempTitle.text = "${context.getString(LibAppR.string.thermal_config_environment)} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
+        binding.tvDefaultDisTitle.text = "${context.getString(LibAppR.string.thermal_config_distance)} (0.2~${if (isTC007) 4 else 5}m)"
+        binding.tvSpaceEmTitle.text = "${context.getString(LibAppR.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
 
-        tv_default_em_title.text = "${context.getString(R.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
-        tv_default_em_value.text = NumberTools.to02(dataBean.radiation)
+        binding.tvDefaultEmTitle.text = "${context.getString(LibAppR.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
+        binding.tvDefaultEmValue.text = NumberTools.to02(dataBean.radiation)
 
 
         val itemDecoration = MyItemDecoration(context)
         itemDecoration.wholeBottom = 20f
 
-        recycler_view.addItemDecoration(itemDecoration)
-        recycler_view.layoutManager = LinearLayoutManager(context)
-        recycler_view.adapter = ConfigEmAdapter(context)
+        binding.recyclerView.addItemDecoration(itemDecoration)
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.adapter = ConfigEmAdapter(context)
 
-        cl_step1.isVisible = SharedManager.configGuideStep == 1
-        cl_step2_top.isVisible = SharedManager.configGuideStep == 2
-        cl_step2_bottom.isVisible = SharedManager.configGuideStep == 2
+        binding.clStep1.isVisible = SharedManager.configGuideStep == 1
+        binding.clStep2Top.isVisible = SharedManager.configGuideStep == 2
+        binding.clStep2Bottom.isVisible = SharedManager.configGuideStep == 2
 
-        tv_next.setOnClickListener {
-            cl_step1.isVisible = false
-            cl_step2_top.isVisible = true
-            cl_step2_bottom.isVisible = true
+        binding.tvNext.setOnClickListener {
+            binding.clStep1.isVisible = false
+            binding.clStep2Top.isVisible = true
+            binding.clStep2Bottom.isVisible = true
             SharedManager.configGuideStep = 2
         }
-        tv_i_know.setOnClickListener {
+        binding.tvIKnow.setOnClickListener {
             dismiss()
             SharedManager.configGuideStep = 0
         }
     }
 
+    /**
+     * Function description.
+     */
     fun blurBg(rootView: View) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -91,8 +98,8 @@ class ConfigGuideDialog(context: Context, val isTC007: Boolean, val dataBean: Da
                 renderScript.destroy()
 
                 launch(Dispatchers.Main) {
-                    iv_blur_bg.isVisible = true
-                    iv_blur_bg.setImageBitmap(outputBitmap)
+                    binding.ivBlurBg.isVisible = true
+                    binding.ivBlurBg.setImageBitmap(outputBitmap)
                 }
             } catch (_: Exception) {
 

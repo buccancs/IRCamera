@@ -12,16 +12,22 @@ import com.topdon.lib.core.bean.CameraItemBean
 import com.topdon.lib.core.common.SaveSettingUtil
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.tools.DeviceTools
-import com.topdon.lib.ui.R
+import com.csl.irCamera.libui.databinding.UiItemMenuFiveViewBinding
+import com.csl.irCamera.libui.R
 import com.topdon.lib.ui.bean.TemperatureBean
-import kotlinx.android.synthetic.main.ui_item_menu_five_view.view.*
+import com.topdon.menu.R as MenuR
+import com.csl.irCamera.libapp.R as LibAppR
 
-@Deprecated("旧的温度档位菜单，已重构过了")
+@Deprecated("，")
 class MenuFiveNightAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    /** onTempLevelListener property */
     var onTempLevelListener: ((index: Int) -> Unit)? = null
 
     private var selectedCode = SaveSettingUtil.temperatureMode
 
+    /**
+     * Function description.
+     */
     fun selected(code: Int) {
         selectedCode = code
         notifyDataSetChanged()
@@ -29,29 +35,29 @@ class MenuFiveNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
 
     private val fiveBean = arrayListOf(
         TemperatureBean(
-            R.drawable.selector_menu2_temp_level_1,
-            context.getString(R.string.thermal_normal_temperature),
+            MenuR.drawable.selector_menu2_temp_level_1,
+            context.getString(MenuR.string.thermal_normal_temperature),
             getTempStr(-20, 150),
             CameraItemBean.TYPE_TMP_C
         ),
         if (DeviceTools.isTC001LiteConnect()) {
             TemperatureBean(
-                R.drawable.selector_menu2_temp_level_1,
-                context.getString(R.string.thermal_high_temperature),
+                MenuR.drawable.selector_menu2_temp_level_1,
+                context.getString(MenuR.string.thermal_high_temperature),
                 getTempStr(150, 450),
                 CameraItemBean.TYPE_TMP_H
             )
         } else {
             TemperatureBean(
-                R.drawable.selector_menu2_temp_level_1,
-                context.getString(R.string.thermal_high_temperature),
+                MenuR.drawable.selector_menu2_temp_level_1,
+                context.getString(MenuR.string.thermal_high_temperature),
                 getTempStr(150, 550),
                 CameraItemBean.TYPE_TMP_H
             )
         },
         TemperatureBean(
-            R.drawable.selector_menu2_temp_level_2,
-            context.getString(R.string.thermal_automatic),
+            MenuR.drawable.selector_menu2_temp_level_2,
+            context.getString(MenuR.string.thermal_automatic),
             "",
             CameraItemBean.TYPE_TMP_ZD
         ),
@@ -65,8 +71,8 @@ class MenuFiveNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.ui_item_menu_five_view, parent, false)
-        return ItemView(view)
+        val binding = UiItemMenuFiveViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ItemView(binding)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -83,11 +89,11 @@ class MenuFiveNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
             holder.info.isSelected = fiveBean[position].code == selectedCode
             holder.name.setTextColor(
                 if (fiveBean[position].code == selectedCode) ContextCompat.getColor(context, R.color.white)
-                else ContextCompat.getColor(context, R.color.font_third_color)
+                else ContextCompat.getColor(context, LibAppR.color.font_third_color)
             )
             holder.info.setTextColor(
-                if (fiveBean[position].code == selectedCode) ContextCompat.getColor(context, R.color.color_FFBA42)
-                else ContextCompat.getColor(context, R.color.font_third_color)
+                if (fiveBean[position].code == selectedCode) ContextCompat.getColor(context, LibAppR.color.color_FFBA42)
+                else ContextCompat.getColor(context, LibAppR.color.font_third_color)
             )
         }
     }
@@ -96,9 +102,9 @@ class MenuFiveNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
         return fiveBean.size
     }
 
-    inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ItemView(private val binding: UiItemMenuFiveViewBinding) : RecyclerView.ViewHolder(binding.root) {
         //        init {
-//            val canSeeCount = itemCount.toFloat() //一屏可见的 item 数量，目前都是全都显示完
+//            val canSeeCount = itemCount.toFloat() // item
 //            val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()
 //            itemView.layoutParams = ViewGroup.LayoutParams(with, ViewGroup.LayoutParams.WRAP_CONTENT)
 //            val imageSize = (ScreenUtils.getScreenWidth() * 62 / 375f).toInt()
@@ -107,10 +113,10 @@ class MenuFiveNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
 //            layoutParams.height = imageSize
 //            itemView.item_menu_tab_fl.layoutParams = layoutParams
 //        }
-        val lay: View = itemView.item_menu_tab_lay
-        val img: ImageView = itemView.item_menu_tab_img
-        val name: TextView = itemView.item_menu_tab_text
-        val info: TextView = itemView.item_menu_tab_info_text
+        val lay: View = binding.itemMenuTabLay
+        val img: ImageView = binding.itemMenuTabImg
+        val name: TextView = binding.itemMenuTabText
+        val info: TextView = binding.itemMenuTabInfoText
     }
 
 }

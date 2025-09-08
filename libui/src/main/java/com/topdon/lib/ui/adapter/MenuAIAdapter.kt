@@ -10,21 +10,21 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.bean.ObserveBean
-import com.topdon.lib.ui.R
+import com.csl.irCamera.libui.databinding.UiItemMenuSecondViewBinding
+import com.csl.irCamera.libui.R
 import com.topdon.lib.ui.bean.ColorBean
-import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.*
+import com.topdon.menu.R as MenuR
+import com.csl.irCamera.libapp.R as LibAppR
 
-@Deprecated("旧的高低温源菜单，已重构过了")
+@Deprecated("，")
 class MenuAIAdapter (val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    /**
-     * 当前选中的选项 code.
-     *
-     * 由于历史遗留（已保存在 SharedPreferences 中），这里 code 取值为
-     * - 什么都未选中：-1
-     * - 动态识别：0
-     * - 高温源：1
-     * - 低温源：2
-     */
+     *  code.
+     * SharedPreferences  code
+     * 1
+     * 0
+     * 1
+     * 2
+    /** selectCode property */
     var selectCode: Int = -1
         set(value) {
             if (field != value) {
@@ -33,22 +33,21 @@ class MenuAIAdapter (val context: Context) : RecyclerView.Adapter<RecyclerView.V
             }
         }
 
-    /**
-     * 观测模式-菜单2-高低温源 点击事件监听，单选。
-     */
+     * 2
+    /** onTempSourceListener property */
     var onTempSourceListener: ((code: Int) -> Unit)? = null
 
 
     private val secondBean = arrayListOf(
-        ColorBean(R.drawable.selector_menu2_source_1_auto, context.getString(R.string.main_tab_second_dynamic_recognition), ObserveBean.TYPE_DYN_R),
-        ColorBean(R.drawable.selector_menu2_source_2_high, context.getString(R.string.main_tab_second_high_temperature_source), ObserveBean.TYPE_TMP_H_S),
-        ColorBean(R.drawable.selector_menu2_source_3_low, context.getString(R.string.main_tab_second_low_temperature_source), ObserveBean.TYPE_TMP_L_S),
+        ColorBean(MenuR.drawable.selector_menu2_source_1_auto, context.getString(MenuR.string.main_tab_second_dynamic_recognition), ObserveBean.TYPE_DYN_R),
+        ColorBean(MenuR.drawable.selector_menu2_source_2_high, context.getString(MenuR.string.main_tab_second_high_temperature_source), ObserveBean.TYPE_TMP_H_S),
+        ColorBean(MenuR.drawable.selector_menu2_source_3_low, context.getString(MenuR.string.main_tab_second_low_temperature_source), ObserveBean.TYPE_TMP_L_S),
     )
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.ui_item_menu_second_view, parent, false)
-        return ItemView(view)
+        val binding = UiItemMenuSecondViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ItemView(binding)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -63,7 +62,7 @@ class MenuAIAdapter (val context: Context) : RecyclerView.Adapter<RecyclerView.V
             holder.name.isSelected = secondBean[position].code == selectCode
             holder.name.setTextColor(
                 if (secondBean[position].code == selectCode) ContextCompat.getColor(context, R.color.white)
-                else ContextCompat.getColor(context, R.color.font_third_color)
+                else ContextCompat.getColor(context, LibAppR.color.font_third_color)
             )
         }
     }
@@ -72,9 +71,9 @@ class MenuAIAdapter (val context: Context) : RecyclerView.Adapter<RecyclerView.V
         return secondBean.size
     }
 
-    inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ItemView(private val binding: UiItemMenuSecondViewBinding) : RecyclerView.ViewHolder(binding.root) {
 //        init {
-//            val canSeeCount = itemCount.toFloat() //一屏可见的 item 数量，目前都是全都显示完
+//            val canSeeCount = itemCount.toFloat() // item
 //            val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()
 //            itemView.layoutParams = ViewGroup.LayoutParams(with, ViewGroup.LayoutParams.WRAP_CONTENT)
 //            val imageSize = (ScreenUtils.getScreenWidth() * 62 / 375f).toInt()
@@ -83,8 +82,8 @@ class MenuAIAdapter (val context: Context) : RecyclerView.Adapter<RecyclerView.V
 //            layoutParams.height = imageSize
 //            itemView.item_menu_tab_img.layoutParams = layoutParams
 //        }
-        val lay: View = itemView.item_menu_tab_lay
-        val img: ImageView = itemView.item_menu_tab_img
-        val name: TextView = itemView.item_menu_tab_text
+        val lay: View = binding.itemMenuTabLay
+        val img: ImageView = binding.itemMenuTabImg
+        val name: TextView = binding.itemMenuTabText
     }
 }

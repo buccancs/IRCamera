@@ -18,12 +18,18 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 @SuppressLint("NewApi")
 public class AnimatedZoomJob extends AnimatedViewPortJob implements Animator.AnimatorListener {
 
+    /**
+     * Private method description.
+     */
     private static ObjectPool<AnimatedZoomJob> pool;
 
     static {
         pool = ObjectPool.create(8, new AnimatedZoomJob(null,null,null,null,0,0,0,0,0,0,0,0,0,0));
     }
 
+    /**
+     * Method description.
+     */
     public static AnimatedZoomJob getInstance(ViewPortHandler viewPortHandler, View v, Transformer trans, YAxis axis, float xAxisRange, float scaleX, float scaleY, float xOrigin, float yOrigin, float zoomCenterX, float zoomCenterY, float zoomOriginX, float zoomOriginY, long duration) {
         AnimatedZoomJob result = pool.get();
         result.mViewPortHandler = viewPortHandler;
@@ -51,6 +57,9 @@ public class AnimatedZoomJob extends AnimatedViewPortJob implements Animator.Ani
     protected float xAxisRange;
 
     @SuppressLint("NewApi")
+    /**
+     * Method description.
+     */
     public AnimatedZoomJob(ViewPortHandler viewPortHandler, View v, Transformer trans, YAxis axis, float xAxisRange, float scaleX, float scaleY, float xOrigin, float yOrigin, float zoomCenterX, float zoomCenterY, float zoomOriginX, float zoomOriginY, long duration) {
         super(viewPortHandler, scaleX, scaleY, trans, v, xOrigin, yOrigin, duration);
 
@@ -65,6 +74,9 @@ public class AnimatedZoomJob extends AnimatedViewPortJob implements Animator.Ani
 
     protected Matrix mOnAnimationUpdateMatrixBuffer = new Matrix();
     @Override
+    /**
+     * Method description.
+     */
     public void onAnimationUpdate(ValueAnimator animation) {
 
         float scaleX = xOrigin + (xValue - xOrigin) * phase;
@@ -87,27 +99,42 @@ public class AnimatedZoomJob extends AnimatedViewPortJob implements Animator.Ani
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onAnimationEnd(Animator animation) {
         ((BarLineChartBase) view).calculateOffsets();
         view.postInvalidate();
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onAnimationCancel(Animator animation) {
 
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onAnimationRepeat(Animator animation) {
 
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void recycleSelf() {
 
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onAnimationStart(Animator animation) {
 
     }

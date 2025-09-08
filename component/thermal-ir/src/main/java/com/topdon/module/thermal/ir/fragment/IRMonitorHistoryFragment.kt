@@ -22,11 +22,12 @@ import com.topdon.lib.core.tools.TimeTool
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.libcom.view.CommLoadMoreView
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.activity.IRLogMPChartActivity
 import com.topdon.module.thermal.ir.event.MonitorCreateEvent
 import com.topdon.module.thermal.ir.viewmodel.IRMonitorViewModel
-import kotlinx.android.synthetic.main.fragment_ir_monitor_history.view.*
-import kotlinx.android.synthetic.main.item_monitory_history.view.*
+import com.topdon.module.thermal.ir.databinding.FragmentIrMonitorHistoryBinding
+import com.topdon.module.thermal.ir.databinding.ItemMonitoryHistoryBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -37,14 +38,17 @@ import java.util.Calendar
 
 class IRMonitorHistoryFragment : Fragment() {
 
+    private lateinit var binding: FragmentIrMonitorHistoryBinding
+
     private val adapter = MyAdapter(ArrayList())
 
     private val viewModel: IRMonitorViewModel by viewModels()
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         EventBus.getDefault().register(this)
-        return inflater.inflate(R.layout.fragment_ir_monitor_history, container)
+        binding = FragmentIrMonitorHistoryBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -60,12 +64,12 @@ class IRMonitorHistoryFragment : Fragment() {
         }
         adapter.onItemLongClickListener = {
             TipDialog.Builder(requireContext())
-                .setMessage(getString(R.string.tip_config_delete, ""))
-                .setPositiveListener(R.string.app_confirm) {
+                .setMessage(getString(LibAppR.string.tip_config_delete, ""))
+                .setPositiveListener(LibAppR.string.app_confirm) {
                     viewModel.delDetail(adapter.data[it].startTime)
                     adapter.removeAt(it)
                 }
-                .setCancelListener(R.string.app_cancel) {
+                .setCancelListener(LibAppR.string.app_cancel) {
 
                 }
                 .create().show()
@@ -73,8 +77,8 @@ class IRMonitorHistoryFragment : Fragment() {
         adapter.loadMoreModule.setOnLoadMoreListener {
             adapter.loadMoreModule.loadMoreEnd()
         }
-        view.recycler_view.layoutManager = LinearLayoutManager(context)
-        view.recycler_view.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.adapter = adapter
         adapter.isUseEmpty = true
         viewModel.recordListLD.observe(viewLifecycleOwner) {
             lifecycleScope.launch {
@@ -113,6 +117,9 @@ class IRMonitorHistoryFragment : Fragment() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun onMonitorCreate(event: MonitorCreateEvent) {
         viewModel.queryRecordList()
     }
@@ -120,13 +127,9 @@ class IRMonitorHistoryFragment : Fragment() {
     private class MyAdapter(dataList: MutableList<ThermalDao.Record>?) : BaseQuickAdapter<ThermalDao.Record,
             BaseViewHolder>(R.layout.item_monitory_history, dataList), LoadMoreModule {
 
-        /**
-         * item 点击事件监听.
-         */
+         * item .
         var onItemClickListener: ((position: Int) -> Unit)? = null
-        /**
-         * item 长按事件监听.
-         */
+         * item .
         var onItemLongClickListener: ((position: Int) -> Unit)? = null
 
 
@@ -137,35 +140,37 @@ class IRMonitorHistoryFragment : Fragment() {
             calendar.timeInMillis = record.startTime
             val year = calendar.get(Calendar.YEAR)
             val month = calendar.get(Calendar.MONTH) + 1
-            val day =  calendar.get(Calendar.DAY_OF_MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            val binding = ItemMonitoryHistoryBinding.bind(holder.itemView)
 
             if (item.showTitle || position == 0 || data.size == 1) {
-                holder.itemView.group_title.isVisible = true
-                holder.itemView.view_line_top.isVisible = false
+                binding.groupTitle.isVisible = true
+                binding.viewLineTop.isVisible = false
             } else {
                 val beforeCalendar = Calendar.getInstance()
                 beforeCalendar.timeInMillis = data[position - 1].startTime
                 val beforeYear = beforeCalendar.get(Calendar.YEAR)
                 val beforeMonth = beforeCalendar.get(Calendar.MONTH) + 1
-                holder.itemView.group_title.isVisible = beforeMonth != month && beforeYear != year
-                holder.itemView.view_line_top.isVisible = beforeMonth != month && beforeYear != year
+                binding.groupTitle.isVisible = beforeMonth != month && beforeYear != year
+                binding.viewLineTop.isVisible = beforeMonth != month && beforeYear != year
             }
 
-            holder.itemView.tv_date.text = "$year-$month"
-            holder.itemView.tv_time.text = "$month-$day"
-            holder.itemView.tv_duration.text = TimeTool.showVideoTime(record.duration * 1000L)
+            binding.tvDate.text = "$year-$month"
+            binding.tvTime.text = "$month-$day"
+            binding.tvDuration.text = TimeTool.showVideoTime(record.duration * 1000L)
             when (record.type) {
-                "point" -> holder.itemView.tv_type.setText(R.string.thermal_point)
-                "line" -> holder.itemView.tv_type.setText(R.string.thermal_line)
-                "fence" -> holder.itemView.tv_type.setText(R.string.thermal_rect)
+                "point" -> binding.tvType.setText(LibAppR.string.thermal_point)
+                "line" -> binding.tvType.setText(LibAppR.string.thermal_line)
+                "fence" -> binding.tvType.setText(LibAppR.string.thermal_rect)
             }
 
-            holder.itemView.view_content_bg.setOnClickListener {
+            binding.viewContentBg.setOnClickListener {
                 if (position != RecyclerView.NO_POSITION) {
                     onItemClickListener?.invoke(position)
                 }
             }
-            holder.itemView.view_content_bg.setOnLongClickListener {
+            binding.viewContentBg.setOnLongClickListener {
                 if (position != RecyclerView.NO_POSITION) {
                     onItemLongClickListener?.invoke(position)
                 }

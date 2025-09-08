@@ -1,22 +1,30 @@
 package com.topdon.lib.core.bean
 
+import android.os.Parcel
 import android.os.Parcelable
 import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.repository.FileBean
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.lib.core.tools.VideoTools
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import java.io.File
 import java.util.TimeZone
 
 @Parcelize
 open class GalleryBean(
+    /** id property */
     val id: Int, // Legacy field (unused for TC001 local files)
+    /** path property */
     val path: String,
+    /** thumb property */
     val thumb: String,
+    /** name property */
     val name: String,
-    val duration: Long,//仅当为视频时，持续毫秒数
+    /** duration property */
+    val duration: Long,//，
+    /** timeMillis property */
     val timeMillis: Long,
+    /** hasDownload property */
     var hasDownload: Boolean,
 ) : Parcelable {
     constructor(file: File): this(
@@ -48,5 +56,23 @@ class GalleryTitle(timeMillis: Long) : GalleryBean(
     duration = 0L,
     timeMillis = timeMillis,
     hasDownload = true,
-)
+) {
+    companion object CREATOR : Parcelable.Creator<GalleryTitle> {
+        override fun createFromParcel(parcel: Parcel): GalleryTitle {
+            // Read the timeMillis from the parent's parcel data
+            val id = parcel.readInt()
+            val path = parcel.readString() ?: ""
+            val thumb = parcel.readString() ?: ""
+            val name = parcel.readString() ?: ""
+            val duration = parcel.readLong()
+            val timeMillis = parcel.readLong()
+            val hasDownload = parcel.readByte() != 0.toByte()
+            return GalleryTitle(timeMillis)
+        }
+
+        override fun newArray(size: Int): Array<GalleryTitle?> {
+            return arrayOfNulls(size)
+        }
+    }
+}
 

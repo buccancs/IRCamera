@@ -5,13 +5,13 @@ import android.util.AttributeSet
 import android.widget.ImageView
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import com.topdon.module.thermal.ir.R
+import com.csl.irCamera.libapp.R as LibAppR
 
+ *  StandardGSYVideoPlayer.
+ * .
 /**
- * 魔改 StandardGSYVideoPlayer.
- *
- * 产品嫌播放暂停图标太丑了，这里改一下.
- *
- * Created by chenggeng.lin on 2023/12/8.
+ * @author chenggeng.lin
+ * @since Unknown
  */
 class MyGSYVideoPlayer : StandardGSYVideoPlayer {
 

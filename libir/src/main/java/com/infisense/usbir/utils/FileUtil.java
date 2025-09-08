@@ -31,26 +31,31 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
  * @ProjectName: ANDROID_IRUVC_SDK
  * @Package: com.infisense.iruvc.utils
  * @ClassName: FileUtil
- * @Description:
- * @Author: brilliantzhao
- * @CreateDate: 2021.11.11 13:56
- * @UpdateUser:
- * @UpdateDate: 2021.11.11 13:56
- * @UpdateRemark:
- * @Version: 1.0.0
+/**
+ * Utility class.
+ * 
+ * @author brilliantzhao
+ * @since 2022.9.8 10:25
  */
 public class FileUtil {
 
+    /**
+     * Private method description.
+     */
     private static final String TAG = "FileUtil";
     private static final String DATA_SAVE_DIR = "InfiRay";
 
     /**
-     * @param context
-     * @return
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
+    /**
+     * Method description.
      */
     public static String getDiskCacheDir(Context context) {
         String cachePath = context.getCacheDir().getPath();
@@ -64,11 +69,12 @@ public class FileUtil {
         return cachePath;
     }
 
-    /**
      * @param context
      * @param srcFileName
      * @param strOutFileName
      * @throws IOException
+    /**
+     * Method description.
      */
     public static void copyAssetsDataToSD(Context context, String srcFileName, String strOutFileName) throws IOException {
         File file = new File(strOutFileName);
@@ -89,9 +95,10 @@ public class FileUtil {
         myOutput.close();
     }
 
-    /**
      * @param bytes
      * @param fileTitle
+    /**
+     * Method description.
      */
     public static void saveByteFile(Context mContext, byte[] bytes, String fileTitle) {
         try {
@@ -112,9 +119,10 @@ public class FileUtil {
         }
     }
 
-    /**
      * @param bytes
      * @param fileTitle
+    /**
+     * Method description.
      */
     public static void saveByteFile(byte[] bytes, String fileTitle) {
 //        try {
@@ -123,7 +131,6 @@ public class FileUtil {
 //            if (!path.exists() && path.isDirectory()) {
 //                path.mkdirs();
 //            }
-//            //
 //            File file = new File(fileSaveDir, fileTitle);
 //            FileOutputStream fos = new FileOutputStream(file);
 //            fos.write(bytes);
@@ -133,32 +140,36 @@ public class FileUtil {
 //        }
     }
 
+    /**
+     * Method description.
+     */
     public static String getTableDirPath(){
         return Utils.getApp().getCacheDir().getAbsolutePath()+"/table";
     };
 
-    /**
      * @param bytes
      * @param fileTitle
+    /**
+     * Method description.
      */
     public static void saveShortFileForDeviceData(short[] bytes, String fileTitle) {
         try {
             String fileSaveDir = getTableDirPath();
             createOrExistsDir(fileSaveDir);
-            //
             File file = new File(fileSaveDir, fileTitle);
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(toByteArray(bytes));
             fos.close();
-            Log.i(TAG, fileTitle + " 保存成功");
+            Log.i(TAG, fileTitle + " ");
         } catch (IOException e) {
-            Log.e(TAG, fileTitle + " 保存失败："+e.getMessage());
+            Log.e(TAG, fileTitle + " ："+e.getMessage());
         }
     }
 
-    /**
      * @param bytes
      * @param fileTitle
+    /**
+     * Method description.
      */
     public static void saveShortFile(short[] bytes, String fileTitle) {
         try {
@@ -176,11 +187,15 @@ public class FileUtil {
         }
     }
 
+     * Y16
     /**
-     * 根据数据流获取Y16类型
+     * Method description.
      *
-     * @param dataFlowMode
-     * @return
+     * @param parameter parameter description
+     * @return return value
+     */
+    /**
+     * Method description.
      */
     public static CommonParams.Y16ModePreviewSrcType getY16SrcTypeByDataFlowMode(CommonParams.DataFlowMode dataFlowMode) {
         switch (dataFlowMode) {
@@ -222,10 +237,13 @@ public class FileUtil {
     }
 
     /**
-     * 创建文件夹---之所以要一层层创建，是因为一次性创建多层文件夹可能会失败！
+     * Method description.
      *
-     * @param dirFile
-     * @return
+     * @param parameter parameter description
+     * @return return value
+     */
+    /**
+     * Method description.
      */
     public static boolean createFileDir(File dirFile) {
         if (dirFile == null) return true;
@@ -234,7 +252,6 @@ public class FileUtil {
         }
         File parentFile = dirFile.getParentFile();
         if (parentFile != null && !parentFile.exists()) {
-            //父文件夹不存在，则先创建父文件夹，再创建自身文件夹
             return createFileDir(parentFile) && createFileDir(dirFile);
         } else {
             boolean mkdirs = dirFile.mkdirs();
@@ -246,10 +263,15 @@ public class FileUtil {
         }
     }
 
-    /**
      * @param dirPath
-     * @param fileName
-     * @return
+    /**
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
+    /**
+     * Method description.
      */
     public static File createFile(String dirPath, String fileName) {
         try {
@@ -283,11 +305,10 @@ public class FileUtil {
         }
     }
 
+     * @param bytes
+     * @param bytes2
     /**
-     * 把两个位图覆盖合成为一个位图，以底层位图的长宽为基准
-     *
-     * @param bytes  在底部的位图
-     * @param bytes2 盖在上面的位图
+     * Method description.
      */
     public static void savaRawFile(byte[] bytes, byte[] bytes2) {
         try {
@@ -306,10 +327,9 @@ public class FileUtil {
         }
     }
 
-    /**
-     * 保存红外数据
-     *
      * @param bytes
+    /**
+     * Method description.
      */
     public static void savaIRFile(byte[] bytes) {
         try {
@@ -329,10 +349,9 @@ public class FileUtil {
         }
     }
 
-    /**
-     * 保存温度数据
-     *
      * @param bytes
+    /**
+     * Method description.
      */
     public static void savaTempFile(byte[] bytes) {
         try {
@@ -352,10 +371,15 @@ public class FileUtil {
         }
     }
 
-    /**
      * @param context
-     * @param file
-     * @return
+    /**
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
+    /**
+     * Method description.
      */
     public static boolean isFileExists(Context context, final File file) {
         if (file == null) {
@@ -367,11 +391,15 @@ public class FileUtil {
         return isFileExists(context, file.getAbsolutePath());
     }
 
-    /**
      * Return whether the file exists.
+    /**
+     * Method description.
      *
-     * @param filePath The path of file.
-     * @return {@code true}: yes<br>{@code false}: no
+     * @param parameter parameter description
+     * @return return value
+     */
+    /**
+     * Method description.
      */
     public static boolean isFileExists(Context context, final String filePath) {
         File file = new File(filePath);
@@ -384,10 +412,11 @@ public class FileUtil {
         return isFileExistsApi29(context, filePath);
     }
 
-    /**
      * @param context
      * @param filePath
      * @return
+    /**
+     * Private method description.
      */
     private static boolean isFileExistsApi29(Context context, String filePath) {
         if (Build.VERSION.SDK_INT >= 29) {
@@ -408,11 +437,11 @@ public class FileUtil {
         return false;
     }
 
-    /**
-     * short数组转byte数组
-     *
+     * shortbyte
      * @param src
      * @return
+    /**
+     * Private method description.
      */
     private static byte[] toByteArray(short[] src) {
         int count = src.length;
@@ -424,11 +453,15 @@ public class FileUtil {
         return dest;
     }
 
+     * byteshort
     /**
-     * byte数组转short数组
+     * Method description.
      *
-     * @param src
-     * @return
+     * @param parameter parameter description
+     * @return return value
+     */
+    /**
+     * Method description.
      */
     public static short[] toShortArray(byte[] src) {
         int count = src.length >> 1;
@@ -439,12 +472,12 @@ public class FileUtil {
         return dest;
     }
 
-    /**
      * @param bytes
      * @param fileTitle
+    /**
+     * Method description.
      */
     public static void saveShortFile(String fileDir, short[] bytes, String fileTitle) {
-        // 创建目录
         createOrExistsDir(fileDir);
         try {
             File file = new File(fileDir, fileTitle + ".bin");
@@ -458,11 +491,11 @@ public class FileUtil {
         }
     }
 
-    /**
      * @param file
+    /**
+     * Private method description.
      */
     private static void createOrExistsDir(File file) {
-        // 文件不存在则创建文件
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -472,28 +505,32 @@ public class FileUtil {
         }
     }
 
-    /**
-     * 如果文件夹不存在则创建
-     *
      * @param fileDir
+    /**
+     * Private method description.
      */
     private static void createOrExistsDir(String fileDir) {
         File file = new File(fileDir);
-        //如果文件夹不存在则创建
         if (!file.exists() && !file.isDirectory()) {
-            //不存在
             file.mkdir();
         } else {
-            //目录存在
         }
     }
 
+    /**
+     * Private method description.
+     */
     private static int sBufferSize = 524288;
 
-    /**
      * @param context
-     * @param file
-     * @return
+    /**
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
+    /**
+     * Method description.
      */
     public static byte[] readFile2BytesByStream(Context context, final File file) {
         if (!isFileExists(context, file)) {
@@ -533,25 +570,23 @@ public class FileUtil {
         }
     }
 
-    /**
-     * 从Assets拷贝数据到SD
-     *
+     * AssetsSD
      * @param context
      * @param srcFileName
      * @param strOutFileName
      * @throws IOException
+    /**
+     * Method description.
      */
     public static void copyAssetsBigDataToSD(Context context, String srcFileName, String strOutFileName) {
         try {
             File file = new File(strOutFileName);
             Log.i(TAG, "file.exists->getAbsolutePath = " + file.getAbsolutePath());
             if (file.exists()) {
-                // 如果文件存在则删除文件，重新创建，避免修改的内容不生效
                 file.delete();
             }
-            //
             if (!file.createNewFile()) {
-                Log.e(TAG, "创建文件 " + srcFileName + " 失败");
+                Log.e(TAG, " " + srcFileName + " ");
                 return;
             }
 
@@ -572,14 +607,18 @@ public class FileUtil {
         }
     }
 
+     * ISP
     /**
-     * 根据增益状态获取对应的ISP算法的配置文件
+     * Method description.
      *
-     * @param gainStatus
-     * @return
+     * @param parameter parameter description
+     * @return return value
+     */
+    /**
+     * Method description.
      */
     public static String getISPConfigByGainStatus(CommonParams.GainStatus gainStatus) {
-//        Log.i(TAG, "INFISENSE_SAVE_DIR = " + MyApplication.getInstance().INFISENSE_SAVE_DIR);
+//        Log.i(TAG, INFISENSE_SAVE_DIR =  + MyApplication.getInstance().INFISENSE_SAVE_DIR);
         if (CommonParams.GainStatus.HIGH_GAIN == gainStatus) {
             return INFISENSE_SAVE_DIR() + File.separator + "isp_H.json";
         } else {
@@ -588,8 +627,13 @@ public class FileUtil {
     }
 
     /**
-     * @param gainStatus
-     * @return 输出hex
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
+    /**
+     * Method description.
      */
     public static String getISPConfigWithEncryptHexByGainStatus(CommonParams.GainStatus gainStatus) {
         if (CommonParams.GainStatus.HIGH_GAIN == gainStatus) {
@@ -603,14 +647,19 @@ public class FileUtil {
     static String INFISENSE_SAVE_DIR(){
        return Utils.getApp().getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath();
     }
-    //=== 设备信息存储到私有区域，app删除后一起删除
-    static String  DEVICE_DATA_SAVE_DIR (){
+    //=== app
+    static String DEVICE_DATA_SAVE_DIR (){
        return Utils.getApp().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath();
     }
 
     /**
-     * @param gainStatus
-     * @return 输出base64
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
+    /**
+     * Method description.
      */
     public static String getISPConfigWithEncryptBase64ByGainStatus(CommonParams.GainStatus gainStatus) {
         if (CommonParams.GainStatus.HIGH_GAIN == gainStatus) {
@@ -621,10 +670,13 @@ public class FileUtil {
     }
 
     /**
-     * 获取版本信息
+     * Method description.
      *
-     * @param context
-     * @return
+     * @param parameter parameter description
+     * @return return value
+     */
+    /**
+     * Method description.
      */
     public static String getVersionName(Context context) {
         PackageManager manager = context.getPackageManager();
@@ -639,8 +691,13 @@ public class FileUtil {
     }
 
     /**
-     * @param string
-     * @return
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
+    /**
+     * Method description.
      */
     public static String getMD5Key(String string) {
         if (TextUtils.isEmpty(string)) {
@@ -660,13 +717,13 @@ public class FileUtil {
             }
             return result;
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            throw new RuntimeException("MD5 algorithm not available - critical system configuration issue", e);
         }
-        return "";
     }
 
-    /**
      * @param filePath
+    /**
+     * Method description.
      */
     public static void makeDirectory(String filePath) {
         File file = new File(filePath);
@@ -676,8 +733,13 @@ public class FileUtil {
     }
 
     /**
-     * @param context
-     * @return
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
+    /**
+     * Method description.
      */
     public static String getSaveFilePath(Context context) {
         boolean useExternalStorage = false;
@@ -701,11 +763,12 @@ public class FileUtil {
         return directoryPath;
     }
 
-    /**
      * @param filePath
      * @param fileName
      * @return
      * @throws IOException
+    /**
+     * Private method description.
      */
     private static File makeFile(String filePath, String fileName) throws IOException {
         makeDirectory(filePath);
@@ -718,11 +781,16 @@ public class FileUtil {
         return file;
     }
 
-    /**
      * @param bytes
      * @param filePath
-     * @param fileName
-     * @return
+    /**
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
+    /**
+     * Method description.
      */
     public static int writeTxtToFile(byte[] bytes, String filePath, String fileName) {
         int result = -1;
@@ -757,11 +825,11 @@ public class FileUtil {
         }
     }
 
-    /**
-     * 存储String到本地，覆盖原始数据
-     *
+     * String
      * @param str
      * @param path
+    /**
+     * Method description.
      */
     public static void saveStringToFile(String str, String path) {
         File file;
@@ -773,7 +841,7 @@ public class FileUtil {
                 file.createNewFile();
             }
             byte[] contentInBytes = str.getBytes();
-            stream.write(contentInBytes); // 写入
+            stream.write(contentInBytes); //
             stream.flush();
             stream.close();
         } catch (IOException e) {
@@ -782,8 +850,13 @@ public class FileUtil {
     }
 
     /**
-     * @param path
-     * @return
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
+    /**
+     * Method description.
      */
     public static String getStringFromFile(String path) {
         StringBuffer txtContent = new StringBuffer();
@@ -812,9 +885,10 @@ public class FileUtil {
         return txtContent.toString();
     }
 
-    /**
      * @param num
      * @param numbyte
+    /**
+     * Method description.
      */
     public static void float2Byte(float num, byte[] numbyte) {
         int fbit = Float.floatToIntBits(num);

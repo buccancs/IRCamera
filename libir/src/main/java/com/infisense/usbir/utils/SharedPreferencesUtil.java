@@ -4,19 +4,19 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Base64;
 
-/**
  * Created by fengjibo on 2023/4/12.
- */
 public class SharedPreferencesUtil {
 
+    /**
+     * Private method description.
+     */
     private static final String FILE_NAME = "usb_ir";
 
-    /**
-     * 保存数据到文件
-     *
      * @param context
      * @param key
      * @param data
+    /**
+     * Method description.
      */
     public static void saveData(Context context, String key, Object data) {
         String type = data.getClass().getSimpleName();
@@ -38,13 +38,12 @@ public class SharedPreferencesUtil {
         editor.commit();
     }
 
-    /**
-     * 从文件里读取数据
-     *
      * @param context
      * @param key
      * @param defValue
      * @return
+    /**
+     * Method description.
      */
     public static Object getData(Context context, String key, Object defValue) {
         String type = defValue.getClass().getSimpleName();
@@ -65,11 +64,11 @@ public class SharedPreferencesUtil {
         return null;
     }
 
-    /**
-     *
      * @param context
      * @param key
      * @param data
+    /**
+     * Method description.
      */
     public static void saveByteData(Context context, String key, byte[] data) {
         String type = data.getClass().getSimpleName();
@@ -83,11 +82,11 @@ public class SharedPreferencesUtil {
         editor.commit();
     }
 
-    /**
-     *
      * @param context
      * @param key
      * @return
+    /**
+     * Method description.
      */
     public static byte[] getByteData(Context context, String key) {
         SharedPreferences sharedPreferences = context.getSharedPreferences

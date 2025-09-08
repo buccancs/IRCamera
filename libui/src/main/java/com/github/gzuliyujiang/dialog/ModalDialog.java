@@ -1,15 +1,12 @@
-/*
- * Copyright (c) 2016-present 贵州纳雍穿青人李裕江<1032694760@qq.com>
- *
+ * Copyright (c) 2016-present <1032694760@qq.com>
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
  *     http://license.coscl.org.cn/MulanPSL2
- * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
+ * THIS SOFTWARE IS PROVIDED ON AN AS IS BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
  * See the Mulan PSL v2 for more details.
- */
 
 package com.github.gzuliyujiang.dialog;
 
@@ -32,12 +29,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 
-import com.topdon.lib.ui.R;
+import com.csl.irCamera.libui.R;
 
-/**
- * @author 贵州山野羡民（1032694760@qq.com）
+ * @author 1032694760@qq.com
  * @since 2021/6/3 15:23
- */
 @SuppressWarnings("unused")
 public abstract class ModalDialog extends BottomDialog implements View.OnClickListener {
     protected View headerView;
@@ -48,16 +43,25 @@ public abstract class ModalDialog extends BottomDialog implements View.OnClickLi
     protected View bodyView;
     protected View footerView;
 
+    /**
+     * Method description.
+     */
     public ModalDialog(@NonNull Activity activity) {
         super(activity, DialogConfig.getDialogStyle() == DialogStyle.Three
                 ? R.style.DialogTheme_Fade : R.style.DialogTheme_Sheet);
     }
 
+    /**
+     * Method description.
+     */
     public ModalDialog(@NonNull Activity activity, @StyleRes int themeResId) {
         super(activity, themeResId);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onInit(@Nullable Bundle savedInstanceState) {
         super.onInit(savedInstanceState);
         if (DialogConfig.getDialogStyle() == DialogStyle.Three) {
@@ -181,6 +185,9 @@ public abstract class ModalDialog extends BottomDialog implements View.OnClickLi
         maybeBuildEllipseButton();
     }
 
+    /**
+     * Private method description.
+     */
     private void maybeBuildEllipseButton() {
         if (DialogConfig.getDialogStyle() != DialogStyle.One && DialogConfig.getDialogStyle() != DialogStyle.Two) {
             return;
@@ -216,6 +223,9 @@ public abstract class ModalDialog extends BottomDialog implements View.OnClickLi
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setTitle(final @Nullable CharSequence title) {
         if (titleView != null) {
             titleView.post(new Runnable() {
@@ -230,6 +240,9 @@ public abstract class ModalDialog extends BottomDialog implements View.OnClickLi
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setTitle(final int titleId) {
         if (titleView != null) {
             titleView.post(new Runnable() {
@@ -245,6 +258,9 @@ public abstract class ModalDialog extends BottomDialog implements View.OnClickLi
 
     @CallSuper
     @Override
+    /**
+     * Method description.
+     */
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.dialog_modal_cancel) {
@@ -262,6 +278,9 @@ public abstract class ModalDialog extends BottomDialog implements View.OnClickLi
 
     protected abstract void onOk();
 
+    /**
+     * Method description.
+     */
     public final void setBodyWidth(@Dimension(unit = Dimension.DP) @IntRange(from = 50) int bodyWidth) {
         ViewGroup.LayoutParams layoutParams = bodyView.getLayoutParams();
         int width = WRAP_CONTENT;
@@ -272,6 +291,9 @@ public abstract class ModalDialog extends BottomDialog implements View.OnClickLi
         bodyView.setLayoutParams(layoutParams);
     }
 
+    /**
+     * Method description.
+     */
     public final void setBodyHeight(@Dimension(unit = Dimension.DP) @IntRange(from = 50) int bodyHeight) {
         ViewGroup.LayoutParams layoutParams = bodyView.getLayoutParams();
         int height = WRAP_CONTENT;
@@ -282,6 +304,9 @@ public abstract class ModalDialog extends BottomDialog implements View.OnClickLi
         bodyView.setLayoutParams(layoutParams);
     }
 
+    /**
+     * Method description.
+     */
     public final View getHeaderView() {
         if (headerView == null) {
             headerView = new View(activity);
@@ -289,26 +314,44 @@ public abstract class ModalDialog extends BottomDialog implements View.OnClickLi
         return headerView;
     }
 
+    /**
+     * Method description.
+     */
     public final View getTopLineView() {
         return topLineView;
     }
 
+    /**
+     * Method description.
+     */
     public final View getBodyView() {
         return bodyView;
     }
 
+    /**
+     * Method description.
+     */
     public final View getFooterView() {
         return footerView;
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getCancelView() {
         return cancelView;
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getTitleView() {
         return titleView;
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getOkView() {
         return okView;
     }

@@ -21,6 +21,9 @@ public class CombinedHighlighter extends ChartHighlighter<CombinedDataProvider> 
      */
     protected BarHighlighter barHighlighter;
 
+    /**
+     * Method description.
+     */
     public CombinedHighlighter(CombinedDataProvider chart, BarDataProvider barChart) {
         super(chart);
 

@@ -16,6 +16,9 @@ public class StackedValueFormatter extends ValueFormatter
     /**
      * if true, all stack values of the stacked bar entry are drawn, else only top
      */
+    /**
+     * Private method description.
+     */
     private boolean mDrawWholeStack;
 
     /**
@@ -32,6 +35,9 @@ public class StackedValueFormatter extends ValueFormatter
      * @param suffix         a string that should be appended behind the value
      * @param decimals       the number of decimal digits to use
      */
+    /**
+     * Method description.
+     */
     public StackedValueFormatter(boolean drawWholeStack, String suffix, int decimals) {
         this.mDrawWholeStack = drawWholeStack;
         this.mSuffix = suffix;
@@ -47,6 +53,9 @@ public class StackedValueFormatter extends ValueFormatter
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public String getBarStackedLabel(float value, BarEntry entry) {
         if (!mDrawWholeStack) {
 

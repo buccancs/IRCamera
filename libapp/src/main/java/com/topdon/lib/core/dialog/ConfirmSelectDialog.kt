@@ -8,73 +8,89 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
-import com.topdon.lib.core.R
+import com.csl.irCamera.libapp.R
+import com.csl.irCamera.libapp.databinding.DialogConfirmSelectBinding
 import com.topdon.lib.core.utils.ScreenUtil
-import kotlinx.android.synthetic.main.dialog_confirm_select.view.*
 
+ * TS004 .
 /**
- * TS004 远端图库删除提示弹框.
- *
- * Created by LCG on 2024/2/29.
+ * @author LCG
+ * @since Unknown
  */
 class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog), View.OnClickListener {
 
+    private lateinit var binding: DialogConfirmSelectBinding
+    /** onConfirmClickListener property */
     var onConfirmClickListener: ((isSelect: Boolean) -> Unit)? = null
 
+     * .
     /**
-     * 是否显示顶部信息图标，默认不显示.
+     * Function description.
      */
     fun setShowIcon(isShowIcon: Boolean) {
-        rootView.iv_icon.isVisible = isShowIcon
-    }
-
-    fun setTitleRes(@StringRes titleRes: Int) {
-        rootView.tv_title.setText(titleRes)
-    }
-
-    fun setTitleStr(titleStr: String) {
-        rootView.tv_title.text = titleStr
+        binding.ivIcon.isVisible = isShowIcon
     }
 
     /**
-     * 是否显示提示文字及选中效果，默认不显示.
+     * Function description.
+     */
+    fun setTitleRes(@StringRes titleRes: Int) {
+        binding.tvTitle.setText(titleRes)
+    }
+
+    /**
+     * Function description.
+     */
+    fun setTitleStr(titleStr: String) {
+        binding.tvTitle.text = titleStr
+    }
+
+     * .
+    /**
+     * Function description.
      */
     fun setShowMessage(isShowMessage: Boolean) {
-        rootView.rl_message.isVisible = isShowMessage
-    }
-
-    fun setMessageRes(@StringRes messageRes: Int) {
-        rootView.tv_message.setText(messageRes)
+        binding.rlMessage.isVisible = isShowMessage
     }
 
     /**
-     * 是否显示取消按钮，默认显示且默认文字为“取消”.
+     * Function description.
+     */
+    fun setMessageRes(@StringRes messageRes: Int) {
+        binding.tvMessage.setText(messageRes)
+    }
+
+     * “”.
+    /**
+     * Function description.
      */
     fun setShowCancel(isShowCancel: Boolean) {
-        rootView.tv_cancel.isVisible = isShowCancel
+        binding.tvCancel.isVisible = isShowCancel
     }
+     * “”.
     /**
-     * 设置取消按钮文字，默认为“取消”.
+     * Function description.
      */
     fun setCancelText(@StringRes cancelRes: Int) {
-        rootView.tv_cancel.setText(cancelRes)
+        binding.tvCancel.setText(cancelRes)
     }
 
+     * “
     /**
-     * 设置确认按钮文字，默认为“删除"
+     * Function description.
      */
     fun setConfirmText(@StringRes confirmRes: Int) {
-        rootView.tv_confirm.setText(confirmRes)
+        binding.tvConfirm.setText(confirmRes)
     }
 
-
-    private val rootView: View = LayoutInflater.from(context).inflate(R.layout.dialog_confirm_select, null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setCancelable(true)
         setCanceledOnTouchOutside(true)
-        setContentView(rootView)
+        
+        binding = DialogConfirmSelectBinding.inflate(LayoutInflater.from(context))
+        setContentView(binding.root)
 
         window?.let {
             val layoutParams = it.attributes
@@ -83,22 +99,22 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
             it.attributes = layoutParams
         }
 
-        rootView.rl_message.setOnClickListener(this)
-        rootView.tv_cancel.setOnClickListener(this)
-        rootView.tv_confirm.setOnClickListener(this)
+        binding.rlMessage.setOnClickListener(this)
+        binding.tvCancel.setOnClickListener(this)
+        binding.tvConfirm.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v) {
-            rootView.rl_message -> {//选中状态
-                rootView.iv_select.isSelected = !rootView.iv_select.isSelected
+            binding.rlMessage -> {//
+                binding.ivSelect.isSelected = !binding.ivSelect.isSelected
             }
-            rootView.tv_cancel -> {//取消
+            binding.tvCancel -> {//
                 dismiss()
             }
-            rootView.tv_confirm -> {//确认
+            binding.tvConfirm -> {//
                 dismiss()
-                onConfirmClickListener?.invoke(rootView.iv_select.isSelected)
+                onConfirmClickListener?.invoke(binding.ivSelect.isSelected)
             }
         }
     }

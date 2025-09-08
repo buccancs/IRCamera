@@ -2,113 +2,174 @@ package com.topdon.commons.base.entity;
 
 import java.io.Serializable;
 
-/**
- * @Desc 单位转换
+ * @Desc
  * @ClassName UnitDBBean
  * @Email 616862466@qq.com
- * @Author 子墨
+ * @Author
  * @Date 2022/12/21 15:38
- */
 public class UnitDBBean implements Serializable {
 //    {
-//        "转换关系": "公转英",
-//            "转换前单位": "m",
-//            "转换前中文名称": "米",
-//            "转换后单位": "yd.",
-//            "转换后中文名称": "码",
-//            "转换公式": "1 米 = 1.094码",
-//            "计算因子": "1.094"
+//        : ,
+//            : m,
+//            : ,
+//            : yd.,
+//            : ,
+//            : 1  = 1.094,
+//            : 1.094
 //    },
 
+    /**
+     * Private method description.
+     */
     private static final long serialVersionUID = -1L;
+    /**
+     * Method description.
+     */
     public Long dbid;
-    String LoginName;//登录账号
-    int unitType;//0 公制类型  1 英制类型
-    String conversionRelation;//转换关系
-    String preUnit;//转换前单位
-    String preName;//转换前中文名称
-    String afterUnit;//转换后单位
-    String afterName;//转换后中文名称
-    String conversionFormula;//转换公式
-    String calcFactor;//计算因子
+    String LoginName;//
+    int unitType;//0 1
+    String conversionRelation;//
+    String preUnit;//
+    String preName;//
+    String afterUnit;//
+    String afterName;//
+    String conversionFormula;//
+    String calcFactor;//
 
 
     public Long getDbid() {
         return dbid;
     }
 
+    /**
+     * Method description.
+     */
     public void setDbid(Long dbid) {
         this.dbid = dbid;
     }
 
+    /**
+     * Method description.
+     */
     public String getLoginName() {
         return LoginName;
     }
 
+    /**
+     * Method description.
+     */
     public void setLoginName(String loginName) {
         LoginName = loginName;
     }
 
+    /**
+     * Method description.
+     */
     public int getUnitType() {
         return unitType;
     }
 
+    /**
+     * Method description.
+     */
     public void setUnitType(int unitType) {
         this.unitType = unitType;
     }
 
+    /**
+     * Method description.
+     */
     public String getConversionRelation() {
         return conversionRelation;
     }
 
+    /**
+     * Method description.
+     */
     public void setConversionRelation(String conversionRelation) {
         this.conversionRelation = conversionRelation;
     }
 
+    /**
+     * Method description.
+     */
     public String getPreUnit() {
         return preUnit;
     }
 
+    /**
+     * Method description.
+     */
     public void setPreUnit(String preUnit) {
         this.preUnit = preUnit;
     }
 
+    /**
+     * Method description.
+     */
     public String getPreName() {
         return preName;
     }
 
+    /**
+     * Method description.
+     */
     public void setPreName(String preName) {
         this.preName = preName;
     }
 
+    /**
+     * Method description.
+     */
     public String getAfterUnit() {
         return afterUnit;
     }
 
+    /**
+     * Method description.
+     */
     public void setAfterUnit(String afterUnit) {
         this.afterUnit = afterUnit;
     }
 
+    /**
+     * Method description.
+     */
     public String getAfterName() {
         return afterName;
     }
 
+    /**
+     * Method description.
+     */
     public void setAfterName(String afterName) {
         this.afterName = afterName;
     }
 
+    /**
+     * Method description.
+     */
     public String getConversionFormula() {
         return conversionFormula;
     }
 
+    /**
+     * Method description.
+     */
     public void setConversionFormula(String conversionFormula) {
         this.conversionFormula = conversionFormula;
     }
 
+    /**
+     * Method description.
+     */
     public String getCalcFactor() {
         return calcFactor;
     }
 
+    /**
+     * Method description.
+     */
     public void setCalcFactor(String calcFactor) {
         this.calcFactor = calcFactor;
     }
