@@ -19,35 +19,35 @@ import com.topdon.lib.core.R
 import com.topdon.menu.databinding.ViewCameraMenuBinding
 
 /**
- * 第 1 个菜单 - Photo capture录像相关封装.
+ * Menu 1 - Photo capture and video recording functionality wrapper.
  *
- * 中间 Photo capture/录像按钮共有以下状态：
- * - Photo capture模式-常规
- * - Photo capture模式-Photo capture中-立即Photo capture
- * - Photo capture模式-Photo capture中-延迟Photo capture
- * - 录像模式-常规
- * - 录像模式-录像中
+ * The central photo capture/recording button has the following states:
+ * - Photo capture mode - Normal
+ * - Photo capture mode - Capturing - Immediate capture
+ * - Photo capture mode - Capturing - Delayed capture
+ * - Recording mode - Normal
+ * - Recording mode - Recording in progress
  *
  * Created by LCG on 2024/11/8.
  */
 class CameraMenuView : FrameLayout, View.OnClickListener {
     companion object {
-        /** onCameraClickListener 的事件编码：Photo capture/录像 **/
+        /** onCameraClickListener event code: Photo capture/recording **/
         const val CODE_ACTION = 0
-        /** onCameraClickListener 的事件编码：图库 **/
+        /** onCameraClickListener event code: Gallery **/
         const val CODE_GALLERY = 1
-        /** onCameraClickListener 的事件编码：更多菜单 **/
+        /** onCameraClickListener event code: More menu **/
         const val CODE_MORE = 2
-        /** onCameraClickListener 的事件编码：切换到Photo capture **/
+        /** onCameraClickListener event code: Switch to photo capture **/
         const val CODE_TO_PHOTO = 3
-        /** onCameraClickListener 的事件编码：切换到录像 **/
+        /** onCameraClickListener event code: Switch to video recording **/
         const val CODE_TO_VIDEO = 4
     }
 
     /**
-     * 当前是否处于录像模式.
+     * Whether currently in video recording mode.
      *
-     * true-录像模式 false-Photo capture模式
+     * true - video recording mode, false - photo capture mode
      */
     var isVideoMode: Boolean
         get() = binding.viewPager2.currentItem == 1

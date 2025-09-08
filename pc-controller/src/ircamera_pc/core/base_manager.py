@@ -52,10 +52,10 @@ try:
 except ImportError:
     PYQT_AVAILABLE = False
 
-    def pyqtSignal(*args, **kwargs):
+    def pyqtSignal(*args, **kwargs):  # type: ignore
         """Mock pyqtSignal decorator"""
 
-        def decorator(func):
+        def decorator(func):  # type: ignore
             return func
 
         return decorator
@@ -80,7 +80,7 @@ except ImportError:
             self.parent = parent
             self._setup_base_manager(name)
 
-        def _setup_base_manager(self, name: str):
+        def _setup_base_manager(self, name: str) -> None:
             """Common setup for both PyQt and non-PyQt versions"""
             self._name = name
             self._logger = logging.getLogger(f"ircamera_pc.{name.lower()}")

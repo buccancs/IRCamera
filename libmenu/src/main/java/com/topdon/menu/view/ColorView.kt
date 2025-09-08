@@ -15,17 +15,18 @@ import com.topdon.menu.R as MenuR
 import com.topdon.lib.core.R
 
 /**
- * Temperature measurement mode-菜单3-Pseudo color/Observation mode-菜单4-Pseudo color 其中一个Pseudo color块.
+ * Temperature measurement mode - Menu 3 - Pseudo color / Observation mode - Menu 4 - Pseudo color block.
  *
- * 这个 View 仅在菜单-Pseudo color中使用，太过定制化不能通用，故而里面很多尺寸、比例直接写死。
+ * This View is only used in the menu pseudo color section. It's highly customized and not reusable,
+ * so many dimensions and proportions are hardcoded.
  *
- * 仅提供一个方法 [refreshColor] 用于刷新 UI.
+ * Only provides one method [refreshColor] for refreshing the UI.
  *
  * Created by LCG on 2024/11/12.
  */
 class ColorView : View {
     /**
-     * Pseudo color渐变颜色值数组.
+     * Pseudo color gradient color value array.
      */
     var colors: IntArray = intArrayOf(0xfffbda00.toInt(), 0xffea0e0e.toInt(), 0xff6907af.toInt())
     /**

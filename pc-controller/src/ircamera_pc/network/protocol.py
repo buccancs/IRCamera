@@ -204,7 +204,7 @@ class ProtocolManager:
         )
 
         # Make a copy of the schema
-        complete_schema = json.loads(json.dumps(schema))
+        complete_schema: Dict[str, Any] = json.loads(json.dumps(schema))
 
         # Add common fields to properties
         if "properties" not in complete_schema:

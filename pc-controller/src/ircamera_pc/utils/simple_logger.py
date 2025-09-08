@@ -6,6 +6,7 @@ Provides basic logging functionality for development and testing.
 
 import logging
 import sys
+from typing import Any
 
 # Configure basic logging
 logging.basicConfig(
@@ -25,25 +26,25 @@ class SimpleLogger:
     def __init__(self, name: str = "ircamera_pc"):
         self._logger = logging.getLogger(name)
 
-    def debug(self, message: str, *args, **kwargs) -> None:
+    def debug(self, message: str, *args: Any, **kwargs: Any) -> None:
         self._logger.debug(message, *args)
 
-    def info(self, message: str, *args, **kwargs) -> None:
+    def info(self, message: str, *args: Any, **kwargs: Any) -> None:
         self._logger.info(message, *args)
 
-    def warning(self, message: str, *args, **kwargs) -> None:
+    def warning(self, message: str, *args: Any, **kwargs: Any) -> None:
         self._logger.warning(message, *args)
 
-    def error(self, message: str, *args, **kwargs) -> None:
+    def error(self, message: str, *args: Any, **kwargs: Any) -> None:
         self._logger.error(message, *args)
 
-    def critical(self, message: str, *args, **kwargs) -> None:
+    def critical(self, message: str, *args: Any, **kwargs: Any) -> None:
         self._logger.critical(message, *args)
 
-    def remove(self, *args, **kwargs) -> None:
+    def remove(self, *args: Any, **kwargs: Any) -> None:
         """Remove handler - no-op for simple logger."""
 
-    def add(self, *args, **kwargs) -> None:
+    def add(self, *args: Any, **kwargs: Any) -> None:
         """Add handler - no-op for simple logger."""
 
 
@@ -52,23 +53,23 @@ logger = SimpleLogger()
 
 
 # Make it available at module level
-def debug(message: str, *args, **kwargs) -> None:
+def debug(message: str, *args: Any, **kwargs: Any) -> None:
     logger.debug(message, *args, **kwargs)
 
 
-def info(message: str, *args, **kwargs) -> None:
+def info(message: str, *args: Any, **kwargs: Any) -> None:
     logger.info(message, *args, **kwargs)
 
 
-def warning(message: str, *args, **kwargs) -> None:
+def warning(message: str, *args: Any, **kwargs: Any) -> None:
     logger.warning(message, *args, **kwargs)
 
 
-def error(message: str, *args, **kwargs) -> None:
+def error(message: str, *args: Any, **kwargs: Any) -> None:
     logger.error(message, *args, **kwargs)
 
 
-def critical(message: str, *args, **kwargs) -> None:
+def critical(message: str, *args: Any, **kwargs: Any) -> None:
     logger.critical(message, *args, **kwargs)
 
 
