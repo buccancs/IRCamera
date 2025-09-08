@@ -1,1 +1,19 @@
-package com. topdon. menu. constant / *  *  * Menu type enumeration to distinguish different device capabilities. * Different devices (single light, dual light, Lite, TC007, 2D editing) have varying menu options. *  * Created by LCG on 2024/11/18. * / enum class MenuType { SINGLE_LIGHT, DOUBLE_LIGHT, Lite, TC007, GALLERY_EDIT, }
+package com.topdon.menu.constant
+
+/**
+ * Menu type enumeration to distinguish different device capabilities.
+ * Different devices (single light, dual light, Lite, TC007, 2D editing) have varying menu options.
+ *
+ * Created by LCG on 2024/11/18.
+ */
+enum class MenuType {
+    SINGLE_LIGHT,
+
+    DOUBLE_LIGHT,
+
+    Lite,
+
+    TC007,
+
+    GALLERY_EDIT,
+}

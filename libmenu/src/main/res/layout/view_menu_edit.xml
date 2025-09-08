@@ -18,7 +18,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingVertical="8dp">
-
             <ImageView
                 android:id="@+id/iv_menu1"
                 android:layout_width="0dp"
@@ -30,7 +29,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
             <TextView
                 android:id="@+id/tv_menu1"
                 android:layout_width="0dp"
@@ -44,7 +42,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_menu1" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -53,7 +50,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingVertical="8dp">
-
             <ImageView
                 android:id="@+id/iv_menu2"
                 android:layout_width="0dp"
@@ -65,7 +61,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
             <TextView
                 android:id="@+id/tv_menu2"
                 android:layout_width="0dp"
@@ -79,7 +74,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_menu2" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -88,7 +82,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingVertical="8dp">
-
             <ImageView
                 android:id="@+id/iv_menu3"
                 android:layout_width="0dp"
@@ -100,7 +93,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
             <TextView
                 android:id="@+id/tv_menu3"
                 android:layout_width="0dp"
@@ -114,7 +106,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_menu3" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -123,7 +114,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingVertical="8dp">
-
             <ImageView
                 android:id="@+id/iv_menu4"
                 android:layout_width="0dp"
@@ -135,7 +125,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
             <TextView
                 android:id="@+id/tv_menu4"
                 android:layout_width="0dp"
@@ -149,9 +138,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_menu4" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </LinearLayout>
-
 </layout>

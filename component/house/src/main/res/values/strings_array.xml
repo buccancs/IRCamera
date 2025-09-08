@@ -1,1 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?> <resources> <string-array name="area"> <item>@string/area_acre</item> <!--- --> <item>@string/area_square_metre</item> <!--- --> <item>@string/area_hectare</item> <!--- --> </string-array> <string-array name="currency"> <item>"USD"</item> <!-- Comment --> <item>"EUR"</item> <!-- Comment --> <item>"GBP"</item> <!-- Comment --> <item>"AUD"</item> <!-- Comment --> <item>"JPY"</item> <!-- Comment --> <item>"CAD"</item> <!-- Comment --> <item>"NZD"</item> <!-- Comment --> <item>"RMB"</item> <!-- Comment --> <item>"HKD"</item> <!-- Comment --> </string-array> </resources>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="area">
+        <item>@string/area_acre</item>         <!-- [Chinese text] -->
+        <item>@string/area_square_metre</item> <!-- [Chinese text] -->
+        <item>@string/area_hectare</item>      <!-- [Chinese text] -->
+    </string-array>
+    
+    <string-array name="currency">
+        <item>"USD"</item> <!-- [Chinese text]USD -->
+        <item>"EUR"</item> <!-- [Chinese text]EUR -->
+        <item>"GBP"</item> <!-- [Chinese text]GBP -->
+        <item>"AUD"</item> <!-- [Chinese text]AUD -->
+        <item>"JPY"</item> <!-- [Chinese text]JPY -->
+        <item>"CAD"</item> <!-- [Chinese text]CAD -->
+        <item>"NZD"</item> <!-- [Chinese text]NZD -->
+        <item>"RMB"</item> <!-- [Chinese text]RMB -->
+        <item>"HKD"</item> <!-- [Chinese text]HKD -->
+    </string-array>
+</resources>

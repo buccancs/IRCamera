@@ -1,1 +1,129 @@
-package com. topdon. menu. view import android. annotation. SuppressLint import android. content. Context import android. graphics. Canvas import android. graphics. LinearGradient import android. graphics. Paint import android. graphics. Shader import android. graphics. drawable. Drawable import android. util. AttributeSet import android. view. View import androidx. core. content. ContextCompat import com. blankj. utilcode. util. SizeUtils import com. topdon. menu. R as MenuR import com. topdon. lib. core. R / *  *  * Temperature measurement mode - Menu 3 - Pseudo color / Observation mode - Menu 4 - Pseudo color block. *  * This View is only used in the menu pseudo color section. It's highly customized and not reusable, * so many dimensions and proportions are hardcoded. *  * Only provides one method [refreshColor] for refreshing the UI. *  * Created by LCG on 2024/11/12. * / class ColorView: View { / *  *  * Pseudo color gradient color value array. * / var colors: IntArray = intArrayOf (0xfffbda00. toInt () , 0xffea0e0e. toInt () , 0xff6907af. toInt () ) / *  *  * Pseudo color mapping positions. * / var positions: FloatArray = floatArrayOf (0f, 0. 5f, 1f) private val paint = Paint (Paint. ANTI_ALIAS_FLAG) / *  *  * Selected state paint shader. * / private var shaderSelectYes = LinearGradient (0f, 0f, 0f, 0f, colors, positions, Shader. TileMode. CLAMP) / *  *  * Unselected state paint shader. * / private var shaderSelectNot = LinearGradient (0f, 0f, 0f, 0f, colors, positions, Shader. TileMode. CLAMP) / *  *  * Triangle indicator drawable. * / private val triangleDrawable: Drawable constructor (context: Context) : this (context, null) constructor (context: Context, attrs: AttributeSet?) : this (context, attrs, 0) constructor (context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this (context, attrs, defStyleAttr, 0) constructor (context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super (context, attrs, defStyleAttr, defStyleRes) { paint. color = 0xffffffff. toInt () triangleDrawable = ContextCompat. getDrawable (context, MenuR. drawable. svg_color_select) !! } @SuppressLint ("DrawAllocation") override fun onMeasure (widthMeasureSpec: Int, heightMeasureSpec: Int) { val widthMode = MeasureSpec. getMode (widthMeasureSpec) val widthSize = MeasureSpec. getSize (widthMeasureSpec) val heightMode = MeasureSpec. getMode (heightMeasureSpec) val heightSize = MeasureSpec. getSize (heightMeasureSpec) val width: Int = if (widthMode == MeasureSpec. UNSPECIFIED) 100 else widthSize val barHeight: Int = (width * 73f / 62) . toInt () // UI aspect ratio 62: 73 for color bar height val triangleSize: Int = (width * 12f / 62) . toInt () // UI design ratio - triangle size 12, bar width 62 val margin: Int = SizeUtils. dp2px (4f) // 4dp margin spacing val wantHeight: Int = barHeight + margin + triangleSize val height = when (heightMode) { MeasureSpec. EXACTLY -> heightSize MeasureSpec. AT_MOST -> wantHeight. coerceAtMost (heightSize) else -> wantHeight } setMeasuredDimension (width, height) refreshShader () triangleDrawable. setBounds ( (width - triangleSize) / 2, barHeight + margin, (width - triangleSize) / 2 + triangleSize, height) } override fun onDraw (canvas: Canvas) { super. onDraw (canvas) val radius: Float = SizeUtils. dp2px (10f) . toFloat () val barHeight: Int = (width * 73f / 62) . toInt () // UI aspect ratio 62: 73 for color bar height if (isSelected) { val strokeSize: Float = SizeUtils. dp2px (2f) . toFloat () // 2dp stroke width val selectBarHeight: Int = (barHeight - strokeSize * 2) . toInt () paint. shader = null canvas. drawRoundRect (0f, 0f, width. toFloat () , barHeight. toFloat () , radius, radius, paint) paint. shader = shaderSelectYes canvas. drawRoundRect (strokeSize, strokeSize, width - strokeSize, strokeSize + selectBarHeight, radius, radius, paint) triangleDrawable. draw (canvas) } else { val normalBarWidth: Int = (width * 50f / 62) . toInt () // Normal bar width ratio 50 to total 62 val normalBarHeight: Int = (normalBarWidth * 60f / 50) . toInt () // Bar height ratio 50: 60 val top: Float = ( (barHeight - normalBarHeight) / 2) . toFloat () val left: Float = ( (width - normalBarWidth) / 2) . toFloat () paint. shader = shaderSelectNot canvas. drawRoundRect (left, top, width - left, top + normalBarHeight, radius, radius, paint) } } / *  *  * Refresh shader gradients for drawing. * / fun refreshColor (colors: IntArray, positions: FloatArray) { this. colors = colors this. positions = positions refreshShader () invalidate () } private fun refreshShader () { val strokeSize: Float = SizeUtils. dp2px (2f) . toFloat () // 2dp stroke width val barHeight: Int = (measuredWidth * 73f / 62) . toInt () // UI aspect ratio 62: 73 for color bar height val selectBarHeight: Int = (barHeight - strokeSize * 2) . toInt () shaderSelectYes = LinearGradient (0f, strokeSize, 0f, strokeSize + selectBarHeight, colors, positions, Shader. TileMode. CLAMP) val normalBarWidth: Int = (measuredWidth * 50f / 62) . toInt () // Normal bar width ratio 50 to total 62 val normalBarHeight: Int = (normalBarWidth * 60f / 50) . toInt () // Bar height ratio 50: 60 val top: Float = ( (barHeight - normalBarHeight) / 2) . toFloat () shaderSelectNot = LinearGradient (0f, top, 0f, top + normalBarHeight, colors, positions, Shader. TileMode. CLAMP) } }
+package com.topdon.menu.view
+
+import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.Canvas
+import android.graphics.LinearGradient
+import android.graphics.Paint
+import android.graphics.Shader
+import android.graphics.drawable.Drawable
+import android.util.AttributeSet
+import android.view.View
+import androidx.core.content.ContextCompat
+import com.blankj.utilcode.util.SizeUtils
+import com.topdon.menu.R as MenuR
+import com.topdon.lib.core.R
+
+/**
+ * Temperature measurement mode - Menu 3 - Pseudo color / Observation mode - Menu 4 - Pseudo color block.
+ *
+ * This View is only used in the menu pseudo color section. It's highly customized and not reusable,
+ * so many dimensions and proportions are hardcoded.
+ *
+ * Only provides one method [refreshColor] for refreshing the UI.
+ *
+ * Created by LCG on 2024/11/12.
+ */
+class ColorView : View {
+    /**
+     * Pseudo color gradient color value array.
+     */
+    var colors: IntArray = intArrayOf(0xfffbda00.toInt(), 0xffea0e0e.toInt(), 0xff6907af.toInt())
+    /**
+     * Pseudo color[Chinese text].
+     */
+    var positions: FloatArray = floatArrayOf(0f, 0.5f, 1f)
+
+    private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
+    /**
+     * [Chinese text]in progress[Chinese text] paint [Chinese text] shader.
+     */
+    private var shaderSelectYes = LinearGradient(0f, 0f, 0f, 0f, colors, positions, Shader.TileMode.CLAMP)
+    /**
+     * [Chinese text]in progress[Chinese text] paint [Chinese text] shader.
+     */
+    private var shaderSelectNot = LinearGradient(0f, 0f, 0f, 0f, colors, positions, Shader.TileMode.CLAMP)
+    /**
+     * [Chinese text]in progress[Chinese text]
+     */
+    private val triangleDrawable: Drawable
+
+    constructor(context: Context) : this(context, null)
+
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
+        paint.color = 0xffffffff.toInt()
+        triangleDrawable = ContextCompat.getDrawable(context, MenuR.drawable.svg_color_select)!!
+    }
+
+    @SuppressLint("DrawAllocation")
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        val widthMode = MeasureSpec.getMode(widthMeasureSpec)
+        val widthSize = MeasureSpec.getSize(widthMeasureSpec)
+        val heightMode = MeasureSpec.getMode(heightMeasureSpec)
+        val heightSize = MeasureSpec.getSize(heightMeasureSpec)
+
+        val width: Int = if (widthMode == MeasureSpec.UNSPECIFIED) 100 else widthSize
+        val barHeight: Int = (width * 73f / 62).toInt()    // 62[Chinese text]73[Chinese text]UI[Chinese text] [Chinese text]in progress[Chinese text]high[Chinese text] 62:73
+        val triangleSize: Int = (width * 12f / 62).toInt() // 62[Chinese text]12[Chinese text]UI[Chinese text] [Chinese text]12, [Chinese text]62
+        val margin: Int = SizeUtils.dp2px(4f)      // [Chinese text]in progress[Chinese text] 4dp [Chinese text]
+        val wantHeight: Int = barHeight + margin + triangleSize
+        val height = when (heightMode) {
+            MeasureSpec.EXACTLY -> heightSize
+            MeasureSpec.AT_MOST -> wantHeight.coerceAtMost(heightSize)
+            else -> wantHeight
+        }
+        setMeasuredDimension(width, height)
+
+        refreshShader()
+        triangleDrawable.setBounds((width - triangleSize) / 2, barHeight + margin, (width - triangleSize) / 2 + triangleSize, height)
+    }
+
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+        val radius: Float = SizeUtils.dp2px(10f).toFloat()
+        val barHeight: Int = (width * 73f / 62).toInt() // 62[Chinese text]73[Chinese text]UI[Chinese text] [Chinese text]in progress[Chinese text]high[Chinese text] 62:73
+
+        if (isSelected) {
+            val strokeSize: Float = SizeUtils.dp2px(2f).toFloat() // [Chinese text]2dp
+            val selectBarHeight: Int = (barHeight - strokeSize * 2).toInt()
+            paint.shader = null
+            canvas.drawRoundRect(0f, 0f, width.toFloat(), barHeight.toFloat(), radius, radius, paint)
+            paint.shader = shaderSelectYes
+            canvas.drawRoundRect(strokeSize, strokeSize, width - strokeSize, strokeSize + selectBarHeight, radius, radius, paint)
+            triangleDrawable.draw(canvas)
+        } else {
+            val normalBarWidth: Int = (width * 50f / 62).toInt() // [Chinese text]in progress[Chinese text]50, [Chinese text]62
+            val normalBarHeight: Int = (normalBarWidth * 60f / 50).toInt() // [Chinese text]high[Chinese text] 50:60
+            val top: Float = ((barHeight - normalBarHeight) / 2).toFloat()
+            val left: Float = ((width - normalBarWidth) / 2).toFloat()
+            paint.shader = shaderSelectNot
+            canvas.drawRoundRect(left, top, width - left, top + normalBarHeight, radius, radius, paint)
+        }
+    }
+
+    /**
+     * [Chinese text].
+     */
+    fun refreshColor(colors: IntArray, positions: FloatArray) {
+        this.colors = colors
+        this.positions = positions
+        refreshShader()
+        invalidate()
+    }
+
+    private fun refreshShader() {
+        val strokeSize: Float = SizeUtils.dp2px(2f).toFloat() // [Chinese text]2dp
+        val barHeight: Int = (measuredWidth * 73f / 62).toInt() // 62[Chinese text]73[Chinese text]UI[Chinese text] [Chinese text]in progress[Chinese text]high[Chinese text] 62:73
+        val selectBarHeight: Int = (barHeight - strokeSize * 2).toInt()
+        shaderSelectYes = LinearGradient(0f, strokeSize, 0f, strokeSize + selectBarHeight, colors, positions, Shader.TileMode.CLAMP)
+
+        val normalBarWidth: Int = (measuredWidth * 50f / 62).toInt() // [Chinese text]in progress[Chinese text]50, [Chinese text]62
+        val normalBarHeight: Int = (normalBarWidth * 60f / 50).toInt() // [Chinese text]high[Chinese text] 50:60
+        val top: Float = ((barHeight - normalBarHeight) / 2).toFloat()
+        shaderSelectNot = LinearGradient(0f, top, 0f, top + normalBarHeight, colors, positions, Shader.TileMode.CLAMP)
+    }
+}

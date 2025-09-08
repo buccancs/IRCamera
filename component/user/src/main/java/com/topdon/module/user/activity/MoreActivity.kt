@@ -1,1 +1,287 @@
-package com. topdon. module. user. activity import android. os. Build import android. view. View import android. widget. TextView import androidx. activity. viewModels import androidx. core. view. isVisible import androidx. lifecycle. lifecycleScope import com. topdon. lib. core. navigation. NavigationManager import com. blankj. utilcode. util. ToastUtils import com. elvishew. xlog. XLog import com. topdon. lib. core. BaseApplication import com. topdon. lib. core. bean. event. TS004ResetEvent import com. topdon. lib. core. common. SaveSettingUtil import com. topdon. lib. core. common. SharedManager import com. topdon. lib. core. config. ExtraKeyConfig import com. topdon. lib. core. config. FileConfig import com. topdon. lib. core. config. RouterConfig import com. topdon. lib. core. dialog. ConfirmSelectDialog import com. topdon. lib. core. dialog. TipDialog import com. topdon. lib. core. http. tool. DownloadTool import com. topdon. lib. core. ktbase. BaseActivity import com. topdon. lib. core. repository. TS004Repository import com. topdon. lib. core. utils. Constants import com. topdon. lib. core. viewmodel. FirmwareViewModel import com. topdon. lms. sdk. LMS import com. topdon. lms. sdk. weiget. TToast import com. topdon. module. user. R import com. topdon. lib. core. R as RCore import com. topdon. module. user. dialog. DownloadProDialog import com. topdon. module. user. dialog. FirmwareInstallDialog import com. topdon. lib. core. dialog. FirmwareUpDialog import kotlinx. coroutines. delay import kotlinx. coroutines. launch import org. greenrobot. eventbus. EventBus import java. io. File import java. text. DecimalFormat / *  *  * TS004 "more". * / // Legacy ARouter route annotation - now using NavigationManager class MoreActivity: BaseActivity () , View. OnClickListener { private val firmwareViewModel: FirmwareViewModel by viewModels () // View references private lateinit var settingDeviceInformation: View private lateinit var settingTisr: View private lateinit var settingStorageSpace: View private lateinit var settingReset: View private lateinit var settingVersion: View private lateinit var settingDisconnect: View private lateinit var settingAutoSave: View private lateinit var itemSettingBottomText: TextView private lateinit var tvUpgradePoint: TextView override fun initContentView () = R. layout. activity_more override fun initView () { // Initialize views settingDeviceInformation = findViewById (R. id. setting_device_information) settingTisr = findViewById (R. id. setting_tisr) settingStorageSpace = findViewById (R. id. setting_storage_space) settingReset = findViewById (R. id. setting_reset) settingVersion = findViewById (R. id. setting_version) settingDisconnect = findViewById (R. id. setting_disconnect) settingAutoSave = findViewById (R. id. setting_auto_save) itemSettingBottomText = findViewById (R. id. item_setting_bottom_text) tvUpgradePoint = findViewById (R. id. tv_upgrade_point) settingDeviceInformation. setOnClickListener (this) settingTisr. setOnClickListener (this) settingStorageSpace. setOnClickListener (this) settingReset. setOnClickListener (this) settingVersion. setOnClickListener (this) settingDisconnect. setOnClickListener (this) settingAutoSave. setOnClickListener (this) / * if (Build. VERSION. SDK_INT < 29) { // low Android10 settingVersion. isVisible = false } * / // 2024-5-30 09: 16 TS004app language, 3. 30 settingVersion. isVisible = false } override fun initData () { updateVersion () firmwareViewModel. firmwareDataLD. observe (this) { tvUpgradePoint. isVisible = it != null dismissCameraLoading () if (it == null) { // , ToastUtils. showShort (RCore. string. setting_firmware_update_latest_version) } else { showFirmwareUpDialog (it) } } firmwareViewModel. failLD. observe (this) { dismissCameraLoading () TToast. shortToast (this, if (it) RCore. string. upgrade_bind_error else RCore. string. operation_failed_tips) tvUpgradePoint. isVisible = false } } override fun onClick (v: View?) { when (v) { settingDeviceInformation -> { // message NavigationManager. getInstance () . build (RouterConfig. DEVICE_INFORMATION) . withBoolean (ExtraKeyConfig. IS_TC007, false) . navigation (this@MoreActivity) } settingTisr -> { // set to NavigationManager. getInstance () . build (RouterConfig. TISR) . navigation (this@MoreActivity) } settingAutoSave -> { // NavigationManager. getInstance () . build (RouterConfig. AUTO_SAVE) . navigation (this@MoreActivity) } settingStorageSpace -> { // TS004 NavigationManager. getInstance () . build (RouterConfig. STORAGE_SPACE) . navigation (this@MoreActivity) } settingVersion -> { //  // , V3. 30 apk, // if (LMS. getInstance () . isLogin) { val firmwareData = firmwareViewModel. firmwareDataLD. value if (firmwareData != null) { showFirmwareUpDialog (firmwareData) } else { XLog. i ("TS004 - measurement point ") showCameraLoading () firmwareViewModel. queryFirmware (true) } // } else { // LMS. getInstance () . activityLogin () // } } settingReset -> { // set restoreFactory () } settingDisconnect -> { // NavigationManager. getInstance () . build (RouterConfig. IR_MORE_HELP) . withInt (Constants. SETTING_CONNECTION_TYPE, Constants. SETTING_DISCONNECTION) . navigation (this@MoreActivity) } } } / *  *  * . * / private fun showFirmwareUpDialog (firmwareData: FirmwareViewModel. FirmwareData) { val dialog = FirmwareUpDialog (this) dialog. titleStr = "${getString (RCore. string. update_new_version) } ${firmwareData. version}" dialog. sizeStr = "${getString (RCore. string. detail_len) }: ${getFileSizeStr (firmwareData. size) }" dialog. contentStr = firmwareData. updateStr dialog. isShowRestartTips = true dialog. onConfirmClickListener = { // , V3. 30 apk, // downloadFirmware (firmwareData) installFirmware (FileConfig. getFirmwareFile (firmwareData. downUrl) ) } dialog. show () } private fun getFileSizeStr (size: Long) : String = if (size < 1024) { "${size}B" } else if (size < 1024 * 1024) { DecimalFormat ("#. 0") . format (size. toDouble () / 1024) + "KB" } else if (size < 1024 * 1024 * 1024) { DecimalFormat ("#. 0") . format (size. toDouble () / 1024 / 1024) + "MB" } else { DecimalFormat ("#. 0") . format (size. toDouble () / 1024 / 1024 / 1024) + "GB" } / *  *  *  * / private fun downloadFirmware (firmwareData: FirmwareViewModel. FirmwareData) { lifecycleScope. launch { XLog. d ("TS004 - start ") val progressDialog = DownloadProDialog (this@MoreActivity) progressDialog. show () val file = FileConfig. getFirmwareFile ("TS004${firmwareData. version}. zip") val isSuccess = DownloadTool. download (firmwareData. downUrl, file) { current, total -> progressDialog. refreshProgress (current, total) } progressDialog. dismiss () if (isSuccess) { XLog. d ("TS004 -, start ") installFirmware (file) } else { XLog. w ("TS004 - !") showReDownloadDialog (firmwareData) } } } private fun installFirmware (file: File) { lifecycleScope. launch { XLog. d ("TS004 - start ") val installDialog = FirmwareInstallDialog (this@MoreActivity) installDialog. show () val isSuccess = TS004Repository. updateFirmware (file) installDialog. dismiss () if (isSuccess) { XLog. d ("TS004 - TS004, ") (application as BaseApplication) . disconnectWebSocket () NavigationManager. getInstance () . build (RouterConfig. MAIN) . navigation (this@MoreActivity) finish () } else { XLog. w ("TS004 - TS004 !") showReInstallDialog (file) } } } private fun showReInstallDialog (file: File) { val dialog = ConfirmSelectDialog (this) dialog. setShowIcon (true) dialog. setTitleRes (RCore. string. ts004_install_tips) dialog. setCancelText (RCore. string. ts004_install_cancel) dialog. setConfirmText (RCore. string. ts004_install_continue) dialog. onConfirmClickListener = { installFirmware (file) } dialog. show () } private fun showReDownloadDialog (firmwareData: FirmwareViewModel. FirmwareData) { val dialog = ConfirmSelectDialog (this) dialog. setShowIcon (true) dialog. setTitleRes (RCore. string. ts004_download_tips) dialog. setCancelText (RCore. string. ts004_download_cancel) dialog. setConfirmText (RCore. string. ts004_download_continue) dialog. onConfirmClickListener = { downloadFirmware (firmwareData) } dialog. show () } private fun updateVersion () { lifecycleScope. launch { val versionBean = TS004Repository. getVersion () if (versionBean?. isSuccess () == true) { itemSettingBottomText. text = getString (RCore. string. setting_firmware_update_version) + "V" + versionBean. data?. firmware } else { TToast. shortToast (this@MoreActivity, RCore. string. operation_failed_tips) } } } private fun restoreFactory () { TipDialog. Builder (this) . setTitleMessage (getString (RCore. string. ts004_reset_tip1, "TS004") ) . setMessage (getString (RCore. string. ts004_reset_tip2) ) . setPositiveListener (RCore. string. app_ok) { resetAll () }. setCancelListener (RCore. string. app_cancel) { }. setCanceled (true) . create () . show () } private fun resetAll () { showLoadingDialog (RCore. string. ts004_reset_tip3) lifecycleScope. launch { XLog. i ("set to ") val isSuccess = TS004Repository. getResetAll () XLog. i ("set to ${if (isSuccess) "" else ""}") if (isSuccess) { TToast. shortToast (this@MoreActivity, RCore. string. ts004_reset_tip4) (application as BaseApplication) . disconnectWebSocket () EventBus. getDefault () . post (TS004ResetEvent () ) NavigationManager. getInstance () . build (RouterConfig. MAIN) . navigation (this@MoreActivity) finish () } else { TToast. shortToast (this@MoreActivity, RCore. string. operation_failed_tips) } delay (500) dismissLoadingDialog () } } }
+package com.topdon.module.user.activity
+
+import android.os.Build
+import android.view.View
+import android.widget.TextView
+import androidx.activity.viewModels
+import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
+import com.topdon.lib.core.navigation.NavigationManager
+import com.blankj.utilcode.util.ToastUtils
+import com.elvishew.xlog.XLog
+import com.topdon.lib.core.BaseApplication
+import com.topdon.lib.core.bean.event.TS004ResetEvent
+import com.topdon.lib.core.common.SaveSettingUtil
+import com.topdon.lib.core.common.SharedManager
+import com.topdon.lib.core.config.ExtraKeyConfig
+import com.topdon.lib.core.config.FileConfig
+import com.topdon.lib.core.config.RouterConfig
+import com.topdon.lib.core.dialog.ConfirmSelectDialog
+import com.topdon.lib.core.dialog.TipDialog
+import com.topdon.lib.core.http.tool.DownloadTool
+import com.topdon.lib.core.ktbase.BaseActivity
+import com.topdon.lib.core.repository.TS004Repository
+import com.topdon.lib.core.utils.Constants
+import com.topdon.lib.core.viewmodel.FirmwareViewModel
+import com.topdon.lms.sdk.LMS
+import com.topdon.lms.sdk.weiget.TToast
+import com.topdon.module.user.R
+import com.topdon.lib.core.R as RCore
+import com.topdon.module.user.dialog.DownloadProDialog
+import com.topdon.module.user.dialog.FirmwareInstallDialog
+import com.topdon.lib.core.dialog.FirmwareUpDialog
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import org.greenrobot.eventbus.EventBus
+import java.io.File
+import java.text.DecimalFormat
+
+/**
+ * TS004 [Chinese text] "more" [Chinese text].
+ */
+// Legacy ARouter route annotation - now using NavigationManager
+class MoreActivity : BaseActivity(), View.OnClickListener {
+
+    private val firmwareViewModel: FirmwareViewModel by viewModels()
+    
+    // View references
+    private lateinit var settingDeviceInformation: View
+    private lateinit var settingTisr: View
+    private lateinit var settingStorageSpace: View
+    private lateinit var settingReset: View
+    private lateinit var settingVersion: View
+    private lateinit var settingDisconnect: View
+    private lateinit var settingAutoSave: View
+    private lateinit var itemSettingBottomText: TextView
+    private lateinit var tvUpgradePoint: TextView
+
+    override fun initContentView() = R.layout.activity_more
+
+    override fun initView() {
+        // Initialize views
+        settingDeviceInformation = findViewById(R.id.setting_device_information)
+        settingTisr = findViewById(R.id.setting_tisr)
+        settingStorageSpace = findViewById(R.id.setting_storage_space)
+        settingReset = findViewById(R.id.setting_reset)
+        settingVersion = findViewById(R.id.setting_version)
+        settingDisconnect = findViewById(R.id.setting_disconnect)
+        settingAutoSave = findViewById(R.id.setting_auto_save)
+        itemSettingBottomText = findViewById(R.id.item_setting_bottom_text)
+        tvUpgradePoint = findViewById(R.id.tv_upgrade_point)
+        
+        settingDeviceInformation.setOnClickListener(this)
+        settingTisr.setOnClickListener(this)
+        settingStorageSpace.setOnClickListener(this)
+        settingReset.setOnClickListener(this)
+        settingVersion.setOnClickListener(this)
+        settingDisconnect.setOnClickListener(this)
+        settingAutoSave.setOnClickListener(this)
+
+        /*if (Build.VERSION.SDK_INT < 29) {// low[Chinese text] Android10
+            settingVersion.isVisible = false
+        }*/
+        // 2024-5-30 09:16 TS004[Chinese text]APP[Chinese text], 3.30[Chinese text]
+        settingVersion.isVisible = false
+    }
+
+    override fun initData() {
+        updateVersion()
+
+        firmwareViewModel.firmwareDataLD.observe(this) {
+            tvUpgradePoint.isVisible = it != null
+            dismissCameraLoading()
+            if (it == null) {// [Chinese text], [Chinese text]
+                ToastUtils.showShort(RCore.string.setting_firmware_update_latest_version)
+            } else {
+                showFirmwareUpDialog(it)
+            }
+        }
+        firmwareViewModel.failLD.observe(this) {
+            dismissCameraLoading()
+            TToast.shortToast(this, if (it) RCore.string.upgrade_bind_error else RCore.string.operation_failed_tips)
+            tvUpgradePoint.isVisible = false
+        }
+    }
+
+    override fun onClick(v: View?) {
+        when (v) {
+            settingDeviceInformation -> {// [Chinese text]message
+                NavigationManager.getInstance()
+                    .build(RouterConfig.DEVICE_INFORMATION)
+                    .withBoolean(ExtraKeyConfig.IS_TC007, false)
+                    .navigation(this@MoreActivity)
+            }
+            settingTisr -> {// Settings[Chinese text]
+                NavigationManager.getInstance().build(RouterConfig.TISR).navigation(this@MoreActivity)
+            }
+            settingAutoSave -> {// [Chinese text]
+                NavigationManager.getInstance().build(RouterConfig.AUTO_SAVE).navigation(this@MoreActivity)
+            }
+            settingStorageSpace -> {// TS004[Chinese text]
+                NavigationManager.getInstance().build(RouterConfig.STORAGE_SPACE).navigation(this@MoreActivity)
+            }
+            settingVersion -> {// [Chinese text]
+                // [Chinese text], V3.30[Chinese text] apk [Chinese text], [Chinese text]
+//                if (LMS.getInstance().isLogin) {
+                    val firmwareData = firmwareViewModel.firmwareDataLD.value
+                    if (firmwareData != null) {
+                        showFirmwareUpDialog(firmwareData)
+                    } else {
+                        XLog.i("TS004 [Chinese text] - point[Chinese text]")
+                        showCameraLoading()
+                        firmwareViewModel.queryFirmware(true)
+                    }
+//                } else {
+//                    LMS.getInstance().activityLogin()
+//                }
+            }
+            settingReset -> {// [Chinese text]Settings
+                restoreFactory()
+            }
+            settingDisconnect -> {// [Chinese text]
+                NavigationManager.getInstance().build(RouterConfig.IR_MORE_HELP)
+                    .withInt(Constants.SETTING_CONNECTION_TYPE, Constants.SETTING_DISCONNECTION)
+                    .navigation(this@MoreActivity)
+            }
+        }
+    }
+
+    /**
+     * [Chinese text].
+     */
+    private fun showFirmwareUpDialog(firmwareData: FirmwareViewModel.FirmwareData) {
+        val dialog = FirmwareUpDialog(this)
+        dialog.titleStr = "${getString(RCore.string.update_new_version)} ${firmwareData.version}"
+        dialog.sizeStr = "${getString(RCore.string.detail_len)}: ${getFileSizeStr(firmwareData.size)}"
+        dialog.contentStr = firmwareData.updateStr
+        dialog.isShowRestartTips = true
+        dialog.onConfirmClickListener = {
+            // [Chinese text], V3.30[Chinese text] apk [Chinese text], [Chinese text]
+            // downloadFirmware(firmwareData)
+            installFirmware(FileConfig.getFirmwareFile(firmwareData.downUrl))
+        }
+        dialog.show()
+    }
+
+    private fun getFileSizeStr(size: Long): String = if (size < 1024) {
+        "${size}B"
+    } else if (size < 1024 * 1024) {
+        DecimalFormat("#.0").format(size.toDouble() / 1024) + "KB"
+    } else if (size < 1024 * 1024 * 1024) {
+        DecimalFormat("#.0").format(size.toDouble() / 1024 / 1024) + "MB"
+    } else {
+        DecimalFormat("#.0").format(size.toDouble() / 1024 / 1024 / 1024) + "GB"
+    }
+
+    /**
+     * [Chinese text]
+     */
+    private fun downloadFirmware(firmwareData: FirmwareViewModel.FirmwareData) {
+        lifecycleScope.launch {
+            XLog.d("TS004 [Chinese text] - start[Chinese text]")
+            val progressDialog = DownloadProDialog(this@MoreActivity)
+            progressDialog.show()
+
+            val file = FileConfig.getFirmwareFile("TS004${firmwareData.version}.zip")
+            val isSuccess = DownloadTool.download(firmwareData.downUrl, file) { current, total ->
+                progressDialog.refreshProgress(current, total)
+            }
+            progressDialog.dismiss()
+            if (isSuccess) {
+                XLog.d("TS004 [Chinese text] - [Chinese text], [Chinese text]start[Chinese text]")
+                installFirmware(file)
+            } else {
+                XLog.w("TS004 [Chinese text] - [Chinese text]!")
+                showReDownloadDialog(firmwareData)
+            }
+        }
+    }
+
+    private fun installFirmware(file: File) {
+        lifecycleScope.launch {
+            XLog.d("TS004 [Chinese text] - start[Chinese text]")
+            val installDialog = FirmwareInstallDialog(this@MoreActivity)
+            installDialog.show()
+
+            val isSuccess = TS004Repository.updateFirmware(file)
+            installDialog.dismiss()
+            if (isSuccess) {
+                XLog.d("TS004 [Chinese text] - [Chinese text] TS004 [Chinese text], [Chinese text]")
+                (application as BaseApplication).disconnectWebSocket()
+                NavigationManager.getInstance().build(RouterConfig.MAIN).navigation(this@MoreActivity)
+                finish()
+            } else {
+                XLog.w("TS004 [Chinese text] - [Chinese text] TS004 [Chinese text]!")
+                showReInstallDialog(file)
+            }
+        }
+    }
+
+    private fun showReInstallDialog(file: File) {
+        val dialog = ConfirmSelectDialog(this)
+        dialog.setShowIcon(true)
+        dialog.setTitleRes(RCore.string.ts004_install_tips)
+        dialog.setCancelText(RCore.string.ts004_install_cancel)
+        dialog.setConfirmText(RCore.string.ts004_install_continue)
+        dialog.onConfirmClickListener = {
+            installFirmware(file)
+        }
+        dialog.show()
+    }
+
+    private fun showReDownloadDialog(firmwareData: FirmwareViewModel.FirmwareData) {
+        val dialog = ConfirmSelectDialog(this)
+        dialog.setShowIcon(true)
+        dialog.setTitleRes(RCore.string.ts004_download_tips)
+        dialog.setCancelText(RCore.string.ts004_download_cancel)
+        dialog.setConfirmText(RCore.string.ts004_download_continue)
+        dialog.onConfirmClickListener = {
+            downloadFirmware(firmwareData)
+        }
+        dialog.show()
+    }
+
+    private fun updateVersion() {
+        lifecycleScope.launch {
+            val versionBean = TS004Repository.getVersion()
+            if (versionBean?.isSuccess() == true) {
+                itemSettingBottomText.text = getString(RCore.string.setting_firmware_update_version) + "V" + versionBean.data?.firmware
+            } else {
+                TToast.shortToast(this@MoreActivity, RCore.string.operation_failed_tips)
+            }
+        }
+    }
+
+    private fun restoreFactory() {
+        TipDialog.Builder(this)
+            .setTitleMessage(getString(RCore.string.ts004_reset_tip1, "TS004"))
+            .setMessage(getString(RCore.string.ts004_reset_tip2))
+            .setPositiveListener(RCore.string.app_ok) {
+                resetAll()
+            }
+            .setCancelListener(RCore.string.app_cancel) {
+            }
+            .setCanceled(true)
+            .create().show()
+    }
+
+    private fun resetAll() {
+        showLoadingDialog(RCore.string.ts004_reset_tip3)
+        lifecycleScope.launch {
+            XLog.i("[Chinese text]Settings[Chinese text]")
+            val isSuccess = TS004Repository.getResetAll()
+            XLog.i("[Chinese text]Settings[Chinese text] ${if (isSuccess) "[Chinese text]" else "[Chinese text]"}")
+            if (isSuccess) {
+                TToast.shortToast(this@MoreActivity, RCore.string.ts004_reset_tip4)
+                (application as BaseApplication).disconnectWebSocket()
+                EventBus.getDefault().post(TS004ResetEvent())
+                NavigationManager.getInstance().build(RouterConfig.MAIN).navigation(this@MoreActivity)
+                finish()
+            } else {
+                TToast.shortToast(this@MoreActivity, RCore.string.operation_failed_tips)
+            }
+            delay(500)
+            dismissLoadingDialog()
+        }
+    }
+}

@@ -1,1 +1,10 @@
-package com. topdon. house. event / *  *  * event. *  * Created by LCG on 2024/1/5. *  * @param detectId id * / data class DetectDirListEvent (val detectId: Long) 
+package com.topdon.house.event
+
+/**
+ * [Chinese text]event.
+ *
+ * Created by LCG on 2024/1/5.
+ *
+ * @param detectId [Chinese text] id
+ */
+data class DetectDirListEvent(val detectId: Long)
