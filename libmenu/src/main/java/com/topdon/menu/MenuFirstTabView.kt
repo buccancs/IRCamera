@@ -33,7 +33,7 @@ class MenuFirstTabView : FrameLayout, View.OnClickListener {
         }
 
     /**
-     * Whether observation mode is enabled. Icons are different in observation mode.
+     * Whether observation mode is enabled.Icons are different in observation mode.
      */
     var isObserveMode = false
         set(value) {

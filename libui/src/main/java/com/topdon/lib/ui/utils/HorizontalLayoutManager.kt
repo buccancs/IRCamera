@@ -274,7 +274,7 @@ class HorizontalLayoutManager(
     }
 
     override fun onItemsChanged(recyclerView: RecyclerView) {
-        // notifyDataSetChanged() was called. We need to ensure that currentPosition is not out of bounds
+        // notifyDataSetChanged() was called.We need to ensure that currentPosition is not out of bounds
         currentPosition = Math.min(Math.max(0, currentPosition), recyclerViewProxy.itemCount - 1)
         dataSetChangeShiftedPosition = true
     }
@@ -383,7 +383,7 @@ class HorizontalLayoutManager(
                 scrollStateListener.onScrollEnd()
             } else {
                 // Scroll continues and we don't want to set currentScrollState to STATE_IDLE,
-                // because this will then trigger .scrollStateListener.onScrollStart()
+                // because this will then trigger.scrollStateListener.onScrollStart()
                 return
             }
         } else if (state == RecyclerView.SCROLL_STATE_DRAGGING) {
@@ -788,8 +788,7 @@ class HorizontalLayoutManager(
         const val NO_POSITION = -1
         private const val EXTRA_POSITION = "extra_position"
         private const val DEFAULT_TIME_FOR_ITEM_SETTLE = 300
-        private const val DEFAULT_FLING_THRESHOLD = 2100 // Decrease to increase sensitivity.
-        private const val DEFAULT_TRANSFORM_CLAMP_ITEM_COUNT = 1
+        private const val DEFAULT_FLING_THRESHOLD = 2100 // Decrease to increase sensitivity.private const val DEFAULT_TRANSFORM_CLAMP_ITEM_COUNT = 1
         private const val SCROLL_TO_SNAP_TO_ANOTHER_ITEM = 0.6f
     }
 }

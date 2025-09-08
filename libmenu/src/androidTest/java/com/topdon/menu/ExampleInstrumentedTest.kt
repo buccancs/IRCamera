@@ -17,8 +17,7 @@ import org.junit.Assert.assertEquals
 class ExampleInstrumentedTest {
     @Test
     fun useAppContext() {
-        // Context of the app under test.
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
+        // Context of the app under test.val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("com.topdon.menu.test", appContext.packageName)
     }
 }

@@ -34,6 +34,7 @@ import kotlinx.coroutines.launch
  * Full multi-modal recording interface with GSR and thermal coordination
  * Navigation: Use NavigationManager.getInstance().build(RouterConfig.GSR_MULTI_MODAL).navigation(context)
  */
+
 class MultiModalRecordingActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "MultiModalActivity"
@@ -51,7 +52,7 @@ class MultiModalRecordingActivity : AppCompatActivity() {
             )
 
         fun start(context: Context) {
-            val intent = Intent(context, MultiModalRecordingActivity::class.java)
+            val intent = Intent(context, MultiModalRecordingActivity:: class.java)
             context.startActivity(intent)
         }
 
@@ -60,7 +61,7 @@ class MultiModalRecordingActivity : AppCompatActivity() {
             templateId: String,
         ) {
             val intent =
-                Intent(context, MultiModalRecordingActivity::class.java).apply {
+                Intent(context, MultiModalRecordingActivity:: class.java).apply {
                     putExtra("template_id", templateId)
                 }
             context.startActivity(intent)
@@ -461,7 +462,7 @@ class MultiModalRecordingActivity : AppCompatActivity() {
                 }
                 onRecordingStopped = { videoFile ->
                     runOnUiThread {
-                        statusText.text = "RGB recording stopped. Video: ${videoFile?.name ?: "None"}"
+                        statusText.text = "RGB recording stopped.Video: ${videoFile?.name ?: "None"}"
                     }
                 }
                 onRawImageCaptured = { dngFile ->
@@ -563,7 +564,7 @@ class MultiModalRecordingActivity : AppCompatActivity() {
 
         if (requestCode == REQUEST_PERMISSIONS) {
             if (grantResults.isNotEmpty() && grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
-                statusText.text = "All permissions granted. GSR recording with Shimmer3 devices ready."
+                statusText.text = "All permissions granted.GSR recording with Shimmer3 devices ready."
             } else {
                 statusText.text = "Permissions required for GSR recording and Shimmer3 device access."
                 val missingPermissions = mutableListOf<String>()

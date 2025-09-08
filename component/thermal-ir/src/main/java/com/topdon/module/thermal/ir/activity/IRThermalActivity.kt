@@ -2315,7 +2315,7 @@
 //            val timeMillis = 250L
 //            delay(timeMillis)
 //            // [Chinese text]
-//            /// Emissivity property. unit:1/128, range:1-128(0.01-1)
+//            /// Emissivity property.unit:1/128, range:1-128(0.01-1)
 //            ircmd?.setPropTPDParams(
 //                PropTPDParams.TPD_PROP_EMS,
 //                PropTPDParamsValue.NumberType(emsChar.toString())

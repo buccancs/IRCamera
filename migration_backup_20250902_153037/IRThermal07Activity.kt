@@ -554,8 +554,7 @@ class IRThermal07Activity : BaseWifiActivity() {
                             R.drawable.svg_title_temp, SizeUtils.sp2px(24f)
                         )
                         .append(getString(com.topdon.module.thermal.ir.R.string.tc_high_temp_test_tips2))
-                TipShutterDialog
-                    .Builder(this)
+                TipShutterDialog.Builder(this)
                     .setTitle(com.topdon.module.thermal.ir.R.string.tc_high_temp_test)
                     .setMessage(message)
                     .setCancelListener { isCheck ->
@@ -2632,9 +2631,7 @@ class IRThermal07Activity : BaseWifiActivity() {
         val dialog = android.app.AlertDialog.Builder(this)
             .setTitle("RGB Camera Settings (Legacy)")
             .setMessage("""
-                Long-press on app title for modern parallel recording system.
-                
-                Available Resolutions: ${resolutionNames.joinToString(", ")}
+                Long-press on app title for modern parallel recording system.Available Resolutions: ${resolutionNames.joinToString(", ")}
                 Available Cameras: ${cameraNames.joinToString(", ")}
                 
                 Current Settings:

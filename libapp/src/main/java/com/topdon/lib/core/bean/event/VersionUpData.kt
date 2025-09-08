@@ -1,1 +1,1 @@
-package com. topdon. lib. core. bean. event / *  *  * @param isForcedUpgrade * @param description * @param downPageUrl Url * / data class VersionUpData (val versionNo: String, val isForcedUpgrade: Boolean, val description: String, val downPageUrl: String, val sizeStr: String,) 
+package com.topdon.lib.core.bean.event / *  *  * @param isForcedUpgrade * @param description * @param downPageUrl Url * / data class VersionUpData (val versionNo: String, val isForcedUpgrade: Boolean, val description: String, val downPageUrl: String, val sizeStr: String,) 

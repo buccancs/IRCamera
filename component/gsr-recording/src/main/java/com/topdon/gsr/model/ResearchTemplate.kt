@@ -61,7 +61,7 @@ data class ResearchTemplate(
                             "study_type" to "stress_response",
                             "measurement_focus" to "physiological_arousal",
                         ),
-                    instructions = "Place GSR sensors on participant's fingers. Position thermal camera to capture face. Begin baseline recording for 2 minutes before stress induction.",
+                    instructions = "Place GSR sensors on participant's fingers.Position thermal camera to capture face.Begin baseline recording for 2 minutes before stress induction.",
                     icon = "[brain]",
                 ),
                 ResearchTemplate(
@@ -81,7 +81,7 @@ data class ResearchTemplate(
                             "stress_induction_duration" to "600", // 10 minutes
                             "recovery_duration" to "300", // 5 minutes
                         ),
-                    instructions = "Multi-modal stress response study:\n1. Attach GSR sensors\n2. Position thermal and RGB cameras\n3. Record 5min baseline -> 10min stress task -> 5min recovery",
+                    instructions = "Multi-modal stress response study:\n1.Attach GSR sensors\n2.Position thermal and RGB cameras\n3.Record 5min baseline -> 10min stress task -> 5min recovery",
                     icon = "[microscope]",
                 ),
                 // Cognitive Load Studies
@@ -100,7 +100,7 @@ data class ResearchTemplate(
                             "task_type" to "mental_arithmetic",
                             "difficulty_levels" to "3",
                         ),
-                    instructions = "Measure cognitive load during mental tasks. Begin with 3min rest, then progressive difficulty tasks (easy->medium->hard). Monitor GSR changes and thermal patterns.",
+                    instructions = "Measure cognitive load during mental tasks.Begin with 3min rest, then progressive difficulty tasks (easy->medium->hard). Monitor GSR changes and thermal patterns.",
                     icon = "[abacus]",
                 ),
                 ResearchTemplate(
@@ -137,7 +137,7 @@ data class ResearchTemplate(
                             "stimulus_type" to "images_videos",
                             "emotions_targeted" to "joy_fear_anger_sadness_neutral",
                         ),
-                    instructions = "Present emotional stimuli while recording physiological responses. Ensure thermal camera captures full face area. Record GSR baseline before each stimulus presentation.",
+                    instructions = "Present emotional stimuli while recording physiological responses.Ensure thermal camera captures full face area.Record GSR baseline before each stimulus presentation.",
                     icon = "[smile]",
                 ),
                 ResearchTemplate(
@@ -175,7 +175,7 @@ data class ResearchTemplate(
                             "monitoring_duration" to "3600", // 1 hour
                             "activity_level" to "resting",
                         ),
-                    instructions = "Long-term physiological baseline recording. Participant should remain in comfortable resting position. Monitor for consistent GSR patterns and thermal stability.",
+                    instructions = "Long-term physiological baseline recording.Participant should remain in comfortable resting position.Monitor for consistent GSR patterns and thermal stability.",
                     icon = "[chart up]",
                 ),
                 // Behavioral Analysis

@@ -1,1 +1,1 @@
-package com. topdon. lib. core. bean. event. device import android. hardware. usb. UsbDevice / *  *  * target USB (productId vendorId) event. * @param device * / data class DevicePermissionEvent (val device: UsbDevice) 
+package com.topdon.lib.core.bean.event.device import android.hardware.usb.UsbDevice / *  *  * target USB (productId vendorId) event. * @param device * / data class DevicePermissionEvent (val device: UsbDevice) 

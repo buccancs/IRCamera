@@ -1,1 +1,1 @@
-package com. topdon. lib. core. bean. event / *  *  * , galleryevent. * / class GalleryDelEvent 
+package com.topdon.lib.core.bean.event / *  *  * , galleryevent. * / class GalleryDelEvent 

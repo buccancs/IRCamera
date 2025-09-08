@@ -14,12 +14,12 @@ import androidx.annotation.IdRes
 /**
  *
  * This class is used to create a multiple-exclusion scope for a set of radio
- * buttons. Checking one radio button that belongs to a radio group unchecks
+ * buttons.Checking one radio button that belongs to a radio group unchecks
  * any previously checked radio button within the same group.
  *
  *
  *
- * Intially, all of the radio buttons are unchecked. While it is not possible
+ * Intially, all of the radio buttons are unchecked.While it is not possible
  * to uncheck a particular radio button, the radio group can be cleared to
  * remove the checked state.
  *
@@ -51,8 +51,8 @@ class RadioGroupPlus : LinearLayout {
      *
      * @return the unique id of the selected radio button in this group
      * @attr ref android.R.styleable#RadioGroup_checkedButton
-     * @see .check
-     * @see .clearCheck
+     * @see.check
+     * @see.clearCheck
      */
     // holds the checked id; the selection is empty by default
     @get:IdRes
@@ -149,12 +149,12 @@ class RadioGroupPlus : LinearLayout {
     /**
      *
      * Sets the selection to the radio button whose identifier is passed in
-     * parameter. Using -1 as the selection identifier clears the selection;
+     * parameter.Using -1 as the selection identifier clears the selection;
      * such an operation is equivalent to invoking [.clearCheck].
      *
      * @param id the unique id of the radio button to select in this group
-     * @see .getCheckedRadioButtonId
-     * @see .clearCheck
+     * @see.getCheckedRadioButtonId
+     * @see.clearCheck
      */
     fun check(
         @IdRes id: Int,
@@ -193,12 +193,12 @@ class RadioGroupPlus : LinearLayout {
 
     /**
      *
-     * Clears the selection. When the selection is cleared, no radio button
+     * Clears the selection.When the selection is cleared, no radio button
      * in this group is selected and [.getCheckedRadioButtonId] returns
      * null.
      *
-     * @see .check
-     * @see .getCheckedRadioButtonId
+     * @see.check
+     * @see.getCheckedRadioButtonId
      */
     fun clearCheck() {
         check(-1)
@@ -244,7 +244,7 @@ class RadioGroupPlus : LinearLayout {
      *
      * This set of layout parameters defaults the width and the height of
      * the children to [.WRAP_CONTENT] when they are not specified in the
-     * XML file. Otherwise, this class ussed the value read from the XML file.
+     * XML file.Otherwise, this class ussed the value read from the XML file.
      *
      *
      *
@@ -317,7 +317,7 @@ class RadioGroupPlus : LinearLayout {
     interface OnCheckedChangeListener {
         /**
          *
-         * Called when the checked radio button has changed. When the
+         * Called when the checked radio button has changed.When the
          * selection is cleared, checkedId is -1.
          *
          * @param group     the group in which the checked radio button has changed
@@ -351,7 +351,7 @@ class RadioGroupPlus : LinearLayout {
     /**
      *
      * A pass-through listener acts upon the events and dispatches them
-     * to another listener. This allows the table layout to set its own internal
+     * to another listener.This allows the table layout to set its own internal
      * hierarchy change listener without preventing the user to setup his.
      */
     private inner class PassThroughHierarchyChangeListener :

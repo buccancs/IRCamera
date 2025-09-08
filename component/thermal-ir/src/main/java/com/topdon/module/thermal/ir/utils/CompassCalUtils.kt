@@ -48,7 +48,7 @@ fun Float.roundNearest(nearest: Float): Float {
 }
 
 /**
- * Gets the pixel coordinate of a point on the screen given the bearing and azimuth. The point is considered to be on a plane.
+ * Gets the pixel coordinate of a point on the screen given the bearing and azimuth.The point is considered to be on a plane.
  * @param bearing The compass bearing in degrees of the point
  * @param azimuth The compass bearing in degrees that the user is facing (center of the screen)
  * @param viewWidth The size of the view in pixels

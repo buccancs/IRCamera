@@ -568,7 +568,7 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
             XLog.w("SettingsTPD_PROP DISTANCE:${disChar}, EMS:${emsChar}}")
             delay(timeMillis)
             // [Chinese text]
-            /// Emissivity property. unit:1/128, range:1-128(0.01-1)
+            /// Emissivity property.unit:1/128, range:1-128(0.01-1)
             ircmd?.setPropTPDParams(
                 CommonParams.PropTPDParams.TPD_PROP_EMS,
                 CommonParams.PropTPDParamsValue.NumberType(emsChar.toString())

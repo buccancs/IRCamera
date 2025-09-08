@@ -224,8 +224,7 @@ class MultiModalRecordingService : Service() {
         return NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("Multi-Modal Recording")
             .setContentText(content)
-            .setSmallIcon(android.R.drawable.ic_media_ff) // Using system icon
-            .setOngoing(true)
+            .setSmallIcon(android.R.drawable.ic_media_ff) // Using system icon.setOngoing(true)
             .setSilent(true)
             .build()
     }

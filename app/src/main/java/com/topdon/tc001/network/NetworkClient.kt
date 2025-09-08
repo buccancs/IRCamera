@@ -18,6 +18,7 @@ import javax.net.ssl.*
  * Network client for communicating with PC Controller
  * Implements device pairing, discovery, and remote measurement initiation
  */
+
 class NetworkClient(private val context: Context) {
     companion object {
         private const val TAG = "NetworkClient"
@@ -190,7 +191,8 @@ class NetworkClient(private val context: Context) {
     /**
      * Disconnect from PC Controller
      */
-    fun disconnect() {
+
+fun disconnect() {
         isConnected = false
         heartbeatJob.cancel()
 

@@ -17,7 +17,7 @@ import com.topdon.lib.core.R
 /**
  * Temperature measurement mode - Menu 3 - Pseudo color / Observation mode - Menu 4 - Pseudo color block.
  *
- * This View is only used in the menu pseudo color section. It's highly customized and not reusable,
+ * This View is only used in the menu pseudo color section.It's highly customized and not reusable,
  * so many dimensions and proportions are hardcoded.
  *
  * Only provides one method [refreshColor] for refreshing the UI.

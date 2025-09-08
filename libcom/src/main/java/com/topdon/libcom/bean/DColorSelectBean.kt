@@ -1,1 +1,1 @@
-package com. topdon. libcom. bean @Deprecated (" ColorPickDialog, ") data class DColorSelectBean (val colorRes: Int, val color: String, val code: Int,) 
+package com.topdon.libcom.bean @Deprecated (" ColorPickDialog, ") data class DColorSelectBean (val colorRes: Int, val color: String, val code: Int,) 

@@ -188,8 +188,7 @@ data class CustomPseudoBean (
         }
         buffer.position(2 + 7 * 4 + 7 + 7 * 4)
 
-        buffer
-            .put(if (isUseCustomPseudo) 1.toByte() else 0.toByte())
+        buffer.put(if (isUseCustomPseudo) 1.toByte() else 0.toByte())
             .putFloat(maxTemp)
             .putFloat(minTemp)
             .put(if (isColorCustom) 0.toByte() else 1.toByte())

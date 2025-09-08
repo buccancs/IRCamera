@@ -9,8 +9,9 @@ import com.topdon.module.thermal.R
 
 /**
  * Mine Fragment migrated from user module
- * Simplified version for MPDC4GSR
+ * Simplified version for IRCamera thermal imaging platform
  */
+
 class MineFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,

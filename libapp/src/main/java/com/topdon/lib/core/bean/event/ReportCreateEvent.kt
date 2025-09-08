@@ -1,1 +1,1 @@
-package com. topdon. lib. core. bean. event / *  *  * JSON, . * / public data class ReportCreateEvent (val name: String = "") 
+package com.topdon.lib.core.bean.event / *  *  * JSON, . * / public data class ReportCreateEvent (val name: String = "") 
