@@ -1,11 +1,1 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- [Chinese text], [Chinese text] CA [Chinese text], [Chinese text], only[Chinese text]for[Chinese text], [Chinese text]!  -->
-<!-- [Chinese text] Manifests [Chinese text] Application in progress[Chinese text] android:networkSecurityConfig [Chinese text] -->
-<network-security-config>
-    <base-config cleartextTrafficPermitted="true">
-        <trust-anchors>
-            <certificates src="system" overridePins="true" />
-            <certificates src="user" overridePins="true" />
-        </trust-anchors>
-    </base-config>
-</network-security-config>
+<?xml version="1.0" encoding="utf-8"?> <!--, CA, , onlyfor, ! --> <!-- Manifests Application in progress android: networkSecurityConfig - -> <network-security-config> <base-config cleartextTrafficPermitted="true"> <trust-anchors> <certificates src="system" overridePins="true" /> <certificates src="user" overridePins="true" /> </trust-anchors> </base-config> </network-security-config>

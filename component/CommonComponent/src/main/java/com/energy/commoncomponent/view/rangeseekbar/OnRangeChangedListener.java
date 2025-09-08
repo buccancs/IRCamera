@@ -1,14 +1,1 @@
-package com.energy.commoncomponent.view.rangeseekbar;
-
-    /**
-     * OnRangeChangedListener class.
-     *
-     * Provides onrangechangedlistener functionality.
-     */
-    public interface OnRangeChangedListener {
-    void onRangeChanged(RangeSeekBar view, float leftValue, float rightValue, boolean isFromUser);
-
-    void onStartTrackingTouch(RangeSeekBar view, boolean isLeft);
-
-    void onStopTrackingTouch(RangeSeekBar view, boolean isLeft);
-}
+package com. energy. commoncomponent. view. rangeseekbar; / *  *  * OnRangeChangedListener class. *  * Provides onrangechangedlistener functionality. * / public interface OnRangeChangedListener { void onRangeChanged (RangeSeekBar view, float leftValue, float rightValue, boolean isFromUser) ; void onStartTrackingTouch (RangeSeekBar view, boolean isLeft) ; void onStopTrackingTouch (RangeSeekBar view, boolean isLeft) ; } 

@@ -1,21 +1,21 @@
 <resources>
 
     <style name="base_dialog" parent="android:style/Theme.Dialog">
-        <item name="android:statusBarColor">#00000000</item>  <!-- [Chinese text] -->
-        <item name="android:windowFrame">@null</item>         <!-- [Chinese text] -->
-        <item name="android:windowIsFloating">false</item>    <!-- [Chinese text]activity[Chinese text] -->
-        <item name="android:windowNoTitle">true</item>        <!-- [Chinese text] -->
-        <item name="android:windowIsTranslucent">false</item> <!-- [Chinese text] -->
-        <item name="android:windowBackground">#00000000</item><!-- [Chinese text]-[Chinese text] -->
-        <item name="android:backgroundDimEnabled">true</item> <!-- [Chinese text] -->
+        <item name="android:statusBarColor">#00000000</item>  <!-- 状态栏颜色 -->
+        <item name="android:windowFrame">@null</item>         <!-- 边框 -->
+        <item name="android:windowIsFloating">false</item>    <!-- 是否浮现在activity之上 -->
+        <item name="android:windowNoTitle">true</item>        <!-- 是否无标题 -->
+        <item name="android:windowIsTranslucent">false</item> <!-- 是否半透明 -->
+        <item name="android:windowBackground">#00000000</item><!-- 背景颜色-透明 -->
+        <item name="android:backgroundDimEnabled">true</item> <!-- 对话框之外的背景是否模糊 -->
     </style>
 
-    <!-- [Chinese text] dialog style -->
+    <!-- 透明 dialog style -->
     <style name="transparent_dialog" parent="base_dialog">
-        <item name="android:backgroundDimEnabled">false</item><!-- [Chinese text] -->
+        <item name="android:backgroundDimEnabled">false</item><!-- 对话框之外的背景是否模糊 -->
     </style>
 
-    <!-- [Chinese text] dialog style -->
+    <!-- 输入框 dialog style -->
     <style name="input_dialog" parent="base_dialog">
         <item name="android:windowSoftInputMode">stateAlwaysVisible|adjustPan</item>
     </style>
@@ -37,32 +37,32 @@
     </style>
 
     <style name="TextInputDialog" parent="@android:style/Theme.Dialog">
-        <item name="android:windowFrame">@null</item>        <!-- [Chinese text] -->
-        <item name="android:windowIsFloating">true</item>   <!-- [Chinese text]activity[Chinese text] -->
-        <item name="android:windowNoTitle">true</item>       <!-- [Chinese text] -->
-        <item name="android:windowIsTranslucent">false</item><!-- [Chinese text] -->
-        <item name="android:windowBackground">@android:color/transparent</item><!-- [Chinese text]-[Chinese text] -->
-        <item name="android:backgroundDimEnabled">true</item><!-- [Chinese text] -->
+        <item name="android:windowFrame">@null</item>        <!-- 边框 -->
+        <item name="android:windowIsFloating">true</item>   <!-- 是否浮现在activity之上 -->
+        <item name="android:windowNoTitle">true</item>       <!-- 是否无标题 -->
+        <item name="android:windowIsTranslucent">false</item><!-- 是否半透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item><!-- 背景颜色-透明 -->
+        <item name="android:backgroundDimEnabled">true</item><!-- 对话框之外的背景是否模糊 -->
         <item name="android:windowSoftInputMode">stateAlwaysVisible|adjustPan</item>
     </style>
 
     <style name="DefaultDialog" parent="@android:style/Theme.Dialog">
-        <item name="android:windowFrame">@null</item>        <!-- [Chinese text] -->
-        <item name="android:windowIsFloating">false</item>   <!-- [Chinese text]activity[Chinese text] -->
-        <item name="android:windowNoTitle">true</item>       <!-- [Chinese text] -->
-        <item name="android:windowIsTranslucent">false</item><!-- [Chinese text] -->
-        <item name="android:windowBackground">@android:color/transparent</item><!-- [Chinese text]-[Chinese text] -->
-        <item name="android:backgroundDimEnabled">true</item><!-- [Chinese text] -->
+        <item name="android:windowFrame">@null</item>        <!-- 边框 -->
+        <item name="android:windowIsFloating">false</item>   <!-- 是否浮现在activity之上 -->
+        <item name="android:windowNoTitle">true</item>       <!-- 是否无标题 -->
+        <item name="android:windowIsTranslucent">false</item><!-- 是否半透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item><!-- 背景颜色-透明 -->
+        <item name="android:backgroundDimEnabled">true</item><!-- 对话框之外的背景是否模糊 -->
     </style>
 
-    <!-- [Chinese text]dialog style -->
+    <!-- 透明dialog style -->
     <style name="TransparentDialog" parent="AppTheme">
-        <item name="android:windowFrame">@null</item>         <!-- [Chinese text] -->
-        <item name="android:windowIsFloating">false</item>    <!-- [Chinese text]activity[Chinese text] -->
-        <item name="android:windowNoTitle">true</item>        <!-- [Chinese text] -->
-        <item name="android:windowIsTranslucent">true</item>  <!-- [Chinese text] -->
-        <item name="android:windowBackground">@android:color/transparent</item><!-- [Chinese text]-[Chinese text] -->
-        <item name="android:backgroundDimEnabled">false</item><!-- [Chinese text] -->
+        <item name="android:windowFrame">@null</item>         <!-- 边框 -->
+        <item name="android:windowIsFloating">false</item>    <!-- 是否浮现在activity之上 -->
+        <item name="android:windowNoTitle">true</item>        <!-- 是否无标题 -->
+        <item name="android:windowIsTranslucent">true</item>  <!-- 是否半透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item><!-- 背景颜色-透明 -->
+        <item name="android:backgroundDimEnabled">false</item><!-- 对话框之外的背景是否模糊 -->
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 

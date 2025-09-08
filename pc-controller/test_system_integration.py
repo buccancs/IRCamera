@@ -22,13 +22,13 @@ async def test_bluetooth_manager():
 
         # Test basic initialization
         manager = BluetoothManager()
-        print(f"[OK] Bluetooth Manager - Available: {manager.is_available}")
+        print(f"✅ Bluetooth Manager - Available: {manager.is_available}")
         print(f"   - Discovered devices: {len(manager.discovered_devices)}")
         print(f"   - Connected devices: {len(manager.connected_devices)}")
 
         return True
     except (OSError, ValueError, RuntimeError) as e:
-        print(f"[X] Bluetooth Manager test failed: {e}")
+        print(f"❌ Bluetooth Manager test failed: {e}")
         return False
 
 
@@ -41,7 +41,7 @@ async def test_wifi_manager():
 
         # Test basic initialization
         manager = WiFiManager()
-        print("[OK] WiFi Manager initialized")
+        print("✅ WiFi Manager initialized")
         print(f"   - Available networks: {len(manager.available_networks)}")
         print(f"   - IRCamera networks: {len(manager.ircamera_networks)}")
         print(f"   - Hotspot state: {manager.hotspot_state.value}")
@@ -49,7 +49,7 @@ async def test_wifi_manager():
 
         return True
     except (OSError, ValueError, RuntimeError) as e:
-        print(f"[X] WiFi Manager test failed: {e}")
+        print(f"❌ WiFi Manager test failed: {e}")
         return False
 
 
@@ -66,7 +66,7 @@ def test_admin_privileges_basic():
         levels = [level.value for level in PrivilegeLevel]
         results = [result.value for result in ElevationResult]
 
-        print("[OK] Admin Privileges Enums loaded")
+        print("✅ Admin Privileges Enums loaded")
         print(f"   - Privilege levels: {levels}")
         print(f"   - Elevation results: {results}")
 
@@ -76,7 +76,7 @@ def test_admin_privileges_basic():
 
         return True
     except (OSError, ValueError, RuntimeError) as e:
-        print(f"[X] Admin Privileges test failed: {e}")
+        print(f"❌ Admin Privileges test failed: {e}")
         return False
 
 
@@ -102,7 +102,7 @@ def test_protocol_extension():
             "filter_ircamera_only": False,
         }
 
-        print("[OK] Protocol Manager loaded")
+        print("✅ Protocol Manager loaded")
         print(f"   - Message types loaded: {len(manager._message_definitions)}")
 
         # Test if our new message types are recognized
@@ -114,19 +114,19 @@ def test_protocol_extension():
 
         return True
     except (OSError, ValueError, RuntimeError) as e:
-        print(f"[X] Protocol extension test failed: {e}")
+        print(f"❌ Protocol extension test failed: {e}")
         return False
 
 
 async def main():
     """Run all tests."""
-    print("[test tube] Testing IRCamera PC Controller - System Integration Features")
+    print("🧪 Testing IRCamera PC Controller - System Integration Features")
     print("=" * 60)
 
     results = []
 
     # Test core modules
-    print("\n[satellite] Testing Core System Integration Modules:")
+    print("\n📡 Testing Core System Integration Modules:")
     results.append(await test_bluetooth_manager())
     results.append(await test_wifi_manager())
     results.append(test_admin_privileges_basic())
@@ -137,13 +137,13 @@ async def main():
     total = len(results)
 
     print("\n" + "=" * 60)
-    print(f"[chart] Test Results: {passed}/{total} tests passed")
+    print(f"📊 Test Results: {passed}/{total} tests passed")
 
     if passed == total:
-        print("[celebration] All system integration features are working correctly!")
+        print("🎉 All system integration features are working correctly!")
         return 0
     else:
-        print("[warning] Some tests failed. Check the output above for details.")
+        print("⚠️ Some tests failed. Check the output above for details.")
         return 1
 
 
