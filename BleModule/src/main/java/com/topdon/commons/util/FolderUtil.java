@@ -212,23 +212,6 @@ public class FolderUtil {
                 dataLogFile.mkdirs();
             }
 
-            File log6File = new File(mPath + fileName + "666666/");
-            if (!log6File.exists()) {
-//                log6File.mkdirs();
-            }
-            File log7File = new File(mPath + fileName + "777777/");
-            if (!log7File.exists()) {
-//                log7File.mkdirs();
-            }
-            File log8File = new File(mPath + fileName + "888888/");
-            if (!log8File.exists()) {
-//                log8File.mkdirs();
-            }
-            File log9File = new File(mPath + fileName + "999999/");
-            if (!log9File.exists()) {
-//                log9File.mkdirs();
-            }
-
             //上传反馈日志
             File feedbackLog = new File(mPath + fileName + mUserId + "/FeedbackLog/");
             if (!feedbackLog.exists()) {
