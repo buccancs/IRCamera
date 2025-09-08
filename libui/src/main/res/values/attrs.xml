@@ -159,15 +159,15 @@
                 </attr>
             </declare-styleable>
             <declare-styleable name="CommSeekBar">
-                <attr name="android: orientation" />
-                <attr name="android: maxWidth" />
-                <attr name="android: maxHeight" />
-                <attr name="android: minWidth" />
-                <attr name="android: minHeight" />
+                <attr name="android=orientation" />
+                <attr name="android=maxWidth" />
+                <attr name="android=maxHeight" />
+                <attr name="android=minWidth" />
+                <attr name="android=minHeight" />
             </declare-styleable>
             <declare-styleable name="TipsSeekBar">
-                <attr name="android: max" />
-                <attr name="android: maxHeight" />
+                <attr name="android=max" />
+                <attr name="android=maxHeight" />
                 <attr name="minText" format="string" />
                 <attr name="maxText" format="string" />
                 <attr name="tipsPercent" format="fraction" />
