@@ -76,10 +76,6 @@ dependencies {
     implementation(project(":component:pseudo"))  // Required for CustomPseudoBean class
     // Note: Cannot add thermal-ir or thermal-lite due to circular dependencies
     
-    // ARouter removed - now using NavigationManager instead
-    // implementation(libs.arouter.api)
-    // kapt(libs.arouter.compiler)
-    
     // Use shared UI bundle for common dependencies
     implementation(libs.bundles.ui.common)
     implementation(libs.utilcode)

@@ -223,10 +223,8 @@ dependencies {
     implementation(libs.play.app.update)
     implementation(libs.immersionbar)
     implementation(libs.xpopup)
-    // implementation(libs.bundles.smart.refresh) // Temporarily commented out due to jitpack.io issues
     implementation(libs.wechat.sdk)
     implementation(libs.umeng.apm)
-    // implementation(libs.zoho.salesiq) // Commented out - not essential for MPDC4GSR
 
     // UMeng - Simplified single implementation
     implementation(libs.umeng.common)

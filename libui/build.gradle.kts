@@ -67,7 +67,4 @@ dependencies {
 
     // Use shared UI bundle instead of individual dependencies
     implementation(libs.bundles.ui.common)
-    
-    // Smart Refresh Layout for LoadingFooter - temporarily commented out due to jitpack.io issues
-    // implementation(libs.bundles.smart.refresh)
 }
