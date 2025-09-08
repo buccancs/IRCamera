@@ -5,12 +5,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
- * @Description:    USB,Usbjniframeworkjniso
- * @Author:         brilliantzhao
- * @CreateDate:     2022.3.21 9:27
- * @UpdateUser:
- * @UpdateDate:     2022.3.21 9:27
- * @UpdateRemark:
+/**
+ * Utility class.
+ * 
+ * @author brilliantzhao
+ * @since 2022.9.8 10:25
+ */
 public class Usbcontorl extends Usbjni {
 
     public static boolean isLoad = false;

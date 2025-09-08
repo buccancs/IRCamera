@@ -26,12 +26,12 @@ import org.opencv.imgproc.Imgproc;
 import java.nio.ByteBuffer;
 import java.util.LinkedHashMap;
 
- * @Description:
- * @Author:         brilliantzhao
- * @CreateDate:     2022.2.24 11:06
- * @UpdateUser:
- * @UpdateDate:     2022.2.24 11:06
- * @UpdateRemark:
+/**
+ * Utility class.
+ * 
+ * @author brilliantzhao
+ * @since 2022.9.8 10:25
+ */
 public class ImageThreadTC extends Thread {
 
 

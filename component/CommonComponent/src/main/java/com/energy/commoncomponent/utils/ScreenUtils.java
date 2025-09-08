@@ -16,20 +16,24 @@ import android.widget.PopupWindow;
 
 import java.lang.reflect.Method;
 
- * @Description:
- * @Author:         brilliantzhao
- * @CreateDate:     2022.9.8 10:25
- * @UpdateUser:
- * @UpdateDate:     2022.9.8 10:25
- * @UpdateRemark:
+/**
+ * Utility class.
+ * 
+ * @author brilliantzhao
+ * @since 2022.9.8 10:25
+ */
 public class ScreenUtils {
     private ScreenUtils() {
         /* cannot be instantiated */
         throw new UnsupportedOperationException("cannot be instantiated");
     }
 
-     * @param context
-     * @return
+    /**
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
     public static int getScreenWidth(Context context) {
         WindowManager wm = (WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE);
@@ -38,8 +42,12 @@ public class ScreenUtils {
         return outMetrics.widthPixels;
     }
 
-     * @param context
-     * @return
+    /**
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
     public static int getScreenHeight(Context context) {
         WindowManager wm = (WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE);
@@ -48,8 +56,12 @@ public class ScreenUtils {
         return outMetrics.heightPixels;
     }
 
-     * @param context
-     * @return
+    /**
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
     public static int getStatusHeight(Context context) {
 
         int statusHeight = -1;
@@ -65,8 +77,12 @@ public class ScreenUtils {
         return statusHeight;
     }
 
-     * @param activity
-     * @return
+    /**
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
     public static Bitmap snapShotWithStatusBar(Activity activity) {
         View view = activity.getWindow().getDecorView();
         view.setDrawingCacheEnabled(true);
@@ -81,13 +97,22 @@ public class ScreenUtils {
 
     }
 
-     * dpi
+    /**
+     * Gets the screen density DPI.
+     * 
+     * @param context the application context
+     * @return the screen density DPI
+     */
     public static int getScreenDensityDpi(Context context) {
         return context.getResources().getDisplayMetrics().densityDpi;
     }
 
-     * @param activity
-     * @return
+    /**
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
     public static Bitmap snapShotWithoutStatusBar(Activity activity) {
         View view = activity.getWindow().getDecorView();
         view.setDrawingCacheEnabled(true);
@@ -107,8 +132,12 @@ public class ScreenUtils {
 
     }
 
-     * @param context
-     * @return
+    /**
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
     public static int getBottomStatusHeight(Context context) {
         int totalHeight = getDpi(context);
 
@@ -136,9 +165,13 @@ public class ScreenUtils {
         return dpi;
     }
 
-     * dppx
-     * 16dp - 48px
-     * 17dp - 51px
+    /**
+     * Converts density-independent pixels to pixels.
+     * Example: 16dp → 48px, 17dp → 51px
+     * 
+     * @param dpValue the value in density-independent pixels
+     * @return the value in pixels
+     */
     public static int dp2px(float dpValue) {
         final float scale = Resources.getSystem().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
@@ -153,13 +186,21 @@ public class ScreenUtils {
         return context.getResources().getDisplayMetrics().density;//3
     }
 
-     * @param context
-     * @param info
+    /**
+     * Shows a normal information dialog.
+     * 
+     * @param context the application context
+     * @param info the information message to display
+     * @param dismissListener the dismiss listener callback
+     * @return the created dialog
+     */
     public static Dialog showNormalDialog(Context context, String info, PopupWindow.OnDismissListener dismissListener) {
-        /* @setIcon
-         * @setTitle
-         * @setMessage
-         * setXXXDialog
+        /*
+         * @setIcon - sets dialog icon
+         * @setTitle - sets dialog title
+         * @setMessage - sets dialog message
+         * setXXXDialog - configures dialog type
+         */
         final AlertDialog.Builder normalDialog =
                 new AlertDialog.Builder(context);
         normalDialog.setTitle("Info");

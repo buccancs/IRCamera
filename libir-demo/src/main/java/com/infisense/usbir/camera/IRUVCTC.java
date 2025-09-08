@@ -34,12 +34,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
- * @Description:
- * @Author: brilliantzhao
- * @CreateDate: 2022.2.28 15:36
- * @UpdateUser:
- * @UpdateDate: 2022.2.28 15:36
- * @UpdateRemark:
+/**
+ * Utility class.
+ * 
+ * @author brilliantzhao
+ * @since 2022.9.8 10:25
+ */
 public class IRUVCTC {
 
     private static final String TAG = "IRUVC";

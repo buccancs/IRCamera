@@ -44,12 +44,12 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
- * @Description:
- * @Author:         brilliantzhao
- * @CreateDate:     2022.7.19 17:20
- * @UpdateUser:
- * @UpdateDate:     2022.7.19 17:20
- * @UpdateRemark:
+/**
+ * Utility class.
+ * 
+ * @author brilliantzhao
+ * @since 2022.9.8 10:25
+ */
 public class TemperatureView extends SurfaceView implements SurfaceHolder.Callback,
         View.OnTouchListener, BaseDualView.OnFrameCallback {
 

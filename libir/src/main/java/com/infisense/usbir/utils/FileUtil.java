@@ -34,20 +34,23 @@ import java.util.Date;
  * @ProjectName: ANDROID_IRUVC_SDK
  * @Package: com.infisense.iruvc.utils
  * @ClassName: FileUtil
- * @Description:
- * @Author: brilliantzhao
- * @CreateDate: 2021.11.11 13:56
- * @UpdateUser:
- * @UpdateDate: 2021.11.11 13:56
- * @UpdateRemark:
- * @Version: 1.0.0
+/**
+ * Utility class.
+ * 
+ * @author brilliantzhao
+ * @since 2022.9.8 10:25
+ */
 public class FileUtil {
 
     private static final String TAG = "FileUtil";
     private static final String DATA_SAVE_DIR = "InfiRay";
 
-     * @param context
-     * @return
+    /**
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
     public static String getDiskCacheDir(Context context) {
         String cachePath = context.getCacheDir().getPath();
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
@@ -161,8 +164,12 @@ public class FileUtil {
     }
 
      * Y16
-     * @param dataFlowMode
-     * @return
+    /**
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
     public static CommonParams.Y16ModePreviewSrcType getY16SrcTypeByDataFlowMode(CommonParams.DataFlowMode dataFlowMode) {
         switch (dataFlowMode) {
             case TEMP_OUTPUT: {
@@ -202,8 +209,12 @@ public class FileUtil {
         return null;
     }
 
-     * @param dirFile
-     * @return
+    /**
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
     public static boolean createFileDir(File dirFile) {
         if (dirFile == null) return true;
         if (dirFile.exists()) {
@@ -223,8 +234,12 @@ public class FileUtil {
     }
 
      * @param dirPath
-     * @param fileName
-     * @return
+    /**
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
     public static File createFile(String dirPath, String fileName) {
         try {
             File dirFile = new File(dirPath);
@@ -315,8 +330,12 @@ public class FileUtil {
     }
 
      * @param context
-     * @param file
-     * @return
+    /**
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
     public static boolean isFileExists(Context context, final File file) {
         if (file == null) {
             return false;
@@ -328,8 +347,12 @@ public class FileUtil {
     }
 
      * Return whether the file exists.
-     * @param filePath The path of file.
-     * @return {@code true}: yes<br>{@code false}: no
+    /**
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
     public static boolean isFileExists(Context context, final String filePath) {
         File file = new File(filePath);
         if (file == null) {
@@ -377,8 +400,12 @@ public class FileUtil {
     }
 
      * byteshort
-     * @param src
-     * @return
+    /**
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
     public static short[] toShortArray(byte[] src) {
         int count = src.length >> 1;
         short[] dest = new short[count];
@@ -427,8 +454,12 @@ public class FileUtil {
     private static int sBufferSize = 524288;
 
      * @param context
-     * @param file
-     * @return
+    /**
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
     public static byte[] readFile2BytesByStream(Context context, final File file) {
         if (!isFileExists(context, file)) {
             return null;
@@ -502,8 +533,12 @@ public class FileUtil {
     }
 
      * ISP
-     * @param gainStatus
-     * @return
+    /**
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
     public static String getISPConfigByGainStatus(CommonParams.GainStatus gainStatus) {
 //        Log.i(TAG, INFISENSE_SAVE_DIR =  + MyApplication.getInstance().INFISENSE_SAVE_DIR);
         if (CommonParams.GainStatus.HIGH_GAIN == gainStatus) {
@@ -513,8 +548,12 @@ public class FileUtil {
         }
     }
 
-     * @param gainStatus
-     * @return hex
+    /**
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
     public static String getISPConfigWithEncryptHexByGainStatus(CommonParams.GainStatus gainStatus) {
         if (CommonParams.GainStatus.HIGH_GAIN == gainStatus) {
             return INFISENSE_SAVE_DIR() + File.separator + "isp_H_encrypt_hex.json";
@@ -532,8 +571,12 @@ public class FileUtil {
        return Utils.getApp().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath();
     }
 
-     * @param gainStatus
-     * @return base64
+    /**
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
     public static String getISPConfigWithEncryptBase64ByGainStatus(CommonParams.GainStatus gainStatus) {
         if (CommonParams.GainStatus.HIGH_GAIN == gainStatus) {
             return INFISENSE_SAVE_DIR() + File.separator + "isp_H_encrypt_base64.json";
@@ -542,8 +585,12 @@ public class FileUtil {
         }
     }
 
-     * @param context
-     * @return
+    /**
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
     public static String getVersionName(Context context) {
         PackageManager manager = context.getPackageManager();
         String name = null;
@@ -556,8 +603,12 @@ public class FileUtil {
         return name;
     }
 
-     * @param string
-     * @return
+    /**
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
     public static String getMD5Key(String string) {
         if (TextUtils.isEmpty(string)) {
             return "";
@@ -588,8 +639,12 @@ public class FileUtil {
         }
     }
 
-     * @param context
-     * @return
+    /**
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
     public static String getSaveFilePath(Context context) {
         boolean useExternalStorage = false;
         String directoryPath = "";
@@ -629,8 +684,12 @@ public class FileUtil {
 
      * @param bytes
      * @param filePath
-     * @param fileName
-     * @return
+    /**
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
     public static int writeTxtToFile(byte[] bytes, String filePath, String fileName) {
         int result = -1;
 
@@ -685,8 +744,12 @@ public class FileUtil {
         }
     }
 
-     * @param path
-     * @return
+    /**
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
     public static String getStringFromFile(String path) {
         StringBuffer txtContent = new StringBuffer();
         byte[] b = new byte[2048];

@@ -2,12 +2,12 @@ package android.yt.jni;
 
 import android.util.Log;
 
- * @Description:    USB,usb3803_hubso
- * @Author:         brilliantzhao
- * @CreateDate:     2022.3.21 9:27
- * @UpdateUser:
- * @UpdateDate:     2022.3.21 9:27
- * @UpdateRemark:
+/**
+ * Utility class.
+ * 
+ * @author brilliantzhao
+ * @since 2022.9.8 10:25
+ */
 public class Usbjni {
 
     private static final String TAG = "Usbjni";
@@ -23,8 +23,12 @@ public class Usbjni {
 
      * usb3803
      * sensor
-     * @param isPowerOn
-     * @return
+    /**
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
     public static int setUSB3803Mode(boolean isPowerOn) {
         if (isPowerOn) {
             return usb3803_mode_setting(1);
@@ -33,8 +37,12 @@ public class Usbjni {
         }
     }
 
-     * @param i
-     * @return
+    /**
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
     public static int readUSB3803Parameter(int i) {
         return usb3803_read_parameter(i);
     }

@@ -28,12 +28,12 @@ import com.csl.irCamera.libir.R;
 import java.util.ArrayList;
 import java.util.List;
 
- * @Description:
- * @Author:         brilliantzhao
- * @CreateDate:     2022.3.28 14:48
- * @UpdateUser:
- * @UpdateDate:     2022.3.28 14:48
- * @UpdateRemark:
+/**
+ * Utility class.
+ * 
+ * @author brilliantzhao
+ * @since 2022.9.8 10:25
+ */
 public class IRUVCDual {
     public String TAG = "IRUVC";
     private final Context mContext;
@@ -517,8 +517,12 @@ public class IRUVCDual {
         return mUSBMonitor.getDeviceList(deviceFilters);
     }
 
-     * @param index
-     * @return
+    /**
+     * Method description.
+     *
+     * @param parameter parameter description
+     * @return return value
+     */
     public boolean requestPermission(int index) {
         Log.i(TAG, "requestPermission");
         List<UsbDevice> devList = getUsbDeviceList();
