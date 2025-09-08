@@ -58,7 +58,7 @@
         <attr name="wheel_curvedMaxAngle" />
         <attr name="wheel_curvedIndicatorSpace" />
     </declare-styleable>
-    <!-- picker-->
+    <!-- Comment -->
     <attr name="wheel_label" format="string|reference" />
     <attr name="wheel_minNumber" format="float|reference" />
     <attr name="wheel_maxNumber" format="float|reference" />

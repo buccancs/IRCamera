@@ -217,7 +217,7 @@ def synchronize_timestamps(
 ### Comment Translation Guidelines
 
 #### Required Translations:
-- Chinese characters (in progress[Chinese text]) -> English
+- Chinese characters translated to English
 - Technical terms in local language -> English technical terms
 - Cultural-specific references -> Universal technical descriptions
 
@@ -225,8 +225,8 @@ def synchronize_timestamps(
 ```kotlin
 // [X] Before
 /**
- * [Chinese text]
- * for[Chinese text]
+ * text content
+ * button labels
  */
 
 // [OK] After  

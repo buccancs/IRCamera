@@ -10,7 +10,7 @@ The entire IRCamera repository has been successfully converted to be ASCII-safe.
 
 ## Changes Made
 1. **Unicode Symbol Conversion**: Mathematical symbols (°, ℃, ×, →, etc.) converted to ASCII equivalents
-2. **Chinese Text Translation**: All Chinese characters converted to '[Chinese text]' placeholder or translated
+2. **Chinese Text Translation**: All Chinese characters converted to English translations or removed
 3. **Emoji Replacement**: Emojis converted to descriptive text ([rocket], [check], etc.)
 4. **Typography Normalization**: Smart quotes, box drawing characters converted to ASCII
 5. **Punctuation Standardization**: Chinese punctuation (，：；) converted to ASCII equivalents
