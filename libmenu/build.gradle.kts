@@ -11,15 +11,15 @@ android {
 
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
-    // }
+    }
 
     buildTypes {
         // Only release build type - no debug variants
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-        // }
-    // }
+        }
+    }
     
     // Disable all debug variants completely - release-only configuration (aligned with libapp)
     // variantFilter { // DEPRECATED - commented out to eliminate warnings
@@ -31,14 +31,14 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
         isCoreLibraryDesugaringEnabled = true
-    // }
+    }
     kotlinOptions {
         jvmTarget = "17"
-    // }
+    }
     buildFeatures {
         dataBinding = true
         viewBinding = true
-    // }
+    }
 }
 
 dependencies {

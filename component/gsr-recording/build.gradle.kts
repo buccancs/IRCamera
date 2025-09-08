@@ -13,7 +13,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-    // }
+    }
 
     buildTypes {
         // Only release build type - no debug variants
@@ -23,8 +23,8 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-        // }
-    // }
+        }
+    }
     
     // Disable all debug variants completely - release-only configuration
     // variantFilter { // DEPRECATED - commented out to eliminate warnings
@@ -38,16 +38,16 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
         isCoreLibraryDesugaringEnabled = true
-    // }
+    }
     
     kotlinOptions {
         jvmTarget = "17"
-    // }
+    }
     
     buildFeatures {
         dataBinding = false
         viewBinding = true
-    // }
+    }
 }
 
 dependencies {

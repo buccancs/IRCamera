@@ -8,7 +8,7 @@ plugins {
 kapt {
     arguments {
         // arg("AROUTER_MODULE_NAME", project.name)  // Removed for NavigationManager migration
-    // }
+    }
     // Enable Kotlin 2.1.0 compatibility
     correctErrorTypes = true
     useBuildCache = true
@@ -28,16 +28,16 @@ android {
 
         ndk {
             abiFilters += listOf("armeabi-v7a", "x86", "arm64-v8a", "x86_64")
-        // }
-    // }
+        }
+    }
 
     buildTypes {
         // Only release build type - no debug variants
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-        // }
-    // }
+        }
+    }
     
     // Disable all debug variants completely - release-only configuration (aligned with libapp)
     // variantFilter { // DEPRECATED - commented out to eliminate warnings
@@ -49,10 +49,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
         isCoreLibraryDesugaringEnabled = true
-    // }
+    }
     kotlinOptions {
         jvmTarget = "17"
-    // }
+    }
 
     // Temporarily disable CMake build for configuration optimization
     /*
@@ -60,20 +60,20 @@ android {
         cmake {
             path = file("src/main/cpp/CMakeLists.txt")
             version = "3.18.1"
-        // }
-    // }
+        }
+    }
     */
 
     ndkVersion = libs.versions.ndkVersion.get()
 
     lint {
         abortOnError = false
-    // }
+    }
 
     // Optimize configuration cache for CMake builds
     buildFeatures {
         buildConfig = true
-    // }
+    }
 }
 
 dependencies {
