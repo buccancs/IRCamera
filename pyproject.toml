@@ -27,3 +27,9 @@ line_length = 88
 max-line-length = 88
 extend-ignore = "E203,W503"
 exclude = ".git,__pycache__,build,dist,.eggs"
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true

@@ -11,7 +11,10 @@ android {
     }
 
     buildTypes {
-        
+        debug {
+            isMinifyEnabled = false
+            buildConfigField("boolean", "DEBUG", "true")
+        }
         release {
             isMinifyEnabled = false
             buildConfigField("boolean", "DEBUG", "false")
