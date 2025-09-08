@@ -29,6 +29,13 @@ android {
         // }
     // }
     
+    // Disable all debug variants to match libapp configuration
+    variantFilter {
+        if (buildType.name == "debug") {
+            ignore = true
+        }
+    }
+    
     buildFeatures {
         buildConfig = true
     // }
