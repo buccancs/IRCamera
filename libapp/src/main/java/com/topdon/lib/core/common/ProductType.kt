@@ -1,13 +1,17 @@
 package com.topdon.lib.core.common
 
 /**
- * des:
- * author: CaiSongL
- * date: 2024/4/25 10:45
- **/
+ * Product type constants for TopDon thermal camera devices.
+ * 
+ * This object defines product name constants used throughout the application
+ * to identify different hardware models and their capabilities.
+ * 
+ * @author CaiSongL
+ * @since 2024/4/25 10:45
+ */
 object ProductType {
     /**
-     * 产品名称
+     * Product names for supported thermal camera models
      */
     const val PRODUCT_NAME_TC = "TC001"
     const val PRODUCT_NAME_TS = "TS001"

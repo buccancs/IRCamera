@@ -18,9 +18,21 @@ import com.elvishew.xlog.XLog
 import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.tools.PermissionTool
 
+/**
+ * Bluetooth utility functions for thermal camera applications.
+ * 
+ * Provides lifecycle-aware Bluetooth state monitoring and scanning capabilities
+ * with proper permission handling and resource cleanup.
+ */
 object BluetoothUtil {
     /**
-     * 在给定 activity 生命周期内添加 蓝牙 开关状态监听.
+     * Adds Bluetooth state listener within the given activity lifecycle.
+     * 
+     * The listener will be automatically registered and unregistered based on
+     * the activity's lifecycle to prevent memory leaks.
+     * 
+     * @param activity The ComponentActivity to bind the listener lifecycle to
+     * @param listener Callback function that receives Bluetooth enable state changes
      */
     fun addBtStateListener(
         activity: ComponentActivity,

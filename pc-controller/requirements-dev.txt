@@ -1,0 +1,12 @@
+# Security and Dependency Management
+
+## Python Dependencies (pc-controller)
+bandit==1.8.0
+safety==3.0.1
+
+# Development and Quality Tools
+pre-commit==4.0.1
+black==25.1.0
+isort==6.0.1
+flake8==7.3.0
+mypy==1.17.1
