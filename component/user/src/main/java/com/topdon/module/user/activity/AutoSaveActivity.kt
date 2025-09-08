@@ -7,9 +7,6 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.user.R
 import com.topdon.module.user.databinding.ActivityAutoSaveBinding
 
-/**
- * 自动保存到手机
- */
 @Route(path = RouterConfig.AUTO_SAVE)
 class AutoSaveActivity :BaseActivity(){
 

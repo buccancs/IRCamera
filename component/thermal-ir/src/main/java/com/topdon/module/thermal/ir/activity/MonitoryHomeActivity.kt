@@ -15,16 +15,11 @@ import com.topdon.module.thermal.ir.fragment.IRMonitorHistoryFragment
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-/**
- * 温度监控 Tab 页，包含
- * - 历史 [IRMonitorHistoryFragment]
- * - 实时 [IRMonitorCaptureFragment]
- *
- * 需要传递参数：
- * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
- *
+ *  Tab
+ * [IRMonitorHistoryFragment]
+ * [IRMonitorCaptureFragment]
+ * [ExtraKeyConfig.IS_TC007] -  TC007
  * Created by LCG on 2024/8/20.
- */
 class MonitoryHomeActivity : BaseActivity() {
     private lateinit var binding: ActivityMonitorHomeBinding
     

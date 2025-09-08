@@ -1,5 +1,4 @@
 //package com.infisense.usbir.view
-//
 //import android.content.Context
 //import android.graphics.drawable.ColorDrawable
 //import android.view.Gravity
@@ -12,20 +11,14 @@
 //import com.infisense.usbir.R
 //import com.infisense.usbir.camera.IRUVC
 
-//
-////长按相机弹出
 //class PopuMenuShut(context: Context?) {
-//
 //    private val popupWindow: PopupWindow
-//
 //    var usbcamera: IRUVC? = null
 //    var layView: View
-//
 //    fun showheight(linearLayout: LinearLayout?, popupheight: Int) {
 //        popupWindow.showAtLocation(linearLayout, Gravity.NO_GRAVITY, 0, popupheight)
 //        if (usbcamera != null && usbcamera!!.uvcCamera != null) shutParam
 //    }
-//
 //    private val shutParam: Unit
 //        private get() {
 //            val mode = CharArray(1)
@@ -40,25 +33,25 @@
 //                mode,
 //                usbcamera!!.uvcCamera.nativePtr
 //            )
-//            layView.min!!.setText(mode[0] + 0 + "")
+//            layView.min!!.setText(mode[0] + 0 + )
 //            Libircmd.get_prop_auto_shutter_params(
 //                Libircmd.SHUTTER_PROP_MAX_INTERVAL,
 //                mode,
 //                usbcamera!!.uvcCamera.nativePtr
 //            )
-//            layView.max!!.setText(mode[0] + 0 + "")
+//            layView.max!!.setText(mode[0] + 0 + )
 //            Libircmd.get_prop_auto_shutter_params(
 //                Libircmd.SHUTTER_PROP_TEMP_THRESHOLD_OOC,
 //                mode,
 //                usbcamera!!.uvcCamera.nativePtr
 //            )
-//            layView.ooc!!.setText(mode[0] + 0 + "")
+//            layView.ooc!!.setText(mode[0] + 0 + )
 //            Libircmd.get_prop_auto_shutter_params(
 //                Libircmd.SHUTTER_PROP_TEMP_THRESHOLD_B,
 //                mode,
 //                usbcamera!!.uvcCamera.nativePtr
 //            )
-//            layView.b!!.setText(mode[0] + 0 + "")
+//            layView.b!!.setText(mode[0] + 0 + )
 //            layView.automode!!.setOnCheckedChangeListener { compoundButton, status ->
 //                if (layView.min!!.text.toString().length != 0) Libircmd.set_prop_auto_shutter_params(
 //                    Libircmd.SHUTTER_PROP_MIN_INTERVAL,
@@ -82,11 +75,9 @@
 //                )
 //            }
 //        }
-//
 //    companion object {
-//        private const val TAG = "PopuMenuISP"
+//        private const val TAG = PopuMenuISP
 //    }
-//
 //    init {
 //        layView = LayoutInflater.from(context).inflate(R.layout.layout_shut, null)
 ////        ButterKnife.bind(this, view)
@@ -95,10 +86,9 @@
 //        popupWindow.height = ViewGroup.LayoutParams.WRAP_CONTENT
 //        popupWindow.isFocusable = true
 //        popupWindow.isOutsideTouchable = false
-//        popupWindow.setBackgroundDrawable(ColorDrawable(0x00000000)) // 解决 7.0 手机，点击外部不消失
+//        popupWindow.setBackgroundDrawable(ColorDrawable(0x00000000)) //  7.0
 //        popupWindow.animationStyle = R.style.contextMenuAnim
 //        layView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
-//        //创建布局管理
 //        val layoutManager = LinearLayoutManager(context)
 //        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
 //    }

@@ -11,9 +11,6 @@ import com.csl.irCamera.libapp.R
 import com.csl.irCamera.libapp.databinding.DialogTipObserveBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
-/**
- * 观测-弹框封装
- */
 class TipObserveDialog : Dialog {
 
     constructor(context: Context) : super(context)
@@ -81,13 +78,11 @@ class TipObserveDialog : Dialog {
             val lp = dialog!!.window!!.attributes
             val wRatio =
                 if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    //竖屏
                     0.75
                 } else {
-                    //横屏
                     0.35
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() //设置宽度
+            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() //
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceled)

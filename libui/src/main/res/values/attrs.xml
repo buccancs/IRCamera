@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- 长地像 SeekBar 的那个条条 -->
+    <!--  SeekBar  -->
     <declare-styleable name="BarPickView">
         <attr name="android:max" />
         <attr name="android:progress" />
@@ -17,7 +17,7 @@
         </attr>
     </declare-styleable>
 
-    <!-- 圆角 ImageView -->
+    <!--  ImageView -->
     <declare-styleable name="RoundImageView">
         <attr name="round_radius" format="dimension"/>
         <attr name="round_position">
@@ -37,19 +37,12 @@
         <attr name="guide_icon_show" format="boolean" />
     </declare-styleable>
 
-    <!-- 倒计时控件属性 -->
     <declare-styleable name="CountDownView">
-        <!--颜色-->
         <attr name="ringColor" format="color" />
-        <!-- 进度文本的字体大小 -->
         <attr name="progressTextSize" format="dimension" />
-        <!-- 圆环宽度 -->
         <attr name="ringWidth" format="dimension" />
-        <!--进度文本颜色-->
         <attr name="progressTextColor" format="color" />
-        <!--文本-->
         <attr name="progressText" format="string" />
-        <!--倒计时-->
         <attr name="countdownTime" format="integer" />
     </declare-styleable>
 
@@ -150,7 +143,7 @@
         <attr name="rsb_indicator_text_color" format="color" />
         <!--indicator arrow size, it just work when you not use rsb_indicator_drawable -->
         <attr name="rsb_indicator_arrow_size" format="dimension" />
-        <!-- must use 9 path ！！！-->
+        <!-- must use 9 path-->
         <attr name="rsb_indicator_drawable" format="reference" />
         <attr name="rsb_indicator_background_color" format="color" />
         <attr name="rsb_indicator_padding_left" format="dimension" />
@@ -206,8 +199,8 @@
         <attr name="android:maxHeight" />
         <attr name="minText" format="string" />
         <attr name="maxText" format="string" />
-        <attr name="tipsPercent" format="fraction" /> <!-- 指示View宽度占父View宽度百分比 -->
-        <attr name="seekPercent" format="fraction" /> <!-- seekBar宽度占父View宽度百分比 -->
+        <attr name="tipsPercent" format="fraction" /> <!-- ViewView -->
+        <attr name="seekPercent" format="fraction" /> <!-- seekBarView -->
     </declare-styleable>
 
     <declare-styleable name="SettingNightView">

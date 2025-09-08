@@ -50,20 +50,13 @@ abstract class BaseApplication : Application() {
     var tau_data_L: ByteArray? = null
 
     var activitys = arrayListOf<Activity>()
-    var hasOtgShow = false//otg提示只出现一次
+    var hasOtgShow = false//otg
 
-    /**
-     * 获取软件编码.
-     */
+     * .
     abstract fun getSoftWareCode(): String
 
-    /**
-     * 是否国内渠道。
-     *
-     * 国内渠道一些逻辑不同，如国内渠道可以应用内升级，权限申请前有提示弹窗等。
-     * 根据 2024/8/27 邮件结论，“热视界和电小搭其实没有形成销售，可以不用维护。”
-     * @return true-国内渠道 false-非国内渠道
-     */
+     *  2024/8/27 “”
+     * @return true- false
     abstract fun isDomestic(): Boolean
 
 
@@ -84,7 +77,6 @@ abstract class BaseApplication : Application() {
 
     open fun initWebSocket(){
         connectWebSocket()
-        //注册网络变更广播
         if (Build.VERSION.SDK_INT < 33) {
             registerReceiver(NetworkChangedReceiver(), IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
         } else {
@@ -94,7 +86,7 @@ abstract class BaseApplication : Application() {
 
     private fun connectWebSocket() {
         val ssid = WifiUtil.getCurrentWifiSSID(this) ?: return
-        Log.i("WebSocket", "当前连接 Wifi SSID: $ssid")
+        Log.i("WebSocket", " Wifi SSID: $ssid")
         // TC001 uses USB connection, but preserve WiFi capability for other uses
         NetWorkUtils.switchNetwork(true)
     }
@@ -104,10 +96,8 @@ abstract class BaseApplication : Application() {
         WebSocketProxy.getInstance().stopWebSocket()
     }
 
-    /**
-     * 解析socket消息
+     * socket
      * @param msgJson
-     */
     private fun parserSocketMessage(msgJson: String) {
         if (TextUtils.isEmpty(msgJson)) return
         EventBus.getDefault().post(SocketMsgEvent(msgJson))
@@ -126,21 +116,19 @@ abstract class BaseApplication : Application() {
                 }else{
 //                    NetWorkUtils.
                 }
-                Log.i("WebSocket", "网络切换 Wifi SSID: $activeNetwork"+activeNetwork.type)
+                Log.i("WebSocket", " Wifi SSID: $activeNetwork"+activeNetwork.type)
             }
         }
     }
 
 
 
-    /**
-     * 设置webview的android9以上系统的多进程兼容性处理
-     */
+     * webviewandroid9
     @RequiresApi(api = 28)
     open fun webviewSetPath(context: Context?) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             val processName = getProcessName(context)
-            if (!applicationContext.packageName.equals(processName)) { //判断不等于默认进程名称
+            if (!applicationContext.packageName.equals(processName)) { //
                 WebView.setDataDirectorySuffix(processName!!)
             }
         }
@@ -165,7 +153,7 @@ abstract class BaseApplication : Application() {
             }
             ARouter.init(this)
         } catch (e: Exception) {
-            //异常后建议清除映射表 (官方文档 开发模式会清除)
+            // ( )
             if (SharedManager.getHasShowClause()) {
                 Log.e("TopInfrared_LOG", "router init error: ${e.message}")
             }
@@ -174,7 +162,6 @@ abstract class BaseApplication : Application() {
         }
     }
 
-    //清除无用数据
     fun clearDb() {
         GlobalScope.launch(Dispatchers.Default) {
             try {
@@ -189,14 +176,11 @@ abstract class BaseApplication : Application() {
         val selectLan = SharedManager.getLanguage(baseContext)
         if (TextUtils.isEmpty(selectLan)) {
             if (isDomestic()) {
-                //国内版默认中文
                 val autoSelect = AppLanguageUtils.getChineseSystemLanguage()
                 val locale = AppLanguageUtils.getLocaleByLanguage(autoSelect)
                 LanguageUtils.applyLanguage(locale)
                 SharedManager.setLanguage(baseContext, autoSelect)
             } else {
-                //初始语言设置
-                //默认初始语言，跟随系统语言设置，没有则默认英文
                 val autoSelect = AppLanguageUtils.getSystemLanguage()
                 val locale = AppLanguageUtils.getLocaleByLanguage(autoSelect)
                 LanguageUtils.applyLanguage(locale)
@@ -213,9 +197,6 @@ abstract class BaseApplication : Application() {
         return SharedManager.getLanguage(context)
     }
 
-    /**
-     * 退出所有
-     */
     fun exitAll() {
         hasOtgShow = false
         activitys.forEach {

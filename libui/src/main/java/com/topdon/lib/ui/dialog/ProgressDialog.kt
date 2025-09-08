@@ -10,9 +10,7 @@ import com.csl.irCamera.libui.R
 import com.csl.irCamera.libui.databinding.DialogProgressBinding
 import com.csl.irCamera.libapp.R as LibAppR
 
-/**
- * 带进度条的提示弹框.
- */
+ * .
 class ProgressDialog(context: Context) : Dialog(context, LibAppR.style.InfoDialog) {
     private val binding = DialogProgressBinding.inflate(LayoutInflater.from(context))
     

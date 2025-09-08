@@ -30,9 +30,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.io.File
 
-/**
  * Created by admin on 2018/6/4.
- */
 abstract class BaseActivity : RxAppCompatActivity() {
 
     val TAG = this.javaClass.simpleName
@@ -95,9 +93,7 @@ abstract class BaseActivity : RxAppCompatActivity() {
     }
 
 
-    /**
-     * 监听 USB 连接状态
-     */
+     *  USB
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun getConnectState(event: DeviceConnectEvent) {
         if (event.isConnect) {
@@ -133,13 +129,9 @@ abstract class BaseActivity : RxAppCompatActivity() {
     }
 
 
-    /**
-     * 新版 LMS 风格的加载中弹框.
-     */
+     *  LMS .
     private var loadingDialog: LoadingDialog? = null
-    /**
-     * 真是醉了，一个加载中的弹框现在就有 3 种，不管了，继续加，理论上后续都要改成这个.
-     */
+     * 3 .
     fun showLoadingDialog(@StringRes resId: Int = R.string.tip_loading) {
         showLoadingDialog(getString(resId))
     }
@@ -150,9 +142,7 @@ abstract class BaseActivity : RxAppCompatActivity() {
         loadingDialog?.setTips(text)
         loadingDialog?.show()
     }
-    /**
-     * 真是醉了，一个加载中的弹框现在就有 3 种，不管了，继续加，理论上后续都要改成这个.
-     */
+     * 3 .
     fun dismissLoadingDialog() {
         loadingDialog?.dismiss()
     }
@@ -174,8 +164,7 @@ abstract class BaseActivity : RxAppCompatActivity() {
                 cameraDialog?.show()
             }
         }catch (e:Exception){
-            //临时捕获方案，后面需求完成后再追踪优化
-            Log.e("临时处理方案",e.message.toString())
+            Log.e("",e.message.toString())
         }
     }
     fun dismissCameraLoading() {
@@ -184,7 +173,6 @@ abstract class BaseActivity : RxAppCompatActivity() {
         }
     }
 
-    //同步登录信息
     private fun synLogin() {
         if (this::class.java.simpleName == "MainActivity") {
             LMS.getInstance().syncUserInfo()
@@ -207,7 +195,7 @@ abstract class BaseActivity : RxAppCompatActivity() {
             }
         } else {
             if (UserInfoManager.getInstance().isLogin()) {
-                //账号已退出,本地登录状态,需退出操作
+                //,,
                 UserInfoManager.getInstance().logout()
             }
         }

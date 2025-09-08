@@ -25,16 +25,13 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.CountDownLatch
 
-/**
  * @author: CaiSongL
  * @date: 2023/5/12 17:43
- */
 class PdfViewModel : BaseViewModel() {
 
     val listData = MutableLiveData<ReportData?>()
 
 
-    //获取报告列表
     fun getReportData(isTC007: Boolean, page: Int){
         if (!NetworkUtil.isConnected(Utils.getApp())) {
             TToast.shortToast(Utils.getApp(), LibAppR.string.setting_http_error)
@@ -65,7 +62,7 @@ class PdfViewModel : BaseViewModel() {
 //                tmp.uploadTime = TimeTool.getNowTime()
 //                testData.add(tmp)
 //                tmp = ReportData.Records()
-//                tmp.uploadTime = "1992-12-30 11:11"
+//                tmp.uploadTime = 1992-12-30 11:11
 //                testData.add(tmp)
 //                result?.data?.records = testData
                 downLatch.countDown()
@@ -75,7 +72,7 @@ class PdfViewModel : BaseViewModel() {
                 result?.msg = p0?.message
                 result?.code = -1
                 downLatch.countDown()
-                TLog.e("bcf", "获取报告列表失败：" + p0?.message)
+                TLog.e("bcf", "：" + p0?.message)
             }
 
             override fun onFail(failMsg: String?, errorCode: String) {

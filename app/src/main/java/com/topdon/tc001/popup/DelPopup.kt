@@ -13,11 +13,8 @@ import androidx.core.view.setPadding
 import com.blankj.utilcode.util.SizeUtils
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 
-/**
- * 首页-设备列表-删除设备确认 PopupWindow.
- *
+ * PopupWindow.
  * Created by LCG on 2024/4/24.
- */
 class DelPopup(val context: Context) : PopupWindow() {
 
     var onDelListener: (() -> Unit)? = null

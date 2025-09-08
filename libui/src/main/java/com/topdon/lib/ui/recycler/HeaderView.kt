@@ -5,9 +5,7 @@ import android.util.AttributeSet
 import android.widget.LinearLayout
 import com.csl.irCamera.libui.R
 
-/**
- * 自定义HeaderView
- */
+ * HeaderView
 class HeaderView : LinearLayout {
 
     constructor(context: Context) : this(context, null)

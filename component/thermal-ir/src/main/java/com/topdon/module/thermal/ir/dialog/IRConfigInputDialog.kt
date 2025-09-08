@@ -15,27 +15,19 @@ import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.databinding.DialogIrConfigInputBinding
 import java.lang.NumberFormatException
 
-/**
- * 温度修正 环境温度、测温距离、发射率 修改值时输入弹框.
- *
+ *  .
  * Created by LCG on 2024/10/24.
- */
 class IRConfigInputDialog(context: Context, val type: Type, val isTC007: Boolean) : Dialog(context, LibAppR.style.TextInputDialog) {
 
     private lateinit var binding: DialogIrConfigInputBinding
     private var value: Float? = null
     private var onConfirmListener: ((value: Float) -> Unit)? = null
 
-    /**
-     * 设置输入框默认值
-     */
     fun setInput(value: Float?): IRConfigInputDialog {
         this.value = value
         return this
     }
-    /**
-     * 设置确认点击事件监听.
-     */
+     * .
     fun setConfirmListener(l: (value: Float) -> Unit): IRConfigInputDialog {
         this.onConfirmListener = l
         return this
@@ -102,19 +94,10 @@ class IRConfigInputDialog(context: Context, val type: Type, val isTC007: Boolean
     }
 
     enum class Type {
-        /**
-         * 环境温度
-         */
         TEMP,
 
-        /**
-         * 测温距离
-         */
         DIS,
 
-        /**
-         * 发射率
-         */
         EM,
     }
 }

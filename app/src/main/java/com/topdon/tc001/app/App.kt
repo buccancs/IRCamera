@@ -47,9 +47,6 @@ class App : BaseApplication() {
 
     companion object{
         lateinit var instance: App
-        /**
-         * 延时初始化
-         */
         fun delayInit() {
             initReceiver()
             initLog()
@@ -71,7 +68,7 @@ class App : BaseApplication() {
     override fun onCreate() {
         super.onCreate()
         instance = this
-        //隐私政策弹框用app内的，默认设置lms里的隐私政策设置为true
+        //applmstrue
         SPUtils.getInstance(this).put(Config.KEY_PRIVACY_AGREEMENT, true)
 
         if (SharedManager.getHasShowClause() || !isDomestic()) {
@@ -80,20 +77,20 @@ class App : BaseApplication() {
 
         RxJavaPlugins.setErrorHandler {
             if (SharedManager.getHasShowClause()) {
-                XLog.w("未知异常： ${it.message}")
+                XLog.w("： ${it.message}")
             }
         }
         if (!isDomestic()) {
             if (!BuildConfig.DEBUG) {
-                // 正式版本,服务地址强制转换正式地址,并且不可更换
-                // 测试版本,可自由切换
+                // ,,
+                // ,
                 UrlConstant.setBaseUrl("${HttpConfig.HOST}/", false)
             } else {
                 if (SharedManager.getHasShowClause()) {
                     XLog.w("lms host: ${UrlConstant.BASE_URL}")
                 }
             }
-            SharedManager.setBaseHost(UrlConstant.BASE_URL) //更新app服务地址
+            SharedManager.setBaseHost(UrlConstant.BASE_URL) //app
         }
         if(BuildConfig.DEBUG) {
             FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(false);
@@ -102,7 +99,7 @@ class App : BaseApplication() {
             tau_data_H = CommonUtil.getAssetData(mContext, IrConst.TAU_HIGH_GAIN_ASSET_PATH)
             tau_data_L = CommonUtil.getAssetData(mContext, IrConst.TAU_LOW_GAIN_ASSET_PATH)
         }
-//        CrashReport.initCrashReport(applicationContext, "cd1f9e26ee", false)
+//        CrashReport.initCrashReport(applicationContext, cd1f9e26ee, false)
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks{
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
@@ -133,9 +130,7 @@ class App : BaseApplication() {
         initZoho()
     }
 
-    /**
-     * 初始化客服ZOHO
-     */
+     * ZOHO
     private fun initZoho() {
         ZohoSalesIQ.init(
             this,
@@ -145,12 +140,12 @@ class App : BaseApplication() {
             object : InitListener {
                 override fun onInitSuccess() {
 //                    ZohoSalesIQ.Launcher.show(ZohoSalesIQ.Launcher.VisibilityMode.ALWAYS)
-                    XLog.e("bcf", "ZohoSalesIQ成功")
+                    XLog.e("bcf", "ZohoSalesIQ")
                 }
 
                 override fun onInitError(errorCode: Int, errorMessage: String?) {
                     //your code
-                    XLog.e("bcf", "ZohoSalesIQ失敗")
+                    XLog.e("bcf", "ZohoSalesIQ")
                 }
             })
     }

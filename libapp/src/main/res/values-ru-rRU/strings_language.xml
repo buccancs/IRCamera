@@ -133,7 +133,7 @@
     <string name="thermal_sharpen">Детали</string>
     <string name="thermal_contrast">Контраст</string>
     <string name="thermal_picture_in_camera">Изображение в изображении</string>
-    <string name="thermal_pseudo">фальшивая расписка </string>
+    <string name="thermal_pseudo">фальшивая расписка </string>
     <string name="thermal_false_color">Ложный цвет</string>
     <string name="app_diy">СДЕЛАЙ САМ</string>
     <string name="thermal_automatic">Автоматическое распознавание</string>
@@ -240,8 +240,7 @@
     <string name="device_loading_tip">Идет загрузка…</string>
     <string name="edit_image_error_tip">Изображение не имеет температурных данных и не поддерживает редактирование.</string>
 
-    <!--	俄语-->
-    <!-- 2.00版本 -->
+    <!-- 2.00 -->
     <string name="app_lapsePhotography">Фото с таймером</string>
     <string name="app_Manual_Shutter">Ручной затвор</string>
     <string name="app_record_sound">Запись аудио</string>
@@ -340,7 +339,7 @@
     <string name="album_report_exit_tips">Хотите выйти из создания отчета?</string>
     <string name="album_report_on_edit">Изображение не имеет температурных данных и не поддерживает редактирование.</string>
     <string name="tips_two_light_not_video">Videoaufzeichnung wird derzeit nicht im Dual-Light-Modus unterstützt</string>
-    <string name="start_fail_and_restart"> Ошибка запуска!  Пожалуйста, выйдите из приложения и откройте его снова. </string>
+    <string name="start_fail_and_restart"> Ошибка запуска! Пожалуйста, выйдите из приложения и откройте его снова. </string>
     <string name="app_Low_temperature">низкая температура</string>
 
     <string name="monitor_finish">Стоп</string>
@@ -497,7 +496,6 @@
     <string name="installation_package_downloading_tips">Начинает загружаться. Смотрите прогресс в уведомлениях.</string>
     <string name="welcome_use_app">Добро пожаловать в %1$s.</string>
 
-    <!--俄语-->
 
     <string name="dual_light_correction">Двойная световая коррекция</string>
     <string name="dual_light_correction_tips_1">Поскольку фокусы двух камер не выровнены, изображения, снятые двумя камерами с разных расстояний, не будут выровнены.\nЭта функция может помочь с выравниванием изображения по отдельности.</string>
@@ -600,7 +598,7 @@
     <string name="ts004_faq_q5">Как просмотреть снятые термические изображения на компьютере?</string>
     <string name="ts004_faq_a5">Подключите TS004 к компьютеру с помощью USB-кабеля, и вы сможете просматривать термические изображения, сохраненные на TS004.</string>
 
-    <!-- TC001 老 APP 引流 -->
+    <!-- TC001  APP  -->
     <string name="gallery_transfer">Галерея Трансфер</string>
     <string name="gallery_transfer_wait">Данные передаются. Пожалуйста, подождите.</string>
     <string name="gallery_transfer_complete">Передача данных завершена</string>
@@ -651,7 +649,6 @@
     <string name="wifi_connect_loading">Ожидается, что это займет 15 секунд...</string>
     <string name="tc007_done_fast">Частые операции</string>
 
-    <!-- 房屋检测 -->
     <string name="main_professional_test">Профессиональное тестирование</string>
     <string name="main_temperature_test">Температурное тестирование</string>
     <string name="main_thermal_tips">Профессиональное тепловизионное тестирование</string>
@@ -820,7 +817,6 @@
     <string name="abnormal_description17">Температура обогревателя заднего зеркала зависит от многих факторов, таких как температура окружающей среды и нагрузка на обогреватель. Проследите за температурой нагревателя с помощью тепловизора, и тогда вы сможете оценить, насколько эффективен обогрев заднего зеркала.</string>
     <string name="abnormal_description18">Температура двигателя стеклоподъемника зависит от многих факторов, таких как температура окружающей среды и нагрузка на двигатель. Контролируйте температуру двигателя с помощью тепловизора. Если температура слишком высока, это может быть вызвано неисправностью механизма стеклоподъемника или самого мотора.</string>
 
-    <!-- 房屋检测新增 -->
     <string name="vehicle_function">Функция</string>
     <string name="ability_find">Обнаружено</string>
     <string name="ability_monitory">Просмотр данных о температуре тела в реальном времени</string>

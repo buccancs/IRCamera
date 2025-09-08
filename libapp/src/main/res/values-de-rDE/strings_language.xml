@@ -240,8 +240,8 @@
     <string name="device_loading_tip">Laden…</string>
     <string name="edit_image_error_tip">Das bild fehlen temperaturangaben und unterstützt die bearbeitung nicht.</string>
 
-    <!--	德语deutsch-->
-    <!-- 2.00版本 -->
+    <!--	deutsch-->
+    <!-- 2.00 -->
     <string name="app_lapsePhotography">Zeitgesteuertes Foto</string>
     <string name="app_Manual_Shutter">Manueller Verschluss</string>
     <string name="app_record_sound">Audio-Aufnahme</string>
@@ -498,7 +498,6 @@
     <string name="installation_package_downloading_tips">Das Herunterladen beginnt. Bitte überprüfen Sie den Fortschritt in den Benachrichtigungen</string>
     <string name="welcome_use_app">Willkommen bei %1$s</string>
 
-    <!--德语-->
 
     <string name="dual_light_correction">Doppelte Lichtkorrektur</string>
     <string name="dual_light_correction_tips_1">Da die Fokuspunkte der beiden Kameras nicht aufeinander abgestimmt sind, werden die Bilder, die aus unterschiedlichen Entfernungen von den beiden Kameras aufgenommen wurden, nicht aufeinander abgestimmt.\nDiese Funktion kann bei der Bildausrichtung separat helfen.</string>
@@ -600,7 +599,7 @@
     <string name="ts004_faq_q5">Wie kann ich die aufgenommenen Wärmebilder auf einem PC betrachten?</string>
     <string name="ts004_faq_a5">Schließen Sie das TS004 über das USB-Kabel an einen PC an, und Sie können die auf dem TS004 gespeicherten Wärmebilder anzeigen.</string>
 
-    <!-- TC001 老 APP 引流 -->
+    <!-- TC001  APP  -->
     <string name="gallery_transfer">Galerieübertragung</string>
     <string name="gallery_transfer_wait">Die Daten werden übertragen. Bitte warten Sie.</string>
     <string name="gallery_transfer_complete">Datenübertragung abgeschlossen.</string>
@@ -651,7 +650,6 @@
     <string name="wifi_connect_loading">Es wird voraussichtlich 15 Sekunden dauern…</string>
     <string name="tc007_done_fast">Häufige Operationen</string>
 
-    <!-- 房屋检测 -->
     <string name="main_professional_test">Professionelle Prüfung</string>
     <string name="main_temperature_test">Temperaturprüfung</string>
     <string name="main_thermal_tips">Professionelle Wärmebildprüfung</string>
@@ -820,7 +818,6 @@
     <string name="abnormal_description17">Die Temperatur der Heizung des Rückspiegels wird von vielen Faktoren beeinflusst, wie zum Beispiel der Umgebungstemperatur und der Last der Heizung. Überwachen Sie die Temperatur der Heizung mit einer Wärmebildkamera, dann können Sie beurteilen, ob der Rückspiegel effektiv beheizt werden kann.</string>
     <string name="abnormal_description18">Die Temperatur des Fenstermotors wird von vielen Faktoren beeinflusst, z. B. von der Umgebungstemperatur und der Motorlast. Überwachen Sie die Motortemperatur mit einer Wärmebildkamera. Wenn die Temperatur zu hoch ist, kann dies durch einen Ausfall des Fensterhebers oder des Motors selbst verursacht werden.</string>
 
-    <!-- 房屋检测新增 -->
     <string name="vehicle_function">Funktion</string>
     <string name="ability_find">finden</string>
     <string name="ability_monitory">Echtzeit-Anzeige der Objekttemperatur zur Erzeugung von Daten</string>

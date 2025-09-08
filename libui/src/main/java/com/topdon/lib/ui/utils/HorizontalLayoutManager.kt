@@ -17,11 +17,9 @@ import com.topdon.lib.ui.utils.Direction.Companion.fromDelta
 import java.util.*
 import kotlin.math.abs
 
-/**
  * @author: CaiSongL
  * @date: 2023/4/1 14:13
- */
-@Deprecated("热成像-菜单-拍照已重构，不需要这个类了")
+@Deprecated("--，")
 class HorizontalLayoutManager(
     private val context: Context,
     scrollStateListener: ScrollStateListener,
@@ -360,9 +358,7 @@ class HorizontalLayoutManager(
         currentScrollState = state
     }
 
-    /**
      * @return true if scroll is ended and we don't need to settle items
-     */
     private fun onScrollEnd(): Boolean {
         if (pendingPosition != NO_POSITION) {
             currentPosition = pendingPosition

@@ -95,15 +95,12 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
         // TC001 doesn't use socket connections - handled via USB
     }
 
-    /**
-     * 主动检测连接设备
-     */
     private fun checkConnect() {
         if (DeviceTools.isConnect(isAutoRequest = false)) {
             connected()
         } else {
             disConnected()
-            if (DeviceTools.findUsbDevice() != null) {//找到设备,但不能连接
+            if (DeviceTools.findUsbDevice() != null) {//,
                 showConnectTip()
             }
         }
@@ -123,7 +120,6 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
             }
             binding.tvMainEnter -> {
                 if (!DeviceTools.isConnect()) {
-                    //没有接入设备不需要提示，有系统授权提示框
                     if (DeviceTools.findUsbDevice() == null) {
                         activity?.let {
                             TipDialog.Builder(it)
@@ -145,7 +141,6 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
 
                                 override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
                                     if (doNotAskAgain) {
-                                        //拒绝授权并且不再提醒
                                         context?.let {
                                             TipDialog.Builder(it)
                                                 .setTitleMessage(getString(LibAppR.string.app_tip))
@@ -171,9 +166,9 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
     private var tipConnectDialog: TipDialog? = null
 
     private var isCancelUpdateVersion = false
-    // 针对android10 usb连接问题,提供android 27版本
+    // android10 usb,android 27
     private fun showConnectTip() {
-        // targetSdk高于27且android os为10
+        // targetSdk27android os10
         if (requireContext().applicationInfo.targetSdkVersion >= Build.VERSION_CODES.P &&
             Build.VERSION.SDK_INT == Build.VERSION_CODES.Q
         ) {
@@ -235,9 +230,6 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
-    /**
-     * 动态申请权限
-     */
     private fun initStoragePermission(permissionList: List<String>) {
 
     }

@@ -16,17 +16,14 @@ import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.menu.R as MenuR
 import com.csl.irCamera.libapp.R as LibAppR
 
-@Deprecated("旧的高低温源菜单，已重构过了")
+@Deprecated("，")
 class MenuAIAdapter (val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    /**
-     * 当前选中的选项 code.
-     *
-     * 由于历史遗留（已保存在 SharedPreferences 中），这里 code 取值为
-     * - 什么都未选中：-1
-     * - 动态识别：0
-     * - 高温源：1
-     * - 低温源：2
-     */
+     *  code.
+     * SharedPreferences  code
+     * 1
+     * 0
+     * 1
+     * 2
     var selectCode: Int = -1
         set(value) {
             if (field != value) {
@@ -35,9 +32,7 @@ class MenuAIAdapter (val context: Context) : RecyclerView.Adapter<RecyclerView.V
             }
         }
 
-    /**
-     * 观测模式-菜单2-高低温源 点击事件监听，单选。
-     */
+     * 2
     var onTempSourceListener: ((code: Int) -> Unit)? = null
 
 
@@ -76,7 +71,7 @@ class MenuAIAdapter (val context: Context) : RecyclerView.Adapter<RecyclerView.V
 
     inner class ItemView(private val binding: UiItemMenuSecondViewBinding) : RecyclerView.ViewHolder(binding.root) {
 //        init {
-//            val canSeeCount = itemCount.toFloat() //一屏可见的 item 数量，目前都是全都显示完
+//            val canSeeCount = itemCount.toFloat() // item
 //            val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()
 //            itemView.layoutParams = ViewGroup.LayoutParams(with, ViewGroup.LayoutParams.WRAP_CONTENT)
 //            val imageSize = (ScreenUtils.getScreenWidth() * 62 / 375f).toInt()

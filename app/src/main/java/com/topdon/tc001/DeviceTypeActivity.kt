@@ -17,18 +17,13 @@ import com.topdon.lib.core.tools.DeviceTools
 import com.csl.irCamera.databinding.ActivityDeviceTypeBinding
 import com.csl.irCamera.databinding.ItemDeviceTypeBinding
 
-/**
- * 设备类型选择.
- *
+ * .
  * Created by LCG on 2024/4/22.
- */
 class DeviceTypeActivity : BaseActivity() {
 
     private lateinit var binding: ActivityDeviceTypeBinding
     
-    /**
-     * 当前点击的设备类型.
-     */
+     * .
     private var clientType: IRDeviceType? = null
 
     override fun initContentView(): Int = R.layout.activity_device_type
@@ -124,9 +119,7 @@ class DeviceTypeActivity : BaseActivity() {
         }
     }
 
-    /**
-     * 支持的热成像设备类型.
-     */
+     * .
     enum class IRDeviceType {
         TC001 {
             override fun isLine(): Boolean = true

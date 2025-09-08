@@ -41,9 +41,9 @@ public class OnlineMethod {
                 int value = (int)(temperature[i + 1] << 8) + (int)(temperature[i]);
                 double divid = 16.0;
                 double g = (value / 4.0) / divid - 273.15;
-                //cout << g << " ";
+                //cout << g <<  ;
                 temp[t] = g;
-                //cout << temp[t] << " ";
+                //cout << temp[t] <<  ;
                 t++;
             }
         }
@@ -105,7 +105,7 @@ public class OnlineMethod {
         }
         //cv::Mat imageContours = cv::Mat::zeros(cv::Size(W, H), CV_8UC1);
         //Bezier
-        //Mat drawing = Mat::zeros(image.size(), CV_8UC3);imshow("Contours", im)
+        //Mat drawing = Mat::zeros(image.size(), CV_8UC3);imshow(Contours, im)
         // waitKey(0);
         return im;
 
@@ -119,9 +119,9 @@ public class OnlineMethod {
                 int value = (int)(temperature[i + 1] << 8) + (int)(temperature[i]);
                 double divid = 16.0;
                 double g = (value / 4.0) / divid - 273.15;
-                //cout << g << " ";
+                //cout << g <<  ;
                 temp[t] = g;
-                //cout << temp[t] << " ";
+                //cout << temp[t] <<  ;
                 t++;
             }
         }
@@ -182,7 +182,7 @@ public class OnlineMethod {
         Imgproc.cvtColor(mat, mat, Imgproc.COLOR_RGB2RGBA);
         Bitmap dstBitmap = Bitmap.createBitmap(mat.width(), mat.height(), Bitmap.Config.ARGB_8888);
         Utils.matToBitmap(mat, dstBitmap);
-        byte[] bytes = new  byte[192*256*4];
+        byte[] bytes = new byte[192*256*4];
         return bytes;
     }
     public static Mat draw_edge_from_temp_reigon(byte[] image,byte[] temperature,int row, int col, double high_t, double low_t, int color_h, int color_l, int type) throws IOException {
@@ -198,7 +198,7 @@ public class OnlineMethod {
     public static Bitmap draw_edge_from_temp_reigon_bitmap(byte[] image,byte[] temperature,int row, int col, double high_t, double low_t, int color_h, int color_l, int type) throws IOException {
         Mat src = draw_high_temp_edge(image,temperature,high_t,color_h,type);
         Mat mat = draw_temp_edge(src,temperature,low_t,color_l,type);
-        Log.e("图像",mat.toString());
+        Log.e("",mat.toString());
         Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2RGBA);
         Bitmap dstBitmap = Bitmap.createBitmap(mat.width(),mat.height(), Bitmap.Config.ARGB_8888);
         Utils.matToBitmap(mat, dstBitmap);

@@ -58,13 +58,10 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-/**
- * 公共设置页，即公共 “我的”
- * [MoreActivity] - TS004 “我的”
- * [MoreFragment] - 插件式 “我的”
- *
+ * “”
+ * [MoreActivity] - TS004 “”
+ * [MoreFragment] -  “”
  * Created by LCG on 2024/4/19.
- */
 class MineFragment : BaseFragment(), View.OnClickListener {
 
     private var _binding: FragmentMineBinding? = null
@@ -73,9 +70,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
     private var _customerBinding: LayoutCustomerBinding? = null
     private val customerBinding get() = _customerBinding!!
 
-    /**
-     * onResume() 阶段是否需要刷新登录状态相关 UI.
-     */
+     * onResume()  UI.
     private var isNeedRefreshLogin = false
 
     override fun initContentView(): Int = R.layout.fragment_mine
@@ -94,18 +89,18 @@ class MineFragment : BaseFragment(), View.OnClickListener {
         binding.settingElectronicManual.setOnClickListener(this)
         binding.settingFaq.setOnClickListener(this)
         binding.settingFeedback.setOnClickListener(this)
-        binding.settingItemUnit.setOnClickListener(this)//温度单温
+        binding.settingItemUnit.setOnClickListener(this)//
         customerBinding.dragCustomerView.setOnClickListener(this)
 
         binding.viewWinterPoint.isVisible = !SharedManager.hasClickWinter
 
-        if (BaseApplication.instance.isDomestic()) {//国内版不给切换语言
+        if (BaseApplication.instance.isDomestic()) {//
             binding.settingItemLanguage.visibility = View.GONE
         }
 
         viewLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onResume(owner: LifecycleOwner) {
-                // 要是当前已连接 TS004、TC007，切到流量上，不然登录注册意见反馈那些没网
+                //  TS004TC007
                 if (WebSocketProxy.getInstance().isConnected()) {
                     NetWorkUtils.switchNetwork(false)
                 }
@@ -147,7 +142,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            binding.ivWinter -> {//冬季特辑入口
+            binding.ivWinter -> {//
                 binding.viewWinterPoint.isVisible = false
                 SharedManager.hasClickWinter = true
                 EventBus.getDefault().post(WinterClickEvent())
@@ -177,20 +172,20 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     loginAction()
                 }
             }
-            binding.settingElectronicManual -> {//电子说明书
+            binding.settingElectronicManual -> {//
                 ARouter.getInstance().build(RouterConfig.ELECTRONIC_MANUAL).withInt(Constants.SETTING_TYPE, Constants.SETTING_BOOK).navigation(requireContext())
             }
             binding.settingFaq -> {//FAQ
                 ARouter.getInstance().build(RouterConfig.ELECTRONIC_MANUAL).withInt(Constants.SETTING_TYPE, Constants.SETTING_FAQ).navigation(requireContext())
             }
-            binding.settingFeedback -> {//意见反馈
+            binding.settingFeedback -> {//
                 if (LMS.getInstance().isLogin) {
                     val devSn = SharedManager.getDeviceSn()
                     FeedBackBean().apply {
                         logPath = logPath
                         sn = devSn
                         lastConnectSn = devSn
-                        XLog.e("bcf","sn $sn  logPath $logPath")
+                        XLog.e("bcf","sn $sn logPath $logPath")
                     }.let { feedBackBean ->
                         val intent = Intent(requireContext(), FeedbackActivity::class.java)
                         intent.putExtra(FeedbackActivity.FEEDBACKBEAN, feedBackBean)
@@ -200,19 +195,19 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     loginAction()
                 }
             }
-            binding.settingItemUnit -> {//温度单位
+            binding.settingItemUnit -> {//
                 ARouter.getInstance().build(RouterConfig.UNIT).navigation(requireContext())
             }
-            binding.settingItemVersion -> {//版本
+            binding.settingItemVersion -> {//
                 ARouter.getInstance().build(RouterConfig.VERSION).navigation(requireContext())
             }
-            binding.settingItemLanguage -> {//语言
+            binding.settingItemLanguage -> {//
                 languagePickResult.launch(Intent(requireContext(), LanguageActivity::class.java))
             }
-            binding.settingItemClear -> {//清除缓存，实际已隐藏
+            binding.settingItemClear -> {//，
                 clearCache()
             }
-            customerBinding.dragCustomerView -> {//客服
+            customerBinding.dragCustomerView -> {//
 //                ActivityUtil.goSystemCustomer(requireContext())
                 val sn = SharedManager.getDeviceSn()
                 if (!TextUtils.isEmpty(sn)) {
@@ -226,14 +221,13 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
     private fun loginAction() {
         isNeedRefreshLogin = true
-        //activityLogin()回调不可靠，但必然触发onResume()
+        //activityLogin()onResume()
         val bgBitmap = BitmapFactory.decodeResource(resources, LibAppR.mipmap.bg_default_img)
         LMS.getInstance().activityLogin(null, null, false, null, bgBitmap)
     }
 
     private fun checkLoginResult() {
         if (LMS.getInstance().isLogin) {
-            //登录成功
             LMS.getInstance().getUserInfo { userinfo: CommonBean ->
                 try {
                     val json = userinfo.data
@@ -247,17 +241,16 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                         headUrl = infoData.avatar,
                     )
 
-                    //更新ui
+                    //ui
                     changeLoginStyle()
                 } catch (e: Exception) {
-                    XLog.e(" 登录异常: ${e.message}")
+                    XLog.e(" : ${e.message}")
                 }
             }
         } else {
-            //登录失败
-            XLog.e(" 登录失败")
+            XLog.e(" ")
             changeLoginStyle()
-            binding.settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head)//恢复默认头像
+            binding.settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head)//
         }
     }
 
@@ -303,7 +296,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             binding.settingUserText.setCompoundDrawables(null, null, drawable, null)
             binding.settingUserLay.visibility = View.GONE
             binding.tvEmail.text = ""
-            binding.settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head)//恢复默认头像
+            binding.settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head)//
         }
     }
 
@@ -313,9 +306,6 @@ class MineFragment : BaseFragment(), View.OnClickListener {
         _customerBinding = null
     }
 
-    /**
-     * 清除缓存
-     */
     private fun clearCache() {
         lifecycleScope.launch {
             showLoadingDialog()
@@ -324,7 +314,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     AppDatabase.getInstance().thermalDao().deleteByUserId(SharedManager.getUserId())
                     CleanUtils.cleanExternalCache()
                 } catch (e: Exception) {
-                    XLog.w("清除缓存异常: ${e.message}")
+                    XLog.w(": ${e.message}")
                 }
                 delay(1000)
             }

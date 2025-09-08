@@ -14,14 +14,11 @@ import com.topdon.module.thermal.ir.event.MonitorSaveEvent
 import com.topdon.module.thermal.ir.event.ThermalActionEvent
 import org.greenrobot.eventbus.EventBus
 
-/**
- * 选取区域监听
- */
 @Route(path = RouterConfig.IR_THERMAL_MONITOR)
 class IRMonitorActivity : BaseActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityIrMonitorBinding
-    private var selectIndex: SelectPositionBean? = null//选取点
+    private var selectIndex: SelectPositionBean? = null//
 
     override fun initContentView() = R.layout.activity_ir_monitor
 
@@ -65,7 +62,6 @@ class IRMonitorActivity : BaseActivity(), View.OnClickListener {
                         .create().show()
                     return
                 }
-                //开始温度监听
                 ARouter.getInstance().build(RouterConfig.IR_MONITOR_CHART)
                     .withParcelable("select", selectIndex)
                     .navigation(this)

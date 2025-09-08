@@ -8,7 +8,6 @@ import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.activity.BaseIRActivity
 import com.topdon.module.thermal.ir.databinding.ActivityConnectBinding
 
-//连接设备
 @Route(path = RouterConfig.IR_THERMAL_CONNECT)
 class ConnectActivity : BaseIRActivity() {
 
@@ -23,10 +22,8 @@ class ConnectActivity : BaseIRActivity() {
         // Title handling removed as toolbar_lay doesn't support it
         val device = DeviceTools.isConnect()
         if (device == null) {
-            //未连接
             binding.bluetoothBtn.text = getString(LibAppR.string.app_no_connect)
         } else {
-            //已连接
             binding.bluetoothBtn.text = getString(LibAppR.string.app_connect)
         }
     }

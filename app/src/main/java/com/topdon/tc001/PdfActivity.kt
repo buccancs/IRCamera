@@ -12,9 +12,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
 
-/**
  * create by fylder on 2018/8/9
- **/
 @Route(path = RouterConfig.PDF)
 class PdfActivity : BaseActivity() {
 
@@ -25,7 +23,6 @@ class PdfActivity : BaseActivity() {
     override fun initView() {
         binding = ActivityPdfBinding.bind(findViewById<View>(android.R.id.content).rootView)
         
-        //本地说明书
         binding.pdfView.fromAsset(if (intent.getBooleanExtra("isTS001", false)) "TC001.pdf" else "TS004.pdf")
             .enableSwipe(true) // allows to block changing pages using swipe
             .swipeHorizontal(false)
@@ -62,7 +59,7 @@ class PdfActivity : BaseActivity() {
         window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }
 
-    //复制assets文件
+    //assets
     @Throws(IOException::class)
     private fun copyBigDataToSD(assetsName: String, targetFile: File) {
         val myOutput: OutputStream = FileOutputStream(targetFile)

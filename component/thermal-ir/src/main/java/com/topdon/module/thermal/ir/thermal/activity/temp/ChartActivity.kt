@@ -1,5 +1,4 @@
 //package com.topdon.module.thermal.ir.thermal.activity.temp
-//
 //import android.util.Log
 //import androidx.lifecycle.lifecycleScope
 //import com.alibaba.android.arouter.facade.annotation.Route
@@ -17,19 +16,14 @@ import com.csl.irCamera.libapp.R as LibAppR
 //import kotlinx.coroutines.flow.map
 //import kotlinx.coroutines.launch
 //import kotlin.math.sin
-//
 //@Route(path = RouterConfig.CHART)
 //class ChartActivity : BaseActivity() {
-//
 //    override fun initContentView() = R.layout.activity_chart
-//
 //    override fun initView() {
-//        setTitleText("图表")
-//        //初始数据
+//        setTitleText()
 //        aa_chart_view.aa_drawChartWithChartOptions(
 //            configureSpecialStyleMarkerOfSingleDataElementChart().aa_toAAOptions()
 //        )
-//        //动态更新
 //        lifecycleScope.launch {
 //            flow {
 //                repeat(40) {
@@ -44,38 +38,33 @@ import com.csl.irCamera.libapp.R as LibAppR
 //                getSeriesModel(y1.toFloat())
 //                y1
 //            }.collect {
-//                Log.w("123", "data:${dataSeries.joinToString()}")
+//                Log.w(123, data:${dataSeries.joinToString()})
 //                aa_chart_view.aa_addPointToChartSeriesElement(0, it, true)
 //            }
 //        }
 //    }
-//
 //    override fun initData() {
-//
 //    }
-//
 //    private var dataSeries = arrayOfNulls<Float>(0)
-//
 //    private fun getSeriesModel(data: Float): Array<AASeriesElement> {
 //        dataSeries = dataSeries.plus(data)
 //        return arrayOf(
 //            AASeriesElement()
-//                .name("Tokyo")
+//                .name(Tokyo)
 //                .data(dataSeries as Array<Any>)
 //        )
 //    }
-//
 //    private fun configureSpecialStyleMarkerOfSingleDataElementChart(): AAChartModel {
 //        return AAChartModel()
 //            .chartType(AAChartType.Spline)
-//            .title("监测记录")
-//            .subtitle("2021-10-20")
-//            .titleStyle(AAStyle.Companion.style("#FFFFFF"))
-//            .subtitleStyle(AAStyle.Companion.style(color = "#FFFFFF", fontSize = 12f))
-//            .backgroundColor("#3598E8")
-//            .yAxisTitle("")
-//            .axesTextColor("#FFFFFF")
-//            .dataLabelsEnabled(false)//坐标点是否显示值
+//            .title()
+//            .subtitle(2021-10-20)
+//            .titleStyle(AAStyle.Companion.style(#FFFFFF))
+//            .subtitleStyle(AAStyle.Companion.style(color = #FFFFFF, fontSize = 12f))
+//            .backgroundColor(#3598E8)
+//            .yAxisTitle()
+//            .axesTextColor(#FFFFFF)
+//            .dataLabelsEnabled(false)//
 //            .tooltipEnabled(true)
 //            .markerRadius(0f)
 //            .scrollablePlotArea(AAScrollablePlotArea().minWidth(10).minHeight(10))
@@ -84,8 +73,8 @@ import com.csl.irCamera.libapp.R as LibAppR
 //            .series(
 //                arrayOf(
 //                    AASeriesElement()
-//                        .name("vol")
-//                        .color("#FFFFFF")
+//                        .name(vol)
+//                        .color(#FFFFFF)
 //                        .lineWidth(2f)
 //                        .data(
 //                            arrayOf(
@@ -101,7 +90,7 @@ import com.csl.irCamera.libapp.R as LibAppR
 //                                13.9,
 //                                9.6
 //                            )
-//                        ).color("#FFFFFF")
+//                        ).color(#FFFFFF)
 //                )
 //            )
 //    }

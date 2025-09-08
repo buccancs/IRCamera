@@ -3,9 +3,7 @@ package com.topdon.module.thermal.ir.report.bean
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
-/**
- * 从服务器接口返回的，一页报告信息.
- */
+ * .
 @Parcelize
 data class ReportPageBean(
     val total: Int = 0,

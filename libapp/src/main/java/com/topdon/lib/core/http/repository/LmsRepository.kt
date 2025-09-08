@@ -17,9 +17,6 @@ import java.util.concurrent.CountDownLatch
 
 object LmsRepository {
 
-    /**
-     * 查看版本信息
-     */
     suspend fun getVersionInfo(): CheckVersionJson? {
         var result: CheckVersionJson? = null
         val downLatch = CountDownLatch(1)
@@ -29,7 +26,7 @@ object LmsRepository {
                     result = Gson().fromJson(it.data, CheckVersionJson::class.java)
                 }
             } catch (e: Exception) {
-                XLog.e("version json解析异常: ${e.message}")
+                XLog.e("version json: ${e.message}")
             }
             downLatch.countDown()
         }
@@ -39,9 +36,6 @@ object LmsRepository {
         return result
     }
 
-    /**
-     * 查看声明链接
-     */
     suspend fun getStatementUrl(type: String): StatementJson? {
         var result: StatementJson? = null
         val downLatch = CountDownLatch(1)
@@ -54,7 +48,7 @@ object LmsRepository {
                         result = json.data
                     }
                 } catch (e: Exception) {
-                    XLog.e("json解析异常: ${e.message}")
+                    XLog.e("json: ${e.message}")
                 }
                 downLatch.countDown()
             }

@@ -5,9 +5,7 @@ import java.util.regex.Pattern
 
 object VersionTool {
 
-    /**
      * V1.0 => 1.0
-     */
     fun getVersion(str: String): String {
         var versionStr = "1.0"
         if (str.uppercase().contains("V")) {
@@ -18,16 +16,13 @@ object VersionTool {
                 str.toFloat()
                 versionStr = str
             } catch (e: Exception) {
-                //str 不是1.01类型数据
+                //str 1.01
             }
         }
 
         return versionStr
     }
 
-    /**
-     * 检查是否需要更新最新版本
-     */
     fun checkNewVersion(serverVersionStr: String, localVersionStr: String): Boolean {
         try {
             val serverV = getVersion(serverVersionStr)
@@ -35,14 +30,12 @@ object VersionTool {
             return serverV.toFloat() > localV.toFloat()
 //            return serverV.toFloat() != localV.toFloat()
         } catch (e: Exception) {
-            XLog.e("对比固件版本异常: ${e.message}")
+            XLog.e(": ${e.message}")
             return false
         }
     }
 
-    /**
-     * 比较app版本大小
-     */
+     * app
     fun checkVersion(remoteStr: String, localStr: String): Boolean {
         try {
             val regex = "[^(0-9).]"
@@ -60,7 +53,7 @@ object VersionTool {
             }
             return result
         } catch (e: Exception) {
-            XLog.e("版本比较出错: ${e.message}, remoteStr: $remoteStr, localStr: $localStr")
+            XLog.e(": ${e.message}, remoteStr: $remoteStr, localStr: $localStr")
             return false
         }
     }

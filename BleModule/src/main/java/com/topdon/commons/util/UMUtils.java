@@ -5,13 +5,11 @@ import android.content.Context;
 import com.umeng.analytics.MobclickAgent;
 
 
-/**
- * @Desc 友盟埋点工具类
+ * @Desc
  * @ClassName UMUtils
  * @Email 616862466@qq.com
- * @Author 子墨
+ * @Author
  * @Date 2023/3/28 13:53
- */
 
 public class UMUtils {
 

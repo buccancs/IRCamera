@@ -1,15 +1,12 @@
-/*
- * Copyright (c) 2016-present 贵州纳雍穿青人李裕江<1032694760@qq.com>
- *
+ * Copyright (c) 2016-present <1032694760@qq.com>
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
  *     http://license.coscl.org.cn/MulanPSL2
- * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
+ * THIS SOFTWARE IS PROVIDED ON AN AS IS BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
  * See the Mulan PSL v2 for more details.
- */
 
 package com.github.gzuliyujiang.wheelpicker.widget;
 
@@ -30,12 +27,8 @@ import com.csl.irCamera.libui.R;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 数字滚轮控件
- *
- * @author 贵州山野羡民（1032694760@qq.com）
+ * @author 1032694760@qq.com
  * @since 2021/6/5 18:35
- */
 public class NumberWheelLayout extends OptionWheelLayout {
     private OnNumberSelectedListener onNumberSelectedListener;
 
@@ -106,18 +99,14 @@ public class NumberWheelLayout extends OptionWheelLayout {
         }
     }
 
-    /**
-     * @deprecated 使用 {@link #setRange} 代替
-     */
+     * @deprecated  {@link #setRange}
     @Deprecated
     @Override
     public void setData(List<?> data) {
         throw new UnsupportedOperationException("Use setRange instead");
     }
 
-    /**
-     * @deprecated 使用 {@link #setOnNumberSelectedListener} 代替
-     */
+     * @deprecated  {@link #setOnNumberSelectedListener}
     @Deprecated
     @Override
     public void setOnOptionSelectedListener(OnOptionSelectedListener onOptionSelectedListener) {
@@ -131,7 +120,7 @@ public class NumberWheelLayout extends OptionWheelLayout {
     public void setRange(int min, int max, int step) {
         int minValue = Math.min(min, max);
         int maxValue = Math.max(min, max);
-        // 指定初始容量，避免OutOfMemory
+        // OutOfMemory
         int capacity = (maxValue - minValue) / step;
         List<Integer> data = new ArrayList<>(capacity);
         for (int i = minValue; i <= maxValue; i = i + step) {
@@ -143,7 +132,7 @@ public class NumberWheelLayout extends OptionWheelLayout {
     public void setRange(float min, float max, float step) {
         float minValue = Math.min(min, max);
         float maxValue = Math.max(min, max);
-        // 指定初始容量，避免OutOfMemory
+        // OutOfMemory
         int capacity = (int) ((maxValue - minValue) / step);
         List<Float> data = new ArrayList<>(capacity);
         for (float i = minValue; i <= maxValue; i = i + step) {

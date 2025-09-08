@@ -17,12 +17,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.greenrobot.eventbus.EventBus
 
-/**
- *
- * 锅盖矫正
  * @author: CaiSongL
  * @date: 2023/8/4 9:06
- */
 @Route(path = RouterConfig.IR_CORRECTION_FOUR)
 class IRCorrectionFourActivity : BaseActivity() {
 
@@ -63,7 +59,6 @@ class IRCorrectionFourActivity : BaseActivity() {
 
 
         binding.timeDownView.postDelayed({
-            //开始矫正
             if (binding.timeDownView.downTimeWatcher == null){
                 binding.timeDownView.setOnTimeDownListener(object : TimeDownView.DownTimeWatcher{
                     override fun onTime(num: Int) {

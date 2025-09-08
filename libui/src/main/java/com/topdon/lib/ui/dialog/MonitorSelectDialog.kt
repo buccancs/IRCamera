@@ -9,20 +9,13 @@ import com.csl.irCamera.libui.R
 import com.csl.irCamera.libui.databinding.DialogMonitorSelectBinding
 import com.csl.irCamera.libapp.R as LibAppR
 
-/**
- * 提示窗
  * create by fylder on 2018/6/15
- **/
 class MonitorSelectDialog(context: Context) : Dialog(context, LibAppR.style.InfoDialog) {
 
     class Builder(private val context: Context) {
-        /**
-         * 是否处于第 1 步.
-         */
+         *  1 .
         private var isFirstStep = true
-        /**
-         * 当前选中的监控类型 1-点 2-线 3-面.
-         */
+         *  1- 2- 3-.
         private var monitorType = 0
 
 
@@ -43,12 +36,12 @@ class MonitorSelectDialog(context: Context) : Dialog(context, LibAppR.style.Info
             dialog.setContentView(binding.root)
 
             val lp = dialog.window!!.attributes
-            lp.width = (ScreenUtil.getScreenWidth(context) * if (ScreenUtil.isPortrait(context)) 0.85 else 0.35).toInt() //设置宽度
+            lp.width = (ScreenUtil.getScreenWidth(context) * if (ScreenUtil.isPortrait(context)) 0.85 else 0.35).toInt() //
             dialog.window!!.attributes = lp
 
             binding.btnConfirmOrBack.setOnClickListener {
-                if (isFirstStep) {//步骤1->步骤2 逻辑为“确认”
-                    if (monitorType == 0) {//还没选取类型不允许点确认
+                if (isFirstStep) {//1->2 “”
+                    if (monitorType == 0) {//
                         return@setOnClickListener
                     }
                     isFirstStep = false
@@ -57,7 +50,7 @@ class MonitorSelectDialog(context: Context) : Dialog(context, LibAppR.style.Info
                     binding.clSecondStep.visibility = View.VISIBLE
                     binding.tvTitle.text = context.getString(LibAppR.string.select_monitor_type_step2)
                     binding.btnConfirmOrBack.text = context.getString(LibAppR.string.select_monitor_return)
-                } else {//步骤2->步骤1 逻辑为“返回”
+                } else {//2->1 “”
                     isFirstStep = true
                     binding.btnCancel.visibility = View.GONE
                     binding.clFirstStep.visibility = View.VISIBLE

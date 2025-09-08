@@ -67,7 +67,7 @@ class GalleryActivity : BaseIRActivity() {
             fm,
             BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
         ) {
-            titles = arrayOf("图片", "视频")
+            titles = arrayOf("", "")
         }
 
         override fun getCount(): Int {

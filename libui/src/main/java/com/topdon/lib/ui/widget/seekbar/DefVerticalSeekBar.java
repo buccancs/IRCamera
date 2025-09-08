@@ -13,10 +13,9 @@ import static com.topdon.lib.ui.widget.seekbar.DefVerticalRangeSeekBar.DIRECTION
 import static com.topdon.lib.ui.widget.seekbar.DefVerticalRangeSeekBar.TEXT_DIRECTION_VERTICAL;
 
 
-/**
  * //                       _ooOoo_
  * //                      o8888888o
- * //                      88" . "88
+ * //                      88 . 88
  * //                      (| -_- |)
  * //                       O\ = /O
  * //                   ____/`---'\____
@@ -27,20 +26,18 @@ import static com.topdon.lib.ui.widget.seekbar.DefVerticalRangeSeekBar.TEXT_DIRE
  * //                | \_| ''\---/'' | |
  * //                 \ .-\__ `-` ___/-. /
  * //              ______`. .' /--.--\ `. . __
- * //           ."" '< `.___\_<|>_/___.' >'"".
+ * //           . '< `.___\_<|>_/___.' >'.
  * //          | | : `- \`.;`\ _ /`;.`/ - ` : | |
  * //            \ \ `-. \_ __\ /__ _/ .-` / /
  * //    ======`-.____`-.___\_____/___.-`____.-'======
  * //                       `=---='
- * //
  * //    .............................................
- * //             佛祖保佑             永无BUG
+ * //                          BUG
  * =====================================================
- * 作    者：JayGoo
- * 创建日期：2019-06-05
- * 描    述:
+ *     JayGoo
+ * 2019-06-05
+ *     :
  * =====================================================
- */
 public class DefVerticalSeekBar extends SeekBar {
 
     private int indicatorTextOrientation;

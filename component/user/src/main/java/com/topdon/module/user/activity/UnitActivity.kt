@@ -8,9 +8,6 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.user.R
 import com.topdon.module.user.databinding.ActivityUnitBinding
 
-/**
- * 温度单位切换
- */
 @Route(path = RouterConfig.UNIT)
 class UnitActivity : BaseActivity() {
 

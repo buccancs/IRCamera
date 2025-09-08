@@ -8,17 +8,13 @@ import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.lib.core.tools.ToastTools
 
-/**
  * des:
  * author: CaiSongL
  * date: 2024/8/26 19:50
- **/
 object ARouterUtil {
-    /**
-     * 统一跳转红外拍照界面 - Only TC001 supported
+     *  Only TC001 supported
      * @param activity Activity
      * @param imgPath String
-     */
     fun jumpImagePick(activity: Activity, imgPath : String){
         // Only TC001 variants are supported
         if (DeviceTools.isTC001PlusConnect()){

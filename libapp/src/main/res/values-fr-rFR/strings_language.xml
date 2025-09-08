@@ -235,13 +235,13 @@
     <string name="app_edit">Modifier</string>
     <string name="Limite_di_9carte">Choisissez pas plus de 9</string>
     <string name="app_delete_album_prompt">L\'APP n\'a pas l\'autorisation de supprimer ce fichier, veuillez accéder à l\'album du téléphone portable pour le supprimer</string>
-    <string name="app_save_image">Voulez-vous enregistrer l\'image ?</string>
+    <string name="app_save_image">Voulez-vous enregistrer l\'image ?</string>
     <string name="app_tip">Astuces</string>
     <string name="device_loading_tip">Chargement en cours…</string>
     <string name="edit_image_error_tip">Cette image manque de données de température et ne supporte pas l’édition.</string>
 
-    <!--	法语french-->
-    <!-- 2.00版本 -->
+    <!--	french-->
+    <!-- 2.00 -->
     <string name="app_lapsePhotography">Photo chronométrée</string>
     <string name="app_Manual_Shutter">Obturateur manuel</string>
     <string name="app_record_sound">Enregistrement audio</string>
@@ -502,7 +502,6 @@
 
 
 
-    <!--法语-->
 
     <string name="dual_light_correction">Correction de la lumière double</string>
     <string name="dual_light_correction_tips_1">Comme les points focaux des deux caméras ne sont pas alignés, les images capturées à différentes distances par les deux caméras ne seront pas alignées.\nCette fonction peut aider à aligner les images séparément.</string>
@@ -604,7 +603,7 @@
     <string name="ts004_faq_q5">Comment puis-je visualiser les images thermiques capturées sur un PC ?</string>
     <string name="ts004_faq_a5">Connectez le TS004 à un PC via le câble USB, et ensuite vous pourrez visualiser les images thermiques stockées sur le TS004.</string>
 
-    <!-- TC001 老 APP 引流 -->
+    <!-- TC001  APP  -->
     <string name="gallery_transfer">Transfert de la galerie</string>
     <string name="gallery_transfer_wait">Les données sont en cours de transfert. Veuillez patienter.</string>
     <string name="gallery_transfer_complete">Transfert de données terminé</string>
@@ -655,7 +654,6 @@
     <string name="wifi_connect_loading">Cela devrait prendre 15 secondes...</string>
     <string name="tc007_done_fast">Opérations fréquentes</string>
 
-    <!-- 房屋检测 -->
     <string name="main_professional_test">Tests professionnels</string>
     <string name="main_temperature_test">Tests de température</string>
     <string name="main_thermal_tips">Tests d\'imagerie thermique professionnels</string>
@@ -824,7 +822,6 @@
     <string name="abnormal_description17">La température du chauffage du rétroviseur arrière est influencée par de nombreux facteurs, tels que la température ambiante et la charge du chauffage. Surveillez la température du chauffage avec une caméra thermique, puis vous pouvez évaluer si le rétroviseur arrière peut être chauffé efficacement.</string>
     <string name="abnormal_description18">La température du moteur de la vitre est influencée par de nombreux facteurs, tels que la température ambiante et la charge du moteur. Surveillez la température du moteur avec une caméra thermique. Si la température est trop élevée, cela peut être causé par une défaillance du mécanisme de levage de la vitre ou du moteur lui-même.</string>
 
-    <!-- 房屋检测新增 -->
     <string name="vehicle_function">Function</string>
     <string name="ability_find">Découvrir</string>
     <string name="ability_monitory">Voir la température des objets en temps réel générer des données</string>

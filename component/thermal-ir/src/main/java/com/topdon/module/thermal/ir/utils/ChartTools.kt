@@ -11,12 +11,12 @@ object ChartTools {
 
     fun getLineTemps(point1: Point, point2: Point, tempArray: ByteArray, rotate: Int): List<Float> {
         val tempList: ArrayList<Float> = ArrayList()
-        if (point1 == point2) {//搞毛啊，两个相同的点
+        if (point1 == point2) {//，
             return tempList
         }
 
         val pointList: ArrayList<Point> = ArrayList()
-        if (point1.x == point2.x) {//垂直于 X 轴的直线
+        if (point1.x == point2.x) {// X
             val startY = point1.y.coerceAtMost(point2.y)
             val endY = point1.y.coerceAtLeast(point2.y)
             for (i in startY .. endY) {
@@ -25,20 +25,20 @@ object ChartTools {
         } else {
             val k = (point1.y - point2.y).toFloat() / (point1.x - point2.x).toFloat()
             val b = point1.y - k * point1.x
-            if (abs(k) <= 1) {//x轴正整数点较多
+            if (abs(k) <= 1) {//x
                 val startX = point1.x.coerceAtMost(point2.x)
                 val endX = point1.x.coerceAtLeast(point2.x)
                 for (i in startX .. endX) {
                     pointList.add(Point(i, (k * i + b).toInt()))
                 }
-            } else {//y轴正整数点较多
-                if (k >= 0) {//左上到右下
+            } else {//y
+                if (k >= 0) {//
                     val startY = point1.y.coerceAtMost(point2.y)
                     val endY = point1.y.coerceAtLeast(point2.y)
                     for (y in startY .. endY) {
                         pointList.add(Point(((y - b) / k).toInt(), y))
                     }
-                } else {//左下到右上
+                } else {//
                     val startY = point1.y.coerceAtLeast(point2.y)
                     val endY = point1.y.coerceAtMost(point2.y)
                     for (y in startY downTo endY) {
@@ -60,18 +60,17 @@ object ChartTools {
         return tempList
     }
 
-    //X数值缩放
+    //X
     fun scale(type: Int): Long {
         return when (type) {
             1 -> 1 * 1000 //s
-            2 -> 60 * 1000  //min
+            2 -> 60 * 1000 //min
             3 -> 60 * 60 * 1000 //hour
             4 -> 24 * 60 * 60 * 1000 //day
             else -> 1 //10s
         }
     }
 
-    //获取显示最小区间
     fun getMinimum(type: Int): Float {
         val min = when (type) {
             1 -> 10f //10s
@@ -83,14 +82,12 @@ object ChartTools {
         return min
     }
 
-    //获取显示最大区间，以最小区间的50倍
+    //50
     fun getMaximum(type: Int): Float {
         return getMinimum(type) * 50f
     }
 
-    /**
-     * 设置Y轴范围
-     */
+     * Y
     fun setY(chart: LineChart) {
         var maxVol = 0f
         var minVol = 0f
@@ -135,22 +132,18 @@ object ChartTools {
         Log.w("chart", "yAxis max:${chart.axisLeft.axisMaximum}, min:${chart.axisLeft.axisMinimum}")
     }
 
-    /**
-     * 设置X轴刻度
-     */
+     * X
     fun setX(chart: LineChart, type: Int) {
-        //true保证有刻度数量不变,滑动要false
+        //true,false
         val xLen = chart.xChartMax - chart.xChartMin
-//        Log.w("chart", "xLen: $xLen")
+//        Log.w(chart, xLen: $xLen)
 //        chart.xAxis.setLabelCount(getLabCount(xLen.toInt()), getLabCount(xLen.toInt()) < 3)
-//        chart.xAxis.setLabelCount(5, false) // 3点 ok
+//        chart.xAxis.setLabelCount(5, false) // 3 ok
 //        chart.xAxis.setLabelCount(5, true) //
         chart.xAxis.setLabelCount(getLabCount(xLen.toInt()), xLen <= 3)
     }
 
-    /**
-     * x轴显示多少个刻度
-     */
+     * x
     private fun getLabCount(count: Int): Int {
         return when {
             count <= 2 -> 1

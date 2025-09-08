@@ -35,19 +35,14 @@ import kotlinx.coroutines.withContext
 import java.io.File
 
 
-/**
- * 需要传递
- * - 是否 TC007: [ExtraKeyConfig.IS_TC007]
+ * TC007: [ExtraKeyConfig.IS_TC007]
  * @author: CaiSongL
  * @date: 2023/5/12 11:34
- */
 @Route(path = RouterConfig.REPORT_LIST)
 class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
 
-    /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
-     */
+     * TC007 .
+     * true-TC007 false
     private var isTC007 = false
 
     var page = 1
@@ -80,7 +75,6 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
             }
             it?.let {data->
                 if (page == 1) {
-                    //刷新
                     if (data.code == LMS.SUCCESS){
                         reportAdapter.loadMoreModule.isEnableLoadMore = !data.data?.records.isNullOrEmpty()
                         binding.fragmentPdfRecyclerLay.finishRefresh()
@@ -117,7 +111,6 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
     private fun initRecycler() {
         binding.fragmentPdfRecycler.layoutManager = LinearLayoutManager(this)
         binding.fragmentPdfRecyclerLay.setOnRefreshListener {
-            //刷新
             page = 1
             viewModel.getReportData(isTC007, page)
         }
@@ -125,7 +118,6 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
         reportAdapter.loadMoreModule.loadMoreView = CommLoadMoreView()
         binding.fragmentPdfRecyclerLay.autoRefresh()
         reportAdapter.loadMoreModule.setOnLoadMoreListener {
-            //加载更多
             viewModel.getReportData(isTC007, ++page)
         }
         reportAdapter.jumpDetailListener = {item, position ->
@@ -147,7 +139,7 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
                             params.addBodyParameter("modelId", if (isTC007) 1783 else 950) //TC001-950, TC002-951, TC003-952 TC007-1783
                             params.addBodyParameter("testReportIds", arrayOf(item.testReportId))
                             params.addBodyParameter("status", 1)
-                            params.addBodyParameter("languageId",  LanguageUtil.getLanguageId(Utils.getApp()))
+                            params.addBodyParameter("languageId", LanguageUtil.getLanguageId(Utils.getApp()))
                             params.addBodyParameter("reportType", 2)
                             HttpProxy.instant.post(url,params, object :
                                 IResponseCallback {
@@ -157,7 +149,7 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
                                     if (file.exists()) {
                                         file.delete()
                                     }
-                                    Log.w("删除成功",response.toString())
+                                    Log.w("",response.toString())
                                 }
 
                                 override fun onFail(exception: Exception?) {

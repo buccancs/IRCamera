@@ -10,12 +10,8 @@ import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.databinding.ActivityIrCorrectionThreeBinding
 import com.topdon.module.thermal.ir.fragment.IRCorrectionFragment
 
-/**
- *
- * 锅盖矫正
  * @author: CaiSongL
  * @date: 2023/8/4 9:06
- */
 @Route(path = RouterConfig.IR_CORRECTION_THREE)
 class IRCorrectionThreeActivity : BaseActivity() {
 

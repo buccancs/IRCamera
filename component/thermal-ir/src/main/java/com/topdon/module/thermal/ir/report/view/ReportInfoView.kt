@@ -12,9 +12,7 @@ import com.topdon.module.thermal.ir.report.bean.ReportConditionBean
 import com.topdon.module.thermal.ir.report.bean.ReportInfoBean
 import com.topdon.module.thermal.ir.databinding.ViewReportInfoBinding
 
-/**
- * 报告信息 - 预览 View.
- */
+ *  View.
 class ReportInfoView: LinearLayout {
 
     private val binding: ViewReportInfoBinding
@@ -27,9 +25,7 @@ class ReportInfoView: LinearLayout {
         binding = ViewReportInfoBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    /**
-     * 根据指定的报告信息刷新对应 View.
-     */
+     *  View.
     fun refreshInfo(reportInfoBean: ReportInfoBean?) {
         binding.tvReportName.text = reportInfoBean?.report_name
 
@@ -43,9 +39,7 @@ class ReportInfoView: LinearLayout {
         binding.tvReportDate.text = reportInfoBean?.report_date
     }
 
-    /**
-     * 根据指定的检测条件信息刷新对应 View.
-     */
+     *  View.
     fun refreshCondition(conditionBean: ReportConditionBean?) {
         binding.clReportCondition.isVisible = conditionBean?.is_ambient_humidity == 1
                 || conditionBean?.is_ambient_temperature == 1
@@ -69,9 +63,7 @@ class ReportInfoView: LinearLayout {
         binding.tvEmissivity.text = conditionBean?.emissivity
     }
 
-    /**
-     * 获取需要转为 PDF 的所有 View 列表.
-     */
+     *  PDF  View .
     fun getPrintViewList(): ArrayList<View> {
         val result = ArrayList<View>()
         result.add(binding.clTop)

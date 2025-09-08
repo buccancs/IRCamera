@@ -25,24 +25,24 @@ import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.lib.ui.listener.SingleClickListener
 
 
-@Deprecated("旧的设置菜单，已重构过了")
+@Deprecated("，")
 @SuppressLint("NotifyDataSetChanged")
 class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
     var listener: ((index: Int, code: Int) -> Unit)? = null
 
-    private var colorEnable = false //伪彩条
-    private var contrastEnable = false //对比度
-    private var ddeEnable = false //细节
-    private var alarmEnable = false //预警
-    private var textColorEnable = false //字体
-    private var mirrorEnable = false //镜像
-    private var waterMarkEnable = false //水印
-    private var compassEnable = false //指南针
+    private var colorEnable = false //
+    private var contrastEnable = false //
+    private var ddeEnable = false //
+    private var alarmEnable = false //
+    private var textColorEnable = false //
+    private var mirrorEnable = false //
+    private var waterMarkEnable = false //
+    private var compassEnable = false //
 
 
-    private var rotateAngle = DeviceConfig.S_ROTATE_ANGLE //校对默认角度0
+    private var rotateAngle = DeviceConfig.S_ROTATE_ANGLE //0
     fun selectRotate(rotateAngle: Int) {
         this.rotateAngle = rotateAngle
         notifyDataSetChanged()
@@ -84,14 +84,11 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
         notifyDataSetChanged()
     }
 
-    /**
-     * 不知道干嘛的
-     * 参数 [Constants.IR_TEMPERATURE_MODE] = 1 测温模式   伪彩条、对比度、锐度、警示、旋转、字体、镜像
-     * 参数 [Constants.IR_TCPLUS_MODE] = 5 双光设备        伪彩条、对比度、锐度、警示、旋转、字体、
-     * 参数 [Constants.IR_TEMPERATURE_LITE] = 7 Lite设备  伪彩条、对比度、警示、旋转、字体、镜像
-     * else - 2D编辑菜单                                  警示、字体、水印
-     * 参数 [Constants.IR_OBSERVE_MODE] = 2 观测模式  指南针、旋转、镜像、对比度
-     */
+     *  [Constants.IR_TEMPERATURE_MODE] = 1
+     *  [Constants.IR_TCPLUS_MODE] = 5
+     *  [Constants.IR_TEMPERATURE_LITE] = 7 Lite
+     * else - 2D
+     *  [Constants.IR_OBSERVE_MODE] = 2
     fun setShowMenuFour(modeType: Int){
         fourBean.clear()
         when (modeType) {
@@ -154,7 +151,7 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, @SuppressLint("RecyclerView") position: Int) {
         if (holder is ItemView) {
-            //更新切换Tab的item宽度
+            //Tabitem
             updateViewWidth(holder.itemView,holder.img)
             val bean = fourBean[position]
             holder.name.text = bean.name
@@ -226,7 +223,6 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
         }
     }
 
-    // 状态变化
     private fun iconUI(isActive: Boolean, img: ImageView, nameText: TextView) {
         img.isSelected = isActive
         if (isActive) {
@@ -249,8 +245,8 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
             itemView.layoutParams =
                 ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         }
-//        if (fourBean.size <= 4) {  //item少于4个，每个占1/4
-//            val canSeeCount = fourBean.size //一屏占4个
+//        if (fourBean.size <= 4) {  //item41/4
+//            val canSeeCount = fourBean.size //4
 //            val with = (ScreenUtils.getScreenWidth() / canSeeCount)
 //            itemView.layoutParams =
 //                ViewGroup.LayoutParams(with, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -259,8 +255,8 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
 //            layoutParams.width = imageSize
 //            layoutParams.height = imageSize
 //            itemMenu.layoutParams = layoutParams
-//        } else {    //item大于4个，每屏4.5个item
-//            val canSeeCount = 4.5 //一屏占4个
+//        } else {    //item44.5item
+//            val canSeeCount = 4.5 //4
 //            val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()
 //            itemView.layoutParams =
 //                ConstraintLayout.LayoutParams(with, ConstraintLayout.LayoutParams.WRAP_CONTENT)

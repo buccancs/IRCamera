@@ -240,8 +240,8 @@
     <string name="device_loading_tip">Caricamento in corso…</string>
     <string name="edit_image_error_tip">L’immagine manca di dati sulla temperatura e non supporta l’editing.</string>
 
-    <!--	意大利语italian-->
-    <!-- 2.00版本 -->
+    <!--	italian-->
+    <!-- 2.00 -->
     <string name="app_lapsePhotography">Foto con cronometro</string>
     <string name="app_Manual_Shutter">Scatto manuale</string>
     <string name="app_record_sound">Registra audio</string>
@@ -499,7 +499,6 @@
     <string name="installation_package_downloading_tips">Il download è iniziato. Controlla il progresso nelle notifiche.</string>
     <string name="welcome_use_app">Benvenuto in %1$s</string>
 
-    <!--意大利语-->
 
     <string name="dual_light_correction">Correzione Luminosa Duale</string>
     <string name="dual_light_correction_tips_1">Poiché i punti di fuoco delle due telecamere non sono allineati, le immagini catturate da distanze diverse non saranno allineate.\nQuesta funzione può aiutare nell\'allineamento dell\'immagine separatamente.</string>
@@ -602,7 +601,7 @@
     <string name="ts004_faq_q5">Come posso visualizzare le immagini termiche catturate su un PC?</string>
     <string name="ts004_faq_a5">Collega TS004 a un PC tramite il cavo USB e potrai visualizzare le immagini termiche archiviate su TS004.</string>
 
-    <!-- TC001 老 APP 引流 -->
+    <!-- TC001  APP  -->
     <string name="gallery_transfer">Trasferimento galleria</string>
     <string name="gallery_transfer_wait">I dati sono in fase di trasferimento. Per favore attendi.</string>
     <string name="gallery_transfer_complete">Trasferimento dati completato.</string>
@@ -653,7 +652,6 @@
     <string name="wifi_connect_loading">Si prevede che dureranno 15 secondi...</string>
     <string name="tc007_done_fast">Operazioni frequenti</string>
 
-    <!-- 房屋检测 -->
     <string name="main_professional_test">Test Professionale</string>
     <string name="main_temperature_test">Test di Temperatura</string>
     <string name="main_thermal_tips">Test di Termografia Professionale</string>
@@ -822,7 +820,6 @@
     <string name="abnormal_description17">La temperatura del riscaldatore dello specchietto retrovisore è influenzata da molti fattori, come la temperatura ambiente e il carico del riscaldatore. Monitorare la temperatura del riscaldatore con una termocamera e quindi valutare se lo specchietto retrovisore può essere riscaldato efficacemente.</string>
     <string name="abnormal_description18">La temperatura del motore del finestrino è influenzata da molti fattori, come la temperatura ambiente e il carico del motore. Monitorare la temperatura del motore con una termocamera. Se la temperatura è troppo alta, potrebbe essere causata dal guasto del meccanismo di sollevamento del finestrino o dal motore stesso.</string>
 
-    <!-- 房屋检测新增 -->
     <string name="vehicle_function">Funzione</string>
     <string name="ability_find">trova</string>
     <string name="ability_monitory">Visualizzazione in tempo reale della temperatura dell\'oggetto per generare dati</string>

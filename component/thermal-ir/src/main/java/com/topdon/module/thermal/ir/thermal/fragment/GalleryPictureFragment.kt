@@ -19,9 +19,6 @@ import com.topdon.module.thermal.ir.databinding.FragmentGalleryPictureBinding
 import java.io.File
 
 
-/**
- * 图片
- */
 class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
 
     private val adapter by lazy { GalleryAdapter(requireContext()) }
@@ -52,8 +49,8 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
             }
 
             override fun onLongClick(index: Int, path: String) {
-                TipDialog.Builder(requireContext()).setMessage("导出图片")
-                    .setPositiveListener("分享") {
+                TipDialog.Builder(requireContext()).setMessage("")
+                    .setPositiveListener("") {
                         share(path)
                     }
 
@@ -73,14 +70,11 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
         viewModel.getData()
     }
 
-    /**
-     * 分享图片
-     */
     fun share(path: String) {
         val file = File(path)
         var intent = Intent()
-        intent.action = Intent.ACTION_SEND //设置分享行为
-        intent.type = "image/*" //设置分享内容的类型
+        intent.action = Intent.ACTION_SEND //
+        intent.type = "image/*" //
         val uri: Uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             val authority = "${requireContext().packageName}.fileprovider"
             FileProvider.getUriForFile(requireContext(), authority, file)
@@ -88,15 +82,15 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
             Uri.fromFile(file)
         }
         intent.putExtra(Intent.EXTRA_STREAM, uri)
-        intent = Intent.createChooser(intent, "分享图片")
+        intent = Intent.createChooser(intent, "")
         startActivity(intent)
     }
 
     fun previewPicture(path: String) {
         val imageEngine = GlideImageEngine()
-        MNImageBrowser.with(context) //当前位置
-            .setCurrentPosition(0) //图片引擎
-            .setImageEngine(imageEngine) //图片集合
+        MNImageBrowser.with(context) //
+            .setCurrentPosition(0) //
+            .setImageEngine(imageEngine) //
             .setImageUrl(path)
             .show()
     }

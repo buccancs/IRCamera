@@ -240,8 +240,8 @@
     <string name="app_tip">Dicas</string>
     <string name="device_loading_tip">Carregando…</string>
 
-    <!--	葡萄牙语portugues-->
-    <!-- 2.00版本 -->
+    <!--	portugues-->
+    <!-- 2.00 -->
     <string name="app_lapsePhotography">Foto Temporizada</string>
     <string name="app_Manual_Shutter">Obturador Manual</string>
     <string name="app_record_sound">Gravar Áudio</string>
@@ -497,7 +497,6 @@
     <string name="installation_package_downloading_tips">Começando a baixar Por favor, verifique o progresso nas Notificações</string>
     <string name="welcome_use_app">Bem-vindo a %1$s</string>
 
-    <!--葡萄牙语-->
 
     <string name="dual_light_correction">Correção de Luz Dupla</string>
     <string name="dual_light_correction_tips_1">Como os focos das duas câmeras não estão alinhados, as imagens capturadas de diferentes distâncias pelas duas câmeras não estarão alinhadas.\nEsta função pode ajudar com o alinhamento de imagem separadamente.</string>
@@ -602,7 +601,7 @@
     <string name="ts004_faq_q5">Como posso ver as imagens térmicas capturadas em um PC?</string>
     <string name="ts004_faq_a5">Conecte o TS004 a um PC usando o cabo USB, e então você poderá visualizar as imagens térmicas armazenadas no TS004.</string>
 
-    <!-- TC001 老 APP 引流 -->
+    <!-- TC001  APP  -->
     <string name="gallery_transfer">Transferência de Galeria</string>
     <string name="gallery_transfer_wait">Os dados estão sendo transferidos. Por favor, espere.</string>
     <string name="gallery_transfer_complete">Transferência de Dados Concluída</string>
@@ -653,7 +652,6 @@
     <string name="wifi_connect_loading">A previsão é de 15s...</string>
     <string name="tc007_done_fast">Operações frequentes</string>
 
-    <!-- 房屋检测 -->
     <string name="main_professional_test">Teste Profissional</string>
     <string name="main_temperature_test">Teste de Temperatura</string>
     <string name="main_thermal_tips">Teste de Imagem Térmica Profissional</string>
@@ -822,7 +820,6 @@
     <string name="abnormal_description17">A temperatura do aquecedor do vidro traseiro é afetada por diversos fatores, como a temperatura ambiente, e a carga do aquecedor. Monitore a temperatura do aquecedor com um sensor de imagem térmica, e então você poderá analisar se o vidro traseiro pode ser aquecido de maneira eficaz.</string>
     <string name="abnormal_description18">A temperatura do motor da janela é afetada por diversos fatores, tais como a temperatura ambiente, e a carga do motor. Monitore a temperatura do motor com um sensor de imagem térmica. Caso a temperatura esteja muito alta, isso pode ser causado por uma falha no mecanismo de levantamento da janela ou pelo próprio motor.</string>
 
-    <!-- 房屋检测新增 -->
     <string name="vehicle_function">Função</string>
     <string name="ability_find">encontrar</string>
     <string name="ability_monitory">Visualização em tempo real da temperatura do objeto para gerar dados</string>

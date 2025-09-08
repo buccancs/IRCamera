@@ -38,7 +38,6 @@ class ThermalActivity : BaseIRActivity() {
         BarUtils.setNavBarColor(window, blackColor)
         initRecycler()
         binding.thermalTab.onTabClickListener = { view ->
-            //一级菜单选择
             showRecycler(view.selectPosition)
         }
     }
@@ -53,7 +52,6 @@ class ThermalActivity : BaseIRActivity() {
         binding.thermalRecycler.initType(1)
         menuAdapter.listener = object : MenuTabAdapter.OnItemClickListener {
             override fun onClick(index: Int) {
-                //二级菜单选择
                 Log.w("123", "index: $index")
                 EventBus.getDefault().post(ThermalActionEvent(action = index))
             }

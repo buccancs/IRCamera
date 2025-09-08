@@ -29,10 +29,9 @@ class LogViewModel : BaseViewModel() {
             var endTime = 0L
             when (selectType) {
                 1 -> {
-                    Log.w("123", "查询秒")
-                    //秒
+                    Log.w("123", "")
                     endTime = Date().time
-                    startTime = endTime - 7200 * 1000L //2小时
+                    startTime = endTime - 7200 * 1000L //2
                     Log.w("123", "query startTime:$startTime, endTime:$endTime")
                     dataList = AppDatabase.getInstance().thermalDao()
                         .getThermalByDate(
@@ -43,7 +42,6 @@ class LogViewModel : BaseViewModel() {
                     Log.w("123", "data size: ${dataList.size}")
                 }
                 2 -> {
-                    //分
                     endTime = Date().time
                     startTime = endTime - 7200 * 60 * 1000L
                     dataList = AppDatabase.getInstance().thermalDao()
@@ -54,7 +52,6 @@ class LogViewModel : BaseViewModel() {
                         ) as ArrayList<ThermalEntity>
                 }
                 3 -> {
-                    //时
                     endTime = Date().time
                     startTime = endTime - 7200 * 60 * 60 * 1000L
                     dataList = AppDatabase.getInstance().thermalDao()
@@ -65,7 +62,6 @@ class LogViewModel : BaseViewModel() {
                         ) as ArrayList<ThermalEntity>
                 }
                 else -> {
-                    //天
                     dataList = AppDatabase.getInstance().thermalDao()
                         .getAllThermalByDate(SharedManager.getUserId()) as ArrayList<ThermalEntity>
                 }
@@ -80,11 +76,8 @@ class LogViewModel : BaseViewModel() {
         }
     }
 
-    /**
-     * 第一项实时图表的历史记录查询
-     * 查询历史电压数据(等待蓝牙传输历史记录结束后触发)
-     * 时间区间: 现在时间 => 倒退到开始事件
-     */
+     * ()
+     * :  =>
     suspend fun queryLogThermals(
         selectTimeType: Int,
         endLogTime: Long = System.currentTimeMillis(),
@@ -93,22 +86,19 @@ class LogViewModel : BaseViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             val userId = SharedManager.getUserId()
             val bean = ChartList()
-            //查询之前先同步数据
             val job = async { syncVol(selectTimeType) }
             job.await()
-            syncRun = false//同步结束
+            syncRun = false//
             val startLogTime = when (selectTimeType) {
-                /**
-                 * 7200数据
-                 * 秒:2小时
-                 * 分:5天
-                 * 时:300天
-                 * 天:20年
-                 */
-                1 -> endLogTime - 7200 * 1000L //秒(2小时)
-                2 -> endLogTime - 7200 * 60 * 1000L //分(5天)
-                3 -> endLogTime - 7200 * 60 * 60 * 1000L //时(300天)
-                4 -> endLogTime - 1 * 365 * 24 * 60 * 60 * 1000L //天(1年)
+                 * 7200
+                 * :2
+                 * :5
+                 * :300
+                 * :20
+                1 -> endLogTime - 7200 * 1000L //(2)
+                2 -> endLogTime - 7200 * 60 * 1000L //(5)
+                3 -> endLogTime - 7200 * 60 * 60 * 1000L //(300)
+                4 -> endLogTime - 1 * 365 * 24 * 60 * 60 * 1000L //(1)
                 else -> endLogTime - 7200 * 1000L
             }
             when (selectTimeType) {
@@ -131,8 +121,8 @@ class LogViewModel : BaseViewModel() {
                             startTime = startLogTime,
                             endTime = endLogTime
                         ) ?: 0f
-                    Log.w("chart", "电压数据:${bean.dataList.size}")
-                    Log.w("chart", "电压数据max vol:${bean.maxVol},min vol:${bean.minVol}")
+                    Log.w("chart", ":${bean.dataList.size}")
+                    Log.w("chart", "max vol:${bean.maxVol},min vol:${bean.minVol}")
                 }
                 2 -> {
                     bean.dataList = AppDatabase.getInstance().thermalDao()
@@ -153,8 +143,8 @@ class LogViewModel : BaseViewModel() {
                             startTime = startLogTime,
                             endTime = endLogTime
                         ) ?: 0f
-                    Log.w("chart", "电压数据:${bean.dataList.size}")
-                    Log.w("chart", "电压数据max vol:${bean.maxVol},min vol:${bean.minVol}")
+                    Log.w("chart", ":${bean.dataList.size}")
+                    Log.w("chart", "max vol:${bean.maxVol},min vol:${bean.minVol}")
                 }
                 3 -> {
                     bean.dataList = AppDatabase.getInstance().thermalDao()
@@ -175,8 +165,8 @@ class LogViewModel : BaseViewModel() {
                             startTime = startLogTime,
                             endTime = endLogTime
                         ) ?: 0f
-                    Log.w("chart", "电压数据:${bean.dataList.size}")
-                    Log.w("chart", "电压数据max vol:${bean.maxVol},min vol:${bean.minVol}")
+                    Log.w("chart", ":${bean.dataList.size}")
+                    Log.w("chart", "max vol:${bean.maxVol},min vol:${bean.minVol}")
                 }
                 4 -> {
                     bean.dataList = AppDatabase.getInstance().thermalDao()
@@ -197,8 +187,8 @@ class LogViewModel : BaseViewModel() {
                             startTime = startLogTime,
                             endTime = endLogTime
                         ) ?: 0f
-                    Log.w("chart", "电压数据:${bean.dataList.size}")
-                    Log.w("chart", "电压数据max vol:${bean.maxVol},min vol:${bean.minVol}")
+                    Log.w("chart", ":${bean.dataList.size}")
+                    Log.w("chart", "max vol:${bean.maxVol},min vol:${bean.minVol}")
                 }
             }
             bean.action = action
@@ -211,11 +201,8 @@ class LogViewModel : BaseViewModel() {
         }
     }
 
-    /**
-     * 第二项历史记录查询
-     * 查询历史电压数据(等待蓝牙传输历史记录结束后触发)
-     * 时间区间: 初始时间 => 推进到结束事件
-     */
+     * ()
+     * :  =>
     suspend fun queryLogVolsByStartTime(
         type: Int = 3,
         selectTimeType: Int,
@@ -230,33 +217,30 @@ class LogViewModel : BaseViewModel() {
                     else -> "fence"
                 }
                 val bean = ChartList()
-                //查询之前先同步数据
                 val job = async { syncVol(selectTimeType) }
                 job.await()
-                syncRun = false//同步结束
+                syncRun = false//
                 val startLogTime = when (selectTimeType) {
-                    /**
-                     * 7200数据
-                     * 秒:2小时
-                     * 分:5天
-                     * 时:300天
-                     * 天:20年
-                     */
-//                1 -> startLogTime + 2 * 60 * 60 * 1000L //秒(2小时)
-//                2 -> startLogTime + 24 * 60 * 60 * 1000L //分(1天)
-//                3 -> startLogTime + 30 * 24 * 60 * 60 * 1000L //时(30天)
-//                4 -> startLogTime + 1 * 365 * 24 * 60 * 60 * 1000L //天(1年)
+                     * 7200
+                     * :2
+                     * :5
+                     * :300
+                     * :20
+//                1 -> startLogTime + 2 * 60 * 60 * 1000L //(2)
+//                2 -> startLogTime + 24 * 60 * 60 * 1000L //(1)
+//                3 -> startLogTime + 30 * 24 * 60 * 60 * 1000L //(30)
+//                4 -> startLogTime + 1 * 365 * 24 * 60 * 60 * 1000L //(1)
 
-//                1 -> startLogTime + 7200 * 1000L //秒(2小时)
-//                2 -> startLogTime + 7200 * 60 * 1000L //分(5天)
-//                3 -> startLogTime + 7200 * 60 * 60 * 1000L //时(300天)
-//                4 -> startLogTime + 1 * 365 * 24 * 60 * 60 * 1000L //天(1年)
+//                1 -> startLogTime + 7200 * 1000L //(2)
+//                2 -> startLogTime + 7200 * 60 * 1000L //(5)
+//                3 -> startLogTime + 7200 * 60 * 60 * 1000L //(300)
+//                4 -> startLogTime + 1 * 365 * 24 * 60 * 60 * 1000L //(1)
 //                else -> startLogTime + 7200 * 1000L
 
-                    1 -> endLogTime - 7200 * 1000L //秒(2小时)
-                    2 -> endLogTime - 7200 * 60 * 1000L //分(5天)
-                    3 -> endLogTime - 7200 * 60 * 60 * 1000L //时(300天)
-                    4 -> endLogTime - 10 * 365 * 24 * 60 * 60 * 1000L //天(10年)
+                    1 -> endLogTime - 7200 * 1000L //(2)
+                    2 -> endLogTime - 7200 * 60 * 1000L //(5)
+                    3 -> endLogTime - 7200 * 60 * 60 * 1000L //(300)
+                    4 -> endLogTime - 10 * 365 * 24 * 60 * 60 * 1000L //(10)
                     else -> endLogTime - 7200 * 1000L
                 }
                 when (selectTimeType) {
@@ -282,7 +266,7 @@ class LogViewModel : BaseViewModel() {
                                 endTime = endLogTime,
                                 type = typeStr
                             ) ?: 0f
-                        Log.w("chart", "电压数据:${bean.dataList.size}")
+                        Log.w("chart", ":${bean.dataList.size}")
                     }
                     2 -> {
                         bean.dataList = AppDatabase.getInstance().thermalDao()
@@ -306,7 +290,7 @@ class LogViewModel : BaseViewModel() {
                                 endTime = endLogTime,
                                 type = typeStr
                             ) ?: 0f
-                        Log.w("chart", "电压数据:${bean.dataList.size}")
+                        Log.w("chart", ":${bean.dataList.size}")
                     }
                     3 -> {
                         bean.dataList = AppDatabase.getInstance().thermalDao()
@@ -330,7 +314,7 @@ class LogViewModel : BaseViewModel() {
                                 endTime = endLogTime,
                                 type = typeStr
                             ) ?: 0f
-                        Log.w("chart", "电压数据:${bean.dataList.size}")
+                        Log.w("chart", ":${bean.dataList.size}")
                     }
                     4 -> {
                         bean.dataList = AppDatabase.getInstance().thermalDao()
@@ -354,22 +338,20 @@ class LogViewModel : BaseViewModel() {
                                 endTime = endLogTime,
                                 type = typeStr
                             ) ?: 0f
-                        Log.w("chart", "电压数据:${bean.dataList.size}")
+                        Log.w("chart", ":${bean.dataList.size}")
                     }
                 }
                 delay(500)
                 resultLiveData.postValue(bean)
             } catch (e: Exception) {
-                XLog.e("数据查询异常:${e.message}")
+                XLog.e(":${e.message}")
                 resultLiveData.postValue(ChartList())
             }
         }
     }
 
 
-    /**
-     * @param type 1:秒 2:分 3:时 4:天
-     */
+     * @param type 1: 2: 3: 4:
     private fun getNewVolData(data: List<ThermalEntity>, type: Int = 2): ArrayList<ThermalEntity> {
         val newData: ArrayList<ThermalEntity> = arrayListOf()
         var startIndex = 0
@@ -377,7 +359,6 @@ class LogViewModel : BaseViewModel() {
         for (i in data.indices) {
             if (i == 0) {
                 if (i == data.size - 1) {
-                    //默认整个区间
                     addData(data, newData, 0, endIndex)
                 }
             } else {
@@ -385,32 +366,24 @@ class LogViewModel : BaseViewModel() {
                 val currencyTime = TimeTool.showDateType(data[i].createTime, type)
                 val previewTime = TimeTool.showDateType(data[i - 1].createTime, type)
                 if (i == data.size - 1) {
-                    //最后一个值
                     if (currencyTime != previewTime) {
-                        //同时计算上一个区间和当前最后一个区间
-                        //最后上一个区间
                         endIndex = i - 1
                         addData(data, newData, startIndex, endIndex)
                         startIndex = i
-                        //最后一个区间
                         endIndex = i
                         addData(data, newData, startIndex, endIndex)
                     } else {
                         endIndex = i
                         if (newData.size == 0) {
-                            //默认整个区间
                             addData(data, newData, 0, endIndex)
                         } else {
-                            //最后一个区间
                             addData(data, newData, startIndex, endIndex)
                         }
                     }
                 } else {
                     if (currencyTime != previewTime) {
-                        //计算上一个区间
                         endIndex = i - 1
                         addData(data, newData, startIndex, endIndex)
-                        //新时间段
                         startIndex = i
                     }
                 }
@@ -419,7 +392,6 @@ class LogViewModel : BaseViewModel() {
         return newData
     }
 
-    //计算平均值
     private fun addData(
         data: List<ThermalEntity>,
         newData: ArrayList<ThermalEntity>,
@@ -435,30 +407,25 @@ class LogViewModel : BaseViewModel() {
             tempMax += data[x].thermalMax
             tempMin += data[x].thermalMin
         }
-        //tempVol:0f    startIndex:2    endIndex:1 会出现vol:NaN
-        tempVolEntity.thermal = temp / (endIndex - startIndex + 1)//区间电压平均值
-        tempVolEntity.thermalMax = tempMax / (endIndex - startIndex + 1)//区间电压平均值
-        tempVolEntity.thermalMin = tempMin / (endIndex - startIndex + 1)//区间电压平均值
+        //tempVol:0f    startIndex:2    endIndex:1 vol:NaN
+        tempVolEntity.thermal = temp / (endIndex - startIndex + 1)//
+        tempVolEntity.thermalMax = tempMax / (endIndex - startIndex + 1)//
+        tempVolEntity.thermalMin = tempMin / (endIndex - startIndex + 1)//
         newData.add(tempVolEntity)
     }
 
     @Volatile
     private var syncRun = false
 
-    /**
-     * 同步数据
-     * 最早时间: 1609430400000 (2021-1-1 00:00:00)
-     *
-     * 1. 查询保存记录的最新时间
-     * 2. 获取要更新的时间段数据[最新数据 ~ 最新一个时间区间的起始点]
-     * 3. 秒数据转分数据的平均值
-     * 4. 添加到分数据库
-     * 5. 删除多余的数据
-     */
+     * : 1609430400000 (2021-1-1 00:00:00)
+     * 1.
+     * 2. [ ~ ]
+     * 3.
+     * 4.
+     * 5.
     private suspend fun syncVol(selectTimeType: Int) {
         Log.i("chart", "syncVol: $syncRun")
         if (syncRun) {
-            //有任务正在执行
             return
         }
         Log.i("chart", "syncVol start")

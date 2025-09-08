@@ -15,10 +15,8 @@ import java.nio.ByteBuffer;
 
 import static com.example.opengl.render.IROpen3DTools.IntArrayToByteArray;
 
-/**
  * @author: CaiSongL
  * @date: 2023/8/18 11:45
- */
 public class ImageColorTools {
 
     static {
@@ -78,9 +76,7 @@ public class ImageColorTools {
         long startTimeAll = System.currentTimeMillis();
         int j = 0;
         int imageDstLength = imageDst.length;
-        // 遍历像素点，过滤温度阈值
         for (int index = 0; index < imageDstLength; ) {
-            // 温度换算公式
             float temperature0 = (temperature[j] & 0xff) + (temperature[j + 1] & 0xff) * 256;
             temperature0 = (float) (temperature0 / 64 - 273.15);
             if (temperature0 >= customMinTemp && temperature0 <= customMaxTemp) {
@@ -95,7 +91,7 @@ public class ImageColorTools {
             index += 4;
             j += 2;
         }
-//        Log.e("执行耗时：",System.currentTimeMillis() - time+"//");
+//        Log.e(,System.currentTimeMillis() - time+//);
         // Convert OpenCV Mat to Android Bitmap
         Bitmap outputBitmap = Bitmap.createBitmap(256, 192, Bitmap.Config.ARGB_8888);
         outputBitmap.copyPixelsFromBuffer(ByteBuffer.wrap(imageDst));
@@ -198,7 +194,7 @@ public class ImageColorTools {
                 }
             }
         }
-        Log.e("执行耗时：",System.currentTimeMillis() - time+"//");
+        Log.e("：",System.currentTimeMillis() - time+"//");
 //        Imgproc.cvtColor(imageColor, imageColor, Imgproc.COLOR_BGR2RGBA);
 //        byte[] imageDst = matToByteArray(imageColor);
 //        Bitmap outputBitmap = Bitmap.createBitmap(imageColor.width(),
@@ -274,26 +270,23 @@ public class ImageColorTools {
 //                            int rColor = (r[m] >= r[m + 1])
 //                                    ? rMax - (int) (((float) (rMax - rMin) / (tempt[m + 1] - tempt[m])) * (srcValue - tempt[m]))
 //                                    : (int) (((float) (rMax - rMin) / (tempt[m + 1] - tempt[m])) * (srcValue - tempt[m]) + rMin);
-//
 //                            int gMax = Math.max(g[m], g[m + 1]);
 //                            int gMin = Math.min(g[m], g[m + 1]);
 //                            int gColor = (g[m] >= g[m + 1])
 //                                    ? gMax - (int) (((float) (gMax - gMin) / (tempt[m + 1] - tempt[m])) * (srcValue - tempt[m]))
 //                                    : (int) (((float) (gMax - gMin) / (tempt[m + 1] - tempt[m])) * (srcValue - tempt[m]) + gMin);
-//
 //                            int bMax = Math.max(b[m], b[m + 1]);
 //                            int bMin = Math.min(b[m], b[m + 1]);
 //                            int bColor = (b[m] >= b[m + 1])
 //                                    ? bMax - (int) (((float) (bMax - bMin) / (tempt[m + 1] - tempt[m])) * (srcValue - tempt[m]))
 //                                    : (int) (((float) (bMax - bMin) / (tempt[m + 1] - tempt[m])) * (srcValue - tempt[m]) + bMin);
-//
 //                            imageColor.put(i, j, bColor, gColor, rColor);
 //                        }
 //                    }
 //                }
 //            }
 //        }
-        Log.e("执行耗时：",System.currentTimeMillis() - time+"//");
+        Log.e("：",System.currentTimeMillis() - time+"//");
 //        Imgproc.cvtColor(imageMat, imageMat, Imgproc.COLOR_BGR2RGBA);
 //        byte[] imageDst = matToByteArray(imageMat);
 //        Bitmap outputBitmap = Bitmap.createBitmap(imageMat.width(),
@@ -313,7 +306,7 @@ public class ImageColorTools {
         return outputBitmap;
     }
 
-    public static Bitmap  matToBitmap(Mat mat){
+    public static Bitmap matToBitmap(Mat mat){
         Bitmap outputBitmap = Bitmap.createBitmap(mat.cols(), mat.rows(), Bitmap.Config.ARGB_8888);
         Utils.matToBitmap(mat, outputBitmap,true);
         mat.release();

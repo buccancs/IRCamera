@@ -40,19 +40,12 @@ import com.topdon.module.thermal.ir.databinding.ItemIrConfigFootBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-/**
- * 温度修正（即设置环境温度、测温距离、发射率）
- *
- * 需要传递参数：
- * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
- */
+ * [ExtraKeyConfig.IS_TC007] -  TC007
 @Route(path = RouterConfig.IR_SETTING)
 class IRConfigActivity : BaseActivity(), View.OnClickListener {
 
-    /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
-     */
+     * TC007 .
+     * true-TC007 false
     private var isTC007 = false
 
     private val viewModel: IRConfigViewModel by viewModels()
@@ -114,7 +107,6 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
         binding.recyclerView.adapter = ConcatAdapter(adapter, ConfigEmAdapter(this))
 
         viewModel.configLiveData.observe(this) {
-            //先只刷新默认的配置，等操作指引显示完再刷新自定义配置
             binding.tvDefaultTempValue.text = NumberTools.to02(UnitTools.showUnitValue(it.defaultModel.environment))
             binding.tvDefaultDisValue.text = NumberTools.to02(it.defaultModel.distance)
             binding.tvDefaultEmValue.text = NumberTools.to02(it.defaultModel.radiation)
@@ -135,11 +127,9 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
     override fun initData() {
     }
 
-    /**
-     * 显示操作指引弹框.
-     */
+     * .
     private fun showGuideDialog(modelBean: ModelBean) {
-        if (SharedManager.configGuideStep == 0) {//已看过或不再提示
+        if (SharedManager.configGuideStep == 0) {//
             binding.ivDefaultSelector.isSelected = modelBean.defaultModel.use
             adapter.refresh(modelBean.myselfModel)
             return
@@ -158,7 +148,7 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
             window?.decorView?.setRenderEffect(RenderEffect.createBlurEffect(20f, 20f, Shader.TileMode.MIRROR))
         } else {
             lifecycleScope.launch {
-                //界面刷新需要时间，所以需要等待100毫秒再去刷新背景
+                //100
                 delay(100)
                 guideDialog.blurBg(binding.llRoot)
             }
@@ -168,10 +158,10 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            binding.ivDefaultSelector -> {//默认模式-选中
+            binding.ivDefaultSelector -> {//-
                 viewModel.checkConfig(isTC007, 0)
             }
-            binding.viewDefaultTempBg -> {//默认模式-环境温度
+            binding.viewDefaultTempBg -> {//-
                 IRConfigInputDialog(this, IRConfigInputDialog.Type.TEMP, isTC007)
                     .setInput(UnitTools.showUnitValue(viewModel.configLiveData.value?.defaultModel?.environment!!))
                     .setConfirmListener {
@@ -179,7 +169,7 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
                     }
                     .show()
             }
-            binding.viewDefaultDisBg -> {//默认模式-测温距离
+            binding.viewDefaultDisBg -> {//-
                 IRConfigInputDialog(this, IRConfigInputDialog.Type.DIS, isTC007)
                     .setInput(viewModel.configLiveData.value?.defaultModel?.distance)
                     .setConfirmListener {
@@ -187,7 +177,7 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
                     }
                     .show()
             }
-            binding.tvDefaultEmValue -> {//默认模式-发射率
+            binding.tvDefaultEmValue -> {//-
                 IRConfigInputDialog(this, IRConfigInputDialog.Type.EM, isTC007)
                     .setInput(viewModel.configLiveData.value?.defaultModel?.radiation)
                     .setConfirmListener {
@@ -201,22 +191,14 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
     private class ConfigAdapter(val context: Context, val isTC007: Boolean) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private val dataList: ArrayList<DataBean> = ArrayList()
 
-        /**
-         * item（一项自定义配置）选中事件监听.
-         */
+         * item.
         var onSelectListener: ((id: Int) -> Unit)? = null
-        /**
-         * item（一项自定义配置）删除件监听.
-         */
+         * item.
         var onDeleteListener: ((bean: DataBean) -> Unit)? = null
-        /**
-         * item（一项自定义配置）变更事件监听.
-         */
+         * item.
         var onUpdateListener: ((bean: DataBean) -> Unit)? = null
 
-        /**
-         * 添加事件监听.
-         */
+         * .
         var onAddListener: View.OnClickListener? = null
 
         @SuppressLint("NotifyDataSetChanged")

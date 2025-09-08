@@ -49,9 +49,9 @@ class IRVideoGSYActivity : BaseActivity() {
         BarUtils.setNavBarColor(this, ContextCompat.getColor(this, LibAppR.color.black))
 
         isRemote = intent.getBooleanExtra("isRemote", false)
-        data = intent.getParcelableExtra("data") ?: throw NullPointerException("传递 data")
+        data = intent.getParcelableExtra("data") ?: throw NullPointerException(" data")
 
-        binding.clBottom.isVisible = isRemote //查看远端时底部才有3个按钮
+        binding.clBottom.isVisible = isRemote //3
 
         if (!isRemote) {
             binding.titleView.setRightDrawable(LibUiR.drawable.ic_toolbar_info_svg)
@@ -97,15 +97,14 @@ class IRVideoGSYActivity : BaseActivity() {
         GSYVideoOptionBuilder()
             .setUrl(url)
             .build(binding.gsyPlay)
-        //界面设置
-        binding.gsyPlay.isNeedShowWifiTip = false //不显示消耗流量弹框
+        binding.gsyPlay.isNeedShowWifiTip = false //
         binding.gsyPlay.titleTextView.visibility = View.GONE
         binding.gsyPlay.backButton.visibility = View.GONE
         binding.gsyPlay.fullscreenButton.visibility = View.GONE
     }
 
     private fun actionDownload(isToShare: Boolean) {
-        if (data.hasDownload) {//已下载
+        if (data.hasDownload) {//
             if (isToShare) {
                 actionShare()
             }
@@ -138,7 +137,7 @@ class IRVideoGSYActivity : BaseActivity() {
         str.append(getString(LibAppR.string.detail_date)).append("\n")
         str.append(TimeTool.showDateType(data.timeMillis)).append("\n\n")
         str.append(getString(LibAppR.string.detail_info)).append("\n")
-//        str.append("尺寸: ").append(whStr).append("\n")
+//        str.append(: ).append(whStr).append(\n)
         str.append("${getString(LibAppR.string.detail_len)}: ").append(sizeStr).append("\n")
         str.append("${getString(LibAppR.string.detail_path)}: ").append(data.path).append("\n")
         TipDialog.Builder(this)

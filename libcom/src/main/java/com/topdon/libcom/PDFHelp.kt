@@ -22,14 +22,12 @@ import java.io.BufferedOutputStream
 import java.io.File
 import java.io.FileOutputStream
 
-/**
  * @author: CaiSongL
  * @date: 2023/5/5 17:41
- */
 object PDFHelp {
 
     fun savePdfFileByListView(name: String, view: ScrollView, viewList: MutableList<View>, watermarkView: View): String {
-        val onePageHeight: Int = (view.width * 297f / 210f).toInt() // A4纸宽高比210:297
+        val onePageHeight: Int = (view.width * 297f / 210f).toInt() // A4210:297
 
         var onePageContentHeight = 0f
 
@@ -42,7 +40,7 @@ object PDFHelp {
 
         for (index in 0 until viewList.size) {
             val contentHeight = viewList[index].measuredHeight
-            if (onePageContentHeight + contentHeight > onePageHeight) {//超出内容，另起一页
+            if (onePageContentHeight + contentHeight > onePageHeight) {//，
                 onePageContentHeight = 0f
                 pdfDocument.finishPage(page)
                 page = null
@@ -104,7 +102,7 @@ object PDFHelp {
                     bos.flush()
                     bos.close()
                 }
-                Log.w("导出", UriUtils.uri2File(uri).absolutePath)
+                Log.w("", UriUtils.uri2File(uri).absolutePath)
                 UriUtils.uri2File(uri).absolutePath
             } else {
                 ""

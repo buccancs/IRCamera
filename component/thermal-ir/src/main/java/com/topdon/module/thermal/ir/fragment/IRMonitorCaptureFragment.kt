@@ -14,18 +14,12 @@ import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.activity.IRMonitorActivity
 import com.topdon.module.thermal.ir.databinding.FragmentIrMonitorCaptureBinding
 
-/**
- * 温度监控-实时（即生成温度监控）.
- *
- * 需要传递参数：
- * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
- */
+ * .
+ * [ExtraKeyConfig.IS_TC007] -  TC007
 class IRMonitorCaptureFragment : BaseFragment() {
 
-    /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
-     */
+     * TC007 .
+     * true-TC007 false
     private var isTC007 = false
 
     private var _binding: FragmentIrMonitorCaptureBinding? = null
@@ -64,9 +58,6 @@ class IRMonitorCaptureFragment : BaseFragment() {
     override fun initData() {
     }
 
-    /**
-     * 刷新连接状态
-     */
     private fun refreshUI(isConnect: Boolean) {
         binding.animationView.isVisible = !isConnect
         binding.ivIcon.isVisible = isConnect

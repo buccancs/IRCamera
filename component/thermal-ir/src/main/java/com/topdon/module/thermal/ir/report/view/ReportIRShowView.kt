@@ -17,20 +17,17 @@ import com.topdon.module.thermal.ir.report.bean.ReportTempBean
 import com.topdon.module.thermal.ir.databinding.ViewReportIrShowBinding
 import com.topdon.module.thermal.ir.databinding.ItemReportIrShowBinding
 
-/**
- * 一项红外数据预览 View.
- *
- * 包含一张图片对应的 全图、点、线、面 预览信息.
- */
+ *  View.
+ *  .
 class ReportIRShowView: LinearLayout {
 
     private val binding: ViewReportIrShowBinding
 
     companion object {
-        private const val TYPE_FULL = 0 //全图
-        private const val TYPE_POINT = 1//点
-        private const val TYPE_LINE = 2 //线
-        private const val TYPE_RECT = 3 //面
+        private const val TYPE_FULL = 0 //
+        private const val TYPE_POINT = 1//
+        private const val TYPE_LINE = 2 //
+        private const val TYPE_RECT = 3 //
     }
 
     constructor(context: Context) : this(context, null)
@@ -64,7 +61,7 @@ class ReportIRShowView: LinearLayout {
     private fun initTitleText(itemRoot: View, type: Int, index: Int) {
         // Use findViewById to access views from included layout for compatibility
         val tvTitle = itemRoot.findViewById<TextView>(R.id.tv_title)
-        val tvAverageTitle = itemRoot.findViewById<TextView>(R.id.tv_average_title)  
+        val tvAverageTitle = itemRoot.findViewById<TextView>(R.id.tv_average_title)
         val tvExplainTitle = itemRoot.findViewById<TextView>(R.id.tv_explain_title)
         
         tvTitle.isVisible = index == 0
@@ -75,7 +72,7 @@ class ReportIRShowView: LinearLayout {
             else -> context.getString(LibAppR.string.thermal_rect) + "(R)"
         }
         tvAverageTitle.text = when (type) {
-            TYPE_FULL, TYPE_POINT -> "" //全图、点没有平均温
+            TYPE_FULL, TYPE_POINT -> "" //、
             TYPE_LINE -> "L${index + 1} " + context.getString(LibAppR.string.album_report_mean_temperature)
             else -> "R${index + 1} " + context.getString(LibAppR.string.album_report_mean_temperature)
         }
@@ -87,9 +84,7 @@ class ReportIRShowView: LinearLayout {
         }
     }
 
-    /**
-     * 获取需要转为 PDF 的所有 View 列表.
-     */
+     *  PDF  View .
     fun getPrintViewList(): ArrayList<View> {
         val result = ArrayList<View>()
         result.add(binding.clImage)
@@ -197,7 +192,6 @@ class ReportIRShowView: LinearLayout {
         binding.clRect4.root.findViewById<TextView>(R.id.tv_title).isVisible = !binding.clRect1.root.isVisible && !binding.clRect2.root.isVisible && !binding.clRect3.root.isVisible
         binding.clRect5.root.findViewById<TextView>(R.id.tv_title).isVisible = !binding.clRect1.root.isVisible && !binding.clRect2.root.isVisible && !binding.clRect3.root.isVisible && !binding.clRect4.root.isVisible
 
-        // 把最后一条分割线藏起来
         if (rectList.isNotEmpty()) {
             when (rectList.size) {
                 1 -> hideLastLine(isLast, binding.clRect1.root, rectList[0], TYPE_RECT)

@@ -9,14 +9,10 @@ import androidx.appcompat.widget.AppCompatSeekBar
 import com.csl.irCamera.libui.R
 import kotlin.math.roundToInt
 
-/**
- * 支持竖向的 SeekBar。
- * 暂不支持 thumbOffset.
- */
+ *  SeekBar
+ *  thumbOffset.
 class CommSeekBar: AppCompatSeekBar {
-    /**
-     * 0-横向 1-竖向
-     */
+     * 0- 1
     private val orientation: Int
 
     private var mMaxWidth = 48
@@ -181,9 +177,6 @@ class CommSeekBar: AppCompatSeekBar {
         return true
     }
 
-    /**
-     * 通过级别分层进行粘性处理
-     */
     fun stopTrackTouchLevel(){
         if (level > 0){
             val newLevel = (progress.toFloat() / 100 * 4).roundToInt()

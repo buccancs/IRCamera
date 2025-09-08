@@ -8,26 +8,23 @@ import com.topdon.lib.core.utils.ByteUtils
 import com.topdon.lib.core.utils.ByteUtils.toBytes
 import com.topdon.pseudo.bean.CustomPseudoBean
 
-/**
- * 首部结构，数值均为大端
  * ```
- * len                 [ 0,  2)    2 byte   首部长度，目前固定为 1024
- * name                [ 2, 18)   16 byte   名称(老数据有叫 TopInfrared 的，新的只有TC001、TS001 或 TC007)
- * ver                 [18, 26)    6 byte   APP版本名称(versionName)
- * width               [26, 28)    2 byte   宽 256 或 192(未使用)
- * height              [28, 30)    2 byte   高 256 或 192(未使用)
- * rotate              [30, 32)    2 byte   旋转角度
- * pseudo              [32, 34)    2 byte   伪彩代号
- * initRotate          [34, 36)    2 byte   初始角度(未使用)
- * correctRotate       [36, 38)    2 byte   矫正角度(未使用)
- *                     [38, 81)   44 byte   点线面(未使用，实际全为0的没卵用数据)
- *
+ * len                 [ 0,  2)    2 byte    1024
+ * name                [ 2, 18)   16 byte   ( TopInfrared TC001TS001  TC007)
+ * ver                 [18, 26)    6 byte   APP(versionName)
+ * width               [26, 28)    2 byte    256  192()
+ * height              [28, 30)    2 byte    256  192()
+ * rotate              [30, 32)    2 byte
+ * pseudo              [32, 34)    2 byte
+ * initRotate          [34, 36)    2 byte   ()
+ * correctRotate       [36, 38)    2 byte   ()
+ *                     [38, 81)   44 byte   (0)
  * customPseudoBean    [81,173)  92 byte
- *   colorSize                   81     1 byte   色块数量
- *   selectIndex                 82     1 byte   当前选中色块在列表中 index
- *   colors                [ 83,111)   28 byte   7 个色块颜色值
- *   zAltitudes            [111,118)    7 byte   7 个色块海拔
- *   places                [118,146)   28 byte   7 个色块占比值
+ *   colorSize                   81     1 byte
+ *   selectIndex                 82     1 byte    index
+ *   colors                [ 83,111)   28 byte   7
+ *   zAltitudes            [111,118)    7 byte   7
+ *   places                [118,146)   28 byte   7
  *   isUseCustomPseudo          146     1 byte
  *   maxTemp               [147,151)    4 byte
  *   minTemp               [151,155)    4 byte
@@ -37,47 +34,39 @@ import com.topdon.pseudo.bean.CustomPseudoBean
  *   customMaxColor        [164,168)    4 byte
  *   customRecommendIndex  [168,172)    4 byte
  *   isUseGray                  172     1 byte
- *
- * isShowPseudoBar          173     1 byte   是否显示伪彩条
- * textColor           [174,178)    4 byte   字体颜色值
- *
- * watermarkBean       [178,628)  450 byte   水印信息
- *   isOpen                 178     1 byte   水印是否开启
- *   titleLen          [179,183)    4 byte   水印标题字节数
- *   title             [183,303)  120 byte   水印标题
- *   addressLen        [303,307)    4 byte   水印地址字节数
- *   address           [307,627)  320 byte   水印地址
- *   isAddTime              627     1 byte   水印是否添加时间
- *
- * alarmBean           [628,656)   28 byte   报警信息
- *   isHighOpen             628     1 byte   高温报警是否开启
- *   isLowOpen              629     1 byte   低温报警是否开启
- *   highTemp          [630,634)    4 byte   高温报警温度值，单位摄氏度
- *   lowTemp           [634,638)    4 byte   低温报警温度值，单位摄氏度
- *   isMarkOpen             638     1 byte   区域标记是否开启
- *   highColor         [639,643)    4 byte   高温报警颜色值
- *   lowColor          [643,647)    4 byte   低温报警颜色值
- *   markType          [647,651)    4 byte   区域标记类型 1-描边 2-矩阵
- *   isRingtoneOpen         651     1 byte   报警铃声是否开启
- *   ringtoneType      [652,656)    4 byte   报警铃声类型
- *   gainStatus       [657)    1 byte   //高低增益 1:（低温）高增益 0: 高温（低增益）
- *   textSize         [658,659） 2byte //字号大小
- *   environment      [660,663) 4byte //温度修正参数 ： 环境温度，单位摄氏度
- *   distance      [664,667) 4byte //温度修正参数 ：距离，
- *   radiation      [668,671) 4byte //温度修正参数 ：发射率 环境温度，单位摄氏度
- *   amplify        672     1 byte   //是否开启放大
+ * isShowPseudoBar          173     1 byte
+ * textColor           [174,178)    4 byte
+ * watermarkBean       [178,628)  450 byte
+ *   isOpen                 178     1 byte
+ *   titleLen          [179,183)    4 byte
+ *   title             [183,303)  120 byte
+ *   addressLen        [303,307)    4 byte
+ *   address           [307,627)  320 byte
+ *   isAddTime              627     1 byte
+ * alarmBean           [628,656)   28 byte
+ *   isHighOpen             628     1 byte
+ *   isLowOpen              629     1 byte
+ *   highTemp          [630,634)    4 byte
+ *   lowTemp           [634,638)    4 byte
+ *   isMarkOpen             638     1 byte
+ *   highColor         [639,643)    4 byte
+ *   lowColor          [643,647)    4 byte
+ *   markType          [647,651)    4 byte    1- 2
+ *   isRingtoneOpen         651     1 byte
+ *   ringtoneType      [652,656)    4 byte
+ *   gainStatus       [657)    1 byte   // 1: 0:
+ *   textSize         [658,659 2byte //
+ *   environment      [660,663) 4byte //
+ *   distance      [664,667) 4byte //
+ *   radiation      [668,671) 4byte //
+ *   amplify        672     1 byte   //
  * ```
- */
 class FrameStruct() {
     companion object {
-        /**
-         * 数据长度.
-         */
+         * .
         private const val SIZE = 1024
 
-        /**
-         * 将指定参数的数据转换为数组.
-         */
+         * .
         fun toCode(
             name : String,
             width: Int,
@@ -150,12 +139,12 @@ class FrameStruct() {
             resultArray[658] = (textSize ushr 8).toByte()
             resultArray[659] = textSize.toByte()
 
-            // 将 Float 转换为 4 字节
+            //  Float  4
             val envBytes = java.nio.ByteBuffer.allocate(4).putFloat(environment).array()
             val distanceBytes = java.nio.ByteBuffer.allocate(4).putFloat(distance).array()
             val radiationBytes = java.nio.ByteBuffer.allocate(4).putFloat(radiation).array()
 
-            // 存储在 resultArray 中，[660, 663)是环境温度，[664, 667)是距离，[668, 671)是发射率
+            //  resultArray [660, 663)[664, 667)[668, 671)
             System.arraycopy(envBytes, 0, resultArray, 660, 4)
             System.arraycopy(distanceBytes, 0, resultArray, 664, 4)
             System.arraycopy(radiationBytes, 0, resultArray, 668, 4)
@@ -179,7 +168,7 @@ class FrameStruct() {
     var textColor = 0xffffffff.toInt()
     var watermarkBean = WatermarkBean()
     var alarmBean = AlarmBean()
-    var gainStatus : Int = 1 // 高低增益 1:低增益 0: 高增益
+    var gainStatus : Int = 1 // 1: 0:
     var textSize : Int = SizeUtils.sp2px(14f)
     var environment : Float = 0f
     var distance : Float = 0f
@@ -253,9 +242,7 @@ class FrameStruct() {
 
     fun isTC001(): Boolean = name == "TC001"
     
-    /**
      * Check if device is TC007 (legacy compatibility - always false for TC001 only build)
-     */
     fun isTC007(): Boolean = false // TC001 only - no TC007 support
 
 }

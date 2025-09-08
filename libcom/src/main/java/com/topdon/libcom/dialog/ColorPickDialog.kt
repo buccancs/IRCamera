@@ -17,16 +17,11 @@ import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.libcom.databinding.DialogColorPickBinding
 import com.topdon.libcom.util.ColorUtils
 
-/**
- * 颜色拾取弹框.
- *
+ * .
  * Created by chenggeng.lin on 2023/12/18.
- */
 class ColorPickDialog(context: Context, @ColorInt private var color: Int,var textSize: Int,var textSizeIsDP : Boolean = false) : Dialog(context, LibAppR.style.InfoDialog), View.OnClickListener {
 
-    /**
-     * 颜色值拾取事件监听.
-     */
+     * .
     var onPickListener: ((color: Int,textSize : Int) -> Unit)? = null
 
     private lateinit var binding: DialogColorPickBinding
@@ -78,7 +73,7 @@ class ColorPickDialog(context: Context, @ColorInt private var color: Int,var tex
                     rightValue: Float,
                     isFromUser: Boolean
                 ) {
-                    var text = "标准"
+                    var text = ""
                     text = if (leftValue <= 0){
                         textSize = 14
                         context.getString(LibAppR.string.temp_text_standard)
@@ -132,7 +127,7 @@ class ColorPickDialog(context: Context, @ColorInt private var color: Int,var tex
         when (v) {
             binding.rlClose -> dismiss()
 
-            binding.tvSave -> {//保存
+            binding.tvSave -> {//
                 dismiss()
                 onPickListener?.invoke(color,textSize)
             }
@@ -176,9 +171,7 @@ class ColorPickDialog(context: Context, @ColorInt private var color: Int,var tex
         }
     }
 
-    /**
-     * 将 6 个固定的颜色按钮重置为未选中状态.
-     */
+     *  6 .
     private fun unSelect6Color() {
         binding.viewColor1.isSelected = false
         binding.viewColor2.isSelected = false

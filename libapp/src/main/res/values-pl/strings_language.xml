@@ -5,7 +5,7 @@
 	<string name="app_no">Nie</string>
 	<string name="ui_fill_in_the_complete">Proszę wypełnić całkowicie</string>
 	<string name="home_exit">Naciśnij ponownie, aby wyjść</string>
-	<string name="clause_submit">Zgoda   </string>
+	<string name="clause_submit">Zgoda </string>
 	<string name="clause_disagree">Brak zgody</string>
 	<string name="policy_close">Zamknij</string>
 	<string name="clause_msg_key1">Zgoda użytkownika</string>
@@ -240,8 +240,8 @@
 	<string name="edit_image_error_tip">Obraz nie zawiera danych dotyczących temperatury i nie obsługuje edycji.</string>
 
 
-	<!--	波兰polish-->
-	<!-- 2.00版本 -->
+	<!--	polish-->
+	<!-- 2.00 -->
 	<string name="app_lapsePhotography">Zdjęcie z czasem</string>
 	<string name="app_Manual_Shutter">Ręczna migawka</string>
 	<string name="app_record_sound">Nagrywanie dźwięku</string>
@@ -498,7 +498,6 @@
 	<string name="installation_package_downloading_tips">Zaczyna się ściągać. Proszę sprawdzić postępy w powiadomieniach</string>
 	<string name="welcome_use_app">Witamy w %1$s</string>
 
-	<!--波兰语-->
 
 	<string name="dual_light_correction">Podwójna korekcja światła</string>
 	<string name="dual_light_correction_tips_1">Ponieważ ostrość dwóch kamer nie jest wyrównana, obrazy uchwycone z różnych odległości przez dwie kamery nie zostaną wyrównane.\nTa funkcja może niezależnie pomóc w wyrównaniu obrazu.</string>
@@ -603,7 +602,7 @@
 	<string name="ts004_faq_q5">Jak wyświetlić przechwycone obrazy termowizyjne na komputerze PC?</string>
 	<string name="ts004_faq_a5">Podłącz TS004 do komputera za pomocą kabla USB, a następnie będziesz mógł przeglądać obrazy termowizyjne zapisane na TS004.</string>
 
-	<!-- TC001 老 APP 引流 -->
+	<!-- TC001  APP  -->
 	<string name="gallery_transfer">Transfer galerii</string>
 	<string name="gallery_transfer_wait">Dane są przekazywane. Proszę poczekać.</string>
 	<string name="gallery_transfer_complete">Przesyłanie danych zakończone</string>
@@ -654,7 +653,6 @@
 	<string name="wifi_connect_loading">Oczekuje się, że zajmie to 15s…</string>
 	<string name="tc007_done_fast">Częste operacje</string>
 
-	<!-- 房屋检测 -->
 	<string name="main_professional_test">Badania profesjonalne</string>
 	<string name="main_temperature_test">Badanie temperatury</string>
 	<string name="main_thermal_tips">Profesjonalne badania obrazowania termicznego</string>
@@ -823,7 +821,6 @@
 	<string name="abnormal_description17">Na temperaturę grzejnika lusterka tylnego wpływa wiele czynników, takich jak temperatura otoczenia i obciążenie grzejnika. Monitoruj temperaturę grzejnika za pomocą kamery termicznej, a następnie możesz ocenić, czy tylne lusterko można skutecznie ogrzewać.</string>
 	<string name="abnormal_description18">Na temperaturę silnika okna wpływa wiele czynników, takich jak temperatura otoczenia i obciążenie silnika. Monitoruj temperaturę silnika za pomocą kamery termowizyjnej. Jeśli temperatura jest zbyt wysoka, może być spowodowana awarią mechanizmu podnoszenia okien lub samego silnika.</string>
 
-	<!-- 房屋检测新增 -->
 	<string name="vehicle_function">Funkcja</string>
 	<string name="ability_find">znaleźć</string>
 	<string name="ability_monitory">Przeglądanie temperatury obiektu w czasie rzeczywistym w celu generowania danych</string>

@@ -240,8 +240,8 @@
     <string name="device_loading_tip">Cargando…</string>
     <string name="edit_image_error_tip">La imagen carece de datos de temperatura y no admite edición.</string>
 
-    <!--	西班牙语espanol-->
-    <!-- 2.00版本 -->
+    <!--	espanol-->
+    <!-- 2.00 -->
     <string name="app_lapsePhotography">Foto Temporizada</string>
     <string name="app_Manual_Shutter">Obturador manual </string>
     <string name="app_record_sound">Grabar Audio</string>
@@ -500,7 +500,6 @@
     <string name="installation_package_downloading_tips">Comienza la descarga. Por favor, verifica el progreso en las Notificaciones.</string>
     <string name="welcome_use_app">Bienvenido a %1$s</string>
 
-    <!--西班牙语-->
 
     <string name="dual_light_correction">Corrección de Doble Luz</string>
     <string name="dual_light_correction_tips_1">Dado que los enfoques de las dos cámaras no están alineados, las imágenes capturadas desde diferentes distancias por las dos cámaras no estarán alineadas.\nEsta función puede ayudar con la alineación de las imágenes por separado.</string>
@@ -603,7 +602,7 @@
     <string name="ts004_faq_q5">¿Cómo veo las imágenes térmicas capturadas en una PC?</string>
     <string name="ts004_faq_a5">Conecte el TS004 a una PC mediante el cable USB y luego podrá ver las imágenes térmicas almacenadas en el TS004.</string>
 
-    <!-- TC001 老 APP 引流 -->
+    <!-- TC001  APP  -->
     <string name="gallery_transfer">Transferencia de galería</string>
     <string name="gallery_transfer_wait">Se están transfiriendo datos. Por favor espere.</string>
     <string name="gallery_transfer_complete">Transferencia de Datos Completa</string>
@@ -654,7 +653,6 @@
     <string name="wifi_connect_loading">Se espera que tome 15 segundos...</string>
     <string name="tc007_done_fast">Operaciones frecuentes</string>
 
-    <!-- 房屋检测 -->
     <string name="main_professional_test">Pruebas Profesionales</string>
     <string name="main_temperature_test">Prueba de Temperatura</string>
     <string name="main_thermal_tips">Prueba Profesional de Imagen Térmica</string>
@@ -823,7 +821,6 @@
     <string name="abnormal_description17">La temperatura del calentador del espejo retrovisor está afectada por muchos factores, como la temperatura ambiente y la carga del calentador. Monitorea la temperatura del calentador con una cámara térmica, y luego podrás evaluar si el espejo retrovisor puede ser calentado de manera efectiva.</string>
     <string name="abnormal_description18">La temperatura del motor del elevalunas está afectada por muchos factores, como la temperatura ambiente y la carga del motor. Monitorea la temperatura del motor con una cámara térmica. Si la temperatura es demasiado alta, podría deberse a un fallo en el mecanismo de elevación de la ventana o en el motor mismo.</string>
 
-    <!-- 房屋检测新增 -->
     <string name="vehicle_function">Función</string>
     <string name="ability_find">Hallazgo</string>
     <string name="ability_monitory">Ver datos generados por la temperatura del objeto en tiempo real</string>

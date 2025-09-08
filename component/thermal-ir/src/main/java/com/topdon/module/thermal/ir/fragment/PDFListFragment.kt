@@ -42,16 +42,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 
-/**
  * @author: CaiSongL
  * @date: 2023/5/12 11:34
- */
 class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
 
-    /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
-     */
+     * TC007 .
+     * true-TC007 false
     private var isTC007 = false
 
     private var page = 1
@@ -60,9 +56,7 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
     private var _binding: FragmentPdfListBinding? = null
     private val binding get() = _binding!!
 
-    /**
-     * LMS 登录及退出登录广播.
-     */
+     * LMS .
     private val loginBroadcastReceiver = LoginBroadcastReceiver()
 
     override fun providerVMClass() = PdfViewModel::class.java
@@ -99,7 +93,6 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
                 tvEmpty?.setText(if (page == 1 && data.code != LMS.SUCCESS) LibAppR.string.http_code_else else LibAppR.string.tip_no_more_data)
 
                 if (page == 1) {
-                    //刷新
                     if (data.code == LMS.SUCCESS){
                         reportAdapter.loadMoreModule.isEnableLoadMore = !data.data?.records.isNullOrEmpty()
                         binding.fragmentPdfRecyclerLay.finishRefresh()
@@ -136,9 +129,6 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
         })
     }
 
-    /**
-     * 是否已调用过加载初始数据
-     */
     private var hasLoadData = false
 
     override fun initData() {
@@ -177,7 +167,7 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
                             params.addBodyParameter("modelId", if (isTC007) 1783 else 950) //TC001-950, TC002-951, TC003-952 TC007-1783
                             params.addBodyParameter("testReportIds", arrayOf(item.testReportId))
                             params.addBodyParameter("status", 1)
-                            params.addBodyParameter("languageId",  LanguageUtil.getLanguageId(Utils.getApp()))
+                            params.addBodyParameter("languageId", LanguageUtil.getLanguageId(Utils.getApp()))
                             params.addBodyParameter("reportType", 2)
                             HttpProxy.instant.post(url,params, object :
                                 IResponseCallback {
@@ -187,7 +177,7 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
                                     if (file.exists()) {
                                         file.delete()
                                     }
-                                    Log.w("删除成功",response.toString())
+                                    Log.w("",response.toString())
                                 }
 
                                 override fun onFail(exception: Exception?) {
@@ -233,14 +223,12 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
         }
         reportAdapter.loadMoreModule.loadMoreView = CommLoadMoreView()
         reportAdapter.loadMoreModule.setOnLoadMoreListener {
-            //加载更多
             viewModel.getReportData(isTC007, ++page)
         }
 
         binding.fragmentPdfRecycler.adapter = reportAdapter
         binding.fragmentPdfRecycler.layoutManager = LinearLayoutManager(requireContext())
         binding.fragmentPdfRecyclerLay.setOnRefreshListener {
-            //刷新
             page = 1
             viewModel.getReportData(isTC007, page)
         }

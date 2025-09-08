@@ -22,10 +22,10 @@ class ReportIRInputView: LinearLayout {
     private val binding: ViewReportIrInputBinding
 
     companion object {
-        private const val TYPE_FULL = 0 //全图
-        private const val TYPE_POINT = 1//点
-        private const val TYPE_LINE = 2 //线
-        private const val TYPE_RECT = 3 //面
+        private const val TYPE_FULL = 0 //
+        private const val TYPE_POINT = 1//
+        private const val TYPE_LINE = 2 //
+        private const val TYPE_RECT = 3 //
     }
 
     constructor(context: Context) : this(context, null)

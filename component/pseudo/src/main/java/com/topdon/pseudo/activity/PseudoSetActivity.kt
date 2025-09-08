@@ -20,20 +20,13 @@ import java.lang.NumberFormatException
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-/**
- * 颜色模式（自定义渲染）设置界面.
- *
- * 需要传递
- * - [ExtraKeyConfig.IS_TC007] - 是否设置 TC007 的自定义渲染
- * - [ExtraKeyConfig.CUSTOM_PSEUDO_BEAN] - 自定义渲染相关设置项.（可选，不传则从 SharedPreferences 中读取配置.）
- *
- * 返回 result
- * - [ExtraKeyConfig.CUSTOM_PSEUDO_BEAN] - 自定义渲染相关设置项.
- */
+ * .
+ * [ExtraKeyConfig.IS_TC007] -  TC007
+ * [ExtraKeyConfig.CUSTOM_PSEUDO_BEAN] - . SharedPreferences .
+ *  result
+ * [ExtraKeyConfig.CUSTOM_PSEUDO_BEAN] - .
 class PseudoSetActivity : BaseActivity(), View.OnClickListener {
-    /**
-     * 从上一界面传递过来的，自定义渲染相关设置项.
-     */
+     * .
     private lateinit var customPseudoBean: CustomPseudoBean
 
     private lateinit var binding: ActivityPseudoSetBinding
@@ -48,7 +41,6 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
         customPseudoBean = intent.getParcelableExtra(ExtraKeyConfig.CUSTOM_PSEUDO_BEAN) ?: CustomPseudoBean.loadFromShared(isTC007)
         switchDynamicCustom(customPseudoBean.isUseCustomPseudo)
 
-        //加载温度配置
         binding.etMaxTemp.setText(UnitTools.showNoUnit(customPseudoBean.maxTemp))
         binding.etMinTemp.setText(UnitTools.showNoUnit(customPseudoBean.minTemp))
         binding.tvMaxTempUnit.text = UnitTools.showUnit()
@@ -56,7 +48,6 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
 
         switchColorType(customPseudoBean.isColorCustom)
 
-        //加载自定义颜色配置
         binding.pseudoPickView.onSelectChangeListener = {
             reset6CustomColor()
             binding.colorSelectView.reset()
@@ -79,7 +70,6 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
             customPseudoBean.getCustomPlaces()
         )
 
-        //加载推荐颜色配置
         binding.viewRecommendColor1.background = buildRectDrawableArray(ColorRecommend.colorList1)
         binding.viewRecommendColor2.background = buildRectDrawableArray(ColorRecommend.colorList2)
         binding.viewRecommendColor3.background = buildRectDrawableArray(ColorRecommend.getColorByIndex(isTC007, 2))
@@ -131,89 +121,89 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            binding.clDynamic -> {//动态渲染
+            binding.clDynamic -> {//
                 switchDynamicCustom(false)
             }
-            binding.clCustom -> {//自定义
+            binding.clCustom -> {//
                 switchDynamicCustom(true)
             }
-            binding.tvColorCustom -> {//颜色-自定义
+            binding.tvColorCustom -> {//-
                 switchColorType(true)
             }
-            binding.tvColorRecommend -> {//颜色-推荐
+            binding.tvColorRecommend -> {//-
                 switchColorType(false)
                 switchRecommendColorIndex(customPseudoBean.customRecommendIndex)
             }
 
-            binding.viewCustomColor1 -> {//颜色-自定义-颜色值拾取1
+            binding.viewCustomColor1 -> {//--1
                 reset6CustomColor()
                 binding.viewCustomColor1.isSelected = true
                 binding.colorSelectView.selectColor(0xff0000ff.toInt())
                 binding.pseudoPickView.refreshColor(0xff0000ff.toInt())
             }
-            binding.viewCustomColor2 -> {//颜色-自定义-颜色值拾取2
+            binding.viewCustomColor2 -> {//--2
                 reset6CustomColor()
                 binding.viewCustomColor2.isSelected = true
                 binding.colorSelectView.selectColor(0xffff0000.toInt())
                 binding.pseudoPickView.refreshColor(0xffff0000.toInt())
             }
-            binding.viewCustomColor3 -> {//颜色-自定义-颜色值拾取3
+            binding.viewCustomColor3 -> {//--3
                 reset6CustomColor()
                 binding.viewCustomColor3.isSelected = true
                 binding.colorSelectView.selectColor(0xff00ff00.toInt())
                 binding.pseudoPickView.refreshColor(0xff00ff00.toInt())
             }
-            binding.viewCustomColor4 -> {//颜色-自定义-颜色值拾取4
+            binding.viewCustomColor4 -> {//--4
                 reset6CustomColor()
                 binding.viewCustomColor4.isSelected = true
                 binding.colorSelectView.selectColor(0xffffff00.toInt())
                 binding.pseudoPickView.refreshColor(0xffffff00.toInt())
             }
-            binding.viewCustomColor5 -> {//颜色-自定义-颜色值拾取5
+            binding.viewCustomColor5 -> {//--5
                 reset6CustomColor()
                 binding.viewCustomColor5.isSelected = true
                 binding.colorSelectView.selectColor(0xff000000.toInt())
                 binding.pseudoPickView.refreshColor(0xff000000.toInt())
             }
-            binding.viewCustomColor6 -> {//颜色-自定义-颜色值拾取6
+            binding.viewCustomColor6 -> {//--6
                 reset6CustomColor()
                 binding.viewCustomColor6.isSelected = true
                 binding.colorSelectView.selectColor(0xffffffff.toInt())
                 binding.pseudoPickView.refreshColor(0xffffffff.toInt())
             }
 
-            binding.ivCustomAdd -> {//颜色-自定义-添加
+            binding.ivCustomAdd -> {//--
                 binding.pseudoPickView.add()
             }
-            binding.ivCustomDel -> {//颜色-自定义-删除
+            binding.ivCustomDel -> {//--
                 binding.pseudoPickView.del()
             }
 
-            binding.viewRecommendBgColor1 -> {//颜色-推荐-铁红
+            binding.viewRecommendBgColor1 -> {//--
                 switchRecommendColorIndex(0)
             }
-            binding.viewRecommendBgColor2 -> {//颜色-推荐-黑红
+            binding.viewRecommendBgColor2 -> {//--
                 switchRecommendColorIndex(1)
             }
-            binding.viewRecommendBgColor3 -> {//颜色-推荐-自然
+            binding.viewRecommendBgColor3 -> {//--
                 switchRecommendColorIndex(2)
             }
-            binding.viewRecommendBgColor4 -> {//颜色-推荐-岩浆
+            binding.viewRecommendBgColor4 -> {//--
                 switchRecommendColorIndex(3)
             }
-            binding.viewRecommendBgColor5 -> {//颜色-推荐-辉金
+            binding.viewRecommendBgColor5 -> {//--
                 switchRecommendColorIndex(4)
             }
 
-            binding.clOverGrey -> {//灰度渐变
+            binding.clOverGrey -> {//
                 switchUseGray(true)
             }
-            binding.clOverColor -> {//等色
+            binding.clOverColor -> {//
                 switchUseGray(false)
             }
 
-            binding.tvConfirm -> {//确定
-                if (binding.clCustomContent.isVisible) {//使用自定义渲染
+            binding.tvConfirm -> {//
+                if (binding.clCustomContent.isVisible) {//
                     val inputMax = binding.etMaxTemp.text.toString()
                     if (inputMax.isEmpty()) {
                         ToastUtils.showShort(LibAppR.string.tip_input_format)
@@ -256,17 +246,15 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
                 setResult(RESULT_OK, resultIntent)
                 finish()
             }
-            binding.tvCancel -> {//取消
+            binding.tvCancel -> {//
                 setResult(RESULT_CANCELED)
                 finish()
             }
         }
     }
 
-    /**
-     * 在 动态渲染 与 自定义 之间切换.
-     * @param isToCustom true-切换到自定义 false-切换到动态渲染
-     */
+     *     .
+     * @param isToCustom true- false
     private fun switchDynamicCustom(isToCustom: Boolean) {
         customPseudoBean.isUseCustomPseudo = isToCustom
         binding.clCustomContent.isVisible = isToCustom
@@ -278,10 +266,8 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
         binding.tvCustomTitle.setTextColor(if (isToCustom) 0xffffba42.toInt() else 0xffffffff.toInt())
     }
 
-    /**
-     * 在自定义渲染-颜色设置中的 自定义 与 推荐 之间切换.
-     * @param isToCustom true-切换到自定义 false-切换到推荐
-     */
+     * .
+     * @param isToCustom true- false
     private fun switchColorType(isToCustom: Boolean) {
         customPseudoBean.isColorCustom = isToCustom
         binding.clColorCustom.isVisible = isToCustom
@@ -292,9 +278,7 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
         binding.tvColorRecommend.setBackgroundResource(if (isToCustom) 0 else LibAppR.drawable.bg_corners50_solid_2a183e_stroke_theme)
     }
 
-    /**
-     * 将自定义颜色设置中，6个预设颜色值重置为均未选中状态.
-     */
+     * 6.
     private fun reset6CustomColor() {
         binding.viewCustomColor1.isSelected = false
         binding.viewCustomColor2.isSelected = false
@@ -304,10 +288,8 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
         binding.viewCustomColor6.isSelected = false
     }
 
-    /**
-     * 切换 推荐颜色 中的 5 个选项.
-     * @param 0-铁红 1-黑红 2-自然 3-岩浆 4-辉金
-     */
+     *    5 .
+     * @param 0- 1- 2- 3- 4
     private fun switchRecommendColorIndex(index: Int) {
         when (customPseudoBean.customRecommendIndex) {
             0 -> {

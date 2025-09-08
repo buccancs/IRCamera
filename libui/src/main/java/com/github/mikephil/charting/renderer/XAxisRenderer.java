@@ -171,11 +171,8 @@ public class XAxisRenderer extends AxisRenderer {
         }
     }
 
-    /**
      * draws the x-labels on the specified y-position
-     *
      * @param pos
-     */
     protected void drawLabels(Canvas c, float pos, MPPointF anchor) {
 
         final float labelRotationAngleDegrees = mXAxis.getLabelRotationAngle();
@@ -220,15 +217,13 @@ public class XAxisRenderer extends AxisRenderer {
                         x += width / 2;
                     }
                 }
-                //chart 绘制刻度文本  -------- start --------
+                //chart   -------- start
 
                 if (i == 0 && mXAxis.isJumpFirstLabel()) {
-                    //不是哥们，你好歹好个参数来保存要不要绘制啊，查了我半天结果是因为你这里给跳过了
-                    //起始刻度不需要绘制
                     continue;
                 }
 
-                // -------- end --------
+                // end
                 drawLabel(c, label, x, pos, anchor, labelRotationAngleDegrees);
             }
         }
@@ -267,13 +262,13 @@ public class XAxisRenderer extends AxisRenderer {
 
 
         for (int i = 0; i < positions.length; i += 2) {
-            //chart 绘制刻度线   -------- start --------
+            //chart    -------- start
 
             if (i == 0) {
                 continue;
             }
 
-            // -------- end --------
+            // end
             drawGridLine(c, positions[i], positions[i + 1], gridLinePath);
         }
 
@@ -288,14 +283,11 @@ public class XAxisRenderer extends AxisRenderer {
         return mGridClippingRect;
     }
 
-    /**
      * Draws the grid line at the specified position using the provided path.
-     *
      * @param c
      * @param x
      * @param y
      * @param gridLinePath
-     */
     protected void drawGridLine(Canvas c, float x, float y, Path gridLinePath) {
 
         gridLinePath.moveTo(x, mViewPortHandler.contentBottom());
@@ -310,11 +302,8 @@ public class XAxisRenderer extends AxisRenderer {
     protected float[] mRenderLimitLinesBuffer = new float[2];
     protected RectF mLimitLineClippingRect = new RectF();
 
-    /**
      * Draws the LimitLines associated with this axis to the screen.
-     *
      * @param c
-     */
     @Override
     public void renderLimitLines(Canvas c) {
 

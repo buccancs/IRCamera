@@ -9,9 +9,6 @@ import android.widget.LinearLayout
 import com.csl.irCamera.libui.R
 import com.csl.irCamera.libui.databinding.UiSteeringWheelViewBinding
 
-/**
- * 校准方向
- */
 class SteeringWheelView : LinearLayout, OnClickListener {
 
     private lateinit var binding: UiSteeringWheelViewBinding

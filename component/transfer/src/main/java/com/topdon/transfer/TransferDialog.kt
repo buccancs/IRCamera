@@ -9,11 +9,8 @@ import android.view.ViewGroup
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.transfer.databinding.DialogTransferBinding
 
-/**
- * 相册迁移进度弹框.
- *
+ * .
  * Created by LCG on 2024/3/26.
- */
 class TransferDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
 
     private lateinit var binding: DialogTransferBinding

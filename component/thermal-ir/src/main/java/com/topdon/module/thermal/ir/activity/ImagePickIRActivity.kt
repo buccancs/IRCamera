@@ -9,11 +9,9 @@ import com.topdon.module.thermal.ir.R
 import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.fragment.IRMonitorThermalFragment
 
-/**
- * des:单光红外拍照
+ * des:
  * author: CaiSongL
  * date: 2024/8/24 18:10
- **/
 @Route(path = RouterConfig.IR_IMG_PICK)
 class ImagePickIRActivity : BasePickImgActivity() {
 

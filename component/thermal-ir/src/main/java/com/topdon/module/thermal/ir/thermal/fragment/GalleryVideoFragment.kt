@@ -12,9 +12,6 @@ import com.topdon.module.thermal.ir.thermal.adapter.GalleryAdapter
 import com.topdon.module.thermal.ir.thermal.viewmodel.GalleryViewModel
 import com.topdon.module.thermal.ir.databinding.FragmentGalleryVideoBinding
 
-/**
- * 图片
- */
 class GalleryVideoFragment : BaseViewModelFragment<GalleryViewModel>() {
     private val adapter by lazy { GalleryAdapter(requireContext()) }
     private lateinit var binding: FragmentGalleryVideoBinding
@@ -39,8 +36,8 @@ class GalleryVideoFragment : BaseViewModelFragment<GalleryViewModel>() {
             }
 
             override fun onLongClick(index: Int, path: String) {
-                TipDialog.Builder(requireContext()).setMessage("导出图片")
-                    .setPositiveListener("分享") {
+                TipDialog.Builder(requireContext()).setMessage("")
+                    .setPositiveListener("") {
 //                            share(path)
                     }
                     .create().show()

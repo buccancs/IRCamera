@@ -9,15 +9,11 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.annotation.ColorInt
 
-/**
- * 颜色选择自定义 View.
- * 只支持在已经定死的 120 种颜色中拾取一种.
- */
+ *  View.
+ *  120 .
 class ColorSelectView : View {
     companion object {
-        /**
-         * 选中描边宽度，单位 dp.
-         */
+         * dp.
         private const val DEFAULT_STROKE_WIDTH = 3
 
         private val ROW_COLOR_1 = intArrayOf(0xFFFEFFFE.toInt(), 0xFFEBEBEB.toInt(), 0xFFD6D6D6.toInt(), 0xFFC2C2C2.toInt(), 0xFFADADAD.toInt(), 0xFF999999.toInt(), 0xFF858585.toInt(), 0xFF707070.toInt(), 0xFF5C5C5C.toInt(), 0xFF474747.toInt(), 0xFF333333.toInt(), 0xFF000000.toInt())
@@ -65,18 +61,14 @@ class ColorSelectView : View {
         }
     }
 
-    /**
-     * 是否需要整体描边.
-     */
+     * .
     var isNeedStroke: Boolean = false
         set(value) {
             invalidate()
             field = value
         }
 
-    /**
-     * 颜色拾取事件监听.
-     */
+     * .
     var onSelectListener: ((color: Int) -> Unit)? = null
 
     fun reset() {
@@ -92,17 +84,17 @@ class ColorSelectView : View {
     }
 
 
-    private var currentRow: Int = -1   //当前选中行
-    private var currentColumn: Int = -1//当前选中列
+    private var currentRow: Int = -1 //
+    private var currentColumn: Int = -1//
 
-    private val widthPixels: Int//屏幕宽度
-    private val density: Float  //屏幕缩放等级，用于dp与px转换
-    private val strokeWidth: Int//描边宽度，单位px
+    private val widthPixels: Int//
+    private val density: Float //，dppx
+    private val strokeWidth: Int//，px
 
     private val path = Path()
-    private val itemPaint = Paint()  //未选中画笔
-    private val itemSelectPaint = Paint()//选中描边效果画笔
-    private val strokePaint = Paint()    //整体描边效果画笔
+    private val itemPaint = Paint() //
+    private val itemSelectPaint = Paint()//
+    private val strokePaint = Paint() //
 
     constructor(context: Context) : this(context, null)
 
@@ -154,7 +146,6 @@ class ColorSelectView : View {
         val connerSize = itemSize * 8f / 26f
         val margin = strokeWidth / 2f
 
-        //绘制描边
         if (isNeedStroke) {
             path.rewind()
             path.moveTo(margin, margin + connerSize)

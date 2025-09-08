@@ -6,9 +6,7 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.user.R
 import com.topdon.module.user.databinding.ActivityQuestionDetailsBinding
 
-/**
- * FAQ - 一项 FAQ 详情
- */
+ * FAQ -  FAQ
 @Route(path = RouterConfig.QUESTION_DETAILS)
 class QuestionDetailsActivity : BaseActivity() {
 

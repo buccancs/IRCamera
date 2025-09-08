@@ -5,9 +5,7 @@ import android.util.AttributeSet
 import android.widget.LinearLayout
 import com.csl.irCamera.libui.R
 
-/**
- * 自定义FooterView
- */
+ * FooterView
 class LoadingView : LinearLayout {
 
     constructor(context: Context) : this(context, null)

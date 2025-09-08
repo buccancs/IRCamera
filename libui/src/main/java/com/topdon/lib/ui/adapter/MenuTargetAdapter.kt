@@ -17,13 +17,10 @@ import com.topdon.menu.R as MenuR
 import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.menu.constant.TargetType
 
-@Deprecated("旧的标靶菜单，已重构过了")
+@Deprecated("，")
 class MenuTargetAdapter (val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var listener: ((code: Int) -> Unit)? = null
 
-    /**
-     * 设置指定选项的选中状态
-     */
     fun setSelected(targetType: TargetType, isSelected: Boolean) {
         when (targetType) {
             TargetType.MODE -> secondBean[0].isSelect = isSelected
@@ -44,9 +41,6 @@ class MenuTargetAdapter (val context: Context) : RecyclerView.Adapter<RecyclerVi
         ColorBean(MenuR.drawable.selector_menu2_target_4_help, context.getString(MenuR.string.main_tab_second_target_help), CameraHelp.TYPE_SET_TARGET_HELP),
     )
 
-    /**
-     * 刷新测量模式图标
-     */
     fun upCurrentMeasureMode(measureMode: Int){
         secondBean.clear()
         when (measureMode) {
@@ -105,7 +99,7 @@ class MenuTargetAdapter (val context: Context) : RecyclerView.Adapter<RecyclerVi
         val img: ImageView = binding.itemMenuTabImg
         val name: TextView = binding.itemMenuTabText
         init {
-//            val canSeeCount = 4.5 //一屏占4个
+//            val canSeeCount = 4.5 //4
 //            val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()
             binding.root.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
 //            val imageSize = (ScreenUtils.getScreenWidth() * 62 / 375f).toInt()

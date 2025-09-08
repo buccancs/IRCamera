@@ -1,5 +1,4 @@
 //package com.topdon.module.thermal.ir.thermal.activity.temp
-//
 //import android.util.Log
 //import androidx.lifecycle.lifecycleScope
 //import androidx.recyclerview.widget.GridLayoutManager
@@ -23,39 +22,27 @@ import com.csl.irCamera.libapp.R as LibAppR
 //import kotlinx.coroutines.Dispatchers
 //import kotlinx.coroutines.delay
 //import kotlinx.coroutines.launch
-//
-///**
-// * 针对单个thermalId显示(用不到)
-// */
+// * thermalId()
 //@Route(path = RouterConfig.THERMAL_LOG_SINGLE_CHART)
 //class LogSingleChartActivity : BaseActivity() {
-//
 //    val adapter: SettingTimeAdapter by lazy { SettingTimeAdapter(this) }
-//
 //    companion object {
-//        const val KEY_THERMAL_ID = "thermalId"
+//        const val KEY_THERMAL_ID = thermalId
 //    }
-//
-//    private var thermalId = ""
+//    private var thermalId =
 //    private var dataList: ArrayList<ThermalEntity> = arrayListOf()
-//
 //    override fun initContentView() = R.layout.activity_log_chart
-//
 //    override fun initView() {
-//        setTitleText("图表")
+//        setTitleText()
 //        thermalId = intent.getStringExtra(KEY_THERMAL_ID)!!
-//
 //        log_chart_time_recycler.layoutManager = GridLayoutManager(this, 4)
 //        log_chart_time_recycler.adapter = adapter
 //        adapter.listener = object : SettingTimeAdapter.OnItemClickListener {
 //            override fun onClick(index: Int, time: Int) {
 //                adapter.setCheck(index)
 //            }
-//
 //        }
-//
 //    }
-//
 //    override fun initData() {
 //        lifecycleScope.launch(Dispatchers.IO) {
 //            dataList = AppDatabase.getInstance().thermalDao()
@@ -66,137 +53,121 @@ import com.csl.irCamera.libapp.R as LibAppR
 //            }
 //        }
 //    }
-//
 //    private var dataSeries = arrayOfNulls<Float>(0)
-//
 //    private fun getSeriesModel(): Array<AASeriesElement> {
 //        dataList.forEach {
 //            dataSeries = dataSeries.plus(it.thermal)
 //        }
-//        Log.w("123", "ahh:${dataSeries.joinToString()}")
+//        Log.w(123, ahh:${dataSeries.joinToString()})
 //        return arrayOf(
 //            AASeriesElement()
-//                .name("Tokyo")
+//                .name(Tokyo)
 //                .data(dataSeries as Array<Any>)
 //        )
 //    }
-//
 //    private fun configureSpecialStyleMarkerOfSingleDataElementChart(): AAChartModel {
 //        return AAChartModel()
 //            .chartType(AAChartType.Spline)
-//            .titleStyle(AAStyle.Companion.style("#FFFFFF"))
-//            .subtitleStyle(AAStyle.Companion.style(color = "#FFFFFF", fontSize = 12f))
-//            .backgroundColor("#3598E8")
-//            .yAxisTitle("")
-//            .axesTextColor("#FFFFFF")
-//            .dataLabelsEnabled(false)//坐标点是否显示值
+//            .titleStyle(AAStyle.Companion.style(#FFFFFF))
+//            .subtitleStyle(AAStyle.Companion.style(color = #FFFFFF, fontSize = 12f))
+//            .backgroundColor(#3598E8)
+//            .yAxisTitle()
+//            .axesTextColor(#FFFFFF)
+//            .dataLabelsEnabled(false)//
 //            .tooltipEnabled(true)
 //            .markerRadius(0f)
 ////            .gradientColorEnable(true)
-////            .colorsTheme(arrayOf("#FFFFFF", "#000000"))
+////            .colorsTheme(arrayOf(#FFFFFF, #000000))
 ////            .scrollablePlotArea(AAScrollablePlotArea().minWidth(10).minHeight(10))
 //            .xAxisVisible(true)
 //            .yAxisVisible(true)
 //            .series(
 //                arrayOf(
 //                    AASeriesElement()
-//                        .name("vol")
+//                        .name(vol)
 //                        .lineWidth(2f)
 //                        .data(arrayOf(0))
-//                        .color("#FFFFFF")//曲线颜色
+//                        .color(#FFFFFF)//
 //                )
 //            )
 //    }
-//
-//    val defaultCount = 20//默认显示10个数
+//    val defaultCount = 20//10
 //    val startIndex = 0f
 //    var pointIndex = startIndex - defaultCount
-//
 //    private fun initChart() {
 //        initOption()
 //    }
-//
 //    private fun initOption() {
 //        aa_chart_view.clearCache(true)
 //        val options = configureSpecialStyleMarkerOfSingleDataElementChart().aa_toAAOptions()
 //        val series = initSeries()
 //        val chart = AAChart()
-//            .scrollablePlotArea(AAScrollablePlotArea().minWidth(20)).backgroundColor("#383d45")
-//            .type(AAChartType.Area)//曲线类型
-//
+//            .scrollablePlotArea(AAScrollablePlotArea().minWidth(20)).backgroundColor(#383d45)
+//            .type(AAChartType.Area)//
 //        val xAxis = AAXAxis()
 //            .lineWidth(1f)
 //            .gridLineWidth(0f)
-//            .gridLineColor("#717a8f")
-//            .lineColor("#717a8f")
-//            .tickColor("#717a8f")//刻度颜色
-//            .minRange(9)//设置滚动时，最小宽度
-//            .minorTickColor("#000000")
-//            .labels(AALabels().style(AAStyle.style("#717a8f")))//标尺文字
-//
+//            .gridLineColor(#717a8f)
+//            .lineColor(#717a8f)
+//            .tickColor(#717a8f)//
+//            .minRange(9)//
+//            .minorTickColor(#000000)
+//            .labels(AALabels().style(AAStyle.style(#717a8f)))//
 //        val yAxis = AAYAxis()
 //            .lineWidth(1f)
 //            .gridLineWidth(1f)
-//            .gridLineColor("#454b56")
-//            .lineColor("#383d45")
-////            .max(100f)//设置最大y值
-//            .min(0f)//设置最小y值
-//            .labels(AALabels().style(AAStyle.style("#717a8f")))
-//            .title(AATitle().text("").style(AAStyle().color("#FFFFFF")))//不显示
-//
-//        //初始图表样式
+//            .gridLineColor(#454b56)
+//            .lineColor(#383d45)
+////            .max(100f)//y
+//            .min(0f)//y
+//            .labels(AALabels().style(AAStyle.style(#717a8f)))
+//            .title(AATitle().text().style(AAStyle().color(#FFFFFF)))//
 //        options.series(series).chart(chart).xAxis(xAxis).yAxis(yAxis)
-//        //初始数据
 //        aa_chart_view.aa_drawChartWithChartOptions(options)
 //    }
-//
-//    /**
-//     * 初始化曲线三种类型曲线
-//     */
 //    private fun initSeries(): Array<AASeriesElement> {
 //        val maxTempListData = Array<Any>(dataList.size) { dataList[it].thermalMax }
 //        val minTempListData = Array<Any>(dataList.size) { dataList[it].thermalMin }
 //        val centerTempListData = Array<Any>(dataList.size) { dataList[it].thermal }
-//
-//        val firstColor = "#3d6eb6"
-//        val secondColor = "#ff6e73"
-//        val thirdColor = "#2bdb1f"
+//        val firstColor = #3d6eb6
+//        val secondColor = #ff6e73
+//        val thirdColor = #2bdb1f
 //        val gradientColorDic: Map<*, *> = AAGradientColor.linearGradient(
 //            AALinearGradientDirection.ToBottom,
-//            "#3f7ad1AA",  //DodgerBlue, alpha 透明度 1
-//            "#3f7ad100" //DodgerBlue, alpha 透明度 0.1 (透明度与android位置相反)
+//            #3f7ad1AA,  //DodgerBlue, alpha  1
+//            #3f7ad100 //DodgerBlue, alpha  0.1 (android)
 //        )
 //        val gradientColorDicSecond: Map<*, *> = AAGradientColor.linearGradient(
 //            AALinearGradientDirection.ToBottom,
-//            "#ff6e73AA",
-//            "#ff6e7300"
+//            #ff6e73AA,
+//            #ff6e7300
 //        )
 //        val gradientColorDicThird: Map<*, *> = AAGradientColor.linearGradient(
 //            AALinearGradientDirection.ToBottom,
-//            "#2bdb1fAA",
-//            "#2bdb1f00"
+//            #2bdb1fAA,
+//            #2bdb1f00
 //        )
 //        when (dataList[0].type) {
-//            "point" -> {
+//            point -> {
 //                return arrayOf(
 //                    AASeriesElement()
 //                        .color(firstColor)
 //                        .fillColor(gradientColorDic)
-//                        .name("temp")
+//                        .name(temp)
 //                        .data(centerTempListData),
 //                )
 //            }
-//            "line" -> {
+//            line -> {
 //                return arrayOf(
 //                    AASeriesElement()
 //                        .color(firstColor)
 //                        .fillColor(gradientColorDic)
-//                        .name("maxTemp")
+//                        .name(maxTemp)
 //                        .data(maxTempListData),
 //                    AASeriesElement()
 //                        .color(secondColor)
 //                        .fillColor(gradientColorDicSecond)
-//                        .name("minTemp")
+//                        .name(minTemp)
 //                        .data(minTempListData)
 //                )
 //            }
@@ -205,22 +176,20 @@ import com.csl.irCamera.libapp.R as LibAppR
 //                    AASeriesElement()
 //                        .color(firstColor)
 //                        .fillColor(gradientColorDic)
-//                        .name("maxTemp")
+//                        .name(maxTemp)
 //                        .data(maxTempListData),
 //                    AASeriesElement()
 //                        .color(secondColor)
 //                        .fillColor(gradientColorDicSecond)
-//                        .name("temp")
+//                        .name(temp)
 //                        .data(centerTempListData),
 //                    AASeriesElement()
 //                        .color(thirdColor)
 //                        .fillColor(gradientColorDicThird)
-//                        .name("minTemp")
+//                        .name(minTemp)
 //                        .data(minTempListData)
 //                )
 //            }
 //        }
-//
 //    }
-//
 //}

@@ -124,13 +124,9 @@ class IRMonitorHistoryFragment : Fragment() {
     private class MyAdapter(dataList: MutableList<ThermalDao.Record>?) : BaseQuickAdapter<ThermalDao.Record,
             BaseViewHolder>(R.layout.item_monitory_history, dataList), LoadMoreModule {
 
-        /**
-         * item 点击事件监听.
-         */
+         * item .
         var onItemClickListener: ((position: Int) -> Unit)? = null
-        /**
-         * item 长按事件监听.
-         */
+         * item .
         var onItemLongClickListener: ((position: Int) -> Unit)? = null
 
 
@@ -141,7 +137,7 @@ class IRMonitorHistoryFragment : Fragment() {
             calendar.timeInMillis = record.startTime
             val year = calendar.get(Calendar.YEAR)
             val month = calendar.get(Calendar.MONTH) + 1
-            val day =  calendar.get(Calendar.DAY_OF_MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
 
             val binding = ItemMonitoryHistoryBinding.bind(holder.itemView)
 

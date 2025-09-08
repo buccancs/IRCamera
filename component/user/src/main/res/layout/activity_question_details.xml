@@ -24,7 +24,7 @@
         android:textColor="@color/color_font"
         android:textSize="@dimen/app_font"
         android:textStyle="bold"
-        tools:text="为什么TC001、TS001插到手机上后，没有任何反应？"
+        tools:text="TC001、TS001，？"
         app:layout_constraintWidth_percent="0.9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

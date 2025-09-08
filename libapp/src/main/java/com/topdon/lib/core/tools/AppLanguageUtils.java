@@ -17,10 +17,8 @@ import java.util.HashMap;
 import java.util.Locale;
 
 
-/**
  * @author YanLu
  * @since 17/5/12
- */
 
 public class AppLanguageUtils {
 
@@ -45,9 +43,6 @@ public class AppLanguageUtils {
         return ConstantLanguages.ZH_CN;
     }
 
-    /**
-     * 获取系统默认语言
-     */
     public static String getSystemLanguage() {
         Locale locale = LanguageUtils.getSystemLanguage();
         String language = locale.getLanguage();
@@ -118,12 +113,9 @@ public class AppLanguageUtils {
         return ConstantLanguages.ENGLISH;
     }
 
-    /**
-     * 获取指定语言的locale信息，如果指定语言不存在{@link #mAllLanguages}，返回本机语言，如果本机语言不是语言集合中的一种{@link #mAllLanguages}，返回英语
-     *
+     * locale{@link #mAllLanguages}{@link #mAllLanguages}
      * @param language language
      * @return
-     */
     public static Locale getLocaleByLanguage(String language) {
         if (isSupportLanguage(language)) {
             return mAllLanguages.get(language);

@@ -90,13 +90,13 @@ class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            binding.tvFormatStorage -> {//格式化存储
+            binding.tvFormatStorage -> {//
                 TipDialog.Builder(this@StorageSpaceActivity)
                     .setTitleMessage(getString(LibAppR.string.more_storage_reset))
                     .setMessage(getString(LibAppR.string.more_storage_reset1))
                     .setShowRestartTops(true)
                     .setPositiveListener(LibAppR.string.app_ok) {
-                        // TC001 uses USB connection, storage formatting not available via network  
+                        // TC001 uses USB connection, storage formatting not available via network
                         TToast.shortToast(this@StorageSpaceActivity, LibAppR.string.operation_failed_tips)
                     }
                     .setCancelListener(LibAppR.string.app_cancel) {

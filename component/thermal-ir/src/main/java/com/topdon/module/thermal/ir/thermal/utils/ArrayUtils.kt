@@ -2,10 +2,8 @@ package com.topdon.module.thermal.ir.thermal.utils
 
 object ArrayUtils {
 
-    /**
-     * 获取矩阵数据里的最大值的序列(在选取区域内)-旋转矩阵
-     * @param rotateType 1:旋转90 2:旋转180  3:旋转270
-     */
+     * ()
+     * @param rotateType 1:90 2:180  3:270
     fun getMaxIndex(
         data: FloatArray,
         rotateType: Int = 0,
@@ -18,10 +16,8 @@ object ArrayUtils {
         return index
     }
 
-    /**
-     * 获取矩阵数据里的最小值的序列(在选取区域内)-旋转矩阵
-     * @param rotateType 1:旋转90 2:旋转180  3:旋转270
-     */
+     * ()
+     * @param rotateType 1:90 2:180  3:270
     fun getMinIndex(
         data: FloatArray,
         rotateType: Int = 0,
@@ -34,10 +30,7 @@ object ArrayUtils {
         return index
     }
 
-    /**
-     * 旋转矩阵
-     * @param rotateType 1:旋转90 2:旋转180  3:旋转270
-     */
+     * @param rotateType 1:90 2:180  3:270
     fun matrixRotate(srcData: FloatArray, rotateType: Int = 0): FloatArray {
         return when (rotateType) {
             1 -> matrixRotate90(srcData)
@@ -47,15 +40,12 @@ object ArrayUtils {
         }
     }
 
-    /**
-     * 获取矩阵数据里的最大值的序列(在选取区域内)-原矩阵
-     */
+     * ()
     private fun getMaxIndex(
         data: FloatArray,
         selectIndexList: ArrayList<Int> = arrayListOf()
     ): Int {
         if (selectIndexList.size == 0) {
-            //无指定区域
             var maxIndex = 0
             for (i in 1 until data.size - 1) {
                 if (data[i] > data[maxIndex]) {
@@ -79,9 +69,7 @@ object ArrayUtils {
     }
 
 
-    /**
-     * 获取矩阵数据里的最小值的序列(在选取区域内)-原矩阵
-     */
+     * ()
     private fun getMinIndex(
         data: FloatArray,
         selectIndexList: ArrayList<Int> = arrayListOf()
@@ -115,10 +103,8 @@ object ArrayUtils {
         }
     }
 
-    /**
-     * 获取矩阵数据里的最大值的序列(在选取区域内)-旋转矩阵
-     * @param rotateType 1:旋转90 2:旋转180  3:旋转270
-     */
+     * ()
+     * @param rotateType 1:90 2:180  3:270
     private fun getRotateMaxIndex(
         data: FloatArray,
         rotateType: Int = 0,
@@ -149,10 +135,8 @@ object ArrayUtils {
         }
     }
 
-    /**
-     * 获取矩阵数据里的最小值的序列(在选取区域内)-旋转矩阵
-     * @param rotateType 1:旋转90 2:旋转180  3:旋转270
-     */
+     * ()
+     * @param rotateType 1:90 2:180  3:270
     private fun getRotateMinIndex(
         data: FloatArray,
         rotateType: Int = 0,
@@ -189,9 +173,7 @@ object ArrayUtils {
         }
     }
 
-    /**
-     * 矩阵顺时针旋转90°
-     */
+     * 90°
     private fun matrixRotate90(srcData: FloatArray): FloatArray {
         val row = 192
         val column = 256
@@ -204,7 +186,7 @@ object ArrayUtils {
         val destMatrix = Array(column) { FloatArray(row) }
         for (x in 0 until column) {
             for (y in 0 until row) {
-                destMatrix[x][y] = srcMatrix[row - 1 - y][x]//矩阵旋转90度
+                destMatrix[x][y] = srcMatrix[row - 1 - y][x]//90
             }
         }
         val data = FloatArray(srcData.size)
@@ -216,9 +198,7 @@ object ArrayUtils {
         return data
     }
 
-    /**
-     * 矩阵顺时针旋转180°
-     */
+     * 180°
     private fun matrixRotate180(srcData: FloatArray): FloatArray {
         val row = 192
         val column = 256
@@ -231,7 +211,7 @@ object ArrayUtils {
         val destMatrix = Array(row) { FloatArray(column) }
         for (x in 0 until row) {
             for (y in 0 until column) {
-                destMatrix[x][y] = srcMatrix[row - 1 - x][column - 1 - y]//矩阵旋转180度
+                destMatrix[x][y] = srcMatrix[row - 1 - x][column - 1 - y]//180
             }
         }
         val data = FloatArray(srcData.size)
@@ -243,23 +223,20 @@ object ArrayUtils {
         return data
     }
 
-    /**
-     * 矩阵顺时针旋转270°
-     * 获取旋转后的数组数据
-     */
+     * 270°
     private fun matrixRotate270(srcData: FloatArray): FloatArray {
         val row = 192
         val column = 256
-        val srcMatrix = Array(row) { FloatArray(column) }//源矩阵
+        val srcMatrix = Array(row) { FloatArray(column) }//
         for (i in 0 until row) {
             for (j in 0 until column) {
                 srcMatrix[i][j] = srcData[i * column + j]
             }
         }
-        val destMatrix = Array(column) { FloatArray(row) }//目标矩阵
+        val destMatrix = Array(column) { FloatArray(row) }//
         for (x in 0 until column) {
             for (y in 0 until row) {
-                destMatrix[x][y] = srcMatrix[y][column - 1 - x]//矩阵旋转270度
+                destMatrix[x][y] = srcMatrix[y][column - 1 - x]//270
             }
         }
         val data = FloatArray(srcData.size)

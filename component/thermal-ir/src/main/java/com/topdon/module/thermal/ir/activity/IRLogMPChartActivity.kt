@@ -40,9 +40,7 @@ class IRLogMPChartActivity : BaseActivity() {
     private lateinit var binding: ActivityIrLogMpChartBinding
     private val viewModel: IRMonitorViewModel by viewModels()
 
-    /**
-     * 从上一界面传递过来的，当前查看的监控记录开始时间戳.
-     */
+     * .
     private var startTime = 0L
 
     private val permissionList by lazy {
@@ -77,7 +75,7 @@ class IRLogMPChartActivity : BaseActivity() {
             try {
                 binding.logChartTimeChart.initEntry(it as ArrayList<ThermalEntity>)
             } catch (e: Exception) {
-                XLog.e("刷新图表异常:${e.message}")
+                XLog.e(":${e.message}")
             }
         }
 
@@ -129,7 +127,6 @@ class IRLogMPChartActivity : BaseActivity() {
                                     doNotAskAgain: Boolean
                                 ) {
                                     if (doNotAskAgain) {
-                                        //拒绝授权并且不再提醒
                                         if (BaseApplication.instance.isDomestic()){
                                             ToastUtils.showShort(getString(LibAppR.string.app_storage_content))
                                             return

@@ -23,7 +23,7 @@ class LanguageActivity : BaseActivity() {
         binding = ActivityLanguageBinding.inflate(layoutInflater)
         setContentView(binding.root)
         
-        binding.titleView.setRightClickListener {//保存
+        binding.titleView.setRightClickListener {//
             val localeStr: String = when (selectIndex) {
                 0 -> ConstantLanguages.ENGLISH
                 1 -> ConstantLanguages.RU

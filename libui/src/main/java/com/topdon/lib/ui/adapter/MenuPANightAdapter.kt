@@ -10,7 +10,7 @@ import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.lib.ui.listener.SingleClickListener
 
-@Deprecated("旧的双光菜单，已重构过了")
+@Deprecated("，")
 class MenuPANightAdapter(data: MutableList<ColorBean>, layoutId : Int, private val isDual: Boolean) : BaseQuickAdapter<ColorBean, BaseViewHolder>(layoutId,data) {
 
     var listener: ((index: Int) -> Unit)? = null

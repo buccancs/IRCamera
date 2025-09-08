@@ -12,7 +12,7 @@ object ConfigRepository {
         // Only TC001 is supported now, always use the standard IR config
         Gson().fromJson(SharedManager.getIRConfig(), ModelBean::class.java)
     } catch (_: Exception) {
-        //当SP里没数据必定抛异常，所以这里返回一个默认的
+        //SP
         ModelBean(DataBean(id = 0, use = true))
     }
 
@@ -21,9 +21,6 @@ object ConfigRepository {
         SharedManager.setIRConfig(Gson().toJson(bean))
     }
 
-    /**
-     * 读取选中的配置信息
-     */
     fun readConfig(isTC007: Boolean): DataBean {
         val config = read(isTC007)
         if (config.defaultModel.use) {

@@ -10,11 +10,8 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageView
 import com.csl.irCamera.libir.R
 
-/**
- * 卡尺图片
  * @author: CaiSongL
  * @date: 2023/10/25 13:31
- */
 class CaliperImageView : AppCompatImageView {
 
     private var showBitmapWidth: Float = 0f
@@ -75,8 +72,8 @@ class CaliperImageView : AppCompatImageView {
         showBitmapHeight = pxBitmapHeight * yscale
         showBitmapWidth = pxBitmapHeight * originalBitmapWidth / originalBitmapHeight * xscale
         visibility = View.VISIBLE
-        val layoutParams =  this.layoutParams
-        layoutParams.width  = showBitmapWidth.toInt()
+        val layoutParams = this.layoutParams
+        layoutParams.width = showBitmapWidth.toInt()
         layoutParams.height = showBitmapHeight.toInt()
         this.layoutParams = layoutParams
         if (l== 0 && t == 0 && r == 0 && b == 0){

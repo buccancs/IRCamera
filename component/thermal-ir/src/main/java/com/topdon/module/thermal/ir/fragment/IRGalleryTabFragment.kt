@@ -20,28 +20,15 @@ import com.topdon.module.thermal.ir.viewmodel.IRGalleryTabViewModel
 import com.topdon.module.thermal.ir.databinding.FragmentGalleryTabBinding
 import org.greenrobot.eventbus.EventBus
 
-/**
- * 图库 Tab 页，下分图片和视频.
- *
- * 需要传递参数：
- * - [ExtraKeyConfig.HAS_BACK_ICON] - 图库是否有返回箭头，默认 false
- * - [ExtraKeyConfig.CAN_SWITCH_DIR] - 图库是否可切换 有线设备、TS004、TC007 目录，默认 true
- * - [ExtraKeyConfig.DIR_TYPE] - 进入图库时初始的目录类型 具体取值由 [DirType] 定义
- *
+ *  Tab .
+ * [ExtraKeyConfig.HAS_BACK_ICON] -  false
+ * [ExtraKeyConfig.CAN_SWITCH_DIR] -  TS004TC007  true
+ * [ExtraKeyConfig.DIR_TYPE] -   [DirType]
  * Created by chenggeng.lin on 2023/11/14.
- */
 class IRGalleryTabFragment : BaseFragment() {
-    /**
-     * 从上一界面传递过来的，图库是否有返回箭头
-     */
     private var hasBackIcon = false
-    /**
-     * 从上一界面传递过来的，图库是否可切换 有线设备、TS004、TC007 目录
-     */
+     * TS004TC007
     private var canSwitchDir = true
-    /**
-     * 从上一界面传递过来的，进入图库时初始的目录类型
-     */
     private var currentDirType = DirType.LINE
 
 
@@ -71,9 +58,9 @@ class IRGalleryTabFragment : BaseFragment() {
         binding.titleView.setTitleText(if (canSwitchDir) "" else getString(LibAppR.string.app_gallery))
         binding.titleView.setLeftDrawable(if (hasBackIcon) LibAppR.drawable.ic_back_white_svg else 0)
         binding.titleView.setLeftClickListener {
-            if (viewModel.isEditModeLD.value == true) {//当前为编辑状态，退出编辑
+            if (viewModel.isEditModeLD.value == true) {//，
                 viewModel.isEditModeLD.value = false
-            } else {//当前为非编辑状态，退出页面
+            } else {//，
                 if (hasBackIcon) {
                     requireActivity().finish()
                 }
@@ -81,9 +68,9 @@ class IRGalleryTabFragment : BaseFragment() {
         }
         binding.titleView.setRightDrawable(LibUiR.drawable.ic_toolbar_check_svg)
         binding.titleView.setRightClickListener {
-            if (viewModel.isEditModeLD.value == true) {//当前为编辑状态，全选
+            if (viewModel.isEditModeLD.value == true) {//，
                 viewModel.selectAllIndex.value = binding.viewPager2.currentItem
-            } else {//当前为非编辑状态，进入编辑
+            } else {//，
                 viewModel.isEditModeLD.value = true
             }
         }

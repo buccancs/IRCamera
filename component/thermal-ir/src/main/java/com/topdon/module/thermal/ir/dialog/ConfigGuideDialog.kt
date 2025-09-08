@@ -27,11 +27,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-/**
- * 温度修正操作指引.
- *
+ * .
  * Created by LCG on 2024/11/13.
- */
 class ConfigGuideDialog(context: Context, val isTC007: Boolean, val dataBean: DataBean) : Dialog(context, LibAppR.style.TransparentDialog) {
 
     private lateinit var binding: DialogConfigGuideBinding

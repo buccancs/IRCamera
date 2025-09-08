@@ -3,16 +3,10 @@ package com.topdon.module.thermal.ir.video.media
 import android.graphics.Bitmap
 import android.media.MediaCodecInfo.CodecCapabilities.*
 
-/**
- * COLOR_FormatYUV420Planar             正常
- *
- * COLOR_FormatYUV420SemiPlanar         个例有花屏
- *
- * COLOR_FormatYUV420PackedSemiPlanar   个例有花屏
- *
- * COLOR_FormatYUV420PackedPlanar       个例有花屏
- *
- */
+ * COLOR_FormatYUV420Planar
+ * COLOR_FormatYUV420SemiPlanar
+ * COLOR_FormatYUV420PackedSemiPlanar
+ * COLOR_FormatYUV420PackedPlanar
 object EncodeYuvTools {
 
     fun getNV12(

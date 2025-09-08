@@ -24,9 +24,7 @@ import com.csl.irCamera.libapp.databinding.ItemCarDetectChildLayoutBinding
 import com.csl.irCamera.libapp.databinding.ItemCarDetectLayoutBinding
 import com.csl.irCamera.libapp.databinding.ToolbarLayBinding
 
-/**
- * 汽车检测类型拾取弹框.
- */
+ * .
 class CarDetectDialog(context: Context, val listener: ((bean: CarDetectChildBean) -> Unit)) :
     Dialog(context, R.style.DefaultDialog) {
     

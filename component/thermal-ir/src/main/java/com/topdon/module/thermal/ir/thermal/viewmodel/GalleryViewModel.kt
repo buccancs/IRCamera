@@ -21,9 +21,9 @@ class GalleryViewModel : BaseViewModel() {
         viewModelScope.launch {
             getGalleryList().collect { it ->
                 if (it.size == 0) {
-                    Log.w("123", "文件不存在")
+                    Log.w("123", "")
                 } else {
-//                    it.forEach { Log.w("123", "it:$it") }
+//                    it.forEach { Log.w(123, it:$it) }
                     galleryLiveData.postValue(it)
                 }
             }
@@ -34,9 +34,9 @@ class GalleryViewModel : BaseViewModel() {
         viewModelScope.launch {
             getVideoList().collect { it ->
                 if (it.size == 0) {
-                    Log.w("123", "文件不存在")
+                    Log.w("123", "")
                 } else {
-//                    it.forEach { Log.w("123", "it:$it") }
+//                    it.forEach { Log.w(123, it:$it) }
                     galleryLiveData.postValue(it)
                 }
             }

@@ -7,13 +7,9 @@ import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import com.topdon.module.thermal.ir.R
 import com.csl.irCamera.libapp.R as LibAppR
 
-/**
- * 魔改 StandardGSYVideoPlayer.
- *
- * 产品嫌播放暂停图标太丑了，这里改一下.
- *
+ *  StandardGSYVideoPlayer.
+ * .
  * Created by chenggeng.lin on 2023/12/8.
- */
 class MyGSYVideoPlayer : StandardGSYVideoPlayer {
 
     override fun getLayoutId(): Int = R.layout.view_my_gsy_video_player

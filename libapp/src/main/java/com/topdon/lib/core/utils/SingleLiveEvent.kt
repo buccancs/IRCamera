@@ -7,10 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import java.util.concurrent.atomic.AtomicBoolean
 
-/**
- * 解决LiveData粘性事件
+ * LiveData
  * Created by jzh on 2020-12-28.
- */
 class SingleLiveEvent<T> : MutableLiveData<T>() {
 
     private val mPending: AtomicBoolean = AtomicBoolean(false)
@@ -29,9 +27,7 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
         super.setValue(t)
     }
 
-    /**
      * Used for cases where T is Void, to make calls cleaner.
-     */
     @MainThread
     fun call() {
         this.setValue(null)

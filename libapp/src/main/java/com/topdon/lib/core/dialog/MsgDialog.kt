@@ -15,10 +15,7 @@ import com.csl.irCamera.libapp.databinding.DialogMsgBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 
-/**
- * 消息提示窗
  * create by fylder on 2018/6/15
- **/
 class MsgDialog : Dialog {
 
     constructor(context: Context) : super(context)
@@ -81,13 +78,11 @@ class MsgDialog : Dialog {
             val lp = dialog!!.window!!.attributes
             val wRatio =
                 if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    //竖屏
                     0.9
                 } else {
-                    //横屏
                     0.3
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() //设置宽度
+            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() //
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(false)
@@ -118,9 +113,6 @@ class MsgDialog : Dialog {
     }
 
 
-    /**
-     * 提交回调
-     */
     interface OnClickListener {
         fun onClick(dialog: DialogInterface)
     }

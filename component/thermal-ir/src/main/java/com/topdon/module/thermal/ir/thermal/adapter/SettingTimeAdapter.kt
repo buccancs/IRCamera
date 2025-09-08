@@ -12,13 +12,10 @@ import com.topdon.module.thermal.ir.R
 import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.databinding.ItemSettingTimeBinding
 
-/**
- * 设置时间
- */
 class SettingTimeAdapter(val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var datas = arrayOf("秒", "分", "时", "天")
+    private var datas = arrayOf("", "", "", "")
     private var dataTimes = arrayOf(1, 2, 3, 4)
 
     var listener: OnItemClickListener? = null

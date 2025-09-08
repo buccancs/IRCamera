@@ -5,22 +5,17 @@ package com.infisense.usbir.view;
 import android.view.MotionEvent;
 import android.view.View;
 
-/**
- * 这个工具可以使任何一个view进行拖动。
+ * view
  * @author: CaiSongL
  * @date: 2023/10/25 11:42
- */
 public class DragViewUtil {
     public static void registerDragAction(View v) {
 //        registerDragAction(v, 0);
     }
 
-    /**
-     * 拖动View方法
-     *
+     * View
      * @param v     view
-     * @param delay 延迟
-     */
+     * @param delay
     public static void registerDragAction(View v, long delay) {
         v.setOnTouchListener(new TouchListener(delay));
     }

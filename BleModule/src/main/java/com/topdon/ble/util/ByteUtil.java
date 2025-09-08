@@ -2,13 +2,9 @@ package com.topdon.ble.util;
 
 import android.util.Log;
 
-/**
  * ByteUtil
- * 数组操作工具
- *
  * @author chuanfeng.bi
  * @date 2021/12/8 10:49
- */
 public class ByteUtil {
     public static byte[] byteMerger(byte[] byte1, int byte2, int byte3, int byte4) {
         return byteMerger(byte1, intToByteArray(byte2), intToByteArray(byte3), intToByteArray2(byte4));
@@ -61,12 +57,9 @@ public class ByteUtil {
         return result;
     }
 
-    /**
-     * int到byte[] 由高位到低位
-     *
-     * @param i 需要转换为byte数组的整行值。
-     * @return byte数组
-     */
+     * intbyte[]
+     * @param i byte
+     * @return byte
     public static byte[] intToByteArray(int i) {
         byte[] result = new byte[1];
         result[0] = (byte) (i & 0xFF);
@@ -106,29 +99,27 @@ public class ByteUtil {
             resultByte[i] = bytes[i];
         }
         float value = Integer.valueOf(HexUtil.bytesToHexString(resultByte), 16);
-        Log.e("bcf", "bytesToFloat bytes: " + HexUtil.bytesToHexString(resultByte) + "   float:" + value);
+        Log.e("bcf", "bytesToFloat bytes: " + HexUtil.bytesToHexString(resultByte) + " float:" + value);
         return value;
     }
 
     public static int byteToInt(byte b) {
-        //Java 总是把 byte 当做有符处理；我们可以通过将其和 0xFF 进行二进制与得到它的无符值
+        //Java  byte  0xFF
         return b & 0xFF;
     }
 
     public static byte[] short2byte(short s){
         byte[] b = new byte[2];
         for(int i = 0; i < 2; i++){
-            int offset = 16 - (i+1)*8; //因为byte占4个字节，所以要计算偏移量
-            b[i] = (byte)((s >> offset)&0xff); //把16位分为2个8位进行分别存储
+            int offset = 16 - (i+1)*8; //byte4，
+            b[i] = (byte)((s >> offset)&0xff); //1628
         }
         return b;
     }
 
-    /**
-     * byte[]转int
-     * @param bytes 需要转换成int的数组
-     * @return int值
-     */
+     * byte[]int
+     * @param bytes int
+     * @return int
     public static int byteArrayToInt(byte[] bytes) {
         int value=0;
         for(int i = 0; i < 4; i++) {

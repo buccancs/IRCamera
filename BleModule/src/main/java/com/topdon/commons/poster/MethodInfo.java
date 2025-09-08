@@ -5,10 +5,8 @@ import androidx.annotation.Nullable;
 
 import java.lang.reflect.Method;
 
-/**
  * date: 2019/8/3 09:28
  * author: chuanfeng.bi
- */
 public class MethodInfo {
     @NonNull
     private String name;
@@ -21,32 +19,24 @@ public class MethodInfo {
         this(name, name, parameters);
     }
 
-    /**
      * @param tag {@link Tag#value()}
-     */
     public MethodInfo(@NonNull String name, @NonNull String tag, @Nullable Parameter... parameters) {
         this.name = name;
         this.tag = tag;
         this.parameters = parameters;
     }
 
-    /**
-     * 实例化参数全为null的方法信息
-     *
-     * @param name           方法名
-     * @param parameterTypes 方法参数类型
-     */
+     * null
+     * @param name
+     * @param parameterTypes
     public MethodInfo(@NonNull String name, @Nullable Class<?>[] parameterTypes) {
         this(name, name, parameterTypes);
     }
 
-    /**
-     * 实例化参数全为null的方法信息
-     *
-     * @param name           方法名
+     * null
+     * @param name
      * @param tag            {@link Tag#value()}
-     * @param parameterTypes 方法参数类型
-     */
+     * @param parameterTypes
     public MethodInfo(@NonNull String name, @NonNull String tag, @Nullable Class<?>[] parameterTypes) {
         this(name, tag, toParameters(parameterTypes));
     }
@@ -77,17 +67,13 @@ public class MethodInfo {
         this.name = name;
     }
 
-    /**
      * @return {@link Tag#value()}
-     */
     @NonNull
     public String getTag() {
         return tag;
     }
 
-    /**
      * @param tag {@link Tag#value()}
-     */
     public void setTag(@NonNull String tag) {
         this.tag = tag;
     }

@@ -10,13 +10,9 @@ import com.csl.irCamera.libui.R as LibUiR
 import com.topdon.module.thermal.ir.report.bean.ReportInfoBean
 import com.topdon.module.thermal.ir.databinding.ActivityReportPreviewFirstBinding
 
-/**
- * 生成报告第1步的预览界面.
- *
- * 需要传递
- * - 必选：报告信息 [ExtraKeyConfig.REPORT_INFO]
- * - 可选：检测条件 [ExtraKeyConfig.REPORT_CONDITION]
- */
+ * 1.
+ * [ExtraKeyConfig.REPORT_INFO]
+ * [ExtraKeyConfig.REPORT_CONDITION]
 @Route(path = RouterConfig.REPORT_PREVIEW_FIRST)
 class ReportPreviewFirstActivity: BaseActivity() {
 

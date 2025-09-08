@@ -45,23 +45,16 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 
-/**
- * 插件式 或 TC007 首页.
- *
- * 需要传递参数：
- * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
- *
+ *   TC007 .
+ * [ExtraKeyConfig.IS_TC007] -  TC007
  * Created by LCG on 2024/4/18.
- */
 @Route(path = RouterConfig.IR_MAIN)
 class IRMainActivity : BaseActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityIrMainBinding
 
-    /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
-     */
+     * TC007 .
+     * true-TC007 false
     private var isTC007 = false
 
     override fun initContentView(): Int {
@@ -149,16 +142,16 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            binding.clIconMonitor -> {//监控
+            binding.clIconMonitor -> {//
                 binding.viewPage.setCurrentItem(0, false)
             }
-            binding.clIconGallery -> {//图库
+            binding.clIconGallery -> {//
                 checkStoragePermission()
             }
-            binding.viewMainThermal -> {//首页
+            binding.viewMainThermal -> {//
                 binding.viewPage.setCurrentItem(2, false)
             }
-            binding.clIconReport -> {//报告
+            binding.clIconReport -> {//
                 if (LMS.getInstance().isLogin) {
                     binding.viewPage.setCurrentItem(3, false)
                 } else {
@@ -170,16 +163,14 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
                     }
                 }
             }
-            binding.clIconMine -> {//我的
+            binding.clIconMine -> {//
                 binding.viewPage.setCurrentItem(4, false)
             }
         }
     }
 
-    /**
-     * 刷新 5 个 tab 的选中状态
-     * @param index 当前选中哪个 tab，`[0, 4]`
-     */
+     *  5  tab
+     * @param index  tab`[0, 4]`
     private fun refreshTabSelect(index: Int) {
         binding.ivIconMonitor.isSelected = false
         binding.tvIconMonitor.isSelected = false
@@ -210,11 +201,9 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    /**
-     * 显示操作指引弹框.
-     */
+     * .
     private fun showGuideDialog() {
-        if (SharedManager.homeGuideStep == 0) {//已看过或不再提示
+        if (SharedManager.homeGuideStep == 0) {//
             return
         }
 
@@ -266,8 +255,8 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
             window?.decorView?.setRenderEffect(RenderEffect.createBlurEffect(20f, 20f, Shader.TileMode.MIRROR))
         } else {
             lifecycleScope.launch {
-                //界面切换及温度监控历史列表加载均需要时间，所以需要等待1000毫秒再去刷新背景
-                //而若等待1000毫秒太过久，界面会非模糊1000毫秒，所以先刷新一次背景占位
+                //1000
+                //10001000
                 delay(100)
                 guideDialog.blurBg(binding.clRoot)
             }
@@ -316,9 +305,6 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    /**
-     * 动态申请权限
-     */
     private fun initStoragePermission(permissionList: List<String>) {
         if (PermissionUtils.isVisualUser()){
             binding.viewPage.setCurrentItem(1, false)
@@ -335,7 +321,6 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
 
                 override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
                     if (doNotAskAgain) {
-                        //拒绝授权并且不再提醒
                         TipDialog.Builder(this@IRMainActivity)
                             .setTitleMessage(getString(LibAppR.string.app_tip))
                             .setMessage(getString(LibAppR.string.app_album_content))
@@ -357,7 +342,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
         override fun getItemCount() = 5
 
         override fun createFragment(position: Int): Fragment {
-            if (position == 1) {//图库
+            if (position == 1) {//
                 return IRGalleryTabFragment().apply {
                     arguments = Bundle().also {
                         val dirType = DirType.LINE.ordinal // TC001 only

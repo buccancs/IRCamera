@@ -14,14 +14,9 @@ import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.fragment.IRGalleryTabFragment
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryTabViewModel
 
-/**
- * 图库.
- *
- * 需要传递参数：
- * - [ExtraKeyConfig.DIR_TYPE] - 要查看的目录类型 具体取值由 [DirType] 定义
- *
+ * .
+ * [ExtraKeyConfig.DIR_TYPE] -   [DirType]
  * Created by LCG on 2024/2/22.
- */
 @Route(path = RouterConfig.IR_GALLERY_HOME)
 class IRGalleryHomeActivity : BaseActivity() {
     private var isTS004Remote = false
