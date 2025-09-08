@@ -1,1 +1,1 @@
-<?xml version="1. 0" encoding="utf-8"?> <resources> <string-array name="array"> <item>Option 1</item> <item>Option 2</item> <item>Option 3</item> </string-array> <string-array name="currency"> <item>$</item> <item>EUR</item> <item>CNY</item> <item>GBP</item> </string-array> </resources>
+<?xml version="1.0" encoding="utf-8"?> <resources> <string-array name="array"> <item>Option 1</item> <item>Option 2</item> <item>Option 3</item> </string-array> <string-array name="currency"> <item>$</item> <item>EUR</item> <item>CNY</item> <item>GBP</item> </string-array> </resources>

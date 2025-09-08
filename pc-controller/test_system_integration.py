@@ -13,7 +13,7 @@ src_dir = Path(__file__).parent / "src"
 sys.path.insert(0, str(src_dir))
 
 
-async def test_bluetooth_manager():
+async def test_bluetooth_manager() -> None:
     """Test Bluetooth manager basic functionality."""
     try:
         from ircamera_pc.core.bluetooth_manager import (
@@ -32,7 +32,7 @@ async def test_bluetooth_manager():
         return False
 
 
-async def test_wifi_manager():
+async def test_wifi_manager() -> None:
     """Test WiFi manager basic functionality."""
     try:
         from ircamera_pc.core.wifi_manager import (
@@ -53,7 +53,7 @@ async def test_wifi_manager():
         return False
 
 
-def test_admin_privileges_basic():
+def test_admin_privileges_basic() -> None:
     """Test admin privileges manager basic functionality (without GUI)."""
     try:
         from ircamera_pc.core.admin_privileges import (
@@ -80,7 +80,7 @@ def test_admin_privileges_basic():
         return False
 
 
-def test_protocol_extension():
+def test_protocol_extension() -> None:
     """Test protocol extension with new message types."""
     try:
         from ircamera_pc.network.protocol import ProtocolManager

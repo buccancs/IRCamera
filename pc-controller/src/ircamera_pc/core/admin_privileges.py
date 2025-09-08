@@ -40,12 +40,12 @@ except ImportError:
             return QMessageBox.StandardButton.Yes
 
         @staticmethod
-        def warning(*args, **kwargs):
+        def warning(*args, **kwargs) -> None:
             pass
 
     class QApplication:
         @staticmethod
-        def quit():
+        def quit() -> None:
             pass
 
 

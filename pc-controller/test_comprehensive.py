@@ -20,7 +20,7 @@ src_dir = Path(__file__).parent / "src"
 sys.path.insert(0, str(src_dir))
 
 
-def test_all_components():
+def test_all_components() -> None:
     """Test all PC Controller components comprehensively."""
     print("🧪 Testing IRCamera PC Controller - ALL COMPONENTS")
     print("=" * 60)
@@ -157,7 +157,7 @@ def test_all_components():
         shutil.rmtree(temp_dir)
 
 
-async def test_gsr_session(gsr_ingestor, session_id):
+async def test_gsr_session(gsr_ingestor, session_id) -> None:
     """Test GSR ingestor functionality."""
     from ircamera_pc.core.gsr_ingestor import GSRMode
 
@@ -189,7 +189,7 @@ async def test_gsr_session(gsr_ingestor, session_id):
         raise ValueError(f"Expected 5 samples, got {len(dataset.samples)}")
 
 
-async def test_file_transfer(file_transfer_manager, session_id):
+async def test_file_transfer(file_transfer_manager, session_id) -> None:
     """Test file transfer manager functionality."""
     from ircamera_pc.core.file_transfer import FileManifest, FileType
 
@@ -218,7 +218,7 @@ async def test_file_transfer(file_transfer_manager, session_id):
     assert summary["active_transfers"] >= 0, "Invalid transfer summary"
 
 
-async def test_calibration_session(camera_calibrator, session_id):
+async def test_calibration_session(camera_calibrator, session_id) -> None:
     """Test camera calibrator functionality."""
     from ircamera_pc.core.calibration import CameraType
 

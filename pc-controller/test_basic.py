@@ -15,7 +15,7 @@ src_dir = Path(__file__).parent / "src"
 sys.path.insert(0, str(src_dir))
 
 
-def test_basic_functionality():
+def test_basic_functionality() -> None:
     """Test basic functionality without external dependencies."""
     print("🧪 Testing IRCamera PC Controller Core Components")
     print("=" * 60)

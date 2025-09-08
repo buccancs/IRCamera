@@ -20,7 +20,7 @@ from ircamera_pc.network.server import NetworkServer
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 
-def test_protocol_manager():
+def test_protocol_manager() -> None:
     """Test protocol manager functionality."""
     print("Testing Protocol Manager...")
 
@@ -41,7 +41,7 @@ def test_protocol_manager():
     print(f"✓ Protocol manager loaded {len(message_types)} message types")
 
 
-def test_message_creation():
+def test_message_creation() -> None:
     """Test message creation and validation."""
     print("Testing Message Creation...")
 
@@ -72,7 +72,7 @@ def test_message_creation():
     print("✓ Message creation and validation working")
 
 
-def test_network_server():
+def test_network_server() -> None:
     """Test network server initialization."""
     print("Testing Network Server...")
 
@@ -97,7 +97,7 @@ def test_network_server():
     print("✓ Network server initialized with protocol support")
 
 
-def test_session_manager():
+def test_session_manager() -> None:
     """Test session manager."""
     print("Testing Session Manager...")
 
@@ -116,7 +116,7 @@ def test_session_manager():
     print("✓ Session manager working")
 
 
-async def test_protocol_message_flow():
+async def test_protocol_message_flow() -> None:
     """Test complete message flow."""
     print("Testing Protocol Message Flow...")
 

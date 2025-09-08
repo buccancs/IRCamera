@@ -17,9 +17,9 @@
                                                         <dimen name="tab_second_img_height">62dp</dimen>
                                                             <!-- Comment -->
                                                             <dimen name="menu_height">112dp</dimen>
-                                                                <item name="setting_wp" format="float" type="dimen">0. 2</item>
-                                                                    <item name="model_line_start" format="float" type="dimen">0. 03</item>
-                                                                        <item name="model_line_end" format="float" type="dimen">0. 96</item>
+                                                                <item name="setting_wp" format="float" type="dimen">0.2</item>
+                                                                    <item name="model_line_start" format="float" type="dimen">0.03</item>
+                                                                        <item name="model_line_end" format="float" type="dimen">0.96</item>
                                                                             <dimen name="setting_item_top">8dp</dimen>
                                                                                 <dimen name="temperature_padding_top">2dp</dimen>
                                                                                     <dimen name="temperature_padding_start">5dp</dimen>

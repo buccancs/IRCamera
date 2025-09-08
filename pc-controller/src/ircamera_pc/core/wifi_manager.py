@@ -36,14 +36,14 @@ except ImportError:
     PYQT_AVAILABLE = False
 
     class BaseThread:
-        def __init__(self):
+        def __init__(self) -> None:
             pass
 
         def start(self):
             # Run in current thread if PyQt6 not available
             self.run()
 
-        def run(self):
+        def run(self) -> None:
             pass
 
 
