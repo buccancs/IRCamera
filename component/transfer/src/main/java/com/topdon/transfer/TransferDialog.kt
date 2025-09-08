@@ -32,7 +32,6 @@ class TransferDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
             seekBar.progress = value
         }
 
-
     private val contentView: View = LayoutInflater.from(context).inflate(TransferR.layout.dialog_transfer, null)
 
     override fun onCreate(savedInstanceState: Bundle?) {

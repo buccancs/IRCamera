@@ -90,7 +90,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     override fun initContentView() = R.layout.activity_main
 
-    // 记录设备信息
+    // 记录设备message
     private fun logInfo() {
         try {
             val str = StringBuilder()

@@ -121,7 +121,7 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
         chart.setNoDataTextColor(textColor)
         val mv = MyMarkerView(this, R.layout.marker_lay)
         mv.chartView = chart
-        chart.marker = mv // 设置点击坐标显示提示框
+        chart.marker = mv // Settings点击坐标显示提示框
         val data = LineData()
         data.setValueTextColor(textColor)
         chart.data = data
@@ -174,7 +174,7 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
 //        set.mode = LineDataSet.Mode.CUBIC_BEZIER
         set.mode = LineDataSet.Mode.LINEAR
         set.setDrawFilled(false)
-        set.fillDrawable = ContextCompat.getDrawable(this, bgChartColors[index]) // 设置填充颜色渐变
+        set.fillDrawable = ContextCompat.getDrawable(this, bgChartColors[index]) // Settings填充颜色渐变
         set.axisDependency = YAxis.AxisDependency.LEFT
         set.color = ContextCompat.getColor(this, lineChartColors[index]) // 曲线颜色
         set.setCircleColor(ContextCompat.getColor(this, com.topdon.lib.core.R.color.white)) // 坐标颜色
@@ -184,10 +184,10 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
         set.lineWidth = 2f
         set.circleRadius = 1f // 不显示坐标点
         set.setCircleColor(ContextCompat.getColor(this, lineChartColors[index])) // 坐标颜色(隐藏处理)
-//        set.setCircleColor(ContextCompat.getColor(this, R.color.white))//坐标颜色(隐藏处理)
+//        set.setCircleColor(ContextCompat.getColor(this, R.color.white))// 坐标颜色(隐藏处理)
         set.fillAlpha = 200
         set.valueTextSize = 10f
-        set.setDrawValues(false) // 设置是否显示坐标值文本
+        set.setDrawValues(false) // Settings是否显示坐标值文本
         return set
     }
 
@@ -206,7 +206,7 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
                         "时间区间:${(data.last().createTime - data.first().createTime) / 1000}",
                     )
                     val startTime = data[0].createTime
-                    Log.w("123", "设置初始时间startTime:$startTime")
+                    Log.w("123", "Settings初始时间startTime:$startTime")
                     chart.xAxis.valueFormatter =
                         MyValueFormatter(startTime = startTime, type = selectType)
                     XLog.w("chart init startTime:$startTime")
@@ -281,8 +281,8 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
                     }
                     lineData.notifyDataChanged()
                     chart.notifyDataSetChanged()
-                    chart.setVisibleXRangeMinimum(getMinimum()) // 设置显示X轴区间大小
-                    chart.setVisibleXRangeMaximum(getMaximum()) // 设置显示X轴区间大小
+                    chart.setVisibleXRangeMinimum(getMinimum()) // Settings显示X轴区间大小
+                    chart.setVisibleXRangeMaximum(getMaximum()) // Settings显示X轴区间大小
                     chart.xAxis.setLabelCount(5, false) // true保证有刻度数量不变
                     chart.moveViewToX(chart.xChartMax) // 移动到最右端
                     chart.zoom(1f, 1f, chart.xChartMax, 0f) // 默认无缩放，全部显示

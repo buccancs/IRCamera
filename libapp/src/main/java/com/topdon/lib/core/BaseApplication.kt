@@ -148,7 +148,7 @@ abstract class BaseApplication : Application() {
 
         if (SharedManager.is04AutoSync) { // 自动保存到手机开启
             when (SocketCmdUtil.getCmdResponse(msgJson)) {
-                WsCmdConstants.AR_COMMAND_SNAPSHOT -> { // 拍照事件
+                WsCmdConstants.AR_COMMAND_SNAPSHOT -> { // Photo capture事件
                     autoSaveNewest(false)
                 }
 
@@ -171,7 +171,7 @@ abstract class BaseApplication : Application() {
             val fileList: List<FileBean>? = TS004Repository.getNewestFile(if (isVideo) 1 else 0)
             if (!fileList.isNullOrEmpty()) {
                 val fileBean: FileBean = fileList[0]
-                val url = "http://192.168.40.1:8080/DCIM/${fileBean.name}"
+                val url = "http:// 192.168.40.1:8080/DCIM/${fileBean.name}"
                 val file = File(FileConfig.ts004GalleryDir, fileBean.name)
                 TS004Repository.download(url, file)
                 MediaScannerConnection.scanFile(this@BaseApplication, arrayOf(FileConfig.ts004GalleryDir), null, null)
@@ -211,7 +211,7 @@ abstract class BaseApplication : Application() {
     }
 
     /**
-     * 设置webview的android9以上系统的多进程兼容性处理
+     * Settingswebview的android9以上系统的多进程兼容性处理
      */
     @RequiresApi(api = 28)
     open fun webviewSetPath(context: Context?) {

@@ -39,17 +39,13 @@ class Menu3DView : ConstraintLayout, View.OnClickListener {
      */
     var onMarkClickListener: ((position: Int) -> Unit)? = null
     /**
-     * 伪彩(0-铁红、1-黑红、2-自然、3-岩浆、4-辉金) 二级菜单切换事件监听.
+     * Pseudo color(0-铁红、1-黑红、2-自然、3-岩浆、4-辉金) 二级菜单切换事件监听.
      */
     var onPseudoClickListener: ((position: Int) -> Unit)? = null
     /**
      * 模式(0-点、1-线、2-面) 二级菜单切换事件监听.
      */
     var onModeClickListener: ((position: Int) -> Unit)? = null
-
-
-
-
 
     /**
      * 当前选中的一级菜单 index.
@@ -65,14 +61,13 @@ class Menu3DView : ConstraintLayout, View.OnClickListener {
      */
     private val markAdapter: MenuAdapter
     /**
-     * 伪彩(铁红、黑红、自然、岩浆、辉金) 二级菜单所用 Adapter.
+     * Pseudo color(铁红、黑红、自然、岩浆、辉金) 二级菜单所用 Adapter.
      */
     private val pseudoAdapter: MenuAdapter
     /**
      * 模式(点、线、面）二级菜单所用 Adapter.
      */
     private val modeAdapter: MenuAdapter
-
 
     /**
      * 文字选中时颜色值.
@@ -82,7 +77,6 @@ class Menu3DView : ConstraintLayout, View.OnClickListener {
      * 文字未选中时颜色值.
      */
     private val defaultColor: Int = 0x66ffffff
-
 
     constructor(context: Context) : this(context, null)
 

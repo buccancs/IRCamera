@@ -4,7 +4,7 @@
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
- *     http://license.coscl.org.cn/MulanPSL2
+ *     http:// license.coscl.org.cn/MulanPSL2
  * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
@@ -44,7 +44,12 @@ import java.util.List;
  * @since 2021/6/5 16:12
  */
 @SuppressWarnings("unused")
-public class DateWheelLayout extends BaseWheelLayout {
+    /**
+     * DateWheelLayout class.
+     *
+     * Provides datewheellayout functionality.
+     */
+    public class DateWheelLayout extends BaseWheelLayout {
     private NumberWheelView yearWheelView;
     private NumberWheelView monthWheelView;
     private NumberWheelView dayWheelView;
@@ -103,7 +108,7 @@ public class DateWheelLayout extends BaseWheelLayout {
         spaceStartView = findViewById(R.id.wheel_picker_date_start_view);
         spaceEndView = findViewById(R.id.wheel_picker_date_end_view);
 
-        //设置高度
+        // Settings高度
         post(new Runnable() {
             @Override
             public void run() {
@@ -251,15 +256,15 @@ public class DateWheelLayout extends BaseWheelLayout {
         }
     }
 
-    /**
-     * 设置日期时间范围
+        /**
+     * Settings日期时间范围
      */
     public void setRange(DateEntity startValue, DateEntity endValue) {
         setRange(startValue, endValue, null);
     }
 
-    /**
-     * 设置日期时间范围
+        /**
+     * Settings日期时间范围
      */
     public void setRange(DateEntity startValue, DateEntity endValue, DateEntity defaultValue) {
         if (startValue == null) {
@@ -371,7 +376,6 @@ public class DateWheelLayout extends BaseWheelLayout {
         return spaceEndView;
     }
 
-
     public final int getSelectedYear() {
         return yearWheelView.getCurrentItem();
     }
@@ -400,22 +404,22 @@ public class DateWheelLayout extends BaseWheelLayout {
 
     private void changeMonth(int year) {
         final int min, max;
-        //开始年份和结束年份相同（即只有一个年份，这种情况建议使用月日模式）
+        // 开始年份和结束年份相同（即只有一个年份，这种情况建议使用月日模式）
         if (startValue.getYear() == endValue.getYear()) {
             min = Math.min(startValue.getMonth(), endValue.getMonth());
             max = Math.max(startValue.getMonth(), endValue.getMonth());
         }
-        //当前所选年份和开始年份相同
+        // 当前所选年份和开始年份相同
         else if (year == startValue.getYear()) {
             min = startValue.getMonth();
             max = 12;
         }
-        //当前所选年份和结束年份相同
+        // 当前所选年份和结束年份相同
         else if (year == endValue.getYear()) {
             min = 1;
             max = endValue.getMonth();
         }
-        //当前所选年份在开始年份和结束年份之间
+        // 当前所选年份在开始年份和结束年份之间
         else {
             min = 1;
             max = 12;
@@ -433,18 +437,18 @@ public class DateWheelLayout extends BaseWheelLayout {
 
     private void changeDay(int year, int month) {
         final int min, max;
-        //开始年月及结束年月相同情况
+        // 开始年月及结束年月相同情况
         if (year == startValue.getYear() && month == startValue.getMonth()
                 && year == endValue.getYear() && month == endValue.getMonth()) {
             min = startValue.getDay();
             max = endValue.getDay();
         }
-        //开始年月相同情况
+        // 开始年月相同情况
         else if (year == startValue.getYear() && month == startValue.getMonth()) {
             min = startValue.getDay();
             max = getTotalDaysInMonth(year, month);
         }
-        //结束年月相同情况
+        // 结束年月相同情况
         else if (year == endValue.getYear() && month == endValue.getMonth()) {
             min = 1;
             max = endValue.getDay();

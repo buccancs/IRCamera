@@ -10,7 +10,6 @@ des:艾睿枚举参数转换工具
  **/
 object DualParamsUtil {
 
-
     fun wifiFusionTypeToParams(fusionType: Int) : Int{
         return when(fusionType){
             SaveSettingUtil.FusionTypeVLOnly -> 3
@@ -20,7 +19,6 @@ object DualParamsUtil {
             else -> 3
         }
     }
-
 
     fun fusionTypeToParams(fusionType: Int) : DualCameraParams.FusionType {
         return when(fusionType){
@@ -46,6 +44,5 @@ object DualParamsUtil {
             else -> SaveSettingUtil.FusionTypeLPYFusion
         }
     }
-
 
 }

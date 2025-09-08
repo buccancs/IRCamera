@@ -12,7 +12,7 @@ import com.topdon.menu.constant.FenceType
  * 点、线、面、全图、趋势图(可选)、删除 菜单 Adapter.
  *
  * - 单光：   点、线、面、全图、趋势图、删除
- * - 双光：   点、线、面、全图、趋势图、删除
+ * - Dual light：   点、线、面、全图、趋势图、删除
  * - Lite：  点、线、面、全图、趋势图、删除
  * - TC007： 点、线、面、全图、趋势图、删除
  * - 2D 编辑：点、线、面、全图、删除
@@ -33,7 +33,7 @@ internal class FenceAdapter(menuType: MenuType) : BaseMenuAdapter() {
             when (value) {
                 FenceType.FULL -> isFullSelect = true
                 FenceType.DEL -> isFullSelect = false
-                else -> {//点、线、面、趋势图，不会影响全图状态
+                else -> {// 点、线、面、趋势图，不会影响全图状态
 
                 }
             }
@@ -50,8 +50,6 @@ internal class FenceAdapter(menuType: MenuType) : BaseMenuAdapter() {
      */
     var onFenceListener: ((fenceType: FenceType, isSelected: Boolean) -> Unit)? = null
 
-
-
     private val dataList: ArrayList<Data> = ArrayList(6)
 
     init {
@@ -59,7 +57,7 @@ internal class FenceAdapter(menuType: MenuType) : BaseMenuAdapter() {
         dataList.add(Data(R.string.thermal_line, MenuR.drawable.selector_menu2_fence_line, FenceType.LINE))
         dataList.add(Data(R.string.thermal_rect, MenuR.drawable.selector_menu2_fence_rect, FenceType.RECT))
         dataList.add(Data(R.string.thermal_full_rect, MenuR.drawable.selector_menu2_fence_full, FenceType.FULL))
-        if (menuType != MenuType.GALLERY_EDIT) {//2D编辑的菜单没有趋势图
+        if (menuType != MenuType.GALLERY_EDIT) {// 2D编辑的菜单没有趋势图
             dataList.add(Data(R.string.thermal_trend, MenuR.drawable.selector_menu2_fence_trend, FenceType.TREND))
         }
         dataList.add(Data(R.string.thermal_delete, MenuR.drawable.selector_menu2_del, FenceType.DEL))

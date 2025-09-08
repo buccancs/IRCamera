@@ -38,7 +38,6 @@ class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(c
     // Initialize view as class property for coroutine access
     private lateinit var ivBlurBg: ImageView
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setCancelable(true)
@@ -88,7 +87,6 @@ class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(c
             onNextClickListener?.invoke(3)
             dismiss()
         }
-
 
         tvSkin1.setOnClickListener {
             onSkinClickListener?.invoke()

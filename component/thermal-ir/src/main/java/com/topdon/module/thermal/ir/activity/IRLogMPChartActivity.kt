@@ -126,7 +126,7 @@ class IRLogMPChartActivity : BaseActivity() {
                                     doNotAskAgain: Boolean
                                 ) {
                                     if (doNotAskAgain) {
-                                        //拒绝授权并且不再提醒
+                                        // 拒绝授权并且不再提醒
                                         if (BaseApplication.instance.isDomestic()){
                                             ToastUtils.showShort(getString(LibR.string.app_storage_content))
                                             return

@@ -224,16 +224,15 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
         irViewModel.initData(irPath)
     }
 
-
     override fun onClick(v: View?) {
         when (v) {
             findViewById<LinearLayout>(R.id.ll_ir_edit_2D) -> {
-                //2d编辑
+                // 2d编辑
                 actionEditOrReport(false)
             }
 
             findViewById<LinearLayout>(R.id.ll_ir_edit_3D) -> {
-                //跳转到3D
+                // 跳转到3D
                 val data = dataList[position]
                 val fileName = data.name.substringBeforeLast(".")
                 val irPath = "${FileConfig.lineIrGalleryDir}/${fileName}.ir"
@@ -273,7 +272,7 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
             }
 
             findViewById<LinearLayout>(R.id.ll_ir_report) -> {
-                //报告
+                // 报告
                 actionEditOrReport(true)
             }
 

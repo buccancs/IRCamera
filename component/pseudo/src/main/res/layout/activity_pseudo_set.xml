@@ -174,7 +174,7 @@
                     app:layout_constraintBottom_toBottomOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- 自定义设置内容 -->
+            <!-- 自定义Settings内容 -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_custom_content"
                 android:layout_width="0dp"

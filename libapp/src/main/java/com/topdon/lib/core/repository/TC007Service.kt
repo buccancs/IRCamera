@@ -16,13 +16,13 @@ import retrofit2.http.Query
  */
 interface TC007Service {
     /**
-     * 获取产品信息
+     * 获取产品message
      */
     @GET("/v1/system/product/info/dj")
     suspend fun getProductInfo(): TC007Response<ProductBean>
 
     /**
-     * 获取设备电池信息
+     * 获取设备电池message
      */
     @GET("/v1/system/local/battery")
     suspend fun getBatteryInfo(): TC007Response<BatteryInfo>
@@ -55,7 +55,7 @@ interface TC007Service {
     suspend fun getUpgradeStatus(): TC007Response<TC07UpgradeStatus>
 
     /**
-     * 恢复出厂设置
+     * 恢复出厂Settings
      */
     @PUT("/v1/system/magic/factory")
     suspend fun resetToFactory(): TC007Response<Boolean>
@@ -73,7 +73,7 @@ interface TC007Service {
     suspend fun getEnvAttr(): TC007Response<EnvAttr>
 
     /**
-     * 设置测温属性参数
+     * Settings测温属性参数
      */
     @PUT("/v1/thermal/env/attribute?default=false")
     suspend fun setEnvAttr(
@@ -81,7 +81,7 @@ interface TC007Service {
     ): TC007Response<Any?>
 
     /**
-     * 设置温度修正参数
+     * Settings温度修正参数
      */
     @PUT("/v1/thermal/env/target")
     suspend fun setIRConfig(
@@ -92,7 +92,7 @@ interface TC007Service {
     suspend fun getTempFrame(): TC007Response<TempFrameParam>
 
     /**
-     * 设置整帧测温（中心点、全图最高温、全图最低温）
+     * Settings整帧测温（中心点、全图最高温、全图最低温）
      */
     @POST("/v1/thermal/temp/frame")
     suspend fun setTempFrame(
@@ -100,7 +100,7 @@ interface TC007Service {
     ): TC007Response<Any?>
 
     /**
-     * 设置测温点
+     * Settings测温点
      */
     @POST("/v1/thermal/temp/point")
     suspend fun setTempPoint(
@@ -108,7 +108,7 @@ interface TC007Service {
     ): TC007Response<Any?>
 
     /**
-     * 设置测温线
+     * Settings测温线
      */
     @POST("/v1/thermal/temp/line")
     suspend fun setTempLine(
@@ -116,7 +116,7 @@ interface TC007Service {
     ): TC007Response<Any?>
 
     /**
-     * 设置测温面
+     * Settings测温面
      */
     @POST("/v1/thermal/temp/rectangle")
     suspend fun setTempRect(
@@ -124,14 +124,14 @@ interface TC007Service {
     ): TC007Response<Any?>
 
     /**
-     * 拍照
+     * Photo capture
      */
     @PUT("/v1/storage/picture/snap/manual")
     suspend fun getPhoto(): TC007Response<PhotoBean>
 
     /**
-     * 设置图像模式
-     * 0：红外；1：可见光；2：画中画；3：双光融合；4：细节增强
+     * Settings图像模式
+     * 0：红外；1：可见光；2：画中画；3：Dual light融合；4：细节增强
      */
     @PUT("/v1/camera/videoin/mode")
     suspend fun setMode(
@@ -158,7 +158,7 @@ interface TC007Service {
         @Body requestBody: RequestBody,
     ): TC007Response<Any?>
 
-    // 双光配准
+    // Dual light配准
     @GET("/v1/camera/videoin/registration")
     suspend fun getRegistration(
         @Query("chn") mode: Int,

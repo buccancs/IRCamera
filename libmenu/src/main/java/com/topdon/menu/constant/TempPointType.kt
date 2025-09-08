@@ -1,7 +1,7 @@
 package com.topdon.menu.constant
 
 /**
- * 观测模式-菜单5-高低温点 菜单类型.
+ * Observation mode-菜单5-High/Low temperature points 菜单类型.
  *
  * Created by LCG on 2024/11/29.
  */

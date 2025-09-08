@@ -16,7 +16,12 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
  * Created by Philipp Jahoda on 19/02/16.
  */
 @SuppressLint("NewApi")
-public class AnimatedZoomJob extends AnimatedViewPortJob implements Animator.AnimatorListener {
+    /**
+     * AnimatedZoomJob class.
+     *
+     * Provides animatedzoomjob functionality.
+     */
+    public class AnimatedZoomJob extends AnimatedViewPortJob implements Animator.AnimatorListener {
 
     private static ObjectPool<AnimatedZoomJob> pool;
 

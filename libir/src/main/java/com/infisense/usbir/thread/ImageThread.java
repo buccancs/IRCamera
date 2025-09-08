@@ -1,16 +1,21 @@
-//package com.infisense.usbir.thread;
+// package com.infisense.usbir.thread;
 //
-//import android.graphics.Bitmap;
-//import android.os.SystemClock;
-//import android.util.Log;
+// import android.graphics.Bitmap;
+// import android.os.SystemClock;
+// import android.util.Log;
 //
-//import com.infisense.iruvc.sdkisp.Libirparse;
-//import com.infisense.iruvc.sdkisp.Libirprocess;
-//import com.infisense.iruvc.utils.SynchronizedBitmap;
+// import com.infisense.iruvc.sdkisp.Libirparse;
+// import com.infisense.iruvc.sdkisp.Libirprocess;
+// import com.infisense.iruvc.utils.SynchronizedBitmap;
 //
-//import java.nio.ByteBuffer;
+// import java.nio.ByteBuffer;
 //
-//public class ImageThread extends Thread {
+//    /**
+     * ImageThread class.
+     *
+     * Provides imagethread functionality.
+     */
+    public class ImageThread extends Thread {
 //
 //    private static final int TYPE_TINY1B = 1;
 //    private static final int TYPE_TINY1C = 0;
@@ -60,7 +65,7 @@
 //            synchronized (syncImage.dataLock) {
 //                if (syncImage.start) {
 //
-//                    //uvc Width,Height
+//                    // uvc Width,Height
 //
 //                /*
 //                imageprocess(imagertemp1, imagertemp2, imageRes);
@@ -76,17 +81,17 @@
 //                    } else {
 //                        Libirparse.yuv422_to_argb(imageSrc, imageHeight * imageWidth, imagedst);
 //                    }
-//                    //Libirprocess.rotate_180(image,imageRes,Libirprocess.IRPROC_SRC_FMT_Y14,imager180);
-//                    //Libirprocess.y14_map_to_yuyv_pseudocolor(imageSrc,imageHeight*imageWidth,Libirprocess.IRPROC_COLOR_MODE_3,imagertemp2);
+//                    // Libirprocess.rotate_180(image,imageRes,Libirprocess.IRPROC_SRC_FMT_Y14,imager180);
+//                    // Libirprocess.y14_map_to_yuyv_pseudocolor(imageSrc,imageHeight*imageWidth,Libirprocess.IRPROC_COLOR_MODE_3,imagertemp2);
 //
-//                    //Libirparse.yuv422_to_argb(imager180,imageHeight*imageWidth,imagergb);
+//                    // Libirparse.yuv422_to_argb(imager180,imageHeight*imageWidth,imagergb);
 //
 //                    if (syncImage.type == TYPE_TINY1B) {
 //                        Libirparse.y14_to_yuv422(imageSrc, imageHeight * imageWidth, imagertemp1);
-//                        //Libirparse.yuv422_to_argb(imagertemp2, imageHeight * imageWidth, imagertemp1);
-//                        //Libirprocess.y14_map_to_yuyv_pseudocolor(imageSrc,imageHeight*imageWidth,Libirprocess.IRPROC_COLOR_MODE_1,imagertemp2);
-//                        //Libirparse.yuv422_to_argb(imagertemp2,imageHeight*imageWidth,imagertemp1);
-//                        //Libirparse.y14_to_argb(imageSrc, imageHeight * imageWidth, imagertemp1);
+//                        // Libirparse.yuv422_to_argb(imagertemp2, imageHeight * imageWidth, imagertemp1);
+//                        // Libirprocess.y14_map_to_yuyv_pseudocolor(imageSrc,imageHeight*imageWidth,Libirprocess.IRPROC_COLOR_MODE_1,imagertemp2);
+//                        // Libirparse.yuv422_to_argb(imagertemp2,imageHeight*imageWidth,imagertemp1);
+//                        // Libirparse.y14_to_argb(imageSrc, imageHeight * imageWidth, imagertemp1);
 //
 //                    } else {
 //                        imagertemp1 = imageSrc;
@@ -107,12 +112,12 @@
 //                }
 //            }
 //
-//            //jpegBytes = PixelFormatConverter.yuv422ToJpeg(pseudoImage, imageWidth, imageHeight);
+//            // jpegBytes = PixelFormatConverter.yuv422ToJpeg(pseudoImage, imageWidth, imageHeight);
 //
 //            synchronized (syncImage.viewLock) {
 //                if (syncImage.valid == false) {
 //                    // bitmap = BitmapFactory.decodeByteArray(jpegBytes, 0, jpegBytes.length);
-//                    //bitmap.copyPixelsFromBuffer(IntBuffer.wrap(pseudoImage));
+//                    // bitmap.copyPixelsFromBuffer(IntBuffer.wrap(pseudoImage));
 //                    bitmap.copyPixelsFromBuffer(ByteBuffer.wrap(imagedst));
 //                    syncImage.valid = true;
 //                    syncImage.viewLock.notify();
@@ -120,7 +125,7 @@
 //            }
 //            SystemClock.sleep(20);
 //        }
-//        Log.w(TAG, "ImageThread exit:");
+
 //    }
 //
 //    private void imageprocess(byte[] src, byte[] dst, Libirprocess.ImageRes_t imageRes) {
@@ -131,4 +136,4 @@
 //        imageRes.width = (char) imageHeight;
 //        Libirprocess.mirror(src, imageRes, Libirprocess.IRPROC_SRC_FMT_Y14, dst);
 //    }
-//}
+// }

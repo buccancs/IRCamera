@@ -4,7 +4,7 @@
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
- *     http://license.coscl.org.cn/MulanPSL2
+ *     http:// license.coscl.org.cn/MulanPSL2
  * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
@@ -40,7 +40,12 @@ import java.util.List;
  * @since 2019/6/15 11:55
  */
 @SuppressWarnings("unused")
-public class LinkageWheelLayout extends BaseWheelLayout {
+    /**
+     * LinkageWheelLayout class.
+     *
+     * Provides linkagewheellayout functionality.
+     */
+    public class LinkageWheelLayout extends BaseWheelLayout {
     private WheelView firstWheelView, secondWheelView, thirdWheelView;
     private TextView firstLabelView, secondLabelView, thirdLabelView;
     private ProgressBar loadingView;

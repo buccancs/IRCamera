@@ -20,7 +20,12 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.util.List;
 
-public class ScatterChartRenderer extends LineScatterCandleRadarRenderer {
+    /**
+     * ScatterChartRenderer class.
+     *
+     * Provides scatterchartrenderer functionality.
+     */
+    public class ScatterChartRenderer extends LineScatterCandleRadarRenderer {
 
     protected ScatterDataProvider mChart;
 

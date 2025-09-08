@@ -37,7 +37,7 @@ public class RequestBuilderFactory {
         return builder;
     }
 
-    /**
+        /**
      * 获取读取蓝牙设备的特征请求构建器
      *
      * @param service        服务UUID
@@ -50,7 +50,7 @@ public class RequestBuilderFactory {
         return builder;
     }
 
-    /**
+        /**
      * 获取开关数据通知请求构建器
      *
      * @param service        服务UUID
@@ -66,7 +66,7 @@ public class RequestBuilderFactory {
         return builder;
     }
 
-    /**
+        /**
      * 获取开关Indication请求构建器
      *
      * @param service        服务UUID
@@ -82,7 +82,7 @@ public class RequestBuilderFactory {
         return builder;
     }
 
-    /**
+        /**
      * 获取读取描述符的值请求构建器
      *
      * @param service        服务UUID
@@ -98,7 +98,7 @@ public class RequestBuilderFactory {
         return builder;
     }
 
-    /**
+        /**
      * 获取向特征写入请求构建器
      *
      * @param service        服务UUID
@@ -115,7 +115,7 @@ public class RequestBuilderFactory {
         return builder;
     }
 
-    /**
+        /**
      * 获取读取已连接的蓝牙设备的信号强度请求构建器
      */
     public RequestBuilder<ReadRssiCallback> getReadRssiBuilder() {
@@ -131,7 +131,7 @@ public class RequestBuilderFactory {
     }
 
     /**
-     * 获取设置物理层发送器和接收器偏好请求构建器
+     * 获取Settings物理层发送器和接收器偏好请求构建器
      *
      * @param txPhy      物理层发送器偏好。{@link BluetoothDevice#PHY_LE_1M_MASK}等
      * @param rxPhy      物理层接收器偏好。{@link BluetoothDevice#PHY_LE_1M_MASK}等

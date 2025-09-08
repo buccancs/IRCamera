@@ -5,7 +5,6 @@ import android.bluetooth.le.ScanResult;
 
 import androidx.annotation.Nullable;
 
-
 /**
  * {@link Device}实例构建器，搜索到BLE设备时，使用此构建器实例化{@link Device}
  * <p>

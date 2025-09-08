@@ -138,7 +138,7 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
             connected()
         } else {
             disConnected()
-            if (DeviceTools.findUsbDevice() != null) {//找到设备,但不能连接
+            if (DeviceTools.findUsbDevice() != null) {// 找到设备,但不能连接
                 showConnectTip()
             }
         }
@@ -163,7 +163,7 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
             }
             tvMainEnter -> {
                 if (!DeviceTools.isConnect()) {
-                    //没有接入设备不需要提示，有系统授权提示框
+                    // 没有接入设备不需要提示，有系统授权提示框
                     if (DeviceTools.findUsbDevice() == null) {
                         activity?.let {
                             TipDialog.Builder(it)
@@ -185,7 +185,7 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
 
                                 override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
                                     if (doNotAskAgain) {
-                                        //拒绝授权并且不再提醒
+                                        // 拒绝授权并且不再提醒
                                         context?.let {
                                             TipDialog.Builder(it)
                                                 .setTitleMessage(getString(R.string.app_tip))
@@ -204,12 +204,12 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
                     }
                 }
             }
-            cl07ConnectTips -> {//TC007 连接提示
+            cl07ConnectTips -> {// TC007 连接提示
                 NavigationManager.getInstance().build(RouterConfig.IR_CONNECT_TIPS)
                     .withBoolean(ExtraKeyConfig.IS_TC007, true)
                     .navigation(requireContext())
             }
-            tv07Connect -> {//TC007 连接设备
+            tv07Connect -> {// TC007 连接设备
                 NavigationManager.getInstance()
                     .build(RouterConfig.IR_DEVICE_ADD)
                     .withBoolean("isTS004", false)
@@ -236,7 +236,7 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
             tipConnectDialog = TipDialog.Builder(requireContext())
                 .setMessage(getString(R.string.tip_target_sdk))
                 .setPositiveListener(R.string.app_confirm) {
-                    val url = "https://www.topdon.com/pages/pro-down?fuzzy=TS001"
+                    val url = "https:// www.topdon.com/pages/pro-down?fuzzy=TS001"
                     val intent = Intent()
                     intent.action = "android.intent.action.VIEW"
                     intent.data = Uri.parse(url)
@@ -291,7 +291,5 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
     private fun initStoragePermission(permissionList: List<String>) {
 
     }
-
-
 
 }

@@ -17,10 +17,15 @@ import com.elvishew.xlog.XLog;
 import java.io.File;
 import java.util.List;
 
-public class AppUtil {
+    /**
+     * AppUtil class.
+     *
+     * Provides apputil functionality.
+     */
+    public class AppUtil {
     public static boolean isAppInstalled(Context context, String packageName) {
         PackageManager packageManager = context.getPackageManager();
-        //获取系统中安装的应用包的信息
+        // 获取系统中安装的应用包的message
         List<PackageInfo> listPackageInfo = packageManager.getInstalledPackages(0);
         for (int i = 0; i < listPackageInfo.size(); i++) {
             if (listPackageInfo.get(i).packageName.equalsIgnoreCase(packageName)) {
@@ -52,8 +57,7 @@ public class AppUtil {
         }
     }
 
-
-    /**
+        /**
      * 应用安装
      *
      * @param context
@@ -63,9 +67,9 @@ public class AppUtil {
     public static void installApp(Context context, File apkPath) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        ///< 判断是否是AndroidN以及更高的版本
+        /// < 判断是否是AndroidN以及更高的版本
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            // 不能再用setFlags了， setflags会重置之前的设置， 要么 setflags 多个|拼接，要么addflag
+            // 不能再用setFlags了， setflags会重置之前的Settings， 要么 setflags 多个|拼接，要么addflag
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             Uri contentUri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileprovider", apkPath);
             intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
@@ -75,7 +79,7 @@ public class AppUtil {
         context.startActivity(intent);
     }
 
-    /**
+        /**
      * 方法描述：判断某一Service是否正在运行     *
      * * @param context     上下文
      * * @param serviceName Service的全路径： 包名 + service的类名
@@ -96,7 +100,7 @@ public class AppUtil {
         return false;
     }
 
-    /**
+        /**
      * 方法描述：判断某一Service是否正在运行     *
      * * @param context     上下文
      * * @param serviceName Service的全路径： 包名 + service的类名

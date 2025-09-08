@@ -4,7 +4,12 @@ import android.util.Log;
 
 import java.util.concurrent.ArrayBlockingQueue;
 
-public class DeviceControlWorker {
+    /**
+     * DeviceControlWorker class.
+     *
+     * Provides devicecontrolworker functionality.
+     */
+    public class DeviceControlWorker {
     private static final String TAG = "DeviceControlWorker";
     private Thread mThread;
     private ArrayBlockingQueue<BaseTask> mEventQueue = new ArrayBlockingQueue(2);
@@ -39,11 +44,11 @@ public class DeviceControlWorker {
                     }
                     task.run();
                     mEventQueue.poll();
-                    //call back connect result
+                    // call back connect result
                     mDeviceState = task.getDeviceState();
                     Log.d(TAG, "DeviceControlWorker do state : " + mDeviceState);
                     if (mDeviceControlCallback != null) {
-                        //防止重复回调
+                        // 防止重复回调
                         if (mDeviceState != previousState) {
                             if (mDeviceState == DeviceState.OPEN) {
                                 mDeviceControlCallback.onConnected();
@@ -64,7 +69,7 @@ public class DeviceControlWorker {
         }
     };
 
-    /**
+        /**
      * start worker thread
      */
     public void startWork() {
@@ -75,7 +80,7 @@ public class DeviceControlWorker {
         }
     }
 
-    /**
+        /**
      * stop worker thread
      */
     public void stopWork() {
@@ -92,7 +97,7 @@ public class DeviceControlWorker {
         }
     }
 
-    /**
+        /**
      * add on task
      *
      * @param task a runnable extends BaseTask

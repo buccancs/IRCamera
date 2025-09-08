@@ -13,7 +13,6 @@ import android.util.Log;
 
 import com.topdon.lib.ui.R;
 
-
 /**
  * //                       _ooOoo_
  * //                      o8888888o
@@ -66,7 +65,7 @@ public class VerticalSeekBar extends SeekBar {
     @Override
     protected void onDrawIndicator(Canvas canvas, Paint paint, String text2Draw) {
         if (text2Draw == null) return;
-        //draw indicator
+        // draw indicator
         if (indicatorTextOrientation == TEXT_DIRECTION_VERTICAL) {
             drawVerticalIndicator(canvas, paint, text2Draw);
         } else {
@@ -74,13 +73,13 @@ public class VerticalSeekBar extends SeekBar {
         }
     }
 
-    private boolean drawIndPathBg = true;//是否绘制背景
+    private boolean drawIndPathBg = true;// 是否绘制背景
 
     public void setDrawIndPathBg(boolean draw){
         drawIndPathBg = draw;
     }
     private boolean noNegativeNumber = false;
-    /**
+        /**
      * 临时处理负数
      */
     public void setNoNegativeNumber(Boolean noNegativeNumber){
@@ -94,7 +93,7 @@ public class VerticalSeekBar extends SeekBar {
      * @param text2Draw
      */
     protected void drawVerticalIndicator(Canvas canvas, Paint paint, String text2Draw) {
-        //measure indicator text
+        // measure indicator text
         try {
             paint.setTextSize(getIndicatorTextSize());
             paint.setStyle(Paint.Style.FILL);
@@ -119,10 +118,10 @@ public class VerticalSeekBar extends SeekBar {
             indicatorRect.right = indicatorRect.left + realIndicatorWidth;
             indicatorRect.bottom = indicatorRect.top + realIndicatorHeight;
 
-            //指示箭头
-            //draw default indicator arrow
+            // 指示箭头
+            // draw default indicator arrow
             if (indicatorBitmap == null && drawIndPathBg) {
-                //arrow three point
+                // arrow three point
                 //  b   c
                 //    a
                 indicatorArrowPath.reset();
@@ -138,7 +137,7 @@ public class VerticalSeekBar extends SeekBar {
                 canvas.drawPath(indicatorArrowPath, paint);
                 indicatorRect.bottom -= getIndicatorArrowSize();
                 indicatorRect.top -= getIndicatorArrowSize();
-                Log.w("伪彩条刷新","///");
+                Log.w("Pseudo color条刷新","/// ");
             }
 
             int defaultPaddingOffset = Utils.dp2px(getContext(), 1);
@@ -152,8 +151,8 @@ public class VerticalSeekBar extends SeekBar {
                 indicatorRect.right -= rightOffset;
             }
 
-            //背景
-            //draw indicator background
+            // 背景
+            // draw indicator background
             if (drawIndPathBg){
                 if (indicatorBitmap != null) {
                     Utils.drawBitmap(canvas, paint, indicatorBitmap, indicatorRect);
@@ -164,11 +163,11 @@ public class VerticalSeekBar extends SeekBar {
                 }
             }
 
-            //draw indicator content text
+            // draw indicator content text
             int tx = indicatorRect.left + (indicatorRect.width() - indicatorTextRect.width()) / 2 + getIndicatorPaddingLeft() - getIndicatorPaddingRight();
             int ty = indicatorRect.bottom - (indicatorRect.height() - indicatorTextRect.height()) / 2 + getIndicatorPaddingTop() - getIndicatorPaddingBottom();
 
-            //draw indicator text
+            // draw indicator text
             paint.setColor(getIndicatorTextColor());
 
             int degrees = 0;
@@ -185,13 +184,13 @@ public class VerticalSeekBar extends SeekBar {
             if (degrees != 0) {
                 canvas.rotate(degrees, rotateX, rotateY);
             }
-            //标签文本
+            // 标签文本
             canvas.drawText(text2Draw, tx, ty, paint);
             if (degrees != 0) {
                 canvas.rotate(-degrees, rotateX, rotateY);
             }
         }catch (Exception e){
-            Log.e("伪彩条渲染失败",e.getMessage());
+            Log.e("Pseudo color条渲染失败",e.getMessage());
         }
     }
 

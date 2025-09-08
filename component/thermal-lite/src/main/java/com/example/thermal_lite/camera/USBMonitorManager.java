@@ -3,7 +3,6 @@ package com.example.thermal_lite.camera;
 import android.hardware.usb.UsbDevice;
 import android.util.Log;
 
-
 import com.blankj.utilcode.util.Utils;
 import com.energy.iruvccamera.usb.DeviceFilter;
 import com.energy.iruvccamera.usb.USBMonitor;
@@ -12,7 +11,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class USBMonitorManager {
+    /**
+     * USBMonitorManager class.
+     *
+     * Provides usbmonitormanager functionality.
+     */
+    public class USBMonitorManager {
     public static final String TAG = "USBMonitorManager";
     private USBMonitor mUSBMonitor;
     private boolean mDeviceConnected = false;

@@ -179,16 +179,16 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            clIconMonitor -> {//监控
+            clIconMonitor -> {// 监控
                 viewPage.setCurrentItem(0, false)
             }
-            clIconGallery -> {//图库
+            clIconGallery -> {// 图库
                 checkStoragePermission()
             }
-            // view_main_thermal -> {//首页 - Commented out as not in view declarations
+            // view_main_thermal -> {// 首页 - Commented out as not in view declarations
             //     viewPage.setCurrentItem(2, false)  
             // }
-            clIconReport -> {//报告
+            clIconReport -> {// 报告
                 if (LMS.getInstance().isLogin) {
                     viewPage.setCurrentItem(3, false)
                 } else {
@@ -200,7 +200,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
                     }
                 }
             }
-            clIconMine -> {//我的
+            clIconMine -> {// 我的
                 viewPage.setCurrentItem(4, false)
             }
         }
@@ -243,7 +243,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
      * 显示操作指引弹框.
      */
     private fun showGuideDialog() {
-        if (SharedManager.homeGuideStep == 0) {//已看过或不再提示
+        if (SharedManager.homeGuideStep == 0) {// 已看过或不再提示
             return
         }
 
@@ -295,14 +295,13 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
             window?.decorView?.setRenderEffect(RenderEffect.createBlurEffect(20f, 20f, Shader.TileMode.MIRROR))
         } else {
             lifecycleScope.launch {
-                //界面切换及温度监控历史列表加载均需要时间，所以需要等待1000毫秒再去刷新背景
-                //而若等待1000毫秒太过久，界面会非模糊1000毫秒，所以先刷新一次背景占位
+                // 界面切换及温度监控历史列表加载均需要时间，所以需要等待1000毫秒再去刷新背景
+                // 而若等待1000毫秒太过久，界面会非模糊1000毫秒，所以先刷新一次背景占位
                 delay(100)
                 guideDialog.blurBg(clRoot)
             }
         }
     }
-
 
     private fun checkStoragePermission() {
         val permissionList: List<String> =
@@ -364,7 +363,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
 
                 override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
                     if (doNotAskAgain) {
-                        //拒绝授权并且不再提醒
+                        // 拒绝授权并且不再提醒
                         TipDialog.Builder(this@IRMainActivity)
                             .setTitleMessage(getString(LibR.string.app_tip))
                             .setMessage(getString(LibR.string.app_album_content))
@@ -380,13 +379,11 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
             })
     }
 
-
-
     private class ViewPagerAdapter(val activity: FragmentActivity, val isTC007: Boolean) : FragmentStateAdapter(activity) {
         override fun getItemCount() = 5
 
         override fun createFragment(position: Int): Fragment {
-            if (position == 1) {//图库
+            if (position == 1) {// 图库
                 return IRGalleryTabFragment().apply {
                     arguments = Bundle().also {
                         val dirType = if (isTC007) DirType.TC007.ordinal else DirType.LINE.ordinal

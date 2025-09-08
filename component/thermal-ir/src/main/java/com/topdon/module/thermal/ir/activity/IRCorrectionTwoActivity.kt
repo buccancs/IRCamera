@@ -68,7 +68,6 @@ class IRCorrectionTwoActivity : BaseActivity() {
         }
     }
 
-
     override fun connected() {
         if (!isTC007) {
             tvCorrection.setBackgroundResource(com.topdon.lib.core.R.drawable.bg_corners05_solid_theme)

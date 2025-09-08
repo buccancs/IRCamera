@@ -82,7 +82,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
                 mMatrix.postScale(sca, sca)
             }
             270f -> {
-                //矩阵转换
+                // 矩阵转换
                 val sca = ScreenUtils.getScreenWidth() / h
                 mMatrix.setRotate(rotate, 0f, 0f)
                 mMatrix.postTranslate(0f, w)
@@ -111,10 +111,10 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
                 mCanvas?.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
 //                mCanvas?.drawBitmap(bitmap, mMatrix, p)
                 if (openLut) {
-                    mColorMatrixEnhance.setSaturation(saturation * 0.01f * 2.5f + 1f)//对比度
-                    p.colorFilter = ColorMatrixColorFilter(mColorMatrixEnhance)//修改色彩矩阵
+                    mColorMatrixEnhance.setSaturation(saturation * 0.01f * 2.5f + 1f)// 对比度
+                    p.colorFilter = ColorMatrixColorFilter(mColorMatrixEnhance)// 修改色彩矩阵
                 } else {
-                    p.colorFilter = ColorMatrixColorFilter(mColorMatrix)//恢复色彩矩阵
+                    p.colorFilter = ColorMatrixColorFilter(mColorMatrix)// 恢复色彩矩阵
                 }
                 mCanvas?.drawBitmap(bitmap, mMatrix, p)
             } catch (e: Exception) {
@@ -170,7 +170,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
         )
     )
 
-    private var saturation = 0 //对比度 0~100
+    private var saturation = 0 // 对比度 0~100
 
     fun setOpenLut() {
 //        openLut = !openLut
@@ -178,7 +178,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
     }
 
     /**
-     * 设置对比度
+     * Settings对比度
      * @param saturation 0 ~ 100
      */
     fun setSaturationValue(saturation: Int) {

@@ -300,15 +300,15 @@ class LogViewModel : BaseViewModel() {
                          * 时:300天
                          * 天:20年
                          */
-//                1 -> startLogTime + 2 * 60 * 60 * 1000L //秒(2小时)
-//                2 -> startLogTime + 24 * 60 * 60 * 1000L //分(1天)
-//                3 -> startLogTime + 30 * 24 * 60 * 60 * 1000L //时(30天)
-//                4 -> startLogTime + 1 * 365 * 24 * 60 * 60 * 1000L //天(1年)
+//                1 -> startLogTime + 2 * 60 * 60 * 1000L // 秒(2小时)
+//                2 -> startLogTime + 24 * 60 * 60 * 1000L // 分(1天)
+//                3 -> startLogTime + 30 * 24 * 60 * 60 * 1000L // 时(30天)
+//                4 -> startLogTime + 1 * 365 * 24 * 60 * 60 * 1000L // 天(1年)
 
-//                1 -> startLogTime + 7200 * 1000L //秒(2小时)
-//                2 -> startLogTime + 7200 * 60 * 1000L //分(5天)
-//                3 -> startLogTime + 7200 * 60 * 60 * 1000L //时(300天)
-//                4 -> startLogTime + 1 * 365 * 24 * 60 * 60 * 1000L //天(1年)
+//                1 -> startLogTime + 7200 * 1000L // 秒(2小时)
+//                2 -> startLogTime + 7200 * 60 * 1000L // 分(5天)
+//                3 -> startLogTime + 7200 * 60 * 60 * 1000L // 时(300天)
+//                4 -> startLogTime + 1 * 365 * 24 * 60 * 60 * 1000L // 天(1年)
 //                else -> startLogTime + 7200 * 1000L
 
                         1 -> endLogTime - 7200 * 1000L // 秒(2小时)

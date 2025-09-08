@@ -90,12 +90,12 @@ class IRCameraApp:
             self.qt_app.setStyleSheet(
                 """
                 QMainWindow {
-                    background-color: #f0f0f0;
+                    background-color: # f0f0f0;
                 }
 
                 QGroupBox {
                     font-weight: bold;
-                    border: 2px solid #cccccc;
+                    border: 2px solid # cccccc;
                     border-radius: 5px;
                     margin-top: 1ex;
                     padding-top: 10px;
@@ -108,73 +108,73 @@ class IRCameraApp:
                 }
 
                 QPushButton {
-                    background-color: #e1e1e1;
-                    border: 1px solid #969696;
+                    background-color: # e1e1e1;
+                    border: 1px solid # 969696;
                     border-radius: 3px;
                     padding: 6px;
                     min-width: 80px;
                 }
 
                 QPushButton:hover {
-                    background-color: #e8e8e8;
+                    background-color: # e8e8e8;
                 }
 
                 QPushButton:pressed {
-                    background-color: #d0d0d0;
+                    background-color: # d0d0d0;
                 }
 
                 QPushButton:disabled {
-                    color: #888888;
-                    background-color: #f0f0f0;
+                    color: # 888888;
+                    background-color: # f0f0f0;
                 }
 
                 QPushButton.primary {
-                    background-color: #0078d4;
+                    background-color: # 0078d4;
                     color: white;
                     font-weight: bold;
                 }
 
                 QPushButton.primary:hover {
-                    background-color: #106ebe;
+                    background-color: # 106ebe;
                 }
 
                 QPushButton.primary:pressed {
-                    background-color: #005a9e;
+                    background-color: # 005a9e;
                 }
 
                 QPushButton.danger {
-                    background-color: #d13438;
+                    background-color: # d13438;
                     color: white;
                     font-weight: bold;
                 }
 
                 QPushButton.danger:hover {
-                    background-color: #c4292e;
+                    background-color: # c4292e;
                 }
 
                 QPushButton.danger:pressed {
-                    background-color: #a01e22;
+                    background-color: # a01e22;
                 }
 
                 QListWidget {
-                    border: 1px solid #cccccc;
+                    border: 1px solid # cccccc;
                     border-radius: 3px;
                     background-color: white;
                 }
 
                 QListWidget::item {
                     padding: 8px;
-                    border-bottom: 1px solid #eeeeee;
+                    border-bottom: 1px solid # eeeeee;
                 }
 
                 QListWidget::item:selected {
-                    background-color: #0078d4;
+                    background-color: # 0078d4;
                     color: white;
                 }
 
                 QStatusBar {
-                    border-top: 1px solid #cccccc;
-                    background-color: #f8f8f8;
+                    border-top: 1px solid # cccccc;
+                    background-color: # f8f8f8;
                 }
             """
             )

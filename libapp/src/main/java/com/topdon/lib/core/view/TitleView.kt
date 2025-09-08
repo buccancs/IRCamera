@@ -127,7 +127,7 @@ open class TitleView : ViewGroup {
             tvRight1?.setTextColor(rightColor)
         }
 
-        // 右侧 2、3 View 目前都是图片，先不搞文字那些设置了
+        // 右侧 2、3 View 目前都是图片，先不搞文字那些Settings了
         tvRight2?.setOnlyDrawableStart(a.getDrawable(R.styleable.TitleView_right2Drawable))
         tvRight2?.isVisible = tvRight2!!.hasAnyDrawable()
         tvRight3?.setOnlyDrawableStart(a.getDrawable(R.styleable.TitleView_right3Drawable))
@@ -268,7 +268,7 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * 设置标题文字.
+     * Settings标题文字.
      */
     fun setTitleText(
         @StringRes resId: Int,
@@ -278,7 +278,7 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * 设置标题文字.
+     * Settings标题文字.
      */
     fun setTitleText(title: CharSequence?) {
         tvTitle?.text = title
@@ -286,8 +286,8 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * 设置左侧 View 是否可见.
-     * 注意其他方法里如果不设置文字又不设置图片的话会被视为 Gone，这里则不做这个限制。
+     * Settings左侧 View 是否可见.
+     * 注意其他方法里如果不Settings文字又不Settings图片的话会被视为 Gone，这里则不做这个限制。
      */
     var isLeftVisible: Boolean
         get() = tvLeft!!.isVisible
@@ -299,7 +299,7 @@ open class TitleView : ViewGroup {
         }
 
     /**
-     * 将左侧 View 图片部分设置为指定图片.
+     * 将左侧 View 图片部分Settings为指定图片.
      */
     fun setLeftDrawable(
         @DrawableRes resId: Int,
@@ -310,7 +310,7 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * 将左侧 View 的文字部分设置为指定文字.
+     * 将左侧 View 的文字部分Settings为指定文字.
      */
     fun setLeftText(
         @StringRes resId: Int,
@@ -321,7 +321,7 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * 将左侧 View 的文字部分设置为指定文字.
+     * 将左侧 View 的文字部分Settings为指定文字.
      */
     fun setLeftText(text: CharSequence?) {
         tvLeft?.text = text
@@ -330,15 +330,15 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * 设置左侧 View 点击事件监听.
+     * Settings左侧 View 点击事件监听.
      */
     fun setLeftClickListener(leftClickListener: OnClickListener?) {
         tvLeft?.setOnClickListener(leftClickListener)
     }
 
     /**
-     * 设置右侧 View 是否可见.
-     * 注意其他方法里如果不设置文字又不设置图片的话会被视为 Gone，这里则不做这个限制。
+     * Settings右侧 View 是否可见.
+     * 注意其他方法里如果不Settings文字又不Settings图片的话会被视为 Gone，这里则不做这个限制。
      */
     var isRightVisible: Boolean
         get() = tvRight1!!.isVisible
@@ -350,7 +350,7 @@ open class TitleView : ViewGroup {
         }
 
     /**
-     * 将右侧 View 图片部分设置为指定图片.
+     * 将右侧 View 图片部分Settings为指定图片.
      */
     fun setRightDrawable(
         @DrawableRes resId: Int,
@@ -361,7 +361,7 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * 将右侧 View 的文字部分设置为指定文字.
+     * 将右侧 View 的文字部分Settings为指定文字.
      */
     fun setRightText(
         @StringRes resId: Int,
@@ -372,7 +372,7 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * 将右侧 View 的文字部分设置为指定文字.
+     * 将右侧 View 的文字部分Settings为指定文字.
      */
     fun setRightText(text: CharSequence?) {
         tvRight1?.text = text
@@ -381,14 +381,14 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * 设置右侧 View 点击事件监听.
+     * Settings右侧 View 点击事件监听.
      */
     fun setRightClickListener(rightClickListener: OnClickListener?) {
         tvRight1?.setOnClickListener(rightClickListener)
     }
 
     /**
-     * 将右侧 View 2 图片部分设置为指定图片.
+     * 将右侧 View 2 图片部分Settings为指定图片.
      */
     fun setRight2Drawable(
         @DrawableRes resId: Int,
@@ -399,14 +399,14 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * 设置右侧 View 2 点击事件监听.
+     * Settings右侧 View 2 点击事件监听.
      */
     fun setRight2ClickListener(right2ClickListener: OnClickListener?) {
         tvRight2?.setOnClickListener(right2ClickListener)
     }
 
     /**
-     * 将右侧 View 3 图片部分设置为指定图片.
+     * 将右侧 View 3 图片部分Settings为指定图片.
      */
     fun setRight3Drawable(
         @DrawableRes resId: Int,
@@ -417,7 +417,7 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * 设置右侧 View 3 点击事件监听.
+     * Settings右侧 View 3 点击事件监听.
      */
     fun setRight3ClickListener(right3ClickListener: OnClickListener?) {
         tvRight3?.setOnClickListener(right3ClickListener)

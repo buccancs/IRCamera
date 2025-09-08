@@ -8,7 +8,12 @@ import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BarDataSet extends BarLineScatterCandleBubbleDataSet<BarEntry> implements IBarDataSet {
+    /**
+     * BarDataSet class.
+     *
+     * Provides bardataset functionality.
+     */
+    public class BarDataSet extends BarLineScatterCandleBubbleDataSet<BarEntry> implements IBarDataSet {
 
     /**
      * the maximum number of bars that are stacked upon each other, this value
@@ -140,7 +145,7 @@ public class BarDataSet extends BarLineScatterCandleBubbleDataSet<BarEntry> impl
         return mStackSize > 1 ? true : false;
     }
 
-    /**
+        /**
      * returns the overall entry count, including counting each stack-value
      * individually
      *
@@ -150,7 +155,7 @@ public class BarDataSet extends BarLineScatterCandleBubbleDataSet<BarEntry> impl
         return mEntryCountStacks;
     }
 
-    /**
+        /**
      * Sets the color used for drawing the bar-shadows. The bar shadows is a
      * surface behind the bar that indicates the maximum value. Don't for get to
      * use getResources().getColor(...) to set this. Or Color.rgb(...).
@@ -166,7 +171,7 @@ public class BarDataSet extends BarLineScatterCandleBubbleDataSet<BarEntry> impl
         return mBarShadowColor;
     }
 
-    /**
+        /**
      * Sets the width used for drawing borders around the bars.
      * If borderWidth == 0, no border will be drawn.
      *
@@ -187,7 +192,7 @@ public class BarDataSet extends BarLineScatterCandleBubbleDataSet<BarEntry> impl
         return mBarBorderWidth;
     }
 
-    /**
+        /**
      * Sets the color drawing borders around the bars.
      *
      * @return
@@ -206,7 +211,7 @@ public class BarDataSet extends BarLineScatterCandleBubbleDataSet<BarEntry> impl
         return mBarBorderColor;
     }
 
-    /**
+        /**
      * Set the alpha value (transparency) that is used for drawing the highlight
      * indicator bar. min = 0 (fully transparent), max = 255 (fully opaque)
      *
@@ -221,7 +226,7 @@ public class BarDataSet extends BarLineScatterCandleBubbleDataSet<BarEntry> impl
         return mHighLightAlpha;
     }
 
-    /**
+        /**
      * Sets labels for different values of bar-stacks, in case there are one.
      *
      * @param labels

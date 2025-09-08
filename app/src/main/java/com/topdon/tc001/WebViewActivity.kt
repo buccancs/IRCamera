@@ -55,7 +55,7 @@ class WebViewActivity : BaseActivity() {
         }
 
         val webSettings: WebSettings = webView.settings
-        webSettings.setSupportZoom(false) // 设置不支持字体缩放
+        webSettings.setSupportZoom(false) // Settings不支持字体缩放
         webSettings.useWideViewPort = true
         webSettings.javaScriptCanOpenWindowsAutomatically = true // 允许js弹出窗口
         webSettings.defaultTextEncodingName = "UTF-8"

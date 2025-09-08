@@ -55,12 +55,12 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
-/**
- * Baseclass of all Chart-Views.
- *
- * @author Philipp Jahoda
- */
-public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Entry>>> extends
+    /**
+     * Baseclass of all Chart-Views.
+     *
+     * @author Philipp Jahoda
+     */
+    public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Entry>>> extends
         ViewGroup
         implements ChartInterface {
 
@@ -184,7 +184,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         init();
     }
 
-    /**
+        /**
      * constructor for initialization in xml
      */
     public Chart(Context context, AttributeSet attrs) {
@@ -192,7 +192,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         init();
     }
 
-    /**
+        /**
      * even more awesome constructor
      */
     public Chart(Context context, AttributeSet attrs, int defStyle) {
@@ -273,7 +273,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
     // invalidate();
     // }
 
-    /**
+        /**
      * Sets a new data object for the chart. The data object contains all values
      * and information needed for displaying.
      *
@@ -303,7 +303,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
             Log.i(LOG_TAG, "Data is set.");
     }
 
-    /**
+        /**
      * Clears the chart from all data (sets it to null) and refreshes it (by
      * calling invalidate()).
      */
@@ -315,7 +315,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         invalidate();
     }
 
-    /**
+        /**
      * Removes all DataSets (and thereby Entries) from the chart. Does not set the data object to null. Also refreshes the
      * chart by calling invalidate().
      */
@@ -324,7 +324,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         invalidate();
     }
 
-    /**
+        /**
      * Returns true if the chart is empty (meaning it's data object is either
      * null or contains no entries).
      *
@@ -343,7 +343,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         }
     }
 
-    /**
+        /**
      * Lets the chart know its underlying data has changed and performs all
      * necessary recalculations. It is crucial that this method is called
      * everytime data is changed dynamically. Not calling this method can lead
@@ -463,7 +463,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         return mMaxHighlightDistance;
     }
 
-    /**
+        /**
      * Sets the maximum distance in screen dp a touch can be away from an entry to cause it to get highlighted.
      * Default: 500dp
      *
@@ -473,7 +473,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         mMaxHighlightDistance = Utils.convertDpToPixel(distDp);
     }
 
-    /**
+        /**
      * Returns the array of currently highlighted values. This might a null or
      * empty array if nothing is highlighted.
      *
@@ -483,7 +483,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         return mIndicesToHighlight;
     }
 
-    /**
+        /**
      * Returns true if values can be highlighted via tap gesture, false if not.
      *
      * @return
@@ -492,7 +492,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         return mHighLightPerTapEnabled;
     }
 
-    /**
+        /**
      * Set this to false to prevent values from being highlighted by tap gesture.
      * Values can still be highlighted via drag or programmatically. Default: true
      *
@@ -502,7 +502,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         mHighLightPerTapEnabled = enabled;
     }
 
-    /**
+        /**
      * Returns true if there are values to highlight, false if there are no
      * values to highlight. Checks if the highlight array is null, has a length
      * of zero or if the first object is null.
@@ -529,7 +529,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         }
     }
 
-    /**
+        /**
      * Highlights the values at the given indices in the given DataSets. Provide
      * null or an empty array to undo all highlighting. This should be used to
      * programmatically highlight values.
@@ -548,7 +548,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         invalidate();
     }
 
-    /**
+        /**
      * Highlights any y-value at the given x-value in the given DataSet.
      * Provide -1 as the dataSetIndex to undo all highlighting.
      * This method will call the listener.
@@ -559,7 +559,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         highlightValue(x, dataSetIndex, true);
     }
 
-    /**
+        /**
      * Highlights the value at the given x-value and y-value in the given DataSet.
      * Provide -1 as the dataSetIndex to undo all highlighting.
      * This method will call the listener.
@@ -571,7 +571,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         highlightValue(x, y, dataSetIndex, true);
     }
 
-    /**
+        /**
      * Highlights any y-value at the given x-value in the given DataSet.
      * Provide -1 as the dataSetIndex to undo all highlighting.
      * @param x The x-value to highlight
@@ -582,7 +582,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         highlightValue(x, Float.NaN, dataSetIndex, callListener);
     }
 
-    /**
+        /**
      * Highlights any y-value at the given x-value in the given DataSet.
      * Provide -1 as the dataSetIndex to undo all highlighting.
      * @param x The x-value to highlight
@@ -599,7 +599,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         }
     }
 
-    /**
+        /**
      * Highlights the values represented by the provided Highlight object
      * This method *will not* call the listener.
      *
@@ -609,7 +609,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         highlightValue(highlight, false);
     }
 
-    /**
+        /**
      * Highlights the value selected by touch gesture. Unlike
      * highlightValues(...), this generates a callback to the
      * OnChartValueSelectedListener.
@@ -657,7 +657,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         invalidate();
     }
 
-    /**
+        /**
      * Returns the Highlight object (contains x-index and DataSet index) of the
      * selected value at the given touch point inside the Line-, Scatter-, or
      * CandleStick-Chart.
@@ -675,7 +675,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
             return getHighlighter().getHighlight(x, y);
     }
 
-    /**
+        /**
      * Set a new (e.g. custom) ChartTouchListener NOTE: make sure to
      * setTouchEnabled(true); if you need touch gestures on the chart
      *
@@ -685,7 +685,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         this.mChartTouchListener = l;
     }
 
-    /**
+        /**
      * Returns an instance of the currently active touch listener.
      *
      * @return
@@ -725,7 +725,12 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
             IDataSet set = mData.getDataSetByIndex(highlight.getDataSetIndex());
 
             Entry e = mData.getEntryForHighlight(mIndicesToHighlight[i]);
-            //TODO Attempt to invoke interface method 'int com.github.mikephil.charting.interfaces.datasets.IDataSet.getEntryIndex(com.github.mikephil.charting.data.Entry)' on a null object reference
+            // TODO Attempt to invoke/**
+ * method class.
+ * 
+ * Provides method functionality.
+ */
+ interface method 'int com.github.mikephil.charting.interfaces.datasets.IDataSet.getEntryIndex(com.github.mikephil.charting.data.Entry)' on a null object reference
             try {
                 int entryIndex = set.getEntryIndex(e);
 
@@ -767,7 +772,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
      */
     /** CODE BELOW THIS RELATED TO ANIMATION */
 
-    /**
+        /**
      * Returns the animator responsible for animating chart values.
      *
      * @return
@@ -776,14 +781,14 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         return mAnimator;
     }
 
-    /**
+        /**
      * If set to true, chart continues to scroll after touch up default: true
      */
     public boolean isDragDecelerationEnabled() {
         return mDragDecelerationEnabled;
     }
 
-    /**
+        /**
      * If set to true, chart continues to scroll after touch up. Default: true.
      *
      * @param enabled
@@ -792,7 +797,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         mDragDecelerationEnabled = enabled;
     }
 
-    /**
+        /**
      * Returns drag deceleration friction coefficient
      *
      * @return
@@ -801,7 +806,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         return mDragDecelerationFrictionCoef;
     }
 
-    /**
+        /**
      * Deceleration friction coefficient in [0 ; 1] interval, higher values
      * indicate that speed will decrease slowly, for example if it set to 0, it
      * will stop immediately. 1 is an invalid value, and will be converted to
@@ -943,8 +948,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
      */
     /** BELOW THIS ONLY GETTERS AND SETTERS */
 
-
-    /**
+        /**
      * Returns the object representing all x-labels, this method can be used to
      * acquire the XAxis object and modify it (e.g. change the position of the
      * labels, styling, etc.)
@@ -955,7 +959,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         return mXAxis;
     }
 
-    /**
+        /**
      * Returns the default IValueFormatter that has been determined by the chart
      * considering the provided minimum and maximum values.
      *
@@ -965,7 +969,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         return mDefaultValueFormatter;
     }
 
-    /**
+        /**
      * set a selection listener for the chart
      *
      * @param l
@@ -974,7 +978,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         this.mSelectionListener = l;
     }
 
-    /**
+        /**
      * Sets a gesture-listener for the chart for custom callbacks when executing
      * gestures on the chart surface.
      *
@@ -984,7 +988,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         this.mGestureListener = l;
     }
 
-    /**
+        /**
      * Returns the custom gesture listener.
      *
      * @return
@@ -993,7 +997,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         return mGestureListener;
     }
 
-    /**
+        /**
      * returns the current y-max value across all DataSets
      *
      * @return
@@ -1002,7 +1006,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         return mData.getYMax();
     }
 
-    /**
+        /**
      * returns the current y-min value across all DataSets
      *
      * @return
@@ -1026,7 +1030,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         return mXAxis.mAxisRange;
     }
 
-    /**
+        /**
      * Returns a recyclable MPPointF instance.
      * Returns the center point of the chart (the whole View) in pixels.
      *
@@ -1048,7 +1052,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         return mViewPortHandler.getContentCenter();
     }
 
-    /**
+        /**
      * Sets extra offsets (around the chart view) to be appended to the
      * auto-calculated offsets.
      *
@@ -1064,63 +1068,63 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         setExtraBottomOffset(bottom);
     }
 
-    /**
+        /**
      * Set an extra offset to be appended to the viewport's top
      */
     public void setExtraTopOffset(float offset) {
         mExtraTopOffset = Utils.convertDpToPixel(offset);
     }
 
-    /**
+        /**
      * @return the extra offset to be appended to the viewport's top
      */
     public float getExtraTopOffset() {
         return mExtraTopOffset;
     }
 
-    /**
+        /**
      * Set an extra offset to be appended to the viewport's right
      */
     public void setExtraRightOffset(float offset) {
         mExtraRightOffset = Utils.convertDpToPixel(offset);
     }
 
-    /**
+        /**
      * @return the extra offset to be appended to the viewport's right
      */
     public float getExtraRightOffset() {
         return mExtraRightOffset;
     }
 
-    /**
+        /**
      * Set an extra offset to be appended to the viewport's bottom
      */
     public void setExtraBottomOffset(float offset) {
         mExtraBottomOffset = Utils.convertDpToPixel(offset);
     }
 
-    /**
+        /**
      * @return the extra offset to be appended to the viewport's bottom
      */
     public float getExtraBottomOffset() {
         return mExtraBottomOffset;
     }
 
-    /**
+        /**
      * Set an extra offset to be appended to the viewport's left
      */
     public void setExtraLeftOffset(float offset) {
         mExtraLeftOffset = Utils.convertDpToPixel(offset);
     }
 
-    /**
+        /**
      * @return the extra offset to be appended to the viewport's left
      */
     public float getExtraLeftOffset() {
         return mExtraLeftOffset;
     }
 
-    /**
+        /**
      * Set this to true to enable logcat outputs for the chart. Beware that
      * logcat output decreases rendering performance. Default: disabled.
      *
@@ -1130,7 +1134,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         mLogEnabled = enabled;
     }
 
-    /**
+        /**
      * Returns true if log-output is enabled for the chart, fals if not.
      *
      * @return
@@ -1139,7 +1143,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         return mLogEnabled;
     }
 
-    /**
+        /**
      * Sets the text that informs the user that there is no data available with
      * which to draw the chart.
      *
@@ -1149,7 +1153,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         mNoDataText = text;
     }
 
-    /**
+        /**
      * Sets the color of the no data text.
      *
      * @param color
@@ -1158,7 +1162,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         mInfoPaint.setColor(color);
     }
 
-    /**
+        /**
      * Sets the typeface to be used for the no data text.
      *
      * @param tf
@@ -1167,7 +1171,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         mInfoPaint.setTypeface(tf);
     }
 
-    /**
+        /**
      * Set this to false to disable all gestures and touches on the chart,
      * default: true
      *
@@ -1177,7 +1181,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         this.mTouchEnabled = enabled;
     }
 
-    /**
+        /**
      * sets the marker that is displayed when a value is clicked on the chart
      *
      * @param marker
@@ -1186,7 +1190,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         mMarker = marker;
     }
 
-    /**
+        /**
      * returns the marker that is set as a marker view for the chart
      *
      * @return
@@ -1205,7 +1209,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         return getMarker();
     }
 
-    /**
+        /**
      * Sets a new Description object for the chart.
      *
      * @param desc
@@ -1214,7 +1218,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         this.mDescription = desc;
     }
 
-    /**
+        /**
      * Returns the Description object of the chart that is responsible for holding all information related
      * to the description text that is displayed in the bottom right corner of the chart (by default).
      *
@@ -1224,7 +1228,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         return mDescription;
     }
 
-    /**
+        /**
      * Returns the Legend object of the chart. This method can be used to get an
      * instance of the legend in order to customize the automatically generated
      * Legend.
@@ -1256,7 +1260,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         return mViewPortHandler.getContentRect();
     }
 
-    /**
+        /**
      * disables intercept touchevents
      */
     public void disableScroll() {
@@ -1265,7 +1269,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
             parent.requestDisallowInterceptTouchEvent(true);
     }
 
-    /**
+        /**
      * enables intercept touchevents
      */
     public void enableScroll() {
@@ -1274,7 +1278,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
             parent.requestDisallowInterceptTouchEvent(false);
     }
 
-    /**
+        /**
      * paint for the grid background (only line and barchart)
      */
     public static final int PAINT_GRID_BACKGROUND = 4;
@@ -1325,7 +1329,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         }
     }
 
-    /**
+        /**
      * Returns the paint object associated with the provided constant.
      *
      * @param which e.g. Chart.PAINT_LEGEND_LABEL
@@ -1352,7 +1356,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         setDrawMarkers(enabled);
     }
 
-    /**
+        /**
      * returns true if drawing the marker is enabled when tapping on values
      * (use the setMarker(IMarker marker) method to specify a marker)
      *
@@ -1362,7 +1366,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         return mDrawMarkers;
     }
 
-    /**
+        /**
      * Set this to true to draw a user specified marker when tapping on
      * chart values (use the setMarker(IMarker marker) method to specify a
      * marker). Default: true
@@ -1373,7 +1377,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         mDrawMarkers = enabled;
     }
 
-    /**
+        /**
      * Returns the ChartData object that has been set for the chart.
      *
      * @return
@@ -1382,7 +1386,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         return mData;
     }
 
-    /**
+        /**
      * Returns the ViewPortHandler of the chart that is responsible for the
      * content area of the chart and its offsets and dimensions.
      *
@@ -1392,7 +1396,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         return mViewPortHandler;
     }
 
-    /**
+        /**
      * Returns the Renderer object the chart uses for drawing data.
      *
      * @return
@@ -1401,7 +1405,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         return mRenderer;
     }
 
-    /**
+        /**
      * Sets a new DataRenderer object for the chart.
      *
      * @param renderer
@@ -1436,7 +1440,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         return getCenter();
     }
 
-    /**
+        /**
      * Returns the bitmap that represents the chart.
      *
      * @return
@@ -1473,8 +1477,6 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
      */
     public boolean saveToPath(String title, String pathOnSD) {
 
-
-
         Bitmap b = getChartBitmap();
 
         OutputStream stream = null;
@@ -1498,7 +1500,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         return true;
     }
 
-    /**
+        /**
      * Saves the current state of the chart to the gallery as an image type. The
      * compression must be set for JPEG only. 0 == maximum compression, 100 = low
      * compression (high quality). NOTE: Needs permission WRITE_EXTERNAL_STORAGE
@@ -1580,7 +1582,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         return getContext().getContentResolver().insert(Images.Media.EXTERNAL_CONTENT_URI, values) != null;
     }
 
-    /**
+        /**
      * Saves the current state of the chart to the gallery as a JPEG image. The
      * filename and compression can be set. 0 == maximum compression, 100 = low
      * compression (high quality). NOTE: Needs permission WRITE_EXTERNAL_STORAGE
@@ -1593,7 +1595,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         return saveToGallery(fileName, "", "MPAndroidChart-Library Save", CompressFormat.PNG, quality);
     }
 
-    /**
+        /**
      * Saves the current state of the chart to the gallery as a PNG image.
      * NOTE: Needs permission WRITE_EXTERNAL_STORAGE
      *
@@ -1617,7 +1619,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         mJobs.clear();
     }
 
-    /**
+        /**
      * Either posts a job immediately if the chart has already setup it's
      * dimensions or adds the job to the execution queue.
      *
@@ -1632,7 +1634,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         }
     }
 
-    /**
+        /**
      * Returns all jobs that are scheduled to be executed after
      * onSizeChanged(...).
      *
@@ -1690,7 +1692,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         super.onSizeChanged(w, h, oldw, oldh);
     }
 
-    /**
+        /**
      * Setting this to true will set the layer-type HARDWARE for the view, false
      * will set layer-type SOFTWARE.
      *
@@ -1708,8 +1710,6 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
 
-        //Log.i(LOG_TAG, "Detaching...");
-
         if (mUnbind)
             unbindDrawables(this);
     }
@@ -1721,7 +1721,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
 
     /**
      * Unbind all drawables to avoid memory leaks.
-     * Link: http://stackoverflow.com/a/6779164/1590502
+     * Link: http:// stackoverflow.com/a/6779164/1590502
      *
      * @param view
      */
@@ -1742,7 +1742,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
      * Set this to true to enable "unbinding" of drawables. When a View is detached
      * from a window. This helps avoid memory leaks.
      * Default: false
-     * Link: http://stackoverflow.com/a/6779164/1590502
+     * Link: http:// stackoverflow.com/a/6779164/1590502
      *
      * @param enabled
      */

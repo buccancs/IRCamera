@@ -72,7 +72,7 @@ class TransferActivity : BaseActivity() {
                 }
 
                 override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
-                    if (doNotAskAgain) {//拒绝授权并且不再提醒
+                    if (doNotAskAgain) {// 拒绝授权并且不再提醒
                         TipDialog.Builder(this@TransferActivity)
                             .setTitleMessage(getString(R.string.app_tip))
                             .setMessage(getString(R.string.app_album_content))
@@ -87,7 +87,6 @@ class TransferActivity : BaseActivity() {
                 }
             })
     }
-
 
     /**
      * 开始执行迁移流程.

@@ -19,7 +19,6 @@ import kotlinx.coroutines.delay
 object IRTool {
     const val TAG: String = "IRTool"
 
-
     /**
      * 自动快门开关
      */
@@ -90,10 +89,10 @@ object IRTool {
     }
 
     /**
-     * 设置镜像
+     * Settings镜像
      */
     fun basicMirrorAndFlipStatusSet(openMirror : Boolean){
-        //设置图像镜像或翻转 PASS
+        // Settings图像镜像或翻转 PASS
         val basicMirrorAndFlipStatusSet = DeviceIrcmdControlManager.getInstance().ircmdEngine
             ?.basicMirrorAndFlipStatusSet(if (openMirror) CommonParams.MirrorFlipType.ONLY_FLIP else
                 CommonParams.MirrorFlipType.NO_MIRROR_OR_FLIP)
@@ -102,7 +101,7 @@ object IRTool {
 
     /**
      * 一次完成的锅盖标定流程
-     * https://alidocs.dingtalk.com/i/p/QqWXwywDMb9xKG31/docs/14lgGw3P8vL0P2qbu7OR39d5V5daZ90D
+     * https:// alidocs.dingtalk.com/i/p/QqWXwywDMb9xKG31/docs/14lgGw3P8vL0P2qbu7OR39d5V5daZ90D
      * Setp1：插上模组出图并确保当前模组达到热稳定状态，一般需要预热3-5分钟。
      * 预热完成后，移动模组至标定靶面前，靠近但不接触靶面。靶面的成像覆盖全部视场、 无杂散光进入为最佳)；
      * Setp2：重置锅盖标定数据，确保标定准确性
@@ -116,26 +115,25 @@ object IRTool {
      * mIrcmdEngine.basicSaveData(CommonParams.DeviceDataSaveType.BASIC_SAVE_RMCOVER_DATA);
      */
     fun onceAuto() : Boolean{
-        //Setp2
+        // Setp2
         DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
             ?.basicRestoreDefaultData(CommonParams.DeviceRestoreTypeType.BASIC_RESTROE_RMCOVER_DATA)
-        //Setp3
+        // Setp3
         DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
             ?.basicAutoFFCStatusSet(CommonParams.AutoFFCStatus.AUTO_FFC_DISABLED)
-        //Setp4
+        // Setp4
         DeviceIrcmdControlManager.getInstance().getIrcmdEngine()?.basicFFCUpdate()
-        //Setp5
+        // Setp5
         val result = DeviceIrcmdControlManager.getInstance().getIrcmdEngine()?.advAutoRmcoverCali()
         Log.d(TAG, "advAutoRmcoverCali=${result}")
-        //Setp6
+        // Setp6
         DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
             ?.basicAutoFFCStatusSet(CommonParams.AutoFFCStatus.AUTO_FFC_ENABLE)
-        //Setp7
+        // Setp7
         val ircmdError = DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
             ?.basicSaveData(CommonParams.DeviceDataSaveType.BASIC_SAVE_RMCOVER_DATA)
         return ircmdError == IrcmdError.IRCMD_SUCCESS
     }
-
 
     /**
      * 高低增益模式下各做一组锅盖标定，如此模组的锅盖标定才是完整的流程
@@ -153,7 +151,6 @@ object IRTool {
         XLog.d(TAG, "onceAuto=start")
         return onceAuto()
     }
-
 
     /**
      * 开启机芯内部环境变量修正
@@ -182,7 +179,6 @@ object IRTool {
             ?.advEnvCorrectTUSet(value);
     }
 
-
     /**
      * lite项目的温度修正
      * @param temp Float
@@ -193,7 +189,7 @@ object IRTool {
      */
     fun temperatureCorrection(temp : Float, params_array: FloatArray, tau_data_H: ByteArray, tau_data_L: ByteArray,basicGainGetValue : Int) : Float {
         var newTemp = temp
-        //获取增益状态 PASS
+        // 获取增益状态 PASS
         try {
             if (tau_data_H == null || tau_data_L == null) return temp
             newTemp = LibIRTempAC020.temperatureCorrection(
@@ -215,7 +211,7 @@ object IRTool {
     }
 
     /**
-     * 设置场景模式三
+     * Settings场景模式三
      */
     fun setMode(){
 //        val professionModeSetResult = DeviceIrcmdControlManager.getInstance().ircmdEngine
@@ -224,7 +220,5 @@ object IRTool {
 //            .basicImageSceneModeSet(3)
 //        Log.d(TAG, "setModel=${ircmdError}")
     }
-
-
 
 }

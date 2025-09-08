@@ -13,7 +13,7 @@ public abstract class BaseDraw {
      */
     protected final static int MIN_SIZE_PIX_COUNT = 20;
     protected int mScreenDegree = 0;
-    protected int mTouchIndex = -1;//手势按住已绘制的，进行拖拽
+    protected int mTouchIndex = -1;// 手势按住已绘制的，进行拖拽
     protected int mViewWidth;
     protected int mViewHeight;
 
@@ -31,7 +31,7 @@ public abstract class BaseDraw {
 
     abstract void onDraw(Canvas canvas, boolean isScroll);
 
-    /**
+        /**
      * 获取当前选中点的数组index
      * @return
      */
@@ -39,7 +39,7 @@ public abstract class BaseDraw {
         return mTouchIndex;
     }
 
-    /**
+        /**
      * 手指是否选中了其中一个点
      * @return
      */

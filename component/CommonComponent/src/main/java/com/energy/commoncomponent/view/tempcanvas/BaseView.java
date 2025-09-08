@@ -8,11 +8,11 @@ import android.graphics.Matrix;
  */
 public abstract class BaseView {
     protected String mId;
-    protected String mLabel; //标记内容
-    protected String mNote; //备注
-    protected double mMaxTemp;//最大温度
-    protected double mMinTemp;//最大温度
-    protected double mAvgTemp;//最小温度
+    protected String mLabel; // 标记内容
+    protected String mNote; // 备注
+    protected double mMaxTemp;// 最大温度
+    protected double mMinTemp;// 最大温度
+    protected double mAvgTemp;// 最小温度
     protected int mPointSize = 0;
     public String getId() {
         return mId;
@@ -61,7 +61,6 @@ public abstract class BaseView {
     public void setNote(String note) {
         this.mNote = note;
     }
-
 
     public Bitmap getCustomSizeImg(Bitmap rootImg, int goalW, int goalH) {
         int rootW = rootImg.getWidth();

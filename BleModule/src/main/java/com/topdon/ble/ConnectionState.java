@@ -40,7 +40,7 @@ public enum ConnectionState {
      */
     TIMEOUT,
     /**
-     * MTUs设置成功
+     * MTUsSettings成功
      */
     MTU_SUCCESS
     }

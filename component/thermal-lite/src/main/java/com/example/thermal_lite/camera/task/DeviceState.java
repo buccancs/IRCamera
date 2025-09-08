@@ -1,6 +1,11 @@
 package com.example.thermal_lite.camera.task;
 
-public enum DeviceState {
+    /**
+     * DeviceState class.
+     *
+     * Provides devicestate functionality.
+     */
+    public enum DeviceState {
     OPEN("open", 0),
     CLOSED("closed", 1),
     RESUMED("resumed", 2),

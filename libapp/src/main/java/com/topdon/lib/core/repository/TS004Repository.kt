@@ -44,7 +44,7 @@ object TS004Repository {
 
     private fun getTS004Service(): TS004Service =
         Retrofit.Builder()
-            .baseUrl("http://192.168.40.1:8080")
+            .baseUrl("http:// 192.168.40.1:8080")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(getOKHttpClient())
@@ -145,7 +145,7 @@ object TS004Repository {
         }
 
     /**
-     * 获取版本信息
+     * 获取版本message
      */
     suspend fun getVersion(): TS004Response<VersionBean>? =
         withContext(Dispatchers.IO) {
@@ -157,7 +157,7 @@ object TS004Repository {
         }
 
     /**
-     * 获取设备信息
+     * 获取设备message
      */
     suspend fun getDeviceInfo(): TS004Response<DeviceInfo>? =
         withContext(Dispatchers.IO) {
@@ -362,8 +362,8 @@ object TS004Repository {
         }
 
     /**
-     * 设置伪彩样式
-     * @param mode 伪彩样式 白热-1，黑热-2，红热-9, 铁红-5
+     * SettingsPseudo color样式
+     * @param mode Pseudo color样式 白热-1，黑热-2，红热-9, 铁红-5
      */
     suspend fun setPseudoColor(mode: Int): Boolean =
         withContext(Dispatchers.IO) {
@@ -378,7 +378,7 @@ object TS004Repository {
         }
 
     /**
-     * 获取伪彩样式
+     * 获取Pseudo color样式
      */
     suspend fun getPseudoColor(): TS004Response<PseudoColorBean>? =
         withContext(Dispatchers.IO) {
@@ -390,7 +390,7 @@ object TS004Repository {
         }
 
     /**
-     * 设置测距
+     * Settings测距
      * @param state 0-关闭，1-开启
      */
     suspend fun setRangeFind(state: Int): Boolean =
@@ -417,7 +417,7 @@ object TS004Repository {
         }
 
     /**
-     * 设置屏幕亮度
+     * Settings屏幕亮度
      * @param brightness  屏幕亮度值:范围0-100
      */
     suspend fun setPanelParam(brightness: Int): Boolean =
@@ -444,7 +444,7 @@ object TS004Repository {
         }
 
     /**
-     * 设置画中画
+     * Settings画中画
      * @param enable  true 打开，false 关闭
      */
     suspend fun setPip(enable: Boolean): Boolean =
@@ -471,7 +471,7 @@ object TS004Repository {
         }
 
     /**
-     * 设置放大倍数
+     * Settings放大倍数
      * @param factor 放大倍数:1,2,4,8
      */
     suspend fun setZoom(factor: Int): Boolean =
@@ -499,7 +499,7 @@ object TS004Repository {
         }
 
     /**
-     * 设置拍照
+     * SettingsPhoto capture
      * @param factor 放大倍数:1,2,4,8
      */
     suspend fun setSnapshot(): Boolean =
@@ -512,7 +512,7 @@ object TS004Repository {
         }
 
     /**
-     * 设置录像
+     * Settings录像
      * @param enable 录制开关
      */
     suspend fun setVideo(enable: Boolean): Boolean =
@@ -539,7 +539,7 @@ object TS004Repository {
         }
 
     /**
-     * 获取存储分区信息
+     * 获取存储分区message
      */
     suspend fun getFreeSpace(): FreeSpaceBean? =
         withContext(Dispatchers.IO) {
@@ -551,7 +551,7 @@ object TS004Repository {
         }
 
     /**
-     * 获取存储分区信息
+     * 获取存储分区message
      */
     suspend fun getFormatStorage(): Boolean =
         withContext(Dispatchers.IO) {
@@ -563,7 +563,7 @@ object TS004Repository {
         }
 
     /**
-     * 恢复出厂设置
+     * 恢复出厂Settings
      */
     suspend fun getResetAll(): Boolean =
         withContext(Dispatchers.IO) {
@@ -576,7 +576,7 @@ object TS004Repository {
         }
 
     /**
-     * 设置超分
+     * Settings超分
      * @param state 0-关闭 1-开启
      */
     suspend fun setTISR(state: Int): Boolean =

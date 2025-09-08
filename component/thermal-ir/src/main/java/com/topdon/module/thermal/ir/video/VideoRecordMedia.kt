@@ -34,12 +34,11 @@ class VideoRecordMedia(
         encoder.setFrameDelay(25)
         width = 480
         height = width * cameraView.height / cameraView.width
-        //宽高不能出现奇数
+        // 宽高不能出现奇数
         if (height % 2 == 1) {
             height -= 1
         }
     }
-
 
     override fun startRecord() {
 
@@ -56,7 +55,7 @@ class VideoRecordMedia(
         encoder.setOutputSize(width, height)
         encoder.startEncode()
         isRunning = true
-        //默认帧率20,间隔50ms一帧
+        // 默认帧率20,间隔50ms一帧
         exportDisposable = Observable.interval(50, TimeUnit.MILLISECONDS)
             .map {
                 createBitmapFromView()

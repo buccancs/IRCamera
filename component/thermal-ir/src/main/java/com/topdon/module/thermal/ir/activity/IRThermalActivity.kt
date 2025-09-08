@@ -1,103 +1,103 @@
-//package com.topdon.module.thermal.ir.activity
+// package com.topdon.module.thermal.ir.activity
 //
-//import android.Manifest
-//import android.annotation.SuppressLint
-//import android.content.Intent
-//import android.content.pm.ActivityInfo
-//import android.content.pm.PackageManager
-//import android.content.res.Configuration
-//import android.graphics.Bitmap
-//import android.graphics.Paint
-//import android.graphics.drawable.ColorDrawable
-//import android.hardware.SensorManager
-//import android.os.SystemClock
-//import android.provider.Settings
-//import android.util.Log
-//import android.view.*
-//import android.widget.*
-//import androidx.activity.result.contract.ActivityResultContracts
-//import androidx.core.app.ActivityCompat
-//import androidx.core.content.ContextCompat
-//import androidx.core.text.HtmlCompat
-//import androidx.core.view.drawToBitmap
-//import androidx.core.view.isVisible
-//import androidx.lifecycle.Observer
-//import androidx.lifecycle.lifecycleScope
-//import androidx.recyclerview.widget.GridLayoutManager
-//import androidx.recyclerview.widget.RecyclerView
-//import com.topdon.lib.core.navigation.NavigationManager
-//import com.blankj.utilcode.util.*
-//import com.blankj.utilcode.util.ScreenUtils
-//import com.elvishew.xlog.XLog
-//import com.google.gson.Gson
-//import com.hjq.permissions.OnPermissionCallback
-//import com.hjq.permissions.Permission
-//import com.hjq.permissions.XXPermissions
-//import com.infisense.iruvc.ircmd.IRCMD
-//import com.infisense.iruvc.ircmd.IRCMDType
-//import com.infisense.iruvc.ircmd.IRUtils
-//import com.infisense.iruvc.sdkisp.LibIRParse
-//import com.infisense.iruvc.sdkisp.LibIRProcess
-//import com.infisense.iruvc.utils.CommonParams
-//import com.infisense.iruvc.utils.CommonParams.*
-//import com.infisense.iruvc.utils.CommonUtils
-//import com.infisense.iruvc.utils.DeviceType
-//import com.infisense.iruvc.utils.SynchronizedBitmap
-//import com.infisense.iruvc.uvc.ConnectCallback
-//import com.infisense.iruvc.uvc.UVCCamera
-//import com.infisense.usbir.camera.IRUVCTC
-//import com.infisense.usbir.config.MsgCode
-//import com.infisense.usbir.event.IRMsgEvent
-//import com.infisense.usbir.event.PreviewComplete
-//import com.infisense.usbir.thread.ImageThreadTC
-//import com.infisense.usbir.utils.*
-//import com.infisense.usbir.view.DragViewUtil
-//import com.infisense.usbir.view.ITsTempListener
-//import com.infisense.usbir.view.TemperatureView.*
-//import com.topdon.lib.core.BaseApplication
-//import com.topdon.lib.core.bean.AlarmBean
-//import com.topdon.lib.core.bean.CameraItemBean
-//import com.topdon.lib.core.bean.event.device.DeviceCameraEvent
-//import com.topdon.lib.core.common.SharedManager
-//import com.topdon.lib.core.common.SharedManager.getTemperature
-//import com.topdon.lib.core.config.DeviceConfig
-//import com.topdon.lib.core.config.ExtraKeyConfig
-//import com.topdon.lib.core.config.RouterConfig
-//import com.topdon.lib.core.ktbase.BaseActivity
-//import com.topdon.lib.core.tools.*
-//import com.topdon.lib.core.utils.CameraLiveDateUtil
-//import com.topdon.lib.core.utils.ImageUtils
-//import com.topdon.lib.core.widget.dialog.*
-//import com.topdon.menu.MenuFirstTabView
-//import com.topdon.lib.ui.config.CameraHelp
-//import com.topdon.lib.ui.dialog.ThermalInputDialog
-//import com.topdon.lib.ui.dialog.TipPreviewDialog
-//import com.topdon.lib.ui.widget.CommSeekBar
-//import com.topdon.lib.ui.widget.seekbar.OnRangeChangedListener
-//import com.topdon.lib.ui.widget.seekbar.RangeSeekBar
-//import com.topdon.libcom.AlarmHelp
-//import com.topdon.libcom.dialog.ColorDialog
-//import com.topdon.libcom.dialog.TempAlarmSetDialog
-//import com.topdon.module.thermal.ir.KotlinEx.showChangePseudoDialog
-//import com.topdon.module.thermal.ir.R
-//import com.topdon.module.thermal.ir.adapter.CameraItemAdapter
-//import com.topdon.module.thermal.ir.extension.countDownCoroutines
-//import com.topdon.module.thermal.ir.frame.FrameStructTool
-//import com.topdon.module.thermal.ir.repository.ConfigRepository
-//import com.topdon.module.thermal.ir.video.VideoRecordFFmpeg
-//import com.topdon.module.thermal.ir.view.TimeDownView
-//import com.topdon.pseudo.activity.PseudoSetActivity
-//import com.topdon.pseudo.bean.CustomPseudoBean
-//import kotlinx.coroutines.*
-//import kotlinx.coroutines.flow.flow
-//import org.greenrobot.eventbus.Subscribe
-//import org.greenrobot.eventbus.ThreadMode
-//import java.io.File
-//import java.util.*
+// import android.Manifest
+// import android.annotation.SuppressLint
+// import android.content.Intent
+// import android.content.pm.ActivityInfo
+// import android.content.pm.PackageManager
+// import android.content.res.Configuration
+// import android.graphics.Bitmap
+// import android.graphics.Paint
+// import android.graphics.drawable.ColorDrawable
+// import android.hardware.SensorManager
+// import android.os.SystemClock
+// import android.provider.Settings
+// import android.util.Log
+// import android.view.*
+// import android.widget.*
+// import androidx.activity.result.contract.ActivityResultContracts
+// import androidx.core.app.ActivityCompat
+// import androidx.core.content.ContextCompat
+// import androidx.core.text.HtmlCompat
+// import androidx.core.view.drawToBitmap
+// import androidx.core.view.isVisible
+// import androidx.lifecycle.Observer
+// import androidx.lifecycle.lifecycleScope
+// import androidx.recyclerview.widget.GridLayoutManager
+// import androidx.recyclerview.widget.RecyclerView
+// import com.topdon.lib.core.navigation.NavigationManager
+// import com.blankj.utilcode.util.*
+// import com.blankj.utilcode.util.ScreenUtils
+// import com.elvishew.xlog.XLog
+// import com.google.gson.Gson
+// import com.hjq.permissions.OnPermissionCallback
+// import com.hjq.permissions.Permission
+// import com.hjq.permissions.XXPermissions
+// import com.infisense.iruvc.ircmd.IRCMD
+// import com.infisense.iruvc.ircmd.IRCMDType
+// import com.infisense.iruvc.ircmd.IRUtils
+// import com.infisense.iruvc.sdkisp.LibIRParse
+// import com.infisense.iruvc.sdkisp.LibIRProcess
+// import com.infisense.iruvc.utils.CommonParams
+// import com.infisense.iruvc.utils.CommonParams.*
+// import com.infisense.iruvc.utils.CommonUtils
+// import com.infisense.iruvc.utils.DeviceType
+// import com.infisense.iruvc.utils.SynchronizedBitmap
+// import com.infisense.iruvc.uvc.ConnectCallback
+// import com.infisense.iruvc.uvc.UVCCamera
+// import com.infisense.usbir.camera.IRUVCTC
+// import com.infisense.usbir.config.MsgCode
+// import com.infisense.usbir.event.IRMsgEvent
+// import com.infisense.usbir.event.PreviewComplete
+// import com.infisense.usbir.thread.ImageThreadTC
+// import com.infisense.usbir.utils.*
+// import com.infisense.usbir.view.DragViewUtil
+// import com.infisense.usbir.view.ITsTempListener
+// import com.infisense.usbir.view.TemperatureView.*
+// import com.topdon.lib.core.BaseApplication
+// import com.topdon.lib.core.bean.AlarmBean
+// import com.topdon.lib.core.bean.CameraItemBean
+// import com.topdon.lib.core.bean.event.device.DeviceCameraEvent
+// import com.topdon.lib.core.common.SharedManager
+// import com.topdon.lib.core.common.SharedManager.getTemperature
+// import com.topdon.lib.core.config.DeviceConfig
+// import com.topdon.lib.core.config.ExtraKeyConfig
+// import com.topdon.lib.core.config.RouterConfig
+// import com.topdon.lib.core.ktbase.BaseActivity
+// import com.topdon.lib.core.tools.*
+// import com.topdon.lib.core.utils.CameraLiveDateUtil
+// import com.topdon.lib.core.utils.ImageUtils
+// import com.topdon.lib.core.widget.dialog.*
+// import com.topdon.menu.MenuFirstTabView
+// import com.topdon.lib.ui.config.CameraHelp
+// import com.topdon.lib.ui.dialog.ThermalInputDialog
+// import com.topdon.lib.ui.dialog.TipPreviewDialog
+// import com.topdon.lib.ui.widget.CommSeekBar
+// import com.topdon.lib.ui.widget.seekbar.OnRangeChangedListener
+// import com.topdon.lib.ui.widget.seekbar.RangeSeekBar
+// import com.topdon.libcom.AlarmHelp
+// import com.topdon.libcom.dialog.ColorDialog
+// import com.topdon.libcom.dialog.TempAlarmSetDialog
+// import com.topdon.module.thermal.ir.KotlinEx.showChangePseudoDialog
+// import com.topdon.module.thermal.ir.R
+// import com.topdon.module.thermal.ir.adapter.CameraItemAdapter
+// import com.topdon.module.thermal.ir.extension.countDownCoroutines
+// import com.topdon.module.thermal.ir.frame.FrameStructTool
+// import com.topdon.module.thermal.ir.repository.ConfigRepository
+// import com.topdon.module.thermal.ir.video.VideoRecordFFmpeg
+// import com.topdon.module.thermal.ir.view.TimeDownView
+// import com.topdon.pseudo.activity.PseudoSetActivity
+// import com.topdon.pseudo.bean.CustomPseudoBean
+// import kotlinx.coroutines.*
+// import kotlinx.coroutines.flow.flow
+// import org.greenrobot.eventbus.Subscribe
+// import org.greenrobot.eventbus.ThreadMode
+// import java.io.File
+// import java.util.*
 //
 //
-//@Route(path = RouterConfig.IR_MAIN)
-//open class IRThermalActivity : BaseActivity(), ITsTempListener {
+// @Route(path = RouterConfig.IR_MAIN)
+// open class IRThermalActivity : BaseActivity(), ITsTempListener {
 //
 //    private var alphaPaint: Paint ?=null
 //    private var tempAlarmSetDialog: TempAlarmSetDialog ?= null
@@ -150,7 +150,7 @@
 //            setResult(200)
 //            finish()
 //        }
-//        //===
+//        // ===
 //        isInit = true
 //        mToolBar?.setBackgroundColor(blackColor)
 //        BarUtils.setStatusBarColor(this, blackColor)
@@ -161,28 +161,28 @@
 //                ViewStubUtils.showViewStub(view_stub_camera,false,null)
 //                popupWindow?.dismiss()
 //                temperatureView.canTouch = position == 2
-//                //一级菜单选择
+//                // 一级菜单选择
 //                showRecycler(position)
 //            }
 //        })
 //        temperature_seekbar.setIndicatorTextDecimalFormat("0.0")
-//        updateTemperatureSeekBar(false,R.drawable.ic_edit_pseudo_lock_svg,"lock")//加锁
+//        updateTemperatureSeekBar(false,R.drawable.ic_edit_pseudo_lock_svg,"lock")// 加锁
 //        isShowC = getTemperature() == 1
 //        temperatureView.listener = TempListener { max, min ,tempData->
 //            realLeftValue = UnitTools.showUnitValue(min,isShowC)
 //            realRightValue = UnitTools.showUnitValue(max,isShowC)
-////            Log.w("温度更新","${max}--${min}//${realRightValue}--${realLeftValue}:::")
+////            Log.w("温度更新","${max}--${min}// ${realRightValue}--${realLeftValue}:::")
 //            cl_seek_bar.changeData = true
 //            this@IRThermalActivity.runOnUiThread {
 //                if (!customPseudoBean.isUseCustomPseudo){
-//                    //动态渲染模式
+//                    // 动态渲染模式
 //                    try {
 //                        temperature_seekbar.setRangeAndPro(UnitTools.showUnitValue(editMinValue,isShowC),
 //                            UnitTools.showUnitValue(editMaxValue,isShowC),realLeftValue,realRightValue)
 //                        if (editMinValue != Float.MIN_VALUE && editMaxValue != Float.MAX_VALUE){
 //                            imageThread?.setLimit(
 //                                editMaxValue, editMinValue,
-//                                upColor, downColor) //自定义颜色
+//                                upColor, downColor) // 自定义颜色
 //                        }
 //                    }catch (e:Exception){
 //                        Log.e("温度图层更新失败",e.message.toString())
@@ -192,7 +192,7 @@
 //                            cl_seek_bar.updateBitmap()
 //                        }
 //                    }catch (e:Exception){
-//                        Log.w("伪彩条更新异常:","${e.message}")
+//                        Log.w("Pseudo color条更新异常:","${e.message}")
 //                    }
 //                    try {
 //                        AlarmHelp.getInstance(application).alarmData(max,min,temp_bg)
@@ -201,7 +201,7 @@
 //                        Log.e("温度图层更新失败",e.message.toString())
 //                    }
 //                }else{
-//                    //自定义渲染
+//                    // 自定义渲染
 //                    try {
 //                        tv_temp_content.text = "Max:${UnitTools.showC(max,isShowC)}\nMin:${UnitTools.showC(min,isShowC)}"
 //                    }catch (e:Exception){
@@ -243,7 +243,7 @@
 //        }
 //    }
 //
-//    //更新自定义伪彩的颜色的属性值
+//    // 更新自定义Pseudo color的颜色的属性值
 //    private fun updateImageAndSeekbarColorList(customPseudoBean: CustomPseudoBean?){
 //        customPseudoBean?.let {
 //            temperature_seekbar.setColorList(customPseudoBean.getColorList()?.reversedArray()?:null)
@@ -252,7 +252,7 @@
 //            if (it.isUseCustomPseudo){
 //                temperature_iv_lock.visibility = View.INVISIBLE
 //                tv_temp_content.visibility = View.VISIBLE
-//                updateTemperatureSeekBar(false,R.drawable.ic_edit_pseudo_lock_svg,"lock")//加锁
+//                updateTemperatureSeekBar(false,R.drawable.ic_edit_pseudo_lock_svg,"lock")// 加锁
 //                temperature_seekbar.setRangeAndPro(UnitTools.showUnitValue(it.minTemp),
 //                    UnitTools.showUnitValue(it.maxTemp),UnitTools.showUnitValue(it.minTemp),
 //                    UnitTools.showUnitValue(it.maxTemp))
@@ -278,10 +278,10 @@
 //                return@setOnClickListener
 //            }
 //            if (temperature_iv_lock.contentDescription == "lock") {
-//                updateTemperatureSeekBar(true,R.drawable.ic_edit_pseudo_unlock_svg,"unlock")//解锁
+//                updateTemperatureSeekBar(true,R.drawable.ic_edit_pseudo_unlock_svg,"unlock")// 解锁
 //            } else {
 //                setDefLimit()
-//                updateTemperatureSeekBar(false,R.drawable.ic_edit_pseudo_lock_svg,"lock")//加锁
+//                updateTemperatureSeekBar(false,R.drawable.ic_edit_pseudo_lock_svg,"lock")// 加锁
 //            }
 //        }
 //        temperature_iv_input.setOnClickListener {
@@ -300,7 +300,7 @@
 //                    imageThread?.setLimit(
 //                        editMaxValue,
 //                        editMinValue,
-//                        upColor, downColor) //自定义颜色
+//                        upColor, downColor) // 自定义颜色
 //                    CameraLiveDateUtil.getInstance().saveEditMaxMinValue(editMaxValue,editMinValue)
 //                }
 //            }
@@ -326,8 +326,8 @@
 //        editMaxValue = Float.MAX_VALUE
 //        editMinValue = Float.MIN_VALUE
 //        CameraLiveDateUtil.getInstance().saveEditMaxMinValue(editMaxValue,editMinValue)
-//        imageThread?.setLimit(editMaxValue, editMinValue, upColor, downColor) //自定义颜色
-//        temperature_seekbar.setRangeAndPro(downValue, upValue,realLeftValue,realRightValue) //初始位置
+//        imageThread?.setLimit(editMaxValue, editMinValue, upColor, downColor) // 自定义颜色
+//        temperature_seekbar.setRangeAndPro(downValue, upValue,realLeftValue,realRightValue) // 初始位置
 //    }
 //
 //    private fun updateTemperatureSeekBar(isEnabled: Boolean,resource: Int,content: String){
@@ -386,11 +386,11 @@
 //    }
 //
 //    private fun updateRotateAngle(rotateAngle: Int){
-//        // 清除limit设置
+//        // 清除limitSettings
 //        imageThread?.setLimit(
 //            editMaxValue,
 //            editMinValue,
-//            upColor, downColor) //自定义颜色
+//            upColor, downColor) // 自定义颜色
 //        lifecycleScope.launch(Dispatchers.IO) {
 //            launch(Dispatchers.Main) {
 //                thermal_recycler.rotateStats = 411
@@ -549,7 +549,7 @@
 //                }
 //            }
 //            1003 -> {
-//                //切换模式
+//                // 切换模式
 //                settingCamera()
 //            }
 //        }
@@ -574,40 +574,40 @@
 //        }
 //    }
 //
-//    //温度测量
+//    // 温度测量
 //    private fun setTemp(code: Int) {
 //        temperatureView?.canTouch = true
 //        when (code) {
 //            1 -> {
-//                //点
+//                // 点
 //                temperatureView?.visibility = View.VISIBLE
 //                temperatureView?.temperatureRegionMode = REGION_MODE_POINT
 //                showCross(true)
 //            }
 //            2 -> {
-//                //线
+//                // 线
 //                temperatureView?.visibility = View.VISIBLE
 //                temperatureView?.temperatureRegionMode = REGION_MODE_LINE
 //                showCross(true)
 //            }
 //            3 -> {
-//                //面
+//                // 面
 //                temperatureView?.visibility = View.VISIBLE
 //                temperatureView?.temperatureRegionMode = REGION_MODE_RECTANGLE
 //                showCross(true)
 //            }
 //            4 -> {
-//                //添加 温度区间
+//                // 添加 温度区间
 //                addLimit()
 //            }
 //            5 -> {
-//                //全图
+//                // 全图
 //                temperatureView?.visibility = View.VISIBLE
 //                temperatureView?.temperatureRegionMode = REGION_MODE_CENTER
 //                showCross(true)
 //            }
 //            6 -> {
-//                //清除
+//                // 清除
 //                temperatureView?.clear()
 //                temperatureView?.visibility = View.INVISIBLE
 //                temperatureView?.temperatureRegionMode = REGION_MODE_CLEAN
@@ -632,23 +632,23 @@
 //        }
 //    }
 //
-//    //设置伪彩
+//    // SettingsPseudo color
 //    private fun setPColor(code: Int) {
 //        pseudocolorMode = code
 //        temperature_seekbar.setPseudocode(pseudocolorMode)
 //        /**
-//         * 设置伪彩【set pseudocolor】
-//         * 固件机芯实现(部分伪彩为预留,设置后可能无效果)
+//         * SettingsPseudo color【set pseudocolor】
+//         * 固件机芯实现(部分Pseudo color为预留,Settings后可能无效果)
 //         */
-//        imageThread?.pseudocolorMode = pseudocolorMode//设置伪彩
+//        imageThread?.pseudocolorMode = pseudocolorMode// SettingsPseudo color
 ////        ircmd!!.setPseudoColor(PreviewPathChannel.PREVIEW_PATH0, PseudocodeUtils.changePseudocodeModeByOld(pseudocolorMode))
 //        CameraLiveDateUtil.getInstance().savePseudoColorMode(pseudocolorMode)
 //        thermal_recycler.setPseudoColor(code)
 //    }
-//    private var initRotate = 0//初始角度
-//    private var correctRotate = 0//矫正角度
-//    private var rotateAngle = DeviceConfig.ROTATE_ANGLE //校对默认角度0
-//    private var defaultIsPortrait = DeviceConfig.IS_PORTRAIT //默认横屏
+//    private var initRotate = 0// 初始角度
+//    private var correctRotate = 0// 矫正角度
+//    private var rotateAngle = DeviceConfig.ROTATE_ANGLE // 校对默认角度0
+//    private var defaultIsPortrait = DeviceConfig.IS_PORTRAIT // 默认横屏
 //    private fun setSetting(code: Int) {
 //        when (code) {
 //            CameraHelp.TYPE_SET_ROTATE -> {
@@ -665,11 +665,11 @@
 //                setParamLevelContrast()
 //            }
 //            CameraHelp.TYPE_SET_PSEUDOCOLOR -> {
-//                // 伪彩条
+//                // Pseudo color条
 //                setPseudoColor()
 //            }
 //            CameraHelp.TYPE_SET_PREVIEWCONFIG -> {
-//                // 画中画，也就是双光
+//                // 画中画，也就是Dual light
 //                cameraPreviewConfig(true)
 //            }
 //            CameraHelp.TYPE_SET_LIMIT -> {
@@ -683,14 +683,14 @@
 //            CameraHelp.TYPE_SET_RH -> {
 //                // 融合
 //                if (!isOpenPreview && thermal_recycler.cameraAlphaStats != 471){
-//                    //自动打开双光
+//                    // 自动打开Dual light
 //                    cameraPreviewConfig(false)
 //                }
 //                setCameraAlpha()
 //            }
 //            CameraHelp.TYPE_SET_ZOOM -> {
 //                // 放大
-//                setTemp(-2)//删除所有的点线面
+//                setTemp(-2)// 删除所有的Point/Line/Area
 //                setZoom()
 //            }
 //            CameraHelp.TYPE_SET_ALARM -> {
@@ -797,7 +797,7 @@
 //        popupWindow?.setOnDismissListener {
 //            thermal_recycler.cameraAlphaStats = 470
 //        }
-//        //在控件上方显示
+//        // 在控件上方显示
 //        popupWindow?.showAsDropDown(thermal_lay, 0, getPopupWindowY(contentHeight), Gravity.NO_GRAVITY)
 //    }
 //
@@ -807,11 +807,11 @@
 //        lifecycleScope.launch {
 //            when (select) {
 //                CameraItemBean.TYPE_TMP_ZD -> {
-//                    //自动增益
+//                    // 自动增益
 //                    autoConfig()
 //                }
 //                CameraItemBean.TYPE_TMP_C -> {
-//                    //低温
+//                    // 低温
 //                    if (gainSelChar == 1) {
 //                        return@launch
 //                    }
@@ -830,7 +830,7 @@
 //
 //                }
 //                CameraItemBean.TYPE_TMP_H -> {
-//                    //高温
+//                    // 高温
 //                    if (gainSelChar == 0) {
 //                        return@launch
 //                    }
@@ -859,9 +859,9 @@
 //    private val tempHeight = 192
 //    private var imageWidth = cameraWidth
 //    private var imageHeight = cameraHeight - tempHeight
-//    private val imageBytes = ByteArray(imageWidth * imageHeight * 2) //图像数据
-//    private val temperatureBytes = ByteArray(imageWidth * imageHeight * 2) //温度数据
-//    private val imageEditBytes = ByteArray(imageWidth * imageHeight * 4) //编辑图像数据
+//    private val imageBytes = ByteArray(imageWidth * imageHeight * 2) // 图像数据
+//    private val temperatureBytes = ByteArray(imageWidth * imageHeight * 2) // 温度数据
+//    private val imageEditBytes = ByteArray(imageWidth * imageHeight * 4) // 编辑图像数据
 //    private val syncimage = SynchronizedBitmap()
 //    private var isrun = false
 //    private var pseudocolorMode = CameraLiveDateUtil.getInstance().getCameraSBeanData().irSettingBean.pseudoColorMode
@@ -870,7 +870,7 @@
 //    private var tempinfo: Long = 0
 //    private var cameraSBean = CameraLiveDateUtil.getInstance().getCameraSBeanData()
 //
-//    //高低增益 1:低增益 0: 高增益
+//    // 高低增益 1:低增益 0: 高增益
 //    private var gainSelChar: Int = -1
 //
 //    @Subscribe(threadMode = ThreadMode.MAIN)
@@ -885,7 +885,7 @@
 //     * 统一监听相机属性值
 //     */
 //    fun setCameraDataListener(){
-//        //相机总属性值
+//        // 相机总属性值
 //        CameraLiveDateUtil.getInstance().cameraIRConfigLiveDate.observe(this, Observer { cameraIt ->
 //            videoRecord?.updateAudioState(cameraSBean.openAudioRecord)
 //            cameraSBean = cameraIt
@@ -925,17 +925,17 @@
 ////        temperatureView.setTemperatureRegionMode(TemperatureView.FOCUSABLES_TOUCH_MODE)
 //        // 某些特定客户的特殊设备需要使用该命令关闭sensor
 ////        if (Usbcontorl.isload) {
-////            Usbcontorl.usb3803_mode_setting(1) //打开5V
+////            Usbcontorl.usb3803_mode_setting(1) // 打开5V
 ////            XLog.w("打开5V")
 ////        }
-//        //初始全局测温
+//        // 初始全局测温
 //        temperatureView?.post {
 //            if (!temperaturerun) {
 //                temperaturerun = true
-//                //需等待渲染完成再显示
+//                // 需等待渲染完成再显示
 //                temperatureView?.visibility = View.VISIBLE
 //                temperatureView?.postDelayed({
-//                    temperatureView?.temperatureRegionMode = REGION_MODE_CENTER//全屏测温
+//                    temperatureView?.temperatureRegionMode = REGION_MODE_CENTER// 全屏测温
 //                }, 1000)
 //            }
 //        }
@@ -959,11 +959,11 @@
 //            } else {
 //                // 平板
 //                if (isPortrait) {
-//                    //竖屏显示
+//                    // 竖屏显示
 //                    params.height = thermal_lay.height
 //                    params.width = params.height * imageWidth / imageHeight
 //                } else {
-//                    //横屏显示
+//                    // 横屏显示
 //                    params.height = thermal_lay.height
 //                    params.width = params.height * imageHeight / imageWidth
 //                }
@@ -1063,12 +1063,12 @@
 //            this@IRThermalActivity.isCMDDataComplete = true
 //        }
 //        iruvc?.registerUSB()
-//        // 画面旋转设置
+//        // 画面旋转Settings
 ////        popupCalibration.setRotate(true)
 //    }
 //    private var nuc_table_high = ShortArray(8192)
 //    private var nuc_table_low = ShortArray(8192)
-//    //根据模组的SN信息作为模组信息保存的key参数
+//    // 根据模组的SNmessage作为模组message保存的key参数
 //    private var md5PNSNKey : String? = null
 //    // 是否从机芯Flash中读取的nuc数据，会影响到测温修正的资源释放
 //    private var isGetNucFromFlash = false
@@ -1079,7 +1079,7 @@
 //        val SN = ByteArray(16)
 //        ircmd!!.getDeviceInfo(DeviceInfoType.DEV_INFO_GET_SN, SN)
 //        val deviceSNUnCodePath: String = FileUtil.getTableDirPath() + File.separator
-//        // 使用模组的唯一信息作为key,避免多个模组插拔造成的数据问题
+//        // 使用模组的唯一message作为key,避免多个模组插拔造成的数据问题
 //        md5PNSNKey = FileUtil.getMD5Key(String(SN))
 //        val nucHighFileName = md5PNSNKey + "_nuc_table_high.bin"
 //        val nucLowFileName = md5PNSNKey + "_nuc_table_low.bin"
@@ -1109,7 +1109,7 @@
 //            nuc_table_low = FileUtil.toShortArray(nuc_table_low_byte)
 //            Log.e("测试","读取温度表：从机芯里面判断")
 //        }else{
-//            //从机芯读取
+//            // 从机芯读取
 //            if (ircmd != null && !md5PNSNKey?.isEmpty()!!) {
 //                isGetNucFromFlash = true
 //                tempinfo = ircmd!!.readNucTableFromFlash(
@@ -1133,7 +1133,7 @@
 //        }
 //    }
 //
-//    //设置TS001的温度校正
+//    // SettingsTS001的温度校正
 //    suspend fun setTsBin(){
 //        ircmd?.let {
 //            val getSnBytes = ByteArray(16)
@@ -1141,10 +1141,10 @@
 //            ircmd?.getDeviceInfo(
 //                DeviceInfoType.DEV_INFO_FW_BUILD_VERSION_INFO,
 //                fwBuildVersionInfoBytes
-//            ) //ok
+//            ) // ok
 //            val arm = String(fwBuildVersionInfoBytes.copyOfRange(0, 8))
-//            it.getDeviceInfo(DeviceInfoType.DEV_INFO_GET_SN, getSnBytes) //ok
-//            val snStr = String(getSnBytes) //sn
+//            it.getDeviceInfo(DeviceInfoType.DEV_INFO_GET_SN, getSnBytes) // ok
+//            val snStr = String(getSnBytes) // sn
 //            val infoBuilder = StringBuilder()
 //            infoBuilder.append("Firmware version: ").append(arm).append("<br>")
 //            infoBuilder.append("SN: ").append(snStr).append("<br>")
@@ -1165,7 +1165,7 @@
 //                }
 //                ts_data_H = CommonUtils.getTauData(this@IRThermalActivity, "ts/TS001_H.bin")
 //                ts_data_L = CommonUtils.getTauData(this@IRThermalActivity, "ts/TS001_L.bin")
-//                //是长焦镜头，所以进行温度校正
+//                // 是长焦镜头，所以进行温度校正
 //                val orgEMS = IntArray(1)
 //                ircmd?.getPropTPDParams(PropTPDParams.TPD_PROP_EMS, orgEMS)
 //                val orgTAU = IntArray(1)
@@ -1222,7 +1222,7 @@
 //        )
 //        return newTemp
 //    }
-//    //旋转操作
+//    // 旋转操作
 //    private fun setRotateAction() {
 //        if (rotateAngle == 0) {
 //            rotateAngle = 270
@@ -1247,12 +1247,12 @@
 //        if (rotateInt!=0) {
 //            imageThread?.interrupt()
 //            if (rotateInt == 180) {
-//                //180
+//                // 180
 //                bitmap = Bitmap.createBitmap(imageHeight, imageWidth, Bitmap.Config.ARGB_8888)
 //                temperatureView?.setImageSize(imageHeight, imageWidth,this@IRThermalActivity)
 //                setViewLay(false)
 //            } else {
-//                //90 270
+//                // 90 270
 //                bitmap = Bitmap.createBitmap(imageWidth, imageHeight, Bitmap.Config.ARGB_8888)
 //                temperatureView?.setImageSize(imageWidth, imageHeight,this@IRThermalActivity)
 //                setViewLay(true)
@@ -1268,7 +1268,7 @@
 //            startISP()
 //        } else {
 //            imageThread?.interrupt()
-//            //0
+//            // 0
 //            bitmap = Bitmap.createBitmap(imageHeight, imageWidth, Bitmap.Config.ARGB_8888)
 //            temperatureView?.setImageSize(imageHeight, imageWidth,this@IRThermalActivity)
 //            setViewLay(false)
@@ -1293,16 +1293,16 @@
 //        super.onStart()
 //        Log.w(TAG, "onStart")
 //        if (!isrun) {
-//            // 初始配置,伪彩铁红
+//            // 初始配置,Pseudo color铁红
 ////          pseudocolorMode = 3
 //            tv_type_ind.visibility = GONE
-//            thermal_recycler.limitStats = 460 //默认关闭DIY
+//            thermal_recycler.limitStats = 460 // 默认关闭DIY
 //            startUSB(false)
 //            startISP()
 //            temperatureView?.start()
 //            cameraView?.start()
 //            isrun = true
-//            //恢复配置
+//            // 恢复配置
 //            configParam()
 //            thermal_recycler.updateCameraModel()
 //            initIRConfig()
@@ -1313,13 +1313,13 @@
 //     * IR模式配置初始化
 //     */
 //    private fun initIRConfig(){
-//        //伪彩条显示
+//        // Pseudo color条显示
 //        if (CameraLiveDateUtil.getInstance().getCameraSBeanData().irSettingBean.openColorBar){
 //            cl_seek_bar.visibility = View.VISIBLE
-//            thermal_recycler.colorBarStats = 441 //默认打开伪彩条
+//            thermal_recycler.colorBarStats = 441 // 默认打开Pseudo color条
 //        }else{
 //            cl_seek_bar.visibility = View.GONE
-//            thermal_recycler.colorBarStats = 440 //默认打开伪彩条
+//            thermal_recycler.colorBarStats = 440 // 默认打开Pseudo color条
 //        }
 //        temperature_seekbar?.setPseudocode(pseudocolorMode)
 //        if (customPseudoBean!=null && customPseudoBean.isUseCustomPseudo){
@@ -1392,13 +1392,13 @@
 //
 //        // 某些特定客户的特殊设备需要使用该命令关闭sensor
 ////        if (Usbcontorl.isload) {
-////            Usbcontorl.usb3803_mode_setting(0) //关闭5V
+////            Usbcontorl.usb3803_mode_setting(0) // 关闭5V
 ////        }
 //
 //    }
 //
 //    private fun showInfo() {
-//        // 设备信息
+//        // 设备message
 //        Log.i(
 //            TAG, """
 //     P2-PN:
@@ -1412,12 +1412,12 @@
 //     """.trimIndent()
 //        )
 //        /**
-//         * 写入OEM信息
+//         * 写入OEMmessage
 //         */
 //        val oemWriteInfo =
 //            "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890"
 //        /**
-//         * 读取OEM信息
+//         * 读取OEMmessage
 //         *
 //         */
 //        val oemInfo = ByteArray(oemWriteInfo.length)
@@ -1432,28 +1432,28 @@
 //        val PN = ByteArray(48)
 //        val SN = ByteArray(16)
 //        try {
-//            ircmd?.getDeviceInfo(CommonParams.DeviceInfoType.DEV_INFO_CHIP_ID, CHIP_FW_INFO) //ok
+//            ircmd?.getDeviceInfo(CommonParams.DeviceInfoType.DEV_INFO_CHIP_ID, CHIP_FW_INFO) // ok
 //
 //            ircmd?.getDeviceInfo(
 //                CommonParams.DeviceInfoType.DEV_INFO_FW_COMPILE_DATE,
 //                FW_COMPILE_DATE
-//            ) //ok
+//            ) // ok
 //
 //            ircmd?.getDeviceInfo(
 //                CommonParams.DeviceInfoType.DEV_INFO_DEV_QUALIFICATION,
 //                DEV_QUALIFICATION
-//            ) //ok
+//            ) // ok
 //
-//            ircmd?.getDeviceInfo(DeviceInfoType.DEV_INFO_PROJECT_INFO, PROJECT_INFO) //ok
+//            ircmd?.getDeviceInfo(DeviceInfoType.DEV_INFO_PROJECT_INFO, PROJECT_INFO) // ok
 //
-//            ircmd?.getDeviceInfo(DeviceInfoType.DEV_INFO_IR_INFO, IR_INFO) //ok
+//            ircmd?.getDeviceInfo(DeviceInfoType.DEV_INFO_IR_INFO, IR_INFO) // ok
 //
 //            ircmd?.getDeviceInfo(
 //                DeviceInfoType.DEV_INFO_FW_BUILD_VERSION_INFO,
 //                FW_BUILD_VERSION_INFO
-//            ) //ok
-//            ircmd?.getDeviceInfo(DeviceInfoType.DEV_INFO_GET_PN, PN) //ok
-//            ircmd?.getDeviceInfo(DeviceInfoType.DEV_INFO_GET_SN, SN) //ok
+//            ) // ok
+//            ircmd?.getDeviceInfo(DeviceInfoType.DEV_INFO_GET_PN, PN) // ok
+//            ircmd?.getDeviceInfo(DeviceInfoType.DEV_INFO_GET_SN, SN) // ok
 //        }catch (e: Exception){
 //
 //        }
@@ -1475,7 +1475,7 @@
 //
 //            IRParseVer:${LibIRParse.getIRParseVersion()}
 //            """.trimIndent()
-//        Log.i("获取设备信息","$info")
+//        Log.i("获取设备message","$info")
 //
 //        TipDeviceDialog.Builder(this)
 //            .setMessage("$info")
@@ -1517,7 +1517,7 @@
 //            mutableListOf(Permission.READ_EXTERNAL_STORAGE,Permission.WRITE_EXTERNAL_STORAGE)
 //        }
 //    }
-//    //拍照中间按钮
+//    // Photo capture中间按钮
 //    @SuppressLint("CheckResult")
 //    private fun centerCamera() {
 //
@@ -1533,7 +1533,7 @@
 //                            val setting = CameraLiveDateUtil.getInstance().getCameraSettingData().continuousBean
 //                            if (setting.isSel){
 //                                if (!isAutoCamera){
-//                                    //连续拍照
+//                                    // 连续Photo capture
 //                                    autoJob = countDownCoroutines(
 //                                        setting.number,
 //                                        (setting.time * 1000).toLong(),
@@ -1557,7 +1557,7 @@
 //                                camera()
 //                            }
 //                        }else{
-//                            //录制视频
+//                            // 录制视频
 //                            video()
 //                        }
 //                    } else {
@@ -1567,7 +1567,7 @@
 //
 //                override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
 //                    if (doNotAskAgain){
-//                        //拒绝授权并且不再提醒
+//                        // 拒绝授权并且不再提醒
 //                        TipDialog.Builder(this@IRThermalActivity)
 //                            .setTitleMessage(getString(R.string.app_tip))
 //                            .setMessage(R.string.app_storage_content)
@@ -1595,10 +1595,10 @@
 //                        ActivityCompat.checkSelfPermission(this,Manifest.permission.RECORD_AUDIO)
 //                        == PackageManager.PERMISSION_GRANTED
 //            ),
-//            CameraItemBean("设置",CameraItemBean.TYPE_SETTING),
+//            CameraItemBean("Settings",CameraItemBean.TYPE_SETTING),
 //        )
 //    }
-//    //拍照右边按钮
+//    // Photo capture右边按钮
 //    private fun settingCamera() {
 //        showCameraSetting = !showCameraSetting
 //        if (showCameraSetting){
@@ -1651,7 +1651,7 @@
 //                                            ) {
 //                                                try {
 //                                                    if (allGranted) {
-//                                                        //录音开启
+//                                                        // 录音开启
 //                                                        cameraSBean.openAudioRecord = !cameraItemAdapter.data[position].isSel
 //                                                        videoRecord?.updateAudioState(cameraSBean.openAudioRecord)
 //                                                        cameraItemAdapter.data[position].isSel =
@@ -1671,7 +1671,7 @@
 //                                                doNotAskAgain: Boolean
 //                                            ) {
 //                                                if (doNotAskAgain){
-//                                                    //拒绝授权并且不再提醒
+//                                                    // 拒绝授权并且不再提醒
 //                                                    TipDialog.Builder(this@IRThermalActivity)
 //                                                        .setTitleMessage(getString(R.string.app_tip))
 //                                                        .setMessage(getString(R.string.app_microphone_content))
@@ -1703,7 +1703,7 @@
 //                                    cameraItemAdapter.data[position].isSel = false
 //                                    cameraItemAdapter.notifyItemChanged(position)
 //                                }
-//                                //手动快门
+//                                // 手动快门
 //                                if (syncimage.type == 1) {
 //                                    ircmd?.tiny1bShutterManual()
 //                                } else {
@@ -1713,7 +1713,7 @@
 //                                return@listener
 //                            }
 //                            CameraItemBean.TYPE_ZDKM -> {
-//                                //自动快门
+//                                // 自动快门
 //                                CameraLiveDateUtil.getInstance().saveAutoShutter(
 //                                    !CameraLiveDateUtil.getInstance().getAutoShutter())
 //                                cameraItemAdapter.data[position].isSel =
@@ -1757,15 +1757,15 @@
 //        }
 //    }
 //
-//    // 拍照
+//    // Photo capture
 //    private fun camera() {
 //        lifecycleScope.launch(Dispatchers.Default) {
 //            launch(Dispatchers.Main) {
 //                thermal_recycler.showCameraActive()
 //            }
-////            System.arraycopy(imageEditBytes, 0, imageEditTempBytes, 0, imageEditBytes.size)//一帧数据内容
+////            System.arraycopy(imageEditBytes, 0, imageEditTempBytes, 0, imageEditBytes.size)// 一帧数据内容
 //            synchronized(syncimage.dataLock) {
-//                // 获取展示图像信息的图层数据
+//                // 获取展示图像message的图层数据
 //                var cameraViewBitmap = cameraView.bitmap
 //                var tmpFile = ""
 //                if(isOpenPreview){
@@ -1774,7 +1774,7 @@
 //                        cameraPreview.getBitmap(),
 //                        cameraPreview
 //                    )
-//                    //画中画原图保存
+//                    // 画中画原图保存
 //                    cameraPreview.getBitmap()?.let {
 //                        tmpFile = ImageUtils.saveImageToApp(bitmap = it)
 //                    }
@@ -1792,7 +1792,7 @@
 //                        0
 //                    )
 //                }
-//                // 合并伪彩条
+//                // 合并Pseudo color条
 //                seekBarBitmap?.let {
 //                    cameraViewBitmap = BitmapUtils.mergeBitmap(
 //                        cameraViewBitmap,
@@ -1807,7 +1807,7 @@
 //                        alphaPaint = Paint()
 //                    }
 //                    alphaPaint?.alpha = (temp_bg.animatorAlpha * 255).toInt()
-//                    //合并闪烁
+//                    // 合并闪烁
 //                    cameraViewBitmap = BitmapUtils.mergeBitmapAlpha(
 //                        cameraViewBitmap,
 //                        temp_bg.drawToBitmap(),alphaPaint,
@@ -1826,7 +1826,7 @@
 //                }
 //                var name = ""
 //                if (CameraLiveDateUtil.getInstance().getCameraSettingData().watermarkBean.isSel){
-//                    //添加水印
+//                    // 添加水印
 //                    cameraViewBitmap = BitmapUtils.drawCenterLable(cameraViewBitmap,
 //                        CameraLiveDateUtil.getInstance().getCameraSettingData().watermarkBean.title,
 //                        CameraLiveDateUtil.getInstance().getCameraSettingData().watermarkBean.address,
@@ -1850,7 +1850,7 @@
 //                    initRotate = initRotate,
 //                    correctRotate = correctRotate,
 //                    customPseudoBean = customPseudoBean
-//                ) //首部内容
+//                ) // 首部内容
 ////                val le = 256 * 192 * 2
 ////                val tmpBy = ByteArray(le)
 ////                System.arraycopy(
@@ -1860,11 +1860,11 @@
 ////                val tmp1 = LibIRTemp(256, 192)
 ////                tmp1.setTempData(tmpBy)
 ////                val result1 = tmp1.getTemperatureOfRect(Rect(0, 0, 256, 192))
-////                Log.w("温度更新19", result1.maxTemperature.toString() + "///" + result1.minTemperature)
+////                Log.w("温度更新19", result1.maxTemperature.toString() + "/// " + result1.minTemperature)
 //                ImageUtils.saveFrame(bs = imageEditBytes, capital = capital, name = name)
-//                //保存一帧argb数据，临时代码，可删
+//                // 保存一帧argb数据，临时代码，可删
 ////                ImageUtils.saveOneFrameAGRB(bs = imageThread!!.imageTemp, name = System.currentTimeMillis().toString())
-//                //读取argb
+//                // 读取argb
 //                launch(Dispatchers.Main) {
 //                    thermal_recycler.refreshImg()
 //                }
@@ -1879,7 +1879,7 @@
 //
 //    private fun video() {
 //        if (!isVideo) {
-//            //开始录制
+//            // 开始录制
 //            videoRecord = VideoRecordFFmpeg(cameraView,cameraPreview, temperatureView, cl_seek_bar,bitmap,temp_bg)
 //            if (!videoRecord!!.canStartVideoRecord(null)){
 //                return
@@ -1939,7 +1939,7 @@
 //                    pop_time_text.text = TimeTool.showVideoTime(it * 1000L)
 //                }
 //                if (it == time - 1) {
-//                    //停止
+//                    // 停止
 //                    video()
 //                }
 //            }
@@ -1954,7 +1954,7 @@
 //    }
 //
 //
-//    // 伪彩显示
+//    // Pseudo color显示
 //    private fun setPseudoColor() {
 //        cl_seek_bar.isVisible = !cl_seek_bar.isVisible
 //        CameraLiveDateUtil.getInstance().saveColorBarStats(cl_seek_bar.isVisible)
@@ -1970,7 +1970,7 @@
 //    private var contrastConfig = 128
 //    private var ddeConfig = 2
 //
-//    //IMAGE_PROP_LEVEL_CONTRAST (0~255) 对比度默认中间值
+//    // IMAGE_PROP_LEVEL_CONTRAST (0~255) 对比度默认中间值
 //    private fun setParamLevelContrast() {
 //        if (thermal_recycler.contrastStats == 431){
 //            popupWindow?.dismiss()
@@ -1991,7 +1991,7 @@
 //        val contentHeight = contentView.measuredHeight
 //        val seekBar = contentView?.findViewById<CommSeekBar>(R.id.seek_bar)
 //        val tvProcess = contentView?.findViewById<TextView>(R.id.tv_value)
-//        // AGC不同档位都对应了一对MAXGAIN和BOS,也就是说AGC切换档位都应该重新读一下MAXGAIN和BOS,不同档位重新设置后值是不同的
+//        // AGC不同档位都对应了一对MAXGAIN和BOS,也就是说AGC切换档位都应该重新读一下MAXGAIN和BOS,不同档位重新Settings后值是不同的
 //        val mode = IntArray(1)
 //        ircmd?.getPropImageParams(
 //            PropImageParams.IMAGE_PROP_LEVEL_CONTRAST,
@@ -2029,7 +2029,7 @@
 //        popupWindow?.setOnDismissListener {
 //            thermal_recycler.contrastStats = 430
 //        }
-//        //在控件上方显示
+//        // 在控件上方显示
 //        popupWindow?.showAsDropDown(thermal_lay, 0, getPopupWindowY(contentHeight), Gravity.NO_GRAVITY)
 //    }
 //
@@ -2142,13 +2142,13 @@
 //        popupWindow?.setOnDismissListener {
 //            thermal_recycler.cameraZoomStats = 480
 //        }
-//        //在控件上方显示
+//        // 在控件上方显示
 //        popupWindow?.showAsDropDown(thermal_lay, 0, getPopupWindowY(contentHeight), Gravity.NO_GRAVITY)
 //    }
 //
 //
-//    val levelMax = 4//锐度的最大值，0-4
-//    //IMAGE_PROP_LEVEL_DDE (0~4) 细节增强(默认2)
+//    val levelMax = 4// 锐度的最大值，0-4
+//    // IMAGE_PROP_LEVEL_DDE (0~4) 细节增强(默认2)
 //    private fun setParamLevelDde() {
 //        if (thermal_recycler.ddeStats == 421){
 //            popupWindow?.dismiss()
@@ -2209,12 +2209,12 @@
 //        popupWindow?.setOnDismissListener {
 //            thermal_recycler.ddeStats = 420
 //        }
-//        //在控件上方显示
+//        // 在控件上方显示
 //        popupWindow?.showAsDropDown(thermal_lay, 0, getPopupWindowY(contentHeight), Gravity.NO_GRAVITY)
 //    }
 //
-////    //IMAGE_PROP_LEVEL_SNR (0~3) 空域降噪(默认2) 看不出
-////    //IMAGE_PROP_LEVEL_TNR (0~3) 时域降噪(默认2) 看不出
+////    // IMAGE_PROP_LEVEL_SNR (0~3) 空域降噪(默认2) 看不出
+////    // IMAGE_PROP_LEVEL_TNR (0~3) 时域降噪(默认2) 看不出
 //
 //    /**
 //     * 自动增益
@@ -2269,7 +2269,7 @@
 //     * TPD_PROP_TAU: 128        (大气透过率)
 //     * TPD_PROP_GAIN_SEL: 1     (高低增益切换)
 //     *
-//     * 艾睿建议温度TU和TA不要设置
+//     * 艾睿建议温度TU和TA不要Settings
 //     *
 //     * 标定工具出来的配置
 //     *  读取TPD_PROP DISTANCE: 32
@@ -2281,7 +2281,7 @@
 //    val paramType = arrayOf("DISTANCE", "TU", "TA", "EMS", "TAU", "GAIN_SEL")
 //    var isConfigWait = true
 //    var configJob : Job ?= null
-//    //配置
+//    // 配置
 //    private fun configParam() {
 //        configJob =  lifecycleScope.launch {
 ////            showLoading()
@@ -2308,20 +2308,20 @@
 //
 //            val configRepository = ConfigRepository()
 //            val config = configRepository.readConfig()
-//            val disChar = (config.distance * 128).toInt() //距离(米)
-//            val emsChar = (config.radiation * 128).toInt() //发射率
-////            val tuChar = (config.environment * 10).toInt().toChar() //环境温度
-//            XLog.w("设置TPD_PROP DISTANCE:${disChar.toInt()}, EMS:${emsChar.toInt()}}")
+//            val disChar = (config.distance * 128).toInt() // 距离(米)
+//            val emsChar = (config.radiation * 128).toInt() // 发射率
+////            val tuChar = (config.environment * 10).toInt().toChar() // 环境温度
+//            XLog.w("SettingsTPD_PROP DISTANCE:${disChar.toInt()}, EMS:${emsChar.toInt()}}")
 //            val timeMillis = 250L
 //            delay(timeMillis)
-//            //发射率
+//            // 发射率
 //            /// Emissivity property. unit:1/128, range:1-128(0.01-1)
 //            ircmd?.setPropTPDParams(
 //                PropTPDParams.TPD_PROP_EMS,
 //                PropTPDParamsValue.NumberType(emsChar.toString())
 //            )
 //            delay(timeMillis)
-//            //距离
+//            // 距离
 //            ircmd?.setPropTPDParams(
 //                PropTPDParams.TPD_PROP_DISTANCE,
 //                PropTPDParamsValue.NumberType(disChar.toString())
@@ -2337,11 +2337,11 @@
 //                )
 //            }
 ////            delay(timeMillis)
-////            //环境反射温度
-////            setTpdParams(Libircmd.TPD_PROP_TA, tuChar) //ok
+////            // 环境反射温度
+////            setTpdParams(Libircmd.TPD_PROP_TA, tuChar) // ok
 ////            delay(timeMillis)
-////            //环境反射温度
-////            setTpdParams(Libircmd.TPD_PROP_TU, tuChar) //ok
+////            // 环境反射温度
+////            setTpdParams(Libircmd.TPD_PROP_TU, tuChar) // ok
 //            // 自动快门
 //            delay(timeMillis)
 //            if (isFirst && isrun){
@@ -2364,7 +2364,7 @@
 //                    CommonParams.PreviewPathChannel.PREVIEW_PATH0,
 //                    CommonParams.ZoomScaleStep.ZOOM_STEP2
 //                )
-//                //恢复镜像
+//                // 恢复镜像
 //                ircmd?.setPropImageParams(
 //                    PropImageParams.IMAGE_PROP_SEL_MIRROR_FLIP,
 //                    PropImageParamsValue.MirrorFlipType.NO_MIRROR_FLIP
@@ -2390,7 +2390,7 @@
 //                    CommonParams.PropImageParams.IMAGE_PROP_LEVEL_DDE,
 //                    CommonParams.PropImageParamsValue.DDEType.DDE_0
 //                )
-//                //复位对比度、细节
+//                // 复位对比度、细节
 //                ircmd?.setPropImageParams(
 //                    CommonParams.PropImageParams.IMAGE_PROP_LEVEL_CONTRAST,
 //                    PropImageParamsValue.NumberType(contrastConfig.toString())
@@ -2411,12 +2411,12 @@
 //        }
 //    }
 //
-//    //设置tdp参数
+//    // Settingstdp参数
 //    private fun setTpdParams(params: PropTPDParams, value: String) {
 //        ircmd?.setPropTPDParams(params, PropTPDParamsValue.NumberType(value))
 //    }
 //
-//    //设置img参数
+//    // Settingsimg参数
 //    private fun setImageParams(params: PropImageParams, value: String) {
 //        ircmd?.setPropImageParams(params, PropImageParamsValue.NumberType(value))
 //    }
@@ -2426,7 +2426,7 @@
 //    private var upColor = 0
 //    private var downColor = 0
 //
-//    //温度范围
+//    // 温度范围
 //    private fun addLimit() {
 //        ThermalInputDialog.Builder(this)
 //            .setMessage(getString(R.string.thermal_threshold_setting))
@@ -2437,7 +2437,7 @@
 //                this.downValue = down
 //                this.upColor = upColor
 //                this.downColor = downColor
-//                imageThread?.setLimit(upValue, downValue, upColor, downColor) //自定义颜色
+//                imageThread?.setLimit(upValue, downValue, upColor, downColor) // 自定义颜色
 //                if (upValue.toInt() == -273 && downValue.toInt() == -273) {
 //                    // 关闭DIY
 //                    thermal_recycler.limitStats = 460
@@ -2450,7 +2450,7 @@
 //                upValue = -273f
 //                downValue = -273f
 //                thermal_recycler.limitStats = 460
-//                imageThread?.setLimit(upValue, downValue, upColor, downColor) //自定义颜色
+//                imageThread?.setLimit(upValue, downValue, upColor, downColor) // 自定义颜色
 //            }
 //            .create().show()
 //    }
@@ -2460,7 +2460,7 @@
 //    private fun cameraPreviewConfig(needShowTip: Boolean) {
 //        if (!CheckDoubleClick.isFastDoubleClick()) {
 //            if (isOpenPreview) {
-//                //关闭相机
+//                // 关闭相机
 //                isOpenPreview = false
 //                cameraPreview.closeCamera()
 //                thermal_recycler.cameraPreviewStats = 450
@@ -2470,7 +2470,7 @@
 //                cameraPreview.visibility = View.INVISIBLE
 //                CameraLiveDateUtil.getInstance().saveCameraPreview(false)
 //            } else {
-//                //打开相机
+//                // 打开相机
 //                XXPermissions.with(this@IRThermalActivity)
 //                    .permission(
 //                        Manifest.permission.CAMERA,
@@ -2482,7 +2482,7 @@
 //                        ) {
 //                            try {
 //                                if (allGranted) {
-//                                    //画中画开启
+//                                    // 画中画开启
 //                                    thermal_recycler.cameraPreviewStats = 451
 //                                    cameraPreview.visibility = View.VISIBLE
 //                                    cameraPreview?.setCameraAlpha(cameraAlpha / 100.0f)
@@ -2512,7 +2512,7 @@
 //                            doNotAskAgain: Boolean
 //                        ) {
 //                            if (doNotAskAgain){
-//                                //拒绝授权并且不再提醒
+//                                // 拒绝授权并且不再提醒
 //                                TipDialog.Builder(this@IRThermalActivity)
 //                                    .setTitleMessage(getString(R.string.app_tip))
 //                                    .setMessage(getString(R.string.app_camera_content))
@@ -2540,7 +2540,7 @@
 //
 ////    private var isResetFlag = false
 //
-//    //重启设备
+//    // 重启设备
 //    private fun resetDevice() {
 //        if (iruvc == null) {
 //            return
@@ -2557,7 +2557,7 @@
 //                    setRotate(rotateAngle)
 //                    gainSelChar = CameraItemBean.TYPE_TMP_C
 //                    delay(2000)
-//                    //重启过程,不要发送其它指令
+//                    // 重启过程,不要发送其它指令
 //                    restartUSBCamera()
 //                    delay(5000)
 //                    launch(Dispatchers.Main) {
@@ -2623,11 +2623,11 @@
 //    fun cameraEvent(event: DeviceCameraEvent) {
 //        when (event.action) {
 //            100 -> {
-//                //准备图像
+//                // 准备图像
 //                showCameraLoading()
 //            }
 //            101 -> {
-//                //显示图像
+//                // 显示图像
 //                lifecycleScope.launch {
 //                    delay(500)
 //                    isConfigWait = false
@@ -2642,7 +2642,7 @@
 //
 //
 //    /**
-//     * 记录设备信息
+//     * 记录设备message
 //     */
 //    private fun printSN() {
 //        lifecycleScope.launch(Dispatchers.IO) {
@@ -2655,9 +2655,9 @@
 //                ircmd?.getDeviceInfo(
 //                    DeviceInfoType.DEV_INFO_FW_BUILD_VERSION_INFO,
 //                    fwBuildVersionInfoBytes
-//                ) //ok
-//                ircmd?.getDeviceInfo(DeviceInfoType.DEV_INFO_GET_SN, getSnBytes) //ok
-//                val snStr = String(getSnBytes) //sn
+//                ) // ok
+//                ircmd?.getDeviceInfo(DeviceInfoType.DEV_INFO_GET_SN, getSnBytes) // ok
+//                val snStr = String(getSnBytes) // sn
 //                val arm = String(fwBuildVersionInfoBytes.copyOfRange(0, 8))
 //                SharedManager.setDeviceSn(snStr)
 //                SharedManager.setDeviceVersion(arm)
@@ -2665,7 +2665,7 @@
 //                infoBuilder.append("Firmware version: ").append(arm).append("<br>")
 //                infoBuilder.append("SN: ").append(snStr).append("<br>")
 //                val str = HtmlCompat.fromHtml(infoBuilder.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
-//                XLog.i("获取设备信息: $str")
+//                XLog.i("获取设备message: $str")
 //            } catch (e: Exception) {
 //                XLog.e("获取SN失败: ${e.message}")
 //            }
@@ -2682,4 +2682,4 @@
 //            return tmp
 //        }
 //    }
-//}
+// }

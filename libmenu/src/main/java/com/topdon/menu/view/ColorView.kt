@@ -15,9 +15,9 @@ import com.topdon.menu.R as MenuR
 import com.topdon.lib.core.R
 
 /**
- * 测温模式-菜单3-伪彩/观测模式-菜单4-伪彩 其中一个伪彩块.
+ * Temperature measurement mode-菜单3-Pseudo color/Observation mode-菜单4-Pseudo color 其中一个Pseudo color块.
  *
- * 这个 View 仅在菜单-伪彩中使用，太过定制化不能通用，故而里面很多尺寸、比例直接写死。
+ * 这个 View 仅在菜单-Pseudo color中使用，太过定制化不能通用，故而里面很多尺寸、比例直接写死。
  *
  * 仅提供一个方法 [refreshColor] 用于刷新 UI.
  *
@@ -25,15 +25,13 @@ import com.topdon.lib.core.R
  */
 class ColorView : View {
     /**
-     * 伪彩渐变颜色值数组.
+     * Pseudo color渐变颜色值数组.
      */
     var colors: IntArray = intArrayOf(0xfffbda00.toInt(), 0xffea0e0e.toInt(), 0xff6907af.toInt())
     /**
-     * 伪彩渐变颜色对应的位置数组.
+     * Pseudo color渐变颜色对应的位置数组.
      */
     var positions: FloatArray = floatArrayOf(0f, 0.5f, 1f)
-
-
 
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
     /**
@@ -48,8 +46,6 @@ class ColorView : View {
      * 选中时的底部三角形
      */
     private val triangleDrawable: Drawable
-
-
 
     constructor(context: Context) : this(context, null)
 
@@ -70,9 +66,9 @@ class ColorView : View {
         val heightSize = MeasureSpec.getSize(heightMeasureSpec)
 
         val width: Int = if (widthMode == MeasureSpec.UNSPECIFIED) 100 else widthSize
-        val barHeight: Int = (width * 73f / 62).toInt()    //62和73是根据UI图 选中时含描边在内色块宽高比 62:73
-        val triangleSize: Int = (width * 12f / 62).toInt() //62和12是根据UI图 三角形宽度12，总宽度62
-        val margin: Int = SizeUtils.dp2px(4f)      //色块和三角形中间有 4dp 间距
+        val barHeight: Int = (width * 73f / 62).toInt()    // 62和73是根据UI图 选中时含描边在内色块宽高比 62:73
+        val triangleSize: Int = (width * 12f / 62).toInt() // 62和12是根据UI图 三角形宽度12，总宽度62
+        val margin: Int = SizeUtils.dp2px(4f)      // 色块和三角形中间有 4dp 间距
         val wantHeight: Int = barHeight + margin + triangleSize
         val height = when (heightMode) {
             MeasureSpec.EXACTLY -> heightSize
@@ -88,10 +84,10 @@ class ColorView : View {
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         val radius: Float = SizeUtils.dp2px(10f).toFloat()
-        val barHeight: Int = (width * 73f / 62).toInt() //62和73是根据UI图 选中时含描边在内色块宽高比 62:73
+        val barHeight: Int = (width * 73f / 62).toInt() // 62和73是根据UI图 选中时含描边在内色块宽高比 62:73
 
         if (isSelected) {
-            val strokeSize: Float = SizeUtils.dp2px(2f).toFloat() //描边宽度2dp
+            val strokeSize: Float = SizeUtils.dp2px(2f).toFloat() // 描边宽度2dp
             val selectBarHeight: Int = (barHeight - strokeSize * 2).toInt()
             paint.shader = null
             canvas.drawRoundRect(0f, 0f, width.toFloat(), barHeight.toFloat(), radius, radius, paint)
@@ -99,8 +95,8 @@ class ColorView : View {
             canvas.drawRoundRect(strokeSize, strokeSize, width - strokeSize, strokeSize + selectBarHeight, radius, radius, paint)
             triangleDrawable.draw(canvas)
         } else {
-            val normalBarWidth: Int = (width * 50f / 62).toInt() //未选中时宽度50，整体宽度62
-            val normalBarHeight: Int = (normalBarWidth * 60f / 50).toInt() //宽高比为 50:60
+            val normalBarWidth: Int = (width * 50f / 62).toInt() // 未选中时宽度50，整体宽度62
+            val normalBarHeight: Int = (normalBarWidth * 60f / 50).toInt() // 宽高比为 50:60
             val top: Float = ((barHeight - normalBarHeight) / 2).toFloat()
             val left: Float = ((width - normalBarWidth) / 2).toFloat()
             paint.shader = shaderSelectNot
@@ -119,13 +115,13 @@ class ColorView : View {
     }
 
     private fun refreshShader() {
-        val strokeSize: Float = SizeUtils.dp2px(2f).toFloat() //描边宽度2dp
-        val barHeight: Int = (measuredWidth * 73f / 62).toInt() //62和73是根据UI图 选中时含描边在内色块宽高比 62:73
+        val strokeSize: Float = SizeUtils.dp2px(2f).toFloat() // 描边宽度2dp
+        val barHeight: Int = (measuredWidth * 73f / 62).toInt() // 62和73是根据UI图 选中时含描边在内色块宽高比 62:73
         val selectBarHeight: Int = (barHeight - strokeSize * 2).toInt()
         shaderSelectYes = LinearGradient(0f, strokeSize, 0f, strokeSize + selectBarHeight, colors, positions, Shader.TileMode.CLAMP)
 
-        val normalBarWidth: Int = (measuredWidth * 50f / 62).toInt() //未选中时宽度50，整体宽度62
-        val normalBarHeight: Int = (normalBarWidth * 60f / 50).toInt() //宽高比为 50:60
+        val normalBarWidth: Int = (measuredWidth * 50f / 62).toInt() // 未选中时宽度50，整体宽度62
+        val normalBarHeight: Int = (normalBarWidth * 60f / 50).toInt() // 宽高比为 50:60
         val top: Float = ((barHeight - normalBarHeight) / 2).toFloat()
         shaderSelectNot = LinearGradient(0f, top, 0f, top + normalBarHeight, colors, positions, Shader.TileMode.CLAMP)
     }

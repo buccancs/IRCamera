@@ -5,7 +5,12 @@ import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.text.style.ImageSpan;
 
-public class MyImageSpan extends ImageSpan {
+    /**
+     * MyImageSpan class.
+     *
+     * Provides myimagespan functionality.
+     */
+    public class MyImageSpan extends ImageSpan {
     public MyImageSpan(Drawable drawable) {
         super(drawable);
 

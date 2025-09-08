@@ -39,7 +39,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
- * 温度修正（即设置环境温度、测温距离、发射率）
+ * 温度修正（即Settings环境温度、测温距离、发射率）
  *
  * 需要传递参数：
  * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
@@ -54,7 +54,6 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
     private var isTC007 = false
 
     private val viewModel: IRConfigViewModel by viewModels()
-
 
     private lateinit var adapter: ConfigAdapter
 
@@ -120,7 +119,7 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
         recyclerView.adapter = ConcatAdapter(adapter, ConfigEmAdapter(this))
 
         viewModel.configLiveData.observe(this) {
-            //先只刷新默认的配置，等操作指引显示完再刷新自定义配置
+            // 先只刷新默认的配置，等操作指引显示完再刷新自定义配置
             tvDefaultTempValue.text = NumberTools.to02(UnitTools.showUnitValue(it.defaultModel.environment))
             tvDefaultDisValue.text = NumberTools.to02(it.defaultModel.distance)
             tvDefaultEmValue.text = NumberTools.to02(it.defaultModel.radiation)
@@ -148,7 +147,7 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
         val ivDefaultSelector = findViewById<android.widget.ImageView>(R.id.iv_default_selector)
         val llRoot = findViewById<android.widget.LinearLayout>(R.id.ll_root)
         
-        if (SharedManager.configGuideStep == 0) {//已看过或不再提示
+        if (SharedManager.configGuideStep == 0) {// 已看过或不再提示
             ivDefaultSelector.isSelected = modelBean.defaultModel.use
             adapter.refresh(modelBean.myselfModel)
             return
@@ -167,13 +166,12 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
             window?.decorView?.setRenderEffect(RenderEffect.createBlurEffect(20f, 20f, Shader.TileMode.MIRROR))
         } else {
             lifecycleScope.launch {
-                //界面刷新需要时间，所以需要等待100毫秒再去刷新背景
+                // 界面刷新需要时间，所以需要等待100毫秒再去刷新背景
                 delay(100)
                 guideDialog.blurBg(llRoot)
             }
         }
     }
-
 
     override fun onClick(v: View?) {
         val ivDefaultSelector = findViewById<android.widget.ImageView>(R.id.iv_default_selector)
@@ -182,10 +180,10 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
         val tvDefaultEmValue = findViewById<android.widget.TextView>(R.id.tv_default_em_value)
         
         when (v) {
-            ivDefaultSelector -> {//默认模式-选中
+            ivDefaultSelector -> {// 默认模式-选中
                 viewModel.checkConfig(isTC007, 0)
             }
-            viewDefaultTempBg -> {//默认模式-环境温度
+            viewDefaultTempBg -> {// 默认模式-环境温度
                 IRConfigInputDialog(this, IRConfigInputDialog.Type.TEMP, isTC007)
                     .setInput(UnitTools.showUnitValue(viewModel.configLiveData.value?.defaultModel?.environment!!))
                     .setConfirmListener {
@@ -193,7 +191,7 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
                     }
                     .show()
             }
-            viewDefaultDisBg -> {//默认模式-测温距离
+            viewDefaultDisBg -> {// 默认模式-测温距离
                 IRConfigInputDialog(this, IRConfigInputDialog.Type.DIS, isTC007)
                     .setInput(viewModel.configLiveData.value?.defaultModel?.distance)
                     .setConfirmListener {
@@ -201,7 +199,7 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
                     }
                     .show()
             }
-            tvDefaultEmValue -> {//默认模式-发射率
+            tvDefaultEmValue -> {// 默认模式-发射率
                 IRConfigInputDialog(this, IRConfigInputDialog.Type.EM, isTC007)
                     .setInput(viewModel.configLiveData.value?.defaultModel?.radiation)
                     .setConfirmListener {
@@ -273,7 +271,6 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
         }
 
         override fun getItemCount(): Int = dataList.size + 1
-
 
         inner class ItemViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
             init {

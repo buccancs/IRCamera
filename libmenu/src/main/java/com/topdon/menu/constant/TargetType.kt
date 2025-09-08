@@ -1,7 +1,7 @@
 package com.topdon.menu.constant
 
 /**
- * 观测模式-菜单4-标靶 菜单类型.
+ * Observation mode-菜单4-Target 菜单类型.
  *
  * Created by LCG on 2024/11/29.
  */
@@ -12,12 +12,12 @@ enum class TargetType {
     MODE,
 
     /**
-     * 标靶风格
+     * Target风格
      */
     STYLE,
 
     /**
-     * 标靶颜色
+     * Target颜色
      */
     COLOR,
 

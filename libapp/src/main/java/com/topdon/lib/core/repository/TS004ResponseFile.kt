@@ -24,9 +24,9 @@ data class TS004Response<T>(
 }
 
 /**
- * TS004 接口请求返回：获取伪彩样式
+ * TS004 接口请求返回：获取Pseudo color样式
  * @param enable
- * @param mode 当前伪彩样式
+ * @param mode 当前Pseudo color样式
  */
 data class PseudoColorBean(
     val enable: Boolean?,
@@ -74,7 +74,7 @@ data class TISRBean(
 )
 
 /**
- * TS004 接口请求返回：版本信息
+ * TS004 接口请求返回：版本message
  * @param firmware 固件版本，如1.0
  */
 data class VersionBean(
@@ -82,7 +82,7 @@ data class VersionBean(
 )
 
 /**
- * TS004 接口请求返回：设备信息
+ * TS004 接口请求返回：设备message
  * @param code 激活码（又叫注册码）
  * @param model 应该是设备类型名称，如 TS004
  * @param sn sn
@@ -104,10 +104,10 @@ data class FileCountBean(
 )
 
 /**
- * 一页文件信息
+ * 一页文件message
  * @param current 当前分页数
  * @param total 总页数
- * @param filelist 当前分页文件信息列表
+ * @param filelist 当前分页文件message列表
  */
 data class FilePageBean(
     val current: Int,
@@ -116,14 +116,14 @@ data class FilePageBean(
 )
 
 /**
- * TS004 接口请求返回：文件信息
+ * TS004 接口请求返回：文件message
  * @param type 0-照片 1-录像
  * @param duration 录像时长，单位秒
  * @param size 文件大小，单位 byte
  * @param name 文件名称，如 1970_01_02075103.mp4
  * @param thumb 录像缩略图
  * @param time 拍摄时 Unix 时间戳，单位秒
- * @param timezone 通过时区设置接口设置的时区
+ * @param timezone 通过时区Settings接口Settings的时区
  */
 data class FileBean(
     val id: Int,
@@ -147,7 +147,7 @@ data class UpgradeStatus(
 )
 
 /**
- * TS004 接口请求返回：文件信息
+ * TS004 接口请求返回：文件message
  * @param total 总存储大小，单位 byte
  * @param free 剩余可用存储大小，单位 byte
  * @param system 系统占用大小，单位 byte

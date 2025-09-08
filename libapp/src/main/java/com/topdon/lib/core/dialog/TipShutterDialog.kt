@@ -71,7 +71,7 @@ class TipShutterDialog : Dialog {
             dialog!!.setCanceledOnTouchOutside(canceled)
 
             val lp = dialog!!.window!!.attributes
-            lp.width = (ScreenUtil.getScreenWidth(context) * if (ScreenUtil.isPortrait(context)) 0.85 else 0.35).toInt() // 设置宽度
+            lp.width = (ScreenUtil.getScreenWidth(context) * if (ScreenUtil.isPortrait(context)) 0.85 else 0.35).toInt() // Settings宽度
             dialog!!.window!!.attributes = lp
 
             binding.tvIKnow.setOnClickListener {

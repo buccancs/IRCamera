@@ -1,9 +1,13 @@
 package com.example.connectlisten;
 
-
 import com.topdon.lib.core.so.algorithm;
 
-public class JNITest {
+    /**
+     * JNITest class.
+     *
+     * Provides jnitest functionality.
+     */
+    public class JNITest {
     static {
         System.loadLibrary("opencv_java4");
 //        System.loadLibrary("SRImage");

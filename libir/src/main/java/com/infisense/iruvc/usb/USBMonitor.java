@@ -1,39 +1,44 @@
-//package com.infisense.iruvc.usb;
+// package com.infisense.iruvc.usb;
 //
-//import android.annotation.SuppressLint;
-//import android.annotation.TargetApi;
-//import android.app.PendingIntent;
-//import android.content.BroadcastReceiver;
-//import android.content.Context;
-//import android.content.Intent;
-//import android.content.IntentFilter;
-//import android.hardware.usb.UsbDevice;
-//import android.hardware.usb.UsbDeviceConnection;
-//import android.hardware.usb.UsbInterface;
-//import android.hardware.usb.UsbManager;
-//import android.os.Build;
-//import android.os.Handler;
-//import android.text.TextUtils;
-//import android.util.Log;
-//import android.util.SparseArray;
+// import android.annotation.SuppressLint;
+// import android.annotation.TargetApi;
+// import android.app.PendingIntent;
+// import android.content.BroadcastReceiver;
+// import android.content.Context;
+// import android.content.Intent;
+// import android.content.IntentFilter;
+// import android.hardware.usb.UsbDevice;
+// import android.hardware.usb.UsbDeviceConnection;
+// import android.hardware.usb.UsbInterface;
+// import android.hardware.usb.UsbManager;
+// import android.os.Build;
+// import android.os.Handler;
+// import android.text.TextUtils;
+// import android.util.Log;
+// import android.util.SparseArray;
 //
-//import com.infisense.iruvc.utils.BuildCheck;
-//import com.infisense.iruvc.utils.HandlerThreadHandler;
+// import com.infisense.iruvc.utils.BuildCheck;
+// import com.infisense.iruvc.utils.HandlerThreadHandler;
 //
-//import java.io.UnsupportedEncodingException;
-//import java.lang.ref.WeakReference;
-//import java.util.ArrayList;
-//import java.util.HashMap;
-//import java.util.Iterator;
-//import java.util.List;
-//import java.util.Locale;
-//import java.util.Set;
-//import java.util.concurrent.ConcurrentHashMap;
+// import java.io.UnsupportedEncodingException;
+// import java.lang.ref.WeakReference;
+// import java.util.ArrayList;
+// import java.util.HashMap;
+// import java.util.Iterator;
+// import java.util.List;
+// import java.util.Locale;
+// import java.util.Set;
+// import java.util.concurrent.ConcurrentHashMap;
 //
-///**
+/// **
 // * 替换libusbirsdk_1.2.0.aar类,为兼容android 12
 // */
-//public class USBMonitor {
+//    /**
+     * USBMonitor class.
+     *
+     * Provides usbmonitor functionality.
+     */
+    public class USBMonitor {
 //    private static final boolean DEBUG = false;
 //    private static final String TAG = "USBMonitor";
 //    private static final String ACTION_USB_PERMISSION_BASE = "com.serenegiant.USB_PERMISSION.";
@@ -244,7 +249,7 @@
 //                        }
 //                    }
 //                } catch (Exception var6) {
-//                    Log.e("USBMonitor", "destroy:", var6);
+
 //                }
 //            }
 //
@@ -253,7 +258,7 @@
 //            try {
 //                this.mAsyncHandler.getLooper().quit();
 //            } catch (Exception var5) {
-//                Log.e("USBMonitor", "destroy:", var5);
+
 //            }
 //        }
 //
@@ -266,7 +271,7 @@
 //            if (this.mPermissionIntent == null) {
 //                Context context = (Context) this.mWeakContext.get();
 //                if (context != null) {
-//                    //TODO 修复"libusbirsdk_1.2.0.aar"兼容android12引起的崩溃  2022-12-15
+//                    // TODO 修复"libusbirsdk_1.2.0.aar"兼容android12引起的崩溃  2022-12-15
 //                    int flag;
 //                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 //                        flag = PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT;
@@ -301,7 +306,7 @@
 //                    context.unregisterReceiver(this.mUsbReceiver);
 //                }
 //            } catch (Exception var3) {
-//                Log.w("USBMonitor", var3);
+
 //            }
 //
 //            this.mPermissionIntent = null;
@@ -477,13 +482,13 @@
 //                        sb.append(String.format(Locale.US, "interface%d:%s", i, device.getInterface(i).toString()));
 //                    }
 //
-//                    Log.i("USBMonitor", "key=" + key + ":" + device + ":" + sb.toString());
+);
 //                }
 //            } else {
-//                Log.i("USBMonitor", "no device");
+
 //            }
 //        } else {
-//            Log.i("USBMonitor", "no device");
+
 //        }
 //
 //    }
@@ -521,7 +526,7 @@
 //                    try {
 //                        this.mUsbManager.requestPermission(device, this.mPermissionIntent);
 //                    } catch (Exception var4) {
-//                        Log.w("USBMonitor", var4);
+
 //                        this.processCancel(device);
 //                        result = true;
 //                    }
@@ -765,7 +770,12 @@
 //        return info;
 //    }
 //
-//    public static final class UsbControlBlock implements Cloneable {
+//    public static/**
+ * UsbControlBlock class.
+ * 
+ * Provides usbcontrolblock functionality.
+ */
+ final class UsbControlBlock implements Cloneable {
 //        private final WeakReference<USBMonitor> mWeakMonitor;
 //        private final WeakReference<UsbDevice> mWeakDevice;
 //        protected UsbDeviceConnection mConnection;
@@ -794,9 +804,9 @@
 //            if (this.mConnection != null) {
 //                int desc = this.mConnection.getFileDescriptor();
 //                byte[] rawDesc = this.mConnection.getRawDescriptors();
-//                Log.i("USBMonitor", String.format(Locale.US, "name=%s,desc=%d,busnum=%d,devnum=%d,rawDesc=", name, desc, busnum, devnum) + rawDesc);
+ + rawDesc);
 //            } else {
-//                Log.e("USBMonitor", "could not connect to device " + name);
+
 //            }
 //
 //        }
@@ -1040,7 +1050,12 @@
 //        }
 //    }
 //
-//    public static class UsbDeviceInfo {
+//    public static/**
+ * UsbDeviceInfo class.
+ * 
+ * Provides usbdeviceinfo functionality.
+ */
+ class UsbDeviceInfo {
 //        public String usb_version;
 //        public String manufacturer;
 //        public String product;
@@ -1059,7 +1074,12 @@
 //        }
 //    }
 //
-//    public interface OnDeviceConnectListener {
+//        /**
+     * OnDeviceConnectListener class.
+     *
+     * Provides ondeviceconnectlistener functionality.
+     */
+    public interface OnDeviceConnectListener {
 //        void onAttach(UsbDevice var1);
 //
 //        void onDettach(UsbDevice var1);
@@ -1070,4 +1090,4 @@
 //
 //        void onCancel(UsbDevice var1);
 //    }
-//}
+// }

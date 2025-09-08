@@ -30,7 +30,7 @@ class Comm3DSeekBar : AppCompatSeekBar {
     private var mMinHeight = 24
     var level = 0
 
-    // 进度文字位置信息
+    // 进度文字位置message
     private val mProgressTextRect: Rect = Rect()
 
     // 滑块按钮宽度

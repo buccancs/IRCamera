@@ -70,7 +70,7 @@ data class FrameHead(
             val resultList: ArrayList<TempRule> = ArrayList(21)
             for (i in 0 until 21) {
                 // 208 是一个 TempRule 的字节数
-                if (this[index + i * 208] == 1.toByte()) {//启用的才取出来
+                if (this[index + i * 208] == 1.toByte()) {// 启用的才取出来
                     resultList.add(TempRule(this, index + i * 208))
                 }
             }

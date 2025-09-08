@@ -61,7 +61,7 @@ class SignInputActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            clSave -> {//保存
+            clSave -> {// 保存
                 if (!signView.hasSign) {
                     ToastUtils.showShort(getString(LibR.string.house_sign_finish_tips))
                     return
@@ -96,7 +96,7 @@ class SignInputActivity : BaseActivity(), View.OnClickListener {
                     }
                 }
             }
-            clClear -> {//重签
+            clClear -> {// 重签
                 signView.clear()
             }
         }

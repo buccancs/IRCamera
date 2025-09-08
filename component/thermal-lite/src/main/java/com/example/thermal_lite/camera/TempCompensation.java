@@ -24,10 +24,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
-/**
- * Tiny2c冷开机温度补偿方案
- */
-public class TempCompensation {
+    /**
+     * Tiny2c冷开机温度补偿方案
+     */
+    public class TempCompensation {
     private final String TAG = "TempCompensation";
     // 初始化
     private final int HANDLER_KEY_INIT = 1000;
@@ -58,7 +58,7 @@ public class TempCompensation {
     // 是否启动了流程
     private volatile boolean isStart = false;
 
-    /**
+        /**
      * 公式参数y=−0.0705571⋅x2+14.72725379⋅x−30.49372144
      */
     public static String DEFAULT_PARAM1 = "-0.0705";
@@ -80,7 +80,7 @@ public class TempCompensation {
         return mInstance;
     }
 
-    /**
+        /**
      * 获取nuc-t数据
      */
     public void getNucTData() {
@@ -132,7 +132,7 @@ public class TempCompensation {
         }
     }
 
-    /**
+        /**
      * 流程开始
      */
     public void startTempCompensation() {
@@ -171,7 +171,7 @@ public class TempCompensation {
                         // 获取NUC-T
                         getNucTData();
                     } else if (HANDLER_KEY_1s == msg.what) {
-                        //手动打快门
+                        // 手动打快门
                         if (DeviceIrcmdControlManager.getInstance().getIrcmdEngine() != null){
                             IrcmdError nativeAdvManualFFCUpdateResult = DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
                                     .basicFFCUpdate();
@@ -195,7 +195,7 @@ public class TempCompensation {
                     } else if (HANDLER_KEY_AFTER == msg.what) {
                         if (DeviceIrcmdControlManager.getInstance().getIrcmdEngine() != null){
                             Log.d(TAG, "打快门");
-                            //手动打快门
+                            // 手动打快门
                             IrcmdError advManualFFCUpdateResult = DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
                                     .advManualFFCUpdate(CommonParams.FFCShutterBehaviorMode.ONLY_B_UPDATE);
                             Log.d(TAG, "advManualFFCUpdateResult=" + advManualFFCUpdateResult);
@@ -220,7 +220,7 @@ public class TempCompensation {
         handler.sendEmptyMessageDelayed(HANDLER_KEY_AFTER, 4000);
     }
 
-    /**
+        /**
      * 补偿温度
      * 原始温度经过此方法得到补偿后的温度
      *
@@ -234,7 +234,7 @@ public class TempCompensation {
         return getNewTempValue(temp);
     }
 
-    /**
+        /**
      * 获取ΔNUC和ΔVTEMP值
      * 需要获取vtemp，每次显示温度时调用一次即可，运算使用compensateTemp()
      */
@@ -303,7 +303,6 @@ public class TempCompensation {
         return newTempFloat;
     }
 
-
     /**
      * 获取新温度值
      *
@@ -343,7 +342,7 @@ public class TempCompensation {
         return newTempFloat;
     }
 
-    /**
+        /**
      * 停止温度补偿
      */
     public void stopTempCompensation(boolean autoStop) {

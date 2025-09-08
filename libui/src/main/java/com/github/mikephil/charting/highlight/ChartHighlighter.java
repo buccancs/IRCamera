@@ -161,14 +161,14 @@ public class ChartHighlighter<T extends BarLineScatterCandleBubbleDataProvider> 
 
         ArrayList<Highlight> highlights = new ArrayList<>();
 
-        //noinspection unchecked
+        // noinspection unchecked
         List<Entry> entries = set.getEntriesForXValue(xVal);
         if (entries.size() == 0) {
             // Try to find closest x-value and take all entries for that x-value
             final Entry closest = set.getEntryForXValue(xVal, Float.NaN, rounding);
             if (closest != null)
             {
-                //noinspection unchecked
+                // noinspection unchecked
                 entries = set.getEntriesForXValue(closest.getX());
             }
         }
@@ -189,7 +189,7 @@ public class ChartHighlighter<T extends BarLineScatterCandleBubbleDataProvider> 
         return highlights;
     }
 
-    /**
+        /**
      * Returns the Highlight of the DataSet that contains the closest value on the
      * y-axis.
      *
@@ -235,8 +235,8 @@ public class ChartHighlighter<T extends BarLineScatterCandleBubbleDataProvider> 
      * @return
      */
     protected float getDistance(float x1, float y1, float x2, float y2) {
-        //return Math.abs(y1 - y2);
-        //return Math.abs(x1 - x2);
+        // return Math.abs(y1 - y2);
+        // return Math.abs(x1 - x2);
         return (float) Math.hypot(x1 - x2, y1 - y2);
     }
 

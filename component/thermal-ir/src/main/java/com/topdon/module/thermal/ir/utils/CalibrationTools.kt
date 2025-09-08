@@ -13,7 +13,7 @@ object CalibrationTools {
 
     /**
      * 单点标定
-     * 对准黑体 - 设置温度
+     * 对准黑体 - Settings温度
      */
     fun sign(irCmd: IRCMD, singlePointTemp: Int): Boolean {
         var success = false
@@ -79,7 +79,7 @@ object CalibrationTools {
      *
      */
     fun potReady(irCmd: IRCMD): Boolean {
-        return irCmd.rmCoverStsSwitch(CommonParams.RMCoverStsSwitchStatus.RMCOVER_DIS) == 0 //关闭锅盖校正
+        return irCmd.rmCoverStsSwitch(CommonParams.RMCoverStsSwitchStatus.RMCOVER_DIS) == 0 // 关闭锅盖校正
     }
 
     /**
@@ -97,8 +97,8 @@ object CalibrationTools {
             4 -> CommonParams.RMCoverAutoCalcType.GAIN_4
             else -> CommonParams.RMCoverAutoCalcType.GAIN_1
         }
-        irCmd.rmCoverAutoCalc(gainType) //发送锅盖标定
-        irCmd.rmCoverStsSwitch(CommonParams.RMCoverStsSwitchStatus.RMCOVER_EN) //打开锅盖校正
+        irCmd.rmCoverAutoCalc(gainType) // 发送锅盖标定
+        irCmd.rmCoverStsSwitch(CommonParams.RMCoverStsSwitchStatus.RMCOVER_EN) // 打开锅盖校正
     }
 
     /**
@@ -126,7 +126,7 @@ object CalibrationTools {
     }
 
     /**
-     * 设置增益模式
+     * Settings增益模式
      * @param type 1: 打开    0: 关闭
      *
      */
@@ -185,7 +185,7 @@ object CalibrationTools {
             4 -> CommonParams.RMCoverAutoCalcType.GAIN_4
             else -> CommonParams.RMCoverAutoCalcType.GAIN_1
         }
-        irCmd.rmCoverAutoCalc(gainType) //发送锅盖标定
+        irCmd.rmCoverAutoCalc(gainType) // 发送锅盖标定
     }
 
     /**
@@ -197,8 +197,8 @@ object CalibrationTools {
     }
 
     /**
-     * TPD_PROP_DISTANCE不给设置
-     * 设置距离 unit:cnt(128cnt=1m)
+     * TPD_PROP_DISTANCE不给Settings
+     * Settings距离 unit:cnt(128cnt=1m)
      * @param value 0 ~ 25600
      */
     fun setTpdDis(irCmd: IRCMD?, value: Int) {
@@ -207,7 +207,7 @@ object CalibrationTools {
     }
 
     /**
-     * 设置发射率 unit:cnt(128cnt=1)
+     * Settings发射率 unit:cnt(128cnt=1)
      * @param value 1 ~ 128
      */
     fun setTpdEms(irCmd: IRCMD?, value: Int) {
@@ -216,13 +216,13 @@ object CalibrationTools {
     }
 
     /**
-     * 设置Tpd
+     * SettingsTpd
      */
     private fun setTpdParams(irCmd: IRCMD?, params: CommonParams.PropTPDParams, value: CommonParams.PropTPDParamsValue): Int {
         return try {
             irCmd?.setPropTPDParams(params, value) ?: 0
         } catch (e: Exception) {
-            XLog.w("设置参数异常[${params.name}]: ${e.message}")
+            XLog.w("Settings参数异常[${params.name}]: ${e.message}")
             0
         }
     }

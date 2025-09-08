@@ -8,7 +8,12 @@ import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.topdon.lib.core.utils.ScreenUtil;
 
-public class DragCustomerView extends androidx.appcompat.widget.AppCompatImageView {
+    /**
+     * DragCustomerView class.
+     *
+     * Provides dragcustomerview functionality.
+     */
+    public class DragCustomerView extends androidx.appcompat.widget.AppCompatImageView {
     float mDownX;
     float mDownY;
     private int mWidth;

@@ -4,7 +4,7 @@
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
- *     http://license.coscl.org.cn/MulanPSL2
+ *     http:// license.coscl.org.cn/MulanPSL2
  * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
@@ -45,7 +45,12 @@ import java.util.List;
  * @since 2021/6/5 16:20
  */
 @SuppressWarnings("unused")
-public class TimeWheelLayout extends BaseWheelLayout {
+    /**
+     * TimeWheelLayout class.
+     *
+     * Provides timewheellayout functionality.
+     */
+    public class TimeWheelLayout extends BaseWheelLayout {
     private NumberWheelView hourWheelView;
     private NumberWheelView minuteWheelView;
     private NumberWheelView secondWheelView;
@@ -110,7 +115,7 @@ public class TimeWheelLayout extends BaseWheelLayout {
         meridiemWheelView = findViewById(R.id.wheel_picker_time_meridiem_wheel);
         spaceEndView = findViewById(R.id.wheel_picker_time_end_view);
 
-        //设置高度
+        // Settings高度
         post(new Runnable() {
             @Override
             public void run() {
@@ -267,15 +272,15 @@ public class TimeWheelLayout extends BaseWheelLayout {
                 || timeMode == TimeMode.HOUR_12_HAS_SECOND;
     }
 
-    /**
-     * 设置日期时间范围
+        /**
+     * Settings日期时间范围
      */
     public void setRange(TimeEntity startValue, TimeEntity endValue) {
         setRange(startValue, endValue, null);
     }
 
-    /**
-     * 设置日期时间范围
+        /**
+     * Settings日期时间范围
      */
     public void setRange(TimeEntity startValue, TimeEntity endValue, TimeEntity defaultValue) {
         if (startValue == null) {
@@ -452,17 +457,17 @@ public class TimeWheelLayout extends BaseWheelLayout {
 
     private void changeMinute(int hour) {
         final int min, max;
-        //开始时及结束时相同情况
+        // 开始时及结束时相同情况
         if (hour == startValue.getHour() && hour == endValue.getHour()) {
             min = startValue.getMinute();
             max = endValue.getMinute();
         }
-        //开始时相同情况
+        // 开始时相同情况
         else if (hour == startValue.getHour()) {
             min = startValue.getMinute();
             max = 59;
         }
-        //结束时相同情况
+        // 结束时相同情况
         else if (hour == endValue.getHour()) {
             min = 0;
             max = endValue.getMinute();

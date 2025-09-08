@@ -43,7 +43,6 @@ class MenuAdapter(val context: Context, val type: Type) : RecyclerView.Adapter<M
         }
     }
 
-
     companion object {
         private val VISUAL_ARRAY = arrayOf(
             ItemData(RCore.string.menu_3d_visual_3d, R.drawable.selector_menu2_visual_3d),
@@ -72,7 +71,6 @@ class MenuAdapter(val context: Context, val type: Type) : RecyclerView.Adapter<M
             ItemData(RCore.string.thermal_rect, R.drawable.selector_menu2_mode_rect),
         )
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_menu_3d, parent, false))
@@ -109,7 +107,7 @@ class MenuAdapter(val context: Context, val type: Type) : RecyclerView.Adapter<M
             holder.ivPseudo.visibility = if(position == selectIndex) View.VISIBLE else View.GONE
         }
 
-        //单独设置删除文本颜色
+        // 单独Settings删除文本颜色
         if (type == Type.MARK && position == MARK_ARRAY.size - 1) {
             holder.tvMenu.setTextColor(0x66ffffff)
         }
@@ -157,7 +155,7 @@ class MenuAdapter(val context: Context, val type: Type) : RecyclerView.Adapter<M
         val clRoot: ConstraintLayout = rootView.findViewById(R.id.cl_root)
         
         init {
-            val canSeeCount = itemCount.toFloat() //一屏可见的 item 数量，目前都是全都显示完
+            val canSeeCount = itemCount.toFloat() // 一屏可见的 item 数量，目前都是全都显示完
             if (ScreenUtil.isPortrait(context)) {
                 val with = (ScreenUtil.getScreenWidth(context)/ canSeeCount).toInt()
                 rootView.layoutParams = ViewGroup.LayoutParams(with, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -199,7 +197,7 @@ class MenuAdapter(val context: Context, val type: Type) : RecyclerView.Adapter<M
         MARK,
 
         /**
-         * 伪彩.
+         * Pseudo color.
          */
         PSEUDO,
 

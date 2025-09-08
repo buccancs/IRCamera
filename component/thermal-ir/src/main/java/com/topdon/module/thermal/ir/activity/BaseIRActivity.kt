@@ -10,7 +10,7 @@ import com.topdon.libcom.bean.SaveSettingBean
  */
 abstract class BaseIRActivity : BaseActivity() {
     /**
-     * 保存设置开关影响的相关配置项.
+     * 保存Settings开关影响的相关配置项.
      */
     protected val saveSetBean = SaveSettingBean()
 }

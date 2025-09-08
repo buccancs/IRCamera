@@ -6,13 +6,13 @@ import androidx.annotation.RequiresApi;
 
 import com.github.mikephil.charting.animation.Easing.EasingFunction;
 
-/**
- * Object responsible for all animations in the Chart. Animations require API level 11.
- *
- * @author Philipp Jahoda
- * @author Mick Ashton
- */
-public class ChartAnimator {
+    /**
+     * Object responsible for all animations in the Chart. Animations require API level 11.
+     *
+     * @author Philipp Jahoda
+     * @author Mick Ashton
+     */
+    public class ChartAnimator {
 
     /** object that is updated upon animation update */
     private AnimatorUpdateListener mListener;
@@ -159,7 +159,7 @@ public class ChartAnimator {
         animatorY.start();
     }
 
-    /**
+        /**
      * Gets the Y axis phase of the animation.
      *
      * @return float value of {@link #mPhaseY}
@@ -168,7 +168,7 @@ public class ChartAnimator {
         return mPhaseY;
     }
 
-    /**
+        /**
      * Sets the Y axis phase of the animation.
      *
      * @param phase float value between 0 - 1
@@ -182,7 +182,7 @@ public class ChartAnimator {
         mPhaseY = phase;
     }
 
-    /**
+        /**
      * Gets the X axis phase of the animation.
      *
      * @return float value of {@link #mPhaseX}
@@ -191,7 +191,7 @@ public class ChartAnimator {
         return mPhaseX;
     }
 
-    /**
+        /**
      * Sets the X axis phase of the animation.
      *
      * @param phase float value between 0 - 1

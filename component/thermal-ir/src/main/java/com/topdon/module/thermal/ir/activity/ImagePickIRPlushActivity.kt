@@ -9,7 +9,7 @@ import com.topdon.module.thermal.ir.fragment.IRCorrectionFragment
 import com.topdon.module.thermal.ir.fragment.IRPlushFragment
 
 /**
- * des:双光的红外拍照
+ * des:Dual light的红外Photo capture
  * author: CaiSongL
  * date: 2024/8/24 18:10
  **/
@@ -38,6 +38,5 @@ class ImagePickIRPlushActivity : BasePickImgActivity() {
     override fun initData() {
 
     }
-
 
 }

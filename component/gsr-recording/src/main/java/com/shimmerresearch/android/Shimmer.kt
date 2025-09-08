@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicBoolean
  * This is a Kotlin adapter that implements the official Shimmer API interface
  * while providing fallback simulation for development and testing
  *
- * Based on: https://github.com/ShimmerEngineering/ShimmerAndroidAPI
+ * Based on: https:// github.com/ShimmerEngineering/ShimmerAndroidAPI
  * Version: Compatible with v3.2.3Beta
  */
 class Shimmer(private val handler: Handler, private val context: Context) {

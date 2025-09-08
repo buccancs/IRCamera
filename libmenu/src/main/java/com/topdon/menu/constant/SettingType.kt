@@ -1,12 +1,12 @@
 package com.topdon.menu.constant
 
 /**
- * 测温模式-菜单5-设置/观测模式-菜单6-设置 菜单类型.
+ * Temperature measurement mode-菜单5-Settings/Observation mode-菜单6-Settings 菜单类型.
  *
  * Created by LCG on 2024/11/28.
  */
 enum class SettingType {
-    /** 伪彩条 */
+    /** Pseudo color条 */
     PSEUDO_BAR,
 
     /** 对比度 */
@@ -27,7 +27,7 @@ enum class SettingType {
     /** 字体 */
     FONT,
 
-    /** 指南针（仅观测模式） */
+    /** 指南针（仅Observation mode） */
     COMPASS,
 
     /** 水印（仅2D编辑） */

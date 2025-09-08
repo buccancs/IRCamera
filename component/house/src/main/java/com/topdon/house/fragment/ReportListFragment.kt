@@ -86,7 +86,7 @@ internal class ReportListFragment : BaseFragment(), View.OnClickListener {
         }
         adapter.onMoreClickListener = { position, v ->
             ThreePickPopup(requireContext(), arrayListOf(LibR.string.app_rename, LibR.string.report_delete)) {
-                if (it == 0) {//重命名
+                if (it == 0) {// 重命名
                     val houseReport: HouseReport = adapter.dataList[position] as HouseReport
                     InputTextDialog(requireContext(), houseReport.name) { newName ->
                         if (houseReport.name != newName) {
@@ -96,7 +96,7 @@ internal class ReportListFragment : BaseFragment(), View.OnClickListener {
                             adapter.notifyItemChanged(position)
                         }
                     }.show()
-                } else {//删除
+                } else {// 删除
                     TipDialog.Builder(requireContext())
                         .setTitleMessage(getString(LibR.string.monitor_report_delete))
                         .setMessage(LibR.string.report_delete_tips)
@@ -162,12 +162,12 @@ internal class ReportListFragment : BaseFragment(), View.OnClickListener {
         val clDel = requireView().findViewById<android.view.View>(R.id.cl_del)
         
         when (v) {
-            tvAdd -> {//添加
+            tvAdd -> {// 添加
                 val intent = Intent(requireContext(), DetectAddActivity::class.java)
                 intent.putExtra(ExtraKeyConfig.IS_TC007, arguments?.getBoolean(ExtraKeyConfig.IS_TC007, false) ?: false)
                 startActivity(intent)
             }
-            clDel -> {//批量删除
+            clDel -> {// 批量删除
                 if (adapter.selectIndexList.isNotEmpty()) {
                     TipDialog.Builder(requireContext())
                         .setTitleMessage(getString(LibR.string.monitor_report_delete))

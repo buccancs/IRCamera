@@ -2,22 +2,22 @@ package com.github.mikephil.charting.formatter;
 
 import java.util.Collection;
 
-/**
- * This formatter is used for passing an array of x-axis labels, on whole x steps.
- */
-public class IndexAxisValueFormatter extends ValueFormatter
+    /**
+     * This formatter is used for passing an array of x-axis labels, on whole x steps.
+     */
+    public class IndexAxisValueFormatter extends ValueFormatter
 {
     private String[] mValues = new String[] {};
     private int mValueCount = 0;
 
-    /**
+        /**
      * An empty constructor.
      * Use `setValues` to set the axis labels.
      */
     public IndexAxisValueFormatter() {
     }
 
-    /**
+        /**
      * Constructor that specifies axis labels.
      *
      * @param values The values string array
@@ -27,7 +27,7 @@ public class IndexAxisValueFormatter extends ValueFormatter
             setValues(values);
     }
 
-    /**
+        /**
      * Constructor that specifies axis labels.
      *
      * @param values The values string array

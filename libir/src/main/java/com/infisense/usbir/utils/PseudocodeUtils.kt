@@ -9,7 +9,6 @@ import com.energy.iruvc.utils.CommonParams
  */
 object PseudocodeUtils {
 
-
     fun changeDualPseudocodeModelByOld(oldPseudocodeMode : Int) : CommonParams.PseudoColorUsbDualType {
         return when (oldPseudocodeMode) {
             1 -> {
@@ -126,6 +125,5 @@ object PseudocodeUtils {
             }
         }
     }
-
 
 }

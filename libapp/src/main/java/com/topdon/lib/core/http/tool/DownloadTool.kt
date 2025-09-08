@@ -23,7 +23,7 @@ object DownloadTool {
 
     private fun getService(): DownloadApiService =
         Retrofit.Builder()
-            .baseUrl("http://192.168.40.1:8080")
+            .baseUrl("http:// 192.168.40.1:8080")
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(getOKHttpClient())
             .build()

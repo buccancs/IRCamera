@@ -6,7 +6,6 @@ import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothGattService;
 
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -36,7 +35,7 @@ public interface Connection {
     int REQUEST_FAIL_TYPE_CONNECTION_DISCONNECTED = 8;
     int REQUEST_FAIL_TYPE_CONNECTION_RELEASED = 9;
 
-    //----------连接超时类型---------
+    // ----------连接超时类型---------
     int TIMEOUT_TYPE_CANNOT_DISCOVER_DEVICE = 0;
     /**
      * 搜索到设备，但是无法连接成功
@@ -47,7 +46,7 @@ public interface Connection {
      */
     int TIMEOUT_TYPE_CANNOT_DISCOVER_SERVICES = 2;
 
-    //-------------连接失败类型-------------------
+    // -------------连接失败类型-------------------
     /**
      * 达到最大重连次数限制
      */
@@ -61,7 +60,7 @@ public interface Connection {
     Device getDevice();
 
     /**
-     * 获取当前设置的最大传输单元
+     * 获取当前Settings的最大传输单元
      */
     int getMtu();
 
@@ -142,7 +141,7 @@ public interface Connection {
     boolean isNotificationOrIndicationEnabled(UUID service, UUID characteristic);
 
     /**
-     * 设置原生回调
+     * Settings原生回调
      */
     void setBluetoothGattCallback(BluetoothGattCallback callback);
 

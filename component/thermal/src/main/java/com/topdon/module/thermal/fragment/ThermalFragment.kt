@@ -61,7 +61,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
 
     override fun initContentView() = R.layout.fragment_thermal
 
-    // 设置温度展示的位置
+    // Settings温度展示的位置
     private fun setViewPosition(
         imageView: ImageView,
         index: Int,
@@ -369,9 +369,9 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
 
     private fun addLimit() {
         ThermalInputDialog.Builder(requireContext())
-            .setMessage("请设置温度限值")
+            .setMessage("请Settings温度限值")
             .setPositiveListener(LibUiR.string.app_confirm) { up, down, _, _ ->
-                ToastTools.showShort("设置上限:$up, 下限:$down")
+                ToastTools.showShort("Settings上限:$up, 下限:$down")
                 upValue = up
                 downValue = down
             }
@@ -429,8 +429,8 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
         Log.w("123", "event:${event.action}")
         when (event.action) {
             1001 -> {
-                // 拍照
-                ToastTools.showShort("拍照")
+                // Photo capture
+                ToastTools.showShort("Photo capture")
                 picture()
             }
             1002 -> {
@@ -463,7 +463,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
                 clearFence()
             }
             in 3000..3010 -> {
-                // 设置伪彩
+                // SettingsPseudo color
                 setColor(event.action)
             }
             4001 -> {
@@ -505,7 +505,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
     }
 
     /**
-     * 设置伪彩
+     * SettingsPseudo color
      */
     private fun setColor(action: Int) {
         var type: Int = action % 3000 - 1
@@ -540,10 +540,10 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
         showFence(3)
     }
 
-    // 显示点线面布局
+    // 显示Point/Line/Area布局
     private fun showFence(index: Int) {
         if (fenceFlag.getIndex(index) == 0) {
-            fenceFlag = 1.shl(4 * (index - 1)) // 设置001 or 010 or 100
+            fenceFlag = 1.shl(4 * (index - 1)) // Settings001 or 010 or 100
             mFenceLayout!!.visibility = View.VISIBLE
             requireView().findViewById<com.topdon.lib.ui.fence.FencePointView>(R.id.fence_point_view).visibility = if (fenceFlag.getIndex(1) > 0) View.VISIBLE else View.GONE
             requireView().findViewById<com.topdon.lib.ui.fence.FenceLineView>(R.id.fence_line_view).visibility = if (fenceFlag.getIndex(2) > 0) View.VISIBLE else View.GONE
@@ -635,11 +635,11 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
             .setMessage(LibUiR.string.thermal_enhance)
             .setSaturation(saturation)
             .setPositiveListener(LibUiR.string.app_confirm) { value: Int ->
-                mIrSurfaceView?.setSaturationValue(value)//设置对比度
+                mIrSurfaceView?.setSaturationValue(value)// Settings对比度
             }
             .setListener { value: Int ->
-                //实时监听
-//                mIrSurfaceView?.setSaturationValue(value)//设置对比度
+                // 实时监听
+//                mIrSurfaceView?.setSaturationValue(value)// Settings对比度
             }.create().show()
          */
     }

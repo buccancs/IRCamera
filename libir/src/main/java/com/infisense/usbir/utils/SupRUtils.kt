@@ -7,7 +7,6 @@ import java.io.ByteArrayOutputStream
 
 object SupRUtils {
 
-
     /**
      * 是否能开启超分
      */
@@ -22,7 +21,6 @@ object SupRUtils {
 
     }
 
-
     fun bitmapToByteArray(bitmap: Bitmap): ByteArray {
         val byteArrayOutputStream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
@@ -32,6 +30,5 @@ object SupRUtils {
     fun byteArrayToBitmap(byteArray: ByteArray): Bitmap {
         return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
     }
-
 
 }

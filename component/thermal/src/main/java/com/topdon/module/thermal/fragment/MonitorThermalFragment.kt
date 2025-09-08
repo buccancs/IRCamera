@@ -56,7 +56,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
 
     private val msgLiveData by lazy { MutableLiveData<Int>() }
 
-    // 设置温度展示的位置
+    // Settings温度展示的位置
     private fun setViewPosition(
         imageView: ImageView,
         index: Int,
@@ -379,8 +379,8 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
         Log.w("123", "event:${event.action}")
         when (event.action) {
             1001 -> {
-                // 拍照
-                ToastUtils.showShort("拍照")
+                // Photo capture
+                ToastUtils.showShort("Photo capture")
                 picture()
             }
             1002 -> {
@@ -409,7 +409,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
                 clearFence()
             }
             in 3000..3010 -> {
-                // 设置伪彩
+                // SettingsPseudo color
                 setColor(event.action)
             }
             in 5000..5010 -> {
@@ -434,7 +434,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
     }
 
     /**
-     * 设置伪彩
+     * SettingsPseudo color
      */
     private fun setColor(action: Int) {
         var type: Int = action % 3000 - 1
@@ -472,10 +472,10 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
         type = "fence"
     }
 
-    // 显示点线面布局
+    // 显示Point/Line/Area布局
     private fun showFence(index: Int) {
         if (fenceFlag.getIndex(index) == 0) {
-            fenceFlag = 1.shl(4 * (index - 1)) // 设置001 or 010 or 100
+            fenceFlag = 1.shl(4 * (index - 1)) // Settings001 or 010 or 100
             mFenceLayout!!.visibility = View.VISIBLE
             requireView().findViewById<com.topdon.lib.ui.fence.FencePointView>(R.id.fence_point_view).visibility = if (fenceFlag.getIndex(1) > 0) View.VISIBLE else View.GONE
             requireView().findViewById<com.topdon.lib.ui.fence.FenceLineView>(R.id.fence_line_view).visibility = if (fenceFlag.getIndex(2) > 0) View.VISIBLE else View.GONE

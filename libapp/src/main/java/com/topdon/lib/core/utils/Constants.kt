@@ -13,7 +13,7 @@ object Constants {
     const val IR_TEMPERATURE_MODE = 1
     const val IR_OBSERVE_MODE = 2
     const val IR_EDIT_MODE = 4 // 二次编辑模式
-    const val IR_TCPLUS_MODE = 5 // 双光设备
+    const val IR_TCPLUS_MODE = 5 // Dual light设备
     const val IR_TC007_MODE = 6 // TC007设备
     const val IR_TEMPERATURE_LITE = 7 // lite设备
 

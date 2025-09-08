@@ -17,7 +17,7 @@ import java.util.concurrent.CountDownLatch
 
 object LmsRepository {
     /**
-     * 查看版本信息
+     * 查看版本message
      */
     suspend fun getVersionInfo(): CheckVersionJson? {
         var result: CheckVersionJson? = null

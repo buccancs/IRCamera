@@ -4,7 +4,7 @@
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
- *     http://license.coscl.org.cn/MulanPSL2
+ *     http:// license.coscl.org.cn/MulanPSL2
  * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
@@ -38,7 +38,12 @@ import java.util.List;
  * @since 2019/5/17 13:10
  */
 @SuppressWarnings("WeakerAccess")
-public class ConstellationPicker extends OptionPicker {
+    /**
+     * ConstellationPicker class.
+     *
+     * Provides constellationpicker functionality.
+     */
+    public class ConstellationPicker extends OptionPicker {
     public static String JSON = "[{\"id\":0,\"name\":\"不限\",\"startDate\":\"\",\"endDate\":\"\",\"english\":\"Unlimited\"},\n" +
             "{\"id\":1,\"name\":\"白羊座\",\"startDate\":\"3-21\",\"endDate\":\"4-19\",\"english\":\"Aries\"},\n" +
             "{\"id\":2,\"name\":\"金牛座\",\"startDate\":\"4-20\",\"endDate\":\"5-20\",\"english\":\"Taurus\"},\n" +

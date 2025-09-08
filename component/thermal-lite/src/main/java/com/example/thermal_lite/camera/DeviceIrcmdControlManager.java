@@ -22,9 +22,9 @@ import java.io.File;
 public class DeviceIrcmdControlManager {
 
     private static final String TAG = "DeviceIrcmdControlManager";
-    //图像交互类
+    // 图像交互类
     private IrcamEngine mIrcamEngine;
-    //命令交互类
+    // 命令交互类
     private IrcmdEngine mIrcmdEngine;
 
     private boolean mSendFPGACommand = false;
@@ -66,7 +66,7 @@ public class DeviceIrcmdControlManager {
         mSendFPGACommand = sendFPGACommand;
     }
 
-    /**
+        /**
      * 发送fpga算法参数指令
      */
     public void sendFPGAParam() {
@@ -78,7 +78,7 @@ public class DeviceIrcmdControlManager {
             public void run() {
                 Log.i(TAG, "sendFPGAParam");
                 try {
-                    //todo 暂时先一条一条指令发送
+                    // todo 暂时先一条一条指令发送
                     String fpga_param_path = Const.DATA_FILE_SAVE_PATH + File.separator + "fpga.json";
                     File file = new File(fpga_param_path);
                     if (!file.exists()) {
@@ -99,9 +99,9 @@ public class DeviceIrcmdControlManager {
                         params[0] = (int) value;
                         Log.d(TAG, "first params value : " + params[0]);
 //                        if (i == 0) {
-//                            Log.d(TAG, "first address string : " + address);
+
 //                            firstAddress = Integer.parseInt(address.substring(2), 16);
-//                            Log.d(TAG, "first address int : " + firstAddress);
+
 //                        }
                         int reAddress = Integer.parseInt(address.substring(2), 16);
                         Log.d(TAG, "first address string : " + reAddress);
@@ -110,7 +110,7 @@ public class DeviceIrcmdControlManager {
                                     .advAlgorithmParametersWrite(reAddress, params);
                             Log.d(TAG, "algorithmParametersWriteGet result = " + algorithmParametersWriteGet);
 
-                            //获取FPGA算法参数读取 PASS
+                            // 获取FPGA算法参数读取 PASS
                             int[] algorithmParametersReadData = new int[1];
                             IrcmdError algorithmParametersReadGet = mIrcmdEngine
                                     .advAlgorithmParametersRead(reAddress, algorithmParametersReadData);
@@ -126,17 +126,17 @@ public class DeviceIrcmdControlManager {
 //                    if (mIrcmdEngine != null) {
 //                        IrcmdError algorithmParametersWriteGet = mIrcmdEngine
 //                                .advAlgorithmParametersWrite(firstAddress, params);
-//                        Log.d(TAG, "algorithmParametersWriteGet result = " + algorithmParametersWriteGet);
+
 //
-//                        //获取FPGA算法参数读取 PASS
+//                        // 获取FPGA算法参数读取 PASS
 //                        float[] algorithmParametersReadData = new float[jsonArray.length()];
 //                        IrcmdError algorithmParametersReadGet = mIrcmdEngine
 //                                .advAlgorithmParametersRead(firstAddress, algorithmParametersReadData);
 //
-//                        Log.d(TAG, "algorithmParametersReadGet result = " + algorithmParametersReadGet);
+
 //
 //                        for (int i = 0; i < algorithmParametersReadData.length; i ++) {
-//                            Log.d(TAG, "algorithmParametersReadGet value = " + algorithmParametersReadData[i]);
+
 //                        }
 //                    }
                 } catch (JSONException e) {
@@ -147,7 +147,7 @@ public class DeviceIrcmdControlManager {
         }).start();
     }
 
-    /**
+        /**
      * 大端模式转换
      * 将int数值转换为占四个字节的byte数组，本方法适用于(高位在前，低位在后)的顺序。  和bytesToInt2（）配套使用
      */
@@ -169,7 +169,7 @@ public class DeviceIrcmdControlManager {
         return src;
     }
 
-    /**
+        /**
      * 大端模式转换
      * byte数组中取int数值，本方法适用于(低位在后，高位在前)的顺序。和intToBytes2（）配套使用
      */
@@ -179,7 +179,7 @@ public class DeviceIrcmdControlManager {
         return value;
     }
 
-    /**
+        /**
      * 获取isp读取到的值
      *
      * @param name
@@ -204,11 +204,11 @@ public class DeviceIrcmdControlManager {
         Log.i(TAG, "name = " + name + " orgValue = " + orgValue +
                 " orgValueInt = " + Long.parseLong(orgValue, 2));
 
-        //01110000   00000000 00001010 00000000 00000001
+        // 01110000   00000000 00001010 00000000 00000001
         return String.valueOf(Long.parseLong(orgValue, 2));
     }
 
-    /**
+        /**
      * int类型的byte数组，转为二进制字符串，然后根据传入的值做替换，最终输出拼装好的值
      *
      * @param name
@@ -239,7 +239,6 @@ public class DeviceIrcmdControlManager {
         }
         Log.i(TAG, "name = " + name + " valueArrStr = " + valueArrStr.toString());
 
-
         String orgValue = ispParamReadByteArrStr.substring(byteWidth * 8 - end - 1, byteWidth * 8 - begin);
         Log.i(TAG, "name = " + name + " orgValue = " + orgValue +
                 " orgValueInt = " + Long.parseLong(orgValue, 2));
@@ -251,13 +250,13 @@ public class DeviceIrcmdControlManager {
         Log.i(TAG, "name = " + name + " valueStr = " + valueArrStr.toString() + " valueStr = " + valueStr +
                 " valueStrInt = " + Long.parseLong(valueStr, 2));
 
-        //01110000   00000000 00001010 00000000 00000001
+        // 01110000   00000000 00001010 00000000 00000001
         return Long.parseLong(valueStr, 2);
     }
 
-    /**
-     * 设置ISP算法需要修改的文件路径
-     * 会在重新回到预览页面的时候调用sendISPParam方法来设置参数
+        /**
+     * SettingsISP算法需要修改的文件路径
+     * 会在重新回到预览页面的时候调用sendISPParam方法来Settings参数
      *
      * @param param_path
      */
@@ -266,10 +265,10 @@ public class DeviceIrcmdControlManager {
         mSendISPCommand = true;
     }
 
-    /**
-     * 会在重新回到预览页面的时候调用sendISPParam方法来设置参数
+        /**
+     * 会在重新回到预览页面的时候调用sendISPParam方法来Settings参数
      * <p>
-     * ISP参数设置后，停图后不会保存参数，固件会重新下发
+     * ISP参数Settings后，停图后不会保存参数，固件会重新下发
      *
      * @throws IllegalArgumentException
      */
@@ -303,8 +302,7 @@ public class DeviceIrcmdControlManager {
                         int begin = jsonObject.getInt("begin");
                         int end = jsonObject.getInt("end");
                         int value = jsonObject.getInt("value");
-//                        Log.i(TAG, "name = " + name + " address = " + address + " begin = " + begin + " end = " +
-//                                end + " value = " + value);
+
                         int reAddress = Integer.parseInt(address, 16);
                         if (mIrcmdEngine != null) {
                             // 需要先把该地址的值读出来

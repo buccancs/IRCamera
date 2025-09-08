@@ -5,8 +5,8 @@ import com.topdon.lms.sdk.xutils.x
 
 object HttpUtils {
     /**
-     * 设置伪彩样式
-     * @param mode              伪彩样式
+     * SettingsPseudo color样式
+     * @param mode              Pseudo color样式
      * @param iResponseCallback 回调函数
      * @ void
      */
@@ -23,7 +23,7 @@ object HttpUtils {
     }
 
     /**
-     * 获取伪彩样式
+     * 获取Pseudo color样式
      */
     fun getPseudoColor(iResponseCallback: Callback.CommonCallback<String>?) {
         val params = RequestParams()
@@ -33,7 +33,7 @@ object HttpUtils {
     }
 
     /**
-     * 设置屏幕亮度
+     * Settings屏幕亮度
      * @param mode              屏幕亮度值:范围0-100
      * @param iResponseCallback 回调函数
      * @ void
@@ -60,7 +60,7 @@ object HttpUtils {
     }
 
     /**
-     * 设置画中画
+     * Settings画中画
      * @param iResponseCallback 回调函数
      * @ void
      */
@@ -86,7 +86,7 @@ object HttpUtils {
     }
 
     /**
-     * 设置放大倍数
+     * Settings放大倍数
      * @param factor            放大倍数:1,2,4,8
      * @param iResponseCallback 回调函数
      * @ void
@@ -114,7 +114,7 @@ object HttpUtils {
     }
 
     /**
-     * 设置拍照
+     * SettingsPhoto capture
      * @param iResponseCallback 回调函数
      * @void
      */
@@ -126,7 +126,7 @@ object HttpUtils {
     }
 
     /**
-     * 设置录像
+     * Settings录像
      * @param enable 录制开关
      * @param iResponseCallback 回调函数
      * @void
@@ -155,7 +155,7 @@ object HttpUtils {
     }
 
     /**
-     * 获取版本信息
+     * 获取版本message
      */
     fun getVersion(iResponseCallback: Callback.CommonCallback<String>?) {
         val params = RequestParams()
@@ -165,7 +165,7 @@ object HttpUtils {
     }
 
     /**
-     * 获取设备信息
+     * 获取设备message
      */
     fun getDeviceDetails(iResponseCallback: Callback.CommonCallback<String>?) {
         val params = RequestParams()
@@ -175,7 +175,7 @@ object HttpUtils {
     }
 
     /**
-     * 获取存储分区信息
+     * 获取存储分区message
      */
     fun getFreeSpace(iResponseCallback: Callback.CommonCallback<String>?) {
         val params = RequestParams()
@@ -185,7 +185,7 @@ object HttpUtils {
     }
 
     /**
-     * 恢复出厂设置
+     * 恢复出厂Settings
      */
     fun getResetAll(iResponseCallback: Callback.CommonCallback<String>?) {
         val params = RequestParams()

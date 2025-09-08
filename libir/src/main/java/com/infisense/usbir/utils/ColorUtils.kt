@@ -2,7 +2,6 @@ package com.infisense.usbir.utils
 
 import java.util.Locale
 
-
 /**
  * @author: CaiSongL
  * @date: 2023/8/7 10:53

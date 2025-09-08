@@ -182,7 +182,7 @@
             app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- 顶部目录信息 -->
+    <!-- 顶部目录message -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_dir"
         android:layout_width="0dp"

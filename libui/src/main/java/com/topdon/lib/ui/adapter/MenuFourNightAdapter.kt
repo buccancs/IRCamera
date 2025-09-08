@@ -24,12 +24,12 @@ import com.topdon.lib.ui.listener.SingleClickListener
 import com.topdon.lib.ui.R as UiR
 import com.topdon.menu.R as MenuR
 
-@Deprecated("旧的设置菜单，已重构过了")
+@Deprecated("旧的Settings菜单，已重构过了")
 @SuppressLint("NotifyDataSetChanged")
 class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var listener: ((index: Int, code: Int) -> Unit)? = null
 
-    private var colorEnable = false // 伪彩条
+    private var colorEnable = false // Pseudo color条
     private var contrastEnable = false // 对比度
     private var ddeEnable = false // 细节
     private var alarmEnable = false // 预警
@@ -87,12 +87,12 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
 
     /**
      * 不知道干嘛的
-     * 参数 [Constants.IR_TEMPERATURE_MODE] = 1 测温模式   伪彩条、对比度、锐度、警示、旋转、字体、镜像
-     * 参数 [Constants.IR_TCPLUS_MODE] = 5 双光设备        伪彩条、对比度、锐度、警示、旋转、字体、
-     * 参数 [Constants.IR_TEMPERATURE_LITE] = 7 Lite设备  伪彩条、对比度、警示、旋转、字体、镜像
-     * 参数 [Constants.IR_TC007_MODE] = 6 TC007          伪彩条、对比度、锐度、警示、字体、镜像
+     * 参数 [Constants.IR_TEMPERATURE_MODE] = 1 Temperature measurement mode   Pseudo color条、对比度、锐度、警示、旋转、字体、镜像
+     * 参数 [Constants.IR_TCPLUS_MODE] = 5 Dual light设备        Pseudo color条、对比度、锐度、警示、旋转、字体、
+     * 参数 [Constants.IR_TEMPERATURE_LITE] = 7 Lite设备  Pseudo color条、对比度、警示、旋转、字体、镜像
+     * 参数 [Constants.IR_TC007_MODE] = 6 TC007          Pseudo color条、对比度、锐度、警示、字体、镜像
      * else - 2D编辑菜单                                  警示、字体、水印
-     * 参数 [Constants.IR_OBSERVE_MODE] = 2 观测模式  指南针、旋转、镜像、对比度
+     * 参数 [Constants.IR_OBSERVE_MODE] = 2 Observation mode  指南针、旋转、镜像、对比度
      */
     fun setShowMenuFour(modeType: Int)  {
         fourBean.clear()
@@ -461,8 +461,8 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
                 itemView.layoutParams =
                     ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             }
-//        if (fourBean.size <= 4) {  //item少于4个，每个占1/4
-//            val canSeeCount = fourBean.size //一屏占4个
+//        if (fourBean.size <= 4) {  // item少于4个，每个占1/4
+//            val canSeeCount = fourBean.size // 一屏占4个
 //            val with = (ScreenUtils.getScreenWidth() / canSeeCount)
 //            itemView.layoutParams =
 //                ViewGroup.LayoutParams(with, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -471,8 +471,8 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
 //            layoutParams.width = imageSize
 //            layoutParams.height = imageSize
 //            itemMenu.layoutParams = layoutParams
-//        } else {    //item大于4个，每屏4.5个item
-//            val canSeeCount = 4.5 //一屏占4个
+//        } else {    // item大于4个，每屏4.5个item
+//            val canSeeCount = 4.5 // 一屏占4个
 //            val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()
 //            itemView.layoutParams =
 //                ConstraintLayout.LayoutParams(with, ConstraintLayout.LayoutParams.WRAP_CONTENT)

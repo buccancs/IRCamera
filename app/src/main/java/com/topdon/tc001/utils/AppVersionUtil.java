@@ -50,8 +50,8 @@ public class AppVersionUtil {
     private DownloadCompleteReceiver completeReceiver; // 声明一个下载完成的广播接收器
     private DownloadManager dowanloadmanager = null;
     private DotIsShowListener dotIsShowListener = null;
-    private String fileName = "";//文件名称
-    private Long mDownloadId = 0l;//下载id
+    private String fileName = "";// 文件名称
+    private Long mDownloadId = 0l;// 下载id
 
     public AppVersionUtil(Context context, DotIsShowListener dotIsShow) {
         this.mContext = context;
@@ -70,7 +70,7 @@ public class AppVersionUtil {
         LMS.getInstance().checkAppUpdate(commonBean -> {
             if (commonBean.code == SUCCESS) {
                 AppInfoBean appInfoBean = LMS.getInstance().getUpdateAppInfoBean();
-                XLog.w("bcf", "app更新信息:" + GsonUtils.toJson(appInfoBean));
+                XLog.w("bcf", "app更新message:" + GsonUtils.toJson(appInfoBean));
                 if (appInfoBean != null) {
                     if (appInfoBean.getVersionCode() > getDealVersionCode()) {
                         if (isShowDialog) {
@@ -112,7 +112,7 @@ public class AppVersionUtil {
     }
 
     /**
-     * 弹出新版本信息提示框
+     * 弹出新版本message提示框
      *
      * @param bean 版本更新实体类
      */
@@ -164,7 +164,7 @@ public class AppVersionUtil {
                     .setCancelListener(R.string.app_cancel, new Function0<Unit>() {
                         @Override
                         public Unit invoke() {
-                            SharedManager.INSTANCE.setVersionCheckDate(System.currentTimeMillis());//刷新版本提示时间
+                            SharedManager.INSTANCE.setVersionCheckDate(System.currentTimeMillis());// 刷新版本提示时间
                             return null;
                         }
                     })
@@ -172,12 +172,16 @@ public class AppVersionUtil {
         }
     }
 
+        /**
+     * DotIsShowListener class.
+     *
+     * Provides dotisshowlistener functionality.
+     */
     public interface DotIsShowListener {
         void isShow(boolean show);
 
         void version(String version);
     }
-
 
     // 开始下载指定序号的apk文件
     private void startDownload(String url) {
@@ -193,24 +197,28 @@ public class AppVersionUtil {
 
         Uri uri = Uri.parse(url); // 根据下载地址构建一个Uri对象
         DownloadManager.Request down = new DownloadManager.Request(uri); // 创建一个下载请求对象，指定从哪里下载文件
-        down.setTitle(mContext.getString(R.string.tips_download_information)); // 设置任务标题
-        down.setDescription(mContext.getString(R.string.installation_package_download_progress)); // 设置任务描述
-        // 设置允许下载的网络类型
+        down.setTitle(mContext.getString(R.string.tips_download_information)); // Settings任务标题
+        down.setDescription(mContext.getString(R.string.installation_package_download_progress)); // Settings任务描述
+        // Settings允许下载的网络类型
         down.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
-        // 设置通知栏在下载进行时与完成后都可见
+        // Settings通知栏在下载进行时与完成后都可见
         down.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        // 设置下载文件在私有目录的保存路径。从Android10开始，只有保存到公共目录的才会在系统下载页面显示，保存到私有目录的不在系统下载页面显示
+        // Settings下载文件在私有目录的保存路径。从Android10开始，只有保存到公共目录的才会在系统下载页面显示，保存到私有目录的不在系统下载页面显示
         fileName = "topinfrared" + System.currentTimeMillis() + ".zip";
         down.setDestinationInExternalFilesDir(mContext, Environment.DIRECTORY_DOWNLOADS, fileName);
         DownloadManager downloadManager = (DownloadManager) mContext.getSystemService(DOWNLOAD_SERVICE);
-        // 设置下载文件在公共目录的保存路径。保存到公共目录需要申请存储卡的读写权限
+        // Settings下载文件在公共目录的保存路径。保存到公共目录需要申请存储卡的读写权限
         mDownloadId = downloadManager.enqueue(down); // 把下载请求对象加入到下载队列
         VersionTools.INSTANCE.setMDownloadId(mDownloadId);
     }
 
-
     // 定义一个下载完成的广播接收器。用于接收下载完成事件
-    private class DownloadCompleteReceiver extends BroadcastReceiver {
+    /**
+ * DownloadCompleteReceiver class.
+ * 
+ * Provides downloadcompletereceiver functionality.
+ */
+private class DownloadCompleteReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
 
@@ -222,7 +230,6 @@ public class AppVersionUtil {
         }
     }
 
-
     // 安装应用程序
     public void installApk() {
         mDownloadId = 0l;
@@ -230,7 +237,7 @@ public class AppVersionUtil {
         mContext.unregisterReceiver(completeReceiver);
         try {
             File file = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath(), fileName);
-            File localFile = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());//本地文件
+            File localFile = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());// 本地文件
             List<File> files = ZipUtils.unzipFile(file, localFile);
             if (files != null && files.size() != 0) {
                 AppUtil.installApp(mContext, files.get(0));
@@ -258,7 +265,7 @@ public class AppVersionUtil {
     public void download(String url) {
         RequestParams params = new RequestParams();
         try {
-            //这里为了解决 xutils 会把url转义 照成签名不对
+            // 这里为了解决 xutils 会把url转义 照成签名不对
             String[] splitUrl = url.split("\\?");
             String[] urlParams = splitUrl[1].split("&");
             String[] params1 = urlParams[0].split("=");
@@ -328,7 +335,7 @@ public class AppVersionUtil {
     public void installApkNew() {
         try {
             File file = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath(), fileName);
-            File localFile = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());//本地文件
+            File localFile = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());// 本地文件
             List<File> files = ZipUtils.unzipFile(file, localFile);
             if (files != null && files.size() != 0) {
                 AppUtil.installApp(mContext, files.get(0));

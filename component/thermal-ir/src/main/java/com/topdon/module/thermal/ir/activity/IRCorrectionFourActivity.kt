@@ -41,7 +41,6 @@ class IRCorrectionFourActivity : BaseActivity() {
                 .create().show()
         }
 
-
         val irFragment = if (savedInstanceState == null) {
             IRCorrectionFragment()
         } else {
@@ -54,10 +53,9 @@ class IRCorrectionFourActivity : BaseActivity() {
                 .commit()
         }
 
-
         val timeDownView = findViewById<TimeDownView>(R.id.time_down_view)
         timeDownView.postDelayed({
-            //开始矫正
+            // 开始矫正
             if (timeDownView.downTimeWatcher == null){
                 timeDownView.setOnTimeDownListener(object : TimeDownView.DownTimeWatcher{
                     override fun onTime(num: Int) {

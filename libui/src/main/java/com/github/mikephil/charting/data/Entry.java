@@ -8,13 +8,13 @@ import android.os.Parcelable;
 
 import com.github.mikephil.charting.utils.Utils;
 
-/**
- * Class representing one entry in the chart. Might contain multiple values.
- * Might only contain a single value depending on the used constructor.
- * 
- * @author Philipp Jahoda
- */
-public class Entry extends BaseEntry implements Parcelable {
+    /**
+     * Class representing one entry in the chart. Might contain multiple values.
+     * Might only contain a single value depending on the used constructor.
+     *
+     * @author Philipp Jahoda
+     */
+    public class Entry extends BaseEntry implements Parcelable {
 
     /** the x value */
     private float x = 0f;
@@ -23,7 +23,7 @@ public class Entry extends BaseEntry implements Parcelable {
 
     }
 
-    /**
+        /**
      * A Entry represents one single entry in the chart.
      *
      * @param x the x value
@@ -34,7 +34,7 @@ public class Entry extends BaseEntry implements Parcelable {
         this.x = x;
     }
 
-    /**
+        /**
      * A Entry represents one single entry in the chart.
      *
      * @param x the x value
@@ -46,7 +46,7 @@ public class Entry extends BaseEntry implements Parcelable {
         this.x = x;
     }
 
-    /**
+        /**
      * A Entry represents one single entry in the chart.
      *
      * @param x the x value
@@ -58,7 +58,7 @@ public class Entry extends BaseEntry implements Parcelable {
         this.x = x;
     }
 
-    /**
+        /**
      * A Entry represents one single entry in the chart.
      *
      * @param x the x value
@@ -71,27 +71,27 @@ public class Entry extends BaseEntry implements Parcelable {
         this.x = x;
     }
 
-    /**
+        /**
      * Returns the x-value of this Entry object.
-     * 
+     *
      * @return
      */
     public float getX() {
         return x;
     }
 
-    /**
+        /**
      * Sets the x-value of this Entry object.
-     * 
+     *
      * @param x
      */
     public void setX(float x) {
         this.x = x;
     }
 
-    /**
+        /**
      * returns an exact copy of the entry
-     * 
+     *
      * @return
      */
     public Entry copy() {
@@ -99,11 +99,11 @@ public class Entry extends BaseEntry implements Parcelable {
         return e;
     }
 
-    /**
+        /**
      * Compares value, xIndex and data of the entries. Returns true if entries
      * are equal in those points, false if not. Does not check by hash-code like
      * it's done by the "equals" method.
-     * 
+     *
      * @param e
      * @return
      */

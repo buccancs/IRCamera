@@ -7,7 +7,7 @@ import android.util.Log
  * This class represents a cluster of sensor data from Shimmer devices
  *
  * Based on the official Shimmer Android API structure from:
- * https://github.com/ShimmerEngineering/ShimmerAndroidAPI
+ * https:// github.com/ShimmerEngineering/ShimmerAndroidAPI
  *
  * Compatible with shimmerdriver v0.11.4_beta
  */

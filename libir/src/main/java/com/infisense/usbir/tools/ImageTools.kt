@@ -16,7 +16,7 @@ object ImageTools {
         }
         val selectBean = getTempIndex(tempBytes, max, min)
 //        Log.w("123", "max size: ${selectBean.maxIndex.size}, min size: ${selectBean.minIndex.size}")
-        bitmapFromRgbaGrey(bytes = imageBytes, bean = selectBean)//灰度
+        bitmapFromRgbaGrey(bytes = imageBytes, bean = selectBean)// 灰度
     }
 
     fun readFrame(
@@ -36,7 +36,7 @@ object ImageTools {
             bean = selectBean,
             maxColor = maxColor,
             minColor = minColor
-        )//换颜色
+        )// 换颜色
     }
 
     // 选取区域转颜色
@@ -68,10 +68,10 @@ object ImageTools {
         val minB = ((minColor shr 0) and 0xff).toByte()
         for (i in 0 until len) {
             if (maxQueue.peek() == i) {
-                bytes[i * 4] = maxR //r
-                bytes[i * 4 + 1] = maxG //g
-                bytes[i * 4 + 2] = maxB//b
-                bytes[i * 4 + 3] = maxA //a
+                bytes[i * 4] = maxR // r
+                bytes[i * 4 + 1] = maxG // g
+                bytes[i * 4 + 2] = maxB// b
+                bytes[i * 4 + 3] = maxA // a
                 maxQueue.poll()
             }
             if (minQueue.peek() == i) {
@@ -102,7 +102,7 @@ object ImageTools {
                 r = bytes[i * 4].toInt() and 0xff
                 g = bytes[i * 4 + 1].toInt() and 0xff
                 b = bytes[i * 4 + 2].toInt() and 0xff
-                //灰度
+                // 灰度
                 grey = (r * 0.3f).toInt() + (g * 0.59f).toInt() + (b * 0.11f).toInt()
                 bytes[i * 4] = grey.toByte()
                 bytes[i * 4 + 1] = grey.toByte()
@@ -111,7 +111,6 @@ object ImageTools {
             }
         }
     }
-
 
     /**
      * 温度选取点
@@ -150,7 +149,7 @@ object ImageTools {
 //        val pixels = IntArray(len)
 //        for (i in pixels.indices) {
 //            if (i > len / 4 * 3 && i < len) {
-//                //指定区域颜色
+//                // 指定区域颜色
 //                val r = 255
 //                val g = 215
 //                val b = 0
@@ -163,7 +162,7 @@ object ImageTools {
 //                val b: Int = (bytes[i * 4 + 2] and 0xff.toByte()).toUByte().toInt()
 //                val a: Int = (bytes[i * 4 + 3] and 0xff.toByte()).toUByte().toInt()
 //
-//                //灰度
+//                // 灰度
 //                val grey = (r * 0.3f).toInt() + (g * 0.59f).toInt() + (b * 0.11f).toInt()
 //                val pixel = (a shl 24) or (grey shl 16) or (grey shl 8) or grey
 //                pixels[i] = pixel
@@ -226,11 +225,11 @@ object ImageTools {
                     data = tempBytes.copyOfRange(i * 2, i * 2 + 2)
                     value = readTempValue(data)
                     if (value > max || value < min) {
-                        //max color
+                        // max color
                         r = imageBytes[i * 4].toInt() and 0xff
                         g = imageBytes[i * 4 + 1].toInt() and 0xff
                         b = imageBytes[i * 4 + 2].toInt() and 0xff
-                        //灰度
+                        // 灰度
                         grey = (r * 0.3f).toInt() + (g * 0.59f).toInt() + (b * 0.11f).toInt()
                         imageBytes[i * 4] = grey.toByte()
                         imageBytes[i * 4 + 1] = grey.toByte()
@@ -253,14 +252,14 @@ object ImageTools {
                     data = tempBytes.copyOfRange(i * 2, i * 2 + 2)
                     value = readTempValue(data)
                     if (value > max) {
-                        //max color
-                        imageBytes[i * 4] = maxR //r
-                        imageBytes[i * 4 + 1] = maxG //g
-                        imageBytes[i * 4 + 2] = maxB //b
-                        imageBytes[i * 4 + 3] = maxA //a
+                        // max color
+                        imageBytes[i * 4] = maxR // r
+                        imageBytes[i * 4 + 1] = maxG // g
+                        imageBytes[i * 4 + 2] = maxB // b
+                        imageBytes[i * 4 + 3] = maxA // a
                     }
                     if (value < min) {
-                        //min color
+                        // min color
                         imageBytes[i * 4] = minR
                         imageBytes[i * 4 + 1] = minG
                         imageBytes[i * 4 + 2] = minB

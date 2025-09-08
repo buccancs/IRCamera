@@ -109,7 +109,6 @@ public class TestRecordActivity extends Activity{
         initLayout();
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -152,7 +151,6 @@ public class TestRecordActivity extends Activity{
             mWakeLock = null;
         }
     }
-
 
     private void initLayout() {
 
@@ -210,9 +208,9 @@ public class TestRecordActivity extends Activity{
         Log.i(LOG_TAG, "cameara preview start: OK");
     }
 
-    //---------------------------------------
+    // ---------------------------------------
     // initialize ffmpeg_recorder
-    //---------------------------------------
+    // ---------------------------------------
     private void initRecorder() {
 
         Log.w(LOG_TAG, "init recorder");
@@ -343,10 +341,14 @@ public class TestRecordActivity extends Activity{
         return super.onKeyDown(keyCode, event);
     }
 
-
-    //---------------------------------------------
+    // ---------------------------------------------
     // audio thread, gets and encodes audio data
-    //---------------------------------------------
+    // ---------------------------------------------/**
+ * AudioRecordRunnable class.
+ * 
+ * Provides audiorecordrunnable functionality.
+ */
+
     class AudioRecordRunnable implements Runnable {
 
         @Override
@@ -382,7 +384,7 @@ public class TestRecordActivity extends Activity{
                     audioData = samples[samplesIndex++ % samples.length];
                     audioData.position(0).limit(0);
                 }
-                //Log.v(LOG_TAG,"recording? " + recording);
+                
                 bufferReadResult = audioRecord.read(audioData.array(), 0, audioData.capacity());
                 audioData.limit(bufferReadResult);
                 if (bufferReadResult > 0) {
@@ -392,7 +394,7 @@ public class TestRecordActivity extends Activity{
                     if (recording) {
                         if (RECORD_LENGTH <= 0) try {
                             recorder.recordSamples(audioData);
-                            //Log.v(LOG_TAG,"recording " + 1024*i + " to " + 1024*i+1024);
+                            
                         } catch (FFmpegFrameRecorder.Exception e) {
                             Log.v(LOG_TAG,e.getMessage());
                             e.printStackTrace();
@@ -412,9 +414,14 @@ public class TestRecordActivity extends Activity{
         }
     }
 
-    //---------------------------------------------
+    // ---------------------------------------------
     // camera thread, gets and encodes video data
-    //---------------------------------------------
+    // ---------------------------------------------/**
+ * CameraView class.
+ * 
+ * Provides cameraview functionality.
+ */
+
     class CameraView extends SurfaceView implements SurfaceHolder.Callback, Camera.PreviewCallback {
 
         private SurfaceHolder mHolder;

@@ -22,12 +22,10 @@ class GalleryChangePopup(private val context: Context) : PopupWindow() {
     private val tvTs004: TextView by lazy { contentView.findViewById(R.id.tv_ts004) }
     private val tvTc007: TextView by lazy { contentView.findViewById(R.id.tv_tc007) }
 
-
     /**
      * 一个选项被选中事件监听.
      */
     var onPickListener: ((position: Int, str: String) -> Unit)? = null
-
 
     init {
         val widthMeasureSpec = MeasureSpec.makeMeasureSpec((context.resources.displayMetrics.widthPixels * 0.6).toInt(), MeasureSpec.EXACTLY)

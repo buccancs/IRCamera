@@ -17,8 +17,7 @@ import java.io.IOException
  */
 class IRImageHelp {
 
-
-    //自定义的颜色值
+    // 自定义的颜色值
     @Volatile
     private var colorList: IntArray ?= null
 
@@ -36,7 +35,7 @@ class IRImageHelp {
     }
 
     /**
-     * 设置自定义伪彩条属性
+     * Settings自定义Pseudo color条属性
      * @author: CaiSongL
      * @date: 2024/1/17 10:07
      */
@@ -68,9 +67,8 @@ class IRImageHelp {
         }
     }
 
-
     /**
-     * 自定义伪彩处理，在执行这个方法之前，变更伪彩属性时先通过 上面setColorList进行属性设置
+     * 自定义Pseudo color处理，在执行这个方法之前，变更Pseudo color属性时先通过 上面setColorList进行属性Settings
      * @param imageDst ByteArray ： 图像数据，argb格式
      * @param temperatureSrc ByteArray ： 温度数据
      * @param imageWidth Int ：
@@ -131,7 +129,7 @@ class IRImageHelp {
                     index += 4
                     j += 2
                 }
-//                                        Log.w("测试上色耗时-总耗时", System.currentTimeMillis() - startTimeAll + "//");
+//                                        Log.w("测试上色耗时-总耗时", System.currentTimeMillis() - startTimeAll + "// ");
             }
         } catch (exception: Exception) {
             Log.e("上色异常", exception.message!!)
@@ -140,10 +138,8 @@ class IRImageHelp {
         }
     }
 
-
-
     /**
-     * 等温尺处理,展示伪彩的温度范围内信息
+     * 等温尺处理,展示Pseudo color的温度范围内message
      */
     fun setPseudoColorMaxMin(imageDst: ByteArray?, temperatureSrc:ByteArray?,max : Float,
                        min : Float,imageWidth : Int,imageHeight : Int){
@@ -167,7 +163,7 @@ class IRImageHelp {
                     val r: Int = imageDst!![index].toInt() and 0xff
                     val g: Int = imageDst!![index + 1].toInt() and 0xff
                     val b: Int = imageDst!![index + 2].toInt() and 0xff
-                    //灰度
+                    // 灰度
                     val grey = (r * 0.3f + g * 0.59f + b * 0.11f).toInt()
                     imageDst!![index] = grey.toByte()
                     imageDst!![index + 1] = grey.toByte()
@@ -215,7 +211,5 @@ class IRImageHelp {
         }
         return imageDst
     }
-
-
 
 }

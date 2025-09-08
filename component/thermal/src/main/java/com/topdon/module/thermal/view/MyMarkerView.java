@@ -16,14 +16,18 @@ import com.topdon.lib.core.tools.NumberTools;
 import com.topdon.lib.core.tools.TimeTool;
 import com.topdon.module.thermal.R;
 
-
 /**
  * Custom implementation of the MarkerView.
  *
  * @author Philipp Jahoda
  */
 @SuppressLint("ViewConstructor")
-public class MyMarkerView extends MarkerView {
+    /**
+     * MyMarkerView class.
+     *
+     * Provides mymarkerview functionality.
+     */
+    public class MyMarkerView extends MarkerView {
 
     private final TextView tvContent;
     private final TextView timeText;
@@ -39,7 +43,7 @@ public class MyMarkerView extends MarkerView {
     @SuppressLint("DefaultLocale")
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
-        int index = highlight.getDataIndex();//曲线序号
+        int index = highlight.getDataIndex();// 曲线序号
         ThermalEntity data = (ThermalEntity) e.getData();
         if (e instanceof CandleEntry) {
             CandleEntry ce = (CandleEntry) e;

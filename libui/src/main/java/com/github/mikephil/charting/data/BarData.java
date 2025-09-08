@@ -5,12 +5,12 @@ import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 
 import java.util.List;
 
-/**
- * Data object that represents all data for the BarChart.
- *
- * @author Philipp Jahoda
- */
-public class BarData extends BarLineScatterCandleBubbleData<IBarDataSet> {
+    /**
+     * Data object that represents all data for the BarChart.
+     *
+     * @author Philipp Jahoda
+     */
+    public class BarData extends BarLineScatterCandleBubbleData<IBarDataSet> {
 
     /**
      * the width of the bars on the x-axis, in values (not pixels)
@@ -29,7 +29,7 @@ public class BarData extends BarLineScatterCandleBubbleData<IBarDataSet> {
         super(dataSets);
     }
 
-    /**
+        /**
      * Sets the width each bar should have on the x-axis (in values, not pixels).
      * Default 0.85f
      *
@@ -43,7 +43,7 @@ public class BarData extends BarLineScatterCandleBubbleData<IBarDataSet> {
         return mBarWidth;
     }
 
-    /**
+        /**
      * Groups all BarDataSet objects this data object holds together by modifying the x-value of their entries.
      * Previously set x-values of entries will be overwritten. Leaves space between bars and groups as specified
      * by the parameters.
@@ -106,7 +106,7 @@ public class BarData extends BarLineScatterCandleBubbleData<IBarDataSet> {
         notifyDataChanged();
     }
 
-    /**
+        /**
      * In case of grouped bars, this method returns the space an individual group of bar needs on the x-axis.
      *
      * @param groupSpace

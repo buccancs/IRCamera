@@ -121,7 +121,6 @@ class ItemEditActivity : BaseActivity(), View.OnClickListener {
             }
         }
 
-        
         adapter.onSelectChangeListener = {
             ivCopy.isEnabled = it > 0
             tvCopy.isEnabled = it > 0
@@ -181,7 +180,7 @@ class ItemEditActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v) {
             ivExit -> showExitTipsDialog()
-            ivSave -> {//保存
+            ivSave -> {// 保存
                 val dirDetect: DirDetect = viewModel.dirLD.value ?: return
                 showLoadingDialog()
                 lifecycleScope.launch(Dispatchers.IO) {
@@ -195,9 +194,9 @@ class ItemEditActivity : BaseActivity(), View.OnClickListener {
                     }
                 }
             }
-            clDir -> {//展开收起切换
+            clDir -> {// 展开收起切换
                 adapter.isExpand = !adapter.isExpand
-                if (adapter.isExpand) {//切换到展开
+                if (adapter.isExpand) {// 切换到展开
                     ivTriangle.setImageResource(R.drawable.svg_house_triangle_up)
                     clDir.setBackgroundResource(R.drawable.bg_corners10_top_solid_23202e)
                 } else {
@@ -206,14 +205,14 @@ class ItemEditActivity : BaseActivity(), View.OnClickListener {
                 }
                 adapter.notifyDataSetChanged()
             }
-            viewSelectAll -> {//全选、取消全选
+            viewSelectAll -> {// 全选、取消全选
                 adapter.isSelectAll = !adapter.isSelectAll
             }
-            viewCopy -> {//复制
+            viewCopy -> {// 复制
                 adapter.copySelect()
                 TToast.shortToast(this@ItemEditActivity, R.string.ts004_copy_success)
             }
-            viewDel -> {//删除
+            viewDel -> {// 删除
                 TipDialog.Builder(this)
                     .setTitleMessage(getString(R.string.tips_del_item_title))
                     .setMessage(R.string.tips_del_item_content)
@@ -259,7 +258,7 @@ class ItemEditActivity : BaseActivity(), View.OnClickListener {
             val fromPosition = viewHolder.bindingAdapterPosition
             val toPosition = target.bindingAdapterPosition
 
-            //刷新 lastItem
+            // 刷新 lastItem
             if (fromPosition == dataList.size - 1 || toPosition == dataList.size - 1) {
                 if (viewHolder is MyAdapter.ViewHolder) {
                     viewHolder.refreshIsLast(toPosition == dataList.size - 1)
@@ -307,12 +306,12 @@ class ItemEditActivity : BaseActivity(), View.OnClickListener {
         var isSelectAll: Boolean
             get() = selectCount == dataList.size && dataList.size > 0
             set(value) {
-                if (value) {//->全选
+                if (value) {// ->全选
                     selectCount = dataList.size
                     for (item in dataList) {
                         item.hasSelect = true
                     }
-                } else {//全选->取消全选
+                } else {// 全选->取消全选
                     selectCount = 0
                     for (item in dataList) {
                         item.hasSelect = false
@@ -353,7 +352,7 @@ class ItemEditActivity : BaseActivity(), View.OnClickListener {
                         onStateChangeListener?.invoke(itemDetect.state, 0)
                     }
                 }
-                if (isDelLast) {//最后一个被删除时，旧最后一个需要刷新
+                if (isDelLast) {// 最后一个被删除时，旧最后一个需要刷新
                     notifyItemChanged(dataList.size - 1)
                 }
             }
@@ -381,7 +380,7 @@ class ItemEditActivity : BaseActivity(), View.OnClickListener {
                     onStateChangeListener?.invoke(0, oldItem.state)
                 }
             }
-            if (isCopyLast) {//复制的内容包含最后一个时，旧的最后一个需要刷新
+            if (isCopyLast) {// 复制的内容包含最后一个时，旧的最后一个需要刷新
                 notifyItemChanged(dataList.size - 2)
             }
             onSelectChangeListener?.invoke(selectCount)

@@ -62,7 +62,7 @@
 //            .backgroundColor("#3598E8")
 //            .yAxisTitle("")
 //            .axesTextColor("#FFFFFF")
-//            .dataLabelsEnabled(false)//坐标点是否显示值
+//            .dataLabelsEnabled(false)// 坐标点是否显示值
 //            .tooltipEnabled(true)
 //            .markerRadius(0f)
 //            .xAxisVisible(true)
@@ -71,7 +71,7 @@
 //            .animationType(AAChartAnimationType.SwingFromTo)
 //    }
 //
-//    val defaultCount = 20//默认显示10个数
+//    val defaultCount = 20// 默认显示10个数
 //    val startIndex = 0f
 //    var pointIndex = startIndex - defaultCount
 //
@@ -87,7 +87,7 @@
 //        val chart = AAChart()
 //            .scrollablePlotArea(AAScrollablePlotArea().minWidth(count * 20).scrollPositionX(1f))
 //            .backgroundColor("#383d45")
-//            .type(AAChartType.Area)//曲线类型
+//            .type(AAChartType.Area)// 曲线类型
 //        val timeList = Array(dataList.size) {
 //            TimeTool.showTimeSecond(dataList[it].createTime)
 //        }
@@ -96,10 +96,10 @@
 //            .gridLineWidth(0f)
 //            .gridLineColor("#717a8f")
 //            .lineColor("#717a8f")
-//            .tickColor("#717a8f")//刻度颜色
-// //            .minRange(20)//占空
+//            .tickColor("#717a8f")// 刻度颜色
+// //            .minRange(20)// 占空
 //            .minorTickColor("#FF0000")
-//            .labels(AALabels().style(AAStyle.style("#717a8f")))//标尺文字
+//            .labels(AALabels().style(AAStyle.style("#717a8f")))// 标尺文字
 // //            .categories(timeList)
 //
 //        val yAxis = AAYAxis()
@@ -107,14 +107,14 @@
 //            .gridLineWidth(1f)
 //            .gridLineColor("#454b56")
 //            .lineColor("#383d45")
-// //            .max(100f)//设置最大y值
-//            .min(0f)//设置最小y值
+// //            .max(100f)// Settings最大y值
+//            .min(0f)// Settings最小y值
 //            .labels(AALabels().style(AAStyle.style("#717a8f")))
-//            .title(AATitle().text("").style(AAStyle().color("#FFFFFF")))//不显示
+//            .title(AATitle().text("").style(AAStyle().color("#FFFFFF")))// 不显示
 //
-//        //初始图表样式
+//        // 初始图表样式
 //        options.series(series).chart(chart).xAxis(xAxis).yAxis(yAxis)
-//        //初始数据
+//        // 初始数据
 //        aa_chart_view.aa_drawChartWithChartOptions(options)
 //    }
 //
@@ -139,8 +139,8 @@
 //        val thirdColor = "#2bdb1f"
 //        val gradientColorDic: Map<*, *> = AAGradientColor.linearGradient(
 //            AALinearGradientDirection.ToBottom,
-//            "#3f7ad1AA",  //DodgerBlue, alpha 透明度 1
-//            "#3f7ad100" //DodgerBlue, alpha 透明度 0.1 (透明度与android位置相反)
+//            "#3f7ad1AA",  // DodgerBlue, alpha 透明度 1
+//            "#3f7ad100" // DodgerBlue, alpha 透明度 0.1 (透明度与android位置相反)
 //        )
 //        val gradientColorDicSecond: Map<*, *> = AAGradientColor.linearGradient(
 //            AALinearGradientDirection.ToBottom,

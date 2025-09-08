@@ -13,7 +13,12 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
  * Created by Philipp Jahoda on 19/02/16.
  */
 @SuppressLint("NewApi")
-public abstract class AnimatedViewPortJob extends ViewPortJob implements ValueAnimator.AnimatorUpdateListener, Animator.AnimatorListener {
+    /**
+     * AnimatedViewPortJob class.
+     *
+     * Provides animatedviewportjob functionality.
+     */
+    public abstract class AnimatedViewPortJob extends ViewPortJob implements ValueAnimator.AnimatorUpdateListener, Animator.AnimatorListener {
 
     protected ObjectAnimator animator;
 

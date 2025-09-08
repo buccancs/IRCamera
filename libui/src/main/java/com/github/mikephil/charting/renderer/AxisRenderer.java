@@ -12,12 +12,12 @@ import com.github.mikephil.charting.utils.Transformer;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
-/**
- * Baseclass of all axis renderers.
- *
- * @author Philipp Jahoda
- */
-public abstract class AxisRenderer extends Renderer {
+    /**
+     * Baseclass of all axis renderers.
+     *
+     * @author Philipp Jahoda
+     */
+    public abstract class AxisRenderer extends Renderer {
 
     /** base axis this axis renderer works with */
     protected AxisBase mAxis;
@@ -71,7 +71,7 @@ public abstract class AxisRenderer extends Renderer {
         }
     }
 
-    /**
+        /**
      * Returns the Paint object used for drawing the axis (labels).
      *
      * @return
@@ -80,7 +80,7 @@ public abstract class AxisRenderer extends Renderer {
         return mAxisLabelPaint;
     }
 
-    /**
+        /**
      * Returns the Paint object that is used for drawing the grid-lines of the
      * axis.
      *
@@ -90,7 +90,7 @@ public abstract class AxisRenderer extends Renderer {
         return mGridPaint;
     }
 
-    /**
+        /**
      * Returns the Paint object that is used for drawing the axis-line that goes
      * alongside the axis.
      *
@@ -100,7 +100,7 @@ public abstract class AxisRenderer extends Renderer {
         return mAxisLinePaint;
     }
 
-    /**
+        /**
      * Returns the Transformer object used for transforming the axis values.
      *
      * @return
@@ -109,7 +109,7 @@ public abstract class AxisRenderer extends Renderer {
         return mTrans;
     }
 
-    /**
+        /**
      * Computes the axis values.
      *
      * @param min - the minimum value in the data object for this axis

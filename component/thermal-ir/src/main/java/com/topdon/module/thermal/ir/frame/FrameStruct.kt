@@ -18,10 +18,10 @@ import com.topdon.pseudo.bean.CustomPseudoBean
  * width               [26, 28)    2 byte   宽 256 或 192(未使用)
  * height              [28, 30)    2 byte   高 256 或 192(未使用)
  * rotate              [30, 32)    2 byte   旋转角度
- * pseudo              [32, 34)    2 byte   伪彩代号
+ * pseudo              [32, 34)    2 byte   Pseudo color代号
  * initRotate          [34, 36)    2 byte   初始角度(未使用)
  * correctRotate       [36, 38)    2 byte   矫正角度(未使用)
- *                     [38, 81)   44 byte   点线面(未使用，实际全为0的没卵用数据)
+ *                     [38, 81)   44 byte   Point/Line/Area(未使用，实际全为0的没卵用数据)
  *
  * customPseudoBean    [81,173)  92 byte
  *   colorSize                   81     1 byte   色块数量
@@ -39,10 +39,10 @@ import com.topdon.pseudo.bean.CustomPseudoBean
  *   customRecommendIndex  [168,172)    4 byte
  *   isUseGray                  172     1 byte
  *
- * isShowPseudoBar          173     1 byte   是否显示伪彩条
+ * isShowPseudoBar          173     1 byte   是否显示Pseudo color条
  * textColor           [174,178)    4 byte   字体颜色值
  *
- * watermarkBean       [178,628)  450 byte   水印信息
+ * watermarkBean       [178,628)  450 byte   水印message
  *   isOpen                 178     1 byte   水印是否开启
  *   titleLen          [179,183)    4 byte   水印标题字节数
  *   title             [183,303)  120 byte   水印标题
@@ -50,7 +50,7 @@ import com.topdon.pseudo.bean.CustomPseudoBean
  *   address           [307,627)  320 byte   水印地址
  *   isAddTime              627     1 byte   水印是否添加时间
  *
- * alarmBean           [628,656)   28 byte   报警信息
+ * alarmBean           [628,656)   28 byte   报警message
  *   isHighOpen             628     1 byte   高温报警是否开启
  *   isLowOpen              629     1 byte   低温报警是否开启
  *   highTemp          [630,634)    4 byte   高温报警温度值，单位摄氏度
@@ -61,12 +61,12 @@ import com.topdon.pseudo.bean.CustomPseudoBean
  *   markType          [647,651)    4 byte   区域标记类型 1-描边 2-矩阵
  *   isRingtoneOpen         651     1 byte   报警铃声是否开启
  *   ringtoneType      [652,656)    4 byte   报警铃声类型
- *   gainStatus       [657)    1 byte   //高低增益 1:（低温）高增益 0: 高温（低增益）
- *   textSize         [658,659） 2byte //字号大小
- *   environment      [660,663) 4byte //温度修正参数 ： 环境温度，单位摄氏度
- *   distance      [664,667) 4byte //温度修正参数 ：距离，
- *   radiation      [668,671) 4byte //温度修正参数 ：发射率 环境温度，单位摄氏度
- *   amplify        672     1 byte   //是否开启放大
+ *   gainStatus       [657)    1 byte   // 高低增益 1:（低温）高增益 0: 高温（低增益）
+ *   textSize         [658,659） 2byte // 字号大小
+ *   environment      [660,663) 4byte // 温度修正参数 ： 环境温度，单位摄氏度
+ *   distance      [664,667) 4byte // 温度修正参数 ：距离，
+ *   radiation      [668,671) 4byte // 温度修正参数 ：发射率 环境温度，单位摄氏度
+ *   amplify        672     1 byte   // 是否开启放大
  * ```
  */
 class FrameStruct() {
@@ -130,7 +130,7 @@ class FrameStruct() {
             resultArray[36] = (correctRotate ushr 8).toByte()
             resultArray[37] = correctRotate.toByte()
 
-            //[81,173)
+            // [81,173)
             val customPseudoArray = customPseudoBean.toByteArray()
             System.arraycopy(customPseudoArray, 0, resultArray, 81, customPseudoArray.size)
 
@@ -186,8 +186,6 @@ class FrameStruct() {
     var distance : Float = 0f
     var radiation : Float = 0f
     var isAmplify : Boolean = false
-
-
 
     constructor(data: ByteArray): this() {
         len = (data[0].toInt() and 0xff shl 8) or (data[1].toInt() and 0xff)

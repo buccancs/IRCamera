@@ -51,7 +51,7 @@ class ImagePickFromDialog(private val context: Context) : Dialog(context, LibR.s
     }
 
     /**
-     * 设置拾取事件监听.
+     * Settings拾取事件监听.
      * 0-相册 1-可见光相机 2-热成像相机
      */
     fun setSelectListener(l: ((type: Int) -> Unit)): ImagePickFromDialog {
@@ -61,11 +61,11 @@ class ImagePickFromDialog(private val context: Context) : Dialog(context, LibR.s
 
     override fun onClick(v: View?) {
         when (v) {
-            tvGallery -> {//从相册获取
+            tvGallery -> {// 从相册获取
                 dismiss()
                 onSelectListener?.invoke(0)
             }
-            tvLightCamera -> {//相机拍照
+            tvLightCamera -> {// 相机Photo capture
                 dismiss()
                 onSelectListener?.invoke(1)
             }

@@ -81,7 +81,7 @@ class MenuTabAdapter(val context: Context) :
             com.topdon.lib.ui.R.drawable.ic_menu_thermal6003_svg,
         )
 
-    // 设置 - Using available resources as placeholders
+    // Settings - Using available resources as placeholders
     private val fourthMenus =
         arrayListOf<Int>(
             com.topdon.lib.ui.R.drawable.ic_menu_thermal7001_svg,

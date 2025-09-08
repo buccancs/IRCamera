@@ -4,7 +4,7 @@
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
- *     http://license.coscl.org.cn/MulanPSL2
+ *     http:// license.coscl.org.cn/MulanPSL2
  * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
@@ -50,7 +50,12 @@ import com.topdon.lib.ui.R;
  * @since 2017/4/12
  */
 @SuppressWarnings({"WeakerAccess", "unused"})
-public abstract class BaseDialog extends Dialog implements DialogInterface.OnShowListener, DialogInterface.OnDismissListener {
+    /**
+     * BaseDialog class.
+     *
+     * Provides basedialog functionality.
+     */
+    public abstract class BaseDialog extends Dialog implements DialogInterface.OnShowListener, DialogInterface.OnDismissListener {
     public static final int MATCH_PARENT = ViewGroup.LayoutParams.MATCH_PARENT;
     public static final int WRAP_CONTENT = ViewGroup.LayoutParams.WRAP_CONTENT;
     protected Activity activity;
@@ -72,15 +77,15 @@ public abstract class BaseDialog extends Dialog implements DialogInterface.OnSho
     private void init(Activity activity) {
         this.activity = activity;
         setOwnerActivity(activity);
-        //触摸屏幕取消窗体
+        // 触摸屏幕取消窗体
         setCanceledOnTouchOutside(false);
-        //按返回键取消窗体
+        // 按返回键取消窗体
         setCancelable(false);
         super.setOnShowListener(this);
         super.setOnDismissListener(this);
         Window window = super.getWindow();
         if (window != null) {
-            //requestFeature must be called before adding content
+            // requestFeature must be called before adding content
             window.requestFeature(Window.FEATURE_NO_TITLE);
             window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             window.setLayout(activity.getResources().getDisplayMetrics().widthPixels, WindowManager.LayoutParams.WRAP_CONTENT);
@@ -107,7 +112,7 @@ public abstract class BaseDialog extends Dialog implements DialogInterface.OnSho
 
     @CallSuper
     protected void onInit(@Nullable Bundle savedInstanceState) {
-        //noinspection deprecation
+        // noinspection deprecation
         onInit(activity, savedInstanceState);
     }
 
@@ -143,7 +148,7 @@ public abstract class BaseDialog extends Dialog implements DialogInterface.OnSho
 
     @CallSuper
     protected void initView() {
-        //noinspection deprecation
+        // noinspection deprecation
         initView(contentView);
     }
 
@@ -155,7 +160,6 @@ public abstract class BaseDialog extends Dialog implements DialogInterface.OnSho
     public final void setBackgroundColor(@ColorInt int color) {
         setBackgroundColor(CornerRound.No, color);
     }
-
 
     public final void setBackgroundColor(@CornerRound int cornerRound, @ColorInt int color) {
         setBackgroundColor(cornerRound, 20, color);
@@ -260,9 +264,9 @@ public abstract class BaseDialog extends Dialog implements DialogInterface.OnSho
             super.show();
             DialogLog.print("dialog show");
         } catch (Exception e) {
-            //...not attached to window manager
-            //...Unable to add window...is your activity running?
-            //...Activity...has leaked window...that was originally added here
+            // ...not attached to window manager
+            // ...Unable to add window...is your activity running?
+            // ...Activity...has leaked window...that was originally added here
             DialogLog.print(e);
         }
     }
@@ -277,8 +281,8 @@ public abstract class BaseDialog extends Dialog implements DialogInterface.OnSho
             super.dismiss();
             DialogLog.print("dialog dismiss");
         } catch (Exception e) {
-            //...not attached to window manager
-            //...Activity...has leaked window...that was originally added here
+            // ...not attached to window manager
+            // ...Activity...has leaked window...that was originally added here
             DialogLog.print(e);
         }
     }

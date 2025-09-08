@@ -13,7 +13,12 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.util.List;
 
-public class YAxisRendererRadarChart extends YAxisRenderer {
+    /**
+     * YAxisRendererRadarChart class.
+     *
+     * Provides yaxisrendererradarchart functionality.
+     */
+    public class YAxisRendererRadarChart extends YAxisRenderer {
 
     private RadarChart mChart;
 
@@ -207,7 +212,6 @@ public class YAxisRendererRadarChart extends YAxisRenderer {
 
             Path limitPath = mRenderLimitLinesPathBuffer;
             limitPath.reset();
-
 
             for (int j = 0; j < mChart.getData().getMaxEntryCountSet().getEntryCount(); j++) {
 

@@ -126,7 +126,7 @@ class CameraPreView :
 //                if (moveY + scaleH > parentViewH - mTextureView.height) {
 //                    moveY = parentViewH - mTextureView.height - scaleH
 //                }
-//                Log.e("测试---","/"+(moveX + scaleW)+"///"+(parentViewW - mTextureView.width))
+//                Log.e("测试---","/"+(moveX + scaleW)+"/// "+(parentViewW - mTextureView.width))
                 mTextureView.x = moveX
                 mTextureView.y = moveY
             }
@@ -134,7 +134,7 @@ class CameraPreView :
                 isScale = false // 实际以手指抬起设定缩放结束
                 val startX = viewX
                 val startY = viewY
-//                Log.e("测试","/"+(startX)+"///"+startY+"///"+(mTextureView.width)+"//"+mTextureView.width * scale)
+//                Log.e("测试","/"+(startX)+"/// "+startY+"/// "+(mTextureView.width)+"// "+mTextureView.width * scale)
                 if ((viewX < 0 && startX < -mTextureView.width * scale + SizeUtils.dp2px(10f)) ||
                     (startX > 0 && startX > parentViewW - SizeUtils.dp2px(10f)) ||
                     (startY < 0 && startY < -mTextureView.height * scale + SizeUtils.dp2px(10f)) ||
@@ -224,7 +224,7 @@ class CameraPreView :
     /**相机请求 */
     private lateinit var mCaptureBuilder: CaptureRequest.Builder
 
-    /**相机拍照捕获会话 */
+    /**相机Photo capture捕获会话 */
     private var mCameraCaptureSession: CameraCaptureSession? = null
 
     /**相机管理者 */
@@ -291,7 +291,7 @@ class CameraPreView :
 //        layoutParams.width = cameraWidth / 2
 //        mTextureView.layoutParams = layoutParams
         val surfaceTexture = mTextureView.surfaceTexture
-        // 设置默认的缓冲大小
+        // Settings默认的缓冲大小
         surfaceTexture!!.setDefaultBufferSize(mPreviewSize!!.width, mPreviewSize!!.height)
         // 创建Surface
         val previewSurface = Surface(surfaceTexture)
@@ -312,7 +312,7 @@ class CameraPreView :
                             val captureRequest = mCaptureBuilder.build()
                             // 設置session
                             mCameraCaptureSession = session
-                            // 设置重复预览请求
+                            // Settings重复预览请求
                             mCameraCaptureSession?.setRepeatingRequest(
                                 captureRequest,
                                 null,
@@ -374,7 +374,7 @@ class CameraPreView :
     }
 
     /**
-     * 设置相机参数
+     * Settings相机参数
      * @param width 宽度
      * @param height 高度
      */
@@ -397,7 +397,7 @@ class CameraPreView :
                 if (facing != null && facing == CameraCharacteristics.LENS_FACING_FRONT) continue
                 // 获取StreamConfigurationMap，管理摄像头支持的所有输出格式和尺寸
                 val map = cameraCharacteristics?.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)!!
-                // 根据TextureView的尺寸设置预览尺寸
+                // 根据TextureView的尺寸Settings预览尺寸
                 val mapList = map.getOutputSizes(SurfaceTexture::class.java)
 
                 mPreviewSize = getOptimalSize(mapList, width, height)
@@ -406,15 +406,15 @@ class CameraPreView :
                 constraintSet.constrainHeight(mTextureView.id, width * mPreviewSize!!.width / mPreviewSize!!.height)
                 constraintSet.applyTo(findViewById<ConstraintLayout>(UiR.id.camera_lay_root))
                 XLog.w("mPreviewSize:$mPreviewSize")
-                // 获取相机支持的最大拍照尺寸
+                // 获取相机支持的最大Photo capture尺寸
                 val sizes = map.getOutputSizes(ImageFormat.JPEG)
                 XLog.w("size:${sizes.toList()}")
                 val w = 1000
                 val h = w * sizes[0].height / sizes[0].width
-//                mCaptureSize = Size(w, h)//影响拍照尺寸
+//                mCaptureSize = Size(w, h)// 影响Photo capture尺寸
                 XLog.w("选取比例 w:${sizes[0].width}, h:${sizes[0].height}")
                 XLog.w("调整后 w: $w, h:$h")
-                // 此处ImageReader用于拍照所需
+                // 此处ImageReader用于Photo capture所需
 //                setupImageReader()
                 // 为摄像头赋值
                 mCameraId = cameraId
@@ -422,7 +422,7 @@ class CameraPreView :
             }
         } catch (e: CameraAccessException) {
             e.printStackTrace()
-            Log.e("123", "设置相机参数:${e.message}")
+            Log.e("123", "Settings相机参数:${e.message}")
         }
     }
 

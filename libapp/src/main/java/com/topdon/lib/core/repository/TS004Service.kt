@@ -15,7 +15,7 @@ import retrofit2.http.Url
  */
 interface TS004Service {
     /**
-     * 设置伪彩样式
+     * SettingsPseudo color样式
      */
     @POST("/api/v1/system/setPseudoColor")
     suspend fun setPseudoColor(
@@ -23,13 +23,13 @@ interface TS004Service {
     ): TS004Response<Boolean>
 
     /**
-     * 获取伪彩样式
+     * 获取Pseudo color样式
      */
     @POST("/api/v1/system/getPseudoColor")
     suspend fun getPseudoColor(): TS004Response<PseudoColorBean>
 
     /**
-     * 设置测距开关
+     * Settings测距开关
      */
     @POST("/api/v1/system/setRangeFind")
     suspend fun setRangeFind(
@@ -43,7 +43,7 @@ interface TS004Service {
     suspend fun getRangeFind(): TS004Response<RangeBean>
 
     /**
-     * 设置屏幕亮度
+     * Settings屏幕亮度
      */
     @POST("/api/v1/system/setPanelParam")
     suspend fun setPanelParam(
@@ -57,7 +57,7 @@ interface TS004Service {
     suspend fun getPanelParam(): TS004Response<BrightnessBean>
 
     /**
-     * 设置画中画
+     * Settings画中画
      */
     @POST("/api/v1/system/setPip")
     suspend fun setPip(
@@ -71,7 +71,7 @@ interface TS004Service {
     suspend fun getPip(): TS004Response<PipBean>
 
     /**
-     * 设置放大倍数
+     * Settings放大倍数
      */
     @POST("/api/v1/system/setZoom")
     suspend fun setZoom(
@@ -85,13 +85,13 @@ interface TS004Service {
     suspend fun getZoom(): TS004Response<ZoomBean>
 
     /**
-     * 设置拍照
+     * SettingsPhoto capture
      */
     @POST("/api/v1/system/snapshot")
     suspend fun setSnapshot(): TS004Response<Boolean>
 
     /**
-     * 设置录像
+     * Settings录像
      */
     @POST("/api/v1/system/vrecord")
     suspend fun setVRecord(
@@ -130,13 +130,13 @@ interface TS004Service {
     ): TS004Response<Boolean>
 
     /**
-     * 获取版本信息
+     * 获取版本message
      */
     @POST("/api/v1/system/getVersion")
     suspend fun getVersion(): TS004Response<VersionBean>
 
     /**
-     * 获取设备信息
+     * 获取设备message
      */
     @POST("/api/v1/system/getDeviceInfo")
     suspend fun getDeviceInfo(): TS004Response<DeviceInfo>
@@ -203,7 +203,7 @@ interface TS004Service {
     suspend fun getUpgradeStatus(): TS004Response<UpgradeStatus>
 
     /**
-     * 获取存储分区信息
+     * 获取存储分区message
      */
     @POST("/api/v1/system/getFreeSpace")
     suspend fun freeSpace(): TS004Response<FreeSpaceBean>
@@ -215,13 +215,13 @@ interface TS004Service {
     suspend fun formatStorage(): TS004Response<Boolean>
 
     /**
-     * 恢复出厂设置
+     * 恢复出厂Settings
      */
     @POST("/api/v1/system/resetAll")
     suspend fun resetAll(): TS004Response<Boolean>
 
     /**
-     * 设置超分
+     * Settings超分
      */
     @POST("/api/v1/system/setTISR")
     suspend fun setTISR(

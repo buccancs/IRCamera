@@ -5,12 +5,22 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.widget.HorizontalScrollView;
 
-public class DetectHorizontalScrollView extends HorizontalScrollView {
+    /**
+     * DetectHorizontalScrollView class.
+     *
+     * Provides detecthorizontalscrollview functionality.
+     */
+    public class DetectHorizontalScrollView extends HorizontalScrollView {
     private Runnable scrollerTask;
     private int intitPosition;
     private int newCheck = 100;
     private int childWidth = 0;
 
+        /**
+     * OnScrollStopListner class.
+     *
+     * Provides onscrollstoplistner functionality.
+     */
     public interface OnScrollStopListner {
         /**
          * scroll have stoped

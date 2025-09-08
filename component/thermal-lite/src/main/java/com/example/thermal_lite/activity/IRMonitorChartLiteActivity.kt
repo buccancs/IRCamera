@@ -50,7 +50,7 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
     private lateinit var binding: ActivityIrMonitorChartLiteBinding
     
     /**
-     * 从上一界面传递过来的，当前选中的 点/线/面 信息.
+     * 从上一界面传递过来的，当前选中的 点/线/面 message.
      */
     private var selectBean: SelectPositionBean = SelectPositionBean()
 
@@ -60,7 +60,6 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
     protected var tau_data_L: ByteArray? = null
 
     override fun initContentView() = R.layout.activity_ir_monitor_chart_lite
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,7 +80,7 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
             irMonitorLiteFragment?.arguments = args
             supportFragmentManager.beginTransaction().add(R.id.thermal_lay, irMonitorLiteFragment!!).commit()
             delay(1000)
-            recordThermal()//开始记录
+            recordThermal()// 开始记录
         }
     }
 
@@ -149,7 +148,7 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
                         bean.maxTemp = maxBigDecimal.setScale(1, RoundingMode.HALF_UP).toFloat()
                         bean.minTemp = minBigDecimal.setScale(1, RoundingMode.HALF_UP).toFloat()
                         bean.createTime = System.currentTimeMillis()
-                        canUpdate = true//可以开始更新记录
+                        canUpdate = true// 可以开始更新记录
                     }
                 }
             }
@@ -164,15 +163,13 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
     override fun onResume() {
         super.onResume()
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        binding.mpChartView.highlightValue(null) //关闭高亮点Marker
+        binding.mpChartView.highlightValue(null) // 关闭高亮点Marker
     }
 
     override fun onPause() {
         super.onPause()
         window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }
-
-
 
     override fun onDestroy() {
         super.onDestroy()
@@ -185,7 +182,7 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
     }
 
     private var isRecord = false
-    private var timeMillis = 1000L //间隔1s
+    private var timeMillis = 1000L // 间隔1s
     private var canUpdate = false
 
     private var recordJob: Job? = null
@@ -235,21 +232,19 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
     fun cameraEvent(event: DeviceCameraEvent) {
         when (event.action) {
             100 -> {
-                //准备图像
+                // 准备图像
                 showCameraLoading()
             }
             101 -> {
-                //显示图像
+                // 显示图像
                 dismissCameraLoading()
             }
         }
     }
 
-
     var config : DataBean ?= null
     val basicGainGetValue = IntArray(1)
     var basicGainGetTime = 0L
-
 
     override fun tempCorrectByTs(temp: Float?): Float {
         var tempNew = temp
@@ -264,7 +259,7 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
                 return temp!!
             }
 
-            //获取增益状态 PASS
+            // 获取增益状态 PASS
             if (System.currentTimeMillis() - basicGainGetTime > 5000L){
                 try {
                     val basicGainGet: IrcmdError? = DeviceIrcmdControlManager.getInstance().getIrcmdEngine()

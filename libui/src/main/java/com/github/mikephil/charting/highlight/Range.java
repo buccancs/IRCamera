@@ -14,13 +14,13 @@ public final class Range {
 		this.to = to;
 	}
 
-	/**
-	 * Returns true if this range contains (if the value is in between) the given value, false if not.
-	 * 
-	 * @param value
-	 * @return
-	 */
-	public boolean contains(float value) {
+	    /**
+     * Returns true if this range contains (if the value is in between) the given value, false if not.
+     *
+     * @param value
+     * @return
+     */
+    public boolean contains(float value) {
 
 		if (value > from && value <= to)
 			return true;

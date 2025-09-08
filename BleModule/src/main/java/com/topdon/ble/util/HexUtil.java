@@ -45,7 +45,7 @@ public class HexUtil {
         return sb.toString();
     }
 
-    /**
+        /**
      * 进16进制字符串转换成字节数组
      *
      * @param hexStr 16进制的字符串
@@ -107,7 +107,7 @@ public class HexUtil {
         return ret;
     }
 
-    /**
+        /**
      * hex转byte数组
      *
      * @param hex
@@ -144,14 +144,14 @@ public class HexUtil {
         }
         try {
             in = new FileInputStream(file);
-            long inSize = in.getChannel().size();//判断FileInputStream中是否有内容
+            long inSize = in.getChannel().size();// 判断FileInputStream中是否有内容
             if (inSize == 0) {
                 Log.d("bcf", "The FileInputStream has no content!");
                 return null;
             }
 
-            byte[] buffer = new byte[in.available()];//in.available() 表示要读取的文件中的数据长度
-            in.read(buffer);  //将文件中的数据读到buffer中
+            byte[] buffer = new byte[in.available()];// in.available() 表示要读取的文件中的数据长度
+            in.read(buffer);  // 将文件中的数据读到buffer中
             return buffer;
         } catch (FileNotFoundException e) {
             e.printStackTrace();

@@ -52,7 +52,7 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
 
     override fun initContentView() = R.layout.fragment_ir_monitor_thermal
 
-    private var rotateAngle = 270 //校对默认角度270
+    private var rotateAngle = 270 // 校对默认角度270
 
     override fun initView() {
         requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
@@ -117,7 +117,7 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
         setViewLay()
         // 某些特定客户的特殊设备需要使用该命令关闭sensor
         if (Usbcontorl.isload) {
-            Usbcontorl.usb3803_mode_setting(1) //打开5V
+            Usbcontorl.usb3803_mode_setting(1) // 打开5V
             Log.w("123", "打开5V")
         }
         temperatureView.clear()
@@ -201,7 +201,7 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
         super.onStart()
         Log.w(TAG, "onStart")
         if (!isrun) {
-            //初始配置,伪彩铁红
+            // 初始配置,Pseudo color铁红
             temperatureView.postDelayed({
                 pseudocolorMode = 3
                 startUSB(false)
@@ -209,7 +209,7 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
                 temperatureView.start()
                 cameraView?.start()
                 isrun = true
-                //恢复配置
+                // 恢复配置
                 configParam()
             },1500)
         }
@@ -272,11 +272,11 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
     fun cameraEvent(event: DeviceCameraEvent) {
         when (event.action) {
             100 -> {
-                //准备图像
+                // 准备图像
                 showLoadingDialog()
             }
             101 -> {
-                //显示图像
+                // 显示图像
                 lifecycleScope.launch {
                     delay(500)
                     isConfigWait = false
@@ -289,7 +289,7 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
 
     private var isConfigWait = true
 
-    //配置
+    // 配置
     private fun configParam() {
         lifecycleScope.launch {
             isConfigWait = true
@@ -297,18 +297,18 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
                 delay(100)
             }
             val config = ConfigRepository.readConfig(false)
-            val disChar = (config.distance * 128).toInt() //距离(米)
-            val emsChar = (config.radiation * 128).toInt() //发射率
-            XLog.w("设置TPD_PROP DISTANCE:${disChar}, EMS:${emsChar}}")
+            val disChar = (config.distance * 128).toInt() // 距离(米)
+            val emsChar = (config.radiation * 128).toInt() // 发射率
+            XLog.w("SettingsTPD_PROP DISTANCE:${disChar}, EMS:${emsChar}}")
             val timeMillis = 250L
             delay(timeMillis)
-            //发射率
+            // 发射率
             ircmd?.setPropTPDParams(
                 CommonParams.PropTPDParams.TPD_PROP_EMS,
                 CommonParams.PropTPDParamsValue.NumberType(emsChar.toString())
             )
             delay(timeMillis)
-            //距离
+            // 距离
             ircmd?.setPropTPDParams(
                 CommonParams.PropTPDParams.TPD_PROP_DISTANCE,
                 CommonParams.PropTPDParamsValue.NumberType(disChar.toString())
@@ -350,7 +350,7 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
                     }
                 }
             }
-            //复位对比度、细节
+            // 复位对比度、细节
             delay(timeMillis)
             ircmd?.setPropImageParams(
                 CommonParams.PropImageParams.IMAGE_PROP_LEVEL_CONTRAST,
@@ -368,7 +368,6 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
             )
         }
     }
-
 
     suspend fun autoStart() {
         withContext(Dispatchers.IO){

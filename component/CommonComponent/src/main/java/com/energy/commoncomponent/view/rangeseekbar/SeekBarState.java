@@ -1,8 +1,13 @@
 package com.energy.commoncomponent.view.rangeseekbar;
 
-public class SeekBarState {
+    /**
+     * SeekBarState class.
+     *
+     * Provides seekbarstate functionality.
+     */
+    public class SeekBarState {
     public String indicatorText;
-    public float value; //now progress value
+    public float value; // now progress value
     public boolean isMin;
     public boolean isMax;
 

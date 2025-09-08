@@ -98,7 +98,6 @@ object Logger {
         }
     }
 
-
     private val MYLOG_PATH_SDCARD_DIR = "/sdcard/Guide/log" // 日志文件在sdcard中的路径
 
     private val MYLOGFILEName = "Log.txt" // 本类输出的日志文件名称

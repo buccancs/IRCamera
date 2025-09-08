@@ -17,10 +17,10 @@ import com.energy.iruvc.utils.SynchronizedBitmap;
 import com.infisense.usbdual.Const;
 import com.infisense.usbir.utils.OpencvTools;
 
-/**
- * 红外图像展示控件，可以为TextureView或SurfaceView
- */
-public class CameraView extends TextureView {
+    /**
+     * 红外图像展示控件，可以为TextureView或SurfaceView
+     */
+    public class CameraView extends TextureView {
     private String TAG = "CameraView";
     private Bitmap bitmap;
     private SynchronizedBitmap syncimage;
@@ -36,13 +36,12 @@ public class CameraView extends TextureView {
      * 帧率展示
      */
     private Paint greenPaint;
-    private boolean drawLine = true;//是否画中心十字架
+    private boolean drawLine = true;// 是否画中心十字架
     public int productType = Const.TYPE_IR;
     private int irWidth = 192;
     private int irHeight = 256;
 
     private boolean isOpenAmplify = false;
-
 
     public boolean isOpenAmplify() {
         return isOpenAmplify;
@@ -65,7 +64,7 @@ public class CameraView extends TextureView {
         this(context, attrs, 0);
     }
 
-    /**
+        /**
      * @param context
      * @param attrs
      * @param defStyleAttr
@@ -73,13 +72,13 @@ public class CameraView extends TextureView {
     public CameraView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         //
-        paint = new Paint();  //画笔
+        paint = new Paint();  // 画笔
         paint = new Paint(Paint.FILTER_BITMAP_FLAG);
-//        paint = new Paint();  //画笔
-        paint.setStrokeWidth(2);  //设置线宽。单位为像素
-        paint.setAntiAlias(true); //抗锯齿
-        paint.setDither(true);    //防抖动
-        paint.setColor(Color.WHITE);  //画笔颜色
+//        paint = new Paint();  // 画笔
+        paint.setStrokeWidth(2);  // Settings线宽。单位为像素
+        paint.setAntiAlias(true); // 抗锯齿
+        paint.setDither(true);    // 防抖动
+        paint.setColor(Color.WHITE);  // 画笔颜色
         //
         greenPaint = new Paint();
         greenPaint.setStrokeWidth(6);
@@ -107,10 +106,10 @@ public class CameraView extends TextureView {
                                 continue;
                             }
                             // 画面中心的十字交叉线绘制
-                            paint.setStrokeWidth(2);  //设置线宽。单位为像素
-                            paint.setAntiAlias(true); //抗锯齿
-                            paint.setDither(true);    //防抖动
-                            paint.setColor(Color.WHITE);  //画笔颜色
+                            paint.setStrokeWidth(2);  // Settings线宽。单位为像素
+                            paint.setAntiAlias(true); // 抗锯齿
+                            paint.setDither(true);    // 防抖动
+                            paint.setColor(Color.WHITE);  // 画笔颜色
                             /**
                              * 图片缩放，这里简单的使用getWidth()作为宽，getHeight()作为高，可能会出现画面拉伸情况，
                              * 实际使用的时候请参考设备的宽高按照设备的图像尺寸做等比例缩放
@@ -147,7 +146,7 @@ public class CameraView extends TextureView {
         this.drawLine = drawLine;
     }
 
-    /**
+        /**
      * @param bitmap
      */
     public void setBitmap(Bitmap bitmap) {
@@ -160,7 +159,7 @@ public class CameraView extends TextureView {
         return bitmap;
     }
 
-    /**
+        /**
      * @param syncimage
      */
     public void setSyncimage(SynchronizedBitmap syncimage) {
@@ -175,7 +174,7 @@ public class CameraView extends TextureView {
             return sBitmap;
         }
     }
-    /**
+        /**
      *
      */
     public void start() {
@@ -194,8 +193,7 @@ public class CameraView extends TextureView {
         }
     }
 
-
-    /**
+        /**
      *
      */
     public void stop() {
@@ -209,7 +207,4 @@ public class CameraView extends TextureView {
         }
     }
 }
-
-
-
 

@@ -126,10 +126,10 @@ internal class HouseAdapter(val context: Context, val isDetect: Boolean) : Recyc
                 if (isEditMode) {
                     val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
-                        if (selectIndexList.contains(position)) {//选中->未选中
+                        if (selectIndexList.contains(position)) {// 选中->未选中
                             selectIndexList.remove(position)
                             ivSelect.isSelected = false
-                        } else {//未选中->选中
+                        } else {// 未选中->选中
                             selectIndexList.add(position)
                             ivSelect.isSelected = true
                         }
@@ -144,7 +144,7 @@ internal class HouseAdapter(val context: Context, val isDetect: Boolean) : Recyc
             }
             if (!isDetect) {
                 tvDetectShare.setOnClickListener {
-                    if (!isEditMode) {//编辑模式不响应分享事件
+                    if (!isEditMode) {// 编辑模式不响应分享事件
                         val position = bindingAdapterPosition
                         if (position != RecyclerView.NO_POSITION) {
                             onShareClickListener?.invoke(position)

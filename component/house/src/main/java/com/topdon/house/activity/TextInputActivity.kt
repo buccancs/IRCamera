@@ -67,7 +67,7 @@ class TextInputActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v) {
             ivExit -> finish()
-            ivSave -> {//保存
+            ivSave -> {// 保存
                 val intent = Intent()
                 intent.putExtra(ExtraKeyConfig.RESULT_INPUT_TEXT, etInput.text.toString())
                 setResult(RESULT_OK, intent)

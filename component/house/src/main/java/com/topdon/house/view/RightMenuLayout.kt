@@ -29,7 +29,6 @@ class RightMenuLayout : ConstraintLayout {
         private var currentOpenView: RightMenuLayout? = null
     }
 
-
     /**
      * 触发展开收起时使用的 Scroller
      */
@@ -43,7 +42,6 @@ class RightMenuLayout : ConstraintLayout {
      */
     private var autoPercent: Float = DEFAULT_AUTO_PERCENT
 
-
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -52,7 +50,6 @@ class RightMenuLayout : ConstraintLayout {
         scroller = Scroller(context)
         scaledTouchSlop = ViewConfiguration.get(context).scaledTouchSlop
     }
-
 
     /**
      * 菜单即常规状态下不可见部分的宽度，单位 px
@@ -127,19 +124,19 @@ class RightMenuLayout : ConstraintLayout {
             }
             MotionEvent.ACTION_CANCEL, MotionEvent.ACTION_UP -> {
                 if (abs(currentX - downX) < scaledTouchSlop) {
-                    //搞了半天相当于什么都没动，原来什么状态就保持什么状态
+                    // 搞了半天相当于什么都没动，原来什么状态就保持什么状态
                     if (scrollX != 0 && scrollX != menuWidth) {
                         scroller.startScroll(scrollX, 0, if (scrollX > 0) menuWidth - scrollX else -scrollX, 0)
                         invalidate()
                     }
                 } else {
-                    if (currentX > downX) {//从左往右滑，关闭 →→
+                    if (currentX > downX) {// 从左往右滑，关闭 →→
                         if (currentOpenView === this) {
                             currentOpenView = null
                         }
                         scroller.startScroll(scrollX, 0, -scrollX, 0)
-                    } else {//从右往左滑，展开 ←←
-                        if ((downX - currentX) < (menuWidth * autoPercent).toInt()) {//滑动的距离不够，恢复收起状态
+                    } else {// 从右往左滑，展开 ←←
+                        if ((downX - currentX) < (menuWidth * autoPercent).toInt()) {// 滑动的距离不够，恢复收起状态
                             if (currentOpenView === this) {
                                 currentOpenView = null
                             }

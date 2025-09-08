@@ -1,6 +1,5 @@
 package com.topdon.ble;
 
-
 import com.topdon.ble.callback.WriteCharacteristicCallback;
 
 /**
@@ -30,8 +29,8 @@ public final class WriteCharacteristicBuilder extends RequestBuilder<WriteCharac
         return this;
     }
 
-    /**
-     * 设置此次请求的写入设置
+        /**
+     * Settings此次请求的写入Settings
      */
     public WriteCharacteristicBuilder setWriteOptions(WriteOptions writeOptions) {
         this.writeOptions = writeOptions;

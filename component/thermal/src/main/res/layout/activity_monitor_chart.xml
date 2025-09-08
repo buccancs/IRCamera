@@ -121,7 +121,7 @@
             android:id="@+id/monitor_chart_setting_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="设置间隔"
+            android:text="Settings间隔"
             android:textColor="@color/font_color"
             android:textSize="@dimen/app_font"
             app:layout_constraintEnd_toEndOf="parent"

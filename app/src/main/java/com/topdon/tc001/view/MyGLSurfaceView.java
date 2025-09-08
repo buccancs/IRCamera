@@ -10,7 +10,12 @@ import android.opengl.GLSurfaceView;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-public class MyGLSurfaceView extends GLSurfaceView {
+    /**
+     * MyGLSurfaceView class.
+     *
+     * Provides myglsurfaceview functionality.
+     */
+    public class MyGLSurfaceView extends GLSurfaceView {
     private MyRenderer renderer;
 
     public MyGLSurfaceView(Context context) {
@@ -20,17 +25,22 @@ public class MyGLSurfaceView extends GLSurfaceView {
         setRenderer(renderer);
     }
 
-    private class MyRenderer implements GLSurfaceView.Renderer {
+    /**
+ * MyRenderer class.
+ * 
+ * Provides myrenderer functionality.
+ */
+private class MyRenderer implements GLSurfaceView.Renderer {
         @Override
         public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
-            // 初始化OpenGL环境，设置背景色等
+            // 初始化OpenGL环境，Settings背景色等
             GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
             // 其他初始化操作...
         }
 
         @Override
         public void onSurfaceChanged(GL10 gl10, int width, int height) {
-            // 处理窗口大小变化，设置视口和投影矩阵
+            // 处理窗口大小变化，Settings视口和投影矩阵
             GLES20.glViewport(0, 0, width, height);
             // 其他处理...
         }

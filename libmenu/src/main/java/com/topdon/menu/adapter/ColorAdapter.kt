@@ -7,7 +7,7 @@ import com.topdon.menu.view.ColorView
 import com.topdon.menu.util.PseudoColorConfig
 
 /**
- * 测温模式-菜单3-伪彩/观测模式-菜单4-伪彩 所用 Adapter，只支持单选.
+ * Temperature measurement mode-菜单3-Pseudo color/Observation mode-菜单4-Pseudo color 所用 Adapter，只支持单选.
  *
  * Created by LCG on 2024/11/12.
  */
@@ -15,7 +15,7 @@ import com.topdon.menu.util.PseudoColorConfig
 internal class ColorAdapter : RecyclerView.Adapter<ColorAdapter.ViewHolder>() {
 
     /**
-     * 当前选中的伪彩代号.
+     * 当前选中的Pseudo color代号.
      */
     var selectCode = -1
         set(value) {
@@ -26,22 +26,20 @@ internal class ColorAdapter : RecyclerView.Adapter<ColorAdapter.ViewHolder>() {
         }
     /**
      * 选中变更事件监听.
-     * index-选中伪彩在列表中的 index，也就 TC007 要用
-     * code-伪彩代号，由于历史遗留（2D编辑的数据、保存设置开关的伪彩）没法改了
-     * size-预设伪彩数量，也就 TC007 要用
+     * index-选中Pseudo color在列表中的 index，也就 TC007 要用
+     * code-Pseudo color代号，由于历史遗留（2D编辑的数据、保存Settings开关的Pseudo color）没法改了
+     * size-预设Pseudo color数量，也就 TC007 要用
      */
     var onColorListener: ((index: Int, code: Int, size: Int) -> Unit)? = null
 
-
     /**
-     * 这里的 code 来源不详，由于历史遗留（2D编辑的数据、保存设置开关的伪彩都按这个保存）没法改了
+     * 这里的 code 来源不详，由于历史遗留（2D编辑的数据、保存Settings开关的Pseudo color都按这个保存）没法改了
      * 1-白热 3-铁红 4-彩虹1 5-彩虹2 6-彩虹3 7-红热 8-热铁 9-彩虹4 10-彩虹5 11-黑热
      */
     private val colorCodeArray: IntArray = intArrayOf(1, 3, 4, 5, 6, 7, 8, 9, 10, 11)
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        //按照UI图，宽度与屏幕宽度比例为 62:375
+        // 按照UI图，宽度与屏幕宽度比例为 62:375
         val width: Int = (parent.context.resources.displayMetrics.widthPixels * 62f / 375).toInt()
         val colorView = ColorView(parent.context)
         colorView.layoutParams = ViewGroup.LayoutParams(width, ViewGroup.LayoutParams.WRAP_CONTENT)

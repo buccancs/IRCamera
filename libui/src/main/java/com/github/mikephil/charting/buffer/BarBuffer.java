@@ -4,7 +4,12 @@ package com.github.mikephil.charting.buffer;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 
-public class BarBuffer extends AbstractBuffer<IBarDataSet> {
+    /**
+     * BarBuffer class.
+     *
+     * Provides barbuffer functionality.
+     */
+    public class BarBuffer extends AbstractBuffer<IBarDataSet> {
 
     protected int mDataSetIndex = 0;
     protected int mDataSetCount = 1;

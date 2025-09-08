@@ -5,8 +5,13 @@ import com.infisense.usbdual.Const;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class IFrameData {
     /**
+     * IFrameData class.
+     *
+     * Provides iframedata functionality.
+     */
+    public class IFrameData {
+        /**
      * 融合图像数据长度，ARGB，故值为：
      * 融合图像输出宽度 x 融合图像输出高度 x 4.
      */
@@ -38,8 +43,6 @@ public class IFrameData {
      */
     public static int FRAME_LEN = FUSION_LEN + ORIGINAL_LEN + ORIGINAL_LEN + REMAP_TEMP_LEN + LIGHT_LEN + P_IN_P_LEN;
 
-
-
     /**
      * 将指定帧数据中 ARGB <b>融合图像数据</b> 复制到指定数组中.
      */
@@ -47,7 +50,7 @@ public class IFrameData {
         if (fusionData == null) {
             fusionData = new byte[FUSION_LEN];
         }
-        System.arraycopy(frame, 0, fusionData, 0, fusionData.length);   //融合图像数据，ARGB
+        System.arraycopy(frame, 0, fusionData, 0, fusionData.length);   // 融合图像数据，ARGB
         return fusionData;
     }
 
@@ -58,7 +61,7 @@ public class IFrameData {
         if (irData == null) {
             irData = new byte[ORIGINAL_LEN];
         }
-        System.arraycopy(frame, FUSION_LEN, irData, 0, irData.length); //原始红外数据，YUV-Y16
+        System.arraycopy(frame, FUSION_LEN, irData, 0, irData.length); // 原始红外数据，YUV-Y16
         return irData;
     }
 
@@ -69,7 +72,7 @@ public class IFrameData {
         if (norTempData == null) {
             norTempData = new byte[ORIGINAL_LEN];
         }
-        System.arraycopy(frame, FUSION_LEN + ORIGINAL_LEN, norTempData, 0, norTempData.length); //原始温度数据，YUV-Y16
+        System.arraycopy(frame, FUSION_LEN + ORIGINAL_LEN, norTempData, 0, norTempData.length); // 原始温度数据，YUV-Y16
         return norTempData;
     }
 
@@ -80,7 +83,7 @@ public class IFrameData {
         if (remapTempData == null) {
             remapTempData = new byte[REMAP_TEMP_LEN];
         }
-        System.arraycopy(frame, FUSION_LEN + ORIGINAL_LEN + ORIGINAL_LEN, remapTempData, 0, remapTempData.length); //缩放温度数据，YUV-422
+        System.arraycopy(frame, FUSION_LEN + ORIGINAL_LEN + ORIGINAL_LEN, remapTempData, 0, remapTempData.length); // 缩放温度数据，YUV-422
         return remapTempData;
     }
 }

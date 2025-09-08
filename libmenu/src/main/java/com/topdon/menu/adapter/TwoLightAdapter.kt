@@ -9,19 +9,19 @@ import com.topdon.menu.constant.MenuType
 import com.topdon.menu.constant.TwoLightType
 
 /**
- * 测温模式-菜单3-双光 菜单所用 Adapter.
+ * Temperature measurement mode-菜单3-Dual light 菜单所用 Adapter.
  *
  * - 单光：  画中画、融合度
  * - Lite： 画中画、融合度
- * - 双光：  双光1、双光2、红外、可见光、配准、画中画、融合度
- * - TC007：双光、红外、可见光、配准、画中画、融合度
+ * - Dual light：  Dual light1、Dual light2、红外、可见光、配准、画中画、融合度
+ * - TC007：Dual light、红外、可见光、配准、画中画、融合度
  * - 2D编辑：无该菜单
  *
  * 单光、Lite：画中画、融合度 独立可选
  *
- * 双光：双光1、双光2、红外、可见光 互斥； 配准、画中画、融合度 独立可选
+ * Dual light：Dual light1、Dual light2、红外、可见光 互斥； 配准、画中画、融合度 独立可选
  *
- * TC007：双光、红外、可见光、画中画 互斥；配准、融合度 独立可选
+ * TC007：Dual light、红外、可见光、画中画 互斥；配准、融合度 独立可选
  *
  * Created by LCG on 2024/11/20.
  */
@@ -29,16 +29,16 @@ import com.topdon.menu.constant.TwoLightType
 internal class TwoLightAdapter(private val menuType: MenuType) : BaseMenuAdapter() {
 
     /**
-     * 双光菜单点击事件监听。
+     * Dual light菜单点击事件监听。
      */
     var onTwoLightListener: ((twoLightType: TwoLightType, isSelected: Boolean) -> Unit)? = null
 
     /**
-     * 当前单选的双光类型
+     * 当前单选的Dual light类型
      * - 单光：  不应该使用这个属性
      * - Lite： 不应该使用这个属性
-     * - 双光：  双光1、双光2、红外、可见光
-     * - TC007：双光、红外、可见光、画中画
+     * - Dual light：  Dual light1、Dual light2、红外、可见光
+     * - TC007：Dual light、红外、可见光、画中画
      */
     var twoLightType: TwoLightType
         get() {
@@ -59,7 +59,7 @@ internal class TwoLightAdapter(private val menuType: MenuType) : BaseMenuAdapter
             for (data in dataList) {
                 if (data.isSingle) {
                     if (menuType == MenuType.TC007 && value == TwoLightType.TWO_LIGHT_1) {
-                        //TC007 时无论双光1还是双光2都视为双光
+                        // TC007 时无论Dual light1还是Dual light2都视为Dual light
                         data.isSelected = data.twoLightType == TwoLightType.TWO_LIGHT_2
                     } else {
                         data.isSelected = data.twoLightType == value
@@ -70,20 +70,20 @@ internal class TwoLightAdapter(private val menuType: MenuType) : BaseMenuAdapter
         }
 
     /**
-     * 设置多选状态
+     * Settings多选状态
      * - 单光：  画中画、融合度
      * - Lite： 画中画、融合度
-     * - 双光：  配准、画中画、融合度
+     * - Dual light：  配准、画中画、融合度
      * - TC007：配准、、融合度
      */
     fun setSelected(twoLightType: TwoLightType, isSelected: Boolean) {
-        if (twoLightType == TwoLightType.TWO_LIGHT_1 || twoLightType == TwoLightType.TWO_LIGHT_2) {//双光1、双光2
+        if (twoLightType == TwoLightType.TWO_LIGHT_1 || twoLightType == TwoLightType.TWO_LIGHT_2) {// Dual light1、Dual light2
             return
         }
-        if (twoLightType == TwoLightType.IR || twoLightType == TwoLightType.LIGHT) {//单红外、可见光
+        if (twoLightType == TwoLightType.IR || twoLightType == TwoLightType.LIGHT) {// 单红外、可见光
             return
         }
-        if (menuType == MenuType.TC007 && twoLightType == TwoLightType.P_IN_P) {//TC007 时的画中画
+        if (menuType == MenuType.TC007 && twoLightType == TwoLightType.P_IN_P) {// TC007 时的画中画
             return
         }
         for (data in dataList) {
@@ -93,8 +93,6 @@ internal class TwoLightAdapter(private val menuType: MenuType) : BaseMenuAdapter
         }
         notifyDataSetChanged()
     }
-
-
 
     private val dataList: ArrayList<Data> = ArrayList(7)
 
@@ -121,12 +119,12 @@ internal class TwoLightAdapter(private val menuType: MenuType) : BaseMenuAdapter
         holder.binding.ivIcon.isSelected = data.isSelected
         holder.binding.tvText.isSelected = data.isSelected
         holder.binding.clRoot.setOnClickListener {
-            if (data.isSingle) {//单选
-                if (!data.isSelected) {//单选的情况下重复点击忽略掉
+            if (data.isSingle) {// 单选
+                if (!data.isSelected) {// 单选的情况下重复点击忽略掉
                     twoLightType = data.twoLightType
                     onTwoLightListener?.invoke(data.twoLightType, true)
                 }
-            } else {//多选
+            } else {// 多选
                 data.isSelected = !data.isSelected
                 holder.binding.ivIcon.isSelected = data.isSelected
                 holder.binding.tvText.isSelected = data.isSelected

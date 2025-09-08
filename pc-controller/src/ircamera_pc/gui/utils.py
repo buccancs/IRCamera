@@ -112,22 +112,22 @@ def apply_theme(app, theme_name: str = "default"):
         # Dark theme stylesheet
         dark_style = """
         QMainWindow {
-            background-color: #2d2d2d;
-            color: #ffffff;
+            background-color: # 2d2d2d;
+            color: # ffffff;
         }
 
         QWidget {
-            background-color: #2d2d2d;
-            color: #ffffff;
+            background-color: # 2d2d2d;
+            color: # ffffff;
         }
 
         QGroupBox {
             font-weight: bold;
-            border: 2px solid #555555;
+            border: 2px solid # 555555;
             border-radius: 5px;
             margin-top: 1ex;
             padding-top: 10px;
-            color: #ffffff;
+            color: # ffffff;
         }
 
         QGroupBox::title {
@@ -137,92 +137,92 @@ def apply_theme(app, theme_name: str = "default"):
         }
 
         QPushButton {
-            background-color: #404040;
-            border: 1px solid #666666;
+            background-color: # 404040;
+            border: 1px solid # 666666;
             border-radius: 3px;
             padding: 6px;
             min-width: 80px;
-            color: #ffffff;
+            color: # ffffff;
         }
 
         QPushButton:hover {
-            background-color: #4a4a4a;
+            background-color: # 4a4a4a;
         }
 
         QPushButton:pressed {
-            background-color: #353535;
+            background-color: # 353535;
         }
 
         QPushButton:disabled {
-            color: #888888;
-            background-color: #2d2d2d;
+            color: # 888888;
+            background-color: # 2d2d2d;
         }
 
         QPushButton.primary {
-            background-color: #0078d4;
+            background-color: # 0078d4;
             color: white;
             font-weight: bold;
         }
 
         QPushButton.primary:hover {
-            background-color: #106ebe;
+            background-color: # 106ebe;
         }
 
         QPushButton.primary:pressed {
-            background-color: #005a9e;
+            background-color: # 005a9e;
         }
 
         QPushButton.danger {
-            background-color: #d13438;
+            background-color: # d13438;
             color: white;
             font-weight: bold;
         }
 
         QPushButton.danger:hover {
-            background-color: #c4292e;
+            background-color: # c4292e;
         }
 
         QPushButton.danger:pressed {
-            background-color: #a01e22;
+            background-color: # a01e22;
         }
 
         QListWidget {
-            border: 1px solid #555555;
+            border: 1px solid # 555555;
             border-radius: 3px;
-            background-color: #353535;
-            color: #ffffff;
+            background-color: # 353535;
+            color: # ffffff;
         }
 
         QListWidget::item {
             padding: 8px;
-            border-bottom: 1px solid #555555;
+            border-bottom: 1px solid # 555555;
         }
 
         QListWidget::item:selected {
-            background-color: #0078d4;
+            background-color: # 0078d4;
             color: white;
         }
 
         QTextEdit {
-            border: 1px solid #555555;
+            border: 1px solid # 555555;
             border-radius: 3px;
-            background-color: #353535;
-            color: #ffffff;
+            background-color: # 353535;
+            color: # ffffff;
         }
 
         QLabel {
-            color: #ffffff;
+            color: # ffffff;
         }
 
         QStatusBar {
-            border-top: 1px solid #555555;
-            background-color: #404040;
-            color: #ffffff;
+            border-top: 1px solid # 555555;
+            background-color: # 404040;
+            color: # ffffff;
         }
 
         QFrame {
-            border: 1px solid #555555;
-            background-color: #353535;
+            border: 1px solid # 555555;
+            background-color: # 353535;
         }
         """
 

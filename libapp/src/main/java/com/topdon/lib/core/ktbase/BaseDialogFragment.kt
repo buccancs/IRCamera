@@ -55,7 +55,7 @@ abstract class BaseDialogFragment<B : ViewDataBinding> : AppCompatDialogFragment
         }
 
     /**
-     * 子类可重写该方法，执行 onCreateDialog 阶段创建 Dialog 后的相关设置.
+     * 子类可重写该方法，执行 onCreateDialog 阶段创建 Dialog 后的相关Settings.
      */
     protected open fun afterDialogCreate(layoutParams: WindowManager.LayoutParams) {
     }

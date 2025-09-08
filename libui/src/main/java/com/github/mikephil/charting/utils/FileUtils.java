@@ -18,19 +18,19 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Utilities class for interacting with the assets and the devices storage to
- * load and save DataSet objects from and to .txt files.
- * 
- * @author Philipp Jahoda
- */
-public class FileUtils {
+    /**
+     * Utilities class for interacting with the assets and the devices storage to
+     * load and save DataSet objects from and to .txt files.
+     *
+     * @author Philipp Jahoda
+     */
+    public class FileUtils {
 
     private static final String LOG = "MPChart-FileUtils";
 
-    /**
+        /**
      * Loads a an Array of Entries from a textfile from the sd-card.
-     * 
+     *
      * @param path the name of the file on the sd-card (+ path if needed)
      * @return
      */
@@ -92,16 +92,16 @@ public class FileUtils {
         // Integer.parseInt(split[1])));
         // }
         // } catch (IOException e) {
-        // Log.e(LOG, e.toString());
+        );
         // }
         //
         // DataSet ds = new DataSet(entries, label);
         // return ds;
     }
 
-    /**
+        /**
      * Loads an array of Entries from a textfile from the assets folder.
-     * 
+     *
      * @param am
      * @param path the name of the file in the assets folder (+ path if needed)
      * @return
@@ -171,7 +171,7 @@ public class FileUtils {
         // line = reader.readLine();
         // }
         // } catch (IOException e) {
-        // Log.e(LOG, e.toString());
+        );
         //
         // } finally {
         //
@@ -179,7 +179,7 @@ public class FileUtils {
         // try {
         // reader.close();
         // } catch (IOException e) {
-        // Log.e(LOG, e.toString());
+        );
         // }
         // }
         // }
@@ -188,9 +188,9 @@ public class FileUtils {
         // return ds;
     }
 
-    /**
+        /**
      * Saves an Array of Entries to the specified location on the sdcard
-     * 
+     *
      * @param entries
      * @param path
      */
@@ -282,7 +282,7 @@ public class FileUtils {
         // line = reader.readLine();
         // }
         // } catch (IOException e) {
-        // Log.e(LOG, e.toString());
+        );
         //
         // } finally {
         //
@@ -290,7 +290,7 @@ public class FileUtils {
         // try {
         // reader.close();
         // } catch (IOException e) {
-        // Log.e(LOG, e.toString());
+        );
         // }
         // }
         // }

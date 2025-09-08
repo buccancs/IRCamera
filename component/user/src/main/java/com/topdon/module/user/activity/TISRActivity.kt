@@ -18,7 +18,6 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONObject
 
-
 // Legacy ARouter route annotation - now using NavigationManager
 class TISRActivity : BaseActivity(){
     
@@ -67,7 +66,7 @@ class TISRActivity : BaseActivity(){
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onSocketMsgEvent(event: SocketMsgEvent) {
         when(SocketCmdUtil.getCmdResponse(event.text)){
-            WsCmdConstants.AR_COMMAND_TISR_GET -> {//获取超分状态
+            WsCmdConstants.AR_COMMAND_TISR_GET -> {// 获取超分状态
                 try {
                     val webSocketIp = SocketCmdUtil.getIpResponse(event.text)
                     if(webSocketIp == WsCmdConstants.AR_COMMAND_IP){

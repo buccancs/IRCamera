@@ -117,7 +117,7 @@
             android:id="@+id/cameraView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-        <!-- 双光融合图层 native camera use -->
+        <!-- Dual light融合图层 native camera use -->
         <SurfaceView
             android:id="@+id/dualTextureViewNativeCamera"
             android:layout_width="match_parent"
@@ -247,7 +247,7 @@
             app:layout_constraintEnd_toEndOf="parent" />
     </LinearLayout>
 
-    <!-- 伪彩条 -->
+    <!-- Pseudo color条 -->
     <com.topdon.lib.ui.widget.BitmapConstraintLayout
         android:id="@+id/cl_seek_bar"
         android:layout_width="wrap_content"
@@ -356,7 +356,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/thermal_menu_lay" />
 
-    <!-- 拍照-更多 5 选项菜单 -->
+    <!-- Photo capture-更多 5 选项菜单 -->
     <ViewStub
         android:id="@+id/view_stub_camera"
         android:layout_width="0dp"

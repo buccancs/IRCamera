@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+# !/usr/bin/env python
 """
 Basic functionality test for IRCamera PC Controller
 Tests core components without GUI dependencies.

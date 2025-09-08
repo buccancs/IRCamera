@@ -4,7 +4,7 @@
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
- *     http://license.coscl.org.cn/MulanPSL2
+ *     http:// license.coscl.org.cn/MulanPSL2
  * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
@@ -39,7 +39,12 @@ import com.topdon.lib.ui.R;
  * @since 2021/6/3 15:23
  */
 @SuppressWarnings("unused")
-public abstract class ModalDialog extends BottomDialog implements View.OnClickListener {
+    /**
+     * ModalDialog class.
+     *
+     * Provides modaldialog functionality.
+     */
+    public abstract class ModalDialog extends BottomDialog implements View.OnClickListener {
     protected View headerView;
     protected TextView cancelView;
     protected TextView titleView;

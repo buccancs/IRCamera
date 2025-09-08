@@ -26,20 +26,19 @@ class IRConfigInputDialog(context: Context, val type: Type, val isTC007: Boolean
     private var onConfirmListener: ((value: Float) -> Unit)? = null
 
     /**
-     * 设置输入框默认值
+     * Settings输入框默认值
      */
     fun setInput(value: Float?): IRConfigInputDialog {
         this.value = value
         return this
     }
     /**
-     * 设置确认点击事件监听.
+     * Settings确认点击事件监听.
      */
     fun setConfirmListener(l: (value: Float) -> Unit): IRConfigInputDialog {
         this.onConfirmListener = l
         return this
     }
-
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {

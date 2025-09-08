@@ -4,7 +4,7 @@
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
- *     http://license.coscl.org.cn/MulanPSL2
+ *     http:// license.coscl.org.cn/MulanPSL2
  * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
@@ -35,7 +35,12 @@ import java.util.List;
  * @since 2019/5/10 16:44
  */
 @SuppressWarnings("unused")
-public class PhoneCodePicker extends OptionPicker {
+    /**
+     * PhoneCodePicker class.
+     *
+     * Provides phonecodepicker functionality.
+     */
+    public class PhoneCodePicker extends OptionPicker {
     public static String JSON = "[{\"prefix\":\"1\",\"en\":\"USA\",\"cn\":\"美国\"},\n" +
             "{\"prefix\":\"1\",\"en\":\"PuertoRico\",\"cn\":\"波多黎各\"},\n" +
             "{\"prefix\":\"1\",\"en\":\"Canada\",\"cn\":\"加拿大\"},\n" +

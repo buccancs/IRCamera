@@ -38,7 +38,7 @@ class UserInfoManager {
     }
 
     /**
-     * 登录保存用户信息
+     * 登录保存用户message
      */
     fun login(
         token: String,
@@ -56,7 +56,7 @@ class UserInfoManager {
     }
 
     /**
-     * 退出注销用户信息
+     * 退出注销用户message
      */
     fun logout() {
         SharedManager.setToken("")

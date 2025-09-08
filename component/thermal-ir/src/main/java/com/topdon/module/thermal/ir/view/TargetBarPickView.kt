@@ -74,8 +74,6 @@ class TargetBarPickView : View {
             }
         }
 
-
-
     /**
      * 条条当前进度.
      */
@@ -105,14 +103,10 @@ class TargetBarPickView : View {
      */
     private val labelText: String
 
-
-
     private val path = Path()
     private val paint = TextPaint()
     private val thumbRect = RectF()
     private val barRect = RectF()
-
-
 
     constructor(context: Context) : this(context, null)
 

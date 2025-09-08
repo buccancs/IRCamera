@@ -40,8 +40,6 @@ class CaliperImageView : AppCompatImageView {
         initView()
     }
 
-
-
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
         context,
         attrs,

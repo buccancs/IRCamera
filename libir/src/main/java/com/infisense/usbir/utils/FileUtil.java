@@ -31,24 +31,24 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * @ProjectName: ANDROID_IRUVC_SDK
- * @Package: com.infisense.iruvc.utils
- * @ClassName: FileUtil
- * @Description:
- * @Author: brilliantzhao
- * @CreateDate: 2021.11.11 13:56
- * @UpdateUser:
- * @UpdateDate: 2021.11.11 13:56
- * @UpdateRemark:
- * @Version: 1.0.0
- */
-public class FileUtil {
+    /**
+     * @ProjectName: ANDROID_IRUVC_SDK
+     * @Package: com.infisense.iruvc.utils
+     * @ClassName: FileUtil
+     * @Description:
+     * @Author: brilliantzhao
+     * @CreateDate: 2021.11.11 13:56
+     * @UpdateUser:
+     * @UpdateDate: 2021.11.11 13:56
+     * @UpdateRemark:
+     * @Version: 1.0.0
+     */
+    public class FileUtil {
 
     private static final String TAG = "FileUtil";
     private static final String DATA_SAVE_DIR = "InfiRay";
 
-    /**
+        /**
      * @param context
      * @return
      */
@@ -64,7 +64,7 @@ public class FileUtil {
         return cachePath;
     }
 
-    /**
+        /**
      * @param context
      * @param srcFileName
      * @param strOutFileName
@@ -89,7 +89,7 @@ public class FileUtil {
         myOutput.close();
     }
 
-    /**
+        /**
      * @param bytes
      * @param fileTitle
      */
@@ -112,7 +112,7 @@ public class FileUtil {
         }
     }
 
-    /**
+        /**
      * @param bytes
      * @param fileTitle
      */
@@ -121,7 +121,7 @@ public class FileUtil {
 //            String fileSaveDir = TempKey.DEVICE_DATA_SAVE_DIR;
 //            File path = new File(fileSaveDir);
 //            if (!path.exists() && path.isDirectory()) {
-//                path.mkdirs();
+
 //            }
 //            //
 //            File file = new File(fileSaveDir, fileTitle);
@@ -137,7 +137,7 @@ public class FileUtil {
         return Utils.getApp().getCacheDir().getAbsolutePath()+"/table";
     };
 
-    /**
+        /**
      * @param bytes
      * @param fileTitle
      */
@@ -156,7 +156,7 @@ public class FileUtil {
         }
     }
 
-    /**
+        /**
      * @param bytes
      * @param fileTitle
      */
@@ -176,7 +176,7 @@ public class FileUtil {
         }
     }
 
-    /**
+        /**
      * 根据数据流获取Y16类型
      *
      * @param dataFlowMode
@@ -221,7 +221,7 @@ public class FileUtil {
         return null;
     }
 
-    /**
+        /**
      * 创建文件夹---之所以要一层层创建，是因为一次性创建多层文件夹可能会失败！
      *
      * @param dirFile
@@ -234,7 +234,7 @@ public class FileUtil {
         }
         File parentFile = dirFile.getParentFile();
         if (parentFile != null && !parentFile.exists()) {
-            //父文件夹不存在，则先创建父文件夹，再创建自身文件夹
+            // 父文件夹不存在，则先创建父文件夹，再创建自身文件夹
             return createFileDir(parentFile) && createFileDir(dirFile);
         } else {
             boolean mkdirs = dirFile.mkdirs();
@@ -246,7 +246,7 @@ public class FileUtil {
         }
     }
 
-    /**
+        /**
      * @param dirPath
      * @param fileName
      * @return
@@ -283,7 +283,7 @@ public class FileUtil {
         }
     }
 
-    /**
+        /**
      * 把两个位图覆盖合成为一个位图，以底层位图的长宽为基准
      *
      * @param bytes  在底部的位图
@@ -306,7 +306,7 @@ public class FileUtil {
         }
     }
 
-    /**
+        /**
      * 保存红外数据
      *
      * @param bytes
@@ -329,7 +329,7 @@ public class FileUtil {
         }
     }
 
-    /**
+        /**
      * 保存温度数据
      *
      * @param bytes
@@ -352,7 +352,7 @@ public class FileUtil {
         }
     }
 
-    /**
+        /**
      * @param context
      * @param file
      * @return
@@ -367,7 +367,7 @@ public class FileUtil {
         return isFileExists(context, file.getAbsolutePath());
     }
 
-    /**
+        /**
      * Return whether the file exists.
      *
      * @param filePath The path of file.
@@ -424,7 +424,7 @@ public class FileUtil {
         return dest;
     }
 
-    /**
+        /**
      * byte数组转short数组
      *
      * @param src
@@ -439,7 +439,7 @@ public class FileUtil {
         return dest;
     }
 
-    /**
+        /**
      * @param bytes
      * @param fileTitle
      */
@@ -479,18 +479,18 @@ public class FileUtil {
      */
     private static void createOrExistsDir(String fileDir) {
         File file = new File(fileDir);
-        //如果文件夹不存在则创建
+        // 如果文件夹不存在则创建
         if (!file.exists() && !file.isDirectory()) {
-            //不存在
+            // 不存在
             file.mkdir();
         } else {
-            //目录存在
+            // 目录存在
         }
     }
 
     private static int sBufferSize = 524288;
 
-    /**
+        /**
      * @param context
      * @param file
      * @return
@@ -533,7 +533,7 @@ public class FileUtil {
         }
     }
 
-    /**
+        /**
      * 从Assets拷贝数据到SD
      *
      * @param context
@@ -572,14 +572,14 @@ public class FileUtil {
         }
     }
 
-    /**
+        /**
      * 根据增益状态获取对应的ISP算法的配置文件
      *
      * @param gainStatus
      * @return
      */
     public static String getISPConfigByGainStatus(CommonParams.GainStatus gainStatus) {
-//        Log.i(TAG, "INFISENSE_SAVE_DIR = " + MyApplication.getInstance().INFISENSE_SAVE_DIR);
+.INFISENSE_SAVE_DIR);
         if (CommonParams.GainStatus.HIGH_GAIN == gainStatus) {
             return INFISENSE_SAVE_DIR() + File.separator + "isp_H.json";
         } else {
@@ -587,7 +587,7 @@ public class FileUtil {
         }
     }
 
-    /**
+        /**
      * @param gainStatus
      * @return 输出hex
      */
@@ -599,16 +599,15 @@ public class FileUtil {
         }
     }
 
-
     static String INFISENSE_SAVE_DIR(){
        return Utils.getApp().getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath();
     }
-    //=== 设备信息存储到私有区域，app删除后一起删除
+    // === 设备message存储到私有区域，app删除后一起删除
     static String  DEVICE_DATA_SAVE_DIR (){
        return Utils.getApp().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath();
     }
 
-    /**
+        /**
      * @param gainStatus
      * @return 输出base64
      */
@@ -620,8 +619,8 @@ public class FileUtil {
         }
     }
 
-    /**
-     * 获取版本信息
+        /**
+     * 获取版本message
      *
      * @param context
      * @return
@@ -638,7 +637,7 @@ public class FileUtil {
         return name;
     }
 
-    /**
+        /**
      * @param string
      * @return
      */
@@ -665,7 +664,7 @@ public class FileUtil {
         return "";
     }
 
-    /**
+        /**
      * @param filePath
      */
     public static void makeDirectory(String filePath) {
@@ -675,7 +674,7 @@ public class FileUtil {
         }
     }
 
-    /**
+        /**
      * @param context
      * @return
      */
@@ -718,7 +717,7 @@ public class FileUtil {
         return file;
     }
 
-    /**
+        /**
      * @param bytes
      * @param filePath
      * @param fileName
@@ -757,7 +756,7 @@ public class FileUtil {
         }
     }
 
-    /**
+        /**
      * 存储String到本地，覆盖原始数据
      *
      * @param str
@@ -781,7 +780,7 @@ public class FileUtil {
         }
     }
 
-    /**
+        /**
      * @param path
      * @return
      */
@@ -812,14 +811,14 @@ public class FileUtil {
         return txtContent.toString();
     }
 
-    /**
+        /**
      * @param num
      * @param numbyte
      */
     public static void float2Byte(float num, byte[] numbyte) {
         int fbit = Float.floatToIntBits(num);
         for (int i = 0; i < 4; i++) {
-            numbyte[i] = (byte) (fbit >> (i * 8)); //little-endian
+            numbyte[i] = (byte) (fbit >> (i * 8)); // little-endian
             Log.i(TAG, "numbyte[=" + i + "]=" + numbyte[i]);
         }
     }

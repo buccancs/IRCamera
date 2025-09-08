@@ -89,7 +89,7 @@
         app:layout_constraintEnd_toEndOf="@id/view_menu1_mark"
         app:layout_constraintTop_toBottomOf="@id/iv_menu1_mark" />
 
-    <!-- 伪彩 -->
+    <!-- Pseudo color -->
     <View
         android:id="@+id/view_menu1_pseudo"
         android:layout_width="0dp"

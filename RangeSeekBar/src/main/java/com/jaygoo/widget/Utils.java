@@ -49,7 +49,7 @@ public class Utils {
         }
     }
 
-    /**
+        /**
      * make a drawable to a bitmap
      *
      * @param drawable drawable you want convert
@@ -80,7 +80,7 @@ public class Utils {
         return bitmap;
     }
 
-    /**
+        /**
      * draw 9Path
      *
      * @param canvas Canvas
@@ -110,7 +110,7 @@ public class Utils {
         return (int) (dpValue * scale + 0.5f);
     }
 
-    /**
+        /**
      * Compare the size of two floating point numbers
      *
      * @param a
@@ -131,7 +131,7 @@ public class Utils {
         }
     }
 
-    /**
+        /**
      * Compare the size of two floating point numbers with accuracy
      *
      * @param a

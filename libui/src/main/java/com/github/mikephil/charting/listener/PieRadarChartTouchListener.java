@@ -14,12 +14,12 @@ import com.github.mikephil.charting.utils.Utils;
 
 import java.util.ArrayList;
 
-/**
- * Touchlistener for the PieChart.
- *
- * @author Philipp Jahoda
- */
-public class PieRadarChartTouchListener extends ChartTouchListener<PieRadarChartBase<?>> {
+    /**
+     * Touchlistener for the PieChart.
+     *
+     * @author Philipp Jahoda
+     */
+    public class PieRadarChartTouchListener extends ChartTouchListener<PieRadarChartBase<?>> {
 
     private MPPointF mTouchStartPoint = MPPointF.getInstance(0,0);
 
@@ -225,7 +225,7 @@ public class PieRadarChartTouchListener extends ChartTouchListener<PieRadarChart
         return velocity;
     }
 
-    /**
+        /**
      * sets the starting angle of the rotation, this is only used by the touch
      * listener, x and y is the touch position
      *
@@ -236,7 +236,7 @@ public class PieRadarChartTouchListener extends ChartTouchListener<PieRadarChart
         mStartAngle = mChart.getAngleForPoint(x, y) - mChart.getRawRotationAngle();
     }
 
-    /**
+        /**
      * updates the view rotation depending on the given touch position, also
      * takes the starting angle into consideration
      *
@@ -247,7 +247,7 @@ public class PieRadarChartTouchListener extends ChartTouchListener<PieRadarChart
         mChart.setRotationAngle(mChart.getAngleForPoint(x, y) - mStartAngle);
     }
 
-    /**
+        /**
      * Sets the deceleration-angular-velocity to 0f
      */
     public void stopDeceleration() {
@@ -275,7 +275,12 @@ public class PieRadarChartTouchListener extends ChartTouchListener<PieRadarChart
             stopDeceleration();
     }
 
-    private class AngularVelocitySample {
+    /**
+ * AngularVelocitySample class.
+ * 
+ * Provides angularvelocitysample functionality.
+ */
+private class AngularVelocitySample {
 
         public long time;
         public float angle;

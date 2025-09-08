@@ -68,7 +68,7 @@ class App : BaseApplication() {
     override fun onCreate() {
         super.onCreate()
         instance = this
-        // 隐私政策弹框用app内的，默认设置lms里的隐私政策设置为true
+        // 隐私政策弹框用app内的，默认Settingslms里的隐私政策Settings为true
         SPUtils.getInstance(this).put(Config.KEY_PRIVACY_AGREEMENT, true)
 
         if (SharedManager.getHasShowClause() || !isDomestic()) {
@@ -147,7 +147,7 @@ class App : BaseApplication() {
                 }
 
                 override fun onInitError(errorCode: Int, errorMessage: String?) {
-                    //your code
+                    // your code
                     XLog.e("bcf", "ZohoSalesIQ失敗")
                 }
             })

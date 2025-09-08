@@ -4,8 +4,7 @@ import android.graphics.Paint
 import android.graphics.Rect
 import kotlin.math.roundToLong
 
-
-//获取真实的x坐标
+// 获取真实的x坐标
 fun realX(str: String, x: Float,paint: Paint) = x - textWidth(str,paint) / 2f
 
 fun realY(str: String, y: Float,paint: Paint) = y - textHeight(str,paint) / 4f
@@ -86,7 +85,7 @@ fun wrap(value: Float, min: Float, max: Float): Float {
 }
 
 fun wrap(value: Double, min: Double, max: Double): Double {
-    // https://stackoverflow.com/questions/14415753/wrap-value-into-range-min-max-without-division
+    // https:// stackoverflow.com/questions/14415753/wrap-value-into-range-min-max-without-division
     val range = max - min
     if (value < min) {
         return max - (min - value) % range

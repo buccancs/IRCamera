@@ -26,43 +26,43 @@ class ChartTrendView : LineChart {
         val axisChartColors: Int = ContextCompat.getColor(context, LibR.color.chart_axis)
 
         this.isDragEnabled = false
-        this.isScaleYEnabled = false //禁止Y轴缩放
-        this.isScaleXEnabled = false //禁止X轴缩放
-        this.isDoubleTapToZoomEnabled = false//双击不可缩放
-        this.setScaleEnabled(false)//缩放
-        this.setPinchZoom(false)//禁用后，可以分别在x轴和y轴上进行缩放
+        this.isScaleYEnabled = false // 禁止Y轴缩放
+        this.isScaleXEnabled = false // 禁止X轴缩放
+        this.isDoubleTapToZoomEnabled = false// 双击不可缩放
+        this.setScaleEnabled(false)// 缩放
+        this.setPinchZoom(false)// 禁用后，可以分别在x轴和y轴上进行缩放
         this.setTouchEnabled(true)
         this.setDrawGridBackground(false)
-        this.description = null//图标描述文本
-        this.axisRight.isEnabled = false //不绘制右侧Y轴
+        this.description = null// 图标描述文本
+        this.axisRight.isEnabled = false // 不绘制右侧Y轴
         this.setExtraOffsets(
             0f,
             0f,
             SizeUtils.dp2px(8f).toFloat(),
             SizeUtils.dp2px(4f).toFloat()
-        )//图表区域偏移
+        )// 图表区域偏移
 
         setNoDataText(context.getString(ThermalR.string.lms_http_code998))
         setNoDataTextColor(ContextCompat.getColor(context, LibR.color.chart_text))
 
         val mv = MyMarkerView(context, R.layout.marker_lay)
         mv.chartView = this
-        marker = mv//设置点击坐标显示提示框
+        marker = mv// Settings点击坐标显示提示框
 
         legend.form = Legend.LegendForm.CIRCLE
         legend.textColor = textColor
-        legend.isEnabled = false//隐藏曲线标签
+        legend.isEnabled = false// 隐藏曲线标签
 
-        //x轴
+        // x轴
         val xAxis = this.xAxis
         xAxis.textColor = textColor
-        xAxis.setDrawGridLines(false)//竖向格线
-        xAxis.axisLineColor = 0x00000000 //x轴颜色
+        xAxis.setDrawGridLines(false)// 竖向格线
+        xAxis.axisLineColor = 0x00000000 // x轴颜色
         xAxis.setAvoidFirstLastClipping(true)
         xAxis.isEnabled = true
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.granularity = 1f
-        xAxis.isGranularityEnabled = true//重复值不显示
+        xAxis.isGranularityEnabled = true// 重复值不显示
         xAxis.textSize = 11f
         xAxis.isJumpFirstLabel = false
         xAxis.axisMinimum = 0f
@@ -80,12 +80,12 @@ class ChartTrendView : LineChart {
             }
         }
 
-        //y轴
+        // y轴
         val leftAxis = this.axisLeft
-        leftAxis.textColor = textColor //y轴文本颜色
-        leftAxis.axisLineColor = 0x00000000 //y轴颜色
-        leftAxis.setDrawGridLines(true)//横向格线
-        leftAxis.gridColor = axisChartColors //y轴网格颜色
+        leftAxis.textColor = textColor // y轴文本颜色
+        leftAxis.axisLineColor = 0x00000000 // y轴颜色
+        leftAxis.setDrawGridLines(true)// 横向格线
+        leftAxis.gridColor = axisChartColors // y轴网格颜色
         leftAxis.gridLineWidth = 1.5f
         leftAxis.setLabelCount(6, true)
         leftAxis.valueFormatter = object : ValueFormatter() {
@@ -150,15 +150,15 @@ class ChartTrendView : LineChart {
 
         val lineDataSet = LineDataSet(entryList, "point temp")
         lineDataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
-        lineDataSet.color = 0xffffffff.toInt()//曲线颜色
-        lineDataSet.circleHoleColor = 0xffffffff.toInt()//坐标圆心颜色
-        lineDataSet.setCircleColor(0xffffffff.toInt())//坐标颜色
+        lineDataSet.color = 0xffffffff.toInt()// 曲线颜色
+        lineDataSet.circleHoleColor = 0xffffffff.toInt()// 坐标圆心颜色
+        lineDataSet.setCircleColor(0xffffffff.toInt())// 坐标颜色
         lineDataSet.valueTextColor = Color.WHITE
         lineDataSet.lineWidth = 2f
-        lineDataSet.circleRadius = 1f//坐标点半径
+        lineDataSet.circleRadius = 1f// 坐标点半径
         lineDataSet.fillAlpha = 200
         lineDataSet.valueTextSize = 10f
-        lineDataSet.setDrawValues(false)//设置是否显示坐标值文本
+        lineDataSet.setDrawValues(false)// Settings是否显示坐标值文本
 
         data = LineData(lineDataSet)
         invalidate()

@@ -16,7 +16,12 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScatterDataSet extends LineScatterCandleRadarDataSet<Entry> implements IScatterDataSet {
+    /**
+     * ScatterDataSet class.
+     *
+     * Provides scatterdataset functionality.
+     */
+    public class ScatterDataSet extends LineScatterCandleRadarDataSet<Entry> implements IScatterDataSet {
 
     /**
      * the size the scattershape will have, in density pixels
@@ -64,7 +69,7 @@ public class ScatterDataSet extends LineScatterCandleRadarDataSet<Entry> impleme
         scatterDataSet.mScatterShapeHoleColor = mScatterShapeHoleColor;
     }
 
-    /**
+        /**
      * Sets the size in density pixels the drawn scattershape will have. This
      * only applies for non custom shapes.
      *
@@ -79,7 +84,7 @@ public class ScatterDataSet extends LineScatterCandleRadarDataSet<Entry> impleme
         return mShapeSize;
     }
 
-    /**
+        /**
      * Sets the ScatterShape this DataSet should be drawn with. This will search for an available IShapeRenderer and set this
      * renderer for the DataSet.
      *
@@ -89,7 +94,7 @@ public class ScatterDataSet extends LineScatterCandleRadarDataSet<Entry> impleme
         mShapeRenderer = getRendererForShape(shape);
     }
 
-    /**
+        /**
      * Sets a new IShapeRenderer responsible for drawing this DataSet.
      * This can also be used to set a custom IShapeRenderer aside from the default ones.
      *
@@ -104,7 +109,7 @@ public class ScatterDataSet extends LineScatterCandleRadarDataSet<Entry> impleme
         return mShapeRenderer;
     }
 
-    /**
+        /**
      * Sets the radius of the hole in the shape (applies to Square, Circle and Triangle)
      * Set this to <= 0 to remove holes.
      *
@@ -119,7 +124,7 @@ public class ScatterDataSet extends LineScatterCandleRadarDataSet<Entry> impleme
         return mScatterShapeHoleRadius;
     }
 
-    /**
+        /**
      * Sets the color for the hole in the shape.
      *
      * @param holeColor

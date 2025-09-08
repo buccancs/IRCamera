@@ -31,8 +31,8 @@ open class GalleryBean(
 
     constructor(isVideo: Boolean, fileBean: FileBean) : this(
         id = fileBean.id,
-        path = "http://192.168.40.1:8080/DCIM/${fileBean.name}",
-        thumb = if (isVideo) "http://192.168.40.1:8080/DCIM/${fileBean.thumb}" else "http://192.168.40.1:8080/DCIM/${fileBean.name}",
+        path = "http:// 192.168.40.1:8080/DCIM/${fileBean.name}",
+        thumb = if (isVideo) "http:// 192.168.40.1:8080/DCIM/${fileBean.thumb}" else "http:// 192.168.40.1:8080/DCIM/${fileBean.name}",
         name = fileBean.name,
         duration = fileBean.duration * 1000L,
         timeMillis = fileBean.time * 1000 - TimeZone.getDefault().getOffset(fileBean.time * 1000),

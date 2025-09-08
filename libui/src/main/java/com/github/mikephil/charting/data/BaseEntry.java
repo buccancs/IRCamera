@@ -40,7 +40,7 @@ public abstract class BaseEntry {
         this.mData = data;
     }
 
-    /**
+        /**
      * Returns the y value of this Entry.
      *
      * @return
@@ -49,7 +49,7 @@ public abstract class BaseEntry {
         return y;
     }
 
-    /**
+        /**
      * Sets the icon drawable
      *
      * @param icon
@@ -58,7 +58,7 @@ public abstract class BaseEntry {
         this.mIcon = icon;
     }
 
-    /**
+        /**
      * Returns the icon of this Entry.
      *
      * @return
@@ -67,7 +67,7 @@ public abstract class BaseEntry {
         return mIcon;
     }
 
-    /**
+        /**
      * Sets the y-value for the Entry.
      *
      * @param y
@@ -76,7 +76,7 @@ public abstract class BaseEntry {
         this.y = y;
     }
 
-    /**
+        /**
      * Returns the data, additional information that this Entry represents, or
      * null, if no data has been specified.
      *
@@ -86,7 +86,7 @@ public abstract class BaseEntry {
         return mData;
     }
 
-    /**
+        /**
      * Sets additional data this Entry should represent.
      *
      * @param data

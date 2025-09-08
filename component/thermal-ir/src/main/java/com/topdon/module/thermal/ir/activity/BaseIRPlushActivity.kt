@@ -46,12 +46,12 @@ import java.io.IOException
 import java.io.InputStream
 
 /**
- * 双光的初始化
- * 双光的
+ * Dual light的初始化
+ * Dual light的
  */
 abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListener, IIRFrameCallback {
 
-    //热成像设备sn,可作为唯一id，此sn并非艾睿烧录的，是内部烧录的
+    // 热成像设备sn,可作为唯一id，此sn并非艾睿烧录的，是内部烧录的
     private var snStr = ""
 
     /**
@@ -67,7 +67,6 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
      * 22592 - 0x5840
      */
     private var irPid = 0x5830
-
 
     private var imageWidth = 0 // 经过旋转后的图像宽度
     private var imageHeight = 0 // 经过旋转后的图像高度
@@ -106,8 +105,6 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
      */
     private var vlUVCCamera: IRUVCDual? = null
 
-
-
     /**
      * 子类实现该方法，返回用于渲染画面的 SurfaceView
      */
@@ -119,19 +116,15 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
     abstract fun getTemperatureDualView(): TemperatureView
 
     /**
-     * 是否是双光设备
+     * 是否是Dual light设备
      */
     abstract fun isDualIR() : Boolean
 
     abstract fun setTemperatureViewType()
 
-
     open fun setDispViewData(dualDisp : Int){
 
     }
-
-
-
 
     override fun initView() {
         super.initView()
@@ -171,7 +164,7 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
          * 需要确认好模组的pid和分辨率
          */
         USBMonitorManager.getInstance().registerUSB()
-        //在USBMonitorManager onConnect回调中打开可见光模组
+        // 在USBMonitorManager onConnect回调中打开可见光模组
         getTemperatureDualView().setUseIRISP(isUseIRISP)
         if (mCurrentFusionType == DualCameraParams.FusionType.IROnlyNoFusion) {
             getTemperatureDualView().setImageSize(Const.IR_HEIGHT, Const.IR_WIDTH,null)
@@ -266,7 +259,7 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
         getTemperatureDualView().setDualUVCCamera(dualView!!.getDualUVCCamera())
         initPseudoColor()
         initAmplify(true)
-        // 这里可以设置初始化融合模式
+        // 这里可以Settings初始化融合模式
 //        setFusion(mCurrentFusionType)
 //        dualView!!.startPreview()
         dualView?.setHandler(mIrHandler)
@@ -277,7 +270,7 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
         val am = assets
         var inputStream: InputStream? = null
         try {
-            //加载伪彩，虽然用不上这个伪彩，但是sdk限制必须初始化一个才能正常出图
+            // 加载Pseudo color，虽然用不上这个Pseudo color，但是sdk限制必须初始化一个才能正常出图
             psedocolor = Array(11) { ByteArray(0) }
             inputStream = am.open("pseudocolor/White_Hot.bin")
             val length = inputStream.available()
@@ -290,7 +283,7 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
                 CommonParams.PseudoColorUsbDualType.WHITE_HOT_MODE,
                 psedocolor!![0]
             )
-            // 这里可以设置初始化融合模式
+            // 这里可以Settings初始化融合模式
             setFusion(mCurrentFusionType)
             inputStream.close()
         } catch (e: IOException) {
@@ -363,7 +356,7 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
 //        popupImage.setIrcmd(ircmd)
 //        popupOthers.setIrcmd(ircmd)
 //        getTemperatureDualView().setIrcmd(ircmd)
-//        // 画面旋转设置
+//        // 画面旋转Settings
 //        popupCalibration.setRotate(true)
 //        popupImage.setRotate(true)
     }
@@ -431,7 +424,7 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
     override fun onSetPreviewSizeFail() {
         mIrHandler.sendEmptyMessage(Const.SHOW_RESTART_MESSAGE)
     }
-    //预处理后红外ARGB数据 192 * 256 * 4
+    // 预处理后红外ARGB数据 192 * 256 * 4
     protected val preIrARGBData = ByteArray(256*192*4)
     protected val preIrData = ByteArray(256*192*2)
     protected val preTempData = ByteArray(256*192*2)
@@ -494,7 +487,5 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
             dualView?.isOpenAmplify = isOpenAmplify
         }
     }
-
-
 
 }

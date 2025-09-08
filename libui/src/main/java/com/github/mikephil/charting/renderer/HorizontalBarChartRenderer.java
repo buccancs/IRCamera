@@ -22,12 +22,12 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.util.List;
 
-/**
- * Renderer for the HorizontalBarChart.
- *
- * @author Philipp Jahoda
- */
-public class HorizontalBarChartRenderer extends BarChartRenderer {
+    /**
+     * Renderer for the HorizontalBarChart.
+     *
+     * @author Philipp Jahoda
+     */
+    public class HorizontalBarChartRenderer extends BarChartRenderer {
 
     public HorizontalBarChartRenderer(BarDataProvider chart, ChartAnimator animator,
                                       ViewPortHandler viewPortHandler) {

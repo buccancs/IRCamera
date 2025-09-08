@@ -14,7 +14,7 @@ import com.topdon.lib.ui.config.CameraHelp
 import com.topdon.lib.ui.R as UiR
 import com.topdon.menu.R as MenuR
 
-@Deprecated("旧的高低温点菜单，已重构过了")
+@Deprecated("旧的High/Low temperature points菜单，已重构过了")
 class MenuSecondNightAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val curMultipleArray: HashMap<Int, Int> by lazy { hashMapOf() }
 

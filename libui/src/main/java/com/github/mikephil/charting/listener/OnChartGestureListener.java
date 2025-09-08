@@ -2,12 +2,12 @@ package com.github.mikephil.charting.listener;
 
 import android.view.MotionEvent;
 
-/**
- * Listener for callbacks when doing gestures on the chart.
- *
- * @author Philipp Jahoda
- */
-public interface OnChartGestureListener {
+    /**
+     * Listener for callbacks when doing gestures on the chart.
+     *
+     * @author Philipp Jahoda
+     */
+    public interface OnChartGestureListener {
 
     /**
      * Callbacks when a touch-gesture has started on the chart (ACTION_DOWN)

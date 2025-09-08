@@ -51,7 +51,6 @@ class TrendView : FrameLayout {
         binding.viewChartTrend.setToEmpty()
     }
 
-
     private lateinit var binding: ViewTrendBinding
 
     constructor(context: Context) : this(context, null)
@@ -89,7 +88,7 @@ class TrendView : FrameLayout {
         val heightMode = MeasureSpec.getMode(heightMeasureSpec)
         val heightSize = MeasureSpec.getSize(heightMeasureSpec)
 
-        //宽度为 UNSPECIFIED 的情况目前不存在，不考虑
+        // 宽度为 UNSPECIFIED 的情况目前不存在，不考虑
         val wantHeight: Int = SizeUtils.dp2px(34f) + (widthSize * 158 / 264f).toInt()
         val height = when (heightMode) {
             MeasureSpec.EXACTLY -> heightSize

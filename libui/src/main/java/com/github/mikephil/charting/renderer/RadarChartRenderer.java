@@ -18,7 +18,12 @@ import com.github.mikephil.charting.utils.MPPointF;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
-public class RadarChartRenderer extends LineRadarRenderer {
+    /**
+     * RadarChartRenderer class.
+     *
+     * Provides radarchartrenderer functionality.
+     */
+    public class RadarChartRenderer extends LineRadarRenderer {
 
     protected RadarChart mChart;
 
@@ -204,7 +209,7 @@ public class RadarChartRenderer extends LineRadarRenderer {
                             sliceangle * j * phaseX + mChart.getRotationAngle(),
                             pIcon);
 
-                    //noinspection SuspiciousNameCombination
+                    // noinspection SuspiciousNameCombination
                     pIcon.y += iconsOffset.x;
 
                     Utils.drawImage(
@@ -287,7 +292,6 @@ public class RadarChartRenderer extends LineRadarRenderer {
                 Utils.getPosition(center, r, sliceangle * (i + 1) + rotationangle, p2out);
 
                 c.drawLine(p1out.x, p1out.y, p2out.x, p2out.y, mWebPaint);
-
 
             }
         }

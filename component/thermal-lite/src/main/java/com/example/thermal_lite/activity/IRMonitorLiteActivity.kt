@@ -50,7 +50,7 @@ import java.math.RoundingMode
 open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTempListener {
 
     private lateinit var binding: ActivityIrMonitorLiteBinding
-    private var selectIndex: SelectPositionBean? = null//选取点
+    private var selectIndex: SelectPositionBean? = null// 选取点
     val irMonitorLiteFragment = IRMonitorLiteFragment()
     private val bean = ThermalBean()
     private var selectBean: SelectPositionBean = SelectPositionBean()
@@ -130,22 +130,21 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTem
                         bean.maxTemp = maxBigDecimal.setScale(1, RoundingMode.HALF_UP).toFloat()
                         bean.minTemp = minBigDecimal.setScale(1, RoundingMode.HALF_UP).toFloat()
                         bean.createTime = System.currentTimeMillis()
-                        canUpdate = true//可以开始更新记录
+                        canUpdate = true// 可以开始更新记录
                     }
                 }
             }
         }
 
-
         binding.monitorCurrentVol.text = getString(if (selectIndex!!.type == 1) R.string.chart_temperature else R.string.chart_temperature_high)
         binding.monitorRealVol.visibility = if (selectIndex!!.type == 1) View.GONE else View.VISIBLE
         binding.monitorRealImg.visibility = if (selectIndex!!.type == 1) View.GONE else View.VISIBLE
-        recordThermal()//开始记录
+        recordThermal()// 开始记录
     }
     private var showTask: Job? = null
 
     private var isRecord = false
-    private var timeMillis = 1000L //间隔1s
+    private var timeMillis = 1000L // 间隔1s
     private var canUpdate = false
 
     private var recordJob: Job? = null
@@ -248,7 +247,7 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTem
 
     fun select(selectIndex: SelectPositionBean?) {
         this.selectIndex = selectIndex
-        XLog.i("绘制的点线面：${Gson().toJson(selectIndex)}")
+        XLog.i("绘制的Point/Line/Area：${Gson().toJson(selectIndex)}")
     }
 
     private fun updateUI() {
@@ -261,12 +260,9 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTem
         finish()
     }
 
-
-
     var config : DataBean?= null
     val basicGainGetValue = IntArray(1)
     var basicGainGetTime = 0L
-
 
     override fun tempCorrectByTs(temp: Float?): Float {
         var tempNew = temp
@@ -281,7 +277,7 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTem
                 return temp!!
             }
 
-            //获取增益状态 PASS
+            // 获取增益状态 PASS
             if (System.currentTimeMillis() - basicGainGetTime > 5000L){
                 try {
                     val basicGainGet: IrcmdError? = DeviceIrcmdControlManager.getInstance().getIrcmdEngine()

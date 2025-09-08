@@ -1,20 +1,20 @@
 
 package com.github.mikephil.charting.utils;
 
-/**
- * Transformer class for the HorizontalBarChart.
- * 
- * @author Philipp Jahoda
- */
-public class TransformerHorizontalBarChart extends Transformer {
+    /**
+     * Transformer class for the HorizontalBarChart.
+     *
+     * @author Philipp Jahoda
+     */
+    public class TransformerHorizontalBarChart extends Transformer {
 
     public TransformerHorizontalBarChart(ViewPortHandler viewPortHandler) {
         super(viewPortHandler);
     }
 
-    /**
+        /**
      * Prepares the matrix that contains all offsets.
-     * 
+     *
      * @param inverted
      */
     public void prepareMatrixOffset(boolean inverted) {

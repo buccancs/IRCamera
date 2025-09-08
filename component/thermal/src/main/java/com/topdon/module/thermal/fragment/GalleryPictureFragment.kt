@@ -70,8 +70,8 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
     fun share(path: String) {
         val file = File(path)
         var intent = Intent()
-        intent.action = Intent.ACTION_SEND // 设置分享行为
-        intent.type = "image/*" // 设置分享内容的类型
+        intent.action = Intent.ACTION_SEND // Settings分享行为
+        intent.type = "image/*" // Settings分享内容的类型
         val uri: Uri =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 val authority = "${requireContext().packageName}.fileprovider"
@@ -88,9 +88,9 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
         val imageEngine = GlideImageEngine()
         // TODO: Fix MNImageBrowser API usage when library is properly configured
         /*
-        MNImageBrowser.with(requireContext()) //当前位置
-            .setCurrentPosition(0) //图片引擎
-            .setImageEngine(imageEngine) //图片集合
+        MNImageBrowser.with(requireContext()) // 当前位置
+            .setCurrentPosition(0) // 图片引擎
+            .setImageEngine(imageEngine) // 图片集合
             .setImageUrl(path)
             .show()
          */

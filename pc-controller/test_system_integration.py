@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+# !/usr/bin/env python3
 """
 Test script for new Bluetooth and WiFi functionality
 Tests the core logic without GUI dependencies

@@ -1,8 +1,13 @@
 package com.infisense.usbir.utils;
 
-public final class PseudocolorModeTable {
-
     /**
+     * PseudocolorModeTable class.
+     *
+     * Provides pseudocolormodetable functionality.
+     */
+    public final class PseudocolorModeTable {
+
+        /**
      * 白热数据
      */
     public final static int[][] pseudocolorMapTableOfBAIRE = new int[][]{

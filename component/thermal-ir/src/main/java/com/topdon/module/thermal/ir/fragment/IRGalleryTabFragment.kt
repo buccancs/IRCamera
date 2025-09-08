@@ -47,7 +47,6 @@ class IRGalleryTabFragment : BaseFragment() {
      */
     private var currentDirType = DirType.LINE
 
-
     private val viewModel: IRGalleryTabViewModel by activityViewModels()
 
     private var viewPagerAdapter: ViewPagerAdapter? = null
@@ -99,9 +98,9 @@ class IRGalleryTabFragment : BaseFragment() {
         titleView.setTitleText(if (canSwitchDir) "" else getString(R.string.app_gallery))
         titleView.setLeftDrawable(if (hasBackIcon) R.drawable.ic_back_white_svg else 0)
         titleView.setLeftClickListener {
-            if (viewModel.isEditModeLD.value == true) {//当前为编辑状态，退出编辑
+            if (viewModel.isEditModeLD.value == true) {// 当前为编辑状态，退出编辑
                 viewModel.isEditModeLD.value = false
-            } else {//当前为非编辑状态，退出页面
+            } else {// 当前为非编辑状态，退出页面
                 if (hasBackIcon) {
                     requireActivity().finish()
                 }
@@ -109,9 +108,9 @@ class IRGalleryTabFragment : BaseFragment() {
         }
         titleView.setRightDrawable(UiR.drawable.ic_toolbar_check_svg)
         titleView.setRightClickListener {
-            if (viewModel.isEditModeLD.value == true) {//当前为编辑状态，全选
+            if (viewModel.isEditModeLD.value == true) {// 当前为编辑状态，全选
                 viewModel.selectAllIndex.value = viewPager2.currentItem
-            } else {//当前为非编辑状态，进入编辑
+            } else {// 当前为非编辑状态，进入编辑
                 viewModel.isEditModeLD.value = true
             }
         }

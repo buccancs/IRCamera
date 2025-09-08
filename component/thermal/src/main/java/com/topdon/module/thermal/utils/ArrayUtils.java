@@ -1,8 +1,13 @@
-//package com.topdon.module.thermal.utils;
+// package com.topdon.module.thermal.utils;
 //
-//import java.util.ArrayList;
+// import java.util.ArrayList;
 //
-//public class ArrayUtils {
+//    /**
+     * ArrayUtils class.
+     *
+     * Provides arrayutils functionality.
+     */
+    public class ArrayUtils {
 //
 //    public static int getMaxIndex(float[] data) {
 //        int maxIndex = 0;
@@ -26,4 +31,4 @@
 //        }
 //        return minIndex;
 //    }
-//}
+// }

@@ -5,6 +5,11 @@ package com.topdon.lib.core.utils;
  * author: CaiSongL
  * date: 2024/3/4 15:12
  **/
-public enum NetType {
+    /**
+     * NetType class.
+     *
+     * Provides nettype functionality.
+     */
+    public enum NetType {
     WIFI,CELLULAR
 }

@@ -1,16 +1,20 @@
 package com.github.mikephil.charting.components;
 
-
 import android.graphics.DashPathEffect;
 
 import com.github.mikephil.charting.utils.ColorTemplate;
 
-public class LegendEntry {
+    /**
+     * LegendEntry class.
+     *
+     * Provides legendentry functionality.
+     */
+    public class LegendEntry {
     public LegendEntry() {
 
     }
 
-    /**
+        /**
      *
      * @param label The legend entry text. A `null` label will start a group.
      * @param form The form to draw for this entry.

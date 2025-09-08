@@ -96,7 +96,7 @@ public class ImageColorTools {
             index += 4;
             j += 2;
         }
-//        Log.e("执行耗时：",System.currentTimeMillis() - time+"//");
+ - time+"// ");
         // Convert OpenCV Mat to Android Bitmap
         Bitmap outputBitmap = Bitmap.createBitmap(256, 192, Bitmap.Config.ARGB_8888);
         outputBitmap.copyPixelsFromBuffer(ByteBuffer.wrap(imageDst));
@@ -199,7 +199,7 @@ public class ImageColorTools {
                 }
             }
         }
-        Log.e("执行耗时：",System.currentTimeMillis() - time+"//");
+        Log.e("执行耗时：",System.currentTimeMillis() - time+"// ");
 //        Imgproc.cvtColor(imageColor, imageColor, Imgproc.COLOR_BGR2RGBA);
 //        byte[] imageDst = matToByteArray(imageColor);
 //        Bitmap outputBitmap = Bitmap.createBitmap(imageColor.width(),
@@ -294,7 +294,7 @@ public class ImageColorTools {
 //                }
 //            }
 //        }
-        Log.e("执行耗时：",System.currentTimeMillis() - time+"//");
+        Log.e("执行耗时：",System.currentTimeMillis() - time+"// ");
 //        Imgproc.cvtColor(imageMat, imageMat, Imgproc.COLOR_BGR2RGBA);
 //        byte[] imageDst = matToByteArray(imageMat);
 //        Bitmap outputBitmap = Bitmap.createBitmap(imageMat.width(),
@@ -320,12 +320,6 @@ public class ImageColorTools {
         mat.release();
         return outputBitmap;
     }
-
-
-
-
-
-
 
     public static int[] getOneColorByTempEx(float customMaxTemp, float customMinTemp, float nowTemp, int[] colorList) {
         if (colorList == null){
@@ -372,7 +366,6 @@ public class ImageColorTools {
         result[2] = b;
         return result;
     }
-
 
     private static int interpolateR(int startColor, int endColor, double ratio) {
         int startR = (startColor >> 16) & 0xFF;

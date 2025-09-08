@@ -46,7 +46,7 @@ object TC007Repository {
 
     private fun getTC007Service(timeout: Long = 15): TC007Service =
         Retrofit.Builder()
-            .baseUrl("http://192.168.40.1:63206")
+            .baseUrl("http:// 192.168.40.1:63206")
             .addConverterFactory(GsonConverterFactory.create())
             .addConverterFactory(StringConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -55,7 +55,7 @@ object TC007Repository {
             .create(TC007Service::class.java)
 
     /**
-     * 获取产品信息
+     * 获取产品message
      */
     suspend fun getProductInfo(): ProductBean? =
         withContext(Dispatchers.IO) {
@@ -67,7 +67,7 @@ object TC007Repository {
         }
 
     /**
-     * 获取设备电池信息
+     * 获取设备电池message
      */
     suspend fun getBatteryInfo(): BatteryInfo? =
         withContext(Dispatchers.IO) {
@@ -179,7 +179,7 @@ object TC007Repository {
         }
 
     /**
-     * 恢复出厂设置
+     * 恢复出厂Settings
      */
     suspend fun resetToFactory(): Boolean =
         withContext(Dispatchers.IO) {
@@ -215,7 +215,7 @@ object TC007Repository {
         }
 
     /**
-     * 设置温度单位是否为摄氏度
+     * Settings温度单位是否为摄氏度
      * @param isCelsius true-摄氏度 false-华氏度
      * @param Level 测温档位,0:高增益 1:低增益 3:自动切换
      */
@@ -229,7 +229,7 @@ object TC007Repository {
                 paramMap["TempUnit"] = if (isCelsius) 0 else 2 // 0-摄氏度 1-开尔文 2-华氏度
                 paramMap["Level"] = Level // 0:高增益 1:低增益 3:自动切换
                 paramMap["Fps"] = 12 // 测温帧率,范围[0,采集帧率],默认12,最高支持12帧
-                paramMap["OsdMode"] = 1 // 测温信息叠加方式，0:视频编码前叠加 1:码流信息叠加(编码后预览时叠加) 2:无叠加
+                paramMap["OsdMode"] = 1 // 测温message叠加方式，0:视频编码前叠加 1:码流message叠加(编码后预览时叠加) 2:无叠加
                 paramMap["DistanceUnit"] = 0 // 距离单位，0:米 1:英尺
                 getTC007Service().setEnvAttr(paramMap.toBody()).isSuccess()
             } catch (_: Exception) {
@@ -238,7 +238,7 @@ object TC007Repository {
         }
 
     /**
-     * 设置温度修正参数
+     * Settings温度修正参数
      * @param environment 环境温度，单位摄氏度
      * @param distance 测温距离，单位米
      * @param radiation 发射率 `[0.01,1]`
@@ -296,7 +296,7 @@ object TC007Repository {
         }
 
     /**
-     * 设置全局测温开启或关闭.
+     * Settings全局测温开启或关闭.
      */
     suspend fun setTempFrame(boolean: Boolean): Boolean =
         withContext(Dispatchers.IO) {
@@ -317,7 +317,7 @@ object TC007Repository {
         }
 
     /**
-     * 设置测温点列表.
+     * Settings测温点列表.
      */
     suspend fun setTempPointList(pointList: List<Point>): Boolean =
         withContext(Dispatchers.IO) {
@@ -333,7 +333,7 @@ object TC007Repository {
         }
 
     /**
-     * 设置测温线列表.
+     * Settings测温线列表.
      */
     suspend fun setTempLineList(lineList: List<Point>): Boolean =
         withContext(Dispatchers.IO) {
@@ -351,7 +351,7 @@ object TC007Repository {
         }
 
     /**
-     * 设置测温面列表.
+     * Settings测温面列表.
      */
     suspend fun setTempRectList(rectList: List<Rect>): Boolean =
         withContext(Dispatchers.IO) {
@@ -367,7 +367,7 @@ object TC007Repository {
         }
 
     /**
-     * 拍照
+     * Photo capture
      */
     suspend fun getPhoto(): TC007Response<PhotoBean>? =
         withContext(Dispatchers.IO) {
@@ -380,7 +380,7 @@ object TC007Repository {
         }
 
     /**
-     * 设置图像模式
+     * Settings图像模式
      */
     suspend fun setMode(mode: Int): TC007Response<Any?>? =
         withContext(Dispatchers.IO) {

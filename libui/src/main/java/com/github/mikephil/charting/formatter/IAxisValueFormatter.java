@@ -4,13 +4,23 @@ import com.github.mikephil.charting.components.AxisBase;
 
 /**
  * Created by Philipp Jahoda on 20/09/15.
- * Custom formatter interface that allows formatting of
+ * Custom formatter/**
+ * that class.
+ * 
+ * Provides that functionality.
+ */
+ interface that allows formatting of
  * axis labels before they are being drawn.
  *
  * @deprecated Extend {@link ValueFormatter} instead
  */
 @Deprecated
-public interface IAxisValueFormatter
+    /**
+     * IAxisValueFormatter class.
+     *
+     * Provides iaxisvalueformatter functionality.
+     */
+    public interface IAxisValueFormatter
 {
 
     /**

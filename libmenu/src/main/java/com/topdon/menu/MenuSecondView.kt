@@ -35,7 +35,7 @@ import kotlinx.coroutines.launch
 @SuppressLint("NotifyDataSetChanged")
 class MenuSecondView : FrameLayout {
     /**
-     * 该菜单的类型，由于不同的设备（单光、双光、Lite、TC007、2D编辑）菜单存在差异，用该枚举区分.
+     * 该菜单的类型，由于不同的设备（单光、Dual light、Lite、TC007、2D编辑）菜单存在差异，用该枚举区分.
      */
     private val menuType: MenuType
 
@@ -51,27 +51,26 @@ class MenuSecondView : FrameLayout {
     private lateinit var recyclerTempPoint: RecyclerView
     private lateinit var recyclerSettingOb: RecyclerView
 
-
     /* *********************************************  public 方法  ********************************************* */
     /**
-     * 测温: 0-> 拍照      观测 10->拍照
+     * 测温: 0-> Photo capture      观测 10->Photo capture
      *
-     * 测温: 1-> 点线面
+     * 测温: 1-> Point/Line/Area
      *
      *                    观测 11->AI识别
      *
-     * 测温: 2-> 双光
-     *                    观测 13->标靶
+     * 测温: 2-> Dual light
+     *                    观测 13->Target
      *
-     * 测温: 3-> 伪彩颜色   观测 12->伪彩颜色
+     * 测温: 3-> Pseudo color颜色   观测 12->Pseudo color颜色
      *
-     * 测温: 4-> 设置
+     * 测温: 4-> Settings
      *
-     *                    观测 15->设置
+     *                    观测 15->Settings
      *
      * 测温: 5-> 温度档位
      *
-     *                    观测 14->高低温点
+     *                    观测 14->High/Low temperature points
      */
     fun selectPosition(position: Int) {
         cameraMenuView.isVisible = position == 0 || position == 10
@@ -87,13 +86,11 @@ class MenuSecondView : FrameLayout {
         recyclerSettingOb.isVisible = position == 15
     }
 
-
-
     /* *********************************************  public 属性  ********************************************* */
 
     /**
-     * 第 1 个菜单-拍照录像 各个操作的点击事件监听.
-     * actionCode: 0-拍照/录像  1-图库  2-更多菜单  3-切换到拍照  4-切换到录像
+     * 第 1 个菜单-Photo capture录像 各个操作的点击事件监听.
+     * actionCode: 0-Photo capture/录像  1-图库  2-更多菜单  3-切换到Photo capture  4-切换到录像
      */
     var onCameraClickListener: ((actionCode: Int) -> Unit)?
         get() = cameraMenuView.onCameraClickListener
@@ -101,7 +98,7 @@ class MenuSecondView : FrameLayout {
             cameraMenuView.onCameraClickListener = value
         }
     /**
-     * 测温模式-菜单2-点线面 切换事件监听。
+     * Temperature measurement mode-菜单2-Point/Line/Area 切换事件监听。
      */
     var onFenceListener: ((fenceType: FenceType, isSelected: Boolean) -> Unit)?
         get() = fenceAdapter.onFenceListener
@@ -109,7 +106,7 @@ class MenuSecondView : FrameLayout {
             fenceAdapter.onFenceListener = value
         }
     /**
-     * 测温模式-菜单3-双光 点击事件监听。
+     * Temperature measurement mode-菜单3-Dual light 点击事件监听。
      * isSelected: true-切换为选中 false-切换为未选中
      */
     var onTwoLightListener: ((twoLightType: TwoLightType, isSelected: Boolean) -> Unit)?
@@ -118,10 +115,10 @@ class MenuSecondView : FrameLayout {
             twoLightAdapter.onTwoLightListener = value
         }
     /**
-     * 测温模式-菜单4-伪彩/观测模式-菜单3-伪彩 伪彩切换事件监听.
-     * index-选中伪彩在列表中的 index，也就 TC007 要用
-     * code-伪彩编码，由于历史遗留跟 index 对不上，非 TC007 时使用
-     * size-预设伪彩数量，也就 TC007 要用
+     * Temperature measurement mode-菜单4-Pseudo color/Observation mode-菜单3-Pseudo color Pseudo color切换事件监听.
+     * index-选中Pseudo color在列表中的 index，也就 TC007 要用
+     * code-Pseudo color编码，由于历史遗留跟 index 对不上，非 TC007 时使用
+     * size-预设Pseudo color数量，也就 TC007 要用
      */
     var onColorListener: ((index: Int, code: Int, size: Int) -> Unit)?
         get() = colorAdapter.onColorListener
@@ -129,10 +126,10 @@ class MenuSecondView : FrameLayout {
             colorAdapter.onColorListener = value
         }
     /**
-     * 测温模式-菜单5-设置/观测模式-菜单6-设置 点击事件监听.
+     * Temperature measurement mode-菜单5-Settings/Observation mode-菜单6-Settings 点击事件监听.
      * isSelected: true-点击时为选中状态 false-点击时为未选中状态
      * 警示、字体、水印是以生效才视为高亮选中的，这里先保持旧代码逻辑，
-     * 设置菜单的选中刷新丢给上层的 listener 去做，后面有空再考虑更改
+     * Settings菜单的选中刷新丢给上层的 listener 去做，后面有空再考虑更改
      */
     var onSettingListener: ((type: SettingType, isSelected: Boolean) -> Unit)?
         get() = settingTeAdapter.onSettingListener
@@ -141,7 +138,7 @@ class MenuSecondView : FrameLayout {
             settingObAdapter.onSettingListener = value
         }
     /**
-     * 测温模式-菜单6-高低温档 点击事件监听.
+     * Temperature measurement mode-菜单6-High/Low temperature range 点击事件监听.
      *
      * 由于历史遗留（已保存在 SharedPreferences 中），这里 code 取值为
      * - 自动切换：-1
@@ -154,9 +151,8 @@ class MenuSecondView : FrameLayout {
             tempLevelAdapter.onTempLevelListener = value
         }
 
-
     /**
-     * 观测模式-菜单2-高低温源 点击事件监听.
+     * Observation mode-菜单2-High/Low temperature source 点击事件监听.
      *
      * 由于历史遗留（已保存在 SharedPreferences 中），这里 code 取值为
      * - 什么都未选中：-1
@@ -170,7 +166,7 @@ class MenuSecondView : FrameLayout {
             tempSourceAdapter.onTempSourceListener = value
         }
     /**
-     * 观测模式-菜单4-标靶 点击事件监听.
+     * Observation mode-菜单4-Target 点击事件监听.
      */
     var onTargetListener: ((targetType: TargetType) -> Unit)?
         get() = targetAdapter.onTargetListener
@@ -178,7 +174,7 @@ class MenuSecondView : FrameLayout {
             targetAdapter.onTargetListener = value
         }
     /**
-     * 观测模式-菜单5-高低温点 点击事件监听.
+     * Observation mode-菜单5-High/Low temperature points 点击事件监听.
      */
     var onTempPointListener: ((type: TempPointType, isSelected: Boolean) -> Unit)?
         get() = tempPointAdapter.onTempPointListener
@@ -186,54 +182,43 @@ class MenuSecondView : FrameLayout {
             tempPointAdapter.onTempPointListener = value
         }
 
-
-
-
-
     /**
-     * 测温模式-菜单2-点线面 所用 Adapter.
+     * Temperature measurement mode-菜单2-Point/Line/Area 所用 Adapter.
      */
     private val fenceAdapter: FenceAdapter
     /**
-     * 测温模式-菜单3-双光 所用 Adapter.
+     * Temperature measurement mode-菜单3-Dual light 所用 Adapter.
      */
     private val twoLightAdapter: TwoLightAdapter
     /**
-     * 测温模式-菜单4-伪彩 or 观测模式-菜单3-伪彩 所用 Adapter.
+     * Temperature measurement mode-菜单4-Pseudo color or Observation mode-菜单3-Pseudo color 所用 Adapter.
      */
     private val colorAdapter = ColorAdapter()
     /**
-     * 测温模式-菜单5-设置 所用 Adapter.
+     * Temperature measurement mode-菜单5-Settings 所用 Adapter.
      */
     private val settingTeAdapter: SettingAdapter
     /**
-     * 测温模式-菜单6-高低温档 所用 Adapter.
+     * Temperature measurement mode-菜单6-High/Low temperature range 所用 Adapter.
      */
     private val tempLevelAdapter: TempLevelAdapter
 
-
     /**
-     * 观测模式-菜单2-高低温源 所用 Adapter.
+     * Observation mode-菜单2-High/Low temperature source 所用 Adapter.
      */
     private val tempSourceAdapter = TempSourceAdapter()
     /**
-     * 观测模式-菜单4-标靶 所用 Adapter.
+     * Observation mode-菜单4-Target 所用 Adapter.
      */
     private val targetAdapter = TargetAdapter()
     /**
-     * 观测模式-菜单5-高低温点 所用 Adapter.
+     * Observation mode-菜单5-High/Low temperature points 所用 Adapter.
      */
     private val tempPointAdapter = TempPointAdapter()
     /**
-     * 观测模式-菜单6-设置 所用 Adapter.
+     * Observation mode-菜单6-Settings 所用 Adapter.
      */
     private val settingObAdapter = SettingAdapter(isObserver = true)
-
-
-
-
-
-
 
     constructor(context: Context) : this(context, null)
 
@@ -275,56 +260,53 @@ class MenuSecondView : FrameLayout {
 
             refreshImg(GalleryRepository.DirType.LINE)
 
-            //初始化 测温模式-菜单2-点线面 菜单
+            // 初始化 Temperature measurement mode-菜单2-Point/Line/Area 菜单
             fenceAdapter = FenceAdapter(menuType)
             recyclerFence.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             recyclerFence.adapter = fenceAdapter
 
-            //初始化 测温模式-菜单3-双光 菜单
+            // 初始化 Temperature measurement mode-菜单3-Dual light 菜单
             twoLightAdapter = TwoLightAdapter(menuType)
             recyclerTwoLight.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             recyclerTwoLight.adapter = twoLightAdapter
 
-            //初始化 测温模式-菜单4-伪彩 or 观测模式-菜单3-伪彩 菜单
+            // 初始化 Temperature measurement mode-菜单4-Pseudo color or Observation mode-菜单3-Pseudo color 菜单
             recyclerColor.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             recyclerColor.adapter = colorAdapter
 
-            //初始化 测温模式-菜单5-设置 菜单
+            // 初始化 Temperature measurement mode-菜单5-Settings 菜单
             settingTeAdapter = SettingAdapter(menuType)
             recyclerSettingTe.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             recyclerSettingTe.adapter = settingTeAdapter
 
-            //初始化 测温模式-菜单6-高低温档 菜单
+            // 初始化 Temperature measurement mode-菜单6-High/Low temperature range 菜单
             tempLevelAdapter = TempLevelAdapter(menuType)
             recyclerTempLevel.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             recyclerTempLevel.adapter = tempLevelAdapter
 
-
-
-            //初始化 观测模式-菜单2-高低温源 菜单
+            // 初始化 Observation mode-菜单2-High/Low temperature source 菜单
             recyclerTempSource.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             recyclerTempSource.adapter = tempSourceAdapter
 
-            //初始化 观测模式-菜单4-标靶 菜单
+            // 初始化 Observation mode-菜单4-Target 菜单
             recyclerTarget.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             recyclerTarget.adapter = targetAdapter
 
-            //初始化 观测模式-菜单5-高低温点 菜单
+            // 初始化 Observation mode-菜单5-High/Low temperature points 菜单
             recyclerTempPoint.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             recyclerTempPoint.adapter = tempPointAdapter
 
-            //初始化 观测模式-菜单6-设置 菜单
+            // 初始化 Observation mode-菜单6-Settings 菜单
             recyclerSettingOb.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             recyclerSettingOb.adapter = settingObAdapter
         }
     }
 
-
-    /* *********************************************  菜单1-拍照录像  ********************************************* */
+    /* *********************************************  菜单1-Photo capture录像  ********************************************* */
     /**
      * 当前是否处于录像模式.
      *
-     * true-录像模式 false-拍照模式
+     * true-录像模式 false-Photo capture模式
      */
     var isVideoMode: Boolean
         get() = cameraMenuView.isVideoMode
@@ -333,7 +315,7 @@ class MenuSecondView : FrameLayout {
         }
 
     /**
-     * 仅 TS001，测温/观测 切换时，关闭延时拍照、连续拍照、录像后，需要重置为拍照状态.
+     * 仅 TS001，测温/观测 切换时，关闭延时Photo capture、连续Photo capture、录像后，需要重置为Photo capture状态.
      */
     fun switchToCamera() {
         cameraMenuView.canSwitchMode = true
@@ -342,7 +324,7 @@ class MenuSecondView : FrameLayout {
     }
 
     /**
-     * 类似重置，这个方法的目的是重置状态为未拍照、未录像状态，且放开 拍照/录像 切换.
+     * 类似重置，这个方法的目的是重置状态为未Photo capture、未录像状态，且放开 Photo capture/录像 切换.
      * 在各个热成像 Activity 的 start()，以及当前 View 中调用
      */
     fun updateCameraModel() {
@@ -351,7 +333,7 @@ class MenuSecondView : FrameLayout {
     }
 
     fun refreshImg(type: GalleryRepository.DirType = GalleryRepository.DirType.LINE) {
-        updateCameraModel()//恢复状态
+        updateCameraModel()// 恢复状态
         CoroutineScope(Dispatchers.IO).launch {
             val path = GalleryRepository.readLatest(type)
             launch(Dispatchers.Main) {
@@ -361,7 +343,7 @@ class MenuSecondView : FrameLayout {
     }
 
     /**
-     * 将中间 拍照/录像 按钮设置为 拍照中-立即/拍照中-延迟/录像中
+     * 将中间 Photo capture/录像 按钮Settings为 Photo capture中-立即/Photo capture中-延迟/录像中
      */
     fun setToRecord(isDelay: Boolean) {
         cameraMenuView.canSwitchMode = false
@@ -369,16 +351,15 @@ class MenuSecondView : FrameLayout {
     }
 
     /**
-     * 将中间 拍照/录像 按钮设置为 拍照中-立即 状态
+     * 将中间 Photo capture/录像 按钮Settings为 Photo capture中-立即 状态
      */
     fun setToCamera() {
         cameraMenuView.setToRecord(false)
     }
 
-
-    /* *****************************************  测温模式-菜单2-点线面  ***************************************** */
+    /* *****************************************  Temperature measurement mode-菜单2-Point/Line/Area  ***************************************** */
     /**
-     * 测温模式-菜单2-点线面 当前选中的菜单类型，若为 null 表示所有都未选中.
+     * Temperature measurement mode-菜单2-Point/Line/Area 当前选中的菜单类型，若为 null 表示所有都未选中.
      */
     var fenceSelectType: FenceType?
         get() = fenceAdapter.selectType
@@ -386,14 +367,13 @@ class MenuSecondView : FrameLayout {
             fenceAdapter.selectType = value
         }
 
-
-    /* *****************************************  测温模式-菜单3-双光  ***************************************** */
+    /* *****************************************  Temperature measurement mode-菜单3-Dual light  ***************************************** */
     /**
-     * 当前单选的双光类型
+     * 当前单选的Dual light类型
      * - 单光：  不应该使用这个属性
      * - Lite： 不应该使用这个属性
-     * - 双光：  双光1、双光2、红外、可见光
-     * - TC007：双光、红外、可见光、画中画
+     * - Dual light：  Dual light1、Dual light2、红外、可见光
+     * - TC007：Dual light、红外、可见光、画中画
      */
     var twoLightType: TwoLightType
         get() = twoLightAdapter.twoLightType
@@ -402,30 +382,28 @@ class MenuSecondView : FrameLayout {
         }
 
     /**
-     * 设置双光多选状态
+     * SettingsDual light多选状态
      * - 单光：  画中画、融合度
      * - Lite： 画中画、融合度
-     * - 双光：  配准、画中画、融合度
+     * - Dual light：  配准、画中画、融合度
      * - TC007：配准、、融合度
      */
     fun setTwoLightSelected(twoLightType: TwoLightType, isSelected: Boolean) {
         twoLightAdapter.setSelected(twoLightType, isSelected)
     }
 
-
-    /* **********************************  测温模式-菜单4-伪彩/观测模式-菜单3-伪彩  ********************************** */
+    /* **********************************  Temperature measurement mode-菜单4-Pseudo color/Observation mode-菜单3-Pseudo color  ********************************** */
     /**
-     * 根据指定的伪彩代号，选中伪彩菜单中的指定伪彩，若传递的 code 为不支持 code，则为全部未选中效果。
+     * 根据指定的Pseudo color代号，选中Pseudo color菜单中的指定Pseudo color，若传递的 code 为不支持 code，则为全部未选中效果。
      * @param code 1-白热 3-铁红 4-彩虹1 5-彩虹2 6-彩虹3 7-红热 8-热铁 9-彩虹4 10-彩虹5 11-黑热
      */
     fun setPseudoColor(code: Int) {
         colorAdapter.selectCode = code
     }
 
-
-    /* **********************************  测温模式-菜单5-设置 or 观测模式-菜单6-设置  ********************************** */
+    /* **********************************  Temperature measurement mode-菜单5-Settings or Observation mode-菜单6-Settings  ********************************** */
     /**
-     * 设置设置菜单中指定选项的选中状态
+     * SettingsSettings菜单中指定选项的选中状态
      */
     fun setSettingSelected(settingType: SettingType, isSelected: Boolean) {
         settingTeAdapter.setSelected(settingType, isSelected)
@@ -433,7 +411,7 @@ class MenuSecondView : FrameLayout {
     }
 
     /**
-     * 设置设置菜单中旋转选项的角度
+     * SettingsSettings菜单中旋转选项的角度
      * @param rotateAngle 注意！这个值是机芯的旋转角度，非 UI 旋转角度
      */
     fun setSettingRotate(rotateAngle: Int) {
@@ -441,8 +419,7 @@ class MenuSecondView : FrameLayout {
         settingObAdapter.rotateAngle = rotateAngle
     }
 
-
-    /* *****************************************  测温模式-菜单6-高低温档  ***************************************** */
+    /* *****************************************  Temperature measurement mode-菜单6-High/Low temperature range  ***************************************** */
     /**
      * 温度档位是否使用华氏度作为单位
      *
@@ -454,7 +431,7 @@ class MenuSecondView : FrameLayout {
             tempLevelAdapter.isUnitF = value
         }
     /**
-     * 设置 测温模式-菜单6-高低温档 温度档位.
+     * Settings Temperature measurement mode-菜单6-High/Low temperature range 温度档位.
      *
      * 由于历史遗留（已保存在 SharedPreferences 中），这里 code 取值为
      * - 自动切换：-1
@@ -465,14 +442,9 @@ class MenuSecondView : FrameLayout {
         tempLevelAdapter.selectCode = code
     }
 
-
-
-
-
-
-    /* *****************************************  观测模式-菜单2-高低温源  ***************************************** */
+    /* *****************************************  Observation mode-菜单2-High/Low temperature source  ***************************************** */
     /**
-     * 设置 观测模式-菜单2-高低温源 选中.
+     * Settings Observation mode-菜单2-High/Low temperature source 选中.
      *
      * 由于历史遗留（已保存在 SharedPreferences 中），这里 code 取值为
      * - 什么都未选中：-1
@@ -484,16 +456,15 @@ class MenuSecondView : FrameLayout {
         tempSourceAdapter.selectCode = code
     }
 
-
-    /* *****************************************  观测模式-菜单4-标靶  ***************************************** */
+    /* *****************************************  Observation mode-菜单4-Target  ***************************************** */
     /**
-     * 设置 观测模式-菜单4-标靶 指定选项的选中状态
+     * Settings Observation mode-菜单4-Target 指定选项的选中状态
      */
     fun setTargetSelected(targetType: TargetType, isSelected: Boolean) {
         targetAdapter.setSelected(targetType, isSelected)
     }
     /**
-     * 设置 观测模式-菜单4-标靶-测量模式 图标类型.
+     * Settings Observation mode-菜单4-Target-测量模式 图标类型.
      *
      * 由于历史遗留（已保存在 SharedPreferences 中），这里 code 取值为
      * - 人：10
@@ -505,16 +476,15 @@ class MenuSecondView : FrameLayout {
         targetAdapter.setTargetMode(modeCode)
     }
 
-    
-    /* *****************************************  观测模式-菜单5-高低温点  ***************************************** */
+    /* *****************************************  Observation mode-菜单5-High/Low temperature points  ***************************************** */
     /**
-     * 设置 观测模式-菜单5-高低温点 菜单中，高温点 或 低稳点 的选中状态。
+     * Settings Observation mode-菜单5-High/Low temperature points 菜单中，高温点 或 低稳点 的选中状态。
      */
     fun setTempPointSelect(tempPointType: TempPointType, isSelected: Boolean) {
         tempPointAdapter.setSelected(tempPointType, isSelected)
     }
     /**
-     * 清除 观测模式-菜单5-高低温点 菜单的所有选中状态。
+     * 清除 Observation mode-菜单5-High/Low temperature points 菜单的所有选中状态。
      * 这里维持原有逻辑，后续考虑是否直接给选中删除得了。
      */
     fun clearTempPointSelect() {

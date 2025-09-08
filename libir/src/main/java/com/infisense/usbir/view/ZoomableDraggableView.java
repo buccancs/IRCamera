@@ -17,7 +17,12 @@ import android.view.ViewGroup;
 import com.infisense.usbir.R;
 import com.topdon.lib.core.utils.BitmapUtils;
 
-public class ZoomableDraggableView extends View {
+    /**
+     * ZoomableDraggableView class.
+     *
+     * Provides zoomabledraggableview functionality.
+     */
+    public class ZoomableDraggableView extends View {
     private ScaleGestureDetector scaleGestureDetector;
     private GestureDetector gestureDetector;
     private Matrix matrix = new Matrix();
@@ -27,7 +32,7 @@ public class ZoomableDraggableView extends View {
     private float focusX, focusY;
     private float lastX, lastY;
 
-    //原始图片
+    // 原始图片
     private Bitmap originalBitmap;
     private int imageWidth;
     private int imageHeight;
@@ -67,7 +72,6 @@ public class ZoomableDraggableView extends View {
         originalBitmapHeight = originalBitmap.getHeight();
     }
 
-
     public void setImageSize(int imageWidth, int imageHeight) {
         this.imageWidth = imageWidth;
         this.imageHeight = imageHeight;
@@ -103,7 +107,12 @@ public class ZoomableDraggableView extends View {
         return true;
     }
 
-    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+    /**
+ * ScaleListener class.
+ * 
+ * Provides scalelistener functionality.
+ */
+private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
             scaleFactor *= detector.getScaleFactor();
@@ -120,7 +129,12 @@ public class ZoomableDraggableView extends View {
         }
     }
 
-    private class GestureListener extends GestureDetector.SimpleOnGestureListener {
+    /**
+ * GestureListener class.
+ * 
+ * Provides gesturelistener functionality.
+ */
+private class GestureListener extends GestureDetector.SimpleOnGestureListener {
         @Override
         public boolean onDown(MotionEvent e) {
             lastX = e.getX();

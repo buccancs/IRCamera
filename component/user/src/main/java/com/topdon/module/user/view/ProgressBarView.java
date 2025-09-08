@@ -10,7 +10,12 @@ import android.view.View;
 import com.topdon.module.user.bean.ColorsBean;
 import java.util.List;
 
-public class ProgressBarView extends View {
+    /**
+     * ProgressBarView class.
+     *
+     * Provides progressbarview functionality.
+     */
+    public class ProgressBarView extends View {
     private Paint paint;
     private int totalParts = 100;
     private List<ColorsBean> colorsBeanList;

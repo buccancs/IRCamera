@@ -3,7 +3,6 @@ package com.topdon.ble;
 import android.bluetooth.BluetoothDevice;
 import android.os.Build;
 
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -20,7 +19,7 @@ import java.util.UUID;
  * author: bichuanfeng
  */
 public class ConnectionConfiguration {
-    /**
+        /**
      * 无限重连
      */
     public static final int TRY_RECONNECT_TIMES_INFINITE = -1;
@@ -47,7 +46,7 @@ public class ConnectionConfiguration {
         scanIntervalPairsInAutoReconnection.add(Pair.create(10, 60000));
     }
 
-    /**
+        /**
      * 连接成功后延时多久开始执行发现服务
      */
     public ConnectionConfiguration setDiscoverServicesDelayMillis(int discoverServicesDelayMillis) {
@@ -55,7 +54,7 @@ public class ConnectionConfiguration {
         return this;
     }
 
-    /**
+        /**
      * 连接超时时长
      */
     public ConnectionConfiguration setConnectTimeoutMillis(int connectTimeoutMillis) {
@@ -65,7 +64,7 @@ public class ConnectionConfiguration {
         return this;
     }
 
-    /**
+        /**
      * 请求超时时长
      */
     public ConnectionConfiguration setRequestTimeoutMillis(int requestTimeoutMillis) {
@@ -75,7 +74,7 @@ public class ConnectionConfiguration {
         return this;
     }
 
-    /**
+        /**
      * 最大尝试自动重连次数
      */
     public ConnectionConfiguration setTryReconnectMaxTimes(int tryReconnectMaxTimes) {
@@ -83,7 +82,7 @@ public class ConnectionConfiguration {
         return this;
     }
 
-    /**
+        /**
      * 不经过搜索，直接使用之间的MAC地址连接的次数，重连达到此次数后，恢复搜索到设备再进行连接
      */
     public ConnectionConfiguration setReconnectImmediatelyMaxTimes(int reconnectImmediatelyMaxTimes) {
@@ -91,7 +90,7 @@ public class ConnectionConfiguration {
         return this;
     }
 
-    /**
+        /**
      * 是否自动重连
      */
     public ConnectionConfiguration setAutoReconnect(boolean autoReconnect) {
@@ -119,7 +118,7 @@ public class ConnectionConfiguration {
         return this;
     }
 
-    /**
+        /**
      * 自动重连时，搜索次数与间隔的对应关系，first：已尝试次数，second：间隔，单位为毫秒。如搜索了1次，间隔2秒，搜索了5次，间隔30秒等
      */
     public ConnectionConfiguration setScanIntervalPairsInAutoReconnection(List<Pair<Integer, Integer>> parameters) {
@@ -129,8 +128,8 @@ public class ConnectionConfiguration {
         return this;
     }
 
-    /**
-     * 设置默认的写特征配置
+        /**
+     * Settings默认的写特征配置
      *
      * @param service        特征所在的服务UUID
      * @param characteristic 特征的UUID

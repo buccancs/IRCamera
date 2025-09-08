@@ -51,13 +51,13 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         mContext = context;
         logFile = new File(mContext.getCacheDir(),"crashLog.trace");
         mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler();
-        //设置为线程默认的异常处理器
+        // Settings为线程默认的异常处理器
         Thread.setDefaultUncaughtExceptionHandler(this);
     }
 
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
-        // 打印异常信息
+        // 打印异常message
         ex.printStackTrace();
         // 我们没有处理异常 并且默认异常处理不为空 则交给系统处理
         if (!handlelException(ex) && mDefaultHandler != null) {
@@ -97,12 +97,12 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             return false;
         }
 
-        // 使用Toast来显示异常信息
+        // 使用Toast来显示异常message
         new Thread() {
             @Override
             public void run() {
                 Looper.prepare();
-//                Log.e("发成异常","数据采集成功"+ex.getMessage());
+);
                 Toast.makeText(mContext, "程序发生异常，即将重启", Toast.LENGTH_LONG)
                         .show();
                 Looper.loop();
@@ -115,7 +115,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
                 logFile.createNewFile();
             }
             pw = new PrintWriter(logFile);
-            // 收集手机及错误信息
+            // 收集手机及错误message
             logFile = collectInfoToSDCard(pw, ex);
             pw.close();
         } catch (Exception e) {
@@ -133,7 +133,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     }
 
     /**
-     * 收集手机信息
+     * 收集手机message
      *
      */
     private File collectInfoToSDCard(PrintWriter pw, Throwable ex)
@@ -145,7 +145,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         pw.print("time : ");
         pw.println(time);
-        // 版本信息
+        // 版本message
         pw.print("versionCode : ");
         pw.println(pi.versionCode);
         // 应用版本号
@@ -163,7 +163,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             Log.i(TAG, "an error occured when collect crash info" + e);
         }
 
-        // 打印堆栈信息
+        // 打印堆栈message
         ex.printStackTrace(pw);
         return logFile;
     }

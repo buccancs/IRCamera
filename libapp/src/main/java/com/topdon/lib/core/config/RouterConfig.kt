@@ -81,7 +81,7 @@ object RouterConfig {
     const val STORAGE_SPACE = "/$GROUP_USER/storage_space"
     const val AUTO_SAVE = "/$GROUP_USER/auto_save"
 
-    // 双光
+    // Dual light
     const val MANUAL_START = "/$GROUP_CALIBRATE/manual/first"
     const val IR_FRAME_PLUSH = "/$GROUP_IR/frame/plush"
 

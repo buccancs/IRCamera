@@ -56,12 +56,17 @@ public abstract class BarLineScatterCandleBubbleRenderer extends DataRenderer {
     /**
      * Class representing the bounds of the current viewport in terms of indices in the values array of a DataSet.
      */
-    protected class XBounds {
+    /**
+ * XBounds class.
+ * 
+ * Provides xbounds functionality.
+ */
+protected class XBounds {
 
-        /**
-         * minimum visible entry index
-         */
-        public int min;
+            /**
+     * minimum visible entry index
+     */
+    public int min;
 
         /**
          * maximum visible entry index

@@ -3,7 +3,12 @@ package com.infisense.usbir.utils;
 import com.infisense.usbir.R;
 import com.topdon.lib.core.bean.ObserveBean;
 
-public class TargetUtils {
+    /**
+     * TargetUtils class.
+     *
+     * Provides targetutils functionality.
+     */
+    public class TargetUtils {
     public static int getSelectTargetDraw(int targetMeasureMode, int targetType, int targetColorType){
         int currentSelectDraw = R.drawable.svg_ic_target_horizontal_person_green;
         if(targetColorType == ObserveBean.TYPE_TARGET_COLOR_GREEN){
@@ -253,16 +258,16 @@ public class TargetUtils {
     public static float getMeasureSize(int targetMeasureMode){
         float mMeasureSize = 180f;
         switch (targetMeasureMode) {
-            case ObserveBean.TYPE_MEASURE_PERSON://人
+            case ObserveBean.TYPE_MEASURE_PERSON:// 人
                 mMeasureSize = 180f;
                 break;
-            case ObserveBean.TYPE_MEASURE_SHEEP://羊
+            case ObserveBean.TYPE_MEASURE_SHEEP:// 羊
                 mMeasureSize = 100f;
                 break;
-            case ObserveBean.TYPE_MEASURE_DOG://狗
+            case ObserveBean.TYPE_MEASURE_DOG:// 狗
                 mMeasureSize = 50f;
                 break;
-            case ObserveBean.TYPE_MEASURE_BIRD://鸟
+            case ObserveBean.TYPE_MEASURE_BIRD:// 鸟
                 mMeasureSize = 20f;
                 break;
         }

@@ -1,6 +1,11 @@
 package com.github.mikephil.charting.exception;
 
-public class DrawingDataSetNotCreatedException extends RuntimeException {
+    /**
+     * DrawingDataSetNotCreatedException class.
+     *
+     * Provides drawingdatasetnotcreatedexception functionality.
+     */
+    public class DrawingDataSetNotCreatedException extends RuntimeException {
 
 	/**
      * 

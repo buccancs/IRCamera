@@ -17,12 +17,12 @@ public abstract class BaseDualView {
     protected int irSize;
     protected int vlSize;
     protected int remapTempSize;
-    protected byte[] remapTempData;//裁剪后的温度数据
-    protected byte[] mixData;//融合数据
-    protected byte[] normalTempData;//原始温度数据
+    protected byte[] remapTempData;// 裁剪后的温度数据
+    protected byte[] mixData;// 融合数据
+    protected byte[] normalTempData;// 原始温度数据
     protected byte[] mixDataRotate;
-    protected byte[] irData;//原始红外数据
-    public byte[] vlData;//原始可见光数据
+    protected byte[] irData;// 原始红外数据
+    public byte[] vlData;// 原始可见光数据
     public byte[] vlARGBData;
 
     public BaseDualView() {
@@ -39,6 +39,11 @@ public abstract class BaseDualView {
         vlARGBData = new byte[fusionLength];
     }
 
+        /**
+     * OnFrameCallback class.
+     *
+     * Provides onframecallback functionality.
+     */
     public interface OnFrameCallback {
         void onFame(byte[] mixData, byte[] remapTempData, double fpsText);
     }

@@ -27,7 +27,7 @@ class LeScanner extends AbstractScanner {
 
     private BluetoothLeScanner getLeScanner() {
         if (bleScanner == null) {
-            //如果蓝牙未开启的时候，获取到是null
+            // 如果蓝牙未开启的时候，获取到是null
             bleScanner = bluetoothAdapter.getBluetoothLeScanner();
         }
         return bleScanner;

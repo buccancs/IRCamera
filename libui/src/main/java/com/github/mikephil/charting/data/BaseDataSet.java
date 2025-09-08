@@ -93,7 +93,7 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
      */
     protected boolean mVisible = true;
 
-    /**
+        /**
      * Default constructor.
      */
     public BaseDataSet() {
@@ -105,7 +105,7 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
         mValueColors.add(Color.BLACK);
     }
 
-    /**
+        /**
      * Constructor with label.
      *
      * @param label
@@ -115,13 +115,12 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
         this.mLabel = label;
     }
 
-    /**
+        /**
      * Use this method to tell the data set that the underlying data has changed.
      */
     public void notifyDataSetChanged() {
         calcMinMax();
     }
-
 
     /**
      * ###### ###### COLOR GETTING RELATED METHODS ##### ######
@@ -165,7 +164,7 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
      * ###### ###### COLOR SETTING RELATED METHODS ##### ######
      */
 
-    /**
+        /**
      * Sets the colors that should be used fore this DataSet. Colors are reused
      * as soon as the number of Entries the DataSet represents is higher than
      * the size of the colors array. If you are using colors from the resources,
@@ -178,7 +177,7 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
         this.mColors = colors;
     }
 
-    /**
+        /**
      * Sets the colors that should be used fore this DataSet. Colors are reused
      * as soon as the number of Entries the DataSet represents is higher than
      * the size of the colors array. If you are using colors from the resources,
@@ -191,7 +190,7 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
         this.mColors = ColorTemplate.createColors(colors);
     }
 
-    /**
+        /**
      * Sets the colors that should be used fore this DataSet. Colors are reused
      * as soon as the number of Entries the DataSet represents is higher than
      * the size of the colors array. You can use
@@ -214,7 +213,7 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
         }
     }
 
-    /**
+        /**
      * Adds a new color to the colors array of the DataSet.
      *
      * @param color
@@ -225,7 +224,7 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
         mColors.add(color);
     }
 
-    /**
+        /**
      * Sets the one and ONLY color that should be used for this DataSet.
      * Internally, this recreates the colors array and adds the specified color.
      *
@@ -236,7 +235,7 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
         mColors.add(color);
     }
 
-    /**
+        /**
      * Sets the start and end color for gradient color, ONLY color that should be used for this DataSet.
      *
      * @param startColor
@@ -246,7 +245,7 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
         mGradientColor = new GradientColor(startColor, endColor);
     }
 
-    /**
+        /**
      * Sets the start and end color for gradient colors, ONLY color that should be used for this DataSet.
      *
      * @param gradientColors
@@ -255,7 +254,7 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
         this.mGradientColors = gradientColors;
     }
 
-    /**
+        /**
      * Sets a color with a specific alpha value.
      *
      * @param color
@@ -265,7 +264,7 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
         setColor(Color.argb(alpha, Color.red(color), Color.green(color), Color.blue(color)));
     }
 
-    /**
+        /**
      * Sets colors with a specific alpha value.
      *
      * @param colors
@@ -278,7 +277,7 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
         }
     }
 
-    /**
+        /**
      * Resets all colors of this DataSet and recreates the colors array.
      */
     public void resetColors() {
@@ -461,7 +460,6 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
     public void setAxisDependency(YAxis.AxisDependency dependency) {
         mAxisDependency = dependency;
     }
-
 
     /**
      * ###### ###### DATA RELATED METHODS ###### ######

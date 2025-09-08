@@ -35,12 +35,10 @@ class OptionPickPopup(private val context: Context, private val strArray: Array<
         private const val TEXT_PADDING: Float = 7f
     }
 
-
     /**
      * 一个选项被选中事件监听.
      */
     var onPickListener: ((position: Int, str: String) -> Unit)? = null
-
 
     init {
         val textView = TextView(context)
@@ -74,13 +72,12 @@ class OptionPickPopup(private val context: Context, private val strArray: Array<
 
         val x = locationArray[0] + anchor.width - width + SizeUtils.dp2px(5f)
 
-        if (context.resources.displayMetrics.heightPixels - locationArray[1] - anchor.height > height - SizeUtils.dp2px(5f)) {//在 anchor 底部放得下
+        if (context.resources.displayMetrics.heightPixels - locationArray[1] - anchor.height > height - SizeUtils.dp2px(5f)) {// 在 anchor 底部放得下
             showAtLocation(anchor, Gravity.NO_GRAVITY, x, locationArray[1] + anchor.height - SizeUtils.dp2px(5f))
-        } else {//下面放不下就放上面吧
+        } else {// 下面放不下就放上面吧
             showAtLocation(anchor, Gravity.NO_GRAVITY, x, (locationArray[1] - height + SizeUtils.dp2px(5f)).coerceAtLeast(0))
         }
     }
-
 
     private inner class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
         /**

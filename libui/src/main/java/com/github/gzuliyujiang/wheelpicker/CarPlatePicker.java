@@ -4,7 +4,7 @@
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
- *     http://license.coscl.org.cn/MulanPSL2
+ *     http:// license.coscl.org.cn/MulanPSL2
  * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
@@ -31,7 +31,12 @@ import com.github.gzuliyujiang.wheelpicker.widget.CarPlateWheelLayout;
  * @since 2016/12/18 10:47
  */
 @SuppressWarnings({"unused"})
-public class CarPlatePicker extends LinkagePicker {
+    /**
+     * CarPlatePicker class.
+     *
+     * Provides carplatepicker functionality.
+     */
+    public class CarPlatePicker extends LinkagePicker {
     private OnCarPlatePickedListener onCarPlatePickedListener;
 
     public CarPlatePicker(@NonNull Activity activity) {
@@ -69,7 +74,6 @@ public class CarPlatePicker extends LinkagePicker {
             onCarPlatePickedListener.onCarNumberPicked(province, letter);
         }
     }
-
 
     public void setOnCarPlatePickedListener(OnCarPlatePickedListener onCarPlatePickedListener) {
         this.onCarPlatePickedListener = onCarPlatePickedListener;

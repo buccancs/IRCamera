@@ -115,7 +115,7 @@ class TipWaterMarkDialog : Dialog {
                     // 横屏
                     0.35
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context) * wRatio).toInt() // 设置宽度
+            lp.width = (ScreenUtil.getScreenWidth(context) * wRatio).toInt() // Settings宽度
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceled)
@@ -197,7 +197,7 @@ class TipWaterMarkDialog : Dialog {
                             never: Boolean,
                         ) {
                             if (never) {
-                                // 如果是被永久拒绝就跳转到应用权限系统设置页面
+                                // 如果是被永久拒绝就跳转到应用权限系统Settings页面
                                 if (BaseApplication.instance.isDomestic())
                                     {
                                         ToastUtils.showShort(R.string.app_location_content)
@@ -273,7 +273,7 @@ class TipWaterMarkDialog : Dialog {
                 }
         }
 
-        // 获取地址信息:城市、街道等信息
+        // 获取地址message:城市、街道等message
         private fun getAddress(location: Location?): String {
             var result: List<Address?>? = null
             try {
@@ -284,7 +284,7 @@ class TipWaterMarkDialog : Dialog {
                             location.latitude,
                             location.longitude, 1,
                         )
-                    Log.v("TAG", "获取地址信息：$result")
+                    Log.v("TAG", "获取地址message：$result")
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

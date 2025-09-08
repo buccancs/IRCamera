@@ -12,9 +12,9 @@ import com.topdon.lib.core.bean.WatermarkBean
 import com.topdon.lib.core.dialog.CarDetectDialog
 
 /**
- * 当前类封装不受“保存设置开关”影响的配置项，
+ * 当前类封装不受“保存Settings开关”影响的配置项，
  *
- * [SaveSettingUtil] 保存受“保存设置开关”影响的配置项.
+ * [SaveSettingUtil] 保存受“保存Settings开关”影响的配置项.
  *
  * create by fylder on 2018/6/14
  **/
@@ -143,7 +143,7 @@ object SharedManager {
         }
 
     /**
-     * 双光校正旋转角度，取值范围 [0, 2000]，对应 SeekBar 取值.id对应设备的sid作为唯一标识区分
+     * Dual light校正旋转角度，取值范围 [0, 2000]，对应 SeekBar 取值.id对应设备的sid作为唯一标识区分
      */
     fun getManualAngle(sId: String): Int {
         return SPUtils.getInstance().getInt("manualAngle_$sId", 1000)
@@ -157,7 +157,7 @@ object SharedManager {
     }
 
     /**
-     * 双光校正的实际数据，长度必定为 24.
+     * Dual light校正的实际数据，长度必定为 24.
      */
     fun getManualData(sId: String): ByteArray {
         val strValue = SPUtils.getInstance().getString("manualData_$sId")
@@ -253,7 +253,7 @@ object SharedManager {
         }
 
     /**
-     * 点击热成像-画中画（也就是双光）时，是否需要弹出提示弹框.
+     * 点击热成像-画中画（也就是Dual light）时，是否需要弹出提示弹框.
      * true-弹出提示弹框 false-用户点过不再提示，不需要再弹出
      */
     var isTipPinP: Boolean
@@ -283,7 +283,7 @@ object SharedManager {
         }
 
     /**
-     * 点击热成像-观测模式-拍照踪时，是否需要弹出提示弹框.
+     * 点击热成像-Observation mode-Photo capture踪时，是否需要弹出提示弹框.
      * true-弹出提示弹框 false-用户点过不再提示，不需要再弹出
      */
     var isTipObservePhoto: Boolean
@@ -293,7 +293,7 @@ object SharedManager {
         }
 
     /**
-     * 连续拍照相关配置项，不受保存设置开关影响.
+     * 连续Photo capture相关配置项，不受保存Settings开关影响.
      */
     var continuousBean: ContinuousBean
         get() {
@@ -313,7 +313,7 @@ object SharedManager {
 
     /**
      * wifi类产品
-     * 水印相关配置想，不受保存设置开关影响.
+     * 水印相关配置想，不受保存Settings开关影响.
      */
     var wifiWatermarkBean: WatermarkBean
         get() {
@@ -332,7 +332,7 @@ object SharedManager {
         }
 
     /**
-     * 水印相关配置想，不受保存设置开关影响.
+     * 水印相关配置想，不受保存Settings开关影响.
      */
     var watermarkBean: WatermarkBean
         get() {
@@ -377,7 +377,7 @@ object SharedManager {
     private const val HEAD_ICON: String = "head_icon"
 
     private const val BASE_HOST: String = "base_host"
-    private const val LANGUAGE = "language" // 语言设置
+    private const val LANGUAGE = "language" // 语言Settings
 
     private const val HAS_SHOW_CLAUSE = "hasShowClause" // 是否显示过条款
     private const val TEMPERATURE_UNIT = "temperature" // 温度单位
@@ -387,8 +387,8 @@ object SharedManager {
     private const val DEVICE_VERSION = "deviceVersion" // 设备版本
 
     private const val IR_CONFIG = "ir_config" // 温度修正参数(json)
-    private const val SP_CUSTOM_PSEUDO = "sp_custom_pseudo" // 自定义伪彩条
-    private const val SP_TARGET_POP = "sp_target_pop" // 标靶弹框
+    private const val SP_CUSTOM_PSEUDO = "sp_custom_pseudo" // 自定义Pseudo color条
+    private const val SP_TARGET_POP = "sp_target_pop" // Target弹框
 
     private const val SP_SETTING_IS_PUSH = "sp_setting_is_push" // 推送开关
     private const val SP_SETTING_IS_RECOMMEND = "sp_setting_is_recommend"
@@ -396,7 +396,7 @@ object SharedManager {
     /************************TS004************************************/
     private const val SP_HOT_MODE = "sp_hot_mode" // 白热
     private const val SP_CHANGE_DEVICE = "sp_change_device" // ts001与ts004相互切换
-    private const val SP_TC007_CUSTOM_PSEUDO = "sp_tc007_custom_pseudo" // tc007自定义伪彩条
+    private const val SP_TC007_CUSTOM_PSEUDO = "sp_tc007_custom_pseudo" // tc007自定义Pseudo color条
 
     private const val SP_CAR_DETECT = "sp_car_detect" // 汽车检测项目
 
@@ -527,7 +527,7 @@ object SharedManager {
     }
 
     /**
-     * 标靶页面是否自动弹框
+     * Target页面是否自动弹框
      */
     fun getTargetPop(): Boolean {
         return SPUtils.getInstance().getBoolean(SP_TARGET_POP, false)
@@ -537,8 +537,8 @@ object SharedManager {
         SPUtils.getInstance().put(SP_TARGET_POP, targetPop)
     }
 
-    private const val IR_DUAL_DISP = "ir_dual_disp" // 双光配准-水平
-    private const val IR_DUAL_DISP_V = "ir_dual_disp_v" // 双光配准-垂直
+    private const val IR_DUAL_DISP = "ir_dual_disp" // Dual light配准-水平
+    private const val IR_DUAL_DISP_V = "ir_dual_disp_v" // Dual light配准-垂直
 
     fun saveSettingIsPush(isPush: Boolean) {
         SPUtils.getInstance().put(SP_SETTING_IS_PUSH, isPush)

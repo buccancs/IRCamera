@@ -11,8 +11,18 @@ import androidx.annotation.RequiresApi;
  */
 @SuppressWarnings("WeakerAccess")
 @RequiresApi(11)
-public class Easing {
+    /**
+     * Easing class.
+     *
+     * Provides easing functionality.
+     */
+    public class Easing {
 
+        /**
+     * EasingFunction class.
+     *
+     * Provides easingfunction functionality.
+     */
     public interface EasingFunction extends TimeInterpolator {
         @Override
         float getInterpolation(float input);

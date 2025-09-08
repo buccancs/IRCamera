@@ -8,7 +8,12 @@ import android.util.Log;
  * @author Philipp Jahoda
  */
 @SuppressLint("ParcelCreator")
-public class PieEntry extends Entry {
+    /**
+     * PieEntry class.
+     *
+     * Provides pieentry functionality.
+     */
+    public class PieEntry extends Entry {
 
     private String label;
 
@@ -48,7 +53,7 @@ public class PieEntry extends Entry {
         this.label = label;
     }
 
-    /**
+        /**
      * This is the same as getY(). Returns the value of the PieEntry.
      *
      * @return

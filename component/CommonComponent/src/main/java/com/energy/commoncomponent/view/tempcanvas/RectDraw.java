@@ -90,7 +90,7 @@ public class RectDraw extends BaseDraw {
         Log.d(TAG, "setOperateStatus = " + mOperateStatus);
     }
 
-    /**
+        /**
      * 添加一个矩形数据
      * @param startX
      * @param startY
@@ -108,7 +108,7 @@ public class RectDraw extends BaseDraw {
                 boolean hasSame = false;
                 for (int i = 0; i < mRectList.size(); i ++) {
                     if (mRectList.get(i).getLabel().equals(newLabel)) {
-                        //存在一样的
+                        // 存在一样的
                         hasSame = true;
                         Log.d(TAG, "addRect is same");
                         break;
@@ -138,7 +138,7 @@ public class RectDraw extends BaseDraw {
         }
     }
 
-    /**
+        /**
      * 删除一个矩形数据
      * @param index
      */
@@ -148,15 +148,14 @@ public class RectDraw extends BaseDraw {
         }
     }
 
-    /**
+        /**
      * 删除所有框数据
      */
     public void removeRect() {
         mRectList.clear();
     }
 
-
-    /**
+        /**
      * 更新选中框的手势位置状态
      * @param startX
      * @param startY
@@ -187,7 +186,7 @@ public class RectDraw extends BaseDraw {
         }
     }
 
-    /**
+        /**
      * 修改选中的框坐标
      * @param touchIndex
      * @param moveX
@@ -341,7 +340,7 @@ public class RectDraw extends BaseDraw {
         }
     }
 
-    /**
+        /**
      * 绘制临时点
      * @param canvas
      * @param startX
@@ -361,7 +360,7 @@ public class RectDraw extends BaseDraw {
         canvas.drawRect(mTempRect.mMovingLeft, mTempRect.mMovingTop, mTempRect.mMovingRight, mTempRect.mMovingBottom, mRectPaint);
     }
 
-    /**
+        /**
      * 检查当前是否存在手势选中的框
      * @param x
      * @param y
@@ -393,7 +392,7 @@ public class RectDraw extends BaseDraw {
         canvas.rotate(mScreenDegree, rectView.mMovingLeft + (rectView.mMovingRight - rectView.mMovingLeft) / 2,
                 rectView.mMovingTop + (rectView.mMovingBottom - rectView.mMovingTop) / 2);
 
-        //label中心点
+        // label中心点
         RectF tempRectF = new RectF();
 
         tempRectF.top = rectView.mMovingTop + (float) (rectView.mMovingBottom - rectView.mMovingTop) / 2;
@@ -411,12 +410,12 @@ public class RectDraw extends BaseDraw {
         float right = rectF.right + rectWidth / 2;
         float top = rectF.top;
         float bottom = rectF.bottom;
-        //左侧超出
+        // 左侧超出
         if (left < 0) {
             left = 0;
             right = rectWidth;
         }
-        //右侧超出
+        // 右侧超出
         if (right > mViewWidth) {
             left = mViewWidth - rectWidth;
             right = mViewWidth;
@@ -444,9 +443,14 @@ public class RectDraw extends BaseDraw {
         return rectF;
     }
 
-    public static class RectView extends BaseView {
+    public static/**
+ * RectView class.
+ * 
+ * Provides rectview functionality.
+ */
+ class RectView extends BaseView {
         private Rect mRect;
-        private static final float TOUCH_EXTRA = 10;//额外的触摸范围
+        private static final float TOUCH_EXTRA = 10;// 额外的触摸范围
         private Bitmap mHighPointBitmap;
         private Bitmap mLowPointBitmap;
         private Point mHighTempPoint;

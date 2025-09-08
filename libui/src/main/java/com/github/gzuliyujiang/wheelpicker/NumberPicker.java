@@ -4,7 +4,7 @@
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
- *     http://license.coscl.org.cn/MulanPSL2
+ *     http:// license.coscl.org.cn/MulanPSL2
  * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
@@ -33,7 +33,12 @@ import com.github.gzuliyujiang.wheelview.widget.WheelView;
  * @since 2015/10/24
  */
 @SuppressWarnings("unused")
-public class NumberPicker extends ModalDialog {
+    /**
+     * NumberPicker class.
+     *
+     * Provides numberpicker functionality.
+     */
+    public class NumberPicker extends ModalDialog {
     protected NumberWheelLayout wheelLayout;
     private OnNumberPickedListener onNumberPickedListener;
 

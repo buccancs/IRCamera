@@ -16,7 +16,7 @@ import android.widget.FrameLayout;
 import com.topdon.lib.core.utils.ScreenUtil;
 
 /**
- * @see <a href="http://www.cnblogs.com/a284628487/">...</a>
+ * @see <a href="http:// www.cnblogs.com/a284628487/">...</a>
  * @author Cj
  *
  */
@@ -289,7 +289,7 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
         return CENTER;
     }
 
-    /**
+        /**
      * 获取截取宽度
      *
      * @return
@@ -298,7 +298,7 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
         return getWidth() - 2 * offset;
     }
 
-    /**
+        /**
      * 获取截取高度
      *
      * @return

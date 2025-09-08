@@ -21,8 +21,8 @@ class FrameTool {
     private val srcTemperatureLen = imageWidth * imageHeight * 2
     private val imageBytes = ByteArray(scrImageLen)
     val temperatureBytes = ByteArray(srcTemperatureLen)
-    private val imageRes = LibIRProcess.ImageRes_t() //原图尺寸
-    private var struct: FrameStruct = FrameStruct() //首部信息
+    private val imageRes = LibIRProcess.ImageRes_t() // 原图尺寸
+    private var struct: FrameStruct = FrameStruct() // 首部message
 
     private var maxLimit = -273f
     private var minLimit = -273f
@@ -31,14 +31,13 @@ class FrameTool {
     private val supImageData = ByteArray(imageWidth * imageHeight * 4 * 4)
     private var dstArgbBytes: ByteArray ?= null
 
-
     fun read(bytes: ByteArray) {
         try {
             val frame = ByteArray(bytes.size)
             System.arraycopy(bytes, 0, frame, 0, frame.size)
             println("bs len: ${frame.size}")
-            System.arraycopy(frame, 0, imageBytes, 0, scrImageLen)//图像数据 (192 x 256 x 2) yuv
-            System.arraycopy(frame, scrImageLen, temperatureBytes, 0, srcTemperatureLen) //温度数据 (192 x 256 x 2)
+            System.arraycopy(frame, 0, imageBytes, 0, scrImageLen)// 图像数据 (192 x 256 x 2) yuv
+            System.arraycopy(frame, scrImageLen, temperatureBytes, 0, srcTemperatureLen) // 温度数据 (192 x 256 x 2)
             println("imageBytes len: ${imageBytes.size}")
             println("temperatureBytes len: ${temperatureBytes.size}")
         } catch (e: Exception) {
@@ -48,7 +47,7 @@ class FrameTool {
     }
 
     /**
-     * 设置图像默认尺寸
+     * Settings图像默认尺寸
      */
     fun initStruct(struct: FrameStruct) {
         this.struct = struct
@@ -98,7 +97,7 @@ class FrameTool {
     }
 
     /**
-     * 灰度图转伪彩图像
+     * 灰度图转Pseudo color图像
      * yuv -> argb -> 温度尺 -> 旋转 -> bitmap
      */
     fun getScrPseudoColorScaledBitmap(
@@ -121,7 +120,7 @@ class FrameTool {
         val maxRGB = IntArray(3)
         val minRGB = IntArray(3)
         if (customPseudoBean.isUseCustomPseudo) {
-            //自定义渲染模式
+            // 自定义渲染模式
             LibIRProcess.convertYuyvMapToARGBPseudocolor(imageBytesTemp, pixNum.toLong(), CommonParams.PseudoColorType.PSEUDO_1, argbBytes)
             val colorList: IntArray? = customPseudoBean.getColorList(struct.isTC007())
             val places: FloatArray? = customPseudoBean.getPlaceList()
@@ -180,7 +179,7 @@ class FrameTool {
         } else {
             LibIRProcess.convertYuyvMapToARGBPseudocolor(imageBytesTemp, pixNum.toLong(), pseudoColorMode, argbBytes)
             if (!(maxLimit == -273f && minLimit == -273f) && !(maxTemperature == maxLimit && minLimit == minTemperature)) {
-                ImageTools.dualReadFrame(argbBytes, temperatureBytes, maxLimit, minLimit) //温度尺
+                ImageTools.dualReadFrame(argbBytes, temperatureBytes, maxLimit, minLimit) // 温度尺
             }
         }
 
@@ -198,7 +197,7 @@ class FrameTool {
             }
         }
 
-        argbBytesRotate(argbBytes, dstArgbBytes!!, rotate) //旋转
+        argbBytesRotate(argbBytes, dstArgbBytes!!, rotate) // 旋转
         val dstImageRes = getDstImageRes(rotate)
         var scrBitmap : Bitmap ?= null
         if (isAmplify){
@@ -243,7 +242,7 @@ class FrameTool {
      * 目标尺寸
      */
     private fun getDstImageRes(rotate: ImageParams): LibIRProcess.ImageRes_t {
-        val dstImageRes = LibIRProcess.ImageRes_t() //目标尺寸
+        val dstImageRes = LibIRProcess.ImageRes_t() // 目标尺寸
         if (rotate == ImageParams.ROTATE_270 || rotate == ImageParams.ROTATE_90) {
             dstImageRes.width = imageRes.height
             dstImageRes.height = imageRes.width
@@ -285,7 +284,6 @@ class FrameTool {
 //        Log.w("123", "mix max: ${temperatureSampleEasyResult.maxTemperature}, min: ${temperatureSampleEasyResult.minTemperature}")
 //    }
 
-
 //    fun getSrcTemp()：Libirt{
 //        // 获取全图最高温和最低温的数据
 //        val irTemp = Libirtemp(256, 192)
@@ -304,6 +302,5 @@ class FrameTool {
         irTemp.setTempData(temperatureBytes)
         return irTemp.getTemperatureOfRect(Rect(0, 0, imageWidth, imageHeight))
     }
-
 
 }

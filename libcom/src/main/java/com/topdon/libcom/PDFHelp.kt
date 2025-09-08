@@ -42,7 +42,7 @@ object PDFHelp {
 
         for (index in 0 until viewList.size) {
             val contentHeight = viewList[index].measuredHeight
-            if (onePageContentHeight + contentHeight > onePageHeight) {//超出内容，另起一页
+            if (onePageContentHeight + contentHeight > onePageHeight) {// 超出内容，另起一页
                 onePageContentHeight = 0f
                 pdfDocument.finishPage(page)
                 page = null
@@ -78,7 +78,6 @@ object PDFHelp {
             }
         }
 
-
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             val pdfFile = File(FileConfig.getPdfDir(), "$name.pdf")
             val fos = FileOutputStream(pdfFile)
@@ -111,6 +110,5 @@ object PDFHelp {
             }
         }
     }
-
 
 }

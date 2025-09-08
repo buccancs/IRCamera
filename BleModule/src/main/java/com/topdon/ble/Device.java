@@ -6,7 +6,6 @@ import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -93,14 +92,14 @@ public class Device implements Comparable<Device>, Cloneable, Parcelable {
         return null;
     }
 
-    /**
+        /**
      * 是否已连接并成功发现服务
      */
     public boolean isConnected() {
         return getConnectionState() == ConnectionState.SERVICE_DISCOVERED;
     }
 
-    /**
+        /**
      * 是否已断开连接
      */
     public boolean isDisconnected() {
@@ -108,7 +107,7 @@ public class Device implements Comparable<Device>, Cloneable, Parcelable {
         return state == ConnectionState.DISCONNECTED || state == ConnectionState.RELEASED;
     }
 
-    /**
+        /**
      * 是否正在连接
      */
     public boolean isConnecting() {

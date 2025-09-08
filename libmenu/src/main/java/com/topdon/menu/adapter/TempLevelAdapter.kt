@@ -8,7 +8,7 @@ import com.topdon.lib.core.R
 import com.topdon.menu.constant.MenuType
 
 /**
- * 测温模式-菜单6-高低温档 菜单所用 Adapter，单选且必须选中其中一个.
+ * Temperature measurement mode-菜单6-High/Low temperature range 菜单所用 Adapter，单选且必须选中其中一个.
  *
  * 低温档(高增益)、高温档(低增益)、自动切换
  *
@@ -49,8 +49,6 @@ internal class TempLevelAdapter(menuType: MenuType) : BaseMenuAdapter() {
      * 菜单点击事件监听，单选。
      */
     var onTempLevelListener: ((code: Int) -> Unit)? = null
-
-
 
     private val dataList: ArrayList<Data> = ArrayList(6)
 

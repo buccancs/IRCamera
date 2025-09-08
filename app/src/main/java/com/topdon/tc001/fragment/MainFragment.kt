@@ -267,7 +267,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             }
 
         /**
-         * TC007 设备电池信息.
+         * TC007 设备电池message.
          */
         var tc007Battery: BatteryInfo? = null
             set(value) {

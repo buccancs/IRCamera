@@ -6,12 +6,12 @@ import android.graphics.Typeface;
 
 import com.github.mikephil.charting.utils.Utils;
 
-/**
- * This class encapsulates everything both Axis, Legend and LimitLines have in common.
- *
- * @author Philipp Jahoda
- */
-public abstract class ComponentBase {
+    /**
+     * This class encapsulates everything both Axis, Legend and LimitLines have in common.
+     *
+     * @author Philipp Jahoda
+     */
+    public abstract class ComponentBase {
 
     /**
      * flag that indicates if this axis / legend is enabled or not
@@ -43,12 +43,11 @@ public abstract class ComponentBase {
      */
     protected int mTextColor = Color.BLACK;
 
-
     public ComponentBase() {
 
     }
 
-    /**
+        /**
      * Returns the used offset on the x-axis for drawing the axis or legend
      * labels. This offset is applied before and after the label.
      *
@@ -58,7 +57,7 @@ public abstract class ComponentBase {
         return mXOffset;
     }
 
-    /**
+        /**
      * Sets the used x-axis offset for the labels on this axis.
      *
      * @param xOffset
@@ -67,7 +66,7 @@ public abstract class ComponentBase {
         mXOffset = Utils.convertDpToPixel(xOffset);
     }
 
-    /**
+        /**
      * Returns the used offset on the x-axis for drawing the axis labels. This
      * offset is applied before and after the label.
      *
@@ -77,7 +76,7 @@ public abstract class ComponentBase {
         return mYOffset;
     }
 
-    /**
+        /**
      * Sets the used y-axis offset for the labels on this axis. For the legend,
      * higher offset means the legend as a whole will be placed further away
      * from the top.
@@ -88,7 +87,7 @@ public abstract class ComponentBase {
         mYOffset = Utils.convertDpToPixel(yOffset);
     }
 
-    /**
+        /**
      * returns the Typeface used for the labels, returns null if none is set
      *
      * @return
@@ -97,7 +96,7 @@ public abstract class ComponentBase {
         return mTypeface;
     }
 
-    /**
+        /**
      * sets a specific Typeface for the labels
      *
      * @param tf
@@ -106,7 +105,7 @@ public abstract class ComponentBase {
         mTypeface = tf;
     }
 
-    /**
+        /**
      * sets the size of the label text in density pixels min = 6f, max = 24f, default
      * 10f
      *
@@ -122,7 +121,7 @@ public abstract class ComponentBase {
         mTextSize = Utils.convertDpToPixel(size);
     }
 
-    /**
+        /**
      * returns the text size that is currently set for the labels, in pixels
      *
      * @return
@@ -131,8 +130,7 @@ public abstract class ComponentBase {
         return mTextSize;
     }
 
-
-    /**
+        /**
      * Sets the text color to use for the labels. Make sure to use
      * getResources().getColor(...) when using a color from the resources.
      *
@@ -142,7 +140,7 @@ public abstract class ComponentBase {
         mTextColor = color;
     }
 
-    /**
+        /**
      * Returns the text color that is set for the labels.
      *
      * @return
@@ -151,7 +149,7 @@ public abstract class ComponentBase {
         return mTextColor;
     }
 
-    /**
+        /**
      * Set this to true if this component should be enabled (should be drawn),
      * false if not. If disabled, nothing of this component will be drawn.
      * Default: true
@@ -162,7 +160,7 @@ public abstract class ComponentBase {
         mEnabled = enabled;
     }
 
-    /**
+        /**
      * Returns true if this comonent is enabled (should be drawn), false if not.
      *
      * @return

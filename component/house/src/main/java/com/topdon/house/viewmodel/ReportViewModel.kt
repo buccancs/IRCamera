@@ -31,7 +31,6 @@ class ReportViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-
     /**
      * 一项房屋报告，调用 [queryById] 会触发更改.
      */
@@ -45,7 +44,6 @@ class ReportViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-
     /**
      * 更新指定的一项房屋报告.
      */
@@ -54,7 +52,6 @@ class ReportViewModel(application: Application) : AndroidViewModel(application) 
             AppDatabase.getInstance().houseReportDao().updateReport(houseReport)
         }
     }
-
 
     /**
      * 删除指定的房屋报告数据.

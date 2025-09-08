@@ -6,7 +6,12 @@ import android.annotation.SuppressLint;
  * Created by philipp on 13/06/16.
  */
 @SuppressLint("ParcelCreator")
-public class RadarEntry extends Entry {
+    /**
+     * RadarEntry class.
+     *
+     * Provides radarentry functionality.
+     */
+    public class RadarEntry extends Entry {
 
     public RadarEntry(float value) {
         super(0f, value);
@@ -16,7 +21,7 @@ public class RadarEntry extends Entry {
         super(0f, value, data);
     }
 
-    /**
+        /**
      * This is the same as getY(). Returns the value of the RadarEntry.
      *
      * @return

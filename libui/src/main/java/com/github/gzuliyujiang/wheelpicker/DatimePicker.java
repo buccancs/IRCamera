@@ -4,7 +4,7 @@
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
- *     http://license.coscl.org.cn/MulanPSL2
+ *     http:// license.coscl.org.cn/MulanPSL2
  * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
@@ -34,7 +34,12 @@ import com.topdon.lib.ui.R;
  * @since 2021/6/5 18:21
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class DatimePicker extends ModalDialog {
+    /**
+     * DatimePicker class.
+     *
+     * Provides datimepicker functionality.
+     */
+    public class DatimePicker extends ModalDialog {
     protected DatimeWheelLayout wheelLayout;
     private OnDatimePickedListener onDatimePickedListener;
 
@@ -55,9 +60,9 @@ public class DatimePicker extends ModalDialog {
         wheelLayout.setDateLabel("/", "/", "");
         wheelLayout.setTimeLabel(":", ":", "");
         wheelLayout.setCurtainEnabled(true);
-        wheelLayout.setCurtainColor(ContextCompat.getColor(getContext(), R.color.wheel_select_bg)); //选中背景色
-        wheelLayout.setSelectedTextColor(ContextCompat.getColor(getContext(), R.color.wheel_select_text)); //选中文字颜色
-        wheelLayout.setTextColor(ContextCompat.getColor(getContext(), R.color.wheel_unselect_text)); //未选中文字颜色
+        wheelLayout.setCurtainColor(ContextCompat.getColor(getContext(), R.color.wheel_select_bg)); // 选中背景色
+        wheelLayout.setSelectedTextColor(ContextCompat.getColor(getContext(), R.color.wheel_select_text)); // 选中文字颜色
+        wheelLayout.setTextColor(ContextCompat.getColor(getContext(), R.color.wheel_unselect_text)); // 未选中文字颜色
         wheelLayout.setResetWhenLinkage(false, false);
         return wheelLayout;
     }

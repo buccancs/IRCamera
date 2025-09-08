@@ -36,7 +36,12 @@ import java.util.List;
  * @UpdateDate:     2022.3.28 14:48
  * @UpdateRemark:
  */
-public class IRUVCDual {
+    /**
+     * IRUVCDual class.
+     *
+     * Provides iruvcdual functionality.
+     */
+    public class IRUVCDual {
     public String TAG = "IRUVC";
     private final Context mContext;
     private IFrameCallback iFrameCallback;
@@ -126,7 +131,7 @@ public class IRUVCDual {
         this.temperature = temperature;
     }
 
-    /**
+        /**
      * @param cameraWidth
      * @param cameraHeight
      * @param context
@@ -206,21 +211,21 @@ public class IRUVCDual {
          * 同时打开防灼烧和自动增益切换后，如果想修改防灼烧和自动增益切换的触发优先级，可以通过修改下面的触发参数实现
          */
         // 自动增益切换参数auto gain switch parameter
-        gain_switch_param.above_pixel_prop = 0.1f;    //用于high -> low gain,设备像素总面积的百分比
-        gain_switch_param.above_temp_data = (int) ((130 + 273.15) * 16 * 4); //用于high -> low gain,高增益向低增益切换的触发温度
-        gain_switch_param.below_pixel_prop = 0.95f;   //用于low -> high gain,设备像素总面积的百分比
-        gain_switch_param.below_temp_data = (int) ((110 + 273.15) * 16 * 4);//用于low -> high gain,低增益向高增益切换的触发温度
-        auto_gain_switch_info.switch_frame_cnt = 5 * 15; //连续满足触发条件帧数超过该阈值会触发自动增益切换(假设出图速度为15帧每秒，则5 * 15大概为5秒)
-        auto_gain_switch_info.waiting_frame_cnt = 7 * 15;//触发自动增益切换之后，会间隔该阈值的帧数不进行增益切换监测(假设出图速度为15帧每秒，则7 * 15大概为7秒)
+        gain_switch_param.above_pixel_prop = 0.1f;    // 用于high -> low gain,设备像素总面积的百分比
+        gain_switch_param.above_temp_data = (int) ((130 + 273.15) * 16 * 4); // 用于high -> low gain,高增益向低增益切换的触发温度
+        gain_switch_param.below_pixel_prop = 0.95f;   // 用于low -> high gain,设备像素总面积的百分比
+        gain_switch_param.below_temp_data = (int) ((110 + 273.15) * 16 * 4);// 用于low -> high gain,低增益向高增益切换的触发温度
+        auto_gain_switch_info.switch_frame_cnt = 5 * 15; // 连续满足触发条件帧数超过该阈值会触发自动增益切换(假设出图速度为15帧每秒，则5 * 15大概为5秒)
+        auto_gain_switch_info.waiting_frame_cnt = 7 * 15;// 触发自动增益切换之后，会间隔该阈值的帧数不进行增益切换监测(假设出图速度为15帧每秒，则7 * 15大概为7秒)
         // 防灼烧参数over_portect parameter
-        int low_gain_over_temp_data = (int) ((550 + 273.15) * 16 * 4); //低增益下触发防灼烧的温度
-        int high_gain_over_temp_data = (int) ((100 + 273.15) * 16 * 4); //高增益下触发防灼烧的温度
-        float pixel_above_prop = 0.02f;//设备像素总面积的百分比
-        int switch_frame_cnt = 7 * 15;//连续满足触发条件超过该阈值会触发防灼烧(假设出图速度为15帧每秒，则7 * 15大概为7秒)
-        int close_frame_cnt = 10 * 15;//触发防灼烧之后，经过该阈值的帧数之后会解除防灼烧(假设出图速度为15帧每秒，则10 * 15大概为10秒)
+        int low_gain_over_temp_data = (int) ((550 + 273.15) * 16 * 4); // 低增益下触发防灼烧的温度
+        int high_gain_over_temp_data = (int) ((100 + 273.15) * 16 * 4); // 高增益下触发防灼烧的温度
+        float pixel_above_prop = 0.02f;// 设备像素总面积的百分比
+        int switch_frame_cnt = 7 * 15;// 连续满足触发条件超过该阈值会触发防灼烧(假设出图速度为15帧每秒，则7 * 15大概为7秒)
+        int close_frame_cnt = 10 * 15;// 触发防灼烧之后，经过该阈值的帧数之后会解除防灼烧(假设出图速度为15帧每秒，则10 * 15大概为10秒)
     }
 
-    /**
+        /**
      * @param cameraWidth
      * @param cameraHeight
      * @param context
@@ -405,7 +410,7 @@ public class IRUVCDual {
         });
     }
 
-    /**
+        /**
      * @param cameraWidth
      * @param cameraHeight
      * @param context
@@ -497,7 +502,7 @@ public class IRUVCDual {
         });
     }
 
-    /**
+        /**
      * @param cameraWidth
      * @param cameraHeight
      */
@@ -510,21 +515,21 @@ public class IRUVCDual {
                 .build();
     }
 
-    /**
+        /**
      * @return
      */
     public UVCCamera getUvcCamera() {
         return uvcCamera;
     }
 
-    /**
+        /**
      * @return
      */
     public IRCMD getIrcmd() {
         return ircmd;
     }
 
-    /**
+        /**
      *
      */
     public void registerUSB() {
@@ -534,7 +539,7 @@ public class IRUVCDual {
         }
     }
 
-    /**
+        /**
      *
      */
     public void unregisterUSB() {
@@ -554,7 +559,7 @@ public class IRUVCDual {
         return mUSBMonitor.getDeviceList(deviceFilters);
     }
 
-    /**
+        /**
      * @param index
      * @return
      */
@@ -576,7 +581,7 @@ public class IRUVCDual {
         return false;
     }
 
-    /**
+        /**
      * @param ctrlBlock
      */
     public void openUVCCamera(USBMonitor.UsbControlBlock ctrlBlock) {
@@ -593,7 +598,7 @@ public class IRUVCDual {
         uvcCamera.openUVCCamera(ctrlBlock);
     }
 
-    /**
+        /**
      *
      */
     public void startPreview() {
@@ -605,7 +610,7 @@ public class IRUVCDual {
         }
         uvcCamera.onStartPreview();
         if (mPid == 0x5830 || mPid == 0x5840) {
-            //设置红外镜像出图，跟原生可见光保持一直
+            // Settings红外镜像出图，跟原生可见光保持一直
             ircmd.startPreview(CommonParams.PreviewPathChannel.PREVIEW_PATH0,
                     CommonParams.StartPreviewSource.SOURCE_SENSOR,
                     25, CommonParams.StartPreviewMode.VOC_DVP_MODE,
@@ -631,7 +636,7 @@ public class IRUVCDual {
         return previewList;
     }
 
-    /**
+        /**
      * init IRCMD
      * 可以根据获取到的分辨率列表，来区分不同的模组，从而改变不同的cmd参数来调用不同的SDK
      *
@@ -639,7 +644,7 @@ public class IRUVCDual {
      */
     public void initIRCMD(List<CameraSize> previewList) {
         for (CameraSize size : previewList) {
-//            Log.i(TAG, "SupportedSize : " + size.width + " * " + size.height);
+
         }
         // IRCMD init
         if (uvcCamera != null) {
@@ -686,7 +691,6 @@ public class IRUVCDual {
         }
     }
 
-
     public void setConnectCallback(ConnectCallback mConnectCallback) {
         Log.d(TAG, "setConnectCallback");
         this.mConnectCallback = mConnectCallback;
@@ -707,7 +711,7 @@ public class IRUVCDual {
              * 调整带宽
              * 部分分辨率或在部分机型上，会出现无法出图，或出图一段时间后卡顿的问题，需要配置对应的带宽
              */
-            uvcCamera.setDefaultBandwidth(1.0f);       //调整带宽
+            uvcCamera.setDefaultBandwidth(1.0f);       // 调整带宽
             uvcCamera.setDefaultPreviewMinFps(1);
             uvcCamera.setDefaultPreviewMaxFps(mFps);
         } else {
@@ -722,16 +726,15 @@ public class IRUVCDual {
              * 调整带宽
              * 部分分辨率或在部分机型上，会出现无法出图，或出图一段时间后卡顿的问题，需要配置对应的带宽
              */
-            uvcCamera.setDefaultBandwidth(0.6f);       //调整带宽
+            uvcCamera.setDefaultBandwidth(0.6f);       // 调整带宽
             uvcCamera.setDefaultPreviewMinFps(1);
             uvcCamera.setDefaultPreviewMaxFps(mFps);
         }
 
-        // 根据设备的分辨率列表，这里可以动态的设置模组的宽高(这里作为示例，用的是从外部传入的方式)
+        // 根据设备的分辨率列表，这里可以动态的Settings模组的宽高(这里作为示例，用的是从外部传入的方式)
         int result = setPreviewSize(cameraWidth, cameraHeight);
         if (result == 0) {
-            //
-            Log.d(TAG, "handleUSBConnect setPreviewSize success = " );
+            
             startPreview();
         } else {
             Log.d(TAG, "handleUSBConnect setPreviewSize fail = " );
@@ -739,6 +742,5 @@ public class IRUVCDual {
         }
 
     }
-
 
 }

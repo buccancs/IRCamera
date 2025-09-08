@@ -16,7 +16,6 @@ import com.topdon.lib.ui.R;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-
 /**
  * ================================================
  * 作    者：JayGoo
@@ -27,27 +26,37 @@ import java.lang.annotation.RetentionPolicy;
  */
 public class VerticalRangeSeekBar extends RangeSeekBar {
 
-    //text direction of VerticalRangeSeekBar. include indicator and tickMark
+    // text direction of VerticalRangeSeekBar. include indicator and tickMark
 
     /**
      * @hide
      */
     @IntDef({TEXT_DIRECTION_VERTICAL, TEXT_DIRECTION_HORIZONTAL})
     @Retention(RetentionPolicy.SOURCE)
-    public @interface TextDirectionDef {
+    public @/**
+ * TextDirectionDef class.
+ * 
+ * Provides textdirectiondef functionality.
+ */
+interface TextDirectionDef {
     }
 
     public final static int TEXT_DIRECTION_VERTICAL = 1;
     public final static int TEXT_DIRECTION_HORIZONTAL = 2;
 
-    //direction of VerticalRangeSeekBar
+    // direction of VerticalRangeSeekBar
 
     /**
      * @hide
      */
     @IntDef({DIRECTION_LEFT, DIRECTION_RIGHT})
     @Retention(RetentionPolicy.SOURCE)
-    public @interface DirectionDef {
+    public @/**
+ * DirectionDef class.
+ * 
+ * Provides directiondef functionality.
+ */
+interface DirectionDef {
     }
 
     public final static int DIRECTION_LEFT = 1;
@@ -78,7 +87,6 @@ public class VerticalRangeSeekBar extends RangeSeekBar {
             e.printStackTrace();
         }
     }
-
 
     protected void initSeekBar(AttributeSet attrs) {
         leftSB = new VerticalSeekBar(this, attrs, true);
@@ -141,7 +149,7 @@ public class VerticalRangeSeekBar extends RangeSeekBar {
                 if (TextUtils.isEmpty(text2Draw)) continue;
                 paint.getTextBounds(text2Draw, 0, text2Draw.length(), tickMarkTextRect);
                 paint.setColor(getTickMarkTextColor());
-                //平分显示
+                // 平分显示
                 float x;
                 if (getTickMarkMode() == TRICK_MARK_MODE_OTHER) {
                     if (getTickMarkGravity() == TICK_MARK_GRAVITY_RIGHT) {
@@ -157,7 +165,7 @@ public class VerticalRangeSeekBar extends RangeSeekBar {
                     if (Utils.compareFloat(num, states[0].value) != -1 && Utils.compareFloat(num, states[1].value) != 1 && (getSeekBarMode() == SEEKBAR_MODE_RANGE)) {
                         paint.setColor(getTickMarkInRangeTextColor());
                     }
-                    //按实际比例显示
+                    // 按实际比例显示
                     x = getProgressLeft() + getProgressWidth() * (num - getMinProgress()) / (getMaxProgress() - getMinProgress())
                             - tickMarkTextRect.width() / 2f;
                 }
@@ -189,7 +197,6 @@ public class VerticalRangeSeekBar extends RangeSeekBar {
 
     }
 
-
     @Override
     protected int getTickMarkRawHeight() {
         if (maxTickMarkWidth > 0) return getTickMarkTextMargin() + maxTickMarkWidth;
@@ -208,7 +215,7 @@ public class VerticalRangeSeekBar extends RangeSeekBar {
     }
 
     private boolean noNegativeNumber = false;
-    /**
+        /**
      * 临时处理负数
      */
     public void setNoNegativeNumber(Boolean noNegativeNumber){
@@ -260,7 +267,7 @@ public class VerticalRangeSeekBar extends RangeSeekBar {
         }
     }
 
-    /**
+        /**
      * if is single mode, please use it to get the SeekBar
      *
      * @return left seek bar
@@ -277,7 +284,7 @@ public class VerticalRangeSeekBar extends RangeSeekBar {
         return orientation;
     }
 
-    /**
+        /**
      * set VerticalRangeSeekBar Orientation
      * {@link #DIRECTION_LEFT}
      * {@link #DIRECTION_RIGHT}
@@ -291,7 +298,7 @@ public class VerticalRangeSeekBar extends RangeSeekBar {
         return tickMarkDirection;
     }
 
-    /**
+        /**
      * set tick mark text direction
      * {@link #TEXT_DIRECTION_VERTICAL}
      * {@link #TEXT_DIRECTION_HORIZONTAL}

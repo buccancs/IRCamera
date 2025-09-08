@@ -7,7 +7,7 @@ package com.topdon.lib.ui.config
  */
 object CameraHelp {
     /**
-     * 伪彩条
+     * Pseudo color条
      */
     val TYPE_SET_PSEUDOCOLOR = 4
 
@@ -56,11 +56,11 @@ object CameraHelp {
     val TYPE_SET_LOWTEMP = 21 // 最低温
     val TYPE_SET_DETELE = 22 // 删除
 
-    // TS001 -- 标靶菜单
-    val TYPE_SET_TARGET_MODE = 30 // 标靶
+    // TS001 -- Target菜单
+    val TYPE_SET_TARGET_MODE = 30 // Target
     val TYPE_SET_TARGET_ZOOM = 31 // 缩放
     val TYPE_SET_MEASURE_MODE = 32 // 测量模式
-    val TYPE_SET_TARGET_COLOR = 33 // 标靶颜色
+    val TYPE_SET_TARGET_COLOR = 33 // Target颜色
     val TYPE_SET_TARGET_DELETE = 34 // 删除
     val TYPE_SET_TARGET_HELP = 35 // 帮助
 }

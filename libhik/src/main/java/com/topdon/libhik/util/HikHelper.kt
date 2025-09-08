@@ -22,14 +22,14 @@ import java.util.Arrays
 /**
  * 帮助实现机芯初始化、添加回调等的的工具类.
  *
- * 设置以下回调以获取数据：
- * - [setFrameListener] 设置 YUV 数据变更回调
- * - [setTempListener] 设置温度数据变更回调
+ * Settings以下回调以获取数据：
+ * - [setFrameListener] Settings YUV 数据变更回调
+ * - [setTempListener] Settings温度数据变更回调
  *
- * 设置码流回调设置完毕回调：
+ * Settings码流回调Settings完毕回调：
  * - [onReadyListener]
  *
- * 设置超时回调给海康擦屁股：
+ * Settings超时回调给海康擦屁股：
  * - [onTimeoutListener]
  *
  * 核心方法为：
@@ -63,7 +63,6 @@ object HikHelper {
      * 码流数据回调.
      */
     private val streamCallBack = MyFStreamCallBack()
-
 
     /**
      * 根据指定 Activity 的生命周期执行相应初始化、开启码流、停止码流、回收资源操作.
@@ -118,22 +117,22 @@ object HikHelper {
      * @return true-已成功初始化 false-初始化失败
      */
     fun init(context: Context): Boolean {
-        if (userId != JavaInterface.USB_INVALID_USER_ID) {//已成功初始化并登录
+        if (userId != JavaInterface.USB_INVALID_USER_ID) {// 已成功初始化并登录
             return true
         }
 
-        //初始化
+        // 初始化
         if (!hasInit) {
-            if (!HikCmdUtil.init()) {//初始化失败
+            if (!HikCmdUtil.init()) {// 初始化失败
                 return false
             }
             hasInit = true
         }
 
-        //设置日志路径
+        // Settings日志路径
         HikCmdUtil.setLogPath(context.getExternalFilesDir("hkLog"))
 
-        //登录
+        // 登录
         userId = HikCmdUtil.login(context)
         return userId != JavaInterface.USB_INVALID_USER_ID
     }
@@ -152,7 +151,7 @@ object HikHelper {
             wantCheckTimeout = true
             timeoutJob = CoroutineScope(Dispatchers.Main).launch {
                 while (wantCheckTimeout) {
-                    delay(5000) //5秒检查一次
+                    delay(5000) // 5秒检查一次
                     if (System.currentTimeMillis() - streamCallBack.beforeFrameTime > 5000) {
                         wantCheckTimeout = false
                         onTimeoutListener?.invoke()
@@ -179,7 +178,7 @@ object HikHelper {
      * 清理及回收相关资源.
      */
     fun release() {
-        if (userId != JavaInterface.USB_INVALID_USER_ID) {//已登录要退出登录
+        if (userId != JavaInterface.USB_INVALID_USER_ID) {// 已登录要退出登录
             JavaInterface.getInstance().USB_Logout(userId)
             userId = JavaInterface.USB_INVALID_USER_ID
         }
@@ -193,13 +192,13 @@ object HikHelper {
     }
 
     /**
-     * 设置整帧数据变更回调，注意，回调不在主线程！
+     * Settings整帧数据变更回调，注意，回调不在主线程！
      */
     fun setFrameListener(listener : ((ByteArray, ByteArray) -> Unit)) {
         streamCallBack.onFrameListener = listener
     }
     /**
-     * 设置温度数据变更回调，注意，回调不在主线程！
+     * Settings温度数据变更回调，注意，回调不在主线程！
      */
     fun setTempListener(listener : ((ByteArray) -> Unit)) {
         streamCallBack.onTempListener = listener
@@ -210,7 +209,7 @@ object HikHelper {
      */
     var onTimeoutListener: (() -> Unit)? = null
     /**
-     * 机芯命令不支持并发执行，该回调为开启码流回调结束，在此执行配置设置.
+     * 机芯命令不支持并发执行，该回调为开启码流回调结束，在此执行配置Settings.
      */
     var onReadyListener: (() -> Unit)? = null
 
@@ -218,7 +217,6 @@ object HikHelper {
      * 复制一份整帧数据（YUV+温度）并返回
      */
     fun copyFrameData(): ByteArray = streamCallBack.copyFrameArray()
-
 
     private class MyFStreamCallBack : FStreamCallBack {
         /**
@@ -264,7 +262,6 @@ object HikHelper {
             }
             val dataArray: ByteArray = Arrays.copyOf(frameInfo.pBuf, frameInfo.dwBufSize)
 
-
             /*val frameHead = FrameHead(dataArray)
             XLog.d(frameHead.toString())
             for (i in frameHead.tempRuleList.indices) {
@@ -286,7 +283,7 @@ object HikHelper {
     }
 
     /**
-     * 重置一些配置：开启细节增强、重置伪彩为白热、码流不叠加温度图像、横屏、不镜像.
+     * 重置一些配置：开启细节增强、重置Pseudo color为白热、码流不叠加温度图像、横屏、不镜像.
      */
     suspend fun initConfig() = withContext(Dispatchers.IO) {
         HikCmdUtil.initConfig(userId)
@@ -307,7 +304,7 @@ object HikHelper {
     }
 
     /**
-     * 设置对比度，取值 `[0,100]`
+     * Settings对比度，取值 `[0,100]`
      */
     suspend fun setContrast(value: Int) = withContext(Dispatchers.IO) {
         HikCmdUtil.setContrast(userId, value)
@@ -321,14 +318,14 @@ object HikHelper {
     }
 
     /**
-     * 设置镜像
+     * Settings镜像
      */
     suspend fun setMirror(rotateAngle: Int, isMirror: Boolean) = withContext(Dispatchers.IO) {
         HikCmdUtil.setMirror(userId, rotateAngle, isMirror)
     }
 
     /**
-     * 设置发射率
+     * Settings发射率
      * @param emissivity 取值范围 `[1, 100]`
      */
     suspend fun setEmissivity(emissivity: Int) = withContext(Dispatchers.IO) {
@@ -336,7 +333,7 @@ object HikHelper {
     }
 
     /**
-     * 设置测温距离，单位 cm
+     * Settings测温距离，单位 cm
      * @param distance 取值范围 `[30, 200]`
      */
     suspend fun setDistance(distance: Int) = withContext(Dispatchers.IO) {
@@ -344,7 +341,7 @@ object HikHelper {
     }
 
     /**
-     * 设置测温 自动(-1)/常温(1)/高温(0) 档位.
+     * Settings测温 自动(-1)/常温(1)/高温(0) 档位.
      */
     suspend fun setTemperatureMode(@IntRange(-1, 1) mode: Int) = withContext(Dispatchers.IO) {
         HikCmdUtil.setTemperatureMode(userId, mode)

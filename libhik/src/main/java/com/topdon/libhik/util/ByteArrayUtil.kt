@@ -37,7 +37,6 @@ internal object ByteArrayUtil {
         ""
     }
 
-
     /**
      * 将指定数组的 `[startIndex, startIndex + size)` 以 16 进制的形式输出
      */

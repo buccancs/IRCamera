@@ -73,7 +73,6 @@ class TempAlarmSetDialog(
     private lateinit var tvAlarmRingtone: TextView
     private lateinit var tvAlarmMark: TextView
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setCancelable(false)
@@ -285,22 +284,22 @@ class TempAlarmSetDialog(
 
     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
         when (buttonView?.id) {
-            R.id.switch_alarm_high -> {//高温报警
+            R.id.switch_alarm_high -> {// 高温报警
                 etAlarmHigh.isEnabled = isChecked
                 alarmBean.isHighOpen = isChecked
             }
 
-            R.id.switch_alarm_low -> {//低温报警
+            R.id.switch_alarm_low -> {// 低温报警
                 etAlarmLow.isEnabled = isChecked
                 alarmBean.isLowOpen = isChecked
             }
 
-            R.id.switch_alarm_mark -> {//区域标记
+            R.id.switch_alarm_mark -> {// 区域标记
                 clAlarmMark.isVisible = isChecked
                 alarmBean.isMarkOpen = isChecked
             }
 
-            R.id.switch_alarm_ringtone -> {//报警铃声
+            R.id.switch_alarm_ringtone -> {// 报警铃声
                 clRingtoneSelect.isVisible = isChecked
                 if (isChecked) {
                     selectRingtone(alarmBean.ringtoneType)
@@ -312,7 +311,7 @@ class TempAlarmSetDialog(
     }
 
     /**
-     * 设置当前选中的铃声，null 表示关闭.
+     * Settings当前选中的铃声，null 表示关闭.
      */
     private fun selectRingtone(position: Int?) {
         try {

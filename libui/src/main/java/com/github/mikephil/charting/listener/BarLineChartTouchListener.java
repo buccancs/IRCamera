@@ -20,13 +20,13 @@ import com.github.mikephil.charting.utils.MPPointF;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
-/**
- * TouchListener for Bar-, Line-, Scatter- and CandleStickChart with handles all
- * touch interaction. Longpress == Zoom out. Double-Tap == Zoom in.
- *
- * @author Philipp Jahoda
- */
-public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBase<? extends BarLineScatterCandleBubbleData<?
+    /**
+     * TouchListener for Bar-, Line-, Scatter- and CandleStickChart with handles all
+     * touch interaction. Longpress == Zoom out. Double-Tap == Zoom in.
+     *
+     * @author Philipp Jahoda
+     */
+    public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBase<? extends BarLineScatterCandleBubbleData<?
         extends IBarLineScatterCandleBubbleDataSet<? extends Entry>>>> {
 
     /**
@@ -74,7 +74,7 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
      */
     private float mMinScalePointerDistance;
 
-    /**
+        /**
      * Constructor with initialization parameters.
      *
      * @param chart               instance of the chart
@@ -454,7 +454,6 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
      */
     /** DOING THE MATH BELOW ;-) */
 
-
     /**
      * Determines the center point between two pointer touch points.
      *
@@ -504,7 +503,7 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
         return y;
     }
 
-    /**
+        /**
      * Returns a recyclable MPPointF instance.
      * returns the correct translation depending on the provided x and y touch
      * points
@@ -545,7 +544,7 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
      */
     /** GETTERS AND GESTURE RECOGNITION BELOW */
 
-    /**
+        /**
      * returns the matrix object the listener holds
      *
      * @return
@@ -554,7 +553,7 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
         return mMatrix;
     }
 
-    /**
+        /**
      * Sets the minimum distance that will be interpreted as a "drag" by the chart in dp.
      * Default: 3dp
      *

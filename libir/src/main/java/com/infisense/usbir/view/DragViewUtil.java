@@ -1,7 +1,5 @@
 package com.infisense.usbir.view;
 
-
-
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -15,7 +13,7 @@ public class DragViewUtil {
 //        registerDragAction(v, 0);
     }
 
-    /**
+        /**
      * 拖动View方法
      *
      * @param v     view
@@ -25,7 +23,12 @@ public class DragViewUtil {
         v.setOnTouchListener(new TouchListener(delay));
     }
 
-    private static class TouchListener implements View.OnTouchListener {
+    private static/**
+ * TouchListener class.
+ * 
+ * Provides touchlistener functionality.
+ */
+ class TouchListener implements View.OnTouchListener {
         private float downX;
         private float downY;
         private long downTime;

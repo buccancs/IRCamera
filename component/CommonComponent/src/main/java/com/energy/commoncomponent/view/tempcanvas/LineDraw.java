@@ -42,7 +42,7 @@ public class LineDraw extends BaseDraw {
     private final int TEXT_SIZE = 14; // 文字大小
     private final int TOUCH_TOLERANCE = 48;
 
-    private LineView mTempLine;//临时绘制的line，比如手势移动过程中
+    private LineView mTempLine;// 临时绘制的line，比如手势移动过程中
 
     private int mOperateStatus = -1;
 
@@ -78,7 +78,7 @@ public class LineDraw extends BaseDraw {
         Log.d(TAG, "setOperateStatus = " + mOperateStatus);
     }
 
-    /**
+        /**
      * 添加一个线数据
      * @param startX
      * @param startY
@@ -96,7 +96,7 @@ public class LineDraw extends BaseDraw {
                 boolean hasSame = false;
                 for (int i = 0; i < mLineList.size(); i ++) {
                     if (mLineList.get(i).getLabel().equals(newLabel)) {
-                        //存在一样的
+                        // 存在一样的
                         hasSame = true;
                         Log.d(TAG, "addLine is same");
                         break;
@@ -126,7 +126,7 @@ public class LineDraw extends BaseDraw {
         }
     }
 
-    /**
+        /**
      * 删除一个线数据
      * @param index
      */
@@ -136,7 +136,7 @@ public class LineDraw extends BaseDraw {
         }
     }
 
-    /**
+        /**
      * 删除所有线数据
      */
     public void removeLine() {
@@ -164,7 +164,7 @@ public class LineDraw extends BaseDraw {
         }
     }
 
-    /**
+        /**
      * 绘制临时线
      * @param canvas
      * @param startX
@@ -204,12 +204,12 @@ public class LineDraw extends BaseDraw {
         float right = rectF.right + rectWidth / 2;
         float top = rectF.top;
         float bottom = rectF.bottom;
-        //左侧超出
+        // 左侧超出
         if (left < 0) {
             left = 0;
             right = rectWidth;
         }
-        //右侧超出
+        // 右侧超出
         if (right > mViewWidth) {
             left = mViewWidth - rectWidth;
             right = mViewWidth;
@@ -237,7 +237,7 @@ public class LineDraw extends BaseDraw {
         return rectF;
     }
 
-    /**
+        /**
      * 更新选中线的手势位置状态
      * @param startX
      * @param startY
@@ -257,7 +257,7 @@ public class LineDraw extends BaseDraw {
 
     }
 
-    /**
+        /**
      * 修改选中的线坐标
      * @param moveX
      * @param moveY
@@ -358,7 +358,7 @@ public class LineDraw extends BaseDraw {
         }
     }
 
-    /**
+        /**
      * 修改选中的线Point
      */
     public void changeTouchPointLocation() {
@@ -368,7 +368,7 @@ public class LineDraw extends BaseDraw {
         mLineList.get(mTouchIndex).changePointLocation();
     }
 
-    /**
+        /**
      * 检查当前是否存在手势选中的线
      * @param x
      * @param y
@@ -390,10 +390,15 @@ public class LineDraw extends BaseDraw {
         return mTouchIndex;
     }
 
-    public static class LineView extends BaseView {
-        private Point mStartPoint; //起点
-        private Point mEndPoint; //终点
-        private static final float TOUCH_EXTRA = 10;//额外的触摸范围
+    public static/**
+ * LineView class.
+ * 
+ * Provides lineview functionality.
+ */
+ class LineView extends BaseView {
+        private Point mStartPoint; // 起点
+        private Point mEndPoint; // 终点
+        private static final float TOUCH_EXTRA = 10;// 额外的触摸范围
         private Bitmap mHighPointBitmap;
         private Bitmap mLowPointBitmap;
         private Point mHighTempPoint;

@@ -29,7 +29,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class BitmapUtils {
+    /**
+     * BitmapUtils class.
+     *
+     * Provides bitmaputils functionality.
+     */
+    public class BitmapUtils {
 
     public static Bitmap mirror(Bitmap rawBitmap) {
         Matrix matrix = new Matrix();
@@ -57,7 +62,7 @@ public class BitmapUtils {
         return returnBm;
     }
 
-    /**
+        /**
      * 将bitmap转换成bytes
      */
     public static byte[] bitmapToBytes(Bitmap bitmap, int quality) {
@@ -76,7 +81,7 @@ public class BitmapUtils {
         }
     }
 
-    /**
+        /**
      * 将图片保存到磁盘中
      *
      * @param bitmap
@@ -110,7 +115,7 @@ public class BitmapUtils {
         return success;
     }
 
-    /**
+        /**
      * 高级图片质量压缩
      *
      * @param bitmap 位图
@@ -128,12 +133,13 @@ public class BitmapUtils {
                 width * newBitmap.getHeight() / newBitmap.getWidth());
     }
 
-    /***
-     * 图片缩放
-     *@param bitmap 位图
-     * @param w 新的宽度
-     * @param h 新的高度
-     * @return Bitmap
+    /**
+     * Scale image with specified width and height.
+     *
+     * @param bitmap the bitmap to scale
+     * @param w new width
+     * @param h new height
+     * @return scaled Bitmap
      */
     public static Bitmap scaleWithWH(Bitmap bitmap, double w, double h) {
         if (w == 0 || h == 0 || bitmap == null) {
@@ -152,7 +158,7 @@ public class BitmapUtils {
         }
     }
 
-    /**
+        /**
      * bitmap保存到指定路径
      *
      * @param file 图片的绝对路径
@@ -183,7 +189,7 @@ public class BitmapUtils {
         return true;
     }
 
-    /**
+        /**
      * 把两个位图覆盖合成为一个位图，以底层位图的长宽为基准
      *
      * @param backBitmap  在底部的位图
@@ -218,7 +224,6 @@ public class BitmapUtils {
 //        }
         return bitmap;
     }
-
 
     public static Bitmap mergeBitmapByView(Bitmap backBitmap, Bitmap frontBitmap, BitmapViewListener view) {
         if (backBitmap == null || backBitmap.isRecycled()
@@ -275,9 +280,7 @@ public class BitmapUtils {
         canvas.drawBitmap(frontBitmap, view.getViewX(),view.getViewY(), paint);
     }
 
-
-
-    /**
+        /**
      * 把两个位图覆盖合成为一个位图，以底层位图的长宽为基准
      * @param bytes  在底部的位图
      * @param bytes2 盖在上面的位图
@@ -300,42 +303,42 @@ public class BitmapUtils {
         }
     }
 
-    /**
+        /**
      * 添加水印
      * @param bmp
      * @param title
      * @param address
      * @param time
-     * @param seekBarWidth : 右边伪彩控件的宽度，防止内容和控件重叠
+     * @param seekBarWidth : 右边Pseudo color控件的宽度，防止内容和控件重叠
      * @return
      */
     public static Bitmap drawCenterLable(Bitmap bmp, String title,String address,String time,int seekBarWidth) {
-        //创建一样大小的图片
+        // 创建一样大小的图片
         Bitmap newBmp = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(), Bitmap.Config.ARGB_8888);
-        //创建画布
+        // 创建画布
         Canvas canvas = new Canvas(newBmp);
-        canvas.drawBitmap(bmp, 0, 0, null);  //绘制原始图片
+        canvas.drawBitmap(bmp, 0, 0, null);  // 绘制原始图片
         canvas.save();
         TextPaint paint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColor(Color.WHITE); //白色半透明
+        paint.setColor(Color.WHITE); // 白色半透明
         paint.setTextSize(SizeUtils.sp2px(12));
         paint.setDither(true);
         paint.setFilterBitmap(true);
-        Rect rectText = new Rect();  //得到text占用宽高， 单位：像素
+        Rect rectText = new Rect();  // 得到text占用宽高， 单位：像素
         paint.getTextBounds("占位高度文本", 0,"占位高度文本".length(), rectText);
-        double beginX = SizeUtils.dp2px(10);  //45度角度值是1.414
+        double beginX = SizeUtils.dp2px(10);  // 45度角度值是1.414
         double beginY = bmp.getHeight() - SizeUtils.dp2px(10);
         if (!TextUtils.isEmpty(time)){
             beginY = beginY - (rectText.bottom - rectText.top);
             canvas.drawText(time, (int)beginX, (int)beginY, paint);
             beginY -= SizeUtils.dp2px(6);
         }
-        int lineWidth = bmp.getWidth() - SizeUtils.dp2px(20) - seekBarWidth;//一行的可显示内容宽度
+        int lineWidth = bmp.getWidth() - SizeUtils.dp2px(20) - seekBarWidth;// 一行的可显示内容宽度
         if (!TextUtils.isEmpty(address)){
             int textHeight = (rectText.bottom - rectText.top);
             paint.getTextBounds(address, 0,address.length(), rectText);
             if (rectText.width() > lineWidth){
-                //字符太长，进行换行处理
+                // 字符太长，进行换行处理
                 StaticLayout staticLayout = new StaticLayout(address,
                         paint, lineWidth,
                         Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
@@ -354,7 +357,7 @@ public class BitmapUtils {
             int textHeight = (rectText.bottom - rectText.top);
             paint.getTextBounds(title, 0,title.length(), rectText);
             if (rectText.width() > lineWidth){
-                //字符太长，进行换行处理
+                // 字符太长，进行换行处理
                 StaticLayout staticLayout = new StaticLayout(title,
                         paint, lineWidth,
                         Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);

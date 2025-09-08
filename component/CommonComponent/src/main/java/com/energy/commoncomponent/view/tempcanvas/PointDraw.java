@@ -38,7 +38,7 @@ public class PointDraw extends BaseDraw {
 
     private LinkedList<PointView> mPointList;
 
-    private PointView mTempPoint;//临时绘制的point，比如手势移动过程中
+    private PointView mTempPoint;// 临时绘制的point，比如手势移动过程中
 
     private Paint mTextPaint;
     private Paint mBgPaint;
@@ -77,7 +77,7 @@ public class PointDraw extends BaseDraw {
         Log.d(TAG, "setOperateStatus = " + mOperateStatus);
     }
 
-    /**
+        /**
      * 添加一个点数据
      * @param mode
      * @param centerX
@@ -93,7 +93,7 @@ public class PointDraw extends BaseDraw {
             boolean hasSame = false;
             for (int i = 0; i < mPointList.size(); i ++) {
                 if (mPointList.get(i).getLabel().equals(newLabel)) {
-                    //存在一样的
+                    // 存在一样的
                     hasSame = true;
                     Log.d(TAG, "addPoint is same");
                     break;
@@ -122,7 +122,7 @@ public class PointDraw extends BaseDraw {
         }
     }
 
-    /**
+        /**
      * 删除一个点数据
      * @param index
      */
@@ -132,7 +132,7 @@ public class PointDraw extends BaseDraw {
         }
     }
 
-    /**
+        /**
      * 删除所有点数据
      */
     public void removePoint() {
@@ -157,7 +157,7 @@ public class PointDraw extends BaseDraw {
         }
     }
 
-    /**
+        /**
      * 绘制临时点
      * @param canvas
      * @param mode
@@ -181,7 +181,7 @@ public class PointDraw extends BaseDraw {
         RectF tempRectF = new RectF();
         float top = pointView.mCenterY - TEXT_POINT_MARGIN - LABEL_POINT_MARGIN - pointView.mPointSize / 2;
         float bottom = pointView.mCenterY - TEXT_POINT_MARGIN - pointView.mPointSize / 2;
-        //顶部超出在point下方展示
+        // 顶部超出在point下方展示
         if (top < 0) {
             top = pointView.mCenterY + TEXT_POINT_MARGIN + pointView.mPointSize / 2;
             bottom = top + LABEL_POINT_MARGIN;
@@ -202,12 +202,12 @@ public class PointDraw extends BaseDraw {
         float right = rectF.right + rectWidth / 2;
         float top = rectF.top;
         float bottom = rectF.bottom;
-        //左侧超出
+        // 左侧超出
         if (left < 0) {
             left = 0;
             right = rectWidth;
         }
-        //右侧超出
+        // 右侧超出
         if (right > mViewWidth) {
             left = mViewWidth - rectWidth;
             right = mViewWidth;
@@ -235,7 +235,7 @@ public class PointDraw extends BaseDraw {
         return rectF;
     }
 
-    /**
+        /**
      * 修改选中的点坐标
      * @param touchIndex
      * @param centerX
@@ -248,7 +248,7 @@ public class PointDraw extends BaseDraw {
         mPointList.get(touchIndex).changeLocation(centerX, centerY);
     }
 
-    /**
+        /**
      * 检查当前是否存在手势选中的点
      * @param rawX
      * @param rawY
@@ -267,15 +267,20 @@ public class PointDraw extends BaseDraw {
         return mTouchIndex;
     }
 
-    public static class PointView extends BaseView {
+    public static/**
+ * PointView class.
+ * 
+ * Provides pointview functionality.
+ */
+ class PointView extends BaseView {
 
-        private static final float TOUCH_EXTRA = 20;//额外的触摸范围
+        private static final float TOUCH_EXTRA = 20;// 额外的触摸范围
 
-        private int mMode;//1:blue 2:green 3:red
-        private float mCenterX;//相对父布局
+        private int mMode;// 1:blue 2:green 3:red
+        private float mCenterX;// 相对父布局
         private float mCenterY;
 
-        private Rect mInRect; //范围
+        private Rect mInRect; // 范围
         private Bitmap mPointBitmap;
         private Point mTempPoint;
 
@@ -341,6 +346,5 @@ public class PointDraw extends BaseDraw {
     public LinkedList<PointView> getPointViewList() {
         return mPointList;
     }
-
 
 }

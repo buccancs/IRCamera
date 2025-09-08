@@ -24,7 +24,6 @@ import com.topdon.libcom.adpter.DColorSelectAdapter
 @Deprecated("产品要求所有颜色拾取都更改为 ColorPickDialog 那种样式，这个弹框废弃")
 class ColorDialog(color: Int) : DialogFragment() {
 
-
     var positiveEvent  : ((color: Int)->Unit)? = null
     var cancelEvent: (() -> Unit)? = null
 
@@ -70,7 +69,6 @@ class ColorDialog(color: Int) : DialogFragment() {
             dismiss()
         }
     }
-
 
     override fun onDestroy() {
         cancelEvent?.invoke()

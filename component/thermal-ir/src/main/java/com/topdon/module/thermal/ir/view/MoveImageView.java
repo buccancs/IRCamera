@@ -11,7 +11,12 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 
 @SuppressLint("AppCompatCustomView")
-public class MoveImageView extends ImageView {
+    /**
+     * MoveImageView class.
+     *
+     * Provides moveimageview functionality.
+     */
+    public class MoveImageView extends ImageView {
 
     private static final String TAG = "MoveImageView";
     private float mPreX;
@@ -74,7 +79,7 @@ public class MoveImageView extends ImageView {
     private static final int MIN_CLICK_DELAY_TIME = 100;
     private static long lastClickTime;
 
-    //最多70毫秒执行一次move
+    // 最多70毫秒执行一次move
     public static boolean delayMoveTime() {
         boolean flag = false;
         long curClickTime = System.currentTimeMillis();
@@ -88,6 +93,11 @@ public class MoveImageView extends ImageView {
         return flag;
     }
 
+        /**
+     * OnMoveListener class.
+     *
+     * Provides onmovelistener functionality.
+     */
     public interface OnMoveListener {
         void onMove(float preX, float preY, float curX, float curY);
     }

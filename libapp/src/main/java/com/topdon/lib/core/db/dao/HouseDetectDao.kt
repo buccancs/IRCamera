@@ -18,7 +18,7 @@ import com.topdon.lib.core.db.entity.ItemDetect
 @Dao
 abstract class HouseDetectDao {
     /**
-     * 按指定的信息新建一个检测数据，目录及项目使用默认值.
+     * 按指定的message新建一个检测数据，目录及项目使用默认值.
      */
     @Transaction
     open fun insert(houseDetect: HouseDetect): Long {
@@ -69,7 +69,7 @@ abstract class HouseDetectDao {
     }
 
     /**
-     * 查询指定 id 的目录信息，注意目录对应的检测信息未加载.
+     * 查询指定 id 的目录message，注意目录对应的检测message未加载.
      */
     open fun queryDir(dirId: Long): DirDetect? {
         val dir: DirDetect = queryDirById(dirId) ?: return null
@@ -82,7 +82,7 @@ abstract class HouseDetectDao {
     }
 
     /**
-     * 根据指定的房屋检测信息，刷新对应的目录信息.
+     * 根据指定的房屋检测message，刷新对应的目录message.
      */
     open fun refreshDetect(houseDetect: HouseDetect) {
         val oldDirList: ArrayList<DirDetect> = ArrayList(queryDirList(houseDetect.id))
@@ -107,7 +107,7 @@ abstract class HouseDetectDao {
     }
 
     /**
-     * 根据指定的目录信息，更新目录及对应的项目列表.
+     * 根据指定的目录message，更新目录及对应的项目列表.
      */
     open fun refreshDir(dirDetect: DirDetect) {
         if (dirDetect.itemList.isEmpty()) { // 所有子项目都没了，这个目录也干掉
@@ -243,7 +243,7 @@ abstract class HouseDetectDao {
     abstract fun updateItem(vararg itemDetect: ItemDetect)
 
     /**
-     * 仅查询所有检测列表信息，注意每个检测下的目录均未加载.
+     * 仅查询所有检测列表message，注意每个检测下的目录均未加载.
      */
     @Query("SELECT * FROM HouseDetect ORDER BY createTime DESC")
     abstract fun queryAll(): List<HouseDetect>

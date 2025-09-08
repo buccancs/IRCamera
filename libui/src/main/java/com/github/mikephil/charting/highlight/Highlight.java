@@ -3,12 +3,12 @@ package com.github.mikephil.charting.highlight;
 
 import com.github.mikephil.charting.components.YAxis;
 
-/**
- * Contains information needed to determine the highlighted value.
- *
- * @author Philipp Jahoda
- */
-public class Highlight {
+    /**
+     * Contains information needed to determine the highlighted value.
+     *
+     * @author Philipp Jahoda
+     */
+    public class Highlight {
 
     /**
      * the x-value of the highlighted value
@@ -71,7 +71,7 @@ public class Highlight {
         this.mStackIndex = stackIndex;
     }
 
-    /**
+        /**
      * constructor
      *
      * @param x            the x-value of the highlighted value
@@ -87,7 +87,7 @@ public class Highlight {
         this.axis = axis;
     }
 
-    /**
+        /**
      * Constructor, only used for stacked-barchart.
      *
      * @param x            the index of the highlighted value on the x-axis
@@ -101,7 +101,7 @@ public class Highlight {
         this.mStackIndex = stackIndex;
     }
 
-    /**
+        /**
      * returns the x-value of the highlighted value
      *
      * @return
@@ -110,7 +110,7 @@ public class Highlight {
         return mX;
     }
 
-    /**
+        /**
      * returns the y-value of the highlighted value
      *
      * @return
@@ -119,21 +119,21 @@ public class Highlight {
         return mY;
     }
 
-    /**
+        /**
      * returns the x-position of the highlight in pixels
      */
     public float getXPx() {
         return mXPx;
     }
 
-    /**
+        /**
      * returns the y-position of the highlight in pixels
      */
     public float getYPx() {
         return mYPx;
     }
 
-    /**
+        /**
      * the index of the data object - in case it refers to more than one
      *
      * @return
@@ -146,7 +146,7 @@ public class Highlight {
         this.mDataIndex = mDataIndex;
     }
 
-    /**
+        /**
      * returns the index of the DataSet the highlighted value is in
      *
      * @return
@@ -155,7 +155,7 @@ public class Highlight {
         return mDataSetIndex;
     }
 
-    /**
+        /**
      * Only needed if a stacked-barchart entry was highlighted. References the
      * selected value within the stacked-entry.
      *
@@ -169,7 +169,7 @@ public class Highlight {
         return mStackIndex >= 0;
     }
 
-    /**
+        /**
      * Returns the axis the highlighted value belongs to.
      *
      * @return
@@ -178,7 +178,7 @@ public class Highlight {
         return axis;
     }
 
-    /**
+        /**
      * Sets the x- and y-position (pixels) where this highlight was last drawn.
      *
      * @param x
@@ -189,7 +189,7 @@ public class Highlight {
         this.mDrawY = y;
     }
 
-    /**
+        /**
      * Returns the x-position in pixels where this highlight object was last drawn.
      *
      * @return
@@ -198,7 +198,7 @@ public class Highlight {
         return mDrawX;
     }
 
-    /**
+        /**
      * Returns the y-position in pixels where this highlight object was last drawn.
      *
      * @return
@@ -207,7 +207,7 @@ public class Highlight {
         return mDrawY;
     }
 
-    /**
+        /**
      * Returns true if this highlight object is equal to the other (compares
      * xIndex and dataSetIndex)
      *

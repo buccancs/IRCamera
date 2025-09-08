@@ -9,12 +9,12 @@ import com.topdon.menu.constant.MenuType
 import com.topdon.menu.constant.SettingType
 
 /**
- * 设置菜单所用 Adapter，所有选项互相独立，可多选.
+ * Settings菜单所用 Adapter，所有选项互相独立，可多选.
  *
- * - 单光：   伪彩条、对比度、锐度、警示、旋转、字体、镜像
- * - 双光：   伪彩条、对比度、锐度、警示、旋转、字体
- * - Lite：  伪彩条、对比度、警示、旋转、字体、镜像
- * - TC007： 伪彩条、对比度、锐度、警示、字体、镜像
+ * - 单光：   Pseudo color条、对比度、锐度、警示、旋转、字体、镜像
+ * - Dual light：   Pseudo color条、对比度、锐度、警示、旋转、字体
+ * - Lite：  Pseudo color条、对比度、警示、旋转、字体、镜像
+ * - TC007： Pseudo color条、对比度、锐度、警示、字体、镜像
  * - 2D 编辑：警示、字体、水印
  *
  * - TS001 观测：指南针、旋转、镜像、对比度
@@ -24,11 +24,10 @@ import com.topdon.menu.constant.SettingType
 @SuppressLint("NotifyDataSetChanged")
 internal class SettingAdapter(menuType: MenuType = MenuType.SINGLE_LIGHT, isObserver: Boolean = false) : BaseMenuAdapter() {
     /**
-     * 设置菜单点击事件监听。
+     * Settings菜单点击事件监听。
      * isSelected：点击时是否处于选中状态
      */
     var onSettingListener: ((settingType: SettingType, isSelected: Boolean) -> Unit)? = null
-
 
     /**
      * 这里有几个坑：
@@ -47,7 +46,7 @@ internal class SettingAdapter(menuType: MenuType = MenuType.SINGLE_LIGHT, isObse
         }
 
     /**
-     * 设置指定选项的选中状态，旋转不要调这个方法，因为旋转有 4 个状态
+     * Settings指定选项的选中状态，旋转不要调这个方法，因为旋转有 4 个状态
      */
     fun setSelected(settingType: SettingType, isSelected: Boolean) {
         for (i in dataList.indices) {
@@ -59,7 +58,6 @@ internal class SettingAdapter(menuType: MenuType = MenuType.SINGLE_LIGHT, isObse
         }
     }
 
-
     private val dataList: ArrayList<Data> = ArrayList(7)
 
     init {
@@ -69,7 +67,7 @@ internal class SettingAdapter(menuType: MenuType = MenuType.SINGLE_LIGHT, isObse
             dataList.add(Data(R.string.mirror, MenuR.drawable.selector_menu2_setting_5, SettingType.MIRROR))
             dataList.add(Data(R.string.thermal_contrast, MenuR.drawable.selector_menu2_setting_2, SettingType.CONTRAST))
         } else {
-            if (menuType == MenuType.GALLERY_EDIT) {//2D编辑
+            if (menuType == MenuType.GALLERY_EDIT) {// 2D编辑
                 dataList.add(Data(R.string.temp_alarm_alarm, MenuR.drawable.selector_menu2_setting_6, SettingType.ALARM))
                 dataList.add(Data(R.string.menu_thermal_font, MenuR.drawable.selector_menu2_setting_7, SettingType.FONT))
                 dataList.add(Data(R.string.app_watemarking, MenuR.drawable.selector_menu2_setting_9, SettingType.WATERMARK))
@@ -107,8 +105,8 @@ internal class SettingAdapter(menuType: MenuType = MenuType.SINGLE_LIGHT, isObse
         }
         holder.binding.tvText.isSelected = data.isSelected
         holder.binding.clRoot.setOnClickListener {
-            //警示、字体、水印是以生效才视为高亮选中的，这里先保持旧代码逻辑，
-            //菜单的选中刷新丢给上层的 listener 去做，后面有空再考虑更改
+            // 警示、字体、水印是以生效才视为高亮选中的，这里先保持旧代码逻辑，
+            // 菜单的选中刷新丢给上层的 listener 去做，后面有空再考虑更改
 //            data.isSelected = !data.isSelected
 //            holder.binding.ivIcon.isSelected = data.isSelected
 //            holder.binding.tvText.isSelected = data.isSelected

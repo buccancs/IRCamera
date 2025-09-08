@@ -40,7 +40,7 @@ class VideoActivity : BaseActivity() {
 
     private fun previewVideo(path: String) {
         Log.w("123", "打开文件:$path")
-        val file = File(path.replace("//", "/"))
+        val file = File(path.replace("// ", "/"))
         Log.i("123", "打开文件file:$file")
         val uri: Uri =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

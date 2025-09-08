@@ -40,7 +40,7 @@ public enum RequestType {
      */
     READ_PHY,
     /**
-     * 设置物理层发送器和接收器偏好
+     * Settings物理层发送器和接收器偏好
      */
     SET_PREFERRED_PHY
 }

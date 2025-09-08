@@ -4,7 +4,7 @@
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
- *     http://license.coscl.org.cn/MulanPSL2
+ *     http:// license.coscl.org.cn/MulanPSL2
  * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
@@ -31,17 +31,17 @@ public final class DialogLog {
         super();
     }
 
-    /**
+        /**
      * 启用调试日志
      */
     public static void enable() {
         enable = true;
     }
 
-    /**
+        /**
      * 打印调试日志
      *
-     * @param log 日志信息
+     * @param log 日志message
      */
     public static void print(@NonNull Object log) {
         if (!enable) {

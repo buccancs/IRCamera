@@ -1,37 +1,42 @@
-//package com.infisense.usbir.camera;
+// package com.infisense.usbir.camera;
 //
-//import android.content.Context;
-//import android.hardware.usb.UsbDevice;
-//import android.os.SystemClock;
-//import android.util.Log;
+// import android.content.Context;
+// import android.hardware.usb.UsbDevice;
+// import android.os.SystemClock;
+// import android.util.Log;
 //
-//import com.elvishew.xlog.XLog;
-//import com.infisense.iruvc.sdkisp.LibIRProcess;
-//import com.infisense.iruvc.sdkisp.Libircmd;
-//import com.infisense.iruvc.sdkisp.Libirprocess;
-//import com.infisense.iruvc.usb.DeviceFilter;
-//import com.infisense.iruvc.usb.IFrameCallback;
-//import com.infisense.iruvc.usb.USBMonitor;
-//import com.infisense.iruvc.usb.UVCCamera;
-//import com.infisense.iruvc.utils.CommonParams;
-//import com.infisense.iruvc.utils.SynchronizedBitmap;
-//import com.infisense.iruvc.uvc.ConnectCallback;
-//import com.infisense.usbir.R;
-//import com.infisense.usbir.config.MsgCode;
-//import com.infisense.usbir.event.IRMsgEvent;
-//import com.infisense.usbir.utils.USBMonitorCallback;
-//import com.topdon.lib.core.bean.event.device.DeviceCameraEvent;
-//import com.topdon.lib.core.bean.event.device.ResetConnectEvent;
+// import com.elvishew.xlog.XLog;
+// import com.infisense.iruvc.sdkisp.LibIRProcess;
+// import com.infisense.iruvc.sdkisp.Libircmd;
+// import com.infisense.iruvc.sdkisp.Libirprocess;
+// import com.infisense.iruvc.usb.DeviceFilter;
+// import com.infisense.iruvc.usb.IFrameCallback;
+// import com.infisense.iruvc.usb.USBMonitor;
+// import com.infisense.iruvc.usb.UVCCamera;
+// import com.infisense.iruvc.utils.CommonParams;
+// import com.infisense.iruvc.utils.SynchronizedBitmap;
+// import com.infisense.iruvc.uvc.ConnectCallback;
+// import com.infisense.usbir.R;
+// import com.infisense.usbir.config.MsgCode;
+// import com.infisense.usbir.event.IRMsgEvent;
+// import com.infisense.usbir.utils.USBMonitorCallback;
+// import com.topdon.lib.core.bean.event.device.DeviceCameraEvent;
+// import com.topdon.lib.core.bean.event.device.ResetConnectEvent;
 //
-//import org.greenrobot.eventbus.EventBus;
+// import org.greenrobot.eventbus.EventBus;
 //
-//import java.util.List;
+// import java.util.List;
 //
-///**
+/// **
 // * device -> bytes
 // * 红外出图核心工具类
 // */
-//public class IRUVCTC {
+//    /**
+     * IRUVCTC class.
+     *
+     * Provides iruvctc functionality.
+     */
+    public class IRUVCTC {
 //
 //    private static final String TAG = "IRUVC";
 //    private final int TinyB = 0x3901;
@@ -55,7 +60,7 @@
 //    private LibIRProcess.GainSwitchParam_t gain_switch_param = new LibIRProcess.GainSwitchParam_t();
 //    private int count = 0;
 //    private int rotate = 0;
-//    long timeLog = 0L;//记录时间
+//    long timeLog = 0L;// 记录时间
 //
 //    private byte[] imageTemp = null;
 //    private byte[] temperatureTemp = null;
@@ -136,31 +141,31 @@
 //
 //            @Override
 //            public void onCancel(UsbDevice device) {
-//                //在usb permission获取无效时触发
+//                // 在usb permission获取无效时触发
 //                XLog.tag(TAG).w("onCancel");
 //
 //            }
 //        });
 //        // auto gain switch parameter
-//        gain_switch_param.above_pixel_prop = 0.1f;    //用于high -> low gain,设备像素总面积的百分比
-//        gain_switch_param.above_temp_data = (int) ((130 + 273.15) * 16 * 4); //用于high -> low gain,高增益向低增益切换的触发温度
-//        gain_switch_param.below_pixel_prop = 0.95f;   //用于low -> high gain,设备像素总面积的百分比
-//        gain_switch_param.below_temp_data = (int) ((110 + 273.15) * 16 * 4);//用于low -> high gain,低增益向高增益切换的触发温度
-//        auto_gain_switch_info.switch_frame_cnt = 5 * 15; //连续满足触发条件帧数超过该阈值会触发自动增益切换(假设出图速度为15帧每秒，则5 * 15大概为5秒)
-//        auto_gain_switch_info.waiting_frame_cnt = 7 * 15;//触发自动增益切换之后，会间隔该阈值的帧数不进行增益切换监测(假设出图速度为15帧每秒，则7 * 15大概为7秒)
-//        //over_portect parameter
+//        gain_switch_param.above_pixel_prop = 0.1f;    // 用于high -> low gain,设备像素总面积的百分比
+//        gain_switch_param.above_temp_data = (int) ((130 + 273.15) * 16 * 4); // 用于high -> low gain,高增益向低增益切换的触发温度
+//        gain_switch_param.below_pixel_prop = 0.95f;   // 用于low -> high gain,设备像素总面积的百分比
+//        gain_switch_param.below_temp_data = (int) ((110 + 273.15) * 16 * 4);// 用于low -> high gain,低增益向高增益切换的触发温度
+//        auto_gain_switch_info.switch_frame_cnt = 5 * 15; // 连续满足触发条件帧数超过该阈值会触发自动增益切换(假设出图速度为15帧每秒，则5 * 15大概为5秒)
+//        auto_gain_switch_info.waiting_frame_cnt = 7 * 15;// 触发自动增益切换之后，会间隔该阈值的帧数不进行增益切换监测(假设出图速度为15帧每秒，则7 * 15大概为7秒)
+//        // over_portect parameter
 //        int low_gain_over_temp_data = (int) ((550 + 273.15) * 16 * 4);
 //        int high_gain_over_temp_data = (int) ((100 + 273.15) * 16 * 4);
-//        float pixel_above_prop = 0.02f;         //0-1
+//        float pixel_above_prop = 0.02f;         // 0-1
 //
 //        // 监听读取设备红外数据
 //        iFrameCallback = frame -> {
-//            Log.d(TAG, "frame: " + "刷新："+(System.currentTimeMillis()-updateTime));
+-updateTime));
 //            updateTime = System.currentTimeMillis();
 //            // 测试帧率，可以根据实际需要决定是否保留
 //            if (count++ >= 25) {
 //                count = 1;
-//                Log.d(TAG, "frame: " + frame.length);
+
 //            }
 //            if (syncimage == null) return;
 //            syncimage.start = true;
@@ -179,7 +184,7 @@
 //                 * 其中的数据是旋转90度的，需要旋转回来。
 //                 */
 //                if (imageEditTemp != null && imageEditTemp.length >= length) {
-//                    //部分场景不需要保存帧数据
+//                    // 部分场景不需要保存帧数据
 //                    System.arraycopy(frame, 0, imageEditTemp, 0, length);
 //                }
 //                System.arraycopy(frame, 0, image, 0, length / 2);
@@ -187,10 +192,10 @@
 //                imageRes.height = (char) (cameraHeight / 2);
 //                imageRes.width = (char) cameraWidth;
 ////                Libirprocess.rotate_right_90(frame, imageRes, Libirprocess.IRPROC_SRC_FMT_Y14, imageEditTemp);
-////                //获取原始温度数据
+////                // 获取原始温度数据
 ////                System.arraycopy(frame, length / 2, temperatureSrc, 0, length / 2);
 //
-////                //保存测试数据
+////                // 保存测试数据
 ////                countTemp++;
 ////                if (countTemp == 100) {
 ////                    imageTemp = new byte[length / 2];
@@ -354,11 +359,11 @@
 //        try {
 //            XLog.tag(TAG).w("start");
 //            uvcCamera.setOpenStatus(true);
-//            uvcCamera.setFrameCallback(iFrameCallback); //注册监听事件
-//            //uvcCamera.setgetframemode(uvcCamera.GET_FRAME_ASYNC);
-//            //default sync mode for some devices  Lost-Packet
-//            //uvcCamera.DEFAULT_BANDWIDTH=0.3f;//hub
-//            uvcCamera.startPreview(); //开始读取数据
+//            uvcCamera.setFrameCallback(iFrameCallback); // 注册监听事件
+//            // uvcCamera.setgetframemode(uvcCamera.GET_FRAME_ASYNC);
+//            // default sync mode for some devices  Lost-Packet
+//            // uvcCamera.DEFAULT_BANDWIDTH=0.3f;// hub
+//            uvcCamera.startPreview(); // 开始读取数据
 //            new Thread(() -> {
 //                try {
 //                    Thread.sleep(100);
@@ -366,18 +371,18 @@
 //                    e.printStackTrace();
 //                }
 //                EventBus.getDefault().post(new DeviceCameraEvent(101));
-//                //打快门
+//                // 打快门
 //                if (uvcCamera != null) {
 //                    if (syncimage.type == 1) {
 //                        Libircmd.tiny1b_shutter_manual(uvcCamera.nativePtr);
 //                    } else {
-//                        //源码设置快门
+//                        // 源码Settings快门
 //                        Libircmd.ooc_b_update(Libircmd.B_UPDATE, uvcCamera.nativePtr);
 //                    }
 //                }
 //            }).start();
 //        }catch (Exception e){
-//            Log.w("红外sdk异常", e.getMessage());
+);
 //        }
 //
 //    }
@@ -410,10 +415,10 @@
 ////        disposable = Observable.interval(1L, TimeUnit.SECONDS).take(1000)
 ////                .subscribeOn(Schedulers.io())
 ////                .subscribe(aLong -> {
-////                    Log.w("123", "aLong" + aLong);
+//
 //////                    if (isRun) {
 //////                        if (timeLog != 0 && System.currentTimeMillis() - timeLog > 1000) {
-//////                            //通知超时
+//////                            // 通知超时
 //////                            EventBus.getDefault().post(new DeviceConnectEvent(false, null));
 //////                            XLog.w("超过1s没数据采集,退出界面");
 ////////                ToastTools.INSTANCE.showShort("超过1s没数据采集,退出界面");
@@ -421,7 +426,7 @@
 //////                        timeLog = System.currentTimeMillis();
 //////                    }
 ////                });
-////        Log.w("123", "Observable.timer");
+//
 ////    }
 ////
 ////    private void cancelMonitor() {
@@ -431,4 +436,4 @@
 ////        }
 ////    }
 //
-//}
+// }

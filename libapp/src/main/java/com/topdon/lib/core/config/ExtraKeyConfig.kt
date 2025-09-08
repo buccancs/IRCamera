@@ -109,17 +109,17 @@ object ExtraKeyConfig {
     const val IMAGE_PATH_LIST = "IMAGE_PATH_LIST"
 
     /**
-     * Parcelable 类型 - 一张图片点线面信息封装 (ImageTempBean).
+     * Parcelable 类型 - 一张图片Point/Line/Areamessage封装 (ImageTempBean).
      */
     const val IMAGE_TEMP_BEAN = "IMAGE_TEMP_BEAN"
 
     /**
-     * Parcelable 类型 - 一份报告所有信息 (ReportBean).
+     * Parcelable 类型 - 一份报告所有message (ReportBean).
      */
     const val REPORT_BEAN = "REPORT_BEAN"
 
     /**
-     * Parcelable 类型 - 报告信息 (ReportInfoBean).
+     * Parcelable 类型 - 报告message (ReportInfoBean).
      */
     const val REPORT_INFO = "REPORT_INFO"
 
@@ -134,7 +134,7 @@ object ExtraKeyConfig {
     const val REPORT_IR_LIST = "REPORT_IR_LIST"
 
     /**
-     * Parcelable 类型 - 自定义渲染设置相关配置项 (CustomPseudoBean).
+     * Parcelable 类型 - 自定义渲染Settings相关配置项 (CustomPseudoBean).
      */
     const val CUSTOM_PSEUDO_BEAN = "CUSTOM_PSEUDO_BEAN"
 

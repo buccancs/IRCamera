@@ -76,7 +76,7 @@
             android:paddingTop="20dp"
             android:paddingBottom="20dp">
 
-            <!-- 报告信息 -->
+            <!-- 报告message -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_report_info"
                 android:layout_width="0dp"
@@ -89,7 +89,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <!-- 报告信息 -->
+                <!-- 报告message -->
                 <TextView
                     android:id="@+id/tv_report_info_title"
                     android:layout_width="0dp"

@@ -31,7 +31,6 @@ class ColorPickDialog(context: Context, @ColorInt private var color: Int,var tex
 
     private val rootView: View = LayoutInflater.from(context).inflate(R.layout.dialog_color_pick, null)
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setCancelable(true)
@@ -131,7 +130,7 @@ class ColorPickDialog(context: Context, @ColorInt private var color: Int,var tex
         when (v) {
             rootView.findViewById<View>(R.id.rl_close) -> dismiss()
 
-            rootView.findViewById<View>(R.id.tv_save) -> {//保存
+            rootView.findViewById<View>(R.id.tv_save) -> {// 保存
                 dismiss()
                 onPickListener?.invoke(color,textSize)
             }

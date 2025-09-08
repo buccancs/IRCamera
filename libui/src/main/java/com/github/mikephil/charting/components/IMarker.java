@@ -6,7 +6,12 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.MPPointF;
 
-public interface IMarker {
+    /**
+     * IMarker class.
+     *
+     * Provides imarker functionality.
+     */
+    public interface IMarker {
 
     /**
      * @return The desired (general) offset you wish the IMarker to have on the x- and y-axis.
@@ -29,7 +34,12 @@ public interface IMarker {
     /**
      * This method enables a specified custom IMarker to update it's content every time the IMarker is redrawn.
      *
-     * @param e         The Entry the IMarker belongs to. This can also be any subclass of Entry, like BarEntry or
+     * @param e         The Entry the IMarker belongs to. This can also be any sub/**
+ * of class.
+ * 
+ * Provides of functionality.
+ */
+class of Entry, like BarEntry or
      *                  CandleEntry, simply cast it at runtime.
      * @param highlight The highlight object contains information about the highlighted value such as it's dataset-index, the
      *                  selected range or stack-index (only stacked bar entries).

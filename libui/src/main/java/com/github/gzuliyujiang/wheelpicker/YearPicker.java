@@ -4,7 +4,7 @@
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
- *     http://license.coscl.org.cn/MulanPSL2
+ *     http:// license.coscl.org.cn/MulanPSL2
  * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
@@ -36,14 +36,19 @@ import java.util.Calendar;
  * @since 2021/6/5 18:21
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class YearPicker extends ModalDialog {
+    /**
+     * YearPicker class.
+     *
+     * Provides yearpicker functionality.
+     */
+    public class YearPicker extends ModalDialog {
     protected YearWheelLayout wheelLayout;
     private OnYearPickedListener onYearPickedListener;
 
     public YearPicker(@NonNull Activity activity, @Nullable Integer year) {
         super(activity);
 
-        //初始化年份范围及当前选中年份
+        // 初始化年份范围及当前选中年份
         int nowYear = Calendar.getInstance().get(Calendar.YEAR);
         DatimeEntity startTimeEntity = new DatimeEntity();
         startTimeEntity.setDate(DateEntity.target(nowYear - 1000, 1, 1));
@@ -51,12 +56,12 @@ public class YearPicker extends ModalDialog {
         defaultEntity.setDate(DateEntity.target(year == null ? nowYear : year, 1, 1));
         wheelLayout.setRange(startTimeEntity, DatimeEntity.now(), defaultEntity);
 
-        wheelLayout.setCurtainEnabled(true);//选中栏是否有背景颜色
-        wheelLayout.setCurtainColor(ContextCompat.getColor(getContext(), R.color.wheel_select_bg));       //选中栏背景颜色
-        wheelLayout.setSelectedTextColor(ContextCompat.getColor(getContext(), R.color.wheel_select_text));//选中文字颜色
-        wheelLayout.setTextColor(ContextCompat.getColor(getContext(), R.color.wheel_unselect_text));      //未选中文字颜色
+        wheelLayout.setCurtainEnabled(true);// 选中栏是否有背景颜色
+        wheelLayout.setCurtainColor(ContextCompat.getColor(getContext(), R.color.wheel_select_bg));       // 选中栏背景颜色
+        wheelLayout.setSelectedTextColor(ContextCompat.getColor(getContext(), R.color.wheel_select_text));// 选中文字颜色
+        wheelLayout.setTextColor(ContextCompat.getColor(getContext(), R.color.wheel_unselect_text));      // 未选中文字颜色
 
-        wheelLayout.setResetWhenLinkage(false, false);//他娘的不知道什么鬼，连个注释都没有
+        wheelLayout.setResetWhenLinkage(false, false);// 他娘的不知道什么鬼，连个注释都没有
 
     }
 

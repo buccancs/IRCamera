@@ -18,7 +18,12 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.util.List;
 
-public class YAxisRenderer extends AxisRenderer {
+    /**
+     * YAxisRenderer class.
+     *
+     * Provides yaxisrenderer functionality.
+     */
+    public class YAxisRenderer extends AxisRenderer {
 
     protected YAxis mYAxis;
 

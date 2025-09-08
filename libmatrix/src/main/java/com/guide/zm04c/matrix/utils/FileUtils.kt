@@ -8,7 +8,6 @@ import android.media.ExifInterface
 import com.guide.zm04c.matrix.Logger
 import java.io.*
 
-
 /**
  * created by liuhongwei gd02527 on 2018年08月29日
  */
@@ -27,7 +26,6 @@ class FileUtils {
             return file.exists() && file.isFile
         }
 
-
         /**
          * 删除文件夹以及目录下的文件
          * @param   filePath 被删除目录的文件路径
@@ -36,7 +34,7 @@ class FileUtils {
         fun deleteDirectory(filePath: String): Boolean {
             var filePath = filePath
             var flag = false
-            //如果filePath不以文件分隔符结尾，自动添加文件分隔符
+            // 如果filePath不以文件分隔符结尾，自动添加文件分隔符
             if (!filePath.endsWith(File.separator)) {
                 filePath = filePath + File.separator
             }
@@ -46,20 +44,20 @@ class FileUtils {
             }
             flag = true
             val files = dirFile.listFiles()
-            //遍历删除文件夹下的所有文件(包括子目录)
+            // 遍历删除文件夹下的所有文件(包括子目录)
             for (i in files.indices) {
                 if (files[i].isFile) {
-                    //删除子文件
+                    // 删除子文件
                     flag = deleteFile(files[i].absolutePath)
                     if (!flag) break
                 } else {
-                    //删除子目录
+                    // 删除子目录
                     flag = deleteDirectory(files[i].absolutePath)
                     if (!flag) break
                 }
             }
             return if (!flag) false else dirFile.delete()
-            //删除当前空目录
+            // 删除当前空目录
         }
 
         fun deleteFile(path: String): Boolean {
@@ -87,13 +85,12 @@ class FileUtils {
             return file.delete()
         }
 
-
         fun appFile(data: ByteArray, filePath: String) {
             // 打开一个随机访问文件流，按读写方式
             var randomFile = RandomAccessFile(filePath, "rw")
             // 文件长度，字节数
             var fileLength = randomFile.length()
-            //将写文件指针移到文件尾。
+            // 将写文件指针移到文件尾。
             randomFile.seek(fileLength);
             randomFile.write(data);
 
@@ -235,7 +232,7 @@ class FileUtils {
                         if (imagePath.contains(".jpg")) {
                             var rotate = 0
                             val exif = ExifInterface(imagePath)
-                            //获取方向信息
+                            // 获取方向message
                             val orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)
 
                             when (orientation) {
@@ -298,7 +295,6 @@ class FileUtils {
             return buffer
         }
 
-
         fun inputStream2ByteArray(inputStream: InputStream?): ByteArray? {
             var byteArr: ByteArray? = null
             try {
@@ -333,7 +329,6 @@ class FileUtils {
         }
 
     }
-
 
     init {
         throw AssertionError("cannot be instantiated")

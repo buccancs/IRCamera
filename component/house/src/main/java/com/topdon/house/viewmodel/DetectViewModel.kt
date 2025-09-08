@@ -30,7 +30,6 @@ class DetectViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-
     /**
      * 一项房屋检测，调用 [queryById]、[insertDefaultDirs] 会触发更改.
      */
@@ -53,20 +52,18 @@ class DetectViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-
     /**
-     * 某个房屋检测下的某个目录信息，调用 [queryDirById] 会触发更改，注意目录所属检测信息未加载.
+     * 某个房屋检测下的某个目录message，调用 [queryDirById] 会触发更改，注意目录所属检测message未加载.
      */
     val dirLD = MutableLiveData<DirDetect>()
     /**
-     * 查询指定 id 的目录信息，结果通过 [dirLD] 返回.
+     * 查询指定 id 的目录message，结果通过 [dirLD] 返回.
      */
     fun queryDirById(dirId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             dirLD.postValue(AppDatabase.getInstance().houseDetectDao().queryDir(dirId))
         }
     }
-
 
     /**
      * 复制房屋检测结果，调用 [copyDetect] 会触发更改.
@@ -143,20 +140,20 @@ class DetectViewModel(application: Application) : AndroidViewModel(application) 
                 AppDatabase.getInstance().houseDetectDao().deleteItem(itemDetect)
                 itemList.removeAt(position)
 
-                if (itemList.isEmpty()) {//全部项目都删光了，目录也要删掉
+                if (itemList.isEmpty()) {// 全部项目都删光了，目录也要删掉
                     val dirList: ArrayList<DirDetect> = dirDetect.houseDetect.dirList
                     val dirPosition = dirList.indexOf(dirDetect)
                     if (dirPosition >= 0) {
                         AppDatabase.getInstance().houseDetectDao().deleteDir(dirDetect)
                         dirList.removeAt(dirPosition)
                     }
-                    if (dirList.isEmpty()) {//全部目录都删光了
+                    if (dirList.isEmpty()) {// 全部目录都删光了
                         detectLD.postValue(dirDetect.houseDetect)
                     } else {
                         delItemLD.postValue(Pair(layoutIndex, itemDetect))
                     }
                 } else {
-                    //删除后目录里的3个数量可能需要刷新
+                    // 删除后目录里的3个数量可能需要刷新
                     if (itemDetect.state > 0) {
                         val dir = itemDetect.dirDetect
                         when (itemDetect.state) {
@@ -172,9 +169,8 @@ class DetectViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-
     /**
-     * 更新目录信息.
+     * 更新目录message.
      */
     fun updateDir(vararg dirDetect: DirDetect) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -182,14 +178,13 @@ class DetectViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
     /**
-     * 更新项目信息.
+     * 更新项目message.
      */
     fun updateItem(vararg itemDetect: ItemDetect) {
         viewModelScope.launch(Dispatchers.IO) {
             AppDatabase.getInstance().houseDetectDao().updateItem(*itemDetect)
         }
     }
-
 
     /**
      * 删除指定的房屋检测数据.

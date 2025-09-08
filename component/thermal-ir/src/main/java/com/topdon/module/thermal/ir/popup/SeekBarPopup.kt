@@ -13,7 +13,7 @@ import com.topdon.module.thermal.ir.databinding.PopSeekBarBinding
 /**
  * 有一根 SeekBar 用于拾取值的 PopupWindow.
  *
- * 用于 融合度(带标题)、对比度(无标题)、锐度(无标题) 设置
+ * 用于 融合度(带标题)、对比度(无标题)、锐度(无标题) Settings
  *
  * Created by LCG on 2024/12/3.
  *
@@ -45,7 +45,6 @@ class SeekBarPopup(context: Context, hasTitle: Boolean = false) : PopupWindow() 
      * 进度值拾取事件监听.
      */
     var onValuePickListener: ((progress: Int) -> Unit)? = null
-
 
     private val binding: PopSeekBarBinding = PopSeekBarBinding.inflate(LayoutInflater.from(context))
 

@@ -19,7 +19,7 @@ import com.topdon.module.user.R
 import kotlinx.coroutines.launch
 
 /**
- * TS004、TC007 设备信息
+ * TS004、TC007 设备message
  *
  * 需要传递参数：
  * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
@@ -83,7 +83,7 @@ class DeviceDetailsActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            clLayoutCopy -> {//复制信息
+            clLayoutCopy -> {// 复制message
                 val text = "${tvSn.text}:${tvSnValue.text}  ${tvDeviceModel.text}:${tvDeviceModelValue.text}"
                 val cm = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager?
                 val mClipData = ClipData.newPlainText("text", text)

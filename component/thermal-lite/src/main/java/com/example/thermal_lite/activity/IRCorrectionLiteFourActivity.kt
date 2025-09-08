@@ -64,9 +64,8 @@ class IRCorrectionLiteFourActivity : BaseActivity() {
             }
         }
 
-
         binding.timeDownView.postDelayed({
-            //开始矫正
+            // 开始矫正
             if (binding.timeDownView.downTimeWatcher == null){
                 binding.timeDownView.setOnTimeDownListener(object : TimeDownView.DownTimeWatcher{
                     override fun onTime(num: Int) {

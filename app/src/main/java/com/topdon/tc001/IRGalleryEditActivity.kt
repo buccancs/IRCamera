@@ -102,7 +102,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
     private var max = 10000f
     private var min = 0f
     private var rotate = ImageParams.ROTATE_270
-    private var struct: FrameStruct = FrameStruct() // 首部信息
+    private var struct: FrameStruct = FrameStruct() // 首部message
     private var ts_data_H: ByteArray? = null
     private var ts_data_L: ByteArray? = null
 
@@ -216,7 +216,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                 struct.customPseudoBean.minTemp = tempCorrect(tempResult.minTemperature)
                 editRecyclerSecond.setPseudoColor(pseudocodeMode)
             }
-//        伪彩条默认处于打开状态
+//        Pseudo color条默认处于打开状态
 //        colorBarView.isVisible = struct.isShowPseudoBar
 //        adapter.enPseudoColorBar(struct.isShowPseudoBar)
 
@@ -342,9 +342,9 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
     private fun initRecycler() {
         editRecyclerFirst.onTabClickListener = {
             when (it) {
-                0 -> editRecyclerSecond.selectPosition(1) // 点线面
-                1 -> editRecyclerSecond.selectPosition(3) // 伪彩颜色
-                2 -> editRecyclerSecond.selectPosition(4) // 设置
+                0 -> editRecyclerSecond.selectPosition(1) // Point/Line/Area
+                1 -> editRecyclerSecond.selectPosition(3) // Pseudo color颜色
+                2 -> editRecyclerSecond.selectPosition(4) // Settings
             }
         }
         editRecyclerFirst.onBarClickListener = {
@@ -396,7 +396,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
         temperatureSeekbar.setProgress(leftValue, rightValue) // 初始位置
     }
 
-    // 设置伪彩
+    // SettingsPseudo color
     private fun setPColor(code: Int) {
         pseudocodeMode = code
         temperatureSeekbar.setPseudocode(pseudocodeMode)
@@ -481,7 +481,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                     .create().show()
             }
             else -> {
-                // 其他设置选项 2D 编辑没有
+                // 其他Settings选项 2D 编辑没有
             }
         }
     }
@@ -539,7 +539,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
             }
         }
 
-    // 更新自定义伪彩的颜色的属性值
+    // 更新自定义Pseudo color的颜色的属性值
     private fun updateImageAndSeekbarColorList(customPseudoBean: CustomPseudoBean?) {
         customPseudoBean?.let {
             updateImage(
@@ -603,7 +603,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
             } else {
                 showLoadingDialog()
                 lifecycleScope.launch(Dispatchers.IO) {
-                    // 获取展示图像信息的图层数据
+                    // 获取展示图像message的图层数据
                     var irBitmap =
                         if (struct.isAmplify) {
                             // 超分四倍使用原始图像继续超分一次
@@ -615,7 +615,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                         // 获取温度图层的数据，包括点线框，温度值等，重新合成bitmap
                         irBitmap = BitmapUtils.mergeBitmap(irBitmap, temperatureView.drawToBitmap(), 0, 0)
                     }
-                    // 合并伪彩条
+                    // 合并Pseudo color条
                     if (colorBarView.visibility == View.VISIBLE) {
                         irBitmap = BitmapUtils.mergeBitmap(irBitmap, colorBarView.drawToBitmap(), 0, 0)
                     }
@@ -717,7 +717,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
 
     private fun updateIconSave() {
         lifecycleScope.launch(Dispatchers.IO) {
-            // 获取展示图像信息的图层数据
+            // 获取展示图像message的图层数据
             var irBitmap =
                 if (struct.isAmplify) {
                     // 超分四倍使用原始图像继续超分一次
@@ -729,7 +729,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                 // 获取温度图层的数据，包括点线框，温度值等，重新合成bitmap
                 irBitmap = BitmapUtils.mergeBitmap(irBitmap, temperatureView.drawToBitmap(), 0, 0)
             }
-            // 合并伪彩条
+            // 合并Pseudo color条
             if (colorBarView.visibility == View.VISIBLE) {
                 irBitmap = BitmapUtils.mergeBitmap(irBitmap, colorBarView.drawToBitmap(), 0, 0)
             }

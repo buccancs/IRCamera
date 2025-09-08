@@ -185,7 +185,7 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    // 同步登录信息
+    // 同步登录message
     private fun synLogin() {
         if (this::class.java.simpleName == "MainActivity") {
             LMS.getInstance().syncUserInfo()

@@ -28,7 +28,12 @@ import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.List;
 
-public class LineChartRenderer extends LineRadarRenderer {
+    /**
+     * LineChartRenderer class.
+     *
+     * Provides linechartrenderer functionality.
+     */
+    public class LineChartRenderer extends LineRadarRenderer {
 
     protected LineDataProvider mChart;
 
@@ -95,7 +100,7 @@ public class LineChartRenderer extends LineRadarRenderer {
 
         LineData lineData = mChart.getLineData();
 
-        //TODO 2022-05-16 Attempt to invoke virtual method 'java.util.List com.github.mikephil.charting.data.LineData.getDataSets()' on a null object reference
+        // TODO 2022-05-16 Attempt to invoke virtual method 'java.util.List com.github.mikephil.charting.data.LineData.getDataSets()' on a null object reference
         if (lineData != null) {
             for (ILineDataSet set : lineData.getDataSets()) {
 
@@ -719,7 +724,7 @@ public class LineChartRenderer extends LineRadarRenderer {
         }
     }
 
-    /**
+        /**
      * Sets the Bitmap.Config to be used by this renderer.
      * Default: Bitmap.Config.ARGB_8888
      * Use Bitmap.Config.ARGB_4444 to consume less memory.
@@ -731,7 +736,7 @@ public class LineChartRenderer extends LineRadarRenderer {
         releaseBitmap();
     }
 
-    /**
+        /**
      * Returns the Bitmap.Config that is used by this renderer.
      *
      * @return
@@ -740,7 +745,7 @@ public class LineChartRenderer extends LineRadarRenderer {
         return mBitmapConfig;
     }
 
-    /**
+        /**
      * Releases the drawing bitmap. This should be called when {@link LineChart#onDetachedFromWindow()}.
      */
     public void releaseBitmap() {
@@ -758,7 +763,12 @@ public class LineChartRenderer extends LineRadarRenderer {
         }
     }
 
-    private class DataSetImageCache {
+    /**
+ * DataSetImageCache class.
+ * 
+ * Provides datasetimagecache functionality.
+ */
+private class DataSetImageCache {
 
         private Path mCirclePathBuffer = new Path();
 

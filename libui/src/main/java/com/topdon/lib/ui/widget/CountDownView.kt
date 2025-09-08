@@ -126,7 +126,7 @@ class CountDownView : View {
     }
 
     /**
-     * 设置倒计时间 单位秒
+     * Settings倒计时间 单位秒
      */
     fun setCountdownTime(mCountdownTime: Int) {
         this.mCountdownTime = mCountdownTime

@@ -8,7 +8,7 @@ import android.os.Handler
  * This abstract class defines the interface for all Shimmer devices
  *
  * Based on the official Shimmer Android API structure from:
- * https://github.com/ShimmerEngineering/ShimmerAndroidAPI
+ * https:// github.com/ShimmerEngineering/ShimmerAndroidAPI
  *
  * Compatible with shimmerdriver v0.11.4_beta
  */

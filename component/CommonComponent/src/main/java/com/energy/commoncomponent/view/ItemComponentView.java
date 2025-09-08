@@ -72,6 +72,11 @@ public class ItemComponentView extends LinearLayout {
         });
     }
 
+        /**
+     * OnItemClickListener class.
+     *
+     * Provides onitemclicklistener functionality.
+     */
     public interface OnItemClickListener {
         void onItemClick();
     }
@@ -134,10 +139,20 @@ public class ItemComponentView extends LinearLayout {
         });
     }
 
+        /**
+     * OnSwitchCompatCheckListener class.
+     *
+     * Provides onswitchcompatchecklistener functionality.
+     */
     public interface OnSwitchCompatCheckListener {
         void onCheckedChanged(CompoundButton buttonView, boolean isChecked, int id);
     }
 
+        /**
+     * OnButtonClickListener class.
+     *
+     * Provides onbuttonclicklistener functionality.
+     */
     public interface OnButtonClickListener {
         void onClick(View view, int id);
     }

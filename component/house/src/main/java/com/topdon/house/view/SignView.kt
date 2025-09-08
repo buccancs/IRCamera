@@ -44,7 +44,6 @@ class SignView : View {
 
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.FILTER_BITMAP_FLAG)
 
-
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -109,7 +108,7 @@ class SignView : View {
             }
 
             MotionEvent.ACTION_MOVE -> {
-                if (abs(currentX - beforeX) > 3 || abs(currentY - beforeY) > 3) {//滑动达到一定距离(3px)时才刷新
+                if (abs(currentX - beforeX) > 3 || abs(currentY - beforeY) > 3) {// 滑动达到一定距离(3px)时才刷新
                     path.quadTo(beforeX, beforeY, currentX, currentY)
                     hasSign = true
                     onSignChangeListener?.invoke(true)

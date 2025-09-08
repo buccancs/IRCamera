@@ -57,7 +57,7 @@ object BluetoothUtil {
     private val scanCallback = MyScanCallback()
 
     /**
-     * 设置低功耗蓝牙搜索回调.
+     * Settings低功耗蓝牙搜索回调.
      */
     fun setLeScanListener(
         isTS004: Boolean,

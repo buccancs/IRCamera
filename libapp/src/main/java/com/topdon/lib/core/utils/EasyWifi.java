@@ -17,7 +17,12 @@ import com.topdon.lib.core.BaseApplication;
  * author: CaiSongL
  * date: 2024/5/23 17:39
  **/
-public class EasyWifi {
+    /**
+     * EasyWifi class.
+     *
+     * Provides easywifi functionality.
+     */
+    public class EasyWifi {
     private static volatile EasyWifi mInstance;
     private WifiConnectCallback wifiConnectCallback;
     String TAG = "EasyWifi";
@@ -25,6 +30,11 @@ public class EasyWifi {
     private final ConnectivityManager connectivityManager = (ConnectivityManager) BaseApplication.instance.getSystemService(Context.CONNECTIVITY_SERVICE);
 
     /* loaded from: classes2.dex */
+        /**
+     * WiFiEncryptionStandard class.
+     *
+     * Provides wifiencryptionstandard functionality.
+     */
     public enum WiFiEncryptionStandard {
         WEP,
         WPA_EAP,
@@ -34,6 +44,11 @@ public class EasyWifi {
     }
 
     /* loaded from: classes2.dex */
+        /**
+     * WifiCapability class.
+     *
+     * Provides wificapability functionality.
+     */
     public enum WifiCapability {
         WIFI_CIPHER_WEP,
         WIFI_CIPHER_WPA,
@@ -41,6 +56,11 @@ public class EasyWifi {
     }
 
     /* loaded from: classes2.dex */
+        /**
+     * WifiConnectCallback class.
+     *
+     * Provides wificonnectcallback functionality.
+     */
     public interface WifiConnectCallback {
         void onFailure();
 
@@ -186,7 +206,7 @@ public class EasyWifi {
             @Override // android.net.ConnectivityManager.NetworkCallback
             public void onAvailable(Network network) {
                 try {
-                    Log.d(EasyWifi.this.TAG, "设置网络类型时onAvailable: ");
+                    Log.d(EasyWifi.this.TAG, "Settings网络类型时onAvailable: ");
                     EasyWifi.this.getConnectivityManager().bindProcessToNetwork(network);
                 } catch (Exception e) {
                     e.printStackTrace();

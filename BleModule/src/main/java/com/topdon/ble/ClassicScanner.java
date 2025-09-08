@@ -4,7 +4,6 @@ import android.bluetooth.BluetoothAdapter;
 
 import androidx.annotation.NonNull;
 
-
 /**
  * date: 2020/5/9 16:20
  * author: bichuanfeng

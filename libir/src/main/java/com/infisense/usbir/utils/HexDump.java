@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      http:// www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,7 +24,12 @@ package com.infisense.usbir.utils;
  * @UpdateDate:     2022.9.8 10:25
  * @UpdateRemark:
  */
-public class HexDump {
+    /**
+     * HexDump class.
+     *
+     * Provides hexdump functionality.
+     */
+    public class HexDump {
     private final static char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
     private final static char[] HEX_LOWER_CASE_DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
@@ -173,7 +178,7 @@ public class HexDump {
         return value;
     }
 
-    /**
+        /**
      * 将int数值转换为占四个字节的byte数组，本方法适用于(低位在前，高位在后)的顺序。 和bytesToInt（）配套使用
      *
      * @param value 要转换的int值
@@ -188,7 +193,7 @@ public class HexDump {
         return src;
     }
 
-    /**
+        /**
      * 将int数值转换为占四个字节的byte数组，本方法适用于(高位在前，低位在后)的顺序。  和bytesToInt2（）配套使用
      */
     public static byte[] intToBytes2(int value) {
@@ -204,7 +209,7 @@ public class HexDump {
         int fbit = Float.floatToIntBits(num);
 
         for (int i = 0; i < 4; i++) {
-            numbyte[i] = (byte) (fbit >> (i * 8)); //little-endian
+            numbyte[i] = (byte) (fbit >> (i * 8)); // little-endian
         }
     }
 }

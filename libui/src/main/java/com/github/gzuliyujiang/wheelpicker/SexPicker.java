@@ -4,7 +4,7 @@
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
- *     http://license.coscl.org.cn/MulanPSL2
+ *     http:// license.coscl.org.cn/MulanPSL2
  * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
@@ -35,7 +35,12 @@ import java.util.List;
  * @since 2019/6/23 11:48
  */
 @SuppressWarnings("WeakerAccess")
-public class SexPicker extends OptionPicker {
+    /**
+     * SexPicker class.
+     *
+     * Provides sexpicker functionality.
+     */
+    public class SexPicker extends OptionPicker {
     public static String JSON = "[{\"id\":0,\"name\":\"保密\",\"english\":\"Secrecy\"},\n" +
             "{\"id\":1,\"name\":\"男\",\"english\":\"Male\"},\n" +
             "{\"id\":2,\"name\":\"女\",\"english\":\"Female\"}]";

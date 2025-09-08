@@ -5,19 +5,29 @@ import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 
 /**
- * Subclass of Entry that holds a value for one entry in a BubbleChart. Bubble
+ * Sub/**
+ * of class.
+ * 
+ * Provides of functionality.
+ */
+class of Entry that holds a value for one entry in a BubbleChart. Bubble
  * chart implementation: Copyright 2015 Pierre-Marc Airoldi Licensed under
  * Apache License 2.0
  *
  * @author Philipp Jahoda
  */
 @SuppressLint("ParcelCreator")
-public class BubbleEntry extends Entry {
+    /**
+     * BubbleEntry class.
+     *
+     * Provides bubbleentry functionality.
+     */
+    public class BubbleEntry extends Entry {
 
     /** size value */
     private float mSize = 0f;
 
-    /**
+        /**
      * Constructor.
      *
      * @param x The value on the x-axis.
@@ -29,7 +39,7 @@ public class BubbleEntry extends Entry {
         this.mSize = size;
     }
 
-    /**
+        /**
      * Constructor.
      *
      * @param x The value on the x-axis.
@@ -42,7 +52,7 @@ public class BubbleEntry extends Entry {
         this.mSize = size;
     }
 
-    /**
+        /**
      * Constructor.
      *
      * @param x The value on the x-axis.
@@ -55,7 +65,7 @@ public class BubbleEntry extends Entry {
         this.mSize = size;
     }
 
-    /**
+        /**
      * Constructor.
      *
      * @param x The value on the x-axis.
@@ -75,7 +85,7 @@ public class BubbleEntry extends Entry {
         return c;
     }
 
-    /**
+        /**
      * Returns the size of this entry (the size of the bubble).
      *
      * @return

@@ -7,7 +7,6 @@ import com.topdon.commons.observer.Observer;
 
 import java.util.UUID;
 
-
 /**
  * 各种事件。蓝牙状态，连接状态，读取到特征值，写入结果回调等等
  * <p>

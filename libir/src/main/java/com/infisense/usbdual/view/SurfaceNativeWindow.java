@@ -8,7 +8,12 @@ package com.infisense.usbdual.view;
  * @UpdateDate:     2022.9.8 10:26
  * @UpdateRemark:
  */
-public class SurfaceNativeWindow {
+    /**
+     * SurfaceNativeWindow class.
+     *
+     * Provides surfacenativewindow functionality.
+     */
+    public class SurfaceNativeWindow {
 
     static {
         System.loadLibrary("native-window");

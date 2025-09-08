@@ -4,7 +4,7 @@
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
- *     http://license.coscl.org.cn/MulanPSL2
+ *     http:// license.coscl.org.cn/MulanPSL2
  * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
@@ -56,7 +56,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 滚轮控件。Adapted from https://github.com/florent37/SingleDateAndTimePicker/.../WheelPicker.java
+ * 滚轮控件。Adapted from https:// github.com/florent37/SingleDateAndTimePicker/.../WheelPicker.java
  *
  * @author 贵州山野羡民（1032694760@qq.com）
  * @see TextProvider
@@ -64,7 +64,12 @@ import java.util.List;
  * @since 2019/5/8 11:11
  */
 @SuppressWarnings({"unused"})
-public class WheelView extends View implements Runnable {
+    /**
+     * WheelView class.
+     *
+     * Provides wheelview functionality.
+     */
+    public class WheelView extends View implements Runnable {
     @Deprecated
     public static final int SCROLL_STATE_IDLE = ScrollState.IDLE;
     @Deprecated
@@ -248,7 +253,7 @@ public class WheelView extends View implements Runnable {
         if (visibleItemCount < minCount) {
             throw new ArithmeticException("Visible item count can not be less than " + minCount);
         }
-        //可见条目只能是奇数个，设置可见条目时偶数个将自动矫正为奇数个
+        // 可见条目只能是奇数个，Settings可见条目时偶数个将自动矫正为奇数个
         int evenNumberFlag = 2;
         if (visibleItemCount % evenNumberFlag == 0) {
             visibleItemCount += 1;
@@ -286,7 +291,7 @@ public class WheelView extends View implements Runnable {
         }
         int index = (position + size) % size;
         if (index >= 0 && index <= size - 1) {
-            //noinspection unchecked
+            // noinspection unchecked
             return (T) data.get(index);
         }
         return null;
@@ -1053,7 +1058,7 @@ public class WheelView extends View implements Runnable {
             }
         }
         if (isClick) {
-            //onTouchEvent should call performClick when a click is detected
+            // onTouchEvent should call performClick when a click is detected
             performClick();
         }
         return true;

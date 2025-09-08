@@ -7,7 +7,7 @@ import com.topdon.menu.R as MenuR
 import com.topdon.lib.core.R
 
 /**
- * 观测模式-菜单2-高低温源菜单 所用 Adapter，单选可全不选中.
+ * Observation mode-菜单2-High/Low temperature source菜单 所用 Adapter，单选可全不选中.
  *
  * 动态识别、高温源、低温源
  *
@@ -33,11 +33,9 @@ internal class TempSourceAdapter : BaseMenuAdapter() {
         }
 
     /**
-     * 观测模式-菜单2-高低温源 点击事件监听，单选。
+     * Observation mode-菜单2-High/Low temperature source 点击事件监听，单选。
      */
     var onTempSourceListener: ((code: Int) -> Unit)? = null
-
-
 
     private val dataArray: Array<Data> = arrayOf(
         Data(R.string.main_tab_second_dynamic_recognition, MenuR.drawable.selector_menu2_source_1_auto, 0),

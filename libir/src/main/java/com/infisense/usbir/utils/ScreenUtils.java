@@ -13,19 +13,23 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
 
-
 import com.energy.iruvc.utils.CommonParams;
 
 import java.lang.reflect.Method;
 
-public class ScreenUtils {
+    /**
+     * ScreenUtils class.
+     *
+     * Provides screenutils functionality.
+     */
+    public class ScreenUtils {
 
     private ScreenUtils() {
         /* cannot be instantiated */
         throw new UnsupportedOperationException("cannot be instantiated");
     }
 
-    /**
+        /**
      * 获得屏幕高度
      *
      * @param context
@@ -39,7 +43,7 @@ public class ScreenUtils {
         return outMetrics.widthPixels;
     }
 
-    /**
+        /**
      * 获得屏幕宽度
      *
      * @param context
@@ -53,7 +57,7 @@ public class ScreenUtils {
         return outMetrics.heightPixels;
     }
 
-    /**
+        /**
      * 获得状态栏的高度
      *
      * @param context
@@ -74,7 +78,7 @@ public class ScreenUtils {
         return statusHeight;
     }
 
-    /**
+        /**
      * 获取当前屏幕截图，包含状态栏
      *
      * @param activity
@@ -94,14 +98,14 @@ public class ScreenUtils {
 
     }
 
-    /**
+        /**
      * 得到设备的dpi
      */
     public static int getScreenDensityDpi(Context context) {
         return context.getResources().getDisplayMetrics().densityDpi;
     }
 
-    /**
+        /**
      * 获取当前屏幕截图，不包含状态栏
      *
      * @param activity
@@ -126,7 +130,7 @@ public class ScreenUtils {
 
     }
 
-    /**
+        /**
      * 获取 虚拟按键的高度
      *
      * @param context
@@ -140,7 +144,7 @@ public class ScreenUtils {
         return totalHeight - contentHeight;
     }
 
-    //获取屏幕原始尺寸高度，包括虚拟功能键高度
+    // 获取屏幕原始尺寸高度，包括虚拟功能键高度
     public static int getDpi(Context context) {
         int dpi = 0;
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -160,7 +164,7 @@ public class ScreenUtils {
         return dpi;
     }
 
-    /**
+        /**
      * dp转px
      * 16dp - 48px
      * 17dp - 51px
@@ -170,19 +174,19 @@ public class ScreenUtils {
         return (int) ((dpValue * scale) + 0.5f);
     }
 
-    /**
+        /**
      * 屏幕密度比例
      */
     public static float getScreenDendity(Context context) {
-        return context.getResources().getDisplayMetrics().density;//3
+        return context.getResources().getDisplayMetrics().density;// 3
     }
 
-    /**
+        /**
      * @param info
-     * @setIcon 设置对话框图标
-     * @setTitle 设置对话框标题
-     * @setMessage 设置对话框消息提示
-     * setXXX方法返回Dialog对象，因此可以链式设置属性
+     * @setIcon Settings对话框图标
+     * @setTitle Settings对话框标题
+     * @setMessage Settings对话框消息提示
+     * setXXX方法返回Dialog对象，因此可以链式Settings属性
      */
     public static Dialog showNormalDialog(Context context, String info, PopupWindow.OnDismissListener dismissListener) {
         final AlertDialog.Builder normalDialog =
@@ -194,7 +198,7 @@ public class ScreenUtils {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //...To-do
+                        // ...To-do
                         dismissListener.onDismiss();
                     }
                 });
@@ -202,7 +206,7 @@ public class ScreenUtils {
         return normalDialog.show();
     }
 
-    /**
+        /**
      * 获取出图的帧率
      *
      * @return

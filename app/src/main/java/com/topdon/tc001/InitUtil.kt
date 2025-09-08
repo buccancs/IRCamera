@@ -35,7 +35,7 @@ object InitUtil {
         val tag = "MPDC4GSR_LOG"
         val pattern = "{d}, {L}, {t}, {m}"
         val backupStrategy = FileSizeBackupStrategy2(5 * 1024 * 1024L, 10) // 一份文件的大小
-        val cleanStrategy = FileLastModifiedCleanStrategy(30 * 24 * 60 * 60) // 设置自动清除时间
+        val cleanStrategy = FileLastModifiedCleanStrategy(30 * 24 * 60 * 60) // Settings自动清除时间
 
         val config =
             LogConfiguration.Builder()
@@ -61,12 +61,12 @@ object InitUtil {
     fun initLms() {
         // 隐私政策地址
         val privacyPolicyUrl =
-            "https://plat.topdon.com/topdon-plat/out-user/baseinfo/template/getHtmlContentById?" +
+            "https:// plat.topdon.com/topdon-plat/out-user/baseinfo/template/getHtmlContentById?" +
                 "softCode=${BaseApplication.instance.getSoftWareCode()}&" +
                 "language=${LanguageUtil.getLanguageId(Utils.getApp())}&type=22"
         // 用户协议地址
         val servicesAgreementUrl =
-            "https://plat.topdon.com/topdon-plat/out-user/baseinfo/template/getHtmlContentById?" +
+            "https:// plat.topdon.com/topdon-plat/out-user/baseinfo/template/getHtmlContentById?" +
                 "softCode=${BaseApplication.instance.getSoftWareCode()}&" +
                 "language=${LanguageUtil.getLanguageId(Utils.getApp())}&type=21"
 
@@ -97,9 +97,9 @@ object InitUtil {
 //        if (BaseApplication.instance.isDomestic()){
         // 只有国内版才需要接入友盟
 //            UMConfigure.setLogEnabled(BuildConfig.DEBUG)
-//            //友盟预初始化
+//            // 友盟预初始化
 //            UMConfigure.preInit(BaseApplication.instance, "659384b895b14f599d0d9247", "Um-eng")
-//            //判断是否同意隐私协议，uminit为1时为已经同意，直接初始化umsdk
+//            // 判断是否同意隐私协议，uminit为1时为已经同意，直接初始化umsdk
 //            UMConfigure.init(
 //                BaseApplication.instance,
 //                "659384b895b14f599d0d9247",
@@ -114,7 +114,7 @@ object InitUtil {
     fun initJPush() {
         var registrationID = ""
 //        if (BaseApplication.instance.isDomestic()){
-//            //只有国内版才需要接入友盟
+//            // 只有国内版才需要接入友盟
 //            JPushInterface.setDebugMode(BuildConfig.DEBUG)
 //            JPushInterface.init(BaseApplication.instance)
 //            registrationID = JPushInterface.getRegistrationID(BaseApplication.instance)

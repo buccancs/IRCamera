@@ -9,7 +9,12 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RadarDataSet extends LineRadarDataSet<RadarEntry> implements IRadarDataSet {
+    /**
+     * RadarDataSet class.
+     *
+     * Provides radardataset functionality.
+     */
+    public class RadarDataSet extends LineRadarDataSet<RadarEntry> implements IRadarDataSet {
 
     /// flag indicating whether highlight circle should be drawn or not
     protected boolean mDrawHighlightCircleEnabled = false;

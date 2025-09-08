@@ -1,6 +1,11 @@
 package com.github.mikephil.charting.model;
 
-public class GradientColor {
+    /**
+     * GradientColor class.
+     *
+     * Provides gradientcolor functionality.
+     */
+    public class GradientColor {
 
     private int startColor;
     private int endColor;

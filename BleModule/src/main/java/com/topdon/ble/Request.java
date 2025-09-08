@@ -1,8 +1,5 @@
 package com.topdon.ble;
 
-
-
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 

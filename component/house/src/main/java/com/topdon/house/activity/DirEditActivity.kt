@@ -106,7 +106,7 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v) {
             findViewById<ImageView>(R.id.iv_exit) -> showExitTipsDialog()
-            findViewById<ImageView>(R.id.iv_save) -> {//保存
+            findViewById<ImageView>(R.id.iv_save) -> {// 保存
                 val houseDetect: HouseDetect = viewModel.detectLD.value ?: return
                 showLoadingDialog()
                 lifecycleScope.launch(Dispatchers.IO) {
@@ -120,14 +120,14 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
                     }
                 }
             }
-            findViewById<View>(R.id.view_select_all) -> {//全选、取消全选
+            findViewById<View>(R.id.view_select_all) -> {// 全选、取消全选
                 adapter.isSelectAll = !adapter.isSelectAll
             }
-            findViewById<View>(R.id.view_copy) -> {//复制
+            findViewById<View>(R.id.view_copy) -> {// 复制
                 adapter.copySelect()
                 TToast.shortToast(this@DirEditActivity, LibR.string.ts004_copy_success)
             }
-            findViewById<View>(R.id.view_del) -> {//删除
+            findViewById<View>(R.id.view_del) -> {// 删除
                 TipDialog.Builder(this)
                     .setTitleMessage(getString(LibR.string.tips_del_item_title))
                     .setMessage(LibR.string.tips_del_item_content)
@@ -145,7 +145,7 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
                     }
                     .create().show()
             }
-            findViewById<TextView>(R.id.tv_add) -> {//新增默认目录
+            findViewById<TextView>(R.id.tv_add) -> {// 新增默认目录
                 val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
                 val clBottom = findViewById<ConstraintLayout>(R.id.cl_bottom)
                 val clEmpty = findViewById<ConstraintLayout>(R.id.cl_empty)
@@ -221,12 +221,12 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
         var isSelectAll: Boolean
             get() = selectCount == dataList.size && dataList.size > 0
             set(value) {
-                if (value) {//->全选
+                if (value) {// ->全选
                     selectCount = dataList.size
                     for (dir in dataList) {
                         dir.hasSelect = true
                     }
-                } else {//全选->取消全选
+                } else {// 全选->取消全选
                     selectCount = 0
                     for (dir in dataList) {
                         dir.hasSelect = false

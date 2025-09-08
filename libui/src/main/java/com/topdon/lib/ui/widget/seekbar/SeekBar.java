@@ -31,7 +31,6 @@ import com.topdon.lib.ui.R;
 import java.text.DecimalFormat;
 import java.util.Locale;
 
-
 /**
  * ================================================
  * 作    者：JayGoo
@@ -40,9 +39,8 @@ import java.util.Locale;
  * 描    述:
  * ================================================
  */
-
 public class SeekBar {
-    //the indicator show mode
+    // the indicator show mode
     public static final int INDICATOR_SHOW_WHEN_TOUCH = 0;
     public static final int INDICATOR_ALWAYS_HIDE = 1;
     public static final int INDICATOR_ALWAYS_SHOW_AFTER_TOUCH = 2;
@@ -50,7 +48,12 @@ public class SeekBar {
     private boolean thumbShow;
 
     @IntDef({INDICATOR_SHOW_WHEN_TOUCH, INDICATOR_ALWAYS_HIDE, INDICATOR_ALWAYS_SHOW_AFTER_TOUCH, INDICATOR_ALWAYS_SHOW})
-    public @interface IndicatorModeDef {
+    public @/**
+ * IndicatorModeDef class.
+ * 
+ * Provides indicatormodedef functionality.
+ */
+interface IndicatorModeDef {
     }
 
     public static final int WRAP_CONTENT = -1;
@@ -58,12 +61,12 @@ public class SeekBar {
 
     private int indicatorShowMode;
 
-    //进度提示背景的高度，宽度如果是0的话会自适应调整
-    //Progress prompted the background height, width,
+    // 进度提示背景的高度，宽度如果是0的话会自适应调整
+    // Progress prompted the background height, width,
     private int indicatorHeight;
     private int indicatorWidth;
-    //进度提示背景与按钮之间的距离
-    //The progress indicates the distance between the background and the button
+    // 进度提示背景与按钮之间的距离
+    // The progress indicates the distance between the background and the button
     private int indicatorMargin;
     private int indicatorDrawableId;
     private int indicatorArrowSize;
@@ -77,10 +80,10 @@ public class SeekBar {
     private int thumbWidth;
     private int thumbHeight;
 
-    //when you touch or move, the thumb will scale, default not scale
+    // when you touch or move, the thumb will scale, default not scale
     float thumbScaleRatio;
 
-    //****************** the above is attr value  ******************//
+    // ****************** the above is attr value  ******************//
 
     int left, right, top, bottom;
     float currPercent;
@@ -183,7 +186,6 @@ public class SeekBar {
         bottom = y + getThumbHeight() / 2;
     }
 
-
     public void scaleThumb() {
         scaleThumbWidth = (int) getThumbScaleWidth();
         scaleThumbHeight = (int) getThumbScaleHeight();
@@ -206,7 +208,7 @@ public class SeekBar {
         return getIndicatorHeight() + getIndicatorArrowSize() + getIndicatorMargin() + getThumbScaleHeight();
     }
     private boolean noNegativeNumber = false;
-    /**
+        /**
      * 临时处理负数
      */
     public void setNoNegativeNumber(Boolean noNegativeNumber){
@@ -228,23 +230,22 @@ public class SeekBar {
         // translate canvas, then don't care left
         canvas.translate(left, 0);
         if (isShowIndicator) {
-            onDrawIndicator(canvas, paint, formatCurrentIndicatorText(userText2Draw)); //滑动轴外标签
+            onDrawIndicator(canvas, paint, formatCurrentIndicatorText(userText2Draw)); // 滑动轴外标签
         }
 //        if (isLeft) {
-//            //设置上指示图标
+//            // Settings上指示图标
 //            setThumbDrawableId(R.drawable.ic_seekbar_high_svg, thumbWidth, thumbHeight);
 //        } else {
-//            //设置下指示图标
+//            // Settings下指示图标
 //            setThumbDrawableId(R.drawable.ic_seekbar_low_svg, thumbWidth, thumbHeight);
 //        }
         if (thumbShow){
             onDrawThumb(canvas);
         }else {
-            onDrawThumb(canvas, isLeft); //轴上标签
+            onDrawThumb(canvas, isLeft); // 轴上标签
         }
         canvas.restore();
     }
-
 
     /**
      * 绘制按钮
@@ -259,7 +260,7 @@ public class SeekBar {
         if (thumbInactivatedBitmap != null && !isActivate) {
             canvas.drawBitmap(thumbInactivatedBitmap, 0, rangeSeekBar.getProgressTop() + (rangeSeekBar.getProgressHeight() - scaleThumbHeight) / 2f, null);
         } else if (thumbBitmap != null) {
-            //绘制标签
+            // 绘制标签
             canvas.drawBitmap(thumbBitmap, 0, rangeSeekBar.getProgressTop() + (rangeSeekBar.getProgressHeight() - scaleThumbHeight) / 2f, null);
         }
     }
@@ -278,7 +279,7 @@ public class SeekBar {
         if (thumbInactivatedBitmap != null && !isActivate) {
 //            canvas.drawBitmap(thumbInactivatedBitmap, 0, rangeSeekBar.getProgressTop() + (rangeSeekBar.getProgressHeight() - scaleThumbHeight) / 2f, null);
         } else if (thumbBitmap != null) {
-            //绘制标签
+            // 绘制标签
             Matrix matrix = new Matrix();
             int offX = thumbBitmap.getWidth() / 2;
             int offY = thumbBitmap.getHeight() / 2;
@@ -326,9 +327,6 @@ public class SeekBar {
         return text2Draw;
     }
 
-
-
-
     /**
      * This method will draw the indicator background dynamically according to the text.
      * you can use to set padding
@@ -360,9 +358,9 @@ public class SeekBar {
             indicatorRect.top = bottom - realIndicatorHeight - scaleThumbHeight - indicatorMargin;
             indicatorRect.right = indicatorRect.left + realIndicatorWidth;
             indicatorRect.bottom = indicatorRect.top + realIndicatorHeight;
-            //draw default indicator arrow
+            // draw default indicator arrow
             if (indicatorBitmap == null) {
-                //arrow three point
+                // arrow three point
                 //  b   c
                 //    a
                 int ax = scaleThumbWidth / 2;
@@ -378,10 +376,10 @@ public class SeekBar {
                 canvas.drawPath(indicatorArrowPath, paint);
                 indicatorRect.bottom -= indicatorArrowSize;
                 indicatorRect.top -= indicatorArrowSize;
-                Log.w("伪彩条刷新","///");
+                Log.w("Pseudo color条刷新","/// ");
             }
 
-            //indicator background edge processing
+            // indicator background edge processing
             int defaultPaddingOffset = Utils.dp2px(getContext(), 1);
             int leftOffset = indicatorRect.width() / 2 - (int) (rangeSeekBar.getProgressWidth() * currPercent) - rangeSeekBar.getProgressLeft() + defaultPaddingOffset;
             int rightOffset = indicatorRect.width() / 2 - (int) (rangeSeekBar.getProgressWidth() * (1 - currPercent)) - rangeSeekBar.getProgressPaddingRight() + defaultPaddingOffset;
@@ -394,7 +392,7 @@ public class SeekBar {
                 indicatorRect.right -= rightOffset;
             }
 
-            //draw indicator background
+            // draw indicator background
             if (indicatorBitmap != null) {
                 int offset = (int) (rangeSeekBar.getProgressWidth() * currPercent);
 
@@ -406,7 +404,7 @@ public class SeekBar {
                 canvas.drawRect(indicatorRect, paint);
             }
 
-            //draw indicator content text
+            // draw indicator content text
             int tx, ty;
             if (indicatorPaddingLeft > 0) {
                 tx = indicatorRect.left + indicatorPaddingLeft;
@@ -424,7 +422,7 @@ public class SeekBar {
                 ty = indicatorRect.bottom - (realIndicatorHeight - indicatorTextRect.height()) / 2 + 1;
             }
 
-            //draw indicator text
+            // draw indicator text
             paint.setColor(indicatorTextColor);
             canvas.drawText(text2Draw, tx, ty, paint);
         }catch (Exception e){
@@ -441,7 +439,6 @@ public class SeekBar {
         int offset = (int) (rangeSeekBar.getProgressWidth() * currPercent);
         return x > left + offset && x < right + offset && y > top && y < bottom;
     }
-
 
     protected void slide(float percent) {
         if (percent < 0) percent = 0;
@@ -518,7 +515,6 @@ public class SeekBar {
         }
     }
 
-
     public int getIndicatorArrowSize() {
         return indicatorArrowSize;
     }
@@ -571,7 +567,7 @@ public class SeekBar {
         return indicatorShowMode;
     }
 
-    /**
+        /**
      * the indicator show mode
      * {@link #INDICATOR_SHOW_WHEN_TOUCH}
      * {@link #INDICATOR_ALWAYS_SHOW}
@@ -592,7 +588,7 @@ public class SeekBar {
         return isShowIndicator;
     }
 
-    /**
+        /**
      * include indicator text Height、padding、margin
      *
      * @return The actual occupation height of indicator
@@ -741,8 +737,7 @@ public class SeekBar {
         paint.setTypeface(typeFace);
     }
 
-
-    /**
+        /**
      * when you touch or move, the thumb will scale, default not scale
      *
      * @return default 1.0f
@@ -755,7 +750,7 @@ public class SeekBar {
         return isVisible;
     }
 
-    /**
+        /**
      * if visble is false, will clear the Canvas
      *
      * @param visible

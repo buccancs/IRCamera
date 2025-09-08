@@ -24,7 +24,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class LegendRenderer extends Renderer {
+    /**
+     * LegendRenderer class.
+     *
+     * Provides legendrenderer functionality.
+     */
+    public class LegendRenderer extends Renderer {
 
     /**
      * paint for the legend labels
@@ -54,7 +59,7 @@ public class LegendRenderer extends Renderer {
         mLegendFormPaint.setStyle(Paint.Style.FILL);
     }
 
-    /**
+        /**
      * Returns the Paint object used for drawing the Legend labels.
      *
      * @return
@@ -63,7 +68,7 @@ public class LegendRenderer extends Renderer {
         return mLegendLabelPaint;
     }
 
-    /**
+        /**
      * Returns the Paint object used for drawing the Legend forms.
      *
      * @return
@@ -72,10 +77,9 @@ public class LegendRenderer extends Renderer {
         return mLegendFormPaint;
     }
 
-
     protected List<LegendEntry> computedEntries = new ArrayList<>(16);
 
-    /**
+        /**
      * Prepares the legend and calculates all needed forms, labels and colors.
      *
      * @param data

@@ -11,7 +11,7 @@ public class SharedPreferencesUtil {
 
     private static final String FILE_NAME = "usb_ir";
 
-    /**
+        /**
      * 保存数据到文件
      *
      * @param context
@@ -38,7 +38,7 @@ public class SharedPreferencesUtil {
         editor.commit();
     }
 
-    /**
+        /**
      * 从文件里读取数据
      *
      * @param context
@@ -65,7 +65,7 @@ public class SharedPreferencesUtil {
         return null;
     }
 
-    /**
+        /**
      *
      * @param context
      * @param key
@@ -83,7 +83,7 @@ public class SharedPreferencesUtil {
         editor.commit();
     }
 
-    /**
+        /**
      *
      * @param context
      * @param key

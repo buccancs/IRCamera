@@ -18,7 +18,12 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.util.List;
 
-public class YAxisRendererHorizontalBarChart extends YAxisRenderer {
+    /**
+     * YAxisRendererHorizontalBarChart class.
+     *
+     * Provides yaxisrendererhorizontalbarchart functionality.
+     */
+    public class YAxisRendererHorizontalBarChart extends YAxisRenderer {
 
     public YAxisRendererHorizontalBarChart(ViewPortHandler viewPortHandler, YAxis yAxis,
                                            Transformer trans) {

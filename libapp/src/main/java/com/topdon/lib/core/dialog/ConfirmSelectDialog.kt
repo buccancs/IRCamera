@@ -22,7 +22,7 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
     private lateinit var binding: DialogConfirmSelectBinding
 
     /**
-     * 是否显示顶部信息图标，默认不显示.
+     * 是否显示顶部message图标，默认不显示.
      */
     fun setShowIcon(isShowIcon: Boolean) {
         binding.ivIcon.isVisible = isShowIcon
@@ -59,7 +59,7 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
     }
 
     /**
-     * 设置取消按钮文字，默认为“取消”.
+     * Settings取消按钮文字，默认为“取消”.
      */
     fun setCancelText(
         @StringRes cancelRes: Int,
@@ -68,7 +68,7 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
     }
 
     /**
-     * 设置确认按钮文字，默认为“删除"
+     * Settings确认按钮文字，默认为“删除"
      */
     fun setConfirmText(
         @StringRes confirmRes: Int,

@@ -4,7 +4,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.View;
 
-public class SavedState extends View.BaseSavedState {
+    /**
+     * SavedState class.
+     *
+     * Provides savedstate functionality.
+     */
+    public class SavedState extends View.BaseSavedState {
     public float minValue;
     public float maxValue;
     public float rangeInterval;

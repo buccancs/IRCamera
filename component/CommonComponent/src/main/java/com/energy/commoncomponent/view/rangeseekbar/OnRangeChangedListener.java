@@ -1,6 +1,11 @@
 package com.energy.commoncomponent.view.rangeseekbar;
 
-public interface OnRangeChangedListener {
+    /**
+     * OnRangeChangedListener class.
+     *
+     * Provides onrangechangedlistener functionality.
+     */
+    public interface OnRangeChangedListener {
     void onRangeChanged(RangeSeekBar view, float leftValue, float rightValue, boolean isFromUser);
 
     void onStartTrackingTouch(RangeSeekBar view, boolean isLeft);

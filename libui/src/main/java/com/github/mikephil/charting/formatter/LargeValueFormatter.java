@@ -7,7 +7,7 @@ import java.text.DecimalFormat;
  * Outputs: 856 = 856; 1000 = 1k; 5821 = 5.8k; 10500 = 10k; 101800 = 102k;
  * 2000000 = 2m; 7800000 = 7.8m; 92150000 = 92m; 123200000 = 123m; 9999999 =
  * 10m; 1000000000 = 1b; Special thanks to Roman Gromov
- * (https://github.com/romangromov) for this piece of code.
+ * (https:// github.com/romangromov) for this piece of code.
  *
  * @author Philipp Jahoda
  * @author Oleksandr Tyshkovets <olexandr.tyshkovets@gmail.com>
@@ -26,7 +26,7 @@ public class LargeValueFormatter extends ValueFormatter
         mFormat = new DecimalFormat("###E00");
     }
 
-    /**
+        /**
      * Creates a formatter that appends a specified text to the result string
      *
      * @param appendix a text that will be appended
@@ -41,7 +41,7 @@ public class LargeValueFormatter extends ValueFormatter
         return makePretty(value) + mText;
     }
 
-    /**
+        /**
      * Set an appendix text to be added at the end of the formatted value.
      *
      * @param appendix
@@ -50,7 +50,7 @@ public class LargeValueFormatter extends ValueFormatter
         this.mText = appendix;
     }
 
-    /**
+        /**
      * Set custom suffix to be appended after the values.
      * Default suffix: ["", "k", "m", "b", "t"]
      *
@@ -66,7 +66,7 @@ public class LargeValueFormatter extends ValueFormatter
 
     /**
      * Formats each number properly. Special thanks to Roman Gromov
-     * (https://github.com/romangromov) for this piece of code.
+     * (https:// github.com/romangromov) for this piece of code.
      */
     private String makePretty(double number) {
 

@@ -5,18 +5,18 @@ import android.graphics.Paint;
 
 import com.github.mikephil.charting.utils.Utils;
 
-/**
- * Class representing the y-axis labels settings and its entries. Only use the setter methods to
- * modify it. Do not
- * access public variables directly. Be aware that not all features the YLabels class provides
- * are suitable for the
- * RadarChart. Customizations that affect the value range of the axis need to be applied before
- * setting data for the
- * chart.
- *
- * @author Philipp Jahoda
- */
-public class YAxis extends AxisBase {
+    /**
+     * Class representing the y-axis labels settings and its entries. Only use the setter methods to
+     * modify it. Do not
+     * access public variables directly. Be aware that not all features the YLabels class provides
+     * are suitable for the
+     * RadarChart. Customizations that affect the value range of the axis need to be applied before
+     * setting data for the
+     * chart.
+     *
+     * @author Philipp Jahoda
+     */
+    public class YAxis extends AxisBase {
 
     /**
      * indicates if the bottom y-label entry is drawn or not
@@ -73,8 +73,17 @@ public class YAxis extends AxisBase {
      */
     private YAxisLabelPosition mPosition = YAxisLabelPosition.OUTSIDE_CHART;
 
-    /**
-     * enum for the position of the y-labels relative to the chart
+    /**    /**
+ * for class.
+ * 
+ * Provides for functionality.
+ */
+ enum for the position of the y-labels relative to the chart
+     */
+        /**
+     * YAxisLabelPosition class.
+     *
+     * Provides yaxislabelposition functionality.
      */
     public enum YAxisLabelPosition {
         OUTSIDE_CHART, INSIDE_CHART
@@ -104,6 +113,11 @@ public class YAxis extends AxisBase {
      *
      * @author Philipp Jahoda
      */
+        /**
+     * AxisDependency class.
+     *
+     * Provides axisdependency functionality.
+     */
     public enum AxisDependency {
         LEFT, RIGHT
     }
@@ -126,14 +140,14 @@ public class YAxis extends AxisBase {
         return mAxisDependency;
     }
 
-    /**
+        /**
      * @return the minimum width that the axis should take (in dp).
      */
     public float getMinWidth() {
         return mMinWidth;
     }
 
-    /**
+        /**
      * Sets the minimum width that the axis should take (in dp).
      *
      * @param minWidth
@@ -142,14 +156,14 @@ public class YAxis extends AxisBase {
         mMinWidth = minWidth;
     }
 
-    /**
+        /**
      * @return the maximum width that the axis can take (in dp).
      */
     public float getMaxWidth() {
         return mMaxWidth;
     }
 
-    /**
+        /**
      * Sets the maximum width that the axis can take (in dp).
      *
      * @param maxWidth
@@ -158,14 +172,14 @@ public class YAxis extends AxisBase {
         mMaxWidth = maxWidth;
     }
 
-    /**
+        /**
      * returns the position of the y-labels
      */
     public YAxisLabelPosition getLabelPosition() {
         return mPosition;
     }
 
-    /**
+        /**
      * sets the position of the y-labels
      *
      * @param pos
@@ -174,7 +188,7 @@ public class YAxis extends AxisBase {
         mPosition = pos;
     }
 
-    /**
+        /**
      * returns true if drawing the top y-axis label entry is enabled
      *
      * @return
@@ -183,7 +197,7 @@ public class YAxis extends AxisBase {
         return mDrawTopYLabelEntry;
     }
 
-    /**
+        /**
      * returns true if drawing the bottom y-axis label entry is enabled
      *
      * @return
@@ -192,7 +206,7 @@ public class YAxis extends AxisBase {
         return mDrawBottomYLabelEntry;
     }
 
-    /**
+        /**
      * set this to true to enable drawing the top y-label entry. Disabling this can be helpful
      * when the top y-label and
      * left x-label interfere with each other. default: true
@@ -203,7 +217,7 @@ public class YAxis extends AxisBase {
         mDrawTopYLabelEntry = enabled;
     }
 
-    /**
+        /**
      * If this is set to true, the y-axis is inverted which means that low values are on top of
      * the chart, high values
      * on bottom.
@@ -214,7 +228,7 @@ public class YAxis extends AxisBase {
         mInverted = enabled;
     }
 
-    /**
+        /**
      * If this returns true, the y-axis is inverted.
      *
      * @return
@@ -237,7 +251,7 @@ public class YAxis extends AxisBase {
             resetAxisMinimum();
     }
 
-    /**
+        /**
      * Sets the top axis space in percent of the full range. Default 10f
      *
      * @param percent
@@ -246,7 +260,7 @@ public class YAxis extends AxisBase {
         mSpacePercentTop = percent;
     }
 
-    /**
+        /**
      * Returns the top axis space in percent of the full range. Default 10f
      *
      * @return
@@ -255,7 +269,7 @@ public class YAxis extends AxisBase {
         return mSpacePercentTop;
     }
 
-    /**
+        /**
      * Sets the bottom axis space in percent of the full range. Default 10f
      *
      * @param percent
@@ -264,7 +278,7 @@ public class YAxis extends AxisBase {
         mSpacePercentBottom = percent;
     }
 
-    /**
+        /**
      * Returns the bottom axis space in percent of the full range. Default 10f
      *
      * @return
@@ -277,7 +291,7 @@ public class YAxis extends AxisBase {
         return mDrawZeroLine;
     }
 
-    /**
+        /**
      * Set this to true to draw the zero-line regardless of weather other
      * grid-lines are enabled or not. Default: false
      *
@@ -291,7 +305,7 @@ public class YAxis extends AxisBase {
         return mZeroLineColor;
     }
 
-    /**
+        /**
      * Sets the color of the zero line
      *
      * @param color
@@ -304,7 +318,7 @@ public class YAxis extends AxisBase {
         return mZeroLineWidth;
     }
 
-    /**
+        /**
      * Sets the width of the zero line in dp
      *
      * @param width
@@ -313,7 +327,7 @@ public class YAxis extends AxisBase {
         this.mZeroLineWidth = Utils.convertDpToPixel(width);
     }
 
-    /**
+        /**
      * This is for normal (not horizontal) charts horizontal spacing.
      *
      * @param p
@@ -340,7 +354,7 @@ public class YAxis extends AxisBase {
         return width;
     }
 
-    /**
+        /**
      * This is for HorizontalBarChart vertical spacing.
      *
      * @param p
@@ -354,7 +368,7 @@ public class YAxis extends AxisBase {
         return (float) Utils.calcTextHeight(p, label) + getYOffset() * 2f;
     }
 
-    /**
+        /**
      * Returns true if this axis needs horizontal offset, false if no offset is needed.
      *
      * @return
@@ -398,7 +412,6 @@ public class YAxis extends AxisBase {
     public void setUseAutoScaleMaxRestriction( boolean isEnabled ) {
         mUseAutoScaleRestrictionMax = isEnabled;
     }
-
 
     @Override
     public void calculate(float dataMin, float dataMax) {

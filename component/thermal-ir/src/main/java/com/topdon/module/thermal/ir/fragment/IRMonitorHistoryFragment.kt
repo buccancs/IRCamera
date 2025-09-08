@@ -43,7 +43,6 @@ class IRMonitorHistoryFragment : Fragment() {
     // findViewById declarations 
     private lateinit var recyclerView: AndroidRecyclerView
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         EventBus.getDefault().register(this)
         return inflater.inflate(R.layout.fragment_ir_monitor_history, container)
@@ -134,7 +133,6 @@ class IRMonitorHistoryFragment : Fragment() {
          * item 长按事件监听.
          */
         var onItemLongClickListener: ((position: Int) -> Unit)? = null
-
 
         override fun convert(holder: BaseViewHolder, item: ThermalDao.Record) {
             val position = data.indexOf(item)

@@ -8,7 +8,7 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.fragment.IRMonitorThermalFragment
 
 /**
- * des:单光红外拍照
+ * des:单光红外Photo capture
  * author: CaiSongL
  * date: 2024/8/24 18:10
  **/
@@ -39,6 +39,5 @@ class ImagePickIRActivity : BasePickImgActivity() {
     override fun initData() {
 
     }
-
 
 }

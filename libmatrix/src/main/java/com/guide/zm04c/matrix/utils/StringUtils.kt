@@ -15,11 +15,9 @@ class StringUtils {
             return str == null || str.trim().length == 0
         }
 
-
         fun createFileName(tiemStr: String): String {
             return "_" + tiemStr
         }
-
 
         fun dateString(date: String): String {
             val year = date.substring(0, 4)

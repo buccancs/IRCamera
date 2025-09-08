@@ -5,7 +5,7 @@ package com.infisense.usbir.utils;
  */
 public class HexUtils {
 
-    /**
+        /**
      * 将字节数组转换成十六进制的字符串
      * @return
      */

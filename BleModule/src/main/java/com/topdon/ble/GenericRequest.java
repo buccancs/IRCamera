@@ -8,7 +8,6 @@ import com.topdon.ble.callback.RequestCallback;
 import java.util.Queue;
 import java.util.UUID;
 
-
 /**
  * date: 2021/8/12 13:44
  * author: bichuanfeng
@@ -24,11 +23,11 @@ class GenericRequest implements Request, Comparable<GenericRequest> {
     int priority;
     RequestCallback callback;
     WriteOptions writeOptions;
-    byte[] descriptorTemp;//临时保存描述符的值
-    //---------  分包发送相关  ---------
+    byte[] descriptorTemp;// 临时保存描述符的值
+    // ---------  分包发送相关  ---------
     Queue<byte[]> remainQueue;
     byte[] sendingBytes;
-    //--------------------------------
+    // --------------------------------
 
     GenericRequest(RequestBuilder builder) {
         tag = builder.tag;

@@ -66,15 +66,15 @@ internal class DetectListFragment : BaseFragment(), View.OnClickListener {
         adapter.onMoreClickListener = { position, v ->
             ThreePickPopup(requireContext(), arrayListOf(LibR.string.app_edit, LibR.string.paste, LibR.string.report_delete)) {
                 when (it) {
-                    0 -> {//编辑
+                    0 -> {// 编辑
                         val intent = Intent(requireContext(), DetectAddActivity::class.java)
                         intent.putExtra(ExtraKeyConfig.DETECT_ID, adapter.dataList[position].id)
                         startActivity(intent)
                     }
-                    1 -> {//复制
+                    1 -> {// 复制
                         viewModel.copyDetect(position, adapter.dataList[position] as HouseDetect)
                     }
-                    2 -> {//删除
+                    2 -> {// 删除
                         TipDialog.Builder(requireContext())
                             .setTitleMessage(getString(LibR.string.monitor_report_delete))
                             .setMessage(LibR.string.report_delete_tips)
@@ -106,7 +106,6 @@ internal class DetectListFragment : BaseFragment(), View.OnClickListener {
 
         tvAdd.setOnClickListener(this)
         clDel.setOnClickListener(this)
-
 
         tabViewModel.isEditModeLD.observe(viewLifecycleOwner) {
             adapter.isEditMode = it
@@ -162,12 +161,12 @@ internal class DetectListFragment : BaseFragment(), View.OnClickListener {
         val clDel = requireView().findViewById<android.view.View>(R.id.cl_del)
         
         when (v) {
-            tvAdd -> {//添加
+            tvAdd -> {// 添加
                 val intent = Intent(requireContext(), DetectAddActivity::class.java)
                 intent.putExtra(ExtraKeyConfig.IS_TC007, arguments?.getBoolean(ExtraKeyConfig.IS_TC007, false) ?: false)
                 startActivity(intent)
             }
-            clDel -> {//批量删除
+            clDel -> {// 批量删除
                 if (adapter.selectIndexList.isNotEmpty()) {
                     TipDialog.Builder(requireContext())
                         .setTitleMessage(getString(LibR.string.monitor_report_delete))

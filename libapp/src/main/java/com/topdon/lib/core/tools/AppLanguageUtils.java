@@ -13,13 +13,12 @@ import java.util.Locale;
 /**
  * @author YanLu
  * @since 17/5/12
- * 
+ *
  * English-only language utilities
  */
-
 public class AppLanguageUtils {
 
-    /**
+        /**
      * Get system default language - always return English
      */
     public static String getSystemLanguage() {
@@ -27,13 +26,12 @@ public class AppLanguageUtils {
     }
 
     @SuppressWarnings("deprecation")
-    /**
- * Changeapplanguage operation.
- * * @param context the context parameter
- * @param newLanguage the newLanguage parameter
-
- */
-public static void changeAppLanguage(Context context, String newLanguage) {
+        /**
+     * Changeapplanguage operation.
+     * * @param context the context parameter
+     * @param newLanguage the newLanguage parameter
+     */
+    public static void changeAppLanguage(Context context, String newLanguage) {
         Resources resources = context.getResources();
         Configuration configuration = resources.getConfiguration();
 
@@ -49,7 +47,7 @@ public static void changeAppLanguage(Context context, String newLanguage) {
         return ConstantLanguages.ENGLISH;
     }
 
-    /**
+        /**
      * Get locale for specified language - always return English
      *
      * @param language language
@@ -59,13 +57,13 @@ public static void changeAppLanguage(Context context, String newLanguage) {
         return Locale.ENGLISH;
     }
 
-    /**
- * Attachbasecontext operation.
- * * @param context the context parameter
- * @param language the language parameter
- * @return the result
- */
-public static Context attachBaseContext(Context context, String language) {
+        /**
+     * Attachbasecontext operation.
+     * * @param context the context parameter
+     * @param language the language parameter
+     * @return the result
+     */
+    public static Context attachBaseContext(Context context, String language) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return updateResources(context, language);
         } else {

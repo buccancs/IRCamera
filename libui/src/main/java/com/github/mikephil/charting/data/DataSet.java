@@ -4,15 +4,15 @@ package com.github.mikephil.charting.data;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * The DataSet class represents one group or type of entries (Entry) in the
- * Chart that belong together. It is designed to logically separate different
- * groups of values inside the Chart (e.g. the values for a specific line in the
- * LineChart, or the values of a specific group of bars in the BarChart).
- *
- * @author Philipp Jahoda
- */
-public abstract class DataSet<T extends Entry> extends BaseDataSet<T> {
+    /**
+     * The DataSet class represents one group or type of entries (Entry) in the
+     * Chart that belong together. It is designed to logically separate different
+     * groups of values inside the Chart (e.g. the values for a specific line in the
+     * LineChart, or the values of a specific group of bars in the BarChart).
+     *
+     * @author Philipp Jahoda
+     */
+    public abstract class DataSet<T extends Entry> extends BaseDataSet<T> {
 
     /**
      * the entries that this DataSet represents / holds together
@@ -39,8 +39,7 @@ public abstract class DataSet<T extends Entry> extends BaseDataSet<T> {
      */
     protected float mXMin = Float.MAX_VALUE;
 
-
-    /**
+        /**
      * Creates a new DataSet object with the given values (entries) it represents. Also, a
      * label that describes the DataSet can be specified. The label can also be
      * used to retrieve the DataSet from a ChartData object.
@@ -131,7 +130,7 @@ public abstract class DataSet<T extends Entry> extends BaseDataSet<T> {
         return mValues.size();
     }
 
-    /**
+        /**
      * Returns the array of entries that this DataSet represents.
      *
      * @return
@@ -140,7 +139,7 @@ public abstract class DataSet<T extends Entry> extends BaseDataSet<T> {
         return mValues;
     }
 
-    /**
+        /**
      * Sets the array of entries that this DataSet represents, and calls notifyDataSetChanged()
      *
      * @return
@@ -150,7 +149,7 @@ public abstract class DataSet<T extends Entry> extends BaseDataSet<T> {
         notifyDataSetChanged();
     }
 
-    /**
+        /**
      * Provides an exact copy of the DataSet this method is used on.
      *
      * @return
@@ -175,7 +174,7 @@ public abstract class DataSet<T extends Entry> extends BaseDataSet<T> {
         return buffer.toString();
     }
 
-    /**
+        /**
      * Returns a simple string representation of the DataSet with the type and
      * the number of Entries.
      *
@@ -424,6 +423,11 @@ public abstract class DataSet<T extends Entry> extends BaseDataSet<T> {
      * Determines how to round DataSet index values for
      * {@link DataSet#getEntryIndex(float, float, Rounding)} DataSet.getEntryIndex()}
      * when an exact x-index is not found.
+     */
+        /**
+     * Rounding class.
+     *
+     * Provides rounding functionality.
      */
     public enum Rounding {
         UP,

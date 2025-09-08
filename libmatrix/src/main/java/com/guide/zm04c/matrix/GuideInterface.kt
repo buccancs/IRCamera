@@ -23,11 +23,11 @@ class GuideInterface {
     private val IR_WIDTH = 256
     private val IR_HEIGHT = 192
     private val HEAD_SIZE = 64
-    private val IR_SIZE = IR_WIDTH * IR_HEIGHT //49152
-    private val YUV_SIZE = IR_SIZE * 2 //98304 2byte = 1像素点
+    private val IR_SIZE = IR_WIDTH * IR_HEIGHT // 49152
+    private val YUV_SIZE = IR_SIZE * 2 // 98304 2byte = 1像素点
     private val PARAM_SIZE = 512
-    private val TEMP_MATRIX_SIZE = IR_SIZE * 4 //196608 4byte = 1温度点
-    private val FRAME_SIZE = HEAD_SIZE + YUV_SIZE + PARAM_SIZE + TEMP_MATRIX_SIZE //295488
+    private val TEMP_MATRIX_SIZE = IR_SIZE * 4 // 196608 4byte = 1温度点
+    private val FRAME_SIZE = HEAD_SIZE + YUV_SIZE + PARAM_SIZE + TEMP_MATRIX_SIZE // 295488
     private val MAX_BULK_TRANSFER_SIZE = 16384
     private var mGuideUsbManager: GuideUsbManager? = null
     private var mUsbBuffer: UsbBuffer? = null
@@ -35,13 +35,13 @@ class GuideInterface {
     private val mUsbReadbuffer = ByteArray(MAX_BULK_TRANSFER_SIZE)
     private val mFrame = ByteArray(FRAME_SIZE)
 
-    //图像数据：YUV422(UYVY)
+    // 图像数据：YUV422(UYVY)
     private val mYuv = ByteArray(YUV_SIZE)
 
-    //参数行数据
+    // 参数行数据
     private val mParam = ByteArray(PARAM_SIZE)
 
-    //温度矩阵数据：
+    // 温度矩阵数据：
     private val mTempMatrixByte = ByteArray(TEMP_MATRIX_SIZE)
     private val mTempMatrixFloat = FloatArray(IR_SIZE)
     private var mIrDataCallback: IrDataCallback? = null
@@ -67,7 +67,7 @@ class GuideInterface {
         mUsbBufferWriteThread = Thread {
             d(TAG, "write thread start")
             while (mWriteThreadFlag) {
-                val length: Int = mGuideUsbManager!!.read(mUsbReadbuffer) //读取红外设备传回的图像信息
+                val length: Int = mGuideUsbManager!!.read(mUsbReadbuffer) // 读取红外设备传回的图像message
                 if (length > 0) {
                     mUsbBuffer!!.write(mUsbReadbuffer, 0, length)
                 } else {
@@ -94,7 +94,7 @@ class GuideInterface {
         mUsbBufferReadThread = Thread {
             d(TAG, "read thread start")
             while (mReadThreadFlag) {
-                val ret = mUsbBuffer!!.readFrame(mFrame) //mFrame len: 295488
+                val ret = mUsbBuffer!!.readFrame(mFrame) // mFrame len: 295488
                 if (ret) {
                     System.arraycopy(mFrame, HEAD_SIZE, mYuv, 0, mYuv.size)
                     synchronized(mLock) {
@@ -113,7 +113,7 @@ class GuideInterface {
                             mTempMatrixByte.size
                         )
                     }
-                    mNativeGuideCore!!.toFloatTempMatrix(mTempMatrixFloat, mTempMatrixByte) //温度解析
+                    mNativeGuideCore!!.toFloatTempMatrix(mTempMatrixFloat, mTempMatrixByte) // 温度解析
 //                    if (startTime == 0L) {
 //                        startTime = System.currentTimeMillis()
 //                    }
@@ -127,7 +127,7 @@ class GuideInterface {
 //                        )
 //                    }
                     if (mIrDataCallback != null) {
-                        mIrDataCallback!!.processIrData(mYuv, mTempMatrixFloat) //回调图片信息和温度矩阵
+                        mIrDataCallback!!.processIrData(mYuv, mTempMatrixFloat) // 回调图片message和温度矩阵
                     }
                 } else {
 //                        Logger.d(TAG, "read Frame failed");
@@ -244,7 +244,7 @@ class GuideInterface {
     }
 
     /**
-     * 设置亮度
+     * Settings亮度
      */
     fun setBright(bright: Int) {
         if (mGuideUsbManager == null) {
@@ -265,7 +265,7 @@ class GuideInterface {
     }
 
     /**
-     * 设置对比度
+     * Settings对比度
      */
     fun setContrast(contrast: Int) {
         if (mGuideUsbManager == null) {
@@ -284,7 +284,6 @@ class GuideInterface {
         val PARAM_INDEX_CONTRAST = 164
         return getParam(PARAM_INDEX_CONTRAST * 2, 2, 1).toInt()
     }
-
 
     //    int count = 0;
     fun yuv2Bitmap(bitmap: Bitmap?, yuv: ByteArray?) {
@@ -318,7 +317,6 @@ class GuideInterface {
         }
         mGuideUsbManager!!.setRange(range)
     }
-
 
     fun setEmiss(emiss: Int) {
         if (mGuideUsbManager == null) {

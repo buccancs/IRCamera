@@ -87,7 +87,7 @@ class ReportAddActivity : BaseActivity(), View.OnClickListener {
         initDetectViewListener()
 
         viewModel.detectLD.observe(this) {
-            //查询当前检测结果
+            // 查询当前检测结果
             if (it != null) {
                 isAllExpand = false
 
@@ -103,21 +103,20 @@ class ReportAddActivity : BaseActivity(), View.OnClickListener {
             }
         }
         viewModel.copyDirLD.observe(this) {
-            //复制目录结果
+            // 复制目录结果
             viewHouseDetect.notifyDirInsert(it.first, it.second)
             TToast.shortToast(this@ReportAddActivity, LibR.string.ts004_copy_success)
         }
         viewModel.copyItemLD.observe(this) {
-            //复制项目结果
+            // 复制项目结果
             viewHouseDetect.notifyItemInsert(it.first, it.second)
             TToast.shortToast(this@ReportAddActivity, LibR.string.ts004_copy_success)
         }
         viewModel.delItemLD.observe(this) {
-            //删除项目结果
+            // 删除项目结果
             viewHouseDetect.notifyItemRemove(it.first, it.second)
             TToast.shortToast(this@ReportAddActivity, LibR.string.test_results_delete_success)
         }
-
 
         viewModel.queryById(intent.getLongExtra(ExtraKeyConfig.DETECT_ID, 0))
     }
@@ -128,12 +127,12 @@ class ReportAddActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v) {
             ivBack -> finish()
-            ivEdit -> {//目录编辑
+            ivEdit -> {// 目录编辑
                 val newIntent = Intent(this, DirEditActivity::class.java)
                 newIntent.putExtra(ExtraKeyConfig.DETECT_ID, intent.getLongExtra(ExtraKeyConfig.DETECT_ID, 0))
                 startActivity(newIntent)
             }
-            ivExpand -> {//展开收起
+            ivExpand -> {// 展开收起
                 isAllExpand = !isAllExpand
                 if (isAllExpand) {
                     viewHouseDetect.expandAllDir()
@@ -142,13 +141,13 @@ class ReportAddActivity : BaseActivity(), View.OnClickListener {
                 }
                 ivExpand.isSelected = isAllExpand
             }
-            tvExportReport -> {//导出报告
+            tvExportReport -> {// 导出报告
                 NavigationManager.getInstance().build(RouterConfig.REPORT_PREVIEW)
                     .withBoolean(ExtraKeyConfig.IS_REPORT, false)
                     .withLong(ExtraKeyConfig.LONG_ID, intent.getLongExtra(ExtraKeyConfig.DETECT_ID, 0))
                     .navigation(this)
             }
-            tvAdd -> {//新增默认目录
+            tvAdd -> {// 新增默认目录
                 val detect: HouseDetect? = viewModel.detectLD.value
                 if (detect != null) {
                     viewModel.insertDefaultDirs(detect)
@@ -170,10 +169,10 @@ class ReportAddActivity : BaseActivity(), View.OnClickListener {
      * 初始化 viewHouseDetect 的相关事件监听.
      */
     private fun initDetectViewListener() {
-        viewHouseDetect.onDirCopyListener = {//目录复制
+        viewHouseDetect.onDirCopyListener = {// 目录复制
             viewModel.copyDir(it.first, it.second)
         }
-        viewHouseDetect.onItemCopyListener = {//项目复制
+        viewHouseDetect.onItemCopyListener = {// 项目复制
             viewModel.copyItem(it.first, it.second)
         }
         viewHouseDetect.onItemDelListener = {
@@ -181,24 +180,24 @@ class ReportAddActivity : BaseActivity(), View.OnClickListener {
         }
 
         viewHouseDetect.onImageAddListener = { layoutIndex, v, item ->
-            //项目添加图片
+            // 项目添加图片
             editLayoutIndex = layoutIndex
             editItemDetect = item
             ThreePickPopup(this, arrayListOf(LibR.string.person_headshot_phone, LibR.string.light_camera_take_photo, LibR.string.ir_camera_take_photo)) {
                 when (it) {
-                    0 -> {//从相册获取
+                    0 -> {// 从相册获取
                         PermissionTool.requestImageRead(this) {
                             galleryPickResult.launch("image/*")
                         }
                     }
-                    1 -> {//相机拍照
+                    1 -> {// 相机Photo capture
                         PermissionTool.requestCamera(this) {
                             val fileName = "Item${System.currentTimeMillis()}.png"
                             val file = FileConfig.getDetectImageDir(this, fileName)
                             lightPhotoResult.launch(file)
                         }
                     }
-                    2 -> {//红外线拍照
+                    2 -> {// 红外线Photo capture
                         if ((isTC007 && !WebSocketProxy.getInstance().isTC007Connect()) || (!isTC007 && !DeviceTools.isConnect())) {
                             TToast.shortToast(this@ReportAddActivity, LibR.string.device_disconnect)
                         } else {
@@ -211,7 +210,7 @@ class ReportAddActivity : BaseActivity(), View.OnClickListener {
             }.show(v, true)
         }
         viewHouseDetect.onTextInputListener = {
-            //项目文字输入
+            // 项目文字输入
             editLayoutIndex = it.first
             editItemDetect = it.second
             val intent = Intent(this, TextInputActivity::class.java)
@@ -221,11 +220,11 @@ class ReportAddActivity : BaseActivity(), View.OnClickListener {
         }
 
         viewHouseDetect.onDirChangeListener = {
-            //目录数据变更（3种状态数量）
+            // 目录数据变更（3种状态数量）
             viewModel.updateDir(it)
         }
         viewHouseDetect.onDirExpandListener = {
-            //一个目录展开收起状态变化
+            // 一个目录展开收起状态变化
             if (it) {
                 if (!isAllExpand) {
                     val detect: HouseDetect? = viewModel.detectLD.value
@@ -245,7 +244,7 @@ class ReportAddActivity : BaseActivity(), View.OnClickListener {
             ivExpand.isSelected = isAllExpand
         }
         viewHouseDetect.onItemChangeListener = {
-            //项目数据变更（3种状态、图片删除）
+            // 项目数据变更（3种状态、图片删除）
             viewModel.updateItem(it)
         }
     }
@@ -257,17 +256,15 @@ class ReportAddActivity : BaseActivity(), View.OnClickListener {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onReportCreate(event: DetectDirListEvent) {
-        //目录列表编辑成功，刷新数据
+        // 目录列表编辑成功，刷新数据
         viewModel.queryById(intent.getLongExtra(ExtraKeyConfig.DETECT_ID, 0))
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onReportCreate(event: DetectItemListEvent) {
-        //项目列表编辑成功，刷新数据
+        // 项目列表编辑成功，刷新数据
         viewModel.queryById(intent.getLongExtra(ExtraKeyConfig.DETECT_ID, 0))
     }
-
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -294,7 +291,7 @@ class ReportAddActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 从系统相机拍照结果
+     * 从系统相机Photo capture结果
      */
     private val lightPhotoResult = registerForActivityResult(TakePhotoResult()) {
         if (it != null) {
@@ -310,7 +307,7 @@ class ReportAddActivity : BaseActivity(), View.OnClickListener {
     private val textInputResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode == RESULT_OK) {
             val inputText: String = it.data?.getStringExtra(ExtraKeyConfig.RESULT_INPUT_TEXT) ?: ""
-            if (editItemDetect.inputText != inputText) {//有变化，刷新
+            if (editItemDetect.inputText != inputText) {// 有变化，刷新
                 editItemDetect.inputText = inputText
                 viewModel.updateItem(editItemDetect)
                 viewHouseDetect.notifyItemChange(editLayoutIndex)

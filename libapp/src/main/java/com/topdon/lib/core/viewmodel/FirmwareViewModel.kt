@@ -93,9 +93,9 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
     val failLD: MutableLiveData<Boolean> = MutableLiveData()
 
     /**
-     * 一个固件升级包信息.
+     * 一个固件升级包message.
      * @param version 该固件升级包版本，V1.00格式
-     * @param updateStr 升级文案信息
+     * @param updateStr 升级文案message
      * @param downUrl 固件升级包 URL
      * @param size 固件升级包大小，单位 byte
      */
@@ -121,7 +121,7 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
         viewModelScope.launch(Dispatchers.IO) {
             // 由于双通道方案存在问题，V3.30临时使用 apk 内置固件升级包，以下使用网络的代码先注释
             /*if (isTS004) {
-                //从 TS004 中获取 SN、激活码
+                // 从 TS004 中获取 SN、激活码
                 val deviceInfo: DeviceInfo? = TS004Repository.getDeviceInfo()?.data
                 if (deviceInfo == null) {
                     XLog.w("TS004 固件升级 - 从设备查询 SN、激活码 失败!")
@@ -130,7 +130,7 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
                     return@launch
                 }
 
-                //从 TS004 中获取固件版本
+                // 从 TS004 中获取固件版本
                 val firmware: String? = TS004Repository.getVersion()?.data?.firmware
                 if (firmware == null) {
                     XLog.w("TS004 固件升级 - 从设备查询 固件版本 失败!")
@@ -143,7 +143,7 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
                 val randomNum: String = if (USE_DEBUG_SN) TS004_DEBUG_RANDOM_NUM else deviceInfo.code
                 getInfoFromNetwork(true, sn, randomNum, firmware)
             } else {
-                //从 TC007 中获取 SN、激活码
+                // 从 TC007 中获取 SN、激活码
                 val productInfo: ProductBean? = TC007Repository.getProductInfo()
                 if (productInfo == null) {
                     XLog.w("TC007 固件升级 - 从设备查询 SN、激活码 失败!")
@@ -186,7 +186,7 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
     }
 
     /**
-     * 将 assets 中的固件升级包导出，并将相关信息 post 到对应 LiveData
+     * 将 assets 中的固件升级包导出，并将相关message post 到对应 LiveData
      */
     private fun getInfoFromAssets(
         isTS004: Boolean,
@@ -224,7 +224,7 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
             return
         }
 
-        // 需求就是只需要中英两种语言，其他语言就使用英文。
+        // 需求就是只需要中英两种语言，其他语言就使用English。
         val tipsStr = getApplication<Application>().getString(R.string.fireware_update_tips)
 
         firmwareDataLD.postValue(FirmwareData(apkVersionStr, tipsStr, apkFirmwareName, firmwareFile.length()))
@@ -232,7 +232,7 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
     }
 
     /**
-     * 调接口走完整的获取固件升级包信息流程.
+     * 调接口走完整的获取固件升级包message流程.
      */
     private suspend fun getInfoFromNetwork(
         isTS004: Boolean,
@@ -252,7 +252,7 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
         // 获取固件升级包列表
         val packageData: PackageData? = querySoftPackage(sn, if (isTS004) TS004_SOFT_CODE else TC007_SOFT_CODE)
         if (packageData == null) {
-            XLog.w("${if (isTS004) "TS004" else "TC007"} 固件升级 - 获取固件升级包信息失败!")
+            XLog.w("${if (isTS004) "TS004" else "TC007"} 固件升级 - 获取固件升级包message失败!")
             failLD.postValue(false)
             isRequest = false
             return
@@ -358,7 +358,7 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
         }
 
     /**
-     * 查询指定 SN 指定固件升级包的下载信息.
+     * 查询指定 SN 指定固件升级包的下载message.
      */
     private suspend fun queryDownloadUrl(
         sn: String,
@@ -449,7 +449,7 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
     }
 
     /**
-     * 用来解析 获取固件升级包对应下载信息 接口返回数据.
+     * 用来解析 获取固件升级包对应下载message 接口返回数据.
      */
     private data class DownloadData(
         val downUrl: String?,

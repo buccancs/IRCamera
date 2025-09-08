@@ -25,7 +25,7 @@ object ImageUtils {
 
     /**
      * 保存图片到 图库/APP名称 下，文件名称为 APP名称_时间戳.jpg
-     * 这里是热成像拍照 和 2D编辑 的图片.
+     * 这里是热成像Photo capture 和 2D编辑 的图片.
      */
     fun save(
         bitmap: Bitmap,
@@ -44,7 +44,7 @@ object ImageUtils {
     }
 
     /**
-     * 热成像拍照时，若开始了可见光，原始图像再叠加可见光的图片，虽然有保存，但却没有使用，原因不明
+     * 热成像Photo capture时，若开始了可见光，原始图像再叠加可见光的图片，虽然有保存，但却没有使用，原因不明
      */
     fun saveImageToApp(bitmap: Bitmap): String {
         val saveFile = File(Utils.getApp().cacheDir, "PinP_${System.currentTimeMillis()}.jpg")

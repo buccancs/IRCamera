@@ -1,7 +1,5 @@
 package com.topdon.ble;
 
-
-
 /**
  * 配对控制器
  * <p>

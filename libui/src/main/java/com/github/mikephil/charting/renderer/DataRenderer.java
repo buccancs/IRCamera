@@ -13,12 +13,12 @@ import com.github.mikephil.charting.interfaces.datasets.IDataSet;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
-/**
- * Superclass of all render classes for the different data types (line, bar, ...).
- *
- * @author Philipp Jahoda
- */
-public abstract class DataRenderer extends Renderer {
+    /**
+     * Superclass of all render classes for the different data types (line, bar, ...).
+     *
+     * @author Philipp Jahoda
+     */
+    public abstract class DataRenderer extends Renderer {
 
     /**
      * the animator object used to perform animations on the chart data
@@ -71,12 +71,12 @@ public abstract class DataRenderer extends Renderer {
     }
 
     protected boolean isDrawingValuesAllowed(ChartInterface chart) {
-        //TODO Attempt to invoke virtual method 'int com.github.mikephil.charting.data.ChartData.getEntryCount()' on a null object reference
+        // TODO Attempt to invoke virtual method 'int com.github.mikephil.charting.data.ChartData.getEntryCount()' on a null object reference
         return chart.getData().getEntryCount() < chart.getMaxVisibleCount()
                 * mViewPortHandler.getScaleX();
     }
 
-    /**
+        /**
      * Returns the Paint object this renderer uses for drawing the values
      * (value-text).
      *
@@ -86,7 +86,7 @@ public abstract class DataRenderer extends Renderer {
         return mValuePaint;
     }
 
-    /**
+        /**
      * Returns the Paint object this renderer uses for drawing highlight
      * indicators.
      *
@@ -96,7 +96,7 @@ public abstract class DataRenderer extends Renderer {
         return mHighlightPaint;
     }
 
-    /**
+        /**
      * Returns the Paint object used for rendering.
      *
      * @return

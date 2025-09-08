@@ -12,7 +12,7 @@ class VersionViewModel : BaseViewModel() {
 
     /**
      * forcedUpgradeFlag: 1 强制更新    0 非强制更新
-     * descType: 包含3时,显示给用户(descType获取升级描述信息)
+     * descType: 包含3时,显示给用户(descType获取升级描述message)
      */
     fun checkVersion() {
 //        viewModelScope.launch(Dispatchers.IO) {
@@ -44,7 +44,7 @@ class VersionViewModel : BaseViewModel() {
         val downPageUrl = result.downloadPageUrl
         val sizeStr = "${result.notUnZipSize}MB"
 
-        XLog.i("有版本升级,升级信息: $description, 是否强制升级: $isForcedUpgrade")
+        XLog.i("有版本升级,升级message: $description, 是否强制升级: $isForcedUpgrade")
 
         val versionUpData =
             VersionUpData(
@@ -58,7 +58,7 @@ class VersionViewModel : BaseViewModel() {
     }
 
     /**
-     * 获取升级信息
+     * 获取升级message
      */
     private fun getDescription(list: List<SoftConfigOtherTypeVO>?): String {
         list?.forEach {

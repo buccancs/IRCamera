@@ -188,7 +188,7 @@ class IRGalleryFragment : BaseFragment() {
     private fun initRecycler() {
         val spanCount = 3
         val gridLayoutManager = GridLayoutManager(requireActivity(), spanCount)
-        //动态设置span
+        // 动态Settingsspan
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return if (adapter.dataList[position] is GalleryTitle) spanCount else 1
@@ -222,7 +222,6 @@ class IRGalleryFragment : BaseFragment() {
                     }
                 }
 
-
                 if (currentDirType == DirType.LINE || currentDirType == DirType.TC007) {
                     NavigationManager.getInstance().build(RouterConfig.IR_GALLERY_DETAIL_01)
                         .withBoolean(ExtraKeyConfig.IS_TC007, currentDirType == DirType.TC007)
@@ -238,7 +237,6 @@ class IRGalleryFragment : BaseFragment() {
                 }
             }
         }
-
 
         refreshLayout.setOnRefreshListener {
             refresh()
@@ -319,7 +317,7 @@ class IRGalleryFragment : BaseFragment() {
                         }
                     }
                 }
-                if (successCount == downloadMap.size) {//全都下载成功
+                if (successCount == downloadMap.size) {// 全都下载成功
                     dismissLoadingDialog()
                     if (isShare) {
                         shareImage(downloadList)

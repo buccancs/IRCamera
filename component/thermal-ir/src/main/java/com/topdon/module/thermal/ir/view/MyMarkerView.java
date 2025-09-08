@@ -20,14 +20,18 @@ import com.topdon.module.thermal.ir.R;
 
 import java.util.Locale;
 
-
 /**
  * Custom implementation of the MarkerView.
  *
  * @author Philipp Jahoda
  */
 @SuppressLint("ViewConstructor")
-public class MyMarkerView extends MarkerView {
+    /**
+     * MyMarkerView class.
+     *
+     * Provides mymarkerview functionality.
+     */
+    public class MyMarkerView extends MarkerView {
 
     private final TextView tvContent;
     private final TextView timeText;
@@ -50,7 +54,7 @@ public class MyMarkerView extends MarkerView {
             } else {
                 if (e.getData() instanceof ThermalEntity) {
                     ThermalEntity data = (ThermalEntity) e.getData();
-                    int index = highlight.getDataIndex();//曲线序号
+                    int index = highlight.getDataIndex();// 曲线序号
                     StringBuilder str = new StringBuilder();
                     if (index == 0) {
                         str.append(com.blankj.utilcode.util.Utils.getApp().getString(R.string.chart_temperature) + ": ").append(UnitTools.showC(data.getThermal()));

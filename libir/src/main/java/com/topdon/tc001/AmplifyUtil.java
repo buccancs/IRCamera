@@ -1,8 +1,13 @@
-//package com.topdon.tc001;
+// package com.topdon.tc001;
 //
-//import com.topdon.tc001.jni.algorithm.so.algorithm;
+// import com.topdon.tc001.jni.algorithm.so.algorithm;
 //
-//public class AmplifyUtil {
+//    /**
+     * AmplifyUtil class.
+     *
+     * Provides amplifyutil functionality.
+     */
+    public class AmplifyUtil {
 //    static {
 //        System.loadLibrary("opencv_java4");
 //        System.loadLibrary("SRImage");
@@ -11,4 +16,4 @@
 //    public static byte[] testOpencv(String strFilePath, byte[] bytes) {
 //        return algorithm.AdjustPhoto(strFilePath, bytes);
 //    }
-//}
+// }

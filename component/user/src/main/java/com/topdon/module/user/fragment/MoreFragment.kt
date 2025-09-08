@@ -89,15 +89,15 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
         itemSettingBottomText = requireView().findViewById(R.id.item_setting_bottom_text)
         tvRightText = requireView().findViewById(R.id.tv_right_text)
 
-        settingItemModel.setOnClickListener(this)//温度修正
-        settingItemCorrection.setOnClickListener(this)//图像校正
-        settingItemDual.setOnClickListener(this)//双光校正
-        settingItemUnit.setOnClickListener(this)//温度单温
-        settingVersion.setOnClickListener(this) //TC007固件升级
-        settingDeviceInformation.setOnClickListener(this)//TC007设备信息
-        settingReset.setOnClickListener(this)//TC007恢复出厂设置
+        settingItemModel.setOnClickListener(this)// 温度修正
+        settingItemCorrection.setOnClickListener(this)// 图像校正
+        settingItemDual.setOnClickListener(this)// Dual light校正
+        settingItemUnit.setOnClickListener(this)// 温度单温
+        settingVersion.setOnClickListener(this) // TC007固件升级
+        settingDeviceInformation.setOnClickListener(this)// TC007设备message
+        settingReset.setOnClickListener(this)// TC007恢复出厂Settings
 
-        //根据 2024/5/23 评审会结论，TC007没有多少需要恢复出厂的配置，产品决定砍掉
+        // 根据 2024/5/23 评审会结论，TC007没有多少需要恢复出厂的配置，产品决定砍掉
         settingReset.isVisible = false
 
         settingVersion.isVisible = isTC007 && Build.VERSION.SDK_INT >= 29
@@ -149,7 +149,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
         firmwareViewModel.firmwareDataLD.observe(this) {
             tvUpgradePoint.isVisible = it != null
             dismissLoadingDialog()
-            if (it == null) {//请求成功但没有固件升级包，即已是最新
+            if (it == null) {// 请求成功但没有固件升级包，即已是最新
                 ToastUtils.showShort(RCore.string.setting_firmware_update_latest_version)
             } else {
                 showFirmwareUpDialog(it)
@@ -187,20 +187,20 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
        when(v){
-           settingItemModel -> {//温度修正
+           settingItemModel -> {// 温度修正
                NavigationManager.getInstance().build(RouterConfig.IR_SETTING).withBoolean(ExtraKeyConfig.IS_TC007, isTC007).navigation(requireContext())
            }
            settingItemDual->{
                NavigationManager.getInstance().build(RouterConfig.MANUAL_START).navigation(requireContext())
            }
-           settingItemUnit -> {//温度单位
+           settingItemUnit -> {// 温度单位
                NavigationManager.getInstance().build(RouterConfig.UNIT).navigation(requireContext())
            }
-           settingItemCorrection->{//锅盖校正
+           settingItemCorrection->{// 锅盖校正
                NavigationManager.getInstance().build(RouterConfig.IR_CORRECTION).withBoolean(ExtraKeyConfig.IS_TC007, isTC007).navigation(requireContext())
            }
-           settingVersion -> {//TC007固件升级
-               //由于双通道方案存在问题，V3.30临时使用 apk 内置固件升级包，此处注释强制登录逻辑
+           settingVersion -> {// TC007固件升级
+               // 由于双通道方案存在问题，V3.30临时使用 apk 内置固件升级包，此处注释强制登录逻辑
 //               if (LMS.getInstance().isLogin) {
                    val firmwareData = firmwareViewModel.firmwareDataLD.value
                    if (firmwareData != null) {
@@ -214,7 +214,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
 //                   LMS.getInstance().activityLogin()
 //               }
            }
-           settingDeviceInformation -> {//TC007设备信息
+           settingDeviceInformation -> {// TC007设备message
                if (WebSocketProxy.getInstance().isTC007Connect()) {
                    NavigationManager.getInstance()
                        .build(RouterConfig.DEVICE_INFORMATION)
@@ -222,14 +222,13 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
                        .navigation(requireContext())
                }
            }
-           settingReset -> {//TC007恢复出厂设置
+           settingReset -> {// TC007恢复出厂Settings
                if (WebSocketProxy.getInstance().isTC007Connect()) {
                    restoreFactory()
                }
            }
        }
     }
-
 
     /**
      * 仅 TC007 页面时，刷新连接或未连接状态.
@@ -255,7 +254,6 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
-
     /**
      * 显示固件升级提示弹框.
      */
@@ -266,8 +264,8 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
         dialog.contentStr = firmwareData.updateStr
         dialog.isShowRestartTips = true
         dialog.onConfirmClickListener = {
-            //由于双通道方案存在问题，V3.30临时使用 apk 内置固件升级包，此处注释下载逻辑
-            //downloadFirmware(firmwareData)
+            // 由于双通道方案存在问题，V3.30临时使用 apk 内置固件升级包，此处注释下载逻辑
+            // downloadFirmware(firmwareData)
             installFirmware(FileConfig.getFirmwareFile(firmwareData.downUrl))
         }
         dialog.show()
@@ -357,7 +355,6 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
         dialog.show()
     }
 
-
     private fun restoreFactory() {
         TipDialog.Builder(requireContext())
             .setTitleMessage(getString(RCore.string.ts004_reset_tip1, "TC007"))
@@ -371,13 +368,12 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
             .create().show()
     }
 
-
     private fun resetAll() {
         showLoadingDialog(RCore.string.ts004_reset_tip3)
         lifecycleScope.launch {
             val isSuccess = TC007Repository.resetToFactory()
             if (isSuccess) {
-                XLog.d("TC007 恢复出厂设置成功，即将断开连接")
+                XLog.d("TC007 恢复出厂Settings成功，即将断开连接")
                 TToast.shortToast(requireContext(), RCore.string.ts004_reset_tip4)
                 (requireActivity().application as BaseApplication).disconnectWebSocket()
                 EventBus.getDefault().post(TS004ResetEvent())

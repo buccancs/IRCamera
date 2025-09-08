@@ -33,7 +33,6 @@ object ColorUtils {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.displayMetrics)
     }
 
-
     fun formatVideoTime(milliseconds:Long):String{
         val totalSeconds = floor(milliseconds.toDouble() / 1000)
         val secondsLeft = totalSeconds % 3600
@@ -51,6 +50,5 @@ object ColorUtils {
         }
         return "$m:$s";
     }
-
 
 }

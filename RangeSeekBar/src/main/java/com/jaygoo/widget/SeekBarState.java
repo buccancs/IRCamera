@@ -10,7 +10,7 @@ package com.jaygoo.widget;
  */
 public class SeekBarState {
     public String indicatorText;
-    public float value; //now progress value
+    public float value; // now progress value
     public boolean isMin;
     public boolean isMax;
 

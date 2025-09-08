@@ -73,7 +73,7 @@ class TipsSeekBar : ViewGroup, SeekBar.OnSeekBarChangeListener {
         defStyleAttr,
         defStyleRes,
     ) {
-        // seekBar 的 maxHeight 在 29 以下只能通过 xml 设置实在太蛋疼了，这里只好给当前 View 设置 maxHeight,在 attr 中传递给 seekBar
+        // seekBar 的 maxHeight 在 29 以下只能通过 xml Settings实在太蛋疼了，这里只好给当前 View Settings maxHeight,在 attr 中传递给 seekBar
         val thumb = ContextCompat.getDrawable(context, UiR.drawable.ic_tips_seek_bar_thumb)
         val thumbWidth = thumb?.intrinsicWidth ?: 0
         seekBar = SeekBar(context, attrs)

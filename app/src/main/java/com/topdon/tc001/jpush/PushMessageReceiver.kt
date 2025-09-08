@@ -25,7 +25,7 @@
 //        Log.e(TAG, "[onNotifyMessageOpened] $message")
 //        setZeroBadgeNumber()
 //        try {
-//            //打开自定义的Activity
+//            // 打开自定义的Activity
 //        } catch (throwable: Throwable) {
 //        }
 //    }
@@ -40,7 +40,7 @@
 //        setZeroBadgeNumber()
 //        val nActionExtra = intent.extras!!.getString(JPushInterface.EXTRA_NOTIFICATION_ACTION_EXTRA)
 //
-//        //开发者根据不同 Action 携带的 extra 字段来分配不同的动作。
+//        // 开发者根据不同 Action 携带的 extra 字段来分配不同的动作。
 //        if (nActionExtra == null) {
 //            Log.d(TAG, "ACTION_NOTIFICATION_CLICK_ACTION nActionExtra is null")
 //            return

@@ -59,7 +59,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
- * 公共设置页，即公共 “我的”
+ * 公共Settings页，即公共 “我的”
  * [MoreActivity] - TS004 “我的”
  * [MoreFragment] - 插件式 “我的”
  *
@@ -112,12 +112,12 @@ class MineFragment : BaseFragment(), View.OnClickListener {
         settingElectronicManual.setOnClickListener(this)
         settingFaq.setOnClickListener(this)
         settingFeedback.setOnClickListener(this)
-        settingItemUnit.setOnClickListener(this)//温度单温
+        settingItemUnit.setOnClickListener(this)// 温度单温
         dragCustomerView.setOnClickListener(this)
 
         viewWinterPoint.isVisible = !SharedManager.hasClickWinter
 
-        if (BaseApplication.instance.isDomestic()) {//国内版
+        if (BaseApplication.instance.isDomestic()) {// 国内版
             // Language selection removed - English only
         }
 
@@ -153,23 +153,21 @@ class MineFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
-
     // Language picker removed - English only app
 
     override fun onClick(v: View?) {
         when (v) {
-            ivWinter -> {//冬季特辑入口
+            ivWinter -> {// 冬季特辑入口
                 viewWinterPoint.isVisible = false
                 SharedManager.hasClickWinter = true
                 EventBus.getDefault().post(WinterClickEvent())
 
-                val url = if (UrlConstant.BASE_URL == "https://api.topdon.com/") {
-                    "https://app.topdon.com/h5/share/#/detectionGuidanceIndex?showHeader=1&" +
+                val url = if (UrlConstant.BASE_URL == "https:// api.topdon.com/") {
+                    "https:// app.topdon.com/h5/share/#/detectionGuidanceIndex?showHeader=1&" +
                             "languageId=1" // Fixed to English (languageId=1)
                 } else {
-                    "http://172.16.66.77:8081/#/detectionGuidanceIndex?languageId=1&showHeader=1"
+                    "http:// 172.16.66.77:8081/#/detectionGuidanceIndex?languageId=1&showHeader=1"
                 }
-
 
                 NavigationManager.getInstance().build(RouterConfig.WEB_VIEW)
                     .withString(ExtraKeyConfig.URL, url)
@@ -188,13 +186,13 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     loginAction()
                 }
             }
-            settingElectronicManual -> {//电子说明书
+            settingElectronicManual -> {// 电子说明书
                 NavigationManager.getInstance().build(RouterConfig.ELECTRONIC_MANUAL).withInt(Constants.SETTING_TYPE, Constants.SETTING_BOOK).navigation(requireContext())
             }
-            settingFaq -> {//FAQ
+            settingFaq -> {// FAQ
                 NavigationManager.getInstance().build(RouterConfig.ELECTRONIC_MANUAL).withInt(Constants.SETTING_TYPE, Constants.SETTING_FAQ).navigation(requireContext())
             }
-            settingFeedback -> {//意见反馈
+            settingFeedback -> {// 意见反馈
                 if (LMS.getInstance().isLogin) {
                     val devSn = SharedManager.getDeviceSn()
                     FeedBackBean().apply {
@@ -211,16 +209,16 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     loginAction()
                 }
             }
-            settingItemUnit -> {//温度单位
+            settingItemUnit -> {// 温度单位
                 NavigationManager.getInstance().build(RouterConfig.UNIT).navigation(requireContext())
             }
-            settingItemVersion -> {//版本
+            settingItemVersion -> {// 版本
                 NavigationManager.getInstance().build(RouterConfig.VERSION).navigation(requireContext())
             }
-            settingItemClear -> {//清除缓存，实际已隐藏
+            settingItemClear -> {// 清除缓存，实际已隐藏
                 clearCache()
             }
-            dragCustomerView -> {//客服
+            dragCustomerView -> {// 客服
 //                ActivityUtil.goSystemCustomer(requireContext())
                 val sn = SharedManager.getDeviceSn()
                 // ZohoSalesIQ functionality disabled - dependency not available
@@ -235,14 +233,14 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
     private fun loginAction() {
         isNeedRefreshLogin = true
-        //activityLogin()回调不可靠，但必然触发onResume()
+        // activityLogin()回调不可靠，但必然触发onResume()
         val bgBitmap = BitmapFactory.decodeResource(resources, LibAppR.mipmap.ic_default_user_head) // Use available resource from libapp
         LMS.getInstance().activityLogin(null, null, false, null, bgBitmap)
     }
 
     private fun checkLoginResult() {
         if (LMS.getInstance().isLogin) {
-            //登录成功
+            // 登录成功
             LMS.getInstance().getUserInfo { userinfo: CommonBean ->
                 try {
                     val json = userinfo.data
@@ -256,17 +254,17 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                         headUrl = infoData.avatar,
                     )
 
-                    //更新ui
+                    // 更新ui
                     changeLoginStyle()
                 } catch (e: Exception) {
                     XLog.e(" 登录异常: ${e.message}")
                 }
             }
         } else {
-            //登录失败
+            // 登录失败
             XLog.e(" 登录失败")
             changeLoginStyle()
-            settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head)//恢复默认头像
+            settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head)// 恢复默认头像
         }
     }
 
@@ -314,7 +312,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             settingUserLay.visibility = View.GONE
             val tvEmail = requireView().findViewById<TextView>(R.id.tv_email)
             tvEmail.text = ""
-            settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head)//恢复默认头像
+            settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head)// 恢复默认头像
         }
     }
 

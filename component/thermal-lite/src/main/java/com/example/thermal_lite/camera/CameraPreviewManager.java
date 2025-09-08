@@ -64,34 +64,33 @@ public class CameraPreviewManager {
     public LiteSurfaceView mSurfaceView;
 
     private CommonParams.FrameOutputFormat FRAME_OUT_PUT_FORMAT = CommonParams.FrameOutputFormat.YUYV_AND_TEMP_OUTPUT;
-    //出图预览宽高
+    // 出图预览宽高
     private int mPreviewWidth;
     private int mPreviewHeight;
-    //机芯图像数据宽高
+    // 机芯图像数据宽高
     private int mStreamWidth;
     private int mStreamHeight;
-    //最终渲染宽高
+    // 最终渲染宽高
     private int mFinalImageWidth = 0;
     private int mFinalImageHeight = 0;
-    //UVCCamera请求数据格式
+    // UVCCamera请求数据格式
     private UvcParams.FrameFormatType mFrameFormatType = UvcParams.FrameFormatType.FRAME_FORMAT_YUYV;
 
-    //出图交互类
+    // 出图交互类
     private IrcamEngine mIrcamEngine;
 
     private LibIRTemp mLibIRTemp;
 
-    //图像当前角度旋转
+    // 图像当前角度旋转
     private RotateDegree mImageRotate = RotateDegree.DEGREE_270;
     private LibIRProcess.ImageRes_t mImageRes;
 
-    //暂停输出图像标记
+    // 暂停输出图像标记
     private boolean mFramePause = false;
 
-    //双图模式是否显示完整红外+温度图像
+    // 双图模式是否显示完整红外+温度图像
     private boolean mShowDoubleImage = false;
     private IRImageHelp irImageHelp;
-
 
     private OnTempDataChangeCallback mOnTempDataChangeCallback;
 
@@ -110,32 +109,31 @@ public class CameraPreviewManager {
 
     private Handler mMainHandler;
 
-    //红外数据
+    // 红外数据
     private byte[] mIrData;
-    //红外数据长度
+    // 红外数据长度
     private int mIrLength;
-    //信息行数据
+    // message行数据
     private int mInfoDataHeight = 0;
     private byte[] mInfoData;
     private int mInfoLength;
-    //红外argb
+    // 红外argb
     private byte[] mIrARGBData;
-    //红外argb数据长度
+    // 红外argb数据长度
     private int mIrARGBLength;
     private byte[] mIrYuvData;
-    //旋转后的红外argb
+    // 旋转后的红外argb
     private byte[] mIrRotateData;
-    //温度数据
+    // 温度数据
     private byte[] mTempData;
-    //旋转后的温度argb
+    // 旋转后的温度argb
     private byte[] mTempRotateData;
-    //温度数据长度
+    // 温度数据长度
     private int mTempLength;
-    //zeta zoom code
+    // zeta zoom code
     private byte[] mResultARBGDataForZetaZoom;
     public byte[] frameIrAndTempData = new byte[192 * 256 * 4];
     public byte[] takePhotoIrAndTempData = new byte[192 * 256 * 4];
-
 
     private boolean mIsShowFPS = true;
     private boolean mSaveData = false;
@@ -154,12 +152,11 @@ public class CameraPreviewManager {
     private int maxColor;
     private int minColor;
 
-    //自动增益切换参数
+    // 自动增益切换参数
     private boolean mAutoSwitchGainEnable = false;
     private AutoGainImageRes mAutoGainImageRes = new AutoGainImageRes();
     private AutoGainSwitchInfo mAutoGainSwitchInfo = new AutoGainSwitchInfo();
     private AutoGainSwitchParam mGainSwitchParam = new AutoGainSwitchParam();
-
 
     public int getPreviewWidth() {
         return mPreviewWidth;
@@ -186,12 +183,12 @@ public class CameraPreviewManager {
         mIIrFrameCallback = new IIrFrameCallback() {
             /**
              * 数据流回调
-             * 根据设置的出图格式setFrameOutputFormat，处理数据流数据
+             * 根据Settings的出图格式setFrameOutputFormat，处理数据流数据
              * @param frame 数据源
              * YUYV_IMAGE_OUTPUT(0)：图像 YUYV；分辨率 256*192； 每帧数据大小（字节）256*192*2=98304
              * NV12_IMAGE_OUTPUT(1)：图像 NV12；分辨率 256*192； 每帧数据大小（字节）256*192*1.5=73782
-             * NV12_AND_TEMP_OUTPUT(2)：图像 NV12+信息行+温度Y16；分辨率 256*386； 每帧数据大小（字节）256*192*1.5+256*2*2+256*192*2=173110
-             * YUYV_AND_TEMP_OUTPUT(0)：图像 YUYV+信息行+温度Y16；分辨率 256*386； 每帧数据大小（字节）256*192*2+256*2*2+256*192*2=197632
+             * NV12_AND_TEMP_OUTPUT(2)：图像 NV12+message行+温度Y16；分辨率 256*386； 每帧数据大小（字节）256*192*1.5+256*2*2+256*192*2=173110
+             * YUYV_AND_TEMP_OUTPUT(0)：图像 YUYV+message行+温度Y16；分辨率 256*386； 每帧数据大小（字节）256*192*2+256*2*2+256*192*2=197632
              * @param length 数据总长度
              */
             @Override
@@ -209,31 +206,30 @@ public class CameraPreviewManager {
                         mMainHandler.sendMessage(message);
                     }
 
-                    //获取红外数据
+                    // 获取红外数据
                     System.arraycopy(frame, 0, mIrData, 0, mIrLength);
-                    //保存红外数据到frameIrAndTempData
+                    // 保存红外数据到frameIrAndTempData
                     System.arraycopy(mIrData, 0, frameIrAndTempData, 0, mIrLength);
 
-
-                    //信息行处理
+                    // message行处理
                     if (!mShowDoubleImage) {
                         if (mInfoLength != 0 && mSunProtectEnable) {
-                            //获取信息行数据
+                            // 获取message行数据
                             System.arraycopy(frame, mIrLength, mInfoData, 0, mInfoLength);
                             InfoLineBean infoLineBean = mIrcamEngine.getInfoLineBean(mInfoData);
-                            //防灼伤保护，具体生效参数需要算法提供烧录参数的wholedata
+                            // 防灼伤保护，具体生效参数需要算法提供烧录参数的wholedata
                             if (infoLineBean.getSunProtectFlag() == 1 || infoLineBean.getHardwareSunProtectFlag() == 1) {
                                 mMainHandler.sendEmptyMessage(IrDisplayActivity.HANDLE_SHOW_SUN_PROTECT_FLAG);
                             }
                         }
                     }
 
-                    //获取温度数据
+                    // 获取温度数据
                     if (FRAME_OUT_PUT_FORMAT == CommonParams.FrameOutputFormat.YUYV_AND_TEMP_OUTPUT) {
                         if (!mShowDoubleImage) {
-                            //获取温度数据
+                            // 获取温度数据
                             System.arraycopy(frame, mIrLength + mInfoLength, mTempData, 0, mTempLength);
-                            //保存温度数据到frameIrAndTempData
+                            // 保存温度数据到frameIrAndTempData
                             System.arraycopy(frame, mIrLength + mInfoLength, frameIrAndTempData, mIrLength, mTempLength);
 
                         }
@@ -245,9 +241,9 @@ public class CameraPreviewManager {
 //                            mLibIRTemp.getTemperatureOfRect(new Rect(0, 0, mPreviewWidth / 2, mPreviewHeight - 1));
 //                    float maxTemperature = temperatureSampleResult.maxTemperature;
 //                    float minTemperature = temperatureSampleResult.minTemperature;
-//                    Log.d(TAG, "max temp : " + maxTemperature + " min temp : " + minTemperature);
+
                     } else if (FRAME_OUT_PUT_FORMAT == CommonParams.FrameOutputFormat.NV12_AND_TEMP_OUTPUT) {
-                        //获取温度数据
+                        // 获取温度数据
                         System.arraycopy(frame, mIrLength + mInfoLength, mTempData, 0, mTempLength);
 
 //                    mLibIRTemp.setTempData(mTempData);
@@ -255,10 +251,10 @@ public class CameraPreviewManager {
 //                            mLibIRTemp.getTemperatureOfRect(new Rect(0, 0, mPreviewWidth / 2, mPreviewHeight - 1));
 //                    float maxTemperature = temperatureSampleResult.maxTemperature;
 //                    float minTemperature = temperatureSampleResult.minTemperature;
-//                    Log.d(TAG, "max temp : " + maxTemperature + " mix temp : " + minTemperature);
+
                     }
 
-                    //数据格式转化yuv to argb
+                    // 数据格式转化yuv to argb
                     switch (FRAME_OUT_PUT_FORMAT) {
                         case YUYV_IMAGE_OUTPUT:
                         case YUYV_AND_TEMP_OUTPUT:
@@ -275,14 +271,14 @@ public class CameraPreviewManager {
                                             mPreviewWidth * mPreviewHeight,
                                             PseudocodeUtils.INSTANCE.changePseudocodeModeByOld(pseudocolorMode), mIrARGBData);
                                 }else {
-                                    //先灰度化
+                                    // 先灰度化
                                     com.energy.iruvc.sdkisp.LibIRProcess.convertYuyvMapToARGBPseudocolor(mIrData,
                                             mPreviewWidth * mPreviewHeight,
                                             PseudocodeUtils.INSTANCE.changePseudocodeModeByOld(1), mIrARGBData);
                                 }
                                 irImageHelp.customPseudoColor(mIrARGBData,mTempData,mPreviewWidth,mPreviewHeight);
                                 /*
-                                 * 等温尺处理,展示伪彩的温度范围内信息
+                                 * 等温尺处理,展示Pseudo color的温度范围内message
                                  */
                                 irImageHelp.setPseudoColorMaxMin(mIrARGBData,mTempData,max,min,mPreviewWidth,mPreviewHeight);
                                 mIrARGBData = irImageHelp.contourDetection(alarmBean,
@@ -294,21 +290,20 @@ public class CameraPreviewManager {
                             Log.d(TAG, "NV12_AND_TEMP_OUTPUT");
                             LibIRParse.NV12ToRGBA(mIrData, mPreviewWidth, mPreviewHeight, mIrARGBData);
 
-                            //todo 切换数据源后，temp data 被切换成中间出图数据，数据格式y16
+                            // todo 切换数据源后，temp data 被切换成中间出图数据，数据格式y16
                             break;
                         default:
                             break;
                     }
 //
-                    //处理图像旋转角度
+                    // 处理图像旋转角度
                     mFinalImageWidth = 0;
                     mFinalImageHeight = 0;
 
-
                     handleSurfaceDisplay();
 
-                    //自动增益切换
-                    //内部逻辑，在ac020上, 增益切换长命令调用后, 直接返回success,需要调用basic_long_time_vdcmd_state_get不断的获取状态
+                    // 自动增益切换
+                    // 内部逻辑，在ac020上, 增益切换长命令调用后, 直接返回success,需要调用basic_long_time_vdcmd_state_get不断的获取状态
                     if (mAutoSwitchGainEnable && FRAME_OUT_PUT_FORMAT == CommonParams.FrameOutputFormat.YUYV_AND_TEMP_OUTPUT) {
                         Log.d(TAG, "onAutoGainSwitchState switch");
                         mIrcamEngine.advAutoGainSwitch(mTempData, mAutoGainImageRes, mAutoGainSwitchInfo, mGainSwitchParam, new AutoGainSwitchCallback() {
@@ -332,9 +327,9 @@ public class CameraPreviewManager {
     }
 
     public void initData() {
-        //根据机芯图像数据格式决定出图模式
-        //如果FrameOutputFormat为NV12_IMAGE_OUTPUT或者NV12_IMAGE_OUTPUT，mFrameFormatType改成FRAME_FORMAT_NV12
-        //如果FrameOutputFormat为YUYV_AND_TEMP_OUTPUT或YUYV_IMAGE_OUTPUT，mFrameFormatType改成FRAME_FORMAT_YUYV
+        // 根据机芯图像数据格式决定出图模式
+        // 如果FrameOutputFormat为NV12_IMAGE_OUTPUT或者NV12_IMAGE_OUTPUT，mFrameFormatType改成FRAME_FORMAT_NV12
+        // 如果FrameOutputFormat为YUYV_AND_TEMP_OUTPUT或YUYV_IMAGE_OUTPUT，mFrameFormatType改成FRAME_FORMAT_YUYV
 
         // 枚举出来的分辨率，并传入到模组
         mStreamWidth = IrConst.DEFAULT_STREAM_WIDTH;
@@ -346,7 +341,7 @@ public class CameraPreviewManager {
         } else {
             setFrameOutPutFormat(CommonParams.FrameOutputFormat.YUYV_IMAGE_OUTPUT);
         }
-        //信息行
+        // message行
         if (Const.DEVICE_TYPE == DeviceType.DEVICE_TYPE_X3
                 || Const.DEVICE_TYPE == DeviceType.DEVICE_TYPE_P2L
                 || Const.DEVICE_TYPE == DeviceType.DEVICE_TYPE_X2PRO
@@ -362,13 +357,13 @@ public class CameraPreviewManager {
                  */
                 mFrameFormatType = UvcParams.FrameFormatType.FRAME_FORMAT_YUYV;
 
-                // 预览画面处理，需要考虑信息行
+                // 预览画面处理，需要考虑message行
                 mPreviewWidth = mStreamWidth;
                 mPreviewHeight = mStreamHeight - mInfoDataHeight;
                 // 原始红外数据
                 mIrLength = mPreviewWidth * mPreviewHeight * 2;
                 mIrData = new byte[mIrLength];
-                // 信息行
+                // message行
                 mInfoLength = mPreviewWidth * mInfoDataHeight * 2;
                 mInfoData = new byte[mInfoLength];
                 //
@@ -377,17 +372,17 @@ public class CameraPreviewManager {
                 mIrYuvData = new byte[mIrLength / 2];
                 mIrRotateData = new byte[mIrARGBLength];
 
-                //zeta zoom code
+                // zeta zoom code
                 initZetaZoomData();
 
                 break;
             case YUYV_AND_TEMP_OUTPUT:
                 /**
-                 * 图像 YUYV+信息行+温度Y16；分辨率 256*386； 每帧数据大小（字节）256*192*2+256*2*2+256*192*2=197632
+                 * 图像 YUYV+message行+温度Y16；分辨率 256*386； 每帧数据大小（字节）256*192*2+256*2*2+256*192*2=197632
                  */
                 mFrameFormatType = UvcParams.FrameFormatType.FRAME_FORMAT_YUYV;
 
-                // 预览画面处理，需要考虑信息行
+                // 预览画面处理，需要考虑message行
                 if (mShowDoubleImage) {
                     mPreviewWidth = mStreamWidth;
                     mPreviewHeight = mStreamHeight;
@@ -400,7 +395,7 @@ public class CameraPreviewManager {
                 mIrLength = mPreviewWidth * mPreviewHeight * 2;
                 mIrData = new byte[mIrLength];
                 if (!mShowDoubleImage) {
-                    // 信息行
+                    // message行
                     mInfoLength = mPreviewWidth * mInfoDataHeight * 2;
                     mInfoData = new byte[mInfoLength];
                 }
@@ -434,7 +429,7 @@ public class CameraPreviewManager {
                 break;
             case NV12_AND_TEMP_OUTPUT:
                 /**
-                 * 图像 NV12+信息行+温度Y16+Dummy
+                 * 图像 NV12+message行+温度Y16+Dummy
                  * 分辨率 640*900
                  * 每帧数据大小（字节）640*512*1.5+640*2*2+640*512*2+640*2*2=1152000
                  */
@@ -467,12 +462,12 @@ public class CameraPreviewManager {
         mAutoGainImageRes.height = 192;
 
         // 自动增益切换参数auto gain switch parameter
-        mGainSwitchParam.above_pixel_prop = 0.1f;    //用于high -> low gain,图像像素总面积的百分比
-        mGainSwitchParam.above_temp_data = (int) ((130 + 273.15) * 16 * 4); //用于high -> low gain,高增益向低增益切换的触发温度,130为摄氏度
-        mGainSwitchParam.below_pixel_prop = 0.95f;   //用于low -> high gain,图像像素总面积的百分比
-        mGainSwitchParam.below_temp_data = (int) ((150 + 273.15) * 16 * 4);//用于low -> high gain,低增益向高增益切换的触发温度，150为摄氏度
-        mAutoGainSwitchInfo.switch_frame_cnt = 5 * 15; //连续满足触发条件帧数超过该阈值会触发自动增益切换(假设出图帧率为每秒15帧，则5 * 15大概为5秒)
-        mAutoGainSwitchInfo.waiting_frame_cnt = 7 * 15;//触发自动增益切换之后，会间隔该阈值的帧数不进行增益切换监测(假设出图帧率为每秒15帧，则7 * 15大概为7秒)
+        mGainSwitchParam.above_pixel_prop = 0.1f;    // 用于high -> low gain,图像像素总面积的百分比
+        mGainSwitchParam.above_temp_data = (int) ((130 + 273.15) * 16 * 4); // 用于high -> low gain,高增益向低增益切换的触发温度,130为摄氏度
+        mGainSwitchParam.below_pixel_prop = 0.95f;   // 用于low -> high gain,图像像素总面积的百分比
+        mGainSwitchParam.below_temp_data = (int) ((150 + 273.15) * 16 * 4);// 用于low -> high gain,低增益向高增益切换的触发温度，150为摄氏度
+        mAutoGainSwitchInfo.switch_frame_cnt = 5 * 15; // 连续满足触发条件帧数超过该阈值会触发自动增益切换(假设出图帧率为每秒15帧，则5 * 15大概为5秒)
+        mAutoGainSwitchInfo.waiting_frame_cnt = 7 * 15;// 触发自动增益切换之后，会间隔该阈值的帧数不进行增益切换监测(假设出图帧率为每秒15帧，则7 * 15大概为7秒)
 
     }
 
@@ -487,11 +482,11 @@ public class CameraPreviewManager {
     private void handleStartPreview() {
         startPreview();
         if (Const.DEVICE_TYPE == DeviceType.DEVICE_TYPE_WN2640) {
-            //mimi640 模组, 大疆固件版本，上电后，需要一段的时间加载数据，此时无法进行命令发送，需等待10s以上
+            // mimi640 模组, 大疆固件版本，上电后，需要一段的时间加载数据，此时无法进行命令发送，需等待10s以上
             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    //mimi640 模组，大疆固件版本，需要先发送basicVideoStreamContinue命令，打开数据流
+                    // mimi640 模组，大疆固件版本，需要先发送basicVideoStreamContinue命令，打开数据流
                     IrcmdError basicVideoStreamContinueResult = DeviceIrcmdControlManager.getInstance()
                             .getIrcmdEngine().basicVideoStreamContinue();
                     Log.d(TAG, "basicVideoStreamContinueResult=" + basicVideoStreamContinueResult);
@@ -520,8 +515,8 @@ public class CameraPreviewManager {
         return mPhotoBitmap;
     }
 
-    /**
-     * 获取支持的设备信息列表
+        /**
+     * 获取支持的设备message列表
      *
      * @return
      */
@@ -535,7 +530,7 @@ public class CameraPreviewManager {
     private void initHandleEngine(USBMonitor.UsbControlBlock ctrlBlock, boolean isStartPreview) {
         UvcHandleParam uvcHandleParam = new UvcHandleParam();
         /**
-         * 设置uvccamera出图需要的参数
+         * Settingsuvccamera出图需要的参数
          */
         uvcHandleParam.setCtrlBlock(ctrlBlock);
 
@@ -569,7 +564,7 @@ public class CameraPreviewManager {
                 .setStreamHeight(mStreamHeight)
                 .setDriverType(CommonParams.DriverType.USB)
                 /**
-                 * 设置出图模式
+                 * Settings出图模式
                  */
                 .setFrameOutputFormat(FRAME_OUT_PUT_FORMAT)
                 .setUvcHandleParam(uvcHandleParam)
@@ -596,7 +591,7 @@ public class CameraPreviewManager {
         });
     }
 
-    /**
+        /**
      * 开始出图
      */
     public void startPreview() {
@@ -615,7 +610,7 @@ public class CameraPreviewManager {
         TempCompensation.getInstance().startTempCompensation();
     }
 
-    /**
+        /**
      * 暂停出图
      */
     public void pausePreview() {
@@ -624,7 +619,7 @@ public class CameraPreviewManager {
         }
     }
 
-    /**
+        /**
      * 恢复出图
      */
     public void resumePreview() {
@@ -633,7 +628,7 @@ public class CameraPreviewManager {
         }
     }
 
-    /**
+        /**
      * 结束出图
      */
     public void closePreview() {
@@ -645,14 +640,14 @@ public class CameraPreviewManager {
         }
     }
 
-    /**
+        /**
      * 停止出图
      */
     public void stopPreview() {
         Log.i(TAG, "stopPreview");
 //        TempCompensation.getInstance().stopTempCompensation();
         if (Const.DEVICE_TYPE == DeviceType.DEVICE_TYPE_WN2640) {
-            //WN2640固件版本，退出之前，需要发停止数据流的命令
+            // WN2640固件版本，退出之前，需要发停止数据流的命令
             IrcmdError ircmdError = DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
                     .basicVideoStreamPause();
             Log.d(TAG, "basicVideoStreamPause=" + ircmdError);
@@ -663,7 +658,7 @@ public class CameraPreviewManager {
         }
     }
 
-    /**
+        /**
      * 回收资源
      */
     public void releaseSource() {
@@ -729,6 +724,11 @@ public class CameraPreviewManager {
         this.mOnTempDataChangeCallback = onTempDataChangeCallback;
     }
 
+        /**
+     * OnTempDataChangeCallback class.
+     *
+     * Provides ontempdatachangecallback functionality.
+     */
     public interface OnTempDataChangeCallback {
         void onTempDataChange(byte[] data);
     }
@@ -766,7 +766,7 @@ public class CameraPreviewManager {
             mSurfaceView.setMIrRotateData(mIrRotateData.clone());
             mSurfaceView.setMFinalImageWidth(mFinalImageWidth);
             mSurfaceView.setMFinalImageHeight(mFinalImageHeight);
-            //通过NativeWindow绘制
+            // 通过NativeWindow绘制
             mSurface = mSurfaceView.getHolder().getSurface();
             if (mSurface != null) {
                 mSurfaceNativeWindow.onDrawFrame(mSurface, mIrRotateData, mFinalImageWidth, mFinalImageHeight);
@@ -776,29 +776,28 @@ public class CameraPreviewManager {
         }
     }
 
-    //==============================Zeta Zoom start =======================================//
+    // ==============================Zeta Zoom start =======================================//
     private void initZetaZoomData() {
-        //zeta zoom code
+        // zeta zoom code
 //        if (BuildConfig.zetazoomEnable) {
 //            ZetaZoomHelper.getInstance().initData(mPreviewWidth, mPreviewHeight);
 //            int imageWidth = ZetaZoomHelper.getInstance().getImageWidth();
 //            int imageHeight = ZetaZoomHelper.getInstance().getImageHeight();
-//            Log.d(TAG, "imageWidth" + imageWidth);
-//            Log.d(TAG, "imageHeight" + imageHeight);
-//            //zeta zoom code
+
+//            // zeta zoom code
 //            mResultARBGDataForZetaZoom = new byte[imageWidth * imageHeight * 4];
 //        }
     }
 
     private void handleSurfaceDisplayForZetaZoom() {
-        //zeta zoom code
+        // zeta zoom code
 //        boolean isZetaZoom = ZetaZoomHelper.getInstance().isZetaZoomEnable();
 //        if (isZetaZoom) {
-//            Log.d(TAG, "isZetaZoom");
+
 //            ZetaZoomHelper.getInstance().zetazoomRun(mIrData, mResultARBGDataForZetaZoom);
 //            mFinalImageWidth = ZetaZoomHelper.getInstance().getImageWidth();
 //            mFinalImageHeight = ZetaZoomHelper.getInstance().getImageHeight();
-//            //通过NativeWindow绘制
+//            // 通过NativeWindow绘制
 //            mSurface = mSurfaceView.getHolder().getSurface();
 //            if (mSurface != null) {
 //                mSurfaceNativeWindow.onDrawFrame(mSurface, mResultARBGDataForZetaZoom, mFinalImageWidth, mFinalImageHeight);
@@ -808,7 +807,7 @@ public class CameraPreviewManager {
 //        }
     }
 
-    //==============================Zeta Zoom end =======================================//
+    // ==============================Zeta Zoom end =======================================//
 
     public AlarmBean getAlarmBean() {
         return alarmBean;

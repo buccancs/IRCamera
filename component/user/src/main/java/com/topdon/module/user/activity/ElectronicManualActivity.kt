@@ -32,7 +32,7 @@ class ElectronicManualActivity : BaseActivity() {
         titleView = findViewById(R.id.title_view)
         electronicManualRecycler = findViewById(R.id.electronic_manual_recycler)
         
-        val productType = intent.getIntExtra(Constants.SETTING_TYPE, 0) //0-电子说明书 1-FAQ
+        val productType = intent.getIntExtra(Constants.SETTING_TYPE, 0) // 0-电子说明书 1-FAQ
 
         titleView.setTitleText(if (productType == Constants.SETTING_BOOK) RCore.string.electronic_manual else RCore.string.app_question)
 
@@ -40,17 +40,17 @@ class ElectronicManualActivity : BaseActivity() {
         adapter.onPickListener = { isTS001 ->
             if (isTS001) {
                 if (productType == Constants.SETTING_BOOK) {
-                    //电子说明书-TS001
+                    // 电子说明书-TS001
                 } else {
-                    //FAQ-TS001
+                    // FAQ-TS001
                     NavigationManager.getInstance().build(RouterConfig.QUESTION).withBoolean("isTS001", true).navigation(this)
                 }
             } else {
                 if (productType == Constants.SETTING_BOOK) {
-                    //电子说明书-TS004
+                    // 电子说明书-TS004
                     NavigationManager.getInstance().build(RouterConfig.PDF).withBoolean("isTS001", false).navigation(this)
                 } else {
-                    //FAQ-TS004
+                    // FAQ-TS004
                     NavigationManager.getInstance().build(RouterConfig.QUESTION).withBoolean("isTS001", false).navigation(this)
                 }
             }
@@ -63,9 +63,6 @@ class ElectronicManualActivity : BaseActivity() {
     override fun initData() {
 
     }
-
-
-
 
     private class MyAdapter(private val isFAQ: Boolean) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

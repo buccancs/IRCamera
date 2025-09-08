@@ -23,7 +23,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- 延时拍照时长 -->
+        <!-- 延时Photo capture时长 -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_delay"
             android:layout_width="0dp"
@@ -115,7 +115,7 @@
                 app:layout_constraintBottom_toBottomOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!-- 更多设置 -->
+        <!-- 更多Settings -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_setting"
             android:layout_width="0dp"

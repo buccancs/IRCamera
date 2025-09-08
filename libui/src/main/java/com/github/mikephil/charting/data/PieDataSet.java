@@ -7,7 +7,12 @@ import com.github.mikephil.charting.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PieDataSet extends DataSet<PieEntry> implements IPieDataSet {
+    /**
+     * PieDataSet class.
+     *
+     * Provides piedataset functionality.
+     */
+    public class PieDataSet extends DataSet<PieEntry> implements IPieDataSet {
 
     /**
      * the space in pixels between the chart-slices, default 0f
@@ -59,7 +64,7 @@ public class PieDataSet extends DataSet<PieEntry> implements IPieDataSet {
         calcMinMaxY(e);
     }
 
-    /**
+        /**
      * Sets the space that is left out between the piechart-slices in dp.
      * Default: 0 --> no space, maximum 20f
      *
@@ -80,7 +85,7 @@ public class PieDataSet extends DataSet<PieEntry> implements IPieDataSet {
         return mSliceSpace;
     }
 
-    /**
+        /**
      * When enabled, slice spacing will be 0.0 when the smallest value is going to be
      * smaller than the slice spacing itself.
      *
@@ -101,7 +106,7 @@ public class PieDataSet extends DataSet<PieEntry> implements IPieDataSet {
         return mAutomaticallyDisableSliceSpacing;
     }
 
-    /**
+        /**
      * sets the distance the highlighted piechart-slice of this DataSet is
      * "shifted" away from the center of the chart, default 12f
      *
@@ -218,6 +223,11 @@ public class PieDataSet extends DataSet<PieEntry> implements IPieDataSet {
         this.mValueLineVariableLength = valueLineVariableLength;
     }
 
+        /**
+     * ValuePosition class.
+     *
+     * Provides valueposition functionality.
+     */
     public enum ValuePosition {
         INSIDE_SLICE,
         OUTSIDE_SLICE

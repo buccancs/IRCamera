@@ -39,12 +39,12 @@ class IRGalleryViewModel : BaseViewModel() {
             val sourceList: ArrayList<GalleryBean> = GalleryRepository.loadAllReportImg(dirType)
             sourceListLD.postValue(sourceList)
 
-            //插入日期 item
+            // 插入日期 item
             val showList: ArrayList<GalleryBean> = ArrayList(sourceList.size)
             var beforeTime = 0L
             for (galleryBean in sourceList) {
                 val currentTime = TimeTool.timeToMinute(galleryBean.timeMillis, 4)
-                if (beforeTime != currentTime) {//新的日期
+                if (beforeTime != currentTime) {// 新的日期
                     showList.add(GalleryTitle(galleryBean.timeMillis))
                     beforeTime = currentTime
                 }
@@ -76,11 +76,11 @@ class IRGalleryViewModel : BaseViewModel() {
                     hasLoadPage++
                 }
 
-                //插入日期 item
+                // 插入日期 item
                 var beforeTime = if (sourceList.isEmpty()) 0 else TimeTool.timeToMinute(sourceList.last().timeMillis, 4)
                 for (galleryBean in pageList) {
                     val currentTime = TimeTool.timeToMinute(galleryBean.timeMillis, 4)
-                    if (beforeTime != currentTime) {//新的日期
+                    if (beforeTime != currentTime) {// 新的日期
                         showList.add(GalleryTitle(galleryBean.timeMillis))
                         beforeTime = currentTime
                     }
@@ -93,10 +93,6 @@ class IRGalleryViewModel : BaseViewModel() {
             }
         }
     }
-
-
-
-
 
     /**
      * 批量删除文件结果.
