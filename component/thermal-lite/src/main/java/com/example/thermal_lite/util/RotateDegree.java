@@ -1,7 +1,8 @@
-package com.energy.commoncomponent.bean;
+package com.example.thermal_lite.util;
 
 /**
  * Created by fengjibo on 2023/7/4.
+ * Moved from CommonComponent to eliminate dependency.
  */
 public enum RotateDegree {
 

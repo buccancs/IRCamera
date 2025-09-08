@@ -60,7 +60,7 @@ dependencies {
     implementation(project(":libir"))
     implementation(project(":libui"))
     implementation(project(":libmenu"))
-    implementation(project(":component:CommonComponent"))
+
     implementation(project(":component:pseudo"))
     // Re-add thermal-ir dependency - needed for thermal-lite functionality
     implementation(project(":component:thermal-ir"))

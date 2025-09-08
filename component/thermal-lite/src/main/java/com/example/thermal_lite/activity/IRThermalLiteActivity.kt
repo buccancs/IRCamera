@@ -40,7 +40,7 @@ import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.elvishew.xlog.XLog
 import com.energy.ac020library.bean.IrcmdError
-import com.energy.commoncomponent.bean.RotateDegree
+import com.example.thermal_lite.util.RotateDegree
 import com.energy.irutilslibrary.LibIRTempAC020
 import com.energy.irutilslibrary.bean.GainStatus
 import com.energy.iruvc.sdkisp.LibIRProcess

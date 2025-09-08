@@ -1,7 +1,8 @@
-package com.energy.commoncomponent.bean;
+package com.example.thermal_lite.util;
 
 /**
  * Created by fengjibo on 2023/8/10.
+ * Moved from CommonComponent to eliminate dependency.
  */
 public enum DeviceType {
     DEVICE_TYPE_TC2C("TC2C"),

@@ -11,8 +11,8 @@ import com.energy.ac020library.IrcamEngine;
 import com.energy.ac020library.bean.CommonParams;
 import com.energy.ac020library.bean.IFileHandleCallback;
 import com.energy.ac020library.bean.IrcmdError;
-import com.energy.commoncomponent.Const;
-import com.energy.commoncomponent.bean.DeviceType;
+import com.example.thermal_lite.util.ThermalConst;
+import com.example.thermal_lite.util.DeviceType;
 // Use existing utilities instead of missing commonlibrary utils
 import com.infisense.usbir.utils.FileUtil;
 import com.blankj.utilcode.util.SPUtils;
@@ -136,7 +136,7 @@ public class TempCompensation {
      * 流程开始
      */
     public void startTempCompensation() {
-        if (Const.DEVICE_TYPE != DeviceType.DEVICE_TYPE_TC2C) {
+        if (ThermalConst.DEVICE_TYPE != DeviceType.DEVICE_TYPE_TC2C) {
             return;
         }
         if (handlerThread != null) {
@@ -347,7 +347,7 @@ public class TempCompensation {
      * 停止温度补偿
      */
     public void stopTempCompensation(boolean autoStop) {
-        if (Const.DEVICE_TYPE != DeviceType.DEVICE_TYPE_TC2C) {
+        if (ThermalConst.DEVICE_TYPE != DeviceType.DEVICE_TYPE_TC2C) {
             return;
         }
         if (autoStop && isStart && DeviceIrcmdControlManager.getInstance().getIrcmdEngine() != null) {

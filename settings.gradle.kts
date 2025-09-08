@@ -26,7 +26,7 @@ include(":component:thermal")
 include(":component:gsr-recording")
 include(":component:thermal-ir")
 include(":component:thermal-lite")
-include(":component:CommonComponent")
+
 include(":component:house")
 include(":component:pseudo")
 include(":component:user")

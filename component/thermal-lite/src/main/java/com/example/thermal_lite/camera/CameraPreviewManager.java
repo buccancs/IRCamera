@@ -27,9 +27,9 @@ import com.energy.ac020library.bean.InfoLineBean;
 import com.energy.ac020library.bean.IrcmdError;
 import com.energy.ac020library.bean.UvcHandleParam;
 
-import com.energy.commoncomponent.Const;
+import com.example.thermal_lite.util.ThermalConst;
 import com.energy.commoncomponent.bean.DeviceType;
-import com.energy.commoncomponent.bean.RotateDegree;
+import com.example.thermal_lite.util.RotateDegree;
 // Use existing utilities instead of missing commonlibrary utils
 import com.infisense.usbir.utils.FileUtil;
 import com.blankj.utilcode.util.SPUtils;
@@ -262,7 +262,7 @@ public class CameraPreviewManager {
                     switch (FRAME_OUT_PUT_FORMAT) {
                         case YUYV_IMAGE_OUTPUT:
                         case YUYV_AND_TEMP_OUTPUT:
-                            if (Const.DEVICE_TYPE == DeviceType.DEVICE_TYPE_GL1280) {
+                            if (ThermalConst.DEVICE_TYPE == DeviceType.DEVICE_TYPE_GL1280) {
                                 CommonUtil.convertArrayY16ToY14(mIrData, 2 * mPreviewWidth * mPreviewHeight, mIrYuvData);
                                 LibIRParse.convertArrayY14ToARGB(mIrYuvData, mPreviewWidth * mPreviewHeight, mIrARGBData);
 //                            com.infisense.iruvc.sdkisp.LibIRProcess.convertYuyvMapToARGBPseudocolor(mIrYuvData,
@@ -347,10 +347,10 @@ public class CameraPreviewManager {
             setFrameOutPutFormat(CommonParams.FrameOutputFormat.YUYV_IMAGE_OUTPUT);
         }
         //信息行
-        if (Const.DEVICE_TYPE == DeviceType.DEVICE_TYPE_X3
-                || Const.DEVICE_TYPE == DeviceType.DEVICE_TYPE_P2L
-                || Const.DEVICE_TYPE == DeviceType.DEVICE_TYPE_X2PRO
-                || Const.DEVICE_TYPE == DeviceType.DEVICE_TYPE_TC2C) {
+        if (ThermalConst.DEVICE_TYPE == DeviceType.DEVICE_TYPE_X3
+                || ThermalConst.DEVICE_TYPE == DeviceType.DEVICE_TYPE_P2L
+                || ThermalConst.DEVICE_TYPE == DeviceType.DEVICE_TYPE_X2PRO
+                || ThermalConst.DEVICE_TYPE == DeviceType.DEVICE_TYPE_TC2C) {
             mInfoDataHeight = 2;
         } else {
             mInfoDataHeight = 0;
@@ -486,7 +486,7 @@ public class CameraPreviewManager {
 
     private void handleStartPreview() {
         startPreview();
-        if (Const.DEVICE_TYPE == DeviceType.DEVICE_TYPE_WN2640) {
+        if (ThermalConst.DEVICE_TYPE == DeviceType.DEVICE_TYPE_WN2640) {
             //mimi640 模组, 大疆固件版本，上电后，需要一段的时间加载数据，此时无法进行命令发送，需等待10s以上
             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                 @Override
@@ -607,7 +607,7 @@ public class CameraPreviewManager {
             if (result != 0) {
                 mMainHandler.sendEmptyMessage(IrDisplayActivity.PREVIEW_FAIL);
             }
-            if (Const.DEVICE_TYPE == DeviceType.DEVICE_TYPE_X3) {
+            if (ThermalConst.DEVICE_TYPE == DeviceType.DEVICE_TYPE_X3) {
                 DeviceIrcmdControlManager.getInstance().sendFPGAParam();
                 DeviceIrcmdControlManager.getInstance().sendISPParam();
             }
@@ -651,7 +651,7 @@ public class CameraPreviewManager {
     public void stopPreview() {
         Log.i(TAG, "stopPreview");
 //        TempCompensation.getInstance().stopTempCompensation();
-        if (Const.DEVICE_TYPE == DeviceType.DEVICE_TYPE_WN2640) {
+        if (ThermalConst.DEVICE_TYPE == DeviceType.DEVICE_TYPE_WN2640) {
             //WN2640固件版本，退出之前，需要发停止数据流的命令
             IrcmdError ircmdError = DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
                     .basicVideoStreamPause();
