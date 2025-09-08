@@ -30,12 +30,7 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
     /**
      * <b>DO NOT USE</b>, only for backwards compatibility and will be removed in future versions.
      * @param value           the value to be formatted
-     * @param entry           the entry the value belongs to - in e.g. BarChart, this is of/**
- * BarEntry class.
- * 
- * Provides barentry functionality.
- */
- class BarEntry
+     * @param entry           the entry the value belongs to - in e.g. BarChart, this is of class BarEntry
      * @param dataSetIndex    the index of the DataSet the entry in focus belongs to
      * @param viewPortHandler provides information about the current chart state (scale, translation, ...)
      * @return formatted string label
