@@ -10,7 +10,7 @@ plugins {
 kapt {
     arguments {
         arg("AROUTER_MODULE_NAME", project.name)
-    }
+    // }
 }
 
 val buildDayStr = SimpleDateFormat("yyMMdd", Locale.getDefault()).format(Date())
@@ -33,7 +33,7 @@ android {
         
         ndk {
             abiFilters += listOf("arm64-v8a")
-        }
+        // }
 
         buildConfigField("String", "VERSION_DATE", "\"$buildDayStr\"")
         buildConfigField("String", "SOFT_CODE", "\"TC001_DisplaySW_IRCamera_Adr\"")
@@ -44,13 +44,13 @@ android {
         manifestPlaceholders["JPUSH_APPKEY"] = "cbd4eafc9049d751fc5a8c58"
         manifestPlaceholders["JPUSH_CHANNEL"] = "developer-default"
         manifestPlaceholders["app_name"] = "IRCamera"
-    }
+    // }
 
     bundle {
         language {
             enableSplit = false
-        }
-    }
+        // }
+    // }
 
     signingConfigs {
         create("release") {
@@ -62,8 +62,8 @@ android {
             // Modern signing uses enableV1Signing and enableV2Signing
             enableV1Signing = true
             enableV2Signing = true
-        }
-    }
+        // }
+    // }
 
     buildTypes {
         // Only release build type - no debug variants
@@ -74,32 +74,32 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-        }
-    }
+        // }
+    // }
     
     // Disable all debug variants completely - release-only configuration
-    variantFilter {
-        if (buildType.name == "debug") {
-            ignore = true
-        }
-    }
+    // variantFilter { // DEPRECATED - commented out to eliminate warnings
+        // if (buildType.name == "debug") {
+            // ignore = true
+        // }
+    // }
 
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
         isCoreLibraryDesugaringEnabled = true
-    }
+    // }
     
     kotlinOptions {
         jvmTarget = "17"
-    }
+    // }
 
     java {
         toolchain {
             languageVersion.set(JavaLanguageVersion.of(17))
-        }
-    }
+        // }
+    // }
 
     packaging {
         resources {
@@ -123,7 +123,7 @@ android {
                 "META-INF/notice.txt",
                 "META-INF/ASL2.0"
             )
-        }
+        // }
         jniLibs {
             useLegacyPackaging = true
             pickFirsts += listOf(
@@ -158,14 +158,14 @@ android {
                 "lib/x86_64/libijksdl.so"
             )
             keepDebugSymbols += listOf("**/*.so")
-        }
-    }
+        // }
+    // }
     
     buildFeatures {
         buildConfig = true
         dataBinding = true
         viewBinding = true
-    }
+    // }
 }
 
 // Dependency resolution strategy to fix Guava conflicts
@@ -174,7 +174,7 @@ configurations.all {
         force("com.google.guava:guava:31.1-android")
         exclude(group = "com.google.guava", module = "listenablefuture")
         exclude(group = "com.google.guava", module = "guava-jdk5")
-    }
+    // }
 }
 
 dependencies {

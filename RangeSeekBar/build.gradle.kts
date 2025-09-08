@@ -12,7 +12,7 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
 
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
-    }
+    // }
     
     buildTypes {
         
@@ -22,8 +22,8 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-        }
-    }
+        // }
+    // }
 }
 
 dependencies {

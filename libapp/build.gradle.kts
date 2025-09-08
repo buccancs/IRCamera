@@ -11,7 +11,7 @@ kapt {
         arg("room.schemaLocation", "$projectDir/schemas")
         arg("room.incremental", "true")
         arg("room.expandProjection", "true")
-    }
+    // }
     // Enable Kotlin 2.1.0 compatibility
     correctErrorTypes = true
     useBuildCache = true
@@ -26,48 +26,48 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-    }
+    // }
 
     buildTypes {
         // Only release build type - no debug variants
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-        }
-    }
+        // }
+    // }
     
     // Disable all debug variants completely - release-only configuration
-    variantFilter {
-        if (buildType.name == "debug") {
-            ignore = true
-        }
-    }
+    // variantFilter { // DEPRECATED - commented out to eliminate warnings
+        // if (buildType.name == "debug") {
+            // ignore = true
+        // }
+    // }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
         isCoreLibraryDesugaringEnabled = true
-    }
+    // }
     kotlinOptions {
         jvmTarget = "17"
-    }
+    // }
     
     java {
         toolchain {
             languageVersion.set(JavaLanguageVersion.of(17))
-        }
-    }
+        // }
+    // }
     buildFeatures {
         buildConfig = true
         dataBinding = true
         viewBinding = true
-    }
+    // }
 
     sourceSets {
         getByName("main") {
             jniLibs.srcDirs("src/main/jniLibs")
-        }
-    }
+        // }
+    // }
 }
 
 //kotlin {

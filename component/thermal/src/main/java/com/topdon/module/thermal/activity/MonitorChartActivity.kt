@@ -19,7 +19,6 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
-// import com.guide.zm04c.matrix.GuideInterface // Temporarily disabled - hardware specific
 import com.topdon.lib.core.bean.tools.ThermalBean
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.db.AppDatabase

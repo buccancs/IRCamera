@@ -24,9 +24,6 @@ import com.energy.iruvc.uvc.ConnectCallback
 import com.energy.iruvc.uvc.UVCCamera
 import com.example.suplib.wrapper.SupHelp
 import com.infisense.usbdual.Const
-// import com.infisense.usbdual.camera.DualViewWithExternalCameraCommonApi // Temporarily disabled - hardware specific
-// import com.infisense.usbdual.camera.IRUVCDual // Temporarily disabled - hardware specific
-// import com.infisense.usbdual.camera.USBMonitorManager // Temporarily disabled - hardware specific
 import com.infisense.usbdual.camera.DualViewWithExternalCameraCommonApi
 import com.infisense.usbdual.camera.IRUVCDual
 import com.infisense.usbdual.camera.USBMonitorManager

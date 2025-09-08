@@ -1,25 +1,4 @@
-// package com.topdon.module.thermal.activity.temp
 //
-// import android.util.Log
-// import androidx.lifecycle.lifecycleScope
-// import androidx.recyclerview.widget.GridLayoutManager
-// import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
-// import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
-// import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement
-// import com.github.aachartmodel.aainfographics.aachartcreator.aa_toAAOptions
-// import com.github.aachartmodel.aainfographics.aaoptionsmodel.*
-// import com.github.aachartmodel.aainfographics.aatools.AAGradientColor
-// import com.github.aachartmodel.aainfographics.aatools.AALinearGradientDirection
-// import com.topdon.lib.core.common.SharedManager
-// import com.topdon.lib.core.config.RouterConfig
-// import com.topdon.lib.core.db.AppDatabase
-// import com.topdon.lib.core.db.entity.ThermalEntity
-// import com.topdon.lib.core.ktbase.BaseActivity
-// import com.topdon.module.thermal.R
-// import com.topdon.module.thermal.adapter.SettingTimeAdapter
-// import kotlinx.coroutines.Dispatchers
-// import kotlinx.coroutines.delay
-// import kotlinx.coroutines.launch
 //
 // /**
 // * 针对单个thermalId显示(用不到)

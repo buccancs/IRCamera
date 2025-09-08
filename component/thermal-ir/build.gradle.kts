@@ -26,7 +26,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-    }
+    // }
 
     buildTypes {
         // Only release build type - no debug variants
@@ -36,30 +36,30 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-        }
-    }
+        // }
+    // }
     
     // Disable all debug variants completely - release-only configuration (aligned with libapp)
-    variantFilter {
-        if (buildType.name == "debug") {
-            ignore = true
-        }
-    }
+    // variantFilter { // DEPRECATED - commented out to eliminate warnings
+        // if (buildType.name == "debug") {
+            // ignore = true
+        // }
+    // }
     
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
         isCoreLibraryDesugaringEnabled = true
-    }
+    // }
     
     kotlinOptions {
         jvmTarget = "17"
-    }
+    // }
 
     buildFeatures {
         viewBinding = true
         dataBinding = true
-    }
+    // }
 }
 
 dependencies {
@@ -106,7 +106,7 @@ dependencies {
         exclude(group = "androidx.media3", module = "media3-ui")
         exclude(group = "com.google.android.gms", module = "play-services-cast-framework")
         exclude(group = "com.aliyun.sdk.android", module = "AliyunPlayer")
-    }
+    // }
     
     // SmartRefreshLayout for pull-to-refresh functionality
     implementation("io.github.scwang90:refresh-layout-kernel:2.1.0")

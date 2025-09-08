@@ -9,29 +9,29 @@ android {
 
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
-    }
+    // }
 
     buildTypes {
         
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-        }
-    }
+        // }
+    // }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
         isCoreLibraryDesugaringEnabled = true
-    }
+    // }
     kotlinOptions {
         jvmTarget = "17"
-    }
+    // }
 
     sourceSets {
         getByName("main") {
             jniLibs.srcDir("libs")
-        }
-    }
+        // }
+    // }
 }
 
 dependencies {

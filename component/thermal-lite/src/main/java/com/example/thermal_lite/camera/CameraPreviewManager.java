@@ -42,7 +42,6 @@ import com.energy.irutilslibrary.bean.LogLevel;
 import com.energy.iruvccamera.bean.CameraSize;
 import com.energy.iruvccamera.bean.UvcParams;
 import com.energy.iruvccamera.usb.USBMonitor;
-// BuildConfig import removed - use direct values if needed
 import com.example.thermal_lite.IrConst;
 import com.example.thermal_lite.ui.activity.IrDisplayActivity;
 import com.example.thermal_lite.util.CommonUtil;

@@ -17,16 +17,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import java.math.RoundingMode
 import com.blankj.utilcode.util.ScreenUtils
-// import com.guide.zm04c.matrix.GuideInterface // Temporarily disabled - hardware specific
-// import com.guide.zm04c.matrix.IrSurfaceView // Temporarily disabled - hardware specific
 import com.topdon.module.thermal.stubs.GuideInterface
 import com.topdon.module.thermal.stubs.IrSurfaceView
-// import com.tbruyelle.rxpermissions2.RxPermissions // Temporarily disabled - dependency not available
-// import com.topdon.lib.core.bean.tools.ScreenBean // Temporarily disabled - utility class
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.utils.ByteUtils.getIndex
-// import com.topdon.lib.core.utils.ScreenShotUtils // Temporarily disabled - utility class
-// import com.topdon.lib.ui.dialog.SeekDialog // Temporarily disabled - class not available
 import com.topdon.lib.ui.dialog.ThermalInputDialog
 import com.topdon.lib.ui.fence.FenceLineView
 import com.topdon.lib.ui.fence.FencePointView

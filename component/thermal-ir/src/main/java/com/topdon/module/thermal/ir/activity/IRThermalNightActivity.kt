@@ -107,7 +107,6 @@ import com.topdon.module.thermal.ir.repository.ConfigRepository
 import com.topdon.module.thermal.ir.utils.IRConfigData
 import com.topdon.module.thermal.ir.video.VideoRecordFFmpeg
 import com.topdon.module.thermal.ir.view.compass.SensorService
-// import com.topdon.pseudo.activity.PseudoSetActivity
 import com.topdon.pseudo.bean.CustomPseudoBean
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*

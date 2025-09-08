@@ -4,8 +4,6 @@ import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import com.kylecorry.andromeda.sense.Sensors
-// import com.kylecorry.andromeda.sense.compass.FilterCompassWrapper // Temporarily disabled
-// import com.kylecorry.andromeda.sense.compass.GravityCompensatedCompass // Temporarily disabled
 import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.andromeda.sense.compass.LegacyCompass
 import com.kylecorry.andromeda.sense.magnetometer.Magnetometer

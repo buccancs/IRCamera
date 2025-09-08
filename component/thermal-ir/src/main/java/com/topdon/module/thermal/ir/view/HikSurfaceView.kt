@@ -14,7 +14,6 @@ import com.infisense.usbir.utils.IRImageHelp
 import com.infisense.usbir.utils.OpencvTools
 import com.infisense.usbir.utils.PseudocodeUtils
 import com.topdon.lib.core.bean.AlarmBean
-// import com.topdon.pseudo.bean.CustomPseudoBean  // Temporarily disabled - pseudo component dependency
 import com.topdon.module.thermal.ir.bean.DataBean // Use local data bean instead
 import java.nio.ByteBuffer
 

@@ -1,23 +1,4 @@
-// package com.topdon.module.thermal.activity
 //
-// import android.util.Log
-// import androidx.lifecycle.lifecycleScope
-// import androidx.recyclerview.widget.GridLayoutManager
-// import com.github.aachartmodel.aainfographics.aachartcreator.*
-// import com.github.aachartmodel.aainfographics.aaoptionsmodel.*
-// import com.github.aachartmodel.aainfographics.aatools.AAGradientColor
-// import com.github.aachartmodel.aainfographics.aatools.AALinearGradientDirection
-// import com.topdon.lib.core.common.SharedManager
-// import com.topdon.lib.core.config.RouterConfig
-// import com.topdon.lib.core.db.AppDatabase
-// import com.topdon.lib.core.db.entity.ThermalEntity
-// import com.topdon.lib.core.ktbase.BaseActivity
-// import com.topdon.lib.core.tools.TimeTool
-// import com.topdon.module.thermal.R
-// import com.topdon.module.thermal.adapter.SettingTimeAdapter
-// import kotlinx.coroutines.Dispatchers
-// import kotlinx.coroutines.delay
-// import kotlinx.coroutines.launch
 //
 // @Route(path = RouterConfig.THERMAL_LOG_CHART)
 // class LogChartActivity : BaseActivity() {

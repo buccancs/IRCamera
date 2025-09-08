@@ -26,37 +26,37 @@ android {
 
         ndk {
             abiFilters += listOf("armeabi-v7a", "arm64-v8a")
-        }
-    }
+        // }
+    // }
 
     buildTypes {
         // Only release build type - no debug variants
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-        }
-    }
+        // }
+    // }
     
     // Disable all debug variants completely - release-only configuration (aligned with libapp)
-    variantFilter {
-        if (buildType.name == "debug") {
-            ignore = true
-        }
-    }
+    // variantFilter { // DEPRECATED - commented out to eliminate warnings
+        // if (buildType.name == "debug") {
+            // ignore = true
+        // }
+    // }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
         isCoreLibraryDesugaringEnabled = true
-    }
+    // }
     kotlinOptions {
         jvmTarget = "17"
-    }
+    // }
     sourceSets {
         getByName("main") {
             jniLibs.srcDirs("libs", "src/main/jnilibs")
-        }
-    }
+        // }
+    // }
 }
 
 dependencies {

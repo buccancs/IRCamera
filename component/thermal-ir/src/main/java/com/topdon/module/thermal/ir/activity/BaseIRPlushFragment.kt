@@ -31,9 +31,6 @@ import com.infisense.usbir.extension.setMirror
 import com.infisense.usbir.extension.setAutoShutter
 import com.infisense.usbir.extension.setPropDdeLevel
 import com.infisense.usbir.extension.setContrast
-// import com.infisense.usbdual.camera.DualViewWithExternalCameraCommonApi // Temporarily disabled - hardware specific
-// import com.infisense.usbdual.camera.IRUVCDual // Temporarily disabled - hardware specific
-// import com.infisense.usbdual.camera.USBMonitorManager // Temporarily disabled - hardware specific
 import com.infisense.usbdual.camera.DualViewWithExternalCameraCommonApi
 import com.infisense.usbdual.camera.IRUVCDual
 import com.infisense.usbdual.camera.USBMonitorManager
