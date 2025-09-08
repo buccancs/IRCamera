@@ -9,6 +9,11 @@ import com.blankj.utilcode.util.Utils
 import java.io.File
 import java.lang.Exception
 
+/**
+ * FileTools represents a filetools component.
+ * 
+ * This class provides functionality for filetools operations.
+ */
 object FileTools {
     fun getFileSize(path: String): String {
         var str = ""
@@ -59,7 +64,7 @@ object FileTools {
             cur.moveToNext()
         }
         return if (index != 0) {
-            Uri.parse("content://media/external/images/media/$index")
+            Uri.parse("content:// media/external/images/media/$index")
         } else {
             null
         }

@@ -6,8 +6,13 @@ import androidx.annotation.Nullable;
 import java.lang.reflect.Method;
 
 /**
- * date: 2019/8/3 09:28
- * author: chuanfeng.bi
+ * MethodInfo represents method information for reflection operations.
+ *
+ * This class encapsulates method metadata including name, parameters, and tags
+ * to facilitate dynamic method invocation and parameter handling.
+ *
+ * @author chuanfeng.bi
+ * @since 2019/8/3
  */
 public class MethodInfo {
     @NonNull
@@ -21,7 +26,7 @@ public class MethodInfo {
         this(name, name, parameters);
     }
 
-    /**
+        /**
      * @param tag {@link Tag#value()}
      */
     public MethodInfo(@NonNull String name, @NonNull String tag, @Nullable Parameter... parameters) {
@@ -30,22 +35,22 @@ public class MethodInfo {
         this.parameters = parameters;
     }
 
-    /**
-     * 实例化参数全为null的方法信息
+        /**
+     * Creates method information with null parameters.
      *
-     * @param name           方法名
-     * @param parameterTypes 方法参数类型
+     * @param name           method name
+     * @param parameterTypes method parameter types
      */
     public MethodInfo(@NonNull String name, @Nullable Class<?>[] parameterTypes) {
         this(name, name, parameterTypes);
     }
 
-    /**
-     * 实例化参数全为null的方法信息
+        /**
+     * Creates method information with null parameters.
      *
-     * @param name           方法名
+     * @param name           method name
      * @param tag            {@link Tag#value()}
-     * @param parameterTypes 方法参数类型
+     * @param parameterTypes method parameter types
      */
     public MethodInfo(@NonNull String name, @NonNull String tag, @Nullable Class<?>[] parameterTypes) {
         this(name, tag, toParameters(parameterTypes));
@@ -85,7 +90,7 @@ public class MethodInfo {
         return tag;
     }
 
-    /**
+        /**
      * @param tag {@link Tag#value()}
      */
     public void setTag(@NonNull String tag) {
@@ -127,13 +132,24 @@ public class MethodInfo {
         }
     }
 
-    public static class Parameter {
+    public static/**
+ * Parameter class.
+ * 
+ * Provides parameter functionality.
+ */
+ class Parameter {
         @Nullable
         private Object value;
         @NonNull
         private Class<?> type;
 
-        public Parameter(@NonNull Class<?> type, @Nullable Object value) {
+            /**
+     * Creates a new Parameter with the specified type and value.
+     *
+     * @param type  the parameter type
+     * @param value the parameter value
+     */
+    public Parameter(@NonNull Class<?> type, @Nullable Object value) {
             this.type = type;
             this.value = value;
         }

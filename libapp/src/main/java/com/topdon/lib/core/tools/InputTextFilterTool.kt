@@ -6,9 +6,14 @@ import android.util.Log
 import android.widget.EditText
 import java.util.regex.Pattern
 
+/**
+ * InputTextFilterTool represents a inputtextfiltertool component.
+ * 
+ * This class provides functionality for inputtextfiltertool operations.
+ */
 class InputTextFilterTool {
     /**
-     * 设置editText过滤器
+     * SettingseditText过滤器
      *
      * @param editText
      */

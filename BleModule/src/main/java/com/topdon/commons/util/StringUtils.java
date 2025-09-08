@@ -8,14 +8,20 @@ import java.util.Locale;
 import java.util.UUID;
 
 /**
- * date: 2019/8/7 11:15
- * author: chuanfeng.bi
+ * StringUtils class.
+ * 
+ * Provides functionality for stringutils operations.
  */
 public class StringUtils {
     /**
      * 生成一个uuid字符串，不带短杠
      */
-    public static String randomUuid() {
+    /**
+ * Randomuuid operation.
+ *
+ * @return the result
+ */
+public static String randomUuid() {
         return UUID.randomUUID().toString().replace("-", "");
     }
 
@@ -26,7 +32,14 @@ public class StringUtils {
      * @param targetLen 目标长度
      * @param head      补前面还是后面
      */
-    public static String fillZero(String src, int targetLen, boolean head) {
+    /**
+ * Fillzero operation.
+ * * @param src the src parameter
+ * @param targetLen the targetLen parameter
+ * @param head the head parameter
+ * @return the result
+ */
+public static String fillZero(String src, int targetLen, boolean head) {
         if (src == null) return null;
         StringBuilder sb = new StringBuilder(src);
         while (sb.length() % targetLen != 0) {
@@ -42,28 +55,48 @@ public class StringUtils {
     /**
      * 数字转16进制字符串，不足2位自动补零
      */
-    public static String toHex(int num) {
+    /**
+ * Tohex operation.
+ * * @param num the num parameter
+ * @return the result
+ */
+public static String toHex(int num) {
         return fillZero(Integer.toHexString(num), 2, true);
     }
 
     /**
      * 数字转16进制字符串，不足2位自动补零
      */
-    public static String toHex(long num) {
+    /**
+ * Tohex operation.
+ * * @param num the num parameter
+ * @return the result
+ */
+public static String toHex(long num) {
         return fillZero(Long.toHexString(num), 2, true);
     }
 
     /**
      * 数字转2进制字符串，不足8位自动补零
      */
-    public static String toBinary(int num) {
+    /**
+ * Tobinary operation.
+ * * @param num the num parameter
+ * @return the result
+ */
+public static String toBinary(int num) {
         return fillZero(Integer.toBinaryString(num), 8, true);
     }
 
     /**
      * 数字转2进制字符串，不足8位自动补零
      */
-    public static String toBinary(long num) {
+    /**
+ * Tobinary operation.
+ * * @param num the num parameter
+ * @return the result
+ */
+public static String toBinary(long num) {
         return fillZero(Long.toBinaryString(num), 8, true);
     }
 
@@ -72,7 +105,12 @@ public class StringUtils {
      *
      * @return 如果bytes为null则返回null，如果bytes长度为0返回""，其他返回正常转换的字符串
      */
-    public static String toHex(byte[] bytes) {
+    /**
+ * Tohex operation.
+ * * @param bytes the bytes parameter
+ * @return the result
+ */
+public static String toHex(byte[] bytes) {
         return toHex(bytes, " ");
     }
 
@@ -82,7 +120,13 @@ public class StringUtils {
      * @param separator 用来分隔的字符串
      * @return 如果bytes为null则返回null，如果bytes长度为0返回""，其他返回正常转换的字符串
      */
-    public static String toHex(byte[] bytes, String separator) {
+    /**
+ * Tohex operation.
+ * * @param bytes the bytes parameter
+ * @param separator the separator parameter
+ * @return the result
+ */
+public static String toHex(byte[] bytes, String separator) {
         if (bytes == null) {
             return null;
         } else if (bytes.length == 0) {
@@ -112,7 +156,12 @@ public class StringUtils {
      *
      * @return 如果bytes为null则返回null，如果bytes长度为0返回""，其他返回正常转换的字符串
      */
-    public static String toBinary(byte[] bytes) {
+    /**
+ * Tobinary operation.
+ * * @param bytes the bytes parameter
+ * @return the result
+ */
+public static String toBinary(byte[] bytes) {
         return toBinary(bytes, " ");
     }
 
@@ -122,7 +171,13 @@ public class StringUtils {
      * @param separator 用来分隔的字符串
      * @return 如果bytes为null则返回null，如果bytes长度为0返回""，其他返回正常转换的字符串
      */
-    public static String toBinary(byte[] bytes, String separator) {
+    /**
+ * Tobinary operation.
+ * * @param bytes the bytes parameter
+ * @param separator the separator parameter
+ * @return the result
+ */
+public static String toBinary(byte[] bytes, String separator) {
         if (bytes == null) {
             return null;
         } else if (bytes.length == 0) {
@@ -151,11 +206,16 @@ public class StringUtils {
     /**
      * 使用java正则表达式去掉小数点后多余的0，如最后一位是.则去掉
      */
-    public static String subZeroAndDot(String number) {
+    /**
+ * Subzeroanddot operation.
+ * * @param number the number parameter
+ * @return the result
+ */
+public static String subZeroAndDot(String number) {
         if (TextUtils.isEmpty(number)) return number;
         if (number.indexOf(".") > 0) {
-            number = number.replace("0+?$", "");//去掉多余的0  
-            number = number.replace("[.]$", "");//如最后一位是.则去掉  
+            number = number.replace("0+?$", "");// 去掉多余的0  
+            number = number.replace("[.]$", "");// 如最后一位是.则去掉  
         }
         return number;
     }
@@ -166,7 +226,12 @@ public class StringUtils {
      * @param duration 时长，单位：秒
      */
     @NonNull
-    public static String toDuration(int duration) {
+    /**
+ * Toduration operation.
+ * * @param duration the duration parameter
+ * @return the result
+ */
+public static String toDuration(int duration) {
         return toDuration(duration, null);
     }
 
@@ -176,7 +241,13 @@ public class StringUtils {
      * @param duration 时长，单位：秒
      */
     @NonNull
-    public static String toDuration(int duration, String format) {
+    /**
+ * Toduration operation.
+ * * @param duration the duration parameter
+ * @param format the format parameter
+ * @return the result
+ */
+public static String toDuration(int duration, String format) {
         if (format != null) {
             return String.format(Locale.ENGLISH, format, duration / 3600, duration % 3600 / 60, duration % 60);
         } else {

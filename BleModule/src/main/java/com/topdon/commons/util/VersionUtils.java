@@ -3,13 +3,10 @@ package com.topdon.commons.util;
 import android.text.TextUtils;
 
 /**
- * @Desc 版本对比
- * @ClassName VersionUtils
- * @Email 616862466@qq.com
- * @Author 子墨
- * @Date 2022/10/11 17:56
+ * VersionUtils class.
+ * 
+ * Provides functionality for versionutils operations.
  */
-
 public class VersionUtils {
 
     /**
@@ -20,8 +17,14 @@ public class VersionUtils {
      * @param v2 版本 当前版本 " 1.2.1 "
      * @return ture ：需要更新 false ： 不需要更新
      */
-    public static boolean compareVersions(String v1, String v2) {
-        //判断是否为空数据
+    /**
+ * Compareversions operation.
+ * * @param v1 the v1 parameter
+ * @param v2 the v2 parameter
+ * @return the result
+ */
+public static boolean compareVersions(String v1, String v2) {
+        // 判断是否为空数据
         if (TextUtils.equals(v1, "") || TextUtils.equals(v2, "")) {
             return false;
         }

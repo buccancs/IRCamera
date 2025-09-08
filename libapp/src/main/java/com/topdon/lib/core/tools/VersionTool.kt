@@ -3,6 +3,11 @@ package com.topdon.lib.core.tools
 import com.elvishew.xlog.XLog
 import java.util.regex.Pattern
 
+/**
+ * VersionTool represents a versiontool component.
+ * 
+ * This class provides functionality for versiontool operations.
+ */
 object VersionTool {
     /**
      * V1.0 => 1.0

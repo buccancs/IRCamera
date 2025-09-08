@@ -16,7 +16,9 @@ import java.nio.charset.Charset;
 import java.util.HashMap;
 
 /**
- *
+ * IniUtil class.
+ * 
+ * Provides functionality for iniutil operations.
  */
 public class IniUtil {
     private static String NAME = "Link";
@@ -64,7 +66,6 @@ public class IniUtil {
         return readFileInfo(path + "/Diag.ini");
     }
 
-
     /**
      * 读取文件
      *
@@ -73,7 +74,7 @@ public class IniUtil {
     private static String readFileInfo(String path) {
         String name = "";
         File file = new File(path);
-        //如果path是传递过来的参数，可以做一个非目录的判断
+        // 如果path是传递过来的参数，可以做一个非目录的判断
         if (file.isDirectory()) {
             LLog.d("TestFile", "The File doesn't not exist.");
         } else {
@@ -82,7 +83,7 @@ public class IniUtil {
                 InputStreamReader inputreader = new InputStreamReader(instream);
                 BufferedReader buffreader = new BufferedReader(inputreader);
                 String line;
-                //分行读取
+                // 分行读取
                 while ((line = buffreader.readLine()) != null) {
                     LLog.e("TestFile", "ReadTxtFile: " + line);
                     name = line;
@@ -99,7 +100,6 @@ public class IniUtil {
         }
         return name;
     }
-
 
     public static String getVersion(String path, String name) {
         File file = new File(path + "/Diag.ini");
@@ -146,7 +146,6 @@ public class IniUtil {
         }
         return "";
     }
-
 
     /**
      * 获取保养类型
@@ -306,7 +305,6 @@ public class IniUtil {
             return hashMap;
         }
     }
-
 
     /**
      * 获取保养类型

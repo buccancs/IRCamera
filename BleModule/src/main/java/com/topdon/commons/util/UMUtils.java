@@ -3,22 +3,31 @@ package com.topdon.commons.util;
 import android.content.Context;
 import com.umeng.analytics.MobclickAgent;
 
-
 /**
- * @Desc 友盟埋点工具类
- * @ClassName UMUtils
- * @Email 616862466@qq.com
- * @Author 子墨
- * @Date 2023/3/28 13:53
+ * UMUtils class.
+ * 
+ * Provides functionality for umutils operations.
  */
-
 public class UMUtils {
 
-    public static void onEvent(Context mContext, String var1, String var2) {
+    /**
+ * Onevent operation.
+ * * @param mContext the mContext parameter
+ * @param var1 the var1 parameter
+ * @param var2 the var2 parameter
+
+ */
+public static void onEvent(Context mContext, String var1, String var2) {
         MobclickAgent.onEvent(mContext, var1, var2);
     }
 
-    public static void onEvent(Context mContext, String var1) {
+    /**
+ * Onevent operation.
+ * * @param mContext the mContext parameter
+ * @param var1 the var1 parameter
+
+ */
+public static void onEvent(Context mContext, String var1) {
         MobclickAgent.onEvent(mContext, var1);
     }
 

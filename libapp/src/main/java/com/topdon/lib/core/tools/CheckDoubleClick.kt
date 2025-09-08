@@ -1,5 +1,10 @@
 package com.topdon.lib.core.tools
 
+/**
+ * CheckDoubleClick represents a checkdoubleclick component.
+ * 
+ * This class provides functionality for checkdoubleclick operations.
+ */
 object CheckDoubleClick {
     private val records: MutableMap<String, Long> = HashMap()
 

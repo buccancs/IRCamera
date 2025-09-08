@@ -14,46 +14,60 @@ import com.topdon.ble.BuildConfig;
 public class LLog {
     private static boolean isDebug = BuildConfig.DEBUG;
 
+    /**
+ * D operation.
+ * * @param tag the tag parameter
+ * @param value the value parameter
 
-    public static void d(String tag, String value) {
+ */
+public static void d(String tag, String value) {
         XLog.tag(tag).d(value);
-//        if (isDebug) {
-//            Log.d(tag, value);
-//        }
-    }
 
-    public static void i(String tag, String value) {
-        XLog.tag(tag).i(value);
-//        if (isDebug) {
-//            Log.i(tag, value);
-//        }
     }
-
-    public static void w(String tag, String value) {
-        XLog.tag(tag).w(value);
-//        if (isDebug) {
-//            Log.w(tag, value);
-//        }
-    }
-
-    public static void e(String tag, String value) {
-        XLog.tag(tag).e(value);
-//        if (isDebug) {
-//            Log.e(tag, value);
-//        }
-    }
-
 
     /**
-     * 最大一次打印长度
+ * I operation.
+ * * @param tag the tag parameter
+ * @param value the value parameter
+
+ */
+public static void i(String tag, String value) {
+        XLog.tag(tag).i(value);
+
+    }
+
+    /**
+ * W operation.
+ * * @param tag the tag parameter
+ * @param value the value parameter
+
+ */
+public static void w(String tag, String value) {
+        XLog.tag(tag).w(value);
+
+    }
+
+    /**
+ * E operation.
+ * * @param tag the tag parameter
+ * @param value the value parameter
+
+ */
+public static void e(String tag, String value) {
+        XLog.tag(tag).e(value);
+
+    }
+
+    /**
+     * Maximum print length at once
      */
     public final static int MAX_LENGTH = 2000;
 
     /**
-     * 适应最大长度打印
+     * Adaptive maximum length printing
      *
-     * @param tag 标志
-     * @param msg 信息
+     * @param tag tag/label
+     * @param msg message/information
      */
     public static void LogMaxPrint(String tag, String msg) {
         if (msg.length() > MAX_LENGTH) {

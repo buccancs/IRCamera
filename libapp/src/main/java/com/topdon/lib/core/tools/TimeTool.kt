@@ -8,6 +8,11 @@ import java.text.ParsePosition
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ * TimeTool represents a timetool component.
+ * 
+ * This class provides functionality for timetool operations.
+ */
 object TimeTool {
     fun formatDetectTime(timeMillis: Long): String {
         return SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(Date(timeMillis))

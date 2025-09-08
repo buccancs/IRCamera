@@ -3,6 +3,11 @@ package com.topdon.lib.core.tools
 import android.content.Context
 import com.topdon.lib.core.R
 
+/**
+ * LanguageTool represents a languagetool component.
+ * 
+ * This class provides functionality for languagetool operations.
+ */
 object LanguageTool {
     /**
      * Get display language - English only

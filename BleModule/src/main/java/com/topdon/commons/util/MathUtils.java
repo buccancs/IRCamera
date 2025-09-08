@@ -1,6 +1,5 @@
 package com.topdon.commons.util;
 
-
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
@@ -9,8 +8,9 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * date: 2019/8/7 21:01
- * author: zengfansheng
+ * MathUtils class.
+ * 
+ * Provides functionality for mathutils operations.
  */
 public class MathUtils {
     /**
@@ -50,7 +50,7 @@ public class MathUtils {
             if (i == list.size() - 1) {
                 fs[index] = 1 - sum;
             } else {
-                //先强转int不进行4舍5入，再转为float计算
+                // 先强转int不进行4舍5入，再转为float计算
                 fs[index] = (int) (values[index] / total * sc) / (float) sc;
                 sum += fs[index];
             }
@@ -122,9 +122,9 @@ public class MathUtils {
             return null;
         }
         byte[] target = new byte[src.length];
-        //翻转byte同时翻转bit
+        // 翻转byte同时翻转bit
         for (int i = 0; i < src.length; i++) {
-            //翻转bit
+            // 翻转bit
             int value = 0;
             int tmp = src[src.length - 1 - i];
             for (int j = 7; j >= 0; j--) {
@@ -179,7 +179,12 @@ public class MathUtils {
      * Refout:  False
      * Xorout:  0x00
      */
-    public static int calcCrc8(byte[] bytes) {
+    /**
+ * Calccrc8 operation.
+ * * @param bytes the bytes parameter
+ * @return the result
+ */
+public static int calcCrc8(byte[] bytes) {
         int crc = 0;
         for (byte b : bytes) {
             crc ^= b;
@@ -197,8 +202,13 @@ public class MathUtils {
     /**
      * CRC16校验，Modbus
      */
-    public static int calcCRC16_Modbus(byte[] data) {
-        int crc = 0xffff;//16位
+    /**
+ * Calccrc16 Modbus operation.
+ * * @param data the data parameter
+ * @return the result
+ */
+public static int calcCRC16_Modbus(byte[] data) {
+        int crc = 0xffff;// 16位
         for (byte b : data) {
             if (b < 0) {
                 crc ^= (int) b + 256; // XOR byte into least sig. byte of
@@ -220,7 +230,12 @@ public class MathUtils {
     /**
      * CRC校验，CRC-CCITT (XModem)
      */
-    public static int calcCRC_CCITT_XModem(byte[] bytes) {
+    /**
+ * Calccrc Ccitt Xmodem operation.
+ * * @param bytes the bytes parameter
+ * @return the result
+ */
+public static int calcCRC_CCITT_XModem(byte[] bytes) {
         int crc = 0;          // initial value
         int polynomial = 0x1021;
         for (byte b : bytes) {
@@ -237,7 +252,14 @@ public class MathUtils {
     /**
      * CRC校验，CRC-CCITT (XModem)
      */
-    public static int calcCRC_CCITT_XModem(byte[] bytes, int offset, int len) {
+    /**
+ * Calccrc Ccitt Xmodem operation.
+ * * @param bytes the bytes parameter
+ * @param offset the offset parameter
+ * @param len the len parameter
+ * @return the result
+ */
+public static int calcCRC_CCITT_XModem(byte[] bytes, int offset, int len) {
         int crc = 0;          // initial value
         int polynomial = 0x1021;
         for (int i = offset; i < offset + len; i++) {
@@ -255,7 +277,12 @@ public class MathUtils {
     /**
      * CRC校验，CRC-CCITT (0xFFFF)
      */
-    public static int calcCRC_CCITT_0xFFFF(byte[] bytes) {
+    /**
+ * Calccrc Ccitt 0Xffff operation.
+ * * @param bytes the bytes parameter
+ * @return the result
+ */
+public static int calcCRC_CCITT_0xFFFF(byte[] bytes) {
         int crc = 0xffff; // initial value
         int polynomial = 0x1021; // poly value
         for (byte b : bytes) {
@@ -272,7 +299,14 @@ public class MathUtils {
     /**
      * CRC校验，CRC-CCITT (0xFFFF)
      */
-    public static int calcCRC_CCITT_0xFFFF(byte[] bytes, int offset, int len) {
+    /**
+ * Calccrc Ccitt 0Xffff operation.
+ * * @param bytes the bytes parameter
+ * @param offset the offset parameter
+ * @param len the len parameter
+ * @return the result
+ */
+public static int calcCRC_CCITT_0xFFFF(byte[] bytes, int offset, int len) {
         int crc = 0xffff; // initial value
         int polynomial = 0x1021; // poly value
         for (int i = offset; i < offset + len; i++) {

@@ -7,17 +7,14 @@ import com.topdon.lms.sdk.LMS;
 import java.io.File;
 
 /**
- * @Desc 在APPlication 调用setFileName方法 传入文件名路径 区分APP
- * @ClassName FolderUtil
- * @Email 616862466@qq.com
- * @Author 子墨
- * @Date 2022/9/27 11:55
+ * FolderUtil class.
+ * 
+ * Provides functionality for folderutil operations.
  */
-
 public class FolderUtil {
     public static String mPath = "/data/user/0/com.topdon.diag.artidiag/files";
     public static String mUserId;
-    public static String fileName; //在APPlication 传入文件名路径 区分APP
+    public static String fileName; // 在APPlication 传入文件名路径 区分APP
     public static String tdartsSn;
 
     /**
@@ -42,8 +39,12 @@ public class FolderUtil {
         mUserId = userId;
     }
 
+    /**
+ * Init operation.
+ *
 
-    public static void init() {
+ */
+public static void init() {
         mUserId = PreUtil.getInstance(Topdon.getApp()).get("VCI_" + LMS.getInstance().getLoginName());
         setUserId(mUserId);
         Log.e("bcf", "FolderUtil mUserId: " + mUserId);
@@ -52,7 +53,12 @@ public class FolderUtil {
         initPath();
     }
 
-    public static void initTDarts(String tdSn) {
+    /**
+ * Inittdarts operation.
+ * * @param tdSn the tdSn parameter
+
+ */
+public static void initTDarts(String tdSn) {
         tdartsSn = tdSn;
         String mPath = Topdon.getApp().getExternalFilesDir("").getAbsolutePath();
         Log.e("bcf", fileName + "---FolderUtil initTDarts: " + mPath);
@@ -68,7 +74,12 @@ public class FolderUtil {
     /**
      * 出事下载车型软件
      */
-    public static void initFilePath() {
+    /**
+ * Initfilepath operation.
+ *
+
+ */
+public static void initFilePath() {
         String basePath = Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName;
         String downPath = basePath + "Download/";
         Log.e("bcf", fileName + "--下载路径初始化--" + downPath);
@@ -162,7 +173,6 @@ public class FolderUtil {
                 firmwareFile.mkdirs();
             }
 
-
             File tdartsFile = new File(mPath + fileName + "T-darts/");
             if (!tdartsFile.exists()) {
                 tdartsFile.mkdirs();
@@ -229,13 +239,13 @@ public class FolderUtil {
 //                log9File.mkdirs();
             }
 
-            //上传反馈日志
+            // Upload feedback logs
             File feedbackLog = new File(mPath + fileName + mUserId + "/FeedbackLog/");
             if (!feedbackLog.exists()) {
                 feedbackLog.mkdirs();
             }
 
-            //autovin临时路径
+            // autovintemporary path
             File autovinLog = new File(mPath + fileName + mUserId + "/autovinLog/");
             if (!autovinLog.exists()) {
                 autovinLog.mkdirs();
@@ -247,7 +257,6 @@ public class FolderUtil {
     public static String getOtaPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + "/s/";
     }
-
 
     public static String getDataBasePath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName;
@@ -307,7 +316,6 @@ public class FolderUtil {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName;
     }
 
-
     public static String getShotPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + mUserId + "/Shot/";
     }
@@ -363,7 +371,6 @@ public class FolderUtil {
     public static String getDiagDataLogPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + mUserId + "/DataLog/DIAG/";
     }
-
 
     public static String getImmoDataLogPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + mUserId + "/DataLog/IMMO/";

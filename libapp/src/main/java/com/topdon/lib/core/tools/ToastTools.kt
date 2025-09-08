@@ -16,6 +16,11 @@ import kotlinx.coroutines.launch
 /**
  * create by fylder on 2018/7/4
  **/
+/**
+ * ToastTools represents a toasttools component.
+ * 
+ * This class provides functionality for toasttools operations.
+ */
 object ToastTools {
     var mPublicToast: Toast? = null
 

@@ -10,7 +10,6 @@ import android.util.DisplayMetrics;
 
 import java.util.Locale;
 
-
 /**
  * @author YanLu
  * @since 17/5/12
@@ -28,7 +27,13 @@ public class AppLanguageUtils {
     }
 
     @SuppressWarnings("deprecation")
-    public static void changeAppLanguage(Context context, String newLanguage) {
+    /**
+ * Changeapplanguage operation.
+ * * @param context the context parameter
+ * @param newLanguage the newLanguage parameter
+
+ */
+public static void changeAppLanguage(Context context, String newLanguage) {
         Resources resources = context.getResources();
         Configuration configuration = resources.getConfiguration();
 
@@ -54,7 +59,13 @@ public class AppLanguageUtils {
         return Locale.ENGLISH;
     }
 
-    public static Context attachBaseContext(Context context, String language) {
+    /**
+ * Attachbasecontext operation.
+ * * @param context the context parameter
+ * @param language the language parameter
+ * @return the result
+ */
+public static Context attachBaseContext(Context context, String language) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return updateResources(context, language);
         } else {

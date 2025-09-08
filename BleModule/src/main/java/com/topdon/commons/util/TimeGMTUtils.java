@@ -11,15 +11,11 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 /**
- * @Desc
- * @ClassName 时间工具类
- * @Email 616862466@qq.com
- * @Author 子墨
- * @Date 2022/12/13 21:57
+ * TimeGMTUtils class.
+ * 
+ * Provides functionality for timegmtutils operations.
  */
-
 public class TimeGMTUtils {
-
 
     /**
      * 判断是否在夏令时

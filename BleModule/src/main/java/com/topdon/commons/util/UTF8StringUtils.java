@@ -7,8 +7,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
+/**
+ * UTF8StringUtils class.
+ * 
+ * Provides functionality for utf8stringutils operations.
+ */
 public class UTF8StringUtils {
-
 
     /**
      * @param @return 参数
@@ -17,7 +21,12 @@ public class UTF8StringUtils {
      * @Title readByUtf8WithBom
      * @Description 普通方式读取 txt文件，如果用记事本保存会存在bom格式
      */
-    public static String readByUtf8WithBom(String path) {
+    /**
+ * Readbyutf8Withbom operation.
+ * * @param path the path parameter
+ * @return the result
+ */
+public static String readByUtf8WithBom(String path) {
         File file = new File(path);
         FileInputStream in;
         Reader read;
@@ -28,7 +37,7 @@ public class UTF8StringUtils {
                 BufferedReader bf = new BufferedReader(read);
                 String txt;
                 while ((txt = bf.readLine()) != null) { // 读取文件
-                    /* 判断文本文件里面的内容是否合法 平台系统中定义 每个敏感词后加上结束标志“|1” */
+                    /* 判断文本文件里面的内容是否合法 平台系统中定义 每个敏感词后加上结束tag/label“|1” */
                     txt = txt.trim();// 去掉收尾的空格
                     String flag = txt.substring(txt.lastIndexOf("|") + 1);
                     if (flag.equals("1")) {
@@ -51,7 +60,12 @@ public class UTF8StringUtils {
      * @Title readByUtf8WithOutBom
      * @Description 读取 txt文件，如果存在bom格式 则去掉
      */
-    public static String readByUtf8WithOutBom(String path) {
+    /**
+ * Readbyutf8Withoutbom operation.
+ * * @param path the path parameter
+ * @return the result
+ */
+public static String readByUtf8WithOutBom(String path) {
         File file = new File(path);
         FileInputStream in;
         try {
@@ -60,7 +74,7 @@ public class UTF8StringUtils {
                 BufferedReader bf = new BufferedReader(new UnicodeReader(in, "utf-8"));
                 String txt = "";
                 while ((txt = bf.readLine()) != null) { // 读取文件
-                    /* 判断文本文件里面的内容是否合法 平台系统中定义 每个敏感词后加上结束标志“|1” */
+                    /* 判断文本文件里面的内容是否合法 平台系统中定义 每个敏感词后加上结束tag/label“|1” */
                     txt = txt.trim();// 去掉收尾的空格
                     String flag = txt.substring(txt.lastIndexOf("|") + 1);
                     if (flag.equals("1")) {
@@ -75,6 +89,5 @@ public class UTF8StringUtils {
         }
         return "";
     }
-
 
 }

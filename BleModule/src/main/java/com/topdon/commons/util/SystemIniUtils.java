@@ -11,6 +11,11 @@ import org.ini4j.Profile;
 
 import java.io.File;
 
+/**
+ * SystemIniUtils class.
+ * 
+ * Provides functionality for systeminiutils operations.
+ */
 public class SystemIniUtils {
     public static int getSystemVersion(String path, String systemName, int systemVersion) {
         File file = new File(path + "/Version.ini");

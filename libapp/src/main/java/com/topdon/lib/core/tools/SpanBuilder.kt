@@ -85,7 +85,12 @@ class SpanBuilder : SpannableStringBuilder {
         return this
     }
 
-    private class MyClickSpan(val listener: OnClickListener, val color: Int, val hasUnderLine: Boolean) : ClickableSpan() {
+    private /**
+ * MyClickSpan represents a myclickspan component.
+ * 
+ * This class provides functionality for myclickspan operations.
+ */
+class MyClickSpan(val listener: OnClickListener, val color: Int, val hasUnderLine: Boolean) : ClickableSpan() {
         override fun updateDrawState(ds: TextPaint) {
             ds.color = color
             ds.isUnderlineText = hasUnderLine
@@ -96,7 +101,12 @@ class SpanBuilder : SpannableStringBuilder {
         }
     }
 
-    private class MyImageSpan(
+    private /**
+ * MyImageSpan represents a myimagespan component.
+ * 
+ * This class provides functionality for myimagespan operations.
+ */
+class MyImageSpan(
         val context: Context,
         @DrawableRes val resourceId: Int,
         @Px val wantHeight: Int,

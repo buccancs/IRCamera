@@ -15,15 +15,11 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * @Desc 单位工具类
- * @ClassName UnitUtils
- * @Email 616862466@qq.com
- * @Author 子墨
- * @Date 2022/12/21 15:53
+ * UnitUtils class.
+ * 
+ * Provides functionality for unitutils operations.
  */
-
 public class UnitUtils {
-
 
     /**
      * 根据类型获取单位数据
@@ -33,9 +29,9 @@ public class UnitUtils {
     public static List<UnitDBBean> getUnitDBBeanList(int unitType) {
         try {
             String jsonStr;
-            if (unitType == 0) {//公制
+            if (unitType == 0) {// 公制
                 jsonStr = PreUtil.getInstance(Topdon.getApp()).get(SPKeyUtils.UNIT_METRIC);
-            } else {//英制
+            } else {// 英制
                 jsonStr = PreUtil.getInstance(Topdon.getApp()).get(SPKeyUtils.UNIT_BRITISH);
             }
             LLog.w("bcf--jsonStr", jsonStr);
@@ -50,7 +46,6 @@ public class UnitUtils {
             return new ArrayList<>();
         }
     }
-
 
     /**
      * 根据类型获取单位数据
@@ -79,7 +74,6 @@ public class UnitUtils {
         return hashMap;
     }
 
-
     /**
      * 计算结果
      *
@@ -92,7 +86,6 @@ public class UnitUtils {
         int unitType = "0".equals(unit) ? 0 : 1;
         return getCalcResult(unitType, hashMap, preUnit, numericalValue);
     }
-
 
     /**
      * 计算结果
@@ -112,18 +105,18 @@ public class UnitUtils {
             if (unitDBBean == null) {
                 return new String[]{numericalValue, preUnit};
             }
-            if (unitType == 0) {//当前是公制
+            if (unitType == 0) {// 当前是公制
                 if (preUnit.equalsIgnoreCase(unitDBBean.getAfterUnit())) {
                     return new String[]{numericalValue, unitDBBean.getAfterUnit()};
                 }
-                if (preUnit.equalsIgnoreCase("K")) {//开氏度
+                if (preUnit.equalsIgnoreCase("K")) {// 开氏度
                     try {
                         return new String[]{String.valueOf(getResult(Double.parseDouble(numericalValue) - 273.15)), unitDBBean.getAfterUnit()};
                     } catch (NumberFormatException e) {
                         e.printStackTrace();
                         return new String[]{numericalValue, unitDBBean.getAfterUnit()};
                     }
-                } else if (preUnit.equals("deg.F")) {//华氏度
+                } else if (preUnit.equals("deg.F")) {// 华氏度
                     try {
                         return new String[]{String.valueOf(getResult((Double.parseDouble(numericalValue) - 32) / 1.8)), "°C"};
                     } catch (Exception e) {
@@ -132,18 +125,18 @@ public class UnitUtils {
                     }
                 }
                 return new String[]{String.valueOf(getResult(Double.parseDouble(numericalValue) * Double.parseDouble(unitDBBean.getCalcFactor()))), unitDBBean.getAfterUnit()};
-            } else {//当前英制
+            } else {// 当前英制
                 if (preUnit.equalsIgnoreCase(unitDBBean.getAfterUnit())) {
                     return new String[]{numericalValue, unitDBBean.getAfterUnit()};
                 }
-                if (preUnit.equalsIgnoreCase("K")) {//开氏度
+                if (preUnit.equalsIgnoreCase("K")) {// 开氏度
                     try {
                         return new String[]{String.valueOf(getResult(32 + (Double.parseDouble(numericalValue) - 273.15) * 1.8)), unitDBBean.getAfterUnit()};
                     } catch (Exception e) {
                         e.printStackTrace();
                         return new String[]{numericalValue, unitDBBean.getAfterUnit()};
                     }
-                } else if (preUnit.equalsIgnoreCase("deg.C")) {//华氏度
+                } else if (preUnit.equalsIgnoreCase("deg.C")) {// 华氏度
                     try {
                         return new String[]{String.valueOf(getResult(32 + Double.parseDouble(numericalValue) * 1.8)), "°F"};
                     } catch (Exception e) {
@@ -183,7 +176,7 @@ public class UnitUtils {
      * @return String
      */
     public static String getDecimalFormatByDouble(double score) {
-        //不足两位则补0
+        // 不足两位则补0
         DecimalFormat decimalFormat = new DecimalFormat("0.00#");
         return decimalFormat.format(score);
     }

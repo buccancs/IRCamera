@@ -4,6 +4,11 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.*
 
+/**
+ * NumberTools represents a numbertools component.
+ * 
+ * This class provides functionality for numbertools operations.
+ */
 object NumberTools {
     /**
      * 精确小数点后一位

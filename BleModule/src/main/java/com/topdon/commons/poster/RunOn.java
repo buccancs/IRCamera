@@ -11,7 +11,12 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD})
-public @interface RunOn {
+public @/**
+ * RunOn class.
+ * 
+ * Provides runon functionality.
+ */
+interface RunOn {
     /**
      * 运行线程
      */

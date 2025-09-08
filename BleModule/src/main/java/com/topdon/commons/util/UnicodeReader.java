@@ -7,8 +7,9 @@ import java.io.PushbackInputStream;
 import java.io.Reader;
 
 /**
- * Generic unicode textreader, which will use BOM mark to identify the encoding
- * to be used. If BOM is not found then use a given default or system encoding.
+ * UnicodeReader class.
+ * 
+ * Provides functionality for unicodereader operations.
  */
 public class UnicodeReader extends Reader {
     PushbackInputStream internalIn;
@@ -90,12 +91,24 @@ public class UnicodeReader extends Reader {
         }
     }
 
-    public void close() throws IOException {
+    /**
+ * Close operation.
+ *
+
+ */
+public void close() throws IOException {
         init();
         internalIn2.close();
     }
 
-    public int read(char[] cbuf, int off, int len) throws IOException {
+    /**
+ * Read operation.
+ * * @param cbuf the cbuf parameter
+ * @param off the off parameter
+ * @param len the len parameter
+ * @return the result
+ */
+public int read(char[] cbuf, int off, int len) throws IOException {
         init();
         return internalIn2.read(cbuf, off, len);
     }

@@ -8,16 +8,16 @@ import android.widget.FrameLayout
 import com.topdon.menu.databinding.ViewMenuFirstTabBinding
 
 /**
- * 热成像页面所用底部菜单栏.
+ * MenuFirstTabView represents the bottom menu bar for thermal imaging pages.
  *
- * 共有两种模式：
- * - 测温模式：拍照、点线面、双光、伪彩、设置、高低温档
- * - 观测模式：拍照、高低温源、伪彩、标靶、高低温点、设置
+ * This view supports two operating modes:
+ * - Temperature measurement mode: Photo capture, Point/Line/Area, Dual light, Pseudo color, Settings, High/Low temperature range
+ * - Observation mode: Photo capture, High/Low temperature source, Pseudo color, Target, High/Low temperature points, Settings
  */
 class MenuFirstTabView : FrameLayout, View.OnClickListener {
 
     /**
-     * 当前选中那个 tab，取值 `[0,5]`
+     * Currently selected tab index, range `[0,5]`.
      */
     var selectPosition = -1
         set(value) {
@@ -33,7 +33,7 @@ class MenuFirstTabView : FrameLayout, View.OnClickListener {
         }
 
     /**
-     * 是否观测模式，观测模式的图标不同.
+     * Whether observation mode is enabled. Icons are different in observation mode.
      */
     var isObserveMode = false
         set(value) {
@@ -48,9 +48,10 @@ class MenuFirstTabView : FrameLayout, View.OnClickListener {
             }
         }
 
+    /** Tab click listener callback. */
     var onTabClickListener: ((v: MenuFirstTabView) -> Unit)? = null
 
-
+    /** View binding for the menu layout. */
 
     private lateinit var binding: ViewMenuFirstTabBinding
 

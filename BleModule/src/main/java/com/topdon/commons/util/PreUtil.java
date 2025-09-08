@@ -13,6 +13,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Set;
 
+/**
+ * PreUtil class.
+ * 
+ * Provides functionality for preutil operations.
+ */
 public class PreUtil {
     private WeakReference<Context> mContext;
     private SharedPreferences preferences;
@@ -71,7 +76,13 @@ public class PreUtil {
         return instance;
     }
 
-    public void put(String key, boolean value) {
+    /**
+ * Put operation.
+ * * @param key the key parameter
+ * @param value the value parameter
+
+ */
+public void put(String key, boolean value) {
         Editor edit = preferences.edit();
         if (edit != null) {
             if (!TextUtils.isEmpty(key)) {
@@ -82,7 +93,13 @@ public class PreUtil {
         }
     }
 
-    public void put(String key, String value) {
+    /**
+ * Put operation.
+ * * @param key the key parameter
+ * @param value the value parameter
+
+ */
+public void put(String key, String value) {
         Editor edit = preferences.edit();
         if (edit != null) {
             if (!TextUtils.isEmpty(key)) {
@@ -93,7 +110,13 @@ public class PreUtil {
         }
     }
 
-    public void put(String key, int value) {
+    /**
+ * Put operation.
+ * * @param key the key parameter
+ * @param value the value parameter
+
+ */
+public void put(String key, int value) {
         Editor edit = preferences.edit();
         if (edit != null) {
             if (!TextUtils.isEmpty(key)) {
@@ -104,7 +127,13 @@ public class PreUtil {
         }
     }
 
-    public void put(String key, float value) {
+    /**
+ * Put operation.
+ * * @param key the key parameter
+ * @param value the value parameter
+
+ */
+public void put(String key, float value) {
         Editor edit = preferences.edit();
         if (edit != null) {
             if (!TextUtils.isEmpty(key)) {
@@ -115,7 +144,13 @@ public class PreUtil {
         }
     }
 
-    public void put(String key, long value) {
+    /**
+ * Put operation.
+ * * @param key the key parameter
+ * @param value the value parameter
+
+ */
+public void put(String key, long value) {
         Editor edit = preferences.edit();
         if (edit != null) {
             if (!TextUtils.isEmpty(key)) {
@@ -126,7 +161,13 @@ public class PreUtil {
         }
     }
 
-    public void put(String key, Set<String> value) {
+    /**
+ * Put operation.
+ * * @param key the key parameter
+ * @param value the value parameter
+
+ */
+public void put(String key, Set<String> value) {
         Editor edit = preferences.edit();
         if (edit != null) {
             if (!TextUtils.isEmpty(key)) {
@@ -227,7 +268,13 @@ public class PreUtil {
     }
 
     @SuppressLint("CommitPrefEdits")
-    public void put(String key, Object defaultObj) {
+    /**
+ * Put operation.
+ * * @param key the key parameter
+ * @param defaultObj the defaultObj parameter
+
+ */
+public void put(String key, Object defaultObj) {
         if (defaultObj instanceof String) {
             preferences.edit().putString(key, (String) defaultObj);
         } else if (defaultObj instanceof Integer) {
@@ -286,7 +333,12 @@ public class PreUtil {
         return obj;
     }
 
-    public void clearAll() {
+    /**
+ * Clearall operation.
+ *
+
+ */
+public void clearAll() {
         try {
             String fileName = SHARE_NAME + ".xml";
             StringBuilder path = new StringBuilder(DATA_URL).append(mContext.get().getPackageName()).append(SHARED_PREFS);

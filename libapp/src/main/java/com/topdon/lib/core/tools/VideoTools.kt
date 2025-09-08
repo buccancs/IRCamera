@@ -2,6 +2,11 @@ package com.topdon.lib.core.tools
 
 import android.media.MediaMetadataRetriever
 
+/**
+ * VideoTools represents a videotools component.
+ * 
+ * This class provides functionality for videotools operations.
+ */
 object VideoTools {
     // 获取视频时长
     fun getLocalVideoDuration(videoPath: String): Long {

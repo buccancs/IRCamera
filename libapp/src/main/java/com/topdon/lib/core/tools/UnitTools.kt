@@ -3,6 +3,11 @@ package com.topdon.lib.core.tools
 import com.topdon.lib.core.common.SharedManager
 import java.util.*
 
+/**
+ * UnitTools represents a unittools component.
+ * 
+ * This class provides functionality for unittools operations.
+ */
 object UnitTools {
     /**
      * 温度显示

@@ -12,6 +12,11 @@ import com.topdon.lib.core.R
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lms.sdk.weiget.TToast
 
+/**
+ * PermissionTool represents a permissiontool component.
+ * 
+ * This class provides functionality for permissiontool operations.
+ */
 object PermissionTool {
     /**
      * 请求 RECORD_AUDIO 权限.
@@ -57,7 +62,12 @@ object PermissionTool {
         callback: () -> Unit,
     ) = request(context, Type.FILE, callback)
 
-    private enum class Type { RECORD_AUDIO, CAMERA, LOCATION, IMAGE, FILE }
+    private enum /**
+ * Type represents a type component.
+ * 
+ * This class provides functionality for type operations.
+ */
+class Type { RECORD_AUDIO, CAMERA, LOCATION, IMAGE, FILE }
 
     private fun request(
         context: Context,
@@ -194,7 +204,7 @@ object PermissionTool {
                                     isLocationNever = true
                                 }
                             }
-                            // 如果是被永久拒绝就跳转到应用权限系统设置页面
+                            // 如果是被永久拒绝就跳转到应用权限系统Settings页面
                             TipDialog.Builder(context)
                                 .setTitleMessage(context.getString(R.string.app_tip))
                                 .setMessage(
@@ -217,7 +227,12 @@ object PermissionTool {
             )
     }
 
-    interface Callback {
+    /**
+ * Callback represents a callback component.
+ * 
+ * This class provides functionality for callback operations.
+ */
+interface Callback {
         /**
          * 未被永久拒绝时，全部授予 或 有部分未授予 回调.
          */

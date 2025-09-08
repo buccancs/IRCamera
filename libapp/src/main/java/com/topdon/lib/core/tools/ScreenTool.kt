@@ -7,6 +7,11 @@ import com.topdon.lib.core.utils.ScreenUtil
 import kotlin.math.pow
 import kotlin.math.sqrt
 
+/**
+ * ScreenTool represents a screentool component.
+ * 
+ * This class provides functionality for screentool operations.
+ */
 object ScreenTool {
     /**
      * 折叠屏

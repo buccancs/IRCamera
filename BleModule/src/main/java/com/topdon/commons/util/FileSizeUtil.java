@@ -10,19 +10,15 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 /**
- * @Desc 文件大小工具类
- * @ClassName FileSizeUtil
- * @Email 616862466@qq.com
- * @Author 子墨
- * @Date 2022/12/14 18:40
+ * FileSizeUtil class.
+ * 
+ * Provides functionality for filesizeutil operations.
  */
-
 public class FileSizeUtil {
-    public static final int SIZETYPE_B = 1;//获取文件大小单位为B的double值
-    public static final int SIZETYPE_KB = 2;//获取文件大小单位为KB的double值
-    public static final int SIZETYPE_MB = 3;//获取文件大小单位为MB的double值
-    public static final int SIZETYPE_GB = 4;//获取文件大小单位为GB的double值
-
+    public static final int SIZETYPE_B = 1;// 获取文件大小单位为B的double值
+    public static final int SIZETYPE_KB = 2;// 获取文件大小单位为KB的double值
+    public static final int SIZETYPE_MB = 3;// 获取文件大小单位为MB的double值
+    public static final int SIZETYPE_GB = 4;// 获取文件大小单位为GB的double值
 
     public static double getFileOrFilesSize(String filePath, int sizeType) {
         File file = new File(filePath);
@@ -104,7 +100,6 @@ public class FileSizeUtil {
         }
         return FormetFileSize(blockSize, sizeType) + getUnit(sizeType);
     }
-
 
     /**
      * 调用此方法自动计算指定文件或指定文件夹的大小
@@ -231,7 +226,6 @@ public class FileSizeUtil {
         }
         return fileSizeLong;
     }
-
 
     /**
      * 获取文件大小

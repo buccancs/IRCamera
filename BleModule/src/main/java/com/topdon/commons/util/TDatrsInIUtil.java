@@ -17,6 +17,11 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * TDatrsInIUtil class.
+ * 
+ * Provides functionality for tdatrsiniutil operations.
+ */
 public class TDatrsInIUtil {
 
     public static String getTdartsVersion(String path) {
@@ -90,7 +95,6 @@ public class TDatrsInIUtil {
             return hashMap;
         }
     }
-
 
     public static String getBinPath(int data) {
         String path = FolderUtil.getTdartsUpgradePath();
