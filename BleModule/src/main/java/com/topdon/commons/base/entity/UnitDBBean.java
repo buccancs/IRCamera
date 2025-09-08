@@ -3,34 +3,35 @@ package com.topdon.commons.base.entity;
 import java.io.Serializable;
 
 /**
- * @Desc 单位转换
- * @ClassName UnitDBBean
- * @Email 616862466@qq.com
- * @Author 子墨
- * @Date 2022/12/21 15:38
+ * Unit conversion data bean for metric/imperial system conversions.
+ * 
+ * @author 子墨
+ * @since 2022/12/21 15:38
+ * @version 1.0
  */
 public class UnitDBBean implements Serializable {
+//    Example JSON structure:
 //    {
-//        "转换关系": "公转英",
-//            "转换前单位": "m",
-//            "转换前中文名称": "米",
-//            "转换后单位": "yd.",
-//            "转换后中文名称": "码",
-//            "转换公式": "1 米 = 1.094码",
-//            "计算因子": "1.094"
-//    },
+//        "conversionRelation": "metric_to_imperial",
+//        "preUnit": "m",
+//        "preName": "meter",
+//        "afterUnit": "yd.",
+//        "afterName": "yard",
+//        "conversionFormula": "1 meter = 1.094 yards",
+//        "calcFactor": "1.094"
+//    }
 
     private static final long serialVersionUID = -1L;
     public Long dbid;
-    String LoginName;//登录账号
-    int unitType;//0 公制类型  1 英制类型
-    String conversionRelation;//转换关系
-    String preUnit;//转换前单位
-    String preName;//转换前中文名称
-    String afterUnit;//转换后单位
-    String afterName;//转换后中文名称
-    String conversionFormula;//转换公式
-    String calcFactor;//计算因子
+    String LoginName; // Login account name
+    int unitType; // 0: metric system, 1: imperial system
+    String conversionRelation; // Conversion relationship
+    String preUnit; // Source unit
+    String preName; // Source unit display name
+    String afterUnit; // Target unit
+    String afterName; // Target unit display name
+    String conversionFormula; // Conversion formula
+    String calcFactor; // Calculation factor
 
 
     public Long getDbid() {

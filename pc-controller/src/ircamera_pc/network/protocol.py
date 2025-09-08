@@ -199,7 +199,9 @@ class ProtocolManager:
 
     def _add_common_fields(self, schema: Dict[str, Any]) -> Dict[str, Any]:
         """Add common fields to message schema."""
-        common_fields = self._protocol_def.get("common_fields", {})
+        common_fields = (
+            self._protocol_def.get("common_fields", {}) if self._protocol_def else {}
+        )
 
         # Make a copy of the schema
         complete_schema = json.loads(json.dumps(schema))
@@ -246,8 +248,12 @@ class ProtocolManager:
 
             # Check timestamp is not too far in the future or past
             now = datetime.now(timezone.utc)
-            tolerance_ms = self._protocol_def.get("validation", {}).get(
-                "timestamp_tolerance_ms", 5000
+            tolerance_ms = (
+                self._protocol_def.get("validation", {}).get(
+                    "timestamp_tolerance_ms", 5000
+                )
+                if self._protocol_def
+                else 5000
             )
             tolerance = abs((timestamp - now).total_seconds() * 1000)
 
@@ -257,7 +263,7 @@ class ProtocolManager:
         except ValueError as e:
             raise ValidationError(f"Invalid timestamp format: {e}")
 
-    def create_message(self, message_type: str, **kwargs) -> Dict[str, Any]:
+    def create_message(self, message_type: str, **kwargs: Any) -> Dict[str, Any]:
         """
         Create a message of the specified type.
 
@@ -291,11 +297,11 @@ class ProtocolManager:
 
     def get_transport_config(self) -> Dict[str, Any]:
         """Get transport configuration from protocol."""
-        return self._protocol_def.get("transport", {})
+        return self._protocol_def.get("transport", {}) if self._protocol_def else {}
 
     def get_validation_config(self) -> Dict[str, Any]:
         """Get validation configuration from protocol."""
-        return self._protocol_def.get("validation", {})
+        return self._protocol_def.get("validation", {}) if self._protocol_def else {}
 
     def reload_protocol(self) -> None:
         """Reload protocol definition from file."""
@@ -322,6 +328,6 @@ def validate_message(message: Dict[str, Any], strict: bool = True) -> bool:
     return get_protocol_manager().validate_message(message, strict)
 
 
-def create_message(message_type: str, **kwargs) -> Dict[str, Any]:
+def create_message(message_type: str, **kwargs: Any) -> Dict[str, Any]:
     """Create a message using the global protocol manager."""
     return get_protocol_manager().create_message(message_type, **kwargs)

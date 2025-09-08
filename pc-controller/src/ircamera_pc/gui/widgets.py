@@ -9,6 +9,8 @@ integration.
 # Placeholder for widgets.py - GUI functionality temporarily disabled
 # This file has been simplified due to complex syntax issues in the original
 
+from typing import Any, List
+
 from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtWidgets import QLabel, QWidget
 
@@ -16,18 +18,19 @@ from PyQt6.QtWidgets import QLabel, QWidget
 class DeviceListWidget(QWidget):
     """Simple placeholder device list widget."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self._label = QLabel("Device list temporarily unavailable - GUI under repair")
 
-    def update_devices(self, devices):
+    def update_devices(self, devices: List[Any]) -> None:
         """Update device list - placeholder implementation."""
+        pass
 
 
 class SessionControlWidget(QWidget):
     """Simple placeholder session control widget."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self._label = QLabel(
             "Session control temporarily unavailable - GUI under repair"
@@ -37,7 +40,7 @@ class SessionControlWidget(QWidget):
 class StatusDisplayWidget(QWidget):
     """Simple placeholder status display widget."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self._label = QLabel(
             "Status display temporarily unavailable - GUI under repair"
@@ -47,7 +50,7 @@ class StatusDisplayWidget(QWidget):
 class BluetoothControlWidget(QWidget):
     """Simple placeholder Bluetooth control widget."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self._label = QLabel(
             "Bluetooth control temporarily unavailable - GUI under repair"
@@ -57,7 +60,7 @@ class BluetoothControlWidget(QWidget):
 class WiFiControlWidget(QWidget):
     """Simple placeholder WiFi control widget."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self._label = QLabel("WiFi control temporarily unavailable - GUI under repair")
 
@@ -67,7 +70,7 @@ class SystemIntegrationWidget(QWidget):
 
     elevation_requested = pyqtSignal(str)
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self._label = QLabel(
             "System integration temporarily unavailable - GUI under repair"

@@ -30,10 +30,12 @@ from ..core.session import SessionManager, SessionState
 from ..core.timesync import TimeSyncService
 from ..network.server import DeviceInfo, NetworkServer
 from .widgets import (
+    BluetoothControlWidget,
     DeviceListWidget,
     SessionControlWidget,
     StatusDisplayWidget,
     SystemIntegrationWidget,
+    WiFiControlWidget,
 )
 
 
@@ -102,9 +104,9 @@ class MainWindow(QMainWindow):
         self.log_display: Optional[QTextEdit] = None
 
         # New GUI components for system integration
-        self.bluetooth_control_widget = None
-        self.wifi_control_widget = None
-        self.system_integration_widget = None
+        self.bluetooth_control_widget: Optional[BluetoothControlWidget] = None
+        self.wifi_control_widget: Optional[WiFiControlWidget] = None
+        self.system_integration_widget: Optional[SystemIntegrationWidget] = None
 
         # State tracking
         self._current_session_id: Optional[str] = None
@@ -443,9 +445,10 @@ class MainWindow(QMainWindow):
             connected_devices = self.network_server.get_connected_devices()
             self.devices_label.setText(f"Devices: {len(connected_devices)}")
 
-            # Update device list
+            # Update device list - convert dict to list for widget
             if self.device_list_widget:
-                self.device_list_widget.update_devices(connected_devices)
+                device_list = list(connected_devices.values())
+                self.device_list_widget.update_devices(device_list)
 
             # Update status display
             if self.status_display_widget:
