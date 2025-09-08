@@ -484,8 +484,8 @@
     <string name="dual_light_correction_tips_2">1. Let a heat source (such as your palm) stay in the image with a distance of about 0.5 meter from the camera. \n2. Tap to take a photo.</string>
     <string name="dual_light_correction_tips_3">1. Drag the images to align them. \n2. Scroll the progress bar to adjust the angle for alignment. \n3. Press the OK button to complete correction.</string>
 
-    <string name="dual_menu_1">Dual Light1</string>
-    <string name="dual_menu_2">Dual Light2</string>
+    <string name="dual_menu_1">Dual Light</string>
+    <string name="dual_menu_2">Dual Light 2</string>
 
     <string name="menu_thermal_visible_light">Visible Light</string>
     <string name="menu_thermal_imaging">Infrared</string>
@@ -761,7 +761,7 @@
     <string name="detect_dir9_item5">Exhaust Systems</string>
     <string name="detect_dir10_root">Fireplaces and Fuel-Burning Appliances</string>
     <string name="detect_dir10_item2">Fireplaces, Stoves &amp; Inserts</string>
-    <string name="detect_dir10_item3">Fuel-buring Accessories</string>
+    <string name="detect_dir10_item3">Fuel-burning Accessories</string>
     <string name="detect_dir10_item4">Chimney &amp; Vent Systems</string>
     <string name="detect_dir11_root">Laundry</string>
     <string name="app_rename">Rename</string>
