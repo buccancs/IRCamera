@@ -14,7 +14,7 @@ buildscript {
         maven { url = uri("https://maven.aliyun.com/repository/central") }
         maven { url = uri("https://maven.aliyun.com/repository/public") }
         maven { url = uri("https://maven.aliyun.com/repository/google") }
-    // }
+    }
     dependencies {
         classpath(libs.android.gradle.plugin)
         classpath(libs.kotlin.gradle.plugin)
@@ -22,7 +22,7 @@ buildscript {
         // in the individual module build.gradle files
         // HMS configuration for Huawei services
         classpath(libs.huawei.agconnect)
-    // }
+    }
 }
 
 tasks.register<Delete>("clean") {

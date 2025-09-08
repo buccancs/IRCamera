@@ -11,7 +11,7 @@ kapt {
         arg("room.schemaLocation", "$projectDir/schemas")
         arg("room.incremental", "true")
         arg("room.expandProjection", "true")
-    // }
+    }
     // Enable Kotlin 2.1.0 compatibility
     correctErrorTypes = true
     useBuildCache = true
