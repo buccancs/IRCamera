@@ -7,86 +7,77 @@ to eliminate code duplication and ensure consistent behavior.
 
 import logging
 from abc import ABC, abstractmethod
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 
 try:
     from abc import ABCMeta
-
     from PyQt6.QtCore import QObject as QtQObject
     from PyQt6.QtCore import pyqtSignal
 
     PYQT_AVAILABLE = True
 
+    # Create a hybrid metaclass that combines QObject and ABC metaclasses
     class QObjectMeta(type(QtQObject), ABCMeta):
         """Metaclass to resolve conflict between QObject and ABC"""
-
-    class BaseManager(QtQObject, ABC, metaclass=QObjectMeta):
-        """
-        Unified base manager class for all IRCamera PC Controller components.
-
-        Provides common functionality including:
-        - Logging setup
-        - State management
-        - Error handling patterns
-        - PyQt6 signal support
-        """
-
-        # Common signals
-        status_changed = pyqtSignal(str, dict)  # status_name, details
-        error_occurred = pyqtSignal(str, str)  # error_type, message
-        operation_completed = pyqtSignal(str, bool, str)  # operation,
-        # success, message
-
-        def __init__(self, name: str, parent: Optional[QtQObject] = None):
-            super().__init__(parent)
-            self._setup_base_manager(name)
-
-        def _setup_base_manager(self, name: str):
-            """Common setup for both PyQt and non-PyQt versions"""
-            self._name = name
-            self._logger = logging.getLogger(f"ircamera_pc.{name.lower()}")
-            self._is_initialized = False
-            self._state: Dict[str, Any] = {}
-            self._last_error: Optional[str] = None
+        pass
 
 except ImportError:
     PYQT_AVAILABLE = False
 
-    def pyqtSignal(*args, **kwargs):  # type: ignore
+    # Mock classes and functions for when PyQt6 is not available
+    class QtQObject:
+        """Mock QObject when PyQt6 is not available"""
+        def __init__(self, parent: Optional[Any] = None) -> None:
+            self.parent = parent
+
+    class QObjectMeta(ABCMeta):
+        """Fallback metaclass when PyQt6 is not available"""
+        pass
+
+    def pyqtSignal(*args: Any, **kwargs: Any) -> Any:
         """Mock pyqtSignal decorator"""
-
-        def decorator(func):  # type: ignore
+        def decorator(func: Any) -> Any:
             return func
-
         return decorator
 
-    class BaseManager(ABC):
-        """
-        Unified base manager class for all IRCamera PC Controller components.
 
-        Provides common functionality including:
-        - Logging setup
-        - State management
-        - Error handling patterns
-        - No PyQt6 dependencies
-        """
+class BaseManager(QtQObject, ABC, metaclass=QObjectMeta):
+    """
+    Unified base manager class for all IRCamera PC Controller components.
 
-        # Mock signals
+    Provides common functionality including:
+    - Logging setup
+    - State management
+    - Error handling patterns
+    - Optional PyQt6 signal support
+    """
+
+    if PYQT_AVAILABLE:
+        # Real PyQt6 signals
+        status_changed = pyqtSignal(str, dict)  # status_name, details
+        error_occurred = pyqtSignal(str, str)  # error_type, message
+        operation_completed = pyqtSignal(str, bool, str)  # operation, success, message
+    else:
+        # Mock signals when PyQt6 is not available
         status_changed = None
         error_occurred = None
         operation_completed = None
 
-        def __init__(self, name: str, parent: Optional[Any] = None):
-            self.parent = parent
-            self._setup_base_manager(name)
+    def __init__(self, name: str, parent: Optional[Union[QtQObject, Any]] = None) -> None:
+        if PYQT_AVAILABLE:
+            super().__init__(parent)
+        else:
+            # Initialize without PyQt6 when not available
+            pass
+        self._setup_base_manager(name)
 
-        def _setup_base_manager(self, name: str) -> None:
-            """Common setup for both PyQt and non-PyQt versions"""
-            self._name = name
-            self._logger = logging.getLogger(f"ircamera_pc.{name.lower()}")
-            self._is_initialized = False
-            self._state: Dict[str, Any] = {}
-            self._last_error: Optional[str] = None
+    def _setup_base_manager(self, name: str) -> None:
+        """Common setup for both PyQt and non-PyQt versions"""
+        self._name = name
+        self._logger = logging.getLogger(f"ircamera_pc.{name.lower()}")
+        self._is_initialized = False
+        self._state: Dict[str, Any] = {}
+        self._last_error: Optional[str] = None
 
     @property
     def name(self) -> str:
@@ -119,97 +110,39 @@ except ImportError:
         Initialize the manager.
 
         Returns:
-            True if initialization successful, False otherwise
+            bool: True if initialization successful, False otherwise
         """
+        pass
 
     @abstractmethod
     async def cleanup(self) -> None:
         """Clean up manager resources."""
+        pass
 
-    def _set_state(self, key: str, value: Any) -> None:
-        """
-        Set state value and emit signal if available.
-
-        Args:
-            key: State key
-            value: State value
-        """
-        old_value = self._state.get(key)
+    def set_state(self, key: str, value: Any) -> None:
+        """Set a state value."""
         self._state[key] = value
+        if PYQT_AVAILABLE and self.status_changed is not None:
+            self.status_changed.emit("state_updated", {key: value})
 
-        if old_value != value and PYQT_AVAILABLE:
-            self.status_changed.emit(key, {key: value})
+    def get_state(self, key: str, default: Any = None) -> Any:
+        """Get a state value."""
+        return self._state.get(key, default)
 
-    def _handle_error(
-        self,
-        error_type: str,
-        message: str,
-        exception: Optional[Exception] = None,
-    ) -> None:
-        """
-        Handle error with logging and signal emission.
-
-        Args:
-            error_type: Type of error
-            message: Error message
-            exception: Optional exception instance
-        """
+    def log_error(self, error_type: str, message: str, exc_info: bool = False) -> None:
+        """Log an error and emit error signal."""
         self._last_error = message
-
-        if exception:
-            self._logger.error(f"{error_type}: {message}", exc_info=exception)
-        else:
-            self._logger.error(f"{error_type}: {message}")
-
-        if PYQT_AVAILABLE:
+        self.logger.error(f"{error_type}: {message}", exc_info=exc_info)
+        if PYQT_AVAILABLE and self.error_occurred is not None:
             self.error_occurred.emit(error_type, message)
 
-    def _emit_operation_result(
-        self, operation: str, success: bool, message: str = ""
-    ) -> None:
-        """
-        Emit operation completion signal.
+    def log_info(self, message: str) -> None:
+        """Log an info message."""
+        self.logger.info(message)
 
-        Args:
-            operation: Operation name
-            success: Success status
-            message: Optional result message
-        """
-        if success:
-            self._logger.info(
-                f"Operation '{operation}' completed successfully: {message}"
-            )
-        else:
-            self._logger.warning(f"Operation '{operation}' failed: {message}")
-
-        if PYQT_AVAILABLE:
-            self.operation_completed.emit(operation, success, message)
-
-    def _validate_state(self, required_keys: list) -> bool:
-        """
-        Validate that required state keys are present.
-
-        Args:
-            required_keys: List of required state keys
-
-        Returns:
-            True if all required keys present, False otherwise
-        """
-        missing_keys = [key for key in required_keys if key not in self._state]
-        if missing_keys:
-            self._handle_error(
-                "STATE_VALIDATION",
-                f"Missing required state keys: {missing_keys}",
-            )
-            return False
-        return True
-
-    def reset_state(self) -> None:
-        """Reset manager state."""
-        self._state.clear()
-        self._last_error = None
-        self._is_initialized = False
-        self._logger.info(f"Manager '{self._name}' state reset")
+    def log_debug(self, message: str) -> None:
+        """Log a debug message."""
+        self.logger.debug(message)
 
 
 class AsyncContextManager(BaseManager):
@@ -217,14 +150,14 @@ class AsyncContextManager(BaseManager):
     Base manager with async context manager support.
     """
 
-    async def __aenter__(self):
+    async def __aenter__(self) -> "AsyncContextManager":
         """Async context manager entry."""
         if await self.initialize():
             return self
         else:
             raise RuntimeError(f"Failed to initialize {self._name}")
 
-    async def __aexit__(self, exc_type, exc_val, exc_tb):
+    async def __aexit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
         """Async context manager exit."""
         await self.cleanup()
 
@@ -236,7 +169,7 @@ class SingletonManager(BaseManager):
 
     _instances: Dict[str, "SingletonManager"] = {}
 
-    def __new__(cls, name: str, parent: Optional[Any] = None):
+    def __new__(cls, name: str, parent: Optional[Any] = None) -> "SingletonManager":
         """Ensure singleton instance per name."""
         if name not in cls._instances:
             instance = super().__new__(cls)
@@ -252,3 +185,6 @@ class SingletonManager(BaseManager):
     def clear_instances(cls) -> None:
         """Clear all singleton instances (mainly for testing)."""
         cls._instances.clear()
+
+
+__all__ = ["BaseManager", "AsyncContextManager", "SingletonManager", "PYQT_AVAILABLE"]

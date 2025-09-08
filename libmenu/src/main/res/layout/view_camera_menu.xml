@@ -11,7 +11,7 @@
         tools:background="#16131e">
 
         <!-- Comment -->
-        <androidx:viewpager2=widget.ViewPager2
+        <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/view_pager2"
             android:layout_width="0dp"
             android:layout_height="0dp"
