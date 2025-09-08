@@ -30,7 +30,7 @@ public final class WriteCharacteristicBuilder extends RequestBuilder<WriteCharac
     }
 
         /**
-     * Settings此次请求的写入Settings
+     * Settings[Chinese text]Settings
      */
     public WriteCharacteristicBuilder setWriteOptions(WriteOptions writeOptions) {
         this.writeOptions = writeOptions;

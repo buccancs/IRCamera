@@ -16,19 +16,19 @@ import retrofit2.http.Query
  */
 interface TC007Service {
     /**
-     * 获取产品message
+     * [Chinese text]message
      */
     @GET("/v1/system/product/info/dj")
     suspend fun getProductInfo(): TC007Response<ProductBean>
 
     /**
-     * 获取设备电池message
+     * [Chinese text]message
      */
     @GET("/v1/system/local/battery")
     suspend fun getBatteryInfo(): TC007Response<BatteryInfo>
 
     /**
-     * 同步时间.
+     * [Chinese text].
      */
     @PUT("/v1/system/local/time")
     suspend fun syncTime(
@@ -36,7 +36,7 @@ interface TC007Service {
     ): TC007Response<Any?>
 
     /**
-     * 固件升级-上传固件升级包
+     * [Chinese text]-[Chinese text]
      */
     @Multipart
     @POST("/v1/system/upgrade/package?reset=true")
@@ -49,31 +49,31 @@ interface TC007Service {
     ): TC007Response<Any?>
 
     /**
-     * 查询固件升级状态.
+     * [Chinese text].
      */
     @GET("/v1/system/upgrade/status")
     suspend fun getUpgradeStatus(): TC007Response<TC07UpgradeStatus>
 
     /**
-     * 恢复出厂Settings
+     * [Chinese text]Settings
      */
     @PUT("/v1/system/magic/factory")
     suspend fun resetToFactory(): TC007Response<Boolean>
 
     /**
-     * 执行锅盖标定
+     * [Chinese text]
      */
     @PUT("/v1/camera/videoin/thermal/lid")
     suspend fun correction(): TC007Response<Any?>
 
     /**
-     * 获取测温属性参数
+     * [Chinese text]
      */
     @GET("/v1/thermal/env/attribute?default=false")
     suspend fun getEnvAttr(): TC007Response<EnvAttr>
 
     /**
-     * Settings测温属性参数
+     * Settings[Chinese text]
      */
     @PUT("/v1/thermal/env/attribute?default=false")
     suspend fun setEnvAttr(
@@ -81,7 +81,7 @@ interface TC007Service {
     ): TC007Response<Any?>
 
     /**
-     * Settings温度修正参数
+     * Settingstemperature[Chinese text]
      */
     @PUT("/v1/thermal/env/target")
     suspend fun setIRConfig(
@@ -92,7 +92,7 @@ interface TC007Service {
     suspend fun getTempFrame(): TC007Response<TempFrameParam>
 
     /**
-     * Settings整帧测温（中心点、全图最高温、全图最低温）
+     * Settings[Chinese text](in progress[Chinese text]point, [Chinese text]high[Chinese text], [Chinese text]low[Chinese text])
      */
     @POST("/v1/thermal/temp/frame")
     suspend fun setTempFrame(
@@ -100,7 +100,7 @@ interface TC007Service {
     ): TC007Response<Any?>
 
     /**
-     * Settings测温点
+     * Settings[Chinese text]point
      */
     @POST("/v1/thermal/temp/point")
     suspend fun setTempPoint(
@@ -108,7 +108,7 @@ interface TC007Service {
     ): TC007Response<Any?>
 
     /**
-     * Settings测温线
+     * Settings[Chinese text]line
      */
     @POST("/v1/thermal/temp/line")
     suspend fun setTempLine(
@@ -116,7 +116,7 @@ interface TC007Service {
     ): TC007Response<Any?>
 
     /**
-     * Settings测温面
+     * Settings[Chinese text]
      */
     @POST("/v1/thermal/temp/rectangle")
     suspend fun setTempRect(
@@ -130,8 +130,8 @@ interface TC007Service {
     suspend fun getPhoto(): TC007Response<PhotoBean>
 
     /**
-     * Settings图像模式
-     * 0：红外；1：可见光；2：画中画；3：Dual light融合；4：细节增强
+     * Settings[Chinese text]mode
+     * 0: [Chinese text]; 1: visible[Chinese text]; 2: [Chinese text]in progress[Chinese text]; 3: Dual light[Chinese text]; 4: [Chinese text]
      */
     @PUT("/v1/camera/videoin/mode")
     suspend fun setMode(
@@ -158,7 +158,7 @@ interface TC007Service {
         @Body requestBody: RequestBody,
     ): TC007Response<Any?>
 
-    // Dual light配准
+    // Dual light[Chinese text]
     @GET("/v1/camera/videoin/registration")
     suspend fun getRegistration(
         @Query("chn") mode: Int,
@@ -171,18 +171,18 @@ interface TC007Service {
     ): TC007Response<Any?>
 
     /**
-     * 获取测温属性参数
+     * [Chinese text]
      * chn
      * integer
-     * 视频通道
-     * 可选
-     * 示例值:
+     * [Chinese text]
+     * [Chinese text]
+     * [Chinese text]:
      * 1
      * default
      * string
-     * 可选
-     * true：默认配置；false：当前配置
-     * 示例值:
+     * [Chinese text]
+     * true: [Chinese text]; false: [Chinese text]
+     * [Chinese text]:
      * false
      */
     @GET("/v1/thermal/env/attribute")

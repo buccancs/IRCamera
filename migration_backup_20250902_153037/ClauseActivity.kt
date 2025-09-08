@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 /**
- * 条款
+ * [Chinese text]
  */
 @Route(path = RouterConfig.CLAUSE)
 class ClauseActivity : AppCompatActivity() {
@@ -51,7 +51,7 @@ class ClauseActivity : AppCompatActivity() {
             confirmInitApp()
         }
         clause_disagree_btn.setOnClickListener {
-            //再次弹框确认是否退出
+            //[Chinese text]
             TipDialog.Builder(this)
                 .setMessage(getString(R.string.privacy_tips))
                 .setPositiveListener(R.string.privacy_confirm) {
@@ -68,7 +68,7 @@ class ClauseActivity : AppCompatActivity() {
             if (!NetworkUtil.isConnected(this)) {
                 TToast.shortToast(this, R.string.lms_setting_http_error)
             } else {
-                //服务条款
+                //[Chinese text]
                 ARouter.getInstance()
                     .build(RouterConfig.POLICY)
                     .withInt(PolicyActivity.KEY_THEME_TYPE, 1)
@@ -80,7 +80,7 @@ class ClauseActivity : AppCompatActivity() {
             if (!NetworkUtil.isConnected(this)) {
                 TToast.shortToast(this, R.string.lms_setting_http_error)
             } else {
-                //隐私条款
+                //[Chinese text]
                 ARouter.getInstance()
                     .build(RouterConfig.POLICY)
                     .withInt(PolicyActivity.KEY_THEME_TYPE, 2)
@@ -89,7 +89,7 @@ class ClauseActivity : AppCompatActivity() {
             }
         }
         clause_item3.setOnClickListener {
-            //第三方
+            //[Chinese text]
             if (!NetworkUtil.isConnected(this)) {
                 TToast.shortToast(this, R.string.lms_setting_http_error)
             } else {
@@ -114,10 +114,10 @@ class ClauseActivity : AppCompatActivity() {
     private fun confirmInitApp() {
         lifecycleScope.launch {
             showLoading()
-            //初始化
+            //[Chinese text]
             App.delayInit()
             async(Dispatchers.IO) {
-                //等待1000ms 初始化结束
+                //[Chinese text]1000ms [Chinese text]
                 delay(1000)
                 return@async
             }.await().let {

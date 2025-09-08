@@ -8,22 +8,22 @@ import com.topdon.lib.core.R
 import com.topdon.menu.constant.TempPointType
 
 /**
- * Observation mode-菜单5-High/Low temperature points 菜单所用 Adapter，按旧逻辑存在全部未选择的状态。
+ * Observation mode-menu5-High/Low temperature points menuused by Adapter, [Chinese text]. 
  *
- * - 高温点、低温点 互相独立，可多选
- * - {高温点、低温点} 与 删除 互斥
+ * - high[Chinese text]point, low[Chinese text]point [Chinese text], [Chinese text]
+ * - {high[Chinese text]point, low[Chinese text]point} [Chinese text] [Chinese text] [Chinese text]
  *
  * Created by LCG on 2024/11/28.
  */
 @SuppressLint("NotifyDataSetChanged")
 internal class TempPointAdapter : BaseMenuAdapter() {
     /**
-     * Observation mode-菜单5-High/Low temperature points 点击事件监听.
+     * Observation mode-menu5-High/Low temperature points point[Chinese text]eventlistener.
      */
     var onTempPointListener: ((type: TempPointType, isSelected: Boolean) -> Unit)? = null
 
     /**
-     * Settings 高温点 或 低稳点 的选中状态。
+     * Settings high[Chinese text]point [Chinese text] low[Chinese text]point [Chinese text]in progress[Chinese text]. 
      */
     fun setSelected(tempPointType: TempPointType, isSelected: Boolean) {
         for (i in dataArray.indices) {
@@ -36,8 +36,8 @@ internal class TempPointAdapter : BaseMenuAdapter() {
     }
 
     /**
-     * 清除所有菜单的选中状态。
-     * 这里维持原有逻辑，后续考虑是否直接给选中删除得了。
+     * [Chinese text]menu[Chinese text]in progress[Chinese text]. 
+     * [Chinese text], [Chinese text]in progress[Chinese text]. 
      */
     fun clearAllSelect() {
         for (data in dataArray) {
@@ -60,7 +60,7 @@ internal class TempPointAdapter : BaseMenuAdapter() {
         holder.binding.tvText.isSelected = data.isSelected
         holder.binding.clRoot.setOnClickListener {
             if (data.tempPointType == TempPointType.DELETE) {
-                if (!data.isSelected) {// 选中时再次删除没卵用，未选中时才处理
+                if (!data.isSelected) {// [Chinese text]in progress[Chinese text], [Chinese text]in progress[Chinese text]
                     for (temp in dataArray) {
                         temp.isSelected = temp.tempPointType == TempPointType.DELETE
                     }
@@ -71,7 +71,7 @@ internal class TempPointAdapter : BaseMenuAdapter() {
                 data.isSelected = !data.isSelected
                 holder.binding.ivIcon.isSelected = data.isSelected
                 holder.binding.tvText.isSelected = data.isSelected
-                if (data.isSelected) {// 选中高温点、低温点时要把“删除”设为未选中；取消选中时不耦合删除
+                if (data.isSelected) {// [Chinese text]in progresshigh[Chinese text]point, low[Chinese text]point[Chinese text]"[Chinese text]"[Chinese text]in progress; [Chinese text]in progress[Chinese text]
                     for (i in dataArray.indices) {
                         if (dataArray[i].tempPointType == TempPointType.DELETE && dataArray[i].isSelected) {
                             dataArray[i].isSelected = false

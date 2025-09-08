@@ -15,7 +15,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 /**
- * 硬编码
+ * [Chinese text]
  * bitmap -> mp4
  */
 class VideoRecordMedia(
@@ -34,7 +34,7 @@ class VideoRecordMedia(
         encoder.setFrameDelay(25)
         width = 480
         height = width * cameraView.height / cameraView.width
-        // 宽高不能出现奇数
+        // [Chinese text]high[Chinese text]
         if (height % 2 == 1) {
             height -= 1
         }
@@ -49,13 +49,13 @@ class VideoRecordMedia(
         }
         encoder.setOutputFilePath(exportedFile.path)
 //        if (bitmap == null) {
-//            Log.w("123", "录制准备失败")
+//            Log.w("123", "[Chinese text]")
 //            return
 //        }
         encoder.setOutputSize(width, height)
         encoder.startEncode()
         isRunning = true
-        // 默认帧率20,间隔50ms一帧
+        // [Chinese text]20,[Chinese text]50ms[Chinese text]
         exportDisposable = Observable.interval(50, TimeUnit.MILLISECONDS)
             .map {
                 createBitmapFromView()
@@ -84,7 +84,7 @@ class VideoRecordMedia(
     private fun createBitmapFromView(): Bitmap {
         var cameraViewBitmap = cameraView.bitmap
         if (temperatureView.temperatureRegionMode != TemperatureView.REGION_MODE_CLEAN) {
-            // 获取温度图层的数据，包括点线框，温度值等，重新合成bitmap
+            // [Chinese text]temperature[Chinese text], [Chinese text]pointline[Chinese text], temperature[Chinese text], [Chinese text]bitmap
             cameraViewBitmap = BitmapUtils.mergeBitmap(
                 cameraViewBitmap,
                 temperatureView.regionAndValueBitmap,

@@ -1,16 +1,16 @@
 # Enterprise Security Guidelines & Implementation
 
-## 🛡️ Enterprise Security Overview
+## [shield] Enterprise Security Overview
 
 The IRCamera platform implements **military-grade comprehensive security measures** to protect thermal imaging data, physiological measurements, system communications, cloud integrations, and enterprise deployments. This document outlines enterprise security architecture, implementation guidelines, compliance frameworks, threat modeling, and production security best practices.
 
-## 🏗️ Enterprise Multi-Layer Security Architecture
+## [construction] Enterprise Multi-Layer Security Architecture
 
-### 🔒 Advanced Enterprise Security Model
+### [lock] Advanced Enterprise Security Model
 
 ```mermaid
 graph TB
-    subgraph "🛡️ Application Security Layer"
+    subgraph "[shield] Application Security Layer"
         Auth[Multi-Factor Authentication<br/>SSO + LDAP + OAuth2]
         Authz[Role-Based Authorization<br/>RBAC + ABAC + JWT]
         Input[Advanced Input Validation<br/>XSS + SQL Injection Protection]
@@ -18,7 +18,7 @@ graph TB
         Session[Session Management<br/>Secure Token Handling]
     end
     
-    subgraph "🔐 Data Security Layer"
+    subgraph "[secure] Data Security Layer"
         Encrypt[AES-256-GCM Encryption<br/>Hardware Security Module]
         Hash[SHA-256 Data Integrity<br/>Digital Signatures]
         Backup[Enterprise Secure Backup<br/>Geo-Redundant Storage]
@@ -26,7 +26,7 @@ graph TB
         KeyMgmt[Enterprise Key Management<br/>Azure Key Vault / AWS KMS]
     end
     
-    subgraph "🌐 Communication Security Layer"
+    subgraph "[globe] Communication Security Layer"
         TLS[TLS 1.3 Encryption<br/>Perfect Forward Secrecy]
         Cert[Enterprise Certificate Management<br/>PKI Infrastructure]
         VPN[Enterprise VPN Support<br/>Zero Trust Architecture]
@@ -34,21 +34,21 @@ graph TB
         Firewall[Advanced Firewall<br/>DPI + IDS/IPS]
     end
     
-    subgraph "☁️ Cloud Security Layer"
+    subgraph "[cloud] Cloud Security Layer"
         CloudAuth[Cloud IAM Integration<br/>AWS/Azure/GCP Security]
         CloudEncrypt[Cloud-Native Encryption<br/>Customer-Managed Keys]
         CloudMonitor[Security Monitoring<br/>SIEM + SOC Integration]
         Compliance[Compliance Framework<br/>SOC2 + HIPAA + GDPR]
     end
     
-    subgraph "🤖 AI/ML Security Layer"
+    subgraph "[robot] AI/ML Security Layer"
         ModelSec[Model Security<br/>Adversarial Protection]
         DataPrivacy[Privacy-Preserving ML<br/>Federated Learning]
         ModelValidation[Model Validation<br/>Security Testing]
         AIGovernance[AI Governance<br/>Ethical AI Framework]
     end
     
-    subgraph "🔍 Monitoring & Incident Response"
+    subgraph "[search] Monitoring & Incident Response"
         Monitor[Real-Time Monitoring<br/>24/7 SOC]
         Audit[Comprehensive Audit Logging<br/>Immutable Logs]
         Incident[Incident Response<br/>Automated Playbooks]
@@ -85,7 +85,7 @@ graph TB
 | **Network Attacks** | Medium | VPN tunneling, certificate pinning |
 | **Data Leakage** | High | Data classification, access controls |
 
-## 🔐 Authentication & Authorization
+## [secure] Authentication & Authorization
 
 ### Android Authentication Implementation
 
@@ -216,7 +216,7 @@ class MFAuthenticator:
         return False
 ```
 
-## 🔒 Data Encryption
+## [lock] Data Encryption
 
 ### Android Data Encryption
 
@@ -394,7 +394,7 @@ class FileSystemEncryption:
         os.remove(file_path)
 ```
 
-## 🌐 Network Security
+## [globe] Network Security
 
 ### Secure Communication Protocol
 
@@ -512,7 +512,7 @@ class MessageSecurity:
         return hmac.compare_digest(received_signature, expected_signature)
 ```
 
-## 🔍 Security Monitoring & Logging
+## [search] Security Monitoring & Logging
 
 ### Security Event Monitoring
 
@@ -606,7 +606,7 @@ class SecurityMonitor:
             self.trigger_incident_response(event)
 ```
 
-## 🚨 Incident Response
+## [alert] Incident Response
 
 ### Automated Security Response
 
@@ -661,7 +661,7 @@ class IncidentResponseSystem:
         self.force_reauthentication()
 ```
 
-## 📋 Security Configuration Checklist
+## [clipboard] Security Configuration Checklist
 
 ### Android Security Checklist
 - [ ] Enable biometric authentication
@@ -699,7 +699,7 @@ class IncidentResponseSystem:
 - [ ] Backup and recovery procedures
 - [ ] Security monitoring and alerting
 
-## 🔐 Security Best Practices
+## [secure] Security Best Practices
 
 ### Development Security Practices
 1. **Secure Coding Standards**: Follow OWASP secure coding guidelines

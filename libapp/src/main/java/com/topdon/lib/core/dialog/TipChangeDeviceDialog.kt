@@ -12,7 +12,7 @@ import com.topdon.lib.core.R
 import com.topdon.lib.core.databinding.DialogTipChangeDeviceBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
-@Deprecated("3.80使用新首页设备列表逻辑，不需要设备切换提示弹框了")
+@Deprecated("3.80[Chinese text], [Chinese text]switch[Chinese text]")
 class TipChangeDeviceDialog : Dialog {
     constructor(context: Context, themeResId: Int) : super(context, themeResId)
 
@@ -80,13 +80,13 @@ class TipChangeDeviceDialog : Dialog {
             val lp = dialog!!.window!!.attributes
             val wRatio =
                 if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    // 竖屏
+                    // [Chinese text]
                     0.85
                 } else {
-                    // 横屏
+                    // [Chinese text]
                     0.35
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // Settings宽度
+            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // Settings[Chinese text]
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceled)

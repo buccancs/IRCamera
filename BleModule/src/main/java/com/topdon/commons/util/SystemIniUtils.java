@@ -20,7 +20,7 @@ public class SystemIniUtils {
     public static int getSystemVersion(String path, String systemName, int systemVersion) {
         File file = new File(path + "/Version.ini");
         if (!file.exists()) {
-            LLog.e("bcf", "  ini不存在：" + file.getPath());
+            LLog.e("bcf", "  ini[Chinese text]: " + file.getPath());
             return -1;
         }
         Config cfg = new Config();

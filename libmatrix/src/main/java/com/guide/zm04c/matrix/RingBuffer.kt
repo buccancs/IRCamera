@@ -4,10 +4,10 @@ class RingBuffer {
 
     private lateinit var byteArray: ByteArray
 
-    // 读取byte数组的位置
+    // [Chinese text]byte[Chinese text]
     private var mReadPositon = 0
 
-    // 未被读取数据的长度
+    // [Chinese text]
     private var mUnReadLength = 0
 
     /**
@@ -113,7 +113,7 @@ class RingBuffer {
         return toRead
     }
 
-    // 向前移动length个字节
+    // [Chinese text]length[Chinese text]
     fun moveForward(length: Int): Int {
         synchronized(this) {
             mReadPositon = (mReadPositon + length) % byteArray.size
@@ -122,7 +122,7 @@ class RingBuffer {
         return length
     }
 
-    // 向后移动length个字节
+    // [Chinese text]length[Chinese text]
     fun moveBack(length: Int): Int {
         synchronized(this) {
             if (mReadPositon > length) {

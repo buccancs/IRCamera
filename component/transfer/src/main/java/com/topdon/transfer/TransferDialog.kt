@@ -12,7 +12,7 @@ import com.topdon.lib.core.R  // Shared resources from libapp
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * 相册迁移进度弹框.
+ * [Chinese text].
  *
  * Created by LCG on 2024/3/26.
  */

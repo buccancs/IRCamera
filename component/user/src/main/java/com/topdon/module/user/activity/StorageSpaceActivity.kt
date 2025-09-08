@@ -86,7 +86,7 @@ class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
             if (freeSpaceBean == null) {
                 TToast.shortToast(this@StorageSpaceActivity, RCore.string.operation_failed_tips)
             } else {
-                TLog.d("ts004", "║ response :$freeSpaceBean")
+                TLog.d("ts004", "|| response :$freeSpaceBean")
 
                 tvProgressValue.text = "${(freeSpaceBean.hasUseSize() * 100.0 / freeSpaceBean.total).toInt().coerceAtLeast(1)}"
 
@@ -113,7 +113,7 @@ class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            tvFormatStorage -> {// 格式化存储
+            tvFormatStorage -> {// [Chinese text]
                 TipDialog.Builder(this@StorageSpaceActivity)
                     .setTitleMessage(getString(RCore.string.more_storage_reset))
                     .setMessage(getString(RCore.string.more_storage_reset1))
@@ -123,7 +123,7 @@ class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
                         lifecycleScope.launch {
                             val isSuccess = TS004Repository.getFormatStorage()
                             if (isSuccess) {
-                                XLog.d("TS004 格式化存储成功，即将断开连接")
+                                XLog.d("TS004 [Chinese text], [Chinese text]")
                                 (application as BaseApplication).disconnectWebSocket()
                                 NavigationManager.getInstance().build(RouterConfig.MAIN).navigation(this@StorageSpaceActivity)
                                 finish()

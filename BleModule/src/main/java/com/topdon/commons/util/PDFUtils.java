@@ -8,8 +8,8 @@ package com.topdon.commons.util;
 public class PDFUtils {
 
     /**
-     * 处理PDF特殊符号打不开的问题
-     * // +，空格，/，?，%，#，&，=
+     * [Chinese text]PDF[Chinese text]
+     * // +, [Chinese text], /, ?, %, #, &, =
      *
      * @param name pdfname
      * @return String

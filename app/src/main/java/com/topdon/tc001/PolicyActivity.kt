@@ -20,9 +20,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
- * 条款 1: 用户条款  2: 隐私条款  3: 第三方
+ * [Chinese text] 1: [Chinese text]  2: [Chinese text]  3: [Chinese text]
  *
- * 服务返回有错误时,加载默认条款
+ * [Chinese text],[Chinese text]
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class PolicyActivity : BaseViewModelActivity<PolicyViewModel>() {
@@ -31,7 +31,7 @@ class PolicyActivity : BaseViewModelActivity<PolicyViewModel>() {
 
     companion object {
         const val KEY_THEME_TYPE = "key_theme_type"
-        const val KEY_USE_TYPE = "key_use_type" // 使用类型 用本地和用网络
+        const val KEY_USE_TYPE = "key_use_type" // [Chinese text] [Chinese text]
     }
 
     private var themeType = 1
@@ -86,7 +86,7 @@ class PolicyActivity : BaseViewModelActivity<PolicyViewModel>() {
     }
 
     /**
-     * 为解决闪缩白屏问题，延时打开webView
+     * [Chinese text], [Chinese text]webView
      */
     private fun delayShowWebView() {
         lifecycleScope.launch(Dispatchers.IO) {
@@ -108,7 +108,7 @@ class PolicyActivity : BaseViewModelActivity<PolicyViewModel>() {
     private fun initWeb(url: String) {
         policyWeb.visibility = View.INVISIBLE
         val webSettings: WebSettings = policyWeb.settings
-        webSettings.javaScriptEnabled = true // Settings支持javascript
+        webSettings.javaScriptEnabled = true // Settings[Chinese text]javascript
 
         policyWeb.webViewClient =
             object : WebViewClient() {
@@ -159,11 +159,11 @@ class PolicyActivity : BaseViewModelActivity<PolicyViewModel>() {
     }
 
     /**
-     * 处理富文本
+     * [Chinese text]
      *
      * @param bodyHTML body
-     * @param fontColor 需要改变的字体颜色
-     * @param backgroundColor 修改字体颜色
+     * @param fontColor [Chinese text]
+     * @param backgroundColor [Chinese text]
      * @return String
      */
     fun getHtmlData(
@@ -182,7 +182,7 @@ class PolicyActivity : BaseViewModelActivity<PolicyViewModel>() {
         text: String,
         requestUrl: String,
     ) {
-        XLog.w("声明接口异常,打开默认链接")
+        XLog.w("[Chinese text],[Chinese text]")
         loadHttp(policyWeb)
         delayShowWebView()
     }
@@ -191,28 +191,28 @@ class PolicyActivity : BaseViewModelActivity<PolicyViewModel>() {
         reloadCount--
         when (themeType) {
             1 -> {
-                // 用户服务协议
+                // [Chinese text]
                 view.loadUrl(
                     "https:// plat.topdon.com/topdon-plat/out-user/baseinfo/template/getHtmlContentById?softCode=${BaseApplication.instance.getSoftWareCode()}&language=1&type=21",
                 )
             }
 
             2 -> {
-                // 隐私政策
+                // [Chinese text]
                 view.loadUrl(
                     "https:// plat.topdon.com/topdon-plat/out-user/baseinfo/template/getHtmlContentById?softCode=${BaseApplication.instance.getSoftWareCode()}&language=1&type=22",
                 )
             }
 
             3 -> {
-                // 第三方组件
+                // [Chinese text]
                 view.loadUrl("file:/// android_asset/web/third_statement.html")
             }
         }
     }
 
     /**
-     * 加载默认协议网址(English版)
+     * [Chinese text](English[Chinese text])
      */
     fun loadHttp(view: WebView) {
         reloadCount--
@@ -221,7 +221,7 @@ class PolicyActivity : BaseViewModelActivity<PolicyViewModel>() {
                 if (BaseApplication.instance.isDomestic()) {
                     view.loadUrl("file:/// android_asset/web/services_agreement_default_inside_china.html")
                 } else {
-                    // 用户服务协议
+                    // [Chinese text]
                     view.loadUrl("file:/// android_asset/web/services_agreement_default.html")
                 }
             }
@@ -230,13 +230,13 @@ class PolicyActivity : BaseViewModelActivity<PolicyViewModel>() {
                 if (BaseApplication.instance.isDomestic()) {
                     view.loadUrl("file:/// android_asset/web/privacy_default_inside_china.html")
                 } else {
-                    // 隐私政策
+                    // [Chinese text]
                     view.loadUrl("file:/// android_asset/web/privacy_default.html")
                 }
             }
 
             3 -> {
-                // 第三方组件
+                // [Chinese text]
                 view.loadUrl("file:/// android_asset/web/third_statement.html")
             }
         }

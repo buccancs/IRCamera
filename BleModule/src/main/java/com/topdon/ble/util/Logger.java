@@ -6,35 +6,35 @@ package com.topdon.ble.util;
  */
 public interface Logger {
     /**
-     * 一般的
+     * [Chinese text]
      */
     int TYPE_GENERAL = 0;
     /**
-     * 搜索状态
+     * [Chinese text]
      */
     int TYPE_SCAN_STATE = 1;
     /**
-     * 连接状态
+     * [Chinese text]
      */
     int TYPE_CONNECTION_STATE = 2;
     /**
-     * 读特征
+     * [Chinese text]
      */
     int TYPE_CHARACTERISTIC_READ = 3;
     /**
-     * 特征值变化
+     * [Chinese text]
      */
     int TYPE_CHARACTERISTIC_CHANGED = 4;
     /**
-     * 信号强度
+     * [Chinese text]
      */
     int TYPE_READ_REMOTE_RSSI = 5;
     /**
-     * 最大传输单元变化
+     * [Chinese text]
      */
     int TYPE_MTU_CHANGED = 6;
     /**
-     * 请求失败
+     * [Chinese text]
      */
     int TYPE_REQUEST_FAILED = 7;
     int TYPE_DESCRIPTOR_READ = 8;
@@ -44,31 +44,31 @@ public interface Logger {
     int TYPE_PHY_CHANGE = 12;
 
     /**
-     * 打印日志
+     * [Chinese text]
      *
-     * @param priority 日志级别。{@link android.util.Log#DEBUG}等
-     * @param type     日志类型。{@link #TYPE_CONNECTION_STATE}等
-     * @param msg      日志内容
+     * @param priority [Chinese text]. {@link android.util.Log#DEBUG}[Chinese text]
+     * @param type     [Chinese text]. {@link #TYPE_CONNECTION_STATE}[Chinese text]
+     * @param msg      [Chinese text]
      */
     void log(int priority, int type, String msg);
 
     /**
-     * 打印日志
+     * [Chinese text]
      *
-     * @param priority 日志级别。{@link android.util.Log#DEBUG}等
-     * @param type     日志类型。{@link #TYPE_CONNECTION_STATE}等
-     * @param msg      日志内容
-     * @param th       异常
+     * @param priority [Chinese text]. {@link android.util.Log#DEBUG}[Chinese text]
+     * @param type     [Chinese text]. {@link #TYPE_CONNECTION_STATE}[Chinese text]
+     * @param msg      [Chinese text]
+     * @param th       [Chinese text]
      */
     void log(int priority, int type, String msg, Throwable th);
     
     /**
-     * 日志输出控制
+     * [Chinese text]
      */
     void setEnabled(boolean isEnabled);
 
     /**
-     * 日志输出是否使能
+     * [Chinese text]
      */
     boolean isEnabled();
 }

@@ -23,10 +23,10 @@ import org.greenrobot.eventbus.ThreadMode
 import java.io.File
 
 /**
- * 使用 DataBinding 的基础 Activity.
+ * [Chinese text] DataBinding [Chinese text] Activity.
  *
- * 由于 BaseActivity 子类实在太多没法一下子全改完，
- * 所以 BaseActivity 里的逻辑改一个搬一个吧，等全部改完再来优化继承.
+ * [Chinese text] BaseActivity [Chinese text], 
+ * [Chinese text] BaseActivity [Chinese text], [Chinese text].
  *
  * Created by LCG on 2024/10/14.
  */
@@ -34,7 +34,7 @@ abstract class BaseBindingActivity<B : ViewDataBinding> : AppCompatActivity() {
     protected lateinit var binding: B
 
     /**
-     * 子类实现该方法，返回使用 DataBinding 的 layout 资源 Id.
+     * [Chinese text]implement[Chinese text], [Chinese text] DataBinding [Chinese text] layout [Chinese text] Id.
      */
     @LayoutRes
     protected abstract fun initContentLayoutId(): Int
@@ -88,12 +88,12 @@ abstract class BaseBindingActivity<B : ViewDataBinding> : AppCompatActivity() {
     }
 
     /**
-     * 新版 LMS 风格的加载中弹框.
+     * [Chinese text] LMS [Chinese text]in progress[Chinese text].
      */
     private var loadingDialog: LoadingDialog? = null
 
     /**
-     * 显示加载中弹框.
+     * [Chinese text]in progress[Chinese text].
      */
     fun showLoadingDialog(
         @StringRes resId: Int = R.string.tip_loading,
@@ -102,7 +102,7 @@ abstract class BaseBindingActivity<B : ViewDataBinding> : AppCompatActivity() {
     }
 
     /**
-     * 显示加载中弹框.
+     * [Chinese text]in progress[Chinese text].
      */
     fun showLoadingDialog(text: CharSequence?) {
         if (loadingDialog == null) {
@@ -113,7 +113,7 @@ abstract class BaseBindingActivity<B : ViewDataBinding> : AppCompatActivity() {
     }
 
     /**
-     * 关闭加载中弹框.
+     * [Chinese text]in progress[Chinese text].
      */
     fun dismissLoadingDialog() {
         loadingDialog?.dismiss()

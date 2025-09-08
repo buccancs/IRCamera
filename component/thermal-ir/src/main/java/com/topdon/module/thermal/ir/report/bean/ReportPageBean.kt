@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 /**
- * 从服务器接口返回的，一页报告信息.
+ * [Chinese text], [Chinese text].
  */
 @Parcelize
 data class ReportPageBean(

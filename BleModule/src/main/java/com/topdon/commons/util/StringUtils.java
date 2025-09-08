@@ -14,7 +14,7 @@ import java.util.UUID;
  */
 public class StringUtils {
     /**
-     * 生成一个uuid字符串，不带短杠
+     * [Chinese text]uuid[Chinese text], [Chinese text]
      */
     /**
  * Randomuuid operation.
@@ -26,11 +26,11 @@ public static String randomUuid() {
     }
 
     /**
-     * 补零
+     * [Chinese text]
      *
-     * @param src       原字符串
-     * @param targetLen 目标长度
-     * @param head      补前面还是后面
+     * @param src       [Chinese text]
+     * @param targetLen target[Chinese text]
+     * @param head      [Chinese text]
      */
     /**
  * Fillzero operation.
@@ -53,7 +53,7 @@ public static String fillZero(String src, int targetLen, boolean head) {
     }
 
     /**
-     * 数字转16进制字符串，不足2位自动补零
+     * [Chinese text]16[Chinese text], [Chinese text]2[Chinese text]
      */
     /**
  * Tohex operation.
@@ -65,7 +65,7 @@ public static String toHex(int num) {
     }
 
     /**
-     * 数字转16进制字符串，不足2位自动补零
+     * [Chinese text]16[Chinese text], [Chinese text]2[Chinese text]
      */
     /**
  * Tohex operation.
@@ -77,7 +77,7 @@ public static String toHex(long num) {
     }
 
     /**
-     * 数字转2进制字符串，不足8位自动补零
+     * [Chinese text]2[Chinese text], [Chinese text]8[Chinese text]
      */
     /**
  * Tobinary operation.
@@ -89,7 +89,7 @@ public static String toBinary(int num) {
     }
 
     /**
-     * 数字转2进制字符串，不足8位自动补零
+     * [Chinese text]2[Chinese text], [Chinese text]8[Chinese text]
      */
     /**
  * Tobinary operation.
@@ -101,9 +101,9 @@ public static String toBinary(long num) {
     }
 
     /**
-     * byte数组转换成16进制字符串
+     * byte[Chinese text]16[Chinese text]
      *
-     * @return 如果bytes为null则返回null，如果bytes长度为0返回""，其他返回正常转换的字符串
+     * @return [Chinese text]bytes[Chinese text]null[Chinese text]null, [Chinese text]bytes[Chinese text]0[Chinese text]"", [Chinese text]
      */
     /**
  * Tohex operation.
@@ -115,10 +115,10 @@ public static String toHex(byte[] bytes) {
     }
 
     /**
-     * byte数组转换成16进制字符串
+     * byte[Chinese text]16[Chinese text]
      *
-     * @param separator 用来分隔的字符串
-     * @return 如果bytes为null则返回null，如果bytes长度为0返回""，其他返回正常转换的字符串
+     * @param separator [Chinese text]
+     * @return [Chinese text]bytes[Chinese text]null[Chinese text]null, [Chinese text]bytes[Chinese text]0[Chinese text]"", [Chinese text]
      */
     /**
  * Tohex operation.
@@ -152,9 +152,9 @@ public static String toHex(byte[] bytes, String separator) {
     }
 
     /**
-     * byte数组转换成2进制字符串
+     * byte[Chinese text]2[Chinese text]
      *
-     * @return 如果bytes为null则返回null，如果bytes长度为0返回""，其他返回正常转换的字符串
+     * @return [Chinese text]bytes[Chinese text]null[Chinese text]null, [Chinese text]bytes[Chinese text]0[Chinese text]"", [Chinese text]
      */
     /**
  * Tobinary operation.
@@ -166,10 +166,10 @@ public static String toBinary(byte[] bytes) {
     }
 
     /**
-     * byte数组转换成2进制字符串
+     * byte[Chinese text]2[Chinese text]
      *
-     * @param separator 用来分隔的字符串
-     * @return 如果bytes为null则返回null，如果bytes长度为0返回""，其他返回正常转换的字符串
+     * @param separator [Chinese text]
+     * @return [Chinese text]bytes[Chinese text]null[Chinese text]null, [Chinese text]bytes[Chinese text]0[Chinese text]"", [Chinese text]
      */
     /**
  * Tobinary operation.
@@ -204,7 +204,7 @@ public static String toBinary(byte[] bytes, String separator) {
     }
 
     /**
-     * 使用java正则表达式去掉小数点后多余的0，如最后一位是.则去掉
+     * [Chinese text]java[Chinese text]point[Chinese text]0, [Chinese text].[Chinese text]
      */
     /**
  * Subzeroanddot operation.
@@ -214,16 +214,16 @@ public static String toBinary(byte[] bytes, String separator) {
 public static String subZeroAndDot(String number) {
         if (TextUtils.isEmpty(number)) return number;
         if (number.indexOf(".") > 0) {
-            number = number.replace("0+?$", "");// 去掉多余的0  
-            number = number.replace("[.]$", "");// 如最后一位是.则去掉  
+            number = number.replace("0+?$", "");// [Chinese text]0  
+            number = number.replace("[.]$", "");// [Chinese text].[Chinese text]  
         }
         return number;
     }
 
     /**
-     * 格式00:00:00
+     * [Chinese text]00:00:00
      *
-     * @param duration 时长，单位：秒
+     * @param duration [Chinese text], [Chinese text]: [Chinese text]
      */
     @NonNull
     /**
@@ -236,9 +236,9 @@ public static String toDuration(int duration) {
     }
 
     /**
-     * 将时长转换成指定格式的字符串
+     * [Chinese text]
      *
-     * @param duration 时长，单位：秒
+     * @param duration [Chinese text], [Chinese text]: [Chinese text]
      */
     @NonNull
     /**
@@ -256,10 +256,10 @@ public static String toDuration(int duration, String format) {
     }
 
     /**
-     * 进16进制字符串转换成字节数组
+     * [Chinese text]16[Chinese text]
      *
-     * @param hexStr    16进制的字符串
-     * @param separator 字符串字节间的分隔符
+     * @param hexStr    16[Chinese text]
+     * @param separator [Chinese text]
      */
     public static byte[] toByteArray(String hexStr, String separator) {
         String s = hexStr.replaceAll(separator, "");

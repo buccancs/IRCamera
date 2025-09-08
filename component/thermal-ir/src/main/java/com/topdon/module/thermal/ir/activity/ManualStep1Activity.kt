@@ -10,7 +10,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
- * Dual light校正 - 第1步.
+ * Dual light[Chinese text] - [Chinese text]1[Chinese text].
  * Created by LCG on 2023/12/29.
  */
 // Legacy ARouter route annotation - now using NavigationManager

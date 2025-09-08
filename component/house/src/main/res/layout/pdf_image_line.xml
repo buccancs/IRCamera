@@ -37,7 +37,7 @@
             android:gravity="center_horizontal"
             android:textSize="6sp"
             android:textColor="#333333"
-            tools:text="天花板"
+            tools:text="[Chinese text]"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_image1" />
@@ -73,7 +73,7 @@
             android:gravity="center_horizontal"
             android:textSize="6sp"
             android:textColor="#333333"
-            tools:text="地板"
+            tools:text="[Chinese text]"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_image2" />
@@ -109,7 +109,7 @@
             android:gravity="center_horizontal"
             android:textSize="6sp"
             android:textColor="#333333"
-            tools:text="地板"
+            tools:text="[Chinese text]"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_image3" />
@@ -145,7 +145,7 @@
             android:gravity="center_horizontal"
             android:textSize="6sp"
             android:textColor="#333333"
-            tools:text="墙壁"
+            tools:text="[Chinese text]"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_image4" />

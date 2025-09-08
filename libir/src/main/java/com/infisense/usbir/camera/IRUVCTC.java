@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
     /**
-     * 红外出图核心工具类
+     * [Chinese text]
      */
     public class IRUVCTC {
     private static final String TAG = "IRUVC_DATA";
@@ -43,24 +43,24 @@ import java.util.List;
     private IRCMD ircmd;
     //
     private final USBMonitor mUSBMonitor;
-    private final ConnectCallback mConnectCallback; // usb连接回调
+    private final ConnectCallback mConnectCallback; // usb[Chinese text]
     private byte[] imageSrc;
     private byte[] temperatureSrc;
-    private final int imageOrTempDataLength = 256 * 192 * 2; // 红外或温度的数据长度
+    private final int imageOrTempDataLength = 256 * 192 * 2; // [Chinese text]temperature[Chinese text]
     private final SynchronizedBitmap syncimage;
     /**
-     * 自动增益切换
+     * [Chinese text]switch
      */
     private final LibIRProcess.AutoGainSwitchInfo_t auto_gain_switch_info = new LibIRProcess.AutoGainSwitchInfo_t();
     private final LibIRProcess.GainSwitchParam_t gain_switch_param = new LibIRProcess.GainSwitchParam_t();
     private int rotateInt = 0;
 
-    // 判断数据是否准备完毕，在准备完毕之前，画面可能会出现不正常
+    // [Chinese text], [Chinese text], [Chinese text]
     private boolean isFrameReady = true;
-    // 当前的增益状态
+    // [Chinese text]
     private final CommonParams.GainStatus gainStatus = CommonParams.GainStatus.HIGH_GAIN;
     private final byte[] temperatureTemp = new byte[imageOrTempDataLength];
-    // 是否可以红外+TNR出图
+    // [Chinese text]+TNR[Chinese text]
     private boolean isTempReplacedWithTNREnabled;
     private final CommonParams.DataFlowMode defaultDataFlowMode;
     private boolean isRestart;
@@ -100,10 +100,10 @@ import java.util.List;
     }
 
         /**
-     * @param cameraWidth     cameraWidth:256,cameraHeight:384,图像+温度
-     *                        cameraWidth:256,cameraHeight:192,图像
-     *                        cameraWidth:256,cameraHeight:192,(调用startY16ModePreview，传入Y16_MODE_TEMPERATURE)温度
-     * @param connectCallback Settingsusb设备连接回调
+     * @param cameraWidth     cameraWidth:256,cameraHeight:384,[Chinese text]+temperature
+     *                        cameraWidth:256,cameraHeight:192,[Chinese text]
+     *                        cameraWidth:256,cameraHeight:192,([Chinese text]startY16ModePreview, [Chinese text]Y16_MODE_TEMPERATURE)temperature
+     * @param connectCallback Settingsusb[Chinese text]
      */
     public IRUVCTC(int cameraWidth, int cameraHeight, Context context, SynchronizedBitmap syncimage,
                    CommonParams.DataFlowMode dataFlowMode,
@@ -115,7 +115,7 @@ import java.util.List;
 
         //
         initUVCCamera();
-        // 注意：USBMonitor的所有回调函数都是运行在线程中的
+        // [Chinese text]: USBMonitor[Chinese text]line[Chinese text]in progress[Chinese text]
         mUSBMonitor = new USBMonitor(context, new USBMonitor.OnDeviceConnectListener() {
 
             // called by checking usb device
@@ -148,27 +148,27 @@ import java.util.List;
                     if (createNew) {
                         openUVCCamera(ctrlBlock);
 
-                        // 获取设备的分辨率列表
+                        // [Chinese text]
                         List<CameraSize> previewList = getAllSupportedSize();
                         for (CameraSize size : previewList) {
                             Log.i(TAG, "SupportedSize : " + size.width + " * " + size.height);
                         }
 
-                        // 可以根据获取到的分辨率列表，来区分不同的模组，从而改变不同的cmd参数来调用不同的SDK
+                        // [Chinese text], [Chinese text], [Chinese text]cmd[Chinese text]SDK
                         initIRCMD();
 
                         if (ircmd != null) {
                             Log.d(TAG, "startPreview");
-                            // 根据设备的分辨率列表，这里可以动态的Settings模组的宽高(这里作为示例，用的是从外部传入的方式)
-                            // 之前的openUVCCamera方法中传入的都是默认值，这里需要根据实际传入对应的值
+                            // [Chinese text], [Chinese text]Settings[Chinese text]high([Chinese text], [Chinese text])
+                            // [Chinese text]openUVCCamera[Chinese text]in progress[Chinese text], [Chinese text]
                             isTempReplacedWithTNREnabled = ircmd.isTempReplacedWithTNREnabled(DeviceType.P2);
                             if (isTempReplacedWithTNREnabled) {
-                                // 使用红外+TNR数据的方式，不用进行停图重新出图的流程，方便快速出图
+                                // [Chinese text]+TNR[Chinese text], [Chinese text], [Chinese text]
                                 if (uvcCamera != null) {
                                     uvcCamera.setUSBPreviewSize(cameraWidth, cameraHeight * 2);
                                 }
                             } else {
-                                // 单TNR数据
+                                // [Chinese text]TNR[Chinese text]
                                 if (uvcCamera != null) {
                                     uvcCamera.setUSBPreviewSize(cameraWidth, cameraHeight);
                                 }
@@ -214,28 +214,28 @@ import java.util.List;
             }
         });
         /*
-         * 同时打开防灼烧和自动增益切换后，如果想修改防灼烧和自动增益切换的触发优先级，可以通过修改下面的触发参数实现
+         * [Chinese text]switch[Chinese text], [Chinese text]switch[Chinese text], [Chinese text]implement
          */
-        // 自动增益切换参数auto gain switch parameter
-        gain_switch_param.above_pixel_prop = 0.1f;    // 用于high -> low gain,设备像素总面积的百分比
-        gain_switch_param.above_temp_data = (int) ((130 + 273.15) * 16 * 4); // 用于high -> low gain,高增益向低增益切换的触发温度
-        gain_switch_param.below_pixel_prop = 0.95f;   // 用于low -> high gain,设备像素总面积的百分比
-        gain_switch_param.below_temp_data = (int) ((110 + 273.15) * 16 * 4);// 用于low -> high gain,低增益向高增益切换的触发温度
-        auto_gain_switch_info.switch_frame_cnt = 5 * 15; // 连续满足触发条件帧数超过该阈值会触发自动增益切换(假设出图速度为15帧每秒，则5 * 15大概为5秒)
-        auto_gain_switch_info.waiting_frame_cnt = 7 * 15;// 触发自动增益切换之后，会间隔该阈值的帧数不进行增益切换监测(假设出图速度为15帧每秒，则7 * 15大概为7秒)
-        // 防灼烧参数over_portect parameter
-        int low_gain_over_temp_data = (int) ((550 + 273.15) * 16 * 4); // 低增益下触发防灼烧的温度
-        int high_gain_over_temp_data = (int) ((150 + 273.15) * 16 * 4); // 高增益下触发防灼烧的温度
-        float pixel_above_prop = 0.02f;// 设备像素总面积的百分比
-        int switch_frame_cnt = 7 * 15;// 连续满足触发条件超过该阈值会触发防灼烧(假设出图速度为15帧每秒，则7 * 15大概为7秒)
-        int close_frame_cnt = 10 * 15;// 触发防灼烧之后，经过该阈值的帧数之后会解除防灼烧(假设出图速度为15帧每秒，则10 * 15大概为10秒)
+        // [Chinese text]switch[Chinese text]auto gain switch parameter
+        gain_switch_param.above_pixel_prop = 0.1f;    // forhigh -> low gain,[Chinese text]
+        gain_switch_param.above_temp_data = (int) ((130 + 273.15) * 16 * 4); // forhigh -> low gain,high[Chinese text]low[Chinese text]switch[Chinese text]temperature
+        gain_switch_param.below_pixel_prop = 0.95f;   // forlow -> high gain,[Chinese text]
+        gain_switch_param.below_temp_data = (int) ((110 + 273.15) * 16 * 4);// forlow -> high gain,low[Chinese text]high[Chinese text]switch[Chinese text]temperature
+        auto_gain_switch_info.switch_frame_cnt = 5 * 15; // [Chinese text]switch([Chinese text]15[Chinese text], [Chinese text]5 * 15[Chinese text]5[Chinese text])
+        auto_gain_switch_info.waiting_frame_cnt = 7 * 15;// [Chinese text]switch[Chinese text], [Chinese text]switch[Chinese text]([Chinese text]15[Chinese text], [Chinese text]7 * 15[Chinese text]7[Chinese text])
+        // [Chinese text]over_portect parameter
+        int low_gain_over_temp_data = (int) ((550 + 273.15) * 16 * 4); // low[Chinese text]temperature
+        int high_gain_over_temp_data = (int) ((150 + 273.15) * 16 * 4); // high[Chinese text]temperature
+        float pixel_above_prop = 0.02f;// [Chinese text]
+        int switch_frame_cnt = 7 * 15;// [Chinese text]([Chinese text]15[Chinese text], [Chinese text]7 * 15[Chinese text]7[Chinese text])
+        int close_frame_cnt = 10 * 15;// [Chinese text], [Chinese text]([Chinese text]15[Chinese text], [Chinese text]10 * 15[Chinese text]10[Chinese text])
 
         LibIRProcess.ImageRes_t imageRes = new LibIRProcess.ImageRes_t();
         imageRes.height = (char) (dataFlowMode == CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT ? cameraHeight / 2
                 : cameraHeight);
         imageRes.width = (char) cameraWidth;
 
-        // 设备出图回调
+        // [Chinese text]
         iFrameCallback = new IFrameCallback() {
             @Override
             public void onFrame(byte[] frame) {
@@ -248,7 +248,7 @@ import java.util.List;
                 syncimage.start = true;
                 //
                 synchronized (syncimage.dataLock) {
-                    // 判断坏帧，出现坏帧则重启sensor
+                    // [Chinese text], [Chinese text]sensor
                     int length = frame.length - 1;
                     if (frame[length] == 1) {
                         // bad frame
@@ -256,7 +256,7 @@ import java.util.List;
                         return;
                     }
                     if (imageEditTemp != null && imageEditTemp.length >= length) {
-                        // 部分场景不需要保存帧数据
+                        // [Chinese text]
                         System.arraycopy(frame, 0, imageEditTemp, 0, length);
                     }
 //                    try {
@@ -272,16 +272,16 @@ import java.util.List;
 //                    }
                     if (dataFlowMode == CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT) {
                         /*
-                         * 图像+温度
-                         * copy红外数据到image数组中
-                         * 出图的frame数组中前半部分是红外数据，后半部分是温度数据，
-                         * 例如256*384分辨率的设备，前面的256*192是红外数据，后面的256*192是温度数据，
-                         * 其中的数据是旋转90度的，需要旋转回来,红外旋转的逻辑放在后面ImageThread中处理。
+                         * [Chinese text]+temperature
+                         * copy[Chinese text]image[Chinese text]in progress
+                         * [Chinese text]frame[Chinese text]in progress[Chinese text], [Chinese text]temperature[Chinese text], 
+                         * [Chinese text]256*384[Chinese text], [Chinese text]256*192[Chinese text], [Chinese text]256*192[Chinese text]temperature[Chinese text], 
+                         * [Chinese text]in progress[Chinese text]90[Chinese text], [Chinese text],[Chinese text]ImageThreadin progress[Chinese text]. 
                          */
                         System.arraycopy(frame, 0, imageSrc, 0, imageOrTempDataLength);
                         /*
-                         * 处理温度数据
-                         * 在部分的出图中，如果不需要温度数据，则不返回，需要区分对待
+                         * [Chinese text]temperature[Chinese text]
+                         * [Chinese text]in progress, [Chinese text]temperature[Chinese text], [Chinese text], [Chinese text]
                          */
                         if (length >= imageOrTempDataLength * 2) {
 
@@ -310,7 +310,7 @@ import java.util.List;
 //                                System.arraycopy(frame, length / 2, temperatureSrc, 0, length / 2);
                             }
                             if (ircmd != null) {
-                                // 自动增益切换，不生效的话请您的设备是否支持自动增益切换
+                                // [Chinese text]switch, [Chinese text]switch
                                 if (auto_gain_switch) {
                                     ircmd.autoGainSwitch(temperatureSrc, imageRes, auto_gain_switch_info,
                                             gain_switch_param, new AutoGainSwitchCallback() {
@@ -327,7 +327,7 @@ import java.util.List;
                                                 }
                                             });
                                 }
-                                // 防灼烧保护
+                                // [Chinese text]
                                 if (auto_over_portect) {
                                     ircmd.avoidOverexposure(false, gainStatus, temperatureSrc, imageRes,
                                             low_gain_over_temp_data,
@@ -345,9 +345,9 @@ import java.util.List;
                         }
                     } else {
                         /*
-                         * 单红外数据
-                         * copy红外数据到image数组中
-                         * 其中的数据是旋转90度的，需要旋转回来,红外旋转的逻辑放在后面ImageThread中处理。
+                         * [Chinese text]
+                         * copy[Chinese text]image[Chinese text]in progress
+                         * [Chinese text]in progress[Chinese text]90[Chinese text], [Chinese text],[Chinese text]ImageThreadin progress[Chinese text]. 
                          */
                         System.arraycopy(frame, 0, imageSrc, 0, imageOrTempDataLength);
                     }
@@ -397,15 +397,15 @@ import java.util.List;
                 .setUVCType(UVCType.USB_UVC)
                 .build();
         /**
-         * 调整带宽
-         * 部分分辨率或在部分机型上，会出现无法出图，或出图一段时间后卡顿的问题，需要配置对应的带宽
+         * [Chinese text]
+         * [Chinese text], [Chinese text], [Chinese text], [Chinese text]
          */
         uvcCamera.setDefaultBandwidth(0.5F);
     }
 
     /**
      * init IRCMD
-     * 可以根据获取到的分辨率列表，来区分不同的模组，从而改变不同的cmd参数来调用不同的SDK
+     * [Chinese text], [Chinese text], [Chinese text]cmd[Chinese text]SDK
      */
     private void initIRCMD() {
         if (uvcCamera != null) {
@@ -413,8 +413,8 @@ import java.util.List;
                     .setIrcmdType(IRCMDType.USB_IR_256_384)
                     .setIdCamera(uvcCamera.getNativePtr())
                     .build();
-            // 这里可根据是否得到ircmd的对象，判断是否初始化成功，初始化失败，可做相应的失败错误提示
-            // 错误message可以通过setCreateResultCallback的回调查看
+            // [Chinese text]ircmd[Chinese text], [Chinese text], [Chinese text], [Chinese text]
+            // [Chinese text]message[Chinese text]setCreateResultCallback[Chinese text]
             if (ircmd == null) {
                 EventBus.getDefault().post(new PreviewComplete());
                 return;
@@ -453,9 +453,9 @@ import java.util.List;
         if (uvcCamera == null) {
             initUVCCamera();
         }
-        // uvc开启
+        // uvc[Chinese text]
         if (uvcCamera.openUVCCamera(ctrlBlock) == 0) {
-            // UVCCamera开启成功
+            // UVCCamera[Chinese text]
             if (mConnectCallback != null && uvcCamera != null) {
                 mConnectCallback.onCameraOpened(uvcCamera);
             }
@@ -463,7 +463,7 @@ import java.util.List;
     }
 
     /**
-     * 获取支持的分辨率列表
+     * [Chinese text]
      */
     private List<CameraSize> getAllSupportedSize() {
         List<CameraSize> previewList = new ArrayList<>();
@@ -479,7 +479,7 @@ import java.util.List;
     }
 
     /**
-     * 判断是否是红外设备，请把您的设备的PID添加进设备PID白名单
+     * [Chinese text], [Chinese text]PID[Chinese text]PID[Chinese text]
      *
      * @param devpid
      * @return
@@ -492,7 +492,7 @@ import java.util.List;
     }
 
     /**
-     * 预览出图
+     * [Chinese text]
      */
     private void startPreview() {
         if (ircmd == null) {
@@ -506,17 +506,17 @@ import java.util.List;
         if (CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT == defaultDataFlowMode ||
                 CommonParams.DataFlowMode.IMAGE_OUTPUT == defaultDataFlowMode) {
             /*
-             * 红外+温度或单红外出图
-             * YUV422格式数据
+             * [Chinese text]+temperature[Chinese text]
+             * YUV422[Chinese text]
              */
             Log.i(TAG, "defaultDataFlowMode = IMAGE_AND_TEMP_OUTPUT or IMAGE_OUTPUT");
-            // YUV出图流程
+            // YUV[Chinese text]
             setFrameReady(false);
             if (isRestart) {
-                // 1.停图（全部停图，不是退出y16模式的停图）
+                // 1.[Chinese text]([Chinese text], [Chinese text]y16mode[Chinese text])
                 if (ircmd.stopPreview(CommonParams.PreviewPathChannel.PREVIEW_PATH0) == 0) {
                     Log.i(TAG, "stopPreview complete");
-                    // 2. 发出图命令，Settings分辨率为256*384
+                    // 2. [Chinese text], Settings[Chinese text]256*384
                     if (ircmd.startPreview(CommonParams.PreviewPathChannel.PREVIEW_PATH0,
                             CommonParams.StartPreviewSource.SOURCE_SENSOR,
                             ScreenUtils.getPreviewFPSByDataFlowMode(defaultDataFlowMode),
@@ -533,22 +533,22 @@ import java.util.List;
             }
         } else {
             /*
-             * 中间出图
+             * in progress[Chinese text]
              */
-            // Y16出图流程(例如TNR出图，使用ISP算法)
+            // Y16[Chinese text]([Chinese text]TNR[Chinese text], [Chinese text]ISP[Chinese text])
             setFrameReady(false);
             if (isRestart) {
                 if (ircmd.stopPreview(CommonParams.PreviewPathChannel.PREVIEW_PATH0) == 0) {
-                    Log.i(TAG, "stopPreview complete 中间出图 restart");
+                    Log.i(TAG, "stopPreview complete in progress[Chinese text] restart");
                     if (ircmd.startPreview(CommonParams.PreviewPathChannel.PREVIEW_PATH0,
                             CommonParams.StartPreviewSource.SOURCE_SENSOR,
                             ScreenUtils.getPreviewFPSByDataFlowMode(defaultDataFlowMode),
                             CommonParams.StartPreviewMode.VOC_DVP_MODE, defaultDataFlowMode) == 0) {
-                        Log.i(TAG, "startPreview complete 中间出图 restart");
+                        Log.i(TAG, "startPreview complete in progress[Chinese text] restart");
                         try {
                             /*
-                             * 对于部分设备，如5840芯片的模组，两个命令之间需要延时以防止中间出图命令失效导致的黑热白热翻转情况
-                             * 需要根据自己模组的实际情况判断是否添加该延时
+                             * [Chinese text], [Chinese text]5840[Chinese text], [Chinese text]in progress[Chinese text]
+                             * [Chinese text]
                              */
                             Thread.sleep(1500);
                         } catch (InterruptedException e) {
@@ -558,46 +558,46 @@ import java.util.List;
                                 FileUtil.getY16SrcTypeByDataFlowMode(defaultDataFlowMode)) == 0) {
                             handleStartPreviewComplete();
                         } else {
-                            Log.e(TAG, "startY16ModePreview error 中间出图 restart");
+                            Log.e(TAG, "startY16ModePreview error in progress[Chinese text] restart");
                         }
                     } else {
-                        Log.e(TAG, "startPreview error 中间出图 restart");
+                        Log.e(TAG, "startPreview error in progress[Chinese text] restart");
                     }
                 } else {
-                    Log.e(TAG, "stopPreview error 中间出图 restart");
+                    Log.e(TAG, "stopPreview error in progress[Chinese text] restart");
                 }
             } else {
                 /*
-                 * 使用ISP算法
-                 * 红外+TNR出图,只能为25Hz
+                 * [Chinese text]ISP[Chinese text]
+                 * [Chinese text]+TNR[Chinese text],[Chinese text]25Hz
                  */
                 boolean isTempReplacedWithTNREnabled = ircmd.isTempReplacedWithTNREnabled(DeviceType.P2);
                 Log.i(TAG,
                         "defaultDataFlowMode = others isTempReplacedWithTNREnabled = " + isTempReplacedWithTNREnabled);
                 if (isTempReplacedWithTNREnabled) {
                     /*
-                     * 支持 红外+TNR 方式出图
+                     * [Chinese text] [Chinese text]+TNR [Chinese text]
                      */
-                    // 对于P2模组来说，直接发送startY16ModePreview命令可以直接出图
+                    // [Chinese text]P2[Chinese text], [Chinese text]startY16ModePreview[Chinese text]
 //                    if (ircmd.startY16ModePreview(CommonParams.PreviewPathChannel.PREVIEW_PATH0,
 //                            FileUtil.getY16SrcTypeByDataFlowMode(defaultDataFlowMode)) == 0) {
 //                        handleStartPreviewComplete();
 //                    } else {
 
 //                    }
-                    // 对于M2模组来说，需要先发送startPreview出图命令，再发送startY16ModePreview命令才可以重新出图
+                    // [Chinese text]M2[Chinese text], [Chinese text]startPreview[Chinese text], [Chinese text]startY16ModePreview[Chinese text]
                     if (ircmd.stopPreview(CommonParams.PreviewPathChannel.PREVIEW_PATH0) == 0) {
-                        Log.i(TAG, "stopPreview complete 红外+TNR");
+                        Log.i(TAG, "stopPreview complete [Chinese text]+TNR");
                         if (ircmd.startPreview(CommonParams.PreviewPathChannel.PREVIEW_PATH0,
                                 CommonParams.StartPreviewSource.SOURCE_SENSOR,
                                 ScreenUtils.getPreviewFPSByDataFlowMode(CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT),
                                 CommonParams.StartPreviewMode.VOC_DVP_MODE,
                                 CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT) == 0) {
-                            Log.i(TAG, "startPreview complete 红外+TNR");
+                            Log.i(TAG, "startPreview complete [Chinese text]+TNR");
                             try {
                                 /*
-                                 * 对于部分设备，如5840芯片的模组，两个命令之间需要延时以防止中间出图命令失效导致的黑热白热翻转情况
-                                 * 需要根据自己模组的实际情况判断是否添加该延时
+                                 * [Chinese text], [Chinese text]5840[Chinese text], [Chinese text]in progress[Chinese text]
+                                 * [Chinese text]
                                  */
                                 Thread.sleep(1500);
                             } catch (InterruptedException e) {
@@ -607,32 +607,32 @@ import java.util.List;
                                     FileUtil.getY16SrcTypeByDataFlowMode(CommonParams.DataFlowMode.TNR_OUTPUT)) == 0) {
                                 handleStartPreviewComplete();
                             } else {
-                                Log.e(TAG, "startY16ModePreview error 红外+TNR");
+                                Log.e(TAG, "startY16ModePreview error [Chinese text]+TNR");
                             }
                         } else {
-                            Log.e(TAG, "startPreview error 红外+TNR");
+                            Log.e(TAG, "startPreview error [Chinese text]+TNR");
                         }
                     } else {
-                        Log.e(TAG, "stopPreview error 红外+TNR");
+                        Log.e(TAG, "stopPreview error [Chinese text]+TNR");
                     }
                 } else {
                     /*
-                     * 单TNR 出图
-                     * 默认上电之后出YUV图像，如果默认模式为Y16中间出图，进入之后需要走先断电再上电，再中间出图的流程
-                     * 如果没有断电，且之前的模式为Y16模式，则重新进入仍为Y16模式，不需要执行该流程
+                     * [Chinese text]TNR [Chinese text]
+                     * [Chinese text]YUV[Chinese text], [Chinese text]mode[Chinese text]Y16in progress[Chinese text], [Chinese text], [Chinese text]in progress[Chinese text]
+                     * [Chinese text], [Chinese text]mode[Chinese text]Y16mode, [Chinese text]Y16mode, [Chinese text]
                      */
-                    // 调用 startY16ModePreview 中间出图方法之后，输出的数据格式为y16
+                    // [Chinese text] startY16ModePreview in progress[Chinese text], [Chinese text]y16
                     if (ircmd.stopPreview(CommonParams.PreviewPathChannel.PREVIEW_PATH0) == 0) {
-                        Log.i(TAG, "stopPreview complete 单TNR");
+                        Log.i(TAG, "stopPreview complete [Chinese text]TNR");
                         if (ircmd.startPreview(CommonParams.PreviewPathChannel.PREVIEW_PATH0,
                                 CommonParams.StartPreviewSource.SOURCE_SENSOR,
                                 ScreenUtils.getPreviewFPSByDataFlowMode(defaultDataFlowMode),
                                 CommonParams.StartPreviewMode.VOC_DVP_MODE, defaultDataFlowMode) == 0) {
-                            Log.i(TAG, "startPreview complete 单TNR");
+                            Log.i(TAG, "startPreview complete [Chinese text]TNR");
                             try {
                                 /*
-                                 * 对于部分设备，如5840芯片的模组，两个命令之间需要延时以防止中间出图命令失效导致的黑热白热翻转情况
-                                 * 需要根据自己模组的实际情况判断是否添加该延时
+                                 * [Chinese text], [Chinese text]5840[Chinese text], [Chinese text]in progress[Chinese text]
+                                 * [Chinese text]
                                  */
                                 Thread.sleep(1500);
                             } catch (InterruptedException e) {
@@ -642,13 +642,13 @@ import java.util.List;
                                     FileUtil.getY16SrcTypeByDataFlowMode(defaultDataFlowMode)) == 0) {
                                 handleStartPreviewComplete();
                             } else {
-                                Log.e(TAG, "startY16ModePreview error 单TNR");
+                                Log.e(TAG, "startY16ModePreview error [Chinese text]TNR");
                             }
                         } else {
-                            Log.e(TAG, "startPreview error 单TNR");
+                            Log.e(TAG, "startPreview error [Chinese text]TNR");
                         }
                     } else {
-                        Log.e(TAG, "stopPreview error 单TNR");
+                        Log.e(TAG, "stopPreview error [Chinese text]TNR");
                     }
                 }
             }
@@ -668,7 +668,7 @@ import java.util.List;
             final UVCCamera camera;
             camera = uvcCamera;
             uvcCamera = null;
-            // IRCMD在不用时一定要回收
+            // IRCMD[Chinese text]
             if (ircmd != null) {
                 ircmd.onDestroy();
                 ircmd = null;
@@ -676,7 +676,7 @@ import java.util.List;
 
             SystemClock.sleep(200);
 
-            // initIRISPModule 与 destroyIRISPModule对应使用，回收资源
+            // initIRISPModule [Chinese text] destroyIRISPModule[Chinese text], [Chinese text]
             camera.onDestroyPreview();
 
         }
@@ -686,7 +686,7 @@ import java.util.List;
      *
      */
     private void handleStartPreviewComplete() {
-        // 出图之后再去获取kt,bt,nuc_t等参数来Settings温度数据，避免耗时操作导致这里的停图和出图受影响
+        // [Chinese text]kt,bt,nuc_t[Chinese text]Settingstemperature[Chinese text], [Chinese text]operation[Chinese text]
         new Thread(() -> EventBus.getDefault().post(new PreviewComplete())).start();
     }
 

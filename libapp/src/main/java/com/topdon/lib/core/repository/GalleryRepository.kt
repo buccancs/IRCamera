@@ -44,7 +44,7 @@ object GalleryRepository {
             if (!targetDir.exists()) {
                 targetDir.mkdirs()
             }
-            // 遍历要复制该目录下的全部文件
+            // [Chinese text]
             fileList?.forEach {
                 val path = sourceDir.absolutePath + File.separator + it.name
                 copyPictureFile(path, targetDir.absolutePath + File.separator + it.name)
@@ -76,7 +76,7 @@ object GalleryRepository {
     }
 
     /**
-     * 读取本地图库指定设备类型的最新文件
+     * [Chinese text]gallery[Chinese text]
      */
     fun readLatest(dirType: DirType): String {
         var firstPath = ""
@@ -85,7 +85,7 @@ object GalleryRepository {
             val dirFile = File(path)
             if (dirFile.isDirectory) {
                 val files = dirFile.listFiles()!!
-                // 按时间倒序
+                // [Chinese text]
                 files.sortByDescending {
                     it.lastModified()
                 }
@@ -95,16 +95,16 @@ object GalleryRepository {
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            XLog.e("读取图库失败: ${e.message}")
+            XLog.e("[Chinese text]gallery[Chinese text]: ${e.message}")
             return ""
         }
         return firstPath
     }
 
     /**
-     * 分页加载
-     * @param pageNum 页码，从1开始
-     * @param pageCount 每页数据条数
+     * [Chinese text]
+     * @param pageNum [Chinese text], [Chinese text]1start
+     * @param pageCount [Chinese text]
      */
     suspend fun loadByPage(
         isVideo: Boolean,
@@ -136,7 +136,7 @@ object GalleryRepository {
                         }
                     }
                 } catch (e: Exception) {
-                    XLog.e("读取图库失败: ${e.message}")
+                    XLog.e("[Chinese text]gallery[Chinese text]: ${e.message}")
                 }
             }
 
@@ -145,7 +145,7 @@ object GalleryRepository {
     }
 
     /**
-     * 仅供生成报告使用的，加载所有指定设备类型的图片.
+     * only[Chinese text], [Chinese text].
      */
     suspend fun loadAllReportImg(dirType: DirType): ArrayList<GalleryBean> =
         withContext(Dispatchers.IO) {
@@ -161,13 +161,13 @@ object GalleryRepository {
                     }
                 }
             } catch (e: Exception) {
-                XLog.e("读取图库失败: ${e.message}")
+                XLog.e("[Chinese text]gallery[Chinese text]: ${e.message}")
             }
             return@withContext resultList
         }
 
     /**
-     * 加载本地所有指定类型的图片或视频列表.
+     * [Chinese text].
      */
     private fun loadAllLocale(
         isVideo: Boolean,
@@ -200,7 +200,7 @@ object GalleryRepository {
                 resultList.add(it)
             }
         }
-        // 按时间倒序
+        // [Chinese text]
         resultList.sortByDescending {
             it.lastModified()
         }
@@ -208,16 +208,16 @@ object GalleryRepository {
     }
 
     /**
-     * 使用 MediaStore API 而不是 File 加载本地所有指定类型的图片或视频列表.
+     * [Chinese text] MediaStore API [Chinese text] File [Chinese text].
      */
     private fun loadAllLocaleByMediaStore(dirType: DirType): Array<out File> {
         val tc001Files: MutableList<File> = ArrayList()
-        // 定义查询的列
+        // [Chinese text]
         val projection =
             arrayOf(
                 MediaStore.Images.Media.DATA,
             )
-        // 定义查询条件，指定目标文件夹路径
+        // [Chinese text], [Chinese text]target[Chinese text]
         val selection = MediaStore.Images.Media.DATA + " LIKE ?"
         val path =
             when (dirType) {
@@ -226,9 +226,9 @@ object GalleryRepository {
                 else -> "%DCIM/TS004%"
             }
         val selectionArgs = arrayOf(path)
-        // 获取MediaStore ContentResolver
+        // [Chinese text]MediaStore ContentResolver
         val contentResolver: ContentResolver = Utils.getApp().contentResolver
-        // 查询媒体库
+        // [Chinese text]
         val queryUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
         val cursor =
             contentResolver.query(

@@ -18,10 +18,10 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * ================================================
- * 作    者：JayGoo
- * 版    本：
- * 创建日期：2018/5/10
- * 描    述:
+ * [Chinese text]    [Chinese text]: JayGoo
+ * [Chinese text]    [Chinese text]: 
+ * [Chinese text]: 2018/5/10
+ * [Chinese text]    [Chinese text]:
  * ================================================
  */
 public class VerticalRangeSeekBar extends RangeSeekBar {
@@ -104,10 +104,10 @@ interface DirectionDef {
         int widthSize = MeasureSpec.getSize(widthMeasureSpec);
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         /*
-         * onMeasure传入的widthMeasureSpec和heightMeasureSpec不是一般的尺寸数值，而是将模式和尺寸组合在一起的数值
-         * MeasureSpec.EXACTLY 是精确尺寸
-         * MeasureSpec.AT_MOST 是最大尺寸
-         * MeasureSpec.UNSPECIFIED 是未指定尺寸
+         * onMeasure[Chinese text]widthMeasureSpec[Chinese text]heightMeasureSpec[Chinese text], [Chinese text]mode[Chinese text]
+         * MeasureSpec.EXACTLY [Chinese text]
+         * MeasureSpec.AT_MOST [Chinese text]
+         * MeasureSpec.UNSPECIFIED [Chinese text]
          */
 
         if (widthMode == MeasureSpec.EXACTLY) {
@@ -149,7 +149,7 @@ interface DirectionDef {
                 if (TextUtils.isEmpty(text2Draw)) continue;
                 paint.getTextBounds(text2Draw, 0, text2Draw.length(), tickMarkTextRect);
                 paint.setColor(getTickMarkTextColor());
-                // 平分显示
+                // [Chinese text]
                 float x;
                 if (getTickMarkMode() == TRICK_MARK_MODE_OTHER) {
                     if (getTickMarkGravity() == TICK_MARK_GRAVITY_RIGHT) {
@@ -165,7 +165,7 @@ interface DirectionDef {
                     if (Utils.compareFloat(num, states[0].value) != -1 && Utils.compareFloat(num, states[1].value) != 1 && (getSeekBarMode() == SEEKBAR_MODE_RANGE)) {
                         paint.setColor(getTickMarkInRangeTextColor());
                     }
-                    // 按实际比例显示
+                    // [Chinese text]
                     x = getProgressLeft() + getProgressWidth() * (num - getMinProgress()) / (getMaxProgress() - getMinProgress())
                             - tickMarkTextRect.width() / 2f;
                 }
@@ -216,7 +216,7 @@ interface DirectionDef {
 
     private boolean noNegativeNumber = false;
         /**
-     * 临时处理负数
+     * [Chinese text]
      */
     public void setNoNegativeNumber(Boolean noNegativeNumber){
         this.noNegativeNumber = noNegativeNumber;

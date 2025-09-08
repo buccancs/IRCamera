@@ -13,17 +13,17 @@ import kotlinx.coroutines.launch
 import java.io.File
 
 /**
- * 房屋报告 ViewModel.
+ * [Chinese text] ViewModel.
  *
  * Created by LCG on 2024/8/28.
  */
 class ReportViewModel(application: Application) : AndroidViewModel(application) {
     /**
-     * 所有房屋报告列表，调用 [queryAll] 会触发更改.
+     * [Chinese text], [Chinese text] [queryAll] [Chinese text].
      */
     val reportListLD =  MutableLiveData<List<HouseReport>>()
     /**
-     * 查询所有房屋检测列表，结果通过 [reportListLD] 返回.
+     * [Chinese text], [Chinese text] [reportListLD] [Chinese text].
      */
     fun queryAll() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -32,11 +32,11 @@ class ReportViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     /**
-     * 一项房屋报告，调用 [queryById] 会触发更改.
+     * [Chinese text], [Chinese text] [queryById] [Chinese text].
      */
     val reportLD = MutableLiveData<HouseReport?>()
     /**
-     * 查询指定 id 的房屋报告数据，结果通过 [reportLD] 返回.
+     * [Chinese text] id [Chinese text], [Chinese text] [reportLD] [Chinese text].
      */
     fun queryById(id: Long) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -45,7 +45,7 @@ class ReportViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     /**
-     * 更新指定的一项房屋报告.
+     * [Chinese text].
      */
     fun update(houseReport: HouseReport) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -54,7 +54,7 @@ class ReportViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     /**
-     * 删除指定的房屋报告数据.
+     * [Chinese text].
      */
     fun deleteMore(vararg houseReports: HouseReport) {
         viewModelScope.launch(Dispatchers.IO) {

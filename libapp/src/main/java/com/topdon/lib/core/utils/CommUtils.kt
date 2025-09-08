@@ -23,7 +23,7 @@ object CommUtils {
         try {
             msg = appInfo.metaData.getString("app_name")?.toString() ?: ""
         } catch (e: Exception) {
-            XLog.w("获取app名称异常： ${e.message}")
+            XLog.w("[Chinese text]app[Chinese text]:  ${e.message}")
         }
         return msg
     }

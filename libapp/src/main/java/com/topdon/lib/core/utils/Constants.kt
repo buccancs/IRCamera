@@ -12,14 +12,14 @@ object Constants {
     const val SETTING_DISCONNECTION = 1
     const val IR_TEMPERATURE_MODE = 1
     const val IR_OBSERVE_MODE = 2
-    const val IR_EDIT_MODE = 4 // 二次编辑模式
-    const val IR_TCPLUS_MODE = 5 // Dual light设备
-    const val IR_TC007_MODE = 6 // TC007设备
-    const val IR_TEMPERATURE_LITE = 7 // lite设备
+    const val IR_EDIT_MODE = 4 // [Chinese text]mode
+    const val IR_TCPLUS_MODE = 5 // Dual light[Chinese text]
+    const val IR_TC007_MODE = 6 // TC007[Chinese text]
+    const val IR_TEMPERATURE_LITE = 7 // lite[Chinese text]
 
     /**
-     * 当为生成报告时，是否为生成报告第1张图.
-     * true-第1张图编辑 false-再次添加图片编辑
+     * [Chinese text], [Chinese text]1[Chinese text].
+     * true-[Chinese text]1[Chinese text] false-[Chinese text]
      */
     const val IS_REPORT_FIRST = "IS_REPORT_FIRST"
 }

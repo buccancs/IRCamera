@@ -77,11 +77,11 @@ import java.util.concurrent.atomic.AtomicReference
 import java.util.concurrent.locks.ReentrantReadWriteLock
 
 /**
- * 软编吗
+ * [Chinese text]
  * bitmap -> mp4
  *
- * avcodec.AV_CODEC_ID_MPEG4 // 播放正常
- * avcodec.AV_CODEC_ID_H264 // 不能拖拽进度条
+ * avcodec.AV_CODEC_ID_MPEG4 // [Chinese text]
+ * avcodec.AV_CODEC_ID_H264 // [Chinese text]
  */
 @SuppressLint("MissingPermission")
 class VideoRecordFFmpeg(
@@ -91,7 +91,7 @@ class VideoRecordFFmpeg(
     private val isRecordTemp: Boolean,
     private val thermalPseudoBarView: BitmapConstraintLayout?,
     private val tempBg: TempLayout?,
-    private val compassView: LinearCompassView? = null, // 指南针
+    private val compassView: LinearCompassView? = null, // [Chinese text]
     private val dualView: DualViewWithExternalCameraCommonApi? = null,  // Dual light
     private val isTC007 : Boolean = false,
     private val carView : View ?= null
@@ -107,7 +107,7 @@ class VideoRecordFFmpeg(
         const val AUDIO_CHANNELS = 1
 
         /**
-         * 内存检测
+         * [Chinese text]
          */
         fun canStartVideoRecord(context: Context, videoFile: File? = null): Boolean {
             val canStart = (SDCardUtils.getExternalAvailableSize() - (videoFile?.length()
@@ -157,7 +157,7 @@ class VideoRecordFFmpeg(
     val recordExecutor = Executors.newScheduledThreadPool(1)
     val audioExecutor = Executors.newScheduledThreadPool(1)
     val paint = TextPaint(Paint.ANTI_ALIAS_FLAG)
-    private var rectText = Rect() // 得到text占用宽高， 单位：像素
+    private var rectText = Rect() // [Chinese text]text[Chinese text]high,  [Chinese text]: [Chinese text]
     private val pix20 = SizeUtils.dp2px(20f)
     private val pix10 = SizeUtils.dp2px(10f)
     private val pix6 = SizeUtils.dp2px(6f)
@@ -219,35 +219,35 @@ class VideoRecordFFmpeg(
 
     /**
      *
-     * avcodec.AV_CODEC_ID_MPEG4 播放正常
-     * avcodec.AV_CODEC_ID_H264 不能拖拽进度条
+     * avcodec.AV_CODEC_ID_MPEG4 [Chinese text]
+     * avcodec.AV_CODEC_ID_H264 [Chinese text]
      *
-     * 个别机型使用H264编码无法打开视频,优先使用AV_CODEC_ID_MPEG4
+     * [Chinese text]H264[Chinese text],[Chinese text]AV_CODEC_ID_MPEG4
      */
     private fun getVideoCodec(): Int {
         return if (Build.BRAND == "motorola" && Build.MODEL == "XT2201-2") {
-            XLog.i("使用视频编码AV_CODEC_ID_H264")
+            XLog.i("[Chinese text]AV_CODEC_ID_H264")
             avcodec.AV_CODEC_ID_H264
         } else {
-            // 默认类型
-            XLog.i("使用视频编码AV_CODEC_ID_MPEG4")
+            // [Chinese text]
+            XLog.i("[Chinese text]AV_CODEC_ID_MPEG4")
             avcodec.AV_CODEC_ID_MPEG4
         }
     }
 
     init {
         if ((cameraView.parent as ViewGroup).height > (cameraView.parent as ViewGroup).width) {
-            // 竖屏
+            // [Chinese text]
             width = 480
             height =
                 width * (cameraView.parent as ViewGroup).height / (cameraView.parent as ViewGroup).width
         } else {
-            // 横屏
+            // [Chinese text]
             width = 640
             height =
                 width * (cameraView.parent as ViewGroup).height / (cameraView.parent as ViewGroup).width
         }
-        // 宽高不能出现奇数
+        // [Chinese text]high[Chinese text]
         if (height % 2 == 1) {
             height -= 1
         }
@@ -260,11 +260,11 @@ class VideoRecordFFmpeg(
             MediaRecorder.AudioSource.MIC, SAMPLE_AUDIO_RETE_INHZ,
             AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize
         )
-        paint.color = Color.WHITE // 白色半透明
+        paint.color = Color.WHITE // [Chinese text]
         paint.textSize = SizeUtils.sp2px(6f).toFloat()
         paint.isDither = true
         paint.isFilterBitmap = true
-        paint.getTextBounds("占位高度文本", 0, "占位高度文本".length, rectText)
+        paint.getTextBounds("[Chinese text]high[Chinese text]", 0, "[Chinese text]high[Chinese text]".length, rectText)
     }
 
     var startTime: Long = 0L
@@ -325,7 +325,7 @@ class VideoRecordFFmpeg(
                             setBitmap(it)
                         }
                     }, Consumer {
-                        Log.e("图像对象录制异常", "${it.message}")
+                        Log.e("[Chinese text]", "${it.message}")
                     }
                 )
             if (audioRecord == null) {
@@ -350,18 +350,18 @@ class VideoRecordFFmpeg(
                         recorder!!.record(frame)
                         frame.close()
                         if (System.currentTimeMillis() - queTime > 60 * 1000) {
-                            // 间隔1分钟，校验下剩余空间
+                            // [Chinese text]1[Chinese text], [Chinese text]
                             if (!canStartVideoRecord(cameraView.context, exportedFile)) {
                                 exportDisposable?.dispose()
                                 stopVideoRecordListener?.invoke(false)
-                                // 录制的视频超出大小容量限制
+                                // [Chinese text]
                                 return@Consumer
                             }
                             queTime = System.currentTimeMillis()
                         }
                         recorder?.timestamp?.let {
                             if (it / 1000 > 60 * 60 * 1000) {
-                                // 热成像录像限制60分钟
+                                // [Chinese text]recording[Chinese text]60[Chinese text]
                                 exportDisposable?.dispose()
                                 stopVideoRecordListener?.invoke(true)
                                 return@Consumer
@@ -389,7 +389,7 @@ class VideoRecordFFmpeg(
                             for (i in 0 until tmpAudioData!!.capacity()) {
                                 tmpAudioData!!.put(i, 1.toShort())
                             }
-                            // 使用当前时间戳
+                            // [Chinese text]
                             if (currentTimestamp > (recorder?.timestamp ?: 0)) {
                                 recorder!!.timestamp = currentTimestamp
                             }
@@ -399,22 +399,22 @@ class VideoRecordFFmpeg(
                             )
                         }
 //                        Log.w(
-//                            "图像大小",
+//                            "[Chinese text]",
 //                            "${System.currentTimeMillis() - time}======${frame.image.size}// ${bufferSize}// ${(recorder?.timestamp!! / 1000000L)}"
 //                        )
 
                     } catch (e: Exception) {
-                        Log.e("图像录制", "Caught an exception: " + e.message);
+                        Log.e("[Chinese text]", "Caught an exception: " + e.message);
                     }
                 }, Consumer {
-                    Log.e("图像对象录制异常", "${it.message}")
+                    Log.e("[Chinese text]", "${it.message}")
                 })
 
         } catch (e: Exception) {
 //            stopRecord()
             exportDisposable?.dispose()
             stopVideoRecordListener?.invoke(false)
-            XLog.e("录制异常")
+            XLog.e("[Chinese text]")
             e.printStackTrace()
         }
     }
@@ -448,7 +448,7 @@ class VideoRecordFFmpeg(
         }
 
         fun filter(image: IplImage?, image2: IplImage?): IplImage? {
-            // 未使用
+            // [Chinese text]
             return null
         }
     }
@@ -472,17 +472,17 @@ class VideoRecordFFmpeg(
                 )
             }
         } catch (e: Exception) {
-            Log.e("图像对象处理异常", "${e.message}")
+            Log.e("[Chinese text]", "${e.message}")
         }
     }
 
     /**
-     * 内存检测
+     * [Chinese text]
      */
     fun canStartVideoRecord(videoFile: File?): Boolean {
         val canStart = (SDCardUtils.getExternalAvailableSize() - (videoFile?.length()
             ?: 0)) > (500L * 1000 * 1000)
-//        Log.w("本地可用空间","" + SDCardUtils.getExternalAvailableSize() / 1000 / 1000)
+//        Log.w("[Chinese text]","" + SDCardUtils.getExternalAvailableSize() / 1000 / 1000)
         if (!canStart) {
             ThreadUtils.runOnUiThread {
                 TipDialog.Builder(cameraView.context)
@@ -536,7 +536,7 @@ class VideoRecordFFmpeg(
                     delay(300)
                     refreshAlbum()
                 } catch (e: Exception) {
-                    XLog.e("捕获停止录制视频" + e.message)
+                    XLog.e("[Chinese text]stop[Chinese text]" + e.message)
                 }
             }
             isRunning = false
@@ -576,8 +576,8 @@ class VideoRecordFFmpeg(
     }
 
     /**
-     * cameraViewBitmap是屏幕控件的实际宽高
-     * dstBitmap转成视频输出的
+     * cameraViewBitmap[Chinese text]high
+     * dstBitmap[Chinese text]
      */
     private fun createBitmapFromView(): Bitmap {
         var cameraViewBitmap: Bitmap
@@ -610,11 +610,11 @@ class VideoRecordFFmpeg(
             }
         }
 
-        // Pseudo color条
+        // Pseudo color[Chinese text]
         if (thermalPseudoBarView?.visibility == VISIBLE) {
             try {
                 thermalPseudoBarView?.viewBitmap?.let {
-//                    Log.w("图像对象处理耗时-彩条大小",it.byteCount.toString())
+//                    Log.w("[Chinese text]-[Chinese text]",it.byteCount.toString())
                     cameraViewBitmap = BitmapUtils.mergeBitmap(
                         cameraViewBitmap,
                         it,
@@ -622,9 +622,9 @@ class VideoRecordFFmpeg(
                         (cameraViewBitmap!!.height - it.height) / 2
                     )
                 }
-//                Log.w("图像对象处理耗时-彩条",""+(System.currentTimeMillis() - startTime))
+//                Log.w("[Chinese text]-[Chinese text]",""+(System.currentTimeMillis() - startTime))
             } catch (e: Exception) {
-//                Log.e("图像对象处理耗时-彩条",""+(System.currentTimeMillis() - startTime))
+//                Log.e("[Chinese text]-[Chinese text]",""+(System.currentTimeMillis() - startTime))
             }
         }
         if (true == tempBg?.isVisible) {
@@ -644,7 +644,7 @@ class VideoRecordFFmpeg(
                 cameraViewBitmap,
                 carView?.drawToBitmap(), 0, 0)
         }
-        // 指南针
+        // [Chinese text]
         compassView?.let {
             if (it.isVisible) {
                 try {
@@ -656,13 +656,13 @@ class VideoRecordFFmpeg(
                         SizeUtils.dp2px(20f)
                     )
                 } catch (e: Exception) {
-                    Log.e(TAG, "图像对象处理异常 exception:${e.message}")
+                    Log.e(TAG, "[Chinese text] exception:${e.message}")
                 }
-//                Log.w("图像对象处理耗时-指南针", "${System.currentTimeMillis() - startTime}")
+//                Log.w("[Chinese text]-[Chinese text]", "${System.currentTimeMillis() - startTime}")
             }
         }
 
-        // 画中画
+        // [Chinese text]in progress[Chinese text]
         cameraPreview?.let {
             if (it.isVisible) {
                 val newBitmap: Bitmap? = BitmapUtils.mergeBitmapByView(
@@ -682,7 +682,7 @@ class VideoRecordFFmpeg(
             Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         }
 
-        // 添加水印
+        // [Chinese text]
         val watermarkBean = if (isTC007){SharedManager.wifiWatermarkBean} else {SharedManager.watermarkBean}
         if (watermarkBean.isOpen) {
             dstBitmap = drawCenterLable(
@@ -699,15 +699,15 @@ class VideoRecordFFmpeg(
     private var tempBitmap: Bitmap? = null
 
     fun drawCenterLable(bmp: Bitmap, title: String, address: String, time: String?): Bitmap {
-        // 创建一样大小的图片
+        // [Chinese text]
         val newBmp = Bitmap.createBitmap(bmp.width, bmp.height, Bitmap.Config.ARGB_8888)
-        // 创建画布
+        // [Chinese text]
         val canvas = Canvas(newBmp)
-        canvas.drawBitmap(bmp, 0f, 0f, null) // 绘制原始图片
+        canvas.drawBitmap(bmp, 0f, 0f, null) // [Chinese text]
         canvas.save()
-        val beginX = pix10.toDouble() // 45度角度值是1.414
+        val beginX = pix10.toDouble() // 45[Chinese text]1.414
         var beginY = (bmp.height - pix10).toDouble()
-        paint.getTextBounds("占位高度文本", 0, "占位高度文本".length, rectText)
+        paint.getTextBounds("[Chinese text]high[Chinese text]", 0, "[Chinese text]high[Chinese text]".length, rectText)
         if (!TextUtils.isEmpty(time)) {
             beginY = beginY - (rectText.bottom - rectText.top)
             canvas.drawText(time!!, beginX.toInt().toFloat(), beginY.toInt().toFloat(), paint)
@@ -717,7 +717,7 @@ class VideoRecordFFmpeg(
             val textHeight = (rectText.bottom - rectText.top)
             paint.getTextBounds(address, 0, address.length, rectText)
             if (rectText.width() > bmp.width - pix20) {
-                // 字符太长，进行换行处理
+                // [Chinese text], [Chinese text]
                 val staticLayout = StaticLayout(
                     address,
                     paint, bmp.width - pix20,
@@ -738,7 +738,7 @@ class VideoRecordFFmpeg(
             val textHeight = rectText.bottom - rectText.top
             paint.getTextBounds(title, 0, title.length, rectText)
             if (rectText.width() > bmp.width - pix20) {
-                // 字符太长，进行换行处理
+                // [Chinese text], [Chinese text]
                 val staticLayout = StaticLayout(
                     title,
                     paint, bmp.width - pix20,

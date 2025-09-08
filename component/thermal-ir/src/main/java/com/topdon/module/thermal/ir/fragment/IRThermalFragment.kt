@@ -30,8 +30,8 @@ import com.topdon.module.thermal.ir.activity.IRThermalPlusActivity
 class IRThermalFragment : BaseFragment(), View.OnClickListener {
 
     /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
+     * [Chinese text], [Chinese text] TC007 [Chinese text].
+     * true-TC007 false-[Chinese text]
      */
     private var isTC007 = false
 
@@ -80,7 +80,7 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
         }
         viewLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onResume(owner: LifecycleOwner) {
-                // 要是当前已连接 TS004、TC007，切到流量上，不然登录注册意见反馈那些没网
+                // [Chinese text] TS004, TC007, [Chinese text], [Chinese text]
                 if (WebSocketProxy.getInstance().isConnected()) {
                     NetWorkUtils.switchNetwork(true)
                 }else{
@@ -131,14 +131,14 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
     }
 
     /**
-     * 主动检测连接设备
+     * [Chinese text]
      */
     private fun checkConnect() {
         if (DeviceTools.isConnect(isAutoRequest = false)) {
             connected()
         } else {
             disConnected()
-            if (DeviceTools.findUsbDevice() != null) {// 找到设备,但不能连接
+            if (DeviceTools.findUsbDevice() != null) {// [Chinese text],[Chinese text]
                 showConnectTip()
             }
         }
@@ -163,7 +163,7 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
             }
             tvMainEnter -> {
                 if (!DeviceTools.isConnect()) {
-                    // 没有接入设备不需要提示，有系统授权提示框
+                    // [Chinese text], [Chinese text]
                     if (DeviceTools.findUsbDevice() == null) {
                         activity?.let {
                             TipDialog.Builder(it)
@@ -185,7 +185,7 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
 
                                 override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
                                     if (doNotAskAgain) {
-                                        // 拒绝授权并且不再提醒
+                                        // [Chinese text]
                                         context?.let {
                                             TipDialog.Builder(it)
                                                 .setTitleMessage(getString(R.string.app_tip))
@@ -204,12 +204,12 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
                     }
                 }
             }
-            cl07ConnectTips -> {// TC007 连接提示
+            cl07ConnectTips -> {// TC007 [Chinese text]
                 NavigationManager.getInstance().build(RouterConfig.IR_CONNECT_TIPS)
                     .withBoolean(ExtraKeyConfig.IS_TC007, true)
                     .navigation(requireContext())
             }
-            tv07Connect -> {// TC007 连接设备
+            tv07Connect -> {// TC007 [Chinese text]
                 NavigationManager.getInstance()
                     .build(RouterConfig.IR_DEVICE_ADD)
                     .withBoolean("isTS004", false)
@@ -221,9 +221,9 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
     private var tipConnectDialog: TipDialog? = null
 
     private var isCancelUpdateVersion = false
-    // 针对android10 usb连接问题,提供android 27版本
+    // [Chinese text]android10 usb[Chinese text],[Chinese text]android 27[Chinese text]
     private fun showConnectTip() {
-        // targetSdk高于27且android os为10
+        // targetSdkhigh[Chinese text]27[Chinese text]android os[Chinese text]10
         if (requireContext().applicationInfo.targetSdkVersion >= Build.VERSION_CODES.P &&
             Build.VERSION.SDK_INT == Build.VERSION_CODES.Q
         ) {
@@ -286,7 +286,7 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
     }
 
     /**
-     * 动态申请权限
+     * [Chinese text]
      */
     private fun initStoragePermission(permissionList: List<String>) {
 

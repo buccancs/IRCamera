@@ -125,7 +125,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- 中间部分 -->
+    <!-- in progress[Chinese text] -->
     <FrameLayout
         android:id="@+id/thermal_lay"
         android:layout_width="0dp"

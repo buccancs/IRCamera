@@ -79,7 +79,7 @@ import androidx.annotation.Nullable;
     private static final int MIN_CLICK_DELAY_TIME = 100;
     private static long lastClickTime;
 
-    // 最多70毫秒执行一次move
+    // [Chinese text]70[Chinese text]move
     public static boolean delayMoveTime() {
         boolean flag = false;
         long curClickTime = System.currentTimeMillis();

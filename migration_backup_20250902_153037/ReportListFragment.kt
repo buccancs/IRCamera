@@ -35,10 +35,10 @@ import org.greenrobot.eventbus.ThreadMode
 import java.io.File
 
 /**
- * 报告列表.
+ * [Chinese text].
  *
- * 需要传递参数：
- * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007（不使用，透传）
+ * [Chinese text]: 
+ * - [ExtraKeyConfig.IS_TC007] - [Chinese text] TC007([Chinese text], [Chinese text])
  *
  * Created by LCG on 2024/8/20.
  */
@@ -80,7 +80,7 @@ internal class ReportListFragment : BaseFragment(), View.OnClickListener {
         }
         adapter.onMoreClickListener = { position, v ->
             ThreePickPopup(requireContext(), arrayListOf(R.string.app_rename, R.string.report_delete)) {
-                if (it == 0) {//重命名
+                if (it == 0) {//[Chinese text]
                     val houseReport: HouseReport = adapter.dataList[position] as HouseReport
                     InputTextDialog(requireContext(), houseReport.name) { newName ->
                         if (houseReport.name != newName) {
@@ -90,7 +90,7 @@ internal class ReportListFragment : BaseFragment(), View.OnClickListener {
                             adapter.notifyItemChanged(position)
                         }
                     }.show()
-                } else {//删除
+                } else {//[Chinese text]
                     TipDialog.Builder(requireContext())
                         .setTitleMessage(getString(R.string.monitor_report_delete))
                         .setMessage(R.string.report_delete_tips)
@@ -152,12 +152,12 @@ internal class ReportListFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            tv_add -> {//添加
+            tv_add -> {//[Chinese text]
                 val intent = Intent(requireContext(), DetectAddActivity::class.java)
                 intent.putExtra(ExtraKeyConfig.IS_TC007, arguments?.getBoolean(ExtraKeyConfig.IS_TC007, false) ?: false)
                 startActivity(intent)
             }
-            cl_del -> {//批量删除
+            cl_del -> {//[Chinese text]
                 if (adapter.selectIndexList.isNotEmpty()) {
                     TipDialog.Builder(requireContext())
                         .setTitleMessage(getString(R.string.monitor_report_delete))

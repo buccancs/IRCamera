@@ -7,85 +7,85 @@ import com.energy.iruvc.utils.CommonParams
 import com.energy.iruvc.utils.SynchronizedBitmap
 
 /**
- * 温度标定
+ * temperature[Chinese text]
  */
 object CalibrationTools {
 
     /**
-     * 单点标定
-     * 对准黑体 - Settings温度
+     * [Chinese text]point[Chinese text]
+     * [Chinese text] - Settingstemperature
      */
     fun sign(irCmd: IRCMD, singlePointTemp: Int): Boolean {
         var success = false
-        // 标定前需要重置测温参数,否则温度标定不准
+        // [Chinese text],[Chinese text]temperature[Chinese text]
         if (irCmd.restoreDefaultConfig(CommonParams.DefaultConfigType.DEF_CFG_TPD) == 0) {
             irCmd.restoreDefaultConfig(CommonParams.DefaultConfigType.DEF_CFG_TPD)
             val result = irCmd.setTPDKtBtRecalPoint(CommonParams.TPDKtBtRecalPointType.RECAL_1_POINT, singlePointTemp)
             if (result == 0) {
                 success = true
             } else {
-                XLog.w("单点标定失败")
+                XLog.w("[Chinese text]point[Chinese text]")
             }
         } else {
-            XLog.w("单点标定失败")
+            XLog.w("[Chinese text]point[Chinese text]")
         }
         return success
     }
 
     /**
-     * 温度标定
-     * 低温(100 ~ 400)
+     * temperature[Chinese text]
+     * low[Chinese text](100 ~ 400)
      */
     fun pointFirst(irCmd: IRCMD, pointTemp: Int): Boolean {
         var success = false
-        // 标定前需要重置测温参数,否则温度标定不准
+        // [Chinese text],[Chinese text]temperature[Chinese text]
         if (irCmd.restoreDefaultConfig(CommonParams.DefaultConfigType.DEF_CFG_TPD) == 0) {
             val result = irCmd.setTPDKtBtRecalPoint(CommonParams.TPDKtBtRecalPointType.RECAL_2_POINT_FIRST, pointTemp + 273)
             if (result == 0) {
                 success = true
             } else {
-                XLog.w("低温标定失败")
+                XLog.w("low[Chinese text]")
             }
         } else {
-            XLog.w("低温标定失败")
+            XLog.w("low[Chinese text]")
         }
         return success
     }
 
     /**
-     * 温度标定
-     * 高温(20 ~ 100)
+     * temperature[Chinese text]
+     * high[Chinese text](20 ~ 100)
      *
-     * 提交完低温之后才能提交高温
+     * [Chinese text]low[Chinese text]high[Chinese text]
      */
     fun pointEnd(irCmd: IRCMD, pointTemp: Int): Boolean {
         var success = false
-        // 标定前需要重置测温参数,否则温度标定不准
+        // [Chinese text],[Chinese text]temperature[Chinese text]
         if (irCmd.restoreDefaultConfig(CommonParams.DefaultConfigType.DEF_CFG_TPD) == 0) {
             val result = irCmd.setTPDKtBtRecalPoint(CommonParams.TPDKtBtRecalPointType.RECAL_2_POINT_END, pointTemp + 273)
             if (result == 0) {
                 success = true
             } else {
-                Log.w("123", "失败")
+                Log.w("123", "[Chinese text]")
             }
         } else {
-            Log.w("123", "失败")
+            Log.w("123", "[Chinese text]")
         }
         return success
     }
 
     /**
-     * 锅盖标定 - 步骤一准备
+     * [Chinese text] - [Chinese text]
      *
      */
     fun potReady(irCmd: IRCMD): Boolean {
-        return irCmd.rmCoverStsSwitch(CommonParams.RMCoverStsSwitchStatus.RMCOVER_DIS) == 0 // 关闭锅盖校正
+        return irCmd.rmCoverStsSwitch(CommonParams.RMCoverStsSwitchStatus.RMCOVER_DIS) == 0 // [Chinese text]
     }
 
     /**
-     * 锅盖标定 - 步骤二开始
+     * [Chinese text] - [Chinese text]start
      *
-     * @param gainType 默认GAIN_1
+     * @param gainType [Chinese text]GAIN_1
      * CommonParams.RMCoverAutoCalcType.GAIN_1
      * CommonParams.RMCoverAutoCalcType.GAIN_2
      * CommonParams.RMCoverAutoCalcType.GAIN_4
@@ -97,27 +97,27 @@ object CalibrationTools {
             4 -> CommonParams.RMCoverAutoCalcType.GAIN_4
             else -> CommonParams.RMCoverAutoCalcType.GAIN_1
         }
-        irCmd.rmCoverAutoCalc(gainType) // 发送锅盖标定
-        irCmd.rmCoverStsSwitch(CommonParams.RMCoverStsSwitchStatus.RMCOVER_EN) // 打开锅盖校正
+        irCmd.rmCoverAutoCalc(gainType) // [Chinese text]
+        irCmd.rmCoverStsSwitch(CommonParams.RMCoverStsSwitchStatus.RMCOVER_EN) // [Chinese text]
     }
 
     /**
-     * 取消标定
+     * [Chinese text]
      */
     fun cancelCalibration(irCmd: IRCMD) {
         irCmd.restoreDefaultConfig(CommonParams.DefaultConfigType.DEF_CFG_TPD)
     }
 
     /**
-     * 恢复出厂标定
+     * [Chinese text]
      */
     fun reset(irCmd: IRCMD) {
         irCmd.restoreDefaultConfig(CommonParams.DefaultConfigType.DEF_CFG_ALL)
     }
 
     /**
-     * 查询增益模式
-     * @return true: 高增益    false: 低增益
+     * [Chinese text]mode
+     * @return true: high[Chinese text]    false: low[Chinese text]
      */
     fun queryGain(irCmd: IRCMD): Boolean {
         val value = IntArray(1)
@@ -126,8 +126,8 @@ object CalibrationTools {
     }
 
     /**
-     * Settings增益模式
-     * @param type 1: 打开    0: 关闭
+     * Settings[Chinese text]mode
+     * @param type 1: [Chinese text]    0: [Chinese text]
      *
      */
     fun setGain(irCmd: IRCMD, type: Int) {
@@ -139,7 +139,7 @@ object CalibrationTools {
     }
 
     /**
-     * 查询Tpd
+     * [Chinese text]Tpd
      */
     fun queryTpd(irCmd: IRCMD, params: CommonParams.PropTPDParams): Int {
         val value = IntArray(1)
@@ -148,19 +148,19 @@ object CalibrationTools {
     }
 
     /**
-     * 打快门
+     * [Chinese text]
      */
     fun shutter(irCmd: IRCMD?, syncImage: SynchronizedBitmap) {
         if (syncImage.type == 1) {
             irCmd?.tc1bShutterManual()
         } else {
-            // 执行这段
+            // [Chinese text]
             irCmd?.updateOOCOrB(CommonParams.UpdateOOCOrBType.B_UPDATE)
         }
     }
 
     /**
-     * 控制锅盖标定开关
+     * [Chinese text]
      */
     fun stsSwitch(irCmd: IRCMD?, flag: Boolean) {
         if (flag) {
@@ -171,9 +171,9 @@ object CalibrationTools {
     }
 
     /**
-     * 锅盖标定 - 步骤二开始
+     * [Chinese text] - [Chinese text]start
      *
-     * @param gainType 默认GAIN_1
+     * @param gainType [Chinese text]GAIN_1
      * CommonParams.RMCoverAutoCalcType.GAIN_1
      * CommonParams.RMCoverAutoCalcType.GAIN_2
      * CommonParams.RMCoverAutoCalcType.GAIN_4
@@ -185,11 +185,11 @@ object CalibrationTools {
             4 -> CommonParams.RMCoverAutoCalcType.GAIN_4
             else -> CommonParams.RMCoverAutoCalcType.GAIN_1
         }
-        irCmd.rmCoverAutoCalc(gainType) // 发送锅盖标定
+        irCmd.rmCoverAutoCalc(gainType) // [Chinese text]
     }
 
     /**
-     * 自动快门
+     * [Chinese text]
      */
     fun autoShutter(irCmd: IRCMD?, flag: Boolean) {
         val data = if (flag) CommonParams.PropAutoShutterParameterValue.StatusSwith.ON else CommonParams.PropAutoShutterParameterValue.StatusSwith.OFF
@@ -197,8 +197,8 @@ object CalibrationTools {
     }
 
     /**
-     * TPD_PROP_DISTANCE不给Settings
-     * Settings距离 unit:cnt(128cnt=1m)
+     * TPD_PROP_DISTANCE[Chinese text]Settings
+     * Settings[Chinese text] unit:cnt(128cnt=1m)
      * @param value 0 ~ 25600
      */
     fun setTpdDis(irCmd: IRCMD?, value: Int) {
@@ -207,7 +207,7 @@ object CalibrationTools {
     }
 
     /**
-     * Settings发射率 unit:cnt(128cnt=1)
+     * Settings[Chinese text] unit:cnt(128cnt=1)
      * @param value 1 ~ 128
      */
     fun setTpdEms(irCmd: IRCMD?, value: Int) {
@@ -222,7 +222,7 @@ object CalibrationTools {
         return try {
             irCmd?.setPropTPDParams(params, value) ?: 0
         } catch (e: Exception) {
-            XLog.w("Settings参数异常[${params.name}]: ${e.message}")
+            XLog.w("Settings[Chinese text][${params.name}]: ${e.message}")
             0
         }
     }

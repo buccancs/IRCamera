@@ -10,9 +10,9 @@ import com.blankj.utilcode.util.ScreenUtils
 
 class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
 
-    private var mHolder: SurfaceHolder? = null // 用于控制SurfaceView
-    private var mCanvas: Canvas? = null // 声明一张画布
-    private val p: Paint by lazy { Paint() } // 声明一支画笔
+    private var mHolder: SurfaceHolder? = null // for[Chinese text]SurfaceView
+    private var mCanvas: Canvas? = null // [Chinese text]
+    private val p: Paint by lazy { Paint() } // [Chinese text]
     private val mMatrix: Matrix by lazy { Matrix() }
     private var openLut = false
 
@@ -41,8 +41,8 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
     }
 
     private fun init() {
-        mHolder = holder // 获得SurfaceHolder对象
-        mHolder?.addCallback(this) // 为SurfaceView添加状态监听
+        mHolder = holder // [Chinese text]SurfaceHolder[Chinese text]
+        mHolder?.addCallback(this) // [Chinese text]SurfaceView[Chinese text]listener
         mHolder?.setFormat(PixelFormat.TRANSPARENT)
         p.alpha = 0xff
         mMatrix.setScale(1.0f, 1.0f)
@@ -82,7 +82,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
                 mMatrix.postScale(sca, sca)
             }
             270f -> {
-                // 矩阵转换
+                // [Chinese text]
                 val sca = ScreenUtils.getScreenWidth() / h
                 mMatrix.setRotate(rotate, 0f, 0f)
                 mMatrix.postTranslate(0f, w)
@@ -96,7 +96,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
     }
 
     /**
-     * 自定义画图方法
+     * [Chinese text]
      */
     fun doDraw(bitmap: Bitmap?, shutterFlag: Int) {
 
@@ -105,16 +105,16 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
                 return@doDraw
             }
 
-            mCanvas = mHolder?.lockCanvas() // 获得画布对象，开始对画布画图
+            mCanvas = mHolder?.lockCanvas() // [Chinese text], start[Chinese text]
 
             try {
                 mCanvas?.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
 //                mCanvas?.drawBitmap(bitmap, mMatrix, p)
                 if (openLut) {
-                    mColorMatrixEnhance.setSaturation(saturation * 0.01f * 2.5f + 1f)// 对比度
-                    p.colorFilter = ColorMatrixColorFilter(mColorMatrixEnhance)// 修改色彩矩阵
+                    mColorMatrixEnhance.setSaturation(saturation * 0.01f * 2.5f + 1f)// [Chinese text]
+                    p.colorFilter = ColorMatrixColorFilter(mColorMatrixEnhance)// [Chinese text]
                 } else {
-                    p.colorFilter = ColorMatrixColorFilter(mColorMatrix)// 恢复色彩矩阵
+                    p.colorFilter = ColorMatrixColorFilter(mColorMatrix)// [Chinese text]
                 }
                 mCanvas?.drawBitmap(bitmap, mMatrix, p)
             } catch (e: Exception) {
@@ -123,7 +123,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
                 val surface = mHolder!!.surface
                 if (mCanvas != null && mHolder != null && surface != null && surface.isValid) {
                     try {
-                        mHolder?.unlockCanvasAndPost(mCanvas) // 完成画画，把画布显示在屏幕上
+                        mHolder?.unlockCanvasAndPost(mCanvas) // [Chinese text], [Chinese text]
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }
@@ -133,7 +133,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
         }
     }
 
-    // 生成色彩矩阵
+    // [Chinese text]
     private var mColorMatrix = ColorMatrix(
         floatArrayOf(
             1f, 0f, 0f, 0f, 0f,
@@ -143,7 +143,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
         )
     )
 
-    // 生成色彩矩阵
+    // [Chinese text]
     private var mColorMatrixLut = ColorMatrix(
         floatArrayOf(
             1f, 0f, 0f, 0f, 0f,
@@ -154,7 +154,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
     )
     private val n = 1f
 
-    // 生成色彩矩阵
+    // [Chinese text]
     private var mColorMatrixEnhance = ColorMatrix(
 //        floatArrayOf(
 //            n, 0f, 0f, 0f, 128 * (1 - n),
@@ -170,7 +170,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
         )
     )
 
-    private var saturation = 0 // 对比度 0~100
+    private var saturation = 0 // [Chinese text] 0~100
 
     fun setOpenLut() {
 //        openLut = !openLut
@@ -178,7 +178,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
     }
 
     /**
-     * Settings对比度
+     * Settings[Chinese text]
      * @param saturation 0 ~ 100
      */
     fun setSaturationValue(saturation: Int) {
@@ -196,7 +196,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
     }
 
     /**
-     * 当SurfaceView创建的时候，调用此函数
+     * [Chinese text]SurfaceView[Chinese text], [Chinese text]
      */
     override fun surfaceCreated(holder: SurfaceHolder) {
         isPrepare = true
@@ -206,14 +206,14 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
     }
 
     /**
-     * 当SurfaceView的视图发生改变的时候，调用此函数
+     * [Chinese text]SurfaceView[Chinese text], [Chinese text]
      */
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
         Logger.d(TAG, "holder surfaceChanged")
     }
 
     /**
-     * 当SurfaceView销毁的时候，调用此函数
+     * [Chinese text]SurfaceView[Chinese text], [Chinese text]
      */
     override fun surfaceDestroyed(holder: SurfaceHolder) {
         synchronized(this) {

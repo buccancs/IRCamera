@@ -27,8 +27,8 @@ public class EasyBLEBuilder {
     }
 
         /**
-     * 指定蓝牙扫描器，默认为系统Android5.0以上使用{@link ScannerType#LE}，否则使用{@link ScannerType#LEGACY}。
-     * 系统小于Android5.0时，指定{@link ScannerType#LE}无效
+     * [Chinese text], [Chinese text]Android5.0[Chinese text]{@link ScannerType#LE}, [Chinese text]{@link ScannerType#LEGACY}. 
+     * [Chinese text]Android5.0[Chinese text], [Chinese text]{@link ScannerType#LE}[Chinese text]
      */
     public EasyBLEBuilder setScannerType(ScannerType scannerType) {
         Inspector.requireNonNull(scannerType, "scannerType can't be null");
@@ -37,7 +37,7 @@ public class EasyBLEBuilder {
     }
 
         /**
-     * 自定义线程池用来执行后台任务
+     * [Chinese text]line[Chinese text]
      */
     public EasyBLEBuilder setExecutorService(ExecutorService executorService) {
         Inspector.requireNonNull(executorService, "executorService can't be null");
@@ -46,7 +46,7 @@ public class EasyBLEBuilder {
     }
 
         /**
-     * 设备实例构建器
+     * [Chinese text]
      */
     public EasyBLEBuilder setDeviceCreator(DeviceCreator deviceCreator) {
         Inspector.requireNonNull(deviceCreator, "deviceCreator can't be null");
@@ -55,7 +55,7 @@ public class EasyBLEBuilder {
     }
 
         /**
-     * 配对控制器。如果Settings了控制器，则会在连接时，尝试配对
+     * [Chinese text]. [Chinese text]Settings[Chinese text], [Chinese text], [Chinese text]
      */
     public EasyBLEBuilder setBondController(BondController bondController) {
         Inspector.requireNonNull(bondController, "bondController can't be null");
@@ -64,7 +64,7 @@ public class EasyBLEBuilder {
     }
 
         /**
-     * 观察者或者回调的方法在没有使用注解指定调用线程时，默认被调用的线程
+     * observation[Chinese text]line[Chinese text], [Chinese text]line[Chinese text]
      */
     public EasyBLEBuilder setMethodDefaultThreadMode(ThreadMode mode) {
         Inspector.requireNonNull(mode, "mode can't be null");
@@ -73,7 +73,7 @@ public class EasyBLEBuilder {
     }
 
         /**
-     * 搜索配置
+     * [Chinese text]
      */
     public EasyBLEBuilder setScanConfiguration(ScanConfiguration scanConfiguration) {
         Inspector.requireNonNull(scanConfiguration, "scanConfiguration can't be null");
@@ -82,7 +82,7 @@ public class EasyBLEBuilder {
     }
 
         /**
-     * 日志打印
+     * [Chinese text]
      */
     public EasyBLEBuilder setLogger(Logger logger) {
         Inspector.requireNonNull(logger, "logger can't be null");
@@ -91,9 +91,9 @@ public class EasyBLEBuilder {
     }
 
         /**
-     * 被观察者，消息发布者。
-     * <br>如果观察者被Settings，{@link #setMethodDefaultThreadMode(ThreadMode)}、
-     * {@link #setObserveAnnotationRequired(boolean)}、{@link #setExecutorService(ExecutorService)}将不起作用
+     * [Chinese text]observation[Chinese text], [Chinese text]. 
+     * <br>[Chinese text]observation[Chinese text]Settings, {@link #setMethodDefaultThreadMode(ThreadMode)}, 
+     * {@link #setObserveAnnotationRequired(boolean)}, {@link #setExecutorService(ExecutorService)}[Chinese text]
      */
     public EasyBLEBuilder setObservable(Observable observable) {
         Inspector.requireNonNull(observable, "observable can't be null");
@@ -102,9 +102,9 @@ public class EasyBLEBuilder {
     }
 
         /**
-     * 是否强制使用{@link Observe}注解才会收到被观察者的消息
+     * [Chinese text]{@link Observe}[Chinese text]observation[Chinese text]
      *
-     * @param observeAnnotationRequired true：只有方法上加{@link Observe}注解的才会收到消息。false：加不加注解都会收到消息
+     * @param observeAnnotationRequired true: [Chinese text]{@link Observe}[Chinese text]. false: [Chinese text]
      */
     public EasyBLEBuilder setObserveAnnotationRequired(boolean observeAnnotationRequired) {
         isObserveAnnotationRequired = observeAnnotationRequired;
@@ -112,7 +112,7 @@ public class EasyBLEBuilder {
     }
 
         /**
-     * 根据当前配置构建EasyBLE实例
+     * [Chinese text]EasyBLE[Chinese text]
      */
     public EasyBLE build() {
         synchronized (EasyBLE.class) {

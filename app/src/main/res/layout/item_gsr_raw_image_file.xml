@@ -48,7 +48,7 @@
                 android:id="@+id/resolution"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="4032×3024 (12MP)"
+                android:text="4032x3024 (12MP)"
                 android:textColor="#ccffffff"
                 android:textSize="14sp"
                 android:layout_marginTop="4dp" />
@@ -57,7 +57,7 @@
                 android:id="@+id/capture_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="DNG RAW • Level 3"
+                android:text="DNG RAW * Level 3"
                 android:textColor="#ccffffff"
                 android:textSize="12sp"
                 android:layout_marginTop="2dp" />

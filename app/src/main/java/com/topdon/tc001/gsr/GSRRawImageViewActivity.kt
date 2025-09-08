@@ -150,25 +150,25 @@ class GSRRawImageViewActivity : AppCompatActivity() {
             RAW DNG Image Metadata
             
             File Information:
-            • Name: ${imageFile.name}
-            • Size: $fileSize
-            • Format: DNG (Digital Negative)
-            • Capture Level: Stage 3 / Level 3
+            * Name: ${imageFile.name}
+            * Size: $fileSize
+            * Format: DNG (Digital Negative)
+            * Capture Level: Stage 3 / Level 3
             
             Camera Information:
-            • Sensor: Samsung S22 Main Camera
-            • Resolution: 4032×3024 (12MP)
-            • Bit Depth: 12-bit RAW
-            • Color Space: sRGB
+            * Sensor: Samsung S22 Main Camera
+            * Resolution: 4032x3024 (12MP)
+            * Bit Depth: 12-bit RAW
+            * Color Space: sRGB
             
             Capture Information:
-            • Capture Number: $captureNumber
-            • Timestamp: $createdDate
-            • Synchronization: Ground Truth CPU Timer
+            * Capture Number: $captureNumber
+            * Timestamp: $createdDate
+            * Synchronization: Ground Truth CPU Timer
             
             Storage Information:
-            • Path: ${imageFile.absolutePath}
-            • Last Modified: $createdDate
+            * Path: ${imageFile.absolutePath}
+            * Last Modified: $createdDate
             
             Note: This is a Level 3 RAW capture containing unprocessed sensor data
             for maximum image quality and post-processing flexibility.
@@ -237,27 +237,27 @@ class GSRRawImageViewActivity : AppCompatActivity() {
             Technical Details:
             
             Camera Settings:
-            • ISO: Variable (Auto)
-            • Aperture: f/1.8 (Main Camera)
-            • Focal Length: 6.3mm (35mm equiv: 24mm)
-            • Focus Mode: Auto Focus
+            * ISO: Variable (Auto)
+            * Aperture: f/1.8 (Main Camera)
+            * Focal Length: 6.3mm (35mm equiv: 24mm)
+            * Focus Mode: Auto Focus
             
             Image Processing:
-            • White Balance: Auto
-            • Color Profile: sRGB
-            • Compression: Lossless
-            • Quality: Maximum (RAW)
+            * White Balance: Auto
+            * Color Profile: sRGB
+            * Compression: Lossless
+            * Quality: Maximum (RAW)
             
             Capture Context:
-            • Session Type: Multi-Modal Recording
-            • Parallel Recording: 4K Video + GSR Data
-            • Frame Rate: 30fps RAW capture
-            • Timing Sync: Samsung Exynos Ground Truth
+            * Session Type: Multi-Modal Recording
+            * Parallel Recording: 4K Video + GSR Data
+            * Frame Rate: 30fps RAW capture
+            * Timing Sync: Samsung Exynos Ground Truth
             
             File Format:
-            • Standard: Adobe DNG 1.4
-            • Compatibility: Adobe Camera Raw, Lightroom
-            • Metadata: Full EXIF preserved
+            * Standard: Adobe DNG 1.4
+            * Compatibility: Adobe Camera Raw, Lightroom
+            * Metadata: Full EXIF preserved
             """.trimIndent()
 
         androidx.appcompat.app.AlertDialog.Builder(this)

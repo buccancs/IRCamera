@@ -2,7 +2,7 @@
 
 Get up and running with the Multi-Modal Physiological Sensing Platform in under 10 minutes.
 
-## 🎯 Prerequisites
+## [target] Prerequisites
 
 ### Required Hardware
 - **Android Device**: API 21+ with Camera2 support (Samsung S22 recommended)
@@ -15,7 +15,7 @@ Get up and running with the Multi-Modal Physiological Sensing Platform in under 
 - **Python 3.11+** with pip
 - **Git** for repository cloning
 
-## 📱 Android App Setup
+## [mobile] Android App Setup
 
 ### Option 1: Install Pre-built APK
 ```bash
@@ -36,7 +36,7 @@ cd IRCamera
 adb install app/build/outputs/apk/release/app-release.apk
 ```
 
-## 🖥️ PC Controller Setup
+## [desktop] PC Controller Setup
 
 ### Install Dependencies
 ```bash
@@ -59,7 +59,7 @@ pip install -r requirements.txt
 python src/main.py
 ```
 
-## 🔗 Device Pairing
+## [link] Device Pairing
 
 ### Step 1: Network Connection
 1. Ensure both Android device and PC are on the **same WiFi network**
@@ -77,7 +77,7 @@ python src/main.py
 3. Devices should **automatically discover** each other
 4. **Confirm pairing** when prompted on both devices
 
-## 🎬 First Recording Session
+## [movie] First Recording Session
 
 ### Quick Recording Test
 
@@ -103,15 +103,15 @@ python src/main.py
 After recording, check the session folder:
 ```
 IRCamera_Sessions/session_YYYYMMDD_HHMMSS/
-├── rgb_video.mp4           # 4K video recording
-├── raw_images/             # DNG raw captures
-├── thermal_video.mp4       # Infrared data  
-├── gsr_data.csv           # Shimmer3 GSR data
-├── sync_events.csv        # Synchronization markers
-└── session_metadata.json  # Session information
++-- rgb_video.mp4           # 4K video recording
++-- raw_images/             # DNG raw captures
++-- thermal_video.mp4       # Infrared data  
++-- gsr_data.csv           # Shimmer3 GSR data
++-- sync_events.csv        # Synchronization markers
++-- session_metadata.json  # Session information
 ```
 
-## ⚙️ Essential Configuration
+## [settings] Essential Configuration
 
 ### Android App Settings
 ```kotlin
@@ -133,34 +133,34 @@ IRCamera_Sessions/session_YYYYMMDD_HHMMSS/
 }
 ```
 
-## 🛠️ Common Issues & Quick Fixes
+## [tools] Common Issues & Quick Fixes
 
-### ❌ "Shimmer3 not detected"
+### [X] "Shimmer3 not detected"
 **Solution**: 
 1. Verify Bluetooth pairing in Android settings
 2. Grant all Bluetooth permissions to MPDC4GSR app
 3. Restart Shimmer3 device (power cycle)
 
-### ❌ "PC Controller not visible"
+### [X] "PC Controller not visible"
 **Solution**:
 1. Ensure both devices on same WiFi network
 2. Check firewall settings (allow port 8080)
 3. Restart both applications
 
-### ❌ "Build failed: assembleDevDebug not found"
+### [X] "Build failed: assembleDevDebug not found"
 **Solution**:
 ```bash
 # Use correct release-only command
 ./gradlew :app:assembleRelease
 ```
 
-### ❌ "Camera permission denied"  
+### [X] "Camera permission denied"  
 **Solution**:
 1. Go to Android Settings > Apps > MPDC4GSR
 2. Grant Camera, Storage, and Location permissions
 3. Restart the application
 
-## 📊 Data Quality Verification
+## [chart] Data Quality Verification
 
 ### Quick Checks
 1. **GSR Data**: Open `gsr_data.csv` - should show 128 samples/second
@@ -178,7 +178,7 @@ grep "SYNC_FLASH" sync_events.csv
 # Should show timestamps aligned within 5ms across all streams
 ```
 
-## 🎯 Next Steps
+## [target] Next Steps
 
 Once your quick start is successful:
 
@@ -187,15 +187,15 @@ Once your quick start is successful:
 3. **[Troubleshooting](TROUBLESHOOTING.md)** - Detailed problem resolution
 4. **[API Reference](API_REFERENCE.md)** - Integration and automation
 
-## 💡 Pro Tips
+## [idea] Pro Tips
 
 - **Battery**: Use power adapter during long recording sessions
-- **Storage**: Monitor available space - 5min session ≈ 2GB data
+- **Storage**: Monitor available space - 5min session ~= 2GB data
 - **Network**: Use 5GHz WiFi for better performance
 - **Calibration**: Run sync flash before each session for verification
 
 ---
 
-**Ready to start collecting multi-modal physiological data!** 🚀
+**Ready to start collecting multi-modal physiological data!** [rocket]
 
 *For technical support, see [TROUBLESHOOTING.md](TROUBLESHOOTING.md) or open an issue on GitHub.*

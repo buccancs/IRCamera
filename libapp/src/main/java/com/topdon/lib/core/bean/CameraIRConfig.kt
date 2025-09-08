@@ -1,40 +1,40 @@
 package com.topdon.lib.core.bean
 
 /**
- * 连续Photo capture配置.
- * @param isOpen 是否开启
- * @param continuaTime 连续Photo capture时间间隔，单位毫秒
- * @param count 连续Photo capture数量
+ * [Chinese text]Photo capture[Chinese text].
+ * @param isOpen [Chinese text]
+ * @param continuaTime [Chinese text]Photo capture[Chinese text], [Chinese text]
+ * @param count [Chinese text]Photo capture[Chinese text]
  */
 data class ContinuousBean(var isOpen: Boolean = false, var continuaTime: Long = 1000, var count: Int = 3)
 
 class ObserveBean {
     companion object {
-        // 动态追踪
-        const val TYPE_NONE = -1 // 不开启动态识别
-        const val TYPE_DYN_R = 0 // 动态识别
-        const val TYPE_TMP_H_S = 1 // 高温源
-        const val TYPE_TMP_L_S = 2 // 低温源
+        // [Chinese text]
+        const val TYPE_NONE = -1 // [Chinese text]
+        const val TYPE_DYN_R = 0 // [Chinese text]
+        const val TYPE_TMP_H_S = 1 // high[Chinese text]
+        const val TYPE_TMP_L_S = 2 // low[Chinese text]
 
-        const val TYPE_MEASURE_PERSON = 10 // 人
-        const val TYPE_MEASURE_SHEEP = 11 // 羊
-        const val TYPE_MEASURE_DOG = 12 // 狗
-        const val TYPE_MEASURE_BIRD = 13 // 鸟
+        const val TYPE_MEASURE_PERSON = 10 // [Chinese text]
+        const val TYPE_MEASURE_SHEEP = 11 // [Chinese text]
+        const val TYPE_MEASURE_DOG = 12 // [Chinese text]
+        const val TYPE_MEASURE_BIRD = 13 // [Chinese text]
 
-        const val TYPE_TARGET_HORIZONTAL = 15 // 横向
-        const val TYPE_TARGET_VERTICAL = 16 // 竖向
-        const val TYPE_TARGET_CIRCLE = 17 // 圆形
+        const val TYPE_TARGET_HORIZONTAL = 15 // [Chinese text]
+        const val TYPE_TARGET_VERTICAL = 16 // [Chinese text]
+        const val TYPE_TARGET_CIRCLE = 17 // circular
 
-        const val TYPE_TARGET_COLOR_GREEN = 20 // 绿色
-        const val TYPE_TARGET_COLOR_RED = 21 // 红色
-        const val TYPE_TARGET_COLOR_BLUE = 22 // 蓝色
-        const val TYPE_TARGET_COLOR_BLACK = 23 // 黑色
-        const val TYPE_TARGET_COLOR_WHITE = 24 // 白色
+        const val TYPE_TARGET_COLOR_GREEN = 20 // [Chinese text]
+        const val TYPE_TARGET_COLOR_RED = 21 // [Chinese text]
+        const val TYPE_TARGET_COLOR_BLUE = 22 // [Chinese text]
+        const val TYPE_TARGET_COLOR_BLACK = 23 // [Chinese text]
+        const val TYPE_TARGET_COLOR_WHITE = 24 // [Chinese text]
     }
 }
 
 data class CameraItemBean(
-    var name: String = "延迟",
+    var name: String = "[Chinese text]",
     var type: Int = 0,
     var time: Int = DELAY_TIME_0,
     var isSel: Boolean = false,
@@ -64,13 +64,13 @@ data class CameraItemBean(
         const val TYPE_AUDIO = 3
         const val TYPE_SETTING = 4
 
-        const val DELAY_TIME_0 = 0 // 延迟3秒
-        const val DELAY_TIME_3 = 3 // 延迟3秒
-        const val DELAY_TIME_6 = 6 // 延迟6秒
+        const val DELAY_TIME_0 = 0 // [Chinese text]3[Chinese text]
+        const val DELAY_TIME_3 = 3 // [Chinese text]3[Chinese text]
+        const val DELAY_TIME_6 = 6 // [Chinese text]6[Chinese text]
 
-        // 温度模式
-        const val TYPE_TMP_ZD = -1 // 自动识别模式
-        const val TYPE_TMP_C = 1 // 常温模式
-        const val TYPE_TMP_H = 0 // 高温模式
+        // temperaturemode
+        const val TYPE_TMP_ZD = -1 // [Chinese text]mode
+        const val TYPE_TMP_C = 1 // [Chinese text]mode
+        const val TYPE_TMP_H = 0 // high[Chinese text]mode
     }
 }

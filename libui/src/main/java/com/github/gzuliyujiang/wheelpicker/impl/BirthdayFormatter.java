@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-present 贵州纳雍穿青人李裕江<1032694760@qq.com>
+ * Copyright (c) 2016-present [Chinese text]<1032694760@qq.com>
  *
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
@@ -14,26 +14,26 @@
 package com.github.gzuliyujiang.wheelpicker.impl;
 
 /**
- * 生日格式化
+ * [Chinese text]
  *
- * @author 贵州山野羡民（1032694760@qq.com）
+ * @author [Chinese text](1032694760@qq.com)
  * @since 2019/5/14 14:31
  */
 public class BirthdayFormatter extends SimpleDateFormatter {
 
     @Override
     public String formatYear(int year) {
-        return super.formatYear(year) + "年";
+        return super.formatYear(year) + "[Chinese text]";
     }
 
     @Override
     public String formatMonth(int month) {
-        return super.formatMonth(month) + "月";
+        return super.formatMonth(month) + "[Chinese text]";
     }
 
     @Override
     public String formatDay(int day) {
-        return super.formatDay(day) + "日";
+        return super.formatDay(day) + "[Chinese text]";
     }
 
 }

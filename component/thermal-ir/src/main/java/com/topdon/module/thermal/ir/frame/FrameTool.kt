@@ -21,8 +21,8 @@ class FrameTool {
     private val srcTemperatureLen = imageWidth * imageHeight * 2
     private val imageBytes = ByteArray(scrImageLen)
     val temperatureBytes = ByteArray(srcTemperatureLen)
-    private val imageRes = LibIRProcess.ImageRes_t() // 原图尺寸
-    private var struct: FrameStruct = FrameStruct() // 首部message
+    private val imageRes = LibIRProcess.ImageRes_t() // [Chinese text]
+    private var struct: FrameStruct = FrameStruct() // [Chinese text]message
 
     private var maxLimit = -273f
     private var minLimit = -273f
@@ -36,18 +36,18 @@ class FrameTool {
             val frame = ByteArray(bytes.size)
             System.arraycopy(bytes, 0, frame, 0, frame.size)
             println("bs len: ${frame.size}")
-            System.arraycopy(frame, 0, imageBytes, 0, scrImageLen)// 图像数据 (192 x 256 x 2) yuv
-            System.arraycopy(frame, scrImageLen, temperatureBytes, 0, srcTemperatureLen) // 温度数据 (192 x 256 x 2)
+            System.arraycopy(frame, 0, imageBytes, 0, scrImageLen)// [Chinese text] (192 x 256 x 2) yuv
+            System.arraycopy(frame, scrImageLen, temperatureBytes, 0, srcTemperatureLen) // temperature[Chinese text] (192 x 256 x 2)
             println("imageBytes len: ${imageBytes.size}")
             println("temperatureBytes len: ${temperatureBytes.size}")
         } catch (e: Exception) {
             e.printStackTrace()
-            XLog.e("读取一帧原始数据失败: ${e.message}")
+            XLog.e("[Chinese text]: ${e.message}")
         }
     }
 
     /**
-     * Settings图像默认尺寸
+     * Settings[Chinese text]
      */
     fun initStruct(struct: FrameStruct) {
         this.struct = struct
@@ -56,7 +56,7 @@ class FrameTool {
     }
 
     /**
-     * 矫正角度
+     * [Chinese text]
      */
     fun initRotate(): ImageParams {
         var rotate = ImageParams.ROTATE_0
@@ -70,7 +70,7 @@ class FrameTool {
     }
 
     /**
-     * 获取温度数据
+     * [Chinese text]temperature[Chinese text]
      */
     fun getTempBytes(rotate: ImageParams = ImageParams.ROTATE_0): ByteArray {
         val tempBytes = ByteArray(srcTemperatureLen)
@@ -97,8 +97,8 @@ class FrameTool {
     }
 
     /**
-     * 灰度图转Pseudo color图像
-     * yuv -> argb -> 温度尺 -> 旋转 -> bitmap
+     * [Chinese text]Pseudo color[Chinese text]
+     * yuv -> argb -> temperature[Chinese text] -> [Chinese text] -> bitmap
      */
     fun getScrPseudoColorScaledBitmap(
         pseudoColorMode: CommonParams.PseudoColorType = CommonParams.PseudoColorType.PSEUDO_3,
@@ -120,7 +120,7 @@ class FrameTool {
         val maxRGB = IntArray(3)
         val minRGB = IntArray(3)
         if (customPseudoBean.isUseCustomPseudo) {
-            // 自定义渲染模式
+            // [Chinese text]mode
             LibIRProcess.convertYuyvMapToARGBPseudocolor(imageBytesTemp, pixNum.toLong(), CommonParams.PseudoColorType.PSEUDO_1, argbBytes)
             val colorList: IntArray? = customPseudoBean.getColorList(struct.isTC007())
             val places: FloatArray? = customPseudoBean.getPlaceList()
@@ -137,10 +137,10 @@ class FrameTool {
                 minRGB[2] = minColor and 0xFF
                 var j = 0
                 val argbBytesLength = imageWidth * imageHeight * 4
-                // 遍历像素点，过滤温度阈值
+                // [Chinese text]point, [Chinese text]temperature[Chinese text]
                 var index = 0
                 while (index < argbBytesLength) {
-                    // 温度换算公式
+                    // temperature[Chinese text]
                     var temperature0: Float =
                         ((temperatureBytes[j].toInt() and 0xff) + (temperatureBytes[j + 1]
                             .toInt() and 0xff) * 256).toFloat()
@@ -179,7 +179,7 @@ class FrameTool {
         } else {
             LibIRProcess.convertYuyvMapToARGBPseudocolor(imageBytesTemp, pixNum.toLong(), pseudoColorMode, argbBytes)
             if (!(maxLimit == -273f && minLimit == -273f) && !(maxTemperature == maxLimit && minLimit == minTemperature)) {
-                ImageTools.dualReadFrame(argbBytes, temperatureBytes, maxLimit, minLimit) // 温度尺
+                ImageTools.dualReadFrame(argbBytes, temperatureBytes, maxLimit, minLimit) // temperature[Chinese text]
             }
         }
 
@@ -197,7 +197,7 @@ class FrameTool {
             }
         }
 
-        argbBytesRotate(argbBytes, dstArgbBytes!!, rotate) // 旋转
+        argbBytesRotate(argbBytes, dstArgbBytes!!, rotate) // [Chinese text]
         val dstImageRes = getDstImageRes(rotate)
         var scrBitmap : Bitmap ?= null
         if (isAmplify){
@@ -226,7 +226,7 @@ class FrameTool {
     }
 
     /**
-     * 获取原始图像的bitmap
+     * [Chinese text]bitmap
      */
     fun getBaseBitmap(rotate : ImageParams) : Bitmap{
         val dstImageRes = getDstImageRes(rotate)
@@ -239,10 +239,10 @@ class FrameTool {
     }
 
     /**
-     * 目标尺寸
+     * target[Chinese text]
      */
     private fun getDstImageRes(rotate: ImageParams): LibIRProcess.ImageRes_t {
-        val dstImageRes = LibIRProcess.ImageRes_t() // 目标尺寸
+        val dstImageRes = LibIRProcess.ImageRes_t() // target[Chinese text]
         if (rotate == ImageParams.ROTATE_270 || rotate == ImageParams.ROTATE_90) {
             dstImageRes.width = imageRes.height
             dstImageRes.height = imageRes.width
@@ -254,7 +254,7 @@ class FrameTool {
     }
 
     /**
-     * argb像素矩阵旋转
+     * argb[Chinese text]
      */
     private fun argbBytesRotate(argbBytes: ByteArray, dstArgbBytes: ByteArray, rotate: ImageParams) {
         when (rotate) {
@@ -277,15 +277,15 @@ class FrameTool {
     }
 
 //    fun getTemp() {
-//        // 获取全图最高温和最低温的数据
+//        // [Chinese text]high[Chinese text]low[Chinese text]
 //        val irTemp = Libirtemp(256, 192)
 //        irTemp.settempdata(mixTemperatureBytes)
 //        val temperatureSampleEasyResult = irTemp.getTemperatureOfRect(Rect(0, 0, 256, 192))
 //        Log.w("123", "mix max: ${temperatureSampleEasyResult.maxTemperature}, min: ${temperatureSampleEasyResult.minTemperature}")
 //    }
 
-//    fun getSrcTemp()：Libirt{
-//        // 获取全图最高温和最低温的数据
+//    fun getSrcTemp(): Libirt{
+//        // [Chinese text]high[Chinese text]low[Chinese text]
 //        val irTemp = Libirtemp(256, 192)
 //        irTemp.settempdata(temperatureBytes)
 //        val temperatureSampleEasyResult = irTemp.getTemperatureOfRect(Rect(0, 0, 256, 192))
@@ -294,10 +294,10 @@ class FrameTool {
 //    }
 
     /**
-     * 全局测温(原数据)
+     * [Chinese text]([Chinese text])
      */
     fun getSrcTemp(): LibIRTemp.TemperatureSampleResult {
-        // 获取全图最高温和最低温的数据
+        // [Chinese text]high[Chinese text]low[Chinese text]
         val irTemp = LibIRTemp(imageWidth, imageHeight)
         irTemp.setTempData(temperatureBytes)
         return irTemp.getTemperatureOfRect(Rect(0, 0, imageWidth, imageHeight))

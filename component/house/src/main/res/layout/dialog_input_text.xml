@@ -50,13 +50,13 @@
         android:inputType="text"
         android:maxLength="100"
         android:background="@drawable/bg_corners10_solid_10_ff"
-        tools:text="豪华大别墅"
+        tools:text="[Chinese text]"
         app:layout_constraintDimensionRatio="236:48"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
-    <!-- 取消 -->
+    <!-- [Chinese text] -->
     <TextView
         android:id="@+id/tv_cancel"
         android:layout_width="0dp"
@@ -73,7 +73,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tv_confirm"/>
 
-    <!-- 确定 -->
+    <!-- [Chinese text] -->
     <TextView
         android:id="@+id/tv_confirm"
         android:layout_width="0dp"

@@ -30,7 +30,7 @@ import com.topdon.lib.core.utils.ScreenUtil
 import java.util.*
 
 /**
- * 2D-编辑 水印
+ * 2D-[Chinese text] [Chinese text]
  */
 class TipWaterMarkDialog : Dialog {
     constructor(context: Context) : super(context)
@@ -109,13 +109,13 @@ class TipWaterMarkDialog : Dialog {
             val lp = dialog!!.window!!.attributes
             val wRatio =
                 if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    // 竖屏
+                    // [Chinese text]
                     0.85
                 } else {
-                    // 横屏
+                    // [Chinese text]
                     0.35
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context) * wRatio).toInt() // Settings宽度
+            lp.width = (ScreenUtil.getScreenWidth(context) * wRatio).toInt() // Settings[Chinese text]
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceled)
@@ -165,7 +165,7 @@ class TipWaterMarkDialog : Dialog {
         }
 
         private fun initLocationPermission() {
-            // 定位
+            // [Chinese text]
             XXPermissions.with(context)
                 .permission(
                     Manifest.permission.ACCESS_FINE_LOCATION,
@@ -197,7 +197,7 @@ class TipWaterMarkDialog : Dialog {
                             never: Boolean,
                         ) {
                             if (never) {
-                                // 如果是被永久拒绝就跳转到应用权限系统Settings页面
+                                // [Chinese text]Settings[Chinese text]
                                 if (BaseApplication.instance.isDomestic())
                                     {
                                         ToastUtils.showShort(R.string.app_location_content)
@@ -244,17 +244,17 @@ class TipWaterMarkDialog : Dialog {
 
         @SuppressLint("MissingPermission")
         private fun getLocation(): String? {
-            // 1.获取位置管理器
+            // 1.[Chinese text]
             locationManager = context!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-            // 2.获取位置提供器，GPS或是NetWork
+            // 2.[Chinese text], GPS[Chinese text]NetWork
             val providers = locationManager?.getProviders(true)
             locationProvider =
                 if (providers!!.contains(LocationManager.GPS_PROVIDER)) {
-                    // 如果是GPS
+                    // [Chinese text]GPS
                     LocationManager.GPS_PROVIDER
                 } else if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
-                    // 如果是Network
+                    // [Chinese text]Network
                     LocationManager.NETWORK_PROVIDER
                 } else {
                     return null
@@ -273,7 +273,7 @@ class TipWaterMarkDialog : Dialog {
                 }
         }
 
-        // 获取地址message:城市、街道等message
+        // [Chinese text]message:[Chinese text], [Chinese text]message
         private fun getAddress(location: Location?): String {
             var result: List<Address?>? = null
             try {
@@ -284,7 +284,7 @@ class TipWaterMarkDialog : Dialog {
                             location.latitude,
                             location.longitude, 1,
                         )
-                    Log.v("TAG", "获取地址message：$result")
+                    Log.v("TAG", "[Chinese text]message: $result")
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

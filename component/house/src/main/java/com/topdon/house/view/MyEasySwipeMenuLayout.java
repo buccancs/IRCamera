@@ -69,18 +69,18 @@ public class MyEasySwipeMenuLayout extends ViewGroup {
     }
 
     /**
-     * 初始化方法
+     * [Chinese text]
      *
      * @param context
      * @param attrs
      * @param defStyleAttr
      */
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
-        // 创建辅助对象
+        // [Chinese text]
         ViewConfiguration viewConfiguration = ViewConfiguration.get(context);
         mScaledTouchSlop = viewConfiguration.getScaledTouchSlop();
         mScroller = new Scroller(context);
-        // 1、获取配置的属性值
+        // 1, [Chinese text]
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.MyEasySwipeMenuLayout, defStyleAttr, 0);
 
         try {
@@ -113,10 +113,10 @@ public class MyEasySwipeMenuLayout extends ViewGroup {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        // 获取childView的个数
+        // [Chinese text]childView[Chinese text]
         setClickable(true);
         int count = getChildCount();
-        // 参考frameLayout测量代码
+        // [Chinese text]frameLayoutmeasurement[Chinese text]
         final boolean measureMatchParentChildren =
                 MeasureSpec.getMode(widthMeasureSpec) != MeasureSpec.EXACTLY ||
                         MeasureSpec.getMode(heightMeasureSpec) != MeasureSpec.EXACTLY;
@@ -124,7 +124,7 @@ public class MyEasySwipeMenuLayout extends ViewGroup {
         int maxHeight = 0;
         int maxWidth = 0;
         int childState = 0;
-        // 遍历childViews
+        // [Chinese text]childViews
         for (int i = 0; i < count; i++) {
             View child = getChildAt(i);
 
@@ -217,7 +217,7 @@ public class MyEasySwipeMenuLayout extends ViewGroup {
             }
 
         }
-        // 布局contentView
+        // [Chinese text]contentView
         int cRight = 0;
         if (mContentView != null) {
             mContentViewLp = (MarginLayoutParams) mContentView.getLayoutParams();
@@ -283,12 +283,12 @@ public class MyEasySwipeMenuLayout extends ViewGroup {
 //                    break;
 //                }
 
-                scrollBy((int) (distanceX), 0);// 滑动使用scrollBy
-                // 越界修正
+                scrollBy((int) (distanceX), 0);// swipe[Chinese text]scrollBy
+                // [Chinese text]
                 if (getScrollX() < 0) {
                     if (!mCanRightSwipe || mLeftView == null) {
                         scrollTo(0, 0);
-                    } else {// 左滑
+                    } else {// [Chinese text]
                         if (getScrollX() < mLeftView.getLeft()) {
 
                             scrollTo(mLeftView.getLeft(), 0);
@@ -304,7 +304,7 @@ public class MyEasySwipeMenuLayout extends ViewGroup {
                         }
                     }
                 }
-                // 当处于水平滑动时，禁止父类拦截
+                // [Chinese text]swipe[Chinese text], [Chinese text]
                 if (Math.abs(distanceX) > mScaledTouchSlop
 //                        || Math.abs(getScrollX()) > mScaledTouchSlop
                         ) {
@@ -347,9 +347,9 @@ public class MyEasySwipeMenuLayout extends ViewGroup {
                 break;
             }
             case MotionEvent.ACTION_MOVE: {
-                // 滑动时拦截点击时间
+                // swipe[Chinese text]point[Chinese text]
                 if (Math.abs(finalyDistanceX) > mScaledTouchSlop) {
-                    // 当手指拖动值大于mScaledTouchSlop值时，认为应该进行滚动，拦截子控件的事件
+                    // [Chinese text]mScaledTouchSlop[Chinese text], [Chinese text], [Chinese text]event
                  
                     return true;
                 }
@@ -362,7 +362,7 @@ public class MyEasySwipeMenuLayout extends ViewGroup {
             }
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL: {
-                // 滑动后不触发contentView的点击事件
+                // swipe[Chinese text]contentView[Chinese text]point[Chinese text]event
                 if (isSwipeing) {
                     isSwipeing = false;
                     finalyDistanceX = 0;
@@ -375,7 +375,7 @@ public class MyEasySwipeMenuLayout extends ViewGroup {
     }
 
     /**
-     * 自动Settings状态
+     * [Chinese text]Settings[Chinese text]
      *
      * @param result
      */
@@ -400,16 +400,16 @@ public class MyEasySwipeMenuLayout extends ViewGroup {
 
     @Override
     public void computeScroll() {
-        // 判断Scroller是否执行完毕：
+        // [Chinese text]Scroller[Chinese text]: 
         if (mScroller.computeScrollOffset()) {
             scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
-            // 通知View重绘-invalidate()->onDraw()->computeScroll()
+            // [Chinese text]View[Chinese text]-invalidate()->onDraw()->computeScroll()
             invalidate();
         }
     }
 
     /**
-     * 根据当前的scrollX的值判断松开手后应处于何种状态
+     * [Chinese text]scrollX[Chinese text]
      *
      * @param
      * @param scrollX
@@ -421,22 +421,22 @@ public class MyEasySwipeMenuLayout extends ViewGroup {
         }
         Log.i(TAG, ">>>finalyDistanceX:" + finalyDistanceX);
         if (finalyDistanceX < 0) {
-            // ➡滑动
-            // 1、展开左边按钮
-            // 获得leftView的测量长度
+            // ->swipe
+            // 1, [Chinese text]button
+            // [Chinese text]leftView[Chinese text]measurement[Chinese text]
             if (getScrollX() < 0 && mLeftView != null) {
                 if (Math.abs(mLeftView.getWidth() * mFraction) < Math.abs(getScrollX())) {
                     return State.LEFTOPEN;
                 }
             }
-            // 2、关闭右边按钮
+            // 2, [Chinese text]button
 
             if (getScrollX() > 0 && mRightView != null) {
                 return State.CLOSE;
             }
         } else if (finalyDistanceX > 0) {
-            // ⬅️滑动
-            // 3、开启右边菜单按钮
+            // <-swipe
+            // 3, [Chinese text]menubutton
             if (getScrollX() > 0 && mRightView != null) {
 
                 if (Math.abs(mRightView.getWidth() * mFraction) < Math.abs(getScrollX())) {
@@ -444,7 +444,7 @@ public class MyEasySwipeMenuLayout extends ViewGroup {
                 }
 
             }
-            // 关闭左边
+            // [Chinese text]
             if (getScrollX() < 0 && mLeftView != null) {
                 return State.CLOSE;
             }
@@ -516,10 +516,10 @@ public class MyEasySwipeMenuLayout extends ViewGroup {
     }
 
     public void switchState() {
-        if (mViewCache == this) {// 当前是展开的就关上
+        if (mViewCache == this) {// [Chinese text]
             handlerSwipeMenu(State.CLOSE);
-        } else {// 当前是关着的就展开
-            if (mViewCache != null) {// 先把别的关了
+        } else {// [Chinese text]
+            if (mViewCache != null) {// [Chinese text]
                 mViewCache.handlerSwipeMenu(State.CLOSE);
             }
             handlerSwipeMenu(State.RIGHTOPEN);
@@ -527,7 +527,7 @@ public class MyEasySwipeMenuLayout extends ViewGroup {
     }
 
     private boolean isLeftToRight() {
-        // ➡滑动
+        // ->swipe
         return distanceX < 0;
 
     }

@@ -14,10 +14,10 @@ import com.topdon.tc004.R
 import kotlinx.android.synthetic.main.activity_connect_tips.*
 
 /**
- * TS004、TC007 连接提示.
+ * TS004, TC007 [Chinese text].
  *
- * 需要传递参数：
- * - [ExtraKeyConfig.IS_TC007] - 提示内容是否为 TC007
+ * [Chinese text]: 
+ * - [ExtraKeyConfig.IS_TC007] - [Chinese text] TC007
  *
  * Created by LCG on 2024/6/17.
  */
@@ -25,8 +25,8 @@ import kotlinx.android.synthetic.main.activity_connect_tips.*
 class ConnectTipsActivity : BaseActivity() {
 
     /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
+     * [Chinese text], [Chinese text] TC007 [Chinese text].
+     * true-TC007 false-[Chinese text]
      */
     private var isTC007 = false
 

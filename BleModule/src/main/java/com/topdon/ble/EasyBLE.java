@@ -56,7 +56,7 @@ public class EasyBLE {
     private BluetoothAdapter bluetoothAdapter;
     private BroadcastReceiver broadcastReceiver;
     private final Map<String, Connection> connectionMap = new ConcurrentHashMap<>();
-    // 已连接的设备MAC地址集合
+    // [Chinese text]MAC[Chinese text]
     private final List<String> addressList = new CopyOnWriteArrayList<>();
     private final boolean internalObservable;
 
@@ -85,7 +85,7 @@ public class EasyBLE {
     }
 
         /**
-     * 获取实例。单例的
+     * [Chinese text]. [Chinese text]
      */
     public static EasyBLE getInstance() {
         if (instance == null) {
@@ -158,7 +158,7 @@ public class EasyBLE {
     }
 
         /**
-     * 蓝牙是否开启
+     * [Chinese text]
      */
     public boolean isBluetoothOn() {
         return bluetoothAdapter != null && bluetoothAdapter.isEnabled();
@@ -175,21 +175,21 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
             String action = intent.getAction();
             if (action != null) {
                 switch (action) {
-                    case BluetoothAdapter.ACTION_STATE_CHANGED: // 蓝牙开关状态变化 
+                    case BluetoothAdapter.ACTION_STATE_CHANGED: // [Chinese text] 
                         if (bluetoothAdapter != null) {
-                            // 通知观察者蓝牙状态
+                            // [Chinese text]observation[Chinese text]
                             observable.notifyObservers(MethodInfoGenerator.onBluetoothAdapterStateChanged(bluetoothAdapter.getState()));
-                            if (bluetoothAdapter.getState() == BluetoothAdapter.STATE_OFF) { // 蓝牙关闭
-                                logger.log(Log.DEBUG, Logger.TYPE_GENERAL, "蓝牙关闭了");
-                                // 通知搜索器
+                            if (bluetoothAdapter.getState() == BluetoothAdapter.STATE_OFF) { // [Chinese text]
+                                logger.log(Log.DEBUG, Logger.TYPE_GENERAL, "[Chinese text]");
+                                // [Chinese text]
                                 if (scanner != null) {
                                     scanner.onBluetoothOff();
                                 }
-                                // 断开所有连接
+                                // [Chinese text]
                                 disconnectAllConnections();
                             } else if (bluetoothAdapter.getState() == BluetoothAdapter.STATE_ON) {
-                                logger.log(Log.DEBUG, Logger.TYPE_GENERAL, "蓝牙开启了");
-                                // 重连所有Settings了自动重连的连接
+                                logger.log(Log.DEBUG, Logger.TYPE_GENERAL, "[Chinese text]");
+                                // [Chinese text]Settings[Chinese text]
                                 for (Connection connection : connectionMap.values()) {
                                     if (connection.isAutoReconnectEnabled()) {
                                         connection.reconnect();
@@ -223,21 +223,21 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
                         break;    
                 }
             }
-            if (BluetoothAdapter.ACTION_STATE_CHANGED.equals(intent.getAction())) { // 蓝牙开关状态变化 
+            if (BluetoothAdapter.ACTION_STATE_CHANGED.equals(intent.getAction())) { // [Chinese text] 
                 if (bluetoothAdapter != null) {
-                    // 通知观察者蓝牙状态
+                    // [Chinese text]observation[Chinese text]
                     observable.notifyObservers(MethodInfoGenerator.onBluetoothAdapterStateChanged(bluetoothAdapter.getState()));
-                    if (bluetoothAdapter.getState() == BluetoothAdapter.STATE_OFF) { // 蓝牙关闭
-                        logger.log(Log.DEBUG, Logger.TYPE_GENERAL, "蓝牙关闭了");
-                        // 通知搜索器
+                    if (bluetoothAdapter.getState() == BluetoothAdapter.STATE_OFF) { // [Chinese text]
+                        logger.log(Log.DEBUG, Logger.TYPE_GENERAL, "[Chinese text]");
+                        // [Chinese text]
                         if (scanner != null) {
                             scanner.onBluetoothOff();
                         }
-                        // 断开所有连接
+                        // [Chinese text]
                         disconnectAllConnections();
                     } else if (bluetoothAdapter.getState() == BluetoothAdapter.STATE_ON) {
-                        logger.log(Log.DEBUG, Logger.TYPE_GENERAL, "蓝牙开启了");
-                        // 重连所有Settings了自动重连的连接
+                        logger.log(Log.DEBUG, Logger.TYPE_GENERAL, "[Chinese text]");
+                        // [Chinese text]Settings[Chinese text]
                         for (Connection connection : connectionMap.values()) {
                             if (connection.isAutoReconnectEnabled()) {
                                 connection.reconnect();
@@ -255,17 +255,17 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
         }
         Inspector.requireNonNull(application, "application can't be");
         this.application = application;
-        // 检查是否支持BLE
+        // [Chinese text]BLE
         if (!application.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
             return;
         }
-        // 获取蓝牙配置器
+        // [Chinese text]
         BluetoothManager bluetoothManager = (BluetoothManager) application.getSystemService(Context.BLUETOOTH_SERVICE);
         if (bluetoothManager == null || bluetoothManager.getAdapter() == null) {
             return;
         }
         bluetoothAdapter = bluetoothManager.getAdapter();
-        // 注册蓝牙开关状态广播接收者
+        // [Chinese text]
         if (broadcastReceiver == null) {
             broadcastReceiver = new InnerBroadcastReceiver();
             IntentFilter filter = new IntentFilter();
@@ -301,14 +301,14 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
         /**
-     * 日志输出控制
+     * [Chinese text]
      */
     public void setLogEnabled(boolean isEnabled) {
         logger.setEnabled(isEnabled);
     }
 
         /**
-     * 关闭所有连接并释放资源
+     * [Chinese text]
      */
     public synchronized void release() {
         if (broadcastReceiver != null) {
@@ -327,7 +327,7 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
         /**
-     * 销毁，可重新构建
+     * [Chinese text], [Chinese text]
      */
     public void destroy() {
         release();
@@ -337,7 +337,7 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
         /**
-     * 注册连接状态及数据接收观察者
+     * [Chinese text]observation[Chinese text]
      */
     public void registerObserver(EventObserver observer) {
         if (checkStatus()) {
@@ -346,23 +346,23 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
         /**
-     * 查询观察者是否注册
+     * [Chinese text]observation[Chinese text]
      */
     public boolean isObserverRegistered(EventObserver observer) {
         return observable.isRegistered(observer);
     }
 
         /**
-     * 取消注册连接状态及数据接收观察者
+     * [Chinese text]observation[Chinese text]
      */
     public void unregisterObserver(EventObserver observer) {
         observable.unregisterObserver(observer);
     }
 
         /**
-     * 通知所有观察者事件变化，通常只用在
+     * [Chinese text]observation[Chinese text]event[Chinese text], [Chinese text]
      *
-     * @param info 方法message实例
+     * @param info [Chinese text]message[Chinese text]
      */
     public void notifyObservers(MethodInfo info) {
         if (checkStatus()) {
@@ -370,7 +370,7 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
         }
     }
     
-    // 检查并实例化搜索器
+    // [Chinese text]
     private void checkAndInstanceScanner() {
         if (scanner == null) {
             synchronized (this) {
@@ -394,7 +394,7 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
     
         /**
-     * 添加搜索监听器
+     * [Chinese text]listener[Chinese text]
      */
     public void addScanListener(ScanListener listener) {
         checkAndInstanceScanner();
@@ -404,7 +404,7 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
         /**
-     * 移除搜索监听器
+     * [Chinese text]listener[Chinese text]
      */
     public void removeScanListener(ScanListener listener) {
         if (scanner != null) {
@@ -413,14 +413,14 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
         /**
-     * 是否正在搜索
+     * [Chinese text]
      */
     public boolean isScanning() {
         return scanner != null && scanner.isScanning();
     }
 
         /**
-     * 搜索BLE设备
+     * [Chinese text]BLE[Chinese text]
      */
     public void startScan() {
         checkAndInstanceScanner();
@@ -430,7 +430,7 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
         /**
-     * 停止搜索
+     * stop[Chinese text]
      */
     public void stopScan() {
         if (checkStatus() && scanner != null) {
@@ -439,7 +439,7 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
         /**
-     * 停止搜索，不触发回调
+     * stop[Chinese text], [Chinese text]
      */
     public void stopScanQuietly() {
         if (checkStatus() && scanner != null) {
@@ -448,10 +448,10 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
     /**
-     * 创建连接
+     * [Chinese text]
      *
-     * @param address 蓝牙地址
-     * @return 返回创建的连接实例，创建失败则返回null
+     * @param address [Chinese text]
+     * @return [Chinese text], [Chinese text]null
      */
     @Nullable
     public Connection connect(String address) {
@@ -459,11 +459,11 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
     /**
-     * 创建连接
+     * [Chinese text]
      *
-     * @param address       蓝牙地址
-     * @param configuration 连接配置
-     * @return 返回创建的连接实例，创建失败则返回null
+     * @param address       [Chinese text]
+     * @param configuration [Chinese text]
+     * @return [Chinese text], [Chinese text]null
      */
     @Nullable
     public Connection connect(String address, ConnectionConfiguration configuration) {
@@ -471,11 +471,11 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
     /**
-     * 创建连接
+     * [Chinese text]
      *
-     * @param address  蓝牙地址
-     * @param observer 伴生观察者
-     * @return 返回创建的连接实例，创建失败则返回null
+     * @param address  [Chinese text]
+     * @param observer [Chinese text]observation[Chinese text]
+     * @return [Chinese text], [Chinese text]null
      */
     @Nullable
     public Connection connect(String address, EventObserver observer) {
@@ -483,12 +483,12 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
     /**
-     * 创建连接
+     * [Chinese text]
      *
-     * @param address       蓝牙地址
-     * @param configuration 连接配置
-     * @param observer      伴生观察者
-     * @return 返回创建的连接实例，创建失败则返回null
+     * @param address       [Chinese text]
+     * @param configuration [Chinese text]
+     * @param observer      [Chinese text]observation[Chinese text]
+     * @return [Chinese text], [Chinese text]null
      */
     @Nullable
     public Connection connect(String address, ConnectionConfiguration configuration,
@@ -504,10 +504,10 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
     /**
-     * 创建连接
+     * [Chinese text]
      *
-     * @param device 蓝牙设备实例
-     * @return 返回创建的连接实例，创建失败则返回null
+     * @param device [Chinese text]
+     * @return [Chinese text], [Chinese text]null
      */
     @Nullable
     public Connection connect(Device device) {
@@ -515,11 +515,11 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
     /**
-     * 创建连接
+     * [Chinese text]
      *
-     * @param device        蓝牙设备实例
-     * @param configuration 连接配置
-     * @return 返回创建的连接实例，创建失败则返回null
+     * @param device        [Chinese text]
+     * @param configuration [Chinese text]
+     * @return [Chinese text], [Chinese text]null
      */
     @Nullable
     public Connection connect(Device device, ConnectionConfiguration configuration) {
@@ -527,11 +527,11 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
     /**
-     * 创建连接
+     * [Chinese text]
      *
-     * @param device   蓝牙设备实例
-     * @param observer 伴生观察者
-     * @return 返回创建的连接实例，创建失败则返回null
+     * @param device   [Chinese text]
+     * @param observer [Chinese text]observation[Chinese text]
+     * @return [Chinese text], [Chinese text]null
      */
     @Nullable
     public Connection connect(Device device, EventObserver observer) {
@@ -539,12 +539,12 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
     /**
-     * 创建连接
+     * [Chinese text]
      *
-     * @param device        蓝牙设备实例
-     * @param configuration 连接配置
-     * @param observer      伴生观察者
-     * @return 返回创建的连接实例，创建失败则返回null
+     * @param device        [Chinese text]
+     * @param configuration [Chinese text]
+     * @param observer      [Chinese text]observation[Chinese text]
+     * @return [Chinese text], [Chinese text]null
      */
     @Nullable
     public synchronized Connection connect(final Device device, ConnectionConfiguration configuration,
@@ -552,7 +552,7 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
         if (checkStatus()) {
             Inspector.requireNonNull(device, "device can't be null");
             Connection connection = connectionMap.remove(device.getAddress());
-            // 如果连接已存在，先释放掉
+            // [Chinese text], [Chinese text]
             if (connection != null) {
                 connection.releaseNoEvent();
             }
@@ -583,7 +583,7 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
     /**
-     * 获取所有连接，无序的
+     * [Chinese text], [Chinese text]
      */
     @NonNull
     public Collection<Connection> getConnections() {
@@ -591,7 +591,7 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
     /**
-     * 获取所有连接，有序的
+     * [Chinese text], [Chinese text]
      */
     @NonNull
     public List<Connection> getOrderedConnections() {
@@ -606,7 +606,7 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
     /**
-     * 获取第一个连接
+     * [Chinese text]
      */
     @Nullable
     public Connection getFirstConnection() {
@@ -614,7 +614,7 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
     /**
-     * 获取最后一个连接
+     * [Chinese text]
      */
     @Nullable
     public Connection getLastConnection() {
@@ -632,7 +632,7 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
         /**
-     * 断开连接
+     * [Chinese text]
      */
     public void disconnectConnection(Device device) {
         if (checkStatus() && device != null) {
@@ -644,7 +644,7 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
         /**
-     * 断开连接
+     * [Chinese text]
      */
     public void disconnectConnection(String address) {
         if (checkStatus() && address != null) {
@@ -656,7 +656,7 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
         /**
-     * 断开所有连接
+     * [Chinese text]
      */
     public void disconnectAllConnections() {
         if (checkStatus()) {
@@ -667,7 +667,7 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
         /**
-     * 释放所有连接
+     * [Chinese text]
      */
     public void releaseAllConnections() {
         if (checkStatus()) {
@@ -680,7 +680,7 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
         /**
-     * 释放连接
+     * [Chinese text]
      */
     public void releaseConnection(String address) {
         if (checkStatus() && address != null) {
@@ -693,7 +693,7 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
         /**
-     * 释放连接
+     * [Chinese text]
      */
     public void releaseConnection(Device device) {
         if (checkStatus() && device != null) {
@@ -706,7 +706,7 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
         /**
-     * 重连所有设备
+     * [Chinese text]
      */
     public void reconnectAll() {
         if (checkStatus()) {
@@ -719,7 +719,7 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
         /**
-     * 重连设备
+     * [Chinese text]
      */
     public void reconnect(Device device) {
         if (checkStatus() && device != null) {
@@ -731,9 +731,9 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
         /**
-     * 根据MAC地址获取设备的配对状态
+     * [Chinese text]MAC[Chinese text]
      *
-     * @return {@link BluetoothDevice#BOND_NONE}，{@link BluetoothDevice#BOND_BONDED}，{@link BluetoothDevice#BOND_BONDING}
+     * @return {@link BluetoothDevice#BOND_NONE}, {@link BluetoothDevice#BOND_BONDED}, {@link BluetoothDevice#BOND_BONDING}
      */
     public int getBondState(String address) {
         checkStatus();
@@ -745,9 +745,9 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
         /**
-     * 开始配对
+     * start[Chinese text]
      *
-     * @param address 设备地址
+     * @param address [Chinese text]
      */
     public boolean createBond(String address) {
         checkStatus();
@@ -760,7 +760,7 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
     /**
-     * 根据过滤器，清除配对
+     * [Chinese text], [Chinese text]
      */
     @SuppressWarnings("all")
     public void clearBondDevices(RemoveBondFilter filter) {
@@ -779,9 +779,9 @@ private class InnerBroadcastReceiver extends BroadcastReceiver {
     }
 
     /**
-     * 解除配对
+     * [Chinese text]
      *
-     * @param address 设备地址
+     * @param address [Chinese text]
      */
     @SuppressWarnings("all")
     public void removeBond(String address) {

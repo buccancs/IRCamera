@@ -1,14 +1,14 @@
-# 🔥 Enterprise Thermal-IR Module Documentation
+# [fire] Enterprise Thermal-IR Module Documentation
 
-## 🎯 Overview
+## [target] Overview
 
 The **Enterprise Thermal-IR Module** is the flagship thermal imaging component of the IRCamera platform, providing comprehensive multi-device thermal camera integration, real-time ML-powered processing capabilities, cloud integration, advanced analytics, and enterprise-grade performance optimization.
 
-## 🏗️ Enterprise Architecture
+## [construction] Enterprise Architecture
 
 ```mermaid
 graph TB
-    subgraph "🔥 Enterprise thermal-ir Module"
+    subgraph "[fire] Enterprise thermal-ir Module"
         ThermalActivity[Enterprise Thermal Activity<br/>Material 3 + Multi-Window]
         ThermalViewModel[Advanced Thermal ViewModel<br/>Coroutines + LiveData + ML]
         ThermalRepository[Enterprise Repository<br/>Multi-Source + Cloud Sync]
@@ -19,7 +19,7 @@ graph TB
         MLPipeline[ML Pipeline<br/>Real-Time Inference]
     end
     
-    subgraph "🔧 Enterprise Dependencies"
+    subgraph "[tool] Enterprise Dependencies"
         LibIR[libir Enterprise Library<br/>GPU-Accelerated Processing]
         LibCom[libcom Advanced Library<br/>Secure Cloud Communication]
         LibUI[libui Enterprise Library<br/>Adaptive UI Framework]
@@ -28,15 +28,15 @@ graph TB
         OpenCV[OpenCV Advanced<br/>Computer Vision]
     end
     
-    subgraph "🔌 Enterprise Hardware Support"
-        TC001[TC001 Professional<br/>256×192 + 60FPS]
-        TC007[TC007 Wireless<br/>384×288 + Battery]
-        TS004[TS004 Network<br/>640×480 + IP Protocol]
-        HIKVision[HIKVision Enterprise<br/>1024×768 + Professional]
+    subgraph "[plug] Enterprise Hardware Support"
+        TC001[TC001 Professional<br/>256x192 + 60FPS]
+        TC007[TC007 Wireless<br/>384x288 + Battery]
+        TS004[TS004 Network<br/>640x480 + IP Protocol]
+        HIKVision[HIKVision Enterprise<br/>1024x768 + Professional]
         CustomHW[Custom Hardware<br/>SDK Integration]
     end
     
-    subgraph "☁️ Cloud & Enterprise Services"
+    subgraph "[cloud] Cloud & Enterprise Services"
         AWS[AWS Integration<br/>S3 + Lambda + EC2]
         Azure[Azure Services<br/>Blob + Functions + VMs]
         GCP[Google Cloud<br/>Storage + ML + Compute]

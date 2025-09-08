@@ -22,7 +22,7 @@ class NoScrollViewPager : ViewPager {
     }
 
     override fun setCurrentItem(item: Int) {
-        // 去除切换时动画
+        // [Chinese text]switch[Chinese text]
         super.setCurrentItem(item, false)
     }
 }

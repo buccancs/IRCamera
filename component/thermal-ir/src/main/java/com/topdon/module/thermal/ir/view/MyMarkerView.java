@@ -54,7 +54,7 @@ import java.util.Locale;
             } else {
                 if (e.getData() instanceof ThermalEntity) {
                     ThermalEntity data = (ThermalEntity) e.getData();
-                    int index = highlight.getDataIndex();// 曲线序号
+                    int index = highlight.getDataIndex();// [Chinese text]line[Chinese text]
                     StringBuilder str = new StringBuilder();
                     if (index == 0) {
                         str.append(com.blankj.utilcode.util.Utils.getApp().getString(R.string.chart_temperature) + ": ").append(UnitTools.showC(data.getThermal()));

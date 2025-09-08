@@ -35,7 +35,7 @@ object NetWorkUtils {
     ): Boolean {
         val wifiManager = context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
         val wifiInfo = wifiManager.connectionInfo
-        val ssid = wifiInfo.ssid.replace("\"", "") // 移除双引号
+        val ssid = wifiInfo.ssid.replace("\"", "") // [Chinese text]
         for (prefix in prefixes) {
             if (ssid.startsWith(prefix)) {
                 return true
@@ -50,16 +50,16 @@ object NetWorkUtils {
         listener: ((network: Network?) -> Unit)? = null,
     ) {
         netWorkListener = listener
-        if (Build.VERSION.SDK_INT < 29) { // 低于 Android10
+        if (Build.VERSION.SDK_INT < 29) { // low[Chinese text] Android10
             val request =
                 NetworkRequest.Builder()
                     .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
-                    .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) // 不需要能访问 internet
+                    .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) // [Chinese text] internet
                     .build()
             val callback =
                 object : ConnectivityManager.NetworkCallback() {
                     override fun onAvailable(network: Network) {
-                        XLog.e("测试", "onAvailable")
+                        XLog.e("[Chinese text]", "onAvailable")
                         if (WifiUtil.getCurrentWifiSSID(BaseApplication.instance) == ssid) {
                             connectivityManager.unregisterNetworkCallback(this)
                             listener?.invoke(network)
@@ -67,7 +67,7 @@ object NetWorkUtils {
                     }
 
                     override fun onUnavailable() {
-                        XLog.e("测试", "onUnavailable")
+                        XLog.e("[Chinese text]", "onUnavailable")
                         connectivityManager.unregisterNetworkCallback(this)
                         listener?.invoke(null)
                     }
@@ -76,7 +76,7 @@ object NetWorkUtils {
                         network: Network,
                         networkCapabilities: NetworkCapabilities,
                     ) {
-                        XLog.e("测试", "onCapabilitiesChanged")
+                        XLog.e("[Chinese text]", "onCapabilitiesChanged")
                         super.onCapabilitiesChanged(network, networkCapabilities)
                     }
 
@@ -85,7 +85,7 @@ object NetWorkUtils {
                         blocked: Boolean,
                     ) {
                         super.onBlockedStatusChanged(network, blocked)
-                        XLog.e("测试", "onBlockedStatusChanged")
+                        XLog.e("[Chinese text]", "onBlockedStatusChanged")
                     }
 
                     override fun onLinkPropertiesChanged(
@@ -93,7 +93,7 @@ object NetWorkUtils {
                         linkProperties: LinkProperties,
                     ) {
                         super.onLinkPropertiesChanged(network, linkProperties)
-                        XLog.e("测试", "onLinkPropertiesChanged")
+                        XLog.e("[Chinese text]", "onLinkPropertiesChanged")
                     }
 
                     override fun onLosing(
@@ -101,7 +101,7 @@ object NetWorkUtils {
                         maxMsToLive: Int,
                     ) {
                         super.onLosing(network, maxMsToLive)
-                        XLog.e("测试", "onLosing")
+                        XLog.e("[Chinese text]", "onLosing")
                     }
                 }
             connectivityManager.registerNetworkCallback(request, callback)
@@ -160,7 +160,7 @@ object NetWorkUtils {
         isWifi: Boolean,
         listener: ((network: Network?) -> Unit)? = null,
     ) {
-        if (Build.VERSION.SDK_INT < 29) { // 低于 Android10
+        if (Build.VERSION.SDK_INT < 29) { // low[Chinese text] Android10
             return
         }
         if (isWifi)
@@ -169,7 +169,7 @@ object NetWorkUtils {
                 if (networkCapabilities != null &&
                     networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
                 ) {
-                    XLog.i("已经是wifi,跳过")
+                    XLog.i("[Chinese text]wifi,[Chinese text]")
                     return
                 }
             }
@@ -182,7 +182,7 @@ object NetWorkUtils {
             object : ConnectivityManager.NetworkCallback() {
                 override fun onAvailable(network: Network) {
                     super.onAvailable(network)
-                    XLog.i("切换到 ${if (isWifi) "WIFI" else "流量"} onAvailable()")
+                    XLog.i("switch[Chinese text] ${if (isWifi) "WIFI" else "[Chinese text]"} onAvailable()")
                     if (isWifi) {
                         TS004Repository.netWork = network
                     }
@@ -194,7 +194,7 @@ object NetWorkUtils {
                 override fun onUnavailable() {
                     super.onUnavailable()
                     connectivityManager.unregisterNetworkCallback(this)
-                    XLog.w("切换到 ${if (isWifi) "WIFI" else "流量"} onUnavailable()")
+                    XLog.w("switch[Chinese text] ${if (isWifi) "WIFI" else "[Chinese text]"} onUnavailable()")
                     listener?.invoke(null)
                 }
             },

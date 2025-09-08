@@ -12,12 +12,12 @@ import org.greenrobot.eventbus.ThreadMode
 
 /**
  *
- * 锅盖矫正
+ * [Chinese text]
  * @author: CaiSongL
  * @date: 2023/8/4 9:06
  *
- * 需要传递参数：
- * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
+ * [Chinese text]: 
+ * - [ExtraKeyConfig.IS_TC007] - [Chinese text] TC007
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class IRCorrectionActivity : BaseActivity() {

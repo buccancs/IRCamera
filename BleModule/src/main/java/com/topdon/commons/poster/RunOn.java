@@ -3,7 +3,7 @@ package com.topdon.commons.poster;
 import java.lang.annotation.*;
 
 /**
- * 标记方法执行线程
+ * [Chinese text]line[Chinese text]
  * <p>
  * date: 2019/8/2 23:53
  * author: chuanfeng.bi
@@ -18,7 +18,7 @@ public @/**
  */
 interface RunOn {
     /**
-     * 运行线程
+     * [Chinese text]line[Chinese text]
      */
     ThreadMode value() default ThreadMode.UNSPECIFIED;
 }

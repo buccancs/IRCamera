@@ -19,7 +19,7 @@ import com.topdon.lms.sdk.weiget.TToast
  */
 object PermissionTool {
     /**
-     * 请求 RECORD_AUDIO 权限.
+     * [Chinese text] RECORD_AUDIO [Chinese text].
      */
     fun requestRecordAudio(
         context: Context,
@@ -27,7 +27,7 @@ object PermissionTool {
     ) = request(context, Type.RECORD_AUDIO, callback)
 
     /**
-     * 请求 CAMERA 权限.
+     * [Chinese text] CAMERA [Chinese text].
      */
     fun requestCamera(
         context: Context,
@@ -35,7 +35,7 @@ object PermissionTool {
     ) = request(context, Type.CAMERA, callback)
 
     /**
-     * 请求 ACCESS_FINE_LOCATION 权限.
+     * [Chinese text] ACCESS_FINE_LOCATION [Chinese text].
      */
     fun requestLocation(
         context: Context,
@@ -43,7 +43,7 @@ object PermissionTool {
     ) = request(context, Type.LOCATION, callback)
 
     /**
-     * 请求 图片读取 权限.
+     * [Chinese text] [Chinese text] [Chinese text].
      */
     fun requestImageRead(
         context: Context,
@@ -51,11 +51,11 @@ object PermissionTool {
     ) = request(context, Type.IMAGE, callback)
 
     /**
-     * Android 10 及以下：请求外部存储文件读、写权限
+     * Android 10 [Chinese text]: [Chinese text], [Chinese text]
      *
-     * Android 11、Android 12、Android 12L：请求外部存储读权限
+     * Android 11, Android 12, Android 12L: [Chinese text]
      *
-     * Android 13 及以上：请求媒体-视频、媒体-图片权限
+     * Android 13 [Chinese text]: [Chinese text]-[Chinese text], [Chinese text]-[Chinese text]
      */
     fun requestFile(
         context: Context,
@@ -84,11 +84,11 @@ class Type { RECORD_AUDIO, CAMERA, LOCATION, IMAGE, FILE }
                         if (context.applicationInfo.targetSdkVersion < 33) Permission.READ_EXTERNAL_STORAGE else Permission.READ_MEDIA_IMAGES,
                     )
                 Type.FILE ->
-                    if (context.applicationInfo.targetSdkVersion < 30) { // Android 10及以下
+                    if (context.applicationInfo.targetSdkVersion < 30) { // Android 10[Chinese text]
                         listOf(Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE)
-                    } else if (context.applicationInfo.targetSdkVersion < 33) { // Android 13以下
+                    } else if (context.applicationInfo.targetSdkVersion < 33) { // Android 13[Chinese text]
                         listOf(Permission.READ_EXTERNAL_STORAGE)
-                    } else { // Android 13及以上
+                    } else { // Android 13[Chinese text]
                         listOf(Permission.READ_MEDIA_VIDEO, Permission.READ_MEDIA_IMAGES)
                     }
             }
@@ -121,7 +121,7 @@ class Type { RECORD_AUDIO, CAMERA, LOCATION, IMAGE, FILE }
                                     Type.IMAGE -> R.string.app_album_content
                                     Type.FILE -> R.string.app_storage_content
                                 }
-                            if (BaseApplication.instance.isDomestic()) { // 国内版
+                            if (BaseApplication.instance.isDomestic()) { // [Chinese text]
                                 TToast.shortToast(context, tipsResId)
                             } else {
                                 TipDialog.Builder(context)
@@ -144,11 +144,11 @@ class Type { RECORD_AUDIO, CAMERA, LOCATION, IMAGE, FILE }
     }
 
     /**
-     * 判断是否具有 ACCESS_FINE_LOCATION、BLUETOOTH_SCAN、BLUETOOTH_CONNECT 权限。
-     * 低于 Android12 视为具有。
+     * [Chinese text] ACCESS_FINE_LOCATION, BLUETOOTH_SCAN, BLUETOOTH_CONNECT [Chinese text]. 
+     * low[Chinese text] Android12 [Chinese text]. 
      */
     fun hasBtPermission(context: Context): Boolean {
-        return if (Build.VERSION.SDK_INT < 31) { // 低于 Android12
+        return if (Build.VERSION.SDK_INT < 31) { // low[Chinese text] Android12
             XXPermissions.isGranted(context, Permission.ACCESS_FINE_LOCATION)
         } else {
             XXPermissions.isGranted(context, Permission.ACCESS_FINE_LOCATION, Permission.BLUETOOTH_SCAN, Permission.BLUETOOTH_CONNECT)
@@ -156,8 +156,8 @@ class Type { RECORD_AUDIO, CAMERA, LOCATION, IMAGE, FILE }
     }
 
     /**
-     * 仅当 Android12 及以上版本时，请求 BLUETOOTH_SCAN、BLUETOOTH_CONNECT 权限
-     * @param isBtFirst true-永久拒绝时优先提示蓝牙 false-永久拒绝时优先提示定位
+     * only[Chinese text] Android12 [Chinese text], [Chinese text] BLUETOOTH_SCAN, BLUETOOTH_CONNECT [Chinese text]
+     * @param isBtFirst true-[Chinese text] false-[Chinese text]
      */
     fun requestBluetooth(
         context: Context,
@@ -165,7 +165,7 @@ class Type { RECORD_AUDIO, CAMERA, LOCATION, IMAGE, FILE }
         callback: Callback,
     ) {
         val permissionList: List<String> =
-            if (Build.VERSION.SDK_INT < 31) { // 低于 Android12
+            if (Build.VERSION.SDK_INT < 31) { // low[Chinese text] Android12
                 arrayListOf(Permission.ACCESS_FINE_LOCATION, Permission.ACCESS_COARSE_LOCATION)
             } else {
                 arrayListOf(
@@ -204,7 +204,7 @@ class Type { RECORD_AUDIO, CAMERA, LOCATION, IMAGE, FILE }
                                     isLocationNever = true
                                 }
                             }
-                            // 如果是被永久拒绝就跳转到应用权限系统Settings页面
+                            // [Chinese text]Settings[Chinese text]
                             TipDialog.Builder(context)
                                 .setTitleMessage(context.getString(R.string.app_tip))
                                 .setMessage(
@@ -234,12 +234,12 @@ class Type { RECORD_AUDIO, CAMERA, LOCATION, IMAGE, FILE }
  */
 interface Callback {
         /**
-         * 未被永久拒绝时，全部授予 或 有部分未授予 回调.
+         * [Chinese text], [Chinese text] [Chinese text] [Chinese text] [Chinese text].
          */
         fun onResult(allGranted: Boolean)
 
         /**
-         * 永久拒绝时，跳转弹框 去打开 或 取消 回调.
+         * [Chinese text], [Chinese text] [Chinese text] [Chinese text] [Chinese text] [Chinese text].
          */
         fun onNever(isJump: Boolean)
     }

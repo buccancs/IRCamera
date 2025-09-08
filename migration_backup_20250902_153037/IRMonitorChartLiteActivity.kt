@@ -43,13 +43,13 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 /**
- * 温度实时监控
+ * temperature[Chinese text]
  */
 @Route(path = RouterConfig.IR_MONITOR_CHART_LITE)
 class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
 
     /**
-     * 从上一界面传递过来的，当前选中的 点/线/面 信息.
+     * [Chinese text], [Chinese text]in progress[Chinese text] point/line/[Chinese text] [Chinese text].
      */
     private var selectBean: SelectPositionBean = SelectPositionBean()
 
@@ -80,7 +80,7 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
             irMonitorLiteFragment?.arguments = args
             supportFragmentManager.beginTransaction().add(R.id.thermal_lay, irMonitorLiteFragment!!).commit()
             delay(1000)
-            recordThermal()//开始记录
+            recordThermal()//start[Chinese text]
         }
     }
 
@@ -125,9 +125,9 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
                     if (isFirstRead) {
                         if (result.maxTemperature > 200f || result.minTemperature < -200f) {
                             errorReadCount++
-                            XLog.w("第 $errorReadCount 次读取到异常数据，max = ${result.maxTemperature} min = ${result.minTemperature}")
+                            XLog.w("[Chinese text] $errorReadCount [Chinese text], max = ${result.maxTemperature} min = ${result.minTemperature}")
                             if (errorReadCount > 10) {
-                                XLog.i("连续10次获取到异常数据，认为温度区域稳定")
+                                XLog.i("[Chinese text]10[Chinese text], [Chinese text]temperaturearea[Chinese text]")
                                 isFirstRead = false
                             }
                             continue
@@ -145,7 +145,7 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
                         bean.maxTemp = maxBigDecimal.setScale(1, RoundingMode.HALF_UP).toFloat()
                         bean.minTemp = minBigDecimal.setScale(1, RoundingMode.HALF_UP).toFloat()
                         bean.createTime = System.currentTimeMillis()
-                        canUpdate = true//可以开始更新记录
+                        canUpdate = true//[Chinese text]start[Chinese text]
                     }
                 }
             }
@@ -160,7 +160,7 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
     override fun onResume() {
         super.onResume()
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        mp_chart_view.highlightValue(null) //关闭高亮点Marker
+        mp_chart_view.highlightValue(null) //[Chinese text]high[Chinese text]pointMarker
     }
 
     override fun onPause() {
@@ -181,12 +181,12 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
     }
 
     private var isRecord = false
-    private var timeMillis = 1000L //间隔1s
+    private var timeMillis = 1000L //[Chinese text]1s
     private var canUpdate = false
 
     private var recordJob: Job? = null
     /**
-     * 开始每隔1秒记录一个温度数据到数据库.
+     * start[Chinese text]1[Chinese text]temperature[Chinese text].
      */
     private fun recordThermal() {
         recordJob = lifecycleScope.launch(Dispatchers.IO) {
@@ -223,7 +223,7 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
                     tv_time.text = TimeTool.showVideoLongTime(System.currentTimeMillis() - startTime)
                 }
             }
-            XLog.w("停止记录, 数据量:$time")
+            XLog.w("stop[Chinese text], [Chinese text]:$time")
         }
     }
 
@@ -231,11 +231,11 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
     fun cameraEvent(event: DeviceCameraEvent) {
         when (event.action) {
             100 -> {
-                //准备图像
+                //[Chinese text]
                 showCameraLoading()
             }
             101 -> {
-                //显示图像
+                //[Chinese text]
                 dismissCameraLoading()
             }
         }
@@ -260,13 +260,13 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
                 return temp!!
             }
 
-            //获取增益状态 PASS
+            //[Chinese text] PASS
             if (System.currentTimeMillis() - basicGainGetTime > 5000L){
                 try {
                     val basicGainGet: IrcmdError? = DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
                         ?.basicGainGet(basicGainGetValue)
                 }catch (e : Exception){
-                    XLog.e("增益获取失败")
+                    XLog.e("[Chinese text]")
                 }
                 basicGainGetTime = System.currentTimeMillis()
             }
@@ -293,7 +293,7 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
                         "distance = " + params_array[4] + " hum = " + params_array[5]
             )
         }catch (e : Exception){
-            XLog.e("$TAG--温度修正异常：${e.message}")
+            XLog.e("$TAG--temperature[Chinese text]: ${e.message}")
         }finally {
             return tempNew ?: 0f
         }

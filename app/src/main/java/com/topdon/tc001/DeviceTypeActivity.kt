@@ -16,13 +16,13 @@ import com.topdon.lib.core.navigation.NavigationManager
 import com.topdon.lib.core.tools.DeviceTools
 
 /**
- * 设备类型选择.
+ * [Chinese text].
  *
  * Created by LCG on 2024/4/22.
  */
 class DeviceTypeActivity : BaseActivity() {
     /**
-     * 当前点击的设备类型.
+     * [Chinese text]point[Chinese text].
      */
     private var clientType: IRDeviceType? = null
 
@@ -104,7 +104,7 @@ class DeviceTypeActivity : BaseActivity() {
             arrayListOf(
                 ItemInfo(true, IRDeviceType.TS001, IRDeviceType.TC001),
                 ItemInfo(false, IRDeviceType.TC001_PLUS, IRDeviceType.TC002C_DUO),
-//            暂时先屏蔽TC007
+//            [Chinese text]TC007
 //            ItemInfo(true, IRDeviceType.TS004, IRDeviceType.TC007),
                 ItemInfo(true, IRDeviceType.TS004, null),
                 ItemInfo(true, IRDeviceType.SHIMMER3_GSR, null),
@@ -138,7 +138,7 @@ class DeviceTypeActivity : BaseActivity() {
             val tvItem1 = holder.itemView.findViewById<TextView>(R.id.tv_item1)
             tvItem1.text = firstType.getDeviceName()
             when (firstType) {
-                // TODO: 替换 TC002 Duo 图标
+                // TODO: [Chinese text] TC002 Duo [Chinese text]
                 IRDeviceType.TC001 ->
                     holder.itemView.findViewById<android.widget.ImageView>(
                         R.id.iv_item1,
@@ -178,7 +178,7 @@ class DeviceTypeActivity : BaseActivity() {
                 val tvItem2 = holder.itemView.findViewById<TextView>(R.id.tv_item2)
                 tvItem2.text = secondType.getDeviceName()
                 when (secondType) {
-                    // TODO: 替换 TC002 Duo 图标
+                    // TODO: [Chinese text] TC002 Duo [Chinese text]
                     IRDeviceType.TC001 ->
                         holder.itemView.findViewById<android.widget.ImageView>(
                             R.id.iv_item2,
@@ -237,7 +237,7 @@ class DeviceTypeActivity : BaseActivity() {
     }
 
     /**
-     * 支持的设备类型 (热成像设备和GSR传感器).
+     * [Chinese text] ([Chinese text]GSR[Chinese text]).
      */
     enum class IRDeviceType {
         TC001 {

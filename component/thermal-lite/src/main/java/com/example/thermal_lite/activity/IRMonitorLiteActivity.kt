@@ -44,13 +44,13 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 /**
- * 选取区域监听
+ * [Chinese text]arealistener
  */
 // Legacy ARouter route annotation - now using NavigationManager
 open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTempListener {
 
     private lateinit var binding: ActivityIrMonitorLiteBinding
-    private var selectIndex: SelectPositionBean? = null// 选取点
+    private var selectIndex: SelectPositionBean? = null// [Chinese text]point
     val irMonitorLiteFragment = IRMonitorLiteFragment()
     private val bean = ThermalBean()
     private var selectBean: SelectPositionBean = SelectPositionBean()
@@ -110,9 +110,9 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTem
                     if (isFirstRead) {
                         if (result.maxTemperature > 200f || result.minTemperature < -200f) {
                             errorReadCount++
-                            XLog.w("第 $errorReadCount 次读取到异常数据，max = ${result.maxTemperature} min = ${result.minTemperature}")
+                            XLog.w("[Chinese text] $errorReadCount [Chinese text], max = ${result.maxTemperature} min = ${result.minTemperature}")
                             if (errorReadCount > 10) {
-                                XLog.i("连续10次获取到异常数据，认为温度区域稳定")
+                                XLog.i("[Chinese text]10[Chinese text], [Chinese text]temperaturearea[Chinese text]")
                                 isFirstRead = false
                             }
                             continue
@@ -130,7 +130,7 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTem
                         bean.maxTemp = maxBigDecimal.setScale(1, RoundingMode.HALF_UP).toFloat()
                         bean.minTemp = minBigDecimal.setScale(1, RoundingMode.HALF_UP).toFloat()
                         bean.createTime = System.currentTimeMillis()
-                        canUpdate = true// 可以开始更新记录
+                        canUpdate = true// [Chinese text]start[Chinese text]
                     }
                 }
             }
@@ -139,17 +139,17 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTem
         binding.monitorCurrentVol.text = getString(if (selectIndex!!.type == 1) R.string.chart_temperature else R.string.chart_temperature_high)
         binding.monitorRealVol.visibility = if (selectIndex!!.type == 1) View.GONE else View.VISIBLE
         binding.monitorRealImg.visibility = if (selectIndex!!.type == 1) View.GONE else View.VISIBLE
-        recordThermal()// 开始记录
+        recordThermal()// start[Chinese text]
     }
     private var showTask: Job? = null
 
     private var isRecord = false
-    private var timeMillis = 1000L // 间隔1s
+    private var timeMillis = 1000L // [Chinese text]1s
     private var canUpdate = false
 
     private var recordJob: Job? = null
     /**
-     * 开始每隔1秒记录一个温度数据到数据库.
+     * start[Chinese text]1[Chinese text]temperature[Chinese text].
      */
     private fun recordThermal() {
         recordJob = lifecycleScope.launch(Dispatchers.IO) {
@@ -186,7 +186,7 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTem
                     binding.tvTime.text = TimeTool.showVideoLongTime(System.currentTimeMillis() - startTime)
                 }
             }
-            XLog.w("停止记录, 数据量:$time")
+            XLog.w("stop[Chinese text], [Chinese text]:$time")
         }
     }
 
@@ -225,11 +225,11 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTem
                             binding.thermalFragment.getViewTreeObserver().addOnGlobalLayoutListener(object :
                                 ViewTreeObserver.OnGlobalLayoutListener {
                                 override fun onGlobalLayout() {
-                                    // 移除监听器以避免重复调用
+                                    // [Chinese text]listener[Chinese text]
                                     binding.thermalFragment.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                                     irMonitorLiteFragment?.restTempView()
                                     irMonitorLiteFragment?.addTempLine(selectIndex!!)
-                                    // 进行需要的操作
+                                    // [Chinese text]operation
                                 }
                             })
                             binding.motionActionLay.isVisible = false
@@ -247,7 +247,7 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTem
 
     fun select(selectIndex: SelectPositionBean?) {
         this.selectIndex = selectIndex
-        XLog.i("绘制的Point/Line/Area：${Gson().toJson(selectIndex)}")
+        XLog.i("[Chinese text]Point/Line/Area: ${Gson().toJson(selectIndex)}")
     }
 
     private fun updateUI() {
@@ -277,13 +277,13 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTem
                 return temp!!
             }
 
-            // 获取增益状态 PASS
+            // [Chinese text] PASS
             if (System.currentTimeMillis() - basicGainGetTime > 5000L){
                 try {
                     val basicGainGet: IrcmdError? = DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
                         ?.basicGainGet(basicGainGetValue)
                 }catch (e : Exception){
-                    XLog.e("增益获取失败")
+                    XLog.e("[Chinese text]")
                 }
                 basicGainGetTime = System.currentTimeMillis()
             }
@@ -310,7 +310,7 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener , ITsTem
                         "distance = " + params_array[4] + " hum = " + params_array[5]
             )
         }catch (e : Exception){
-            XLog.e("$TAG--温度修正异常：${e.message}")
+            XLog.e("$TAG--temperature[Chinese text]: ${e.message}")
         }finally {
             return tempNew ?: 0f
         }

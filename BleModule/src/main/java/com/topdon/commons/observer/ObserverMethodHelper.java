@@ -29,7 +29,7 @@ class ObserverMethodHelper {
     }
 
     /**
-     * 生成任务
+     * [Chinese text]
      */
     Runnable generateRunnable(Observer observer, Method method, MethodInfo info) {
         MethodInfo.Parameter[] parameters = info.getParameters();
@@ -58,7 +58,7 @@ class ObserverMethodHelper {
     }
 
     /**
-     * 生成方法唯一识别字符串
+     * [Chinese text]
      */
     String generateKey(String tag, String name, Class<?>[] paramTypes) {
         StringBuilder sb = new StringBuilder();
@@ -74,7 +74,7 @@ class ObserverMethodHelper {
     }
 
     /**
-     * 查找观察者监听的方法
+     * [Chinese text]observation[Chinese text]listener[Chinese text]
      */
     Map<String, Method> findObserverMethod(Observer observer) {
         Map<String, Method> map = METHOD_CACHE.get(observer.getClass());

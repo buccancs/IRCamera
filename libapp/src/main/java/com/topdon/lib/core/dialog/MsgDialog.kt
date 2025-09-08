@@ -16,7 +16,7 @@ import com.topdon.lib.core.databinding.DialogMsgBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * 消息提示窗
+ * [Chinese text]
  * create by fylder on 2018/6/15
  **/
 class MsgDialog : Dialog {
@@ -84,13 +84,13 @@ class MsgDialog : Dialog {
             val lp = dialog!!.window!!.attributes
             val wRatio =
                 if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    // 竖屏
+                    // [Chinese text]
                     0.9
                 } else {
-                    // 横屏
+                    // [Chinese text]
                     0.3
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // Settings宽度
+            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // Settings[Chinese text]
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(false)
@@ -121,7 +121,7 @@ class MsgDialog : Dialog {
     }
 
     /**
-     * 提交回调
+     * [Chinese text]
      */
     interface OnClickListener {
         fun onClick(dialog: DialogInterface)

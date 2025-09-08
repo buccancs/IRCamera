@@ -7,7 +7,7 @@ import com.topdon.menu.view.ColorView
 import com.topdon.menu.util.PseudoColorConfig
 
 /**
- * Temperature measurement mode-菜单3-Pseudo color/Observation mode-菜单4-Pseudo color 所用 Adapter，只支持单选.
+ * Temperature measurement mode-menu3-Pseudo color/Observation mode-menu4-Pseudo color used by Adapter, [Chinese text].
  *
  * Created by LCG on 2024/11/12.
  */
@@ -15,7 +15,7 @@ import com.topdon.menu.util.PseudoColorConfig
 internal class ColorAdapter : RecyclerView.Adapter<ColorAdapter.ViewHolder>() {
 
     /**
-     * 当前选中的Pseudo color代号.
+     * [Chinese text]in progress[Chinese text]Pseudo color[Chinese text].
      */
     var selectCode = -1
         set(value) {
@@ -25,21 +25,21 @@ internal class ColorAdapter : RecyclerView.Adapter<ColorAdapter.ViewHolder>() {
             }
         }
     /**
-     * 选中变更事件监听.
-     * index-选中Pseudo color在列表中的 index，也就 TC007 要用
-     * code-Pseudo color代号，由于历史遗留（2D编辑的数据、保存Settings开关的Pseudo color）没法改了
-     * size-预设Pseudo color数量，也就 TC007 要用
+     * [Chinese text]in progress[Chinese text]eventlistener.
+     * index-[Chinese text]in progressPseudo color[Chinese text]in progress[Chinese text] index, [Chinese text] TC007 [Chinese text]
+     * code-Pseudo color[Chinese text], [Chinese text](2D[Chinese text], [Chinese text]Settings[Chinese text]Pseudo color)[Chinese text]
+     * size-[Chinese text]Pseudo color[Chinese text], [Chinese text] TC007 [Chinese text]
      */
     var onColorListener: ((index: Int, code: Int, size: Int) -> Unit)? = null
 
     /**
-     * 这里的 code 来源不详，由于历史遗留（2D编辑的数据、保存Settings开关的Pseudo color都按这个保存）没法改了
-     * 1-白热 3-铁红 4-彩虹1 5-彩虹2 6-彩虹3 7-红热 8-热铁 9-彩虹4 10-彩虹5 11-黑热
+     * [Chinese text] code [Chinese text], [Chinese text](2D[Chinese text], [Chinese text]Settings[Chinese text]Pseudo color[Chinese text])[Chinese text]
+     * 1-[Chinese text] 3-[Chinese text] 4-[Chinese text]1 5-[Chinese text]2 6-[Chinese text]3 7-[Chinese text] 8-[Chinese text] 9-[Chinese text]4 10-[Chinese text]5 11-[Chinese text]
      */
     private val colorCodeArray: IntArray = intArrayOf(1, 3, 4, 5, 6, 7, 8, 9, 10, 11)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        // 按照UI图，宽度与屏幕宽度比例为 62:375
+        // [Chinese text]UI[Chinese text], [Chinese text] 62:375
         val width: Int = (parent.context.resources.displayMetrics.widthPixels * 62f / 375).toInt()
         val colorView = ColorView(parent.context)
         colorView.layoutParams = ViewGroup.LayoutParams(width, ViewGroup.LayoutParams.WRAP_CONTENT)

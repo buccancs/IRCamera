@@ -12,13 +12,13 @@ import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 
 /**
- * 房屋检测 - 问题描述文字输入界面.
+ * [Chinese text] - [Chinese text]text[Chinese text].
  *
- * 需要传递：
- * - [ExtraKeyConfig.ITEM_NAME] - String 类型 item 名称.
- * - [ExtraKeyConfig.RESULT_INPUT_TEXT] - String 类型 当前输入内容.
+ * [Chinese text]: 
+ * - [ExtraKeyConfig.ITEM_NAME] - String [Chinese text] item [Chinese text].
+ * - [ExtraKeyConfig.RESULT_INPUT_TEXT] - String [Chinese text] [Chinese text].
  *
- * 返回：[ExtraKeyConfig.RESULT_INPUT_TEXT] - String 类型 输入内容.
+ * [Chinese text]: [ExtraKeyConfig.RESULT_INPUT_TEXT] - String [Chinese text] [Chinese text].
  *
  * Created by LCG on 2024/8/27.
  */
@@ -67,7 +67,7 @@ class TextInputActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v) {
             ivExit -> finish()
-            ivSave -> {// 保存
+            ivSave -> {// [Chinese text]
                 val intent = Intent()
                 intent.putExtra(ExtraKeyConfig.RESULT_INPUT_TEXT, etInput.text.toString())
                 setResult(RESULT_OK, intent)

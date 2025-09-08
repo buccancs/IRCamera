@@ -13,15 +13,15 @@ import com.topdon.libcom.R
 
 /**
  *
- * 高低温闪烁动画
+ * highlow[Chinese text]
  * @author: CaiSongL
  * @date: 2023/4/28 15:52
  */
 class TempLayout : LinearLayout {
     companion object{
-        val TYPE_HOT = 1 // 高温预警
-        val TYPE_LT = 2 // 低温预警
-        val TYPE_A = 3  // 高低温交叉预警
+        val TYPE_HOT = 1 // high[Chinese text]
+        val TYPE_LT = 2 // low[Chinese text]
+        val TYPE_A = 3  // highlow[Chinese text]
     }
 
     private var alphaAnimator: ObjectAnimator? = null
@@ -44,10 +44,10 @@ class TempLayout : LinearLayout {
         alphaAnimator = ObjectAnimator.ofFloat(this, "alpha", 0f, 1f)
         alphaAnimator?.duration = 500
         alphaAnimator?.interpolator =
-            BreatheInterpolator() // 使用自定义的插值器
+            BreatheInterpolator() // [Chinese text]
         alphaAnimator?.addUpdateListener {
             animatorAlpha = it.getAnimatedValue("alpha") as Float
-//            Log.w("透明值进度","$animatorAlpha")
+//            Log.w("[Chinese text]","$animatorAlpha")
         }
         alphaAnimator?.repeatCount = ValueAnimator.INFINITE
     }

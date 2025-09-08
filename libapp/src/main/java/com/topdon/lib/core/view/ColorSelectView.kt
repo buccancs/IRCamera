@@ -10,13 +10,13 @@ import android.view.View
 import androidx.annotation.ColorInt
 
 /**
- * 颜色选择自定义 View.
- * 只支持在已经定死的 120 种颜色中拾取一种.
+ * [Chinese text] View.
+ * [Chinese text] 120 [Chinese text]in progress[Chinese text].
  */
 class ColorSelectView : View {
     companion object {
         /**
-         * 选中描边宽度，单位 dp.
+         * [Chinese text]in progress[Chinese text], [Chinese text] dp.
          */
         private const val DEFAULT_STROKE_WIDTH = 3
 
@@ -82,7 +82,7 @@ class ColorSelectView : View {
     }
 
     /**
-     * 是否需要整体描边.
+     * [Chinese text].
      */
     var isNeedStroke: Boolean = false
         set(value) {
@@ -91,7 +91,7 @@ class ColorSelectView : View {
         }
 
     /**
-     * 颜色拾取事件监听.
+     * [Chinese text]eventlistener.
      */
     var onSelectListener: ((color: Int) -> Unit)? = null
 
@@ -109,17 +109,17 @@ class ColorSelectView : View {
         invalidate()
     }
 
-    private var currentRow: Int = -1 // 当前选中行
-    private var currentColumn: Int = -1 // 当前选中列
+    private var currentRow: Int = -1 // [Chinese text]in progress[Chinese text]
+    private var currentColumn: Int = -1 // [Chinese text]in progress[Chinese text]
 
-    private val widthPixels: Int // 屏幕宽度
-    private val density: Float // 屏幕缩放等级，用于dp与px转换
-    private val strokeWidth: Int // 描边宽度，单位px
+    private val widthPixels: Int // [Chinese text]
+    private val density: Float // [Chinese text], fordp[Chinese text]px[Chinese text]
+    private val strokeWidth: Int // [Chinese text], [Chinese text]px
 
     private val path = Path()
-    private val itemPaint = Paint() // 未选中画笔
-    private val itemSelectPaint = Paint() // 选中描边效果画笔
-    private val strokePaint = Paint() // 整体描边效果画笔
+    private val itemPaint = Paint() // [Chinese text]in progress[Chinese text]
+    private val itemSelectPaint = Paint() // [Chinese text]in progress[Chinese text]
+    private val strokePaint = Paint() // [Chinese text]
 
     constructor(context: Context) : this(context, null)
 
@@ -180,7 +180,7 @@ class ColorSelectView : View {
         val connerSize = itemSize * 8f / 26f
         val margin = strokeWidth / 2f
 
-        // 绘制描边
+        // [Chinese text]
         if (isNeedStroke) {
             path.rewind()
             path.moveTo(margin, margin + connerSize)

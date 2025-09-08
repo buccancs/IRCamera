@@ -37,8 +37,8 @@ import java.io.File
 
 
 /**
- * 需要传递
- * - 是否 TC007: [ExtraKeyConfig.IS_TC007]
+ * [Chinese text]
+ * - [Chinese text] TC007: [ExtraKeyConfig.IS_TC007]
  * @author: CaiSongL
  * @date: 2023/5/12 11:34
  */
@@ -51,8 +51,8 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
     private val fragmentPdfRecycler: RecyclerView by lazy { findViewById(R.id.fragment_pdf_recycler) }
 
     /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
+     * [Chinese text], [Chinese text] TC007 [Chinese text].
+     * true-TC007 false-[Chinese text]
      */
     private var isTC007 = false
 
@@ -81,7 +81,7 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
             }
             it?.let {data->
                 if (page == 1) {
-                    //刷新
+                    //[Chinese text]
                     if (data.code == LMS.SUCCESS){
                         reportAdapter.loadMoreModule.isEnableLoadMore = !data.data?.records.isNullOrEmpty()
                         fragmentPdfRecyclerLay.finishRefresh()
@@ -118,7 +118,7 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
     private fun initRecycler() {
         fragmentPdfRecycler.layoutManager = LinearLayoutManager(this)
         fragmentPdfRecyclerLay.setOnRefreshListener {
-            //刷新
+            //[Chinese text]
             page = 1
             viewModel.getReportData(isTC007, page)
         }
@@ -126,7 +126,7 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
         reportAdapter.loadMoreModule.loadMoreView = CommLoadMoreView()
         fragmentPdfRecyclerLay.autoRefresh()
         reportAdapter.loadMoreModule.setOnLoadMoreListener {
-            //加载更多
+            //[Chinese text]more
             viewModel.getReportData(isTC007, ++page)
         }
         reportAdapter.jumpDetailListener = {item, position ->
@@ -160,7 +160,7 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
                                     if (file.exists()) {
                                         file.delete()
                                     }
-                                    Log.w("删除成功",response.toString())
+                                    Log.w("[Chinese text]",response.toString())
                                 }
 
                                 override fun onFail(exception: Exception?) {

@@ -16,7 +16,7 @@ import com.topdon.lib.core.databinding.DialogTipOtgBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * 提示窗
+ * [Chinese text]
  * create by fylder on 2018/6/15
  **/
 class TipOtgDialog : Dialog {
@@ -115,13 +115,13 @@ class TipOtgDialog : Dialog {
             val lp = dialog!!.window!!.attributes
             val wRatio =
                 if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    // 竖屏
+                    // [Chinese text]
                     0.85
                 } else {
-                    // 横屏
+                    // [Chinese text]
                     0.35
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // Settings宽度
+            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // Settings[Chinese text]
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceled)

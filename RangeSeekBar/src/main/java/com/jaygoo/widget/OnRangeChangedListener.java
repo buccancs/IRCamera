@@ -2,10 +2,10 @@ package com.jaygoo.widget;
 
 /**
  * ================================================
- * 作    者：JayGoo
- * 版    本：
- * 创建日期：2018/5/8
- * 描    述:
+ * [Chinese text]    [Chinese text]: JayGoo
+ * [Chinese text]    [Chinese text]: 
+ * [Chinese text]: 2018/5/8
+ * [Chinese text]    [Chinese text]:
  * ================================================
  */
 public interface OnRangeChangedListener {

@@ -45,11 +45,11 @@ class StringUtils {
         }
 
         /**
-         * 根据字体大小返回字符串需要的宽高数组，int[]{宽,高}
+         * [Chinese text]high[Chinese text], int[]{[Chinese text],high}
          *
          * @param str
          * @param textSizePxVal
-         * @return int[] 索引0代表宽，索引1代表高
+         * @return int[] [Chinese text]0[Chinese text], [Chinese text]1[Chinese text]high
          */
         public fun getStringSize(str: String, textSizePxVal: Float): IntArray {
             if (textSizePxVal < 0) {

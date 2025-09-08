@@ -20,32 +20,32 @@ import kotlinx.coroutines.delay
 import java.io.File
 
 /**
- * 收发机芯指令的工具类.
+ * [Chinese text].
  *
- * 海康 SDK 的 API 写得又臭又长，全都放一个类里的话一大坨的东西找不到重点，
- * 用这个类把这些又臭又长的代码装起来。
+ * [Chinese text] SDK [Chinese text] API [Chinese text], [Chinese text]point, 
+ * [Chinese text]. 
  *
  * Created by LCG on 2024/11/19.
  */
 object HikCmdUtil {
     /**
-     * 仅用于日志输出
+     * onlyfor[Chinese text]
      */
     private const val TAG = "HikCmd"
 
     /**
-     * 执行初始化.
+     * [Chinese text].
      */
     fun init(): Boolean = if (JavaInterface.getInstance().USB_Init()) {
-        XLog.i("$TAG init() 初始化成功")
+        XLog.i("$TAG init() [Chinese text]")
         true
     } else {
-        XLog.e("$TAG init() 初始化失败！错误码：${JavaInterface.getInstance().USB_GetLastError()}")
+        XLog.e("$TAG init() [Chinese text]! [Chinese text]: ${JavaInterface.getInstance().USB_GetLastError()}")
         false
     }
 
     /**
-     * Settings日志文件存放的目录，注意，目录.
+     * Settings[Chinese text], [Chinese text], [Chinese text].
      */
     fun setLogPath(logFile: File?) {
         if (logFile != null) {
@@ -54,154 +54,154 @@ object HikCmdUtil {
     }
 
     /**
-     * 登录并返回 userId.
-     * @return 若登录失败则返回 [JavaInterface.USB_INVALID_USER_ID]
+     * [Chinese text] userId.
+     * @return [Chinese text] [JavaInterface.USB_INVALID_USER_ID]
      */
     fun login(context: Context): Int {
-        // 获取设备数量
+        // [Chinese text]
         val deviceCount: Int = JavaInterface.getInstance().USB_GetDeviceCount(context)
         if (deviceCount < 0) {
-            XLog.e("$TAG login() 获取设备数量失败！错误码：${JavaInterface.getInstance().USB_GetLastError()}")
+            XLog.e("$TAG login() [Chinese text]! [Chinese text]: ${JavaInterface.getInstance().USB_GetLastError()}")
             return JavaInterface.USB_INVALID_USER_ID
         }
         if (deviceCount == 0) {
-            XLog.e("$TAG login() 目标设备未连接！")
+            XLog.e("$TAG login() target[Chinese text]! ")
             return JavaInterface.USB_INVALID_USER_ID
         }
 
-        // 获取设备message
+        // [Chinese text]message
         val deviceInfoArray: Array<USB_DEVICE_INFO> = Array(JavaInterface.MAX_DEVICE_NUM) {
             USB_DEVICE_INFO()
         }
         if (!JavaInterface.getInstance().USB_EnumDevices(deviceCount, deviceInfoArray)) {
-            XLog.e("$TAG login() 获取设备message失败！错误码：${JavaInterface.getInstance().USB_GetLastError()}")
+            XLog.e("$TAG login() [Chinese text]message[Chinese text]! [Chinese text]: ${JavaInterface.getInstance().USB_GetLastError()}")
             return JavaInterface.USB_INVALID_USER_ID
         }
 
         val loginInfo = USB_USER_LOGIN_INFO()
-        loginInfo.dwTimeout = 5000 // 超时时间
+        loginInfo.dwTimeout = 5000 // [Chinese text]
         loginInfo.dwDevIndex = deviceInfoArray[0].dwIndex
         loginInfo.dwVID = deviceInfoArray[0].dwVID
         loginInfo.dwPID = deviceInfoArray[0].dwPID
         loginInfo.dwFd = deviceInfoArray[0].dwFd
         val userId: Int = JavaInterface.getInstance().USB_Login(loginInfo, USB_DEVICE_REG_RES())
         if (userId == JavaInterface.USB_INVALID_USER_ID) {
-            XLog.e("$TAG login() 登录失败！错误码：${JavaInterface.getInstance().USB_GetLastError()}")
+            XLog.e("$TAG login() [Chinese text]! [Chinese text]: ${JavaInterface.getInstance().USB_GetLastError()}")
         } else {
-            XLog.i("$TAG login() 登录成功")
+            XLog.i("$TAG login() [Chinese text]")
         }
         return userId
     }
 
     /**
-     * 重置一些配置：开启细节增强、重置Pseudo color为白热、码流不叠加温度图像、横屏、不镜像.
+     * [Chinese text]: [Chinese text], [Chinese text]Pseudo color[Chinese text], [Chinese text]temperature[Chinese text], [Chinese text], [Chinese text].
      */
     suspend fun initConfig(userId: Int) {
-        // 开启细节增强、重置Pseudo color为白热
+        // [Chinese text], [Chinese text]Pseudo color[Chinese text]
         val imageParam = USB_IMAGE_ENHANCEMENT()
         if (JavaInterface.getInstance().USB_GetImageEnhancement(userId, imageParam)) {
             if (imageParam.byLSEDetailEnabled != 1.toByte() || imageParam.byPaletteMode != 1.toByte()) {
-                XLog.i("$TAG initConfig() 开启细节增强、重置Pseudo color(白热)")
-                // 1-白热 2-黑热 10-融合1 11-彩虹 12-融合2 13-铁红1 14-铁红2 15-深褐色
-                // 16-色彩1 17-色彩2 18-冰火 19-雨 20-红热 21-绿热 22-深蓝
+                XLog.i("$TAG initConfig() [Chinese text], [Chinese text]Pseudo color([Chinese text])")
+                // 1-[Chinese text] 2-[Chinese text] 10-[Chinese text]1 11-[Chinese text] 12-[Chinese text]2 13-[Chinese text]1 14-[Chinese text]2 15-[Chinese text]
+                // 16-[Chinese text]1 17-[Chinese text]2 18-[Chinese text] 19-[Chinese text] 20-[Chinese text] 21-[Chinese text] 22-[Chinese text]
                 imageParam.byPaletteMode = 1
-                imageParam.byLSEDetailEnabled = 1 // 0-关闭 1-开启
+                imageParam.byLSEDetailEnabled = 1 // 0-[Chinese text] 1-[Chinese text]
                 if (JavaInterface.getInstance().USB_SetImageEnhancement(userId, imageParam)) {
                     checkCommandState(userId) {
-                        XLog.v("$TAG initConfig() Settings图像增强参数 $it")
+                        XLog.v("$TAG initConfig() Settings[Chinese text] $it")
                     }
                 } else {
-                    XLog.e("$TAG initConfig() Settings图像增强参数失败！错误码：${JavaInterface.getInstance().USB_GetLastError()}")
+                    XLog.e("$TAG initConfig() Settings[Chinese text]! [Chinese text]: ${JavaInterface.getInstance().USB_GetLastError()}")
                 }
             }
         } else {
-            XLog.e("$TAG initConfig() 获取图像增强参数失败！错误码：${JavaInterface.getInstance().USB_GetLastError()}")
+            XLog.e("$TAG initConfig() [Chinese text]! [Chinese text]: ${JavaInterface.getInstance().USB_GetLastError()}")
         }
 
-        // 码流不叠加温度图像
+        // [Chinese text]temperature[Chinese text]
         val basicTempParam = USB_THERMOMETRY_BASIC_PARAM()
         if (JavaInterface.getInstance().USB_GetThermometryBasicParam(userId, basicTempParam)) {
             if (basicTempParam.byThermometryStreamOverlay != 1.toByte()) {
-                XLog.i("$TAG initConfig() Settings码流不叠加温度图像")
-                basicTempParam.byThermometryStreamOverlay = 1 // 2-叠加 1-不叠加
+                XLog.i("$TAG initConfig() Settings[Chinese text]temperature[Chinese text]")
+                basicTempParam.byThermometryStreamOverlay = 1 // 2-[Chinese text] 1-[Chinese text]
                 if (JavaInterface.getInstance().USB_SetThermometryBasicParam(userId, basicTempParam)) {
                     checkCommandState(userId) {
-                        XLog.v("$TAG initConfig() Settings测温基本参数 $it")
+                        XLog.v("$TAG initConfig() Settings[Chinese text] $it")
                     }
                 } else {
-                    XLog.e("$TAG initConfig() Settings测温基本参数失败！错误码：${JavaInterface.getInstance().USB_GetLastError()}")
+                    XLog.e("$TAG initConfig() Settings[Chinese text]! [Chinese text]: ${JavaInterface.getInstance().USB_GetLastError()}")
                 }
             }
         } else {
-            XLog.e("$TAG initConfig() 获取测温基本参数失败！错误码：${JavaInterface.getInstance().USB_GetLastError()}")
+            XLog.e("$TAG initConfig() [Chinese text]! [Chinese text]: ${JavaInterface.getInstance().USB_GetLastError()}")
         }
     }
 
     /**
-     * 手动快门
+     * [Chinese text]
      */
     fun shutter(userId: Int) {
         JavaInterface.getInstance().USB_SetImageManualCorrect(userId)
     }
 
     /**
-     * 开启关闭自动快门
+     * [Chinese text]
      */
     suspend fun setAutoShutter(userId: Int, isAutoShutter: Boolean) {
-        XLog.i("$TAG setAutoShutter() ${if (isAutoShutter) "开启" else "关闭"} 自动快门")
+        XLog.i("$TAG setAutoShutter() ${if (isAutoShutter) "[Chinese text]" else "[Chinese text]"} [Chinese text]")
         val param = USB_SYSTEM_SERIAL_DATA_TRANSMISSION()
-        param.byMode = 2 // 0-保留 1-读 2-写
+        param.byMode = 2 // 0-[Chinese text] 1-[Chinese text] 2-[Chinese text]
         param.wDeviceCMDFlag = 0
-        param.dwDeviceCMD = 0x2001 // 命令 code
+        param.dwDeviceCMD = 0x2001 // [Chinese text] code
         param.dwValue = if (isAutoShutter) 1 else 0
         if (JavaInterface.getInstance().USB_SetSystemSerialData(userId, param)) {
             checkCommandState(userId) {
-                XLog.v("$TAG setAutoShutter() 发送自定协议参数 $it")
+                XLog.v("$TAG setAutoShutter() [Chinese text] $it")
             }
         } else {
-            XLog.e("$TAG setAutoShutter() 发送自定协议参数失败！错误码：${JavaInterface.getInstance().USB_GetLastError()}")
+            XLog.e("$TAG setAutoShutter() [Chinese text]! [Chinese text]: ${JavaInterface.getInstance().USB_GetLastError()}")
         }
     }
 
     /**
-     * 开始锅盖校正
+     * start[Chinese text]
      */
     suspend fun startCorrect(userId: Int) {
-        XLog.i("$TAG startCorrect() 开始锅盖校正")
+        XLog.i("$TAG startCorrect() start[Chinese text]")
         val param = USB_SYSTEM_SERIAL_DATA_TRANSMISSION()
-        param.byMode = 2 // 0-保留 1-读 2-写
+        param.byMode = 2 // 0-[Chinese text] 1-[Chinese text] 2-[Chinese text]
         param.wDeviceCMDFlag = 0
-        param.dwDeviceCMD = 0xf026 // 命令 code
+        param.dwDeviceCMD = 0xf026 // [Chinese text] code
         param.dwValue = 2
         if (JavaInterface.getInstance().USB_SetSystemSerialData(userId, param)) {
             checkCommandState(userId) {
-                XLog.v("$TAG startCorrect() 发送自定协议参数 $it")
+                XLog.v("$TAG startCorrect() [Chinese text] $it")
             }
         } else {
-            XLog.e("$TAG startCorrect() 发送自定协议参数失败！错误码：${JavaInterface.getInstance().USB_GetLastError()}")
+            XLog.e("$TAG startCorrect() [Chinese text]! [Chinese text]: ${JavaInterface.getInstance().USB_GetLastError()}")
         }
     }
 
     /**
-     * Settings对比度.
-     * @param contrast 取值范围 `[0,100]`
+     * Settings[Chinese text].
+     * @param contrast [Chinese text]range `[0,100]`
      */
     suspend fun setContrast(userId: Int, contrast: Int) {
-        XLog.i("$TAG setContrast($contrast) Settings对比度")
+        XLog.i("$TAG setContrast($contrast) Settings[Chinese text]")
         val param = USB_IMAGE_CONTRAST()
         param.dwContrast = contrast
         if (JavaInterface.getInstance().USB_SetImageContrast(userId, param)) {
             checkCommandState(userId) {
-                XLog.v("$TAG setContrast() Settings对比度参数 $it")
+                XLog.v("$TAG setContrast() Settings[Chinese text] $it")
             }
         } else {
-            XLog.e("$TAG setContrast() Settings对比度参数失败！错误码：${JavaInterface.getInstance().USB_GetLastError()}")
+            XLog.e("$TAG setContrast() Settings[Chinese text]! [Chinese text]: ${JavaInterface.getInstance().USB_GetLastError()}")
         }
     }
 
-    /* ******************************  图像增强参数 ImageEnhancement  ****************************** */
+    /* ******************************  [Chinese text] ImageEnhancement  ****************************** */
     /**
-     * Settings细节增强(超分)等级
+     * Settings[Chinese text]([Chinese text])[Chinese text]
      */
     suspend fun setEnhanceLevel(userId: Int, level: Int) {
         val param = USB_IMAGE_ENHANCEMENT()
@@ -209,24 +209,24 @@ object HikCmdUtil {
             if (param.dwLSEDetailLevel == level) {
                 return
             }
-            XLog.i("$TAG setEnhanceLevel() 变更细节增强等级 ${param.dwLSEDetailLevel}->$level")
+            XLog.i("$TAG setEnhanceLevel() [Chinese text] ${param.dwLSEDetailLevel}->$level")
             param.dwLSEDetailLevel = level
             if (JavaInterface.getInstance().USB_SetImageEnhancement(userId, param)) {
                 checkCommandState(userId) {
-                    XLog.v("$TAG setEnhanceLevel() Settings图像增强参数 $it")
+                    XLog.v("$TAG setEnhanceLevel() Settings[Chinese text] $it")
                 }
             } else {
-                XLog.e("$TAG setEnhanceLevel() Settings图像增强参数失败！错误码：${JavaInterface.getInstance().USB_GetLastError()}")
+                XLog.e("$TAG setEnhanceLevel() Settings[Chinese text]! [Chinese text]: ${JavaInterface.getInstance().USB_GetLastError()}")
             }
         } else {
-            XLog.e("$TAG setEnhanceLevel() 获取图像增强参数失败！错误码：${JavaInterface.getInstance().USB_GetLastError()}")
+            XLog.e("$TAG setEnhanceLevel() [Chinese text]! [Chinese text]: ${JavaInterface.getInstance().USB_GetLastError()}")
         }
     }
 
-    /* ******************************  视频调整参数 ImageVideoAdjust  ****************************** */
+    /* ******************************  [Chinese text] ImageVideoAdjust  ****************************** */
     /**
-     * Settings镜像.
-     * @param isMirror true-左右镜像 false-不镜像
+     * Settings[Chinese text].
+     * @param isMirror true-left-right[Chinese text] false-[Chinese text]
      */
     suspend fun setMirror(userId: Int, rotateAngle: Int, isMirror: Boolean) {
         val videoAdjust = USB_IMAGE_VIDEO_ADJUST()
@@ -235,108 +235,108 @@ object HikCmdUtil {
             if (videoAdjust.byImageFlipStyle == mirrorCode) {
                 return
             }
-            XLog.i("$TAG setMirror() 变更镜像 ${videoAdjust.byImageFlipStyle}->$mirrorCode")
+            XLog.i("$TAG setMirror() [Chinese text] ${videoAdjust.byImageFlipStyle}->$mirrorCode")
             videoAdjust.byImageFlipStyle = mirrorCode
             if (JavaInterface.getInstance().USB_SetImageVideoAdjust(userId, videoAdjust)) {
                 checkCommandState(userId) {
-                    XLog.v("$TAG setMirror() Settings视频调整参数 $it")
+                    XLog.v("$TAG setMirror() Settings[Chinese text] $it")
                 }
             } else {
-                XLog.e("$TAG setMirror() Settings视频调整参数失败！错误码：${JavaInterface.getInstance().USB_GetLastError()}")
+                XLog.e("$TAG setMirror() Settings[Chinese text]! [Chinese text]: ${JavaInterface.getInstance().USB_GetLastError()}")
             }
         } else {
-            XLog.e("$TAG setMirror() 获取视频调整参数失败！错误码：${JavaInterface.getInstance().USB_GetLastError()}")
+            XLog.e("$TAG setMirror() [Chinese text]! [Chinese text]: ${JavaInterface.getInstance().USB_GetLastError()}")
         }
     }
 
-    /* ******************************  码流回调  ****************************** */
+    /* ******************************  [Chinese text]  ****************************** */
     /**
-     * 添加码流回调.
-     * @return 码流回调 Id，若失败则为 [JavaInterface.USB_INVALID_CHANNEL]
+     * [Chinese text].
+     * @return [Chinese text] Id, [Chinese text] [JavaInterface.USB_INVALID_CHANNEL]
      */
     suspend fun startStream(userId: Int, callback: FStreamCallBack): Int {
-        // Settings横屏、不镜像
+        // Settings[Chinese text], [Chinese text]
         val videoAdjust = USB_IMAGE_VIDEO_ADJUST()
         if (JavaInterface.getInstance().USB_GetImageVideoAdjust(userId, videoAdjust)) {
             val isRotateChange = videoAdjust.byCorridor != 0.toByte()
             val isMirrorChange = videoAdjust.byImageFlipStyle != 0.toByte()
             if (isRotateChange || isMirrorChange) {
-                XLog.i("$TAG startStream() Settings视频调整参数：横屏、不镜像")
+                XLog.i("$TAG startStream() Settings[Chinese text]: [Chinese text], [Chinese text]")
                 videoAdjust.byCorridor = 0 // 0-256x192 1-192x256
-                videoAdjust.byImageFlipStyle = 0 // 镜像 0-关闭 1-中心 2-左右 3-上下
+                videoAdjust.byImageFlipStyle = 0 // [Chinese text] 0-[Chinese text] 1-in progress[Chinese text] 2-left-right 3-[Chinese text]
                 if (JavaInterface.getInstance().USB_SetImageVideoAdjust(userId, videoAdjust)) {
                     checkCommandState(userId) {
-                        XLog.v("$TAG startStream() Settings视频调整参数 $it")
+                        XLog.v("$TAG startStream() Settings[Chinese text] $it")
                     }
                 } else {
-                    XLog.e("$TAG startStream() Settings视频调整参数失败！错误码：${JavaInterface.getInstance().USB_GetLastError()}")
+                    XLog.e("$TAG startStream() Settings[Chinese text]! [Chinese text]: ${JavaInterface.getInstance().USB_GetLastError()}")
                 }
             }
         } else {
-            XLog.e("$TAG startStream() 获取视频调整参数失败！错误码：${JavaInterface.getInstance().USB_GetLastError()}")
+            XLog.e("$TAG startStream() [Chinese text]! [Chinese text]: ${JavaInterface.getInstance().USB_GetLastError()}")
         }
 
-        // Settings视频参数
-        // 横屏 256x392 竖屏 192x520 即高度需要为(192+4)*2 或 (256+4)*2
-        // 旋转自己上层实现，原始出图固定 256x192 就行了
-        XLog.i("$TAG startStream() Settings视频参数：256x392")
+        // Settings[Chinese text]
+        // [Chinese text] 256x392 [Chinese text] 192x520 [Chinese text]high[Chinese text](192+4)*2 [Chinese text] (256+4)*2
+        // [Chinese text]implement, [Chinese text] 256x192 [Chinese text]
+        XLog.i("$TAG startStream() Settings[Chinese text]: 256x392")
         val videoParam = USB_VIDEO_PARAM()
         videoParam.dwVideoFormat = JavaInterface.USB_STREAM_YUY2
         videoParam.dwWidth = 256
         videoParam.dwHeight = 392
-        videoParam.dwFramerate = 25 // 25帧
+        videoParam.dwFramerate = 25 // 25[Chinese text]
         if (JavaInterface.getInstance().USB_SetVideoParam(userId, videoParam)) {
             checkCommandState(userId) {
-                XLog.v("$TAG startStream() Settings视频参数 $it")
+                XLog.v("$TAG startStream() Settings[Chinese text] $it")
             }
         } else {
-            XLog.w("$TAG startStream() Settings视频参数失败！错误码：${JavaInterface.getInstance().USB_GetLastError()}")
+            XLog.w("$TAG startStream() Settings[Chinese text]! [Chinese text]: ${JavaInterface.getInstance().USB_GetLastError()}")
             return JavaInterface.USB_INVALID_CHANNEL
         }
 
-        // 开启码流回调
-        XLog.i("$TAG startStream() 开启码流回调")
+        // [Chinese text]
+        XLog.i("$TAG startStream() [Chinese text]")
         val callbackParam = USB_STREAM_CALLBACK_PARAM()
         callbackParam.dwStreamType = JavaInterface.USB_STREAM_YUY2
         callbackParam.fnStreamCallBack = callback
         val callbackId: Int = JavaInterface.getInstance().USB_StartStreamCallback(userId, callbackParam)
         if (callbackId == JavaInterface.USB_INVALID_CHANNEL) {
-            XLog.w("$TAG startStream() 添加码流回调失败！错误码：${JavaInterface.getInstance().USB_GetLastError()}")
+            XLog.w("$TAG startStream() [Chinese text]! [Chinese text]: ${JavaInterface.getInstance().USB_GetLastError()}")
             return JavaInterface.USB_INVALID_CHANNEL
         } else {
-            XLog.v("$TAG startStream() 开启码流回调成功")
+            XLog.v("$TAG startStream() [Chinese text]")
         }
 
-        // Settings码流类型
-        XLog.i("$TAG startStream() Settings码流类型：8")
+        // Settings[Chinese text]
+        XLog.i("$TAG startStream() Settings[Chinese text]: 8")
         val streamParam = USB_THERMAL_STREAM_PARAM()
         streamParam.byVideoCodingType = 8
         if (JavaInterface.getInstance().USB_SetThermalStreamParam(userId, streamParam)) {
             checkCommandState(userId) {
-                XLog.v("$TAG startStream() Settings码流类型 $it")
+                XLog.v("$TAG startStream() Settings[Chinese text] $it")
             }
         } else {
-            XLog.w("$TAG startStream() Settings码流类型失败！错误码：${JavaInterface.getInstance().USB_GetLastError()}")
+            XLog.w("$TAG startStream() Settings[Chinese text]! [Chinese text]: ${JavaInterface.getInstance().USB_GetLastError()}")
             return JavaInterface.USB_INVALID_CHANNEL
         }
 
         return callbackId
     }
     /**
-     * 移除码流回调.
+     * [Chinese text].
      */
     fun removeStreamCallback(userId: Int, callbackId: Int) {
         if (callbackId != JavaInterface.USB_INVALID_CHANNEL) {
             if (!JavaInterface.getInstance().USB_StopChannel(userId, callbackId)) {
-                XLog.w("$TAG removeStreamCallback() 移除码流回调失败！错误码：${JavaInterface.getInstance().USB_GetLastError()}")
+                XLog.w("$TAG removeStreamCallback() [Chinese text]! [Chinese text]: ${JavaInterface.getInstance().USB_GetLastError()}")
             }
         }
     }
 
-    /* ******************************  测温基本参数 ThermometryBasicParam  ****************************** */
+    /* ******************************  [Chinese text] ThermometryBasicParam  ****************************** */
     /**
-     * Settings发射率
-     * @param emissivity 取值范围 `[1, 100]`
+     * Settings[Chinese text]
+     * @param emissivity [Chinese text]range `[1, 100]`
      */
     suspend fun setEmissivity(userId: Int, emissivity: Int) {
         val param = USB_THERMOMETRY_BASIC_PARAM()
@@ -344,23 +344,23 @@ object HikCmdUtil {
             if (param.dwEmissivity == emissivity) {
                 return
             }
-            XLog.i("$TAG setEmissivity() 变更发射率 ${param.dwEmissivity}->$emissivity")
+            XLog.i("$TAG setEmissivity() [Chinese text] ${param.dwEmissivity}->$emissivity")
             param.dwEmissivity = emissivity
             if (JavaInterface.getInstance().USB_SetThermometryBasicParam(userId, param)) {
                 checkCommandState(userId) {
-                    XLog.v("$TAG setEmissivity() Settings测温基本参数 $it")
+                    XLog.v("$TAG setEmissivity() Settings[Chinese text] $it")
                 }
             } else {
-                XLog.e("$TAG setEmissivity() Settings测温基本参数失败！错误码：${JavaInterface.getInstance().USB_GetLastError()}")
+                XLog.e("$TAG setEmissivity() Settings[Chinese text]! [Chinese text]: ${JavaInterface.getInstance().USB_GetLastError()}")
             }
         } else {
-            XLog.e("$TAG setEmissivity() 获取测温基本参数失败！错误码：${JavaInterface.getInstance().USB_GetLastError()}")
+            XLog.e("$TAG setEmissivity() [Chinese text]! [Chinese text]: ${JavaInterface.getInstance().USB_GetLastError()}")
         }
     }
 
     /**
-     * Settings测温距离，单位 cm
-     * @param distance 取值范围 `[30, 200]`
+     * Settings[Chinese text], [Chinese text] cm
+     * @param distance [Chinese text]range `[30, 200]`
      */
     suspend fun setDistance(userId: Int, distance: Int) {
         val param = USB_THERMOMETRY_BASIC_PARAM()
@@ -368,54 +368,54 @@ object HikCmdUtil {
             if (param.dwDistance == distance) {
                 return
             }
-            XLog.i("$TAG setDistance() 变更测温距离 ${param.dwDistance}cm->${distance}cm")
+            XLog.i("$TAG setDistance() [Chinese text] ${param.dwDistance}cm->${distance}cm")
             param.dwDistance = distance
             if (JavaInterface.getInstance().USB_SetThermometryBasicParam(userId, param)) {
                 checkCommandState(userId) {
-                    XLog.v("$TAG setDistance() Settings测温基本参数 $it")
+                    XLog.v("$TAG setDistance() Settings[Chinese text] $it")
                 }
             } else {
-                XLog.e("$TAG setDistance() Settings测温基本参数失败！错误码：${JavaInterface.getInstance().USB_GetLastError()}")
+                XLog.e("$TAG setDistance() Settings[Chinese text]! [Chinese text]: ${JavaInterface.getInstance().USB_GetLastError()}")
             }
         } else {
-            XLog.e("$TAG setDistance() 获取测温基本参数失败！错误码：${JavaInterface.getInstance().USB_GetLastError()}")
+            XLog.e("$TAG setDistance() [Chinese text]! [Chinese text]: ${JavaInterface.getInstance().USB_GetLastError()}")
         }
     }
 
     /**
-     * Settings测温 自动(-1)/常温(1)/高温(0) 档位.
+     * Settings[Chinese text] [Chinese text](-1)/[Chinese text](1)/high[Chinese text](0) level.
      */
     suspend fun setTemperatureMode(userId: Int, mode: Int) {
         val param = USB_THERMOMETRY_BASIC_PARAM()
         if (JavaInterface.getInstance().USB_GetThermometryBasicParam(userId, param)) {
-            // 优先级：自动 > 测温范围
+            // [Chinese text]: [Chinese text] > [Chinese text]range
             val oldAuto: Byte = param.byTemperatureRangeAutoChangedEnabled
             val oldRange: Byte = param.byTemperatureRange
-            val newAuto: Byte = if (mode == -1) 1 else 0 // 0-关闭 1-开启
-            val newRange: Byte = if (mode == 1) 2 else 3 // 2(-20~150常温档) 3(100~550高温档)
+            val newAuto: Byte = if (mode == -1) 1 else 0 // 0-[Chinese text] 1-[Chinese text]
+            val newRange: Byte = if (mode == 1) 2 else 3 // 2(-20~150[Chinese text]) 3(100~550high[Chinese text])
             if (oldAuto == newAuto && (oldRange == newRange || newRange == 1.toByte())) {
                 return
             }
-            XLog.i("$TAG setTemperatureMode() 变更测温档位 ${getTempModeStr(oldAuto, oldRange)}->${getTempModeStr(newAuto, newRange)}")
+            XLog.i("$TAG setTemperatureMode() [Chinese text]level ${getTempModeStr(oldAuto, oldRange)}->${getTempModeStr(newAuto, newRange)}")
             param.byTemperatureRangeAutoChangedEnabled = newAuto
             param.byTemperatureRange = newRange
             if (JavaInterface.getInstance().USB_SetThermometryBasicParam(userId, param)) {
                 checkCommandState(userId) {
-                    XLog.v("$TAG setTemperatureMode() Settings测温基本参数 $it")
+                    XLog.v("$TAG setTemperatureMode() Settings[Chinese text] $it")
                 }
             } else {
-                XLog.e("$TAG setTemperatureMode() Settings测温基本参数失败！错误码：${JavaInterface.getInstance().USB_GetLastError()}")
+                XLog.e("$TAG setTemperatureMode() Settings[Chinese text]! [Chinese text]: ${JavaInterface.getInstance().USB_GetLastError()}")
             }
         } else {
-            XLog.e("$TAG setTemperatureMode() 获取测温基本参数失败！错误码：${JavaInterface.getInstance().USB_GetLastError()}")
+            XLog.e("$TAG setTemperatureMode() [Chinese text]! [Chinese text]: ${JavaInterface.getInstance().USB_GetLastError()}")
         }
     }
 
     private fun getTempModeStr(autoEnable: Byte, range: Byte): String {
         if (autoEnable == 1.toByte()) {
-            return "自动"
+            return "[Chinese text]"
         }
-        return if (range == 2.toByte()) "常温档" else "高温档"
+        return if (range == 2.toByte()) "[Chinese text]" else "high[Chinese text]"
     }
 
     private fun getCommandState(userId: Int): Int {
@@ -425,35 +425,35 @@ object HikCmdUtil {
     }
 
     /**
-     * 在执行Settings命令后，检查设备配置状态直到设备端完成请求
+     * [Chinese text]Settings[Chinese text], [Chinese text]
      */
     private suspend inline fun checkCommandState(userId: Int, callback: (state: String) -> Unit) {
-        var commandState = 1 // 1为 设备端尚未完成先前的请求
+        var commandState = 1 // 1[Chinese text] [Chinese text]
         while (commandState == 1) {
             commandState = getCommandState(userId)
             callback.invoke("Command State: ${getCommandState(userId).toComStateStr()}")
             if (commandState == 1) {
-                // 恢复默认、Settings专家测温校正参数海康文档建议等待 1000 毫秒，其他请求建议不低于 10 毫秒
+                // [Chinese text], Settings[Chinese text] 1000 [Chinese text], [Chinese text]low[Chinese text] 10 [Chinese text]
                 delay(100)
             }
         }
     }
 
     private fun Int.toComStateStr(): String = when (this) {
-        0x00 -> "0x00: 正常"
-        0x01 -> "0x01: 设备端尚未完成先前的请求"
-        0x02 -> "0x02: 设备端不允许特定请求的状态"
-        0x03 -> "0x03: 设备端的实际电源模式不足以完成请求"
-        0x04 -> "0x04: SET_CUR 请求Settings的参数超出限定范围"
-        0x05 -> "0x05: 不支持的 Unint ID"
-        0x06 -> "0x06: 不支持的 CS ID"
-        0x07 -> "0x07: 不支持的请求命令类型"
-        0x08 -> "0x08: SET_CUR 请求Settings的参数在限定范围，但Settings值无效"
-        0x09 -> "0x09: 不支持的子功能"
-        0x0a -> "0x0a: 设备端功能执行异常"
-        0x0b -> "0x0b: 设备端内部协议流程异常"
-        0x0c -> "0x0c: 大数据传输流程异常"
-        0xff -> "0xff: 未知错误"
-        else -> "0x${this.toString(16)}: 不在文档内的状态码"
+        0x00 -> "0x00: [Chinese text]"
+        0x01 -> "0x01: [Chinese text]"
+        0x02 -> "0x02: [Chinese text]not allowed[Chinese text]"
+        0x03 -> "0x03: [Chinese text]mode[Chinese text]"
+        0x04 -> "0x04: SET_CUR [Chinese text]Settings[Chinese text]range"
+        0x05 -> "0x05: [Chinese text] Unint ID"
+        0x06 -> "0x06: [Chinese text] CS ID"
+        0x07 -> "0x07: [Chinese text]"
+        0x08 -> "0x08: SET_CUR [Chinese text]Settings[Chinese text]range, [Chinese text]Settings[Chinese text]"
+        0x09 -> "0x09: [Chinese text]"
+        0x0a -> "0x0a: [Chinese text]"
+        0x0b -> "0x0b: [Chinese text]"
+        0x0c -> "0x0c: [Chinese text]"
+        0xff -> "0xff: [Chinese text]"
+        else -> "0x${this.toString(16)}: [Chinese text]"
     }
 }

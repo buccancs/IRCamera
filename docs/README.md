@@ -2,7 +2,7 @@
 
 Welcome to the comprehensive documentation for the Multi-Modal Physiological Sensing Platform.
 
-## 📚 Essential Documentation
+## [books] Essential Documentation
 
 ### Getting Started
 - **[README.md](../README.md)** - Project overview and introduction
@@ -18,10 +18,10 @@ Welcome to the comprehensive documentation for the Multi-Modal Physiological Sen
 - **[Architecture Guide](ARCHITECTURE.md)** - System design and architecture
 - **[Troubleshooting](TROUBLESHOOTING.md)** - Common issues and solutions
 
-## 🎯 Documentation Structure
+## [target] Documentation Structure
 
 ### Documentation Philosophy
-Our documentation follows the **Diátaxis framework** with four main categories:
+Our documentation follows the **Diataxis framework** with four main categories:
 
 1. **Tutorials** (Learning-oriented)
    - Quick Start Guide
@@ -56,28 +56,28 @@ Our documentation follows the **Diátaxis framework** with four main categories:
 - **Project overview**: [README.md](../README.md)
 - **Technical decisions**: Architecture Guide rationale sections
 
-## 📋 Quick Navigation
+## [clipboard] Quick Navigation
 
 ### By Task
-- **First-time setup** → [Quick Start Guide](QUICK_START.md)
-- **Recording sessions** → [User Manual - Recording Sessions](USER_MANUAL.md#recording-sessions)
-- **Development environment** → [Developer Guide - Setup](DEVELOPER_GUIDE.md#development-environment-setup)
-- **API integration** → [API Reference](API_REFERENCE.md)
-- **Troubleshooting** → [Troubleshooting Guide](TROUBLESHOOTING.md)
+- **First-time setup** -> [Quick Start Guide](QUICK_START.md)
+- **Recording sessions** -> [User Manual - Recording Sessions](USER_MANUAL.md#recording-sessions)
+- **Development environment** -> [Developer Guide - Setup](DEVELOPER_GUIDE.md#development-environment-setup)
+- **API integration** -> [API Reference](API_REFERENCE.md)
+- **Troubleshooting** -> [Troubleshooting Guide](TROUBLESHOOTING.md)
 
 ### By Component
-- **Android App** → [Developer Guide - Android](DEVELOPER_GUIDE.md#android-architecture)
-- **PC Controller** → [Developer Guide - PC Controller](DEVELOPER_GUIDE.md#pc-controller-architecture)
-- **Communication Protocol** → [API Reference - Protocol](API_REFERENCE.md#communication-protocol)
-- **Hardware Integration** → [User Manual - Hardware Setup](USER_MANUAL.md#hardware-setup)
+- **Android App** -> [Developer Guide - Android](DEVELOPER_GUIDE.md#android-architecture)
+- **PC Controller** -> [Developer Guide - PC Controller](DEVELOPER_GUIDE.md#pc-controller-architecture)
+- **Communication Protocol** -> [API Reference - Protocol](API_REFERENCE.md#communication-protocol)
+- **Hardware Integration** -> [User Manual - Hardware Setup](USER_MANUAL.md#hardware-setup)
 
 ### By Role
-- **Research Participant** → [User Manual - Recording Sessions](USER_MANUAL.md#recording-sessions)
-- **Research Administrator** → [User Manual - Data Management](USER_MANUAL.md#data-management)
-- **Software Developer** → [Developer Guide](DEVELOPER_GUIDE.md) + [API Reference](API_REFERENCE.md)
-- **System Administrator** → [Architecture Guide](ARCHITECTURE.md) + [Troubleshooting](TROUBLESHOOTING.md)
+- **Research Participant** -> [User Manual - Recording Sessions](USER_MANUAL.md#recording-sessions)
+- **Research Administrator** -> [User Manual - Data Management](USER_MANUAL.md#data-management)
+- **Software Developer** -> [Developer Guide](DEVELOPER_GUIDE.md) + [API Reference](API_REFERENCE.md)
+- **System Administrator** -> [Architecture Guide](ARCHITECTURE.md) + [Troubleshooting](TROUBLESHOOTING.md)
 
-## 🔄 Documentation Maintenance
+## [refresh] Documentation Maintenance
 
 ### Update Frequency
 - **Quick Start**: Updated with each major release
@@ -104,7 +104,7 @@ See [Contributing - Documentation](CONTRIBUTING.md#documentation-standards) for 
 - **Accuracy**: Verify all procedures and code examples
 - **Accessibility**: Use proper markdown structure and alt text
 
-## 🆘 Need Help?
+## [SOS] Need Help?
 
 ### Self-Service Resources
 1. **Search** this documentation using browser find (Ctrl+F)

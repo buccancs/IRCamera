@@ -1,32 +1,32 @@
 # IRCamera Platform - Enterprise Technical Specifications
 
-## 🎯 Overview
+## [target] Overview
 
 This document provides **comprehensive enterprise technical specifications** for all components of the IRCamera multi-modal thermal imaging platform, including detailed API documentation, configuration parameters, enterprise integration guidelines, performance benchmarks, and production deployment specifications.
 
-## 📋 Table of Contents
+## [clipboard] Table of Contents
 
-1. [🧩 Feature Components Specifications](#feature-components-specifications) - Complete specifications for all 9 enterprise feature modules
-2. [🔧 Core Libraries Specifications](#core-libraries-specifications) - Detailed specifications for all 7 core enterprise libraries
-3. [🔌 Hardware Integration Specifications](#hardware-integration-specifications) - Comprehensive hardware support and enterprise device management
-4. [🌐 Network Protocol Specifications](#network-protocol-specifications) - Advanced networking, security, and cloud integration
-5. [📊 Data Format Specifications](#data-format-specifications) - Enterprise data formats and serialization
-6. [⚡ Performance Specifications](#performance-specifications) - Enterprise performance benchmarks and optimization strategies
-7. [🛡️ Security Specifications](#security-specifications) - Multi-layer enterprise security architecture
-8. [☁️ Cloud Integration Specifications](#cloud-integration-specifications) - AWS, Azure, GCP enterprise deployment patterns
-9. [🤖 ML/AI Integration Specifications](#ml-ai-integration-specifications) - Machine learning pipeline specifications
-10. [📡 Real-Time Processing Specifications](#real-time-processing-specifications) - WebRTC, streaming, and edge computing
+1. [[puzzle] Feature Components Specifications](#feature-components-specifications) - Complete specifications for all 9 enterprise feature modules
+2. [[tool] Core Libraries Specifications](#core-libraries-specifications) - Detailed specifications for all 7 core enterprise libraries
+3. [[plug] Hardware Integration Specifications](#hardware-integration-specifications) - Comprehensive hardware support and enterprise device management
+4. [[globe] Network Protocol Specifications](#network-protocol-specifications) - Advanced networking, security, and cloud integration
+5. [[chart] Data Format Specifications](#data-format-specifications) - Enterprise data formats and serialization
+6. [[lightning] Performance Specifications](#performance-specifications) - Enterprise performance benchmarks and optimization strategies
+7. [[shield] Security Specifications](#security-specifications) - Multi-layer enterprise security architecture
+8. [[cloud] Cloud Integration Specifications](#cloud-integration-specifications) - AWS, Azure, GCP enterprise deployment patterns
+9. [[robot] ML/AI Integration Specifications](#ml-ai-integration-specifications) - Machine learning pipeline specifications
+10. [[satellite] Real-Time Processing Specifications](#real-time-processing-specifications) - WebRTC, streaming, and edge computing
 
 ---
 
-## 🧩 Feature Components Specifications
+## [puzzle] Feature Components Specifications
 
-### 1. 🔥 thermal-ir Module - Advanced Thermal Processing
+### 1. [fire] thermal-ir Module - Advanced Thermal Processing
 
 #### Enterprise Component Overview
 ```mermaid
 graph TB
-    subgraph "🔥 thermal-ir Enterprise Architecture"
+    subgraph "[fire] thermal-ir Enterprise Architecture"
         UI[Enterprise UI Layer<br/>Material 3 Design] --> VM[Advanced ViewModel<br/>Coroutines + LiveData]
         VM --> Repo[Enterprise Repository<br/>Multi-Source Data]
         Repo --> Camera[Multi-Camera Controller<br/>TC001/TC007/TS004]
@@ -34,7 +34,7 @@ graph TB
         Processor --> Analytics[Real-Time Analytics<br/>Edge Computing]
         Analytics --> Cloud[Cloud Integration<br/>AWS/Azure/GCP]
         
-        subgraph "🤖 ML Pipeline"
+        subgraph "[robot] ML Pipeline"
             ML[Thermal CNN Models]
             Inference[Real-Time Inference]
             Training[Continuous Learning]
@@ -48,21 +48,21 @@ graph TB
 #### Enterprise Technical Specifications
 | Parameter | Enterprise Specification | Advanced Features | Notes |
 |-----------|-------------------------|-------------------|-------|
-| **🔥 Supported Resolutions** | 160x120, 256x192, 384x288, 640x480, 1024x768 | Auto-resolution scaling | Multi-device adaptive |
-| **⚡ Frame Rate** | 1-60 Hz | Variable frame rate, burst mode | Real-time optimization |
-| **🌡️ Temperature Range** | -40°C to +1200°C | Extended range support | Enterprise calibration |
-| **🎯 Temperature Accuracy** | ±0.1°C or ±0.5% of reading | High-precision mode | Professional calibration |
-| **⚡ Processing Latency** | <10ms | Sub-millisecond edge processing | GPU acceleration |
-| **🧠 Memory Usage** | 8-50MB per session | Dynamic allocation | Enterprise optimization |
-| **🔄 Concurrent Sessions** | Up to 16 simultaneous | Multi-camera support | Enterprise scaling |
-| **☁️ Cloud Integration** | Real-time streaming | AWS/Azure/GCP support | Enterprise deployment |
-| **🤖 ML Processing** | Real-time inference | Thermal CNN models | AI-powered analysis |
-| **📊 Analytics** | Live thermal analytics | Predictive maintenance | Enterprise insights |
+| **[fire] Supported Resolutions** | 160x120, 256x192, 384x288, 640x480, 1024x768 | Auto-resolution scaling | Multi-device adaptive |
+| **[lightning] Frame Rate** | 1-60 Hz | Variable frame rate, burst mode | Real-time optimization |
+| **[thermometer] Temperature Range** | -40degC to +1200degC | Extended range support | Enterprise calibration |
+| **[target] Temperature Accuracy** | +/-0.1degC or +/-0.5% of reading | High-precision mode | Professional calibration |
+| **[lightning] Processing Latency** | <10ms | Sub-millisecond edge processing | GPU acceleration |
+| **[brain] Memory Usage** | 8-50MB per session | Dynamic allocation | Enterprise optimization |
+| **[refresh] Concurrent Sessions** | Up to 16 simultaneous | Multi-camera support | Enterprise scaling |
+| **[cloud] Cloud Integration** | Real-time streaming | AWS/Azure/GCP support | Enterprise deployment |
+| **[robot] ML Processing** | Real-time inference | Thermal CNN models | AI-powered analysis |
+| **[chart] Analytics** | Live thermal analytics | Predictive maintenance | Enterprise insights |
 
 #### Enterprise API Methods
 ```kotlin
 interface EnterpriseeThermalIRInterface {
-    // 🔥 Advanced Camera Control
+    // [fire] Advanced Camera Control
     suspend fun initializeEnterpriseCamera(
         deviceType: ThermalDeviceType,
         enterpriseConfig: EnterpriseConfig,
@@ -80,7 +80,7 @@ interface EnterpriseeThermalIRInterface {
         syncConfig: SynchronizationConfig
     ): Result<MultiCameraSession>
     
-    // 🤖 AI-Enhanced Image Processing
+    // [robot] AI-Enhanced Image Processing
     suspend fun processFrameWithML(
         rawFrame: ThermalFrame,
         mlModel: ThermalMLModel,
@@ -97,7 +97,7 @@ interface EnterpriseeThermalIRInterface {
         modelEndpoint: String
     ): Result<InferenceResult>
     
-    // 📊 Advanced Analysis & Analytics
+    // [chart] Advanced Analysis & Analytics
     suspend fun analyzeTemperatureDistributionAdvanced(
         frame: ThermalFrame,
         analyticsConfig: AnalyticsConfig
@@ -114,7 +114,7 @@ interface EnterpriseeThermalIRInterface {
         equipmentProfile: EquipmentProfile
     ): Result<MaintenancePrediction>
     
-    // ☁️ Enterprise Cloud Integration
+    // [cloud] Enterprise Cloud Integration
     suspend fun streamToCloud(
         session: CaptureSession,
         cloudEndpoint: CloudEndpoint,
@@ -126,7 +126,7 @@ interface EnterpriseeThermalIRInterface {
         storageConfig: EnterpriseStorageConfig
     ): Result<SyncResult>
     
-    // 🔄 Real-Time Collaboration
+    // [refresh] Real-Time Collaboration
     suspend fun startCollaborativeSession(
         sessionConfig: CollaborativeSessionConfig,
         participants: List<Participant>
@@ -183,7 +183,7 @@ graph LR
 |-----------|---------------|-------|
 | **Sampling Rate** | 1-512 Hz | Configurable |
 | **Resolution** | 12-bit ADC (0-4095) | Raw sensor data |
-| **GSR Range** | 0.01-100 μS | Physiological range |
+| **GSR Range** | 0.01-100 microS | Physiological range |
 | **Connection Range** | 10-50 meters | BLE dependent |
 | **Battery Life** | 8-24 hours | Device dependent |
 | **Data Latency** | <20ms | BLE transmission |
@@ -224,8 +224,8 @@ Building thermal analysis for energy auditing and structural assessment.
 |-----------|---------------|-------|
 | **Analysis Types** | Energy loss, thermal bridges, insulation | Building inspection |
 | **Report Formats** | PDF, CSV, JSON | Standard outputs |
-| **Measurement Accuracy** | ±1°C | For building surfaces |
-| **Area Coverage** | Up to 1000m² per session | Large building support |
+| **Measurement Accuracy** | +/-1degC | For building surfaces |
+| **Area Coverage** | Up to 1000m^2 per session | Large building support |
 
 #### API Methods
 ```kotlin
@@ -318,7 +318,7 @@ graph TB
 #### Performance Specifications
 | Operation | Processing Time | Memory Usage | Accuracy |
 |-----------|----------------|--------------|----------|
-| **Temperature Extraction** | <1ms per pixel | 0.1MB | ±0.1°C |
+| **Temperature Extraction** | <1ms per pixel | 0.1MB | +/-0.1degC |
 | **Pseudo-color Mapping** | <5ms per frame | 2MB | Visual accuracy |
 | **Noise Filtering** | <10ms per frame | 5MB | 90% noise reduction |
 | **Feature Detection** | <20ms per frame | 8MB | 95% detection rate |
@@ -482,7 +482,7 @@ graph LR
 |---------|---------------|-------|
 | **Supported Models** | DS-2TD series, DS-2TP series | Thermal cameras |
 | **Resolution** | Up to 640x512 | Model dependent |
-| **Temperature Range** | -20°C to +550°C | Model dependent |
+| **Temperature Range** | -20degC to +550degC | Model dependent |
 | **Network Protocols** | ONVIF, RTSP, HTTP | Standard protocols |
 
 #### API Methods
@@ -513,11 +513,11 @@ interface LibHIKInterface {
 #### Supported Devices Matrix
 | Device | Resolution | Frame Rate | Temperature Range | Interface | SDK Version |
 |--------|------------|------------|-------------------|-----------|-------------|
-| **TC001** | 320x240 | 9 Hz | -20°C to +400°C | USB 2.0 | v2.1.0 |
-| **TC001 Plus** | 320x240 | 9 Hz | -20°C to +400°C | USB 2.0 | v2.1.0 |
-| **TC007** | 256x192 | 6 Hz | -10°C to +350°C | WiFi | v1.8.0 |
-| **TS004** | 160x120 | 25 Hz | 0°C to +300°C | Ethernet | v1.5.0 |
-| **HIKVision DS-2TD** | 640x512 | 30 Hz | -20°C to +550°C | Ethernet | ONVIF |
+| **TC001** | 320x240 | 9 Hz | -20degC to +400degC | USB 2.0 | v2.1.0 |
+| **TC001 Plus** | 320x240 | 9 Hz | -20degC to +400degC | USB 2.0 | v2.1.0 |
+| **TC007** | 256x192 | 6 Hz | -10degC to +350degC | WiFi | v1.8.0 |
+| **TS004** | 160x120 | 25 Hz | 0degC to +300degC | Ethernet | v1.5.0 |
+| **HIKVision DS-2TD** | 640x512 | 30 Hz | -20degC to +550degC | Ethernet | ONVIF |
 
 #### Device Integration Protocol
 ```kotlin
@@ -577,15 +577,15 @@ data class ShimmerGSRPacket(
     val checksum: Byte         // Packet integrity checksum
 ) {
     fun calculateGSRResistance(): Double {
-        // Convert 12-bit ADC to resistance (KΩ)
+        // Convert 12-bit ADC to resistance (KOhm)
         val adcValue = gsrRaw.toDouble() and 0x0FFF
-        return (4095.0 / adcValue - 1.0) * 40.2 // 40.2KΩ reference resistor
+        return (4095.0 / adcValue - 1.0) * 40.2 // 40.2KOhm reference resistor
     }
     
     fun calculateGSRConductance(): Double {
-        // Convert resistance to conductance (μS)
+        // Convert resistance to conductance (microS)
         val resistance = calculateGSRResistance()
-        return 1000.0 / resistance // Convert KΩ to μS
+        return 1000.0 / resistance // Convert KOhm to microS
     }
 }
 ```
@@ -691,28 +691,28 @@ sequenceDiagram
 #### File Structure
 ```
 session_YYYYMMDD_HHMMSS.h5
-├── metadata/
-│   ├── session_info
-│   ├── device_configs
-│   └── calibration_data
-├── thermal_data/
-│   ├── raw_frames
-│   ├── processed_frames
-│   ├── temperature_data
-│   └── timestamps
-├── gsr_data/
-│   ├── raw_adc_values
-│   ├── resistance_values
-│   ├── conductance_values
-│   └── timestamps
-├── synchronized_data/
-│   ├── sync_points
-│   ├── interpolated_data
-│   └── quality_metrics
-└── analysis_results/
-    ├── thermal_analysis
-    ├── physiological_features
-    └── correlation_analysis
++-- metadata/
+|   +-- session_info
+|   +-- device_configs
+|   +-- calibration_data
++-- thermal_data/
+|   +-- raw_frames
+|   +-- processed_frames
+|   +-- temperature_data
+|   +-- timestamps
++-- gsr_data/
+|   +-- raw_adc_values
+|   +-- resistance_values
+|   +-- conductance_values
+|   +-- timestamps
++-- synchronized_data/
+|   +-- sync_points
+|   +-- interpolated_data
+|   +-- quality_metrics
++-- analysis_results/
+    +-- thermal_analysis
+    +-- physiological_features
+    +-- correlation_analysis
 ```
 
 #### Data Types and Compression

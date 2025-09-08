@@ -48,7 +48,7 @@ import java.util.concurrent.ArrayBlockingQueue;
                     mDeviceState = task.getDeviceState();
                     Log.d(TAG, "DeviceControlWorker do state : " + mDeviceState);
                     if (mDeviceControlCallback != null) {
-                        // 防止重复回调
+                        // [Chinese text]
                         if (mDeviceState != previousState) {
                             if (mDeviceState == DeviceState.OPEN) {
                                 mDeviceControlCallback.onConnected();
@@ -105,7 +105,7 @@ import java.util.concurrent.ArrayBlockingQueue;
     public void addTask(BaseTask task) {
         synchronized (mEventQueue) {
             if (mEventQueue.size() < 2) {
-                Log.d(TAG, "addTask task：" + task.getClass().getSimpleName());
+                Log.d(TAG, "addTask task: " + task.getClass().getSimpleName());
                 mEventQueue.add(task);
             } else {
                 Log.d(TAG, "addTask poll");

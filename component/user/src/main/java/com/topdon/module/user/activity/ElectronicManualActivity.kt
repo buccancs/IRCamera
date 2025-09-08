@@ -16,7 +16,7 @@ import com.topdon.lib.core.R as RCore
 import com.topdon.module.user.R
 
 /**
- * 电子说明书 或 FAQ 设备类型选择页面
+ * [Chinese text] [Chinese text] FAQ [Chinese text]
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class ElectronicManualActivity : BaseActivity() {
@@ -32,7 +32,7 @@ class ElectronicManualActivity : BaseActivity() {
         titleView = findViewById(R.id.title_view)
         electronicManualRecycler = findViewById(R.id.electronic_manual_recycler)
         
-        val productType = intent.getIntExtra(Constants.SETTING_TYPE, 0) // 0-电子说明书 1-FAQ
+        val productType = intent.getIntExtra(Constants.SETTING_TYPE, 0) // 0-[Chinese text] 1-FAQ
 
         titleView.setTitleText(if (productType == Constants.SETTING_BOOK) RCore.string.electronic_manual else RCore.string.app_question)
 
@@ -40,14 +40,14 @@ class ElectronicManualActivity : BaseActivity() {
         adapter.onPickListener = { isTS001 ->
             if (isTS001) {
                 if (productType == Constants.SETTING_BOOK) {
-                    // 电子说明书-TS001
+                    // [Chinese text]-TS001
                 } else {
                     // FAQ-TS001
                     NavigationManager.getInstance().build(RouterConfig.QUESTION).withBoolean("isTS001", true).navigation(this)
                 }
             } else {
                 if (productType == Constants.SETTING_BOOK) {
-                    // 电子说明书-TS004
+                    // [Chinese text]-TS004
                     NavigationManager.getInstance().build(RouterConfig.PDF).withBoolean("isTS001", false).navigation(this)
                 } else {
                     // FAQ-TS004
@@ -71,7 +71,7 @@ class ElectronicManualActivity : BaseActivity() {
         private val optionList: ArrayList<String> = ArrayList(2)
 
         init {
-            // 由于 TC001 的说明书为旧版本 样式， 2024-4-9 产品决定先隐藏，只放 TS004 的说明书
+            // [Chinese text] TC001 [Chinese text] [Chinese text],  2024-4-9 [Chinese text], [Chinese text] TS004 [Chinese text]
             if (isFAQ) {
                 optionList.add("TS001")
             }

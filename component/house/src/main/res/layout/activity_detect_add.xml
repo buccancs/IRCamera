@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- 创建报告 -->
+    <!-- [Chinese text] -->
     <TextView
         android:id="@+id/tv_create_report"
         android:layout_width="0dp"
@@ -51,7 +51,7 @@
             android:paddingTop="16dp"
             android:paddingBottom="32dp">
 
-            <!-- 报告名称 -->
+            <!-- [Chinese text] -->
             <TextView
                 android:id="@+id/tv_detect_name_title"
                 android:layout_width="0dp"
@@ -81,7 +81,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_detect_name_title" />
 
-            <!-- 检测师姓名 -->
+            <!-- [Chinese text] -->
             <TextView
                 android:id="@+id/tv_inspector_name_title"
                 android:layout_width="0dp"
@@ -112,7 +112,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_inspector_name_title" />
 
-            <!-- 检测时间 -->
+            <!-- [Chinese text] -->
             <TextView
                 android:id="@+id/tv_detect_time_title"
                 android:layout_width="0dp"
@@ -144,7 +144,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_detect_time_title" />
 
-            <!-- 房屋详细地址 -->
+            <!-- [Chinese text] -->
             <TextView
                 android:id="@+id/tv_house_address_title"
                 android:layout_width="0dp"
@@ -197,7 +197,7 @@
                 app:layout_constraintTop_toTopOf="@id/view_house_address"
                 app:layout_constraintBottom_toBottomOf="@id/view_house_address" />
 
-            <!-- 房屋图片 -->
+            <!-- [Chinese text] -->
             <TextView
                 android:id="@+id/tv_house_image_title"
                 android:layout_width="0dp"
@@ -248,7 +248,7 @@
                 app:layout_constraintTop_toBottomOf="@id/iv_house_image_camera"
                 app:layout_constraintBottom_toBottomOf="@id/iv_house_image" />
 
-            <!-- 建筑年份 -->
+            <!-- [Chinese text] -->
             <TextView
                 android:id="@+id/tv_house_year_title"
                 android:layout_width="0dp"
@@ -280,7 +280,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_house_year_title" />
 
-            <!-- 建筑面积 -->
+            <!-- [Chinese text] -->
             <TextView
                 android:id="@+id/tv_house_space_title"
                 android:layout_width="0dp"
@@ -336,7 +336,7 @@
                 app:layout_constraintTop_toTopOf="@id/view_house_space_bg"
                 app:layout_constraintBottom_toBottomOf="@id/view_house_space_bg" />
 
-            <!-- 检测费用 -->
+            <!-- [Chinese text] -->
             <TextView
                 android:id="@+id/tv_cost_title"
                 android:layout_width="0dp"

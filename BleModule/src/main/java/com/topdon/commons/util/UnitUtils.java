@@ -22,16 +22,16 @@ import java.util.List;
 public class UnitUtils {
 
     /**
-     * 根据类型获取单位数据
+     * [Chinese text]
      *
-     * @param unitType 0公制  1 英制
+     * @param unitType 0[Chinese text]  1 [Chinese text]
      */
     public static List<UnitDBBean> getUnitDBBeanList(int unitType) {
         try {
             String jsonStr;
-            if (unitType == 0) {// 公制
+            if (unitType == 0) {// [Chinese text]
                 jsonStr = PreUtil.getInstance(Topdon.getApp()).get(SPKeyUtils.UNIT_METRIC);
-            } else {// 英制
+            } else {// [Chinese text]
                 jsonStr = PreUtil.getInstance(Topdon.getApp()).get(SPKeyUtils.UNIT_BRITISH);
             }
             LLog.w("bcf--jsonStr", jsonStr);
@@ -48,7 +48,7 @@ public class UnitUtils {
     }
 
     /**
-     * 根据类型获取单位数据
+     * [Chinese text]
      */
     public static HashMap<String, UnitDBBean> getUnitDBBeanHashMap() {
         String unit = (String) SPUtils.getInstance(Topdon.getApp()).get("unit", "0");
@@ -57,9 +57,9 @@ public class UnitUtils {
     }
 
     /**
-     * 根据类型获取单位数据
+     * [Chinese text]
      *
-     * @param unitType 0公制  1 英制
+     * @param unitType 0[Chinese text]  1 [Chinese text]
      */
     public static HashMap<String, UnitDBBean> getUnitDBBeanHashMap(int unitType) {
         HashMap<String, UnitDBBean> hashMap = new HashMap<>();
@@ -75,11 +75,11 @@ public class UnitUtils {
     }
 
     /**
-     * 计算结果
+     * [Chinese text]
      *
-     * @param preUnit        转换前单位
-     * @param numericalValue 需要转换得值
-     * @return String[] 第一个值 第二个单位
+     * @param preUnit        [Chinese text]
+     * @param numericalValue [Chinese text]
+     * @return String[] [Chinese text] [Chinese text]
      */
     public static String[] getCalcResult(HashMap<String, UnitDBBean> hashMap, String preUnit, String numericalValue) {
         String unit = (String) SPUtils.getInstance(Topdon.getApp()).get("unit", "0");
@@ -88,12 +88,12 @@ public class UnitUtils {
     }
 
     /**
-     * 计算结果
+     * [Chinese text]
      *
-     * @param unitType       当前是选中哪个单位   0 公制  1 英制
-     * @param preUnit        转换前单位
-     * @param numericalValue 需要转换得值
-     * @return String[] 第一个值 第二个单位
+     * @param unitType       [Chinese text]in progress[Chinese text]   0 [Chinese text]  1 [Chinese text]
+     * @param preUnit        [Chinese text]
+     * @param numericalValue [Chinese text]
+     * @return String[] [Chinese text] [Chinese text]
      */
     public static String[] getCalcResult(int unitType, HashMap<String, UnitDBBean> hashMap, String preUnit, String numericalValue) {
         UnitDBBean unitDBBean = null;
@@ -105,40 +105,40 @@ public class UnitUtils {
             if (unitDBBean == null) {
                 return new String[]{numericalValue, preUnit};
             }
-            if (unitType == 0) {// 当前是公制
+            if (unitType == 0) {// [Chinese text]
                 if (preUnit.equalsIgnoreCase(unitDBBean.getAfterUnit())) {
                     return new String[]{numericalValue, unitDBBean.getAfterUnit()};
                 }
-                if (preUnit.equalsIgnoreCase("K")) {// 开氏度
+                if (preUnit.equalsIgnoreCase("K")) {// [Chinese text]
                     try {
                         return new String[]{String.valueOf(getResult(Double.parseDouble(numericalValue) - 273.15)), unitDBBean.getAfterUnit()};
                     } catch (NumberFormatException e) {
                         e.printStackTrace();
                         return new String[]{numericalValue, unitDBBean.getAfterUnit()};
                     }
-                } else if (preUnit.equals("deg.F")) {// 华氏度
+                } else if (preUnit.equals("deg.F")) {// [Chinese text]
                     try {
-                        return new String[]{String.valueOf(getResult((Double.parseDouble(numericalValue) - 32) / 1.8)), "°C"};
+                        return new String[]{String.valueOf(getResult((Double.parseDouble(numericalValue) - 32) / 1.8)), "degC"};
                     } catch (Exception e) {
                         e.printStackTrace();
                         return new String[]{numericalValue, unitDBBean.getAfterUnit()};
                     }
                 }
                 return new String[]{String.valueOf(getResult(Double.parseDouble(numericalValue) * Double.parseDouble(unitDBBean.getCalcFactor()))), unitDBBean.getAfterUnit()};
-            } else {// 当前英制
+            } else {// [Chinese text]
                 if (preUnit.equalsIgnoreCase(unitDBBean.getAfterUnit())) {
                     return new String[]{numericalValue, unitDBBean.getAfterUnit()};
                 }
-                if (preUnit.equalsIgnoreCase("K")) {// 开氏度
+                if (preUnit.equalsIgnoreCase("K")) {// [Chinese text]
                     try {
                         return new String[]{String.valueOf(getResult(32 + (Double.parseDouble(numericalValue) - 273.15) * 1.8)), unitDBBean.getAfterUnit()};
                     } catch (Exception e) {
                         e.printStackTrace();
                         return new String[]{numericalValue, unitDBBean.getAfterUnit()};
                     }
-                } else if (preUnit.equalsIgnoreCase("deg.C")) {// 华氏度
+                } else if (preUnit.equalsIgnoreCase("deg.C")) {// [Chinese text]
                     try {
-                        return new String[]{String.valueOf(getResult(32 + Double.parseDouble(numericalValue) * 1.8)), "°F"};
+                        return new String[]{String.valueOf(getResult(32 + Double.parseDouble(numericalValue) * 1.8)), "degF"};
                     } catch (Exception e) {
                         e.printStackTrace();
                         return new String[]{numericalValue, unitDBBean.getAfterUnit()};
@@ -158,7 +158,7 @@ public class UnitUtils {
     }
 
     /**
-     * 保留两位小数
+     * [Chinese text]
      *
      * @param dou dou
      * @return double
@@ -170,13 +170,13 @@ public class UnitUtils {
     }
 
     /**
-     * 不足两位补0
+     * [Chinese text]0
      *
      * @param score double
      * @return String
      */
     public static String getDecimalFormatByDouble(double score) {
-        // 不足两位则补0
+        // [Chinese text]0
         DecimalFormat decimalFormat = new DecimalFormat("0.00#");
         return decimalFormat.format(score);
     }

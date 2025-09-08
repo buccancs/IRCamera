@@ -10,11 +10,11 @@ import java.io.File;
 
 /**
  * Created by fengjibo on 2022/7/6.
- * 动态调整参数类
+ * [Chinese text]
  */
 public class Const {
 
-    public static final int TYPE_IR = 0;// 单光
+    public static final int TYPE_IR = 0;// [Chinese text]
     public static final int TYPE_IR_DUAL = 1;// Dual light
 
     public static int RESTART_USB = 1000;
@@ -25,14 +25,14 @@ public class Const {
     public static int SHOW_RESTART_MESSAGE = 1005;
     public static int HIDE_LOADING_FINISH = 1006;
 
-    // 是否读取flash内容
+    // [Chinese text]flash[Chinese text]
     public static boolean isReadFlashData = false;
-    // 是否连接设备
+    // [Chinese text]
     public static boolean isDeviceConnected = false;
 
-    // 统一修改当前加载的距离修正表
-    public static final String TAU_HIGH_GAIN_ASSET_PATH = "tau/V262_mini256带防尘片_H.bin";
-    public static final String TAU_HIGH_LOW_ASSET_PATH = "tau/V262_mini256带防尘片_L.bin";
+    // [Chinese text]
+    public static final String TAU_HIGH_GAIN_ASSET_PATH = "tau/V262_mini256[Chinese text]_H.bin";
+    public static final String TAU_HIGH_LOW_ASSET_PATH = "tau/V262_mini256[Chinese text]_L.bin";
 
     public static DeviceType USE_DEVICE_TYPE = DeviceType.WN_256;
     // sensor
@@ -44,19 +44,19 @@ public class Const {
     public static int CAMERA_HEIGHT = 480;
     public static final int CAMERA_LOW_FPS = 15;
     public static final int CAMERA_HIGH_FPS = 30;
-    // 摄像头前置后置
+    // [Chinese text]
 //    public static final int CAMERA_ID = CameraController.CAMERA_BEHIND;
 
     public static int IR_WIDTH = 192;
     public static int IR_HEIGHT = 256;
     public static int VL_WIDTH = 480;
     public static int VL_HEIGHT = 640;
-    // Settings红外图像旋转角度
+    // Settings[Chinese text]
     public static final DualCameraParams.TypeLoadParameters IR_ROTATE = DualCameraParams.TypeLoadParameters.ROTATE_0;
-    // Settings红外图像镜像翻转类型
+    // Settings[Chinese text]
     public static final CommonParams.PropImageParamsValue.MirrorFlipType IR_MIRROR_FLIP_TYPE = CommonParams.PropImageParamsValue.MirrorFlipType.NO_MIRROR_FLIP;
 
-    // 融合后图像宽高
+    // [Chinese text]high
     public static int DUAL_WIDTH = 480;
     public static int DUAL_HEIGHT = 640;
 

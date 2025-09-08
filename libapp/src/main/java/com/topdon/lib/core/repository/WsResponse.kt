@@ -1,10 +1,10 @@
 package com.topdon.lib.core.repository
 
 /**
- * websocket 数据推送响应.
- * @param cmd 推送指令
- * @param data 推送实体类，视不同指令返回对象不同
- * @param id 推送id
+ * websocket [Chinese text].
+ * @param cmd [Chinese text]
+ * @param data [Chinese text], [Chinese text]
+ * @param id [Chinese text]id
  */
 data class WsResponse<T>(
     val cmd: Int,
@@ -13,38 +13,38 @@ data class WsResponse<T>(
 )
 
 /**
- * websocket - Pseudo color样式
+ * websocket - Pseudo color[Chinese text]
  */
 data class WsPseudoColor(
-    val enable: Boolean?, // 白热-1，黑热-2，警示红-12, 铁红-5，观鸟-16
+    val enable: Boolean?, // [Chinese text]-1, [Chinese text]-2, [Chinese text]-12, [Chinese text]-5, [Chinese text]-16
     val mode: Int?,
 )
 
 /**
- * websocket - 测距
+ * websocket - [Chinese text]
  */
 data class WsRange(
-    val state: Int?, // 0-关闭，1-开启
+    val state: Int?, // 0-[Chinese text], 1-[Chinese text]
 )
 
 /**
- * websocket - 亮度
+ * websocket - [Chinese text]
  */
 data class WsLight(
-    val brightness: Int?, // 81-100 高，61-80 中，0-60 低
+    val brightness: Int?, // 81-100 high, 61-80 in progress, 0-60 low
 )
 
 /**
- * websocket - 画中画
+ * websocket - [Chinese text]in progress[Chinese text]
  */
 data class WsPip(
-    val enable: Int?, // 0-关闭，1-开启
+    val enable: Int?, // 0-[Chinese text], 1-[Chinese text]
 )
 
 /**
- * websocket - 放大倍数
+ * websocket - [Chinese text]
  */
 data class WsZoom(
-    val enable: Boolean?, // 使能缩放标识
-    val factor: Int?, // 缩放比例
+    val enable: Boolean?, // [Chinese text]
+    val factor: Int?, // [Chinese text]
 )

@@ -10,24 +10,24 @@ import com.topdon.lib.core.utils.ScreenUtil
 import kotlinx.android.synthetic.main.view_menu_3d.view.*
 
 /**
- * 3D 编辑的菜单.
+ * 3D [Chinese text]menu.
  */
 class Menu3DView : ConstraintLayout, View.OnClickListener {
 
     /**
-     * 视觉(0-3D、1-俯视、2-左视、3-右视、4-正视) 二级菜单切换事件监听.
+     * [Chinese text](0-3D, 1-[Chinese text], 2-[Chinese text], 3-[Chinese text], 4-[Chinese text]) [Chinese text]menuswitcheventlistener.
      */
     var onVisualClickListener: ((position: Int) -> Unit)? = null
     /**
-     * 标定(0-自定义、1-高温、2-低温、3-等温、4-删除) 二级菜单切换事件监听.
+     * [Chinese text](0-[Chinese text], 1-high[Chinese text], 2-low[Chinese text], 3-[Chinese text], 4-[Chinese text]) [Chinese text]menuswitcheventlistener.
      */
     var onMarkClickListener: ((position: Int) -> Unit)? = null
     /**
-     * 伪彩(0-铁红、1-黑红、2-自然、3-岩浆、4-辉金) 二级菜单切换事件监听.
+     * [Chinese text](0-[Chinese text], 1-[Chinese text], 2-[Chinese text], 3-[Chinese text], 4-[Chinese text]) [Chinese text]menuswitcheventlistener.
      */
     var onPseudoClickListener: ((position: Int) -> Unit)? = null
     /**
-     * 模式(0-点、1-线、2-面) 二级菜单切换事件监听.
+     * mode(0-point, 1-line, 2-[Chinese text]) [Chinese text]menuswitcheventlistener.
      */
     var onModeClickListener: ((position: Int) -> Unit)? = null
 
@@ -36,34 +36,34 @@ class Menu3DView : ConstraintLayout, View.OnClickListener {
 
 
     /**
-     * 当前选中的一级菜单 index.
+     * [Chinese text]in progress[Chinese text]menu index.
      */
     private var selectIndex = -1
 
     /**
-     * 视觉(3D、俯视、左视、右视、正视) 二级菜单所用 Adapter.
+     * [Chinese text](3D, [Chinese text], [Chinese text], [Chinese text], [Chinese text]) [Chinese text]menuused by Adapter.
      */
     private val visualAdapter: MenuAdapter
     /**
-     * 标定(自定义、高温、低温、等温、删除) 二级菜单所用 Adapter.
+     * [Chinese text]([Chinese text], high[Chinese text], low[Chinese text], [Chinese text], [Chinese text]) [Chinese text]menuused by Adapter.
      */
     private val markAdapter: MenuAdapter
     /**
-     * 伪彩(铁红、黑红、自然、岩浆、辉金) 二级菜单所用 Adapter.
+     * [Chinese text]([Chinese text], [Chinese text], [Chinese text], [Chinese text], [Chinese text]) [Chinese text]menuused by Adapter.
      */
     private val pseudoAdapter: MenuAdapter
     /**
-     * 模式(点、线、面）二级菜单所用 Adapter.
+     * mode(point, line, [Chinese text])[Chinese text]menuused by Adapter.
      */
     private val modeAdapter: MenuAdapter
 
 
     /**
-     * 文字选中时颜色值.
+     * text[Chinese text]in progress[Chinese text].
      */
     private val selectColor: Int = 0xffffffff.toInt()
     /**
-     * 文字未选中时颜色值.
+     * text[Chinese text]in progress[Chinese text].
      */
     private val defaultColor: Int = 0x66ffffff
 

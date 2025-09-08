@@ -51,19 +51,19 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 /**
- * 生成报告第1步（共2步）.
+ * [Chinese text]1[Chinese text]([Chinese text]2[Chinese text]).
  *
- * 需要传递
- * - 是否 TC007: [ExtraKeyConfig.IS_TC007] （环境温度、发射率等不同）
- * - 当前编辑的图片绝对路径: [ExtraKeyConfig.FILE_ABSOLUTE_PATH] （本界面不使用，透传）
- * - 当前编辑的图片点线面全图温度数据: [ExtraKeyConfig.IMAGE_TEMP_BEAN] （本界面不使用，透传）
+ * [Chinese text]
+ * - [Chinese text] TC007: [ExtraKeyConfig.IS_TC007] ([Chinese text]temperature, [Chinese text])
+ * - [Chinese text]: [ExtraKeyConfig.FILE_ABSOLUTE_PATH] ([Chinese text], [Chinese text])
+ * - [Chinese text]pointline[Chinese text]temperature[Chinese text]: [ExtraKeyConfig.IMAGE_TEMP_BEAN] ([Chinese text], [Chinese text])
  */
 @Route(path = RouterConfig.REPORT_CREATE_FIRST)
 class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
 
     /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
+     * [Chinese text], [Chinese text] TC007 [Chinese text].
+     * true-TC007 false-[Chinese text]
      */
     private var isTC007 = false
     private var locationManager: LocationManager? = null
@@ -143,9 +143,9 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
 
     @SuppressLint("SetTextI18n")
     private fun readConfig() {
-        var environment = 30f //环境温度
-        var distance = 0.25f  //测试距离
-        var radiation = 0.95f //发射率
+        var environment = 30f //[Chinese text]temperature
+        var distance = 0.25f  //[Chinese text]
+        var radiation = 0.95f //[Chinese text]
         val config = ConfigRepository.readConfig(isTC007)
         distance = config.distance
         radiation = config.radiation
@@ -165,10 +165,10 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            tv_report_date -> {//报告日期
+            tv_report_date -> {//[Chinese text]
                 selectTime()
             }
-            tv_preview -> {//预览
+            tv_preview -> {//[Chinese text]
                 val reportInfoBean = buildReportInfo()
                 val reportConditionBean = buildReportCondition()
                 ARouter.getInstance().build(RouterConfig.REPORT_PREVIEW_FIRST)
@@ -176,7 +176,7 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
                     .withParcelable(ExtraKeyConfig.REPORT_CONDITION, reportConditionBean)
                     .navigation(this)
             }
-            tv_next -> {//下一步
+            tv_next -> {//[Chinese text]
                 val reportInfoBean = buildReportInfo()
                 val reportConditionBean = buildReportCondition()
                 val imageTempBean: ImageTempBean? = intent.getParcelableExtra(ExtraKeyConfig.IMAGE_TEMP_BEAN)
@@ -196,16 +196,16 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
 
     @SuppressLint("MissingPermission")
     private fun getLocation() : String? {
-        //1.获取位置管理器
+        //1.[Chinese text]
         locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
 
-        //2.获取位置提供器，GPS或是NetWork
+        //2.[Chinese text], GPS[Chinese text]NetWork
         val providers = locationManager?.getProviders(true)
         locationProvider = if (providers!!.contains(LocationManager.GPS_PROVIDER)) {
-            //如果是GPS
+            //[Chinese text]GPS
             LocationManager.GPS_PROVIDER
         } else if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
-            //如果是Network
+            //[Chinese text]Network
             LocationManager.NETWORK_PROVIDER
         } else {
             return null
@@ -222,7 +222,7 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
         }
     }
 
-    //获取地址信息:城市、街道等信息
+    //[Chinese text]:[Chinese text], [Chinese text]
     private fun getAddress(location: Location?): String {
         var result: List<Address?>? = null
         try {
@@ -232,7 +232,7 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
                     location.latitude,
                     location.longitude, 1
                 )
-                Log.v("TAG", "获取地址信息：$result")
+                Log.v("TAG", "[Chinese text]: $result")
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -296,11 +296,11 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
 
 
     /**
-     * 当前设置的报告日期时间戳.
+     * [Chinese text]settings[Chinese text].
      */
     private var startTime = 0L
     /**
-     * 显示时间拾取弹窗
+     * [Chinese text]
      */
     private fun selectTime() {
         val picker = DatimePicker(this)
@@ -319,10 +319,10 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
 
         val endTimeEntity = DatimeEntity.yearOnFuture(10)
         if (startTime == 0L) {
-            //设置当前时间
+            //settings[Chinese text]
             picker.wheelLayout.setRange(startTimeEntity, endTimeEntity, DatimeEntity.now())
         } else {
-            //设置上一次选中时间
+            //settings[Chinese text]in progress[Chinese text]
             val calendar = Calendar.getInstance()
             calendar.timeInMillis = startTime
             val year = calendar.get(Calendar.YEAR)
@@ -358,7 +358,7 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
     }
 
     private fun initLocationPermission() {
-        //定位
+        //[Chinese text]
         XXPermissions.with(this@ReportCreateFirstActivity)
             .permission(
                 permissionList
@@ -388,7 +388,7 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
                 }
                 override fun onDenied(permissions: MutableList<String>, never: Boolean) {
                     if (never) {
-                        // 如果是被永久拒绝就跳转到应用权限系统设置页面
+                        // [Chinese text]settings[Chinese text]
                         if (BaseApplication.instance.isDomestic()){
                             ToastUtils.showShort(getString(R.string.app_location_content))
                             return

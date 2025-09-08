@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-present 贵州纳雍穿青人李裕江<1032694760@qq.com>
+ * Copyright (c) 2016-present [Chinese text]<1032694760@qq.com>
  *
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
@@ -22,7 +22,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 /**
- * @author 贵州山野羡民（1032694760@qq.com）
+ * @author [Chinese text](1032694760@qq.com)
  * @since 2021/10/28 8:37
  */
 public class ConstellationEntity implements TextProvider, Serializable {
@@ -34,7 +34,7 @@ public class ConstellationEntity implements TextProvider, Serializable {
     private String english;
 
     static {
-        IS_CHINESE = Locale.getDefault().getDisplayLanguage().contains("中文");
+        IS_CHINESE = Locale.getDefault().getDisplayLanguage().contains("in progress[Chinese text]");
     }
 
     public String getId() {

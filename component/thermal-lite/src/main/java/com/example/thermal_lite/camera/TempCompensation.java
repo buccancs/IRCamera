@@ -25,41 +25,41 @@ import java.io.IOException;
 import java.util.Arrays;
 
     /**
-     * Tiny2c冷开机温度补偿方案
+     * Tiny2c[Chinese text]temperature[Chinese text]
      */
     public class TempCompensation {
     private final String TAG = "TempCompensation";
-    // 初始化
+    // [Chinese text]
     private final int HANDLER_KEY_INIT = 1000;
-    // 1s后打快门
+    // 1s[Chinese text]
     private final int HANDLER_KEY_1s = 1001;
-    // 后续步骤（4s\6s打快们）
+    // [Chinese text](4s\6s[Chinese text])
     private final int HANDLER_KEY_AFTER = 1002;
-    // 整体时长s
+    // [Chinese text]s
     private final int ALL_DURATION = 30;
     private HandlerThread handlerThread;
     private Handler handler;
 
     // NUC_T
     private short[] nucT;
-    // NUC差值
+    // NUC[Chinese text]
     private volatile int deltaNUC;
-    // 系数
+    // [Chinese text]
     private volatile int nucNew;
-    // VTemp差值
+    // VTemp[Chinese text]
     private volatile int deltaVTemp;
-    // VTemp初始值
+    // VTemp[Chinese text]
     private volatile int vTempStart;
-    // 开始时间
+    // start[Chinese text]
     private volatile long startTime;
 
-    // 是否补偿
+    // [Chinese text]
     private volatile boolean isCompensation = false;
-    // 是否启动了流程
+    // [Chinese text]
     private volatile boolean isStart = false;
 
         /**
-     * 公式参数y=−0.0705571⋅x2+14.72725379⋅x−30.49372144
+     * [Chinese text]y=-0.0705571*x2+14.72725379*x-30.49372144
      */
     public static String DEFAULT_PARAM1 = "-0.0705";
     public static String DEFAULT_PARAM2 = "14.7272";
@@ -81,7 +81,7 @@ import java.util.Arrays;
     }
 
         /**
-     * 获取nuc-t数据
+     * [Chinese text]nuc-t[Chinese text]
      */
     public void getNucTData() {
 
@@ -109,10 +109,10 @@ import java.util.Arrays;
     }
 
     /**
-     * 读取FlashData
+     * [Chinese text]FlashData
      *
      * @param sdFilePath    CommonParams.SdFilePath.DEFAULT_DATA_NUC_T_HIGH
-     * @param localFilePath 本地路径--加密
+     * @param localFilePath [Chinese text]--[Chinese text]
      */
     private void readFlashData(CommonParams.SdFilePath sdFilePath, String localFilePath,
                                IFileHandleCallback iFileHandleCallback) {
@@ -133,7 +133,7 @@ import java.util.Arrays;
     }
 
         /**
-     * 流程开始
+     * [Chinese text]start
      */
     public void startTempCompensation() {
         if (Const.DEVICE_TYPE != DeviceType.DEVICE_TYPE_TC2C) {
@@ -143,7 +143,7 @@ import java.util.Arrays;
             return;
         }
 
-        // 方便调参使用，最终落地方案固定数值即可
+        // [Chinese text], [Chinese text]
         param1 = Double.parseDouble(SPUtils.getInstance().getString(
                 KEY_PARAM1, DEFAULT_PARAM1));
         param2 = Double.parseDouble(SPUtils.getInstance().getString(
@@ -162,44 +162,44 @@ import java.util.Arrays;
                     if (HANDLER_KEY_INIT == msg.what) {
                         Log.d(TAG, "HANDLER_KEY_INIT");
                         isStart = true;
-                        // 关闭自动快门
+                        // [Chinese text]
                         if (DeviceIrcmdControlManager.getInstance().getIrcmdEngine()!=null){
                             IrcmdError basicAutoFFCStatusSet = DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
                                     .basicAutoFFCStatusSet(CommonParams.AutoFFCStatus.AUTO_FFC_DISABLED);
                             Log.d(TAG, "basicAutoFFCStatusSet=" + basicAutoFFCStatusSet);
                         }
-                        // 获取NUC-T
+                        // [Chinese text]NUC-T
                         getNucTData();
                     } else if (HANDLER_KEY_1s == msg.what) {
-                        // 手动打快门
+                        // [Chinese text]
                         if (DeviceIrcmdControlManager.getInstance().getIrcmdEngine() != null){
                             IrcmdError nativeAdvManualFFCUpdateResult = DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
                                     .basicFFCUpdate();
                             Log.d(TAG, "nativeAdvManualFFCUpdateResult=" + nativeAdvManualFFCUpdateResult);
-                            // 打快门后获取Vtemp_start
+                            // [Chinese text]Vtemp_start
                             int[] nativeAdvDeviceRealtimeStatusGetValue = new int[1];
                             IrcmdError advDeviceRealtimeStatusGetResult = DeviceIrcmdControlManager.getInstance()
                                     .getIrcmdEngine()
                                     .advDeviceRealtimeStatusGet(CommonParams.RealtimeStatusType.ADV_IR_SENSOR_VTEMP,
                                             nativeAdvDeviceRealtimeStatusGetValue);
                             Log.d(TAG, "advDeviceRealtimeStatusGetResult=" + advDeviceRealtimeStatusGetResult);
-                            // 第一次(1s时)打完快门记录Vtemp_start
+                            // [Chinese text](1s[Chinese text])[Chinese text]Vtemp_start
                             vTempStart = nativeAdvDeviceRealtimeStatusGetValue[0];
                             Log.d(TAG, "Vtemp_start=" + vTempStart);
-                            // 令NUC_new=0为初始值;
+                            // [Chinese text]NUC_new=0[Chinese text];
                             nucNew = 0;
-                            // 开始补偿
+                            // start[Chinese text]
                             isCompensation = true;
                             startTime = System.currentTimeMillis();
                         }
                     } else if (HANDLER_KEY_AFTER == msg.what) {
                         if (DeviceIrcmdControlManager.getInstance().getIrcmdEngine() != null){
-                            Log.d(TAG, "打快门");
-                            // 手动打快门
+                            Log.d(TAG, "[Chinese text]");
+                            // [Chinese text]
                             IrcmdError advManualFFCUpdateResult = DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
                                     .advManualFFCUpdate(CommonParams.FFCShutterBehaviorMode.ONLY_B_UPDATE);
                             Log.d(TAG, "advManualFFCUpdateResult=" + advManualFFCUpdateResult);
-                            // 打快门后记录NUC_neW=ΔNUC
+                            // [Chinese text]NUC_neW=DeltaNUC
                             nucNew = (int) (param1 * deltaVTemp * deltaVTemp + param2 * deltaVTemp - param3);
                             Log.d(TAG, "NUC_new=" + nucNew);
 
@@ -208,7 +208,7 @@ import java.util.Arrays;
                         }
                     }
                 }catch (Exception e){
-                    Log.d(TAG, "温度补偿异常=" + e.getMessage());
+                    Log.d(TAG, "temperature[Chinese text]=" + e.getMessage());
                 }
             }
         };
@@ -221,8 +221,8 @@ import java.util.Arrays;
     }
 
         /**
-     * 补偿温度
-     * 原始温度经过此方法得到补偿后的温度
+     * [Chinese text]temperature
+     * [Chinese text]temperature[Chinese text]temperature
      *
      * @param temp
      * @return
@@ -235,8 +235,8 @@ import java.util.Arrays;
     }
 
         /**
-     * 获取ΔNUC和ΔVTEMP值
-     * 需要获取vtemp，每次显示温度时调用一次即可，运算使用compensateTemp()
+     * [Chinese text]DeltaNUC[Chinese text]DeltaVTEMP[Chinese text]
+     * [Chinese text]vtemp, [Chinese text]temperature[Chinese text], [Chinese text]compensateTemp()
      */
     public void getDeltaNucAndVTemp() {
         if (!isCompensation) {
@@ -245,7 +245,7 @@ import java.util.Arrays;
         if (DeviceIrcmdControlManager.getInstance()
                 .getIrcmdEngine() != null){
             Log.d(TAG, "getDeltaNucAndVTemp start");
-            // 获取当前vtemp
+            // [Chinese text]vtemp
             int[] nativeAdvDeviceRealtimeStatusGetValue = new int[1];
             IrcmdError nativeAdvDeviceRealtimeStatusGetResult = DeviceIrcmdControlManager.getInstance()
                     .getIrcmdEngine()
@@ -253,17 +253,17 @@ import java.util.Arrays;
                             nativeAdvDeviceRealtimeStatusGetValue);
             int currentVTemp = nativeAdvDeviceRealtimeStatusGetValue[0];
             Log.d(TAG, "getDeltaNucAndVTemp currentVTemp = " + currentVTemp);
-            // 获取ΔVTemp
+            // [Chinese text]DeltaVTemp
             deltaVTemp = vTempStart - currentVTemp;
             Log.d(TAG, "getDeltaNucAndVTemp deltaVTemp=" + deltaVTemp + "----NUC_new:" + nucNew);
-            // 获取ΔNUC
+            // [Chinese text]DeltaNUC
             deltaNUC = (int) (param1 * deltaVTemp * deltaVTemp + param2 * deltaVTemp - param3 - nucNew);
             Log.d(TAG, "getDeltaNucAndVTemp deltaNUC=" + deltaNUC);
         }
     }
 
     /**
-     * 2D编辑热稳定前的温度校正
+     * 2D[Chinese text]temperature[Chinese text]
      * @param temp
      * @param deltaTime
      * @param nucT
@@ -275,27 +275,27 @@ import java.util.Arrays;
             return temp;
         }
         Log.d(TAG, "getNewTempValue start:" + temp);
-        // 反寻址nuc
+        // [Chinese text]nuc
         int[] nucValue = new int[1];
         LibIRTemp.reverseCalcNUCWithNucT(nucT, temp, nucValue);
         int nuc = nucValue[0];
         Log.d(TAG, "getNewTempValue NUC: " + nuc);
-        // 获取新的nuc
+        // [Chinese text]nuc
         int nucOut = nuc + deltaNUC;
-        // 大于20s后，线性减小
+        // [Chinese text]20s[Chinese text], line[Chinese text]
         long edgeTime = (ALL_DURATION - 10) * 1000L;
         if (deltaTime > edgeTime) {
             nucOut = nuc + deltaNUC * (int) (deltaTime % edgeTime / 1000 * -0.1 + 1);
         }
         Log.d(TAG, "getNewTempValue nucOut: " + nucOut);
-        // 获取新温度值
+        // [Chinese text]temperature[Chinese text]
         int[] newTemp = new int[1];
         LibIRTemp.remapTemp(nucT, nucOut, newTemp);
         int newTempInt = newTemp[0];
         float newTempFloat = newTempInt / 16f - 273.15f;
-        Log.d(TAG, "getNewTempValue end：" + newTempFloat);
+        Log.d(TAG, "getNewTempValue end: " + newTempFloat);
 
-        // 持续30s
+        // [Chinese text]30s
         isCompensation = deltaTime < ALL_DURATION * 1000L;
         if (!isCompensation) {
             stopTempCompensation(true);
@@ -304,7 +304,7 @@ import java.util.Arrays;
     }
 
     /**
-     * 获取新温度值
+     * [Chinese text]temperature[Chinese text]
      *
      * @return
      */
@@ -313,28 +313,28 @@ import java.util.Arrays;
             return temp;
         }
         Log.d(TAG, "getNewTempValue start:" + temp);
-        // 反寻址nuc
+        // [Chinese text]nuc
         int[] nucValue = new int[1];
         LibIRTemp.reverseCalcNUCWithNucT(nucT, temp, nucValue);
         int nuc = nucValue[0];
         Log.d(TAG, "getNewTempValue NUC: " + nuc);
         long deltaTime = System.currentTimeMillis() - startTime;
-        // 获取新的nuc
+        // [Chinese text]nuc
         int nucOut = nuc + deltaNUC;
-        // 大于20s后，线性减小
+        // [Chinese text]20s[Chinese text], line[Chinese text]
         long edgeTime = (ALL_DURATION - 10) * 1000L;
         if (deltaTime > edgeTime) {
             nucOut = nuc + deltaNUC * (int) (deltaTime % edgeTime / 1000 * -0.1 + 1);
         }
         Log.d(TAG, "getNewTempValue nucOut: " + nucOut);
-        // 获取新温度值
+        // [Chinese text]temperature[Chinese text]
         int[] newTemp = new int[1];
         LibIRTemp.remapTemp(nucT, nucOut, newTemp);
         int newTempInt = newTemp[0];
         float newTempFloat = newTempInt / 16f - 273.15f;
-        Log.d(TAG, "getNewTempValue end：" + newTempFloat);
+        Log.d(TAG, "getNewTempValue end: " + newTempFloat);
 
-        // 持续30s
+        // [Chinese text]30s
         isCompensation = deltaTime < ALL_DURATION * 1000L;
         if (!isCompensation) {
             stopTempCompensation(true);
@@ -343,14 +343,14 @@ import java.util.Arrays;
     }
 
         /**
-     * 停止温度补偿
+     * stoptemperature[Chinese text]
      */
     public void stopTempCompensation(boolean autoStop) {
         if (Const.DEVICE_TYPE != DeviceType.DEVICE_TYPE_TC2C) {
             return;
         }
         if (autoStop && isStart && DeviceIrcmdControlManager.getInstance().getIrcmdEngine() != null) {
-            // 停止补偿，恢复自动快门
+            // stop[Chinese text], [Chinese text]
             IrcmdError basicAutoFFCStatusSet = DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
                     .basicAutoFFCStatusSet(CommonParams.AutoFFCStatus.AUTO_FFC_ENABLE);
             Log.d(TAG, "basicAutoFFCStatusSet=" + basicAutoFFCStatusSet);

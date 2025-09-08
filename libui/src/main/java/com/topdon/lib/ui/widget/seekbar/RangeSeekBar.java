@@ -42,7 +42,7 @@ import java.util.List;
      */
     public class RangeSeekBar extends View {
 
-    // Pseudo color代号
+    // Pseudo color[Chinese text]
     private int pseudocode = 3;
 
     private final static int MIN_INTERCEPT_DISTANCE = 100;
@@ -54,10 +54,10 @@ import java.util.List;
 
     private boolean noNegativeNumber = false;
 
-    public final static int TEMP_MODE_CLOSE = 0;// 关闭
-    public final static int TEMP_MODE_MAX = 2;// 阈值下
-    public final static int TEMP_MODE_MIN = 1;// 阈值上
-    public final static int TEMP_MODE_INTERVAL = 3;// 区间
+    public final static int TEMP_MODE_CLOSE = 0;// [Chinese text]
+    public final static int TEMP_MODE_MAX = 2;// [Chinese text]
+    public final static int TEMP_MODE_MIN = 1;// [Chinese text]
+    public final static int TEMP_MODE_INTERVAL = 3;// [Chinese text]
     private int tempMode = TEMP_MODE_CLOSE;
 
     public void setTempMode(int tempMode) {
@@ -173,28 +173,28 @@ interface GravityDef {
 
     private int progressTop, progressBottom, progressLeft, progressRight;
     private int seekBarMode;
-    // 刻度模式：number根据数字实际比例排列；other 均分排列
+    // [Chinese text]mode: number[Chinese text]; other [Chinese text]
     private int tickMarkMode;
-    // 刻度与进度条间的间距
+    // [Chinese text]
     // The spacing between the tick mark and the progress bar
     private int tickMarkTextMargin;
-    // 刻度文字与提示文字的大小
+    // [Chinese text]text[Chinese text]text[Chinese text]
     // tick mark text and prompt text size
     private int tickMarkTextSize;
     private int tickMarkGravity;
     private int tickMarkLayoutGravity;
     private int tickMarkTextColor;
     private int tickMarkInRangeTextColor;
-    // 刻度上显示的文字
+    // [Chinese text]text
     // The texts displayed on the scale
     private CharSequence[] tickMarkTextArray;
-    // 进度条圆角
+    // [Chinese text]
     // radius of progress bar
     private float progressRadius;
-    // 进度中进度条的颜色
+    // [Chinese text]in progress[Chinese text]
     // the color of seekBar in progress
     private int progressColor;
-    // 默认进度条颜色
+    // [Chinese text]
     // the default color of the progress bar
     private int progressDefaultColor;
 
@@ -233,7 +233,7 @@ interface GravityDef {
 
     private boolean isEnable = true;
     float touchDownX, touchDownY;
-    // 剩余最小间隔的进度
+    // [Chinese text]
     float reservePercent;
     boolean isScaleThumb = false;
     Paint paint = new Paint();
@@ -252,13 +252,13 @@ interface GravityDef {
     private OnRangeChangedListener callback;
 
     /**
-     * 自定义渲染颜色值.
+     * [Chinese text].
      */
     @Nullable
     private int[] colorList;
 
     /**
-     * 自定义渲染颜色位置，每个元素取值范围 [0,1]
+     * [Chinese text], [Chinese text]range [0,1]
      */
     @Nullable
     private float[] places;
@@ -391,18 +391,18 @@ interface GravityDef {
         initProgressBitmap();
     }
 
-    // Android 7.0以后，优化了View的绘制，onMeasure和onSizeChanged调用顺序有所变化
-    // Android7.0以下：onMeasure--->onSizeChanged--->onMeasure
-    // Android7.0以上：onMeasure--->onSizeChanged
+    // Android 7.0[Chinese text], [Chinese text]View[Chinese text], onMeasure[Chinese text]onSizeChanged[Chinese text]
+    // Android7.0[Chinese text]: onMeasure--->onSizeChanged--->onMeasure
+    // Android7.0[Chinese text]: onMeasure--->onSizeChanged
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int heightSize = MeasureSpec.getSize(heightMeasureSpec);
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         /*
-         * onMeasure传入的widthMeasureSpec和heightMeasureSpec不是一般的尺寸数值，而是将模式和尺寸组合在一起的数值
-         * MeasureSpec.EXACTLY 是精确尺寸
-         * MeasureSpec.AT_MOST 是最大尺寸
-         * MeasureSpec.UNSPECIFIED 是未指定尺寸
+         * onMeasure[Chinese text]widthMeasureSpec[Chinese text]heightMeasureSpec[Chinese text], [Chinese text]mode[Chinese text]
+         * MeasureSpec.EXACTLY [Chinese text]
+         * MeasureSpec.AT_MOST [Chinese text]
+         * MeasureSpec.UNSPECIFIED [Chinese text]
          */
 
         if (heightMode == MeasureSpec.EXACTLY) {
@@ -469,13 +469,13 @@ interface GravityDef {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        onDrawTickMark(canvas, paint); // 固定刻度
-        onDrawProgressBar(canvas, paint); // 轴
+        onDrawTickMark(canvas, paint); // [Chinese text]
+        onDrawProgressBar(canvas, paint); // [Chinese text]
         onDrawSteps(canvas, paint);
-        onDrawSeekBar(canvas); // 滑动标签
+        onDrawSeekBar(canvas); // swipe[Chinese text]
     }
 
-    // 绘制刻度，并且根据当前位置是否在刻度范围内Settings不同的颜色显示
+    // [Chinese text], [Chinese text]range[Chinese text]Settings[Chinese text]
     // Draw the scales, and according to the current position is set within
     // the scale range of different color display
     protected void onDrawTickMark(Canvas canvas, Paint paint) {
@@ -486,7 +486,7 @@ interface GravityDef {
                 if (TextUtils.isEmpty(text2Draw)) continue;
                 paint.getTextBounds(text2Draw, 0, text2Draw.length(), tickMarkTextRect);
                 paint.setColor(tickMarkTextColor);
-                // 平分显示
+                // [Chinese text]
                 float x;
                 if (tickMarkMode == TRICK_MARK_MODE_OTHER) {
                     if (tickMarkGravity == TICK_MARK_GRAVITY_RIGHT) {
@@ -502,7 +502,7 @@ interface GravityDef {
                     if (Utils.compareFloat(num, states[0].value) != -1 && Utils.compareFloat(num, states[1].value) != 1 && (seekBarMode == SEEKBAR_MODE_RANGE)) {
                         paint.setColor(tickMarkInRangeTextColor);
                     }
-                    // 按实际比例显示
+                    // [Chinese text]
                     x = getProgressLeft() + progressWidth * (num - minProgress) / (maxProgress - minProgress)
                             - tickMarkTextRect.width() / 2f;
                 }
@@ -517,11 +517,11 @@ interface GravityDef {
         }
     }
 
-    // 绘制进度条
+    // [Chinese text]
     // draw the progress bar
     protected void onDrawProgressBar(Canvas canvas, Paint paint) {
 
-        // 固定区域背景
+        // [Chinese text]area[Chinese text]
         // draw default progress
         paint.setShader(null);
         if (Utils.verifyBitmap(progressDefaultBitmap)) {
@@ -537,10 +537,10 @@ interface GravityDef {
             canvas.drawRoundRect(progressDefaultDstRect, progressRadius, progressRadius, paint);
         }
 
-        // 动态区域前景
+        // [Chinese text]area[Chinese text]
         // draw progress
         if (seekBarMode == SEEKBAR_MODE_RANGE) {
-//            XLog.w("动态轴区域");
+//            XLog.w("[Chinese text]area");
             progressDstRect.top = getProgressTop();
             progressDstRect.left = leftSB.left + leftSB.getThumbScaleWidth() / 2f + progressWidth * leftSB.currPercent;
             progressDstRect.right = rightSB.left + rightSB.getThumbScaleWidth() / 2f + progressWidth * rightSB.currPercent;
@@ -597,7 +597,7 @@ interface GravityDef {
         }
     }
 
-    // 绘制SeekBar相关
+    // [Chinese text]SeekBar[Chinese text]
     protected void onDrawSeekBar(Canvas canvas) {
         // draw left SeekBar
         if (leftSB.getIndicatorShowMode() == INDICATOR_ALWAYS_SHOW) {
@@ -613,7 +613,7 @@ interface GravityDef {
         }
     }
 
-    // 初始化画笔
+    // [Chinese text]
     private void initPaint() {
         paint.setStyle(Paint.Style.FILL);
 
@@ -864,7 +864,7 @@ interface GravityDef {
     // ******************* Attributes getter and setter *******************//
 
         /**
-     * 临时处理负数
+     * [Chinese text]
      */
     public void setNoNegativeNumber(Boolean noNegativeNumber){
         this.noNegativeNumber = noNegativeNumber;
@@ -950,10 +950,10 @@ interface GravityDef {
     }
 
         /**
-     * Settings范围
+     * Settingsrange
      *
-     * @param min 最小值
-     * @param max 最大值
+     * @param min [Chinese text]
+     * @param max [Chinese text]
      */
     public void setRange(float min, float max) {
         setRange(min, max, minInterval);
@@ -962,10 +962,10 @@ interface GravityDef {
 
         /**
      *
-     * @param editMin ： 手动Settings的最小值
-     * @param editMax : 手动Settings的最小值
-     * @param realLeftValue : 实际最低温度
-     * @param realRightValue ： 实际最高温度
+     * @param editMin :  [Chinese text]Settings[Chinese text]
+     * @param editMax : [Chinese text]Settings[Chinese text]
+     * @param realLeftValue : [Chinese text]lowtemperature
+     * @param realRightValue :  [Chinese text]hightemperature
      */
     public void setRangeAndPro(float editMin,float editMax,float realLeftValue,float realRightValue){
         if (editMin == Float.MIN_VALUE && editMax == Float.MAX_VALUE){
@@ -975,31 +975,31 @@ interface GravityDef {
         }
         setRangeNoInvalidate(realLeftValue,realRightValue,0.1f);
         if (editMax <= realRightValue && editMin >= realLeftValue){
-            // 手动值均在实际值区间内
+            // [Chinese text]
             setProgressNoCallBack(editMin,editMax);
         }else if (editMax > realRightValue && editMin < realLeftValue){
-            // 手动最大最小值均不在区间内
+            // [Chinese text]
             setProgressNoCallBack(realLeftValue,realRightValue);
         }else if (editMax > realRightValue && editMin > realRightValue){
-            // 手动最大值最小值大于实际最大值
+            // [Chinese text]
             setProgressNoCallBack(realRightValue,realRightValue);
         } else if (editMax < realLeftValue && editMin < realLeftValue){
-            // 手动最大值最小值小于实际最小值
+            // [Chinese text]
             setProgressNoCallBack(realLeftValue,realLeftValue);
         }else if (editMax <= realRightValue && editMin < realLeftValue){
-            // 手动最大值在区间内，手动最小值超出区间
+            // [Chinese text], [Chinese text]
             setProgressNoCallBack(realLeftValue,editMax);
         }else if (editMax > realRightValue && editMin >= realLeftValue){
-            // 手动最大值超出区间内，手动最小值在区间内
+            // [Chinese text], [Chinese text]
             setProgressNoCallBack(editMin,realRightValue);
         }
     }
 
         /**
-     * Settings范围
-     * @param min         最小值
-     * @param max         最大值
-     * @param minInterval 最小间隔
+     * Settingsrange
+     * @param min         [Chinese text]
+     * @param max         [Chinese text]
+     * @param minInterval [Chinese text]
      */
     public void setRange(float min, float max, float minInterval) {
 //        if (max <= min) {

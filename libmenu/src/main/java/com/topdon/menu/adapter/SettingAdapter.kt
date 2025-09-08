@@ -9,33 +9,33 @@ import com.topdon.menu.constant.MenuType
 import com.topdon.menu.constant.SettingType
 
 /**
- * Settings菜单所用 Adapter，所有选项互相独立，可多选.
+ * Settingsmenuused by Adapter, [Chinese text], [Chinese text].
  *
- * - 单光：   Pseudo color条、对比度、锐度、警示、旋转、字体、镜像
- * - Dual light：   Pseudo color条、对比度、锐度、警示、旋转、字体
- * - Lite：  Pseudo color条、对比度、警示、旋转、字体、镜像
- * - TC007： Pseudo color条、对比度、锐度、警示、字体、镜像
- * - 2D 编辑：警示、字体、水印
+ * - [Chinese text]:    Pseudo color[Chinese text], [Chinese text], [Chinese text], [Chinese text], [Chinese text], [Chinese text], [Chinese text]
+ * - Dual light:    Pseudo color[Chinese text], [Chinese text], [Chinese text], [Chinese text], [Chinese text], [Chinese text]
+ * - Lite:   Pseudo color[Chinese text], [Chinese text], [Chinese text], [Chinese text], [Chinese text], [Chinese text]
+ * - TC007:  Pseudo color[Chinese text], [Chinese text], [Chinese text], [Chinese text], [Chinese text], [Chinese text]
+ * - 2D [Chinese text]: [Chinese text], [Chinese text], [Chinese text]
  *
- * - TS001 观测：指南针、旋转、镜像、对比度
+ * - TS001 [Chinese text]: [Chinese text], [Chinese text], [Chinese text], [Chinese text]
  *
  * Created by LCG on 2024/11/28.
  */
 @SuppressLint("NotifyDataSetChanged")
 internal class SettingAdapter(menuType: MenuType = MenuType.SINGLE_LIGHT, isObserver: Boolean = false) : BaseMenuAdapter() {
     /**
-     * Settings菜单点击事件监听。
-     * isSelected：点击时是否处于选中状态
+     * Settingsmenupoint[Chinese text]eventlistener. 
+     * isSelected: point[Chinese text]in progress[Chinese text]
      */
     var onSettingListener: ((settingType: SettingType, isSelected: Boolean) -> Unit)? = null
 
     /**
-     * 这里有几个坑：
-     * - 对于机芯而言，256x192 横屏尺寸才是旋转角度为 0 的未旋转状态；
-     * 对于APP而言，192x256 竖屏尺寸(机芯旋转角度270)才是旋转角度为 0 的未旋转状态。
-     * - 对某供应商而言，机芯里的旋转角度是逆时针旋转角度，而非一般理解的顺时针旋转角度。
+     * [Chinese text]: 
+     * - [Chinese text], 256x192 [Chinese text] 0 [Chinese text]; 
+     * [Chinese text]APP[Chinese text], 192x256 [Chinese text]([Chinese text]270)[Chinese text] 0 [Chinese text]. 
+     * - [Chinese text], [Chinese text], [Chinese text]. 
      *
-     * 考虑到旧代码兼容，这个属性用来放 **机芯旋转角度**
+     * [Chinese text], [Chinese text] **[Chinese text]**
      */
     var rotateAngle: Int = 270
         set(value) {
@@ -46,7 +46,7 @@ internal class SettingAdapter(menuType: MenuType = MenuType.SINGLE_LIGHT, isObse
         }
 
     /**
-     * Settings指定选项的选中状态，旋转不要调这个方法，因为旋转有 4 个状态
+     * Settings[Chinese text]in progress[Chinese text], [Chinese text], [Chinese text] 4 [Chinese text]
      */
     fun setSelected(settingType: SettingType, isSelected: Boolean) {
         for (i in dataList.indices) {
@@ -67,22 +67,22 @@ internal class SettingAdapter(menuType: MenuType = MenuType.SINGLE_LIGHT, isObse
             dataList.add(Data(R.string.mirror, MenuR.drawable.selector_menu2_setting_5, SettingType.MIRROR))
             dataList.add(Data(R.string.thermal_contrast, MenuR.drawable.selector_menu2_setting_2, SettingType.CONTRAST))
         } else {
-            if (menuType == MenuType.GALLERY_EDIT) {// 2D编辑
+            if (menuType == MenuType.GALLERY_EDIT) {// 2D[Chinese text]
                 dataList.add(Data(R.string.temp_alarm_alarm, MenuR.drawable.selector_menu2_setting_6, SettingType.ALARM))
                 dataList.add(Data(R.string.menu_thermal_font, MenuR.drawable.selector_menu2_setting_7, SettingType.FONT))
                 dataList.add(Data(R.string.app_watemarking, MenuR.drawable.selector_menu2_setting_9, SettingType.WATERMARK))
             } else {
                 dataList.add(Data(R.string.thermal_pseudo, MenuR.drawable.selector_menu2_setting_1, SettingType.PSEUDO_BAR))
                 dataList.add(Data(R.string.thermal_contrast, MenuR.drawable.selector_menu2_setting_2, SettingType.CONTRAST))
-                if (menuType != MenuType.Lite) {// Lite 没有细节(锐度)
+                if (menuType != MenuType.Lite) {// Lite [Chinese text]([Chinese text])
                     dataList.add(Data(R.string.thermal_sharpen, MenuR.drawable.selector_menu2_setting_3, SettingType.DETAIL))
                 }
                 dataList.add(Data(R.string.temp_alarm_alarm, MenuR.drawable.selector_menu2_setting_6, SettingType.ALARM))
-                if (menuType != MenuType.TC007) {// TC007 没有旋转
+                if (menuType != MenuType.TC007) {// TC007 [Chinese text]
                     dataList.add(Data(R.string.thermal_rotate, MenuR.drawable.selector_menu2_setting_4, SettingType.ROTATE))
                 }
                 dataList.add(Data(R.string.menu_thermal_font, MenuR.drawable.selector_menu2_setting_7, SettingType.FONT))
-                if (menuType != MenuType.DOUBLE_LIGHT) {// TC001 Plus 没有镜像
+                if (menuType != MenuType.DOUBLE_LIGHT) {// TC001 Plus [Chinese text]
                     dataList.add(Data(R.string.mirror, MenuR.drawable.selector_menu2_setting_5, SettingType.MIRROR))
                 }
             }
@@ -105,8 +105,8 @@ internal class SettingAdapter(menuType: MenuType = MenuType.SINGLE_LIGHT, isObse
         }
         holder.binding.tvText.isSelected = data.isSelected
         holder.binding.clRoot.setOnClickListener {
-            // 警示、字体、水印是以生效才视为高亮选中的，这里先保持旧代码逻辑，
-            // 菜单的选中刷新丢给上层的 listener 去做，后面有空再考虑更改
+            // [Chinese text], [Chinese text], [Chinese text]high[Chinese text]in progress[Chinese text], [Chinese text], 
+            // menu[Chinese text]in progress[Chinese text] listener [Chinese text], [Chinese text]
 //            data.isSelected = !data.isSelected
 //            holder.binding.ivIcon.isSelected = data.isSelected
 //            holder.binding.tvText.isSelected = data.isSelected

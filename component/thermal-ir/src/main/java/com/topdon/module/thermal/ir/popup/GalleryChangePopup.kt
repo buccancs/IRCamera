@@ -11,7 +11,7 @@ import com.blankj.utilcode.util.SizeUtils
 import com.topdon.module.thermal.ir.R
 
 /**
- * 图库目录切换 PopupWindow.
+ * gallery[Chinese text]switch PopupWindow.
  *
  * Created by LCG on 2024/1/5.
  */
@@ -23,7 +23,7 @@ class GalleryChangePopup(private val context: Context) : PopupWindow() {
     private val tvTc007: TextView by lazy { contentView.findViewById(R.id.tv_tc007) }
 
     /**
-     * 一个选项被选中事件监听.
+     * [Chinese text]in progresseventlistener.
      */
     var onPickListener: ((position: Int, str: String) -> Unit)? = null
 

@@ -40,21 +40,21 @@ import java.io.File
 import java.text.DecimalFormat
 
 /**
- * 插件式 “更多” 页面
+ * [Chinese text] "more" [Chinese text]
  *
- * 需要传递参数：
- * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
+ * [Chinese text]: 
+ * - [ExtraKeyConfig.IS_TC007] - [Chinese text] TC007
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class MoreFragment : BaseFragment(), View.OnClickListener {
 
     /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
+     * [Chinese text], [Chinese text] TC007 [Chinese text].
+     * true-TC007 false-[Chinese text]
      */
     private var isTC007 = false
     /**
-     * TC007 固件升级 ViewModel.
+     * TC007 [Chinese text] ViewModel.
      */
     private val firmwareViewModel: FirmwareViewModel by viewModels()
     
@@ -89,15 +89,15 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
         itemSettingBottomText = requireView().findViewById(R.id.item_setting_bottom_text)
         tvRightText = requireView().findViewById(R.id.tv_right_text)
 
-        settingItemModel.setOnClickListener(this)// 温度修正
-        settingItemCorrection.setOnClickListener(this)// 图像校正
-        settingItemDual.setOnClickListener(this)// Dual light校正
-        settingItemUnit.setOnClickListener(this)// 温度单温
-        settingVersion.setOnClickListener(this) // TC007固件升级
-        settingDeviceInformation.setOnClickListener(this)// TC007设备message
-        settingReset.setOnClickListener(this)// TC007恢复出厂Settings
+        settingItemModel.setOnClickListener(this)// temperature[Chinese text]
+        settingItemCorrection.setOnClickListener(this)// [Chinese text]
+        settingItemDual.setOnClickListener(this)// Dual light[Chinese text]
+        settingItemUnit.setOnClickListener(this)// temperature[Chinese text]
+        settingVersion.setOnClickListener(this) // TC007[Chinese text]
+        settingDeviceInformation.setOnClickListener(this)// TC007[Chinese text]message
+        settingReset.setOnClickListener(this)// TC007[Chinese text]Settings
 
-        // 根据 2024/5/23 评审会结论，TC007没有多少需要恢复出厂的配置，产品决定砍掉
+        // [Chinese text] 2024/5/23 [Chinese text], TC007[Chinese text], [Chinese text]
         settingReset.isVisible = false
 
         settingVersion.isVisible = isTC007 && Build.VERSION.SDK_INT >= 29
@@ -149,7 +149,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
         firmwareViewModel.firmwareDataLD.observe(this) {
             tvUpgradePoint.isVisible = it != null
             dismissLoadingDialog()
-            if (it == null) {// 请求成功但没有固件升级包，即已是最新
+            if (it == null) {// [Chinese text], [Chinese text]
                 ToastUtils.showShort(RCore.string.setting_firmware_update_latest_version)
             } else {
                 showFirmwareUpDialog(it)
@@ -187,26 +187,26 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
        when(v){
-           settingItemModel -> {// 温度修正
+           settingItemModel -> {// temperature[Chinese text]
                NavigationManager.getInstance().build(RouterConfig.IR_SETTING).withBoolean(ExtraKeyConfig.IS_TC007, isTC007).navigation(requireContext())
            }
            settingItemDual->{
                NavigationManager.getInstance().build(RouterConfig.MANUAL_START).navigation(requireContext())
            }
-           settingItemUnit -> {// 温度单位
+           settingItemUnit -> {// temperature[Chinese text]
                NavigationManager.getInstance().build(RouterConfig.UNIT).navigation(requireContext())
            }
-           settingItemCorrection->{// 锅盖校正
+           settingItemCorrection->{// [Chinese text]
                NavigationManager.getInstance().build(RouterConfig.IR_CORRECTION).withBoolean(ExtraKeyConfig.IS_TC007, isTC007).navigation(requireContext())
            }
-           settingVersion -> {// TC007固件升级
-               // 由于双通道方案存在问题，V3.30临时使用 apk 内置固件升级包，此处注释强制登录逻辑
+           settingVersion -> {// TC007[Chinese text]
+               // [Chinese text], V3.30[Chinese text] apk [Chinese text], [Chinese text]
 //               if (LMS.getInstance().isLogin) {
                    val firmwareData = firmwareViewModel.firmwareDataLD.value
                    if (firmwareData != null) {
                        showFirmwareUpDialog(firmwareData)
                    } else {
-                       XLog.i("TC007 固件升级 - 点击查询")
+                       XLog.i("TC007 [Chinese text] - point[Chinese text]")
                        showLoadingDialog()
                        firmwareViewModel.queryFirmware(false)
                    }
@@ -214,7 +214,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
 //                   LMS.getInstance().activityLogin()
 //               }
            }
-           settingDeviceInformation -> {// TC007设备message
+           settingDeviceInformation -> {// TC007[Chinese text]message
                if (WebSocketProxy.getInstance().isTC007Connect()) {
                    NavigationManager.getInstance()
                        .build(RouterConfig.DEVICE_INFORMATION)
@@ -222,7 +222,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
                        .navigation(requireContext())
                }
            }
-           settingReset -> {// TC007恢复出厂Settings
+           settingReset -> {// TC007[Chinese text]Settings
                if (WebSocketProxy.getInstance().isTC007Connect()) {
                    restoreFactory()
                }
@@ -231,7 +231,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
     }
 
     /**
-     * 仅 TC007 页面时，刷新连接或未连接状态.
+     * only TC007 [Chinese text], [Chinese text].
      */
     private fun refresh07Connect(isConnect: Boolean) {
         settingDeviceInformation.isRightArrowVisible = isConnect
@@ -255,7 +255,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
     }
 
     /**
-     * 显示固件升级提示弹框.
+     * [Chinese text].
      */
     private fun showFirmwareUpDialog(firmwareData: FirmwareViewModel.FirmwareData) {
         val dialog = FirmwareUpDialog(requireContext())
@@ -264,7 +264,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
         dialog.contentStr = firmwareData.updateStr
         dialog.isShowRestartTips = true
         dialog.onConfirmClickListener = {
-            // 由于双通道方案存在问题，V3.30临时使用 apk 内置固件升级包，此处注释下载逻辑
+            // [Chinese text], V3.30[Chinese text] apk [Chinese text], [Chinese text]
             // downloadFirmware(firmwareData)
             installFirmware(FileConfig.getFirmwareFile(firmwareData.downUrl))
         }
@@ -282,7 +282,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
     }
 
     /**
-     * 下载指定固件升级包
+     * [Chinese text]
      */
     private fun downloadFirmware(firmwareData: FirmwareViewModel.FirmwareData) {
         lifecycleScope.launch {
@@ -304,14 +304,14 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
 
     private fun installFirmware(file: File) {
         lifecycleScope.launch {
-            XLog.d("TC007 固件升级 - 开始安装固件升级包")
+            XLog.d("TC007 [Chinese text] - start[Chinese text]")
             val installDialog = FirmwareInstallDialog(requireContext())
             installDialog.show()
 
             val isSuccess = TC007Repository.updateFirmware(file)
             installDialog.dismiss()
             if (isSuccess) {
-                XLog.d("TC007 固件升级 - 固件升级包发送往 TC007 成功，即将断开连接")
+                XLog.d("TC007 [Chinese text] - [Chinese text] TC007 [Chinese text], [Chinese text]")
                 (requireActivity().application as BaseApplication).disconnectWebSocket()
                 TipDialog.Builder(requireContext())
                     .setTitleMessage(getString(RCore.string.app_tip))
@@ -325,7 +325,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
                     }
                     .create().show()
             } else {
-                XLog.w("TC007 固件升级 - 固件升级包发送往 TC007 失败!")
+                XLog.w("TC007 [Chinese text] - [Chinese text] TC007 [Chinese text]!")
                 showReInstallDialog(file)
             }
         }
@@ -373,7 +373,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
         lifecycleScope.launch {
             val isSuccess = TC007Repository.resetToFactory()
             if (isSuccess) {
-                XLog.d("TC007 恢复出厂Settings成功，即将断开连接")
+                XLog.d("TC007 [Chinese text]Settings[Chinese text], [Chinese text]")
                 TToast.shortToast(requireContext(), RCore.string.ts004_reset_tip4)
                 (requireActivity().application as BaseApplication).disconnectWebSocket()
                 EventBus.getDefault().post(TS004ResetEvent())

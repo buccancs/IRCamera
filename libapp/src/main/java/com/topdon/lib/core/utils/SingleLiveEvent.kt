@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
- * 解决LiveData粘性事件
+ * [Chinese text]LiveData[Chinese text]event
  * Created by jzh on 2020-12-28.
  */
 class SingleLiveEvent<T> : MutableLiveData<T>() {

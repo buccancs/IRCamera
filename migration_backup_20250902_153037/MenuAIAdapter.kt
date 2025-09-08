@@ -14,16 +14,16 @@ import com.topdon.lib.ui.R
 import com.topdon.lib.ui.bean.ColorBean
 import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.*
 
-@Deprecated("旧的高低温源菜单，已重构过了")
+@Deprecated("[Chinese text]highlow[Chinese text]menu, [Chinese text]")
 class MenuAIAdapter (val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     /**
-     * 当前选中的选项 code.
+     * [Chinese text]in progress[Chinese text] code.
      *
-     * 由于历史遗留（已保存在 SharedPreferences 中），这里 code 取值为
-     * - 什么都未选中：-1
-     * - 动态识别：0
-     * - 高温源：1
-     * - 低温源：2
+     * [Chinese text]([Chinese text] SharedPreferences in progress), [Chinese text] code [Chinese text]
+     * - [Chinese text]in progress: -1
+     * - [Chinese text]: 0
+     * - high[Chinese text]: 1
+     * - low[Chinese text]: 2
      */
     var selectCode: Int = -1
         set(value) {
@@ -34,7 +34,7 @@ class MenuAIAdapter (val context: Context) : RecyclerView.Adapter<RecyclerView.V
         }
 
     /**
-     * 观测模式-菜单2-高低温源 点击事件监听，单选。
+     * [Chinese text]mode-menu2-highlow[Chinese text] point[Chinese text]eventlistener, [Chinese text]. 
      */
     var onTempSourceListener: ((code: Int) -> Unit)? = null
 
@@ -74,7 +74,7 @@ class MenuAIAdapter (val context: Context) : RecyclerView.Adapter<RecyclerView.V
 
     inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
 //        init {
-//            val canSeeCount = itemCount.toFloat() //一屏可见的 item 数量，目前都是全都显示完
+//            val canSeeCount = itemCount.toFloat() //[Chinese text]visible[Chinese text] item [Chinese text], [Chinese text]
 //            val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()
 //            itemView.layoutParams = ViewGroup.LayoutParams(with, ViewGroup.LayoutParams.WRAP_CONTENT)
 //            val imageSize = (ScreenUtils.getScreenWidth() * 62 / 375f).toInt()

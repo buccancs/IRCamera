@@ -217,19 +217,19 @@ def synchronize_timestamps(
 ### Comment Translation Guidelines
 
 #### Required Translations:
-- Chinese characters (中文) → English
-- Technical terms in local language → English technical terms
-- Cultural-specific references → Universal technical descriptions
+- Chinese characters (in progress[Chinese text]) -> English
+- Technical terms in local language -> English technical terms
+- Cultural-specific references -> Universal technical descriptions
 
 #### Translation Examples:
 ```kotlin
-// ❌ Before
+// [X] Before
 /**
- * 蓝牙扫描工具类
- * 用于扫描热像仪设备
+ * [Chinese text]
+ * for[Chinese text]
  */
 
-// ✅ After  
+// [OK] After  
 /**
  * Bluetooth scanning utility for thermal camera devices.
  * 

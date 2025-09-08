@@ -120,15 +120,15 @@ class GSRDataViewActivity : AppCompatActivity() {
                         Duration: ${formatDuration((rows.size / 128).toLong())} (@ 128 Hz)
                         
                         GSR Statistics:
-                        • Min: %.3f μS
-                        • Max: %.3f μS  
-                        • Mean: %.3f μS
-                        • Std Dev: %.3f μS
+                        * Min: %.3f microS
+                        * Max: %.3f microS  
+                        * Mean: %.3f microS
+                        * Std Dev: %.3f microS
                         
                         Resistance Statistics:
-                        • Min: %.1f kΩ
-                        • Max: %.1f kΩ
-                        • Mean: %.1f kΩ
+                        * Min: %.1f kOhm
+                        * Max: %.1f kOhm
+                        * Mean: %.1f kOhm
                         """.trimIndent().format(
                             statistics.gsrMin, statistics.gsrMax, statistics.gsrMean, statistics.gsrStdDev,
                             statistics.resistanceMin / 1000, statistics.resistanceMax / 1000, statistics.resistanceMean / 1000,

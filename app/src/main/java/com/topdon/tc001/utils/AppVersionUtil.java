@@ -40,18 +40,18 @@ import kotlin.jvm.functions.Function0;
 
 /**
  * AppVersionUtil
- * APP版本检测工具类
+ * APP[Chinese text]
  *
  * @author chuanfeng.bi
  * @date 2022/2/10 19:48
  */
 public class AppVersionUtil {
     private Context mContext;
-    private DownloadCompleteReceiver completeReceiver; // 声明一个下载完成的广播接收器
+    private DownloadCompleteReceiver completeReceiver; // [Chinese text]
     private DownloadManager dowanloadmanager = null;
     private DotIsShowListener dotIsShowListener = null;
-    private String fileName = "";// 文件名称
-    private Long mDownloadId = 0l;// 下载id
+    private String fileName = "";// [Chinese text]
+    private Long mDownloadId = 0l;// [Chinese text]id
 
     public AppVersionUtil(Context context, DotIsShowListener dotIsShow) {
         this.mContext = context;
@@ -70,7 +70,7 @@ public class AppVersionUtil {
         LMS.getInstance().checkAppUpdate(commonBean -> {
             if (commonBean.code == SUCCESS) {
                 AppInfoBean appInfoBean = LMS.getInstance().getUpdateAppInfoBean();
-                XLog.w("bcf", "app更新message:" + GsonUtils.toJson(appInfoBean));
+                XLog.w("bcf", "app[Chinese text]message:" + GsonUtils.toJson(appInfoBean));
                 if (appInfoBean != null) {
                     if (appInfoBean.getVersionCode() > getDealVersionCode()) {
                         if (isShowDialog) {
@@ -103,7 +103,7 @@ public class AppVersionUtil {
     }
 
     /**
-     * 获取处理过的本地版本code
+     * [Chinese text]code
      *
      * @return float
      */
@@ -112,9 +112,9 @@ public class AppVersionUtil {
     }
 
     /**
-     * 弹出新版本message提示框
+     * [Chinese text]message[Chinese text]
      *
-     * @param bean 版本更新实体类
+     * @param bean [Chinese text]
      */
     private void showNewVersionDialog(AppInfoBean bean) {
         String information = "";
@@ -126,7 +126,7 @@ public class AppVersionUtil {
             }
         }
         if (Integer.parseInt(bean.forcedUpgradeFlag) == 1) {
-            // 强制更新
+            // [Chinese text]
             new TipDialog.Builder(mContext)
                     .setMessage(information)
                     .setTitleMessage(mContext.getString(R.string.updata_new_version_update))
@@ -164,7 +164,7 @@ public class AppVersionUtil {
                     .setCancelListener(R.string.app_cancel, new Function0<Unit>() {
                         @Override
                         public Unit invoke() {
-                            SharedManager.INSTANCE.setVersionCheckDate(System.currentTimeMillis());// 刷新版本提示时间
+                            SharedManager.INSTANCE.setVersionCheckDate(System.currentTimeMillis());// [Chinese text]
                             return null;
                         }
                     })
@@ -183,10 +183,10 @@ public class AppVersionUtil {
         void version(String version);
     }
 
-    // 开始下载指定序号的apk文件
+    // start[Chinese text]apk[Chinese text]
     private void startDownload(String url) {
         completeReceiver = new DownloadCompleteReceiver();
-        // 注册接收器，注册之后才能正常接收广播
+        // [Chinese text], [Chinese text]
 
         IntentFilter intentFilter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
         if (Build.VERSION.SDK_INT < 33) {
@@ -195,24 +195,24 @@ public class AppVersionUtil {
             mContext.registerReceiver(completeReceiver, intentFilter, Context.RECEIVER_NOT_EXPORTED);
         }
 
-        Uri uri = Uri.parse(url); // 根据下载地址构建一个Uri对象
-        DownloadManager.Request down = new DownloadManager.Request(uri); // 创建一个下载请求对象，指定从哪里下载文件
-        down.setTitle(mContext.getString(R.string.tips_download_information)); // Settings任务标题
-        down.setDescription(mContext.getString(R.string.installation_package_download_progress)); // Settings任务描述
-        // Settings允许下载的网络类型
+        Uri uri = Uri.parse(url); // [Chinese text]Uri[Chinese text]
+        DownloadManager.Request down = new DownloadManager.Request(uri); // [Chinese text], [Chinese text]
+        down.setTitle(mContext.getString(R.string.tips_download_information)); // Settings[Chinese text]
+        down.setDescription(mContext.getString(R.string.installation_package_download_progress)); // Settings[Chinese text]
+        // Settings[Chinese text]
         down.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
-        // Settings通知栏在下载进行时与完成后都可见
+        // Settings[Chinese text]visible
         down.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        // Settings下载文件在私有目录的保存路径。从Android10开始，只有保存到公共目录的才会在系统下载页面显示，保存到私有目录的不在系统下载页面显示
+        // Settings[Chinese text]. [Chinese text]Android10start, [Chinese text], [Chinese text]
         fileName = "topinfrared" + System.currentTimeMillis() + ".zip";
         down.setDestinationInExternalFilesDir(mContext, Environment.DIRECTORY_DOWNLOADS, fileName);
         DownloadManager downloadManager = (DownloadManager) mContext.getSystemService(DOWNLOAD_SERVICE);
-        // Settings下载文件在公共目录的保存路径。保存到公共目录需要申请存储卡的读写权限
-        mDownloadId = downloadManager.enqueue(down); // 把下载请求对象加入到下载队列
+        // Settings[Chinese text]. [Chinese text]
+        mDownloadId = downloadManager.enqueue(down); // [Chinese text]
         VersionTools.INSTANCE.setMDownloadId(mDownloadId);
     }
 
-    // 定义一个下载完成的广播接收器。用于接收下载完成事件
+    // [Chinese text]. for[Chinese text]event
     /**
  * DownloadCompleteReceiver class.
  * 
@@ -222,22 +222,22 @@ private class DownloadCompleteReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            if (intent.getAction().equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE))   // 下载完毕
+            if (intent.getAction().equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE))   // [Chinese text]
             {
-                // 从意图中解包获得下载编号
+                // [Chinese text]in progress[Chinese text]
                 installApk();
             }
         }
     }
 
-    // 安装应用程序
+    // [Chinese text]
     public void installApk() {
         mDownloadId = 0l;
         VersionTools.INSTANCE.setMDownloadId(0l);
         mContext.unregisterReceiver(completeReceiver);
         try {
             File file = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath(), fileName);
-            File localFile = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());// 本地文件
+            File localFile = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());// [Chinese text]
             List<File> files = ZipUtils.unzipFile(file, localFile);
             if (files != null && files.size() != 0) {
                 AppUtil.installApp(mContext, files.get(0));
@@ -265,7 +265,7 @@ private class DownloadCompleteReceiver extends BroadcastReceiver {
     public void download(String url) {
         RequestParams params = new RequestParams();
         try {
-            // 这里为了解决 xutils 会把url转义 照成签名不对
+            // [Chinese text] xutils [Chinese text]url[Chinese text] [Chinese text]
             String[] splitUrl = url.split("\\?");
             String[] urlParams = splitUrl[1].split("&");
             String[] params1 = urlParams[0].split("=");
@@ -276,7 +276,7 @@ private class DownloadCompleteReceiver extends BroadcastReceiver {
             params.addBodyParameter(params2[0], params2[1]);
             params.addBodyParameter(params3[0], params3[1]);
         } catch (Exception e) {
-            XLog.e("bcf", "升级接口解析异常");
+            XLog.e("bcf", "[Chinese text]");
         }
         fileName = "topinfrared" + System.currentTimeMillis() + ".zip";
         String path = mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() + File.separator + fileName;
@@ -300,7 +300,7 @@ private class DownloadCompleteReceiver extends BroadcastReceiver {
 
             @Override
             public void onLoading(long total, long current, boolean isDownloading) {
-                XLog.w("bcf", "onLoading： " + current + "/" + total);
+                XLog.w("bcf", "onLoading:  " + current + "/" + total);
                 int progress = (int) (current * 100 / total);
                 LmsUpdateDialog.Build.INSTANCE.setProgressNum(progress / 100f);
             }
@@ -331,11 +331,11 @@ private class DownloadCompleteReceiver extends BroadcastReceiver {
         });
     }
 
-    // 安装应用程序
+    // [Chinese text]
     public void installApkNew() {
         try {
             File file = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath(), fileName);
-            File localFile = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());// 本地文件
+            File localFile = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());// [Chinese text]
             List<File> files = ZipUtils.unzipFile(file, localFile);
             if (files != null && files.size() != 0) {
                 AppUtil.installApp(mContext, files.get(0));

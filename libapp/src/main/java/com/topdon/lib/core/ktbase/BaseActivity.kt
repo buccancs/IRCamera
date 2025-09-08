@@ -95,7 +95,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     /**
-     * 监听 USB 连接状态
+     * listener USB [Chinese text]
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun getConnectState(event: DeviceConnectEvent) {
@@ -129,12 +129,12 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     /**
-     * 新版 LMS 风格的加载中弹框.
+     * [Chinese text] LMS [Chinese text]in progress[Chinese text].
      */
     private var loadingDialog: LoadingDialog? = null
 
     /**
-     * 真是醉了，一个加载中的弹框现在就有 3 种，不管了，继续加，理论上后续都要改成这个.
+     * [Chinese text], [Chinese text]in progress[Chinese text] 3 [Chinese text], [Chinese text], [Chinese text], [Chinese text].
      */
     fun showLoadingDialog(
         @StringRes resId: Int = R.string.tip_loading,
@@ -151,7 +151,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     /**
-     * 真是醉了，一个加载中的弹框现在就有 3 种，不管了，继续加，理论上后续都要改成这个.
+     * [Chinese text], [Chinese text]in progress[Chinese text] 3 [Chinese text], [Chinese text], [Chinese text], [Chinese text].
      */
     fun dismissLoadingDialog() {
         loadingDialog?.dismiss()
@@ -174,8 +174,8 @@ abstract class BaseActivity : AppCompatActivity() {
                 cameraDialog?.show()
             }
         } catch (e: Exception) {
-            // 临时捕获方案，后面需求完成后再追踪优化
-            Log.e("临时处理方案", e.message.toString())
+            // [Chinese text], [Chinese text]
+            Log.e("[Chinese text]", e.message.toString())
         }
     }
 
@@ -185,7 +185,7 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    // 同步登录message
+    // [Chinese text]message
     private fun synLogin() {
         if (this::class.java.simpleName == "MainActivity") {
             LMS.getInstance().syncUserInfo()
@@ -208,7 +208,7 @@ abstract class BaseActivity : AppCompatActivity() {
             }
         } else {
             if (UserInfoManager.getInstance().isLogin()) {
-                // 账号已退出,本地登录状态,需退出操作
+                // [Chinese text],[Chinese text],[Chinese text]operation
                 UserInfoManager.getInstance().logout()
             }
         }

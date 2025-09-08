@@ -29,7 +29,7 @@ import java.io.FileOutputStream
 object PDFHelp {
 
     fun savePdfFileByListView(name: String, view: ScrollView, viewList: MutableList<View>, watermarkView: View): String {
-        val onePageHeight: Int = (view.width * 297f / 210f).toInt() // A4纸宽高比210:297
+        val onePageHeight: Int = (view.width * 297f / 210f).toInt() // A4[Chinese text]high[Chinese text]210:297
 
         var onePageContentHeight = 0f
 
@@ -42,7 +42,7 @@ object PDFHelp {
 
         for (index in 0 until viewList.size) {
             val contentHeight = viewList[index].measuredHeight
-            if (onePageContentHeight + contentHeight > onePageHeight) {// 超出内容，另起一页
+            if (onePageContentHeight + contentHeight > onePageHeight) {// [Chinese text], [Chinese text]
                 onePageContentHeight = 0f
                 pdfDocument.finishPage(page)
                 page = null
@@ -103,7 +103,7 @@ object PDFHelp {
                     bos.flush()
                     bos.close()
                 }
-                Log.w("导出", UriUtils.uri2File(uri).absolutePath)
+                Log.w("[Chinese text]", UriUtils.uri2File(uri).absolutePath)
                 UriUtils.uri2File(uri).absolutePath
             } else {
                 ""

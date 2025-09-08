@@ -11,13 +11,13 @@ import java.io.ByteArrayOutputStream
 import java.io.IOException
 
 /**
- * 热成像图像二次处理的统一入口，为了方便管理
+ * [Chinese text], [Chinese text]
  * @author: CaiSongL
  * @date: 2024/1/17 9:54
  */
 class IRImageHelp {
 
-    // 自定义的颜色值
+    // [Chinese text]
     @Volatile
     private var colorList: IntArray ?= null
 
@@ -35,7 +35,7 @@ class IRImageHelp {
     }
 
     /**
-     * Settings自定义Pseudo color条属性
+     * Settings[Chinese text]Pseudo color[Chinese text]
      * @author: CaiSongL
      * @date: 2024/1/17 10:07
      */
@@ -68,22 +68,22 @@ class IRImageHelp {
     }
 
     /**
-     * 自定义Pseudo color处理，在执行这个方法之前，变更Pseudo color属性时先通过 上面setColorList进行属性Settings
-     * @param imageDst ByteArray ： 图像数据，argb格式
-     * @param temperatureSrc ByteArray ： 温度数据
-     * @param imageWidth Int ：
+     * [Chinese text]Pseudo color[Chinese text], [Chinese text], [Chinese text]Pseudo color[Chinese text] [Chinese text]setColorList[Chinese text]Settings
+     * @param imageDst ByteArray :  [Chinese text], argb[Chinese text]
+     * @param temperatureSrc ByteArray :  temperature[Chinese text]
+     * @param imageWidth Int : 
      * @param imageHeight Int
-     * @return ByteArray ： 返回处理后的图像数据，argb格式
+     * @return ByteArray :  [Chinese text], argb[Chinese text]
      */
     fun customPseudoColor(imageDst: ByteArray, temperatureSrc:ByteArray, imageWidth : Int, imageHeight : Int) : ByteArray{
         try {
             if (colorList != null && temperatureSrc != null) {
                 var j = 0
                 val imageDstLength: Int = imageWidth * imageHeight * 4
-                // 遍历像素点，过滤温度阈值
+                // [Chinese text]point, [Chinese text]temperature[Chinese text]
                 var index = 0
                 while (index < imageDstLength) {
-                    // 温度换算公式
+                    // temperature[Chinese text]
                     var temperature0: Float =
                         ((temperatureSrc.get(j).toInt() and 0xff) + (temperatureSrc.get(j + 1)
                             .toInt() and 0xff) * 256).toFloat()
@@ -129,17 +129,17 @@ class IRImageHelp {
                     index += 4
                     j += 2
                 }
-//                                        Log.w("测试上色耗时-总耗时", System.currentTimeMillis() - startTimeAll + "// ");
+//                                        Log.w("[Chinese text]-[Chinese text]", System.currentTimeMillis() - startTimeAll + "// ");
             }
         } catch (exception: Exception) {
-            Log.e("上色异常", exception.message!!)
+            Log.e("[Chinese text]", exception.message!!)
         }finally {
             return imageDst
         }
     }
 
     /**
-     * 等温尺处理,展示Pseudo color的温度范围内message
+     * [Chinese text],[Chinese text]Pseudo color[Chinese text]temperaturerange[Chinese text]message
      */
     fun setPseudoColorMaxMin(imageDst: ByteArray?, temperatureSrc:ByteArray?,max : Float,
                        min : Float,imageWidth : Int,imageHeight : Int){
@@ -147,13 +147,13 @@ class IRImageHelp {
             var j = 0
             val imageDstLength: Int = imageWidth * imageHeight * 4
             val biaochiMax: Float = max
-            val biaochiMin: Float = min // 温度阈值设定
+            val biaochiMin: Float = min // temperature[Chinese text]
             val startTimeAll = System.currentTimeMillis()
-            // 遍历像素点，过滤温度阈值
+            // [Chinese text]point, [Chinese text]temperature[Chinese text]
             var index = 0
             while (index < imageDstLength) {
 
-                // 温度换算公式
+                // temperature[Chinese text]
                 var temperature0: Float =
                     ((temperatureSrc[j].toInt() and 0xff) + (temperatureSrc[j + 1]
                         .toInt() and 0xff) * 256).toFloat()
@@ -163,7 +163,7 @@ class IRImageHelp {
                     val r: Int = imageDst!![index].toInt() and 0xff
                     val g: Int = imageDst!![index + 1].toInt() and 0xff
                     val b: Int = imageDst!![index + 2].toInt() and 0xff
-                    // 灰度
+                    // [Chinese text]
                     val grey = (r * 0.3f + g * 0.59f + b * 0.11f).toInt()
                     imageDst!![index] = grey.toByte()
                     imageDst!![index + 1] = grey.toByte()
@@ -176,7 +176,7 @@ class IRImageHelp {
         }
     }
     /**
-     * contourDetection 轮廓检测
+     * contourDetection [Chinese text]
      */
     fun contourDetection(alarmBean : AlarmBean?,imageDst : ByteArray?,temperatureSrc : ByteArray?,
                          imageWidth : Int,imageHeight : Int) : ByteArray?{

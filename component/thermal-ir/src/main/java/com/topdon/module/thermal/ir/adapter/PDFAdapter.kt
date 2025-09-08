@@ -68,7 +68,7 @@ class PDFAdapter : BaseQuickAdapter<ReportData.Records?, BaseViewHolder>,LoadMor
             if (i == 0){
                 dataList[i]?.isShowTitleTime = true
             }else {
-                //上一次
+                //[Chinese text]
                 val lastTimes = dataList[i-1]?.uploadTime?.split(" ")
                 val times = dataList[i]?.uploadTime?.split(" ")
                 if (lastTimes?.size!! > 1 && times?.size!! > 1){

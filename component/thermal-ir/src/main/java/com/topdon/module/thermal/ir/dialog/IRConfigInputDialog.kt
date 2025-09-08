@@ -16,7 +16,7 @@ import com.topdon.module.thermal.ir.R
 import java.lang.NumberFormatException
 
 /**
- * 温度修正 环境温度、测温距离、发射率 修改值时输入弹框.
+ * temperature[Chinese text] [Chinese text]temperature, [Chinese text], [Chinese text] [Chinese text].
  *
  * Created by LCG on 2024/10/24.
  */
@@ -26,14 +26,14 @@ class IRConfigInputDialog(context: Context, val type: Type, val isTC007: Boolean
     private var onConfirmListener: ((value: Float) -> Unit)? = null
 
     /**
-     * Settings输入框默认值
+     * Settings[Chinese text]
      */
     fun setInput(value: Float?): IRConfigInputDialog {
         this.value = value
         return this
     }
     /**
-     * Settings确认点击事件监听.
+     * Settings[Chinese text]point[Chinese text]eventlistener.
      */
     fun setConfirmListener(l: (value: Float) -> Unit): IRConfigInputDialog {
         this.onConfirmListener = l
@@ -107,17 +107,17 @@ class IRConfigInputDialog(context: Context, val type: Type, val isTC007: Boolean
 
     enum class Type {
         /**
-         * 环境温度
+         * [Chinese text]temperature
          */
         TEMP,
 
         /**
-         * 测温距离
+         * [Chinese text]
          */
         DIS,
 
         /**
-         * 发射率
+         * [Chinese text]
          */
         EM,
     }

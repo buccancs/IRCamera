@@ -12,17 +12,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 /**
- * 房屋检测 ViewModel.
+ * [Chinese text] ViewModel.
  *
  * Created by LCG on 2024/8/22.
  */
 class DetectViewModel(application: Application) : AndroidViewModel(application) {
     /**
-     * 所有房屋检测列表，调用 [queryAll] 会触发更改.
+     * [Chinese text], [Chinese text] [queryAll] [Chinese text].
      */
     val detectListLD =  MutableLiveData<List<HouseDetect>>()
     /**
-     * 查询所有房屋检测列表，结果通过 [detectListLD] 返回.
+     * [Chinese text], [Chinese text] [detectListLD] [Chinese text].
      */
     fun queryAll() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -31,11 +31,11 @@ class DetectViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     /**
-     * 一项房屋检测，调用 [queryById]、[insertDefaultDirs] 会触发更改.
+     * [Chinese text], [Chinese text] [queryById], [insertDefaultDirs] [Chinese text].
      */
     val detectLD = MutableLiveData<HouseDetect?>()
     /**
-     * 查询指定 id 的房屋检测数据，结果通过 [detectLD] 返回.
+     * [Chinese text] id [Chinese text], [Chinese text] [detectLD] [Chinese text].
      */
     fun queryById(id: Long) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -43,7 +43,7 @@ class DetectViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
     /**
-     * 为指定检测插入默认的目录列表，结果通过 [detectLD] 返回.
+     * [Chinese text], [Chinese text] [detectLD] [Chinese text].
      */
     fun insertDefaultDirs(houseDetect: HouseDetect) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -53,11 +53,11 @@ class DetectViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     /**
-     * 某个房屋检测下的某个目录message，调用 [queryDirById] 会触发更改，注意目录所属检测message未加载.
+     * [Chinese text]message, [Chinese text] [queryDirById] [Chinese text], [Chinese text]message[Chinese text].
      */
     val dirLD = MutableLiveData<DirDetect>()
     /**
-     * 查询指定 id 的目录message，结果通过 [dirLD] 返回.
+     * [Chinese text] id [Chinese text]message, [Chinese text] [dirLD] [Chinese text].
      */
     fun queryDirById(dirId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -66,13 +66,13 @@ class DetectViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     /**
-     * 复制房屋检测结果，调用 [copyDetect] 会触发更改.
+     * [Chinese text], [Chinese text] [copyDetect] [Chinese text].
      */
     val copyDetectLD = MutableLiveData<Pair<Int, HouseDetect>>()
     /**
-     * 复制指定的检测，结果通过 [copyDetectLD] 返回.
-     * @param position 不使用，透传
-     * @param houseDetect 要复制的检测
+     * [Chinese text], [Chinese text] [copyDetectLD] [Chinese text].
+     * @param position [Chinese text], [Chinese text]
+     * @param houseDetect [Chinese text]
      */
     fun copyDetect(position: Int, houseDetect: HouseDetect) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -81,13 +81,13 @@ class DetectViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     /**
-     * 复制房屋检测目录结果，调用 [copyDir] 会触发更改.
+     * [Chinese text], [Chinese text] [copyDir] [Chinese text].
      */
     val copyDirLD = MutableLiveData<Pair<Int, DirDetect>>()
     /**
-     * 在指定的检测中，复制指定的目录，结果通过 [copyDirLD] 返回.
-     * @param layoutIndex 不使用，透传
-     * @param dirDetect 要复制的目录
+     * [Chinese text]in progress, [Chinese text], [Chinese text] [copyDirLD] [Chinese text].
+     * @param layoutIndex [Chinese text], [Chinese text]
+     * @param dirDetect [Chinese text]
      */
     fun copyDir(layoutIndex: Int, dirDetect: DirDetect) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -102,13 +102,13 @@ class DetectViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     /**
-     * 复制房屋检测项目结果，调用 [copyItem] 会触发更改.
+     * [Chinese text], [Chinese text] [copyItem] [Chinese text].
      */
     val copyItemLD = MutableLiveData<Pair<Int, ItemDetect>>()
     /**
-     * 在指定的检测中，复制指定的项目，结果通过 [copyItemLD] 返回.
-     * @param layoutIndex 不使用，透传
-     * @param itemDetect 要复制的项目
+     * [Chinese text]in progress, [Chinese text], [Chinese text] [copyItemLD] [Chinese text].
+     * @param layoutIndex [Chinese text], [Chinese text]
+     * @param itemDetect [Chinese text]
      */
     fun copyItem(layoutIndex: Int, itemDetect: ItemDetect) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -123,13 +123,13 @@ class DetectViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     /**
-     * 删除房屋检测项目结果，调用 [delItem] 会触发更改.
+     * [Chinese text], [Chinese text] [delItem] [Chinese text].
      */
     val delItemLD = MutableLiveData<Pair<Int, ItemDetect>>()
     /**
-     * 在指定的检测中，删除指定的项目，结果通过 [delItemLD] 返回.
-     * @param layoutIndex 不使用，透传
-     * @param itemDetect 要删除的项目
+     * [Chinese text]in progress, [Chinese text], [Chinese text] [delItemLD] [Chinese text].
+     * @param layoutIndex [Chinese text], [Chinese text]
+     * @param itemDetect [Chinese text]
      */
     fun delItem(layoutIndex: Int, itemDetect: ItemDetect) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -140,20 +140,20 @@ class DetectViewModel(application: Application) : AndroidViewModel(application) 
                 AppDatabase.getInstance().houseDetectDao().deleteItem(itemDetect)
                 itemList.removeAt(position)
 
-                if (itemList.isEmpty()) {// 全部项目都删光了，目录也要删掉
+                if (itemList.isEmpty()) {// [Chinese text], [Chinese text]
                     val dirList: ArrayList<DirDetect> = dirDetect.houseDetect.dirList
                     val dirPosition = dirList.indexOf(dirDetect)
                     if (dirPosition >= 0) {
                         AppDatabase.getInstance().houseDetectDao().deleteDir(dirDetect)
                         dirList.removeAt(dirPosition)
                     }
-                    if (dirList.isEmpty()) {// 全部目录都删光了
+                    if (dirList.isEmpty()) {// [Chinese text]
                         detectLD.postValue(dirDetect.houseDetect)
                     } else {
                         delItemLD.postValue(Pair(layoutIndex, itemDetect))
                     }
                 } else {
-                    // 删除后目录里的3个数量可能需要刷新
+                    // [Chinese text]3[Chinese text]
                     if (itemDetect.state > 0) {
                         val dir = itemDetect.dirDetect
                         when (itemDetect.state) {
@@ -170,7 +170,7 @@ class DetectViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     /**
-     * 更新目录message.
+     * [Chinese text]message.
      */
     fun updateDir(vararg dirDetect: DirDetect) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -178,7 +178,7 @@ class DetectViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
     /**
-     * 更新项目message.
+     * [Chinese text]message.
      */
     fun updateItem(vararg itemDetect: ItemDetect) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -187,7 +187,7 @@ class DetectViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     /**
-     * 删除指定的房屋检测数据.
+     * [Chinese text].
      */
     fun deleteMore(vararg houseDetect: HouseDetect) {
         viewModelScope.launch(Dispatchers.IO) {

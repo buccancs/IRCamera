@@ -30,7 +30,7 @@ class ThermalActivity : BaseActivity() {
         initRecycler()
         thermal_tab.setOnItemListener(object : MenuFirstTabView.OnItemListener {
             override fun selectPosition(position: Int) {
-                //一级菜单选择
+                //[Chinese text]menu[Chinese text]
                 showRecycler(position)
             }
 
@@ -48,7 +48,7 @@ class ThermalActivity : BaseActivity() {
         menuAdapter.initType(1)
         menuAdapter.listener = object : MenuTabAdapter.OnItemClickListener {
             override fun onClick(index: Int) {
-                //二级菜单选择
+                //[Chinese text]menu[Chinese text]
                 Log.w("123", "index: $index")
                 EventBus.getDefault().post(ThermalActionEvent(action = index))
             }

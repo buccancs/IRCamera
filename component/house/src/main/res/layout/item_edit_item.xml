@@ -47,7 +47,7 @@
         android:inputType="text"
         android:maxLength="50"
         android:background="@drawable/bg_corners08_stroke_20_ff"
-        tools:text="一楼汇总"
+        tools:text="[Chinese text]"
         app:layout_constraintWidth_percent="0.54"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="@id/view_bg" />
@@ -95,7 +95,7 @@
         app:layout_constraintStart_toEndOf="@id/tv_warn"
         app:layout_constraintTop_toTopOf="@id/tv_good" />
 
-    <!-- 状态对应文案 -->
+    <!-- [Chinese text] -->
     <TextView
         android:id="@+id/tv_state"
         android:layout_width="0dp"
@@ -104,7 +104,7 @@
         android:layout_marginEnd="6dp"
         android:textSize="13sp"
         android:textColor="@color/white"
-        tools:text="需维修"
+        tools:text="[Chinese text]"
         app:layout_constraintStart_toEndOf="@id/tv_danger"
         app:layout_constraintEnd_toStartOf="@id/iv_drag"
         app:layout_constraintTop_toTopOf="@id/tv_good"

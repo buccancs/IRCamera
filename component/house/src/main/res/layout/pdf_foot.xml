@@ -7,7 +7,7 @@
     android:background="@color/white"
     tools:ignore="SmallSp">
 
-    <!-- 垃圾 Barrier 不起作用，再包一层 -->
+    <!-- [Chinese text] Barrier [Chinese text], [Chinese text] -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_title"
         android:layout_width="0dp"

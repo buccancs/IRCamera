@@ -29,10 +29,10 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
- * 房屋检测首页.
+ * [Chinese text].
  *
- * 需要传递参数：
- * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007（不使用，透传）
+ * [Chinese text]: 
+ * - [ExtraKeyConfig.IS_TC007] - [Chinese text] TC007([Chinese text], [Chinese text])
  *
  * Created by LCG on 2024/8/20.
  */
@@ -102,9 +102,9 @@ class HouseHomeActivity : BaseActivity(), View.OnClickListener {
         viewPager2.adapter = ViewPagerAdapter(this)
         viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                if (position == 0) {// 检测
+                if (position == 0) {// [Chinese text]
                     ivEdit.isEnabled = !detectViewModel.detectListLD.value.isNullOrEmpty()
-                } else {// 报告
+                } else {// [Chinese text]
                     ivEdit.isEnabled = !reportViewModel.reportListLD.value.isNullOrEmpty()
                 }
             }
@@ -119,7 +119,7 @@ class HouseHomeActivity : BaseActivity(), View.OnClickListener {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onDetectCreate(event: HouseReportAddEvent) {
-        // 有新报告被创建时，切到报告页
+        // [Chinese text], [Chinese text]
         findViewById<ViewPager2>(R.id.view_pager2).currentItem = 1
     }
 
@@ -131,15 +131,15 @@ class HouseHomeActivity : BaseActivity(), View.OnClickListener {
         
         when (v) {
             ivBack -> finish()
-            ivEdit -> {// 编辑
+            ivEdit -> {// [Chinese text]
                 tabViewModel.isEditModeLD.value = true
             }
-            ivAdd -> {// 添加
+            ivAdd -> {// [Chinese text]
                 val newIntent = Intent(this, DetectAddActivity::class.java)
                 newIntent.putExtra(ExtraKeyConfig.IS_TC007, intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false))
                 startActivity(newIntent)
             }
-            ivExitEdit -> {// 退出编辑
+            ivExitEdit -> {// [Chinese text]
                 tabViewModel.isEditModeLD.value = false
             }
         }

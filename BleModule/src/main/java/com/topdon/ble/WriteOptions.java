@@ -3,7 +3,7 @@ package com.topdon.ble;
 import android.bluetooth.BluetoothGattCharacteristic;
 
 /**
- * 写特征的配置
+ * [Chinese text]
  *
  * date: 2019/8/9 18:06
  * author: bichuanfeng
@@ -26,36 +26,36 @@ public class WriteOptions {
     }
 
         /**
-     * 两次写数据到特征的时间间隔
+     * [Chinese text]
      */
     public int getPackageWriteDelayMillis() {
         return packageWriteDelayMillis;
     }
 
         /**
-     * 两次写请求的时间间隔，和{@link #getPackageWriteDelayMillis()}不同的是，一次写请求可能会分包发送。
-     * 一个是请求与请求的间隔，一个是包与包的间隔
+     * [Chinese text], [Chinese text]{@link #getPackageWriteDelayMillis()}[Chinese text], [Chinese text]. 
+     * [Chinese text], [Chinese text]
      */
     public int getRequestWriteDelayMillis() {
         return requestWriteDelayMillis;
     }
 
         /**
-     * 一次向特征写入的字节数
+     * [Chinese text]
      */
     public int getPackageSize() {
         return packageSize;
     }
 
         /**
-     * 是否等待写入结果回调再写下一包数据
+     * [Chinese text]
      */
     public boolean isWaitWriteResult() {
         return isWaitWriteResult;
     }
 
         /**
-     * 写入模式
+     * [Chinese text]mode
      */
     public int getWriteType() {
         return writeType;
@@ -75,7 +75,7 @@ public class WriteOptions {
         private boolean useMtuAsPackageSize = false;
 
             /**
-     * 两次写数据到特征的时间间隔
+     * [Chinese text]
      */
     public Builder setPackageWriteDelayMillis(int packageWriteDelayMillis) {
             this.packageWriteDelayMillis = packageWriteDelayMillis;
@@ -83,8 +83,8 @@ public class WriteOptions {
         }
 
             /**
-     * 两次写请求的时间间隔，和{@link #packageWriteDelayMillis}不同的是，一次写请求可能会分包发送。
-     * 一个是请求与请求的间隔，一个是包与包的间隔
+     * [Chinese text], [Chinese text]{@link #packageWriteDelayMillis}[Chinese text], [Chinese text]. 
+     * [Chinese text], [Chinese text]
      */
     public Builder setRequestWriteDelayMillis(int requestWriteDelayMillis) {
             this.requestWriteDelayMillis = requestWriteDelayMillis;
@@ -92,7 +92,7 @@ public class WriteOptions {
         }
 
             /**
-     * 一次向特征写入的字节数
+     * [Chinese text]
      */
     public Builder setPackageSize(int packageSize) {
             if (packageSize > 0) {
@@ -102,7 +102,7 @@ public class WriteOptions {
         }
 
             /**
-     * 是否等待写入结果回调再写下一包数据
+     * [Chinese text]
      */
     public Builder setWaitWriteResult(boolean waitWriteResult) {
             isWaitWriteResult = waitWriteResult;
@@ -110,7 +110,7 @@ public class WriteOptions {
         }
 
             /**
-     * Settings写入模式
+     * Settings[Chinese text]mode
      *
      * @param writeType {@link BluetoothGattCharacteristic#WRITE_TYPE_DEFAULT}
      *                  <br>{@link BluetoothGattCharacteristic#WRITE_TYPE_NO_RESPONSE}
@@ -126,7 +126,7 @@ public class WriteOptions {
         }
 
             /**
-     * Settings将MTU作为包大小，并且{@link #setPackageSize(int)}Settings的值将被忽略。真实数据包大小 = mtu - 3
+     * Settings[Chinese text]MTU[Chinese text], [Chinese text]{@link #setPackageSize(int)}Settings[Chinese text]. [Chinese text] = mtu - 3
      */
     public Builder setMtuAsPackageSize() {
             useMtuAsPackageSize = true;

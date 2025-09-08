@@ -39,7 +39,7 @@ class IRLogMPChartActivity : BaseActivity() {
     private val viewModel: IRMonitorViewModel by viewModels()
 
     /**
-     * 从上一界面传递过来的，当前查看的监控记录开始时间戳.
+     * [Chinese text], [Chinese text]start[Chinese text].
      */
     private var startTime = 0L
 
@@ -72,7 +72,7 @@ class IRLogMPChartActivity : BaseActivity() {
             try {
                 log_chart_time_chart.initEntry(it as ArrayList<ThermalEntity>)
             } catch (e: Exception) {
-                XLog.e("刷新图表异常:${e.message}")
+                XLog.e("[Chinese text]:${e.message}")
             }
         }
 
@@ -124,7 +124,7 @@ class IRLogMPChartActivity : BaseActivity() {
                                     doNotAskAgain: Boolean
                                 ) {
                                     if (doNotAskAgain) {
-                                        //拒绝授权并且不再提醒
+                                        //[Chinese text]
                                         if (BaseApplication.instance.isDomestic()){
                                             ToastUtils.showShort(getString(R.string.app_storage_content))
                                             return

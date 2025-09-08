@@ -179,10 +179,10 @@ package com.infisense.usbir.utils;
     }
 
         /**
-     * 将int数值转换为占四个字节的byte数组，本方法适用于(低位在前，高位在后)的顺序。 和bytesToInt（）配套使用
+     * [Chinese text]int[Chinese text]byte[Chinese text], [Chinese text]for(low[Chinese text], high[Chinese text])[Chinese text].  [Chinese text]bytesToInt()[Chinese text]
      *
-     * @param value 要转换的int值
-     * @return byte数组
+     * @param value [Chinese text]int[Chinese text]
+     * @return byte[Chinese text]
      */
     public static byte[] intToBytes(int value) {
         byte[] src = new byte[4];
@@ -194,7 +194,7 @@ package com.infisense.usbir.utils;
     }
 
         /**
-     * 将int数值转换为占四个字节的byte数组，本方法适用于(高位在前，低位在后)的顺序。  和bytesToInt2（）配套使用
+     * [Chinese text]int[Chinese text]byte[Chinese text], [Chinese text]for(high[Chinese text], low[Chinese text])[Chinese text].   [Chinese text]bytesToInt2()[Chinese text]
      */
     public static byte[] intToBytes2(int value) {
         byte[] src = new byte[4];

@@ -15,7 +15,7 @@
 //import kotlinx.coroutines.Dispatchers
 //import kotlinx.coroutines.launch
 //
-//监控记录
+//[Chinese text]
 //@Route(path = RouterConfig.THERMAL_LOG)
 //class MonitorLogActivity : BaseActivity() {
 //

@@ -65,21 +65,21 @@ class ConnectionImpl implements Connection, ScanListener {
 
     private final BluetoothAdapter bluetoothAdapter;
     private final Device device;
-    private final ConnectionConfiguration configuration;// 连接配置
+    private final ConnectionConfiguration configuration;// [Chinese text]
     private BluetoothGatt bluetoothGatt;
-    private final List<GenericRequest> requestQueue = new ArrayList<>();// 请求队列
-    private GenericRequest currentRequest;// 当前的请求
-    private final EventObserver observer;// 伴生观察者
-    private boolean isReleased;// 连接是否已释放
-    private final Handler connHandler;// 用于操作连接的Handler，运行在主线程
-    private long connStartTime; // 用于连接超时计时
-    private int refreshCount;// 刷新（清缓存）计数，在发现服务后清零
-    private int tryReconnectCount;// 尝试重连计数
-    private ConnectionState lastConnectionState;// 上次连接状态
-    private int reconnectImmediatelyCount = 0; // 不搜索直接重连计数
-    private boolean refreshing;// 是否正在执行清理缓存
-    private boolean isActiveDisconnect;// 是否主动断开连接
-    private long lastScanStopTime;// 上次搜索停止时间
+    private final List<GenericRequest> requestQueue = new ArrayList<>();// [Chinese text]
+    private GenericRequest currentRequest;// [Chinese text]
+    private final EventObserver observer;// [Chinese text]observation[Chinese text]
+    private boolean isReleased;// [Chinese text]
+    private final Handler connHandler;// foroperation[Chinese text]Handler, [Chinese text]line[Chinese text]
+    private long connStartTime; // for[Chinese text]
+    private int refreshCount;// [Chinese text]([Chinese text])[Chinese text], [Chinese text]
+    private int tryReconnectCount;// [Chinese text]
+    private ConnectionState lastConnectionState;// [Chinese text]
+    private int reconnectImmediatelyCount = 0; // [Chinese text]
+    private boolean refreshing;// [Chinese text]
+    private boolean isActiveDisconnect;// [Chinese text]
+    private long lastScanStopTime;// [Chinese text]stop[Chinese text]
     private final Logger logger;
     private final Observable observable;
     private final PosterDispatcher posterDispatcher;
@@ -93,7 +93,7 @@ class ConnectionImpl implements Connection, ScanListener {
         this.easyBle = easyBle;
         this.bluetoothAdapter = bluetoothAdapter;
         this.device = device;
-        // 如果没有配置
+        // [Chinese text]
         if (configuration == null) {
             this.configuration = new ConnectionConfiguration();
         } else {
@@ -105,8 +105,8 @@ class ConnectionImpl implements Connection, ScanListener {
         posterDispatcher = easyBle.getPosterDispatcher();
         connHandler = new ConnHandler(this);
         connStartTime = System.currentTimeMillis();
-        connHandler.sendEmptyMessageDelayed(MSG_CONNECT, connectDelay); // 执行连接
-        connHandler.sendEmptyMessageDelayed(MSG_TIMER, connectDelay); // 启动定时器
+        connHandler.sendEmptyMessageDelayed(MSG_CONNECT, connectDelay); // [Chinese text]
+        connHandler.sendEmptyMessageDelayed(MSG_TIMER, connectDelay); // [Chinese text]
         easyBle.addScanListener(this);
     }
 
@@ -207,7 +207,7 @@ private class BleGattCallback extends BluetoothGattCallback {
                     currentRequest.writeOptions.isWaitWriteResult) {
                 if (status == BluetoothGatt.GATT_SUCCESS) {
                     if (logger.isEnabled()) {
-                        byte[] data = (byte[]) currentRequest.value;// 完整包数据
+                        byte[] data = (byte[]) currentRequest.value;// [Chinese text]
                         int packageSize = currentRequest.writeOptions.packageSize;
                         int total = data.length / packageSize + (data.length % packageSize == 0 ? 0 : 1);
                         int progress;
@@ -358,7 +358,7 @@ private class BleGattCallback extends BluetoothGattCallback {
                     logD(Logger.TYPE_CONNECTION_STATE, "connected! [name: %s, addr: %s]", device.name, device.address);
                     device.connectionState = ConnectionState.CONNECTED;
                     sendConnectionCallback();
-                    // 延时一会再去发现服务
+                    // [Chinese text]
                     connHandler.sendEmptyMessageDelayed(MSG_DISCOVER_SERVICES, configuration.discoverServicesDelayMillis);
                 } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
                     logD(Logger.TYPE_CONNECTION_STATE, "disconnected! [name: %s, addr: %s, autoReconnEnable: %s]",
@@ -414,10 +414,10 @@ private class BleGattCallback extends BluetoothGattCallback {
 
     private void doTimer() {
         if (!isReleased) {
-            // 只处理不是已发现服务并且不在刷新也不是主动断开连接的
+            // [Chinese text]
             if (device.connectionState != ConnectionState.SERVICE_DISCOVERED && !refreshing && !isActiveDisconnect) {
                 if (device.connectionState != ConnectionState.DISCONNECTED) {
-                    // 超时
+                    // [Chinese text]
                     if (System.currentTimeMillis() - connStartTime > configuration.connectTimeoutMillis) {
                         connStartTime = System.currentTimeMillis();
                         logE(Logger.TYPE_CONNECTION_STATE, "connect timeout! [name: %s, addr: %s]", device.name, device.address);
@@ -462,7 +462,7 @@ private class BleGattCallback extends BluetoothGattCallback {
         @Override
         public void run() {
             if (!isReleased) {
-                // 连接之前必须先停止搜索
+                // [Chinese text]stop[Chinese text]
                 easyBle.stopScan();
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     bluetoothGatt = device.getOriginDevice().connectGatt(easyBle.getContext(), false, gattCallback,
@@ -486,9 +486,9 @@ private class BleGattCallback extends BluetoothGattCallback {
     }
 
     /**
-     * 处理断开
+     * [Chinese text]
      *
-     * @param reconnect 断开后是否重连
+     * @param reconnect [Chinese text]
      */
     private void doDisconnect(boolean reconnect) {
         clearRequestQueueAndNotify();
@@ -518,7 +518,7 @@ private class BleGattCallback extends BluetoothGattCallback {
         doRefresh(true);
     }
 
-    // 处理刷新
+    // [Chinese text]
     private void doRefresh(boolean isAuto) {
         logD(Logger.TYPE_CONNECTION_STATE, "refresh GATT! [name: %s, addr: %s]", device.name, device.address);
         connStartTime = System.currentTimeMillis();
@@ -560,7 +560,7 @@ private class BleGattCallback extends BluetoothGattCallback {
         if (!isReleased) {
             connStartTime = System.currentTimeMillis();
             easyBle.stopScan();
-            // 搜索设备，搜索到才执行连接
+            // [Chinese text], [Chinese text]
             device.connectionState = ConnectionState.SCANNING_FOR_RECONNECTION;
             logD(Logger.TYPE_CONNECTION_STATE, "scanning for reconnection [name: %s, addr: %s]", device.name, device.address);
             easyBle.startScan();
@@ -664,7 +664,7 @@ private class BleGattCallback extends BluetoothGattCallback {
         characteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT);
         boolean result = bluetoothGatt.writeDescriptor(descriptor);
         if (!enable) {
-            // 还原原始值
+            // [Chinese text]
             descriptor.setValue(originValue);
         }
         characteristic.setWriteType(writeType);
@@ -699,24 +699,24 @@ private class BleGattCallback extends BluetoothGattCallback {
                             connection.executeNextRequest();
                         }
                         break;
-                    case MSG_CONNECT:// 连接   
+                    case MSG_CONNECT:// [Chinese text]   
                         if (connection.bluetoothAdapter.isEnabled()) {
                             connection.doConnect();
                         }
                         break;
-                    case MSG_DISCONNECT:// 断开
+                    case MSG_DISCONNECT:// [Chinese text]
                         boolean reconnect = msg.arg1 == MSG_ARG_RECONNECT && connection.bluetoothAdapter.isEnabled();
                         connection.doDisconnect(reconnect);
                         break;
-                    case MSG_REFRESH:// 手动刷新
+                    case MSG_REFRESH:// [Chinese text]
                         connection.doRefresh(false);
                         break;
-                    case MSG_TIMER:// 定时器
+                    case MSG_TIMER:// [Chinese text]
                         connection.doTimer();
                         break;
-                    case MSG_DISCOVER_SERVICES:// 执行发现服务
-                    case MSG_ON_CONNECTION_STATE_CHANGE:// 连接状态变化
-                    case MSG_ON_SERVICES_DISCOVERED:// 服务已发现
+                    case MSG_DISCOVER_SERVICES:// [Chinese text]
+                    case MSG_ON_CONNECTION_STATE_CHANGE:// [Chinese text]
+                    case MSG_ON_SERVICES_DISCOVERED:// [Chinese text]
                         if (connection.bluetoothAdapter.isEnabled()) {
                             if (msg.what == MSG_DISCOVER_SERVICES) {
                                 connection.doDiscoverServices();
@@ -740,7 +740,7 @@ private class BleGattCallback extends BluetoothGattCallback {
                 if (currentRequest == null) {
                     executeRequest(request);
                 } else {
-                    // 根据优化级将请求插入队列中
+                    // [Chinese text]in progress
                     int index = -1;
                     for (int i = 0; i < requestQueue.size(); i++) {
                         GenericRequest req = requestQueue.get(i);
@@ -874,7 +874,7 @@ private class BleGattCallback extends BluetoothGattCallback {
             }
             if (value.length > options.packageSize) {
                 List<byte[]> list = MathUtils.splitPackage(value, options.packageSize);
-                if (!options.isWaitWriteResult) { // 不等待写入回调，直接写入下一包数据
+                if (!options.isWaitWriteResult) { // [Chinese text], [Chinese text]
                     int delay = options.packageWriteDelayMillis;
                     for (int i = 0; i < list.size(); i++) {
                         byte[] bytes = list.get(i);
@@ -894,7 +894,7 @@ private class BleGattCallback extends BluetoothGattCallback {
                         }
                     }
                     printWriteLog(request, list.size(), list.size(), list.get(list.size() - 1));
-                } else { // 发送第一包，剩下的加入队列
+                } else { // [Chinese text], [Chinese text]
                     request.remainQueue = new ConcurrentLinkedQueue<>();
                     request.remainQueue.addAll(list);
                     request.sendingBytes = request.remainQueue.remove();
@@ -975,11 +975,11 @@ private class BleGattCallback extends BluetoothGattCallback {
 
     private void handleCallbacks(RequestCallback callback, MethodInfo info) {
         if (observer != null) {
-            posterDispatcher.post(observer, info);// 通知伴生观察者
+            posterDispatcher.post(observer, info);// [Chinese text]observation[Chinese text]
         }
-        if (callback != null) {// 回调方式
+        if (callback != null) {// [Chinese text]
             posterDispatcher.post(callback, info);
-        } else {// 观察者模式
+        } else {// observation[Chinese text]mode
             observable.notifyObservers(info);
         }
     }
@@ -1093,7 +1093,7 @@ private class BleGattCallback extends BluetoothGattCallback {
         }
     }
 
-    // 清理内部缓存并强制刷新蓝牙设备的服务
+    // [Chinese text]
     @SuppressWarnings("all")
     private boolean doRefresh() {
         try {
@@ -1112,7 +1112,7 @@ private class BleGattCallback extends BluetoothGattCallback {
     private void release(boolean noEvent) {
         if (!isReleased) {
             isReleased = true;
-            configuration.setAutoReconnect(false); // 停止自动重连
+            configuration.setAutoReconnect(false); // stop[Chinese text]
             connHandler.removeCallbacksAndMessages(null);
             easyBle.removeScanListener(this);
             clearRequestQueueAndNotify();
@@ -1125,7 +1125,7 @@ private class BleGattCallback extends BluetoothGattCallback {
             if (!noEvent) {
                 sendConnectionCallback();
             }
-            easyBle.releaseConnection(device);// 从集合中删除
+            easyBle.releaseConnection(device);// [Chinese text]in progress[Chinese text]
         }
     }
 
@@ -1181,7 +1181,7 @@ private class BleGattCallback extends BluetoothGattCallback {
     }
 
     /**
-     * 清空请求队列并触发通知事件
+     * [Chinese text]event
      */
     private void clearRequestQueueAndNotify() {
         synchronized (this) {
@@ -1237,7 +1237,7 @@ private class BleGattCallback extends BluetoothGattCallback {
         return null;
     }
 
-    // 检查uuid是否存在，存在则将请求加入队列，不存在则失败回调或通知观察者
+    // [Chinese text]uuid[Chinese text], [Chinese text], [Chinese text]observation[Chinese text]
     private void checkUuidExistsAndEnqueue(GenericRequest request, int uuidNum) {
         boolean exists = false;
         if (uuidNum > 2) {
@@ -1252,7 +1252,7 @@ private class BleGattCallback extends BluetoothGattCallback {
         }
     }
 
-    // 检查服务是否存在
+    // [Chinese text]
     private boolean checkServiceExists(GenericRequest request, UUID uuid) {
         if (getService(uuid) == null) {
             handleFailedCallback(request, REQUEST_FAIL_TYPE_SERVICE_NOT_EXIST, false);
@@ -1261,7 +1261,7 @@ private class BleGattCallback extends BluetoothGattCallback {
         return true;
     }
 
-    // 检查特征是否存在
+    // [Chinese text]
     private boolean checkCharacteristicExists(GenericRequest request, UUID service, UUID characteristic) {
         if (checkServiceExists(request, service)) {
             if (getCharacteristic(service, characteristic) == null) {
@@ -1273,7 +1273,7 @@ private class BleGattCallback extends BluetoothGattCallback {
         return false;
     }
 
-    // 检查Descriptor是否存在
+    // [Chinese text]Descriptor[Chinese text]
     private boolean checkDescriptorExists(GenericRequest request, UUID service, UUID characteristic, UUID descriptor) {
         if (checkServiceExists(request, service) && checkCharacteristicExists(request, service, characteristic)) {
             if (getDescriptor(service, characteristic, descriptor) == null) {
@@ -1296,10 +1296,10 @@ private class BleGattCallback extends BluetoothGattCallback {
                 case READ_CHARACTERISTIC:
                 case WRITE_CHARACTERISTIC:
                     if (req.type == RequestType.WRITE_CHARACTERISTIC && req.writeOptions == null) {
-                        // 从默认配置中取
+                        // [Chinese text]in progress[Chinese text]
                         req.writeOptions = configuration.getDefaultWriteOptions(req.service, req.characteristic);
                         if (req.writeOptions == null) {
-                            // 没有Settings默认的，则新建
+                            // [Chinese text]Settings[Chinese text], [Chinese text]
                             req.writeOptions = new WriteOptions.Builder().build();
                         }
                     }

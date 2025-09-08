@@ -15,29 +15,29 @@ import com.blankj.utilcode.util.SizeUtils
 import com.topdon.lib.ui.R as UiR
 
 /**
- * 3D 编辑使用的，长地像 SeekBar 的那个条条.
+ * 3D [Chinese text], [Chinese text] SeekBar [Chinese text].
  */
 class BarPickView : View {
     companion object {
         /**
-         * 默认条条背景颜色.
+         * [Chinese text].
          */
         @ColorInt
         private const val DEFAULT_BG_COLOR = 0xff787878.toInt()
 
         /**
-         * 默认进度条颜色.
+         * [Chinese text].
          */
         @ColorInt
         private const val DEFAULT_PROGRESS_COLOR = 0xffffffff.toInt()
 
         /**
-         * Thumb 圆角尺寸，单位 dp.
+         * Thumb [Chinese text], [Chinese text] dp.
          */
         private const val THUMB_CORNERS = 11f
 
         /**
-         * Thumb 描边尺寸，单位 dp.
+         * Thumb [Chinese text], [Chinese text] dp.
          */
         private const val THUMB_STROKE_WIDTH = 1.5f
     }
@@ -49,14 +49,14 @@ class BarPickView : View {
     var onStopTrackingTouch: ((progress: Int, max: Int) -> Unit)? = null
 
     /**
-     * 根据进度格式化指示 View 文字.
+     * [Chinese text]indicator View text.
      */
     var valueFormatListener: ((progress: Int) -> String) = {
         it.toString()
     }
 
     /**
-     * 条条进度最大值.
+     * [Chinese text].
      */
     var max: Int = 100
         set(value) {
@@ -75,7 +75,7 @@ class BarPickView : View {
         }
 
     /**
-     * 条条当前进度.
+     * [Chinese text].
      */
     private var progress: Int = 0
         set(value) {
@@ -91,17 +91,17 @@ class BarPickView : View {
     }
 
     /**
-     * 条条尺寸，单位 px（横向时是高度，竖向时是宽度）
+     * [Chinese text], [Chinese text] px([Chinese text]high[Chinese text], [Chinese text])
      */
     private val barSize: Int
 
     /**
-     * 顺时针旋转角度，仅支持 0、90、180、270.
+     * [Chinese text], only[Chinese text] 0, 90, 180, 270.
      */
     private val rotate: Int
 
     /**
-     * 标签文字.
+     * [Chinese text]text.
      */
     private val labelText: String
 
@@ -166,7 +166,7 @@ class BarPickView : View {
     }
 
     /**
-     * 计算 Thumb 宽度，单位 px.
+     * [Chinese text] Thumb [Chinese text], [Chinese text] px.
      */
     private fun computeThumbWidth(): Int {
         val minTextWidth = paint.measureText(valueFormatListener.invoke(min)).toInt()

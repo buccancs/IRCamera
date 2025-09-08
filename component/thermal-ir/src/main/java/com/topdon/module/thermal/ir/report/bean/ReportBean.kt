@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 /**
- * 一份报告.
+ * [Chinese text].
  */
 @Parcelize
 data class ReportBean(

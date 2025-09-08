@@ -20,7 +20,7 @@ object IRTool {
     const val TAG: String = "IRTool"
 
     /**
-     * 自动快门开关
+     * [Chinese text]
      */
     fun setAutoShutter(isAutoShutter : Boolean){
         val basicAutoFFCStatusSet: IrcmdError? =
@@ -33,7 +33,7 @@ object IRTool {
     }
 
     /**
-     * 手动打快门
+     * [Chinese text]
      */
     fun setOneShutter(){
         val basicFFCUpdate = DeviceIrcmdControlManager.getInstance().ircmdEngine?.basicFFCUpdate()
@@ -45,11 +45,11 @@ object IRTool {
     /**
      *
      *
-     * 常温 ([CameraItemBean.TYPE_TMP_C] = 1）也就是高增益
+     * [Chinese text] ([CameraItemBean.TYPE_TMP_C] = 1)[Chinese text]high[Chinese text]
      *
-     * 高温 ([CameraItemBean.TYPE_TMP_H] = 0) 也就是低增益
+     * high[Chinese text] ([CameraItemBean.TYPE_TMP_H] = 0) [Chinese text]low[Chinese text]
      *
-     * 自动 ([CameraItemBean.TYPE_TMP_ZD] = -1)
+     * [Chinese text] ([CameraItemBean.TYPE_TMP_ZD] = -1)
      */
     fun basicGainSet(gainType : Int){
         if (gainType == CameraItemBean.TYPE_TMP_ZD){
@@ -68,7 +68,7 @@ object IRTool {
     }
 
     /**
-     * 对比度：参数是0-100
+     * [Chinese text]: [Chinese text]0-100
      */
     fun basicGlobalContrastLevelSet(levelValue : Int){
         val basicGlobalContrastLevelSetResult = DeviceIrcmdControlManager.getInstance().ircmdEngine
@@ -78,7 +78,7 @@ object IRTool {
         )
     }
     /**
-     * 锐度：参数是0-100，也就是细节
+     * [Chinese text]: [Chinese text]0-100, [Chinese text]
      */
     fun basicImageDetailEnhanceLevelSet(levelValue : Int){
 //        val professionModeSetResult = DeviceIrcmdControlManager.getInstance().ircmdEngine
@@ -89,10 +89,10 @@ object IRTool {
     }
 
     /**
-     * Settings镜像
+     * Settings[Chinese text]
      */
     fun basicMirrorAndFlipStatusSet(openMirror : Boolean){
-        // Settings图像镜像或翻转 PASS
+        // Settings[Chinese text] PASS
         val basicMirrorAndFlipStatusSet = DeviceIrcmdControlManager.getInstance().ircmdEngine
             ?.basicMirrorAndFlipStatusSet(if (openMirror) CommonParams.MirrorFlipType.ONLY_FLIP else
                 CommonParams.MirrorFlipType.NO_MIRROR_OR_FLIP)
@@ -100,18 +100,18 @@ object IRTool {
     }
 
     /**
-     * 一次完成的锅盖标定流程
+     * [Chinese text]
      * https:// alidocs.dingtalk.com/i/p/QqWXwywDMb9xKG31/docs/14lgGw3P8vL0P2qbu7OR39d5V5daZ90D
-     * Setp1：插上模组出图并确保当前模组达到热稳定状态，一般需要预热3-5分钟。
-     * 预热完成后，移动模组至标定靶面前，靠近但不接触靶面。靶面的成像覆盖全部视场、 无杂散光进入为最佳)；
-     * Setp2：重置锅盖标定数据，确保标定准确性
-     * Setp3：关闭自动快门
-     * Setp4：打快门
-     * Setp5：进行自动锅盖标定
-     * Setp6：恢复自动快门
-     * Setp7：如果标定有误，或者需要取消自动标定结果，可调用指令
+     * Setp1: [Chinese text], [Chinese text]3-5[Chinese text]. 
+     * [Chinese text], [Chinese text], [Chinese text]. [Chinese text],  [Chinese text]); 
+     * Setp2: [Chinese text], [Chinese text]
+     * Setp3: [Chinese text]
+     * Setp4: [Chinese text]
+     * Setp5: [Chinese text]
+     * Setp6: [Chinese text]
+     * Setp7: [Chinese text], [Chinese text], [Chinese text]
      * mIrcmdEngine.advRmcoverCaliCancel();
-     * 如果观察标定没有问题，即可保存锅盖标定数据，可调用指令
+     * [Chinese text]observation[Chinese text], [Chinese text], [Chinese text]
      * mIrcmdEngine.basicSaveData(CommonParams.DeviceDataSaveType.BASIC_SAVE_RMCOVER_DATA);
      */
     fun onceAuto() : Boolean{
@@ -136,7 +136,7 @@ object IRTool {
     }
 
     /**
-     * 高低增益模式下各做一组锅盖标定，如此模组的锅盖标定才是完整的流程
+     * highlow[Chinese text]mode[Chinese text], [Chinese text]
      */
     suspend fun autoStart() : Boolean{
         basicGainSet(CameraItemBean.TYPE_TMP_C)
@@ -153,7 +153,7 @@ object IRTool {
     }
 
     /**
-     * 开启机芯内部环境变量修正
+     * [Chinese text]
      */
     fun advEnvCorrectSwitchSet(open : Boolean){
         DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
@@ -162,8 +162,8 @@ object IRTool {
     }
 
     /**
-     * 机芯校正的
-     * 反射率：range:1~16384
+     * [Chinese text]
+     * [Chinese text]: range:1~16384
      */
     fun advEnvCorrectEMSSet(value : Int){
         DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
@@ -171,8 +171,8 @@ object IRTool {
     }
 
     /**
-     * 机芯校正的
-     * 反射温度(units:Celsius)：range:233~373
+     * [Chinese text]
+     * [Chinese text]temperature(units:Celsius): range:233~373
      */
     fun advEnvCorrectTUSet(value : Int){
         DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
@@ -180,16 +180,16 @@ object IRTool {
     }
 
     /**
-     * lite项目的温度修正
+     * lite[Chinese text]temperature[Chinese text]
      * @param temp Float
      * @param params_array FloatArray
-     * @param tau_data_H ByteArray 高增益修正表
-     * @param tau_data_L ByteArray 低增益修正表
+     * @param tau_data_H ByteArray high[Chinese text]
+     * @param tau_data_L ByteArray low[Chinese text]
      * @return Float
      */
     fun temperatureCorrection(temp : Float, params_array: FloatArray, tau_data_H: ByteArray, tau_data_L: ByteArray,basicGainGetValue : Int) : Float {
         var newTemp = temp
-        // 获取增益状态 PASS
+        // [Chinese text] PASS
         try {
             if (tau_data_H == null || tau_data_L == null) return temp
             newTemp = LibIRTempAC020.temperatureCorrection(
@@ -211,7 +211,7 @@ object IRTool {
     }
 
     /**
-     * Settings场景模式三
+     * Settings[Chinese text]mode[Chinese text]
      */
     fun setMode(){
 //        val professionModeSetResult = DeviceIrcmdControlManager.getInstance().ircmdEngine

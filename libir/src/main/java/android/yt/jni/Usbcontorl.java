@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
     /**
-     * Usbjni是framework提供的jni接口，必须保持类名不变，由继承类实现so加载判断。
+     * Usbjni[Chinese text]framework[Chinese text]jni[Chinese text], [Chinese text], [Chinese text]implementso[Chinese text]. 
      */
     public class Usbcontorl extends Usbjni {
 
@@ -19,9 +19,9 @@ import java.io.IOException;
             try {
                 reader = new BufferedReader(new FileReader(file));
                 String tempString = null;
-                // 一次读入一行，直到读入null为文件结束
+                // [Chinese text], [Chinese text]null[Chinese text]
                 while ((tempString = reader.readLine()) != null) {
-                    // 显示行号
+                    // [Chinese text]
                     if (tempString.contains("libusb3803_hub.so")) {
                         isload = true;
                         break;

@@ -69,10 +69,10 @@ import com.energy.iruvc.utils.SynchronizedBitmap;
                             Bitmap mScaledBitmap = Bitmap.createScaledBitmap(bitmap, getWidth(), getHeight(), true);
                             canvas.drawBitmap(mScaledBitmap, 0, 0, null);
 
-                            Paint paint = new Paint();  // 画笔
-                            paint.setStrokeWidth(2);  // Settings线宽。单位为像素
-                            paint.setAntiAlias(true); // 抗锯齿
-                            paint.setColor(Color.WHITE);  // 画笔颜色
+                            Paint paint = new Paint();  // [Chinese text]
+                            paint.setStrokeWidth(2);  // Settingsline[Chinese text]. [Chinese text]
+                            paint.setAntiAlias(true); // [Chinese text]
+                            paint.setColor(Color.WHITE);  // [Chinese text]
 
                             int cross_len = 20;
                             canvas.drawLine(getWidth() / 2f - cross_len, getHeight() / 2f,

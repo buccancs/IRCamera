@@ -10,15 +10,15 @@ import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.utils.CommUtils
 
 /**
- * 保存Settings开关牵扯面太广，分布太乱，统一封装使用.
+ * [Chinese text]Settings[Chinese text], [Chinese text], [Chinese text].
  *
- * 当前类封装受“保存Settings开关”影响的配置项，
+ * [Chinese text]"[Chinese text]Settings[Chinese text]"[Chinese text], 
  *
- * [SharedManager] 保存不受“保存Settings开关”影响的配置项.
+ * [SharedManager] [Chinese text]"[Chinese text]Settings[Chinese text]"[Chinese text].
  */
 object SaveSettingUtil {
     /**
-     * 保存Settings开关使用的 SharedPreferences 名称.
+     * [Chinese text]Settings[Chinese text] SharedPreferences [Chinese text].
      */
     private const val SP_NAME = "SaveSettingUtil"
 
@@ -33,29 +33,29 @@ object SaveSettingUtil {
     const val FusionTypeMeanFusion = 2
 
     /**
-     * 单红外
+     * [Chinese text]
      */
-    const val FusionTypeIROnly = 1 // 单独红外
+    const val FusionTypeIROnly = 1 // [Chinese text]
 
     /**
-     * 单可见光
+     * [Chinese text]visible[Chinese text]
      */
-    const val FusionTypeVLOnly = 0 // 单独可见光
+    const val FusionTypeVLOnly = 0 // [Chinese text]visible[Chinese text]
 
     /**
-     * 画中画
+     * [Chinese text]in progress[Chinese text]
      */
-    const val FusionTypeTC007Fusion = 7 // tc007的画中画
+    const val FusionTypeTC007Fusion = 7 // tc007[Chinese text]in progress[Chinese text]
 
     const val FusionTypeHSLFusion = 3
     const val FusionTypeScreenFusion = 5
     const val FusionTypeIROnlyNoFusion = 6
 
     /**
-     * 保存Settings开关关闭时，要将所有影响的配置项重置为默认项.
+     * [Chinese text]Settings[Chinese text], [Chinese text].
      */
     fun reset() {
-        // 热成像测温Observation mode共有
+        // [Chinese text]Observation mode[Chinese text]
         isMeasureTempMode = true
         isVideoMode = false
         isAutoShutter = true
@@ -66,7 +66,7 @@ object SaveSettingUtil {
         pseudoColorMode = 3
         rotateAngle = DeviceConfig.S_ROTATE_ANGLE
 
-        // Temperature measurement mode独有
+        // Temperature measurement mode[Chinese text]
         isOpenPseudoBar = true
         isOpenTwoLight = false
         twoLightAlpha = 50
@@ -75,7 +75,7 @@ object SaveSettingUtil {
         temperatureMode = CameraItemBean.TYPE_TMP_C
         alarmBean = AlarmBean()
 
-        // Observation mode独有
+        // Observation mode[Chinese text]
         isOpenCompass = false
         isOpenHighPoint = false
         isOpenLowPoint = false
@@ -93,7 +93,7 @@ object SaveSettingUtil {
     }
 
     /**
-     * 是否开启保存Settings开关，默认关闭.
+     * [Chinese text]Settings[Chinese text], [Chinese text].
      */
     var isSaveSetting: Boolean
         get() = SPUtils.getInstance(SP_NAME).getBoolean("isSaveSetting", true)
@@ -102,7 +102,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像是否处于Temperature measurement mode，默认Temperature measurement mode true-测温 false-观测
+     * [Chinese text]Temperature measurement mode, [Chinese text]Temperature measurement mode true-[Chinese text] false-[Chinese text]
      */
     var isMeasureTempMode: Boolean
         get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getBoolean("isMeasureTempMode", true) else true
@@ -113,7 +113,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 是否开启超分
+     * [Chinese text]
      */
     var isOpenAmplify: Boolean
         get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getBoolean("isOpenAmplify", false) else false
@@ -122,7 +122,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像是否选择录像模式，默认Photo capture true-录像 false-Photo capture
+     * [Chinese text]recordingmode, [Chinese text]Photo capture true-recording false-Photo capture
      */
     var isVideoMode: Boolean
         get() =
@@ -139,7 +139,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像是否打开自动快门，默认打开 true-打开 false-关闭
+     * [Chinese text], [Chinese text] true-[Chinese text] false-[Chinese text]
      */
     var isAutoShutter: Boolean
         get() =
@@ -156,7 +156,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像录像是否同时使用麦克风录制音频，默认关闭 true-开启 false-关闭
+     * [Chinese text]recording[Chinese text], [Chinese text] true-[Chinese text] false-[Chinese text]
      */
     var isRecordAudio: Boolean
         get() =
@@ -173,7 +173,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 延迟Photo capture或延时录制的延时秒数，单位秒，默认0秒即不延迟.
+     * [Chinese text]Photo capture[Chinese text], [Chinese text], [Chinese text]0[Chinese text].
      */
     var delayCaptureSecond: Int
         get() =
@@ -196,7 +196,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-Temperature measurement mode-是否开启Dual light，默认关闭 true-开启 false-关闭
+     * [Chinese text]-Temperature measurement mode-[Chinese text]Dual light, [Chinese text] true-[Chinese text] false-[Chinese text]
      */
     var isOpenTwoLight: Boolean
         get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getBoolean("isOpenTwoLight", false) else false
@@ -207,7 +207,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-Temperature measurement mode-Dual light开启时融合度，取值`[0,100]`，0表示完全不透明，100表示完全透明，默认 50%
+     * [Chinese text]-Temperature measurement mode-Dual light[Chinese text], [Chinese text]`[0,100]`, 0[Chinese text], 100[Chinese text], [Chinese text] 50%
      */
     var twoLightAlpha: Int
         get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getInt("twoLightAlpha", 50) else 50
@@ -218,7 +218,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像Pseudo color模式，取值为Pseudo color枚举值，默认铁红
+     * [Chinese text]Pseudo colormode, [Chinese text]Pseudo color[Chinese text], [Chinese text]
      */
     var pseudoColorMode: Int
         get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getInt("pseudoColorMode", 3) else 3
@@ -229,7 +229,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-Temperature measurement mode-是否开启Pseudo color条，默认开启 true-开启 false-关闭
+     * [Chinese text]-Temperature measurement mode-[Chinese text]Pseudo color[Chinese text], [Chinese text] true-[Chinese text] false-[Chinese text]
      */
     var isOpenPseudoBar: Boolean
         get() =
@@ -246,7 +246,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像对比度，取值范围`[0,255]`，默认 128
+     * [Chinese text], [Chinese text]range`[0,255]`, [Chinese text] 128
      */
     var contrastValue: Int
         get() =
@@ -263,7 +263,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-Temperature measurement mode-锐度(细节增强等级)，取值范围`[0,4]`，默认为 2
+     * [Chinese text]-Temperature measurement mode-[Chinese text]([Chinese text]), [Chinese text]range`[0,4]`, [Chinese text] 2
      */
     var ddeConfig: Int
         get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getInt("ddeConfig", 2) else 2
@@ -274,7 +274,7 @@ object SaveSettingUtil {
         }
 
     /**
-     *热成像-Temperature measurement mode-温度报警相关Settings项.
+     *[Chinese text]-Temperature measurement mode-temperature[Chinese text]Settings[Chinese text].
      */
     var alarmBean: AlarmBean
         get() =
@@ -291,7 +291,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像画面逆时针旋转角度，取值 0、90、180、270，默认 [DeviceConfig.S_ROTATE_ANGLE]
+     * [Chinese text], [Chinese text] 0, 90, 180, 270, [Chinese text] [DeviceConfig.S_ROTATE_ANGLE]
      */
     var rotateAngle: Int
         get() =
@@ -308,7 +308,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像是否开启镜像，默认关闭即不镜像 true-镜像 false-不镜像
+     * [Chinese text], [Chinese text] true-[Chinese text] false-[Chinese text]
      */
     var isOpenMirror: Boolean
         get() =
@@ -325,7 +325,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-Observation mode-是否开启指南针，默认关闭 true-开启 false-关闭
+     * [Chinese text]-Observation mode-[Chinese text], [Chinese text] true-[Chinese text] false-[Chinese text]
      */
     var isOpenCompass: Boolean
         get() =
@@ -342,7 +342,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-Temperature measurement mode-温度字体颜色值，默认白色.
+     * [Chinese text]-Temperature measurement mode-temperature[Chinese text], [Chinese text].
      */
     var tempTextColor: Int
         get() =
@@ -359,7 +359,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-Temperature measurement mode-温度字体颜色值，默认14sp.
+     * [Chinese text]-Temperature measurement mode-temperature[Chinese text], [Chinese text]14sp.
      */
     var tempTextSize: Int
         get() =
@@ -376,13 +376,13 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-Temperature measurement mode-温度档位，默认常温，取值
+     * [Chinese text]-Temperature measurement mode-temperaturelevel, [Chinese text], [Chinese text]
      *
-     * 常温 ([CameraItemBean.TYPE_TMP_C] = 1）
+     * [Chinese text] ([CameraItemBean.TYPE_TMP_C] = 1)
      *
-     * 高温 ([CameraItemBean.TYPE_TMP_H] = 0)
+     * high[Chinese text] ([CameraItemBean.TYPE_TMP_H] = 0)
      *
-     * 自动 ([CameraItemBean.TYPE_TMP_ZD] = -1)
+     * [Chinese text] ([CameraItemBean.TYPE_TMP_ZD] = -1)
      */
     var temperatureMode: Int
         get() =
@@ -399,7 +399,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-Observation mode-是否开启高温点，默认关闭 true-开启 false-关闭
+     * [Chinese text]-Observation mode-[Chinese text]high[Chinese text]point, [Chinese text] true-[Chinese text] false-[Chinese text]
      */
     var isOpenHighPoint: Boolean
         get() =
@@ -416,7 +416,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-Observation mode-是否开启低温点，默认关闭 true-开启 false-关闭
+     * [Chinese text]-Observation mode-[Chinese text]low[Chinese text]point, [Chinese text] true-[Chinese text] false-[Chinese text]
      */
     var isOpenLowPoint: Boolean
         get() =
@@ -433,15 +433,15 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-Observation mode-选中AI追踪类型，默认未选中，取值
+     * [Chinese text]-Observation mode-[Chinese text]in progressAI[Chinese text], [Chinese text]in progress, [Chinese text]
      *
-     * 未选中 ([ObserveBean.TYPE_NONE] = -1)
+     * [Chinese text]in progress ([ObserveBean.TYPE_NONE] = -1)
      *
-     * 动态识别 ([ObserveBean.TYPE_DYN_R] = 0)
+     * [Chinese text] ([ObserveBean.TYPE_DYN_R] = 0)
      *
-     * 高温源 ([ObserveBean.TYPE_TMP_H_S] = 1)
+     * high[Chinese text] ([ObserveBean.TYPE_TMP_H_S] = 1)
      *
-     * 低温源 ([ObserveBean.TYPE_TMP_L_S] = 2)
+     * low[Chinese text] ([ObserveBean.TYPE_TMP_L_S] = 2)
      */
     var aiTraceType: Int
         get() =
@@ -458,7 +458,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-Observation mode-Target-是否开启Target，默认关闭 true-开启 false-关闭
+     * [Chinese text]-Observation mode-Target-[Chinese text]Target, [Chinese text] true-[Chinese text] false-[Chinese text]
      */
     var isOpenTarget: Boolean
         get() =
@@ -475,15 +475,15 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-Observation mode-Target-Target测量模式，默认人，取值
+     * [Chinese text]-Observation mode-Target-Targetmeasurementmode, [Chinese text], [Chinese text]
      *
-     * 人 ([ObserveBean.TYPE_MEASURE_PERSON] = 10)
+     * [Chinese text] ([ObserveBean.TYPE_MEASURE_PERSON] = 10)
      *
-     * 羊 ([ObserveBean.TYPE_MEASURE_SHEEP] = 11)
+     * [Chinese text] ([ObserveBean.TYPE_MEASURE_SHEEP] = 11)
      *
-     * 狗 ([ObserveBean.TYPE_MEASURE_DOG] = 12)
+     * [Chinese text] ([ObserveBean.TYPE_MEASURE_DOG] = 12)
      *
-     * 鸟 ([ObserveBean.TYPE_MEASURE_BIRD] = 13)
+     * [Chinese text] ([ObserveBean.TYPE_MEASURE_BIRD] = 13)
      */
     var targetMeasureMode: Int
         get() =
@@ -502,13 +502,13 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-Observation mode-Target-Target类型，默认横向，取值
+     * [Chinese text]-Observation mode-Target-Target[Chinese text], [Chinese text], [Chinese text]
      *
-     * 横向 ([ObserveBean.TYPE_TARGET_HORIZONTAL] = 15)
+     * [Chinese text] ([ObserveBean.TYPE_TARGET_HORIZONTAL] = 15)
      *
-     * 竖向 ([ObserveBean.TYPE_TARGET_VERTICAL] = 16)
+     * [Chinese text] ([ObserveBean.TYPE_TARGET_VERTICAL] = 16)
      *
-     * 圆形 ([ObserveBean.TYPE_TARGET_CIRCLE] = 17)
+     * circular ([ObserveBean.TYPE_TARGET_CIRCLE] = 17)
      */
     var targetType: Int
         get() =
@@ -527,17 +527,17 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-Observation mode-Target-Target颜色，默认绿色，取值
+     * [Chinese text]-Observation mode-Target-Target[Chinese text], [Chinese text], [Chinese text]
      *
-     * 绿色 ([ObserveBean.TYPE_TARGET_COLOR_GREEN] = 20)
+     * [Chinese text] ([ObserveBean.TYPE_TARGET_COLOR_GREEN] = 20)
      *
-     * 红色 ([ObserveBean.TYPE_TARGET_COLOR_RED] = 21)
+     * [Chinese text] ([ObserveBean.TYPE_TARGET_COLOR_RED] = 21)
      *
-     * 蓝色 ([ObserveBean.TYPE_TARGET_COLOR_BLUE] = 22)
+     * [Chinese text] ([ObserveBean.TYPE_TARGET_COLOR_BLUE] = 22)
      *
-     * 黑色 ([ObserveBean.TYPE_TARGET_COLOR_BLACK] = 23)
+     * [Chinese text] ([ObserveBean.TYPE_TARGET_COLOR_BLACK] = 23)
      *
-     * 白色 ([ObserveBean.TYPE_TARGET_COLOR_WHITE] = 24)
+     * [Chinese text] ([ObserveBean.TYPE_TARGET_COLOR_WHITE] = 24)
      */
     var targetColorType: Int
         get() =
@@ -556,7 +556,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 报告-作者名称，默认值 App 名称.
+     * [Chinese text]-[Chinese text], [Chinese text] App [Chinese text].
      */
     var reportAuthorName: String
         get() =
@@ -573,7 +573,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 报告-水印内容，默认值 App 名称.
+     * [Chinese text]-[Chinese text], [Chinese text] App [Chinese text].
      */
     var reportWatermarkText: String
         get() =
@@ -590,7 +590,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 报告-环境湿度千分比，默认值500，取值`[0, 1000]`
+     * [Chinese text]-[Chinese text], [Chinese text]500, [Chinese text]`[0, 1000]`
      */
     var reportHumidity: Int
         get() =

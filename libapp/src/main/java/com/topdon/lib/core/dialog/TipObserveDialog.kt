@@ -12,7 +12,7 @@ import com.topdon.lib.core.databinding.DialogTipObserveBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * 观测-弹框封装
+ * [Chinese text]-[Chinese text]
  */
 class TipObserveDialog : Dialog {
     constructor(context: Context) : super(context)
@@ -85,13 +85,13 @@ class TipObserveDialog : Dialog {
             val lp = dialog!!.window!!.attributes
             val wRatio =
                 if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    // 竖屏
+                    // [Chinese text]
                     0.75
                 } else {
-                    // 横屏
+                    // [Chinese text]
                     0.35
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // Settings宽度
+            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // Settings[Chinese text]
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceled)

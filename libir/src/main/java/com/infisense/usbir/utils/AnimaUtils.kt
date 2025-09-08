@@ -10,22 +10,22 @@ import android.view.animation.ScaleAnimation
  */
 public object AnimaUtils{
     /**
-     * 默认动画持续时间
+     * [Chinese text]
      */
     const val DEFAULT_ANIMATION_DURATION: Long = 400
 
     /**
-     * 获取一个旋转动画
+     * [Chinese text]
      *
-     * @param fromDegrees       开始角度
-     * @param toDegrees         结束角度
-     * @param pivotXType        旋转中心点X轴坐标相对类型
-     * @param pivotXValue       旋转中心点X轴坐标
-     * @param pivotYType        旋转中心点Y轴坐标相对类型
-     * @param pivotYValue       旋转中心点Y轴坐标
-     * @param durationMillis    持续时间
-     * @param animationListener 动画监听器
-     * @return 一个旋转动画
+     * @param fromDegrees       start[Chinese text]
+     * @param toDegrees         [Chinese text]
+     * @param pivotXType        [Chinese text]in progress[Chinese text]pointX[Chinese text]
+     * @param pivotXValue       [Chinese text]in progress[Chinese text]pointX[Chinese text]
+     * @param pivotYType        [Chinese text]in progress[Chinese text]pointY[Chinese text]
+     * @param pivotYValue       [Chinese text]in progress[Chinese text]pointY[Chinese text]
+     * @param durationMillis    [Chinese text]
+     * @param animationListener [Chinese text]listener[Chinese text]
+     * @return [Chinese text]
      */
     fun getRotateAnimation(
         fromDegrees: Float,
@@ -49,11 +49,11 @@ public object AnimaUtils{
     }
 
     /**
-     * 获取一个根据视图自身中心点旋转的动画
+     * [Chinese text]in progress[Chinese text]point[Chinese text]
      *
-     * @param durationMillis    动画持续时间
-     * @param animationListener 动画监听器
-     * @return 一个根据中心点旋转的动画
+     * @param durationMillis    [Chinese text]
+     * @param animationListener [Chinese text]listener[Chinese text]
+     * @return [Chinese text]in progress[Chinese text]point[Chinese text]
      */
     fun getRotateAnimationByCenter(
         durationMillis: Long,
@@ -67,20 +67,20 @@ public object AnimaUtils{
     }
 
     /**
-     * 获取一个根据中心点旋转的动画
+     * [Chinese text]in progress[Chinese text]point[Chinese text]
      *
-     * @param duration 动画持续时间
-     * @return 一个根据中心点旋转的动画
+     * @param duration [Chinese text]
+     * @return [Chinese text]in progress[Chinese text]point[Chinese text]
      */
     fun getRotateAnimationByCenter(duration: Long): RotateAnimation {
         return getRotateAnimationByCenter(duration, null)
     }
 
     /**
-     * 获取一个根据视图自身中心点旋转的动画
+     * [Chinese text]in progress[Chinese text]point[Chinese text]
      *
-     * @param animationListener 动画监听器
-     * @return 一个根据中心点旋转的动画
+     * @param animationListener [Chinese text]listener[Chinese text]
+     * @return [Chinese text]in progress[Chinese text]point[Chinese text]
      */
     fun getRotateAnimationByCenter(animationListener: Animation.AnimationListener?): RotateAnimation {
         return getRotateAnimationByCenter(
@@ -90,21 +90,21 @@ public object AnimaUtils{
     }
 
     /**
-     * 获取一个根据中心点旋转的动画
+     * [Chinese text]in progress[Chinese text]point[Chinese text]
      *
-     * @return 一个根据中心点旋转的动画，默认持续时间为DEFAULT_ANIMATION_DURATION
+     * @return [Chinese text]in progress[Chinese text]point[Chinese text], [Chinese text]DEFAULT_ANIMATION_DURATION
      */
     val rotateAnimationByCenter: RotateAnimation
         get() = getRotateAnimationByCenter(DEFAULT_ANIMATION_DURATION, null)
 
     /**
-     * 获取一个透明度渐变动画
+     * [Chinese text]
      *
-     * @param fromAlpha         开始时的透明度
-     * @param toAlpha           结束时的透明度都
-     * @param durationMillis    持续时间
-     * @param animationListener 动画监听器
-     * @return 一个透明度渐变动画
+     * @param fromAlpha         start[Chinese text]
+     * @param toAlpha           [Chinese text]
+     * @param durationMillis    [Chinese text]
+     * @param animationListener [Chinese text]listener[Chinese text]
+     * @return [Chinese text]
      */
     fun getAlphaAnimation(
         fromAlpha: Float,
@@ -121,12 +121,12 @@ public object AnimaUtils{
     }
 
     /**
-     * 获取一个透明度渐变动画
+     * [Chinese text]
      *
-     * @param fromAlpha      开始时的透明度
-     * @param toAlpha        结束时的透明度都
-     * @param durationMillis 持续时间
-     * @return 一个透明度渐变动画
+     * @param fromAlpha      start[Chinese text]
+     * @param toAlpha        [Chinese text]
+     * @param durationMillis [Chinese text]
+     * @return [Chinese text]
      */
     fun getAlphaAnimation(
         fromAlpha: Float,
@@ -137,12 +137,12 @@ public object AnimaUtils{
     }
 
     /**
-     * 获取一个透明度渐变动画
+     * [Chinese text]
      *
-     * @param fromAlpha         开始时的透明度
-     * @param toAlpha           结束时的透明度都
-     * @param animationListener 动画监听器
-     * @return 一个透明度渐变动画，默认持续时间为DEFAULT_ANIMATION_DURATION
+     * @param fromAlpha         start[Chinese text]
+     * @param toAlpha           [Chinese text]
+     * @param animationListener [Chinese text]listener[Chinese text]
+     * @return [Chinese text], [Chinese text]DEFAULT_ANIMATION_DURATION
      */
     fun getAlphaAnimation(
         fromAlpha: Float,
@@ -156,11 +156,11 @@ public object AnimaUtils{
     }
 
     /**
-     * 获取一个透明度渐变动画
+     * [Chinese text]
      *
-     * @param fromAlpha 开始时的透明度
-     * @param toAlpha   结束时的透明度都
-     * @return 一个透明度渐变动画，默认持续时间为DEFAULT_ANIMATION_DURATION
+     * @param fromAlpha start[Chinese text]
+     * @param toAlpha   [Chinese text]
+     * @return [Chinese text], [Chinese text]DEFAULT_ANIMATION_DURATION
      */
     fun getAlphaAnimation(fromAlpha: Float, toAlpha: Float): AlphaAnimation {
         return getAlphaAnimation(
@@ -170,11 +170,11 @@ public object AnimaUtils{
     }
 
     /**
-     * 获取一个由完全显示变为不可见的透明度渐变动画
+     * [Chinese text]visible[Chinese text]
      *
-     * @param durationMillis    持续时间
-     * @param animationListener 动画监听器
-     * @return 一个由完全显示变为不可见的透明度渐变动画
+     * @param durationMillis    [Chinese text]
+     * @param animationListener [Chinese text]listener[Chinese text]
+     * @return [Chinese text]visible[Chinese text]
      */
     fun getHiddenAlphaAnimation(
         durationMillis: Long,
@@ -184,20 +184,20 @@ public object AnimaUtils{
     }
 
     /**
-     * 获取一个由完全显示变为不可见的透明度渐变动画
+     * [Chinese text]visible[Chinese text]
      *
-     * @param durationMillis 持续时间
-     * @return 一个由完全显示变为不可见的透明度渐变动画
+     * @param durationMillis [Chinese text]
+     * @return [Chinese text]visible[Chinese text]
      */
     fun getHiddenAlphaAnimation(durationMillis: Long): AlphaAnimation {
         return getHiddenAlphaAnimation(durationMillis, null)
     }
 
     /**
-     * 获取一个由完全显示变为不可见的透明度渐变动画
+     * [Chinese text]visible[Chinese text]
      *
-     * @param animationListener 动画监听器
-     * @return 一个由完全显示变为不可见的透明度渐变动画，默认持续时间为DEFAULT_ANIMATION_DURATION
+     * @param animationListener [Chinese text]listener[Chinese text]
+     * @return [Chinese text]visible[Chinese text], [Chinese text]DEFAULT_ANIMATION_DURATION
      */
     fun getHiddenAlphaAnimation(animationListener: Animation.AnimationListener?): AlphaAnimation {
         return getHiddenAlphaAnimation(
@@ -207,19 +207,19 @@ public object AnimaUtils{
     }
 
     /**
-     * 获取一个由完全显示变为不可见的透明度渐变动画
+     * [Chinese text]visible[Chinese text]
      *
-     * @return 一个由完全显示变为不可见的透明度渐变动画，默认持续时间为DEFAULT_ANIMATION_DURATION
+     * @return [Chinese text]visible[Chinese text], [Chinese text]DEFAULT_ANIMATION_DURATION
      */
     val hiddenAlphaAnimation: AlphaAnimation
         get() = getHiddenAlphaAnimation(DEFAULT_ANIMATION_DURATION, null)
 
     /**
-     * 获取一个由不可见变为完全显示的透明度渐变动画
+     * [Chinese text]visible[Chinese text]
      *
-     * @param durationMillis    持续时间
-     * @param animationListener 动画监听器
-     * @return 一个由不可见变为完全显示的透明度渐变动画
+     * @param durationMillis    [Chinese text]
+     * @param animationListener [Chinese text]listener[Chinese text]
+     * @return [Chinese text]visible[Chinese text]
      */
     fun getShowAlphaAnimation(
         durationMillis: Long,
@@ -229,20 +229,20 @@ public object AnimaUtils{
     }
 
     /**
-     * 获取一个由不可见变为完全显示的透明度渐变动画
+     * [Chinese text]visible[Chinese text]
      *
-     * @param durationMillis 持续时间
-     * @return 一个由不可见变为完全显示的透明度渐变动画
+     * @param durationMillis [Chinese text]
+     * @return [Chinese text]visible[Chinese text]
      */
     fun getShowAlphaAnimation(durationMillis: Long): AlphaAnimation {
         return getAlphaAnimation(0.0f, 1.0f, durationMillis, null)
     }
 
     /**
-     * 获取一个由不可见变为完全显示的透明度渐变动画
+     * [Chinese text]visible[Chinese text]
      *
-     * @param animationListener 动画监听器
-     * @return 一个由不可见变为完全显示的透明度渐变动画，默认持续时间为DEFAULT_ANIMATION_DURATION
+     * @param animationListener [Chinese text]listener[Chinese text]
+     * @return [Chinese text]visible[Chinese text], [Chinese text]DEFAULT_ANIMATION_DURATION
      */
     fun getShowAlphaAnimation(animationListener: Animation.AnimationListener?): AlphaAnimation {
         return getAlphaAnimation(
@@ -252,19 +252,19 @@ public object AnimaUtils{
     }
 
     /**
-     * 获取一个由不可见变为完全显示的透明度渐变动画
+     * [Chinese text]visible[Chinese text]
      *
-     * @return 一个由不可见变为完全显示的透明度渐变动画，默认持续时间为DEFAULT_ANIMATION_DURATION
+     * @return [Chinese text]visible[Chinese text], [Chinese text]DEFAULT_ANIMATION_DURATION
      */
     val showAlphaAnimation: AlphaAnimation
         get() = getAlphaAnimation(0.0f, 1.0f, DEFAULT_ANIMATION_DURATION, null)
 
     /**
-     * 获取一个缩小动画
+     * [Chinese text]
      *
-     * @param durationMillis   时间
-     * @param animationListener  监听
-     * @return 一个缩小动画
+     * @param durationMillis   [Chinese text]
+     * @param animationListener  listener
+     * @return [Chinese text]
      */
     fun getLessenScaleAnimation(
         durationMillis: Long,
@@ -281,20 +281,20 @@ public object AnimaUtils{
     }
 
     /**
-     * 获取一个缩小动画
+     * [Chinese text]
      *
-     * @param durationMillis 时间
-     * @return 一个缩小动画
+     * @param durationMillis [Chinese text]
+     * @return [Chinese text]
      */
     fun getLessenScaleAnimation(durationMillis: Long): ScaleAnimation {
         return getLessenScaleAnimation(durationMillis, null)
     }
 
     /**
-     * 获取一个缩小动画
+     * [Chinese text]
      *
-     * @param animationListener  监听
-     * @return 返回一个缩小的动画
+     * @param animationListener  listener
+     * @return [Chinese text]
      */
     fun getLessenScaleAnimation(animationListener: Animation.AnimationListener?): ScaleAnimation {
         return getLessenScaleAnimation(
@@ -304,11 +304,11 @@ public object AnimaUtils{
     }
 
     /**
-     * 获取一个放大动画
-     * @param durationMillis   时间
-     * @param animationListener  监听
+     * [Chinese text]
+     * @param durationMillis   [Chinese text]
+     * @param animationListener  listener
      *
-     * @return 返回一个放大的效果
+     * @return [Chinese text]
      */
     fun getAmplificationAnimation(
         durationMillis: Long,
@@ -325,21 +325,21 @@ public object AnimaUtils{
     }
 
     /**
-     * 获取一个放大动画
+     * [Chinese text]
      *
-     * @param durationMillis   时间
+     * @param durationMillis   [Chinese text]
      *
-     * @return 返回一个放大的效果
+     * @return [Chinese text]
      */
     fun getAmplificationAnimation(durationMillis: Long): ScaleAnimation {
         return getAmplificationAnimation(durationMillis, null)
     }
 
     /**
-     * 获取一个放大动画
+     * [Chinese text]
      *
-     * @param animationListener  监听
-     * @return 返回一个放大的效果
+     * @param animationListener  listener
+     * @return [Chinese text]
      */
     fun getAmplificationAnimation(animationListener: Animation.AnimationListener?): ScaleAnimation {
         return getAmplificationAnimation(

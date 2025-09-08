@@ -22,8 +22,8 @@ fun View.invisible(){
 }
 
 /**
- * 隐藏view，带有渐隐动画效果。
- * @param duration 毫秒，动画持续时长，默认500毫秒。
+ * [Chinese text]view, [Chinese text]. 
+ * @param duration [Chinese text], [Chinese text], [Chinese text]500[Chinese text]. 
  */
 fun View?.goneAlphaAnimation(duration: Long = 500L) {
     this?.visibility = View.GONE
@@ -34,8 +34,8 @@ fun View?.goneAlphaAnimation(duration: Long = 500L) {
 }
 
 /**
- * 占位隐藏view，带有渐隐动画效果。
- * @param duration 毫秒，动画持续时长，默认500毫秒。
+ * [Chinese text]view, [Chinese text]. 
+ * @param duration [Chinese text], [Chinese text], [Chinese text]500[Chinese text]. 
  */
 fun View?.invisibleAlphaAnimation(duration: Long = 500L) {
     this?.visibility = View.INVISIBLE
@@ -46,9 +46,9 @@ fun View?.invisibleAlphaAnimation(duration: Long = 500L) {
 }
 
 /**
- * 显示view，带有渐显动画效果。
+ * [Chinese text]view, [Chinese text]. 
  *
- * @param duration 毫秒，动画持续时长，默认500毫秒。
+ * @param duration [Chinese text], [Chinese text], [Chinese text]500[Chinese text]. 
  */
 fun View?.visibleAlphaAnimation(duration: Long = 500L) {
     this?.visibility = View.VISIBLE

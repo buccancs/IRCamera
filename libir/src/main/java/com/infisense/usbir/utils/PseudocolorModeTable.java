@@ -8,7 +8,7 @@ package com.infisense.usbir.utils;
     public final class PseudocolorModeTable {
 
         /**
-     * 白热数据
+     * [Chinese text]
      */
     public final static int[][] pseudocolorMapTableOfBAIRE = new int[][]{
             {0, 0, 0}, {1, 1, 1}, {2, 2, 2}, {3, 3, 3},
@@ -77,9 +77,9 @@ package com.infisense.usbir.utils;
             {252, 252, 252}, {253, 253, 253}, {254, 254, 254}, {255, 255, 255},
     };
 
-    // 红色RGB值
+    // [Chinese text]RGB[Chinese text]
     public static final int[] RED_RGB = {205, 38, 38};
 
-    // 蓝色RGB值
+    // [Chinese text]RGB[Chinese text]
     public static final int[] BLUE_RGB = {0, 0, 205};
 }

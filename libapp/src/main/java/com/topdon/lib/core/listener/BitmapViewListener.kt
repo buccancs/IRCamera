@@ -1,7 +1,7 @@
 package com.topdon.lib.core.listener
 
 /**
- * 获取内嵌VIEW的属性值
+ * [Chinese text]VIEW[Chinese text]
  * @author: CaiSongL
  * @date: 2023/4/10 19:08
  */

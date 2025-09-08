@@ -4,7 +4,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 /**
- * 这个工具可以使任何一个view进行拖动。
+ * [Chinese text]view[Chinese text]. 
  * @author: CaiSongL
  * @date: 2023/10/25 11:42
  */
@@ -14,10 +14,10 @@ public class DragViewUtil {
     }
 
         /**
-     * 拖动View方法
+     * [Chinese text]View[Chinese text]
      *
      * @param v     view
-     * @param delay 延迟
+     * @param delay [Chinese text]
      */
     public static void registerDragAction(View v, long delay) {
         v.setOnTouchListener(new TouchListener(delay));

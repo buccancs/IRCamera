@@ -2,7 +2,7 @@
 
 Comprehensive system architecture documentation for the Multi-Modal Physiological Sensing Platform.
 
-## 🏛️ System Overview
+## [building] System Overview
 
 ### High-Level Architecture
 
@@ -62,7 +62,7 @@ graph TB
 - **Sensor modularity**: New sensors integrate via common interfaces
 - **Performance isolation**: C++ backend for high-throughput operations
 
-## 📱 Android Architecture (Sensor Node)
+## [mobile] Android Architecture (Sensor Node)
 
 ### MVVM Architecture Pattern
 
@@ -102,80 +102,80 @@ graph TB
 
 ```
 com.topdon.irCamera/
-├── ui/                           # Presentation Layer
-│   ├── activities/
-│   │   ├── MainActivity.kt       # Main entry point
-│   │   ├── MultiModalRecordingActivity.kt  # Recording interface
-│   │   └── SettingsActivity.kt   # Configuration
-│   ├── fragments/
-│   │   ├── RecordingFragment.kt  # Recording controls
-│   │   ├── DeviceFragment.kt     # Device management
-│   │   └── DataFragment.kt       # Data visualization
-│   ├── viewmodels/
-│   │   ├── RecordingViewModel.kt # Recording state management
-│   │   ├── DeviceViewModel.kt    # Device connection state
-│   │   └── DataViewModel.kt      # Data stream management
-│   └── adapters/
-│       ├── DeviceListAdapter.kt  # Device selection
-│       └── SessionListAdapter.kt # Session history
-├── domain/                       # Business Logic Layer
-│   ├── usecases/
-│   │   ├── StartRecordingUseCase.kt    # Recording orchestration
-│   │   ├── SyncDevicesUseCase.kt       # Time synchronization
-│   │   └── ManageSessionUseCase.kt     # Session lifecycle
-│   ├── repositories/
-│   │   ├── RecordingRepository.kt      # Recording data interface
-│   │   ├── DeviceRepository.kt         # Device management interface
-│   │   └── SessionRepository.kt        # Session data interface
-│   └── models/
-│       ├── Session.kt            # Session domain model
-│       ├── RecordingConfig.kt    # Configuration model
-│       └── SensorData.kt         # Sensor data models
-├── data/                         # Data Access Layer
-│   ├── repositories/
-│   │   ├── RecordingRepositoryImpl.kt  # Recording implementation
-│   │   ├── DeviceRepositoryImpl.kt     # Device implementation
-│   │   └── SessionRepositoryImpl.kt    # Session implementation
-│   ├── datasources/
-│   │   ├── local/
-│   │   │   ├── SessionDatabase.kt      # Room database
-│   │   │   ├── FileManager.kt          # File operations
-│   │   │   └── PreferencesManager.kt   # Settings storage
-│   │   ├── remote/
-│   │   │   ├── NetworkClient.kt        # PC communication
-│   │   │   └── ProtocolHandler.kt      # Message parsing
-│   │   └── sensors/
-│   │       ├── ShimmerDataSource.kt    # GSR sensor interface
-│   │       ├── CameraDataSource.kt     # Camera interface
-│   │       └── ThermalDataSource.kt    # Thermal interface
-├── sensors/                      # Sensor Integration Layer
-│   ├── interfaces/
-│   │   └── SensorRecorder.kt     # Common sensor interface
-│   ├── gsr/
-│   │   ├── GSRRecorder.kt        # Shimmer3 integration
-│   │   ├── ShimmerManager.kt     # Bluetooth management
-│   │   └── GSRDataProcessor.kt   # Signal processing
-│   ├── camera/
-│   │   ├── RgbCameraRecorder.kt  # RGB video recording
-│   │   ├── RawImageRecorder.kt   # DNG capture
-│   │   └── CameraManager.kt      # Camera lifecycle
-│   └── thermal/
-│       ├── ThermalRecorder.kt    # Thermal recording
-│       └── ThermalProcessor.kt   # IR data processing
-├── network/                      # Network Communication Layer
-│   ├── NetworkClient.kt          # TCP client implementation
-│   ├── MessageHandler.kt         # Protocol message handling
-│   ├── DiscoveryService.kt       # PC Controller discovery
-│   └── SecurityManager.kt        # TLS encryption
-├── service/                      # Background Services
-│   ├── RecordingService.kt       # Foreground recording service
-│   ├── NetworkService.kt         # Background connectivity
-│   └── SyncService.kt            # Time synchronization
-└── utils/                        # Utility Classes
-    ├── TimeManager.kt            # Time utilities
-    ├── FileUtils.kt              # File operations
-    ├── SecurityUtils.kt          # Encryption utilities
-    └── Extensions.kt             # Kotlin extensions
++-- ui/                           # Presentation Layer
+|   +-- activities/
+|   |   +-- MainActivity.kt       # Main entry point
+|   |   +-- MultiModalRecordingActivity.kt  # Recording interface
+|   |   +-- SettingsActivity.kt   # Configuration
+|   +-- fragments/
+|   |   +-- RecordingFragment.kt  # Recording controls
+|   |   +-- DeviceFragment.kt     # Device management
+|   |   +-- DataFragment.kt       # Data visualization
+|   +-- viewmodels/
+|   |   +-- RecordingViewModel.kt # Recording state management
+|   |   +-- DeviceViewModel.kt    # Device connection state
+|   |   +-- DataViewModel.kt      # Data stream management
+|   +-- adapters/
+|       +-- DeviceListAdapter.kt  # Device selection
+|       +-- SessionListAdapter.kt # Session history
++-- domain/                       # Business Logic Layer
+|   +-- usecases/
+|   |   +-- StartRecordingUseCase.kt    # Recording orchestration
+|   |   +-- SyncDevicesUseCase.kt       # Time synchronization
+|   |   +-- ManageSessionUseCase.kt     # Session lifecycle
+|   +-- repositories/
+|   |   +-- RecordingRepository.kt      # Recording data interface
+|   |   +-- DeviceRepository.kt         # Device management interface
+|   |   +-- SessionRepository.kt        # Session data interface
+|   +-- models/
+|       +-- Session.kt            # Session domain model
+|       +-- RecordingConfig.kt    # Configuration model
+|       +-- SensorData.kt         # Sensor data models
++-- data/                         # Data Access Layer
+|   +-- repositories/
+|   |   +-- RecordingRepositoryImpl.kt  # Recording implementation
+|   |   +-- DeviceRepositoryImpl.kt     # Device implementation
+|   |   +-- SessionRepositoryImpl.kt    # Session implementation
+|   +-- datasources/
+|   |   +-- local/
+|   |   |   +-- SessionDatabase.kt      # Room database
+|   |   |   +-- FileManager.kt          # File operations
+|   |   |   +-- PreferencesManager.kt   # Settings storage
+|   |   +-- remote/
+|   |   |   +-- NetworkClient.kt        # PC communication
+|   |   |   +-- ProtocolHandler.kt      # Message parsing
+|   |   +-- sensors/
+|   |       +-- ShimmerDataSource.kt    # GSR sensor interface
+|   |       +-- CameraDataSource.kt     # Camera interface
+|   |       +-- ThermalDataSource.kt    # Thermal interface
++-- sensors/                      # Sensor Integration Layer
+|   +-- interfaces/
+|   |   +-- SensorRecorder.kt     # Common sensor interface
+|   +-- gsr/
+|   |   +-- GSRRecorder.kt        # Shimmer3 integration
+|   |   +-- ShimmerManager.kt     # Bluetooth management
+|   |   +-- GSRDataProcessor.kt   # Signal processing
+|   +-- camera/
+|   |   +-- RgbCameraRecorder.kt  # RGB video recording
+|   |   +-- RawImageRecorder.kt   # DNG capture
+|   |   +-- CameraManager.kt      # Camera lifecycle
+|   +-- thermal/
+|       +-- ThermalRecorder.kt    # Thermal recording
+|       +-- ThermalProcessor.kt   # IR data processing
++-- network/                      # Network Communication Layer
+|   +-- NetworkClient.kt          # TCP client implementation
+|   +-- MessageHandler.kt         # Protocol message handling
+|   +-- DiscoveryService.kt       # PC Controller discovery
+|   +-- SecurityManager.kt        # TLS encryption
++-- service/                      # Background Services
+|   +-- RecordingService.kt       # Foreground recording service
+|   +-- NetworkService.kt         # Background connectivity
+|   +-- SyncService.kt            # Time synchronization
++-- utils/                        # Utility Classes
+    +-- TimeManager.kt            # Time utilities
+    +-- FileUtils.kt              # File operations
+    +-- SecurityUtils.kt          # Encryption utilities
+    +-- Extensions.kt             # Kotlin extensions
 ```
 
 ### Key Android Components
@@ -242,7 +242,7 @@ interface SensorRecorder {
 }
 ```
 
-## 🖥️ PC Controller Architecture (Hub)
+## [desktop] PC Controller Architecture (Hub)
 
 ### Modular Architecture
 
@@ -579,7 +579,7 @@ PYBIND11_MODULE(native_backend, m) {
 }
 ```
 
-## 🌐 Communication Protocol
+## [globe] Communication Protocol
 
 ### Protocol Stack
 
@@ -806,7 +806,7 @@ async def calculate_time_offset(device: Device) -> int:
     return offset
 ```
 
-## 💾 Data Architecture
+## [disk] Data Architecture
 
 ### Session Data Model
 
@@ -859,31 +859,31 @@ erDiagram
 
 ```
 IRCamera_Sessions/
-└── session_{timestamp}_{study}_{participant}/
-    ├── session_metadata.json          # Session configuration and metadata
-    ├── data_quality_report.json       # Quality assessment
-    ├── sync_events.csv                # Synchronization markers
-    ├── rgb_video/
-    │   ├── main_video.mp4             # Primary video recording
-    │   ├── video_metadata.json        # Video parameters and quality
-    │   └── frame_timestamps.csv       # Frame-level timing data
-    ├── raw_images/
-    │   ├── frame_000001.dng           # RAW image captures
-    │   ├── frame_000002.dng
-    │   ├── ...
-    │   └── capture_metadata.csv       # Image capture parameters
-    ├── gsr_data/
-    │   ├── gsr_samples.csv           # GSR measurements
-    │   ├── gsr_metadata.json        # Sensor configuration
-    │   └── signal_quality.csv       # Quality metrics per sample
-    ├── thermal_data/
-    │   ├── thermal_video.mp4         # Thermal recording
-    │   ├── temperature_data.csv      # Per-pixel temperature values
-    │   └── thermal_metadata.json    # Thermal sensor parameters
-    └── analysis/
-        ├── aligned_timestamps.csv    # Cross-modal timestamp alignment
-        ├── data_validation.json     # Automated quality checks
-        └── processing_log.txt       # Processing history
++-- session_{timestamp}_{study}_{participant}/
+    +-- session_metadata.json          # Session configuration and metadata
+    +-- data_quality_report.json       # Quality assessment
+    +-- sync_events.csv                # Synchronization markers
+    +-- rgb_video/
+    |   +-- main_video.mp4             # Primary video recording
+    |   +-- video_metadata.json        # Video parameters and quality
+    |   +-- frame_timestamps.csv       # Frame-level timing data
+    +-- raw_images/
+    |   +-- frame_000001.dng           # RAW image captures
+    |   +-- frame_000002.dng
+    |   +-- ...
+    |   +-- capture_metadata.csv       # Image capture parameters
+    +-- gsr_data/
+    |   +-- gsr_samples.csv           # GSR measurements
+    |   +-- gsr_metadata.json        # Sensor configuration
+    |   +-- signal_quality.csv       # Quality metrics per sample
+    +-- thermal_data/
+    |   +-- thermal_video.mp4         # Thermal recording
+    |   +-- temperature_data.csv      # Per-pixel temperature values
+    |   +-- thermal_metadata.json    # Thermal sensor parameters
+    +-- analysis/
+        +-- aligned_timestamps.csv    # Cross-modal timestamp alignment
+        +-- data_validation.json     # Automated quality checks
+        +-- processing_log.txt       # Processing history
 ```
 
 ### Data Export Formats
@@ -930,7 +930,7 @@ def export_to_hdf5(session_path: str, output_path: str):
         video_group.create_dataset('frame_timestamps', data=video_meta['timestamps'])
 ```
 
-## 🔒 Security Architecture
+## [lock] Security Architecture
 
 ### Encryption and Authentication
 
@@ -1000,7 +1000,7 @@ class SecurityManager:
         pass
 ```
 
-## 📈 Performance Architecture
+## [chart up] Performance Architecture
 
 ### Performance Requirements
 
@@ -1009,7 +1009,7 @@ class SecurityManager:
 | GSR Sampling | 128 Hz continuous | <1ms jitter |
 | Video Recording | 4K60FPS | <5% frame drops |
 | RAW Capture | 30 FPS DNG | <100ms per frame |
-| Network Latency | PC ↔ Android | <20ms average |
+| Network Latency | PC <-> Android | <20ms average |
 | Time Sync Accuracy | Cross-device | <5ms offset |
 | Data Throughput | Multi-stream | >50 MB/min |
 
@@ -1156,7 +1156,7 @@ public:
 };
 ```
 
-## 🧪 Testing Architecture
+## [test tube] Testing Architecture
 
 ### Test Strategy Pyramid
 

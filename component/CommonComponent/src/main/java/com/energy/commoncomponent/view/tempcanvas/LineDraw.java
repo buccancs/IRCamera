@@ -39,10 +39,10 @@ public class LineDraw extends BaseDraw {
     private int mBgColor = Color.parseColor("#CC1A1A1A");
 
     private final int STROKE_WIDTH = 8;
-    private final int TEXT_SIZE = 14; // 文字大小
+    private final int TEXT_SIZE = 14; // text[Chinese text]
     private final int TOUCH_TOLERANCE = 48;
 
-    private LineView mTempLine;// 临时绘制的line，比如手势移动过程中
+    private LineView mTempLine;// [Chinese text]line, [Chinese text]in progress
 
     private int mOperateStatus = -1;
 
@@ -79,7 +79,7 @@ public class LineDraw extends BaseDraw {
     }
 
         /**
-     * 添加一个线数据
+     * [Chinese text]line[Chinese text]
      * @param startX
      * @param startY
      * @param endX
@@ -96,7 +96,7 @@ public class LineDraw extends BaseDraw {
                 boolean hasSame = false;
                 for (int i = 0; i < mLineList.size(); i ++) {
                     if (mLineList.get(i).getLabel().equals(newLabel)) {
-                        // 存在一样的
+                        // [Chinese text]
                         hasSame = true;
                         Log.d(TAG, "addLine is same");
                         break;
@@ -127,7 +127,7 @@ public class LineDraw extends BaseDraw {
     }
 
         /**
-     * 删除一个线数据
+     * [Chinese text]line[Chinese text]
      * @param index
      */
     public void removeLine(int index) {
@@ -137,14 +137,14 @@ public class LineDraw extends BaseDraw {
     }
 
         /**
-     * 删除所有线数据
+     * [Chinese text]line[Chinese text]
      */
     public void removeLine() {
         mLineList.clear();
     }
 
     /**
-     * 绘制所有线
+     * [Chinese text]line
      * @param canvas
      */
     @Override
@@ -165,7 +165,7 @@ public class LineDraw extends BaseDraw {
     }
 
         /**
-     * 绘制临时线
+     * [Chinese text]line
      * @param canvas
      * @param startX
      * @param startY
@@ -204,12 +204,12 @@ public class LineDraw extends BaseDraw {
         float right = rectF.right + rectWidth / 2;
         float top = rectF.top;
         float bottom = rectF.bottom;
-        // 左侧超出
+        // left side[Chinese text]
         if (left < 0) {
             left = 0;
             right = rectWidth;
         }
-        // 右侧超出
+        // right side[Chinese text]
         if (right > mViewWidth) {
             left = mViewWidth - rectWidth;
             right = mViewWidth;
@@ -238,7 +238,7 @@ public class LineDraw extends BaseDraw {
     }
 
         /**
-     * 更新选中线的手势位置状态
+     * [Chinese text]in progressline[Chinese text]
      * @param startX
      * @param startY
      */
@@ -258,7 +258,7 @@ public class LineDraw extends BaseDraw {
     }
 
         /**
-     * 修改选中的线坐标
+     * [Chinese text]in progress[Chinese text]line[Chinese text]
      * @param moveX
      * @param moveY
      */
@@ -327,7 +327,7 @@ public class LineDraw extends BaseDraw {
 
             mLineList.get(mTouchIndex).changeLocation(startMovingLineX, startMovingLineY, endMovingLineX, endMovingLineY);
         } else if (mOperateStatus == OPERATE_STATUS_LINE_IN_TOUCH_CENTER) {
-            // 防止数据越界到图像外部
+            // [Chinese text]
             int startMovingLineX = (int)(lineView.mStartPoint.x + moveX);
             int startMovingLineY = (int)(lineView.mStartPoint.y + moveY);
             int endMovingLineX = (int)(lineView.mEndPoint.x + moveX);
@@ -359,7 +359,7 @@ public class LineDraw extends BaseDraw {
     }
 
         /**
-     * 修改选中的线Point
+     * [Chinese text]in progress[Chinese text]linePoint
      */
     public void changeTouchPointLocation() {
         if (mTouchIndex < 0 || mTouchIndex >= mLineList.size()) {
@@ -369,7 +369,7 @@ public class LineDraw extends BaseDraw {
     }
 
         /**
-     * 检查当前是否存在手势选中的线
+     * [Chinese text]in progress[Chinese text]line
      * @param x
      * @param y
      * @return
@@ -396,9 +396,9 @@ public class LineDraw extends BaseDraw {
  * Provides lineview functionality.
  */
  class LineView extends BaseView {
-        private Point mStartPoint; // 起点
-        private Point mEndPoint; // 终点
-        private static final float TOUCH_EXTRA = 10;// 额外的触摸范围
+        private Point mStartPoint; // [Chinese text]point
+        private Point mEndPoint; // [Chinese text]point
+        private static final float TOUCH_EXTRA = 10;// [Chinese text]range
         private Bitmap mHighPointBitmap;
         private Bitmap mLowPointBitmap;
         private Point mHighTempPoint;

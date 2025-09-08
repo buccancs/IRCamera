@@ -42,28 +42,28 @@ import org.greenrobot.eventbus.EventBus
 import java.io.File
 
 /**
- * 生成报告第2步的预览界面.
+ * [Chinese text]2[Chinese text].
  *
- * 需要传递
- * - 是否 TC007: [ExtraKeyConfig.IS_TC007]
- * - 一份报告所有信息 [ExtraKeyConfig.REPORT_BEAN]
+ * [Chinese text]
+ * - [Chinese text] TC007: [ExtraKeyConfig.IS_TC007]
+ * - [Chinese text] [ExtraKeyConfig.REPORT_BEAN]
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class ReportPreviewSecondActivity: BaseViewModelActivity<UpReportViewModel>(), View.OnClickListener {
 
     /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
+     * [Chinese text], [Chinese text] TC007 [Chinese text].
+     * true-TC007 false-[Chinese text]
      */
     private var isTC007 = false
 
     /**
-     * 从上一界面传递过来的，报告所有信息.
+     * [Chinese text], [Chinese text].
      */
     private var reportBean: ReportBean? = null
 
     /**
-     * 当前预览页面已生成的 PDF 文件绝对路径
+     * [Chinese text] PDF [Chinese text]
      */
     private var pdfFilePath: String? = null
 
@@ -137,7 +137,7 @@ class ReportPreviewSecondActivity: BaseViewModelActivity<UpReportViewModel>(), V
         tvComplete.setOnClickListener(this)
         lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onResume(owner: LifecycleOwner) {
-                // 要是当前已连接 TS004、TC007，切到流量上，不然登录注册意见反馈那些没网
+                // [Chinese text] TS004, TC007, [Chinese text], [Chinese text]
                 if (WebSocketProxy.getInstance().isConnected()) {
                     NetWorkUtils.connectivityManager.bindProcessToNetwork(null)
                 }
@@ -166,10 +166,10 @@ class ReportPreviewSecondActivity: BaseViewModelActivity<UpReportViewModel>(), V
 
     override fun onClick(v: View?) {
         when (v) {
-            tvToPdf -> {//生成PDF
+            tvToPdf -> {//[Chinese text]PDF
                 saveWithPDF()
             }
-            tvComplete -> {//完成
+            tvComplete -> {//[Chinese text]
 
                 if (LMS.getInstance().isLogin) {
                     if (!NetworkUtils.isConnected()) {
@@ -223,8 +223,8 @@ class ReportPreviewSecondActivity: BaseViewModelActivity<UpReportViewModel>(), V
     }
 
     /**
-     * 获取需要转为 PDF 的所有 View 列表.
-     * 注意：水印 View 不在列表内，需要自行处理.
+     * [Chinese text] PDF [Chinese text] View [Chinese text].
+     * [Chinese text]: [Chinese text] View [Chinese text], [Chinese text].
      */
     private fun getPrintViewList(): ArrayList<View> {
         val result = ArrayList<View>()

@@ -52,8 +52,8 @@ class IRMonocularActivity : BaseWifiActivity() {
     private var mDefaultHot = SharedManager.getHotMode()
     private var mDefaultLight = MenuBean.TYPE_LIGHT_MIDDLE
     private var mDefaultGain = MenuBean.TYPE_GAIN_X1
-    private var isRange: Boolean = true //测距
-    private var isPip: Boolean = true //画中画与测距互斥
+    private var isRange: Boolean = true //[Chinese text]
+    private var isPip: Boolean = true //[Chinese text]in progress[Chinese text]
     private var isExpand: Boolean = false
     private var isVideo = false
     private var isVideoRecording = false
@@ -68,7 +68,7 @@ class IRMonocularActivity : BaseWifiActivity() {
     }
 
     override fun initView() {
-        //开启软编
+        //[Chinese text]
         PreferenceManager.getDefaultSharedPreferences(this@IRMonocularActivity)
             .edit()
             .putBoolean("use-sw-codec", true)
@@ -145,7 +145,7 @@ class IRMonocularActivity : BaseWifiActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (Build.VERSION.SDK_INT >= 29) {//Android10 及以上
+        if (Build.VERSION.SDK_INT >= 29) {//Android10 [Chinese text]
             NetWorkUtils.switchNetwork(true) {
                 if (it != null) {
                     TS004Repository.netWork = it
@@ -217,7 +217,7 @@ class IRMonocularActivity : BaseWifiActivity() {
     }
 
     override fun connected() {
-        //由于 BlankDevActivity 监听 USB 设备插拔的逻辑，该弹框会一闪而过，最终决定先不弹这个弹框
+        //[Chinese text] BlankDevActivity listener USB [Chinese text], [Chinese text], [Chinese text]
         /*TipDialog.Builder(this)
             .setMessage(getString(R.string.tc_has_line_device) + " " + getString(R.string.device_switch_tips))
             .setPositiveListener(R.string.app_yes) {
@@ -239,7 +239,7 @@ class IRMonocularActivity : BaseWifiActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //开启软编
+        //[Chinese text]
         PreferenceManager.getDefaultSharedPreferences(this@IRMonocularActivity)
             .edit()
             .putBoolean("use-sw-codec", true)
@@ -262,7 +262,7 @@ class IRMonocularActivity : BaseWifiActivity() {
     }
 
     /**
-     * 显示和隐藏状态栏
+     * [Chinese text]
      * @param show
      */
     private fun setStatusBarVisible(show: Boolean) {
@@ -279,32 +279,32 @@ class IRMonocularActivity : BaseWifiActivity() {
     private fun setSetting(code: Int) {
         when (code) {
             MonocularHelp.TYPE_SET_BLACK -> {
-                //伪彩样式
+                //[Chinese text]
                 setPseudoColor()
             }
 
             MonocularHelp.TYPE_SET_RANGE -> {
-                // 测距
+                // [Chinese text]
                 setRangeFind()
             }
 
             MonocularHelp.TYPE_SET_LIGHT -> {
-                //亮度
+                //[Chinese text]
                 setBrightness()
             }
 
             MonocularHelp.TYPE_SET_PIP -> {
-                //画中画
+                //[Chinese text]in progress[Chinese text]
                 setPip()
             }
 
             MonocularHelp.TYPE_SET_GAIN -> {
-                //放大倍数
+                //[Chinese text]
                 setZoom()
             }
 
             MonocularHelp.TYPE_SET_MORE -> {
-                // 更多
+                // more
                 ARouter.getInstance().build(RouterConfig.TS004_MORE).navigation(this)
             }
         }
@@ -365,7 +365,7 @@ class IRMonocularActivity : BaseWifiActivity() {
 
     private fun updateZoomUI() {
         sixAdapter.enGain(mDefaultGain)
-        // 放大倍数
+        // [Chinese text]
         when (mDefaultGain) {
             MenuBean.TYPE_GAIN_X1 -> {
                 mDefaultGain = MenuBean.TYPE_GAIN_X2
@@ -454,7 +454,7 @@ class IRMonocularActivity : BaseWifiActivity() {
         super.finish()
     }
 
-    //底部拍照中间按钮
+    //[Chinese text]photo capturein progress[Chinese text]button
     @SuppressLint("CheckResult")
     private fun centerCamera() {
         XXPermissions.with(this)
@@ -465,7 +465,7 @@ class IRMonocularActivity : BaseWifiActivity() {
                 override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
                     if (allGranted) {
                         if (isVideo) {
-                            //录制视频
+                            //[Chinese text]
                             isVideoRecording = if (isVideoRecording) {
                                 camera_img.setImageResource(R.drawable.ic_menu_bottom_video_svg)
                                 false
@@ -484,7 +484,7 @@ class IRMonocularActivity : BaseWifiActivity() {
 
                 override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
                     if (doNotAskAgain) {
-                        //拒绝授权并且不再提醒
+                        //[Chinese text]
                         TipDialog.Builder(this@IRMonocularActivity)
                             .setTitleMessage(getString(R.string.app_tip))
                             .setMessage(R.string.app_storage_content)
@@ -530,15 +530,15 @@ class IRMonocularActivity : BaseWifiActivity() {
     }
 
     /**
-     * 更新最新图库照片或视频
-     * @param fileType 0-图片 1-录像 2-所有
+     * [Chinese text]gallery[Chinese text]
+     * @param fileType 0-[Chinese text] 1-recording 2-[Chinese text]
      */
     private fun refreshImg(fileType: Int) {
         lifecycleScope.launch {
             val fileList: List<FileBean>? = TS004Repository.getNewestFile(fileType)
             try {
-                if (fileList != null) {//请求成功
-                    if (fileList.isEmpty()) {//请求成功但是当前没有对应图片或视频
+                if (fileList != null) {//[Chinese text]
+                    if (fileList.isEmpty()) {//[Chinese text]
                         camera_gallery_img.setImageResource(R.mipmap.ic_menu_photo_default)
                         updateDefaultPhotoWH(true)
                     } else {
@@ -551,7 +551,7 @@ class IRMonocularActivity : BaseWifiActivity() {
                     }
                 }
             } catch (e: Exception) {
-                Log.e("刷新图标状态异常", e.message.toString())
+                Log.e("[Chinese text]", e.message.toString())
             }
         }
     }
@@ -564,7 +564,7 @@ class IRMonocularActivity : BaseWifiActivity() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onSocketMsgEvent(event: SocketMsgEvent) {
         when (SocketCmdUtil.getCmdResponse(event.text)) {
-            WsCmdConstants.AR_COMMAND_PSEUDO_COLOR_GET -> {//伪彩样式
+            WsCmdConstants.AR_COMMAND_PSEUDO_COLOR_GET -> {//[Chinese text]
                 val webSocketIp = SocketCmdUtil.getIpResponse(event.text)
                 val pseudoColor: WsPseudoColor? = WsUtil.getWsResponse(event.text)
                 if (webSocketIp == WsCmdConstants.AR_COMMAND_IP) {
@@ -573,7 +573,7 @@ class IRMonocularActivity : BaseWifiActivity() {
                 }
             }
 
-            WsCmdConstants.AR_COMMAND_RANGE_FIND_GET -> {//测距
+            WsCmdConstants.AR_COMMAND_RANGE_FIND_GET -> {//[Chinese text]
                 val webSocketIp = SocketCmdUtil.getIpResponse(event.text)
                 val wsRange: WsRange? = WsUtil.getWsResponse(event.text)
                 if (webSocketIp == WsCmdConstants.AR_COMMAND_IP) {
@@ -582,7 +582,7 @@ class IRMonocularActivity : BaseWifiActivity() {
                 }
             }
 
-            WsCmdConstants.AR_COMMAND_PANEL_PARAM_GET -> {//亮度
+            WsCmdConstants.AR_COMMAND_PANEL_PARAM_GET -> {//[Chinese text]
                 val webSocketIp = SocketCmdUtil.getIpResponse(event.text)
                 val wsBrightness: WsLight? = WsUtil.getWsResponse(event.text)
                 if (webSocketIp == WsCmdConstants.AR_COMMAND_IP) {
@@ -591,7 +591,7 @@ class IRMonocularActivity : BaseWifiActivity() {
                 }
             }
 
-            WsCmdConstants.AR_COMMAND_PIP_GET -> {//画中画
+            WsCmdConstants.AR_COMMAND_PIP_GET -> {//[Chinese text]in progress[Chinese text]
                 val webSocketIp = SocketCmdUtil.getIpResponse(event.text)
                 val wsPip: WsPip? = WsUtil.getWsResponse(event.text)
                 if (webSocketIp == WsCmdConstants.AR_COMMAND_IP) {
@@ -600,7 +600,7 @@ class IRMonocularActivity : BaseWifiActivity() {
                 }
             }
 
-            WsCmdConstants.AR_COMMAND_ZOOM_GET -> {//放大倍数
+            WsCmdConstants.AR_COMMAND_ZOOM_GET -> {//[Chinese text]
                 val webSocketIp = SocketCmdUtil.getIpResponse(event.text)
                 val wsZoom: WsZoom? = WsUtil.getWsResponse(event.text)
                 if (webSocketIp == WsCmdConstants.AR_COMMAND_IP) {
@@ -609,15 +609,15 @@ class IRMonocularActivity : BaseWifiActivity() {
                 }
             }
 
-            WsCmdConstants.AR_COMMAND_SNAPSHOT -> {//拍照事件
+            WsCmdConstants.AR_COMMAND_SNAPSHOT -> {//photo captureevent
                 refreshImg(0)
             }
 
-            WsCmdConstants.AR_COMMAND_VRECORD -> {//开始或结束录像事件
+            WsCmdConstants.AR_COMMAND_VRECORD -> {//start[Chinese text]recordingevent
                 try {
                     val data: JSONObject = JSONObject(event.text).getJSONObject("data")
                     val enable: Boolean = data.getBoolean("enable")
-                    if (!enable) {//结束才同步
+                    if (!enable) {//[Chinese text]
                         refreshImg(1)
                     }
                     updateCamera(enable);

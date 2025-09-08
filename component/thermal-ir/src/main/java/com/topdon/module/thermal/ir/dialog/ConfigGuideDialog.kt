@@ -30,7 +30,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 /**
- * 温度修正操作指引.
+ * temperature[Chinese text]operation[Chinese text].
  *
  * Created by LCG on 2024/11/13.
  */

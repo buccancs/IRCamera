@@ -10,25 +10,25 @@ import com.topdon.lib.core.utils.ByteUtils.toBytes
 import com.topdon.pseudo.bean.CustomPseudoBean
 
 /**
- * 首部结构，数值均为大端
+ * [Chinese text], [Chinese text]
  * ```
- * len                 [ 0,  2)    2 byte   首部长度，目前固定为 1024
- * name                [ 2, 18)   16 byte   名称(老数据有叫 TopInfrared 的，现已更名为MPDC4GSR，新的只有TC001、TS001 或 TC007)
- * ver                 [18, 26)    6 byte   APP版本名称(versionName)
- * width               [26, 28)    2 byte   宽 256 或 192(未使用)
- * height              [28, 30)    2 byte   高 256 或 192(未使用)
- * rotate              [30, 32)    2 byte   旋转角度
- * pseudo              [32, 34)    2 byte   Pseudo color代号
- * initRotate          [34, 36)    2 byte   初始角度(未使用)
- * correctRotate       [36, 38)    2 byte   矫正角度(未使用)
- *                     [38, 81)   44 byte   Point/Line/Area(未使用，实际全为0的没卵用数据)
+ * len                 [ 0,  2)    2 byte   [Chinese text], [Chinese text] 1024
+ * name                [ 2, 18)   16 byte   [Chinese text]([Chinese text] TopInfrared [Chinese text], [Chinese text]MPDC4GSR, [Chinese text]TC001, TS001 [Chinese text] TC007)
+ * ver                 [18, 26)    6 byte   APP[Chinese text](versionName)
+ * width               [26, 28)    2 byte   [Chinese text] 256 [Chinese text] 192([Chinese text])
+ * height              [28, 30)    2 byte   high 256 [Chinese text] 192([Chinese text])
+ * rotate              [30, 32)    2 byte   [Chinese text]
+ * pseudo              [32, 34)    2 byte   Pseudo color[Chinese text]
+ * initRotate          [34, 36)    2 byte   [Chinese text]([Chinese text])
+ * correctRotate       [36, 38)    2 byte   [Chinese text]([Chinese text])
+ *                     [38, 81)   44 byte   Point/Line/Area([Chinese text], [Chinese text]0[Chinese text])
  *
  * customPseudoBean    [81,173)  92 byte
- *   colorSize                   81     1 byte   色块数量
- *   selectIndex                 82     1 byte   当前选中色块在列表中 index
- *   colors                [ 83,111)   28 byte   7 个色块颜色值
- *   zAltitudes            [111,118)    7 byte   7 个色块海拔
- *   places                [118,146)   28 byte   7 个色块占比值
+ *   colorSize                   81     1 byte   [Chinese text]
+ *   selectIndex                 82     1 byte   [Chinese text]in progress[Chinese text]in progress index
+ *   colors                [ 83,111)   28 byte   7 [Chinese text]
+ *   zAltitudes            [111,118)    7 byte   7 [Chinese text]
+ *   places                [118,146)   28 byte   7 [Chinese text]
  *   isUseCustomPseudo          146     1 byte
  *   maxTemp               [147,151)    4 byte
  *   minTemp               [151,155)    4 byte
@@ -39,45 +39,45 @@ import com.topdon.pseudo.bean.CustomPseudoBean
  *   customRecommendIndex  [168,172)    4 byte
  *   isUseGray                  172     1 byte
  *
- * isShowPseudoBar          173     1 byte   是否显示Pseudo color条
- * textColor           [174,178)    4 byte   字体颜色值
+ * isShowPseudoBar          173     1 byte   [Chinese text]Pseudo color[Chinese text]
+ * textColor           [174,178)    4 byte   [Chinese text]
  *
- * watermarkBean       [178,628)  450 byte   水印message
- *   isOpen                 178     1 byte   水印是否开启
- *   titleLen          [179,183)    4 byte   水印标题字节数
- *   title             [183,303)  120 byte   水印标题
- *   addressLen        [303,307)    4 byte   水印地址字节数
- *   address           [307,627)  320 byte   水印地址
- *   isAddTime              627     1 byte   水印是否添加时间
+ * watermarkBean       [178,628)  450 byte   [Chinese text]message
+ *   isOpen                 178     1 byte   [Chinese text]
+ *   titleLen          [179,183)    4 byte   [Chinese text]
+ *   title             [183,303)  120 byte   [Chinese text]
+ *   addressLen        [303,307)    4 byte   [Chinese text]
+ *   address           [307,627)  320 byte   [Chinese text]
+ *   isAddTime              627     1 byte   [Chinese text]
  *
- * alarmBean           [628,656)   28 byte   报警message
- *   isHighOpen             628     1 byte   高温报警是否开启
- *   isLowOpen              629     1 byte   低温报警是否开启
- *   highTemp          [630,634)    4 byte   高温报警温度值，单位摄氏度
- *   lowTemp           [634,638)    4 byte   低温报警温度值，单位摄氏度
- *   isMarkOpen             638     1 byte   区域标记是否开启
- *   highColor         [639,643)    4 byte   高温报警颜色值
- *   lowColor          [643,647)    4 byte   低温报警颜色值
- *   markType          [647,651)    4 byte   区域标记类型 1-描边 2-矩阵
- *   isRingtoneOpen         651     1 byte   报警铃声是否开启
- *   ringtoneType      [652,656)    4 byte   报警铃声类型
- *   gainStatus       [657)    1 byte   // 高低增益 1:（低温）高增益 0: 高温（低增益）
- *   textSize         [658,659） 2byte // 字号大小
- *   environment      [660,663) 4byte // 温度修正参数 ： 环境温度，单位摄氏度
- *   distance      [664,667) 4byte // 温度修正参数 ：距离，
- *   radiation      [668,671) 4byte // 温度修正参数 ：发射率 环境温度，单位摄氏度
- *   amplify        672     1 byte   // 是否开启放大
+ * alarmBean           [628,656)   28 byte   [Chinese text]message
+ *   isHighOpen             628     1 byte   high[Chinese text]
+ *   isLowOpen              629     1 byte   low[Chinese text]
+ *   highTemp          [630,634)    4 byte   high[Chinese text]temperature[Chinese text], [Chinese text]
+ *   lowTemp           [634,638)    4 byte   low[Chinese text]temperature[Chinese text], [Chinese text]
+ *   isMarkOpen             638     1 byte   area[Chinese text]
+ *   highColor         [639,643)    4 byte   high[Chinese text]
+ *   lowColor          [643,647)    4 byte   low[Chinese text]
+ *   markType          [647,651)    4 byte   area[Chinese text] 1-[Chinese text] 2-[Chinese text]
+ *   isRingtoneOpen         651     1 byte   [Chinese text]
+ *   ringtoneType      [652,656)    4 byte   [Chinese text]
+ *   gainStatus       [657)    1 byte   // highlow[Chinese text] 1:(low[Chinese text])high[Chinese text] 0: high[Chinese text](low[Chinese text])
+ *   textSize         [658,659) 2byte // [Chinese text]
+ *   environment      [660,663) 4byte // temperature[Chinese text] :  [Chinese text]temperature, [Chinese text]
+ *   distance      [664,667) 4byte // temperature[Chinese text] : [Chinese text], 
+ *   radiation      [668,671) 4byte // temperature[Chinese text] : [Chinese text] [Chinese text]temperature, [Chinese text]
+ *   amplify        672     1 byte   // [Chinese text]
  * ```
  */
 class FrameStruct() {
     companion object {
         /**
-         * 数据长度.
+         * [Chinese text].
          */
         private const val SIZE = 1024
 
         /**
-         * 将指定参数的数据转换为数组.
+         * [Chinese text].
          */
         fun toCode(
             name : String,
@@ -151,12 +151,12 @@ class FrameStruct() {
             resultArray[658] = (textSize ushr 8).toByte()
             resultArray[659] = textSize.toByte()
 
-            // 将 Float 转换为 4 字节
+            // [Chinese text] Float [Chinese text] 4 [Chinese text]
             val envBytes = java.nio.ByteBuffer.allocate(4).putFloat(environment).array()
             val distanceBytes = java.nio.ByteBuffer.allocate(4).putFloat(distance).array()
             val radiationBytes = java.nio.ByteBuffer.allocate(4).putFloat(radiation).array()
 
-            // 存储在 resultArray 中，[660, 663)是环境温度，[664, 667)是距离，[668, 671)是发射率
+            // [Chinese text] resultArray in progress, [660, 663)[Chinese text]temperature, [664, 667)[Chinese text], [668, 671)[Chinese text]
             System.arraycopy(envBytes, 0, resultArray, 660, 4)
             System.arraycopy(distanceBytes, 0, resultArray, 664, 4)
             System.arraycopy(radiationBytes, 0, resultArray, 668, 4)
@@ -180,7 +180,7 @@ class FrameStruct() {
     var textColor = 0xffffffff.toInt()
     var watermarkBean = WatermarkBean()
     var alarmBean = AlarmBean()
-    var gainStatus : Int = 1 // 高低增益 1:低增益 0: 高增益
+    var gainStatus : Int = 1 // highlow[Chinese text] 1:low[Chinese text] 0: high[Chinese text]
     var textSize : Int = SizeUtils.sp2px(14f)
     var environment : Float = 0f
     var distance : Float = 0f

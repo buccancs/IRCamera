@@ -7,7 +7,7 @@ import java.util.*
 import kotlin.experimental.and
 
 /**
- * created by liuhongwei gd02527 on 2018年07月27日
+ * created by liuhongwei gd02527 on 2018[Chinese text]07[Chinese text]27[Chinese text]
  */
 class BaseDataTypeConvertUtils private constructor() {
 
@@ -65,7 +65,7 @@ class BaseDataTypeConvertUtils private constructor() {
         }
 
         /**
-         * 将float格式化为只带有一位小数的字符串
+         * [Chinese text]float[Chinese text]
          *
          * @param number
          * @return
@@ -88,7 +88,7 @@ class BaseDataTypeConvertUtils private constructor() {
         }
 
         /**
-         * 将float格式化为只带有一位小数的字符串
+         * [Chinese text]float[Chinese text]
          *
          * @param number
          * @return
@@ -111,9 +111,9 @@ class BaseDataTypeConvertUtils private constructor() {
         }
 
         /**
-         * 将float格式化为字符串
+         * [Chinese text]float[Chinese text]
          *
-         * @param number 需要格式化的float字符串
+         * @param number [Chinese text]float[Chinese text]
          * @param df     DecimalFormat
          * @return
          */

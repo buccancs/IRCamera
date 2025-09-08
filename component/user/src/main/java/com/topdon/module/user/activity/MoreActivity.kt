@@ -37,7 +37,7 @@ import java.io.File
 import java.text.DecimalFormat
 
 /**
- * TS004 的 “更多” 页面.
+ * TS004 [Chinese text] "more" [Chinese text].
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class MoreActivity : BaseActivity(), View.OnClickListener {
@@ -77,10 +77,10 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
         settingDisconnect.setOnClickListener(this)
         settingAutoSave.setOnClickListener(this)
 
-        /*if (Build.VERSION.SDK_INT < 29) {// 低于 Android10
+        /*if (Build.VERSION.SDK_INT < 29) {// low[Chinese text] Android10
             settingVersion.isVisible = false
         }*/
-        // 2024-5-30 09:16 TS004项目APP沟通群决定，3.30版本先把固件升级隐藏
+        // 2024-5-30 09:16 TS004[Chinese text]APP[Chinese text], 3.30[Chinese text]
         settingVersion.isVisible = false
     }
 
@@ -90,7 +90,7 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
         firmwareViewModel.firmwareDataLD.observe(this) {
             tvUpgradePoint.isVisible = it != null
             dismissCameraLoading()
-            if (it == null) {// 请求成功但没有固件升级包，即已是最新
+            if (it == null) {// [Chinese text], [Chinese text]
                 ToastUtils.showShort(RCore.string.setting_firmware_update_latest_version)
             } else {
                 showFirmwareUpDialog(it)
@@ -105,29 +105,29 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            settingDeviceInformation -> {// 设备message
+            settingDeviceInformation -> {// [Chinese text]message
                 NavigationManager.getInstance()
                     .build(RouterConfig.DEVICE_INFORMATION)
                     .withBoolean(ExtraKeyConfig.IS_TC007, false)
                     .navigation(this@MoreActivity)
             }
-            settingTisr -> {// Settings超分
+            settingTisr -> {// Settings[Chinese text]
                 NavigationManager.getInstance().build(RouterConfig.TISR).navigation(this@MoreActivity)
             }
-            settingAutoSave -> {// 自动保存到手机
+            settingAutoSave -> {// [Chinese text]
                 NavigationManager.getInstance().build(RouterConfig.AUTO_SAVE).navigation(this@MoreActivity)
             }
-            settingStorageSpace -> {// TS004储存空间
+            settingStorageSpace -> {// TS004[Chinese text]
                 NavigationManager.getInstance().build(RouterConfig.STORAGE_SPACE).navigation(this@MoreActivity)
             }
-            settingVersion -> {// 固件版本
-                // 由于双通道方案存在问题，V3.30临时使用 apk 内置固件升级包，此处注释强制登录逻辑
+            settingVersion -> {// [Chinese text]
+                // [Chinese text], V3.30[Chinese text] apk [Chinese text], [Chinese text]
 //                if (LMS.getInstance().isLogin) {
                     val firmwareData = firmwareViewModel.firmwareDataLD.value
                     if (firmwareData != null) {
                         showFirmwareUpDialog(firmwareData)
                     } else {
-                        XLog.i("TS004 固件升级 - 点击查询")
+                        XLog.i("TS004 [Chinese text] - point[Chinese text]")
                         showCameraLoading()
                         firmwareViewModel.queryFirmware(true)
                     }
@@ -135,10 +135,10 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
 //                    LMS.getInstance().activityLogin()
 //                }
             }
-            settingReset -> {// 恢复出厂Settings
+            settingReset -> {// [Chinese text]Settings
                 restoreFactory()
             }
-            settingDisconnect -> {// 断开连接
+            settingDisconnect -> {// [Chinese text]
                 NavigationManager.getInstance().build(RouterConfig.IR_MORE_HELP)
                     .withInt(Constants.SETTING_CONNECTION_TYPE, Constants.SETTING_DISCONNECTION)
                     .navigation(this@MoreActivity)
@@ -147,7 +147,7 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 显示固件升级提示弹框.
+     * [Chinese text].
      */
     private fun showFirmwareUpDialog(firmwareData: FirmwareViewModel.FirmwareData) {
         val dialog = FirmwareUpDialog(this)
@@ -156,7 +156,7 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
         dialog.contentStr = firmwareData.updateStr
         dialog.isShowRestartTips = true
         dialog.onConfirmClickListener = {
-            // 由于双通道方案存在问题，V3.30临时使用 apk 内置固件升级包，此处注释下载逻辑
+            // [Chinese text], V3.30[Chinese text] apk [Chinese text], [Chinese text]
             // downloadFirmware(firmwareData)
             installFirmware(FileConfig.getFirmwareFile(firmwareData.downUrl))
         }
@@ -174,11 +174,11 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 下载指定固件升级包
+     * [Chinese text]
      */
     private fun downloadFirmware(firmwareData: FirmwareViewModel.FirmwareData) {
         lifecycleScope.launch {
-            XLog.d("TS004 固件升级 - 开始下载固件升级包")
+            XLog.d("TS004 [Chinese text] - start[Chinese text]")
             val progressDialog = DownloadProDialog(this@MoreActivity)
             progressDialog.show()
 
@@ -188,10 +188,10 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
             }
             progressDialog.dismiss()
             if (isSuccess) {
-                XLog.d("TS004 固件升级 - 固件升级包下载成功，即将开始安装")
+                XLog.d("TS004 [Chinese text] - [Chinese text], [Chinese text]start[Chinese text]")
                 installFirmware(file)
             } else {
-                XLog.w("TS004 固件升级 - 固件升级包下载失败!")
+                XLog.w("TS004 [Chinese text] - [Chinese text]!")
                 showReDownloadDialog(firmwareData)
             }
         }
@@ -199,19 +199,19 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
 
     private fun installFirmware(file: File) {
         lifecycleScope.launch {
-            XLog.d("TS004 固件升级 - 开始安装固件升级包")
+            XLog.d("TS004 [Chinese text] - start[Chinese text]")
             val installDialog = FirmwareInstallDialog(this@MoreActivity)
             installDialog.show()
 
             val isSuccess = TS004Repository.updateFirmware(file)
             installDialog.dismiss()
             if (isSuccess) {
-                XLog.d("TS004 固件升级 - 固件升级包发送往 TS004 成功，即将断开连接")
+                XLog.d("TS004 [Chinese text] - [Chinese text] TS004 [Chinese text], [Chinese text]")
                 (application as BaseApplication).disconnectWebSocket()
                 NavigationManager.getInstance().build(RouterConfig.MAIN).navigation(this@MoreActivity)
                 finish()
             } else {
-                XLog.w("TS004 固件升级 - 固件升级包发送往 TS004 失败!")
+                XLog.w("TS004 [Chinese text] - [Chinese text] TS004 [Chinese text]!")
                 showReInstallDialog(file)
             }
         }
@@ -268,9 +268,9 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
     private fun resetAll() {
         showLoadingDialog(RCore.string.ts004_reset_tip3)
         lifecycleScope.launch {
-            XLog.i("准备调用恢复出厂Settings接口")
+            XLog.i("[Chinese text]Settings[Chinese text]")
             val isSuccess = TS004Repository.getResetAll()
-            XLog.i("恢复出厂Settings接口调用 ${if (isSuccess) "成功" else "失败"}")
+            XLog.i("[Chinese text]Settings[Chinese text] ${if (isSuccess) "[Chinese text]" else "[Chinese text]"}")
             if (isSuccess) {
                 TToast.shortToast(this@MoreActivity, RCore.string.ts004_reset_tip4)
                 (application as BaseApplication).disconnectWebSocket()

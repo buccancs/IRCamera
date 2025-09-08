@@ -17,12 +17,12 @@ sys.path.insert(0, str(src_dir))
 
 def test_basic_functionality():
     """Test basic functionality without external dependencies."""
-    print("🧪 Testing IRCamera PC Controller Core Components")
+    print("[test tube] Testing IRCamera PC Controller Core Components")
     print("=" * 60)
 
     # Create temporary directory for testing
     temp_dir = tempfile.mkdtemp()
-    print(f"📁 Using temporary directory: {temp_dir}")
+    print(f"[folder] Using temporary directory: {temp_dir}")
 
     try:
         # Test 1: Configuration Manager
@@ -36,9 +36,9 @@ def test_basic_functionality():
         port = config.get("network.server_port", 8080)
         mode = config.get("gsr.default_mode", "local")
 
-        print(f"   ✓ Default server port: {port}")
-        print(f"   ✓ Default GSR mode: {mode}")
-        print("   ✓ Configuration Manager: PASS")
+        print(f"   [check] Default server port: {port}")
+        print(f"   [check] Default GSR mode: {mode}")
+        print("   [check] Configuration Manager: PASS")
 
         # Test 2: Session Manager
         print("\n2. Testing Session Manager...")
@@ -53,18 +53,18 @@ def test_basic_functionality():
 
         # Create a session
         session = session_mgr.create_session("test_session")
-        print(f"   ✓ Created session: {session.name}")
-        print(f"   ✓ Session ID: {session.session_id[:8]}...")
-        print(f"   ✓ Initial state: {session.state}")
+        print(f"   [check] Created session: {session.name}")
+        print(f"   [check] Session ID: {session.session_id[:8]}...")
+        print(f"   [check] Initial state: {session.state}")
 
         # Test session lifecycle
         session_mgr.start_session()
         current = session_mgr.get_current_session()
-        print(f"   ✓ Started session, new state: {current.state}")
+        print(f"   [check] Started session, new state: {current.state}")
 
         session_mgr.begin_recording()
         current = session_mgr.get_current_session()
-        print(f"   ✓ Started recording, state: {current.state}")
+        print(f"   [check] Started recording, state: {current.state}")
 
         # Add some test data
         session_mgr.add_device(
@@ -74,16 +74,16 @@ def test_basic_functionality():
                 "capabilities": ["camera", "thermal"],
             }
         )
-        print("   ✓ Added test device to session")
+        print("   [check] Added test device to session")
 
         session_mgr.add_sync_event("flash", {"description": "test flash"})
-        print("   ✓ Added sync event to session")
+        print("   [check] Added sync event to session")
 
         # End session
         ended_session = session_mgr.end_session()
-        print(f"   ✓ Ended session, final state: {ended_session.state}")
-        print(f"   ✓ Session duration: {ended_session.duration_seconds:.1f}s")
-        print("   ✓ Session Manager: PASS")
+        print(f"   [check] Ended session, final state: {ended_session.state}")
+        print(f"   [check] Session duration: {ended_session.duration_seconds:.1f}s")
+        print("   [check] Session Manager: PASS")
 
         # Test 3: Session Persistence
         print("\n3. Testing Session Persistence...")
@@ -91,12 +91,13 @@ def test_basic_functionality():
         # Load session
         loaded_session = session_mgr.load_session(ended_session.session_id)
         if loaded_session:
-            print(f"   ✓ Loaded session: {loaded_session.name}")
-            print(f"   ✓ Devices in session: {len(loaded_session.devices)}")
-            print(f"   ✓ Sync events in session: {len(loaded_session.sync_events)}")
-            print("   ✓ Session Persistence: PASS")
+            print(f"   [check] Loaded session: {loaded_session.name}")
+            print(f"   [check] Devices in session: {len(loaded_session.devices)}")
+            print(f"   [check] Sync events in session: "
+                  f"{len(loaded_session.sync_events)}")
+            print("   [check] Session Persistence: PASS")
         else:
-            print("   ✗ Failed to load session")
+            print("   [X] Failed to load session")
             return False
 
         # Test 4: Configuration Persistence
@@ -110,10 +111,10 @@ def test_basic_functionality():
         test_value = config2.get("test.value")
 
         if test_value == "test_data":
-            print("   ✓ Configuration saved and loaded successfully")
-            print("   ✓ Configuration Persistence: PASS")
+            print("   [check] Configuration saved and loaded successfully")
+            print("   [check] Configuration Persistence: PASS")
         else:
-            print("   ✗ Configuration persistence failed")
+            print("   [X] Configuration persistence failed")
             return False
 
         # Test 5: Network Message Structure (without actual networking)
@@ -131,33 +132,33 @@ def test_basic_functionality():
             gsr_mode="local",
         )
 
-        print(f"   ✓ Created device info: {device.device_id}")
-        print(f"   ✓ Device type: {device.device_type}")
-        print(f"   ✓ Is GSR leader: {device.is_gsr_leader}")
-        print(f"   ✓ GSR mode: {device.gsr_mode}")
-        print(f"   ✓ Capabilities: {', '.join(device.capabilities)}")
+        print(f"   [check] Created device info: {device.device_id}")
+        print(f"   [check] Device type: {device.device_type}")
+        print(f"   [check] Is GSR leader: {device.is_gsr_leader}")
+        print(f"   [check] GSR mode: {device.gsr_mode}")
+        print(f"   [check] Capabilities: {', '.join(device.capabilities)}")
 
         # Test serialization
         device_dict = device.to_dict()
-        print(f"   ✓ Serialized to dict with {len(device_dict)} fields")
-        print("   ✓ Network Message Structure: PASS")
+        print(f"   [check] Serialized to dict with {len(device_dict)} fields")
+        print("   [check] Network Message Structure: PASS")
 
         print("\n" + "=" * 60)
-        print("🎉 ALL TESTS PASSED!")
+        print("[celebration] ALL TESTS PASSED!")
         print("\nCore architecture components are working correctly:")
-        print("- ✅ Configuration management with YAML persistence")
-        print("- ✅ Session lifecycle management with metadata")
-        print("- ✅ Device information structure and serialization")
-        print("- ✅ Data persistence and recovery")
+        print("- [OK] Configuration management with YAML persistence")
+        print("- [OK] Session lifecycle management with metadata")
+        print("- [OK] Device information structure and serialization")
+        print("- [OK] Data persistence and recovery")
         print("\nReady for full system integration with:")
-        print("- 🔄 Time synchronization service")
-        print("- 🌐 Network server for device communication")
-        print("- 🖥️  PyQt5 GUI interface")
+        print("- [refresh] Time synchronization service")
+        print("- [globe] Network server for device communication")
+        print("- [desktop]  PyQt5 GUI interface")
 
         return True
 
     except (OSError, ValueError, RuntimeError) as e:
-        print(f"\n❌ TEST FAILED: {e}")
+        print(f"\n[X] TEST FAILED: {e}")
         import traceback
 
         traceback.print_exc()
@@ -166,7 +167,7 @@ def test_basic_functionality():
     finally:
         # Clean up
         shutil.rmtree(temp_dir, ignore_errors=True)
-        print(f"\n🧹 Cleaned up temporary directory: {temp_dir}")
+        print(f"\n[broom] Cleaned up temporary directory: {temp_dir}")
 
 
 if __name__ == "__main__":

@@ -15,18 +15,18 @@ import com.topdon.module.user.R;
      */
     public class ActivityUtil {
         /**
-     * 跳转系统浏览器
-     * @param mContext 上下文
+     * [Chinese text]
+     * @param mContext [Chinese text]
      */
     public static void goSystemCustomer(Context mContext) {
-        Log.w("bcf", "客服点击事件");
+        Log.w("bcf", "[Chinese text]point[Chinese text]event");
         String url = "https:// www.topdon.cc/tc-chat";
         goSystemBrowser(mContext, url);
     }
 
         /**
-     * 跳转系统浏览器
-     * @param mContext 上下文
+     * [Chinese text]
+     * @param mContext [Chinese text]
      */
     public static void goSystemBrowser(Context mContext, String url) {
         Log.w("bcf", "goSystemBrowser");

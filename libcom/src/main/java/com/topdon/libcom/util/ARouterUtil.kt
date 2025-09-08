@@ -10,7 +10,7 @@ import com.topdon.libcom.navigation.NavigationManager
  **/
 object ARouterUtil {
     /**
-     * 统一跳转红外Photo capture界面
+     * [Chinese text]Photo capture[Chinese text]
      * @param activity Activity
      * @param isTC007 Boolean
      */

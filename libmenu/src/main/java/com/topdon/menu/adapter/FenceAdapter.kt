@@ -9,31 +9,31 @@ import com.topdon.lib.core.R
 import com.topdon.menu.constant.FenceType
 
 /**
- * 点、线、面、全图、趋势图(可选)、删除 菜单 Adapter.
+ * point, line, [Chinese text], [Chinese text], [Chinese text]([Chinese text]), [Chinese text] menu Adapter.
  *
- * - 单光：   点、线、面、全图、趋势图、删除
- * - Dual light：   点、线、面、全图、趋势图、删除
- * - Lite：  点、线、面、全图、趋势图、删除
- * - TC007： 点、线、面、全图、趋势图、删除
- * - 2D 编辑：点、线、面、全图、删除
+ * - [Chinese text]:    point, line, [Chinese text], [Chinese text], [Chinese text], [Chinese text]
+ * - Dual light:    point, line, [Chinese text], [Chinese text], [Chinese text], [Chinese text]
+ * - Lite:   point, line, [Chinese text], [Chinese text], [Chinese text], [Chinese text]
+ * - TC007:  point, line, [Chinese text], [Chinese text], [Chinese text], [Chinese text]
+ * - 2D [Chinese text]: point, line, [Chinese text], [Chinese text], [Chinese text]
  *
- * 点、线、面、趋势图、全图 与 删除互斥
+ * point, line, [Chinese text], [Chinese text], [Chinese text] [Chinese text] [Chinese text]
  *
- * 点、线、面、趋势图 互斥，全图独立可选
+ * point, line, [Chinese text], [Chinese text] [Chinese text], [Chinese text]
  *
  * Created by LCG on 2024/11/18.
  */
 @SuppressLint("NotifyDataSetChanged")
 internal class FenceAdapter(menuType: MenuType) : BaseMenuAdapter() {
     /**
-     * 当前选中的菜单类型，若为 null 表示所有都未选中.
+     * [Chinese text]in progress[Chinese text]menu[Chinese text], [Chinese text] null [Chinese text]in progress.
      */
     var selectType: FenceType? = null
         set(value) {
             when (value) {
                 FenceType.FULL -> isFullSelect = true
                 FenceType.DEL -> isFullSelect = false
-                else -> {// 点、线、面、趋势图，不会影响全图状态
+                else -> {// point, line, [Chinese text], [Chinese text], [Chinese text]
 
                 }
             }
@@ -41,12 +41,12 @@ internal class FenceAdapter(menuType: MenuType) : BaseMenuAdapter() {
             notifyDataSetChanged()
         }
     /**
-     * 全图是否已选中.
+     * [Chinese text]in progress.
      */
     private var isFullSelect: Boolean = false
 
     /**
-     * 菜单点击事件监听，目前都是单选，等后续有空重构了，再搞成 IOS 那样“全图”可以多选。
+     * menupoint[Chinese text]eventlistener, [Chinese text], [Chinese text], [Chinese text] IOS [Chinese text]"[Chinese text]"[Chinese text]. 
      */
     var onFenceListener: ((fenceType: FenceType, isSelected: Boolean) -> Unit)? = null
 
@@ -57,7 +57,7 @@ internal class FenceAdapter(menuType: MenuType) : BaseMenuAdapter() {
         dataList.add(Data(R.string.thermal_line, MenuR.drawable.selector_menu2_fence_line, FenceType.LINE))
         dataList.add(Data(R.string.thermal_rect, MenuR.drawable.selector_menu2_fence_rect, FenceType.RECT))
         dataList.add(Data(R.string.thermal_full_rect, MenuR.drawable.selector_menu2_fence_full, FenceType.FULL))
-        if (menuType != MenuType.GALLERY_EDIT) {// 2D编辑的菜单没有趋势图
+        if (menuType != MenuType.GALLERY_EDIT) {// 2D[Chinese text]menu[Chinese text]
             dataList.add(Data(R.string.thermal_trend, MenuR.drawable.selector_menu2_fence_trend, FenceType.TREND))
         }
         dataList.add(Data(R.string.thermal_delete, MenuR.drawable.selector_menu2_del, FenceType.DEL))

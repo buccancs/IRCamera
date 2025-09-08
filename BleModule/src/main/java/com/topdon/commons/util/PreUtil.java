@@ -28,7 +28,7 @@ public class PreUtil {
     private static PreUtil instance;
 
     /**
-     * 构造方法
+     * [Chinese text]
      *
      * @param context
      */
@@ -37,7 +37,7 @@ public class PreUtil {
     }
 
     /**
-     * 构造方法
+     * [Chinese text]
      *
      * @param context
      * @param shareName
@@ -48,9 +48,9 @@ public class PreUtil {
     }
 
     /**
-     * 得到单例模式的PreferencesManager对象
+     * [Chinese text]mode[Chinese text]PreferencesManager[Chinese text]
      *
-     * @param context 上下文
+     * @param context [Chinese text]
      * @return
      */
     public static PreUtil getInstance(Context context) {
@@ -58,10 +58,10 @@ public class PreUtil {
     }
 
     /**
-     * 得到单例模式的PreferencesManager对象
+     * [Chinese text]mode[Chinese text]PreferencesManager[Chinese text]
      *
-     * @param context   上下文
-     * @param shareName 文件名称
+     * @param context   [Chinese text]
+     * @param shareName [Chinese text]
      * @return
      */
     public static PreUtil getInstance(Context context,
@@ -179,7 +179,7 @@ public void put(String key, Set<String> value) {
     }
 
     /**
-     * 直接存放对象，反射将根据对象的属性作为key，并将对应的值保存。
+     * [Chinese text], [Chinese text]key, [Chinese text]. 
      *
      * @param t
      */
@@ -305,7 +305,7 @@ public void put(String key, Object defaultObj) {
     }
 
     /**
-     * 获取整个对象，跟put(T t)对应使用， 利用反射得到对象的属性，然后从preferences获取
+     * [Chinese text], [Chinese text]put(T t)[Chinese text],  [Chinese text], [Chinese text]preferences[Chinese text]
      *
      * @param cls
      * @return

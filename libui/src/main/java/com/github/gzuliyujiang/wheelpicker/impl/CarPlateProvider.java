@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-present 贵州纳雍穿青人李裕江<1032694760@qq.com>
+ * Copyright (c) 2016-present [Chinese text]<1032694760@qq.com>
  *
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
@@ -22,17 +22,17 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 数据参见 http:// www.360doc.com/content/12/0602/07/3899427_215339300.shtml
+ * [Chinese text] http:// www.360doc.com/content/12/0602/07/3899427_215339300.shtml
  *
- * @author 贵州山野羡民（1032694760@qq.com）
+ * @author [Chinese text](1032694760@qq.com)
  * @since 2021/6/9 11:31
  */
 public class CarPlateProvider implements LinkageProvider {
     private static final String[] ABBREVIATIONS = {
-            "京", "津", "冀", "晋", "蒙", "辽", "吉", "黑", "沪",
-            "苏", "浙", "皖", "闽", "赣", "鲁", "豫", "鄂", "湘",
-            "粤", "桂", "琼", "渝", "川", "贵", "云", "藏", "陕",
-            "甘", "青", "宁", "新"};
+            "[Chinese text]", "[Chinese text]", "[Chinese text]", "[Chinese text]", "[Chinese text]", "[Chinese text]", "[Chinese text]", "[Chinese text]", "[Chinese text]",
+            "[Chinese text]", "[Chinese text]", "[Chinese text]", "[Chinese text]", "[Chinese text]", "[Chinese text]", "[Chinese text]", "[Chinese text]", "[Chinese text]",
+            "[Chinese text]", "[Chinese text]", "[Chinese text]", "[Chinese text]", "[Chinese text]", "[Chinese text]", "[Chinese text]", "[Chinese text]", "[Chinese text]",
+            "[Chinese text]", "[Chinese text]", "[Chinese text]", "[Chinese text]"};
 
     @Override
     public boolean firstLevelVisible() {
@@ -61,20 +61,20 @@ public class CarPlateProvider implements LinkageProvider {
         }
         String province = provideFirstData().get(firstIndex);
         switch (province) {
-            case "京":
+            case "[Chinese text]":
                 for (char i = 'A'; i <= 'M'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 letters.remove("I");
                 letters.add("Y");
                 break;
-            case "津":
-            case "青":
+            case "[Chinese text]":
+            case "[Chinese text]":
                 for (char i = 'A'; i <= 'H'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 break;
-            case "冀":
+            case "[Chinese text]":
                 for (char i = 'A'; i <= 'H'; i++) {
                     letters.add(String.valueOf(i));
                 }
@@ -83,70 +83,70 @@ public class CarPlateProvider implements LinkageProvider {
                 letters.add("S");
                 letters.add("T");
                 break;
-            case "晋":
+            case "[Chinese text]":
                 for (char i = 'A'; i <= 'M'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 letters.remove("G");
                 letters.remove("I");
                 break;
-            case "蒙":
-            case "赣":
+            case "[Chinese text]":
+            case "[Chinese text]":
                 for (char i = 'A'; i <= 'M'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 letters.remove("I");
                 break;
-            case "辽":
-            case "甘":
+            case "[Chinese text]":
+            case "[Chinese text]":
                 for (char i = 'A'; i <= 'P'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 letters.remove("I");
                 letters.remove("O");
                 break;
-            case "吉":
-            case "闽":
+            case "[Chinese text]":
+            case "[Chinese text]":
                 for (char i = 'A'; i <= 'K'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 letters.remove("I");
                 break;
-            case "黑":
-            case "新":
+            case "[Chinese text]":
+            case "[Chinese text]":
                 for (char i = 'A'; i <= 'R'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 letters.remove("I");
                 letters.remove("O");
                 break;
-            case "沪":
+            case "[Chinese text]":
                 for (char i = 'A'; i <= 'D'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 letters.add("R");
                 break;
-            case "苏":
+            case "[Chinese text]":
                 for (char i = 'A'; i <= 'N'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 letters.remove("I");
                 break;
-            case "浙":
+            case "[Chinese text]":
                 for (char i = 'A'; i <= 'L'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 letters.remove("I");
                 break;
-            case "皖":
-            case "鄂":
+            case "[Chinese text]":
+            case "[Chinese text]":
                 for (char i = 'A'; i <= 'S'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 letters.remove("I");
                 letters.remove("O");
                 break;
-            case "鲁":
+            case "[Chinese text]":
                 for (char i = 'A'; i <= 'V'; i++) {
                     letters.add(String.valueOf(i));
                 }
@@ -154,14 +154,14 @@ public class CarPlateProvider implements LinkageProvider {
                 letters.remove("O");
                 letters.add("Y");
                 break;
-            case "豫":
+            case "[Chinese text]":
                 for (char i = 'A'; i <= 'U'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 letters.remove("I");
                 letters.remove("O");
                 break;
-            case "湘":
+            case "[Chinese text]":
                 for (char i = 'A'; i <= 'N'; i++) {
                     letters.add(String.valueOf(i));
                 }
@@ -169,14 +169,14 @@ public class CarPlateProvider implements LinkageProvider {
                 letters.remove("O");
                 letters.add("U");
                 break;
-            case "粤":
+            case "[Chinese text]":
                 for (char i = 'A'; i <= 'Z'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 letters.remove("I");
                 letters.remove("O");
                 break;
-            case "桂":
+            case "[Chinese text]":
                 for (char i = 'A'; i <= 'P'; i++) {
                     letters.add(String.valueOf(i));
                 }
@@ -184,20 +184,20 @@ public class CarPlateProvider implements LinkageProvider {
                 letters.remove("O");
                 letters.add("R");
                 break;
-            case "琼":
-            case "宁":
+            case "[Chinese text]":
+            case "[Chinese text]":
                 for (char i = 'A'; i <= 'E'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 break;
-            case "渝":
+            case "[Chinese text]":
                 for (char i = 'A'; i <= 'D'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 letters.remove("D");
                 letters.remove("E");
                 break;
-            case "川":
+            case "[Chinese text]":
                 for (char i = 'A'; i <= 'Z'; i++) {
                     letters.add(String.valueOf(i));
                 }
@@ -205,15 +205,15 @@ public class CarPlateProvider implements LinkageProvider {
                 letters.remove("I");
                 letters.remove("O");
                 break;
-            case "贵":
-            case "藏":
+            case "[Chinese text]":
+            case "[Chinese text]":
                 for (char i = 'A'; i <= 'J'; i++) {
                     letters.add(String.valueOf(i));
                 }
                 letters.remove("I");
                 break;
-            case "云":
-                // “A-V”为昆明市东川区（原东川市）
+            case "[Chinese text]":
+                // "A-V"[Chinese text]([Chinese text])
                 letters.add("A-V");
                 for (char i = 'A'; i <= 'S'; i++) {
                     letters.add(String.valueOf(i));
@@ -222,7 +222,7 @@ public class CarPlateProvider implements LinkageProvider {
                 letters.remove("I");
                 letters.remove("O");
                 break;
-            case "陕":
+            case "[Chinese text]":
                 for (char i = 'A'; i <= 'K'; i++) {
                     letters.add(String.valueOf(i));
                 }

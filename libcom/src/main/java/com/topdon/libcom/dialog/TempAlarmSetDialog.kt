@@ -34,12 +34,12 @@ class TempAlarmSetDialog(
         }
 
     /**
-     * 保存点击事件监听.
+     * [Chinese text]point[Chinese text]eventlistener.
      */
     var onSaveListener: ((alarmBean: AlarmBean) -> Unit)? = null
 
     /**
-     * 用于播放报警铃声.
+     * for[Chinese text].
      */
     private var mediaPlayer: MediaPlayer? = null
 
@@ -284,22 +284,22 @@ class TempAlarmSetDialog(
 
     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
         when (buttonView?.id) {
-            R.id.switch_alarm_high -> {// 高温报警
+            R.id.switch_alarm_high -> {// high[Chinese text]
                 etAlarmHigh.isEnabled = isChecked
                 alarmBean.isHighOpen = isChecked
             }
 
-            R.id.switch_alarm_low -> {// 低温报警
+            R.id.switch_alarm_low -> {// low[Chinese text]
                 etAlarmLow.isEnabled = isChecked
                 alarmBean.isLowOpen = isChecked
             }
 
-            R.id.switch_alarm_mark -> {// 区域标记
+            R.id.switch_alarm_mark -> {// area[Chinese text]
                 clAlarmMark.isVisible = isChecked
                 alarmBean.isMarkOpen = isChecked
             }
 
-            R.id.switch_alarm_ringtone -> {// 报警铃声
+            R.id.switch_alarm_ringtone -> {// [Chinese text]
                 clRingtoneSelect.isVisible = isChecked
                 if (isChecked) {
                     selectRingtone(alarmBean.ringtoneType)
@@ -311,7 +311,7 @@ class TempAlarmSetDialog(
     }
 
     /**
-     * Settings当前选中的铃声，null 表示关闭.
+     * Settings[Chinese text]in progress[Chinese text], null [Chinese text].
      */
     private fun selectRingtone(position: Int?) {
         try {

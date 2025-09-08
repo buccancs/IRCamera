@@ -58,7 +58,7 @@
     <string name="set_clear_cache">Clear Cache</string>
     <string name="setting_firmware_update">Firmware Upgrade</string>
     <string name="feedback_text_tip">Describe your problem</string>
-    <string name="tip_loading">Please wait…</string>
+    <string name="tip_loading">Please wait...</string>
     <string name="person_headshot">Profile Photo</string>
     <string name="person_log_out">Log Out</string>
     <string name="person_headshot_change">Change Profile Photo</string>
@@ -71,9 +71,9 @@
     <string name="person_new_password2">Re-enter new password</string>
     <string name="app_submit_success">Submitted! \nThank you for your support. We value your feedback.</string>
     <string name="setting_firmware_update_latest_version">This is already the latest version.</string>
-    <string name="setting_firmware_update_get_information">Obtaining version information. Please wait…</string>
+    <string name="setting_firmware_update_get_information">Obtaining version information. Please wait...</string>
     <string name="setting_firmware_update_get_information_error">Failed to obtain version information. Please retry.</string>
-    <string name="setting_firmware_update_updating">Upgrading firmware. Please wait…</string>
+    <string name="setting_firmware_update_updating">Upgrading firmware. Please wait...</string>
     <string name="setting_firmware_update_updating_error">Failed to upgrade the firmware. Please retry.</string>
     <string name="setting_firmware_update_updating_successful">Firmware upgrade successful.</string>
     <string name="setting_firmware_update_version">Current version:</string>
@@ -168,16 +168,16 @@
     <string name="chart_temperature_high">Highest Temperature</string>
     <string name="chart_temperature_low">Lowest Temperature</string>
     <string name="chart_temperature">Temperature</string>
-    <string name="question1">Why there is no response after connecting the TC001、TS001 to a phone?</string>
-    <string name="answer1">Follow the steps below to identify the problem:\na) Check if your phone is on Android version 6.0 or above. \nb) Check if the OTG is available in your phone Settings and if it is ON. For some phones, search for OTG in the Settings menu and turn it on manually. \nc) Check if the blue LED indicator on the TC001、TS001 is lit. If not, your phone may not be properly connected to the device, or your phone may not support OTG functions. \nd) Check if you have downloaded the app and given it the necessary authorization. \ne) Disconnect and plug in the TC001、TS001 again. If there is still no response, please contact customer support.</string>
+    <string name="question1">Why there is no response after connecting the TC001, TS001 to a phone?</string>
+    <string name="answer1">Follow the steps below to identify the problem:\na) Check if your phone is on Android version 6.0 or above. \nb) Check if the OTG is available in your phone Settings and if it is ON. For some phones, search for OTG in the Settings menu and turn it on manually. \nc) Check if the blue LED indicator on the TC001, TS001 is lit. If not, your phone may not be properly connected to the device, or your phone may not support OTG functions. \nd) Check if you have downloaded the app and given it the necessary authorization. \ne) Disconnect and plug in the TC001, TS001 again. If there is still no response, please contact customer support.</string>
     <string name="question2">What if the image is not clear and the temperature is not accurate?</string>
     <string name="answer2">The uncooled infrared detectors require periodic refreshing of the screen by pressing the shutter icon on the upper right. This ensures a clearer image and more accurate temperature measurement.</string>
-    <string name="question3">Can the TC001、TS001 perform readings underwater, through glass windows, through clothes, or under skin?</string>
+    <string name="question3">Can the TC001, TS001 perform readings underwater, through glass windows, through clothes, or under skin?</string>
     <string name="answer3">The infrared detector can detect long-wave infrared regions of 8~14um, and can only measure the surface temperature of an object. It cannot measure temperature through water or glass.</string>
     <string name="question4">Why is the measured temperature not precise?</string>
-    <string name="answer4">The temperature resolution of the TC001、TS001 is ±2%, with a normal temperature range of –20~150°C (-4~302°F) , and high temperature range of 150–550°C (302~1022°F). Please select the corresponding range in the app before testing.</string>
-    <string name="question5">Does the TC001、TS001 emit radiation harmful to people\'s health?</string>
-    <string name="answer5">The TC001、TS001 does not emit any harmful radiation and only collects heat information about an object.</string>
+    <string name="answer4">The temperature resolution of the TC001, TS001 is +/-2%, with a normal temperature range of -20~150degC (-4~302degF) , and high temperature range of 150-550degC (302~1022degF). Please select the corresponding range in the app before testing.</string>
+    <string name="question5">Does the TC001, TS001 emit radiation harmful to people\'s health?</string>
+    <string name="answer5">The TC001, TS001 does not emit any harmful radiation and only collects heat information about an object.</string>
     <string name="question6">Why does the temperature reading increase when I get closer to the device?</string>
     <string name="answer6">Infrared radiation attenuates after passing through the atmosphere. The longer the distance, the stronger the attenuation, causing the accuracy of temperature measured at a distance to decrease. For users who need to get accurate temperature data, they can enter the distance to be measured (maximum 5 meters) in Personal Information - Settings - Temperature Correction - Distance to Spot, to get the corrected temperature.</string>
     <string name="question7">Why there is a clicking sound? What does "shutter moving" mean?</string>
@@ -238,10 +238,10 @@
     <string name="app_delete_album_prompt">APP has no permission to delete this file, please go to the phone album to delete it</string>
     <string name="app_save_image">Do you want to save images?</string>
     <string name="app_tip">Tips</string>
-    <string name="device_loading_tip">Loading…</string>
+    <string name="device_loading_tip">Loading...</string>
 
 
-    <!-- 2.00版本 -->
+    <!-- 2.00[Chinese text] -->
     <string name="app_lapsePhotography">Timed Photo</string>
     <string name="app_Manual_Shutter">Manual Shutter</string>
     <string name="app_record_sound">Record Audio</string>
@@ -286,7 +286,7 @@
     <string name="tip_video_record">Each recording time is up to 60 minutes</string>
 
 
-    <!-- 2.10版本 -->
+    <!-- 2.10[Chinese text] -->
     <string name="temp_alarm_alarm">Alarm</string>
     <string name="temp_alarm_high_alarm">High Temp. Alarm</string>
     <string name="temp_alarm_low_alarm">Low Temp. Alarm</string>
@@ -373,7 +373,7 @@
     <string name="tip_export_data">Exporting data</string>
     <string name="tip_correction_1">1. Extended use of thermal imagers for high-temperature sources can lead to the occurrence of black spot effects. To address this, you can utilize the calibration feature to restore the image.</string>
     <string name="tip_correction_2_title">2. Connect the thermal imager to your phone and have the lens towards a black and non-reflective surface. The surface should meet below requirements:</string>
-    <string name="tip_correction_2_content">The surface temperature should be uniform (it could be a black metal plate, wooden board, or plastic plate, etc.) \n· The distance between the device and the surface should be 5-10cm\n· The shooting image should be covered by the surface\n· The calibration process should be performed in a dark environment.</string>
+    <string name="tip_correction_2_content">The surface temperature should be uniform (it could be a black metal plate, wooden board, or plastic plate, etc.) \n* The distance between the device and the surface should be 5-10cm\n* The shooting image should be covered by the surface\n* The calibration process should be performed in a dark environment.</string>
     <string name="tip_correction_3">3. Face the thermal imager to the black board, tap "Start calibration", and wait for 60 seconds to complete the calibration process. Do not turn off the screen or switch to other apps during the calibration process.</string>
     <string name="correction_title">Image Calibration</string>
     <string name="dual_light_title">Dual light correction</string>
@@ -457,7 +457,7 @@
     <string name="target_tips_step_4">4.Observe the object and the number on the target (the distance between the camera and the object). As shown in the picture below, the distance between the camera and the object is 20 meters.</string>
     <string name="target_tips_tip_content">Note: Currently, referential heights for 4 types of objects are available.</string>
 
-    <!--国内上架用-->
+    <!--[Chinese text]-->
     <string name="permission_request_camera_app">%1$s is requesting permission for your camera to allow changing your profile picture or taking photos to give feedback.</string>
     <string name="permission_request_location_app">%1$s is requesting permission for your location to search for nearby Bluetooth devices.</string>
     <string name="permission_request_storage_app">%1$s is requesting storage permission to save local files or read pictures for profile setting.</string>
@@ -516,7 +516,7 @@
     <string name="ts004_guide_text4">Connect</string>
     <string name="ts004_guide_text5">3. Connect your phone to the device Wi-Fi "%1$s". (Wi-Fi name: TS004_XXXX; Wi-Fi password: 12345678)</string>
     <string name="ts004_guide_text6">More</string>
-    <string name="ts004_guide_text7">If the connection still fails, please see “%1$s”.</string>
+    <string name="ts004_guide_text7">If the connection still fails, please see "%1$s".</string>
     <string name="ts004_guide_text8">If the device cannot be connected, please try the following:</string>
     <string name="ts004_guide_text9">1. Check to ensure that the device is fully charged and powered on. Or you can restart the device.</string>
     <string name="ts004_guide_text10">2. Place the device close enough to the phone (less than 50 meters).</string>
@@ -605,7 +605,7 @@
     <string name="ts004_device_change">You can switch in Personal Center.</string>
     <string name="ts004_store_reset">The device will automatically restart after formatting.</string>
     <string name="ts004_faq_q1">Can TS004 detect objects underwater, through glass or through a wall?</string>
-    <string name="ts004_faq_a1">No. Infrared detectors mainly detect 8 to 14μm long-wave infrared areas, and can only be used to measure surface temperature.</string>
+    <string name="ts004_faq_a1">No. Infrared detectors mainly detect 8 to 14microm long-wave infrared areas, and can only be used to measure surface temperature.</string>
     <string name="ts004_faq_q2">Can any phone be connected to TS004?</string>
     <string name="ts004_faq_a2">Currently, TS004 supports phones with Android 7 or later OS and phones with iOS 11 or later OS.</string>
     <string name="ts004_faq_q3">Is the focus of the camera fixed or adjustable?</string>
@@ -615,7 +615,7 @@
     <string name="ts004_faq_q5">How do I view the captured thermal images on a PC?</string>
     <string name="ts004_faq_a5">Connect TS004 to a PC via the USB cable, and then you can view the thermal images stored on TS004.</string>
 
-    <!-- TC001 老 APP 引流 -->
+    <!-- TC001 [Chinese text] APP [Chinese text] -->
     <string name="gallery_transfer">Gallery Transfer</string>
     <string name="gallery_transfer_wait">Data is being transferred. Please wait.</string>
     <string name="gallery_transfer_complete">Data Transfer Completed</string>
@@ -647,7 +647,7 @@
     <string name="tc_delete_device_tips">Confirm to delete the current device type? Tap the upper right button to add this device type again if needed.</string>
     <string name="tc_has_line_device">Wired Device</string>
     <string name="tc_reset_tips">All device settings will be restored to factory settings. Confirm to restore?</string>
-    <string name="coming_soon">Stay Tuned…</string>
+    <string name="coming_soon">Stay Tuned...</string>
 
     <!-- 3.90 -->
     <string name="tc007_connect_tips1">1. Ensure that the equipment has sufficient power and is close enough</string>
@@ -663,10 +663,10 @@
     <string name="app_bluetooth_content">No permission to access your Bluetooth (nearby devices), go to settings</string>
     <string name="nearby_device_permissions">Nearby device permissions</string>
     <string name="open_bt_switch_tips">When connecting to a mobile phone, Bluetooth needs to be turned on to obtain necessary device information</string>
-    <string name="wifi_connect_loading">It is expected to take 15s…</string>
+    <string name="wifi_connect_loading">It is expected to take 15s...</string>
     <string name="tc007_done_fast">Frequent operations</string>
 
-    <!-- 房屋检测 -->
+    <!-- [Chinese text] -->
     <string name="main_professional_test">Professional Testing</string>
     <string name="main_temperature_test">Temperature Testing</string>
     <string name="main_thermal_tips">Professional Thermal Imaging Testing</string>
@@ -835,7 +835,7 @@
     <string name="abnormal_description17">The temperature of the rear mirror heater is affected by many factors, such as ambient temperature, and heater load. Monitor the heater temperature with a thermal imager, and then you can assess whether the rear mirror can be heated effectively.</string>
     <string name="abnormal_description18">The window motor temperature is affected by many factors, such as ambient temperature, and motor load. Monitor the motor temperature with a thermal imager. If the temperature is too high, it may be caused by the failure of the window lifting mechanism or the motor itself.</string>
 
-    <!-- 房屋检测新增 -->
+    <!-- [Chinese text] -->
     <string name="vehicle_function">Function</string>
     <string name="ability_find">find</string>
     <string name="ability_monitory">Real time viewing of object temperature to generate data</string>

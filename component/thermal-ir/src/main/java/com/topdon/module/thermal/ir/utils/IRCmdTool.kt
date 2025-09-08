@@ -29,9 +29,9 @@ object IRCmdTool {
 
         val oemInfo = ByteArray(512)
         val snData = ByteArray(256)
-        val dispData = ByteArray(5)// 配准参数
+        val dispData = ByteArray(5)// [Chinese text]
         irCmd?.oemRead(CommonParams.ProductType.P2, oemInfo)
-        XLog.w("机芯数据加载成功", "数据读取完成:")
+        XLog.w("[Chinese text]", "[Chinese text]:")
         val calibrationData = ByteArray(calibrationDataSize)
         val productTypeData = ByteArray(2)
         System.arraycopy(oemInfo, 0, calibrationData, 0, calibrationData.size)
@@ -49,9 +49,9 @@ object IRCmdTool {
             if (dispNumber < -20){
                 dispNumber = -20
             }
-            XLog.w("配准message:", ""+dispNumber)
+            XLog.w("[Chinese text]message:", ""+dispNumber)
         }catch (e:Exception){
-            XLog.w("配准数据异常")
+            XLog.w("[Chinese text]")
         }
         val snList = String(snData).split(";")
         val snStr = if (snList.isNotEmpty() && snList[0].contains("sn",true)){
@@ -76,10 +76,10 @@ object IRCmdTool {
                     Log.e(TAG, "read file fail ")
                 }
                 parameters[length] = 1
-                // 先从缓存中查找是否有保存的对齐数据，没有用初始化数据
+                // [Chinese text]in progress[Chinese text], [Chinese text]
                 val alignByte = SharedManager.getManualData(snStr)
                 System.arraycopy(alignByte, 0, parameters, calibrationDataSize + 1, alignByte.size)
-                XLog.w("机芯没存在校正数据，请联系厂商确认")
+                XLog.w("[Chinese text], [Chinese text]")
             } catch (e: IOException) {
                 e.printStackTrace()
             } finally {
@@ -107,7 +107,7 @@ object IRCmdTool {
     }
 
     /**
-     * Settings发射率 unit:cnt(128cnt = 1)
+     * Settings[Chinese text] unit:cnt(128cnt = 1)
      * @param value 1 ~ 128
      */
     fun setTpdEms(irCmd: IRCMD?, value: Int) {
@@ -116,10 +116,10 @@ object IRCmdTool {
     }
 
     /**
-     * Settings距离 unit:cnt(128cnt = 1m, 默认值: 0.25 * 128 = 32)
+     * Settings[Chinese text] unit:cnt(128cnt = 1m, [Chinese text]: 0.25 * 128 = 32)
      * @param value 0 ~ 25600
      *
-     * 现有sdk在SettingsTPD_PROP_DISTANCE抛异常
+     * [Chinese text]sdk[Chinese text]SettingsTPD_PROP_DISTANCE[Chinese text]
      */
     fun setTpdDis(irCmd: IRCMD?, value: Int) {
         val data = CommonParams.PropTPDParamsValue.NumberType(value.toString())
@@ -127,7 +127,7 @@ object IRCmdTool {
     }
 
     /**
-     * Settings对比度
+     * Settings[Chinese text]
      * @param value 0 ~ 255
      */
     fun setLevelContrast(irCmd: IRCMD?, value: Int) {
@@ -136,7 +136,7 @@ object IRCmdTool {
     }
 
     /**
-     * Settings锐化
+     * Settings[Chinese text]
      * @param value 0 ~ 4
      *
      */
@@ -153,7 +153,7 @@ object IRCmdTool {
     }
 
     /**
-     * Settings自动增益
+     * Settings[Chinese text]
      */
     fun setLevelAgc(irCmd: IRCMD?, value: Boolean) {
         val data = if (value) {
@@ -165,8 +165,8 @@ object IRCmdTool {
     }
 
     /**
-     * 查询增益模式
-     * @return 1:高增益(常温)    0:低增益(高温)
+     * [Chinese text]mode
+     * @return 1:high[Chinese text]([Chinese text])    0:low[Chinese text](high[Chinese text])
      */
     fun getTpdGainSel(irCmd: IRCMD?): Int {
         val result = queryTpdParam(irCmd = irCmd, params = CommonParams.PropTPDParams.TPD_PROP_GAIN_SEL)
@@ -178,8 +178,8 @@ object IRCmdTool {
     }
 
     /**
-     * Settings增益模式
-     * @param value 1:高增益(常温)    0:低增益(高温)
+     * Settings[Chinese text]mode
+     * @param value 1:high[Chinese text]([Chinese text])    0:low[Chinese text](high[Chinese text])
      */
     fun setTpdGainSel(irCmd: IRCMD?, value: Int): Int {
         val data = if (value == 1) {
@@ -191,7 +191,7 @@ object IRCmdTool {
     }
 
     /**
-     * 查询Tpd
+     * [Chinese text]Tpd
      */
     fun queryTpdParam(irCmd: IRCMD?, params: CommonParams.PropTPDParams): Int {
         val value = IntArray(1)
@@ -200,7 +200,7 @@ object IRCmdTool {
     }
 
     /**
-     * 查询Image
+     * [Chinese text]Image
      */
     fun queryImageParam(irCmd: IRCMD?, params: CommonParams.PropImageParams): Int {
         val value = IntArray(1)
@@ -215,26 +215,26 @@ object IRCmdTool {
         return try {
             irCmd?.setPropTPDParams(params, value) ?: 0
         } catch (e: Exception) {
-            XLog.w("Settings参数异常[${params.name}]: ${e.message}")
+            XLog.w("Settings[Chinese text][${params.name}]: ${e.message}")
             0
         }
     }
 
     /**
-     * Settings图像参数
+     * Settings[Chinese text]
      */
     private fun setImageParams(irCmd: IRCMD?, params: CommonParams.PropImageParams, value: CommonParams.PropImageParamsValue): Int {
         return try {
             irCmd?.setPropImageParams(params, value) ?: 0
         } catch (e: Exception) {
-            XLog.w("Settings参数异常[${params.name}]: ${e.message}")
+            XLog.w("Settings[Chinese text][${params.name}]: ${e.message}")
             0
         }
     }
 
     /**
-     * 配准
-     * 水平移动
+     * [Chinese text]
+     * [Chinese text]
      * @param value (-20 ~ 60)
      */
     fun setDisp(dualView: BaseDualView?, value: Int): Int {
@@ -246,13 +246,13 @@ object IRCmdTool {
                 -1 // Return error
             }
         } catch (e: Exception) {
-            XLog.w("Settings配准异常[${value}]: ${e.message}")
+            XLog.w("Settings[Chinese text][${value}]: ${e.message}")
             0
         }
     }
 
     /**
-     * @param moveX 在当前基础上要再偏移的数值
+     * @param moveX [Chinese text]
      */
     fun setAlignTranslate(dualView: BaseDualView?, moveX: Int, moveY: Int) {
         val newSrc = ByteArray(8)
@@ -269,19 +269,19 @@ object IRCmdTool {
     }
 
     /**
-     * 打快门
+     * [Chinese text]
      */
     fun shutter(irCmd: IRCMD?, syncImage: SynchronizedBitmap) {
         if (syncImage.type == 1) {
             irCmd?.tc1bShutterManual()
         } else {
-            // 执行这段
+            // [Chinese text]
             irCmd?.updateOOCOrB(CommonParams.UpdateOOCOrBType.B_UPDATE)
         }
     }
 
     /**
-     * 自动快门
+     * [Chinese text]
      */
     fun autoShutter(irCmd: IRCMD?, flag: Boolean) {
         val data = if (flag) CommonParams.PropAutoShutterParameterValue.StatusSwith.ON else CommonParams.PropAutoShutterParameterValue.StatusSwith.OFF
@@ -289,16 +289,16 @@ object IRCmdTool {
     }
 
     /**
-     * 开启等温尺
-     * @param highC 温度上限，单位摄氏度
-     * @param lowC 温度下限，单位摄氏度
+     * [Chinese text]
+     * @param highC temperature[Chinese text], [Chinese text]
+     * @param lowC temperature[Chinese text], [Chinese text]
      */
     fun setIsoColorOpen(dualUVCCamera: DualUVCCamera?, highC: Float, lowC: Float) {
         dualUVCCamera?.setIsothermal(DualCameraParams.IsothermalState.ON)
-        val normalHighTemp = (highC + 273).toDouble() // 单位k
-        val normalLowTemp = (lowC + 273).toDouble() // 单位k
-        val highTemp = ceil(normalHighTemp * 16 * 4).toInt() // 高温向上取整
-        val lowTemp = floor(normalLowTemp * 16 * 4).toInt() // 低温向下取整
+        val normalHighTemp = (highC + 273).toDouble() // [Chinese text]k
+        val normalLowTemp = (lowC + 273).toDouble() // [Chinese text]k
+        val highTemp = ceil(normalHighTemp * 16 * 4).toInt() // high[Chinese text]
+        val lowTemp = floor(normalLowTemp * 16 * 4).toInt() // low[Chinese text]
         val highData = ByteArray(2)
         highData[0] = highTemp.toByte()
         highData[1] = (highTemp shr 8).toByte()
@@ -307,30 +307,30 @@ object IRCmdTool {
         lowData[1] = (lowTemp shr 8).toByte()
         val tempHFin = (highData[0].toInt() and 0x00ff) + (highData[1].toInt() and 0x00ff shl 8)
         val tempLFin = (lowData[0].toInt() and 0x00ff) + (lowData[1].toInt() and 0x00ff shl 8)
-        dualUVCCamera?.setTempL(tempLFin) // 低温 - convert to Int
-        dualUVCCamera?.setTempH(tempHFin) // 高温 - convert to Int
+        dualUVCCamera?.setTempL(tempLFin) // low[Chinese text] - convert to Int
+        dualUVCCamera?.setTempH(tempHFin) // high[Chinese text] - convert to Int
     }
 
     /**
-     * 关闭等温尺
+     * [Chinese text]
      */
     fun setIsoColorClose(dualUVCCamera: DualUVCCamera?) {
         dualUVCCamera?.setIsothermal(DualCameraParams.IsothermalState.OFF)
     }
 
     /**
-     * 放大(仅对热成像有效)
-     * ZoomScaleStep.ZOOM_STEP1: 2级倍率
-     * ZoomScaleStep.ZOOM_STEP2: 4级倍率
-     * ZoomScaleStep.ZOOM_STEP3: 8级倍率
-     * ZoomScaleStep.ZOOM_STEP4: 16级倍率
+     * [Chinese text](only[Chinese text])
+     * ZoomScaleStep.ZOOM_STEP1: 2[Chinese text]
+     * ZoomScaleStep.ZOOM_STEP2: 4[Chinese text]
+     * ZoomScaleStep.ZOOM_STEP3: 8[Chinese text]
+     * ZoomScaleStep.ZOOM_STEP4: 16[Chinese text]
      */
     fun setZoomUp(irCmd: IRCMD?) {
         irCmd?.zoomCenterUp(CommonParams.PreviewPathChannel.PREVIEW_PATH0, CommonParams.ZoomScaleStep.ZOOM_STEP2)
     }
 
     /**
-     * 缩小
+     * [Chinese text]
      */
     fun setZoomDown(irCmd: IRCMD?) {
         irCmd?.zoomCenterDown(CommonParams.PreviewPathChannel.PREVIEW_PATH0, CommonParams.ZoomScaleStep.ZOOM_STEP2)

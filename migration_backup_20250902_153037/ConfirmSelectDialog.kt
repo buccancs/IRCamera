@@ -13,7 +13,7 @@ import com.topdon.lib.core.utils.ScreenUtil
 import kotlinx.android.synthetic.main.dialog_confirm_select.view.*
 
 /**
- * TS004 远端图库删除提示弹框.
+ * TS004 [Chinese text]gallery[Chinese text].
  *
  * Created by LCG on 2024/2/29.
  */
@@ -22,7 +22,7 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
     var onConfirmClickListener: ((isSelect: Boolean) -> Unit)? = null
 
     /**
-     * 是否显示顶部信息图标，默认不显示.
+     * [Chinese text], [Chinese text].
      */
     fun setShowIcon(isShowIcon: Boolean) {
         rootView.iv_icon.isVisible = isShowIcon
@@ -37,7 +37,7 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
     }
 
     /**
-     * 是否显示提示文字及选中效果，默认不显示.
+     * [Chinese text]text[Chinese text]in progress[Chinese text], [Chinese text].
      */
     fun setShowMessage(isShowMessage: Boolean) {
         rootView.rl_message.isVisible = isShowMessage
@@ -48,20 +48,20 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
     }
 
     /**
-     * 是否显示取消按钮，默认显示且默认文字为“取消”.
+     * [Chinese text]button, [Chinese text]text[Chinese text]"[Chinese text]".
      */
     fun setShowCancel(isShowCancel: Boolean) {
         rootView.tv_cancel.isVisible = isShowCancel
     }
     /**
-     * 设置取消按钮文字，默认为“取消”.
+     * settings[Chinese text]buttontext, [Chinese text]"[Chinese text]".
      */
     fun setCancelText(@StringRes cancelRes: Int) {
         rootView.tv_cancel.setText(cancelRes)
     }
 
     /**
-     * 设置确认按钮文字，默认为“删除"
+     * settings[Chinese text]buttontext, [Chinese text]"[Chinese text]"
      */
     fun setConfirmText(@StringRes confirmRes: Int) {
         rootView.tv_confirm.setText(confirmRes)
@@ -90,13 +90,13 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
 
     override fun onClick(v: View?) {
         when (v) {
-            rootView.rl_message -> {//选中状态
+            rootView.rl_message -> {//[Chinese text]in progress[Chinese text]
                 rootView.iv_select.isSelected = !rootView.iv_select.isSelected
             }
-            rootView.tv_cancel -> {//取消
+            rootView.tv_cancel -> {//[Chinese text]
                 dismiss()
             }
-            rootView.tv_confirm -> {//确认
+            rootView.tv_confirm -> {//[Chinese text]
                 dismiss()
                 onConfirmClickListener?.invoke(rootView.iv_select.isSelected)
             }

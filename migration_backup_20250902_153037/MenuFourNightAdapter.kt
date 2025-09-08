@@ -24,24 +24,24 @@ import com.topdon.lib.ui.listener.SingleClickListener
 import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.*
 
 
-@Deprecated("旧的设置菜单，已重构过了")
+@Deprecated("[Chinese text]settingsmenu, [Chinese text]")
 @SuppressLint("NotifyDataSetChanged")
 class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
     var listener: ((index: Int, code: Int) -> Unit)? = null
 
-    private var colorEnable = false //伪彩条
-    private var contrastEnable = false //对比度
-    private var ddeEnable = false //细节
-    private var alarmEnable = false //预警
-    private var textColorEnable = false //字体
-    private var mirrorEnable = false //镜像
-    private var waterMarkEnable = false //水印
-    private var compassEnable = false //指南针
+    private var colorEnable = false //[Chinese text]
+    private var contrastEnable = false //[Chinese text]
+    private var ddeEnable = false //[Chinese text]
+    private var alarmEnable = false //[Chinese text]
+    private var textColorEnable = false //[Chinese text]
+    private var mirrorEnable = false //[Chinese text]
+    private var waterMarkEnable = false //[Chinese text]
+    private var compassEnable = false //[Chinese text]
 
 
-    private var rotateAngle = DeviceConfig.S_ROTATE_ANGLE //校对默认角度0
+    private var rotateAngle = DeviceConfig.S_ROTATE_ANGLE //[Chinese text]0
     fun selectRotate(rotateAngle: Int) {
         this.rotateAngle = rotateAngle
         notifyDataSetChanged()
@@ -84,13 +84,13 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
     }
 
     /**
-     * 不知道干嘛的
-     * 参数 [Constants.IR_TEMPERATURE_MODE] = 1 测温模式   伪彩条、对比度、锐度、警示、旋转、字体、镜像
-     * 参数 [Constants.IR_TCPLUS_MODE] = 5 双光设备        伪彩条、对比度、锐度、警示、旋转、字体、
-     * 参数 [Constants.IR_TEMPERATURE_LITE] = 7 Lite设备  伪彩条、对比度、警示、旋转、字体、镜像
-     * 参数 [Constants.IR_TC007_MODE] = 6 TC007          伪彩条、对比度、锐度、警示、字体、镜像
-     * else - 2D编辑菜单                                  警示、字体、水印
-     * 参数 [Constants.IR_OBSERVE_MODE] = 2 观测模式  指南针、旋转、镜像、对比度
+     * [Chinese text]
+     * [Chinese text] [Constants.IR_TEMPERATURE_MODE] = 1 [Chinese text]mode   [Chinese text], [Chinese text], [Chinese text], [Chinese text], [Chinese text], [Chinese text], [Chinese text]
+     * [Chinese text] [Constants.IR_TCPLUS_MODE] = 5 dual light[Chinese text]        [Chinese text], [Chinese text], [Chinese text], [Chinese text], [Chinese text], [Chinese text], 
+     * [Chinese text] [Constants.IR_TEMPERATURE_LITE] = 7 Lite[Chinese text]  [Chinese text], [Chinese text], [Chinese text], [Chinese text], [Chinese text], [Chinese text]
+     * [Chinese text] [Constants.IR_TC007_MODE] = 6 TC007          [Chinese text], [Chinese text], [Chinese text], [Chinese text], [Chinese text], [Chinese text]
+     * else - 2D[Chinese text]menu                                  [Chinese text], [Chinese text], [Chinese text]
+     * [Chinese text] [Constants.IR_OBSERVE_MODE] = 2 [Chinese text]mode  [Chinese text], [Chinese text], [Chinese text], [Chinese text]
      */
     fun setShowMenuFour(modeType: Int){
         fourBean.clear()
@@ -162,7 +162,7 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, @SuppressLint("RecyclerView") position: Int) {
         if (holder is ItemView) {
-            //更新切换Tab的item宽度
+            //[Chinese text]switchTab[Chinese text]item[Chinese text]
             updateViewWidth(holder.itemView,holder.img)
             val bean = fourBean[position]
             holder.name.text = bean.name
@@ -234,7 +234,7 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
         }
     }
 
-    // 状态变化
+    // [Chinese text]
     private fun iconUI(isActive: Boolean, img: ImageView, nameText: TextView) {
         img.isSelected = isActive
         if (isActive) {
@@ -257,8 +257,8 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
             itemView.layoutParams =
                 ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         }
-//        if (fourBean.size <= 4) {  //item少于4个，每个占1/4
-//            val canSeeCount = fourBean.size //一屏占4个
+//        if (fourBean.size <= 4) {  //item[Chinese text]4[Chinese text], [Chinese text]1/4
+//            val canSeeCount = fourBean.size //[Chinese text]4[Chinese text]
 //            val with = (ScreenUtils.getScreenWidth() / canSeeCount)
 //            itemView.layoutParams =
 //                ViewGroup.LayoutParams(with, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -267,8 +267,8 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
 //            layoutParams.width = imageSize
 //            layoutParams.height = imageSize
 //            itemMenu.layoutParams = layoutParams
-//        } else {    //item大于4个，每屏4.5个item
-//            val canSeeCount = 4.5 //一屏占4个
+//        } else {    //item[Chinese text]4[Chinese text], [Chinese text]4.5[Chinese text]item
+//            val canSeeCount = 4.5 //[Chinese text]4[Chinese text]
 //            val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()
 //            itemView.layoutParams =
 //                ConstraintLayout.LayoutParams(with, ConstraintLayout.LayoutParams.WRAP_CONTENT)

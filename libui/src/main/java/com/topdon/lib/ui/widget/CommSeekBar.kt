@@ -9,12 +9,12 @@ import kotlin.math.roundToInt
 import com.topdon.lib.ui.R as UiR
 
 /**
- * 支持竖向的 SeekBar。
- * 暂不支持 thumbOffset.
+ * [Chinese text] SeekBar. 
+ * [Chinese text] thumbOffset.
  */
 class CommSeekBar : AppCompatSeekBar {
     /**
-     * 0-横向 1-竖向
+     * 0-[Chinese text] 1-[Chinese text]
      */
     private val orientation: Int
 
@@ -194,7 +194,7 @@ class CommSeekBar : AppCompatSeekBar {
     }
 
     /**
-     * 通过级别分层进行粘性处理
+     * [Chinese text]
      */
     fun stopTrackTouchLevel()  {
         if (level > 0)

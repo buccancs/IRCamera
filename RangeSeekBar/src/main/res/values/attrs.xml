@@ -95,7 +95,7 @@
         <attr name="rsb_indicator_text_color" format="color" />
         <!-- indicator arrow size, it just work when you not use rsb_indicator_drawable -->
         <attr name="rsb_indicator_arrow_size" format="dimension" />
-        <!-- must use 9 path ！！！ -->
+        <!-- must use 9 path ! ! !  -->
         <attr name="rsb_indicator_drawable" format="reference"/>
         <attr name="rsb_indicator_background_color" format="color" />
         <attr name="rsb_indicator_padding_left" format="dimension" />

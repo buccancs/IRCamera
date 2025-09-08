@@ -27,10 +27,10 @@ import kotlinx.coroutines.launch
 import java.io.File
 
 /**
- * 报告详情界面.
+ * [Chinese text].
  *
- * 需要传递
- * - 一份报告所有信息 [ExtraKeyConfig.REPORT_BEAN]
+ * [Chinese text]
+ * - [Chinese text] [ExtraKeyConfig.REPORT_BEAN]
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class ReportDetailActivity: BaseActivity() {
@@ -43,12 +43,12 @@ class ReportDetailActivity: BaseActivity() {
     private lateinit var watermarkView: WatermarkView
 
     /**
-     * 从上一界面传递过来的，报告所有信息.
+     * [Chinese text], [Chinese text].
      */
     private var reportBean: ReportBean? = null
 
     /**
-     * 当前预览页面已生成的 PDF 文件绝对路径
+     * [Chinese text] PDF [Chinese text]
      */
     private var pdfFilePath: String? = null
 
@@ -136,8 +136,8 @@ class ReportDetailActivity: BaseActivity() {
     }
 
     /**
-     * 获取需要转为 PDF 的所有 View 列表.
-     * 注意：水印 View 不在列表内，需要自行处理.
+     * [Chinese text] PDF [Chinese text] View [Chinese text].
+     * [Chinese text]: [Chinese text] View [Chinese text], [Chinese text].
      */
     private fun getPrintViewList(): ArrayList<View> {
         val result = ArrayList<View>()

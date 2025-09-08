@@ -161,57 +161,57 @@
 //                ViewStubUtils.showViewStub(view_stub_camera,false,null)
 //                popupWindow?.dismiss()
 //                temperatureView.canTouch = position == 2
-//                // 一级菜单选择
+//                // [Chinese text]menu[Chinese text]
 //                showRecycler(position)
 //            }
 //        })
 //        temperature_seekbar.setIndicatorTextDecimalFormat("0.0")
-//        updateTemperatureSeekBar(false,R.drawable.ic_edit_pseudo_lock_svg,"lock")// 加锁
+//        updateTemperatureSeekBar(false,R.drawable.ic_edit_pseudo_lock_svg,"lock")// [Chinese text]
 //        isShowC = getTemperature() == 1
 //        temperatureView.listener = TempListener { max, min ,tempData->
 //            realLeftValue = UnitTools.showUnitValue(min,isShowC)
 //            realRightValue = UnitTools.showUnitValue(max,isShowC)
-////            Log.w("温度更新","${max}--${min}// ${realRightValue}--${realLeftValue}:::")
+////            Log.w("temperature[Chinese text]","${max}--${min}// ${realRightValue}--${realLeftValue}:::")
 //            cl_seek_bar.changeData = true
 //            this@IRThermalActivity.runOnUiThread {
 //                if (!customPseudoBean.isUseCustomPseudo){
-//                    // 动态渲染模式
+//                    // [Chinese text]mode
 //                    try {
 //                        temperature_seekbar.setRangeAndPro(UnitTools.showUnitValue(editMinValue,isShowC),
 //                            UnitTools.showUnitValue(editMaxValue,isShowC),realLeftValue,realRightValue)
 //                        if (editMinValue != Float.MIN_VALUE && editMaxValue != Float.MAX_VALUE){
 //                            imageThread?.setLimit(
 //                                editMaxValue, editMinValue,
-//                                upColor, downColor) // 自定义颜色
+//                                upColor, downColor) // [Chinese text]
 //                        }
 //                    }catch (e:Exception){
-//                        Log.e("温度图层更新失败",e.message.toString())
+//                        Log.e("temperature[Chinese text]",e.message.toString())
 //                    }
 //                    try {
 //                        if (isVideo){
 //                            cl_seek_bar.updateBitmap()
 //                        }
 //                    }catch (e:Exception){
-//                        Log.w("Pseudo color条更新异常:","${e.message}")
+//                        Log.w("Pseudo color[Chinese text]:","${e.message}")
 //                    }
 //                    try {
 //                        AlarmHelp.getInstance(application).alarmData(max,min,temp_bg)
 //                        tv_temp_content.text = "Max:${UnitTools.showC(max,isShowC)}\nMin:${UnitTools.showC(min,isShowC)}"
 //                    }catch (e:Exception){
-//                        Log.e("温度图层更新失败",e.message.toString())
+//                        Log.e("temperature[Chinese text]",e.message.toString())
 //                    }
 //                }else{
-//                    // 自定义渲染
+//                    // [Chinese text]
 //                    try {
 //                        tv_temp_content.text = "Max:${UnitTools.showC(max,isShowC)}\nMin:${UnitTools.showC(min,isShowC)}"
 //                    }catch (e:Exception){
-//                        Log.e("温度图层更新失败",e.message.toString())
+//                        Log.e("temperature[Chinese text]",e.message.toString())
 //                    }
 //                }
 //                try {
 //                    AlarmHelp.getInstance(application).alarmData(max,min,temp_bg)
 //                }catch (e:Exception){
-//                    Log.e("温度图层更新失败",e.message.toString())
+//                    Log.e("temperature[Chinese text]",e.message.toString())
 //                }
 //            }
 //
@@ -243,7 +243,7 @@
 //        }
 //    }
 //
-//    // 更新自定义Pseudo color的颜色的属性值
+//    // [Chinese text]Pseudo color[Chinese text]
 //    private fun updateImageAndSeekbarColorList(customPseudoBean: CustomPseudoBean?){
 //        customPseudoBean?.let {
 //            temperature_seekbar.setColorList(customPseudoBean.getColorList()?.reversedArray()?:null)
@@ -252,7 +252,7 @@
 //            if (it.isUseCustomPseudo){
 //                temperature_iv_lock.visibility = View.INVISIBLE
 //                tv_temp_content.visibility = View.VISIBLE
-//                updateTemperatureSeekBar(false,R.drawable.ic_edit_pseudo_lock_svg,"lock")// 加锁
+//                updateTemperatureSeekBar(false,R.drawable.ic_edit_pseudo_lock_svg,"lock")// [Chinese text]
 //                temperature_seekbar.setRangeAndPro(UnitTools.showUnitValue(it.minTemp),
 //                    UnitTools.showUnitValue(it.maxTemp),UnitTools.showUnitValue(it.minTemp),
 //                    UnitTools.showUnitValue(it.maxTemp))
@@ -278,10 +278,10 @@
 //                return@setOnClickListener
 //            }
 //            if (temperature_iv_lock.contentDescription == "lock") {
-//                updateTemperatureSeekBar(true,R.drawable.ic_edit_pseudo_unlock_svg,"unlock")// 解锁
+//                updateTemperatureSeekBar(true,R.drawable.ic_edit_pseudo_unlock_svg,"unlock")// [Chinese text]
 //            } else {
 //                setDefLimit()
-//                updateTemperatureSeekBar(false,R.drawable.ic_edit_pseudo_lock_svg,"lock")// 加锁
+//                updateTemperatureSeekBar(false,R.drawable.ic_edit_pseudo_lock_svg,"lock")// [Chinese text]
 //            }
 //        }
 //        temperature_iv_input.setOnClickListener {
@@ -300,7 +300,7 @@
 //                    imageThread?.setLimit(
 //                        editMaxValue,
 //                        editMinValue,
-//                        upColor, downColor) // 自定义颜色
+//                        upColor, downColor) // [Chinese text]
 //                    CameraLiveDateUtil.getInstance().saveEditMaxMinValue(editMaxValue,editMinValue)
 //                }
 //            }
@@ -320,14 +320,14 @@
 //
 //
 //    /**
-//     * 最高最低温复原
+//     * [Chinese text]high[Chinese text]low[Chinese text]
 //     */
 //    fun setDefLimit(){
 //        editMaxValue = Float.MAX_VALUE
 //        editMinValue = Float.MIN_VALUE
 //        CameraLiveDateUtil.getInstance().saveEditMaxMinValue(editMaxValue,editMinValue)
-//        imageThread?.setLimit(editMaxValue, editMinValue, upColor, downColor) // 自定义颜色
-//        temperature_seekbar.setRangeAndPro(downValue, upValue,realLeftValue,realRightValue) // 初始位置
+//        imageThread?.setLimit(editMaxValue, editMinValue, upColor, downColor) // [Chinese text]
+//        temperature_seekbar.setRangeAndPro(downValue, upValue,realLeftValue,realRightValue) // [Chinese text]
 //    }
 //
 //    private fun updateTemperatureSeekBar(isEnabled: Boolean,resource: Int,content: String){
@@ -349,7 +349,7 @@
 //    private fun initOrientationEventListener(){
 //        orientationEventListener = object : OrientationEventListener(this, SensorManager.SENSOR_DELAY_NORMAL) {
 //            override fun onOrientationChanged(orientation: Int) {
-//                Log.w("测试自动旋转角度2: ", "onOrientationChanged: $orientation")
+//                Log.w("[Chinese text]2: ", "onOrientationChanged: $orientation")
 //                if(orientation == OrientationEventListener.ORIENTATION_UNKNOWN) {
 //                    return
 //                }
@@ -386,16 +386,16 @@
 //    }
 //
 //    private fun updateRotateAngle(rotateAngle: Int){
-//        // 清除limitSettings
+//        // [Chinese text]limitSettings
 //        imageThread?.setLimit(
 //            editMaxValue,
 //            editMinValue,
-//            upColor, downColor) // 自定义颜色
+//            upColor, downColor) // [Chinese text]
 //        lifecycleScope.launch(Dispatchers.IO) {
 //            launch(Dispatchers.Main) {
 //                thermal_recycler.rotateStats = 411
 //            }
-//            Log.w("123", "旋转角度: $rotateAngle")
+//            Log.w("123", "[Chinese text]: $rotateAngle")
 //            temperatureView?.clear()
 //            temperatureView?.temperatureRegionMode = REGION_MODE_CENTER
 //            setRotate(rotateAngle)
@@ -446,7 +446,7 @@
 //    //  orientationEventListener.enable()
 //            2
 //        }
-//        Log.w("测试自动旋转: ", "mOrientation: $mOrientation")
+//        Log.w("[Chinese text]: ", "mOrientation: $mOrientation")
 //    }
 //
 //    private fun initRecycler() {
@@ -549,14 +549,14 @@
 //                }
 //            }
 //            1003 -> {
-//                // 切换模式
+//                // switchmode
 //                settingCamera()
 //            }
 //        }
 //    }
 //
 //    /**
-//     * 进入延迟UI
+//     * [Chinese text]UI
 //     */
 //    fun updateDelayView(){
 //        try {
@@ -570,44 +570,44 @@
 //                }
 //            }
 //        }catch (e:Exception){
-//            Log.e("线程",e.message.toString())
+//            Log.e("line[Chinese text]",e.message.toString())
 //        }
 //    }
 //
-//    // 温度测量
+//    // temperaturemeasurement
 //    private fun setTemp(code: Int) {
 //        temperatureView?.canTouch = true
 //        when (code) {
 //            1 -> {
-//                // 点
+//                // point
 //                temperatureView?.visibility = View.VISIBLE
 //                temperatureView?.temperatureRegionMode = REGION_MODE_POINT
 //                showCross(true)
 //            }
 //            2 -> {
-//                // 线
+//                // line
 //                temperatureView?.visibility = View.VISIBLE
 //                temperatureView?.temperatureRegionMode = REGION_MODE_LINE
 //                showCross(true)
 //            }
 //            3 -> {
-//                // 面
+//                // [Chinese text]
 //                temperatureView?.visibility = View.VISIBLE
 //                temperatureView?.temperatureRegionMode = REGION_MODE_RECTANGLE
 //                showCross(true)
 //            }
 //            4 -> {
-//                // 添加 温度区间
+//                // [Chinese text] temperature[Chinese text]
 //                addLimit()
 //            }
 //            5 -> {
-//                // 全图
+//                // [Chinese text]
 //                temperatureView?.visibility = View.VISIBLE
 //                temperatureView?.temperatureRegionMode = REGION_MODE_CENTER
 //                showCross(true)
 //            }
 //            6 -> {
-//                // 清除
+//                // [Chinese text]
 //                temperatureView?.clear()
 //                temperatureView?.visibility = View.INVISIBLE
 //                temperatureView?.temperatureRegionMode = REGION_MODE_CLEAN
@@ -637,64 +637,64 @@
 //        pseudocolorMode = code
 //        temperature_seekbar.setPseudocode(pseudocolorMode)
 //        /**
-//         * SettingsPseudo color【set pseudocolor】
-//         * 固件机芯实现(部分Pseudo color为预留,Settings后可能无效果)
+//         * SettingsPseudo color[set pseudocolor]
+//         * [Chinese text]implement([Chinese text]Pseudo color[Chinese text],Settings[Chinese text])
 //         */
 //        imageThread?.pseudocolorMode = pseudocolorMode// SettingsPseudo color
 ////        ircmd!!.setPseudoColor(PreviewPathChannel.PREVIEW_PATH0, PseudocodeUtils.changePseudocodeModeByOld(pseudocolorMode))
 //        CameraLiveDateUtil.getInstance().savePseudoColorMode(pseudocolorMode)
 //        thermal_recycler.setPseudoColor(code)
 //    }
-//    private var initRotate = 0// 初始角度
-//    private var correctRotate = 0// 矫正角度
-//    private var rotateAngle = DeviceConfig.ROTATE_ANGLE // 校对默认角度0
-//    private var defaultIsPortrait = DeviceConfig.IS_PORTRAIT // 默认横屏
+//    private var initRotate = 0// [Chinese text]
+//    private var correctRotate = 0// [Chinese text]
+//    private var rotateAngle = DeviceConfig.ROTATE_ANGLE // [Chinese text]0
+//    private var defaultIsPortrait = DeviceConfig.IS_PORTRAIT // [Chinese text]
 //    private fun setSetting(code: Int) {
 //        when (code) {
 //            CameraHelp.TYPE_SET_ROTATE -> {
-//                // 旋转
+//                // [Chinese text]
 //                popupWindow?.dismiss()
 //                setRotateAction()
 //            }
 //            CameraHelp.TYPE_SET_ParamLevelDde -> {
-//                // 细节
+//                // [Chinese text]
 //                setParamLevelDde()
 //            }
 //            CameraHelp.TYPE_SET_ParamLevelContrast -> {
-//                // 对比度
+//                // [Chinese text]
 //                setParamLevelContrast()
 //            }
 //            CameraHelp.TYPE_SET_PSEUDOCOLOR -> {
-//                // Pseudo color条
+//                // Pseudo color[Chinese text]
 //                setPseudoColor()
 //            }
 //            CameraHelp.TYPE_SET_PREVIEWCONFIG -> {
-//                // 画中画，也就是Dual light
+//                // [Chinese text]in progress[Chinese text], [Chinese text]Dual light
 //                cameraPreviewConfig(true)
 //            }
 //            CameraHelp.TYPE_SET_LIMIT -> {
-//                // 色带
+//                // [Chinese text]
 //                addLimit()
 //            }
 //            CameraHelp.TYPE_SET_IR -> {
-//                // 红外
+//                // [Chinese text]
 //                closeCameraPreviewConfig()
 //            }
 //            CameraHelp.TYPE_SET_RH -> {
-//                // 融合
+//                // [Chinese text]
 //                if (!isOpenPreview && thermal_recycler.cameraAlphaStats != 471){
-//                    // 自动打开Dual light
+//                    // [Chinese text]Dual light
 //                    cameraPreviewConfig(false)
 //                }
 //                setCameraAlpha()
 //            }
 //            CameraHelp.TYPE_SET_ZOOM -> {
-//                // 放大
-//                setTemp(-2)// 删除所有的Point/Line/Area
+//                // [Chinese text]
+//                setTemp(-2)// [Chinese text]Point/Line/Area
 //                setZoom()
 //            }
 //            CameraHelp.TYPE_SET_ALARM -> {
-//                // 预警
+//                // [Chinese text]
 //                if(null == tempAlarmSetDialog){
 //                    tempAlarmSetDialog = TempAlarmSetDialog(this,alarmBean,supportFragmentManager)
 //                    tempAlarmSetDialog?.onSaveListener = {low: Float?, high: Float?, ringtone: Int?,alarmBean : AlarmBean ->
@@ -711,7 +711,7 @@
 //            }
 //            CameraHelp.TYPE_SET_COLOR -> {
 //                thermal_recycler.textColorStats = 491
-//                // 字体颜色
+//                // [Chinese text]
 //                val colorDialog = ColorDialog.newInstance(CameraLiveDateUtil.getInstance().getTextColor())
 //                colorDialog.positiveEvent = { color ->
 //                    CameraLiveDateUtil.getInstance().saveTextColor(color)
@@ -723,7 +723,7 @@
 //                colorDialog.show(supportFragmentManager,"")
 //            }
 //            CameraHelp.TYPE_SET_TURNOVER -> {
-//                // 180翻转
+//                // 180[Chinese text]
 //                if (rotateAngle == 90){
 //                    rotateAngle  = 270
 //                    thermal_recycler.rotationStats = 510
@@ -735,7 +735,7 @@
 ////                setRotateAction()
 //            }
 //            CameraHelp.TYPE_SET_MIRROR -> {
-//                // 镜像
+//                // [Chinese text]
 //                openMirror = !openMirror
 //                if (openMirror){
 //                    ircmd?.setPropImageParams(
@@ -797,7 +797,7 @@
 //        popupWindow?.setOnDismissListener {
 //            thermal_recycler.cameraAlphaStats = 470
 //        }
-//        // 在控件上方显示
+//        // [Chinese text]
 //        popupWindow?.showAsDropDown(thermal_lay, 0, getPopupWindowY(contentHeight), Gravity.NO_GRAVITY)
 //    }
 //
@@ -807,11 +807,11 @@
 //        lifecycleScope.launch {
 //            when (select) {
 //                CameraItemBean.TYPE_TMP_ZD -> {
-//                    // 自动增益
+//                    // [Chinese text]
 //                    autoConfig()
 //                }
 //                CameraItemBean.TYPE_TMP_C -> {
-//                    // 低温
+//                    // low[Chinese text]
 //                    if (gainSelChar == 1) {
 //                        return@launch
 //                    }
@@ -830,7 +830,7 @@
 //
 //                }
 //                CameraItemBean.TYPE_TMP_H -> {
-//                    // 高温
+//                    // high[Chinese text]
 //                    if (gainSelChar == 0) {
 //                        return@launch
 //                    }
@@ -859,9 +859,9 @@
 //    private val tempHeight = 192
 //    private var imageWidth = cameraWidth
 //    private var imageHeight = cameraHeight - tempHeight
-//    private val imageBytes = ByteArray(imageWidth * imageHeight * 2) // 图像数据
-//    private val temperatureBytes = ByteArray(imageWidth * imageHeight * 2) // 温度数据
-//    private val imageEditBytes = ByteArray(imageWidth * imageHeight * 4) // 编辑图像数据
+//    private val imageBytes = ByteArray(imageWidth * imageHeight * 2) // [Chinese text]
+//    private val temperatureBytes = ByteArray(imageWidth * imageHeight * 2) // temperature[Chinese text]
+//    private val imageEditBytes = ByteArray(imageWidth * imageHeight * 4) // [Chinese text]
 //    private val syncimage = SynchronizedBitmap()
 //    private var isrun = false
 //    private var pseudocolorMode = CameraLiveDateUtil.getInstance().getCameraSBeanData().irSettingBean.pseudoColorMode
@@ -870,7 +870,7 @@
 //    private var tempinfo: Long = 0
 //    private var cameraSBean = CameraLiveDateUtil.getInstance().getCameraSBeanData()
 //
-//    // 高低增益 1:低增益 0: 高增益
+//    // highlow[Chinese text] 1:low[Chinese text] 0: high[Chinese text]
 //    private var gainSelChar: Int = -1
 //
 //    @Subscribe(threadMode = ThreadMode.MAIN)
@@ -882,10 +882,10 @@
 //    }
 //
 //    /**
-//     * 统一监听相机属性值
+//     * [Chinese text]listener[Chinese text]
 //     */
 //    fun setCameraDataListener(){
-//        // 相机总属性值
+//        // [Chinese text]
 //        CameraLiveDateUtil.getInstance().cameraIRConfigLiveDate.observe(this, Observer { cameraIt ->
 //            videoRecord?.updateAudioState(cameraSBean.openAudioRecord)
 //            cameraSBean = cameraIt
@@ -895,7 +895,7 @@
 //
 //
 //    /**
-//     * 初始数据
+//     * [Chinese text]
 //     */
 //    private fun initDataIR() {
 //        imageWidth = cameraHeight - tempHeight
@@ -923,32 +923,32 @@
 //        temperatureView.nowZoomLevel = nowZoomLevel
 //        setViewLay(defaultIsPortrait)
 ////        temperatureView.setTemperatureRegionMode(TemperatureView.FOCUSABLES_TOUCH_MODE)
-//        // 某些特定客户的特殊设备需要使用该命令关闭sensor
+//        // [Chinese text]sensor
 ////        if (Usbcontorl.isload) {
-////            Usbcontorl.usb3803_mode_setting(1) // 打开5V
-////            XLog.w("打开5V")
+////            Usbcontorl.usb3803_mode_setting(1) // [Chinese text]5V
+////            XLog.w("[Chinese text]5V")
 ////        }
-//        // 初始全局测温
+//        // [Chinese text]
 //        temperatureView?.post {
 //            if (!temperaturerun) {
 //                temperaturerun = true
-//                // 需等待渲染完成再显示
+//                // [Chinese text]
 //                temperatureView?.visibility = View.VISIBLE
 //                temperatureView?.postDelayed({
-//                    temperatureView?.temperatureRegionMode = REGION_MODE_CENTER// 全屏测温
+//                    temperatureView?.temperatureRegionMode = REGION_MODE_CENTER// [Chinese text]
 //                }, 1000)
 //            }
 //        }
 //    }
 //
 //    /**
-//     * @param isPortrait    true: 竖屏
+//     * @param isPortrait    true: [Chinese text]
 //     */
 //    private fun setViewLay(isPortrait: Boolean) {
 //        thermal_lay.post {
 //            val params = thermal_lay.layoutParams
 //            if (ScreenUtils.isPortrait()) {
-//                // 手机
+//                // [Chinese text]
 //                if (isPortrait) {
 //                    params.width = ScreenUtils.getAppScreenWidth()
 //                    params.height = params.width * imageHeight / imageWidth
@@ -957,13 +957,13 @@
 //                    params.height = params.width * imageWidth / imageHeight
 //                }
 //            } else {
-//                // 平板
+//                // [Chinese text]
 //                if (isPortrait) {
-//                    // 竖屏显示
+//                    // [Chinese text]
 //                    params.height = thermal_lay.height
 //                    params.width = params.height * imageWidth / imageHeight
 //                } else {
-//                    // 横屏显示
+//                    // [Chinese text]
 //                    params.height = thermal_lay.height
 //                    params.width = params.height * imageHeight / imageWidth
 //                }
@@ -980,7 +980,7 @@
 //    }
 //
 //    /**
-//     * 图像信号处理
+//     * [Chinese text]
 //     */
 //    private fun startISP() {
 //        try {
@@ -998,14 +998,14 @@
 //            imageThread?.alarmBean = alarmBean
 //            imageThread?.start()
 //        }catch (e : Exception){
-//            Log.e("图像线程重复启动",e.message.toString())
+//            Log.e("[Chinese text]line[Chinese text]",e.message.toString())
 //        }
 //    }
 //
 //    private var uvcCamera: UVCCamera? = null
 //    private var defaultDataFlowMode: DataFlowMode? = DataFlowMode.IMAGE_AND_TEMP_OUTPUT
 //    private var isUseIRISP = true
-//    // 是否使用GPU方案
+//    // [Chinese text]GPU[Chinese text]
 //    private var isUseGPU = false
 //
 //    private var ircmd: IRCMD? = null
@@ -1013,7 +1013,7 @@
 //
 //
 //    /**
-//     * @param isRestart 是否是重启模组
+//     * @param isRestart [Chinese text]
 //     */
 //    private fun startUSB(isRestart: Boolean) {
 //        showCameraLoading()
@@ -1034,7 +1034,7 @@
 //                        "ConnectCallback->onIRCMDCreate"
 //                    )
 //                    this@IRThermalActivity.ircmd = ircmd
-//                    // 需要等IRCMD初始化完成之后才可以调用
+//                    // [Chinese text]IRCMD[Chinese text]
 //                    temperatureView.setIrcmd(ircmd)
 ////                    ircmd?.setPseudoColor(PreviewPathChannel.PREVIEW_PATH0, PseudocodeUtils.changePseudocodeModeByOld(pseudocolorMode))
 //                    isConfigWait = false
@@ -1059,18 +1059,18 @@
 //        iruvc?.setRotate(true)
 //        iruvc?.setRotate(rotateAngle)
 //        iruvc?.setHandler(mHandler)
-//        iruvc?.setCMDDataCallback { // 从机芯中读取数据完毕，页面可以进行正常的操作了
+//        iruvc?.setCMDDataCallback { // [Chinese text]in progress[Chinese text], [Chinese text]operation[Chinese text]
 //            this@IRThermalActivity.isCMDDataComplete = true
 //        }
 //        iruvc?.registerUSB()
-//        // 画面旋转Settings
+//        // [Chinese text]Settings
 ////        popupCalibration.setRotate(true)
 //    }
 //    private var nuc_table_high = ShortArray(8192)
 //    private var nuc_table_low = ShortArray(8192)
-//    // 根据模组的SNmessage作为模组message保存的key参数
+//    // [Chinese text]SNmessage[Chinese text]message[Chinese text]key[Chinese text]
 //    private var md5PNSNKey : String? = null
-//    // 是否从机芯Flash中读取的nuc数据，会影响到测温修正的资源释放
+//    // [Chinese text]Flashin progress[Chinese text]nuc[Chinese text], [Chinese text]
 //    private var isGetNucFromFlash = false
 //    private val gainMode = GainMode.GAIN_MODE_HIGH_LOW
 //    private var gainStatus = GainStatus.HIGH_GAIN
@@ -1079,7 +1079,7 @@
 //        val SN = ByteArray(16)
 //        ircmd!!.getDeviceInfo(DeviceInfoType.DEV_INFO_GET_SN, SN)
 //        val deviceSNUnCodePath: String = FileUtil.getTableDirPath() + File.separator
-//        // 使用模组的唯一message作为key,避免多个模组插拔造成的数据问题
+//        // [Chinese text]message[Chinese text]key,[Chinese text]
 //        md5PNSNKey = FileUtil.getMD5Key(String(SN))
 //        val nucHighFileName = md5PNSNKey + "_nuc_table_high.bin"
 //        val nucLowFileName = md5PNSNKey + "_nuc_table_low.bin"
@@ -1095,7 +1095,7 @@
 //                Manifest.permission.READ_EXTERNAL_STORAGE
 //            ) == PackageManager.PERMISSION_GRANTED
 //        ) {
-//            // 从SD卡上读取
+//            // [Chinese text]SD[Chinese text]
 //            val nuc_table_high_byte = FileUtil.readFile2BytesByStream(
 //                this@IRThermalActivity,
 //                File(deviceSNUnCodePath + nucHighFileName)
@@ -1107,19 +1107,19 @@
 //                File(deviceSNUnCodePath + nucLowFileName)
 //            )
 //            nuc_table_low = FileUtil.toShortArray(nuc_table_low_byte)
-//            Log.e("测试","读取温度表：从机芯里面判断")
+//            Log.e("[Chinese text]","[Chinese text]temperature[Chinese text]: [Chinese text]")
 //        }else{
-//            // 从机芯读取
+//            // [Chinese text]
 //            if (ircmd != null && !md5PNSNKey?.isEmpty()!!) {
 //                isGetNucFromFlash = true
 //                tempinfo = ircmd!!.readNucTableFromFlash(
 //                    gainMode, gainStatus, nuc_table_high,
 //                    nuc_table_low
 //                )
-//                // 保存数据，方便查看，可按照需要确定是否保存
+//                // [Chinese text], [Chinese text], [Chinese text]
 //                FileUtil.saveShortFileForDeviceData(nuc_table_high, nucHighFileName)
 //                FileUtil.saveShortFileForDeviceData(nuc_table_low, nucLowFileName)
-//                Log.e("测试","读取温度表：从机芯读取")
+//                Log.e("[Chinese text]","[Chinese text]temperature[Chinese text]: [Chinese text]")
 //            }
 //        }
 //        var i = 0
@@ -1133,7 +1133,7 @@
 //        }
 //    }
 //
-//    // SettingsTS001的温度校正
+//    // SettingsTS001[Chinese text]temperature[Chinese text]
 //    suspend fun setTsBin(){
 //        ircmd?.let {
 //            val getSnBytes = ByteArray(16)
@@ -1151,21 +1151,21 @@
 //            val str = HtmlCompat.fromHtml(infoBuilder.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
 //            if (str.contains("Mini256",true)){
 //                getUTable()
-//                // 根据不同的高低增益加载不同的等效大气透过率表
+//                // [Chinese text]highlow[Chinese text]
 //                val value = IntArray(1)
 //                ircmd?.getPropTPDParams(PropTPDParams.TPD_PROP_GAIN_SEL, value)
 //                Log.d(TAG, "TPD_PROP_GAIN_SEL=" + value[0])
 //                gainStatus = if (value[0] == 1) {
-//                    // 当前机芯为高增益
+//                    // [Chinese text]high[Chinese text]
 //                    GainStatus.HIGH_GAIN
-//                    // 等效大气透过率表
+//                    // [Chinese text]
 //                } else {
-//                    // 当前机芯为低增益
+//                    // [Chinese text]low[Chinese text]
 //                    GainStatus.LOW_GAIN
 //                }
 //                ts_data_H = CommonUtils.getTauData(this@IRThermalActivity, "ts/TS001_H.bin")
 //                ts_data_L = CommonUtils.getTauData(this@IRThermalActivity, "ts/TS001_L.bin")
-//                // 是长焦镜头，所以进行温度校正
+//                // [Chinese text], [Chinese text]temperature[Chinese text]
 //                val orgEMS = IntArray(1)
 //                ircmd?.getPropTPDParams(PropTPDParams.TPD_PROP_EMS, orgEMS)
 //                val orgTAU = IntArray(1)
@@ -1187,7 +1187,7 @@
 //
 //
 //    /**
-//     * 单点修正过程
+//     * [Chinese text]point[Chinese text]
 //     *
 //     * @param params_array
 //     */
@@ -1222,7 +1222,7 @@
 //        )
 //        return newTemp
 //    }
-//    // 旋转操作
+//    // [Chinese text]operation
 //    private fun setRotateAction() {
 //        if (rotateAngle == 0) {
 //            rotateAngle = 270
@@ -1233,7 +1233,7 @@
 //    }
 //
 //    /**
-//     * 270竖正向
+//     * 270[Chinese text]
 //     * @param rotate 0, 90, 180, 270
 //     */
 //    private fun setRotate(rotateInt: Int) {
@@ -1275,7 +1275,7 @@
 //            try {
 //                imageThread?.join()
 //            } catch (e: InterruptedException) {
-//                Log.e(TAG, "旋转角度 imageThread.join(): catch an interrupted exception")
+//                Log.e(TAG, "[Chinese text] imageThread.join(): catch an interrupted exception")
 //            }
 //            startISP()
 //        }
@@ -1293,16 +1293,16 @@
 //        super.onStart()
 //        Log.w(TAG, "onStart")
 //        if (!isrun) {
-//            // 初始配置,Pseudo color铁红
+//            // [Chinese text],Pseudo color[Chinese text]
 ////          pseudocolorMode = 3
 //            tv_type_ind.visibility = GONE
-//            thermal_recycler.limitStats = 460 // 默认关闭DIY
+//            thermal_recycler.limitStats = 460 // [Chinese text]DIY
 //            startUSB(false)
 //            startISP()
 //            temperatureView?.start()
 //            cameraView?.start()
 //            isrun = true
-//            // 恢复配置
+//            // [Chinese text]
 //            configParam()
 //            thermal_recycler.updateCameraModel()
 //            initIRConfig()
@@ -1310,16 +1310,16 @@
 //    }
 //
 //    /**
-//     * IR模式配置初始化
+//     * IRmode[Chinese text]
 //     */
 //    private fun initIRConfig(){
-//        // Pseudo color条显示
+//        // Pseudo color[Chinese text]
 //        if (CameraLiveDateUtil.getInstance().getCameraSBeanData().irSettingBean.openColorBar){
 //            cl_seek_bar.visibility = View.VISIBLE
-//            thermal_recycler.colorBarStats = 441 // 默认打开Pseudo color条
+//            thermal_recycler.colorBarStats = 441 // [Chinese text]Pseudo color[Chinese text]
 //        }else{
 //            cl_seek_bar.visibility = View.GONE
-//            thermal_recycler.colorBarStats = 440 // 默认打开Pseudo color条
+//            thermal_recycler.colorBarStats = 440 // [Chinese text]Pseudo color[Chinese text]
 //        }
 //        temperature_seekbar?.setPseudocode(pseudocolorMode)
 //        if (customPseudoBean!=null && customPseudoBean.isUseCustomPseudo){
@@ -1390,15 +1390,15 @@
 //            Log.e(TAG, "imageThread.join(): catch an interrupted exception")
 //        }
 //
-//        // 某些特定客户的特殊设备需要使用该命令关闭sensor
+//        // [Chinese text]sensor
 ////        if (Usbcontorl.isload) {
-////            Usbcontorl.usb3803_mode_setting(0) // 关闭5V
+////            Usbcontorl.usb3803_mode_setting(0) // [Chinese text]5V
 ////        }
 //
 //    }
 //
 //    private fun showInfo() {
-//        // 设备message
+//        // [Chinese text]message
 //        Log.i(
 //            TAG, """
 //     P2-PN:
@@ -1412,12 +1412,12 @@
 //     """.trimIndent()
 //        )
 //        /**
-//         * 写入OEMmessage
+//         * [Chinese text]OEMmessage
 //         */
 //        val oemWriteInfo =
 //            "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890"
 //        /**
-//         * 读取OEMmessage
+//         * [Chinese text]OEMmessage
 //         *
 //         */
 //        val oemInfo = ByteArray(oemWriteInfo.length)
@@ -1475,7 +1475,7 @@
 //
 //            IRParseVer:${LibIRParse.getIRParseVersion()}
 //            """.trimIndent()
-//        Log.i("获取设备message","$info")
+//        Log.i("[Chinese text]message","$info")
 //
 //        TipDeviceDialog.Builder(this)
 //            .setMessage("$info")
@@ -1499,7 +1499,7 @@
 //        temperatureView.start()
 //    }
 //    /**
-//     * 重启设备
+//     * [Chinese text]
 //     */
 //    private fun restartUSBCamera() {
 //        if (isUseIRISP) {
@@ -1517,7 +1517,7 @@
 //            mutableListOf(Permission.READ_EXTERNAL_STORAGE,Permission.WRITE_EXTERNAL_STORAGE)
 //        }
 //    }
-//    // Photo capture中间按钮
+//    // Photo capturein progress[Chinese text]button
 //    @SuppressLint("CheckResult")
 //    private fun centerCamera() {
 //
@@ -1533,7 +1533,7 @@
 //                            val setting = CameraLiveDateUtil.getInstance().getCameraSettingData().continuousBean
 //                            if (setting.isSel){
 //                                if (!isAutoCamera){
-//                                    // 连续Photo capture
+//                                    // [Chinese text]Photo capture
 //                                    autoJob = countDownCoroutines(
 //                                        setting.number,
 //                                        (setting.time * 1000).toLong(),
@@ -1557,7 +1557,7 @@
 //                                camera()
 //                            }
 //                        }else{
-//                            // 录制视频
+//                            // [Chinese text]
 //                            video()
 //                        }
 //                    } else {
@@ -1567,7 +1567,7 @@
 //
 //                override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
 //                    if (doNotAskAgain){
-//                        // 拒绝授权并且不再提醒
+//                        // [Chinese text]
 //                        TipDialog.Builder(this@IRThermalActivity)
 //                            .setTitleMessage(getString(R.string.app_tip))
 //                            .setMessage(R.string.app_storage_content)
@@ -1585,12 +1585,12 @@
 //    var showCameraSetting = false
 //    val cameraItemBeanList by lazy {
 //        mutableListOf(
-//            CameraItemBean("延迟",CameraItemBean.TYPE_DELAY,
+//            CameraItemBean("[Chinese text]",CameraItemBean.TYPE_DELAY,
 //                time = CameraLiveDateUtil.getInstance().getCameraSBeanData().delayTime),
-//            CameraItemBean("自动快门",CameraItemBean.TYPE_ZDKM,
+//            CameraItemBean("[Chinese text]",CameraItemBean.TYPE_ZDKM,
 //                isSel = CameraLiveDateUtil.getInstance().getAutoShutter()),
-//            CameraItemBean("手动快门",CameraItemBean.TYPE_SDKM),
-//            CameraItemBean("声音",CameraItemBean.TYPE_AUDIO,
+//            CameraItemBean("[Chinese text]",CameraItemBean.TYPE_SDKM),
+//            CameraItemBean("[Chinese text]",CameraItemBean.TYPE_AUDIO,
 //                isSel = CameraLiveDateUtil.getInstance().getCameraSBeanData().openAudioRecord &&
 //                        ActivityCompat.checkSelfPermission(this,Manifest.permission.RECORD_AUDIO)
 //                        == PackageManager.PERMISSION_GRANTED
@@ -1598,7 +1598,7 @@
 //            CameraItemBean("Settings",CameraItemBean.TYPE_SETTING),
 //        )
 //    }
-//    // Photo capture右边按钮
+//    // Photo capture[Chinese text]button
 //    private fun settingCamera() {
 //        showCameraSetting = !showCameraSetting
 //        if (showCameraSetting){
@@ -1651,7 +1651,7 @@
 //                                            ) {
 //                                                try {
 //                                                    if (allGranted) {
-//                                                        // 录音开启
+//                                                        // [Chinese text]
 //                                                        cameraSBean.openAudioRecord = !cameraItemAdapter.data[position].isSel
 //                                                        videoRecord?.updateAudioState(cameraSBean.openAudioRecord)
 //                                                        cameraItemAdapter.data[position].isSel =
@@ -1662,7 +1662,7 @@
 //                                                        ToastUtils.showShort(R.string.scan_ble_tip_authorize)
 //                                                    }
 //                                                }catch (e:Exception){
-//                                                    Log.e("录音启动失败",""+e.message)
+//                                                    Log.e("[Chinese text]",""+e.message)
 //                                                }
 //                                            }
 //
@@ -1671,7 +1671,7 @@
 //                                                doNotAskAgain: Boolean
 //                                            ) {
 //                                                if (doNotAskAgain){
-//                                                    // 拒绝授权并且不再提醒
+//                                                    // [Chinese text]
 //                                                    TipDialog.Builder(this@IRThermalActivity)
 //                                                        .setTitleMessage(getString(R.string.app_tip))
 //                                                        .setMessage(getString(R.string.app_microphone_content))
@@ -1703,7 +1703,7 @@
 //                                    cameraItemAdapter.data[position].isSel = false
 //                                    cameraItemAdapter.notifyItemChanged(position)
 //                                }
-//                                // 手动快门
+//                                // [Chinese text]
 //                                if (syncimage.type == 1) {
 //                                    ircmd?.tiny1bShutterManual()
 //                                } else {
@@ -1713,7 +1713,7 @@
 //                                return@listener
 //                            }
 //                            CameraItemBean.TYPE_ZDKM -> {
-//                                // 自动快门
+//                                // [Chinese text]
 //                                CameraLiveDateUtil.getInstance().saveAutoShutter(
 //                                    !CameraLiveDateUtil.getInstance().getAutoShutter())
 //                                cameraItemAdapter.data[position].isSel =
@@ -1763,9 +1763,9 @@
 //            launch(Dispatchers.Main) {
 //                thermal_recycler.showCameraActive()
 //            }
-////            System.arraycopy(imageEditBytes, 0, imageEditTempBytes, 0, imageEditBytes.size)// 一帧数据内容
+////            System.arraycopy(imageEditBytes, 0, imageEditTempBytes, 0, imageEditBytes.size)// [Chinese text]
 //            synchronized(syncimage.dataLock) {
-//                // 获取展示图像message的图层数据
+//                // [Chinese text]message[Chinese text]
 //                var cameraViewBitmap = cameraView.bitmap
 //                var tmpFile = ""
 //                if(isOpenPreview){
@@ -1774,7 +1774,7 @@
 //                        cameraPreview.getBitmap(),
 //                        cameraPreview
 //                    )
-//                    // 画中画原图保存
+//                    // [Chinese text]in progress[Chinese text]
 //                    cameraPreview.getBitmap()?.let {
 //                        tmpFile = ImageUtils.saveImageToApp(bitmap = it)
 //                    }
@@ -1784,7 +1784,7 @@
 //                    seekBarBitmap = cl_seek_bar.drawToBitmap()
 //                }
 //                if (temperatureView.temperatureRegionMode != REGION_MODE_CLEAN) {
-//                    // 获取温度图层的数据，包括点线框，温度值等，重新合成bitmap
+//                    // [Chinese text]temperature[Chinese text], [Chinese text]pointline[Chinese text], temperature[Chinese text], [Chinese text]bitmap
 //                    cameraViewBitmap = BitmapUtils.mergeBitmap(
 //                        cameraViewBitmap,
 //                        temperatureView?.regionAndValueBitmap,
@@ -1792,7 +1792,7 @@
 //                        0
 //                    )
 //                }
-//                // 合并Pseudo color条
+//                // [Chinese text]Pseudo color[Chinese text]
 //                seekBarBitmap?.let {
 //                    cameraViewBitmap = BitmapUtils.mergeBitmap(
 //                        cameraViewBitmap,
@@ -1807,7 +1807,7 @@
 //                        alphaPaint = Paint()
 //                    }
 //                    alphaPaint?.alpha = (temp_bg.animatorAlpha * 255).toInt()
-//                    // 合并闪烁
+//                    // [Chinese text]
 //                    cameraViewBitmap = BitmapUtils.mergeBitmapAlpha(
 //                        cameraViewBitmap,
 //                        temp_bg.drawToBitmap(),alphaPaint,
@@ -1816,7 +1816,7 @@
 //                    )
 //                }
 //                if (temperatureView.temperatureRegionMode != REGION_MODE_CLEAN) {
-//                    // 获取温度图层的数据，包括点线框，温度值等，重新合成bitmap
+//                    // [Chinese text]temperature[Chinese text], [Chinese text]pointline[Chinese text], temperature[Chinese text], [Chinese text]bitmap
 //                    cameraViewBitmap = BitmapUtils.mergeBitmap(
 //                        cameraViewBitmap,
 //                        temperatureView!!.regionAndValueBitmap,
@@ -1826,7 +1826,7 @@
 //                }
 //                var name = ""
 //                if (CameraLiveDateUtil.getInstance().getCameraSettingData().watermarkBean.isSel){
-//                    // 添加水印
+//                    // [Chinese text]
 //                    cameraViewBitmap = BitmapUtils.drawCenterLable(cameraViewBitmap,
 //                        CameraLiveDateUtil.getInstance().getCameraSettingData().watermarkBean.title,
 //                        CameraLiveDateUtil.getInstance().getCameraSettingData().watermarkBean.address,
@@ -1850,7 +1850,7 @@
 //                    initRotate = initRotate,
 //                    correctRotate = correctRotate,
 //                    customPseudoBean = customPseudoBean
-//                ) // 首部内容
+//                ) // [Chinese text]
 ////                val le = 256 * 192 * 2
 ////                val tmpBy = ByteArray(le)
 ////                System.arraycopy(
@@ -1860,11 +1860,11 @@
 ////                val tmp1 = LibIRTemp(256, 192)
 ////                tmp1.setTempData(tmpBy)
 ////                val result1 = tmp1.getTemperatureOfRect(Rect(0, 0, 256, 192))
-////                Log.w("温度更新19", result1.maxTemperature.toString() + "/// " + result1.minTemperature)
+////                Log.w("temperature[Chinese text]19", result1.maxTemperature.toString() + "/// " + result1.minTemperature)
 //                ImageUtils.saveFrame(bs = imageEditBytes, capital = capital, name = name)
-//                // 保存一帧argb数据，临时代码，可删
+//                // [Chinese text]argb[Chinese text], [Chinese text], [Chinese text]
 ////                ImageUtils.saveOneFrameAGRB(bs = imageThread!!.imageTemp, name = System.currentTimeMillis().toString())
-//                // 读取argb
+//                // [Chinese text]argb
 //                launch(Dispatchers.Main) {
 //                    thermal_recycler.refreshImg()
 //                }
@@ -1879,7 +1879,7 @@
 //
 //    private fun video() {
 //        if (!isVideo) {
-//            // 开始录制
+//            // start[Chinese text]
 //            videoRecord = VideoRecordFFmpeg(cameraView,cameraPreview, temperatureView, cl_seek_bar,bitmap,temp_bg)
 //            if (!videoRecord!!.canStartVideoRecord(null)){
 //                return
@@ -1939,7 +1939,7 @@
 //                    pop_time_text.text = TimeTool.showVideoTime(it * 1000L)
 //                }
 //                if (it == time - 1) {
-//                    // 停止
+//                    // stop
 //                    video()
 //                }
 //            }
@@ -1954,7 +1954,7 @@
 //    }
 //
 //
-//    // Pseudo color显示
+//    // Pseudo color[Chinese text]
 //    private fun setPseudoColor() {
 //        cl_seek_bar.isVisible = !cl_seek_bar.isVisible
 //        CameraLiveDateUtil.getInstance().saveColorBarStats(cl_seek_bar.isVisible)
@@ -1970,7 +1970,7 @@
 //    private var contrastConfig = 128
 //    private var ddeConfig = 2
 //
-//    // IMAGE_PROP_LEVEL_CONTRAST (0~255) 对比度默认中间值
+//    // IMAGE_PROP_LEVEL_CONTRAST (0~255) [Chinese text]in progress[Chinese text]
 //    private fun setParamLevelContrast() {
 //        if (thermal_recycler.contrastStats == 431){
 //            popupWindow?.dismiss()
@@ -1991,7 +1991,7 @@
 //        val contentHeight = contentView.measuredHeight
 //        val seekBar = contentView?.findViewById<CommSeekBar>(R.id.seek_bar)
 //        val tvProcess = contentView?.findViewById<TextView>(R.id.tv_value)
-//        // AGC不同档位都对应了一对MAXGAIN和BOS,也就是说AGC切换档位都应该重新读一下MAXGAIN和BOS,不同档位重新Settings后值是不同的
+//        // AGC[Chinese text]level[Chinese text]MAXGAIN[Chinese text]BOS,[Chinese text]AGCswitchlevel[Chinese text]MAXGAIN[Chinese text]BOS,[Chinese text]level[Chinese text]Settings[Chinese text]
 //        val mode = IntArray(1)
 //        ircmd?.getPropImageParams(
 //            PropImageParams.IMAGE_PROP_LEVEL_CONTRAST,
@@ -2029,7 +2029,7 @@
 //        popupWindow?.setOnDismissListener {
 //            thermal_recycler.contrastStats = 430
 //        }
-//        // 在控件上方显示
+//        // [Chinese text]
 //        popupWindow?.showAsDropDown(thermal_lay, 0, getPopupWindowY(contentHeight), Gravity.NO_GRAVITY)
 //    }
 //
@@ -2051,8 +2051,8 @@
 //
 //    var nowZoomLevel = CameraLiveDateUtil.getInstance().cameraZoom
 //    /**
-//     * 级别分别是1/2/3/4/5
-//     * 红外图像放大缩小
+//     * [Chinese text]1/2/3/4/5
+//     * [Chinese text]
 //     */
 //    private fun setZoom() {
 //        if (thermal_recycler.cameraZoomStats == 481){
@@ -2142,13 +2142,13 @@
 //        popupWindow?.setOnDismissListener {
 //            thermal_recycler.cameraZoomStats = 480
 //        }
-//        // 在控件上方显示
+//        // [Chinese text]
 //        popupWindow?.showAsDropDown(thermal_lay, 0, getPopupWindowY(contentHeight), Gravity.NO_GRAVITY)
 //    }
 //
 //
-//    val levelMax = 4// 锐度的最大值，0-4
-//    // IMAGE_PROP_LEVEL_DDE (0~4) 细节增强(默认2)
+//    val levelMax = 4// [Chinese text], 0-4
+//    // IMAGE_PROP_LEVEL_DDE (0~4) [Chinese text]([Chinese text]2)
 //    private fun setParamLevelDde() {
 //        if (thermal_recycler.ddeStats == 421){
 //            popupWindow?.dismiss()
@@ -2209,17 +2209,17 @@
 //        popupWindow?.setOnDismissListener {
 //            thermal_recycler.ddeStats = 420
 //        }
-//        // 在控件上方显示
+//        // [Chinese text]
 //        popupWindow?.showAsDropDown(thermal_lay, 0, getPopupWindowY(contentHeight), Gravity.NO_GRAVITY)
 //    }
 //
-////    // IMAGE_PROP_LEVEL_SNR (0~3) 空域降噪(默认2) 看不出
-////    // IMAGE_PROP_LEVEL_TNR (0~3) 时域降噪(默认2) 看不出
+////    // IMAGE_PROP_LEVEL_SNR (0~3) [Chinese text]([Chinese text]2) [Chinese text]
+////    // IMAGE_PROP_LEVEL_TNR (0~3) [Chinese text]([Chinese text]2) [Chinese text]
 //
 //    /**
-//     * 自动增益
-//     * IMAGE_PROP_MODE_AGC: 默认2
-//     * IMAGE_PROP_ONOFF_AGC: 默认1
+//     * [Chinese text]
+//     * IMAGE_PROP_MODE_AGC: [Chinese text]2
+//     * IMAGE_PROP_ONOFF_AGC: [Chinese text]1
 //     */
 //    private fun autoConfig() {
 //        lifecycleScope.launch(Dispatchers.IO) {
@@ -2261,27 +2261,27 @@
 //    }
 //
 //    /**
-//     * 复位后得到的数值
-//     * TPD_PROP_DISTANCE: 32    (测温度距离 0-25600(0-200m) 128cnt = 1m, 默认值: 0.25 * 128 = 32)
-//     * TPD_PROP_TU: 300         (环境反射温度)
-//     * TPD_PROP_TA: 300         (环境大气温度)
-//     * TPD_PROP_EMS: 128        (目标发射率 1-128(0.01-1))
-//     * TPD_PROP_TAU: 128        (大气透过率)
-//     * TPD_PROP_GAIN_SEL: 1     (高低增益切换)
+//     * [Chinese text]
+//     * TPD_PROP_DISTANCE: 32    ([Chinese text]temperature[Chinese text] 0-25600(0-200m) 128cnt = 1m, [Chinese text]: 0.25 * 128 = 32)
+//     * TPD_PROP_TU: 300         ([Chinese text]temperature)
+//     * TPD_PROP_TA: 300         ([Chinese text]temperature)
+//     * TPD_PROP_EMS: 128        (target[Chinese text] 1-128(0.01-1))
+//     * TPD_PROP_TAU: 128        ([Chinese text])
+//     * TPD_PROP_GAIN_SEL: 1     (highlow[Chinese text]switch)
 //     *
-//     * 艾睿建议温度TU和TA不要Settings
+//     * [Chinese text]temperatureTU[Chinese text]TA[Chinese text]Settings
 //     *
-//     * 标定工具出来的配置
-//     *  读取TPD_PROP DISTANCE: 32
-//     *  读取TPD_PROP TU: 300
-//     *  读取TPD_PROP TA: 300
-//     *  读取TPD_PROP EMS: 128
-//     *  读取TPD_PROP TAU: 128
+//     * [Chinese text]
+//     *  [Chinese text]TPD_PROP DISTANCE: 32
+//     *  [Chinese text]TPD_PROP TU: 300
+//     *  [Chinese text]TPD_PROP TA: 300
+//     *  [Chinese text]TPD_PROP EMS: 128
+//     *  [Chinese text]TPD_PROP TAU: 128
 //     */
 //    val paramType = arrayOf("DISTANCE", "TU", "TA", "EMS", "TAU", "GAIN_SEL")
 //    var isConfigWait = true
 //    var configJob : Job ?= null
-//    // 配置
+//    // [Chinese text]
 //    private fun configParam() {
 //        configJob =  lifecycleScope.launch {
 ////            showLoading()
@@ -2289,13 +2289,13 @@
 //                delay(100)
 //            }
 //            delay(300)
-//            // 读取高低增益 1:低增益 0: 高增益
+//            // [Chinese text]highlow[Chinese text] 1:low[Chinese text] 0: high[Chinese text]
 ////            val gainSelValue = CharArray(1)
 ////            iruvc?.uvcCamera?.nativePtr?.let {
 ////                Libircmd.get_prop_tpd_params(5, gainSelValue, it)
 //////                gainSelChar = gainSelValue[0].code
 //////                thermal_recycler.setFiveSelectCode(gainSelChar)
-////                XLog.w("读取TPD_PROP ${paramType[5]}: ${gainSelValue[0].code}")
+////                XLog.w("[Chinese text]TPD_PROP ${paramType[5]}: ${gainSelValue[0].code}")
 ////            }
 //
 //            val gainSelValue = CharArray(1)
@@ -2303,25 +2303,25 @@
 ////                Libircmd.get_prop_tpd_params(5, gainSelValue, it)
 //////                gainSelChar = gainSelValue[0].code
 //////                thermal_recycler.setFiveSelectCode(gainSelChar)
-////                XLog.w("读取TPD_PROP ${paramType[5]}: ${gainSelValue[0].code}")
+////                XLog.w("[Chinese text]TPD_PROP ${paramType[5]}: ${gainSelValue[0].code}")
 ////            }
 //
 //            val configRepository = ConfigRepository()
 //            val config = configRepository.readConfig()
-//            val disChar = (config.distance * 128).toInt() // 距离(米)
-//            val emsChar = (config.radiation * 128).toInt() // 发射率
-////            val tuChar = (config.environment * 10).toInt().toChar() // 环境温度
+//            val disChar = (config.distance * 128).toInt() // [Chinese text]([Chinese text])
+//            val emsChar = (config.radiation * 128).toInt() // [Chinese text]
+////            val tuChar = (config.environment * 10).toInt().toChar() // [Chinese text]temperature
 //            XLog.w("SettingsTPD_PROP DISTANCE:${disChar.toInt()}, EMS:${emsChar.toInt()}}")
 //            val timeMillis = 250L
 //            delay(timeMillis)
-//            // 发射率
+//            // [Chinese text]
 //            /// Emissivity property. unit:1/128, range:1-128(0.01-1)
 //            ircmd?.setPropTPDParams(
 //                PropTPDParams.TPD_PROP_EMS,
 //                PropTPDParamsValue.NumberType(emsChar.toString())
 //            )
 //            delay(timeMillis)
-//            // 距离
+//            // [Chinese text]
 //            ircmd?.setPropTPDParams(
 //                PropTPDParams.TPD_PROP_DISTANCE,
 //                PropTPDParamsValue.NumberType(disChar.toString())
@@ -2337,12 +2337,12 @@
 //                )
 //            }
 ////            delay(timeMillis)
-////            // 环境反射温度
+////            // [Chinese text]temperature
 ////            setTpdParams(Libircmd.TPD_PROP_TA, tuChar) // ok
 ////            delay(timeMillis)
-////            // 环境反射温度
+////            // [Chinese text]temperature
 ////            setTpdParams(Libircmd.TPD_PROP_TU, tuChar) // ok
-//            // 自动快门
+//            // [Chinese text]
 //            delay(timeMillis)
 //            if (isFirst && isrun){
 //                ircmd?.zoomCenterDown(
@@ -2364,13 +2364,13 @@
 //                    CommonParams.PreviewPathChannel.PREVIEW_PATH0,
 //                    CommonParams.ZoomScaleStep.ZOOM_STEP2
 //                )
-//                // 恢复镜像
+//                // [Chinese text]
 //                ircmd?.setPropImageParams(
 //                    PropImageParams.IMAGE_PROP_SEL_MIRROR_FLIP,
 //                    PropImageParamsValue.MirrorFlipType.NO_MIRROR_FLIP
 //                )
 //                iruvc?.uvcCamera?.nativePtr?.let {
-//                    // 部分机型在关闭自动快门，初始会花屏
+//                    // [Chinese text], [Chinese text]
 //                    withContext(Dispatchers.IO){
 //                        if (!CameraLiveDateUtil.getInstance().getAutoShutter()) {
 //                            ircmd?.setPropAutoShutterParameter(
@@ -2390,7 +2390,7 @@
 //                    CommonParams.PropImageParams.IMAGE_PROP_LEVEL_DDE,
 //                    CommonParams.PropImageParamsValue.DDEType.DDE_0
 //                )
-//                // 复位对比度、细节
+//                // [Chinese text], [Chinese text]
 //                ircmd?.setPropImageParams(
 //                    CommonParams.PropImageParams.IMAGE_PROP_LEVEL_CONTRAST,
 //                    PropImageParamsValue.NumberType(contrastConfig.toString())
@@ -2411,12 +2411,12 @@
 //        }
 //    }
 //
-//    // Settingstdp参数
+//    // Settingstdp[Chinese text]
 //    private fun setTpdParams(params: PropTPDParams, value: String) {
 //        ircmd?.setPropTPDParams(params, PropTPDParamsValue.NumberType(value))
 //    }
 //
-//    // Settingsimg参数
+//    // Settingsimg[Chinese text]
 //    private fun setImageParams(params: PropImageParams, value: String) {
 //        ircmd?.setPropImageParams(params, PropImageParamsValue.NumberType(value))
 //    }
@@ -2426,7 +2426,7 @@
 //    private var upColor = 0
 //    private var downColor = 0
 //
-//    // 温度范围
+//    // temperaturerange
 //    private fun addLimit() {
 //        ThermalInputDialog.Builder(this)
 //            .setMessage(getString(R.string.thermal_threshold_setting))
@@ -2437,12 +2437,12 @@
 //                this.downValue = down
 //                this.upColor = upColor
 //                this.downColor = downColor
-//                imageThread?.setLimit(upValue, downValue, upColor, downColor) // 自定义颜色
+//                imageThread?.setLimit(upValue, downValue, upColor, downColor) // [Chinese text]
 //                if (upValue.toInt() == -273 && downValue.toInt() == -273) {
-//                    // 关闭DIY
+//                    // [Chinese text]DIY
 //                    thermal_recycler.limitStats = 460
 //                } else {
-//                    // 打开DIY
+//                    // [Chinese text]DIY
 //                    thermal_recycler.limitStats = 461
 //                }
 //            }
@@ -2450,7 +2450,7 @@
 //                upValue = -273f
 //                downValue = -273f
 //                thermal_recycler.limitStats = 460
-//                imageThread?.setLimit(upValue, downValue, upColor, downColor) // 自定义颜色
+//                imageThread?.setLimit(upValue, downValue, upColor, downColor) // [Chinese text]
 //            }
 //            .create().show()
 //    }
@@ -2460,7 +2460,7 @@
 //    private fun cameraPreviewConfig(needShowTip: Boolean) {
 //        if (!CheckDoubleClick.isFastDoubleClick()) {
 //            if (isOpenPreview) {
-//                // 关闭相机
+//                // [Chinese text]
 //                isOpenPreview = false
 //                cameraPreview.closeCamera()
 //                thermal_recycler.cameraPreviewStats = 450
@@ -2470,7 +2470,7 @@
 //                cameraPreview.visibility = View.INVISIBLE
 //                CameraLiveDateUtil.getInstance().saveCameraPreview(false)
 //            } else {
-//                // 打开相机
+//                // [Chinese text]
 //                XXPermissions.with(this@IRThermalActivity)
 //                    .permission(
 //                        Manifest.permission.CAMERA,
@@ -2482,7 +2482,7 @@
 //                        ) {
 //                            try {
 //                                if (allGranted) {
-//                                    // 画中画开启
+//                                    // [Chinese text]in progress[Chinese text]
 //                                    thermal_recycler.cameraPreviewStats = 451
 //                                    cameraPreview.visibility = View.VISIBLE
 //                                    cameraPreview?.setCameraAlpha(cameraAlpha / 100.0f)
@@ -2503,7 +2503,7 @@
 //                                    ToastUtils.showShort(R.string.scan_ble_tip_authorize)
 //                                }
 //                            }catch (e:Exception){
-//                                XLog.e("画中画"+e.message)
+//                                XLog.e("[Chinese text]in progress[Chinese text]"+e.message)
 //                            }
 //                        }
 //
@@ -2512,7 +2512,7 @@
 //                            doNotAskAgain: Boolean
 //                        ) {
 //                            if (doNotAskAgain){
-//                                // 拒绝授权并且不再提醒
+//                                // [Chinese text]
 //                                TipDialog.Builder(this@IRThermalActivity)
 //                                    .setTitleMessage(getString(R.string.app_tip))
 //                                    .setMessage(getString(R.string.app_camera_content))
@@ -2540,7 +2540,7 @@
 //
 ////    private var isResetFlag = false
 //
-//    // 重启设备
+//    // [Chinese text]
 //    private fun resetDevice() {
 //        if (iruvc == null) {
 //            return
@@ -2557,14 +2557,14 @@
 //                    setRotate(rotateAngle)
 //                    gainSelChar = CameraItemBean.TYPE_TMP_C
 //                    delay(2000)
-//                    // 重启过程,不要发送其它指令
+//                    // [Chinese text],[Chinese text]
 //                    restartUSBCamera()
 //                    delay(5000)
 //                    launch(Dispatchers.Main) {
 //                        dismissLoading()
 //                        thermal_recycler.setDefaultIndex()
 //                    }
-//                    XLog.i("重启模组生效")
+//                    XLog.i("[Chinese text]")
 //                }
 //            }
 //            .setCanceled(true)
@@ -2594,7 +2594,7 @@
 ////        if (count < 10) {
 ////            if (event.action == 3) {
 ////                lifecycleScope.launch {
-////                    XLog.e("设备断开,重新连接")
+////                    XLog.e("[Chinese text],[Chinese text]")
 ////                    delay(1000)
 //////                    restartUsbCamera()
 //////                    startUSB()
@@ -2623,11 +2623,11 @@
 //    fun cameraEvent(event: DeviceCameraEvent) {
 //        when (event.action) {
 //            100 -> {
-//                // 准备图像
+//                // [Chinese text]
 //                showCameraLoading()
 //            }
 //            101 -> {
-//                // 显示图像
+//                // [Chinese text]
 //                lifecycleScope.launch {
 //                    delay(500)
 //                    isConfigWait = false
@@ -2642,7 +2642,7 @@
 //
 //
 //    /**
-//     * 记录设备message
+//     * [Chinese text]message
 //     */
 //    private fun printSN() {
 //        lifecycleScope.launch(Dispatchers.IO) {
@@ -2665,9 +2665,9 @@
 //                infoBuilder.append("Firmware version: ").append(arm).append("<br>")
 //                infoBuilder.append("SN: ").append(snStr).append("<br>")
 //                val str = HtmlCompat.fromHtml(infoBuilder.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
-//                XLog.i("获取设备message: $str")
+//                XLog.i("[Chinese text]message: $str")
 //            } catch (e: Exception) {
-//                XLog.e("获取SN失败: ${e.message}")
+//                XLog.e("[Chinese text]SN[Chinese text]: ${e.message}")
 //            }
 //        }
 //    }
@@ -2677,7 +2677,7 @@
 //        try {
 //            tmp = tempCorrect(temp,gainStatus,tempinfo)
 //        }catch (e : Exception){
-//            XLog.e("温度校正失败: ${e.message}")
+//            XLog.e("temperature[Chinese text]: ${e.message}")
 //        }finally {
 //            return tmp
 //        }

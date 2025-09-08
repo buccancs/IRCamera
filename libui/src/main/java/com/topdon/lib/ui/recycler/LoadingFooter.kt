@@ -9,7 +9,7 @@ import androidx.core.view.isVisible
 import com.topdon.lib.ui.R as UiR
 
 /**
- * 自定义FooterView - Simplified version without SmartRefreshLayout dependency
+ * [Chinese text]FooterView - Simplified version without SmartRefreshLayout dependency
  */
 class LoadingFooter : LinearLayout {
     private val llLoading: LinearLayout

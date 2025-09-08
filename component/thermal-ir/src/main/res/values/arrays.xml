@@ -8,8 +8,8 @@
     
     <string-array name="currency">
         <item>$</item>
-        <item>€</item>
-        <item>¥</item>
-        <item>£</item>
+        <item>EUR</item>
+        <item>CNY</item>
+        <item>GBP</item>
     </string-array>
 </resources>

@@ -1,16 +1,16 @@
 # Enterprise Comprehensive Testing Documentation
 
-## 🧪 Enterprise Testing Overview
+## [test tube] Enterprise Testing Overview
 
 The IRCamera platform implements **enterprise-grade comprehensive testing strategies** across all components to ensure maximum reliability, performance, security, compliance, and scalability. This document provides detailed testing procedures, frameworks, validation protocols, and enterprise testing infrastructure for production deployments.
 
-## 🏗️ Enterprise Testing Architecture
+## [construction] Enterprise Testing Architecture
 
-### 🎯 Enterprise Multi-Level Testing Strategy
+### [target] Enterprise Multi-Level Testing Strategy
 
 ```mermaid
 graph TB
-    subgraph "🔺 Enterprise Testing Pyramid"
+    subgraph "[triangle] Enterprise Testing Pyramid"
         Unit[Unit Tests - 70%<br/>Fast + Isolated + Comprehensive]
         Integration[Integration Tests - 20%<br/>Component Interaction + APIs]
         E2E[End-to-End Tests - 10%<br/>User Workflows + Scenarios]
@@ -19,7 +19,7 @@ graph TB
         Compliance[Compliance Tests<br/>HIPAA + GDPR + SOX]
     end
     
-    subgraph "📱 Android Enterprise Testing"
+    subgraph "[mobile] Android Enterprise Testing"
         UnitAndroid[JUnit 5 + Mockk + Truth<br/>95%+ Coverage Target]
         UITest[Espresso + UI Automator<br/>Comprehensive UI Testing]
         InstrumentedTest[Instrumented Tests<br/>Device Integration]
@@ -28,7 +28,7 @@ graph TB
         AccessibilityTest[Accessibility Testing<br/>A11y Compliance]
     end
     
-    subgraph "🖥️ PC Controller Enterprise Testing"
+    subgraph "[desktop] PC Controller Enterprise Testing"
         UnitPython[pytest + unittest + coverage<br/>95%+ Coverage Target]
         MockTest[unittest.mock + pytest-mock<br/>Dependency Isolation]
         PerformanceTest[Performance Tests<br/>Profiling + Benchmarking]
@@ -37,7 +37,7 @@ graph TB
         StressTest[Stress Testing<br/>Resource Limits]
     end
     
-    subgraph "☁️ Cloud & Infrastructure Testing"
+    subgraph "[cloud] Cloud & Infrastructure Testing"
         ContainerTest[Container Testing<br/>Docker + K8s Validation]
         InfrastructureTest[Infrastructure Testing<br/>Terraform + Ansible]
         CloudTest[Cloud Testing<br/>AWS + Azure + GCP]
@@ -45,7 +45,7 @@ graph TB
         SecurityInfraTest[Infrastructure Security<br/>CIS Benchmarks]
     end
     
-    subgraph "🤖 ML/AI Testing Framework"
+    subgraph "[robot] ML/AI Testing Framework"
         ModelTest[Model Testing<br/>Accuracy + Bias + Fairness]
         DataValidation[Data Validation<br/>Schema + Quality + Drift]
         MLPipelineTest[ML Pipeline Testing<br/>Training + Inference]
@@ -75,7 +75,7 @@ graph TB
     SecuritySys --> UsabilitySys
 ```
 
-## 📱 Android Testing Framework
+## [mobile] Android Testing Framework
 
 ### Unit Testing with JUnit and Mockk
 
@@ -329,7 +329,7 @@ class CameraIntegrationTest {
 }
 ```
 
-## 🐍 PC Controller Testing
+## [snake] PC Controller Testing
 
 ### Unit Testing with pytest
 
@@ -596,7 +596,7 @@ class TestSystemIntegration:
             assert sample['gsr_value'] == 10.0 + i * 0.05
 ```
 
-## 🔒 Security Testing
+## [lock] Security Testing
 
 ### Security Test Suite
 
@@ -694,7 +694,7 @@ class TestSecurityFeatures:
         assert response.status_code in [301, 302, 403, 404]
 ```
 
-## 📈 Performance Testing
+## [chart up] Performance Testing
 
 ### Load Testing
 
@@ -799,7 +799,7 @@ class TestPerformanceMetrics:
         assert memory_increase < 100, f"Memory increased by {memory_increase:.2f}MB, possible leak"
 ```
 
-## 🎯 Test Automation & CI/CD
+## [target] Test Automation & CI/CD
 
 ### GitHub Actions Test Pipeline
 
@@ -912,18 +912,18 @@ jobs:
         python -m pytest tests/security/ -v
 ```
 
-## 📊 Test Coverage & Metrics
+## [chart] Test Coverage & Metrics
 
 ### Coverage Requirements
 
 | Component | Unit Test Coverage | Integration Test Coverage |
 |-----------|-------------------|---------------------------|
-| **Thermal Processing** | ≥ 90% | ≥ 80% |
-| **GSR Processing** | ≥ 90% | ≥ 80% |
-| **Network Communication** | ≥ 85% | ≥ 90% |
-| **Data Storage** | ≥ 80% | ≥ 75% |
-| **Security Features** | ≥ 95% | ≥ 90% |
-| **UI Components** | ≥ 70% | ≥ 60% |
+| **Thermal Processing** | >= 90% | >= 80% |
+| **GSR Processing** | >= 90% | >= 80% |
+| **Network Communication** | >= 85% | >= 90% |
+| **Data Storage** | >= 80% | >= 75% |
+| **Security Features** | >= 95% | >= 90% |
+| **UI Components** | >= 70% | >= 60% |
 
 ### Test Metrics Dashboard
 
@@ -956,7 +956,7 @@ class TestMetrics:
         }
 ```
 
-## 🎯 Testing Best Practices
+## [target] Testing Best Practices
 
 ### Test Development Guidelines
 1. **Test Pyramid**: Focus on unit tests (70%), integration tests (20%), E2E tests (10%)

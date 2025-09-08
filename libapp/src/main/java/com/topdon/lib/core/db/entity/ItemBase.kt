@@ -10,7 +10,7 @@ import com.blankj.utilcode.util.Utils
 import com.topdon.lib.core.R
 
 /**
- * 检测 或 报告 所属的一项项目.
+ * [Chinese text] [Chinese text] [Chinese text] [Chinese text].
  *
  * Created by LCG on 2024/8/19.
  */
@@ -19,55 +19,55 @@ open class ItemBase {
     var id: Long = 0
 
     /**
-     * 所对应的检测或报告目录 Id
+     * [Chinese text] Id
      */
     @ColumnInfo(index = true)
     open var parentId: Long = 0
 
     /**
-     * 该项目在目录中的 index.
+     * [Chinese text]in progress[Chinese text] index.
      */
     @ColumnInfo
     var position: Int = 0
 
     /**
-     * 项目名，如“管道”
+     * [Chinese text], [Chinese text]"[Chinese text]"
      */
     @ColumnInfo
     var itemName: String = ""
 
     /**
-     * 状态 0-未选择 1-没问题 2-需维修 3-需更换
+     * [Chinese text] 0-[Chinese text] 1-[Chinese text] 2-[Chinese text] 3-[Chinese text]
      */
     @ColumnInfo
     var state: Int = 0
 
     /**
-     * 用户输入字符，""表示未输入
+     * [Chinese text], ""[Chinese text]
      */
     @ColumnInfo
     var inputText: String = ""
 
     /**
-     * 用户上传的图片1在本地绝对路径
+     * [Chinese text]1[Chinese text]
      */
     @ColumnInfo
     var image1: String = ""
 
     /**
-     * 用户上传的图片2在本地绝对路径
+     * [Chinese text]2[Chinese text]
      */
     @ColumnInfo
     var image2: String = ""
 
     /**
-     * 用户上传的图片3在本地绝对路径
+     * [Chinese text]3[Chinese text]
      */
     @ColumnInfo
     var image3: String = ""
 
     /**
-     * 用户上传的图片4在本地绝对路径
+     * [Chinese text]4[Chinese text]
      */
     @ColumnInfo
     var image4: String = ""
@@ -77,7 +77,7 @@ open class ItemBase {
     override fun hashCode(): Int = id.toInt()
 
     /**
-     * 获取 state 对应的文字描述.
+     * [Chinese text] state [Chinese text]text[Chinese text].
      */
     fun getStateStr(context: Context): String =
         when (state) {
@@ -137,7 +137,7 @@ open class ItemBase {
     }
 
     /**
-     * 删除指定位置的一张图片.
+     * [Chinese text].
      * @param imageNum `[1,4]`
      */
     fun delOneImage(imageNum: Int) {
@@ -146,7 +146,7 @@ open class ItemBase {
                 image4 = ""
             }
             3 -> {
-                if (image4.isEmpty()) { // 只有3张删第3张
+                if (image4.isEmpty()) { // [Chinese text]3[Chinese text]3[Chinese text]
                     image3 = ""
                 } else {
                     image3 = image4
@@ -154,7 +154,7 @@ open class ItemBase {
                 }
             }
             2 -> {
-                if (image3.isEmpty()) { // 只有2张删第2张
+                if (image3.isEmpty()) { // [Chinese text]2[Chinese text]2[Chinese text]
                     image2 = ""
                 } else {
                     image2 = image3
@@ -167,7 +167,7 @@ open class ItemBase {
                 }
             }
             1 -> {
-                if (image2.isEmpty()) { // 只有1张删第1张
+                if (image2.isEmpty()) { // [Chinese text]1[Chinese text]1[Chinese text]
                     image1 = ""
                 } else {
                     image1 = image2
@@ -189,7 +189,7 @@ open class ItemBase {
 }
 
 /**
- * 检测所属的一项项目.
+ * [Chinese text].
  */
 @Entity(
     foreignKeys = [
@@ -211,30 +211,30 @@ class ItemDetect() : ItemBase() {
     }
 
     /**
-     * 所对应的检测目录 Id
+     * [Chinese text] Id
      */
     @ColumnInfo(index = true)
     override var parentId: Long = 0
 
     /**
-     * 该目录是否已选中，仅用于项目编辑界面.
+     * [Chinese text]in progress, onlyfor[Chinese text].
      */
     @Ignore
     var hasSelect = false
 
     /**
-     * 该项目所属的目录.
+     * [Chinese text].
      */
     @Ignore
     var dirDetect = DirDetect()
 
     /**
-     * 在当前项目名后添加 3 个字符：(1)，然后若超出 50 个字符则截取 [0,51)
+     * [Chinese text] 3 [Chinese text]: (1), [Chinese text] 50 [Chinese text] [0,51)
      */
     fun copyName(): String = "$itemName(1)"
 
     /**
-     * 返回一个 id 为 0，parentId、position、itemName 为指定值，其余属性完全一致的新对象.
+     * [Chinese text] id [Chinese text] 0, parentId, position, itemName [Chinese text], [Chinese text].
      */
     fun copyOne(
         parentId: Long = this.parentId,
@@ -258,7 +258,7 @@ class ItemDetect() : ItemBase() {
     }
 
     /**
-     * 将当前检测 item 转换为报告 item，注意 id、parent 重置为 0.
+     * [Chinese text] item [Chinese text] item, [Chinese text] id, parent [Chinese text] 0.
      */
     fun toItemReport(): ItemReport {
         val itemReport = ItemReport()
@@ -277,7 +277,7 @@ class ItemDetect() : ItemBase() {
 
     companion object {
         /**
-         * 根据指定的默认目录位置，获取对应的默认项目列表.
+         * [Chinese text], [Chinese text].
          */
         fun buildDefaultItemList(
             parentId: Long,
@@ -378,7 +378,7 @@ class ItemDetect() : ItemBase() {
 }
 
 /**
- * 报告所属的一项项目.
+ * [Chinese text].
  */
 @Entity(
     foreignKeys = [
@@ -393,7 +393,7 @@ class ItemDetect() : ItemBase() {
 )
 class ItemReport : ItemBase() {
     /**
-     * 所对应的报告目录 Id
+     * [Chinese text] Id
      */
     @ColumnInfo(index = true)
     override var parentId: Long = 0

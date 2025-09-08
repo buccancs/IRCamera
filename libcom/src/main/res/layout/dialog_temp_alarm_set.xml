@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="24dp">
 
-            <!-- 关闭 -->
+            <!-- [Chinese text] -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_close"
                 android:layout_width="0dp"
@@ -58,7 +58,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- 标题 -->
+            <!-- [Chinese text] -->
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
@@ -117,7 +117,7 @@
                 android:paddingEnd="10dp"
                 android:textSize="13sp"
                 android:textColor="#d2d2d2"
-                tools:text="°C"
+                tools:text="degC"
                 app:layout_constraintEnd_toEndOf="@id/view_high_input_bg"
                 app:layout_constraintTop_toTopOf="@id/view_high_input_bg"
                 app:layout_constraintBottom_toBottomOf="@id/view_high_input_bg" />
@@ -185,7 +185,7 @@
                 android:paddingEnd="10dp"
                 android:textSize="13sp"
                 android:textColor="#d2d2d2"
-                tools:text="°C"
+                tools:text="degC"
                 app:layout_constraintEnd_toEndOf="@id/view_low_input_bg"
                 app:layout_constraintTop_toTopOf="@id/view_low_input_bg"
                 app:layout_constraintBottom_toBottomOf="@id/view_low_input_bg" />

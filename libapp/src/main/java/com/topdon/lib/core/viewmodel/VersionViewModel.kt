@@ -11,40 +11,40 @@ class VersionViewModel : BaseViewModel() {
     val updateLiveData = SingleLiveEvent<VersionUpData>()
 
     /**
-     * forcedUpgradeFlag: 1 强制更新    0 非强制更新
-     * descType: 包含3时,显示给用户(descType获取升级描述message)
+     * forcedUpgradeFlag: 1 [Chinese text]    0 [Chinese text]
+     * descType: [Chinese text]3[Chinese text],[Chinese text](descType[Chinese text]message)
      */
     fun checkVersion() {
 //        viewModelScope.launch(Dispatchers.IO) {
 //            try {
 //                if (TimeUtils.isToday(SharedManager.getVersionCheckDate())) {
-//                    Log.w("123", "今天已有版本更新提示")
+//                    Log.w("123", "[Chinese text]")
 //                    return@launch
 //                }
 //                val result: CheckVersionJson = LmsRepository.getVersionInfo() ?: return@launch
 //                /*if (result.googleVerCode > AppUtils.getAppVersionCode()) {
-//                    // google play需要升级
+//                    // google play[Chinese text]
 //                    updateTip(result)
 //                    return@launch
 //                }*/
 //                if (VersionTool.checkVersion(remoteStr = result.versionNo ?: "1.0", localStr = AppUtils.getAppVersionName())) {
-//                    // google play检测不出时,官方升级,根据app情况跳转对应的升级渠道
+//                    // google play[Chinese text],[Chinese text],[Chinese text]app[Chinese text]
 //                    updateTip(result)
 //                    return@launch
 //                }
 //            } catch (e: Exception) {
-//                XLog.e("检测异常: ${e.message}")
+//                XLog.e("[Chinese text]: ${e.message}")
 //            }
 //        }
     }
 
     private fun updateTip(result: CheckVersionJson) {
-        val isForcedUpgrade = (result.forcedUpgradeFlag?.toInt() ?: 0) == 1 // 1: 强制升级
+        val isForcedUpgrade = (result.forcedUpgradeFlag?.toInt() ?: 0) == 1 // 1: [Chinese text]
         val description = getDescription(result.softConfigOtherTypeVOList)
         val downPageUrl = result.downloadPageUrl
         val sizeStr = "${result.notUnZipSize}MB"
 
-        XLog.i("有版本升级,升级message: $description, 是否强制升级: $isForcedUpgrade")
+        XLog.i("[Chinese text],[Chinese text]message: $description, [Chinese text]: $isForcedUpgrade")
 
         val versionUpData =
             VersionUpData(
@@ -58,7 +58,7 @@ class VersionViewModel : BaseViewModel() {
     }
 
     /**
-     * 获取升级message
+     * [Chinese text]message
      */
     private fun getDescription(list: List<SoftConfigOtherTypeVO>?): String {
         list?.forEach {

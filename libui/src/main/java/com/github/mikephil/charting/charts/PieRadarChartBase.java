@@ -251,8 +251,8 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends IDataSet<?
 
     /**
      * returns the angle relative to the chart center for the given point on the
-     * chart in degrees. The angle is always between 0 and 360°, 0° is NORTH,
-     * 90° is EAST, ...
+     * chart in degrees. The angle is always between 0 and 360deg, 0deg is NORTH,
+     * 90deg is EAST, ...
      *
      * @param x
      * @param y
@@ -271,7 +271,7 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends IDataSet<?
         if (x > c.x)
             angle = 360f - angle;
 
-        // add 90° because chart starts EAST
+        // add 90deg because chart starts EAST
         angle = angle + 90f;
 
         // neutralize overflow

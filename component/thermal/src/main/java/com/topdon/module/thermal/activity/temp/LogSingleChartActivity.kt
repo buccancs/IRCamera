@@ -22,7 +22,7 @@
 // import kotlinx.coroutines.launch
 //
 // /**
-// * 针对单个thermalId显示(用不到)
+// * [Chinese text]thermalId[Chinese text]([Chinese text])
 // */
 // @Route(path = RouterConfig.THERMAL_LOG_SINGLE_CHART)
 // class LogSingleChartActivity : BaseActivity() {
@@ -39,7 +39,7 @@
 //    override fun initContentView() = R.layout.activity_log_chart
 //
 //    override fun initView() {
-//        setTitleText("图表")
+//        setTitleText("[Chinese text]")
 //        thermalId = intent.getStringExtra(KEY_THERMAL_ID)!!
 //
 //        log_chart_time_recycler.layoutManager = GridLayoutManager(this, 4)
@@ -86,7 +86,7 @@
 //            .backgroundColor("#3598E8")
 //            .yAxisTitle("")
 //            .axesTextColor("#FFFFFF")
-//            .dataLabelsEnabled(false)// 坐标点是否显示值
+//            .dataLabelsEnabled(false)// [Chinese text]point[Chinese text]
 //            .tooltipEnabled(true)
 //            .markerRadius(0f)
 // //            .gradientColorEnable(true)
@@ -100,12 +100,12 @@
 //                        .name("vol")
 //                        .lineWidth(2f)
 //                        .data(arrayOf(0))
-//                        .color("#FFFFFF")// 曲线颜色
+//                        .color("#FFFFFF")// [Chinese text]line[Chinese text]
 //                )
 //            )
 //    }
 //
-//    val defaultCount = 20// 默认显示10个数
+//    val defaultCount = 20// [Chinese text]10[Chinese text]
 //    val startIndex = 0f
 //    var pointIndex = startIndex - defaultCount
 //
@@ -119,36 +119,36 @@
 //        val series = initSeries()
 //        val chart = AAChart()
 //            .scrollablePlotArea(AAScrollablePlotArea().minWidth(20)).backgroundColor("#383d45")
-//            .type(AAChartType.Area)// 曲线类型
+//            .type(AAChartType.Area)// [Chinese text]line[Chinese text]
 //
 //        val xAxis = AAXAxis()
 //            .lineWidth(1f)
 //            .gridLineWidth(0f)
 //            .gridLineColor("#717a8f")
 //            .lineColor("#717a8f")
-//            .tickColor("#717a8f")// 刻度颜色
-//            .minRange(9)// Settings滚动时，最小宽度
+//            .tickColor("#717a8f")// [Chinese text]
+//            .minRange(9)// Settings[Chinese text], [Chinese text]
 //            .minorTickColor("#000000")
-//            .labels(AALabels().style(AAStyle.style("#717a8f")))// 标尺文字
+//            .labels(AALabels().style(AAStyle.style("#717a8f")))// [Chinese text]text
 //
 //        val yAxis = AAYAxis()
 //            .lineWidth(1f)
 //            .gridLineWidth(1f)
 //            .gridLineColor("#454b56")
 //            .lineColor("#383d45")
-// //            .max(100f)// Settings最大y值
-//            .min(0f)// Settings最小y值
+// //            .max(100f)// Settings[Chinese text]y[Chinese text]
+//            .min(0f)// Settings[Chinese text]y[Chinese text]
 //            .labels(AALabels().style(AAStyle.style("#717a8f")))
-//            .title(AATitle().text("").style(AAStyle().color("#FFFFFF")))// 不显示
+//            .title(AATitle().text("").style(AAStyle().color("#FFFFFF")))// [Chinese text]
 //
-//        // 初始图表样式
+//        // [Chinese text]
 //        options.series(series).chart(chart).xAxis(xAxis).yAxis(yAxis)
-//        // 初始数据
+//        // [Chinese text]
 //        aa_chart_view.aa_drawChartWithChartOptions(options)
 //    }
 //
 //    /**
-//     * 初始化曲线三种类型曲线
+//     * [Chinese text]line[Chinese text]line
 //     */
 //    private fun initSeries(): Array<AASeriesElement> {
 //        val maxTempListData = Array<Any>(dataList.size) { dataList[it].thermalMax }
@@ -160,8 +160,8 @@
 //        val thirdColor = "#2bdb1f"
 //        val gradientColorDic: Map<*, *> = AAGradientColor.linearGradient(
 //            AALinearGradientDirection.ToBottom,
-//            "#3f7ad1AA",  // DodgerBlue, alpha 透明度 1
-//            "#3f7ad100" // DodgerBlue, alpha 透明度 0.1 (透明度与android位置相反)
+//            "#3f7ad1AA",  // DodgerBlue, alpha [Chinese text] 1
+//            "#3f7ad100" // DodgerBlue, alpha [Chinese text] 0.1 ([Chinese text]android[Chinese text])
 //        )
 //        val gradientColorDicSecond: Map<*, *> = AAGradientColor.linearGradient(
 //            AALinearGradientDirection.ToBottom,

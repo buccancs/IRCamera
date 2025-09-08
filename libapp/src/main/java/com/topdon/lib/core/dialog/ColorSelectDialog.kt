@@ -12,7 +12,7 @@ import com.topdon.lib.core.databinding.DialogColorSelectBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * 仅拾取颜色的弹框.
+ * only[Chinese text].
  *
  * Created by LCG on 2024/2/2.
  */
@@ -21,7 +21,7 @@ class ColorSelectDialog(
     @ColorInt private var color: Int,
 ) : Dialog(context, R.style.InfoDialog) {
     /**
-     * 颜色值拾取事件监听.
+     * [Chinese text]eventlistener.
      */
     var onPickListener: ((color: Int) -> Unit)? = null
 

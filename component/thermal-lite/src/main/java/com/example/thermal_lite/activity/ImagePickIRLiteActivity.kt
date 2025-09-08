@@ -9,7 +9,7 @@ import com.topdon.lib.core.ktbase.BasePickImgActivity
 import com.topdon.module.thermal.ir.R
 
 /**
- * des:单光红外Photo capture
+ * des:[Chinese text]Photo capture
  * author: CaiSongL
  * date: 2024/8/24 18:10
  **/

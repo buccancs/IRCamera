@@ -15,10 +15,10 @@ import java.util.concurrent.TimeUnit
 object DownloadTool {
     private fun getOKHttpClient(): OkHttpClient =
         OkHttpClient.Builder()
-            .retryOnConnectionFailure(false) // 不重试
-            .connectTimeout(10, TimeUnit.SECONDS) // 10秒与默认值一致
-            .readTimeout(10, TimeUnit.SECONDS) // 10秒与默认值一致
-            .writeTimeout(10, TimeUnit.SECONDS) // 10秒与默认值一致
+            .retryOnConnectionFailure(false) // [Chinese text]
+            .connectTimeout(10, TimeUnit.SECONDS) // 10[Chinese text]
+            .readTimeout(10, TimeUnit.SECONDS) // 10[Chinese text]
+            .writeTimeout(10, TimeUnit.SECONDS) // 10[Chinese text]
             .build()
 
     private fun getService(): DownloadApiService =

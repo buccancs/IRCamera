@@ -12,18 +12,18 @@ import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lib.ui.R as UiR
 
 /**
- * 提示窗
+ * [Chinese text]
  * create by fylder on 2018/6/15
  **/
 class MonitorSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
     class Builder(private val context: Context) {
         /**
-         * 是否处于第 1 步.
+         * [Chinese text] 1 [Chinese text].
          */
         private var isFirstStep = true
 
         /**
-         * 当前选中的监控类型 1-点 2-线 3-面.
+         * [Chinese text]in progress[Chinese text] 1-point 2-line 3-[Chinese text].
          */
         private var monitorType = 0
 
@@ -42,12 +42,12 @@ class MonitorSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
             dialog.setContentView(view)
 
             val lp = dialog.window!!.attributes
-            lp.width = (ScreenUtil.getScreenWidth(context) * if (ScreenUtil.isPortrait(context)) 0.85 else 0.35).toInt() // Settings宽度
+            lp.width = (ScreenUtil.getScreenWidth(context) * if (ScreenUtil.isPortrait(context)) 0.85 else 0.35).toInt() // Settings[Chinese text]
             dialog.window!!.attributes = lp
 
             view.findViewById<Button>(UiR.id.btn_confirm_or_back).setOnClickListener {
-                if (isFirstStep) { // 步骤1->步骤2 逻辑为“确认”
-                    if (monitorType == 0) { // 还没选取类型不允许点确认
+                if (isFirstStep) { // [Chinese text]1->[Chinese text]2 [Chinese text]"[Chinese text]"
+                    if (monitorType == 0) { // [Chinese text]not allowedpoint[Chinese text]
                         return@setOnClickListener
                     }
                     isFirstStep = false
@@ -56,7 +56,7 @@ class MonitorSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
                     view.findViewById<ConstraintLayout>(UiR.id.cl_second_step).visibility = View.VISIBLE
                     view.findViewById<TextView>(UiR.id.tv_title).text = context.getString(R.string.select_monitor_type_step2)
                     view.findViewById<Button>(UiR.id.btn_confirm_or_back).text = context.getString(R.string.select_monitor_return)
-                } else { // 步骤2->步骤1 逻辑为“返回”
+                } else { // [Chinese text]2->[Chinese text]1 [Chinese text]"[Chinese text]"
                     isFirstStep = true
                     view.findViewById<Button>(UiR.id.btn_cancel).visibility = View.GONE
                     view.findViewById<ConstraintLayout>(UiR.id.cl_first_step).visibility = View.VISIBLE

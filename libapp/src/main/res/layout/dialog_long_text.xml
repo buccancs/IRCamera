@@ -15,7 +15,7 @@
         android:layout_marginHorizontal="14dp"
         android:textSize="16sp"
         android:textColor="@color/white"
-        tools:text="散热器"
+        tools:text="[Chinese text]"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

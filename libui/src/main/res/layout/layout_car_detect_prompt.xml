@@ -36,7 +36,7 @@
             android:textColor="@color/white"
             android:drawablePadding="8dp"
             android:textSize="13sp"
-            tools:text="Temperature 90℃-100℃ " />
+            tools:text="Temperature 90C-100C " />
 
     </RelativeLayout>
 

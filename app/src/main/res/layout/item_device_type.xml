@@ -17,12 +17,12 @@
         android:paddingBottom="11dp"
         android:textSize="16sp"
         android:textColor="#ffffff"
-        tools:text="有线连接"
+        tools:text="[Chinese text]line[Chinese text]"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- 两个 item 中间间隔 -->
+    <!-- [Chinese text] item in progress[Chinese text] -->
     <View
         android:id="@+id/view_space"
         android:layout_width="15dp"

@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.dialog_tip_observe.view.tv_title
 import kotlinx.android.synthetic.main.dialog_tip_target_color.view.*
 
 /**
- * 观测-标靶颜色
+ * [Chinese text]-[Chinese text]
  */
 class TipTargetColorDialog : Dialog {
 
@@ -90,13 +90,13 @@ class TipTargetColorDialog : Dialog {
             val lp = dialog!!.window!!.attributes
             val wRatio =
                 if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    //竖屏
+                    //[Chinese text]
                     0.90
                 } else {
-                    //横屏
+                    //[Chinese text]
                     0.35
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() //设置宽度
+            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() //settings[Chinese text]
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceled)

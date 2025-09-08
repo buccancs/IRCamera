@@ -6,23 +6,23 @@ import com.topdon.libhik.util.ByteArrayUtil.toInt
 import com.topdon.libhik.util.ByteArrayUtil.toStr
 
 /**
- * 专家测温规则及结果，共 208 byte.
- * @param enable 是否启用
- * @param regionId 区域 Id
- * @param distance 测温距离，单位 cm
- * @param regionType 区域类型 1-点 2-线 3-面
- * @param regionName 区域名称
- * @param emissivity 发射率百分比，如 97 表示 0.97
- * @param minTemp 最低温，单位摄氏度
- * @param maxTemp 最高温，单位摄氏度
- * @param aveTemp 平均温，单位摄氏度
- * @param diffTemp 温差，单位摄氏度
- * @param maxX 区域最高温归一化 X 轴坐标 [0, 1000]
- * @param maxY 区域最高温归一化 Y 轴坐标 [0, 1000]
- * @param minX 区域最低温归一化 X 轴坐标 [0, 1000]
- * @param minY 区域最低温归一化 Y 轴坐标 [0, 1000]
- * @param pointCount 多边形实际顶点数
- * @param pointList 点、线、面 顶点列表
+ * [Chinese text], [Chinese text] 208 byte.
+ * @param enable [Chinese text]
+ * @param regionId area Id
+ * @param distance [Chinese text], [Chinese text] cm
+ * @param regionType area[Chinese text] 1-point 2-line 3-[Chinese text]
+ * @param regionName area[Chinese text]
+ * @param emissivity [Chinese text], [Chinese text] 97 [Chinese text] 0.97
+ * @param minTemp [Chinese text]low[Chinese text], [Chinese text]
+ * @param maxTemp [Chinese text]high[Chinese text], [Chinese text]
+ * @param aveTemp [Chinese text], [Chinese text]
+ * @param diffTemp [Chinese text], [Chinese text]
+ * @param maxX area[Chinese text]high[Chinese text] X [Chinese text] [0, 1000]
+ * @param maxY area[Chinese text]high[Chinese text] Y [Chinese text] [0, 1000]
+ * @param minX area[Chinese text]low[Chinese text] X [Chinese text] [0, 1000]
+ * @param minY area[Chinese text]low[Chinese text] Y [Chinese text] [0, 1000]
+ * @param pointCount [Chinese text]point[Chinese text]
+ * @param pointList point, line, [Chinese text] [Chinese text]point[Chinese text]
  */
 data class TempRule(
     val enable: Boolean,
@@ -63,7 +63,7 @@ data class TempRule(
 
     companion object {
         /**
-         * 从指定数组的 index 开始，解析共 count 个点坐标
+         * [Chinese text] index start, [Chinese text] count [Chinese text]point[Chinese text]
          */
         private fun ByteArray.toPointList(index: Int, count: Int): ArrayList<Point> = try {
             val resultList: ArrayList<Point> = ArrayList(count)
@@ -78,11 +78,11 @@ data class TempRule(
         }
     }
 
-    override fun toString(): String = "规则$regionId ${if (enable) "开启" else "关闭"} " +
-            "距离:$distance cm，类型$regionType，" +
-            "发射率:$emissivity，名称:$regionName，" +
-            "最低温:($minX,$minY) ${minTemp}°C，" +
-            "最高温:($maxX,$maxY) ${maxTemp}°C，" +
-            "平均温:${aveTemp}°C，" +
-            "顶点数:$pointCount"
+    override fun toString(): String = "[Chinese text]$regionId ${if (enable) "[Chinese text]" else "[Chinese text]"} " +
+            "[Chinese text]:$distance cm, [Chinese text]$regionType, " +
+            "[Chinese text]:$emissivity, [Chinese text]:$regionName, " +
+            "[Chinese text]low[Chinese text]:($minX,$minY) ${minTemp}degC, " +
+            "[Chinese text]high[Chinese text]:($maxX,$maxY) ${maxTemp}degC, " +
+            "[Chinese text]:${aveTemp}degC, " +
+            "[Chinese text]point[Chinese text]:$pointCount"
 }

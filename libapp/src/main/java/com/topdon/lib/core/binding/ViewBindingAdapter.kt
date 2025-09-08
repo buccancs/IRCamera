@@ -11,13 +11,13 @@ import androidx.databinding.BindingAdapter
 import com.blankj.utilcode.util.SizeUtils
 
 /**
- * RecyclerView 的 BindingAdapter.
+ * RecyclerView [Chinese text] BindingAdapter.
  *
  * Created by LCG on 2024/11/5.
  */
 object ViewBindingAdapter {
     /**
-     * 为 view 的 background 添加或移除 selectableItemBackground 效果.
+     * [Chinese text] view [Chinese text] background [Chinese text] selectableItemBackground [Chinese text].
      */
     @JvmStatic
     @BindingAdapter("bgEffect")
@@ -46,10 +46,10 @@ object ViewBindingAdapter {
                     drawableList.add(effectDrawable)
                 }
             } else {
-                if (drawableList.size == layerCount) { // 本来就没有 hint
+                if (drawableList.size == layerCount) { // [Chinese text] hint
                     return
                 }
-                if (drawableList.isEmpty()) { // 只有1个且为 hint，移除
+                if (drawableList.isEmpty()) { // [Chinese text]1[Chinese text] hint, [Chinese text]
                     view.background = null
                     return
                 }
@@ -83,9 +83,9 @@ object ViewBindingAdapter {
     }
 
     /**
-     * 使用矩形 shape 将指定 view 的 background 填充颜色Settings为指定颜色值.
+     * [Chinese text] shape [Chinese text] view [Chinese text] background [Chinese text]Settings[Chinese text].
      *
-     * 注意：最好搭配其他 bgXXX 一起Settings，只需要Settings颜色的话用原生的 android:background 不是更好？
+     * [Chinese text]: [Chinese text] bgXXX [Chinese text]Settings, [Chinese text]Settings[Chinese text] android:background [Chinese text]? 
      */
     @JvmStatic
     @BindingAdapter("bgColor")
@@ -99,14 +99,14 @@ object ViewBindingAdapter {
     }
 
     /**
-     * 使用矩形 shape 为指定 view 的 background Settings圆角，单位**dp**.
+     * [Chinese text] shape [Chinese text] view [Chinese text] background Settings[Chinese text], [Chinese text]**dp**.
      *
-     * 注意：最好搭配其他 bgXXX 一起Settings，否则光有圆角没颜色就相当于没Settings。
-     * @param bgCorners 4个角的圆角值，单位dp
-     * @param bgCornersLT left-top 的圆角值，优先使用该值，单位dp
-     * @param bgCornersRT right-top 的圆角值，优先使用该值，单位dp
-     * @param bgCornersLB left-bottom 的圆角值，优先使用该值，单位dp
-     * @param bgCornersRB right-bottom 的圆角值，优先使用该值，单位dp
+     * [Chinese text]: [Chinese text] bgXXX [Chinese text]Settings, [Chinese text]Settings. 
+     * @param bgCorners 4[Chinese text], [Chinese text]dp
+     * @param bgCornersLT left-top [Chinese text], [Chinese text], [Chinese text]dp
+     * @param bgCornersRT right-top [Chinese text], [Chinese text], [Chinese text]dp
+     * @param bgCornersLB left-bottom [Chinese text], [Chinese text], [Chinese text]dp
+     * @param bgCornersRB right-bottom [Chinese text], [Chinese text], [Chinese text]dp
      */
     @JvmStatic
     @BindingAdapter(value = ["bgCorners", "bgCornersLT", "bgCornersRT", "bgCornersLB", "bgCornersRB"], requireAll = false)
@@ -131,9 +131,9 @@ object ViewBindingAdapter {
     }
 
     /**
-     * 使用矩形 shape 为指定 view 的 background Settings描边.
-     * @param width 描边宽度，单位dp
-     * @param color 描边颜色值
+     * [Chinese text] shape [Chinese text] view [Chinese text] background Settings[Chinese text].
+     * @param width [Chinese text], [Chinese text]dp
+     * @param color [Chinese text]
      */
     @JvmStatic
     @BindingAdapter(value = ["bgStrokeWidth", "bgStrokeColor"], requireAll = false)
@@ -148,7 +148,7 @@ object ViewBindingAdapter {
     }
 
     /**
-     * 使用矩形 shape 为指定 view 的 background Settings渐变颜色值.
+     * [Chinese text] shape [Chinese text] view [Chinese text] background Settings[Chinese text].
      */
     @JvmStatic
     @BindingAdapter(value = ["bgStartColor", "bgCenterColor", "bgEndColor"], requireAll = false)
@@ -164,11 +164,11 @@ object ViewBindingAdapter {
     }
 
     /**
-     * 使用矩形 shape 为指定 view 的 background Settings指定类型渐变参数.
-     * @param angle 线性渐变：渐变角度，必须为 45 的倍数，0为从左到右 90为从上到下 -90或270为从下到上
-     * @param radius 放射渐变：直径百分比
-     * @param centerX 放射渐变或扫描渐变：中心点X轴百分比
-     * @param centerY 放射渐变或扫描渐变：中心点Y轴百分比
+     * [Chinese text] shape [Chinese text] view [Chinese text] background Settings[Chinese text].
+     * @param angle line[Chinese text]: [Chinese text], [Chinese text] 45 [Chinese text], 0[Chinese text] 90[Chinese text] -90[Chinese text]270[Chinese text]
+     * @param radius [Chinese text]: [Chinese text]
+     * @param centerX [Chinese text]: in progress[Chinese text]pointX[Chinese text]
+     * @param centerY [Chinese text]: in progress[Chinese text]pointY[Chinese text]
      */
     @JvmStatic
     @BindingAdapter(value = ["bgAngle", "bgRadius", "bgCenterX", "bgCenterY"], requireAll = false)
@@ -213,15 +213,15 @@ object ViewBindingAdapter {
     }
 
     /**
-     * 从指定 view 的 background 中获取 GradientDrawable.
+     * [Chinese text] view [Chinese text] background in progress[Chinese text] GradientDrawable.
      *
-     * 若指定 view 的 background 为 GradientDrawable，则直接返回；
+     * [Chinese text] view [Chinese text] background [Chinese text] GradientDrawable, [Chinese text]; 
      *
-     * 若指定 view 的 background 为 ColorDrawable，返回新的相应颜色的 GradientDrawable；
+     * [Chinese text] view [Chinese text] background [Chinese text] ColorDrawable, [Chinese text] GradientDrawable; 
      *
-     * 若指定 view 的 background 为 LayerDrawable，则查找 background id 的 GradientDrawable；
+     * [Chinese text] view [Chinese text] background [Chinese text] LayerDrawable, [Chinese text] background id [Chinese text] GradientDrawable; 
      *
-     * 其他情况新建 GradientDrawable 并返回。
+     * [Chinese text] GradientDrawable [Chinese text]. 
      */
     @JvmStatic
     private fun buildGradientDrawable(view: View): GradientDrawable {
@@ -244,8 +244,8 @@ object ViewBindingAdapter {
     }
 
     /**
-     * 如果 view 此前的 background 已Settings bgEffect，则使用 bgDrawable 构建包含 bgEffect 的 LayerDrawable；
-     * 否则直接返回 bgDrawable
+     * [Chinese text] view [Chinese text] background [Chinese text]Settings bgEffect, [Chinese text] bgDrawable [Chinese text] bgEffect [Chinese text] LayerDrawable; 
+     * [Chinese text] bgDrawable
      */
     @JvmStatic
     private fun buildEffectDrawable(

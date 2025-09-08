@@ -109,9 +109,9 @@ class GSRVideoAdapter(
         // Parse video metadata from filename if available
         val filename = videoFile.nameWithoutExtension
         when {
-            filename.contains("4K") -> holder.resolution.text = "4K UHD (3840×2160)"
-            filename.contains("1080") -> holder.resolution.text = "Full HD (1920×1080)"
-            filename.contains("720") -> holder.resolution.text = "HD (1280×720)"
+            filename.contains("4K") -> holder.resolution.text = "4K UHD (3840x2160)"
+            filename.contains("1080") -> holder.resolution.text = "Full HD (1920x1080)"
+            filename.contains("720") -> holder.resolution.text = "HD (1280x720)"
             else -> holder.resolution.text = "Unknown resolution"
         }
 
@@ -178,8 +178,8 @@ class GSRRawImageAdapter(
 
         // Parse RAW image metadata from filename
         val filename = rawImageFile.nameWithoutExtension
-        holder.resolution.text = "4032×3024 (12MP)" // Samsung S22 sensor size
-        holder.captureInfo.text = "DNG RAW • Level 3"
+        holder.resolution.text = "4032x3024 (12MP)" // Samsung S22 sensor size
+        holder.captureInfo.text = "DNG RAW * Level 3"
 
         holder.createdDate.text =
             java.text.SimpleDateFormat(
@@ -252,7 +252,7 @@ class GSRSessionAdapter(
             if (fileCount.isEmpty()) {
                 "No files"
             } else {
-                fileCount.joinToString(" • ")
+                fileCount.joinToString(" * ")
             }
 
         holder.itemView.setOnClickListener {

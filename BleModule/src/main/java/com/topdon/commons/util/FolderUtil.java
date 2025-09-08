@@ -14,11 +14,11 @@ import java.io.File;
 public class FolderUtil {
     public static String mPath = "/data/user/0/com.topdon.diag.artidiag/files";
     public static String mUserId;
-    public static String fileName; // 在APPlication 传入文件名路径 区分APP
+    public static String fileName; // [Chinese text]APPlication [Chinese text] [Chinese text]APP
     public static String tdartsSn;
 
     /**
-     * 获取文件名
+     * [Chinese text]
      *
      * @return String
      */
@@ -27,9 +27,9 @@ public class FolderUtil {
     }
 
     /**
-     * 区分应用文件名称
+     * [Chinese text]
      *
-     * @param mfileName 名称("/TopDon/AD200/")
+     * @param mfileName [Chinese text]("/TopDon/AD200/")
      */
     public static void setFileName(String mfileName) {
         fileName = mfileName;
@@ -72,7 +72,7 @@ public static void initTDarts(String tdSn) {
     }
 
     /**
-     * 出事下载车型软件
+     * [Chinese text]
      */
     /**
  * Initfilepath operation.
@@ -82,10 +82,10 @@ public static void initTDarts(String tdSn) {
 public static void initFilePath() {
         String basePath = Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName;
         String downPath = basePath + "Download/";
-        Log.e("bcf", fileName + "--下载路径初始化--" + downPath);
+        Log.e("bcf", fileName + "--[Chinese text]--" + downPath);
         File file = new File(downPath);
         if (!file.exists()) {
-            Log.e("bcf", fileName + "---下载路径初始化创建 ");
+            Log.e("bcf", fileName + "---[Chinese text] ");
             file.mkdirs();
         }
     }
@@ -263,7 +263,7 @@ public static void initFilePath() {
     }
 
     /**
-     * 获取Tdarts根目录路径
+     * [Chinese text]Tdarts[Chinese text]
      *
      * @return str
      */
@@ -284,7 +284,7 @@ public static void initFilePath() {
     }
 
     /**
-     * 获取Tdarts sn下车型软件包路径
+     * [Chinese text]Tdarts sn[Chinese text]
      *
      * @return str
      */
@@ -377,7 +377,7 @@ public static void initFilePath() {
     }
 
     /**
-     * 获取反馈日志路径
+     * [Chinese text]
      *
      * @return string
      */
@@ -402,7 +402,7 @@ public static void initFilePath() {
     }
 
     /**
-     * 获取软件下载路径
+     * [Chinese text]
      *
      * @return str
      */

@@ -1,16 +1,16 @@
 # Enterprise Production Deployment Guide
 
-## 🚀 Enterprise Deployment Overview
+## [rocket] Enterprise Deployment Overview
 
 This **comprehensive enterprise deployment guide** covers production deployment of the IRCamera thermal imaging platform across various enterprise environments, from single-device setups to massive-scale industrial installations, cloud-native deployments, hybrid cloud architectures, and global distributed systems.
 
-## 🏗️ Enterprise Deployment Architecture
+## [construction] Enterprise Deployment Architecture
 
-### 🏢 Enterprise Production Topology
+### [office] Enterprise Production Topology
 
 ```mermaid
 graph TB
-    subgraph "🌐 Enterprise Network Infrastructure"
+    subgraph "[globe] Enterprise Network Infrastructure"
         EdgeRouter[Enterprise Edge Router<br/>Cisco/Juniper]
         CoreSwitch[Core Network Switch<br/>10/40/100 Gbps]
         EnterpriseFirewall[Enterprise Firewall<br/>Palo Alto/Fortinet]
@@ -18,7 +18,7 @@ graph TB
         VPNGateway[Enterprise VPN Gateway<br/>Global Access]
     end
     
-    subgraph "🖥️ Enterprise PC Controller Cluster"
+    subgraph "[desktop] Enterprise PC Controller Cluster"
         PrimaryController[Primary PC Controller<br/>High-Performance Workstation]
         SecondaryController[Secondary PC Controller<br/>Hot Standby]
         TertiaryController[Tertiary PC Controller<br/>Load Distribution]
@@ -26,7 +26,7 @@ graph TB
         BackupStorage[Enterprise Backup<br/>Veeam/CommVault]
     end
     
-    subgraph "📱 Enterprise Mobile Device Fleet"
+    subgraph "[mobile] Enterprise Mobile Device Fleet"
         TabletFleet1[Android Enterprise Fleet A<br/>TC001 Integration]
         TabletFleet2[Android Enterprise Fleet B<br/>TC007 Integration]
         TabletFleet3[Android Enterprise Fleet C<br/>TS004 Integration]
@@ -34,14 +34,14 @@ graph TB
         MDMServer[Mobile Device Management<br/>Microsoft Intune/VMware]
     end
     
-    subgraph "☁️ Enterprise Cloud Infrastructure"
+    subgraph "[cloud] Enterprise Cloud Infrastructure"
         AWSCluster[AWS Enterprise Cluster<br/>EKS + S3 + Lambda]
         AzureCluster[Azure Enterprise Cluster<br/>AKS + Blob + Functions]
         GCPCluster[GCP Enterprise Cluster<br/>GKE + Storage + Cloud Run]
         HybridCloud[Hybrid Cloud Orchestration<br/>Anthos/Arc/Outposts]
     end
     
-    subgraph "🔧 Enterprise Support Infrastructure"
+    subgraph "[tool] Enterprise Support Infrastructure"
         MonitoringStack[Enterprise Monitoring<br/>Prometheus + Grafana + Splunk]
         LoggingStack[Enterprise Logging<br/>ELK Stack + Fluentd]
         AlertingSystem[Enterprise Alerting<br/>PagerDuty + ServiceNow]
@@ -95,7 +95,7 @@ graph TB
     MainPC --> Monitoring
 ```
 
-## 📋 Prerequisites & System Requirements
+## [clipboard] Prerequisites & System Requirements
 
 ### Hardware Requirements
 
@@ -153,7 +153,7 @@ kotlin_version = "1.9.10"
 android_gradle_plugin = "8.1.2"
 ```
 
-## 🔧 Installation Procedures
+## [tool] Installation Procedures
 
 ### PC Controller Setup
 
@@ -419,7 +419,7 @@ fi
 echo "Build complete!"
 ```
 
-## 🗄️ Database & Storage Setup
+## [cabinet] Database & Storage Setup
 
 ### PostgreSQL Configuration (Production)
 ```sql
@@ -546,7 +546,7 @@ class StorageConfig:
             os.chmod(directory, 0o755)
 ```
 
-## 🌐 Network Configuration
+## [globe] Network Configuration
 
 ### Production Network Setup
 ```yaml
@@ -669,7 +669,7 @@ server {
 }
 ```
 
-## 🔐 Security Configuration
+## [secure] Security Configuration
 
 ### SSL/TLS Setup
 ```bash
@@ -726,7 +726,7 @@ sudo ufw logging on
 echo "Firewall configured successfully"
 ```
 
-## 📊 Monitoring & Logging
+## [chart] Monitoring & Logging
 
 ### Production Monitoring Setup
 ```python
@@ -827,7 +827,7 @@ volumes:
   elasticsearch_data:
 ```
 
-## 🔄 Backup & Recovery
+## [refresh] Backup & Recovery
 
 ### Automated Backup Strategy
 ```python
@@ -928,7 +928,7 @@ if __name__ == "__main__":
     backup_manager.schedule_backups()
 ```
 
-## 🎯 Performance Optimization
+## [target] Performance Optimization
 
 ### Production Performance Tuning
 ```python
@@ -972,7 +972,7 @@ class PerformanceConfig:
         return settings
 ```
 
-## 📋 Deployment Checklist
+## [clipboard] Deployment Checklist
 
 ### Pre-Deployment Checklist
 - [ ] Hardware requirements verified
@@ -1010,7 +1010,7 @@ class PerformanceConfig:
 - [ ] User documentation updated
 - [ ] Change management notifications sent
 
-## 🚨 Troubleshooting Common Issues
+## [alert] Troubleshooting Common Issues
 
 ### Common Deployment Problems
 

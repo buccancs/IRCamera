@@ -14,8 +14,8 @@ import com.topdon.lms.sdk.xutils.http.RequestParams
 object HttpHelp {
 
     /**
-     * 获取首次报告列表
-     * modelId：TC001 是950, TC002 是951, TC003是952
+     * [Chinese text]
+     * modelId: TC001 [Chinese text]950, TC002 [Chinese text]951, TC003[Chinese text]952
      */
     fun getFirstReportData(
         isTC007: Boolean,

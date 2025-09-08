@@ -31,11 +31,11 @@ class MenuTabAdapter(val context: Context) :
         notifyDataSetChanged()
     }
 
-    //拍摄
+    //[Chinese text]
     private val firstMenus =
         arrayListOf(R.drawable.ic_menu_thermal1001_svg, R.drawable.ic_menu_thermal1002_svg)
 
-    //选框
+    //[Chinese text]
     private val secondMenus =
         arrayListOf(
             R.drawable.ic_menu_thermal2002,
@@ -46,27 +46,27 @@ class MenuTabAdapter(val context: Context) :
             R.drawable.ic_menu_thermal2006
         )
 
-    //选框
+    //[Chinese text]
     private val secondMenusStr =
         arrayListOf(
-            "点",
-            "线",
-            "面",
-            "添加",
-            "全图",
-            "删除"
+            "point",
+            "line",
+            "[Chinese text]",
+            "[Chinese text]",
+            "[Chinese text]",
+            "[Chinese text]"
         )
 
-    //选框
+    //[Chinese text]
     private val fourthMenusStr =
         arrayListOf(
-            "旋转",
-            "增强",
-            "画中画",
-            "色带",
+            "[Chinese text]",
+            "[Chinese text]",
+            "[Chinese text]in progress[Chinese text]",
+            "[Chinese text]",
         )
 
-    //色彩
+    //[Chinese text]
     private val thirdMenus =
         arrayListOf(
             R.drawable.ic_menu_thermal3001,
@@ -81,7 +81,7 @@ class MenuTabAdapter(val context: Context) :
             R.drawable.ic_menu_thermal3010
         )
 
-    //设置
+    //settings
     private val fourthMenus =
         arrayListOf(
             R.drawable.ic_menu_thermal4001_svg,

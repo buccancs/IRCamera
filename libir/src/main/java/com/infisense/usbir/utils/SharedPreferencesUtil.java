@@ -12,7 +12,7 @@ public class SharedPreferencesUtil {
     private static final String FILE_NAME = "usb_ir";
 
         /**
-     * 保存数据到文件
+     * [Chinese text]
      *
      * @param context
      * @param key
@@ -39,7 +39,7 @@ public class SharedPreferencesUtil {
     }
 
         /**
-     * 从文件里读取数据
+     * [Chinese text]
      *
      * @param context
      * @param key

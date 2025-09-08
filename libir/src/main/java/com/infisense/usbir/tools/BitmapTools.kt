@@ -47,12 +47,12 @@ object BitmapTools {
                         r = imageBytes[i * 4].toInt() and 0xff
                         g = imageBytes[i * 4 + 1].toInt() and 0xff
                         b = imageBytes[i * 4 + 2].toInt() and 0xff
-                        // 灰度
+                        // [Chinese text]
                         grey = (r * 0.3f).toInt() + (g * 0.59f).toInt() + (b * 0.11f).toInt()
                         imageBytes[i * 4] = grey.toByte()
                         imageBytes[i * 4 + 1] = grey.toByte()
                         imageBytes[i * 4 + 2] = grey.toByte()
-//                        Log.e("测试","灰度化"+value)
+//                        Log.e("[Chinese text]","[Chinese text]"+value)
                     }
                 }
             } else {
@@ -87,7 +87,7 @@ object BitmapTools {
                 }
             }
         } catch (e: Exception) {
-            XLog.w("颜色替换失败: ${e.message}")
+            XLog.w("[Chinese text]: ${e.message}")
         }
     }
 }

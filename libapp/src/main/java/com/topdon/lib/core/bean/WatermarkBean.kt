@@ -5,8 +5,8 @@ import com.topdon.lib.core.utils.CommUtils
 
 data class WatermarkBean(
     var isOpen: Boolean = false,
-    var title: String = CommUtils.getAppName(), // 最多30个字符
-    var address: String = "", // 最多80个字符
+    var title: String = CommUtils.getAppName(), // [Chinese text]30[Chinese text]
+    var address: String = "", // [Chinese text]80[Chinese text]
     var isAddTime: Boolean = false,
 ) {
     companion object {

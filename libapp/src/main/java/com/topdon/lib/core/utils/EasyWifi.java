@@ -129,10 +129,10 @@ import com.topdon.lib.core.BaseApplication;
     public boolean connectByOld(String str, String str2, WifiCapability wifiCapability) {
         int addNetwork = this.wifiManager.addNetwork(createWifiConfig(str, str2, wifiCapability));
         if (addNetwork == -1) {
-            Log.e(this.TAG, "操作失败,需要您到手机wifi列表中取消对设备连接的保存");
+            Log.e(this.TAG, "operation[Chinese text],[Chinese text]wifi[Chinese text]in progress[Chinese text]");
         }
         boolean enableNetwork = this.wifiManager.enableNetwork(addNetwork, true);
-        Log.d(this.TAG, "connectByOld: " + (enableNetwork ? "成功" : "失败"));
+        Log.d(this.TAG, "connectByOld: " + (enableNetwork ? "[Chinese text]" : "[Chinese text]"));
         return enableNetwork;
     }
 
@@ -155,9 +155,9 @@ import com.topdon.lib.core.BaseApplication;
         wifiConfiguration.SSID = "\"" + str + "\"";
         WifiConfiguration isExist = isExist(str);
         if (isExist != null) {
-            Log.d(this.TAG, "createWifiConfig: 移除网路（true:成功，false:失败），结果=" + this.wifiManager.removeNetwork(isExist.networkId) + "移除后保存" + this.wifiManager.saveConfiguration());
+            Log.d(this.TAG, "createWifiConfig: [Chinese text](true:[Chinese text], false:[Chinese text]), [Chinese text]=" + this.wifiManager.removeNetwork(isExist.networkId) + "[Chinese text]" + this.wifiManager.saveConfiguration());
         }
-        Log.d(this.TAG, "createWifiConfig: 当前ssid=" + str);
+        Log.d(this.TAG, "createWifiConfig: [Chinese text]ssid=" + str);
         if (wifiCapability == WifiCapability.WIFI_CIPHER_NO_PASS) {
             wifiConfiguration.allowedKeyManagement.set(0);
         } else if (wifiCapability == WifiCapability.WIFI_CIPHER_WEP) {
@@ -195,7 +195,7 @@ import com.topdon.lib.core.BaseApplication;
     }
 
     public void setNetworkType(NetType netType) {
-        Log.d(this.TAG, "selectNetworkType: 强制使用wifi网络或者移动数据网络");
+        Log.d(this.TAG, "selectNetworkType: [Chinese text]wifi[Chinese text]");
         NetworkRequest.Builder builder = new NetworkRequest.Builder();
         if (netType == NetType.WIFI) {
             builder.addTransportType(1);
@@ -206,7 +206,7 @@ import com.topdon.lib.core.BaseApplication;
             @Override // android.net.ConnectivityManager.NetworkCallback
             public void onAvailable(Network network) {
                 try {
-                    Log.d(EasyWifi.this.TAG, "Settings网络类型时onAvailable: ");
+                    Log.d(EasyWifi.this.TAG, "Settings[Chinese text]onAvailable: ");
                     EasyWifi.this.getConnectivityManager().bindProcessToNetwork(network);
                 } catch (Exception e) {
                     e.printStackTrace();

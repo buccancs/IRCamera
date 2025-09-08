@@ -8,18 +8,18 @@ import com.topdon.lib.core.R
 import com.topdon.menu.constant.MenuType
 
 /**
- * Temperature measurement mode-菜单6-High/Low temperature range 菜单所用 Adapter，单选且必须选中其中一个.
+ * Temperature measurement mode-menu6-High/Low temperature range menuused by Adapter, [Chinese text]in progress[Chinese text]in progress[Chinese text].
  *
- * 低温档(高增益)、高温档(低增益)、自动切换
+ * low[Chinese text](high[Chinese text]), high[Chinese text](low[Chinese text]), [Chinese text]switch
  *
  * Created by LCG on 2024/11/28.
  */
 @SuppressLint("NotifyDataSetChanged")
 internal class TempLevelAdapter(menuType: MenuType) : BaseMenuAdapter() {
     /**
-     * 是否使用华氏度作为单位
+     * [Chinese text]
      *
-     * true-华氏度 false-摄氏度
+     * true-[Chinese text] false-[Chinese text]
      */
     var isUnitF = false
         set(value) {
@@ -30,12 +30,12 @@ internal class TempLevelAdapter(menuType: MenuType) : BaseMenuAdapter() {
         }
 
     /**
-     * 当前选中的档位 code.
+     * [Chinese text]in progress[Chinese text]level code.
      *
-     * 由于历史遗留（已保存在 SharedPreferences 中），这里 code 取值为
-     * - 自动切换：-1
-     * - 高温(低增益)：0
-     * - 常温(高增益)：1
+     * [Chinese text]([Chinese text] SharedPreferences in progress), [Chinese text] code [Chinese text]
+     * - [Chinese text]switch: -1
+     * - high[Chinese text](low[Chinese text]): 0
+     * - [Chinese text](high[Chinese text]): 1
      */
     var selectCode: Int = 1
         set(value) {
@@ -46,7 +46,7 @@ internal class TempLevelAdapter(menuType: MenuType) : BaseMenuAdapter() {
         }
 
     /**
-     * 菜单点击事件监听，单选。
+     * menupoint[Chinese text]eventlistener, [Chinese text]. 
      */
     var onTempLevelListener: ((code: Int) -> Unit)? = null
 
@@ -79,13 +79,13 @@ internal class TempLevelAdapter(menuType: MenuType) : BaseMenuAdapter() {
     }
 
     private fun IntRange.getTempStr(isUnitF: Boolean): String = if (isUnitF) {
-        "${c2f(start)}\n~\n${c2f(endInclusive)}°F"
+        "${c2f(start)}\n~\n${c2f(endInclusive)}degF"
     } else {
-        "${start}\n~\n${endInclusive}°C"
+        "${start}\n~\n${endInclusive}degC"
     }
 
     /**
-     * 将指定 摄氏度°C 转换为 华氏度°F
+     * [Chinese text] [Chinese text]degC [Chinese text] [Chinese text]degF
      */
     private fun c2f(cValue: Int): Int = (cValue * 1.8f + 32).toInt()
 

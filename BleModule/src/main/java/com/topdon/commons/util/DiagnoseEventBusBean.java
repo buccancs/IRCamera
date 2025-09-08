@@ -6,13 +6,13 @@ package com.topdon.commons.util;
  * Provides functionality for diagnoseeventbusbean operations.
  */
 public class DiagnoseEventBusBean {
-    private int what;// 1 语言  2 sn连接  3进入诊断或者百公里加速 4 诊断或者保养  5 Folder sn号路径   6 diagMenuMask
+    private int what;// 1 [Chinese text]  2 sn[Chinese text]  3[Chinese text] 4 [Chinese text]  5 Folder sn[Chinese text]   6 diagMenuMask
     private String language;
-    private boolean snConnection;// true sn不相等  false 相等
-    private boolean isDiagnose;// true 进入诊断或者百公里加速  false  未进入诊断或者百公里加速
-    private long mDiagEntryType;// 进入诊断的方式
-    private long mDiagMenuMask;// 车型实际开发内容配置
-    private String snPath;// sn文件夹路径
+    private boolean snConnection;// true sn[Chinese text]  false [Chinese text]
+    private boolean isDiagnose;// true [Chinese text]  false  [Chinese text]
+    private long mDiagEntryType;// [Chinese text]
+    private long mDiagMenuMask;// [Chinese text]
+    private String snPath;// sn[Chinese text]
 
     public String getSnPath() {
         return snPath;

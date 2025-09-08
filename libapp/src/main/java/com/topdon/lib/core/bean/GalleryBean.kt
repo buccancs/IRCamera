@@ -11,11 +11,11 @@ import java.util.TimeZone
 
 @Parcelize
 open class GalleryBean(
-    val id: Int, // 仅TS004远端时，id
+    val id: Int, // onlyTS004[Chinese text], id
     val path: String,
     val thumb: String,
     val name: String,
-    val duration: Long, // 仅当为视频时，持续毫秒数
+    val duration: Long, // only[Chinese text], [Chinese text]
     val timeMillis: Long,
     var hasDownload: Boolean,
 ) : Parcelable {

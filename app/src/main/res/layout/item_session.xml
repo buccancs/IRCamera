@@ -42,7 +42,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:text="Study Name • Date"
+                    android:text="Study Name * Date"
                     android:textColor="#666666"
                     android:textSize="12sp" />
 
@@ -90,7 +90,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="🟢 Active"
+                android:text="[green] Active"
                 android:textColor="#4CAF50"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -99,7 +99,7 @@
                 android:id="@+id/session_data_types"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="📊 GSR, RGB, Thermal"
+                android:text="[chart] GSR, RGB, Thermal"
                 android:textColor="#2196F3"
                 android:textSize="12sp" />
 

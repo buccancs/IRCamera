@@ -126,7 +126,7 @@ class ShimmerAPIBridge private constructor() {
     ): GSRSample {
         // Enhanced GSR conversion based on Shimmer3 specifications
         val resistance = convertToResistanceShimmer3(rawValue)
-        val conductance = if (resistance > 0) 1000000.0 / resistance else 0.0 // Convert to µS
+        val conductance = if (resistance > 0) 1000000.0 / resistance else 0.0 // Convert to microS
 
         return GSRSample(
             timestamp = timestamp,
@@ -174,7 +174,7 @@ class ShimmerAPIBridge private constructor() {
         // Uses the exact hardware specifications from Shimmer3 documentation
 
         val vRef = 3.0 // Reference voltage (3.0V)
-        val rRef = 40200.0 // Reference resistor (40.2kΩ)
+        val rRef = 40200.0 // Reference resistor (40.2kOhm)
         val adcMax = 4095.0 // 12-bit ADC resolution
         val adcMin = 1.0 // Avoid division by zero
 
@@ -188,15 +188,15 @@ class ShimmerAPIBridge private constructor() {
         // R_gsr = R_ref * (V_ref - V_out) / V_out
         val denominator = vOut
         if (denominator <= 0.001) { // Avoid near-zero division
-            return 10000.0 // Return high resistance value (10MΩ)
+            return 10000.0 // Return high resistance value (10MOhm)
         }
 
         val resistance = rRef * (vRef - vOut) / denominator
 
-        // Convert to kΩ and apply physiological bounds
+        // Convert to kOhm and apply physiological bounds
         val resistanceKohms = resistance / 1000.0
 
-        // Shimmer3 GSR valid range: 10kΩ to 4.7MΩ
+        // Shimmer3 GSR valid range: 10kOhm to 4.7MOhm
         return resistanceKohms.coerceIn(10.0, 4700.0)
     }
 
@@ -224,10 +224,10 @@ class ShimmerAPIBridge private constructor() {
             "official_api_available" to isOfficialAPIAvailable,
             "adc_resolution" to "12-bit (4095 max)",
             "reference_voltage" to "3.0V",
-            "reference_resistor" to "40.2kΩ",
-            "valid_resistance_range" to "10kΩ - 4.7MΩ",
-            "conductance_units" to "µS (microsiemens)",
-            "resistance_units" to "kΩ (kilohms)",
+            "reference_resistor" to "40.2kOhm",
+            "valid_resistance_range" to "10kOhm - 4.7MOhm",
+            "conductance_units" to "microS (microsiemens)",
+            "resistance_units" to "kOhm (kilohms)",
             "jar_integration" to "Reflection-based safe loading",
             "fallback_quality" to "Research-grade enhanced processing",
         )

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.topdon.libcom.R
 import com.topdon.libcom.bean.DColorSelectBean
 
-@Deprecated("产品要求所有颜色拾取都更改为 ColorPickDialog 那种样式，这个弹框废弃")
+@Deprecated("[Chinese text] ColorPickDialog [Chinese text], [Chinese text]")
 class DColorSelectAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var listener: ((code: Int, color: Int) -> Unit)? = null

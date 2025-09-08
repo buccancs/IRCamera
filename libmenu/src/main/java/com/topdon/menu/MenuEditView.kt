@@ -8,14 +8,14 @@ import android.widget.FrameLayout
 import com.topdon.menu.databinding.ViewMenuEditBinding
 
 /**
- * 2D编辑页面所用底部菜单栏.
+ * 2D[Chinese text]used by[Chinese text]menu[Chinese text].
  *
- * Point/Line/Area、Pseudo color、Settings、Pseudo color条
+ * Point/Line/Area, Pseudo color, Settings, Pseudo color[Chinese text]
  */
 class MenuEditView : FrameLayout, View.OnClickListener {
 
     /**
-     * Pseudo color条图标当前是否处于选中状态
+     * Pseudo color[Chinese text]in progress[Chinese text]
      */
     var isBarSelect: Boolean
         get() = binding.ivMenu4.isSelected
@@ -25,11 +25,11 @@ class MenuEditView : FrameLayout, View.OnClickListener {
         }
 
     /**
-     * 0-Point/Line/Area、1-Pseudo color颜色、2-Settings 菜单点击事件监听.
+     * 0-Point/Line/Area, 1-Pseudo color[Chinese text], 2-Settings menupoint[Chinese text]eventlistener.
      */
     var onTabClickListener: ((selectPosition: Int) -> Unit)? = null
     /**
-     * Pseudo color条图标点击事件监听.
+     * Pseudo color[Chinese text]point[Chinese text]eventlistener.
      */
     var onBarClickListener: ((isBarSelect: Boolean) -> Unit)? = null
 
@@ -54,7 +54,7 @@ class MenuEditView : FrameLayout, View.OnClickListener {
     }
 
     /**
-     * Currently selected tab，取值 `[0,2]`
+     * Currently selected tab, [Chinese text] `[0,2]`
      */
     private var selectPosition = -1
         set(value) {

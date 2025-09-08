@@ -119,22 +119,22 @@ class RecordingStatusIndicator
         private fun updateDisplay() {
             if (isRecording) {
                 statusIcon.setBackgroundColor(Color.RED)
-                statusText.text = "🔴 RECORDING"
+                statusText.text = "[red] RECORDING"
                 statusText.setTextColor(Color.RED)
 
                 sensorsText.text =
-                    activeSensors.joinToString(" • ") {
+                    activeSensors.joinToString(" * ") {
                         when (it) {
-                            SensorSelectionDialog.SensorType.THERMAL -> "🌡️"
-                            SensorSelectionDialog.SensorType.RGB -> "📸"
-                            SensorSelectionDialog.SensorType.GSR -> "📊"
+                            SensorSelectionDialog.SensorType.THERMAL -> "[thermometer]"
+                            SensorSelectionDialog.SensorType.RGB -> "[camera]"
+                            SensorSelectionDialog.SensorType.GSR -> "[chart]"
                         }
                     }
 
                 visibility = VISIBLE
             } else {
                 statusIcon.setBackgroundColor(Color.GRAY)
-                statusText.text = "⏹️ STOPPED"
+                statusText.text = "[STOP] STOPPED"
                 statusText.setTextColor(ContextCompat.getColor(context, android.R.color.darker_gray))
                 durationText.text = ""
                 sensorsText.text = ""

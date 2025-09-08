@@ -16,64 +16,64 @@ import com.blankj.utilcode.util.SizeUtils
 import com.topdon.lib.core.R
 
 /**
- * 标题栏自定义 View.
+ * [Chinese text] View.
  *
- * 标题栏包含的要素有：
- * - 左侧 View [tvLeft]，目前都是图片
- * - 从右往左数 View 1 [tvRight1]
- * - 从右往左数 View 2 [tvRight2]，目前都是图片
- * - 从右往左数 View 3 [tvRight3]，目前都是图片
- * - 标题文字 [tvTitle]，大部分页面居左，少部分页面居中
+ * [Chinese text]: 
+ * - left side View [tvLeft], [Chinese text]
+ * - [Chinese text] View 1 [tvRight1]
+ * - [Chinese text] View 2 [tvRight2], [Chinese text]
+ * - [Chinese text] View 3 [tvRight3], [Chinese text]
+ * - [Chinese text]text [tvTitle], [Chinese text], [Chinese text]in progress
  *
- * 文字均为 16sp， #ffffff，标题文字 padding 0dp，其他 padding 12dp；
- * 图片高度均为 24dp，宽度等比缩放；
+ * text[Chinese text] 16sp,  #ffffff, [Chinese text]text padding 0dp, [Chinese text] padding 12dp; 
+ * [Chinese text]high[Chinese text] 24dp, [Chinese text]; 
  *
- * 最小高度 ?attr/actionBarSize.
+ * [Chinese text]high[Chinese text] ?attr/actionBarSize.
  *
  * Created by LCG on 2023/10/19.
  */
 open class TitleView : ViewGroup {
     companion object {
         /**
-         * 为保持与旧标题栏的兼容，旧标题栏图标尺寸为 48dp，当前 View 的高度也不能小于 48dp.
+         * [Chinese text], [Chinese text] 48dp, [Chinese text] View [Chinese text]high[Chinese text] 48dp.
          */
         private const val ICON_SIZE = 48f
     }
 
     /**
-     * 标题文字是否居中.
+     * [Chinese text]text[Chinese text]in progress.
      *
-     * true-居中 false-居左
+     * true-[Chinese text]in progress false-[Chinese text]
      */
     private val isTitleCenter: Boolean
 
     /**
-     * 当前主题的 actionBarSize，在 measure 阶段使用.
+     * [Chinese text] actionBarSize, [Chinese text] measure [Chinese text].
      */
     private val actionBarSize: Int
 
     /**
-     * 左侧 View.
+     * left side View.
      */
     protected var tvLeft: MyTextView? = null
 
     /**
-     * 从右往左数 View 1.
+     * [Chinese text] View 1.
      */
     protected var tvRight1: MyTextView? = null
 
     /**
-     * 从右往左数 View 2.
+     * [Chinese text] View 2.
      */
     protected var tvRight2: MyTextView? = null
 
     /**
-     * 从右往左数 View 3.
+     * [Chinese text] View 3.
      */
     protected var tvRight3: MyTextView? = null
 
     /**
-     * 标题文字.
+     * [Chinese text]text.
      */
     protected var tvTitle: MyTextView? = null
 
@@ -127,7 +127,7 @@ open class TitleView : ViewGroup {
             tvRight1?.setTextColor(rightColor)
         }
 
-        // 右侧 2、3 View 目前都是图片，先不搞文字那些Settings了
+        // right side 2, 3 View [Chinese text], [Chinese text]text[Chinese text]Settings[Chinese text]
         tvRight2?.setOnlyDrawableStart(a.getDrawable(R.styleable.TitleView_right2Drawable))
         tvRight2?.isVisible = tvRight2!!.hasAnyDrawable()
         tvRight3?.setOnlyDrawableStart(a.getDrawable(R.styleable.TitleView_right3Drawable))
@@ -148,7 +148,7 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * 构建一个 TextView 并添加到当前 View 中.
+     * [Chinese text] TextView [Chinese text] View in progress.
      */
     fun addTextView(
         context: Context,
@@ -174,7 +174,7 @@ open class TitleView : ViewGroup {
         widthMeasureSpec: Int,
         heightMeasureSpec: Int,
     ) {
-        // 计算最大高度
+        // [Chinese text]high[Chinese text]
         var maxHeight = actionBarSize.coerceAtLeast(SizeUtils.dp2px(ICON_SIZE))
         for (i in 0 until childCount) {
             val childView: View = getChildAt(i)
@@ -184,10 +184,10 @@ open class TitleView : ViewGroup {
             }
         }
 
-        // 宽度为 UNSPECIFIED 的情况目前不存在，不考虑
+        // [Chinese text] UNSPECIFIED [Chinese text], [Chinese text]
         setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), maxHeight)
 
-        // 测量除标题文字外的子 View
+        // measurement[Chinese text]text[Chinese text] View
         for (i in 0 until childCount) {
             val childView: View = getChildAt(i)
             if (childView != tvTitle && childView.visibility != View.GONE) {
@@ -196,8 +196,8 @@ open class TitleView : ViewGroup {
             }
         }
 
-        // 测量标题文字
-        if (isTitleCenter) { // 居中
+        // measurement[Chinese text]text
+        if (isTitleCenter) { // [Chinese text]in progress
             val leftSize = if (tvLeft!!.isVisible) tvLeft?.measuredWidth else SizeUtils.dp2px(ICON_SIZE)
             var rightSize = 0
             if (tvRight1!!.isVisible) {
@@ -209,13 +209,13 @@ open class TitleView : ViewGroup {
             if (tvRight3!!.isVisible) {
                 rightSize += tvRight3!!.measuredWidth
             }
-            if (rightSize == 0) { // 右侧没有任何东西时，给标题文字搞个 ICON_SIZE 大小的 margin
+            if (rightSize == 0) { // right side[Chinese text], [Chinese text]text[Chinese text] ICON_SIZE [Chinese text] margin
                 rightSize = SizeUtils.dp2px(ICON_SIZE)
             }
             val titleWidth = measuredWidth - leftSize!!.coerceAtLeast(rightSize) * 2
             val widthSpec = MeasureSpec.makeMeasureSpec(titleWidth.coerceAtLeast(0), MeasureSpec.EXACTLY)
             tvTitle?.measure(widthSpec, MeasureSpec.makeMeasureSpec(maxHeight, MeasureSpec.EXACTLY))
-        } else { // 居左
+        } else { // [Chinese text]
             var titleWidth = measuredWidth
             titleWidth -= if (tvLeft!!.isVisible) tvLeft!!.measuredWidth else SizeUtils.dp2px(ICON_SIZE)
             titleWidth -= if (tvRight1!!.isVisible) tvRight1!!.measuredWidth else SizeUtils.dp2px(ICON_SIZE)
@@ -268,7 +268,7 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * Settings标题文字.
+     * Settings[Chinese text]text.
      */
     fun setTitleText(
         @StringRes resId: Int,
@@ -278,7 +278,7 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * Settings标题文字.
+     * Settings[Chinese text]text.
      */
     fun setTitleText(title: CharSequence?) {
         tvTitle?.text = title
@@ -286,8 +286,8 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * Settings左侧 View 是否可见.
-     * 注意其他方法里如果不Settings文字又不Settings图片的话会被视为 Gone，这里则不做这个限制。
+     * Settingsleft side View [Chinese text]visible.
+     * [Chinese text]Settingstext[Chinese text]Settings[Chinese text] Gone, [Chinese text]. 
      */
     var isLeftVisible: Boolean
         get() = tvLeft!!.isVisible
@@ -299,7 +299,7 @@ open class TitleView : ViewGroup {
         }
 
     /**
-     * 将左侧 View 图片部分Settings为指定图片.
+     * [Chinese text]left side View [Chinese text]Settings[Chinese text].
      */
     fun setLeftDrawable(
         @DrawableRes resId: Int,
@@ -310,7 +310,7 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * 将左侧 View 的文字部分Settings为指定文字.
+     * [Chinese text]left side View [Chinese text]text[Chinese text]Settings[Chinese text]text.
      */
     fun setLeftText(
         @StringRes resId: Int,
@@ -321,7 +321,7 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * 将左侧 View 的文字部分Settings为指定文字.
+     * [Chinese text]left side View [Chinese text]text[Chinese text]Settings[Chinese text]text.
      */
     fun setLeftText(text: CharSequence?) {
         tvLeft?.text = text
@@ -330,15 +330,15 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * Settings左侧 View 点击事件监听.
+     * Settingsleft side View point[Chinese text]eventlistener.
      */
     fun setLeftClickListener(leftClickListener: OnClickListener?) {
         tvLeft?.setOnClickListener(leftClickListener)
     }
 
     /**
-     * Settings右侧 View 是否可见.
-     * 注意其他方法里如果不Settings文字又不Settings图片的话会被视为 Gone，这里则不做这个限制。
+     * Settingsright side View [Chinese text]visible.
+     * [Chinese text]Settingstext[Chinese text]Settings[Chinese text] Gone, [Chinese text]. 
      */
     var isRightVisible: Boolean
         get() = tvRight1!!.isVisible
@@ -350,7 +350,7 @@ open class TitleView : ViewGroup {
         }
 
     /**
-     * 将右侧 View 图片部分Settings为指定图片.
+     * [Chinese text]right side View [Chinese text]Settings[Chinese text].
      */
     fun setRightDrawable(
         @DrawableRes resId: Int,
@@ -361,7 +361,7 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * 将右侧 View 的文字部分Settings为指定文字.
+     * [Chinese text]right side View [Chinese text]text[Chinese text]Settings[Chinese text]text.
      */
     fun setRightText(
         @StringRes resId: Int,
@@ -372,7 +372,7 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * 将右侧 View 的文字部分Settings为指定文字.
+     * [Chinese text]right side View [Chinese text]text[Chinese text]Settings[Chinese text]text.
      */
     fun setRightText(text: CharSequence?) {
         tvRight1?.text = text
@@ -381,14 +381,14 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * Settings右侧 View 点击事件监听.
+     * Settingsright side View point[Chinese text]eventlistener.
      */
     fun setRightClickListener(rightClickListener: OnClickListener?) {
         tvRight1?.setOnClickListener(rightClickListener)
     }
 
     /**
-     * 将右侧 View 2 图片部分Settings为指定图片.
+     * [Chinese text]right side View 2 [Chinese text]Settings[Chinese text].
      */
     fun setRight2Drawable(
         @DrawableRes resId: Int,
@@ -399,14 +399,14 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * Settings右侧 View 2 点击事件监听.
+     * Settingsright side View 2 point[Chinese text]eventlistener.
      */
     fun setRight2ClickListener(right2ClickListener: OnClickListener?) {
         tvRight2?.setOnClickListener(right2ClickListener)
     }
 
     /**
-     * 将右侧 View 3 图片部分Settings为指定图片.
+     * [Chinese text]right side View 3 [Chinese text]Settings[Chinese text].
      */
     fun setRight3Drawable(
         @DrawableRes resId: Int,
@@ -417,7 +417,7 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * Settings右侧 View 3 点击事件监听.
+     * Settingsright side View 3 point[Chinese text]eventlistener.
      */
     fun setRight3ClickListener(right3ClickListener: OnClickListener?) {
         tvRight3?.setOnClickListener(right3ClickListener)

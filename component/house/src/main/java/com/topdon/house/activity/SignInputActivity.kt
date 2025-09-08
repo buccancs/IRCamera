@@ -18,15 +18,15 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 /**
- * 电子签名界面.
+ * [Chinese text].
  *
- * 需要传递：
- * - [ExtraKeyConfig.IS_PICK_INSPECTOR] - true-检测师签名 false-房主签名
+ * [Chinese text]: 
+ * - [ExtraKeyConfig.IS_PICK_INSPECTOR] - true-[Chinese text] false-[Chinese text]
  *
- * 返回：
- * - [ExtraKeyConfig.IS_PICK_INSPECTOR] - true-检测师签名 false-房主签名
- * - [ExtraKeyConfig.RESULT_PATH_WHITE] - 白色画笔版签名图片在本地的绝对路径.
- * - [ExtraKeyConfig.RESULT_PATH_BLACK] - 黑色画笔版签名图片在本地的绝对路径.
+ * [Chinese text]: 
+ * - [ExtraKeyConfig.IS_PICK_INSPECTOR] - true-[Chinese text] false-[Chinese text]
+ * - [ExtraKeyConfig.RESULT_PATH_WHITE] - [Chinese text].
+ * - [ExtraKeyConfig.RESULT_PATH_BLACK] - [Chinese text].
  *
  * Created by LCG on 2024/8/28.
  */
@@ -61,7 +61,7 @@ class SignInputActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            clSave -> {// 保存
+            clSave -> {// [Chinese text]
                 if (!signView.hasSign) {
                     ToastUtils.showShort(getString(LibR.string.house_sign_finish_tips))
                     return
@@ -96,7 +96,7 @@ class SignInputActivity : BaseActivity(), View.OnClickListener {
                     }
                 }
             }
-            clClear -> {// 重签
+            clClear -> {// [Chinese text]
                 signView.clear()
             }
         }

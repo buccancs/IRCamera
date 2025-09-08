@@ -26,23 +26,23 @@ import com.topdon.lib.core.tools.SpanBuilder
 import com.topdon.lms.sdk.weiget.TToast
 
 /**
- * 检测界面执行检测的列表自定义 View.
+ * [Chinese text] View.
  *
  * Created by LCG on 2024/8/24.
  */
 @SuppressLint("NotifyDataSetChanged")
 class HouseDetectView : FrameLayout {
     /**
-     * 所有目录列表，仅用于全部收起及全部展开调用.
+     * [Chinese text], onlyfor[Chinese text].
      */
     private var dirList: ArrayList<DirDetect> = ArrayList()
     /**
-     * 目录+项目拆开的列表.
+     * [Chinese text]+[Chinese text].
      */
     private val dataList: ArrayList<Any> = ArrayList()
 
     /**
-     * 当前展示的标题在 [dataList] 中的 position
+     * [Chinese text] [dataList] in progress[Chinese text] position
      */
     private var currentPosition: Int = 0
 
@@ -88,42 +88,42 @@ class HouseDetectView : FrameLayout {
     }
 
     /**
-     * 指定 position 位置的目录复制事件监听.
+     * [Chinese text] position [Chinese text]eventlistener.
      */
     var onDirCopyListener: ((pair: Pair<Int, DirDetect>) -> Unit)? = null
     /**
-     * 指定 position 位置的项目复制事件监听.
+     * [Chinese text] position [Chinese text]eventlistener.
      */
     var onItemCopyListener: ((pair: Pair<Int, ItemDetect>) -> Unit)? = null
     /**
-     * 指定 position 位置的项目删除事件监听.
+     * [Chinese text] position [Chinese text]eventlistener.
      */
     var onItemDelListener: ((pair: Pair<Int, ItemDetect>) -> Unit)? = null
 
     /**
-     * 某个 item 的添加图片按钮点击事件监听.
+     * [Chinese text] item [Chinese text]buttonpoint[Chinese text]eventlistener.
      */
     var onImageAddListener: ((layoutIndex: Int, v: View, item: ItemDetect) -> Unit)? = null
     /**
-     * 某个 item 的输入文字按钮点击事件监听.
+     * [Chinese text] item [Chinese text]textbuttonpoint[Chinese text]eventlistener.
      */
     var onTextInputListener: ((pair: Pair<Int, ItemDetect>) -> Unit)? = null
 
     /**
-     * 一个目录发生变更事件(3种状态数量变更)监听.
+     * [Chinese text]event(3[Chinese text])listener.
      */
     var onDirChangeListener: ((dirDetect: DirDetect) -> Unit)? = null
     /**
-     * 一个目录展开或收起变更事件监听.
+     * [Chinese text]eventlistener.
      */
     var onDirExpandListener: ((isExpand: Boolean) -> Unit)? = null
     /**
-     * 一个项目发生变更(3种状态变更、图片删除)事件监听.
+     * [Chinese text](3[Chinese text], [Chinese text])eventlistener.
      */
     var onItemChangeListener: ((itemDetect: ItemDetect) -> Unit)? = null
 
     /**
-     * 使用指定的目录列表刷新界面，默认所有目录处于收起状态
+     * [Chinese text], [Chinese text]
      */
     fun refresh(newList: ArrayList<DirDetect>) {
         this.dirList = newList
@@ -139,7 +139,7 @@ class HouseDetectView : FrameLayout {
     }
 
     fun notifyDirInsert(position: Int, dirDetect: DirDetect) {
-        if (dirDetect.isExpand) {// 在展开状态执行复制
+        if (dirDetect.isExpand) {// [Chinese text]
             dataList.add(position + dirDetect.itemList.size + 1, dirDetect)
             dataList.addAll(position + dirDetect.itemList.size + 2, dirDetect.itemList)
             adapter.notifyItemRangeInserted(position + dirDetect.itemList.size + 1, dirDetect.itemList.size + 1)
@@ -170,7 +170,7 @@ class HouseDetectView : FrameLayout {
         val isLastItemInDir = position == dataList.size - 1 || dataList[position + 1] is DirDetect
         dataList.removeAt(position)
         adapter.notifyItemRemoved(position)
-        if (itemDetect.dirDetect.itemList.isEmpty()) {// 该目录最后一个项目都删掉了，目录也删掉
+        if (itemDetect.dirDetect.itemList.isEmpty()) {// [Chinese text], [Chinese text]
             dataList.removeAt(position - 1)
             adapter.notifyItemRemoved(position - 1)
             if (dataList.isEmpty()) {
@@ -194,7 +194,7 @@ class HouseDetectView : FrameLayout {
     }
 
     /**
-     * 展开所有目录
+     * [Chinese text]
      */
     fun expandAllDir() {
         dataList.clear()
@@ -207,7 +207,7 @@ class HouseDetectView : FrameLayout {
     }
 
     /**
-     * 收起所有目录
+     * [Chinese text]
      */
     fun retractAllDir() {
         dataList.clear()
@@ -220,14 +220,14 @@ class HouseDetectView : FrameLayout {
 
     private inner class MyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         /**
-         * 切换 position 处目录的展开收起状态
+         * switch position [Chinese text]
          */
         fun switchExpand(position: Int) {
             val dirDetect: DirDetect = dataList[position] as DirDetect
             dirDetect.isExpand = !dirDetect.isExpand
-            if (dirDetect.isExpand) {// 关闭->展开
+            if (dirDetect.isExpand) {// [Chinese text]->[Chinese text]
                 dataList.addAll(position + 1, dirDetect.itemList)
-            } else {// 展开->关闭
+            } else {// [Chinese text]->[Chinese text]
                 dataList.removeAll(dirDetect.itemList.toSet())
             }
             notifyDataSetChanged()
@@ -326,7 +326,7 @@ class HouseDetectView : FrameLayout {
                         switchExpand(position)
                     }
                 }
-                viewDirEdit.setOnClickListener {// 编辑目录
+                viewDirEdit.setOnClickListener {// [Chinese text]
                     val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         val intent = Intent(context, ItemEditActivity::class.java)
@@ -334,7 +334,7 @@ class HouseDetectView : FrameLayout {
                         context.startActivity(intent)
                     }
                 }
-                viewDirCopy.setOnClickListener {// 复制目录
+                viewDirCopy.setOnClickListener {// [Chinese text]
                     val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         onDirCopyListener?.invoke(Pair(position, dataList[position] as DirDetect))
@@ -395,7 +395,7 @@ class HouseDetectView : FrameLayout {
                 ivDelImage4.setOnClickListener {
                     handleImageDel(4)
                 }
-                tvItemAddImg.setOnClickListener {// 添加图片
+                tvItemAddImg.setOnClickListener {// [Chinese text]
                     val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         val itemDetect: ItemDetect = dataList[position] as ItemDetect
@@ -406,7 +406,7 @@ class HouseDetectView : FrameLayout {
                         }
                     }
                 }
-                tvItemAddText.setOnClickListener { // 添加文字
+                tvItemAddText.setOnClickListener { // [Chinese text]text
                     val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         onTextInputListener?.invoke(Pair(position, dataList[position] as ItemDetect))
@@ -478,8 +478,8 @@ class HouseDetectView : FrameLayout {
             }
 
             /**
-             * 执行一张图片删除处理
-             * @param imageNum 第几张图片，取值`[1,4]`
+             * [Chinese text]
+             * @param imageNum [Chinese text], [Chinese text]`[1,4]`
              */
             private fun handleImageDel(imageNum: Int) {
                 val position = bindingAdapterPosition
@@ -495,7 +495,7 @@ class HouseDetectView : FrameLayout {
     }
 
     /**
-     * 从指定 itemPosition 处，往上遍历查找该 item 对应的 Dir position.
+     * [Chinese text] itemPosition [Chinese text], [Chinese text] item [Chinese text] Dir position.
      */
     private fun findDirPosition(itemPosition: Int): Int {
         for (i in itemPosition downTo 0) {
@@ -512,7 +512,7 @@ class HouseDetectView : FrameLayout {
             if (seeFirstPosition == RecyclerView.NO_POSITION || seeFirstPosition >= dataList.size) {
                 return
             }
-            // notify 后旧 currentPosition 已不准确，需要刷新
+            // notify [Chinese text] currentPosition [Chinese text], [Chinese text]
             currentPosition = if (dataList[seeFirstPosition] is DirDetect) seeFirstPosition else findDirPosition(seeFirstPosition)
             titleView.translationY = 0f
             adapter.refreshDir(titleView, dataList[currentPosition] as DirDetect)
@@ -532,14 +532,14 @@ class HouseDetectView : FrameLayout {
                 return
             }
 
-            // 刷新 currentPosition
+            // [Chinese text] currentPosition
             if (currentPosition != seeFirstPosition) {
                 if (dataList[seeFirstPosition] is DirDetect) {
                     currentPosition = seeFirstPosition
                     titleView.translationY = 0f
                     adapter.refreshDir(titleView, dataList[currentPosition] as DirDetect)
                 } else {
-                    if (dataList[seeFirstPosition + 1] is DirDetect) {// 第1个可见的item为尾部
+                    if (dataList[seeFirstPosition + 1] is DirDetect) {// [Chinese text]1[Chinese text]visible[Chinese text]item[Chinese text]
                         currentPosition = findDirPosition(seeFirstPosition)
                         titleView.translationY = 0f
                         adapter.refreshDir(titleView, dataList[currentPosition] as DirDetect)
@@ -547,22 +547,22 @@ class HouseDetectView : FrameLayout {
                 }
             }
 
-            // 刷新 titleView 背景
+            // [Chinese text] titleView [Chinese text]
             /*if ((dataList[currentPosition] as DirDetect).isExpand) {
                 if (dataList[seeFirstPosition] is ItemDetect && dataList[seeFirstPosition + 1] is DirDetect) {
                     titleView.view_bg_dir.setBackgroundResource(R.drawable.bg_corners10_solid_23202e)
                 } else {
                     titleView.view_bg_dir.setBackgroundResource(R.drawable.bg_corners10_top_solid_23202e)
                 }
-            } else {// 收起肯定是4圆角
+            } else {// [Chinese text]4[Chinese text]
                 titleView.view_bg_dir.setBackgroundResource(R.drawable.bg_corners10_solid_23202e)
             }*/
             if (dataList[seeFirstPosition] is ItemDetect && dataList[seeFirstPosition + 1] is DirDetect) {
                 titleView.findViewById<View>(R.id.view_bg_dir).setBackgroundResource(R.drawable.bg_corners10_solid_23202e)
             }
 
-            // 刷新 titleView 位置
-            if (dataList[seeFirstPosition + 1] is DirDetect) {// 第1个可见的item为尾部
+            // [Chinese text] titleView [Chinese text]
+            if (dataList[seeFirstPosition + 1] is DirDetect) {// [Chinese text]1[Chinese text]visible[Chinese text]item[Chinese text]
                 val nextView: View? = layoutManager.findViewByPosition(seeFirstPosition + 1)
                 if (nextView != null) {
                     if (nextView.top <= titleView.height) {

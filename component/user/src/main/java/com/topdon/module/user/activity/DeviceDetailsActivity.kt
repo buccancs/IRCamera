@@ -19,10 +19,10 @@ import com.topdon.module.user.R
 import kotlinx.coroutines.launch
 
 /**
- * TS004、TC007 设备message
+ * TS004, TC007 [Chinese text]message
  *
- * 需要传递参数：
- * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
+ * [Chinese text]: 
+ * - [ExtraKeyConfig.IS_TC007] - [Chinese text] TC007
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class DeviceDetailsActivity : BaseActivity(), View.OnClickListener {
@@ -35,8 +35,8 @@ class DeviceDetailsActivity : BaseActivity(), View.OnClickListener {
     private lateinit var tvDeviceModel: TextView
 
     /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
+     * [Chinese text], [Chinese text] TC007 [Chinese text].
+     * true-TC007 false-[Chinese text]
      */
     private var isTC007 = false
 
@@ -83,7 +83,7 @@ class DeviceDetailsActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            clLayoutCopy -> {// 复制message
+            clLayoutCopy -> {// [Chinese text]message
                 val text = "${tvSn.text}:${tvSnValue.text}  ${tvDeviceModel.text}:${tvDeviceModelValue.text}"
                 val cm = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager?
                 val mClipData = ClipData.newPlainText("text", text)

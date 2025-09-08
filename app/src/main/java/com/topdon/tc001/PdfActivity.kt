@@ -62,7 +62,7 @@ class PdfActivity : BaseActivity() {
         window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }
 
-    // 复制assets文件
+    // [Chinese text]assets[Chinese text]
     @Throws(IOException::class)
     private fun copyBigDataToSD(
         assetsName: String,

@@ -7,7 +7,7 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.user.R
 
 /**
- * 自动保存到手机
+ * [Chinese text]
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class AutoSaveActivity :BaseActivity(){

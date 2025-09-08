@@ -6,7 +6,7 @@ import android.widget.LinearLayout
 import com.topdon.lib.ui.R as UiR
 
 /**
- * 自定义HeaderView
+ * [Chinese text]HeaderView
  */
 class HeaderView : LinearLayout {
     constructor(context: Context) : this(context, null)

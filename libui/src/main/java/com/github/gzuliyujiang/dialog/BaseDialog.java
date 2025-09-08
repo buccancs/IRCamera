@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-present 贵州纳雍穿青人李裕江<1032694760@qq.com>
+ * Copyright (c) 2016-present [Chinese text]<1032694760@qq.com>
  *
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
@@ -44,9 +44,9 @@ import androidx.annotation.StyleRes;
 import com.topdon.lib.ui.R;
 
 /**
- * 屏幕底部弹出对话框
+ * [Chinese text]
  *
- * @author 贵州山野羡民（1032694760@qq.com）
+ * @author [Chinese text](1032694760@qq.com)
  * @since 2017/4/12
  */
 @SuppressWarnings({"WeakerAccess", "unused"})
@@ -77,9 +77,9 @@ import com.topdon.lib.ui.R;
     private void init(Activity activity) {
         this.activity = activity;
         setOwnerActivity(activity);
-        // 触摸屏幕取消窗体
+        // [Chinese text]
         setCanceledOnTouchOutside(false);
-        // 按返回键取消窗体
+        // [Chinese text]
         setCancelable(false);
         super.setOnShowListener(this);
         super.setOnDismissListener(this);
@@ -93,7 +93,7 @@ import com.topdon.lib.ui.R;
             window.getDecorView().setPadding(0, 0, 0, 0);
         }
         onInit(null);
-        // 调用create或show才能触发onCreate
+        // [Chinese text]create[Chinese text]show[Chinese text]onCreate
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             super.create();
         } else {
@@ -102,7 +102,7 @@ import com.topdon.lib.ui.R;
     }
 
     /**
-     * @deprecated 使用 {@link #onInit(Bundle)} 代替
+     * @deprecated [Chinese text] {@link #onInit(Bundle)} [Chinese text]
      */
     @Deprecated
     @CallSuper
@@ -137,7 +137,7 @@ import com.topdon.lib.ui.R;
     protected abstract View createContentView();
 
     /**
-     * @deprecated 使用 {@link #initView()}  代替
+     * @deprecated [Chinese text] {@link #initView()}  [Chinese text]
      */
     @SuppressWarnings("DeprecatedIsStillUsed")
     @Deprecated

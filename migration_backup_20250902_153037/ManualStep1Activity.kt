@@ -11,7 +11,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
- * 双光校正 - 第1步.
+ * dual light[Chinese text] - [Chinese text]1[Chinese text].
  * Created by LCG on 2023/12/29.
  */
 @Route(path = RouterConfig.MANUAL_START)

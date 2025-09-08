@@ -1,7 +1,7 @@
 package com.example.open3d
 
 /**
- * 统一的c++调试
+ * [Chinese text]c++[Chinese text]
  * @author: CaiSongL
  * @date: 2023/10/23 17:57
  */
@@ -62,7 +62,7 @@ object JNITool {
     ): ByteArray
 
     /**
-     * 轮廓检测的处理
+     * [Chinese text]
      * @param image ByteArray
      * @param temperature ByteArray
      * @param image_h Int
@@ -71,7 +71,7 @@ object JNITool {
      * @param low_t Float
      * @param color_h Int
      * @param color_l Int
-     * @param type Int ： 圈住的轮廓画法，1：直接轮廓绘制，2、矩阵绘制
+     * @param type Int :  [Chinese text], 1: [Chinese text], 2, [Chinese text]
      * @return ByteArray
      */
     external fun draw_edge_from_temp_reigon_bitmap_argb_psd(

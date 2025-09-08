@@ -18,7 +18,7 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.databinding.PopCameraItemBinding
 
 /**
- * 热成像 Photo capture/录像 菜单.
+ * [Chinese text] Photo capture/recording menu.
  *
  * Created by LCG on 2025/1/3.
  */
@@ -26,7 +26,7 @@ import com.topdon.module.thermal.ir.databinding.PopCameraItemBinding
 class CameraItemPopup(val context: Context, private val saveSetBean: SaveSettingBean) : PopupWindow(), View.OnClickListener {
 
     /**
-     * 手动快门是否处于选中状态
+     * [Chinese text]in progress[Chinese text]
      */
     var isShutterSelect: Boolean
         get() = binding.ivShutter.isSelected
@@ -34,7 +34,7 @@ class CameraItemPopup(val context: Context, private val saveSetBean: SaveSetting
             binding.ivShutter.isSelected = value
         }
     /**
-     * 录音开关是否处于选中状态
+     * [Chinese text]in progress[Chinese text]
      */
     var isAudioSelect: Boolean
         get() = binding.ivAudio.isSelected
@@ -43,19 +43,19 @@ class CameraItemPopup(val context: Context, private val saveSetBean: SaveSetting
         }
 
     /**
-     * 延时秒数点击事件监听，返回值为是否响应该次点击事件
+     * [Chinese text]point[Chinese text]eventlistener, [Chinese text]point[Chinese text]event
      */
     var onDelayClickListener: (() -> Boolean)? = null
     /**
-     * 自动快门开启关闭事件监听.
+     * [Chinese text]eventlistener.
      */
     var onAutoCLickListener: ((isOpen: Boolean) -> Unit)? = null
     /**
-     * 手动快门点击事件监听.
+     * [Chinese text]point[Chinese text]eventlistener.
      */
     var onShutterClickListener: (() -> Unit)? = null
     /**
-     * 录音开启关闭事件监听.
+     * [Chinese text]eventlistener.
      */
     var onAudioCLickListener: (() -> Unit)? = null
 
@@ -101,7 +101,7 @@ class CameraItemPopup(val context: Context, private val saveSetBean: SaveSetting
                 }
                 binding.ivDelay.setImageLevel(saveSetBean.delayCaptureSecond)
             }
-            binding.clAuto -> {// 自动快门
+            binding.clAuto -> {// [Chinese text]
                 saveSetBean.isAutoShutter = !saveSetBean.isAutoShutter
                 binding.ivAuto.isSelected = saveSetBean.isAutoShutter
                 if (SharedManager.isTipShutter && !saveSetBean.isAutoShutter) {

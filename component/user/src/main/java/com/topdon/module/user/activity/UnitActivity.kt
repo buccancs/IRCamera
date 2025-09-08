@@ -10,7 +10,7 @@ import com.topdon.lib.core.view.TitleView
 import com.topdon.module.user.R
 
 /**
- * 温度单位切换
+ * temperature[Chinese text]switch
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class UnitActivity : BaseActivity() {

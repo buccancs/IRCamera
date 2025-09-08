@@ -13,7 +13,7 @@ import com.topdon.lib.core.utils.ScreenUtil
 import kotlinx.android.synthetic.main.dialog_loading.view.*
 
 /**
- * 新版 UI 的那个 LMS 的加载中弹框，由于 LMS 的弹框没有文字，只好自己再搞一个了。
+ * [Chinese text] UI [Chinese text] LMS [Chinese text]in progress[Chinese text], [Chinese text] LMS [Chinese text]text, [Chinese text]. 
  *
  * Created by LCG on 2024/4/12.
  */

@@ -35,20 +35,20 @@ import org.greenrobot.eventbus.ThreadMode
 import java.io.File
 
 /**
- * 生成报告图片拾取.
+ * [Chinese text].
  *
- * 需要传递参数：
- * - 是否 TC007: [ExtraKeyConfig.IS_TC007] 进入目录不同
- * - [ExtraKeyConfig.REPORT_INFO] - 报告message
- * - [ExtraKeyConfig.REPORT_CONDITION] - 检测条件
- * - [ExtraKeyConfig.REPORT_IR_LIST] - 当前已添加的图片对应数据列表
+ * [Chinese text]: 
+ * - [Chinese text] TC007: [ExtraKeyConfig.IS_TC007] [Chinese text]
+ * - [ExtraKeyConfig.REPORT_INFO] - [Chinese text]message
+ * - [ExtraKeyConfig.REPORT_CONDITION] - [Chinese text]
+ * - [ExtraKeyConfig.REPORT_IR_LIST] - [Chinese text]
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
 
     /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
+     * [Chinese text], [Chinese text] TC007 [Chinese text].
+     * true-TC007 false-[Chinese text]
      */
     private var isTC007 = false
 
@@ -157,7 +157,7 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
     private fun initRecycler() {
         val spanCount = 3
         val gridLayoutManager = GridLayoutManager(this, spanCount)
-        // 动态Settingsspan
+        // [Chinese text]Settingsspan
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return if (adapter.dataList[position] is GalleryTitle) spanCount else 1
@@ -167,7 +167,7 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
         irGalleryRecycler.layoutManager = gridLayoutManager
 
         adapter.onLongEditListener = {
-            // adapter 里面的切换编辑太乱了，先这么顶着
+            // adapter [Chinese text]switch[Chinese text], [Chinese text]
             groupBottom.isVisible = true
             titleView.setTitleText(getString(R.string.chosen_item, adapter.selectList.size))
             titleView.setLeftDrawable(0)  // TODO: Add appropriate drawable

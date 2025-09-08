@@ -39,10 +39,10 @@ class ObjectCluster {
         const val TIMESTAMP = "Timestamp"
 
         // Units
-        const val UNIT_MICROSIEMENS = "µS"
-        const val UNIT_KILOOHMS = "kΩ"
-        const val UNIT_METER_PER_SECOND_SQUARED = "m/s²"
-        const val UNIT_DEGREES_PER_SECOND = "°/s"
+        const val UNIT_MICROSIEMENS = "microS"
+        const val UNIT_KILOOHMS = "kOhm"
+        const val UNIT_METER_PER_SECOND_SQUARED = "m/s^2"
+        const val UNIT_DEGREES_PER_SECOND = "deg/s"
         const val UNIT_GAUSS = "gauss"
         const val UNIT_VOLTS = "V"
         const val UNIT_MILLISECONDS = "ms"
@@ -197,11 +197,11 @@ class ObjectCluster {
         value: Double,
     ): Boolean {
         return when (sensorName) {
-            GSR_CONDUCTANCE, GSR -> value in 0.0..100.0 // 0-100 µS reasonable range
-            GSR_RESISTANCE -> value in 1.0..10000.0 // 1-10000 kΩ reasonable range
-            ACCEL_X, ACCEL_Y, ACCEL_Z -> value in -200.0..200.0 // ±200 m/s²
-            GYRO_X, GYRO_Y, GYRO_Z -> value in -2000.0..2000.0 // ±2000 °/s
-            MAG_X, MAG_Y, MAG_Z -> value in -10.0..10.0 // ±10 gauss
+            GSR_CONDUCTANCE, GSR -> value in 0.0..100.0 // 0-100 microS reasonable range
+            GSR_RESISTANCE -> value in 1.0..10000.0 // 1-10000 kOhm reasonable range
+            ACCEL_X, ACCEL_Y, ACCEL_Z -> value in -200.0..200.0 // +/-200 m/s^2
+            GYRO_X, GYRO_Y, GYRO_Z -> value in -2000.0..2000.0 // +/-2000 deg/s
+            MAG_X, MAG_Y, MAG_Z -> value in -10.0..10.0 // +/-10 gauss
             BATTERY -> value in 0.0..5.0 // 0-5V
             else -> true // Unknown sensors pass validation
         }

@@ -63,17 +63,17 @@ import java.util.List;
     private boolean auto_over_protect = false;
     private LibIRProcess.AutoGainSwitchInfo_t auto_gain_switch_info = new LibIRProcess.AutoGainSwitchInfo_t();
     private LibIRProcess.GainSwitchParam_t gain_switch_param = new LibIRProcess.GainSwitchParam_t();
-    // 是否使用IRISP算法集成
+    // [Chinese text]IRISP[Chinese text]
     private boolean isUseIRISP;
-    // 是否使用GPU方案
+    // [Chinese text]GPU[Chinese text]
     private boolean isUseGPU = false;
-    // 当前的增益状态
+    // [Chinese text]
     private CommonParams.GainStatus gainStatus = CommonParams.GainStatus.HIGH_GAIN;
-    // 模组支持的高低增益模式
+    // [Chinese text]highlow[Chinese text]mode
     private CommonParams.GainMode gainMode = CommonParams.GainMode.GAIN_MODE_HIGH_LOW;
     private short[] nuc_table_high = new short[8192];
     private short[] nuc_table_low = new short[8192];
-    private boolean isGetNucFromFlash; // 是否从机芯Flash中读取的nuc数据，会影响到测温修正的资源释放
+    private boolean isGetNucFromFlash; // [Chinese text]Flashin progress[Chinese text]nuc[Chinese text], [Chinese text]
     //
     private byte[] priv_high = new byte[1201];
     private byte[] priv_low = new byte[1201];
@@ -82,7 +82,7 @@ import java.util.List;
     private short[] bt_high = new short[1201];
     private short[] bt_low = new short[1201];
 
-    // 机芯温度
+    // [Chinese text]temperature
     private int[] curVtemp = new int[1];
 
     private ConnectCallback mConnectCallback;
@@ -208,21 +208,21 @@ import java.util.List;
             }
         });
         /**
-         * 同时打开防灼烧和自动增益切换后，如果想修改防灼烧和自动增益切换的触发优先级，可以通过修改下面的触发参数实现
+         * [Chinese text]switch[Chinese text], [Chinese text]switch[Chinese text], [Chinese text]implement
          */
-        // 自动增益切换参数auto gain switch parameter
-        gain_switch_param.above_pixel_prop = 0.1f;    // 用于high -> low gain,设备像素总面积的百分比
-        gain_switch_param.above_temp_data = (int) ((130 + 273.15) * 16 * 4); // 用于high -> low gain,高增益向低增益切换的触发温度
-        gain_switch_param.below_pixel_prop = 0.95f;   // 用于low -> high gain,设备像素总面积的百分比
-        gain_switch_param.below_temp_data = (int) ((110 + 273.15) * 16 * 4);// 用于low -> high gain,低增益向高增益切换的触发温度
-        auto_gain_switch_info.switch_frame_cnt = 5 * 15; // 连续满足触发条件帧数超过该阈值会触发自动增益切换(假设出图速度为15帧每秒，则5 * 15大概为5秒)
-        auto_gain_switch_info.waiting_frame_cnt = 7 * 15;// 触发自动增益切换之后，会间隔该阈值的帧数不进行增益切换监测(假设出图速度为15帧每秒，则7 * 15大概为7秒)
-        // 防灼烧参数over_portect parameter
-        int low_gain_over_temp_data = (int) ((550 + 273.15) * 16 * 4); // 低增益下触发防灼烧的温度
-        int high_gain_over_temp_data = (int) ((100 + 273.15) * 16 * 4); // 高增益下触发防灼烧的温度
-        float pixel_above_prop = 0.02f;// 设备像素总面积的百分比
-        int switch_frame_cnt = 7 * 15;// 连续满足触发条件超过该阈值会触发防灼烧(假设出图速度为15帧每秒，则7 * 15大概为7秒)
-        int close_frame_cnt = 10 * 15;// 触发防灼烧之后，经过该阈值的帧数之后会解除防灼烧(假设出图速度为15帧每秒，则10 * 15大概为10秒)
+        // [Chinese text]switch[Chinese text]auto gain switch parameter
+        gain_switch_param.above_pixel_prop = 0.1f;    // forhigh -> low gain,[Chinese text]
+        gain_switch_param.above_temp_data = (int) ((130 + 273.15) * 16 * 4); // forhigh -> low gain,high[Chinese text]low[Chinese text]switch[Chinese text]temperature
+        gain_switch_param.below_pixel_prop = 0.95f;   // forlow -> high gain,[Chinese text]
+        gain_switch_param.below_temp_data = (int) ((110 + 273.15) * 16 * 4);// forlow -> high gain,low[Chinese text]high[Chinese text]switch[Chinese text]temperature
+        auto_gain_switch_info.switch_frame_cnt = 5 * 15; // [Chinese text]switch([Chinese text]15[Chinese text], [Chinese text]5 * 15[Chinese text]5[Chinese text])
+        auto_gain_switch_info.waiting_frame_cnt = 7 * 15;// [Chinese text]switch[Chinese text], [Chinese text]switch[Chinese text]([Chinese text]15[Chinese text], [Chinese text]7 * 15[Chinese text]7[Chinese text])
+        // [Chinese text]over_portect parameter
+        int low_gain_over_temp_data = (int) ((550 + 273.15) * 16 * 4); // low[Chinese text]temperature
+        int high_gain_over_temp_data = (int) ((100 + 273.15) * 16 * 4); // high[Chinese text]temperature
+        float pixel_above_prop = 0.02f;// [Chinese text]
+        int switch_frame_cnt = 7 * 15;// [Chinese text]([Chinese text]15[Chinese text], [Chinese text]7 * 15[Chinese text]7[Chinese text])
+        int close_frame_cnt = 10 * 15;// [Chinese text], [Chinese text]([Chinese text]15[Chinese text], [Chinese text]10 * 15[Chinese text]10[Chinese text])
     }
 
         /**
@@ -253,8 +253,8 @@ import java.util.List;
             public void onAttach(UsbDevice device) {
                 Log.w(TAG, "USBMonitor-onAttach mPid = " + pid + " getProductId = " + device.getProductId());
                 /**
-                 * USBMonitor会同时响应所有的UVC设备，
-                 * 需要根据自己的初始化pid判断自己需要初始化的设备
+                 * USBMonitor[Chinese text]UVC[Chinese text], 
+                 * [Chinese text]pid[Chinese text]
                  */
                 if (device.getProductId() != mPid) {
                     return;
@@ -341,8 +341,8 @@ import java.util.List;
             public void onAttach(UsbDevice device) {
                 Log.w(TAG, "USBMonitor-onAttach mPid = " + pid + " getProductId = " + device.getProductId());
                 /**
-                 * USBMonitor会同时响应所有的UVC设备，
-                 * 需要根据自己的初始化pid判断自己需要初始化的设备
+                 * USBMonitor[Chinese text]UVC[Chinese text], 
+                 * [Chinese text]pid[Chinese text]
                  */
                 if (device.getProductId() != mPid) {
                     return;
@@ -508,7 +508,7 @@ import java.util.List;
      */
     public void initUVCCamera(int cameraWidth, int cameraHeight) {
         Log.i(TAG, "initUVCCamera->cameraWidth = " + cameraWidth + " cameraHeight = " + cameraHeight);
-        // UVCCamera 初始化
+        // UVCCamera [Chinese text]
         ConcreateUVCBuilder concreateUVCBuilder = new ConcreateUVCBuilder();
         uvcCamera = concreateUVCBuilder
                 .setUVCType(UVCType.USB_UVC)
@@ -594,7 +594,7 @@ import java.util.List;
         if (uvcCamera == null) {
             initUVCCamera(cameraWidth, cameraHeight);
         }
-        // uvc开启
+        // uvc[Chinese text]
         uvcCamera.openUVCCamera(ctrlBlock);
     }
 
@@ -610,7 +610,7 @@ import java.util.List;
         }
         uvcCamera.onStartPreview();
         if (mPid == 0x5830 || mPid == 0x5840) {
-            // Settings红外镜像出图，跟原生可见光保持一直
+            // Settings[Chinese text], [Chinese text]visible[Chinese text]
             ircmd.startPreview(CommonParams.PreviewPathChannel.PREVIEW_PATH0,
                     CommonParams.StartPreviewSource.SOURCE_SENSOR,
                     25, CommonParams.StartPreviewMode.VOC_DVP_MODE,
@@ -621,7 +621,7 @@ import java.util.List;
     }
 
     /**
-     * 获取支持的分辨率列表
+     * [Chinese text]
      *
      * @return
      */
@@ -638,7 +638,7 @@ import java.util.List;
 
         /**
      * init IRCMD
-     * 可以根据获取到的分辨率列表，来区分不同的模组，从而改变不同的cmd参数来调用不同的SDK
+     * [Chinese text], [Chinese text], [Chinese text]cmd[Chinese text]SDK
      *
      * @param previewList
      */
@@ -662,7 +662,7 @@ import java.util.List;
     }
 
     /**
-     * 之前的openUVCCamera方法中传入的都是默认值，这里需要根据实际传入对应的值
+     * [Chinese text]openUVCCamera[Chinese text]in progress[Chinese text], [Chinese text]
      *
      * @param cameraWidth
      * @param cameraHeight
@@ -702,36 +702,36 @@ import java.util.List;
     private void handleUSBConnect(USBMonitor.UsbControlBlock ctrlBlock) {
         Log.d(TAG, "handleUSBConnect mPid = " + mPid);
         openUVCCamera(ctrlBlock);
-        // 获取设备的分辨率列表
+        // [Chinese text]
         List<CameraSize> previewList = getAllSupportedSize();
-        // 可以根据获取到的分辨率列表，来区分不同的模组，从而改变不同的cmd参数来调用不同的SDK
+        // [Chinese text], [Chinese text], [Chinese text]cmd[Chinese text]SDK
         if (mPid == 0x5830 || mPid == 0x5840) {
             initIRCMD(previewList);
             /**
-             * 调整带宽
-             * 部分分辨率或在部分机型上，会出现无法出图，或出图一段时间后卡顿的问题，需要配置对应的带宽
+             * [Chinese text]
+             * [Chinese text], [Chinese text], [Chinese text], [Chinese text]
              */
-            uvcCamera.setDefaultBandwidth(1.0f);       // 调整带宽
+            uvcCamera.setDefaultBandwidth(1.0f);       // [Chinese text]
             uvcCamera.setDefaultPreviewMinFps(1);
             uvcCamera.setDefaultPreviewMaxFps(mFps);
         } else {
             Log.d(TAG, "startVLCamera handleUSBConnect mPid = " + mPid + " setDefaultPreviewMode");
             /**
-             * 可见光模组
+             * visible[Chinese text]
              * DEFAULT 0 YUV
              *  Mjpeg 1  RGB
              */
             uvcCamera.setDefaultPreviewMode(CommonParams.FRAMEFORMATType.FRAME_FORMAT_MJPEG);
             /**
-             * 调整带宽
-             * 部分分辨率或在部分机型上，会出现无法出图，或出图一段时间后卡顿的问题，需要配置对应的带宽
+             * [Chinese text]
+             * [Chinese text], [Chinese text], [Chinese text], [Chinese text]
              */
-            uvcCamera.setDefaultBandwidth(0.6f);       // 调整带宽
+            uvcCamera.setDefaultBandwidth(0.6f);       // [Chinese text]
             uvcCamera.setDefaultPreviewMinFps(1);
             uvcCamera.setDefaultPreviewMaxFps(mFps);
         }
 
-        // 根据设备的分辨率列表，这里可以动态的Settings模组的宽高(这里作为示例，用的是从外部传入的方式)
+        // [Chinese text], [Chinese text]Settings[Chinese text]high([Chinese text], [Chinese text])
         int result = setPreviewSize(cameraWidth, cameraHeight);
         if (result == 0) {
             

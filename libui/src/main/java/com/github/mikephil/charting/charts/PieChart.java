@@ -375,7 +375,7 @@ public class PieChart extends PieRadarChartBase<PieData> {
 
     /**
      * returns an integer array of all the different angles the chart slices
-     * have the angles in the returned array determine how much space (of 360°)
+     * have the angles in the returned array determine how much space (of 360deg)
      * each slice takes
      *
      * @return

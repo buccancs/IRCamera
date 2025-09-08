@@ -24,13 +24,13 @@ class UserInfoManager {
     }
 
     /**
-     * 是否登录（判断token是否有值来处理登录情况）
-     * token在-1的情况下为游客访问，不算登录
+     * [Chinese text]([Chinese text]token[Chinese text])
+     * token[Chinese text]-1[Chinese text], [Chinese text]
      */
     fun isLogin(): Boolean {
         val token = SharedManager.getToken()
         return if (TextUtils.equals("-1", token)) {
-            // 游客模式认为没有登录
+            // [Chinese text]mode[Chinese text]
             false
         } else {
             !TextUtils.isEmpty(token)
@@ -38,7 +38,7 @@ class UserInfoManager {
     }
 
     /**
-     * 登录保存用户message
+     * [Chinese text]message
      */
     fun login(
         token: String,
@@ -56,7 +56,7 @@ class UserInfoManager {
     }
 
     /**
-     * 退出注销用户message
+     * [Chinese text]message
      */
     fun logout() {
         SharedManager.setToken("")

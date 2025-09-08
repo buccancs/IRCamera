@@ -38,7 +38,7 @@ public class DeviceControlManager implements IDeviceConnectListener {
     }
 
         /**
-     * 初始化
+     * [Chinese text]
      */
     public void init() {
         mDeviceControlWorker = new DeviceControlWorker();
@@ -48,8 +48,8 @@ public class DeviceControlManager implements IDeviceConnectListener {
     }
 
         /**
-     * 注册设备状态回调，可在activity或fragment中注册，用于UI的改变
-     * @param key 唯一标识
+     * [Chinese text], [Chinese text]activity[Chinese text]fragmentin progress[Chinese text], forUI[Chinese text]
+     * @param key [Chinese text]
      * @param iDeviceConnectListener
      */
     public void addDeviceConnectListener(String key, IDeviceConnectListener iDeviceConnectListener) {
@@ -59,7 +59,7 @@ public class DeviceControlManager implements IDeviceConnectListener {
     }
 
         /**
-     * 取消注册设备状态回调
+     * [Chinese text]
      * @param key
      */
     public void removeDeviceConnectListener(String key) {
@@ -69,7 +69,7 @@ public class DeviceControlManager implements IDeviceConnectListener {
     }
 
         /**
-     * 回收资源
+     * [Chinese text]
      */
     public void release() {
         if (mDeviceControlWorker != null) {
@@ -83,7 +83,7 @@ public class DeviceControlManager implements IDeviceConnectListener {
     }
 
         /**
-     * Dual light数据流出图
+     * Dual light[Chinese text]
      * @param ctrlBlock
      */
     public void handleStartPreview(USBMonitor.UsbControlBlock ctrlBlock) {
@@ -94,7 +94,7 @@ public class DeviceControlManager implements IDeviceConnectListener {
     }
 
         /**
-     * Dual light数据流停图
+     * Dual light[Chinese text]
      */
     public void handleStopPreview() {
         if (mDeviceControlWorker != null) {
@@ -104,7 +104,7 @@ public class DeviceControlManager implements IDeviceConnectListener {
     }
 
         /**
-     * Dual light数据流暂停
+     * Dual light[Chinese text]
      */
     public void handlePauseDualPreview() {
         if (mDeviceControlWorker != null) {
@@ -114,7 +114,7 @@ public class DeviceControlManager implements IDeviceConnectListener {
     }
 
         /**
-     * Dual light数据流恢复
+     * Dual light[Chinese text]
      */
     public void handleResumeDualPreview() {
         if (mDeviceControlWorker != null) {
@@ -125,7 +125,7 @@ public class DeviceControlManager implements IDeviceConnectListener {
 
     @Override
     public void onPrepareConnect() {
-        // StartPreview前回调
+        // StartPreview[Chinese text]
         for (Map.Entry<String, IDeviceConnectListener> entry: mIDeviceConnectListeners.entrySet()) {
             entry.getValue().onPrepareConnect();
         }
@@ -133,7 +133,7 @@ public class DeviceControlManager implements IDeviceConnectListener {
 
     @Override
     public void onConnected() {
-        // StartPreview成功前后回调，注意是子线程
+        // StartPreview[Chinese text], [Chinese text]line[Chinese text]
         for (Map.Entry<String, IDeviceConnectListener> entry: mIDeviceConnectListeners.entrySet()) {
             entry.getValue().onConnected();
         }
@@ -141,7 +141,7 @@ public class DeviceControlManager implements IDeviceConnectListener {
 
     @Override
     public void onDisconnected() {
-        // StopPreview成功前后回调，注意是子线程
+        // StopPreview[Chinese text], [Chinese text]line[Chinese text]
         for (Map.Entry<String, IDeviceConnectListener> entry: mIDeviceConnectListeners.entrySet()) {
             entry.getValue().onDisconnected();
         }
@@ -149,7 +149,7 @@ public class DeviceControlManager implements IDeviceConnectListener {
 
     @Override
     public void onPaused() {
-        // todo 自行定义Paused Task来实现
+        // todo [Chinese text]Paused Task[Chinese text]implement
         for (Map.Entry<String, IDeviceConnectListener> entry: mIDeviceConnectListeners.entrySet()) {
             entry.getValue().onPaused();
         }
@@ -157,7 +157,7 @@ public class DeviceControlManager implements IDeviceConnectListener {
 
     @Override
     public void onResumed() {
-        // todo 自行定义Resumed Task来实现
+        // todo [Chinese text]Resumed Task[Chinese text]implement
         for (Map.Entry<String, IDeviceConnectListener> entry: mIDeviceConnectListeners.entrySet()) {
             entry.getValue().onResumed();
         }

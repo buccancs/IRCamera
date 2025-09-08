@@ -8,10 +8,10 @@ import com.topdon.ble.Request;
  */
 public interface ReadCharacteristicCallback extends RequestFailedCallback {
     /**
-     * 读取到特征值
+     * [Chinese text]
      *
-     * @param request 请求
-     * @param value   读取到的数据
+     * @param request [Chinese text]
+     * @param value   [Chinese text]
      */
     void onCharacteristicRead(Request request, byte[] value);
 }

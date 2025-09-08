@@ -9,7 +9,7 @@ import com.topdon.lib.ui.R
 import kotlinx.android.synthetic.main.ui_wifi_steering_wheel_view.view.*
 
 /**
- * 校准方向
+ * [Chinese text]
  */
 class WifiSteeringWheelView : LinearLayout, OnClickListener {
 

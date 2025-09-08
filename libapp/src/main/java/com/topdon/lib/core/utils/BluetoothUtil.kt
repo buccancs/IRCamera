@@ -69,7 +69,7 @@ object BluetoothUtil {
     private val scanCallback = MyScanCallback()
 
     /**
-     * Settings低功耗蓝牙搜索回调.
+     * Settingslow[Chinese text].
      */
     fun setLeScanListener(
         isTS004: Boolean,
@@ -80,22 +80,22 @@ object BluetoothUtil {
     }
 
     /**
-     * 开启低功耗蓝牙搜索，调用前需确保拥有相应权限且开启蓝牙.
-     * @return true-调用成功 false-缺少权限或蓝牙未开启
+     * [Chinese text]low[Chinese text], [Chinese text].
+     * @return true-[Chinese text] false-[Chinese text]
      */
     @SuppressLint("MissingPermission")
     fun startLeScan(context: Context): Boolean {
         XLog.i("startLeScan()")
 
         if (!PermissionTool.hasBtPermission(context)) {
-            XLog.e("开始蓝牙扫描-没有相应定位或蓝牙权限!")
+            XLog.e("start[Chinese text]-[Chinese text]!")
             return false
         }
 
         val btAdapter: BluetoothAdapter = (context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
         val btLeScanner: BluetoothLeScanner? = btAdapter.bluetoothLeScanner
         if (btLeScanner == null) {
-            XLog.e("开始蓝牙扫描-蓝牙未开启")
+            XLog.e("start[Chinese text]-[Chinese text]")
             return false
         }
 
@@ -110,22 +110,22 @@ object BluetoothUtil {
     }
 
     /**
-     * 停止低功耗蓝牙搜索，调用前需确保拥有相应权限且开启蓝牙.
-     * @return true-调用成功 false-缺少权限或蓝牙未开启
+     * stoplow[Chinese text], [Chinese text].
+     * @return true-[Chinese text] false-[Chinese text]
      */
     @SuppressLint("MissingPermission")
     fun stopLeScan(context: Context): Boolean {
         XLog.i("stopBtScan()")
 
         if (!PermissionTool.hasBtPermission(context)) {
-            XLog.w("停止蓝牙扫描-没有相应定位或蓝牙权限!")
+            XLog.w("stop[Chinese text]-[Chinese text]!")
             return false
         }
 
         val btAdapter: BluetoothAdapter = (context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
         val btLeScanner: BluetoothLeScanner? = btAdapter.bluetoothLeScanner
         if (btLeScanner == null) {
-            XLog.w("停止蓝牙扫描-蓝牙未开启")
+            XLog.w("stop[Chinese text]-[Chinese text]")
             return false
         }
 
@@ -144,13 +144,13 @@ object BluetoothUtil {
         ) {
             val name: String = result?.device?.name ?: return
             if (name.startsWith(if (isTS004) DeviceConfig.TS004_NAME_START else DeviceConfig.TC007_NAME_START)) {
-                XLog.v("蓝牙扫描出一个目标设备：$name")
+                XLog.v("[Chinese text]target[Chinese text]: $name")
                 listener?.invoke(name)
             }
         }
 
         override fun onScanFailed(errorCode: Int) {
-            XLog.e("蓝牙扫描失败！$errorCode")
+            XLog.e("[Chinese text]! $errorCode")
         }
     }
 }

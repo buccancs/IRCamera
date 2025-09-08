@@ -8,7 +8,7 @@ import android.media.MediaMetadataRetriever
  * This class provides functionality for videotools operations.
  */
 object VideoTools {
-    // 获取视频时长
+    // [Chinese text]
     fun getLocalVideoDuration(videoPath: String): Long {
         return if (videoPath.uppercase().endsWith(".MP4") || videoPath.uppercase().endsWith(".AVI")) {
             try {

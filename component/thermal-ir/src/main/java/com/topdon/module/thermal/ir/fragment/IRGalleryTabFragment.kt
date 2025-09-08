@@ -24,26 +24,26 @@ import com.topdon.lib.ui.R as UiR
 import com.topdon.lib.core.R as LibCoreR
 
 /**
- * 图库 Tab 页，下分图片和视频.
+ * gallery Tab [Chinese text], [Chinese text].
  *
- * 需要传递参数：
- * - [ExtraKeyConfig.HAS_BACK_ICON] - 图库是否有返回箭头，默认 false
- * - [ExtraKeyConfig.CAN_SWITCH_DIR] - 图库是否可切换 有线设备、TS004、TC007 目录，默认 true
- * - [ExtraKeyConfig.DIR_TYPE] - 进入图库时初始的目录类型 具体取值由 [DirType] 定义
+ * [Chinese text]: 
+ * - [ExtraKeyConfig.HAS_BACK_ICON] - gallery[Chinese text], [Chinese text] false
+ * - [ExtraKeyConfig.CAN_SWITCH_DIR] - gallery[Chinese text]switch [Chinese text]line[Chinese text], TS004, TC007 [Chinese text], [Chinese text] true
+ * - [ExtraKeyConfig.DIR_TYPE] - [Chinese text]gallery[Chinese text] [Chinese text] [DirType] [Chinese text]
  *
  * Created by chenggeng.lin on 2023/11/14.
  */
 class IRGalleryTabFragment : BaseFragment() {
     /**
-     * 从上一界面传递过来的，图库是否有返回箭头
+     * [Chinese text], gallery[Chinese text]
      */
     private var hasBackIcon = false
     /**
-     * 从上一界面传递过来的，图库是否可切换 有线设备、TS004、TC007 目录
+     * [Chinese text], gallery[Chinese text]switch [Chinese text]line[Chinese text], TS004, TC007 [Chinese text]
      */
     private var canSwitchDir = true
     /**
-     * 从上一界面传递过来的，进入图库时初始的目录类型
+     * [Chinese text], [Chinese text]gallery[Chinese text]
      */
     private var currentDirType = DirType.LINE
 
@@ -98,9 +98,9 @@ class IRGalleryTabFragment : BaseFragment() {
         titleView.setTitleText(if (canSwitchDir) "" else getString(R.string.app_gallery))
         titleView.setLeftDrawable(if (hasBackIcon) R.drawable.ic_back_white_svg else 0)
         titleView.setLeftClickListener {
-            if (viewModel.isEditModeLD.value == true) {// 当前为编辑状态，退出编辑
+            if (viewModel.isEditModeLD.value == true) {// [Chinese text], [Chinese text]
                 viewModel.isEditModeLD.value = false
-            } else {// 当前为非编辑状态，退出页面
+            } else {// [Chinese text], [Chinese text]
                 if (hasBackIcon) {
                     requireActivity().finish()
                 }
@@ -108,9 +108,9 @@ class IRGalleryTabFragment : BaseFragment() {
         }
         titleView.setRightDrawable(UiR.drawable.ic_toolbar_check_svg)
         titleView.setRightClickListener {
-            if (viewModel.isEditModeLD.value == true) {// 当前为编辑状态，全选
+            if (viewModel.isEditModeLD.value == true) {// [Chinese text], [Chinese text]
                 viewModel.selectAllIndex.value = viewPager2.currentItem
-            } else {// 当前为非编辑状态，进入编辑
+            } else {// [Chinese text], [Chinese text]
                 viewModel.isEditModeLD.value = true
             }
         }

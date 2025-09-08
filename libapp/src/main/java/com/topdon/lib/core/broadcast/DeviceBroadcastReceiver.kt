@@ -16,7 +16,7 @@ class DeviceBroadcastReceiver : BroadcastReceiver() {
 
     companion object {
         /**
-         * 在 [DeviceTools] 中申请 Usb 权限附带的广播.
+         * [Chinese text] [DeviceTools] in progress[Chinese text] Usb [Chinese text].
          */
         const val ACTION_USB_PERMISSION = "com.topdon.topInfrared.USB_PERMISSION"
     }
@@ -36,7 +36,7 @@ class DeviceBroadcastReceiver : BroadcastReceiver() {
         }
 
         if (intent.action == ACTION_USB_PERMISSION) {
-            DeviceTools.isConnect(isSendConnectEvent = true, isAutoRequest = false) // 重新确认usb连接
+            DeviceTools.isConnect(isSendConnectEvent = true, isAutoRequest = false) // [Chinese text]usb[Chinese text]
         } else {
             handleUsbEvent(intent)
         }
@@ -57,10 +57,10 @@ class DeviceBroadcastReceiver : BroadcastReceiver() {
         }
         XLog.v("$TAG usbDevice PRODUCT_ID = ${usbDevice.productId}, VENDOR_ID = ${usbDevice.vendorId}")
         if (usbDevice.isTcTsDevice()) {
-            if (UsbManager.ACTION_USB_DEVICE_ATTACHED == intent.action) { // 已连接
+            if (UsbManager.ACTION_USB_DEVICE_ATTACHED == intent.action) { // [Chinese text]
                 DeviceTools.isConnect(isSendConnectEvent = true, isAutoRequest = true)
             }
-            if (UsbManager.ACTION_USB_DEVICE_DETACHED == intent.action) { // 已断开
+            if (UsbManager.ACTION_USB_DEVICE_DETACHED == intent.action) { // [Chinese text]
                 EventBus.getDefault().post(DeviceConnectEvent(false, null))
             }
         }

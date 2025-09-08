@@ -29,10 +29,10 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
- * 检测列表.
+ * [Chinese text].
  *
- * 需要传递参数：
- * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007（不使用，透传）
+ * [Chinese text]: 
+ * - [ExtraKeyConfig.IS_TC007] - [Chinese text] TC007([Chinese text], [Chinese text])
  *
  * Created by LCG on 2024/8/20.
  */
@@ -66,15 +66,15 @@ internal class DetectListFragment : BaseFragment(), View.OnClickListener {
         adapter.onMoreClickListener = { position, v ->
             ThreePickPopup(requireContext(), arrayListOf(LibR.string.app_edit, LibR.string.paste, LibR.string.report_delete)) {
                 when (it) {
-                    0 -> {// 编辑
+                    0 -> {// [Chinese text]
                         val intent = Intent(requireContext(), DetectAddActivity::class.java)
                         intent.putExtra(ExtraKeyConfig.DETECT_ID, adapter.dataList[position].id)
                         startActivity(intent)
                     }
-                    1 -> {// 复制
+                    1 -> {// [Chinese text]
                         viewModel.copyDetect(position, adapter.dataList[position] as HouseDetect)
                     }
-                    2 -> {// 删除
+                    2 -> {// [Chinese text]
                         TipDialog.Builder(requireContext())
                             .setTitleMessage(getString(LibR.string.monitor_report_delete))
                             .setMessage(LibR.string.report_delete_tips)
@@ -161,12 +161,12 @@ internal class DetectListFragment : BaseFragment(), View.OnClickListener {
         val clDel = requireView().findViewById<android.view.View>(R.id.cl_del)
         
         when (v) {
-            tvAdd -> {// 添加
+            tvAdd -> {// [Chinese text]
                 val intent = Intent(requireContext(), DetectAddActivity::class.java)
                 intent.putExtra(ExtraKeyConfig.IS_TC007, arguments?.getBoolean(ExtraKeyConfig.IS_TC007, false) ?: false)
                 startActivity(intent)
             }
-            clDel -> {// 批量删除
+            clDel -> {// [Chinese text]
                 if (adapter.selectIndexList.isNotEmpty()) {
                     TipDialog.Builder(requireContext())
                         .setTitleMessage(getString(LibR.string.monitor_report_delete))

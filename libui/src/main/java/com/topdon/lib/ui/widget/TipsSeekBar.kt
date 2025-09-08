@@ -32,7 +32,7 @@ class TipsSeekBar : ViewGroup, SeekBar.OnSeekBarChangeListener {
         }
 
     /**
-     * 指示 View 当前显示的文字.
+     * indicator View [Chinese text]text.
      */
     var valueText: String
         get() {
@@ -43,17 +43,17 @@ class TipsSeekBar : ViewGroup, SeekBar.OnSeekBarChangeListener {
         }
 
     /**
-     * seekBar 的 onProgressChange 事件监听.
+     * seekBar [Chinese text] onProgressChange eventlistener.
      */
     var onProgressChangeListener: ((progress: Int, fromUser: Boolean) -> Unit)? = null
 
     /**
-     * seekBar 的 onStopTrackingTouch 事件监听.
+     * seekBar [Chinese text] onStopTrackingTouch eventlistener.
      */
     var onStopTrackingTouch: ((progress: Int) -> Unit)? = null
 
     /**
-     * 根据进度格式化指示 View 文字.
+     * [Chinese text]indicator View text.
      */
     var valueFormatListener: ((progress: Int) -> CharSequence?)? = null
         set(value) {
@@ -73,7 +73,7 @@ class TipsSeekBar : ViewGroup, SeekBar.OnSeekBarChangeListener {
         defStyleAttr,
         defStyleRes,
     ) {
-        // seekBar 的 maxHeight 在 29 以下只能通过 xml Settings实在太蛋疼了，这里只好给当前 View Settings maxHeight,在 attr 中传递给 seekBar
+        // seekBar [Chinese text] maxHeight [Chinese text] 29 [Chinese text] xml Settings[Chinese text], [Chinese text] View Settings maxHeight,[Chinese text] attr in progress[Chinese text] seekBar
         val thumb = ContextCompat.getDrawable(context, UiR.drawable.ic_tips_seek_bar_thumb)
         val thumbWidth = thumb?.intrinsicWidth ?: 0
         seekBar = SeekBar(context, attrs)

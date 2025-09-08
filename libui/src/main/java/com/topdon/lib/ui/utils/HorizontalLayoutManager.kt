@@ -21,7 +21,7 @@ import kotlin.math.abs
  * @author: CaiSongL
  * @date: 2023/4/1 14:13
  */
-@Deprecated("热成像-菜单-Photo capture已重构，不需要这个类了")
+@Deprecated("[Chinese text]-menu-Photo capture[Chinese text], [Chinese text]")
 class HorizontalLayoutManager(
     private val context: Context,
     scrollStateListener: ScrollStateListener,

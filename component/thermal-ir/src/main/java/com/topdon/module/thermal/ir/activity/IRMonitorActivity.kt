@@ -13,11 +13,11 @@ import com.topdon.module.thermal.ir.event.ThermalActionEvent
 import org.greenrobot.eventbus.EventBus
 
 /**
- * 选取区域监听
+ * [Chinese text]arealistener
  */
 class IRMonitorActivity : BaseActivity(), View.OnClickListener {
 
-    private var selectIndex: SelectPositionBean? = null// 选取点
+    private var selectIndex: SelectPositionBean? = null// [Chinese text]point
 
     override fun initContentView() = R.layout.activity_ir_monitor
 
@@ -58,7 +58,7 @@ class IRMonitorActivity : BaseActivity(), View.OnClickListener {
                         .create().show()
                     return
                 }
-                // 开始温度监听
+                // starttemperaturelistener
                 NavigationManager.getInstance().build(RouterConfig.IR_MONITOR_CHART)
                     .withParcelable("select", selectIndex as android.os.Parcelable)
                     .navigation(this)

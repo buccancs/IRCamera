@@ -32,7 +32,7 @@ import com.topdon.lib.core.utils.BitmapUtils;
     private float focusX, focusY;
     private float lastX, lastY;
 
-    // 原始图片
+    // [Chinese text]
     private Bitmap originalBitmap;
     private int imageWidth;
     private int imageHeight;
@@ -95,7 +95,7 @@ import com.topdon.lib.core.utils.BitmapUtils;
         if (showBitmap!=null){
             canvas.drawBitmap(showBitmap,matrix,paint);
         }
-        // 在此处绘制你的内容
+        // [Chinese text]
         super.onDraw(canvas);
         canvas.restore();
     }
@@ -150,7 +150,7 @@ private class GestureListener extends GestureDetector.SimpleOnGestureListener {
             lastX = e2.getX();
             lastY = e2.getY();
 
-            // 将滚动距离根据缩放因子进行调整
+            // [Chinese text]
             deltaX /= scaleFactor;
             deltaY /= scaleFactor;
 

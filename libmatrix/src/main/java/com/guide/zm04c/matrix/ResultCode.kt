@@ -4,48 +4,48 @@ object ResultCode {
 
     val TAG = "mobilelibrary"
 
-    // 设备初始状态
+    // [Chinese text]
     val READY_CONNECT_DEVICE = 1
 
-    // 找到匹配设备
+    // [Chinese text]
     val SUCC_FIND_MATCHED_DEVICE = 2
 
-    // 找到接口端口
+    // [Chinese text]
     val SUCC_FIND_DEVICE_INTERFACE = 3
 
-    // 设备连接接口成功
+    // [Chinese text]
     val SUCC_CONNECT_INTERFACE = 4
 
-    // 设备连接成功
+    // [Chinese text]
     val SUCC_FIND_ENDPOINT = 5
 
-    // USB端口命令发送成功
+    // USB[Chinese text]
     val SUCC_USB_SEND_CMD = 6
 
-    // 找到USB设备，型号不匹配
+    // [Chinese text]USB[Chinese text], [Chinese text]
     val ERROR_FIND_DEVICE_NOT_MATCH = -100
 
-    // 未发现任何设备
+    // [Chinese text]
     val ERROR_NOT_FIND_DEVICE = -101
 
-    // 未找到设备端口
+    // [Chinese text]
     val ERROR_NOT_FIND_INTERFACE = -102
 
-    // 打开设备失败
+    // [Chinese text]
     val ERROR_OPEN_DEVICE_FAILD = -103
 
-    // 连接设备失败
+    // [Chinese text]
     val ERROR_CONNECT_DEVICE_FAILD = -104
 
-    // 未找到设备输入输出端口号
+    // [Chinese text]
     val ERROR_FIND_ENDPOINT_FAILD = -105
 
-    // 用户不同意开启USB权限
+    // [Chinese text]USB[Chinese text]
     val ERROR_USE_NOT_AGRREN_PERMISSIONS = -106
 
     // usbisvalid
     val ERROR_USE_USB_ISVALID = -107
 
-    // USB端口命令发送失败
+    // USB[Chinese text]
     val ERROE_USB_SEND_CMD_FAILD = -108
 }

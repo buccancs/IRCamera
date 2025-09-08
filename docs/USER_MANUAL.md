@@ -2,7 +2,7 @@
 
 Complete guide for using the Multi-Modal Physiological Sensing Platform.
 
-## 📖 Table of Contents
+## [book] Table of Contents
 
 1. [Getting Started](#getting-started)
 2. [Hardware Setup](#hardware-setup)
@@ -13,7 +13,7 @@ Complete guide for using the Multi-Modal Physiological Sensing Platform.
 7. [Troubleshooting](#troubleshooting)
 8. [Advanced Features](#advanced-features)
 
-## 🚀 Getting Started
+## [rocket] Getting Started
 
 ### What is MPDC4GSR?
 
@@ -29,20 +29,20 @@ All data streams are synchronized with nanosecond precision for accurate multi-m
 ### System Overview
 
 ```
-┌─────────────────┐    WiFi    ┌──────────────────┐
-│   PC Controller │◄─────────►│  Android Device  │
-│     (Hub)       │            │     (Sensor)     │
-└─────────────────┘            └──────────────────┘
-         │                               │
-    Data Storage              ┌──────────┴──────────┐
-    & Analysis               │                      │
-                     ┌───────▼────┐      ┌─────────▼──────┐
-                     │ Shimmer3   │      │ Cameras        │
-                     │ GSR Sensor │      │ RGB + Thermal  │
-                     └────────────┘      └────────────────┘
++-----------------+    WiFi    +------------------+
+|   PC Controller |<--------->|  Android Device  |
+|     (Hub)       |            |     (Sensor)     |
++-----------------+            +------------------+
+         |                               |
+    Data Storage              +----------+----------+
+    & Analysis               |                      |
+                     +-------v----+      +---------v------+
+                     | Shimmer3   |      | Cameras        |
+                     | GSR Sensor |      | RGB + Thermal  |
+                     +------------+      +----------------+
 ```
 
-## 🔧 Hardware Setup
+## [tool] Hardware Setup
 
 ### Required Equipment
 
@@ -68,13 +68,13 @@ All data streams are synchronized with nanosecond precision for accurate multi-m
 #### 2. Electrode Placement
 ```
 Correct Placement:
-┌─────────────────┐
-│ Index Finger    │ ← Electrode 1 (tip)
-│                 │
-│ Middle Finger   │ ← Electrode 2 (tip)  
-│                 │
-│ Other fingers   │ ← No electrodes
-└─────────────────┘
++-----------------+
+| Index Finger    | <- Electrode 1 (tip)
+|                 |
+| Middle Finger   | <- Electrode 2 (tip)  
+|                 |
+| Other fingers   | <- No electrodes
++-----------------+
 
 Guidelines:
 - Clean, dry skin contact
@@ -99,7 +99,7 @@ Guidelines:
 - No additional setup required
 - Thermal sensors automatically detected
 
-## 💾 Software Installation
+## [disk] Software Installation
 
 ### Android App Installation
 
@@ -161,7 +161,7 @@ pip install -r requirements.txt
 python src/main.py
 ```
 
-## 📱 Device Pairing
+## [mobile] Device Pairing
 
 ### Step 1: Network Setup
 1. **Connect both devices** to the same WiFi network
@@ -169,10 +169,10 @@ python src/main.py
 3. **Check IP addresses** if automatic discovery fails
 
 ### Step 2: Shimmer3 Pairing
-1. **Android Settings** → **Bluetooth**
-2. **Scan for devices** → Look for "Shimmer3-XXXX"
-3. **Pair device** → Enter PIN if prompted (usually 1234)
-4. **Verify pairing** → Device shows as "Paired" in Bluetooth list
+1. **Android Settings** -> **Bluetooth**
+2. **Scan for devices** -> Look for "Shimmer3-XXXX"
+3. **Pair device** -> Enter PIN if prompted (usually 1234)
+4. **Verify pairing** -> Device shows as "Paired" in Bluetooth list
 
 ### Step 3: Application Pairing
 
@@ -198,12 +198,12 @@ python src/main.py
 - **Android App**: "PC Connected" indicator shows green
 - **Shimmer3**: "GSR Sensor" status shows "Connected"
 
-## 🎬 Recording Sessions
+## [movie] Recording Sessions
 
 ### Quick Start Recording
 
 #### Method 1: PC-Initiated Recording
-1. **PC Controller** → Select connected device
+1. **PC Controller** -> Select connected device
 2. **Click** "Start Recording" 
 3. **Enter session details**:
    - Session Name: `Study_001_Participant_A`
@@ -217,7 +217,7 @@ python src/main.py
 5. **Click** "Begin Recording"
 
 #### Method 2: Android-Initiated Recording  
-1. **Android App** → Main screen
+1. **Android App** -> Main screen
 2. **Long-press** app title for quick menu
 3. **Select** "Full Recording Session"
 4. **Configure** session parameters
@@ -227,46 +227,46 @@ python src/main.py
 
 #### PC Controller Interface
 ```
-┌─────────────────────────────────────────────────┐
-│ MPDC4GSR - PC Controller                        │
-├─────────────────────────────────────────────────┤
-│ Connected Devices:                              │
-│ ☑ Android-Device-001 [192.168.1.105]          │
-│ ☑ Shimmer3-ABC123 [Via Bluetooth]             │
-├─────────────────────────────────────────────────┤
-│ Session: Study_001_P001    Duration: 00:02:15  │
-│ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ │
-│ │ RGB Camera  │ │ GSR Data    │ │ Thermal     │ │
-│ │ 4K60 Active │ │ 128Hz Live  │ │ 30FPS IR    │ │
-│ │ [Live View] │ │ [Real Plot] │ │ [Live View] │ │
-│ └─────────────┘ └─────────────┘ └─────────────┘ │
-├─────────────────────────────────────────────────┤
-│ [Sync Flash] [Stop Recording] [Emergency Stop] │
-└─────────────────────────────────────────────────┘
++-------------------------------------------------+
+| MPDC4GSR - PC Controller                        |
++-------------------------------------------------+
+| Connected Devices:                              |
+| [checked] Android-Device-001 [192.168.1.105]          |
+| [checked] Shimmer3-ABC123 [Via Bluetooth]             |
++-------------------------------------------------+
+| Session: Study_001_P001    Duration: 00:02:15  |
+| +-------------+ +-------------+ +-------------+ |
+| | RGB Camera  | | GSR Data    | | Thermal     | |
+| | 4K60 Active | | 128Hz Live  | | 30FPS IR    | |
+| | [Live View] | | [Real Plot] | | [Live View] | |
+| +-------------+ +-------------+ +-------------+ |
++-------------------------------------------------+
+| [Sync Flash] [Stop Recording] [Emergency Stop] |
++-------------------------------------------------+
 ```
 
 #### Android Interface
 ```
-┌─────────────────────────────────────────────────┐
-│ MPDC4GSR Recording Session                      │
-├─────────────────────────────────────────────────┤
-│ Status: Recording  Duration: 00:02:15          │
-│ PC Controller: ☑ Connected                     │
-│ Shimmer3 GSR: ☑ Active (128Hz)                │
-├─────────────────────────────────────────────────┤
-│ ┌─────────────────────────────────────────────┐ │
-│ │           Camera Preview                    │ │
-│ │                                             │ │
-│ │         [Live RGB View]                     │ │
-│ │                                             │ │
-│ │                4K60FPS                      │ │
-│ └─────────────────────────────────────────────┘ │
-├─────────────────────────────────────────────────┤
-│ GSR: 12.5 µS  |  Samples: 1,920              │
-│ Storage: 2.1 GB available                      │
-├─────────────────────────────────────────────────┤
-│ [Sync Event] [Pause] [Stop Recording]          │
-└─────────────────────────────────────────────────┘
++-------------------------------------------------+
+| MPDC4GSR Recording Session                      |
++-------------------------------------------------+
+| Status: Recording  Duration: 00:02:15          |
+| PC Controller: [checked] Connected                     |
+| Shimmer3 GSR: [checked] Active (128Hz)                |
++-------------------------------------------------+
+| +---------------------------------------------+ |
+| |           Camera Preview                    | |
+| |                                             | |
+| |         [Live RGB View]                     | |
+| |                                             | |
+| |                4K60FPS                      | |
+| +---------------------------------------------+ |
++-------------------------------------------------+
+| GSR: 12.5 microS  |  Samples: 1,920              |
+| Storage: 2.1 GB available                      |
++-------------------------------------------------+
+| [Sync Event] [Pause] [Stop Recording]          |
++-------------------------------------------------+
 ```
 
 ### Recording Controls
@@ -288,30 +288,30 @@ python src/main.py
 #### Video Configuration
 ```
 Quality Presets:
-┌─────────────┬─────────────┬─────────────┬─────────────┐
-│ Setting     │ Resolution  │ Frame Rate  │ File Size   │
-├─────────────┼─────────────┼─────────────┼─────────────┤
-│ Maximum     │ 4K (3840px) │ 60 FPS      │ ~60 MB/min  │
-│ High        │ 4K (3840px) │ 30 FPS      │ ~30 MB/min  │
-│ Standard    │ 1080p       │ 60 FPS      │ ~25 MB/min  │
-│ Efficient   │ 1080p       │ 30 FPS      │ ~12 MB/min  │
-└─────────────┴─────────────┴─────────────┴─────────────┘
++-------------+-------------+-------------+-------------+
+| Setting     | Resolution  | Frame Rate  | File Size   |
++-------------+-------------+-------------+-------------+
+| Maximum     | 4K (3840px) | 60 FPS      | ~60 MB/min  |
+| High        | 4K (3840px) | 30 FPS      | ~30 MB/min  |
+| Standard    | 1080p       | 60 FPS      | ~25 MB/min  |
+| Efficient   | 1080p       | 30 FPS      | ~12 MB/min  |
++-------------+-------------+-------------+-------------+
 ```
 
 #### RAW Image Settings
 ```
 RAW Configuration:
-┌─────────────┬─────────────┬─────────────┬─────────────┐
-│ Mode        │ Resolution  │ Frame Rate  │ File Size   │
-├─────────────┼─────────────┼─────────────┼─────────────┤
-│ Full RAW    │ Native      │ 30 FPS      │ ~6 GB/min   │
-│ Compressed  │ Native      │ 15 FPS      │ ~2 GB/min   │
-│ Burst       │ Native      │ 2 FPS       │ ~400 MB/min │
-│ Disabled    │ N/A         │ N/A         │ 0 MB/min    │
-└─────────────┴─────────────┴─────────────┴─────────────┘
++-------------+-------------+-------------+-------------+
+| Mode        | Resolution  | Frame Rate  | File Size   |
++-------------+-------------+-------------+-------------+
+| Full RAW    | Native      | 30 FPS      | ~6 GB/min   |
+| Compressed  | Native      | 15 FPS      | ~2 GB/min   |
+| Burst       | Native      | 2 FPS       | ~400 MB/min |
+| Disabled    | N/A         | N/A         | 0 MB/min    |
++-------------+-------------+-------------+-------------+
 ```
 
-## 📊 Data Management
+## [chart] Data Management
 
 ### Session Data Structure
 
@@ -319,19 +319,19 @@ Each recording session creates a organized folder structure:
 
 ```
 IRCamera_Sessions/
-└── session_20240115_143022_Study001_P001/
-    ├── rgb_video.mp4              # Main video recording
-    ├── session_metadata.json      # Session configuration
-    ├── gsr_data.csv              # Shimmer3 GSR measurements
-    ├── sync_events.csv           # Synchronization markers
-    ├── thermal_video.mp4         # Infrared video (if available)
-    ├── raw_images/               # DNG raw captures
-    │   ├── frame_000001.dng
-    │   ├── frame_000002.dng
-    │   └── ...
-    └── analysis/                 # Post-processing outputs
-        ├── aligned_timestamps.csv
-        └── data_quality_report.json
++-- session_20240115_143022_Study001_P001/
+    +-- rgb_video.mp4              # Main video recording
+    +-- session_metadata.json      # Session configuration
+    +-- gsr_data.csv              # Shimmer3 GSR measurements
+    +-- sync_events.csv           # Synchronization markers
+    +-- thermal_video.mp4         # Infrared video (if available)
+    +-- raw_images/               # DNG raw captures
+    |   +-- frame_000001.dng
+    |   +-- frame_000002.dng
+    |   +-- ...
+    +-- analysis/                 # Post-processing outputs
+        +-- aligned_timestamps.csv
+        +-- data_quality_report.json
 ```
 
 ### File Formats
@@ -408,17 +408,17 @@ timestamp_ms,utc_timestamp_ms,event_type,session_id,metadata
 #### Storage Requirements
 ```
 Typical 5-minute session:
-┌─────────────────┬─────────────┬─────────────┐
-│ Data Type       │ File Size   │ Storage     │
-├─────────────────┼─────────────┼─────────────┤
-│ RGB Video (4K)  │ ~300 MB     │ Internal    │
-│ RAW Images      │ ~1.8 GB     │ SD Card     │
-│ GSR Data        │ ~2 MB       │ Internal    │
-│ Thermal Video   │ ~150 MB     │ Internal    │
-│ Metadata        │ ~50 KB      │ Internal    │
-├─────────────────┼─────────────┼─────────────┤
-│ Total           │ ~2.25 GB    │ Mixed       │
-└─────────────────┴─────────────┴─────────────┘
++-----------------+-------------+-------------+
+| Data Type       | File Size   | Storage     |
++-----------------+-------------+-------------+
+| RGB Video (4K)  | ~300 MB     | Internal    |
+| RAW Images      | ~1.8 GB     | SD Card     |
+| GSR Data        | ~2 MB       | Internal    |
+| Thermal Video   | ~150 MB     | Internal    |
+| Metadata        | ~50 KB      | Internal    |
++-----------------+-------------+-------------+
+| Total           | ~2.25 GB    | Mixed       |
++-----------------+-------------+-------------+
 ```
 
 #### Automatic Cleanup
@@ -426,11 +426,11 @@ Typical 5-minute session:
 - **Failed sessions**: Partial data retained for diagnostics
 - **Storage monitoring**: Alerts when space below 5GB threshold
 
-## 🔍 Troubleshooting
+## [search] Troubleshooting
 
 ### Common Issues
 
-#### ❌ "Shimmer3 sensor not detected"
+#### [X] "Shimmer3 sensor not detected"
 **Symptoms**: GSR data shows as "Disconnected" or simulated
 **Solutions**:
 1. Verify Bluetooth pairing in Android settings
@@ -439,7 +439,7 @@ Typical 5-minute session:
 4. Check Shimmer3 battery level
 5. Move closer to Android device (within 3 meters)
 
-#### ❌ "PC Controller not visible"
+#### [X] "PC Controller not visible"
 **Symptoms**: Android app shows "No PC Controllers found"
 **Solutions**:
 1. Ensure both devices on same WiFi network
@@ -448,15 +448,15 @@ Typical 5-minute session:
 4. Use manual IP connection option
 5. Verify network subnet (both devices in 192.168.x.x range)
 
-#### ❌ "Camera permission denied"
+#### [X] "Camera permission denied"
 **Symptoms**: Black screen or "Camera not available" error
 **Solutions**:
-1. Android Settings → Apps → MPDC4GSR → Permissions
+1. Android Settings -> Apps -> MPDC4GSR -> Permissions
 2. Grant Camera, Storage, and Microphone permissions
 3. Restart MPDC4GSR app
 4. Reboot Android device if permissions persist
 
-#### ❌ "Insufficient storage space"
+#### [X] "Insufficient storage space"
 **Symptoms**: Recording stops early or fails to start
 **Solutions**:
 1. Free up space on Android device (minimum 5GB recommended)
@@ -465,7 +465,7 @@ Typical 5-minute session:
 4. Use external SD card for RAW images
 5. Enable automatic cleanup in settings
 
-#### ❌ "Time synchronization failed"
+#### [X] "Time synchronization failed"
 **Symptoms**: Data streams show large timestamp differences
 **Solutions**:
 1. Ensure stable WiFi connection
@@ -498,7 +498,7 @@ Typical 5-minute session:
 ```
 Error: Unable to create session directory
 Solution: Check storage permissions and available space
-Command: Settings → Apps → MPDC4GSR → Permissions → Storage
+Command: Settings -> Apps -> MPDC4GSR -> Permissions -> Storage
 ```
 
 #### "Network protocol mismatch"
@@ -518,7 +518,7 @@ Solution:
 4. Try different Shimmer3 device
 ```
 
-## 🔬 Advanced Features
+## [microscope] Advanced Features
 
 ### Custom Recording Protocols
 
@@ -607,7 +607,7 @@ baseline_mean = mean(baseline_data.conductance_us);
 stress_peak = max(stress_data.conductance_us);
 stress_response = stress_peak - baseline_mean;
 
-fprintf('Stress response: %.3f µS\n', stress_response);
+fprintf('Stress response: %.3f microS\n', stress_response);
 ```
 
 #### Python Analysis Pipeline
@@ -654,7 +654,7 @@ class MPDCDataAnalyzer:
         
         # GSR trace
         axes[0].plot(self.gsr_data['timestamp'], self.gsr_data['conductance_us'])
-        axes[0].set_ylabel('Conductance (µS)')
+        axes[0].set_ylabel('Conductance (microS)')
         axes[0].set_title('GSR Data Stream')
         
         # Mark sync events
@@ -719,7 +719,7 @@ class CustomSensorRecorder : SensorRecorder {
 }
 ```
 
-## 📞 Support and Resources
+## [phone] Support and Resources
 
 ### Documentation
 - **Quick Start**: [QUICK_START.md](QUICK_START.md)
@@ -741,6 +741,6 @@ For research institutions and commercial applications:
 
 ---
 
-**Thank you for using MPDC4GSR!** 🚀
+**Thank you for using MPDC4GSR!** [rocket]
 
 *This platform is designed to support high-quality physiological research. For questions, suggestions, or support, please don't hesitate to reach out through our GitHub repository.*

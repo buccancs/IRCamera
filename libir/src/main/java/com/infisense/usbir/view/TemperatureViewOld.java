@@ -41,11 +41,11 @@
     public class TemperatureViewOld extends SurfaceView implements SurfaceHolder.Callback, View.OnTouchListener {
 //
 //    private final String TAG = "TemperatureView";
-//    private final int LINE_STROKE_WIDTH = SizeUtils.dp2px(1f);// 点,线,面画笔大小
-//    private final int DOT_STROKE_WIDTH = SizeUtils.dp2px(1f);// 圆点线宽
-//    private final int DOT_RADIUS = SizeUtils.dp2px(3f);// 圆点半径
-//    private final int POINT_SIZE = SizeUtils.sp2px(8f);// 十字架
-//    private final int TEXT_SIZE = SizeUtils.sp2px(14f);// 文本大小
+//    private final int LINE_STROKE_WIDTH = SizeUtils.dp2px(1f);// point,line,[Chinese text]
+//    private final int DOT_STROKE_WIDTH = SizeUtils.dp2px(1f);// [Chinese text]pointline[Chinese text]
+//    private final int DOT_RADIUS = SizeUtils.dp2px(3f);// [Chinese text]point[Chinese text]
+//    private final int POINT_SIZE = SizeUtils.sp2px(8f);// [Chinese text]
+//    private final int TEXT_SIZE = SizeUtils.sp2px(14f);// [Chinese text]
 //
 //    //    private final int TOUCH_TOLERANCE = 48;
 //    private final int TOUCH_TOLERANCE = SizeUtils.sp2px(7f);
@@ -65,14 +65,14 @@
 //    private Libirtemp irtemp;
 //    private float minTemperature;
 //    private float maxTemperature;
-//    // 框里面的最高温和最低温
+//    // [Chinese text]high[Chinese text]low[Chinese text]
 //    private String RectMinTemp, RectMaxTemp;
 //
 //    // private float scale = 0;
-//    private float xscale = 0;// 图像缩放比例
+//    private float xscale = 0;// [Chinese text]
 //    private float yscale = 0;
-//    private int viewWidth = 0;// 控件宽度
-//    private int viewHeight = 0;// 控件高度
+//    private int viewWidth = 0;// [Chinese text]
+//    private int viewHeight = 0;// [Chinese text]high[Chinese text]
 //    private Bitmap regionBitmap;
 //    private Bitmap regionAndValueBitmap;
 //    private Object regionLock = new Object();
@@ -127,7 +127,7 @@
 //    private int imageWidth;
 //    private int imageHeight;
 //    private SynchronizedBitmap syncimage;
-//    private int temperatureRegionMode; // 0:点  1:线  2: 面  3:全屏
+//    private int temperatureRegionMode; // 0:point  1:line  2: [Chinese text]  3:[Chinese text]
 //    private boolean runflag = true;
 //    private boolean isShow = false;
 //
@@ -285,12 +285,12 @@
 //                    if (syncimage.type == 1) irtemp.setScale(16);
 //                }
 //
-//                // 中心点数据
+//                // in progress[Chinese text]point[Chinese text]
 //                TemperatureSampleResult temperatureSampleResult = irtemp.getTemperatureOfRect(new Rect(0, 0, imageWidth / 2, imageHeight - 1));
 //                maxTemperature = temperatureSampleResult.maxTemperature;
 //                minTemperature = temperatureSampleResult.minTemperature;
 //
-//                // 点,线,框
+//                // point,line,[Chinese text]
 //                if (rectangles.size() != 0 || lines.size() != 0 || points.size() != 0 || temperatureRegionMode == REGION_MODE_CENTER) {
 //                    synchronized (regionLock) {
 //                        int moveX = SizeUtils.dp2px(8);
@@ -301,7 +301,7 @@
 //                        }
 //                        regionAndValueCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
 //                        regionAndValueCanvas.drawBitmap(regionBitmap, new Rect(0, 0, viewWidth, viewHeight), new Rect(0, 0, viewWidth, viewHeight), null);
-//                        // 获取全图最高温和最低温的数据
+//                        // [Chinese text]high[Chinese text]low[Chinese text]
 //                        if(tempRect == null){
 //                            tempRect = new Rect(0, 0, imageWidth - 1, imageHeight - 1);
 //                        }else{
@@ -326,11 +326,11 @@
 //                        if (listener != null && hasChange) {
 //                            listener.getTemp(newMaxTemperatureTem, newMinTemperatureTem);
 //                        }
-//                        // 全局最低温
+//                        // [Chinese text]low[Chinese text]
 //                        float minX0 = temperatureSampleEasyResult.minTemperaturePixel.x * xscale;
 //                        float minY0 = temperatureSampleEasyResult.minTemperaturePixel.y * yscale;
 //                        String minTem = showCText(minTemperatureTem);
-//                        // 越界修正坐标点(minX0, minY0)
+//                        // [Chinese text]point(minX0, minY0)
 //                        if (minX0 <= 0 && minY0 <= 0) {
 //                            minX0 = PIXCOUNT;
 //                            minY0 = PIXCOUNT;
@@ -354,7 +354,7 @@
 //                        float minTemTextX = minX0;
 //                        float minTemTextY = minY0;
 //                        float minTemTextTolerate = 30;
-//                        // 越界修正填充坐标点(minTemTextX, minTemTextY)
+//                        // [Chinese text]point(minTemTextX, minTemTextY)
 //                        if (minX0 <= minTemTextTolerate && minY0 <= minTemTextTolerate) {
 //                            minTemTextX = minTemTextTolerate;
 //                            minTemTextY = minTemTextTolerate;
@@ -379,16 +379,16 @@
 //                            minTemTextX = minX0;
 //                            minTemTextY = minY0;
 //                        }
-//                        // 绘制全局最低温度
+//                        // [Chinese text]lowtemperature
 //                        if (temperatureRegionMode == REGION_MODE_CENTER) {
 //                            regionAndValueCanvas.drawText(minTem, 0, minTem.length(), minTemTextX + moveX, minTemTextY, maxPaint);
 //                            drawDot(regionAndValueCanvas, bluePaint, minX0, minY0);
 //                        }
-//                        // 全局最高温
+//                        // [Chinese text]high[Chinese text]
 //                        String maxTem = showCText(maxTemperatureTem);
 //                        float maxTemX = temperatureSampleEasyResult.maxTemperaturePixel.x * xscale;
 //                        float maxTemY = temperatureSampleEasyResult.maxTemperaturePixel.y * yscale;
-//                        // 越界修正坐标点
+//                        // [Chinese text]point
 //                        if (maxTemX <= 0 && maxTemY <= 0) {
 //                            maxTemX = PIXCOUNT;
 //                            maxTemY = PIXCOUNT;
@@ -411,7 +411,7 @@
 //                        }
 //                        float maxTemTextX = maxTemX;
 //                        float maxTemTextY = maxTemY;
-//                        // 越界修正填充坐标点(maxTemTextX, maxTemTextY)
+//                        // [Chinese text]point(maxTemTextX, maxTemTextY)
 //                        if (maxTemX <= minTemTextTolerate && maxTemY <= minTemTextTolerate) {
 //                            maxTemTextX = minTemTextTolerate;
 //                            maxTemTextY = minTemTextTolerate;
@@ -437,14 +437,14 @@
 //                            maxTemTextY = maxTemY;
 //                        }
 //
-//                        // 绘制全局最高温度
+//                        // [Chinese text]hightemperature
 //                        if (temperatureRegionMode == REGION_MODE_CENTER) {
 //                            regionAndValueCanvas.rotate(0, maxTemTextX, maxTemTextY);
 //                            regionAndValueCanvas.drawText(maxTem, 0, maxTem.length(), maxTemTextX + moveX, maxTemTextY, maxPaint);
 //                            drawDot(regionAndValueCanvas, redPaint, maxTemTextX, maxTemTextY);
 //                        }
 //
-//                        // 面温度
+//                        // [Chinese text]temperature
 //                        for (int index = 0; index < rectangles.size(); index++) {
 //                            Rect tempRectangle = rectangles.get(index);
 //                            int left = (int) (tempRectangle.left / xscale);
@@ -471,7 +471,7 @@
 //                        for (int i = rectangles.size(); i < drawCount; i++) {
 //                            rectangleResultList.get(i).index = 0;
 //                        }
-//                        // 线温度
+//                        // linetemperature
 //                        for (int index = 0; index < lines.size(); index++) {
 //                            Line tempLine = lines.get(index);
 //                            int startX = (int) (tempLine.start.x / xscale);
@@ -487,7 +487,7 @@
 //                                temperatureSampleResult = irtemp.getTemperatureOfLine(new Line(new Point(startX, startY), new Point(endX, endY)));
 //                                lineResultList.set(index, temperatureSampleResult);
 //                                lineResultList.get(index).index = index + 1;
-//                                // 读取到温度
+//                                // [Chinese text]temperature
 
 //                                String min = showCText(temperatureSampleResult.minTemperature);
 //                                String max = showCText(temperatureSampleResult.maxTemperature);
@@ -498,13 +498,13 @@
 //                            }
 //                        }
 //                        for (int i = lines.size(); i < drawCount; i++) {
-//                            // Settings不计数状态
+//                            // Settings[Chinese text]
 //                            lineResultList.get(i).index = 0;
 //                        }
-//                        // 点温度
+//                        // pointtemperature
 //                        for (int index = 0; index < points.size(); index++) {
 //                            Point tempPoint = points.get(index);
-//                            int x = (int) (tempPoint.x / xscale);// 精度丢失,处理方式:在onTouch绘制的十字标做同样丢失,保证显示点校对
+//                            int x = (int) (tempPoint.x / xscale);// [Chinese text],[Chinese text]:[Chinese text]onTouch[Chinese text],[Chinese text]point[Chinese text]
 //                            int y = (int) (tempPoint.y / yscale);
 //                            if (x < imageWidth && x > 0 && y < imageHeight && y > 0) {
 //                                temperatureSampleResult = irtemp.getTemperatureOfPoint(new Point(x, y));
@@ -518,7 +518,7 @@
 //                        for (int i = points.size(); i < drawCount; i++) {
 //                            pointResultList.get(i).index = 0;
 //                        }
-//                        // 中心温度
+//                        // in progress[Chinese text]temperature
 //                        if (temperatureRegionMode == REGION_MODE_CENTER ||
 //                                temperatureRegionMode == REGION_MODE_POINT ||
 //                                temperatureRegionMode == REGION_MODE_LINE ||
@@ -539,7 +539,7 @@
 //                        surfaceViewCanvas.drawBitmap(regionAndValueBitmap, new Rect(0, 0, viewWidth, viewHeight), new Rect(0, 0, viewWidth, viewHeight), null);
 //                        getHolder().unlockCanvasAndPost(surfaceViewCanvas);
 //                    }catch (Exception e){
-//                        XLog.e("Temperature View刷新异常: " + e.getMessage());
+//                        XLog.e("Temperature View[Chinese text]: " + e.getMessage());
 //                    }
 //                }else {
 //                    TemperatureSampleResult temperatureSampleEasyResult = null;
@@ -567,11 +567,11 @@
 //
 ////                SystemClock.sleep(333);
 //                try {
-//                    SystemClock.sleep(1000);// Settings刷新间隔
+//                    SystemClock.sleep(1000);// Settings[Chinese text]
 ////                    int[] value = new int[1];
 ////                    Libircmd.set_prop_tpd_params(Libircmd.TPD_PROP_GAIN_SEL, (char) 0, 1);
 //                } catch (Exception e) {
-//                    XLog.e("Temperature View刷新异常: " + e.getMessage());
+//                    XLog.e("Temperature View[Chinese text]: " + e.getMessage());
 //                }
 //            }
 
@@ -632,7 +632,7 @@
 //    }
 //
 //    /**
-//     * 温度测量选区
+//     * temperaturemeasurement[Chinese text]
 //     */
 //    @Override
 //    public boolean onTouch(View v, MotionEvent event) {
@@ -1207,7 +1207,7 @@
 //    }
 //
 //    /**
-//     * 输入一个坐标,找出是否已经存在的直线,没有返回一条初始直线
+//     * [Chinese text],[Chinese text]line,[Chinese text]line
 //     */
 //    public Line getLine(Point point) {
 //        Line line = new Line();
@@ -1275,10 +1275,10 @@
 ////    }
 //
 //    private void drawPoint(Canvas canvas, Paint paint, float x1, float y1) {
-//        // Point的单位是int,从float转换,导致绘制圆点时已经精度丢失 2022-04-12
-//        float x = (int) (x1 / xscale) * xscale;// 模拟drawDot入参x1转换方式
+//        // Point[Chinese text]int,[Chinese text]float[Chinese text],[Chinese text]point[Chinese text] 2022-04-12
+//        float x = (int) (x1 / xscale) * xscale;// [Chinese text]drawDot[Chinese text]x1[Chinese text]
 //        float y = (int) (y1 / yscale) * yscale;
-//        // 空心十字
+//        // [Chinese text]
 //        float[] points = new float[]{
 //                x - POINT_SIZE, y, x - DOT_RADIUS, y,
 //                x, y - POINT_SIZE, x, y - DOT_RADIUS,

@@ -1,16 +1,16 @@
 package com.topdon.ble;
 
 /**
- * 配对控制器
+ * [Chinese text]
  * <p>
  * date: 2021/8/12 12:59
  * author: bichuanfeng
  */
 public interface BondController {
     /**
-     * 配对控制
+     * [Chinese text]
      * 
-     * @param device 设备
+     * @param device [Chinese text]
      */
     boolean accept(Device device);
 }

@@ -13,7 +13,7 @@ import java.util.regex.Pattern
  */
 class InputTextFilterTool {
     /**
-     * SettingseditText过滤器
+     * SettingseditText[Chinese text]
      *
      * @param editText
      */
@@ -24,12 +24,12 @@ class InputTextFilterTool {
         if (oldFiltersLength > 0) {
             System.arraycopy(oldFilters, 0, newFilters, 0, oldFiltersLength)
         }
-        // 添加新的过滤规则
+        // [Chinese text]
         newFilters[oldFiltersLength] = mInputFilter
         editText.filters = newFilters
     }
 
-    // 过滤表情
+    // [Chinese text]
     private var mInputFilter: InputFilter =
         object : InputFilter {
             //        Pattern emoji = Pattern.compile("[\ud83c\udc00-\ud83c\udfff]|[\ud83d\udc00-\ud83d\udfff]|[\u2600-\u27ff]", Pattern.UNICODE_CASE | Pattern.CASE_INSENSITIVE);
@@ -49,7 +49,7 @@ class InputTextFilterTool {
             ): CharSequence? {
                 val emojiMatcher = emoji.matcher(source)
                 if (emojiMatcher.find()) {
-                    Log.w("123", "不支持输入表情")
+                    Log.w("123", "[Chinese text]")
                     return ""
                 }
                 return null

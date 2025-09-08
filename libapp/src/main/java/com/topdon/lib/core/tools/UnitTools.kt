@@ -10,27 +10,27 @@ import java.util.*
  */
 object UnitTools {
     /**
-     * 温度显示
+     * temperature[Chinese text]
      *
-     * @param float 温度
+     * @param float temperature
      */
     @JvmStatic
     fun showC(float: Float): String {
         val str =
             if (SharedManager.getTemperature() == 1) {
-                // 温度
-                "${String.format(Locale.ENGLISH, "%.1f", float)}°C"
+                // temperature
+                "${String.format(Locale.ENGLISH, "%.1f", float)}degC"
             } else {
-                // 华氏度
-                "${String.format(Locale.ENGLISH, "%.1f", (float * 1.8000 + 32.00))}°F"
+                // [Chinese text]
+                "${String.format(Locale.ENGLISH, "%.1f", (float * 1.8000 + 32.00))}degF"
             }
         return str
     }
 
     /**
-     * 温度显示
+     * temperature[Chinese text]
      *
-     * @param float 温度
+     * @param float temperature
      */
     @JvmStatic
     fun showC(
@@ -39,17 +39,17 @@ object UnitTools {
     ): String {
         val str =
             if (isC) {
-                // 温度
-                "${String.format(Locale.ENGLISH, "%.1f", float)}°C"
+                // temperature
+                "${String.format(Locale.ENGLISH, "%.1f", float)}degC"
             } else {
-                // 华氏度
-                "${String.format(Locale.ENGLISH, "%.1f", (float * 1.8000 + 32.00))}°F"
+                // [Chinese text]
+                "${String.format(Locale.ENGLISH, "%.1f", (float * 1.8000 + 32.00))}degF"
             }
         return str
     }
 
     /**
-     * 温度区间
+     * temperature[Chinese text]
      */
     @JvmStatic
     fun showIntervalC(
@@ -58,19 +58,19 @@ object UnitTools {
     ): String {
         val str =
             if (SharedManager.getTemperature() == 1) {
-                // 温度
-                "$min~$max°C"
+                // temperature
+                "$min~$maxdegC"
             } else {
-                // 华氏度
+                // [Chinese text]
                 val maxT: Int = (max * 1.8000 + 32.00).toInt()
                 val minT: Int = (min * 1.8000 + 32.00).toInt()
-                "$minT~$maxT°F"
+                "$minT~$maxTdegF"
             }
         return str
     }
 
     /**
-     * 配置温度区间
+     * [Chinese text]temperature[Chinese text]
      */
     @JvmStatic
     fun showConfigC(
@@ -79,57 +79,57 @@ object UnitTools {
     ): String {
         val str =
             if (SharedManager.getTemperature() == 1) {
-                // 温度
-                "($min~$max°C)"
+                // temperature
+                "($min~$maxdegC)"
             } else {
-                // 华氏度
+                // [Chinese text]
                 val maxT: Int = (max * 1.8000 + 32.00).toInt()
                 val minT: Int = (min * 1.8000 + 32.00).toInt()
-                "($minT~$maxT°F)"
+                "($minT~$maxTdegF)"
             }
         return str
     }
 
     /**
-     * 温度显示单位
+     * temperature[Chinese text]
      *
-     * @param float 温度
+     * @param float temperature
      */
     @JvmStatic
     fun showUnit(): String {
         val str =
             if (SharedManager.getTemperature() == 1) {
-                // 温度
-                "°C"
+                // temperature
+                "degC"
             } else {
-                // 华氏度
-                "°F"
+                // [Chinese text]
+                "degF"
             }
         return str
     }
 
     /**
-     * 温度显示单位
+     * temperature[Chinese text]
      *
-     * @param float 温度
+     * @param float temperature
      */
     @JvmStatic
     fun showUnitValue(value: Float): Float {
         val str =
             if (SharedManager.getTemperature() == 1) {
-                // 温度
+                // temperature
                 value
             } else {
-                // 华氏度
+                // [Chinese text]
                 toF(value)
             }
         return str.toFloat()
     }
 
     /**
-     * 温度显示单位
+     * temperature[Chinese text]
      *
-     * @param float 温度
+     * @param float temperature
      */
     @JvmStatic
     fun showUnitValue(
@@ -142,19 +142,19 @@ object UnitTools {
             }
         val str =
             if (showC) {
-                // 温度
+                // temperature
                 value
             } else {
-                // 华氏度
+                // [Chinese text]
                 toF(value)
             }
         return str.toFloat()
     }
 
     /**
-     * 统一转成摄氏度
+     * [Chinese text]
      *
-     * @param float 温度
+     * @param float temperature
      */
     @JvmStatic
     fun showToCValue(
@@ -163,57 +163,57 @@ object UnitTools {
     ): Float {
         val str =
             if (isShowC) {
-                // 温度
+                // temperature
                 value
             } else {
-                // 华氏度
+                // [Chinese text]
                 toC(value)
             }
         return str.toFloat()
     }
 
     /**
-     * 统一转成摄氏度
+     * [Chinese text]
      *
-     * @param float 温度
+     * @param float temperature
      */
     @JvmStatic
     fun showToCValue(value: Float): Float {
         val str =
             if (SharedManager.getTemperature() == 1) {
-                // 温度
+                // temperature
                 value
             } else {
-                // 华氏度
+                // [Chinese text]
                 toC(value)
             }
         return str.toFloat()
     }
 
     /**
-     * 转华氏度
+     * [Chinese text]
      */
     fun toF(value: Float): Float {
         return value * 1.8000f + 32.00f
     }
 
     /**
-     * 转摄氏度
-     * 使用浮点型,防止华氏度转摄氏度精度丢失
+     * [Chinese text]
+     * [Chinese text]point[Chinese text],[Chinese text]
      */
     fun toC(value: Float): Float {
         return (value - 32.0f) / 1.8000f
     }
 
     /**
-     * 输入摄氏度，返回保留1位小数不带单位字符的 String.
+     * [Chinese text], [Chinese text]1[Chinese text] String.
      *
-     * @param float 温度值，单位摄氏度
+     * @param float temperature[Chinese text], [Chinese text]
      */
     @JvmStatic
     fun showNoUnit(float: Float): String {
         val str =
-            if (SharedManager.getTemperature() == 1) { // 摄氏度
+            if (SharedManager.getTemperature() == 1) { // [Chinese text]
                 String.format(Locale.ENGLISH, "%.1f", float)
             } else {
                 String.format(Locale.ENGLISH, "%.1f", (float * 1.8000 + 32.00))
@@ -222,14 +222,14 @@ object UnitTools {
     }
 
     /**
-     * 输入摄氏度，返回保留1位小数带单位字符的 String.
+     * [Chinese text], [Chinese text]1[Chinese text] String.
      *
-     * @param float 温度值，单位摄氏度
+     * @param float temperature[Chinese text], [Chinese text]
      */
     @JvmStatic
     fun showWithUnit(float: Float): String {
         val str =
-            if (SharedManager.getTemperature() == 1) { // 摄氏度
+            if (SharedManager.getTemperature() == 1) { // [Chinese text]
                 String.format(Locale.ENGLISH, "%.1f", float)
             } else {
                 String.format(Locale.ENGLISH, "%.1f", (float * 1.8000 + 32.00))

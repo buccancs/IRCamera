@@ -5,7 +5,7 @@ package com.topdon.lib.core.bean;
      */
     public class HouseRepPreviewProjectItemBean {
     public String projectName;
-    //// 1-没问题 2-需维修 3-需更换
+    //// 1-[Chinese text] 2-[Chinese text] 3-[Chinese text]
     public int state = 1;
     public String remark;
 }

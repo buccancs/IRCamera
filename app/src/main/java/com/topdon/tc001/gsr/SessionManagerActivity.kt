@@ -415,12 +415,12 @@ class SessionAdapter(
         // Subtitle: Study name and date
         val studyText = session.studyName ?: "Unnamed Study"
         val dateText = dateFormatter.format(Date(session.startTime))
-        holder.subtitleText.text = "$studyText • $dateText"
+        holder.subtitleText.text = "$studyText * $dateText"
 
         // Status
         val statusText =
             if (session.isActive()) {
-                "🟢 Active"
+                "[green] Active"
             } else {
                 val duration =
                     if (session.endTime != null) {
@@ -430,7 +430,7 @@ class SessionAdapter(
                     } else {
                         "Unknown duration"
                     }
-                "⚪ Completed • $duration"
+                "[white circle] Completed * $duration"
             }
         holder.statusText.text = statusText
 
@@ -442,9 +442,9 @@ class SessionAdapter(
 
         holder.dataTypesText.text =
             if (dataTypes.isNotEmpty()) {
-                "📊 ${dataTypes.joinToString(", ")}"
+                "[chart] ${dataTypes.joinToString(", ")}"
             } else {
-                "📊 No data files found"
+                "[chart] No data files found"
             }
 
         // Click handlers

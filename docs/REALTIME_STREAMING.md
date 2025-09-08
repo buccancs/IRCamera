@@ -1,33 +1,33 @@
 # IRCamera Platform - Enterprise Real-Time Processing & Streaming Guide
 
-## 🚀 Overview
+## [rocket] Overview
 
 This **comprehensive enterprise real-time processing guide** provides detailed strategies for implementing ultra-low-latency processing and streaming capabilities in the IRCamera thermal imaging platform, enabling sub-millisecond data processing, enterprise-grade live streaming, real-time ML analytics, edge computing deployment, and massive scale streaming infrastructure.
 
-## 📋 Table of Contents
+## [clipboard] Table of Contents
 
-1. [🏗️ Enterprise Real-Time Architecture](#enterprise-real-time-architecture) - Complete real-time system design
-2. [📊 Advanced Stream Processing Pipeline](#advanced-stream-processing-pipeline) - High-throughput data processing
-3. [⚡ Ultra-Low-Latency Optimization](#ultra-low-latency-optimization) - Sub-millisecond processing strategies
-4. [📡 Enterprise WebRTC Integration](#enterprise-webrtc-integration) - Scalable video streaming
-5. [🧠 Real-Time ML Analytics](#real-time-ml-analytics) - Live AI processing and inference
-6. [📱 Edge Computing & 5G](#edge-computing--5g) - Distributed edge processing
-7. [📈 Advanced Performance Monitoring](#advanced-performance-monitoring) - Real-time observability
-8. [🔄 Auto-Scaling Strategies](#auto-scaling-strategies) - Dynamic resource management
-9. [☁️ Cloud-Native Streaming](#cloud-native-streaming) - Enterprise cloud deployment
-10. [🛡️ Security & Compliance](#security--compliance) - Secure real-time processing
-11. [🌐 Global Distribution](#global-distribution) - Worldwide streaming infrastructure
-12. [📊 Enterprise Analytics Dashboard](#enterprise-analytics-dashboard) - Real-time business insights
+1. [[construction] Enterprise Real-Time Architecture](#enterprise-real-time-architecture) - Complete real-time system design
+2. [[chart] Advanced Stream Processing Pipeline](#advanced-stream-processing-pipeline) - High-throughput data processing
+3. [[lightning] Ultra-Low-Latency Optimization](#ultra-low-latency-optimization) - Sub-millisecond processing strategies
+4. [[satellite] Enterprise WebRTC Integration](#enterprise-webrtc-integration) - Scalable video streaming
+5. [[brain] Real-Time ML Analytics](#real-time-ml-analytics) - Live AI processing and inference
+6. [[mobile] Edge Computing & 5G](#edge-computing--5g) - Distributed edge processing
+7. [[chart up] Advanced Performance Monitoring](#advanced-performance-monitoring) - Real-time observability
+8. [[refresh] Auto-Scaling Strategies](#auto-scaling-strategies) - Dynamic resource management
+9. [[cloud] Cloud-Native Streaming](#cloud-native-streaming) - Enterprise cloud deployment
+10. [[shield] Security & Compliance](#security--compliance) - Secure real-time processing
+11. [[globe] Global Distribution](#global-distribution) - Worldwide streaming infrastructure
+12. [[chart] Enterprise Analytics Dashboard](#enterprise-analytics-dashboard) - Real-time business insights
 
 ---
 
-## 🏗️ Enterprise Real-Time Architecture
+## [construction] Enterprise Real-Time Architecture
 
-### 🚀 Advanced Real-Time System Architecture
+### [rocket] Advanced Real-Time System Architecture
 
 ```mermaid
 graph TB
-    subgraph "📊 Multi-Modal Data Sources"
+    subgraph "[chart] Multi-Modal Data Sources"
         TC001[TC001 Professional<br/>60 FPS + GPU Processing]
         TC007[TC007 Wireless<br/>30 FPS + 5G Connectivity]
         TS004[TS004 Network<br/>IP Streaming + PoE]
@@ -37,7 +37,7 @@ graph TB
         AndroidDevices[Android Enterprise Fleet<br/>Edge Processing + 5G]
     end
     
-    subgraph "⚡ Edge Processing Layer"
+    subgraph "[lightning] Edge Processing Layer"
         EdgeNodes[Edge Computing Nodes<br/>NVIDIA Jetson + Intel NCS]
         5GNetwork[5G Ultra-Low Latency<br/>Sub-1ms Network]
         WiFi6[WiFi 6E Networks<br/>High Bandwidth + Low Latency]
@@ -45,7 +45,7 @@ graph TB
         LocalCache[Edge Caching<br/>Redis + Hazelcast]
     end
     
-    subgraph "🌊 Stream Processing Infrastructure"
+    subgraph "[wave] Stream Processing Infrastructure"
         StreamIngestion[Stream Ingestion<br/>Apache Kafka + Pulsar]
         RealTimeProcessing[Real-Time Processing<br/>Apache Flink + Storm]
         StreamAnalytics[Stream Analytics<br/>Apache Spark Streaming]
@@ -53,7 +53,7 @@ graph TB
         MessageQueue[Enterprise Message Queue<br/>RabbitMQ + Apache ActiveMQ]
     end
     
-    subgraph "🧠 Real-Time ML & AI"
+    subgraph "[brain] Real-Time ML & AI"
         MLInference[Real-Time ML Inference<br/>TensorFlow Serving + PyTorch]
         StreamML[Stream ML Processing<br/>River + Kafka ML]
         AnomalyDetection[Real-Time Anomaly Detection<br/>Isolation Forest + LSTM]
@@ -61,7 +61,7 @@ graph TB
         ComputerVision[Real-Time Computer Vision<br/>OpenCV + YOLO + ResNet]
     end
     
-    subgraph "📡 Enterprise Streaming Services"
+    subgraph "[satellite] Enterprise Streaming Services"
         WebRTC[Enterprise WebRTC<br/>Multi-Party + Recording]
         HLS[HLS/DASH Streaming<br/>Adaptive Bitrate]
         RTMP[RTMP Live Streaming<br/>Professional Broadcasting]

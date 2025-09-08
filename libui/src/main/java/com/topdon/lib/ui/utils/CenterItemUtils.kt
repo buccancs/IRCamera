@@ -6,9 +6,9 @@ package com.topdon.lib.ui.utils
  */
 internal object CenterItemUtils {
     fun getMinDifferItem(itemHeights: List<CenterViewItem>): CenterViewItem {
-        var minItem = itemHeights[0] // 默认第一个是最小差值
+        var minItem = itemHeights[0] // [Chinese text]
         for (i in itemHeights.indices) {
-            // 遍历获取最小差值
+            // [Chinese text]
             if (itemHeights[i].differ <= minItem.differ) {
                 minItem = itemHeights[i]
             }
@@ -17,7 +17,7 @@ internal object CenterItemUtils {
     }
 
     class CenterViewItem
-    // 当前Item索引
-    // 当前item和居中位置的差值
+    // [Chinese text]Item[Chinese text]
+    // [Chinese text]item[Chinese text]in progress[Chinese text]
     (var position: Int, var differ: Int)
 }

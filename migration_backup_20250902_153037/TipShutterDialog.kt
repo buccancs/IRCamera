@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.dialog_tip_shutter.view.*
 
 
 /**
- * 自动快门提示弹窗
+ * [Chinese text]
  * @author: CaiSongL
  * @date: 2023/4/13 10:57
  */
@@ -72,7 +72,7 @@ class TipShutterDialog : Dialog {
             dialog!!.setCanceledOnTouchOutside(canceled)
 
             val lp = dialog!!.window!!.attributes
-            lp.width = (ScreenUtil.getScreenWidth(context) * if (ScreenUtil.isPortrait(context)) 0.85 else 0.35).toInt() //设置宽度
+            lp.width = (ScreenUtil.getScreenWidth(context) * if (ScreenUtil.isPortrait(context)) 0.85 else 0.35).toInt() //settings[Chinese text]
             dialog!!.window!!.attributes = lp
 
             view.tv_i_know.setOnClickListener {

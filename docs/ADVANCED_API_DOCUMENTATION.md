@@ -1,27 +1,27 @@
 # IRCamera Platform - Enterprise Advanced API Documentation
 
-## 🎯 Overview
+## [target] Overview
 
 This document provides **comprehensive enterprise-grade API documentation** for the IRCamera platform, including detailed code examples, enterprise integration patterns, advanced usage scenarios, cloud deployment strategies, ML/AI integration, and production-ready implementation guides for all components and libraries.
 
-## 📋 Table of Contents
+## [clipboard] Table of Contents
 
-1. [📱 Android Enterprise Application API](#android-enterprise-application-api) - Complete Android API with enterprise features
-2. [🖥️ PC Controller Enterprise API](#pc-controller-enterprise-api) - Python-based enterprise hub API
-3. [🔧 Core Libraries Enterprise API](#core-libraries-enterprise-api) - Advanced library integration
-4. [🌐 Network Protocol Enterprise API](#network-protocol-enterprise-api) - Secure networking and cloud integration
-5. [☁️ Cloud Integration API](#cloud-integration-api) - AWS, Azure, GCP enterprise patterns
-6. [🤖 ML/AI Integration API](#ml-ai-integration-api) - Machine learning and AI capabilities
-7. [📡 Real-Time Streaming API](#real-time-streaming-api) - WebRTC and live analytics
-8. [🔄 Enterprise Integration Examples](#enterprise-integration-examples) - Production deployment patterns
-9. [🛡️ Security & Error Handling](#security-error-handling) - Enterprise security patterns
-10. [⚡ Performance Optimization](#performance-optimization) - Enterprise optimization strategies
+1. [[mobile] Android Enterprise Application API](#android-enterprise-application-api) - Complete Android API with enterprise features
+2. [[desktop] PC Controller Enterprise API](#pc-controller-enterprise-api) - Python-based enterprise hub API
+3. [[tool] Core Libraries Enterprise API](#core-libraries-enterprise-api) - Advanced library integration
+4. [[globe] Network Protocol Enterprise API](#network-protocol-enterprise-api) - Secure networking and cloud integration
+5. [[cloud] Cloud Integration API](#cloud-integration-api) - AWS, Azure, GCP enterprise patterns
+6. [[robot] ML/AI Integration API](#ml-ai-integration-api) - Machine learning and AI capabilities
+7. [[satellite] Real-Time Streaming API](#real-time-streaming-api) - WebRTC and live analytics
+8. [[refresh] Enterprise Integration Examples](#enterprise-integration-examples) - Production deployment patterns
+9. [[shield] Security & Error Handling](#security-error-handling) - Enterprise security patterns
+10. [[lightning] Performance Optimization](#performance-optimization) - Enterprise optimization strategies
 
 ---
 
-## 📱 Android Enterprise Application API
+## [mobile] Android Enterprise Application API
 
-### 🔥 Thermal-IR Module Enterprise API
+### [fire] Thermal-IR Module Enterprise API
 
 #### Enterprise Core Thermal Processing Interface
 ```kotlin
@@ -406,8 +406,8 @@ data class GSRDataPoint(
     val timestamp: Long,                    // Nanosecond precision timestamp
     val deviceId: String,                   // Source device identifier
     val rawADC: Int,                       // Raw 12-bit ADC value (0-4095)
-    val resistance: Double,                 // Calculated resistance in kΩ
-    val conductance: Double,                // Calculated conductance in μS
+    val resistance: Double,                 // Calculated resistance in kOhm
+    val conductance: Double,                // Calculated conductance in microS
     val qualityMetrics: DataQualityMetrics, // Data quality assessment
     val deviceStatus: DeviceStatus,         // Device status at time of measurement
     val environmentalData: EnvironmentalData? = null // Optional environmental context
@@ -458,7 +458,7 @@ data class SkinConductanceResponse(
     val onset: GSRDataPoint,               // Response onset point
     val peak: GSRDataPoint,                // Response peak point
     val offset: GSRDataPoint?,             // Response offset point (may be null)
-    val amplitude: Double,                 // Response amplitude in μS
+    val amplitude: Double,                 // Response amplitude in microS
     val latency: Duration,                 // Onset to peak latency
     val halfRecoveryTime: Duration?,       // Time to half recovery
     val riseTime: Duration,                // Rise time from onset to peak

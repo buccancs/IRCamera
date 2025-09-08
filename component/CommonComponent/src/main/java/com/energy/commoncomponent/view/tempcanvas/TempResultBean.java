@@ -12,23 +12,23 @@ public class TempResultBean {
     private float averageTemperature;
     private long order;
 
-    private int position; // 相对应点线框list的position
+    private int position; // [Chinese text]pointline[Chinese text]list[Chinese text]position
 
-    // 类型
+    // [Chinese text]
     private TempInfoMode tempInfoMode;
-    // 环境温度
+    // [Chinese text]temperature
     private float ambientTemp;
-    // 测温距离
+    // [Chinese text]
     private float measureDistance;
-    // 辐射率
+    // [Chinese text]
     private float emissivity;
-    // 高温报警开关
+    // high[Chinese text]
     private boolean highAlertEnable;
-    // 高温阀值
+    // high[Chinese text]
     private float highThreshold;
-    // 低温报警开关
+    // low[Chinese text]
     private boolean lowAlertEnable;
-    // 低温阀值
+    // low[Chinese text]
     private float lowThreshold;
 
     private int x1;

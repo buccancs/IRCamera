@@ -26,12 +26,12 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
     protected lateinit var binding: ActivityImagePickIrPlushBinding
 
     /**
-     * String 类型 - 拾取的图片在本地的绝对路径.
+     * String [Chinese text] - [Chinese text].
      */
     val RESULT_IMAGE_PATH = "RESULT_IMAGE_PATH"
 
     /**
-     * 当前是否已拍了一张照等待完成.
+     * [Chinese text].
      */
     private var hasTakePhoto = false
 
@@ -50,7 +50,7 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
         binding = ActivityImagePickIrPlushBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 默认选中画圆
+        // [Chinese text]in progress[Chinese text]
         binding.ivEditCircle.isSelected = true
         binding.imageEditView.type = ImageEditView.Type.CIRCLE
         binding.viewColor.setBackgroundColor(binding.imageEditView.color)
@@ -91,12 +91,12 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
             MeasureSpec.makeMeasureSpec(heightPixels, MeasureSpec.AT_MOST),
         )
 
-        val ivPickHeight = SizeUtils.dp2px(60f + 20 + 20) // Photo capture按钮高度，60dp+上下各20dp margin
+        val ivPickHeight = SizeUtils.dp2px(60f + 20 + 20) // Photo capturebuttonhigh[Chinese text], 60dp+[Chinese text]20dp margin
         val menuHeight = (widthPixels * 75f / 384).toInt()
         val bottomHeight = ivPickHeight.coerceAtLeast(menuHeight)
         val canUseHeight = heightPixels - binding.titleView.measuredHeight - bottomHeight
         val wantHeight = (widthPixels * 256f / 192).toInt()
-        if (wantHeight <= canUseHeight) { // 够用
+        if (wantHeight <= canUseHeight) { // [Chinese text]
             binding.fragmentContainerView.layoutParams =
                 binding.fragmentContainerView.layoutParams.apply {
                     this.width = widthPixels
@@ -175,7 +175,7 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 切换 已Photo capture模式/未Photo capture模式.
+     * switch [Chinese text]Photo capturemode/[Chinese text]Photo capturemode.
      */
     private fun switchPhotoState(hasTakePhoto: Boolean) {
         this.hasTakePhoto = hasTakePhoto
@@ -187,8 +187,8 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 显示退出不保存提示弹框
-     * @param listener 点击弹框上退出事件监听
+     * [Chinese text]
+     * @param listener point[Chinese text]eventlistener
      */
     private fun showExitTipsDialog(listener: (() -> Unit)) {
         TipDialog.Builder(this)

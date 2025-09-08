@@ -8,10 +8,10 @@ import com.topdon.ble.Request;
  */
 public interface ReadDescriptorCallback extends RequestFailedCallback {
     /**
-     * 读取到描述符值
+     * [Chinese text]
      *
-     * @param request 请求
-     * @param value   读取到的数据
+     * @param request [Chinese text]
+     * @param value   [Chinese text]
      */
     void onDescriptorRead(Request request, byte[] value);
 }

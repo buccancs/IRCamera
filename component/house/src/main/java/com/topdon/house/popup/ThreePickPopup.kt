@@ -10,7 +10,7 @@ import com.blankj.utilcode.util.SizeUtils
 import com.topdon.house.R
 
 /**
- * 房屋检测的选项 Popup 最多 3 个选项，就不跟 TC003 一样搞列表了。
+ * [Chinese text] Popup [Chinese text] 3 [Chinese text], [Chinese text] TC003 [Chinese text]. 
  *
  * Created by LCG on 2024/8/23.
  */
@@ -60,8 +60,8 @@ internal class ThreePickPopup(val context: Context, strIdArray: List<Int>, priva
     }
 
     /**
-     * 显示
-     * @param isLeft true-左对齐 false-右对齐
+     * [Chinese text]
+     * @param isLeft true-[Chinese text] false-[Chinese text]
      */
     fun show(anchor: View, isLeft: Boolean) {
         val heightPixels = context.resources.displayMetrics.heightPixels
@@ -71,15 +71,15 @@ internal class ThreePickPopup(val context: Context, strIdArray: List<Int>, priva
         val x = if (isLeft) locationArray[0] else locationArray[0] + anchor.width + SizeUtils.dp2px(17f) - width
 
         if (isLeft) {
-            if (locationArray[1] >= height) {// 在 anchor 上面放得下
+            if (locationArray[1] >= height) {// [Chinese text] anchor [Chinese text]
                 showAtLocation(anchor, Gravity.NO_GRAVITY, x, locationArray[1] - height)
-            } else {// 上面放不下就放下面吧
+            } else {// [Chinese text]
                 showAsDropDown(anchor, Gravity.NO_GRAVITY, x, locationArray[1] + anchor.height)
             }
         } else {
-            if (heightPixels - locationArray[1] - anchor.height - SizeUtils.dp2px(10f) > height) {// 在 anchor 底部放得下
+            if (heightPixels - locationArray[1] - anchor.height - SizeUtils.dp2px(10f) > height) {// [Chinese text] anchor [Chinese text]
                 showAtLocation(anchor, Gravity.NO_GRAVITY, x, locationArray[1] + anchor.height + SizeUtils.dp2px(10f))
-            } else {// 下面放不下就放上面吧
+            } else {// [Chinese text]
                 showAtLocation(anchor, Gravity.NO_GRAVITY, x, (locationArray[1] - SizeUtils.dp2px(10f) - height).coerceAtLeast(0))
             }
         }

@@ -12,11 +12,11 @@ import com.topdon.lib.core.R as LibCoreR
 import com.topdon.lib.ui.R as UiR
 
 /**
- * 生成报告第1步的预览界面.
+ * [Chinese text]1[Chinese text].
  *
- * 需要传递
- * - 必选：报告信息 [ExtraKeyConfig.REPORT_INFO]
- * - 可选：检测条件 [ExtraKeyConfig.REPORT_CONDITION]
+ * [Chinese text]
+ * - [Chinese text]: [Chinese text] [ExtraKeyConfig.REPORT_INFO]
+ * - [Chinese text]: [Chinese text] [ExtraKeyConfig.REPORT_CONDITION]
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class ReportPreviewFirstActivity: BaseActivity() {

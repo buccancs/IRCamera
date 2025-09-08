@@ -1,10 +1,10 @@
 package com.topdon.house.event
 
 /**
- * 一个检测下目录列表编辑成功事件.
+ * [Chinese text]event.
  *
  * Created by LCG on 2024/1/5.
  *
- * @param detectId 检测 id
+ * @param detectId [Chinese text] id
  */
 data class DetectDirListEvent(val detectId: Long)

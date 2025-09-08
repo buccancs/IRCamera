@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-present 贵州纳雍穿青人李裕江<1032694760@qq.com>
+ * Copyright (c) 2016-present [Chinese text]<1032694760@qq.com>
  *
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
@@ -31,9 +31,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 单项选择器
+ * [Chinese text]
  *
- * @author 贵州山野羡民（1032694760@qq.com）
+ * @author [Chinese text](1032694760@qq.com)
  * @see com.github.gzuliyujiang.wheelview.contract.TextProvider
  * @since 2019/5/8 10:04
  */
@@ -63,10 +63,10 @@ import java.util.List;
     @Override
     protected View createBodyView() {
         wheelLayout = new OptionWheelLayout(activity);
-        wheelLayout.setCurtainEnabled(true);// 选中栏是否有背景颜色
-        wheelLayout.setCurtainColor(ContextCompat.getColor(getContext(), R.color.wheel_select_bg));       // 选中栏背景颜色
-        wheelLayout.setSelectedTextColor(ContextCompat.getColor(getContext(), R.color.wheel_select_text));// 选中文字颜色
-        wheelLayout.setTextColor(ContextCompat.getColor(getContext(), R.color.wheel_unselect_text));      // 未选中文字颜色
+        wheelLayout.setCurtainEnabled(true);// [Chinese text]in progress[Chinese text]
+        wheelLayout.setCurtainColor(ContextCompat.getColor(getContext(), R.color.wheel_select_bg));       // [Chinese text]in progress[Chinese text]
+        wheelLayout.setSelectedTextColor(ContextCompat.getColor(getContext(), R.color.wheel_select_text));// [Chinese text]in progresstext[Chinese text]
+        wheelLayout.setTextColor(ContextCompat.getColor(getContext(), R.color.wheel_unselect_text));      // [Chinese text]in progresstext[Chinese text]
         return wheelLayout;
     }
 

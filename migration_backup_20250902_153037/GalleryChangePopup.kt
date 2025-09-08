@@ -11,7 +11,7 @@ import com.topdon.module.thermal.ir.R
 import kotlinx.android.synthetic.main.popup_gallery_change.view.*
 
 /**
- * 图库目录切换 PopupWindow.
+ * gallery[Chinese text]switch PopupWindow.
  *
  * Created by LCG on 2024/1/5.
  */
@@ -19,7 +19,7 @@ class GalleryChangePopup(private val context: Context) : PopupWindow() {
 
 
     /**
-     * 一个选项被选中事件监听.
+     * [Chinese text]in progresseventlistener.
      */
     var onPickListener: ((position: Int, str: String) -> Unit)? = null
 

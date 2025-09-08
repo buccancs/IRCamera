@@ -17,7 +17,7 @@ import com.topdon.lib.core.utils.ScreenUtil
 import kotlinx.android.synthetic.main.dialog_tip_emissivity.view.*
 
 /**
- * 发射率的提示弹窗
+ * [Chinese text]
  */
 class TipEmissivityDialog : Dialog {
 
@@ -135,13 +135,13 @@ class TipEmissivityDialog : Dialog {
             val lp = dialog!!.window!!.attributes
             val wRatio =
                 if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    //竖屏
+                    //[Chinese text]
                     0.75
                 } else {
-                    //横屏
+                    //[Chinese text]
                     0.35
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() //设置宽度
+            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() //settings[Chinese text]
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceled)

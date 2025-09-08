@@ -18,7 +18,7 @@ import com.infisense.usbdual.Const;
 import com.infisense.usbir.utils.OpencvTools;
 
     /**
-     * 红外图像展示控件，可以为TextureView或SurfaceView
+     * [Chinese text], [Chinese text]TextureView[Chinese text]SurfaceView
      */
     public class CameraView extends TextureView {
     private String TAG = "CameraView";
@@ -28,15 +28,15 @@ import com.infisense.usbir.utils.OpencvTools;
     private Thread cameraThread;
     private Canvas canvas = null;
     /**
-     * 画面中心的十字交叉线绘制
+     * [Chinese text]in progress[Chinese text]line[Chinese text]
      */
     private Paint paint;
     private int cross_len = 20;
     /**
-     * 帧率展示
+     * [Chinese text]
      */
     private Paint greenPaint;
-    private boolean drawLine = true;// 是否画中心十字架
+    private boolean drawLine = true;// [Chinese text]in progress[Chinese text]
     public int productType = Const.TYPE_IR;
     private int irWidth = 192;
     private int irHeight = 256;
@@ -72,19 +72,19 @@ import com.infisense.usbir.utils.OpencvTools;
     public CameraView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         //
-        paint = new Paint();  // 画笔
+        paint = new Paint();  // [Chinese text]
         paint = new Paint(Paint.FILTER_BITMAP_FLAG);
-//        paint = new Paint();  // 画笔
-        paint.setStrokeWidth(2);  // Settings线宽。单位为像素
-        paint.setAntiAlias(true); // 抗锯齿
-        paint.setDither(true);    // 防抖动
-        paint.setColor(Color.WHITE);  // 画笔颜色
+//        paint = new Paint();  // [Chinese text]
+        paint.setStrokeWidth(2);  // Settingsline[Chinese text]. [Chinese text]
+        paint.setAntiAlias(true); // [Chinese text]
+        paint.setDither(true);    // [Chinese text]
+        paint.setColor(Color.WHITE);  // [Chinese text]
         //
         greenPaint = new Paint();
         greenPaint.setStrokeWidth(6);
         greenPaint.setTextSize(56);
         greenPaint.setColor(Color.GREEN);
-        // 线程中绘制画面
+        // line[Chinese text]in progress[Chinese text]
         runnable = new Runnable() {
             @Override
             public void run() {
@@ -105,20 +105,20 @@ import com.infisense.usbir.utils.OpencvTools;
                             if (canvas == null) {
                                 continue;
                             }
-                            // 画面中心的十字交叉线绘制
-                            paint.setStrokeWidth(2);  // Settings线宽。单位为像素
-                            paint.setAntiAlias(true); // 抗锯齿
-                            paint.setDither(true);    // 防抖动
-                            paint.setColor(Color.WHITE);  // 画笔颜色
+                            // [Chinese text]in progress[Chinese text]line[Chinese text]
+                            paint.setStrokeWidth(2);  // Settingsline[Chinese text]. [Chinese text]
+                            paint.setAntiAlias(true); // [Chinese text]
+                            paint.setDither(true);    // [Chinese text]
+                            paint.setColor(Color.WHITE);  // [Chinese text]
                             /**
-                             * 图片缩放，这里简单的使用getWidth()作为宽，getHeight()作为高，可能会出现画面拉伸情况，
-                             * 实际使用的时候请参考设备的宽高按照设备的图像尺寸做等比例缩放
+                             * [Chinese text], [Chinese text]getWidth()[Chinese text], getHeight()[Chinese text]high, [Chinese text], 
+                             * [Chinese text]high[Chinese text]
                              */
                             Bitmap mScaledBitmap = Bitmap.createScaledBitmap(bitmap, getWidth(), getHeight(), true);
                             canvas.drawBitmap(mScaledBitmap, 0, 0, null);
 
                             /**
-                             * 画面中心的十字交叉线绘制
+                             * [Chinese text]in progress[Chinese text]line[Chinese text]
                              */
                             if (drawLine){
                                 canvas.drawLine(getWidth() / 2 - cross_len, getHeight() / 2,
@@ -189,7 +189,7 @@ import com.infisense.usbir.utils.OpencvTools;
             canvas.drawLine(getWidth() / 2f, getHeight() / 2f - cross_len,
                     getWidth() / 2f, getHeight() / 2f + cross_len, paint);
         }catch (Exception e){
-            Log.e(TAG,"点异常:"+e.getMessage());
+            Log.e(TAG,"point[Chinese text]:"+e.getMessage());
         }
     }
 

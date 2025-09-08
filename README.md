@@ -9,45 +9,45 @@
 
 **The most advanced thermal imaging platform** supporting multiple thermal camera devices with enterprise-grade capabilities, real-time processing, machine learning integration, advanced analytics, and comprehensive cross-platform synchronization. Built for research, industrial, and commercial applications.
 
-## 🎯 Platform Overview
+## [target] Platform Overview
 
 IRCamera is an **enterprise-grade modular thermal imaging ecosystem** designed for advanced research, industrial monitoring, and commercial applications. The platform provides unprecedented capabilities for thermal data collection, analysis, and real-time processing across multiple devices and environments.
 
-### 🚀 Core Platform Components
+### [rocket] Core Platform Components
 
-- **🔥 Advanced Android Application**: Feature-rich mobile thermal imaging with enterprise-grade multi-device support and real-time ML processing
-- **🖥️ Intelligent PC Controller**: Python-based AI-powered hub for advanced data processing, device coordination, and cloud integration
-- **📡 Multi-Device Ecosystem**: TC001, TC007, TS004, HIKVision thermal cameras with plug-and-play architecture
-- **🧠 GSR & Physiological Integration**: Shimmer3 sensor support for comprehensive physiological data collection and analysis
-- **☁️ Enterprise Cloud Integration**: AWS, Azure, and GCP support with microservices architecture
-- **🤖 Machine Learning Pipeline**: Advanced thermal CNN models, real-time inference, and continuous learning capabilities
+- **[fire] Advanced Android Application**: Feature-rich mobile thermal imaging with enterprise-grade multi-device support and real-time ML processing
+- **[desktop] Intelligent PC Controller**: Python-based AI-powered hub for advanced data processing, device coordination, and cloud integration
+- **[satellite] Multi-Device Ecosystem**: TC001, TC007, TS004, HIKVision thermal cameras with plug-and-play architecture
+- **[brain] GSR & Physiological Integration**: Shimmer3 sensor support for comprehensive physiological data collection and analysis
+- **[cloud] Enterprise Cloud Integration**: AWS, Azure, and GCP support with microservices architecture
+- **[robot] Machine Learning Pipeline**: Advanced thermal CNN models, real-time inference, and continuous learning capabilities
 
-### ⭐ Revolutionary Features
+### [star] Revolutionary Features
 
-- **🎯 Multi-Device Thermal Ecosystem**: Support for 6+ thermal camera models with automatic device detection and optimization
-- **⚡ Real-Time Processing**: Sub-millisecond thermal processing with live ML inference and edge computing capabilities
-- **🔄 Intelligent Data Synchronization**: Cross-platform data collection with nanosecond-precision timestamp synchronization
-- **📊 Advanced 3D Analytics**: 3D thermal reconstruction, building analysis, temperature monitoring, and comprehensive reporting
-- **🏗️ Modular Enterprise Architecture**: Component-based design with microservices support for infinite scalability
-- **🔒 Military-Grade Security**: Multi-layer encryption, threat modeling, and comprehensive security frameworks
-- **📈 Real-Time Streaming**: WebRTC integration, live analytics, and ultra-low latency processing
-- **🧪 Comprehensive Testing**: 90%+ test coverage with automated CI/CD pipelines and performance benchmarking
-- **🚀 Production-Ready Deployment**: Docker containerization, monitoring, auto-scaling, and enterprise infrastructure
+- **[target] Multi-Device Thermal Ecosystem**: Support for 6+ thermal camera models with automatic device detection and optimization
+- **[lightning] Real-Time Processing**: Sub-millisecond thermal processing with live ML inference and edge computing capabilities
+- **[refresh] Intelligent Data Synchronization**: Cross-platform data collection with nanosecond-precision timestamp synchronization
+- **[chart] Advanced 3D Analytics**: 3D thermal reconstruction, building analysis, temperature monitoring, and comprehensive reporting
+- **[construction] Modular Enterprise Architecture**: Component-based design with microservices support for infinite scalability
+- **[lock] Military-Grade Security**: Multi-layer encryption, threat modeling, and comprehensive security frameworks
+- **[chart up] Real-Time Streaming**: WebRTC integration, live analytics, and ultra-low latency processing
+- **[test tube] Comprehensive Testing**: 90%+ test coverage with automated CI/CD pipelines and performance benchmarking
+- **[rocket] Production-Ready Deployment**: Docker containerization, monitoring, auto-scaling, and enterprise infrastructure
 
-## 🏗️ Enterprise System Architecture
+## [construction] Enterprise System Architecture
 
 The IRCamera platform uses a **microservices-based, enterprise-grade architecture** designed for unlimited scalability, security, and performance across cloud and edge environments:
 
 ```mermaid
 graph TB
-    subgraph "🔥 Android Application Layer"
+    subgraph "[fire] Android Application Layer"
         MainApp[Main Application<br/>Enterprise Mobile Hub]
         UI[Advanced UI Layer<br/>Material 3 Design]
         Services[Background Services<br/>Kotlin Coroutines]
         ML[ML Processing Layer<br/>TensorFlow Lite]
     end
     
-    subgraph "🧩 Feature Components Ecosystem"
+    subgraph "[puzzle] Feature Components Ecosystem"
         ThermalIR[Thermal-IR Module<br/>Advanced Processing]
         ThermalLite[Thermal-Lite Module<br/>Optimized Performance]
         GSRRec[GSR Recording Module<br/>Physiological Analytics]
@@ -59,7 +59,7 @@ graph TB
         Common[Common Components<br/>Shared Resources]
     end
     
-    subgraph "🔧 Core Enterprise Libraries"
+    subgraph "[tool] Core Enterprise Libraries"
         LibApp[App Core Library<br/>Enterprise Framework]
         LibCom[Communication Library<br/>Advanced Networking] 
         LibIR[IR Processing Library<br/>Thermal Intelligence]
@@ -69,14 +69,14 @@ graph TB
         LibMenu[Menu Components<br/>Advanced Navigation]
     end
     
-    subgraph "🔌 Hardware Integration Layer"
+    subgraph "[plug] Hardware Integration Layer"
         BLE[BLE Module<br/>Shimmer3 Integration]
         RangeSeek[Range Seek Bar<br/>Advanced Controls]
         Cameras[Camera Interfaces<br/>Multi-Device Support]
         Sensors[Sensor Hub<br/>IoT Integration]
     end
     
-    subgraph "🖥️ PC Controller Hub"
+    subgraph "[desktop] PC Controller Hub"
         PCCore[PC Core Engine<br/>Python Intelligence]
         GSRIngest[GSR Data Ingestor<br/>Real-Time Processing]
         NetSync[Network Sync<br/>Cloud Integration]
@@ -84,7 +84,7 @@ graph TB
         MLHub[ML Processing Hub<br/>Training Pipeline]
     end
     
-    subgraph "☁️ Enterprise Cloud Layer"
+    subgraph "[cloud] Enterprise Cloud Layer"
         AWS[AWS Services<br/>S3, Lambda, EC2]
         Azure[Azure Services<br/>Blob, Functions, VMs]
         Docker[Docker Containers<br/>Microservices]
@@ -129,7 +129,7 @@ graph TB
     DataProc --> K8s
 ```
 
-## 📱 Component Architecture
+## [mobile] Component Architecture
 
 ### Android App Module Structure
 
@@ -244,7 +244,7 @@ graph TB
     TimSync -->|Sync Protocol| AndroidApp
 ```
 
-## 🔧 Feature Breakdown by Module
+## [tool] Feature Breakdown by Module
 
 ### Thermal Processing Modules
 
@@ -284,7 +284,7 @@ graph TB
 | **libmatrix** | Matrix operations | Mathematical operations for image processing |
 | **libmenu** | Menu system | Application menu and navigation |
 
-## 🔄 Advanced System Diagrams
+## [refresh] Advanced System Diagrams
 
 ### Communication Sequence Flow
 
@@ -442,9 +442,9 @@ classDiagram
     Storage --> Export
 ```
 
-## 🚀 Enterprise Quick Start
+## [rocket] Enterprise Quick Start
 
-### 📋 Prerequisites
+### [clipboard] Prerequisites
 - **Android Studio 2024.1+** with Kotlin 2.0 multiplatform support
 - **Python 3.11+** with enterprise libraries for PC Controller
 - **Supported thermal camera device** (TC001, TC007, TS004, HIKVision)
@@ -452,7 +452,7 @@ classDiagram
 - **Docker** for containerized deployment (optional)
 - **Cloud Account** (AWS/Azure/GCP) for enterprise features (optional)
 
-### 🔨 Building the Enterprise Android Application
+### [hammer] Building the Enterprise Android Application
 
 ```bash
 # Clone the repository with enterprise modules
@@ -481,7 +481,7 @@ adb shell pm list packages | grep ircamera
 adb shell dumpsys package com.topdon.ircamera | grep permission
 ```
 
-### 🖥️ Setting up Enterprise PC Controller
+### [desktop] Setting up Enterprise PC Controller
 
 ```bash
 # Navigate to PC controller directory
@@ -510,16 +510,16 @@ python src/main.py --mode=enterprise --enable-ml=true
 docker-compose -f docker-compose.enterprise.yml up -d
 ```
 
-### 🔄 Enterprise Usage Flow
+### [refresh] Enterprise Usage Flow
 
-1. **🔌 Device Discovery & Connection**: Auto-detect thermal cameras via USB, network, or Bluetooth with enterprise authentication
-2. **📱 Application Launch**: Start Android application with enterprise profile and device optimization
-3. **🔄 PC Hub Synchronization**: Launch PC controller for advanced processing, ML inference, and cloud integration
-4. **⚡ Real-Time Processing**: Begin thermal imaging session with live analytics and ML-powered insights
-5. **☁️ Data Export & Cloud Sync**: Export collected data for analysis with automatic cloud backup and enterprise reporting
-6. **📊 Advanced Analytics**: Access comprehensive dashboards, 3D visualizations, and predictive analytics
+1. **[plug] Device Discovery & Connection**: Auto-detect thermal cameras via USB, network, or Bluetooth with enterprise authentication
+2. **[mobile] Application Launch**: Start Android application with enterprise profile and device optimization
+3. **[refresh] PC Hub Synchronization**: Launch PC controller for advanced processing, ML inference, and cloud integration
+4. **[lightning] Real-Time Processing**: Begin thermal imaging session with live analytics and ML-powered insights
+5. **[cloud] Data Export & Cloud Sync**: Export collected data for analysis with automatic cloud backup and enterprise reporting
+6. **[chart] Advanced Analytics**: Access comprehensive dashboards, 3D visualizations, and predictive analytics
 
-### 🛠️ Development Mode Setup
+### [tools] Development Mode Setup
 
 ```bash
 # Enable development mode with hot reloading
@@ -534,121 +534,121 @@ python src/main.py --mode=development --debug=true --hot-reload=true
 ./scripts/monitor_development.sh
 ```
 
-## 📱 Enterprise Device Ecosystem & Advanced Features
+## [mobile] Enterprise Device Ecosystem & Advanced Features
 
-### 🔥 Thermal Camera Support Matrix
+### [fire] Thermal Camera Support Matrix
 
 | Device Model | Module | Resolution | Features | Performance | Enterprise Support |
 |--------------|---------|------------|----------|-------------|-------------------|
-| **TC001** | thermal-ir | 256×192 | Full thermal imaging, temperature analysis | 60 FPS | ✅ Primary thermal device |
-| **TC001 Plus** | thermal-ir | 384×288 | Enhanced processing, higher resolution | 60 FPS | ✅ Advanced features + ML |
-| **TC001 Lite** | thermal-lite | 160×120 | Basic thermal imaging, optimized performance | 30 FPS | ✅ Entry-level device |
-| **TC007** | thermal-ir | 256×192 | Wireless thermal imaging, battery operation | 30 FPS | ✅ Portable thermal camera |
-| **TS004** | thermal | 640×480 | Network-connected thermal device | 30 FPS | ✅ IP-based thermal imaging |
-| **HIKVision DS-2TD** | libhik | 1024×768 | Enterprise thermal cameras | 50 FPS | ✅ Professional-grade devices |
-| **HIKVision Bullet** | libhik | 640×512 | Outdoor thermal monitoring | 25 FPS | ✅ Industrial applications |
+| **TC001** | thermal-ir | 256x192 | Full thermal imaging, temperature analysis | 60 FPS | [OK] Primary thermal device |
+| **TC001 Plus** | thermal-ir | 384x288 | Enhanced processing, higher resolution | 60 FPS | [OK] Advanced features + ML |
+| **TC001 Lite** | thermal-lite | 160x120 | Basic thermal imaging, optimized performance | 30 FPS | [OK] Entry-level device |
+| **TC007** | thermal-ir | 256x192 | Wireless thermal imaging, battery operation | 30 FPS | [OK] Portable thermal camera |
+| **TS004** | thermal | 640x480 | Network-connected thermal device | 30 FPS | [OK] IP-based thermal imaging |
+| **HIKVision DS-2TD** | libhik | 1024x768 | Enterprise thermal cameras | 50 FPS | [OK] Professional-grade devices |
+| **HIKVision Bullet** | libhik | 640x512 | Outdoor thermal monitoring | 25 FPS | [OK] Industrial applications |
 
-### 🧠 Advanced Feature Ecosystem
+### [brain] Advanced Feature Ecosystem
 
 ```mermaid
 mindmap
-  root((🔥 IRCamera Enterprise Features))
-    🎯 Thermal Imaging
-      ⚡ Real-time Processing
+  root(([fire] IRCamera Enterprise Features))
+    [target] Thermal Imaging
+      [lightning] Real-time Processing
         Sub-millisecond latency
         Edge computing
         GPU acceleration
-      🌡️ Temperature Measurement
-        ±0.1°C accuracy
+      [thermometer] Temperature Measurement
+        +/-0.1degC accuracy
         Multi-point monitoring
         Automated calibration
-      🎨 Advanced Visualization
+      [art] Advanced Visualization
         16+ pseudo color maps
         Custom palettes
         3D heat mapping
-      📹 Video Recording
+      [video] Video Recording
         4K thermal video
         Lossless compression
         Real-time encoding
-      📸 Image Capture
+      [camera] Image Capture
         RAW thermal data
         Metadata embedding
         Batch processing
     
-    📊 Data Collection & Analysis
-      🧬 GSR Recording
+    [chart] Data Collection & Analysis
+      [dna] GSR Recording
         Shimmer3 integration
         16-bit ADC precision
         Real-time analysis
-      🔄 Data Synchronization
+      [refresh] Data Synchronization
         Nanosecond precision
         Cross-platform sync
         Cloud backup
-      📈 Session Management
+      [chart up] Session Management
         Enterprise workflows
         Multi-user support
         Audit logging
-      🤖 ML Integration
+      [robot] ML Integration
         Thermal CNN models
         Real-time inference
         Continuous learning
     
-    🛠️ Analysis Tools
-      🏗️ 3D Reconstruction
+    [tools] Analysis Tools
+      [construction] 3D Reconstruction
         Point cloud generation
         Mesh optimization
         Texture mapping
-      🏢 Building Analysis
+      [office] Building Analysis
         Energy efficiency
         Heat loss detection
         Structural assessment
-      🌡️ Temperature Monitoring
+      [thermometer] Temperature Monitoring
         Trend analysis
         Anomaly detection
         Predictive maintenance
-      📋 Report Generation
+      [clipboard] Report Generation
         Automated reports
         Custom templates
         PDF/Excel export
     
-    🎮 User Interface
-      📱 Multi-device Support
+    [game] User Interface
+      [mobile] Multi-device Support
         Auto-discovery
         Plug-and-play
         Device profiles
-      ⚙️ Settings Management
+      [settings] Settings Management
         User preferences
         Device configurations
         Cloud sync
-      🖼️ Gallery View
+      [picture] Gallery View
         Thumbnail previews
         Metadata display
         Search & filter
-      🔄 Data Transfer
+      [refresh] Data Transfer
         Enterprise sync
         Cloud integration
         Secure protocols
     
-    🔌 Hardware Integration
-      📡 Bluetooth LE
+    [plug] Hardware Integration
+      [satellite] Bluetooth LE
         Low power consumption
         Secure pairing
         Auto-reconnect
-      🔌 USB/USB-C
+      [plug] USB/USB-C
         High-speed data
         Power delivery
         Hot-pluggable
-      🌐 Network Integration
+      [globe] Network Integration
         WiFi connectivity
         Ethernet support
         Cloud endpoints
-      📟 IoT Sensors
+      [pager] IoT Sensors
         Environmental data
         GPS tracking
         Accelerometer
 ```
 
-### 🏢 Enterprise Android App Features by Module
+### [office] Enterprise Android App Features by Module
 
 | Module | Primary Features | Enterprise Features | ML/AI Capabilities | Cloud Integration |
 |--------|------------------|-------------------|-------------------|------------------|
@@ -662,7 +662,7 @@ mindmap
 | **pseudo** | Color visualization | Custom palettes | Vision enhancement | CDN delivery |
 | **CommonComponent** | Shared UI/UX | Enterprise themes | Adaptive UI | Cloud config |
 
-### 🔧 Core Library Capabilities
+### [tool] Core Library Capabilities
 
 | Library | Core Functions | Performance | Enterprise Features | Integration Points |
 |---------|----------------|-------------|-------------------|------------------|
@@ -679,34 +679,34 @@ mindmap
       Device Discovery
 ```
 
-## 🔧 Development Setup
+## [tool] Development Setup
 
 ### Project Structure Overview
 
 ```
 IRCamera/
-├── app/                    # Main Android application
-├── pc-controller/          # Python PC application
-├── component/              # Feature modules
-│   ├── thermal-ir/         # Main thermal processing
-│   ├── thermal-lite/       # Lightweight thermal
-│   ├── gsr-recording/      # GSR data collection
-│   ├── house/              # Building analysis
-│   ├── edit3d/             # 3D editing tools
-│   ├── transfer/           # Data transfer
-│   ├── user/               # User management
-│   ├── pseudo/             # Pseudo coloring
-│   └── CommonComponent/    # Shared components
-├── lib*/                   # Core libraries
-│   ├── libapp/             # App framework
-│   ├── libcom/             # Communication
-│   ├── libir/              # IR processing
-│   ├── libui/              # UI components
-│   ├── libhik/             # HIKVision integration
-│   ├── libmatrix/          # Matrix operations
-│   └── libmenu/            # Menu system
-├── BleModule/              # Bluetooth integration
-└── RangeSeekBar/           # Custom UI control
++-- app/                    # Main Android application
++-- pc-controller/          # Python PC application
++-- component/              # Feature modules
+|   +-- thermal-ir/         # Main thermal processing
+|   +-- thermal-lite/       # Lightweight thermal
+|   +-- gsr-recording/      # GSR data collection
+|   +-- house/              # Building analysis
+|   +-- edit3d/             # 3D editing tools
+|   +-- transfer/           # Data transfer
+|   +-- user/               # User management
+|   +-- pseudo/             # Pseudo coloring
+|   +-- CommonComponent/    # Shared components
++-- lib*/                   # Core libraries
+|   +-- libapp/             # App framework
+|   +-- libcom/             # Communication
+|   +-- libir/              # IR processing
+|   +-- libui/              # UI components
+|   +-- libhik/             # HIKVision integration
+|   +-- libmatrix/          # Matrix operations
+|   +-- libmenu/            # Menu system
++-- BleModule/              # Bluetooth integration
++-- RangeSeekBar/           # Custom UI control
 ```
 
 ### Key Technologies
@@ -744,27 +744,27 @@ IRCamera/
 ./gradlew assembleRelease
 ```
 
-## 📊 Data Output Formats
+## [chart] Data Output Formats
 
 ### Thermal Data
 ```
 thermal_session_YYYYMMDD_HHMMSS/
-├── thermal_video.mp4       # Processed thermal video
-├── raw_thermal/            # Raw thermal data frames
-├── temperature_map.csv     # Temperature measurements
-└── metadata.json          # Session configuration
++-- thermal_video.mp4       # Processed thermal video
++-- raw_thermal/            # Raw thermal data frames
++-- temperature_map.csv     # Temperature measurements
++-- metadata.json          # Session configuration
 ```
 
 ### GSR Data (when using PC Controller)
 ```
 gsr_session_YYYYMMDD_HHMMSS/
-├── gsr_data.csv           # Time-series GSR measurements  
-├── events.csv             # Synchronization events
-├── raw_images/            # Synchronized image captures
-└── session_info.json     # Recording metadata
++-- gsr_data.csv           # Time-series GSR measurements  
++-- events.csv             # Synchronization events
++-- raw_images/            # Synchronized image captures
++-- session_info.json     # Recording metadata
 ```
 
-## 🔄 Advanced System Diagrams
+## [refresh] Advanced System Diagrams
 
 ### Communication Sequence Diagram
 
@@ -910,7 +910,7 @@ classDiagram
     SessionManager --> DataSynchronizer: coordinates
 ```
 
-## 🔌 Hardware Integration
+## [plug] Hardware Integration
 
 ### Supported Thermal Cameras
 
@@ -950,7 +950,7 @@ The `BleModule` provides:
 - Data synchronization with thermal capture
 - Multi-sensor coordination
 
-## 🧪 Testing
+## [test tube] Testing
 
 ### Unit Tests
 ```bash
@@ -974,97 +974,97 @@ python -m pytest test_system_integration.py
 python test_comprehensive.py
 ```
 
-## 📚 Comprehensive Enterprise Documentation Ecosystem
+## [books] Comprehensive Enterprise Documentation Ecosystem
 
-### 🚀 Getting Started & User Guides
-- **[🚀 Quick Start Guide](docs/QUICK_START.md)** - Essential setup and enterprise deployment
-- **[📖 User Manual](docs/USER_MANUAL.md)** - Complete user documentation with enterprise features
-- **[🔧 Troubleshooting Guide](docs/TROUBLESHOOTING.md)** - Common issues and rapid resolution
-- **[🛠️ Advanced Troubleshooting](docs/TROUBLESHOOTING_ADVANCED.md)** (25KB) - Advanced diagnostic frameworks and error resolution
+### [rocket] Getting Started & User Guides
+- **[[rocket] Quick Start Guide](docs/QUICK_START.md)** - Essential setup and enterprise deployment
+- **[[book] User Manual](docs/USER_MANUAL.md)** - Complete user documentation with enterprise features
+- **[[tool] Troubleshooting Guide](docs/TROUBLESHOOTING.md)** - Common issues and rapid resolution
+- **[[tools] Advanced Troubleshooting](docs/TROUBLESHOOTING_ADVANCED.md)** (25KB) - Advanced diagnostic frameworks and error resolution
 
-### 🏗️ Architecture & Development
-- **[👨‍💻 Developer Guide](docs/DEVELOPER_GUIDE.md)** - Development procedures and enterprise architecture  
-- **[🏗️ Architecture Guide](docs/ARCHITECTURE.md)** - Detailed system architecture and design patterns
-- **[🤝 Contributing Guide](docs/CONTRIBUTING.md)** - Contribution guidelines and enterprise development standards
+### [construction] Architecture & Development
+- **[[person][laptop] Developer Guide](docs/DEVELOPER_GUIDE.md)** - Development procedures and enterprise architecture  
+- **[[construction] Architecture Guide](docs/ARCHITECTURE.md)** - Detailed system architecture and design patterns
+- **[[handshake] Contributing Guide](docs/CONTRIBUTING.md)** - Contribution guidelines and enterprise development standards
 
-### 📖 Technical References & API Documentation
-- **[📋 Technical Specifications](docs/TECHNICAL_SPECIFICATIONS.md)** (44KB) - **Complete enterprise specifications** for all 9 feature components and 7 core libraries with performance benchmarks
-- **[📚 API Reference](docs/API_REFERENCE.md)** - Basic protocol and SDK documentation
-- **[🔧 Advanced API Documentation](docs/ADVANCED_API_DOCUMENTATION.md)** (87KB) - **200+ documented methods** with detailed implementation examples and enterprise integration patterns
+### [book] Technical References & API Documentation
+- **[[clipboard] Technical Specifications](docs/TECHNICAL_SPECIFICATIONS.md)** (44KB) - **Complete enterprise specifications** for all 9 feature components and 7 core libraries with performance benchmarks
+- **[[books] API Reference](docs/API_REFERENCE.md)** - Basic protocol and SDK documentation
+- **[[tool] Advanced API Documentation](docs/ADVANCED_API_DOCUMENTATION.md)** (87KB) - **200+ documented methods** with detailed implementation examples and enterprise integration patterns
 
-### 🧩 Component Documentation Ecosystem
-- **[🔥 Thermal-IR Module](docs/modules/THERMAL_IR_MODULE.md)** (24KB) - Primary thermal imaging component with advanced processing capabilities
-- **[🧬 GSR Recording Module](docs/modules/GSR_RECORDING_MODULE.md)** (31KB) - Shimmer3 GSR sensor integration with physiological analytics
-- **[🔬 LibIR Library](docs/modules/LIBIR_LIBRARY.md)** (35KB) - Core thermal processing algorithms and advanced analytics
-- **[🖥️ PC Controller](docs/modules/PC_CONTROLLER.md)** (43KB) - Python-based central hub with enterprise features
+### [puzzle] Component Documentation Ecosystem
+- **[[fire] Thermal-IR Module](docs/modules/THERMAL_IR_MODULE.md)** (24KB) - Primary thermal imaging component with advanced processing capabilities
+- **[[dna] GSR Recording Module](docs/modules/GSR_RECORDING_MODULE.md)** (31KB) - Shimmer3 GSR sensor integration with physiological analytics
+- **[[microscope] LibIR Library](docs/modules/LIBIR_LIBRARY.md)** (35KB) - Core thermal processing algorithms and advanced analytics
+- **[[desktop] PC Controller](docs/modules/PC_CONTROLLER.md)** (43KB) - Python-based central hub with enterprise features
 
-### 🚀 Performance & Optimization
-- **[⚡ Performance Optimization](docs/PERFORMANCE.md)** (14KB) - **Comprehensive performance tuning**, benchmarking, real-time processing guides, memory management, and throughput analysis with enterprise-grade optimization strategies
+### [rocket] Performance & Optimization
+- **[[lightning] Performance Optimization](docs/PERFORMANCE.md)** (14KB) - **Comprehensive performance tuning**, benchmarking, real-time processing guides, memory management, and throughput analysis with enterprise-grade optimization strategies
 
-### 🔒 Security & Compliance
-- **[🛡️ Security Guidelines](docs/SECURITY.md)** (23KB) - **Multi-layer security architecture** with encryption, authentication, threat modeling, biometric integration, HIPAA compliance, and incident response procedures
+### [lock] Security & Compliance
+- **[[shield] Security Guidelines](docs/SECURITY.md)** (23KB) - **Multi-layer security architecture** with encryption, authentication, threat modeling, biometric integration, HIPAA compliance, and incident response procedures
 
-### 🧪 Testing & Quality Assurance
-- **[🧪 Testing Documentation](docs/TESTING.md)** (30KB) - **Comprehensive testing procedures** with JUnit, pytest, Espresso, performance testing, security testing, 90%+ coverage requirements, and CI/CD pipeline integration
+### [test tube] Testing & Quality Assurance
+- **[[test tube] Testing Documentation](docs/TESTING.md)** (30KB) - **Comprehensive testing procedures** with JUnit, pytest, Espresso, performance testing, security testing, 90%+ coverage requirements, and CI/CD pipeline integration
 
-### 🚀 Production & Deployment
-- **[🐳 Deployment Guide](docs/DEPLOYMENT.md)** (27KB) - **Complete production deployment** with Docker containerization, SSL/TLS setup, database configuration, monitoring, backup strategies, auto-scaling, and enterprise infrastructure
+### [rocket] Production & Deployment
+- **[[whale] Deployment Guide](docs/DEPLOYMENT.md)** (27KB) - **Complete production deployment** with Docker containerization, SSL/TLS setup, database configuration, monitoring, backup strategies, auto-scaling, and enterprise infrastructure
 
-### 🏢 Enterprise Integration & Workflows
-- **[🔄 Integration Patterns](docs/INTEGRATION_PATTERNS.md)** (34KB) - **Comprehensive enterprise integration workflows**, cross-module integration, hardware workflows, data pipelines, third-party integrations, and enterprise deployment patterns
-- **[☁️ Enterprise Integration](docs/ENTERPRISE_INTEGRATION.md)** (37KB) - **Enterprise architecture patterns**, AWS/Azure/GCP cloud integration, microservices implementation, REST APIs, database integration, and scalable deployment strategies
+### [office] Enterprise Integration & Workflows
+- **[[refresh] Integration Patterns](docs/INTEGRATION_PATTERNS.md)** (34KB) - **Comprehensive enterprise integration workflows**, cross-module integration, hardware workflows, data pipelines, third-party integrations, and enterprise deployment patterns
+- **[[cloud] Enterprise Integration](docs/ENTERPRISE_INTEGRATION.md)** (37KB) - **Enterprise architecture patterns**, AWS/Azure/GCP cloud integration, microservices implementation, REST APIs, database integration, and scalable deployment strategies
 
-### 🤖 Advanced Technology Integration
-- **[🧠 ML & AI Integration](docs/ML_AI_INTEGRATION.md)** (28KB) - **Machine learning pipeline architecture**, advanced thermal CNN models, GSR signal analysis, real-time inference, training pipelines, edge computing, and continuous learning frameworks
-- **[📡 Real-Time Streaming](docs/REALTIME_STREAMING.md)** (40KB) - **Real-time processing architecture**, stream processing pipelines, WebRTC integration, low-latency optimization, live analytics, edge computing, and performance monitoring
-- **[📊 Advanced Analytics & Visualization](docs/ADVANCED_ANALYTICS_VISUALIZATION.md)** (36KB) - **Advanced statistical analysis**, interactive thermal visualizations, GSR analytics dashboards, multi-modal correlation analysis, and comprehensive reporting frameworks
+### [robot] Advanced Technology Integration
+- **[[brain] ML & AI Integration](docs/ML_AI_INTEGRATION.md)** (28KB) - **Machine learning pipeline architecture**, advanced thermal CNN models, GSR signal analysis, real-time inference, training pipelines, edge computing, and continuous learning frameworks
+- **[[satellite] Real-Time Streaming](docs/REALTIME_STREAMING.md)** (40KB) - **Real-time processing architecture**, stream processing pipelines, WebRTC integration, low-latency optimization, live analytics, edge computing, and performance monitoring
+- **[[chart] Advanced Analytics & Visualization](docs/ADVANCED_ANALYTICS_VISUALIZATION.md)** (36KB) - **Advanced statistical analysis**, interactive thermal visualizations, GSR analytics dashboards, multi-modal correlation analysis, and comprehensive reporting frameworks
 
-### 🎯 Complete Enterprise Documentation Statistics
+### [target] Complete Enterprise Documentation Statistics
 
 **Total Documentation**: **~675KB** of enterprise-grade technical content across **25+ specialized documents** with:
 
-#### 📋 Core & User Documentation (~100KB)
-- **[🚀 Quick Start Guide](docs/QUICK_START.md)** - Essential enterprise setup and deployment
-- **[📖 User Manual](docs/USER_MANUAL.md)** - Complete user documentation with enterprise features  
-- **[🔧 Troubleshooting](docs/TROUBLESHOOTING.md)** - Common issues and rapid resolution
-- **[👨‍💻 Developer Guide](docs/DEVELOPER_GUIDE.md)** - Development procedures and enterprise architecture
-- **[🏗️ Architecture Guide](docs/ARCHITECTURE.md)** - Detailed system architecture and microservices
-- **[🤝 Contributing Guide](docs/CONTRIBUTING.md)** - Contribution guidelines and enterprise standards
-- **[📚 API Reference](docs/API_REFERENCE.md)** - Basic protocol and SDK documentation
+#### [clipboard] Core & User Documentation (~100KB)
+- **[[rocket] Quick Start Guide](docs/QUICK_START.md)** - Essential enterprise setup and deployment
+- **[[book] User Manual](docs/USER_MANUAL.md)** - Complete user documentation with enterprise features  
+- **[[tool] Troubleshooting](docs/TROUBLESHOOTING.md)** - Common issues and rapid resolution
+- **[[person][laptop] Developer Guide](docs/DEVELOPER_GUIDE.md)** - Development procedures and enterprise architecture
+- **[[construction] Architecture Guide](docs/ARCHITECTURE.md)** - Detailed system architecture and microservices
+- **[[handshake] Contributing Guide](docs/CONTRIBUTING.md)** - Contribution guidelines and enterprise standards
+- **[[books] API Reference](docs/API_REFERENCE.md)** - Basic protocol and SDK documentation
 
-#### 🔧 Advanced Technical Documentation (~130KB)
-- **[📋 Technical Specifications](docs/TECHNICAL_SPECIFICATIONS.md)** (44KB) - **Complete enterprise specifications** for all 9 feature components and 7 core libraries with performance benchmarks
-- **[🔧 Advanced API Documentation](docs/ADVANCED_API_DOCUMENTATION.md)** (87KB) - **200+ API methods** with detailed implementation examples and enterprise patterns
+#### [tool] Advanced Technical Documentation (~130KB)
+- **[[clipboard] Technical Specifications](docs/TECHNICAL_SPECIFICATIONS.md)** (44KB) - **Complete enterprise specifications** for all 9 feature components and 7 core libraries with performance benchmarks
+- **[[tool] Advanced API Documentation](docs/ADVANCED_API_DOCUMENTATION.md)** (87KB) - **200+ API methods** with detailed implementation examples and enterprise patterns
 
-#### 🏢 Enterprise & Production Guides (~200KB)
-- **[⚡ Performance Optimization](docs/PERFORMANCE.md)** (14KB) - Comprehensive performance tuning and enterprise optimization
-- **[🛡️ Security Guidelines](docs/SECURITY.md)** (23KB) - Multi-layer security with enterprise compliance and threat modeling
-- **[🧪 Testing Documentation](docs/TESTING.md)** (30KB) - Testing procedures with 90%+ coverage and enterprise CI/CD
-- **[🐳 Deployment Guide](docs/DEPLOYMENT.md)** (27KB) - Production deployment with Docker, monitoring, and enterprise scaling
-- **[🔄 Integration Patterns](docs/INTEGRATION_PATTERNS.md)** (34KB) - Enterprise integration workflows and microservices patterns
-- **[☁️ Enterprise Integration](docs/ENTERPRISE_INTEGRATION.md)** (37KB) - Cloud integration and enterprise architecture strategies
-- **[🛠️ Advanced Troubleshooting](docs/TROUBLESHOOTING_ADVANCED.md)** (25KB) - Advanced diagnostic procedures and enterprise error resolution
+#### [office] Enterprise & Production Guides (~200KB)
+- **[[lightning] Performance Optimization](docs/PERFORMANCE.md)** (14KB) - Comprehensive performance tuning and enterprise optimization
+- **[[shield] Security Guidelines](docs/SECURITY.md)** (23KB) - Multi-layer security with enterprise compliance and threat modeling
+- **[[test tube] Testing Documentation](docs/TESTING.md)** (30KB) - Testing procedures with 90%+ coverage and enterprise CI/CD
+- **[[whale] Deployment Guide](docs/DEPLOYMENT.md)** (27KB) - Production deployment with Docker, monitoring, and enterprise scaling
+- **[[refresh] Integration Patterns](docs/INTEGRATION_PATTERNS.md)** (34KB) - Enterprise integration workflows and microservices patterns
+- **[[cloud] Enterprise Integration](docs/ENTERPRISE_INTEGRATION.md)** (37KB) - Cloud integration and enterprise architecture strategies
+- **[[tools] Advanced Troubleshooting](docs/TROUBLESHOOTING_ADVANCED.md)** (25KB) - Advanced diagnostic procedures and enterprise error resolution
 
-#### 🤖 Advanced Technology Integration (~150KB)
-- **[🧠 ML & AI Integration](docs/ML_AI_INTEGRATION.md)** (28KB) - Machine learning for enterprise thermal analysis and physiological data
-- **[📡 Real-Time Streaming](docs/REALTIME_STREAMING.md)** (40KB) - Real-time processing, WebRTC integration, and enterprise live analytics
-- **[📊 Advanced Analytics & Visualization](docs/ADVANCED_ANALYTICS_VISUALIZATION.md)** (36KB) - Statistical analysis, interactive visualizations, and enterprise reporting
+#### [robot] Advanced Technology Integration (~150KB)
+- **[[brain] ML & AI Integration](docs/ML_AI_INTEGRATION.md)** (28KB) - Machine learning for enterprise thermal analysis and physiological data
+- **[[satellite] Real-Time Streaming](docs/REALTIME_STREAMING.md)** (40KB) - Real-time processing, WebRTC integration, and enterprise live analytics
+- **[[chart] Advanced Analytics & Visualization](docs/ADVANCED_ANALYTICS_VISUALIZATION.md)** (36KB) - Statistical analysis, interactive visualizations, and enterprise reporting
 
-#### 🎯 Enterprise Documentation Features & Statistics
-- **🔗 Fully Cross-Referenced Navigation**: Complete ecosystem with enterprise-grade documentation architecture
-- **📈 30+ Advanced Mermaid Diagrams**: Architecture, sequence, state, deployment, and enterprise flow diagrams
-- **💻 200+ Documented API Methods**: Fully documented with practical enterprise implementation examples
-- **🎯 150+ Code Examples**: Enterprise integration patterns and production development workflows
-- **🔧 Complete Performance Specifications**: Enterprise benchmarks and production optimization strategies
-- **🛡️ Enterprise Security Implementation**: Multi-layer protection protocols with enterprise threat assessment
-- **🧪 Comprehensive Testing Coverage**: Enterprise testing procedures with 90%+ coverage requirements
-- **☁️ Cloud Integration Patterns**: AWS, Azure, GCP patterns and enterprise deployment strategies
-- **🚀 Production-Ready Infrastructure**: Complete monitoring, auto-scaling, and enterprise maintenance procedures
-- **🤖 Advanced ML/AI Integration**: Enterprise machine learning pipelines and AI-powered thermal analysis
-- **📊 Real-Time Enterprise Analytics**: Live data processing, streaming, and enterprise-grade analytics capabilities
-- **🔄 Complete Cross-References**: Fully linked enterprise documentation ecosystem with advanced navigation
+#### [target] Enterprise Documentation Features & Statistics
+- **[link] Fully Cross-Referenced Navigation**: Complete ecosystem with enterprise-grade documentation architecture
+- **[chart up] 30+ Advanced Mermaid Diagrams**: Architecture, sequence, state, deployment, and enterprise flow diagrams
+- **[laptop] 200+ Documented API Methods**: Fully documented with practical enterprise implementation examples
+- **[target] 150+ Code Examples**: Enterprise integration patterns and production development workflows
+- **[tool] Complete Performance Specifications**: Enterprise benchmarks and production optimization strategies
+- **[shield] Enterprise Security Implementation**: Multi-layer protection protocols with enterprise threat assessment
+- **[test tube] Comprehensive Testing Coverage**: Enterprise testing procedures with 90%+ coverage requirements
+- **[cloud] Cloud Integration Patterns**: AWS, Azure, GCP patterns and enterprise deployment strategies
+- **[rocket] Production-Ready Infrastructure**: Complete monitoring, auto-scaling, and enterprise maintenance procedures
+- **[robot] Advanced ML/AI Integration**: Enterprise machine learning pipelines and AI-powered thermal analysis
+- **[chart] Real-Time Enterprise Analytics**: Live data processing, streaming, and enterprise-grade analytics capabilities
+- **[refresh] Complete Cross-References**: Fully linked enterprise documentation ecosystem with advanced navigation
 
-## 🤝 Contributing
+## [handshake] Contributing
 
 We welcome contributions to the IRCamera platform:
 
@@ -1083,11 +1083,11 @@ We welcome contributions to the IRCamera platform:
 
 See **[CONTRIBUTING.md](docs/CONTRIBUTING.md)** for detailed guidelines.
 
-## 📄 License
+## [document] License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## [pray] Acknowledgments
 
 - **Topdon Technology** for thermal camera hardware and SDK support
 - **HIKVision** for enterprise thermal camera integration

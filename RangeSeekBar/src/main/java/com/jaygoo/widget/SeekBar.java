@@ -28,10 +28,10 @@ import java.text.DecimalFormat;
 
 /**
  * ================================================
- * 作    者：JayGoo
- * 版    本：
- * 创建日期：2018/5/8
- * 描    述:
+ * [Chinese text]    [Chinese text]: JayGoo
+ * [Chinese text]    [Chinese text]: 
+ * [Chinese text]: 2018/5/8
+ * [Chinese text]    [Chinese text]:
  * ================================================
  */
 public class SeekBar {
@@ -57,11 +57,11 @@ interface IndicatorModeDef {
 
     private int indicatorShowMode;
 
-    // 进度提示背景的高度，宽度如果是0的话会自适应调整
+    // [Chinese text]high[Chinese text], [Chinese text]0[Chinese text]
     // Progress prompted the background height, width,
     private int indicatorHeight;
     private int indicatorWidth;
-    // 进度提示背景与按钮之间的距离
+    // [Chinese text]button[Chinese text]
     // The progress indicates the distance between the background and the button
     private int indicatorMargin;
     private int indicatorDrawableId;
@@ -157,7 +157,7 @@ interface IndicatorModeDef {
     }
 
     /**
-     * 初始化进度提示的背景
+     * [Chinese text]
      */
     private void initBitmap() {
         setIndicatorDrawableId(indicatorDrawableId);
@@ -166,7 +166,7 @@ interface IndicatorModeDef {
     }
 
     /**
-     * 计算每个按钮的位置和尺寸
+     * [Chinese text]button[Chinese text]
      * Calculates the position and size of each button
      *
      * @param x position x
@@ -204,7 +204,7 @@ interface IndicatorModeDef {
     }
 
     /**
-     * 绘制按钮和提示背景和文字
+     * [Chinese text]button[Chinese text]text
      * Draw buttons and tips for background and text
      *
      * @param canvas Canvas
@@ -231,8 +231,8 @@ interface IndicatorModeDef {
     }
 
     /**
-     * 绘制按钮
-     * 如果没有图片资源，则绘制默认按钮
+     * [Chinese text]button
+     * [Chinese text], [Chinese text]button
      * <p>
      * draw the thumb button
      * If there is no image resource, draw the default button
@@ -248,7 +248,7 @@ interface IndicatorModeDef {
     }
 
     /**
-     * 格式化提示文字
+     * [Chinese text]text
      * format the indicator text
      *
      * @param text2Draw
@@ -370,7 +370,7 @@ interface IndicatorModeDef {
     }
 
     /**
-     * 拖动检测
+     * [Chinese text]
      *
      * @return is collide
      */
@@ -520,7 +520,7 @@ interface IndicatorModeDef {
     }
 
         /**
-     * include indicator text Height、padding、margin
+     * include indicator text Height, padding, margin
      *
      * @return The actual occupation height of indicator
      */

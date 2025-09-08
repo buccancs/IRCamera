@@ -4,7 +4,7 @@ import com.topdon.lib.core.ktbase.BaseViewModel
 
 class ThermalViewModel : BaseViewModel() {
     /**
-     * 修改yuv温度上下限的数据
+     * [Chinese text]yuvtemperature[Chinese text]
      * white:82 FF
      * black:82 00
      */

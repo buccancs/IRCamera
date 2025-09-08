@@ -48,7 +48,7 @@
                 android:id="@+id/resolution"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="4K UHD (3840×2160)"
+                android:text="4K UHD (3840x2160)"
                 android:textColor="#ccffffff"
                 android:textSize="14sp"
                 android:layout_marginTop="4dp" />

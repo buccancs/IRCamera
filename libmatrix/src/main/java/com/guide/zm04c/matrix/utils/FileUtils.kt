@@ -9,7 +9,7 @@ import com.guide.zm04c.matrix.Logger
 import java.io.*
 
 /**
- * created by liuhongwei gd02527 on 2018年08月29日
+ * created by liuhongwei gd02527 on 2018[Chinese text]08[Chinese text]29[Chinese text]
  */
 class FileUtils {
 
@@ -27,14 +27,14 @@ class FileUtils {
         }
 
         /**
-         * 删除文件夹以及目录下的文件
-         * @param   filePath 被删除目录的文件路径
-         * @return  目录删除成功返回true，否则返回false
+         * [Chinese text]
+         * @param   filePath [Chinese text]
+         * @return  [Chinese text]true, [Chinese text]false
          */
         fun deleteDirectory(filePath: String): Boolean {
             var filePath = filePath
             var flag = false
-            // 如果filePath不以文件分隔符结尾，自动添加文件分隔符
+            // [Chinese text]filePath[Chinese text], [Chinese text]
             if (!filePath.endsWith(File.separator)) {
                 filePath = filePath + File.separator
             }
@@ -44,20 +44,20 @@ class FileUtils {
             }
             flag = true
             val files = dirFile.listFiles()
-            // 遍历删除文件夹下的所有文件(包括子目录)
+            // [Chinese text]([Chinese text])
             for (i in files.indices) {
                 if (files[i].isFile) {
-                    // 删除子文件
+                    // [Chinese text]
                     flag = deleteFile(files[i].absolutePath)
                     if (!flag) break
                 } else {
-                    // 删除子目录
+                    // [Chinese text]
                     flag = deleteDirectory(files[i].absolutePath)
                     if (!flag) break
                 }
             }
             return if (!flag) false else dirFile.delete()
-            // 删除当前空目录
+            // [Chinese text]
         }
 
         fun deleteFile(path: String): Boolean {
@@ -86,11 +86,11 @@ class FileUtils {
         }
 
         fun appFile(data: ByteArray, filePath: String) {
-            // 打开一个随机访问文件流，按读写方式
+            // [Chinese text], [Chinese text]
             var randomFile = RandomAccessFile(filePath, "rw")
-            // 文件长度，字节数
+            // [Chinese text], [Chinese text]
             var fileLength = randomFile.length()
-            // 将写文件指针移到文件尾。
+            // [Chinese text]. 
             randomFile.seek(fileLength);
             randomFile.write(data);
 
@@ -127,7 +127,7 @@ class FileUtils {
         }
 
         /**
-         * 保存Bitmap为JPG文件
+         * [Chinese text]Bitmap[Chinese text]JPG[Chinese text]
          *
          * @param bmp
          * @param filePath
@@ -165,10 +165,10 @@ class FileUtils {
         }
 
         /**
-         * 旋转Bitmap
+         * [Chinese text]Bitmap
          *
-         * @param srcBitmap    源Bitmap
-         * @param rotateDegree 旋转角度
+         * @param srcBitmap    [Chinese text]Bitmap
+         * @param rotateDegree [Chinese text]
          * @return
          */
         fun rotateBitmap(srcBitmap: Bitmap, rotateDegree: Float): Bitmap? {
@@ -232,7 +232,7 @@ class FileUtils {
                         if (imagePath.contains(".jpg")) {
                             var rotate = 0
                             val exif = ExifInterface(imagePath)
-                            // 获取方向message
+                            // [Chinese text]message
                             val orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)
 
                             when (orientation) {
@@ -264,7 +264,7 @@ class FileUtils {
         }
 
         fun readFile2ByteArr(filePath: String, fileNotFoundErrAction: () -> Unit, ioErrAction: () -> Unit): ByteArray? {
-            // 从文件读取
+            // [Chinese text]
             var fis: FileInputStream? = null
             val inFile = File(filePath)
             val buffer: ByteArray?
@@ -304,7 +304,7 @@ class FileUtils {
                 }
             } catch (e1: Exception) {
                 e1.printStackTrace()
-                // 捕获异常后尝试读取下一遍
+                // [Chinese text]
                 try {
                     if (null != inputStream) {
                         byteArr = ByteArray(inputStream.available())

@@ -5,7 +5,7 @@ import android.content.Context;
 import com.topdon.ble.callback.ScanListener;
 
 /**
- * 蓝牙设备搜索器
+ * [Chinese text]
  *
  * date: 2019/10/1 14:41
  * author: bichuanfeng

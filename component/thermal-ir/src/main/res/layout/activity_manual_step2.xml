@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <!-- 提示文字 -->
+    <!-- [Chinese text]text -->
     <TextView
         android:id="@+id/tv_tips"
         android:layout_width="0dp"
@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title_view" />
 
-    <!-- 提示图片 -->
+    <!-- [Chinese text] -->
     <ImageView
         android:id="@+id/iv_tips"
         android:layout_width="0dp"
@@ -46,7 +46,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_tips" />
 
-    <!-- Photo capture或确认 -->
+    <!-- Photo capture[Chinese text] -->
     <TextView
         android:id="@+id/tv_photo_or_confirm"
         android:layout_width="0dp"
@@ -77,7 +77,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="-10°"
+            android:text="-10deg"
             android:textSize="13sp"
             android:textColor="@color/white" />
         <SeekBar
@@ -99,7 +99,7 @@
             android:id="@+id/tv_seek_bar_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="10°"
+            android:text="10deg"
             android:textSize="13sp"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="@+id/cl_dual"
@@ -121,7 +121,7 @@
         app:layout_constraintBottom_toTopOf="@id/ll_seek_bar">
 
 
-        <!-- Dual light融合图层 -->
+        <!-- Dual light[Chinese text] -->
         <SurfaceView
             android:id="@+id/dualTextureView"
             android:layout_width="match_parent"

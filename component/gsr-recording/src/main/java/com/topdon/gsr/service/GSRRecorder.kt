@@ -244,7 +244,7 @@ class GSRRecorder(
                     val breathingFreq = timeOffset / 2000.0 // Breathing-like pattern
                     val noiseFreq = timeOffset / 500.0 // High-frequency noise
 
-                    // Simulate realistic GSR patterns (10-50 µS typical range)
+                    // Simulate realistic GSR patterns (10-50 microS typical range)
                     val conductance =
                         20.0 +
                             Math.sin(baseFreq) * 10.0 + // Slow drift
@@ -254,7 +254,7 @@ class GSRRecorder(
 
                     // Ensure reasonable range and calculate resistance
                     val finalConductance = Math.max(5.0, Math.min(50.0, conductance))
-                    val resistance = 1.0 / (finalConductance / 1000000.0) // Convert µS to kΩ
+                    val resistance = 1.0 / (finalConductance / 1000000.0) // Convert microS to kOhm
 
                     val sample =
                         GSRSample(

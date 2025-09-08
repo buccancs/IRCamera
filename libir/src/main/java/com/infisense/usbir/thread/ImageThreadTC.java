@@ -41,10 +41,10 @@ import java.util.LinkedHashMap;
      */
     public class ImageThreadTC extends Thread {
 
-    public static final int TYPE_AI_C = -1;// 不开启
-    public static final int TYPE_AI_D = 0;// 动态检测
-    public static final int TYPE_AI_H = 1;// 高温源检测
-    public static final int TYPE_AI_L = 2;// 低温源检测
+    public static final int TYPE_AI_C = -1;// [Chinese text]
+    public static final int TYPE_AI_D = 0;// [Chinese text]
+    public static final int TYPE_AI_H = 1;// high[Chinese text]
+    public static final int TYPE_AI_L = 2;// low[Chinese text]
 
     private byte[] imgTmp;
     private String TAG = "ImageThread";
@@ -55,13 +55,13 @@ import java.util.LinkedHashMap;
     private int imageHeight;
     private byte[] imageSrc;
     private byte[] temperatureSrc;
-    private boolean rotate; // 屏幕旋转
+    private boolean rotate; // [Chinese text]
     //
     private CommonParams.DataFlowMode dataFlowMode = CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT;
     private byte[] imageYUV422;
     private byte[] imageARGB;
     private byte[] imageDst;
-    public byte[] imageTemp;// 艾睿需要的测试数据，处理完可以删除
+    public byte[] imageTemp;// [Chinese text], [Chinese text]
 
     private byte[] imageY8;
     private float max = Float.MAX_VALUE;
@@ -176,8 +176,8 @@ import java.util.LinkedHashMap;
                         LibIRProcess.convertYuyvMapToARGBPseudocolor(imageSrc, imageHeight * imageWidth, PseudocodeUtils.INSTANCE.changePseudocodeModeByOld(pseudocolorMode), imageARGB);
                     }
                     /*
-                     * 经过转换之后的红外数据
-                     * 其中的数据是旋转90度的，需要旋转回来,红外旋转的逻辑放在这里处理。
+                     * [Chinese text]
+                     * [Chinese text]in progress[Chinese text]90[Chinese text], [Chinese text],[Chinese text]. 
                      */
                     if (rotateInt == 270) {
                         LibIRProcess.ImageRes_t imageRes = new LibIRProcess.ImageRes_t();
@@ -202,7 +202,7 @@ import java.util.LinkedHashMap;
                     }
                     irImageHelp.customPseudoColor(imageDst,temperatureSrc,imageWidth,imageHeight);
                     /*
-                     * 等温尺处理,展示Pseudo color的温度范围内message
+                     * [Chinese text],[Chinese text]Pseudo color[Chinese text]temperaturerange[Chinese text]message
                      */
                     irImageHelp.setPseudoColorMaxMin(imageDst,temperatureSrc,max,min,imageWidth,imageHeight);
                 }
@@ -232,7 +232,7 @@ import java.util.LinkedHashMap;
                     imageDst = grayData;
                 }else if (typeAi == TYPE_AI_D) {
                     int firstTime = 0;
-                    // 静态闯入算法
+                    // [Chinese text]
                     if (firstFrame == null || firstTemp == null) {
                         firstFrame = new byte[imageDst.length];
                         firstTemp = new byte[temperatureSrc.length];
@@ -253,10 +253,10 @@ import java.util.LinkedHashMap;
                                 imageDst = grayData;
                                 firstTime++;
                             } catch (Throwable e) {
-                                Log.e("静态闯入异常：", e.getMessage());
+                                Log.e("[Chinese text]: ", e.getMessage());
                             }
                         } else {
-                            // 相似度不同，则代表手机抖动
+                            // [Chinese text], [Chinese text]
                             System.arraycopy(imageDst, 0, firstFrame, 0, imageDst.length);
                             System.arraycopy(temperatureSrc, 0, firstTemp, 0, temperatureSrc.length);
                         }
@@ -293,7 +293,7 @@ import java.util.LinkedHashMap;
             try {
                 SystemClock.sleep(20);
             } catch (Exception e) {
-                XLog.e("Image Thread刷新异常: " + e.getMessage());
+                XLog.e("Image Thread[Chinese text]: " + e.getMessage());
             }
         }
         Log.i(TAG, "ImageThread exit");

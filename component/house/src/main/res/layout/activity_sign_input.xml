@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- 保存 -->
+    <!-- [Chinese text] -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_save"
         android:layout_width="0dp"
@@ -40,7 +40,7 @@
             app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- 重签 -->
+    <!-- [Chinese text] -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_clear"
         android:layout_width="0dp"
@@ -64,7 +64,7 @@
             app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- 签名 View -->
+    <!-- [Chinese text] View -->
     <com.topdon.house.view.SignView
         android:id="@+id/sign_view"
         android:layout_width="0dp"

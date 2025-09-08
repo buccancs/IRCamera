@@ -2,11 +2,11 @@
 
 Comprehensive troubleshooting guide for common issues and their solutions.
 
-## 🚨 Common Issues
+## [alert] Common Issues
 
 ### Android App Issues
 
-#### ❌ App crashes on startup
+#### [X] App crashes on startup
 **Symptoms**: App closes immediately after launch
 **Possible Causes**:
 - Missing permissions
@@ -16,7 +16,7 @@ Comprehensive troubleshooting guide for common issues and their solutions.
 **Solutions**:
 ```bash
 # Check device compatibility
-adb shell getprop ro.build.version.sdk  # Should be ≥21
+adb shell getprop ro.build.version.sdk  # Should be >=21
 
 # Clear app data
 adb shell pm clear com.csl.irCamera
@@ -29,20 +29,20 @@ adb install app-release.apk
 adb logcat | grep MPDC4GSR
 ```
 
-#### ❌ Shimmer3 GSR sensor not detected
+#### [X] Shimmer3 GSR sensor not detected
 **Symptoms**: "GSR Disconnected" or simulated data only
 **Diagnostic Steps**:
 1. **Check Bluetooth pairing**:
    ```
-   Android Settings → Bluetooth → Paired Devices
+   Android Settings -> Bluetooth -> Paired Devices
    Look for: "Shimmer3-XXXX" or "RN42-XXXX"
    Status should show: "Paired"
    ```
 
 2. **Verify permissions**:
    ```
-   Settings → Apps → MPDC4GSR → Permissions
-   Required: ✅ Location, ✅ Bluetooth, ✅ Nearby devices
+   Settings -> Apps -> MPDC4GSR -> Permissions
+   Required: [OK] Location, [OK] Bluetooth, [OK] Nearby devices
    ```
 
 3. **Test Shimmer3 device**:
@@ -58,11 +58,11 @@ adb logcat | grep MPDC4GSR
 1. Unpair Shimmer3 in Android Bluetooth settings
 2. Power cycle Shimmer3 device (off/on)
 3. Clear Bluetooth cache:
-   Settings → Apps → Bluetooth → Storage → Clear Cache
+   Settings -> Apps -> Bluetooth -> Storage -> Clear Cache
 4. Re-pair device and restart MPDC4GSR app
 ```
 
-#### ❌ Camera permission denied
+#### [X] Camera permission denied
 **Symptoms**: Black screen or "Camera unavailable" message
 
 **Solutions**:
@@ -73,10 +73,10 @@ adb shell pm grant com.csl.irCamera android.permission.RECORD_AUDIO
 adb shell pm grant com.csl.irCamera android.permission.WRITE_EXTERNAL_STORAGE
 
 # Manual permission grant
-Settings → Apps → MPDC4GSR → Permissions → Enable all
+Settings -> Apps -> MPDC4GSR -> Permissions -> Enable all
 ```
 
-#### ❌ Recording stops unexpectedly
+#### [X] Recording stops unexpectedly
 **Symptoms**: Recording terminates before intended duration
 
 **Diagnostic Commands**:
@@ -99,7 +99,7 @@ adb shell cat /sys/class/thermal/thermal_zone*/temp
 
 ### PC Controller Issues
 
-#### ❌ "Failed to import PyQt6"
+#### [X] "Failed to import PyQt6"
 **Symptoms**: PC Controller won't start, import error
 
 **Solutions**:
@@ -120,7 +120,7 @@ pip install PyQt6
 python -c "import PyQt6; print('PyQt6 version:', PyQt6.QtCore.qVersion())"
 ```
 
-#### ❌ No Android devices discovered
+#### [X] No Android devices discovered
 **Symptoms**: Device list remains empty
 
 **Diagnostic Steps**:
@@ -150,7 +150,7 @@ sudo ufw allow 8080
 sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add /path/to/python
 ```
 
-#### ❌ Time synchronization failed
+#### [X] Time synchronization failed
 **Symptoms**: Large timestamp differences between devices
 
 **Diagnostic Code**:
@@ -171,9 +171,9 @@ async def test_time_sync(device_ip):
     print(f"Offset: {offset/1_000_000:.2f}ms, Delay: {delay/1_000_000:.2f}ms")
     
     if abs(offset) > 5_000_000:  # 5ms
-        print("❌ Sync failed - offset too large")
+        print("[X] Sync failed - offset too large")
     else:
-        print("✅ Sync successful")
+        print("[OK] Sync successful")
 ```
 
 **Solutions**:
@@ -184,7 +184,7 @@ async def test_time_sync(device_ip):
 
 ### Network Issues
 
-#### ❌ Connection timeouts
+#### [X] Connection timeouts
 **Symptoms**: "Connection timeout" or "Device unreachable"
 
 **Network Diagnostics**:
@@ -211,14 +211,14 @@ wireshark -i [interface] -f "port 8080"
 2. **Reset network settings**:
    ```bash
    # Android
-   Settings → Network → Reset Network Settings
+   Settings -> Network -> Reset Network Settings
    
    # PC - Reset TCP/IP stack
    netsh int ip reset
    netsh winsock reset
    ```
 
-#### ❌ SSL/TLS handshake failed
+#### [X] SSL/TLS handshake failed
 **Symptoms**: "SSL handshake failed" or certificate errors
 
 **Certificate Diagnostics**:
@@ -242,7 +242,7 @@ update-ca-certificates
 
 ### Hardware Issues
 
-#### ❌ Shimmer3 battery drain
+#### [X] Shimmer3 battery drain
 **Symptoms**: Device disconnects frequently, low battery warnings
 
 **Battery Diagnostics**:
@@ -262,7 +262,7 @@ if (batteryLevel < 20) {
 - Enable power saving mode during long recordings
 - Check for firmware updates
 
-#### ❌ Thermal camera not detected
+#### [X] Thermal camera not detected
 **Symptoms**: Thermal recording unavailable
 
 **USB Diagnostics**:
@@ -282,7 +282,7 @@ adb shell pm list permissions | grep camera
 
 ### Performance Issues
 
-#### ❌ High memory usage
+#### [X] High memory usage
 **Symptoms**: App becomes slow, system warnings
 
 **Memory Monitoring**:
@@ -317,7 +317,7 @@ class MemoryOptimizedRecorder {
 }
 ```
 
-#### ❌ Frame drops in video recording
+#### [X] Frame drops in video recording
 **Symptoms**: Choppy video, missing frames
 
 **Performance Monitoring**:
@@ -339,12 +339,12 @@ class PerformanceMonitor {
 ```
 
 **Solutions**:
-- Reduce video resolution (4K → 1080p)
-- Lower frame rate (60fps → 30fps)
+- Reduce video resolution (4K -> 1080p)
+- Lower frame rate (60fps -> 30fps)
 - Close background applications
 - Use faster storage (internal vs SD card)
 
-## 🔧 Diagnostic Tools
+## [tool] Diagnostic Tools
 
 ### Android Debugging
 
@@ -415,14 +415,14 @@ def test_network_connectivity(host: str, port: int = 8080) -> bool:
         sock.close()
         
         if result == 0:
-            print(f"✅ Connection successful ({(end_time - start_time) * 1000:.1f}ms)")
+            print(f"[OK] Connection successful ({(end_time - start_time) * 1000:.1f}ms)")
             return True
         else:
-            print(f"❌ Connection failed: {result}")
+            print(f"[X] Connection failed: {result}")
             return False
             
     except Exception as e:
-        print(f"❌ Network error: {e}")
+        print(f"[X] Network error: {e}")
         return False
 ```
 
@@ -468,7 +468,7 @@ def validate_session_data(session_path: str) -> Dict[str, bool]:
     return results
 ```
 
-## 📋 Error Codes Reference
+## [clipboard] Error Codes Reference
 
 ### Android Error Codes
 
@@ -495,14 +495,14 @@ def validate_session_data(session_path: str) -> Dict[str, bool]:
 | `PC_004` | Device timeout | Check network connection |
 | `PC_005` | Data aggregation failed | Check available memory |
 
-## 🆘 Emergency Procedures
+## [SOS] Emergency Procedures
 
 ### Emergency Stop
 If recording must be stopped immediately:
 
 **Android Device**:
 1. Press volume down + power button simultaneously
-2. Or force close app: Settings → Apps → MPDC4GSR → Force Stop
+2. Or force close app: Settings -> Apps -> MPDC4GSR -> Force Stop
 
 **PC Controller**:
 1. Click "Emergency Stop" button
@@ -523,7 +523,7 @@ python scripts/validate_session.py [session_path]
 python scripts/recover_session.py [session_path]
 ```
 
-## 📞 Getting Help
+## [phone] Getting Help
 
 ### Self-Diagnosis Checklist
 Before reporting issues, try this checklist:

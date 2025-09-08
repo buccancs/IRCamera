@@ -23,8 +23,8 @@ import java.util.Locale
  */
 object LocationUtil {
     /**
-     * 获取最后一个位置message，并反向地理message编码为 省市区.
-     * @return 省-市-区，若获取失败或无可知位置message则为 null
+     * [Chinese text]message, [Chinese text]message[Chinese text] [Chinese text].
+     * @return [Chinese text]-[Chinese text]-[Chinese text], [Chinese text]message[Chinese text] null
      */
     @RequiresPermission(Permission.ACCESS_FINE_LOCATION)
     suspend fun getLastLocationStr(context: Context): String? =
@@ -43,7 +43,7 @@ object LocationUtil {
                     return@withContext null
                 }
                 val address = resultList[0]
-                return@withContext (address.adminArea ?: "") + (address.locality ?: "") + (address.subLocality ?: "") // 省-市-区
+                return@withContext (address.adminArea ?: "") + (address.locality ?: "") + (address.subLocality ?: "") // [Chinese text]-[Chinese text]-[Chinese text]
             } catch (e: Exception) {
                 e.printStackTrace()
                 return@withContext null
@@ -51,13 +51,13 @@ object LocationUtil {
         }
 
     /**
-     * 在给定 activity 生命周期内添加 位置message 开关状态监听.
+     * [Chinese text] activity [Chinese text] [Chinese text]message [Chinese text]listener.
      */
     fun addBtStateListener(
         activity: ComponentActivity,
         listener: ((isEnable: Boolean) -> Unit),
     ) {
-        if (Build.VERSION.SDK_INT >= 28) { // Android 9及以上版本才有位置message开关
+        if (Build.VERSION.SDK_INT >= 28) { // Android 9[Chinese text]message[Chinese text]
             activity.lifecycle.addObserver(ModeChangeObserver(activity, listener))
         }
     }

@@ -49,7 +49,7 @@ class RAWCaptureTestActivity : AppCompatActivity() {
 
         val cameraTitle =
             TextView(this).apply {
-                text = "📹 RGB Camera Preview"
+                text = "[video] RGB Camera Preview"
                 textSize = 16f
                 setTypeface(null, android.graphics.Typeface.BOLD)
                 setTextColor(Color.BLACK)
@@ -78,7 +78,7 @@ class RAWCaptureTestActivity : AppCompatActivity() {
 
         val optionsTitle =
             TextView(this).apply {
-                text = "🎥 Recording Options"
+                text = "[camera] Recording Options"
                 textSize = 16f
                 setTypeface(null, android.graphics.Typeface.BOLD)
                 setPadding(0, 0, 0, 16)
@@ -94,7 +94,7 @@ class RAWCaptureTestActivity : AppCompatActivity() {
             }
         videoLayout.addView(
             TextView(this).apply {
-                text = "📹 Record Video"
+                text = "[video] Record Video"
                 textSize = 14f
                 layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
                 setTextColor(Color.BLACK)
@@ -117,7 +117,7 @@ class RAWCaptureTestActivity : AppCompatActivity() {
             }
         resolution4KLayout.addView(
             TextView(this).apply {
-                text = "🎯 4K Recording (3840×2160)"
+                text = "[target] 4K Recording (3840x2160)"
                 textSize = 14f
                 layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
                 setTextColor(Color.BLACK)
@@ -141,7 +141,7 @@ class RAWCaptureTestActivity : AppCompatActivity() {
             }
         rawLayout.addView(
             TextView(this).apply {
-                text = "📸 RAW Image Capture (DNG)"
+                text = "[camera] RAW Image Capture (DNG)"
                 textSize = 14f
                 setTypeface(null, android.graphics.Typeface.BOLD)
                 layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
@@ -174,7 +174,7 @@ class RAWCaptureTestActivity : AppCompatActivity() {
             }
         frameRateLayout.addView(
             TextView(this).apply {
-                text = "⚡ RAW Frame Rate"
+                text = "[lightning] RAW Frame Rate"
                 textSize = 14f
                 layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
                 setTextColor(Color.parseColor("#1976D2"))
@@ -205,7 +205,7 @@ class RAWCaptureTestActivity : AppCompatActivity() {
 
         sessionSection.addView(
             TextView(this).apply {
-                text = "📋 Session ID: MultiModal_20250101_143022"
+                text = "[clipboard] Session ID: MultiModal_20250101_143022"
                 textSize = 12f
                 setTextColor(Color.GRAY)
             },
@@ -215,7 +215,7 @@ class RAWCaptureTestActivity : AppCompatActivity() {
         // Start/Stop button
         startStopButton =
             Button(this).apply {
-                text = "▶️ Start Multi-Modal Recording"
+                text = "> Start Multi-Modal Recording"
                 textSize = 16f
                 setTypeface(null, android.graphics.Typeface.BOLD)
                 setPadding(0, 20, 0, 20)
@@ -244,7 +244,7 @@ class RAWCaptureTestActivity : AppCompatActivity() {
 
         featuresSection.addView(
             TextView(this).apply {
-                text = "🎯 New RAW Capture Features:"
+                text = "[target] New RAW Capture Features:"
                 textSize = 14f
                 setTypeface(null, android.graphics.Typeface.BOLD)
                 setTextColor(Color.parseColor("#E65100"))
@@ -253,11 +253,11 @@ class RAWCaptureTestActivity : AppCompatActivity() {
 
         featuresSection.addView(
             TextView(this).apply {
-                text = "• Samsung Level 3 RAW DNG images at configurable frame rates\n" +
-                    "• Ground truth timing from Exynos/Snapdragon CPU\n" +
-                    "• Parallel recording with 4K video and GSR data\n" +
-                    "• Full sensor resolution (4032×3024 on Samsung S22)\n" +
-                    "• Synchronized timestamps across all modalities"
+                text = "* Samsung Level 3 RAW DNG images at configurable frame rates\n" +
+                    "* Ground truth timing from Exynos/Snapdragon CPU\n" +
+                    "* Parallel recording with 4K video and GSR data\n" +
+                    "* Full sensor resolution (4032x3024 on Samsung S22)\n" +
+                    "* Synchronized timestamps across all modalities"
                 textSize = 12f
                 setPadding(16, 8, 0, 0)
                 setTextColor(Color.parseColor("#BF360C"))

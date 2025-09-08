@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.activity_ir_correction_three.*
 
 /**
  *
- * 锅盖矫正
+ * [Chinese text]
  * @author: CaiSongL
  * @date: 2023/8/4 9:06
  */

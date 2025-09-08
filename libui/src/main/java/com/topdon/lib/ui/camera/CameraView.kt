@@ -36,7 +36,7 @@ import kotlin.concurrent.thread
 import com.topdon.lib.ui.R as UiR
 
 class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
-    /**预览 */
+    /**[Chinese text] */
     lateinit var mTextureView: TextureView
 
     constructor(context: Context) : this(context, null)
@@ -80,7 +80,7 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
                 parentViewH = view.height.toFloat()
             }
             MotionEvent.ACTION_MOVE -> {
-                // 滑动
+                // swipe
                 moveX = event.x - startX
                 moveY = event.y - startY
                 if (moveX - scaleW < 0f) moveX = 0f + scaleW
@@ -95,14 +95,14 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
                 mTextureView.y = moveY
             }
             MotionEvent.ACTION_UP -> {
-                isScale = false // 实际以手指抬起设定缩放结束
+                isScale = false // [Chinese text]
             }
         }
         return lis.onTouchEvent(event)
     }
 
     override fun onScale(detector: ScaleGestureDetector): Boolean {
-        // 缩放
+        // [Chinese text]
         isScale = true
         detector?.let {
             val scaleFactor = it.scaleFactor - 1
@@ -121,7 +121,7 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
     override fun onScaleEnd(detector: ScaleGestureDetector) {
     }
 
-    private var startX = 0f // 记录落点到控件的距离
+    private var startX = 0f // [Chinese text]point[Chinese text]
     private var startY = 0f
     private var moveX = 0f
     private var moveY = 0f
@@ -129,64 +129,64 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
     private var parentViewH = 0f
     private var isScale = false
     private var scale = 1f
-    private var scaleW = 0f // 单边缩放长度
+    private var scaleW = 0f // [Chinese text]
     private var scaleH = 0f
 
     private lateinit var lis: ScaleGestureDetector
 
 // ////////////////
-    /**相机权限请求标识 */
+    /**[Chinese text] */
     private val REQUEST_CAMERA_CODE = 0x100
 
-    /**Photo capture按钮 */
+    /**Photo capturebutton */
     private var mBtnTake: Button? = null
 
-    /**图片 */
+    /**[Chinese text] */
     private var mImageView: ImageView? = null
 
-    /**照相机ID，标识前置后置 */
+    /**[Chinese text]ID, [Chinese text] */
     private lateinit var mCameraId: String
 
-    /**相机尺寸 */
+    /**[Chinese text] */
     private var mCaptureSize: Size? = null
 
-    /**图像读取者 */
+    /**[Chinese text] */
     private lateinit var mImageReader: ImageReader
 
-    /**图像主线程Handler */
+    /**[Chinese text]line[Chinese text]Handler */
     private lateinit var mCameraHandler: Handler
 
-    /**相机设备 */
+    /**[Chinese text] */
     private var mCameraDevice: CameraDevice? = null
 
-    /**预览大小 */
+    /**[Chinese text] */
     private var mPreviewSize: Size? = null
 
-    /**相机请求 */
+    /**[Chinese text] */
     private lateinit var mCameraCaptureBuilder: CaptureRequest.Builder
 
-    /**相机Photo capture捕获会话 */
+    /**[Chinese text]Photo capture[Chinese text] */
     private var mCameraCaptureSession: CameraCaptureSession? = null
 
-    /**相机管理者 */
+    /**[Chinese text] */
     private var mCameraManager: CameraManager? = null
 
-    /**相机设备状态回调 */
+    /**[Chinese text] */
     private val mStateCallback: CameraDevice.StateCallback =
         object : CameraDevice.StateCallback() {
             override fun onOpened(
                 @NonNull camera: CameraDevice,
             ) {
-                // 打开
+                // [Chinese text]
                 mCameraDevice = camera
-                // 开始预览
+                // start[Chinese text]
                 takePreview()
             }
 
             override fun onDisconnected(
                 @NonNull camera: CameraDevice,
             ) {
-                // 断开连接
+                // [Chinese text]
                 camera.close()
                 mCameraDevice = null
             }
@@ -195,31 +195,31 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
                 @NonNull camera: CameraDevice,
                 error: Int,
             ) {
-                // 异常
+                // [Chinese text]
                 camera.close()
                 mCameraDevice = null
             }
         }
 
     /**
-     * 预览
+     * [Chinese text]
      */
     private fun takePreview() {
 //        mTextureView.rotation = 270f
         mTextureView.rotation = 0f
-        // 获取SurfaceTexture
+        // [Chinese text]SurfaceTexture
         val surfaceTexture = mTextureView.surfaceTexture
-        // Settings默认的缓冲大小
+        // Settings[Chinese text]
         surfaceTexture!!.setDefaultBufferSize(mPreviewSize!!.width, mPreviewSize!!.height)
-        // 创建Surface
+        // [Chinese text]Surface
         val previewSurface = Surface(surfaceTexture)
         try {
-            // 创建预览请求
+            // [Chinese text]
             mCameraCaptureBuilder =
                 mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
-            // 将previewSurface添加到预览请求中
+            // [Chinese text]previewSurface[Chinese text]in progress
             mCameraCaptureBuilder.addTarget(previewSurface)
-            // 创建会话
+            // [Chinese text]
             mCameraDevice!!.createCaptureSession(
                 listOf(
                     previewSurface,
@@ -230,11 +230,11 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
                         @NonNull session: CameraCaptureSession,
                     ) {
                         try {
-                            // 配置
+                            // [Chinese text]
                             val captureRequest = mCameraCaptureBuilder.build()
-                            // 設置session
+                            // [Chinese text]session
                             mCameraCaptureSession = session
-                            // Settings重复预览请求
+                            // Settings[Chinese text]
                             mCameraCaptureSession!!.setRepeatingRequest(
                                 captureRequest,
                                 null,
@@ -248,7 +248,7 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
                     override fun onConfigureFailed(
                         @NonNull session: CameraCaptureSession,
                     ) {
-                        // 配置失败
+                        // [Chinese text]
                     }
                 },
                 mCameraHandler,
@@ -266,8 +266,8 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
                     width: Int,
                     height: Int,
                 ) {
-                    // SurfaceTexture可用
-                    // Settings相机参数并打开相机
+                    // SurfaceTexture[Chinese text]
+                    // Settings[Chinese text]
                     Log.w("123", "width:$width, height:$height")
                     // w:h = 1 / 1.33
                     setUpCamera(width, height)
@@ -279,82 +279,82 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
                     width: Int,
                     height: Int,
                 ) {
-                    // SurfaceTexture大小改变
+                    // SurfaceTexture[Chinese text]
                 }
 
                 override fun onSurfaceTextureDestroyed(surface: SurfaceTexture): Boolean {
-                    // SurfaceTexture 销毁
+                    // SurfaceTexture [Chinese text]
                     return false
                 }
 
                 override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {
-                    // SurfaceTexture 更新
+                    // SurfaceTexture [Chinese text]
                 }
             }
     }
 
     /**
-     * 打开相机
+     * [Chinese text]
      */
     @SuppressLint("MissingPermission")
     fun openCamera() {
-        // 获取照相机管理者
+        // [Chinese text]
         try {
             mCameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager?
             mCameraManager!!.openCamera(mCameraId, mStateCallback, mCameraHandler)
         } catch (e: Exception) {
-            Log.e("123", "打开相机失败:${e.message}")
-            ToastUtils.showShort("打开相机失败")
+            Log.e("123", "[Chinese text]:${e.message}")
+            ToastUtils.showShort("[Chinese text]")
         }
     }
 
     /**
-     * Settings相机参数
-     * @param width 宽度
-     * @param height 高度
+     * Settings[Chinese text]
+     * @param width [Chinese text]
+     * @param height high[Chinese text]
      */
     private fun setUpCamera(
         width: Int,
         height: Int,
     ) {
-        // 创建Handler
+        // [Chinese text]Handler
         mCameraHandler = Handler(Looper.getMainLooper())
-        // 获取摄像头的管理者
+        // [Chinese text]
         val cameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
         try {
-            // 遍历所有摄像头
+            // [Chinese text]
             for (cameraId in cameraManager.cameraIdList) {
-                // 相机特性
+                // [Chinese text]
                 val cameraCharacteristics = cameraManager.getCameraCharacteristics(cameraId)
-                // 获取摄像头是前置还是后置
+                // [Chinese text]
                 val facing = cameraCharacteristics.get(CameraCharacteristics.LENS_FACING)
-                // 此处默认打开后置摄像头
+                // [Chinese text]
                 if (null != facing && CameraCharacteristics.LENS_FACING_FRONT == facing) continue
-                // 获取StreamConfigurationMap，管理摄像头支持的所有输出格式和尺寸
+                // [Chinese text]StreamConfigurationMap, [Chinese text]
                 val map =
                     cameraCharacteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)!!
-                // 根据TextureView的尺寸Settings预览尺寸
+                // [Chinese text]TextureView[Chinese text]Settings[Chinese text]
                 mPreviewSize =
                     getOptimalSize(
                         map.getOutputSizes(SurfaceTexture::class.java),
                         width,
                         height,
                     )
-                // 获取相机支持的最大Photo capture尺寸
+                // [Chinese text]Photo capture[Chinese text]
                 val sizes = map.getOutputSizes(ImageFormat.JPEG)
                 val w = 1000
                 val h = w * sizes[0].height / sizes[0].width
                 mCaptureSize = Size(w, h)
                 Log.w("123", "w:${sizes[0].width}, h:${sizes[0].height}")
-                Log.w("123", "调整后w:$w, h:$h")
+                Log.w("123", "[Chinese text]w:$w, h:$h")
 //                mCaptureSize = Size(1000, 1000)
 //                mCaptureSize =
 //                    Collections.max(Arrays.asList(map.getOutputSizes(ImageFormat.JPEG))) { lhs, rhs ->
 //                        java.lang.Long.signum(lhs.getWidth() * lhs.getHeight() - rhs.getHeight() * rhs.getWidth())
 //                    }
-                // 此处ImageReader用于Photo capture所需
+                // [Chinese text]ImageReaderforPhoto capture[Chinese text]
                 setupImageReader()
-                // 为摄像头赋值
+                // [Chinese text]
                 mCameraId = cameraId
                 break
             }
@@ -364,22 +364,22 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
     }
 
     /**
-     * 选择SizeMap中大于并且最接近width和height的size
-     * @param sizeMap 可选的尺寸
-     * @param width 宽
-     * @param height 高
-     * @return 最接近width和height的size
+     * [Chinese text]SizeMapin progress[Chinese text]width[Chinese text]height[Chinese text]size
+     * @param sizeMap [Chinese text]
+     * @param width [Chinese text]
+     * @param height high
+     * @return [Chinese text]width[Chinese text]height[Chinese text]size
      */
     private fun getOptimalSize(
         sizeMap: Array<Size>,
         width: Int,
         height: Int,
     ): Size {
-        // 创建列表
+        // [Chinese text]
         val sizeList: MutableList<Size> = ArrayList()
-        // 遍历
+        // [Chinese text]
         for (option in sizeMap) {
-            // 判断宽度是否大于高度
+            // [Chinese text]high[Chinese text]
             if (width > height) {
                 if (option.width > width && option.height > height) {
                     sizeList.add(option)
@@ -390,7 +390,7 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
                 }
             }
         }
-        // 判断存储Size的列表是否有数据
+        // [Chinese text]Size[Chinese text]
         return if (sizeList.size > 0) {
             Collections.min(
                 sizeList,
@@ -406,7 +406,7 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
      * SettingsImageReader
      */
     private fun setupImageReader() {
-        // 2代表ImageReader中最多可以获取两帧图像流
+        // 2[Chinese text]ImageReaderin progress[Chinese text]
         mImageReader =
             ImageReader.newInstance(
                 mCaptureSize!!.width,
@@ -414,25 +414,25 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
                 ImageFormat.JPEG,
                 1,
             )
-        // Settings图像可用监听
+        // Settings[Chinese text]listener
         mImageReader.setOnImageAvailableListener({ reader ->
             flag = 1
-            // 获取图片
+            // [Chinese text]
             val image: Image = reader.acquireLatestImage()
-            // 提交任务，保存图片
+            // [Chinese text], [Chinese text]
             mCameraHandler.post(ImageSaver(image))
-            // 更新UI
-            runOnUiThread { // 获取字节缓冲区
+            // [Chinese text]UI
+            runOnUiThread { // [Chinese text]
                 val buffer: ByteBuffer = image.planes[0].buffer
-                // 创建数组之前调用此方法，恢复默认Settings
+                // [Chinese text], [Chinese text]Settings
                 buffer.rewind()
-                // 创建与缓冲区内容大小相同的数组
+                // [Chinese text]
                 val bytes = ByteArray(buffer.remaining())
-                // 从缓冲区存入字节数组,读取完成之后position在末尾
+                // [Chinese text],[Chinese text]position[Chinese text]
                 buffer[bytes]
-                // 获取Bitmap图像
+                // [Chinese text]Bitmap[Chinese text]
                 val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-                // 显示
+                // [Chinese text]
                 if (null != bitmap) {
                     val h = bitmap.height
                     val w = bitmap.width
@@ -457,10 +457,10 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
     }
 
     /**
-     * 保存图片任务
+     * [Chinese text]
      */
     private inner class ImageSaver(image: Image) : Runnable {
-        /**图像 */
+        /**[Chinese text] */
         private val mImage: Image = image
 
         override fun run() {

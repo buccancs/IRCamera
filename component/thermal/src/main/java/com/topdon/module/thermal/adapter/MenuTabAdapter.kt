@@ -28,14 +28,14 @@ class MenuTabAdapter(val context: Context) :
         notifyDataSetChanged()
     }
 
-    // 拍摄
+    // [Chinese text]
     private val firstMenus =
         arrayListOf<Int>(
             com.topdon.lib.ui.R.drawable.ic_menu_thermal7001_svg,
             com.topdon.lib.ui.R.drawable.ic_menu_thermal7002_svg,
         )
 
-    // 选框
+    // [Chinese text]
     private val secondMenus =
         arrayListOf<Int>(
             com.topdon.lib.ui.R.drawable.ic_menu_thermal6001,
@@ -46,27 +46,27 @@ class MenuTabAdapter(val context: Context) :
             com.topdon.lib.ui.R.drawable.ic_menu_thermal7004,
         )
 
-    // 选框
+    // [Chinese text]
     private val secondMenusStr =
         arrayListOf(
-            "点",
-            "线",
-            "面",
-            "添加",
-            "全图",
-            "删除",
+            "point",
+            "line",
+            "[Chinese text]",
+            "[Chinese text]",
+            "[Chinese text]",
+            "[Chinese text]",
         )
 
-    // 选框
+    // [Chinese text]
     private val fourthMenusStr =
         arrayListOf(
-            "旋转",
-            "增强",
-            "画中画",
-            "色带",
+            "[Chinese text]",
+            "[Chinese text]",
+            "[Chinese text]in progress[Chinese text]",
+            "[Chinese text]",
         )
 
-    // 色彩 - Using available resources as placeholders
+    // [Chinese text] - Using available resources as placeholders
     private val thirdMenus =
         arrayListOf<Int>(
             com.topdon.lib.ui.R.drawable.ic_menu_thermal5003,

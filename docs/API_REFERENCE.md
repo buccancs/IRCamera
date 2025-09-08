@@ -2,7 +2,7 @@
 
 Complete API documentation for the Multi-Modal Physiological Sensing Platform.
 
-## 📡 Communication Protocol
+## [satellite] Communication Protocol
 
 ### Protocol Overview
 
@@ -36,20 +36,20 @@ All messages follow this structure:
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `message_id` | string | ✅ | UUID v4 for message tracking |
-| `timestamp` | string | ✅ | ISO 8601 timestamp with microseconds |
-| `sender_id` | string | ✅ | Unique identifier of sending device |
-| `recipient_id` | string | ❌ | Target device (optional for broadcast) |
-| `message_type` | enum | ✅ | Message category |
-| `sequence_number` | integer | ❌ | For ordering and duplicate detection |
-| `payload` | object | ✅ | Message-specific data |
-| `checksum` | string | ❌ | SHA-256 hash for integrity verification |
+| `message_id` | string | [OK] | UUID v4 for message tracking |
+| `timestamp` | string | [OK] | ISO 8601 timestamp with microseconds |
+| `sender_id` | string | [OK] | Unique identifier of sending device |
+| `recipient_id` | string | [X] | Target device (optional for broadcast) |
+| `message_type` | enum | [OK] | Message category |
+| `sequence_number` | integer | [X] | For ordering and duplicate detection |
+| `payload` | object | [OK] | Message-specific data |
+| `checksum` | string | [X] | SHA-256 hash for integrity verification |
 
-## 🎛️ Command Messages
+## [control panel] Command Messages
 
 ### Device Discovery
 
-#### Discover Request (PC → Android)
+#### Discover Request (PC -> Android)
 ```json
 {
     "message_type": "command",
@@ -64,7 +64,7 @@ All messages follow this structure:
 }
 ```
 
-#### Discover Response (Android → PC)
+#### Discover Response (Android -> PC)
 ```json
 {
     "message_type": "response",
@@ -273,7 +273,7 @@ All messages follow this structure:
 }
 ```
 
-## 📊 Data Messages
+## [chart] Data Messages
 
 ### Real-time GSR Data
 ```json
@@ -360,7 +360,7 @@ All messages follow this structure:
 }
 ```
 
-## 🔄 Response Messages
+## [refresh] Response Messages
 
 ### Standard Response Format
 ```json
@@ -399,7 +399,7 @@ All messages follow this structure:
 }
 ```
 
-## 💓 Heartbeat Messages
+## [heart] Heartbeat Messages
 
 ### Heartbeat Request
 ```json
@@ -437,7 +437,7 @@ All messages follow this structure:
 }
 ```
 
-## 🔒 Security Protocol
+## [lock] Security Protocol
 
 ### TLS Configuration
 
@@ -462,7 +462,7 @@ All messages follow this structure:
 5. **Session Key Exchange**: Establish session-specific encryption
 6. **Command Exchange**: Authenticated command/response cycle
 
-## 📱 Android SDK API
+## [mobile] Android SDK API
 
 ### Core Classes
 
@@ -620,7 +620,7 @@ data class SyncEvent(
 )
 ```
 
-## 🖥️ PC Controller API
+## [desktop] PC Controller API
 
 ### Core Classes
 
@@ -708,7 +708,7 @@ class Device:
     storage_available: float
 ```
 
-## 🔧 Configuration API
+## [tool] Configuration API
 
 ### Android Configuration
 
@@ -791,7 +791,7 @@ data class SessionConfig(
 }
 ```
 
-## 📈 Performance Metrics
+## [chart up] Performance Metrics
 
 ### API Performance Targets
 

@@ -38,7 +38,7 @@ def test_protocol_manager():
     assert "device_register" in message_types
     assert "sync_flash" in message_types
 
-    print(f"✓ Protocol manager loaded {len(message_types)} message types")
+    print(f"[check] Protocol manager loaded {len(message_types)} message types")
 
 
 def test_message_creation():
@@ -69,7 +69,7 @@ def test_message_creation():
     assert sync_msg["message_type"] == "sync_flash"
     assert sync_msg["duration_ms"] == 100
 
-    print("✓ Message creation and validation working")
+    print("[check] Message creation and validation working")
 
 
 def test_network_server():
@@ -94,7 +94,7 @@ def test_network_server():
     assert server._host is not None
     assert server._port > 0
 
-    print("✓ Network server initialized with protocol support")
+    print("[check] Network server initialized with protocol support")
 
 
 def test_session_manager():
@@ -113,7 +113,7 @@ def test_session_manager():
     assert current is not None
     assert current.session_id == session.session_id
 
-    print("✓ Session manager working")
+    print("[check] Session manager working")
 
 
 async def test_protocol_message_flow():
@@ -147,7 +147,7 @@ async def test_protocol_message_flow():
         is_valid = validate_message(msg, strict=False)
         assert is_valid, f"Message {i} should be valid: {msg['message_type']}"
 
-    print(f"✓ All {len(messages)} protocol messages validated successfully")
+    print(f"[check] All {len(messages)} protocol messages validated successfully")
 
 
 def main():
@@ -166,20 +166,20 @@ def main():
         asyncio.run(test_protocol_message_flow())
 
         print("\n" + "=" * 60)
-        print("✓ ALL TESTS PASSED - System ready for PyQt6 upgrade!")
+        print("[check] ALL TESTS PASSED - System ready for PyQt6 upgrade!")
         print("=" * 60)
 
         # Display upgrade summary
         print("\nUpgrade Summary:")
-        print("• JSON Protocol Definition: ✓ Implemented")
-        print("• Protocol Validation: ✓ Working")
-        print("• Message Creation: ✓ Working")
-        print("• Network Server: ✓ Updated for protocol")
-        print("• PyQt6 Compatibility: ✓ Imports updated")
-        print("• Package Versions: ✓ Updated to latest")
+        print("* JSON Protocol Definition: [check] Implemented")
+        print("* Protocol Validation: [check] Working")
+        print("* Message Creation: [check] Working")
+        print("* Network Server: [check] Updated for protocol")
+        print("* PyQt6 Compatibility: [check] Imports updated")
+        print("* Package Versions: [check] Updated to latest")
 
     except (OSError, ValueError, RuntimeError) as e:
-        print(f"\n❌ TEST FAILED: {e}")
+        print(f"\n[X] TEST FAILED: {e}")
         import traceback
 
         traceback.print_exc()

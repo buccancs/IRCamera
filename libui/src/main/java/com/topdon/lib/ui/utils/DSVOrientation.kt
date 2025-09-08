@@ -6,7 +6,7 @@ import android.graphics.Point
  * @author: CaiSongL
  * @date: 2023/4/1 14:12
  */
-@Deprecated("热成像-菜单-Photo capture已重构，不需要这个类了")
+@Deprecated("[Chinese text]-menu-Photo capture[Chinese text], [Chinese text]")
 enum class DSVOrientation {
     HORIZONTAL {
         override fun createHelper(): Helper {

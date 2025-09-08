@@ -139,7 +139,7 @@ class FencePointView : View {
             // bottom
             point1[1] = height - destH / 2
         }
-        Log.w("123", "坐标 point:${point1.contentToString()}")
+        Log.w("123", "[Chinese text] point:${point1.contentToString()}")
         if (listener != null) {
             listener!!.callback(point1, intArrayOf(width, height))
         }
@@ -153,8 +153,8 @@ class FencePointView : View {
 
     interface CallBack {
         /**
-         * startPoint: 左上角
-         * endPoint: 右下角
+         * startPoint: [Chinese text]
+         * endPoint: [Chinese text]
          */
         fun callback(
             startPoint: IntArray,

@@ -75,8 +75,8 @@ class GSRDemoActivity : AppCompatActivity() {
                         dataText.text =
                             buildString {
                                 append("Latest Sample #${sample.sampleIndex}:\n")
-                                append("Conductance: ${"%.3f".format(sample.conductance)} µS\n")
-                                append("Resistance: ${"%.3f".format(sample.resistance)} kΩ\n")
+                                append("Conductance: ${"%.3f".format(sample.conductance)} microS\n")
+                                append("Resistance: ${"%.3f".format(sample.resistance)} kOhm\n")
                                 append("Timestamp: ${TimeUtil.formatTimestamp(sample.timestamp)}\n")
                                 append("Rate: 128 Hz\n\n")
 

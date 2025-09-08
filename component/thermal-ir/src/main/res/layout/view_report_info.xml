@@ -15,7 +15,7 @@
         android:layout_marginEnd="20dp"
         android:paddingBottom="32dp">
 
-        <!-- 报告名称 -->
+        <!-- [Chinese text] -->
         <TextView
             android:id="@+id/tv_report_name"
             android:layout_width="0dp"
@@ -28,7 +28,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- 作者 -->
+        <!-- [Chinese text] -->
         <TextView
             android:id="@+id/tv_report_author"
             android:layout_width="0dp"
@@ -40,7 +40,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_report_name" />
 
-        <!-- 时间 -->
+        <!-- [Chinese text] -->
         <TextView
             android:id="@+id/tv_report_date"
             android:layout_width="0dp"
@@ -52,7 +52,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_report_author" />
 
-        <!-- 地址 -->
+        <!-- [Chinese text] -->
         <ImageView
             android:id="@+id/iv_report_place"
             android:layout_width="20sp"
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:textColor="#ffffff"
-            tools:text="深圳市南山区前海"
+            tools:text="[Chinese text]"
             app:layout_constraintStart_toEndOf="@id/iv_report_place"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_report_date" />
@@ -80,7 +80,7 @@
             app:constraint_referenced_ids="iv_report_place,tv_report_place" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- 检测条件 -->
+    <!-- [Chinese text] -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_report_condition"
         android:layout_width="match_parent"
@@ -109,7 +109,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- 环境温度 -->
+        <!-- [Chinese text]temperature -->
         <TextView
             android:id="@+id/tv_ambient_temperature_title"
             android:layout_width="0dp"
@@ -133,7 +133,7 @@
             android:layout_marginEnd="16dp"
             android:textSize="15sp"
             android:textColor="#e8e8e8"
-            tools:text="26°C"
+            tools:text="26degC"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_ambient_temperature_title"
             app:layout_constraintBottom_toBottomOf="@id/tv_ambient_temperature_title" />
@@ -158,7 +158,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/tv_ambient_temperature_title" />
 
-        <!-- 环境湿度 -->
+        <!-- [Chinese text] -->
         <TextView
             android:id="@+id/tv_ambient_humidity_title"
             android:layout_width="0dp"
@@ -207,7 +207,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/tv_ambient_humidity_title" />
 
-        <!-- 测试距离 -->
+        <!-- [Chinese text] -->
         <TextView
             android:id="@+id/tv_test_distance_title"
             android:layout_width="0dp"
@@ -256,7 +256,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/tv_test_distance_title" />
 
-        <!-- 发射率 -->
+        <!-- [Chinese text] -->
         <TextView
             android:id="@+id/tv_emissivity_title"
             android:layout_width="0dp"
@@ -280,7 +280,7 @@
             android:layout_marginEnd="16dp"
             android:textSize="15sp"
             android:textColor="#e8e8e8"
-            tools:text="ε=0.95"
+            tools:text="epsilon=0.95"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_emissivity_title"
             app:layout_constraintBottom_toBottomOf="@id/tv_emissivity_title" />

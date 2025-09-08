@@ -103,7 +103,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="14sp"
-            android:text="32.00℃"
+            android:text="32.00C"
             />
 
         <View
@@ -139,7 +139,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="14sp"
-            android:text="32.00℃"
+            android:text="32.00C"
             />
         <CheckBox
             android:id="@+id/dialog_tip_check"

@@ -12,14 +12,14 @@ import com.topdon.module.thermal.ir.databinding.ViewTrendBinding
 import kotlin.math.min
 
 /**
- * 趋势图折线图及对应箭头等的封装.
+ * [Chinese text]line[Chinese text].
  *
  * Created by LCG on 2024/12/31.
  */
 class TrendView : FrameLayout {
 
     /**
-     * 展开趋势图
+     * [Chinese text]
      */
     fun expand() {
         binding.clOpen.isVisible = true
@@ -27,7 +27,7 @@ class TrendView : FrameLayout {
     }
 
     /**
-     * 收起趋势图
+     * [Chinese text]
      */
     fun close() {
         binding.clOpen.isVisible = false
@@ -35,8 +35,8 @@ class TrendView : FrameLayout {
     }
 
     /**
-     * 根据指定的数据刷新折线图数据
-     * @param tempList 温度值列表，单位摄氏度
+     * [Chinese text]line[Chinese text]
+     * @param tempList temperature[Chinese text], [Chinese text]
      */
     fun refreshChart(tempList: List<Float>) {
         if (isVisible && binding.clOpen.isVisible) {
@@ -45,7 +45,7 @@ class TrendView : FrameLayout {
     }
 
     /**
-     * 将折线图清空
+     * [Chinese text]line[Chinese text]
      */
     fun setToEmpty() {
         binding.viewChartTrend.setToEmpty()
@@ -88,7 +88,7 @@ class TrendView : FrameLayout {
         val heightMode = MeasureSpec.getMode(heightMeasureSpec)
         val heightSize = MeasureSpec.getSize(heightMeasureSpec)
 
-        // 宽度为 UNSPECIFIED 的情况目前不存在，不考虑
+        // [Chinese text] UNSPECIFIED [Chinese text], [Chinese text]
         val wantHeight: Int = SizeUtils.dp2px(34f) + (widthSize * 158 / 264f).toInt()
         val height = when (heightMode) {
             MeasureSpec.EXACTLY -> heightSize

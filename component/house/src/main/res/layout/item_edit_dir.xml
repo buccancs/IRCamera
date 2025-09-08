@@ -46,7 +46,7 @@
         android:inputType="text"
         android:maxLength="50"
         android:background="@drawable/bg_corners08_stroke_20_ff"
-        tools:text="一楼汇总"
+        tools:text="[Chinese text]"
         app:layout_constraintWidth_percent="0.49"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="@id/view_bg" />

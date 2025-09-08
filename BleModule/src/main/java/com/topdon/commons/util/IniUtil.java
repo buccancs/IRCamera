@@ -52,9 +52,9 @@ public class IniUtil {
     }
 
     /**
-     * 获取车型名字
+     * [Chinese text]
      *
-     * @param path 车型路径
+     * @param path [Chinese text]
      * @return String
      */
     public static String getVehicleName(String path) {
@@ -67,14 +67,14 @@ public class IniUtil {
     }
 
     /**
-     * 读取文件
+     * [Chinese text]
      *
-     * @param path 路径
+     * @param path [Chinese text]
      */
     private static String readFileInfo(String path) {
         String name = "";
         File file = new File(path);
-        // 如果path是传递过来的参数，可以做一个非目录的判断
+        // [Chinese text]path[Chinese text], [Chinese text]
         if (file.isDirectory()) {
             LLog.d("TestFile", "The File doesn't not exist.");
         } else {
@@ -83,7 +83,7 @@ public class IniUtil {
                 InputStreamReader inputreader = new InputStreamReader(instream);
                 BufferedReader buffreader = new BufferedReader(inputreader);
                 String line;
-                // 分行读取
+                // [Chinese text]
                 while ((line = buffreader.readLine()) != null) {
                     LLog.e("TestFile", "ReadTxtFile: " + line);
                     name = line;
@@ -104,7 +104,7 @@ public class IniUtil {
     public static String getVersion(String path, String name) {
         File file = new File(path + "/Diag.ini");
         if (!file.exists()) {
-            LLog.e("bcf", name + "  ini不存在：" + file.getPath());
+            LLog.e("bcf", name + "  ini[Chinese text]: " + file.getPath());
             return "INI_LOST";
         }
         Config cfg = new Config();
@@ -148,7 +148,7 @@ public class IniUtil {
     }
 
     /**
-     * 获取保养类型
+     * [Chinese text]
      *
      * @param path
      * @param name
@@ -158,7 +158,7 @@ public class IniUtil {
         HashMap<String, String> hashMap = new HashMap<>();
         File file = new File(path + "/Diag.ini");
         if (!file.exists()) {
-            LLog.e("bcf", name + "  ini不存在：" + file.getPath());
+            LLog.e("bcf", name + "  ini[Chinese text]: " + file.getPath());
             return hashMap;
         }
         Config cfg = new Config();
@@ -307,7 +307,7 @@ public class IniUtil {
     }
 
     /**
-     * 获取保养类型
+     * [Chinese text]
      *
      * @param path
      * @param name
@@ -317,7 +317,7 @@ public class IniUtil {
         HashMap<String, String> hashMap = new HashMap<>();
         File file = new File(path + "/Diag.ini");
         if (!file.exists()) {
-            LLog.e("bcf", name + "  ini不存在：" + file.getPath());
+            LLog.e("bcf", name + "  ini[Chinese text]: " + file.getPath());
             return hashMap;
         }
         Config cfg = new Config();

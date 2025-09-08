@@ -5,22 +5,22 @@ package com.energy.commoncomponent.view.tempcanvas;
  */
 public enum TempInfoMode {
     /**
-     * 点
+     * point
      */
     POINT,
 
     /**
-     * 线
+     * line
      */
     LINE,
 
     /**
-     * 框
+     * [Chinese text]
      */
     RECTANGLE,
 
     /**
-     * 圆
+     * [Chinese text]
      */
     CIRCLE,
 }

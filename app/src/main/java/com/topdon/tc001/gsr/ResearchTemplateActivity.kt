@@ -149,28 +149,28 @@ class ResearchTemplateActivity : AppCompatActivity() {
         selectedTemplate?.let { template ->
             selectedTemplateContainer.visibility = View.VISIBLE
 
-            selectedTemplateTitle.text = "${template.icon ?: "📊"} ${template.name}"
+            selectedTemplateTitle.text = "${template.icon ?: "[chart]"} ${template.name}"
             selectedTemplateDescription.text = template.description
 
             // Format template details
             val details =
                 buildString {
-                    append("🎯 Category: ${template.category.name.replace("_", " ").lowercase().replaceFirstChar { it.uppercase() }}\n")
-                    append("🔧 Sensors: ${template.sensors.joinToString(", ") { it.name.replace("_", " ") }}\n")
+                    append("[target] Category: ${template.category.name.replace("_", " ").lowercase().replaceFirstChar { it.uppercase() }}\n")
+                    append("[tool] Sensors: ${template.sensors.joinToString(", ") { it.name.replace("_", " ") }}\n")
 
                     if (template.duration != null) {
                         val durationMs = template.duration!!
                         val minutes = durationMs / (60 * 1000)
-                        append("⏱️ Duration: $minutes minutes\n")
+                        append("[TIMER] Duration: $minutes minutes\n")
                     } else {
-                        append("⏱️ Duration: Unlimited\n")
+                        append("[TIMER] Duration: Unlimited\n")
                     }
 
-                    append("📊 GSR Rate: ${template.gsrSamplingRate}Hz\n")
-                    append("📹 Video: ${template.videoResolution.width}x${template.videoResolution.height} @ ${template.videoFrameRate}fps\n")
+                    append("[chart] GSR Rate: ${template.gsrSamplingRate}Hz\n")
+                    append("[video] Video: ${template.videoResolution.width}x${template.videoResolution.height} @ ${template.videoFrameRate}fps\n")
 
                     template.instructions?.let { instructions ->
-                        append("\n📋 Instructions:\n$instructions")
+                        append("\n[clipboard] Instructions:\n$instructions")
                     }
                 }
 
@@ -255,7 +255,7 @@ class TemplateAdapter(
         val isSelected = template == selectedTemplate
 
         // Template info
-        holder.iconText.text = template.icon ?: "📊"
+        holder.iconText.text = template.icon ?: "[chart]"
         holder.nameText.text = template.name
         holder.categoryText.text = template.category.name.replace("_", " ").lowercase().replaceFirstChar { it.uppercase() }
 
@@ -263,9 +263,9 @@ class TemplateAdapter(
         val sensorIcons =
             template.sensors.map { sensor ->
                 when (sensor) {
-                    ResearchTemplate.SensorType.GSR -> "📊"
-                    ResearchTemplate.SensorType.THERMAL_CAMERA -> "🌡️"
-                    ResearchTemplate.SensorType.RGB_CAMERA -> "📸"
+                    ResearchTemplate.SensorType.GSR -> "[chart]"
+                    ResearchTemplate.SensorType.THERMAL_CAMERA -> "[thermometer]"
+                    ResearchTemplate.SensorType.RGB_CAMERA -> "[camera]"
                 }
             }.joinToString(" ")
         holder.sensorsText.text = sensorIcons
@@ -276,7 +276,7 @@ class TemplateAdapter(
                 val durationMs = template.duration!!
                 "${durationMs / (60 * 1000)}min"
             } else {
-                "∞"
+                "infinity"
             }
 
         // Selection state

@@ -25,7 +25,7 @@ import java.util.List;
     public class AppUtil {
     public static boolean isAppInstalled(Context context, String packageName) {
         PackageManager packageManager = context.getPackageManager();
-        // 获取系统中安装的应用包的message
+        // [Chinese text]in progress[Chinese text]message
         List<PackageInfo> listPackageInfo = packageManager.getInstalledPackages(0);
         for (int i = 0; i < listPackageInfo.size(); i++) {
             if (listPackageInfo.get(i).packageName.equalsIgnoreCase(packageName)) {
@@ -42,7 +42,7 @@ import java.util.List;
         resolveIntent.setPackage(pi.packageName);
         List<ResolveInfo> apps = context.getPackageManager().queryIntentActivities(resolveIntent, 0);
         if (apps == null || apps.size() <= 0) {
-//            LLog.e("bcf","该应用没有启动入口无法启动");
+//            LLog.e("bcf","[Chinese text]");
             return;
         }
         ResolveInfo ri = apps.iterator().next();
@@ -58,7 +58,7 @@ import java.util.List;
     }
 
         /**
-     * 应用安装
+     * [Chinese text]
      *
      * @param context
      * @param
@@ -67,9 +67,9 @@ import java.util.List;
     public static void installApp(Context context, File apkPath) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        /// < 判断是否是AndroidN以及更高的版本
+        /// < [Chinese text]AndroidN[Chinese text]high[Chinese text]
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            // 不能再用setFlags了， setflags会重置之前的Settings， 要么 setflags 多个|拼接，要么addflag
+            // [Chinese text]setFlags[Chinese text],  setflags[Chinese text]Settings,  [Chinese text] setflags [Chinese text]|[Chinese text], [Chinese text]addflag
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             Uri contentUri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileprovider", apkPath);
             intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
@@ -80,10 +80,10 @@ import java.util.List;
     }
 
         /**
-     * 方法描述：判断某一Service是否正在运行     *
-     * * @param context     上下文
-     * * @param serviceName Service的全路径： 包名 + service的类名
-     * * @return true 表示正在运行，false 表示没有运行
+     * [Chinese text]: [Chinese text]Service[Chinese text]     *
+     * * @param context     [Chinese text]
+     * * @param serviceName Service[Chinese text]:  [Chinese text] + service[Chinese text]
+     * * @return true [Chinese text], false [Chinese text]
      */
     public static boolean isProcessRunning(Context context, String serviceName) {
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
@@ -92,7 +92,7 @@ import java.util.List;
             return false;
         }
         for (ActivityManager.RunningServiceInfo serviceInfo : runningServiceInfos) {
-            XLog.w("bcf", "进程名=" + serviceInfo.service.getClassName());
+            XLog.w("bcf", "[Chinese text]=" + serviceInfo.service.getClassName());
             if (serviceInfo.process.equals(serviceName)) {
                 return true;
             }
@@ -101,10 +101,10 @@ import java.util.List;
     }
 
         /**
-     * 方法描述：判断某一Service是否正在运行     *
-     * * @param context     上下文
-     * * @param serviceName Service的全路径： 包名 + service的类名
-     * * @return true 表示正在运行，false 表示没有运行
+     * [Chinese text]: [Chinese text]Service[Chinese text]     *
+     * * @param context     [Chinese text]
+     * * @param serviceName Service[Chinese text]:  [Chinese text] + service[Chinese text]
+     * * @return true [Chinese text], false [Chinese text]
      */
     public static boolean isServiceRunning(Context context, String serviceName) {
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
@@ -113,7 +113,7 @@ import java.util.List;
             return false;
         }
         for (ActivityManager.RunningServiceInfo serviceInfo : runningServiceInfos) {
-            XLog.w("bcf", "类名=" + serviceInfo.service.getClassName());
+            XLog.w("bcf", "[Chinese text]=" + serviceInfo.service.getClassName());
             if (serviceInfo.service.getClassName().equals(serviceName)) {
                 return true;
             }

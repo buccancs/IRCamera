@@ -92,14 +92,14 @@ class EmissivityTipPopup(val context: Context, val isTC007: Boolean) {
                 isFocusable = true
                 isOutsideTouchable = true
                 isTouchable = true
-                setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)) // 必要时可以替换为其他Drawable
+                setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)) // [Chinese text]Drawable
             }
             view.dialog_tip_success_btn.setOnClickListener {
                 ARouter.getInstance().build(RouterConfig.IR_SETTING).withBoolean(ExtraKeyConfig.IS_TC007, isTC007).navigation(context)
                 dismiss()
             }
         }
-        // 设置PopupWindow的其他属性和监听器...
+        // settingsPopupWindow[Chinese text]listener[Chinese text]...
         return popupWindow!!
     }
 

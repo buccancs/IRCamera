@@ -8,10 +8,10 @@ import com.topdon.ble.Request;
  */
 public interface MtuChangeCallback extends RequestFailedCallback {
     /**
-     * 最大传输单元变化
+     * [Chinese text]
      *
-     * @param request 请求
-     * @param mtu     最大传输单元新的值
+     * @param request [Chinese text]
+     * @param mtu     [Chinese text]
      */
     void onMtuChanged(Request request, int mtu);
 }

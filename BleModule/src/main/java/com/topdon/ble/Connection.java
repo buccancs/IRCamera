@@ -19,14 +19,14 @@ public interface Connection {
     UUID clientCharacteristicConfig = UUID.fromString("00002902-0000-1000-8000-00805f9b34fb");
 
     /**
-     * 普通请求失败
+     * [Chinese text]
      */
     int REQUEST_FAIL_TYPE_REQUEST_FAILED = 0;
     int REQUEST_FAIL_TYPE_CHARACTERISTIC_NOT_EXIST = 1;
     int REQUEST_FAIL_TYPE_DESCRIPTOR_NOT_EXIST = 2;
     int REQUEST_FAIL_TYPE_SERVICE_NOT_EXIST = 3;
     /**
-     * 请求结果不是[BluetoothGatt.GATT_SUCCESS]
+     * [Chinese text][BluetoothGatt.GATT_SUCCESS]
      */
     int REQUEST_FAIL_TYPE_GATT_STATUS_FAILED = 4;
     int REQUEST_FAIL_TYPE_GATT_IS_NULL = 5;
@@ -35,24 +35,24 @@ public interface Connection {
     int REQUEST_FAIL_TYPE_CONNECTION_DISCONNECTED = 8;
     int REQUEST_FAIL_TYPE_CONNECTION_RELEASED = 9;
 
-    // ----------连接超时类型---------
+    // ----------[Chinese text]---------
     int TIMEOUT_TYPE_CANNOT_DISCOVER_DEVICE = 0;
     /**
-     * 搜索到设备，但是无法连接成功
+     * [Chinese text], [Chinese text]
      */
     int TIMEOUT_TYPE_CANNOT_CONNECT = 1;
     /**
-     * 连接成功，但是无法发现蓝牙服务，即[BluetoothGattCallback.onServicesDiscovered]不回调
+     * [Chinese text], [Chinese text], [Chinese text][BluetoothGattCallback.onServicesDiscovered][Chinese text]
      */
     int TIMEOUT_TYPE_CANNOT_DISCOVER_SERVICES = 2;
 
-    // -------------连接失败类型-------------------
+    // -------------[Chinese text]-------------------
     /**
-     * 达到最大重连次数限制
+     * [Chinese text]
      */
     int CONNECT_FAIL_TYPE_MAXIMUM_RECONNECTION = 1;
     /**
-     * 不支持连接
+     * [Chinese text]
      */
     int CONNECT_FAIL_TYPE_CONNECTION_IS_UNSUPPORTED = 2;
 
@@ -60,43 +60,43 @@ public interface Connection {
     Device getDevice();
 
     /**
-     * 获取当前Settings的最大传输单元
+     * [Chinese text]Settings[Chinese text]
      */
     int getMtu();
 
     /**
-     * 重连
+     * [Chinese text]
      */
     void reconnect();
 
     /**
-     * 断开连接
+     * [Chinese text]
      */
     void disconnect();
 
     /**
-     * 清理内部缓存并强制刷新蓝牙设备的服务
+     * [Chinese text]
      */
     void refresh();
 
     /**
-     * 销毁连接
+     * [Chinese text]
      */
     void release();
 
     /**
-     * 销毁连接，不通知观察者
+     * [Chinese text], [Chinese text]observation[Chinese text]
      */
     void releaseNoEvent();
 
     /**
-     * 获取连接状态
+     * [Chinese text]
      */
     @NonNull
     ConnectionState getConnectionState();
 
     /**
-     * 是否开启了自动连接
+     * [Chinese text]
      */
     boolean isAutoReconnectEnabled();
 
@@ -104,12 +104,12 @@ public interface Connection {
     BluetoothGatt getGatt();
 
     /**
-     * 清除请求队列，不触发事件
+     * [Chinese text], [Chinese text]event
      */
     void clearRequestQueue();
 
     /**
-     * 将指定的请求类型从队列中移除，如果传null，则清除请求队列，不触发事件
+     * [Chinese text]in progress[Chinese text], [Chinese text]null, [Chinese text], [Chinese text]event
      */
     void clearRequestQueueByType(RequestType type);
 
@@ -126,31 +126,31 @@ public interface Connection {
     BluetoothGattDescriptor getDescriptor(UUID service, UUID characteristic, UUID descriptor);
 
     /**
-     * 执行请求
+     * [Chinese text]
      */
     void execute(Request request);
 
     /**
-     * 通知或Indication是否开启
+     * [Chinese text]Indication[Chinese text]
      */
     boolean isNotificationOrIndicationEnabled(BluetoothGattCharacteristic characteristic);
 
     /**
-     * 通知或Indication是否开启
+     * [Chinese text]Indication[Chinese text]
      */
     boolean isNotificationOrIndicationEnabled(UUID service, UUID characteristic);
 
     /**
-     * Settings原生回调
+     * Settings[Chinese text]
      */
     void setBluetoothGattCallback(BluetoothGattCallback callback);
 
     /**
-     * 判断特征是否具有某属性
+     * [Chinese text]
      *
-     * @param service        特征所在服务的UUID
-     * @param characteristic 特征的UUID
-     * @param property       需要判断是否存在的属性。{@link BluetoothGattCharacteristic#PROPERTY_WRITE}等
+     * @param service        [Chinese text]UUID
+     * @param characteristic [Chinese text]UUID
+     * @param property       [Chinese text]. {@link BluetoothGattCharacteristic#PROPERTY_WRITE}[Chinese text]
      */
     boolean hasProperty(UUID service, UUID characteristic, int property);
 }

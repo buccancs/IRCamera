@@ -20,7 +20,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- 仅温度档位菜单所用，温度档位范围文字 -->
+        <!-- onlytemperaturelevelmenuused by, temperaturelevelrangetext -->
         <TextView
             android:id="@+id/tv_icon_text"
             android:layout_width="0dp"
@@ -29,7 +29,7 @@
             android:gravity="center_vertical"
             android:textSize="12sp"
             android:textColor="@color/temp_level_text"
-            tools:text="-20\n~\n50°C"
+            tools:text="-20\n~\n50degC"
             app:layout_constraintStart_toStartOf="@id/iv_icon"
             app:layout_constraintEnd_toEndOf="@id/iv_icon"
             app:layout_constraintTop_toTopOf="@id/iv_icon"

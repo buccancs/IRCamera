@@ -36,7 +36,7 @@ import java.lang.reflect.Method;
     }
 
         /**
-     * 获得屏幕高度
+     * [Chinese text]high[Chinese text]
      *
      * @param context
      * @return
@@ -50,7 +50,7 @@ import java.lang.reflect.Method;
     }
 
         /**
-     * 获得屏幕宽度
+     * [Chinese text]
      *
      * @param context
      * @return
@@ -64,7 +64,7 @@ import java.lang.reflect.Method;
     }
 
         /**
-     * 获得状态栏的高度
+     * [Chinese text]high[Chinese text]
      *
      * @param context
      * @return
@@ -85,7 +85,7 @@ import java.lang.reflect.Method;
     }
 
         /**
-     * 获取当前屏幕截图，包含状态栏
+     * [Chinese text], [Chinese text]
      *
      * @param activity
      * @return
@@ -105,14 +105,14 @@ import java.lang.reflect.Method;
     }
 
         /**
-     * 得到设备的dpi
+     * [Chinese text]dpi
      */
     public static int getScreenDensityDpi(Context context) {
         return context.getResources().getDisplayMetrics().densityDpi;
     }
 
         /**
-     * 获取当前屏幕截图，不包含状态栏
+     * [Chinese text], [Chinese text]
      *
      * @param activity
      * @return
@@ -137,7 +137,7 @@ import java.lang.reflect.Method;
     }
 
         /**
-     * 获取 虚拟按键的高度
+     * [Chinese text] [Chinese text]high[Chinese text]
      *
      * @param context
      * @return
@@ -150,7 +150,7 @@ import java.lang.reflect.Method;
         return totalHeight - contentHeight;
     }
 
-    // 获取屏幕原始尺寸高度，包括虚拟功能键高度
+    // [Chinese text]high[Chinese text], [Chinese text]high[Chinese text]
     public static int getDpi(Context context) {
         int dpi = 0;
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -171,7 +171,7 @@ import java.lang.reflect.Method;
     }
 
         /**
-     * dp转px
+     * dp[Chinese text]px
      * 16dp - 48px
      * 17dp - 51px
      */
@@ -186,7 +186,7 @@ import java.lang.reflect.Method;
     }
 
         /**
-     * 屏幕密度比例
+     * [Chinese text]
      */
     public static float getScreenDendity(Context context) {
         return context.getResources().getDisplayMetrics().density;// 3
@@ -197,10 +197,10 @@ import java.lang.reflect.Method;
      * @param info
      */
     public static Dialog showNormalDialog(Context context, String info, PopupWindow.OnDismissListener dismissListener) {
-        /* @setIcon Settings对话框图标
-         * @setTitle Settings对话框标题
-         * @setMessage Settings对话框消息提示
-         * setXXX方法返回Dialog对象，因此可以链式Settings属性
+        /* @setIcon Settings[Chinese text]
+         * @setTitle Settings[Chinese text]
+         * @setMessage Settings[Chinese text]
+         * setXXX[Chinese text]Dialog[Chinese text], [Chinese text]Settings[Chinese text]
          */
         final AlertDialog.Builder normalDialog =
                 new AlertDialog.Builder(context);
@@ -215,7 +215,7 @@ import java.lang.reflect.Method;
                         dismissListener.onDismiss();
                     }
                 });
-        // 显示
+        // [Chinese text]
         return normalDialog.show();
     }
 

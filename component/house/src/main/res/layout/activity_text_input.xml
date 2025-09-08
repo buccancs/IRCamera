@@ -44,7 +44,7 @@
         android:textColor="@color/white"
         android:maxLines="2"
         android:ellipsize="end"
-        tools:text="天花板"
+        tools:text="[Chinese text]"
         app:layout_constraintStart_toEndOf="@id/iv_exit"
         app:layout_constraintEnd_toStartOf="@id/iv_save"
         app:layout_constraintTop_toTopOf="@id/view_title_bar"
@@ -109,7 +109,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view_input_bg" />
 
-    <!-- 才4个常用语，就不搞列表之类的东西了，直接4个 TextView -->
+    <!-- [Chinese text]4[Chinese text], [Chinese text], [Chinese text]4[Chinese text] TextView -->
     <TextView
         android:id="@+id/tv_quick_input1"
         android:layout_width="wrap_content"

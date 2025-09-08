@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-present 贵州纳雍穿青人李裕江<1032694760@qq.com>
+ * Copyright (c) 2016-present [Chinese text]<1032694760@qq.com>
  *
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
@@ -56,9 +56,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 滚轮控件。Adapted from https:// github.com/florent37/SingleDateAndTimePicker/.../WheelPicker.java
+ * [Chinese text]. Adapted from https:// github.com/florent37/SingleDateAndTimePicker/.../WheelPicker.java
  *
- * @author 贵州山野羡民（1032694760@qq.com）
+ * @author [Chinese text](1032694760@qq.com)
  * @see TextProvider
  * @see OnWheelChangedListener
  * @since 2019/5/8 11:11
@@ -239,12 +239,12 @@ import java.util.List;
 
     protected List<?> generatePreviewData() {
         List<String> data = new ArrayList<>();
-        data.add("贵州穿青人");
-        data.add("大定府羡民");
-        data.add("不在五十六个民族之内");
-        data.add("已识别待定民族");
-        data.add("穿青山魈人马");
-        data.add("李裕江");
+        data.add("[Chinese text]");
+        data.add("[Chinese text]");
+        data.add("[Chinese text]");
+        data.add("[Chinese text]");
+        data.add("[Chinese text]");
+        data.add("[Chinese text]");
         return data;
     }
 
@@ -253,7 +253,7 @@ import java.util.List;
         if (visibleItemCount < minCount) {
             throw new ArithmeticException("Visible item count can not be less than " + minCount);
         }
-        // 可见条目只能是奇数个，Settings可见条目时偶数个将自动矫正为奇数个
+        // visible[Chinese text], Settingsvisible[Chinese text]
         int evenNumberFlag = 2;
         if (visibleItemCount % evenNumberFlag == 0) {
             visibleItemCount += 1;
@@ -269,7 +269,7 @@ import java.util.List;
         } else if (!TextUtils.isEmpty(maxWidthText)) {
             textMaxWidth = (int) paint.measureText(maxWidthText);
         } else {
-            // 未指定最宽的文本，须遍历测量查找最宽的作为基准
+            // [Chinese text], [Chinese text]measurement[Chinese text]
             int itemCount = getItemCount();
             for (int i = 0; i < itemCount; ++i) {
                 int width = (int) paint.measureText(formatItem(i));
@@ -884,7 +884,7 @@ import java.util.List;
         float ellipsisWidth = paint.measureText(ellipsis);
         String data = obtainItemText(dataPosition);
         while (paint.measureText(data) + ellipsisWidth - measuredWidth > 0) {
-            // 超出控件宽度则省略部分文字
+            // [Chinese text]text
             int length = data.length();
             if (length > 1) {
                 data = data.substring(0, length - 1);

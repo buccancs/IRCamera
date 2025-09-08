@@ -36,7 +36,7 @@
             android:layout_marginTop="14dp"
             android:textSize="15sp"
             android:textColor="@color/white"
-            tools:text="阳台"
+            tools:text="[Chinese text]"
             app:layout_constraintStart_toStartOf="@id/view_bg_item"
             app:layout_constraintEnd_toEndOf="@id/view_bg_item"
             app:layout_constraintTop_toTopOf="@id/view_bg_item" />
@@ -73,7 +73,7 @@
             app:layout_constraintStart_toEndOf="@id/tv_warn"
             app:layout_constraintTop_toTopOf="@id/tv_good" />
 
-        <!-- 状态对应文案 -->
+        <!-- [Chinese text] -->
         <TextView
             android:id="@+id/tv_state"
             android:layout_width="0dp"
@@ -82,7 +82,7 @@
             android:layout_marginEnd="6dp"
             android:textSize="13sp"
             android:textColor="@color/white"
-            tools:text="需维修"
+            tools:text="[Chinese text]"
             app:layout_constraintStart_toEndOf="@id/tv_danger"
             app:layout_constraintEnd_toEndOf="@id/view_bg_item"
             app:layout_constraintTop_toTopOf="@id/tv_good"
@@ -100,7 +100,7 @@
             android:textColor="#b2ffffff"
             android:visibility="gone"
             tools:visibility="visible"
-            tools:text="灯需要更换灯需要更换灯需要更换灯需要更换灯需要更换灯需要更换"
+            tools:text="[Chinese text]"
             app:layout_constraintStart_toStartOf="@id/view_bg_item"
             app:layout_constraintEnd_toEndOf="@id/view_bg_item"
             app:layout_constraintTop_toBottomOf="@id/tv_good" />
@@ -116,7 +116,7 @@
             app:layout_constraintEnd_toEndOf="@id/view_bg_item"
             app:layout_constraintTop_toBottomOf="@id/tv_input_text">
 
-            <!-- 仅用于占位，无实际交互 -->
+            <!-- onlyfor[Chinese text], [Chinese text] -->
             <View
                 android:id="@+id/space_image1"
                 android:layout_width="0dp"
@@ -156,7 +156,7 @@
                 app:layout_constraintStart_toEndOf="@id/space_image3"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <!-- 图片 -->
+            <!-- [Chinese text] -->
             <com.topdon.lib.ui.widget.RoundImageView
                 android:id="@+id/iv_image1"
                 android:layout_width="0dp"
@@ -204,7 +204,7 @@
                 app:layout_constraintTop_toTopOf="@id/space_image4"
                 app:layout_constraintBottom_toBottomOf="@id/space_image4" />
 
-            <!-- 删除 -->
+            <!-- [Chinese text] -->
             <ImageView
                 android:id="@+id/iv_del_image1"
                 android:layout_width="26dp"
@@ -276,7 +276,7 @@
             app:layout_constraintEnd_toEndOf="@id/view_bg_item"
             app:layout_constraintTop_toBottomOf="@id/cl_image" />
 
-        <!-- 添加图片 -->
+        <!-- [Chinese text] -->
         <com.topdon.lib.core.view.MyTextView
             android:id="@+id/tv_item_add_img"
             android:layout_width="wrap_content"
@@ -289,7 +289,7 @@
             app:layout_constraintTop_toBottomOf="@id/view_line"
             app:layout_constraintStart_toStartOf="@id/view_bg_item"
             app:layout_constraintEnd_toStartOf="@+id/tv_item_add_text" />
-        <!-- 添加文字 -->
+        <!-- [Chinese text]text -->
         <com.topdon.lib.core.view.MyTextView
             android:id="@+id/tv_item_add_text"
             android:layout_width="wrap_content"
@@ -301,7 +301,7 @@
             app:layout_constraintTop_toTopOf="@id/tv_item_add_img"
             app:layout_constraintStart_toEndOf="@id/tv_item_add_img"
             app:layout_constraintEnd_toStartOf="@+id/tv_item_copy" />
-        <!-- 复制 -->
+        <!-- [Chinese text] -->
         <com.topdon.lib.core.view.MyTextView
             android:id="@+id/tv_item_copy"
             android:layout_width="wrap_content"
@@ -313,7 +313,7 @@
             app:layout_constraintTop_toTopOf="@id/tv_item_add_img"
             app:layout_constraintStart_toEndOf="@id/tv_item_add_text"
             app:layout_constraintEnd_toStartOf="@+id/tv_item_del" />
-        <!-- 删除 -->
+        <!-- [Chinese text] -->
         <com.topdon.lib.core.view.MyTextView
             android:id="@+id/tv_item_del"
             android:layout_width="wrap_content"

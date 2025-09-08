@@ -21,7 +21,7 @@ import java.util.UUID;
 
 /**
  * Created by fengjibo on 2023/6/21.
- * 点绘制工具
+ * point[Chinese text]
  */
 public class PointDraw extends BaseDraw {
 
@@ -32,13 +32,13 @@ public class PointDraw extends BaseDraw {
 
     private static final int MAX_POINT_COUNT = 3;
 
-    private int TEXT_POINT_MARGIN; // 数字和点之间的距离
+    private int TEXT_POINT_MARGIN; // [Chinese text]point[Chinese text]
 
     private int LABEL_POINT_MARGIN;
 
     private LinkedList<PointView> mPointList;
 
-    private PointView mTempPoint;// 临时绘制的point，比如手势移动过程中
+    private PointView mTempPoint;// [Chinese text]point, [Chinese text]in progress
 
     private Paint mTextPaint;
     private Paint mBgPaint;
@@ -48,7 +48,7 @@ public class PointDraw extends BaseDraw {
     private int mBgColor = Color.parseColor("#CC1A1A1A");
 
     private final int STROKE_WIDTH = 8;
-    private final int TEXT_SIZE = 14; // 文字大小
+    private final int TEXT_SIZE = 14; // text[Chinese text]
 
     private int mOperateStatus = -1;
 
@@ -78,7 +78,7 @@ public class PointDraw extends BaseDraw {
     }
 
         /**
-     * 添加一个点数据
+     * [Chinese text]point[Chinese text]
      * @param mode
      * @param centerX
      * @param centerY
@@ -93,7 +93,7 @@ public class PointDraw extends BaseDraw {
             boolean hasSame = false;
             for (int i = 0; i < mPointList.size(); i ++) {
                 if (mPointList.get(i).getLabel().equals(newLabel)) {
-                    // 存在一样的
+                    // [Chinese text]
                     hasSame = true;
                     Log.d(TAG, "addPoint is same");
                     break;
@@ -123,7 +123,7 @@ public class PointDraw extends BaseDraw {
     }
 
         /**
-     * 删除一个点数据
+     * [Chinese text]point[Chinese text]
      * @param index
      */
     public void removePoint(int index) {
@@ -133,14 +133,14 @@ public class PointDraw extends BaseDraw {
     }
 
         /**
-     * 删除所有点数据
+     * [Chinese text]point[Chinese text]
      */
     public void removePoint() {
         mPointList.clear();
     }
 
     /**
-     * 绘制所有点
+     * [Chinese text]point
      * @param canvas
      */
     @Override
@@ -158,7 +158,7 @@ public class PointDraw extends BaseDraw {
     }
 
         /**
-     * 绘制临时点
+     * [Chinese text]point
      * @param canvas
      * @param mode
      * @param centerX
@@ -181,7 +181,7 @@ public class PointDraw extends BaseDraw {
         RectF tempRectF = new RectF();
         float top = pointView.mCenterY - TEXT_POINT_MARGIN - LABEL_POINT_MARGIN - pointView.mPointSize / 2;
         float bottom = pointView.mCenterY - TEXT_POINT_MARGIN - pointView.mPointSize / 2;
-        // 顶部超出在point下方展示
+        // [Chinese text]point[Chinese text]
         if (top < 0) {
             top = pointView.mCenterY + TEXT_POINT_MARGIN + pointView.mPointSize / 2;
             bottom = top + LABEL_POINT_MARGIN;
@@ -202,12 +202,12 @@ public class PointDraw extends BaseDraw {
         float right = rectF.right + rectWidth / 2;
         float top = rectF.top;
         float bottom = rectF.bottom;
-        // 左侧超出
+        // left side[Chinese text]
         if (left < 0) {
             left = 0;
             right = rectWidth;
         }
-        // 右侧超出
+        // right side[Chinese text]
         if (right > mViewWidth) {
             left = mViewWidth - rectWidth;
             right = mViewWidth;
@@ -236,7 +236,7 @@ public class PointDraw extends BaseDraw {
     }
 
         /**
-     * 修改选中的点坐标
+     * [Chinese text]in progress[Chinese text]point[Chinese text]
      * @param touchIndex
      * @param centerX
      * @param centerY
@@ -249,7 +249,7 @@ public class PointDraw extends BaseDraw {
     }
 
         /**
-     * 检查当前是否存在手势选中的点
+     * [Chinese text]in progress[Chinese text]point
      * @param rawX
      * @param rawY
      * @return
@@ -274,13 +274,13 @@ public class PointDraw extends BaseDraw {
  */
  class PointView extends BaseView {
 
-        private static final float TOUCH_EXTRA = 20;// 额外的触摸范围
+        private static final float TOUCH_EXTRA = 20;// [Chinese text]range
 
         private int mMode;// 1:blue 2:green 3:red
-        private float mCenterX;// 相对父布局
+        private float mCenterX;// [Chinese text]
         private float mCenterY;
 
-        private Rect mInRect; // 范围
+        private Rect mInRect; // range
         private Bitmap mPointBitmap;
         private Point mTempPoint;
 

@@ -18,10 +18,10 @@ import java.util.TimeZone;
 public class TimeGMTUtils {
 
     /**
-     * 判断是否在夏令时
+     * [Chinese text]
      *
-     * @param zone 当前时区
-     * @param time 0时区
+     * @param zone [Chinese text]
+     * @param time 0[Chinese text]
      * @return boolean
      */
     private static boolean isDaylight(TimeZone zone, String time) {
@@ -37,9 +37,9 @@ public class TimeGMTUtils {
     }
 
     /**
-     * 消息时间转换
+     * [Chinese text]
      *
-     * @param time 2022-11-01 20:50:13 GMT时间
+     * @param time 2022-11-01 20:50:13 GMT[Chinese text]
      * @return String
      */
     public static String getGMTConvertTime(String time, String format) {
@@ -68,8 +68,8 @@ public class TimeGMTUtils {
     }
 
     /**
-     * 将字符串转为时间戳
-     * GMT转换中国Asia/Shanhai时间戳
+     * [Chinese text]
+     * GMT[Chinese text]in progress[Chinese text]Asia/Shanhai[Chinese text]
      *
      * @param dateString 2022-07-13 09:58:09
      * @param pattern    yyyy-MM-dd HH:mm:ss

@@ -12,10 +12,10 @@ object CalibrationUtilities {
     // GSR calibration constants for different ranges
     private val GSR_UNCALIBRATED_TO_KOHMS =
         doubleArrayOf(
-            6.8129, // Range 0: 10kΩ - 56kΩ
-            27.2518, // Range 1: 56kΩ - 220kΩ
-            108.2072, // Range 2: 220kΩ - 680kΩ
-            351.8677, // Range 3: 680kΩ - 4.7MΩ
+            6.8129, // Range 0: 10kOhm - 56kOhm
+            27.2518, // Range 1: 56kOhm - 220kOhm
+            108.2072, // Range 2: 220kOhm - 680kOhm
+            351.8677, // Range 3: 680kOhm - 4.7MOhm
         )
 
     private val GSR_OFFSET =
@@ -27,7 +27,7 @@ object CalibrationUtilities {
         )
 
     /**
-     * Convert uncalibrated GSR ADC value to resistance in kΩ
+     * Convert uncalibrated GSR ADC value to resistance in kOhm
      */
     fun calibrateGSRToResistance(
         uncalibratedData: Int,
@@ -44,14 +44,14 @@ object CalibrationUtilities {
     }
 
     /**
-     * Convert resistance in kΩ to conductance in µS
+     * Convert resistance in kOhm to conductance in microS
      */
     fun resistanceToConductance(resistanceKohms: Double): Double {
         return if (resistanceKohms > 0) 1000.0 / resistanceKohms else 0.0
     }
 
     /**
-     * Convert conductance in µS to resistance in kΩ
+     * Convert conductance in microS to resistance in kOhm
      */
     fun conductanceToResistance(conductanceUS: Double): Double {
         return if (conductanceUS > 0) 1000.0 / conductanceUS else 0.0
@@ -85,7 +85,7 @@ object CalibrationUtilities {
         // Reverse calibration: ADC = (multiplier / R) + offset
         val calculatedADC = (multiplier / targetResistanceKohms) + offset
 
-        // Add some realistic noise (±5%)
+        // Add some realistic noise (+/-5%)
         val noise = (Math.random() - 0.5) * 0.1 * calculatedADC
 
         return (calculatedADC + noise).toInt().coerceIn(0, 4095) // 12-bit ADC

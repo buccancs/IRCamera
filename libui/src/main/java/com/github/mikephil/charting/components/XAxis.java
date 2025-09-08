@@ -118,7 +118,7 @@ public class XAxis extends AxisBase {
 
 
     /**
-     * 是否要跳过第1个标签的绘制.
+     * [Chinese text]1[Chinese text].
      */
     private boolean isJumpFirstLabel = true;
 

@@ -220,11 +220,11 @@ public class XAxisRenderer extends AxisRenderer {
                         x += width / 2;
                     }
                 }
-                //chart 绘制刻度文本  -------- start --------
+                //chart [Chinese text]  -------- start --------
 
                 if (i == 0 && mXAxis.isJumpFirstLabel()) {
-                    //不是哥们，你好歹好个参数来保存要不要绘制啊，查了我半天结果是因为你这里给跳过了
-                    //起始刻度不需要绘制
+                    //[Chinese text], [Chinese text], [Chinese text]
+                    //[Chinese text]
                     continue;
                 }
 
@@ -267,7 +267,7 @@ public class XAxisRenderer extends AxisRenderer {
 
 
         for (int i = 0; i < positions.length; i += 2) {
-            //chart 绘制刻度线   -------- start --------
+            //chart [Chinese text]line   -------- start --------
 
             if (i == 0) {
                 continue;

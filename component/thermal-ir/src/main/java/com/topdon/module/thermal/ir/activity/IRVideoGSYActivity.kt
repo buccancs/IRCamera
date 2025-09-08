@@ -62,9 +62,9 @@ class IRVideoGSYActivity : BaseActivity() {
         BarUtils.setNavBarColor(this, ContextCompat.getColor(this, UiR.color.black))
 
         isRemote = intent.getBooleanExtra("isRemote", false)
-        data = intent.getParcelableExtra("data") ?: throw NullPointerException("传递 data")
+        data = intent.getParcelableExtra("data") ?: throw NullPointerException("[Chinese text] data")
 
-        clBottom.isVisible = isRemote // 查看远端时底部才有3个按钮
+        clBottom.isVisible = isRemote // [Chinese text]3[Chinese text]button
 
         if (!isRemote) {
             titleView.setRightDrawable(UiR.drawable.ic_toolbar_info_svg)
@@ -110,15 +110,15 @@ class IRVideoGSYActivity : BaseActivity() {
         GSYVideoOptionBuilder()
             .setUrl(url)
             .build(gsyPlay)
-        // 界面Settings
-        gsyPlay.isNeedShowWifiTip = false // 不显示消耗流量弹框
+        // [Chinese text]Settings
+        gsyPlay.isNeedShowWifiTip = false // [Chinese text]
         gsyPlay.titleTextView.visibility = View.GONE
         gsyPlay.backButton.visibility = View.GONE
         gsyPlay.fullscreenButton.visibility = View.GONE
     }
 
     private fun actionDownload(isToShare: Boolean) {
-        if (data.hasDownload) {// 已下载
+        if (data.hasDownload) {// [Chinese text]
             if (isToShare) {
                 actionShare()
             }
@@ -151,7 +151,7 @@ class IRVideoGSYActivity : BaseActivity() {
         str.append(getString(R.string.detail_date)).append("\n")
         str.append(TimeTool.showDateType(data.timeMillis)).append("\n\n")
         str.append(getString(R.string.detail_info)).append("\n")
-//        str.append("尺寸: ").append(whStr).append("\n")
+//        str.append("[Chinese text]: ").append(whStr).append("\n")
         str.append("${getString(R.string.detail_len)}: ").append(sizeStr).append("\n")
         str.append("${getString(R.string.detail_path)}: ").append(data.path).append("\n")
         TipDialog.Builder(this)

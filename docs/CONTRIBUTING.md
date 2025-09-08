@@ -2,21 +2,21 @@
 
 We welcome contributions to the Multi-Modal Physiological Sensing Platform! This guide will help you get started.
 
-## 🎯 How to Contribute
+## [target] How to Contribute
 
 ### Types of Contributions
 
 We welcome several types of contributions:
 
-- **🐛 Bug Reports**: Help us identify and fix issues
-- **✨ Feature Requests**: Suggest new capabilities
-- **📝 Documentation**: Improve guides and API docs  
-- **🧪 Testing**: Add tests and improve coverage
-- **🔧 Code**: Fix bugs and implement features
-- **🎨 UI/UX**: Improve user interfaces
-- **📊 Research**: Validate platform capabilities
+- **[bug] Bug Reports**: Help us identify and fix issues
+- **[sparkles] Feature Requests**: Suggest new capabilities
+- **[memo] Documentation**: Improve guides and API docs  
+- **[test tube] Testing**: Add tests and improve coverage
+- **[tool] Code**: Fix bugs and implement features
+- **[art] UI/UX**: Improve user interfaces
+- **[chart] Research**: Validate platform capabilities
 
-## 🚀 Getting Started
+## [rocket] Getting Started
 
 ### Development Environment
 
@@ -91,7 +91,7 @@ flake8 src/
 mypy src/
 ```
 
-## 📋 Development Workflow
+## [clipboard] Development Workflow
 
 ### Issue-Based Development
 
@@ -177,7 +177,7 @@ test(network): add integration tests for device discovery
 - Add network timeout scenarios
 ```
 
-## 🏗️ Code Standards
+## [construction] Code Standards
 
 ### Kotlin (Android)
 
@@ -421,7 +421,7 @@ class GSRProcessor(QThread):
                     'peak_value': current_value
                 }
                 
-                logger.info(f"SCR detected: amplitude={scr_event['amplitude']:.3f}µS")
+                logger.info(f"SCR detected: amplitude={scr_event['amplitude']:.3f}microS")
                 self.scr_detected.emit(scr_event)
                 
         except Exception as e:
@@ -600,7 +600,7 @@ class TestGSRProcessor:
         # When - add sample with elevated conductance (SCR)
         scr_sample = GSRSample(
             timestamp=128_000_000,
-            conductance_us=10.5,  # 0.5µS above baseline
+            conductance_us=10.5,  # 0.5microS above baseline
             resistance_kohms=95.2,
             sample_index=128,
             quality_score=0.9
@@ -815,7 +815,7 @@ async def start_session(self, config: SessionConfig) -> Session:
     """
 ```
 
-## 🧪 Testing Guidelines
+## [test tube] Testing Guidelines
 
 ### Test Categories
 
@@ -956,7 +956,7 @@ class PerformanceBenchmark:
         }
 ```
 
-## 📋 Pull Request Process
+## [clipboard] Pull Request Process
 
 ### Before Submitting
 
@@ -1030,7 +1030,7 @@ Related to #456
 4. **Documentation**: Review of documentation updates
 5. **Approval**: Maintainer approval required for merge
 
-## 🏷️ Release Process
+## [tag] Release Process
 
 ### Version Numbering
 We follow [Semantic Versioning](https://semver.org/):
@@ -1040,9 +1040,9 @@ We follow [Semantic Versioning](https://semver.org/):
 - **PATCH**: Bug fixes, backwards compatible
 
 Examples:
-- `1.0.0` → `1.0.1` (bug fix)
-- `1.0.1` → `1.1.0` (new feature)
-- `1.1.0` → `2.0.0` (breaking change)
+- `1.0.0` -> `1.0.1` (bug fix)
+- `1.0.1` -> `1.1.0` (new feature)
+- `1.1.0` -> `2.0.0` (breaking change)
 
 ### Release Checklist
 
@@ -1065,7 +1065,7 @@ Examples:
 - [ ] Update project boards
 - [ ] Plan next release cycle
 
-## 🎨 UI/UX Contributions
+## [art] UI/UX Contributions
 
 ### Design Guidelines
 
@@ -1088,7 +1088,7 @@ Examples:
 - **Screen Readers**: Proper labeling and descriptions
 - **Touch Targets**: Minimum 44dp touch targets
 
-## 🤝 Community
+## [handshake] Community
 
 ### Communication Channels
 - **GitHub Issues**: Bug reports and feature requests
@@ -1106,6 +1106,6 @@ Contributors are recognized in:
 
 ---
 
-**Thank you for contributing to MPDC4GSR!** Your contributions help make physiological sensing research more accessible and reliable. 🚀
+**Thank you for contributing to MPDC4GSR!** Your contributions help make physiological sensing research more accessible and reliable. [rocket]
 
 *For questions about contributing, feel free to open a GitHub Discussion or comment on relevant issues.*

@@ -150,9 +150,9 @@ import java.util.Date;
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(toByteArray(bytes));
             fos.close();
-            Log.i(TAG, fileTitle + " 保存成功");
+            Log.i(TAG, fileTitle + " [Chinese text]");
         } catch (IOException e) {
-            Log.e(TAG, fileTitle + " 保存失败："+e.getMessage());
+            Log.e(TAG, fileTitle + " [Chinese text]: "+e.getMessage());
         }
     }
 
@@ -177,7 +177,7 @@ import java.util.Date;
     }
 
         /**
-     * 根据数据流获取Y16类型
+     * [Chinese text]Y16[Chinese text]
      *
      * @param dataFlowMode
      * @return
@@ -222,7 +222,7 @@ import java.util.Date;
     }
 
         /**
-     * 创建文件夹---之所以要一层层创建，是因为一次性创建多层文件夹可能会失败！
+     * [Chinese text]---[Chinese text], [Chinese text]! 
      *
      * @param dirFile
      * @return
@@ -234,7 +234,7 @@ import java.util.Date;
         }
         File parentFile = dirFile.getParentFile();
         if (parentFile != null && !parentFile.exists()) {
-            // 父文件夹不存在，则先创建父文件夹，再创建自身文件夹
+            // [Chinese text], [Chinese text], [Chinese text]
             return createFileDir(parentFile) && createFileDir(dirFile);
         } else {
             boolean mkdirs = dirFile.mkdirs();
@@ -284,10 +284,10 @@ import java.util.Date;
     }
 
         /**
-     * 把两个位图覆盖合成为一个位图，以底层位图的长宽为基准
+     * [Chinese text], [Chinese text]
      *
-     * @param bytes  在底部的位图
-     * @param bytes2 盖在上面的位图
+     * @param bytes  [Chinese text]
+     * @param bytes2 [Chinese text]
      */
     public static void savaRawFile(byte[] bytes, byte[] bytes2) {
         try {
@@ -307,7 +307,7 @@ import java.util.Date;
     }
 
         /**
-     * 保存红外数据
+     * [Chinese text]
      *
      * @param bytes
      */
@@ -330,7 +330,7 @@ import java.util.Date;
     }
 
         /**
-     * 保存温度数据
+     * [Chinese text]temperature[Chinese text]
      *
      * @param bytes
      */
@@ -409,7 +409,7 @@ import java.util.Date;
     }
 
     /**
-     * short数组转byte数组
+     * short[Chinese text]byte[Chinese text]
      *
      * @param src
      * @return
@@ -425,7 +425,7 @@ import java.util.Date;
     }
 
         /**
-     * byte数组转short数组
+     * byte[Chinese text]short[Chinese text]
      *
      * @param src
      * @return
@@ -444,7 +444,7 @@ import java.util.Date;
      * @param fileTitle
      */
     public static void saveShortFile(String fileDir, short[] bytes, String fileTitle) {
-        // 创建目录
+        // [Chinese text]
         createOrExistsDir(fileDir);
         try {
             File file = new File(fileDir, fileTitle + ".bin");
@@ -462,7 +462,7 @@ import java.util.Date;
      * @param file
      */
     private static void createOrExistsDir(File file) {
-        // 文件不存在则创建文件
+        // [Chinese text]
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -473,18 +473,18 @@ import java.util.Date;
     }
 
     /**
-     * 如果文件夹不存在则创建
+     * [Chinese text]
      *
      * @param fileDir
      */
     private static void createOrExistsDir(String fileDir) {
         File file = new File(fileDir);
-        // 如果文件夹不存在则创建
+        // [Chinese text]
         if (!file.exists() && !file.isDirectory()) {
-            // 不存在
+            // [Chinese text]
             file.mkdir();
         } else {
-            // 目录存在
+            // [Chinese text]
         }
     }
 
@@ -534,7 +534,7 @@ import java.util.Date;
     }
 
         /**
-     * 从Assets拷贝数据到SD
+     * [Chinese text]Assets[Chinese text]SD
      *
      * @param context
      * @param srcFileName
@@ -546,12 +546,12 @@ import java.util.Date;
             File file = new File(strOutFileName);
             Log.i(TAG, "file.exists->getAbsolutePath = " + file.getAbsolutePath());
             if (file.exists()) {
-                // 如果文件存在则删除文件，重新创建，避免修改的内容不生效
+                // [Chinese text], [Chinese text], [Chinese text]
                 file.delete();
             }
             //
             if (!file.createNewFile()) {
-                Log.e(TAG, "创建文件 " + srcFileName + " 失败");
+                Log.e(TAG, "[Chinese text] " + srcFileName + " [Chinese text]");
                 return;
             }
 
@@ -573,7 +573,7 @@ import java.util.Date;
     }
 
         /**
-     * 根据增益状态获取对应的ISP算法的配置文件
+     * [Chinese text]ISP[Chinese text]
      *
      * @param gainStatus
      * @return
@@ -589,7 +589,7 @@ import java.util.Date;
 
         /**
      * @param gainStatus
-     * @return 输出hex
+     * @return [Chinese text]hex
      */
     public static String getISPConfigWithEncryptHexByGainStatus(CommonParams.GainStatus gainStatus) {
         if (CommonParams.GainStatus.HIGH_GAIN == gainStatus) {
@@ -602,14 +602,14 @@ import java.util.Date;
     static String INFISENSE_SAVE_DIR(){
        return Utils.getApp().getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath();
     }
-    // === 设备message存储到私有区域，app删除后一起删除
+    // === [Chinese text]message[Chinese text]area, app[Chinese text]
     static String  DEVICE_DATA_SAVE_DIR (){
        return Utils.getApp().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath();
     }
 
         /**
      * @param gainStatus
-     * @return 输出base64
+     * @return [Chinese text]base64
      */
     public static String getISPConfigWithEncryptBase64ByGainStatus(CommonParams.GainStatus gainStatus) {
         if (CommonParams.GainStatus.HIGH_GAIN == gainStatus) {
@@ -620,7 +620,7 @@ import java.util.Date;
     }
 
         /**
-     * 获取版本message
+     * [Chinese text]message
      *
      * @param context
      * @return
@@ -757,7 +757,7 @@ import java.util.Date;
     }
 
         /**
-     * 存储String到本地，覆盖原始数据
+     * [Chinese text]String[Chinese text], [Chinese text]
      *
      * @param str
      * @param path
@@ -772,7 +772,7 @@ import java.util.Date;
                 file.createNewFile();
             }
             byte[] contentInBytes = str.getBytes();
-            stream.write(contentInBytes); // 写入
+            stream.write(contentInBytes); // [Chinese text]
             stream.flush();
             stream.close();
         } catch (IOException e) {

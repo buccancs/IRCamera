@@ -59,16 +59,16 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
- * 公共设置页，即公共 “我的”
- * [MoreActivity] - TS004 “我的”
- * [MoreFragment] - 插件式 “我的”
+ * [Chinese text]settings[Chinese text], [Chinese text] "[Chinese text]"
+ * [MoreActivity] - TS004 "[Chinese text]"
+ * [MoreFragment] - [Chinese text] "[Chinese text]"
  *
  * Created by LCG on 2024/4/19.
  */
 class MineFragment : BaseFragment(), View.OnClickListener {
 
     /**
-     * onResume() 阶段是否需要刷新登录状态相关 UI.
+     * onResume() [Chinese text] UI.
      */
     private var isNeedRefreshLogin = false
 
@@ -85,18 +85,18 @@ class MineFragment : BaseFragment(), View.OnClickListener {
         setting_electronic_manual.setOnClickListener(this)
         setting_faq.setOnClickListener(this)
         setting_feedback.setOnClickListener(this)
-        setting_item_unit.setOnClickListener(this)//温度单温
+        setting_item_unit.setOnClickListener(this)//temperature[Chinese text]
         drag_customer_view.setOnClickListener(this)
 
         view_winter_point.isVisible = !SharedManager.hasClickWinter
 
-        if (BaseApplication.instance.isDomestic()) {//国内版不给切换语言
+        if (BaseApplication.instance.isDomestic()) {//[Chinese text]switch[Chinese text]
             setting_item_language.visibility = View.GONE
         }
 
         viewLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onResume(owner: LifecycleOwner) {
-                // 要是当前已连接 TS004、TC007，切到流量上，不然登录注册意见反馈那些没网
+                // [Chinese text] TS004, TC007, [Chinese text], [Chinese text]
                 if (WebSocketProxy.getInstance().isConnected()) {
                     NetWorkUtils.switchNetwork(false)
                 }
@@ -138,7 +138,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            iv_winter -> {//冬季特辑入口
+            iv_winter -> {//[Chinese text]
                 view_winter_point.isVisible = false
                 SharedManager.hasClickWinter = true
                 EventBus.getDefault().post(WinterClickEvent())
@@ -168,13 +168,13 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     loginAction()
                 }
             }
-            setting_electronic_manual -> {//电子说明书
+            setting_electronic_manual -> {//[Chinese text]
                 ARouter.getInstance().build(RouterConfig.ELECTRONIC_MANUAL).withInt(Constants.SETTING_TYPE, Constants.SETTING_BOOK).navigation(requireContext())
             }
             setting_faq -> {//FAQ
                 ARouter.getInstance().build(RouterConfig.ELECTRONIC_MANUAL).withInt(Constants.SETTING_TYPE, Constants.SETTING_FAQ).navigation(requireContext())
             }
-            setting_feedback -> {//意见反馈
+            setting_feedback -> {//[Chinese text]
                 if (LMS.getInstance().isLogin) {
                     val devSn = SharedManager.getDeviceSn()
                     FeedBackBean().apply {
@@ -191,19 +191,19 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     loginAction()
                 }
             }
-            setting_item_unit -> {//温度单位
+            setting_item_unit -> {//temperature[Chinese text]
                 ARouter.getInstance().build(RouterConfig.UNIT).navigation(requireContext())
             }
-            setting_item_version -> {//版本
+            setting_item_version -> {//[Chinese text]
                 ARouter.getInstance().build(RouterConfig.VERSION).navigation(requireContext())
             }
-            setting_item_language -> {//语言
+            setting_item_language -> {//[Chinese text]
                 languagePickResult.launch(Intent(requireContext(), LanguageActivity::class.java))
             }
-            setting_item_clear -> {//清除缓存，实际已隐藏
+            setting_item_clear -> {//[Chinese text], [Chinese text]
                 clearCache()
             }
-            drag_customer_view -> {//客服
+            drag_customer_view -> {//[Chinese text]
 //                ActivityUtil.goSystemCustomer(requireContext())
                 val sn = SharedManager.getDeviceSn()
                 if (!TextUtils.isEmpty(sn)) {
@@ -217,14 +217,14 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
     private fun loginAction() {
         isNeedRefreshLogin = true
-        //activityLogin()回调不可靠，但必然触发onResume()
+        //activityLogin()[Chinese text], [Chinese text]onResume()
         val bgBitmap = BitmapFactory.decodeResource(resources, R.mipmap.bg_login)
         LMS.getInstance().activityLogin(null, null, false, null, bgBitmap)
     }
 
     private fun checkLoginResult() {
         if (LMS.getInstance().isLogin) {
-            //登录成功
+            //[Chinese text]
             LMS.getInstance().getUserInfo { userinfo: CommonBean ->
                 try {
                     val json = userinfo.data
@@ -238,17 +238,17 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                         headUrl = infoData.avatar,
                     )
 
-                    //更新ui
+                    //[Chinese text]ui
                     changeLoginStyle()
                 } catch (e: Exception) {
-                    XLog.e(" 登录异常: ${e.message}")
+                    XLog.e(" [Chinese text]: ${e.message}")
                 }
             }
         } else {
-            //登录失败
-            XLog.e(" 登录失败")
+            //[Chinese text]
+            XLog.e(" [Chinese text]")
             changeLoginStyle()
-            setting_user_img_night.setImageResource(R.mipmap.ic_default_user_head)//恢复默认头像
+            setting_user_img_night.setImageResource(R.mipmap.ic_default_user_head)//[Chinese text]
         }
     }
 
@@ -294,12 +294,12 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             setting_user_text.setCompoundDrawables(null, null, drawable, null)
             setting_user_lay.visibility = View.GONE
             tv_email.text = ""
-            setting_user_img_night.setImageResource(R.mipmap.ic_default_user_head)//恢复默认头像
+            setting_user_img_night.setImageResource(R.mipmap.ic_default_user_head)//[Chinese text]
         }
     }
 
     /**
-     * 清除缓存
+     * [Chinese text]
      */
     private fun clearCache() {
         lifecycleScope.launch {
@@ -309,7 +309,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     AppDatabase.getInstance().thermalDao().deleteByUserId(SharedManager.getUserId())
                     CleanUtils.cleanExternalCache()
                 } catch (e: Exception) {
-                    XLog.w("清除缓存异常: ${e.message}")
+                    XLog.w("[Chinese text]: ${e.message}")
                 }
                 delay(1000)
             }

@@ -6,7 +6,7 @@
             <solid android:color="#dddddd" />
         </shape>
     </item>
-    <!--  Settings进度条颜色  -->
+    <!--  Settings[Chinese text]  -->
     <item android:id="@android:id/progress">
         <clip>
             <shape>

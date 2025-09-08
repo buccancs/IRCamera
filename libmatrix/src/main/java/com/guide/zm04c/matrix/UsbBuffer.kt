@@ -33,7 +33,7 @@ class UsbBuffer {
     private var findHeadFramePos = -1
 
     /**
-     * 转无符号
+     * [Chinese text]
      */
     private fun getMark(buf: ByteArray, offset: Int): Int {
         return (buf[offset].toUByte().toInt().shl(0) or ((buf[offset + 1].toUByte()).toInt()
@@ -44,7 +44,7 @@ class UsbBuffer {
         var i = 0
         while (i < frame.size - 1) {
             if (getMark(frame, i) == mark1) {
-                // Log.d(TAG, "找到参数头...");
+                // Log.d(TAG, "[Chinese text]...");
                 return true
             }
             i += 2
@@ -56,7 +56,7 @@ class UsbBuffer {
         var i = 0
         while (i < frame.size - 1) {
             if (getMark(frame, i) == mark1) {
-//                Log.d(TAG, "找到参数头...")
+//                Log.d(TAG, "[Chinese text]...")
                 return i
             }
             i += 2
@@ -68,7 +68,7 @@ class UsbBuffer {
         if (mRingBuffer == null) {
             return false
         }
-        // 当前存储的buffer长度要大于4帧，才开始取数据
+        // [Chinese text]buffer[Chinese text]4[Chinese text], [Chinese text]start[Chinese text]
         if (mRingBuffer.getUnReadLength() < mFrameSize * 4) {
 //            Logger.d(TAG, "RingBuffer <4");
             return false
@@ -86,9 +86,9 @@ class UsbBuffer {
 //        Log.d(TAG, "1 findHeadFrame=" + findHeadFrame);
         if (findHeadFramePos != -1) {
             // Log.d(TAG, "1: " + BaseDataTypeConvertUtils.Companion.byteArr2HexString(mPakagebuffer));
-            // 回退到找到帧头的那一包
+            // [Chinese text]
             mRingBuffer.moveBack(mPacketSize - findHeadFramePos)
-            // 向前移动一帧数据
+            // [Chinese text]
             mRingBuffer.moveForward(mFrameSize)
             mRingBuffer.read(mPakagebuffer, 0, mPacketSize)
             // Log.d(TAG, "2: " + BaseDataTypeConvertUtils.Companion.byteArr2HexString(mPakagebuffer));
@@ -108,7 +108,7 @@ class UsbBuffer {
             try {
                 synchronized(this) {
                     Log.d(TAG, "wait(100)")
-                    lock.wait(100)// kotlin any没有wait()
+                    lock.wait(100)// kotlin any[Chinese text]wait()
                 }
             } catch (e: InterruptedException) {
                 e.printStackTrace()

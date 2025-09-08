@@ -10,12 +10,12 @@ import android.text.TextUtils;
 public class VersionUtils {
 
     /**
-     * 如果版本1 大于 版本2 返回true 否则返回fasle 支持 2.2 2.2.1 比较
-     * 支持不同位数的比较  2.0.0.0.0.1  2.0 对比
+     * [Chinese text]1 [Chinese text] [Chinese text]2 [Chinese text]true [Chinese text]fasle [Chinese text] 2.2 2.2.1 [Chinese text]
+     * [Chinese text]  2.0.0.0.0.1  2.0 [Chinese text]
      *
-     * @param v1 版本服务器版本 " 1.1.2 "
-     * @param v2 版本 当前版本 " 1.2.1 "
-     * @return ture ：需要更新 false ： 不需要更新
+     * @param v1 [Chinese text] " 1.1.2 "
+     * @param v2 [Chinese text] [Chinese text] " 1.2.1 "
+     * @return ture : [Chinese text] false :  [Chinese text]
      */
     /**
  * Compareversions operation.
@@ -24,7 +24,7 @@ public class VersionUtils {
  * @return the result
  */
 public static boolean compareVersions(String v1, String v2) {
-        // 判断是否为空数据
+        // [Chinese text]
         if (TextUtils.equals(v1, "") || TextUtils.equals(v2, "")) {
             return false;
         }

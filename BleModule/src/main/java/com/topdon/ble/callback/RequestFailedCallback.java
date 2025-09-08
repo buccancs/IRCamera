@@ -8,11 +8,11 @@ import com.topdon.ble.Request;
  */
 public interface RequestFailedCallback extends RequestCallback {
     /**
-     * 请求失败
+     * [Chinese text]
      *
-     * @param request  请求
-     * @param failType 失败类型。{@link Connection#REQUEST_FAIL_TYPE_GATT_IS_NULL}等
-     * @param value    请求时带的数据，可能为null
+     * @param request  [Chinese text]
+     * @param failType [Chinese text]. {@link Connection#REQUEST_FAIL_TYPE_GATT_IS_NULL}[Chinese text]
+     * @param value    [Chinese text], [Chinese text]null
      */
     void onRequestFailed(Request request, int failType, Object value);
 }

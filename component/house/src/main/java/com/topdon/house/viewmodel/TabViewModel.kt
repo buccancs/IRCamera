@@ -5,17 +5,17 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 
 /**
- * 房屋检测 ViewModel.
+ * [Chinese text] ViewModel.
  *
  * Created by LCG on 2024/8/22.
  */
 internal class TabViewModel(application: Application) : AndroidViewModel(application) {
     /**
-     * 是否处于编辑模式.
+     * [Chinese text]mode.
      */
     val isEditModeLD: MutableLiveData<Boolean> = MutableLiveData(false)
     /**
-     * 当前选中数量.
+     * [Chinese text]in progress[Chinese text].
      */
     val selectSizeLD: MutableLiveData<Int> = MutableLiveData(0)
 }

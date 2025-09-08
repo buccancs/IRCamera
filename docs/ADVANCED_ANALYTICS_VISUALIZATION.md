@@ -374,7 +374,7 @@ class ThermalVisualizationEngine:
                     z=normalized_frame,
                     colorscale='Jet',
                     showscale=True,
-                    colorbar=dict(title="Temperature (°C)")
+                    colorbar=dict(title="Temperature (degC)")
                 )],
                 name=f"frame_{i}",
                 layout=dict(title=f"{title} - Time: {timestamp:.2f}s")
@@ -386,7 +386,7 @@ class ThermalVisualizationEngine:
                 z=self._normalize_thermal_frame(thermal_frames[0]),
                 colorscale='Jet',
                 showscale=True,
-                colorbar=dict(title="Temperature (°C)")
+                colorbar=dict(title="Temperature (degC)")
             )],
             frames=frames
         )
@@ -481,7 +481,7 @@ class ThermalVisualizationEngine:
                 fill='toself',
                 fillcolor='rgba(255,0,0,0.2)',
                 line=dict(color='rgba(255,255,255,0)'),
-                name='±1 Std Dev',
+                name='+/-1 Std Dev',
                 showlegend=False
             ),
             row=1, col=1
@@ -546,7 +546,7 @@ class ThermalVisualizationEngine:
                 y=Y,
                 colorscale='Jet',
                 showscale=True,
-                colorbar=dict(title="Temperature (°C)")
+                colorbar=dict(title="Temperature (degC)")
             )
         ])
         
@@ -555,7 +555,7 @@ class ThermalVisualizationEngine:
             scene=dict(
                 xaxis_title='X Coordinate',
                 yaxis_title='Y Coordinate',
-                zaxis_title='Temperature (°C)',
+                zaxis_title='Temperature (degC)',
                 camera=dict(
                     eye=dict(x=1.5, y=1.5, z=1.5)
                 )
@@ -644,9 +644,9 @@ class ThermalVisualizationEngine:
         )
         
         # Update y-axis labels
-        fig.update_yaxes(title_text="Temperature (°C)", row=1, col=1)
+        fig.update_yaxes(title_text="Temperature (degC)", row=1, col=1)
         fig.update_yaxes(title_text="Hot Spot Count", row=2, col=1)
-        fig.update_yaxes(title_text="Temp Change (°C/s)", row=3, col=1)
+        fig.update_yaxes(title_text="Temp Change (degC/s)", row=3, col=1)
         
         return fig
     
@@ -1031,7 +1031,7 @@ class MultiModalVisualizationEngine:
         )
         
         # Update axis labels
-        fig.update_xaxes(title_text="Temperature (°C)", row=1, col=1)
+        fig.update_xaxes(title_text="Temperature (degC)", row=1, col=1)
         fig.update_yaxes(title_text="GSR Value", row=1, col=1)
         
         fig.update_xaxes(title_text="Time (s)", row=1, col=2)

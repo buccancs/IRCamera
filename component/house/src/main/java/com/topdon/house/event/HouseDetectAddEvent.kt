@@ -1,7 +1,7 @@
 package com.topdon.house.event
 
 /**
- * 一个检测创建成功事件.
+ * [Chinese text]event.
  *
  * Created by LCG on 2024/1/5.
  */

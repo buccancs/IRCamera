@@ -138,21 +138,21 @@ import kotlin.math.roundToInt
 
 
 /**
- * TC007 出图页面.
+ * TC007 [Chinese text].
  *
  * Created by LCG on 2024/4/28.
  */
 @Route(path = RouterConfig.IR_THERMAL_07)
 class IRThermal07Activity : BaseWifiActivity() {
     /**
-     * 保存设置开关影响的相关配置项.
+     * [Chinese text]settings[Chinese text].
      */
     private val saveSetBean = SaveSettingBean(true)
 
     private var isTouchSeekBar: Boolean = false
     private var pseudoColorMode = WifiSaveSettingUtil.pseudoColorMode
     /**
-     * 双光-融合度、设置-对比度、设置-锐度 PopupWindow，用于在点击其他操作时关掉.
+     * dual light-[Chinese text], settings-[Chinese text], settings-[Chinese text] PopupWindow, for[Chinese text]point[Chinese text]operation[Chinese text].
      */
     private var popupWindow: PopupWindow? = null
 
@@ -160,7 +160,7 @@ class IRThermal07Activity : BaseWifiActivity() {
     private var textSize: Int = WifiSaveSettingUtil.tempTextSize
     private var tempAlarmSetDialog: TempAlarmSetDialog? = null
     private var alarmBean = WifiSaveSettingUtil.alarmBean
-    private var temperatureMode: Int = WifiSaveSettingUtil.temperatureMode //高低增益
+    private var temperatureMode: Int = WifiSaveSettingUtil.temperatureMode //highlow[Chinese text]
     private val wifiAttributeBean: WifiAttributeBean by lazy {
         WifiAttributeBean(
             Ratio = WifiSaveSettingUtil.twoLightAlpha,
@@ -171,30 +171,30 @@ class IRThermal07Activity : BaseWifiActivity() {
     private var cameraAlpha = WifiSaveSettingUtil.twoLightAlpha
     private var imageWidth = 256
     private var imageHeight = 192
-    private var imageEditBytes = ByteArray(imageWidth * imageHeight * 4) //编辑图像数据
+    private var imageEditBytes = ByteArray(imageWidth * imageHeight * 4) //[Chinese text]
     private var customPseudoBean = CustomPseudoBean.loadFromShared(true)
     private var scheduler: ScheduledExecutorService? = null
     private val task: Runnable by lazy {
         Runnable {
             lifecycleScope.launch {
-                XLog.i("快门矫正")
+                XLog.i("[Chinese text]")
                 TC007Repository.setCorrection()
             }
         }
     }
 
     /**
-     * IR文件
+     * IR[Chinese text]
      */
     private var irFile: File? = null
 
     /**
-     * DC文件
+     * DC[Chinese text]
      */
     private var dcFile: File? = null
 
     /**
-     * 解析后国网数据
+     * [Chinese text]
      */
     private var gwData: GWData? = null
 
@@ -244,14 +244,14 @@ class IRThermal07Activity : BaseWifiActivity() {
         }
         temperature_seekbar.setIndicatorTextDecimalFormat("0.0")
         lifecycleScope.launch {
-            updateTemperatureSeekBar(false)//加锁
+            updateTemperatureSeekBar(false)//[Chinese text]
         }
         thermal_steering_view.listener = { type: Int, x: Int, y: Int ->
             if (type == 0) {
                 thermal_steering_view.visibility = View.GONE
                 thermal_recycler_night.setTwoLightSelected(TwoLightType.CORRECT, false)
             } else {
-                //配准
+                //[Chinese text]
                 var moveX = thermal_steering_view.moveX
                 var moveY = thermal_steering_view.moveY
                 lifecycleScope.launch {
@@ -285,7 +285,7 @@ class IRThermal07Activity : BaseWifiActivity() {
             }
         }
         lifecycleScope.launch {
-            //获取初始参数
+            //[Chinese text]
             val tmpR = TC007Repository.getRegistration(false)?.Data
             tmpR?.let {
                 thermal_steering_view.moveX = it.X!!
@@ -293,11 +293,11 @@ class IRThermal07Activity : BaseWifiActivity() {
             }
         }
         WebSocketProxy.getInstance().setOnFrameListener(this) {
-            // TODO: 处理帧数据
+            // TODO: [Chinese text]
             realLeftValue = UnitTools.showUnitValue(it.minValue / 10f, isShowC)
             realRightValue = UnitTools.showUnitValue(it.maxValue / 10f, isShowC)
             if (!customPseudoBean.isUseCustomPseudo) {
-                //动态渲染模式
+                //[Chinese text]mode
                 try {
                     temperature_seekbar.setRangeAndPro(
                         if (editMinValue != Float.MIN_VALUE) UnitTools.showUnitValue(
@@ -312,7 +312,7 @@ class IRThermal07Activity : BaseWifiActivity() {
                         realRightValue
                     )
                 } catch (e: Exception) {
-                    Log.e("温度图层更新失败", e.message.toString())
+                    Log.e("temperature[Chinese text]", e.message.toString())
                 }
             }
             if (tv_temp_content.isVisible) {
@@ -325,7 +325,7 @@ class IRThermal07Activity : BaseWifiActivity() {
                             )
                         }"
                 } catch (e: Exception) {
-                    Log.e("温度图层更新失败", e.message.toString())
+                    Log.e("temperature[Chinese text]", e.message.toString())
                 }
             }
             try {
@@ -334,7 +334,7 @@ class IRThermal07Activity : BaseWifiActivity() {
                     cl_seek_bar.updateBitmap()
                 }
             } catch (e: Exception) {
-                Log.w("伪彩条更新异常:", "${e.message}")
+                Log.w("[Chinese text]:", "${e.message}")
             }
             runOnUiThread {
                 AlarmHelp.getInstance(application).alarmData(
@@ -377,7 +377,7 @@ class IRThermal07Activity : BaseWifiActivity() {
 //                        editMaxValue,
 //                        editMinValue,
 //                        upColor, downColor
-//                    ) //自定义颜色
+//                    ) //[Chinese text]
                 }
             }
 
@@ -436,7 +436,7 @@ class IRThermal07Activity : BaseWifiActivity() {
         try {
             scheduler?.shutdownNow()
         } catch (e: InstantiationException) {
-            XLog.e("线程池回收异常：${e.message}")
+            XLog.e("line[Chinese text]: ${e.message}")
         }
     }
 
@@ -487,7 +487,7 @@ class IRThermal07Activity : BaseWifiActivity() {
         view_car_detect.findViewById<LinearLayout>(com.topdon.module.thermal.ir.R.id.ll_car_detect_info).setOnClickListener {
             LongTextDialog(this, SharedManager.getCarDetectInfo()?.item, SharedManager.getCarDetectInfo()?.description).show()
         }
-        thermal_recycler_night.isVideoMode = WifiSaveSettingUtil.isVideoMode //恢复拍照/录像状态
+        thermal_recycler_night.isVideoMode = WifiSaveSettingUtil.isVideoMode //[Chinese text]photo capture/recording[Chinese text]
         thermal_recycler_night.onCameraClickListener = {
             setCamera(it)
         }
@@ -513,15 +513,15 @@ class IRThermal07Activity : BaseWifiActivity() {
                 lifecycleScope.launch {
                     if (temperature_seekbar.tempMode != TEMP_MODE_CLOSE && (index == 0 || index == size)) {
                         setDefLimit()
-                        updateTemperatureSeekBar(false)//加锁
+                        updateTemperatureSeekBar(false)//[Chinese text]
                         ToastUtils.showShort(R.string.tc_unsupport_mode)
                     }
                     if (temperature_seekbar.tempMode != TEMP_MODE_CLOSE &&
                         index == 0 ||
                         index == size
                     ) {
-                        //由于艾睿的黑热和白热不支持等温尺，所以用户在白热、黑热模式下修改等温尺后，接口调用失败，
-                        //所以在此时的等温尺参数TC007设备还无法生效，所以切换其他伪彩的时候如果要等温尺生效，则需要重发一次等温尺参数
+                        //[Chinese text], [Chinese text], [Chinese text]mode[Chinese text], [Chinese text], 
+                        //[Chinese text]TC007[Chinese text], [Chinese text]switch[Chinese text], [Chinese text]
                         setPColor(index, it, true) {
                             val max = ((editMaxValue + 273.15f) * 10).toInt()
                             val min = ((editMinValue + 273.15f) * 10).toInt()
@@ -546,7 +546,7 @@ class IRThermal07Activity : BaseWifiActivity() {
             temperatureMode = it
             setConfigForIr(IrParam.ParamTemperature, temperatureMode, true)
             if (it == CameraItemBean.TYPE_TMP_H && SharedManager.isTipHighTemp) {
-                //切换到高温档
+                //switch[Chinese text]high[Chinese text]
                 val message =
                     SpanBuilder(getString(com.topdon.module.thermal.ir.R.string.tc_high_temp_test_tips1))
                         .appendDrawable(
@@ -597,7 +597,7 @@ class IRThermal07Activity : BaseWifiActivity() {
                 setDefLimit()
             }
             lifecycleScope.launch {
-                updateTemperatureSeekBar(temperature_iv_lock.contentDescription == "lock")//解锁
+                updateTemperatureSeekBar(temperature_iv_lock.contentDescription == "lock")//[Chinese text]
             }
         }
         temperature_iv_input.setOnClickListener {
@@ -689,7 +689,7 @@ class IRThermal07Activity : BaseWifiActivity() {
                         Log.i(TAG, "Active sensors: ${session.selectedSensors.map { it.displayName }.joinToString(", ")}")
                         
                         lifecycleScope.launch(Dispatchers.Main) {
-                            val message = "🚀 Recording started:\n${session.selectedSensors.map { "• ${it.displayName}" }.joinToString("\n")}"
+                            val message = "[rocket] Recording started:\n${session.selectedSensors.map { "* ${it.displayName}" }.joinToString("\n")}"
                             TToast.shortToast(this@IRThermal07Activity, message)
                         }
                     }
@@ -708,9 +708,9 @@ class IRThermal07Activity : BaseWifiActivity() {
                         
                         lifecycleScope.launch(Dispatchers.Main) {
                             val message = buildString {
-                                append("✅ Recording completed (${session.recordingDuration / 1000}s):\n")
+                                append("[OK] Recording completed (${session.recordingDuration / 1000}s):\n")
                                 session.selectedSensors.forEach { sensor ->
-                                    append("• ${sensor.displayName}: ${session.sensorStatus[sensor] ?: "Unknown"}\n")
+                                    append("* ${sensor.displayName}: ${session.sensorStatus[sensor] ?: "Unknown"}\n")
                                 }
                             }
                             TToast.shortToast(this@IRThermal07Activity, message.trim())
@@ -731,7 +731,7 @@ class IRThermal07Activity : BaseWifiActivity() {
                         rgbCameraSettingsView?.updateRecordingStatus("Error: $error")
                         
                         Log.e(TAG, "Parallel recording error: $error")
-                        TToast.shortToast(this@IRThermal07Activity, "❌ Recording error: $error")
+                        TToast.shortToast(this@IRThermal07Activity, "[X] Recording error: $error")
                     }
                     
                     onSensorStatusChanged = { sensor, status ->
@@ -870,7 +870,7 @@ class IRThermal07Activity : BaseWifiActivity() {
 
 
     override fun onSocketDisConnected(isTS004: Boolean) {
-        if (!isTS004) {//TC007 的 Socket 断了
+        if (!isTS004) {//TC007 [Chinese text] Socket [Chinese text]
             this.finish()
         }
     }
@@ -885,7 +885,7 @@ class IRThermal07Activity : BaseWifiActivity() {
             }
         }
 
-    //更新自定义伪彩的颜色的属性值
+    //[Chinese text]
     private fun updateImageAndSeekbarColorList(customPseudoBean: CustomPseudoBean?) {
         lifecycleScope.launch {
             customPseudoBean?.let {
@@ -895,7 +895,7 @@ class IRThermal07Activity : BaseWifiActivity() {
                     temperature_iv_lock.visibility = View.INVISIBLE
                     tv_temp_content.visibility = View.VISIBLE
                     setDefLimit()
-                    updateTemperatureSeekBar(false)//加锁
+                    updateTemperatureSeekBar(false)//[Chinese text]
                     temperature_seekbar.setRangeAndPro(
                         UnitTools.showUnitValue(it.minTemp, isShowC),
                         UnitTools.showUnitValue(it.maxTemp, isShowC),
@@ -926,7 +926,7 @@ class IRThermal07Activity : BaseWifiActivity() {
     }
 
     /**
-     * 修改自定义伪彩属性，抽出方法，方便双光界面进行重写
+     * [Chinese text], [Chinese text], [Chinese text]dual light[Chinese text]
      * @param colorList IntArray?
      * @param isUseGray Boolean
      * @param customMaxTemp Float
@@ -939,7 +939,7 @@ class IRThermal07Activity : BaseWifiActivity() {
         customMaxTemp: Float,
         customMinTemp: Float
     ) {
-        // TODO: 使用 places
+        // TODO: [Chinese text] places
         colorList?.let {
             val highColor = CustomColor(
                 Color.red(it[2]), Color.green(it[2]), Color.blue(
@@ -968,24 +968,24 @@ class IRThermal07Activity : BaseWifiActivity() {
     }
 
     /**
-     * 最高最低温复原
+     * [Chinese text]high[Chinese text]low[Chinese text]
      */
     private fun setDefLimit() {
         editMaxValue = Float.MAX_VALUE
         editMinValue = Float.MIN_VALUE
         temperature_seekbar.tempMode = RangeSeekBar.TEMP_MODE_CLOSE
-//        imageThread?.setLimit(editMaxValue, editMinValue, upColor, downColor) //自定义颜色
+//        imageThread?.setLimit(editMaxValue, editMinValue, upColor, downColor) //[Chinese text]
         temperature_seekbar.setRangeAndPro(
             editMinValue,
             editMaxValue,
             realLeftValue,
             realRightValue
-        ) //初始位置
+        ) //[Chinese text]
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onSocketMsgEvent(event: SocketMsgEvent) {
-        if (SocketCmdUtil.getCmdResponse(event.text) == WsCmdConstants.APP_EVENT_HEART_BEATS) {//心跳
+        if (SocketCmdUtil.getCmdResponse(event.text) == WsCmdConstants.APP_EVENT_HEART_BEATS) {//[Chinese text]
             try {
                 val battery: JSONObject = JSONObject(event.text).getJSONObject("battery")
                 batteryInfo =
@@ -997,15 +997,15 @@ class IRThermal07Activity : BaseWifiActivity() {
     }
 
     /**
-     * 初始化相关配置
+     * [Chinese text]
      */
     private fun initConfig() {
         thermal_recycler_night.setSettingSelected(SettingType.ALARM, alarmBean.isHighOpen || alarmBean.isLowOpen)
         lifecycleScope.launch {
             showCameraLoading()
-            //融合和配准属性初始化
+            //[Chinese text]
             TC007Repository.setRatio(wifiAttributeBean)
-            //字体设置
+            //[Chinese text]settings
             val red = Color.red(textColor)
             val green = Color.green(textColor)
             val blue = Color.blue(textColor)
@@ -1015,28 +1015,28 @@ class IRThermal07Activity : BaseWifiActivity() {
             TC007Repository.setFont(isotherm)
             thermal_recycler_night.setSettingSelected(SettingType.FONT,
                 textColor != 0xffffffff.toInt() || textSize != 14)
-            //镜像
+            //[Chinese text]
             param.flipMode = if (saveSetBean.isOpenMirror) 1 else 0
             if (TC007Repository.setParam(param)?.isSuccess() == true) {
                 thermal_recycler_night.setSettingSelected(SettingType.MIRROR, saveSetBean.isOpenMirror)
             }
-            //伪彩条
+            //[Chinese text]
             cl_seek_bar.isVisible = saveSetBean.isOpenPseudoBar
             thermal_recycler_night.setSettingSelected(SettingType.PSEUDO_BAR, saveSetBean.isOpenPseudoBar)
-            //电池信息获取
+            //[Chinese text]
             batteryInfo = TC007Repository.getBatteryInfo()
-            // 读取配置设置 环境温度、测温距离、发射率
+            // [Chinese text]settings [Chinese text]temperature, [Chinese text], [Chinese text]
             val config = ConfigRepository.readConfig(true)
             TC007Repository.setIRConfig(config.environment, config.distance, config.radiation)
-            //设置温度单位
-            //清除点、线、面
+            //settingstemperature[Chinese text]
+            //[Chinese text]point, line, [Chinese text]
             TC007Repository.clearAllTemp()
             val tempFrame = TC007Repository.getTempFrame()
             if (tempFrame) {
                 TC007Repository.setTempFrame(true)
             }
-            //高低增益设置
-            thermal_recycler_night.isUnitF = SharedManager.getTemperature() == 0 //温度档位单位
+            //highlow[Chinese text]settings
+            thermal_recycler_night.isUnitF = SharedManager.getTemperature() == 0 //temperaturelevel[Chinese text]
             val data = TC007Repository.setEnvAttr(
                 SharedManager.getTemperature() == 1,
                 WifiAttributeChangeU.getTemperatureModeToWifi(temperatureMode)
@@ -1044,21 +1044,21 @@ class IRThermal07Activity : BaseWifiActivity() {
             if (data) {
                 thermal_recycler_night.setTempLevel(temperatureMode)
             }
-            //图像模式数据更新
+            //[Chinese text]mode[Chinese text]
             when (WifiSaveSettingUtil.fusionType) {
-                SaveSettingUtil.FusionTypeLPYFusion -> {//双光1
+                SaveSettingUtil.FusionTypeLPYFusion -> {//dual light1
                     TC007Repository.setMode(4)
                     temperature_iv_input.visibility = View.INVISIBLE
                     temperature_iv_lock.visibility = View.INVISIBLE
                     thermal_recycler_night.twoLightType = TwoLightType.TWO_LIGHT_1
                 }
-                SaveSettingUtil.FusionTypeMeanFusion -> {//双光2
+                SaveSettingUtil.FusionTypeMeanFusion -> {//dual light2
                     TC007Repository.setMode(3)
                     temperature_iv_input.visibility = View.INVISIBLE
                     temperature_iv_lock.visibility = View.INVISIBLE
                     thermal_recycler_night.twoLightType = TwoLightType.TWO_LIGHT_2
                 }
-                SaveSettingUtil.FusionTypeIROnly -> {//单红外
+                SaveSettingUtil.FusionTypeIROnly -> {//[Chinese text]
                     TC007Repository.setMode(0)
                     temperature_iv_input.visibility = View.VISIBLE
                     temperature_iv_lock.visibility = View.VISIBLE
@@ -1080,20 +1080,20 @@ class IRThermal07Activity : BaseWifiActivity() {
                     }
                     thermal_recycler_night.twoLightType = TwoLightType.IR
                 }
-                SaveSettingUtil.FusionTypeVLOnly -> {//可见光
+                SaveSettingUtil.FusionTypeVLOnly -> {//visible[Chinese text]
                     TC007Repository.setMode(1)
                     temperature_iv_input.visibility = View.INVISIBLE
                     temperature_iv_lock.visibility = View.INVISIBLE
                     thermal_recycler_night.twoLightType = TwoLightType.LIGHT
                 }
-                SaveSettingUtil.FusionTypeTC007Fusion -> {//画中画
+                SaveSettingUtil.FusionTypeTC007Fusion -> {//[Chinese text]in progress[Chinese text]
                     TC007Repository.setMode(2)
                     temperature_iv_input.visibility = View.INVISIBLE
                     temperature_iv_lock.visibility = View.INVISIBLE
                     thermal_recycler_night.twoLightType = TwoLightType.P_IN_P
                 }
             }
-            //对比度和锐度
+            //[Chinese text]
             param.flipMode = if (saveSetBean.isOpenMirror) 1 else 0
             TC007Repository.setParam(param)
             dismissCameraLoading()
@@ -1118,13 +1118,13 @@ class IRThermal07Activity : BaseWifiActivity() {
     private fun setTwoLight(twoLightType: TwoLightType, isSelected: Boolean) {
         popupWindow?.dismiss()
         when (twoLightType) {
-            TwoLightType.TWO_LIGHT_1 -> {//双光1
+            TwoLightType.TWO_LIGHT_1 -> {//dual light1
                 showCustomPseudoDialogOrNo(positiveListener = {
                     lifecycleScope.launch {
                         val data = TC007Repository.setMode(4)
                         temperature_iv_input.visibility = View.INVISIBLE
                         temperature_iv_lock.visibility = View.INVISIBLE
-                        XLog.i("设备：${data?.Message}")
+                        XLog.i("[Chinese text]: ${data?.Message}")
                         if (200 == data?.Code) {
                             WifiSaveSettingUtil.fusionType = SaveSettingUtil.FusionTypeLPYFusion
                         }
@@ -1133,8 +1133,8 @@ class IRThermal07Activity : BaseWifiActivity() {
 
                 })
             }
-            TwoLightType.TWO_LIGHT_2 -> {//双光2
-                //双光2
+            TwoLightType.TWO_LIGHT_2 -> {//dual light2
+                //dual light2
 //                mCurrentFusionType = DualCameraParams.FusionType.MeanFusion
 //                thermal_recycler_night.dualFusionType = WifiSaveSettingUtil.FusionTypeMeanFusion
 //                WifiSaveSettingUtil.fusionType = WifiSaveSettingUtil.FusionTypeMeanFusion
@@ -1144,7 +1144,7 @@ class IRThermal07Activity : BaseWifiActivity() {
                         val data = TC007Repository.setMode(3)
                         temperature_iv_input.visibility = View.INVISIBLE
                         temperature_iv_lock.visibility = View.INVISIBLE
-                        XLog.i("设备：${data?.Message}")
+                        XLog.i("[Chinese text]: ${data?.Message}")
                         if (200 == data?.Code) {
                             WifiSaveSettingUtil.fusionType = SaveSettingUtil.FusionTypeMeanFusion
                         }
@@ -1153,7 +1153,7 @@ class IRThermal07Activity : BaseWifiActivity() {
                     thermal_recycler_night.setTwoLightSelected(TwoLightType.BLEND_EXTENT, false)
                 })
             }
-            TwoLightType.IR -> {//单红外
+            TwoLightType.IR -> {//[Chinese text]
                 lifecycleScope.launch {
                     val data = TC007Repository.setMode(0)
                     temperature_iv_input.visibility = View.VISIBLE
@@ -1161,19 +1161,19 @@ class IRThermal07Activity : BaseWifiActivity() {
                     if (200 == data?.Code) {
                         WifiSaveSettingUtil.fusionType = SaveSettingUtil.FusionTypeIROnly
                     }
-                    XLog.i("设备：${data?.Message}")
+                    XLog.i("[Chinese text]: ${data?.Message}")
                 }
                 thermal_steering_view.visibility = View.GONE
                 thermal_recycler_night.setTwoLightSelected(TwoLightType.CORRECT, false)
             }
-            TwoLightType.LIGHT -> {//单可见光
+            TwoLightType.LIGHT -> {//[Chinese text]visible[Chinese text]
                 showCustomPseudoDialogOrNo(positiveListener = {
                     lifecycleScope.launch {
                         val data = TC007Repository.setMode(1)
                         if (200 == data?.Code) {
                             WifiSaveSettingUtil.fusionType = SaveSettingUtil.FusionTypeVLOnly
                         }
-                        XLog.i("设备：${data?.Message}")
+                        XLog.i("[Chinese text]: ${data?.Message}")
                     }
                     temperature_iv_input.visibility = View.INVISIBLE
                     temperature_iv_lock.visibility = View.INVISIBLE
@@ -1183,9 +1183,9 @@ class IRThermal07Activity : BaseWifiActivity() {
                     thermal_recycler_night.setTwoLightSelected(TwoLightType.BLEND_EXTENT, false)
                 })
             }
-            TwoLightType.CORRECT -> {//配准
+            TwoLightType.CORRECT -> {//[Chinese text]
                 if (isSelected) {
-                    //配准
+                    //[Chinese text]
                     if (thermal_recycler_night.twoLightType != TwoLightType.TWO_LIGHT_1
                         && thermal_recycler_night.twoLightType != TwoLightType.TWO_LIGHT_2
                     ) {
@@ -1194,7 +1194,7 @@ class IRThermal07Activity : BaseWifiActivity() {
                                 val data = TC007Repository.setMode(3)
                                 thermal_recycler_night.twoLightType = TwoLightType.TWO_LIGHT_2
                                 WifiSaveSettingUtil.fusionType = SaveSettingUtil.FusionTypeMeanFusion
-                                XLog.i("设备：${data?.Message}")
+                                XLog.i("[Chinese text]: ${data?.Message}")
                                 temperature_iv_input.visibility = View.INVISIBLE
                                 temperature_iv_lock.visibility = View.INVISIBLE
                                 thermal_steering_view.visibility = View.VISIBLE
@@ -1211,7 +1211,7 @@ class IRThermal07Activity : BaseWifiActivity() {
                     thermal_steering_view.visibility = View.GONE
                 }
             }
-            TwoLightType.P_IN_P -> {//画中画
+            TwoLightType.P_IN_P -> {//[Chinese text]in progress[Chinese text]
                 showCustomPseudoDialogOrNo(positiveListener = {
                     lifecycleScope.launch {
                         val data = TC007Repository.setMode(2)
@@ -1220,7 +1220,7 @@ class IRThermal07Activity : BaseWifiActivity() {
                             temperature_iv_lock.visibility = View.INVISIBLE
                             WifiSaveSettingUtil.fusionType = SaveSettingUtil.FusionTypeTC007Fusion
                         }
-                        XLog.i("设备：${data?.Message}")
+                        XLog.i("[Chinese text]: ${data?.Message}")
                     }
                     thermal_steering_view.visibility = View.GONE
                     thermal_recycler_night.setTwoLightSelected(TwoLightType.CORRECT, false)
@@ -1228,12 +1228,12 @@ class IRThermal07Activity : BaseWifiActivity() {
 
                 })
             }
-            TwoLightType.BLEND_EXTENT -> {//融合度
+            TwoLightType.BLEND_EXTENT -> {//[Chinese text]
                 if (isSelected) {
                     showCustomPseudoDialogOrNo(positiveListener = {
                         lifecycleScope.launch {
                             val data = TC007Repository.setMode(3)
-                            XLog.i("设备：${data?.Message}")
+                            XLog.i("[Chinese text]: ${data?.Message}")
                             if (200 == data?.Code) {
                                 temperature_iv_input.visibility = View.INVISIBLE
                                 temperature_iv_lock.visibility = View.INVISIBLE
@@ -1253,35 +1253,35 @@ class IRThermal07Activity : BaseWifiActivity() {
     private fun setSetting(type: SettingType, isSelected: Boolean) {
         popupWindow?.dismiss()
         when (type) {
-            SettingType.PSEUDO_BAR -> {//伪彩条
+            SettingType.PSEUDO_BAR -> {//[Chinese text]
                 saveSetBean.isOpenPseudoBar = !saveSetBean.isOpenPseudoBar
                 cl_seek_bar.isVisible = saveSetBean.isOpenPseudoBar
                 thermal_recycler_night.setSettingSelected(SettingType.PSEUDO_BAR, saveSetBean.isOpenPseudoBar)
             }
-            SettingType.CONTRAST -> {//对比度
+            SettingType.CONTRAST -> {//[Chinese text]
                 if (!isSelected) {
                     showContrastPopup()
                 }
             }
-            SettingType.DETAIL -> {//细节
+            SettingType.DETAIL -> {//[Chinese text]
                 if (!isSelected) {
                     showSharpnessPopup()
                 }
             }
-            SettingType.ALARM -> {//预警
+            SettingType.ALARM -> {//[Chinese text]
                 showTempAlarmSetDialog()
             }
             SettingType.ROTATE -> {
-                // TC007 目前不支持旋转
+                // TC007 [Chinese text]
             }
-            SettingType.FONT -> {//字体颜色
+            SettingType.FONT -> {//[Chinese text]
                 val colorPickDialog = ColorPickDialog(this, textColor, textSize, true)
                 colorPickDialog.onPickListener = { it: Int, textSize: Int ->
                     setConfigForIr(IrParam.ParamTempFont, TempFont(textSize, it), true)
                 }
                 colorPickDialog.show()
             }
-            SettingType.MIRROR -> {//镜像
+            SettingType.MIRROR -> {//[Chinese text]
                 saveSetBean.isOpenMirror = !saveSetBean.isOpenMirror
                 lifecycleScope.launch {
                     param.flipMode = if (saveSetBean.isOpenMirror) 1 else 0
@@ -1293,17 +1293,17 @@ class IRThermal07Activity : BaseWifiActivity() {
                     }
                 }
             }
-            SettingType.COMPASS -> {//指南针
-                // TC007 没有观测模式自然没有指南针
+            SettingType.COMPASS -> {//[Chinese text]
+                // TC007 [Chinese text]mode[Chinese text]
             }
             SettingType.WATERMARK -> {
-                //水印菜单只有 2D 编辑才有
+                //[Chinese text]menu[Chinese text] 2D [Chinese text]
             }
         }
     }
 
     /**
-     * 统一由此进行双光切换的伪彩处理
+     * [Chinese text]dual lightswitch[Chinese text]
      */
     private fun showCustomPseudoDialogOrNo(positiveListener: (() -> Unit), cancelListener: (() -> Unit)) {
         if (customPseudoBean.isUseCustomPseudo) {
@@ -1371,12 +1371,12 @@ class IRThermal07Activity : BaseWifiActivity() {
     }
 
     /**
-     * 统一在此处处理设备端的参数设置
+     * [Chinese text]settings
      */
     private fun setConfigForIr(type: IrParam, data: Any?, isShowError: Boolean = false, netListener: (() -> Unit)? = null) {
         when (type) {
             IrParam.ParamTemperature -> {
-                //高低增益切换
+                //highlow[Chinese text]switch
                 WifiSaveSettingUtil.temperatureMode = temperatureMode
                 lifecycleScope.launch {
                     showCameraLoading()
@@ -1391,7 +1391,7 @@ class IRThermal07Activity : BaseWifiActivity() {
             }
 
             IrParam.ParamPColor -> {
-                //伪彩样式切换
+                //[Chinese text]switch
                 lifecycleScope.launch {
                     TC007Repository.setPallete(PalleteBean(0, stander = Stander(data as Int, arrayListOf(200, 100, 80))))
                     netListener?.invoke()
@@ -1399,7 +1399,7 @@ class IRThermal07Activity : BaseWifiActivity() {
             }
 
             IrParam.ParamTempFont -> {
-                //字体大小和颜色
+                //[Chinese text]
                 lifecycleScope.launch {
                     val red = Color.red((data as TempFont).textColor)
                     val green = Color.green(data.textColor)
@@ -1424,8 +1424,8 @@ class IRThermal07Activity : BaseWifiActivity() {
                 }
             }
             IrParam.ParamAlarm -> {
-                //预警
-                alarmBean.isMarkOpen = false//TC007统一关闭预警轮廓
+                //[Chinese text]
+                alarmBean.isMarkOpen = false//TC007[Chinese text]
                 WifiSaveSettingUtil.alarmBean = alarmBean
                 AlarmHelp.getInstance(this@IRThermal07Activity).updateData(
                     if (alarmBean.isLowOpen) alarmBean.lowTemp else null,
@@ -1442,7 +1442,7 @@ class IRThermal07Activity : BaseWifiActivity() {
     }
 
     /**
-     * 显示温度报警设置弹框.
+     * [Chinese text]temperature[Chinese text]settings[Chinese text].
      */
     private fun showTempAlarmSetDialog() {
         if (tempAlarmSetDialog == null) {
@@ -1459,7 +1459,7 @@ class IRThermal07Activity : BaseWifiActivity() {
     }
 
     /**
-     * 显示对比度设置 PopupWindow
+     * [Chinese text]settings PopupWindow
      */
     private fun showContrastPopup() {
         thermal_recycler_night.setSettingSelected(SettingType.CONTRAST, true)
@@ -1483,12 +1483,12 @@ class IRThermal07Activity : BaseWifiActivity() {
     }
 
     /**
-     * 显示细节(锐度) 设置 PopupWindow
+     * [Chinese text]([Chinese text]) settings PopupWindow
      */
     private fun showSharpnessPopup() {
         thermal_recycler_night.setSettingSelected(SettingType.DETAIL, true)
 
-        val maxSharpness = 4 //实际对比度取值 [0, 4]，用于百分比转换
+        val maxSharpness = 4 //[Chinese text] [0, 4], for[Chinese text]
         val seekBarPopup = SeekBarPopup(this)
         seekBarPopup.progress = (saveSetBean.ddeConfig * 100f / maxSharpness).toInt()
         seekBarPopup.onValuePickListener = {
@@ -1509,7 +1509,7 @@ class IRThermal07Activity : BaseWifiActivity() {
     }
 
     /**
-     * 关系对应查看thirdBean和tc007接口的对应规则：0-白热；1-铁红；2-彩虹；3-极光；4-丛林；5-红热；6-微光；7-医疗；8-辉金；9-黑热（默认伪彩为铁红）
+     * [Chinese text]thirdBean[Chinese text]tc007[Chinese text]: 0-[Chinese text]; 1-[Chinese text]; 2-[Chinese text]; 3-[Chinese text]; 4-[Chinese text]; 5-[Chinese text]; 6-[Chinese text]; 7-[Chinese text]; 8-[Chinese text]; 9-[Chinese text]([Chinese text])
      */
     private fun pseudoColorModeToIndex(code: Int): Int {
         return if (code >= 3) {
@@ -1521,14 +1521,14 @@ class IRThermal07Activity : BaseWifiActivity() {
 
 
     private fun setPColor(index: Int, code: Int, isShowError: Boolean = false, netListener: (() -> Unit)? = null) {
-        //伪彩颜色修改
+        //[Chinese text]
         pseudoColorMode = code
         setConfigForIr(IrParam.ParamPColor, index, isShowError, netListener)
         thermal_recycler_night.setPseudoColor(-1)
         temperature_seekbar.setPseudocode(pseudoColorMode)
         /**
-         * 设置伪彩【set pseudocolor】
-         * 固件机芯实现(部分伪彩为预留,设置后可能无效果)
+         * settings[Chinese text][set pseudocolor]
+         * [Chinese text]implement([Chinese text],settings[Chinese text])
          */
         WifiSaveSettingUtil.pseudoColorMode = pseudoColorMode
         thermal_recycler_night.setPseudoColor(code)
@@ -1559,35 +1559,35 @@ class IRThermal07Activity : BaseWifiActivity() {
 
     private fun setTemp(fenceType: FenceType, isSelected: Boolean) {
         when (fenceType) {
-            FenceType.POINT -> {//点
+            FenceType.POINT -> {//point
                 geometry_view.mode = TemperatureBaseView.Mode.POINT
                 lifecycleScope.launch {
                     TC007Repository.setTempFrame(false)
                 }
             }
-            FenceType.LINE -> {//线
+            FenceType.LINE -> {//line
                 geometry_view.mode = TemperatureBaseView.Mode.LINE
                 lifecycleScope.launch {
                     TC007Repository.setTempFrame(false)
                 }
             }
-            FenceType.RECT -> {//面
+            FenceType.RECT -> {//[Chinese text]
                 geometry_view.mode = TemperatureBaseView.Mode.RECT
                 lifecycleScope.launch {
                     TC007Repository.setTempFrame(false)
                 }
             }
-            FenceType.FULL -> {//全图
+            FenceType.FULL -> {//[Chinese text]
                 geometry_view.isShowFull = isSelected
                 geometry_view.mode = TemperatureBaseView.Mode.FULL
                 lifecycleScope.launch {
                     TC007Repository.setTempFrame(true)
                 }
             }
-            FenceType.TREND -> {//趋势图
-                // TODO: 实现趋势图逻辑
+            FenceType.TREND -> {//[Chinese text]
+                // TODO: implement[Chinese text]
             }
-            FenceType.DEL -> {//删除
+            FenceType.DEL -> {//[Chinese text]
                 geometry_view.mode = TemperatureBaseView.Mode.CLEAR
                 lifecycleScope.launch {
                     TC007Repository.setTempFrame(false)
@@ -1599,27 +1599,27 @@ class IRThermal07Activity : BaseWifiActivity() {
 
 
     /**
-     * 第 1 个菜单-拍照录像 各个操作的点击事件监听.
-     * @param actionCode: 0-拍照/录像  1-图库  2-更多菜单  3-切换到拍照  4-切换到录像
+     * [Chinese text] 1 [Chinese text]menu-photo capturerecording eachoperation[Chinese text]point[Chinese text]eventlistener.
+     * @param actionCode: 0-photo capture/recording  1-gallery  2-moremenu  3-switch[Chinese text]photo capture  4-switch[Chinese text]recording
      */
     private fun setCamera(actionCode: Int) {
         when (actionCode) {
-            0 -> {// 拍照/录像
+            0 -> {// photo capture/recording
                 checkStoragePermission()
             }
-            1 -> {//图库
+            1 -> {//gallery
                 ARouter.getInstance()
                     .build(RouterConfig.IR_GALLERY_HOME)
                     .withInt(ExtraKeyConfig.DIR_TYPE, GalleryRepository.DirType.TC007.ordinal)
                     .navigation()
             }
-            2 -> {//更多菜单
+            2 -> {//moremenu
                 settingCamera()
             }
-            3 -> {//切换到拍照
+            3 -> {//switch[Chinese text]photo capture
                 WifiSaveSettingUtil.isVideoMode = false
             }
-            4 -> {//切换到录像
+            4 -> {//switch[Chinese text]recording
                 WifiSaveSettingUtil.isVideoMode = true
             }
         }
@@ -1629,16 +1629,16 @@ class IRThermal07Activity : BaseWifiActivity() {
     private val cameraItemBeanList by lazy {
         mutableListOf(
             CameraItemBean(
-                "延迟", CameraItemBean.TYPE_DELAY,
+                "[Chinese text]", CameraItemBean.TYPE_DELAY,
                 time = WifiSaveSettingUtil.delayCaptureSecond
             ),
             CameraItemBean(
-                "自动快门", CameraItemBean.TYPE_ZDKM,
+                "[Chinese text]", CameraItemBean.TYPE_ZDKM,
                 isSel = WifiSaveSettingUtil.isAutoShutter
             ),
-            CameraItemBean("手动快门", CameraItemBean.TYPE_SDKM),
+            CameraItemBean("[Chinese text]", CameraItemBean.TYPE_SDKM),
 //            CameraItemBean(
-//                "声音", CameraItemBean.TYPE_AUDIO,
+//                "[Chinese text]", CameraItemBean.TYPE_AUDIO,
 //                isSel = WifiSaveSettingUtil.isRecordAudio &&
 //                        ActivityCompat.checkSelfPermission(
 //                            this,
@@ -1646,18 +1646,18 @@ class IRThermal07Activity : BaseWifiActivity() {
 //                        )
 //                        == PackageManager.PERMISSION_GRANTED
 //            ),
-            CameraItemBean("设置", CameraItemBean.TYPE_SETTING),
+            CameraItemBean("settings", CameraItemBean.TYPE_SETTING),
         )
     }
 
     /**
-     * 延时拍照延时秒数，0表示关闭.
+     * [Chinese text]photo capture[Chinese text], 0[Chinese text].
      */
     private var cameraDelaySecond: Int = WifiSaveSettingUtil.delayCaptureSecond
     private var cameraItemAdapter: CameraItemAdapter? = null
     private var isAutoShutter: Boolean = WifiSaveSettingUtil.isAutoShutter
 
-    //拍照右边按钮
+    //photo capture[Chinese text]button
     private fun settingCamera() {
         showCameraSetting = !showCameraSetting
         if (showCameraSetting) {
@@ -1722,14 +1722,14 @@ class IRThermal07Activity : BaseWifiActivity() {
                                     cameraItemAdapter!!.data[position].isSel = false
                                     cameraItemAdapter!!.notifyItemChanged(position)
                                 }
-                                //手动快门
+                                //[Chinese text]
 
                                 ToastUtils.showShort(com.topdon.module.thermal.ir.R.string.app_Manual_Shutter)
                                 return@listener
                             }
 
                             CameraItemBean.TYPE_ZDKM -> {
-                                //自动快门
+                                //[Chinese text]
                                 isAutoShutter = !isAutoShutter
                                 WifiSaveSettingUtil.isAutoShutter = isAutoShutter
                                 cameraItemAdapter!!.data[position].isSel =
@@ -1798,7 +1798,7 @@ class IRThermal07Activity : BaseWifiActivity() {
                 override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
                     if (allGranted) {
                         if (isVideo) {
-                            //正在录制视频
+                            //[Chinese text]
                             stopIfVideoing()
                             return
                         }
@@ -1820,7 +1820,7 @@ class IRThermal07Activity : BaseWifiActivity() {
                                         if (!thermal_recycler_night.isVideoMode) {
                                             camera()
                                         } else {
-                                            //录制视频
+                                            //[Chinese text]
                                             video()
                                         }
                                     }
@@ -1837,7 +1837,7 @@ class IRThermal07Activity : BaseWifiActivity() {
 
                 override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
                     if (doNotAskAgain) {
-                        //拒绝授权并且不再提醒
+                        //[Chinese text]
                         if (BaseApplication.instance.isDomestic()) {
                             ToastUtils.showShort(getString(R.string.app_storage_content))
                             return
@@ -1869,12 +1869,12 @@ class IRThermal07Activity : BaseWifiActivity() {
                 }
             }
         } catch (e: Exception) {
-            Log.e("线程", e.message.toString())
+            Log.e("line[Chinese text]", e.message.toString())
         }
     }
 
     /**
-     * 拍照 - Enhanced with synchronized GSR timing
+     * photo capture - Enhanced with synchronized GSR timing
      */
     private fun camera() {
         lifecycleScope.launch {
@@ -1915,13 +1915,13 @@ class IRThermal07Activity : BaseWifiActivity() {
                         false
                     )
                 }
-                // 获取展示图像信息的图层数据
+                // [Chinese text]
                 var cameraViewBitmap: Bitmap? =
                     Bitmap.createScaledBitmap(
                         bitmap, thermal_lay.measuredWidth,
                         thermal_lay.measuredHeight, true
                     )
-                // 合并伪彩条
+                // [Chinese text]
                 val isShowPseudoBar = cl_seek_bar.visibility == View.VISIBLE
                 if (isShowPseudoBar) {
                     val seekBarBitmap = cl_seek_bar.drawToBitmap()
@@ -1933,7 +1933,7 @@ class IRThermal07Activity : BaseWifiActivity() {
                     )
                     seekBarBitmap.recycle()
                 }
-                //添加水印
+                //[Chinese text]
                 val watermarkBean = SharedManager.wifiWatermarkBean
                 if (watermarkBean.isOpen) {
                     cameraViewBitmap = BitmapUtils.drawCenterLable(
@@ -2017,7 +2017,7 @@ class IRThermal07Activity : BaseWifiActivity() {
     }
 
     /**
-     * 初始化视频采集组件
+     * [Chinese text]
      */
     private fun initVideoRecordFFmpeg() {
         playFragment?.let {
@@ -2037,7 +2037,7 @@ class IRThermal07Activity : BaseWifiActivity() {
 
     private fun video() {
         if (!isVideo) {
-            //开始录制
+            //start[Chinese text]
             initVideoRecordFFmpeg()
             if (!videoRecord!!.canStartVideoRecord(null)) {
                 return
@@ -2142,7 +2142,7 @@ class IRThermal07Activity : BaseWifiActivity() {
     }
 
     /**
-     * 如果正在进行录像，则停止录像.
+     * [Chinese text]recording, [Chinese text]stoprecording.
      */
     private fun stopIfVideoing() {
         if (isVideo) {
@@ -2188,7 +2188,7 @@ class IRThermal07Activity : BaseWifiActivity() {
                     pop_time_text.text = TimeTool.showVideoTime(it * 1000L)
                 }
                 if (it == time - 1) {
-                    //停止
+                    //stop
                     video()
                 }
             }
@@ -2237,14 +2237,14 @@ class IRThermal07Activity : BaseWifiActivity() {
     private fun showGSROptions() {
         // Show enhanced menu with all production features
         val options = arrayOf(
-            "🚀 Start Multi-Modal Recording",
-            "📊 Research Templates", 
-            "📁 Session Manager",
-            "🔧 Recording Settings"
+            "[rocket] Start Multi-Modal Recording",
+            "[chart] Research Templates", 
+            "[folder] Session Manager",
+            "[tool] Recording Settings"
         )
         
         androidx.appcompat.app.AlertDialog.Builder(this)
-            .setTitle("📱 Multi-Modal Recording System")
+            .setTitle("[mobile] Multi-Modal Recording System")
             .setItems(options) { _, which ->
                 when (which) {
                     0 -> showSensorSelectionDialog()
@@ -2294,7 +2294,7 @@ class IRThermal07Activity : BaseWifiActivity() {
         )
         
         androidx.appcompat.app.AlertDialog.Builder(this)
-            .setTitle("🔧 Recording Settings")
+            .setTitle("[tool] Recording Settings")
             .setItems(settings) { _, which ->
                 when (which) {
                     0 -> showSamsungTimingConfig()
@@ -2311,15 +2311,15 @@ class IRThermal07Activity : BaseWifiActivity() {
     private fun showSamsungTimingConfig() {
         val message = buildString {
             append("Samsung Galaxy S22 Ground Truth Timing\n\n")
-            append("✅ Processor Detection: Automatic\n")
-            append("📱 Model: ${android.os.Build.MODEL}\n")
-            append("⚙️ Hardware: ${android.os.Build.HARDWARE}\n")
-            append("🕐 System Timer: High-precision ARM/Kryo\n\n")
+            append("[OK] Processor Detection: Automatic\n")
+            append("[mobile] Model: ${android.os.Build.MODEL}\n")
+            append("[settings] Hardware: ${android.os.Build.HARDWARE}\n")
+            append("[time] System Timer: High-precision ARM/Kryo\n\n")
             append("This ensures sub-millisecond synchronization accuracy across all sensors using Samsung S22 device clock as the authoritative time reference.")
         }
         
         androidx.appcompat.app.AlertDialog.Builder(this)
-            .setTitle("⏱️ Samsung S22 Timing Configuration")
+            .setTitle("[TIMER] Samsung S22 Timing Configuration")
             .setMessage(message)
             .setPositiveButton("OK", null)
             .show()
@@ -2330,7 +2330,7 @@ class IRThermal07Activity : BaseWifiActivity() {
         var selectedRate = 1 // Default to 128Hz
         
         androidx.appcompat.app.AlertDialog.Builder(this)
-            .setTitle("📊 GSR Sampling Rate")
+            .setTitle("[chart] GSR Sampling Rate")
             .setSingleChoiceItems(rates, selectedRate) { _, which ->
                 selectedRate = which
             }
@@ -2358,7 +2358,7 @@ class IRThermal07Activity : BaseWifiActivity() {
         var selectedQuality = 1 // Default to Full HD 30fps
         
         androidx.appcompat.app.AlertDialog.Builder(this)
-            .setTitle("📹 Video Quality Settings")
+            .setTitle("[video] Video Quality Settings")
             .setSingleChoiceItems(qualities, selectedQuality) { _, which ->
                 selectedQuality = which
             }
@@ -2372,16 +2372,16 @@ class IRThermal07Activity : BaseWifiActivity() {
     
     private fun showSynchronizationConfig() {
         val message = buildString {
-            append("🔄 Multi-Modal Synchronization\n\n")
-            append("✅ Samsung S22 Ground Truth: Enabled\n")
-            append("✅ Cross-Sensor Sync Events: Enabled\n")
-            append("✅ Sub-millisecond Precision: Enabled\n")
-            append("✅ Session-based Coordination: Enabled\n\n")
+            append("[refresh] Multi-Modal Synchronization\n\n")
+            append("[OK] Samsung S22 Ground Truth: Enabled\n")
+            append("[OK] Cross-Sensor Sync Events: Enabled\n")
+            append("[OK] Sub-millisecond Precision: Enabled\n")
+            append("[OK] Session-based Coordination: Enabled\n\n")
             append("All sensors use unified timing from Samsung S22 device clock for research-grade accuracy.")
         }
         
         androidx.appcompat.app.AlertDialog.Builder(this)
-            .setTitle("🔄 Synchronization Configuration")
+            .setTitle("[refresh] Synchronization Configuration")
             .setMessage(message)
             .setPositiveButton("OK", null)
             .show()
@@ -2389,17 +2389,17 @@ class IRThermal07Activity : BaseWifiActivity() {
     
     private fun showErrorRecoveryConfig() {
         val message = buildString {
-            append("🛠️ Production Error Recovery\n\n")
-            append("✅ Automatic sensor reconnection\n")
-            append("✅ Data stream failure recovery\n")
-            append("✅ Storage and permission handling\n")
-            append("✅ Bluetooth connection recovery\n")
-            append("✅ Session corruption protection\n\n")
+            append("[tools] Production Error Recovery\n\n")
+            append("[OK] Automatic sensor reconnection\n")
+            append("[OK] Data stream failure recovery\n")
+            append("[OK] Storage and permission handling\n")
+            append("[OK] Bluetooth connection recovery\n")
+            append("[OK] Session corruption protection\n\n")
             append("Enterprise-grade reliability for extended recording sessions.")
         }
         
         androidx.appcompat.app.AlertDialog.Builder(this)
-            .setTitle("🛠️ Error Recovery System")
+            .setTitle("[tools] Error Recovery System")
             .setMessage(message)
             .setPositiveButton("OK", null)
             .show()
@@ -2638,9 +2638,9 @@ class IRThermal07Activity : BaseWifiActivity() {
                 Available Cameras: ${cameraNames.joinToString(", ")}
                 
                 Current Settings:
-                • Resolution: ${parallelRecorder?.getCurrentRGBSettings()?.resolution?.displayName ?: "N/A"}
-                • Frame Rate: ${parallelRecorder?.getCurrentRGBSettings()?.frameRate ?: "N/A"} FPS
-                • Camera: ${parallelRecorder?.getRGBCameraFacing()?.displayName ?: "N/A"}
+                * Resolution: ${parallelRecorder?.getCurrentRGBSettings()?.resolution?.displayName ?: "N/A"}
+                * Frame Rate: ${parallelRecorder?.getCurrentRGBSettings()?.frameRate ?: "N/A"} FPS
+                * Camera: ${parallelRecorder?.getRGBCameraFacing()?.displayName ?: "N/A"}
             """.trimIndent())
             .setPositiveButton("Show Parallel System") { _, _ ->
                 showGSROptions() // Show modern parallel recording dialog
@@ -2663,7 +2663,7 @@ class IRThermal07Activity : BaseWifiActivity() {
         enhancedThermalRecorder?.cleanup()
         enhancedThermalRecorder = null
         
-        //退出时把点线面清掉
+        //[Chinese text]pointline[Chinese text]
         CoroutineScope(Dispatchers.IO).launch {
             TC007Repository.clearAllTemp()
         }

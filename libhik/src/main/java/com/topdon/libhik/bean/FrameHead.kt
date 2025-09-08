@@ -4,19 +4,19 @@ import com.topdon.libhik.util.ByteArrayUtil.toFloat
 import com.topdon.libhik.util.ByteArrayUtil.toInt
 
 /**
- * 每帧头部数据
- * @param tempWidth 温度数据宽度
- * @param tempHeight 温度数据高度
- * @param yuvWidth YUV数据宽度
- * @param yuvHeight YUV数据高度
- * @param tempType 温度单位
- * @param minTemp 全屏最低温
- * @param maxTemp 全屏最高温
- * @param aveTemp 全屏平均温
- * @param maxX 全屏最高温归一化 X 轴坐标 [0, 1000]
- * @param maxY 全屏最高温归一化 Y 轴坐标 [0, 1000]
- * @param minX 全屏最低温归一化 X 轴坐标 [0, 1000]
- * @param minY 全屏最低温归一化 Y 轴坐标 [0, 1000]
+ * [Chinese text]
+ * @param tempWidth temperature[Chinese text]
+ * @param tempHeight temperature[Chinese text]high[Chinese text]
+ * @param yuvWidth YUV[Chinese text]
+ * @param yuvHeight YUV[Chinese text]high[Chinese text]
+ * @param tempType temperature[Chinese text]
+ * @param minTemp [Chinese text]low[Chinese text]
+ * @param maxTemp [Chinese text]high[Chinese text]
+ * @param aveTemp [Chinese text]
+ * @param maxX [Chinese text]high[Chinese text] X [Chinese text] [0, 1000]
+ * @param maxY [Chinese text]high[Chinese text] Y [Chinese text] [0, 1000]
+ * @param minX [Chinese text]low[Chinese text] X [Chinese text] [0, 1000]
+ * @param minY [Chinese text]low[Chinese text] Y [Chinese text] [0, 1000]
  *
  * Created by LCG on 2024/11/22.
  */
@@ -64,13 +64,13 @@ data class FrameHead(
 
     companion object {
         /**
-         * 从指定数组的 index 开始，解析已启用的专家测温规则
+         * [Chinese text] index start, [Chinese text]
          */
         private fun ByteArray.toRuleList(index: Int): ArrayList<TempRule> = try {
             val resultList: ArrayList<TempRule> = ArrayList(21)
             for (i in 0 until 21) {
-                // 208 是一个 TempRule 的字节数
-                if (this[index + i * 208] == 1.toByte()) {// 启用的才取出来
+                // 208 [Chinese text] TempRule [Chinese text]
+                if (this[index + i * 208] == 1.toByte()) {// [Chinese text]
                     resultList.add(TempRule(this, index + i * 208))
                 }
             }
@@ -80,8 +80,8 @@ data class FrameHead(
         }
     }
 
-    override fun toString(): String = "尺寸:${tempWidth}x$tempHeight, ${yuvWidth}x$yuvHeight，" +
-            "全屏最低温:($minX,$minY) ${minTemp}°C，全屏最高温:($maxX,$maxY) ${maxTemp}°C " +
-            "平均温:${aveTemp}°C，${if (isNormalTest) "普通" else "专家"}测温，" +
+    override fun toString(): String = "[Chinese text]:${tempWidth}x$tempHeight, ${yuvWidth}x$yuvHeight, " +
+            "[Chinese text]low[Chinese text]:($minX,$minY) ${minTemp}degC, [Chinese text]high[Chinese text]:($maxX,$maxY) ${maxTemp}degC " +
+            "[Chinese text]:${aveTemp}degC, ${if (isNormalTest) "[Chinese text]" else "[Chinese text]"}[Chinese text], " +
             "$pointCount + $rectCount + $lineCount = $totalCount"
 }

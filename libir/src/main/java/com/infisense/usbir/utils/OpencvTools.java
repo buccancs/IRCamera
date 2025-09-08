@@ -104,7 +104,7 @@ import java.util.List;
     }
 
         /**
-     * 效果更好的超分，但是此函数耗时过长，应用于Photo capture
+     * [Chinese text], [Chinese text], [Chinese text]forPhoto capture
      * @param inBitmap
      * @return
      */
@@ -115,119 +115,119 @@ import java.util.List;
         dataIn.put(rawData);
         ByteBuffer dataOut = ByteBuffer.allocateDirect(rawData.array().length * 4);
         SupHelp.getInstance().imgUpScalerFour(BaseApplication.instance,dataIn,dataOut);
-        // 创建一个普通的 byte[] 数组来存储数据
+        // [Chinese text] byte[] [Chinese text]
         byte[] byteArray = new byte[dataOut.capacity()];
-        // 将 ByteBuffer 的内容复制到 byteArray 中
+        // [Chinese text] ByteBuffer [Chinese text] byteArray in progress
         dataOut.get(byteArray);
-        Log.e("4倍超分模型：", String.valueOf((System.currentTimeMillis() - startTime)));
+        Log.e("4[Chinese text]: ", String.valueOf((System.currentTimeMillis() - startTime)));
         return SupRUtils.INSTANCE.byteArrayToBitmap(byteArray);
     }
 
     public static byte[] supImageFourExToByte(byte[] imgByte) {
         long startTime = System.currentTimeMillis();
-        ByteBuffer dataIn = ByteBuffer.wrap(imgByte);// 创建一个 ByteBuffer
-        // 创建用于输出的 ByteBuffer
-        ByteBuffer dataOut = ByteBuffer.allocateDirect(imgByte.length * 4); // 假设输出数据大小为输入的 4 倍
-        // 调用 imgUpScalerFour 方法
+        ByteBuffer dataIn = ByteBuffer.wrap(imgByte);// [Chinese text] ByteBuffer
+        // [Chinese text]for[Chinese text] ByteBuffer
+        ByteBuffer dataOut = ByteBuffer.allocateDirect(imgByte.length * 4); // [Chinese text] 4 [Chinese text]
+        // [Chinese text] imgUpScalerFour [Chinese text]
         SupHelp.getInstance().imgUpScalerFour(BaseApplication.instance, dataIn, dataOut);
-        Log.e("AI_UPSCALE 4倍超分模型2：", String.valueOf((System.currentTimeMillis() - startTime)));
-        // 创建一个普通的 byte[] 数组来存储输出数据
+        Log.e("AI_UPSCALE 4[Chinese text]2: ", String.valueOf((System.currentTimeMillis() - startTime)));
+        // [Chinese text] byte[] [Chinese text]
         byte[] outputData = new byte[dataOut.capacity()];
         dataOut.get(outputData);
-        Log.e("4倍超分模型：", String.valueOf((System.currentTimeMillis() - startTime)));
+        Log.e("4[Chinese text]: ", String.valueOf((System.currentTimeMillis() - startTime)));
         Bitmap bitmap = SupRUtils.INSTANCE.byteArrayToBitmap(outputData);
         return outputData;
     }
     public static Bitmap supImageFourExToBitmap(byte[] dstArgbBytes, int width, int height) {
         long startTime = System.currentTimeMillis();
 
-        // 创建 ByteBuffer 并填充数据
+        // [Chinese text] ByteBuffer [Chinese text]
         ByteBuffer dataIn = ByteBuffer.allocateDirect(dstArgbBytes.length);
         dataIn.put(dstArgbBytes);
 
-        // 创建用于输出的 ByteBuffer
-        ByteBuffer dataOut = ByteBuffer.allocateDirect(dstArgbBytes.length * 4); // 假设输出数据大小为输入的 4 倍
+        // [Chinese text]for[Chinese text] ByteBuffer
+        ByteBuffer dataOut = ByteBuffer.allocateDirect(dstArgbBytes.length * 4); // [Chinese text] 4 [Chinese text]
 
-        // 调用 imgUpScalerFour 方法
+        // [Chinese text] imgUpScalerFour [Chinese text]
         SupHelp.getInstance().imgUpScalerFour(BaseApplication.instance, dataIn, dataOut);
-        Log.e("AI_UPSCALE 4倍超分模型2：", String.valueOf((System.currentTimeMillis() - startTime)) + "//// " + dstArgbBytes.length);
+        Log.e("AI_UPSCALE 4[Chinese text]2: ", String.valueOf((System.currentTimeMillis() - startTime)) + "//// " + dstArgbBytes.length);
 
-        // 创建一个普通的 byte[] 数组来存储输出数据
+        // [Chinese text] byte[] [Chinese text]
         byte[] outputData = new byte[dataOut.capacity()];
         dataOut.get(outputData);
 
-        // 将输出数据转换为 Bitmap
+        // [Chinese text] Bitmap
         Bitmap outputBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         outputBitmap.copyPixelsFromBuffer(ByteBuffer.wrap(outputData));
 
-        // 将 Bitmap 转换为 Mat
+        // [Chinese text] Bitmap [Chinese text] Mat
         Mat srcMat = new Mat();
         Utils.bitmapToMat(outputBitmap, srcMat);
 
-        // 在这里可以使用 OpenCV 进行进一步处理，例如缩放
+        // [Chinese text] OpenCV [Chinese text], [Chinese text]
         Mat dstMat = new Mat();
         Imgproc.resize(srcMat, dstMat, new org.opencv.core.Size(srcMat.cols() * 4, srcMat.rows() * 4));
 
-        // 将处理后的 Mat 转换回 Bitmap
+        // [Chinese text] Mat [Chinese text] Bitmap
         Bitmap finalBitmap = Bitmap.createBitmap(dstMat.cols(), dstMat.rows(), Bitmap.Config.ARGB_8888);
         Utils.matToBitmap(dstMat, finalBitmap);
 
-        // 释放 Mat 资源
+        // [Chinese text] Mat [Chinese text]
         srcMat.release();
         dstMat.release();
-        Log.e("4倍超分模型：", String.valueOf((System.currentTimeMillis() - startTime)));
+        Log.e("4[Chinese text]: ", String.valueOf((System.currentTimeMillis() - startTime)));
 
         return finalBitmap;
     }
 
     public static Bitmap supImageFourExToBitmap(Bitmap inBitmap) {
         long startTime = System.currentTimeMillis();
-        // 将 Bitmap 转换为字节数组
+        // [Chinese text] Bitmap [Chinese text]
         byte[] rawData = SupRUtils.INSTANCE.bitmapToByteArray(inBitmap);
-        // 创建 ByteBuffer 并填充数据
+        // [Chinese text] ByteBuffer [Chinese text]
         ByteBuffer dataIn = ByteBuffer.allocateDirect(rawData.length);
         dataIn.put(rawData);
-        // 创建用于输出的 ByteBuffer
-        ByteBuffer dataOut = ByteBuffer.allocateDirect(256 * 192 * 4 * 4); // 假设输出数据大小为输入的 4 倍
-        // 调用 imgUpScalerFour 方法
+        // [Chinese text]for[Chinese text] ByteBuffer
+        ByteBuffer dataOut = ByteBuffer.allocateDirect(256 * 192 * 4 * 4); // [Chinese text] 4 [Chinese text]
+        // [Chinese text] imgUpScalerFour [Chinese text]
         SupHelp.getInstance().imgUpScalerFour(BaseApplication.instance, dataIn, dataOut);
-        Log.e("AI_UPSCALE 4倍超分模型2：", String.valueOf((System.currentTimeMillis() - startTime))+"//// "+rawData.length);
-        // 创建一个普通的 byte[] 数组来存储输出数据
+        Log.e("AI_UPSCALE 4[Chinese text]2: ", String.valueOf((System.currentTimeMillis() - startTime))+"//// "+rawData.length);
+        // [Chinese text] byte[] [Chinese text]
         byte[] outputData = new byte[dataOut.capacity()];
         dataOut.get(outputData);
-        // 将输出数据转换为 Bitmap
+        // [Chinese text] Bitmap
         Bitmap outputBitmap = SupRUtils.INSTANCE.byteArrayToBitmap(outputData);
-        // 将 Bitmap 转换为 Mat
+        // [Chinese text] Bitmap [Chinese text] Mat
         Mat srcMat = new Mat();
         Utils.bitmapToMat(outputBitmap, srcMat);
-        // 在这里可以使用 OpenCV 进行进一步处理，例如缩放
+        // [Chinese text] OpenCV [Chinese text], [Chinese text]
         Mat dstMat = new Mat();
         Imgproc.resize(srcMat, dstMat, new org.opencv.core.Size(srcMat.cols() * 4, srcMat.rows() * 4));
-        // 将处理后的 Mat 转换回 Bitmap
+        // [Chinese text] Mat [Chinese text] Bitmap
         Bitmap finalBitmap = Bitmap.createBitmap(dstMat.cols(), dstMat.rows(), Bitmap.Config.ARGB_8888);
         Utils.matToBitmap(dstMat, finalBitmap);
-        // 释放 Mat 资源
+        // [Chinese text] Mat [Chinese text]
         srcMat.release();
         dstMat.release();
-        Log.e("4倍超分模型：", String.valueOf((System.currentTimeMillis() - startTime)));
+        Log.e("4[Chinese text]: ", String.valueOf((System.currentTimeMillis() - startTime)));
         return finalBitmap;
     }
 
     public static byte[] supImage(byte[] imageARGB, int width, int height, byte[] resulARGB){
-        // Step 1: 将 byte[] 转换成 Mat 对象
-        Mat argbMat = new Mat(width, height, CvType.CV_8UC4); // CV_8UC4 表示 4 通道（ARGB 格式）
+        // Step 1: [Chinese text] byte[] [Chinese text] Mat [Chinese text]
+        Mat argbMat = new Mat(width, height, CvType.CV_8UC4); // CV_8UC4 [Chinese text] 4 [Chinese text](ARGB [Chinese text])
         argbMat.put(0, 0, imageARGB);
-        // Step 2: 将 ARGB 格式转换为 BGR 格式
+        // Step 2: [Chinese text] ARGB [Chinese text] BGR [Chinese text]
         Mat bgrMat = new Mat();
-        Imgproc.cvtColor(argbMat, bgrMat, Imgproc.COLOR_RGBA2BGR); // 使用 RGBA2BGR，忽略 Alpha 通道
+        Imgproc.cvtColor(argbMat, bgrMat, Imgproc.COLOR_RGBA2BGR); // [Chinese text] RGBA2BGR, [Chinese text] Alpha [Chinese text]
         try {
             SupHelp.getInstance().runImage(bgrMat,resultMat);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
         Mat resulArgbMat = new Mat();
-        Imgproc.cvtColor(resultMat, resulArgbMat, Imgproc.COLOR_BGR2RGBA); // 将 BGR 转换为 RGBA
-        // Step 2: 将 Mat 转换为 byte[]
+        Imgproc.cvtColor(resultMat, resulArgbMat, Imgproc.COLOR_BGR2RGBA); // [Chinese text] BGR [Chinese text] RGBA
+        // Step 2: [Chinese text] Mat [Chinese text] byte[]
         Bitmap dstBitmap = Bitmap.createBitmap(resulArgbMat.width(), resulArgbMat.height(), Bitmap.Config.ARGB_8888);
         Utils.matToBitmap(resulArgbMat, dstBitmap);
         ByteBuffer byteBuffer = ByteBuffer.wrap(resulARGB);
@@ -237,26 +237,26 @@ import java.util.List;
 
     public static byte[] convertSingleByteToDoubleByte(byte[] singleByteImage) {
         if (singleByteImage == null) {
-            throw new IllegalArgumentException("输入的byte数组不能为null");
+            throw new IllegalArgumentException("[Chinese text]byte[Chinese text]null");
         }
         int singleLength = singleByteImage.length;
-        // 新数组是原来长度的两倍
+        // [Chinese text]
         int doubleLength = singleLength * 2;
         byte[] doubleByteImage = new byte[doubleLength];
 
         for (int i = 0; i < singleLength; i++) {
-            // 这里假定我们只将原本一个字节的数据复制到新的两个字节中的第一个
-            // 这种情况下第二个字节可能是保留为0，用于表示较大的颜色空间或者进行格式对齐。
-            // 您可能需要根据具体的图片数据格式来调整这部分代码
+            // [Chinese text]in progress[Chinese text]
+            // [Chinese text]0, for[Chinese text]. 
+            // [Chinese text]
             doubleByteImage[2 * i] = singleByteImage[i];
-            // 如果需要其它处理 (例如Settings第二个字节的值) 在这里操作
+            // [Chinese text] ([Chinese text]Settings[Chinese text]) [Chinese text]operation
             // doubleByteImage[2 * i + 1] = <some value>;
         }
         return doubleByteImage;
     }
 
         /**
-     * 温度转成开尔文
+     * temperature[Chinese text]
      * @param temp
      * @return
      */
@@ -265,21 +265,21 @@ import java.util.List;
             return new byte[0];
         }
         float maxValue = 0f;
-        // 初始化temperature数组的长度为temp数组的两倍。
+        // [Chinese text]temperature[Chinese text]temp[Chinese text]. 
         byte[] temperature = new byte[temp.length * 2];
         for (int i = 0, j = 0; i < temp.length; i++, j += 2) {
             if (maxValue < temp[i]){
                 maxValue = temp[i];
             }
-            // 将摄氏温度转换回开尔文，并逆转之前的缩放操作
+            // [Chinese text]temperature[Chinese text], [Chinese text]operation
             float tempInKelvin = temp[i] + 273.15f;
             float originalValue = tempInKelvin * 64;
-            // 将浮点数转换为整数
+            // [Chinese text]point[Chinese text]
             int intValue = (int) originalValue;
-            // 分离整数的低8位和高8位
+            // [Chinese text]low8[Chinese text]high8[Chinese text]
             byte low = (byte) (intValue & 0xFF);
             byte high = (byte) ((intValue >> 8) & 0xFF);
-            // 将分离出的字节存回temperature数组
+            // [Chinese text]temperature[Chinese text]
             temperature[j] = low;
             temperature[j + 1] = high;
         }
@@ -298,7 +298,7 @@ import java.util.List;
             float ratio = (i - customMinTemp) / tempValue;
             int colorNumber = colorList.length - 1;
             float avg = 1.f / colorNumber;
-            int colorIndex = colorNumber;// 当前上色的属于哪个渐变区域
+            int colorIndex = colorNumber;// [Chinese text]area
             for (int index = 1; index <= colorNumber;index++){
                 if (ratio == 0){
                     colorIndex = 0;
@@ -364,12 +364,12 @@ import java.util.List;
     }
 
     /**
-     * 自定义Pseudo color
-     * @param image       RGBA 32bit图像数据
-     * @param temperature 温度数据
-     * @param cols        宽
-     * @param rows        高
-     * @param lut         Pseudo color图,高度必须是256
+     * [Chinese text]Pseudo color
+     * @param image       RGBA 32bit[Chinese text]
+     * @param temperature temperature[Chinese text]
+     * @param cols        [Chinese text]
+     * @param rows        high
+     * @param lut         Pseudo color[Chinese text],high[Chinese text]256
      */
     private static Mat draw_high_temp_edge_argb_pse(byte[] image, byte[] temperature, Bitmap lut, int cols, int rows, double high_t, int color_h, int type) throws IOException {
         double[] temp = new double[cols * rows];
@@ -540,10 +540,10 @@ import java.util.List;
     }
 
     /**
-     * @param image       RGBA 32bit图像数据
-     * @param temperature 温度数据
-     * @param cols        宽
-     * @param rows        高
+     * @param image       RGBA 32bit[Chinese text]
+     * @param temperature temperature[Chinese text]
+     * @param cols        [Chinese text]
+     * @param rows        high
      */
     private static Mat draw_high_temp_edge_argb(byte[] image, byte[] temperature, int cols, int rows, double high_t, int color_h, int type) throws IOException {
         double[] temp = new double[cols * rows];
@@ -614,10 +614,10 @@ import java.util.List;
     }
 
     /**
-     * @param image       yuv 16bit图像数据
-     * @param temperature 温度数据
-     * @param cols        宽
-     * @param rows        高
+     * @param image       yuv 16bit[Chinese text]
+     * @param temperature temperature[Chinese text]
+     * @param cols        [Chinese text]
+     * @param rows        high
      */
     private static Mat draw_high_temp_edge(byte[] image, byte[] temperature, int cols, int rows, double high_t, int color_h, int type) throws IOException {
         double[] temp = new double[cols * rows];
@@ -760,9 +760,9 @@ import java.util.List;
     }
 
         /**
-     * @param image   原图像YUV格式
-     * @param image_w 图像宽度
-     * @param image_h 图像高度
+     * @param image   [Chinese text]YUV[Chinese text]
+     * @param image_w [Chinese text]
+     * @param image_h [Chinese text]high[Chinese text]
      */
     public static Bitmap draw_edge_from_temp_reigon_bitmap(byte[] image, byte[] temperature, int image_h, int image_w, double high_t, double low_t, int color_h, int color_l, int type) throws IOException {
         Mat src = draw_high_temp_edge(image, temperature, image_h, image_w, high_t, color_h, type);
@@ -774,9 +774,9 @@ import java.util.List;
     }
 
         /**
-     * @param image   图像ARGB格式
-     * @param image_w 图像宽度
-     * @param image_h 图像高度
+     * @param image   [Chinese text]ARGB[Chinese text]
+     * @param image_w [Chinese text]
+     * @param image_h [Chinese text]high[Chinese text]
      */
     public static Bitmap draw_edge_from_temp_reigon_bitmap_argb(byte[] image, byte[] temperature, int image_h, int image_w, double high_t, double low_t, int color_h, int color_l, int type) throws IOException {
         Mat src = draw_high_temp_edge_argb(image, temperature, image_h, image_w, high_t, color_h, type);
@@ -787,10 +787,10 @@ import java.util.List;
         return dstBitmap;
     }
         /**
-     * @param image   图像ARGB格式
-     * @param lut     Pseudo color图,高度必须是256
-     * @param image_w 图像宽度
-     * @param image_h 图像高度
+     * @param image   [Chinese text]ARGB[Chinese text]
+     * @param lut     Pseudo color[Chinese text],high[Chinese text]256
+     * @param image_w [Chinese text]
+     * @param image_h [Chinese text]high[Chinese text]
      */
     public static Bitmap draw_edge_from_temp_reigon_bitmap_argb_psd(byte[] image, byte[] temperature, Bitmap lut, int image_h, int image_w, double high_t, double low_t, int color_h, int color_l, int type) throws IOException {
         Mat src = draw_high_temp_edge_argb_pse(image, temperature, image_h, image_w, high_t, color_h, type);
@@ -801,14 +801,14 @@ import java.util.List;
         return dstBitmap;
     }
         /**
-     * @param image   图像ARGB格式
-     * @param image_w 图像宽度
-     * @param image_h 图像高度
+     * @param image   [Chinese text]ARGB[Chinese text]
+     * @param image_w [Chinese text]
+     * @param image_h [Chinese text]high[Chinese text]
      */
     public static Bitmap draw_edge_from_temp_reigon_bitmap_argb_psd(byte[] image, byte[] temperature,
                                                                     int image_h, int image_w, float high_t,
                                                                     float low_t, int color_h, int color_l, int type) throws IOException {
-        Log.w("预警值","最高温："+high_t+"// 最低温："+low_t);
+        Log.w("[Chinese text]","[Chinese text]high[Chinese text]: "+high_t+"// [Chinese text]low[Chinese text]: "+low_t);
         Mat src = draw_high_temp_edge_argb_pse(image, temperature, image_h, image_w, high_t == Float.MAX_VALUE ? 128f : high_t, color_h, type);
         Mat mat = low_t == Float.MIN_VALUE ? src : draw_temp_edge(src, temperature, low_t, color_l, type);
         Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2RGBA);
@@ -945,13 +945,13 @@ import java.util.List;
     }
 
         /**
-     * 支持多颜色的Pseudo color条
-     * @param colorList : 颜色条
-     * @param maxTemp : 实际温度最大值
-     * @param minTemp ： 实际温度最小值
-     * @param customMaxTemp : 用户Settings的最大值
-     * @param customMinTemp : 用户Settings的最小值
-     * @param isGrayUse : 是否是灰度渐变
+     * [Chinese text]Pseudo color[Chinese text]
+     * @param colorList : [Chinese text]
+     * @param maxTemp : [Chinese text]temperature[Chinese text]
+     * @param minTemp :  [Chinese text]temperature[Chinese text]
+     * @param customMaxTemp : [Chinese text]Settings[Chinese text]
+     * @param customMinTemp : [Chinese text]Settings[Chinese text]
+     * @param isGrayUse : [Chinese text]
      * @return
      */
     public static Mat generateColorBar(int[] colorList, float maxTemp,float minTemp,float customMaxTemp,
@@ -964,14 +964,14 @@ import java.util.List;
         float minGrey = minTemp < customMinTemp ? (customMinTemp - minTemp) / (maxTemp - minTemp) : -1;
         int[] colors = new int[3];
         for (int i = 0; i < 256; i++) {
-            double ratio = (double) i / 255.0; // 因为列数是从0到255
+            double ratio = (double) i / 255.0; // [Chinese text]0[Chinese text]255
             int r = 0;
             int g = 0;
             int b = 0;
             if (minGrey != -1 && minGrey > 0 && ratio < minGrey){
                 if (isGrayUse){
                     ratio =  ratio / minGrey;
-                    // 最小值
+                    // [Chinese text]
                     r = interpolateR(0x858585, 0x000000, ratio);
                     g = interpolateR(0x858585, 0x000000, ratio);
                     b = interpolateR(0x858585, 0x000000, ratio);
@@ -984,16 +984,16 @@ import java.util.List;
                 colors[0] = r;
                 colors[1] = g;
                 colors[2] = b;
-                Log.w("测试","低于最小值");
+                Log.w("[Chinese text]","low[Chinese text]");
             }else if (maxGrey != -1 && ratio > maxGrey){
                 if (isGrayUse){
-                    // 超出最大值
+                    // [Chinese text]
                     ratio =  (1 - ratio) / (1 - maxGrey);
                     r = interpolateR(0xFFFFFF, 0x858585, ratio);
                     g = interpolateR(0xFFFFFF, 0x858585, ratio);
                     b = interpolateR(0xFFFFFF, 0x858585, ratio);
                 }else {
-                    // 超出最大值
+                    // [Chinese text]
                     r = (colorList[colorList.length-1] >> 16) & 0xFF;
                     g = (colorList[colorList.length-1] >> 8) & 0xFF;
                     b = colorList[colorList.length-1] & 0xFF;
@@ -1002,19 +1002,19 @@ import java.util.List;
                 colors[0] = r;
                 colors[1] = g;
                 colors[2] = b;
-                Log.w("测试","大于于最大值");
+                Log.w("[Chinese text]","[Chinese text]");
             }else if (maxTemp >= customMaxTemp && minTemp <= customMinTemp){
-                Log.w("测试","实际温度大于并且小于自定义的最高低温");
-                // 实际温度大于并且小于自定义的最高低温
+                Log.w("[Chinese text]","[Chinese text]temperature[Chinese text]highlow[Chinese text]");
+                // [Chinese text]temperature[Chinese text]highlow[Chinese text]
                colors = capColor(colorList,maxTemp,minTemp,customMaxTemp,customMinTemp,isGrayUse,ratio);
             }else if (customMinTemp > maxTemp){
                 if (isGrayUse){
-                    // 超出最小值,灰度化
+                    // [Chinese text],[Chinese text]
                     r = interpolateR(0xFFFFFF, 0x000000, ratio);
                     g = interpolateR(0xFFFFFF, 0x000000, ratio);
                     b = interpolateR(0xFFFFFF, 0x000000, ratio);
                 }else {
-                    // 超出最小值
+                    // [Chinese text]
                     r = (colorList[0] >> 16) & 0xFF;
                     g = (colorList[0] >> 8) & 0xFF;
                     b = colorList[0] & 0xFF;
@@ -1024,13 +1024,13 @@ import java.util.List;
                 colors[1] = grey;
                 colors[2] = grey;
             }else if (maxTemp < customMaxTemp && minTemp < customMinTemp){
-                // 实际最大温度小于自定义最高温，最低温小于自定义最低温度
-                // 重新算出最高低温的颜色
+                // [Chinese text]temperature[Chinese text]high[Chinese text], [Chinese text]low[Chinese text]lowtemperature
+                // [Chinese text]highlow[Chinese text]
                 colors = capColor(getStartColor(colorList,customMaxTemp,customMinTemp,maxTemp),
                         maxTemp,minTemp,maxTemp,customMinTemp,isGrayUse,ratio);
             }else if (maxTemp > customMaxTemp && minTemp > customMinTemp){
-                // 实际最高温度大于自定义最高温度，实际最低温度大于自定义最低温度
-                // 重新算出最高低温的颜色
+                // [Chinese text]hightemperature[Chinese text]hightemperature, [Chinese text]lowtemperature[Chinese text]lowtemperature
+                // [Chinese text]highlow[Chinese text]
                 colors = capColor(getEndColor(colorList,customMaxTemp,customMinTemp,minTemp),
                         maxTemp,minTemp,customMaxTemp,minTemp,isGrayUse,ratio);
             }else if (maxTemp < customMaxTemp && minTemp > customMinTemp){
@@ -1038,14 +1038,14 @@ import java.util.List;
                 colors = capColor(tmpColor,
                         maxTemp,minTemp,maxTemp,minTemp,isGrayUse,ratio);
             }
-            Log.w("测试","编号值"+i+":"+colors[0]+"--"+ colors[1]+"--"+colors[2]+"// "+maxTemp+"--"+minTemp+"-"+customMaxTemp);
+            Log.w("[Chinese text]","[Chinese text]"+i+":"+colors[0]+"--"+ colors[1]+"--"+colors[2]+"// "+maxTemp+"--"+minTemp+"-"+customMaxTemp);
             colorBar.put(i, 0, colors[2], colors[1], colors[0]);
         }
         return colorBar;
     }
 
     /**
-     * 获取某个温度的梯度颜色值
+     * [Chinese text]temperature[Chinese text]
      * @param colorList
      * @param customMaxTemp
      * @param customMinTemp
@@ -1055,7 +1055,7 @@ import java.util.List;
         double ratio = (nowTemp - customMinTemp) / (customMaxTemp - customMinTemp);
         int colorNumber = colorList.length - 1;
         float avg = 1.f / colorNumber;
-        int colorIndex = colorNumber;// 当前上色的属于哪个渐变区域
+        int colorIndex = colorNumber;// [Chinese text]area
         int r = 0;
         int g = 0;
         int b = 0;
@@ -1079,7 +1079,7 @@ import java.util.List;
        return nowColorList;
     }
     /**
-     * 获取某个温度的梯度颜色值
+     * [Chinese text]temperature[Chinese text]
      * @param colorList
      * @param customMaxTemp
      * @param customMinTemp
@@ -1089,7 +1089,7 @@ import java.util.List;
         double ratio = (nowTemp - customMinTemp) / (customMaxTemp - customMinTemp);
         int colorNumber = colorList.length - 1;
         float avg = 1.f / colorNumber;
-        int colorIndex = colorNumber;// 当前上色的属于哪个渐变区域
+        int colorIndex = colorNumber;// [Chinese text]area
         int r = 0;
         int g = 0;
         int b = 0;
@@ -1124,7 +1124,7 @@ import java.util.List;
         double minRatio = (nowMinTemp - customMinTemp) / (customMaxTemp - customMinTemp);
         int colorNumber = colorList.length - 1;
         float avg = 1.f / colorNumber;
-        int maxColorIndex = colorNumber;// 当前上色的属于哪个渐变区域
+        int maxColorIndex = colorNumber;// [Chinese text]area
         int r = 0;
         int g = 0;
         int b = 0;
@@ -1144,7 +1144,7 @@ import java.util.List;
         b = interpolateB(colorList[maxColorIndex-1], colorList[maxColorIndex], maxRatio);
         int nowMaxColor = convertTo16Bit(r,g,b);
 
-        int minColorIndex = colorNumber;// 当前上色的属于哪个渐变区域
+        int minColorIndex = colorNumber;// [Chinese text]area
         for (int index = 1; index <= colorNumber;index++){
             if (minRatio == 0){
                 minColorIndex = 0;
@@ -1191,7 +1191,7 @@ import java.util.List;
         if (minGrayRatio > 0 && ratio < minGrayRatio){
             if (isGrayUse){
                 ratio =  ratio / minGrayRatio;
-                // 最小值
+                // [Chinese text]
                 r = interpolateR(0x858585, 0x000000, ratio);
                 g = interpolateR(0x858585, 0x000000, ratio);
                 b = interpolateR(0x858585, 0x000000, ratio);
@@ -1202,13 +1202,13 @@ import java.util.List;
             }
         }else if (ratio > maxGrayRatio){
             if (isGrayUse){
-                // 超出最大值
+                // [Chinese text]
                 ratio =  (1 - ratio) / (1 - maxGrayRatio);
                 r = interpolateR(0xFFFFFF, 0x858585, ratio);
                 g = interpolateR(0xFFFFFF, 0x858585, ratio);
                 b = interpolateR(0xFFFFFF, 0x858585, ratio);
             }else {
-                // 超出最大值
+                // [Chinese text]
                 r = (colorList[colorList.length-1] >> 16) & 0xFF;
                 g = (colorList[colorList.length-1] >> 8) & 0xFF;
                 b = colorList[colorList.length-1] & 0xFF;
@@ -1219,7 +1219,7 @@ import java.util.List;
             }
             int colorNumber = colorList.length - 1;
             float avg = 1.f / colorNumber;
-            int colorIndex = colorNumber;// 当前上色的属于哪个渐变区域
+            int colorIndex = colorNumber;// [Chinese text]area
             for (int index = 1; index <= colorNumber;index++){
                 if (ratio == 0){
                     colorIndex = 0;
@@ -1239,7 +1239,7 @@ import java.util.List;
     }
 
         /**
-     * 上一个颜色值
+     * [Chinese text]
      * @param colorList
      * @param index
      * @return
@@ -1252,7 +1252,7 @@ import java.util.List;
     }
 
         /**
-     * Pseudo color梯度条,固定三个渐变颜色
+     * Pseudo color[Chinese text],[Chinese text]
      * @param customMinColor
      * @param customMiddleColor
      * @param customMaxColor
@@ -1262,19 +1262,19 @@ import java.util.List;
                                        float maxTemp,float minTemp,float customMaxTemp,float customMinTemp,
                                        boolean isGrayUse) {
         Mat colorBar = new Mat(256, 1, CvType.CV_8UC3);
-        // 总
+        // [Chinese text]
         float tempValue = (maxTemp - minTemp);
         float maxGrayRatio = (maxTemp - customMaxTemp) / tempValue;
         float minGrayRatio = (maxTemp - customMinTemp) / tempValue;
         for (int i = 0; i < 256; i++) {
-            double ratio = (double) i / 255.0; // 因为列数是从0到255
+            double ratio = (double) i / 255.0; // [Chinese text]0[Chinese text]255
             int r = 0;
             int g = 0;
             int b = 0;
             if (maxGrayRatio > 0 && ratio < maxGrayRatio){
                 if (isGrayUse){
                     ratio =  ratio / maxGrayRatio;
-                    // 超出最大值
+                    // [Chinese text]
                     r = interpolateR(0xC2C2C2, 0xADADAD, ratio);
                     g = interpolateR(0xC2C2C2, 0xADADAD, ratio);
                     b = interpolateR(0xC2C2C2, 0xADADAD, ratio);
@@ -1285,13 +1285,13 @@ import java.util.List;
                 }
             }else if (ratio > minGrayRatio){
                 if (isGrayUse){
-                    // 超出最小值,灰度化
+                    // [Chinese text],[Chinese text]
                     ratio =  (1 - ratio) / (1 - minGrayRatio);
                     r = interpolateR(0xADADAD, 0x707070, ratio);
                     g = interpolateR(0xADADAD, 0x707070, ratio);
                     b = interpolateR(0xADADAD, 0x707070, ratio);
                 }else {
-                    // 超出最小值
+                    // [Chinese text]
                     r = (customMinColor >> 16) & 0xFF;
                     g = (customMinColor >> 8) & 0xFF;
                     b = customMinColor & 0xFF;
@@ -1323,7 +1323,7 @@ import java.util.List;
         float ratio = (nowTemp - customMinTemp) / tempValue;
         int colorNumber = colorList.length - 1;
         float avg = 1.f / colorNumber;
-        int colorIndex = colorNumber;// 当前上色的属于哪个渐变区域
+        int colorIndex = colorNumber;// [Chinese text]area
         if (Math.abs(nowTemp -customMaxTemp)==0.1f) {
             int lastColor = colorList[colorNumber];
             result[0] = (lastColor >> 16) & 0xFF;
@@ -1376,7 +1376,7 @@ import java.util.List;
     }
 
         /**
-     * 统一自定义Pseudo color入口
+     * [Chinese text]Pseudo color[Chinese text]
      */
     public static int[] getOneColorByTempUnif(float customMaxTemp, float customMinTemp, float nowTemp,
                                               int[] colorList, float[] positionList){
@@ -1389,7 +1389,7 @@ import java.util.List;
                     positionList
             );
         }else{
-            // 等比
+            // [Chinese text]
           return getOneColorByTemp(
                     customMaxTemp,
                     customMinTemp,
@@ -1442,7 +1442,7 @@ import java.util.List;
         if (Math.abs((positionList[lowerColorIndex+1] - positionList[lowerColorIndex])) > 0){
             regionRatio = (ratio - positionList[lowerColorIndex]) / Math.abs((positionList[lowerColorIndex] - positionList[lowerColorIndex+1]));
         }
-        // 找到对应的颜色
+        // [Chinese text]
         int startColor = colorList[lowerColorIndex];
         int endColor = colorList[lowerColorIndex + 1];
 
@@ -1453,7 +1453,7 @@ import java.util.List;
         return result;
     }
 
-    // 自定义比较器，用于比较双精度浮点数
+    // [Chinese text], for[Chinese text]point[Chinese text]
     static/**
  * CustomComparator class.
  * 
@@ -1462,7 +1462,7 @@ import java.util.List;
  class CustomComparator implements Comparator<Float> {
         @Override
         public int compare(Float key1, Float key2) {
-            // 在这里进行自定义比较逻辑
+            // [Chinese text]
             if ((key1 - key2) <= 0.01) {
                 return 0;
             } else if (key1 < key2) {
@@ -1649,19 +1649,19 @@ import java.util.List;
     public static boolean getStatus(Mat image1, Mat image2){
 //        Mat image1 = imread("E:/sharp/1696821350963.jpg");
 //        Mat image2 = imread("E:/sharp/1696821354162.jpg");
-        // 计算均方差（MSE）
+        // [Chinese text](MSE)
 //        double mse = calculateMSE(image1, image2);
-        // System.out.println("均方差（MSE）: " + mse);
+        // System.out.println("[Chinese text](MSE): " + mse);
 
-        // 计算结构相似性指数（SSIM）
+        // [Chinese text](SSIM)
 //        double ssim = calculateSSIM(image1, image2);
-        // System.out.println("结构相似性指数（SSIM）: " + ssim);
+        // System.out.println("[Chinese text](SSIM): " + ssim);
 
-        // 计算峰值信噪比（PSNR）
+        // [Chinese text](PSNR)
 //        double psnr = calculatePSNR(image1, image2);
-        // System.out.println("峰值信噪比（PSNR）: " + psnr);
+        // System.out.println("[Chinese text](PSNR): " + psnr);
 
-        // 计算直方图
+        // [Chinese text]
         final double similarity = calculateHistogram(image1, image2);
         return similarity > 0.9;
     }

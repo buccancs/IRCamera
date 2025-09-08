@@ -9,7 +9,7 @@ import com.topdon.module.thermal.ir.fragment.IRCorrectionFragment
 import com.topdon.module.thermal.ir.fragment.IRPlushFragment
 
 /**
- * des:Dual light的红外Photo capture
+ * des:Dual light[Chinese text]Photo capture
  * author: CaiSongL
  * date: 2024/8/24 18:10
  **/

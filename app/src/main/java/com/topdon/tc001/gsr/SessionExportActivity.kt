@@ -32,7 +32,7 @@ class SessionExportActivity : AppCompatActivity() {
         // Create simple layout programmatically
         val textView =
             TextView(this).apply {
-                text = "Session Export\n\nSession ID: ${intent.getStringExtra(EXTRA_SESSION_ID)}\n\nExport Options:\n• CSV Format\n• JSON Format\n• Research-grade metadata\n• Synchronized timestamps\n\nExport functionality coming soon..."
+                text = "Session Export\n\nSession ID: ${intent.getStringExtra(EXTRA_SESSION_ID)}\n\nExport Options:\n* CSV Format\n* JSON Format\n* Research-grade metadata\n* Synchronized timestamps\n\nExport functionality coming soon..."
                 setPadding(32, 32, 32, 32)
                 textSize = 16f
             }

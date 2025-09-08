@@ -377,7 +377,7 @@ class AdvancedGSRAnalysis {
         val metrics = calculatePhysiologicalMetrics(gsrData, timeWindow)
         
         // Detect GSR events (skin conductance responses)
-        val events = detectGSREvents(gsrData, threshold = 0.05) // 0.05 μS threshold
+        val events = detectGSREvents(gsrData, threshold = 0.05) // 0.05 microS threshold
         
         // Analyze response patterns
         val responseAnalysis = analyzeResponsePatterns(events)

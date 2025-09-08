@@ -29,7 +29,7 @@
         android:layout_marginTop="4dp"
         android:textSize="12sp"
         android:textColor="@color/white"
-        tools:text="大小: 12.9MB/239.6MB"
+        tools:text="[Chinese text]: 12.9MB/239.6MB"
         app:layout_constrainedWidth="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

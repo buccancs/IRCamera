@@ -56,9 +56,9 @@ class CameraMenuView : FrameLayout, View.OnClickListener {
         }
 
     /**
-     * Photo capture/录像 文字是否可见及是否可切换，Photo capture中或录像中不允许切换.
+     * Photo capture/recording text[Chinese text]visible[Chinese text]switch, Photo capturein progress[Chinese text]recordingin progressnot allowedswitch.
      *
-     * true-可见及可切换 false-不可见及不可切换
+     * true-visible[Chinese text]switch false-[Chinese text]visible[Chinese text]switch
      */
     var canSwitchMode: Boolean
         get() = binding.viewPager2.isUserInputEnabled
@@ -69,13 +69,13 @@ class CameraMenuView : FrameLayout, View.OnClickListener {
         }
 
     /**
-     * 各个操作的点击事件监听.
-     * actionCode: 0-Photo capture/录像  1-图库  2-更多菜单  3-切换到Photo capture  4-切换到录像
+     * eachoperation[Chinese text]point[Chinese text]eventlistener.
+     * actionCode: 0-Photo capture/recording  1-gallery  2-moremenu  3-switch[Chinese text]Photo capture  4-switch[Chinese text]recording
      */
     var onCameraClickListener: ((actionCode: Int) -> Unit)? = null
 
     /**
-     * 将中间 Photo capture/录像 按钮Settings为 未Photo capture/未录像
+     * [Chinese text]in progress[Chinese text] Photo capture/recording buttonSettings[Chinese text] [Chinese text]Photo capture/[Chinese text]recording
      */
     fun setToNormal() {
         if (isVideoMode) {
@@ -86,8 +86,8 @@ class CameraMenuView : FrameLayout, View.OnClickListener {
     }
 
     /**
-     * 将中间 Photo capture/录像 按钮Settings为 Photo capture中-立即/Photo capture中-延迟/录像中
-     * @param isDelay true-延迟Photo capture false-立即Photo capture 录像的话无所谓
+     * [Chinese text]in progress[Chinese text] Photo capture/recording buttonSettings[Chinese text] Photo capturein progress-[Chinese text]/Photo capturein progress-[Chinese text]/recordingin progress
+     * @param isDelay true-[Chinese text]Photo capture false-[Chinese text]Photo capture recording[Chinese text]
      */
     fun setToRecord(isDelay: Boolean) {
         if (isVideoMode) {
@@ -102,7 +102,7 @@ class CameraMenuView : FrameLayout, View.OnClickListener {
     }
 
     /**
-     * 使用指定的本地绝对路径刷新图库封面.
+     * [Chinese text]gallerycover.
      */
     fun refreshGallery(path: String) {
         try {
@@ -149,29 +149,29 @@ class CameraMenuView : FrameLayout, View.OnClickListener {
     }
 
     /**
-     * 考虑到 Photo capture、录像 所需的时间，需要防止用户快速点击Photo capture录像，保存点击时的时间戳避免.
+     * [Chinese text] Photo capture, recording [Chinese text], [Chinese text]point[Chinese text]Photo capturerecording, [Chinese text]point[Chinese text].
      */
     private var lastClickTime: Long = 0
 
     override fun onClick(v: View?) {
         when (v) {
-            binding.ivAction -> {// 开始Photo capture/开始录像/停止录像
+            binding.ivAction -> {// startPhoto capture/startrecording/stoprecording
                 val currentTime = System.currentTimeMillis()
                 if (currentTime - lastClickTime > 500) {
                     lastClickTime = currentTime
                     onCameraClickListener?.invoke(CODE_ACTION)
                 }
             }
-            binding.ivGallery -> {// 图库
+            binding.ivGallery -> {// gallery
                 onCameraClickListener?.invoke(CODE_GALLERY)
             }
-            binding.ivMore -> {// 更多菜单
+            binding.ivMore -> {// moremenu
                 onCameraClickListener?.invoke(CODE_MORE)
             }
-            binding.tvPhoto -> {// Photo capture文字
+            binding.tvPhoto -> {// Photo capturetext
                 binding.viewPager2.currentItem = 0
             }
-            binding.tvVideo -> {// 视频文字
+            binding.tvVideo -> {// [Chinese text]text
                 binding.viewPager2.currentItem = 1
             }
         }
@@ -199,7 +199,7 @@ class CameraMenuView : FrameLayout, View.OnClickListener {
     }
 
     /**
-     * ViewPager2 所用 Adapter.
+     * ViewPager2 used by Adapter.
      */
     class MenuCameraAdapter : RecyclerView.Adapter<MenuCameraAdapter.ViewHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

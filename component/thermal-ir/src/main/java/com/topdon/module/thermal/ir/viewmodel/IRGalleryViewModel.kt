@@ -17,34 +17,34 @@ import java.io.File
 class IRGalleryViewModel : BaseViewModel() {
     companion object {
         /**
-         * 分页加载时 1 页数据的条数
+         * [Chinese text] 1 [Chinese text]
          */
         const val PAGE_COUNT = 20
     }
 
     /**
-     * 未掺杂日期标题的原始数据列表.
+     * [Chinese text].
      */
     val sourceListLD: MutableLiveData<ArrayList<GalleryBean>> = MutableLiveData()
     /**
-     * 添加了日期标题的用于显示的列表.
+     * [Chinese text]for[Chinese text].
      */
     val showListLD: MutableLiveData<ArrayList<GalleryBean>> = MutableLiveData()
 
     /**
-     * 仅供生成报告使用的，加载所有插件式设备图片.
+     * only[Chinese text], [Chinese text].
      */
     fun queryAllReportImg(dirType: GalleryRepository.DirType) {
         viewModelScope.launch(Dispatchers.IO) {
             val sourceList: ArrayList<GalleryBean> = GalleryRepository.loadAllReportImg(dirType)
             sourceListLD.postValue(sourceList)
 
-            // 插入日期 item
+            // [Chinese text] item
             val showList: ArrayList<GalleryBean> = ArrayList(sourceList.size)
             var beforeTime = 0L
             for (galleryBean in sourceList) {
                 val currentTime = TimeTool.timeToMinute(galleryBean.timeMillis, 4)
-                if (beforeTime != currentTime) {// 新的日期
+                if (beforeTime != currentTime) {// [Chinese text]
                     showList.add(GalleryTitle(galleryBean.timeMillis))
                     beforeTime = currentTime
                 }
@@ -55,12 +55,12 @@ class IRGalleryViewModel : BaseViewModel() {
     }
 
     /**
-     * 分页加载时已成功加载的页数
+     * [Chinese text]
      */
     var hasLoadPage = 0
     /**
-     * 一页请求数据列表.
-     * null-请求失败
+     * [Chinese text].
+     * null-[Chinese text]
      */
     val pageListLD: MutableLiveData<ArrayList<GalleryBean>?> = MutableLiveData()
 
@@ -76,11 +76,11 @@ class IRGalleryViewModel : BaseViewModel() {
                     hasLoadPage++
                 }
 
-                // 插入日期 item
+                // [Chinese text] item
                 var beforeTime = if (sourceList.isEmpty()) 0 else TimeTool.timeToMinute(sourceList.last().timeMillis, 4)
                 for (galleryBean in pageList) {
                     val currentTime = TimeTool.timeToMinute(galleryBean.timeMillis, 4)
-                    if (beforeTime != currentTime) {// 新的日期
+                    if (beforeTime != currentTime) {// [Chinese text]
                         showList.add(GalleryTitle(galleryBean.timeMillis))
                         beforeTime = currentTime
                     }
@@ -95,7 +95,7 @@ class IRGalleryViewModel : BaseViewModel() {
     }
 
     /**
-     * 批量删除文件结果.
+     * [Chinese text].
      */
     val deleteResultLD: MutableLiveData<Boolean> = MutableLiveData()
 

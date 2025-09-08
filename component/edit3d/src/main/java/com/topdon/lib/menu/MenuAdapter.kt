@@ -20,16 +20,16 @@ import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lib.core.R as RCore
 
 /**
- * 二级菜单 RecyclerView 所用 Adapter.
+ * [Chinese text]menu RecyclerView used by Adapter.
  */
 class MenuAdapter(val context: Context, val type: Type) : RecyclerView.Adapter<MenuAdapter.ViewHolder>() {
     /**
-     * 当前选中 item index，用于实现选中效果.
+     * [Chinese text]in progress item index, forimplement[Chinese text]in progress[Chinese text].
      */
     private var selectIndex = 0
 
     /**
-     * item 点击事件监听.
+     * item point[Chinese text]eventlistener.
      */
     var onItemClickListener: ((position: Int) -> Unit)? = null
 
@@ -107,7 +107,7 @@ class MenuAdapter(val context: Context, val type: Type) : RecyclerView.Adapter<M
             holder.ivPseudo.visibility = if(position == selectIndex) View.VISIBLE else View.GONE
         }
 
-        // 单独Settings删除文本颜色
+        // [Chinese text]Settings[Chinese text]
         if (type == Type.MARK && position == MARK_ARRAY.size - 1) {
             holder.tvMenu.setTextColor(0x66ffffff)
         }
@@ -155,7 +155,7 @@ class MenuAdapter(val context: Context, val type: Type) : RecyclerView.Adapter<M
         val clRoot: ConstraintLayout = rootView.findViewById(R.id.cl_root)
         
         init {
-            val canSeeCount = itemCount.toFloat() // 一屏可见的 item 数量，目前都是全都显示完
+            val canSeeCount = itemCount.toFloat() // [Chinese text]visible[Chinese text] item [Chinese text], [Chinese text]
             if (ScreenUtil.isPortrait(context)) {
                 val with = (ScreenUtil.getScreenWidth(context)/ canSeeCount).toInt()
                 rootView.layoutParams = ViewGroup.LayoutParams(with, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -187,12 +187,12 @@ class MenuAdapter(val context: Context, val type: Type) : RecyclerView.Adapter<M
 
     enum class Type {
         /**
-         * 视觉.
+         * [Chinese text].
          */
         VISUAL,
 
         /**
-         * 标定.
+         * [Chinese text].
          */
         MARK,
 
@@ -202,7 +202,7 @@ class MenuAdapter(val context: Context, val type: Type) : RecyclerView.Adapter<M
         PSEUDO,
 
         /**
-         * 模式.
+         * mode.
          */
         MODE,
     }

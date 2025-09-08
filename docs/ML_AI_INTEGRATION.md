@@ -1,33 +1,33 @@
 # IRCamera Platform - Advanced Machine Learning & AI Integration Guide
 
-## 🧠 Overview
+## [brain] Overview
 
 This **comprehensive enterprise ML/AI integration guide** provides detailed strategies for integrating state-of-the-art machine learning and artificial intelligence capabilities into the IRCamera thermal imaging platform, enabling advanced analytics, pattern recognition, automated decision-making, predictive maintenance, and real-time intelligent processing at enterprise scale.
 
-## 📋 Table of Contents
+## [clipboard] Table of Contents
 
-1. [🏗️ Enterprise ML Architecture Overview](#enterprise-ml-architecture-overview) - Complete ML/AI infrastructure
-2. [🔥 Advanced Thermal Image Analysis](#advanced-thermal-image-analysis) - Deep learning for thermal processing
-3. [🧬 Intelligent Physiological Analytics](#intelligent-physiological-analytics) - AI-powered GSR and biometric analysis
-4. [⚡ Real-Time Inference Engine](#real-time-inference-engine) - Sub-millisecond ML inference
-5. [🚀 Enterprise Training Pipeline](#enterprise-training-pipeline) - Scalable model training infrastructure
-6. [🐳 Cloud Model Deployment](#cloud-model-deployment) - Production ML deployment strategies
-7. [📱 Edge Computing & Mobile AI](#edge-computing--mobile-ai) - On-device ML processing
-8. [🔄 Continuous Learning Systems](#continuous-learning-systems) - AutoML and adaptive models
-9. [🏢 Enterprise AI Governance](#enterprise-ai-governance) - ML ops and model management
-10. [🛡️ AI Security & Privacy](#ai-security--privacy) - Secure and private ML systems
-11. [📊 Advanced Analytics & Insights](#advanced-analytics--insights) - Business intelligence with AI
-12. [🎯 Industry-Specific AI Models](#industry-specific-ai-models) - Specialized AI solutions
+1. [[construction] Enterprise ML Architecture Overview](#enterprise-ml-architecture-overview) - Complete ML/AI infrastructure
+2. [[fire] Advanced Thermal Image Analysis](#advanced-thermal-image-analysis) - Deep learning for thermal processing
+3. [[dna] Intelligent Physiological Analytics](#intelligent-physiological-analytics) - AI-powered GSR and biometric analysis
+4. [[lightning] Real-Time Inference Engine](#real-time-inference-engine) - Sub-millisecond ML inference
+5. [[rocket] Enterprise Training Pipeline](#enterprise-training-pipeline) - Scalable model training infrastructure
+6. [[whale] Cloud Model Deployment](#cloud-model-deployment) - Production ML deployment strategies
+7. [[mobile] Edge Computing & Mobile AI](#edge-computing--mobile-ai) - On-device ML processing
+8. [[refresh] Continuous Learning Systems](#continuous-learning-systems) - AutoML and adaptive models
+9. [[office] Enterprise AI Governance](#enterprise-ai-governance) - ML ops and model management
+10. [[shield] AI Security & Privacy](#ai-security--privacy) - Secure and private ML systems
+11. [[chart] Advanced Analytics & Insights](#advanced-analytics--insights) - Business intelligence with AI
+12. [[target] Industry-Specific AI Models](#industry-specific-ai-models) - Specialized AI solutions
 
 ---
 
-## 🏗️ Enterprise ML Architecture Overview
+## [construction] Enterprise ML Architecture Overview
 
-### 🧠 IRCamera Advanced ML Pipeline Architecture
+### [brain] IRCamera Advanced ML Pipeline Architecture
 
 ```mermaid
 graph TB
-    subgraph "📊 Data Collection & Ingestion Layer"
+    subgraph "[chart] Data Collection & Ingestion Layer"
         ThermalCam[Multi-Thermal Cameras<br/>TC001/TC007/TS004/HIK]
         GSRSensor[Advanced GSR Sensors<br/>Shimmer3 + Custom IoT]
         AndroidApp[Enterprise Android App<br/>Edge ML Processing]
@@ -36,7 +36,7 @@ graph TB
         IoTDevices[Enterprise IoT Devices<br/>Environmental Sensors]
     end
     
-    subgraph "🔧 Data Processing & Feature Engineering"
+    subgraph "[tool] Data Processing & Feature Engineering"
         DataPipeline[Enterprise Data Pipeline<br/>Apache Spark + Flink]
         FeatureStore[ML Feature Store<br/>Feast + Tecton]
         DataValidation[Data Validation<br/>Great Expectations]
@@ -44,7 +44,7 @@ graph TB
         DataQuality[Data Quality Monitoring<br/>Monte Carlo + Deequ]
     end
     
-    subgraph "🧠 ML Model Development & Training"
+    subgraph "[brain] ML Model Development & Training"
         AutoML[Enterprise AutoML<br/>H2O.ai + AutoKeras]
         ModelTraining[Distributed Training<br/>Ray + Horovod]
         HyperparameterOpt[Hyperparameter Optimization<br/>Optuna + Hyperopt]
@@ -52,7 +52,7 @@ graph TB
         ExperimentTracking[Experiment Tracking<br/>Neptune + ClearML]
     end
     
-    subgraph "🚀 Model Deployment & Serving"
+    subgraph "[rocket] Model Deployment & Serving"
         ModelRegistry[Enterprise Model Registry<br/>MLflow + DVC]
         ModelServing[Model Serving Infrastructure<br/>Seldon + KServe]
         EdgeDeployment[Edge Model Deployment<br/>TensorFlow Lite + ONNX]
@@ -60,7 +60,7 @@ graph TB
         LoadBalancer[Intelligent Load Balancer<br/>NGINX + HAProxy]
     end
     
-    subgraph "📈 Monitoring & Observability"
+    subgraph "[chart up] Monitoring & Observability"
         ModelMonitoring[Model Performance Monitoring<br/>Evidently + Fiddler]
         DriftDetection[Data Drift Detection<br/>Alibi Detect + NannyML]
         ModelExplainability[Model Explainability<br/>SHAP + LIME + Captum]

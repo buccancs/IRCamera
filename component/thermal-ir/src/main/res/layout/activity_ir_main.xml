@@ -50,7 +50,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
 
-        <!-- 功能 -->
+        <!-- [Chinese text] -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_icon_monitor"
             android:layout_width="0dp"
@@ -90,7 +90,7 @@
                 app:layout_constraintBottom_toBottomOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!-- 图库 -->
+        <!-- gallery -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_icon_gallery"
             android:layout_width="0dp"
@@ -130,7 +130,7 @@
                 app:layout_constraintBottom_toBottomOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!-- 报告 -->
+        <!-- [Chinese text] -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_icon_report"
             android:layout_width="0dp"
@@ -170,7 +170,7 @@
                 app:layout_constraintBottom_toBottomOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!-- 我的 -->
+        <!-- [Chinese text] -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_icon_mine"
             android:layout_width="0dp"

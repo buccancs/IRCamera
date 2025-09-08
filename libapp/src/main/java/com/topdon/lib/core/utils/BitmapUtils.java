@@ -45,11 +45,11 @@ import java.io.OutputStream;
     public static Bitmap rotateBitmap(Bitmap bm, int degree) {
         Bitmap returnBm = null;
 
-        // 根据旋转角度，生成旋转矩阵
+        // [Chinese text], [Chinese text]
         Matrix matrix = new Matrix();
         matrix.postRotate(degree);
         try {
-            // 将原始图片按照旋转矩阵进行旋转，并得到新的图片
+            // [Chinese text], [Chinese text]
             returnBm = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);
         } catch (OutOfMemoryError e) {
         }
@@ -63,7 +63,7 @@ import java.io.OutputStream;
     }
 
         /**
-     * 将bitmap转换成bytes
+     * [Chinese text]bitmap[Chinese text]bytes
      */
     public static byte[] bitmapToBytes(Bitmap bitmap, int quality) {
         if (bitmap == null) {
@@ -82,11 +82,11 @@ import java.io.OutputStream;
     }
 
         /**
-     * 将图片保存到磁盘中
+     * [Chinese text]in progress
      *
      * @param bitmap
-     * @param file   图片保存目录——不包含图片名
-     * @param path   图片保存文件路径——包含图片名
+     * @param file   [Chinese text]----[Chinese text]
+     * @param path   [Chinese text]----[Chinese text]
      * @return
      */
     public static boolean saveBitmap(Bitmap bitmap, File file, File path) {
@@ -116,19 +116,19 @@ import java.io.OutputStream;
     }
 
         /**
-     * 高级图片质量压缩
+     * high[Chinese text]
      *
-     * @param bitmap 位图
-     * @param width  压缩后的宽度，单位像素
+     * @param bitmap [Chinese text]
+     * @param width  [Chinese text], [Chinese text]
      */
     public static Bitmap imageZoom(Bitmap bitmap, double width) {
-        // 将bitmap放至数组中，意在获得bitmap的大小（与实际读取的原文件要大）
+        // [Chinese text]bitmap[Chinese text]in progress, [Chinese text]bitmap[Chinese text]([Chinese text])
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        // 格式、质量、输出流
+        // [Chinese text], [Chinese text], [Chinese text]
         bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
         byte[] b = baos.toByteArray();
         Bitmap newBitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
-        // 获取bitmap大小 是允许最大大小的多少倍
+        // [Chinese text]bitmap[Chinese text] [Chinese text]
         return scaleWithWH(newBitmap, width,
                 width * newBitmap.getHeight() / newBitmap.getWidth());
     }
@@ -159,10 +159,10 @@ import java.io.OutputStream;
     }
 
         /**
-     * bitmap保存到指定路径
+     * bitmap[Chinese text]
      *
-     * @param file 图片的绝对路径
-     * @param file 位图
+     * @param file [Chinese text]
+     * @param file [Chinese text]
      * @return bitmap
      */
     public static boolean saveFile(String file, Bitmap bmp) {
@@ -190,10 +190,10 @@ import java.io.OutputStream;
     }
 
         /**
-     * 把两个位图覆盖合成为一个位图，以底层位图的长宽为基准
+     * [Chinese text], [Chinese text]
      *
-     * @param backBitmap  在底部的位图
-     * @param frontBitmap 盖在上面的位图
+     * @param backBitmap  [Chinese text]
+     * @param frontBitmap [Chinese text]
      * @return
      */
     public static Bitmap mergeBitmap(Bitmap backBitmap, Bitmap frontBitmap, int leftFront, int topFront) {
@@ -281,9 +281,9 @@ import java.io.OutputStream;
     }
 
         /**
-     * 把两个位图覆盖合成为一个位图，以底层位图的长宽为基准
-     * @param bytes  在底部的位图
-     * @param bytes2 盖在上面的位图
+     * [Chinese text], [Chinese text]
+     * @param bytes  [Chinese text]
+     * @param bytes2 [Chinese text]
      */
     public static void savaRawFile(byte[] bytes, byte[] bytes2) {
         try {
@@ -304,41 +304,41 @@ import java.io.OutputStream;
     }
 
         /**
-     * 添加水印
+     * [Chinese text]
      * @param bmp
      * @param title
      * @param address
      * @param time
-     * @param seekBarWidth : 右边Pseudo color控件的宽度，防止内容和控件重叠
+     * @param seekBarWidth : [Chinese text]Pseudo color[Chinese text], [Chinese text]
      * @return
      */
     public static Bitmap drawCenterLable(Bitmap bmp, String title,String address,String time,int seekBarWidth) {
-        // 创建一样大小的图片
+        // [Chinese text]
         Bitmap newBmp = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(), Bitmap.Config.ARGB_8888);
-        // 创建画布
+        // [Chinese text]
         Canvas canvas = new Canvas(newBmp);
-        canvas.drawBitmap(bmp, 0, 0, null);  // 绘制原始图片
+        canvas.drawBitmap(bmp, 0, 0, null);  // [Chinese text]
         canvas.save();
         TextPaint paint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColor(Color.WHITE); // 白色半透明
+        paint.setColor(Color.WHITE); // [Chinese text]
         paint.setTextSize(SizeUtils.sp2px(12));
         paint.setDither(true);
         paint.setFilterBitmap(true);
-        Rect rectText = new Rect();  // 得到text占用宽高， 单位：像素
-        paint.getTextBounds("占位高度文本", 0,"占位高度文本".length(), rectText);
-        double beginX = SizeUtils.dp2px(10);  // 45度角度值是1.414
+        Rect rectText = new Rect();  // [Chinese text]text[Chinese text]high,  [Chinese text]: [Chinese text]
+        paint.getTextBounds("[Chinese text]high[Chinese text]", 0,"[Chinese text]high[Chinese text]".length(), rectText);
+        double beginX = SizeUtils.dp2px(10);  // 45[Chinese text]1.414
         double beginY = bmp.getHeight() - SizeUtils.dp2px(10);
         if (!TextUtils.isEmpty(time)){
             beginY = beginY - (rectText.bottom - rectText.top);
             canvas.drawText(time, (int)beginX, (int)beginY, paint);
             beginY -= SizeUtils.dp2px(6);
         }
-        int lineWidth = bmp.getWidth() - SizeUtils.dp2px(20) - seekBarWidth;// 一行的可显示内容宽度
+        int lineWidth = bmp.getWidth() - SizeUtils.dp2px(20) - seekBarWidth;// [Chinese text]
         if (!TextUtils.isEmpty(address)){
             int textHeight = (rectText.bottom - rectText.top);
             paint.getTextBounds(address, 0,address.length(), rectText);
             if (rectText.width() > lineWidth){
-                // 字符太长，进行换行处理
+                // [Chinese text], [Chinese text]
                 StaticLayout staticLayout = new StaticLayout(address,
                         paint, lineWidth,
                         Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
@@ -357,7 +357,7 @@ import java.io.OutputStream;
             int textHeight = (rectText.bottom - rectText.top);
             paint.getTextBounds(title, 0,title.length(), rectText);
             if (rectText.width() > lineWidth){
-                // 字符太长，进行换行处理
+                // [Chinese text], [Chinese text]
                 StaticLayout staticLayout = new StaticLayout(title,
                         paint, lineWidth,
                         Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);

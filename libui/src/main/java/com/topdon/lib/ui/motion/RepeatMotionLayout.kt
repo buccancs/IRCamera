@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import androidx.constraintlayout.motion.widget.MotionLayout
 
 /**
- * 闪烁效果
+ * [Chinese text]
  */
 class RepeatMotionLayout : MotionLayout, MotionLayout.TransitionListener {
     private var motionStartId = 0
@@ -26,10 +26,10 @@ class RepeatMotionLayout : MotionLayout, MotionLayout.TransitionListener {
     )
 
     /**
-     * 开始闪烁
+     * start[Chinese text]
      */
     fun startTransition() {
-//        Log.w("123", "开始闪烁")
+//        Log.w("123", "start[Chinese text]")
         if (!isAdd) {
             addTransitionListener(this)
             isAdd = true
@@ -38,7 +38,7 @@ class RepeatMotionLayout : MotionLayout, MotionLayout.TransitionListener {
     }
 
     /**
-     * 恢复状态
+     * [Chinese text]
      */
     fun cancelTransition() {
         removeTransitionListener(this)

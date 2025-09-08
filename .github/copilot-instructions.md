@@ -101,14 +101,14 @@ Generate the following directory structure for the PC Controller:
 
 ```plaintext
 /pc_controller/
-├── src/
-│   ├── main.py           # Main application entry point
-│   ├── gui/              # GUI modules (GUIManager, DeviceWidget)
-│   ├── network/          # Network modules (NetworkController, WorkerThread)
-│   ├── core/             # Core logic (SessionManager, TimeSyncService)
-│   └── data/             # Data handling (DataAggregator, HDF5Exporter)
-├── native_backend/       # C++ source for PyBind11 extension
-└── tests/                # Pytest unit tests
++-- src/
+|   +-- main.py           # Main application entry point
+|   +-- gui/              # GUI modules (GUIManager, DeviceWidget)
+|   +-- network/          # Network modules (NetworkController, WorkerThread)
+|   +-- core/             # Core logic (SessionManager, TimeSyncService)
+|   +-- data/             # Data handling (DataAggregator, HDF5Exporter)
++-- native_backend/       # C++ source for PyBind11 extension
++-- tests/                # Pytest unit tests
 ```
 
 ### 4.3. Key Module Implementation
@@ -140,16 +140,16 @@ Generate the following package structure for the Android application:
 
 ```plaintext
 /com/yourcompany/sensorspoke/
-├── ui/                 # UI Layer (MainActivity, MainViewModel)
-├── service/            # Background Service Layer (RecordingService)
-├── controller/         # Core Logic (RecordingController)
-├── sensors/            # Sensor Integration Layer (SensorRecorder interface and implementations)
-│   ├── rgb/
-│   ├── thermal/
-│   └── gsr/
-├── network/            # Network Communication Layer (NetworkClient, FileTransferManager)
-├── data/               # Data Models and Storage (model/, storage/)
-└── utils/              # Utility and Helper Classes (TimeManager)
++-- ui/                 # UI Layer (MainActivity, MainViewModel)
++-- service/            # Background Service Layer (RecordingService)
++-- controller/         # Core Logic (RecordingController)
++-- sensors/            # Sensor Integration Layer (SensorRecorder interface and implementations)
+|   +-- rgb/
+|   +-- thermal/
+|   +-- gsr/
++-- network/            # Network Communication Layer (NetworkClient, FileTransferManager)
++-- data/               # Data Models and Storage (model/, storage/)
++-- utils/              # Utility and Helper Classes (TimeManager)
 ```
 
 ### **5.3. Sensor Integration Logic**

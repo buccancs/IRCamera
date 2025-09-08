@@ -8,7 +8,7 @@ import android.widget.LinearLayout
 import com.topdon.lib.ui.R as UiR
 
 /**
- * 校准方向
+ * [Chinese text]
  */
 class WifiSteeringWheelView : LinearLayout, OnClickListener {
     var listener: ((action: Int, moveX: Int, moveY: Int) -> Unit)? = null

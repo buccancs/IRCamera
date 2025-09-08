@@ -2,7 +2,7 @@
 
 Comprehensive development guide for the Multi-Modal Physiological Sensing Platform.
 
-## 🏗️ Architecture Overview
+## [construction] Architecture Overview
 
 ### Hub-and-Spoke Model
 The MPDC4GSR platform implements a distributed client-server architecture:
@@ -37,7 +37,7 @@ graph TB
 - **Data**: HDF5 for efficient storage, pandas for analysis
 - **Network**: asyncio for concurrent device management
 
-## 🔧 Development Environment Setup
+## [tool] Development Environment Setup
 
 ### Prerequisites
 ```bash
@@ -104,32 +104,32 @@ flake8 src/
 mypy src/
 ```
 
-## 📱 Android Architecture
+## [mobile] Android Architecture
 
 ### Package Structure
 ```
 com/topdon/irCamera/
-├── ui/                     # UI Layer (Activities, Fragments)
-│   ├── activities/         # Main activities
-│   ├── fragments/          # Reusable UI components
-│   └── viewmodels/         # MVVM ViewModels
-├── service/                # Background Services
-│   ├── RecordingService/   # Foreground recording service
-│   └── NetworkService/     # Device discovery and communication
-├── sensors/                # Sensor Integration Layer
-│   ├── rgb/               # RGB camera implementation
-│   ├── thermal/           # Thermal camera implementation
-│   └── gsr/               # Shimmer3 GSR implementation
-├── network/               # Network Communication
-│   ├── NetworkClient/     # TCP client implementation
-│   └── ProtocolHandler/   # Message serialization
-├── data/                  # Data Layer
-│   ├── models/            # Data models and entities
-│   ├── repositories/      # Data access abstraction
-│   └── storage/           # Local storage management
-└── utils/                 # Utility Classes
-    ├── TimeManager/       # Time synchronization
-    └── FileManager/       # File operations
++-- ui/                     # UI Layer (Activities, Fragments)
+|   +-- activities/         # Main activities
+|   +-- fragments/          # Reusable UI components
+|   +-- viewmodels/         # MVVM ViewModels
++-- service/                # Background Services
+|   +-- RecordingService/   # Foreground recording service
+|   +-- NetworkService/     # Device discovery and communication
++-- sensors/                # Sensor Integration Layer
+|   +-- rgb/               # RGB camera implementation
+|   +-- thermal/           # Thermal camera implementation
+|   +-- gsr/               # Shimmer3 GSR implementation
++-- network/               # Network Communication
+|   +-- NetworkClient/     # TCP client implementation
+|   +-- ProtocolHandler/   # Message serialization
++-- data/                  # Data Layer
+|   +-- models/            # Data models and entities
+|   +-- repositories/      # Data access abstraction
+|   +-- storage/           # Local storage management
++-- utils/                 # Utility Classes
+    +-- TimeManager/       # Time synchronization
+    +-- FileManager/       # File operations
 ```
 
 ### Key Components
@@ -201,33 +201,33 @@ data class SyncEvent(
 )
 ```
 
-## 🖥️ PC Controller Architecture
+## [desktop] PC Controller Architecture
 
 ### Module Structure
 ```
 pc-controller/
-├── src/
-│   ├── main.py            # Application entry point
-│   ├── gui/               # PyQt6 GUI components
-│   │   ├── main_window.py # Main application window
-│   │   ├── device_widget.py # Device management UI
-│   │   └── plots/         # Real-time visualization
-│   ├── network/           # Network layer
-│   │   ├── discovery.py   # Device discovery service
-│   │   ├── controller.py  # Device communication
-│   │   └── protocol.py    # Message protocol
-│   ├── core/              # Core logic
-│   │   ├── session_manager.py # Session lifecycle
-│   │   ├── time_sync.py   # Time synchronization
-│   │   └── data_processor.py # Real-time processing
-│   └── data/              # Data handling
-│       ├── aggregator.py  # Multi-device data aggregation
-│       └── exporters/     # HDF5, CSV export
-├── native_backend/        # C++ performance extensions
-│   ├── shimmer_native.cpp # Direct Shimmer serial communication
-│   ├── webcam_capture.cpp # High-performance video capture
-│   └── pybind_module.cpp  # Python bindings
-└── tests/                 # pytest test suite
++-- src/
+|   +-- main.py            # Application entry point
+|   +-- gui/               # PyQt6 GUI components
+|   |   +-- main_window.py # Main application window
+|   |   +-- device_widget.py # Device management UI
+|   |   +-- plots/         # Real-time visualization
+|   +-- network/           # Network layer
+|   |   +-- discovery.py   # Device discovery service
+|   |   +-- controller.py  # Device communication
+|   |   +-- protocol.py    # Message protocol
+|   +-- core/              # Core logic
+|   |   +-- session_manager.py # Session lifecycle
+|   |   +-- time_sync.py   # Time synchronization
+|   |   +-- data_processor.py # Real-time processing
+|   +-- data/              # Data handling
+|       +-- aggregator.py  # Multi-device data aggregation
+|       +-- exporters/     # HDF5, CSV export
++-- native_backend/        # C++ performance extensions
+|   +-- shimmer_native.cpp # Direct Shimmer serial communication
+|   +-- webcam_capture.cpp # High-performance video capture
+|   +-- pybind_module.cpp  # Python bindings
++-- tests/                 # pytest test suite
 ```
 
 ### Key Components
@@ -348,7 +348,7 @@ PYBIND11_MODULE(native_backend, m) {
 }
 ```
 
-## 🔗 Communication Protocol
+## [link] Communication Protocol
 
 ### Message Format
 All communication uses JSON over TLS-secured TCP:
@@ -409,7 +409,7 @@ All communication uses JSON over TLS-secured TCP:
 }
 ```
 
-## 🧪 Testing Strategy
+## [test tube] Testing Strategy
 
 ### Unit Tests
 ```kotlin
@@ -425,7 +425,7 @@ fun `GSRRecorder should process samples at 128Hz`() = runTest {
     delay(1000) // Record for 1 second
     recorder.stopRecording()
     
-    // Should have ~128 samples (±5% tolerance)
+    // Should have ~128 samples (+/-5% tolerance)
     assertThat(samples.size).isCloseTo(128, within(7))
 }
 ```
@@ -490,7 +490,7 @@ def test_data_throughput():
     assert len(data.gsr_samples) >= expected_gsr_samples * 0.95  # 95% tolerance
 ```
 
-## 🔧 Build System
+## [tool] Build System
 
 ### Gradle Configuration (Android)
 ```kotlin
@@ -597,7 +597,7 @@ setup(
 )
 ```
 
-## 🚀 Deployment
+## [rocket] Deployment
 
 ### Android APK Distribution
 ```bash
@@ -623,7 +623,7 @@ python setup.py bdist_wheel
 pip install dist/mpdc4gsr_pc_controller-1.0.0-py3-none-any.whl
 ```
 
-## 📊 Performance Optimization
+## [chart] Performance Optimization
 
 ### Android Optimizations
 - Use CameraX for efficient camera management
@@ -643,7 +643,7 @@ pip install dist/mpdc4gsr_pc_controller-1.0.0-py3-none-any.whl
 - Implement adaptive bitrate for real-time streaming
 - Handle network interruptions gracefully
 
-## 🔍 Debugging and Monitoring
+## [search] Debugging and Monitoring
 
 ### Android Debugging
 ```kotlin
@@ -684,7 +684,7 @@ logger.info("Session started", extra={
 })
 ```
 
-## 📚 Additional Resources
+## [books] Additional Resources
 
 - **[API Reference](API_REFERENCE.md)** - Complete API documentation
 - **[User Manual](USER_MANUAL.md)** - End-user documentation  
@@ -693,4 +693,4 @@ logger.info("Session started", extra={
 
 ---
 
-**Happy coding!** 🚀 For questions or issues, please open a GitHub issue or refer to our troubleshooting guide.
+**Happy coding!** [rocket] For questions or issues, please open a GitHub issue or refer to our troubleshooting guide.

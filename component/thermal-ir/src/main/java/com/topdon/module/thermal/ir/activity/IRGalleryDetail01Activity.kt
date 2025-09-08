@@ -45,23 +45,23 @@ import org.greenrobot.eventbus.ThreadMode
 import java.io.File
 
 /**
- * 插件式设备、TC007 图片详情
+ * [Chinese text], TC007 [Chinese text]
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
 
     /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
+     * [Chinese text], [Chinese text] TC007 [Chinese text].
+     * true-TC007 false-[Chinese text]
      */
     private var isTC007 = false
 
     /**
-     * 当前展示图片在列表中的 position
+     * [Chinese text]in progress[Chinese text] position
      */
     private var position = 0
     /**
-     * 从上一界面传递过来的，当前展示的图片列表.
+     * [Chinese text], [Chinese text].
      */
     private lateinit var dataList: ArrayList<GalleryBean>
 
@@ -203,7 +203,7 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 导出为 excel 时的进度条弹窗.
+     * [Chinese text] excel [Chinese text].
      */
     private var progressDialog: ProgressDialog? = null
     private var excelName: String = ""
@@ -227,12 +227,12 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v) {
             findViewById<LinearLayout>(R.id.ll_ir_edit_2D) -> {
-                // 2d编辑
+                // 2d[Chinese text]
                 actionEditOrReport(false)
             }
 
             findViewById<LinearLayout>(R.id.ll_ir_edit_3D) -> {
-                // 跳转到3D
+                // [Chinese text]3D
                 val data = dataList[position]
                 val fileName = data.name.substringBeforeLast(".")
                 val irPath = "${FileConfig.lineIrGalleryDir}/${fileName}.ir"
@@ -247,10 +247,10 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
                     withContext(Dispatchers.IO) {
                         val file = File(irPath)
                         if (!file.exists()) {
-                            XLog.w("IR文件不存在: ${file.absolutePath}")
+                            XLog.w("IR[Chinese text]: ${file.absolutePath}")
                             return@withContext
                         }
-                        XLog.w("IR文件: ${file.absolutePath}")
+                        XLog.w("IR[Chinese text]: ${file.absolutePath}")
                         val bytes = file.readBytes()
                         val headLenBytes = ByteArray(2)
                         System.arraycopy(bytes, 0, headLenBytes, 0, 2)
@@ -272,7 +272,7 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
             }
 
             findViewById<LinearLayout>(R.id.ll_ir_report) -> {
-                // 报告
+                // [Chinese text]
                 actionEditOrReport(true)
             }
 

@@ -43,7 +43,7 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
     protected Paint paint = new Paint();
 
     /**
-     * 初始化获取屏幕宽高
+     * [Chinese text]high
      */
     protected void initScreenW_H() {
         screenHeight = ScreenUtil.getScreenHeight(getContext()) - 40;
@@ -91,14 +91,14 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
             dragDirection = getDirection(v, (int) event.getX(),
                     (int) event.getY());
         }
-        // 处理拖动事件
+        // [Chinese text]event
         delDrag(v, event, action);
         invalidate();
         return false;
     }
 
     /**
-     * 处理拖动事件
+     * [Chinese text]event
      *
      * @param v
      * @param event
@@ -110,34 +110,34 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
                 int dx = (int) event.getRawX() - lastX;
                 int dy = (int) event.getRawY() - lastY;
                 switch (dragDirection) {
-                    case LEFT: // 左边缘
+                    case LEFT: // [Chinese text]
                         left(v, dx);
                         break;
-                    case RIGHT: // 右边缘
+                    case RIGHT: // [Chinese text]
                         right(v, dx);
                         break;
-                    case BOTTOM: // 下边缘
+                    case BOTTOM: // [Chinese text]
                         bottom(v, dy);
                         break;
-                    case TOP: // 上边缘
+                    case TOP: // [Chinese text]
                         top(v, dy);
                         break;
-                    case CENTER: // 点击中心-->>移动
+                    case CENTER: // point[Chinese text]in progress[Chinese text]-->>[Chinese text]
                         center(v, dx, dy);
                         break;
-                    case LEFT_BOTTOM: // 左下
+                    case LEFT_BOTTOM: // [Chinese text]
                         left(v, dx);
                         bottom(v, dy);
                         break;
-                    case LEFT_TOP: // 左上
+                    case LEFT_TOP: // [Chinese text]
                         left(v, dx);
                         top(v, dy);
                         break;
-                    case RIGHT_BOTTOM: // 右下
+                    case RIGHT_BOTTOM: // [Chinese text]
                         right(v, dx);
                         bottom(v, dy);
                         break;
-                    case RIGHT_TOP: // 右上
+                    case RIGHT_TOP: // [Chinese text]
                         right(v, dx);
                         top(v, dy);
                         break;
@@ -155,7 +155,7 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
     }
 
     /**
-     * 触摸点为中心->>移动
+     * [Chinese text]point[Chinese text]in progress[Chinese text]->>[Chinese text]
      *
      * @param v
      * @param dx
@@ -186,7 +186,7 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
     }
 
     /**
-     * 触摸点为上边缘
+     * [Chinese text]point[Chinese text]
      *
      * @param v
      * @param dy
@@ -202,7 +202,7 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
     }
 
     /**
-     * 触摸点为下边缘
+     * [Chinese text]point[Chinese text]
      *
      * @param v
      * @param dy
@@ -218,7 +218,7 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
     }
 
     /**
-     * 触摸点为右边缘
+     * [Chinese text]point[Chinese text]
      *
      * @param v
      * @param dx
@@ -234,7 +234,7 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
     }
 
     /**
-     * 触摸点为左边缘
+     * [Chinese text]point[Chinese text]
      *
      * @param v
      * @param dx
@@ -250,7 +250,7 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
     }
 
     /**
-     * 获取触摸点flag
+     * [Chinese text]pointflag
      *
      * @param v
      * @param x
@@ -290,7 +290,7 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
     }
 
         /**
-     * 获取截取宽度
+     * [Chinese text]
      *
      * @return
      */
@@ -299,7 +299,7 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
     }
 
         /**
-     * 获取截取高度
+     * [Chinese text]high[Chinese text]
      *
      * @return
      */

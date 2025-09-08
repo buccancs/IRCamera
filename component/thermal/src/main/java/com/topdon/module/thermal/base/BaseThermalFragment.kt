@@ -24,8 +24,8 @@ open class BaseThermalFragment : BaseFragment() {
     var mMinTemp = 0f
     var maxImg: ImageView? = null
     var minImg: ImageView? = null
-    var maxIndex = 0 // 最高温度点
-    var minIndex = 0 // 最低温度点
+    var maxIndex = 0 // [Chinese text]hightemperaturepoint
+    var minIndex = 0 // [Chinese text]lowtemperaturepoint
 
     var mCenterTextView: TextView? = null
     var mMaxTextView: TextView? = null
@@ -54,7 +54,7 @@ open class BaseThermalFragment : BaseFragment() {
     var rawHeight = 0
     var highCrossWidth = 40
     var highCrossHeight = 40
-    var rotateType = 0 // 1:90度  2:180度  3:270度
+    var rotateType = 0 // 1:90[Chinese text]  2:180[Chinese text]  3:270[Chinese text]
     var irSurfaceViewWidth = 0
     var irSurfaceViewHeight = 0
 

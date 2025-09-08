@@ -31,24 +31,24 @@ import org.greenrobot.eventbus.ThreadMode
 import java.io.File
 
 /**
- * 报告生成（即检测）.
+ * [Chinese text]([Chinese text]).
  *
- * 需要传递：
- * - [ExtraKeyConfig.DETECT_ID] - 执行检测的房屋检测 Id
- * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
+ * [Chinese text]: 
+ * - [ExtraKeyConfig.DETECT_ID] - [Chinese text] Id
+ * - [ExtraKeyConfig.IS_TC007] - [Chinese text] TC007
  *
  * Created by LCG on 2024/8/23.
  */
 class ReportAddActivity : BaseActivity(), View.OnClickListener {
     /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
+     * [Chinese text], [Chinese text] TC007 [Chinese text].
+     * true-TC007 false-[Chinese text]
      */
     private var isTC007 = false
 
     /**
-     * 所有目录是否都已展开.
-     * true-都已展开 false-至少有1个未展开
+     * [Chinese text].
+     * true-[Chinese text] false-[Chinese text]1[Chinese text]
      */
     private var isAllExpand = false
 
@@ -87,7 +87,7 @@ class ReportAddActivity : BaseActivity(), View.OnClickListener {
         initDetectViewListener()
 
         viewModel.detectLD.observe(this) {
-            // 查询当前检测结果
+            // [Chinese text]
             if (it != null) {
                 isAllExpand = false
 
@@ -103,17 +103,17 @@ class ReportAddActivity : BaseActivity(), View.OnClickListener {
             }
         }
         viewModel.copyDirLD.observe(this) {
-            // 复制目录结果
+            // [Chinese text]
             viewHouseDetect.notifyDirInsert(it.first, it.second)
             TToast.shortToast(this@ReportAddActivity, LibR.string.ts004_copy_success)
         }
         viewModel.copyItemLD.observe(this) {
-            // 复制项目结果
+            // [Chinese text]
             viewHouseDetect.notifyItemInsert(it.first, it.second)
             TToast.shortToast(this@ReportAddActivity, LibR.string.ts004_copy_success)
         }
         viewModel.delItemLD.observe(this) {
-            // 删除项目结果
+            // [Chinese text]
             viewHouseDetect.notifyItemRemove(it.first, it.second)
             TToast.shortToast(this@ReportAddActivity, LibR.string.test_results_delete_success)
         }
@@ -127,12 +127,12 @@ class ReportAddActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v) {
             ivBack -> finish()
-            ivEdit -> {// 目录编辑
+            ivEdit -> {// [Chinese text]
                 val newIntent = Intent(this, DirEditActivity::class.java)
                 newIntent.putExtra(ExtraKeyConfig.DETECT_ID, intent.getLongExtra(ExtraKeyConfig.DETECT_ID, 0))
                 startActivity(newIntent)
             }
-            ivExpand -> {// 展开收起
+            ivExpand -> {// [Chinese text]
                 isAllExpand = !isAllExpand
                 if (isAllExpand) {
                     viewHouseDetect.expandAllDir()
@@ -141,13 +141,13 @@ class ReportAddActivity : BaseActivity(), View.OnClickListener {
                 }
                 ivExpand.isSelected = isAllExpand
             }
-            tvExportReport -> {// 导出报告
+            tvExportReport -> {// [Chinese text]
                 NavigationManager.getInstance().build(RouterConfig.REPORT_PREVIEW)
                     .withBoolean(ExtraKeyConfig.IS_REPORT, false)
                     .withLong(ExtraKeyConfig.LONG_ID, intent.getLongExtra(ExtraKeyConfig.DETECT_ID, 0))
                     .navigation(this)
             }
-            tvAdd -> {// 新增默认目录
+            tvAdd -> {// [Chinese text]
                 val detect: HouseDetect? = viewModel.detectLD.value
                 if (detect != null) {
                     viewModel.insertDefaultDirs(detect)
@@ -157,22 +157,22 @@ class ReportAddActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 当前正在编辑的项目，在 viewHouseDetect 中的 index.
+     * [Chinese text], [Chinese text] viewHouseDetect in progress[Chinese text] index.
      */
     private var editLayoutIndex = 0
     /**
-     * 当前正在编辑的项目
+     * [Chinese text]
      */
     private var editItemDetect = ItemDetect()
 
     /**
-     * 初始化 viewHouseDetect 的相关事件监听.
+     * [Chinese text] viewHouseDetect [Chinese text]eventlistener.
      */
     private fun initDetectViewListener() {
-        viewHouseDetect.onDirCopyListener = {// 目录复制
+        viewHouseDetect.onDirCopyListener = {// [Chinese text]
             viewModel.copyDir(it.first, it.second)
         }
-        viewHouseDetect.onItemCopyListener = {// 项目复制
+        viewHouseDetect.onItemCopyListener = {// [Chinese text]
             viewModel.copyItem(it.first, it.second)
         }
         viewHouseDetect.onItemDelListener = {
@@ -180,24 +180,24 @@ class ReportAddActivity : BaseActivity(), View.OnClickListener {
         }
 
         viewHouseDetect.onImageAddListener = { layoutIndex, v, item ->
-            // 项目添加图片
+            // [Chinese text]
             editLayoutIndex = layoutIndex
             editItemDetect = item
             ThreePickPopup(this, arrayListOf(LibR.string.person_headshot_phone, LibR.string.light_camera_take_photo, LibR.string.ir_camera_take_photo)) {
                 when (it) {
-                    0 -> {// 从相册获取
+                    0 -> {// [Chinese text]
                         PermissionTool.requestImageRead(this) {
                             galleryPickResult.launch("image/*")
                         }
                     }
-                    1 -> {// 相机Photo capture
+                    1 -> {// [Chinese text]Photo capture
                         PermissionTool.requestCamera(this) {
                             val fileName = "Item${System.currentTimeMillis()}.png"
                             val file = FileConfig.getDetectImageDir(this, fileName)
                             lightPhotoResult.launch(file)
                         }
                     }
-                    2 -> {// 红外线Photo capture
+                    2 -> {// [Chinese text]linePhoto capture
                         if ((isTC007 && !WebSocketProxy.getInstance().isTC007Connect()) || (!isTC007 && !DeviceTools.isConnect())) {
                             TToast.shortToast(this@ReportAddActivity, LibR.string.device_disconnect)
                         } else {
@@ -210,7 +210,7 @@ class ReportAddActivity : BaseActivity(), View.OnClickListener {
             }.show(v, true)
         }
         viewHouseDetect.onTextInputListener = {
-            // 项目文字输入
+            // [Chinese text]text[Chinese text]
             editLayoutIndex = it.first
             editItemDetect = it.second
             val intent = Intent(this, TextInputActivity::class.java)
@@ -220,11 +220,11 @@ class ReportAddActivity : BaseActivity(), View.OnClickListener {
         }
 
         viewHouseDetect.onDirChangeListener = {
-            // 目录数据变更（3种状态数量）
+            // [Chinese text](3[Chinese text])
             viewModel.updateDir(it)
         }
         viewHouseDetect.onDirExpandListener = {
-            // 一个目录展开收起状态变化
+            // [Chinese text]
             if (it) {
                 if (!isAllExpand) {
                     val detect: HouseDetect? = viewModel.detectLD.value
@@ -244,7 +244,7 @@ class ReportAddActivity : BaseActivity(), View.OnClickListener {
             ivExpand.isSelected = isAllExpand
         }
         viewHouseDetect.onItemChangeListener = {
-            // 项目数据变更（3种状态、图片删除）
+            // [Chinese text](3[Chinese text], [Chinese text])
             viewModel.updateItem(it)
         }
     }
@@ -256,13 +256,13 @@ class ReportAddActivity : BaseActivity(), View.OnClickListener {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onReportCreate(event: DetectDirListEvent) {
-        // 目录列表编辑成功，刷新数据
+        // [Chinese text], [Chinese text]
         viewModel.queryById(intent.getLongExtra(ExtraKeyConfig.DETECT_ID, 0))
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onReportCreate(event: DetectItemListEvent) {
-        // 项目列表编辑成功，刷新数据
+        // [Chinese text], [Chinese text]
         viewModel.queryById(intent.getLongExtra(ExtraKeyConfig.DETECT_ID, 0))
     }
 
@@ -277,7 +277,7 @@ class ReportAddActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 从系统相册拾取图片结果
+     * [Chinese text]
      */
     private val galleryPickResult = registerForActivityResult(ActivityResultContracts.GetContent()) {
         val srcFile: File? = UriUtils.uri2File(it)
@@ -291,7 +291,7 @@ class ReportAddActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 从系统相机Photo capture结果
+     * [Chinese text]Photo capture[Chinese text]
      */
     private val lightPhotoResult = registerForActivityResult(TakePhotoResult()) {
         if (it != null) {
@@ -302,12 +302,12 @@ class ReportAddActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 项目输入文字结果
+     * [Chinese text]text[Chinese text]
      */
     private val textInputResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode == RESULT_OK) {
             val inputText: String = it.data?.getStringExtra(ExtraKeyConfig.RESULT_INPUT_TEXT) ?: ""
-            if (editItemDetect.inputText != inputText) {// 有变化，刷新
+            if (editItemDetect.inputText != inputText) {// [Chinese text], [Chinese text]
                 editItemDetect.inputText = inputText
                 viewModel.updateItem(editItemDetect)
                 viewHouseDetect.notifyItemChange(editLayoutIndex)

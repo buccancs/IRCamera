@@ -16,7 +16,7 @@ import com.topdon.lib.core.tools.GlideLoader
 import com.topdon.lib.core.tools.TimeTool
 
 /**
- * 检测 及 报告 列表所用 Adapter.
+ * [Chinese text] [Chinese text] [Chinese text] [Chinese text]used by Adapter.
  *
  * Created by LCG on 2024/8/28.
  */
@@ -25,7 +25,7 @@ internal class HouseAdapter(val context: Context, val isDetect: Boolean) : Recyc
     var dataList: ArrayList<HouseBase> = ArrayList()
 
     /**
-     * 当前是否处于编辑模式.
+     * [Chinese text]mode.
      */
     var isEditMode: Boolean = false
         set(value) {
@@ -35,29 +35,29 @@ internal class HouseAdapter(val context: Context, val isDetect: Boolean) : Recyc
             notifyItemRangeChanged(0, itemCount)
         }
     /**
-     * 仅当处于编辑模式时，当前选中的 item index 列表.
+     * only[Chinese text]mode[Chinese text], [Chinese text]in progress[Chinese text] item index [Chinese text].
      */
     var selectIndexList: ArrayList<Int> = ArrayList()
 
     /**
-     * 更多被点击事件监听.
+     * more[Chinese text]point[Chinese text]eventlistener.
      */
     var onMoreClickListener: ((position: Int, v: View) -> Unit)? = null
     /**
-     * 仅报告列表时，分享被点击事件监听.
+     * only[Chinese text], [Chinese text]point[Chinese text]eventlistener.
      */
     var onShareClickListener: ((position: Int) -> Unit)? = null
     /**
-     * item 点击事件监听.
+     * item point[Chinese text]eventlistener.
      */
     var onItemClickListener: ((position: Int) -> Unit)? = null
     /**
-     * 一个 item 选中或取消选中事件监听.
+     * [Chinese text] item [Chinese text]in progress[Chinese text]in progresseventlistener.
      */
     var onSelectChangeListener: ((selectSize: Int) -> Unit)? = null
 
     /**
-     * 使用指定的检测数据刷新整个列表.
+     * [Chinese text].
      */
     fun refresh(newList: List<HouseBase>) {
         dataList.clear()
@@ -126,10 +126,10 @@ internal class HouseAdapter(val context: Context, val isDetect: Boolean) : Recyc
                 if (isEditMode) {
                     val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
-                        if (selectIndexList.contains(position)) {// 选中->未选中
+                        if (selectIndexList.contains(position)) {// [Chinese text]in progress->[Chinese text]in progress
                             selectIndexList.remove(position)
                             ivSelect.isSelected = false
-                        } else {// 未选中->选中
+                        } else {// [Chinese text]in progress->[Chinese text]in progress
                             selectIndexList.add(position)
                             ivSelect.isSelected = true
                         }
@@ -144,7 +144,7 @@ internal class HouseAdapter(val context: Context, val isDetect: Boolean) : Recyc
             }
             if (!isDetect) {
                 tvDetectShare.setOnClickListener {
-                    if (!isEditMode) {// 编辑模式不响应分享事件
+                    if (!isEditMode) {// [Chinese text]mode[Chinese text]event
                         val position = bindingAdapterPosition
                         if (position != RecyclerView.NO_POSITION) {
                             onShareClickListener?.invoke(position)

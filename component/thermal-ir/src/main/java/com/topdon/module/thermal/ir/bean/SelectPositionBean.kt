@@ -6,12 +6,12 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 /**
- * 温度监控 第1步 第2步 之间传递的要监控的message.
- * @param type 1-点 2-线 3-面
+ * temperature[Chinese text] [Chinese text]1[Chinese text] [Chinese text]2[Chinese text] [Chinese text]message.
+ * @param type 1-point 2-line 3-[Chinese text]
  */
 @Parcelize
 data class SelectPositionBean(
-    val type: Int = 0, // 1-点 2-线 3-面
+    val type: Int = 0, // 1-point 2-line 3-[Chinese text]
     val startPosition: Point = Point(),
     val endPosition: Point = Point(),
 ) : Parcelable {

@@ -14,19 +14,19 @@ import java.util.Random;
  */
 public class MathUtils {
     /**
-     * 精确到几位小数，不进行4舍5入
+     * [Chinese text], [Chinese text]4[Chinese text]5[Chinese text]
      *
-     * @param num   数字
-     * @param scale 取几位小数
+     * @param num   [Chinese text]
+     * @param scale [Chinese text]
      */
     public static double setDoubleAccuracy(double num, int scale) {
         return ((int) (num * Math.pow(10, scale))) / Math.pow(10, scale);
     }
 
     /**
-     * 计算各值占的比例，相加为100%
+     * [Chinese text], [Chinese text]100%
      *
-     * @param scale 取几位小数。12.3%表示1位小数
+     * @param scale [Chinese text]. 12.3%[Chinese text]1[Chinese text]
      */
     public static float[] getPercents(int scale, @NonNull float... values) {
         float total = 0;
@@ -50,7 +50,7 @@ public class MathUtils {
             if (i == list.size() - 1) {
                 fs[index] = 1 - sum;
             } else {
-                // 先强转int不进行4舍5入，再转为float计算
+                // [Chinese text]int[Chinese text]4[Chinese text]5[Chinese text], [Chinese text]float[Chinese text]
                 fs[index] = (int) (values[index] / total * sc) / (float) sc;
                 sum += fs[index];
             }
@@ -59,11 +59,11 @@ public class MathUtils {
     }
 
     /**
-     * 将整数转字节数组
+     * [Chinese text]
      *
-     * @param bigEndian true表示高位在前，false表示低位在前
-     * @param value     整数，short、int、long
-     * @param len       结果取几个字节，如是高位在前，从数组后端向前计数；如是低位在前，从数组前端向后计数
+     * @param bigEndian true[Chinese text]high[Chinese text], false[Chinese text]low[Chinese text]
+     * @param value     [Chinese text], short, int, long
+     * @param len       [Chinese text], [Chinese text]high[Chinese text], [Chinese text]; [Chinese text]low[Chinese text], [Chinese text]
      */
     @NonNull
     public static byte[] numberToBytes(boolean bigEndian, long value, int len) {
@@ -80,11 +80,11 @@ public class MathUtils {
     }
 
     /**
-     * 将字节数组转数值
+     * [Chinese text]
      *
-     * @param bigEndian true表示高位在前，false表示低位在前
-     * @param cls       返回的数据类型
-     * @param src       待转字节数组
+     * @param bigEndian true[Chinese text]high[Chinese text], false[Chinese text]low[Chinese text]
+     * @param cls       [Chinese text]
+     * @param src       [Chinese text]
      */
     @SuppressWarnings("unchecked")
     public static <T> T bytesToNumber(boolean bigEndian, Class<T> cls, @NonNull byte... src) {
@@ -92,7 +92,7 @@ public class MathUtils {
         byte[] bs = new byte[8];
         System.arraycopy(src, 0, bs, bigEndian ? 8 - len : 0, len);
         long value = 0;
-        // 循环读取每个字节通过移位运算完成long的8个字节拼装
+        // [Chinese text]long[Chinese text]8[Chinese text]
         for (int i = 0; i < 8; i++) {
             int shift = (bigEndian ? 7 - i : i) << 3;
             value = value | ((long) 0xff << shift & ((long) bs[i] << shift));
@@ -115,16 +115,16 @@ public class MathUtils {
     }
 
     /**
-     * 翻转整个数组，每个bit。如10000110 00110001转换成10001100 01100001
+     * [Chinese text], [Chinese text]bit. [Chinese text]10000110 00110001[Chinese text]10001100 01100001
      */
     public static byte[] reverseBitAndByte(byte[] src) {
         if (src == null || src.length == 0) {
             return null;
         }
         byte[] target = new byte[src.length];
-        // 翻转byte同时翻转bit
+        // [Chinese text]byte[Chinese text]bit
         for (int i = 0; i < src.length; i++) {
-            // 翻转bit
+            // [Chinese text]bit
             int value = 0;
             int tmp = src[src.length - 1 - i];
             for (int j = 7; j >= 0; j--) {
@@ -137,11 +137,11 @@ public class MathUtils {
     }
 
     /**
-     * 分包
+     * [Chinese text]
      *
-     * @param src  源
-     * @param size 包大小，字节
-     * @return 分好的包的集合
+     * @param src  [Chinese text]
+     * @param size [Chinese text], [Chinese text]
+     * @return [Chinese text]
      */
     @NonNull
     public static List<byte[]> splitPackage(@NonNull byte[] src, int size) {
@@ -156,10 +156,10 @@ public class MathUtils {
     }
 
     /**
-     * 组包
+     * [Chinese text]
      *
-     * @param src 源
-     * @return 组好的字节数组
+     * @param src [Chinese text]
+     * @return [Chinese text]
      */
     @NonNull
     public static byte[] joinPackage(@NonNull byte[]... src) {
@@ -200,7 +200,7 @@ public static int calcCrc8(byte[] bytes) {
     }
 
     /**
-     * CRC16校验，Modbus
+     * CRC16[Chinese text], Modbus
      */
     /**
  * Calccrc16 Modbus operation.
@@ -208,7 +208,7 @@ public static int calcCrc8(byte[] bytes) {
  * @return the result
  */
 public static int calcCRC16_Modbus(byte[] data) {
-        int crc = 0xffff;// 16位
+        int crc = 0xffff;// 16[Chinese text]
         for (byte b : data) {
             if (b < 0) {
                 crc ^= (int) b + 256; // XOR byte into least sig. byte of
@@ -228,7 +228,7 @@ public static int calcCRC16_Modbus(byte[] data) {
     }
 
     /**
-     * CRC校验，CRC-CCITT (XModem)
+     * CRC[Chinese text], CRC-CCITT (XModem)
      */
     /**
  * Calccrc Ccitt Xmodem operation.
@@ -250,7 +250,7 @@ public static int calcCRC_CCITT_XModem(byte[] bytes) {
     }
 
     /**
-     * CRC校验，CRC-CCITT (XModem)
+     * CRC[Chinese text], CRC-CCITT (XModem)
      */
     /**
  * Calccrc Ccitt Xmodem operation.
@@ -275,7 +275,7 @@ public static int calcCRC_CCITT_XModem(byte[] bytes, int offset, int len) {
     }
 
     /**
-     * CRC校验，CRC-CCITT (0xFFFF)
+     * CRC[Chinese text], CRC-CCITT (0xFFFF)
      */
     /**
  * Calccrc Ccitt 0Xffff operation.
@@ -297,7 +297,7 @@ public static int calcCRC_CCITT_0xFFFF(byte[] bytes) {
     }
 
     /**
-     * CRC校验，CRC-CCITT (0xFFFF)
+     * CRC[Chinese text], CRC-CCITT (0xFFFF)
      */
     /**
  * Calccrc Ccitt 0Xffff operation.

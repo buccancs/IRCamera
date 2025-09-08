@@ -9,57 +9,57 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
 /**
- * RecyclerView 所用，控制间距.
+ * RecyclerView used by, [Chinese text].
  *
  * Created by LCG on 2023/9/20.
  */
 class MyItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
     /**
-     * 整个 RecyclerView 左侧间距，单位 dp.
-     * 该值仅对最左侧 item 有效，且与 [itemLeft] 不叠加（优先使用当前值）.
+     * [Chinese text] RecyclerView left side[Chinese text], [Chinese text] dp.
+     * [Chinese text]only[Chinese text]left side item [Chinese text], [Chinese text] [itemLeft] [Chinese text]([Chinese text]).
      */
     var wholeLeft: Float? = null
 
     /**
-     * 整个 RecyclerView 右侧间距，单位 dp.
-     * 该值仅对最右侧 item 有效，且与 [itemRight] 不叠加（优先使用当前值）.
+     * [Chinese text] RecyclerView right side[Chinese text], [Chinese text] dp.
+     * [Chinese text]only[Chinese text]right side item [Chinese text], [Chinese text] [itemRight] [Chinese text]([Chinese text]).
      */
     var wholeRight: Float? = null
 
     /**
-     * 整个 RecyclerView 顶部间距，单位 dp.
-     * 该值仅对最顶部 item 有效，且与 [itemTop] 不叠加（优先使用当前值）.
+     * [Chinese text] RecyclerView [Chinese text], [Chinese text] dp.
+     * [Chinese text]only[Chinese text] item [Chinese text], [Chinese text] [itemTop] [Chinese text]([Chinese text]).
      */
     var wholeTop: Float? = null
 
     /**
-     * 整个 RecyclerView 底部间距，单位 dp.
-     * 该值仅对最底部 item 有效，且与 [itemBottom] 不叠加（优先使用当前值）.
+     * [Chinese text] RecyclerView [Chinese text], [Chinese text] dp.
+     * [Chinese text]only[Chinese text] item [Chinese text], [Chinese text] [itemBottom] [Chinese text]([Chinese text]).
      */
     var wholeBottom: Float? = null
 
     /**
-     * 每个 item 左侧间距，单位 dp.
+     * [Chinese text] item left side[Chinese text], [Chinese text] dp.
      */
     var itemLeft: Float? = null
 
     /**
-     * 每个 item 右侧间距，单位 dp.
+     * [Chinese text] item right side[Chinese text], [Chinese text] dp.
      */
     var itemRight: Float? = null
 
     /**
-     * 每个 item 顶部间距，单位 dp.
+     * [Chinese text] item [Chinese text], [Chinese text] dp.
      */
     var itemTop: Float? = null
 
     /**
-     * 每个 item 底部间距，单位 dp.
+     * [Chinese text] item [Chinese text], [Chinese text] dp.
      */
     var itemBottom: Float? = null
 
     /**
-     * 屏幕缩放倍率，用于 dp 与 px
+     * [Chinese text], for dp [Chinese text] px
      */
     private val density: Float = context.resources.displayMetrics.density
 
@@ -103,8 +103,8 @@ class MyItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
     }
 
     /**
-     * 当 RecyclerView 为纵向且只有 1 列时，Settings间距.
-     * @param itemCount 数据总条数
+     * [Chinese text] RecyclerView [Chinese text] 1 [Chinese text], Settings[Chinese text].
+     * @param itemCount [Chinese text]
      */
     private fun setVerticalOne(
         outRect: Rect,
@@ -119,8 +119,8 @@ class MyItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
     }
 
     /**
-     * 当 RecyclerView 为横向且只有 1 行时，Settings间距.
-     * @param itemCount 数据总条数
+     * [Chinese text] RecyclerView [Chinese text] 1 [Chinese text], Settings[Chinese text].
+     * @param itemCount [Chinese text]
      */
     private fun setHorizontalOne(
         outRect: Rect,
@@ -135,9 +135,9 @@ class MyItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
     }
 
     /**
-     * 当 RecyclerView 为纵向且有多列时，Settings间距.
-     * @param itemCount 数据总条数
-     * @param spanCount 总列数(共有多少列)
+     * [Chinese text] RecyclerView [Chinese text], Settings[Chinese text].
+     * @param itemCount [Chinese text]
+     * @param spanCount [Chinese text]([Chinese text])
      */
     private fun setVerticalMulti(
         outRect: Rect,
@@ -145,9 +145,9 @@ class MyItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
         itemCount: Int,
         spanCount: Int,
     ) {
-        val totalRow = itemCount / spanCount + if (itemCount % spanCount == 0) 0 else 1 // 总行数
-        val rowPosition = position / spanCount // 当前 position 在第几行[0, totalRow)
-        val columnPosition = position % spanCount // 当前 position 在第几列[0, spanCount)
+        val totalRow = itemCount / spanCount + if (itemCount % spanCount == 0) 0 else 1 // [Chinese text]
+        val rowPosition = position / spanCount // [Chinese text] position [Chinese text][0, totalRow)
+        val columnPosition = position % spanCount // [Chinese text] position [Chinese text][0, spanCount)
 
         val left: Int = dp2px(if (columnPosition == 0) wholeLeft ?: ((itemLeft ?: 0f) * 2) else (itemLeft ?: 0f))
         val right: Int = dp2px(if (columnPosition == spanCount - 1) wholeRight ?: ((itemRight ?: 0f) * 2) else (itemRight ?: 0f))
@@ -157,10 +157,10 @@ class MyItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
     }
 
     /**
-     * 当 RecyclerView 为纵向且为瀑布流布局时，Settings间距.
-     * @param itemCount 数据总条数
-     * @param spanCount 总列数(共有多少列)
-     * @param spanIndex 当前数据在列数中的index[0, spanCount)，即第几列
+     * [Chinese text] RecyclerView [Chinese text], Settings[Chinese text].
+     * @param itemCount [Chinese text]
+     * @param spanCount [Chinese text]([Chinese text])
+     * @param spanIndex [Chinese text]in progress[Chinese text]index[0, spanCount), [Chinese text]
      */
     private fun setVerticalMultiStaggered(
         outRect: Rect,
@@ -169,8 +169,8 @@ class MyItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
         spanCount: Int,
         spanIndex: Int,
     ) {
-        val totalRow = itemCount / spanCount + if (itemCount % spanCount == 0) 0 else 1 // 总行数
-        val rowPosition = position / spanCount // 当前position在第几行[0, totalRow)
+        val totalRow = itemCount / spanCount + if (itemCount % spanCount == 0) 0 else 1 // [Chinese text]
+        val rowPosition = position / spanCount // [Chinese text]position[Chinese text][0, totalRow)
 
         val left: Int = dp2px(if (spanIndex == 0) wholeLeft ?: ((itemLeft ?: 0f) * 2) else (itemLeft ?: 0f))
         val right: Int = dp2px(if (spanIndex == spanCount - 1) wholeRight ?: ((itemRight ?: 0f) * 2) else (itemRight ?: 0f))
@@ -180,9 +180,9 @@ class MyItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
     }
 
     /**
-     * 当 RecyclerView 为横向且有多行时，Settings间距.
-     * @param itemCount 数据总条数
-     * @param spanCount 总行数(共有多少行)
+     * [Chinese text] RecyclerView [Chinese text], Settings[Chinese text].
+     * @param itemCount [Chinese text]
+     * @param spanCount [Chinese text]([Chinese text])
      */
     private fun setHorizontalMulti(
         outRect: Rect,
@@ -190,7 +190,7 @@ class MyItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
         itemCount: Int,
         spanCount: Int,
     ) {
-        // TODO: 有这样的需求了再来写吧
+        // TODO: [Chinese text]
     }
 
     private fun dp2px(dpValue: Float): Int = (dpValue * density + 0.5f).toInt()

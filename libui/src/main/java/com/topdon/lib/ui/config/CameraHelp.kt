@@ -1,66 +1,66 @@
 package com.topdon.lib.ui.config
 
 /**
- * 管理摄像头的属性值
+ * [Chinese text]
  * @author: CaiSongL
  * @date: 2023/4/4 9:57
  */
 object CameraHelp {
     /**
-     * Pseudo color条
+     * Pseudo color[Chinese text]
      */
     val TYPE_SET_PSEUDOCOLOR = 4
 
     /**
-     * 对比度
+     * [Chinese text]
      */
     val TYPE_SET_ParamLevelContrast = 3
 
     /**
-     * 锐度（细节）
+     * [Chinese text]([Chinese text])
      */
     val TYPE_SET_ParamLevelDde = 2
 
     /**
-     * 警示
+     * [Chinese text]
      */
-    val TYPE_SET_ALARM = 12 // 预警
+    val TYPE_SET_ALARM = 12 // [Chinese text]
 
     /**
-     * 旋转
+     * [Chinese text]
      */
     val TYPE_SET_ROTATE = 1
 
     /**
-     * 字体
+     * [Chinese text]
      */
-    val TYPE_SET_COLOR = 13 // 颜色值
+    val TYPE_SET_COLOR = 13 // [Chinese text]
 
     /**
-     * 镜像
+     * [Chinese text]
      */
-    val TYPE_SET_MIRROR = 14 // 镜像
+    val TYPE_SET_MIRROR = 14 // [Chinese text]
 
     /**
-     * 仅 2D 编辑：水印
+     * only 2D [Chinese text]: [Chinese text]
      */
-    val TYPE_SET_WATERMARK = 15 // 水印
+    val TYPE_SET_WATERMARK = 15 // [Chinese text]
 
     /**
-     * 仅 TS001-观测：指南针
+     * only TS001-[Chinese text]: [Chinese text]
      */
-    val TYPE_SET_COMPASS = 23 // 指南针
+    val TYPE_SET_COMPASS = 23 // [Chinese text]
 
-    // TS001 -- 标定模式
-    val TYPE_SET_HIGHTEMP = 20 // 最高温
-    val TYPE_SET_LOWTEMP = 21 // 最低温
-    val TYPE_SET_DETELE = 22 // 删除
+    // TS001 -- [Chinese text]mode
+    val TYPE_SET_HIGHTEMP = 20 // [Chinese text]high[Chinese text]
+    val TYPE_SET_LOWTEMP = 21 // [Chinese text]low[Chinese text]
+    val TYPE_SET_DETELE = 22 // [Chinese text]
 
-    // TS001 -- Target菜单
+    // TS001 -- Targetmenu
     val TYPE_SET_TARGET_MODE = 30 // Target
-    val TYPE_SET_TARGET_ZOOM = 31 // 缩放
-    val TYPE_SET_MEASURE_MODE = 32 // 测量模式
-    val TYPE_SET_TARGET_COLOR = 33 // Target颜色
-    val TYPE_SET_TARGET_DELETE = 34 // 删除
-    val TYPE_SET_TARGET_HELP = 35 // 帮助
+    val TYPE_SET_TARGET_ZOOM = 31 // [Chinese text]
+    val TYPE_SET_MEASURE_MODE = 32 // measurementmode
+    val TYPE_SET_TARGET_COLOR = 33 // Target[Chinese text]
+    val TYPE_SET_TARGET_DELETE = 34 // [Chinese text]
+    val TYPE_SET_TARGET_HELP = 35 // [Chinese text]
 }

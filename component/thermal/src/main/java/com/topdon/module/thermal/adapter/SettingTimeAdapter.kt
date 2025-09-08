@@ -10,11 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.topdon.module.thermal.R
 
 /**
- * Settings时间
+ * Settings[Chinese text]
  */
 class SettingTimeAdapter(val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var datas = arrayOf("秒", "分", "时", "天")
+    private var datas = arrayOf("[Chinese text]", "[Chinese text]", "[Chinese text]", "[Chinese text]")
     private var dataTimes = arrayOf(1, 2, 3, 4)
 
     var listener: OnItemClickListener? = null

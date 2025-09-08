@@ -46,10 +46,10 @@ import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 
 /**
- * 插件式 或 TC007 首页.
+ * [Chinese text] [Chinese text] TC007 [Chinese text].
  *
- * 需要传递参数：
- * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
+ * [Chinese text]: 
+ * - [ExtraKeyConfig.IS_TC007] - [Chinese text] TC007
  *
  * Created by LCG on 2024/4/18.
  */
@@ -57,8 +57,8 @@ import org.greenrobot.eventbus.EventBus
 class IRMainActivity : BaseActivity(), View.OnClickListener {
 
     /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
+     * [Chinese text], [Chinese text] TC007 [Chinese text].
+     * true-TC007 false-[Chinese text]
      */
     private var isTC007 = false
 
@@ -179,16 +179,16 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            clIconMonitor -> {// 监控
+            clIconMonitor -> {// [Chinese text]
                 viewPage.setCurrentItem(0, false)
             }
-            clIconGallery -> {// 图库
+            clIconGallery -> {// gallery
                 checkStoragePermission()
             }
-            // view_main_thermal -> {// 首页 - Commented out as not in view declarations
+            // view_main_thermal -> {// [Chinese text] - Commented out as not in view declarations
             //     viewPage.setCurrentItem(2, false)  
             // }
-            clIconReport -> {// 报告
+            clIconReport -> {// [Chinese text]
                 if (LMS.getInstance().isLogin) {
                     viewPage.setCurrentItem(3, false)
                 } else {
@@ -200,15 +200,15 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
                     }
                 }
             }
-            clIconMine -> {// 我的
+            clIconMine -> {// [Chinese text]
                 viewPage.setCurrentItem(4, false)
             }
         }
     }
 
     /**
-     * 刷新 5 个 tab 的选中状态
-     * @param index 当前选中哪个 tab，`[0, 4]`
+     * [Chinese text] 5 [Chinese text] tab [Chinese text]in progress[Chinese text]
+     * @param index [Chinese text]in progress[Chinese text] tab, `[0, 4]`
      */
     private fun refreshTabSelect(index: Int) {
         ivIconMonitor.isSelected = false
@@ -240,10 +240,10 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 显示操作指引弹框.
+     * [Chinese text]operation[Chinese text].
      */
     private fun showGuideDialog() {
-        if (SharedManager.homeGuideStep == 0) {// 已看过或不再提示
+        if (SharedManager.homeGuideStep == 0) {// [Chinese text]
             return
         }
 
@@ -295,8 +295,8 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
             window?.decorView?.setRenderEffect(RenderEffect.createBlurEffect(20f, 20f, Shader.TileMode.MIRROR))
         } else {
             lifecycleScope.launch {
-                // 界面切换及温度监控历史列表加载均需要时间，所以需要等待1000毫秒再去刷新背景
-                // 而若等待1000毫秒太过久，界面会非模糊1000毫秒，所以先刷新一次背景占位
+                // [Chinese text]switch[Chinese text]temperature[Chinese text], [Chinese text]1000[Chinese text]
+                // [Chinese text]1000[Chinese text], [Chinese text]1000[Chinese text], [Chinese text]
                 delay(100)
                 guideDialog.blurBg(clRoot)
             }
@@ -345,7 +345,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 动态申请权限
+     * [Chinese text]
      */
     private fun initStoragePermission(permissionList: List<String>) {
         if (PermissionUtils.isVisualUser()){
@@ -363,7 +363,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
 
                 override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
                     if (doNotAskAgain) {
-                        // 拒绝授权并且不再提醒
+                        // [Chinese text]
                         TipDialog.Builder(this@IRMainActivity)
                             .setTitleMessage(getString(LibR.string.app_tip))
                             .setMessage(getString(LibR.string.app_album_content))
@@ -383,7 +383,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
         override fun getItemCount() = 5
 
         override fun createFragment(position: Int): Fragment {
-            if (position == 1) {// 图库
+            if (position == 1) {// gallery
                 return IRGalleryTabFragment().apply {
                     arguments = Bundle().also {
                         val dirType = if (isTC007) DirType.TC007.ordinal else DirType.LINE.ordinal

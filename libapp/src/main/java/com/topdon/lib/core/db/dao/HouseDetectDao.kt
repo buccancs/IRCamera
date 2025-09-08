@@ -11,14 +11,14 @@ import com.topdon.lib.core.db.entity.HouseDetect
 import com.topdon.lib.core.db.entity.ItemDetect
 
 /**
- * 房屋检测-检测 DAO。
+ * [Chinese text]-[Chinese text] DAO. 
  *
  * Created by LCG on 2024/8/19.
  */
 @Dao
 abstract class HouseDetectDao {
     /**
-     * 按指定的message新建一个检测数据，目录及项目使用默认值.
+     * [Chinese text]message[Chinese text], [Chinese text].
      */
     @Transaction
     open fun insert(houseDetect: HouseDetect): Long {
@@ -35,7 +35,7 @@ abstract class HouseDetectDao {
     }
 
     /**
-     * 为指定检测插入默认的目录列表.
+     * [Chinese text].
      */
     @Transaction
     open fun insertDefaultDirs(houseDetect: HouseDetect) {
@@ -69,7 +69,7 @@ abstract class HouseDetectDao {
     }
 
     /**
-     * 查询指定 id 的目录message，注意目录对应的检测message未加载.
+     * [Chinese text] id [Chinese text]message, [Chinese text]message[Chinese text].
      */
     open fun queryDir(dirId: Long): DirDetect? {
         val dir: DirDetect = queryDirById(dirId) ?: return null
@@ -82,14 +82,14 @@ abstract class HouseDetectDao {
     }
 
     /**
-     * 根据指定的房屋检测message，刷新对应的目录message.
+     * [Chinese text]message, [Chinese text]message.
      */
     open fun refreshDetect(houseDetect: HouseDetect) {
         val oldDirList: ArrayList<DirDetect> = ArrayList(queryDirList(houseDetect.id))
         for (i in houseDetect.dirList.indices) {
             val dir = houseDetect.dirList[i]
             dir.position = i
-            if (dir.id == 0L) { // 复制的目录
+            if (dir.id == 0L) { // [Chinese text]
                 dir.id = insertDir(dir)
                 for (item in dir.itemList) {
                     item.parentId = dir.id
@@ -107,18 +107,18 @@ abstract class HouseDetectDao {
     }
 
     /**
-     * 根据指定的目录message，更新目录及对应的项目列表.
+     * [Chinese text]message, [Chinese text].
      */
     open fun refreshDir(dirDetect: DirDetect) {
-        if (dirDetect.itemList.isEmpty()) { // 所有子项目都没了，这个目录也干掉
+        if (dirDetect.itemList.isEmpty()) { // [Chinese text], [Chinese text]
             deleteDir(dirDetect)
         } else {
-            updateDir(dirDetect) // 更新目录名称及数量
+            updateDir(dirDetect) // [Chinese text]
             val oldItemList: ArrayList<ItemDetect> = ArrayList(queryItemList(dirDetect.id))
             for (i in dirDetect.itemList.indices) {
                 val item = dirDetect.itemList[i]
                 item.position = i
-                if (item.id == 0L) { // 复制的项目
+                if (item.id == 0L) { // [Chinese text]
                     item.id = insertItem(item)
                 } else {
                     updateItem(item)
@@ -132,7 +132,7 @@ abstract class HouseDetectDao {
     }
 
     /**
-     * 复制一个检测，注意由于在列表中触发，列表不需要目录及项目，故而返回值中的目录及项目未加载
+     * [Chinese text], [Chinese text]in progress[Chinese text], [Chinese text], [Chinese text]in progress[Chinese text]
      */
     @Transaction
     open fun copyDetect(oldDetect: HouseDetect): HouseDetect {
@@ -154,26 +154,26 @@ abstract class HouseDetectDao {
     }
 
     /**
-     * 将指定 position 位置的目录复制一份
+     * [Chinese text] position [Chinese text]
      */
     @Transaction
     open fun copyDir(
         dirList: ArrayList<DirDetect>,
         position: Int,
     ): DirDetect {
-        // 复制位置后面所有目录 position 需偏移一位
+        // [Chinese text] position [Chinese text]
         for (i in position + 1 until dirList.size) {
             val dir: DirDetect = dirList[i]
             dir.position += 1
             updateDir(dir)
         }
 
-        // 添加复制的目录
+        // [Chinese text]
         val oldDir = dirList[position]
         val newDir = oldDir.copyOne()
         newDir.id = insertDir(newDir)
 
-        // 添加复制的目录下的项目列表
+        // [Chinese text]
         for (item in newDir.itemList) {
             item.parentId = newDir.id
             item.id = insertItem(item)
@@ -183,26 +183,26 @@ abstract class HouseDetectDao {
     }
 
     /**
-     * 将指定 position 位置的项目复制一份
+     * [Chinese text] position [Chinese text]
      */
     @Transaction
     open fun copyItem(
         itemList: ArrayList<ItemDetect>,
         position: Int,
     ): ItemDetect {
-        // 复制位置后面所有项目 position 需偏移一位
+        // [Chinese text] position [Chinese text]
         for (i in position + 1 until itemList.size) {
             val item: ItemDetect = itemList[i]
             item.position += 1
             updateItem(item)
         }
 
-        // 添加复制的项目
+        // [Chinese text]
         val oldItem = itemList[position]
         val newItem = oldItem.copyOne(position = oldItem.position + 1, itemName = oldItem.copyName())
         newItem.id = insertItem(newItem)
 
-        // 复制后目录里的3个数量可能需要刷新
+        // [Chinese text]3[Chinese text]
         if (newItem.state > 0) {
             val dir = newItem.dirDetect
             when (newItem.state) {
@@ -243,7 +243,7 @@ abstract class HouseDetectDao {
     abstract fun updateItem(vararg itemDetect: ItemDetect)
 
     /**
-     * 仅查询所有检测列表message，注意每个检测下的目录均未加载.
+     * only[Chinese text]message, [Chinese text].
      */
     @Query("SELECT * FROM HouseDetect ORDER BY createTime DESC")
     abstract fun queryAll(): List<HouseDetect>

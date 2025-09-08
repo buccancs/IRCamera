@@ -8,14 +8,14 @@ import java.io.ByteArrayOutputStream
 object SupRUtils {
 
     /**
-     * 是否能开启超分
+     * [Chinese text]
      */
     fun canOpenSupR() :Boolean{
         return true
     }
 
     /**
-     * 由此统一弹
+     * [Chinese text]
      */
     fun showOpenSupRTipsDialog(activity : Activity){
 

@@ -12,13 +12,13 @@ import com.topdon.lib.core.utils.ScreenUtil
 import kotlinx.android.synthetic.main.dialog_firmware_up.view.*
 
 /**
- * 固件升级有新版本提示弹框.
+ * [Chinese text].
  * Created by LCG on 2024/3/4.
  */
 class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), View.OnClickListener {
 
     /**
-     * 标题文字，如 “发现新版本 V3.50”
+     * [Chinese text]text, [Chinese text] "[Chinese text] V3.50"
      */
     var titleStr: CharSequence?
         get() = rootView.tv_title.text
@@ -27,7 +27,7 @@ class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), 
         }
 
     /**
-     * 文件大小文字，如 “大小: 239.6MB”
+     * [Chinese text]text, [Chinese text] "[Chinese text]: 239.6MB"
      */
     var sizeStr: CharSequence?
         get() = rootView.tv_size.text
@@ -36,7 +36,7 @@ class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), 
         }
 
     /**
-     * 升级内容，一般直接扔从接口拿到的东西
+     * [Chinese text], [Chinese text]
      */
     var contentStr: CharSequence?
         get() = rootView.tv_content.text
@@ -45,7 +45,7 @@ class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), 
         }
 
     /**
-     * 是否显示底部设备重启提示，目前仅固件升级需要显示，默认隐藏(Gone).
+     * [Chinese text], [Chinese text]only[Chinese text], [Chinese text](Gone).
      */
     var isShowRestartTips: Boolean
         get() = rootView.tv_restart_tips.isVisible
@@ -54,7 +54,7 @@ class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), 
         }
 
     /**
-     * 是否显示取消按钮，默认显示.
+     * [Chinese text]button, [Chinese text].
      */
     var isShowCancel: Boolean
         get() = rootView.tv_cancel.isVisible
@@ -64,11 +64,11 @@ class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), 
 
 
     /**
-     * 取消点击事件监听.
+     * [Chinese text]point[Chinese text]eventlistener.
      */
     var onCancelClickListener: (() -> Unit)? = null
     /**
-     * 更新点击事件监听.
+     * [Chinese text]point[Chinese text]eventlistener.
      */
     var onConfirmClickListener: (() -> Unit)? = null
 
@@ -94,11 +94,11 @@ class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), 
 
     override fun onClick(v: View?) {
         when (v) {
-            rootView.tv_cancel -> {//取消
+            rootView.tv_cancel -> {//[Chinese text]
                 dismiss()
                 onCancelClickListener?.invoke()
             }
-            rootView.tv_confirm -> {//确认
+            rootView.tv_confirm -> {//[Chinese text]
                 dismiss()
                 onConfirmClickListener?.invoke()
             }

@@ -15,7 +15,7 @@
 //import kotlinx.android.synthetic.main.layout_tpd.view.*
 //
 //
-////长按[温度测量]弹出
+////[Chinese text][temperaturemeasurement][Chinese text]
 //class PopuMenuTPD(context: Context?) {
 //
 //    private val popupWindow: PopupWindow
@@ -52,10 +52,10 @@
 //        popupWindow.height = ViewGroup.LayoutParams.WRAP_CONTENT
 //        popupWindow.isFocusable = true
 //        popupWindow.isOutsideTouchable = false
-//        popupWindow.setBackgroundDrawable(ColorDrawable(0x00000000)) // 解决 7.0 手机，点击外部不消失
+//        popupWindow.setBackgroundDrawable(ColorDrawable(0x00000000)) // [Chinese text] 7.0 [Chinese text], point[Chinese text]
 //        popupWindow.animationStyle = R.style.contextMenuAnim
 //        layView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
-//        //创建布局管理
+//        //[Chinese text]
 //        val layoutManager = LinearLayoutManager(context)
 //        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
 //        val adapter =

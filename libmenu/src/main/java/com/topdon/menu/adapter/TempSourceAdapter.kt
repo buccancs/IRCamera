@@ -7,22 +7,22 @@ import com.topdon.menu.R as MenuR
 import com.topdon.lib.core.R
 
 /**
- * Observation mode-菜单2-High/Low temperature source菜单 所用 Adapter，单选可全不选中.
+ * Observation mode-menu2-High/Low temperature sourcemenu used by Adapter, [Chinese text]in progress.
  *
- * 动态识别、高温源、低温源
+ * [Chinese text], high[Chinese text], low[Chinese text]
  *
  * Created by LCG on 2024/11/29.
  */
 @SuppressLint("NotifyDataSetChanged")
 internal class TempSourceAdapter : BaseMenuAdapter() {
     /**
-     * 当前选中的选项 code.
+     * [Chinese text]in progress[Chinese text] code.
      *
-     * 由于历史遗留（已保存在 SharedPreferences 中），这里 code 取值为
-     * - 什么都未选中：-1
-     * - 动态识别：0
-     * - 高温源：1
-     * - 低温源：2
+     * [Chinese text]([Chinese text] SharedPreferences in progress), [Chinese text] code [Chinese text]
+     * - [Chinese text]in progress: -1
+     * - [Chinese text]: 0
+     * - high[Chinese text]: 1
+     * - low[Chinese text]: 2
      */
     var selectCode: Int = -1
         set(value) {
@@ -33,7 +33,7 @@ internal class TempSourceAdapter : BaseMenuAdapter() {
         }
 
     /**
-     * Observation mode-菜单2-High/Low temperature source 点击事件监听，单选。
+     * Observation mode-menu2-High/Low temperature source point[Chinese text]eventlistener, [Chinese text]. 
      */
     var onTempSourceListener: ((code: Int) -> Unit)? = null
 

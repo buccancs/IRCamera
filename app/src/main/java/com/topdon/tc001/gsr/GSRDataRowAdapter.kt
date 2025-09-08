@@ -39,8 +39,8 @@ class GSRDataRowAdapter(
 
         holder.rowNumber.text = dataRow.rowNumber.toString()
         holder.timestamp.text = dataRow.timestamp
-        holder.gsrValue.text = "%.3f μS".format(dataRow.gsrValue)
-        holder.resistance.text = "%.1f kΩ".format(dataRow.resistance / 1000)
+        holder.gsrValue.text = "%.3f microS".format(dataRow.gsrValue)
+        holder.resistance.text = "%.1f kOhm".format(dataRow.resistance / 1000)
         holder.conductance.text = "%.6f S".format(dataRow.conductance)
     }
 

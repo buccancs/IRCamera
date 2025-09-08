@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 import com.blankj.utilcode.util.TimeUtils
 
 /**
- * 房屋检测 - 检测与报告都有的栏位.
+ * [Chinese text] - [Chinese text].
  *
  * Created by LCG on 2024/1/15.
  */
@@ -16,73 +16,73 @@ open class HouseBase {
     var id: Long = 0
 
     /**
-     * 报告名称
+     * [Chinese text]
      */
     @ColumnInfo
     var name: String = ""
 
     /**
-     * 检测师姓名
+     * [Chinese text]
      */
     @ColumnInfo
     var inspectorName: String = ""
 
     /**
-     * 房屋详细地址
+     * [Chinese text]
      */
     @ColumnInfo
     var address: String = ""
 
     /**
-     * 房屋图片在本地绝对路径
+     * [Chinese text]
      */
     @ColumnInfo
     var imagePath: String = ""
 
     /**
-     * 建筑年份
+     * [Chinese text]
      */
     @ColumnInfo
     var year: Int? = null
 
     /**
-     * 建筑面积.
+     * [Chinese text].
      */
     @ColumnInfo
     var houseSpace: String = ""
 
     /**
-     * 建筑面积单位 0-英亩 1-平方米 2-公顷
+     * [Chinese text] 0-[Chinese text] 1-[Chinese text] 2-[Chinese text]
      */
     @ColumnInfo
     var houseSpaceUnit: Int = 0
 
     /**
-     * 检测费用
+     * [Chinese text]
      */
     @ColumnInfo
     var cost: String = ""
 
     /**
-     * 检测费用单位，0-美元USD 1-欧元EUR 2-英镑GBP 3-澳元AUD 4-日元JPY 5-加元CAD 6-新西兰NZD 7-人民币RMB 8-港币HKD
+     * [Chinese text], 0-[Chinese text]USD 1-[Chinese text]EUR 2-[Chinese text]GBP 3-[Chinese text]AUD 4-[Chinese text]JPY 5-[Chinese text]CAD 6-[Chinese text]NZD 7-[Chinese text]RMB 8-[Chinese text]HKD
      */
     @ColumnInfo
     var costUnit: Int = 0
 
     /**
-     * 该检测或报告由用户选择的“检测时间”时间戳，单位毫秒
+     * [Chinese text]"[Chinese text]"[Chinese text], [Chinese text]
      */
     @ColumnInfo
     var detectTime: Long = 0
 
     /**
-     * 该检测或报告创建时间戳，单位毫秒
+     * [Chinese text], [Chinese text]
      */
     @ColumnInfo
     var createTime: Long = 0
 
     /**
-     * 该检测或报告更新时间戳，单位毫秒
+     * [Chinese text], [Chinese text]
      */
     @ColumnInfo
     var updateTime: Long = 0
@@ -92,50 +92,50 @@ open class HouseBase {
     override fun hashCode(): Int = id.toInt()
 
     /**
-     * 获取房屋面积单位.
+     * [Chinese text].
      */
     fun getSpaceUnitStr(): String =
         when (houseSpaceUnit) {
             0 -> "ac"
-            1 -> "m²"
+            1 -> "m^2"
             else -> "ha"
         }
 
     /**
-     * 获取检测费用货币单位.
+     * [Chinese text].
      */
     fun getCostUnitStr(): String =
         when (costUnit) {
-            1 -> "EUR" // 欧元EUR
-            2 -> "GBP" // 英镑GBP
-            3 -> "AUD" // 澳元AUD
-            4 -> "JPY" // 日元JPY
-            5 -> "CAD" // 加元CAD
-            6 -> "NZD" // 新西兰NZD
-            7 -> "RMB" // 人民币RMB
-            8 -> "HKD" // 港币HKD
-            else -> "USD" // 美元USD
+            1 -> "EUR" // [Chinese text]EUR
+            2 -> "GBP" // [Chinese text]GBP
+            3 -> "AUD" // [Chinese text]AUD
+            4 -> "JPY" // [Chinese text]JPY
+            5 -> "CAD" // [Chinese text]CAD
+            6 -> "NZD" // [Chinese text]NZD
+            7 -> "RMB" // [Chinese text]RMB
+            8 -> "HKD" // [Chinese text]HKD
+            else -> "USD" // [Chinese text]USD
         }
 
     /**
-     * 获取该报告对应的 PDF 文件名称
+     * [Chinese text] PDF [Chinese text]
      */
     fun getPdfFileName(): String = "TC_${TimeUtils.millis2String(createTime, "yyyyMMdd_HHmmss")}.pdf"
 }
 
 /**
- * 房屋检测 - 一项检测.
+ * [Chinese text] - [Chinese text].
  */
 @Entity
 class HouseDetect : HouseBase() {
     /**
-     * 该检测或下的目录列表
+     * [Chinese text]
      */
     @Ignore
     var dirList: ArrayList<DirDetect> = ArrayList()
 
     /**
-     * 返回一个 id 为 0，名称添加 (1)，其余属性完全一致的新对象.
+     * [Chinese text] id [Chinese text] 0, [Chinese text] (1), [Chinese text].
      */
     fun copyOne(): HouseDetect {
         val newDetect = HouseDetect()
@@ -186,36 +186,36 @@ class HouseDetect : HouseBase() {
 }
 
 /**
- * 房屋检测 - 一项报告.
+ * [Chinese text] - [Chinese text].
  */
 @Entity
 class HouseReport : HouseBase() {
     /**
-     * 检测师签名图片（白色笔刷版）在本地绝对路径
+     * [Chinese text]([Chinese text])[Chinese text]
      */
     @ColumnInfo
     var inspectorWhitePath: String = ""
 
     /**
-     * 检测师签名图片（黑色笔刷版）在本地绝对路径
+     * [Chinese text]([Chinese text])[Chinese text]
      */
     @ColumnInfo
     var inspectorBlackPath: String = ""
 
     /**
-     * 房主签名图片（白色笔刷版）在本地绝对路径
+     * [Chinese text]([Chinese text])[Chinese text]
      */
     @ColumnInfo
     var houseOwnerWhitePath: String = ""
 
     /**
-     * 房主签名图片（黑色笔刷版）在本地绝对路径
+     * [Chinese text]([Chinese text])[Chinese text]
      */
     @ColumnInfo
     var houseOwnerBlackPath: String = ""
 
     /**
-     * 该报告下的目录列表
+     * [Chinese text]
      */
     @Ignore
     var dirList: ArrayList<DirReport> = ArrayList()

@@ -7,7 +7,7 @@ import com.topdon.libcom.util.SingletonHolder
 import com.topdon.libcom.view.TempLayout
 
 /**
- * 预警逻辑统一处理
+ * [Chinese text]
  * @author: CaiSongL
  * @date: 2023/5/5 15:13
  */
@@ -93,7 +93,7 @@ class AlarmHelp private constructor(val context: Context) {
      */
     fun alarmData(realMax: Float, realMin: Float, tempLayout: TempLayout?) {
         if (isOpenHighTemp && isOpenLowTemp) {
-            // 高低温预警
+            // highlow[Chinese text]
             if (realMax > maxTemp && realMin < minTemp) {
                 tempLayout?.startAnimation(TempLayout.TYPE_A)
                 startMediaPlayer()
@@ -108,7 +108,7 @@ class AlarmHelp private constructor(val context: Context) {
                 stopPlayer()
             }
         } else if (isOpenHighTemp) {
-            // 高温预警
+            // high[Chinese text]
             if (realMax > maxTemp) {
                 tempLayout?.startAnimation(TempLayout.TYPE_HOT)
                 startMediaPlayer()
@@ -117,7 +117,7 @@ class AlarmHelp private constructor(val context: Context) {
                 stopPlayer()
             }
         } else if (isOpenLowTemp) {
-            // 低温预警
+            // low[Chinese text]
             if (realMin < minTemp) {
                 tempLayout?.startAnimation(TempLayout.TYPE_LT)
                 startMediaPlayer()

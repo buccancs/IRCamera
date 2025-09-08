@@ -111,14 +111,14 @@ class GSRSettingsActivity : AppCompatActivity() {
             }
 
         // GSR Range options
-        val gsrRanges = arrayOf("Auto Range", "40 kΩ - 4 MΩ", "10 kΩ - 1 MΩ", "4 kΩ - 400 kΩ")
+        val gsrRanges = arrayOf("Auto Range", "40 kOhm - 4 MOhm", "10 kOhm - 1 MOhm", "4 kOhm - 400 kOhm")
         gsrRangeSpinner.adapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_item, gsrRanges).apply {
                 setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             }
 
         // Video Resolution options
-        val videoResolutions = arrayOf("4K UHD (3840×2160)", "Full HD (1920×1080)", "HD (1280×720)", "SD (720×480)")
+        val videoResolutions = arrayOf("4K UHD (3840x2160)", "Full HD (1920x1080)", "HD (1280x720)", "SD (720x480)")
         videoResolutionSpinner.adapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_item, videoResolutions).apply {
                 setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
