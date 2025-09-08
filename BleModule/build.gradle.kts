@@ -11,7 +11,7 @@ android {
     }
 
     buildTypes {
-        
+        // Only release build type - no debug variants (aligned with libapp)
         release {
             isMinifyEnabled = false
             buildConfigField("boolean", "DEBUG", "false")
@@ -19,6 +19,13 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+    }
+    
+    // Disable all debug variants completely - release-only configuration (aligned with libapp)
+    variantFilter {
+        if (buildType.name == "debug") {
+            ignore = true
         }
     }
     
