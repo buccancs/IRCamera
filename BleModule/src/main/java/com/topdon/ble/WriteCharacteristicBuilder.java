@@ -11,23 +11,35 @@ public final class WriteCharacteristicBuilder extends RequestBuilder<WriteCharac
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public WriteCharacteristicBuilder setTag(String tag) {
         super.setTag(tag);
         return this;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public WriteCharacteristicBuilder setPriority(int priority) {
         super.setPriority(priority);
         return this;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public WriteCharacteristicBuilder setCallback(WriteCharacteristicCallback callback) {
         super.setCallback(callback);
         return this;
     }
 
+    /**
+     * Method description.
+     */
     public WriteCharacteristicBuilder setWriteOptions(WriteOptions writeOptions) {
         this.writeOptions = writeOptions;
         return this;

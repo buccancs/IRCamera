@@ -31,6 +31,9 @@ class BlankDevActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun isActivityExists(context: Context, activityClassName: String): Boolean {
         val activityManager = context.getSystemService(ACTIVITY_SERVICE) as ActivityManager
             ?: return false

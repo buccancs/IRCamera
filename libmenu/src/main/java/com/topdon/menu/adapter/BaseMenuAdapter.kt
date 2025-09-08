@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.topdon.menu.databinding.ItemMenuBinding
 
  * ， Adapter .
- * Created by LCG on 2024/11/29.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 internal abstract class BaseMenuAdapter : RecyclerView.Adapter<BaseMenuAdapter.ViewHolder>() {
     companion object {
         private const val VIEW_TYPE_DEFAULT = 0

@@ -19,10 +19,16 @@ import java.util.Calendar;
  * @since 2019/6/17 15:29
 @SuppressWarnings({"unused"})
 public class TimeEntity implements Serializable {
+    /**
+     * Private method description.
+     */
     private int hour;
     private int minute;
     private int second;
 
+    /**
+     * Method description.
+     */
     public static TimeEntity target(int hour, int minute, int second) {
         TimeEntity entity = new TimeEntity();
         entity.setHour(hour);
@@ -31,6 +37,9 @@ public class TimeEntity implements Serializable {
         return entity;
     }
 
+    /**
+     * Method description.
+     */
     public static TimeEntity now() {
         Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
@@ -39,42 +48,69 @@ public class TimeEntity implements Serializable {
         return target(hour, minute, second);
     }
 
+    /**
+     * Method description.
+     */
     public static TimeEntity minuteOnFuture(int minute) {
         TimeEntity entity = now();
         entity.setMinute(entity.getMinute() + minute);
         return entity;
     }
 
+    /**
+     * Method description.
+     */
     public static TimeEntity hourOnFuture(int hour) {
         TimeEntity entity = now();
         entity.setHour(entity.getHour() + hour);
         return entity;
     }
 
+    /**
+     * Method description.
+     */
     public int getHour() {
         return hour;
     }
 
+    /**
+     * Method description.
+     */
     public void setHour(int hour) {
         this.hour = hour;
     }
 
+    /**
+     * Method description.
+     */
     public int getMinute() {
         return minute;
     }
 
+    /**
+     * Method description.
+     */
     public void setMinute(int minute) {
         this.minute = minute;
     }
 
+    /**
+     * Method description.
+     */
     public int getSecond() {
         return second;
     }
 
+    /**
+     * Method description.
+     */
     public void setSecond(int second) {
         this.second = second;
     }
 
+    /**
+     * Method description.
+     */
     public long toTimeInMillis() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hour);
@@ -86,6 +122,9 @@ public class TimeEntity implements Serializable {
 
     @NonNull
     @Override
+    /**
+     * Method description.
+     */
     public String toString() {
         return hour + ":" + minute + ":" + second;
     }

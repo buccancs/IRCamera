@@ -88,11 +88,17 @@ class WsManager(private val wsUrl: String, private val okHttpClient: OkHttpClien
     }
 
 
+    /**
+     * Function description.
+     */
     fun isConnect(): Boolean = status == State.CONNECTING || status == State.CONNECTED
 
 
     private var mLock = ReentrantLock()
     @Synchronized
+    /**
+     * Function description.
+     */
     fun startConnect() {
         if (status == State.CONNECTING || status == State.CONNECTED) {//
             Log.w("WebSocket", "${if (status == State.CONNECTING) "" else ""} startConnect() ")
@@ -115,6 +121,9 @@ class WsManager(private val wsUrl: String, private val okHttpClient: OkHttpClien
         }
     }
 
+    /**
+     * Function description.
+     */
     fun stopConnect() {
         heartBeatTimer?.cancel()
         heartBeatTimer = null
@@ -139,10 +148,16 @@ class WsManager(private val wsUrl: String, private val okHttpClient: OkHttpClien
         }
     }
 
+    /**
+     * Function description.
+     */
     fun sendMessage(msg: String?): Boolean {
         return send(msg)
     }
 
+    /**
+     * Function description.
+     */
     fun sendMessage(byteString: ByteString?): Boolean {
         return send(byteString)
     }

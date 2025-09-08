@@ -9,8 +9,14 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 public class MyGLSurfaceView extends GLSurfaceView {
+    /**
+     * Private method description.
+     */
     private MyRenderer renderer;
 
+    /**
+     * Method description.
+     */
     public MyGLSurfaceView(Context context) {
         super(context);
         setEGLContextClientVersion(2);
@@ -18,6 +24,9 @@ public class MyGLSurfaceView extends GLSurfaceView {
         setRenderer(renderer);
     }
 
+    /**
+     * Private method description.
+     */
     private class MyRenderer implements GLSurfaceView.Renderer {
         @Override
         public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {

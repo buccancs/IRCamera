@@ -28,6 +28,7 @@ class TipPreviewDialog : DialogFragment() {
 
     private lateinit var titleList: ArrayList<String>
     private var dis: Disposable?=null
+    /** closeEvent property */
     var closeEvent: ((check: Boolean) -> Unit)? = null
     private var canceled = false
     private var hasCheck = false
@@ -93,6 +94,9 @@ class TipPreviewDialog : DialogFragment() {
     }
 
 
+    /**
+     * Function description.
+     */
     fun updateIndex(position : Int){
         if (index == position){
             return

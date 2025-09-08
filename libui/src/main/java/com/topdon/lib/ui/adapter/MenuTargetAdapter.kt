@@ -19,8 +19,12 @@ import com.topdon.menu.constant.TargetType
 
 @Deprecated("，")
 class MenuTargetAdapter (val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    /** listener property */
     var listener: ((code: Int) -> Unit)? = null
 
+    /**
+     * Function description.
+     */
     fun setSelected(targetType: TargetType, isSelected: Boolean) {
         when (targetType) {
             TargetType.MODE -> secondBean[0].isSelect = isSelected
@@ -41,6 +45,9 @@ class MenuTargetAdapter (val context: Context) : RecyclerView.Adapter<RecyclerVi
         ColorBean(MenuR.drawable.selector_menu2_target_4_help, context.getString(MenuR.string.main_tab_second_target_help), CameraHelp.TYPE_SET_TARGET_HELP),
     )
 
+    /**
+     * Function description.
+     */
     fun upCurrentMeasureMode(measureMode: Int){
         secondBean.clear()
         when (measureMode) {

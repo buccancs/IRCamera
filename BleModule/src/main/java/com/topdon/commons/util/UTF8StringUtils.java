@@ -15,6 +15,9 @@ public class UTF8StringUtils {
      * @throws
      * @Title readByUtf8WithBom
      * @Description  txtbom
+    /**
+     * Method description.
+     */
     public static String readByUtf8WithBom(String path) {
         File file = new File(path);
         FileInputStream in;
@@ -47,6 +50,9 @@ public class UTF8StringUtils {
      * @throws
      * @Title readByUtf8WithOutBom
      * @Description  txtbom
+    /**
+     * Method description.
+     */
     public static String readByUtf8WithOutBom(String path) {
         File file = new File(path);
         FileInputStream in;

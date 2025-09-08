@@ -7,6 +7,9 @@ import android.view.View
 @Suppress("DEPRECATION")
 object YapVideoUtils {
 
+    /**
+     * Function description.
+     */
     fun convertViewToBitmap(view: View): Bitmap {
         var bitmap: Bitmap?
         view.destroyDrawingCache()

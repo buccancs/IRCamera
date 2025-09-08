@@ -50,6 +50,9 @@ class CaliperImageView : AppCompatImageView {
         originalBitmapHeight = originalBitmap?.height?.toFloat() ?: 0f
         visibility = View.GONE
     }
+    /**
+     * Function description.
+     */
     fun setImageSize(imageWidth: Int, imageHeight: Int, parentViewWidth: Int, parentViewHeight: Int) {
         this.imageWidth = imageWidth
         this.imageHeight = imageHeight

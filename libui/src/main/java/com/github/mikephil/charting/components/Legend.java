@@ -20,6 +20,9 @@ import java.util.List;
  */
 public class Legend extends ComponentBase {
 
+    /**
+     * Method description.
+     */
     public enum LegendForm {
         /**
          * Avoid drawing a form
@@ -52,18 +55,30 @@ public class Legend extends ComponentBase {
         LINE
     }
 
+    /**
+     * Method description.
+     */
     public enum LegendHorizontalAlignment {
         LEFT, CENTER, RIGHT
     }
 
+    /**
+     * Method description.
+     */
     public enum LegendVerticalAlignment {
         TOP, CENTER, BOTTOM
     }
 
+    /**
+     * Method description.
+     */
     public enum LegendOrientation {
         HORIZONTAL, VERTICAL
     }
 
+    /**
+     * Method description.
+     */
     public enum LegendDirection {
         LEFT_TO_RIGHT, RIGHT_TO_LEFT
     }
@@ -71,11 +86,17 @@ public class Legend extends ComponentBase {
     /**
      * The legend entries array
      */
+    /**
+     * Private method description.
+     */
     private LegendEntry[] mEntries = new LegendEntry[]{};
 
     /**
      * Entries that will be appended to the end of the auto calculated entries after calculating the legend.
      * (if the legend has already been calculated, you will need to call notifyDataSetChanged() to let the changes take effect)
+     */
+    /**
+     * Private method description.
      */
     private LegendEntry[] mExtraEntries;
 
@@ -145,6 +166,9 @@ public class Legend extends ComponentBase {
     /**
      * default constructor
      */
+    /**
+     * Method description.
+     */
     public Legend() {
 
         this.mTextSize = Utils.convertDpToPixel(10f);
@@ -156,6 +180,9 @@ public class Legend extends ComponentBase {
      * Constructor. Provide entries for the legend.
      *
      * @param entries
+     */
+    /**
+     * Method description.
      */
     public Legend(LegendEntry[] entries) {
         this();
@@ -172,10 +199,16 @@ public class Legend extends ComponentBase {
      *
      * @param entries
      */
+    /**
+     * Method description.
+     */
     public void setEntries(List<LegendEntry> entries) {
         mEntries = entries.toArray(new LegendEntry[entries.size()]);
     }
 
+    /**
+     * Method description.
+     */
     public LegendEntry[] getEntries() {
         return mEntries;
     }
@@ -186,6 +219,9 @@ public class Legend extends ComponentBase {
      *
      * @param p the paint object used for rendering the text
      * @return
+     */
+    /**
+     * Method description.
      */
     public float getMaximumEntryWidth(Paint p) {
 
@@ -218,6 +254,9 @@ public class Legend extends ComponentBase {
      * @param p the paint object used for rendering the text
      * @return
      */
+    /**
+     * Method description.
+     */
     public float getMaximumEntryHeight(Paint p) {
 
         float max = 0f;
@@ -235,15 +274,24 @@ public class Legend extends ComponentBase {
         return max;
     }
 
+    /**
+     * Method description.
+     */
     public LegendEntry[] getExtraEntries() {
 
         return mExtraEntries;
     }
 
+    /**
+     * Method description.
+     */
     public void setExtra(List<LegendEntry> entries) {
         mExtraEntries = entries.toArray(new LegendEntry[entries.size()]);
     }
 
+    /**
+     * Method description.
+     */
     public void setExtra(LegendEntry[] entries) {
         if (entries == null)
             entries = new LegendEntry[]{};
@@ -255,6 +303,9 @@ public class Legend extends ComponentBase {
      *   entries after calculating the legend.
      * (if the legend has already been calculated, you will need to call notifyDataSetChanged()
      *   to let the changes take effect)
+     */
+    /**
+     * Method description.
      */
     public void setExtra(int[] colors, String[] labels) {
 
@@ -285,6 +336,9 @@ public class Legend extends ComponentBase {
      * Call resetCustom() to re-enable automatic calculation (and then
      *   notifyDataSetChanged() is needed to auto-calculate the legend again)
      */
+    /**
+     * Method description.
+     */
     public void setCustom(LegendEntry[] entries) {
 
         mEntries = entries;
@@ -299,6 +353,9 @@ public class Legend extends ComponentBase {
      * Call resetCustom() to re-enable automatic calculation (and then
      *   notifyDataSetChanged() is needed to auto-calculate the legend again)
      */
+    /**
+     * Method description.
+     */
     public void setCustom(List<LegendEntry> entries) {
 
         mEntries = entries.toArray(new LegendEntry[entries.size()]);
@@ -310,6 +367,9 @@ public class Legend extends ComponentBase {
      * setCustom(...)). Instead, the entries will again be calculated
      * automatically (after notifyDataSetChanged() is called).
      */
+    /**
+     * Method description.
+     */
     public void resetCustom() {
         mIsLegendCustom = false;
     }
@@ -317,6 +377,9 @@ public class Legend extends ComponentBase {
     /**
      * @return true if a custom legend entries has been set default
      * false (automatic legend)
+     */
+    /**
+     * Method description.
      */
     public boolean isLegendCustom() {
         return mIsLegendCustom;
@@ -327,6 +390,9 @@ public class Legend extends ComponentBase {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public LegendHorizontalAlignment getHorizontalAlignment() {
         return mHorizontalAlignment;
     }
@@ -335,6 +401,9 @@ public class Legend extends ComponentBase {
      * sets the horizontal alignment of the legend
      *
      * @param value
+     */
+    /**
+     * Method description.
      */
     public void setHorizontalAlignment(LegendHorizontalAlignment value) {
         mHorizontalAlignment = value;
@@ -345,6 +414,9 @@ public class Legend extends ComponentBase {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public LegendVerticalAlignment getVerticalAlignment() {
         return mVerticalAlignment;
     }
@@ -353,6 +425,9 @@ public class Legend extends ComponentBase {
      * sets the vertical alignment of the legend
      *
      * @param value
+     */
+    /**
+     * Method description.
      */
     public void setVerticalAlignment(LegendVerticalAlignment value) {
         mVerticalAlignment = value;
@@ -363,6 +438,9 @@ public class Legend extends ComponentBase {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public LegendOrientation getOrientation() {
         return mOrientation;
     }
@@ -371,6 +449,9 @@ public class Legend extends ComponentBase {
      * sets the orientation of the legend
      *
      * @param value
+     */
+    /**
+     * Method description.
      */
     public void setOrientation(LegendOrientation value) {
         mOrientation = value;
@@ -381,6 +462,9 @@ public class Legend extends ComponentBase {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public boolean isDrawInsideEnabled() {
         return mDrawInside;
     }
@@ -389,6 +473,9 @@ public class Legend extends ComponentBase {
      * sets whether the legend will draw inside the chart or outside
      *
      * @param value
+     */
+    /**
+     * Method description.
      */
     public void setDrawInside(boolean value) {
         mDrawInside = value;
@@ -399,6 +486,9 @@ public class Legend extends ComponentBase {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public LegendDirection getDirection() {
         return mDirection;
     }
@@ -407,6 +497,9 @@ public class Legend extends ComponentBase {
      * sets the text direction of the legend
      *
      * @param pos
+     */
+    /**
+     * Method description.
      */
     public void setDirection(LegendDirection pos) {
         mDirection = pos;
@@ -417,6 +510,9 @@ public class Legend extends ComponentBase {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public LegendForm getForm() {
         return mShape;
     }
@@ -425,6 +521,9 @@ public class Legend extends ComponentBase {
      * sets the form/shape of the legend forms
      *
      * @param shape
+     */
+    /**
+     * Method description.
      */
     public void setForm(LegendForm shape) {
         mShape = shape;
@@ -435,6 +534,9 @@ public class Legend extends ComponentBase {
      *
      * @param size
      */
+    /**
+     * Method description.
+     */
     public void setFormSize(float size) {
         mFormSize = size;
     }
@@ -443,6 +545,9 @@ public class Legend extends ComponentBase {
      * returns the size in dp of the legend forms
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public float getFormSize() {
         return mFormSize;
@@ -453,6 +558,9 @@ public class Legend extends ComponentBase {
      *
      * @param size
      */
+    /**
+     * Method description.
+     */
     public void setFormLineWidth(float size) {
         mFormLineWidth = size;
     }
@@ -461,6 +569,9 @@ public class Legend extends ComponentBase {
      * returns the line width in dp for drawing forms that consist of lines
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public float getFormLineWidth() {
         return mFormLineWidth;
@@ -471,12 +582,18 @@ public class Legend extends ComponentBase {
      *
      * @param dashPathEffect
      */
+    /**
+     * Method description.
+     */
     public void setFormLineDashEffect(DashPathEffect dashPathEffect) {
         mFormLineDashEffect = dashPathEffect;
     }
 
     /**
      * @return The line dash path effect used for shapes that consist of lines.
+     */
+    /**
+     * Method description.
      */
     public DashPathEffect getFormLineDashEffect() {
         return mFormLineDashEffect;
@@ -488,6 +605,9 @@ public class Legend extends ComponentBase {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public float getXEntrySpace() {
         return mXEntrySpace;
     }
@@ -498,6 +618,9 @@ public class Legend extends ComponentBase {
      *
      * @param space
      */
+    /**
+     * Method description.
+     */
     public void setXEntrySpace(float space) {
         mXEntrySpace = space;
     }
@@ -506,6 +629,9 @@ public class Legend extends ComponentBase {
      * returns the space between the legend entries on a vertical axis in pixels
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public float getYEntrySpace() {
         return mYEntrySpace;
@@ -517,6 +643,9 @@ public class Legend extends ComponentBase {
      *
      * @param space
      */
+    /**
+     * Method description.
+     */
     public void setYEntrySpace(float space) {
         mYEntrySpace = space;
     }
@@ -525,6 +654,9 @@ public class Legend extends ComponentBase {
      * returns the space between the form and the actual label/text
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public float getFormToTextSpace() {
         return mFormToTextSpace;
@@ -536,6 +668,9 @@ public class Legend extends ComponentBase {
      *
      * @param space
      */
+    /**
+     * Method description.
+     */
     public void setFormToTextSpace(float space) {
         this.mFormToTextSpace = space;
     }
@@ -544,6 +679,9 @@ public class Legend extends ComponentBase {
      * returns the space that is left out between stacked forms (with no label)
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public float getStackSpace() {
         return mStackSpace;
@@ -554,12 +692,18 @@ public class Legend extends ComponentBase {
      *
      * @param space
      */
+    /**
+     * Method description.
+     */
     public void setStackSpace(float space) {
         mStackSpace = space;
     }
 
     /**
      * the total width of the legend (needed width space)
+     */
+    /**
+     * Method description.
      */
     public float mNeededWidth = 0f;
 
@@ -574,6 +718,9 @@ public class Legend extends ComponentBase {
 
     /**
      * flag that indicates if word wrapping is enabled
+     */
+    /**
+     * Private method description.
      */
     private boolean mWordWrapEnabled = false;
 
@@ -596,6 +743,9 @@ public class Legend extends ComponentBase {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public boolean isWordWrapEnabled() {
         return mWordWrapEnabled;
     }
@@ -610,6 +760,9 @@ public class Legend extends ComponentBase {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public float getMaxSizePercent() {
         return mMaxSizePercent;
     }
@@ -622,22 +775,37 @@ public class Legend extends ComponentBase {
      *
      * @param maxSize
      */
+    /**
+     * Method description.
+     */
     public void setMaxSizePercent(float maxSize) {
         mMaxSizePercent = maxSize;
     }
 
+    /**
+     * Private method description.
+     */
     private List<FSize> mCalculatedLabelSizes = new ArrayList<>(16);
     private List<Boolean> mCalculatedLabelBreakPoints = new ArrayList<>(16);
     private List<FSize> mCalculatedLineSizes = new ArrayList<>(16);
 
+    /**
+     * Method description.
+     */
     public List<FSize> getCalculatedLabelSizes() {
         return mCalculatedLabelSizes;
     }
 
+    /**
+     * Method description.
+     */
     public List<Boolean> getCalculatedLabelBreakPoints() {
         return mCalculatedLabelBreakPoints;
     }
 
+    /**
+     * Method description.
+     */
     public List<FSize> getCalculatedLineSizes() {
         return mCalculatedLineSizes;
     }
@@ -648,6 +816,9 @@ public class Legend extends ComponentBase {
      * the Legend.
      *
      * @param labelpaint
+     */
+    /**
+     * Method description.
      */
     public void calculateDimensions(Paint labelpaint, ViewPortHandler viewPortHandler) {
 

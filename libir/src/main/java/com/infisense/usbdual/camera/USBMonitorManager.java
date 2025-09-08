@@ -22,7 +22,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class USBMonitorManager {
+    /**
+     * Method description.
+     */
     public static final String TAG = "USBMonitorManager";
+    /**
+     * Private method description.
+     */
     private USBMonitor mUSBMonitor;
     private UVCCamera mUvcCamera;
     private IRCMD mIrcmd;
@@ -59,8 +65,14 @@ public class USBMonitorManager {
     private USBMonitorManager() {
     }
 
+    /**
+     * Private method description.
+     */
     private static USBMonitorManager mInstance;
 
+    /**
+     * Method description.
+     */
     public static synchronized USBMonitorManager getInstance() {
         if (mInstance == null) {
             mInstance = new USBMonitorManager();
@@ -68,18 +80,30 @@ public class USBMonitorManager {
         return mInstance;
     }
 
+    /**
+     * Method description.
+     */
     public void addOnUSBConnectListener(OnUSBConnectListener onUSBConnectListener) {
         mOnUSBConnectListeners.add(onUSBConnectListener);
     }
 
+    /**
+     * Method description.
+     */
     public void removeOnUSBConnectListener(OnUSBConnectListener onUSBConnectListener) {
         mOnUSBConnectListeners.remove(onUSBConnectListener);
     }
 
+    /**
+     * Method description.
+     */
     public boolean isReStart() {
         return isReStart;
     }
 
+    /**
+     * Method description.
+     */
     public void setReStart(boolean reStart) {
         isReStart = reStart;
     }
@@ -87,6 +111,9 @@ public class USBMonitorManager {
      * @param pid                 pid
      * @param isUseIRISP
      * @param defaultDataFlowMode
+    /**
+     * Method description.
+     */
     public void init(int pid, boolean isUseIRISP, CommonParams.DataFlowMode defaultDataFlowMode) {
         this.mPid = pid;
         this.isUseIRISP = isUseIRISP;
@@ -177,18 +204,27 @@ public class USBMonitorManager {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void registerUSB() {
         if (mUSBMonitor != null) {
             mUSBMonitor.register();
         }
     }
 
+    /**
+     * Method description.
+     */
     public void unregisterUSB() {
         if (mUSBMonitor != null) {
             mUSBMonitor.unregister();
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void initUVCCamera() {
         Log.d(TAG, "initUVCCamera");
         // UVCCamera init
@@ -201,6 +237,9 @@ public class USBMonitorManager {
     }
 
      * @param ctrlBlock
+    /**
+     * Method description.
+     */
     public void openUVCCamera(USBMonitor.UsbControlBlock ctrlBlock) {
         if (mUvcCamera == null) {
             initUVCCamera();
@@ -210,15 +249,24 @@ public class USBMonitorManager {
     }
 
      * @return
+    /**
+     * Method description.
+     */
     public UVCCamera getUvcCamera() {
         return mUvcCamera;
     }
 
      * @return
+    /**
+     * Method description.
+     */
     public IRCMD getIrcmd() {
         return mIrcmd;
     }
 
+    /**
+     * Method description.
+     */
     public void handleUSBConnect(USBMonitor.UsbControlBlock ctrlBlock) {
         openUVCCamera(ctrlBlock);
         List<CameraSize> previewList = getAllSupportedSize();
@@ -244,6 +292,9 @@ public class USBMonitorManager {
     }
 
      * @return
+    /**
+     * Private method description.
+     */
     private List<CameraSize> getAllSupportedSize() {
         Log.w(TAG, "getSupportedSize = " + mUvcCamera.getSupportedSize());
         List<CameraSize> previewList = new ArrayList<>();
@@ -259,6 +310,9 @@ public class USBMonitorManager {
      * init IRCMD
      * cmdSDK
      * @param previewList
+    /**
+     * Method description.
+     */
     public void initIRCMD(List<CameraSize> previewList) {
         for (CameraSize size : previewList) {
             Log.i(TAG, "SupportedSize : " + size.width + " * " + size.height);
@@ -279,6 +333,9 @@ public class USBMonitorManager {
      * openUVCCamera
      * @param cameraWidth
      * @param cameraHeight
+    /**
+     * Private method description.
+     */
     private int setPreviewSize(int cameraWidth, int cameraHeight) {
         int result = -1;
         //setUSBPreviewSizeapp
@@ -294,6 +351,9 @@ public class USBMonitorManager {
         return result;
     }
 
+    /**
+     * Private method description.
+     */
     private void startPreview() {
         Log.d(TAG, "startPreview");
 
@@ -329,6 +389,9 @@ public class USBMonitorManager {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void stopPreview() {
         Log.i(TAG, "stopPreview");
         if (mUvcCamera != null) {
@@ -342,12 +405,18 @@ public class USBMonitorManager {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void onPauseUvcPreview() {
         if (mUvcCamera != null) {
             mUvcCamera.onPausePreview();
         }
     }
 
+    /**
+     * Method description.
+     */
     public void onResumeUvcPreview() {
         if (mUvcCamera != null) {
             mUvcCamera.onResumePreview();

@@ -131,12 +131,18 @@ class IRGalleryFragment : BaseFragment() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun galleryDirChange(event: GalleryDirChangeEvent) {
         currentDirType = event.dirType
         refresh()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun galleryDownload(event: GalleryDownloadEvent) {
         for (i in adapter.dataList.indices) {
             val data = adapter.dataList[i]
@@ -150,11 +156,17 @@ class IRGalleryFragment : BaseFragment() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun galleryAdd(event: GalleryAddEvent) {
         refresh()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun galleryDel(event: GalleryDelEvent) {
         refresh()
     }

@@ -1,7 +1,10 @@
 package com.topdon.menu.constant
 
  * -4- .
- * Created by LCG on 2024/11/29.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 enum class TargetType {
     MODE,
 

@@ -16,7 +16,10 @@ import androidx.fragment.app.FragmentActivity
 import com.csl.irCamera.libapp.R
 
  *  DataBinding  DialogFragment.
- * Created by LCG on 2024/10/14.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 abstract class BaseDialogFragment<B : ViewDataBinding> : AppCompatDialogFragment() {
 
      *  [onDestroyView]  binding  null
@@ -36,6 +39,7 @@ abstract class BaseDialogFragment<B : ViewDataBinding> : AppCompatDialogFragment
 
 
      *  [Dialog.setCanceledOnTouchOutside] .
+    /** isCanceledOnTouchOutSide property */
     var isCanceledOnTouchOutSide: Boolean = true
         set(value) {
             field = value
@@ -78,6 +82,9 @@ abstract class BaseDialogFragment<B : ViewDataBinding> : AppCompatDialogFragment
     }
 
 
+    /**
+     * Function description.
+     */
     fun show(context: Context) {
         if (isAdded) {
             return

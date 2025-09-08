@@ -2,8 +2,10 @@ package com.guide.zm04c.matrix.utils
 
 import android.graphics.Paint
 import android.graphics.Rect
-
- * Created by 02881hy on 2018/9/18.
+/**
+ * @author 02881hy
+ * @since Unknown
+ */
 
 class StringUtils {
 

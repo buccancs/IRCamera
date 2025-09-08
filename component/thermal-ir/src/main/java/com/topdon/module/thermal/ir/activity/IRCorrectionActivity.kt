@@ -36,6 +36,9 @@ class IRCorrectionActivity : BaseActivity() {
     override fun initData() {}
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun finishCorrection(event: CorrectionFinishEvent) {
         finish()
     }

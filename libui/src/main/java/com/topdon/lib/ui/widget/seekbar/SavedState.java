@@ -10,6 +10,9 @@ import android.view.View;
  *     :
  * ================================================
 public class SavedState extends View.BaseSavedState {
+    /**
+     * Method description.
+     */
     public float minValue;
     public float maxValue;
     public float rangeInterval;
@@ -21,6 +24,9 @@ public class SavedState extends View.BaseSavedState {
         super(superState);
     }
 
+    /**
+     * Private method description.
+     */
     private SavedState(Parcel in) {
         super(in);
         minValue = in.readFloat();
@@ -32,6 +38,9 @@ public class SavedState extends View.BaseSavedState {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void writeToParcel(Parcel out, int flags) {
         super.writeToParcel(out, flags);
         out.writeFloat(minValue);
@@ -42,6 +51,9 @@ public class SavedState extends View.BaseSavedState {
         out.writeFloat(currSelectedMax);
     }
 
+    /**
+     * Method description.
+     */
     public static final Creator<SavedState> CREATOR = new Creator<SavedState>() {
         public SavedState createFromParcel(Parcel in) {
             return new SavedState(in);

@@ -148,10 +148,15 @@ class VideoRecordFFmpeg(
     private var audioData: ShortBuffer? = null
     private var tmpAudioData: ShortBuffer? = null
     private var bufferReadResult: Int = 0
+    /** stopVideoRecordListener property */
     var stopVideoRecordListener: ((shoVideoTip: Boolean) -> Unit)? = null
+    /** bitmapExecutor property */
     val bitmapExecutor = Executors.newScheduledThreadPool(1);
+    /** recordExecutor property */
     val recordExecutor = Executors.newScheduledThreadPool(1)
+    /** audioExecutor property */
     val audioExecutor = Executors.newScheduledThreadPool(1)
+    /** paint property */
     val paint = TextPaint(Paint.ANTI_ALIAS_FLAG)
     private var rectText = Rect() //text， ：
     private val pix20 = SizeUtils.dp2px(20f)
@@ -255,6 +260,7 @@ class VideoRecordFFmpeg(
     }
 
 
+    /** startTime property */
     var startTime: Long = 0L
     override fun startRecord() {
         startRecord(FileConfig.lineGalleryDir)
@@ -438,6 +444,9 @@ class VideoRecordFFmpeg(
         }
     }
 
+    /**
+     * Function description.
+     */
     fun startAudioRecording() {
         audioRecord = AudioRecord(
             MediaRecorder.AudioSource.MIC, SAMPLE_AUDIO_RETE_INHZ,
@@ -446,6 +455,9 @@ class VideoRecordFFmpeg(
         audioRecord!!.startRecording()
     }
 
+    /**
+     * Function description.
+     */
     fun stopAudioRecording() {
         try {
             if (RECORDSTATE_RECORDING == audioRecord?.recordingState) {
@@ -461,6 +473,9 @@ class VideoRecordFFmpeg(
         }
     }
 
+    /**
+     * Function description.
+     */
     fun canStartVideoRecord(videoFile: File?): Boolean {
         val canStart = (SDCardUtils.getExternalAvailableSize() - (videoFile?.length()
             ?: 0)) > (500L * 1000 * 1000)
@@ -481,6 +496,7 @@ class VideoRecordFFmpeg(
     }
 
 
+    /** queTime property */
     var queTime = 0L
 
     override fun stopRecord() {
@@ -677,6 +693,9 @@ class VideoRecordFFmpeg(
     private var tempBitmap: Bitmap? = null
 
 
+    /**
+     * Function description.
+     */
     fun drawCenterLable(bmp: Bitmap, title: String, address: String, time: String?): Bitmap {
         val newBmp = Bitmap.createBitmap(bmp.width, bmp.height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(newBmp)

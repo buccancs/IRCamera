@@ -13,28 +13,46 @@ import androidx.annotation.Nullable;
 @SuppressLint("AppCompatCustomView")
 public class MoveImageView extends ImageView {
 
+    /**
+     * Private method description.
+     */
     private static final String TAG = "MoveImageView";
     private float mPreX;
     private float mPreY;
 
+    /**
+     * Method description.
+     */
     public MoveImageView(Context context) {
         this(context, null);
     }
 
+    /**
+     * Method description.
+     */
     public MoveImageView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, -1);
     }
 
+    /**
+     * Method description.
+     */
     public MoveImageView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
 
+    /**
+     * Private method description.
+     */
     private void init() {
         setBackgroundColor(Color.TRANSPARENT);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean onTouchEvent(MotionEvent event) {
         int action = event.getAction();
 
@@ -71,10 +89,16 @@ public class MoveImageView extends ImageView {
         }
         return true;
     }
+    /**
+     * Private method description.
+     */
     private static final int MIN_CLICK_DELAY_TIME = 100;
     private static long lastClickTime;
 
     //70move
+    /**
+     * Method description.
+     */
     public static boolean delayMoveTime() {
         boolean flag = false;
         long curClickTime = System.currentTimeMillis();
@@ -88,10 +112,16 @@ public class MoveImageView extends ImageView {
         return flag;
     }
 
+    /**
+     * Method description.
+     */
     public interface OnMoveListener {
         void onMove(float preX, float preY, float curX, float curY);
     }
 
+    /**
+     * Method description.
+     */
     public OnMoveListener onMoveListener;
 
     public void setOnMoveListener(OnMoveListener onMoveListener) {

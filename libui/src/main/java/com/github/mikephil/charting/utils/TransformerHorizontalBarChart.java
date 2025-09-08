@@ -8,6 +8,9 @@ package com.github.mikephil.charting.utils;
  */
 public class TransformerHorizontalBarChart extends Transformer {
 
+    /**
+     * Method description.
+     */
     public TransformerHorizontalBarChart(ViewPortHandler viewPortHandler) {
         super(viewPortHandler);
     }
@@ -16,6 +19,9 @@ public class TransformerHorizontalBarChart extends Transformer {
      * Prepares the matrix that contains all offsets.
      * 
      * @param inverted
+     */
+    /**
+     * Method description.
      */
     public void prepareMatrixOffset(boolean inverted) {
 

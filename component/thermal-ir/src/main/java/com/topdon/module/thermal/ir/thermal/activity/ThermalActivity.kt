@@ -59,6 +59,9 @@ class ThermalActivity : BaseIRActivity() {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun showRecycler(select: Int) {
         binding.thermalRecycler.initType(select)
         if (select == 5) {

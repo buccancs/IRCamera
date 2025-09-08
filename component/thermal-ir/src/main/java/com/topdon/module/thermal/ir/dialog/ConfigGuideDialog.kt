@@ -28,7 +28,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
  * .
- * Created by LCG on 2024/11/13.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class ConfigGuideDialog(context: Context, val isTC007: Boolean, val dataBean: DataBean) : Dialog(context, LibAppR.style.TransparentDialog) {
 
     private lateinit var binding: DialogConfigGuideBinding
@@ -72,6 +75,9 @@ class ConfigGuideDialog(context: Context, val isTC007: Boolean, val dataBean: Da
         }
     }
 
+    /**
+     * Function description.
+     */
     fun blurBg(rootView: View) {
         CoroutineScope(Dispatchers.IO).launch {
             try {

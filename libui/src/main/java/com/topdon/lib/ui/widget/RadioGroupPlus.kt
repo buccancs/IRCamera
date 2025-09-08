@@ -57,6 +57,7 @@ class RadioGroupPlus : LinearLayout {
      */
     // holds the checked id; the selection is empty by default
     @get:IdRes
+    /** checkedRadioButtonId property */
     var checkedRadioButtonId = -1
         private set
 
@@ -153,6 +154,9 @@ class RadioGroupPlus : LinearLayout {
      * @see .getCheckedRadioButtonId
      * @see .clearCheck
      */
+    /**
+     * Function description.
+     */
     fun check(@IdRes id: Int) {
         // don't even bother
         if (id != -1 && id == checkedRadioButtonId) {
@@ -190,6 +194,9 @@ class RadioGroupPlus : LinearLayout {
      * @see .check
      * @see .getCheckedRadioButtonId
      */
+    /**
+     * Function description.
+     */
     fun clearCheck() {
         check(-1)
     }
@@ -200,6 +207,9 @@ class RadioGroupPlus : LinearLayout {
      * changes in this group.
      *
      * @param listener the callback to call on checked state change
+     */
+    /**
+     * Function description.
      */
     fun setOnCheckedChangeListener(listener: OnCheckedChangeListener) {
         mOnCheckedChangeListener = listener

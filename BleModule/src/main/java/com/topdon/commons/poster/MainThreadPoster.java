@@ -14,6 +14,9 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * author: chuanfeng.bi
  */
 final class MainThreadPoster extends Handler implements Poster {
+    /**
+     * Private method description.
+     */
     private final Queue<Runnable> queue;
     private boolean handlerActive;
     
@@ -23,6 +26,9 @@ final class MainThreadPoster extends Handler implements Poster {
     }
     
     @Override
+    /**
+     * Method description.
+     */
     public void enqueue(@NonNull Runnable runnable) {
         Objects.requireNonNull(runnable, "runnable is null, cannot be enqueued");
         synchronized (this) {
@@ -37,6 +43,9 @@ final class MainThreadPoster extends Handler implements Poster {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void clear() {
         synchronized (this) {
             queue.clear();
@@ -44,6 +53,9 @@ final class MainThreadPoster extends Handler implements Poster {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void handleMessage(Message msg) {
         try {
             while (true) {

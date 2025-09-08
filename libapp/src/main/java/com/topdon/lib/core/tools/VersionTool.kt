@@ -6,6 +6,9 @@ import java.util.regex.Pattern
 object VersionTool {
 
      * V1.0 => 1.0
+    /**
+     * Function description.
+     */
     fun getVersion(str: String): String {
         var versionStr = "1.0"
         if (str.uppercase().contains("V")) {
@@ -23,6 +26,9 @@ object VersionTool {
         return versionStr
     }
 
+    /**
+     * Function description.
+     */
     fun checkNewVersion(serverVersionStr: String, localVersionStr: String): Boolean {
         try {
             val serverV = getVersion(serverVersionStr)
@@ -36,6 +42,9 @@ object VersionTool {
     }
 
      * app
+    /**
+     * Function description.
+     */
     fun checkVersion(remoteStr: String, localStr: String): Boolean {
         try {
             val regex = "[^(0-9).]"

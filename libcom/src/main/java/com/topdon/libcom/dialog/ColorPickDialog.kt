@@ -18,10 +18,14 @@ import com.topdon.libcom.databinding.DialogColorPickBinding
 import com.topdon.libcom.util.ColorUtils
 
  * .
- * Created by chenggeng.lin on 2023/12/18.
+/**
+ * @author chenggeng.lin
+ * @since Unknown
+ */
 class ColorPickDialog(context: Context, @ColorInt private var color: Int,var textSize: Int,var textSizeIsDP : Boolean = false) : Dialog(context, LibAppR.style.InfoDialog), View.OnClickListener {
 
      * .
+    /** onPickListener property */
     var onPickListener: ((color: Int,textSize : Int) -> Unit)? = null
 
     private lateinit var binding: DialogColorPickBinding

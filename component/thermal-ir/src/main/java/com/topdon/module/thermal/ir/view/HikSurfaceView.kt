@@ -18,13 +18,17 @@ import com.topdon.pseudo.bean.CustomPseudoBean
 import java.nio.ByteBuffer
 
  *  Hik  SurfaceView.
- * Created by LCG on 2024/11/30.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class HikSurfaceView : SurfaceView {
     companion object {
         private const val MULTIPLE = 2
     }
 
 
+    /** isOpenAmplify property */
     var isOpenAmplify: Boolean = false
         set(value) {
             field = value
@@ -36,6 +40,7 @@ class HikSurfaceView : SurfaceView {
 
      * 090180270 270
     @Volatile
+    /** rotateAngle property */
     var rotateAngle: Int = 270
         set(value) {
             field = value
@@ -46,17 +51,23 @@ class HikSurfaceView : SurfaceView {
         }
 
      * .
+    /** alarmBean property */
     var alarmBean = AlarmBean()
 
      * MIN_VALUE
+    /** limitTempMin property */
     var limitTempMin = Float.MIN_VALUE
      * MAX_VALUE
+    /** limitTempMax property */
     var limitTempMax = Float.MAX_VALUE
 
 
      * .
     private val irImageHelp = IRImageHelp()
 
+    /**
+     * Function description.
+     */
     fun refreshCustomPseudo(it: CustomPseudoBean) {
         irImageHelp.setColorList(it.getColorList(), it.getPlaceList(), it.isUseGray, it.maxTemp, it.minTemp)
     }
@@ -66,6 +77,9 @@ class HikSurfaceView : SurfaceView {
     @Volatile
     private var pseudoType: PseudoColorType = PseudoColorType.PSEUDO_3
      * 1- 3- 4-1 5-2 6-3 7- 8- 9-4 10-5 11
+    /**
+     * Function description.
+     */
     fun setPseudoCode(code: Int) {
         pseudoType = PseudocodeUtils.changePseudocodeModeByOld(code)
     }
@@ -97,11 +111,17 @@ class HikSurfaceView : SurfaceView {
 
 
      *  View .
+    /**
+     * Function description.
+     */
     fun getScaleBitmap(): Bitmap = synchronized(this) {
         Bitmap.createScaledBitmap(bitmap, width, height, true)
     }
 
      *  YUV
+    /**
+     * Function description.
+     */
     fun refresh(yuvArray: ByteArray, newTempArray: ByteArray) {
         val sourceWidth = 256
         val sourceHeight = 192

@@ -108,6 +108,9 @@ class ChartLogView : LineChart {
     }
 
 
+    /**
+     * Function description.
+     */
     fun initEntry(data: ArrayList<ThermalEntity>, type: Int = 1) {
         synchronized(this) {
             GlobalScope.launch(Dispatchers.IO) {

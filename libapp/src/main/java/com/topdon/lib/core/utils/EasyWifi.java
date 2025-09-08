@@ -18,6 +18,9 @@ import com.topdon.lib.core.BaseApplication;
  * author: CaiSongL
  * date: 2024/5/23 17:39
 public class EasyWifi {
+    /**
+     * Private method description.
+     */
     private static volatile EasyWifi mInstance;
     private WifiConnectCallback wifiConnectCallback;
     String TAG = "EasyWifi";
@@ -25,6 +28,9 @@ public class EasyWifi {
     private final ConnectivityManager connectivityManager = (ConnectivityManager) BaseApplication.instance.getSystemService(Context.CONNECTIVITY_SERVICE);
 
     /* loaded from: classes2.dex */
+    /**
+     * Method description.
+     */
     public enum WiFiEncryptionStandard {
         WEP,
         WPA_EAP,
@@ -34,6 +40,9 @@ public class EasyWifi {
     }
 
     /* loaded from: classes2.dex */
+    /**
+     * Method description.
+     */
     public enum WifiCapability {
         WIFI_CIPHER_WEP,
         WIFI_CIPHER_WPA,
@@ -41,18 +50,27 @@ public class EasyWifi {
     }
 
     /* loaded from: classes2.dex */
+    /**
+     * Method description.
+     */
     public enum NetType {
         WIFI,
         CELLULAR
     }
 
     /* loaded from: classes2.dex */
+    /**
+     * Method description.
+     */
     public interface WifiConnectCallback {
         void onFailure();
 
         void onSuccess(Network network);
     }
 
+    /**
+     * Method description.
+     */
     public static EasyWifi getInstance() {
         if (mInstance == null) {
             synchronized (EasyWifi.class) {
@@ -64,32 +82,53 @@ public class EasyWifi {
         return mInstance;
     }
 
+    /**
+     * Method description.
+     */
     public void useWifiFirst() {
         this.connectivityManager.setNetworkPreference(1);
     }
 
+    /**
+     * Method description.
+     */
     public void setWifiConnectCallback(WifiConnectCallback wifiConnectCallback) {
         this.wifiConnectCallback = wifiConnectCallback;
     }
 
+    /**
+     * Method description.
+     */
     public boolean isWifiEnabled() {
         return this.wifiManager.isWifiEnabled();
     }
 
+    /**
+     * Method description.
+     */
     public WifiManager getWifiManager() {
         return this.wifiManager;
     }
 
+    /**
+     * Method description.
+     */
     public ConnectivityManager getConnectivityManager() {
         return this.connectivityManager;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
+    /**
+     * Method description.
+     */
     public void connectByNew(String str, String str2) {
         connectByNew(str, str2, WiFiEncryptionStandard.WPA2);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
+    /**
+     * Method description.
+     */
     public void connectByNew(String str, String str2, WiFiEncryptionStandard wiFiEncryptionStandard) {
         WifiNetworkSpecifier build = new WifiNetworkSpecifier.Builder().setSsid(str).setWpa2Passphrase(str2).build();
         if (wiFiEncryptionStandard == WiFiEncryptionStandard.WPA3) {
@@ -114,6 +153,9 @@ public class EasyWifi {
         });
     }
 
+    /**
+     * Method description.
+     */
     public boolean connectByOld(String str, String str2, WifiCapability wifiCapability) {
         int addNetwork = this.wifiManager.addNetwork(createWifiConfig(str, str2, wifiCapability));
         if (addNetwork == -1) {
@@ -124,6 +166,9 @@ public class EasyWifi {
         return enableNetwork;
     }
 
+    /**
+     * Private method description.
+     */
     private WifiConfiguration isExist(String str) {
         try {
             if (this.wifiManager.getConfiguredNetworks() == null) {
@@ -141,6 +186,9 @@ public class EasyWifi {
         return null;
     }
 
+    /**
+     * Private method description.
+     */
     private WifiConfiguration createWifiConfig(String str, String str2, WifiCapability wifiCapability) {
         WifiConfiguration wifiConfiguration = new WifiConfiguration();
         wifiConfiguration.allowedAuthAlgorithms.clear();
@@ -178,10 +226,16 @@ public class EasyWifi {
         return wifiConfiguration;
     }
 
+    /**
+     * Method description.
+     */
     public static boolean isNetConnected(ConnectivityManager connectivityManager) {
         return connectivityManager.getActiveNetwork() != null;
     }
 
+    /**
+     * Method description.
+     */
     public static boolean isWifi(ConnectivityManager connectivityManager) {
         NetworkCapabilities networkCapabilities;
         if (connectivityManager.getActiveNetwork() != null && (networkCapabilities = connectivityManager.getNetworkCapabilities(connectivityManager.getActiveNetwork())) == null) {
@@ -190,6 +244,9 @@ public class EasyWifi {
         return false;
     }
 
+    /**
+     * Method description.
+     */
     public void setNetworkType(NetType netType) {
         Log.d(this.TAG, "selectNetworkType: wifi");
         NetworkRequest.Builder builder = new NetworkRequest.Builder();
@@ -213,6 +270,9 @@ public class EasyWifi {
         });
     }
 
+    /**
+     * Method description.
+     */
     public String getConnectSSID() {
         return this.wifiManager.getConnectionInfo().getSSID();
     }

@@ -22,9 +22,12 @@ import com.topdon.libcom.adpter.DColorSelectAdapter
 class ColorDialog(color: Int) : DialogFragment() {
 
 
+    /** positiveEvent property */
     var positiveEvent : ((color: Int)->Unit)? = null
+    /** cancelEvent property */
     var cancelEvent: (() -> Unit)? = null
 
+    /** selColor property */
     var selColor : Int = color
 
     override fun onCreateView(

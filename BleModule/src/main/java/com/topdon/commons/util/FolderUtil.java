@@ -14,6 +14,9 @@ import java.io.File;
  * @Date 2022/9/27 11:55
 
 public class FolderUtil {
+    /**
+     * Method description.
+     */
     public static String mPath = "/data/user/0/com.topdon.diag.artidiag/files";
     public static String mUserId;
     public static String fileName; //APPlication APP
@@ -25,15 +28,24 @@ public class FolderUtil {
     }
 
      * @param mfileName (/TopDon/AD200/)
+    /**
+     * Method description.
+     */
     public static void setFileName(String mfileName) {
         fileName = mfileName;
     }
 
+    /**
+     * Method description.
+     */
     public static void setUserId(String userId) {
         mUserId = userId;
     }
 
 
+    /**
+     * Method description.
+     */
     public static void init() {
         mUserId = PreUtil.getInstance(Topdon.getApp()).get("VCI_" + LMS.getInstance().getLoginName());
         setUserId(mUserId);
@@ -43,6 +55,9 @@ public class FolderUtil {
         initPath();
     }
 
+    /**
+     * Method description.
+     */
     public static void initTDarts(String tdSn) {
         tdartsSn = tdSn;
         String mPath = Topdon.getApp().getExternalFilesDir("").getAbsolutePath();
@@ -56,6 +71,9 @@ public class FolderUtil {
         }
     }
 
+    /**
+     * Method description.
+     */
     public static void initFilePath() {
         String basePath = Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName;
         String downPath = basePath + "Download/";
@@ -67,6 +85,9 @@ public class FolderUtil {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private static void initPath() {
         if (!TextUtils.isEmpty(mUserId)) {
             File asiaLibsFile = new File(mPath + fileName + mUserId + "/Diagnosis/Asia/");
@@ -231,153 +252,258 @@ public class FolderUtil {
         }
     }
 
+    /**
+     * Method description.
+     */
     public static String getOtaPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + "/s/";
     }
 
 
+    /**
+     * Method description.
+     */
     public static String getDataBasePath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName;
     }
 
      * Tdarts
      * @return str
+    /**
+     * Method description.
+     */
     public static String getTDartsRootPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + tdartsSn + "/";
     }
 
+    /**
+     * Method description.
+     */
     public static String getRootPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + mUserId + "/";
     }
 
+    /**
+     * Method description.
+     */
     public static String getVehiclesPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + mUserId + "/Diagnosis/";
     }
 
+    /**
+     * Method description.
+     */
     public static String getImmoPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + mUserId + "/Immo/";
     }
 
      * Tdarts sn
      * @return str
+    /**
+     * Method description.
+     */
     public static String getRfidTopScanPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + tdartsSn + "/RFID/";
     }
 
+    /**
+     * Method description.
+     */
     public static String getRfidPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + mUserId + "/RFID/";
     }
 
+    /**
+     * Method description.
+     */
     public static String getAsiaPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + mUserId + "/Diagnosis/Asia/";
     }
 
+    /**
+     * Method description.
+     */
     public static String getAmericaPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + mUserId + "/Diagnosis/America/";
     }
 
+    /**
+     * Method description.
+     */
     public static String getEuropePath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + mUserId + "/Diagnosis/Europe/";
     }
 
+    /**
+     * Method description.
+     */
     public static String getVehiclePublicPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + mUserId + "/Diagnosis/Public/";
     }
 
+    /**
+     * Method description.
+     */
     public static String getVehicleTopScanPublicPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName;
     }
 
 
+    /**
+     * Method description.
+     */
     public static String getShotPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + mUserId + "/Shot/";
     }
 
+    /**
+     * Method description.
+     */
     public static String getDataStreamPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + mUserId + "/Datastream/";
     }
 
+    /**
+     * Method description.
+     */
     public static String getPdfPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + mUserId + "/Pdf/";
     }
 
+    /**
+     * Method description.
+     */
     public static String getAppPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + "App/";
     }
 
+    /**
+     * Method description.
+     */
     public static String getFirmwarePath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + "Firmware/";
     }
 
+    /**
+     * Method description.
+     */
     public static String getTdartsUpgradePath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + "T-darts/";
     }
 
+    /**
+     * Method description.
+     */
     public static String getDownloadPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + mUserId + "/Download/";
     }
 
+    /**
+     * Method description.
+     */
     public static String getDiagHistoryPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + mUserId + "/History/Diagnose/";
     }
 
+    /**
+     * Method description.
+     */
     public static String getServiceHistoryPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + mUserId + "/History/Service/";
     }
 
+    /**
+     * Method description.
+     */
     public static String getLogPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + "Log/";
     }
 
+    /**
+     * Method description.
+     */
     public static String getSoLogPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + "Log/SoLog/";
     }
 
+    /**
+     * Method description.
+     */
     public static String getGalleryPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + mUserId + "/Gallery/";
     }
 
+    /**
+     * Method description.
+     */
     public static String getDataLogPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + mUserId + "/DataLog/";
     }
 
+    /**
+     * Method description.
+     */
     public static String getDiagDataLogPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + mUserId + "/DataLog/DIAG/";
     }
 
 
+    /**
+     * Method description.
+     */
     public static String getImmoDataLogPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + mUserId + "/DataLog/IMMO/";
     }
 
      * @return string
+    /**
+     * Method description.
+     */
     public static String getFeedbackLogPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + mUserId + "/FeedbackLog/";
     }
 
+    /**
+     * Method description.
+     */
     public static String getUserDataDiag() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + "UserData/Diagnose/";
     }
 
+    /**
+     * Method description.
+     */
     public static String getUserDataImmo() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + "UserData/Immo/";
     }
 
+    /**
+     * Method description.
+     */
     public static String getUserDataNewEnergy() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + "UserData/NewEnergy/";
     }
 
+    /**
+     * Method description.
+     */
     public static String getUserDataRFID() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + "UserData/RFID/";
     }
 
      * @return str
+    /**
+     * Method description.
+     */
     public static String getSoftDownPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + "Download/";
     }
 
      * AUTOVINLOG
      * @return string
+    /**
+     * Method description.
+     */
     public static String getAutoVinLogPath() {
         return Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName + mUserId + "/autovinLog/";
     }

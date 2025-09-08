@@ -38,23 +38,57 @@ import java.util.List;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function0;
 
- * AppVersionUtil
- * APP
+/**
+ * Utility class for handling application version checks and updates.
+ * Manages download and installation of app updates.
+ * 
  * @author chuanfeng.bi
- * @date 2022/2/10 19:48
+ * @since 2022/2/10 19:48
+ */
 public class AppVersionUtil {
+    /** Application context instance */
+    /**
+     * Private method description.
+     */
     private Context mContext;
-    private DownloadCompleteReceiver completeReceiver; //
+    
+    /** Broadcast receiver for download completion events */
+    private DownloadCompleteReceiver completeReceiver;
+    
+    /** Download manager instance for handling file downloads */
     private DownloadManager dowanloadmanager = null;
+    
+    /** Listener for dot visibility state changes */
     private DotIsShowListener dotIsShowListener = null;
-    private String fileName = "";//
-    private Long mDownloadId = 0l;//id
+    
+    /** Name of the downloaded file */
+    private String fileName = "";
+    
+    /** Download ID for tracking download progress */
+    private Long mDownloadId = 0l;
 
+    /**
+     * Constructor for AppVersionUtil.
+     * 
+     * @param context Application context
+     * @param dotIsShow Listener for dot visibility events
+     */
+    /**
+     * Method description.
+     */
     public AppVersionUtil(Context context, DotIsShowListener dotIsShow) {
         this.mContext = context;
         this.dotIsShowListener = dotIsShow;
     }
 
+    /**
+     * Checks for application updates and shows dialog if update is available.
+     * 
+     * @param isShowDialog Whether to show update dialog to user
+     */
+    /**
+     * Method description.
+     */
     public void checkVersion( boolean isShowDialog) {
         if (dowanloadmanager == null) {
             dowanloadmanager = (DownloadManager) mContext.getSystemService(DOWNLOAD_SERVICE);
@@ -101,11 +135,23 @@ public class AppVersionUtil {
 
      * code
      * @return float
+    /**
+     * Method description.
+     */
+    /**
+     * Private method description.
+     */
     private float getDealVersionCode() {
         return AppUtil.getVersionCode(mContext) / 10;
     }
 
      * @param bean
+    /**
+     * Method description.
+     */
+    /**
+     * Private method description.
+     */
     private void showNewVersionDialog(AppInfoBean bean) {
         String information = "";
         if (bean.softConfigOtherTypeVOList != null) {
@@ -161,6 +207,9 @@ public class AppVersionUtil {
         }
     }
 
+    /**
+     * Method description.
+     */
     public interface DotIsShowListener {
         void isShow(boolean show);
 
@@ -169,6 +218,12 @@ public class AppVersionUtil {
 
 
     // apk
+    /**
+     * Method description.
+     */
+    /**
+     * Private method description.
+     */
     private void startDownload(String url) {
         completeReceiver = new DownloadCompleteReceiver();
 
@@ -194,6 +249,9 @@ public class AppVersionUtil {
     }
 
 
+    /**
+     * Private method description.
+     */
     private class DownloadCompleteReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -206,6 +264,12 @@ public class AppVersionUtil {
     }
 
 
+    /**
+     * Method description.
+     */
+    /**
+     * Method description.
+     */
     public void installApk() {
         mDownloadId = 0l;
         VersionTools.INSTANCE.setMDownloadId(0l);
@@ -224,6 +288,12 @@ public class AppVersionUtil {
         }
     }
 
+    /**
+     * Method description.
+     */
+    /**
+     * Method description.
+     */
     public void showUpdateDialog(Context context, String url, String content,int forcedUpgradeFlag) {
         LmsUpdateDialog.Build.INSTANCE.setContentStr(content)
                 .setUpgradeFlag(forcedUpgradeFlag)
@@ -237,6 +307,12 @@ public class AppVersionUtil {
                 }).build(context);
     }
 
+    /**
+     * Method description.
+     */
+    /**
+     * Method description.
+     */
     public void download(String url) {
         RequestParams params = new RequestParams();
         try {
@@ -308,6 +384,12 @@ public class AppVersionUtil {
         });
     }
 
+    /**
+     * Method description.
+     */
+    /**
+     * Method description.
+     */
     public void installApkNew() {
         try {
             File file = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath(), fileName);

@@ -24,7 +24,9 @@ class VideoRecordMedia(
     private var encoder: Encoder = MP4Encoder()
     private var isRunning = false
 
+    /** width property */
     var width = 480
+    /** height property */
     var height = 640
 
     init {

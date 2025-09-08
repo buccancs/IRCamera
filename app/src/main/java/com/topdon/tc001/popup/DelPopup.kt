@@ -14,9 +14,13 @@ import com.blankj.utilcode.util.SizeUtils
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 
  * PopupWindow.
- * Created by LCG on 2024/4/24.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class DelPopup(val context: Context) : PopupWindow() {
 
+    /** onDelListener property */
     var onDelListener: (() -> Unit)? = null
 
     init {
@@ -49,6 +53,9 @@ class DelPopup(val context: Context) : PopupWindow() {
         height = textView.measuredHeight
     }
 
+    /**
+     * Function description.
+     */
     fun show(anchor: View) {
         val locationArray = IntArray(2)
         anchor.getLocationInWindow(locationArray)

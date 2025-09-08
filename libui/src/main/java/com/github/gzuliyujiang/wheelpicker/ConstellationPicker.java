@@ -32,6 +32,9 @@ import java.util.List;
  * @since 2019/5/17 13:10
 @SuppressWarnings("WeakerAccess")
 public class ConstellationPicker extends OptionPicker {
+    /**
+     * Method description.
+     */
     public static String JSON = "[{\"id\":0,\"name\":\"\",\"startDate\":\"\",\"endDate\":\"\",\"english\":\"Unlimited\"},\n" +
             "{\"id\":1,\"name\":\"\",\"startDate\":\"3-21\",\"endDate\":\"4-19\",\"english\":\"Aries\"},\n" +
             "{\"id\":2,\"name\":\"\",\"startDate\":\"4-20\",\"endDate\":\"5-20\",\"english\":\"Taurus\"},\n" +
@@ -45,22 +48,37 @@ public class ConstellationPicker extends OptionPicker {
             "{\"id\":10,\"name\":\"\",\"startDate\":\"12-22\",\"endDate\":\"1-19\",\"english\":\"Capricorn\"},\n" +
             "{\"id\":11,\"name\":\"\",\"startDate\":\"1-20\",\"endDate\":\"2-18\",\"english\":\"Aquarius\"},\n" +
             "{\"id\":12,\"name\":\"\",\"startDate\":\"2-19\",\"endDate\":\"3-20\",\"english\":\"Pisces\"}]";
+    /**
+     * Private method description.
+     */
     private boolean includeUnlimited = false;
 
+    /**
+     * Method description.
+     */
     public ConstellationPicker(Activity activity) {
         super(activity);
     }
 
+    /**
+     * Method description.
+     */
     public ConstellationPicker(@NonNull Activity activity, @StyleRes int themeResId) {
         super(activity, themeResId);
     }
 
+    /**
+     * Method description.
+     */
     public void setIncludeUnlimited(boolean includeUnlimited) {
         this.includeUnlimited = includeUnlimited;
         setData(provideData());
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setDefaultValue(Object item) {
         if (item instanceof String) {
             setDefaultValueByName(item.toString());
@@ -69,24 +87,36 @@ public class ConstellationPicker extends OptionPicker {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultValueById(String id) {
         ConstellationEntity entity = new ConstellationEntity();
         entity.setId(id);
         super.setDefaultValue(entity);
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultValueByName(String name) {
         ConstellationEntity entity = new ConstellationEntity();
         entity.setName(name);
         super.setDefaultValue(entity);
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultValueByDate(DateEntity date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(date.toTimeInMillis());
         setDefaultValueByDate(calendar.getTime());
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultValueByDate(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -137,6 +167,9 @@ public class ConstellationPicker extends OptionPicker {
         setDefaultValueByName(name);
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultValueByEnglish(String english) {
         ConstellationEntity entity = new ConstellationEntity();
         entity.setEnglish(english);

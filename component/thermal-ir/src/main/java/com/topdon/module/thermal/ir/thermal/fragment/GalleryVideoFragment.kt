@@ -67,6 +67,9 @@ class GalleryVideoFragment : BaseViewModelFragment<GalleryViewModel>() {
 //    }
 
 
+    /**
+     * Function description.
+     */
     fun openVideo(path: String) {
         ARouter.getInstance().build(RouterConfig.VIDEO).withString("video_path", path)
             .navigation(requireContext())

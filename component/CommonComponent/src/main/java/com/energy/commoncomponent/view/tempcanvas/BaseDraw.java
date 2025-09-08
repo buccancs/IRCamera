@@ -12,14 +12,23 @@ public abstract class BaseDraw {
     protected int mViewWidth;
     protected int mViewHeight;
 
+    /**
+     * Method description.
+     */
     public BaseDraw(Context context) {
         mContext = context;
     }
 
+    /**
+     * Method description.
+     */
     public void setViewWidth(int viewWidth) {
         this.mViewWidth = viewWidth;
     }
 
+    /**
+     * Method description.
+     */
     public void setViewHeight(int viewHeight) {
         this.mViewHeight = viewHeight;
     }
@@ -28,11 +37,17 @@ public abstract class BaseDraw {
 
      * index
      * @return
+    /**
+     * Method description.
+     */
     public int getTouchInclude() {
         return mTouchIndex;
     }
 
      * @return
+    /**
+     * Method description.
+     */
     public boolean isTouch() {
         return mTouchIndex != -1;
     }

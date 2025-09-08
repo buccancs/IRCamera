@@ -24,6 +24,9 @@ object IRImageUtil {
 
      * @param contrast       1:   0:    2:
      * @param brightness
+    /**
+     * Function description.
+     */
     fun showContrast(
         imageView: ImageView,
         @FloatRange(from = 0.0, to = 2.0) contrast: Double,

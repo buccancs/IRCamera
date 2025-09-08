@@ -15,6 +15,7 @@ import com.csl.irCamera.libapp.R as LibAppR
 @Deprecated("--，")
 class CameraItemAdapter(context: Context) : RecyclerView.Adapter<CameraItemAdapter.ViewHolder>() {
 
+    /** data property */
     val data: List<String> = listOf(
         context.getString(LibAppR.string.person_headshot_camera),
         context.getString(LibAppR.string.app_video)

@@ -7,14 +7,23 @@ import java.util.List;
 
 public class ScatterData extends BarLineScatterCandleBubbleData<IScatterDataSet> {
 
+    /**
+     * Method description.
+     */
     public ScatterData() {
         super();
     }
 
+    /**
+     * Method description.
+     */
     public ScatterData(List<IScatterDataSet> dataSets) {
         super(dataSets);
     }
 
+    /**
+     * Method description.
+     */
     public ScatterData(IScatterDataSet... dataSets) {
         super(dataSets);
     }
@@ -23,6 +32,9 @@ public class ScatterData extends BarLineScatterCandleBubbleData<IScatterDataSet>
      * Returns the maximum shape-size across all DataSets.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public float getGreatestShapeSize() {
 

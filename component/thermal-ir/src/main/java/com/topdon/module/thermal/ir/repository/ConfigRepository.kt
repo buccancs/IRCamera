@@ -8,6 +8,9 @@ import java.lang.Exception
 
 object ConfigRepository {
 
+    /**
+     * Function description.
+     */
     fun read(isTC007: Boolean): ModelBean = try {
         // Only TC001 is supported now, always use the standard IR config
         Gson().fromJson(SharedManager.getIRConfig(), ModelBean::class.java)
@@ -16,11 +19,17 @@ object ConfigRepository {
         ModelBean(DataBean(id = 0, use = true))
     }
 
+    /**
+     * Function description.
+     */
     fun update(isTC007: Boolean, bean: ModelBean) {
         // Only TC001 is supported now, always use the standard IR config
         SharedManager.setIRConfig(Gson().toJson(bean))
     }
 
+    /**
+     * Function description.
+     */
     fun readConfig(isTC007: Boolean): DataBean {
         val config = read(isTC007)
         if (config.defaultModel.use) {

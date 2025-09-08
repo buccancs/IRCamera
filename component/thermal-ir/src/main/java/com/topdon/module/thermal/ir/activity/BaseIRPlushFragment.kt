@@ -63,6 +63,7 @@ import java.io.InputStream
 abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTempListener,
     IIRFrameCallback {
 
+    /** INIT_ALIGN_DATA property */
     val INIT_ALIGN_DATA = floatArrayOf(1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f)
 
      *  DualUVCCamera .
@@ -291,7 +292,9 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
         }
     }
 
+    /** calibrationDataSize property */
     val calibrationDataSize = 192
+    /** SAVE_DUAL_BIN property */
     val SAVE_DUAL_BIN = "dual_calibration_parameters2.bin"
 
     open fun initDefIntegralArgsDISP_VALUE(typeLoadParameters: DualCameraParams.TypeLoadParameters) {
@@ -345,6 +348,7 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
         setTemperatureViewType()
         getTemperatureDualView().start()
     }
+    /** mIrHandler property */
     var mIrHandler: Handler = object : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)

@@ -8,6 +8,9 @@ import com.topdon.lib.core.tools.ConstantLanguages
 
 object LanguageTool {
 
+    /**
+     * Function description.
+     */
     fun showLanguage(context: Context): String {
         return when (SharedManager.getLanguage(context)) {
             ConstantLanguages.ZH_CN -> context.getString(R.string.china)
@@ -29,6 +32,9 @@ object LanguageTool {
     }
 
      * ()
+    /**
+     * Function description.
+     */
     fun useLanguage(context: Context): String {
         return when (SharedManager.getLanguage(context)) {
             ConstantLanguages.ZH_CN -> "zh-CN"
@@ -50,6 +56,9 @@ object LanguageTool {
     }
 
      * ()
+    /**
+     * Function description.
+     */
     fun useStatementLanguage(): String {
         return when (SharedManager.getLanguage(Utils.getApp())) {
             ConstantLanguages.ZH_CN -> "CN"

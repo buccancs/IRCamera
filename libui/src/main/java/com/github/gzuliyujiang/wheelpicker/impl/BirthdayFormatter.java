@@ -15,16 +15,25 @@ package com.github.gzuliyujiang.wheelpicker.impl;
 public class BirthdayFormatter extends SimpleDateFormatter {
 
     @Override
+    /**
+     * Method description.
+     */
     public String formatYear(int year) {
         return super.formatYear(year) + "";
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public String formatMonth(int month) {
         return super.formatMonth(month) + "";
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public String formatDay(int day) {
         return super.formatDay(day) + "";
     }

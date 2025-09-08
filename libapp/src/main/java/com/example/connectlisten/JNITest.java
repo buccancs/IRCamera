@@ -10,9 +10,15 @@ public class JNITest {
 //        System.loadLibrary("minMaxTemperatureDetect");
     }
 
+    /**
+     * Method description.
+     */
     public static byte[] maxTempL(byte[] imgBytes,byte[] tempByte,int width,int height) {
         return  algorithm.maxTempL(imgBytes, tempByte,width,height);
     }
+    /**
+     * Method description.
+     */
     public static byte[] lowTemTrack(byte[] imgBytes,byte[] tempByte,int width,int height) {
         return  algorithm.lowTemTrack(imgBytes, tempByte,width,height);
     }

@@ -40,6 +40,9 @@ class RingBuffer {
      * @return The number of bytes successfully written to the RingBuffer.
      * This may be less than the requested length if there is insufficient free
      * space in the RingBuffer, or zero if the RingBuffer is full.
+    /**
+     * Function description.
+     */
     fun write(buffer: ByteArray?, offset: Int, length: Int): Int {
         var head: Int
         var toEnd: Int
@@ -74,6 +77,9 @@ class RingBuffer {
      * @return The number of bytes successfully read from the RingBuffer.
      * This may be less than the requested length if there were fewer bytes in
      * the buffer, or zero if the buffer was empty.
+    /**
+     * Function description.
+     */
     fun read(buffer: ByteArray?, offset: Int, length: Int): Int {
         var toEnd: Int
         var toRead: Int
@@ -102,6 +108,9 @@ class RingBuffer {
 
 
     //length
+    /**
+     * Function description.
+     */
     fun moveForward(length: Int): Int {
         synchronized(this) {
             mReadPositon = (mReadPositon + length) % byteArray.size
@@ -111,6 +120,9 @@ class RingBuffer {
     }
 
     //length
+    /**
+     * Function description.
+     */
     fun moveBack(length: Int): Int {
         synchronized(this) {
             if (mReadPositon > length) {
@@ -125,30 +137,45 @@ class RingBuffer {
 
      * Get the length of the data contained in the RingBuffer.
      * @return The length of the data in bytes.
+    /**
+     * Function description.
+     */
     fun getUnReadLength(): Int {
         return mUnReadLength
     }
 
      * Get the maximum capacity of the RingBuffer.
      * @return The maximum capacity in bytes.
+    /**
+     * Function description.
+     */
     fun getMaxLength(): Int {
         return byteArray.size
     }
 
      * Get the size of the unused space in the RingBuffer.
      * @return The unused capacity in bytes.
+    /**
+     * Function description.
+     */
     fun getFreeSpace(): Int {
         return byteArray.size - mUnReadLength
     }
 
      * Get the underlying byte array.
      * @return The underlying byte array.
+    /**
+     * Function description.
+     */
     fun getByteArray(): ByteArray? {
         return byteArray
     }
 
      * Get the tail pointer for the underlying byte array.
      * @return The tail pointer.
+    /**
+     * Function description.
+     */
     fun getReadPositon(): Int {
         return mReadPositon
     }

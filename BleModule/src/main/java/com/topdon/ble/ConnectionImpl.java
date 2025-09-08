@@ -45,6 +45,9 @@ import com.topdon.commons.util.StringUtils;
  * author: bichuanfeng
 @SuppressLint("MissingPermission")
 class ConnectionImpl implements Connection, ScanListener {
+    /**
+     * Private method description.
+     */
     private static final int MSG_REQUEST_TIMEOUT = 0;
     private static final int MSG_CONNECT = 1;
     private static final int MSG_DISCONNECT = 2;
@@ -104,10 +107,16 @@ class ConnectionImpl implements Connection, ScanListener {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onScanStart() {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onScanStop() {
         synchronized (this) {
             lastScanStopTime = System.currentTimeMillis();
@@ -115,6 +124,9 @@ class ConnectionImpl implements Connection, ScanListener {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onScanResult(Device device, boolean isConnectedBySys) {
         synchronized (this) {
             if (!isReleased && this.device.equals(device) && this.device.connectionState == ConnectionState.SCANNING_FOR_RECONNECTION) {
@@ -124,16 +136,25 @@ class ConnectionImpl implements Connection, ScanListener {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onScanError(int errorCode, String errorMsg) {
 
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setBluetoothGattCallback(BluetoothGattCallback callback) {
         originCallback = callback;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean hasProperty(UUID service, UUID characteristic, int property) {
         BluetoothGattCharacteristic charac = getCharacteristic(service, characteristic);
         if (charac == null) {
@@ -142,6 +163,9 @@ class ConnectionImpl implements Connection, ScanListener {
         return (charac.getProperties() & property) != 0;
     }
 
+    /**
+     * Private method description.
+     */
     private class BleGattCallback extends BluetoothGattCallback {
         @Override
         public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
@@ -339,6 +363,9 @@ class ConnectionImpl implements Connection, ScanListener {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void doOnConnectionStateChange(int status, int newState) {
         if (bluetoothGatt != null) {
             if (status == BluetoothGatt.GATT_SUCCESS) {
@@ -366,6 +393,9 @@ class ConnectionImpl implements Connection, ScanListener {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void doOnServicesDiscovered(int status) {
         if (bluetoothGatt != null) {
             List<BluetoothGattService> services = bluetoothGatt.getServices();
@@ -390,6 +420,9 @@ class ConnectionImpl implements Connection, ScanListener {
     }
 
 
+    /**
+     * Private method description.
+     */
     private void doDiscoverServices() {
         if (bluetoothGatt != null) {
             bluetoothGatt.discoverServices();
@@ -400,6 +433,9 @@ class ConnectionImpl implements Connection, ScanListener {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void doTimer() {
         if (!isReleased) {
             if (device.connectionState != ConnectionState.SERVICE_DISCOVERED && !refreshing && !isActiveDisconnect) {
@@ -444,6 +480,9 @@ class ConnectionImpl implements Connection, ScanListener {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private Runnable connectRunnable = new Runnable() {
         @Override
         public void run() {
@@ -462,6 +501,9 @@ class ConnectionImpl implements Connection, ScanListener {
         }
     };
 
+    /**
+     * Private method description.
+     */
     private void doConnect() {
         cancelRefreshState();
         device.connectionState = ConnectionState.CONNECTING;
@@ -471,6 +513,9 @@ class ConnectionImpl implements Connection, ScanListener {
     }
 
      * @param reconnect
+    /**
+     * Private method description.
+     */
     private void doDisconnect(boolean reconnect) {
         clearRequestQueueAndNotify();
         connHandler.removeCallbacks(connectRunnable);
@@ -494,11 +539,17 @@ class ConnectionImpl implements Connection, ScanListener {
         sendConnectionCallback();
     }
 
+    /**
+     * Private method description.
+     */
     private void doClearTaskAndRefresh() {
         clearRequestQueueAndNotify();
         doRefresh(true);
     }
 
+    /**
+     * Private method description.
+     */
     private void doRefresh(boolean isAuto) {
         logD(Logger.TYPE_CONNECTION_STATE, "refresh GATT! [name: %s, addr: %s]", device.name, device.address);
         connStartTime = System.currentTimeMillis();
@@ -526,6 +577,9 @@ class ConnectionImpl implements Connection, ScanListener {
         notifyDisconnected();
     }
 
+    /**
+     * Private method description.
+     */
     private void cancelRefreshState() {
         if (refreshing) {
             refreshing = false;
@@ -536,6 +590,9 @@ class ConnectionImpl implements Connection, ScanListener {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void tryScanReconnect() {
         if (!isReleased) {
             connStartTime = System.currentTimeMillis();
@@ -546,6 +603,9 @@ class ConnectionImpl implements Connection, ScanListener {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private boolean canScanReconnect() {
         long duration = System.currentTimeMillis() - lastScanStopTime;
         List<Pair<Integer, Integer>> parameters = configuration.scanIntervalPairsInAutoReconnection;
@@ -562,6 +622,9 @@ class ConnectionImpl implements Connection, ScanListener {
         return false;
     }
 
+    /**
+     * Private method description.
+     */
     private void closeGatt(BluetoothGatt gatt) {
         try {
             gatt.disconnect();
@@ -573,11 +636,17 @@ class ConnectionImpl implements Connection, ScanListener {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void notifyDisconnected() {
         device.connectionState = ConnectionState.DISCONNECTED;
         sendConnectionCallback();
     }
 
+    /**
+     * Private method description.
+     */
     private void sendConnectionCallback() {
         if (lastConnectionState != device.connectionState) {
             lastConnectionState = device.connectionState;
@@ -588,6 +657,9 @@ class ConnectionImpl implements Connection, ScanListener {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private boolean write(GenericRequest request, BluetoothGattCharacteristic characteristic, byte[] value) {
         characteristic.setValue(value);
         int writeType = request.writeOptions.writeType;
@@ -607,12 +679,18 @@ class ConnectionImpl implements Connection, ScanListener {
         return true;
     }
 
+    /**
+     * Private method description.
+     */
     private void handleWriteFailed(GenericRequest request) {
         connHandler.removeMessages(MSG_REQUEST_TIMEOUT);
         request.remainQueue = null;
         handleFailedCallback(request, REQUEST_FAIL_TYPE_REQUEST_FAILED, true);
     }
 
+    /**
+     * Private method description.
+     */
     private boolean enableNotificationOrIndicationFail(boolean enable, boolean notification, BluetoothGattCharacteristic characteristic) {
         if (!bluetoothAdapter.isEnabled() || bluetoothGatt == null || !bluetoothGatt
                 .setCharacteristicNotification(characteristic, enable)) {
@@ -649,6 +727,9 @@ class ConnectionImpl implements Connection, ScanListener {
         return !result;
     }
 
+    /**
+     * Private method description.
+     */
     private static class ConnHandler extends Handler {
         private final WeakReference<ConnectionImpl> weakRef;
 
@@ -705,6 +786,9 @@ class ConnectionImpl implements Connection, ScanListener {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void enqueue(GenericRequest request) {
         if (isReleased) {
             handleFailedCallback(request, REQUEST_FAIL_TYPE_CONNECTION_RELEASED, false);
@@ -739,6 +823,9 @@ class ConnectionImpl implements Connection, ScanListener {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void executeNextRequest() {
         synchronized (this) {
             connHandler.removeMessages(MSG_REQUEST_TIMEOUT);
@@ -750,6 +837,9 @@ class ConnectionImpl implements Connection, ScanListener {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void executeRequest(GenericRequest request) {
         currentRequest = request;
         connHandler.sendMessageDelayed(Message.obtain(connHandler, MSG_REQUEST_TIMEOUT, request), configuration.requestTimeoutMillis);
@@ -815,6 +905,9 @@ class ConnectionImpl implements Connection, ScanListener {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void printWriteLog(GenericRequest request, int progress, int total, byte[] value) {
         if (logger.isEnabled()) {
             String t = String.valueOf(total);
@@ -827,6 +920,9 @@ class ConnectionImpl implements Connection, ScanListener {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void executeWriteCharacteristic(GenericRequest request, BluetoothGattCharacteristic characteristic) {
         try {
             byte[] value = (byte[]) request.value;
@@ -887,6 +983,9 @@ class ConnectionImpl implements Connection, ScanListener {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void executeReadDescriptor(GenericRequest request, BluetoothGattCharacteristic characteristic) {
         BluetoothGattDescriptor gattDescriptor = characteristic.getDescriptor(request.descriptor);
         if (gattDescriptor != null) {
@@ -898,12 +997,18 @@ class ConnectionImpl implements Connection, ScanListener {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void executeReadCharacteristic(GenericRequest request, BluetoothGattCharacteristic characteristic) {
         if (!bluetoothGatt.readCharacteristic(characteristic)) {
             handleFailedCallback(request, REQUEST_FAIL_TYPE_REQUEST_FAILED, true);
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void executeIndicationOrNotification(GenericRequest request, BluetoothGattCharacteristic characteristic) {
         if (enableNotificationOrIndicationFail(((int) request.value) == 1,
                 request.type == RequestType.SET_NOTIFICATION, characteristic)) {
@@ -911,6 +1016,9 @@ class ConnectionImpl implements Connection, ScanListener {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void handlePhyChange(boolean read, int txPhy, int rxPhy, int status) {
         if (currentRequest != null) {
             if ((read && currentRequest.type == RequestType.READ_PHY) || ((!read && currentRequest.type == RequestType.SET_PREFERRED_PHY))) {
@@ -924,12 +1032,18 @@ class ConnectionImpl implements Connection, ScanListener {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void handleGattStatusFailed() {
         if (currentRequest != null) {
             handleFailedCallback(currentRequest, REQUEST_FAIL_TYPE_GATT_STATUS_FAILED, false);
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void handleFailedCallback(GenericRequest request, int failType, boolean executeNext) {
         notifyRequestFailed(request, failType);
         if (executeNext) {
@@ -937,14 +1051,23 @@ class ConnectionImpl implements Connection, ScanListener {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private String toHex(byte[] bytes) {
         return StringUtils.toHex(bytes);
     }
 
+    /**
+     * Private method description.
+     */
     private String substringUuid(UUID uuid) {
         return uuid == null ? "null" : uuid.toString().substring(0, 8);
     }
 
+    /**
+     * Private method description.
+     */
     private void handleCallbacks(RequestCallback callback, MethodInfo info) {
         if (observer != null) {
             posterDispatcher.post(observer, info);//
@@ -956,18 +1079,30 @@ class ConnectionImpl implements Connection, ScanListener {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void log(int priority, int type, String format, Object... args) {
         logger.log(priority, type, String.format(Locale.US, format, args));
     }
 
+    /**
+     * Private method description.
+     */
     private void logE(int type, String format, Object... args) {
         log(Log.ERROR, type, format, args);
     }
 
+    /**
+     * Private method description.
+     */
     private void logD(int type, String format, Object... args) {
         log(Log.DEBUG, type, format, args);
     }
 
+    /**
+     * Private method description.
+     */
     private void notifyRequestFailed(GenericRequest request, int failType) {
         MethodInfo info = MethodInfoGenerator.onRequestFailed(request, failType, request.value);
         handleCallbacks(request.callback, info);
@@ -975,6 +1110,9 @@ class ConnectionImpl implements Connection, ScanListener {
                 request.type, device.address, failType);
     }
 
+    /**
+     * Private method description.
+     */
     private void notifyCharacteristicRead(GenericRequest request, byte[] value) {
         MethodInfo info = MethodInfoGenerator.onCharacteristicRead(request, value);
         handleCallbacks(request.callback, info);
@@ -982,6 +1120,9 @@ class ConnectionImpl implements Connection, ScanListener {
                 substringUuid(request.characteristic), device.address, toHex(value));
     }
 
+    /**
+     * Private method description.
+     */
     private void notifyCharacteristicChanged(BluetoothGattCharacteristic characteristic) {
         MethodInfo info = MethodInfoGenerator.onCharacteristicChanged(device, characteristic.getService().getUuid(),
                 characteristic.getUuid(), characteristic.getValue());
@@ -993,18 +1134,27 @@ class ConnectionImpl implements Connection, ScanListener {
                 substringUuid(characteristic.getUuid()), device.address, toHex(characteristic.getValue()));
     }
 
+    /**
+     * Private method description.
+     */
     private void notifyRssiRead(GenericRequest request, int rssi) {
         MethodInfo info = MethodInfoGenerator.onRssiRead(request, rssi);
         handleCallbacks(request.callback, info);
         logD(Logger.TYPE_READ_REMOTE_RSSI, "rssi read! [addr: %s, rssi: %d]", device.address, rssi);
     }
 
+    /**
+     * Private method description.
+     */
     private void notifyMtuChanged(GenericRequest request, int mtu) {
         MethodInfo info = MethodInfoGenerator.onMtuChanged(request, mtu);
         handleCallbacks(request.callback, info);
         logD(Logger.TYPE_MTU_CHANGED, "mtu change! [addr: %s, mtu: %d]", device.address, mtu);
     }
 
+    /**
+     * Private method description.
+     */
     private void notifyDescriptorRead(GenericRequest request, byte[] value) {
         MethodInfo info = MethodInfoGenerator.onDescriptorRead(request, value);
         handleCallbacks(request.callback, info);
@@ -1012,6 +1162,9 @@ class ConnectionImpl implements Connection, ScanListener {
                 substringUuid(request.characteristic), device.address, toHex(value));
     }
 
+    /**
+     * Private method description.
+     */
     private void notifyNotificationChanged(GenericRequest request, boolean isEnabled) {
         MethodInfo info = MethodInfoGenerator.onNotificationChanged(request, isEnabled);
         handleCallbacks(request.callback, info);
@@ -1024,11 +1177,17 @@ class ConnectionImpl implements Connection, ScanListener {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void notifyCharacteristicWrite(GenericRequest request, byte[] value) {
         MethodInfo info = MethodInfoGenerator.onCharacteristicWrite(request, value);
         handleCallbacks(request.callback, info);
     }
 
+    /**
+     * Private method description.
+     */
     private void notifyPhyChange(GenericRequest request, int txPhy, int rxPhy) {
         MethodInfo info = MethodInfoGenerator.onPhyChange(request, txPhy, rxPhy);
         handleCallbacks(request.callback, info);
@@ -1037,17 +1196,26 @@ class ConnectionImpl implements Connection, ScanListener {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int getMtu() {
         return mtu;
     }
 
     @NonNull
     @Override
+    /**
+     * Method description.
+     */
     public Device getDevice() {
         return device;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void reconnect() {
         if (!isReleased) {
             isActiveDisconnect = false;
@@ -1058,6 +1226,9 @@ class ConnectionImpl implements Connection, ScanListener {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void disconnect() {
         if (!isReleased) {
             isActiveDisconnect = true;
@@ -1066,6 +1237,9 @@ class ConnectionImpl implements Connection, ScanListener {
     }
 
     @SuppressWarnings("all")
+    /**
+     * Private method description.
+     */
     private boolean doRefresh() {
         try {
             Method localMethod = bluetoothGatt.getClass().getMethod("refresh");
@@ -1076,10 +1250,16 @@ class ConnectionImpl implements Connection, ScanListener {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void refresh() {
         connHandler.sendEmptyMessage(MSG_REFRESH);
     }
 
+    /**
+     * Private method description.
+     */
     private void release(boolean noEvent) {
         if (!isReleased) {
             isReleased = true;
@@ -1101,33 +1281,51 @@ class ConnectionImpl implements Connection, ScanListener {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void release() {
         release(false);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void releaseNoEvent() {
         release(true);
     }
 
     @NonNull
     @Override
+    /**
+     * Method description.
+     */
     public ConnectionState getConnectionState() {
         return device.connectionState;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean isAutoReconnectEnabled() {
         return configuration.isAutoReconnect;
     }
 
     @Nullable
     @Override
+    /**
+     * Method description.
+     */
     public BluetoothGatt getGatt() {
         return bluetoothGatt;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void clearRequestQueue() {
         synchronized (this) {
             requestQueue.clear();
@@ -1136,6 +1334,9 @@ class ConnectionImpl implements Connection, ScanListener {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void clearRequestQueueByType(RequestType type) {
         synchronized (this) {
             Iterator<GenericRequest> it = requestQueue.iterator();
@@ -1151,6 +1352,9 @@ class ConnectionImpl implements Connection, ScanListener {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void clearRequestQueueAndNotify() {
         synchronized (this) {
             for (GenericRequest request : requestQueue) {
@@ -1165,12 +1369,18 @@ class ConnectionImpl implements Connection, ScanListener {
 
     @NonNull
     @Override
+    /**
+     * Method description.
+     */
     public ConnectionConfiguration getConnectionConfiguration() {
         return configuration;
     }
 
     @Nullable
     @Override
+    /**
+     * Method description.
+     */
     public BluetoothGattService getService(UUID service) {
         if (service != null && bluetoothGatt != null) {
             return bluetoothGatt.getService(service);
@@ -1180,6 +1390,9 @@ class ConnectionImpl implements Connection, ScanListener {
 
     @Nullable
     @Override
+    /**
+     * Method description.
+     */
     public BluetoothGattCharacteristic getCharacteristic(UUID service, UUID characteristic) {
         if (service != null && characteristic != null && bluetoothGatt != null) {
             BluetoothGattService gattService = bluetoothGatt.getService(service);
@@ -1192,6 +1405,9 @@ class ConnectionImpl implements Connection, ScanListener {
 
     @Nullable
     @Override
+    /**
+     * Method description.
+     */
     public BluetoothGattDescriptor getDescriptor(UUID service, UUID characteristic, UUID descriptor) {
         if (service != null && characteristic != null && descriptor != null && bluetoothGatt != null) {
             BluetoothGattService gattService = bluetoothGatt.getService(service);
@@ -1206,6 +1422,9 @@ class ConnectionImpl implements Connection, ScanListener {
     }
 
     //uuid
+    /**
+     * Private method description.
+     */
     private void checkUuidExistsAndEnqueue(GenericRequest request, int uuidNum) {
         boolean exists = false;
         if (uuidNum > 2) {
@@ -1220,6 +1439,9 @@ class ConnectionImpl implements Connection, ScanListener {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private boolean checkServiceExists(GenericRequest request, UUID uuid) {
         if (getService(uuid) == null) {
             handleFailedCallback(request, REQUEST_FAIL_TYPE_SERVICE_NOT_EXIST, false);
@@ -1228,6 +1450,9 @@ class ConnectionImpl implements Connection, ScanListener {
         return true;
     }
 
+    /**
+     * Private method description.
+     */
     private boolean checkCharacteristicExists(GenericRequest request, UUID service, UUID characteristic) {
         if (checkServiceExists(request, service)) {
             if (getCharacteristic(service, characteristic) == null) {
@@ -1240,6 +1465,9 @@ class ConnectionImpl implements Connection, ScanListener {
     }
 
     //Descriptor
+    /**
+     * Private method description.
+     */
     private boolean checkDescriptorExists(GenericRequest request, UUID service, UUID characteristic, UUID descriptor) {
         if (checkServiceExists(request, service) && checkCharacteristicExists(request, service, characteristic)) {
             if (getDescriptor(service, characteristic, descriptor) == null) {
@@ -1253,6 +1481,9 @@ class ConnectionImpl implements Connection, ScanListener {
 
 
     @Override
+    /**
+     * Method description.
+     */
     public void execute(Request request) {
         if (request instanceof GenericRequest) {
             GenericRequest req = (GenericRequest) request;
@@ -1281,6 +1512,9 @@ class ConnectionImpl implements Connection, ScanListener {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean isNotificationOrIndicationEnabled(BluetoothGattCharacteristic characteristic) {
         Inspector.requireNonNull(characteristic, "characteristic can't be null");
         BluetoothGattDescriptor descriptor = characteristic.getDescriptor(clientCharacteristicConfig);
@@ -1289,6 +1523,9 @@ class ConnectionImpl implements Connection, ScanListener {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean isNotificationOrIndicationEnabled(UUID service, UUID characteristic) {
         BluetoothGattCharacteristic c = getCharacteristic(service, characteristic);
         if (c != null) {

@@ -32,15 +32,24 @@ import com.csl.irCamera.libui.R;
 public abstract class BottomDialog extends BaseDialog {
     protected View maskView;
 
+    /**
+     * Method description.
+     */
     public BottomDialog(@NonNull Activity activity) {
         super(activity, R.style.DialogTheme_Sheet);
     }
 
+    /**
+     * Method description.
+     */
     public BottomDialog(@NonNull Activity activity, @StyleRes int themeResId) {
         super(activity, themeResId);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onInit(@Nullable Bundle savedInstanceState) {
         super.onInit(savedInstanceState);
         setCancelable(true);
@@ -50,6 +59,9 @@ public abstract class BottomDialog extends BaseDialog {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onShow(DialogInterface dialog) {
         super.onShow(dialog);
         if (enableMaskView()) {
@@ -99,6 +111,9 @@ public abstract class BottomDialog extends BaseDialog {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onDismiss(DialogInterface dialog) {
         removeMaskView();
         super.onDismiss(dialog);

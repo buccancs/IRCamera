@@ -22,10 +22,15 @@ import java.io.File
 import java.util.concurrent.CountDownLatch
 
 class UpReportViewModel : BaseViewModel() {
+    /** commonBeanLD property */
     val commonBeanLD = SingleLiveEvent<CommonBean>()
 
+    /** exceptionLD property */
     val exceptionLD = SingleLiveEvent<Exception?>()
 
+    /**
+     * Function description.
+     */
     fun upload(isTC007: Boolean, reportBean: ReportBean?) {
         viewModelScope.launch {
             uploadImages(reportBean)

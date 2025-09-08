@@ -48,6 +48,7 @@ class LinearCompassView : View {
     private var lastDrawTime = 0L //
     private var step = 1000/10 //
     private val scope = CoroutineScope(EmptyCoroutineContext)
+    /** curBitmap property */
     var curBitmap:Bitmap?= null //viewbitmap
 
     constructor(context: Context) : this(context, null) {
@@ -176,6 +177,9 @@ class LinearCompassView : View {
         )
     }
 
+    /**
+     * Function description.
+     */
     fun setCurAzimuth(azimuth: Int) {
         scope.launch(Dispatchers.IO) {
             this@LinearCompassView.azimuth = azimuth.toFloat()

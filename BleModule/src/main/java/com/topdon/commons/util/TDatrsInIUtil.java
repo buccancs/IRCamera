@@ -18,6 +18,9 @@ import java.util.List;
 
 public class TDatrsInIUtil {
 
+    /**
+     * Method description.
+     */
     public static String getTdartsVersion(String path) {
         File file = new File(path + "T-darts.ini");
         if (!file.exists()) {
@@ -46,6 +49,9 @@ public class TDatrsInIUtil {
         return "";
     }
 
+    /**
+     * Method description.
+     */
     public static HashMap<String, String> getTdarts(String path) {
         HashMap<String, String> hashMap = new HashMap<>();
         File file = new File(path + "T-darts.ini");
@@ -91,6 +97,9 @@ public class TDatrsInIUtil {
     }
 
 
+    /**
+     * Method description.
+     */
     public static String getBinPath(int data) {
         String path = FolderUtil.getTdartsUpgradePath();
         if (data == 0) {

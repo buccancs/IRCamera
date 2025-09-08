@@ -34,18 +34,23 @@ class TargetBarPickView : View {
         private const val THUMB_STROKE_WIDTH = 1.5f
     }
 
+    /** onStartTrackingTouch property */
     var onStartTrackingTouch: ((progress: Int, max: Int) -> Unit)? = null
 
+    /** onProgressChanged property */
     var onProgressChanged: ((progress: Int, max: Int) -> Unit)? = null
 
+    /** onStopTrackingTouch property */
     var onStopTrackingTouch: ((progress: Int, max: Int) -> Unit)? = null
 
      *  View .
+    /** valueFormatListener property */
     var valueFormatListener: ((progress: Int) -> String) = {
         it.toString()
     }
 
      * .
+    /** max property */
     var max: Int = 100
         set(value) {
             if (field != value) {
@@ -54,6 +59,7 @@ class TargetBarPickView : View {
             }
         }
 
+    /** min property */
     var min: Int = 0
         set(value) {
             if (field != value) {
@@ -73,6 +79,9 @@ class TargetBarPickView : View {
             }
         }
 
+    /**
+     * Function description.
+     */
     fun setProgressAndRefresh(progress: Int) {
         this.progress = progress
         onProgressChanged?.invoke(this.progress, max)

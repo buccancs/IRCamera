@@ -14,10 +14,14 @@ import java.util.*
 
 class LogViewModel : BaseViewModel() {
 
+    /** resultLiveData property */
     val resultLiveData = MutableLiveData<ChartList>()
 
     private var queryJob: Job? = null
 
+    /**
+     * Function description.
+     */
     fun queryLogByType(selectType: Int) {
         if (queryJob != null && queryJob!!.isActive) {
             queryJob!!.cancel()

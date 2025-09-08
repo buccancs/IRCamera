@@ -25,23 +25,35 @@ public class RequestBuilder<T extends RequestCallback> {
     }
 
      * @param tag
+    /**
+     * Method description.
+     */
     public RequestBuilder<T> setTag(String tag) {
         this.tag = tag;
         return this;
     }
 
      * @param priority
+    /**
+     * Method description.
+     */
     public RequestBuilder<T> setPriority(int priority) {
         this.priority = priority;
         return this;
     }
 
      * <br>{@link RunOn}{@link Observe}
+    /**
+     * Method description.
+     */
     public RequestBuilder<T> setCallback(T callback) {
         this.callback = callback;
         return this;
     }
 
+    /**
+     * Method description.
+     */
     public Request build() {
         return new GenericRequest(this);
     }

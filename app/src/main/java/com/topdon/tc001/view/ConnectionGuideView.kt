@@ -59,22 +59,34 @@ class ConnectionGuideView: LinearLayout {
         guideIcon.visibility = if(iconShow)View.VISIBLE else View.GONE
     }
 
+    /**
+     * Function description.
+     */
     fun setText(text: CharSequence?) {
         if (contentText == null || TextUtils.isEmpty(text)) return
         contentText.text = text
         contentText.movementMethod = LinkMovementMethod.getInstance()
     }
 
+    /**
+     * Function description.
+     */
     fun getText(): String{
         if (contentText == null) return ""
         return contentText.text.toString()
     }
 
+    /**
+     * Function description.
+     */
     fun setHighlightColor(color: Int){
         if (contentText == null) return
         contentText.highlightColor = color
     }
 
+    /**
+     * Function description.
+     */
     fun getCompoundDrawables(content : String){
         if (contentText == null) return
         var mContent = "$content "//

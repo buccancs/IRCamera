@@ -21,6 +21,9 @@ public class ScatterDataSet extends LineScatterCandleRadarDataSet<Entry> impleme
     /**
      * the size the scattershape will have, in density pixels
      */
+    /**
+     * Private method description.
+     */
     private float mShapeSize = 15f;
 
     /**
@@ -41,11 +44,17 @@ public class ScatterDataSet extends LineScatterCandleRadarDataSet<Entry> impleme
      */
     private int mScatterShapeHoleColor = ColorTemplate.COLOR_NONE;
 
+    /**
+     * Method description.
+     */
     public ScatterDataSet(List<Entry> yVals, String label) {
         super(yVals, label);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public DataSet<Entry> copy() {
         List<Entry> entries = new ArrayList<Entry>();
         for (int i = 0; i < mValues.size(); i++) {
@@ -70,11 +79,17 @@ public class ScatterDataSet extends LineScatterCandleRadarDataSet<Entry> impleme
      *
      * @param size
      */
+    /**
+     * Method description.
+     */
     public void setScatterShapeSize(float size) {
         mShapeSize = size;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public float getScatterShapeSize() {
         return mShapeSize;
     }
@@ -84,6 +99,9 @@ public class ScatterDataSet extends LineScatterCandleRadarDataSet<Entry> impleme
      * renderer for the DataSet.
      *
      * @param shape
+     */
+    /**
+     * Method description.
      */
     public void setScatterShape(ScatterChart.ScatterShape shape) {
         mShapeRenderer = getRendererForShape(shape);
@@ -95,11 +113,17 @@ public class ScatterDataSet extends LineScatterCandleRadarDataSet<Entry> impleme
      *
      * @param shapeRenderer
      */
+    /**
+     * Method description.
+     */
     public void setShapeRenderer(IShapeRenderer shapeRenderer) {
         mShapeRenderer = shapeRenderer;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public IShapeRenderer getShapeRenderer() {
         return mShapeRenderer;
     }
@@ -110,11 +134,17 @@ public class ScatterDataSet extends LineScatterCandleRadarDataSet<Entry> impleme
      *
      * @param holeRadius
      */
+    /**
+     * Method description.
+     */
     public void setScatterShapeHoleRadius(float holeRadius) {
         mScatterShapeHoleRadius = holeRadius;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public float getScatterShapeHoleRadius() {
         return mScatterShapeHoleRadius;
     }
@@ -124,15 +154,24 @@ public class ScatterDataSet extends LineScatterCandleRadarDataSet<Entry> impleme
      *
      * @param holeColor
      */
+    /**
+     * Method description.
+     */
     public void setScatterShapeHoleColor(int holeColor) {
         mScatterShapeHoleColor = holeColor;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int getScatterShapeHoleColor() {
         return mScatterShapeHoleColor;
     }
 
+    /**
+     * Method description.
+     */
     public static IShapeRenderer getRendererForShape(ScatterChart.ScatterShape shape) {
 
         switch (shape) {

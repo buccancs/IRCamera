@@ -18,7 +18,10 @@ import com.topdon.module.thermal.ir.databinding.ItemIrEmissivityTitleBinding
 import com.topdon.module.thermal.ir.view.EmissivityView
 
  * .
- * Created by LCG on 2024/10/14.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class IREmissivityActivity : BaseActivity() {
 
     private lateinit var binding: ActivityIrEmissivityBinding

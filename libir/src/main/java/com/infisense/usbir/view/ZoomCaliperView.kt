@@ -27,10 +27,14 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
     private lateinit var mTextureView : View
     private var canScale = false
     private var def_caliper = 180f //2
+    /** magnifier property */
     var magnifier : Magnifier ?= null
+    /** textureMagnifier property */
     var textureMagnifier : Magnifier ?= null
+    /** m property */
     var m : Float = 0.0f
 
+    /** zoomViewCloseListener property */
     var zoomViewCloseListener : (() -> Unit) ?= null
 
     constructor(context: Context) : this(context, null)
@@ -57,6 +61,9 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
         onResumeView()
     }
 
+    /**
+     * Function description.
+     */
     fun setImageSize(imageHeight: Int, imageWidth: Int, parentViewWidth: Int, parentViewHeight: Int) {
         if (this.imageHeight == imageHeight && this.imageWidth == imageWidth){
             return
@@ -120,8 +127,11 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
     private var showBitmapHeight = 0f
 
     private lateinit var lis: ScaleGestureDetector
+    /** isCheckChildView property */
     var isCheckChildView = false
+    /** contentWith property */
     var contentWith = 0
+    /** contentHeight property */
     var contentHeight = 0
 
 
@@ -261,6 +271,9 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
 
 
 
+    /**
+     * Function description.
+     */
     fun setRotation(isReverse : Boolean){
         this.isReverse = isReverse
         updateRotation()
@@ -278,23 +291,35 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
     }
 
 
+    /** viewX property */
     val viewX: Float
         get() = mTextureView.x - (viewWidth - mTextureView.width)/2
+    /** viewY property */
     val viewY: Float
         get() = mTextureView.y - (viewHeight - mTextureView.height)/2
+    /** viewAlpha property */
     val viewAlpha: Float
         get() = mTextureView.alpha
+    /** viewWidth property */
     val viewWidth: Float
         get() = mTextureView.width * scale
+    /** viewHeight property */
     val viewHeight: Float
         get() = mTextureView.height * scale
+    /** viewScale property */
     val viewScale: Float
         get() = scale
 
+    /**
+     * Function description.
+     */
     fun setCameraAlpha(alpha : Float){
         mTextureView?.alpha = 1 - alpha
     }
 
+    /**
+     * Function description.
+     */
     fun setCaliperM(m: Float){
         scale = m / def_caliper
         mTextureView.scaleX = scale
@@ -303,6 +328,9 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
     }
     private var curChooseMeasureMode: Int = ObserveBean.TYPE_MEASURE_PERSON
     private var curChooseTargetMode: Int = ObserveBean.TYPE_TARGET_HORIZONTAL
+    /**
+     * Function description.
+     */
     fun updateSelectBitmap(targetMeasureMode: Int, targetType: Int, targetColorType: Int, parentCameraView : View?){
         if(curChooseTargetMode == targetType && curChooseMeasureMode == targetMeasureMode){
             return
@@ -311,6 +339,9 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
         curChooseTargetMode = targetType
         updateTargetBitmap(targetMeasureMode, targetType, targetColorType, parentCameraView)
     }
+    /**
+     * Function description.
+     */
     fun updateTargetBitmap(targetMeasureMode: Int, targetType: Int, targetColorType: Int, parentCameraView : View?){
         this.visibility = View.VISIBLE
         m = TargetUtils.getMeasureSize(targetMeasureMode)
@@ -370,6 +401,9 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
             },200)
         }
     }
+    /**
+     * Function description.
+     */
     fun hideView(){
         this.visibility = GONE
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
@@ -377,6 +411,9 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
         }
     }
 
+    /**
+     * Function description.
+     */
     fun showView(){
         this.visibility = VISIBLE
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
@@ -384,12 +421,18 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
         }
     }
 
+    /**
+     * Function description.
+     */
     fun updateMagnifier(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             magnifier?.update()
         }
     }
 
+    /**
+     * Function description.
+     */
     fun del(reductionXY: Boolean) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             magnifier?.dismiss()
@@ -412,6 +455,9 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
 
     }
 
+    /**
+     * Function description.
+     */
     fun updateCenter(){
         val parent = parent as ViewGroup
         centerX = parent.measuredWidth.toFloat() / 2

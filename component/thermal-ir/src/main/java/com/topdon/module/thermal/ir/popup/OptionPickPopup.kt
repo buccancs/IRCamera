@@ -17,7 +17,10 @@ import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.databinding.PopupOptionPickBinding
 
  *  PopupWindow.
- * Created by LCG on 2024/1/5.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class OptionPickPopup(private val context: Context, private val strArray: Array<String>, private val resIdArray: Array<Int>? = null) : PopupWindow() {
 
     companion object {
@@ -29,6 +32,7 @@ class OptionPickPopup(private val context: Context, private val strArray: Array<
 
 
      * .
+    /** onPickListener property */
     var onPickListener: ((position: Int, str: String) -> Unit)? = null
 
 
@@ -59,6 +63,9 @@ class OptionPickPopup(private val context: Context, private val strArray: Array<
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
     }
 
+    /**
+     * Function description.
+     */
     fun show(anchor: View) {
         val locationArray = IntArray(2)
         anchor.getLocationInWindow(locationArray)

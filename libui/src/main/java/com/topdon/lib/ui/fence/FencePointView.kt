@@ -16,6 +16,7 @@ import com.csl.irCamera.libui.R
 
 class FencePointView : View {
 
+    /** listener property */
     var listener: CallBack? = null
     private val iconSize = SizeUtils.dp2px(32f)
 
@@ -44,7 +45,9 @@ class FencePointView : View {
         }
     }
 
+    /** destW property */
     var destW = 0
+    /** destH property */
     var destH = 0
 
     private val drawable: BitmapDrawable by lazy {
@@ -95,9 +98,13 @@ class FencePointView : View {
         canvas.drawBitmap(bitmap, src, dst, mPaint)
     }
 
+    /** mX property */
     var mX = 0f
+    /** mY property */
     var mY = 0f
+    /** old property */
     var old = Rect(0, 0, 0, 0)
+    /** startPoint property */
     var startPoint = intArrayOf(0, 0)
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -148,6 +155,9 @@ class FencePointView : View {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun clear() {
         startPoint = intArrayOf(0, 0)
         result()

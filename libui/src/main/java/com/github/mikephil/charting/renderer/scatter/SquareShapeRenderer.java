@@ -17,6 +17,9 @@ public class SquareShapeRenderer implements IShapeRenderer
 
 
     @Override
+    /**
+     * Method description.
+     */
     public void renderShape(Canvas c, IScatterDataSet dataSet, ViewPortHandler viewPortHandler,
                             float posX, float posY, Paint renderPaint) {
 

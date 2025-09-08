@@ -10,7 +10,10 @@ import com.csl.irCamera.libapp.databinding.DialogLongTextBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
  * .
- * Created by LCG on 2024/2/2.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class LongTextDialog(context: Context, val title: String?, val content: String?) : Dialog(context, R.style.InfoDialog) {
 
     override fun onCreate(savedInstanceState: Bundle?) {

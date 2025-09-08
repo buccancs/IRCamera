@@ -22,6 +22,9 @@ public abstract class LineScatterCandleRadarDataSet<T extends Entry> extends Bar
     protected DashPathEffect mHighlightDashPathEffect = null;
 
 
+    /**
+     * Method description.
+     */
     public LineScatterCandleRadarDataSet(List<T> yVals, String label) {
         super(yVals, label);
         mHighlightLineWidth = Utils.convertDpToPixel(0.5f);
@@ -31,6 +34,9 @@ public abstract class LineScatterCandleRadarDataSet<T extends Entry> extends Bar
      * Enables / disables the horizontal highlight-indicator. If disabled, the indicator is not drawn.
      * @param enabled
      */
+    /**
+     * Method description.
+     */
     public void setDrawHorizontalHighlightIndicator(boolean enabled) {
         this.mDrawHorizontalHighlightIndicator = enabled;
     }
@@ -38,6 +44,9 @@ public abstract class LineScatterCandleRadarDataSet<T extends Entry> extends Bar
     /**
      * Enables / disables the vertical highlight-indicator. If disabled, the indicator is not drawn.
      * @param enabled
+     */
+    /**
+     * Method description.
      */
     public void setDrawVerticalHighlightIndicator(boolean enabled) {
         this.mDrawVerticalHighlightIndicator = enabled;
@@ -47,17 +56,26 @@ public abstract class LineScatterCandleRadarDataSet<T extends Entry> extends Bar
      * Enables / disables both vertical and horizontal highlight-indicators.
      * @param enabled
      */
+    /**
+     * Method description.
+     */
     public void setDrawHighlightIndicators(boolean enabled) {
         setDrawVerticalHighlightIndicator(enabled);
         setDrawHorizontalHighlightIndicator(enabled);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean isVerticalHighlightIndicatorEnabled() {
         return mDrawVerticalHighlightIndicator;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean isHorizontalHighlightIndicatorEnabled() {
         return mDrawHorizontalHighlightIndicator;
     }
@@ -66,11 +84,17 @@ public abstract class LineScatterCandleRadarDataSet<T extends Entry> extends Bar
      * Sets the width of the highlight line in dp.
      * @param width
      */
+    /**
+     * Method description.
+     */
     public void setHighlightLineWidth(float width) {
         mHighlightLineWidth = Utils.convertDpToPixel(width);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public float getHighlightLineWidth() {
         return mHighlightLineWidth;
     }
@@ -82,6 +106,9 @@ public abstract class LineScatterCandleRadarDataSet<T extends Entry> extends Bar
      * @param spaceLength the length of space inbetween the line-pieces
      * @param phase offset, in degrees (normally, use 0)
      */
+    /**
+     * Method description.
+     */
     public void enableDashedHighlightLine(float lineLength, float spaceLength, float phase) {
         mHighlightDashPathEffect = new DashPathEffect(new float[] {
                 lineLength, spaceLength
@@ -90,6 +117,9 @@ public abstract class LineScatterCandleRadarDataSet<T extends Entry> extends Bar
 
     /**
      * Disables the highlight-line to be drawn in dashed mode.
+     */
+    /**
+     * Method description.
      */
     public void disableDashedHighlightLine() {
         mHighlightDashPathEffect = null;
@@ -101,11 +131,17 @@ public abstract class LineScatterCandleRadarDataSet<T extends Entry> extends Bar
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public boolean isDashedHighlightLineEnabled() {
         return mHighlightDashPathEffect == null ? false : true;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public DashPathEffect getDashPathEffectHighlight() {
         return mHighlightDashPathEffect;
     }

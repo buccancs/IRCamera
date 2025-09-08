@@ -16,9 +16,14 @@ import com.topdon.menu.R
  * -3-/-4- .
  * View -，，、。
  * [refreshColor] UI.
- * Created by LCG on 2024/11/12.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class ColorView : View {
+    /** colors property */
     var colors: IntArray = intArrayOf(0xfffbda00.toInt(), 0xffea0e0e.toInt(), 0xff6907af.toInt())
+    /** positions property */
     var positions: FloatArray = floatArrayOf(0f, 0.5f, 1f)
 
 
@@ -89,6 +94,9 @@ class ColorView : View {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun refreshColor(colors: IntArray, positions: FloatArray) {
         this.colors = colors
         this.positions = positions

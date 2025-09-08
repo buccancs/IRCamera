@@ -12,11 +12,15 @@ import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.databinding.PopupGalleryChangeBinding
 
  *  PopupWindow.
- * Created by LCG on 2024/1/5.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class GalleryChangePopup(private val context: Context) : PopupWindow() {
 
 
      * .
+    /** onPickListener property */
     var onPickListener: ((position: Int, str: String) -> Unit)? = null
 
 
@@ -47,6 +51,9 @@ class GalleryChangePopup(private val context: Context) : PopupWindow() {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun show(anchor: View) {
         val locationArray = IntArray(2)
         anchor.getLocationInWindow(locationArray)

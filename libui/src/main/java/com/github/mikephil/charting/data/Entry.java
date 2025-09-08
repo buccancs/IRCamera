@@ -17,8 +17,14 @@ import com.github.mikephil.charting.utils.Utils;
 public class Entry extends BaseEntry implements Parcelable {
 
     /** the x value */
+    /**
+     * Private method description.
+     */
     private float x = 0f;
 
+    /**
+     * Method description.
+     */
     public Entry() {
 
     }
@@ -28,6 +34,9 @@ public class Entry extends BaseEntry implements Parcelable {
      *
      * @param x the x value
      * @param y the y value (the actual value of the entry)
+     */
+    /**
+     * Method description.
      */
     public Entry(float x, float y) {
         super(y);
@@ -41,6 +50,9 @@ public class Entry extends BaseEntry implements Parcelable {
      * @param y the y value (the actual value of the entry)
      * @param data Spot for additional data this Entry represents.
      */
+    /**
+     * Method description.
+     */
     public Entry(float x, float y, Object data) {
         super(y, data);
         this.x = x;
@@ -52,6 +64,9 @@ public class Entry extends BaseEntry implements Parcelable {
      * @param x the x value
      * @param y the y value (the actual value of the entry)
      * @param icon icon image
+     */
+    /**
+     * Method description.
      */
     public Entry(float x, float y, Drawable icon) {
         super(y, icon);
@@ -66,6 +81,9 @@ public class Entry extends BaseEntry implements Parcelable {
      * @param icon icon image
      * @param data Spot for additional data this Entry represents.
      */
+    /**
+     * Method description.
+     */
     public Entry(float x, float y, Drawable icon, Object data) {
         super(y, icon, data);
         this.x = x;
@@ -76,6 +94,9 @@ public class Entry extends BaseEntry implements Parcelable {
      * 
      * @return
      */
+    /**
+     * Method description.
+     */
     public float getX() {
         return x;
     }
@@ -85,6 +106,9 @@ public class Entry extends BaseEntry implements Parcelable {
      * 
      * @param x
      */
+    /**
+     * Method description.
+     */
     public void setX(float x) {
         this.x = x;
     }
@@ -93,6 +117,9 @@ public class Entry extends BaseEntry implements Parcelable {
      * returns an exact copy of the entry
      * 
      * @return
+     */
+    /**
+     * Method description.
      */
     public Entry copy() {
         Entry e = new Entry(x, getY(), getData());
@@ -106,6 +133,9 @@ public class Entry extends BaseEntry implements Parcelable {
      * 
      * @param e
      * @return
+     */
+    /**
+     * Method description.
      */
     public boolean equalTo(Entry e) {
 
@@ -128,16 +158,25 @@ public class Entry extends BaseEntry implements Parcelable {
      * returns a string representation of the entry containing x-index and value
      */
     @Override
+    /**
+     * Method description.
+     */
     public String toString() {
         return "Entry, x: " + x + " y: " + getY();
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int describeContents() {
         return 0;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeFloat(this.x);
         dest.writeFloat(this.getY());
@@ -161,6 +200,9 @@ public class Entry extends BaseEntry implements Parcelable {
         }
     }
 
+    /**
+     * Method description.
+     */
     public static final Creator<Entry> CREATOR = new Creator<Entry>() {
         public Entry createFromParcel(Parcel source) {
             return new Entry(source);

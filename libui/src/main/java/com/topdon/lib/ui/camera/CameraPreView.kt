@@ -34,8 +34,10 @@ class CameraPreView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener,
     private lateinit var binding: CameraLayBinding
     private var cameraWidth = 0
 
+    /** isPreviewing property */
     var isPreviewing = false
 
+    /** cameraPreViewCloseListener property */
     var cameraPreViewCloseListener : (() -> Unit) ?= null
 
     constructor(context: Context) : this(context, null)
@@ -161,6 +163,9 @@ class CameraPreView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener,
 
     override fun onScaleEnd(detector: ScaleGestureDetector) {
     }
+    /**
+     * Function description.
+     */
     fun onResume(){
         //app
         if (mCameraDevice!=null){
@@ -216,6 +221,9 @@ class CameraPreView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener,
             }
         }
 
+    /**
+     * Function description.
+     */
     fun setRotation(isReverse : Boolean){
         this.isReverse = isReverse
         updateRotation()
@@ -379,6 +387,9 @@ class CameraPreView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener,
     }
 
     @SuppressLint("MissingPermission")
+    /**
+     * Function description.
+     */
     fun openCamera() {
         isPreviewing = true
         try {
@@ -392,6 +403,9 @@ class CameraPreView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener,
     }
 
     @SuppressLint("MissingPermission")
+    /**
+     * Function description.
+     */
     fun closeCamera() {
         isPreviewing = false
         try {
@@ -421,10 +435,16 @@ class CameraPreView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener,
     override val viewScale: Float
         get() = scale
 
+    /**
+     * Function description.
+     */
     fun setCameraAlpha(alpha : Float){
         mTextureView?.alpha = 1 - alpha
     }
 
+    /**
+     * Function description.
+     */
     fun setZoom(zoomLeve : Int){
         scale = zoomLeve * 0.5f
         mTextureView.scaleX = scale

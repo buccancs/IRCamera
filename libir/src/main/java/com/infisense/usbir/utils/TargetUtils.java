@@ -4,6 +4,9 @@ import com.csl.irCamera.libir.R;
 import com.topdon.lib.core.bean.ObserveBean;
 
 public class TargetUtils {
+    /**
+     * Method description.
+     */
     public static int getSelectTargetDraw(int targetMeasureMode, int targetType, int targetColorType){
         int currentSelectDraw = R.drawable.svg_ic_target_horizontal_person_green;
         if(targetColorType == ObserveBean.TYPE_TARGET_COLOR_GREEN){
@@ -250,6 +253,9 @@ public class TargetUtils {
         return currentSelectDraw;
     }
 
+    /**
+     * Method description.
+     */
     public static float getMeasureSize(int targetMeasureMode){
         float mMeasureSize = 180f;
         switch (targetMeasureMode) {
@@ -269,6 +275,9 @@ public class TargetUtils {
         return mMeasureSize;
     }
 
+    /**
+     * Method description.
+     */
     public static boolean isScaleMode(int targetMeasureMode){
         boolean isScaleFlag = false;
         if(targetMeasureMode == ObserveBean.TYPE_MEASURE_DOG ||

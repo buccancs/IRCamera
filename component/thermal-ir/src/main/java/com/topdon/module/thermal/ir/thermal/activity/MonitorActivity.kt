@@ -24,6 +24,7 @@ class MonitorActivity : BaseIRActivity(), View.OnClickListener {
         const val STATS_FINISH = 103
     }
 
+    /** MONITOR_ACTION property */
     var MONITOR_ACTION = STATS_START
 
     private lateinit var binding: ActivityMonitorBinding
@@ -85,6 +86,9 @@ class MonitorActivity : BaseIRActivity(), View.OnClickListener {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun select(selectType: Int, selectIndex: ArrayList<Int>) {
         binding.motionStartBtn.isEnabled = true
         this.selectType = selectType
@@ -98,6 +102,9 @@ class MonitorActivity : BaseIRActivity(), View.OnClickListener {
         binding.motionBtn.visibility = View.GONE
     }
 
+    /**
+     * Function description.
+     */
     fun updateTime(time: Long) {
         val ss = time % 60
         val mm = time / 60 % 60

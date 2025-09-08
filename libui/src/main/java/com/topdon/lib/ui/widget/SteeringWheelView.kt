@@ -13,8 +13,11 @@ class SteeringWheelView : LinearLayout, OnClickListener {
 
     private lateinit var binding: UiSteeringWheelViewBinding
     
+    /** listener property */
     var listener: ((action: Int, moveX: Int) -> Unit)? = null
+    /** moveX property */
     var moveX = 30
+    /** rotationIR property */
     var rotationIR = 270
     set(value) {
         field = value

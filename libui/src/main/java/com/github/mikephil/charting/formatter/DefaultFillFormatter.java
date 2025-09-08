@@ -14,6 +14,9 @@ public class DefaultFillFormatter implements IFillFormatter
 {
 
     @Override
+    /**
+     * Method description.
+     */
     public float getFillLinePosition(ILineDataSet dataSet, LineDataProvider dataProvider) {
 
         float fillMin = 0f;

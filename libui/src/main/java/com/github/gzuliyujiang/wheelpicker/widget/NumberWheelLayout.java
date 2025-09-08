@@ -30,20 +30,35 @@ import java.util.List;
  * @author 1032694760@qq.com
  * @since 2021/6/5 18:35
 public class NumberWheelLayout extends OptionWheelLayout {
+    /**
+     * Private method description.
+     */
     private OnNumberSelectedListener onNumberSelectedListener;
 
+    /**
+     * Method description.
+     */
     public NumberWheelLayout(Context context) {
         super(context);
     }
 
+    /**
+     * Method description.
+     */
     public NumberWheelLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * Method description.
+     */
     public NumberWheelLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
+    /**
+     * Method description.
+     */
     public NumberWheelLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
@@ -92,6 +107,9 @@ public class NumberWheelLayout extends OptionWheelLayout {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onWheelSelected(WheelView view, int position) {
         if (onNumberSelectedListener != null) {
             Object item = getWheelView().getItem(position);
@@ -102,6 +120,9 @@ public class NumberWheelLayout extends OptionWheelLayout {
      * @deprecated  {@link #setRange}
     @Deprecated
     @Override
+    /**
+     * Method description.
+     */
     public void setData(List<?> data) {
         throw new UnsupportedOperationException("Use setRange instead");
     }
@@ -109,14 +130,23 @@ public class NumberWheelLayout extends OptionWheelLayout {
      * @deprecated  {@link #setOnNumberSelectedListener}
     @Deprecated
     @Override
+    /**
+     * Method description.
+     */
     public void setOnOptionSelectedListener(OnOptionSelectedListener onOptionSelectedListener) {
         throw new UnsupportedOperationException("Use setOnNumberSelectedListener instead");
     }
 
+    /**
+     * Method description.
+     */
     public void setOnNumberSelectedListener(OnNumberSelectedListener onNumberSelectedListener) {
         this.onNumberSelectedListener = onNumberSelectedListener;
     }
 
+    /**
+     * Method description.
+     */
     public void setRange(int min, int max, int step) {
         int minValue = Math.min(min, max);
         int maxValue = Math.max(min, max);
@@ -129,6 +159,9 @@ public class NumberWheelLayout extends OptionWheelLayout {
         super.setData(data);
     }
 
+    /**
+     * Method description.
+     */
     public void setRange(float min, float max, float step) {
         float minValue = Math.min(min, max);
         float maxValue = Math.max(min, max);

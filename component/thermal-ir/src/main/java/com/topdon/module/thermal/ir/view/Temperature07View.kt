@@ -7,7 +7,10 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 
  * TC007  View.
- * Created by LCG on 2024/5/7.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class Temperature07View : TemperatureBaseView {
 
     constructor(context: Context) : this(context, null)

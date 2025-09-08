@@ -41,24 +41,39 @@ import java.util.List;
  * @since 2019/5/14 15:26
 @SuppressWarnings("unused")
 public class DatimeWheelLayout extends BaseWheelLayout {
+    /**
+     * Private method description.
+     */
     private DateWheelLayout dateWheelLayout;
     private TimeWheelLayout timeWheelLayout;
     private DatimeEntity startValue;
     private DatimeEntity endValue;
     private OnDatimeSelectedListener onDatimeSelectedListener;
 
+    /**
+     * Method description.
+     */
     public DatimeWheelLayout(Context context) {
         super(context);
     }
 
+    /**
+     * Method description.
+     */
     public DatimeWheelLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * Method description.
+     */
     public DatimeWheelLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
+    /**
+     * Method description.
+     */
     public DatimeWheelLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
@@ -152,6 +167,9 @@ public class DatimeWheelLayout extends BaseWheelLayout {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onWheelSelected(WheelView view, int position) {
         dateWheelLayout.onWheelSelected(view, position);
         timeWheelLayout.onWheelSelected(view, position);
@@ -170,35 +188,56 @@ public class DatimeWheelLayout extends BaseWheelLayout {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onWheelScrolled(WheelView view, int offset) {
         dateWheelLayout.onWheelScrolled(view, offset);
         timeWheelLayout.onWheelScrolled(view, offset);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onWheelScrollStateChanged(WheelView view, @ScrollState int state) {
         dateWheelLayout.onWheelScrollStateChanged(view, state);
         timeWheelLayout.onWheelScrollStateChanged(view, state);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onWheelLoopFinished(WheelView view) {
         dateWheelLayout.onWheelLoopFinished(view);
         timeWheelLayout.onWheelLoopFinished(view);
     }
 
+    /**
+     * Method description.
+     */
     public void setDateMode(@DateMode int dateMode) {
         dateWheelLayout.setDateMode(dateMode);
     }
 
+    /**
+     * Method description.
+     */
     public void setTimeMode(@TimeMode int timeMode) {
         timeWheelLayout.setTimeMode(timeMode);
     }
 
+    /**
+     * Method description.
+     */
     public void setRange(DatimeEntity startValue, DatimeEntity endValue) {
         setRange(startValue, endValue, null);
     }
 
+    /**
+     * Method description.
+     */
     public void setRange(DatimeEntity startValue, DatimeEntity endValue, DatimeEntity defaultValue) {
         if (startValue == null) {
             startValue = DatimeEntity.now();
@@ -215,6 +254,9 @@ public class DatimeWheelLayout extends BaseWheelLayout {
         this.endValue = endValue;
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultValue(DatimeEntity defaultValue) {
         if (defaultValue == null) {
             defaultValue = DatimeEntity.now();
@@ -223,127 +265,220 @@ public class DatimeWheelLayout extends BaseWheelLayout {
         timeWheelLayout.setDefaultValue(defaultValue.getTime());
     }
 
+    /**
+     * Method description.
+     */
     public void setDateFormatter(DateFormatter dateFormatter) {
         dateWheelLayout.setDateFormatter(dateFormatter);
     }
 
+    /**
+     * Method description.
+     */
     public void setTimeFormatter(TimeFormatter timeFormatter) {
         timeWheelLayout.setTimeFormatter(timeFormatter);
     }
 
+    /**
+     * Method description.
+     */
     public void setDateLabel(CharSequence year, CharSequence month, CharSequence day) {
         dateWheelLayout.setDateLabel(year, month, day);
     }
 
+    /**
+     * Method description.
+     */
     public void setTimeLabel(CharSequence hour, CharSequence minute, CharSequence second) {
         timeWheelLayout.setTimeLabel(hour, minute, second);
     }
 
+    /**
+     * Method description.
+     */
     public void setOnDatimeSelectedListener(OnDatimeSelectedListener onDatimeSelectedListener) {
         this.onDatimeSelectedListener = onDatimeSelectedListener;
     }
 
+    /**
+     * Method description.
+     */
     public void setResetWhenLinkage(boolean dateResetWhenLinkage, boolean timeResetWhenLinkage) {
         dateWheelLayout.setResetWhenLinkage(dateResetWhenLinkage);
         timeWheelLayout.setResetWhenLinkage(timeResetWhenLinkage);
     }
 
+    /**
+     * Method description.
+     */
     public final DatimeEntity getStartValue() {
         return startValue;
     }
 
+    /**
+     * Method description.
+     */
     public final DatimeEntity getEndValue() {
         return endValue;
     }
 
+    /**
+     * Method description.
+     */
     public final DateWheelLayout getDateWheelLayout() {
         return dateWheelLayout;
     }
 
+    /**
+     * Method description.
+     */
     public final TimeWheelLayout getTimeWheelLayout() {
         return timeWheelLayout;
     }
 
+    /**
+     * Method description.
+     */
     public final NumberWheelView getYearWheelView() {
         return dateWheelLayout.getYearWheelView();
     }
 
+    /**
+     * Method description.
+     */
     public final NumberWheelView getMonthWheelView() {
         return dateWheelLayout.getMonthWheelView();
     }
 
+    /**
+     * Method description.
+     */
     public final NumberWheelView getDayWheelView() {
         return dateWheelLayout.getDayWheelView();
     }
 
+    /**
+     * Method description.
+     */
     public final NumberWheelView getHourWheelView() {
         return timeWheelLayout.getHourWheelView();
     }
 
+    /**
+     * Method description.
+     */
     public final NumberWheelView getMinuteWheelView() {
         return timeWheelLayout.getMinuteWheelView();
     }
 
+    /**
+     * Method description.
+     */
     public final NumberWheelView getSecondWheelView() {
         return timeWheelLayout.getSecondWheelView();
     }
 
+    /**
+     * Method description.
+     */
     public final WheelView getMeridiemWheelView() {
         return timeWheelLayout.getMeridiemWheelView();
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getYearLabelView() {
         return dateWheelLayout.getYearLabelView();
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getMonthLabelView() {
         return dateWheelLayout.getMonthLabelView();
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getDayLabelView() {
         return dateWheelLayout.getDayLabelView();
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getHourLabelView() {
         return timeWheelLayout.getHourLabelView();
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getMinuteLabelView() {
         return timeWheelLayout.getMinuteLabelView();
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getSecondLabelView() {
         return timeWheelLayout.getSecondLabelView();
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getSpaceStartView() {
         return dateWheelLayout.getSpaceStartView();
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getSpaceEndView() {
         return dateWheelLayout.getSpaceEndView();
     }
 
+    /**
+     * Method description.
+     */
     public final int getSelectedYear() {
         return dateWheelLayout.getSelectedYear();
     }
 
+    /**
+     * Method description.
+     */
     public final int getSelectedMonth() {
         return dateWheelLayout.getSelectedMonth();
     }
 
+    /**
+     * Method description.
+     */
     public final int getSelectedDay() {
         return dateWheelLayout.getSelectedDay();
     }
 
+    /**
+     * Method description.
+     */
     public final int getSelectedHour() {
         return timeWheelLayout.getSelectedHour();
     }
 
+    /**
+     * Method description.
+     */
     public final int getSelectedMinute() {
         return timeWheelLayout.getSelectedMinute();
     }
 
+    /**
+     * Method description.
+     */
     public final int getSelectedSecond() {
         return timeWheelLayout.getSelectedSecond();
     }

@@ -14,6 +14,9 @@ import java.lang.reflect.Method;
 import java.util.Set;
 
 public class PreUtil {
+    /**
+     * Private method description.
+     */
     private WeakReference<Context> mContext;
     private SharedPreferences preferences;
     private final String DATA_URL = "/data/data/";
@@ -29,6 +32,9 @@ public class PreUtil {
 
      * @param context
      * @param shareName
+    /**
+     * Private method description.
+     */
     private PreUtil(Context context, String shareName) {
         mContext = new WeakReference<>(context);
         preferences = context.getSharedPreferences(shareName, Context.MODE_PRIVATE);
@@ -37,6 +43,9 @@ public class PreUtil {
      * PreferencesManager
      * @param context
      * @return
+    /**
+     * Method description.
+     */
     public static PreUtil getInstance(Context context) {
         return getInstance(context, SHARE_NAME);
     }
@@ -45,6 +54,9 @@ public class PreUtil {
      * @param context
      * @param shareName
      * @return
+    /**
+     * Method description.
+     */
     public static PreUtil getInstance(Context context,
                                       String shareName) {
         if (instance == null) {
@@ -57,6 +69,9 @@ public class PreUtil {
         return instance;
     }
 
+    /**
+     * Method description.
+     */
     public void put(String key, boolean value) {
         Editor edit = preferences.edit();
         if (edit != null) {
@@ -68,6 +83,9 @@ public class PreUtil {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void put(String key, String value) {
         Editor edit = preferences.edit();
         if (edit != null) {
@@ -79,6 +97,9 @@ public class PreUtil {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void put(String key, int value) {
         Editor edit = preferences.edit();
         if (edit != null) {
@@ -90,6 +111,9 @@ public class PreUtil {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void put(String key, float value) {
         Editor edit = preferences.edit();
         if (edit != null) {
@@ -101,6 +125,9 @@ public class PreUtil {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void put(String key, long value) {
         Editor edit = preferences.edit();
         if (edit != null) {
@@ -112,6 +139,9 @@ public class PreUtil {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void put(String key, Set<String> value) {
         Editor edit = preferences.edit();
         if (edit != null) {
@@ -126,6 +156,9 @@ public class PreUtil {
      * key
      * @param t
     @SuppressWarnings("rawtypes")
+    /**
+     * Method description.
+     */
     public <T> void put(T t) {
         try {
             String methodName = "";
@@ -159,6 +192,9 @@ public class PreUtil {
         }
     }
 
+    /**
+     * Method description.
+     */
     public String get(String key) {
         if (!TextUtils.isEmpty(key)) {
             key = key.toLowerCase();
@@ -166,6 +202,9 @@ public class PreUtil {
         return preferences.getString(key, "");
     }
 
+    /**
+     * Method description.
+     */
     public String get(String key, String defValue) {
         if (!TextUtils.isEmpty(key)) {
             key = key.toLowerCase();
@@ -173,6 +212,9 @@ public class PreUtil {
         return preferences.getString(key, defValue);
     }
 
+    /**
+     * Method description.
+     */
     public boolean get(String key, boolean defValue) {
         if (!TextUtils.isEmpty(key)) {
             key = key.toLowerCase();
@@ -180,6 +222,9 @@ public class PreUtil {
         return preferences.getBoolean(key, defValue);
     }
 
+    /**
+     * Method description.
+     */
     public int get(String key, int defValue) {
         if (!TextUtils.isEmpty(key)) {
             key = key.toLowerCase();
@@ -187,6 +232,9 @@ public class PreUtil {
         return preferences.getInt(key, defValue);
     }
 
+    /**
+     * Method description.
+     */
     public float get(String key, float defValue) {
         if (!TextUtils.isEmpty(key)) {
             key = key.toLowerCase();
@@ -194,6 +242,9 @@ public class PreUtil {
         return preferences.getFloat(key, defValue);
     }
 
+    /**
+     * Method description.
+     */
     public long get(String key, long defValue) {
         if (!TextUtils.isEmpty(key)) {
             key = key.toLowerCase();
@@ -202,6 +253,9 @@ public class PreUtil {
     }
 
     @SuppressLint("NewApi")
+    /**
+     * Method description.
+     */
     public Set<String> get(String key, Set<String> defValue) {
         if (!TextUtils.isEmpty(key)) {
             key = key.toLowerCase();
@@ -210,6 +264,9 @@ public class PreUtil {
     }
 
     @SuppressLint("CommitPrefEdits")
+    /**
+     * Method description.
+     */
     public void put(String key, Object defaultObj) {
         if (defaultObj instanceof String) {
             preferences.edit().putString(key, (String) defaultObj);
@@ -225,6 +282,9 @@ public class PreUtil {
         preferences.edit().commit();
     }
 
+    /**
+     * Method description.
+     */
     public Object get(String key, Object defaultObj) {
         if (defaultObj instanceof String) {
             return preferences.getString(key, (String) defaultObj);
@@ -243,6 +303,9 @@ public class PreUtil {
      * put(T t) preferences
      * @param cls
      * @return
+    /**
+     * Method description.
+     */
     public <T> Object get(Class<T> cls) {
         Object obj = null;
         String fieldName = "";
@@ -266,6 +329,9 @@ public class PreUtil {
         return obj;
     }
 
+    /**
+     * Method description.
+     */
     public void clearAll() {
         try {
             String fileName = SHARE_NAME + ".xml";

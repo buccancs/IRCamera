@@ -8,6 +8,9 @@ import com.energy.iruvc.utils.SynchronizedBitmap
 
 object CalibrationTools {
 
+    /**
+     * Function description.
+     */
     fun sign(irCmd: IRCMD, singlePointTemp: Int): Boolean {
         var success = false
         // ,
@@ -26,6 +29,9 @@ object CalibrationTools {
     }
 
      * (100 ~ 400)
+    /**
+     * Function description.
+     */
     fun pointFirst(irCmd: IRCMD, pointTemp: Int): Boolean {
         var success = false
         // ,
@@ -43,6 +49,9 @@ object CalibrationTools {
     }
 
      * (20 ~ 100)
+    /**
+     * Function description.
+     */
     fun pointEnd(irCmd: IRCMD, pointTemp: Int): Boolean {
         var success = false
         // ,
@@ -59,6 +68,9 @@ object CalibrationTools {
         return success
     }
 
+    /**
+     * Function description.
+     */
     fun potReady(irCmd: IRCMD): Boolean {
         return irCmd.rmCoverStsSwitch(CommonParams.RMCoverStsSwitchStatus.RMCOVER_DIS) == 0 //
     }
@@ -67,6 +79,9 @@ object CalibrationTools {
      * CommonParams.RMCoverAutoCalcType.GAIN_1
      * CommonParams.RMCoverAutoCalcType.GAIN_2
      * CommonParams.RMCoverAutoCalcType.GAIN_4
+    /**
+     * Function description.
+     */
     fun potStart(irCmd: IRCMD, type: Int) {
         val gainType = when (type) {
             1 -> CommonParams.RMCoverAutoCalcType.GAIN_1
@@ -78,15 +93,24 @@ object CalibrationTools {
         irCmd.rmCoverStsSwitch(CommonParams.RMCoverStsSwitchStatus.RMCOVER_EN) //
     }
 
+    /**
+     * Function description.
+     */
     fun cancelCalibration(irCmd: IRCMD) {
         irCmd.restoreDefaultConfig(CommonParams.DefaultConfigType.DEF_CFG_TPD)
     }
 
+    /**
+     * Function description.
+     */
     fun reset(irCmd: IRCMD) {
         irCmd.restoreDefaultConfig(CommonParams.DefaultConfigType.DEF_CFG_ALL)
     }
 
      * @return true:     false:
+    /**
+     * Function description.
+     */
     fun queryGain(irCmd: IRCMD): Boolean {
         val value = IntArray(1)
         irCmd.getPropTPDParams(CommonParams.PropTPDParams.TPD_PROP_GAIN_SEL, value)
@@ -94,6 +118,9 @@ object CalibrationTools {
     }
 
      * @param type 1:     0:
+    /**
+     * Function description.
+     */
     fun setGain(irCmd: IRCMD, type: Int) {
         if (type == 1) {
             irCmd.setPropTPDParams(CommonParams.PropTPDParams.TPD_PROP_GAIN_SEL, CommonParams.PropTPDParamsValue.GAINSELStatus.GAIN_SEL_HIGH)
@@ -103,12 +130,18 @@ object CalibrationTools {
     }
 
      * Tpd
+    /**
+     * Function description.
+     */
     fun queryTpd(irCmd: IRCMD, params: CommonParams.PropTPDParams): Int {
         val value = IntArray(1)
         irCmd.getPropTPDParams(params, value)
         return value[0]
     }
 
+    /**
+     * Function description.
+     */
     fun shutter(irCmd: IRCMD?, syncImage: SynchronizedBitmap) {
         if (syncImage.type == 1) {
             irCmd?.tc1bShutterManual()
@@ -117,6 +150,9 @@ object CalibrationTools {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun stsSwitch(irCmd: IRCMD?, flag: Boolean) {
         if (flag) {
             irCmd?.rmCoverStsSwitch(CommonParams.RMCoverStsSwitchStatus.RMCOVER_EN)
@@ -129,6 +165,9 @@ object CalibrationTools {
      * CommonParams.RMCoverAutoCalcType.GAIN_1
      * CommonParams.RMCoverAutoCalcType.GAIN_2
      * CommonParams.RMCoverAutoCalcType.GAIN_4
+    /**
+     * Function description.
+     */
     fun pot(irCmd: IRCMD, type: Int) {
         val gainType = when (type) {
             1 -> CommonParams.RMCoverAutoCalcType.GAIN_1
@@ -139,6 +178,9 @@ object CalibrationTools {
         irCmd.rmCoverAutoCalc(gainType) //
     }
 
+    /**
+     * Function description.
+     */
     fun autoShutter(irCmd: IRCMD?, flag: Boolean) {
         val data = if (flag) CommonParams.PropAutoShutterParameterValue.StatusSwith.ON else CommonParams.PropAutoShutterParameterValue.StatusSwith.OFF
         irCmd?.setPropAutoShutterParameter(CommonParams.PropAutoShutterParameter.SHUTTER_PROP_SWITCH, data)
@@ -147,6 +189,9 @@ object CalibrationTools {
      * TPD_PROP_DISTANCE
      *  unit:cnt(128cnt=1m)
      * @param value 0 ~ 25600
+    /**
+     * Function description.
+     */
     fun setTpdDis(irCmd: IRCMD?, value: Int) {
         val data = CommonParams.PropTPDParamsValue.NumberType(value.toString())
         setTpdParams(irCmd = irCmd, params = CommonParams.PropTPDParams.TPD_PROP_DISTANCE, value = data)
@@ -154,6 +199,9 @@ object CalibrationTools {
 
      *  unit:cnt(128cnt=1)
      * @param value 1 ~ 128
+    /**
+     * Function description.
+     */
     fun setTpdEms(irCmd: IRCMD?, value: Int) {
         val data = CommonParams.PropTPDParamsValue.NumberType(value.toString())
         setTpdParams(irCmd = irCmd, params = CommonParams.PropTPDParams.TPD_PROP_EMS, value = data)

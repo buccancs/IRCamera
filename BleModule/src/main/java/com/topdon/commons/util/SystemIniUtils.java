@@ -12,6 +12,9 @@ import org.ini4j.Profile;
 import java.io.File;
 
 public class SystemIniUtils {
+    /**
+     * Method description.
+     */
     public static int getSystemVersion(String path, String systemName, int systemVersion) {
         File file = new File(path + "/Version.ini");
         if (!file.exists()) {

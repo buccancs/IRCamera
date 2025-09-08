@@ -12,15 +12,22 @@ import com.topdon.menu.constant.TargetType
  * (DELETE)  {(MODE)(STYLE)(COLOR)}
  * (COLOR)
  * (HELP)
- * Created by LCG on 2024/11/28.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 @SuppressLint("NotifyDataSetChanged")
 internal class TargetAdapter : BaseMenuAdapter() {
 
      * 4- .
+    /** onTargetListener property */
     var onTargetListener: ((targetType: TargetType) -> Unit)? = null
 
      * .
      * .
+    /**
+     * Function description.
+     */
     fun setSelected(targetType: TargetType, isSelected: Boolean) {
         for (i in dataArray.indices) {
             if (dataArray[i].targetType == targetType) {
@@ -37,6 +44,9 @@ internal class TargetAdapter : BaseMenuAdapter() {
      * 11
      * 12
      * 13
+    /**
+     * Function description.
+     */
     fun setTargetMode(modeCode: Int) {
         for (i in dataArray.indices) {
             if (dataArray[i].targetType == TargetType.MODE) {

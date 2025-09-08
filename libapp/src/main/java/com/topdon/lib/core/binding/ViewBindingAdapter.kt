@@ -11,12 +11,18 @@ import androidx.databinding.BindingAdapter
 import com.blankj.utilcode.util.SizeUtils
 
  * RecyclerView  BindingAdapter.
- * Created by LCG on 2024/11/5.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 object ViewBindingAdapter {
 
      *  view  background  selectableItemBackground .
     @JvmStatic
     @BindingAdapter("bgEffect")
+    /**
+     * Function description.
+     */
     fun setBgEffect(view: View, wantEffect: Boolean) {
         val oldDrawable: Drawable? = view.background
         if (oldDrawable is LayerDrawable) {
@@ -79,6 +85,9 @@ object ViewBindingAdapter {
      * bgXXX  android:background
     @JvmStatic
     @BindingAdapter("bgColor")
+    /**
+     * Function description.
+     */
     fun setBgColor(view: View, @ColorInt color: Int) {
         val gradientDrawable: GradientDrawable = buildGradientDrawable(view)
         gradientDrawable.setColor(color)
@@ -94,6 +103,9 @@ object ViewBindingAdapter {
      * @param bgCornersRB right-bottom dp
     @JvmStatic
     @BindingAdapter(value = ["bgCorners", "bgCornersLT", "bgCornersRT", "bgCornersLB", "bgCornersRB"], requireAll = false)
+    /**
+     * Function description.
+     */
     fun setBgCorners(view: View, bgCorners: Int = 0, bgCornersLT: Int?, bgCornersRT: Int?, bgCornersLB: Int?, bgCornersRB: Int?) {
         val lt: Int = SizeUtils.dp2px(bgCornersLT?.toFloat() ?: bgCorners.toFloat())
         val rt: Int = SizeUtils.dp2px(bgCornersRT?.toFloat() ?: bgCorners.toFloat())
@@ -111,6 +123,9 @@ object ViewBindingAdapter {
      * @param color
     @JvmStatic
     @BindingAdapter(value = ["bgStrokeWidth", "bgStrokeColor"], requireAll = false)
+    /**
+     * Function description.
+     */
     fun setBgStroke(view: View, width: Int, @ColorInt color: Int) {
         val gradientDrawable: GradientDrawable = buildGradientDrawable(view)
         gradientDrawable.setStroke(SizeUtils.dp2px(width.toFloat()), color)
@@ -120,6 +135,9 @@ object ViewBindingAdapter {
      *  shape  view  background .
     @JvmStatic
     @BindingAdapter(value = ["bgStartColor", "bgCenterColor", "bgEndColor"], requireAll = false)
+    /**
+     * Function description.
+     */
     fun setBgGradientColor(view: View, @ColorInt startColor: Int, @ColorInt centerColor: Int?, @ColorInt endColor: Int) {
         val gradientDrawable: GradientDrawable = buildGradientDrawable(view)
         gradientDrawable.colors = if (centerColor == null) intArrayOf(startColor, endColor) else intArrayOf(startColor, centerColor, endColor)
@@ -133,6 +151,9 @@ object ViewBindingAdapter {
      * @param centerY Y
     @JvmStatic
     @BindingAdapter(value = ["bgAngle", "bgRadius", "bgCenterX", "bgCenterY"], requireAll = false)
+    /**
+     * Function description.
+     */
     fun setBgGradient(view: View, angle: Int?, radius: Float?, centerX: Float?, centerY: Float?) {
         val gradientDrawable: GradientDrawable = buildGradientDrawable(view)
         if (angle == null) {

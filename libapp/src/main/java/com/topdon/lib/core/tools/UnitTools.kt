@@ -8,6 +8,9 @@ object UnitTools {
 
      * @param float
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun showC(float: Float): String {
         val str = if (SharedManager.getTemperature() == 1) {
             "${String.format(Locale.ENGLISH, "%.1f", float)}°C"
@@ -18,6 +21,9 @@ object UnitTools {
     }
      * @param float
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun showC(float: Float,isC: Boolean): String {
         val str = if (isC) {
             "${String.format(Locale.ENGLISH, "%.1f", float)}°C"
@@ -29,6 +35,9 @@ object UnitTools {
 
 
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun showIntervalC(min: Int, max: Int): String {
         val str = if (SharedManager.getTemperature() == 1) {
             "${min}~${max}°C"
@@ -41,6 +50,9 @@ object UnitTools {
     }
 
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun showConfigC(min: Int, max: Int): String {
         val str = if (SharedManager.getTemperature() == 1) {
             "(${min}~${max}°C)"
@@ -54,6 +66,9 @@ object UnitTools {
 
      * @param float
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun showUnit(): String {
         val str = if (SharedManager.getTemperature() == 1) {
             "°C"
@@ -65,6 +80,9 @@ object UnitTools {
 
      * @param float
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun showUnitValue(value: Float): Float {
         val str = if (SharedManager.getTemperature() == 1) {
             value
@@ -75,6 +93,9 @@ object UnitTools {
     }
      * @param float
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun showUnitValue(value: Float,showC: Boolean): Float {
         if (value == Float.MAX_VALUE || value == Float.MIN_VALUE){
             return value
@@ -89,6 +110,9 @@ object UnitTools {
 
      * @param float
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun showToCValue(value: Float,isShowC: Boolean): Float {
         val str = if (isShowC) {
             value
@@ -99,6 +123,9 @@ object UnitTools {
     }
      * @param float
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun showToCValue(value: Float): Float {
         val str = if (SharedManager.getTemperature() == 1) {
             value
@@ -108,11 +135,17 @@ object UnitTools {
         return str.toFloat()
     }
 
+    /**
+     * Function description.
+     */
     fun toF(value: Float): Float {
         return value * 1.8000f + 32.00f
     }
 
      * ,
+    /**
+     * Function description.
+     */
     fun toC(value: Float): Float {
         return (value - 32.0f) / 1.8000f
     }
@@ -120,6 +153,9 @@ object UnitTools {
      * 1 String.
      * @param float
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun showNoUnit(float: Float): String {
         val str = if (SharedManager.getTemperature() == 1) {//
             String.format(Locale.ENGLISH, "%.1f", float)
@@ -132,6 +168,9 @@ object UnitTools {
      * 1 String.
      * @param float
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun showWithUnit(float: Float): String {
         val str = if (SharedManager.getTemperature() == 1) {//
             String.format(Locale.ENGLISH, "%.1f", float)

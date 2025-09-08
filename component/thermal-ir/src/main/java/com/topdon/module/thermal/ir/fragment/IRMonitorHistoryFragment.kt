@@ -117,6 +117,9 @@ class IRMonitorHistoryFragment : Fragment() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun onMonitorCreate(event: MonitorCreateEvent) {
         viewModel.queryRecordList()
     }

@@ -13,6 +13,9 @@ public class Highlight {
     /**
      * the x-value of the highlighted value
      */
+    /**
+     * Private method description.
+     */
     private float mX = Float.NaN;
 
     /**
@@ -60,12 +63,18 @@ public class Highlight {
      */
     private float mDrawY;
 
+    /**
+     * Method description.
+     */
     public Highlight(float x, float y, int dataSetIndex) {
         this.mX = x;
         this.mY = y;
         this.mDataSetIndex = dataSetIndex;
     }
 
+    /**
+     * Method description.
+     */
     public Highlight(float x, int dataSetIndex, int stackIndex) {
         this(x, Float.NaN, dataSetIndex);
         this.mStackIndex = stackIndex;
@@ -77,6 +86,9 @@ public class Highlight {
      * @param x            the x-value of the highlighted value
      * @param y            the y-value of the highlighted value
      * @param dataSetIndex the index of the DataSet the highlighted value belongs to
+     */
+    /**
+     * Method description.
      */
     public Highlight(float x, float y, float xPx, float yPx, int dataSetIndex, YAxis.AxisDependency axis) {
         this.mX = x;
@@ -96,6 +108,9 @@ public class Highlight {
      * @param stackIndex   references which value of a stacked-bar entry has been
      *                     selected
      */
+    /**
+     * Method description.
+     */
     public Highlight(float x, float y, float xPx, float yPx, int dataSetIndex, int stackIndex, YAxis.AxisDependency axis) {
         this(x, y, xPx, yPx, dataSetIndex, axis);
         this.mStackIndex = stackIndex;
@@ -106,6 +121,9 @@ public class Highlight {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public float getX() {
         return mX;
     }
@@ -115,6 +133,9 @@ public class Highlight {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public float getY() {
         return mY;
     }
@@ -122,12 +143,18 @@ public class Highlight {
     /**
      * returns the x-position of the highlight in pixels
      */
+    /**
+     * Method description.
+     */
     public float getXPx() {
         return mXPx;
     }
 
     /**
      * returns the y-position of the highlight in pixels
+     */
+    /**
+     * Method description.
      */
     public float getYPx() {
         return mYPx;
@@ -138,10 +165,16 @@ public class Highlight {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public int getDataIndex() {
         return mDataIndex;
     }
 
+    /**
+     * Method description.
+     */
     public void setDataIndex(int mDataIndex) {
         this.mDataIndex = mDataIndex;
     }
@@ -150,6 +183,9 @@ public class Highlight {
      * returns the index of the DataSet the highlighted value is in
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public int getDataSetIndex() {
         return mDataSetIndex;
@@ -161,10 +197,16 @@ public class Highlight {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public int getStackIndex() {
         return mStackIndex;
     }
 
+    /**
+     * Method description.
+     */
     public boolean isStacked() {
         return mStackIndex >= 0;
     }
@@ -173,6 +215,9 @@ public class Highlight {
      * Returns the axis the highlighted value belongs to.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public YAxis.AxisDependency getAxis() {
         return axis;
@@ -184,6 +229,9 @@ public class Highlight {
      * @param x
      * @param y
      */
+    /**
+     * Method description.
+     */
     public void setDraw(float x, float y) {
         this.mDrawX = x;
         this.mDrawY = y;
@@ -194,6 +242,9 @@ public class Highlight {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public float getDrawX() {
         return mDrawX;
     }
@@ -202,6 +253,9 @@ public class Highlight {
      * Returns the y-position in pixels where this highlight object was last drawn.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public float getDrawY() {
         return mDrawY;
@@ -213,6 +267,9 @@ public class Highlight {
      *
      * @param h
      * @return
+     */
+    /**
+     * Method description.
      */
     public boolean equalTo(Highlight h) {
 
@@ -228,6 +285,9 @@ public class Highlight {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public String toString() {
         return "Highlight, x: " + mX + ", y: " + mY + ", dataSetIndex: " + mDataSetIndex
                 + ", stackIndex (only stacked barentry): " + mStackIndex;

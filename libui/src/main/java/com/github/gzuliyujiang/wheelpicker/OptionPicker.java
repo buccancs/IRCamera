@@ -33,16 +33,25 @@ import java.util.List;
 @SuppressWarnings({"unused"})
 public class OptionPicker extends ModalDialog {
     protected OptionWheelLayout wheelLayout;
+    /**
+     * Private method description.
+     */
     private OnOptionPickedListener onOptionPickedListener;
     private boolean initialized = false;
     private List<?> data;
     private Object defaultValue;
     protected int defaultPosition = -1;
 
+    /**
+     * Method description.
+     */
     public OptionPicker(@NonNull Activity activity) {
         super(activity);
     }
 
+    /**
+     * Method description.
+     */
     public OptionPicker(@NonNull Activity activity, @StyleRes int themeResId) {
         super(activity, themeResId);
     }
@@ -92,14 +101,23 @@ public class OptionPicker extends ModalDialog {
         return null;
     }
 
+    /**
+     * Method description.
+     */
     public final boolean isInitialized() {
         return initialized;
     }
 
+    /**
+     * Method description.
+     */
     public void setData(Object... data) {
         setData(Arrays.asList(data));
     }
 
+    /**
+     * Method description.
+     */
     public void setData(List<?> data) {
         this.data = data;
         if (initialized) {
@@ -107,6 +125,9 @@ public class OptionPicker extends ModalDialog {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultValue(Object item) {
         this.defaultValue = item;
         if (initialized) {
@@ -114,6 +135,9 @@ public class OptionPicker extends ModalDialog {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultPosition(int position) {
         this.defaultPosition = position;
         if (initialized) {
@@ -121,18 +145,30 @@ public class OptionPicker extends ModalDialog {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setOnOptionPickedListener(OnOptionPickedListener onOptionPickedListener) {
         this.onOptionPickedListener = onOptionPickedListener;
     }
 
+    /**
+     * Method description.
+     */
     public final OptionWheelLayout getWheelLayout() {
         return wheelLayout;
     }
 
+    /**
+     * Method description.
+     */
     public final WheelView getWheelView() {
         return wheelLayout.getWheelView();
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getLabelView() {
         return wheelLayout.getLabelView();
     }

@@ -5,6 +5,9 @@ package com.topdon.commons;
  * author: zengfansheng
  */
 public class MyEvent {
+    /**
+     * Method description.
+     */
     public String msg;
 
     public MyEvent(String msg) {

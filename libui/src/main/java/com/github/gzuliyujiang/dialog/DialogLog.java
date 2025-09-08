@@ -17,6 +17,9 @@ import androidx.annotation.NonNull;
  * @author  (1032694760@qq.com)
  * @since 2021/3/26 21:34
 public final class DialogLog {
+    /**
+     * Private method description.
+     */
     private static final String TAG = "AndroidPicker";
     private static boolean enable = false;
 
@@ -24,11 +27,17 @@ public final class DialogLog {
         super();
     }
 
+    /**
+     * Method description.
+     */
     public static void enable() {
         enable = true;
     }
 
      * @param log
+    /**
+     * Method description.
+     */
     public static void print(@NonNull Object log) {
         if (!enable) {
             return;

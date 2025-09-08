@@ -38,6 +38,9 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
     protected Paint mShadowPaint;
     protected Paint mBarBorderPaint;
 
+    /**
+     * Method description.
+     */
     public BarChartRenderer(BarDataProvider chart, ChartAnimator animator,
                             ViewPortHandler viewPortHandler) {
         super(animator, viewPortHandler);
@@ -57,6 +60,9 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void initBuffers() {
 
         BarData barData = mChart.getBarData();
@@ -70,6 +76,9 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawData(Canvas c) {
 
         BarData barData = mChart.getBarData();
@@ -84,6 +93,9 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private RectF mBarShadowRectBuffer = new RectF();
 
     protected void drawDataSet(Canvas c, IBarDataSet dataSet, int index) {
@@ -214,6 +226,9 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawValues(Canvas c) {
 
         // if values are drawn
@@ -436,12 +451,18 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawValue(Canvas c, String valueText, float x, float y, int color) {
         mValuePaint.setColor(color);
         c.drawText(valueText, x, y, mValuePaint);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawHighlighted(Canvas c, Highlight[] indices) {
 
         BarData barData = mChart.getBarData();
@@ -505,6 +526,9 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawExtras(Canvas c) {
     }
 }

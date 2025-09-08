@@ -19,10 +19,16 @@ class UsbBuffer {
         mPakagebuffer = ByteArray(mPacketSize)
     }
 
+    /**
+     * Function description.
+     */
     fun setFrameMark(mark1: Int) {
         this.mark1 = mark1
     }
 
+    /**
+     * Function description.
+     */
     fun write(buffer: ByteArray?, offset: Int, length: Int) {
         if (mRingBuffer != null) {
             mRingBuffer.write(buffer, offset, length)
@@ -63,6 +69,9 @@ class UsbBuffer {
         return -1
     }
 
+    /**
+     * Function description.
+     */
     fun readFrame(frame: ByteArray): Boolean {
         if (mRingBuffer == null) {
             return false

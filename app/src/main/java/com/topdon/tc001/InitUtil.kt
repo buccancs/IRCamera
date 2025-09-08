@@ -26,6 +26,9 @@ import com.topdon.lms.sdk.utils.LanguageUtil
 import java.util.Date
 
 object InitUtil {
+    /**
+     * Function description.
+     */
     fun initLog() {
         val fileName = "logs_${TimeUtils.date2String(Date(), "yyyy-MM-dd")}.log"
         val fileDir = BaseApplication.instance.getExternalFilesDir("log")!!.absolutePath
@@ -53,6 +56,9 @@ object InitUtil {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun initLms(){
         val privacyPolicyUrl = "https://plat.topdon.com/topdon-plat/out-user/baseinfo/template/getHtmlContentById?" +
                 "softCode=${BaseApplication.instance.getSoftWareCode()}&" +
@@ -82,6 +88,9 @@ object InitUtil {
             }
     }
 
+    /**
+     * Function description.
+     */
     fun initUM() {
 //        if (BaseApplication.instance.isDomestic()){
 //            UMConfigure.setLogEnabled(BuildConfig.DEBUG)
@@ -97,6 +106,9 @@ object InitUtil {
 //        }
     }
 
+    /**
+     * Function description.
+     */
     fun initJPush() {
         var registrationID = ""
 //        if (BaseApplication.instance.isDomestic()){
@@ -109,6 +121,9 @@ object InitUtil {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun initReceiver() {
         try {
             BaseApplication.instance.unregisterReceiver(BaseApplication.usbObserver)

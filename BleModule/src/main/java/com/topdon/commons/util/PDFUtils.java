@@ -12,6 +12,9 @@ public class PDFUtils {
      * //+/?%#&=
      * @param name pdfname
      * @return String
+    /**
+     * Method description.
+     */
     public static String getPdfName(String name) {
         name = name.replace('+', '-');
         name = name.replace(' ', '-');

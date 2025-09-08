@@ -6,10 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import com.topdon.menu.databinding.ViewMenuEditBinding
-
+/**
+ * 
  * 2D.
+ */
 class MenuEditView : FrameLayout, View.OnClickListener {
 
+    /** isBarSelect property */
     var isBarSelect: Boolean
         get() = binding.ivMenu4.isSelected
         set(value) {
@@ -18,7 +21,9 @@ class MenuEditView : FrameLayout, View.OnClickListener {
         }
 
      * 0-、1-、2- .
+    /** onTabClickListener property */
     var onTabClickListener: ((selectPosition: Int) -> Unit)? = null
+    /** onBarClickListener property */
     var onBarClickListener: ((isBarSelect: Boolean) -> Unit)? = null
 
 

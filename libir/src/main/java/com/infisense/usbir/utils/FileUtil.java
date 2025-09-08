@@ -42,6 +42,9 @@ import java.util.Date;
  */
 public class FileUtil {
 
+    /**
+     * Private method description.
+     */
     private static final String TAG = "FileUtil";
     private static final String DATA_SAVE_DIR = "InfiRay";
 
@@ -50,6 +53,9 @@ public class FileUtil {
      *
      * @param parameter parameter description
      * @return return value
+     */
+    /**
+     * Method description.
      */
     public static String getDiskCacheDir(Context context) {
         String cachePath = context.getCacheDir().getPath();
@@ -67,6 +73,9 @@ public class FileUtil {
      * @param srcFileName
      * @param strOutFileName
      * @throws IOException
+    /**
+     * Method description.
+     */
     public static void copyAssetsDataToSD(Context context, String srcFileName, String strOutFileName) throws IOException {
         File file = new File(strOutFileName);
         if (file.exists()) {
@@ -88,6 +97,9 @@ public class FileUtil {
 
      * @param bytes
      * @param fileTitle
+    /**
+     * Method description.
+     */
     public static void saveByteFile(Context mContext, byte[] bytes, String fileTitle) {
         try {
             String fileSaveDir = mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath();
@@ -109,6 +121,9 @@ public class FileUtil {
 
      * @param bytes
      * @param fileTitle
+    /**
+     * Method description.
+     */
     public static void saveByteFile(byte[] bytes, String fileTitle) {
 //        try {
 //            String fileSaveDir = TempKey.DEVICE_DATA_SAVE_DIR;
@@ -125,12 +140,18 @@ public class FileUtil {
 //        }
     }
 
+    /**
+     * Method description.
+     */
     public static String getTableDirPath(){
         return Utils.getApp().getCacheDir().getAbsolutePath()+"/table";
     };
 
      * @param bytes
      * @param fileTitle
+    /**
+     * Method description.
+     */
     public static void saveShortFileForDeviceData(short[] bytes, String fileTitle) {
         try {
             String fileSaveDir = getTableDirPath();
@@ -147,6 +168,9 @@ public class FileUtil {
 
      * @param bytes
      * @param fileTitle
+    /**
+     * Method description.
+     */
     public static void saveShortFile(short[] bytes, String fileTitle) {
         try {
             File path = new File("/sdcard");
@@ -169,6 +193,9 @@ public class FileUtil {
      *
      * @param parameter parameter description
      * @return return value
+     */
+    /**
+     * Method description.
      */
     public static CommonParams.Y16ModePreviewSrcType getY16SrcTypeByDataFlowMode(CommonParams.DataFlowMode dataFlowMode) {
         switch (dataFlowMode) {
@@ -215,6 +242,9 @@ public class FileUtil {
      * @param parameter parameter description
      * @return return value
      */
+    /**
+     * Method description.
+     */
     public static boolean createFileDir(File dirFile) {
         if (dirFile == null) return true;
         if (dirFile.exists()) {
@@ -239,6 +269,9 @@ public class FileUtil {
      *
      * @param parameter parameter description
      * @return return value
+     */
+    /**
+     * Method description.
      */
     public static File createFile(String dirPath, String fileName) {
         try {
@@ -274,6 +307,9 @@ public class FileUtil {
 
      * @param bytes
      * @param bytes2
+    /**
+     * Method description.
+     */
     public static void savaRawFile(byte[] bytes, byte[] bytes2) {
         try {
             File path = new File("/sdcard");
@@ -292,6 +328,9 @@ public class FileUtil {
     }
 
      * @param bytes
+    /**
+     * Method description.
+     */
     public static void savaIRFile(byte[] bytes) {
         try {
             File path = new File("/sdcard");
@@ -311,6 +350,9 @@ public class FileUtil {
     }
 
      * @param bytes
+    /**
+     * Method description.
+     */
     public static void savaTempFile(byte[] bytes) {
         try {
             File path = new File("/sdcard");
@@ -336,6 +378,9 @@ public class FileUtil {
      * @param parameter parameter description
      * @return return value
      */
+    /**
+     * Method description.
+     */
     public static boolean isFileExists(Context context, final File file) {
         if (file == null) {
             return false;
@@ -353,6 +398,9 @@ public class FileUtil {
      * @param parameter parameter description
      * @return return value
      */
+    /**
+     * Method description.
+     */
     public static boolean isFileExists(Context context, final String filePath) {
         File file = new File(filePath);
         if (file == null) {
@@ -367,6 +415,9 @@ public class FileUtil {
      * @param context
      * @param filePath
      * @return
+    /**
+     * Private method description.
+     */
     private static boolean isFileExistsApi29(Context context, String filePath) {
         if (Build.VERSION.SDK_INT >= 29) {
             try {
@@ -389,6 +440,9 @@ public class FileUtil {
      * shortbyte
      * @param src
      * @return
+    /**
+     * Private method description.
+     */
     private static byte[] toByteArray(short[] src) {
         int count = src.length;
         byte[] dest = new byte[count << 1];
@@ -406,6 +460,9 @@ public class FileUtil {
      * @param parameter parameter description
      * @return return value
      */
+    /**
+     * Method description.
+     */
     public static short[] toShortArray(byte[] src) {
         int count = src.length >> 1;
         short[] dest = new short[count];
@@ -417,6 +474,9 @@ public class FileUtil {
 
      * @param bytes
      * @param fileTitle
+    /**
+     * Method description.
+     */
     public static void saveShortFile(String fileDir, short[] bytes, String fileTitle) {
         createOrExistsDir(fileDir);
         try {
@@ -432,6 +492,9 @@ public class FileUtil {
     }
 
      * @param file
+    /**
+     * Private method description.
+     */
     private static void createOrExistsDir(File file) {
         if (!file.exists()) {
             try {
@@ -443,6 +506,9 @@ public class FileUtil {
     }
 
      * @param fileDir
+    /**
+     * Private method description.
+     */
     private static void createOrExistsDir(String fileDir) {
         File file = new File(fileDir);
         if (!file.exists() && !file.isDirectory()) {
@@ -451,6 +517,9 @@ public class FileUtil {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private static int sBufferSize = 524288;
 
      * @param context
@@ -459,6 +528,9 @@ public class FileUtil {
      *
      * @param parameter parameter description
      * @return return value
+     */
+    /**
+     * Method description.
      */
     public static byte[] readFile2BytesByStream(Context context, final File file) {
         if (!isFileExists(context, file)) {
@@ -503,6 +575,9 @@ public class FileUtil {
      * @param srcFileName
      * @param strOutFileName
      * @throws IOException
+    /**
+     * Method description.
+     */
     public static void copyAssetsBigDataToSD(Context context, String srcFileName, String strOutFileName) {
         try {
             File file = new File(strOutFileName);
@@ -539,6 +614,9 @@ public class FileUtil {
      * @param parameter parameter description
      * @return return value
      */
+    /**
+     * Method description.
+     */
     public static String getISPConfigByGainStatus(CommonParams.GainStatus gainStatus) {
 //        Log.i(TAG, INFISENSE_SAVE_DIR =  + MyApplication.getInstance().INFISENSE_SAVE_DIR);
         if (CommonParams.GainStatus.HIGH_GAIN == gainStatus) {
@@ -553,6 +631,9 @@ public class FileUtil {
      *
      * @param parameter parameter description
      * @return return value
+     */
+    /**
+     * Method description.
      */
     public static String getISPConfigWithEncryptHexByGainStatus(CommonParams.GainStatus gainStatus) {
         if (CommonParams.GainStatus.HIGH_GAIN == gainStatus) {
@@ -577,6 +658,9 @@ public class FileUtil {
      * @param parameter parameter description
      * @return return value
      */
+    /**
+     * Method description.
+     */
     public static String getISPConfigWithEncryptBase64ByGainStatus(CommonParams.GainStatus gainStatus) {
         if (CommonParams.GainStatus.HIGH_GAIN == gainStatus) {
             return INFISENSE_SAVE_DIR() + File.separator + "isp_H_encrypt_base64.json";
@@ -590,6 +674,9 @@ public class FileUtil {
      *
      * @param parameter parameter description
      * @return return value
+     */
+    /**
+     * Method description.
      */
     public static String getVersionName(Context context) {
         PackageManager manager = context.getPackageManager();
@@ -608,6 +695,9 @@ public class FileUtil {
      *
      * @param parameter parameter description
      * @return return value
+     */
+    /**
+     * Method description.
      */
     public static String getMD5Key(String string) {
         if (TextUtils.isEmpty(string)) {
@@ -632,6 +722,9 @@ public class FileUtil {
     }
 
      * @param filePath
+    /**
+     * Method description.
+     */
     public static void makeDirectory(String filePath) {
         File file = new File(filePath);
         if (!file.exists()) {
@@ -644,6 +737,9 @@ public class FileUtil {
      *
      * @param parameter parameter description
      * @return return value
+     */
+    /**
+     * Method description.
      */
     public static String getSaveFilePath(Context context) {
         boolean useExternalStorage = false;
@@ -671,6 +767,9 @@ public class FileUtil {
      * @param fileName
      * @return
      * @throws IOException
+    /**
+     * Private method description.
+     */
     private static File makeFile(String filePath, String fileName) throws IOException {
         makeDirectory(filePath);
 
@@ -689,6 +788,9 @@ public class FileUtil {
      *
      * @param parameter parameter description
      * @return return value
+     */
+    /**
+     * Method description.
      */
     public static int writeTxtToFile(byte[] bytes, String filePath, String fileName) {
         int result = -1;
@@ -726,6 +828,9 @@ public class FileUtil {
      * String
      * @param str
      * @param path
+    /**
+     * Method description.
+     */
     public static void saveStringToFile(String str, String path) {
         File file;
         FileOutputStream stream = null;
@@ -749,6 +854,9 @@ public class FileUtil {
      *
      * @param parameter parameter description
      * @return return value
+     */
+    /**
+     * Method description.
      */
     public static String getStringFromFile(String path) {
         StringBuffer txtContent = new StringBuffer();
@@ -779,6 +887,9 @@ public class FileUtil {
 
      * @param num
      * @param numbyte
+    /**
+     * Method description.
+     */
     public static void float2Byte(float num, byte[] numbyte) {
         int fbit = Float.floatToIntBits(num);
         for (int i = 0; i < 4; i++) {

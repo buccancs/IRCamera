@@ -15,6 +15,9 @@ import java.util.Arrays;
 public class Approximator {
 
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
+    /**
+     * Method description.
+     */
     public float[] reduceWithDouglasPeucker(float[] points, float tolerance) {
 
         int greatestIndex = 0;
@@ -69,6 +72,9 @@ public class Approximator {
         return result;
     }
 
+    /**
+     * Private method description.
+     */
     private class Line {
 
         private float[] points;

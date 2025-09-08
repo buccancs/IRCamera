@@ -21,6 +21,9 @@ import java.util.Objects;
  * @author 1032694760@qq.com
  * @since 2021/10/28 8:37
 public class ConstellationEntity implements TextProvider, Serializable {
+    /**
+     * Private method description.
+     */
     private static final boolean IS_CHINESE;
     private String id;
     private String startDate;
@@ -32,47 +35,80 @@ public class ConstellationEntity implements TextProvider, Serializable {
         IS_CHINESE = Locale.getDefault().getDisplayLanguage().contains("");
     }
 
+    /**
+     * Method description.
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Method description.
+     */
     public void setId(String id) {
         this.id = id;
     }
 
+    /**
+     * Method description.
+     */
     public String getStartDate() {
         return startDate;
     }
 
+    /**
+     * Method description.
+     */
     public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
+    /**
+     * Method description.
+     */
     public String getEndDate() {
         return endDate;
     }
 
+    /**
+     * Method description.
+     */
     public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
+    /**
+     * Method description.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Method description.
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Method description.
+     */
     public String getEnglish() {
         return english;
     }
 
+    /**
+     * Method description.
+     */
     public void setEnglish(String english) {
         this.english = english;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public String provideText() {
         if (IS_CHINESE) {
             return name;
@@ -81,6 +117,9 @@ public class ConstellationEntity implements TextProvider, Serializable {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -97,12 +136,18 @@ public class ConstellationEntity implements TextProvider, Serializable {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int hashCode() {
         return Objects.hash(id, startDate, endDate, name, english);
     }
 
     @NonNull
     @Override
+    /**
+     * Method description.
+     */
     public String toString() {
         return "ConstellationEntity{" +
                 "id='" + id + '\'' +

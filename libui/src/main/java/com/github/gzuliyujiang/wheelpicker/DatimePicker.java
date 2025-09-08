@@ -29,12 +29,21 @@ import com.csl.irCamera.libui.R;
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class DatimePicker extends ModalDialog {
     protected DatimeWheelLayout wheelLayout;
+    /**
+     * Private method description.
+     */
     private OnDatimePickedListener onDatimePickedListener;
 
+    /**
+     * Method description.
+     */
     public DatimePicker(@NonNull Activity activity) {
         super(activity);
     }
 
+    /**
+     * Method description.
+     */
     public DatimePicker(@NonNull Activity activity, @StyleRes int themeResId) {
         super(activity, themeResId);
     }
@@ -73,10 +82,16 @@ public class DatimePicker extends ModalDialog {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setOnDatimePickedListener(OnDatimePickedListener onDatimePickedListener) {
         this.onDatimePickedListener = onDatimePickedListener;
     }
 
+    /**
+     * Method description.
+     */
     public final DatimeWheelLayout getWheelLayout() {
         return wheelLayout;
     }

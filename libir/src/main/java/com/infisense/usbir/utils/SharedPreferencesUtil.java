@@ -7,11 +7,17 @@ import android.util.Base64;
  * Created by fengjibo on 2023/4/12.
 public class SharedPreferencesUtil {
 
+    /**
+     * Private method description.
+     */
     private static final String FILE_NAME = "usb_ir";
 
      * @param context
      * @param key
      * @param data
+    /**
+     * Method description.
+     */
     public static void saveData(Context context, String key, Object data) {
         String type = data.getClass().getSimpleName();
         SharedPreferences sharedPreferences = context
@@ -36,6 +42,9 @@ public class SharedPreferencesUtil {
      * @param key
      * @param defValue
      * @return
+    /**
+     * Method description.
+     */
     public static Object getData(Context context, String key, Object defValue) {
         String type = defValue.getClass().getSimpleName();
         SharedPreferences sharedPreferences = context.getSharedPreferences
@@ -58,6 +67,9 @@ public class SharedPreferencesUtil {
      * @param context
      * @param key
      * @param data
+    /**
+     * Method description.
+     */
     public static void saveByteData(Context context, String key, byte[] data) {
         String type = data.getClass().getSimpleName();
         SharedPreferences sharedPreferences = context
@@ -73,6 +85,9 @@ public class SharedPreferencesUtil {
      * @param context
      * @param key
      * @return
+    /**
+     * Method description.
+     */
     public static byte[] getByteData(Context context, String key) {
         SharedPreferences sharedPreferences = context.getSharedPreferences
                 (FILE_NAME, Context.MODE_PRIVATE);

@@ -32,6 +32,9 @@ public class OnlineMethod {
         System.loadLibrary("opencv_java4");
     }
 
+    /**
+     * Method description.
+     */
     public static Mat draw_high_temp_edge(byte[] image,byte[] temperature, double high_t,int color_h, int type) throws IOException {
         double[] temp = new double[256*192];
         int t = 0;
@@ -110,6 +113,9 @@ public class OnlineMethod {
         return im;
 
     }
+    /**
+     * Method description.
+     */
     public static Mat draw_temp_edge(Mat src,byte[] temperature, double low_t, int color_l, int type) throws IOException {
         double[] temp = new double[256*192];
         int t = 0;
@@ -176,6 +182,9 @@ public class OnlineMethod {
         return null;
 
     }
+    /**
+     * Method description.
+     */
     public static byte[] draw_edge_from_temp_reigon_byte(byte[] image,byte[] temperature,int row, int col, double high_t, double low_t, int color_h, int color_l, int type) throws IOException {
         Mat src = draw_high_temp_edge(image,temperature,high_t,color_h,type);
         Mat mat = draw_temp_edge(src,temperature,low_t,color_l,type);
@@ -185,6 +194,9 @@ public class OnlineMethod {
         byte[] bytes = new byte[192*256*4];
         return bytes;
     }
+    /**
+     * Method description.
+     */
     public static Mat draw_edge_from_temp_reigon(byte[] image,byte[] temperature,int row, int col, double high_t, double low_t, int color_h, int color_l, int type) throws IOException {
         Mat src = draw_high_temp_edge(image,temperature,high_t,color_h,type);
         Mat mat = draw_temp_edge(src,temperature,low_t,color_l,type);
@@ -195,6 +207,9 @@ public class OnlineMethod {
     }
 
 
+    /**
+     * Method description.
+     */
     public static Bitmap draw_edge_from_temp_reigon_bitmap(byte[] image,byte[] temperature,int row, int col, double high_t, double low_t, int color_h, int color_l, int type) throws IOException {
         Mat src = draw_high_temp_edge(image,temperature,high_t,color_h,type);
         Mat mat = draw_temp_edge(src,temperature,low_t,color_l,type);

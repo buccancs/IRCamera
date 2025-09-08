@@ -16,6 +16,9 @@ import com.kylecorry.sol.math.filters.MovingAverageFilter
 class CompassProvider(private val context: Context) {
 
 
+    /**
+     * Function description.
+     */
     fun get(): ICompass {
         val smoothing = 1
         val useTrueNorth =  true

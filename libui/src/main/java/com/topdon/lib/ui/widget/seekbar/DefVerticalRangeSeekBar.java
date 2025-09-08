@@ -29,9 +29,15 @@ public class DefVerticalRangeSeekBar extends RangeSeekBar {
      * @hide
     @IntDef({TEXT_DIRECTION_VERTICAL, TEXT_DIRECTION_HORIZONTAL})
     @Retention(RetentionPolicy.SOURCE)
+    /**
+     * Method description.
+     */
     public @interface TextDirectionDef {
     }
 
+    /**
+     * Method description.
+     */
     public final static int TEXT_DIRECTION_VERTICAL = 1;
     public final static int TEXT_DIRECTION_HORIZONTAL = 2;
 
@@ -40,12 +46,21 @@ public class DefVerticalRangeSeekBar extends RangeSeekBar {
      * @hide
     @IntDef({DIRECTION_LEFT, DIRECTION_RIGHT})
     @Retention(RetentionPolicy.SOURCE)
+    /**
+     * Method description.
+     */
     public @interface DirectionDef {
     }
 
+    /**
+     * Method description.
+     */
     public final static int DIRECTION_LEFT = 1;
     public final static int DIRECTION_RIGHT = 2;
 
+    /**
+     * Private method description.
+     */
     private int orientation = DIRECTION_LEFT;
     private int tickMarkDirection = TEXT_DIRECTION_VERTICAL;
 
@@ -55,12 +70,18 @@ public class DefVerticalRangeSeekBar extends RangeSeekBar {
         this(context, null);
     }
 
+    /**
+     * Method description.
+     */
     public DefVerticalRangeSeekBar(Context context, AttributeSet attrs) {
         super(context, attrs);
         initAttrs(attrs);
         initSeekBar(attrs);
     }
 
+    /**
+     * Private method description.
+     */
     private void initAttrs(AttributeSet attrs) {
         try {
             TypedArray t = getContext().obtainStyledAttributes(attrs, R.styleable.VerticalRangeSeekBar);
@@ -197,12 +218,18 @@ public class DefVerticalRangeSeekBar extends RangeSeekBar {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setTickMarkTextSize(int tickMarkTextSize) {
         super.setTickMarkTextSize(tickMarkTextSize);
         maxTickMarkWidth = 0;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setTickMarkTextArray(CharSequence[] tickMarkTextArray) {
         super.setTickMarkTextArray(tickMarkTextArray);
         maxTickMarkWidth = 0;
@@ -228,14 +255,23 @@ public class DefVerticalRangeSeekBar extends RangeSeekBar {
 
      * if is single mode, please use it to get the SeekBar
      * @return left seek bar
+    /**
+     * Method description.
+     */
     public DefVerticalSeekBar getLeftSeekBar() {
         return (DefVerticalSeekBar) leftSB;
     }
 
+    /**
+     * Method description.
+     */
     public DefVerticalSeekBar getRightSeekBar() {
         return (DefVerticalSeekBar) rightSB;
     }
 
+    /**
+     * Method description.
+     */
     public int getOrientation() {
         return orientation;
     }
@@ -244,10 +280,16 @@ public class DefVerticalRangeSeekBar extends RangeSeekBar {
      * {@link #DIRECTION_LEFT}
      * {@link #DIRECTION_RIGHT}
      * @param orientation
+    /**
+     * Method description.
+     */
     public void setOrientation(@DirectionDef int orientation) {
         this.orientation = orientation;
     }
 
+    /**
+     * Method description.
+     */
     public int getTickMarkDirection() {
         return tickMarkDirection;
     }
@@ -256,6 +298,9 @@ public class DefVerticalRangeSeekBar extends RangeSeekBar {
      * {@link #TEXT_DIRECTION_VERTICAL}
      * {@link #TEXT_DIRECTION_HORIZONTAL}
      * @param tickMarkDirection
+    /**
+     * Method description.
+     */
     public void setTickMarkDirection(@TextDirectionDef int tickMarkDirection) {
         this.tickMarkDirection = tickMarkDirection;
     }

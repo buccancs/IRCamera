@@ -16,6 +16,9 @@ import java.io.*
 object ImageUtils {
 
      * .
+    /**
+     * Function description.
+     */
     fun saveToCache(context: Context, bitmap: Bitmap): String {
         val cacheFile = context.externalCacheDir ?: context.cacheDir
         val file = File(cacheFile, "Report_${System.currentTimeMillis()}.jpg")
@@ -25,6 +28,9 @@ object ImageUtils {
 
      *  /APP  APP_.jpg
      *   2D .
+    /**
+     * Function description.
+     */
     fun save(bitmap: Bitmap, isTC007: Boolean = false): String {
         val dicName = if (isTC007) "TC007" else CommUtils.getAppName()
         val fileName = "${dicName}_${System.currentTimeMillis()}.jpg"
@@ -37,6 +43,9 @@ object ImageUtils {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun saveImageToApp(bitmap: Bitmap): String {
         val saveFile = File(Utils.getApp().cacheDir, "PinP_${System.currentTimeMillis()}.jpg")
         ImageUtils.save(bitmap,saveFile, Bitmap.CompressFormat.JPEG)
@@ -44,6 +53,9 @@ object ImageUtils {
     }
 
     //lite
+    /**
+     * Function description.
+     */
     fun saveLiteFrame(bs: ByteArray, capital: ByteArray,nuct : ByteArray, name: String) {
         try {
             val dir = lineIrGalleryDir
@@ -57,6 +69,9 @@ object ImageUtils {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun saveFrame(bs: ByteArray, capital: ByteArray, name: String) {
         try {
             val dir = lineIrGalleryDir
@@ -71,6 +86,9 @@ object ImageUtils {
     }
 
      * argb
+    /**
+     * Function description.
+     */
     fun saveOneFrameAGRB(bs: ByteArray, name: String) {
         try {
             val dir = lineIrGalleryDir

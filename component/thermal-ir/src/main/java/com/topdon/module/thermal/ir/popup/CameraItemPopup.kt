@@ -19,15 +19,20 @@ import com.csl.irCamera.libapp.R as LibAppR
 import com.topdon.module.thermal.ir.databinding.PopCameraItemBinding
 
  *  / .
- * Created by LCG on 2025/1/3.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 @SuppressLint("SetTextI18n")
 class CameraItemPopup(val context: Context, private val saveSetBean: SaveSettingBean) : PopupWindow(), View.OnClickListener {
 
+    /** isShutterSelect property */
     var isShutterSelect: Boolean
         get() = binding.ivShutter.isSelected
         set(value) {
             binding.ivShutter.isSelected = value
         }
+    /** isAudioSelect property */
     var isAudioSelect: Boolean
         get() = binding.ivAudio.isSelected
         set(value) {
@@ -36,12 +41,16 @@ class CameraItemPopup(val context: Context, private val saveSetBean: SaveSetting
 
 
 
+    /** onDelayClickListener property */
     var onDelayClickListener: (() -> Boolean)? = null
      * .
+    /** onAutoCLickListener property */
     var onAutoCLickListener: ((isOpen: Boolean) -> Unit)? = null
      * .
+    /** onShutterClickListener property */
     var onShutterClickListener: (() -> Unit)? = null
      * .
+    /** onAudioCLickListener property */
     var onAudioCLickListener: (() -> Unit)? = null
 
 
@@ -108,6 +117,9 @@ class CameraItemPopup(val context: Context, private val saveSetBean: SaveSetting
         }
     }
 
+    /**
+     * Function description.
+     */
     fun showAsUp(anchor: View) {
         val locationArray = IntArray(2)
         anchor.getLocationInWindow(locationArray)

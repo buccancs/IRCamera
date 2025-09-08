@@ -16,7 +16,10 @@ import com.topdon.module.thermal.ir.viewmodel.IRGalleryTabViewModel
 
  * .
  * [ExtraKeyConfig.DIR_TYPE] -   [DirType]
- * Created by LCG on 2024/2/22.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 @Route(path = RouterConfig.IR_GALLERY_HOME)
 class IRGalleryHomeActivity : BaseActivity() {
     private var isTS004Remote = false

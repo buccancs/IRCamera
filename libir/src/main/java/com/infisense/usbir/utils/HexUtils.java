@@ -4,6 +4,9 @@ package com.infisense.usbir.utils;
 public class HexUtils {
 
      * @return
+    /**
+     * Method description.
+     */
     public static String binaryToHexString(byte[] bytes) {
         String hexStr = "0123456789ABCDEF";
         String result = "";

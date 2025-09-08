@@ -27,6 +27,9 @@ public class RadarChart extends PieRadarChartBase<RadarData> {
     /**
      * width of the main web lines
      */
+    /**
+     * Private method description.
+     */
     private float mWebLineWidth = 2.5f;
 
     /**
@@ -67,14 +70,23 @@ public class RadarChart extends PieRadarChartBase<RadarData> {
     protected YAxisRendererRadarChart mYAxisRenderer;
     protected XAxisRendererRadarChart mXAxisRenderer;
 
+    /**
+     * Method description.
+     */
     public RadarChart(Context context) {
         super(context);
     }
 
+    /**
+     * Method description.
+     */
     public RadarChart(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * Method description.
+     */
     public RadarChart(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
@@ -104,6 +116,9 @@ public class RadarChart extends PieRadarChartBase<RadarData> {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void notifyDataSetChanged() {
         if (mData == null)
             return;
@@ -164,6 +179,9 @@ public class RadarChart extends PieRadarChartBase<RadarData> {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public float getFactor() {
         RectF content = mViewPortHandler.getContentRect();
         return Math.min(content.width() / 2f, content.height() / 2f) / mYAxis.mAxisRange;
@@ -174,11 +192,17 @@ public class RadarChart extends PieRadarChartBase<RadarData> {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public float getSliceAngle() {
         return 360f / (float) mData.getMaxEntryCountSet().getEntryCount();
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int getIndexForAngle(float angle) {
 
         // take the current angle of the chart into consideration
@@ -208,6 +232,9 @@ public class RadarChart extends PieRadarChartBase<RadarData> {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public YAxis getYAxis() {
         return mYAxis;
     }
@@ -217,10 +244,16 @@ public class RadarChart extends PieRadarChartBase<RadarData> {
      *
      * @param width
      */
+    /**
+     * Method description.
+     */
     public void setWebLineWidth(float width) {
         mWebLineWidth = Utils.convertDpToPixel(width);
     }
 
+    /**
+     * Method description.
+     */
     public float getWebLineWidth() {
         return mWebLineWidth;
     }
@@ -231,10 +264,16 @@ public class RadarChart extends PieRadarChartBase<RadarData> {
      *
      * @param width
      */
+    /**
+     * Method description.
+     */
     public void setWebLineWidthInner(float width) {
         mInnerWebLineWidth = Utils.convertDpToPixel(width);
     }
 
+    /**
+     * Method description.
+     */
     public float getWebLineWidthInner() {
         return mInnerWebLineWidth;
     }
@@ -245,6 +284,9 @@ public class RadarChart extends PieRadarChartBase<RadarData> {
      *
      * @param alpha
      */
+    /**
+     * Method description.
+     */
     public void setWebAlpha(int alpha) {
         mWebAlpha = alpha;
     }
@@ -253,6 +295,9 @@ public class RadarChart extends PieRadarChartBase<RadarData> {
      * Returns the alpha value for all web lines.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public int getWebAlpha() {
         return mWebAlpha;
@@ -265,10 +310,16 @@ public class RadarChart extends PieRadarChartBase<RadarData> {
      *
      * @param color
      */
+    /**
+     * Method description.
+     */
     public void setWebColor(int color) {
         mWebColor = color;
     }
 
+    /**
+     * Method description.
+     */
     public int getWebColor() {
         return mWebColor;
     }
@@ -280,10 +331,16 @@ public class RadarChart extends PieRadarChartBase<RadarData> {
      *
      * @param color
      */
+    /**
+     * Method description.
+     */
     public void setWebColorInner(int color) {
         mWebColorInner = color;
     }
 
+    /**
+     * Method description.
+     */
     public int getWebColorInner() {
         return mWebColorInner;
     }
@@ -293,6 +350,9 @@ public class RadarChart extends PieRadarChartBase<RadarData> {
      * whole web is disabled. Default: true
      *
      * @param enabled
+     */
+    /**
+     * Method description.
      */
     public void setDrawWeb(boolean enabled) {
         mDrawWeb = enabled;
@@ -304,6 +364,9 @@ public class RadarChart extends PieRadarChartBase<RadarData> {
      *
      * @param count if count = 1 -> 1 line is skipped in between
      */
+    /**
+     * Method description.
+     */
     public void setSkipWebLineCount(int count) {
 
         mSkipWebLineCount = Math.max(0, count);
@@ -313,6 +376,9 @@ public class RadarChart extends PieRadarChartBase<RadarData> {
      * Returns the modulus that is used for skipping web-lines.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public int getSkipWebLineCount() {
         return mSkipWebLineCount;
@@ -331,6 +397,9 @@ public class RadarChart extends PieRadarChartBase<RadarData> {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public float getRadius() {
         RectF content = mViewPortHandler.getContentRect();
         return Math.min(content.width() / 2f, content.height() / 2f);
@@ -339,12 +408,18 @@ public class RadarChart extends PieRadarChartBase<RadarData> {
     /**
      * Returns the maximum value this chart can display on it's y-axis.
      */
+    /**
+     * Method description.
+     */
     public float getYChartMax() {
         return mYAxis.mAxisMaximum;
     }
 
     /**
      * Returns the minimum value this chart can display on it's y-axis.
+     */
+    /**
+     * Method description.
      */
     public float getYChartMin() {
         return mYAxis.mAxisMinimum;
@@ -354,6 +429,9 @@ public class RadarChart extends PieRadarChartBase<RadarData> {
      * Returns the range of y-values this chart can display.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public float getYRange() {
         return mYAxis.mAxisRange;

@@ -16,7 +16,10 @@ import kotlin.math.pow
 import kotlin.math.sqrt
 
  *  View.
- * Created by LCG on 2024/1/27.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class ImageEditView : View {
     companion object {
          * px.
@@ -39,9 +42,11 @@ class ImageEditView : View {
 
 
      * .
+    /** type property */
     var type: Type = Type.CIRCLE
 
      * .
+    /** color property */
     var color: Int
         get() = paint.color
         set(value) {
@@ -50,6 +55,7 @@ class ImageEditView : View {
         }
 
      *  bitmap .
+    /** sourceBitmap property */
     var sourceBitmap: Bitmap? = null
         set(value) {
             if (value == null) {//， return
@@ -94,12 +100,18 @@ class ImageEditView : View {
         paint.isDither = true
     }
 
+    /**
+     * Function description.
+     */
     fun clear() {
         hasEditData = false
         canvas?.drawColor(0x00000000, PorterDuff.Mode.CLEAR)
         invalidate()
     }
 
+    /**
+     * Function description.
+     */
     fun buildResultBitmap(): Bitmap? {
         val bgBitmap = this.bgBitmap ?: return null
         val editBitmap = this.editBitmap

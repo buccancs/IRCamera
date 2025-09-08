@@ -16,10 +16,14 @@ import com.csl.irCamera.libui.R as LibUiR
 import com.topdon.module.thermal.ir.databinding.ItmeTargetModeBinding
 
 class MeasureItemAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    /** listener property */
     var listener: ((index: Int, code: Int) -> Unit)? = null
     private var type = 0
     private var selected = -1
 
+    /**
+     * Function description.
+     */
     fun selected(index: Int) {
         selected = index
         notifyDataSetChanged()

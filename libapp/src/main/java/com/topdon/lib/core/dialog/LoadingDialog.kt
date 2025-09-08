@@ -12,16 +12,25 @@ import com.csl.irCamera.libapp.databinding.DialogLoadingBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
  *  UI  LMS  LMS
- * Created by LCG on 2024/4/12.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class LoadingDialog(context: Context) : Dialog(context, R.style.TransparentDialog) {
 
     private lateinit var binding: DialogLoadingBinding
 
+    /**
+     * Function description.
+     */
     fun setTips(@StringRes resId: Int) {
         binding.tvTips.setText(resId)
         binding.tvTips.isVisible = true
     }
 
+    /**
+     * Function description.
+     */
     fun setTips(text: CharSequence?) {
         binding.tvTips.text = text
         binding.tvTips.isVisible = text?.isNotEmpty() == true

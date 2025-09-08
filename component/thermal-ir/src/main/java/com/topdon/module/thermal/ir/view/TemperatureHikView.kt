@@ -20,7 +20,10 @@ import com.infisense.usbir.utils.TempDrawHelper.Companion.correct
 import com.infisense.usbir.utils.TempUtil
 
  *  View.
- * Created by LCG on 2024/12/19.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class TemperatureHikView : TemperatureBaseView {
     @Volatile
     private var tempInfo = TempInfo()
@@ -33,6 +36,7 @@ class TemperatureHikView : TemperatureBaseView {
 
      * 090180270 270
     @Volatile
+    /** rotateAngle property */
     var rotateAngle: Int = 270
         set(value) {
             field = value
@@ -41,12 +45,15 @@ class TemperatureHikView : TemperatureBaseView {
         }
 
     @Volatile
+    /** onTempChangeListener property */
     var onTempChangeListener: ((min: Float, max: Float) -> Unit)? = null
 
      * .
+    /** onTrendChangeListener property */
     var onTrendChangeListener: ((tempList: List<Float>) -> Unit)? = null
 
      * .
+    /** onTempResultListener property */
     var onTempResultListener: ((tempInfo: TempInfo) -> Unit)? = null
 
 
@@ -56,6 +63,9 @@ class TemperatureHikView : TemperatureBaseView {
     private var wantAddLine: Line? = null
      *  onMeasure    onMeasure
     private var wantAddRect: Rect? = null
+    /**
+     * Function description.
+     */
     fun addSourcePoint(point: Point) {
         if (xScale > 0 && yScale > 0) {
             synchronized(this) {
@@ -69,6 +79,9 @@ class TemperatureHikView : TemperatureBaseView {
             wantAddPoint = point
         }
     }
+    /**
+     * Function description.
+     */
     fun addSourceLine(line: Line) {
         if (xScale > 0 && yScale > 0) {
             val start = Point((line.start.x * xScale).toInt(), (line.start.y * yScale).toInt())
@@ -84,6 +97,9 @@ class TemperatureHikView : TemperatureBaseView {
             wantAddLine = line
         }
     }
+    /**
+     * Function description.
+     */
     fun addSourceRect(rect: Rect) {
         if (xScale > 0 && yScale > 0) {
             val left = (rect.left * xScale).toInt()
@@ -114,6 +130,9 @@ class TemperatureHikView : TemperatureBaseView {
     private val sourceTempArray = ByteArray(256 * 192 * 2)
      * [libIRTemp]
     private val rotateTempArray = ByteArray(256 * 192 * 2)
+    /**
+     * Function description.
+     */
     fun refreshTemp(newData: ByteArray) {
         val currentTime: Long = System.currentTimeMillis()
         if (currentTime - beforeTime > 1000) {

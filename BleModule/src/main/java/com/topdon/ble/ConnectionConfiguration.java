@@ -18,6 +18,9 @@ import java.util.UUID;
  * date: 2021/8/12 17:06
  * author: bichuanfeng
 public class ConnectionConfiguration {
+    /**
+     * Method description.
+     */
     public static final int TRY_RECONNECT_TIMES_INFINITE = -1;
     int discoverServicesDelayMillis = 600;
     int connectTimeoutMillis = 10000;
@@ -31,6 +34,9 @@ public class ConnectionConfiguration {
     int phy = BluetoothDevice.PHY_LE_1M_MASK;
     @NonNull
     final List<Pair<Integer, Integer>> scanIntervalPairsInAutoReconnection;
+    /**
+     * Private method description.
+     */
     private final Map<String, WriteOptions> defaultWriteOptionsMap = new HashMap<>();
 
     public ConnectionConfiguration() {
@@ -42,11 +48,17 @@ public class ConnectionConfiguration {
         scanIntervalPairsInAutoReconnection.add(Pair.create(10, 60000));
     }
 
+    /**
+     * Method description.
+     */
     public ConnectionConfiguration setDiscoverServicesDelayMillis(int discoverServicesDelayMillis) {
         this.discoverServicesDelayMillis = discoverServicesDelayMillis;
         return this;
     }
 
+    /**
+     * Method description.
+     */
     public ConnectionConfiguration setConnectTimeoutMillis(int connectTimeoutMillis) {
         if (requestTimeoutMillis >= 1000) {
             this.connectTimeoutMillis = connectTimeoutMillis;
@@ -54,6 +66,9 @@ public class ConnectionConfiguration {
         return this;
     }
 
+    /**
+     * Method description.
+     */
     public ConnectionConfiguration setRequestTimeoutMillis(int requestTimeoutMillis) {
         if (requestTimeoutMillis >= 1000) {
             this.requestTimeoutMillis = requestTimeoutMillis;
@@ -61,17 +76,26 @@ public class ConnectionConfiguration {
         return this;
     }
 
+    /**
+     * Method description.
+     */
     public ConnectionConfiguration setTryReconnectMaxTimes(int tryReconnectMaxTimes) {
         this.tryReconnectMaxTimes = tryReconnectMaxTimes;
         return this;
     }
 
      * MAC
+    /**
+     * Method description.
+     */
     public ConnectionConfiguration setReconnectImmediatelyMaxTimes(int reconnectImmediatelyMaxTimes) {
         this.reconnectImmediatelyMaxTimes = reconnectImmediatelyMaxTimes;
         return this;
     }
 
+    /**
+     * Method description.
+     */
     public ConnectionConfiguration setAutoReconnect(boolean autoReconnect) {
         isAutoReconnect = autoReconnect;
         return this;
@@ -79,18 +103,27 @@ public class ConnectionConfiguration {
 
      * @param transport {@link BluetoothDevice#TRANSPORT_AUTO}
     @RequiresApi(Build.VERSION_CODES.M)
+    /**
+     * Method description.
+     */
     public ConnectionConfiguration setTransport(int transport) {
         this.transport = transport;
         return this;
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
+    /**
+     * Method description.
+     */
     public ConnectionConfiguration setPhy(int phy) {
         this.phy = phy;
         return this;
     }
 
      * firstsecond12530
+    /**
+     * Method description.
+     */
     public ConnectionConfiguration setScanIntervalPairsInAutoReconnection(List<Pair<Integer, Integer>> parameters) {
         Inspector.requireNonNull(parameters, "parameters can't be null");
         scanIntervalPairsInAutoReconnection.clear();
@@ -101,6 +134,9 @@ public class ConnectionConfiguration {
      * @param service        UUID
      * @param characteristic UUID
      * @param options
+    /**
+     * Method description.
+     */
     public ConnectionConfiguration setDefaultWriteOptions(UUID service, UUID characteristic, WriteOptions options) {
         Inspector.requireNonNull(service, "service can't be null");
         Inspector.requireNonNull(characteristic, "characteristic can't be null");

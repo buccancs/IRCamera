@@ -29,10 +29,13 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.io.File
-
- * Created by admin on 2018/6/4.
+/**
+ * @author admin
+ * @since Unknown
+ */
 abstract class BaseActivity : RxAppCompatActivity() {
 
+    /** TAG property */
     val TAG = this.javaClass.simpleName
 
     protected abstract fun initContentView(): Int
@@ -95,6 +98,9 @@ abstract class BaseActivity : RxAppCompatActivity() {
 
      *  USB
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun getConnectState(event: DeviceConnectEvent) {
         if (event.isConnect) {
             connected()
@@ -113,6 +119,9 @@ abstract class BaseActivity : RxAppCompatActivity() {
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun onSocketConnectState(event: SocketStateEvent) {
         Log.d("onSocketConnectState","${event.isConnect}")
         if (event.isConnect) {
@@ -132,9 +141,15 @@ abstract class BaseActivity : RxAppCompatActivity() {
      *  LMS .
     private var loadingDialog: LoadingDialog? = null
      * 3 .
+    /**
+     * Function description.
+     */
     fun showLoadingDialog(@StringRes resId: Int = R.string.tip_loading) {
         showLoadingDialog(getString(resId))
     }
+    /**
+     * Function description.
+     */
     fun showLoadingDialog(text: CharSequence?) {
         if (loadingDialog == null) {
             loadingDialog = LoadingDialog(this)
@@ -143,12 +158,18 @@ abstract class BaseActivity : RxAppCompatActivity() {
         loadingDialog?.show()
     }
      * 3 .
+    /**
+     * Function description.
+     */
     fun dismissLoadingDialog() {
         loadingDialog?.dismiss()
     }
 
 
     private var cameraDialog: TipCameraProgressDialog? = null
+    /**
+     * Function description.
+     */
     fun showCameraLoading() {
         if (cameraDialog != null && cameraDialog!!.isShowing) {
             return
@@ -167,6 +188,9 @@ abstract class BaseActivity : RxAppCompatActivity() {
             Log.e("",e.message.toString())
         }
     }
+    /**
+     * Function description.
+     */
     fun dismissCameraLoading() {
         if (cameraDialog != null && cameraDialog!!.isShowing) {
             cameraDialog?.dismiss()

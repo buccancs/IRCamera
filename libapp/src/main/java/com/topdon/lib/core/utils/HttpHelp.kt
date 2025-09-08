@@ -13,6 +13,9 @@ import com.topdon.lms.sdk.xutils.http.RequestParams
 object HttpHelp{
 
      * modelIdTC001 950, TC002 951, TC003952
+    /**
+     * Function description.
+     */
     fun getFirstReportData(isTC007: Boolean, pageNumber:Int,iResponseCallback : IResponseCallback){
         val url = UrlConstant.BASE_URL + "api/v1/outProduce/testReport/getTestReport"
         val params = RequestParams()

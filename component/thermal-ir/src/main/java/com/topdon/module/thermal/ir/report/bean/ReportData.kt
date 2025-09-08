@@ -11,9 +11,13 @@ class ReportData {
      * data : {total:0,current:1,hitCount:false,pages:0,size:10,optimizeCountSql:true,records:[],searchCount:true,orders:[]}
      * msg :
      * serverTime : 2023-05-13 06:54:10
+    /** code property */
     var code = 0
+    /** data property */
     var data: DataBean? = null
+    /** msg property */
     var msg: String? = null
+    /** serverTime property */
     var serverTime: String? = null
 
     class DataBean {

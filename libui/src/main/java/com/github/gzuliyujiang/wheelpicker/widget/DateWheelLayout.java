@@ -38,6 +38,9 @@ import java.util.List;
  * @since 2021/6/5 16:12
 @SuppressWarnings("unused")
 public class DateWheelLayout extends BaseWheelLayout {
+    /**
+     * Private method description.
+     */
     private NumberWheelView yearWheelView;
     private NumberWheelView monthWheelView;
     private NumberWheelView dayWheelView;
@@ -54,18 +57,30 @@ public class DateWheelLayout extends BaseWheelLayout {
     private OnDateSelectedListener onDateSelectedListener;
     private boolean resetWhenLinkage = true;
 
+    /**
+     * Method description.
+     */
     public DateWheelLayout(Context context) {
         super(context);
     }
 
+    /**
+     * Method description.
+     */
     public DateWheelLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * Method description.
+     */
     public DateWheelLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
+    /**
+     * Method description.
+     */
     public DateWheelLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
@@ -151,6 +166,9 @@ public class DateWheelLayout extends BaseWheelLayout {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onWheelSelected(WheelView view, int position) {
         int id = view.getId();
         if (id == R.id.wheel_picker_date_year_wheel) {
@@ -179,6 +197,9 @@ public class DateWheelLayout extends BaseWheelLayout {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onWheelScrollStateChanged(WheelView view, @ScrollState int state) {
         int id = view.getId();
         if (id == R.id.wheel_picker_date_year_wheel) {
@@ -197,6 +218,9 @@ public class DateWheelLayout extends BaseWheelLayout {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void dateSelectedCallback() {
         if (onDateSelectedListener == null) {
             return;
@@ -209,6 +233,9 @@ public class DateWheelLayout extends BaseWheelLayout {
         });
     }
 
+    /**
+     * Method description.
+     */
     public void setDateMode(@DateMode int dateMode) {
         yearWheelView.setVisibility(View.VISIBLE);
         yearLabelView.setVisibility(View.VISIBLE);
@@ -243,10 +270,16 @@ public class DateWheelLayout extends BaseWheelLayout {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setRange(DateEntity startValue, DateEntity endValue) {
         setRange(startValue, endValue, null);
     }
 
+    /**
+     * Method description.
+     */
     public void setRange(DateEntity startValue, DateEntity endValue, DateEntity defaultValue) {
         if (startValue == null) {
             startValue = DateEntity.today();
@@ -271,10 +304,16 @@ public class DateWheelLayout extends BaseWheelLayout {
         changeYear();
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultValue(DateEntity defaultValue) {
         setRange(startValue, endValue, defaultValue);
     }
 
+    /**
+     * Method description.
+     */
     public void setDateFormatter(final DateFormatter dateFormatter) {
         if (dateFormatter == null) {
             return;
@@ -299,6 +338,9 @@ public class DateWheelLayout extends BaseWheelLayout {
         });
     }
 
+    /**
+     * Method description.
+     */
     public void setDateLabel(CharSequence year, CharSequence month, CharSequence day) {
         yearLabelView.setText(year);
         monthLabelView.setText(month);
@@ -309,67 +351,115 @@ public class DateWheelLayout extends BaseWheelLayout {
 //        dayLabelView.setBackgroundColor(0xffff00ff);
     }
 
+    /**
+     * Method description.
+     */
     public void setOnDateSelectedListener(OnDateSelectedListener onDateSelectedListener) {
         this.onDateSelectedListener = onDateSelectedListener;
     }
 
+    /**
+     * Method description.
+     */
     public void setResetWhenLinkage(boolean resetWhenLinkage) {
         this.resetWhenLinkage = resetWhenLinkage;
     }
 
+    /**
+     * Method description.
+     */
     public final DateEntity getStartValue() {
         return startValue;
     }
 
+    /**
+     * Method description.
+     */
     public final DateEntity getEndValue() {
         return endValue;
     }
 
+    /**
+     * Method description.
+     */
     public final NumberWheelView getYearWheelView() {
         return yearWheelView;
     }
 
+    /**
+     * Method description.
+     */
     public final NumberWheelView getMonthWheelView() {
         return monthWheelView;
     }
 
+    /**
+     * Method description.
+     */
     public final NumberWheelView getDayWheelView() {
         return dayWheelView;
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getYearLabelView() {
         return yearLabelView;
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getMonthLabelView() {
         return monthLabelView;
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getDayLabelView() {
         return dayLabelView;
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getSpaceStartView() {
         return spaceStartView;
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getSpaceEndView() {
         return spaceEndView;
     }
 
 
+    /**
+     * Method description.
+     */
     public final int getSelectedYear() {
         return yearWheelView.getCurrentItem();
     }
 
+    /**
+     * Method description.
+     */
     public final int getSelectedMonth() {
         return monthWheelView.getCurrentItem();
     }
 
+    /**
+     * Method description.
+     */
     public final int getSelectedDay() {
         return dayWheelView.getCurrentItem();
     }
 
+    /**
+     * Private method description.
+     */
     private void changeYear() {
         final int min = Math.min(startValue.getYear(), endValue.getYear());
         final int max = Math.max(startValue.getYear(), endValue.getYear());
@@ -384,6 +474,9 @@ public class DateWheelLayout extends BaseWheelLayout {
         changeMonth(selectedYear);
     }
 
+    /**
+     * Private method description.
+     */
     private void changeMonth(int year) {
         final int min, max;
         if (startValue.getYear() == endValue.getYear()) {
@@ -413,6 +506,9 @@ public class DateWheelLayout extends BaseWheelLayout {
         changeDay(year, selectedMonth);
     }
 
+    /**
+     * Private method description.
+     */
     private void changeDay(int year, int month) {
         final int min, max;
         if (year == startValue.getYear() && month == startValue.getMonth()
@@ -442,6 +538,9 @@ public class DateWheelLayout extends BaseWheelLayout {
     }
 
      * {@link java.util.Calendar#getActualMaximum(int)}
+    /**
+     * Private method description.
+     */
     private int getTotalDaysInMonth(int year, int month) {
         switch (month) {
             case 1:

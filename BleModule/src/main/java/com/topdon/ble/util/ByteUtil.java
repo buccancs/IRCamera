@@ -6,32 +6,56 @@ import android.util.Log;
  * @author chuanfeng.bi
  * @date 2021/12/8 10:49
 public class ByteUtil {
+    /**
+     * Method description.
+     */
     public static byte[] byteMerger(byte[] byte1, int byte2, int byte3, int byte4) {
         return byteMerger(byte1, intToByteArray(byte2), intToByteArray(byte3), intToByteArray2(byte4));
     }
+    /**
+     * Method description.
+     */
     public static byte[] byteMerger(byte[] byte1, String byte2,String byte3) {
         return byteMerger(byte1, byte2.getBytes(),byte3.getBytes());
     }
+    /**
+     * Method description.
+     */
     public static byte[] byteMerger(byte[] byte1, String byte2,String byte3,String byte4) {
         return byteMerger(byte1, byte2.getBytes(),byte3.getBytes(),byte4.getBytes());
     }
 
+    /**
+     * Method description.
+     */
     public static byte[] byteMerger(String byte1, int byte2) {
         return byteMerger(byte1.getBytes(), intToByteArray(byte2));
     }
 
+    /**
+     * Method description.
+     */
     public static byte[] byteMerger(byte[] byte1, int byte2) {
         return byteMerger(byte1, intToByteArray(byte2));
     }
 
+    /**
+     * Method description.
+     */
     public static byte[] byteMerger(String byte1, String byte2) {
         return byteMerger(byte1.getBytes(), byte2.getBytes());
     }
 
+    /**
+     * Method description.
+     */
     public static byte[] byteMerger(String byte1, byte[] byte2) {
         return byteMerger(byte1.getBytes(), byte2);
     }
 
+    /**
+     * Method description.
+     */
     public static byte[] byteMerger(byte[] byte1, String byte2) {
         return byteMerger(byte1, byte2.getBytes());
     }
@@ -43,6 +67,9 @@ public class ByteUtil {
 //        return result;
 //    }
 
+    /**
+     * Method description.
+     */
     public static byte[] byteMerger(byte[]... bytes) {
         int length = 0;
         for (byte[] tmp : bytes) {
@@ -60,12 +87,18 @@ public class ByteUtil {
      * intbyte[]
      * @param i byte
      * @return byte
+    /**
+     * Method description.
+     */
     public static byte[] intToByteArray(int i) {
         byte[] result = new byte[1];
         result[0] = (byte) (i & 0xFF);
         return result;
     }
 
+    /**
+     * Method description.
+     */
     public static byte[] intToByteArray2(int i) {
         byte[] result = new byte[4];
         result[0] = (byte) ((i >> 24) & 0xFF);
@@ -76,6 +109,9 @@ public class ByteUtil {
     }
 
 
+    /**
+     * Method description.
+     */
     public static byte[] LongToBytes(long values) {
         byte[] buffer = new byte[4];
         for (int i = 0; i < 4; i++) {
@@ -88,11 +124,17 @@ public class ByteUtil {
 
 
 
+    /**
+     * Method description.
+     */
     public static float bytesToFloat(byte[] bytes) {
         float value = Integer.valueOf(HexUtil.bytesToHexString(bytes), 16);
         return value;
     }
 
+    /**
+     * Method description.
+     */
     public static float byteToFloat(byte... bytes) {
         byte[] resultByte = new byte[bytes.length];
         for (int i = 0; i < bytes.length; i++) {
@@ -103,11 +145,17 @@ public class ByteUtil {
         return value;
     }
 
+    /**
+     * Method description.
+     */
     public static int byteToInt(byte b) {
         //Java  byte  0xFF
         return b & 0xFF;
     }
 
+    /**
+     * Method description.
+     */
     public static byte[] short2byte(short s){
         byte[] b = new byte[2];
         for(int i = 0; i < 2; i++){
@@ -120,6 +168,9 @@ public class ByteUtil {
      * byte[]int
      * @param bytes int
      * @return int
+    /**
+     * Method description.
+     */
     public static int byteArrayToInt(byte[] bytes) {
         int value=0;
         for(int i = 0; i < 4; i++) {
@@ -129,6 +180,9 @@ public class ByteUtil {
         return value;
     }
 
+    /**
+     * Method description.
+     */
     public static String getCmdType(byte[] bytes) {
         String hex = HexUtil.bytesToHexString(bytes);
         String cmd = "";
@@ -138,6 +192,9 @@ public class ByteUtil {
         return cmd;
     }
 
+    /**
+     * Method description.
+     */
     public static String getCmd(byte[] bytes){
         String hex = HexUtil.bytesToHexString(bytes);
         String cmd = "";

@@ -4,6 +4,9 @@ object CheckDoubleClick {
     
     private val records: MutableMap<String, Long> = HashMap()
 
+    /**
+     * Function description.
+     */
     fun isFastDoubleClick(): Boolean {
         if (records.size > 1000) {
             records.clear()

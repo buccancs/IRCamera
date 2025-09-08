@@ -14,10 +14,16 @@ class SensorService(ctx: Context) {
 
     private var context = ctx.applicationContext
 
+    /**
+     * Function description.
+     */
     fun hasCompass(): Boolean {
         return Sensors.hasCompass(context)
     }
 
+    /**
+     * Function description.
+     */
     fun getCompass(): ICompass {
         return CompassProvider(context).get()
     }

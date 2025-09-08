@@ -11,7 +11,10 @@ import com.topdon.lib.core.db.entity.HouseDetect
 import com.topdon.lib.core.db.entity.ItemDetect
 
  * DAO
- * Created by LCG on 2024/8/19.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 @Dao
 abstract class HouseDetectDao {
      * .

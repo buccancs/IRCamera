@@ -19,7 +19,10 @@ import org.greenrobot.eventbus.ThreadMode
  * [IRMonitorHistoryFragment]
  * [IRMonitorCaptureFragment]
  * [ExtraKeyConfig.IS_TC007] -  TC007
- * Created by LCG on 2024/8/20.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class MonitoryHomeActivity : BaseActivity() {
     private lateinit var binding: ActivityMonitorHomeBinding
     
@@ -40,6 +43,9 @@ class MonitoryHomeActivity : BaseActivity() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun onMonitorCreate(event: MonitorSaveEvent) {
         binding.viewPager2.currentItem = 0
     }

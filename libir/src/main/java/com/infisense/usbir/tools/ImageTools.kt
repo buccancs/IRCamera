@@ -10,6 +10,9 @@ import java.util.concurrent.LinkedBlockingQueue
 
 object ImageTools {
 
+    /**
+     * Function description.
+     */
     fun readFrame(imageBytes: ByteArray, tempBytes: ByteArray, max: Float = 40f, min: Float = 20f) {
         if (max < min) {
             return
@@ -19,6 +22,9 @@ object ImageTools {
         bitmapFromRgbaGrey(bytes = imageBytes, bean = selectBean)//
     }
 
+    /**
+     * Function description.
+     */
     fun readFrame(
         imageBytes: ByteArray,
         tempBytes: ByteArray,
@@ -175,6 +181,9 @@ object ImageTools {
      * @param tempBytes
      * @param max
      * @param min
+    /**
+     * Function description.
+     */
     fun dualReadFrame(
         imageBytes: ByteArray,
         tempBytes: ByteArray,

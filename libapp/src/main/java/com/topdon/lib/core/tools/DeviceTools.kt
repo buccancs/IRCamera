@@ -22,6 +22,9 @@ object DeviceTools {
      *   .
      * .
      * .
+    /**
+     * Function description.
+     */
     fun isConnect(isSendConnectEvent: Boolean = false, isAutoRequest: Boolean = true): Boolean {
         val usbManager = Utils.getApp().getSystemService(Context.USB_SERVICE) as UsbManager
         val deviceList: HashMap<String, UsbDevice> = usbManager.deviceList
@@ -45,6 +48,9 @@ object DeviceTools {
         return false
     }
 
+    /**
+     * Function description.
+     */
     fun findUsbDevice(): UsbDevice? {
         val usbManager = Utils.getApp().getSystemService(Context.USB_SERVICE) as UsbManager
         val deviceList: HashMap<String, UsbDevice> = usbManager.deviceList
@@ -61,6 +67,9 @@ object DeviceTools {
     }
 
      *  TC001 Plus .
+    /**
+     * Function description.
+     */
     fun isTC001PlusConnect(): Boolean {
         val usbManager = Utils.getApp().getSystemService(Context.USB_SERVICE) as UsbManager
         val deviceList: HashMap<String, UsbDevice> = usbManager.deviceList
@@ -78,6 +87,9 @@ object DeviceTools {
     }
 
      * TC001 Lite
+    /**
+     * Function description.
+     */
     fun isTC001LiteConnect() : Boolean{
         val usbManager = Utils.getApp().getSystemService(Context.USB_SERVICE) as UsbManager
         val deviceList: HashMap<String, UsbDevice> = usbManager.deviceList
@@ -94,6 +106,9 @@ object DeviceTools {
      * UsbManager.requestPermission
      * android 10
      * targetSdk 27
+    /**
+     * Function description.
+     */
     fun requestUsb(activity: Activity, requestCode: Int, device: UsbDevice) {
         val usbManager = Utils.getApp().getSystemService(Context.USB_SERVICE) as UsbManager
         val intent = Intent(DeviceBroadcastReceiver.ACTION_USB_PERMISSION)

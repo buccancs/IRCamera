@@ -246,6 +246,9 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
 
 
     @SuppressLint("MissingPermission")
+    /**
+     * Function description.
+     */
     fun openCamera() {
         try {
             mCameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager?

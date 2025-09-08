@@ -49,22 +49,37 @@ class HorizontalItemView : RecyclerView {
         return isFling
     }
 
+    /**
+     * Function description.
+     */
     fun setItemTransitionTimeMillis(@IntRange(from = 10) millis: Int) {
         layoutManager.setTimeForItemSettle(millis)
     }
 
+    /**
+     * Function description.
+     */
     fun setItemTransformer(transformer: HorizontalScrollItemTransformer?) {
         layoutManager.setItemTransformer(transformer)
     }
 
+    /**
+     * Function description.
+     */
     fun setSlideOnFling(result: Boolean) {
         layoutManager.setShouldSlideOnFling(result)
     }
 
+    /**
+     * Function description.
+     */
     fun addScrollStateChangeListener(scrollStateChangeListener: ScrollStateChangeListener<*>) {
         scrollStateChangeListeners.add(scrollStateChangeListener as ScrollStateChangeListener<ViewHolder>)
     }
 
+    /**
+     * Function description.
+     */
     fun addOnItemChangedListener(onItemChangedListener: OnItemChangedListener<*>) {
         onItemChangedListeners.add(onItemChangedListener as OnItemChangedListener<ViewHolder>)
     }

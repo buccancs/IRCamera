@@ -15,6 +15,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * date: 2019/8/9 15:13
  * author: chuanfeng.bi
 class ObserverMethodHelper {
+    /**
+     * Private method description.
+     */
     private static final Map<Class<?>, Map<String, Method>> METHOD_CACHE = new ConcurrentHashMap<>();
     private boolean isObserveAnnotationRequired;
 
@@ -106,6 +109,9 @@ class ObserverMethodHelper {
         return map;
     }
 
+    /**
+     * Private method description.
+     */
     private static boolean contains(List<Method> methods, Method method) {
         for (Method m : methods) {
             if (m.getName().equals(method.getName()) && m.getReturnType().equals(method.getReturnType()) &&
@@ -116,6 +122,9 @@ class ObserverMethodHelper {
         return false;
     }
 
+    /**
+     * Private method description.
+     */
     private static boolean equalParamTypes(Class<?>[] params1, Class<?>[] params2) {
         if (params1.length == params2.length) {
             for (int i = 0; i < params1.length; i++) {

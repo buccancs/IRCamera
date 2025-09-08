@@ -13,6 +13,9 @@ import java.io.IOException;
  */
 public class Usbcontorl extends Usbjni {
 
+    /**
+     * Method description.
+     */
     public static boolean isLoad = false;
 
     static {

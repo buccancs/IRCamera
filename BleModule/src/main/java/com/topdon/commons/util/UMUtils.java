@@ -13,10 +13,16 @@ import com.umeng.analytics.MobclickAgent;
 
 public class UMUtils {
 
+    /**
+     * Method description.
+     */
     public static void onEvent(Context mContext, String var1, String var2) {
         MobclickAgent.onEvent(mContext, var1, var2);
     }
 
+    /**
+     * Method description.
+     */
     public static void onEvent(Context mContext, String var1) {
         MobclickAgent.onEvent(mContext, var1);
     }

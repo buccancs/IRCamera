@@ -2,6 +2,9 @@ package com.topdon.module.thermal.ir.thermal.tools
 
 object ThermalTool {
 
+    /**
+     * Function description.
+     */
     fun getRotate(rotateType: Int): Float {
         return when (rotateType) {
             1 -> 90f

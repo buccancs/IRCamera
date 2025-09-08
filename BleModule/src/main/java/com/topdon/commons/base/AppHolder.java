@@ -24,6 +24,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class AppHolder implements Application.ActivityLifecycleCallbacks {
     //Activity
+    /**
+     * Private method description.
+     */
     private final List<RunningActivity> runningActivities = new CopyOnWriteArrayList<>();
     private boolean isCompleteExit = false;
     private Application application;
@@ -39,10 +42,16 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private static final class Holder {
         private static final AppHolder INSTANCE = new AppHolder();
     }
     
+    /**
+     * Private method description.
+     */
     private static class RunningActivity {
         String name;
         WeakReference<Activity> weakActivity;
@@ -67,12 +76,18 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
     }
     
     @NonNull
+    /**
+     * Method description.
+     */
     public static AppHolder getInstance() {
         return Holder.INSTANCE;
     }
     
     @SuppressLint("PrivateApi")
     @Nullable
+    /**
+     * Private method description.
+     */
     private Application tryGetApplication() {
         try {
             Class<?> cls = Class.forName("android.app.ActivityThread");
@@ -88,6 +103,9 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
 
     @CallSuper
     @Override
+    /**
+     * Method description.
+     */
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
         RunningActivity a = new RunningActivity(activity.getClass().getName(), new WeakReference<>(activity));
         if (!runningActivities.contains(a)) {
@@ -98,36 +116,54 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
 
     @CallSuper
     @Override
+    /**
+     * Method description.
+     */
     public void onActivityStarted(Activity activity) {
 
     }
 
     @CallSuper
     @Override
+    /**
+     * Method description.
+     */
     public void onActivityResumed(Activity activity) {
 
     }
 
     @CallSuper
     @Override
+    /**
+     * Method description.
+     */
     public void onActivityPaused(Activity activity) {
 
     }
 
     @CallSuper
     @Override
+    /**
+     * Method description.
+     */
     public void onActivityStopped(Activity activity) {
 
     }
 
     @CallSuper
     @Override
+    /**
+     * Method description.
+     */
     public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
 
     }
 
     @CallSuper
     @Override
+    /**
+     * Method description.
+     */
     public void onActivityDestroyed(Activity activity) {
         if (runningActivities.isEmpty()) {
             topActivity = null;
@@ -140,6 +176,9 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
         }
     }
     
+    /**
+     * Method description.
+     */
     public static void initialize(@NonNull Application application) {
         Objects.requireNonNull(application, "application is null");
         //Application
@@ -150,11 +189,17 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
         Holder.INSTANCE.application = application;
     }
     
+    /**
+     * Method description.
+     */
     public boolean isMainThread() {
         return Looper.myLooper() == mainLooper;
     }
     
     @NonNull
+    /**
+     * Method description.
+     */
     public Looper getMainLooper() {
         if (mainLooper == null) {
             mainLooper = Looper.getMainLooper();
@@ -163,12 +208,18 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
     }
     
     @NonNull
+    /**
+     * Method description.
+     */
     public Context getContext() {
         Objects.requireNonNull(application, "The AppHolder has not been initialized, make sure to call AppHolder.initialize(app) first.");
         return application;
     }
     
     @Nullable
+    /**
+     * Method description.
+     */
     public PackageInfo getPackageInfo() {
         try {
             PackageManager pm = application.getPackageManager();
@@ -178,6 +229,9 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
         return null;
     }
 
+    /**
+     * Method description.
+     */
     public boolean isAppOnForeground() {
         ActivityManager am = (ActivityManager) application.getSystemService(Context.ACTIVITY_SERVICE);
         if (am != null) {
@@ -194,6 +248,9 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
         return false;
     }
     
+    /**
+     * Private method description.
+     */
     private boolean contains(Object[] array, Object obj) {
         if (array != null && array.length > 0) {
             for (Object o : array) {
@@ -206,6 +263,9 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
     }
         
      * finishActivity
+    /**
+     * Method description.
+     */
     public void finish(String className, String... classNames) {
         List<RunningActivity> list = new ArrayList<>(runningActivities);
         Collections.reverse(list);//，finish
@@ -222,6 +282,9 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
 
      * finishActivity
      * @param classNames ActivitynullfinishActivity
+    /**
+     * Method description.
+     */
     public void finishAllWithout(@Nullable String className, String... classNames) {
         List<RunningActivity> list = new ArrayList<>(runningActivities);
         Collections.reverse(list);//，finish
@@ -237,12 +300,18 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
     }
 
      * finishActivity
+    /**
+     * Method description.
+     */
     public void finishAll() {
         finishAllWithout(null);
     }
 
      * Activity
      * @param className
+    /**
+     * Method description.
+     */
     public void backTo(String className) {
         List<RunningActivity> list = new ArrayList<>(runningActivities);
         Collections.reverse(list);//，finish
@@ -259,6 +328,9 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
     }
     
     @Nullable
+    /**
+     * Method description.
+     */
     public Activity getActivity(String className) {
         for (RunningActivity runningActivity : runningActivities) {
             if (runningActivity.name.equals(className)) {
@@ -268,10 +340,16 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
         return null;
     }
     
+    /**
+     * Method description.
+     */
     public boolean isAllFinished() {
         return runningActivities.isEmpty();
     }
     
+    /**
+     * Method description.
+     */
     public List<Activity> getAllActivities() {
         List<Activity> activities = new ArrayList<>();
         for (RunningActivity runningActivity : runningActivities) {
@@ -284,6 +362,9 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
     }
 
      * finishActivity
+    /**
+     * Method description.
+     */
     public void completeExit() {
         isCompleteExit = true;
         List<RunningActivity> list = new ArrayList<>(runningActivities);
@@ -296,6 +377,9 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
         }
     }
     
+    /**
+     * Method description.
+     */
     public Activity getTopActivity() {
         return topActivity == null ? null : topActivity.weakActivity.get();
     }

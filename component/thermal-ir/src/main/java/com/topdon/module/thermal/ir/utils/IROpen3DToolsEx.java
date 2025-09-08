@@ -20,9 +20,15 @@ import static org.opencv.imgproc.Imgproc.cvtColor;
  */
 public class IROpen3DToolsEx  extends IROpen3DTools {
 
+    /**
+     * Private method description.
+     */
     private Mat img ;
 
     @Override
+    /**
+     * Method description.
+     */
     public void init(byte[] image_, int type) {
         long time = System.currentTimeMillis();
         rws = 192;

@@ -34,10 +34,16 @@ import static com.infisense.usbdual.camera.IFrameData.FRAME_LEN;
  * Created by fengjibo on 2023/9/20.
 public class DualViewWithExternalCameraCommonApi extends BaseDualView {
 
+    /**
+     * Private method description.
+     */
     private final String TAG = "DualViewWithExternalCameraCommonApi";
     private DualUVCCamera dualUVCCamera;
     private final IFrameCallback iFrameCallback;
     private final IIRFrameCallback irFrameCallback;
+    /**
+     * Method description.
+     */
     public SurfaceView cameraview;
     public boolean isRun = true;
     public int count = 0;
@@ -88,11 +94,17 @@ public class DualViewWithExternalCameraCommonApi extends BaseDualView {
         return isOpenAmplify;
     }
 
+    /**
+     * Method description.
+     */
     public void setOpenAmplify(boolean openAmplify) {
         isOpenAmplify = openAmplify;
     }
 
      * @param handler
+    /**
+     * Method description.
+     */
     public void setHandler(Handler handler) {
         this.handler = handler;
     }
@@ -106,6 +118,9 @@ public class DualViewWithExternalCameraCommonApi extends BaseDualView {
      * @param irCameraHeight
      * @param dualCameraWidth
      * @param dualCameraHeight
+    /**
+     * Method description.
+     */
     public DualViewWithExternalCameraCommonApi(SurfaceView cameraview, UVCCamera irUVCCamera,
                                                CommonParams.DataFlowMode dataFlowMode,
                                                int irCameraWidth, int irCameraHeight, int vlCameraWidth, int vlCameraHeight,
@@ -362,6 +377,9 @@ public class DualViewWithExternalCameraCommonApi extends BaseDualView {
         };
     }
 
+    /**
+     * Method description.
+     */
     public void resetAutoGainInfo() {
         auto_gain_switch_info.switched_flag = 0;
         auto_gain_switch_info.cur_switched_cnt = 0;
@@ -369,6 +387,9 @@ public class DualViewWithExternalCameraCommonApi extends BaseDualView {
         auto_gain_switch_info.cur_detected_high_cnt = 0;
     }
 
+    /**
+     * Method description.
+     */
     public void startPreview() {
          * setIrDataPreHandleEnable
          * setIrFrameCallback
@@ -380,10 +401,16 @@ public class DualViewWithExternalCameraCommonApi extends BaseDualView {
     }
 
      * @return
+    /**
+     * Method description.
+     */
     public DualUVCCamera getDualUVCCamera() {
         return dualUVCCamera;
     }
 
+    /**
+     * Method description.
+     */
     public void stopPreview() {
         dualUVCCamera.setFrameCallback(null);
         dualUVCCamera.onStopPreview();
@@ -391,15 +418,24 @@ public class DualViewWithExternalCameraCommonApi extends BaseDualView {
         dualUVCCamera.onDestroy();
     }
 
+    /**
+     * Method description.
+     */
     public void switchIrPreDataHandleEnable(boolean enable) {
         dualUVCCamera.setIrDataPreHandleEnable(enable);
         dualUVCCamera.setIrFrameCallback(enable? irFrameCallback : null);
     }
 
+    /**
+     * Method description.
+     */
     public byte[] getRemapTempData() {
         return remapTempData;
     }
 
+    /**
+     * Method description.
+     */
     public Bitmap getScaledBitmap() {
         if (isOpenAmplify){
             if (mCurrentFusionType == DualCameraParams.FusionType.IROnlyNoFusion){
@@ -425,16 +461,28 @@ public class DualViewWithExternalCameraCommonApi extends BaseDualView {
         return mScaledBitmap;
     }
 
+    /**
+     * Private method description.
+     */
     private boolean saveData = false;
 
+    /**
+     * Method description.
+     */
     public void saveData() {
         saveData = true;
     }
 
+    /**
+     * Method description.
+     */
     public void setGainStatus(CommonParams.GainStatus gainStatus) {
         this.gainStatus = gainStatus;
     }
 
+    /**
+     * Method description.
+     */
     public void setCurrentFusionType(DualCameraParams.FusionType currentFusionType) {
         this.mCurrentFusionType = currentFusionType;
         if (dualUVCCamera != null) {

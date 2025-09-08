@@ -311,6 +311,9 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun onSaveFinishBean(imageGalleryEvent : ImageGalleryEvent) {
         finish()
     }

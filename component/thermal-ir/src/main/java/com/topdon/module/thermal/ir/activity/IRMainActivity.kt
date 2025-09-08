@@ -47,7 +47,10 @@ import org.greenrobot.eventbus.EventBus
 
  *   TC007 .
  * [ExtraKeyConfig.IS_TC007] -  TC007
- * Created by LCG on 2024/4/18.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 @Route(path = RouterConfig.IR_MAIN)
 class IRMainActivity : BaseActivity(), View.OnClickListener {
 

@@ -29,25 +29,43 @@ import java.util.List;
  * @since 2019/6/23 11:48
 @SuppressWarnings("WeakerAccess")
 public class SexPicker extends OptionPicker {
+    /**
+     * Method description.
+     */
     public static String JSON = "[{\"id\":0,\"name\":\"\",\"english\":\"Secrecy\"},\n" +
             "{\"id\":1,\"name\":\"\",\"english\":\"Male\"},\n" +
             "{\"id\":2,\"name\":\"\",\"english\":\"Female\"}]";
+    /**
+     * Private method description.
+     */
     private boolean includeSecrecy;
 
+    /**
+     * Method description.
+     */
     public SexPicker(Activity activity) {
         super(activity);
     }
 
+    /**
+     * Method description.
+     */
     public SexPicker(@NonNull Activity activity, @StyleRes int themeResId) {
         super(activity, themeResId);
     }
 
+    /**
+     * Method description.
+     */
     public void setIncludeSecrecy(boolean includeSecrecy) {
         this.includeSecrecy = includeSecrecy;
         setData(provideData());
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setDefaultValue(Object item) {
         if (item instanceof String) {
             setDefaultValueByName(item.toString());
@@ -56,12 +74,18 @@ public class SexPicker extends OptionPicker {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultValueByName(String name) {
         SexEntity entity = new SexEntity();
         entity.setName(name);
         super.setDefaultValue(entity);
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultValueByEnglish(String english) {
         SexEntity entity = new SexEntity();
         entity.setEnglish(english);

@@ -48,6 +48,9 @@ public class PieChartRenderer extends DataRenderer {
      * paint object for the text that can be displayed in the center of the
      * chart
      */
+    /**
+     * Private method description.
+     */
     private TextPaint mCenterTextPaint;
 
     /**
@@ -67,6 +70,9 @@ public class PieChartRenderer extends DataRenderer {
 
     protected Canvas mBitmapCanvas;
 
+    /**
+     * Method description.
+     */
     public PieChartRenderer(PieChart chart, ChartAnimator animator,
                             ViewPortHandler viewPortHandler) {
         super(animator, viewPortHandler);
@@ -98,28 +104,46 @@ public class PieChartRenderer extends DataRenderer {
         mValueLinePaint.setStyle(Style.STROKE);
     }
 
+    /**
+     * Method description.
+     */
     public Paint getPaintHole() {
         return mHolePaint;
     }
 
+    /**
+     * Method description.
+     */
     public Paint getPaintTransparentCircle() {
         return mTransparentCirclePaint;
     }
 
+    /**
+     * Method description.
+     */
     public TextPaint getPaintCenterText() {
         return mCenterTextPaint;
     }
 
+    /**
+     * Method description.
+     */
     public Paint getPaintEntryLabels() {
         return mEntryLabelsPaint;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void initBuffers() {
         // TODO Auto-generated method stub
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawData(Canvas c) {
 
         int width = (int) mViewPortHandler.getChartWidth();
@@ -150,6 +174,9 @@ public class PieChartRenderer extends DataRenderer {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private Path mPathBuffer = new Path();
     private RectF mInnerRectBuffer = new RectF();
 
@@ -404,6 +431,9 @@ public class PieChartRenderer extends DataRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawValues(Canvas c) {
 
         MPPointF center = mChart.getCenterCircleBox();
@@ -646,6 +676,9 @@ public class PieChartRenderer extends DataRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawValue(Canvas c, String valueText, float x, float y, int color) {
         mValuePaint.setColor(color);
         c.drawText(valueText, x, y, mValuePaint);
@@ -664,12 +697,18 @@ public class PieChartRenderer extends DataRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawExtras(Canvas c) {
         drawHole(c);
         c.drawBitmap(mDrawBitmap.get(), 0, 0, null);
         drawCenterText(c);
     }
 
+    /**
+     * Private method description.
+     */
     private Path mHoleCirclePath = new Path();
 
     /**
@@ -788,6 +827,9 @@ public class PieChartRenderer extends DataRenderer {
 
     protected RectF mDrawHighlightedRectF = new RectF();
     @Override
+    /**
+     * Method description.
+     */
     public void drawHighlighted(Canvas c, Highlight[] indices) {
 
         /* Skip entirely if using rounded circle slices, because it doesn't make sense to highlight
@@ -1042,6 +1084,9 @@ public class PieChartRenderer extends DataRenderer {
 
     /**
      * Releases the drawing bitmap. This should be called when {@link LineChart#onDetachedFromWindow()}.
+     */
+    /**
+     * Method description.
      */
     public void releaseBitmap() {
         if (mBitmapCanvas != null) {

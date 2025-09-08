@@ -13,14 +13,19 @@ import com.topdon.menu.constant.TwoLightType
  * - 2D：
  * 、Lite：、
  * ：1、2、、 ； 、、
- * Created by LCG on 2024/11/20.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 @SuppressLint("NotifyDataSetChanged")
 internal class TwoLightAdapter(private val menuType: MenuType) : BaseMenuAdapter() {
 
+    /** onTwoLightListener property */
     var onTwoLightListener: ((twoLightType: TwoLightType, isSelected: Boolean) -> Unit)? = null
 
      * - Lite：
      * - ： 1、2、、
+    /** twoLightType property */
     var twoLightType: TwoLightType
         get() {
             for (data in dataList) {
@@ -46,6 +51,9 @@ internal class TwoLightAdapter(private val menuType: MenuType) : BaseMenuAdapter
         }
 
      * - Lite： 、
+    /**
+     * Function description.
+     */
     fun setSelected(twoLightType: TwoLightType, isSelected: Boolean) {
         if (twoLightType == TwoLightType.TWO_LIGHT_1 || twoLightType == TwoLightType.TWO_LIGHT_2) {//1、2
             return

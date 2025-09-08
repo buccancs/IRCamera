@@ -24,6 +24,7 @@ class MenuAIAdapter (val context: Context) : RecyclerView.Adapter<RecyclerView.V
      * 0
      * 1
      * 2
+    /** selectCode property */
     var selectCode: Int = -1
         set(value) {
             if (field != value) {
@@ -33,6 +34,7 @@ class MenuAIAdapter (val context: Context) : RecyclerView.Adapter<RecyclerView.V
         }
 
      * 2
+    /** onTempSourceListener property */
     var onTempSourceListener: ((code: Int) -> Unit)? = null
 
 

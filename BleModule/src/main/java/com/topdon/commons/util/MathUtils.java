@@ -14,12 +14,18 @@ public class MathUtils {
      * 45
      * @param num
      * @param scale
+    /**
+     * Method description.
+     */
     public static double setDoubleAccuracy(double num, int scale) {
         return ((int) (num * Math.pow(10, scale))) / Math.pow(10, scale);
     }
 
      * 100%
      * @param scale 12.3%1
+    /**
+     * Method description.
+     */
     public static float[] getPercents(int scale, @NonNull float... values) {
         float total = 0;
         List<Integer> list = new ArrayList<>();
@@ -54,6 +60,9 @@ public class MathUtils {
      * @param value     shortintlong
      * @param len
     @NonNull
+    /**
+     * Method description.
+     */
     public static byte[] numberToBytes(boolean bigEndian, long value, int len) {
         byte[] bytes = new byte[8];
         for (int i = 0; i < 8; i++) {
@@ -71,6 +80,9 @@ public class MathUtils {
      * @param cls
      * @param src
     @SuppressWarnings("unchecked")
+    /**
+     * Method description.
+     */
     public static <T> T bytesToNumber(boolean bigEndian, Class<T> cls, @NonNull byte... src) {
         int len = Math.min(8, src.length);
         byte[] bs = new byte[8];
@@ -99,6 +111,9 @@ public class MathUtils {
     }
 
      * bit10000110 0011000110001100 01100001
+    /**
+     * Method description.
+     */
     public static byte[] reverseBitAndByte(byte[] src) {
         if (src == null || src.length == 0) {
             return null;
@@ -122,6 +137,9 @@ public class MathUtils {
      * @param size
      * @return
     @NonNull
+    /**
+     * Method description.
+     */
     public static List<byte[]> splitPackage(@NonNull byte[] src, int size) {
         List<byte[]> list = new ArrayList<>();
         int loop = src.length / size + (src.length % size == 0 ? 0 : 1);
@@ -136,6 +154,9 @@ public class MathUtils {
      * @param src
      * @return
     @NonNull
+    /**
+     * Method description.
+     */
     public static byte[] joinPackage(@NonNull byte[]... src) {
         byte[] bytes = new byte[0];
         for (byte[] bs : src) {
@@ -151,6 +172,9 @@ public class MathUtils {
      * Refin:   False
      * Refout:  False
      * Xorout:  0x00
+    /**
+     * Method description.
+     */
     public static int calcCrc8(byte[] bytes) {
         int crc = 0;
         for (byte b : bytes) {
@@ -167,6 +191,9 @@ public class MathUtils {
     }
 
      * CRC16Modbus
+    /**
+     * Method description.
+     */
     public static int calcCRC16_Modbus(byte[] data) {
         int crc = 0xffff;//16
         for (byte b : data) {
@@ -188,6 +215,9 @@ public class MathUtils {
     }
 
      * CRCCRC-CCITT (XModem)
+    /**
+     * Method description.
+     */
     public static int calcCRC_CCITT_XModem(byte[] bytes) {
         int crc = 0; // initial value
         int polynomial = 0x1021;
@@ -203,6 +233,9 @@ public class MathUtils {
     }
 
      * CRCCRC-CCITT (XModem)
+    /**
+     * Method description.
+     */
     public static int calcCRC_CCITT_XModem(byte[] bytes, int offset, int len) {
         int crc = 0; // initial value
         int polynomial = 0x1021;
@@ -219,6 +252,9 @@ public class MathUtils {
     }
 
      * CRCCRC-CCITT (0xFFFF)
+    /**
+     * Method description.
+     */
     public static int calcCRC_CCITT_0xFFFF(byte[] bytes) {
         int crc = 0xffff; // initial value
         int polynomial = 0x1021; // poly value
@@ -234,6 +270,9 @@ public class MathUtils {
     }
 
      * CRCCRC-CCITT (0xFFFF)
+    /**
+     * Method description.
+     */
     public static int calcCRC_CCITT_0xFFFF(byte[] bytes, int offset, int len) {
         int crc = 0xffff; // initial value
         int polynomial = 0x1021; // poly value

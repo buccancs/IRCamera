@@ -10,49 +10,65 @@ import com.blankj.utilcode.util.Utils
 import com.csl.irCamera.libapp.R
 
  *  .
- * Created by LCG on 2024/1/15.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 open class HouseBase {
     @PrimaryKey(autoGenerate = true)
+    /** id property */
     var id: Long = 0
 
     @ColumnInfo
+    /** name property */
     var name: String = ""
 
     @ColumnInfo
+    /** inspectorName property */
     var inspectorName: String = ""
 
     @ColumnInfo
+    /** address property */
     var address: String = ""
 
     @ColumnInfo
+    /** imagePath property */
     var imagePath: String = ""
 
     @ColumnInfo
+    /** year property */
     var year: Int? = null
 
      * .
     @ColumnInfo
+    /** houseSpace property */
     var houseSpace: String = ""
 
      *  0- 1- 2
     @ColumnInfo
+    /** houseSpaceUnit property */
     var houseSpaceUnit: Int = 0
 
     @ColumnInfo
+    /** cost property */
     var cost: String = ""
 
      * 0-USD 1-EUR 2-GBP 3-AUD 4-JPY 5-CAD 6-NZD 7-RMB 8-HKD
     @ColumnInfo
+    /** costUnit property */
     var costUnit: Int = 0
 
      * “”
     @ColumnInfo
+    /** detectTime property */
     var detectTime: Long = 0
 
     @ColumnInfo
+    /** createTime property */
     var createTime: Long = 0
 
     @ColumnInfo
+    /** updateTime property */
     var updateTime: Long = 0
 
 
@@ -64,6 +80,9 @@ open class HouseBase {
 
 
      * .
+    /**
+     * Function description.
+     */
     fun getSpaceUnitStr(): String = when (houseSpaceUnit) {
         0 -> "ac"
         1 -> "m²"
@@ -71,6 +90,9 @@ open class HouseBase {
     }
 
      * .
+    /**
+     * Function description.
+     */
     fun getCostUnitStr(): String = when (costUnit) {
         1 -> "EUR" //EUR
         2 -> "GBP" //GBP
@@ -84,6 +106,9 @@ open class HouseBase {
     }
 
      *  PDF
+    /**
+     * Function description.
+     */
     fun getPdfFileName(): String = "TC_${TimeUtils.millis2String(createTime, "yyyyMMdd_HHmmss")}.pdf"
 }
 
@@ -93,9 +118,13 @@ open class HouseBase {
 @Entity
 class HouseDetect : HouseBase() {
     @Ignore
+    /** dirList property */
     var dirList: ArrayList<DirDetect> = ArrayList()
 
      *  id  0 (1).
+    /**
+     * Function description.
+     */
     fun copyOne(): HouseDetect {
         val newDetect = HouseDetect()
         newDetect.id = 0
@@ -114,6 +143,9 @@ class HouseDetect : HouseBase() {
         return newDetect
     }
 
+    /**
+     * Function description.
+     */
     fun toHouseReport(): HouseReport {
         val houseReport = HouseReport()
         houseReport.id = 0
@@ -150,18 +182,23 @@ class HouseDetect : HouseBase() {
 @Entity
 class HouseReport : HouseBase() {
     @ColumnInfo
+    /** inspectorWhitePath property */
     var inspectorWhitePath: String = ""
     @ColumnInfo
+    /** inspectorBlackPath property */
     var inspectorBlackPath: String = ""
 
 
     @ColumnInfo
+    /** houseOwnerWhitePath property */
     var houseOwnerWhitePath: String = ""
     @ColumnInfo
+    /** houseOwnerBlackPath property */
     var houseOwnerBlackPath: String = ""
 
 
 
     @Ignore
+    /** dirList property */
     var dirList: ArrayList<DirReport> = ArrayList()
 }

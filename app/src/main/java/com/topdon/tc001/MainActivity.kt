@@ -311,11 +311,17 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun getDevicePermission(event: DevicePermissionEvent) {
         DeviceTools.requestUsb(this, 0, event.device)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun onWinterClick(event: WinterClickEvent) {
         binding.viewMinePoint.isVisible = false
     }
@@ -540,6 +546,9 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     }
 
 
+    /**
+     * Function description.
+     */
     fun jumpIRActivity(){
         when (checkPermissionType) {
             0 -> {

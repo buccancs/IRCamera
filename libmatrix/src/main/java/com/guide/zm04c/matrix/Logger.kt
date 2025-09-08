@@ -14,6 +14,9 @@ object Logger {
      * ERROR
 
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun e(clazz: Class<*>, msg: String) {
         if (BuildConfig.DEBUG) {
             Log.e(clazz.simpleName, msg + "")
@@ -21,6 +24,9 @@ object Logger {
     }
 
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun e(tag: String?, msg: String) {
         if (BuildConfig.DEBUG) {
             Log.e(tag, msg + "")
@@ -29,6 +35,9 @@ object Logger {
 
      * WARN
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun w(clazz: Class<*>, msg: String) {
         if (BuildConfig.DEBUG) {
             Log.w(clazz.simpleName, msg + "")
@@ -36,6 +45,9 @@ object Logger {
     }
 
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun w(tag: String?, msg: String) {
         if (BuildConfig.DEBUG) {
             Log.w(tag, msg + "")
@@ -45,6 +57,9 @@ object Logger {
      * INFO
 
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun i(clazz: Class<*>, msg: String) {
         if (BuildConfig.DEBUG) {
             Log.i(clazz.simpleName, msg + "")
@@ -52,6 +67,9 @@ object Logger {
     }
 
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun i(tag: String?, msg: String) {
         if (BuildConfig.DEBUG) {
             Log.i(tag, msg + "")
@@ -61,6 +79,9 @@ object Logger {
      * DEBUG
 
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun d(clazz: Class<*>, msg: String) {
         if (BuildConfig.DEBUG) {
             Log.d(clazz.simpleName, msg + "")
@@ -68,6 +89,9 @@ object Logger {
     }
 
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun d(tag: String?, msg: String) {
         if (BuildConfig.DEBUG) {
             Log.d(tag, msg + "")
@@ -77,12 +101,18 @@ object Logger {
      * VERBOSE
 
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun v(clazz: Class<*>, msg: String) {
         if (BuildConfig.DEBUG) {
             Log.v(clazz.simpleName, msg + "")
         }
     }
 
+    /**
+     * Function description.
+     */
     fun v(tag: String?, msg: String) {
         if (BuildConfig.DEBUG) {
             Log.v(tag, msg + "")
@@ -101,6 +131,9 @@ object Logger {
      * @param mylogtype
      * @param tag
      * @param text
+    /**
+     * Function description.
+     */
     fun f(tag: String, text: String) { //
         val nowtime = Date()
         val needWriteFiel = logfile.format(nowtime)

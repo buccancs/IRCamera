@@ -63,6 +63,7 @@ class App : BaseApplication() {
 
     override fun isDomestic(): Boolean = BuildConfig.ENV_TYPE == 1
 
+    /** activityNameList property */
     val activityNameList : MutableList<String> = mutableListOf()
 
     override fun onCreate() {

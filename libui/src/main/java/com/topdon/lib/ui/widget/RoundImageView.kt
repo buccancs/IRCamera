@@ -29,6 +29,7 @@ class RoundImageView : AppCompatImageView {
         private const val DEFAULT_POSITION = 15
     }
 
+    /** position property */
     var position = 0 //
         set(value) {
             if (field != value) {
@@ -96,6 +97,9 @@ class RoundImageView : AppCompatImageView {
     }
 
      * **dp**.
+    /**
+     * Function description.
+     */
     fun setRadius(radius: Float) {
         if (this.radius != dp2px(radius)) {
             this.radius = dp2px(radius)

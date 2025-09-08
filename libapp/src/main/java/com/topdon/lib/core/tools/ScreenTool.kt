@@ -10,6 +10,9 @@ import kotlin.math.sqrt
 
 object ScreenTool {
 
+    /**
+     * Function description.
+     */
     fun isLandPhone(): Boolean {
         val displayMetrics: DisplayMetrics = Utils.getApp().resources.displayMetrics
         val width = displayMetrics.widthPixels.toFloat()
@@ -17,6 +20,9 @@ object ScreenTool {
         return (width / height) < 0.75f
     }
 
+    /**
+     * Function description.
+     */
     fun isIPad(context: Context) : Boolean{
         val width = ScreenUtil.getScreenWidth(context)
         val height = ScreenUtil.getScreenHeight(context)

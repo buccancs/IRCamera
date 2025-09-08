@@ -15,6 +15,9 @@ object ARouterUtil {
      *  Only TC001 supported
      * @param activity Activity
      * @param imgPath String
+    /**
+     * Function description.
+     */
     fun jumpImagePick(activity: Activity, imgPath : String){
         // Only TC001 variants are supported
         if (DeviceTools.isTC001PlusConnect()){

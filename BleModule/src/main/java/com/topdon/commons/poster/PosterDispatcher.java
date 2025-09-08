@@ -11,12 +11,18 @@ import java.util.concurrent.ExecutorService;
  * date: 2019/8/7 10:18
  * author: chuanfeng.bi
 public class PosterDispatcher {
+    /**
+     * Private method description.
+     */
     private final ThreadMode defaultMode;
     private final Poster backgroundPoster;
     private final Poster mainThreadPoster;
     private final ExecutorService executorService;
     private final Poster asyncPoster;
 
+    /**
+     * Method description.
+     */
     public PosterDispatcher(@NonNull ExecutorService executorService, @NonNull ThreadMode defaultMode) {
         this.defaultMode = defaultMode;
         this.executorService = executorService;
@@ -25,14 +31,23 @@ public class PosterDispatcher {
         asyncPoster = new AsyncPoster(executorService);
     }
 
+    /**
+     * Method description.
+     */
     public ThreadMode getDefaultMode() {
         return defaultMode;
     }
 
+    /**
+     * Method description.
+     */
     public ExecutorService getExecutorService() {
         return executorService;
     }
 
+    /**
+     * Method description.
+     */
     public void clearTasks() {
         backgroundPoster.clear();
         mainThreadPoster.clear();
@@ -42,6 +57,9 @@ public class PosterDispatcher {
      * {@link RunOn}post
      * @param method
      * @param runnable
+    /**
+     * Method description.
+     */
     public void post(@Nullable Method method, @NonNull Runnable runnable) {
         if (method != null) {
             RunOn annotation = method.getAnnotation(RunOn.class);
@@ -56,6 +74,9 @@ public class PosterDispatcher {
      * post
      * @param mode
      * @param runnable
+    /**
+     * Method description.
+     */
     public void post(@NonNull ThreadMode mode, @NonNull Runnable runnable) {
         if (mode == ThreadMode.UNSPECIFIED) {
             mode = defaultMode;
@@ -81,6 +102,9 @@ public class PosterDispatcher {
      * @param methodName
      * @param tag        {@link Tag#value()}
      * @param parameters
+    /**
+     * Method description.
+     */
     public void post(@NonNull Object owner, @NonNull String methodName, @NonNull String tag,
                      @Nullable MethodInfo.Parameter... parameters) {
         Class<?>[] classes = new Class[0];
@@ -130,6 +154,9 @@ public class PosterDispatcher {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private boolean equalParamTypes(Class<?>[] params1, Class<?>[] params2) {
         if (params1.length == params2.length) {
             for (int i = 0; i < params1.length; i++) {
@@ -145,6 +172,9 @@ public class PosterDispatcher {
      * @param owner
      * @param methodName
      * @param parameters
+    /**
+     * Method description.
+     */
     public void post(@NonNull final Object owner, @NonNull String methodName, @Nullable MethodInfo.Parameter... parameters) {
         post(owner, methodName, "", parameters);
     }
@@ -152,6 +182,9 @@ public class PosterDispatcher {
      * post
      * @param owner
      * @param methodInfo
+    /**
+     * Method description.
+     */
     public void post(@NonNull Object owner, @NonNull MethodInfo methodInfo) {
         post(owner, methodInfo.getName(), methodInfo.getTag(), methodInfo.getParameters());
     }

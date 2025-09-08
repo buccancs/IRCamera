@@ -21,6 +21,9 @@ import com.topdon.lib.core.tools.PermissionTool
 object BluetoothUtil {
 
      *  activity   .
+    /**
+     * Function description.
+     */
     fun addBtStateListener(activity: ComponentActivity, listener: ((isEnable: Boolean) -> Unit)) {
         activity.lifecycle.addObserver(BtStateObserver(activity, listener))
     }
@@ -53,6 +56,9 @@ object BluetoothUtil {
     private val scanCallback = MyScanCallback()
 
      * .
+    /**
+     * Function description.
+     */
     fun setLeScanListener(listener: (name: String) -> Unit) {
         scanCallback.listener = listener
     }
@@ -60,6 +66,9 @@ object BluetoothUtil {
      * .
      * @return true- false
     @SuppressLint("MissingPermission")
+    /**
+     * Function description.
+     */
     fun startLeScan(context: Context): Boolean {
         XLog.i("startLeScan()")
 
@@ -87,6 +96,9 @@ object BluetoothUtil {
      * .
      * @return true- false
     @SuppressLint("MissingPermission")
+    /**
+     * Function description.
+     */
     fun stopLeScan(context: Context): Boolean {
         XLog.i("stopBtScan()")
 

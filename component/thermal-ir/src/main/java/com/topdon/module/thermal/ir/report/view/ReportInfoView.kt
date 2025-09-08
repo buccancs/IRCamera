@@ -26,6 +26,9 @@ class ReportInfoView: LinearLayout {
     }
 
      *  View.
+    /**
+     * Function description.
+     */
     fun refreshInfo(reportInfoBean: ReportInfoBean?) {
         binding.tvReportName.text = reportInfoBean?.report_name
 
@@ -40,6 +43,9 @@ class ReportInfoView: LinearLayout {
     }
 
      *  View.
+    /**
+     * Function description.
+     */
     fun refreshCondition(conditionBean: ReportConditionBean?) {
         binding.clReportCondition.isVisible = conditionBean?.is_ambient_humidity == 1
                 || conditionBean?.is_ambient_temperature == 1
@@ -64,6 +70,9 @@ class ReportInfoView: LinearLayout {
     }
 
      *  PDF  View .
+    /**
+     * Function description.
+     */
     fun getPrintViewList(): ArrayList<View> {
         val result = ArrayList<View>()
         result.add(binding.clTop)

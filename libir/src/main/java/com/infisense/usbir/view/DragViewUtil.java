@@ -9,6 +9,9 @@ import android.view.View;
  * @author: CaiSongL
  * @date: 2023/10/25 11:42
 public class DragViewUtil {
+    /**
+     * Method description.
+     */
     public static void registerDragAction(View v) {
 //        registerDragAction(v, 0);
     }
@@ -16,10 +19,16 @@ public class DragViewUtil {
      * View
      * @param v     view
      * @param delay
+    /**
+     * Method description.
+     */
     public static void registerDragAction(View v, long delay) {
         v.setOnTouchListener(new TouchListener(delay));
     }
 
+    /**
+     * Private method description.
+     */
     private static class TouchListener implements View.OnTouchListener {
         private float downX;
         private float downY;

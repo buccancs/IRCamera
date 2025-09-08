@@ -12,17 +12,22 @@ import com.topdon.module.thermal.ir.databinding.PopSeekBarBinding
 
  *  SeekBar  PopupWindow.
  *  ()()()
- * Created by LCG on 2024/12/3.
+/**
+ * @author LCG
+ * @since Unknown
+ */
  * @param hasTitle
 @SuppressLint("SetTextI18n")
 class SeekBarPopup(context: Context, hasTitle: Boolean = false) : PopupWindow() {
 
+    /** progress property */
     var progress: Int
         get() = binding.seekBar.progress
         set(value) {
             binding.seekBar.progress = value
         }
 
+    /** max property */
     var max: Int
         get() = binding.seekBar.max
         set(value) {
@@ -31,9 +36,11 @@ class SeekBarPopup(context: Context, hasTitle: Boolean = false) : PopupWindow() 
 
      * .
      * true-  false-(stop)
+    /** isRealTimeTrigger property */
     var isRealTimeTrigger = false
 
      * .
+    /** onValuePickListener property */
     var onValuePickListener: ((progress: Int) -> Unit)? = null
 
 
@@ -68,6 +75,9 @@ class SeekBarPopup(context: Context, hasTitle: Boolean = false) : PopupWindow() 
     }
 
      * @param isDropDown true-anchor false-anchor
+    /**
+     * Function description.
+     */
     fun show(anchor: View, isDropDown: Boolean) {
         if (isDropDown) {
             showAsDropDown(anchor)

@@ -14,16 +14,25 @@ import com.infisense.iruvc.utils.SynchronizedBitmap;
 
  * TextureViewSurfaceView
 public class CameraView extends TextureView {
+    /**
+     * Private method description.
+     */
     private String TAG = "CameraView";
     private Bitmap bitmap;
     private SynchronizedBitmap syncimage;
     private Runnable runnable;
     private Thread cameraThread;
 
+    /**
+     * Method description.
+     */
     public CameraView(Context context) {
         this(context, null, 0);
     }
 
+    /**
+     * Method description.
+     */
     public CameraView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
@@ -31,6 +40,9 @@ public class CameraView extends TextureView {
      * @param context
      * @param attrs
      * @param defStyleAttr
+    /**
+     * Method description.
+     */
     public CameraView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         runnable = new Runnable() {
@@ -79,20 +91,32 @@ public class CameraView extends TextureView {
     }
 
      * @param bitmap
+    /**
+     * Method description.
+     */
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
     }
 
      * @param syncimage
+    /**
+     * Method description.
+     */
     public void setSyncimage(SynchronizedBitmap syncimage) {
         this.syncimage = syncimage;
     }
 
+    /**
+     * Method description.
+     */
     public void start() {
         cameraThread = new Thread(runnable);
         cameraThread.start();
     }
 
+    /**
+     * Method description.
+     */
     public void stop() {
         cameraThread.interrupt();
         try {

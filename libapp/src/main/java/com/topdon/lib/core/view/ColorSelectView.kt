@@ -62,6 +62,7 @@ class ColorSelectView : View {
     }
 
      * .
+    /** isNeedStroke property */
     var isNeedStroke: Boolean = false
         set(value) {
             invalidate()
@@ -69,14 +70,21 @@ class ColorSelectView : View {
         }
 
      * .
+    /** onSelectListener property */
     var onSelectListener: ((color: Int) -> Unit)? = null
 
+    /**
+     * Function description.
+     */
     fun reset() {
         currentRow = -1
         currentColumn = -1
         invalidate()
     }
 
+    /**
+     * Function description.
+     */
     fun selectColor(@ColorInt color: Int) {
         currentRow = getRowFromColor(color)
         currentColumn = getColumnFromColor(color)

@@ -27,11 +27,17 @@ public class ChartHighlighter<T extends BarLineScatterCandleBubbleDataProvider> 
      */
     protected List<Highlight> mHighlightBuffer = new ArrayList<Highlight>();
 
+    /**
+     * Method description.
+     */
     public ChartHighlighter(T chart) {
         this.mChart = chart;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public Highlight getHighlight(float x, float y) {
 
         MPPointD pos = getValsForTouch(x, y);
@@ -200,6 +206,9 @@ public class ChartHighlighter<T extends BarLineScatterCandleBubbleDataProvider> 
      * @param axis                 the closest axis
      * @param minSelectionDistance
      * @return
+     */
+    /**
+     * Method description.
      */
     public Highlight getClosestHighlightByPixel(List<Highlight> closestValues, float x, float y,
                                                 YAxis.AxisDependency axis, float minSelectionDistance) {

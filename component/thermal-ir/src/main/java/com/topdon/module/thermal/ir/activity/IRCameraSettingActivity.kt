@@ -178,6 +178,9 @@ class IRCameraSettingActivity : BaseActivity() {
         binding.lyAuto.visibility = if (isTC007()) View.GONE else View.VISIBLE
     }
 
+    /**
+     * Function description.
+     */
     fun isTC007() : Boolean
     {
         return productName.contains("TC007")
@@ -210,6 +213,7 @@ class IRCameraSettingActivity : BaseActivity() {
         }
     }
 
+    /** locationListener property */
     var locationListener: LocationListener = object : LocationListener {
         // Provider
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {

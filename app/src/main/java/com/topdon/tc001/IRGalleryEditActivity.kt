@@ -589,6 +589,9 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun onReportCreate(event: ReportCreateEvent) {
         if (isReportPick) {
             finish()

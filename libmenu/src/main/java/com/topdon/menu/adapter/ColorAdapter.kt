@@ -7,10 +7,14 @@ import com.topdon.menu.view.ColorView
 import com.topdon.menu.util.PseudoColorConfig
 
  * -3-/-4- Adapter，.
- * Created by LCG on 2024/11/12.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 @SuppressLint("NotifyDataSetChanged")
 internal class ColorAdapter : RecyclerView.Adapter<ColorAdapter.ViewHolder>() {
 
+    /** selectCode property */
     var selectCode = -1
         set(value) {
             if (field != value) {
@@ -21,6 +25,7 @@ internal class ColorAdapter : RecyclerView.Adapter<ColorAdapter.ViewHolder>() {
      * index- index， TC007
      * code-，（2D、）
      * size-， TC007
+    /** onColorListener property */
     var onColorListener: ((index: Int, code: Int, size: Int) -> Unit)? = null
 
 

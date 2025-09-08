@@ -10,9 +10,13 @@ import com.blankj.utilcode.util.Utils
 import com.csl.irCamera.libapp.R
 
  *    .
- * Created by LCG on 2024/8/19.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 open class ItemBase {
     @PrimaryKey(autoGenerate = true)
+    /** id property */
     var id: Long = 0
 
      *  Id
@@ -21,31 +25,39 @@ open class ItemBase {
 
      *  index.
     @ColumnInfo
+    /** position property */
     var position: Int = 0
 
      * “”
     @ColumnInfo
+    /** itemName property */
     var itemName: String = ""
 
      *  0- 1- 2- 3
     @ColumnInfo
+    /** state property */
     var state: Int = 0
 
     @ColumnInfo
+    /** inputText property */
     var inputText: String = ""
 
 
      * 1
     @ColumnInfo
+    /** image1 property */
     var image1: String = ""
      * 2
     @ColumnInfo
+    /** image2 property */
     var image2: String = ""
      * 3
     @ColumnInfo
+    /** image3 property */
     var image3: String = ""
      * 4
     @ColumnInfo
+    /** image4 property */
     var image4: String = ""
 
 
@@ -57,6 +69,9 @@ open class ItemBase {
 
 
      *  state .
+    /**
+     * Function description.
+     */
     fun getStateStr(context: Context): String = when (state) {
         1 -> context.getString(R.string.house_state_good)
         2 -> context.getString(R.string.house_state_repair)
@@ -64,6 +79,9 @@ open class ItemBase {
         else -> ""
     }
 
+    /**
+     * Function description.
+     */
     fun getImageSize(): Int {
         var result = 0
         if (image1.isNotEmpty()) {
@@ -81,6 +99,9 @@ open class ItemBase {
         return result
     }
 
+    /**
+     * Function description.
+     */
     fun buildImageList(): ArrayList<String> {
         val resultList: ArrayList<String> = ArrayList(4)
         if (image1.isNotEmpty()) {
@@ -98,6 +119,9 @@ open class ItemBase {
         return resultList
     }
 
+    /**
+     * Function description.
+     */
     fun addOneImage(imagePath: String?) {
         if (imagePath.isNullOrEmpty()) {
             return
@@ -115,6 +139,9 @@ open class ItemBase {
 
      * .
      * @param imageNum `[1,4]`
+    /**
+     * Function description.
+     */
     fun delOneImage(imageNum: Int) {
         when (imageNum) {
             4 -> {
@@ -186,16 +213,24 @@ class ItemDetect() : ItemBase() {
 
      * .
     @Ignore
+    /** hasSelect property */
     var hasSelect = false
 
      * .
     @Ignore
+    /** dirDetect property */
     var dirDetect = DirDetect()
 
      *  3 (1) 50  [0,51)
+    /**
+     * Function description.
+     */
     fun copyName(): String = "$itemName(1)"
 
      *  id  0parentIdpositionitemName .
+    /**
+     * Function description.
+     */
     fun copyOne(parentId: Long = this.parentId, position: Int = this.position, itemName: String = this.itemName): ItemDetect {
         val newItemDetect = ItemDetect()
         newItemDetect.id = 0
@@ -214,6 +249,9 @@ class ItemDetect() : ItemBase() {
     }
 
      *  item  item idparent  0.
+    /**
+     * Function description.
+     */
     fun toItemReport(): ItemReport {
         val itemReport = ItemReport()
         itemReport.id = 0

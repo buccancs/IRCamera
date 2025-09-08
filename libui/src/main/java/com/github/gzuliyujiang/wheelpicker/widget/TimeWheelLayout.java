@@ -39,6 +39,9 @@ import java.util.List;
  * @since 2021/6/5 16:20
 @SuppressWarnings("unused")
 public class TimeWheelLayout extends BaseWheelLayout {
+    /**
+     * Private method description.
+     */
     private NumberWheelView hourWheelView;
     private NumberWheelView minuteWheelView;
     private NumberWheelView secondWheelView;
@@ -61,18 +64,30 @@ public class TimeWheelLayout extends BaseWheelLayout {
     private OnTimeMeridiemSelectedListener onTimeMeridiemSelectedListener;
     private boolean resetWhenLinkage = true;
 
+    /**
+     * Method description.
+     */
     public TimeWheelLayout(Context context) {
         super(context);
     }
 
+    /**
+     * Method description.
+     */
     public TimeWheelLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * Method description.
+     */
     public TimeWheelLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
+    /**
+     * Method description.
+     */
     public TimeWheelLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
@@ -158,6 +173,9 @@ public class TimeWheelLayout extends BaseWheelLayout {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onWheelSelected(WheelView view, int position) {
         int id = view.getId();
         if (id == R.id.wheel_picker_time_hour_wheel) {
@@ -186,6 +204,9 @@ public class TimeWheelLayout extends BaseWheelLayout {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onWheelScrollStateChanged(WheelView view, @ScrollState int state) {
         int id = view.getId();
         if (id == R.id.wheel_picker_time_hour_wheel) {
@@ -204,6 +225,9 @@ public class TimeWheelLayout extends BaseWheelLayout {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void timeSelectedCallback() {
         if (onTimeSelectedListener != null) {
             secondWheelView.post(new Runnable() {
@@ -223,6 +247,9 @@ public class TimeWheelLayout extends BaseWheelLayout {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setTimeMode(@TimeMode int timeMode) {
         this.timeMode = timeMode;
         hourWheelView.setVisibility(View.VISIBLE);
@@ -254,15 +281,24 @@ public class TimeWheelLayout extends BaseWheelLayout {
         }
     }
 
+    /**
+     * Method description.
+     */
     public boolean isHour12Mode() {
         return timeMode == TimeMode.HOUR_12_NO_SECOND
                 || timeMode == TimeMode.HOUR_12_HAS_SECOND;
     }
 
+    /**
+     * Method description.
+     */
     public void setRange(TimeEntity startValue, TimeEntity endValue) {
         setRange(startValue, endValue, null);
     }
 
+    /**
+     * Method description.
+     */
     public void setRange(TimeEntity startValue, TimeEntity endValue, TimeEntity defaultValue) {
         if (startValue == null) {
             startValue = TimeEntity.target(isHour12Mode() ? 1 : 0, 0, 0);
@@ -290,10 +326,16 @@ public class TimeWheelLayout extends BaseWheelLayout {
         changeAnteMeridiem();
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultValue(@NonNull final TimeEntity defaultValue) {
         setRange(startValue, endValue, defaultValue);
     }
 
+    /**
+     * Method description.
+     */
     public void setTimeFormatter(final TimeFormatter timeFormatter) {
         if (timeFormatter == null) {
             return;
@@ -318,24 +360,39 @@ public class TimeWheelLayout extends BaseWheelLayout {
         });
     }
 
+    /**
+     * Method description.
+     */
     public void setTimeLabel(CharSequence hour, CharSequence minute, CharSequence second) {
         hourLabelView.setText(hour);
         minuteLabelView.setText(minute);
         secondLabelView.setText(second);
     }
 
+    /**
+     * Method description.
+     */
     public void setOnTimeSelectedListener(OnTimeSelectedListener onTimeSelectedListener) {
         this.onTimeSelectedListener = onTimeSelectedListener;
     }
 
+    /**
+     * Method description.
+     */
     public void setOnTimeMeridiemSelectedListener(OnTimeMeridiemSelectedListener onTimeMeridiemSelectedListener) {
         this.onTimeMeridiemSelectedListener = onTimeMeridiemSelectedListener;
     }
 
+    /**
+     * Method description.
+     */
     public void setResetWhenLinkage(boolean resetWhenLinkage) {
         this.resetWhenLinkage = resetWhenLinkage;
     }
 
+    /**
+     * Method description.
+     */
     public void setTimeStep(int hourStep, int minuteStep, int secondStep) {
         this.hourStep = hourStep;
         this.minuteStep = minuteStep;
@@ -345,56 +402,95 @@ public class TimeWheelLayout extends BaseWheelLayout {
         }
     }
 
+    /**
+     * Method description.
+     */
     public boolean isDataAlready() {
         return startValue != null && endValue != null;
     }
 
+    /**
+     * Method description.
+     */
     public final TimeEntity getStartValue() {
         return startValue;
     }
 
+    /**
+     * Method description.
+     */
     public final TimeEntity getEndValue() {
         return endValue;
     }
 
+    /**
+     * Method description.
+     */
     public final NumberWheelView getHourWheelView() {
         return hourWheelView;
     }
 
+    /**
+     * Method description.
+     */
     public final NumberWheelView getMinuteWheelView() {
         return minuteWheelView;
     }
 
+    /**
+     * Method description.
+     */
     public final NumberWheelView getSecondWheelView() {
         return secondWheelView;
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getHourLabelView() {
         return hourLabelView;
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getMinuteLabelView() {
         return minuteLabelView;
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getSecondLabelView() {
         return secondLabelView;
     }
 
+    /**
+     * Method description.
+     */
     public final WheelView getMeridiemWheelView() {
         return meridiemWheelView;
     }
 
     @Deprecated
+    /**
+     * Method description.
+     */
     public final TextView getMeridiemLabelView() {
         throw new UnsupportedOperationException("Use getMeridiemWheelView instead");
     }
 
+    /**
+     * Method description.
+     */
     public final int getSelectedHour() {
         int hour = hourWheelView.getCurrentItem();
         return wrapHour(hour);
     }
 
+    /**
+     * Private method description.
+     */
     private int wrapHour(int hour) {
         if (isHour12Mode() && hour > 12) {
             hour = hour - 12;
@@ -402,10 +498,16 @@ public class TimeWheelLayout extends BaseWheelLayout {
         return hour;
     }
 
+    /**
+     * Method description.
+     */
     public final int getSelectedMinute() {
         return minuteWheelView.getCurrentItem();
     }
 
+    /**
+     * Method description.
+     */
     public final int getSelectedSecond() {
         if (timeMode == TimeMode.HOUR_12_NO_SECOND
                 || timeMode == TimeMode.HOUR_24_NO_SECOND) {
@@ -414,10 +516,16 @@ public class TimeWheelLayout extends BaseWheelLayout {
         return secondWheelView.getCurrentItem();
     }
 
+    /**
+     * Method description.
+     */
     public final boolean isAnteMeridiem() {
         return meridiemWheelView.getCurrentItem().toString().equalsIgnoreCase("AM");
     }
 
+    /**
+     * Private method description.
+     */
     private void changeHour() {
         int min = Math.min(startValue.getHour(), endValue.getHour());
         int max = Math.max(startValue.getHour(), endValue.getHour());
@@ -436,6 +544,9 @@ public class TimeWheelLayout extends BaseWheelLayout {
         changeMinute(selectedHour);
     }
 
+    /**
+     * Private method description.
+     */
     private void changeMinute(int hour) {
         final int min, max;
         if (hour == startValue.getHour() && hour == endValue.getHour()) {
@@ -464,6 +575,9 @@ public class TimeWheelLayout extends BaseWheelLayout {
         changeSecond();
     }
 
+    /**
+     * Private method description.
+     */
     private void changeSecond() {
         if (selectedSecond == null) {
             selectedSecond = 0;
@@ -472,6 +586,9 @@ public class TimeWheelLayout extends BaseWheelLayout {
         secondWheelView.setDefaultValue(selectedSecond);
     }
 
+    /**
+     * Private method description.
+     */
     private void changeAnteMeridiem() {
         meridiemWheelView.setDefaultValue(isAnteMeridiem ? "AM" : "PM");
     }

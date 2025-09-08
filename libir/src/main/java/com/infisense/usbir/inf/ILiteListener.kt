@@ -9,8 +9,14 @@ import com.energy.iruvc.utils.DualCameraParams
 interface ILiteListener {
 
 
+    /**
+     * Function description.
+     */
     fun getDeltaNucAndVTemp() : Float
 
+    /**
+     * Function description.
+     */
     fun compensateTemp(temp : Float) : Float
 
 }

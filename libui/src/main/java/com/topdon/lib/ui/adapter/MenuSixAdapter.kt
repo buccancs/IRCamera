@@ -17,6 +17,7 @@ import com.topdon.lib.ui.listener.SingleClickListener
 
 @Deprecated(" 2D ，")
 class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    /** listener property */
     var listener: ((index: Int, code: Int) -> Unit)? = null
     private var type = 0
     private var selected = -1
@@ -24,21 +25,33 @@ class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.V
     private var contrastEnable = false //
     private var ddeEnable = false //
 
+    /**
+     * Function description.
+     */
     fun selected(index: Int) {
         selected = index
         notifyDataSetChanged()
     }
 
+    /**
+     * Function description.
+     */
     fun enColor(colorEnable: Boolean) {
         this.colorEnable = colorEnable
         notifyDataSetChanged()
     }
 
+    /**
+     * Function description.
+     */
     fun enContrast(param: Boolean) {
         this.contrastEnable = param
         notifyDataSetChanged()
     }
 
+    /**
+     * Function description.
+     */
     fun enDde(param: Boolean) {
         this.ddeEnable = param
         notifyDataSetChanged()

@@ -12,6 +12,9 @@ public class BaseParamDualView {
     protected int mDualHeight;
 
 
+    /**
+     * Method description.
+     */
     public BaseParamDualView(int mIrWidth, int mIrHeight, int mVlWidth, int mVlHeight, int mDualWidth, int mDualHeight) {
         this.mIrWidth = mIrWidth;
         this.mIrHeight = mIrHeight;

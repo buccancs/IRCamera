@@ -17,8 +17,12 @@ open class BitmapConstraintLayout : ConstraintLayout {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     @Volatile
+    /** viewBitmap property */
     var viewBitmap: Bitmap? = null
 
+    /**
+     * Function description.
+     */
     fun updateBitmap() {
         if (!isShown) {
             return

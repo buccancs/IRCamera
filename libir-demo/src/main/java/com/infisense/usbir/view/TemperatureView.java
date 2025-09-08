@@ -28,6 +28,9 @@ import java.util.ArrayList;
 
 public class TemperatureView extends SurfaceView implements SurfaceHolder.Callback, View.OnTouchListener {
 
+    /**
+     * Private method description.
+     */
     private final String TAG = "TemperatureView";
     private final int LINE_STROKE_WIDTH = SizeUtils.dp2px(1f);//,,
     private final int DOT_STROKE_WIDTH = SizeUtils.dp2px(1f);//
@@ -43,6 +46,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     private final int RECTANGLE_MAX_COUNT = 3;
 
     private Runnable runnable;
+    /**
+     * Method description.
+     */
     public Thread temperatureThread;
     private LibIRTemp irtemp;
     private IRCMD ircmd;
@@ -130,6 +136,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         return result;
     }
 
+    /**
+     * Method description.
+     */
     public void setImageSize(int imageWidth, int imageHeight) {
         Log.w("123", "imageWidth: " + imageWidth + ", imageHeight: " + imageHeight);
         this.imageWidth = imageWidth;
@@ -151,26 +160,44 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setIrcmd(IRCMD ircmd) {
         this.ircmd = ircmd;
     }
 
+    /**
+     * Method description.
+     */
     public void setSyncimage(SynchronizedBitmap syncimage) {
         this.syncimage = syncimage;
     }
 
+    /**
+     * Method description.
+     */
     public void setTemperatureRegionMode(int temperatureRegionMode) {
         this.temperatureRegionMode = temperatureRegionMode;
     }
 
+    /**
+     * Method description.
+     */
     public void setTemperature(byte[] temperature) {
         this.temperature = temperature;
     }
 
+    /**
+     * Method description.
+     */
     public TemperatureView(final Context context) {
         this(context, null, 0);
     }
 
+    /**
+     * Method description.
+     */
     public TemperatureView(final Context context, final AttributeSet attrs) {
         this(context, attrs, 0);
     }
@@ -178,6 +205,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
      * Y16scale64
      * Y14scale16
      * @param useIRISP
+    /**
+     * Method description.
+     */
     public void setUseIRISP(boolean useIRISP) {
         isUseIRISP = useIRISP;
         if (isUseIRISP) {
@@ -191,6 +221,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+    /**
+     * Method description.
+     */
     public TemperatureView(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
         getHolder().addCallback(this);
@@ -486,6 +519,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void surfaceCreated(SurfaceHolder holder) {
         Log.w(TAG, "surfaceCreated");
         setZOrderOnTop(true);
@@ -493,16 +529,25 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
 
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void surfaceDestroyed(SurfaceHolder holder) {
         Log.w(TAG, "surfaceDestroyed");
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean onTouch(View v, MotionEvent event) {
         if (temperatureRegionMode == REGION_MODE_RECTANGLE) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -1019,6 +1064,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+    /**
+     * Method description.
+     */
     public void addPoint(Point point) {
         if (points.size() < POINT_MAX_COUNT) {
             points.add(point);
@@ -1031,6 +1079,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+    /**
+     * Method description.
+     */
     public Point getPoint(Point point) {
         Point point1 = new Point();
         for (int index = 0; index < points.size(); index++) {
@@ -1042,6 +1093,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         return point1;
     }
 
+    /**
+     * Method description.
+     */
     public void deletePoint(Point point) {
         for (int index = 0; index < points.size(); index++) {
             Point tempPoint = points.get(index);
@@ -1052,6 +1106,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+    /**
+     * Method description.
+     */
     public void deletePoint() {
         for (int index = 0; index < points.size() - 1; index++) {
             Point tempPoint = points.get(index + 1);
@@ -1060,6 +1117,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         points.remove(points.size() - 1);
     }
 
+    /**
+     * Method description.
+     */
     public void addLine(Line line) {
         if (lines.size() < LINE_MAX_COUNT) {
             lines.add(line);
@@ -1073,6 +1133,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     }
 
      * ,,
+    /**
+     * Method description.
+     */
     public Line getLine(Point point) {
         Line line = new Line();
         for (int index = 0; index < lines.size(); index++) {
@@ -1087,6 +1150,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         return line;
     }
 
+    /**
+     * Method description.
+     */
     public void deleteLine(Line line) {
         for (int index = 0; index < lines.size(); index++) {
             Line tempLine = lines.get(index);
@@ -1097,6 +1163,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+    /**
+     * Method description.
+     */
     public void addRectangle(Rect rectangle) {
         if (rectangles.size() < RECTANGLE_MAX_COUNT) {
             rectangles.add(rectangle);
@@ -1109,6 +1178,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+    /**
+     * Method description.
+     */
     public Rect getRectangle(Point point) {
         Rect rectangle = new Rect();
         for (int index = 0; index < rectangles.size(); index++) {
@@ -1121,6 +1193,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         return rectangle;
     }
 
+    /**
+     * Method description.
+     */
     public void deleteRectangle(Rect rect) {
         for (int index = 0; index < rectangles.size(); index++) {
             Rect tempRectangle = rectangles.get(index);
@@ -1138,6 +1213,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
 //        canvas.drawLines(points, paint);
 //    }
 
+    /**
+     * Private method description.
+     */
     private void drawPoint(Canvas canvas, Paint paint, float x1, float y1) {
         //Pointint,float, 2022-04-12
         float x = (int) (x1 / xscale) * xscale;//drawDotx1
@@ -1156,6 +1234,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
 //        canvas.drawLines(points, paint);
 //    }
 
+    /**
+     * Private method description.
+     */
     private void drawLine(Canvas canvas, Paint paint, float x1, float y1, float x2, float y2) {
         float xStart = (int) (x1 / xscale) * xscale;
         float yStart = (int) (y1 / yscale) * yscale;
@@ -1165,15 +1246,24 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         canvas.drawLines(points, paint);
     }
 
+    /**
+     * Private method description.
+     */
     private void drawRectangle(Canvas canvas, Paint paint, float x1, float y1, float x2, float y2) {
         float[] points = new float[]{x1, y1, x2, y1, x2, y1, x2, y2, x2, y2, x1, y2, x1, y2, x1, y1};
         canvas.drawLines(points, paint);
     }
 
+    /**
+     * Private method description.
+     */
     private void drawDot(Canvas canvas, Paint paint, float x1, float y1) {
         canvas.drawCircle(x1, y1, DOT_RADIUS, paint);
     }
 
+    /**
+     * Private method description.
+     */
     private void setBitmap() {
         regionBitmap = Bitmap.createBitmap(viewWidth, viewHeight, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(regionBitmap);
@@ -1191,6 +1281,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+    /**
+     * Method description.
+     */
     public void start() {
         runflag = true;
         temperatureThread = new Thread(runnable);
@@ -1198,10 +1291,16 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         temperatureThread.start();
     }
 
+    /**
+     * Method description.
+     */
     public void pause() {
         runflag = false;
     }
 
+    /**
+     * Method description.
+     */
     public void clear() {
         points.clear();
         lines.clear();
@@ -1229,6 +1328,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+    /**
+     * Method description.
+     */
     public void stop() {
         Log.w(TAG, "temperatureThread interrupt");
         pause();
@@ -1240,20 +1342,32 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+    /**
+     * Method description.
+     */
     public Bitmap getRegionAndValueBitmap() {
         synchronized (regionLock) {
             return regionAndValueBitmap;
         }
     }
 
+    /**
+     * Method description.
+     */
     public float getMaxTemperature() {
         return maxTemperature;
     }
 
+    /**
+     * Method description.
+     */
     public float getMinTemperature() {
         return minTemperature;
     }
 
+    /**
+     * Method description.
+     */
     public String getRectMinTemp() {
         if (rectangles.size() > 0) {
             return RectMinTemp;
@@ -1261,10 +1375,16 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         return "";
     }
 
+    /**
+     * Method description.
+     */
     public void setRectMinTemp(String rectMinTemp) {
         RectMinTemp = rectMinTemp;
     }
 
+    /**
+     * Method description.
+     */
     public String getRectMaxTemp() {
         if (rectangles.size() > 0) {
             return RectMaxTemp;
@@ -1272,6 +1392,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         return "";
     }
 
+    /**
+     * Method description.
+     */
     public void setRectMaxTemp(String rectMaxTemp) {
         RectMaxTemp = rectMaxTemp;
     }

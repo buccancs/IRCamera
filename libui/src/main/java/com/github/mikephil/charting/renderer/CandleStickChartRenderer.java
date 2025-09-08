@@ -24,12 +24,18 @@ public class CandleStickChartRenderer extends LineScatterCandleRadarRenderer {
 
     protected CandleDataProvider mChart;
 
+    /**
+     * Private method description.
+     */
     private float[] mShadowBuffers = new float[8];
     private float[] mBodyBuffers = new float[4];
     private float[] mRangeBuffers = new float[4];
     private float[] mOpenBuffers = new float[4];
     private float[] mCloseBuffers = new float[4];
 
+    /**
+     * Method description.
+     */
     public CandleStickChartRenderer(CandleDataProvider chart, ChartAnimator animator,
                                     ViewPortHandler viewPortHandler) {
         super(animator, viewPortHandler);
@@ -37,11 +43,17 @@ public class CandleStickChartRenderer extends LineScatterCandleRadarRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void initBuffers() {
 
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawData(Canvas c) {
 
         CandleData candleData = mChart.getCandleData();
@@ -253,6 +265,9 @@ public class CandleStickChartRenderer extends LineScatterCandleRadarRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawValues(Canvas c) {
 
         // if values are drawn
@@ -322,16 +337,25 @@ public class CandleStickChartRenderer extends LineScatterCandleRadarRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawValue(Canvas c, String valueText, float x, float y, int color) {
         mValuePaint.setColor(color);
         c.drawText(valueText, x, y, mValuePaint);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawExtras(Canvas c) {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawHighlighted(Canvas c, Highlight[] indices) {
 
         CandleData candleData = mChart.getCandleData();

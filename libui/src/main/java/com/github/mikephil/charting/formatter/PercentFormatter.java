@@ -14,7 +14,13 @@ import java.text.DecimalFormat;
 public class PercentFormatter extends ValueFormatter
 {
 
+    /**
+     * Method description.
+     */
     public DecimalFormat mFormat;
+    /**
+     * Private method description.
+     */
     private PieChart pieChart;
 
     public PercentFormatter() {
@@ -22,17 +28,26 @@ public class PercentFormatter extends ValueFormatter
     }
 
     // Can be used to remove percent signs if the chart isn't in percent mode
+    /**
+     * Method description.
+     */
     public PercentFormatter(PieChart pieChart) {
         this();
         this.pieChart = pieChart;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public String getFormattedValue(float value) {
         return mFormat.format(value) + " %";
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public String getPieLabel(float value, PieEntry pieEntry) {
         if (pieChart != null && pieChart.isUsePercentValuesEnabled()) {
             // Converted to percent

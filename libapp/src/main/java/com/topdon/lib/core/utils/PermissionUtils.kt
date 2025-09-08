@@ -13,12 +13,18 @@ object PermissionUtils {
 
      * android 14
      * @return Boolean
+    /**
+     * Function description.
+     */
     fun isVisualUser() : Boolean{
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE &&
                 ContextCompat.checkSelfPermission(BaseApplication.instance,
                     READ_MEDIA_VISUAL_USER_SELECTED) == PERMISSION_GRANTED
     }
 
+    /**
+     * Function description.
+     */
     fun hasCameraPermission() : Boolean{
         return ContextCompat.checkSelfPermission(BaseApplication.instance,
             android.Manifest.permission.CAMERA) == PERMISSION_GRANTED

@@ -34,8 +34,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IRUVCTC {
+    /**
+     * Private method description.
+     */
     private static final String TAG = "IRUVC_DATA";
     private final IFrameCallback iFrameCallback;
+    /**
+     * Method description.
+     */
     public UVCCamera uvcCamera;
     private IRCMD ircmd;
     private final USBMonitor mUSBMonitor;
@@ -59,23 +65,38 @@ public class IRUVCTC {
     private final boolean auto_over_portect = false;
     public byte[] imageEditTemp = null;
     private int pids[] = {0x5840, 0x3901, 0x5830, 0x5838};
+    /**
+     * Private method description.
+     */
     private IFrameCallBackListener iFrameCallBackListener;
 
     private IFrameReadListener iFrameReadListener;
+    /**
+     * Method description.
+     */
     public volatile boolean isFirstFrame;
 
     public void setIFrameCallBackListener(IFrameCallBackListener iFrameCallBackListener) {
         this.iFrameCallBackListener = iFrameCallBackListener;
     }
 
+    /**
+     * Method description.
+     */
     public void setiFirstFrameListener(IFrameReadListener iFrameReadListener) {
         this.iFrameReadListener = iFrameReadListener;
     }
 
+    /**
+     * Method description.
+     */
     public interface IFrameCallBackListener {
         void updateData();
     }
 
+    /**
+     * Method description.
+     */
     public interface IFrameReadListener {
         void frameRead();
     }
@@ -84,6 +105,9 @@ public class IRUVCTC {
      *                        cameraWidth:256,cameraHeight:192,
      *                        cameraWidth:256,cameraHeight:192,(startY16ModePreviewY16_MODE_TEMPERATURE)
      * @param connectCallback usb
+    /**
+     * Method description.
+     */
     public IRUVCTC(int cameraWidth, int cameraHeight, Context context, SynchronizedBitmap syncimage,
                    CommonParams.DataFlowMode dataFlowMode,
                    ConnectCallback connectCallback, USBMonitorCallback usbMonitorCallback) {
@@ -324,31 +348,52 @@ public class IRUVCTC {
         };
     }
 
+    /**
+     * Method description.
+     */
     public void setRotate(int rotateInt) {
         this.rotateInt = rotateInt;
     }
 
+    /**
+     * Method description.
+     */
     public void setImageSrc(byte[] image) {
         this.imageSrc = image;
     }
 
+    /**
+     * Method description.
+     */
     public void setTemperatureSrc(byte[] temperatureSrc) {
         this.temperatureSrc = temperatureSrc;
     }
 
+    /**
+     * Method description.
+     */
     public void setFrameReady(boolean frameReady) {
         isFrameReady = frameReady;
     }
 
+    /**
+     * Method description.
+     */
     public boolean isRestart() {
         return isRestart;
     }
 
+    /**
+     * Method description.
+     */
     public void setRestart(boolean restart) {
         isRestart = restart;
     }
 
      * init UVCCamera
+    /**
+     * Private method description.
+     */
     private void initUVCCamera() {
         Log.i(TAG, "uvcCamera create");
         uvcCamera = new ConcreateUVCBuilder()
@@ -359,6 +404,9 @@ public class IRUVCTC {
 
      * init IRCMD
      * cmdSDK
+    /**
+     * Private method description.
+     */
     private void initIRCMD() {
         if (uvcCamera != null) {
             ircmd = new ConcreteIRCMDBuilder()
@@ -377,18 +425,27 @@ public class IRUVCTC {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void registerUSB() {
         if (mUSBMonitor != null) {
             mUSBMonitor.register();
         }
     }
 
+    /**
+     * Method description.
+     */
     public void unregisterUSB() {
         if (mUSBMonitor != null) {
             mUSBMonitor.unregister();
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void openUVCCamera(USBMonitor.UsbControlBlock ctrlBlock) {
         Log.i(TAG, "openUVCCamera");
         if (ctrlBlock.getProductId() == 0x3901) {
@@ -408,6 +465,9 @@ public class IRUVCTC {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private List<CameraSize> getAllSupportedSize() {
         List<CameraSize> previewList = new ArrayList<>();
         if (uvcCamera != null) {
@@ -424,6 +484,9 @@ public class IRUVCTC {
      * PIDPID
      * @param devpid
      * @return
+    /**
+     * Private method description.
+     */
     private boolean isIRpid(int devpid) {
         for (int x : pids) {
             if (x == devpid) return true;
@@ -431,6 +494,9 @@ public class IRUVCTC {
         return false;
     }
 
+    /**
+     * Private method description.
+     */
     private void startPreview() {
         if (ircmd == null) {
             return;
@@ -572,6 +638,9 @@ public class IRUVCTC {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void stopPreview() {
         Log.i(TAG, "stopPreview");
         if (uvcCamera != null) {
@@ -596,6 +665,9 @@ public class IRUVCTC {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void handleStartPreviewComplete() {
         // kt,bt,nuc_t
         new Thread(() -> EventBus.getDefault().post(new PreviewComplete())).start();

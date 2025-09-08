@@ -11,11 +11,17 @@ import java.util.*
 
 object TimeTool {
 
+    /**
+     * Function description.
+     */
     fun formatDetectTime(timeMillis: Long): String {
         return SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(Date(timeMillis))
     }
 
     @SuppressLint("SimpleDateFormat")
+    /**
+     * Function description.
+     */
     fun getNowTime(): String {
         val date = Date()
         val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm")
@@ -24,6 +30,9 @@ object TimeTool {
 
      * long: ()
     @SuppressLint("SimpleDateFormat")
+    /**
+     * Function description.
+     */
     fun reportTime(time: Long): String {
         val date = Date(time)
         val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -34,6 +43,9 @@ object TimeTool {
 
      * 2021-01-01 00:00:00 => 1609430400000
     @SuppressLint("SimpleDateFormat")
+    /**
+     * Function description.
+     */
     fun strToTime(timeStr: String): Long {
         return try {
             val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -49,6 +61,9 @@ object TimeTool {
 
      * @param type 1: 2: 3: 4:
     @SuppressLint("SimpleDateFormat")
+    /**
+     * Function description.
+     */
     fun showDateType(time: Long, type: Int = 0): String {
         val date = Date(time)
         //yyyy-MM-dd HH:mm:ss.SSS
@@ -66,6 +81,9 @@ object TimeTool {
     }
 
     @SuppressLint("SimpleDateFormat")
+    /**
+     * Function description.
+     */
     fun timeToMinute(time: Long, type: Int): Long {
         val dateFormat = when (type) {
             1 -> SimpleDateFormat("yyyy-MM-dd HH:mm:ss")//
@@ -81,6 +99,9 @@ object TimeTool {
 
      * long: ()
     @SuppressLint("SimpleDateFormat")
+    /**
+     * Function description.
+     */
     fun showTimeSecond(time: Long): String {
         val date = Date(time)
         val dateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
@@ -90,6 +111,9 @@ object TimeTool {
     }
 
     @SuppressLint("SimpleDateFormat")
+    /**
+     * Function description.
+     */
     fun showDateSecond(): String {
         val date = Date()
         val dateFormat = SimpleDateFormat("yyyyMMddHHmmss")
@@ -99,6 +123,9 @@ object TimeTool {
     }
 
     @SuppressLint("SimpleDateFormat")
+    /**
+     * Function description.
+     */
     fun showVideoTime(time: Long): String {
         val totalSeconds = time / 1000
         val seconds = totalSeconds % 60
@@ -113,6 +140,9 @@ object TimeTool {
 
 
     @SuppressLint("SimpleDateFormat")
+    /**
+     * Function description.
+     */
     fun showVideoLongTime(time: Long): String {
         val totalSeconds = time / 1000
         val seconds = totalSeconds % 60
@@ -121,6 +151,9 @@ object TimeTool {
         return Formatter().format("%02d:%02d:%02d", hours, minutes, seconds).toString()
     }
 
+    /**
+     * Function description.
+     */
     fun updateDateTime(file: File): Long {
         var currentTime: Long
         val strName = file.name

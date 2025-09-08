@@ -40,15 +40,24 @@ import static com.topdon.lib.ui.widget.seekbar.DefVerticalRangeSeekBar.TEXT_DIRE
  * =====================================================
 public class DefVerticalSeekBar extends SeekBar {
 
+    /**
+     * Private method description.
+     */
     private int indicatorTextOrientation;
     DefVerticalRangeSeekBar verticalSeekBar;
 
+    /**
+     * Method description.
+     */
     public DefVerticalSeekBar(RangeSeekBar rangeSeekBar, AttributeSet attrs, boolean isLeft) {
         super(rangeSeekBar, attrs, isLeft);
         initAttrs(attrs);
         verticalSeekBar = (DefVerticalRangeSeekBar) rangeSeekBar;
     }
 
+    /**
+     * Private method description.
+     */
     private void initAttrs(AttributeSet attrs) {
         try {
             TypedArray t = getContext().obtainStyledAttributes(attrs, R.styleable.VerticalRangeSeekBar);
@@ -159,10 +168,16 @@ public class DefVerticalSeekBar extends SeekBar {
         }
     }
 
+    /**
+     * Method description.
+     */
     public int getIndicatorTextOrientation() {
         return indicatorTextOrientation;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorTextOrientation(@VerticalRangeSeekBar.TextDirectionDef int orientation) {
         this.indicatorTextOrientation = orientation;
     }

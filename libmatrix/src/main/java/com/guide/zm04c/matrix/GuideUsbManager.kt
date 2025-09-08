@@ -44,6 +44,9 @@ class GuideUsbManager {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    /**
+     * Function description.
+     */
     fun connectUsbDevice(): Int {
         if (mConnectCode == ResultCode.READY_CONNECT_DEVICE) {
             getUsbDevice()
@@ -60,11 +63,17 @@ class GuideUsbManager {
         return mConnectCode
     }
 
+    /**
+     * Function description.
+     */
     fun disconnectUsbDevice() {
         resetUsbDevice()
         mConnectCode = ResultCode.READY_CONNECT_DEVICE
     }
 
+    /**
+     * Function description.
+     */
     fun isUsbValid(): Boolean {
         if (mConnection == null || mEndpointDataIn == null || mEndpointControlIn == null || mEndpointControlOut == null) {
             return false;
@@ -227,29 +236,44 @@ class GuideUsbManager {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun read(buffer: ByteArray): Int {
         return if (!isUsbValid()) {
             ResultCode.ERROR_USE_USB_ISVALID
         } else mConnection!!.bulkTransfer(mEndpointDataIn, buffer, buffer.size, 1000)
     }
 
+    /**
+     * Function description.
+     */
     fun changePalette(i: Int) {
         val cmd = byteArrayOf(0x11, 0x00)
         sendUsbCmd(cmd, toByteArray(i))
     }
 
+    /**
+     * Function description.
+     */
     fun shutter() {
         val cmd = byteArrayOf(0x15, 0x00)
         val data = byteArrayOf(0x00, 0x00, 0x00, 0x00)
         sendUsbCmd(cmd, data)
     }
 
+    /**
+     * Function description.
+     */
     fun nuc() {
         val cmd = byteArrayOf(0x16, 0x00)
         val data = byteArrayOf(0x00, 0x00, 0x00, 0x00)
         sendUsbCmd(cmd, data)
     }
 
+    /**
+     * Function description.
+     */
     fun upgrade(data: ByteArray): Boolean {
         val PAGE_SIZE = 3000
 
@@ -303,27 +327,42 @@ class GuideUsbManager {
         return receive(upgradeResultCmd)
     }
 
+    /**
+     * Function description.
+     */
     fun setRange(range: Int) {
         val cmd = byteArrayOf(0x20, 0x01)
         sendUsbCmd(cmd, toByteArray(range))
     }
 
+    /**
+     * Function description.
+     */
     fun setEmiss(emiss: Int) {
         val cmd = byteArrayOf(0x21, 0x01)
         sendUsbCmd(cmd, toByteArray(emiss))
     }
 
+    /**
+     * Function description.
+     */
     fun setDistance(value: Float) {
         val cmd = byteArrayOf(0x23, 0x01)
         val distance = (value * 10).toInt()
         sendUsbCmd(cmd, toByteArray(distance))
     }
 
+    /**
+     * Function description.
+     */
     fun setBright(bright: Int) {
         val cmd = byteArrayOf(0x00, 0x02)
         sendUsbCmd(cmd, toByteArray(bright))
     }
 
+    /**
+     * Function description.
+     */
     fun setContrast(contrast: Int) {
         val cmd = byteArrayOf(0x01, 0x02)
         sendUsbCmd(cmd, toByteArray(contrast))

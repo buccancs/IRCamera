@@ -26,14 +26,23 @@ import java.util.Calendar;
  * @since 2.0
 @SuppressWarnings("unused")
 public class BirthdayPicker extends DatePicker {
+    /**
+     * Private method description.
+     */
     private static final int MAX_AGE = 100;
     private DateEntity defaultValue;
     private boolean initialized = false;
 
+    /**
+     * Method description.
+     */
     public BirthdayPicker(@NonNull Activity activity) {
         super(activity);
     }
 
+    /**
+     * Method description.
+     */
     public BirthdayPicker(@NonNull Activity activity, @StyleRes int themeResId) {
         super(activity, themeResId);
     }
@@ -53,6 +62,9 @@ public class BirthdayPicker extends DatePicker {
         wheelLayout.setDateFormatter(new BirthdayFormatter());
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultValue(int year, int month, int day) {
         defaultValue = DateEntity.target(year, month, day);
         if (initialized) {

@@ -20,6 +20,9 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
     protected int screenHeight;
     protected int lastX;
     protected int lastY;
+    /**
+     * Private method description.
+     */
     private int oriLeft;
     private int oriRight;
     private int oriTop;
@@ -42,18 +45,27 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
         screenWidth = ScreenUtil.getScreenWidth(getContext());
     }
 
+    /**
+     * Method description.
+     */
     public DragScaleView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         setOnTouchListener(this);
         initScreenW_H();
     }
 
+    /**
+     * Method description.
+     */
     public DragScaleView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setOnTouchListener(this);
         initScreenW_H();
     }
 
+    /**
+     * Method description.
+     */
     public DragScaleView(Context context) {
         super(context);
         setOnTouchListener(this);
@@ -71,6 +83,9 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean onTouch(View v, MotionEvent event) {
         int action = event.getAction();
         if (action == MotionEvent.ACTION_DOWN) {
@@ -145,6 +160,9 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
      * @param v
      * @param dx
      * @param dy
+    /**
+     * Private method description.
+     */
     private void center(View v, int dx, int dy) {
         int left = v.getLeft() + dx;
         int top = v.getTop() + dy;
@@ -171,6 +189,9 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
 
      * @param v
      * @param dy
+    /**
+     * Private method description.
+     */
     private void top(View v, int dy) {
         oriTop += dy;
         if (oriTop < -offset) {
@@ -183,6 +204,9 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
 
      * @param v
      * @param dy
+    /**
+     * Private method description.
+     */
     private void bottom(View v, int dy) {
         oriBottom += dy;
         if (oriBottom > screenHeight + offset) {
@@ -195,6 +219,9 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
 
      * @param v
      * @param dx
+    /**
+     * Private method description.
+     */
     private void right(View v, int dx) {
         oriRight += dx;
         if (oriRight > screenWidth + offset) {
@@ -207,6 +234,9 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
 
      * @param v
      * @param dx
+    /**
+     * Private method description.
+     */
     private void left(View v, int dx) {
         oriLeft += dx;
         if (oriLeft < -offset) {
@@ -255,11 +285,17 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
     }
 
      * @return
+    /**
+     * Method description.
+     */
     public int getCutWidth() {
         return getWidth() - 2 * offset;
     }
 
      * @return
+    /**
+     * Method description.
+     */
     public int getCutHeight() {
         return getHeight() - 2 * offset;
     }

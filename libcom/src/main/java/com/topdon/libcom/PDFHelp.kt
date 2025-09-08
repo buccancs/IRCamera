@@ -26,6 +26,9 @@ import java.io.FileOutputStream
  * @date: 2023/5/5 17:41
 object PDFHelp {
 
+    /**
+     * Function description.
+     */
     fun savePdfFileByListView(name: String, view: ScrollView, viewList: MutableList<View>, watermarkView: View): String {
         val onePageHeight: Int = (view.width * 297f / 210f).toInt() // A4210:297
 

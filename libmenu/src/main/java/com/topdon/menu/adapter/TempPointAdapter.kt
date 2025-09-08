@@ -7,12 +7,19 @@ import com.topdon.menu.R
 import com.topdon.menu.constant.TempPointType
 
  * -5- Adapter，。
- * Created by LCG on 2024/11/28.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 @SuppressLint("NotifyDataSetChanged")
 internal class TempPointAdapter : BaseMenuAdapter() {
      * -5- .
+    /** onTempPointListener property */
     var onTempPointListener: ((type: TempPointType, isSelected: Boolean) -> Unit)? = null
 
+    /**
+     * Function description.
+     */
     fun setSelected(tempPointType: TempPointType, isSelected: Boolean) {
         for (i in dataArray.indices) {
             if (dataArray[i].tempPointType == tempPointType) {
@@ -23,6 +30,9 @@ internal class TempPointAdapter : BaseMenuAdapter() {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun clearAllSelect() {
         for (data in dataArray) {
             data.isSelected = false

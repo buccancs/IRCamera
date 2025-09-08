@@ -27,6 +27,9 @@ import java.nio.ByteBuffer;
 
 public class MP4Encoder extends Encoder {
 
+    /**
+     * Private method description.
+     */
     private static final int BIT_RATE = 600000;//2000000
     private static final int FRAME_RATE = 20;//
     private static final int I_FRAME_INTERVAL = 5;
@@ -149,12 +152,18 @@ public class MP4Encoder extends Encoder {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void encode() {
         encodeVideo();
         encodeAudio();
 
     }
 
+    /**
+     * Private method description.
+     */
     private void encodeAudio() {
         int audioStatus = audioCodec.dequeueOutputBuffer(bufferInfo, TIMEOUT_US);
         Log.i(TAG, "Audio encoderStatus = " + audioStatus + ", presentationTimeUs = "
@@ -184,6 +193,9 @@ public class MP4Encoder extends Encoder {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void encodeVideo() {
         int encoderStatus = videoCodec.dequeueOutputBuffer(bufferInfo, TIMEOUT_US);
         Log.i(TAG, "Video encoderStatus = " + encoderStatus + ", presentationTimeUs = "
@@ -215,12 +227,18 @@ public class MP4Encoder extends Encoder {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private static long getPresentationTimeUsec(int frameIndex) {
         return (((long) frameIndex) * ONE_SEC) / 20;
     }
 
      * COLOR_FormatYUV420SemiPlanar
      * COLOR_FormatYUV420Planar
+    /**
+     * Private method description.
+     */
     private int getColorFormat() {
         if ("GOOGLE".equalsIgnoreCase(Build.BRAND) && "PIXEL 4".equalsIgnoreCase(Build.MODEL)) {
             return MediaCodecInfo.CodecCapabilities.COLOR_FormatYUV420Planar;

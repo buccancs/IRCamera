@@ -22,6 +22,9 @@ import java.util.List;
  * @author 1032694760@qq.com
  * @since 2021/6/9 11:31
 public class CarPlateProvider implements LinkageProvider {
+    /**
+     * Private method description.
+     */
     private static final String[] ABBREVIATIONS = {
             "", "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", "", "",
@@ -29,17 +32,26 @@ public class CarPlateProvider implements LinkageProvider {
             "", "", "", ""};
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean firstLevelVisible() {
         return true;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean thirdLevelVisible() {
         return false;
     }
 
     @NonNull
     @Override
+    /**
+     * Method description.
+     */
     public List<String> provideFirstData() {
         List<String> provinces = new ArrayList<>();
         Collections.addAll(provinces, ABBREVIATIONS);
@@ -48,6 +60,9 @@ public class CarPlateProvider implements LinkageProvider {
 
     @NonNull
     @Override
+    /**
+     * Method description.
+     */
     public List<String> linkageSecondData(int firstIndex) {
         List<String> letters = new ArrayList<>();
         if (firstIndex == INDEX_NO_FOUND) {
@@ -229,11 +244,17 @@ public class CarPlateProvider implements LinkageProvider {
 
     @NonNull
     @Override
+    /**
+     * Method description.
+     */
     public List<?> linkageThirdData(int firstIndex, int secondIndex) {
         return new ArrayList<>();
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int findFirstIndex(Object firstValue) {
         if (firstValue == null) {
             return INDEX_NO_FOUND;
@@ -248,6 +269,9 @@ public class CarPlateProvider implements LinkageProvider {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int findSecondIndex(int firstIndex, Object secondValue) {
         if (secondValue == null) {
             return INDEX_NO_FOUND;
@@ -263,6 +287,9 @@ public class CarPlateProvider implements LinkageProvider {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int findThirdIndex(int firstIndex, int secondIndex, Object thirdValue) {
         return 0;
     }

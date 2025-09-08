@@ -85,6 +85,9 @@ class ReportIRShowView: LinearLayout {
     }
 
      *  PDF  View .
+    /**
+     * Function description.
+     */
     fun getPrintViewList(): ArrayList<View> {
         val result = ArrayList<View>()
         result.add(binding.clImage)
@@ -128,6 +131,9 @@ class ReportIRShowView: LinearLayout {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun setImageDrawable(drawable: Drawable?) {
         val isLand = (drawable?.intrinsicWidth ?: 0) > (drawable?.intrinsicHeight ?: 0)
         val width = (ScreenUtil.getScreenWidth(context) * (if (isLand) 234 else 175) / 375f).toInt()
@@ -139,6 +145,9 @@ class ReportIRShowView: LinearLayout {
         binding.ivImage.setImageDrawable(drawable)
     }
 
+    /**
+     * Function description.
+     */
     fun refreshData(isFirst: Boolean, isLast: Boolean, reportIRBean: ReportIRBean) {
         binding.tvHead.isVisible = isFirst
         binding.viewNotHead.isVisible = !isFirst

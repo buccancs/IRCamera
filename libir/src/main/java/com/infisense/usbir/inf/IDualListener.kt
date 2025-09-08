@@ -10,10 +10,19 @@ import com.energy.iruvc.utils.DualCameraParams
 interface IDualListener {
 
 
+    /**
+     * Function description.
+     */
     fun setDualUVCCamera(dualUVCCamera : DualUVCCamera)
 
+    /**
+     * Function description.
+     */
     fun setCurrentFusionType(currentFusionType : DualCameraParams.FusionType)
 
+    /**
+     * Function description.
+     */
     fun setUseIRISP(useIRISP : Boolean)
 
 

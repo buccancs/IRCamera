@@ -48,6 +48,9 @@ public abstract class DataSet<T extends Entry> extends BaseDataSet<T> {
      * @param values
      * @param label
      */
+    /**
+     * Method description.
+     */
     public DataSet(List<T> values, String label) {
         super(label);
         this.mValues = values;
@@ -59,6 +62,9 @@ public abstract class DataSet<T extends Entry> extends BaseDataSet<T> {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void calcMinMax() {
 
         if (mValues == null || mValues.isEmpty())
@@ -75,6 +81,9 @@ public abstract class DataSet<T extends Entry> extends BaseDataSet<T> {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void calcMinMaxY(float fromX, float toX) {
 
         if (mValues == null || mValues.isEmpty())
@@ -127,6 +136,9 @@ public abstract class DataSet<T extends Entry> extends BaseDataSet<T> {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int getEntryCount() {
         return mValues.size();
     }
@@ -135,6 +147,9 @@ public abstract class DataSet<T extends Entry> extends BaseDataSet<T> {
      * Returns the array of entries that this DataSet represents.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public List<T> getValues() {
         return mValues;
@@ -145,6 +160,9 @@ public abstract class DataSet<T extends Entry> extends BaseDataSet<T> {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public void setValues(List<T> values) {
         mValues = values;
         notifyDataSetChanged();
@@ -154,6 +172,9 @@ public abstract class DataSet<T extends Entry> extends BaseDataSet<T> {
      * Provides an exact copy of the DataSet this method is used on.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public abstract DataSet<T> copy();
 
@@ -166,6 +187,9 @@ public abstract class DataSet<T extends Entry> extends BaseDataSet<T> {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public String toString() {
         StringBuffer buffer = new StringBuffer();
         buffer.append(toSimpleString());
@@ -181,6 +205,9 @@ public abstract class DataSet<T extends Entry> extends BaseDataSet<T> {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public String toSimpleString() {
         StringBuffer buffer = new StringBuffer();
         buffer.append("DataSet, label: " + (getLabel() == null ? "" : getLabel()) + ", entries: " + mValues.size() +
@@ -189,26 +216,41 @@ public abstract class DataSet<T extends Entry> extends BaseDataSet<T> {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public float getYMin() {
         return mYMin;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public float getYMax() {
         return mYMax;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public float getXMin() {
         return mXMin;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public float getXMax() {
         return mXMax;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void addEntryOrdered(T e) {
 
         if (e == null)
@@ -229,12 +271,18 @@ public abstract class DataSet<T extends Entry> extends BaseDataSet<T> {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void clear() {
         mValues.clear();
         notifyDataSetChanged();
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean addEntry(T e) {
 
         if (e == null)
@@ -252,6 +300,9 @@ public abstract class DataSet<T extends Entry> extends BaseDataSet<T> {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean removeEntry(T e) {
 
         if (e == null)
@@ -271,11 +322,17 @@ public abstract class DataSet<T extends Entry> extends BaseDataSet<T> {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int getEntryIndex(Entry e) {
         return mValues.indexOf(e);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public T getEntryForXValue(float xValue, float closestToY, Rounding rounding) {
 
         int index = getEntryIndex(xValue, closestToY, rounding);
@@ -285,16 +342,25 @@ public abstract class DataSet<T extends Entry> extends BaseDataSet<T> {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public T getEntryForXValue(float xValue, float closestToY) {
         return getEntryForXValue(xValue, closestToY, Rounding.CLOSEST);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public T getEntryForIndex(int index) {
         return mValues.get(index);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int getEntryIndex(float xValue, float closestToY, Rounding rounding) {
 
         if (mValues == null || mValues.isEmpty())
@@ -380,6 +446,9 @@ public abstract class DataSet<T extends Entry> extends BaseDataSet<T> {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public List<T> getEntriesForXValue(float xValue) {
 
         List<T> entries = new ArrayList<T>();
@@ -424,6 +493,9 @@ public abstract class DataSet<T extends Entry> extends BaseDataSet<T> {
      * Determines how to round DataSet index values for
      * {@link DataSet#getEntryIndex(float, float, Rounding)} DataSet.getEntryIndex()}
      * when an exact x-index is not found.
+     */
+    /**
+     * Method description.
      */
     public enum Rounding {
         UP,

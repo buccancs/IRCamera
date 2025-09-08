@@ -9,6 +9,9 @@ import java.util.ArrayList;
 public abstract class BaseDualView {
 
     protected ArrayList<OnFrameCallback> onFrameCallbacks;
+    /**
+     * Method description.
+     */
     public DualUVCCamera dualUVCCamera;
 
     protected int fusionLength;
@@ -37,14 +40,23 @@ public abstract class BaseDualView {
         vlARGBData = new byte[fusionLength];
     }
 
+    /**
+     * Method description.
+     */
     public interface OnFrameCallback {
         void onFame(byte[] mixData, byte[] remapTempData, double fpsText);
     }
 
+    /**
+     * Method description.
+     */
     public void addFrameCallback(OnFrameCallback onFrameCallback) {
         onFrameCallbacks.add(onFrameCallback);
     }
 
+    /**
+     * Method description.
+     */
     public void removeFrameCallback(OnFrameCallback onFrameCallback) {
         onFrameCallbacks.remove(onFrameCallback);
     }

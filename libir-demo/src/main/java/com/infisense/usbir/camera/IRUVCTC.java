@@ -42,6 +42,9 @@ import java.util.List;
  */
 public class IRUVCTC {
 
+    /**
+     * Private method description.
+     */
     private static final String TAG = "IRUVC";
     private final int TinyB = 0x3901;
     private IFrameCallback iFrameCallback;
@@ -57,6 +60,9 @@ public class IRUVCTC {
     private SynchronizedBitmap syncimage;
     // PID
     private int pids[] = {0x5840, 0x3901, 0x5830, 0x5838};
+    /**
+     * Private method description.
+     */
     private boolean auto_gain_switch = false;
     private boolean auto_over_portect = false;
     private LibIRProcess.AutoGainSwitchInfo_t auto_gain_switch_info = new LibIRProcess.AutoGainSwitchInfo_t();
@@ -85,6 +91,9 @@ public class IRUVCTC {
      * @param context
      * @param syncimage
      * @param dataFlowMode
+    /**
+     * Method description.
+     */
     public IRUVCTC(int cameraWidth, int cameraHeight, Context context, SynchronizedBitmap syncimage,
                    CommonParams.DataFlowMode dataFlowMode, boolean isUseIRISP) {
         this.cameraHeight = cameraHeight;
@@ -235,26 +244,41 @@ public class IRUVCTC {
     }
 
      * @param mHandler
+    /**
+     * Method description.
+     */
     public void setHandler(Handler mHandler) {
         this.mHandler = mHandler;
     }
 
      * @param rotate
+    /**
+     * Method description.
+     */
     public void setRotate(int rotate) {
         this.rotate = rotate;
     }
 
      * @param image
+    /**
+     * Method description.
+     */
     public void setImageSrc(byte[] image) {
         this.imageSrc = image;
     }
 
      * @param temperatureSrc
+    /**
+     * Method description.
+     */
     public void setTemperatureSrc(byte[] temperatureSrc) {
         this.temperatureSrc = temperatureSrc;
     }
 
      * @param frameReady
+    /**
+     * Method description.
+     */
     public void setFrameReady(boolean frameReady) {
         isFrameReady = frameReady;
     }
@@ -262,6 +286,9 @@ public class IRUVCTC {
      * PIDPID
      * @param devpid
      * @return
+    /**
+     * Private method description.
+     */
     private boolean isIRpid(int devpid) {
         for (int x : pids) {
             if (x == devpid) return true;
@@ -271,6 +298,9 @@ public class IRUVCTC {
 
      * @param cameraHeight
      * @param cameraWidth
+    /**
+     * Method description.
+     */
     public void init(int cameraWidth, int cameraHeight) {
         Log.w(TAG, "init");
         // UVCCamera init
@@ -292,21 +322,33 @@ public class IRUVCTC {
     }
 
      * @return
+    /**
+     * Method description.
+     */
     public UVCCamera getUvcCamera() {
         return uvcCamera;
     }
 
      * @return
+    /**
+     * Method description.
+     */
     public IRCMD getIrcmd() {
         return ircmd;
     }
 
+    /**
+     * Method description.
+     */
     public void registerUSB() {
         if (mUSBMonitor != null) {
             mUSBMonitor.register();
         }
     }
 
+    /**
+     * Method description.
+     */
     public void unregisterUSB() {
         if (mUSBMonitor != null) {
             mUSBMonitor.unregister();
@@ -314,6 +356,9 @@ public class IRUVCTC {
     }
 
      * @return
+    /**
+     * Method description.
+     */
     public List<UsbDevice> getUsbDeviceList() {
         List<DeviceFilter> deviceFilters = DeviceFilter.getDeviceFilters(mContext, R.xml.device_filter);
         if (mUSBMonitor == null || deviceFilters == null)
@@ -324,6 +369,9 @@ public class IRUVCTC {
     }
 
      * @param index
+    /**
+     * Method description.
+     */
     public void requestPermission(int index) {
         List<UsbDevice> devList = getUsbDeviceList();
         if (devList == null || devList.size() == 0) {
@@ -338,6 +386,9 @@ public class IRUVCTC {
     }
 
      * @param ctrlBlock
+    /**
+     * Method description.
+     */
     public void openUVCCamera(USBMonitor.UsbControlBlock ctrlBlock, CommonParams.DataFlowMode dataFlowMode) {
         Log.i(TAG, "openUVCCamera");
         if (ctrlBlock.getProductId() == TinyB) {
@@ -355,6 +406,9 @@ public class IRUVCTC {
         uvcCamera.openUVCCamera(ctrlBlock, DEFAULT_PREVIEW_MIN_FPS, DEFAULT_PREVIEW_MAX_FPS);
     }
 
+    /**
+     * Method description.
+     */
     public void startPreview() {
         Log.i(TAG, "startPreview");
        if (uvcCamera!=null){
@@ -369,6 +423,9 @@ public class IRUVCTC {
        }
     }
 
+    /**
+     * Method description.
+     */
     public void stopPreview() {
         Log.i(TAG, "stopPreview");
         if (uvcCamera != null) {
@@ -385,6 +442,9 @@ public class IRUVCTC {
     }
 
      * IRISP
+    /**
+     * Private method description.
+     */
     private void initIRISP() {
         // ,UVC(5s)
         ircmd.getCurrentVTemperature(curVtemp);
@@ -401,6 +461,9 @@ public class IRUVCTC {
         uvcCamera.onStartPreview();
     }
 
+    /**
+     * Method description.
+     */
     public void requestPermission(Activity activity) {
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -413,6 +476,9 @@ public class IRUVCTC {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void getIRISPfParamData() {
         boolean isUseSaveData = false;
         new Thread(new Runnable() {

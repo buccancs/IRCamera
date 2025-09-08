@@ -28,7 +28,10 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 
  * TC001 APP  APP .
- * Created by LCG on 2024/3/28.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class TransferActivity : BaseActivity() {
 
     private lateinit var transferDialog: TransferDialog

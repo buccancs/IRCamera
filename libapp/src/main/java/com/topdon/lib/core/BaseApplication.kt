@@ -46,10 +46,14 @@ abstract class BaseApplication : Application() {
         lateinit var instance: BaseApplication
         val usbObserver by lazy { DeviceBroadcastReceiver() }
     }
+    /** tau_data_H property */
     var tau_data_H: ByteArray? = null
+    /** tau_data_L property */
     var tau_data_L: ByteArray? = null
 
+    /** activitys property */
     var activitys = arrayListOf<Activity>()
+    /** hasOtgShow property */
     var hasOtgShow = false//otg
 
      * .
@@ -91,6 +95,9 @@ abstract class BaseApplication : Application() {
         NetWorkUtils.switchNetwork(true)
     }
 
+    /**
+     * Function description.
+     */
     fun disconnectWebSocket() {
         Log.i("WebSocket", "disconnectWebSocket()")
         WebSocketProxy.getInstance().stopWebSocket()
@@ -162,6 +169,9 @@ abstract class BaseApplication : Application() {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun clearDb() {
         GlobalScope.launch(Dispatchers.Default) {
             try {
@@ -197,6 +207,9 @@ abstract class BaseApplication : Application() {
         return SharedManager.getLanguage(context)
     }
 
+    /**
+     * Function description.
+     */
     fun exitAll() {
         hasOtgShow = false
         activitys.forEach {

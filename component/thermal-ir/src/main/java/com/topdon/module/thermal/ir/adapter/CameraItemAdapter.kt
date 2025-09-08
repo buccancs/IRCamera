@@ -16,6 +16,7 @@ class CameraItemAdapter(
     data: MutableList<CameraItemBean>? = null) : BaseQuickAdapter<CameraItemBean, BaseViewHolder>(R.layout.item_camera,data) {
 
 
+    /** listener property */
     var listener: ((index: Int,item: CameraItemBean) -> Unit)? = null
 
     override fun convert(holder: BaseViewHolder, item: CameraItemBean) {

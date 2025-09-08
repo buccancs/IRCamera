@@ -48,6 +48,12 @@ class MenuSecondView : FrameLayout {
      * 15->
      * : 5->
      * 14->
+    /**
+     * Function description.
+     */
+    /**
+     * Function description.
+     */
     fun selectPosition(position: Int) {
         binding.cameraMenuView.isVisible = position == 0 || position == 10
         binding.recyclerFence.isVisible = position == 1
@@ -68,12 +74,14 @@ class MenuSecondView : FrameLayout {
 
      * 1 - .
      * actionCode: 0-/ 1- 2- 3- 4-
+    /** onCameraClickListener property */
     var onCameraClickListener: ((actionCode: Int) -> Unit)?
         get() = binding.cameraMenuView.onCameraClickListener
         set(value) {
             binding.cameraMenuView.onCameraClickListener = value
         }
      * -2- 。
+    /** onFenceListener property */
     var onFenceListener: ((fenceType: FenceType, isSelected: Boolean) -> Unit)?
         get() = fenceAdapter.onFenceListener
         set(value) {
@@ -81,6 +89,7 @@ class MenuSecondView : FrameLayout {
         }
      * -3- 。
      * isSelected: true- false-
+    /** onTwoLightListener property */
     var onTwoLightListener: ((twoLightType: TwoLightType, isSelected: Boolean) -> Unit)?
         get() = twoLightAdapter.onTwoLightListener
         set(value) {
@@ -90,6 +99,7 @@ class MenuSecondView : FrameLayout {
      * index- index
      * code-， index
      * size-
+    /** onColorListener property */
     var onColorListener: ((index: Int, code: Int, size: Int) -> Unit)?
         get() = colorAdapter.onColorListener
         set(value) {
@@ -98,6 +108,7 @@ class MenuSecondView : FrameLayout {
      * -5-/-6- .
      * isSelected: true- false-
      * listener ，
+    /** onSettingListener property */
     var onSettingListener: ((type: SettingType, isSelected: Boolean) -> Unit)?
         get() = settingTeAdapter.onSettingListener
         set(value) {
@@ -109,6 +120,7 @@ class MenuSecondView : FrameLayout {
      * - ：-1
      * - ()：0
      * - ()：1
+    /** onTempLevelListener property */
     var onTempLevelListener: ((code: Int) -> Unit)?
         get() = tempLevelAdapter.onTempLevelListener
         set(value) {
@@ -122,18 +134,21 @@ class MenuSecondView : FrameLayout {
      * - ：0
      * - ：1
      * - ：2
+    /** onTempSourceListener property */
     var onTempSourceListener: ((code: Int) -> Unit)?
         get() = tempSourceAdapter.onTempSourceListener
         set(value) {
             tempSourceAdapter.onTempSourceListener = value
         }
      * -4- .
+    /** onTargetListener property */
     var onTargetListener: ((targetType: TargetType) -> Unit)?
         get() = targetAdapter.onTargetListener
         set(value) {
             targetAdapter.onTargetListener = value
         }
      * -5- .
+    /** onTempPointListener property */
     var onTempPointListener: ((type: TempPointType, isSelected: Boolean) -> Unit)?
         get() = tempPointAdapter.onTempPointListener
         set(value) {
@@ -246,12 +261,19 @@ class MenuSecondView : FrameLayout {
 
     /* ********************************************* 1- ********************************************* */
      * true- false-
+    /** isVideoMode property */
     var isVideoMode: Boolean
         get() = binding.cameraMenuView.isVideoMode
         set(value) {
             binding.cameraMenuView.isVideoMode = value
         }
 
+    /**
+     * Function description.
+     */
+    /**
+     * Function description.
+     */
     fun switchToCamera() {
         binding.cameraMenuView.canSwitchMode = true
         binding.cameraMenuView.isVideoMode = false
@@ -259,11 +281,23 @@ class MenuSecondView : FrameLayout {
     }
 
      * Activity start()， View
+    /**
+     * Function description.
+     */
+    /**
+     * Function description.
+     */
     fun updateCameraModel() {
         binding.cameraMenuView.canSwitchMode = true
         binding.cameraMenuView.setToNormal()
     }
 
+    /**
+     * Function description.
+     */
+    /**
+     * Function description.
+     */
     fun refreshImg(type: GalleryRepository.DirType = GalleryRepository.DirType.LINE) {
         updateCameraModel()//
         CoroutineScope(Dispatchers.IO).launch {
@@ -274,11 +308,23 @@ class MenuSecondView : FrameLayout {
         }
     }
 
+    /**
+     * Function description.
+     */
+    /**
+     * Function description.
+     */
     fun setToRecord(isDelay: Boolean) {
         binding.cameraMenuView.canSwitchMode = false
         binding.cameraMenuView.setToRecord(isDelay)
     }
 
+    /**
+     * Function description.
+     */
+    /**
+     * Function description.
+     */
     fun setToCamera() {
         binding.cameraMenuView.setToRecord(false)
     }
@@ -286,6 +332,7 @@ class MenuSecondView : FrameLayout {
 
     /* ***************************************** -2- ***************************************** */
      * -2- ， null .
+    /** fenceSelectType property */
     var fenceSelectType: FenceType?
         get() = fenceAdapter.selectType
         set(value) {
@@ -296,6 +343,7 @@ class MenuSecondView : FrameLayout {
     /* ***************************************** -3- ***************************************** */
      * - Lite：
      * - ： 1、2、、
+    /** twoLightType property */
     var twoLightType: TwoLightType
         get() = twoLightAdapter.twoLightType
         set(value) {
@@ -303,6 +351,12 @@ class MenuSecondView : FrameLayout {
         }
 
      * - Lite： 、
+    /**
+     * Function description.
+     */
+    /**
+     * Function description.
+     */
     fun setTwoLightSelected(twoLightType: TwoLightType, isSelected: Boolean) {
         twoLightAdapter.setSelected(twoLightType, isSelected)
     }
@@ -311,18 +365,36 @@ class MenuSecondView : FrameLayout {
     /* ********************************** -4-/-3- ********************************** */
      * ，， code code，。
      * @param code 1- 3- 4-1 5-2 6-3 7- 8- 9-4 10-5 11-
+    /**
+     * Function description.
+     */
+    /**
+     * Function description.
+     */
     fun setPseudoColor(code: Int) {
         colorAdapter.selectCode = code
     }
 
 
     /* ********************************** -5- or -6- ********************************** */
+    /**
+     * Function description.
+     */
+    /**
+     * Function description.
+     */
     fun setSettingSelected(settingType: SettingType, isSelected: Boolean) {
         settingTeAdapter.setSelected(settingType, isSelected)
         settingObAdapter.setSelected(settingType, isSelected)
     }
 
      * @param rotateAngle ！， UI
+    /**
+     * Function description.
+     */
+    /**
+     * Function description.
+     */
     fun setSettingRotate(rotateAngle: Int) {
         settingTeAdapter.rotateAngle = rotateAngle
         settingObAdapter.rotateAngle = rotateAngle
@@ -331,6 +403,7 @@ class MenuSecondView : FrameLayout {
 
     /* ***************************************** -6- ***************************************** */
      * true- false-
+    /** isUnitF property */
     var isUnitF: Boolean
         get() = tempLevelAdapter.isUnitF
         set(value) {
@@ -341,6 +414,12 @@ class MenuSecondView : FrameLayout {
      * - ：-1
      * - ()：0
      * - ()：1
+    /**
+     * Function description.
+     */
+    /**
+     * Function description.
+     */
     fun setTempLevel(code: Int) {
         tempLevelAdapter.selectCode = code
     }
@@ -357,6 +436,12 @@ class MenuSecondView : FrameLayout {
      * - ：0
      * - ：1
      * - ：2
+    /**
+     * Function description.
+     */
+    /**
+     * Function description.
+     */
     fun setTempSource(code: Int) {
         tempSourceAdapter.selectCode = code
     }
@@ -364,6 +449,12 @@ class MenuSecondView : FrameLayout {
 
     /* ***************************************** -4- ***************************************** */
      * -4-
+    /**
+     * Function description.
+     */
+    /**
+     * Function description.
+     */
     fun setTargetSelected(targetType: TargetType, isSelected: Boolean) {
         targetAdapter.setSelected(targetType, isSelected)
     }
@@ -373,6 +464,12 @@ class MenuSecondView : FrameLayout {
      * - ：11
      * - ：12
      * - ：13
+    /**
+     * Function description.
+     */
+    /**
+     * Function description.
+     */
     fun setTargetMode(modeCode: Int) {
         targetAdapter.setTargetMode(modeCode)
     }
@@ -380,10 +477,22 @@ class MenuSecondView : FrameLayout {
     
     /* ***************************************** -5- ***************************************** */
      * -5- ， 。
+    /**
+     * Function description.
+     */
+    /**
+     * Function description.
+     */
     fun setTempPointSelect(tempPointType: TempPointType, isSelected: Boolean) {
         tempPointAdapter.setSelected(tempPointType, isSelected)
     }
      * -5- 。
+    /**
+     * Function description.
+     */
+    /**
+     * Function description.
+     */
     fun clearTempPointSelect() {
         tempPointAdapter.clearAllSelect()
     }

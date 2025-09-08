@@ -12,12 +12,16 @@ import com.csl.irCamera.libapp.databinding.DialogFirmwareUpBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
  * .
- * Created by LCG on 2024/3/4.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), View.OnClickListener {
 
     private lateinit var binding: DialogFirmwareUpBinding
 
      * V3.50
+    /** titleStr property */
     var titleStr: CharSequence?
         get() = binding.tvTitle.text
         set(value) {
@@ -25,12 +29,14 @@ class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), 
         }
 
      * : 239.6MB
+    /** sizeStr property */
     var sizeStr: CharSequence?
         get() = binding.tvSize.text
         set(value) {
             binding.tvSize.text = value
         }
 
+    /** contentStr property */
     var contentStr: CharSequence?
         get() = binding.tvContent.text
         set(value) {
@@ -38,6 +44,7 @@ class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), 
         }
 
      * (Gone).
+    /** isShowRestartTips property */
     var isShowRestartTips: Boolean
         get() = binding.tvRestartTips.isVisible
         set(value) {
@@ -45,6 +52,7 @@ class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), 
         }
 
      * .
+    /** isShowCancel property */
     var isShowCancel: Boolean
         get() = binding.tvCancel.isVisible
         set(value) {
@@ -52,8 +60,10 @@ class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), 
         }
 
      * .
+    /** onCancelClickListener property */
     var onCancelClickListener: (() -> Unit)? = null
      * .
+    /** onConfirmClickListener property */
     var onConfirmClickListener: (() -> Unit)? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

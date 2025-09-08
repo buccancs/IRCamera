@@ -13,6 +13,9 @@ import androidx.annotation.Nullable;
 class DefaultDeviceCreator implements DeviceCreator {
     @Nullable
     @Override
+    /**
+     * Method description.
+     */
     public Device create(BluetoothDevice device, ScanResult scanResult) {
         return new Device(device);
     }

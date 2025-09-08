@@ -88,6 +88,9 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun action(event: ThermalActionEvent) {
         binding.temperatureView.isEnabled = true
         Log.w("123", "event:${event.action}")
@@ -127,6 +130,9 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
     private var isTS001 = false
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun irEvent(event: IRMsgEvent) {
         if (event.code == MsgCode.RESTART_USB) {
             restartusbcamera()
@@ -296,6 +302,9 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
 //        }
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun iruvctc(event: PreviewComplete) {
         dealY16ModePreviewComplete()
     }
@@ -386,6 +395,9 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun cameraEvent(event: DeviceCameraEvent) {
         when (event.action) {
             100 -> {
@@ -461,13 +473,22 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun getBitmap() : Bitmap{
         return binding.cameraView.scaledBitmap
     }
 
+    /**
+     * Function description.
+     */
     fun startCoverStsSwitchReady() : Int{
         return ircmd?.rmCoverStsSwitch(CommonParams.RMCoverStsSwitchStatus.RMCOVER_DIS) ?: 1
     }
+    /**
+     * Function description.
+     */
     fun startCoverStsSwitch() : Int{
         ircmd?.rmCoverAutoCalc(CommonParams.RMCoverAutoCalcType.GAIN_1)
         return ircmd?.rmCoverStsSwitch(CommonParams.RMCoverStsSwitchStatus.RMCOVER_DIS) ?: 1

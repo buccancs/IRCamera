@@ -13,6 +13,9 @@ public enum DeviceType {
     DEVICE_TYPE_X2PRO("X2PRO"),
     DEVICE_TYPE_GL1280("GL1280");
 
+    /**
+     * Private method description.
+     */
     private String type;
     DeviceType(String type) {
         this.type = type;

@@ -10,18 +10,31 @@ import java.nio.ByteBuffer
  * .
 @Parcelize
 data class CustomPseudoBean (
+    /** selectIndex property */
     var selectIndex: Int = 0, // index
+    /** colors property */
     var colors: IntArray? = null, //7
+    /** zAltitudes property */
     var zAltitudes: IntArray? = null, //7
+    /** places property */
     var places: FloatArray? = null, //7
+    /** isUseCustomPseudo property */
     var isUseCustomPseudo: Boolean = false, //true- false-
+    /** maxTemp property */
     var maxTemp: Float = 50f, //，，50
+    /** minTemp property */
     var minTemp: Float = 0f, //，，0
+    /** isColorCustom property */
     var isColorCustom: Boolean = true, //true- false-
+    /** customMinColor property */
     var customMinColor: Int = 0xff0000FF.toInt(), //()
+    /** customMiddleColor property */
     var customMiddleColor: Int = 0xFFFF0000.toInt(),//
+    /** customMaxColor property */
     var customMaxColor: Int = 0xFFFFFF00.toInt(), //()
+    /** customRecommendIndex property */
     var customRecommendIndex: Int = 0, // index
+    /** isUseGray property */
     var isUseGray: Boolean = true, //true- false-
 ) : Parcelable {
 
@@ -101,11 +114,17 @@ data class CustomPseudoBean (
         }
     }
 
+    /**
+     * Function description.
+     */
     fun saveToShared(isTC007: Boolean = false) {
         // TC001 only uses standard custom pseudo
         SharedManager.saveCustomPseudo(Gson().toJson(this))
     }
 
+    /**
+     * Function description.
+     */
     fun getColorList(isTC007: Boolean = false): IntArray? {
         // TODO:  places
         if (!isUseCustomPseudo) {//
@@ -127,6 +146,9 @@ data class CustomPseudoBean (
         }
     }
 
+    /**
+     * Function description.
+     */
     fun getPlaceList(): FloatArray? {
         if (!isUseCustomPseudo) {//
             return null
@@ -138,6 +160,9 @@ data class CustomPseudoBean (
         }
     }
 
+    /**
+     * Function description.
+     */
     fun getCustomColors(): IntArray {
         if (colors == null) {//
             colors = intArrayOf(customMinColor, customMiddleColor, customMaxColor)
@@ -145,6 +170,9 @@ data class CustomPseudoBean (
         return colors!!
     }
 
+    /**
+     * Function description.
+     */
     fun getCustomZAltitudes(): IntArray {
         if (zAltitudes == null) {
             zAltitudes = intArrayOf(0, 0, 0)
@@ -152,6 +180,9 @@ data class CustomPseudoBean (
         return zAltitudes!!
     }
 
+    /**
+     * Function description.
+     */
     fun getCustomPlaces(): FloatArray {
         if (places == null) {
             places = floatArrayOf(0f, 0.5f, 1f)
@@ -159,6 +190,9 @@ data class CustomPseudoBean (
         return places!!
     }
 
+    /**
+     * Function description.
+     */
     fun toByteArray(): ByteArray {
         val buffer: ByteBuffer = ByteBuffer.allocate(92)
 

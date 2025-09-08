@@ -21,13 +21,18 @@ class AudioRecordHelp private constructor() {
     private var recordingAudio = false
     private var startTime: Long = 0
     @Volatile
+    /** runAudioThread property */
     var runAudioThread = true
+    /** audioData property */
     var audioData : ShortBuffer?=null
+    /** bufferReadResult property */
     var bufferReadResult: Int = 0
+    /** bufferSize property */
     val bufferSize: Int = AudioRecord.getMinBufferSize(
         VideoRecordFFmpeg.SAMPLE_AUDIO_RETE_INHZ,
         AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT
     )
+    /** type property */
     var type : Int = 0
     private var startRecordTime : Long = 0L
 
@@ -36,6 +41,9 @@ class AudioRecordHelp private constructor() {
     }
 
     @SuppressLint("MissingPermission")
+    /**
+     * Function description.
+     */
     fun startRecording(recorder: FFmpegFrameRecorder,startRecordTime : Long) {
         this.startRecordTime = startRecordTime
         type = 1
@@ -108,6 +116,9 @@ class AudioRecordHelp private constructor() {
         recordingAudio = boolean
     }
 
+    /**
+     * Function description.
+     */
     fun stopAudioRecording() {
         type = 2
         if (!runAudioThread){
@@ -127,6 +138,9 @@ class AudioRecordHelp private constructor() {
         recordingAudio = false
     }
 
+    /**
+     * Function description.
+     */
     fun stopRecording(){
         if (!runAudioThread){
             return

@@ -6,6 +6,9 @@ import java.util.List;
  * @author qiang.lv
  */
 public class CarDetectBean {
+    /**
+     * Method description.
+     */
     public String title;
     public List<CarDetectChildBean> detectChildBeans;
 

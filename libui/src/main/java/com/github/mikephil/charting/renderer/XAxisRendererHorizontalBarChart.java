@@ -23,6 +23,9 @@ public class XAxisRendererHorizontalBarChart extends XAxisRenderer {
 
     protected BarChart mChart;
 
+    /**
+     * Method description.
+     */
     public XAxisRendererHorizontalBarChart(ViewPortHandler viewPortHandler, XAxis xAxis,
             Transformer trans, BarChart chart) {
         super(viewPortHandler, xAxis, trans);
@@ -31,6 +34,9 @@ public class XAxisRendererHorizontalBarChart extends XAxisRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void computeAxis(float min, float max, boolean inverted) {
 
         // calculate the starting and entry point of the y-labels (depending on
@@ -84,6 +90,9 @@ public class XAxisRendererHorizontalBarChart extends XAxisRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void renderAxisLabels(Canvas c) {
 
         if (!mXAxis.isEnabled() || !mXAxis.isDrawLabelsEnabled())
@@ -162,6 +171,9 @@ public class XAxisRendererHorizontalBarChart extends XAxisRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public RectF getGridClippingRect() {
         mGridClippingRect.set(mViewPortHandler.getContentRect());
         mGridClippingRect.inset(0.f, -mAxis.getGridLineWidth());
@@ -181,6 +193,9 @@ public class XAxisRendererHorizontalBarChart extends XAxisRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void renderAxisLine(Canvas c) {
 
         if (!mXAxis.isDrawAxisLineEnabled() || !mXAxis.isEnabled())

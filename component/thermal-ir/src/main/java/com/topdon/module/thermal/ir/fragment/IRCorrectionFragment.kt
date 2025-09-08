@@ -71,6 +71,9 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
     private var pseudocolorMode = 0
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun irEvent(event: IRMsgEvent) {
         if (event.code == MsgCode.RESTART_USB) {
             restartUsbCamera()
@@ -212,10 +215,14 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun iruvctc(event: PreviewComplete) {
         dealY16ModePreviewComplete()
     }
 
+    /** frameReady property */
     var frameReady = false;
     private fun dealY16ModePreviewComplete() {
         isConfigWait = false
@@ -240,6 +247,9 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun cameraEvent(event: DeviceCameraEvent) {
         when (event.action) {
             100 -> {

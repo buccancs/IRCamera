@@ -13,14 +13,23 @@ import androidx.annotation.RequiresApi;
 @RequiresApi(11)
 public class Easing {
 
+    /**
+     * Method description.
+     */
     public interface EasingFunction extends TimeInterpolator {
         @Override
         float getInterpolation(float input);
     }
 
+    /**
+     * Private method description.
+     */
     private static final float DOUBLE_PI = 2f * (float) Math.PI;
 
     @SuppressWarnings("unused")
+    /**
+     * Method description.
+     */
     public static final EasingFunction Linear = new EasingFunction() {
         public float getInterpolation(float input) {
             return input;
@@ -28,6 +37,9 @@ public class Easing {
     };
 
     @SuppressWarnings("unused")
+    /**
+     * Method description.
+     */
     public static final EasingFunction EaseInQuad = new EasingFunction() {
         public float getInterpolation(float input) {
             return input * input;
@@ -35,6 +47,9 @@ public class Easing {
     };
 
     @SuppressWarnings("unused")
+    /**
+     * Method description.
+     */
     public static final EasingFunction EaseOutQuad = new EasingFunction() {
         public float getInterpolation(float input) {
             return -input * (input - 2f);
@@ -42,6 +57,9 @@ public class Easing {
     };
 
     @SuppressWarnings("unused")
+    /**
+     * Method description.
+     */
     public static final EasingFunction EaseInOutQuad = new EasingFunction() {
         public float getInterpolation(float input) {
             input *= 2f;
@@ -55,6 +73,9 @@ public class Easing {
     };
 
     @SuppressWarnings("unused")
+    /**
+     * Method description.
+     */
     public static final EasingFunction EaseInCubic = new EasingFunction() {
         public float getInterpolation(float input) {
             return (float) Math.pow(input, 3);
@@ -62,6 +83,9 @@ public class Easing {
     };
 
     @SuppressWarnings("unused")
+    /**
+     * Method description.
+     */
     public static final EasingFunction EaseOutCubic = new EasingFunction() {
         public float getInterpolation(float input) {
             input--;
@@ -70,6 +94,9 @@ public class Easing {
     };
 
     @SuppressWarnings("unused")
+    /**
+     * Method description.
+     */
     public static final EasingFunction EaseInOutCubic = new EasingFunction() {
         public float getInterpolation(float input) {
             input *= 2f;
@@ -82,6 +109,9 @@ public class Easing {
     };
 
     @SuppressWarnings("unused")
+    /**
+     * Method description.
+     */
     public static final EasingFunction EaseInQuart = new EasingFunction() {
 
         public float getInterpolation(float input) {
@@ -90,6 +120,9 @@ public class Easing {
     };
 
     @SuppressWarnings("unused")
+    /**
+     * Method description.
+     */
     public static final EasingFunction EaseOutQuart = new EasingFunction() {
         public float getInterpolation(float input) {
             input--;
@@ -98,6 +131,9 @@ public class Easing {
     };
 
     @SuppressWarnings("unused")
+    /**
+     * Method description.
+     */
     public static final EasingFunction EaseInOutQuart = new EasingFunction() {
         public float getInterpolation(float input) {
             input *= 2f;
@@ -110,6 +146,9 @@ public class Easing {
     };
 
     @SuppressWarnings("unused")
+    /**
+     * Method description.
+     */
     public static final EasingFunction EaseInSine = new EasingFunction() {
         public float getInterpolation(float input) {
             return -(float) Math.cos(input * (Math.PI / 2f)) + 1f;
@@ -117,6 +156,9 @@ public class Easing {
     };
 
     @SuppressWarnings("unused")
+    /**
+     * Method description.
+     */
     public static final EasingFunction EaseOutSine = new EasingFunction() {
         public float getInterpolation(float input) {
             return (float) Math.sin(input * (Math.PI / 2f));
@@ -124,6 +166,9 @@ public class Easing {
     };
 
     @SuppressWarnings("unused")
+    /**
+     * Method description.
+     */
     public static final EasingFunction EaseInOutSine = new EasingFunction() {
         public float getInterpolation(float input) {
             return -0.5f * ((float) Math.cos(Math.PI * input) - 1f);
@@ -131,6 +176,9 @@ public class Easing {
     };
 
     @SuppressWarnings("unused")
+    /**
+     * Method description.
+     */
     public static final EasingFunction EaseInExpo = new EasingFunction() {
         public float getInterpolation(float input) {
             return (input == 0) ? 0f : (float) Math.pow(2f, 10f * (input - 1f));
@@ -138,6 +186,9 @@ public class Easing {
     };
 
     @SuppressWarnings("unused")
+    /**
+     * Method description.
+     */
     public static final EasingFunction EaseOutExpo = new EasingFunction() {
         public float getInterpolation(float input) {
             return (input == 1f) ? 1f : (-(float) Math.pow(2f, -10f * (input + 1f)));
@@ -145,6 +196,9 @@ public class Easing {
     };
 
     @SuppressWarnings("unused")
+    /**
+     * Method description.
+     */
     public static final EasingFunction EaseInOutExpo = new EasingFunction() {
         public float getInterpolation(float input) {
             if (input == 0) {
@@ -162,6 +216,9 @@ public class Easing {
     };
 
     @SuppressWarnings("unused")
+    /**
+     * Method description.
+     */
     public static final EasingFunction EaseInCirc = new EasingFunction() {
         public float getInterpolation(float input) {
             return -((float) Math.sqrt(1f - input * input) - 1f);
@@ -169,6 +226,9 @@ public class Easing {
     };
 
     @SuppressWarnings("unused")
+    /**
+     * Method description.
+     */
     public static final EasingFunction EaseOutCirc = new EasingFunction() {
         public float getInterpolation(float input) {
             input--;
@@ -177,6 +237,9 @@ public class Easing {
     };
 
     @SuppressWarnings("unused")
+    /**
+     * Method description.
+     */
     public static final EasingFunction EaseInOutCirc = new EasingFunction() {
         public float getInterpolation(float input) {
             input *= 2f;
@@ -188,6 +251,9 @@ public class Easing {
     };
 
     @SuppressWarnings("unused")
+    /**
+     * Method description.
+     */
     public static final EasingFunction EaseInElastic = new EasingFunction() {
         public float getInterpolation(float input) {
             if (input == 0) {
@@ -204,6 +270,9 @@ public class Easing {
     };
 
     @SuppressWarnings("unused")
+    /**
+     * Method description.
+     */
     public static final EasingFunction EaseOutElastic = new EasingFunction() {
         public float getInterpolation(float input) {
             if (input == 0) {
@@ -221,6 +290,9 @@ public class Easing {
     };
 
     @SuppressWarnings("unused")
+    /**
+     * Method description.
+     */
     public static final EasingFunction EaseInOutElastic = new EasingFunction() {
         public float getInterpolation(float input) {
             if (input == 0) {
@@ -246,6 +318,9 @@ public class Easing {
     };
 
     @SuppressWarnings("unused")
+    /**
+     * Method description.
+     */
     public static final EasingFunction EaseInBack = new EasingFunction() {
         public float getInterpolation(float input) {
             final float s = 1.70158f;
@@ -254,6 +329,9 @@ public class Easing {
     };
 
     @SuppressWarnings("unused")
+    /**
+     * Method description.
+     */
     public static final EasingFunction EaseOutBack = new EasingFunction() {
         public float getInterpolation(float input) {
             final float s = 1.70158f;
@@ -263,6 +341,9 @@ public class Easing {
     };
 
     @SuppressWarnings("unused")
+    /**
+     * Method description.
+     */
     public static final EasingFunction EaseInOutBack = new EasingFunction() {
         public float getInterpolation(float input) {
             float s = 1.70158f;
@@ -275,6 +356,9 @@ public class Easing {
     };
 
     @SuppressWarnings("unused")
+    /**
+     * Method description.
+     */
     public static final EasingFunction EaseInBounce = new EasingFunction() {
         public float getInterpolation(float input) {
             return 1f - EaseOutBounce.getInterpolation(1f - input);
@@ -282,6 +366,9 @@ public class Easing {
     };
 
     @SuppressWarnings("unused")
+    /**
+     * Method description.
+     */
     public static final EasingFunction EaseOutBounce = new EasingFunction() {
         public float getInterpolation(float input) {
             float s = 7.5625f;
@@ -297,6 +384,9 @@ public class Easing {
     };
 
     @SuppressWarnings("unused")
+    /**
+     * Method description.
+     */
     public static final EasingFunction EaseInOutBounce = new EasingFunction() {
         public float getInterpolation(float input) {
             if (input < 0.5f) {

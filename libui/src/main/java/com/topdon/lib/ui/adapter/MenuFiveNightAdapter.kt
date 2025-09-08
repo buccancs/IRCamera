@@ -20,10 +20,14 @@ import com.csl.irCamera.libapp.R as LibAppR
 
 @Deprecated("，")
 class MenuFiveNightAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    /** onTempLevelListener property */
     var onTempLevelListener: ((index: Int) -> Unit)? = null
 
     private var selectedCode = SaveSettingUtil.temperatureMode
 
+    /**
+     * Function description.
+     */
     fun selected(code: Int) {
         selectedCode = code
         notifyDataSetChanged()

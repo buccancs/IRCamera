@@ -8,10 +8,14 @@ import com.topdon.menu.constant.MenuType
 
  * 6-  Adapter.
  * ()()
- * Created by LCG on 2024/11/28.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 @SuppressLint("NotifyDataSetChanged")
 internal class TempLevelAdapter(menuType: MenuType) : BaseMenuAdapter() {
      * true- false
+    /** isUnitF property */
     var isUnitF = false
         set(value) {
             if (field != value) {
@@ -25,6 +29,7 @@ internal class TempLevelAdapter(menuType: MenuType) : BaseMenuAdapter() {
      * 1
      * ()0
      * ()1
+    /** selectCode property */
     var selectCode: Int = 1
         set(value) {
             if (field != value) {
@@ -33,6 +38,7 @@ internal class TempLevelAdapter(menuType: MenuType) : BaseMenuAdapter() {
             }
         }
 
+    /** onTempLevelListener property */
     var onTempLevelListener: ((code: Int) -> Unit)? = null
 
 

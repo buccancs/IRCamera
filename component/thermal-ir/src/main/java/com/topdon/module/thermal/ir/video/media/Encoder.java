@@ -9,6 +9,9 @@ import java.util.List;
 
 
 public abstract class Encoder {
+    /**
+     * Private method description.
+     */
     private static final String TAG = Encoder.class.getSimpleName();
     protected static final int STATE_IDLE = 0;
     protected static final int STATE_RECORDING = 1;
@@ -56,39 +59,63 @@ public abstract class Encoder {
     };
 
 
+    /**
+     * Method description.
+     */
     public interface EncodeFinishListener {
         void onEncodeFinished();
     }
 
 
+    /**
+     * Method description.
+     */
     public Encoder() {
         setDefaultEncodingOptions();
         init();
     }
 
+    /**
+     * Method description.
+     */
     public Encoder(EncodingOptions options) {
         encodingOptions = options;
         init();
     }
 
+    /**
+     * Private method description.
+     */
     private void init() {
         onInit();
         initBitmapQueue();
     }
 
+    /**
+     * Private method description.
+     */
     private void setDefaultEncodingOptions() {
         encodingOptions = new EncodingOptions();
         encodingOptions.compressLevel = 0;
     }
 
+    /**
+     * Private method description.
+     */
     private void initBitmapQueue() {
         bitmapQueue = Collections.synchronizedList(new ArrayList<Bitmap>());
     }
 
+    /**
+     * Method description.
+     */
     public void setOutputFilePath(String outputFilePath) {
         this.outputFilePath = outputFilePath;
     }
 
+    /**
+     * Method description.
+     */
     public void setOutputSize(int width, int height) {
         this.width = width;
         this.height = height;
@@ -97,10 +124,16 @@ public abstract class Encoder {
     /**
      * delay in ms
      */
+    /**
+     * Method description.
+     */
     public void setFrameDelay(int delay) {
         frameDelay = delay;
     }
 
+    /**
+     * Method description.
+     */
     public void startEncode() {
         bitmapQueue.clear();
         onStart();
@@ -110,12 +143,18 @@ public abstract class Encoder {
         encodingThread.start();
     }
 
+    /**
+     * Private method description.
+     */
     private void notifyEncodeFinish() {
         if (encodeFinishListener != null) {
             encodeFinishListener.onEncodeFinished();
         }
     }
 
+    /**
+     * Method description.
+     */
     public void stopEncode() {
         if (encodingThread != null && encodingThread.isAlive()) {
             encodingThread.interrupt();
@@ -123,6 +162,9 @@ public abstract class Encoder {
         setState(STATE_IDLE);
     }
 
+    /**
+     * Method description.
+     */
     public void addFrame(Bitmap bitmap) {
         if (state != STATE_RECORDING) {
 
@@ -131,6 +173,9 @@ public abstract class Encoder {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setEncodeFinishListener(EncodeFinishListener listener) {
         encodeFinishListener = listener;
     }
@@ -138,11 +183,17 @@ public abstract class Encoder {
     /**
      * Reserved for gif encoder
      */
+    /**
+     * Method description.
+     */
     public void notifyLastFrameAdded() {
         setState(STATE_RECORDING_UNTIL_LAST_FRAME);
     }
 
 
+    /**
+     * Private method description.
+     */
     private void setState(int state) {
         this.state = state;
     }

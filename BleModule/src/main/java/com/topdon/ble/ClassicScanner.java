@@ -10,6 +10,9 @@ import androidx.annotation.NonNull;
  * author: bichuanfeng
  */
 class ClassicScanner extends AbstractScanner {
+    /**
+     * Private method description.
+     */
     private boolean stopQuietly = false;
     
     ClassicScanner(EasyBLE easyBle, BluetoothAdapter bluetoothAdapter) {
@@ -44,6 +47,9 @@ class ClassicScanner extends AbstractScanner {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void stopScan(boolean quietly) {
         if (isScanning()) {
             stopQuietly = quietly;
@@ -53,6 +59,9 @@ class ClassicScanner extends AbstractScanner {
 
     @NonNull
     @Override
+    /**
+     * Method description.
+     */
     public ScannerType getType() {
         return ScannerType.CLASSIC;
     }

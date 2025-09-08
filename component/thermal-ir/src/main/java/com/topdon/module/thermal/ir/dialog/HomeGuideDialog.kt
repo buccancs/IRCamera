@@ -20,15 +20,20 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
  * .
- * Created by LCG on 2024/4/8.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(context, LibAppR.style.TransparentDialog) {
 
     private lateinit var binding: DialogHomeGuideBinding
 
      * step`[1,3]`
+    /** onNextClickListener property */
     var onNextClickListener: ((step: Int) -> Unit)? = null
 
      * .
+    /** onSkinClickListener property */
     var onSkinClickListener: (() -> Unit)? = null
 
 
@@ -98,6 +103,9 @@ class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(c
         onSkinClickListener?.invoke()
     }
 
+    /**
+     * Function description.
+     */
     fun blurBg(rootView: View) {
         CoroutineScope(Dispatchers.IO).launch {
             try {

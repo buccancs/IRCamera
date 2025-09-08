@@ -19,6 +19,9 @@ public class TriangleShapeRenderer implements IShapeRenderer
     protected Path mTrianglePathBuffer = new Path();
 
     @Override
+    /**
+     * Method description.
+     */
     public void renderShape(Canvas c, IScatterDataSet dataSet, ViewPortHandler viewPortHandler,
                             float posX, float posY, Paint renderPaint) {
 

@@ -28,6 +28,9 @@ public class RadarChartRenderer extends LineRadarRenderer {
     protected Paint mWebPaint;
     protected Paint mHighlightCirclePaint;
 
+    /**
+     * Method description.
+     */
     public RadarChartRenderer(RadarChart chart, ChartAnimator animator,
                               ViewPortHandler viewPortHandler) {
         super(animator, viewPortHandler);
@@ -44,17 +47,26 @@ public class RadarChartRenderer extends LineRadarRenderer {
         mHighlightCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     }
 
+    /**
+     * Method description.
+     */
     public Paint getWebPaint() {
         return mWebPaint;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void initBuffers() {
         // TODO Auto-generated method stub
 
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawData(Canvas c) {
 
         RadarData radarData = mChart.getData();
@@ -147,6 +159,9 @@ public class RadarChartRenderer extends LineRadarRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawValues(Canvas c) {
 
         float phaseX = mAnimator.getPhaseX();
@@ -226,12 +241,18 @@ public class RadarChartRenderer extends LineRadarRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawValue(Canvas c, String valueText, float x, float y, int color) {
         mValuePaint.setColor(color);
         c.drawText(valueText, x, y, mValuePaint);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawExtras(Canvas c) {
         drawWeb(c);
     }
@@ -296,6 +317,9 @@ public class RadarChartRenderer extends LineRadarRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawHighlighted(Canvas c, Highlight[] indices) {
 
         float sliceangle = mChart.getSliceAngle();
@@ -362,6 +386,9 @@ public class RadarChartRenderer extends LineRadarRenderer {
     }
 
     protected Path mDrawHighlightCirclePathBuffer = new Path();
+    /**
+     * Method description.
+     */
     public void drawHighlightCircle(Canvas c,
                                     MPPointF point,
                                     float innerRadius,

@@ -70,6 +70,9 @@ class IRMonitorActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun select(selectIndex: SelectPositionBean?) {
         this.selectIndex = selectIndex
     }

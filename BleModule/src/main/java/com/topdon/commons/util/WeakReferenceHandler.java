@@ -12,12 +12,21 @@ import java.lang.ref.WeakReference;
  * @Date 2022/10/12 9:25
 public class WeakReferenceHandler<T> extends Handler {
 
+    /**
+     * Private method description.
+     */
     private final WeakReference<T> mReference;
 
+    /**
+     * Method description.
+     */
     public WeakReferenceHandler(T referencedObject) {
         mReference = new WeakReference<T>(referencedObject);
     }
 
+    /**
+     * Method description.
+     */
     public WeakReferenceHandler(Looper looper, T referencedObject) {
         super(looper);
         mReference = new WeakReference<T>(referencedObject);

@@ -13,7 +13,10 @@ import com.topdon.module.user.databinding.DialogDownloadProBinding
 import java.text.DecimalFormat
 
  * .
- * Created by LCG on 2024/3/5.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class DownloadProDialog(context: Context) : Dialog(context, LibAppR.style.InfoDialog) {
 
     private lateinit var binding: DialogDownloadProBinding
@@ -34,6 +37,9 @@ class DownloadProDialog(context: Context) : Dialog(context, LibAppR.style.InfoDi
         }
     }
 
+    /**
+     * Function description.
+     */
     fun refreshProgress(current: Long, total: Long) {
         val progress = (current * 100f / total).toInt()
         binding.tvSize.text = "${context.getString(LibAppR.string.detail_len)}: ${getFileSizeStr(current)}/${getFileSizeStr(total)}"

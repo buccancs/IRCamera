@@ -8,6 +8,9 @@ import androidx.annotation.Nullable;
 public class IFrameData {
      * ARGB
      *  x  x 4.
+    /**
+     * Method description.
+     */
     public static int FUSION_LEN = Const.DUAL_WIDTH * Const.DUAL_HEIGHT * 4;
      * YUV-Y16
      *  x  x 2.
@@ -37,6 +40,9 @@ public class IFrameData {
     }
 
      *  YUV-16 <b></b> .
+    /**
+     * Method description.
+     */
     public static byte[] readNorIRData(@NonNull byte[] frame, @Nullable byte[] irData) {
         if (irData == null) {
             irData = new byte[ORIGINAL_LEN];
@@ -46,6 +52,9 @@ public class IFrameData {
     }
 
      *  YUV-16 <b></b> .
+    /**
+     * Method description.
+     */
     public static byte[] readNorTempData(@NonNull byte[] frame, @Nullable byte[] norTempData) {
         if (norTempData == null) {
             norTempData = new byte[ORIGINAL_LEN];
@@ -55,6 +64,9 @@ public class IFrameData {
     }
 
      *  YUV-422 <b></b> .
+    /**
+     * Method description.
+     */
     public static byte[] readRemapTempData(@NonNull byte[] frame, @Nullable byte[] remapTempData) {
         if (remapTempData == null) {
             remapTempData = new byte[REMAP_TEMP_LEN];

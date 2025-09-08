@@ -8,6 +8,9 @@ class BreatheInterpolator implements TimeInterpolator {
 
     @Override
 
+    /**
+     * Method description.
+     */
     public float getInterpolation(float input) {
 
         float x = 6 * input;
@@ -36,6 +39,9 @@ class BreatheInterpolator implements TimeInterpolator {
 
     }
 
+    /**
+     * Method description.
+     */
     public void updateTime(){
         String a = "";
         String[] as = a.split("");

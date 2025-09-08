@@ -20,14 +20,23 @@ import java.util.List;
  * @since 2019/5/13 19:13
 public class NumberWheelView extends WheelView {
 
+    /**
+     * Method description.
+     */
     public NumberWheelView(Context context) {
         super(context);
     }
 
+    /**
+     * Method description.
+     */
     public NumberWheelView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * Method description.
+     */
     public NumberWheelView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
@@ -44,6 +53,9 @@ public class NumberWheelView extends WheelView {
      * @deprecated  {@link #setRange}
     @Deprecated
     @Override
+    /**
+     * Method description.
+     */
     public void setData(List<?> data) {
         if (isInEditMode()) {
             super.setData(generatePreviewData());
@@ -52,6 +64,9 @@ public class NumberWheelView extends WheelView {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setRange(int min, int max, int step) {
         int minValue = Math.min(min, max);
         int maxValue = Math.max(min, max);
@@ -64,6 +79,9 @@ public class NumberWheelView extends WheelView {
         super.setData(data);
     }
 
+    /**
+     * Method description.
+     */
     public void setRange(float min, float max, float step) {
         float minValue = Math.min(min, max);
         float maxValue = Math.max(min, max);

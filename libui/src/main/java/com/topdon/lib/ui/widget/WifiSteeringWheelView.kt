@@ -13,9 +13,13 @@ class WifiSteeringWheelView : LinearLayout, OnClickListener {
 
     private lateinit var binding: UiWifiSteeringWheelViewBinding
     
+    /** listener property */
     var listener: ((action: Int, moveX: Int,moveY:Int) -> Unit)? = null
+    /** moveX property */
     var moveX = 0
+    /** moveY property */
     var moveY = 0
+    /** rotationIR property */
     var rotationIR = 270
     set(value) {
         field = value
@@ -57,6 +61,7 @@ class WifiSteeringWheelView : LinearLayout, OnClickListener {
         }
     }
 
+    /** moveI property */
     val moveI = 2
     override fun onClick(v: View?) {
         when (v) {

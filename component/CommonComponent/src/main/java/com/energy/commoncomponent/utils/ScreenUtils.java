@@ -23,6 +23,9 @@ import java.lang.reflect.Method;
  * @since 2022.9.8 10:25
  */
 public class ScreenUtils {
+    /**
+     * Private method description.
+     */
     private ScreenUtils() {
         /* cannot be instantiated */
         throw new UnsupportedOperationException("cannot be instantiated");
@@ -33,6 +36,9 @@ public class ScreenUtils {
      *
      * @param parameter parameter description
      * @return return value
+     */
+    /**
+     * Method description.
      */
     public static int getScreenWidth(Context context) {
         WindowManager wm = (WindowManager) context
@@ -48,6 +54,9 @@ public class ScreenUtils {
      * @param parameter parameter description
      * @return return value
      */
+    /**
+     * Method description.
+     */
     public static int getScreenHeight(Context context) {
         WindowManager wm = (WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE);
@@ -61,6 +70,9 @@ public class ScreenUtils {
      *
      * @param parameter parameter description
      * @return return value
+     */
+    /**
+     * Method description.
      */
     public static int getStatusHeight(Context context) {
 
@@ -83,6 +95,9 @@ public class ScreenUtils {
      * @param parameter parameter description
      * @return return value
      */
+    /**
+     * Method description.
+     */
     public static Bitmap snapShotWithStatusBar(Activity activity) {
         View view = activity.getWindow().getDecorView();
         view.setDrawingCacheEnabled(true);
@@ -103,6 +118,9 @@ public class ScreenUtils {
      * @param context the application context
      * @return the screen density DPI
      */
+    /**
+     * Method description.
+     */
     public static int getScreenDensityDpi(Context context) {
         return context.getResources().getDisplayMetrics().densityDpi;
     }
@@ -112,6 +130,9 @@ public class ScreenUtils {
      *
      * @param parameter parameter description
      * @return return value
+     */
+    /**
+     * Method description.
      */
     public static Bitmap snapShotWithoutStatusBar(Activity activity) {
         View view = activity.getWindow().getDecorView();
@@ -138,6 +159,9 @@ public class ScreenUtils {
      * @param parameter parameter description
      * @return return value
      */
+    /**
+     * Method description.
+     */
     public static int getBottomStatusHeight(Context context) {
         int totalHeight = getDpi(context);
 
@@ -146,6 +170,9 @@ public class ScreenUtils {
         return totalHeight - contentHeight;
     }
 
+    /**
+     * Method description.
+     */
     public static int getDpi(Context context) {
         int dpi = 0;
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -172,16 +199,25 @@ public class ScreenUtils {
      * @param dpValue the value in density-independent pixels
      * @return the value in pixels
      */
+    /**
+     * Method description.
+     */
     public static int dp2px(float dpValue) {
         final float scale = Resources.getSystem().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
 
+    /**
+     * Method description.
+     */
     public static int sp2px(final float spValue) {
         final float fontScale = Resources.getSystem().getDisplayMetrics().scaledDensity;
         return (int) (spValue * fontScale + 0.5f);
     }
 
+    /**
+     * Method description.
+     */
     public static float getScreenDendity(Context context) {
         return context.getResources().getDisplayMetrics().density;//3
     }
@@ -193,6 +229,9 @@ public class ScreenUtils {
      * @param info the information message to display
      * @param dismissListener the dismiss listener callback
      * @return the created dialog
+     */
+    /**
+     * Method description.
      */
     public static Dialog showNormalDialog(Context context, String info, PopupWindow.OnDismissListener dismissListener) {
         /*

@@ -13,11 +13,15 @@ import com.topdon.module.user.databinding.ItemLanguageBinding
 
 class LanguageAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    /** listener property */
     var listener: ItemOnClickListener? = null
 
     private var selectIndex = 0
     private var languages: Array<out CharSequence> = context.resources.getTextArray(LibAppR.array.setting_language_list)
 
+    /**
+     * Function description.
+     */
     fun setSelect(index: Int) {
         selectIndex = index
         notifyDataSetChanged()

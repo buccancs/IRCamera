@@ -20,6 +20,9 @@ import java.util.List;
 
 public class YAxisRendererHorizontalBarChart extends YAxisRenderer {
 
+    /**
+     * Method description.
+     */
     public YAxisRendererHorizontalBarChart(ViewPortHandler viewPortHandler, YAxis yAxis,
                                            Transformer trans) {
         super(viewPortHandler, yAxis, trans);
@@ -34,6 +37,9 @@ public class YAxisRendererHorizontalBarChart extends YAxisRenderer {
      * @param yMax - the maximum y-value in the data object for this axis
      */
     @Override
+    /**
+     * Method description.
+     */
     public void computeAxis(float yMin, float yMax, boolean inverted) {
 
         // calculate the starting and entry point of the y-labels (depending on
@@ -64,6 +70,9 @@ public class YAxisRendererHorizontalBarChart extends YAxisRenderer {
      * draws the y-axis labels to the screen
      */
     @Override
+    /**
+     * Method description.
+     */
     public void renderAxisLabels(Canvas c) {
 
         if (!mYAxis.isEnabled() || !mYAxis.isDrawLabelsEnabled())
@@ -105,6 +114,9 @@ public class YAxisRendererHorizontalBarChart extends YAxisRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void renderAxisLine(Canvas c) {
 
         if (!mYAxis.isEnabled() || !mYAxis.isDrawAxisLineEnabled())
@@ -168,6 +180,9 @@ public class YAxisRendererHorizontalBarChart extends YAxisRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public RectF getGridClippingRect() {
         mGridClippingRect.set(mViewPortHandler.getContentRect());
         mGridClippingRect.inset(-mAxis.getGridLineWidth(), 0.f);
@@ -220,6 +235,9 @@ public class YAxisRendererHorizontalBarChart extends YAxisRenderer {
      * @param c
      */
     @Override
+    /**
+     * Method description.
+     */
     public void renderLimitLines(Canvas c) {
 
         List<LimitLine> limitLines = mYAxis.getLimitLines();

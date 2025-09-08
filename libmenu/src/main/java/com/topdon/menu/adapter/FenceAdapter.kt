@@ -11,10 +11,14 @@ import com.topdon.menu.constant.FenceType
  * Lite
  * TC007
  * 2D
- * Created by LCG on 2024/11/18.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 @SuppressLint("NotifyDataSetChanged")
 internal class FenceAdapter(menuType: MenuType) : BaseMenuAdapter() {
      * null .
+    /** selectType property */
     var selectType: FenceType? = null
         set(value) {
             when (value) {
@@ -31,6 +35,7 @@ internal class FenceAdapter(menuType: MenuType) : BaseMenuAdapter() {
     private var isFullSelect: Boolean = false
 
      * IOS “”
+    /** onFenceListener property */
     var onFenceListener: ((fenceType: FenceType, isSelected: Boolean) -> Unit)? = null
 
 

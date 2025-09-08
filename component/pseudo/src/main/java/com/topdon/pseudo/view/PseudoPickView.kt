@@ -24,7 +24,10 @@ import kotlin.math.abs
  * [add]
  * [del]
  * [isCurrentOnlyLimit] ( || ) &&
- * Created by LCG on 2024/10/15.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class PseudoPickView : View {
     companion object {
         @CheckResult
@@ -71,20 +74,26 @@ class PseudoPickView : View {
 
 
      * .
+    /** onSelectChangeListener property */
     var onSelectChangeListener: ((selectIndex: Int) -> Unit)? = null
 
 
      *  index.
+    /** selectIndex property */
     var selectIndex = 0
      * .
      *  place  place  zAltitude .
      * size  [actualColors][zAltitudes][places]
+    /** sourceColors property */
     var sourceColors: IntArray = intArrayOf(0xff0000ff.toInt(), 0xffff0000.toInt(), 0xffffff00.toInt())
      * .
+    /** actualColors property */
     var actualColors: IntArray = intArrayOf(0xff0000ff.toInt(), 0xffff0000.toInt(), 0xffffff00.toInt())
      *  z
+    /** zAltitudes property */
     var zAltitudes: IntArray = intArrayOf(0, 0, 0)
      * .
+    /** places property */
     var places: FloatArray = floatArrayOf(0f, 0.5f, 1f)
 
 
@@ -106,6 +115,9 @@ class PseudoPickView : View {
      * @param colors
      * @param zAltitudes  z
      * @param places
+    /**
+     * Function description.
+     */
     fun reset(selectIndex: Int, colors: IntArray, zAltitudes: IntArray, places: FloatArray) {
         this.selectIndex = selectIndex
         this.sourceColors = colors
@@ -117,6 +129,9 @@ class PseudoPickView : View {
         onSelectChangeListener?.invoke(selectIndex)
     }
 
+    /**
+     * Function description.
+     */
     fun refreshColor(@ColorInt color: Int) {
         sourceColors[selectIndex] = color
         actualColors[selectIndex] = color
@@ -127,6 +142,9 @@ class PseudoPickView : View {
 
      *  .
     private var addCount = 0
+    /**
+     * Function description.
+     */
     fun add() {
         if (sourceColors.size >= 7) {//7
             return
@@ -165,6 +183,9 @@ class PseudoPickView : View {
     }
 
      * .
+    /**
+     * Function description.
+     */
     fun del() {
         if (sourceColors.size <= 3) {
             return
@@ -189,6 +210,9 @@ class PseudoPickView : View {
     }
 
      * ( || ) &&
+    /**
+     * Function description.
+     */
     fun isCurrentOnlyLimit(): Boolean {
         val place: Float = places[selectIndex]
         if (place == 0f || place == 1f) {//，

@@ -30,6 +30,7 @@ import com.topdon.lib.ui.listener.SingleClickListener
 class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
+    /** listener property */
     var listener: ((index: Int, code: Int) -> Unit)? = null
 
     private var colorEnable = false //
@@ -43,42 +44,69 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
 
 
     private var rotateAngle = DeviceConfig.S_ROTATE_ANGLE //0
+    /**
+     * Function description.
+     */
     fun selectRotate(rotateAngle: Int) {
         this.rotateAngle = rotateAngle
         notifyDataSetChanged()
     }
 
+    /**
+     * Function description.
+     */
     fun enColor(colorEnable: Boolean) {
         this.colorEnable = colorEnable
         notifyDataSetChanged()
     }
 
+    /**
+     * Function description.
+     */
     fun enContrast(param: Boolean) {
         this.contrastEnable = param
         notifyDataSetChanged()
     }
 
+    /**
+     * Function description.
+     */
     fun enDde(param: Boolean) {
         this.ddeEnable = param
         notifyDataSetChanged()
     }
 
+    /**
+     * Function description.
+     */
     fun enAlarm(param: Boolean) {
         this.alarmEnable = param
         notifyDataSetChanged()
     }
+    /**
+     * Function description.
+     */
     fun enTextColor(param: Boolean) {
         this.textColorEnable = param
         notifyDataSetChanged()
     }
+    /**
+     * Function description.
+     */
     fun enMirror(param: Boolean) {
         this.mirrorEnable = param
         notifyDataSetChanged()
     }
+    /**
+     * Function description.
+     */
     fun enCompass(param: Boolean) {
         this.compassEnable = param
         notifyDataSetChanged()
     }
+    /**
+     * Function description.
+     */
     fun enWaterMark(param: Boolean) {
         this.waterMarkEnable = param
         notifyDataSetChanged()
@@ -89,6 +117,9 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
      *  [Constants.IR_TEMPERATURE_LITE] = 7 Lite
      * else - 2D
      *  [Constants.IR_OBSERVE_MODE] = 2
+    /**
+     * Function description.
+     */
     fun setShowMenuFour(modeType: Int){
         fourBean.clear()
         when (modeType) {

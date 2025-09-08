@@ -71,6 +71,9 @@ class WebSocketProxy {
 
      * TC007 Socket
     private var onFrameListener: ((frame: SocketFrameBean) -> Unit)? = null
+    /**
+     * Function description.
+     */
     fun setOnFrameListener(activity: ComponentActivity, listener: (frame: SocketFrameBean) -> Unit) {
         activity.lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onCreate(owner: LifecycleOwner) {
@@ -83,8 +86,12 @@ class WebSocketProxy {
         })
     }
 
+    /** onMessageListener property */
     var onMessageListener: ((text: String) -> Unit)? = null
 
+    /**
+     * Function description.
+     */
     fun startWebSocket(ssid: String, network: Network? = null) {
         if (ssid == currentSSID) {
             if (mWsManager != null) {
@@ -110,6 +117,9 @@ class WebSocketProxy {
     }
 
      *  Socket .
+    /**
+     * Function description.
+     */
     fun stopWebSocket() {
         XLog.tag("WebSocket").d("stopWebSocket()")
         webSocketListener?.isNeedReconnect = false
@@ -119,12 +129,24 @@ class WebSocketProxy {
         mWsManager = null
     }
 
+    /**
+     * Function description.
+     */
     fun isConnected(): Boolean = false // Only TC001 supported - no WebSocket needed
 
+    /**
+     * Function description.
+     */
     fun isTS004Connect(): Boolean = false // TS004 not supported
 
+    /**
+     * Function description.
+     */
     fun isTC007Connect(): Boolean = false // TC007 not supported
 
+    /**
+     * Function description.
+     */
     fun sendMessage(cmd: String?) {
         mWsManager?.sendMessage(cmd)
     }

@@ -123,6 +123,9 @@ class YapVideoEncoder(
         isRunning = true
     }
 
+    /**
+     * Function description.
+     */
     fun start() {
         if (Looper.myLooper() == Looper.getMainLooper()) {
             thread(start = true) {

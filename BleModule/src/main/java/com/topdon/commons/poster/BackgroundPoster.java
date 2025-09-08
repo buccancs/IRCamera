@@ -11,6 +11,9 @@ import java.util.concurrent.ExecutorService;
  * date: 2019/8/7 10:40
  * author: chuanfeng.bi
 final class BackgroundPoster implements Runnable, Poster {
+    /**
+     * Private method description.
+     */
     private final ExecutorService executorService;
     private final Queue<Runnable> queue;
     private volatile boolean executorRunning;
@@ -21,6 +24,9 @@ final class BackgroundPoster implements Runnable, Poster {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void enqueue(@NonNull Runnable runnable) {
         Objects.requireNonNull(runnable, "runnable is null, cannot be enqueued");
         synchronized (this) {
@@ -33,6 +39,9 @@ final class BackgroundPoster implements Runnable, Poster {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void clear() {
         synchronized (this) {
             queue.clear();
@@ -40,6 +49,9 @@ final class BackgroundPoster implements Runnable, Poster {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void run() {
         try {
             while (true) {

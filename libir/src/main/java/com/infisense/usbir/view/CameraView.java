@@ -19,6 +19,9 @@ import com.infisense.usbir.utils.OpencvTools;
 
  * TextureViewSurfaceView
 public class CameraView extends TextureView {
+    /**
+     * Private method description.
+     */
     private String TAG = "CameraView";
     private Bitmap bitmap;
     private SynchronizedBitmap syncimage;
@@ -29,6 +32,9 @@ public class CameraView extends TextureView {
     private int cross_len = 20;
     private Paint greenPaint;
     private boolean drawLine = true;//
+    /**
+     * Method description.
+     */
     public int productType = Const.TYPE_IR;
     private int irWidth = 192;
     private int irHeight = 256;
@@ -40,19 +46,31 @@ public class CameraView extends TextureView {
         return isOpenAmplify;
     }
 
+    /**
+     * Method description.
+     */
     public void setOpenAmplify(boolean openAmplify) {
         isOpenAmplify = openAmplify;
     }
 
+    /**
+     * Method description.
+     */
     public void setImageSize(int irWidth, int irHeight){
         this.irWidth = irWidth;
         this.irHeight = irHeight;
     }
 
+    /**
+     * Method description.
+     */
     public CameraView(Context context) {
         this(context, null, 0);
     }
 
+    /**
+     * Method description.
+     */
     public CameraView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
@@ -60,6 +78,9 @@ public class CameraView extends TextureView {
      * @param context
      * @param attrs
      * @param defStyleAttr
+    /**
+     * Method description.
+     */
     public CameraView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         paint = new Paint(); //
@@ -116,31 +137,49 @@ public class CameraView extends TextureView {
         };
     }
 
+    /**
+     * Method description.
+     */
     public boolean isDrawLine() {
         return drawLine;
     }
 
+    /**
+     * Method description.
+     */
     public void setDrawLine(boolean drawLine) {
         this.drawLine = drawLine;
     }
 
      * @param bitmap
+    /**
+     * Method description.
+     */
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
     }
 
     @Nullable
     @Override
+    /**
+     * Method description.
+     */
     public Bitmap getBitmap() {
         return bitmap;
     }
 
      * @param syncimage
+    /**
+     * Method description.
+     */
     public void setSyncimage(SynchronizedBitmap syncimage) {
         this.syncimage = syncimage;
     }
 
     @NonNull
+    /**
+     * Method description.
+     */
     public Bitmap getScaledBitmap() {
         synchronized (syncimage.viewLock) {
             Bitmap sBitmap = null;
@@ -148,10 +187,16 @@ public class CameraView extends TextureView {
             return sBitmap;
         }
     }
+    /**
+     * Method description.
+     */
     public void start() {
         cameraThread = new Thread(runnable);
         cameraThread.start();
     }
+    /**
+     * Method description.
+     */
     public void setShowCross(boolean isShow){
         try {
             cross_len = isShow ? 20 : 0;
@@ -165,6 +210,9 @@ public class CameraView extends TextureView {
     }
 
 
+    /**
+     * Method description.
+     */
     public void stop() {
         try {
             if (cameraThread != null){

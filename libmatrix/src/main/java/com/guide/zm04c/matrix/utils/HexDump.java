@@ -23,14 +23,23 @@ import java.security.InvalidParameterException;
  * only.
  */
 public class HexDump {
+    /**
+     * Private method description.
+     */
     private final static char[] HEX_DIGITS = {
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
     };
 
+    /**
+     * Method description.
+     */
     public static String dumpHexString(byte[] array) {
         return dumpHexString(array, 0, array.length);
     }
 
+    /**
+     * Method description.
+     */
     public static String dumpHexString(byte[] array, int offset, int length) {
         StringBuilder result = new StringBuilder();
 
@@ -73,14 +82,23 @@ public class HexDump {
         return result.toString();
     }
 
+    /**
+     * Method description.
+     */
     public static String toHexString(byte b) {
         return toHexString(toByteArray(b));
     }
 
+    /**
+     * Method description.
+     */
     public static String toHexString(byte[] array) {
         return toHexString(array, 0, array.length);
     }
 
+    /**
+     * Method description.
+     */
     public static String toHexString(byte[] array, int offset, int length) {
         char[] buf = new char[length * 2];
 
@@ -94,20 +112,32 @@ public class HexDump {
         return new String(buf);
     }
 
+    /**
+     * Method description.
+     */
     public static String toHexString(int i) {
         return toHexString(toByteArray(i));
     }
 
+    /**
+     * Method description.
+     */
     public static String toHexString(short i) {
         return toHexString(toByteArray(i));
     }
 
+    /**
+     * Method description.
+     */
     public static byte[] toByteArray(byte b) {
         byte[] array = new byte[1];
         array[0] = b;
         return array;
     }
 
+    /**
+     * Method description.
+     */
     public static byte[] toByteArray(int i) {
         byte[] array = new byte[4];
 
@@ -119,6 +149,9 @@ public class HexDump {
         return array;
     }
 
+    /**
+     * Method description.
+     */
     public static byte[] toByteArray(short i) {
         byte[] array = new byte[2];
 
@@ -128,6 +161,9 @@ public class HexDump {
         return array;
     }
 
+    /**
+     * Private method description.
+     */
     private static int toByte(char c) {
         if (c >= '0' && c <= '9')
             return (c - '0');
@@ -139,6 +175,9 @@ public class HexDump {
         throw new InvalidParameterException("Invalid hex char '" + c + "'");
     }
 
+    /**
+     * Method description.
+     */
     public static byte[] hexStringToByteArray(String hexString) {
         int length = hexString.length();
         byte[] buffer = new byte[length / 2];

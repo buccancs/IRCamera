@@ -16,13 +16,22 @@ import com.github.gzuliyujiang.wheelpicker.widget.TimeWheelLayout;
  * @author 1032694760@qq.com
  * @since 2019/5/15 18:13
 public class SimpleTimeFormatter implements TimeFormatter {
+    /**
+     * Private method description.
+     */
     private final TimeWheelLayout wheelLayout;
 
+    /**
+     * Method description.
+     */
     public SimpleTimeFormatter(TimeWheelLayout wheelLayout) {
         this.wheelLayout = wheelLayout;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public String formatHour(int hour) {
         if (wheelLayout.isHour12Mode()) {
             if (hour == 0) {
@@ -36,11 +45,17 @@ public class SimpleTimeFormatter implements TimeFormatter {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public String formatMinute(int minute) {
         return minute < 10 ? "0" + minute : "" + minute;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public String formatSecond(int second) {
         return second < 10 ? "0" + second : "" + second;
     }

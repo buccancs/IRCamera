@@ -32,9 +32,15 @@ import java.util.concurrent.LinkedBlockingQueue;
  * @date 2021/11/19 11:10
 @SuppressLint("MissingPermission")
 public class BluetoothManager implements EventObserver {
+    /**
+     * Method description.
+     */
     public static boolean iSReset = false;//
     public static boolean isSending = false;//
     public static boolean isClickStopCharging = false;//
+    /**
+     * Private method description.
+     */
     private static BluetoothManager instance = null;
     private Device mDevice;
     private Connection connection;
@@ -47,13 +53,22 @@ public class BluetoothManager implements EventObserver {
         return instance;
     }
 
+    /**
+     * Method description.
+     */
     public BluetoothManager() {
     }
 
+    /**
+     * Method description.
+     */
     public Device getDevice() {
         return mDevice;
     }
 
+    /**
+     * Private method description.
+     */
     private void setMTUValue() {
         if (mDevice.isConnected()) {
             //MTU
@@ -81,6 +96,9 @@ public class BluetoothManager implements EventObserver {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void setReadCallback() {
         if (mDevice.isConnected()) {
             isSending = false;
@@ -93,6 +111,9 @@ public class BluetoothManager implements EventObserver {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setCancelListening() {
         Observable observable = EasyBLE.getInstance().getObservable();
         if (observable != null) {
@@ -100,6 +121,9 @@ public class BluetoothManager implements EventObserver {
         }
     }
 
+    /**
+     * Method description.
+     */
     public Connection connect(Device device) {
         mDevice = device;
         ConnectionConfiguration config = new ConnectionConfiguration();
@@ -118,6 +142,9 @@ public class BluetoothManager implements EventObserver {
         return connection;
     }
 
+    /**
+     * Method description.
+     */
     public Connection connect(String mac,String name){
         ConnectionConfiguration configuration = new ConnectionConfiguration();
         configuration.setConnectTimeoutMillis(10000);
@@ -130,6 +157,9 @@ public class BluetoothManager implements EventObserver {
         return connection;
     }
 
+    /**
+     * Method description.
+     */
     public void release() {
         Log.d("bcf", "BLE");
         EasyBLE.getInstance().disconnectConnection(mDevice);
@@ -137,6 +167,9 @@ public class BluetoothManager implements EventObserver {
         EasyBLE.getInstance().releaseConnection(mDevice);
     }
 
+    /**
+     * Method description.
+     */
     public boolean isConnected() {
         if (mDevice == null)
             return false;
@@ -148,6 +181,9 @@ public class BluetoothManager implements EventObserver {
     @Observe
     @RunOn(ThreadMode.MAIN)
     @Override
+    /**
+     * Method description.
+     */
     public void onConnectionStateChanged(@NonNull Device device) {
         if (device.getConnectionState() != ConnectionState.SERVICE_DISCOVERED || device.getConnectionState() != ConnectionState.DISCONNECTED) {
             EventBus.getDefault().post(device.getConnectionState());
@@ -178,12 +214,18 @@ public class BluetoothManager implements EventObserver {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onConnectFailed(Device device, int failType) {
         Log.e("bcf_ble", "" + device.getName());
         EventBus.getDefault().post(device.getConnectionState());
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onConnectTimeout(Device device, int type) {
         Log.e("bcf_ble", "");
     }
@@ -191,6 +233,9 @@ public class BluetoothManager implements EventObserver {
      * {@link Observe}{@link EasyBLEBuilder#setMethodDefaultThreadMode(ThreadMode)}
     @Observe
     @Override
+    /**
+     * Method description.
+     */
     public void onNotificationChanged(@NonNull Request request, boolean isEnabled) {
         String typeTag = "";
         if (request.getType() == RequestType.SET_NOTIFICATION) {
@@ -203,6 +248,9 @@ public class BluetoothManager implements EventObserver {
     }
 
      * @param data
+    /**
+     * Method description.
+     */
     public boolean writeBuletoothData(byte[] data) {
         if (mDevice == null || !mDevice.isConnected()) {
             return false;
@@ -218,6 +266,9 @@ public class BluetoothManager implements EventObserver {
 
     @Observe
     @Override
+    /**
+     * Method description.
+     */
     public void onCharacteristicRead(Request request, byte[] value) {
         String data = StringUtils.toHex(value); // String
 //        Log.d(ble_bcf_data, onCharacteristicRead:  + data);
@@ -229,11 +280,17 @@ public class BluetoothManager implements EventObserver {
      * @param value
     @Observe
     @Override
+    /**
+     * Method description.
+     */
     public void onCharacteristicChanged(Device device, UUID service, UUID characteristic, byte[] value) {
         Log.e("ble_bcf_data", "：" + StringUtils.toHex(value));
         EventBus.getDefault().post(value);
     }
 
+    /**
+     * Method description.
+     */
     public static void setBleData(String message) {
 //        String savePath = ActivityUtils.getTopActivity().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
 //        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(yyyy-MM-dd);// HH:mm:ss

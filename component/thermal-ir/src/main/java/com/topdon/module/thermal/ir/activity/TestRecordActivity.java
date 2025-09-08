@@ -45,6 +45,9 @@ import java.util.List;
  */
 public class TestRecordActivity extends Activity{
 
+    /**
+     * Private method description.
+     */
     private final static String CLASS_LABEL = "RecordActivity";
     private final static String LOG_TAG = CLASS_LABEL;
 
@@ -96,6 +99,9 @@ public class TestRecordActivity extends Activity{
     int imagesIndex, samplesIndex;
 
     @Override
+    /**
+     * Method description.
+     */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -157,6 +163,9 @@ public class TestRecordActivity extends Activity{
     }
 
 
+    /**
+     * Private method description.
+     */
     private void initLayout() {
 
         /* get size of screen */
@@ -216,6 +225,9 @@ public class TestRecordActivity extends Activity{
     //---------------------------------------
     // initialize ffmpeg_recorder
     //---------------------------------------
+    /**
+     * Private method description.
+     */
     private void initRecorder() {
 
         Log.w(LOG_TAG, "init recorder");
@@ -247,6 +259,9 @@ public class TestRecordActivity extends Activity{
         runAudioThread = true;
     }
 
+    /**
+     * Method description.
+     */
     public void startRecording() {
 
         initRecorder();
@@ -262,6 +277,9 @@ public class TestRecordActivity extends Activity{
         }
     }
 
+    /**
+     * Method description.
+     */
     public void stopRecording() {
 
         runAudioThread = false;
@@ -331,6 +349,9 @@ public class TestRecordActivity extends Activity{
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
         if (keyCode == KeyEvent.KEYCODE_BACK) {

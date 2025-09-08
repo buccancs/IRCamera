@@ -17,7 +17,10 @@ import com.csl.irCamera.databinding.ActivityWebViewBinding
 
  *  WebView  Activity.
  * [ExtraKeyConfig.URL]
- * Created by LCG on 2024/12/18.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 @Route(path = RouterConfig.WEB_VIEW)
 class WebViewActivity : BaseBindingActivity<ActivityWebViewBinding>() {
 

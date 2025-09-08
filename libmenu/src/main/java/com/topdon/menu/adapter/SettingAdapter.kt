@@ -12,15 +12,20 @@ import com.topdon.menu.constant.SettingType
  * TC007
  * 2D
  * TS001
- * Created by LCG on 2024/11/28.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 @SuppressLint("NotifyDataSetChanged")
 internal class SettingAdapter(menuType: MenuType = MenuType.SINGLE_LIGHT, isObserver: Boolean = false) : BaseMenuAdapter() {
      * isSelected
+    /** onSettingListener property */
     var onSettingListener: ((settingType: SettingType, isSelected: Boolean) -> Unit)? = null
 
 
      * 256x192  0
      * APP192x256 (270) 0
+    /** rotateAngle property */
     var rotateAngle: Int = 270
         set(value) {
             if (field != value) {
@@ -30,6 +35,9 @@ internal class SettingAdapter(menuType: MenuType = MenuType.SINGLE_LIGHT, isObse
         }
 
      * 4
+    /**
+     * Function description.
+     */
     fun setSelected(settingType: SettingType, isSelected: Boolean) {
         for (i in dataList.indices) {
             if (dataList[i].settingType == settingType) {

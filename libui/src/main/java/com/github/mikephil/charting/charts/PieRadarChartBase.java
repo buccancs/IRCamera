@@ -33,6 +33,9 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends IDataSet<?
     /**
      * holds the normalized version of the current rotation angle of the chart
      */
+    /**
+     * Private method description.
+     */
     private float mRotationAngle = 270f;
 
     /**
@@ -50,14 +53,23 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends IDataSet<?
      */
     protected float mMinOffset = 0.f;
 
+    /**
+     * Method description.
+     */
     public PieRadarChartBase(Context context) {
         super(context);
     }
 
+    /**
+     * Method description.
+     */
     public PieRadarChartBase(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * Method description.
+     */
     public PieRadarChartBase(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
@@ -75,11 +87,17 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends IDataSet<?
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int getMaxVisibleCount() {
         return mData.getEntryCount();
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean onTouchEvent(MotionEvent event) {
         // use the pie- and radarchart listener own listener
         if (mTouchEnabled && mChartTouchListener != null)
@@ -89,6 +107,9 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends IDataSet<?
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void computeScroll() {
 
         if (mChartTouchListener instanceof PieRadarChartTouchListener)
@@ -96,6 +117,9 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends IDataSet<?
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void notifyDataSetChanged() {
         if (mData == null)
             return;
@@ -109,6 +133,9 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends IDataSet<?
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void calculateOffsets() {
 
         float legendLeft = 0f, legendRight = 0f, legendBottom = 0f, legendTop = 0f;
@@ -258,6 +285,9 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends IDataSet<?
      * @param y
      * @return
      */
+    /**
+     * Method description.
+     */
     public float getAngleForPoint(float x, float y) {
 
         MPPointF c = getCenterOffsets();
@@ -293,6 +323,9 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends IDataSet<?
      * @param angle  in degrees, converted to radians internally
      * @return
      */
+    /**
+     * Method description.
+     */
     public MPPointF getPosition(MPPointF center, float dist, float angle) {
 
         MPPointF p = MPPointF.getInstance(0, 0);
@@ -300,6 +333,9 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends IDataSet<?
         return p;
     }
 
+    /**
+     * Method description.
+     */
     public void getPosition(MPPointF center, float dist, float angle, MPPointF outputPoint) {
         outputPoint.x = (float) (center.x + dist * Math.cos(Math.toRadians(angle)));
         outputPoint.y = (float) (center.y + dist * Math.sin(Math.toRadians(angle)));
@@ -312,6 +348,9 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends IDataSet<?
      * @param x
      * @param y
      * @return
+     */
+    /**
+     * Method description.
      */
     public float distanceToCenter(float x, float y) {
 
@@ -349,6 +388,9 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends IDataSet<?
      * @param angle
      * @return
      */
+    /**
+     * Method description.
+     */
     public abstract int getIndexForAngle(float angle);
 
     /**
@@ -370,6 +412,9 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends IDataSet<?
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public float getRawRotationAngle() {
         return mRawRotationAngle;
     }
@@ -379,6 +424,9 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends IDataSet<?
      * which will always be between 0.0 < 360.0
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public float getRotationAngle() {
         return mRotationAngle;
@@ -390,6 +438,9 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends IDataSet<?
      *
      * @param enabled
      */
+    /**
+     * Method description.
+     */
     public void setRotationEnabled(boolean enabled) {
         mRotateEnabled = enabled;
     }
@@ -399,6 +450,9 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends IDataSet<?
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public boolean isRotationEnabled() {
         return mRotateEnabled;
     }
@@ -406,12 +460,18 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends IDataSet<?
     /**
      * Gets the minimum offset (padding) around the chart, defaults to 0.f
      */
+    /**
+     * Method description.
+     */
     public float getMinOffset() {
         return mMinOffset;
     }
 
     /**
      * Sets the minimum offset (padding) around the chart, defaults to 0.f
+     */
+    /**
+     * Method description.
      */
     public void setMinOffset(float minOffset) {
         mMinOffset = minOffset;
@@ -421,6 +481,9 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends IDataSet<?
      * returns the diameter of the pie- or radar-chart
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public float getDiameter() {
         RectF content = mViewPortHandler.getContentRect();
@@ -435,6 +498,9 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends IDataSet<?
      * Returns the radius of the chart in pixels.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public abstract float getRadius();
 
@@ -460,6 +526,9 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends IDataSet<?
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public float getYChartMin() {
         // TODO Auto-generated method stub
         return 0;
@@ -478,6 +547,9 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends IDataSet<?
      * @param toangle
      */
     @SuppressLint("NewApi")
+    /**
+     * Method description.
+     */
     public void spin(int durationmillis, float fromangle, float toangle, EasingFunction easing) {
 
         setRotationAngle(fromangle);

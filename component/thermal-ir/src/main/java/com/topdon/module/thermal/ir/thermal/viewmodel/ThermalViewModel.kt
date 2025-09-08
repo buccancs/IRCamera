@@ -6,6 +6,9 @@ class ThermalViewModel : BaseViewModel() {
      * yuv
      * white:82 FF
      * black:82 00
+    /**
+     * Function description.
+     */
     fun yuvArea(yuv: ByteArray, temp: FloatArray, max: Float, min: Float) {
         for (i in temp.indices) {
             if (temp[i] < min) {

@@ -14,6 +14,9 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 @SuppressLint("NewApi")
 public class AnimatedMoveViewJob extends AnimatedViewPortJob {
 
+    /**
+     * Private method description.
+     */
     private static ObjectPool<AnimatedMoveViewJob> pool;
 
     static {
@@ -21,6 +24,9 @@ public class AnimatedMoveViewJob extends AnimatedViewPortJob {
         pool.setReplenishPercentage(0.5f);
     }
 
+    /**
+     * Method description.
+     */
     public static AnimatedMoveViewJob getInstance(ViewPortHandler viewPortHandler, float xValue, float yValue, Transformer trans, View v, float xOrigin, float yOrigin, long duration){
         AnimatedMoveViewJob result = pool.get();
         result.mViewPortHandler = viewPortHandler;
@@ -35,16 +41,25 @@ public class AnimatedMoveViewJob extends AnimatedViewPortJob {
         return result;
     }
 
+    /**
+     * Method description.
+     */
     public static void recycleInstance(AnimatedMoveViewJob instance){
         pool.recycle(instance);
     }
 
 
+    /**
+     * Method description.
+     */
     public AnimatedMoveViewJob(ViewPortHandler viewPortHandler, float xValue, float yValue, Transformer trans, View v, float xOrigin, float yOrigin, long duration) {
         super(viewPortHandler, xValue, yValue, trans, v, xOrigin, yOrigin, duration);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onAnimationUpdate(ValueAnimator animation) {
 
         pts[0] = xOrigin + (xValue - xOrigin) * phase;
@@ -54,6 +69,9 @@ public class AnimatedMoveViewJob extends AnimatedViewPortJob {
         mViewPortHandler.centerViewPort(pts, view);
     }
 
+    /**
+     * Method description.
+     */
     public void recycleSelf(){
         recycleInstance(this);
     }

@@ -9,9 +9,13 @@ import com.blankj.utilcode.util.Utils
 import com.csl.irCamera.libapp.R
 
  *   .
- * Created by LCG on 2024/8/19.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 open class DirBase {
     @PrimaryKey(autoGenerate = true)
+    /** id property */
     var id: Long = 0
 
      *  Id
@@ -20,22 +24,27 @@ open class DirBase {
 
      *  index.
     @ColumnInfo
+    /** position property */
     var position: Int = 0
 
      * “”
     @ColumnInfo
+    /** dirName property */
     var dirName: String = ""
 
      * .
     @ColumnInfo
+    /** goodCount property */
     var goodCount: Int = 0
 
      * .
     @ColumnInfo
+    /** warnCount property */
     var warnCount: Int = 0
 
      * .
     @ColumnInfo
+    /** dangerCount property */
     var dangerCount: Int = 0
 
 
@@ -45,10 +54,19 @@ open class DirBase {
 
     override fun hashCode(): Int = id.toInt()
 
+    /**
+     * Function description.
+     */
     fun getGoodCountStr(): String = if (goodCount > 99) "99+" else goodCount.toString()
 
+    /**
+     * Function description.
+     */
     fun getWarnCountStr(): String = if (warnCount > 99) "99+" else warnCount.toString()
 
+    /**
+     * Function description.
+     */
     fun getDangerCountStr(): String = if (dangerCount > 99) "99+" else dangerCount.toString()
 }
 
@@ -75,19 +93,26 @@ class DirDetect() : DirBase() {
 
      * .
     @Ignore
+    /** hasSelect property */
     var hasSelect = false
 
     @Ignore
+    /** isExpand property */
     var isExpand: Boolean = false
 
      * .
     @Ignore
+    /** houseDetect property */
     var houseDetect = HouseDetect()
 
     @Ignore
+    /** itemList property */
     var itemList: ArrayList<ItemDetect> = ArrayList()
 
      *  id  0 (1)position + 1itemList .
+    /**
+     * Function description.
+     */
     fun copyOne(): DirDetect {
         val newDirDetect = DirDetect()
         newDirDetect.id = 0
@@ -109,6 +134,9 @@ class DirDetect() : DirBase() {
     }
 
      * idparent  0.
+    /**
+     * Function description.
+     */
     fun toDirReport(): DirReport {
         val dirReport = DirReport()
         dirReport.id = 0
@@ -162,5 +190,6 @@ class DirReport : DirBase() {
     override var parentId: Long = 0
 
     @Ignore
+    /** itemList property */
     var itemList: ArrayList<ItemReport> = ArrayList()
 }

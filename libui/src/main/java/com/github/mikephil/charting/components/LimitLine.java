@@ -18,6 +18,9 @@ import com.github.mikephil.charting.utils.Utils;
 public class LimitLine extends ComponentBase {
 
     /** limit / maximum (the y-value or xIndex) */
+    /**
+     * Private method description.
+     */
     private float mLimit = 0f;
 
     /** the width of the limit line */
@@ -39,6 +42,9 @@ public class LimitLine extends ComponentBase {
     private LimitLabelPosition mLabelPosition = LimitLabelPosition.RIGHT_TOP;
 
     /** enum that indicates the position of the LimitLine label */
+    /**
+     * Method description.
+     */
     public enum LimitLabelPosition {
         LEFT_TOP, LEFT_BOTTOM, RIGHT_TOP, RIGHT_BOTTOM
     }
@@ -48,6 +54,9 @@ public class LimitLine extends ComponentBase {
      * 
      * @param limit - the position (the value) on the y-axis (y-value) or x-axis
      *            (xIndex) where this line should appear
+     */
+    /**
+     * Method description.
      */
     public LimitLine(float limit) {
         mLimit = limit;
@@ -60,6 +69,9 @@ public class LimitLine extends ComponentBase {
      *            (xIndex) where this line should appear
      * @param label - provide "" if no label is required
      */
+    /**
+     * Method description.
+     */
     public LimitLine(float limit, String label) {
         mLimit = limit;
         mLabel = label;
@@ -70,6 +82,9 @@ public class LimitLine extends ComponentBase {
      * 
      * @return
      */
+    /**
+     * Method description.
+     */
     public float getLimit() {
         return mLimit;
     }
@@ -79,6 +94,9 @@ public class LimitLine extends ComponentBase {
      * thinner line == better performance, thicker line == worse performance
      * 
      * @param width
+     */
+    /**
+     * Method description.
      */
     public void setLineWidth(float width) {
 
@@ -94,6 +112,9 @@ public class LimitLine extends ComponentBase {
      * 
      * @return
      */
+    /**
+     * Method description.
+     */
     public float getLineWidth() {
         return mLineWidth;
     }
@@ -104,6 +125,9 @@ public class LimitLine extends ComponentBase {
      * 
      * @param color
      */
+    /**
+     * Method description.
+     */
     public void setLineColor(int color) {
         mLineColor = color;
     }
@@ -112,6 +136,9 @@ public class LimitLine extends ComponentBase {
      * Returns the color that is used for this LimitLine
      * 
      * @return
+     */
+    /**
+     * Method description.
      */
     public int getLineColor() {
         return mLineColor;
@@ -124,6 +151,9 @@ public class LimitLine extends ComponentBase {
      * @param spaceLength the length of space inbetween the pieces
      * @param phase offset, in degrees (normally, use 0)
      */
+    /**
+     * Method description.
+     */
     public void enableDashedLine(float lineLength, float spaceLength, float phase) {
         mDashPathEffect = new DashPathEffect(new float[] {
                 lineLength, spaceLength
@@ -132,6 +162,9 @@ public class LimitLine extends ComponentBase {
 
     /**
      * Disables the line to be drawn in dashed mode.
+     */
+    /**
+     * Method description.
      */
     public void disableDashedLine() {
         mDashPathEffect = null;
@@ -143,6 +176,9 @@ public class LimitLine extends ComponentBase {
      * 
      * @return
      */
+    /**
+     * Method description.
+     */
     public boolean isDashedLineEnabled() {
         return mDashPathEffect == null ? false : true;
     }
@@ -151,6 +187,9 @@ public class LimitLine extends ComponentBase {
      * returns the DashPathEffect that is set for this LimitLine
      * 
      * @return
+     */
+    /**
+     * Method description.
      */
     public DashPathEffect getDashPathEffect() {
         return mDashPathEffect;
@@ -162,6 +201,9 @@ public class LimitLine extends ComponentBase {
      *
      * @param style
      */
+    /**
+     * Method description.
+     */
     public void setTextStyle(Paint.Style style) {
         this.mTextStyle = style;
     }
@@ -170,6 +212,9 @@ public class LimitLine extends ComponentBase {
      * Returns the color of the value-text that is drawn next to the LimitLine.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public Paint.Style getTextStyle() {
         return mTextStyle;
@@ -181,6 +226,9 @@ public class LimitLine extends ComponentBase {
      * 
      * @param pos
      */
+    /**
+     * Method description.
+     */
     public void setLabelPosition(LimitLabelPosition pos) {
         mLabelPosition = pos;
     }
@@ -189,6 +237,9 @@ public class LimitLine extends ComponentBase {
      * Returns the position of the LimitLine label (value).
      * 
      * @return
+     */
+    /**
+     * Method description.
      */
     public LimitLabelPosition getLabelPosition() {
         return mLabelPosition;
@@ -200,6 +251,9 @@ public class LimitLine extends ComponentBase {
      * 
      * @param label
      */
+    /**
+     * Method description.
+     */
     public void setLabel(String label) {
         mLabel = label;
     }
@@ -208,6 +262,9 @@ public class LimitLine extends ComponentBase {
      * Returns the label that is drawn next to the limit line.
      * 
      * @return
+     */
+    /**
+     * Method description.
      */
     public String getLabel() {
         return mLabel;

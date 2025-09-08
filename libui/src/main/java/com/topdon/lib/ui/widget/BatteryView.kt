@@ -8,13 +8,18 @@ import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
 
  * TC007 .
- * Created by LCG on 2024/5/22.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class BatteryView : AppCompatImageView {
+    /** battery property */
     var battery = -1
         set(value) {
             field = value
             invalidate()
         }
+    /** isCharging property */
     var isCharging = false
         set(value) {
             field = value

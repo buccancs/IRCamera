@@ -7,14 +7,23 @@ import java.util.List;
 
 public class BubbleData extends BarLineScatterCandleBubbleData<IBubbleDataSet> {
 
+    /**
+     * Method description.
+     */
     public BubbleData() {
         super();
     }
 
+    /**
+     * Method description.
+     */
     public BubbleData(IBubbleDataSet... dataSets) {
         super(dataSets);
     }
 
+    /**
+     * Method description.
+     */
     public BubbleData(List<IBubbleDataSet> dataSets) {
         super(dataSets);
     }
@@ -25,6 +34,9 @@ public class BubbleData extends BarLineScatterCandleBubbleData<IBubbleDataSet> {
      * for all DataSet objects this data object contains, in dp.
      * 
      * @param width
+     */
+    /**
+     * Method description.
      */
     public void setHighlightCircleWidth(float width) {
         for (IBubbleDataSet set : mDataSets) {

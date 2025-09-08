@@ -6,6 +6,9 @@ import android.view.View
 
 object ScreenShotUtils {
     
+    /**
+     * Function description.
+     */
     fun shotScreenBitmap(view: View): Bitmap? {
         return try {
             val bitmap = Bitmap.createBitmap(
@@ -28,6 +31,9 @@ object ScreenShotUtils {
         }
     }
     
+    /**
+     * Function description.
+     */
     fun captureScreen(view: View, callback: (ScreenBean) -> Unit) {
         val bitmap = shotScreenBitmap(view)
         callback(ScreenBean(bitmap = bitmap))

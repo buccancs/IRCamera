@@ -14,8 +14,14 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 public abstract class LineScatterCandleRadarRenderer extends BarLineScatterCandleBubbleRenderer {
 
      * path that is used for drawing highlight-lines (drawLines(...) cannot be used because of dashes)
+    /**
+     * Private method description.
+     */
     private Path mHighlightLinePath = new Path();
 
+    /**
+     * Method description.
+     */
     public LineScatterCandleRadarRenderer(ChartAnimator animator, ViewPortHandler viewPortHandler) {
         super(animator, viewPortHandler);
     }

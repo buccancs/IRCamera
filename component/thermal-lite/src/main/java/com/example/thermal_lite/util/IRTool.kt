@@ -1,6 +1,9 @@
 package com.example.thermal_lite.util
 
 object IRTool {
+    /**
+     * Function description.
+     */
     fun temperatureCorrection(
         temp: Float,
         paramsArray: FloatArray,

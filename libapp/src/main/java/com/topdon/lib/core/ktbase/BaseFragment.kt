@@ -19,6 +19,7 @@ import org.greenrobot.eventbus.ThreadMode
  * create by fylder on 2018/7/13
 abstract class BaseFragment : RxFragment() {
 
+    /** TAG property */
     val TAG = BaseFragment::class.java.simpleName
 
     abstract fun initContentView(): Int
@@ -59,6 +60,9 @@ abstract class BaseFragment : RxFragment() {
      *  LMS .
     private var loadingDialog: LoadingDialog? = null
      *  LMS .
+    /**
+     * Function description.
+     */
     fun showLoadingDialog(@StringRes resId: Int = 0) {
         if (loadingDialog == null) {
             loadingDialog = LoadingDialog(requireContext())
@@ -67,6 +71,9 @@ abstract class BaseFragment : RxFragment() {
         loadingDialog?.show()
     }
      *  LMS .
+    /**
+     * Function description.
+     */
     fun showLoadingDialog(text: CharSequence) {
         if (loadingDialog == null) {
             loadingDialog = LoadingDialog(requireContext())
@@ -75,6 +82,9 @@ abstract class BaseFragment : RxFragment() {
         loadingDialog?.show()
     }
      *  LMS .
+    /**
+     * Function description.
+     */
     fun dismissLoadingDialog() {
         loadingDialog?.dismiss()
     }
@@ -82,6 +92,9 @@ abstract class BaseFragment : RxFragment() {
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun getConnectState(event: DeviceConnectEvent) {
         if (event.isConnect) {
             connected()
@@ -98,6 +111,9 @@ abstract class BaseFragment : RxFragment() {
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun onSocketConnectState(event: SocketStateEvent) {
         if (event.isConnect) {
             onSocketConnected(event.isTS004)

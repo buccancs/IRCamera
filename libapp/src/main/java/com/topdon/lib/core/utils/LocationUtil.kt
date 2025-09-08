@@ -18,8 +18,10 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.Locale
-
- * Created by LCG on 2024/6/27.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 object LocationUtil {
      * .
      * @return -- null
@@ -51,6 +53,9 @@ object LocationUtil {
 
 
      *  activity   .
+    /**
+     * Function description.
+     */
     fun addBtStateListener(activity: ComponentActivity, listener: ((isEnable: Boolean) -> Unit)) {
         if (Build.VERSION.SDK_INT >= 28) {//Android 9
             activity.lifecycle.addObserver(ModeChangeObserver(activity, listener))

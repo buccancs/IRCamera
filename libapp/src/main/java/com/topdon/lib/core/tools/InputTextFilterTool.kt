@@ -10,6 +10,9 @@ class InputTextFilterTool {
 
      * editText
      * @param editText
+    /**
+     * Function description.
+     */
     fun setEditTextFilter(editText: EditText) {
         val oldFilters = editText.filters
         val oldFiltersLength = oldFilters.size

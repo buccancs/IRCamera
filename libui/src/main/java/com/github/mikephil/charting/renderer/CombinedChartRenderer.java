@@ -28,6 +28,9 @@ public class CombinedChartRenderer extends DataRenderer {
 
     protected WeakReference<Chart> mChart;
 
+    /**
+     * Method description.
+     */
     public CombinedChartRenderer(CombinedChart chart, ChartAnimator animator, ViewPortHandler viewPortHandler) {
         super(animator, viewPortHandler);
         mChart = new WeakReference<Chart>(chart);
@@ -37,6 +40,9 @@ public class CombinedChartRenderer extends DataRenderer {
     /**
      * Creates the renderers needed for this combined-renderer in the required order. Also takes the DrawOrder into
      * consideration.
+     */
+    /**
+     * Method description.
      */
     public void createRenderers() {
 
@@ -76,6 +82,9 @@ public class CombinedChartRenderer extends DataRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void initBuffers() {
 
         for (DataRenderer renderer : mRenderers)
@@ -83,6 +92,9 @@ public class CombinedChartRenderer extends DataRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawData(Canvas c) {
 
         for (DataRenderer renderer : mRenderers)
@@ -90,11 +102,17 @@ public class CombinedChartRenderer extends DataRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawValue(Canvas c, String valueText, float x, float y, int color) {
         Log.e("MPAndroidChart", "Erroneous call to drawValue() in CombinedChartRenderer!");
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawValues(Canvas c) {
 
         for (DataRenderer renderer : mRenderers)
@@ -102,6 +120,9 @@ public class CombinedChartRenderer extends DataRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawExtras(Canvas c) {
 
         for (DataRenderer renderer : mRenderers)
@@ -111,6 +132,9 @@ public class CombinedChartRenderer extends DataRenderer {
     protected List<Highlight> mHighlightBuffer = new ArrayList<Highlight>();
 
     @Override
+    /**
+     * Method description.
+     */
     public void drawHighlighted(Canvas c, Highlight[] indices) {
 
         Chart chart = mChart.get();
@@ -150,6 +174,9 @@ public class CombinedChartRenderer extends DataRenderer {
      * @param index
      * @return
      */
+    /**
+     * Method description.
+     */
     public DataRenderer getSubRenderer(int index) {
         if (index >= mRenderers.size() || index < 0)
             return null;
@@ -162,10 +189,16 @@ public class CombinedChartRenderer extends DataRenderer {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public List<DataRenderer> getSubRenderers() {
         return mRenderers;
     }
 
+    /**
+     * Method description.
+     */
     public void setSubRenderers(List<DataRenderer> renderers) {
         this.mRenderers = renderers;
     }

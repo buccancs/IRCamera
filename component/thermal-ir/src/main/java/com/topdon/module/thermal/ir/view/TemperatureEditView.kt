@@ -37,15 +37,18 @@ class TemperatureEditView : TemperatureBaseView {
         var lineTemps = arrayListOf<LibIRTemp.TemperatureSampleResult>()
         var rectangleTemps = arrayListOf<LibIRTemp.TemperatureSampleResult>()
     }
+    /** tempListData property */
     var tempListData = TemperatureList()
 
     private var irtemp: LibIRTemp = LibIRTemp()
     private var irTempData: ByteArray = byteArrayOf()
+    /** fullInfo property */
     var fullInfo: LibIRTemp.TemperatureSampleResult? = null
 
 
 
      * .
+    /** isShowName property */
     var isShowName = false
         set(value) {
             field = value
@@ -54,6 +57,9 @@ class TemperatureEditView : TemperatureBaseView {
 
     private var iTsTempListenerWeakReference: WeakReference<ITsTempListener>? = null
 
+    /**
+     * Function description.
+     */
     fun setITsTempListener(listener: ITsTempListener) {
         iTsTempListenerWeakReference = WeakReference(listener)
     }
@@ -87,6 +93,9 @@ class TemperatureEditView : TemperatureBaseView {
         irtemp = LibIRTemp(imageWidth, imageHeight)
     }
 
+    /**
+     * Function description.
+     */
     fun setData(bytes: ByteArray) {
         irTempData = bytes
         irtemp.setTempData(irTempData)

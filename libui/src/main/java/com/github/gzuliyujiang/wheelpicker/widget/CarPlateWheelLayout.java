@@ -21,20 +21,35 @@ import com.github.gzuliyujiang.wheelpicker.impl.CarPlateProvider;
  * @author 1032694760@qq.com
  * @since 2021/6/9 11:57
 public class CarPlateWheelLayout extends LinkageWheelLayout {
+    /**
+     * Private method description.
+     */
     private CarPlateProvider provider;
 
+    /**
+     * Method description.
+     */
     public CarPlateWheelLayout(Context context) {
         super(context);
     }
 
+    /**
+     * Method description.
+     */
     public CarPlateWheelLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * Method description.
+     */
     public CarPlateWheelLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
+    /**
+     * Method description.
+     */
     public CarPlateWheelLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }

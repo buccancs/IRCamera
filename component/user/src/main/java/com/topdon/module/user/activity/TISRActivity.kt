@@ -52,6 +52,9 @@ class TISRActivity : BaseActivity(){
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun onSocketMsgEvent(event: SocketMsgEvent) {
         when(SocketCmdUtil.getCmdResponse(event.text)){
             WsCmdConstants.AR_COMMAND_TISR_GET -> {//

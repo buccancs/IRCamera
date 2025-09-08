@@ -14,12 +14,14 @@ import com.csl.irCamera.libapp.R as LibAppR
 class ProgressDialog(context: Context) : Dialog(context, LibAppR.style.InfoDialog) {
     private val binding = DialogProgressBinding.inflate(LayoutInflater.from(context))
     
+    /** max property */
     var max: Int = 100
         set(value) {
             binding.progressBar.max = value
             field = value
         }
 
+    /** progress property */
     var progress: Int = 0
         set(value) {
             binding.progressBar.progress = value

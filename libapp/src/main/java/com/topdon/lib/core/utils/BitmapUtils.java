@@ -32,12 +32,18 @@ import java.io.OutputStream;
 
 public class BitmapUtils {
 
+    /**
+     * Method description.
+     */
     public static Bitmap mirror(Bitmap rawBitmap) {
         Matrix matrix = new Matrix();
         matrix.postScale(-1f, 1f);
         return Bitmap.createBitmap(rawBitmap, 0, 0, rawBitmap.getWidth(), rawBitmap.getHeight(), matrix, true);
     }
 
+    /**
+     * Method description.
+     */
     public static Bitmap rotateBitmap(Bitmap bm, int degree) {
         Bitmap returnBm = null;
 
@@ -57,6 +63,9 @@ public class BitmapUtils {
     }
 
      * bitmapbytes
+    /**
+     * Method description.
+     */
     public static byte[] bitmapToBytes(Bitmap bitmap, int quality) {
         if (bitmap == null) {
             return null;
@@ -77,6 +86,9 @@ public class BitmapUtils {
      * @param file   ——
      * @param path   ——
      * @return
+    /**
+     * Method description.
+     */
     public static boolean saveBitmap(Bitmap bitmap, File file, File path) {
         boolean success = false;
         byte[] bytes = bitmapToBytes(bitmap, 100);
@@ -105,6 +117,9 @@ public class BitmapUtils {
 
      * @param bitmap
      * @param width
+    /**
+     * Method description.
+     */
     public static Bitmap imageZoom(Bitmap bitmap, double width) {
         // bitmapbitmap
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -120,6 +135,9 @@ public class BitmapUtils {
      * @param w
      * @param h
      * @return Bitmap
+    /**
+     * Method description.
+     */
     public static Bitmap scaleWithWH(Bitmap bitmap, double w, double h) {
         if (w == 0 || h == 0 || bitmap == null) {
             return bitmap;
@@ -141,6 +159,9 @@ public class BitmapUtils {
      * @param file
      * @param file
      * @return bitmap
+    /**
+     * Method description.
+     */
     public static boolean saveFile(String file, Bitmap bmp) {
         if (TextUtils.isEmpty(file) || bmp == null) return false;
 
@@ -168,6 +189,9 @@ public class BitmapUtils {
      * @param backBitmap
      * @param frontBitmap
      * @return
+    /**
+     * Method description.
+     */
     public static Bitmap mergeBitmap(Bitmap backBitmap, Bitmap frontBitmap, int leftFront, int topFront) {
         if (backBitmap == null || backBitmap.isRecycled()
                 || frontBitmap == null || frontBitmap.isRecycled()) {
@@ -182,6 +206,9 @@ public class BitmapUtils {
 //        }
         return bitmap;
     }
+    /**
+     * Method description.
+     */
     public static Bitmap mergeBitmapAlpha(Bitmap backBitmap, Bitmap frontBitmap,Paint paint, int leftFront, int topFront) {
         if (backBitmap == null || backBitmap.isRecycled()
                 || frontBitmap == null || frontBitmap.isRecycled()) {
@@ -198,6 +225,9 @@ public class BitmapUtils {
     }
 
 
+    /**
+     * Method description.
+     */
     public static Bitmap mergeBitmapByView(Bitmap backBitmap, Bitmap frontBitmap, BitmapViewListener view) {
         if (backBitmap == null || backBitmap.isRecycled()
                 || frontBitmap == null || frontBitmap.isRecycled()) {
@@ -217,6 +247,9 @@ public class BitmapUtils {
     }
 
     @NonNull
+    /**
+     * Method description.
+     */
     public static Bitmap mergeBitmapByViewNonNull(@NonNull Bitmap backBitmap, @Nullable Bitmap frontBitmap, BitmapViewListener view) {
         if (frontBitmap == null || frontBitmap.isRecycled()) {
             return backBitmap;
@@ -241,6 +274,9 @@ public class BitmapUtils {
         return bitmap;
     }
 
+    /**
+     * Method description.
+     */
     public static void mergeBitmapByView(Bitmap frontBitmap, BitmapViewListener view,Canvas canvas) {
         if (frontBitmap == null || frontBitmap.isRecycled()) {
             return;
@@ -257,6 +293,9 @@ public class BitmapUtils {
 
      * @param bytes
      * @param bytes2
+    /**
+     * Method description.
+     */
     public static void savaRawFile(byte[] bytes, byte[] bytes2) {
         try {
             File path = Environment.getExternalStorageDirectory();
@@ -281,6 +320,9 @@ public class BitmapUtils {
      * @param time
      * @param seekBarWidth :
      * @return
+    /**
+     * Method description.
+     */
     public static Bitmap drawCenterLable(Bitmap bmp, String title,String address,String time,int seekBarWidth) {
         Bitmap newBmp = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(newBmp);

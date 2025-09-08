@@ -22,6 +22,7 @@ public class TimeDownView : AppCompatTextView {
     private var intervalMills: Long = 0
     private var delayMills: Long = 0
     private var animationSet: AnimationSet? = null
+    /** isRunning property */
     var isRunning = false
     private fun init() {
         if (animationSet == null) {
@@ -44,10 +45,16 @@ public class TimeDownView : AppCompatTextView {
     }
 
      * @param seconds
+    /**
+     * Function description.
+     */
     fun downSecond(seconds: Int) {
         downSecond(seconds,true)
     }
 
+    /**
+     * Function description.
+     */
     fun downSecond(seconds: Int,openAnimation: Boolean) {
         if (seconds == 0){
             isRunning = false
@@ -65,6 +72,9 @@ public class TimeDownView : AppCompatTextView {
      * @param lastDown
      * @param delayMills
      * @param intervalMills
+    /**
+     * Function description.
+     */
     fun downTime(downCount: Int, lastDown: Int, delayMills: Long, intervalMills: Long,startAnimate : Boolean) {
         timer = Timer()
         this.downCount = downCount
@@ -94,6 +104,9 @@ public class TimeDownView : AppCompatTextView {
         super.onDraw(canvas)
     }
 
+    /**
+     * Function description.
+     */
     fun cancel() {
         animationSet?.cancel()
         downTimerTask?.cancel()
@@ -123,15 +136,21 @@ public class TimeDownView : AppCompatTextView {
     }
 
      * .
+    /** onTimeListener property */
     var onTimeListener: ((time: Int) -> Unit)? = null
      * .
+    /** onFinishListener property */
     var onFinishListener: (() -> Unit)? = null
 
 
 
+    /** downTimeWatcher property */
     var downTimeWatcher: DownTimeWatcher? = null
 
      * @param downTimeWatcher
+    /**
+     * Function description.
+     */
     fun setOnTimeDownListener(downTimeWatcher: DownTimeWatcher?) {
         this.downTimeWatcher = downTimeWatcher
     }
@@ -186,16 +205,26 @@ public class TimeDownView : AppCompatTextView {
 
     private var afterDownDimissFlag = AFTER_LAST_TIME_DIMISS
 
+    /**
+     * Function description.
+     */
     fun setAfterDownNoDimiss() {
         afterDownDimissFlag = AFTER_LAST_TIME_NODIMISS
     }
 
+    /**
+     * Function description.
+     */
     fun setAferDownDimiss() {
         afterDownDimissFlag = AFTER_LAST_TIME_DIMISS
     }
 
+    /** startDefaultAnimFlag property */
     var startDefaultAnimFlag = true
 
+    /**
+     * Function description.
+     */
     fun closeDefaultAnimate() {
         animationSet?.reset()
         startDefaultAnimFlag = false

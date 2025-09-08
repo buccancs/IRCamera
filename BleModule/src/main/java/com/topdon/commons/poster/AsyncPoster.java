@@ -12,6 +12,9 @@ import java.util.concurrent.ExecutorService;
  * author: chuanfeng.bi
  */
 final class AsyncPoster implements Runnable, Poster {
+    /**
+     * Private method description.
+     */
     private final ExecutorService executorService;
     private final Queue<Runnable> queue;
 
@@ -21,6 +24,9 @@ final class AsyncPoster implements Runnable, Poster {
     }
     
     @Override
+    /**
+     * Method description.
+     */
     public void enqueue(@NonNull Runnable runnable) {
         Objects.requireNonNull(runnable, "runnable is null, cannot be enqueued");
         queue.add(runnable);
@@ -28,6 +34,9 @@ final class AsyncPoster implements Runnable, Poster {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void clear() {
         synchronized (this) {
             queue.clear();
@@ -35,6 +44,9 @@ final class AsyncPoster implements Runnable, Poster {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void run() {
         Runnable runnable = queue.poll();
         if (runnable != null) {

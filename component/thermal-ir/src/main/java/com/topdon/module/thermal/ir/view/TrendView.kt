@@ -13,26 +13,41 @@ import com.topdon.module.thermal.ir.databinding.ViewTrendBinding
 import kotlin.math.min
 
  * .
- * Created by LCG on 2024/12/31.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class TrendView : FrameLayout {
 
+    /**
+     * Function description.
+     */
     fun expand() {
         binding.clOpen.isVisible = true
         binding.llClose.isVisible = false
     }
 
+    /**
+     * Function description.
+     */
     fun close() {
         binding.clOpen.isVisible = false
         binding.llClose.isVisible = true
     }
 
      * @param tempList
+    /**
+     * Function description.
+     */
     fun refreshChart(tempList: List<Float>) {
         if (isVisible && binding.clOpen.isVisible) {
             binding.viewChartTrend.refresh(tempList)
         }
     }
 
+    /**
+     * Function description.
+     */
     fun setToEmpty() {
         binding.viewChartTrend.setToEmpty()
     }

@@ -23,6 +23,9 @@ public class TimeGMTUtils {
      * @param zone
      * @param time 0
      * @return boolean
+    /**
+     * Private method description.
+     */
     private static boolean isDaylight(TimeZone zone, String time) {
         try {
             @SuppressLint("SimpleDateFormat")
@@ -37,6 +40,9 @@ public class TimeGMTUtils {
 
      * @param time 2022-11-01 20:50:13 GMT
      * @return String
+    /**
+     * Method description.
+     */
     public static String getGMTConvertTime(String time, String format) {
         try {
 //            LLog.w(bcf, GMT--time-- + time);
@@ -54,6 +60,9 @@ public class TimeGMTUtils {
         return "";
     }
 
+    /**
+     * Method description.
+     */
     public static String getDateToString(long milSecond, String gmt, String pattern) {
         Date date = new Date(milSecond);
         SimpleDateFormat format = new SimpleDateFormat(pattern);
@@ -66,6 +75,9 @@ public class TimeGMTUtils {
      * @param dateString 2022-07-13 09:58:09
      * @param pattern    yyyy-MM-dd HH:mm:ss
      * @return long
+    /**
+     * Method description.
+     */
     public static long getStringToDate(String dateString, String gmt, String pattern) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
         Date date = new Date();

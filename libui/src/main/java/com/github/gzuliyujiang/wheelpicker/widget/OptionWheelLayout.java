@@ -33,22 +33,37 @@ import java.util.List;
  * @since 2021/6/6 23:13
 @SuppressWarnings("unused")
 public class OptionWheelLayout extends BaseWheelLayout {
+    /**
+     * Private method description.
+     */
     private WheelView wheelView;
     private TextView labelView;
     private OnOptionSelectedListener onOptionSelectedListener;
 
+    /**
+     * Method description.
+     */
     public OptionWheelLayout(Context context) {
         super(context);
     }
 
+    /**
+     * Method description.
+     */
     public OptionWheelLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * Method description.
+     */
     public OptionWheelLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
+    /**
+     * Method description.
+     */
     public OptionWheelLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
@@ -111,32 +126,53 @@ public class OptionWheelLayout extends BaseWheelLayout {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onWheelSelected(WheelView view, int position) {
         if (onOptionSelectedListener != null) {
             onOptionSelectedListener.onOptionSelected(position, wheelView.getItem(position));
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setData(List<?> data) {
         wheelView.setData(data);
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultValue(Object value) {
         wheelView.setDefaultValue(value);
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultPosition(int position) {
         wheelView.setDefaultPosition(position);
     }
 
+    /**
+     * Method description.
+     */
     public void setOnOptionSelectedListener(OnOptionSelectedListener onOptionSelectedListener) {
         this.onOptionSelectedListener = onOptionSelectedListener;
     }
 
+    /**
+     * Method description.
+     */
     public final WheelView getWheelView() {
         return wheelView;
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getLabelView() {
         return labelView;
     }

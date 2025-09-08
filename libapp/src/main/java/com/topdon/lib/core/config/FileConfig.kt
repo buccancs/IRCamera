@@ -12,11 +12,15 @@ object FileConfig {
     
      * Gallery path for thermal images.
     @JvmStatic
+    /** galleryPath property */
     val galleryPath: String
         get() = gallerySourDir
     
      * .
      * .
+    /**
+     * Function description.
+     */
     fun getDetectImageDir(context: Context, child: String): File {
         val externalDir = context.getExternalFilesDir("detect")
         return if (externalDir == null) {
@@ -32,6 +36,9 @@ object FileConfig {
 
      * .
      * .
+    /**
+     * Function description.
+     */
     fun getSignImageDir(context: Context, child: String): File {
         val externalDir = context.getExternalFilesDir("sign")
         return if (externalDir == null) {
@@ -46,10 +53,16 @@ object FileConfig {
     }
 
      * .
+    /**
+     * Function description.
+     */
     fun getFirmwareFile(filename: String): File = File(Utils.getApp().getExternalFilesDir("firmware"), filename)
 
      * .
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun getPdfDir(): String {
         return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             val dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).absolutePath
@@ -66,6 +79,7 @@ object FileConfig {
 
      *  Excel .
     @JvmStatic
+    /** excelDir property */
     val excelDir: String
         get() {
             return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
@@ -83,6 +97,7 @@ object FileConfig {
 
 
     @JvmStatic
+    /** gallerySourDir property */
     val gallerySourDir: String
         get() {
             val result = Utils.getApp().getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!.absolutePath + File.separator + "TopInfrared"
@@ -95,6 +110,7 @@ object FileConfig {
 
      *  APP TC001
     @JvmStatic
+    /** oldTc001GalleryDir property */
     val oldTc001GalleryDir: String
         get() {
             val dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
@@ -106,12 +122,16 @@ object FileConfig {
             return path
         }
 
+    /**
+     * Function description.
+     */
     fun getGalleryDirByType(currentDirType : DirType) : String = when (currentDirType) {
         DirType.LINE -> lineGalleryDir
         // Only LINE (TC001) is supported
     }
 
     @JvmStatic
+    /** lineGalleryDir property */
     val lineGalleryDir: String
         get() {
             val dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
@@ -125,6 +145,7 @@ object FileConfig {
 
      * TS004
     @JvmStatic
+    /** ts004GalleryDir property */
     val ts004GalleryDir: String
         get() {
             val dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
@@ -138,6 +159,7 @@ object FileConfig {
 
      * TC007
     @JvmStatic
+    /** tc007GalleryDir property */
     val tc007GalleryDir: String
         get() {
             val dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
@@ -150,6 +172,7 @@ object FileConfig {
         }
 
     @JvmStatic
+    /** lineIrGalleryDir property */
     val lineIrGalleryDir: String
         get() {
             val dir = Utils.getApp().getExternalFilesDir(Environment.DIRECTORY_DCIM)!!.absolutePath
@@ -163,6 +186,7 @@ object FileConfig {
 
      * TC007
     @JvmStatic
+    /** tc007IrGalleryDir property */
     val tc007IrGalleryDir: String
         get() {
             val dir = Utils.getApp().getExternalFilesDir(Environment.DIRECTORY_DCIM)!!.absolutePath
@@ -178,6 +202,7 @@ object FileConfig {
 
      * /Documents/APP/house
     @JvmStatic
+    /** documentsDir property */
     val documentsDir: String
         get() {
             return if (Build.VERSION.SDK_INT < 29) {

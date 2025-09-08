@@ -13,44 +13,72 @@ import com.csl.irCamera.libapp.databinding.DialogConfirmSelectBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
  * TS004 .
- * Created by LCG on 2024/2/29.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog), View.OnClickListener {
 
     private lateinit var binding: DialogConfirmSelectBinding
+    /** onConfirmClickListener property */
     var onConfirmClickListener: ((isSelect: Boolean) -> Unit)? = null
 
      * .
+    /**
+     * Function description.
+     */
     fun setShowIcon(isShowIcon: Boolean) {
         binding.ivIcon.isVisible = isShowIcon
     }
 
+    /**
+     * Function description.
+     */
     fun setTitleRes(@StringRes titleRes: Int) {
         binding.tvTitle.setText(titleRes)
     }
 
+    /**
+     * Function description.
+     */
     fun setTitleStr(titleStr: String) {
         binding.tvTitle.text = titleStr
     }
 
      * .
+    /**
+     * Function description.
+     */
     fun setShowMessage(isShowMessage: Boolean) {
         binding.rlMessage.isVisible = isShowMessage
     }
 
+    /**
+     * Function description.
+     */
     fun setMessageRes(@StringRes messageRes: Int) {
         binding.tvMessage.setText(messageRes)
     }
 
      * “”.
+    /**
+     * Function description.
+     */
     fun setShowCancel(isShowCancel: Boolean) {
         binding.tvCancel.isVisible = isShowCancel
     }
      * “”.
+    /**
+     * Function description.
+     */
     fun setCancelText(@StringRes cancelRes: Int) {
         binding.tvCancel.setText(cancelRes)
     }
 
      * “
+    /**
+     * Function description.
+     */
     fun setConfirmText(@StringRes confirmRes: Int) {
         binding.tvConfirm.setText(confirmRes)
     }

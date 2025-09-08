@@ -45,6 +45,9 @@ public abstract class AxisRenderer extends Renderer {
      */
     protected Paint mLimitLinePaint;
 
+    /**
+     * Method description.
+     */
     public AxisRenderer(ViewPortHandler viewPortHandler, Transformer trans, AxisBase axis) {
         super(viewPortHandler);
 
@@ -76,6 +79,9 @@ public abstract class AxisRenderer extends Renderer {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public Paint getPaintAxisLabels() {
         return mAxisLabelPaint;
     }
@@ -85,6 +91,9 @@ public abstract class AxisRenderer extends Renderer {
      * axis.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public Paint getPaintGrid() {
         return mGridPaint;
@@ -96,6 +105,9 @@ public abstract class AxisRenderer extends Renderer {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public Paint getPaintAxisLine() {
         return mAxisLinePaint;
     }
@@ -104,6 +116,9 @@ public abstract class AxisRenderer extends Renderer {
      * Returns the Transformer object used for transforming the axis values.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public Transformer getTransformer() {
         return mTrans;
@@ -114,6 +129,9 @@ public abstract class AxisRenderer extends Renderer {
      *
      * @param min - the minimum value in the data object for this axis
      * @param max - the maximum value in the data object for this axis
+     */
+    /**
+     * Method description.
      */
     public void computeAxis(float min, float max, boolean inverted) {
 

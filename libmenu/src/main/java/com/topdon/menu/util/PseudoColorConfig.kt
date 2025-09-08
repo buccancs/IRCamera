@@ -5,6 +5,9 @@ object PseudoColorConfig {
      * 1- 3- 4-1 5-2 6-3 7- 8- 9-4 10-5 11-
      * @param code ，（2D、）
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun getColors(code: Int): IntArray = when (code) {
         1 -> intArrayOf(0xffffffff.toInt(), 0xff000000.toInt())
         3 -> intArrayOf(0xfffbda00.toInt(), 0xffea0e0e.toInt(), 0xff6907af.toInt())
@@ -20,6 +23,9 @@ object PseudoColorConfig {
     }
 
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun getPositions(code: Int): FloatArray = when (code) {
         1 -> floatArrayOf(0f, 1f)
         3 -> floatArrayOf(0f, 0.5f, 1f)
@@ -35,8 +41,14 @@ object PseudoColorConfig {
     }
 
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun getSeekBarColors(): IntArray = intArrayOf(0xffdddddd.toInt(), 0xff333333.toInt())
 
     @JvmStatic
+    /**
+     * Function description.
+     */
     fun getSeekBarAlpha(): FloatArray = floatArrayOf(0f, 1f)
 }

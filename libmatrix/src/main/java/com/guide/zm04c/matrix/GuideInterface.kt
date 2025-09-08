@@ -79,6 +79,7 @@ class GuideInterface {
         mUsbBufferWriteThread!!.start()
     }
 
+    /** startTime property */
     var startTime = 0L
 
      * ,
@@ -168,6 +169,9 @@ class GuideInterface {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    /**
+     * Function description.
+     */
     fun init(context: Context?, irDataCallback: IrDataCallback?): Int {
         mNativeGuideCore = NativeGuideCore()
         mGuideUsbManager = GuideUsbManager(context, mNativeGuideCore)
@@ -184,6 +188,9 @@ class GuideInterface {
         return ret
     }
 
+    /**
+     * Function description.
+     */
     fun exit() {
         stopUsbBufferWriteThread()
         stopUsbBufferReadThread()
@@ -196,6 +203,9 @@ class GuideInterface {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun shutter() {
         if (mGuideUsbManager == null) {
             return
@@ -203,6 +213,9 @@ class GuideInterface {
         mGuideUsbManager!!.shutter()
     }
 
+    /**
+     * Function description.
+     */
     fun nuc() {
         if (mGuideUsbManager == null) {
             return
@@ -210,6 +223,9 @@ class GuideInterface {
         mGuideUsbManager!!.nuc()
     }
 
+    /**
+     * Function description.
+     */
     fun changePalette(i: Int) {
         Log.d(TAG, "changePalette() called with: i = [$i]")
         if (mGuideUsbManager == null) {
@@ -221,6 +237,9 @@ class GuideInterface {
         mGuideUsbManager!!.changePalette(i)
     }
 
+    /**
+     * Function description.
+     */
     fun setDistance(distance: Float) {
         if (mGuideUsbManager == null) {
             return
@@ -228,6 +247,9 @@ class GuideInterface {
         mGuideUsbManager!!.setDistance(distance)
     }
 
+    /**
+     * Function description.
+     */
     fun getDistance(): Float {
         if (mNativeGuideCore == null) {
             return (-1).toFloat()
@@ -236,6 +258,9 @@ class GuideInterface {
         return getParam(PARAM_INDEX_DISTANCE * 2, 1, 0) * 1.0f / 10
     }
 
+    /**
+     * Function description.
+     */
     fun setBright(bright: Int) {
         if (mGuideUsbManager == null) {
             return
@@ -246,6 +271,9 @@ class GuideInterface {
         mGuideUsbManager!!.setBright(bright)
     }
 
+    /**
+     * Function description.
+     */
     fun getBright(): Int {
         if (mNativeGuideCore == null) {
             return -1
@@ -254,6 +282,9 @@ class GuideInterface {
         return getParam(PARAM_INDEX_BRIGHT * 2, 1, 0).toInt()
     }
 
+    /**
+     * Function description.
+     */
     fun setContrast(contrast: Int) {
         if (mGuideUsbManager == null) {
             return
@@ -264,6 +295,9 @@ class GuideInterface {
         mGuideUsbManager!!.setContrast(contrast)
     }
 
+    /**
+     * Function description.
+     */
     fun getContrast(): Int {
         if (mNativeGuideCore == null) {
             return -1
@@ -274,6 +308,9 @@ class GuideInterface {
 
 
     //    int count = 0;
+    /**
+     * Function description.
+     */
     fun yuv2Bitmap(bitmap: Bitmap?, yuv: ByteArray?) {
         if (mNativeGuideCore == null) {
             return
@@ -288,6 +325,9 @@ class GuideInterface {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun saveTempMatrix(path: String?) {
         synchronized(mLock) {
             saveFile(
@@ -297,6 +337,9 @@ class GuideInterface {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun setRange(range: Int) {
         if (mGuideUsbManager == null) {
             return
@@ -305,6 +348,9 @@ class GuideInterface {
     }
 
 
+    /**
+     * Function description.
+     */
     fun setEmiss(emiss: Int) {
         if (mGuideUsbManager == null) {
             return
@@ -315,6 +361,9 @@ class GuideInterface {
         mGuideUsbManager!!.setEmiss(emiss)
     }
 
+    /**
+     * Function description.
+     */
     fun getEmiss(): Int {
         if (mNativeGuideCore == null) {
             return -1
@@ -323,6 +372,9 @@ class GuideInterface {
         return getParam(PARAM_INDEX_EMISS * 2, 1, 0).toInt()
     }
 
+    /**
+     * Function description.
+     */
     fun getFirmwareVersion(): String? {
         val PARAM_INDEX_ASIC_MAIN_VERSION = 32
         val DOT = "."
@@ -347,28 +399,43 @@ class GuideInterface {
         return asicVersion.toString()
     }
 
+    /**
+     * Function description.
+     */
     fun getSN(): String {
         val PARAM_INDEX_SN = 39
         val bytes = getParam(PARAM_INDEX_SN * 2, 15)
         return String(bytes, StandardCharsets.US_ASCII)
     }
 
+    /**
+     * Function description.
+     */
     fun getId(): String {
         val PARAM_INDEX_ID = 192
         val bytes = getParam(PARAM_INDEX_ID * 2, 17)
         return String(bytes, StandardCharsets.US_ASCII)
     }
 
+    /**
+     * Function description.
+     */
     fun getShutterStatus(): Int {
         val PARAM_INDEX_SHUTTER_STATUS = 12
         return getParam(PARAM_INDEX_SHUTTER_STATUS * 2, 1, 0).toInt()
     }
 
+    /**
+     * Function description.
+     */
     fun getImageStatus(): Int {
         val PARAM_INDEX_IMAGE_STATUS = 13
         return getParam(PARAM_INDEX_IMAGE_STATUS * 2, 1, 0).toInt()
     }
 
+    /**
+     * Function description.
+     */
     fun upgrade(path: String?): FirmwareUpgradeResultCode? {
         if (mGuideUsbManager == null) {
             return FirmwareUpgradeResultCode.USB_DEVICE_ERROR

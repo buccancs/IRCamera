@@ -45,6 +45,9 @@ public abstract class DataRenderer extends Renderer {
      */
     protected Paint mValuePaint;
 
+    /**
+     * Method description.
+     */
     public DataRenderer(ChartAnimator animator, ViewPortHandler viewPortHandler) {
         super(viewPortHandler);
         this.mAnimator = animator;
@@ -82,6 +85,9 @@ public abstract class DataRenderer extends Renderer {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public Paint getPaintValues() {
         return mValuePaint;
     }
@@ -92,6 +98,9 @@ public abstract class DataRenderer extends Renderer {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public Paint getPaintHighlight() {
         return mHighlightPaint;
     }
@@ -100,6 +109,9 @@ public abstract class DataRenderer extends Renderer {
      * Returns the Paint object used for rendering.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public Paint getPaintRender() {
         return mRenderPaint;

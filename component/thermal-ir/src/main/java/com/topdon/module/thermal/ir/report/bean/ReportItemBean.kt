@@ -7,15 +7,23 @@ import kotlinx.parcelize.Parcelize
  * .
 @Parcelize
 data class ReportItemBean(
+    /** testReportId property */
     val testReportId: String?,
+    /** testInfo property */
     val testInfo: String?, // JSON
+    /** testTime property */
     val testTime: String?,
+    /** uploadTime property */
     val uploadTime: String?, //
+    /** sn property */
     val sn: String?,
+    /** url property */
     val url: String?,
+    /** status property */
     val status: Int?
 ) : Parcelable {
 
+    /** reportBean property */
     var reportBean: ReportBean? = null
         get() {
             if (field == null) {
@@ -24,6 +32,8 @@ data class ReportItemBean(
             return field
         }
 
+    /** isFirst property */
     var isFirst: Boolean = false
+    /** isTitle property */
     var isTitle: Boolean = false
 }

@@ -26,9 +26,15 @@ import java.util.Locale;
 @SuppressLint("ViewConstructor")
 public class MyMarkerView extends MarkerView {
 
+    /**
+     * Private method description.
+     */
     private final TextView tvContent;
     private final TextView timeText;
 
+    /**
+     * Method description.
+     */
     public MyMarkerView(Context context, int layoutResource) {
         super(context, layoutResource);
         tvContent = findViewById(R.id.tvContent);
@@ -39,6 +45,9 @@ public class MyMarkerView extends MarkerView {
     // content (user-interface)
     @SuppressLint({"DefaultLocale", "SetTextI18n"})
     @Override
+    /**
+     * Method description.
+     */
     public void refreshContent(Entry e, Highlight highlight) {
         try {
             if (e instanceof CandleEntry) {
@@ -72,6 +81,9 @@ public class MyMarkerView extends MarkerView {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public MPPointF getOffset() {
         return new MPPointF(-(getWidth() / 2f), -getHeight());
     }

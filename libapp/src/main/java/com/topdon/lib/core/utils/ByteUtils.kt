@@ -92,6 +92,9 @@ object ByteUtils {
     }
 
      *  ******  Int44.
+    /**
+     * Function description.
+     */
     fun bigBytesToInt(vararg bytes: Byte): Int {
         val byteCount = bytes.size.coerceAtMost(4)
         var result = 0

@@ -89,16 +89,43 @@ class ReportIRInputView: LinearLayout {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun isSwitchMaxCheck() = binding.clMax.switchItem.isChecked
+    /**
+     * Function description.
+     */
     fun isSwitchMinCheck() = binding.clMin.switchItem.isChecked
+    /**
+     * Function description.
+     */
     fun isSwitchAverageCheck() = binding.clAverage.switchItem.isChecked
+    /**
+     * Function description.
+     */
     fun isSwitchExplainCheck() = binding.clExplain.switchItem.isChecked
 
+    /**
+     * Function description.
+     */
     fun getMaxInput() = binding.clMax.etItem.text.toString()
+    /**
+     * Function description.
+     */
     fun getMinInput() = binding.clMin.etItem.text.toString()
+    /**
+     * Function description.
+     */
     fun getAverageInput() = binding.clAverage.etItem.text.toString()
+    /**
+     * Function description.
+     */
     fun getExplainInput() = binding.clExplain.etItem.text.toString()
 
+    /**
+     * Function description.
+     */
     fun refreshData(tempBean: ImageTempBean.TempBean?) {
         tempBean?.max?.let {
             binding.clMax.etItem.setText(UnitTools.showUnitValue(it.toFloat())?.toString())

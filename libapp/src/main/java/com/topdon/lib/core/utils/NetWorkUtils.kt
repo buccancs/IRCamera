@@ -21,6 +21,7 @@ object NetWorkUtils {
 
     private var mNetworkCallback: ConnectivityManager.NetworkCallback ?= null
     private var netWorkListener : ((network: Network?) -> Unit) ?= null
+    /** connectivityManager property */
     val connectivityManager by lazy {
         BaseApplication.instance.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     }
@@ -28,6 +29,9 @@ object NetWorkUtils {
         BaseApplication.instance.getSystemService(Context.WIFI_SERVICE) as WifiManager
     }
 
+    /**
+     * Function description.
+     */
     fun isWifiNameValid(context: Context, prefixes: List<String>): Boolean {
         val wifiManager = context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
         val wifiInfo = wifiManager.connectionInfo
@@ -40,6 +44,9 @@ object NetWorkUtils {
         return false
     }
 
+    /**
+     * Function description.
+     */
     fun connectWifi(ssid: String, password: String, listener: ((network: Network?) -> Unit)? = null) {
         netWorkListener = listener
         if (Build.VERSION.SDK_INT < 29) {// Android10
@@ -137,6 +144,9 @@ object NetWorkUtils {
     }
 
 
+    /**
+     * Function description.
+     */
     fun switchNetwork(isWifi: Boolean, listener: ((network: Network?) -> Unit)? = null) {
         if (Build.VERSION.SDK_INT < 29) {// Android10
             return

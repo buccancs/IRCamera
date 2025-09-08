@@ -26,6 +26,9 @@ public abstract class ViewPortJob extends ObjectPool.Poolable implements Runnabl
     protected Transformer mTrans;
     protected View view;
 
+    /**
+     * Method description.
+     */
     public ViewPortJob(ViewPortHandler viewPortHandler, float xValue, float yValue,
                        Transformer trans, View v) {
 
@@ -37,10 +40,16 @@ public abstract class ViewPortJob extends ObjectPool.Poolable implements Runnabl
 
     }
 
+    /**
+     * Method description.
+     */
     public float getXValue() {
         return xValue;
     }
 
+    /**
+     * Method description.
+     */
     public float getYValue() {
         return yValue;
     }

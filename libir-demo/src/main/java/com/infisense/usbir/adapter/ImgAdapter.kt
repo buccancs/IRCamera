@@ -18,6 +18,7 @@ import com.infisense.usbir.databinding.ItemFilterBinding
 class ImgAdapter(
     private val context: Context,
     private val mDataList: ArrayList<ImgBean>,
+    /** listenter property */
     var listenter: OnItemOnClickListenter
 ) : RecyclerView.Adapter<ImgAdapter.ViewHolder>() {
 
@@ -32,6 +33,9 @@ class ImgAdapter(
         return ViewHolder(binding)
     }
 
+    /**
+     * Function description.
+     */
     fun setBitmap(bitmap: Bitmap?) {
         this.bitmap = bitmap
         notifyDataSetChanged()
@@ -41,6 +45,9 @@ class ImgAdapter(
      * @param dst_w
      * @param dst_h
      * @return
+    /**
+     * Function description.
+     */
     fun imageScale(bitmap: Bitmap, dst_w: Int, dst_h: Int): Bitmap {
         val src_w = bitmap.width
         val src_h = bitmap.height
@@ -51,6 +58,7 @@ class ImgAdapter(
         return Bitmap.createBitmap(bitmap, 0, 0, src_w, src_h, matrix, true)
     }
 
+    /** canvas property */
     var canvas: Canvas? = null
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

@@ -19,6 +19,9 @@ import com.github.gzuliyujiang.wheelview.contract.WheelFormatter;
 public class SimpleWheelFormatter implements WheelFormatter {
 
     @Override
+    /**
+     * Method description.
+     */
     public String formatItem(@NonNull Object item) {
         return item.toString();
     }

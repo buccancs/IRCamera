@@ -17,6 +17,9 @@ import java.util.List;
  */
 public class ObjectPool<T extends ObjectPool.Poolable> {
 
+    /**
+     * Private method description.
+     */
     private static int ids = 0;
 
     private int poolId;
@@ -32,6 +35,9 @@ public class ObjectPool<T extends ObjectPool.Poolable> {
      *
      * @return an integer ID belonging to this pool instance.
      */
+    /**
+     * Method description.
+     */
     public int getPoolId(){
         return poolId;
     }
@@ -43,6 +49,9 @@ public class ObjectPool<T extends ObjectPool.Poolable> {
      * @param object An instance of the object that the pool should recycle.
      * @return
      */
+    /**
+     * Method description.
+     */
     public static synchronized ObjectPool create(int withCapacity, Poolable object){
         ObjectPool result = new ObjectPool(withCapacity, object);
         result.poolId = ids;
@@ -51,6 +60,9 @@ public class ObjectPool<T extends ObjectPool.Poolable> {
         return result;
     }
 
+    /**
+     * Private method description.
+     */
     private ObjectPool(int withCapacity, T object){
         if(withCapacity <= 0){
             throw new IllegalArgumentException("Object Pool must be instantiated with a capacity greater than 0!");
@@ -69,6 +81,9 @@ public class ObjectPool<T extends ObjectPool.Poolable> {
      *
      * @param percentage a value between 0 and 1, representing the percentage of the pool to replenish.
      */
+    /**
+     * Method description.
+     */
     public void setReplenishPercentage(float percentage){
         float p = percentage;
         if(p > 1){
@@ -80,14 +95,23 @@ public class ObjectPool<T extends ObjectPool.Poolable> {
         this.replenishPercentage = p;
     }
 
+    /**
+     * Method description.
+     */
     public float getReplenishPercentage(){
         return replenishPercentage;
     }
 
+    /**
+     * Private method description.
+     */
     private void refillPool(){
         this.refillPool(this.replenishPercentage);
     }
 
+    /**
+     * Private method description.
+     */
     private void refillPool(float percentage){
         int portionOfCapacity = (int) (desiredCapacity * percentage);
 
@@ -110,6 +134,9 @@ public class ObjectPool<T extends ObjectPool.Poolable> {
      *
      * @return An instance of Poolable object T
      */
+    /**
+     * Method description.
+     */
     public synchronized T get(){
 
         if(this.objectsPointer == -1 && this.replenishPercentage > 0.0f){
@@ -128,6 +155,9 @@ public class ObjectPool<T extends ObjectPool.Poolable> {
      * The T instance passed must not already exist inside this or any other ObjectPool instance.
      *
      * @param object An object of type T to recycle
+     */
+    /**
+     * Method description.
      */
     public synchronized void recycle(T object){
         if(object.currentOwnerId != Poolable.NO_OWNER){
@@ -154,6 +184,9 @@ public class ObjectPool<T extends ObjectPool.Poolable> {
      *
      * @param objects A list of objects of type T to recycle
      */
+    /**
+     * Method description.
+     */
     public synchronized void recycle(List<T> objects){
         while(objects.size() + this.objectsPointer + 1 > this.desiredCapacity){
             this.resizePool();
@@ -176,6 +209,9 @@ public class ObjectPool<T extends ObjectPool.Poolable> {
         this.objectsPointer += objectsListSize;
     }
 
+    /**
+     * Private method description.
+     */
     private void resizePool() {
         final int oldCapacity = this.desiredCapacity;
         this.desiredCapacity *= 2;
@@ -193,6 +229,9 @@ public class ObjectPool<T extends ObjectPool.Poolable> {
      *
      * @return The capacity of the pool.
      */
+    /**
+     * Method description.
+     */
     public int getPoolCapacity(){
         return this.objects.length;
     }
@@ -202,11 +241,17 @@ public class ObjectPool<T extends ObjectPool.Poolable> {
      *
      * @return The number of objects remaining in the pool.
      */
+    /**
+     * Method description.
+     */
     public int getPoolCount(){
         return this.objectsPointer + 1;
     }
 
 
+    /**
+     * Method description.
+     */
     public static abstract class Poolable{
 
         public static int NO_OWNER = -1;

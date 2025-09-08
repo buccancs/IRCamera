@@ -9,11 +9,16 @@ import kotlinx.coroutines.launch
 
 class FirmwareViewModel : BaseViewModel() {
 
+    /** firmwareDataLD property */
     val firmwareDataLD = SingleLiveEvent<FirmwareData?>()
+    /** failLD property */
     val failLD = SingleLiveEvent<Boolean>()
 
     /**
      * Query firmware update information
+     */
+    /**
+     * Function description.
      */
     fun queryFirmware() {
         viewModelScope.launch(Dispatchers.IO) {

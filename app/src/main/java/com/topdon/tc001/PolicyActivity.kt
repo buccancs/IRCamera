@@ -147,6 +147,9 @@ class PolicyActivity : BaseViewModelActivity<PolicyViewModel>() {
      * @param fontColor
      * @param backgroundColor
      * @return String
+    /**
+     * Function description.
+     */
     fun getHtmlData(htmlBody: String, fontColor: String, backgroundColor: String): String {
         val head = "<head>" +
                 "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " +
@@ -160,6 +163,9 @@ class PolicyActivity : BaseViewModelActivity<PolicyViewModel>() {
         delayShowWebView()
     }
 
+    /**
+     * Function description.
+     */
     fun loadHttpWhenNotInit(view: WebView) {
         reloadCount--
         when (themeType) {
@@ -178,6 +184,9 @@ class PolicyActivity : BaseViewModelActivity<PolicyViewModel>() {
     }
 
      * ()
+    /**
+     * Function description.
+     */
     fun loadHttp(view: WebView) {
         reloadCount--
         when (themeType) {

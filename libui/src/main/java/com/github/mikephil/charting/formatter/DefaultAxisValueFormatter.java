@@ -24,6 +24,9 @@ public class DefaultAxisValueFormatter extends ValueFormatter
      *
      * @param digits
      */
+    /**
+     * Method description.
+     */
     public DefaultAxisValueFormatter(int digits) {
         this.digits = digits;
 
@@ -38,6 +41,9 @@ public class DefaultAxisValueFormatter extends ValueFormatter
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public String getFormattedValue(float value) {
         // avoid memory allocations here (for performance)
         return mFormat.format(value);
@@ -47,6 +53,9 @@ public class DefaultAxisValueFormatter extends ValueFormatter
      * Returns the number of decimal digits this formatter uses or -1, if unspecified.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public int getDecimalDigits() {
         return digits;

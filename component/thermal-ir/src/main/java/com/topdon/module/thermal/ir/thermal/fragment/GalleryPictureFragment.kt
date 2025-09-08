@@ -70,6 +70,9 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
         viewModel.getData()
     }
 
+    /**
+     * Function description.
+     */
     fun share(path: String) {
         val file = File(path)
         var intent = Intent()
@@ -86,6 +89,9 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
         startActivity(intent)
     }
 
+    /**
+     * Function description.
+     */
     fun previewPicture(path: String) {
         val imageEngine = GlideImageEngine()
         MNImageBrowser.with(context) //

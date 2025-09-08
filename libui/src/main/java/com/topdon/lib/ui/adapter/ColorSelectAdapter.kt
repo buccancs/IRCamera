@@ -13,10 +13,14 @@ import com.csl.irCamera.libui.databinding.UiItemColorSelectBinding
 
 class ColorSelectAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    /** listener property */
     var listener: ((code: Int, color: Int) -> Unit)? = null
     private var type = 0
     private var selected = -1
 
+    /**
+     * Function description.
+     */
     fun selected(index: Int) {
         selected = index
         notifyDataSetChanged()

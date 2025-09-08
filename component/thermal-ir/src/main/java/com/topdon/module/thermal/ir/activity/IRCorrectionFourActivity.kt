@@ -23,6 +23,7 @@ import org.greenrobot.eventbus.EventBus
 class IRCorrectionFourActivity : BaseActivity() {
 
     private lateinit var binding: ActivityIrCorrectionFourBinding
+    /** time property */
     val time = 60
 
     override fun initContentView(): Int = R.layout.activity_ir_correction_four

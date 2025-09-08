@@ -17,7 +17,10 @@ import com.topdon.module.thermal.ir.utils.IRConfigData
 import com.topdon.module.thermal.ir.databinding.ItemIrConfigEmissivityBinding
 
  * Adapter.
- * Created by LCG on 2024/11/13.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class ConfigEmAdapter(val context: Context) : RecyclerView.Adapter<ConfigEmAdapter.ViewHolder>() {
     private val dataList: ArrayList<IRConfigData> = IRConfigData.irConfigData(context)
 

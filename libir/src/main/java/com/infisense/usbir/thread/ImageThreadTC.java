@@ -35,11 +35,17 @@ import java.util.LinkedHashMap;
 public class ImageThreadTC extends Thread {
 
 
+    /**
+     * Method description.
+     */
     public static final int TYPE_AI_C = -1;//
     public static final int TYPE_AI_D = 0;//
     public static final int TYPE_AI_H = 1;//
     public static final int TYPE_AI_L = 2;//
 
+    /**
+     * Private method description.
+     */
     private byte[] imgTmp;
     private String TAG = "ImageThread";
     private Context mContext;
@@ -82,18 +88,30 @@ public class ImageThreadTC extends Thread {
     }
 
 
+    /**
+     * Method description.
+     */
     public int getTypeAi() {
         return typeAi;
     }
 
+    /**
+     * Method description.
+     */
     public void setTypeAi(int typeAi) {
         this.typeAi = typeAi;
     }
 
+    /**
+     * Method description.
+     */
     public AlarmBean getAlarmBean() {
         return alarmBean;
     }
 
+    /**
+     * Method description.
+     */
     public void setAlarmBean(AlarmBean alarmBean) {
         this.alarmBean = alarmBean;
     }
@@ -102,34 +120,58 @@ public class ImageThreadTC extends Thread {
 
 
 
+    /**
+     * Method description.
+     */
     public void setSyncImage(SynchronizedBitmap syncimage) {
         this.syncimage = syncimage;
     }
 
+    /**
+     * Method description.
+     */
     public void setImageSrc(byte[] imageSrc) {
         this.imageSrc = imageSrc;
     }
 
+    /**
+     * Method description.
+     */
     public int getPseudocolorMode() {
         return pseudocolorMode;
     }
 
+    /**
+     * Method description.
+     */
     public void setPseudocolorMode(int pseudocolorMode) {
         this.pseudocolorMode = pseudocolorMode;
     }
 
+    /**
+     * Method description.
+     */
     public void setTemperatureSrc(byte[] temperatureSrc) {
         this.temperatureSrc = temperatureSrc;
     }
 
+    /**
+     * Method description.
+     */
     public void setRotate(boolean rotate) {
         this.rotate = rotate;
     }
 
+    /**
+     * Method description.
+     */
     public void setRotate(int rotateInt) {
         this.rotateInt = rotateInt;
     }
 
+    /**
+     * Method description.
+     */
     public ImageThreadTC(Context context, int imageWidth, int imageHeight) {
         Log.i(TAG, "ImageThread create->imageWidth = " + imageWidth + " imageHeight = " + imageHeight);
         this.mContext = context;
@@ -145,11 +187,17 @@ public class ImageThreadTC extends Thread {
         amplifyRotateArray = new byte[imageWidth * MULTIPLE * imageHeight * MULTIPLE * 4];
     }
 
+    /**
+     * Method description.
+     */
     public void setLimit(float max, float min) {
         this.max = max;
         this.min = min;
     }
 
+    /**
+     * Method description.
+     */
     public void setLimit(float max, float min, int maxColor, int minColor) {
         this.max = max;
         this.min = min;
@@ -157,15 +205,24 @@ public class ImageThreadTC extends Thread {
         this.minColor = minColor;
     }
 
+    /**
+     * Method description.
+     */
     public void setDataFlowMode(CommonParams.DataFlowMode dataFlowMode) {
         this.dataFlowMode = dataFlowMode;
     }
 
+    /**
+     * Method description.
+     */
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void run() {
         while (!isInterrupted()) {
             synchronized (syncimage.dataLock) {
@@ -292,6 +349,9 @@ public class ImageThreadTC extends Thread {
         Log.i(TAG, "ImageThread exit");
     }
 
+    /**
+     * Method description.
+     */
     public Bitmap getBaseBitmap(int rotateInt){
         Bitmap baseBitmap = null;
         if (rotateInt == 0 || rotateInt == 180) {
@@ -305,10 +365,16 @@ public class ImageThreadTC extends Thread {
 
 
 
+    /**
+     * Private method description.
+     */
     private ColorRGB getColorRGBByMap(LinkedHashMap<Integer, ColorRGB> map, Integer key) {
         return map.get(key);
     }
 
+    /**
+     * Method description.
+     */
     public void setColorList(@Nullable int[] colorList, @Nullable float[] places, boolean isUseGray,
                              float customMaxTemp, float customMinTemp) {
         irImageHelp.setColorList(colorList, places, isUseGray,customMaxTemp,customMinTemp);

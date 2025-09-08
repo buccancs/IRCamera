@@ -18,7 +18,10 @@ import org.greenrobot.eventbus.ThreadMode
 
  *  DataBinding  Fragment.
  *  BaseFragment .
- * Created by LCG on 2024/11/5.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 abstract class BaseBindingFragment<B : ViewDataBinding> : Fragment() {
 
      *  [onDestroyView]  binding  null
@@ -59,6 +62,9 @@ abstract class BaseBindingFragment<B : ViewDataBinding> : Fragment() {
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun onUSBLineStateChange(event: DeviceConnectEvent) {
         if (event.isConnect) {
             connected()
@@ -77,6 +83,9 @@ abstract class BaseBindingFragment<B : ViewDataBinding> : Fragment() {
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun onSocketConnectState(event: SocketStateEvent) {
         if (event.isConnect) {
             onSocketConnected(event.isTS004)
@@ -95,10 +104,16 @@ abstract class BaseBindingFragment<B : ViewDataBinding> : Fragment() {
      *  LMS .
     private var loadingDialog: LoadingDialog? = null
      * .
+    /**
+     * Function description.
+     */
     fun showLoadingDialog(@StringRes resId: Int) {
         showLoadingDialog(getString(resId))
     }
      * .
+    /**
+     * Function description.
+     */
     fun showLoadingDialog(text: CharSequence?) {
         if (loadingDialog == null) {
             loadingDialog = LoadingDialog(requireContext())
@@ -107,6 +122,9 @@ abstract class BaseBindingFragment<B : ViewDataBinding> : Fragment() {
         loadingDialog?.show()
     }
      * .
+    /**
+     * Function description.
+     */
     fun dismissLoadingDialog() {
         loadingDialog?.dismiss()
     }

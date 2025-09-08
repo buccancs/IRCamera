@@ -6,7 +6,10 @@ import androidx.annotation.StringRes
 import com.topdon.menu.R
 
  * -2- Adapter，.
- * Created by LCG on 2024/11/29.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 @SuppressLint("NotifyDataSetChanged")
 internal class TempSourceAdapter : BaseMenuAdapter() {
      * code.
@@ -15,6 +18,7 @@ internal class TempSourceAdapter : BaseMenuAdapter() {
      * - ：0
      * - ：1
      * - ：2
+    /** selectCode property */
     var selectCode: Int = -1
         set(value) {
             if (field != value) {
@@ -24,6 +28,7 @@ internal class TempSourceAdapter : BaseMenuAdapter() {
         }
 
      * -2- ，。
+    /** onTempSourceListener property */
     var onTempSourceListener: ((code: Int) -> Unit)? = null
 
 

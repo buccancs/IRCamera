@@ -15,6 +15,9 @@ public abstract class Renderer {
      */
     protected ViewPortHandler mViewPortHandler;
 
+    /**
+     * Method description.
+     */
     public Renderer(ViewPortHandler viewPortHandler) {
         this.mViewPortHandler = viewPortHandler;
     }

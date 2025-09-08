@@ -31,6 +31,9 @@ public class CombinedChart extends BarLineChartBase<CombinedData> implements Com
      * if set to true, all values are drawn above their bars, instead of below
      * their top
      */
+    /**
+     * Private method description.
+     */
     private boolean mDrawValueAboveBar = true;
 
 
@@ -51,18 +54,30 @@ public class CombinedChart extends BarLineChartBase<CombinedData> implements Com
      * enum that allows to specify the order in which the different data objects
      * for the combined-chart are drawn
      */
+    /**
+     * Method description.
+     */
     public enum DrawOrder {
         BAR, BUBBLE, LINE, CANDLE, SCATTER
     }
 
+    /**
+     * Method description.
+     */
     public CombinedChart(Context context) {
         super(context);
     }
 
+    /**
+     * Method description.
+     */
     public CombinedChart(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * Method description.
+     */
     public CombinedChart(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
@@ -85,11 +100,17 @@ public class CombinedChart extends BarLineChartBase<CombinedData> implements Com
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public CombinedData getCombinedData() {
         return mData;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setData(CombinedData data) {
         super.setData(data);
         setHighlighter(new CombinedHighlighter(this, this));
@@ -107,6 +128,9 @@ public class CombinedChart extends BarLineChartBase<CombinedData> implements Com
      * @return
      */
     @Override
+    /**
+     * Method description.
+     */
     public Highlight getHighlightByTouchPoint(float x, float y) {
 
         if (mData == null) {
@@ -124,6 +148,9 @@ public class CombinedChart extends BarLineChartBase<CombinedData> implements Com
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public LineData getLineData() {
         if (mData == null)
             return null;
@@ -131,6 +158,9 @@ public class CombinedChart extends BarLineChartBase<CombinedData> implements Com
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public BarData getBarData() {
         if (mData == null)
             return null;
@@ -138,6 +168,9 @@ public class CombinedChart extends BarLineChartBase<CombinedData> implements Com
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public ScatterData getScatterData() {
         if (mData == null)
             return null;
@@ -145,6 +178,9 @@ public class CombinedChart extends BarLineChartBase<CombinedData> implements Com
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public CandleData getCandleData() {
         if (mData == null)
             return null;
@@ -152,6 +188,9 @@ public class CombinedChart extends BarLineChartBase<CombinedData> implements Com
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public BubbleData getBubbleData() {
         if (mData == null)
             return null;
@@ -159,11 +198,17 @@ public class CombinedChart extends BarLineChartBase<CombinedData> implements Com
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean isDrawBarShadowEnabled() {
         return mDrawBarShadow;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean isDrawValueAboveBarEnabled() {
         return mDrawValueAboveBar;
     }
@@ -173,6 +218,9 @@ public class CombinedChart extends BarLineChartBase<CombinedData> implements Com
      * their top.
      *
      * @param enabled
+     */
+    /**
+     * Method description.
      */
     public void setDrawValueAboveBar(boolean enabled) {
         mDrawValueAboveBar = enabled;
@@ -185,6 +233,9 @@ public class CombinedChart extends BarLineChartBase<CombinedData> implements Com
      *
      * @param enabled
      */
+    /**
+     * Method description.
+     */
     public void setDrawBarShadow(boolean enabled) {
         mDrawBarShadow = enabled;
     }
@@ -195,6 +246,9 @@ public class CombinedChart extends BarLineChartBase<CombinedData> implements Com
      *
      * @param enabled
      */
+    /**
+     * Method description.
+     */
     public void setHighlightFullBarEnabled(boolean enabled) {
         mHighlightFullBarEnabled = enabled;
     }
@@ -203,6 +257,9 @@ public class CombinedChart extends BarLineChartBase<CombinedData> implements Com
      * @return true the highlight operation is be full-bar oriented, false if single-value
      */
     @Override
+    /**
+     * Method description.
+     */
     public boolean isHighlightFullBarEnabled() {
         return mHighlightFullBarEnabled;
     }
@@ -211,6 +268,9 @@ public class CombinedChart extends BarLineChartBase<CombinedData> implements Com
      * Returns the currently set draw order.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public DrawOrder[] getDrawOrder() {
         return mDrawOrder;
@@ -223,6 +283,9 @@ public class CombinedChart extends BarLineChartBase<CombinedData> implements Com
      * DrawOrder.LINE }, the bars will be drawn behind the lines.
      *
      * @param order
+     */
+    /**
+     * Method description.
      */
     public void setDrawOrder(DrawOrder[] order) {
         if (order == null || order.length <= 0)

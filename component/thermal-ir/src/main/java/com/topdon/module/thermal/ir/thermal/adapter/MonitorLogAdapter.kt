@@ -16,8 +16,10 @@ import com.topdon.module.thermal.ir.databinding.ItemLogBinding
 class MonitorLogAdapter(val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    /** listener property */
     var listener: OnItemClickListener? = null
 
+    /** datas property */
     var datas = arrayListOf<ThermalEntity>()
         set(value) {
             field = value

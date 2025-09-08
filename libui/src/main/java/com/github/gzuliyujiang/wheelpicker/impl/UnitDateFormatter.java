@@ -17,16 +17,25 @@ import com.github.gzuliyujiang.wheelpicker.contract.DateFormatter;
 public class UnitDateFormatter implements DateFormatter {
 
     @Override
+    /**
+     * Method description.
+     */
     public String formatYear(int year) {
         return year + "";
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public String formatMonth(int month) {
         return month + "";
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public String formatDay(int day) {
         return day + "";
     }

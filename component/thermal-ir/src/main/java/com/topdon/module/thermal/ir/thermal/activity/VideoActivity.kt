@@ -23,6 +23,7 @@ class VideoActivity : BaseActivity() {
         const val KEY_PATH = "video_path"
     }
 
+    /** videoPath property */
     var videoPath = ""
     
     private lateinit var binding: ActivityVideoBinding

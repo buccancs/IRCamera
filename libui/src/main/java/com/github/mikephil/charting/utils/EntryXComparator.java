@@ -10,6 +10,9 @@ import java.util.Comparator;
  */
 public class EntryXComparator implements Comparator<Entry> {
     @Override
+    /**
+     * Method description.
+     */
     public int compare(Entry entry1, Entry entry2) {
         float diff = entry1.getX() - entry2.getX();
 

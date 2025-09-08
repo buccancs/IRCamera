@@ -11,14 +11,19 @@ import android.view.View
 import com.blankj.utilcode.util.SizeUtils
 
  *  .
- * Created by LCG on 2024/10/14.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class EmissivityView : View {
     companion object {
          * dp.
         private const val DEFAULT_STROKE_WIDTH: Float = 0.5f
     }
 
+    /** isAlignTop property */
     var isAlignTop = false
+    /** drawTopLine property */
     var drawTopLine = false
 
      * .
@@ -43,6 +48,9 @@ class EmissivityView : View {
         linePaint.strokeWidth = strokeWidth
     }
 
+    /**
+     * Function description.
+     */
     fun refreshText(newList: List<String>) {
         textList.clear()
         textList.addAll(newList)

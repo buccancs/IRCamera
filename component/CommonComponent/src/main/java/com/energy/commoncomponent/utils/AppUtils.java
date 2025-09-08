@@ -7,6 +7,9 @@ import java.lang.reflect.Method;
 public class AppUtils {
      * @param className
      * @param methodName
+    /**
+     * Method description.
+     */
     public static void runMethodByReflectClass(String className, String methodName) {
         try {
             Class<?> clazz = Class.forName(className);

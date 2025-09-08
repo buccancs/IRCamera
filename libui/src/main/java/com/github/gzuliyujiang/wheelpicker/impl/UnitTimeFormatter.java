@@ -17,16 +17,25 @@ import com.github.gzuliyujiang.wheelpicker.contract.TimeFormatter;
 public class UnitTimeFormatter implements TimeFormatter {
 
     @Override
+    /**
+     * Method description.
+     */
     public String formatHour(int hour) {
         return hour + "";
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public String formatMinute(int minute) {
         return minute + "";
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public String formatSecond(int second) {
         return second + "";
     }

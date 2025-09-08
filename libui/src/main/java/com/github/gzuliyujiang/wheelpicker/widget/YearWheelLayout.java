@@ -38,22 +38,37 @@ import java.util.List;
  * @since 2019/5/14 15:26
 @SuppressWarnings("unused")
 public class YearWheelLayout extends BaseWheelLayout {
+    /**
+     * Private method description.
+     */
     private DateWheelLayout dateWheelLayout;
     private DatimeEntity startValue;
     private DatimeEntity endValue;
 
+    /**
+     * Method description.
+     */
     public YearWheelLayout(Context context) {
         super(context);
     }
 
+    /**
+     * Method description.
+     */
     public YearWheelLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * Method description.
+     */
     public YearWheelLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
+    /**
+     * Method description.
+     */
     public YearWheelLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
@@ -136,33 +151,54 @@ public class YearWheelLayout extends BaseWheelLayout {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onWheelSelected(WheelView view, int position) {
         dateWheelLayout.onWheelSelected(view, position);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onWheelScrolled(WheelView view, int offset) {
         dateWheelLayout.onWheelScrolled(view, offset);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onWheelScrollStateChanged(WheelView view, @ScrollState int state) {
         dateWheelLayout.onWheelScrollStateChanged(view, state);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onWheelLoopFinished(WheelView view) {
         dateWheelLayout.onWheelLoopFinished(view);
     }
 
+    /**
+     * Method description.
+     */
     public void setDateMode(@DateMode int dateMode) {
         dateWheelLayout.setDateMode(dateMode);
     }
 
+    /**
+     * Method description.
+     */
     public void setRange(DatimeEntity startValue, DatimeEntity endValue) {
         setRange(startValue, endValue, null);
     }
 
+    /**
+     * Method description.
+     */
     public void setRange(DatimeEntity startValue, DatimeEntity endValue, DatimeEntity defaultValue) {
         if (startValue == null) {
             startValue = DatimeEntity.now();
@@ -178,6 +214,9 @@ public class YearWheelLayout extends BaseWheelLayout {
         this.endValue = endValue;
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultValue(DatimeEntity defaultValue) {
         if (defaultValue == null) {
             defaultValue = DatimeEntity.now();
@@ -185,70 +224,121 @@ public class YearWheelLayout extends BaseWheelLayout {
         dateWheelLayout.setDefaultValue(defaultValue.getDate());
     }
 
+    /**
+     * Method description.
+     */
     public void setDateFormatter(DateFormatter dateFormatter) {
         dateWheelLayout.setDateFormatter(dateFormatter);
     }
 
+    /**
+     * Method description.
+     */
     public void setDateLabel(CharSequence year, CharSequence month, CharSequence day) {
         dateWheelLayout.setDateLabel(year, month, day);
     }
 
+    /**
+     * Method description.
+     */
     public void setResetWhenLinkage(boolean dateResetWhenLinkage, boolean timeResetWhenLinkage) {
         dateWheelLayout.setResetWhenLinkage(dateResetWhenLinkage);
     }
 
+    /**
+     * Method description.
+     */
     public final DatimeEntity getStartValue() {
         return startValue;
     }
 
+    /**
+     * Method description.
+     */
     public final DatimeEntity getEndValue() {
         return endValue;
     }
 
+    /**
+     * Method description.
+     */
     public final DateWheelLayout getDateWheelLayout() {
         return dateWheelLayout;
     }
 
+    /**
+     * Method description.
+     */
     public final NumberWheelView getYearWheelView() {
         return dateWheelLayout.getYearWheelView();
     }
 
+    /**
+     * Method description.
+     */
     public final NumberWheelView getMonthWheelView() {
         return dateWheelLayout.getMonthWheelView();
     }
 
+    /**
+     * Method description.
+     */
     public final NumberWheelView getDayWheelView() {
         return dateWheelLayout.getDayWheelView();
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getYearLabelView() {
         return dateWheelLayout.getYearLabelView();
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getMonthLabelView() {
         return dateWheelLayout.getMonthLabelView();
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getDayLabelView() {
         return dateWheelLayout.getDayLabelView();
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getSpaceStartView() {
         return dateWheelLayout.getSpaceStartView();
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getSpaceEndView() {
         return dateWheelLayout.getSpaceEndView();
     }
 
+    /**
+     * Method description.
+     */
     public final int getSelectedYear() {
         return dateWheelLayout.getSelectedYear();
     }
 
+    /**
+     * Method description.
+     */
     public final int getSelectedMonth() {
         return dateWheelLayout.getSelectedMonth();
     }
 
+    /**
+     * Method description.
+     */
     public final int getSelectedDay() {
         return dateWheelLayout.getSelectedDay();
     }

@@ -24,7 +24,10 @@ import com.csl.irCamera.libapp.R
  *  16sp #ffffff padding 0dp padding 12dp
  *  24dp
  *  ?attr/actionBarSize.
- * Created by LCG on 2023/10/19.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 open class TitleView : ViewGroup {
     companion object {
          * 48dp View  48dp.
@@ -117,6 +120,9 @@ open class TitleView : ViewGroup {
     }
 
      *  TextView  View .
+    /**
+     * Function description.
+     */
     fun addTextView(context: Context,padding:Float,imgHeight: Float): MyTextView {
         val textView = MyTextView(context)
         textView.isVisible = false
@@ -129,6 +135,9 @@ open class TitleView : ViewGroup {
         return textView
     }
 
+    /**
+     * Function description.
+     */
     fun addTextView(context: Context): MyTextView {
         return addTextView(context,12f,24f)
     }
@@ -224,11 +233,17 @@ open class TitleView : ViewGroup {
 
 
      * .
+    /**
+     * Function description.
+     */
     fun setTitleText(@StringRes resId: Int) {
         tvTitle?.setText(resId)
         tvTitle?.invalidate()
     }
      * .
+    /**
+     * Function description.
+     */
     fun setTitleText(title: CharSequence?) {
         tvTitle?.text = title
         tvTitle?.invalidate()
@@ -238,6 +253,7 @@ open class TitleView : ViewGroup {
 
      *  View .
      *  Gone
+    /** isLeftVisible property */
     var isLeftVisible: Boolean
         get() = tvLeft!!.isVisible
         set(value) {
@@ -247,24 +263,36 @@ open class TitleView : ViewGroup {
             }
         }
      *  View .
+    /**
+     * Function description.
+     */
     fun setLeftDrawable(@DrawableRes resId: Int) {
         tvLeft?.isVisible = resId != 0 || tvLeft?.text?.isNotEmpty() == true
         tvLeft?.setCompoundDrawablesWithIntrinsicBounds(resId, 0, 0, 0)
         requestLayout()
     }
      *  View .
+    /**
+     * Function description.
+     */
     fun setLeftText(@StringRes resId: Int) {
         tvLeft?.setText(resId)
         tvLeft?.isVisible = true
         requestLayout()
     }
      *  View .
+    /**
+     * Function description.
+     */
     fun setLeftText(text: CharSequence?) {
         tvLeft?.text = text
         tvLeft?.isVisible = text?.isNotEmpty() == true || tvLeft!!.hasAnyDrawable()
         requestLayout()
     }
      *  View .
+    /**
+     * Function description.
+     */
     fun setLeftClickListener(leftClickListener: OnClickListener?) {
         tvLeft?.setOnClickListener(leftClickListener)
     }
@@ -273,6 +301,7 @@ open class TitleView : ViewGroup {
 
      *  View .
      *  Gone
+    /** isRightVisible property */
     var isRightVisible: Boolean
         get() = tvRight1!!.isVisible
         set(value) {
@@ -282,24 +311,36 @@ open class TitleView : ViewGroup {
             }
         }
      *  View .
+    /**
+     * Function description.
+     */
     fun setRightDrawable(@DrawableRes resId: Int) {
         tvRight1?.isVisible = resId != 0 || tvRight1?.text?.isNotEmpty() == true
         tvRight1?.setCompoundDrawablesWithIntrinsicBounds(resId, 0, 0, 0)
         requestLayout()
     }
      *  View .
+    /**
+     * Function description.
+     */
     fun setRightText(@StringRes resId: Int) {
         tvRight1?.setText(resId)
         tvRight1?.isVisible = true
         requestLayout()
     }
      *  View .
+    /**
+     * Function description.
+     */
     fun setRightText(text: CharSequence?) {
         tvRight1?.text = text
         tvRight1?.isVisible = text?.isNotEmpty() == true || tvRight1!!.hasAnyDrawable()
         requestLayout()
     }
      *  View .
+    /**
+     * Function description.
+     */
     fun setRightClickListener(rightClickListener: OnClickListener?) {
         tvRight1?.setOnClickListener(rightClickListener)
     }
@@ -307,24 +348,36 @@ open class TitleView : ViewGroup {
 
 
      *  View 2 .
+    /**
+     * Function description.
+     */
     fun setRight2Drawable(@DrawableRes resId: Int) {
         tvRight2?.isVisible = resId != 0 || tvRight2?.text?.isNotEmpty() == true
         tvRight2?.setCompoundDrawablesWithIntrinsicBounds(resId, 0, 0, 0)
         requestLayout()
     }
      *  View 2 .
+    /**
+     * Function description.
+     */
     fun setRight2ClickListener(right2ClickListener: OnClickListener?) {
         tvRight2?.setOnClickListener(right2ClickListener)
     }
 
 
      *  View 3 .
+    /**
+     * Function description.
+     */
     fun setRight3Drawable(@DrawableRes resId: Int) {
         tvRight3?.isVisible = resId != 0 || tvRight3?.text?.isNotEmpty() == true
         tvRight3?.setCompoundDrawablesWithIntrinsicBounds(resId, 0, 0, 0)
         requestLayout()
     }
      *  View 3 .
+    /**
+     * Function description.
+     */
     fun setRight3ClickListener(right3ClickListener: OnClickListener?) {
         tvRight3?.setOnClickListener(right3ClickListener)
     }

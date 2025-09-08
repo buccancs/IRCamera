@@ -13,6 +13,9 @@ class Pivot(
     @get:Axis
     @param:Axis val axis: Int, private val pivotPoint: Int
 ) {
+    /**
+     * Function description.
+     */
     fun setOn(view: View) {
         if (axis == AXIS_X) {
             when (pivotPoint) {

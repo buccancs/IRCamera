@@ -24,6 +24,9 @@ public class ImageColorTools {
         System.loadLibrary("opencv_java4");
     }
 
+    /**
+     * Method description.
+     */
     public static Bitmap testImageTe(byte[] buffer){
         int[] temperature = new int[256 * 192 * 2];
         int[] image = new int[256 * 192 * 2];
@@ -107,6 +110,9 @@ public class ImageColorTools {
 
         return outputBitmap;
     }
+    /**
+     * Method description.
+     */
     public static Bitmap adjustPhotoRotation(Bitmap bm, final int orientationDegree) {
 
         Matrix m = new Matrix();
@@ -119,6 +125,9 @@ public class ImageColorTools {
         return null;
 
     }
+    /**
+     * Method description.
+     */
     public static Bitmap testImage2(byte[] buffer){
         int[] temperature = new int[256 * 192 * 2];
         int[] image = new int[256 * 192 * 2];
@@ -213,6 +222,9 @@ public class ImageColorTools {
 
         return outputBitmap;
     }
+    /**
+     * Method description.
+     */
     public static Bitmap testImage(byte[] buffer){
         int[] temperature = new int[256 * 192 * 2];
         byte[] image = new byte[256 * 192 * 2];
@@ -306,6 +318,9 @@ public class ImageColorTools {
         return outputBitmap;
     }
 
+    /**
+     * Method description.
+     */
     public static Bitmap matToBitmap(Mat mat){
         Bitmap outputBitmap = Bitmap.createBitmap(mat.cols(), mat.rows(), Bitmap.Config.ARGB_8888);
         Utils.matToBitmap(mat, outputBitmap,true);
@@ -319,6 +334,9 @@ public class ImageColorTools {
 
 
 
+    /**
+     * Method description.
+     */
     public static int[] getOneColorByTempEx(float customMaxTemp, float customMinTemp, float nowTemp, int[] colorList) {
         if (colorList == null){
             return null;
@@ -366,24 +384,36 @@ public class ImageColorTools {
     }
 
 
+    /**
+     * Private method description.
+     */
     private static int interpolateR(int startColor, int endColor, double ratio) {
         int startR = (startColor >> 16) & 0xFF;
         int endR = (endColor >> 16) & 0xFF;
         int red = (int) ((1 - ratio) * startR + ratio * endR);
         return red;
     }
+    /**
+     * Private method description.
+     */
     private static int interpolateG(int startColor, int endColor, double ratio) {
         int startG = (startColor >> 8) & 0xFF;
         int endG = (endColor >> 8) & 0xFF;
         int interpolatedG = (int) ((1 - ratio) * startG + ratio * endG);
         return interpolatedG;
     }
+    /**
+     * Private method description.
+     */
     private static int interpolateB(int startColor, int endColor, double ratio) {
         int startB = startColor & 0xFF;
         int endB = endColor & 0xFF;
         int interpolatedB = (int) ((1 - ratio) * startB + ratio * endB);
         return interpolatedB;
     }
+    /**
+     * Method description.
+     */
     public static byte[] matToByteArrayBy4(Mat mat) {
         int rows = mat.rows();
         int cols = mat.cols();
@@ -392,6 +422,9 @@ public class ImageColorTools {
         mat.get(0, 0, byteArray);
         return byteArray;
     }
+    /**
+     * Method description.
+     */
     public static byte[] matToByteArrayBy3(Mat mat) {
         int rows = mat.rows();
         int cols = mat.cols();
@@ -400,6 +433,9 @@ public class ImageColorTools {
         mat.get(0, 0, byteArray);
         return byteArray;
     }
+    /**
+     * Method description.
+     */
     public static Bitmap bytes2Bimap(byte[] b) {
         if (b.length != 0) {
             return BitmapFactory.decodeByteArray(b, 0, b.length);

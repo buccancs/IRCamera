@@ -41,15 +41,24 @@ import com.csl.irCamera.libui.R;
  * =====================================================
 public class VerticalSeekBar extends SeekBar {
 
+    /**
+     * Private method description.
+     */
     private int indicatorTextOrientation;
     VerticalRangeSeekBar verticalSeekBar;
 
+    /**
+     * Method description.
+     */
     public VerticalSeekBar(RangeSeekBar rangeSeekBar, AttributeSet attrs, boolean isLeft) {
         super(rangeSeekBar, attrs, isLeft);
         initAttrs(attrs);
         verticalSeekBar = (VerticalRangeSeekBar) rangeSeekBar;
     }
 
+    /**
+     * Private method description.
+     */
     private void initAttrs(AttributeSet attrs) {
         try {
             TypedArray t = getContext().obtainStyledAttributes(attrs, R.styleable.VerticalRangeSeekBar);
@@ -71,12 +80,24 @@ public class VerticalSeekBar extends SeekBar {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private boolean drawIndPathBg = true;//
 
+    /**
+     * Method description.
+     */
     public void setDrawIndPathBg(boolean draw){
         drawIndPathBg = draw;
     }
+    /**
+     * Private method description.
+     */
     private boolean noNegativeNumber = false;
+    /**
+     * Method description.
+     */
     public void setNoNegativeNumber(Boolean noNegativeNumber){
         this.noNegativeNumber = noNegativeNumber;
     }
@@ -182,10 +203,16 @@ public class VerticalSeekBar extends SeekBar {
         }
     }
 
+    /**
+     * Method description.
+     */
     public int getIndicatorTextOrientation() {
         return indicatorTextOrientation;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorTextOrientation(@VerticalRangeSeekBar.TextDirectionDef int orientation) {
         this.indicatorTextOrientation = orientation;
     }

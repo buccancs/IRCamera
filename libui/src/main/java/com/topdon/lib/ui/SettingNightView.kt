@@ -18,12 +18,16 @@ class SettingNightView : LinearLayout {
 
     private lateinit var binding: UiSettingViewNightBinding
 
+    /** isRightArrowVisible property */
     var isRightArrowVisible: Boolean
         get() = binding.itemSettingEndImage.isVisible
         set(value) {
             binding.itemSettingEndImage.isVisible = value
         }
 
+    /**
+     * Function description.
+     */
     fun setRightTextId(@StringRes resId: Int) {
         val tvEnd: TextView = findViewById(R.id.tv_end)
         tvEnd.isVisible = resId != 0

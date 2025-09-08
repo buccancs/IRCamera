@@ -32,6 +32,9 @@ object WifiUtil {
 
      *  Wifi ssid
      * @return  WIFI   [Manifest.permission.ACCESS_FINE_LOCATION]  null
+    /**
+     * Function description.
+     */
     fun getCurrentWifiSSID(context: Context): String? {
         if (!XXPermissions.isGranted(context, Manifest.permission.ACCESS_FINE_LOCATION)) {
             return null
@@ -42,11 +45,17 @@ object WifiUtil {
 
 
      *  activity  WIFI .
+    /**
+     * Function description.
+     */
     fun addWifiStateListener(activity: ComponentActivity, listener: ((isEnable: Boolean) -> Unit)) {
         activity.lifecycle.addObserver(WifiStateObserver(activity, WifiStateReceiver(listener)))
     }
 
      *  activity  WIFI .
+    /**
+     * Function description.
+     */
     fun addWifiScanListener(activity: ComponentActivity, listener: ((isSuccess: Boolean) -> Unit)) {
         activity.lifecycle.addObserver(WifiScanObserver(activity, WifiScanReceiver(listener)))
     }

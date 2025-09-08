@@ -23,6 +23,9 @@ public abstract class ValueFormatter implements IAxisValueFormatter, IValueForma
      */
     @Override
     @Deprecated
+    /**
+     * Method description.
+     */
     public String getFormattedValue(float value, AxisBase axis) {
         return getFormattedValue(value);
     }
@@ -37,6 +40,9 @@ public abstract class ValueFormatter implements IAxisValueFormatter, IValueForma
      */
     @Override
     @Deprecated
+    /**
+     * Method description.
+     */
     public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
         return getFormattedValue(value);
     }
@@ -46,6 +52,9 @@ public abstract class ValueFormatter implements IAxisValueFormatter, IValueForma
      *
      * @param value float to be formatted
      * @return formatted string label
+     */
+    /**
+     * Method description.
      */
     public String getFormattedValue(float value) {
         return String.valueOf(value);
@@ -58,6 +67,9 @@ public abstract class ValueFormatter implements IAxisValueFormatter, IValueForma
      * @param axis  axis being labeled
      * @return formatted string label
      */
+    /**
+     * Method description.
+     */
     public String getAxisLabel(float value, AxisBase axis) {
         return getFormattedValue(value);
     }
@@ -67,6 +79,9 @@ public abstract class ValueFormatter implements IAxisValueFormatter, IValueForma
      *
      * @param barEntry bar being labeled
      * @return formatted string label
+     */
+    /**
+     * Method description.
      */
     public String getBarLabel(BarEntry barEntry) {
         return getFormattedValue(barEntry.getY());
@@ -79,6 +94,9 @@ public abstract class ValueFormatter implements IAxisValueFormatter, IValueForma
      * @param stackedEntry stacked entry being labeled, contains all Y values
      * @return formatted string label
      */
+    /**
+     * Method description.
+     */
     public String getBarStackedLabel(float value, BarEntry stackedEntry) {
         return getFormattedValue(value);
     }
@@ -88,6 +106,9 @@ public abstract class ValueFormatter implements IAxisValueFormatter, IValueForma
      *
      * @param entry point being labeled, contains X value
      * @return formatted string label
+     */
+    /**
+     * Method description.
      */
     public String getPointLabel(Entry entry) {
         return getFormattedValue(entry.getY());
@@ -100,6 +121,9 @@ public abstract class ValueFormatter implements IAxisValueFormatter, IValueForma
      * @param pieEntry slice being labeled, contains original, non-percentage Y value
      * @return formatted string label
      */
+    /**
+     * Method description.
+     */
     public String getPieLabel(float value, PieEntry pieEntry) {
         return getFormattedValue(value);
     }
@@ -109,6 +133,9 @@ public abstract class ValueFormatter implements IAxisValueFormatter, IValueForma
      *
      * @param radarEntry entry being labeled
      * @return formatted string label
+     */
+    /**
+     * Method description.
      */
     public String getRadarLabel(RadarEntry radarEntry) {
         return getFormattedValue(radarEntry.getY());
@@ -120,6 +147,9 @@ public abstract class ValueFormatter implements IAxisValueFormatter, IValueForma
      * @param bubbleEntry bubble being labeled, also contains X and Y values
      * @return formatted string label
      */
+    /**
+     * Method description.
+     */
     public String getBubbleLabel(BubbleEntry bubbleEntry) {
         return getFormattedValue(bubbleEntry.getSize());
     }
@@ -129,6 +159,9 @@ public abstract class ValueFormatter implements IAxisValueFormatter, IValueForma
      *
      * @param candleEntry candlestick being labeled
      * @return formatted string label
+     */
+    /**
+     * Method description.
      */
     public String getCandleLabel(CandleEntry candleEntry) {
         return getFormattedValue(candleEntry.getHigh());

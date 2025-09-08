@@ -12,6 +12,9 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
  */
 public class MoveViewJob extends ViewPortJob {
 
+    /**
+     * Private method description.
+     */
     private static ObjectPool<MoveViewJob> pool;
 
     static {
@@ -19,6 +22,9 @@ public class MoveViewJob extends ViewPortJob {
         pool.setReplenishPercentage(0.5f);
     }
 
+    /**
+     * Method description.
+     */
     public static MoveViewJob getInstance(ViewPortHandler viewPortHandler, float xValue, float yValue, Transformer trans, View v){
         MoveViewJob result = pool.get();
         result.mViewPortHandler = viewPortHandler;
@@ -29,15 +35,24 @@ public class MoveViewJob extends ViewPortJob {
         return result;
     }
 
+    /**
+     * Method description.
+     */
     public static void recycleInstance(MoveViewJob instance){
         pool.recycle(instance);
     }
 
+    /**
+     * Method description.
+     */
     public MoveViewJob(ViewPortHandler viewPortHandler, float xValue, float yValue, Transformer trans, View v) {
         super(viewPortHandler, xValue, yValue, trans, v);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void run() {
 
         pts[0] = xValue;

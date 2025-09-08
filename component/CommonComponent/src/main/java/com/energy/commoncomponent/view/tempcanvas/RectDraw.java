@@ -20,9 +20,15 @@ import java.util.UUID;
 
  * Created by fengjibo on 2024/2/1.
 public class RectDraw extends BaseDraw {
+    /**
+     * Private method description.
+     */
     private static final String TAG = "BaseTemperatureView RectDraw";
 
     private static final int MAX_RECT_COUNT = 3;
+    /**
+     * Method description.
+     */
     public static final int OPERATE_STATUS_RECTANGLE_LEFT_TOP_CORNER = 0;
     public static final int OPERATE_STATUS_RECTANGLE_RIGHT_TOP_CORNER = 1;
     public static final int OPERATE_STATUS_RECTANGLE_RIGHT_BOTTOM_CORNER = 2;
@@ -79,10 +85,16 @@ public class RectDraw extends BaseDraw {
         mBgPaint.setStrokeWidth(ScreenUtils.dp2px(1));
     }
 
+    /**
+     * Method description.
+     */
     public int getOperateStatus() {
         return mOperateStatus;
     }
 
+    /**
+     * Method description.
+     */
     public void setOperateStatus(int mOperateStatus) {
         this.mOperateStatus = mOperateStatus;
         Log.d(TAG, "setOperateStatus = " + mOperateStatus);
@@ -92,6 +104,9 @@ public class RectDraw extends BaseDraw {
      * @param startY
      * @param endX
      * @param endY
+    /**
+     * Method description.
+     */
     public void addRect(int startX, int startY, int endX, int endY) {
         if (Math.abs(endX - startX) > TOUCH_TOLERANCE || Math.abs(endY - startY) > TOUCH_TOLERANCE) {
             RectView rectView = new RectView(mContext, startX, startY, endX, endY);
@@ -133,12 +148,18 @@ public class RectDraw extends BaseDraw {
     }
 
      * @param index
+    /**
+     * Method description.
+     */
     public void removeRect(int index) {
         if (mRectList.size() > index) {
             mRectList.remove(index);
         }
     }
 
+    /**
+     * Method description.
+     */
     public void removeRect() {
         mRectList.clear();
     }
@@ -146,6 +167,9 @@ public class RectDraw extends BaseDraw {
 
      * @param startX
      * @param startY
+    /**
+     * Method description.
+     */
     public void changeTouchRectOperateStatus(float startX, float startY) {
         if (mTouchIndex < 0 || mTouchIndex >= mRectList.size()) {
             return;
@@ -175,6 +199,9 @@ public class RectDraw extends BaseDraw {
      * @param touchIndex
      * @param moveX
      * @param moveY
+    /**
+     * Method description.
+     */
     public void changeTouchLineLocationByIndex(int touchIndex, float moveX, float moveY) {
         if (touchIndex < 0 || touchIndex >= mRectList.size()) {
             return;
@@ -328,6 +355,9 @@ public class RectDraw extends BaseDraw {
      * @param startY
      * @param endX
      * @param endY
+    /**
+     * Method description.
+     */
     public void onTempDraw(Canvas canvas, int startX, int startY, int endX, int endY) {
         if (mTempRect == null) {
             mTempRect = new RectView(mContext, startX, startY, endX, endY);
@@ -343,6 +373,9 @@ public class RectDraw extends BaseDraw {
      * @param x
      * @param y
      * @return
+    /**
+     * Method description.
+     */
     public int checkTouchRectInclude(int x, int y) {
         mTouchIndex = -1;
         for (int i = 0; i < mRectList.size(); i ++) {
@@ -357,6 +390,9 @@ public class RectDraw extends BaseDraw {
 
     }
 
+    /**
+     * Method description.
+     */
     public void changeTouchRectLocation() {
         if (mTouchIndex < 0 || mTouchIndex >= mRectList.size()) {
             return;
@@ -364,6 +400,9 @@ public class RectDraw extends BaseDraw {
         mRectList.get(mTouchIndex).changeRectLocation();
     }
 
+    /**
+     * Private method description.
+     */
     private void drawLabel(Canvas canvas, RectView rectView) {
         canvas.save();
         canvas.rotate(mScreenDegree, rectView.mMovingLeft + (rectView.mMovingRight - rectView.mMovingLeft) / 2,
@@ -381,6 +420,9 @@ public class RectDraw extends BaseDraw {
         canvas.restore();
     }
 
+    /**
+     * Private method description.
+     */
     private RectF drawCustomTextBg(Canvas canvas, String text, RectF rectF) {
         int rectWidth = (int) mTextPaint.measureText(text) * 2;
         float left = rectF.left - rectWidth / 2;
@@ -418,6 +460,9 @@ public class RectDraw extends BaseDraw {
         return rectF;
     }
 
+    /**
+     * Method description.
+     */
     public static class RectView extends BaseView {
         private Rect mRect;
         private static final float TOUCH_EXTRA = 10;//
@@ -510,6 +555,9 @@ public class RectDraw extends BaseDraw {
         }
     }
 
+    /**
+     * Method description.
+     */
     public LinkedList<RectView> getRectViewList() {
         return mRectList;
     }

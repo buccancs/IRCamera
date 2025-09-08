@@ -12,18 +12,30 @@ public class BubbleDataSet extends BarLineScatterCandleBubbleDataSet<BubbleEntry
     protected float mMaxSize;
     protected boolean mNormalizeSize = true;
 
+    /**
+     * Private method description.
+     */
     private float mHighlightCircleWidth = 2.5f;
 
+    /**
+     * Method description.
+     */
     public BubbleDataSet(List<BubbleEntry> yVals, String label) {
         super(yVals, label);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setHighlightCircleWidth(float width) {
         mHighlightCircleWidth = Utils.convertDpToPixel(width);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public float getHighlightCircleWidth() {
         return mHighlightCircleWidth;
     }
@@ -40,6 +52,9 @@ public class BubbleDataSet extends BarLineScatterCandleBubbleDataSet<BubbleEntry
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public DataSet<BubbleEntry> copy() {
         List<BubbleEntry> entries = new ArrayList<BubbleEntry>();
         for (int i = 0; i < mValues.size(); i++) {
@@ -56,15 +71,24 @@ public class BubbleDataSet extends BarLineScatterCandleBubbleDataSet<BubbleEntry
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public float getMaxSize() {
         return mMaxSize;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean isNormalizeSizeEnabled() {
         return mNormalizeSize;
     }
 
+    /**
+     * Method description.
+     */
     public void setNormalizeSizeEnabled(boolean normalizeSize) {
         mNormalizeSize = normalizeSize;
     }

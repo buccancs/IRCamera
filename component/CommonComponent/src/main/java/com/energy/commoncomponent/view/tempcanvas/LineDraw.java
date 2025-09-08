@@ -17,7 +17,13 @@ import java.util.UUID;
 
  * Created by fengjibo on 2024/1/31.
 public class LineDraw extends BaseDraw {
+    /**
+     * Private method description.
+     */
     private static final String TAG = "BaseTemperatureView LineDraw";
+    /**
+     * Method description.
+     */
     public static final int OPERATE_STATUS_LINE_IN_TOUCH_START = 0;
     public static final int OPERATE_STATUS_LINE_IN_TOUCH_CENTER = 1;
     public static final int OPERATE_STATUS_LINE_IN_TOUCH_END = 2;
@@ -67,10 +73,16 @@ public class LineDraw extends BaseDraw {
         mBgPaint.setStrokeWidth(ScreenUtils.dp2px(1));
     }
 
+    /**
+     * Method description.
+     */
     public int getOperateStatus() {
         return mOperateStatus;
     }
 
+    /**
+     * Method description.
+     */
     public void setOperateStatus(int mOperateStatus) {
         this.mOperateStatus = mOperateStatus;
         Log.d(TAG, "setOperateStatus = " + mOperateStatus);
@@ -80,6 +92,9 @@ public class LineDraw extends BaseDraw {
      * @param startY
      * @param endX
      * @param endY
+    /**
+     * Method description.
+     */
     public void addLine(int startX, int startY, int endX, int endY) {
         if (Math.abs(endX - startX) > TOUCH_TOLERANCE || Math.abs(endY - startY) > TOUCH_TOLERANCE) {
             LineView lineView = new LineView(mContext, startX, startY, endX, endY);
@@ -121,18 +136,27 @@ public class LineDraw extends BaseDraw {
     }
 
      * @param index
+    /**
+     * Method description.
+     */
     public void removeLine(int index) {
         if (mLineList.size() > index) {
             mLineList.remove(index);
         }
     }
 
+    /**
+     * Method description.
+     */
     public void removeLine() {
         mLineList.clear();
     }
 
      * @param canvas
     @Override
+    /**
+     * Method description.
+     */
     public void onDraw(Canvas canvas, boolean isScroll) {
         for (int i = 0; i < mLineList.size(); i ++) {
             LineView lineView = mLineList.get(i);
@@ -154,6 +178,9 @@ public class LineDraw extends BaseDraw {
      * @param startY
      * @param endX
      * @param endY
+    /**
+     * Method description.
+     */
     public void onTempDraw(Canvas canvas, int startX, int startY, int endX, int endY) {
         if (mTempLine == null) {
             mTempLine = new LineView(mContext, startX, startY, endX, endY);
@@ -165,6 +192,9 @@ public class LineDraw extends BaseDraw {
         canvas.drawLine(mTempLine.mStartMovingLineX, mTempLine.mStartMovingLineY, mTempLine.mEndMovingLineX, mTempLine.mEndMovingLineY, mLinePaint);
     }
 
+    /**
+     * Private method description.
+     */
     private void drawLabel(Canvas canvas, LineView lineView) {
         canvas.save();
         canvas.rotate(mScreenDegree, lineView.mStartMovingLineX + (lineView.mEndMovingLineX - lineView.mStartMovingLineX) / 2,
@@ -180,6 +210,9 @@ public class LineDraw extends BaseDraw {
         canvas.restore();
     }
 
+    /**
+     * Private method description.
+     */
     private RectF drawCustomTextBg(Canvas canvas, String text, RectF rectF) {
         int rectWidth = (int) mTextPaint.measureText(text) * 2;
         float left = rectF.left - rectWidth / 2;
@@ -219,6 +252,9 @@ public class LineDraw extends BaseDraw {
 
      * @param startX
      * @param startY
+    /**
+     * Method description.
+     */
     public void changeTouchLineOperateStatus(float startX, float startY) {
         if (mTouchIndex < 0 || mTouchIndex >= mLineList.size()) {
             return;
@@ -236,6 +272,9 @@ public class LineDraw extends BaseDraw {
 
      * @param moveX
      * @param moveY
+    /**
+     * Method description.
+     */
     public void changeTouchLineLocationByIndex(float moveX, float moveY) {
         if (mTouchIndex < 0 || mTouchIndex >= mLineList.size()) {
             return;
@@ -332,6 +371,9 @@ public class LineDraw extends BaseDraw {
     }
 
      * Point
+    /**
+     * Method description.
+     */
     public void changeTouchPointLocation() {
         if (mTouchIndex < 0 || mTouchIndex >= mLineList.size()) {
             return;
@@ -342,6 +384,9 @@ public class LineDraw extends BaseDraw {
      * @param x
      * @param y
      * @return
+    /**
+     * Method description.
+     */
     public int checkTouchLineInclude(int x, int y) {
         mTouchIndex = -1;
         for (int i = 0; i < mLineList.size(); i ++) {
@@ -358,6 +403,9 @@ public class LineDraw extends BaseDraw {
         return mTouchIndex;
     }
 
+    /**
+     * Method description.
+     */
     public static class LineView extends BaseView {
         private Point mStartPoint; //
         private Point mEndPoint; //
@@ -448,6 +496,9 @@ public class LineDraw extends BaseDraw {
         }
     }
 
+    /**
+     * Method description.
+     */
     public LinkedList<LineView> getLineViewList() {
         return mLineList;
     }

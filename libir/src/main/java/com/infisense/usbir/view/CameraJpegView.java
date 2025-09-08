@@ -14,28 +14,46 @@ import com.energy.iruvc.utils.SynchronizedBitmap;
 
 public class CameraJpegView extends TextureView {
 
+    /**
+     * Private method description.
+     */
     private String TAG = "CameraView";
     private Bitmap bitmap;
     private SynchronizedBitmap syncimage;
     private Runnable runnable;
     private Thread cameraThread;
 
+    /**
+     * Method description.
+     */
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
     }
 
+    /**
+     * Method description.
+     */
     public void setSyncimage(SynchronizedBitmap syncimage) {
         this.syncimage = syncimage;
     }
 
+    /**
+     * Method description.
+     */
     public CameraJpegView(Context context) {
         this(context, null, 0);
     }
 
+    /**
+     * Method description.
+     */
     public CameraJpegView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
+    /**
+     * Method description.
+     */
     public CameraJpegView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         runnable = new Runnable() {
@@ -92,11 +110,17 @@ public class CameraJpegView extends TextureView {
 
     }
 
+    /**
+     * Method description.
+     */
     public void start() {
         cameraThread = new Thread(runnable);
         cameraThread.start();
     }
 
+    /**
+     * Method description.
+     */
     public void stop() {
         cameraThread.interrupt();
         try {

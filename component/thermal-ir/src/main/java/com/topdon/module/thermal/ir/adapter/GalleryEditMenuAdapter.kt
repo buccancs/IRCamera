@@ -17,6 +17,7 @@ import com.topdon.module.thermal.ir.databinding.ItemGalleryEditMenuBinding
 @Deprecated("2D，")
 class GalleryEditMenuAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    /** listener property */
     var listener: ((code: Int) -> Unit)? = null
 
     private var pointColor = false //
@@ -31,21 +32,33 @@ class GalleryEditMenuAdapter(val context: Context) : RecyclerView.Adapter<Recycl
         IconBean(name = context.getString(LibAppR.string.func_temper_ruler), icon = MenuR.drawable.selector_menu_first_edit_4, code = 3000), //
     )
 
+    /**
+     * Function description.
+     */
     fun enPointColor(pointColor: Boolean) {
         this.pointColor = pointColor
         notifyDataSetChanged()
     }
 
+    /**
+     * Function description.
+     */
     fun enPseudoColor(pseudoColor: Boolean) {
         this.pseudoColor = pseudoColor
         notifyDataSetChanged()
     }
 
+    /**
+     * Function description.
+     */
     fun enPseudoColorBar(pseudoColorBar: Boolean) {
         this.pseudoColorBar = pseudoColorBar
         notifyDataSetChanged()
     }
 
+    /**
+     * Function description.
+     */
     fun enSettingColorBar(settingColorBar: Boolean) {
         this.settingColorBar = settingColorBar
         notifyDataSetChanged()

@@ -6,5 +6,8 @@ import android.view.View
  * @date: 2023/4/1 11:32
 @Deprecated("--，")
 interface HorizontalScrollItemTransformer {
+    /**
+     * Function description.
+     */
     fun transformItem(item: View, position: Float)
 }

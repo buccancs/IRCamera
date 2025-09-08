@@ -18,6 +18,9 @@ object BitmapTools {
         return (tempInt.toDouble() / scale.toDouble() - 273.15).toFloat()
     }
 
+    /**
+     * Function description.
+     */
     fun replaceBitmapColor(
         imageBytes: ByteArray,
         tempBytes: ByteArray,

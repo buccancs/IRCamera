@@ -19,16 +19,26 @@ import kotlinx.coroutines.launch
  **/
 object ToastTools {
 
+    /** mPublicToast property */
     var mPublicToast: Toast? = null
 
+    /**
+     * Function description.
+     */
     fun showShort(@StringRes textStr: Int) {
         showShort(Utils.getApp().getString(textStr))
     }
 
+    /**
+     * Function description.
+     */
     fun showShort(textStr: String) {
         showShort(textStr, Toast.LENGTH_SHORT)
     }
 
+    /**
+     * Function description.
+     */
     fun showShort(textStr: String, duration: Int) {
         GlobalScope.launch(Dispatchers.Main) {
             val inflater =

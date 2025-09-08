@@ -13,6 +13,9 @@ import com.csl.irCamera.libapp.R
  **/
 object CommUtils {
 
+    /**
+     * Function description.
+     */
     fun getAppName() : String{
         var msg = ""
         var appInfo: ApplicationInfo? = null

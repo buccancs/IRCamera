@@ -88,6 +88,9 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    /**
+     * Function description.
+     */
     fun onReportCreate(event: ReportCreateEvent) {
         finish()
     }

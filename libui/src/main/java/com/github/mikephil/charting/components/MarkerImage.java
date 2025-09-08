@@ -26,6 +26,9 @@ import java.lang.ref.WeakReference;
  */
 public class MarkerImage implements IMarker {
 
+    /**
+     * Private method description.
+     */
     private Context mContext;
     private Drawable mDrawable;
 
@@ -42,6 +45,9 @@ public class MarkerImage implements IMarker {
      * @param context
      * @param drawableResourceId the drawable resource to render
      */
+    /**
+     * Method description.
+     */
     public MarkerImage(Context context, int drawableResourceId) {
         mContext = context;
 
@@ -55,6 +61,9 @@ public class MarkerImage implements IMarker {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setOffset(MPPointF offset) {
         mOffset = offset;
 
@@ -63,16 +72,25 @@ public class MarkerImage implements IMarker {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setOffset(float offsetX, float offsetY) {
         mOffset.x = offsetX;
         mOffset.y = offsetY;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public MPPointF getOffset() {
         return mOffset;
     }
 
+    /**
+     * Method description.
+     */
     public void setSize(FSize size) {
         mSize = size;
 
@@ -81,19 +99,31 @@ public class MarkerImage implements IMarker {
         }
     }
 
+    /**
+     * Method description.
+     */
     public FSize getSize() {
         return mSize;
     }
 
+    /**
+     * Method description.
+     */
     public void setChartView(Chart chart) {
         mWeakChart = new WeakReference<>(chart);
     }
 
+    /**
+     * Method description.
+     */
     public Chart getChartView() {
         return mWeakChart == null ? null : mWeakChart.get();
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public MPPointF getOffsetForDrawingAtPoint(float posX, float posY) {
 
         MPPointF offset = getOffset();
@@ -128,11 +158,17 @@ public class MarkerImage implements IMarker {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void refreshContent(Entry e, Highlight highlight) {
 
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void draw(Canvas canvas, float posX, float posY) {
 
         if (mDrawable == null) return;

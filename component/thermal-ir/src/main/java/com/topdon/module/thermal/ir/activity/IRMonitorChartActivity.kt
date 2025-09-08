@@ -281,6 +281,9 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
     private var pseudoColorMode = 0
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun irEvent(event: IRMsgEvent) {
         if (event.code == MsgCode.RESTART_USB) {
             restartUsbCamera()
@@ -317,6 +320,9 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun iruvctc(event: PreviewComplete) {
         dealY16ModePreviewComplete()
     }
@@ -586,6 +592,9 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun cameraEvent(event: DeviceCameraEvent) {
         when (event.action) {
             100 -> {

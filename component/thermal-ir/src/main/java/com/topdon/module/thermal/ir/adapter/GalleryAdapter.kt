@@ -26,12 +26,15 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
      * item.
+    /** dataList property */
     val dataList: ArrayList<GalleryBean> = ArrayList()
 
      * position .
+    /** selectList property */
     val selectList: ArrayList<Int> = ArrayList()
 
      *  TS004 .
+    /** isTS004Remote property */
     var isTS004Remote = false
         set(value) {
             if (field != value) {
@@ -41,6 +44,7 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
      * .
+    /** isEditMode property */
     var isEditMode = false
         set(value) {
             if (field != value) {
@@ -55,20 +59,29 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
      *  item .
+    /** onLongEditListener property */
     var onLongEditListener: (() -> Unit)? = null
      * .
      * data  item position
+    /** selectCallback property */
     var selectCallback: ((data: ArrayList<Int>) -> Unit)? = null
      * item .
+    /** itemClickCallback property */
     var itemClickCallback: ((position: Int) -> Unit)? = null
 
 
+    /**
+     * Function description.
+     */
     fun refreshList(newList: List<GalleryBean>) {
         dataList.clear()
         dataList.addAll(newList)
         notifyDataSetChanged()
     }
 
+    /**
+     * Function description.
+     */
     fun buildSelectList(): ArrayList<GalleryBean> {
         val resultList: ArrayList<GalleryBean> = ArrayList()
         selectList.forEach {
@@ -77,6 +90,9 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return resultList
     }
 
+    /**
+     * Function description.
+     */
     fun selectAll() {
         var dataCount = 0
         dataList.forEach {

@@ -15,6 +15,7 @@ import com.topdon.module.thermal.ir.fragment.IRMonitorThermalFragment
 @Route(path = RouterConfig.IR_IMG_PICK)
 class ImagePickIRActivity : BasePickImgActivity() {
 
+    /** irFragment property */
     var irFragment : IRMonitorThermalFragment ?= null
 
     override fun initView() {

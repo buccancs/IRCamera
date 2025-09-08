@@ -177,6 +177,9 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
     }
 
 
+    /**
+     * Function description.
+     */
     fun onIrVideoStart() {
         mIsIrVideoStart = if (mIsIrVideoStart) {
             ToastUtils.showShort("")
@@ -256,6 +259,9 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
         }
     }
 
+    /**
+     * Function description.
+     */
     fun onIrVideoStop() {
         mIsIrVideoStart = if (!mIsIrVideoStart) {
             Log.w("123", "")
@@ -269,6 +275,9 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
     }
 
 
+    /**
+     * Function description.
+     */
     fun onLowRangeBtnClick(view: View?) {
         if (mGuideInterface == null) {
             ToastUtils.showShort("")
@@ -278,6 +287,9 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
         ToastUtils.showShort("")
     }
 
+    /**
+     * Function description.
+     */
     fun onHighRangeBtnClick(view: View?) {
         if (mGuideInterface == null) {
             ToastUtils.showShort("")
@@ -287,6 +299,9 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
         ToastUtils.showShort("")
     }
 
+    /**
+     * Function description.
+     */
     fun onTempBtnClick() {
         if (mGuideInterface == null) {
             ToastUtils.showShort("")
@@ -311,6 +326,9 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
     }
 
 
+    /**
+     * Function description.
+     */
     fun onExpertModeClick(view: View?) {
         System.arraycopy(EXPERT_HITS, 1, EXPERT_HITS, 0, EXPERT_HITS.size - 1)
         EXPERT_HITS[EXPERT_HITS.size - 1] = System.currentTimeMillis()
@@ -324,6 +342,9 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
         }
     }
 
+    /**
+     * Function description.
+     */
     fun onNucShutterClick(view: View?) {
         if (mGuideInterface == null) {
             ToastUtils.showShort("")
@@ -347,11 +368,17 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
 //        }, 1500)
 //    }
 
+    /**
+     * Function description.
+     */
     fun onLut(view: View) {
         mIrSurfaceView!!.setOpenLut()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun action(event: ThermalActionEvent) {
         Log.w("123", "event:${event.action}")
         when (event.action) {
@@ -415,6 +442,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
         mGuideInterface!!.changePalette(index)
     }
 
+    /** fenceFlag property */
     var fenceFlag = 0x000
 
     private fun addPoint() {
@@ -445,6 +473,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
         }
     }
 
+    /** selectIndex property */
     var selectIndex: ArrayList<Int> = arrayListOf()//
 
     private fun initFence() {
@@ -482,6 +511,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
         ScreenShotUtils.shotScreenBitmap(binding.tempDisplayLayout)
     }
 
+    /** isVideoRunning property */
     var isVideoRunning = false
 
     private fun video() {
@@ -519,8 +549,11 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
         isVideoRunning = progress > 0 || progress < 100
     }
 
+    /** isRecord property */
     var isRecord = false
+    /** type property */
     var type = ""
+    /** timeMillis property */
     var timeMillis = 1000L //1s
 
     private fun recordThermal() {

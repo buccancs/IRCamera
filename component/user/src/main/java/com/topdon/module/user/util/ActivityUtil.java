@@ -10,6 +10,9 @@ import com.topdon.module.user.R;
 
 public class ActivityUtil {
      * @param mContext
+    /**
+     * Method description.
+     */
     public static void goSystemCustomer(Context mContext) {
         Log.w("bcf", "");
         String url = "https://www.topdon.cc/tc-chat";
@@ -17,6 +20,9 @@ public class ActivityUtil {
     }
 
      * @param mContext
+    /**
+     * Method description.
+     */
     public static void goSystemBrowser(Context mContext, String url) {
         Log.w("bcf", "goSystemBrowser");
         if (!NetworkUtil.isConnected(mContext)) {

@@ -9,6 +9,9 @@ import org.bytedeco.javacv.FrameGrabber
 
 object VideoTools {
 
+    /**
+     * Function description.
+     */
     fun getLocalVideoDuration(videoPath: String): Long {
         return if (videoPath.uppercase().endsWith(".MP4")||videoPath.uppercase().endsWith(".AVI")) {
             try {

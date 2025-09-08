@@ -31,8 +31,14 @@ import java.util.List;
 public class StrArrayPicker extends OptionPicker {
 
     @NonNull
+    /**
+     * Private method description.
+     */
     private final List<String> optionList;
 
+    /**
+     * Method description.
+     */
     public StrArrayPicker(Activity activity, @NonNull String[] optionArray, int defaultPosition) {
         super(activity);
         this.optionList = Arrays.asList(optionArray);

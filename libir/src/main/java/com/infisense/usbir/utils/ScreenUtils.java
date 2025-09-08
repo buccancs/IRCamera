@@ -20,6 +20,9 @@ import java.lang.reflect.Method;
 
 public class ScreenUtils {
 
+    /**
+     * Private method description.
+     */
     private ScreenUtils() {
         /* cannot be instantiated */
         throw new UnsupportedOperationException("cannot be instantiated");
@@ -27,6 +30,9 @@ public class ScreenUtils {
 
      * @param context
      * @return
+    /**
+     * Method description.
+     */
     public static int getScreenWidth(Context context) {
         WindowManager wm = (WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE);
@@ -37,6 +43,9 @@ public class ScreenUtils {
 
      * @param context
      * @return
+    /**
+     * Method description.
+     */
     public static int getScreenHeight(Context context) {
         WindowManager wm = (WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE);
@@ -47,6 +56,9 @@ public class ScreenUtils {
 
      * @param context
      * @return
+    /**
+     * Method description.
+     */
     public static int getStatusHeight(Context context) {
 
         int statusHeight = -1;
@@ -64,6 +76,9 @@ public class ScreenUtils {
 
      * @param activity
      * @return
+    /**
+     * Method description.
+     */
     public static Bitmap snapShotWithStatusBar(Activity activity) {
         View view = activity.getWindow().getDecorView();
         view.setDrawingCacheEnabled(true);
@@ -79,12 +94,18 @@ public class ScreenUtils {
     }
 
      * dpi
+    /**
+     * Method description.
+     */
     public static int getScreenDensityDpi(Context context) {
         return context.getResources().getDisplayMetrics().densityDpi;
     }
 
      * @param activity
      * @return
+    /**
+     * Method description.
+     */
     public static Bitmap snapShotWithoutStatusBar(Activity activity) {
         View view = activity.getWindow().getDecorView();
         view.setDrawingCacheEnabled(true);
@@ -106,6 +127,9 @@ public class ScreenUtils {
 
      * @param context
      * @return
+    /**
+     * Method description.
+     */
     public static int getBottomStatusHeight(Context context) {
         int totalHeight = getDpi(context);
 
@@ -114,6 +138,9 @@ public class ScreenUtils {
         return totalHeight - contentHeight;
     }
 
+    /**
+     * Method description.
+     */
     public static int getDpi(Context context) {
         int dpi = 0;
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -136,11 +163,17 @@ public class ScreenUtils {
      * dppx
      * 16dp - 48px
      * 17dp - 51px
+    /**
+     * Method description.
+     */
     public static int dip2px(Context context, float dpValue) {
         float scale = getScreenDendity(context);
         return (int) ((dpValue * scale) + 0.5f);
     }
 
+    /**
+     * Method description.
+     */
     public static float getScreenDendity(Context context) {
         return context.getResources().getDisplayMetrics().density;//3
     }
@@ -150,6 +183,9 @@ public class ScreenUtils {
      * @setTitle
      * @setMessage
      * setXXXDialog
+    /**
+     * Method description.
+     */
     public static Dialog showNormalDialog(Context context, String info, PopupWindow.OnDismissListener dismissListener) {
         final AlertDialog.Builder normalDialog =
                 new AlertDialog.Builder(context);
@@ -168,6 +204,9 @@ public class ScreenUtils {
     }
 
      * @return
+    /**
+     * Method description.
+     */
     public static int getPreviewFPSByDataFlowMode(CommonParams.DataFlowMode defaultDataFlowMode) {
         if (defaultDataFlowMode == CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT) {
             return 25;

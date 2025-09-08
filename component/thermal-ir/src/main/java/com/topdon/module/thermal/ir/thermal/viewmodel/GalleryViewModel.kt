@@ -15,8 +15,12 @@ import java.io.File
 
 class GalleryViewModel : BaseViewModel() {
 
+    /** galleryLiveData property */
     val galleryLiveData = SingleLiveEvent<ArrayList<String>>()
 
+    /**
+     * Function description.
+     */
     fun getData() {
         viewModelScope.launch {
             getGalleryList().collect { it ->
@@ -30,6 +34,9 @@ class GalleryViewModel : BaseViewModel() {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun getVideoData() {
         viewModelScope.launch {
             getVideoList().collect { it ->

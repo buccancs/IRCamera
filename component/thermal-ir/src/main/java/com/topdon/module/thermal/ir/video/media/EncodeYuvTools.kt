@@ -9,6 +9,9 @@ import android.media.MediaCodecInfo.CodecCapabilities.*
  * COLOR_FormatYUV420PackedPlanar
 object EncodeYuvTools {
 
+    /**
+     * Function description.
+     */
     fun getNV12(
         inputWidth: Int,
         inputHeight: Int,

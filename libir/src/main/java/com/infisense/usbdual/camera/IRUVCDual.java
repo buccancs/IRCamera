@@ -35,7 +35,13 @@ import java.util.List;
  * @since 2022.9.8 10:25
  */
 public class IRUVCDual {
+    /**
+     * Method description.
+     */
     public String TAG = "IRUVC";
+    /**
+     * Private method description.
+     */
     private final Context mContext;
     private IFrameCallback iFrameCallback;
     private UVCCamera uvcCamera;
@@ -80,42 +86,72 @@ public class IRUVCDual {
         this.dualUVCCamera = dualUVCCamera;
     }
 
+    /**
+     * Method description.
+     */
     public DualUVCCamera dualUVCCamera;
 
     public void setPseudocolorMode(CommonParams.PseudoColorType pseudocolorMode) {
         this.pseudocolorMode = pseudocolorMode;
     }
 
+    /**
+     * Private method description.
+     */
     private CommonParams.PseudoColorType pseudocolorMode;
 
+    /**
+     * Method description.
+     */
     public void setCameraview(TextureView cameraview) {
         this.cameraview = cameraview;
     }
 
+    /**
+     * Method description.
+     */
     public void setmPid(int mPid) {
         this.mPid = mPid;
     }
 
+    /**
+     * Method description.
+     */
     public void setVid(int vid) {
         this.vid = vid;
     }
 
+    /**
+     * Method description.
+     */
     public void setHandler(Handler handler) {
         this.handler = handler;
     }
 
+    /**
+     * Private method description.
+     */
     private Handler handler;
 
+    /**
+     * Method description.
+     */
     public boolean rotate = false;
 
     public void setRotate(boolean rotate) {
         this.rotate = rotate;
     }
 
+    /**
+     * Method description.
+     */
     public void setImage(byte[] image) {
         this.image = image;
     }
 
+    /**
+     * Method description.
+     */
     public void setTemperature(byte[] temperature) {
         this.temperature = temperature;
     }
@@ -124,6 +160,9 @@ public class IRUVCDual {
      * @param cameraHeight
      * @param context
      * @param syncimage
+    /**
+     * Method description.
+     */
     public IRUVCDual(int cameraWidth, int cameraHeight, Context context, SynchronizedBitmap syncimage,
                      ConnectCallback connectCallback) {
         this.cameraWidth = cameraWidth;
@@ -216,6 +255,9 @@ public class IRUVCDual {
      * @param fps
      * @param connectCallback
      * @param iFrameCallback
+    /**
+     * Method description.
+     */
     public IRUVCDual(int cameraWidth, int cameraHeight, Context context, int pid, int fps,
                      ConnectCallback connectCallback, IFrameCallback iFrameCallback) {
         this.mPid = pid;
@@ -300,6 +342,9 @@ public class IRUVCDual {
         });
     }
 
+    /**
+     * Method description.
+     */
     public IRUVCDual(int cameraWidth, int cameraHeight, Context context, SynchronizedBitmap syncimage, int pid, int fps,
                      ConnectCallback connectCallback) {
         this.mPid = pid;
@@ -389,6 +434,9 @@ public class IRUVCDual {
      * @param context
      * @param syncimage
      * @param pid
+    /**
+     * Method description.
+     */
     public IRUVCDual(int cameraWidth, int cameraHeight, Context context, SynchronizedBitmap syncimage, int pid,
                      ConnectCallback connectCallback, boolean isUseIRISP) {
         this.mPid = pid;
@@ -474,6 +522,9 @@ public class IRUVCDual {
 
      * @param cameraWidth
      * @param cameraHeight
+    /**
+     * Method description.
+     */
     public void initUVCCamera(int cameraWidth, int cameraHeight) {
         Log.i(TAG, "initUVCCamera->cameraWidth = " + cameraWidth + " cameraHeight = " + cameraHeight);
         // UVCCamera
@@ -484,15 +535,24 @@ public class IRUVCDual {
     }
 
      * @return
+    /**
+     * Method description.
+     */
     public UVCCamera getUvcCamera() {
         return uvcCamera;
     }
 
      * @return
+    /**
+     * Method description.
+     */
     public IRCMD getIrcmd() {
         return ircmd;
     }
 
+    /**
+     * Method description.
+     */
     public void registerUSB() {
         Log.i(TAG, "registerUSB");
         if (mUSBMonitor != null) {
@@ -500,6 +560,9 @@ public class IRUVCDual {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void unregisterUSB() {
         Log.i(TAG, "unregisterUSB");
         if (mUSBMonitor != null) {
@@ -507,6 +570,9 @@ public class IRUVCDual {
         }
     }
 
+    /**
+     * Method description.
+     */
     public List<UsbDevice> getUsbDeviceList() {
         List<DeviceFilter> deviceFilters = DeviceFilter
                 .getDeviceFilters(mContext, R.xml.device_filter);
@@ -522,6 +588,9 @@ public class IRUVCDual {
      *
      * @param parameter parameter description
      * @return return value
+     */
+    /**
+     * Method description.
      */
     public boolean requestPermission(int index) {
         Log.i(TAG, "requestPermission");
@@ -542,6 +611,9 @@ public class IRUVCDual {
     }
 
      * @param ctrlBlock
+    /**
+     * Method description.
+     */
     public void openUVCCamera(USBMonitor.UsbControlBlock ctrlBlock) {
         Log.i(TAG, "openUVCCamera");
         if (ctrlBlock.getProductId() == 0x3901) {
@@ -556,6 +628,9 @@ public class IRUVCDual {
         uvcCamera.openUVCCamera(ctrlBlock);
     }
 
+    /**
+     * Method description.
+     */
     public void startPreview() {
         Log.w(TAG, "startPreview mPid = " + mPid + " isUseIRISP = " + isUseIRISP);
         uvcCamera.setOpenStatus(true);
@@ -574,6 +649,9 @@ public class IRUVCDual {
     }
 
      * @return
+    /**
+     * Private method description.
+     */
     private List<CameraSize> getAllSupportedSize() {
         List<CameraSize> previewList = new ArrayList<>();
         if (uvcCamera != null) {
@@ -588,6 +666,9 @@ public class IRUVCDual {
      * init IRCMD
      * cmdSDK
      * @param previewList
+    /**
+     * Method description.
+     */
     public void initIRCMD(List<CameraSize> previewList) {
         for (CameraSize size : previewList) {
 //            Log.i(TAG, SupportedSize :  + size.width +  *  + size.height);
@@ -609,6 +690,9 @@ public class IRUVCDual {
      * openUVCCamera
      * @param cameraWidth
      * @param cameraHeight
+    /**
+     * Private method description.
+     */
     private int setPreviewSize(int cameraWidth, int cameraHeight) {
         if (uvcCamera != null) {
             Log.d(TAG, "setUSBPreviewSize mPid = " + mPid + " cameraWidth = " + cameraWidth +
@@ -618,6 +702,9 @@ public class IRUVCDual {
         return -1;
     }
 
+    /**
+     * Method description.
+     */
     public void stopPreview() {
         Log.i(TAG, "stopPreview");
         if (uvcCamera != null) {
@@ -634,12 +721,18 @@ public class IRUVCDual {
     }
 
 
+    /**
+     * Method description.
+     */
     public void setConnectCallback(ConnectCallback mConnectCallback) {
         Log.d(TAG, "setConnectCallback");
         this.mConnectCallback = mConnectCallback;
     }
 
      * @param ctrlBlock
+    /**
+     * Private method description.
+     */
     private void handleUSBConnect(USBMonitor.UsbControlBlock ctrlBlock) {
         Log.d(TAG, "handleUSBConnect mPid = " + mPid);
         openUVCCamera(ctrlBlock);

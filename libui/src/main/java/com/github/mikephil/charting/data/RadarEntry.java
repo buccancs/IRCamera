@@ -8,10 +8,16 @@ import android.annotation.SuppressLint;
 @SuppressLint("ParcelCreator")
 public class RadarEntry extends Entry {
 
+    /**
+     * Method description.
+     */
     public RadarEntry(float value) {
         super(0f, value);
     }
 
+    /**
+     * Method description.
+     */
     public RadarEntry(float value, Object data) {
         super(0f, value, data);
     }
@@ -21,10 +27,16 @@ public class RadarEntry extends Entry {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public float getValue() {
         return getY();
     }
 
+    /**
+     * Method description.
+     */
     public RadarEntry copy() {
         RadarEntry e = new RadarEntry(getY(), getData());
         return e;
@@ -32,12 +44,18 @@ public class RadarEntry extends Entry {
 
     @Deprecated
     @Override
+    /**
+     * Method description.
+     */
     public void setX(float x) {
         super.setX(x);
     }
 
     @Deprecated
     @Override
+    /**
+     * Method description.
+     */
     public float getX() {
         return super.getX();
     }

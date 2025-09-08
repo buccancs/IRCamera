@@ -22,6 +22,7 @@ class TipEmissivityDialog : Dialog {
 
     constructor(context: Context, themeResId: Int) : super(context, themeResId)
 
+    /** onDismissListener property */
     var onDismissListener :((check : Boolean) -> Unit) ?= null
 
     class Builder {

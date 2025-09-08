@@ -16,12 +16,18 @@ import com.topdon.ble.util.Logger;
  * date: 2021/8/12 12:30
  * author: bichuanfeng
 class LeScanner extends AbstractScanner {
+    /**
+     * Private method description.
+     */
     private BluetoothLeScanner bleScanner;
 
     LeScanner(EasyBLE easyBle, BluetoothAdapter bluetoothAdapter) {
         super(easyBle, bluetoothAdapter);
     }
 
+    /**
+     * Private method description.
+     */
     private BluetoothLeScanner getLeScanner() {
         if (bleScanner == null) {
             //null
@@ -30,6 +36,9 @@ class LeScanner extends AbstractScanner {
         return bleScanner;
     }
 
+    /**
+     * Private method description.
+     */
     private final ScanCallback scanCallback = new ScanCallback() {
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
@@ -71,6 +80,9 @@ class LeScanner extends AbstractScanner {
 
     @NonNull
     @Override
+    /**
+     * Method description.
+     */
     public ScannerType getType() {
         return ScannerType.LE;
     }

@@ -19,22 +19,34 @@ import java.util.Objects;
  * date: 2019/8/3 13:14
  * author: chuanfeng.bi
 public final class Observable {
+    /**
+     * Private method description.
+     */
     private final List<ObserverInfo> observerInfos = new ArrayList<>();
     private final PosterDispatcher posterDispatcher;
     private final ObserverMethodHelper helper;
 
      * @param posterDispatcher
      * @param isObserveAnnotationRequired {@link Observe}
+    /**
+     * Method description.
+     */
     public Observable(@NonNull PosterDispatcher posterDispatcher, boolean isObserveAnnotationRequired) {
         this.posterDispatcher = posterDispatcher;
         helper = new ObserverMethodHelper(isObserveAnnotationRequired);
     }
 
+    /**
+     * Method description.
+     */
     public PosterDispatcher getPosterDispatcher() {
         return posterDispatcher;
     }
 
      * @param observer
+    /**
+     * Method description.
+     */
     public void registerObserver(@NonNull Observer observer) {
         Objects.requireNonNull(observer, "observer can't be null");
         synchronized (observerInfos) {
@@ -58,6 +70,9 @@ public final class Observable {
     }
 
      * @param observer
+    /**
+     * Method description.
+     */
     public boolean isRegistered(@NonNull Observer observer) {
         synchronized (observerInfos) {
             for (ObserverInfo info : observerInfos) {
@@ -70,6 +85,9 @@ public final class Observable {
     }
 
      * @param observer
+    /**
+     * Method description.
+     */
     public void unregisterObserver(@NonNull Observer observer) {
         synchronized (observerInfos) {
             for (Iterator<ObserverInfo> it = observerInfos.iterator(); it.hasNext(); ) {
@@ -82,6 +100,9 @@ public final class Observable {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void unregisterAll() {
         synchronized (observerInfos) {
             observerInfos.clear();
@@ -89,6 +110,9 @@ public final class Observable {
         helper.clearCache();
     }
 
+    /**
+     * Private method description.
+     */
     private List<ObserverInfo> getObserverInfos() {
         synchronized (observerInfos) {
             ArrayList<ObserverInfo> infos = new ArrayList<>();
@@ -104,11 +128,17 @@ public final class Observable {
 
      * @param methodName
      * @param parameters
+    /**
+     * Method description.
+     */
     public void notifyObservers(@NonNull String methodName, @Nullable MethodInfo.Parameter... parameters) {
         notifyObservers(new MethodInfo(methodName, parameters));
     }
 
      * @param info
+    /**
+     * Method description.
+     */
     public void notifyObservers(@NonNull MethodInfo info) {
         List<ObserverInfo> infos = getObserverInfos();
         for (ObserverInfo oi : infos) {

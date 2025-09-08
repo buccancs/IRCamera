@@ -9,7 +9,10 @@ import com.csl.irCamera.libapp.R as LibAppR
 
  *  StandardGSYVideoPlayer.
  * .
- * Created by chenggeng.lin on 2023/12/8.
+/**
+ * @author chenggeng.lin
+ * @since Unknown
+ */
 class MyGSYVideoPlayer : StandardGSYVideoPlayer {
 
     override fun getLayoutId(): Int = R.layout.view_my_gsy_video_player

@@ -33,12 +33,21 @@ import com.github.gzuliyujiang.wheelview.widget.WheelView;
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class LinkagePicker extends ModalDialog {
     protected LinkageWheelLayout wheelLayout;
+    /**
+     * Private method description.
+     */
     private OnLinkagePickedListener onLinkagePickedListener;
 
+    /**
+     * Method description.
+     */
     public LinkagePicker(@NonNull Activity activity) {
         super(activity);
     }
 
+    /**
+     * Method description.
+     */
     public LinkagePicker(@NonNull Activity activity, @StyleRes int themeResId) {
         super(activity, themeResId);
     }
@@ -65,46 +74,79 @@ public class LinkagePicker extends ModalDialog {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setData(@NonNull LinkageProvider data) {
         wheelLayout.setData(data);
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultValue(Object first, Object second, Object third) {
         wheelLayout.setDefaultValue(first, second, third);
     }
 
+    /**
+     * Method description.
+     */
     public void setOnLinkagePickedListener(OnLinkagePickedListener onLinkagePickedListener) {
         this.onLinkagePickedListener = onLinkagePickedListener;
     }
 
+    /**
+     * Method description.
+     */
     public final LinkageWheelLayout getWheelLayout() {
         return wheelLayout;
     }
 
+    /**
+     * Method description.
+     */
     public final WheelView getFirstWheelView() {
         return wheelLayout.getFirstWheelView();
     }
 
+    /**
+     * Method description.
+     */
     public final WheelView getSecondWheelView() {
         return wheelLayout.getSecondWheelView();
     }
 
+    /**
+     * Method description.
+     */
     public final WheelView getThirdWheelView() {
         return wheelLayout.getThirdWheelView();
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getFirstLabelView() {
         return wheelLayout.getFirstLabelView();
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getSecondLabelView() {
         return wheelLayout.getSecondLabelView();
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getThirdLabelView() {
         return wheelLayout.getThirdLabelView();
     }
 
+    /**
+     * Method description.
+     */
     public final ProgressBar getLoadingView() {
         return wheelLayout.getLoadingView();
     }

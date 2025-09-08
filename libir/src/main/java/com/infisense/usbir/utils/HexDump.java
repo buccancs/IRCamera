@@ -18,14 +18,26 @@ package com.infisense.usbir.utils;
  * @since 2022.9.8 10:25
  */
 public class HexDump {
+    /**
+     * Private method description.
+     */
     private final static char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+    /**
+     * Private method description.
+     */
     private final static char[] HEX_LOWER_CASE_DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
+    /**
+     * Method description.
+     */
     public static String dumpHexString(byte[] array) {
         if (array == null) return "(null)";
         return dumpHexString(array, 0, array.length);
     }
 
+    /**
+     * Method description.
+     */
     public static String dumpHexString(byte[] array, int offset, int length) {
         if (array == null) return "(null)";
         StringBuilder result = new StringBuilder();
@@ -80,22 +92,37 @@ public class HexDump {
         return result.toString();
     }
 
+    /**
+     * Method description.
+     */
     public static String toHexString(byte b) {
         return toHexString(toByteArray(b));
     }
 
+    /**
+     * Method description.
+     */
     public static String toHexString(byte[] array) {
         return toHexString(array, 0, array.length, true);
     }
 
+    /**
+     * Method description.
+     */
     public static String toHexString(byte[] array, boolean upperCase) {
         return toHexString(array, 0, array.length, upperCase);
     }
 
+    /**
+     * Method description.
+     */
     public static String toHexString(byte[] array, int offset, int length) {
         return toHexString(array, offset, length, true);
     }
 
+    /**
+     * Method description.
+     */
     public static String toHexString(byte[] array, int offset, int length, boolean upperCase) {
         char[] digits = upperCase ? HEX_DIGITS : HEX_LOWER_CASE_DIGITS;
         char[] buf = new char[length * 2];
@@ -110,16 +137,25 @@ public class HexDump {
         return new String(buf);
     }
 
+    /**
+     * Method description.
+     */
     public static String toHexString(int i) {
         return toHexString(toByteArray(i));
     }
 
+    /**
+     * Method description.
+     */
     public static byte[] toByteArray(byte b) {
         byte[] array = new byte[1];
         array[0] = b;
         return array;
     }
 
+    /**
+     * Method description.
+     */
     public static byte[] toByteArray(int i) {
         byte[] array = new byte[4];
 
@@ -131,6 +167,9 @@ public class HexDump {
         return array;
     }
 
+    /**
+     * Private method description.
+     */
     private static int toByte(char c) {
         if (c >= '0' && c <= '9') return (c - '0');
         if (c >= 'A' && c <= 'F') return (c - 'A' + 10);
@@ -139,6 +178,9 @@ public class HexDump {
         throw new RuntimeException("Invalid hex char '" + c + "'");
     }
 
+    /**
+     * Method description.
+     */
     public static byte[] hexStringToByteArray(String hexString) {
         int length = hexString.length();
         byte[] buffer = new byte[length / 2];
@@ -150,6 +192,9 @@ public class HexDump {
         return buffer;
     }
 
+    /**
+     * Method description.
+     */
     public static StringBuilder appendByteAsHex(StringBuilder sb, byte b, boolean upperCase) {
         char[] digits = upperCase ? HEX_DIGITS : HEX_LOWER_CASE_DIGITS;
         sb.append(digits[(b >> 4) & 0xf]);
@@ -157,6 +202,9 @@ public class HexDump {
         return sb;
     }
 
+    /**
+     * Method description.
+     */
     public static int bytesToInt(byte[] src, int offset) {
         int value;
         value = (int) ((src[offset] & 0xFF)
@@ -173,6 +221,9 @@ public class HexDump {
      * @param parameter parameter description
      * @return return value
      */
+    /**
+     * Method description.
+     */
     public static byte[] intToBytes(int value) {
         byte[] src = new byte[4];
         src[3] = (byte) ((value >> 24) & 0xFF);
@@ -183,6 +234,9 @@ public class HexDump {
     }
 
      * intbyte()  bytesToInt2
+    /**
+     * Method description.
+     */
     public static byte[] intToBytes2(int value) {
         byte[] src = new byte[4];
         src[0] = (byte) ((value >> 24) & 0xFF);
@@ -192,6 +246,9 @@ public class HexDump {
         return src;
     }
 
+    /**
+     * Method description.
+     */
     public static void float2byte(float num, byte[] numbyte) {
         int fbit = Float.floatToIntBits(num);
 

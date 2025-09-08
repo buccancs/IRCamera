@@ -40,19 +40,34 @@ import java.util.Locale;
 
 public class SeekBar {
     //the indicator show mode
+    /**
+     * Method description.
+     */
     public static final int INDICATOR_SHOW_WHEN_TOUCH = 0;
     public static final int INDICATOR_ALWAYS_HIDE = 1;
     public static final int INDICATOR_ALWAYS_SHOW_AFTER_TOUCH = 2;
     public static final int INDICATOR_ALWAYS_SHOW = 3;
+    /**
+     * Private method description.
+     */
     private boolean thumbShow;
 
     @IntDef({INDICATOR_SHOW_WHEN_TOUCH, INDICATOR_ALWAYS_HIDE, INDICATOR_ALWAYS_SHOW_AFTER_TOUCH, INDICATOR_ALWAYS_SHOW})
+    /**
+     * Method description.
+     */
     public @interface IndicatorModeDef {
     }
 
+    /**
+     * Method description.
+     */
     public static final int WRAP_CONTENT = -1;
     public static final int MATCH_PARENT = -2;
 
+    /**
+     * Private method description.
+     */
     private int indicatorShowMode;
 
     //0
@@ -108,6 +123,9 @@ public class SeekBar {
         initVariables();
     }
 
+    /**
+     * Private method description.
+     */
     private void initAttrs(AttributeSet attrs) {
         TypedArray t = getContext().obtainStyledAttributes(attrs, R.styleable.RangeSeekBar);
         if (t == null) return;
@@ -145,15 +163,24 @@ public class SeekBar {
         }
     }
 
+    /**
+     * Method description.
+     */
     public Context getContext() {
         return rangeSeekBar.getContext();
     }
 
+    /**
+     * Method description.
+     */
     public Resources getResources() {
         if (getContext() != null) return getContext().getResources();
         return null;
     }
 
+    /**
+     * Private method description.
+     */
     private void initBitmap() {
         setIndicatorDrawableId(indicatorDrawableId);
         setThumbDrawableId(thumbDrawableId, thumbWidth, thumbHeight);
@@ -173,6 +200,9 @@ public class SeekBar {
     }
 
 
+    /**
+     * Method description.
+     */
     public void scaleThumb() {
         scaleThumbWidth = (int) getThumbScaleWidth();
         scaleThumbHeight = (int) getThumbScaleHeight();
@@ -182,6 +212,9 @@ public class SeekBar {
         setThumbDrawableId(thumbDrawableId, scaleThumbWidth, scaleThumbHeight);
     }
 
+    /**
+     * Method description.
+     */
     public void resetThumb() {
         scaleThumbWidth = getThumbWidth();
         scaleThumbHeight = getThumbHeight();
@@ -191,10 +224,19 @@ public class SeekBar {
         setThumbDrawableId(thumbDrawableId, scaleThumbWidth, scaleThumbHeight);
     }
 
+    /**
+     * Method description.
+     */
     public float getRawHeight() {
         return getIndicatorHeight() + getIndicatorArrowSize() + getIndicatorMargin() + getThumbScaleHeight();
     }
+    /**
+     * Private method description.
+     */
     private boolean noNegativeNumber = false;
+    /**
+     * Method description.
+     */
     public void setNoNegativeNumber(Boolean noNegativeNumber){
         this.noNegativeNumber = noNegativeNumber;
     }
@@ -421,6 +463,9 @@ public class SeekBar {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void materialRestore() {
         if (anim != null) anim.cancel();
         anim = ValueAnimator.ofFloat(material, 0);
@@ -441,26 +486,44 @@ public class SeekBar {
         anim.start();
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorText(String text) {
         userText2Draw = text;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorTextDecimalFormat(String formatPattern) {
         indicatorTextDecimalFormat = new DecimalFormat(formatPattern);
     }
 
+    /**
+     * Method description.
+     */
     public DecimalFormat getIndicatorTextDecimalFormat() {
         return indicatorTextDecimalFormat;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorTextStringFormat(String formatPattern) {
         indicatorTextStringFormat = formatPattern;
     }
 
+    /**
+     * Method description.
+     */
     public int getIndicatorDrawableId() {
         return indicatorDrawableId;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorDrawableId(@DrawableRes int indicatorDrawableId) {
         if (indicatorDrawableId != 0) {
             this.indicatorDrawableId = indicatorDrawableId;
@@ -476,54 +539,93 @@ public class SeekBar {
     }
 
 
+    /**
+     * Method description.
+     */
     public int getIndicatorArrowSize() {
         return indicatorArrowSize;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorArrowSize(int indicatorArrowSize) {
         this.indicatorArrowSize = indicatorArrowSize;
     }
 
+    /**
+     * Method description.
+     */
     public int getIndicatorPaddingLeft() {
         return indicatorPaddingLeft;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorPaddingLeft(int indicatorPaddingLeft) {
         this.indicatorPaddingLeft = indicatorPaddingLeft;
     }
 
+    /**
+     * Method description.
+     */
     public int getIndicatorPaddingRight() {
         return indicatorPaddingRight;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorPaddingRight(int indicatorPaddingRight) {
         this.indicatorPaddingRight = indicatorPaddingRight;
     }
 
+    /**
+     * Method description.
+     */
     public int getIndicatorPaddingTop() {
         return indicatorPaddingTop;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorPaddingTop(int indicatorPaddingTop) {
         this.indicatorPaddingTop = indicatorPaddingTop;
     }
 
+    /**
+     * Method description.
+     */
     public int getIndicatorPaddingBottom() {
         return indicatorPaddingBottom;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorPaddingBottom(int indicatorPaddingBottom) {
         this.indicatorPaddingBottom = indicatorPaddingBottom;
     }
 
+    /**
+     * Method description.
+     */
     public int getIndicatorMargin() {
         return indicatorMargin;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorMargin(int indicatorMargin) {
         this.indicatorMargin = indicatorMargin;
     }
 
+    /**
+     * Method description.
+     */
     public int getIndicatorShowMode() {
         return indicatorShowMode;
     }
@@ -534,20 +636,32 @@ public class SeekBar {
      * {@link #INDICATOR_ALWAYS_SHOW_AFTER_TOUCH}
      * {@link #INDICATOR_ALWAYS_SHOW}
      * @param indicatorShowMode
+    /**
+     * Method description.
+     */
     public void setIndicatorShowMode(@IndicatorModeDef int indicatorShowMode) {
         this.indicatorShowMode = indicatorShowMode;
     }
 
+    /**
+     * Method description.
+     */
     public void showIndicator(boolean isShown) {
         isShowIndicator = isShown;
     }
 
+    /**
+     * Method description.
+     */
     public boolean isShowIndicator() {
         return isShowIndicator;
     }
 
      * include indicator text Heightpaddingmargin
      * @return The actual occupation height of indicator
+    /**
+     * Method description.
+     */
     public int getIndicatorRawHeight() {
         if (indicatorHeight > 0) {
             if (indicatorBitmap != null) {
@@ -564,50 +678,86 @@ public class SeekBar {
         }
     }
 
+    /**
+     * Method description.
+     */
     public int getIndicatorHeight() {
         return indicatorHeight;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorHeight(int indicatorHeight) {
         this.indicatorHeight = indicatorHeight;
     }
 
+    /**
+     * Method description.
+     */
     public int getIndicatorWidth() {
         return indicatorWidth;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorWidth(int indicatorWidth) {
         this.indicatorWidth = indicatorWidth;
     }
 
+    /**
+     * Method description.
+     */
     public int getIndicatorTextSize() {
         return indicatorTextSize;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorTextSize(int indicatorTextSize) {
         this.indicatorTextSize = indicatorTextSize;
     }
 
+    /**
+     * Method description.
+     */
     public int getIndicatorTextColor() {
         return indicatorTextColor;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorTextColor(@ColorInt int indicatorTextColor) {
         this.indicatorTextColor = indicatorTextColor;
     }
 
+    /**
+     * Method description.
+     */
     public int getIndicatorBackgroundColor() {
         return indicatorBackgroundColor;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorBackgroundColor(@ColorInt int indicatorBackgroundColor) {
         this.indicatorBackgroundColor = indicatorBackgroundColor;
     }
 
+    /**
+     * Method description.
+     */
     public int getThumbInactivatedDrawableId() {
         return thumbInactivatedDrawableId;
     }
 
+    /**
+     * Method description.
+     */
     public void setThumbInactivatedDrawableId(@DrawableRes int thumbInactivatedDrawableId, int width, int height) {
         if (thumbInactivatedDrawableId != 0 && getResources() != null) {
             this.thumbInactivatedDrawableId = thumbInactivatedDrawableId;
@@ -619,10 +769,16 @@ public class SeekBar {
         }
     }
 
+    /**
+     * Method description.
+     */
     public int getThumbDrawableId() {
         return thumbDrawableId;
     }
 
+    /**
+     * Method description.
+     */
     public void setThumbDrawableId(@DrawableRes int thumbDrawableId, int width, int height) {
         if (thumbDrawableId != 0 && getResources() != null && width > 0 && height > 0) {
             this.thumbDrawableId = thumbDrawableId;
@@ -634,6 +790,9 @@ public class SeekBar {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setThumbDrawableId(@DrawableRes int thumbDrawableId) {
         if (thumbWidth <= 0 || thumbHeight <= 0) {
             throw new IllegalArgumentException("please set thumbWidth and thumbHeight first!");
@@ -648,34 +807,58 @@ public class SeekBar {
         }
     }
 
+    /**
+     * Method description.
+     */
     public int getThumbWidth() {
         return thumbWidth;
     }
 
+    /**
+     * Method description.
+     */
     public void setThumbWidth(int thumbWidth) {
         this.thumbWidth = thumbWidth;
     }
 
+    /**
+     * Method description.
+     */
     public float getThumbScaleHeight() {
         return thumbHeight * thumbScaleRatio;
     }
 
+    /**
+     * Method description.
+     */
     public float getThumbScaleWidth() {
         return thumbWidth * thumbScaleRatio;
     }
 
+    /**
+     * Method description.
+     */
     public int getThumbHeight() {
         return thumbHeight;
     }
 
+    /**
+     * Method description.
+     */
     public void setThumbHeight(int thumbHeight) {
         this.thumbHeight = thumbHeight;
     }
 
+    /**
+     * Method description.
+     */
     public float getIndicatorRadius() {
         return indicatorRadius;
     }
 
+    /**
+     * Method description.
+     */
     public void setIndicatorRadius(float indicatorRadius) {
         this.indicatorRadius = indicatorRadius;
     }
@@ -688,6 +871,9 @@ public class SeekBar {
         isActivate = activate;
     }
 
+    /**
+     * Method description.
+     */
     public void setTypeface(Typeface typeFace) {
         paint.setTypeface(typeFace);
     }
@@ -695,20 +881,32 @@ public class SeekBar {
 
      * when you touch or move, the thumb will scale, default not scale
      * @return default 1.0f
+    /**
+     * Method description.
+     */
     public float getThumbScaleRatio() {
         return thumbScaleRatio;
     }
 
+    /**
+     * Method description.
+     */
     public boolean isVisible() {
         return isVisible;
     }
 
      * if visble is false, will clear the Canvas
      * @param visible
+    /**
+     * Method description.
+     */
     public void setVisible(boolean visible) {
         isVisible = visible;
     }
 
+    /**
+     * Method description.
+     */
     public float getProgress() {
         float range = rangeSeekBar.getMaxProgress() - rangeSeekBar.getMinProgress();
         return rangeSeekBar.getMinProgress() + range * currPercent;

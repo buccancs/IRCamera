@@ -23,6 +23,9 @@ public class XAxisRenderer extends AxisRenderer {
 
     protected XAxis mXAxis;
 
+    /**
+     * Method description.
+     */
     public XAxisRenderer(ViewPortHandler viewPortHandler, XAxis xAxis, Transformer trans) {
         super(viewPortHandler, trans, xAxis);
 
@@ -40,6 +43,9 @@ public class XAxisRenderer extends AxisRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void computeAxis(float min, float max, boolean inverted) {
 
         // calculate the starting and entry point of the y-labels (depending on
@@ -101,6 +107,9 @@ public class XAxisRenderer extends AxisRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void renderAxisLabels(Canvas c) {
 
         if (!mXAxis.isEnabled() || !mXAxis.isDrawLabelsEnabled())
@@ -145,6 +154,9 @@ public class XAxisRenderer extends AxisRenderer {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void renderAxisLine(Canvas c) {
 
         if (!mXAxis.isDrawAxisLineEnabled() || !mXAxis.isEnabled())
@@ -235,6 +247,9 @@ public class XAxisRenderer extends AxisRenderer {
     protected Path mRenderGridLinesPath = new Path();
     protected float[] mRenderGridLinesBuffer = new float[2];
     @Override
+    /**
+     * Method description.
+     */
     public void renderGridLines(Canvas c) {
 
         if (!mXAxis.isDrawGridLinesEnabled() || !mXAxis.isEnabled())
@@ -277,6 +292,9 @@ public class XAxisRenderer extends AxisRenderer {
 
     protected RectF mGridClippingRect = new RectF();
 
+    /**
+     * Method description.
+     */
     public RectF getGridClippingRect() {
         mGridClippingRect.set(mViewPortHandler.getContentRect());
         mGridClippingRect.inset(-mAxis.getGridLineWidth(), 0.f);
@@ -305,6 +323,9 @@ public class XAxisRenderer extends AxisRenderer {
      * Draws the LimitLines associated with this axis to the screen.
      * @param c
     @Override
+    /**
+     * Method description.
+     */
     public void renderLimitLines(Canvas c) {
 
         List<LimitLine> limitLines = mXAxis.getLimitLines();
@@ -341,8 +362,14 @@ public class XAxisRenderer extends AxisRenderer {
     }
 
     float[] mLimitLineSegmentsBuffer = new float[4];
+    /**
+     * Private method description.
+     */
     private Path mLimitLinePath = new Path();
 
+    /**
+     * Method description.
+     */
     public void renderLimitLineLine(Canvas c, LimitLine limitLine, float[] position) {
         mLimitLineSegmentsBuffer[0] = position[0];
         mLimitLineSegmentsBuffer[1] = mViewPortHandler.contentTop();
@@ -361,6 +388,9 @@ public class XAxisRenderer extends AxisRenderer {
         c.drawPath(mLimitLinePath, mLimitLinePaint);
     }
 
+    /**
+     * Method description.
+     */
     public void renderLimitLineLabel(Canvas c, LimitLine limitLine, float[] position, float yOffset) {
         String label = limitLine.getLabel();
 

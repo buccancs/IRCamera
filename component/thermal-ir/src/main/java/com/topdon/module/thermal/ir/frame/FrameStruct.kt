@@ -154,25 +154,45 @@ class FrameStruct() {
         }
     }
 
+    /** len property */
     var len = 0
+    /** name property */
     var name: String = ""
+    /** ver property */
     var ver: String = ""
+    /** width property */
     var width = 0
+    /** height property */
     var height = 0
+    /** rotate property */
     var rotate = 0
+    /** pseudo property */
     var pseudo = 0
+    /** initRotate property */
     var initRotate = 0
+    /** correctRotate property */
     var correctRotate = 0
+    /** customPseudoBean property */
     var customPseudoBean = CustomPseudoBean()
+    /** isShowPseudoBar property */
     var isShowPseudoBar = false
+    /** textColor property */
     var textColor = 0xffffffff.toInt()
+    /** watermarkBean property */
     var watermarkBean = WatermarkBean()
+    /** alarmBean property */
     var alarmBean = AlarmBean()
+    /** gainStatus property */
     var gainStatus : Int = 1 // 1: 0:
+    /** textSize property */
     var textSize : Int = SizeUtils.sp2px(14f)
+    /** environment property */
     var environment : Float = 0f
+    /** distance property */
     var distance : Float = 0f
+    /** radiation property */
     var radiation : Float = 0f
+    /** isAmplify property */
     var isAmplify : Boolean = false
 
 
@@ -240,9 +260,15 @@ class FrameStruct() {
 
     }
 
+    /**
+     * Function description.
+     */
     fun isTC001(): Boolean = name == "TC001"
     
      * Check if device is TC007 (legacy compatibility - always false for TC001 only build)
+    /**
+     * Function description.
+     */
     fun isTC007(): Boolean = false // TC001 only - no TC007 support
 
 }

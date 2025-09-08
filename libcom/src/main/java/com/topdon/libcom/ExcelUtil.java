@@ -45,12 +45,18 @@ import static com.blankj.utilcode.util.ImageUtils.save;
 public class ExcelUtil {
 
     @NonNull
+    /**
+     * Private method description.
+     */
     private static String getTemperature(int index, @NonNull byte[] norTempData, boolean isShowC) {
         int tempValue = (norTempData[2 * index + 1] << 8 & 0xff00) | (norTempData[2 * index] & 0xff);
         float value = tempValue / 64f - 273.15f;
         return UnitTools.showC(value,isShowC);
     }
     @Nullable
+    /**
+     * Method description.
+     */
     public static String exportExcel(@NonNull String name, int width, int height, @NonNull byte[] norTempData, @Nullable Callback callback) {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet();
@@ -107,12 +113,18 @@ public class ExcelUtil {
         }
     }
     @FunctionalInterface
+    /**
+     * Method description.
+     */
     public interface Callback {
         void onOneCell(int current, int total);
     }
 
      * @param listData
      * @return
+    /**
+     * Method description.
+     */
     public static String exportExcel(ArrayList<ThermalEntity> listData,boolean isPoint) {
         boolean isShowC = SharedManager.INSTANCE.getTemperature() == 1;
         try {

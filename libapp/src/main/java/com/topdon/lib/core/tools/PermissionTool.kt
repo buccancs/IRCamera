@@ -15,20 +15,35 @@ import com.topdon.lms.sdk.weiget.TToast
 object PermissionTool {
 
      *  RECORD_AUDIO .
+    /**
+     * Function description.
+     */
     fun requestRecordAudio(context: Context, callback: () -> Unit) = request(context, Type.RECORD_AUDIO, callback)
 
      *  CAMERA .
+    /**
+     * Function description.
+     */
     fun requestCamera(context: Context, callback: () -> Unit) = request(context, Type.CAMERA, callback)
 
      *  ACCESS_FINE_LOCATION .
+    /**
+     * Function description.
+     */
     fun requestLocation(context: Context, callback: () -> Unit) = request(context, Type.LOCATION, callback)
 
      *   .
+    /**
+     * Function description.
+     */
     fun requestImageRead(context: Context, callback: () -> Unit) = request(context, Type.IMAGE, callback)
 
      * Android 10
      * Android 11Android 12Android 12L
      * Android 13
+    /**
+     * Function description.
+     */
     fun requestFile(context: Context, callback: () -> Unit) = request(context, Type.FILE, callback)
 
 
@@ -95,6 +110,9 @@ object PermissionTool {
 
      *  ACCESS_FINE_LOCATIONBLUETOOTH_SCANBLUETOOTH_CONNECT
      *  Android12
+    /**
+     * Function description.
+     */
     fun hasBtPermission(context: Context): Boolean {
         return if (Build.VERSION.SDK_INT < 31) {// Android12
             XXPermissions.isGranted(context, Permission.ACCESS_FINE_LOCATION)
@@ -105,6 +123,9 @@ object PermissionTool {
 
      *  Android12  BLUETOOTH_SCANBLUETOOTH_CONNECT
      * @param isBtFirst true- false
+    /**
+     * Function description.
+     */
     fun requestBluetooth(context: Context, isBtFirst: Boolean, callback: Callback) {
         val permissionList: List<String> = if (Build.VERSION.SDK_INT < 31) {// Android12
             arrayListOf(Permission.ACCESS_FINE_LOCATION, Permission.ACCESS_COARSE_LOCATION)

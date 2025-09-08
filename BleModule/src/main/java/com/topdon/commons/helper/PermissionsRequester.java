@@ -19,6 +19,9 @@ import java.util.List;
  * date: 2019/8/6 15:33
  * author: chuanfeng.bi
 public class PermissionsRequester {
+    /**
+     * Private method description.
+     */
     private static final int PERMISSION_REQUEST_CODE = 10;
     private static final int REQUEST_CODE_WRITE_SETTINGS = 11;
     private static final int REQUEST_CODE_UNKNOWN_APP_SOURCES = 12;
@@ -30,19 +33,31 @@ public class PermissionsRequester {
     private Fragment fragment;
     private boolean checking;
 
+    /**
+     * Method description.
+     */
     public PermissionsRequester(@NonNull Activity activity) {
         this.activity = activity;
     }
     
+    /**
+     * Method description.
+     */
     public PermissionsRequester(@NonNull Fragment fragment) {
         this.fragment = fragment;
     }
     
+    /**
+     * Method description.
+     */
     public void setCallback(Callback callback) {
         this.callback = callback;
     }
 
      * @param permissions
+    /**
+     * Method description.
+     */
     public void checkAndRequest(@NonNull List<String> permissions) {
         if (checking) {
             return;
@@ -53,11 +68,17 @@ public class PermissionsRequester {
         checkPermissions(allPermissions, false);
     }
 
+    /**
+     * Method description.
+     */
     public boolean hasPermissions(@NonNull List<String> permissions) {
         return checkPermissions(permissions, true);
     }
     
     @SuppressWarnings("all")
+    /**
+     * Private method description.
+     */
     private boolean checkPermissions(List<String> permissions, boolean onlyCheck) {
         Context context = activity != null ? activity : fragment.getContext();
         if (context == null) return false;
@@ -109,6 +130,9 @@ public class PermissionsRequester {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private List<String> findDeniedPermissions(List<String> permissions) {
         List<String> needRequestPermissionList = new ArrayList<>();
         Activity activity = this.activity != null ? this.activity : fragment.getActivity();
@@ -123,6 +147,9 @@ public class PermissionsRequester {
         return needRequestPermissionList;
     }
 
+    /**
+     * Method description.
+     */
     public void onActivityResult(int requestCode) {
         Context context = activity != null ? activity : fragment.getContext();
         if (context == null) return;
@@ -140,6 +167,9 @@ public class PermissionsRequester {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == PERMISSION_REQUEST_CODE) {
             for (int i = 0; i < permissions.length; i++) {
@@ -155,6 +185,9 @@ public class PermissionsRequester {
         }
     }
     
+    /**
+     * Method description.
+     */
     public interface Callback {
          * @param refusedPermissions size == 0
         void onRequestResult(List<String> refusedPermissions);

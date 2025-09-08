@@ -16,7 +16,9 @@ class PDFAdapter : BaseQuickAdapter<ReportData.Records?, BaseViewHolder>,LoadMor
     constructor(layoutResId: Int) : super(layoutResId) {}
     constructor(layoutResId: Int, data: MutableList<ReportData.Records?>?) : super(layoutResId, data) {}
 
+    /** delListener property */
     var delListener : ((item : ReportData.Records,position:Int) -> Unit) ?= null
+    /** jumpDetailListener property */
     var jumpDetailListener : ((item : ReportData.Records,position:Int) -> Unit) ?= null
 
 

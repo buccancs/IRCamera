@@ -13,6 +13,7 @@ import com.blankj.utilcode.util.SizeUtils
 
 class FenceLineView : View {
 
+    /** listener property */
     var listener: CallBack? = null
 
     private val mPaint by lazy { Paint() }
@@ -53,10 +54,15 @@ class FenceLineView : View {
         )
     }
 
+    /** mX property */
     var mX = 0f
+    /** mY property */
     var mY = 0f
+    /** old property */
     var old = Rect(0, 0, 0, 0)
+    /** startPoint property */
     var startPoint = intArrayOf(0, 0)
+    /** endPoint property */
     var endPoint = intArrayOf(0, 0)
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -141,6 +147,9 @@ class FenceLineView : View {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun clear() {
         startPoint = intArrayOf(0, 0)
         endPoint = intArrayOf(0, 0)

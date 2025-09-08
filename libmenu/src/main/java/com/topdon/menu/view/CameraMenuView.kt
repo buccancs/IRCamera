@@ -18,7 +18,10 @@ import com.topdon.menu.R
 import com.topdon.menu.databinding.ViewCameraMenuBinding
 
  * 1 - .
- * Created by LCG on 2024/11/8.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class CameraMenuView : FrameLayout, View.OnClickListener {
     companion object {
         /** onCameraClickListener ：/ **/
@@ -35,6 +38,7 @@ class CameraMenuView : FrameLayout, View.OnClickListener {
 
 
      * true- false-
+    /** isVideoMode property */
     var isVideoMode: Boolean
         get() = binding.viewPager2.currentItem == 1
         set(value) {
@@ -42,6 +46,7 @@ class CameraMenuView : FrameLayout, View.OnClickListener {
         }
 
      * true- false-
+    /** canSwitchMode property */
     var canSwitchMode: Boolean
         get() = binding.viewPager2.isUserInputEnabled
         set(value) {
@@ -51,8 +56,12 @@ class CameraMenuView : FrameLayout, View.OnClickListener {
         }
 
      * actionCode: 0-/ 1- 2- 3- 4-
+    /** onCameraClickListener property */
     var onCameraClickListener: ((actionCode: Int) -> Unit)? = null
 
+    /**
+     * Function description.
+     */
     fun setToNormal() {
         if (isVideoMode) {
             binding.ivAction.setImageResource(R.drawable.svg_camera_video_normal)
@@ -62,6 +71,9 @@ class CameraMenuView : FrameLayout, View.OnClickListener {
     }
 
      * @param isDelay true- false-
+    /**
+     * Function description.
+     */
     fun setToRecord(isDelay: Boolean) {
         if (isVideoMode) {
             binding.ivAction.setImageResource(R.drawable.svg_camera_video_record)
@@ -74,6 +86,9 @@ class CameraMenuView : FrameLayout, View.OnClickListener {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun refreshGallery(path: String) {
         try {
             Glide.with(this)

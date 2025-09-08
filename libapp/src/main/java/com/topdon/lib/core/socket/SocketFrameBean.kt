@@ -39,134 +39,260 @@ package com.topdon.lib.core.socket
  * @param isL1MinWarn 1
  * @param isL1CenterWarn 1
 data class SocketFrameBean(
+    /** isMaxShow property */
     val isMaxShow: Boolean,
+    /** isMinShow property */
     val isMinShow: Boolean,
+    /** isCenterShow property */
     val isCenterShow: Boolean,
+    /** maxX property */
     val maxX: Int,
+    /** maxY property */
     val maxY: Int,
+    /** maxValue property */
     val maxValue: Int,
+    /** minX property */
     val minX: Int,
+    /** minY property */
     val minY: Int,
+    /** minValue property */
     val minValue: Int,
+    /** centerX property */
     val centerX: Int,
+    /** centerY property */
     val centerY: Int,
+    /** centerValue property */
     val centerValue: Int,
+    /** isMaxWarn property */
     val isMaxWarn: Boolean,
+    /** isMinWarn property */
     val isMinWarn: Boolean,
+    /** isCenterWarn property */
     val isCenterWarn: Boolean,
 
+    /** isP1Show property */
     val isP1Show: Boolean,
+    /** p1X property */
     val p1X: Int,
+    /** p1Y property */
     val p1Y: Int,
+    /** p1Value property */
     val p1Value: Int,
+    /** isP1MaxWarn property */
     val isP1MaxWarn: Boolean,
+    /** isP1MinWarn property */
     val isP1MinWarn: Boolean,
+    /** isP1CenterWarn property */
     val isP1CenterWarn: Boolean,
+    /** isP2Show property */
     val isP2Show: Boolean,
+    /** p2X property */
     val p2X: Int,
+    /** p2Y property */
     val p2Y: Int,
+    /** p2Value property */
     val p2Value: Int,
+    /** isP2MaxWarn property */
     val isP2MaxWarn: Boolean,
+    /** isP2MinWarn property */
     val isP2MinWarn: Boolean,
+    /** isP2CenterWarn property */
     val isP2CenterWarn: Boolean,
+    /** isP3Show property */
     val isP3Show: Boolean,
+    /** p3X property */
     val p3X: Int,
+    /** p3Y property */
     val p3Y: Int,
+    /** p3Value property */
     val p3Value: Int,
+    /** isP3MaxWarn property */
     val isP3MaxWarn: Boolean,
+    /** isP3MinWarn property */
     val isP3MinWarn: Boolean,
+    /** isP3CenterWarn property */
     val isP3CenterWarn: Boolean,
 
+    /** isL1Show property */
     val isL1Show: Boolean,
+    /** l1StartX property */
     val l1StartX: Int,
+    /** l1StartY property */
     val l1StartY: Int,
+    /** l1EndX property */
     val l1EndX: Int,
+    /** l1EndY property */
     val l1EndY: Int,
+    /** l1MaxX property */
     val l1MaxX: Int,
+    /** l1MaxY property */
     val l1MaxY: Int,
+    /** l1MaxValue property */
     val l1MaxValue: Int,
+    /** l1MinX property */
     val l1MinX: Int,
+    /** l1MinY property */
     val l1MinY: Int,
+    /** l1MinValue property */
     val l1MinValue: Int,
+    /** l1AveValue property */
     val l1AveValue: Int,
+    /** isL1MaxWarn property */
     val isL1MaxWarn: Boolean,
+    /** isL1MinWarn property */
     val isL1MinWarn: Boolean,
+    /** isL1CenterWarn property */
     val isL1CenterWarn: Boolean,
+    /** isL2Show property */
     val isL2Show: Boolean,
+    /** l2StartX property */
     val l2StartX: Int,
+    /** l2StartY property */
     val l2StartY: Int,
+    /** l2EndX property */
     val l2EndX: Int,
+    /** l2EndY property */
     val l2EndY: Int,
+    /** l2MaxX property */
     val l2MaxX: Int,
+    /** l2MaxY property */
     val l2MaxY: Int,
+    /** l2MaxValue property */
     val l2MaxValue: Int,
+    /** l2MinX property */
     val l2MinX: Int,
+    /** l2MinY property */
     val l2MinY: Int,
+    /** l2MinValue property */
     val l2MinValue: Int,
+    /** l2AveValue property */
     val l2AveValue: Int,
+    /** isL2MaxWarn property */
     val isL2MaxWarn: Boolean,
+    /** isL2MinWarn property */
     val isL2MinWarn: Boolean,
+    /** isL2CenterWarn property */
     val isL2CenterWarn: Boolean,
+    /** isL3Show property */
     val isL3Show: Boolean,
+    /** l3StartX property */
     val l3StartX: Int,
+    /** l3StartY property */
     val l3StartY: Int,
+    /** l3EndX property */
     val l3EndX: Int,
+    /** l3EndY property */
     val l3EndY: Int,
+    /** l3MaxX property */
     val l3MaxX: Int,
+    /** l3MaxY property */
     val l3MaxY: Int,
+    /** l3MaxValue property */
     val l3MaxValue: Int,
+    /** l3MinX property */
     val l3MinX: Int,
+    /** l3MinY property */
     val l3MinY: Int,
+    /** l3MinValue property */
     val l3MinValue: Int,
+    /** l3AveValue property */
     val l3AveValue: Int,
+    /** isL3MaxWarn property */
     val isL3MaxWarn: Boolean,
+    /** isL3MinWarn property */
     val isL3MinWarn: Boolean,
+    /** isL3CenterWarn property */
     val isL3CenterWarn: Boolean,
 
+    /** isR1Show property */
     val isR1Show: Boolean,
+    /** r1StartX property */
     val r1StartX: Int,
+    /** r1StartY property */
     val r1StartY: Int,
+    /** r1EndX property */
     val r1EndX: Int,
+    /** r1EndY property */
     val r1EndY: Int,
+    /** r1MaxX property */
     val r1MaxX: Int,
+    /** r1MaxY property */
     val r1MaxY: Int,
+    /** r1MaxValue property */
     val r1MaxValue: Int,
+    /** r1MinX property */
     val r1MinX: Int,
+    /** r1MinY property */
     val r1MinY: Int,
+    /** r1MinValue property */
     val r1MinValue: Int,
+    /** r1AveValue property */
     val r1AveValue: Int,
+    /** isR1MaxWarn property */
     val isR1MaxWarn: Boolean,
+    /** isR1MinWarn property */
     val isR1MinWarn: Boolean,
+    /** isR1CenterWarn property */
     val isR1CenterWarn: Boolean,
+    /** isR2Show property */
     val isR2Show: Boolean,
+    /** r2StartX property */
     val r2StartX: Int,
+    /** r2StartY property */
     val r2StartY: Int,
+    /** r2EndX property */
     val r2EndX: Int,
+    /** r2EndY property */
     val r2EndY: Int,
+    /** r2MaxX property */
     val r2MaxX: Int,
+    /** r2MaxY property */
     val r2MaxY: Int,
+    /** r2MaxValue property */
     val r2MaxValue: Int,
+    /** r2MinX property */
     val r2MinX: Int,
+    /** r2MinY property */
     val r2MinY: Int,
+    /** r2MinValue property */
     val r2MinValue: Int,
+    /** r2AveValue property */
     val r2AveValue: Int,
+    /** isR2MaxWarn property */
     val isR2MaxWarn: Boolean,
+    /** isR2MinWarn property */
     val isR2MinWarn: Boolean,
+    /** isR2CenterWarn property */
     val isR2CenterWarn: Boolean,
+    /** isR3Show property */
     val isR3Show: Boolean,
+    /** r3StartX property */
     val r3StartX: Int,
+    /** r3StartY property */
     val r3StartY: Int,
+    /** r3EndX property */
     val r3EndX: Int,
+    /** r3EndY property */
     val r3EndY: Int,
+    /** r3MaxX property */
     val r3MaxX: Int,
+    /** r3MaxY property */
     val r3MaxY: Int,
+    /** r3MaxValue property */
     val r3MaxValue: Int,
+    /** r3MinX property */
     val r3MinX: Int,
+    /** r3MinY property */
     val r3MinY: Int,
+    /** r3MinValue property */
     val r3MinValue: Int,
+    /** r3AveValue property */
     val r3AveValue: Int,
+    /** isR3MaxWarn property */
     val isR3MaxWarn: Boolean,
+    /** isR3MinWarn property */
     val isR3MinWarn: Boolean,
+    /** isR3CenterWarn property */
     val isR3CenterWarn: Boolean,
 ) {
 

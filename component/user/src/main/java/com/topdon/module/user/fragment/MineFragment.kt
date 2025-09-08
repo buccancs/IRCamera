@@ -61,7 +61,10 @@ import org.greenrobot.eventbus.ThreadMode
  * “”
  * [MoreActivity] - TS004 “”
  * [MoreFragment] -  “”
- * Created by LCG on 2024/4/19.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class MineFragment : BaseFragment(), View.OnClickListener {
 
     private var _binding: FragmentMineBinding? = null
@@ -112,11 +115,17 @@ class MineFragment : BaseFragment(), View.OnClickListener {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun updatePDF(event: PDFEvent) {
         isNeedRefreshLogin = true
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun onWinterClick(event: WinterClickEvent) {
         binding.viewWinterPoint.isVisible = false
     }

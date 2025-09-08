@@ -21,6 +21,9 @@ import java.util.Objects;
  * @author 1032694760@qq.com
  * @since 2021/6/3 16:27
 public class PhoneCodeEntity implements TextProvider, Serializable {
+    /**
+     * Private method description.
+     */
     private static final boolean IS_CHINESE;
     private String code;
     private String name;
@@ -30,31 +33,52 @@ public class PhoneCodeEntity implements TextProvider, Serializable {
         IS_CHINESE = Locale.getDefault().getDisplayLanguage().contains("");
     }
 
+    /**
+     * Method description.
+     */
     public String getCode() {
         return code;
     }
 
+    /**
+     * Method description.
+     */
     public void setCode(String code) {
         this.code = code;
     }
 
+    /**
+     * Method description.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Method description.
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Method description.
+     */
     public String getEnglish() {
         return english;
     }
 
+    /**
+     * Method description.
+     */
     public void setEnglish(String english) {
         this.english = english;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public String provideText() {
         if (IS_CHINESE) {
             return name;
@@ -63,6 +87,9 @@ public class PhoneCodeEntity implements TextProvider, Serializable {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -77,12 +104,18 @@ public class PhoneCodeEntity implements TextProvider, Serializable {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int hashCode() {
         return Objects.hash(code, name, english);
     }
 
     @NonNull
     @Override
+    /**
+     * Method description.
+     */
     public String toString() {
         return "PhoneCodeEntity{" +
                 "code='" + code + '\'' +

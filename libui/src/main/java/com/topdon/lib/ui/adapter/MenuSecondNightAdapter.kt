@@ -20,8 +20,12 @@ class MenuSecondNightAdapter(val context: Context) : RecyclerView.Adapter<Recycl
 
     private val curMultipleArray: HashMap<Int, Int> by lazy { hashMapOf() }
 
+    /** multipleListener property */
     var multipleListener: ((Int, Boolean) -> Unit)? = null
 
+    /**
+     * Function description.
+     */
     fun clearMultipleSelected() {
         curMultipleArray.clear()
         notifyDataSetChanged()

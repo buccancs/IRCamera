@@ -25,27 +25,42 @@ public class RadarDataSet extends LineRadarDataSet<RadarEntry> implements IRadar
     protected float mHighlightCircleOuterRadius = 4.0f;
     protected float mHighlightCircleStrokeWidth = 2.0f;
 
+    /**
+     * Method description.
+     */
     public RadarDataSet(List<RadarEntry> yVals, String label) {
         super(yVals, label);
     }
 
     /// Returns true if highlight circle should be drawn, false if not
     @Override
+    /**
+     * Method description.
+     */
     public boolean isDrawHighlightCircleEnabled() {
         return mDrawHighlightCircleEnabled;
     }
 
     /// Sets whether highlight circle should be drawn or not
     @Override
+    /**
+     * Method description.
+     */
     public void setDrawHighlightCircleEnabled(boolean enabled) {
         mDrawHighlightCircleEnabled = enabled;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int getHighlightCircleFillColor() {
         return mHighlightCircleFillColor;
     }
 
+    /**
+     * Method description.
+     */
     public void setHighlightCircleFillColor(int color) {
         mHighlightCircleFillColor = color;
     }
@@ -53,53 +68,86 @@ public class RadarDataSet extends LineRadarDataSet<RadarEntry> implements IRadar
     /// Returns the stroke color for highlight circle.
     /// If Utils.COLOR_NONE, the color of the dataset is taken.
     @Override
+    /**
+     * Method description.
+     */
     public int getHighlightCircleStrokeColor() {
         return mHighlightCircleStrokeColor;
     }
 
     /// Sets the stroke color for highlight circle.
     /// Set to Utils.COLOR_NONE in order to use the color of the dataset;
+    /**
+     * Method description.
+     */
     public void setHighlightCircleStrokeColor(int color) {
         mHighlightCircleStrokeColor = color;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public int getHighlightCircleStrokeAlpha() {
         return mHighlightCircleStrokeAlpha;
     }
 
+    /**
+     * Method description.
+     */
     public void setHighlightCircleStrokeAlpha(int alpha) {
         mHighlightCircleStrokeAlpha = alpha;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public float getHighlightCircleInnerRadius() {
         return mHighlightCircleInnerRadius;
     }
 
+    /**
+     * Method description.
+     */
     public void setHighlightCircleInnerRadius(float radius) {
         mHighlightCircleInnerRadius = radius;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public float getHighlightCircleOuterRadius() {
         return mHighlightCircleOuterRadius;
     }
 
+    /**
+     * Method description.
+     */
     public void setHighlightCircleOuterRadius(float radius) {
         mHighlightCircleOuterRadius = radius;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public float getHighlightCircleStrokeWidth() {
         return mHighlightCircleStrokeWidth;
     }
 
+    /**
+     * Method description.
+     */
     public void setHighlightCircleStrokeWidth(float strokeWidth) {
         mHighlightCircleStrokeWidth = strokeWidth;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public DataSet<RadarEntry> copy() {
         List<RadarEntry> entries = new ArrayList<RadarEntry>();
         for (int i = 0; i < mValues.size(); i++) {

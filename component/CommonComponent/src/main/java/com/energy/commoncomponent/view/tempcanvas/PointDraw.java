@@ -22,7 +22,13 @@ import java.util.UUID;
  * Created by fengjibo on 2023/6/21.
 public class PointDraw extends BaseDraw {
 
+    /**
+     * Private method description.
+     */
     private static final String TAG = "BaseTemperatureView PointDraw";
+    /**
+     * Method description.
+     */
     public static final int OPERATE_STATUS_POINT_IN_TOUCH = 0;
     public static final int OPERATE_STATUS_POINT_ADD = 1;
     public static final int OPERATE_STATUS_POINT_REMOVE = 2;
@@ -65,10 +71,16 @@ public class PointDraw extends BaseDraw {
         mBgPaint.setStrokeWidth(ScreenUtils.dp2px(1));
     }
 
+    /**
+     * Method description.
+     */
     public int getOperateStatus() {
         return mOperateStatus;
     }
 
+    /**
+     * Method description.
+     */
     public void setOperateStatus(int mOperateStatus) {
         this.mOperateStatus = mOperateStatus;
         Log.d(TAG, "setOperateStatus = " + mOperateStatus);
@@ -77,6 +89,9 @@ public class PointDraw extends BaseDraw {
      * @param mode
      * @param centerX
      * @param centerY
+    /**
+     * Method description.
+     */
     public void addPoint(int mode, float centerX, float centerY) {
         PointView pointView = new PointView(mContext, mode, centerX, centerY);
         int size = mPointList.size();
@@ -116,18 +131,27 @@ public class PointDraw extends BaseDraw {
     }
 
      * @param index
+    /**
+     * Method description.
+     */
     public void removePoint(int index) {
         if (mPointList.size() > index) {
             mPointList.remove(index);
         }
     }
 
+    /**
+     * Method description.
+     */
     public void removePoint() {
         mPointList.clear();
     }
 
      * @param canvas
     @Override
+    /**
+     * Method description.
+     */
     public void onDraw(Canvas canvas, boolean isScroll) {
         for (int i = 0; i < mPointList.size(); i ++) {
             PointView pointView = mPointList.get(i);
@@ -145,6 +169,9 @@ public class PointDraw extends BaseDraw {
      * @param mode
      * @param centerX
      * @param centerY
+    /**
+     * Method description.
+     */
     public void onTempDraw(Canvas canvas, int mode, float centerX, float centerY) {
         if (mTempPoint == null) {
             mTempPoint = new PointView(mContext, mode, centerX, centerY);
@@ -156,6 +183,9 @@ public class PointDraw extends BaseDraw {
         canvas.drawBitmap(mTempPoint.mPointBitmap, mTempPoint.mCenterX - mTempPoint.mPointSize / 2, mTempPoint.mCenterY - mTempPoint.mPointSize / 2, null);
     }
 
+    /**
+     * Private method description.
+     */
     private void drawLabel(Canvas canvas, PointView pointView) {
         canvas.save();
         canvas.rotate(mScreenDegree, pointView.mCenterX + TEXT_POINT_MARGIN, pointView.mCenterY - TEXT_POINT_MARGIN);
@@ -177,6 +207,9 @@ public class PointDraw extends BaseDraw {
         canvas.restore();
     }
 
+    /**
+     * Private method description.
+     */
     private RectF drawCustomTextBg(Canvas canvas, String text, RectF rectF) {
         int rectWidth = (int) mTextPaint.measureText(text) + TEXT_POINT_MARGIN * 2;
         float left = rectF.left - rectWidth / 2;
@@ -217,6 +250,9 @@ public class PointDraw extends BaseDraw {
      * @param touchIndex
      * @param centerX
      * @param centerY
+    /**
+     * Method description.
+     */
     public void changeTouchPointLocationByIndex(int touchIndex, float centerX, float centerY) {
         if (touchIndex < 0 || touchIndex >= mPointList.size()) {
             return;
@@ -227,6 +263,9 @@ public class PointDraw extends BaseDraw {
      * @param rawX
      * @param rawY
      * @return
+    /**
+     * Method description.
+     */
     public int checkTouchPointInclude(float rawX, float rawY) {
         mTouchIndex = -1;
         for (int i = 0; i < mPointList.size(); i ++) {
@@ -240,6 +279,9 @@ public class PointDraw extends BaseDraw {
         return mTouchIndex;
     }
 
+    /**
+     * Method description.
+     */
     public static class PointView extends BaseView {
 
         private static final float TOUCH_EXTRA = 20;//
@@ -311,6 +353,9 @@ public class PointDraw extends BaseDraw {
         }
     }
 
+    /**
+     * Method description.
+     */
     public LinkedList<PointView> getPointViewList() {
         return mPointList;
     }

@@ -67,6 +67,9 @@ object GalleryRepository {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun readLatest(dirType: DirType): String {
         var firstPath = ""
         try {

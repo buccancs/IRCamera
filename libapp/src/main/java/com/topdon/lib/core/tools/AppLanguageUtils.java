@@ -22,6 +22,9 @@ import java.util.Locale;
 
 public class AppLanguageUtils {
 
+    /**
+     * Private method description.
+     */
     private static HashMap<String, Locale> mAllLanguages = new HashMap<String, Locale>(14) {{
         put(ConstantLanguages.ZH_CN, Locale.SIMPLIFIED_CHINESE);
         put(ConstantLanguages.ZH_TW, Locale.TRADITIONAL_CHINESE);
@@ -39,10 +42,16 @@ public class AppLanguageUtils {
         put(ConstantLanguages.NL, new Locale(ConstantLanguages.NL, "NL"));
     }};
 
+    /**
+     * Method description.
+     */
     public static String getChineseSystemLanguage() {
         return ConstantLanguages.ZH_CN;
     }
 
+    /**
+     * Method description.
+     */
     public static String getSystemLanguage() {
         Locale locale = LanguageUtils.getSystemLanguage();
         String language = locale.getLanguage();
@@ -84,6 +93,9 @@ public class AppLanguageUtils {
     }
 
     @SuppressWarnings("deprecation")
+    /**
+     * Method description.
+     */
     public static void changeAppLanguage(Context context, String newLanguage) {
         Resources resources = context.getResources();
         Configuration configuration = resources.getConfiguration();
@@ -96,15 +108,24 @@ public class AppLanguageUtils {
         resources.updateConfiguration(configuration, dm);
     }
 
+    /**
+     * Method description.
+     */
     public static void getConf(){
 
     }
 
 
+    /**
+     * Private method description.
+     */
     private static boolean isSupportLanguage(String language) {
         return mAllLanguages.containsKey(language);
     }
 
+    /**
+     * Method description.
+     */
     public static String getSupportLanguage(String language) {
         if (isSupportLanguage(language)) {
             return language;
@@ -116,6 +137,9 @@ public class AppLanguageUtils {
      * locale{@link #mAllLanguages}{@link #mAllLanguages}
      * @param language language
      * @return
+    /**
+     * Method description.
+     */
     public static Locale getLocaleByLanguage(String language) {
         if (isSupportLanguage(language)) {
             return mAllLanguages.get(language);
@@ -131,6 +155,9 @@ public class AppLanguageUtils {
     }
 
 
+    /**
+     * Method description.
+     */
     public static Context attachBaseContext(Context context, String language) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return updateResources(context, language);
@@ -141,6 +168,9 @@ public class AppLanguageUtils {
 
 
     @TargetApi(Build.VERSION_CODES.N)
+    /**
+     * Private method description.
+     */
     private static Context updateResources(Context context, String language) {
         Resources resources = context.getResources();
         Locale locale = AppLanguageUtils.getLocaleByLanguage(language);

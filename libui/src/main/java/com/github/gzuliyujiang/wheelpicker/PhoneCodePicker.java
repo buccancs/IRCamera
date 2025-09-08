@@ -29,6 +29,9 @@ import java.util.List;
  * @since 2019/5/10 16:44
 @SuppressWarnings("unused")
 public class PhoneCodePicker extends OptionPicker {
+    /**
+     * Method description.
+     */
     public static String JSON = "[{\"prefix\":\"1\",\"en\":\"USA\",\"cn\":\"\"},\n" +
             "{\"prefix\":\"1\",\"en\":\"PuertoRico\",\"cn\":\"\"},\n" +
             "{\"prefix\":\"1\",\"en\":\"Canada\",\"cn\":\"\"},\n" +
@@ -241,22 +244,37 @@ public class PhoneCodePicker extends OptionPicker {
             "{\"prefix\":\"1868\",\"en\":\"Trinidad and Tobago\",\"cn\":\"\"},\n" +
             "{\"prefix\":\"1869\",\"en\":\"St Kitts and Nevis\",\"cn\":\"\"},\n" +
             "{\"prefix\":\"1876\",\"en\":\"Jamaica\",\"cn\":\"\"}]";
+    /**
+     * Private method description.
+     */
     private boolean onlyChina = false;
 
+    /**
+     * Method description.
+     */
     public PhoneCodePicker(@NonNull Activity activity) {
         super(activity);
     }
 
+    /**
+     * Method description.
+     */
     public PhoneCodePicker(@NonNull Activity activity, @StyleRes int themeResId) {
         super(activity, themeResId);
     }
 
+    /**
+     * Method description.
+     */
     public void setOnlyChina(boolean onlyChina) {
         this.onlyChina = onlyChina;
         setData(provideData());
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setDefaultValue(Object item) {
         if (item instanceof String) {
             setDefaultValueByName(item.toString());
@@ -265,18 +283,27 @@ public class PhoneCodePicker extends OptionPicker {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultValueByCode(String code) {
         PhoneCodeEntity entity = new PhoneCodeEntity();
         entity.setCode(code);
         super.setDefaultValue(entity);
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultValueByName(String name) {
         PhoneCodeEntity entity = new PhoneCodeEntity();
         entity.setName(name);
         super.setDefaultValue(entity);
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultValueByEnglish(String english) {
         PhoneCodeEntity entity = new PhoneCodeEntity();
         entity.setEnglish(english);

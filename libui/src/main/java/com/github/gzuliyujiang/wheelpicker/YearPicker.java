@@ -31,8 +31,14 @@ import java.util.Calendar;
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class YearPicker extends ModalDialog {
     protected YearWheelLayout wheelLayout;
+    /**
+     * Private method description.
+     */
     private OnYearPickedListener onYearPickedListener;
 
+    /**
+     * Method description.
+     */
     public YearPicker(@NonNull Activity activity, @Nullable Integer year) {
         super(activity);
 
@@ -71,11 +77,17 @@ public class YearPicker extends ModalDialog {
         }
     }
 
+    /**
+     * Method description.
+     */
     public YearPicker setOnYearPickedListener(OnYearPickedListener onYearPickedListener) {
         this.onYearPickedListener = onYearPickedListener;
         return this;
     }
 
+    /**
+     * Method description.
+     */
     public final YearWheelLayout getWheelLayout() {
         return wheelLayout;
     }

@@ -25,7 +25,10 @@ import kotlin.math.pow
 import kotlin.math.sqrt
 
  * TC0072D  .
- * Created by LCG on 2024/5/7.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 abstract class TemperatureBaseView : View {
 
     companion object {
@@ -51,6 +54,7 @@ abstract class TemperatureBaseView : View {
 
      * .
     @Volatile
+    /** isShowFull property */
     var isShowFull: Boolean = true
         set(value) {
             field = value
@@ -80,6 +84,7 @@ abstract class TemperatureBaseView : View {
 
 
      * px.
+    /** tempTextSize property */
     var tempTextSize: Int
         get() = helper.textSize
         set(value) {
@@ -87,6 +92,7 @@ abstract class TemperatureBaseView : View {
             invalidate()
         }
      * .
+    /** textColor property */
     var textColor: Int
         @ColorInt get() = helper.textColor
         set(@ColorInt value) {
@@ -96,13 +102,17 @@ abstract class TemperatureBaseView : View {
 
 
      *  Touch  [setImageSize]
+    /** onPointListener property */
     var onPointListener: ((pointList: List<Point>) -> Unit)? = null
      *  Touch  [setImageSize]
+    /** onLineListener property */
     var onLineListener: ((lineList: List<Point>) -> Unit)? = null
      *  Touch  [setImageSize]
+    /** onRectListener property */
     var onRectListener: ((rectList: List<Rect>) -> Unit)? = null
      *  Touch .
      * [mode]  [Mode.CLEAR] .
+    /** onTrendOperateListener property */
     var onTrendOperateListener: ((isAdd: Boolean) -> Unit)? = null
 
 

@@ -16,18 +16,27 @@ import com.topdon.module.thermal.ir.databinding.DialogIrConfigInputBinding
 import java.lang.NumberFormatException
 
  *  .
- * Created by LCG on 2024/10/24.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class IRConfigInputDialog(context: Context, val type: Type, val isTC007: Boolean) : Dialog(context, LibAppR.style.TextInputDialog) {
 
     private lateinit var binding: DialogIrConfigInputBinding
     private var value: Float? = null
     private var onConfirmListener: ((value: Float) -> Unit)? = null
 
+    /**
+     * Function description.
+     */
     fun setInput(value: Float?): IRConfigInputDialog {
         this.value = value
         return this
     }
      * .
+    /**
+     * Function description.
+     */
     fun setConfirmListener(l: (value: Float) -> Unit): IRConfigInputDialog {
         this.onConfirmListener = l
         return this

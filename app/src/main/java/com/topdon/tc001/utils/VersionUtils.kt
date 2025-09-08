@@ -6,6 +6,9 @@ import com.csl.irCamera.BuildConfig
 
 object VersionUtils {
 
+    /**
+     * Function description.
+     */
     fun getCodeStr(context: Context):String{
         val versionName = context.packageManager.getPackageInfo(context.packageName, 0).versionName
         var codeStr = "$versionName"

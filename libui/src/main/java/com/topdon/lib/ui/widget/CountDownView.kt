@@ -109,6 +109,9 @@ class CountDownView : View {
     }
 
 
+    /**
+     * Function description.
+     */
     fun setCountdownTime(mCountdownTime: Int) {
         this.mCountdownTime = mCountdownTime
         mRingText = mCountdownTime.toString()
@@ -146,6 +149,9 @@ class CountDownView : View {
     }
 
 
+    /**
+     * Function description.
+     */
     fun startCountDown() {
         valueAnimator = getValueAnimator((mCountdownTime * 1000).toLong())
         valueAnimator!!.addUpdateListener { animation ->
@@ -164,12 +170,18 @@ class CountDownView : View {
         })
     }
 
+    /**
+     * Function description.
+     */
     fun stopCountDown() {
         if (valueAnimator!!.isRunning) {
             valueAnimator!!.cancel()
         }
     }
 
+    /**
+     * Function description.
+     */
     fun setOnCountDownListener(mListener: OnCountDownListener) {
         this.mListener = mListener
     }

@@ -116,6 +116,9 @@ class ChartMonitorView : LineChart, OnChartGestureListener {
     private var startTime = 0L
 
      * @param timeType
+    /**
+     * Function description.
+     */
     fun addPointToChart(bean: ThermalEntity, timeType: Int = 1, selectType: Int = 1) {
         synchronized(this) {
             try {

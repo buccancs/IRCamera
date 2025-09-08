@@ -25,7 +25,10 @@ import java.io.File
  *  DataBinding  Activity.
  *  BaseActivity
  *  BaseActivity .
- * Created by LCG on 2024/10/14.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 abstract class BaseBindingActivity<B : ViewDataBinding> : AppCompatActivity() {
 
     protected lateinit var binding: B
@@ -57,6 +60,9 @@ abstract class BaseBindingActivity<B : ViewDataBinding> : AppCompatActivity() {
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun onUSBLineStateChange(event: DeviceConnectEvent) {
         if (event.isConnect) {
             connected()
@@ -75,6 +81,9 @@ abstract class BaseBindingActivity<B : ViewDataBinding> : AppCompatActivity() {
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun onSocketConnectState(event: SocketStateEvent) {
         if (event.isConnect) {
             onSocketConnected(event.isTS004)
@@ -93,10 +102,16 @@ abstract class BaseBindingActivity<B : ViewDataBinding> : AppCompatActivity() {
      *  LMS .
     private var loadingDialog: LoadingDialog? = null
      * .
+    /**
+     * Function description.
+     */
     fun showLoadingDialog(@StringRes resId: Int = R.string.tip_loading) {
         showLoadingDialog(getString(resId))
     }
      * .
+    /**
+     * Function description.
+     */
     fun showLoadingDialog(text: CharSequence?) {
         if (loadingDialog == null) {
             loadingDialog = LoadingDialog(this)
@@ -105,6 +120,9 @@ abstract class BaseBindingActivity<B : ViewDataBinding> : AppCompatActivity() {
         loadingDialog?.show()
     }
      * .
+    /**
+     * Function description.
+     */
     fun dismissLoadingDialog() {
         loadingDialog?.dismiss()
     }

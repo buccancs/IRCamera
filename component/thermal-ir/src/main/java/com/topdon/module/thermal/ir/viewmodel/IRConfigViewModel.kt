@@ -12,14 +12,21 @@ import kotlinx.coroutines.launch
 
 class IRConfigViewModel(application: Application) : AndroidViewModel(application) {
 
+    /** configLiveData property */
     val configLiveData = SingleLiveEvent<ModelBean>()
 
+    /**
+     * Function description.
+     */
     fun getConfig(isTC007: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             configLiveData.postValue(ConfigRepository.read(isTC007))
         }
     }
 
+    /**
+     * Function description.
+     */
     fun updateDefaultEnvironment(isTC007: Boolean, environment: Float) {
         viewModelScope.launch(Dispatchers.IO) {
             val modelBean = configLiveData.value ?: ConfigRepository.read(isTC007)
@@ -29,6 +36,9 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
+    /**
+     * Function description.
+     */
     fun updateDefaultDistance(isTC007: Boolean, distance: Float) {
         viewModelScope.launch(Dispatchers.IO) {
             val modelBean = configLiveData.value ?: ConfigRepository.read(isTC007)
@@ -38,6 +48,9 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
+    /**
+     * Function description.
+     */
     fun updateDefaultRadiation(isTC007: Boolean, radiation: Float) {
         viewModelScope.launch(Dispatchers.IO) {
             val modelBean = configLiveData.value ?: ConfigRepository.read(isTC007)
@@ -47,6 +60,9 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
+    /**
+     * Function description.
+     */
     fun addConfig(isTC007: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             val modelBean = configLiveData.value ?: ConfigRepository.read(isTC007)
@@ -65,6 +81,9 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
     }
 
      * @param id 0:   > 0
+    /**
+     * Function description.
+     */
     fun checkConfig(isTC007: Boolean, id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val modelBean = configLiveData.value ?: ConfigRepository.read(isTC007)
@@ -78,6 +97,9 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
     }
 
      * @param id  id
+    /**
+     * Function description.
+     */
     fun deleteConfig(isTC007: Boolean, id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val modelBean = configLiveData.value ?: ConfigRepository.read(isTC007)
@@ -109,6 +131,9 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
     }
 
      * .
+    /**
+     * Function description.
+     */
     fun updateCustom(isTC007: Boolean, dataBean: DataBean) {
         viewModelScope.launch(Dispatchers.IO) {
             val modelBean = configLiveData.value ?: ConfigRepository.read(isTC007)

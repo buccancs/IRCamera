@@ -22,9 +22,13 @@ class TempLayout : LinearLayout {
     }
 
     private var alphaAnimator: ObjectAnimator? = null
+    /** rootV property */
     var rootV : View?= null
+    /** bg property */
     var bg : View ? = null
+    /** isHot property */
     var isHot : Boolean = true
+    /** type property */
     var type = -1
 
     constructor(context: Context) : this(context, null)
@@ -33,6 +37,7 @@ class TempLayout : LinearLayout {
         initView()
     }
 
+    /** animatorAlpha property */
     var animatorAlpha = 1f
 
     private fun initView() {
@@ -57,6 +62,9 @@ class TempLayout : LinearLayout {
 
 
 
+    /**
+     * Function description.
+     */
     fun startAnimation(type : Int){
         this.visibility = View.VISIBLE
         if (this.type != type){
@@ -84,6 +92,7 @@ class TempLayout : LinearLayout {
 
     }
 
+    /** animatorListener property */
     var animatorListener: Animator.AnimatorListener = object : Animator.AnimatorListener {
         override fun onAnimationStart(animation: Animator) {
         }
@@ -102,6 +111,9 @@ class TempLayout : LinearLayout {
         override fun onAnimationRepeat(animation: Animator) {}
     }
 
+    /**
+     * Function description.
+     */
     fun stopAnimation(){
         this.type = -1
         alphaAnimator?.removeAllListeners()
@@ -109,6 +121,9 @@ class TempLayout : LinearLayout {
         alphaAnimator?.cancel()
     }
 
+    /**
+     * Function description.
+     */
     fun startAlphaBreathAnimation() {
         alphaAnimator?.start()
     }

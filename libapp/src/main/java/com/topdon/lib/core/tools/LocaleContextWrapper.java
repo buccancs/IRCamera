@@ -13,10 +13,16 @@ import java.util.Locale;
  **/
 public class LocaleContextWrapper extends ContextWrapper {
 
+    /**
+     * Method description.
+     */
     public LocaleContextWrapper(Context base) {
         super(base);
     }
 
+    /**
+     * Method description.
+     */
     public static ContextWrapper wrap(Context context, String languageCode) {
         Locale locale = new Locale(languageCode);
         Locale.setDefault(locale);

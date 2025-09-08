@@ -18,9 +18,11 @@ class DistanceMeasureView : View {
     private var linePaint: Paint? = null
     private var line1Y = 0f
     private var line2Y = 0f
+    /** distance property */
     var distance = 0f
         private set
 
+    /** moveListener property */
     var moveListener : ((distance: Float) -> Unit)? = null
 
     constructor(context: Context?) : super(context) {

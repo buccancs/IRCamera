@@ -26,6 +26,9 @@ class UserInfoManager {
 
      * token
      * token-1
+    /**
+     * Function description.
+     */
     fun isLogin(): Boolean {
         val token = SharedManager.getToken()
         return if (TextUtils.equals("-1", token)) {
@@ -35,6 +38,9 @@ class UserInfoManager {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun login(
         token: String,
         userId: String,
@@ -50,6 +56,9 @@ class UserInfoManager {
         SharedManager.setToken(token)
     }
 
+    /**
+     * Function description.
+     */
     fun logout() {
         SharedManager.setToken("")
         SharedManager.setUserId("0")

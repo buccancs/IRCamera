@@ -9,30 +9,41 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
  * RecyclerView .
- * Created by LCG on 2023/9/20.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class MyItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
 
      *  RecyclerView  dp.
      *  item  [itemLeft] .
+    /** wholeLeft property */
     var wholeLeft: Float? = null
      *  RecyclerView  dp.
      *  item  [itemRight] .
+    /** wholeRight property */
     var wholeRight: Float? = null
      *  RecyclerView  dp.
      *  item  [itemTop] .
+    /** wholeTop property */
     var wholeTop: Float? = null
      *  RecyclerView  dp.
      *  item  [itemBottom] .
+    /** wholeBottom property */
     var wholeBottom: Float? = null
 
 
      *  item  dp.
+    /** itemLeft property */
     var itemLeft: Float? = null
      *  item  dp.
+    /** itemRight property */
     var itemRight: Float? = null
      *  item  dp.
+    /** itemTop property */
     var itemTop: Float? = null
      *  item  dp.
+    /** itemBottom property */
     var itemBottom: Float? = null
 
 

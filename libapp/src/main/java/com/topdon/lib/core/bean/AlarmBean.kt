@@ -5,17 +5,27 @@ import java.nio.ByteBuffer
  * @author: CaiSongL
  * @date: 2023/5/16 15:56
 data class AlarmBean(
+    /** isHighOpen property */
     var isHighOpen: Boolean = false,
+    /** isLowOpen property */
     var isLowOpen: Boolean = false,
+    /** highTemp property */
     var highTemp: Float = Float.MAX_VALUE,
+    /** lowTemp property */
     var lowTemp: Float = Float.MIN_VALUE,
 
+    /** isMarkOpen property */
     var isMarkOpen: Boolean = true,
+    /** highColor property */
     var highColor: Int = 0xffff0000.toInt(),
+    /** lowColor property */
     var lowColor: Int = 0xff0000ff.toInt(),
+    /** markType property */
     var markType: Int = TYPE_ALARM_MARK_STROKE,
 
+    /** isRingtoneOpen property */
     var isRingtoneOpen: Boolean = false,
+    /** ringtoneType property */
     var ringtoneType: Int = 0,
 ) {
     companion object {
@@ -55,6 +65,9 @@ data class AlarmBean(
     }
 
 
+    /**
+     * Function description.
+     */
     fun toByteArray(): ByteArray = ByteBuffer.allocate(28)
         .put(if (isHighOpen) 1 else 0)
         .put(if (isLowOpen) 1 else 0)
@@ -68,5 +81,8 @@ data class AlarmBean(
         .putInt(ringtoneType)
         .array()
 
+    /**
+     * Function description.
+     */
     fun isOpen(): Boolean = isHighOpen || isLowOpen
 }

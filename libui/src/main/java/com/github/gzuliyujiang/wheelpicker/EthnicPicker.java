@@ -29,6 +29,9 @@ import java.util.List;
  * @since 2021/6/12 13:50
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class EthnicPicker extends OptionPicker {
+    /**
+     * Method description.
+     */
     public static String JSON = "[{\"code\":\"01\",\"name\":\"\",\"spelling\":\"Han\"}," +
             "{\"code\":\"02\",\"name\":\"\",\"spelling\":\"Mongol\"}," +
             "{\"code\":\"03\",\"name\":\"\",\"spelling\":\"Hui\"}," +
@@ -85,22 +88,37 @@ public class EthnicPicker extends OptionPicker {
             "{\"code\":\"54\",\"name\":\"\",\"spelling\":\"Monba\"}," +
             "{\"code\":\"55\",\"name\":\"\",\"spelling\":\"Lhoba\"}," +
             "{\"code\":\"56\",\"name\":\"\",\"spelling\":\"Jino\"}]";
+    /**
+     * Private method description.
+     */
     private int ethnicSpec = EthnicSpec.DEFAULT;
 
+    /**
+     * Method description.
+     */
     public EthnicPicker(@NonNull Activity activity) {
         super(activity);
     }
 
+    /**
+     * Method description.
+     */
     public EthnicPicker(@NonNull Activity activity, int themeResId) {
         super(activity, themeResId);
     }
 
+    /**
+     * Method description.
+     */
     public void setEthnicSpec(@EthnicSpec int ethnicSpec) {
         this.ethnicSpec = ethnicSpec;
         setData(provideData());
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void setDefaultValue(Object item) {
         if (item instanceof String) {
             setDefaultValueByName(item.toString());
@@ -109,18 +127,27 @@ public class EthnicPicker extends OptionPicker {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultValueByCode(String code) {
         EthnicEntity entity = new EthnicEntity();
         entity.setCode(code);
         super.setDefaultValue(entity);
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultValueByName(String name) {
         EthnicEntity entity = new EthnicEntity();
         entity.setName(name);
         super.setDefaultValue(entity);
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultValueBySpelling(String spelling) {
         EthnicEntity entity = new EthnicEntity();
         entity.setSpelling(spelling);

@@ -45,8 +45,10 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
      * true-TC007 false
     private var isTC007 = false
 
+    /** page property */
     var page = 1
     override fun providerVMClass() = PdfViewModel::class.java
+    /** reportAdapter property */
     var reportAdapter = PDFAdapter(R.layout.item_pdf)
     
     private lateinit var binding: ActivityPdfListBinding

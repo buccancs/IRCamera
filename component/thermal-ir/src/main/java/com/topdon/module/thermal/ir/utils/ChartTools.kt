@@ -9,6 +9,9 @@ import kotlin.math.roundToInt
 
 object ChartTools {
 
+    /**
+     * Function description.
+     */
     fun getLineTemps(point1: Point, point2: Point, tempArray: ByteArray, rotate: Int): List<Float> {
         val tempList: ArrayList<Float> = ArrayList()
         if (point1 == point2) {//，
@@ -61,6 +64,9 @@ object ChartTools {
     }
 
     //X
+    /**
+     * Function description.
+     */
     fun scale(type: Int): Long {
         return when (type) {
             1 -> 1 * 1000 //s
@@ -71,6 +77,9 @@ object ChartTools {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun getMinimum(type: Int): Float {
         val min = when (type) {
             1 -> 10f //10s
@@ -83,11 +92,17 @@ object ChartTools {
     }
 
     //50
+    /**
+     * Function description.
+     */
     fun getMaximum(type: Int): Float {
         return getMinimum(type) * 50f
     }
 
      * Y
+    /**
+     * Function description.
+     */
     fun setY(chart: LineChart) {
         var maxVol = 0f
         var minVol = 0f
@@ -133,6 +148,9 @@ object ChartTools {
     }
 
      * X
+    /**
+     * Function description.
+     */
     fun setX(chart: LineChart, type: Int) {
         //true,false
         val xLen = chart.xChartMax - chart.xChartMin
@@ -156,6 +174,9 @@ object ChartTools {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun getChartX(x: Long, startTime: Long, type: Int): Long {
         return (x - startTime) / scale(type)
     }

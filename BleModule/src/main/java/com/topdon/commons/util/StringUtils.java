@@ -11,6 +11,9 @@ import java.util.UUID;
  * author: chuanfeng.bi
 public class StringUtils {
      * uuid
+    /**
+     * Method description.
+     */
     public static String randomUuid() {
         return UUID.randomUUID().toString().replace("-", "");
     }
@@ -18,6 +21,9 @@ public class StringUtils {
      * @param src
      * @param targetLen
      * @param head
+    /**
+     * Method description.
+     */
     public static String fillZero(String src, int targetLen, boolean head) {
         if (src == null) return null;
         StringBuilder sb = new StringBuilder(src);
@@ -32,27 +38,42 @@ public class StringUtils {
     }
 
      * 162
+    /**
+     * Method description.
+     */
     public static String toHex(int num) {
         return fillZero(Integer.toHexString(num), 2, true);
     }
 
      * 162
+    /**
+     * Method description.
+     */
     public static String toHex(long num) {
         return fillZero(Long.toHexString(num), 2, true);
     }
 
      * 28
+    /**
+     * Method description.
+     */
     public static String toBinary(int num) {
         return fillZero(Integer.toBinaryString(num), 8, true);
     }
 
      * 28
+    /**
+     * Method description.
+     */
     public static String toBinary(long num) {
         return fillZero(Long.toBinaryString(num), 8, true);
     }
 
      * byte16
      * @return bytesnullnullbytes0
+    /**
+     * Method description.
+     */
     public static String toHex(byte[] bytes) {
         return toHex(bytes, " ");
     }
@@ -60,6 +81,9 @@ public class StringUtils {
      * byte16
      * @param separator
      * @return bytesnullnullbytes0
+    /**
+     * Method description.
+     */
     public static String toHex(byte[] bytes, String separator) {
         if (bytes == null) {
             return null;
@@ -87,6 +111,9 @@ public class StringUtils {
 
      * byte2
      * @return bytesnullnullbytes0
+    /**
+     * Method description.
+     */
     public static String toBinary(byte[] bytes) {
         return toBinary(bytes, " ");
     }
@@ -94,6 +121,9 @@ public class StringUtils {
      * byte2
      * @param separator
      * @return bytesnullnullbytes0
+    /**
+     * Method description.
+     */
     public static String toBinary(byte[] bytes, String separator) {
         if (bytes == null) {
             return null;
@@ -121,6 +151,9 @@ public class StringUtils {
     }
 
      * java0.
+    /**
+     * Method description.
+     */
     public static String subZeroAndDot(String number) {
         if (TextUtils.isEmpty(number)) return number;
         if (number.indexOf(".") > 0) {
@@ -133,12 +166,18 @@ public class StringUtils {
      * 00:00:00
      * @param duration
     @NonNull
+    /**
+     * Method description.
+     */
     public static String toDuration(int duration) {
         return toDuration(duration, null);
     }
 
      * @param duration
     @NonNull
+    /**
+     * Method description.
+     */
     public static String toDuration(int duration, String format) {
         if (format != null) {
             return String.format(Locale.ENGLISH, format, duration / 3600, duration % 3600 / 60, duration % 60);
@@ -150,6 +189,9 @@ public class StringUtils {
      * 16
      * @param hexStr    16
      * @param separator
+    /**
+     * Method description.
+     */
     public static byte[] toByteArray(String hexStr, String separator) {
         String s = hexStr.replaceAll(separator, "");
         if (s.length() % 2 != 0) {

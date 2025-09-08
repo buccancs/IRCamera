@@ -10,6 +10,9 @@ import android.util.Log;
  */
 public class Usbjni {
 
+    /**
+     * Private method description.
+     */
     private static final String TAG = "Usbjni";
 
     static {
@@ -29,6 +32,9 @@ public class Usbjni {
      * @param parameter parameter description
      * @return return value
      */
+    /**
+     * Method description.
+     */
     public static int setUSB3803Mode(boolean isPowerOn) {
         if (isPowerOn) {
             return usb3803_mode_setting(1);
@@ -42,6 +48,9 @@ public class Usbjni {
      *
      * @param parameter parameter description
      * @return return value
+     */
+    /**
+     * Method description.
      */
     public static int readUSB3803Parameter(int i) {
         return usb3803_read_parameter(i);

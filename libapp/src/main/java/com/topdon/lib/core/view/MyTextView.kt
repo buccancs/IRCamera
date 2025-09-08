@@ -11,7 +11,10 @@ import com.csl.irCamera.libapp.R
  *  TextView.
  *  TextView  drawable  TextView .
  *  wrap_content  textSize>0.
- * Created by chenggeng.lin on 2023/11/21.
+/**
+ * @author chenggeng.lin
+ * @since Unknown
+ */
 class MyTextView : AppCompatTextView {
      * drawableTop  **px**
     private var topHeight = 0
@@ -84,6 +87,9 @@ class MyTextView : AppCompatTextView {
 
 
      *  TextView  compound drawable **px**.
+    /**
+     * Function description.
+     */
     fun setDrawableHeightPx(pxHeight: Int) {
         topHeight = pxHeight
         bottomHeight = pxHeight
@@ -96,16 +102,25 @@ class MyTextView : AppCompatTextView {
 
 
      *  drawableStart  drawableXX  null.
+    /**
+     * Function description.
+     */
     fun setOnlyDrawableStart(drawable: Drawable?) {
         setCompoundDrawablesRelative(drawable, null, null, null)
     }
      *  drawableStart  drawableXX  null.
+    /**
+     * Function description.
+     */
     fun setOnlyDrawableStart(@DrawableRes start: Int) {
         setCompoundDrawablesRelativeWithIntrinsicBounds(start, 0, 0, 0)
     }
 
      *  drawable.
      * true- drawable false
+    /**
+     * Function description.
+     */
     fun hasAnyDrawable(): Boolean {
         for (drawable in compoundDrawables) {
             if (drawable != null) {

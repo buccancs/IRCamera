@@ -15,6 +15,7 @@ import com.topdon.module.thermal.ir.fragment.IRPlushFragment
  * date: 2024/8/24 18:10
 @Route(path = RouterConfig.IR_IMG_PICK_PLUS)
 class ImagePickIRPlushActivity : BasePickImgActivity() {
+    /** irFragment property */
     var irFragment : IRPlushFragment ?= null
 
     override fun initView() {

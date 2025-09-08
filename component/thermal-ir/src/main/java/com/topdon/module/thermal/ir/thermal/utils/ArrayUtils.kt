@@ -4,6 +4,9 @@ object ArrayUtils {
 
      * ()
      * @param rotateType 1:90 2:180  3:270
+    /**
+     * Function description.
+     */
     fun getMaxIndex(
         data: FloatArray,
         rotateType: Int = 0,
@@ -18,6 +21,9 @@ object ArrayUtils {
 
      * ()
      * @param rotateType 1:90 2:180  3:270
+    /**
+     * Function description.
+     */
     fun getMinIndex(
         data: FloatArray,
         rotateType: Int = 0,
@@ -31,6 +37,9 @@ object ArrayUtils {
     }
 
      * @param rotateType 1:90 2:180  3:270
+    /**
+     * Function description.
+     */
     fun matrixRotate(srcData: FloatArray, rotateType: Int = 0): FloatArray {
         return when (rotateType) {
             1 -> matrixRotate90(srcData)

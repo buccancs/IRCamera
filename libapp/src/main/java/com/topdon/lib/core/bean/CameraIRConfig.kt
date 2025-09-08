@@ -33,12 +33,19 @@ class ObserveBean {
 }
 
 data class CameraItemBean(
+    /** name property */
     var name: String = "",
+    /** type property */
     var type: Int = 0,
+    /** time property */
     var time: Int = DELAY_TIME_0,
+    /** isSel property */
     var isSel: Boolean = false,
 ) {
 
+    /**
+     * Function description.
+     */
     fun changeDelayType() {
         if (type == TYPE_DELAY) {
             when (time) {

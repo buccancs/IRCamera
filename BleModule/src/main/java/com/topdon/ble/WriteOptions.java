@@ -12,6 +12,9 @@ public class WriteOptions {
     final int writeType;
     final boolean useMtuAsPackageSize;
 
+    /**
+     * Private method description.
+     */
     private WriteOptions(Builder builder) {
         packageWriteDelayMillis = builder.packageWriteDelayMillis;
         requestWriteDelayMillis = builder.requestWriteDelayMillis;
@@ -21,27 +24,45 @@ public class WriteOptions {
         useMtuAsPackageSize = builder.useMtuAsPackageSize;
     }
 
+    /**
+     * Method description.
+     */
     public int getPackageWriteDelayMillis() {
         return packageWriteDelayMillis;
     }
 
      * {@link #getPackageWriteDelayMillis()}
+    /**
+     * Method description.
+     */
     public int getRequestWriteDelayMillis() {
         return requestWriteDelayMillis;
     }
 
+    /**
+     * Method description.
+     */
     public int getPackageSize() {
         return packageSize;
     }
 
+    /**
+     * Method description.
+     */
     public boolean isWaitWriteResult() {
         return isWaitWriteResult;
     }
 
+    /**
+     * Method description.
+     */
     public int getWriteType() {
         return writeType;
     }
 
+    /**
+     * Method description.
+     */
     public static class Builder {
         private int packageWriteDelayMillis = 0;
         private int requestWriteDelayMillis = -1;

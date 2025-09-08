@@ -19,8 +19,10 @@ import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import com.blankj.utilcode.util.SizeUtils
 import java.lang.ref.WeakReference
-
- * Created by LCG on 2024/2/19.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class SpanBuilder : SpannableStringBuilder {
 
     constructor() : super()
@@ -29,6 +31,9 @@ class SpanBuilder : SpannableStringBuilder {
 
     constructor(text: CharSequence, start: Int, end: Int) : super(text, start, end)
 
+    /**
+     * Function description.
+     */
     fun appendDrawable(context: Context, @DrawableRes resourceId: Int, @Px wantHeight: Int): SpanBuilder {
         this.append(" ")
         val oldLength = this.length
@@ -38,6 +43,9 @@ class SpanBuilder : SpannableStringBuilder {
         return this
     }
 
+    /**
+     * Function description.
+     */
     fun appendColor(text: CharSequence, @ColorInt color: Int): SpanBuilder {
         if (text.isEmpty()) {//
             return this
@@ -48,6 +56,9 @@ class SpanBuilder : SpannableStringBuilder {
         return this
     }
 
+    /**
+     * Function description.
+     */
     fun appendColorAndClick(text: CharSequence, @ColorInt color: Int, listener: OnClickListener): SpanBuilder {
         if (text.isEmpty()) {//
             return this
@@ -58,6 +69,9 @@ class SpanBuilder : SpannableStringBuilder {
         return this
     }
 
+    /**
+     * Function description.
+     */
     fun appendColorAndClick(context: Context, @StringRes resId: Int, formatArg: String, @ColorInt color: Int, hasUnderLine: Boolean = false, listener: OnClickListener): SpanBuilder {
         append(context.getString(resId, formatArg))
         val startIndex: Int = lastIndexOf(formatArg)

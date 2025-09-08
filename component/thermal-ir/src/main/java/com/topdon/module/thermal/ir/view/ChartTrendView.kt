@@ -97,6 +97,9 @@ class ChartTrendView : LineChart {
         data = LineData()
     }
 
+    /**
+     * Function description.
+     */
     fun setToEmpty() {
         axisLeft.valueFormatter = object : ValueFormatter() {
             override fun getFormattedValue(value: Float): String = ""
@@ -106,6 +109,9 @@ class ChartTrendView : LineChart {
     }
 
      * @param tempList
+    /**
+     * Function description.
+     */
     fun refresh(tempList: List<Float>) {
         if (tempList.isEmpty()) {
             setToEmpty()

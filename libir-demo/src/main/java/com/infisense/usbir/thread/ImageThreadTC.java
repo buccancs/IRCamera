@@ -18,6 +18,9 @@ import java.nio.ByteBuffer;
  * @since 2022.9.8 10:25
  */
 public class ImageThreadTC extends Thread {
+    /**
+     * Private method description.
+     */
     private String TAG = "ImageThread";
     private Bitmap bitmap;
     private SynchronizedBitmap syncimage;
@@ -32,22 +35,34 @@ public class ImageThreadTC extends Thread {
     private byte[] imageDst;
 
      * @param syncimage
+    /**
+     * Method description.
+     */
     public void setSyncimage(SynchronizedBitmap syncimage) {
         this.syncimage = syncimage;
     }
 
      * @param imagesrc
+    /**
+     * Method description.
+     */
     public void setImagesrc(byte[] imagesrc) {
         this.imagesrc = imagesrc;
     }
 
      * @param rotate
+    /**
+     * Method description.
+     */
     public void setRotate(int rotate) {
         this.rotate = rotate;
     }
 
      * @param imageWidth
      * @param imageHeight
+    /**
+     * Method description.
+     */
     public ImageThreadTC(int imageWidth, int imageHeight) {
         Log.i(TAG, "ImageThread create->imageWidth = " + imageWidth + " imageHeight = " + imageHeight);
         this.imageWidth = imageWidth;
@@ -58,21 +73,33 @@ public class ImageThreadTC extends Thread {
     }
 
      * @param dataFlowMode
+    /**
+     * Method description.
+     */
     public void setDataFlowMode(CommonParams.DataFlowMode dataFlowMode) {
         this.dataFlowMode = dataFlowMode;
     }
 
      * @param pseudocolorMode
+    /**
+     * Method description.
+     */
     public void setPseudocolorMode(CommonParams.PseudoColorType pseudocolorMode) {
         this.pseudocolorMode = pseudocolorMode;
     }
 
      * @param bitmap
+    /**
+     * Method description.
+     */
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void run() {
         while (!isInterrupted()) {
             synchronized (syncimage.dataLock) {

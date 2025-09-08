@@ -13,16 +13,25 @@ public enum RotateDegree {
     //
     DEGREE_270(3);
 
+    /**
+     * Private method description.
+     */
     private final int value;
 
     RotateDegree(int value) {
         this.value = value;
     }
 
+    /**
+     * Method description.
+     */
     public int getValue() {
         return value;
     }
 
+    /**
+     * Method description.
+     */
     public static RotateDegree valueOf(int value) {
         RotateDegree[] types = RotateDegree.values();
         for(RotateDegree type: types){

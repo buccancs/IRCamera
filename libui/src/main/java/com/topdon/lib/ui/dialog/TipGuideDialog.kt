@@ -24,6 +24,7 @@ class TipGuideDialog : DialogFragment() {
 
     private lateinit var titleList: ArrayList<String>
     private lateinit var imgList: ArrayList<Int>
+    /** closeEvent property */
     var closeEvent: ((check: Boolean) -> Unit)? = null
 
     private lateinit var binding: DialogTipGuideBinding
@@ -79,6 +80,9 @@ class TipGuideDialog : DialogFragment() {
     }
 
 
+    /**
+     * Function description.
+     */
     fun updateIndex(position: Int) {
         if (index == position) {
             return

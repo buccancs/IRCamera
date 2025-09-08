@@ -4,7 +4,10 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.libcom.bean.SaveSettingBean
 
  *   Activity.
- * Created by LCG on 2023/12/6.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 abstract class BaseIRActivity : BaseActivity() {
      * .
     protected val saveSetBean = SaveSettingBean()

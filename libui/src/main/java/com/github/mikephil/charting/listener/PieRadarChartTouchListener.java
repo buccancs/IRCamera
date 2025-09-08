@@ -21,6 +21,9 @@ import java.util.ArrayList;
  */
 public class PieRadarChartTouchListener extends ChartTouchListener<PieRadarChartBase<?>> {
 
+    /**
+     * Private method description.
+     */
     private MPPointF mTouchStartPoint = MPPointF.getInstance(0,0);
 
     /**
@@ -33,12 +36,18 @@ public class PieRadarChartTouchListener extends ChartTouchListener<PieRadarChart
     private long mDecelerationLastTime = 0;
     private float mDecelerationAngularVelocity = 0.f;
 
+    /**
+     * Method description.
+     */
     public PieRadarChartTouchListener(PieRadarChartBase<?> chart) {
         super(chart);
     }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
+    /**
+     * Method description.
+     */
     public boolean onTouch(View v, MotionEvent event) {
 
         if (mGestureDetector.onTouchEvent(event))
@@ -118,6 +127,9 @@ public class PieRadarChartTouchListener extends ChartTouchListener<PieRadarChart
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onLongPress(MotionEvent me) {
 
         mLastGesture = ChartGesture.LONG_PRESS;
@@ -130,11 +142,17 @@ public class PieRadarChartTouchListener extends ChartTouchListener<PieRadarChart
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean onSingleTapConfirmed(MotionEvent e) {
         return true;
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean onSingleTapUp(MotionEvent e) {
 
         mLastGesture = ChartGesture.SINGLE_TAP;
@@ -155,10 +173,16 @@ public class PieRadarChartTouchListener extends ChartTouchListener<PieRadarChart
         return true;
     }
 
+    /**
+     * Private method description.
+     */
     private void resetVelocity() {
         _velocitySamples.clear();
     }
 
+    /**
+     * Private method description.
+     */
     private void sampleVelocity(float touchLocationX, float touchLocationY) {
 
         long currentTime = AnimationUtils.currentAnimationTimeMillis();
@@ -177,6 +201,9 @@ public class PieRadarChartTouchListener extends ChartTouchListener<PieRadarChart
         }
     }
 
+    /**
+     * Private method description.
+     */
     private float calculateVelocity() {
 
         if (_velocitySamples.isEmpty())
@@ -232,6 +259,9 @@ public class PieRadarChartTouchListener extends ChartTouchListener<PieRadarChart
      * @param x
      * @param y
      */
+    /**
+     * Method description.
+     */
     public void setGestureStartAngle(float x, float y) {
         mStartAngle = mChart.getAngleForPoint(x, y) - mChart.getRawRotationAngle();
     }
@@ -243,6 +273,9 @@ public class PieRadarChartTouchListener extends ChartTouchListener<PieRadarChart
      * @param x
      * @param y
      */
+    /**
+     * Method description.
+     */
     public void updateGestureRotation(float x, float y) {
         mChart.setRotationAngle(mChart.getAngleForPoint(x, y) - mStartAngle);
     }
@@ -250,10 +283,16 @@ public class PieRadarChartTouchListener extends ChartTouchListener<PieRadarChart
     /**
      * Sets the deceleration-angular-velocity to 0f
      */
+    /**
+     * Method description.
+     */
     public void stopDeceleration() {
         mDecelerationAngularVelocity = 0.f;
     }
 
+    /**
+     * Method description.
+     */
     public void computeScroll() {
 
         if (mDecelerationAngularVelocity == 0.f)
@@ -275,6 +314,9 @@ public class PieRadarChartTouchListener extends ChartTouchListener<PieRadarChart
             stopDeceleration();
     }
 
+    /**
+     * Private method description.
+     */
     private class AngularVelocitySample {
 
         public long time;

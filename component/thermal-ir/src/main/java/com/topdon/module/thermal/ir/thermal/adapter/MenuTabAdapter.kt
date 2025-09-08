@@ -16,6 +16,7 @@ import com.topdon.module.thermal.ir.databinding.ItemMenuTabMoreViewBinding
 class MenuTabAdapter(val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    /** listener property */
     var listener: OnItemClickListener? = null
     private var type = 0
     private var datas = arrayListOf<Int>()
@@ -27,6 +28,9 @@ class MenuTabAdapter(val context: Context) :
         private const val TYPE_ITEM_MORE = 301
     }
 
+    /**
+     * Function description.
+     */
     fun selected(index: Int) {
         selected = index
         notifyDataSetChanged()
@@ -85,6 +89,9 @@ class MenuTabAdapter(val context: Context) :
             R.drawable.ic_menu_thermal4004_svg
         )
 
+    /**
+     * Function description.
+     */
     fun initType(type: Int) {
         this.type = type
         datas = when (type) {

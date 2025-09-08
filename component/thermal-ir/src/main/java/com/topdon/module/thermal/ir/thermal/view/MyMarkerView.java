@@ -22,9 +22,15 @@ import com.topdon.module.thermal.ir.R;
 @SuppressLint("ViewConstructor")
 public class MyMarkerView extends MarkerView {
 
+    /**
+     * Private method description.
+     */
     private final TextView tvContent;
     private final TextView timeText;
 
+    /**
+     * Method description.
+     */
     public MyMarkerView(Context context, int layoutResource) {
         super(context, layoutResource);
         tvContent = findViewById(R.id.tvContent);
@@ -35,6 +41,9 @@ public class MyMarkerView extends MarkerView {
     // content (user-interface)
     @SuppressLint("DefaultLocale")
     @Override
+    /**
+     * Method description.
+     */
     public void refreshContent(Entry e, Highlight highlight) {
         int index = highlight.getDataIndex();//
         ThermalEntity data = (ThermalEntity) e.getData();
@@ -62,6 +71,9 @@ public class MyMarkerView extends MarkerView {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public MPPointF getOffset() {
         return new MPPointF(-(getWidth() / 2f), -getHeight());
     }

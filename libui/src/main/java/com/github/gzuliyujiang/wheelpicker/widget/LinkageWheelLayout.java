@@ -34,6 +34,9 @@ import java.util.List;
  * @since 2019/6/15 11:55
 @SuppressWarnings("unused")
 public class LinkageWheelLayout extends BaseWheelLayout {
+    /**
+     * Private method description.
+     */
     private WheelView firstWheelView, secondWheelView, thirdWheelView;
     private TextView firstLabelView, secondLabelView, thirdLabelView;
     private ProgressBar loadingView;
@@ -42,18 +45,30 @@ public class LinkageWheelLayout extends BaseWheelLayout {
     private LinkageProvider dataProvider;
     private OnLinkageSelectedListener onLinkageSelectedListener;
 
+    /**
+     * Method description.
+     */
     public LinkageWheelLayout(Context context) {
         super(context);
     }
 
+    /**
+     * Method description.
+     */
     public LinkageWheelLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * Method description.
+     */
     public LinkageWheelLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
+    /**
+     * Method description.
+     */
     public LinkageWheelLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
@@ -120,6 +135,9 @@ public class LinkageWheelLayout extends BaseWheelLayout {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onWheelSelected(WheelView view, int position) {
         int id = view.getId();
         if (id == R.id.wheel_picker_linkage_first_wheel) {
@@ -145,6 +163,9 @@ public class LinkageWheelLayout extends BaseWheelLayout {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void onWheelScrollStateChanged(WheelView view, @ScrollState int state) {
         int id = view.getId();
         if (id == R.id.wheel_picker_linkage_first_wheel) {
@@ -163,6 +184,9 @@ public class LinkageWheelLayout extends BaseWheelLayout {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setData(@NonNull LinkageProvider provider) {
         setFirstVisible(provider.firstLevelVisible());
         setThirdVisible(provider.thirdLevelVisible());
@@ -181,6 +205,9 @@ public class LinkageWheelLayout extends BaseWheelLayout {
         changeThirdData();
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultValue(Object first, Object second, Object third) {
         if (dataProvider != null) {
             firstIndex = dataProvider.findFirstIndex(first);
@@ -196,30 +223,48 @@ public class LinkageWheelLayout extends BaseWheelLayout {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setFormatter(WheelFormatter first, WheelFormatter second, WheelFormatter third) {
         firstWheelView.setFormatter(first);
         secondWheelView.setFormatter(second);
         thirdWheelView.setFormatter(third);
     }
 
+    /**
+     * Method description.
+     */
     public void setLabel(CharSequence first, CharSequence second, CharSequence third) {
         firstLabelView.setText(first);
         secondLabelView.setText(second);
         thirdLabelView.setText(third);
     }
 
+    /**
+     * Method description.
+     */
     public void showLoading() {
         loadingView.setVisibility(VISIBLE);
     }
 
+    /**
+     * Method description.
+     */
     public void hideLoading() {
         loadingView.setVisibility(GONE);
     }
 
+    /**
+     * Method description.
+     */
     public void setOnLinkageSelectedListener(OnLinkageSelectedListener onLinkageSelectedListener) {
         this.onLinkageSelectedListener = onLinkageSelectedListener;
     }
 
+    /**
+     * Method description.
+     */
     public void setFirstVisible(boolean visible) {
         if (visible) {
             firstWheelView.setVisibility(VISIBLE);
@@ -230,6 +275,9 @@ public class LinkageWheelLayout extends BaseWheelLayout {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setThirdVisible(boolean visible) {
         if (visible) {
             thirdWheelView.setVisibility(VISIBLE);
@@ -240,6 +288,9 @@ public class LinkageWheelLayout extends BaseWheelLayout {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void selectedCallback() {
         if (onLinkageSelectedListener == null) {
             return;
@@ -255,16 +306,25 @@ public class LinkageWheelLayout extends BaseWheelLayout {
         });
     }
 
+    /**
+     * Private method description.
+     */
     private void changeFirstData() {
         firstWheelView.setData(dataProvider.provideFirstData());
         firstWheelView.setDefaultPosition(firstIndex);
     }
 
+    /**
+     * Private method description.
+     */
     private void changeSecondData() {
         secondWheelView.setData(dataProvider.linkageSecondData(firstIndex));
         secondWheelView.setDefaultPosition(secondIndex);
     }
 
+    /**
+     * Private method description.
+     */
     private void changeThirdData() {
         if (!dataProvider.thirdLevelVisible()) {
             return;
@@ -273,30 +333,51 @@ public class LinkageWheelLayout extends BaseWheelLayout {
         thirdWheelView.setDefaultPosition(thirdIndex);
     }
 
+    /**
+     * Method description.
+     */
     public final WheelView getFirstWheelView() {
         return firstWheelView;
     }
 
+    /**
+     * Method description.
+     */
     public final WheelView getSecondWheelView() {
         return secondWheelView;
     }
 
+    /**
+     * Method description.
+     */
     public final WheelView getThirdWheelView() {
         return thirdWheelView;
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getFirstLabelView() {
         return firstLabelView;
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getSecondLabelView() {
         return secondLabelView;
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getThirdLabelView() {
         return thirdLabelView;
     }
 
+    /**
+     * Method description.
+     */
     public final ProgressBar getLoadingView() {
         return loadingView;
     }

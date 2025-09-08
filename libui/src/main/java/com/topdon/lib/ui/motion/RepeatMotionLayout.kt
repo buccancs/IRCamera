@@ -25,6 +25,9 @@ class RepeatMotionLayout : MotionLayout, MotionLayout.TransitionListener {
         defStyleAttr
     )
 
+    /**
+     * Function description.
+     */
     fun startTransition() {
 //        Log.w(123, )
         if (!isAdd) {
@@ -34,6 +37,9 @@ class RepeatMotionLayout : MotionLayout, MotionLayout.TransitionListener {
         transitionToEnd()
     }
 
+    /**
+     * Function description.
+     */
     fun cancelTransition() {
         removeTransitionListener(this)
         isAdd = false

@@ -6,6 +6,9 @@ package com.topdon.lib.ui.widget.seekbar;
  *     : it works for draw indicator text
  * ================================================
 public class SeekBarState {
+    /**
+     * Method description.
+     */
     public String indicatorText;
     public float value; //now progress value
     public boolean isMin;

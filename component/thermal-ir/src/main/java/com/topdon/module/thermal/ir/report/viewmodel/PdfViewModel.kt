@@ -29,9 +29,13 @@ import java.util.concurrent.CountDownLatch
  * @date: 2023/5/12 17:43
 class PdfViewModel : BaseViewModel() {
 
+    /** listData property */
     val listData = MutableLiveData<ReportData?>()
 
 
+    /**
+     * Function description.
+     */
     fun getReportData(isTC007: Boolean, page: Int){
         if (!NetworkUtil.isConnected(Utils.getApp())) {
             TToast.shortToast(Utils.getApp(), LibAppR.string.setting_http_error)

@@ -28,12 +28,21 @@ import com.github.gzuliyujiang.wheelview.widget.WheelView;
 @SuppressWarnings("unused")
 public class NumberPicker extends ModalDialog {
     protected NumberWheelLayout wheelLayout;
+    /**
+     * Private method description.
+     */
     private OnNumberPickedListener onNumberPickedListener;
 
+    /**
+     * Method description.
+     */
     public NumberPicker(@NonNull Activity activity) {
         super(activity);
     }
 
+    /**
+     * Method description.
+     */
     public NumberPicker(@NonNull Activity activity, @StyleRes int themeResId) {
         super(activity, themeResId);
     }
@@ -59,38 +68,65 @@ public class NumberPicker extends ModalDialog {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setFormatter(WheelFormatter formatter) {
         wheelLayout.getWheelView().setFormatter(formatter);
     }
 
+    /**
+     * Method description.
+     */
     public void setRange(int min, int max, int step) {
         wheelLayout.setRange(min, max, step);
     }
 
+    /**
+     * Method description.
+     */
     public void setRange(float min, float max, float step) {
         wheelLayout.setRange(min, max, step);
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultValue(Object item) {
         wheelLayout.setDefaultValue(item);
     }
 
+    /**
+     * Method description.
+     */
     public void setDefaultPosition(int position) {
         wheelLayout.setDefaultPosition(position);
     }
 
+    /**
+     * Method description.
+     */
     public final void setOnNumberPickedListener(OnNumberPickedListener onNumberPickedListener) {
         this.onNumberPickedListener = onNumberPickedListener;
     }
 
+    /**
+     * Method description.
+     */
     public final NumberWheelLayout getWheelLayout() {
         return wheelLayout;
     }
 
+    /**
+     * Method description.
+     */
     public final WheelView getWheelView() {
         return wheelLayout.getWheelView();
     }
 
+    /**
+     * Method description.
+     */
     public final TextView getLabelView() {
         return wheelLayout.getLabelView();
     }

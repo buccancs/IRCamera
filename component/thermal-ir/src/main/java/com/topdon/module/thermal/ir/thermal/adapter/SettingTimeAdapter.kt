@@ -18,9 +18,14 @@ class SettingTimeAdapter(val context: Context) :
     private var datas = arrayOf("", "", "", "")
     private var dataTimes = arrayOf(1, 2, 3, 4)
 
+    /** listener property */
     var listener: OnItemClickListener? = null
+    /** select property */
     var select = 0
 
+    /**
+     * Function description.
+     */
     fun setCheck(index: Int) {
         this.select = index
         notifyDataSetChanged()

@@ -19,6 +19,7 @@ class CommSeekBar: AppCompatSeekBar {
     private var mMaxHeight = 48
     private var mMinWidth = 24
     private var mMinHeight = 24
+    /** level property */
     var level = 0;
 
     private var onSeekBarChangeListener: OnSeekBarChangeListener? = null
@@ -177,6 +178,9 @@ class CommSeekBar: AppCompatSeekBar {
         return true
     }
 
+    /**
+     * Function description.
+     */
     fun stopTrackTouchLevel(){
         if (level > 0){
             val newLevel = (progress.toFloat() / 100 * 4).roundToInt()

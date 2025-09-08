@@ -16,6 +16,9 @@ import java.util.Locale;
  * @Date 2022/12/14 18:40
 
 public class FileSizeUtil {
+    /**
+     * Method description.
+     */
     public static final int SIZETYPE_B = 1;//Bdouble
     public static final int SIZETYPE_KB = 2;//KBdouble
     public static final int SIZETYPE_MB = 3;//MBdouble
@@ -40,6 +43,9 @@ public class FileSizeUtil {
 
      * @param sizeType
      * @return String
+    /**
+     * Method description.
+     */
     public static String getUnit(int sizeType) {
         String memoryUnit;
         if (sizeType == SIZETYPE_B) {
@@ -56,6 +62,9 @@ public class FileSizeUtil {
 
      * @param filePath
      * @return BKBMBGB
+    /**
+     * Method description.
+     */
     public static long getFilesSize(String filePath) {
         File file = new File(filePath);
         long blockSize = 0;
@@ -75,6 +84,9 @@ public class FileSizeUtil {
 
      * @param filePath
      * @return BKBMBGB
+    /**
+     * Method description.
+     */
     public static String getAutoFileOrFilesSize(String filePath, int sizeType) {
         File file = new File(filePath);
         long blockSize = 0;
@@ -94,6 +106,9 @@ public class FileSizeUtil {
 
      * @param filePath
      * @return BKBMBGB
+    /**
+     * Method description.
+     */
     public static String getAutoFileOrFilesSize(String filePath) {
         File file = new File(filePath);
         long blockSize = 0;
@@ -112,6 +127,9 @@ public class FileSizeUtil {
 
      * @return
      * @throws Exception
+    /**
+     * Private method description.
+     */
     private static long getFileSize(File file) throws Exception {
         FileChannel fc = null;
         try {
@@ -137,6 +155,9 @@ public class FileSizeUtil {
      * @param f
      * @return
      * @throws Exception
+    /**
+     * Private method description.
+     */
     private static long getFileSizes(File f) throws Exception {
         long size = 0;
         File flist[] = f.listFiles();
@@ -152,6 +173,9 @@ public class FileSizeUtil {
 
      * @param fileS
      * @return
+    /**
+     * Method description.
+     */
     public static String FormetFileSize(long fileS) {
         DecimalFormat df = new DecimalFormat("#.00");
         String fileSizeString = "";
@@ -175,6 +199,9 @@ public class FileSizeUtil {
      * @param fileS
      * @param sizeType
      * @return
+    /**
+     * Method description.
+     */
     public static double FormetFileSize(long fileS, int sizeType) {
         Locale enlocale = new Locale("en", "US");
         DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(enlocale);
@@ -202,6 +229,9 @@ public class FileSizeUtil {
 
      * @param filename
      * @return long
+    /**
+     * Method description.
+     */
     public static long getFileSizeByWriteLog(String filename) {
         try {
             File file = new File(filename);

@@ -25,24 +25,39 @@ import com.github.gzuliyujiang.wheelpicker.widget.CarPlateWheelLayout;
  * @since 2016/12/18 10:47
 @SuppressWarnings({"unused"})
 public class CarPlatePicker extends LinkagePicker {
+    /**
+     * Private method description.
+     */
     private OnCarPlatePickedListener onCarPlatePickedListener;
 
+    /**
+     * Method description.
+     */
     public CarPlatePicker(@NonNull Activity activity) {
         super(activity);
     }
 
+    /**
+     * Method description.
+     */
     public CarPlatePicker(@NonNull Activity activity, @StyleRes int themeResId) {
         super(activity, themeResId);
     }
 
     @Deprecated
     @Override
+    /**
+     * Method description.
+     */
     public void setData(@NonNull LinkageProvider data) {
         throw new UnsupportedOperationException("Data already preset");
     }
 
     @Deprecated
     @Override
+    /**
+     * Method description.
+     */
     public void setOnLinkagePickedListener(OnLinkagePickedListener onLinkagePickedListener) {
         throw new UnsupportedOperationException("Use setOnCarPlatePickedListener instead");
     }
@@ -64,6 +79,9 @@ public class CarPlatePicker extends LinkagePicker {
     }
 
 
+    /**
+     * Method description.
+     */
     public void setOnCarPlatePickedListener(OnCarPlatePickedListener onCarPlatePickedListener) {
         this.onCarPlatePickedListener = onCarPlatePickedListener;
     }

@@ -14,20 +14,32 @@ public class BarBuffer extends AbstractBuffer<IBarDataSet> {
     /** width of the bar on the x-axis, in values (not pixels) */
     protected float mBarWidth = 1f;
 
+    /**
+     * Method description.
+     */
     public BarBuffer(int size, int dataSetCount, boolean containsStacks) {
         super(size);
         this.mDataSetCount = dataSetCount;
         this.mContainsStacks = containsStacks;
     }
 
+    /**
+     * Method description.
+     */
     public void setBarWidth(float barWidth) {
         this.mBarWidth = barWidth;
     }
 
+    /**
+     * Method description.
+     */
     public void setDataSet(int index) {
         this.mDataSetIndex = index;
     }
 
+    /**
+     * Method description.
+     */
     public void setInverted(boolean inverted) {
         this.mInverted = inverted;
     }
@@ -41,6 +53,9 @@ public class BarBuffer extends AbstractBuffer<IBarDataSet> {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void feed(IBarDataSet data) {
 
         float size = data.getEntryCount() * phaseX;

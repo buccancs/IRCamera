@@ -12,8 +12,12 @@ import java.io.File
 
 class IRGalleryEditViewModel : BaseViewModel() {
 
+    /** resultLiveData property */
     val resultLiveData = SingleLiveEvent<FrameBean>()
 
+    /**
+     * Function description.
+     */
     fun initData(path: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val file = File(path)
@@ -36,6 +40,9 @@ class IRGalleryEditViewModel : BaseViewModel() {
     }
 
 
+    /**
+     * Function description.
+     */
     fun getTailData(bytes: ByteArray){
 
     }

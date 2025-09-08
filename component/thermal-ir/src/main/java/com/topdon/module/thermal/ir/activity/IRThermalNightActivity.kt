@@ -704,6 +704,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         compass = sensorService.getCompass()
     }
 
+    /** isTouchSeekBar property */
     var isTouchSeekBar = false
     private val pseudoSetResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -1673,6 +1674,9 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     private var isTS001 = false
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun irEvent(event: IRMsgEvent) {
         if (event.code == MsgCode.RESTART_USB) {
             isOnRestart = true
@@ -2692,6 +2696,9 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun iruvctc(event: PreviewComplete) {
         dealY16ModePreviewComplete()
     }
@@ -2701,6 +2708,9 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun cameraEvent(event: DeviceCameraEvent) {
         when (event.action) {
             100 -> {

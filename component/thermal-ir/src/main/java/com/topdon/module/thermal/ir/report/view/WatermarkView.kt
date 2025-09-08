@@ -10,6 +10,7 @@ import com.blankj.utilcode.util.SizeUtils
 class WatermarkView: View {
 
      * .
+    /** watermarkText property */
     var watermarkText: String? = null
         set(value) {
             field = value

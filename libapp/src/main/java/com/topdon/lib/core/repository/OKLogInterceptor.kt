@@ -8,7 +8,10 @@ import okio.Buffer
 import java.nio.charset.StandardCharsets
 
  * OKHttpClient  Interceptor.
- * Created by LCG on 2024/4/28.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class OKLogInterceptor(val isTC007: Boolean) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()

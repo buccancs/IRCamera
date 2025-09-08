@@ -25,12 +25,14 @@ class TempAlarmSetDialog(
     private val isEdit: Boolean,
 ) : Dialog(context, R.style.app_compat_dialog), CompoundButton.OnCheckedChangeListener {
 
+    /** alarmBean property */
     var alarmBean = AlarmBean()
         set(value) {
             field = value.copy()
         }
 
      * .
+    /** onSaveListener property */
     var onSaveListener: ((alarmBean: AlarmBean) -> Unit)? = null
 
      * .

@@ -42,8 +42,10 @@ import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import java.io.IOException
 import java.io.InputStream
-
- * Created by fengjibo on 2024/1/10.
+/**
+ * @author fengjibo
+ * @since Unknown
+ */
 class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
     View.OnClickListener {
 
@@ -106,9 +108,13 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
             }
         }
     }
+    /** ivTakePhoto property */
     var ivTakePhoto: TextView? = null
+    /** seek_bar property */
     var seek_bar: SeekBar? = null
+    /** moveImageView property */
     var moveImageView: MoveImageView? = null
+    /** dualTextureView property */
     var dualTextureView: SurfaceView? = null
      *  move  .
     private var beforeTime = 0L
@@ -304,6 +310,9 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
         }
     }
 
+    /**
+     * Function description.
+     */
     fun onViewClicked(view: View?) {}
     override fun onStart() {
         Log.w(Companion.TAG, "onStart")
@@ -374,6 +383,7 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
     }
 
 
+    /** userStop property */
     var userStop = false
 
     private fun dualStop() {
@@ -472,6 +482,9 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
         }
     }
 
+    /**
+     * Function description.
+     */
     fun updateSaveButton() {
         if (ivTakePhoto!!.visibility == View.INVISIBLE) {
             ivTakePhoto!!.visibility = View.VISIBLE
@@ -485,6 +498,9 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
         }
     }
 
+    /**
+     * Function description.
+     */
     fun setButtonEnable(isEnable: Boolean) {
         ivTakePhoto!!.setEnabled(isEnable)
     }

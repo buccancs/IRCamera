@@ -12,12 +12,19 @@ import java.util.TimeZone
 
 @Parcelize
 open class GalleryBean(
+    /** id property */
     val id: Int, // Legacy field (unused for TC001 local files)
+    /** path property */
     val path: String,
+    /** thumb property */
     val thumb: String,
+    /** name property */
     val name: String,
+    /** duration property */
     val duration: Long,//，
+    /** timeMillis property */
     val timeMillis: Long,
+    /** hasDownload property */
     var hasDownload: Boolean,
 ) : Parcelable {
     constructor(file: File): this(

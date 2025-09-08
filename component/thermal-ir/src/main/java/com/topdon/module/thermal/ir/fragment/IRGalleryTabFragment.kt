@@ -24,7 +24,10 @@ import org.greenrobot.eventbus.EventBus
  * [ExtraKeyConfig.HAS_BACK_ICON] -  false
  * [ExtraKeyConfig.CAN_SWITCH_DIR] -  TS004TC007  true
  * [ExtraKeyConfig.DIR_TYPE] -   [DirType]
- * Created by chenggeng.lin on 2023/11/14.
+/**
+ * @author chenggeng.lin
+ * @since Unknown
+ */
 class IRGalleryTabFragment : BaseFragment() {
     private var hasBackIcon = false
      * TS004TC007

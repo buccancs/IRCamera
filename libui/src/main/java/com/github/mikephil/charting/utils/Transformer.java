@@ -35,6 +35,9 @@ public class Transformer {
 
     protected ViewPortHandler mViewPortHandler;
 
+    /**
+     * Method description.
+     */
     public Transformer(ViewPortHandler viewPortHandler) {
         this.mViewPortHandler = viewPortHandler;
     }
@@ -47,6 +50,9 @@ public class Transformer {
      * @param deltaX
      * @param deltaY
      * @param yChartMin
+     */
+    /**
+     * Method description.
      */
     public void prepareMatrixValuePx(float xChartMin, float deltaX, float deltaY, float yChartMin) {
 
@@ -70,6 +76,9 @@ public class Transformer {
      * Prepares the matrix that contains all offsets.
      *
      * @param inverted
+     */
+    /**
+     * Method description.
      */
     public void prepareMatrixOffset(boolean inverted) {
 
@@ -95,6 +104,9 @@ public class Transformer {
      *
      * @param data
      * @return
+     */
+    /**
+     * Method description.
      */
     public float[] generateTransformedValuesScatter(IScatterDataSet data, float phaseX,
                                                     float phaseY, int from, int to) {
@@ -133,6 +145,9 @@ public class Transformer {
      * @param data
      * @return
      */
+    /**
+     * Method description.
+     */
     public float[] generateTransformedValuesBubble(IBubbleDataSet data, float phaseY, int from, int to) {
 
         final int count = (to - from + 1) * 2; // (int) Math.ceil((to - from) * phaseX) * 2;
@@ -168,6 +183,9 @@ public class Transformer {
      *
      * @param data
      * @return
+     */
+    /**
+     * Method description.
      */
     public float[] generateTransformedValuesLine(ILineDataSet data,
                                                  float phaseX, float phaseY,
@@ -211,6 +229,9 @@ public class Transformer {
      * @param data
      * @return
      */
+    /**
+     * Method description.
+     */
     public float[] generateTransformedValuesCandle(ICandleDataSet data,
                                                    float phaseX, float phaseY, int from, int to) {
 
@@ -245,6 +266,9 @@ public class Transformer {
      *
      * @param path
      */
+    /**
+     * Method description.
+     */
     public void pathValueToPixel(Path path) {
 
         path.transform(mMatrixValueToPx);
@@ -256,6 +280,9 @@ public class Transformer {
      * Transforms multiple paths will all matrices.
      *
      * @param paths
+     */
+    /**
+     * Method description.
      */
     public void pathValuesToPixel(List<Path> paths) {
 
@@ -270,6 +297,9 @@ public class Transformer {
      *
      * @param pts
      */
+    /**
+     * Method description.
+     */
     public void pointValuesToPixel(float[] pts) {
 
         mMatrixValueToPx.mapPoints(pts);
@@ -281,6 +311,9 @@ public class Transformer {
      * Transform a rectangle with all matrices.
      *
      * @param r
+     */
+    /**
+     * Method description.
      */
     public void rectValueToPixel(RectF r) {
 
@@ -295,6 +328,9 @@ public class Transformer {
      * @param r
      * @param phaseY
      */
+    /**
+     * Method description.
+     */
     public void rectToPixelPhase(RectF r, float phaseY) {
 
         // multiply the height of the rect with the phase
@@ -306,6 +342,9 @@ public class Transformer {
         mMatrixOffset.mapRect(r);
     }
 
+    /**
+     * Method description.
+     */
     public void rectToPixelPhaseHorizontal(RectF r, float phaseY) {
 
         // multiply the height of the rect with the phase
@@ -322,6 +361,9 @@ public class Transformer {
      *
      * @param r
      */
+    /**
+     * Method description.
+     */
     public void rectValueToPixelHorizontal(RectF r) {
 
         mMatrixValueToPx.mapRect(r);
@@ -334,6 +376,9 @@ public class Transformer {
      *
      * @param r
      * @param phaseY
+     */
+    /**
+     * Method description.
      */
     public void rectValueToPixelHorizontal(RectF r, float phaseY) {
 
@@ -351,6 +396,9 @@ public class Transformer {
      *
      * @param rects
      */
+    /**
+     * Method description.
+     */
     public void rectValuesToPixel(List<RectF> rects) {
 
         Matrix m = getValueToPixelMatrix();
@@ -366,6 +414,9 @@ public class Transformer {
      * into values on the chart.
      *
      * @param pixels
+     */
+    /**
+     * Method description.
      */
     public void pixelsToValue(float[] pixels) {
 
@@ -399,6 +450,9 @@ public class Transformer {
      * @param y
      * @return
      */
+    /**
+     * Method description.
+     */
     public MPPointD getValuesByTouchPoint(float x, float y) {
 
         MPPointD result = MPPointD.getInstance(0, 0);
@@ -406,6 +460,9 @@ public class Transformer {
         return result;
     }
 
+    /**
+     * Method description.
+     */
     public void getValuesByTouchPoint(float x, float y, MPPointD outputPoint) {
 
         ptsBuffer[0] = x;
@@ -425,6 +482,9 @@ public class Transformer {
      * @param y
      * @return
      */
+    /**
+     * Method description.
+     */
     public MPPointD getPixelForValues(float x, float y) {
 
         ptsBuffer[0] = x;
@@ -438,16 +498,28 @@ public class Transformer {
         return MPPointD.getInstance(xPx, yPx);
     }
 
+    /**
+     * Method description.
+     */
     public Matrix getValueMatrix() {
         return mMatrixValueToPx;
     }
 
+    /**
+     * Method description.
+     */
     public Matrix getOffsetMatrix() {
         return mMatrixOffset;
     }
 
+    /**
+     * Private method description.
+     */
     private Matrix mMBuffer1 = new Matrix();
 
+    /**
+     * Method description.
+     */
     public Matrix getValueToPixelMatrix() {
         mMBuffer1.set(mMatrixValueToPx);
         mMBuffer1.postConcat(mViewPortHandler.mMatrixTouch);
@@ -455,8 +527,14 @@ public class Transformer {
         return mMBuffer1;
     }
 
+    /**
+     * Private method description.
+     */
     private Matrix mMBuffer2 = new Matrix();
 
+    /**
+     * Method description.
+     */
     public Matrix getPixelToValueMatrix() {
         getValueToPixelMatrix().invert(mMBuffer2);
         return mMBuffer2;

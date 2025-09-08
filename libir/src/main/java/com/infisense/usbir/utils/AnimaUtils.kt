@@ -18,6 +18,9 @@ public object AnimaUtils{
      * @param durationMillis
      * @param animationListener
      * @return
+    /**
+     * Function description.
+     */
     fun getRotateAnimation(
         fromDegrees: Float,
         toDegrees: Float,
@@ -42,6 +45,9 @@ public object AnimaUtils{
      * @param durationMillis
      * @param animationListener
      * @return
+    /**
+     * Function description.
+     */
     fun getRotateAnimationByCenter(
         durationMillis: Long,
         animationListener: Animation.AnimationListener?
@@ -55,12 +61,18 @@ public object AnimaUtils{
 
      * @param duration
      * @return
+    /**
+     * Function description.
+     */
     fun getRotateAnimationByCenter(duration: Long): RotateAnimation {
         return getRotateAnimationByCenter(duration, null)
     }
 
      * @param animationListener
      * @return
+    /**
+     * Function description.
+     */
     fun getRotateAnimationByCenter(animationListener: Animation.AnimationListener?): RotateAnimation {
         return getRotateAnimationByCenter(
             DEFAULT_ANIMATION_DURATION,
@@ -69,6 +81,7 @@ public object AnimaUtils{
     }
 
      * @return DEFAULT_ANIMATION_DURATION
+    /** rotateAnimationByCenter property */
     val rotateAnimationByCenter: RotateAnimation
         get() = getRotateAnimationByCenter(DEFAULT_ANIMATION_DURATION, null)
 
@@ -77,6 +90,9 @@ public object AnimaUtils{
      * @param durationMillis
      * @param animationListener
      * @return
+    /**
+     * Function description.
+     */
     fun getAlphaAnimation(
         fromAlpha: Float,
         toAlpha: Float,
@@ -95,6 +111,9 @@ public object AnimaUtils{
      * @param toAlpha
      * @param durationMillis
      * @return
+    /**
+     * Function description.
+     */
     fun getAlphaAnimation(
         fromAlpha: Float,
         toAlpha: Float,
@@ -107,6 +126,9 @@ public object AnimaUtils{
      * @param toAlpha
      * @param animationListener
      * @return DEFAULT_ANIMATION_DURATION
+    /**
+     * Function description.
+     */
     fun getAlphaAnimation(
         fromAlpha: Float,
         toAlpha: Float,
@@ -121,6 +143,9 @@ public object AnimaUtils{
      * @param fromAlpha
      * @param toAlpha
      * @return DEFAULT_ANIMATION_DURATION
+    /**
+     * Function description.
+     */
     fun getAlphaAnimation(fromAlpha: Float, toAlpha: Float): AlphaAnimation {
         return getAlphaAnimation(
             fromAlpha, toAlpha, DEFAULT_ANIMATION_DURATION,
@@ -131,6 +156,9 @@ public object AnimaUtils{
      * @param durationMillis
      * @param animationListener
      * @return
+    /**
+     * Function description.
+     */
     fun getHiddenAlphaAnimation(
         durationMillis: Long,
         animationListener: Animation.AnimationListener?
@@ -140,12 +168,18 @@ public object AnimaUtils{
 
      * @param durationMillis
      * @return
+    /**
+     * Function description.
+     */
     fun getHiddenAlphaAnimation(durationMillis: Long): AlphaAnimation {
         return getHiddenAlphaAnimation(durationMillis, null)
     }
 
      * @param animationListener
      * @return DEFAULT_ANIMATION_DURATION
+    /**
+     * Function description.
+     */
     fun getHiddenAlphaAnimation(animationListener: Animation.AnimationListener?): AlphaAnimation {
         return getHiddenAlphaAnimation(
             DEFAULT_ANIMATION_DURATION,
@@ -154,12 +188,16 @@ public object AnimaUtils{
     }
 
      * @return DEFAULT_ANIMATION_DURATION
+    /** hiddenAlphaAnimation property */
     val hiddenAlphaAnimation: AlphaAnimation
         get() = getHiddenAlphaAnimation(DEFAULT_ANIMATION_DURATION, null)
 
      * @param durationMillis
      * @param animationListener
      * @return
+    /**
+     * Function description.
+     */
     fun getShowAlphaAnimation(
         durationMillis: Long,
         animationListener: Animation.AnimationListener?
@@ -169,12 +207,18 @@ public object AnimaUtils{
 
      * @param durationMillis
      * @return
+    /**
+     * Function description.
+     */
     fun getShowAlphaAnimation(durationMillis: Long): AlphaAnimation {
         return getAlphaAnimation(0.0f, 1.0f, durationMillis, null)
     }
 
      * @param animationListener
      * @return DEFAULT_ANIMATION_DURATION
+    /**
+     * Function description.
+     */
     fun getShowAlphaAnimation(animationListener: Animation.AnimationListener?): AlphaAnimation {
         return getAlphaAnimation(
             0.0f, 1.0f, DEFAULT_ANIMATION_DURATION,
@@ -183,12 +227,16 @@ public object AnimaUtils{
     }
 
      * @return DEFAULT_ANIMATION_DURATION
+    /** showAlphaAnimation property */
     val showAlphaAnimation: AlphaAnimation
         get() = getAlphaAnimation(0.0f, 1.0f, DEFAULT_ANIMATION_DURATION, null)
 
      * @param durationMillis
      * @param animationListener
      * @return
+    /**
+     * Function description.
+     */
     fun getLessenScaleAnimation(
         durationMillis: Long,
         animationListener: Animation.AnimationListener?
@@ -205,12 +253,18 @@ public object AnimaUtils{
 
      * @param durationMillis
      * @return
+    /**
+     * Function description.
+     */
     fun getLessenScaleAnimation(durationMillis: Long): ScaleAnimation {
         return getLessenScaleAnimation(durationMillis, null)
     }
 
      * @param animationListener
      * @return
+    /**
+     * Function description.
+     */
     fun getLessenScaleAnimation(animationListener: Animation.AnimationListener?): ScaleAnimation {
         return getLessenScaleAnimation(
             DEFAULT_ANIMATION_DURATION,
@@ -221,6 +275,9 @@ public object AnimaUtils{
      * @param durationMillis
      * @param animationListener
      * @return
+    /**
+     * Function description.
+     */
     fun getAmplificationAnimation(
         durationMillis: Long,
         animationListener: Animation.AnimationListener?
@@ -237,12 +294,18 @@ public object AnimaUtils{
 
      * @param durationMillis
      * @return
+    /**
+     * Function description.
+     */
     fun getAmplificationAnimation(durationMillis: Long): ScaleAnimation {
         return getAmplificationAnimation(durationMillis, null)
     }
 
      * @param animationListener
      * @return
+    /**
+     * Function description.
+     */
     fun getAmplificationAnimation(animationListener: Animation.AnimationListener?): ScaleAnimation {
         return getAmplificationAnimation(
             DEFAULT_ANIMATION_DURATION,

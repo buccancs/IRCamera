@@ -1,7 +1,10 @@
 package com.topdon.menu.constant
 
  * -3- .
- * Created by LCG on 2024/11/20.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 enum class TwoLightType {
     /** 1 */
     TWO_LIGHT_1,

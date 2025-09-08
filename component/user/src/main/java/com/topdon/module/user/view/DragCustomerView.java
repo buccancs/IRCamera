@@ -11,6 +11,9 @@ import com.topdon.lib.core.utils.ScreenUtil;
 public class DragCustomerView extends androidx.appcompat.widget.AppCompatImageView {
     float mDownX;
     float mDownY;
+    /**
+     * Private method description.
+     */
     private int mWidth;
     private int mHeight;
     private int mScreenWidth;
@@ -18,16 +21,25 @@ public class DragCustomerView extends androidx.appcompat.widget.AppCompatImageVi
     private Context mContext;
     private boolean isDrag = false;
 
+    /**
+     * Method description.
+     */
     public DragCustomerView(Context context) {
         super(context);
         this.mContext = context;
     }
 
+    /**
+     * Method description.
+     */
     public DragCustomerView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.mContext = context;
     }
 
+    /**
+     * Method description.
+     */
     public DragCustomerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.mContext = context;
@@ -44,6 +56,9 @@ public class DragCustomerView extends androidx.appcompat.widget.AppCompatImageVi
         }
     }
     @Override
+    /**
+     * Method description.
+     */
     public boolean onTouchEvent(MotionEvent event) {
             switch (event.getAction() & MotionEvent.ACTION_MASK) {
                 case MotionEvent.ACTION_DOWN:

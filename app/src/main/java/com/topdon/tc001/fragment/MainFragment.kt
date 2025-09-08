@@ -44,7 +44,10 @@ import org.json.JSONObject
 
 
  *  Fragment.
- * Created by LCG on 2024/4/18.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 @SuppressLint("NotifyDataSetChanged")
 class MainFragment : BaseFragment(), View.OnClickListener {
 
@@ -170,6 +173,9 @@ class MainFragment : BaseFragment(), View.OnClickListener {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun onSocketMsgEvent(event: SocketMsgEvent) {
         if (SocketCmdUtil.getCmdResponse(event.text) == WsCmdConstants.APP_EVENT_HEART_BEATS) {//
             if (!adapter.hasConnectTC007) {// TC007

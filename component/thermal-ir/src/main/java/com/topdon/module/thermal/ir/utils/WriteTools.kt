@@ -11,6 +11,9 @@ import java.io.File
 
 object WriteTools {
 
+    /**
+     * Function description.
+     */
     fun delete(file: File): Int {
         val uri: Uri = FileTools.getUri(file)
         XLog.w(" uri:${uri}")

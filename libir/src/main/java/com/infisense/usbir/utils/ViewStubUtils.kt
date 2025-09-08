@@ -7,6 +7,9 @@ import com.infisense.usbir.extension.goneAlphaAnimation
 import com.infisense.usbir.extension.visibleAlphaAnimation
 
 object ViewStubUtils {
+    /**
+     * Function description.
+     */
     fun showViewStub(viewStub: ViewStub?, isShow: Boolean, callback: ((view: View?) -> Unit)?) {
         if (viewStub != null) {
             if (isShow) {

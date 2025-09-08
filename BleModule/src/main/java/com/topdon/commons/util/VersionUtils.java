@@ -15,6 +15,9 @@ public class VersionUtils {
      * @param v1   1.1.2
      * @param v2    1.2.1
      * @return ture  false
+    /**
+     * Method description.
+     */
     public static boolean compareVersions(String v1, String v2) {
         if (TextUtils.equals(v1, "") || TextUtils.equals(v2, "")) {
             return false;

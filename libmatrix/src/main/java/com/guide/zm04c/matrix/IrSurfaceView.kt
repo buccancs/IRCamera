@@ -48,6 +48,9 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
         mMatrix.setScale(1.0f, 1.0f)
     }
 
+    /**
+     * Function description.
+     */
     fun setIsLockImage(isLock: Boolean) {
         isLockImage = isLock
     }
@@ -64,6 +67,9 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
      * 90
      * 180
      * 270
+    /**
+     * Function description.
+     */
     fun setMatrix(rotate: Float, w: Float, h: Float) {
         mMatrix.reset()
         when (rotate) {
@@ -92,6 +98,9 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun doDraw(bitmap: Bitmap?, shutterFlag: Int) {
 
         synchronized(this) {
@@ -163,20 +172,32 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
 
     private var saturation = 0 // 0~100
 
+    /**
+     * Function description.
+     */
     fun setOpenLut() {
 //        openLut = !openLut
         openLut = true
     }
 
      * @param saturation 0 ~ 100
+    /**
+     * Function description.
+     */
     fun setSaturationValue(saturation: Int) {
         this.saturation = saturation
     }
 
+    /**
+     * Function description.
+     */
     fun getSaturationValue(): Int {
         return saturation
     }
 
+    /**
+     * Function description.
+     */
     fun setAlpha(alpha: Int) {
         if (alpha in 0..255) {
             p?.alpha = alpha

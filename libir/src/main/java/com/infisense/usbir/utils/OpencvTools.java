@@ -72,7 +72,13 @@ public class OpencvTools {
 
 
 
+    /**
+     * Private method description.
+     */
     private static Mat resultMat = new Mat();
+    /**
+     * Method description.
+     */
     public static byte[] supImageMix(byte[] imageARGB, int width, int height, byte[] resulARGB) {
         // Step 1: Convert byte[] to Mat
         Mat argbMat = new Mat(width, height, CvType.CV_8UC4);
@@ -103,6 +109,9 @@ public class OpencvTools {
 
      * @param inBitmap
      * @return
+    /**
+     * Method description.
+     */
     public static Bitmap supImageFour(Bitmap inBitmap){
         long startTime = System.currentTimeMillis();
         ByteBuffer rawData = ByteBuffer.wrap(SupRUtils.INSTANCE.bitmapToByteArray(inBitmap));
@@ -119,6 +128,9 @@ public class OpencvTools {
     }
 
 
+    /**
+     * Method description.
+     */
     public static byte[] supImageFourExToByte(byte[] imgByte) {
         long startTime = System.currentTimeMillis();
         ByteBuffer dataIn = ByteBuffer.wrap(imgByte);// ByteBuffer
@@ -134,6 +146,9 @@ public class OpencvTools {
         Bitmap bitmap = SupRUtils.INSTANCE.byteArrayToBitmap(outputData);
         return outputData;
     }
+    /**
+     * Method description.
+     */
     public static Bitmap supImageFourExToBitmap(byte[] dstArgbBytes, int width, int height) {
         long startTime = System.currentTimeMillis();
 
@@ -177,6 +192,9 @@ public class OpencvTools {
     }
 
 
+    /**
+     * Method description.
+     */
     public static Bitmap supImageFourExToBitmap(Bitmap inBitmap) {
         long startTime = System.currentTimeMillis();
         //  Bitmap
@@ -211,6 +229,9 @@ public class OpencvTools {
     }
 
 
+    /**
+     * Method description.
+     */
     public static byte[] supImage(byte[] imageARGB, int width, int height, byte[] resulARGB){
         // Step 1:  byte[]  Mat
         Mat argbMat = new Mat(width, height, CvType.CV_8UC4); // CV_8UC4 4 （ARGB ）
@@ -233,6 +254,9 @@ public class OpencvTools {
         return resulARGB;
     }
 
+    /**
+     * Method description.
+     */
     public static byte[] convertSingleByteToDoubleByte(byte[] singleByteImage) {
         if (singleByteImage == null) {
             throw new IllegalArgumentException("bytenull");
@@ -254,6 +278,9 @@ public class OpencvTools {
 
      * @param temp
      * @return
+    /**
+     * Method description.
+     */
     public static byte[] convertCelsiusToOriginalBytes(float[] temp) {
         if (temp == null) {
             return new byte[0];
@@ -278,6 +305,9 @@ public class OpencvTools {
         return temperature;
     }
 
+    /**
+     * Method description.
+     */
     public static LinkedHashMap<Integer, int[]> getColorByTemp(float customMaxTemp, float customMinTemp, int[] colorList){
         float temp = 0.1f;
         float tempValue = customMaxTemp - customMinTemp;
@@ -315,6 +345,9 @@ public class OpencvTools {
 
 
 
+    /**
+     * Method description.
+     */
     public static byte[] matToByteArray(Mat mat) {
         int rows = mat.rows();
         int cols = mat.cols();
@@ -323,6 +356,9 @@ public class OpencvTools {
         mat.get(0, 0, byteArray);
         return byteArray;
     }
+    /**
+     * Method description.
+     */
     public static Mat pseudoColorViewThree(byte[] image, int cols, int rows,
                                       int customMinColor, int customMiddleColor, int customMaxColor,
                                       float maxTemp,float minTemp,float customMaxTemp,float customMinTemp,
@@ -338,6 +374,9 @@ public class OpencvTools {
         return im;
     }
 
+    /**
+     * Method description.
+     */
     public static Mat pseudoColorView(byte[] image, int cols, int rows, int[] colorList,
                                       float maxTemp,float minTemp,float customMaxTemp,float customMinTemp,
                                       boolean isGrayUse){
@@ -362,6 +401,9 @@ public class OpencvTools {
      * @param cols
      * @param rows
      * @param lut         ,256
+    /**
+     * Private method description.
+     */
     private static Mat draw_high_temp_edge_argb_pse(byte[] image, byte[] temperature, Bitmap lut, int cols, int rows, double high_t, int color_h, int type) throws IOException {
         double[] temp = new double[cols * rows];
         int t = 0;
@@ -441,6 +483,9 @@ public class OpencvTools {
     }
 
 
+    /**
+     * Private method description.
+     */
     private static Mat draw_high_temp_edge_argb_pse(byte[] image, byte[] temperature, int cols, int rows, double high_t, int color_h, int type) throws IOException {
         double[] temp = new double[cols * rows];
         int t = 0;
@@ -520,6 +565,9 @@ public class OpencvTools {
         // waitKey(0);
         return im;
     }
+    /**
+     * Method description.
+     */
     public static Bitmap cropBitmap(Bitmap src, int x, int y, int width, int height, boolean isRecycle) {
         if (x == 0 && y == 0 && width == src.getWidth() && height == src.getHeight()) {
             return src;
@@ -535,6 +583,9 @@ public class OpencvTools {
      * @param temperature
      * @param cols
      * @param rows
+    /**
+     * Private method description.
+     */
     private static Mat draw_high_temp_edge_argb(byte[] image, byte[] temperature, int cols, int rows, double high_t, int color_h, int type) throws IOException {
         double[] temp = new double[cols * rows];
         int t = 0;
@@ -607,6 +658,9 @@ public class OpencvTools {
      * @param temperature
      * @param cols
      * @param rows
+    /**
+     * Private method description.
+     */
     private static Mat draw_high_temp_edge(byte[] image, byte[] temperature, int cols, int rows, double high_t, int color_h, int type) throws IOException {
         double[] temp = new double[cols * rows];
         int t = 0;
@@ -675,6 +729,9 @@ public class OpencvTools {
         return im;
     }
 
+    /**
+     * Private method description.
+     */
     private static Mat draw_temp_edge(Mat src, byte[] temperature, double low_t, int color_l, int type) throws IOException {
         double[] temp = new double[src.rows() * src.cols()];
         int t = 0;
@@ -726,6 +783,9 @@ public class OpencvTools {
         return src;
     }
 
+    /**
+     * Method description.
+     */
     public static byte[] draw_edge_from_temp_reigon_byte(byte[] image, byte[] temperature, int row, int col, double high_t, double low_t, int color_h, int color_l, int type) throws IOException {
         Mat src = draw_high_temp_edge(image, temperature, row, col, high_t, color_h, type);
         Mat mat = draw_temp_edge(src, temperature, low_t, color_l, type);
@@ -737,6 +797,9 @@ public class OpencvTools {
 
     }
 
+    /**
+     * Method description.
+     */
     public static Mat draw_edge_from_temp_reigon(byte[] image, byte[] temperature, int row, int col, double high_t, double low_t, int color_h, int color_l, int type) throws IOException {
         Mat src = draw_high_temp_edge(image, temperature, row, col, high_t, color_h, type);
         Mat mat = draw_temp_edge(src, temperature, low_t, color_l, type);
@@ -751,6 +814,9 @@ public class OpencvTools {
      * @param image   YUV
      * @param image_w
      * @param image_h
+    /**
+     * Method description.
+     */
     public static Bitmap draw_edge_from_temp_reigon_bitmap(byte[] image, byte[] temperature, int image_h, int image_w, double high_t, double low_t, int color_h, int color_l, int type) throws IOException {
         Mat src = draw_high_temp_edge(image, temperature, image_h, image_w, high_t, color_h, type);
         Mat mat = draw_temp_edge(src, temperature, low_t, color_l, type);
@@ -763,6 +829,9 @@ public class OpencvTools {
      * @param image   ARGB
      * @param image_w
      * @param image_h
+    /**
+     * Method description.
+     */
     public static Bitmap draw_edge_from_temp_reigon_bitmap_argb(byte[] image, byte[] temperature, int image_h, int image_w, double high_t, double low_t, int color_h, int color_l, int type) throws IOException {
         Mat src = draw_high_temp_edge_argb(image, temperature, image_h, image_w, high_t, color_h, type);
         Mat mat = draw_temp_edge(src, temperature, low_t, color_l, type);
@@ -775,6 +844,9 @@ public class OpencvTools {
      * @param lut     ,256
      * @param image_w
      * @param image_h
+    /**
+     * Method description.
+     */
     public static Bitmap draw_edge_from_temp_reigon_bitmap_argb_psd(byte[] image, byte[] temperature, Bitmap lut, int image_h, int image_w, double high_t, double low_t, int color_h, int color_l, int type) throws IOException {
         Mat src = draw_high_temp_edge_argb_pse(image, temperature, image_h, image_w, high_t, color_h, type);
         Mat mat = draw_temp_edge(src, temperature, low_t, color_l, type);
@@ -786,6 +858,9 @@ public class OpencvTools {
      * @param image   ARGB
      * @param image_w
      * @param image_h
+    /**
+     * Method description.
+     */
     public static Bitmap draw_edge_from_temp_reigon_bitmap_argb_psd(byte[] image, byte[] temperature,
                                                                     int image_h, int image_w, float high_t,
                                                                     float low_t, int color_h, int color_l, int type) throws IOException {
@@ -801,6 +876,9 @@ public class OpencvTools {
 
 
 
+    /**
+     * Method description.
+     */
     public static Mat calcHU(Size size,double t2){
         Mat hu = new Mat(size,CV_32FC1);
         int row = hu.rows();
@@ -822,6 +900,9 @@ public class OpencvTools {
         return hu2c;
     }
 
+    /**
+     * Method description.
+     */
     public static Mat iftCenter(Mat src){
         Mat dst = new Mat(src.size(),CV_32F,new Scalar(0));
         int dx = src.rows() / 2;
@@ -856,6 +937,9 @@ public class OpencvTools {
         return dst;
     }
 
+    /**
+     * Method description.
+     */
     public static Mat homoMethod(byte[] im, int r, int c){
         int t = 1;
         double t2 = (double)(t-10) / 110;
@@ -937,6 +1021,9 @@ public class OpencvTools {
      * @param customMinTemp :
      * @param isGrayUse :
      * @return
+    /**
+     * Method description.
+     */
     public static Mat generateColorBar(int[] colorList, float maxTemp,float minTemp,float customMaxTemp,
                                        float customMinTemp, boolean isGrayUse) {
         if (colorList == null){
@@ -1144,6 +1231,9 @@ public class OpencvTools {
         return nowColorList;
     }
 
+    /**
+     * Method description.
+     */
     public static int convertTo16Bit(int red, int green, int blue) {
         int intValue = (red << 16) | (green << 8) | blue ;
         return intValue;
@@ -1206,6 +1296,9 @@ public class OpencvTools {
      * @param colorList
      * @param index
      * @return
+    /**
+     * Method description.
+     */
     public static int lastColor(int[] colorList,int index){
         if (index == 0){
             return colorList[0];
@@ -1218,6 +1311,9 @@ public class OpencvTools {
      * @param customMiddleColor
      * @param customMaxColor
      * @return
+    /**
+     * Method description.
+     */
     public static Mat generateColorBarThree(int customMinColor, int customMiddleColor, int customMaxColor,
                                        float maxTemp,float minTemp,float customMaxTemp,float customMinTemp,
                                        boolean isGrayUse) {
@@ -1273,6 +1369,9 @@ public class OpencvTools {
         }
         return colorBar;
     }
+    /**
+     * Private method description.
+     */
     private static int[] getOneColorByTemp(float customMaxTemp, float customMinTemp, float nowTemp, int[] colorList){
         long time = System.nanoTime();
         int[] result = new int[3];
@@ -1313,18 +1412,27 @@ public class OpencvTools {
 //        Log.e(,System.nanoTime()-time+//);
         return result;
     }
+    /**
+     * Private method description.
+     */
     private static int interpolateR(int startColor, int endColor, double ratio) {
         int startR = (startColor >> 16) & 0xFF;
         int endR = (endColor >> 16) & 0xFF;
         int red = (int) ((1 - ratio) * startR + ratio * endR);
         return red;
     }
+    /**
+     * Private method description.
+     */
     private static int interpolateG(int startColor, int endColor, double ratio) {
         int startG = (startColor >> 8) & 0xFF;
         int endG = (endColor >> 8) & 0xFF;
         int interpolatedG = (int) ((1 - ratio) * startG + ratio * endG);
         return interpolatedG;
     }
+    /**
+     * Private method description.
+     */
     private static int interpolateB(int startColor, int endColor, double ratio) {
         int startB = startColor & 0xFF;
         int endB = endColor & 0xFF;
@@ -1332,6 +1440,9 @@ public class OpencvTools {
         return interpolatedB;
     }
 
+    /**
+     * Method description.
+     */
     public static int[] getOneColorByTempUnif(float customMaxTemp, float customMinTemp, float nowTemp,
                                               int[] colorList, float[] positionList){
        if (positionList!=null){
@@ -1352,6 +1463,9 @@ public class OpencvTools {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private static int[] getOneColorByTempEx(float customMaxTemp, float customMinTemp, float nowTemp,
                                             int[] colorList, float[] positionList) {
         if (colorList == null || colorList.length == 0 || positionList == null || positionList.length == 0) {
@@ -1422,6 +1536,9 @@ public class OpencvTools {
 
 
 
+    /**
+     * Private method description.
+     */
     private static double calculateHistogram(Mat image1, Mat image2) {
         Mat hist1 = calculateHistogram(image1);
         Mat hist2 = calculateHistogram(image2);
@@ -1431,6 +1548,9 @@ public class OpencvTools {
     }
 
 
+    /**
+     * Private method description.
+     */
     private static double calculateMSE(Mat image1, Mat image2) {
         Mat diff = new Mat();
         Core.absdiff(image1, image2, diff);
@@ -1440,6 +1560,9 @@ public class OpencvTools {
         return mseScalar.val[0];
     }
 
+    /**
+     * Private method description.
+     */
     private static double calculateSSIM(Mat image1, Mat image2) {
         Mat image1Gray = new Mat();
         Mat image2Gray = new Mat();
@@ -1451,6 +1574,9 @@ public class OpencvTools {
         return ssimScalar.val[0];
     }
 
+    /**
+     * Private method description.
+     */
     private static double calculatePSNR(Mat image1, Mat image2) {
         Mat diff = new Mat();
         Core.absdiff(image1, image2, diff);
@@ -1462,6 +1588,9 @@ public class OpencvTools {
         return psnr;
     }
 
+    /**
+     * Private method description.
+     */
     private static Mat calculateHistogram(Mat image) {
         Mat hist = new Mat();
         MatOfInt histSize = new MatOfInt(256);
@@ -1474,6 +1603,9 @@ public class OpencvTools {
         return hist;
     }
 
+    /**
+     * Method description.
+     */
     public static Mat getImageData(byte[] image){
         Mat im;
         im = new Mat(256, 192, CvType.CV_8UC4);
@@ -1481,6 +1613,9 @@ public class OpencvTools {
         cvtColor(im, im, Imgproc.COLOR_RGBA2BGR);
         return im;
     }
+    /**
+     * Method description.
+     */
     public static Mat getTempData(byte[] temperature){
         double[] temp = new double[256*192];
         int t = 0;
@@ -1499,6 +1634,9 @@ public class OpencvTools {
         return src;
     }
 
+    /**
+     * Method description.
+     */
     public static boolean getStatus(byte[] image1, byte[] image2){
         long time = System.currentTimeMillis();
         Mat mat1 = getImageData(image1);
@@ -1510,6 +1648,9 @@ public class OpencvTools {
         return isSame;
     }
 
+    /**
+     * Method description.
+     */
     public static Mat highTemTrack(byte[] image, byte[] temperature) throws IOException{
 //        temperatureRegion tr = new temperatureRegion();
 //        List<Mat> getMat = tr.read_byte();
@@ -1556,6 +1697,9 @@ public class OpencvTools {
 
     }
     // Mat image, Mat temperature
+    /**
+     * Method description.
+     */
     public static Mat lowTemTrack(byte[] image, byte[] temperature) throws IOException{
         Mat im = getImageData(image);
         Mat tempMat = getTempData(temperature);
@@ -1596,6 +1740,9 @@ public class OpencvTools {
         return im;
     }
     //Mat image1, Mat image2
+    /**
+     * Method description.
+     */
     public static boolean getStatus(Mat image1, Mat image2){
 //        Mat image1 = imread(E:/sharp/1696821350963.jpg);
 //        Mat image2 = imread(E:/sharp/1696821354162.jpg);
@@ -1615,6 +1762,9 @@ public class OpencvTools {
         return similarity > 0.9;
     }
 
+    /**
+     * Method description.
+     */
     public static Mat diff2firstFrame(byte[] base, byte[] nextFrame){
         Mat background = getImageData(base);
         Mat add_target_gray = getImageData(nextFrame);

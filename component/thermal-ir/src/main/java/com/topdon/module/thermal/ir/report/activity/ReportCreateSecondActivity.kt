@@ -65,6 +65,9 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun onReportCreate(event: ReportCreateEvent) {
         finish()
     }

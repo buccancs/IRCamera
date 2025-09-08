@@ -40,6 +40,9 @@ import java.util.concurrent.ExecutorService;
  * author: bichuanfeng
 public class EasyBLE {
     static volatile EasyBLE instance;
+    /**
+     * Private method description.
+     */
     private static final EasyBLEBuilder DEFAULT_BUILDER = new EasyBLEBuilder();
     private final ExecutorService executorService;
     private final PosterDispatcher posterDispatcher;
@@ -48,6 +51,9 @@ public class EasyBLE {
     private final Observable observable;
     private final Logger logger;
     private final ScannerType scannerType;
+    /**
+     * Method description.
+     */
     public final ScanConfiguration scanConfiguration;
     private Scanner scanner;
     private Application application;
@@ -83,6 +89,9 @@ public class EasyBLE {
         }
     }
 
+    /**
+     * Method description.
+     */
     public static EasyBLE getInstance() {
         if (instance == null) {
             synchronized (EasyBLE.class) {
@@ -94,6 +103,9 @@ public class EasyBLE {
         return instance;
     }
 
+    /**
+     * Method description.
+     */
     public static EasyBLEBuilder getBuilder() {
         return new EasyBLEBuilder();
     }
@@ -107,6 +119,9 @@ public class EasyBLE {
     }
 
     @SuppressLint("PrivateApi")
+    /**
+     * Private method description.
+     */
     private void tryGetApplication() {
         try {
             Class<?> cls = Class.forName("android.app.ActivityThread");
@@ -121,6 +136,9 @@ public class EasyBLE {
     }
 
     @Nullable
+    /**
+     * Method description.
+     */
     public BluetoothAdapter getBluetoothAdapter() {
         return bluetoothAdapter;
     }
@@ -145,18 +163,30 @@ public class EasyBLE {
         return logger;
     }
 
+    /**
+     * Method description.
+     */
     public ScannerType getScannerType() {
         return scanner == null ? null : scanner.getType();
     }
 
+    /**
+     * Method description.
+     */
     public boolean isInitialized() {
         return isInitialized && application != null && instance != null;
     }
 
+    /**
+     * Method description.
+     */
     public boolean isBluetoothOn() {
         return bluetoothAdapter != null && bluetoothAdapter.isEnabled();
     }
 
+    /**
+     * Private method description.
+     */
     private class InnerBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -229,6 +259,9 @@ public class EasyBLE {
         }
     }
 
+    /**
+     * Method description.
+     */
     public synchronized void initialize(Application application) {
         if (isInitialized()) {
             return;
@@ -256,6 +289,9 @@ public class EasyBLE {
         isInitialized = true;
     }
 
+    /**
+     * Private method description.
+     */
     private synchronized boolean checkStatus() {
         Inspector.requireNonNull(instance, "EasyBLE instance has been destroyed!");
         if (!isInitialized) {
@@ -270,6 +306,9 @@ public class EasyBLE {
         return true;
     }
 
+    /**
+     * Private method description.
+     */
     private boolean tryAutoInit() {
         tryGetApplication();
         if (application != null) {
@@ -278,10 +317,16 @@ public class EasyBLE {
         return isInitialized();
     }
 
+    /**
+     * Method description.
+     */
     public void setLogEnabled(boolean isEnabled) {
         logger.setEnabled(isEnabled);
     }
 
+    /**
+     * Method description.
+     */
     public synchronized void release() {
         if (broadcastReceiver != null) {
             application.unregisterReceiver(broadcastReceiver);
@@ -298,6 +343,9 @@ public class EasyBLE {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void destroy() {
         release();
         synchronized (EasyBLE.class) {
@@ -305,27 +353,42 @@ public class EasyBLE {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void registerObserver(EventObserver observer) {
         if (checkStatus()) {
             observable.registerObserver(observer);
         }
     }
 
+    /**
+     * Method description.
+     */
     public boolean isObserverRegistered(EventObserver observer) {
         return observable.isRegistered(observer);
     }
 
+    /**
+     * Method description.
+     */
     public void unregisterObserver(EventObserver observer) {
         observable.unregisterObserver(observer);
     }
 
      * @param info
+    /**
+     * Method description.
+     */
     public void notifyObservers(MethodInfo info) {
         if (checkStatus()) {
             observable.notifyObservers(info);
         }
     }
     
+    /**
+     * Private method description.
+     */
     private void checkAndInstanceScanner() {
         if (scanner == null) {
             synchronized (this) {
@@ -348,6 +411,9 @@ public class EasyBLE {
         }
     }
     
+    /**
+     * Method description.
+     */
     public void addScanListener(ScanListener listener) {
         checkAndInstanceScanner();
         if (checkStatus() && scanner != null) {
@@ -355,17 +421,26 @@ public class EasyBLE {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void removeScanListener(ScanListener listener) {
         if (scanner != null) {
             scanner.removeScanListener(listener);
         }
     }
 
+    /**
+     * Method description.
+     */
     public boolean isScanning() {
         return scanner != null && scanner.isScanning();
     }
 
      * BLE
+    /**
+     * Method description.
+     */
     public void startScan() {
         checkAndInstanceScanner();
         if (checkStatus() && scanner != null) {
@@ -373,12 +448,18 @@ public class EasyBLE {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void stopScan() {
         if (checkStatus() && scanner != null) {
             scanner.stopScan(false);
         }
     }
 
+    /**
+     * Method description.
+     */
     public void stopScanQuietly() {
         if (checkStatus() && scanner != null) {
             scanner.stopScan(true);
@@ -388,6 +469,9 @@ public class EasyBLE {
      * @param address
      * @return null
     @Nullable
+    /**
+     * Method description.
+     */
     public Connection connect(String address) {
         return connect(address, null, null);
     }
@@ -396,6 +480,9 @@ public class EasyBLE {
      * @param configuration
      * @return null
     @Nullable
+    /**
+     * Method description.
+     */
     public Connection connect(String address, ConnectionConfiguration configuration) {
         return connect(address, configuration, null);
     }
@@ -404,6 +491,9 @@ public class EasyBLE {
      * @param observer
      * @return null
     @Nullable
+    /**
+     * Method description.
+     */
     public Connection connect(String address, EventObserver observer) {
         return connect(address, null, observer);
     }
@@ -413,6 +503,9 @@ public class EasyBLE {
      * @param observer
      * @return null
     @Nullable
+    /**
+     * Method description.
+     */
     public Connection connect(String address, ConnectionConfiguration configuration,
                               EventObserver observer) {
         if (checkStatus()) {
@@ -428,6 +521,9 @@ public class EasyBLE {
      * @param device
      * @return null
     @Nullable
+    /**
+     * Method description.
+     */
     public Connection connect(Device device) {
         return connect(device, null, null);
     }
@@ -436,6 +532,9 @@ public class EasyBLE {
      * @param configuration
      * @return null
     @Nullable
+    /**
+     * Method description.
+     */
     public Connection connect(Device device, ConnectionConfiguration configuration) {
         return connect(device, configuration, null);
     }
@@ -444,6 +543,9 @@ public class EasyBLE {
      * @param observer
      * @return null
     @Nullable
+    /**
+     * Method description.
+     */
     public Connection connect(Device device, EventObserver observer) {
         return connect(device, null, observer);
     }
@@ -453,6 +555,9 @@ public class EasyBLE {
      * @param observer
      * @return null
     @Nullable
+    /**
+     * Method description.
+     */
     public synchronized Connection connect(final Device device, ConnectionConfiguration configuration,
                                            final EventObserver observer) {
         if (checkStatus()) {
@@ -488,11 +593,17 @@ public class EasyBLE {
     }
 
     @NonNull
+    /**
+     * Method description.
+     */
     public Collection<Connection> getConnections() {
         return connectionMap.values();
     }
 
     @NonNull
+    /**
+     * Method description.
+     */
     public List<Connection> getOrderedConnections() {
         List<Connection> list = new ArrayList<>();
         for (String address : addressList) {
@@ -505,25 +616,40 @@ public class EasyBLE {
     }
 
     @Nullable
+    /**
+     * Method description.
+     */
     public Connection getFirstConnection() {
         return addressList.isEmpty() ? null : connectionMap.get(addressList.get(0));
     }
 
     @Nullable
+    /**
+     * Method description.
+     */
     public Connection getLastConnection() {
         return addressList.isEmpty() ? null : connectionMap.get(addressList.get(addressList.size() - 1));
     }
 
     @Nullable
+    /**
+     * Method description.
+     */
     public Connection getConnection(Device device) {
         return device == null ? null : connectionMap.get(device.getAddress());
     }
 
     @Nullable
+    /**
+     * Method description.
+     */
     public Connection getConnection(String address) {
         return address == null ? null : connectionMap.get(address);
     }
 
+    /**
+     * Method description.
+     */
     public void disconnectConnection(Device device) {
         if (checkStatus() && device != null) {
             Connection connection = connectionMap.get(device.getAddress());
@@ -533,6 +659,9 @@ public class EasyBLE {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void disconnectConnection(String address) {
         if (checkStatus() && address != null) {
             Connection connection = connectionMap.get(address);
@@ -542,6 +671,9 @@ public class EasyBLE {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void disconnectAllConnections() {
         if (checkStatus()) {
             for (Connection connection : connectionMap.values()) {
@@ -550,6 +682,9 @@ public class EasyBLE {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void releaseAllConnections() {
         if (checkStatus()) {
             for (Connection connection : connectionMap.values()) {
@@ -560,6 +695,9 @@ public class EasyBLE {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void releaseConnection(String address) {
         if (checkStatus() && address != null) {
             addressList.remove(address);
@@ -570,6 +708,9 @@ public class EasyBLE {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void releaseConnection(Device device) {
         if (checkStatus() && device != null) {
             addressList.remove(device.getAddress());
@@ -580,6 +721,9 @@ public class EasyBLE {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void reconnectAll() {
         if (checkStatus()) {
             for (Connection connection : connectionMap.values()) {
@@ -590,6 +734,9 @@ public class EasyBLE {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void reconnect(Device device) {
         if (checkStatus() && device != null) {
             Connection connection = connectionMap.get(device.getAddress());
@@ -601,6 +748,9 @@ public class EasyBLE {
 
      * MAC
      * @return {@link BluetoothDevice#BOND_NONE}{@link BluetoothDevice#BOND_BONDED}{@link BluetoothDevice#BOND_BONDING}
+    /**
+     * Method description.
+     */
     public int getBondState(String address) {
         checkStatus();
         try {
@@ -611,6 +761,9 @@ public class EasyBLE {
     }
 
      * @param address
+    /**
+     * Method description.
+     */
     public boolean createBond(String address) {
         checkStatus();
         try {
@@ -622,6 +775,9 @@ public class EasyBLE {
     }
 
     @SuppressWarnings("all")
+    /**
+     * Method description.
+     */
     public void clearBondDevices(RemoveBondFilter filter) {
         checkStatus();
         if (bluetoothAdapter != null) {
@@ -639,6 +795,9 @@ public class EasyBLE {
 
      * @param address
     @SuppressWarnings("all")
+    /**
+     * Method description.
+     */
     public void removeBond(String address) {
         checkStatus();
         try {

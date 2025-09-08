@@ -14,8 +14,10 @@ import com.bumptech.glide.request.RequestOptions
 import com.csl.irCamera.libapp.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-
- * Created by fylder on 2018/6/23.
+/**
+ * @author fylder
+ * @since Unknown
+ */
 object GlideLoader {
 
 
@@ -26,6 +28,9 @@ object GlideLoader {
             .error(R.mipmap.ic_default_head)
     }
 
+    /**
+     * Function description.
+     */
     fun loadCircle(img: ImageView, resourceId: Int, options: RequestOptions) {
         Glide.with(img)
             .load(resourceId)
@@ -33,6 +38,9 @@ object GlideLoader {
             .into(img)
     }
 
+    /**
+     * Function description.
+     */
     fun loadCircle(img: ImageView, url: String, options: RequestOptions) {
         Glide.with(img)
             .load(url)
@@ -40,6 +48,9 @@ object GlideLoader {
             .into(img)
     }
 
+    /**
+     * Function description.
+     */
     fun loadCircle(img: ImageView, drawable: Drawable, options: RequestOptions) {
         Glide.with(img)
             .load(drawable)
@@ -47,6 +58,9 @@ object GlideLoader {
             .into(img)
     }
 
+    /**
+     * Function description.
+     */
     fun loadCircle(img: ImageView, uri: Uri, options: RequestOptions) {
         Glide.with(img)
             .load(uri)
@@ -54,6 +68,9 @@ object GlideLoader {
             .into(img)
     }
 
+    /**
+     * Function description.
+     */
     fun loadCircle(img: ImageView, url: String, resourceId: Int, options: RequestOptions) {
         Glide.with(img)
             .load(url)
@@ -63,6 +80,9 @@ object GlideLoader {
             .into(img)
     }
 
+    /**
+     * Function description.
+     */
     fun loadRounded(img: ImageView, resourceId: Int) {
         Glide.with(img)
             .load(resourceId)
@@ -70,6 +90,9 @@ object GlideLoader {
             .into(img)
     }
 
+    /**
+     * Function description.
+     */
     fun loadRounded(img: ImageView, url: String) {
         Glide.with(img)
             .load(url)
@@ -77,6 +100,9 @@ object GlideLoader {
             .into(img)
     }
 
+    /**
+     * Function description.
+     */
     fun loadRounded(img: ImageView, drawable: Drawable) {
         Glide.with(img)
             .load(drawable)
@@ -84,6 +110,9 @@ object GlideLoader {
             .into(img)
     }
 
+    /**
+     * Function description.
+     */
     fun loadRounded(img: ImageView, uri: Uri) {
         Glide.with(img)
             .load(uri)
@@ -91,6 +120,9 @@ object GlideLoader {
             .into(img)
     }
 
+    /**
+     * Function description.
+     */
     fun load(img: ImageView, url: String?) {
         val multi = MultiTransformation(
             CenterCrop()
@@ -105,6 +137,9 @@ object GlideLoader {
             .into(img)
     }
 
+    /**
+     * Function description.
+     */
     fun loadGallery(img: ImageView, url: String?) {
         val multi = MultiTransformation(
             CenterCrop()
@@ -119,6 +154,9 @@ object GlideLoader {
             .into(img)
     }
 
+    /**
+     * Function description.
+     */
     fun loadFit(img: ImageView, url: String?) {
         val multi = MultiTransformation(
             FitCenter()
@@ -133,6 +171,9 @@ object GlideLoader {
             .into(img)
     }
 
+    /**
+     * Function description.
+     */
     fun load(img: ImageView, resourceId: Int) {
         val multi = MultiTransformation(
             FitCenter()
@@ -147,6 +188,9 @@ object GlideLoader {
     }
 
 
+    /**
+     * Function description.
+     */
     fun loadP(img: ImageView, url: String?) {
         Glide.with(img)
             .load(url)

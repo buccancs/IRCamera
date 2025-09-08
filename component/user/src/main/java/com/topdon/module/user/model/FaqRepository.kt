@@ -6,6 +6,9 @@ import com.csl.irCamera.libapp.R as LibAppR
 
 object FaqRepository {
 
+    /**
+     * Function description.
+     */
     fun getQuestionList(isTS001: Boolean): ArrayList<QuestionData> = if (isTS001) arrayListOf(
         QuestionData(
             question = Utils.getApp().getString(LibAppR.string.question1),
@@ -64,6 +67,8 @@ object FaqRepository {
 }
 
 data class QuestionData(
+    /** question property */
     val question: String,
+    /** answer property */
     val answer: String
 )

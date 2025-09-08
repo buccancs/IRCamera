@@ -13,10 +13,15 @@ import com.topdon.lib.core.utils.ScreenUtil
 import com.csl.irCamera.libapp.databinding.ItmeTargetColorBinding
 
 class TargetColorAdapter(val context: Context,var targetColor: Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
+    /** listenerTarget property */
     var listenerTarget: OnItemClickListener? = null
+    /** listener property */
     var listener: ((index: Int, code: Int) -> Unit)? = null
     private var type = 0
 
+    /**
+     * Function description.
+     */
     fun selectedCode(code: Int) {
         targetColor = code
         notifyDataSetChanged()

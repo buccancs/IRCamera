@@ -15,17 +15,25 @@ class LiteSurfaceView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : SurfaceView(context, attrs) {
 
+    /** mFinalImageWidth property */
     var mFinalImageWidth = 0
 
+    /** mFinalImageHeight property */
     var mFinalImageHeight = 0
 
+    /** tmpData property */
     var tmpData: ByteArray ?= null
+    /** mIrRotateData property */
     var mIrRotateData: ByteArray ?= null
 
+    /** imageBitmap property */
     var imageBitmap : Bitmap ?= null
 
 
 
+    /**
+     * Function description.
+     */
     fun scaleBitmap() : Bitmap{
         try {
             if (tmpData == null) {

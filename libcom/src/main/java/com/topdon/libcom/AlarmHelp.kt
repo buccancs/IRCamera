@@ -23,6 +23,9 @@ class AlarmHelp private constructor(val context: Context) {
 
 
 
+    /**
+     * Function description.
+     */
     fun updateData(alarmBean : AlarmBean) {
         this.alarmBean = alarmBean
         isTempAlarmRingtoneOpen = alarmBean?.isRingtoneOpen ?: false
@@ -45,6 +48,9 @@ class AlarmHelp private constructor(val context: Context) {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun updateData(low: Float?, high: Float?, ringtone: Int?) {
         if (low == null) {
             isOpenLowTemp = false
@@ -88,6 +94,9 @@ class AlarmHelp private constructor(val context: Context) {
     }
 
 
+    /**
+     * Function description.
+     */
     fun alarmData(realMax: Float, realMin: Float, tempLayout: TempLayout?) {
         if (isOpenHighTemp && isOpenLowTemp) {
             if (realMax > maxTemp && realMin < minTemp) {
@@ -138,6 +147,9 @@ class AlarmHelp private constructor(val context: Context) {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun onDestroy(isSaveSetting : Boolean) {
         if (!isSaveSetting) {
             isTempAlarmRingtoneOpen = false
@@ -154,6 +166,9 @@ class AlarmHelp private constructor(val context: Context) {
     }
 
 
+    /**
+     * Function description.
+     */
     fun pause() {
         mediaPlayer?.let {
             if (it.isPlaying) {
@@ -163,6 +178,9 @@ class AlarmHelp private constructor(val context: Context) {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun onResume() {
         isPause = false
     }

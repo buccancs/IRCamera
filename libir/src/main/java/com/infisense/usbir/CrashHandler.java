@@ -22,6 +22,9 @@ import java.util.TimerTask;
  * @date: 2023/5/24 9:47
 public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
+    /**
+     * Private method description.
+     */
     private static final String TAG = "CrashHandler";
     private Thread.UncaughtExceptionHandler mDefaultHandler;
     private static CrashHandler crashHandler = new CrashHandler();
@@ -33,6 +36,9 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
     }
 
+    /**
+     * Method description.
+     */
     public static CrashHandler getInstance() {
         if (crashHandler == null) {
             synchronized (CrashHandler.class) {
@@ -44,6 +50,9 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         return crashHandler;
     }
 
+    /**
+     * Method description.
+     */
     public void init(Context context) {
         mContext = context;
         logFile = new File(mContext.getCacheDir(),"crashLog.trace");
@@ -52,6 +61,9 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void uncaughtException(Thread thread, Throwable ex) {
         ex.printStackTrace();
         if (!handlelException(ex) && mDefaultHandler != null) {
@@ -81,6 +93,9 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private boolean handlelException(Throwable ex) {
         if (ex == null) {
             return false;
@@ -113,10 +128,16 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         return true;
     }
 
+    /**
+     * Private method description.
+     */
     private void upLoadErrorFileToServer(File errorFile) {
 
     }
 
+    /**
+     * Private method description.
+     */
     private File collectInfoToSDCard(PrintWriter pw, Throwable ex)
             throws PackageManager.NameNotFoundException {
 

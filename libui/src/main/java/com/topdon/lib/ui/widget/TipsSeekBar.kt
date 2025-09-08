@@ -20,6 +20,7 @@ class TipsSeekBar: ViewGroup, SeekBar.OnSeekBarChangeListener {
     private val tvMin: TextView
     private val tvMax: TextView
 
+    /** progress property */
     var progress: Int
         get() {
             return seekBar.progress
@@ -32,6 +33,7 @@ class TipsSeekBar: ViewGroup, SeekBar.OnSeekBarChangeListener {
         }
 
      *  View .
+    /** valueText property */
     var valueText: String
         get() {
             return tvTips.text.toString()
@@ -40,10 +42,13 @@ class TipsSeekBar: ViewGroup, SeekBar.OnSeekBarChangeListener {
             tvTips.text = value
         }
      * seekBar  onProgressChange .
+    /** onProgressChangeListener property */
     var onProgressChangeListener: ((progress: Int, fromUser: Boolean) -> Unit)? = null
      * seekBar  onStopTrackingTouch .
+    /** onStopTrackingTouch property */
     var onStopTrackingTouch: ((progress: Int) -> Unit)? = null
      *  View .
+    /** valueFormatListener property */
     var valueFormatListener: ((progress: Int) -> CharSequence?)? = null
         set(value) {
             tvTips.text = value?.invoke(seekBar.progress)

@@ -22,6 +22,7 @@ import java.io.File
  * date: 2024/9/3 9:25
 abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
      * String  - .
+    /** RESULT_IMAGE_PATH property */
     val RESULT_IMAGE_PATH = "RESULT_IMAGE_PATH"
      * .
     private var hasTakePhoto = false

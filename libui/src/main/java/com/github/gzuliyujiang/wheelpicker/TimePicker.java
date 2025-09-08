@@ -26,13 +26,22 @@ import com.github.gzuliyujiang.wheelpicker.widget.TimeWheelLayout;
 @SuppressWarnings("unused")
 public class TimePicker extends ModalDialog {
     protected TimeWheelLayout wheelLayout;
+    /**
+     * Private method description.
+     */
     private OnTimePickedListener onTimePickedListener;
     private OnTimeMeridiemPickedListener onTimeMeridiemPickedListener;
 
+    /**
+     * Method description.
+     */
     public TimePicker(@NonNull Activity activity) {
         super(activity);
     }
 
+    /**
+     * Method description.
+     */
     public TimePicker(@NonNull Activity activity, @StyleRes int themeResId) {
         super(activity, themeResId);
     }
@@ -62,14 +71,23 @@ public class TimePicker extends ModalDialog {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setOnTimePickedListener(OnTimePickedListener onTimePickedListener) {
         this.onTimePickedListener = onTimePickedListener;
     }
 
+    /**
+     * Method description.
+     */
     public void setOnTimeMeridiemPickedListener(OnTimeMeridiemPickedListener onTimeMeridiemPickedListener) {
         this.onTimeMeridiemPickedListener = onTimeMeridiemPickedListener;
     }
 
+    /**
+     * Method description.
+     */
     public final TimeWheelLayout getWheelLayout() {
         return wheelLayout;
     }

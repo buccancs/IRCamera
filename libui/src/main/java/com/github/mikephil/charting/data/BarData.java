@@ -15,16 +15,28 @@ public class BarData extends BarLineScatterCandleBubbleData<IBarDataSet> {
     /**
      * the width of the bars on the x-axis, in values (not pixels)
      */
+    /**
+     * Private method description.
+     */
     private float mBarWidth = 0.85f;
 
+    /**
+     * Method description.
+     */
     public BarData() {
         super();
     }
 
+    /**
+     * Method description.
+     */
     public BarData(IBarDataSet... dataSets) {
         super(dataSets);
     }
 
+    /**
+     * Method description.
+     */
     public BarData(List<IBarDataSet> dataSets) {
         super(dataSets);
     }
@@ -35,10 +47,16 @@ public class BarData extends BarLineScatterCandleBubbleData<IBarDataSet> {
      *
      * @param mBarWidth
      */
+    /**
+     * Method description.
+     */
     public void setBarWidth(float mBarWidth) {
         this.mBarWidth = mBarWidth;
     }
 
+    /**
+     * Method description.
+     */
     public float getBarWidth() {
         return mBarWidth;
     }
@@ -52,6 +70,9 @@ public class BarData extends BarLineScatterCandleBubbleData<IBarDataSet> {
      * @param fromX      the starting point on the x-axis where the grouping should begin
      * @param groupSpace the space between groups of bars in values (not pixels) e.g. 0.8f for bar width 1f
      * @param barSpace   the space between individual bars in values (not pixels) e.g. 0.1f for bar width 1f
+     */
+    /**
+     * Method description.
      */
     public void groupBars(float fromX, float groupSpace, float barSpace) {
 
@@ -112,6 +133,9 @@ public class BarData extends BarLineScatterCandleBubbleData<IBarDataSet> {
      * @param groupSpace
      * @param barSpace
      * @return
+     */
+    /**
+     * Method description.
      */
     public float getGroupWidth(float groupSpace, float barSpace) {
         return mDataSets.size() * (mBarWidth + barSpace) + groupSpace;

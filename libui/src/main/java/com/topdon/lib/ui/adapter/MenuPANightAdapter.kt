@@ -13,6 +13,7 @@ import com.topdon.lib.ui.listener.SingleClickListener
 @Deprecated("，")
 class MenuPANightAdapter(data: MutableList<ColorBean>, layoutId : Int, private val isDual: Boolean) : BaseQuickAdapter<ColorBean, BaseViewHolder>(layoutId,data) {
 
+    /** listener property */
     var listener: ((index: Int) -> Unit)? = null
 
     override fun convert(holder: BaseViewHolder, item: ColorBean) {

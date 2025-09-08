@@ -53,6 +53,9 @@ import java.util.List;
 public class TemperatureView extends SurfaceView implements SurfaceHolder.Callback,
         View.OnTouchListener, BaseDualView.OnFrameCallback {
 
+    /**
+     * Private method description.
+     */
     private static final String TAG = "TemperatureView";
 
 
@@ -73,8 +76,14 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     private LibIRTemp irtemp;
 
      * {@link #viewWidth} / {@link #temperatureWidth} .
+    /**
+     * Private method description.
+     */
     private float xScale = 0;
      * {@link #viewHeight} / {@link #temperatureHeight} .
+    /**
+     * Private method description.
+     */
     private float yScale = 0;
      *  View  padding  px.
     private int viewWidth = 0;
@@ -91,6 +100,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
 
 
      *  .
+    /**
+     * Method description.
+     */
     public static final int REGION_MODE_RESET = -1;
      *  .
     public static final int REGION_MODE_POINT = 0;
@@ -107,16 +119,28 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
 
     @IntDef({REGION_MODE_RESET, REGION_MODE_POINT, REGION_MODE_LINE, REGION_MODE_RECTANGLE, REGION_MODE_CENTER, REGION_NODE_TREND, REGION_MODE_CLEAN})
     @Retention(RetentionPolicy.SOURCE)
+    /**
+     * Private method description.
+     */
     private @interface RegionMode {
     }
 
      * REGION_MODE_** .
     @RegionMode
+    /**
+     * Private method description.
+     */
     private int temperatureRegionMode = REGION_MODE_CLEAN;
     @RegionMode
+    /**
+     * Method description.
+     */
     public int getTemperatureRegionMode() {
         return this.temperatureRegionMode;
     }
+    /**
+     * Method description.
+     */
     public void setTemperatureRegionMode(@RegionMode int temperatureRegionMode) {
         this.temperatureRegionMode = temperatureRegionMode;
         if (temperatureRegionMode == REGION_MODE_CENTER) {
@@ -127,10 +151,19 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     }
 
      * .
+    /**
+     * Private method description.
+     */
     private boolean isShowFull;
+    /**
+     * Method description.
+     */
     public boolean isShowFull() {
         return isShowFull;
     }
+    /**
+     * Method description.
+     */
     public void setShowFull(boolean showFull) {
         isShowFull = showFull;
         if (temperatureRegionMode == REGION_MODE_CLEAN) {
@@ -139,16 +172,25 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     }
 
 
+    /**
+     * Method description.
+     */
     public void setTextSize(int textSize){
         helper.setTextSize(textSize);
         refreshRegion();
     }
 
+    /**
+     * Method description.
+     */
     public void setLinePaintColor(@ColorInt int color) {
         helper.setTextColor(color);
         refreshRegion();
     }
 
+    /**
+     * Private method description.
+     */
     private void refreshRegion() {
         Canvas surfaceViewCanvas = getHolder().lockCanvas();
         if (surfaceViewCanvas != null) {
@@ -161,75 +203,147 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
 
 
     @Nullable
+    /**
+     * Private method description.
+     */
     private OnTrendChangeListener onTrendChangeListener = null;
+    /**
+     * Method description.
+     */
     public void setOnTrendChangeListener(@Nullable OnTrendChangeListener onTrendChangeListener) {
         this.onTrendChangeListener = onTrendChangeListener;
     }
 
     @Nullable
+    /**
+     * Private method description.
+     */
     private Runnable onTrendAddListener = null;
      * .
+    /**
+     * Method description.
+     */
     public void setOnTrendAddListener(@Nullable Runnable onTrendAddListener) {
         this.onTrendAddListener = onTrendAddListener;
     }
 
     @Nullable
+    /**
+     * Private method description.
+     */
     private Runnable onTrendRemoveListener = null;
      * .
+    /**
+     * Method description.
+     */
     public void setOnTrendRemoveListener(@Nullable Runnable onTrendRemoveListener) {
         this.onTrendRemoveListener = onTrendRemoveListener;
     }
 
+    /**
+     * Private method description.
+     */
     private ILiteListener iLiteListener = null;
+    /**
+     * Method description.
+     */
     public void setiLiteListener(ILiteListener iLiteListener) {
         this.iLiteListener = iLiteListener;
     }
 
 
+    /**
+     * Private method description.
+     */
     private TempListener listener;
+    /**
+     * Method description.
+     */
     public TempListener getListener() {
         return listener;
     }
+    /**
+     * Method description.
+     */
     public void setListener(TempListener listener) {
         this.listener = listener;
     }
 
 
+    /**
+     * Private method description.
+     */
     private boolean isMonitor = false;//，
+    /**
+     * Method description.
+     */
     public void setMonitor(boolean monitor) {
         isMonitor = monitor;
     }
 
 
+    /**
+     * Private method description.
+     */
     private boolean isUserHighTemp = false;
+    /**
+     * Method description.
+     */
     public boolean isUserHighTemp() {
         return isUserHighTemp;
     }
+    /**
+     * Method description.
+     */
     public void setUserHighTemp(boolean isUserHighTemp) {
         this.isUserHighTemp = isUserHighTemp;
     }
 
+    /**
+     * Private method description.
+     */
     private boolean isUserLowTemp = false;
+    /**
+     * Method description.
+     */
     public boolean isUserLowTemp() {
         return isUserLowTemp;
     }
+    /**
+     * Method description.
+     */
     public void setUserLowTemp(boolean isUserLowTemp) {
         this.isUserLowTemp = isUserLowTemp;
     }
 
 
+    /**
+     * Private method description.
+     */
     private SynchronizedBitmap syncimage;
+    /**
+     * Method description.
+     */
     public void setSyncimage(SynchronizedBitmap syncimage) {
         this.syncimage = syncimage;
     }
 
 
+    /**
+     * Private method description.
+     */
     private byte[] temperature;
+    /**
+     * Method description.
+     */
     public void setTemperature(byte[] temperature) {
         this.temperature = temperature;
     }
 
 
+    /**
+     * Private method description.
+     */
     private void setDefPoint(Point point) {
         if (point.x > temperatureWidth && point.x > 0) {
             point.x = temperatureWidth;
@@ -244,6 +358,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
             point.y = 0;
         }
     }
+    /**
+     * Method description.
+     */
     public LibIRTemp.TemperatureSampleResult getPointTemp(Point point) {
         if (irtemp == null) {
             return null;
@@ -252,6 +369,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
             return irtemp.getTemperatureOfPoint(point);
         }
     }
+    /**
+     * Method description.
+     */
     public LibIRTemp.TemperatureSampleResult getLineTemp(Line line) {
         if (irtemp == null) {
             return null;
@@ -261,6 +381,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
             return irtemp.getTemperatureOfLine(line);
         }
     }
+    /**
+     * Method description.
+     */
     public LibIRTemp.TemperatureSampleResult getRectTemp(Rect rect) {
         if (irtemp == null) {
             return null;
@@ -283,11 +406,17 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
 
 
 
+    /**
+     * Method description.
+     */
     public int productType = Const.TYPE_IR;
 
 
      *  View null .
     @Nullable
+    /**
+     * Private method description.
+     */
     private Line trendLine;
      *  View .
     private final ArrayList<Point> pointList = new ArrayList<>();
@@ -309,6 +438,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     public Bitmap getRegionBitmap() {
         return regionAndValueBitmap;
     }
+    /**
+     * Method description.
+     */
     public Bitmap getRegionAndValueBitmap() {
         synchronized (regionLock) {
             return regionAndValueBitmap;
@@ -316,6 +448,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     }
 
 
+    /**
+     * Private method description.
+     */
     private final Runnable runnable;
     private Thread temperatureThread;
     private final Object regionLock = new Object();
@@ -326,6 +461,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
 
     private WeakReference<ITsTempListener> iTsTempListenerWeakReference;
 
+    /**
+     * Method description.
+     */
     public void setImageSize(int imageWidth, int imageHeight, ITsTempListener iTsTempListener) {
         if (iTsTempListener != null) {
             iTsTempListenerWeakReference = new WeakReference<>(iTsTempListener);
@@ -349,6 +487,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+    /**
+     * Method description.
+     */
     public void restView(){
         viewWidth = 0;
         viewHeight = 0;
@@ -358,8 +499,14 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         yScale = (float) viewHeight / (float) temperatureHeight;
     }
 
+    /**
+     * Private method description.
+     */
     private boolean isShow = false;
 
+    /**
+     * Method description.
+     */
     public void start() {
         if (!runflag){
             runflag = true;
@@ -373,6 +520,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+    /**
+     * Method description.
+     */
     public void stop() {
         runflag = false;
         isShow = getVisibility() == View.VISIBLE;
@@ -387,6 +537,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+    /**
+     * Method description.
+     */
     public void clear() {
         if (onTrendRemoveListener != null) {
             onTrendRemoveListener.run();
@@ -415,6 +568,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+    /**
+     * Method description.
+     */
     public void addScalePoint(Point point) {
         float sx = getMeasuredWidth() / (float) temperatureWidth;
         float sy = getMeasuredHeight() / (float) temperatureHeight;
@@ -426,6 +582,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         pointList.add(new Point(viewX, viewY));
     }
 
+    /**
+     * Method description.
+     */
     public void addScaleLine(Line l) {
         float sx = getMeasuredWidth() / (float) temperatureWidth;
         float sy = getMeasuredHeight() / (float) temperatureHeight;
@@ -440,6 +599,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         lineList.add(line);
     }
 
+    /**
+     * Method description.
+     */
     public void addScaleRectangle(Rect r) {
         float sx = getMeasuredWidth() / (float) temperatureWidth;
         float sy = getMeasuredHeight() / (float) temperatureHeight;
@@ -459,6 +621,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+    /**
+     * Method description.
+     */
     public Point getPoint() {
         if (pointList.isEmpty()) {
             return null;
@@ -466,6 +631,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         return new Point((int) (pointList.get(0).x / xScale), (int) (pointList.get(0).y / yScale));
     }
 
+    /**
+     * Method description.
+     */
     public Line getLine() {
         if (!lineList.isEmpty()) {
             Line line = new Line(new Point(), new Point());
@@ -479,6 +647,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+    /**
+     * Method description.
+     */
     public Rect getRectangle() {
         if (!rectList.isEmpty()) {
             Rect rect = new Rect();
@@ -492,6 +663,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+    /**
+     * Method description.
+     */
     public void drawLine() {
         setBitmap();
     }
@@ -499,14 +673,23 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
 
 
 
+    /**
+     * Method description.
+     */
     public TemperatureView(final Context context) {
         this(context, null, 0);
     }
 
+    /**
+     * Method description.
+     */
     public TemperatureView(final Context context, final AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
+    /**
+     * Method description.
+     */
     public TemperatureView(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
         // ()mix2(Android7.0)surfaceView
@@ -724,15 +907,24 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void surfaceCreated(SurfaceHolder holder) {
         holder.setFormat(PixelFormat.TRANSLUCENT);
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void surfaceDestroyed(@NonNull SurfaceHolder holder) {
     }
 
@@ -759,6 +951,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     /* **************************************** Touch **************************************** */
      *   <br>
      * true- false
+    /**
+     * Private method description.
+     */
     private boolean isAddAction = true;
 
 
@@ -766,6 +961,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     private int downY = 0;
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean onTouch(View v, MotionEvent event) {
         switch (temperatureRegionMode) {
             case REGION_MODE_POINT:
@@ -782,6 +980,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     }
 
 
+    /**
+     * Private method description.
+     */
     private boolean handleTouchPoint(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN: {
@@ -858,6 +1059,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     }
 
     @Nullable
+    /**
+     * Private method description.
+     */
     private Point getPoint(int x, int y) {
         for (int i = pointList.size() - 1; i >= 0; i--) {
             Point point = pointList.get(i);
@@ -870,9 +1074,15 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
 
 
 
+    /**
+     * Private method description.
+     */
     private Line movingLine;
 
     private enum LineMoveType { ALL, START, END }
+    /**
+     * Private method description.
+     */
     private LineMoveType lineMoveType = LineMoveType.ALL;
 
     private boolean handleTouchLine(MotionEvent event, boolean isTrend) {
@@ -1042,6 +1252,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     }
 
      *  (x, y)  Line .
+    /**
+     * Private method description.
+     */
     private static boolean isLineConcat(@NonNull Line line, int x, int y) {
         int tempDistance = ((line.end.y - line.start.y) * x - (line.end.x - line.start.x) * y + line.end.x * line.start.y - line.start.x * line.end.y);
         tempDistance = (int) (tempDistance / Math.sqrt(Math.pow(line.end.y - line.start.y, 2) + Math.pow(line.end.x - line.start.x, 2)));
@@ -1049,6 +1262,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     }
 
     @Nullable
+    /**
+     * Private method description.
+     */
     private Line getLine(int x, int y, boolean isTrend) {
         if (isTrend) {
             if (trendLine != null && isLineConcat(trendLine, x, y)) {
@@ -1066,21 +1282,33 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     }
 
 
+    /**
+     * Private method description.
+     */
     private Rect movingRect;
 
     
     private enum RectMoveType { ALL, EDGE, CORNER }
      * 4-4
+    /**
+     * Private method description.
+     */
     private RectMoveType rectMoveType = RectMoveType.ALL;
 
 
     private enum RectMoveEdge { LEFT, TOP, RIGHT, BOTTOM }
      * .
+    /**
+     * Private method description.
+     */
     private RectMoveEdge rectMoveEdge = RectMoveEdge.LEFT;
     
     
     private enum RectMoveCorner { LT, RT, RB, LB }
      * .
+    /**
+     * Private method description.
+     */
     private RectMoveCorner rectMoveCorner = RectMoveCorner.LT;
 
 
@@ -1295,6 +1523,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     }
 
     @Nullable
+    /**
+     * Private method description.
+     */
     private Rect getRect(int x, int y) {
         for (int i = rectList.size() - 1; i >= 0; i--) {
             Rect rect = rectList.get(i);
@@ -1306,6 +1537,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         return null;
     }
 
+    /**
+     * Private method description.
+     */
     private boolean isIn(int a, int b) {
         return a > b - TOUCH_TOLERANCE && a < b + TOUCH_TOLERANCE;
     }
@@ -1317,11 +1551,17 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
 
      *  View  (x,y) .<br>
      * xy
+    /**
+     * Private method description.
+     */
     private void drawPoint(Canvas canvas, int x, int y) {
         helper.drawPoint(canvas, x, y);
     }
 
      *  View  x,y  View
+    /**
+     * Private method description.
+     */
     private void drawLine(Canvas canvas, int x1, int y1, int x2, int y2, boolean isTrend) {
         // View (192x256) View
         int startX = (int) ((int) (x1 / xScale) * xScale);
@@ -1336,6 +1576,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     }
 
      *  View  x,y  View
+    /**
+     * Private method description.
+     */
     private void drawRect(Canvas canvas, float x1, float y1, float x2, float y2) {
         int left = (int) ((int) (x1 / xScale) * xScale);
         int top = (int) ((int) (y1 / yScale) * yScale);
@@ -1346,6 +1589,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
 
      *  View  (x,y) .
      * @param isMax true- false
+    /**
+     * Private method description.
+     */
     private void drawCircle(Canvas canvas, int x, int y, boolean isMax) {
         helper.drawCircle(canvas, x, y, isMax);
     }
@@ -1353,6 +1599,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
      *  canvas  point .
      * @param point (192x256)
      * @param isMax true- false
+    /**
+     * Private method description.
+     */
     private void drawDot(Canvas canvas, Point point, boolean isMax) {
         // (x,y)
         int x = TempDrawHelper.Companion.correct(point.x * xScale, getWidth());
@@ -1362,11 +1611,17 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
 
 
      *  View  (x,y) .
+    /**
+     * Private method description.
+     */
     private void drawTempText(Canvas canvas, String text, int x, int y) {
         helper.drawTempText(canvas, text, getWidth(), x, y);
     }
      *  canvas  point .
      * @param point (192x256)
+    /**
+     * Private method description.
+     */
     private void drawTempText(Canvas canvas, String text, Point point) {
         int x = TempDrawHelper.Companion.correct(point.x * xScale, getWidth());
         int y = TempDrawHelper.Companion.correct(point.y * yScale, getHeight());
@@ -1375,6 +1630,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
 
 
 
+    /**
+     * Private method description.
+     */
     private void setBitmap() {
         regionBitmap = Bitmap.createBitmap(viewWidth, viewHeight, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(regionBitmap);
@@ -1393,14 +1651,23 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     }
 
 
+    /**
+     * Method description.
+     */
     public interface OnTrendChangeListener {
         void onChange(List<Float> temps);
     }
 
+    /**
+     * Method description.
+     */
     public interface TempListener {
         void getTemp(float max, float min, byte[] tempData);
     }
 
+    /**
+     * Method description.
+     */
     public float getCompensateTemp(float temp){
         if (iLiteListener != null){
             return iLiteListener.compensateTemp(temp);
@@ -1409,6 +1676,9 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+    /**
+     * Method description.
+     */
     public float getTSTemp(float temp) {
         if (iTsTempListenerWeakReference != null && iTsTempListenerWeakReference.get() != null) {
             return iTsTempListenerWeakReference.get().tempCorrectByTs(getCompensateTemp(temp));
@@ -1418,26 +1688,41 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     }
 
 
+    /**
+     * Method description.
+     */
     public void setUseIRISP(boolean useIRISP) {
         if (irtemp != null) {
             irtemp.setScale(useIRISP ? 16 : 64);
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setCurrentFusionType(@NonNull DualCameraParams.FusionType currentFusionType) {
         this.mCurrentFusionType = currentFusionType;
     }
 
+    /**
+     * Method description.
+     */
     public void setDualUVCCamera(@NonNull DualUVCCamera dualUVCCamera) {
         this.dualUVCCamera = dualUVCCamera;
 
     }
+    /**
+     * Private method description.
+     */
     private DualCameraParams.FusionType mCurrentFusionType;
     private byte[] remapTempData;
     private DualUVCCamera dualUVCCamera;
     private byte[] llTempData;
 
     @Override
+    /**
+     * Method description.
+     */
     public void onFame(byte[] mixData, byte[] tempData, double fpsText) {
         if (Const.TYPE_IR_DUAL == productType){
             if (mCurrentFusionType == DualCameraParams.FusionType.IROnlyNoFusion) {

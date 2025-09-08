@@ -6,9 +6,13 @@ import kotlinx.parcelize.Parcelize
  * .
 @Parcelize
 data class ImageTempBean(
+    /** full property */
     val full: TempBean?,//
+    /** pointList property */
     val pointList: ArrayList<TempBean>,//
+    /** lineList property */
     val lineList: ArrayList<TempBean>, //
+    /** rectList property */
     val rectList: ArrayList<TempBean>, //
 ) : Parcelable {
 

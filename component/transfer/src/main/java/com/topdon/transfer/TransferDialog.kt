@@ -10,17 +10,22 @@ import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.transfer.databinding.DialogTransferBinding
 
  * .
- * Created by LCG on 2024/3/26.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class TransferDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
 
     private lateinit var binding: DialogTransferBinding
 
+    /** max property */
     var max: Int
         get() = binding.seekBar.max
         set(value) {
             binding.seekBar.max = value
         }
 
+    /** progress property */
     var progress: Int
         get() = binding.seekBar.progress
         set(value) {

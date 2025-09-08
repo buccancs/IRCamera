@@ -37,6 +37,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 abstract class AbstractScanner implements Scanner {
     final ScanConfiguration configuration;
     final BluetoothAdapter bluetoothAdapter;
+    /**
+     * Private method description.
+     */
     private final Handler mainHandler;
     private boolean isScanning;
     private final List<ScanListener> scanListeners = new CopyOnWriteArrayList<>();
@@ -53,6 +56,9 @@ abstract class AbstractScanner implements Scanner {
     }
     
     @Override
+    /**
+     * Method description.
+     */
     public void addScanListener(ScanListener listener) {
         if (!scanListeners.contains(listener)) {
             scanListeners.add(listener);
@@ -60,10 +66,16 @@ abstract class AbstractScanner implements Scanner {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void removeScanListener(ScanListener listener) {
         scanListeners.remove(listener);
     }
 
+    /**
+     * Private method description.
+     */
     private boolean isLocationEnabled(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
@@ -78,6 +90,9 @@ abstract class AbstractScanner implements Scanner {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private boolean noLocationPermission(Context context) {
         int sdkVersion = context.getApplicationInfo().targetSdkVersion;
         if (sdkVersion >= 29) {//target sdk29
@@ -106,6 +121,9 @@ abstract class AbstractScanner implements Scanner {
     }
 
     @SuppressWarnings("all")
+    /**
+     * Private method description.
+     */
     private void getSystemConnectedDevices(Context context) {
         try {
             Method method = bluetoothAdapter.getClass().getDeclaredMethod("getConnectionState");
@@ -132,6 +150,9 @@ abstract class AbstractScanner implements Scanner {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void getSystemConnectedDevices(Context context, int profile) {
         bluetoothAdapter.getProfileProxy(context, new BluetoothProfile.ServiceListener() {
             @Override
@@ -167,6 +188,9 @@ abstract class AbstractScanner implements Scanner {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private void parseScanResult(BluetoothDevice device, boolean isConnectedBySys) {
         parseScanResult(device, isConnectedBySys, null, -120, null);
     }
@@ -196,6 +220,9 @@ abstract class AbstractScanner implements Scanner {
 
     @CallSuper
     @Override
+    /**
+     * Method description.
+     */
     public void startScan(Context context) {
         synchronized (this) {
             if (!isBtEnabled() || (getType() != ScannerType.CLASSIC && isScanning) || !isReady()) {
@@ -231,6 +258,9 @@ abstract class AbstractScanner implements Scanner {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public boolean isScanning() {
         return isScanning;
     }
@@ -244,6 +274,9 @@ abstract class AbstractScanner implements Scanner {
     
     @CallSuper
     @Override
+    /**
+     * Method description.
+     */
     public void stopScan(boolean quietly) {
         mainHandler.removeCallbacks(stopScanRunnable);
         int size = proxyBluetoothProfiles.size();
@@ -269,6 +302,9 @@ abstract class AbstractScanner implements Scanner {
         }
     }
 
+    /**
+     * Private method description.
+     */
     private final Runnable stopScanRunnable = () -> stopScan(false);
 
     private boolean isBtEnabled() {
@@ -286,6 +322,9 @@ abstract class AbstractScanner implements Scanner {
     }
     
     @Override
+    /**
+     * Method description.
+     */
     public void onBluetoothOff() {
         synchronized (this) {
             isScanning = false;
@@ -294,6 +333,9 @@ abstract class AbstractScanner implements Scanner {
     }
 
     @Override
+    /**
+     * Method description.
+     */
     public void release() {
         stopScan(false);
         scanListeners.clear();

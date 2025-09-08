@@ -23,6 +23,9 @@ public abstract class AxisBase extends ComponentBase {
      */
     protected ValueFormatter mAxisValueFormatter;
 
+    /**
+     * Private method description.
+     */
     private int mGridColor = Color.GRAY;
 
     private float mGridLineWidth = 1f;
@@ -34,15 +37,24 @@ public abstract class AxisBase extends ComponentBase {
     /**
      * the actual array of entries
      */
+    /**
+     * Method description.
+     */
     public float[] mEntries = new float[]{};
 
     /**
      * axis label entries only used for centered labels
      */
+    /**
+     * Method description.
+     */
     public float[] mCenteredEntries = new float[]{};
 
     /**
      * the number of entries the legend contains
+     */
+    /**
+     * Method description.
      */
     public int mEntryCount;
 
@@ -53,6 +65,9 @@ public abstract class AxisBase extends ComponentBase {
 
     /**
      * the number of label entries the axis should have, default 6
+     */
+    /**
+     * Private method description.
      */
     private int mLabelCount = 6;
 
@@ -166,6 +181,9 @@ public abstract class AxisBase extends ComponentBase {
      *
      * @param enabled
      */
+    /**
+     * Method description.
+     */
     public void setDrawGridLines(boolean enabled) {
         mDrawGridLines = enabled;
     }
@@ -174,6 +192,9 @@ public abstract class AxisBase extends ComponentBase {
      * Returns true if drawing grid lines is enabled for this axis.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public boolean isDrawGridLinesEnabled() {
         return mDrawGridLines;
@@ -184,6 +205,9 @@ public abstract class AxisBase extends ComponentBase {
      *
      * @param enabled
      */
+    /**
+     * Method description.
+     */
     public void setDrawAxisLine(boolean enabled) {
         mDrawAxisLine = enabled;
     }
@@ -192,6 +216,9 @@ public abstract class AxisBase extends ComponentBase {
      * Returns true if the line alongside the axis should be drawn.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public boolean isDrawAxisLineEnabled() {
         return mDrawAxisLine;
@@ -203,10 +230,16 @@ public abstract class AxisBase extends ComponentBase {
      *
      * @param enabled
      */
+    /**
+     * Method description.
+     */
     public void setCenterAxisLabels(boolean enabled) {
         mCenterAxisLabels = enabled;
     }
 
+    /**
+     * Method description.
+     */
     public boolean isCenterAxisLabelsEnabled() {
         return mCenterAxisLabels && mEntryCount > 0;
     }
@@ -216,6 +249,9 @@ public abstract class AxisBase extends ComponentBase {
      * coming from each label).
      *
      * @param color
+     */
+    /**
+     * Method description.
      */
     public void setGridColor(int color) {
         mGridColor = color;
@@ -227,6 +263,9 @@ public abstract class AxisBase extends ComponentBase {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public int getGridColor() {
         return mGridColor;
     }
@@ -236,6 +275,9 @@ public abstract class AxisBase extends ComponentBase {
      *
      * @param width
      */
+    /**
+     * Method description.
+     */
     public void setAxisLineWidth(float width) {
         mAxisLineWidth = Utils.convertDpToPixel(width);
     }
@@ -244,6 +286,9 @@ public abstract class AxisBase extends ComponentBase {
      * Returns the width of the axis line (line alongside the axis).
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public float getAxisLineWidth() {
         return mAxisLineWidth;
@@ -255,6 +300,9 @@ public abstract class AxisBase extends ComponentBase {
      *
      * @param width
      */
+    /**
+     * Method description.
+     */
     public void setGridLineWidth(float width) {
         mGridLineWidth = Utils.convertDpToPixel(width);
     }
@@ -265,6 +313,9 @@ public abstract class AxisBase extends ComponentBase {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public float getGridLineWidth() {
         return mGridLineWidth;
     }
@@ -274,6 +325,9 @@ public abstract class AxisBase extends ComponentBase {
      *
      * @param color
      */
+    /**
+     * Method description.
+     */
     public void setAxisLineColor(int color) {
         mAxisLineColor = color;
     }
@@ -282,6 +336,9 @@ public abstract class AxisBase extends ComponentBase {
      * Returns the color of the axis line (line alongside the axis).
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public int getAxisLineColor() {
         return mAxisLineColor;
@@ -293,6 +350,9 @@ public abstract class AxisBase extends ComponentBase {
      *
      * @param enabled
      */
+    /**
+     * Method description.
+     */
     public void setDrawLabels(boolean enabled) {
         mDrawLabels = enabled;
     }
@@ -301,6 +361,9 @@ public abstract class AxisBase extends ComponentBase {
      * Returns true if drawing the labels is enabled for this axis.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public boolean isDrawLabelsEnabled() {
         return mDrawLabels;
@@ -311,6 +374,9 @@ public abstract class AxisBase extends ComponentBase {
      * that this number is not fixed.
      *
      * @param count the number of y-axis labels that should be displayed
+     */
+    /**
+     * Method description.
      */
     public void setLabelCount(int count) {
 
@@ -334,6 +400,9 @@ public abstract class AxisBase extends ComponentBase {
      *              be drawn and evenly distributed alongside the axis - this might cause labels
      *              to have uneven values
      */
+    /**
+     * Method description.
+     */
     public void setLabelCount(int count, boolean force) {
 
         setLabelCount(count);
@@ -345,6 +414,9 @@ public abstract class AxisBase extends ComponentBase {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public boolean isForceLabelsEnabled() {
         return mForceLabels;
     }
@@ -354,12 +426,18 @@ public abstract class AxisBase extends ComponentBase {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public int getLabelCount() {
         return mLabelCount;
     }
 
     /**
      * @return true if granularity is enabled
+     */
+    /**
+     * Method description.
      */
     public boolean isGranularityEnabled() {
         return mGranularityEnabled;
@@ -371,12 +449,18 @@ public abstract class AxisBase extends ComponentBase {
      *
      * @param enabled
      */
+    /**
+     * Method description.
+     */
     public void setGranularityEnabled(boolean enabled) {
         mGranularityEnabled = enabled;
     }
 
     /**
      * @return the minimum interval between axis values
+     */
+    /**
+     * Method description.
      */
     public float getGranularity() {
         return mGranularity;
@@ -388,6 +472,9 @@ public abstract class AxisBase extends ComponentBase {
      *
      * @param granularity
      */
+    /**
+     * Method description.
+     */
     public void setGranularity(float granularity) {
         mGranularity = granularity;
         // set this to true if it was disabled, as it makes no sense to call this method with granularity disabled
@@ -398,6 +485,9 @@ public abstract class AxisBase extends ComponentBase {
      * Adds a new LimitLine to this axis.
      *
      * @param l
+     */
+    /**
+     * Method description.
      */
     public void addLimitLine(LimitLine l) {
         mLimitLines.add(l);
@@ -414,12 +504,18 @@ public abstract class AxisBase extends ComponentBase {
      *
      * @param l
      */
+    /**
+     * Method description.
+     */
     public void removeLimitLine(LimitLine l) {
         mLimitLines.remove(l);
     }
 
     /**
      * Removes all LimitLines from the axis.
+     */
+    /**
+     * Method description.
      */
     public void removeAllLimitLines() {
         mLimitLines.clear();
@@ -429,6 +525,9 @@ public abstract class AxisBase extends ComponentBase {
      * Returns the LimitLines of this axis.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public List<LimitLine> getLimitLines() {
         return mLimitLines;
@@ -440,10 +539,16 @@ public abstract class AxisBase extends ComponentBase {
      *
      * @param enabled
      */
+    /**
+     * Method description.
+     */
     public void setDrawLimitLinesBehindData(boolean enabled) {
         mDrawLimitLineBehindData = enabled;
     }
 
+    /**
+     * Method description.
+     */
     public boolean isDrawLimitLinesBehindDataEnabled() {
         return mDrawLimitLineBehindData;
     }
@@ -454,8 +559,14 @@ public abstract class AxisBase extends ComponentBase {
      *
      * @param enabled
      */
+    /**
+     * Method description.
+     */
     public void setDrawGridLinesBehindData(boolean enabled) { mDrawGridLinesBehindData = enabled; }
 
+    /**
+     * Method description.
+     */
     public boolean isDrawGridLinesBehindDataEnabled() {
         return mDrawGridLinesBehindData;
     }
@@ -465,6 +576,9 @@ public abstract class AxisBase extends ComponentBase {
      * contains.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public String getLongestLabel() {
 
@@ -480,6 +594,9 @@ public abstract class AxisBase extends ComponentBase {
         return longest;
     }
 
+    /**
+     * Method description.
+     */
     public String getFormattedLabel(int index) {
 
         if (index < 0 || index >= mEntries.length)
@@ -497,6 +614,9 @@ public abstract class AxisBase extends ComponentBase {
      *
      * @param f
      */
+    /**
+     * Method description.
+     */
     public void setValueFormatter(ValueFormatter f) {
 
         if (f == null)
@@ -509,6 +629,9 @@ public abstract class AxisBase extends ComponentBase {
      * Returns the formatter used for formatting the axis labels.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public ValueFormatter getValueFormatter() {
 
@@ -529,6 +652,9 @@ public abstract class AxisBase extends ComponentBase {
      * @param spaceLength the length of space in between the pieces
      * @param phase       offset, in degrees (normally, use 0)
      */
+    /**
+     * Method description.
+     */
     public void enableGridDashedLine(float lineLength, float spaceLength, float phase) {
         mGridDashPathEffect = new DashPathEffect(new float[]{
                 lineLength, spaceLength
@@ -542,12 +668,18 @@ public abstract class AxisBase extends ComponentBase {
      *
      * @param effect the DashPathEffect
      */
+    /**
+     * Method description.
+     */
     public void setGridDashedLine(DashPathEffect effect) {
         mGridDashPathEffect = effect;
     }
 
     /**
      * Disables the grid line to be drawn in dashed mode.
+     */
+    /**
+     * Method description.
      */
     public void disableGridDashedLine() {
         mGridDashPathEffect = null;
@@ -558,6 +690,9 @@ public abstract class AxisBase extends ComponentBase {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public boolean isGridDashedLineEnabled() {
         return mGridDashPathEffect == null ? false : true;
     }
@@ -566,6 +701,9 @@ public abstract class AxisBase extends ComponentBase {
      * returns the DashPathEffect that is set for grid line
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public DashPathEffect getGridDashPathEffect() {
         return mGridDashPathEffect;
@@ -581,6 +719,9 @@ public abstract class AxisBase extends ComponentBase {
      * @param spaceLength the length of space in between the pieces
      * @param phase       offset, in degrees (normally, use 0)
      */
+    /**
+     * Method description.
+     */
     public void enableAxisLineDashedLine(float lineLength, float spaceLength, float phase) {
         mAxisLineDashPathEffect = new DashPathEffect(new float[]{
                 lineLength, spaceLength
@@ -594,12 +735,18 @@ public abstract class AxisBase extends ComponentBase {
      *
      * @param effect the DashPathEffect
      */
+    /**
+     * Method description.
+     */
     public void setAxisLineDashedLine(DashPathEffect effect) {
         mAxisLineDashPathEffect = effect;
     }
 
     /**
      * Disables the axis line to be drawn in dashed mode.
+     */
+    /**
+     * Method description.
      */
     public void disableAxisLineDashedLine() {
         mAxisLineDashPathEffect = null;
@@ -610,6 +757,9 @@ public abstract class AxisBase extends ComponentBase {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public boolean isAxisLineDashedLineEnabled() {
         return mAxisLineDashPathEffect == null ? false : true;
     }
@@ -619,6 +769,9 @@ public abstract class AxisBase extends ComponentBase {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public DashPathEffect getAxisLineDashPathEffect() {
         return mAxisLineDashPathEffect;
     }
@@ -627,10 +780,16 @@ public abstract class AxisBase extends ComponentBase {
      * ###### BELOW CODE RELATED TO CUSTOM AXIS VALUES ######
      */
 
+    /**
+     * Method description.
+     */
     public float getAxisMaximum() {
         return mAxisMaximum;
     }
 
+    /**
+     * Method description.
+     */
     public float getAxisMinimum() {
         return mAxisMinimum;
     }
@@ -639,6 +798,9 @@ public abstract class AxisBase extends ComponentBase {
      * By calling this method, any custom maximum value that has been previously set is reseted,
      * and the calculation is
      * done automatically.
+     */
+    /**
+     * Method description.
      */
     public void resetAxisMaximum() {
         mCustomAxisMax = false;
@@ -649,6 +811,9 @@ public abstract class AxisBase extends ComponentBase {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public boolean isAxisMaxCustom() {
         return mCustomAxisMax;
     }
@@ -658,6 +823,9 @@ public abstract class AxisBase extends ComponentBase {
      * and the calculation is
      * done automatically.
      */
+    /**
+     * Method description.
+     */
     public void resetAxisMinimum() {
         mCustomAxisMin = false;
     }
@@ -666,6 +834,9 @@ public abstract class AxisBase extends ComponentBase {
      * Returns true if the axis min value has been customized (and is not calculated automatically)
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public boolean isAxisMinCustom() {
         return mCustomAxisMin;
@@ -680,6 +851,9 @@ public abstract class AxisBase extends ComponentBase {
      *
      * @param min
      */
+    /**
+     * Method description.
+     */
     public void setAxisMinimum(float min) {
         mCustomAxisMin = true;
         mAxisMinimum = min;
@@ -692,6 +866,9 @@ public abstract class AxisBase extends ComponentBase {
      * @param min
      */
     @Deprecated
+    /**
+     * Method description.
+     */
     public void setAxisMinValue(float min) {
         setAxisMinimum(min);
     }
@@ -702,6 +879,9 @@ public abstract class AxisBase extends ComponentBase {
      * the provided data. Use resetAxisMaxValue() to undo this.
      *
      * @param max
+     */
+    /**
+     * Method description.
      */
     public void setAxisMaximum(float max) {
         mCustomAxisMax = true;
@@ -715,6 +895,9 @@ public abstract class AxisBase extends ComponentBase {
      * @param max
      */
     @Deprecated
+    /**
+     * Method description.
+     */
     public void setAxisMaxValue(float max) {
         setAxisMaximum(max);
     }
@@ -725,6 +908,9 @@ public abstract class AxisBase extends ComponentBase {
      *
      * @param dataMin the min value according to chart data
      * @param dataMax the max value according to chart data
+     */
+    /**
+     * Method description.
      */
     public void calculate(float dataMin, float dataMax) {
 
@@ -751,6 +937,9 @@ public abstract class AxisBase extends ComponentBase {
     /**
      * Gets extra spacing for `axisMinimum` to be added to automatically calculated `axisMinimum`
      */
+    /**
+     * Method description.
+     */
     public float getSpaceMin()
     {
         return mSpaceMin;
@@ -758,6 +947,9 @@ public abstract class AxisBase extends ComponentBase {
 
     /**
      * Sets extra spacing for `axisMinimum` to be added to automatically calculated `axisMinimum`
+     */
+    /**
+     * Method description.
      */
     public void setSpaceMin(float mSpaceMin)
     {
@@ -767,6 +959,9 @@ public abstract class AxisBase extends ComponentBase {
     /**
      * Gets extra spacing for `axisMaximum` to be added to automatically calculated `axisMaximum`
      */
+    /**
+     * Method description.
+     */
     public float getSpaceMax()
     {
         return mSpaceMax;
@@ -774,6 +969,9 @@ public abstract class AxisBase extends ComponentBase {
 
     /**
      * Sets extra spacing for `axisMaximum` to be added to automatically calculated `axisMaximum`
+     */
+    /**
+     * Method description.
      */
     public void setSpaceMax(float mSpaceMax)
     {

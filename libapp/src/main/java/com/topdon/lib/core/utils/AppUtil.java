@@ -18,6 +18,9 @@ import java.io.File;
 import java.util.List;
 
 public class AppUtil {
+    /**
+     * Method description.
+     */
     public static boolean isAppInstalled(Context context, String packageName) {
         PackageManager packageManager = context.getPackageManager();
         List<PackageInfo> listPackageInfo = packageManager.getInstalledPackages(0);
@@ -29,6 +32,9 @@ public class AppUtil {
         return false;
     }
 
+    /**
+     * Method description.
+     */
     public static void openApp(Context context, String packageName) throws PackageManager.NameNotFoundException {
         PackageInfo pi = context.getPackageManager().getPackageInfo(packageName, 0);
         Intent resolveIntent = new Intent(Intent.ACTION_MAIN, null);
@@ -55,6 +61,9 @@ public class AppUtil {
      * @param context
      * @param
      * @param apkPath
+    /**
+     * Method description.
+     */
     public static void installApp(Context context, File apkPath) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -74,6 +83,9 @@ public class AppUtil {
      * * @param context
      * * @param serviceName Service  + service
      * * @return true false
+    /**
+     * Method description.
+     */
     public static boolean isProcessRunning(Context context, String serviceName) {
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningServiceInfo> runningServiceInfos = am.getRunningServices(200);
@@ -93,6 +105,9 @@ public class AppUtil {
      * * @param context
      * * @param serviceName Service  + service
      * * @return true false
+    /**
+     * Method description.
+     */
     public static boolean isServiceRunning(Context context, String serviceName) {
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningServiceInfo> runningServiceInfos = am.getRunningServices(200);
@@ -108,6 +123,9 @@ public class AppUtil {
         return false;
     }
 
+    /**
+     * Method description.
+     */
     public static String getVersionName(Context context) {
         try {
             PackageManager packageManager = context.getPackageManager();
@@ -119,6 +137,9 @@ public class AppUtil {
         return "";
     }
 
+    /**
+     * Method description.
+     */
     public static float getVersionCode(Context context) {
         try {
             PackageManager packageManager = context.getPackageManager();

@@ -27,12 +27,18 @@ class IRImageHelp {
     private var maxRGB = IntArray(3)
     private var minRGB = IntArray(3)
 
+    /**
+     * Function description.
+     */
     fun getColorList() : IntArray?{
         return colorList
     }
 
      * @author: CaiSongL
      * @date: 2024/1/17 10:07
+    /**
+     * Function description.
+     */
     fun setColorList(
         colorList: IntArray?,
         places: FloatArray?,
@@ -68,6 +74,9 @@ class IRImageHelp {
      * @param imageWidth Int
      * @param imageHeight Int
      * @return ByteArray  argb
+    /**
+     * Function description.
+     */
     fun customPseudoColor(imageDst: ByteArray, temperatureSrc:ByteArray, imageWidth : Int, imageHeight : Int) : ByteArray{
         try {
             if (colorList != null && temperatureSrc != null) {
@@ -123,6 +132,9 @@ class IRImageHelp {
 
 
      * ,
+    /**
+     * Function description.
+     */
     fun setPseudoColorMaxMin(imageDst: ByteArray?, temperatureSrc:ByteArray?,max : Float,
                        min : Float,imageWidth : Int,imageHeight : Int){
         if (temperatureSrc != null && (max != Float.MAX_VALUE || min != Float.MIN_VALUE)) {
@@ -155,6 +167,9 @@ class IRImageHelp {
         }
     }
      * contourDetection
+    /**
+     * Function description.
+     */
     fun contourDetection(alarmBean : AlarmBean?,imageDst : ByteArray?,temperatureSrc : ByteArray?,
                          imageWidth : Int,imageHeight : Int) : ByteArray?{
         if (alarmBean != null && imageDst != null && temperatureSrc != null) {

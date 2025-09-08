@@ -16,6 +16,9 @@ import java.nio.charset.Charset;
 import java.util.HashMap;
 
 public class IniUtil {
+    /**
+     * Private method description.
+     */
     private static String NAME = "Link";
     private static final String LINK = "link";
     private static final String LINK_NAME = "name";
@@ -24,6 +27,9 @@ public class IniUtil {
     private static final String MAINTENANCE = "maintenance";
     private static final String SYSTEM = "system";
 
+    /**
+     * Method description.
+     */
     public static String getLink(String path) {
         File file = new File(path + "/Diag.ini");
         if (!file.exists())
@@ -48,6 +54,9 @@ public class IniUtil {
 
      * @param path
      * @return String
+    /**
+     * Method description.
+     */
     public static String getVehicleName(String path) {
         File file = new File(path + "/Diag.ini");
         if (!file.exists()) {
@@ -59,6 +68,9 @@ public class IniUtil {
 
 
      * @param path
+    /**
+     * Private method description.
+     */
     private static String readFileInfo(String path) {
         String name = "";
         File file = new File(path);
@@ -89,6 +101,9 @@ public class IniUtil {
     }
 
 
+    /**
+     * Method description.
+     */
     public static String getVersion(String path, String name) {
         File file = new File(path + "/Diag.ini");
         if (!file.exists()) {
@@ -113,6 +128,9 @@ public class IniUtil {
         }
     }
 
+    /**
+     * Method description.
+     */
     public static String getName(String language, String path) {
         File file = new File(path + "/Diag.ini");
         Config cfg = new Config();
@@ -139,6 +157,9 @@ public class IniUtil {
      * @param path
      * @param name
      * @return
+    /**
+     * Method description.
+     */
     public static HashMap<String, String> getMaintenance(String path, String name) {
         HashMap<String, String> hashMap = new HashMap<>();
         File file = new File(path + "/Diag.ini");
@@ -295,6 +316,9 @@ public class IniUtil {
      * @param path
      * @param name
      * @return
+    /**
+     * Method description.
+     */
     public static HashMap<String, String> getIniSysTem(String path, String name) {
         HashMap<String, String> hashMap = new HashMap<>();
         File file = new File(path + "/Diag.ini");

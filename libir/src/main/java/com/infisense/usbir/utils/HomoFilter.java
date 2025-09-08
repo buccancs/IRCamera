@@ -20,6 +20,9 @@ import static org.opencv.imgproc.Imgproc.COLOR_YUV2GRAY_YUYV;
 
 public class HomoFilter {
 
+    /**
+     * Method description.
+     */
     public static Mat calcHU(Size size,double t2){
         Mat hu = new Mat(size,CV_32FC1);
         int row = hu.rows();
@@ -41,6 +44,9 @@ public class HomoFilter {
         return hu2c;
     }
 
+    /**
+     * Method description.
+     */
     public static Mat iftCenter(Mat src){
         Mat dst = new Mat(src.size(),CV_32F,new Scalar(0));
         int dx = src.rows() / 2;
@@ -75,6 +81,9 @@ public class HomoFilter {
         return dst;
     }
 
+    /**
+     * Method description.
+     */
     public static Mat homoMethod(byte[] im, int r, int c){
         int t = 1;
         double t2 = (double)(t-10) / 110;

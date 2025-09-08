@@ -18,10 +18,14 @@ import kotlinx.coroutines.launch
 
 class VersionViewModel : BaseViewModel() {
 
+    /** updateLiveData property */
     val updateLiveData = SingleLiveEvent<VersionUpData>()
 
      * forcedUpgradeFlag: 1     0
      * descType: 3,(descType)
+    /**
+     * Function description.
+     */
     fun checkVersion() {
 //        viewModelScope.launch(Dispatchers.IO) {
 //            try {

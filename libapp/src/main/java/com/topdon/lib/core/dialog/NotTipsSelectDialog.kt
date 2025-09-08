@@ -10,7 +10,10 @@ import com.csl.irCamera.libapp.databinding.DialogNotTipsSelectBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
  *  TipDialog  “” .
- * Created by LCG on 2024/10/26.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class NotTipsSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
 
     @StringRes
@@ -19,12 +22,18 @@ class NotTipsSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
     private lateinit var binding: DialogNotTipsSelectBinding
 
 
+    /**
+     * Function description.
+     */
     fun setTipsResId(@StringRes tipsResId: Int): NotTipsSelectDialog {
         this.tipsResId = tipsResId
         return this
     }
 
      *  “” .
+    /**
+     * Function description.
+     */
     fun setOnConfirmListener(l: ((isSelect: Boolean) -> Unit)?): NotTipsSelectDialog {
         onConfirmListener = l
         return this

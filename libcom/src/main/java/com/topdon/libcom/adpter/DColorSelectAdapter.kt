@@ -14,10 +14,14 @@ import com.topdon.libcom.databinding.DUiItemColorSelectBinding
 @Deprecated(" ColorPickDialog ，")
 class DColorSelectAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    /** listener property */
     var listener: ((code: Int, color: Int) -> Unit)? = null
     private var type = 0
     private var selected = -1
 
+    /**
+     * Function description.
+     */
     fun selected(index: Int) {
         selected = index
         notifyDataSetChanged()

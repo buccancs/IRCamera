@@ -160,13 +160,18 @@ class MonitorChartActivity : BaseIRActivity(), View.OnClickListener, OnChartValu
         }
     }
 
+    /** defaultCount property */
     val defaultCount = 20//10
+    /** startIndex property */
     val startIndex = 0f
+    /** pointIndex property */
     var pointIndex = startIndex - defaultCount
 
+    /** mIsIrVideoStart property */
     var mIsIrVideoStart = false
 
     private var mGuideInterface: GuideInterface? = null
+    /** rotateType property */
     var rotateType = 3
 
     private fun onIrVideoStart() {
@@ -222,12 +227,19 @@ class MonitorChartActivity : BaseIRActivity(), View.OnClickListener, OnChartValu
         Log.w("123", "")
     }
 
+    /** isRecord property */
     var isRecord = false
+    /** type property */
     var type = ""
+    /** timeMillis property */
     var timeMillis = 1000L //1s
+    /** canUpdate property */
     var canUpdate = false
+    /** recordTask property */
     var recordTask: Job? = null
+    /** thermalId property */
     var thermalId = TimeTool.showDateSecond()
+    /** startTime property */
     var startTime = 0L
 
     private fun recordThermal() {

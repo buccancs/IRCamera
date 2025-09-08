@@ -24,6 +24,9 @@ public class UnitUtils {
 
 
      * @param unitType 0  1
+    /**
+     * Method description.
+     */
     public static List<UnitDBBean> getUnitDBBeanList(int unitType) {
         try {
             String jsonStr;
@@ -46,6 +49,9 @@ public class UnitUtils {
     }
 
 
+    /**
+     * Method description.
+     */
     public static HashMap<String, UnitDBBean> getUnitDBBeanHashMap() {
         String unit = (String) SPUtils.getInstance(Topdon.getApp()).get("unit", "0");
         int unitType = "0".equals(unit) ? 0 : 1;
@@ -53,6 +59,9 @@ public class UnitUtils {
     }
 
      * @param unitType 0  1
+    /**
+     * Method description.
+     */
     public static HashMap<String, UnitDBBean> getUnitDBBeanHashMap(int unitType) {
         HashMap<String, UnitDBBean> hashMap = new HashMap<>();
         try {
@@ -70,6 +79,9 @@ public class UnitUtils {
      * @param preUnit
      * @param numericalValue
      * @return String[]
+    /**
+     * Method description.
+     */
     public static String[] getCalcResult(HashMap<String, UnitDBBean> hashMap, String preUnit, String numericalValue) {
         String unit = (String) SPUtils.getInstance(Topdon.getApp()).get("unit", "0");
         int unitType = "0".equals(unit) ? 0 : 1;
@@ -81,6 +93,9 @@ public class UnitUtils {
      * @param preUnit
      * @param numericalValue
      * @return String[]
+    /**
+     * Method description.
+     */
     public static String[] getCalcResult(int unitType, HashMap<String, UnitDBBean> hashMap, String preUnit, String numericalValue) {
         UnitDBBean unitDBBean = null;
         try {
@@ -145,6 +160,9 @@ public class UnitUtils {
 
      * @param dou dou
      * @return double
+    /**
+     * Method description.
+     */
     public static double getResult(double dou) {
         BigDecimal bigDecimal = new BigDecimal(dou).setScale(2, RoundingMode.HALF_UP);
         return bigDecimal.doubleValue();
@@ -154,6 +172,9 @@ public class UnitUtils {
      * 0
      * @param score double
      * @return String
+    /**
+     * Method description.
+     */
     public static String getDecimalFormatByDouble(double score) {
         //0
         DecimalFormat decimalFormat = new DecimalFormat("0.00#");

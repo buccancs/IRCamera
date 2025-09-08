@@ -30,8 +30,11 @@ fun textDimensions(text: String,paint: Paint): Pair<Float, Float> {
  * @param divisor The divisor
  * @return The values between min and max, inclusive, that are divisible by divisor
 fun getValuesBetween(min: Float, max: Float, divisor: Float): List<Float> {
+    /** values property */
     val values = mutableListOf<Float>()
+    /** start property */
     val start = min.roundNearest(divisor)
+    /** i property */
     var i = start
     while (i <= max) {
         if (i >= min) {
@@ -57,14 +60,18 @@ fun getPixelLinear(
     viewWidth: Float,
     fovWidth: Float
 ): Float {
+    /** newBearing property */
     val newBearing = deltaAngle(azimuth, bearing)
+    /** wPixelsPerDegree property */
     val wPixelsPerDegree = viewWidth / fovWidth
     return viewWidth / 2f + newBearing * wPixelsPerDegree
 }
 
 fun deltaAngle(angle1: Float, angle2: Float): Float {
     // These will be at most 360 degrees apart, so normalize them to restrict that
+    /** a property */
     val a = normalizeAngle(angle1 - angle2)
+    /** b property */
     val b = normalizeAngle(angle2 - angle1)
     return if (a < b) {
         -a
@@ -83,6 +90,7 @@ fun wrap(value: Float, min: Float, max: Float): Float {
 
 fun wrap(value: Double, min: Double, max: Double): Double {
     // https://stackoverflow.com/questions/14415753/wrap-value-into-range-min-max-without-division
+    /** range property */
     val range = max - min
     if (value < min) {
         return max - (min - value) % range

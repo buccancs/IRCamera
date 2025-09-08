@@ -44,6 +44,9 @@ public abstract class ComponentBase {
     protected int mTextColor = Color.BLACK;
 
 
+    /**
+     * Method description.
+     */
     public ComponentBase() {
 
     }
@@ -54,6 +57,9 @@ public abstract class ComponentBase {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public float getXOffset() {
         return mXOffset;
     }
@@ -62,6 +68,9 @@ public abstract class ComponentBase {
      * Sets the used x-axis offset for the labels on this axis.
      *
      * @param xOffset
+     */
+    /**
+     * Method description.
      */
     public void setXOffset(float xOffset) {
         mXOffset = Utils.convertDpToPixel(xOffset);
@@ -72,6 +81,9 @@ public abstract class ComponentBase {
      * offset is applied before and after the label.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public float getYOffset() {
         return mYOffset;
@@ -84,6 +96,9 @@ public abstract class ComponentBase {
      *
      * @param yOffset
      */
+    /**
+     * Method description.
+     */
     public void setYOffset(float yOffset) {
         mYOffset = Utils.convertDpToPixel(yOffset);
     }
@@ -92,6 +107,9 @@ public abstract class ComponentBase {
      * returns the Typeface used for the labels, returns null if none is set
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public Typeface getTypeface() {
         return mTypeface;
@@ -102,6 +120,9 @@ public abstract class ComponentBase {
      *
      * @param tf
      */
+    /**
+     * Method description.
+     */
     public void setTypeface(Typeface tf) {
         mTypeface = tf;
     }
@@ -111,6 +132,9 @@ public abstract class ComponentBase {
      * 10f
      *
      * @param size the text size, in DP
+     */
+    /**
+     * Method description.
      */
     public void setTextSize(float size) {
 
@@ -127,6 +151,9 @@ public abstract class ComponentBase {
      *
      * @return
      */
+    /**
+     * Method description.
+     */
     public float getTextSize() {
         return mTextSize;
     }
@@ -138,6 +165,9 @@ public abstract class ComponentBase {
      *
      * @param color
      */
+    /**
+     * Method description.
+     */
     public void setTextColor(int color) {
         mTextColor = color;
     }
@@ -146,6 +176,9 @@ public abstract class ComponentBase {
      * Returns the text color that is set for the labels.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public int getTextColor() {
         return mTextColor;
@@ -158,6 +191,9 @@ public abstract class ComponentBase {
      *
      * @param enabled
      */
+    /**
+     * Method description.
+     */
     public void setEnabled(boolean enabled) {
         mEnabled = enabled;
     }
@@ -166,6 +202,9 @@ public abstract class ComponentBase {
      * Returns true if this comonent is enabled (should be drawn), false if not.
      *
      * @return
+     */
+    /**
+     * Method description.
      */
     public boolean isEnabled() {
         return mEnabled;

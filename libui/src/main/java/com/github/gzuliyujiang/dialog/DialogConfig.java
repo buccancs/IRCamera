@@ -13,6 +13,9 @@ package com.github.gzuliyujiang.dialog;
  * @author  (1032694760@qq.com)
  * @since 2021/9/16 15:55
 public final class DialogConfig {
+    /**
+     * Private method description.
+     */
     private static int dialogStyle = DialogStyle.Default;
     private static DialogColor dialogColor = new DialogColor();
 
@@ -20,19 +23,31 @@ public final class DialogConfig {
         super();
     }
 
+    /**
+     * Method description.
+     */
     public static void setDialogStyle(@DialogStyle int style) {
         dialogStyle = style;
     }
 
     @DialogStyle
+    /**
+     * Method description.
+     */
     public static int getDialogStyle() {
         return dialogStyle;
     }
 
+    /**
+     * Method description.
+     */
     public static void setDialogColor(DialogColor color) {
         dialogColor = color;
     }
 
+    /**
+     * Method description.
+     */
     public static DialogColor getDialogColor() {
         if (dialogColor == null) {
             dialogColor = new DialogColor();

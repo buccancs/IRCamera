@@ -15,11 +15,14 @@ import java.io.IOException
 import java.nio.ByteBuffer
 
 class FrameTool {
+    /** imageWidth property */
     val imageWidth = 256
+    /** imageHeight property */
     val imageHeight = 192
     private val scrImageLen = imageWidth * imageHeight * 2
     private val srcTemperatureLen = imageWidth * imageHeight * 2
     private val imageBytes = ByteArray(scrImageLen)
+    /** temperatureBytes property */
     val temperatureBytes = ByteArray(srcTemperatureLen)
     private val imageRes = LibIRProcess.ImageRes_t() //
     private var struct: FrameStruct = FrameStruct() //
@@ -32,6 +35,9 @@ class FrameTool {
     private var dstArgbBytes: ByteArray ?= null
 
 
+    /**
+     * Function description.
+     */
     fun read(bytes: ByteArray) {
         try {
             val frame = ByteArray(bytes.size)
@@ -47,12 +53,18 @@ class FrameTool {
         }
     }
 
+    /**
+     * Function description.
+     */
     fun initStruct(struct: FrameStruct) {
         this.struct = struct
         imageRes.width = imageWidth.toChar()
         imageRes.height = imageHeight.toChar()
     }
 
+    /**
+     * Function description.
+     */
     fun initRotate(): ImageParams {
         var rotate = ImageParams.ROTATE_0
         when (struct.rotate) {
@@ -64,6 +76,9 @@ class FrameTool {
         return rotate
     }
 
+    /**
+     * Function description.
+     */
     fun getTempBytes(rotate: ImageParams = ImageParams.ROTATE_0): ByteArray {
         val tempBytes = ByteArray(srcTemperatureLen)
         val dstTempBytes = ByteArray(srcTemperatureLen)
@@ -77,6 +92,9 @@ class FrameTool {
         return dstTempBytes
     }
 
+    /**
+     * Function description.
+     */
     fun getRotate90Temp(temperatureBytes: ByteArray): ByteArray {
         val tempBytes = ByteArray(temperatureBytes.size)
         val dstTempBytes = ByteArray(temperatureBytes.size)
@@ -89,6 +107,9 @@ class FrameTool {
     }
 
      * yuv -> argb ->  ->  -> bitmap
+    /**
+     * Function description.
+     */
     fun getScrPseudoColorScaledBitmap(
         pseudoColorMode: CommonParams.PseudoColorType = CommonParams.PseudoColorType.PSEUDO_3,
         max: Float = -273f,
@@ -212,6 +233,9 @@ class FrameTool {
     }
 
      * bitmap
+    /**
+     * Function description.
+     */
     fun getBaseBitmap(rotate : ImageParams) : Bitmap{
         val dstImageRes = getDstImageRes(rotate)
         val scrBitmap = Bitmap.createBitmap(dstImageRes.width.code,
@@ -272,6 +296,9 @@ class FrameTool {
 //    }
 
      * ()
+    /**
+     * Function description.
+     */
     fun getSrcTemp(): LibIRTemp.TemperatureSampleResult {
         val irTemp = LibIRTemp(imageWidth, imageHeight)
         irTemp.setTempData(temperatureBytes)

@@ -10,15 +10,20 @@ import com.topdon.lib.core.utils.ScreenUtil
 import com.csl.irCamera.libui.R
 
  * ViewPager  View.
- * Created by chenggeng.lin on 2023/11/13.
+/**
+ * @author chenggeng.lin
+ * @since Unknown
+ */
 class IndicateView : View {
 
+    /** itemCount property */
     var itemCount: Int = 0
         set(value) {
             field = value
             requestLayout()
         }
 
+    /** currentIndex property */
     var currentIndex: Int = 0
         set(value) {
             field = value

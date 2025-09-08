@@ -11,6 +11,9 @@ import java.util.concurrent.Executors;
  * date: 2021/8/12 12:02
  * author: bichuanfeng
 public class EasyBLEBuilder {
+    /**
+     * Private method description.
+     */
     private final static ExecutorService DEFAULT_EXECUTOR_SERVICE = Executors.newCachedThreadPool();
     BondController bondController;
     DeviceCreator deviceCreator;
@@ -27,42 +30,63 @@ public class EasyBLEBuilder {
 
      * Android5.0{@link ScannerType#LE}{@link ScannerType#LEGACY}
      * Android5.0{@link ScannerType#LE}
+    /**
+     * Method description.
+     */
     public EasyBLEBuilder setScannerType(ScannerType scannerType) {
         Inspector.requireNonNull(scannerType, "scannerType can't be null");
         this.scannerType = scannerType;
         return this;
     }
 
+    /**
+     * Method description.
+     */
     public EasyBLEBuilder setExecutorService(ExecutorService executorService) {
         Inspector.requireNonNull(executorService, "executorService can't be null");
         this.executorService = executorService;
         return this;
     }
 
+    /**
+     * Method description.
+     */
     public EasyBLEBuilder setDeviceCreator(DeviceCreator deviceCreator) {
         Inspector.requireNonNull(deviceCreator, "deviceCreator can't be null");
         this.deviceCreator = deviceCreator;
         return this;
     }
 
+    /**
+     * Method description.
+     */
     public EasyBLEBuilder setBondController(BondController bondController) {
         Inspector.requireNonNull(bondController, "bondController can't be null");
         this.bondController = bondController;
         return this;
     }
 
+    /**
+     * Method description.
+     */
     public EasyBLEBuilder setMethodDefaultThreadMode(ThreadMode mode) {
         Inspector.requireNonNull(mode, "mode can't be null");
         methodDefaultThreadMode = mode;
         return this;
     }
 
+    /**
+     * Method description.
+     */
     public EasyBLEBuilder setScanConfiguration(ScanConfiguration scanConfiguration) {
         Inspector.requireNonNull(scanConfiguration, "scanConfiguration can't be null");
         this.scanConfiguration = scanConfiguration;
         return this;
     }
 
+    /**
+     * Method description.
+     */
     public EasyBLEBuilder setLogger(Logger logger) {
         Inspector.requireNonNull(logger, "logger can't be null");
         this.logger = logger;
@@ -71,6 +95,9 @@ public class EasyBLEBuilder {
 
      * <br>{@link #setMethodDefaultThreadMode(ThreadMode)}
      * {@link #setObserveAnnotationRequired(boolean)}{@link #setExecutorService(ExecutorService)}
+    /**
+     * Method description.
+     */
     public EasyBLEBuilder setObservable(Observable observable) {
         Inspector.requireNonNull(observable, "observable can't be null");
         this.observable = observable;
@@ -79,12 +106,18 @@ public class EasyBLEBuilder {
 
      * {@link Observe}
      * @param observeAnnotationRequired true{@link Observe}false
+    /**
+     * Method description.
+     */
     public EasyBLEBuilder setObserveAnnotationRequired(boolean observeAnnotationRequired) {
         isObserveAnnotationRequired = observeAnnotationRequired;
         return this;
     }
 
      * EasyBLE
+    /**
+     * Method description.
+     */
     public EasyBLE build() {
         synchronized (EasyBLE.class) {
             if (EasyBLE.instance != null) {

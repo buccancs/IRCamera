@@ -12,7 +12,10 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
  *  1.
- * Created by LCG on 2023/12/29.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 @Route(path = RouterConfig.MANUAL_START)
 class ManualStep1Activity : BaseActivity() {
 
@@ -38,6 +41,9 @@ class ManualStep1Activity : BaseActivity() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * Function description.
+     */
     fun onManualFinishBean(manualFinishBean: ManualFinishBean) {
         finish()
     }

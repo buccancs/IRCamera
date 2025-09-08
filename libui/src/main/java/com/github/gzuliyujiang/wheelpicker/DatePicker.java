@@ -25,12 +25,21 @@ import com.github.gzuliyujiang.wheelpicker.widget.DateWheelLayout;
 @SuppressWarnings("unused")
 public class DatePicker extends ModalDialog {
     protected DateWheelLayout wheelLayout;
+    /**
+     * Private method description.
+     */
     private OnDatePickedListener onDatePickedListener;
 
+    /**
+     * Method description.
+     */
     public DatePicker(@NonNull Activity activity) {
         super(activity);
     }
 
+    /**
+     * Method description.
+     */
     public DatePicker(@NonNull Activity activity, @StyleRes int themeResId) {
         super(activity, themeResId);
     }
@@ -57,10 +66,16 @@ public class DatePicker extends ModalDialog {
         }
     }
 
+    /**
+     * Method description.
+     */
     public void setOnDatePickedListener(OnDatePickedListener onDatePickedListener) {
         this.onDatePickedListener = onDatePickedListener;
     }
 
+    /**
+     * Method description.
+     */
     public final DateWheelLayout getWheelLayout() {
         return wheelLayout;
     }

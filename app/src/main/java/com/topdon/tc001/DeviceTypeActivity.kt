@@ -18,7 +18,10 @@ import com.csl.irCamera.databinding.ActivityDeviceTypeBinding
 import com.csl.irCamera.databinding.ItemDeviceTypeBinding
 
  * .
- * Created by LCG on 2024/4/22.
+/**
+ * @author LCG
+ * @since Unknown
+ */
 class DeviceTypeActivity : BaseActivity() {
 
     private lateinit var binding: ActivityDeviceTypeBinding
