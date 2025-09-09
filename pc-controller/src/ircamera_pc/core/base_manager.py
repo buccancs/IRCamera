@@ -63,7 +63,9 @@ class BaseManager(QtQObject, ABC, metaclass=QObjectMeta):
         error_occurred = None
         operation_completed = None
 
-    def __init__(self, name: str, parent: Optional[Union[QtQObject, Any]] = None) -> None:
+    def __init__(
+        self, name: str, parent: Optional[Union[QtQObject, Any]] = None
+    ) -> None:
         if PYQT_AVAILABLE:
             super().__init__(parent)
         else:

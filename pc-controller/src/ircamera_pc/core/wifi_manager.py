@@ -13,6 +13,7 @@ import subprocess
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
+from typing import Optional
 from typing import Dict, List, Optional
 
 try:
@@ -39,7 +40,7 @@ except ImportError:
         def __init__(self) -> None:
             pass
 
-        def start(self):
+        def start(self) -> None:
             # Run in current thread if PyQt6 not available
             self.run()
 
@@ -110,9 +111,9 @@ class WiFiNetwork:
     security_type: NetworkSecurityType
     channel: int
     is_ircamera_hotspot: bool = False
-    last_seen: datetime = None
+    last_seen: Optional[datetime] = None
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if self.last_seen is None:
             self.last_seen = datetime.now()
 
@@ -137,11 +138,11 @@ class WiFiScanWorker(BaseThread):
     scan_completed = pyqtSignal(int)
     error_occurred = pyqtSignal(str)
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self._running = False
 
-    def run(self):
+    def run(self) -> None:
         """Run the WiFi scan in a separate thread."""
         self._running = True
         try:
