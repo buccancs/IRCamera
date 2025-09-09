@@ -3,21 +3,23 @@ Comprehensive unit tests for PC Controller data aggregation components
 Tests data processing, synchronization, and export functionality
 """
 
-import unittest
-import tempfile
 import os
-import json
 import sys
-import pandas as pd
-import numpy as np
-import h5py
 
+# Add project root to path for imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
-from ircamera_pc.data.aggregator import DataAggregator
-from ircamera_pc.data.exporter import DataExporter, ExportFormat
-from ircamera_pc.data.processor import DataProcessor
-from ircamera_pc.data.validator import DataValidator
+import unittest  # noqa: E402
+import tempfile  # noqa: E402
+import json  # noqa: E402
+import pandas as pd  # noqa: E402
+import numpy as np  # noqa: E402
+import h5py  # noqa: E402
+
+from ircamera_pc.data.aggregator import DataAggregator  # noqa: E402
+from ircamera_pc.data.exporter import DataExporter, ExportFormat  # noqa: E402
+from ircamera_pc.data.processor import DataProcessor  # noqa: E402
+from ircamera_pc.data.validator import DataValidator  # noqa: E402
 
 
 class TestDataAggregator(unittest.TestCase):

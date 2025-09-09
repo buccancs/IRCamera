@@ -19,7 +19,7 @@ from ircamera_pc.network.discovery import NetworkDiscoveryService
 
 async def test_basic_integration():
     """Test basic integration of networking components."""
-    print("🚀 Testing Enhanced Networking Integration...")
+    print("[ROCKET] Testing Enhanced Networking Integration...")
     
     # Test Security Manager
     print("\n1. Testing SecurityManager...")
@@ -34,18 +34,18 @@ async def test_basic_integration():
         security_manager.auth_tokens = {}
         
         if security_manager.initialize():
-            print("   ✅ SecurityManager initialized successfully")
+            print("   [OK] SecurityManager initialized successfully")
             
             # Test token generation
             token = security_manager.generate_auth_token("test_device")
             is_valid, device_id = security_manager.validate_auth_token(token)
-            print(f"   ✅ Auth token validation: {is_valid} (device: {device_id})")
+            print(f"   [OK] Auth token validation: {is_valid} (device: {device_id})")
             
             # Test SSL context
             ssl_context = security_manager.create_ssl_context()
-            print(f"   ✅ SSL context created: Protocol {ssl_context.protocol}")
+            print(f"   [OK] SSL context created: Protocol {ssl_context.protocol}")
         else:
-            print("   ❌ SecurityManager initialization failed")
+            print("   [ERROR] SecurityManager initialization failed")
             return False
     
     # Test Reliable Messaging
@@ -61,14 +61,14 @@ async def test_basic_integration():
     messaging.set_transport(mock_transport)
     
     if await messaging.initialize():
-        print("   ✅ ReliableMessageService initialized")
+        print("   [OK] ReliableMessageService initialized")
         
         # Register a test handler
         def test_handler(message):
             return {"status": "handled", "echo": message.get("content", {})}
         
         messaging.register_message_handler("test_type", test_handler)
-        print("   ✅ Message handler registered")
+        print("   [OK] Message handler registered")
         
         # Send test message
         message_id = await messaging.send_message(
@@ -78,19 +78,19 @@ async def test_basic_integration():
             content={"test": "data"},
             priority=MessagePriority.NORMAL
         )
-        print(f"   ✅ Test message sent: {message_id}")
+        print(f"   [OK] Test message sent: {message_id}")
         
         # Let message processor run
         await asyncio.sleep(1)
         
         # Simulate acknowledgment
         await messaging.handle_acknowledgment(message_id, True)
-        print("   ✅ Message acknowledgment handled")
+        print("   [OK] Message acknowledgment handled")
         
         await messaging.shutdown()
-        print("   ✅ ReliableMessageService shutdown completed")
+        print("   [OK] ReliableMessageService shutdown completed")
     else:
-        print("   ❌ ReliableMessageService initialization failed")
+        print("   [ERROR] ReliableMessageService initialization failed")
         return False
     
     # Test Network Discovery
@@ -100,25 +100,25 @@ async def test_basic_integration():
     # Start discovery (automatically registers PC controller service)
     success = await discovery.start_discovery()
     if success:
-        print("   ✅ NetworkDiscoveryService started")
-        print("   ✅ PC controller service auto-registered")
+        print("   [OK] NetworkDiscoveryService started")
+        print("   [OK] PC controller service auto-registered")
         
         # Simulate discovery for a bit to find devices
         await asyncio.sleep(2)
-        print("   ✅ Discovery running and scanning for devices")
+        print("   [OK] Discovery running and scanning for devices")
         
         await discovery.stop_discovery()
-        print("   ✅ NetworkDiscoveryService stopped")
+        print("   [OK] NetworkDiscoveryService stopped")
     else:
-        print("   ⚠️ NetworkDiscoveryService fallback mode (expected without zeroconf)")
+        print("   [WARNING] NetworkDiscoveryService fallback mode (expected without zeroconf)")
         return True  # This is expected without zeroconf
     
-    print("\n🎉 All networking components tested successfully!")
-    print("\n📊 Summary:")
-    print("   ✅ TLS/SSL Security with certificate management")
-    print("   ✅ Reliable messaging with ACK/NACK protocol")  
-    print("   ✅ mDNS service discovery and registration")
-    print("   ✅ Proper initialization and shutdown procedures")
+    print("\n[CELEBRATION] All networking components tested successfully!")
+    print("\n[CHART] Summary:")
+    print("   [OK] TLS/SSL Security with certificate management")
+    print("   [OK] Reliable messaging with ACK/NACK protocol")  
+    print("   [OK] mDNS service discovery and registration")
+    print("   [OK] Proper initialization and shutdown procedures")
     
     return True
 

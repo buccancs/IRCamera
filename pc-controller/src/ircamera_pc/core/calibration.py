@@ -317,7 +317,9 @@ class CameraCalibrator:
                 session_data["images_collected"] += 1
 
                 # Save calibration image
-                image_filename = f"calib_{calibration_id}_{session_data['images_collected']:03d}.png"
+                image_filename = (
+                    f"calib_{calibration_id}_{session_data['images_collected']:03d}.png"
+                )
                 image_path = self.data_dir / image_filename
                 cv2.imwrite(str(image_path), image)
 

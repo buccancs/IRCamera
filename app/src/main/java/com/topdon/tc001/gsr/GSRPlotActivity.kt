@@ -60,7 +60,7 @@ class GSRPlotActivity : AppCompatActivity() {
         // Configure GSR chart
         gsrChart.apply {
             description = Description().apply {
-                text = "GSR (µS) over Time"
+                text = "GSR (S) over Time"
                 textSize = 12f
             }
             
@@ -176,12 +176,12 @@ class GSRPlotActivity : AppCompatActivity() {
         val metadata = plotData.metadata
         val stats = StringBuilder()
         
-        stats.appendLine("📊 Recording Statistics")
-        stats.appendLine("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-        stats.appendLine("📁 File: ${metadata.fileName}")
-        stats.appendLine("⏱️ Duration: ${formatDuration(metadata.duration)}")
-        stats.appendLine("📈 Data Points: ${metadata.dataPoints}")
-        stats.appendLine("🔄 Sampling Rate: ${"%.1f".format(metadata.samplingRate)} Hz")
+        stats.appendLine(" Recording Statistics")
+        stats.appendLine("")
+        stats.appendLine(" File: ${metadata.fileName}")
+        stats.appendLine(" Duration: ${formatDuration(metadata.duration)}")
+        stats.appendLine(" Data Points: ${metadata.dataPoints}")
+        stats.appendLine(" Sampling Rate: ${"%.1f".format(metadata.samplingRate)} Hz")
         stats.appendLine("")
         
         // GSR Statistics
@@ -190,11 +190,11 @@ class GSRPlotActivity : AppCompatActivity() {
         val gsrMin = plotData.gsrValues.minOrNull() ?: 0.0
         val gsrMax = plotData.gsrValues.maxOrNull() ?: 0.0
         
-        stats.appendLine("🧬 GSR Analysis")
-        stats.appendLine("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-        stats.appendLine("Mean: ${"%.4f".format(gsrMean)} µS")
-        stats.appendLine("Std Dev: ${"%.4f".format(gsrStdDev)} µS")
-        stats.appendLine("Range: ${"%.4f".format(gsrMin)} - ${"%.4f".format(gsrMax)} µS")
+        stats.appendLine(" GSR Analysis")
+        stats.appendLine("")
+        stats.appendLine("Mean: ${"%.4f".format(gsrMean)} S")
+        stats.appendLine("Std Dev: ${"%.4f".format(gsrStdDev)} S")
+        stats.appendLine("Range: ${"%.4f".format(gsrMin)} - ${"%.4f".format(gsrMax)} S")
         stats.appendLine("Variation: ${"%.2f".format((gsrStdDev/gsrMean)*100)}%")
         stats.appendLine("")
         
@@ -204,16 +204,16 @@ class GSRPlotActivity : AppCompatActivity() {
         val ppgMin = plotData.ppgValues.minOrNull() ?: 0.0
         val ppgMax = plotData.ppgValues.maxOrNull() ?: 0.0
         
-        stats.appendLine("❤️ PPG Analysis")
-        stats.appendLine("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+        stats.appendLine(" PPG Analysis")
+        stats.appendLine("")
         stats.appendLine("Mean: ${"%.1f".format(ppgMean)}")
         stats.appendLine("Std Dev: ${"%.1f".format(ppgStdDev)}")
         stats.appendLine("Range: ${"%.0f".format(ppgMin)} - ${"%.0f".format(ppgMax)}")
         stats.appendLine("")
         
         // Events Analysis
-        stats.appendLine("🎯 Events Detected")
-        stats.appendLine("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+        stats.appendLine(" Events Detected")
+        stats.appendLine("")
         val increases = plotData.gsrEvents.count { it.type == "INCREASE" }
         val decreases = plotData.gsrEvents.count { it.type == "DECREASE" }
         stats.appendLine("GSR Increases: $increases")

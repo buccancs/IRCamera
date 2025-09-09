@@ -27,13 +27,13 @@ class UserInfoManager {
     }
 
     /**
-     * 是否登录（判断token是否有值来处理登录情况）
-     * token在-1的情况下为游客访问，不算登录
+     * token
+     * token-1
      */
     fun isLogin(): Boolean {
         val token = SharedManager.getToken()
         return if (TextUtils.equals("-1", token)) {
-            //游客模式认为没有登录
+            //
             false
         } else {
             !TextUtils.isEmpty(token)
@@ -41,7 +41,7 @@ class UserInfoManager {
     }
 
     /**
-     * 登录保存User information
+     * User information
      */
     fun login(
         token: String,
@@ -59,7 +59,7 @@ class UserInfoManager {
     }
 
     /**
-     * 退出注销User information
+     * User information
      */
     fun logout() {
         SharedManager.setToken("")

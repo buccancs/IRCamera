@@ -131,7 +131,7 @@ class ComprehensiveTestRunner:
         Returns:
             Tuple of (passed_count, total_count)
         """
-        print("🚀 Starting Comprehensive Test Suite for Hub-and-Spoke Architecture")
+        print(" Starting Comprehensive Test Suite for Hub-and-Spoke Architecture")
         print("=" * 80)
         
         # Filter test suites based on options
@@ -141,7 +141,7 @@ class ComprehensiveTestRunner:
         passed_count = 0
         
         for suite in suites_to_run:
-            print(f"\n📋 Running: {suite.name}")
+            print(f"\n Running: {suite.name}")
             print(f"   Description: {suite.description}")
             print(f"   Command: {suite.command}")
             print("-" * 60)
@@ -150,10 +150,10 @@ class ComprehensiveTestRunner:
             self.results.append(result)
             
             if result.passed:
-                print(f"✅ {suite.name} PASSED ({result.duration:.2f}s)")
+                print(f" {suite.name} PASSED ({result.duration:.2f}s)")
                 passed_count += 1
             else:
-                print(f"❌ {suite.name} FAILED ({result.duration:.2f}s)")
+                print(f" {suite.name} FAILED ({result.duration:.2f}s)")
                 if result.details:
                     print(f"   Details: {result.details[:200]}...")
         
@@ -162,7 +162,7 @@ class ComprehensiveTestRunner:
         # Generate comprehensive report
         self._generate_report(total_time)
         
-        print(f"\n🏁 Test Execution Complete!")
+        print(f"\n Test Execution Complete!")
         print(f"   Total Time: {total_time:.2f} seconds")
         print(f"   Results: {passed_count}/{len(suites_to_run)} test suites passed")
         
@@ -175,12 +175,12 @@ class ComprehensiveTestRunner:
         for suite in self.test_suites:
             # Skip performance tests if not requested
             if not include_performance and "performance" in suite.name:
-                print(f"⏭️  Skipping performance test: {suite.name}")
+                print(f"  Skipping performance test: {suite.name}")
                 continue
                 
             # Skip integration tests if not requested  
             if not include_integration and "integration" in suite.name:
-                print(f"⏭️  Skipping integration test: {suite.name}")
+                print(f"  Skipping integration test: {suite.name}")
                 continue
                 
             filtered_suites.append(suite)
@@ -287,7 +287,7 @@ class ComprehensiveTestRunner:
         with open(html_file, 'w') as f:
             f.write(html_report)
         
-        print(f"\n📊 Reports Generated:")
+        print(f"\n Reports Generated:")
         print(f"   JSON: {json_file}")
         print(f"   HTML: {html_file}")
     
@@ -316,7 +316,7 @@ class ComprehensiveTestRunner:
 </head>
 <body>
     <div class="header">
-        <h1>🏗️ Hub-and-Spoke Architecture Test Report</h1>
+        <h1> Hub-and-Spoke Architecture Test Report</h1>
         <p>Generated: {json_report['timestamp']}</p>
         <p>Total Duration: {json_report['total_duration']:.2f} seconds</p>
     </div>
@@ -347,7 +347,7 @@ class ComprehensiveTestRunner:
         
         for result in json_report['results']:
             status_class = "passed" if result['passed'] else "failed"
-            status_icon = "✅" if result['passed'] else "❌"
+            status_icon = "" if result['passed'] else ""
             
             html += f"""
     <div class="test-result {status_class}">
@@ -411,10 +411,10 @@ def main():
     success_rate = passed_count / total_count if total_count > 0 else 0
     
     if success_rate >= 0.9:  # 90% success rate required
-        print(f"\n🎉 Test suite PASSED with {success_rate:.1%} success rate")
+        print(f"\n Test suite PASSED with {success_rate:.1%} success rate")
         sys.exit(0)
     else:
-        print(f"\n💥 Test suite FAILED with {success_rate:.1%} success rate")
+        print(f"\n Test suite FAILED with {success_rate:.1%} success rate")
         print("   Required: 90% success rate for passing")
         sys.exit(1)
 

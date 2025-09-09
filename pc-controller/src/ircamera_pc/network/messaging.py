@@ -135,7 +135,8 @@ class ReliableMessageService:
         Set the message transport function.
 
         Args:
-            transport: Async function that takes (host, port, message_dict) and returns bool
+            transport: Async function that takes (host, port, message_dict) and
+                      returns bool
         """
         self.transport = transport
 
@@ -149,7 +150,8 @@ class ReliableMessageService:
 
         Args:
             message_type: The message type to handle
-            handler: Function that processes the message and optionally returns a response
+            handler: Function that processes the message and optionally returns
+                    a response
         """
         self.message_handlers[message_type] = handler
         logger.debug(f"Registered handler for message type: {message_type}")
@@ -485,7 +487,8 @@ class ReliableMessageService:
             await self._notify_message_retrying(message_id, message.retry_count)
             self.priority_queues[message.priority].append(message_id)
             logger.debug(
-                f"Retrying message {message_id} (attempt {message.retry_count}/{message.max_retries})"
+                f"Retrying message {message_id} "
+                f"(attempt {message.retry_count}/{message.max_retries})"
             )
         else:
             # Max retries exceeded

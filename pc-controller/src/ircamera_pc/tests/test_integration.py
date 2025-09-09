@@ -3,20 +3,22 @@ Comprehensive integration tests for PC Controller Hub-and-Spoke architecture
 Tests complete system integration, multi-device coordination, and end-to-end workflows
 """
 
-import unittest
-import tempfile
-import shutil
-import time
-import threading
-import sys
 import os
-from unittest.mock import Mock
+import sys
 
+# Add project root to path for imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
-from ircamera_pc.network.server import NetworkServer
-from ircamera_pc.data.aggregator import DataAggregator
-from ircamera_pc.core.session_manager import SessionManager
+import unittest  # noqa: E402
+import tempfile  # noqa: E402
+import shutil  # noqa: E402
+import time  # noqa: E402
+import threading  # noqa: E402
+from unittest.mock import Mock  # noqa: E402
+
+from ircamera_pc.network.server import NetworkServer  # noqa: E402
+from ircamera_pc.data.aggregator import DataAggregator  # noqa: E402
+from ircamera_pc.core.session_manager import SessionManager  # noqa: E402
 
 
 class TestEndToEndIntegration(unittest.TestCase):

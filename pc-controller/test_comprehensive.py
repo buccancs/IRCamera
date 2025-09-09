@@ -124,36 +124,36 @@ def test_all_components() -> None:
         )
 
         print("\n" + "=" * 60)
-        print("🎉 ALL COMPONENTS PASSED!")
+        print("[CELEBRATION] ALL COMPONENTS PASSED!")
         print("\nComponent Status:")
-        print("- ✅ Configuration Management")
-        print("- ✅ Session Management")
-        print("- ✅ GSR Ingestor (FR11)")
-        print("- ✅ File Transfer Manager (FR10)")
-        print("- ✅ Camera Calibrator (FR9)")
-        print("- ✅ Network Server")
-        print("- ✅ Time Synchronization Service")
-        print("- ✅ Complete System Integration")
+        print("- [OK] Configuration Management")
+        print("- [OK] Session Management")
+        print("- [OK] GSR Ingestor (FR11)")
+        print("- [OK] File Transfer Manager (FR10)")
+        print("- [OK] Camera Calibrator (FR9)")
+        print("- [OK] Network Server")
+        print("- [OK] Time Synchronization Service")
+        print("- [OK] Complete System Integration")
 
-        print("\n🚀 IRCamera PC Controller is FULLY IMPLEMENTED!")
+        print("\n[ROCKET] IRCamera PC Controller is FULLY IMPLEMENTED!")
         print("Ready for:")
-        print("- 📱 Android device integration")
-        print("- 🔄 Real-time data collection")
-        print("- 📊 Multi-modal recording sessions")
-        print("- 🎯 Camera calibration")
+        print("- [MOBILE] Android device integration")
+        print("- [SYNC] Real-time data collection")
+        print("- [CHART] Multi-modal recording sessions")
+        print("- [TARGET] Camera calibration")
         print("- [DIR] File transfer and data aggregation")
 
         return True
 
     except (OSError, ValueError, RuntimeError) as e:
-        print(f"\n❌ TEST FAILED: {e}")
+        print(f"\n[ERROR] TEST FAILED: {e}")
         import traceback
 
         traceback.print_exc()
         return False
 
     finally:
-        print(f"\n🧹 Cleaned up temporary directory: {temp_dir}")
+        print(f"\n[CLEAN] Cleaned up temporary directory: {temp_dir}")
         shutil.rmtree(temp_dir)
 
 

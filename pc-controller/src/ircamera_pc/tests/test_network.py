@@ -3,18 +3,20 @@ Comprehensive unit tests for PC Controller network components
 Tests NetworkServer, JSON protocol, and Hub-Spoke communication
 """
 
-import unittest
-import json
-import socket
-import time
-import sys
 import os
-from unittest.mock import Mock, patch
+import sys
 
+# Add project root to path for imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
-from ircamera_pc.network.server import NetworkServer
-from ircamera_pc.network.protocol import MessageProtocol, MessageType
+import unittest  # noqa: E402
+import json  # noqa: E402
+import socket  # noqa: E402
+import time  # noqa: E402
+from unittest.mock import Mock, patch  # noqa: E402
+
+from ircamera_pc.network.server import NetworkServer  # noqa: E402
+from ircamera_pc.network.protocol import MessageProtocol, MessageType  # noqa: E402
 
 
 class TestNetworkServer(unittest.TestCase):

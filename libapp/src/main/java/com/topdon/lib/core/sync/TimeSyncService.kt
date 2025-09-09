@@ -108,7 +108,7 @@ class TimeSyncService {
         // Calculate final offset using median to reduce outlier impact
         val result = calculateSyncResult(samples)
         
-        Log.i(TAG, "Time sync completed: offset=${result.clockOffsetMs}ms, accuracy=±${result.accuracyMs}ms")
+        Log.i(TAG, "Time sync completed: offset=${result.clockOffsetMs}ms, accuracy=${result.accuracyMs}ms")
         listener?.onSyncCompleted(result)
         
         result

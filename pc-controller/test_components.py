@@ -26,26 +26,26 @@ def test_imports():
         from ircamera_pc.gui.plotting_widgets import (
             GSRPlotWidget, VideoPreviewWidget, MultiModalDashboard, DataAggregationWidget
         )
-        print("✓ Plotting widgets imported successfully")
+        print("[CHECK] Plotting widgets imported successfully")
         
         # Test enhanced GUI widgets
         from ircamera_pc.gui.widgets import (
             DeviceListWidget, SessionControlWidget, StatusDisplayWidget,
             SystemIntegrationWidget, BluetoothControlWidget, WiFiControlWidget
         )
-        print("✓ Enhanced GUI widgets imported successfully")
+        print("[CHECK] Enhanced GUI widgets imported successfully")
         
         # Test data aggregation engine
         from ircamera_pc.data import (
             DataAggregationEngine, DataStream, SyncEvent, AggregationStats,
             calculate_temporal_alignment, validate_data_synchronization
         )
-        print("✓ Data aggregation engine imported successfully")
+        print("[CHECK] Data aggregation engine imported successfully")
         
         return True
         
     except Exception as e:
-        print(f"✗ Import failed: {e}")
+        print(f" Import failed: {e}")
         return False
 
 
@@ -68,7 +68,7 @@ def test_data_aggregation():
         gsr_stream_id = engine.add_stream("device_1", "gsr", 128.0)
         video_stream_id = engine.add_stream("device_1", "rgb_video", 30.0)
         
-        print(f"✓ Added streams: {gsr_stream_id}, {video_stream_id}")
+        print(f"[CHECK] Added streams: {gsr_stream_id}, {video_stream_id}")
         
         # Add test data
         timestamp_ns = time.time_ns()
@@ -95,16 +95,16 @@ def test_data_aggregation():
         
         # Get statistics
         stats = engine.get_statistics()
-        print(f"✓ Statistics: {stats.total_devices} devices, {stats.active_streams} streams")
+        print(f"[CHECK] Statistics: {stats.total_devices} devices, {stats.active_streams} streams")
         
         # Clean up
         engine.stop()
         
-        print("✓ Data aggregation engine test passed")
+        print("[CHECK] Data aggregation engine test passed")
         return True
         
     except Exception as e:
-        print(f"✗ Data aggregation test failed: {e}")
+        print(f" Data aggregation test failed: {e}")
         return False
 
 
@@ -125,19 +125,19 @@ def test_plotting_widgets():
         gsr_plot = GSRPlotWidget()
         gsr_plot.add_device("test_device", "cyan")
         gsr_plot.add_gsr_data("test_device", time.time_ns(), 15.5)
-        print("✓ GSR plot widget created and tested")
+        print("[CHECK] GSR plot widget created and tested")
         
         # Test multi-modal dashboard
         dashboard = MultiModalDashboard()
         dashboard.add_gsr_device("device_1")
         video_widget = dashboard.add_video_device("device_1", "RGB")
-        print("✓ Multi-modal dashboard created and tested")
+        print("[CHECK] Multi-modal dashboard created and tested")
         
-        print("✓ Plotting widgets test passed")
+        print("[CHECK] Plotting widgets test passed")
         return True
         
     except Exception as e:
-        print(f"✗ Plotting widgets test failed: {e}")
+        print(f" Plotting widgets test failed: {e}")
         return False
 
 
@@ -150,7 +150,7 @@ def test_native_backend_structure():
         
         # Check directory structure
         if not backend_dir.exists():
-            print("✗ Native backend directory missing")
+            print(" Native backend directory missing")
             return False
             
         required_files = [
@@ -165,15 +165,15 @@ def test_native_backend_structure():
         for file_path in required_files:
             full_path = backend_dir / file_path
             if not full_path.exists():
-                print(f"✗ Missing file: {file_path}")
+                print(f" Missing file: {file_path}")
                 return False
-            print(f"✓ Found: {file_path}")
+            print(f"[CHECK] Found: {file_path}")
         
-        print("✓ Native backend structure test passed")
+        print("[CHECK] Native backend structure test passed")
         return True
         
     except Exception as e:
-        print(f"✗ Native backend structure test failed: {e}")
+        print(f" Native backend structure test failed: {e}")
         return False
 
 
@@ -199,23 +199,23 @@ def test_gui_widgets():
             {"device_id": "device_2", "device_type": "RGB", "status": "recording"}
         ]
         device_list.update_devices(test_devices)
-        print("✓ Device list widget created and tested")
+        print("[CHECK] Device list widget created and tested")
         
         # Test session control widget
         session_control = SessionControlWidget()
-        print("✓ Session control widget created")
+        print("[CHECK] Session control widget created")
         
         # Test status display widget
         status_display = StatusDisplayWidget()
         test_stats = {"synchronization_rate": 0.95, "max_offset_ms": 2.5, "total_devices": 2}
         status_display.update_time_sync_stats(test_stats)
-        print("✓ Status display widget created and tested")
+        print("[CHECK] Status display widget created and tested")
         
-        print("✓ Enhanced GUI widgets test passed")
+        print("[CHECK] Enhanced GUI widgets test passed")
         return True
         
     except Exception as e:
-        print(f"✗ Enhanced GUI widgets test failed: {e}")
+        print(f" Enhanced GUI widgets test failed: {e}")
         return False
 
 
@@ -246,10 +246,10 @@ def main():
     print(f"\nPassed: {passed}/{total}")
     
     if passed == total:
-        print("🎉 All tests passed! PC Controller components are working correctly.")
+        print("[CELEBRATION] All tests passed! PC Controller components are working correctly.")
         return 0
     else:
-        print("❌ Some tests failed. Check the output above for details.")
+        print("[ERROR] Some tests failed. Check the output above for details.")
         return 1
 
 

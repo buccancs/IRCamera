@@ -727,7 +727,8 @@ def calculate_temporal_alignment(
                 device_offsets[event.source_device] = offset_ns
             else:
                 logger.warning(
-                    f"Device {event.source_device} offset {offset_ms:.2f}ms exceeds tolerance"
+                    f"Device {event.source_device} offset {offset_ms:.2f}ms "
+                    f"exceeds tolerance"
                 )
 
     return device_offsets

@@ -253,7 +253,8 @@ class NetworkServer:
                 f"and {secure_addr[0]}:{secure_addr[1]} (TLS)"
             )
             logger.info(
-                "Enhanced networking features: TLS encryption, mDNS discovery, reliable messaging"
+                "Enhanced networking features: TLS encryption, mDNS discovery, "
+                "reliable messaging"
             )
 
             return True
@@ -960,7 +961,8 @@ class NetworkServer:
         try:
             if event_type == "discovered":
                 logger.info(
-                    f"Discovered device: {device.service_name} ({device.device_type.value}) at {device.ip_address}:{device.port}"
+                    f"Discovered device: {device.service_name} "
+                    f"({device.device_type.value}) at {device.ip_address}:{device.port}"
                 )
 
                 # Optionally auto-connect to discovered devices
@@ -1226,5 +1228,6 @@ class NetworkServer:
             ]
 
         logger.debug(
-            f"Buffered {len(data_points)} GSR points from {device_id}, buffer size: {len(self._gsr_data_buffer[device_id])}"
+            f"Buffered {len(data_points)} GSR points from {device_id}, "
+            f"buffer size: {len(self._gsr_data_buffer[device_id])}"
         )

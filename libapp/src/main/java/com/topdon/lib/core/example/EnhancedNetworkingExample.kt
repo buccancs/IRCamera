@@ -65,7 +65,7 @@ class EnhancedNetworkingExample(private val context: Context) {
                         
                         val syncResult = timeSyncService.synchronizeTime(pcController.ipAddress, pcController.port)
                         if (syncResult.isSuccess) {
-                            Log.i(TAG, "✓ Time synchronized. Offset: ${syncResult.clockOffsetMs}ms, RTT: ${syncResult.roundTripDelayMs}ms")
+                            Log.i(TAG, " Time synchronized. Offset: ${syncResult.clockOffsetMs}ms, RTT: ${syncResult.roundTripDelayMs}ms")
                             
                             // Step 5: Demonstrate synchronized timestamps
                             val syncTimestamp = timeSyncService.getSynchronizedTime(syncResult.clockOffsetMs)
@@ -139,15 +139,15 @@ class EnhancedNetworkingExample(private val context: Context) {
             priority = ReliableMessageService.MessagePriority.CRITICAL,
             callback = object : ReliableMessageService.MessageCallback {
                 override fun onAcknowledged(messageId: String) {
-                    Log.i(TAG, "✓ Message acknowledged: $messageId")
+                    Log.i(TAG, " Message acknowledged: $messageId")
                 }
 
                 override fun onFailed(messageId: String, error: String) {
-                    Log.e(TAG, "✗ Message failed: $messageId - $error")
+                    Log.e(TAG, " Message failed: $messageId - $error")
                 }
 
                 override fun onRetrying(messageId: String, attempt: Int) {
-                    Log.w(TAG, "↻ Retrying message: $messageId (attempt $attempt)")
+                    Log.w(TAG, " Retrying message: $messageId (attempt $attempt)")
                 }
             }
         )

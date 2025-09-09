@@ -232,7 +232,8 @@ class NetworkDiscoveryService:
             self.registered_services.append(service_info)
 
             logger.info(
-                f"Registered PC controller service: {service_name} at {self.local_ip}:{port}"
+                f"Registered PC controller service: {service_name} at "
+                f"{self.local_ip}:{port}"
             )
 
         except Exception as e:
@@ -267,7 +268,8 @@ class NetworkDiscoveryService:
         # This would implement subnet scanning as a fallback
         # For now, just log that it would be implemented
         logger.warning(
-            "Fallback discovery not fully implemented - install zeroconf for full functionality"
+            "Fallback discovery not fully implemented - install zeroconf for "
+            "full functionality"
         )
 
         self.is_running = True
@@ -356,7 +358,8 @@ class NetworkDiscoveryService:
             self.discovered_devices[device_key] = device
 
             logger.info(
-                f"Discovered device: {service_name} ({device_type.value}) at {ip_address}:{port}"
+                f"Discovered device: {service_name} ({device_type.value}) at "
+                f"{ip_address}:{port}"
             )
 
             # Notify listeners

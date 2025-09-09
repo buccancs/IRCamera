@@ -25,8 +25,12 @@ class IconRegistry:
         "calibration": {
             "name": "Calibration Crosshair",
             "android_resource": "ic_menu_coordinate_svg.xml",
-            "android_path": "libui/src/main/res/drawable/ic_menu_coordinate_svg.xml",
-            "description": "Crosshair with concentric circles for calibration and targeting",
+            "android_path": (
+                "libui/src/main/res/drawable/ic_menu_coordinate_svg.xml"
+            ),
+            "description": (
+                "Crosshair with concentric circles for calibration and targeting"
+            ),
             "use_cases": [
                 "Camera calibration",
                 "Coordinate systems",
