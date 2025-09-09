@@ -74,6 +74,11 @@ import java.io.OutputStream
 
 // Legacy ARouter route annotation - now using NavigationManager
 class MainActivity : BaseActivity(), View.OnClickListener {
+    companion object {
+        private const val TAG = "MainActivity"
+        private const val COPY_BUFFER_SIZE = 1024
+    }
+
     private val versionViewModel: VersionViewModel by viewModels()
 
     // findViewById declarations
@@ -270,6 +275,10 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         disconnectDialog?.show()
     }
 
+    /**
+     * Resource-safe file copy using try-with-resources pattern
+     * Ensures proper cleanup of streams even on exceptions
+     */
     private fun copyFile(
         filename: String,
         targetFile: File,
@@ -278,17 +287,17 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             return
         }
         try {
-            val inputStream = assets.open(filename)
-            val outputStream: OutputStream = FileOutputStream(targetFile)
-            val buffer = ByteArray(1024)
-            var length: Int
-            while (inputStream.read(buffer).also { length = it } > 0) {
-                outputStream.write(buffer, 0, length)
+            assets.open(filename).use { inputStream ->
+                FileOutputStream(targetFile).use { outputStream ->
+                    val buffer = ByteArray(COPY_BUFFER_SIZE)
+                    var length: Int
+                    while (inputStream.read(buffer).also { length = it } > 0) {
+                        outputStream.write(buffer, 0, length)
+                    }
+                }
             }
-            inputStream.close()
-            outputStream.close()
         } catch (e: IOException) {
-            e.printStackTrace()
+            Log.e(TAG, "Error copying file: $filename", e)
         }
     }
 

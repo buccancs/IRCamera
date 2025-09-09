@@ -170,16 +170,29 @@ class PolicyActivity : BaseViewModelActivity<PolicyViewModel>() {
      * @param backgroundColor 修改字体颜色
      * @return String
      */
+    /**
+     * Generate HTML content with improved string building performance
+     */
     fun getHtmlData(
         htmlBody: String,
         fontColor: String,
         backgroundColor: String,
     ): String {
-        val head =
-            "<head>" +
-                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " +
-                "<style>img{max-width: 100%; width:100%; height:auto;}video{max-width: 100%; width:100%; height:auto;}*{margin:0px;}body{font-size:16px;color: $fontColor; background-color: $backgroundColor;}</style>" + "</head>"
-        return "<html>$head<body>$htmlBody</body></html>"
+        return buildString {
+            append("<html>")
+            append("<head>")
+            append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> ")
+            append("<style>")
+            append("img{max-width: 100%; width:100%; height:auto;}")
+            append("video{max-width: 100%; width:100%; height:auto;}")
+            append("*{margin:0px;}")
+            append("body{font-size:16px;color: ").append(fontColor)
+            append("; background-color: ").append(backgroundColor).append(";}")
+            append("</style>")
+            append("</head>")
+            append("<body>").append(htmlBody).append("</body>")
+            append("</html>")
+        }
     }
 
     override fun httpErrorTip(

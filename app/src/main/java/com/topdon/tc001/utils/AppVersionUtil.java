@@ -46,12 +46,18 @@ import kotlin.jvm.functions.Function0;
  * @date 2022/2/10 19:48
  */
 public class AppVersionUtil {
+    // Constants for improved maintainability
+    private static final String TAG = "AppVersionUtil";
+    private static final String FILE_NAME_PREFIX = "topinfrared";
+    private static final String FILE_NAME_SUFFIX = ".zip";
+    private static final String LOG_TAG = "bcf";
+    
     private Context mContext;
     private DownloadCompleteReceiver completeReceiver; // 声明一个下载完成的广播接收器
     private DownloadManager dowanloadmanager = null;
     private DotIsShowListener dotIsShowListener = null;
     private String fileName = "";//文件名称
-    private Long mDownloadId = 0l;//下载id
+    private Long mDownloadId = 0L;//下载id
 
     public AppVersionUtil(Context context, DotIsShowListener dotIsShow) {
         this.mContext = context;
@@ -70,7 +76,7 @@ public class AppVersionUtil {
         LMS.getInstance().checkAppUpdate(commonBean -> {
             if (commonBean.code == SUCCESS) {
                 AppInfoBean appInfoBean = LMS.getInstance().getUpdateAppInfoBean();
-                XLog.w("bcf", "app更新信息:" + GsonUtils.toJson(appInfoBean));
+                XLog.w(LOG_TAG, "app更新信息:" + GsonUtils.toJson(appInfoBean));
                 if (appInfoBean != null) {
                     if (appInfoBean.getVersionCode() > getDealVersionCode()) {
                         if (isShowDialog) {
@@ -200,7 +206,7 @@ public class AppVersionUtil {
         // 设置通知栏在下载进行时与完成后都可见
         down.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         // 设置下载文件在私有目录的保存路径。从Android10开始，只有保存到公共目录的才会在系统下载页面显示，保存到私有目录的不在系统下载页面显示
-        fileName = "topinfrared" + System.currentTimeMillis() + ".zip";
+        fileName = FILE_NAME_PREFIX + System.currentTimeMillis() + FILE_NAME_SUFFIX;
         down.setDestinationInExternalFilesDir(mContext, Environment.DIRECTORY_DOWNLOADS, fileName);
         DownloadManager downloadManager = (DownloadManager) mContext.getSystemService(DOWNLOAD_SERVICE);
         // 设置下载文件在公共目录的保存路径。保存到公共目录需要申请存储卡的读写权限
@@ -271,7 +277,7 @@ public class AppVersionUtil {
         } catch (Exception e) {
             XLog.e("bcf", "升级接口解析异常");
         }
-        fileName = "topinfrared" + System.currentTimeMillis() + ".zip";
+        fileName = FILE_NAME_PREFIX + System.currentTimeMillis() + FILE_NAME_SUFFIX;
         String path = mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() + File.separator + fileName;
         XLog.e("bcf", "download path:" + path);
         params.setSaveFilePath(path);
@@ -330,7 +336,7 @@ public class AppVersionUtil {
             File file = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath(), fileName);
             File localFile = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());//本地文件
             List<File> files = ZipUtils.unzipFile(file, localFile);
-            if (files != null && files.size() != 0) {
+            if (files != null && !files.isEmpty()) {
                 AppUtil.installApp(mContext, files.get(0));
             }
         } catch (FileNotFoundException e) {

@@ -17,6 +17,10 @@
     <string name="app_got_it">Got it</string>
     <string name="album_edit_report">Edit Report</string>
     
+    <!-- Correction and calibration strings -->
+    <string name="tips_cancel_correction">Cancel Correction</string>
+    <string name="correction_complete">Correction Complete</string>
+    
     <string name="thermal_config_environment">Environment Temperature</string>
     <string name="thermal_config_distance">Distance</string>
     <string name="thermal_config_radiation">Emissivity</string>

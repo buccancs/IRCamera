@@ -30,6 +30,20 @@ import java.util.*
 class GSRDataViewActivity : AppCompatActivity() {
     companion object {
         private const val EXTRA_FILE_PATH = "file_path"
+        
+        // Time conversion constants
+        private const val NANOS_TO_MILLIS = 1000000
+        private const val NANOS_TO_SECONDS = 1000000000.0
+        
+        // String formatting constants
+        private const val GSR_FORMAT = "%.4f"
+        private const val QUALITY_FORMAT = "%.1f" 
+        private const val DURATION_FORMAT = "%.3f"
+        private const val SYNC_MARKER = "SYNC"
+        private const val EMPTY_STRING = ""
+        
+        // Date format constants
+        private val ISO_FORMATTER = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
 
         fun startActivity(
             context: Context,
@@ -316,81 +330,86 @@ class GSRDataViewActivity : AppCompatActivity() {
         }
     }
     
+    /**
+     * Export data as enhanced CSV with proper resource management
+     */
     private fun exportEnhancedCSV(outputFile: File) {
-        val writer = FileWriter(outputFile)
-        val csvWriter = CSVWriter(writer)
-        
-        // Enhanced header with metadata
-        csvWriter.writeNext(arrayOf("# GSR Data Export"))
-        csvWriter.writeNext(arrayOf("# Source File: ${file.name}"))
-        csvWriter.writeNext(arrayOf("# Export Date: ${SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())}"))
-        csvWriter.writeNext(arrayOf("# Device: ${getDeviceInfo()}"))
-        csvWriter.writeNext(arrayOf(""))
-        
-        // Data header
-        csvWriter.writeNext(arrayOf(
-            "timestamp_ns", "timestamp_ms", "timestamp_iso", 
-            "gsr_raw", "gsr_microsiemens", "gsr_normalized",
-            "ppg_raw", "ppg_normalized", 
-            "quality_score", "sync_marker", "notes"
-        ))
-        
-        // Process and export data with enhancements
-        gsrDataPoints.forEachIndexed { index, dataPoint ->
-            val timestampMs = dataPoint.timestamp / 1000000
-            val timestampIso = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()).format(Date(timestampMs))
-            
-            // Calculate additional metrics
-            val normalizedGSR = normalizeGSRValue(dataPoint.gsrValue.toFloat())
-            val normalizedPPG = normalizePPGValue(dataPoint.ppgValue)
-            val qualityScore = calculateDataQuality(dataPoint, index)
-            
-            csvWriter.writeNext(arrayOf(
-                dataPoint.timestamp.toString(),
-                timestampMs.toString(),
-                timestampIso,
-                dataPoint.gsrRaw.toString(),
-                "%.4f".format(dataPoint.gsrValue),
-                "%.4f".format(normalizedGSR),
-                dataPoint.ppgRaw.toString(),
-                "%.4f".format(normalizedPPG),
-                "%.2f".format(qualityScore),
-                if (dataPoint.syncMarker) "SYNC" else "",
-                dataPoint.notes ?: ""
-            ))
+        FileWriter(outputFile).use { writer ->
+            CSVWriter(writer).use { csvWriter ->
+                // Enhanced header with metadata
+                csvWriter.writeNext(arrayOf("# GSR Data Export"))
+                csvWriter.writeNext(arrayOf("# Source File: ${file.name}"))
+                csvWriter.writeNext(arrayOf("# Export Date: ${SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())}"))
+                csvWriter.writeNext(arrayOf("# Device: ${getDeviceInfo()}"))
+                csvWriter.writeNext(arrayOf(""))
+                
+                // Data header
+                csvWriter.writeNext(arrayOf(
+                    "timestamp_ns", "timestamp_ms", "timestamp_iso", 
+                    "gsr_raw", "gsr_microsiemens", "gsr_normalized",
+                    "ppg_raw", "ppg_normalized", 
+                    "quality_score", "sync_marker", "notes"
+                ))
+                
+                // Process and export data with enhancements
+                gsrDataPoints.forEachIndexed { index, dataPoint ->
+                    val timestampMs = dataPoint.timestamp / NANOS_TO_MILLIS
+                    val timestampIso = ISO_FORMATTER.format(Date(timestampMs))
+                    
+                    // Calculate additional metrics
+                    val normalizedGSR = normalizeGSRValue(dataPoint.gsrValue.toFloat())
+                    val normalizedPPG = normalizePPGValue(dataPoint.ppgValue)
+                    val qualityScore = calculateDataQuality(dataPoint, index)
+                    
+                    csvWriter.writeNext(arrayOf(
+                        dataPoint.timestamp.toString(),
+                        timestampMs.toString(),
+                        timestampIso,
+                        dataPoint.gsrRaw.toString(),
+                        GSR_FORMAT.format(dataPoint.gsrValue),
+                        GSR_FORMAT.format(normalizedGSR),
+                        dataPoint.ppgRaw.toString(),
+                        GSR_FORMAT.format(normalizedPPG),
+                        QUALITY_FORMAT.format(qualityScore),
+                        if (dataPoint.syncMarker) SYNC_MARKER else EMPTY_STRING,
+                        dataPoint.notes ?: EMPTY_STRING
+                    ))
+                }
+            }
         }
-        
-        csvWriter.close()
     }
     
+    /**
+     * Export Excel-compatible CSV with proper resource management
+     */
     private fun exportExcelCompatibleCSV(outputFile: File) {
-        val writer = FileWriter(outputFile)
-        val csvWriter = CSVWriter(writer)
-        
-        // Excel-friendly header
-        csvWriter.writeNext(arrayOf(
-            "Date", "Time", "GSR_µS", "PPG", "Quality", "Duration_s"
-        ))
-        
-        gsrDataPoints.forEach { dataPoint ->
-            val date = Date(dataPoint.timestamp / 1000000)
-            val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            val timeFormat = SimpleDateFormat("HH:mm:ss.SSS", Locale.getDefault())
-            val durationSeconds = if (gsrDataPoints.isNotEmpty()) {
-                (dataPoint.timestamp - gsrDataPoints.first().timestamp) / 1000000000.0
-            } else 0.0
-            
-            csvWriter.writeNext(arrayOf(
-                dateFormat.format(date),
-                timeFormat.format(date),
-                "%.4f".format(dataPoint.gsrValue),
-                dataPoint.ppgValue.toString(),
-                "%.1f".format(calculateDataQuality(dataPoint, 0)),
-                "%.3f".format(durationSeconds)
-            ))
+        FileWriter(outputFile).use { writer ->
+            CSVWriter(writer).use { csvWriter ->
+                // Excel-friendly header
+                csvWriter.writeNext(arrayOf(
+                    "Date", "Time", "GSR_µS", "PPG", "Quality", "Duration_s"
+                ))
+                
+                val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                val timeFormat = SimpleDateFormat("HH:mm:ss.SSS", Locale.getDefault())
+                
+                gsrDataPoints.forEach { dataPoint ->
+                    val date = Date(dataPoint.timestamp / NANOS_TO_MILLIS)
+                    val durationSeconds = if (gsrDataPoints.isNotEmpty()) {
+                        (dataPoint.timestamp - gsrDataPoints.first().timestamp) / NANOS_TO_SECONDS
+                    } else 0.0
+                    
+                    csvWriter.writeNext(arrayOf(
+                        dateFormat.format(date),
+                        timeFormat.format(date),
+                        GSR_FORMAT.format(dataPoint.gsrValue),
+                        dataPoint.ppgValue.toString(),
+                        QUALITY_FORMAT.format(calculateDataQuality(dataPoint, 0)),
+                        DURATION_FORMAT.format(durationSeconds)
+                    ))
+                }
+            }
         }
-        
-        csvWriter.close()
     }
     
     private fun exportJSONFormat(outputFile: File) {

@@ -55,14 +55,14 @@ class GSRDemoActivity : AppCompatActivity() {
                 runOnUiThread {
                     isRecording = false
                     updateButtonStates()
-                    statusText.text = "Recording stopped. ${sessionInfo.sampleCount} samples recorded."
+                    statusText.text = getString(R.string.gsr_recording_stopped, sessionInfo.sampleCount)
 
                     val sessionDir = gsrRecorder.getSessionDirectory()?.absolutePath
-                    dataText.text = "Session saved to:\n$sessionDir\n\n" +
-                        "Files created:\n" +
-                        "- signals.csv (GSR data)\n" +
-                        "- sync_marks.csv (sync events)\n" +
-                        "- session_metadata.json (metadata)"
+                    dataText.text = buildString {
+                        append(getString(R.string.gsr_session_saved, sessionDir))
+                        append("\n\n")
+                        append(getString(R.string.gsr_files_created))
+                    }
                 }
             }
 

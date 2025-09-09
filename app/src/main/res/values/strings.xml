@@ -113,4 +113,9 @@
     <string name="session_delete_confirm">Delete</string>
     <string name="session_load_error">Failed to load sessions: %1$s</string>
     <string name="session_delete_error">Failed to delete session files</string>
+    
+    <!-- GSR Demo Activity strings -->
+    <string name="gsr_recording_stopped">Recording stopped. %1$d samples recorded.</string>
+    <string name="gsr_session_saved">Session saved to:\n%1$s</string>
+    <string name="gsr_files_created">Files created:\n- signals.csv (GSR data)\n- sync_marks.csv (sync events)\n- session_metadata.json (metadata)</string>
 </resources>
