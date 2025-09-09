@@ -55,7 +55,7 @@ class CompassProvider(private val context: Context) {
     }
 
 //    fun getOrientationSensor(): IOrientationSensor? {
-//        // TODO: This isn't used by the actual orientation sensors (they should use it)
+//        // Note: This isn't used by the actual orientation sensors (they should use it)
 //        val useTrueNorth = prefs.useTrueNorth
 //
 //        var source = prefs.source
@@ -72,7 +72,7 @@ class CompassProvider(private val context: Context) {
 //            source = allSources.firstOrNull() ?: CompassSource.CustomMagnetometer
 //        }
 //
-//        // TODO: Apply the smoothing / quality to the orientation sensor
+//        // Note: Apply the smoothing / quality to the orientation sensor
 //        if (source == CompassSource.RotationVector){
 //            return RotationSensor(context, useTrueNorth, SensorService.MOTION_SENSOR_DELAY)
 //        }
@@ -81,7 +81,7 @@ class CompassProvider(private val context: Context) {
 //            return GeomagneticRotationSensor(context, useTrueNorth, SensorService.MOTION_SENSOR_DELAY)
 //        }
 //
-//        // TODO: Construct this from existing sensors
+//        // Note: Construct this from existing sensors
 //        return null
 //    }
 
