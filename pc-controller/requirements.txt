@@ -4,6 +4,12 @@ PyQt6>=6.4.0
 # Logging
 loguru>=0.7.0
 
+# JSON schema validation for protocol
+jsonschema>=4.17.0
+
+# Time synchronization
+ntplib>=0.4.0
+
 # Network communication - Secure versions
 websockets>=12.0
 asyncio-mqtt>=0.13.0
@@ -32,12 +38,6 @@ matplotlib
 # Configuration management
 pyyaml>=6.0
 
-# JSON schema validation for protocol
-jsonschema>=4.17.0
-
-# Time synchronization
-ntplib>=0.4.0
-
 # Bluetooth control (using modern bleak instead of problematic pybluez)
 bleak>=0.20.0
 
@@ -59,12 +59,39 @@ aiofiles>=23.1.0
 cryptography>=45.0.7
 typing-extensions>=4.8.0
 
-# --- Testing ---
+# Comprehensive Testing Framework
 pytest>=7.4.0
 pytest-asyncio>=0.21.0
 pytest-qt>=4.2.0
+pytest-cov>=4.1.0
+pytest-mock>=3.11.1
+pytest-xdist>=3.3.1
+pytest-benchmark>=4.0.0
 
-# --- Development & Code Quality Tools ---
+# Testing utilities and assertions
+unittest-mock>=1.0.1
+hypothesis>=6.82.0
+faker>=19.6.2
+
+# Network and integration testing
+responses>=0.23.3
+httpretty>=1.1.4
+aioresponses>=0.7.4
+
+# Performance and load testing
+locust>=2.16.1
+memory-profiler>=0.61.0
+
+# Data validation and quality testing
+great-expectations>=0.17.15
+pydantic>=2.3.0
+
+# Test reporting and coverage
+coverage>=7.3.0
+pytest-html>=3.2.0
+allure-pytest>=2.13.2
+
+# Development & Code Quality Tools
 flake8>=6.0.0
 black>=23.0.0
 bandit>=1.7.0

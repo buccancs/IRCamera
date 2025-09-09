@@ -23,10 +23,12 @@ class PdfActivity : BaseActivity() {
 
     override fun initView() {
         // Note: PDF functionality requires PDFView library integration
-        // pdfView.fromAsset(if (intent.getBooleanExtra("isTS001", false)) "TC001.pdf" else "TS004.pdf")
-        pdfView.text = "PDF functionality temporarily unavailable - library dependency missing"
+        val pdfFileName = if (intent.getBooleanExtra("isTS001", false)) "TC001.pdf" else "TS004.pdf"
+        pdfView.text = "PDF functionality temporarily unavailable - $pdfFileName will be displayed here when PDF library is available"
+        
         // Note: PDF viewer method calls require PDFView library integration
         /*
+        pdfView.fromAsset(pdfFileName)
         .enableSwipe(true) // allows to block changing pages using swipe
         .swipeHorizontal(false)
         .enableDoubletap(true)

@@ -5,7 +5,9 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.media.MediaScannerConnection
 import android.os.Parcelable
+import android.util.Log
 import android.view.View
+import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.constraintlayout.widget.ConstraintLayout

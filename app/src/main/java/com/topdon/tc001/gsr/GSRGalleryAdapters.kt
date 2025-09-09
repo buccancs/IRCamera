@@ -1,5 +1,7 @@
 package com.topdon.tc001.gsr
 
+import android.media.MediaMetadataRetriever
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -122,6 +124,7 @@ class GSRVideoAdapter(
             ).format(java.util.Date(videoFile.lastModified()))
 
         // Note: Video duration extraction requires MediaMetadataRetriever implementation
+        // Set default duration for now (video duration extraction can be added later if needed)
         holder.duration.text = "Duration: Unknown"
 
         holder.itemView.setOnClickListener {

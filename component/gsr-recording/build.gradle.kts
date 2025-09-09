@@ -16,7 +16,6 @@ android {
     }
 
     buildTypes {
-        // Only release build type - no debug variants
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -26,12 +25,13 @@ android {
         }
     }
     
-    // Disable all debug variants completely - release-only configuration
-    // variantFilter { // DEPRECATED - commented out to eliminate warnings
-        // if (buildType.name == "debug") {
-            // ignore = true
-        // }
-    // }
+    // Configure single release variant for easier maintenance
+    androidComponents {
+        beforeVariants { variant ->
+            // Only enable release variant for single-developer maintenance
+            variant.enable = variant.buildType == "release"
+        }
+    }
 
     
     compileOptions {

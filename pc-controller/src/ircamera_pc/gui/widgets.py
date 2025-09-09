@@ -3,676 +3,583 @@ PyQt6-based GUI widgets for IRCamera PC Controller
 
 This module contains all the user interface widgets for the PC Controller
 application, providing device management, network control, and system
-integration with real-time data visualization.
+integration with enhanced error handling and real-time status monitoring.
 """
 
-from datetime import datetime
-from typing import Dict, List, Optional
-
-import pyqtgraph as pg
-from PyQt6.QtCore import QTimer, pyqtSignal, Qt
-from PyQt6.QtGui import QFont
+import logging
+from typing import Dict, List, Optional, Any
+from PyQt6.QtCore import pyqtSignal, QTimer, QThread, pyqtSlot
 from PyQt6.QtWidgets import (
-    QGroupBox,
-    QHBoxLayout,
-    QLabel,
-    QListWidget,
-    QListWidgetItem,
-    QPushButton,
-    QTextEdit,
-    QVBoxLayout,
-    QWidget,
-    QProgressBar,
-    QFrame,
-    QGridLayout,
-    QSpacerItem,
-    QSizePolicy
+    QLabel, QWidget, QVBoxLayout, QHBoxLayout, QListWidget, QListWidgetItem,
+    QPushButton, QProgressBar, QGroupBox, QTextEdit, QComboBox, QMessageBox,
+    QFrame, QSplitter
 )
+from PyQt6.QtGui import QFont, QPalette, QColor
+from PyQt6.QtCore import Qt
 
-from ..network.server import DeviceInfo, DeviceState
+try:
+    from .plotting_widgets import MultiModalDashboard, DataAggregationWidget
+except ImportError:
+    # Fallback in case plotting widgets are not available
+    logging.warning("Plotting widgets not available - using placeholder classes")
+    
+    class MultiModalDashboard(QWidget):
+        def __init__(self):
+            super().__init__()
+            self.setMinimumSize(400, 300)
+            
+    class DataAggregationWidget(QWidget):
+        def __init__(self):
+            super().__init__()
+            self.setMinimumSize(200, 150)
+        def set_sync_quality(self, quality): pass
 
 
 class DeviceListWidget(QWidget):
-    """Device list widget with status indicators and management controls."""
-
-    device_selected = pyqtSignal(str)  # device_id
-    connect_requested = pyqtSignal(str)  # device_id
-    disconnect_requested = pyqtSignal(str)  # device_id
-    refresh_requested = pyqtSignal() # Signal to refresh the list
-
+    """Widget for displaying and managing connected devices."""
+    
+    device_selected = pyqtSignal(str)
+    
     def __init__(self):
         super().__init__()
-        self._devices: Dict[str, DeviceInfo] = {}
+        self.devices: Dict[str, Dict] = {}
         self._setup_ui()
-
+        
     def _setup_ui(self):
-        """Initialize the device list UI."""
+        """Set up the device list UI."""
         layout = QVBoxLayout(self)
-
-        # Header
-        header = QLabel("Connected Devices")
-        header.setFont(QFont("Arial", 12, QFont.Weight.Bold))
-        layout.addWidget(header)
-
-        # Device list
-        self._device_list = QListWidget()
-        self._device_list.itemClicked.connect(self._on_device_selected)
-        layout.addWidget(self._device_list)
-
-        # Control buttons
-        button_layout = QHBoxLayout()
-        self._connect_btn = QPushButton("Connect")
-        self._disconnect_btn = QPushButton("Disconnect")
-        self._refresh_btn = QPushButton("Refresh")
-
-        self._connect_btn.clicked.connect(self._on_connect_clicked)
-        self._disconnect_btn.clicked.connect(self._on_disconnect_clicked)
-        self._refresh_btn.clicked.connect(self._on_refresh_clicked)
-
-        button_layout.addWidget(self._connect_btn)
-        button_layout.addWidget(self._disconnect_btn)
-        button_layout.addWidget(self._refresh_btn)
-        layout.addLayout(button_layout)
-
-        # Initially disable buttons
-        self._connect_btn.setEnabled(False)
-        self._disconnect_btn.setEnabled(False)
-
-    def update_devices(self, devices: List[DeviceInfo]):
-        """Update the device list display."""
-        current_selection = self._device_list.currentItem()
-        selected_id = current_selection.data(Qt.ItemDataRole.UserRole) if current_selection else None
-
-        self._devices.clear()
-        self._device_list.clear()
-
-        new_item_to_select = None
+        
+        self.device_list = QListWidget()
+        self.device_list.itemClicked.connect(self._on_item_clicked)
+        layout.addWidget(self.device_list)
+        
+        # Device status summary
+        self.status_label = QLabel("No devices connected")
+        layout.addWidget(self.status_label)
+        
+    def update_devices(self, devices: List[Dict]):
+        """Update the device list with current devices."""
+        # Clear current list
+        self.device_list.clear()
+        self.devices.clear()
+        
         for device in devices:
-            self._devices[device.device_id] = device
-
-            # Create list item with status indicator
-            status_icon = self._get_status_icon(device.state)
-            item_text = f"{status_icon} {device.device_name} ({device.ip_address})"
-
+            device_id = device.get('device_id', 'Unknown')
+            device_type = device.get('device_type', 'Unknown')
+            status = device.get('status', 'Unknown')
+            
+            self.devices[device_id] = device
+            
+            # Create list item
+            item_text = f"{device_id} ({device_type}) - {status}"
             item = QListWidgetItem(item_text)
-            item.setData(Qt.ItemDataRole.UserRole, device.device_id)
-            self._device_list.addItem(item)
-            if device.device_id == selected_id:
-                new_item_to_select = item
-
-        if new_item_to_select:
-            self._device_list.setCurrentItem(new_item_to_select)
-            self._on_device_selected(new_item_to_select) # Refresh button state
-
-    def _get_status_icon(self, state: DeviceState) -> str:
-        """Get status icon for device state."""
-        icons = {
-            DeviceState.CONNECTED: "🟢",
-            DeviceState.CONNECTING: "🟡",
-            DeviceState.RECORDING: "🔴",
-            DeviceState.DISCONNECTED: "⚫",
-            DeviceState.ERROR: "❌"
-        }
-        return icons.get(state, "❓")
-
-    def _on_device_selected(self, item: QListWidgetItem):
+            
+            # Color coding based on status
+            if status == 'connected':
+                item.setStyleSheet("color: green;")
+            elif status == 'recording':
+                item.setStyleSheet("color: cyan;")
+            else:
+                item.setStyleSheet("color: red;")
+                
+            self.device_list.addItem(item)
+            
+        # Update status summary
+        count = len(devices)
+        connected_count = sum(1 for d in devices if d.get('status') == 'connected')
+        self.status_label.setText(f"{count} devices ({connected_count} connected)")
+        
+    def _on_item_clicked(self, item):
         """Handle device selection."""
-        device_id = item.data(Qt.ItemDataRole.UserRole)
-        device = self._devices.get(device_id)
-
-        if device:
-            self.device_selected.emit(device_id)
-            # Update button states
-            is_connected = device.state in [DeviceState.CONNECTED, DeviceState.RECORDING]
-            self._connect_btn.setEnabled(not is_connected)
-            self._disconnect_btn.setEnabled(is_connected)
-
-    def _on_connect_clicked(self):
-        """Handle connect button click."""
-        current_item = self._device_list.currentItem()
-        if current_item:
-            device_id = current_item.data(Qt.ItemDataRole.UserRole)
-            self.connect_requested.emit(device_id)
-
-    def _on_disconnect_clicked(self):
-        """Handle disconnect button click."""
-        current_item = self._device_list.currentItem()
-        if current_item:
-            device_id = current_item.data(Qt.ItemDataRole.UserRole)
-            self.disconnect_requested.emit(device_id)
-
-    def _on_refresh_clicked(self):
-        """Handle refresh button click."""
-        self.refresh_requested.emit()
+        device_id = item.text().split(' ')[0]  # Extract device ID
+        self.device_selected.emit(device_id)
 
 
 class SessionControlWidget(QWidget):
-    """Session control widget for recording management."""
-
-    session_start_requested = pyqtSignal(str)  # session_name
-    session_stop_requested = pyqtSignal()
-    sync_flash_requested = pyqtSignal()
-
+    """Widget for session management and control."""
+    
+    start_session_requested = pyqtSignal()
+    stop_session_requested = pyqtSignal()
+    new_session_requested = pyqtSignal()
+    
     def __init__(self):
         super().__init__()
-        self._recording = False
         self._setup_ui()
-
+        
     def _setup_ui(self):
-        """Initialize the session control UI."""
+        """Set up the session control UI."""
         layout = QVBoxLayout(self)
-
-        # Header
-        header = QLabel("Session Control")
-        header.setFont(QFont("Arial", 12, QFont.Weight.Bold))
-        layout.addWidget(header)
-
-        # Session status
-        self._status_label = QLabel("Ready")
-        self._status_label.setStyleSheet("color: green; font-weight: bold;")
-        layout.addWidget(self._status_label)
-
+        
+        # Session buttons
+        self.new_session_btn = QPushButton("New Session")
+        self.new_session_btn.clicked.connect(self.new_session_requested.emit)
+        layout.addWidget(self.new_session_btn)
+        
+        self.start_btn = QPushButton("Start Recording")
+        self.start_btn.clicked.connect(self.start_session_requested.emit)
+        layout.addWidget(self.start_btn)
+        
+        self.stop_btn = QPushButton("Stop Recording")
+        self.stop_btn.clicked.connect(self.stop_session_requested.emit)
+        self.stop_btn.setEnabled(False)
+        layout.addWidget(self.stop_btn)
+        
+        # Session info
+        self.session_label = QLabel("No active session")
+        layout.addWidget(self.session_label)
+        
         # Recording timer
-        self._timer_label = QLabel("00:00:00")
-        self._timer_label.setFont(QFont("Arial", 14, QFont.Weight.Bold))
-        layout.addWidget(self._timer_label)
-
-        # Control buttons
-        button_layout = QHBoxLayout()
-        self._start_btn = QPushButton("Start Recording")
-        self._stop_btn = QPushButton("Stop Recording")
-        self._sync_btn = QPushButton("Sync Flash")
-
-        self._start_btn.clicked.connect(self._on_start_clicked)
-        self._stop_btn.clicked.connect(self._on_stop_clicked)
-        self._sync_btn.clicked.connect(self._on_sync_clicked)
-
-        self._start_btn.setStyleSheet("background-color: green; color: white;")
-        self._stop_btn.setStyleSheet("background-color: red; color: white;")
-        self._sync_btn.setStyleSheet("background-color: blue; color: white;")
-
-        button_layout.addWidget(self._start_btn)
-        button_layout.addWidget(self._stop_btn)
-        button_layout.addWidget(self._sync_btn)
-        layout.addLayout(button_layout)
-
-        # Initially disable stop button
-        self._stop_btn.setEnabled(False)
-
-        # Timer for updating recording duration
-        self._recording_timer = QTimer()
-        self._recording_timer.timeout.connect(self._update_timer)
-        self._recording_start_time = None
-
-    def _on_start_clicked(self):
-        """Handle start recording button click."""
-        session_name = f"session_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
-        self.session_start_requested.emit(session_name)
-
-    def _on_stop_clicked(self):
-        """Handle stop recording button click."""
-        self.session_stop_requested.emit()
-
-    def _on_sync_clicked(self):
-        """Handle sync flash button click."""
-        self.sync_flash_requested.emit()
-
-    def set_recording_state(self, recording: bool):
-        """Update UI to reflect recording state."""
-        self._recording = recording
-
-        if recording:
-            self._status_label.setText("RECORDING")
-            self._status_label.setStyleSheet("color: red; font-weight: bold;")
-            self._start_btn.setEnabled(False)
-            self._stop_btn.setEnabled(True)
-            self._recording_start_time = datetime.now()
-            self._recording_timer.start(1000)  # Update every second
+        self.timer_label = QLabel("00:00:00")
+        self.timer_label.setStyleSheet("font-size: 16px; font-weight: bold;")
+        layout.addWidget(self.timer_label)
+        
+    def update_state(self, session, has_devices):
+        """Update widget state based on session and device status."""
+        if session:
+            self.session_label.setText(f"Session: {session.name}")
+            
+            if session.state == 'recording':
+                self.start_btn.setEnabled(False)
+                self.stop_btn.setEnabled(True)
+                self.new_session_btn.setEnabled(False)
+            else:
+                self.start_btn.setEnabled(has_devices)
+                self.stop_btn.setEnabled(False)
+                self.new_session_btn.setEnabled(True)
         else:
-            self._status_label.setText("Ready")
-            self._status_label.setStyleSheet("color: green; font-weight: bold;")
-            self._start_btn.setEnabled(True)
-            self._stop_btn.setEnabled(False)
-            self._recording_timer.stop()
-            self._timer_label.setText("00:00:00")
-
-    def _update_timer(self):
-        """Update the recording timer display."""
-        if self._recording_start_time:
-            elapsed = datetime.now() - self._recording_start_time
-            hours, remainder = divmod(elapsed.total_seconds(), 3600)
-            minutes, seconds = divmod(remainder, 60)
-            self._timer_label.setText(f"{int(hours):02d}:{int(minutes):02d}:{int(seconds):02d}")
+            self.session_label.setText("No active session")
+            self.start_btn.setEnabled(False)
+            self.stop_btn.setEnabled(False)
+            self.new_session_btn.setEnabled(True)
+            self.timer_label.setText("00:00:00")
 
 
 class StatusDisplayWidget(QWidget):
-    """Real-time status display with network and system metrics."""
-
+    """Widget for displaying system status and statistics."""
+    
     def __init__(self):
         super().__init__()
         self._setup_ui()
-
-    def _setup_ui(self):
-        """Initialize the status display UI."""
-        layout = QVBoxLayout(self)
-
-        # Header
-        header = QLabel("System Status")
-        header.setFont(QFont("Arial", 12, QFont.Weight.Bold))
-        layout.addWidget(header)
-
-        # Metrics grid
-        metrics_layout = QGridLayout()
-
-        # Network metrics
-        self._network_status = QLabel("Disconnected")
-        self._connected_devices = QLabel("0")
-        self._data_rate = QLabel("0.0 KB/s")
-        self._latency = QLabel("-- ms")
         
-        self._network_status.setStyleSheet("color: red; font-weight: bold;")
-
-        metrics_layout.addWidget(QLabel("Network Status:"), 0, 0)
-        metrics_layout.addWidget(self._network_status, 0, 1)
-        metrics_layout.addWidget(QLabel("Connected Devices:"), 1, 0)
-        metrics_layout.addWidget(self._connected_devices, 1, 1)
-        metrics_layout.addWidget(QLabel("Data Rate:"), 2, 0)
-        metrics_layout.addWidget(self._data_rate, 2, 1)
-        metrics_layout.addWidget(QLabel("Network Latency:"), 3, 0)
-        metrics_layout.addWidget(self._latency, 3, 1)
-
-        layout.addLayout(metrics_layout)
-
-        # System resources
-        self._cpu_progress = QProgressBar()
-        self._memory_progress = QProgressBar()
-        self._cpu_progress.setFormat("%p%")
-        self._memory_progress.setFormat("%p%")
-
-        layout.addWidget(QLabel("CPU Usage:"))
-        layout.addWidget(self._cpu_progress)
-        layout.addWidget(QLabel("Memory Usage:"))
-        layout.addWidget(self._memory_progress)
-
-        # Add spacer
-        layout.addItem(QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding))
-
-    def update_system_metrics(self, cpu_percent: float, mem_percent: float):
-        """Update system resource display."""
-        self._cpu_progress.setValue(int(cpu_percent))
-        self._memory_progress.setValue(int(mem_percent))
-
-    def update_network_status(self, connected: bool, device_count: int, data_rate: float, latency: float):
-        """Update network status display."""
-        status_text = "Connected" if connected else "Disconnected"
-        self._network_status.setText(status_text)
-        self._network_status.setStyleSheet(f"color: {'green' if connected else 'red'}; font-weight: bold;")
-
-        self._connected_devices.setText(f"{device_count}")
-        self._data_rate.setText(f"{data_rate:.1f} KB/s")
-        self._latency.setText(f"{latency:.1f} ms" if latency >= 0 else "-- ms")
-
-
-class RealTimePlotWidget(QWidget):
-    """Real-time plotting widget using PyQtGraph for sensor data visualization."""
-
-    def __init__(self, title: str = "Real-time Data", max_samples: int = 1000):
-        super().__init__()
-        self._title = title
-        self._max_samples = max_samples
-        self._data_buffer = []
-        self._time_buffer = []
-        self._setup_ui()
-
     def _setup_ui(self):
-        """Initialize the plotting UI."""
+        """Set up the status display UI."""
         layout = QVBoxLayout(self)
-
-        # Create plot widget
-        self._plot_widget = pg.PlotWidget()
-        self._plot_widget.setTitle(self._title, size="12pt")
-        self._plot_widget.setLabel('left', 'Value')
-        self._plot_widget.setLabel('bottom', 'Time (s)')
-        self._plot_widget.showGrid(x=True, y=True)
-        self._plot_widget.setBackground('w')
-
-        # Create plot line
-        pen = pg.mkPen(color=(0, 0, 255), width=2)
-        self._plot_line = self._plot_widget.plot([], [], pen=pen)
-
-        layout.addWidget(self._plot_widget)
-
-    def add_data_point(self, value: float, timestamp: Optional[float] = None):
-        """Add a new data point to the plot."""
-        if timestamp is None:
-            timestamp = datetime.now().timestamp()
-
-        self._data_buffer.append(value)
-        self._time_buffer.append(timestamp)
-
-        # Keep only the most recent samples
-        if len(self._data_buffer) > self._max_samples:
-            self._data_buffer.pop(0)
-            self._time_buffer.pop(0)
-
-        # Update plot
-        if self._time_buffer:
-            # Convert to relative time (seconds from start)
-            base_time = self._time_buffer[0]
-            relative_times = [t - base_time for t in self._time_buffer]
-            self._plot_line.setData(relative_times, self._data_buffer)
-
-    def clear_data(self):
-        """Clear all data from the plot."""
-        self._data_buffer.clear()
-        self._time_buffer.clear()
-        self._plot_line.setData([], [])
-
-
-class BluetoothControlWidget(QWidget):
-    """Bluetooth control and management widget."""
-
-    bluetooth_toggle_requested = pyqtSignal(bool)  # enable/disable
-    device_scan_requested = pyqtSignal()
-
-    def __init__(self):
-        super().__init__()
-        self._bluetooth_enabled = False
-        self._setup_ui()
-
-    def _setup_ui(self):
-        """Initialize the Bluetooth control UI."""
-        layout = QVBoxLayout(self)
-
-        # Header
-        header = QLabel("Bluetooth Control")
-        header.setFont(QFont("Arial", 12, QFont.Weight.Bold))
-        layout.addWidget(header)
-
-        # Status indicator
-        self._status_label = QLabel("Bluetooth: Disabled")
-        self._status_label.setStyleSheet("color: red;")
-        layout.addWidget(self._status_label)
-
-        # Control buttons
-        button_layout = QHBoxLayout()
-        self._toggle_btn = QPushButton("Enable Bluetooth")
-        self._scan_btn = QPushButton("Scan Devices")
-
-        self._toggle_btn.clicked.connect(self._on_toggle_clicked)
-        self._scan_btn.clicked.connect(self._on_scan_clicked)
-
-        button_layout.addWidget(self._toggle_btn)
-        button_layout.addWidget(self._scan_btn)
-        layout.addLayout(button_layout)
-
-        # Initially disable scan button
-        self._scan_btn.setEnabled(False)
-
-    def _on_toggle_clicked(self):
-        """Handle Bluetooth toggle button click."""
-        new_state = not self._bluetooth_enabled
-        self.bluetooth_toggle_requested.emit(new_state)
-
-    def _on_scan_clicked(self):
-        """Handle device scan button click."""
-        self.device_scan_requested.emit()
-
-    def set_bluetooth_state(self, enabled: bool):
-        """Update Bluetooth state display."""
-        self._bluetooth_enabled = enabled
-
-        if enabled:
-            self._status_label.setText("Bluetooth: Enabled")
-            self._status_label.setStyleSheet("color: green;")
-            self._toggle_btn.setText("Disable Bluetooth")
-            self._scan_btn.setEnabled(True)
-        else:
-            self._status_label.setText("Bluetooth: Disabled")
-            self._status_label.setStyleSheet("color: red;")
-            self._toggle_btn.setText("Enable Bluetooth")
-            self._scan_btn.setEnabled(False)
-
-
-class WiFiControlWidget(QWidget):
-    """WiFi control and monitoring widget."""
-
-    wifi_toggle_requested = pyqtSignal(bool)  # enable/disable
-    network_scan_requested = pyqtSignal()
-
-    def __init__(self):
-        super().__init__()
-        self._wifi_enabled = True  # Usually enabled by default
-        self._setup_ui()
-
-    def _setup_ui(self):
-        """Initialize the WiFi control UI."""
-        layout = QVBoxLayout(self)
-
-        # Header
-        header = QLabel("WiFi Control")
-        header.setFont(QFont("Arial", 12, QFont.Weight.Bold))
-        layout.addWidget(header)
-
-        # Status and info
-        self._status_label = QLabel("WiFi: Enabled")
-        self._status_label.setStyleSheet("color: green;")
-        layout.addWidget(self._status_label)
-
-        self._network_label = QLabel("Network: Not connected")
-        layout.addWidget(self._network_label)
-
-        self._ip_label = QLabel("IP: ---.---.---.---")
-        layout.addWidget(self._ip_label)
-
-        # Control buttons
-        button_layout = QHBoxLayout()
-        self._toggle_btn = QPushButton("Disable WiFi")
-        self._scan_btn = QPushButton("Scan Networks")
-
-        self._toggle_btn.clicked.connect(self._on_toggle_clicked)
-        self._scan_btn.clicked.connect(self._on_scan_clicked)
-
-        button_layout.addWidget(self._toggle_btn)
-        button_layout.addWidget(self._scan_btn)
-        layout.addLayout(button_layout)
-
-    def _on_toggle_clicked(self):
-        """Handle WiFi toggle button click."""
-        new_state = not self._wifi_enabled
-        self.wifi_toggle_requested.emit(new_state)
-
-    def _on_scan_clicked(self):
-        """Handle network scan button click."""
-        self.network_scan_requested.emit()
-
-    def set_wifi_state(self, enabled: bool, network_name: str = "", ip_address: str = ""):
-        """Update WiFi state display."""
-        self._wifi_enabled = enabled
-
-        if enabled:
-            self._status_label.setText("WiFi: Enabled")
-            self._status_label.setStyleSheet("color: green;")
-            self._toggle_btn.setText("Disable WiFi")
-            self._scan_btn.setEnabled(True)
-        else:
-            self._status_label.setText("WiFi: Disabled")
-            self._status_label.setStyleSheet("color: red;")
-            self._toggle_btn.setText("Enable WiFi")
-            self._scan_btn.setEnabled(False)
-
-        self._network_label.setText(f"Network: {network_name or 'Not connected'}")
-        self._ip_label.setText(f"IP: {ip_address or '---.---.---.---'}")
+        
+        # Time sync status
+        sync_group = QGroupBox("Time Synchronization")
+        sync_layout = QVBoxLayout(sync_group)
+        
+        self.sync_quality_label = QLabel("Quality: --")
+        self.sync_offset_label = QLabel("Max Offset: --")
+        self.sync_devices_label = QLabel("Sync Devices: 0")
+        
+        sync_layout.addWidget(self.sync_quality_label)
+        sync_layout.addWidget(self.sync_offset_label)
+        sync_layout.addWidget(self.sync_devices_label)
+        
+        layout.addWidget(sync_group)
+        
+        # Session status
+        session_group = QGroupBox("Session Status")
+        session_layout = QVBoxLayout(session_group)
+        
+        self.session_name_label = QLabel("Name: --")
+        self.session_duration_label = QLabel("Duration: --")
+        self.session_data_size_label = QLabel("Data Size: --")
+        
+        session_layout.addWidget(self.session_name_label)
+        session_layout.addWidget(self.session_duration_label)
+        session_layout.addWidget(self.session_data_size_label)
+        
+        layout.addWidget(session_group)
+        
+        # Data aggregation widget
+        self.data_aggregation = DataAggregationWidget()
+        layout.addWidget(self.data_aggregation)
+        
+    def update_time_sync_stats(self, stats):
+        """Update time synchronization statistics."""
+        if stats:
+            quality = stats.get('synchronization_rate', 0) * 100
+            max_offset = stats.get('max_offset_ms', 0)
+            device_count = stats.get('total_devices', 0)
+            
+            self.sync_quality_label.setText(f"Quality: {quality:.1f}%")
+            self.sync_offset_label.setText(f"Max Offset: {max_offset:.1f}ms")
+            self.sync_devices_label.setText(f"Sync Devices: {device_count}")
+            
+            # Update data aggregation widget
+            self.data_aggregation.set_sync_quality(quality)
+            
+    def update_session_info(self, session):
+        """Update session information."""
+        if session:
+            self.session_name_label.setText(f"Name: {session.name}")
+            self.session_duration_label.setText(f"Duration: {session.duration_seconds:.1f}s")
+            # Data size would need to be calculated based on actual data
+            self.session_data_size_label.setText("Data Size: --")
 
 
 class SystemIntegrationWidget(QWidget):
-    """System integration and elevation control widget."""
-
-    elevation_requested = pyqtSignal(str)  # operation_name
-    system_info_requested = pyqtSignal()
-
+    """Widget for system integration controls."""
+    
+    elevation_requested = pyqtSignal(str)
+    
     def __init__(self):
         super().__init__()
         self._setup_ui()
-
+        
     def _setup_ui(self):
-        """Initialize the system integration UI."""
+        """Set up the system integration UI."""
         layout = QVBoxLayout(self)
+        
+        self.privilege_label = QLabel("Privilege Level: User")
+        layout.addWidget(self.privilege_label)
+        
+        self.elevate_btn = QPushButton("Request Admin Privileges")
+        self.elevate_btn.clicked.connect(
+            lambda: self.elevation_requested.emit("System configuration")
+        )
+        layout.addWidget(self.elevate_btn)
+        
+        self.status_label = QLabel("Ready")
+        layout.addWidget(self.status_label)
+        
+    def update_privilege_level(self, level: str):
+        """Update privilege level display."""
+        self.privilege_label.setText(f"Privilege Level: {level}")
+        
+    def update_permissions(self, permissions: Dict):
+        """Update permission status."""
+        # Show permission status in tooltip or separate area
+        perm_text = "\n".join([f"{k}: {'✓' if v else '✗'}" for k, v in permissions.items()])
+        self.setToolTip(f"Permissions:\n{perm_text}")
+        
+    def set_status_message(self, message: str, is_error: bool = False):
+        """Set status message."""
+        self.status_label.setText(message)
+        color = "red" if is_error else "green"
+        self.status_label.setStyleSheet(f"color: {color};")
 
-        # Header
-        header = QLabel("System Integration")
-        header.setFont(QFont("Arial", 12, QFont.Weight.Bold))
-        layout.addWidget(header)
 
-        # Admin status
-        self._admin_status = QLabel("Admin: Not elevated")
-        self._admin_status.setStyleSheet("color: orange;")
-        layout.addWidget(self._admin_status)
+class BluetoothControlWidget(QWidget):
+    """Widget for Bluetooth device management."""
+    
+    scan_requested = pyqtSignal()
+    connect_requested = pyqtSignal(str)
+    disconnect_requested = pyqtSignal(str)
+    
+    def __init__(self):
+        super().__init__()
+        self._setup_ui()
+        
+    def _setup_ui(self):
+        """Set up Bluetooth control UI."""
+        layout = QVBoxLayout(self)
+        
+        # Scan controls
+        scan_layout = QHBoxLayout()
+        self.scan_btn = QPushButton("Scan for Devices")
+        self.scan_btn.clicked.connect(self.scan_requested.emit)
+        scan_layout.addWidget(self.scan_btn)
+        
+        layout.addLayout(scan_layout)
+        
+        # Device list
+        self.device_list = QListWidget()
+        layout.addWidget(self.device_list)
+        
+        # Connection controls
+        conn_layout = QHBoxLayout()
+        self.connect_btn = QPushButton("Connect")
+        self.connect_btn.clicked.connect(self._on_connect_clicked)
+        self.disconnect_btn = QPushButton("Disconnect")
+        self.disconnect_btn.clicked.connect(self._on_disconnect_clicked)
+        
+        conn_layout.addWidget(self.connect_btn)
+        conn_layout.addWidget(self.disconnect_btn)
+        layout.addLayout(conn_layout)
+        
+        self.status_label = QLabel("Ready")
+        layout.addWidget(self.status_label)
+        
+    def _on_connect_clicked(self):
+        """Handle connect button click."""
+        current_item = self.device_list.currentItem()
+        if current_item:
+            device_addr = current_item.text().split(' ')[0]
+            self.connect_requested.emit(device_addr)
+            
+    def _on_disconnect_clicked(self):
+        """Handle disconnect button click."""
+        current_item = self.device_list.currentItem()
+        if current_item:
+            device_addr = current_item.text().split(' ')[0]
+            self.disconnect_requested.emit(device_addr)
+            
+    def update_devices(self, devices):
+        """Update discovered devices list."""
+        self.device_list.clear()
+        for device in devices:
+            addr = device.get('address', 'Unknown')
+            name = device.get('name', 'Unknown Device')
+            self.device_list.addItem(f"{addr} - {name}")
+            
+    def set_connection_status(self, device_addr: str, connected: bool):
+        """Update connection status for a device."""
+        status = "Connected" if connected else "Disconnected"
+        self.status_label.setText(f"{device_addr}: {status}")
+        
+    def set_error_status(self, error: str):
+        """Set error status."""
+        self.status_label.setText(f"Error: {error}")
+        self.status_label.setStyleSheet("color: red;")
 
-        # System info
-        self._system_info = QTextEdit()
-        self._system_info.setMaximumHeight(100)
-        self._system_info.setReadOnly(True)
-        layout.addWidget(self._system_info)
 
-        # Control buttons
-        button_layout = QHBoxLayout()
-        self._elevate_btn = QPushButton("Request Admin")
-        self._refresh_btn = QPushButton("Refresh Info")
-
-        self._elevate_btn.clicked.connect(self._on_elevate_clicked)
-        self._refresh_btn.clicked.connect(self._on_refresh_clicked)
-
-        button_layout.addWidget(self._elevate_btn)
-        button_layout.addWidget(self._refresh_btn)
-        layout.addLayout(button_layout)
-
-    def _on_elevate_clicked(self):
-        """Handle admin elevation request."""
-        self.elevation_requested.emit("system_admin")
-
-    def _on_refresh_clicked(self):
-        """Handle system info refresh."""
-        self.system_info_requested.emit()
-
-    def set_admin_status(self, elevated: bool):
-        """Update admin elevation status."""
-        if elevated:
-            self._admin_status.setText("Admin: Elevated")
-            self._admin_status.setStyleSheet("color: green;")
-            self._elevate_btn.setText("Admin Active")
-            self._elevate_btn.setEnabled(False)
+class IntegrationManagementWidget(QWidget):
+    """Enhanced widget for managing Hub-Spoke integration with comprehensive error handling."""
+    
+    integration_status_changed = pyqtSignal(str, bool)  # status, is_error
+    hub_connection_requested = pyqtSignal()
+    spoke_discovery_requested = pyqtSignal()
+    sync_test_requested = pyqtSignal()
+    
+    def __init__(self):
+        super().__init__()
+        self.logger = logging.getLogger(__name__)
+        self._setup_ui()
+        self._setup_monitoring()
+        
+    def _setup_ui(self):
+        """Set up the integration management UI."""
+        layout = QVBoxLayout(self)
+        
+        # Title
+        title = QLabel("Hub-Spoke Integration Manager")
+        title.setFont(QFont("Arial", 12, QFont.Weight.Bold))
+        layout.addWidget(title)
+        
+        # Connection Status Panel
+        conn_group = QGroupBox("Connection Status")
+        conn_layout = QVBoxLayout(conn_group)
+        
+        self.hub_status_label = QLabel("Hub: Disconnected")
+        self.spoke_count_label = QLabel("Active Spokes: 0")
+        self.sync_status_label = QLabel("Time Sync: Not Available")
+        
+        conn_layout.addWidget(self.hub_status_label)
+        conn_layout.addWidget(self.spoke_count_label) 
+        conn_layout.addWidget(self.sync_status_label)
+        
+        layout.addWidget(conn_group)
+        
+        # Control Buttons
+        btn_group = QGroupBox("Integration Controls")
+        btn_layout = QHBoxLayout(btn_group)
+        
+        self.hub_connect_btn = QPushButton("Connect to Hub")
+        self.hub_connect_btn.clicked.connect(self.hub_connection_requested.emit)
+        
+        self.discover_spokes_btn = QPushButton("Discover Spokes")
+        self.discover_spokes_btn.clicked.connect(self.spoke_discovery_requested.emit)
+        
+        self.sync_test_btn = QPushButton("Test Sync")
+        self.sync_test_btn.clicked.connect(self.sync_test_requested.emit)
+        
+        btn_layout.addWidget(self.hub_connect_btn)
+        btn_layout.addWidget(self.discover_spokes_btn)
+        btn_layout.addWidget(self.sync_test_btn)
+        
+        layout.addWidget(btn_group)
+        
+        # Real-time Metrics
+        metrics_group = QGroupBox("Real-time Metrics")
+        metrics_layout = QVBoxLayout(metrics_group)
+        
+        self.data_rate_label = QLabel("Data Rate: -- MB/s")
+        self.latency_label = QLabel("Network Latency: -- ms")
+        self.error_count_label = QLabel("Error Count: 0")
+        
+        metrics_layout.addWidget(self.data_rate_label)
+        metrics_layout.addWidget(self.latency_label)
+        metrics_layout.addWidget(self.error_count_label)
+        
+        layout.addWidget(metrics_group)
+        
+        # Status Log (compact view)
+        log_group = QGroupBox("Status Log")
+        log_layout = QVBoxLayout(log_group)
+        
+        self.status_log = QTextEdit()
+        self.status_log.setMaximumHeight(100)
+        self.status_log.setReadOnly(True)
+        log_layout.addWidget(self.status_log)
+        
+        layout.addWidget(log_group)
+        
+    def _setup_monitoring(self):
+        """Set up real-time monitoring timer."""
+        self.monitor_timer = QTimer()
+        self.monitor_timer.timeout.connect(self._update_metrics)
+        self.monitor_timer.start(1000)  # Update every second
+        
+    @pyqtSlot()
+    def _update_metrics(self):
+        """Update real-time metrics display."""
+        # This would be connected to actual metric sources in production
+        pass
+        
+    def update_hub_status(self, connected: bool, address: str = ""):
+        """Update Hub connection status."""
+        if connected:
+            self.hub_status_label.setText(f"Hub: Connected ({address})")
+            self.hub_status_label.setStyleSheet("color: green;")
+            self.hub_connect_btn.setText("Disconnect Hub")
         else:
-            self._admin_status.setText("Admin: Not elevated")
-            self._admin_status.setStyleSheet("color: orange;")
-            self._elevate_btn.setText("Request Admin")
-            self._elevate_btn.setEnabled(True)
+            self.hub_status_label.setText("Hub: Disconnected")
+            self.hub_status_label.setStyleSheet("color: red;")
+            self.hub_connect_btn.setText("Connect to Hub")
+            
+    def update_spoke_count(self, count: int, active_spokes: List[str] = None):
+        """Update active spoke count and list."""
+        self.spoke_count_label.setText(f"Active Spokes: {count}")
+        if count > 0:
+            self.spoke_count_label.setStyleSheet("color: green;")
+            if active_spokes:
+                tooltip = "Active Spokes:\n" + "\n".join(active_spokes)
+                self.spoke_count_label.setToolTip(tooltip)
+        else:
+            self.spoke_count_label.setStyleSheet("color: gray;")
+            
+    def update_sync_status(self, synchronized: bool, max_offset_ms: float = 0):
+        """Update time synchronization status."""
+        if synchronized:
+            self.sync_status_label.setText(f"Time Sync: Active (±{max_offset_ms:.1f}ms)")
+            if max_offset_ms <= 5.0:  # Within 5ms requirement
+                self.sync_status_label.setStyleSheet("color: green;")
+            else:
+                self.sync_status_label.setStyleSheet("color: orange;")
+        else:
+            self.sync_status_label.setText("Time Sync: Not Available")
+            self.sync_status_label.setStyleSheet("color: red;")
+            
+    def update_metrics(self, data_rate_mbps: float, latency_ms: float, error_count: int):
+        """Update real-time performance metrics."""
+        self.data_rate_label.setText(f"Data Rate: {data_rate_mbps:.2f} MB/s")
+        self.latency_label.setText(f"Network Latency: {latency_ms:.1f} ms")
+        self.error_count_label.setText(f"Error Count: {error_count}")
+        
+        # Color coding based on performance
+        if latency_ms < 10:
+            self.latency_label.setStyleSheet("color: green;")
+        elif latency_ms < 50:
+            self.latency_label.setStyleSheet("color: orange;")  
+        else:
+            self.latency_label.setStyleSheet("color: red;")
+            
+    def add_status_message(self, message: str, level: str = "INFO"):
+        """Add a status message to the log."""
+        timestamp = QTimer().time().toString("hh:mm:ss")
+        formatted_msg = f"[{timestamp}] {level}: {message}"
+        
+        # Color coding by level
+        if level == "ERROR":
+            color = "red"
+        elif level == "WARNING":
+            color = "orange"
+        else:
+            color = "black"
+            
+        self.status_log.append(f"<span style='color: {color};'>{formatted_msg}</span>")
+        
+        # Auto-scroll to bottom
+        cursor = self.status_log.textCursor()
+        cursor.movePosition(cursor.MoveOperation.End)
+        self.status_log.setTextCursor(cursor)
+        
+        # Emit status change signal
+        self.integration_status_changed.emit(message, level == "ERROR")
+        
+    def set_integration_error(self, error: str):
+        """Handle integration errors."""
+        self.add_status_message(f"Integration Error: {error}", "ERROR")
+        self.logger.error(f"Integration error: {error}")
+        
+        # Show error dialog for critical errors
+        if "critical" in error.lower() or "fatal" in error.lower():
+            QMessageBox.critical(self, "Critical Integration Error", error)
 
-    def update_system_info(self, info: str):
-        """Update system information display."""
-        self._system_info.setText(info)
 
-
-class CalibrationUtilityWidget(QWidget):
-    """Widget for camera calibration utilities."""
+class WiFiControlWidget(QWidget):
+    """Widget for WiFi network management."""
     
-    start_calibration_requested = pyqtSignal()
-    load_profile_requested = pyqtSignal()
-
+    scan_requested = pyqtSignal()
+    connect_requested = pyqtSignal(str, str)  # ssid, password
+    disconnect_requested = pyqtSignal()
+    hotspot_start_requested = pyqtSignal(str, str, int)  # ssid, password, channel
+    hotspot_stop_requested = pyqtSignal()
+    
     def __init__(self):
         super().__init__()
         self._setup_ui()
-
+        
     def _setup_ui(self):
-        """Initialize the calibration utility UI."""
+        """Set up WiFi control UI."""
         layout = QVBoxLayout(self)
-
-        # Header
-        header = QLabel("Calibration Utilities")
-        header.setFont(QFont("Arial", 12, QFont.Weight.Bold))
-        layout.addWidget(header)
-
-        # Status label
-        self._status_label = QLabel("Status: No profile loaded")
-        layout.addWidget(self._status_label)
         
-        # Control buttons
-        button_layout = QHBoxLayout()
-        self._start_btn = QPushButton("Start Calibration")
-        self._load_btn = QPushButton("Load Profile")
+        # Network list
+        self.network_list = QComboBox()
+        layout.addWidget(self.network_list)
         
-        self._start_btn.clicked.connect(self.start_calibration_requested)
-        self._load_btn.clicked.connect(self.load_profile_requested)
+        # Scan button
+        self.scan_btn = QPushButton("Scan Networks")
+        self.scan_btn.clicked.connect(self.scan_requested.emit)
+        layout.addWidget(self.scan_btn)
         
-        button_layout.addWidget(self._start_btn)
-        button_layout.addWidget(self._load_btn)
-        layout.addLayout(button_layout)
+        # Connection controls
+        self.connect_btn = QPushButton("Connect to Network")
+        layout.addWidget(self.connect_btn)
         
-        layout.addItem(QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding))
-
-    def set_status(self, message: str, is_error: bool = False):
-        """Update the status label for the user."""
-        self._status_label.setText(f"Status: {message}")
-        color = "red" if is_error else "black"
-        self._status_label.setStyleSheet(f"color: {color};")
-
-
-class GenericIconLabel(QLabel):
-    """
-    Generic icon label widget that displays professional icons for GUI placeholders.
-    
-    This widget provides consistent visual representation across the PC controller
-    interface, including settings, calibration, camera, and network icons.
-    """
-    
-    ICON_SETTINGS = "settings"
-    ICON_CALIBRATION = "calibration" 
-    ICON_CAMERA = "camera"
-    ICON_NETWORK = "network"
-    
-    def __init__(self, icon_type: str = ICON_SETTINGS, size: int = 48, parent=None):
-        super().__init__(parent)
-        self.icon_type = icon_type
-        self.icon_size = size
-        self._setup_icon()
-    
-    def _setup_icon(self):
-        """Setup the icon display"""
-        self.setFixedSize(self.icon_size, self.icon_size)
-        self.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.disconnect_btn = QPushButton("Disconnect")
+        self.disconnect_btn.clicked.connect(self.disconnect_requested.emit)
+        layout.addWidget(self.disconnect_btn)
         
-        # Create text-based icon representation
-        icon_chars = {
-            self.ICON_SETTINGS: "⚙️",
-            self.ICON_CALIBRATION: "🎯", 
-            self.ICON_CAMERA: "📷",
-            self.ICON_NETWORK: "🌐"
-        }
+        # Hotspot controls
+        hotspot_group = QGroupBox("Mobile Hotspot")
+        hotspot_layout = QVBoxLayout(hotspot_group)
         
-        icon_char = icon_chars.get(self.icon_type, "⚙️")
+        self.hotspot_start_btn = QPushButton("Start Hotspot")
+        self.hotspot_stop_btn = QPushButton("Stop Hotspot")
         
-        # Set the icon text with styling
-        self.setText(icon_char)
-        self.setStyleSheet(f"""
-            QLabel {{
-                font-size: {self.icon_size // 2}px;
-                border: 2px solid #cccccc;
-                border-radius: {self.icon_size // 8}px;
-                background-color: #f5f5f5;
-                color: #333333;
-            }}
-            QLabel:hover {{
-                background-color: #e5e5e5;
-                border-color: #999999;
-            }}
-        """)
-    
-    def set_icon_type(self, icon_type: str):
-        """Change the icon type"""
-        self.icon_type = icon_type
-        self._setup_icon()
-    
-    def set_size(self, size: int):
-        """Change the icon size"""
-        self.icon_size = size
-        self._setup_icon()
+        hotspot_layout.addWidget(self.hotspot_start_btn)
+        hotspot_layout.addWidget(self.hotspot_stop_btn)
+        
+        layout.addWidget(hotspot_group)
+        
+        self.status_label = QLabel("Ready")
+        layout.addWidget(self.status_label)
+        
+    def update_networks(self, networks):
+        """Update available networks list."""
+        self.network_list.clear()
+        for network in networks:
+            ssid = network.get('ssid', 'Unknown')
+            signal = network.get('signal_strength', 0)
+            self.network_list.addItem(f"{ssid} ({signal}%)")
+            
+    def set_connection_status(self, ssid: str, connected: bool, ip: str = ""):
+        """Update connection status."""
+        if connected:
+            self.status_label.setText(f"Connected to {ssid} ({ip})")
+        else:
+            self.status_label.setText(f"Disconnected from {ssid}")
+            
+    def set_hotspot_status(self, active: bool, message: str = ""):
+        """Update hotspot status."""
+        status = "Active" if active else "Inactive"
+        self.status_label.setText(f"Hotspot: {status} {message}")
+        
+    def set_error_status(self, error: str):
+        """Set error status."""
+        self.status_label.setText(f"Error: {error}")
+        self.status_label.setStyleSheet("color: red;")

@@ -6,51 +6,43 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Find required packages
-find_package(pybind11 REQUIRED)
+find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
 find_package(OpenCV REQUIRED)
-find_package(PkgConfig REQUIRED)
+
+# Add pybind11 - handle both system installation and bundled version
+find_package(pybind11 QUIET)
+if(NOT pybind11_FOUND)
+    # Download pybind11 if not found
+    include(FetchContent)
+    FetchContent_Declare(pybind11 GIT_REPOSITORY https://github.com/pybind/pybind11 GIT_TAG v2.10.4)
+    FetchContent_MakeAvailable(pybind11)
+endif()
 
 # Include directories
-include_directories(${OpenCV_INCLUDE_DIRS})
 include_directories(include)
+include_directories(${OpenCV_INCLUDE_DIRS})
 
 # Source files
 set(SOURCES
     src/native_shimmer.cpp
     src/native_webcam.cpp
-    src/native_backend.cpp
-    src/utils/thread_safe_queue.cpp
-    src/utils/serial_communication.cpp
+    src/pybind_module.cpp
 )
 
-# Create pybind11 module
-pybind11_add_module(ircamera_native_backend ${SOURCES})
+# Create the pybind11 module
+pybind11_add_module(native_backend ${SOURCES})
 
 # Link libraries
-target_link_libraries(ircamera_native_backend PRIVATE ${OpenCV_LIBS})
-
-# Platform-specific configurations
-if(WIN32)
-    # Windows specific libraries
-    target_link_libraries(ircamera_native_backend PRIVATE ws2_32 setupapi)
-elseif(UNIX AND NOT APPLE)
-    # Linux specific libraries
-    target_link_libraries(ircamera_native_backend PRIVATE pthread)
-elseif(APPLE)
-    # macOS specific libraries
-    find_library(COREFOUNDATION_LIBRARY CoreFoundation)
-    find_library(IOKIT_LIBRARY IOKit)
-    target_link_libraries(ircamera_native_backend PRIVATE ${COREFOUNDATION_LIBRARY} ${IOKIT_LIBRARY})
-endif()
-
-# Compiler-specific options
-target_compile_definitions(ircamera_native_backend PRIVATE VERSION_INFO=${EXAMPLE_VERSION_INFO})
+target_link_libraries(native_backend PRIVATE ${OpenCV_LIBS})
 
 # Set properties
-set_target_properties(ircamera_native_backend PROPERTIES
+set_target_properties(native_backend PROPERTIES
     CXX_VISIBILITY_PRESET "hidden"
     INTERPROCEDURAL_OPTIMIZATION TRUE
 )
 
+# Compiler-specific options
+target_compile_definitions(native_backend PRIVATE VERSION_INFO=${EXAMPLE_VERSION_INFO})
+
 # Installation
-install(TARGETS ircamera_native_backend DESTINATION .)
+install(TARGETS native_backend DESTINATION .)

@@ -391,6 +391,15 @@ class MultiModalRecordingActivity : AppCompatActivity() {
             }
         layout.addView(syncEventButton)
 
+        // Hub-Spoke Integration Demo button
+        val hubSpokeButton = Button(this).apply {
+            text = "Hub-Spoke Integration Demo"
+            setOnClickListener { 
+                startActivity(Intent(this@MultiModalRecordingActivity, com.topdon.tc001.sensors.HubSpokeIntegrationActivity::class.java))
+            }
+        }
+        layout.addView(hubSpokeButton)
+
         // Status and progress
         progressBar =
             ProgressBar(this).apply {

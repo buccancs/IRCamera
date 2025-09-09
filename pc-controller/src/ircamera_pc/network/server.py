@@ -9,6 +9,7 @@ Device Synchronisation with enhanced security and discovery features.
 import asyncio
 import json
 import ssl
+import time
 import uuid
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
@@ -539,37 +540,78 @@ class NetworkServer:
             f"Received GSR data batch from {device_id}: {len(data_points)} points"
         )
 
-        # Forward to GSR ingestor for processing
+        # Forward to enhanced GSR data ingestion system
         try:
-            from ..core.gsr_ingestor import GSRIngestor, GSRSample, GSRMode
+            from ..data import get_data_aggregator
             
-            # Convert data points to GSR samples
-            gsr_samples = []
+            # Get the data aggregator instance for real-time processing
+            aggregator = get_data_aggregator()
+            
+            # Process each GSR data point with enhanced metadata
             for point in data_points:
-                sample = GSRSample(
-                    timestamp=point.get("timestamp", time.time()),
-                    value=point.get("value", 0.0),
-                    quality=point.get("quality", 100),
-                    device_id=device_id
+                enhanced_point = {
+                    'device_id': device_id,
+                    'timestamp_ns': point.get('timestamp_ns'),
+                    'gsr_raw': point.get('gsr_raw'),
+                    'gsr_microsiemens': point.get('gsr_microsiemens'),
+                    'ppg_raw': point.get('ppg_raw'),
+                    'ppg_value': point.get('ppg_value'),
+                    'quality_score': point.get('quality_score', 100.0),
+                    'sync_marker': point.get('sync_marker', False),
+                    'session_metadata': {
+                        'network_latency_ms': self._calculate_network_latency(device_id),
+                        'reception_timestamp_ns': time.time_ns(),
+                        'data_integrity_hash': self._calculate_data_hash(point)
+                    }
+                }
+                
+                # Add to aggregator with device synchronization
+                await aggregator.add_gsr_data_point(enhanced_point)
+            
+            # Update real-time visualization if available
+            self._update_realtime_gsr_visualization(device_id, data_points)
+            
+            logger.info(f"Successfully processed {len(data_points)} GSR points from {device_id}")
+            
+        except ImportError:
+            logger.warning("Data aggregator not available, trying fallback GSR ingestor")
+            
+            # Fallback to GSR ingestor for processing
+            try:
+                from ..core.gsr_ingestor import GSRIngestor, GSRSample, GSRMode
+                
+                # Convert data points to GSR samples
+                gsr_samples = []
+                for point in data_points:
+                    sample = GSRSample(
+                        timestamp=point.get("timestamp", time.time()),
+                        value=point.get("value", 0.0),
+                        quality=point.get("quality", 100),
+                        device_id=device_id
+                    )
+                    gsr_samples.append(sample)
+                
+                # Get or create GSR ingestor instance
+                if not hasattr(self, "_gsr_ingestor"):
+                    self._gsr_ingestor = GSRIngestor()
+                
+                # Process the data batch
+                await self._gsr_ingestor.process_data_batch(
+                    session_id=message.get("session_id"),
+                    device_id=device_id,
+                    samples=gsr_samples
                 )
-                gsr_samples.append(sample)
-            
-            # Get or create GSR ingestor instance
-            if not hasattr(self, "_gsr_ingestor"):
-                self._gsr_ingestor = GSRIngestor()
-            
-            # Process the data batch
-            await self._gsr_ingestor.process_data_batch(
-                session_id=message.get("session_id"),
-                device_id=device_id,
-                samples=gsr_samples
-            )
-            
-            logger.debug(f"Forwarded {len(gsr_samples)} GSR samples to ingestor")
-            
+                
+                logger.debug(f"Forwarded {len(gsr_samples)} GSR samples to ingestor")
+                
+            except Exception as e:
+                logger.warning(f"GSR ingestor also failed, storing data to buffer: {e}")
+                # Final fallback to simple storage
+                self._buffer_gsr_data(device_id, data_points)
+                
         except Exception as e:
-            logger.warning(f"Failed to forward GSR data to ingestor: {e}")
-            # Continue processing even if ingestor fails
+            logger.error(f"Failed to process GSR data from {device_id}: {e}")
+            return create_message("ack", ack_for="gsr_data_batch", status="error", error=str(e))
 
         return create_message("ack", ack_for="gsr_data_batch", status="success")
 
@@ -1051,3 +1093,69 @@ class NetworkServer:
     def is_running(self) -> bool:
         """Check if server is running."""
         return self._is_running
+    
+    def _calculate_network_latency(self, device_id: str) -> float:
+        """Calculate network latency for a device."""
+        # Simple latency estimation based on heartbeat timing
+        device = self._devices.get(device_id)
+        if device and hasattr(device, 'last_heartbeat'):
+            current_time = datetime.now()
+            if device.last_heartbeat:
+                # Estimate round-trip time based on heartbeat response
+                latency_ms = (current_time - device.last_heartbeat).total_seconds() * 500  # Rough estimate
+                return min(latency_ms, 1000.0)  # Cap at 1 second
+        return 50.0  # Default estimate
+    
+    def _calculate_data_hash(self, data_point: Dict[str, Any]) -> str:
+        """Calculate integrity hash for data verification."""
+        import hashlib
+        
+        # Create hash from critical data fields
+        hash_data = f"{data_point.get('timestamp_ns', 0)}" \
+                   f"{data_point.get('gsr_raw', 0)}" \
+                   f"{data_point.get('ppg_raw', 0)}"
+        
+        return hashlib.md5(hash_data.encode()).hexdigest()[:8]
+    
+    def _update_realtime_gsr_visualization(self, device_id: str, data_points: List[Dict[str, Any]]) -> None:
+        """Update real-time GSR visualization if available."""
+        try:
+            # This would interface with the PyQtGraph plotting widgets
+            # For now, just log the data summary
+            if data_points:
+                latest_point = data_points[-1]
+                gsr_value = latest_point.get('gsr_microsiemens', 0)
+                logger.debug(f"Real-time GSR from {device_id}: {gsr_value:.4f} µS")
+                
+                # In a full implementation, this would:
+                # 1. Send data to GUI plotting thread
+                # 2. Update real-time charts
+                # 3. Trigger alarms if values exceed thresholds
+                # 4. Update device status indicators
+                
+        except Exception as e:
+            logger.debug(f"Real-time visualization update failed: {e}")
+    
+    def _buffer_gsr_data(self, device_id: str, data_points: List[Dict[str, Any]]) -> None:
+        """Fallback method to buffer GSR data when aggregator is unavailable."""
+        if not hasattr(self, '_gsr_data_buffer'):
+            self._gsr_data_buffer = {}
+        
+        if device_id not in self._gsr_data_buffer:
+            self._gsr_data_buffer[device_id] = []
+        
+        # Add timestamp for when data was received
+        timestamped_points = []
+        for point in data_points:
+            enhanced_point = point.copy()
+            enhanced_point['reception_timestamp_ns'] = time.time_ns()
+            timestamped_points.append(enhanced_point)
+        
+        self._gsr_data_buffer[device_id].extend(timestamped_points)
+        
+        # Limit buffer size to prevent memory issues
+        max_buffer_size = 10000  # Keep last 10k points per device
+        if len(self._gsr_data_buffer[device_id]) > max_buffer_size:
+            self._gsr_data_buffer[device_id] = self._gsr_data_buffer[device_id][-max_buffer_size:]
+        
+        logger.debug(f"Buffered {len(data_points)} GSR points from {device_id}, buffer size: {len(self._gsr_data_buffer[device_id])}")

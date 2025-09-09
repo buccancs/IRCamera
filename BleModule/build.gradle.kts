@@ -22,12 +22,13 @@ android {
         }
     }
     
-    // Disable all debug variants completely - release-only configuration (aligned with libapp)
-    // variantFilter { // DEPRECATED - commented out to eliminate warnings
-    //     if (buildType.name == "debug") {
-    //         ignore = true
-    //     }
-    // }
+    // Disable all debug variants to match release-only configuration
+    androidComponents {
+        beforeVariants { variant ->
+            // Only enable release variants
+            variant.enable = variant.buildType == "release"
+        }
+    }
     
     buildFeatures {
         buildConfig = true

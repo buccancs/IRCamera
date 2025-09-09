@@ -29,7 +29,6 @@ android {
     }
 
     buildTypes {
-        // Only release build type - no debug variants
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -39,12 +38,13 @@ android {
         }
     }
     
-    // Disable all debug variants completely - release-only configuration
-    // variantFilter { // DEPRECATED - commented out to eliminate warnings
-        // if (buildType.name == "debug") {
-            // ignore = true
-        // }
-    // }
+    // Configure single release variant for easier maintenance
+    androidComponents {
+        beforeVariants { variant ->
+            // Only enable release variant for single-developer maintenance
+            variant.enable = variant.buildType == "release"
+        }
+    }
 
     
     compileOptions {
@@ -72,7 +72,8 @@ dependencies {
     implementation(project(":libir"))
     implementation(project(":libui"))
     implementation(project(":libmenu"))  // Required for MenuFirstTabView
-
+    implementation(project(":libmatrix"))  // Required for GuideInterface and IrSurfaceView
+    implementation(project(":component:CommonComponent"))  // Required for CommonComponent classes
     implementation(project(":component:pseudo"))  // Required for CustomPseudoBean class
     // Note: Cannot add thermal-ir or thermal-lite due to circular dependencies
     
