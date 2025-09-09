@@ -22,11 +22,11 @@ sys.path.insert(0, str(src_dir))
 
 def test_all_components() -> None:
     """Test all PC Controller components comprehensively."""
-    print("🧪 Testing IRCamera PC Controller - ALL COMPONENTS")
+    print("[TEST] Testing IRCamera PC Controller - ALL COMPONENTS")
     print("=" * 60)
 
     temp_dir = tempfile.mkdtemp()
-    print(f"📁 Using temporary directory: {temp_dir}")
+    print(f"[DIR] Using temporary directory: {temp_dir}")
 
     try:
         # Import all components
@@ -43,13 +43,13 @@ def test_all_components() -> None:
         print("\n1. Testing Configuration Manager...")
         config_file = Path(temp_dir) / "test_config.yaml"
         ConfigManager(config_file)
-        print("   ✓ Configuration manager created")
+        print("   [OK] Configuration manager created")
 
         print("\n2. Testing Session Manager...")
         session_manager = SessionManager()
         session_metadata = session_manager.create_session("comprehensive_test")
         session_id = session_metadata.session_id  # Extract the actual ID string
-        print(f"   ✓ Session created: {session_id}")
+        print(f"   [OK] Session created: {session_id}")
 
         print("\n3. Testing GSR Ingestor...")
         test_gsr_config = {
@@ -63,7 +63,7 @@ def test_all_components() -> None:
 
         # Test GSR session
         asyncio.run(test_gsr_session(gsr_ingestor, session_id))
-        print("   ✓ GSR Ingestor: PASS")
+        print("   [OK] GSR Ingestor: PASS")
 
         print("\n4. Testing File Transfer Manager...")
         test_transfer_config = {
@@ -77,7 +77,7 @@ def test_all_components() -> None:
 
         # Test file transfer
         asyncio.run(test_file_transfer(file_transfer_manager, session_id))
-        print("   ✓ File Transfer Manager: PASS")
+        print("   [OK] File Transfer Manager: PASS")
 
         print("\n5. Testing Camera Calibrator...")
         test_calib_config = {
@@ -91,16 +91,16 @@ def test_all_components() -> None:
 
         # Test calibration session
         asyncio.run(test_calibration_session(camera_calibrator, session_id))
-        print("   ✓ Camera Calibrator: PASS")
+        print("   [OK] Camera Calibrator: PASS")
 
         print("\n6. Testing Network Server Integration...")
         network_server = NetworkServer()
-        print("   ✓ Network server created")
-        print("   ✓ Ready for device connections")
+        print("   [OK] Network server created")
+        print("   [OK] Ready for device connections")
 
         print("\n7. Testing Time Sync Service...")
         time_sync = TimeSyncService()
-        print("   ✓ Time sync service created")
+        print("   [OK] Time sync service created")
 
         print("\n8. Testing Complete System Integration...")
         # Test that all components can be created together
@@ -113,13 +113,13 @@ def test_all_components() -> None:
             "time_sync": time_sync,
         }
 
-        print(f"   ✓ All {len(all_components)} components" "integrated successfully")
+        print(f"   [OK] All {len(all_components)} components" "integrated successfully")
 
         # Test component interactions
-        print(f"   ✓ GSR sessions: {len(gsr_ingestor.get_active_sessions())} " "active")
-        print(f"   ✓ Transfer summary: {file_transfer_manager.get_transfer_summary()}")
+        print(f"   [OK] GSR sessions: {len(gsr_ingestor.get_active_sessions())} " "active")
+        print(f"   [OK] Transfer summary: {file_transfer_manager.get_transfer_summary()}")
         print(
-            f"   ✓ Calibration sessions: "
+            f"   [OK] Calibration sessions: "
             f"{len(camera_calibrator.get_active_calibrations())} active"
         )
 
@@ -141,7 +141,7 @@ def test_all_components() -> None:
         print("- 🔄 Real-time data collection")
         print("- 📊 Multi-modal recording sessions")
         print("- 🎯 Camera calibration")
-        print("- 📁 File transfer and data aggregation")
+        print("- [DIR] File transfer and data aggregation")
 
         return True
 

@@ -10,23 +10,23 @@ import kotlin.math.max
 import kotlin.math.min
 
 /**
- * TC007、2D编辑、插件的 点线面温度图层有 View、SurfaceView 两种实现，
- * 先用这个工具类抽取相同 draw 逻辑，后续考虑优化。
+ * TC007, 2D editing, plugin point-line-surface temperature layers have View and SurfaceView implementations,
+ * First use this utility class to extract the same draw logic, consider optimization later.
  *
  * Created by LCG on 2024/12/6.
  */
 class TempDrawHelper {
     companion object {
         /**
-         * 点是一个十字架，该值为十字架的长度，单位 px.
+         * Point is a cross, this value is the length of the cross in pixels.
          */
         private val POINT_SIZE: Int = SizeUtils.dp2px(16f)
         /**
-         * 点、线、面、全图 最高温及最低温中心实心圆的半径，单位 px.
+         * Radius of center solid circle for max and min temperature of points, lines, surfaces, full image in pixels.
          */
         private val CIRCLE_RADIUS: Int = SizeUtils.dp2px(3f)
         /**
-         * 温度值文字，与实心圆圆心的偏移量，防止文字与实心圆重叠，X轴为该值，Y轴为该值/2，单位 px.
+         * Temperature text offset from solid circle center to prevent overlap, X-axis is this value, Y-axis is half this value in pixels.
          */
         private val TEMP_TEXT_OFFSET = SizeUtils.dp2px(6f)
 

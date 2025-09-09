@@ -52,7 +52,7 @@ from ircamera_pc.core.timesync import TimeSyncService
 try:
     import native_backend
     NATIVE_BACKEND_AVAILABLE = True
-    print("✓ Enhanced native backend available - High-performance mode enabled")
+    print("[OK] Enhanced native backend available - High-performance mode enabled")
 except ImportError:
     NATIVE_BACKEND_AVAILABLE = False
     print("⚠ Native backend not available - Running in enhanced simulation mode")
@@ -206,7 +206,7 @@ class EnhancedPCController(QMainWindow):
             if shimmer_ports:
                 self.native_shimmer = native_backend.NativeShimmer(shimmer_ports[0])
                 if self.native_shimmer.connect():
-                    print(f"✓ Connected to Shimmer on {shimmer_ports[0]}")
+                    print(f"[OK] Connected to Shimmer on {shimmer_ports[0]}")
                     
                     # Set up data callback
                     def shimmer_callback(gsr_data):
@@ -226,7 +226,7 @@ class EnhancedPCController(QMainWindow):
                 config.fps = 30.0
                 
                 if self.native_webcam.open_camera(config):
-                    print(f"✓ Opened camera {cameras[0]}")
+                    print(f"[OK] Opened camera {cameras[0]}")
                     
                     # Set up frame callback
                     def frame_callback(frame_data):
@@ -409,7 +409,7 @@ class EnhancedPCController(QMainWindow):
     def _new_session(self):
         """Create new session."""
         session = self.session_manager.create_session()
-        print(f"📁 Created new session: {session.name}")
+        print(f"[DIR] Created new session: {session.name}")
         
     def _update_status(self):
         """Update status displays."""

@@ -51,6 +51,7 @@ except ImportError:
     def pyqtSlot(*args, **kwargs):
         def decorator(func):
             return func
+
         return decorator
 
     class BaseThread:
@@ -719,7 +720,9 @@ class WiFiManager(BaseManager):
     def _init_interfaces(self) -> None:
         """Initialize network interface information."""
         if not PSUTIL_AVAILABLE:
-            logger.warning("Cannot monitor network interfaces" "- psutil not available")
+            logger.warning(
+                "Cannot monitor network interfaces" "- psutil not available"
+            )
             return
 
         try:
@@ -827,8 +830,9 @@ class WiFiManager(BaseManager):
 
                 # Write profile to temporary file
                 import tempfile
+
                 with tempfile.NamedTemporaryFile(
-                    mode='w', suffix='.xml', delete=False
+                    mode="w", suffix=".xml", delete=False
                 ) as f:
                     f.write(profile_xml)
                     profile_path = f.name
@@ -836,10 +840,13 @@ class WiFiManager(BaseManager):
                 try:
                     # Add the profile
                     result = await asyncio.create_subprocess_exec(
-                        netsh_path, "wlan", "add", "profile",
+                        netsh_path,
+                        "wlan",
+                        "add",
+                        "profile",
                         f"filename={profile_path}",
                         stdout=asyncio.subprocess.PIPE,
-                        stderr=asyncio.subprocess.PIPE
+                        stderr=asyncio.subprocess.PIPE,
                     )
                     stdout, stderr = await result.communicate()
 
@@ -855,9 +862,12 @@ class WiFiManager(BaseManager):
 
             # Connect to the network
             result = await asyncio.create_subprocess_exec(
-                netsh_path, "wlan", "connect", f"name={ssid}",
+                netsh_path,
+                "wlan",
+                "connect",
+                f"name={ssid}",
                 stdout=asyncio.subprocess.PIPE,
-                stderr=asyncio.subprocess.PIPE
+                stderr=asyncio.subprocess.PIPE,
             )
             stdout, stderr = await result.communicate()
 
@@ -901,9 +911,7 @@ class WiFiManager(BaseManager):
 
             # Execute connection command
             result = await asyncio.create_subprocess_exec(
-                *cmd,
-                stdout=asyncio.subprocess.PIPE,
-                stderr=asyncio.subprocess.PIPE
+                *cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
             )
             stdout, stderr = await result.communicate()
 
@@ -915,10 +923,10 @@ class WiFiManager(BaseManager):
                 logger.error(f"Failed to connect to {ssid}: {error_msg}")
 
                 # Try alternative approach with connection profile
-                if ("already exists" in error_msg
-                        or "activation failed" in error_msg):
+                if "already exists" in error_msg or "activation failed" in error_msg:
                     return await self._connect_linux_with_profile(
-                        ssid, password, security)
+                        ssid, password, security
+                    )
 
                 return False
 
@@ -940,14 +948,15 @@ class WiFiManager(BaseManager):
 
             # Get WiFi interface name
             result = await asyncio.create_subprocess_exec(
-                networksetup_path, "-listallhardwareports",
+                networksetup_path,
+                "-listallhardwareports",
                 stdout=asyncio.subprocess.PIPE,
-                stderr=asyncio.subprocess.PIPE
+                stderr=asyncio.subprocess.PIPE,
             )
             stdout, stderr = await result.communicate()
 
             wifi_interface = None
-            lines = stdout.decode().split('\n')
+            lines = stdout.decode().split("\n")
             for i, line in enumerate(lines):
                 if "Wi-Fi" in line and i + 1 < len(lines):
                     device_line = lines[i + 1]
@@ -963,17 +972,23 @@ class WiFiManager(BaseManager):
             if password and security != NetworkSecurityType.OPEN:
                 # For secured networks, use networksetup with password
                 result = await asyncio.create_subprocess_exec(
-                    networksetup_path, "-setairportnetwork", wifi_interface,
-                    ssid, password,
+                    networksetup_path,
+                    "-setairportnetwork",
+                    wifi_interface,
+                    ssid,
+                    password,
                     stdout=asyncio.subprocess.PIPE,
-                    stderr=asyncio.subprocess.PIPE
+                    stderr=asyncio.subprocess.PIPE,
                 )
             else:
                 # For open networks
                 result = await asyncio.create_subprocess_exec(
-                    networksetup_path, "-setairportnetwork", wifi_interface, ssid,
+                    networksetup_path,
+                    "-setairportnetwork",
+                    wifi_interface,
+                    ssid,
                     stdout=asyncio.subprocess.PIPE,
-                    stderr=asyncio.subprocess.PIPE
+                    stderr=asyncio.subprocess.PIPE,
                 )
 
             stdout, stderr = await result.communicate()
@@ -1074,7 +1089,7 @@ class WiFiManager(BaseManager):
         auth_type = "WPA2PSK" if security == NetworkSecurityType.WPA2 else "WPAPSK"
         encryption = "AES" if security == NetworkSecurityType.WPA2 else "TKIP"
 
-        return f'''<?xml version="1.0"?>
+        return f"""<?xml version="1.0"?>
 <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
     <name>{ssid}</name>
     <SSIDConfig>
@@ -1099,7 +1114,7 @@ class WiFiManager(BaseManager):
             </sharedKey>
         </security>
     </MSM>
-</WLANProfile>'''
+</WLANProfile>"""
 
     async def _check_connection_status(self, ssid: str) -> bool:
         """Check if connected to specified WiFi network."""
@@ -1109,16 +1124,21 @@ class WiFiManager(BaseManager):
                 return False
 
             result = await asyncio.create_subprocess_exec(
-                netsh_path, "wlan", "show", "interfaces",
+                netsh_path,
+                "wlan",
+                "show",
+                "interfaces",
                 stdout=asyncio.subprocess.PIPE,
-                stderr=asyncio.subprocess.PIPE
+                stderr=asyncio.subprocess.PIPE,
             )
             stdout, stderr = await result.communicate()
 
             if result.returncode == 0:
                 output = stdout.decode()
-                return (f"SSID                   : {ssid}" in output
-                        and "State                  : connected" in output)
+                return (
+                    f"SSID                   : {ssid}" in output
+                    and "State                  : connected" in output
+                )
 
         except Exception as e:
             logger.error(f"Failed to check connection status: {e}")
@@ -1136,9 +1156,12 @@ class WiFiManager(BaseManager):
 
             # Try to activate existing connection first
             result = await asyncio.create_subprocess_exec(
-                nmcli_path, "connection", "up", ssid,
+                nmcli_path,
+                "connection",
+                "up",
+                ssid,
                 stdout=asyncio.subprocess.PIPE,
-                stderr=asyncio.subprocess.PIPE
+                stderr=asyncio.subprocess.PIPE,
             )
             stdout, stderr = await result.communicate()
 
@@ -1153,31 +1176,36 @@ class WiFiManager(BaseManager):
                 security_type = "none"
 
             cmd = [
-                nmcli_path, "connection", "add",
-                "type", "wifi",
-                "con-name", ssid,
-                "ssid", ssid
+                nmcli_path,
+                "connection",
+                "add",
+                "type",
+                "wifi",
+                "con-name",
+                ssid,
+                "ssid",
+                ssid,
             ]
 
             if password and security != NetworkSecurityType.OPEN:
-                cmd.extend([
-                    "wifi-sec.key-mgmt", security_type,
-                    "wifi-sec.psk", password
-                ])
+                cmd.extend(
+                    ["wifi-sec.key-mgmt", security_type, "wifi-sec.psk", password]
+                )
 
             result = await asyncio.create_subprocess_exec(
-                *cmd,
-                stdout=asyncio.subprocess.PIPE,
-                stderr=asyncio.subprocess.PIPE
+                *cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
             )
             stdout, stderr = await result.communicate()
 
             if result.returncode == 0:
                 # Activate the new connection
                 result = await asyncio.create_subprocess_exec(
-                    nmcli_path, "connection", "up", ssid,
+                    nmcli_path,
+                    "connection",
+                    "up",
+                    ssid,
                     stdout=asyncio.subprocess.PIPE,
-                    stderr=asyncio.subprocess.PIPE
+                    stderr=asyncio.subprocess.PIPE,
                 )
                 stdout, stderr = await result.communicate()
                 return result.returncode == 0

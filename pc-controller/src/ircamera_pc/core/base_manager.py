@@ -19,6 +19,7 @@ try:
     # Create a hybrid metaclass that combines QObject and ABC metaclasses
     class QObjectMeta(type(QtQObject), ABCMeta):
         """Metaclass to resolve conflict between QObject and ABC"""
+
         pass
 
 except ImportError:
@@ -27,17 +28,21 @@ except ImportError:
     # Mock classes and functions for when PyQt6 is not available
     class QtQObject:
         """Mock QObject when PyQt6 is not available"""
+
         def __init__(self, parent: Optional[Any] = None) -> None:
             self.parent = parent
 
     class QObjectMeta(ABCMeta):
         """Fallback metaclass when PyQt6 is not available"""
+
         pass
 
     def pyqtSignal(*args: Any, **kwargs: Any) -> Any:
         """Mock pyqtSignal decorator"""
+
         def decorator(func: Any) -> Any:
             return func
+
         return decorator
 
 

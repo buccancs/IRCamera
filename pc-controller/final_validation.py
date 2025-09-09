@@ -89,7 +89,7 @@ def test_android_build():
 
 def test_python_tests():
     """Run Python test suite."""
-    print("\n🧪 Testing Python test suite...")
+    print("\n[TEST] Testing Python test suite...")
     
     import subprocess
     import os

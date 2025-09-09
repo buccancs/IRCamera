@@ -11,7 +11,7 @@ import java.io.ByteArrayOutputStream
 import java.io.IOException
 
 /**
- * 热成像图像二次处理的统一入口，为了方便管理
+ * 热成像Image二次处理的统一入口，为了方便管理
  * @author: CaiSongL
  * @date: 2024/1/17 9:54
  */
@@ -71,21 +71,21 @@ class IRImageHelp {
 
     /**
      * 自定义伪彩处理，在执行这个方法之前，变更伪彩属性时先通过 上面setColorList进行属性设置
-     * @param imageDst ByteArray ： 图像数据，argb格式
-     * @param temperatureSrc ByteArray ： 温度数据
+     * @param imageDst ByteArray ： Image数据，argb格式
+     * @param temperatureSrc ByteArray ： Temperature数据
      * @param imageWidth Int ：
      * @param imageHeight Int
-     * @return ByteArray ： 返回处理后的图像数据，argb格式
+     * @return ByteArray ： 返回处理后的Image数据，argb格式
      */
     fun customPseudoColor(imageDst: ByteArray, temperatureSrc:ByteArray, imageWidth : Int, imageHeight : Int) : ByteArray{
         try {
             if (colorList != null && temperatureSrc != null) {
                 var j = 0
                 val imageDstLength: Int = imageWidth * imageHeight * 4
-                // 遍历像素点，过滤温度阈值
+                // 遍历像素点，过滤Temperature阈值
                 var index = 0
                 while (index < imageDstLength) {
-                    // 温度换算公式
+                    // Temperature换算公式
                     var temperature0: Float =
                         ((temperatureSrc.get(j).toInt() and 0xff) + (temperatureSrc.get(j + 1)
                             .toInt() and 0xff) * 256).toFloat()
@@ -143,7 +143,7 @@ class IRImageHelp {
 
 
     /**
-     * 等温尺处理,展示伪彩的温度范围内信息
+     * 等温尺处理,展示伪彩的Temperature范围内信息
      */
     fun setPseudoColorMaxMin(imageDst: ByteArray?, temperatureSrc:ByteArray?,max : Float,
                        min : Float,imageWidth : Int,imageHeight : Int){
@@ -151,13 +151,13 @@ class IRImageHelp {
             var j = 0
             val imageDstLength: Int = imageWidth * imageHeight * 4
             val biaochiMax: Float = max
-            val biaochiMin: Float = min // 温度阈值设定
+            val biaochiMin: Float = min // Temperature阈值设定
             val startTimeAll = System.currentTimeMillis()
-            // 遍历像素点，过滤温度阈值
+            // 遍历像素点，过滤Temperature阈值
             var index = 0
             while (index < imageDstLength) {
 
-                // 温度换算公式
+                // Temperature换算公式
                 var temperature0: Float =
                     ((temperatureSrc[j].toInt() and 0xff) + (temperatureSrc[j + 1]
                         .toInt() and 0xff) * 256).toFloat()

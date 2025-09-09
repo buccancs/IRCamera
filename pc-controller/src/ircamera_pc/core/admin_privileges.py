@@ -235,7 +235,9 @@ class AdminPrivilegesManager(BaseManager):
         logger.warning(f"Unknown operation permission check: {operation}")
         return False
 
-    def run_as_admin(self, command: str, arguments: Optional[List[Any]] = None) -> bool:
+    def run_as_admin(
+        self, command: str, arguments: Optional[List[Any]] = None
+    ) -> bool:
         """
         Run a command with administrator privileges.
 
@@ -487,10 +489,10 @@ class AdminPrivilegesManager(BaseManager):
                     "privileges for:\n\n"
                     f"{reason}\n\n"
                     "This will allow full system integration including:\n"
-                    "• WiFi network management\n"
-                    "• Bluetooth device control\n"
-                    "• Firewall configuration\n"
-                    "• Service management\n\n"
+                    "- WiFi network management\n"
+                    "- Bluetooth device control\n"
+                    "- Firewall configuration\n"
+                    "- Service management\n\n"
                     "Would you like to continue?",
                     QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
                     QMessageBox.StandardButton.Yes,

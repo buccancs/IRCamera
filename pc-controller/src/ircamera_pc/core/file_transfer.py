@@ -184,7 +184,9 @@ class FileTransferManager:
             # Check if file already exists and is complete
             if local_path.exists():
                 if await self._verify_existing_file(local_path, manifest):
-                    logger.info(f"File already exists and verified:{manifest.filename}")
+                    logger.info(
+                        f"File already exists and verified:{manifest.filename}"
+                    )
                     return job_id  # Skip transfer
 
             # Create transfer job
@@ -544,7 +546,8 @@ class FileTransferManager:
                     job_id: job.to_dict() for job_id, job in self.active_jobs.items()
                 },
                 "completed_jobs": {
-                    job_id: job.to_dict() for job_id, job in self.completed_jobs.items()
+                    job_id: job.to_dict()
+                    for job_id, job in self.completed_jobs.items()
                 },
                 "transfer_queue": self.transfer_queue,
             }

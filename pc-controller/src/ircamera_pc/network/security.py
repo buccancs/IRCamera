@@ -37,6 +37,7 @@ except ImportError:
 
             def error(self, msg):
                 print(f"ERROR: {msg}")
+
         logger = FallbackLogger()
 
 try:
@@ -49,6 +50,7 @@ except ImportError:
                 "security.cert_directory": "certificates",
             }
             return config_map.get(key, default)
+
     config = FallbackConfig()
 
 
@@ -71,7 +73,9 @@ class SecurityManager:
         self.server_key_path = self.cert_dir / "server_key.pem"
 
         self.device_certificates: Dict[str, x509.Certificate] = {}
-        self.auth_tokens: Dict[str, Tuple[str, float]] = {}  # token -> (device_id, expiry)
+        self.auth_tokens: Dict[str, Tuple[str, float]] = (
+            {}
+        )  # token -> (device_id, expiry)
 
     def initialize(self) -> bool:
         """
@@ -128,7 +132,9 @@ class SecurityManager:
 
         return context
 
-    def validate_device_certificate(self, cert_data: bytes) -> Tuple[bool, Optional[str]]:
+    def validate_device_certificate(
+        self, cert_data: bytes
+    ) -> Tuple[bool, Optional[str]]:
         """
         Validate a device certificate for known Topdon devices.
 
@@ -163,7 +169,9 @@ class SecurityManager:
                         return True, "TC007"
 
             # Default to generic acceptance for development
-            logger.warning(f"Unknown device certificate: {common_name} from {organization}")
+            logger.warning(
+                f"Unknown device certificate: {common_name} from {organization}"
+            )
             return True, "UNKNOWN"
 
         except Exception as e:
@@ -199,7 +207,9 @@ class SecurityManager:
         logger.debug(f"Generated auth token for device {device_id}: {token[:20]}...")
         return token
 
-    def validate_auth_token(self, token: str, max_age_seconds: int = 300) -> Tuple[bool, Optional[str]]:
+    def validate_auth_token(
+        self, token: str, max_age_seconds: int = 300
+    ) -> Tuple[bool, Optional[str]]:
         """
         Validate an authentication token.
 
@@ -250,7 +260,8 @@ class SecurityManager:
         """Remove expired authentication tokens."""
         current_time = time.time()
         expired_tokens = [
-            token for token, (_, expiry) in self.auth_tokens.items()
+            token
+            for token, (_, expiry) in self.auth_tokens.items()
             if current_time >= expiry
         ]
 
@@ -265,7 +276,7 @@ class SecurityManager:
         try:
             if self.ca_cert_path.exists() and self.ca_key_path.exists():
                 # Verify certificate is valid
-                with open(self.ca_cert_path, 'rb') as f:
+                with open(self.ca_cert_path, "rb") as f:
                     x509.load_pem_x509_certificate(f.read())
                 logger.debug("Loaded existing CA certificate")
                 return True
@@ -278,7 +289,7 @@ class SecurityManager:
         try:
             if self.server_cert_path.exists() and self.server_key_path.exists():
                 # Verify certificate is valid
-                with open(self.server_cert_path, 'rb') as f:
+                with open(self.server_cert_path, "rb") as f:
                     x509.load_pem_x509_certificate(f.read())
                 logger.debug("Loaded existing server certificate")
                 return True
@@ -295,50 +306,55 @@ class SecurityManager:
         )
 
         # Generate certificate
-        subject = issuer = x509.Name([
-            x509.NameAttribute(NameOID.COUNTRY_NAME, "US"),
-            x509.NameAttribute(NameOID.STATE_OR_PROVINCE_NAME, "CA"),
-            x509.NameAttribute(NameOID.LOCALITY_NAME, "San Francisco"),
-            x509.NameAttribute(NameOID.ORGANIZATION_NAME, "IRCamera PC Controller"),
-            x509.NameAttribute(NameOID.COMMON_NAME, "IRCamera CA"),
-        ])
+        subject = issuer = x509.Name(
+            [
+                x509.NameAttribute(NameOID.COUNTRY_NAME, "US"),
+                x509.NameAttribute(NameOID.STATE_OR_PROVINCE_NAME, "CA"),
+                x509.NameAttribute(NameOID.LOCALITY_NAME, "San Francisco"),
+                x509.NameAttribute(
+                    NameOID.ORGANIZATION_NAME, "IRCamera PC Controller"
+                ),
+                x509.NameAttribute(NameOID.COMMON_NAME, "IRCamera CA"),
+            ]
+        )
 
-        cert = x509.CertificateBuilder().subject_name(
-            subject
-        ).issuer_name(
-            issuer
-        ).public_key(
-            private_key.public_key()
-        ).serial_number(
-            x509.random_serial_number()
-        ).not_valid_before(
-            datetime.now()
-        ).not_valid_after(
-            datetime.now() + timedelta(days=365)
-        ).add_extension(
-            x509.BasicConstraints(ca=True, path_length=None), critical=True,
-        ).sign(private_key, hashes.SHA256())
+        cert = (
+            x509.CertificateBuilder()
+            .subject_name(subject)
+            .issuer_name(issuer)
+            .public_key(private_key.public_key())
+            .serial_number(x509.random_serial_number())
+            .not_valid_before(datetime.now())
+            .not_valid_after(datetime.now() + timedelta(days=365))
+            .add_extension(
+                x509.BasicConstraints(ca=True, path_length=None),
+                critical=True,
+            )
+            .sign(private_key, hashes.SHA256())
+        )
 
         # Save certificate and key
-        with open(self.ca_cert_path, 'wb') as f:
+        with open(self.ca_cert_path, "wb") as f:
             f.write(cert.public_bytes(serialization.Encoding.PEM))
 
-        with open(self.ca_key_path, 'wb') as f:
-            f.write(private_key.private_bytes(
-                encoding=serialization.Encoding.PEM,
-                format=serialization.PrivateFormat.PKCS8,
-                encryption_algorithm=serialization.NoEncryption()
-            ))
+        with open(self.ca_key_path, "wb") as f:
+            f.write(
+                private_key.private_bytes(
+                    encoding=serialization.Encoding.PEM,
+                    format=serialization.PrivateFormat.PKCS8,
+                    encryption_algorithm=serialization.NoEncryption(),
+                )
+            )
 
         logger.info(f"Generated CA certificate: {self.ca_cert_path}")
 
     def _generate_server_certificate(self):
         """Generate a new server certificate signed by the CA."""
         # Load CA certificate and key
-        with open(self.ca_cert_path, 'rb') as f:
+        with open(self.ca_cert_path, "rb") as f:
             ca_cert = x509.load_pem_x509_certificate(f.read())
 
-        with open(self.ca_key_path, 'rb') as f:
+        with open(self.ca_key_path, "rb") as f:
             ca_key = serialization.load_pem_private_key(f.read(), password=None)
 
         # Generate server private key
@@ -348,43 +364,50 @@ class SecurityManager:
         )
 
         # Generate server certificate
-        subject = x509.Name([
-            x509.NameAttribute(NameOID.COUNTRY_NAME, "US"),
-            x509.NameAttribute(NameOID.STATE_OR_PROVINCE_NAME, "CA"),
-            x509.NameAttribute(NameOID.LOCALITY_NAME, "San Francisco"),
-            x509.NameAttribute(NameOID.ORGANIZATION_NAME, "IRCamera PC Controller"),
-            x509.NameAttribute(NameOID.COMMON_NAME, "IRCamera Server"),
-        ])
+        subject = x509.Name(
+            [
+                x509.NameAttribute(NameOID.COUNTRY_NAME, "US"),
+                x509.NameAttribute(NameOID.STATE_OR_PROVINCE_NAME, "CA"),
+                x509.NameAttribute(NameOID.LOCALITY_NAME, "San Francisco"),
+                x509.NameAttribute(
+                    NameOID.ORGANIZATION_NAME, "IRCamera PC Controller"
+                ),
+                x509.NameAttribute(NameOID.COMMON_NAME, "IRCamera Server"),
+            ]
+        )
 
-        cert = x509.CertificateBuilder().subject_name(
-            subject
-        ).issuer_name(
-            ca_cert.subject
-        ).public_key(
-            private_key.public_key()
-        ).serial_number(
-            x509.random_serial_number()
-        ).not_valid_before(
-            datetime.now()
-        ).not_valid_after(
-            datetime.now() + timedelta(days=365)
-        ).add_extension(
-            x509.SubjectAlternativeName([
-                x509.DNSName("localhost"),
-                x509.IPAddress(ipaddress.IPv4Address("127.0.0.1")),
-                x509.IPAddress(ipaddress.IPv4Address("192.168.1.1")),
-            ]), critical=False,
-        ).sign(ca_key, hashes.SHA256())
+        cert = (
+            x509.CertificateBuilder()
+            .subject_name(subject)
+            .issuer_name(ca_cert.subject)
+            .public_key(private_key.public_key())
+            .serial_number(x509.random_serial_number())
+            .not_valid_before(datetime.now())
+            .not_valid_after(datetime.now() + timedelta(days=365))
+            .add_extension(
+                x509.SubjectAlternativeName(
+                    [
+                        x509.DNSName("localhost"),
+                        x509.IPAddress(ipaddress.IPv4Address("127.0.0.1")),
+                        x509.IPAddress(ipaddress.IPv4Address("192.168.1.1")),
+                    ]
+                ),
+                critical=False,
+            )
+            .sign(ca_key, hashes.SHA256())
+        )
 
         # Save certificate and key
-        with open(self.server_cert_path, 'wb') as f:
+        with open(self.server_cert_path, "wb") as f:
             f.write(cert.public_bytes(serialization.Encoding.PEM))
 
-        with open(self.server_key_path, 'wb') as f:
-            f.write(private_key.private_bytes(
-                encoding=serialization.Encoding.PEM,
-                format=serialization.PrivateFormat.PKCS8,
-                encryption_algorithm=serialization.NoEncryption()
-            ))
+        with open(self.server_key_path, "wb") as f:
+            f.write(
+                private_key.private_bytes(
+                    encoding=serialization.Encoding.PEM,
+                    format=serialization.PrivateFormat.PKCS8,
+                    encryption_algorithm=serialization.NoEncryption(),
+                )
+            )
 
         logger.info(f"Generated server certificate: {self.server_cert_path}")

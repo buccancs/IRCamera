@@ -9,14 +9,14 @@ object SupRUtils {
 
 
     /**
-     * 是否能开启超分
+     * Whether super resolution can be enabled
      */
     fun canOpenSupR() :Boolean{
         return true
     }
 
     /**
-     * 由此统一弹
+     * Unified popup from here
      */
     fun showOpenSupRTipsDialog(activity : Activity){
 

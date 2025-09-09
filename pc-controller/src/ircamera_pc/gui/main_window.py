@@ -367,7 +367,9 @@ class MainWindow(QMainWindow):
                 )
             )
             self.wifi_control_widget.disconnect_requested.connect(
-                lambda: asyncio.create_task(self.wifi_manager.disconnect_from_network())
+                lambda: asyncio.create_task(
+                    self.wifi_manager.disconnect_from_network()
+                )
             )
             self.wifi_control_widget.hotspot_start_requested.connect(
                 lambda ssid, pwd, ch: asyncio.create_task(
