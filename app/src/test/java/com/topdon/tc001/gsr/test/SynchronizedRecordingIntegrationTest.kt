@@ -3,6 +3,8 @@ package com.topdon.tc001.gsr.test
 import android.content.Context
 import com.topdon.gsr.util.TimeUtil
 import com.topdon.tc001.gsr.EnhancedThermalRecorder
+import kotlinx.coroutines.*
+import kotlinx.coroutines.test.*
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -39,9 +41,9 @@ class SynchronizedRecordingIntegrationTest {
     }
 
     @Test
-    fun testSynchronizedTimestampConsistency() {
+    fun testSynchronizedTimestampConsistency() = runTest {
         val timestamp1 = TimeUtil.getSynchronizedTimestamp()
-        Thread.sleep(10)
+        delay(10) // Use coroutine delay instead of Thread.sleep
         val timestamp2 = TimeUtil.getSynchronizedTimestamp()
 
         assertTrue("Timestamps should be monotonic", timestamp2 > timestamp1)
@@ -135,11 +137,11 @@ class SynchronizedRecordingIntegrationTest {
     }
 
     @Test
-    fun testRecordingStatsAccuracy() {
+    fun testRecordingStatsAccuracy() = runTest {
         val sessionName = "StatsTest"
         enhancedRecorder.startRecording(sessionName, null, false) // No GSR for this test
 
-        Thread.sleep(100) // Record for 100ms
+        delay(100) // Record for 100ms using coroutine delay
 
         val stats = enhancedRecorder.getRecordingStats()
         assertNotNull("Stats should be available", stats)

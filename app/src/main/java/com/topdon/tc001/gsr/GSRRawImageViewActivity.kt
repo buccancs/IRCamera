@@ -26,6 +26,17 @@ import java.io.File
 class GSRRawImageViewActivity : AppCompatActivity() {
     companion object {
         private const val EXTRA_IMAGE_PATH = "image_path"
+        
+        // File size constants for better readability
+        private const val BYTES_IN_KB = 1024
+        private const val BYTES_IN_MB = BYTES_IN_KB * BYTES_IN_KB
+        private const val MB_THRESHOLD = BYTES_IN_MB
+        
+        // Image resolution constants  
+        private const val HIGH_RES_WIDTH = 4032
+        private const val HIGH_RES_HEIGHT = 3024
+        private const val HIGH_RES_MEGAPIXELS = 12
+        private const val RESISTANCE_CONVERSION_FACTOR = 1000
 
         fun startActivity(
             context: Context,
@@ -133,10 +144,10 @@ class GSRRawImageViewActivity : AppCompatActivity() {
 
     private fun displayMetadata() {
         val fileSize =
-            if (imageFile.length() >= 1024 * 1024) {
-                "%.1f MB".format(imageFile.length() / (1024.0 * 1024.0))
+            if (imageFile.length() >= MB_THRESHOLD) {
+                "%.1f MB".format(imageFile.length() / (BYTES_IN_MB.toDouble()))
             } else {
-                "%.1f KB".format(imageFile.length() / 1024.0)
+                "%.1f KB".format(imageFile.length() / BYTES_IN_KB.toDouble())
             }
 
         val createdDate =
@@ -161,7 +172,7 @@ class GSRRawImageViewActivity : AppCompatActivity() {
             
             Camera Information:
             • Sensor: Samsung S22 Main Camera
-            • Resolution: 4032×3024 (12MP)
+            • Resolution: ${HIGH_RES_WIDTH}×${HIGH_RES_HEIGHT} (${HIGH_RES_MEGAPIXELS}MP)
             • Bit Depth: 12-bit RAW
             • Color Space: sRGB
             

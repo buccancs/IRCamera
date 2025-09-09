@@ -13,6 +13,12 @@ import com.csl.irCamera.R
 class GSRDataRowAdapter(
     private val dataRows: List<GSRDataViewActivity.GSRDataRow>,
 ) : RecyclerView.Adapter<GSRDataRowAdapter.ViewHolder>() {
+
+    companion object {
+        // Constants for GSR data conversion
+        private const val RESISTANCE_CONVERSION_FACTOR = 1000 // Ohms to kOhms
+        private const val MAX_DISPLAY_ROWS = 100 // Performance limit
+    }
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val rowNumber: TextView = view.findViewById(R.id.row_number)
         val timestamp: TextView = view.findViewById(R.id.timestamp)
@@ -40,9 +46,9 @@ class GSRDataRowAdapter(
         holder.rowNumber.text = dataRow.rowNumber.toString()
         holder.timestamp.text = dataRow.timestamp
         holder.gsrValue.text = "%.3f μS".format(dataRow.gsrValue)
-        holder.resistance.text = "%.1f kΩ".format(dataRow.resistance / 1000)
+        holder.resistance.text = "%.1f kΩ".format(dataRow.resistance / RESISTANCE_CONVERSION_FACTOR)
         holder.conductance.text = "%.6f S".format(dataRow.conductance)
     }
 
-    override fun getItemCount() = minOf(dataRows.size, 100) // Limit to first 100 rows for performance
+    override fun getItemCount() = minOf(dataRows.size, MAX_DISPLAY_ROWS) // Limit for performance
 }

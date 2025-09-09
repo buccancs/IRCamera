@@ -99,4 +99,18 @@
     
     <!-- Manual strings -->
     <string name="app_manual">Manual</string>
+    
+    <!-- Session Manager strings -->
+    <string name="session_manager_title">Session Manager</string>
+    <string name="session_filter_all">All Sessions</string>
+    <string name="session_filter_active">Active Sessions</string>
+    <string name="session_filter_completed">Completed Sessions</string>
+    <string name="session_filter_gsr">With GSR</string>
+    <string name="session_filter_rgb">With RGB</string>
+    <string name="session_filter_thermal">With Thermal</string>
+    <string name="session_delete_title">Delete Session</string>
+    <string name="session_delete_message">Are you sure you want to delete session \'%1$s\'?\n\nThis will permanently remove all associated data files including GSR recordings, videos, and metadata.</string>
+    <string name="session_delete_confirm">Delete</string>
+    <string name="session_load_error">Failed to load sessions: %1$s</string>
+    <string name="session_delete_error">Failed to delete session files</string>
 </resources>

@@ -26,6 +26,10 @@ import kotlinx.coroutines.launch
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class PolicyActivity : BaseViewModelActivity<PolicyViewModel>() {
+
+    companion object {
+        private const val TAG = "PolicyActivity"
+    }
     private lateinit var policyWeb: WebView
     private val mHandler = Handler(Looper.getMainLooper())
 
@@ -125,7 +129,7 @@ class PolicyActivity : BaseViewModelActivity<PolicyViewModel>() {
                     url: String?,
                 ) {
                     super.onPageFinished(view, url)
-                    Log.w("123", "onPageFinished url: $url")
+                    Log.w(TAG, "onPageFinished url: $url")
                 }
             }
 

@@ -77,7 +77,7 @@ class SessionManagerActivity : AppCompatActivity() {
 
         // Setup toolbar
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "Session Manager"
+        supportActionBar?.title = getString(R.string.session_manager_title)
     }
 
     private fun setupSessionManager() {
@@ -115,7 +115,14 @@ class SessionManagerActivity : AppCompatActivity() {
         )
 
         // Filter spinner setup
-        val filterOptions = arrayOf("All Sessions", "Active Sessions", "Completed Sessions", "With GSR", "With RGB", "With Thermal")
+        val filterOptions = arrayOf(
+            getString(R.string.session_filter_all),
+            getString(R.string.session_filter_active), 
+            getString(R.string.session_filter_completed),
+            getString(R.string.session_filter_gsr),
+            getString(R.string.session_filter_rgb),
+            getString(R.string.session_filter_thermal)
+        )
         val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, filterOptions)
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         filterSpinner.adapter = spinnerAdapter
@@ -156,7 +163,7 @@ class SessionManagerActivity : AppCompatActivity() {
                 Log.i(TAG, "Loaded ${sessions.size} sessions")
             } catch (e: Exception) {
                 Log.e(TAG, "Failed to load sessions", e)
-                showError("Failed to load sessions: ${e.message}")
+                showError(getString(R.string.session_load_error, e.message))
             } finally {
                 showLoading(false)
             }
@@ -289,16 +296,14 @@ class SessionManagerActivity : AppCompatActivity() {
 
     private fun confirmDeleteSession(session: SessionInfo) {
         AlertDialog.Builder(this)
-            .setTitle("Delete Session")
+            .setTitle(getString(R.string.session_delete_title))
             .setMessage(
-                "Are you sure you want to delete session '${session.sessionId}'?\n\n" +
-                    "This will permanently remove all associated data files including " +
-                    "GSR recordings, videos, and metadata.",
+                getString(R.string.session_delete_message, session.sessionId)
             )
-            .setPositiveButton("Delete") { _, _ ->
+            .setPositiveButton(getString(R.string.session_delete_confirm)) { _, _ ->
                 deleteSession(session)
             }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(getString(R.string.app_cancel), null)
             .show()
     }
 
@@ -325,7 +330,7 @@ class SessionManagerActivity : AppCompatActivity() {
                     Toast.makeText(this@SessionManagerActivity, "Session deleted successfully", Toast.LENGTH_SHORT).show()
                     Log.i(TAG, "Session deleted: ${session.sessionId}")
                 } else {
-                    showError("Failed to delete session files")
+                    showError(getString(R.string.session_delete_error))
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "Failed to delete session", e)

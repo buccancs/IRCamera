@@ -69,9 +69,9 @@ class TimeManagerTest {
     }
 
     @Test
-    fun testMonotonicTimestamp() {
+    fun testMonotonicTimestamp() = runTest {
         val timestamp1 = timeManager.getMonotonicTimestamp()
-        Thread.sleep(1)
+        delay(1) // Use coroutine delay instead of Thread.sleep
         val timestamp2 = timeManager.getMonotonicTimestamp()
 
         assertTrue("Monotonic timestamps should be increasing", timestamp2 > timestamp1)
