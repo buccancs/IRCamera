@@ -55,19 +55,19 @@ class EnhancedNetworkingDemo:
             if not self.security_manager.initialize():
                 logger.error("Failed to initialize security manager")
                 return False
-            logger.info("✓ Security manager initialized with TLS certificates")
+            logger.info("OK Security manager initialized with TLS certificates")
 
             # Step 2: Start network server with enhanced features
             logger.info("2. Starting enhanced network server...")
             if not await self.server.start():
                 logger.error("Failed to start network server")
                 return False
-            logger.info("✓ Network server started with TLS and discovery")
+            logger.info("OK Network server started with TLS and discovery")
 
             # Step 3: Start discovery service
             logger.info("3. Starting device discovery...")
             if await self.discovery_service.start_discovery():
-                logger.info("✓ mDNS/Zeroconf discovery service started")
+                logger.info("OK mDNS/Zeroconf discovery service started")
             else:
                 logger.warning(
                     "Discovery service failed - continuing without discovery"
@@ -77,7 +77,7 @@ class EnhancedNetworkingDemo:
             logger.info("4. Initializing reliable messaging...")
             self.messaging_service.set_transport(self._message_transport)
             if await self.messaging_service.initialize():
-                logger.info("✓ Reliable messaging service initialized")
+                logger.info("OK Reliable messaging service initialized")
             else:
                 logger.error("Failed to initialize messaging service")
                 return False

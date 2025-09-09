@@ -69,9 +69,6 @@ except ImportError as e:
     messaging_available = False
 
 
-import pytest
-
-
 @pytest.mark.asyncio
 async def test_security_manager():
     """Test SecurityManager basic functionality."""
@@ -99,25 +96,25 @@ async def test_security_manager():
 
             # Test initialization
             result = security_manager.initialize()
-            logger.info(f"✓ SecurityManager initialization: {result}")
+            logger.info(f"OK SecurityManager initialization: {result}")
 
             if result:
                 # Test auth token generation
                 device_id = "test_device_123"
                 token = security_manager.generate_auth_token(device_id)
-                logger.info(f"✓ Generated auth token: {token[:20]}...")
+                logger.info(f"OK Generated auth token: {token[:20]}...")
 
                 # Test token validation
                 is_valid, validated_device_id = security_manager.validate_auth_token(
                     token
                 )
                 logger.info(
-                    f"✓ Token validation: {is_valid}, Device: {validated_device_id}"
+                    f"OK Token validation: {is_valid}, Device: {validated_device_id}"
                 )
 
                 # Test SSL context
                 ssl_context = security_manager.create_ssl_context()
-                logger.info(f"✓ SSL context created: {ssl_context.protocol}")
+                logger.info(f"OK SSL context created: {ssl_context.protocol}")
 
                 return True
             else:
@@ -149,11 +146,11 @@ async def test_reliable_messaging():
             return True
 
         messaging_service.set_transport(mock_transport)
-        logger.info("✓ Transport configured")
+        logger.info("OK Transport configured")
 
         # Test initialization
         result = await messaging_service.initialize()
-        logger.info(f"✓ Messaging service initialization: {result}")
+        logger.info(f"OK Messaging service initialization: {result}")
 
         if result:
             # Test message handler registration
@@ -161,7 +158,7 @@ async def test_reliable_messaging():
                 return {"status": "handled"}
 
             messaging_service.register_message_handler("test_message", test_handler)
-            logger.info("✓ Message handler registered")
+            logger.info("OK Message handler registered")
 
             # Test message sending
             message_id = await messaging_service.send_message(
@@ -171,21 +168,21 @@ async def test_reliable_messaging():
                 content={"test_data": "hello"},
                 priority=MessagePriority.HIGH,
             )
-            logger.info(f"✓ Message sent: {message_id}")
+            logger.info(f"OK Message sent: {message_id}")
 
             # Wait for processing
             await asyncio.sleep(1)
 
             # Check if message was processed
-            logger.info(f"✓ Messages sent by transport: {len(sent_messages)}")
+            logger.info(f"OK Messages sent by transport: {len(sent_messages)}")
 
             # Test acknowledgment
             await messaging_service.handle_acknowledgment(message_id, True)
-            logger.info("✓ Acknowledgment handled")
+            logger.info("OK Acknowledgment handled")
 
             # Test shutdown
             await messaging_service.shutdown()
-            logger.info("✓ Service shutdown completed")
+            logger.info("OK Service shutdown completed")
 
             return True
         else:
@@ -207,26 +204,26 @@ async def main():
     # Test SecurityManager
     if await test_security_manager():
         tests_passed += 1
-        logger.info("✅ SecurityManager tests passed")
+        logger.info("OK SecurityManager tests passed")
     else:
-        logger.error("❌ SecurityManager tests failed")
+        logger.error("ERROR SecurityManager tests failed")
 
     # Test ReliableMessageService
     if await test_reliable_messaging():
         tests_passed += 1
-        logger.info("✅ ReliableMessageService tests passed")
+        logger.info("OK ReliableMessageService tests passed")
     else:
-        logger.error("❌ ReliableMessageService tests failed")
+        logger.error("ERROR ReliableMessageService tests failed")
 
     # Report results
-    logger.info(f"\n=== Test Results ===")
+    logger.info("=== Test Results ===")
     logger.info(f"Passed: {tests_passed}/{total_tests}")
 
     if tests_passed == total_tests:
-        logger.info("🎉 All basic tests passed!")
+        logger.info("SUCCESS All basic tests passed!")
         return 0
     else:
-        logger.error(f"⚠️ {total_tests - tests_passed} test(s) failed")
+        logger.error(f"WARNING {total_tests - tests_passed} test(s) failed")
         return 1
 
 

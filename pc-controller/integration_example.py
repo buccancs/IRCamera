@@ -15,12 +15,12 @@ Usage:
     [--enable-native] [--port PORT]
 
 Features Demonstrated:
-    • Multi-modal sensor coordination (RGB, Thermal, GSR)
-    • Sub-5ms time synchronization across devices
-    • Real-time data visualization and analysis
-    • Scientific data export (HDF5, CSV, JSON)
-    • Device fault detection and recovery
-    • Cross-platform compatibility
+    * Multi-modal sensor coordination (RGB, Thermal, GSR)
+    * Sub-5ms time synchronization across devices
+    * Real-time data visualization and analysis
+    * Scientific data export (HDF5, CSV, JSON)
+    * Device fault detection and recovery
+    * Cross-platform compatibility
 """
 
 import argparse
@@ -59,10 +59,10 @@ try:
     import native_backend
 
     NATIVE_BACKEND_AVAILABLE = True
-    print("✓ Enhanced native backend available - High-performance mode enabled")
+    print("OK Enhanced native backend available - High-performance mode enabled")
 except ImportError:
     NATIVE_BACKEND_AVAILABLE = False
-    print("⚠ Native backend not available - Running in enhanced simulation mode")
+    print("WARNING Native backend not available - Running in enhanced simulation mode")
 
 
 class EnhancedPCController(QMainWindow):
@@ -219,7 +219,7 @@ class EnhancedPCController(QMainWindow):
             if shimmer_ports:
                 self.native_shimmer = native_backend.NativeShimmer(shimmer_ports[0])
                 if self.native_shimmer.connect():
-                    print(f"✓ Connected to Shimmer on {shimmer_ports[0]}")
+                    print(f"OK Connected to Shimmer on {shimmer_ports[0]}")
 
                     # Set up data callback
                     def shimmer_callback(gsr_data):
@@ -227,7 +227,7 @@ class EnhancedPCController(QMainWindow):
 
                     self.native_shimmer.set_data_callback(shimmer_callback)
                 else:
-                    print("✗ Failed to connect to Shimmer")
+                    print("FAIL Failed to connect to Shimmer")
 
             # Initialize webcam
             cameras = native_backend.get_available_cameras()
@@ -239,7 +239,7 @@ class EnhancedPCController(QMainWindow):
                 config.fps = 30.0
 
                 if self.native_webcam.open_camera(config):
-                    print(f"✓ Opened camera {cameras[0]}")
+                    print(f"OK Opened camera {cameras[0]}")
 
                     # Set up frame callback
                     def frame_callback(frame_data):
@@ -247,10 +247,10 @@ class EnhancedPCController(QMainWindow):
 
                     self.native_webcam.set_frame_callback(frame_callback)
                 else:
-                    print("✗ Failed to open camera")
+                    print("FAIL Failed to open camera")
 
         except Exception as e:
-            print(f"⚠ Native backend initialization failed: {e}")
+            print(f"WARNING Native backend initialization failed: {e}")
 
     def _setup_demo_devices(self):
         """Set up demo devices for simulation."""
@@ -299,7 +299,7 @@ class EnhancedPCController(QMainWindow):
         self.start_demo_btn.setEnabled(False)
         self.stop_demo_btn.setEnabled(True)
 
-        print("▶ Started demo data generation")
+        print("START Started demo data generation")
 
     def _stop_demo(self):
         """Stop demo data generation."""
@@ -310,7 +310,7 @@ class EnhancedPCController(QMainWindow):
         self.start_demo_btn.setEnabled(True)
         self.stop_demo_btn.setEnabled(False)
 
-        print("⏹ Stopped demo data generation")
+        print("STOP Stopped demo data generation")
 
     def _generate_demo_data(self):
         """Generate simulated sensor data."""
@@ -372,7 +372,7 @@ class EnhancedPCController(QMainWindow):
         # Add sync event to data aggregation
         self.data_aggregation.add_sync_event("flash", "demo_controller", timestamp_ns)
 
-        print("📸 Flash sync triggered")
+        print("CAPTURE Flash sync triggered")
 
     def _on_gsr_data(self, device_id: str, gsr_data):
         """Handle GSR data from native backend."""
@@ -417,7 +417,7 @@ class EnhancedPCController(QMainWindow):
         if self.native_webcam and self.native_webcam.is_open():
             self.native_webcam.start_capture()
 
-        print(f"🎬 Started session: {session.name}")
+        print(f"RECORDING Started session: {session.name}")
 
     def _stop_session(self):
         """Stop recording session."""
@@ -431,12 +431,12 @@ class EnhancedPCController(QMainWindow):
         # End session
         ended_session = self.session_manager.end_session()
 
-        print(f"⏹ Stopped session: {ended_session.name}")
+        print(f"STOP Stopped session: {ended_session.name}")
 
     def _new_session(self):
         """Create new session."""
         session = self.session_manager.create_session()
-        print(f"📁 Created new session: {session.name}")
+        print(f"DIRECTORY Created new session: {session.name}")
 
     def _update_status(self):
         """Update status displays."""
@@ -465,7 +465,7 @@ class EnhancedPCController(QMainWindow):
 
     def closeEvent(self, event):
         """Handle application close."""
-        print("🔄 Shutting down PC Controller...")
+        print("REFRESH Shutting down PC Controller...")
 
         # Stop demo if running
         if self.demo_timer:
@@ -483,7 +483,7 @@ class EnhancedPCController(QMainWindow):
         # Stop data aggregation
         self.data_aggregation.stop()
 
-        print("✅ PC Controller shutdown complete")
+        print("OK PC Controller shutdown complete")
         event.accept()
 
 
@@ -514,11 +514,11 @@ def main():
     controller = EnhancedPCController(args.session_dir, args.demo_mode)
     controller.show()
 
-    print("🚀 IRCamera PC Controller started")
+    print("START IRCamera PC Controller started")
     if args.demo_mode:
-        print("🎭 Running in demo mode - click 'Start Demo Data' to begin")
+        print("SCENARIO Running in demo mode - click 'Start Demo Data' to begin")
     else:
-        print("🔌 Hardware mode - connect Shimmer and camera devices")
+        print("PLUGIN Hardware mode - connect Shimmer and camera devices")
 
     # Run application
     sys.exit(app.exec())

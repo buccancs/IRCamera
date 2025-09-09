@@ -249,10 +249,12 @@ class NetworkServer:
             addr = self._server.sockets[0].getsockname()
             secure_addr = self._secure_server.sockets[0].getsockname()
             logger.info(
-                f"Network server started on {addr[0]}:{addr[1]} (plaintext) and {secure_addr[0]}:{secure_addr[1]} (TLS)"
+                f"Network server started on {addr[0]}:{addr[1]} (plaintext) "
+                f"and {secure_addr[0]}:{secure_addr[1]} (TLS)"
             )
             logger.info(
-                "Enhanced networking features: TLS encryption, mDNS discovery, reliable messaging"
+                "Enhanced networking features: TLS encryption, mDNS discovery, "
+                "reliable messaging"
             )
 
             return True
@@ -952,7 +954,9 @@ class NetworkServer:
         try:
             if event_type == "discovered":
                 logger.info(
-                    f"Discovered device: {device.service_name} ({device.device_type.value}) at {device.ip_address}:{device.port}"
+                    f"Discovered device: {device.service_name} "
+                    f"({device.device_type.value}) at "
+                    f"{device.ip_address}:{device.port}"
                 )
 
                 # Optionally auto-connect to discovered devices
@@ -1180,7 +1184,7 @@ class NetworkServer:
             if data_points:
                 latest_point = data_points[-1]
                 gsr_value = latest_point.get("gsr_microsiemens", 0)
-                logger.debug(f"Real-time GSR from {device_id}: {gsr_value:.4f} µS")
+                logger.debug(f"Real-time GSR from {device_id}: {gsr_value:.4f} microS")
 
                 # In a full implementation, this would:
                 # 1. Send data to GUI plotting thread
@@ -1218,5 +1222,6 @@ class NetworkServer:
             ]
 
         logger.debug(
-            f"Buffered {len(data_points)} GSR points from {device_id}, buffer size: {len(self._gsr_data_buffer[device_id])}"
+            f"Buffered {len(data_points)} GSR points from {device_id}, "
+            f"buffer size: {len(self._gsr_data_buffer[device_id])}"
         )

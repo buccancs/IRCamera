@@ -468,7 +468,7 @@ class TestMessageProtocol(unittest.TestCase):
         versions = ["1.0", "1.1", "2.0"]
 
         for version in versions:
-            message = {
+            _ = {
                 "type": "sync_request",
                 "protocol_version": version,
                 "timestamp": time.time_ns(),

@@ -265,7 +265,7 @@ class SystemIntegrationWidget(QWidget):
         """Update permission status."""
         # Show permission status in tooltip or separate area
         perm_text = "\n".join(
-            [f"{k}: {'✓' if v else '✗'}" for k, v in permissions.items()]
+            [f"{k}: {'OK' if v else 'FAIL'}" for k, v in permissions.items()]
         )
         self.setToolTip(f"Permissions:\n{perm_text}")
 
@@ -351,7 +351,10 @@ class BluetoothControlWidget(QWidget):
 
 
 class IntegrationManagementWidget(QWidget):
-    """Enhanced widget for managing Hub-Spoke integration with comprehensive error handling."""
+    """
+    Enhanced widget for managing Hub-Spoke integration with comprehensive
+    error handling.
+    """
 
     integration_status_changed = pyqtSignal(str, bool)  # status, is_error
     hub_connection_requested = pyqtSignal()
@@ -468,7 +471,7 @@ class IntegrationManagementWidget(QWidget):
         """Update time synchronization status."""
         if synchronized:
             self.sync_status_label.setText(
-                f"Time Sync: Active (±{max_offset_ms:.1f}ms)"
+                f"Time Sync: Active (+/-{max_offset_ms:.1f}ms)"
             )
             if max_offset_ms <= 5.0:  # Within 5ms requirement
                 self.sync_status_label.setStyleSheet("color: green;")

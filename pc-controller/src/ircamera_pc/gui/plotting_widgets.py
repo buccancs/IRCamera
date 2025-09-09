@@ -60,7 +60,7 @@ class GSRPlotWidget(pg.PlotWidget):
 
     def _setup_plot(self) -> None:
         """Set up the plot appearance and configuration."""
-        self.setLabel("left", "GSR (µS)", color="white", size="12pt")
+        self.setLabel("left", "GSR (microS)", color="white", size="12pt")
         self.setLabel("bottom", "Time (s)", color="white", size="12pt")
         self.setTitle("Real-time GSR Data", color="white", size="14pt")
 

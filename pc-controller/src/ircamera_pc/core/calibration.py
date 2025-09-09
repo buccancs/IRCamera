@@ -698,7 +698,7 @@ class CameraCalibrator:
             logger.info("Stereo calibration completed successfully")
             logger.info(f"Baseline: {stereo_calibration.baseline:.2f}mm")
             logger.info(
-                f"Convergence angle: {stereo_calibration.convergence_angle:.2f}°"
+                f"Convergence angle: {stereo_calibration.convergence_angle:.2f}deg"
             )
 
             return stereo_calibration
