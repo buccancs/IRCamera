@@ -28,7 +28,7 @@ import com.energy.ac020library.bean.IrcmdError;
 import com.energy.ac020library.bean.UvcHandleParam;
 
 import com.example.thermal_lite.util.ThermalConst;
-import com.energy.commoncomponent.bean.DeviceType;
+import com.example.thermal_lite.util.DeviceType;
 import com.example.thermal_lite.util.RotateDegree;
 // Use existing utilities instead of missing commonlibrary utils
 import com.infisense.usbir.utils.FileUtil;

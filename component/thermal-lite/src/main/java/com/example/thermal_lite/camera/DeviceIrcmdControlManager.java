@@ -5,7 +5,7 @@ import android.util.Log;
 import com.energy.ac020library.IrcamEngine;
 import com.energy.ac020library.IrcmdEngine;
 import com.energy.ac020library.bean.IrcmdError;
-import com.energy.commoncomponent.Const;
+import com.example.thermal_lite.util.ThermalConst;
 // Use existing FileUtil instead of missing commonlibrary util
 import com.infisense.usbir.utils.FileUtil;
 
@@ -79,7 +79,7 @@ public class DeviceIrcmdControlManager {
                 Log.i(TAG, "sendFPGAParam");
                 try {
                     //todo 暂时先一条一条指令发送
-                    String fpga_param_path = Const.DATA_FILE_SAVE_PATH + File.separator + "fpga.json";
+                    String fpga_param_path = ThermalConst.DATA_FILE_SAVE_PATH + File.separator + "fpga.json";
                     File file = new File(fpga_param_path);
                     if (!file.exists()) {
                         return;
