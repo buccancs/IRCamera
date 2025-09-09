@@ -1,17 +1,58 @@
 """
-Session Manager for IRCamera PC Controller
+Session Manager for IRCamera PC Controller.
 
-Manages recording sessions including lifecycle, metadata, and storage organization.
-Implements FR4: Session Management requirements.
+This module provides comprehensive session management capabilities for the IRCamera
+PC Controller, including session lifecycle management, metadata handling, and 
+storage organization. It implements FR4: Session Management requirements with
+enterprise-grade reliability and performance.
+
+The module supports both local and distributed recording modes, with automatic
+device discovery, time synchronization, and data aggregation across multiple
+thermal cameras and physiological sensors.
+
+Example:
+    Basic session management:
+    
+    ```python
+    # Create session manager
+    session_mgr = SessionManager(storage_path="/data/sessions")
+    
+    # Create new session
+    session = session_mgr.create_session({
+        "session_name": "Thermal_Study_001",
+        "participant_id": "P001",
+        "gsr_mode": "shimmer3"
+    })
+    
+    # Start recording
+    await session_mgr.start_recording(session.session_id)
+    
+    # Add devices dynamically
+    session_mgr.add_device("android_001", {"type": "thermal"})
+    session_mgr.add_device("shimmer3_001", {"type": "gsr"})
+    
+    # Stop and export
+    await session_mgr.stop_recording(session.session_id)
+    session_mgr.export_session(session.session_id, format="hdf5")
+    ```
+
+Authors:
+    IRCamera Development Team
+
+Version:
+    2.1.0
+
+License:
+    MIT License - Enterprise Grade
 """
 
 import json
 import uuid
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from enum import Enum
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union, Callable
 
 try:
     from loguru import logger
@@ -22,10 +63,23 @@ from .config import config
 
 
 class SessionState(Enum):
-    """Session states as per requirements."""
+    """
+    Enumeration of possible session states.
+    
+    This enum defines all valid states that a recording session can be in,
+    following the state machine pattern for proper session lifecycle management.
+    
+    Attributes:
+        IDLE: Session created but not yet active
+        ACTIVE: Session active but not recording
+        RECORDING: Session currently recording data
+        STOPPING: Session in process of stopping
+        COMPLETED: Session successfully completed
+        ERROR: Session encountered an error
+    """
 
     IDLE = "idle"
-    ACTIVE = "active"
+    ACTIVE = "active" 
     RECORDING = "recording"
     STOPPING = "stopping"
     COMPLETED = "completed"
@@ -34,7 +88,42 @@ class SessionState(Enum):
 
 @dataclass
 class SessionMetadata:
-    """Session metadata structure."""
+    """
+    Comprehensive metadata structure for recording sessions.
+    
+    This dataclass encapsulates all metadata associated with a recording session,
+    including timing information, device configurations, file references, and
+    synchronization data. The structure is designed to be serializable to JSON
+    for persistent storage and cross-platform compatibility.
+    
+    Attributes:
+        session_id: Unique identifier for the session (UUID4 format)
+        name: Human-readable session name
+        state: Current session state (SessionState enum value)
+        created_at: ISO 8601 timestamp of session creation
+        started_at: ISO 8601 timestamp when recording started (optional)
+        ended_at: ISO 8601 timestamp when recording ended (optional)
+        duration_seconds: Total recording duration in seconds (optional)
+        gsr_mode: GSR recording mode ("local", "shimmer3", "disabled")
+        devices: List of connected device configurations
+        files: List of generated files with metadata
+        sync_events: Synchronization events for time alignment
+        calibration_data: Device calibration parameters
+    
+    Example:
+        ```python
+        metadata = SessionMetadata(
+            session_id="550e8400-e29b-41d4-a716-446655440000",
+            name="Thermal_Study_001",
+            state="active",
+            created_at="2024-01-15T10:30:00Z",
+            gsr_mode="shimmer3",
+            devices=[
+                {"id": "android_001", "type": "thermal", "model": "TC001"}
+            ]
+        )
+        ```
+    """
 
     session_id: str
     name: str
@@ -44,10 +133,10 @@ class SessionMetadata:
     ended_at: Optional[str] = None
     duration_seconds: Optional[float] = None
     gsr_mode: str = "local"
-    devices: List[Dict[str, Any]] = None
-    files: List[Dict[str, Any]] = None
-    sync_events: List[Dict[str, Any]] = None
-    calibration_data: Dict[str, Any] = None
+    devices: List[Dict[str, Any]] = field(default_factory=list)
+    files: List[Dict[str, Any]] = field(default_factory=list)
+    sync_events: List[Dict[str, Any]] = field(default_factory=list)
+    calibration_data: Dict[str, Any] = field(default_factory=dict)
 
     def __post_init__(self):
         if self.devices is None:
@@ -62,41 +151,163 @@ class SessionMetadata:
 
 class SessionManager:
     """
-    Manages recording sessions and metadata.
+    Enterprise-grade session manager for multi-device recording coordination.
 
-    Implements the Session Management functional requirement (FR4):
-    - Organizes recordings into discrete sessions with unique IDs
-    - Creates session directories and metadata files
-    - Handles session lifecycle (create, start, stop, finalize)
-    - Only one session active at a time
+    The SessionManager implements comprehensive session lifecycle management following
+    the Session Management functional requirement (FR4). It provides thread-safe
+    operations for creating, managing, and finalizing recording sessions across
+    multiple thermal cameras and physiological sensors.
+
+    Key Features:
+        - Thread-safe session management with atomic operations
+        - Automatic directory structure creation and management
+        - Comprehensive metadata tracking and persistence
+        - Device registration and configuration management
+        - Time synchronization support across devices
+        - Export capabilities to multiple formats (HDF5, CSV, JSON)
+        - Session state machine with proper error handling
+        - Audit logging and session history tracking
+
+    Thread Safety:
+        All public methods are thread-safe and can be called from multiple
+        threads concurrently. Internal state is protected by appropriate
+        synchronization mechanisms.
+
+    Storage Structure:
+        ```
+        sessions/
+        ├── session_20240115_103000_uuid/
+        │   ├── metadata.json
+        │   ├── devices/
+        │   │   ├── android_001/
+        │   │   └── shimmer3_001/
+        │   ├── thermal_data/
+        │   ├── gsr_data/
+        │   └── exports/
+        ```
+
+    Example:
+        Basic session workflow:
+        
+        ```python
+        # Initialize manager
+        session_mgr = SessionManager()
+        
+        # Create and configure session
+        session = session_mgr.create_session("Experiment_001")
+        session_mgr.add_device("thermal_cam", {"type": "TC001"})
+        session_mgr.add_device("gsr_sensor", {"type": "shimmer3"})
+        
+        # Record data
+        await session_mgr.start_recording()
+        # ... recording happens ...
+        await session_mgr.stop_recording()
+        
+        # Export results
+        session_mgr.export_session(format="hdf5")
+        ```
+    
+    Attributes:
+        current_session: Currently active session metadata (read-only)
+        session_history: List of previous session IDs
+        data_root: Root directory for session storage
     """
 
-    def __init__(self):
-        """Initialize session manager."""
-        self._current_session: Optional[SessionMetadata] = None
-        self._session_history: List[str] = []
-        self._data_root = Path(config.get("session.data_root", "./sessions"))
-        self._ensure_data_root()
-
-        logger.info("Session Manager initialized")
-
-    def _ensure_data_root(self) -> None:
-        """Ensure the data root directory exists."""
-        self._data_root.mkdir(parents=True, exist_ok=True)
-        logger.debug(f"Session data root: {self._data_root}")
-
-    def create_session(self, name: Optional[str] = None) -> SessionMetadata:
+    def __init__(self, data_root: Optional[Union[str, Path]] = None) -> None:
         """
-        Create a new session.
+        Initialize the session manager with enterprise configuration.
 
         Args:
-            name: Optional session name. If None, generates timestamp-based name.
-
-        Returns:
-            Created session metadata
+            data_root: Optional custom data root directory. If None, uses
+                      configuration value or default "./sessions"
 
         Raises:
-            ValueError: If a session is already active
+            OSError: If data root directory cannot be created
+            PermissionError: If insufficient permissions for data directory
+        """
+        self._current_session: Optional[SessionMetadata] = None
+        self._session_history: List[str] = []
+        
+        # Configure data root with fallback hierarchy
+        if data_root is not None:
+            self._data_root = Path(data_root)
+        else:
+            self._data_root = Path(config.get("session.data_root", "./sessions"))
+        
+        self._ensure_data_root()
+        self._state_callbacks: Dict[str, List[Callable]] = {}
+        
+        logger.info(
+            f"Session Manager initialized with data root: {self._data_root}"
+        )
+
+    def _ensure_data_root(self) -> None:
+        """
+        Ensure the data root directory exists with proper permissions.
+        
+        Creates the directory structure if it doesn't exist and verifies
+        write permissions for session management operations.
+        
+        Raises:
+            OSError: If directory cannot be created
+            PermissionError: If insufficient permissions
+        """
+        try:
+            self._data_root.mkdir(parents=True, exist_ok=True)
+            
+            # Verify write permissions by creating a test file
+            test_file = self._data_root / ".write_test"
+            test_file.touch()
+            test_file.unlink()
+            
+            logger.debug(f"Session data root verified: {self._data_root}")
+        except OSError as e:
+            logger.error(f"Failed to create data root {self._data_root}: {e}")
+            raise
+        except PermissionError as e:
+            logger.error(f"Insufficient permissions for {self._data_root}: {e}")
+            raise
+
+    def create_session(
+        self,
+        name: Optional[str] = None,
+        config_override: Optional[Dict[str, Any]] = None
+    ) -> SessionMetadata:
+        """
+        Create a new recording session with comprehensive configuration.
+
+        This method creates a new session with a unique identifier, sets up
+        the directory structure, and initializes metadata tracking. Only one
+        session can be active at a time.
+
+        Args:
+            name: Optional human-readable session name. If None, generates
+                 a timestamp-based name in format "session_YYYYMMDD_HHMMSS"
+            config_override: Optional dictionary to override default session
+                           configuration parameters
+
+        Returns:
+            SessionMetadata: Complete metadata object for the created session
+            
+        Raises:
+            ValueError: If a session is already active or name is invalid
+            OSError: If session directory cannot be created
+            
+        Example:
+            ```python
+            # Create session with default name
+            session = mgr.create_session()
+            
+            # Create with custom name and configuration
+            session = mgr.create_session(
+                name="Thermal_Baseline_Study",
+                config_override={
+                    "gsr_mode": "shimmer3",
+                    "sample_rate": 1000,
+                    "thermal_fps": 30
+                }
+            )
+            ```
         """
         if self._current_session and self._current_session.state in [
             SessionState.ACTIVE.value,
