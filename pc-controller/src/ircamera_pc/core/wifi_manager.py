@@ -13,8 +13,7 @@ import subprocess
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
-from typing import Optional
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
 try:
     from loguru import logger
@@ -155,7 +154,7 @@ class WiFiScanWorker(BaseThread):
                 logger.error(f"WiFi scan error: {e}")
                 self.error_occurred.emit(str(e))
 
-    def stop(self):
+    def stop(self) -> None:
         """Stop the scanning process."""
         self._running = False
 
@@ -229,7 +228,7 @@ class WiFiScanWorker(BaseThread):
         networks = []
         lines = output.split("\n")
 
-        current_network = {}
+        current_network: Dict[str, Any] = {}
         for line in lines:
             line = line.strip()
 
@@ -450,7 +449,7 @@ class WiFiManager(BaseManager):
     interface_changed = pyqtSignal(str, bool)  # interface_name, is_active
     error_occurred = pyqtSignal(str, str)  # operation, error_message
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__("wifi_manager")
         self._networks: Dict[str, WiFiNetwork] = {}  # SSID -> WiFiNetwork
         self._interfaces: Dict[str, NetworkInterface] = {}
@@ -544,7 +543,9 @@ class WiFiManager(BaseManager):
         """Handle scan error."""
         self.error_occurred.emit("scan", error)
 
-    async def connect_to_network(self, ssid: str, password: str = None) -> bool:
+    async def connect_to_network(
+        self, ssid: str, password: Optional[str] = None
+    ) -> bool:
         """
         Connect to a WiFi network.
 
@@ -601,7 +602,10 @@ class WiFiManager(BaseManager):
             self.error_occurred.emit("disconnect", str(e))
 
     async def start_hotspot(
-        self, ssid: str = None, password: str = None, channel: int = None
+        self,
+        ssid: Optional[str] = None,
+        password: Optional[str] = None,
+        channel: Optional[int] = None,
     ) -> bool:
         """
         Start mobile hotspot for IRCamera device connections.
@@ -759,7 +763,7 @@ class WiFiManager(BaseManager):
             logger.error(f"Status update failed: {e}")
 
     async def _platform_connect(
-        self, ssid: str, password: str, security: NetworkSecurityType
+        self, ssid: str, password: Optional[str], security: NetworkSecurityType
     ) -> bool:
         """Platform-specific WiFi connection implementation."""
         system = platform.system()

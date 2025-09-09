@@ -539,7 +539,7 @@ class CameraCalibrator:
             logger.error(f"Failed to decode image: {e}")
             return None
 
-    async def _save_calibration_result(self, result: CalibrationResult):
+    async def _save_calibration_result(self, result: CalibrationResult) -> None:
         """Save calibration result to JSON file"""
         try:
             filename = (

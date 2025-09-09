@@ -12,7 +12,7 @@ import subprocess
 import sys
 from dataclasses import dataclass
 from enum import Enum
-from typing import Optional
+from typing import Any, List, Optional
 
 try:
     from PyQt6.QtCore import pyqtSignal
@@ -36,7 +36,7 @@ except ImportError:
         )()
 
         @staticmethod
-        def question(*args, **kwargs):
+        def question(*args, **kwargs) -> str:
             return QMessageBox.StandardButton.Yes
 
         @staticmethod
@@ -123,7 +123,7 @@ class AdminPrivilegesManager(BaseManager):
         permission_denied = pyqtSignal(str, str)  # operation, reason
         system_ready = pyqtSignal(SystemPermissions)
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__("admin_privileges")
         self._current_privilege = PrivilegeLevel.UNKNOWN
         self._permissions = SystemPermissions()
@@ -133,7 +133,7 @@ class AdminPrivilegesManager(BaseManager):
         self._check_current_privileges()
         self._check_system_permissions()
 
-    def _emit_signal(self, signal_name: str, *args):
+    def _emit_signal(self, signal_name: str, *args: Any) -> None:
         """Emit a signal if PyQt6 is available."""
         if PYQT_AVAILABLE and hasattr(self, signal_name):
             signal = getattr(self, signal_name)
@@ -235,7 +235,7 @@ class AdminPrivilegesManager(BaseManager):
         logger.warning(f"Unknown operation permission check: {operation}")
         return False
 
-    def run_as_admin(self, command: str, arguments: list = None) -> bool:
+    def run_as_admin(self, command: str, arguments: Optional[List[Any]] = None) -> bool:
         """
         Run a command with administrator privileges.
 

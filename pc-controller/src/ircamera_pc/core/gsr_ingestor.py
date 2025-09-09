@@ -270,7 +270,7 @@ class GSRIngestor:
 
         return True
 
-    def _update_quality_stats(self, dataset: GSRDataSet, sample: GSRSample):
+    def _update_quality_stats(self, dataset: GSRDataSet, sample: GSRSample) -> None:
         """Update running quality statistics"""
         stats = dataset.quality_stats
         stats["min"] = min(stats["min"], sample.quality)
@@ -283,7 +283,7 @@ class GSRIngestor:
         else:
             stats["mean"] = ((stats["mean"] * (n - 1)) + sample.quality) / n
 
-    async def _save_dataset(self, dataset: GSRDataSet):
+    async def _save_dataset(self, dataset: GSRDataSet) -> None:
         """Save GSR dataset to JSON file"""
         try:
             filename = f"gsr_{dataset.session_id}_{dataset.device_id}.json"

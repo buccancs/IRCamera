@@ -29,9 +29,11 @@ class ConfigManager:
         if config_path is None:
             # Default to config/config.yaml relative to project root
             project_root = Path(__file__).parent.parent.parent.parent
-            config_path = project_root / "config" / "config.yaml"
+            resolved_config_path = project_root / "config" / "config.yaml"
+        else:
+            resolved_config_path = Path(config_path)
 
-        self.config_path = Path(config_path)
+        self.config_path = resolved_config_path
         self._config: Dict[str, Any] = {}
         self._load_config()
 
