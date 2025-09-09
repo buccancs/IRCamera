@@ -10,7 +10,7 @@ namespace py = pybind11;
 
 PYBIND11_MODULE(native_backend, m) {
     m.doc() = "IRCamera Native Backend - High-performance sensor interfacing";
-    
+
     // GSRData structure
     py::class_<ircamera::GSRData>(m, "GSRData")
         .def(py::init<>())
@@ -21,15 +21,15 @@ PYBIND11_MODULE(native_backend, m) {
         .def_readwrite("ppg_normalized", &ircamera::GSRData::ppg_normalized)
         .def_readwrite("packet_sequence", &ircamera::GSRData::packet_sequence)
         .def("__repr__", [](const ircamera::GSRData &data) {
-            return "<GSRData timestamp=" + std::to_string(data.timestamp_ns) + 
+            return "<GSRData timestamp=" + std::to_string(data.timestamp_ns) +
                    " gsr=" + std::to_string(data.gsr_microsiemens) + "µS" +
                    " raw=" + std::to_string(data.raw_gsr_value) + ">";
         });
-    
+
     // NativeShimmer class
     py::class_<ircamera::NativeShimmer>(m, "NativeShimmer")
         .def(py::init<const std::string&>(), py::arg("port_name") = "")
-        .def("connect", &ircamera::NativeShimmer::connect, 
+        .def("connect", &ircamera::NativeShimmer::connect,
              py::arg("port_name") = "",
              "Connect to Shimmer device on specified port")
         .def("disconnect", &ircamera::NativeShimmer::disconnect,
@@ -66,7 +66,7 @@ PYBIND11_MODULE(native_backend, m) {
              "Get last error message")
         .def("perform_self_test", &ircamera::NativeShimmer::perform_self_test,
              "Perform device self-test");
-    
+
     // FrameData structure
     py::class_<ircamera::FrameData>(m, "FrameData")
         .def(py::init<>())
@@ -80,16 +80,16 @@ PYBIND11_MODULE(native_backend, m) {
             if (!frame.data || frame.data_size == 0) {
                 return py::array_t<uint8_t>();
             }
-            
+
             // Create numpy array from frame data
             std::vector<size_t> shape;
             if (frame.channels == 1) {
                 shape = {static_cast<size_t>(frame.height), static_cast<size_t>(frame.width)};
             } else {
-                shape = {static_cast<size_t>(frame.height), static_cast<size_t>(frame.width), 
+                shape = {static_cast<size_t>(frame.height), static_cast<size_t>(frame.width),
                         static_cast<size_t>(frame.channels)};
             }
-            
+
             return py::array_t<uint8_t>(
                 shape,
                 frame.data.get()
@@ -99,7 +99,7 @@ PYBIND11_MODULE(native_backend, m) {
             return "<FrameData " + std::to_string(frame.width) + "x" + std::to_string(frame.height) +
                    "x" + std::to_string(frame.channels) + " frame=" + std::to_string(frame.frame_number) + ">";
         });
-    
+
     // CameraConfig structure
     py::class_<ircamera::CameraConfig>(m, "CameraConfig")
         .def(py::init<>())
@@ -115,7 +115,7 @@ PYBIND11_MODULE(native_backend, m) {
             return "<CameraConfig " + std::to_string(config.width) + "x" + std::to_string(config.height) +
                    " @ " + std::to_string(config.fps) + "fps>";
         });
-    
+
     // NativeWebcam class
     py::class_<ircamera::NativeWebcam>(m, "NativeWebcam")
         .def(py::init<int>(), py::arg("device_id") = 0)
@@ -166,12 +166,12 @@ PYBIND11_MODULE(native_backend, m) {
              "Get last error message")
         .def("test_camera_capture", &ircamera::NativeWebcam::test_camera_capture,
              "Test camera capture functionality");
-    
+
     // Module-level utility functions
     m.def("get_shimmer_ports", []() {
         // Utility function to detect available Shimmer ports
         std::vector<std::string> ports;
-        
+
 #ifdef _WIN32
         // Windows COM port detection
         for (int i = 1; i <= 20; i++) {
@@ -195,7 +195,7 @@ PYBIND11_MODULE(native_backend, m) {
             "/dev/ttyACM0", "/dev/ttyACM1", "/dev/ttyACM2", "/dev/ttyACM3",
             "/dev/cu.usbserial-*", "/dev/cu.usbmodem*"
         };
-        
+
         for (const auto& port : candidates) {
             int fd = open(port.c_str(), O_RDWR | O_NOCTTY | O_NONBLOCK);
             if (fd >= 0) {
@@ -204,16 +204,16 @@ PYBIND11_MODULE(native_backend, m) {
             }
         }
 #endif
-        
+
         return ports;
     }, "Get list of available serial ports for Shimmer devices");
-    
+
     m.def("get_available_cameras", []() {
         // Utility function to detect available cameras
         ircamera::NativeWebcam webcam;
         return webcam.get_available_cameras();
     }, "Get list of available camera device IDs");
-    
+
     // Version info
     m.attr("__version__") = "1.0.0";
     m.attr("__author__") = "IRCamera Team";

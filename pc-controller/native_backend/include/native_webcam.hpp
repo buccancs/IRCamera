@@ -1,6 +1,6 @@
 /**
  * High-performance webcam interface for C++ backend
- * 
+ *
  * Implements OpenCV-based webcam capture with zero-copy memory sharing
  * to Python for real-time video processing and display.
  */
@@ -109,7 +109,7 @@ public:
         double gain;
         double exposure;
     };
-    
+
     CameraProperties get_properties() const;
 
     /**
@@ -137,7 +137,7 @@ public:
         uint64_t last_timestamp_ns;
         size_t avg_frame_size_bytes;
     };
-    
+
     Statistics get_statistics() const;
 
     /**
@@ -184,7 +184,7 @@ private:
 
     // Capture thread
     std::unique_ptr<std::thread> capture_thread_;
-    
+
     // Frame queue
     std::unique_ptr<utils::ThreadSafeQueue<WebcamFrame>> frame_queue_;
 

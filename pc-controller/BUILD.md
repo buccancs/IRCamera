@@ -68,15 +68,15 @@ python setup.py build_ext --inplace
 try:
     import native_backend
     print("Native backend loaded successfully!")
-    
+
     # Test Shimmer detection
     shimmer_ports = native_backend.get_shimmer_ports()
     print(f"Available Shimmer ports: {shimmer_ports}")
-    
-    # Test camera detection  
+
+    # Test camera detection
     cameras = native_backend.get_available_cameras()
     print(f"Available cameras: {cameras}")
-    
+
 except ImportError as e:
     print(f"Failed to import native backend: {e}")
 ```
@@ -102,7 +102,7 @@ except ImportError as e:
    ```bash
    # Ensure Python development headers
    sudo apt-get install python3-dev
-   
+
    # Check Python version compatibility
    python3 -c "import pybind11; print(pybind11.__version__)"
    ```
@@ -112,7 +112,7 @@ except ImportError as e:
    # Clear build cache
    rm -rf build/
    mkdir build && cd build
-   
+
    # Verbose configuration
    cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_VERBOSE_MAKEFILE=ON
    ```

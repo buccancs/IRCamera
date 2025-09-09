@@ -323,7 +323,8 @@ class CameraCalibrator:
                 cv2.imwrite(str(image_path), image)
 
                 logger.info(
-                    f"Calibration image {session_data['images_collected']}accepted for {calibration_id}"
+                    f"Calibration image {session_data['images_collected']} "
+                    f"accepted for {calibration_id}"
                 )
 
                 return {
@@ -376,7 +377,8 @@ class CameraCalibrator:
             # Check if we have enough images
             if session_data["images_collected"] < self.min_images:
                 logger.error(
-                    f"Not enough images for calibration: {session_data['images_collected']}< {self.min_images}"
+                    f"Not enough images for calibration: "
+                    f"{session_data['images_collected']} < {self.min_images}"
                 )
                 return None
 

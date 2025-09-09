@@ -1,6 +1,6 @@
 /**
  * Thread-safe queue for high-performance sensor data streaming
- * 
+ *
  * Provides lock-free, thread-safe queue implementation for real-time
  * sensor data communication between C++ threads and Python.
  */
@@ -80,16 +80,16 @@ private:
     std::atomic<Node*> tail_;
     std::atomic<size_t> size_;
     const size_t capacity_;
-    
+
     std::vector<std::unique_ptr<Node>> node_pool_;
     std::atomic<size_t> pool_index_;
 };
 
 // Template implementation
 template <typename T>
-ThreadSafeQueue<T>::ThreadSafeQueue(size_t capacity) 
+ThreadSafeQueue<T>::ThreadSafeQueue(size_t capacity)
     : capacity_(capacity), size_(0), pool_index_(0) {
-    
+
     // Pre-allocate nodes for lock-free operation
     node_pool_.reserve(capacity + 1);
     for (size_t i = 0; i <= capacity; ++i) {
@@ -110,7 +110,7 @@ bool ThreadSafeQueue<T>::push(const T& item) {
     // Get a node from pool
     size_t pool_idx = pool_index_.fetch_add(1) % node_pool_.size();
     Node* new_node = node_pool_[pool_idx].get();
-    
+
     // Reset the node
     new_node->data.store(new T(item));
     new_node->next.store(nullptr);
@@ -118,7 +118,7 @@ bool ThreadSafeQueue<T>::push(const T& item) {
     // Update tail
     Node* prev_tail = tail_.exchange(new_node);
     prev_tail->next.store(new_node);
-    
+
     size_.fetch_add(1);
     return true;
 }
@@ -132,7 +132,7 @@ bool ThreadSafeQueue<T>::push(T&& item) {
     // Get a node from pool
     size_t pool_idx = pool_index_.fetch_add(1) % node_pool_.size();
     Node* new_node = node_pool_[pool_idx].get();
-    
+
     // Reset the node
     new_node->data.store(new T(std::move(item)));
     new_node->next.store(nullptr);
@@ -140,7 +140,7 @@ bool ThreadSafeQueue<T>::push(T&& item) {
     // Update tail
     Node* prev_tail = tail_.exchange(new_node);
     prev_tail->next.store(new_node);
-    
+
     size_.fetch_add(1);
     return true;
 }
@@ -149,7 +149,7 @@ template <typename T>
 bool ThreadSafeQueue<T>::pop(T& item) {
     Node* head = head_.load();
     Node* next = head->next.load();
-    
+
     if (next == nullptr) {
         return false; // Queue empty
     }
@@ -162,10 +162,10 @@ bool ThreadSafeQueue<T>::pop(T& item) {
     item = *data;
     delete data;
     next->data.store(nullptr);
-    
+
     head_.store(next);
     size_.fetch_sub(1);
-    
+
     return true;
 }
 

@@ -21,6 +21,8 @@ except ImportError:
     from ..utils.simple_logger import logger
 
 from ..core.config import config
+from .discovery import NetworkDiscoveryService
+from .messaging import MessagePriority, ReliableMessageService
 from .protocol import (
     ValidationError,
     create_message,
@@ -28,8 +30,6 @@ from .protocol import (
     validate_message,
 )
 from .security import SecurityManager
-from .discovery import NetworkDiscoveryService
-from .messaging import ReliableMessageService, MessagePriority
 
 
 class DeviceState(Enum):

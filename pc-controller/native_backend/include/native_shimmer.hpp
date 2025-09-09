@@ -1,6 +1,6 @@
 /**
  * High-performance Shimmer sensor interface for C++ backend
- * 
+ *
  * Implements direct serial communication with docked Shimmer sensors
  * for minimal latency GSR data acquisition.
  */
@@ -120,7 +120,7 @@ public:
         double data_rate_hz;
         uint64_t last_timestamp_ns;
     };
-    
+
     Statistics get_statistics() const;
 
 private:
@@ -136,7 +136,7 @@ private:
 
     // Data processing thread
     std::unique_ptr<std::thread> reader_thread_;
-    
+
     // Data queue
     std::unique_ptr<utils::ThreadSafeQueue<ShimmerData>> data_queue_;
 

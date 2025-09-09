@@ -1,6 +1,6 @@
 /**
  * PyBind11 module definition for IRCamera native backend
- * 
+ *
  * Exposes C++ sensor interfaces to Python for high-performance
  * data acquisition and processing.
  */
@@ -131,7 +131,7 @@ PYBIND11_MODULE(ircamera_native_backend, m) {
         .def(py::init<>())
         .def("open", &NativeWebcam::open,
              "Open webcam device",
-             py::arg("device_id") = 0, py::arg("width") = 1920, 
+             py::arg("device_id") = 0, py::arg("width") = 1920,
              py::arg("height") = 1080, py::arg("fps") = 30.0)
         .def("close", &NativeWebcam::close,
              "Close webcam device")

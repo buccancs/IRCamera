@@ -1,7 +1,8 @@
 package com.topdon.menu.constant
 
 /**
- * 由于不同的设备（单光、双光、Lite、TC007、2D编辑）菜单存在差异，用该枚举区分.
+ * Different devices (single light, dual light, Lite, TC007, 2D editing) have different menus.
+ * This enum is used to distinguish between them.
  *
  * Created by LCG on 2024/11/18.
  */

@@ -193,7 +193,7 @@
         }
       },
       "time_sync_request": {
-        "direction": "device_to_pc", 
+        "direction": "device_to_pc",
         "description": "Time synchronization request",
         "required_fields": ["device_id"],
         "optional_fields": ["client_timestamp"],
@@ -440,7 +440,7 @@
         }
       },
       "bluetooth_connect_request": {
-        "direction": "pc_to_device", 
+        "direction": "pc_to_device",
         "description": "Request device to connect to Bluetooth device",
         "required_fields": ["target_address"],
         "optional_fields": ["connection_timeout"],
@@ -585,7 +585,7 @@
   },
   "common_fields": {
     "message_type": {
-      "type": "string", 
+      "type": "string",
       "description": "Type of message being sent",
       "required": true
     },
@@ -601,7 +601,7 @@
       "required": false
     },
     "correlation_id": {
-      "type": "string", 
+      "type": "string",
       "description": "ID to correlate request/response pairs",
       "required": false
     }

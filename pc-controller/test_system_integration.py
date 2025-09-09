@@ -16,9 +16,7 @@ sys.path.insert(0, str(src_dir))
 async def test_bluetooth_manager():
     """Test Bluetooth manager basic functionality."""
     try:
-        from ircamera_pc.core.bluetooth_manager import (
-            BluetoothManager,
-        )
+        from ircamera_pc.core.bluetooth_manager import BluetoothManager
 
         # Test basic initialization
         manager = BluetoothManager()
@@ -35,9 +33,7 @@ async def test_bluetooth_manager():
 async def test_wifi_manager():
     """Test WiFi manager basic functionality."""
     try:
-        from ircamera_pc.core.wifi_manager import (
-            WiFiManager,
-        )
+        from ircamera_pc.core.wifi_manager import WiFiManager
 
         # Test basic initialization
         manager = WiFiManager()
