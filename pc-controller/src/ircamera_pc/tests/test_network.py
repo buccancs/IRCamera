@@ -14,7 +14,7 @@ from unittest.mock import Mock, patch
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
 # Local imports - moved after sys.path setup
-from ircamera_pc.network.protocol import MessageProtocol, MessageType  # noqa: E402
+from ircamera_pc.network.protocol import ProtocolManager, MessageDirection  # noqa: E402
 from ircamera_pc.network.server import NetworkServer  # noqa: E402
 
 

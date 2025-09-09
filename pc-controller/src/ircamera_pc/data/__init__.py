@@ -19,6 +19,8 @@ import numpy as np
 import pandas as pd
 from loguru import logger
 
+from .processing import DataPoint
+
 
 @dataclass
 class DataStream:
@@ -90,8 +92,8 @@ class DataAggregationEngine:
         self.sync_events: List[SyncEvent] = []
 
         # Threading and async management
-        self.data_queue = Queue()
-        self.sync_queue = Queue()
+        self.data_queue: Queue[DataPoint] = Queue()
+        self.sync_queue: Queue[SyncEvent] = Queue()
         self.aggregation_thread: Optional[threading.Thread] = None
         self.is_running = threading.Event()
 
@@ -240,7 +242,7 @@ class DataAggregationEngine:
         event_type: str,
         source_device: str,
         timestamp_ns: Optional[int] = None,
-        metadata: Dict = None,
+        metadata: Optional[Dict[Any, Any]] = None,
     ) -> None:
         """
         Add synchronization event.
@@ -695,7 +697,7 @@ def calculate_temporal_alignment(
     Returns:
         Dictionary mapping device_id to offset in nanoseconds
     """
-    device_offsets = {}
+    device_offsets: Dict[str, int] = {}
 
     if not sync_events:
         return device_offsets

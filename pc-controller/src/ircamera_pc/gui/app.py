@@ -46,9 +46,9 @@ class IRCameraApp:
         self.network_server = NetworkServer()
 
         # Enhanced components for system integration
-        self.gsr_ingestor = GSRIngestor(self.config)
-        self.file_transfer_manager = FileTransferManager(self.config)
-        self.camera_calibrator = CameraCalibrator(self.config)
+        self.gsr_ingestor = GSRIngestor(self.config.get_all())
+        self.file_transfer_manager = FileTransferManager(self.config.get_all())
+        self.camera_calibrator = CameraCalibrator(self.config.get_all())
 
         # System integration managers
         self.admin_privileges_manager = AdminPrivilegesManager()
@@ -219,16 +219,11 @@ class IRCameraApp:
 
     def _process_async_events(self) -> None:
         """Process pending asyncio events."""
-        if self._loop:
+        if self._loop and not self._loop.is_closed():
             try:
-                # Process up to 10 callbacks per timer tick
-                for _ in range(10):
-                    if self._loop._ready:
-                        handle = self._loop._ready.popleft()
-                        if not handle.cancelled():
-                            handle._run()
-                    else:
-                        break
+                # Process callbacks that are ready to run
+                self._loop.stop()
+                self._loop.run_until_complete(asyncio.sleep(0))
             except (OSError, ValueError, RuntimeError) as e:
                 logger.error(f"Error processing async events: {e}")
 
@@ -288,15 +283,20 @@ class IRCameraApp:
             signal.signal(signal.SIGTERM, self._handle_signal)
 
             # Start backend services
-            asyncio.run_coroutine_threadsafe(self.start_services(), self._loop)
+            if self._loop is not None:
+                asyncio.run_coroutine_threadsafe(self.start_services(), self._loop)
 
             # Show main window
-            self.main_window.show()
+            if self.main_window is not None:
+                self.main_window.show()
 
             logger.info("IRCamera PC Controller started")
 
             # Run Qt event loop
-            return self.qt_app.exec_()
+            if self.qt_app is not None:
+                return self.qt_app.exec_()
+            else:
+                return 1
 
         except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Application error: {e}")

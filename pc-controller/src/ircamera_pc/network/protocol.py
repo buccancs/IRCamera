@@ -201,6 +201,9 @@ class ProtocolManager:
 
     def _add_common_fields(self, schema: Dict[str, Any]) -> Dict[str, Any]:
         """Add common fields to message schema."""
+        if self._protocol_def is None:
+            return schema
+        
         common_fields = self._protocol_def.get("common_fields", {})
 
         # Make a copy of the schema
@@ -248,9 +251,12 @@ class ProtocolManager:
 
             # Check timestamp is not too far in the future or past
             now = datetime.now(timezone.utc)
-            tolerance_ms = self._protocol_def.get("validation", {}).get(
-                "timestamp_tolerance_ms", 5000
-            )
+            if self._protocol_def is None:
+                tolerance_ms = 5000  # default value
+            else:
+                tolerance_ms = self._protocol_def.get("validation", {}).get(
+                    "timestamp_tolerance_ms", 5000
+                )
             tolerance = abs((timestamp - now).total_seconds() * 1000)
 
             if tolerance > tolerance_ms:
@@ -293,10 +299,14 @@ class ProtocolManager:
 
     def get_transport_config(self) -> Dict[str, Any]:
         """Get transport configuration from protocol."""
+        if self._protocol_def is None:
+            return {}
         return self._protocol_def.get("transport", {})
 
     def get_validation_config(self) -> Dict[str, Any]:
         """Get validation configuration from protocol."""
+        if self._protocol_def is None:
+            return {}
         return self._protocol_def.get("validation", {})
 
     def reload_protocol(self) -> None:

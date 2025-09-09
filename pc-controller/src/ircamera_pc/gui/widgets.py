@@ -7,7 +7,7 @@ integration with enhanced error handling and real-time status monitoring.
 """
 
 import logging
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 from PyQt6.QtCore import QTimer, pyqtSignal, pyqtSlot
 from PyQt6.QtGui import QFont
@@ -31,17 +31,17 @@ except ImportError:
     # Fallback in case plotting widgets are not available
     logging.warning("Plotting widgets not available - using placeholder classes")
 
-    class MultiModalDashboard(QWidget):
-        def __init__(self):
+    class MultiModalDashboard(QWidget):  # type: ignore[no-redef]
+        def __init__(self) -> None:
             super().__init__()
             self.setMinimumSize(400, 300)
 
-    class DataAggregationWidget(QWidget):
-        def __init__(self):
+    class DataAggregationWidget(QWidget):  # type: ignore[no-redef]
+        def __init__(self) -> None:
             super().__init__()
             self.setMinimumSize(200, 150)
 
-        def set_sync_quality(self, quality):
+        def set_sync_quality(self, quality: float) -> None:
             pass
 
 
@@ -456,7 +456,7 @@ class IntegrationManagementWidget(QWidget):
             self.hub_status_label.setStyleSheet("color: red;")
             self.hub_connect_btn.setText("Connect to Hub")
 
-    def update_spoke_count(self, count: int, active_spokes: List[str] = None):
+    def update_spoke_count(self, count: int, active_spokes: Optional[List[str]] = None) -> None:
         """Update active spoke count and list."""
         self.spoke_count_label.setText(f"Active Spokes: {count}")
         if count > 0:

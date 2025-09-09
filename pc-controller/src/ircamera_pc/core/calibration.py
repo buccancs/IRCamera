@@ -351,6 +351,55 @@ class CameraCalibrator:
             logger.error(f"Error processing calibration image: {e}")
             return {"success": False, "error": str(e)}
 
+    def _decode_image(self, image_data: bytes) -> Optional[np.ndarray]:
+        """
+        Decode image data from bytes to numpy array.
+        
+        Args:
+            image_data: Raw image bytes
+            
+        Returns:
+            Decoded image as numpy array or None if decoding fails
+        """
+        try:
+            # Decode image from bytes using OpenCV
+            nparr = np.frombuffer(image_data, np.uint8)
+            image = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+            return image
+        except Exception as e:
+            logger.error(f"Failed to decode image: {e}")
+            return None
+
+    async def _save_calibration_result(self, result: "CalibrationResult") -> None:
+        """
+        Save calibration result to file.
+        
+        Args:
+            result: Calibration result to save
+        """
+        try:
+            # Save calibration result as JSON
+            result_file = self.data_dir / f"calibration_{result.device_id}_{result.session_id}.json"
+            result_dict = {
+                "device_id": result.device_id,
+                "session_id": result.session_id,
+                "camera_type": result.camera_type.value,
+                "timestamp": result.timestamp,
+                "intrinsics": result.intrinsics.to_dict() if result.intrinsics else None,
+                "distortion": result.intrinsics.distortion_coeffs.tolist() if result.intrinsics and result.intrinsics.distortion_coeffs is not None else None,
+                "rms_error": result.calibration_error,
+                "images_used": result.num_images_used,
+                "image_resolution": result.image_resolution,
+            }
+            
+            import json
+            with open(result_file, 'w') as f:
+                json.dump(result_dict, f, indent=2)
+                
+            logger.info(f"Calibration result saved to {result_file}")
+        except Exception as e:
+            logger.error(f"Failed to save calibration result: {e}")
+
     async def finalize_calibration(
         self, device_id: str, session_id: str, camera_type: CameraType
     ) -> Optional[CalibrationResult]:
@@ -552,6 +601,11 @@ class CameraCalibrator:
             # Extract calibration data from both cameras
             left_intrinsics = left_result.intrinsics
             right_intrinsics = right_result.intrinsics
+            
+            # Check if both intrinsics are available
+            if left_intrinsics is None or right_intrinsics is None:
+                logger.error("Cannot perform stereo calibration: missing intrinsics")
+                return None
 
             # Create camera matrices from intrinsics
             camera_matrix_left = np.array(
@@ -573,6 +627,10 @@ class CameraCalibrator:
             )
 
             # Distortion coefficients
+            if left_intrinsics.distortion_coeffs is None or right_intrinsics.distortion_coeffs is None:
+                logger.error("Cannot perform stereo calibration: missing distortion coefficients")
+                return None
+                
             dist_coeffs_left = np.array(
                 left_intrinsics.distortion_coeffs, dtype=np.float64
             )
@@ -682,13 +740,7 @@ class CameraCalibrator:
                 rectification_right=R2.tolist(),
                 projection_left=P1.tolist(),
                 projection_right=P2.tolist(),
-                disparity_to_depth_matrix=Q.tolist(),
-                roi_left=roi_left,
-                roi_right=roi_right,
-                baseline=float(np.linalg.norm(T)),
-                convergence_angle=float(np.arccos(np.clip(np.trace(R) - 1) / 2, -1, 1))
-                * 180
-                / np.pi,
+                baseline_mm=float(np.linalg.norm(T)),
             )
 
             # Update calibration results with stereo information
@@ -696,10 +748,10 @@ class CameraCalibrator:
             right_result.stereo = stereo_calibration
 
             logger.info("Stereo calibration completed successfully")
-            logger.info(f"Baseline: {stereo_calibration.baseline:.2f}mm")
-            logger.info(
-                f"Convergence angle: {stereo_calibration.convergence_angle:.2f}deg"
-            )
+            baseline = float(np.linalg.norm(T))
+            convergence_angle = float(np.arccos(np.clip((np.trace(R) - 1) / 2, -1, 1))) * 180 / np.pi
+            logger.info(f"Baseline: {baseline:.2f}mm")
+            logger.info(f"Convergence angle: {convergence_angle:.2f}deg")
 
             return stereo_calibration
 

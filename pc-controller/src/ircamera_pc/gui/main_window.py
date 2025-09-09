@@ -116,10 +116,12 @@ from ..core.session import SessionManager, SessionState
 from ..core.timesync import TimeSyncService
 from ..network.server import DeviceInfo, NetworkServer
 from .widgets import (
+    BluetoothControlWidget,
     DeviceListWidget,
     SessionControlWidget,
     StatusDisplayWidget,
     SystemIntegrationWidget,
+    WiFiControlWidget,
 )
 
 
@@ -325,9 +327,9 @@ class MainWindow(QMainWindow):
         self.log_display: Optional[QTextEdit] = None
 
         # New GUI components for system integration
-        self.bluetooth_control_widget = None
-        self.wifi_control_widget = None
-        self.system_integration_widget = None
+        self.bluetooth_control_widget: Optional[BluetoothControlWidget] = None
+        self.wifi_control_widget: Optional[WiFiControlWidget] = None
+        self.system_integration_widget: Optional[SystemIntegrationWidget] = None
 
         # State tracking
         self._current_session_id: Optional[str] = None
@@ -672,12 +674,23 @@ class MainWindow(QMainWindow):
         except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Error updating displays: {e}")
 
-    def _update_device_displays(self, connected_devices: List) -> None:
+    def _update_device_displays(self, connected_devices: Dict[str, DeviceInfo]) -> None:
         """Update device-related displays"""
         self.devices_label.setText(f"Devices: {len(connected_devices)}")
 
         if self.device_list_widget:
-            self.device_list_widget.update_devices(connected_devices)
+            # Convert DeviceInfo objects to dict format expected by widget
+            device_list = []
+            for device_id, device_info in connected_devices.items():
+                device_dict = {
+                    "device_id": device_id,
+                    "device_type": getattr(device_info, 'device_type', 'unknown'),
+                    "state": getattr(device_info, 'state', 'unknown'),
+                    "capabilities": getattr(device_info, 'capabilities', []),
+                    "last_seen": getattr(device_info, 'last_seen', None),
+                }
+                device_list.append(device_dict)
+            self.device_list_widget.update_devices(device_list)
 
     def _update_status_displays(self) -> None:
         """Update status-related displays"""
