@@ -1,0 +1,26 @@
+[flake8]
+max-line-length = 88
+extend-ignore = E203,W503
+exclude = 
+    .git,
+    __pycache__,
+    build,
+    dist,
+    .eggs,
+    .venv,
+    .env,
+    migration_backup_*,
+    native_backend,
+    .gradle
+
+# Per-file ignores
+per-file-ignores =
+    __init__.py:F401
+    test_*.py:E501
+    **/tests/*.py:E501
+
+# Docstring requirements
+docstring-convention = google
+
+# Maximum complexity
+max-complexity = 10
