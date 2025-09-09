@@ -43,16 +43,17 @@ from PyQt6.QtWidgets import (
 # Add src directory to path - must be before local imports
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
-from ircamera_pc.core.session import SessionManager
-from ircamera_pc.core.timesync import TimeSyncService
-from ircamera_pc.data import DataAggregationEngine
-from ircamera_pc.gui.plotting_widgets import MultiModalDashboard
-from ircamera_pc.gui.widgets import (
+# Local imports - moved after sys.path setup
+from ircamera_pc.core.session import SessionManager  # noqa: E402
+from ircamera_pc.core.timesync import TimeSyncService  # noqa: E402
+from ircamera_pc.data import DataAggregationEngine  # noqa: E402
+from ircamera_pc.gui.plotting_widgets import MultiModalDashboard  # noqa: E402
+from ircamera_pc.gui.widgets import (  # noqa: E402
     DeviceListWidget,
     SessionControlWidget,
     StatusDisplayWidget,
 )
-from ircamera_pc.network.server import NetworkServer
+from ircamera_pc.network.server import NetworkServer  # noqa: E402
 
 try:
     import native_backend

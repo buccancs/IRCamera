@@ -22,22 +22,22 @@ object CameraHelp {
     val TYPE_SET_ParamLevelDde = 2
 
     /**
-     * 警示
+     * Alert/Warning
      */
-    val TYPE_SET_ALARM = 12 // 预警
+    val TYPE_SET_ALARM = 12 // Early warning
 
     /**
-     * 旋转
+     * Rotation
      */
     val TYPE_SET_ROTATE = 1
 
     /**
-     * 字体
+     * Font/Text
      */
-    val TYPE_SET_COLOR = 13 // 颜色值
+    val TYPE_SET_COLOR = 13 // Color value
 
     /**
-     * 镜像
+     * Mirror
      */
     val TYPE_SET_MIRROR = 14 // 镜像
 

@@ -626,7 +626,8 @@ class CameraCalibrator:
 
             # Perform stereo calibration using OpenCV
             logger.info(
-                f"Performing stereo calibration with {len(object_points_stereo)} image pairs"
+                f"Performing stereo calibration with "
+                f"{len(object_points_stereo)} image pairs"
             )
 
             # Stereo calibration flags
@@ -694,7 +695,7 @@ class CameraCalibrator:
             left_result.stereo = stereo_calibration
             right_result.stereo = stereo_calibration
 
-            logger.info(f"Stereo calibration completed successfully")
+            logger.info("Stereo calibration completed successfully")
             logger.info(f"Baseline: {stereo_calibration.baseline:.2f}mm")
             logger.info(
                 f"Convergence angle: {stereo_calibration.convergence_angle:.2f}°"

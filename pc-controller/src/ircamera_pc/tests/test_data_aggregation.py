@@ -15,10 +15,11 @@ import pandas as pd
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
-from ircamera_pc.data.aggregator import DataAggregator
-from ircamera_pc.data.exporter import DataExporter, ExportFormat
-from ircamera_pc.data.processor import DataProcessor
-from ircamera_pc.data.validator import DataValidator
+# Local imports - moved after sys.path setup
+from ircamera_pc.data.aggregator import DataAggregator  # noqa: E402
+from ircamera_pc.data.exporter import DataExporter, ExportFormat  # noqa: E402
+from ircamera_pc.data.processor import DataProcessor  # noqa: E402
+from ircamera_pc.data.validator import DataValidator  # noqa: E402
 
 
 class TestDataAggregator(unittest.TestCase):

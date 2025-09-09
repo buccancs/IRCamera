@@ -31,12 +31,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 /**
- * 二级菜单
+ * Second-level menu component
  */
 @SuppressLint("NotifyDataSetChanged")
 class MenuSecondView : FrameLayout {
     /**
-     * 该菜单的类型，由于不同的设备（单光、双光、Lite、TC007、2D编辑）菜单存在差异，用该枚举区分.
+     * The menu type. Different devices (single light, dual light, Lite, TC007, 2D editing)
+     * have different menus. This enum is used to distinguish between them.
      */
     private val menuType: MenuType
 
@@ -44,18 +45,18 @@ class MenuSecondView : FrameLayout {
     private lateinit var binding: ViewMenuSecondBinding
 
 
-    /* *********************************************  public 方法  ********************************************* */
+    /* ********************************************* Public Methods ********************************************* */
     /**
-     * 测温: 0-> 拍照      观测 10->拍照
+     * Temperature measurement: 0 -> Camera capture    Observation 10 -> Camera capture
      *
-     * 测温: 1-> 点线面
+     * Temperature measurement: 1 -> Point line surface
      *
-     *                    观测 11->AI识别
+     *                         Observation 11 -> AI recognition
      *
-     * 测温: 2-> 双光
-     *                    观测 13->标靶
+     * Temperature measurement: 2 -> Dual light
+     *                         Observation 13 -> Target
      *
-     * 测温: 3-> 伪彩颜色   观测 12->伪彩颜色
+     * Temperature measurement: 3 -> Pseudo-color    Observation 12 -> Pseudo-color
      *
      * 测温: 4-> 设置
      *

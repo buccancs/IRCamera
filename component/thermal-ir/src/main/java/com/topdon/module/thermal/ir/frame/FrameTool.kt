@@ -21,8 +21,8 @@ class FrameTool {
     private val srcTemperatureLen = imageWidth * imageHeight * 2
     private val imageBytes = ByteArray(scrImageLen)
     val temperatureBytes = ByteArray(srcTemperatureLen)
-    private val imageRes = LibIRProcess.ImageRes_t() //原图尺寸
-    private var struct: FrameStruct = FrameStruct() //首部信息
+    private val imageRes = LibIRProcess.ImageRes_t() // Original image dimensions
+    private var struct: FrameStruct = FrameStruct() // Header information
 
     private var maxLimit = -273f
     private var minLimit = -273f
@@ -37,13 +37,13 @@ class FrameTool {
             val frame = ByteArray(bytes.size)
             System.arraycopy(bytes, 0, frame, 0, frame.size)
             println("bs len: ${frame.size}")
-            System.arraycopy(frame, 0, imageBytes, 0, scrImageLen)//图像数据 (192 x 256 x 2) yuv
-            System.arraycopy(frame, scrImageLen, temperatureBytes, 0, srcTemperatureLen) //温度数据 (192 x 256 x 2)
+            System.arraycopy(frame, 0, imageBytes, 0, scrImageLen) // Image data (192 x 256 x 2) yuv
+            System.arraycopy(frame, scrImageLen, temperatureBytes, 0, srcTemperatureLen) // Temperature data (192 x 256 x 2)
             println("imageBytes len: ${imageBytes.size}")
             println("temperatureBytes len: ${temperatureBytes.size}")
         } catch (e: Exception) {
             e.printStackTrace()
-            XLog.e("读取一帧原始数据失败: ${e.message}")
+            XLog.e("Failed to read a frame of raw data: ${e.message}")
         }
     }
 
@@ -99,7 +99,7 @@ class FrameTool {
 
     /**
      * 灰度图转伪彩图像
-     * yuv -> argb -> 温度尺 -> 旋转 -> bitmap
+     * yuv -> argb -> temperature scale -> rotation -> bitmap
      */
     fun getScrPseudoColorScaledBitmap(
         pseudoColorMode: CommonParams.PseudoColorType = CommonParams.PseudoColorType.PSEUDO_3,
@@ -180,7 +180,7 @@ class FrameTool {
         } else {
             LibIRProcess.convertYuyvMapToARGBPseudocolor(imageBytesTemp, pixNum.toLong(), pseudoColorMode, argbBytes)
             if (!(maxLimit == -273f && minLimit == -273f) && !(maxTemperature == maxLimit && minLimit == minTemperature)) {
-                ImageTools.dualReadFrame(argbBytes, temperatureBytes, maxLimit, minLimit) //温度尺
+                ImageTools.dualReadFrame(argbBytes, temperatureBytes, maxLimit, minLimit) // Temperature scale
             }
         }
 
@@ -198,7 +198,7 @@ class FrameTool {
             }
         }
 
-        argbBytesRotate(argbBytes, dstArgbBytes!!, rotate) //旋转
+        argbBytesRotate(argbBytes, dstArgbBytes!!, rotate) // Rotation
         val dstImageRes = getDstImageRes(rotate)
         var scrBitmap : Bitmap ?= null
         if (isAmplify){
@@ -243,7 +243,7 @@ class FrameTool {
      * 目标尺寸
      */
     private fun getDstImageRes(rotate: ImageParams): LibIRProcess.ImageRes_t {
-        val dstImageRes = LibIRProcess.ImageRes_t() //目标尺寸
+        val dstImageRes = LibIRProcess.ImageRes_t() // Target dimensions
         if (rotate == ImageParams.ROTATE_270 || rotate == ImageParams.ROTATE_90) {
             dstImageRes.width = imageRes.height
             dstImageRes.height = imageRes.width

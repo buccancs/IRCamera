@@ -14,9 +14,10 @@ from unittest.mock import Mock
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
-from ircamera_pc.core.session_manager import SessionManager
-from ircamera_pc.data.aggregator import DataAggregator
-from ircamera_pc.network.server import NetworkServer
+# Local imports - moved after sys.path setup
+from ircamera_pc.core.session_manager import SessionManager  # noqa: E402
+from ircamera_pc.data.aggregator import DataAggregator  # noqa: E402
+from ircamera_pc.network.server import NetworkServer  # noqa: E402
 
 
 class TestEndToEndIntegration(unittest.TestCase):
@@ -442,7 +443,7 @@ class TestEndToEndIntegration(unittest.TestCase):
         self._register_test_devices()
 
         # Create test session
-        session_id = self.session_manager.create_session(
+        _ = self.session_manager.create_session(
             {"session_name": "ErrorRecovery_Test", "participant_id": "P001"}
         )
 

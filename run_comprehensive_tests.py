@@ -49,7 +49,10 @@ class ComprehensiveTestRunner:
             # Android Unit Tests
             TestSuite(
                 name="android_unit_tests",
-                description="Android Unit Tests (RecordingController, TimeManager, NetworkClient, GSRSensorRecorder)",
+                description=(
+                    "Android Unit Tests (RecordingController, TimeManager, "
+                    "NetworkClient, GSRSensorRecorder)"
+                ),
                 command="./gradlew test --info",
                 working_dir=str(self.project_root),
                 timeout=600,
@@ -57,7 +60,10 @@ class ComprehensiveTestRunner:
             # Android Integration Tests
             TestSuite(
                 name="android_integration_tests",
-                description="Android Integration Tests (Hub-Spoke Communication, Multi-Modal Coordination)",
+                description=(
+                    "Android Integration Tests "
+                    "(Hub-Spoke Communication, Multi-Modal Coordination)"
+                ),
                 command="./gradlew connectedAndroidTest --info",
                 working_dir=str(self.project_root),
                 timeout=900,
