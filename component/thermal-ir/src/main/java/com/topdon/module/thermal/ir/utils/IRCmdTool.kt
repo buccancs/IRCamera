@@ -29,9 +29,9 @@ object IRCmdTool {
 
         val oemInfo = ByteArray(512)
         val snData = ByteArray(256)
-        val dispData = ByteArray(5)//配准参数
+        val dispData = ByteArray(5)//Registration[CN_TEXT]
         irCmd?.oemRead(CommonParams.ProductType.P2, oemInfo)
-        XLog.w("机芯数据加载成功", "数据读取完成:")
+        XLog.w("Core[CN_TEXT]", "[CN_TEXT]:")
         val calibrationData = ByteArray(calibrationDataSize)
         val productTypeData = ByteArray(2)
         System.arraycopy(oemInfo, 0, calibrationData, 0, calibrationData.size)
@@ -49,9 +49,9 @@ object IRCmdTool {
             if (dispNumber < -20){
                 dispNumber = -20
             }
-            XLog.w("配准信息:", ""+dispNumber)
+            XLog.w("Registration[CN_TEXT]:", ""+dispNumber)
         }catch (e:Exception){
-            XLog.w("配准数据异常")
+            XLog.w("Registration[CN_TEXT]")
         }
         val snList = String(snData).split(";")
         val snStr = if (snList.isNotEmpty() && snList[0].contains("sn",true)){
@@ -76,10 +76,10 @@ object IRCmdTool {
                     Log.e(TAG, "read file fail ")
                 }
                 parameters[length] = 1
-                //先从缓存中查找是否有保存的对齐数据，没有用初始化数据
+                //[CN_TEXT]，[CN_TEXT]
                 val alignByte = SharedManager.getManualData(snStr)
                 System.arraycopy(alignByte, 0, parameters, calibrationDataSize + 1, alignByte.size)
-                XLog.w("机芯没存在校正数据，请联系厂商确认")
+                XLog.w("Core[CN_TEXT]，[CN_TEXT]")
             } catch (e: IOException) {
                 e.printStackTrace()
             } finally {
@@ -108,7 +108,7 @@ object IRCmdTool {
 
 
     /**
-     * 设置发射率 unit:cnt(128cnt = 1)
+     * Settings[CN_TEXT] unit:cnt(128cnt = 1)
      * @param value 1 ~ 128
      */
     fun setTpdEms(irCmd: IRCMD?, value: Int) {
@@ -117,10 +117,10 @@ object IRCmdTool {
     }
 
     /**
-     * 设置距离 unit:cnt(128cnt = 1m, 默认值: 0.25 * 128 = 32)
+     * Settings[CN_TEXT] unit:cnt(128cnt = 1m, [CN_TEXT]: 0.25 * 128 = 32)
      * @param value 0 ~ 25600
      *
-     * 现有sdk在设置TPD_PROP_DISTANCE抛异常
+     * [CN_TEXT]sdk[CN_TEXT]SettingsTPD_PROP_DISTANCE[CN_TEXT]
      */
     fun setTpdDis(irCmd: IRCMD?, value: Int) {
         val data = CommonParams.PropTPDParamsValue.NumberType(value.toString())
@@ -129,7 +129,7 @@ object IRCmdTool {
 
 
     /**
-     * 设置对比度
+     * Settings[CN_TEXT]
      * @param value 0 ~ 255
      */
     fun setLevelContrast(irCmd: IRCMD?, value: Int) {
@@ -138,7 +138,7 @@ object IRCmdTool {
     }
 
     /**
-     * 设置锐化
+     * Settings[CN_TEXT]
      * @param value 0 ~ 4
      *
      */
@@ -155,7 +155,7 @@ object IRCmdTool {
     }
 
     /**
-     * 设置自动增益
+     * Settings[CN_TEXT]
      */
     fun setLevelAgc(irCmd: IRCMD?, value: Boolean) {
         val data = if (value) {
@@ -167,8 +167,8 @@ object IRCmdTool {
     }
 
     /**
-     * 查询增益模式
-     * @return 1:高增益(常温)    0:低增益(高温)
+     * [CN_TEXT]Mode
+     * @return 1:High gain(Normal temperature)    0:Low gain(High temperature)
      */
     fun getTpdGainSel(irCmd: IRCMD?): Int {
         val result = queryTpdParam(irCmd = irCmd, params = CommonParams.PropTPDParams.TPD_PROP_GAIN_SEL)
@@ -180,8 +180,8 @@ object IRCmdTool {
     }
 
     /**
-     * 设置增益模式
-     * @param value 1:高增益(常温)    0:低增益(高温)
+     * Settings[CN_TEXT]Mode
+     * @param value 1:High gain(Normal temperature)    0:Low gain(High temperature)
      */
     fun setTpdGainSel(irCmd: IRCMD?, value: Int): Int {
         val data = if (value == 1) {
@@ -193,7 +193,7 @@ object IRCmdTool {
     }
 
     /**
-     * 查询Tpd
+     * [CN_TEXT]Tpd
      */
     fun queryTpdParam(irCmd: IRCMD?, params: CommonParams.PropTPDParams): Int {
         val value = IntArray(1)
@@ -202,7 +202,7 @@ object IRCmdTool {
     }
 
     /**
-     * 查询Image
+     * [CN_TEXT]Image
      */
     fun queryImageParam(irCmd: IRCMD?, params: CommonParams.PropImageParams): Int {
         val value = IntArray(1)
@@ -211,32 +211,32 @@ object IRCmdTool {
     }
 
     /**
-     * 设置Tpd
+     * SettingsTpd
      */
     private fun setTpdParams(irCmd: IRCMD?, params: CommonParams.PropTPDParams, value: CommonParams.PropTPDParamsValue): Int {
         return try {
             irCmd?.setPropTPDParams(params, value) ?: 0
         } catch (e: Exception) {
-            XLog.w("设置参数异常[${params.name}]: ${e.message}")
+            XLog.w("Settings[CN_TEXT][${params.name}]: ${e.message}")
             0
         }
     }
 
     /**
-     * 设置图像参数
+     * Settings[CN_TEXT]
      */
     private fun setImageParams(irCmd: IRCMD?, params: CommonParams.PropImageParams, value: CommonParams.PropImageParamsValue): Int {
         return try {
             irCmd?.setPropImageParams(params, value) ?: 0
         } catch (e: Exception) {
-            XLog.w("设置参数异常[${params.name}]: ${e.message}")
+            XLog.w("Settings[CN_TEXT][${params.name}]: ${e.message}")
             0
         }
     }
 
     /**
-     * 配准
-     * 水平移动
+     * Registration
+     * [CN_TEXT]
      * @param value (-20 ~ 60)
      */
     fun setDisp(dualView: BaseDualView?, value: Int): Int {
@@ -248,13 +248,13 @@ object IRCmdTool {
                 -1 // Return error
             }
         } catch (e: Exception) {
-            XLog.w("设置配准异常[${value}]: ${e.message}")
+            XLog.w("SettingsRegistration[CN_TEXT][${value}]: ${e.message}")
             0
         }
     }
 
     /**
-     * @param moveX 在当前基础上要再偏移的数值
+     * @param moveX [CN_TEXT]Current[CN_TEXT]
      */
     fun setAlignTranslate(dualView: BaseDualView?, moveX: Int, moveY: Int) {
         val newSrc = ByteArray(8)
@@ -271,19 +271,19 @@ object IRCmdTool {
     }
 
     /**
-     * 打快门
+     * [CN_TEXT]
      */
     fun shutter(irCmd: IRCMD?, syncImage: SynchronizedBitmap) {
         if (syncImage.type == 1) {
             irCmd?.tc1bShutterManual()
         } else {
-            // 执行这段
+            // [CN_TEXT]
             irCmd?.updateOOCOrB(CommonParams.UpdateOOCOrBType.B_UPDATE)
         }
     }
 
     /**
-     * 自动快门
+     * [CN_TEXT]
      */
     fun autoShutter(irCmd: IRCMD?, flag: Boolean) {
         val data = if (flag) CommonParams.PropAutoShutterParameterValue.StatusSwith.ON else CommonParams.PropAutoShutterParameterValue.StatusSwith.OFF
@@ -291,16 +291,16 @@ object IRCmdTool {
     }
 
     /**
-     * 开启等温尺
-     * @param highC 温度上限，单位摄氏度
-     * @param lowC 温度下限，单位摄氏度
+     * [CN_TEXT]
+     * @param highC [CN_TEXT]，[CN_TEXT]Celsius
+     * @param lowC [CN_TEXT]，[CN_TEXT]Celsius
      */
     fun setIsoColorOpen(dualUVCCamera: DualUVCCamera?, highC: Float, lowC: Float) {
         dualUVCCamera?.setIsothermal(DualCameraParams.IsothermalState.ON)
-        val normalHighTemp = (highC + 273).toDouble() //单位k
-        val normalLowTemp = (lowC + 273).toDouble() //单位k
-        val highTemp = ceil(normalHighTemp * 16 * 4).toInt() // 高温向上取整
-        val lowTemp = floor(normalLowTemp * 16 * 4).toInt() // 低温向下取整
+        val normalHighTemp = (highC + 273).toDouble() //[CN_TEXT]k
+        val normalLowTemp = (lowC + 273).toDouble() //[CN_TEXT]k
+        val highTemp = ceil(normalHighTemp * 16 * 4).toInt() // High temperature[CN_TEXT]
+        val lowTemp = floor(normalLowTemp * 16 * 4).toInt() // Low temperature[CN_TEXT]
         val highData = ByteArray(2)
         highData[0] = highTemp.toByte()
         highData[1] = (highTemp shr 8).toByte()
@@ -309,30 +309,30 @@ object IRCmdTool {
         lowData[1] = (lowTemp shr 8).toByte()
         val tempHFin = (highData[0].toInt() and 0x00ff) + (highData[1].toInt() and 0x00ff shl 8)
         val tempLFin = (lowData[0].toInt() and 0x00ff) + (lowData[1].toInt() and 0x00ff shl 8)
-        dualUVCCamera?.setTempL(tempLFin) //低温 - convert to Int
-        dualUVCCamera?.setTempH(tempHFin) //高温 - convert to Int
+        dualUVCCamera?.setTempL(tempLFin) //Low temperature - convert to Int
+        dualUVCCamera?.setTempH(tempHFin) //High temperature - convert to Int
     }
 
     /**
-     * 关闭等温尺
+     * [CN_TEXT]
      */
     fun setIsoColorClose(dualUVCCamera: DualUVCCamera?) {
         dualUVCCamera?.setIsothermal(DualCameraParams.IsothermalState.OFF)
     }
 
     /**
-     * 放大(仅对热成像有效)
-     * ZoomScaleStep.ZOOM_STEP1: 2级倍率
-     * ZoomScaleStep.ZOOM_STEP2: 4级倍率
-     * ZoomScaleStep.ZOOM_STEP3: 8级倍率
-     * ZoomScaleStep.ZOOM_STEP4: 16级倍率
+     * [CN_TEXT]([CN_TEXT])
+     * ZoomScaleStep.ZOOM_STEP1: 2[CN_TEXT]
+     * ZoomScaleStep.ZOOM_STEP2: 4[CN_TEXT]
+     * ZoomScaleStep.ZOOM_STEP3: 8[CN_TEXT]
+     * ZoomScaleStep.ZOOM_STEP4: 16[CN_TEXT]
      */
     fun setZoomUp(irCmd: IRCMD?) {
         irCmd?.zoomCenterUp(CommonParams.PreviewPathChannel.PREVIEW_PATH0, CommonParams.ZoomScaleStep.ZOOM_STEP2)
     }
 
     /**
-     * 缩小
+     * [CN_TEXT]
      */
     fun setZoomDown(irCmd: IRCMD?) {
         irCmd?.zoomCenterDown(CommonParams.PreviewPathChannel.PREVIEW_PATH0, CommonParams.ZoomScaleStep.ZOOM_STEP2)

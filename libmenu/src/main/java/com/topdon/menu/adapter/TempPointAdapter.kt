@@ -36,8 +36,8 @@ internal class TempPointAdapter : BaseMenuAdapter() {
     }
 
     /**
-     * 清除所有菜单的选中状态。
-     * 这里维持原有逻辑，后续考虑是否直接给选中删除得了。
+     * ClearAllMenu[CN_TEXT]SelectedState。
+     * [CN_TEXT]Maintain original logic，Consider in the futureWhether to directlySelectedDeletedone。
      */
     fun clearAllSelect() {
         for (data in dataArray) {
@@ -61,7 +61,7 @@ internal class TempPointAdapter : BaseMenuAdapter() {
         holder.binding.tvText.isSelected = data.isSelected
         holder.binding.clRoot.setOnClickListener {
             if (data.tempPointType == TempPointType.DELETE) {
-                if (!data.isSelected) {//选中时再次删除没卵用，未选中时才处理
+                if (!data.isSelected) {//Selected[CN_TEXT]Delete[CN_TEXT]，[CN_TEXT]Selected[CN_TEXT]
                     for (temp in dataArray) {
                         temp.isSelected = temp.tempPointType == TempPointType.DELETE
                     }
@@ -72,7 +72,7 @@ internal class TempPointAdapter : BaseMenuAdapter() {
                 data.isSelected = !data.isSelected
                 holder.binding.ivIcon.isSelected = data.isSelected
                 holder.binding.tvText.isSelected = data.isSelected
-                if (data.isSelected) {//选中高温点、低温点时要把“删除”设为未选中；取消选中时不耦合删除
+                if (data.isSelected) {//SelectedHigh temperature[CN_TEXT]、Low temperature[CN_TEXT]“Delete”[CN_TEXT]Selected；[CN_TEXT]Selected[CN_TEXT]Delete
                     for (i in dataArray.indices) {
                         if (dataArray[i].tempPointType == TempPointType.DELETE && dataArray[i].isSelected) {
                             dataArray[i].isSelected = false

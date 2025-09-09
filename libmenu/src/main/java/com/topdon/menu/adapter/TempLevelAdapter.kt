@@ -30,12 +30,12 @@ internal class TempLevelAdapter(menuType: MenuType) : BaseMenuAdapter() {
         }
 
     /**
-     * 当前选中的档位 code.
+     * CurrentSelected[CN_TEXT] code.
      *
-     * 由于历史遗留（已保存在 SharedPreferences 中），这里 code 取值为
-     * - 自动切换：-1
-     * - 高温(低增益)：0
-     * - 常温(高增益)：1
+     * [CN_TEXT]Historical legacy（Already saved[CN_TEXT] SharedPreferences [CN_TEXT]），[CN_TEXT] code [CN_TEXT]
+     * - [CN_TEXT]Switch：-1
+     * - High temperature(Low gain)：0
+     * - Normal temperature(High gain)：1
      */
     var selectCode: Int = 1
         set(value) {
@@ -46,7 +46,7 @@ internal class TempLevelAdapter(menuType: MenuType) : BaseMenuAdapter() {
         }
 
     /**
-     * 菜单点击事件监听，单选。
+     * Menu[CN_TEXT]，[CN_TEXT]。
      */
     var onTempLevelListener: ((code: Int) -> Unit)? = null
 
@@ -87,7 +87,7 @@ internal class TempLevelAdapter(menuType: MenuType) : BaseMenuAdapter() {
     }
 
     /**
-     * 将指定 摄氏度°C 转换为 华氏度°F
+     * [CN_TEXT]Specified Celsius°C [CN_TEXT] Fahrenheit°F
      */
     private fun c2f(cValue: Int): Int = (cValue * 1.8f + 32).toInt()
 

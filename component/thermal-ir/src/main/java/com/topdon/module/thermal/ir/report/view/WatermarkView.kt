@@ -10,7 +10,7 @@ import com.blankj.utilcode.util.SizeUtils
 class WatermarkView: View {
 
     /**
-     * 水印文字.
+     * [CN_TEXT].
      */
     var watermarkText: String? = null
         set(value) {

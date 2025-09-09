@@ -15,7 +15,7 @@ import com.topdon.lib.core.tools.TimeTool
 import com.topdon.module.thermal.ir.R
 
 /**
- * 照片或视频
+ * [CN_TEXT]
  */
 @SuppressLint("NotifyDataSetChanged")
 class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -26,17 +26,17 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     /**
-     * 当前显示的数据列表，包含有标题 item.
+     * Current[CN_TEXT]，[CN_TEXT] item.
      */
     val dataList: ArrayList<GalleryBean> = ArrayList()
 
     /**
-     * 编辑模式下，当前选中的 position 列表.
+     * [CN_TEXT]Mode[CN_TEXT]，CurrentSelected[CN_TEXT] position [CN_TEXT].
      */
     val selectList: ArrayList<Int> = ArrayList()
 
     /**
-     * 是否为 TS004 远端模式，处于该模式会有下载图标.
+     * [CN_TEXT] TS004 [CN_TEXT]Mode，[CN_TEXT]Mode[CN_TEXT].
      */
     var isTS004Remote = false
         set(value) {
@@ -47,7 +47,7 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
     /**
-     * 当前是否处于编辑模式.
+     * Current[CN_TEXT]Mode.
      */
     var isEditMode = false
         set(value) {
@@ -63,16 +63,16 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
     /**
-     * 非编辑模式下 item 长按进入编辑模式事件监听.
+     * [CN_TEXT]Mode[CN_TEXT] item [CN_TEXT]Mode[CN_TEXT].
      */
     var onLongEditListener: (() -> Unit)? = null
     /**
-     * 选中数量变更回调.
-     * data 当前选中的 item position 列表
+     * Selected[CN_TEXT].
+     * data CurrentSelected[CN_TEXT] item position [CN_TEXT]
      */
     var selectCallback: ((data: ArrayList<Int>) -> Unit)? = null
     /**
-     * 非编辑模式时，item 点击事件监听.
+     * [CN_TEXT]Mode[CN_TEXT]，item [CN_TEXT].
      */
     var itemClickCallback: ((position: Int) -> Unit)? = null
 

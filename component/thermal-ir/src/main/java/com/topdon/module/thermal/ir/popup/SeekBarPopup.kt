@@ -11,13 +11,13 @@ import androidx.core.view.isVisible
 import com.topdon.module.thermal.ir.databinding.PopSeekBarBinding
 
 /**
- * 有一根 SeekBar 用于拾取值的 PopupWindow.
+ * [CN_TEXT] SeekBar [CN_TEXT] PopupWindow.
  *
- * 用于 融合度(带标题)、对比度(无标题)、锐度(无标题) 设置
+ * [CN_TEXT] Fusion degree([CN_TEXT])、[CN_TEXT]([CN_TEXT])、[CN_TEXT]([CN_TEXT]) Settings
  *
  * Created by LCG on 2024/12/3.
  *
- * @param hasTitle 是否有标题文字
+ * @param hasTitle [CN_TEXT]
  */
 @SuppressLint("SetTextI18n")
 class SeekBarPopup(context: Context, hasTitle: Boolean = false) : PopupWindow() {
@@ -35,14 +35,14 @@ class SeekBarPopup(context: Context, hasTitle: Boolean = false) : PopupWindow() 
         }
 
     /**
-     * 是否在滑动过程中实时触发回调.
+     * [CN_TEXT].
      *
-     * true-实时触发  false-滑动停止(stop)时才触发
+     * true-[CN_TEXT]  false-[CN_TEXT](stop)[CN_TEXT]
      */
     var isRealTimeTrigger = false
 
     /**
-     * 进度值拾取事件监听.
+     * [CN_TEXT].
      */
     var onValuePickListener: ((progress: Int) -> Unit)? = null
 
@@ -78,7 +78,7 @@ class SeekBarPopup(context: Context, hasTitle: Boolean = false) : PopupWindow() 
     }
 
     /**
-     * @param isDropDown true-放置于anchor下方 false-底边缘与anchor对齐
+     * @param isDropDown true-[CN_TEXT]anchor[CN_TEXT] false-[CN_TEXT]anchor[CN_TEXT]
      */
     fun show(anchor: View, isDropDown: Boolean) {
         if (isDropDown) {

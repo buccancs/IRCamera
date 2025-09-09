@@ -4,19 +4,19 @@ import com.topdon.libhik.util.ByteArrayUtil.toFloat
 import com.topdon.libhik.util.ByteArrayUtil.toInt
 
 /**
- * 每帧头部数据
- * @param tempWidth 温度数据宽度
- * @param tempHeight 温度数据高度
- * @param yuvWidth YUV数据宽度
- * @param yuvHeight YUV数据高度
- * @param tempType 温度单位
- * @param minTemp 全屏最低温
- * @param maxTemp 全屏最高温
- * @param aveTemp 全屏平均温
- * @param maxX 全屏最高温归一化 X 轴坐标 [0, 1000]
- * @param maxY 全屏最高温归一化 Y 轴坐标 [0, 1000]
- * @param minX 全屏最低温归一化 X 轴坐标 [0, 1000]
- * @param minY 全屏最低温归一化 Y 轴坐标 [0, 1000]
+ * [CN_TEXT]
+ * @param tempWidth [CN_TEXT]
+ * @param tempHeight [CN_TEXT]
+ * @param yuvWidth YUV[CN_TEXT]
+ * @param yuvHeight YUV[CN_TEXT]
+ * @param tempType [CN_TEXT]
+ * @param minTemp [CN_TEXT]Low temperature
+ * @param maxTemp [CN_TEXT]High temperature
+ * @param aveTemp [CN_TEXT]
+ * @param maxX [CN_TEXT]High temperature[CN_TEXT] X [CN_TEXT] [0, 1000]
+ * @param maxY [CN_TEXT]High temperature[CN_TEXT] Y [CN_TEXT] [0, 1000]
+ * @param minX [CN_TEXT]Low temperature[CN_TEXT] X [CN_TEXT] [0, 1000]
+ * @param minY [CN_TEXT]Low temperature[CN_TEXT] Y [CN_TEXT] [0, 1000]
  *
  * Created by LCG on 2024/11/22.
  */
@@ -64,13 +64,13 @@ data class FrameHead(
 
     companion object {
         /**
-         * 从指定数组的 index 开始，解析已启用的专家测温规则
+         * [CN_TEXT]Specified[CN_TEXT] index [CN_TEXT]，[CN_TEXT]Temperature measurement[CN_TEXT]
          */
         private fun ByteArray.toRuleList(index: Int): ArrayList<TempRule> = try {
             val resultList: ArrayList<TempRule> = ArrayList(21)
             for (i in 0 until 21) {
-                // 208 是一个 TempRule 的字节数
-                if (this[index + i * 208] == 1.toByte()) {//启用的才取出来
+                // 208 [CN_TEXT] TempRule [CN_TEXT]
+                if (this[index + i * 208] == 1.toByte()) {//[CN_TEXT]
                     resultList.add(TempRule(this, index + i * 208))
                 }
             }
@@ -80,8 +80,8 @@ data class FrameHead(
         }
     }
 
-    override fun toString(): String = "尺寸:${tempWidth}x$tempHeight, ${yuvWidth}x$yuvHeight，" +
-            "全屏最低温:($minX,$minY) ${minTemp}°C，全屏最高温:($maxX,$maxY) ${maxTemp}°C " +
-            "平均温:${aveTemp}°C，${if (isNormalTest) "普通" else "专家"}测温，" +
+    override fun toString(): String = "[CN_TEXT]:${tempWidth}x$tempHeight, ${yuvWidth}x$yuvHeight，" +
+            "[CN_TEXT]Low temperature:($minX,$minY) ${minTemp}°C，[CN_TEXT]High temperature:($maxX,$maxY) ${maxTemp}°C " +
+            "[CN_TEXT]:${aveTemp}°C，${if (isNormalTest) "[CN_TEXT]" else "[CN_TEXT]"}Temperature measurement，" +
             "$pointCount + $rectCount + $lineCount = $totalCount"
 }

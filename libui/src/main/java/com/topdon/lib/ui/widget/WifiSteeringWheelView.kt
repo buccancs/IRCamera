@@ -10,7 +10,7 @@ import com.topdon.lib.ui.databinding.UiWifiSteeringWheelViewBinding
 import com.topdon.lib.ui.R as UiR
 
 /**
- * 校准方向
+ * [CN_TEXT]
  */
 class WifiSteeringWheelView : LinearLayout, OnClickListener {
     private val binding: UiWifiSteeringWheelViewBinding

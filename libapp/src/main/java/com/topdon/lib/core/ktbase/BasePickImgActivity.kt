@@ -26,12 +26,12 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
     protected lateinit var binding: ActivityImagePickIrPlushBinding
 
     /**
-     * String 类型 - 拾取的图片在本地的绝对路径.
+     * String Type - [CN_TEXT].
      */
     val RESULT_IMAGE_PATH = "RESULT_IMAGE_PATH"
 
     /**
-     * 当前是否已拍了一张照等待完成.
+     * Current[CN_TEXT].
      */
     private var hasTakePhoto = false
 
@@ -50,7 +50,7 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
         binding = ActivityImagePickIrPlushBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 默认选中画圆
+        // [CN_TEXT]Selected[CN_TEXT]
         binding.ivEditCircle.isSelected = true
         binding.imageEditView.type = ImageEditView.Type.CIRCLE
         binding.viewColor.setBackgroundColor(binding.imageEditView.color)
@@ -91,12 +91,12 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
             MeasureSpec.makeMeasureSpec(heightPixels, MeasureSpec.AT_MOST),
         )
 
-        val ivPickHeight = SizeUtils.dp2px(60f + 20 + 20) // 拍照按钮高度，60dp+上下各20dp margin
+        val ivPickHeight = SizeUtils.dp2px(60f + 20 + 20) // Photo[CN_TEXT]，60dp+[CN_TEXT]20dp margin
         val menuHeight = (widthPixels * 75f / 384).toInt()
         val bottomHeight = ivPickHeight.coerceAtLeast(menuHeight)
         val canUseHeight = heightPixels - binding.titleView.measuredHeight - bottomHeight
         val wantHeight = (widthPixels * 256f / 192).toInt()
-        if (wantHeight <= canUseHeight) { // 够用
+        if (wantHeight <= canUseHeight) { // [CN_TEXT]
             binding.fragmentContainerView.layoutParams =
                 binding.fragmentContainerView.layoutParams.apply {
                     this.width = widthPixels
@@ -177,7 +177,7 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 切换 已拍照模式/未拍照模式.
+     * Switch [CN_TEXT]PhotoMode/[CN_TEXT]PhotoMode.
      */
     private fun switchPhotoState(hasTakePhoto: Boolean) {
         this.hasTakePhoto = hasTakePhoto
@@ -189,8 +189,8 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 显示退出不保存提示弹框
-     * @param listener 点击弹框上退出事件监听
+     * [CN_TEXT]
+     * @param listener [CN_TEXT]
      */
     private fun showExitTipsDialog(listener: (() -> Unit)) {
         TipDialog.Builder(this)

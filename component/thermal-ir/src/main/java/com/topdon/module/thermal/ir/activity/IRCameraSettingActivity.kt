@@ -39,7 +39,7 @@ import java.util.*
 
 
 /**
- * 摄像头属性值设置
+ * [CN_TEXT]Settings
  * @author: CaiSongL
  * @date: 2023/4/3 15:00
  */
@@ -71,7 +71,7 @@ class IRCameraSettingActivity : BaseActivity() {
     override fun initView() {
         productName = intent.getStringExtra(KEY_PRODUCT_TYPE) ?: ""
         if (isTC007()){
-            watermarkBean = SharedManager.wifiWatermarkBean//TC007只有水印
+            watermarkBean = SharedManager.wifiWatermarkBean//TC007[CN_TEXT]
             continuousBean = SharedManager.continuousBean
         }else{
             watermarkBean = SharedManager.watermarkBean
@@ -192,7 +192,7 @@ class IRCameraSettingActivity : BaseActivity() {
                 checkStoragePermission()
             }
         })
-        //TC007设备不需要延迟拍照
+        //TC007[CN_TEXT]Photo
         lyAuto.visibility = if (isTC007()) View.GONE else View.VISIBLE
     }
 
@@ -202,16 +202,16 @@ class IRCameraSettingActivity : BaseActivity() {
     }
     @SuppressLint("MissingPermission")
     private fun getLocation() : String? {
-        //1.获取位置管理器
+        //1.[CN_TEXT]
         locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
 
-        //2.获取位置提供器，GPS或是NetWork
+        //2.[CN_TEXT]，GPS[CN_TEXT]NetWork
         val providers = locationManager?.getProviders(true)
         locationProvider = if (providers!!.contains(LocationManager.GPS_PROVIDER)) {
-            //如果是GPS
+            //[CN_TEXT]GPS
             LocationManager.GPS_PROVIDER
         } else if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
-            //如果是Network
+            //[CN_TEXT]Network
             LocationManager.NETWORK_PROVIDER
         } else {
             return null
@@ -229,32 +229,32 @@ class IRCameraSettingActivity : BaseActivity() {
     }
 
     var locationListener: LocationListener = object : LocationListener {
-        // Provider的状态在可用、暂时不可用和无服务三个状态直接切换时触发此函数
+        // Provider[CN_TEXT]State[CN_TEXT]、[CN_TEXT]State[CN_TEXT]Switch[CN_TEXT]
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {
             Toast.makeText(
                 this@IRCameraSettingActivity, provider, Toast.LENGTH_SHORT
             ).show()
         }
 
-        // Provider被enable时触发此函数，比如GPS被打开
+        // Provider[CN_TEXT]enable[CN_TEXT]，[CN_TEXT]GPS[CN_TEXT]
         override fun onProviderEnabled(provider: String) {
             Toast.makeText(
-                this@IRCameraSettingActivity, "GPS打开", Toast.LENGTH_SHORT
+                this@IRCameraSettingActivity, "GPS[CN_TEXT]", Toast.LENGTH_SHORT
             ).show()
             getLocation()
         }
 
-        // Provider被disable时触发此函数，比如GPS被关闭
+        // Provider[CN_TEXT]disable[CN_TEXT]，[CN_TEXT]GPS[CN_TEXT]
         override fun onProviderDisabled(provider: String) {
             Toast.makeText(
-                this@IRCameraSettingActivity, "GPS关闭", Toast.LENGTH_SHORT
+                this@IRCameraSettingActivity, "GPS[CN_TEXT]", Toast.LENGTH_SHORT
             ).show()
         }
 
-        //当坐标改变时触发此函数，如果Provider传进相同的坐标，它就不会被触发
+        //[CN_TEXT]，[CN_TEXT]Provider[CN_TEXT]，[CN_TEXT]
         override fun onLocationChanged(location: Location) {
             if (location != null) {
-                //如果位置发生变化，重新显示地理位置经纬度
+                //[CN_TEXT]，[CN_TEXT]
                 Toast.makeText(
                     this@IRCameraSettingActivity, location.longitude.toString() + " " +
                             location.latitude + "", Toast.LENGTH_SHORT
@@ -277,7 +277,7 @@ class IRCameraSettingActivity : BaseActivity() {
         return bestLocation
     }
 
-    //获取地址信息:城市、街道等信息
+    //[CN_TEXT]:[CN_TEXT]、[CN_TEXT]
     private fun getAddress(location: Location?): String {
         var result: List<Address?>? = null
         try {
@@ -287,7 +287,7 @@ class IRCameraSettingActivity : BaseActivity() {
                     location.latitude,
                     location.longitude, 1
                 )
-                Log.v("TAG", "获取地址信息：$result")
+                Log.v("TAG", "[CN_TEXT]：$result")
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -367,7 +367,7 @@ class IRCameraSettingActivity : BaseActivity() {
                 }
                 override fun onDenied(permissions: MutableList<String>, never: Boolean) {
                     if (never) {
-                        // 如果是被永久拒绝就跳转到应用权限系统设置页面
+                        // [CN_TEXT]Settings[CN_TEXT]
                         if (BaseApplication.instance.isDomestic()){
                             ToastUtils.showShort(getString(LibR.string.app_location_content))
                         }else{

@@ -44,10 +44,10 @@ import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 
 /**
- * 插件式 或 TC007 首页.
+ * [CN_TEXT] [CN_TEXT] TC007 [CN_TEXT].
  *
- * 需要传递参数：
- * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
+ * [CN_TEXT]：
+ * - [ExtraKeyConfig.IS_TC007] - Current[CN_TEXT] TC007
  *
  * Created by LCG on 2024/4/18.
  */
@@ -57,8 +57,8 @@ class IRMainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityIrMainBinding
 
     /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
+     * [CN_TEXT]，Current[CN_TEXT] TC007 [CN_TEXT]Type.
+     * true-TC007 false-[CN_TEXT]
      */
     private var isTC007 = false
 
@@ -150,16 +150,16 @@ class IRMainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            binding.clIconMonitor -> {//监控
+            binding.clIconMonitor -> {//[CN_TEXT]
                 binding.viewPage.setCurrentItem(0, false)
             }
-            binding.clIconGallery -> {//图库
+            binding.clIconGallery -> {//Gallery
                 checkStoragePermission()
             }
-            // view_main_thermal -> {//首页 - Commented out as not in view declarations
+            // view_main_thermal -> {//[CN_TEXT] - Commented out as not in view declarations
             //     binding.viewPage.setCurrentItem(2, false)  
             // }
-            binding.clIconReport -> {//报告
+            binding.clIconReport -> {//[CN_TEXT]
                 if (LMS.getInstance().isLogin) {
                     binding.viewPage.setCurrentItem(3, false)
                 } else {
@@ -171,15 +171,15 @@ class IRMainActivity : AppCompatActivity(), View.OnClickListener {
                     }
                 }
             }
-            binding.clIconMine -> {//我的
+            binding.clIconMine -> {//[CN_TEXT]
                 binding.viewPage.setCurrentItem(4, false)
             }
         }
     }
 
     /**
-     * 刷新 5 个 tab 的选中状态
-     * @param index 当前选中哪个 tab，`[0, 4]`
+     * [CN_TEXT] 5 [CN_TEXT] tab [CN_TEXT]SelectedState
+     * @param index CurrentSelected[CN_TEXT] tab，`[0, 4]`
      */
     private fun refreshTabSelect(index: Int) {
         binding.ivIconMonitor.isSelected = false
@@ -211,10 +211,10 @@ class IRMainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     /**
-     * 显示操作指引弹框.
+     * [CN_TEXT].
      */
     private fun showGuideDialog() {
-        if (SharedManager.homeGuideStep == 0) {//已看过或不再提示
+        if (SharedManager.homeGuideStep == 0) {//[CN_TEXT]
             return
         }
 
@@ -266,8 +266,8 @@ class IRMainActivity : AppCompatActivity(), View.OnClickListener {
             window?.decorView?.setRenderEffect(RenderEffect.createBlurEffect(20f, 20f, Shader.TileMode.MIRROR))
         } else {
             lifecycleScope.launch {
-                //界面切换及温度监控历史列表加载均需要时间，所以需要等待1000毫秒再去刷新背景
-                //而若等待1000毫秒太过久，界面会非模糊1000毫秒，所以先刷新一次背景占位
+                //[CN_TEXT]Switch[CN_TEXT]，[CN_TEXT]1000[CN_TEXT]
+                //[CN_TEXT]1000[CN_TEXT]，[CN_TEXT]1000[CN_TEXT]，[CN_TEXT]
                 delay(100)
                 guideDialog.blurBg(binding.clRoot)
             }
@@ -317,7 +317,7 @@ class IRMainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     /**
-     * 动态申请权限
+     * [CN_TEXT]
      */
     private fun initStoragePermission(permissionList: List<String>) {
         if (PermissionUtils.isVisualUser()){
@@ -335,7 +335,7 @@ class IRMainActivity : AppCompatActivity(), View.OnClickListener {
 
                 override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
                     if (doNotAskAgain) {
-                        //拒绝授权并且不再提醒
+                        //[CN_TEXT]
                         TipDialog.Builder(this@IRMainActivity)
                             .setTitleMessage(getString(LibR.string.app_tip))
                             .setMessage(getString(LibR.string.app_album_content))
@@ -357,7 +357,7 @@ class IRMainActivity : AppCompatActivity(), View.OnClickListener {
         override fun getItemCount() = 5
 
         override fun createFragment(position: Int): Fragment {
-            if (position == 1) {//图库
+            if (position == 1) {//Gallery
                 return IRGalleryTabFragment().apply {
                     arguments = Bundle().also {
                         val dirType = if (isTC007) DirType.TC007.ordinal else DirType.LINE.ordinal

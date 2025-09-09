@@ -15,8 +15,8 @@ class FenceView : View {
     var listener: CallBack? = null
 
     private val mPaint by lazy { Paint() }
-    private val rect: Rect = Rect(0, 0, 0, 0) // 手动绘制矩形
-    private val strokeWidth by lazy { SizeUtils.dp2px(2f).toFloat() } // 线宽度
+    private val rect: Rect = Rect(0, 0, 0, 0) // [CN_TEXT]
+    private val strokeWidth by lazy { SizeUtils.dp2px(2f).toFloat() } // [CN_TEXT]
 
     constructor (context: Context) : super(context)
 
@@ -38,10 +38,10 @@ class FenceView : View {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-//        //设置无锯齿
+//        //Settings[CN_TEXT]
 //        canvas.drawARGB(50, 255, 227, 0)
 //        mPaint.color = Color.GREEN
-//        // 绘制绿色实心矩形
+//        // [CN_TEXT]
 //        canvas.drawRect(100f, 200f, 400f, 200f + 400, mPaint)
 //        mPaint.color = Color.RED
         canvas.drawRect(rect, mPaint)
@@ -120,7 +120,7 @@ class FenceView : View {
     private fun result() {
         val point1 = intArrayOf(startPoint[0], startPoint[1])
         val point2 = intArrayOf(endPoint[0], endPoint[1])
-        // 调整位置
+        // [CN_TEXT]
         for (i in 0..1) {
             if (startPoint[i] > endPoint[i]) {
                 point1[i] = endPoint[i]
@@ -129,9 +129,9 @@ class FenceView : View {
         }
         Log.i(
             "123",
-            "原始坐标 start:${startPoint.contentToString()}, end:${endPoint.contentToString()}",
+            "[CN_TEXT] start:${startPoint.contentToString()}, end:${endPoint.contentToString()}",
         )
-        Log.w("123", "修正坐标 start:${point1.contentToString()}, end:${point2.contentToString()}")
+        Log.w("123", "[CN_TEXT] start:${point1.contentToString()}, end:${point2.contentToString()}")
         if (listener != null) {
             listener!!.callback(point1, point2, intArrayOf(width, height))
         }
@@ -150,8 +150,8 @@ class FenceView : View {
 
     interface CallBack {
         /**
-         * startPoint: 左上角
-         * endPoint: 右下角
+         * startPoint: [CN_TEXT]
+         * endPoint: [CN_TEXT]
          */
         fun callback(
             startPoint: IntArray,

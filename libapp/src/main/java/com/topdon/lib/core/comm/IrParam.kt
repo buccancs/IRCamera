@@ -6,16 +6,16 @@ package com.topdon.lib.core.comm
  * date: 2024/4/30 10:16
  **/
 enum class IrParam {
-    ParamLevel, // 对比度
-    ParamAlarm, // 预警
-    ParamSharpness, // 锐度
-    ParamTempFont, // 温度值字体设置
-    ParamRotate, // 旋转
-    ParamColor, // 伪彩
-    ParamMirror, // 镜像
-    ParamCompass, // 指南针
-    ParamPColor, // 伪彩样式
-    ParamTemperature, // 温度模式、高低增益
+    ParamLevel, // [CN_TEXT]
+    ParamAlarm, // [CN_TEXT]
+    ParamSharpness, // [CN_TEXT]
+    ParamTempFont, // [CN_TEXT]Settings
+    ParamRotate, // Rotate
+    ParamColor, // Pseudo-color
+    ParamMirror, // [CN_TEXT]
+    ParamCompass, // [CN_TEXT]
+    ParamPColor, // Pseudo-color[CN_TEXT]
+    ParamTemperature, // [CN_TEXT]Mode、[CN_TEXT]Low gain
 }
 
 data class TempFont(val textSize: Int, val textColor: Int)

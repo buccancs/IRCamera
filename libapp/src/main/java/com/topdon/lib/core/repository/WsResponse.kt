@@ -1,10 +1,10 @@
 package com.topdon.lib.core.repository
 
 /**
- * websocket 数据推送响应.
- * @param cmd 推送指令
- * @param data 推送实体类，视不同指令返回对象不同
- * @param id 推送id
+ * websocket [CN_TEXT].
+ * @param cmd [CN_TEXT]
+ * @param data [CN_TEXT]，[CN_TEXT]
+ * @param id [CN_TEXT]id
  */
 data class WsResponse<T>(
     val cmd: Int,
@@ -13,38 +13,38 @@ data class WsResponse<T>(
 )
 
 /**
- * websocket - 伪彩样式
+ * websocket - Pseudo-color[CN_TEXT]
  */
 data class WsPseudoColor(
-    val enable: Boolean?, // 白热-1，黑热-2，警示红-12, 铁红-5，观鸟-16
+    val enable: Boolean?, // White hot-1，Black hot-2，[CN_TEXT]-12, Iron red-5，[CN_TEXT]Bird-16
     val mode: Int?,
 )
 
 /**
- * websocket - 测距
+ * websocket - [CN_TEXT]
  */
 data class WsRange(
-    val state: Int?, // 0-关闭，1-开启
+    val state: Int?, // 0-[CN_TEXT]，1-[CN_TEXT]
 )
 
 /**
- * websocket - 亮度
+ * websocket - [CN_TEXT]
  */
 data class WsLight(
-    val brightness: Int?, // 81-100 高，61-80 中，0-60 低
+    val brightness: Int?, // 81-100 [CN_TEXT]，61-80 [CN_TEXT]，0-60 [CN_TEXT]
 )
 
 /**
- * websocket - 画中画
+ * websocket - Picture in picture
  */
 data class WsPip(
-    val enable: Int?, // 0-关闭，1-开启
+    val enable: Int?, // 0-[CN_TEXT]，1-[CN_TEXT]
 )
 
 /**
- * websocket - 放大倍数
+ * websocket - [CN_TEXT]
  */
 data class WsZoom(
-    val enable: Boolean?, // 使能缩放标识
-    val factor: Int?, // 缩放比例
+    val enable: Boolean?, // [CN_TEXT]
+    val factor: Int?, // [CN_TEXT]
 )

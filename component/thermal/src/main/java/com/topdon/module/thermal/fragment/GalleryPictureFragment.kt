@@ -16,7 +16,7 @@ import com.topdon.module.thermal.viewmodel.GalleryViewModel
 import java.io.File
 
 /**
- * 图片
+ * [CN_TEXT]
  */
 class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
     private val adapter by lazy { GalleryAdapter(requireContext()) }
@@ -47,8 +47,8 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
                     index: Int,
                     path: String,
                 ) {
-                    TipDialog.Builder(requireContext()).setMessage("导出图片")
-                        .setPositiveListener("分享") {
+                    TipDialog.Builder(requireContext()).setMessage("[CN_TEXT]")
+                        .setPositiveListener("[CN_TEXT]") {
                             share(path)
                         }
                         .create().show()
@@ -65,13 +65,13 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
     }
 
     /**
-     * 分享图片
+     * [CN_TEXT]
      */
     fun share(path: String) {
         val file = File(path)
         var intent = Intent()
-        intent.action = Intent.ACTION_SEND // 设置分享行为
-        intent.type = "image/*" // 设置分享内容的类型
+        intent.action = Intent.ACTION_SEND // Settings[CN_TEXT]
+        intent.type = "image/*" // Settings[CN_TEXT]Type
         val uri: Uri =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 val authority = "${requireContext().packageName}.fileprovider"
@@ -80,7 +80,7 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
                 Uri.fromFile(file)
             }
         intent.putExtra(Intent.EXTRA_STREAM, uri)
-        intent = Intent.createChooser(intent, "分享图片")
+        intent = Intent.createChooser(intent, "[CN_TEXT]")
         startActivity(intent)
     }
 
@@ -88,9 +88,9 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
         val imageEngine = GlideImageEngine()
         // Note: MNImageBrowser API requires proper library configuration and integration
         /*
-        MNImageBrowser.with(requireContext()) //当前位置
-            .setCurrentPosition(0) //图片引擎
-            .setImageEngine(imageEngine) //图片集合
+        MNImageBrowser.with(requireContext()) //Current[CN_TEXT]
+            .setCurrentPosition(0) //[CN_TEXT]
+            .setImageEngine(imageEngine) //[CN_TEXT]
             .setImageUrl(path)
             .show()
          */

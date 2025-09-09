@@ -10,11 +10,11 @@ import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 
 /**
- * 多张图片详情.
+ * [CN_TEXT].
  *
- * 需要传递：
- * - [ExtraKeyConfig.CURRENT_ITEM] - 当前要查看的图片在图片列表中的 index
- * - [ExtraKeyConfig.IMAGE_PATH_LIST] - 要查看的图片在本地绝对路径列表
+ * [CN_TEXT]：
+ * - [ExtraKeyConfig.CURRENT_ITEM] - Current[CN_TEXT] index
+ * - [ExtraKeyConfig.IMAGE_PATH_LIST] - [CN_TEXT]
  *
  * Created by LCG on 2024/8/27.
  */

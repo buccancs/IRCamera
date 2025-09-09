@@ -33,7 +33,7 @@ internal class TempSourceAdapter : BaseMenuAdapter() {
         }
 
     /**
-     * 观测模式-菜单2-高低温源 点击事件监听，单选。
+     * ObservationMode-Menu2-[CN_TEXT]Low temperature[CN_TEXT] [CN_TEXT]，[CN_TEXT]。
      */
     var onTempSourceListener: ((code: Int) -> Unit)? = null
 

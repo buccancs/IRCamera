@@ -27,18 +27,18 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 /**
- * 颜色模式（自定义渲染）设置界面.
+ * [CN_TEXT]Mode（[CN_TEXT]）Settings[CN_TEXT].
  *
- * 需要传递
- * - [ExtraKeyConfig.IS_TC007] - 是否设置 TC007 的自定义渲染
- * - [ExtraKeyConfig.CUSTOM_PSEUDO_BEAN] - 自定义渲染相关设置项.（可选，不传则从 SharedPreferences 中读取配置.）
+ * [CN_TEXT]
+ * - [ExtraKeyConfig.IS_TC007] - [CN_TEXT]Settings TC007 [CN_TEXT]
+ * - [ExtraKeyConfig.CUSTOM_PSEUDO_BEAN] - [CN_TEXT]Settings[CN_TEXT].（[CN_TEXT]，[CN_TEXT] SharedPreferences [CN_TEXT].）
  *
- * 返回 result
- * - [ExtraKeyConfig.CUSTOM_PSEUDO_BEAN] - 自定义渲染相关设置项.
+ * [CN_TEXT] result
+ * - [ExtraKeyConfig.CUSTOM_PSEUDO_BEAN] - [CN_TEXT]Settings[CN_TEXT].
  */
 class PseudoSetActivity : BaseActivity(), View.OnClickListener {
     /**
-     * 从上一界面传递过来的，自定义渲染相关设置项.
+     * [CN_TEXT]，[CN_TEXT]Settings[CN_TEXT].
      */
     private lateinit var customPseudoBean: CustomPseudoBean
 
@@ -150,7 +150,7 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
         customPseudoBean = intent.getParcelableExtra(ExtraKeyConfig.CUSTOM_PSEUDO_BEAN) ?: CustomPseudoBean.loadFromShared(isTC007)
         switchDynamicCustom(customPseudoBean.isUseCustomPseudo)
 
-        //加载温度配置
+        //[CN_TEXT]
         etMaxTemp.setText(UnitTools.showNoUnit(customPseudoBean.maxTemp))
         etMinTemp.setText(UnitTools.showNoUnit(customPseudoBean.minTemp))
         tvMaxTempUnit.text = UnitTools.showUnit()
@@ -158,7 +158,7 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
 
         switchColorType(customPseudoBean.isColorCustom)
 
-        //加载自定义颜色配置
+        //[CN_TEXT]
         pseudoPickView.onSelectChangeListener = {
             reset6CustomColor()
             colorSelectView.reset()
@@ -181,7 +181,7 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
             customPseudoBean.getCustomPlaces()
         )
 
-        //加载推荐颜色配置
+        //[CN_TEXT]
         viewRecommendColor1.background = buildRectDrawableArray(ColorRecommend.colorList1)
         viewRecommendColor2.background = buildRectDrawableArray(ColorRecommend.colorList2)
         viewRecommendColor3.background = buildRectDrawableArray(ColorRecommend.getColorByIndex(isTC007, 2))
@@ -233,89 +233,89 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            clDynamic -> {//动态渲染
+            clDynamic -> {//[CN_TEXT]
                 switchDynamicCustom(false)
             }
-            clCustom -> {//自定义
+            clCustom -> {//[CN_TEXT]
                 switchDynamicCustom(true)
             }
-            tvColorCustom -> {//颜色-自定义
+            tvColorCustom -> {//[CN_TEXT]-[CN_TEXT]
                 switchColorType(true)
             }
-            tvColorRecommend -> {//颜色-推荐
+            tvColorRecommend -> {//[CN_TEXT]-[CN_TEXT]
                 switchColorType(false)
                 switchRecommendColorIndex(customPseudoBean.customRecommendIndex)
             }
 
-            viewCustomColor1 -> {//颜色-自定义-颜色值拾取1
+            viewCustomColor1 -> {//[CN_TEXT]-[CN_TEXT]-[CN_TEXT]1
                 reset6CustomColor()
                 viewCustomColor1.isSelected = true
                 colorSelectView.selectColor(0xff0000ff.toInt())
                 pseudoPickView.refreshColor(0xff0000ff.toInt())
             }
-            viewCustomColor2 -> {//颜色-自定义-颜色值拾取2
+            viewCustomColor2 -> {//[CN_TEXT]-[CN_TEXT]-[CN_TEXT]2
                 reset6CustomColor()
                 viewCustomColor2.isSelected = true
                 colorSelectView.selectColor(0xffff0000.toInt())
                 pseudoPickView.refreshColor(0xffff0000.toInt())
             }
-            viewCustomColor3 -> {//颜色-自定义-颜色值拾取3
+            viewCustomColor3 -> {//[CN_TEXT]-[CN_TEXT]-[CN_TEXT]3
                 reset6CustomColor()
                 viewCustomColor3.isSelected = true
                 colorSelectView.selectColor(0xff00ff00.toInt())
                 pseudoPickView.refreshColor(0xff00ff00.toInt())
             }
-            viewCustomColor4 -> {//颜色-自定义-颜色值拾取4
+            viewCustomColor4 -> {//[CN_TEXT]-[CN_TEXT]-[CN_TEXT]4
                 reset6CustomColor()
                 viewCustomColor4.isSelected = true
                 colorSelectView.selectColor(0xffffff00.toInt())
                 pseudoPickView.refreshColor(0xffffff00.toInt())
             }
-            viewCustomColor5 -> {//颜色-自定义-颜色值拾取5
+            viewCustomColor5 -> {//[CN_TEXT]-[CN_TEXT]-[CN_TEXT]5
                 reset6CustomColor()
                 viewCustomColor5.isSelected = true
                 colorSelectView.selectColor(0xff000000.toInt())
                 pseudoPickView.refreshColor(0xff000000.toInt())
             }
-            viewCustomColor6 -> {//颜色-自定义-颜色值拾取6
+            viewCustomColor6 -> {//[CN_TEXT]-[CN_TEXT]-[CN_TEXT]6
                 reset6CustomColor()
                 viewCustomColor6.isSelected = true
                 colorSelectView.selectColor(0xffffffff.toInt())
                 pseudoPickView.refreshColor(0xffffffff.toInt())
             }
 
-            ivCustomAdd -> {//颜色-自定义-添加
+            ivCustomAdd -> {//[CN_TEXT]-[CN_TEXT]-[CN_TEXT]
                 pseudoPickView.add()
             }
-            ivCustomDel -> {//颜色-自定义-删除
+            ivCustomDel -> {//[CN_TEXT]-[CN_TEXT]-Delete
                 pseudoPickView.del()
             }
 
-            viewRecommendBgColor1 -> {//颜色-推荐-铁红
+            viewRecommendBgColor1 -> {//[CN_TEXT]-[CN_TEXT]-Iron red
                 switchRecommendColorIndex(0)
             }
-            viewRecommendBgColor2 -> {//颜色-推荐-黑红
+            viewRecommendBgColor2 -> {//[CN_TEXT]-[CN_TEXT]-[CN_TEXT]
                 switchRecommendColorIndex(1)
             }
-            viewRecommendBgColor3 -> {//颜色-推荐-自然
+            viewRecommendBgColor3 -> {//[CN_TEXT]-[CN_TEXT]-[CN_TEXT]
                 switchRecommendColorIndex(2)
             }
-            viewRecommendBgColor4 -> {//颜色-推荐-岩浆
+            viewRecommendBgColor4 -> {//[CN_TEXT]-[CN_TEXT]-[CN_TEXT]
                 switchRecommendColorIndex(3)
             }
-            viewRecommendBgColor5 -> {//颜色-推荐-辉金
+            viewRecommendBgColor5 -> {//[CN_TEXT]-[CN_TEXT]-[CN_TEXT]
                 switchRecommendColorIndex(4)
             }
 
-            clOverGrey -> {//灰度渐变
+            clOverGrey -> {//[CN_TEXT]
                 switchUseGray(true)
             }
-            clOverColor -> {//等色
+            clOverColor -> {//[CN_TEXT]
                 switchUseGray(false)
             }
 
-            tvConfirm -> {//确定
-                if (clCustomContent.isVisible) {//使用自定义渲染
+            tvConfirm -> {//[CN_TEXT]
+                if (clCustomContent.isVisible) {//[CN_TEXT]
                     val inputMax = etMaxTemp.text.toString()
                     if (inputMax.isEmpty()) {
                         ToastUtils.showShort(RUi.string.tip_input_format)
@@ -358,7 +358,7 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
                 setResult(RESULT_OK, resultIntent)
                 finish()
             }
-            tvCancel -> {//取消
+            tvCancel -> {//[CN_TEXT]
                 setResult(RESULT_CANCELED)
                 finish()
             }
@@ -366,8 +366,8 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 在 动态渲染 与 自定义 之间切换.
-     * @param isToCustom true-切换到自定义 false-切换到动态渲染
+     * [CN_TEXT] [CN_TEXT] [CN_TEXT] [CN_TEXT] [CN_TEXT]Switch.
+     * @param isToCustom true-Switch[CN_TEXT] false-Switch[CN_TEXT]
      */
     private fun switchDynamicCustom(isToCustom: Boolean) {
         customPseudoBean.isUseCustomPseudo = isToCustom
@@ -381,8 +381,8 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 在自定义渲染-颜色设置中的 自定义 与 推荐 之间切换.
-     * @param isToCustom true-切换到自定义 false-切换到推荐
+     * [CN_TEXT]-[CN_TEXT]Settings[CN_TEXT] [CN_TEXT] [CN_TEXT] [CN_TEXT] [CN_TEXT]Switch.
+     * @param isToCustom true-Switch[CN_TEXT] false-Switch[CN_TEXT]
      */
     private fun switchColorType(isToCustom: Boolean) {
         customPseudoBean.isColorCustom = isToCustom
@@ -395,7 +395,7 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 将自定义颜色设置中，6个预设颜色值重置为均未选中状态.
+     * [CN_TEXT]Settings[CN_TEXT]，6[CN_TEXT]SelectedState.
      */
     private fun reset6CustomColor() {
         viewCustomColor1.isSelected = false
@@ -407,8 +407,8 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 切换 推荐颜色 中的 5 个选项.
-     * @param 0-铁红 1-黑红 2-自然 3-岩浆 4-辉金
+     * Switch [CN_TEXT] [CN_TEXT] 5 [CN_TEXT]Option.
+     * @param 0-Iron red 1-[CN_TEXT] 2-[CN_TEXT] 3-[CN_TEXT] 4-[CN_TEXT]
      */
     private fun switchRecommendColorIndex(index: Int) {
         when (customPseudoBean.customRecommendIndex) {

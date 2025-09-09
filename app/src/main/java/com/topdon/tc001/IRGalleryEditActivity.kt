@@ -76,15 +76,15 @@ import com.example.thermal_lite.R as ThermalLiteR
 import com.topdon.module.thermal.ir.R as ThermalIrR
 
 /**
- * 图片二次编辑
+ * [CN_TEXT]
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(), View.OnClickListener, ITsTempListener {
     private var isShowC: Boolean = false
 
     /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
+     * [CN_TEXT]，Current[CN_TEXT] TC007 [CN_TEXT]Type.
+     * true-TC007 false-[CN_TEXT]
      */
     private var isTC007 = false
 
@@ -97,14 +97,14 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
     private var mFrame = ByteArray(192 * 256 * 4)
     private val frameTool by lazy { FrameTool() }
 
-    // 图像参数
+    // [CN_TEXT]
     private var pseudocodeMode = 3
     private var leftValue = 0f
     private var rightValue = 10000f
     private var max = 10000f
     private var min = 0f
     private var rotate = ImageParams.ROTATE_270
-    private var struct: FrameStruct = FrameStruct() // 首部信息
+    private var struct: FrameStruct = FrameStruct() // [CN_TEXT]
     private var ts_data_H: ByteArray? = null
     private var ts_data_L: ByteArray? = null
 
@@ -223,7 +223,7 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
                 struct.customPseudoBean.minTemp = tempCorrect(tempResult.minTemperature)
                 editRecyclerSecond.setPseudoColor(pseudocodeMode)
             }
-//        伪彩条默认处于打开状态
+//        Pseudo-color[CN_TEXT]State
 //        colorBarView.isVisible = struct.isShowPseudoBar
 //        adapter.enPseudoColorBar(struct.isShowPseudoBar)
 
@@ -236,7 +236,7 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
             temperatureView.textColor = struct.textColor
             temperatureView.tempTextSize = struct.textSize
             temperatureView.setData(frameTool.getTempBytes(rotate = rotate))
-            updateTemperatureSeekBar(false, ThermalLiteR.drawable.svg_pseudo_bar_lock, "lock") // 加锁
+            updateTemperatureSeekBar(false, ThermalLiteR.drawable.svg_pseudo_bar_lock, "lock") // [CN_TEXT]
             temperatureSeekbar.setPseudocode(pseudocodeMode)
             temperatureSeekbar.setOnRangeChangedListener(
                 object : OnRangeChangedListener {
@@ -274,14 +274,14 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
                         view: RangeSeekBar?,
                         isLeft: Boolean,
                     ) {
-                        // 调整开始
+                        // [CN_TEXT]
                     }
 
                     override fun onStopTrackingTouch(
                         view: RangeSeekBar?,
                         isLeft: Boolean,
                     ) {
-                        // 调整结束
+                        // [CN_TEXT]
                     }
                 },
             )
@@ -303,8 +303,8 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
                 temperatureIvInput.setImageResource(ThermalIrR.drawable.ic_color_edit)
                 temperatureIvLock.visibility = View.VISIBLE
             }
-            temperatureSeekbar.setRange(leftValue, rightValue, 0.1f) // 初始温度范围
-            temperatureSeekbar.setProgress(leftValue, rightValue) // 初始位置
+            temperatureSeekbar.setRange(leftValue, rightValue, 0.1f) // [CN_TEXT]
+            temperatureSeekbar.setProgress(leftValue, rightValue) // [CN_TEXT]
             if (ScreenTool.isIPad(this@IRGalleryEditActivity)) {
                 colorBarView.setPadding(0, SizeUtils.dp2px(40f), 0, SizeUtils.dp2px(40f))
             }
@@ -312,7 +312,7 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
     }
 
     /**
-     * 更新图像
+     * [CN_TEXT]
      */
     private fun updateImage(bitmap: Bitmap?) {
         bitmap?.let {
@@ -344,14 +344,14 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
     }
 
     /**
-     * 一级菜单
+     * [CN_TEXT]Menu
      */
     private fun initRecycler() {
         editRecyclerFirst.onTabClickListener = {
             when (it) {
-                0 -> editRecyclerSecond.selectPosition(1) // 点线面
-                1 -> editRecyclerSecond.selectPosition(3) // 伪彩颜色
-                2 -> editRecyclerSecond.selectPosition(4) // 设置
+                0 -> editRecyclerSecond.selectPosition(1) // Point/Line/Area
+                1 -> editRecyclerSecond.selectPosition(3) // Pseudo-color[CN_TEXT]
+                2 -> editRecyclerSecond.selectPosition(4) // Settings
             }
         }
         editRecyclerFirst.onBarClickListener = {
@@ -366,7 +366,7 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
                 FenceType.DEL -> temperatureView.mode = Mode.CLEAR
                 FenceType.FULL -> temperatureView.isShowFull = isSelected
                 FenceType.TREND -> {
-                    // 2D编辑没有趋势图
+                    // 2D[CN_TEXT]
                 }
             }
         }
@@ -393,17 +393,17 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
     }
 
     /**
-     * 最高最低温复原
+     * [CN_TEXT]Low temperature[CN_TEXT]
      */
     private fun setDefLimit() {
         val tempResult = frameTool.getSrcTemp()
         rightValue = showUnitValue(tempCorrect(tempResult.maxTemperature), isShowC)
         leftValue = showUnitValue(tempCorrect(tempResult.minTemperature), isShowC)
-        temperatureSeekbar.setRange(leftValue, rightValue, 0.1f) // 初始温度范围
-        temperatureSeekbar.setProgress(leftValue, rightValue) // 初始位置
+        temperatureSeekbar.setRange(leftValue, rightValue, 0.1f) // [CN_TEXT]
+        temperatureSeekbar.setProgress(leftValue, rightValue) // [CN_TEXT]
     }
 
-    // 设置伪彩
+    // SettingsPseudo-color
     private fun setPColor(code: Int) {
         pseudocodeMode = code
         temperatureSeekbar.setPseudocode(pseudocodeMode)
@@ -429,7 +429,7 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
     private fun setSettingValue(type: SettingType) {
         when (type) {
             SettingType.ALARM -> {
-                // 预警
+                // [CN_TEXT]
                 if (tempAlarmSetDialog == null) {
                     tempAlarmSetDialog = TempAlarmSetDialog(this, true)
                     tempAlarmSetDialog?.onSaveListener = {
@@ -453,7 +453,7 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
                 tempAlarmSetDialog?.alarmBean = struct.alarmBean
                 tempAlarmSetDialog?.show()
             }
-            SettingType.FONT -> { // 字体颜色
+            SettingType.FONT -> { // [CN_TEXT]
                 val colorPickDialog = ColorPickDialog(this, temperatureView.textColor, temperatureView.tempTextSize)
                 colorPickDialog.onPickListener = { it: Int, textSize: Int ->
                     temperatureView?.textColor = it
@@ -466,7 +466,7 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
                 }
                 colorPickDialog.show()
             }
-            SettingType.WATERMARK -> { // 水印
+            SettingType.WATERMARK -> { // [CN_TEXT]
                 TipWaterMarkDialog.Builder(this, struct.watermarkBean)
                     .setCancelListener {
                         struct.watermarkBean = it
@@ -488,7 +488,7 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
                     .create().show()
             }
             else -> {
-                // 其他设置选项 2D 编辑没有
+                // [CN_TEXT]SettingsOption 2D [CN_TEXT]
             }
         }
     }
@@ -518,10 +518,10 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
                         true,
                         ThermalLiteR.drawable.svg_pseudo_bar_unlock,
                         "unlock",
-                    ) // 解锁
+                    ) // [CN_TEXT]
                 } else {
                     setDefLimit()
-                    updateTemperatureSeekBar(false, ThermalLiteR.drawable.svg_pseudo_bar_lock, "lock") // 加锁
+                    updateTemperatureSeekBar(false, ThermalLiteR.drawable.svg_pseudo_bar_lock, "lock") // [CN_TEXT]
                 }
             }
             temperatureIvInput -> {
@@ -546,7 +546,7 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
             }
         }
 
-    // 更新自定义伪彩的颜色的属性值
+    // [CN_TEXT]Pseudo-color[CN_TEXT]
     private fun updateImageAndSeekbarColorList(customPseudoBean: CustomPseudoBean?) {
         customPseudoBean?.let {
             updateImage(
@@ -564,7 +564,7 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
             if (it.isUseCustomPseudo) {
                 temperatureIvLock.visibility = View.INVISIBLE
                 tvTempContent.visibility = View.VISIBLE
-                updateTemperatureSeekBar(false, ThermalLiteR.drawable.svg_pseudo_bar_lock, "lock") // 加锁
+                updateTemperatureSeekBar(false, ThermalLiteR.drawable.svg_pseudo_bar_lock, "lock") // [CN_TEXT]
                 temperatureSeekbar.setRangeAndPro(
                     UnitTools.showUnitValue(it.minTemp, isShowC),
                     UnitTools.showUnitValue(it.maxTemp, isShowC),
@@ -590,7 +590,7 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
     }
 
     /**
-     * 从上一界面传递过来的，是否从生成报告拾取图片中跳转过来.
+     * [CN_TEXT]，[CN_TEXT].
      */
     private var isReportPick = false
 
@@ -610,23 +610,23 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
             } else {
                 showLoadingDialog()
                 lifecycleScope.launch(Dispatchers.IO) {
-                    // 获取展示图像信息的图层数据
+                    // [CN_TEXT]
                     var irBitmap =
                         if (struct.isAmplify) {
-                            // 超分四倍使用原始图像继续超分一次
+                            // [CN_TEXT]
                             OpencvTools.supImageFourExToBitmap(frameTool.getBaseBitmap(rotate))
                         } else {
                             irImageView.drawToBitmap()
                         }
                     if (temperatureView.mode != Mode.CLEAR) {
-                        // 获取温度图层的数据，包括点线框，温度值等，重新合成bitmap
+                        // [CN_TEXT]，[CN_TEXT]，[CN_TEXT]，[CN_TEXT]bitmap
                         irBitmap = BitmapUtils.mergeBitmap(irBitmap, temperatureView.drawToBitmap(), 0, 0)
                     }
-                    // 合并伪彩条
+                    // [CN_TEXT]Pseudo-color[CN_TEXT]
                     if (colorBarView.visibility == View.VISIBLE) {
                         irBitmap = BitmapUtils.mergeBitmap(irBitmap, colorBarView.drawToBitmap(), 0, 0)
                     }
-                    // 保存图片
+                    // [CN_TEXT]
                     val fileAbsolutePath = ImageUtils.saveToCache(this@IRGalleryEditActivity, irBitmap)
                     launch(Dispatchers.Main) {
                         dismissLoadingDialog()
@@ -724,23 +724,23 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
 
     private fun updateIconSave() {
         lifecycleScope.launch(Dispatchers.IO) {
-            // 获取展示图像信息的图层数据
+            // [CN_TEXT]
             var irBitmap =
                 if (struct.isAmplify) {
-                    // 超分四倍使用原始图像继续超分一次
+                    // [CN_TEXT]
                     OpencvTools.supImageFourExToBitmap(frameTool.getBaseBitmap(rotate))
                 } else {
                     irImageView.drawToBitmap()
                 }
             if (temperatureView.mode != Mode.CLEAR) {
-                // 获取温度图层的数据，包括点线框，温度值等，重新合成bitmap
+                // [CN_TEXT]，[CN_TEXT]，[CN_TEXT]，[CN_TEXT]bitmap
                 irBitmap = BitmapUtils.mergeBitmap(irBitmap, temperatureView.drawToBitmap(), 0, 0)
             }
-            // 合并伪彩条
+            // [CN_TEXT]Pseudo-color[CN_TEXT]
             if (colorBarView.visibility == View.VISIBLE) {
                 irBitmap = BitmapUtils.mergeBitmap(irBitmap, colorBarView.drawToBitmap(), 0, 0)
             }
-            // 保存图片
+            // [CN_TEXT]
             var name: String
             irBitmap.let {
                 name = ImageUtils.save(bitmap = it, isTC007)
@@ -760,7 +760,7 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
     }
 
     private fun getCapital(): ByteArray {
-        val capital: ByteArray? // 首部
+        val capital: ByteArray? // [CN_TEXT]
         capital =
             FrameStruct.toCode(
                 name = struct.name,
@@ -800,13 +800,13 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
         try {
             tmp = tempCorrect(temp!!)
         } catch (e: Exception) {
-            XLog.i("温度校正失败: ${e.message}")
+            XLog.i("[CN_TEXT]: ${e.message}")
         }
         return tmp!!
     }
 
     /**
-     * 单点修正过程
+     * [CN_TEXT]
      */
     private fun tempCorrect(temp: Float): Float {
         var newTemp = temp
@@ -845,7 +845,7 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
                         },
                     )
             } else if (struct.name.startsWith(PRODUCT_NAME_TC001LITE)) {
-                // lite的模组
+                // lite[CN_TEXT]
                 if (BaseApplication.instance.tau_data_H == null || BaseApplication.instance.tau_data_L == null) return temp
                 newTemp =
                     IRTool.temperatureCorrection(

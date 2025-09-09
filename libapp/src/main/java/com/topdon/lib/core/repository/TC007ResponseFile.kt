@@ -4,12 +4,12 @@ import android.graphics.Point
 import android.graphics.Rect
 import java.lang.NumberFormatException
 
-// 这个文件用来放 TC007 接口返回 JSON 的封装
+// [CN_TEXT] TC007 [CN_TEXT] JSON [CN_TEXT]
 
 /**
- * TC007 所有接口请求返回的格式内容.
- * @param Detail 当出错时，详细错误信息
- * @param Data 实际返回的数据，视不同的接口而定
+ * TC007 All[CN_TEXT].
+ * @param Detail [CN_TEXT]，[CN_TEXT]
+ * @param Data [CN_TEXT]，[CN_TEXT]
  */
 data class TC007Response<T>(
     val Code: Int,
@@ -19,17 +19,17 @@ data class TC007Response<T>(
     val Data: T?,
 ) {
     /**
-     * 判断请求是否成功.
+     * [CN_TEXT].
      */
     fun isSuccess(): Boolean = Code == 200
 }
 
 /**
- * TC007 接口请求返回：产品信息
- * @param ProductName 产品名称
+ * TC007 [CN_TEXT]：[CN_TEXT]
+ * @param ProductName [CN_TEXT]
  * @param ProductPN PN
  * @param ProductSN SN
- * @param Code 激活码
+ * @param Code [CN_TEXT]
  */
 data class ProductBean(
     val ProductName: String,
@@ -48,9 +48,9 @@ data class Version07Bean(
 )
 
 /**
- * TC007 接口请求返回：电池电量信息
- * @param Status Charging-充电中 Discharging-未充电
- * @param Remaining 剩余电量百分比
+ * TC007 [CN_TEXT]：[CN_TEXT]
+ * @param Status Charging-[CN_TEXT] Discharging-[CN_TEXT]
+ * @param Remaining [CN_TEXT]
  */
 data class BatteryInfo(
     val Status: String?,
@@ -67,10 +67,10 @@ data class BatteryInfo(
 }
 
 /**
- * TC007 接口请求返回：固件升级状态
- * @param Status 当前升级状态 1-开始升级 2-升级中 3-升级失败 4-升级成功
- * @param Percent 当前升级进度百分比
- * @param Code 升级错误码
+ * TC007 [CN_TEXT]：[CN_TEXT]State
+ * @param Status Current[CN_TEXT]State 1-[CN_TEXT] 2-[CN_TEXT] 3-[CN_TEXT] 4-[CN_TEXT]
+ * @param Percent Current[CN_TEXT]
+ * @param Code [CN_TEXT]
  */
 data class TC07UpgradeStatus(
     val Status: Int,
@@ -79,12 +79,12 @@ data class TC07UpgradeStatus(
 )
 
 /**
- * TC007 接口返回：测温属性参数
- * @param Fps 测温帧率[0,采集帧率]，默认12，最高支持12
- * @param Level 测温档位 0-高增益 1-低增益 3-自动切换
- * @param OsdMode 测温信息叠加方式 0-视频编码前叠加 1-码流信息叠加(编码后预览时叠加) 2-无叠加
- * @param TempUnit 温度单位 0-摄氏度 1-开尔文 2-华氏度
- * @param DistanceUnit 距离单位 0-米 1-英尺
+ * TC007 [CN_TEXT]：Temperature measurement[CN_TEXT]
+ * @param Fps Temperature measurement[CN_TEXT][0,[CN_TEXT]]，[CN_TEXT]12，[CN_TEXT]12
+ * @param Level Temperature measurement[CN_TEXT] 0-High gain 1-Low gain 3-[CN_TEXT]Switch
+ * @param OsdMode Temperature measurement[CN_TEXT] 0-[CN_TEXT] 1-[CN_TEXT]([CN_TEXT]) 2-[CN_TEXT]
+ * @param TempUnit [CN_TEXT] 0-Celsius 1-[CN_TEXT] 2-Fahrenheit
+ * @param DistanceUnit [CN_TEXT] 0-[CN_TEXT] 1-[CN_TEXT]
  */
 data class EnvAttr(
     val Fps: Int,
@@ -188,8 +188,8 @@ internal data class TempRectParam(
 }
 
 /**
- * @param DCFile 可见光数据
- * @param IRFile 红外数据
+ * @param DCFile Visible light[CN_TEXT]
+ * @param IRFile Infrared[CN_TEXT]
  */
 data class PhotoBean(
     val DCFile: String?,
@@ -204,7 +204,7 @@ data class AttributeBean(
 )
 
 /**
- * 汇总TC007的所有的属性值
+ * [CN_TEXT]TC007[CN_TEXT]All[CN_TEXT]
  */
 data class WifiAttributeBean(
     var Ratio: Int? = null,
@@ -239,11 +239,11 @@ data class CustomColor(
 )
 
 data class Param(
-    var brightness: Int = 50, // 亮度, 0-100, 默认50
-    var contrast: Int = 50, // 对比度, 0-100, 默认50
-    var saturation: Int = 50, // 饱和度, 0-100, 默认50
-    var sharpness: Int = 50, // 锐度, 0-100, 默认50
-    var flipMode: Int = 0, // 翻转, 0:正常, 1:水平翻转 2:垂直翻转 3:180度翻转
+    var brightness: Int = 50, // [CN_TEXT], 0-100, [CN_TEXT]50
+    var contrast: Int = 50, // [CN_TEXT], 0-100, [CN_TEXT]50
+    var saturation: Int = 50, // [CN_TEXT], 0-100, [CN_TEXT]50
+    var sharpness: Int = 50, // [CN_TEXT], 0-100, [CN_TEXT]50
+    var flipMode: Int = 0, // [CN_TEXT], 0:[CN_TEXT], 1:[CN_TEXT] 2:[CN_TEXT] 3:180[CN_TEXT]
 )
 
 data class Isotherm(
@@ -258,7 +258,7 @@ data class IsothermColor(
 )
 
 data class IsothermC(
-    val mode: Int, // 0：关，1：阈值上，2：阈值下，3：区间内
+    val mode: Int, // 0：[CN_TEXT]，1：[CN_TEXT]，2：[CN_TEXT]，3：[CN_TEXT]
     val highThreshold: Int,
     val lowThreshold: Int,
     var greaterThreshold: Int = 0,

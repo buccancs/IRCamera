@@ -12,7 +12,7 @@ import java.nio.ShortBuffer
 
 
 /**
- * 音频采集并且与视频合并一起
+ * [CN_TEXT]
  * @author: CaiSongL
  * @date: 2023/3/28
  */
@@ -79,7 +79,7 @@ class AudioRecordHelp private constructor() {
             }
             audioRecord!!.startRecording()
             /**
-             * 音频进行循环编码
+             * [CN_TEXT]
              */
             try {
                 while (runAudioThread) {
@@ -87,11 +87,11 @@ class AudioRecordHelp private constructor() {
                     if (recordingAudio) {
                         if (bufferReadResult > 0) {
                             audioData?.limit(bufferReadResult)
-                            Log.w("音频采集",bufferReadResult.toString()+"//"+bufferReadResult)
+                            Log.w("[CN_TEXT]",bufferReadResult.toString()+"//"+bufferReadResult)
                             recorder?.get()?.recordSamples(
                                 VideoRecordFFmpeg.SAMPLE_AUDIO_RETE_INHZ,
                                 VideoRecordFFmpeg.AUDIO_CHANNELS, audioData)
-//                            Log.w("音频采集中2",""+recorder?.get()?.frameNumber)
+//                            Log.w("[CN_TEXT]2",""+recorder?.get()?.frameNumber)
                         }
                     }else{
                         for (i in 0 until bufferSize) {
@@ -103,9 +103,9 @@ class AudioRecordHelp private constructor() {
                         Thread.sleep(1000L/VideoRecordFFmpeg.RATE)
                     }
                 }
-//                Log.w("停止采集",""+recorder?.get()?.frameNumber)
+//                Log.w("[CN_TEXT]",""+recorder?.get()?.frameNumber)
             }catch (e:Exception){
-                XLog.e("采集容器异常")
+                XLog.e("[CN_TEXT]")
             }
         }
     }

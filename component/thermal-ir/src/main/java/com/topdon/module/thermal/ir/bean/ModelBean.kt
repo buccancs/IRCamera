@@ -1,7 +1,7 @@
 package com.topdon.module.thermal.ir.bean
 
 /**
- * 模式
+ * Mode
  */
 data class ModelBean(
     var defaultModel: DataBean,
@@ -11,8 +11,8 @@ data class ModelBean(
 data class DataBean(
     var id: Int = 1,
     var name: String = "1",
-    var environment: Float = 30.0f,//环境温度，单位摄氏度
-    var distance: Float = 0.25f,//距离，单位米
-    var radiation: Float = 0.95f,//发射率
+    var environment: Float = 30.0f,//[CN_TEXT]，[CN_TEXT]Celsius
+    var distance: Float = 0.25f,//[CN_TEXT]，[CN_TEXT]
+    var radiation: Float = 0.95f,//[CN_TEXT]
     var use: Boolean = false
 )

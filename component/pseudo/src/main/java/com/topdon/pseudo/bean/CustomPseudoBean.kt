@@ -8,23 +8,23 @@ import kotlinx.android.parcel.Parcelize
 import java.nio.ByteBuffer
 
 /**
- * 自定义渲染的相关配置.
+ * [CN_TEXT].
  */
 @Parcelize
 data class CustomPseudoBean (
-    var selectIndex: Int = 0,                       //当前选中色块在列表中 index
-    var colors: IntArray? = null,                   //7 个色块颜色值
-    var zAltitudes: IntArray? = null,               //7 个色块海拔
-    var places: FloatArray? = null,                 //7 个色块占比值
-    var isUseCustomPseudo: Boolean = false,         //true-自定义渲染 false-动态渲染
-    var maxTemp: Float = 50f,                       //自定义渲染最高温，单位摄氏度，默认50摄氏度
-    var minTemp: Float = 0f,                        //自定义渲染最低温，单位摄氏度，默认0摄氏度
-    var isColorCustom: Boolean = true,              //true-自定义渲染颜色为自定义 false-自定义渲染颜色为推荐
-    var customMinColor: Int = 0xff0000FF.toInt(),   //自定义渲染自定义颜色最小值(最低温)
-    var customMiddleColor: Int = 0xFFFF0000.toInt(),//自定义渲染自定义颜色中间值
-    var customMaxColor: Int = 0xFFFFFF00.toInt(),   //自定义渲染自定义颜色最大值(最高温)
-    var customRecommendIndex: Int = 0,              //自定义渲染颜色推荐 index
-    var isUseGray: Boolean = true,                  //true-自定义渲染使用灰度渐变 false-自定义渲染使用等色
+    var selectIndex: Int = 0,                       //CurrentSelected[CN_TEXT] index
+    var colors: IntArray? = null,                   //7 [CN_TEXT]
+    var zAltitudes: IntArray? = null,               //7 [CN_TEXT]
+    var places: FloatArray? = null,                 //7 [CN_TEXT]
+    var isUseCustomPseudo: Boolean = false,         //true-[CN_TEXT] false-[CN_TEXT]
+    var maxTemp: Float = 50f,                       //[CN_TEXT]High temperature，[CN_TEXT]Celsius，[CN_TEXT]50Celsius
+    var minTemp: Float = 0f,                        //[CN_TEXT]Low temperature，[CN_TEXT]Celsius，[CN_TEXT]0Celsius
+    var isColorCustom: Boolean = true,              //true-[CN_TEXT] false-[CN_TEXT]
+    var customMinColor: Int = 0xff0000FF.toInt(),   //[CN_TEXT]([CN_TEXT]Low temperature)
+    var customMiddleColor: Int = 0xFFFF0000.toInt(),//[CN_TEXT]
+    var customMaxColor: Int = 0xFFFFFF00.toInt(),   //[CN_TEXT]([CN_TEXT]High temperature)
+    var customRecommendIndex: Int = 0,              //[CN_TEXT] index
+    var isUseGray: Boolean = true,                  //true-[CN_TEXT] false-[CN_TEXT]
 ) : Parcelable {
 
     companion object {
@@ -112,10 +112,10 @@ data class CustomPseudoBean (
 
     fun getColorList(isTC007: Boolean = false): IntArray? {
         // Note: Synchronization of places calculation required across all usage locations
-        if (!isUseCustomPseudo) {//都没开自定义渲染
+        if (!isUseCustomPseudo) {//[CN_TEXT]
             return null
         }
-        return if (isColorCustom) {//自定义颜色
+        return if (isColorCustom) {//[CN_TEXT]
             val sourceColors = getCustomColors()
             val places = getCustomPlaces()
             val actualColors = IntArray(sourceColors.size)
@@ -126,24 +126,24 @@ data class CustomPseudoBean (
                 }
             }
             actualColors
-        } else {//推荐颜色
+        } else {//[CN_TEXT]
             ColorRecommend.getColorByIndex(isTC007, customRecommendIndex)
         }
     }
 
     fun getPlaceList(): FloatArray? {
-        if (!isUseCustomPseudo) {//都没开自定义渲染
+        if (!isUseCustomPseudo) {//[CN_TEXT]
             return null
         }
-        return if (isColorCustom) {//自定义颜色
+        return if (isColorCustom) {//[CN_TEXT]
             getCustomPlaces()
-        } else {//推荐颜色
+        } else {//[CN_TEXT]
             null
         }
     }
 
     fun getCustomColors(): IntArray {
-        if (colors == null) {//老数据
+        if (colors == null) {//[CN_TEXT]
             colors = intArrayOf(customMinColor, customMiddleColor, customMaxColor)
         }
         return colors!!

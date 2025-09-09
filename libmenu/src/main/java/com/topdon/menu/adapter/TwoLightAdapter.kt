@@ -77,13 +77,13 @@ internal class TwoLightAdapter(private val menuType: MenuType) : BaseMenuAdapter
      * - TC007: Calibration, Blend extent
      */
     fun setSelected(twoLightType: TwoLightType, isSelected: Boolean) {
-        if (twoLightType == TwoLightType.TWO_LIGHT_1 || twoLightType == TwoLightType.TWO_LIGHT_2) {//双光1、双光2
+        if (twoLightType == TwoLightType.TWO_LIGHT_1 || twoLightType == TwoLightType.TWO_LIGHT_2) {//Dual light1、Dual light2
             return
         }
-        if (twoLightType == TwoLightType.IR || twoLightType == TwoLightType.LIGHT) {//单红外、可见光
+        if (twoLightType == TwoLightType.IR || twoLightType == TwoLightType.LIGHT) {//[CN_TEXT]Infrared、Visible light
             return
         }
-        if (menuType == MenuType.TC007 && twoLightType == TwoLightType.P_IN_P) {//TC007 时的画中画
+        if (menuType == MenuType.TC007 && twoLightType == TwoLightType.P_IN_P) {//TC007 [CN_TEXT]Picture in picture
             return
         }
         for (data in dataList) {
@@ -121,12 +121,12 @@ internal class TwoLightAdapter(private val menuType: MenuType) : BaseMenuAdapter
         holder.binding.ivIcon.isSelected = data.isSelected
         holder.binding.tvText.isSelected = data.isSelected
         holder.binding.clRoot.setOnClickListener {
-            if (data.isSingle) {//单选
-                if (!data.isSelected) {//单选的情况下重复点击忽略掉
+            if (data.isSingle) {//[CN_TEXT]
+                if (!data.isSelected) {//[CN_TEXT]
                     twoLightType = data.twoLightType
                     onTwoLightListener?.invoke(data.twoLightType, true)
                 }
-            } else {//多选
+            } else {//[CN_TEXT]
                 data.isSelected = !data.isSelected
                 holder.binding.ivIcon.isSelected = data.isSelected
                 holder.binding.tvText.isSelected = data.isSelected
@@ -138,8 +138,8 @@ internal class TwoLightAdapter(private val menuType: MenuType) : BaseMenuAdapter
     override fun getItemCount(): Int = dataList.size
 
     /**
-     * @param isSingle 是否单选，目前只有1组互斥的单选，故而 Boolean 足够用了
-     * @param isSelected 当前是否选中
+     * @param isSingle [CN_TEXT]，[CN_TEXT]1[CN_TEXT]，[CN_TEXT] Boolean [CN_TEXT]
+     * @param isSelected Current[CN_TEXT]Selected
      */
     data class Data(
         @StringRes val stringId: Int,

@@ -29,10 +29,10 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
- * 房屋检测首页.
+ * [CN_TEXT].
  *
- * 需要传递参数：
- * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007（不使用，透传）
+ * [CN_TEXT]：
+ * - [ExtraKeyConfig.IS_TC007] - Current[CN_TEXT] TC007（[CN_TEXT]，[CN_TEXT]）
  *
  * Created by LCG on 2024/8/20.
  */
@@ -102,9 +102,9 @@ class HouseHomeActivity : BaseActivity(), View.OnClickListener {
         viewPager2.adapter = ViewPagerAdapter(this)
         viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                if (position == 0) {//检测
+                if (position == 0) {//[CN_TEXT]
                     ivEdit.isEnabled = !detectViewModel.detectListLD.value.isNullOrEmpty()
-                } else {//报告
+                } else {//[CN_TEXT]
                     ivEdit.isEnabled = !reportViewModel.reportListLD.value.isNullOrEmpty()
                 }
             }
@@ -119,7 +119,7 @@ class HouseHomeActivity : BaseActivity(), View.OnClickListener {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onDetectCreate(event: HouseReportAddEvent) {
-        //有新报告被创建时，切到报告页
+        //[CN_TEXT]，[CN_TEXT]
         findViewById<ViewPager2>(R.id.view_pager2).currentItem = 1
     }
 
@@ -131,15 +131,15 @@ class HouseHomeActivity : BaseActivity(), View.OnClickListener {
         
         when (v) {
             ivBack -> finish()
-            ivEdit -> {//编辑
+            ivEdit -> {//[CN_TEXT]
                 tabViewModel.isEditModeLD.value = true
             }
-            ivAdd -> {//添加
+            ivAdd -> {//[CN_TEXT]
                 val newIntent = Intent(this, DetectAddActivity::class.java)
                 newIntent.putExtra(ExtraKeyConfig.IS_TC007, intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false))
                 startActivity(newIntent)
             }
-            ivExitEdit -> {//退出编辑
+            ivExitEdit -> {//[CN_TEXT]
                 tabViewModel.isEditModeLD.value = false
             }
         }

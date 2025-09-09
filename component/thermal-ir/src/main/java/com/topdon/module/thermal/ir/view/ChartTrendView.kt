@@ -26,43 +26,43 @@ class ChartTrendView : LineChart {
         val axisChartColors: Int = ContextCompat.getColor(context, LibR.color.chart_axis)
 
         this.isDragEnabled = false
-        this.isScaleYEnabled = false //禁止Y轴缩放
-        this.isScaleXEnabled = false //禁止X轴缩放
-        this.isDoubleTapToZoomEnabled = false//双击不可缩放
-        this.setScaleEnabled(false)//缩放
-        this.setPinchZoom(false)//禁用后，可以分别在x轴和y轴上进行缩放
+        this.isScaleYEnabled = false //[CN_TEXT]Y[CN_TEXT]
+        this.isScaleXEnabled = false //[CN_TEXT]X[CN_TEXT]
+        this.isDoubleTapToZoomEnabled = false//[CN_TEXT]
+        this.setScaleEnabled(false)//[CN_TEXT]
+        this.setPinchZoom(false)//[CN_TEXT]，[CN_TEXT]x[CN_TEXT]y[CN_TEXT]
         this.setTouchEnabled(true)
         this.setDrawGridBackground(false)
-        this.description = null//图标描述文本
-        this.axisRight.isEnabled = false //不绘制右侧Y轴
+        this.description = null//[CN_TEXT]
+        this.axisRight.isEnabled = false //[CN_TEXT]Y[CN_TEXT]
         this.setExtraOffsets(
             0f,
             0f,
             SizeUtils.dp2px(8f).toFloat(),
             SizeUtils.dp2px(4f).toFloat()
-        )//图表区域偏移
+        )//[CN_TEXT]
 
         setNoDataText(context.getString(ThermalR.string.lms_http_code998))
         setNoDataTextColor(ContextCompat.getColor(context, LibR.color.chart_text))
 
         val mv = MyMarkerView(context, R.layout.marker_lay)
         mv.chartView = this
-        marker = mv//设置点击坐标显示提示框
+        marker = mv//Settings[CN_TEXT]
 
         legend.form = Legend.LegendForm.CIRCLE
         legend.textColor = textColor
-        legend.isEnabled = false//隐藏曲线标签
+        legend.isEnabled = false//[CN_TEXT]
 
-        //x轴
+        //x[CN_TEXT]
         val xAxis = this.xAxis
         xAxis.textColor = textColor
-        xAxis.setDrawGridLines(false)//竖向格线
-        xAxis.axisLineColor = 0x00000000 //x轴颜色
+        xAxis.setDrawGridLines(false)//[CN_TEXT]
+        xAxis.axisLineColor = 0x00000000 //x[CN_TEXT]
         xAxis.setAvoidFirstLastClipping(true)
         xAxis.isEnabled = true
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.granularity = 1f
-        xAxis.isGranularityEnabled = true//重复值不显示
+        xAxis.isGranularityEnabled = true//[CN_TEXT]
         xAxis.textSize = 11f
         xAxis.isJumpFirstLabel = false
         xAxis.axisMinimum = 0f
@@ -80,12 +80,12 @@ class ChartTrendView : LineChart {
             }
         }
 
-        //y轴
+        //y[CN_TEXT]
         val leftAxis = this.axisLeft
-        leftAxis.textColor = textColor //y轴文本颜色
-        leftAxis.axisLineColor = 0x00000000 //y轴颜色
-        leftAxis.setDrawGridLines(true)//横向格线
-        leftAxis.gridColor = axisChartColors //y轴网格颜色
+        leftAxis.textColor = textColor //y[CN_TEXT]
+        leftAxis.axisLineColor = 0x00000000 //y[CN_TEXT]
+        leftAxis.setDrawGridLines(true)//[CN_TEXT]
+        leftAxis.gridColor = axisChartColors //y[CN_TEXT]
         leftAxis.gridLineWidth = 1.5f
         leftAxis.setLabelCount(6, true)
         leftAxis.valueFormatter = object : ValueFormatter() {
@@ -107,8 +107,8 @@ class ChartTrendView : LineChart {
     }
 
     /**
-     * 根据指定的数据刷新折线图数据
-     * @param tempList 温度值列表，单位摄氏度
+     * [CN_TEXT]Specified[CN_TEXT]
+     * @param tempList [CN_TEXT]，[CN_TEXT]Celsius
      */
     fun refresh(tempList: List<Float>) {
         if (tempList.isEmpty()) {
@@ -150,15 +150,15 @@ class ChartTrendView : LineChart {
 
         val lineDataSet = LineDataSet(entryList, "point temp")
         lineDataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
-        lineDataSet.color = 0xffffffff.toInt()//曲线颜色
-        lineDataSet.circleHoleColor = 0xffffffff.toInt()//坐标圆心颜色
-        lineDataSet.setCircleColor(0xffffffff.toInt())//坐标颜色
+        lineDataSet.color = 0xffffffff.toInt()//[CN_TEXT]
+        lineDataSet.circleHoleColor = 0xffffffff.toInt()//[CN_TEXT]
+        lineDataSet.setCircleColor(0xffffffff.toInt())//[CN_TEXT]
         lineDataSet.valueTextColor = Color.WHITE
         lineDataSet.lineWidth = 2f
-        lineDataSet.circleRadius = 1f//坐标点半径
+        lineDataSet.circleRadius = 1f//[CN_TEXT]
         lineDataSet.fillAlpha = 200
         lineDataSet.valueTextSize = 10f
-        lineDataSet.setDrawValues(false)//设置是否显示坐标值文本
+        lineDataSet.setDrawValues(false)//Settings[CN_TEXT]
 
         data = LineData(lineDataSet)
         invalidate()

@@ -25,39 +25,39 @@
 //        Log.e(TAG, "[onNotifyMessageOpened] $message")
 //        setZeroBadgeNumber()
 //        try {
-//            //打开自定义的Activity
+//            //[CN_TEXT]Activity
 //        } catch (throwable: Throwable) {
 //        }
 //    }
 //
 //    override fun onInAppMessageClick(context: Context?, notificationMessage: NotificationMessage?) {
 //        super.onInAppMessageClick(context, notificationMessage)
-//        Log.e(TAG, "[onInAppMessageClick] 用户点击了通知栏按钮")
+//        Log.e(TAG, "[onInAppMessageClick] [CN_TEXT]")
 //    }
 //
 //    override fun onMultiActionClicked(context: Context?, intent: Intent) {
-//        Log.e(TAG, "[onMultiActionClicked] 用户点击了通知栏按钮")
+//        Log.e(TAG, "[onMultiActionClicked] [CN_TEXT]")
 //        setZeroBadgeNumber()
 //        val nActionExtra = intent.extras!!.getString(JPushInterface.EXTRA_NOTIFICATION_ACTION_EXTRA)
 //
-//        //开发者根据不同 Action 携带的 extra 字段来分配不同的动作。
+//        //[CN_TEXT] Action [CN_TEXT] extra [CN_TEXT]。
 //        if (nActionExtra == null) {
 //            Log.d(TAG, "ACTION_NOTIFICATION_CLICK_ACTION nActionExtra is null")
 //            return
 //        }
 //        if (nActionExtra == "my_extra1") {
-//            Log.e(TAG, "[onMultiActionClicked] 用户点击通知栏按钮一")
+//            Log.e(TAG, "[onMultiActionClicked] [CN_TEXT]")
 //        } else if (nActionExtra == "my_extra2") {
-//            Log.e(TAG, "[onMultiActionClicked] 用户点击通知栏按钮二")
+//            Log.e(TAG, "[onMultiActionClicked] [CN_TEXT]")
 //        } else if (nActionExtra == "my_extra3") {
-//            Log.e(TAG, "[onMultiActionClicked] 用户点击通知栏按钮三")
+//            Log.e(TAG, "[onMultiActionClicked] [CN_TEXT]")
 //        } else {
-//            Log.e(TAG, "[onMultiActionClicked] 用户点击通知栏按钮未定义")
+//            Log.e(TAG, "[onMultiActionClicked] [CN_TEXT]")
 //        }
 //    }
 //
 //    private fun setZeroBadgeNumber() {
-//        Log.e(TAG, "[onMultiActionClicked] 清空角标")
+//        Log.e(TAG, "[onMultiActionClicked] [CN_TEXT]")
 //        JPushInterface.setBadgeNumber(BaseApplication.instance, 0)
 //    }
 //

@@ -33,7 +33,7 @@ internal class FenceAdapter(menuType: MenuType) : BaseMenuAdapter() {
             when (value) {
                 FenceType.FULL -> isFullSelect = true
                 FenceType.DEL -> isFullSelect = false
-                else -> {//点、线、面、趋势图，不会影响全图状态
+                else -> {//[CN_TEXT]、[CN_TEXT]、[CN_TEXT]、[CN_TEXT]，[CN_TEXT]State
 
                 }
             }
@@ -41,12 +41,12 @@ internal class FenceAdapter(menuType: MenuType) : BaseMenuAdapter() {
             notifyDataSetChanged()
         }
     /**
-     * 全图是否已选中.
+     * [CN_TEXT]Selected.
      */
     private var isFullSelect: Boolean = false
 
     /**
-     * 菜单点击事件监听，目前都是单选，等后续有空重构了，再搞成 IOS 那样“全图”可以多选。
+     * Menu[CN_TEXT]，[CN_TEXT]，[CN_TEXT]，[CN_TEXT] IOS [CN_TEXT]“[CN_TEXT]”[CN_TEXT]。
      */
     var onFenceListener: ((fenceType: FenceType, isSelected: Boolean) -> Unit)? = null
 
@@ -59,7 +59,7 @@ internal class FenceAdapter(menuType: MenuType) : BaseMenuAdapter() {
         dataList.add(Data(R.string.thermal_line, MenuR.drawable.selector_menu2_fence_line, FenceType.LINE))
         dataList.add(Data(R.string.thermal_rect, MenuR.drawable.selector_menu2_fence_rect, FenceType.RECT))
         dataList.add(Data(R.string.thermal_full_rect, MenuR.drawable.selector_menu2_fence_full, FenceType.FULL))
-        if (menuType != MenuType.GALLERY_EDIT) {//2D编辑的菜单没有趋势图
+        if (menuType != MenuType.GALLERY_EDIT) {//2D[CN_TEXT]Menu[CN_TEXT]
             dataList.add(Data(R.string.thermal_trend, MenuR.drawable.selector_menu2_fence_trend, FenceType.TREND))
         }
         dataList.add(Data(R.string.thermal_delete, MenuR.drawable.selector_menu2_del, FenceType.DEL))

@@ -17,13 +17,13 @@ import com.topdon.lib.core.navigation.NavigationManager
 import com.topdon.lib.core.tools.DeviceTools
 
 /**
- * 设备类型选择.
+ * [CN_TEXT]Type[CN_TEXT].
  *
  * Created by LCG on 2024/4/22.
  */
 class DeviceTypeActivity : BaseBindingActivity<ActivityDeviceTypeBinding>() {
     /**
-     * 当前点击的设备类型.
+     * Current[CN_TEXT]Type.
      */
     private var clientType: IRDeviceType? = null
 
@@ -100,7 +100,7 @@ class DeviceTypeActivity : BaseBindingActivity<ActivityDeviceTypeBinding>() {
             arrayListOf(
                 ItemInfo(true, IRDeviceType.TS001, IRDeviceType.TC001),
                 ItemInfo(false, IRDeviceType.TC001_PLUS, IRDeviceType.TC002C_DUO),
-//            暂时先屏蔽TC007
+//            [CN_TEXT]TC007
 //            ItemInfo(true, IRDeviceType.TS004, IRDeviceType.TC007),
                 ItemInfo(true, IRDeviceType.TS004, null),
                 ItemInfo(true, IRDeviceType.SHIMMER3_GSR, null),
@@ -233,7 +233,7 @@ class DeviceTypeActivity : BaseBindingActivity<ActivityDeviceTypeBinding>() {
     }
 
     /**
-     * 支持的设备类型 (热成像设备和GSR传感器).
+     * [CN_TEXT]Type ([CN_TEXT]GSR[CN_TEXT]).
      */
     enum class IRDeviceType {
         TC001 {

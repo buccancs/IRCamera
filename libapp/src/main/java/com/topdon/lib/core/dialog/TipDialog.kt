@@ -14,7 +14,7 @@ import com.topdon.lib.core.R
 import com.topdon.lib.core.databinding.DialogTipBinding
 
 /**
- * 提示窗
+ * [CN_TEXT]
  * create by fylder on 2018/6/15
  **/
 class TipDialog : Dialog {
@@ -111,7 +111,7 @@ class TipDialog : Dialog {
             val isPortrait = context.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
             val widthPixels = context.resources.displayMetrics.widthPixels
             val lp = dialog!!.window!!.attributes
-            lp.width = (widthPixels * if (isPortrait) 0.85 else 0.35).toInt() // 设置宽度
+            lp.width = (widthPixels * if (isPortrait) 0.85 else 0.35).toInt() // Settings[CN_TEXT]
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceled)

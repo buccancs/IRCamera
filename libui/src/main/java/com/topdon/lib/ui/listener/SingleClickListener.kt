@@ -3,7 +3,7 @@ package com.topdon.lib.ui.listener
 import android.view.View
 
 /**
- * 防止重复点击事件
+ * [CN_TEXT]
  * @author: CaiSongL
  * @date: 2020/5/14 16:01
  */

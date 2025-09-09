@@ -1,49 +1,49 @@
 package com.topdon.lib.core.socket
 
 /**
- * TC007 Socket 一帧数据.
- * @param isMaxShow 最高温点是否显示
- * @param isMinShow 最低温点是否显示
- * @param isCenterShow 中心点是否显示
- * @param maxX 最高温点 X 轴坐标
- * @param maxY 最高温点 Y 轴坐标
- * @param maxValue 最高温点温度值，单位摄氏度*10
- * @param minX 最低温点 X 轴坐标
- * @param minY 最低温点 Y 轴坐标
- * @param minValue 最低温点温度值，单位摄氏度*10
- * @param centerX 中心点 X 轴坐标
- * @param centerY 中心点 Y 轴坐标
- * @param centerValue 中心点温度值，单位摄氏度*10
- * @param isMaxWarn 整帧高温点报警是否开启
- * @param isMinWarn 整帧低温点报警是否开启
- * @param isCenterWarn 整帧中心点报警是否开启
+ * TC007 Socket [CN_TEXT].
+ * @param isMaxShow [CN_TEXT]High temperature[CN_TEXT]
+ * @param isMinShow [CN_TEXT]Low temperature[CN_TEXT]
+ * @param isCenterShow [CN_TEXT]
+ * @param maxX [CN_TEXT]High temperature[CN_TEXT] X [CN_TEXT]
+ * @param maxY [CN_TEXT]High temperature[CN_TEXT] Y [CN_TEXT]
+ * @param maxValue [CN_TEXT]High temperature[CN_TEXT]，[CN_TEXT]Celsius*10
+ * @param minX [CN_TEXT]Low temperature[CN_TEXT] X [CN_TEXT]
+ * @param minY [CN_TEXT]Low temperature[CN_TEXT] Y [CN_TEXT]
+ * @param minValue [CN_TEXT]Low temperature[CN_TEXT]，[CN_TEXT]Celsius*10
+ * @param centerX [CN_TEXT] X [CN_TEXT]
+ * @param centerY [CN_TEXT] Y [CN_TEXT]
+ * @param centerValue [CN_TEXT]，[CN_TEXT]Celsius*10
+ * @param isMaxWarn [CN_TEXT]High temperature[CN_TEXT]
+ * @param isMinWarn [CN_TEXT]Low temperature[CN_TEXT]
+ * @param isCenterWarn [CN_TEXT]
  *
- * @param isP1Show 点1是否显示
- * @param p1X 点1 X 轴坐标
- * @param p1Y 点1 Y 轴坐标
- * @param p1Value 点1温度值，单位摄氏度*10
- * @param isP1MaxWarn 点1高温点报警是否开启
- * @param isP1MinWarn 点1低温点报警是否开启
- * @param isP1CenterWarn 点1中心点报警是否开启
+ * @param isP1Show [CN_TEXT]1[CN_TEXT]
+ * @param p1X [CN_TEXT]1 X [CN_TEXT]
+ * @param p1Y [CN_TEXT]1 Y [CN_TEXT]
+ * @param p1Value [CN_TEXT]1[CN_TEXT]，[CN_TEXT]Celsius*10
+ * @param isP1MaxWarn [CN_TEXT]1High temperature[CN_TEXT]
+ * @param isP1MinWarn [CN_TEXT]1Low temperature[CN_TEXT]
+ * @param isP1CenterWarn [CN_TEXT]1[CN_TEXT]
  *
- * @param isL1Show 线1是否显示
- * @param l1StartX 线1起始点 X 轴坐标
- * @param l1StartY 线1起始点 Y 轴坐标
- * @param l1EndX 线1终止点 X 轴坐标
- * @param l1EndY 线1终止点 Y 轴坐标
- * @param l1MaxX 线1最高温点 X 轴坐标
- * @param l1MaxY 线1最高温点 Y 轴坐标
- * @param l1MaxValue 线1最高温点温度值，单位摄氏度*10
- * @param l1MinX 线1最低温点 X 轴坐标
- * @param l1MinY 线1最低温点 Y 轴坐标
- * @param l1MinValue 线1最低温点温度值，单位摄氏度*10
- * @param l1AveValue 线1平均温，单位摄氏度*10
- * @param isL1MaxWarn 线1高温点报警是否开启
- * @param isL1MinWarn 线1低温点报警是否开启
- * @param isL1CenterWarn 线1中心点报警是否开启
+ * @param isL1Show [CN_TEXT]1[CN_TEXT]
+ * @param l1StartX [CN_TEXT]1[CN_TEXT] X [CN_TEXT]
+ * @param l1StartY [CN_TEXT]1[CN_TEXT] Y [CN_TEXT]
+ * @param l1EndX [CN_TEXT]1[CN_TEXT] X [CN_TEXT]
+ * @param l1EndY [CN_TEXT]1[CN_TEXT] Y [CN_TEXT]
+ * @param l1MaxX [CN_TEXT]1[CN_TEXT]High temperature[CN_TEXT] X [CN_TEXT]
+ * @param l1MaxY [CN_TEXT]1[CN_TEXT]High temperature[CN_TEXT] Y [CN_TEXT]
+ * @param l1MaxValue [CN_TEXT]1[CN_TEXT]High temperature[CN_TEXT]，[CN_TEXT]Celsius*10
+ * @param l1MinX [CN_TEXT]1[CN_TEXT]Low temperature[CN_TEXT] X [CN_TEXT]
+ * @param l1MinY [CN_TEXT]1[CN_TEXT]Low temperature[CN_TEXT] Y [CN_TEXT]
+ * @param l1MinValue [CN_TEXT]1[CN_TEXT]Low temperature[CN_TEXT]，[CN_TEXT]Celsius*10
+ * @param l1AveValue [CN_TEXT]1[CN_TEXT]，[CN_TEXT]Celsius*10
+ * @param isL1MaxWarn [CN_TEXT]1High temperature[CN_TEXT]
+ * @param isL1MinWarn [CN_TEXT]1Low temperature[CN_TEXT]
+ * @param isL1CenterWarn [CN_TEXT]1[CN_TEXT]
  */
 data class SocketFrameBean(
-    // 整帧测温结果
+    // [CN_TEXT]Temperature measurement[CN_TEXT]
     val isMaxShow: Boolean,
     val isMinShow: Boolean,
     val isCenterShow: Boolean,
@@ -59,7 +59,7 @@ data class SocketFrameBean(
     val isMaxWarn: Boolean,
     val isMinWarn: Boolean,
     val isCenterWarn: Boolean,
-    // 点测温结果
+    // [CN_TEXT]Temperature measurement[CN_TEXT]
     val isP1Show: Boolean,
     val p1X: Int,
     val p1Y: Int,
@@ -81,7 +81,7 @@ data class SocketFrameBean(
     val isP3MaxWarn: Boolean,
     val isP3MinWarn: Boolean,
     val isP3CenterWarn: Boolean,
-    // 线测温结果
+    // [CN_TEXT]Temperature measurement[CN_TEXT]
     val isL1Show: Boolean,
     val l1StartX: Int,
     val l1StartY: Int,
@@ -127,7 +127,7 @@ data class SocketFrameBean(
     val isL3MaxWarn: Boolean,
     val isL3MinWarn: Boolean,
     val isL3CenterWarn: Boolean,
-    // 区域测温结果
+    // [CN_TEXT]Temperature measurement[CN_TEXT]
     val isR1Show: Boolean,
     val r1StartX: Int,
     val r1StartY: Int,
@@ -304,7 +304,7 @@ data class SocketFrameBean(
     )
 
     companion object {
-        private fun Boolean.openText(): String = if (this) "开启" else "关闭"
+        private fun Boolean.openText(): String = if (this) "[CN_TEXT]" else "[CN_TEXT]"
 
         private fun Int.toCStr(): String = "${this / 10}${if (this % 10 == 0) "" else ".${this % 10}"}°C"
     }
@@ -313,55 +313,55 @@ data class SocketFrameBean(
         val stringBuilder = StringBuilder()
 
         if (isMaxShow) {
-            stringBuilder.append("高温点 ($maxX, $maxY) 温度${maxValue.toCStr()} 报警${isMaxWarn.openText()}\n")
+            stringBuilder.append("High temperature[CN_TEXT] ($maxX, $maxY) [CN_TEXT]${maxValue.toCStr()} [CN_TEXT]${isMaxWarn.openText()}\n")
         }
         if (isMinShow) {
-            stringBuilder.append("低温点 ($minX, $minY) 温度${minValue.toCStr()} 报警${isMinWarn.openText()}\n")
+            stringBuilder.append("Low temperature[CN_TEXT] ($minX, $minY) [CN_TEXT]${minValue.toCStr()} [CN_TEXT]${isMinWarn.openText()}\n")
         }
         if (isCenterShow) {
-            stringBuilder.append("中心点 ($centerX, $centerY) 温度${centerValue.toCStr()} 报警${isCenterWarn.openText()}\n")
+            stringBuilder.append("[CN_TEXT] ($centerX, $centerY) [CN_TEXT]${centerValue.toCStr()} [CN_TEXT]${isCenterWarn.openText()}\n")
         }
 
         if (isP1Show) {
-            stringBuilder.append("点1 ($p1X, $p1Y) 温度${p1Value.toCStr()}\n")
+            stringBuilder.append("[CN_TEXT]1 ($p1X, $p1Y) [CN_TEXT]${p1Value.toCStr()}\n")
         }
         if (isP2Show) {
-            stringBuilder.append("点2 ($p2X, $p2Y) 温度${p2Value.toCStr()}\n")
+            stringBuilder.append("[CN_TEXT]2 ($p2X, $p2Y) [CN_TEXT]${p2Value.toCStr()}\n")
         }
         if (isP3Show) {
-            stringBuilder.append("点3 ($p3X, $p3Y) 温度${p3Value.toCStr()}\n")
+            stringBuilder.append("[CN_TEXT]3 ($p3X, $p3Y) [CN_TEXT]${p3Value.toCStr()}\n")
         }
 
         if (isL1Show) {
-            stringBuilder.append("线1 ($l1StartX, $l1StartY)-($l1EndX, $l1EndY) ")
-            stringBuilder.append("最低温${l1MinValue.toCStr()}($l1MinX, $l1MinY) 最高温${l1MaxValue.toCStr()}($l1MaxX, $l1MaxY) ")
-            stringBuilder.append("平均温${l1AveValue.toCStr()}\n")
+            stringBuilder.append("[CN_TEXT]1 ($l1StartX, $l1StartY)-($l1EndX, $l1EndY) ")
+            stringBuilder.append("[CN_TEXT]Low temperature${l1MinValue.toCStr()}($l1MinX, $l1MinY) [CN_TEXT]High temperature${l1MaxValue.toCStr()}($l1MaxX, $l1MaxY) ")
+            stringBuilder.append("[CN_TEXT]${l1AveValue.toCStr()}\n")
         }
         if (isL2Show) {
-            stringBuilder.append("线2 ($l2StartX, $l2StartY)-($l2EndX, $l2EndY) ")
-            stringBuilder.append("最低温${l2MinValue.toCStr()}($l2MinX, $l2MinY) 最高温${l2MaxValue.toCStr()}($l2MaxX, $l2MaxY) ")
-            stringBuilder.append("平均温${l2AveValue.toCStr()}\n")
+            stringBuilder.append("[CN_TEXT]2 ($l2StartX, $l2StartY)-($l2EndX, $l2EndY) ")
+            stringBuilder.append("[CN_TEXT]Low temperature${l2MinValue.toCStr()}($l2MinX, $l2MinY) [CN_TEXT]High temperature${l2MaxValue.toCStr()}($l2MaxX, $l2MaxY) ")
+            stringBuilder.append("[CN_TEXT]${l2AveValue.toCStr()}\n")
         }
         if (isL3Show) {
-            stringBuilder.append("线3 ($l3StartX, $l3StartY)-($l3EndX, $l3EndY) ")
-            stringBuilder.append("最低温${l3MinValue.toCStr()}($l3MinX, $l3MinY) 最高温${l3MaxValue.toCStr()}($l3MaxX, $l3MaxY) ")
-            stringBuilder.append("平均温${l3AveValue.toCStr()}\n")
+            stringBuilder.append("[CN_TEXT]3 ($l3StartX, $l3StartY)-($l3EndX, $l3EndY) ")
+            stringBuilder.append("[CN_TEXT]Low temperature${l3MinValue.toCStr()}($l3MinX, $l3MinY) [CN_TEXT]High temperature${l3MaxValue.toCStr()}($l3MaxX, $l3MaxY) ")
+            stringBuilder.append("[CN_TEXT]${l3AveValue.toCStr()}\n")
         }
 
         if (isR1Show) {
-            stringBuilder.append("面1 ($r1StartX, $r1StartY)-($r1EndX, $r1EndY) ")
-            stringBuilder.append("最低温${r1MinValue.toCStr()}($r1MinX, $r1MinY) 最高温${r1MaxValue.toCStr()}($r1MaxX, $r1MaxY) ")
-            stringBuilder.append("平均温${r1AveValue.toCStr()}\n")
+            stringBuilder.append("[CN_TEXT]1 ($r1StartX, $r1StartY)-($r1EndX, $r1EndY) ")
+            stringBuilder.append("[CN_TEXT]Low temperature${r1MinValue.toCStr()}($r1MinX, $r1MinY) [CN_TEXT]High temperature${r1MaxValue.toCStr()}($r1MaxX, $r1MaxY) ")
+            stringBuilder.append("[CN_TEXT]${r1AveValue.toCStr()}\n")
         }
         if (isR2Show) {
-            stringBuilder.append("面2 ($r2StartX, $r2StartY)-($r2EndX, $r2EndY) ")
-            stringBuilder.append("最低温${r2MinValue.toCStr()}($r2MinX, $r2MinY) 最高温${r2MaxValue.toCStr()}($r2MaxX, $r2MaxY) ")
-            stringBuilder.append("平均温${l2AveValue.toCStr()}\n")
+            stringBuilder.append("[CN_TEXT]2 ($r2StartX, $r2StartY)-($r2EndX, $r2EndY) ")
+            stringBuilder.append("[CN_TEXT]Low temperature${r2MinValue.toCStr()}($r2MinX, $r2MinY) [CN_TEXT]High temperature${r2MaxValue.toCStr()}($r2MaxX, $r2MaxY) ")
+            stringBuilder.append("[CN_TEXT]${l2AveValue.toCStr()}\n")
         }
         if (isR3Show) {
-            stringBuilder.append("面3 ($r3StartX, $r3StartY)-($r3EndX, $r3EndY) ")
-            stringBuilder.append("最低温${r3MinValue.toCStr()}($r3MinX, $r3MinY) 最高温${r3MaxValue.toCStr()}($r3MaxX, $r3MaxY) ")
-            stringBuilder.append("平均温${r3AveValue.toCStr()}\n")
+            stringBuilder.append("[CN_TEXT]3 ($r3StartX, $r3StartY)-($r3EndX, $r3EndY) ")
+            stringBuilder.append("[CN_TEXT]Low temperature${r3MinValue.toCStr()}($r3MinX, $r3MinY) [CN_TEXT]High temperature${r3MaxValue.toCStr()}($r3MaxX, $r3MaxY) ")
+            stringBuilder.append("[CN_TEXT]${r3AveValue.toCStr()}\n")
         }
         return stringBuilder.toString()
     }

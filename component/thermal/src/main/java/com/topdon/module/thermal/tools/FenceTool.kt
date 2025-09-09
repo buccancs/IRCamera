@@ -1,7 +1,7 @@
 package com.topdon.module.thermal.tools
 
 object FenceTool {
-    // 坐标 => 序列
+    // [CN_TEXT] => [CN_TEXT]
     fun pointToIndex(
         point: IntArray,
         w: Int,
@@ -11,7 +11,7 @@ object FenceTool {
         return y * w + x
     }
 
-    // 序列 => 坐标
+    // [CN_TEXT] => [CN_TEXT]
     fun indexToPoint(
         index: Int,
         w: Int,

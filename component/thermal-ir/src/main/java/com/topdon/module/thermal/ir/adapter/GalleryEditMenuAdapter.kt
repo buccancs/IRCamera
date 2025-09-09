@@ -12,21 +12,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.topdon.module.thermal.ir.R
 import com.topdon.menu.R as MenuR
 
-@Deprecated("旧的2D编辑一级菜单，已重构过了")
+@Deprecated("[CN_TEXT]2D[CN_TEXT]Menu，[CN_TEXT]")
 class GalleryEditMenuAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var listener: ((code: Int) -> Unit)? = null
 
-    private var pointColor = false //点
-    private var pseudoColor = false //伪彩
-    private var pseudoColorBar = false //伪彩条
-    private var settingColorBar = false //设置
+    private var pointColor = false //[CN_TEXT]
+    private var pseudoColor = false //Pseudo-color
+    private var pseudoColorBar = false //Pseudo-color[CN_TEXT]
+    private var settingColorBar = false //Settings
 
     private val bean = arrayListOf(
-        IconBean(name = context.getString(R.string.menu_3d_calibrate), icon = MenuR.drawable.selector_menu_first_2_5, code = 1000), //标定
-        IconBean(name = context.getString(R.string.thermal_false_color), icon = MenuR.drawable.selector_menu_first_4_3, code = 2000), //伪彩
-        IconBean(name = context.getString(R.string.app_setting), icon = MenuR.drawable.selector_menu_first_5_6, code = 4000), //设置
-        IconBean(name = context.getString(R.string.func_temper_ruler), icon = MenuR.drawable.selector_menu_first_edit_4, code = 3000), //等温尺
+        IconBean(name = context.getString(R.string.menu_3d_calibrate), icon = MenuR.drawable.selector_menu_first_2_5, code = 1000), //[CN_TEXT]
+        IconBean(name = context.getString(R.string.thermal_false_color), icon = MenuR.drawable.selector_menu_first_4_3, code = 2000), //Pseudo-color
+        IconBean(name = context.getString(R.string.app_setting), icon = MenuR.drawable.selector_menu_first_5_6, code = 4000), //Settings
+        IconBean(name = context.getString(R.string.func_temper_ruler), icon = MenuR.drawable.selector_menu_first_edit_4, code = 3000), //[CN_TEXT]
     )
 
     fun enPointColor(pointColor: Boolean) {
@@ -82,7 +82,7 @@ class GalleryEditMenuAdapter(val context: Context) : RecyclerView.Adapter<Recycl
         }
     }
 
-    // 状态变化
+    // State[CN_TEXT]
     private fun iconUI(isActive: Boolean, img: ImageView, nameText: TextView) {
         img.isSelected = isActive
         if (isActive) {

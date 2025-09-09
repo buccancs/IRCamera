@@ -13,14 +13,14 @@ import kotlin.math.roundToInt
 import com.topdon.lib.ui.R as UiR
 
 /**
- * 支持竖向的 SeekBar。
- * 暂不支持 thumbOffset.
+ * [CN_TEXT] SeekBar。
+ * [CN_TEXT] thumbOffset.
  */
 class Comm3DSeekBar : AppCompatSeekBar {
     private lateinit var mPaint: TextPaint
 
     /**
-     * 0-横向 1-竖向
+     * 0-[CN_TEXT] 1-[CN_TEXT]
      */
     private val orientation: Int
 
@@ -30,13 +30,13 @@ class Comm3DSeekBar : AppCompatSeekBar {
     private var mMinHeight = 24
     var level = 0
 
-    // 进度文字位置信息
+    // [CN_TEXT]
     private val mProgressTextRect: Rect = Rect()
 
-    // 滑块按钮宽度
+    // [CN_TEXT]
     private val mThumbWidth: Int = SizeUtils.dp2px(50f)
 
-    // 进度指示器宽度
+    // [CN_TEXT]
     private val mIndicatorWidth: Int = SizeUtils.dp2px(50f)
     private var onSeekBarChangeListener: OnSeekBarChangeListener? = null
 
@@ -170,9 +170,9 @@ class Comm3DSeekBar : AppCompatSeekBar {
             super.onDraw(canvas)
 //            val progressText = "$progress%"
 //            mPaint.getTextBounds(progressText, 0, progressText.length, mProgressTextRect)
-//            // 进度百分比
+//            // [CN_TEXT]
 //            val progressRatio = progress.toFloat() / max
-//            // thumb偏移量
+//            // thumb[CN_TEXT]
 //            val thumbOffset: Float =
 //                (mThumbWidth - mProgressTextRect.width()) / 2 - mThumbWidth * progressRatio
 //            val thumbX = width * progressRatio + thumbOffset
@@ -221,7 +221,7 @@ class Comm3DSeekBar : AppCompatSeekBar {
     }
 
     /**
-     * 通过级别分层进行粘性处理
+     * [CN_TEXT]
      */
     fun stopTrackTouchLevel()  {
         if (level > 0)

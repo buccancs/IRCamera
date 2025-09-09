@@ -336,7 +336,7 @@ class ComprehensiveTestRunner:
         <p>Generated: {json_report['timestamp']}</p>
         <p>Total Duration: {json_report['total_duration']:.2f} seconds</p>
     </div>
-    
+
     <div class="summary">
         <div class="metric">
             <h3>Total Suites</h3>
@@ -357,7 +357,7 @@ class ComprehensiveTestRunner:
             </div>
         </div>
     </div>
-    
+
     <h2>Test Results</h2>
     """
 

@@ -33,7 +33,7 @@ class ThermalActivity : BaseActivity() {
 
         val thermalTab = findViewById<MenuFirstTabView>(R.id.thermal_tab)
         thermalTab.onTabClickListener = { view ->
-            // 一级菜单选择
+            // [CN_TEXT]Menu[CN_TEXT]
             showRecycler(view.selectPosition)
         }
     }
@@ -50,7 +50,7 @@ class ThermalActivity : BaseActivity() {
         menuAdapter.listener =
             object : MenuTabAdapter.OnItemClickListener {
                 override fun onClick(index: Int) {
-                    // 二级菜单选择
+                    // [CN_TEXT]Menu[CN_TEXT]
                     Log.w("123", "index: $index")
                     EventBus.getDefault().post(ThermalActionEvent(action = index))
                 }

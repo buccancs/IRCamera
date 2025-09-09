@@ -6,23 +6,23 @@ import com.topdon.libhik.util.ByteArrayUtil.toInt
 import com.topdon.libhik.util.ByteArrayUtil.toStr
 
 /**
- * 专家测温规则及结果，共 208 byte.
- * @param enable 是否启用
- * @param regionId 区域 Id
- * @param distance 测温距离，单位 cm
- * @param regionType 区域类型 1-点 2-线 3-面
- * @param regionName 区域名称
- * @param emissivity 发射率百分比，如 97 表示 0.97
- * @param minTemp 最低温，单位摄氏度
- * @param maxTemp 最高温，单位摄氏度
- * @param aveTemp 平均温，单位摄氏度
- * @param diffTemp 温差，单位摄氏度
- * @param maxX 区域最高温归一化 X 轴坐标 [0, 1000]
- * @param maxY 区域最高温归一化 Y 轴坐标 [0, 1000]
- * @param minX 区域最低温归一化 X 轴坐标 [0, 1000]
- * @param minY 区域最低温归一化 Y 轴坐标 [0, 1000]
- * @param pointCount 多边形实际顶点数
- * @param pointList 点、线、面 顶点列表
+ * [CN_TEXT]Temperature measurement[CN_TEXT]，[CN_TEXT] 208 byte.
+ * @param enable [CN_TEXT]
+ * @param regionId [CN_TEXT] Id
+ * @param distance Temperature measurement[CN_TEXT]，[CN_TEXT] cm
+ * @param regionType [CN_TEXT]Type 1-[CN_TEXT] 2-[CN_TEXT] 3-[CN_TEXT]
+ * @param regionName [CN_TEXT]
+ * @param emissivity [CN_TEXT]，[CN_TEXT] 97 [CN_TEXT] 0.97
+ * @param minTemp [CN_TEXT]Low temperature，[CN_TEXT]Celsius
+ * @param maxTemp [CN_TEXT]High temperature，[CN_TEXT]Celsius
+ * @param aveTemp [CN_TEXT]，[CN_TEXT]Celsius
+ * @param diffTemp [CN_TEXT]，[CN_TEXT]Celsius
+ * @param maxX [CN_TEXT]High temperature[CN_TEXT] X [CN_TEXT] [0, 1000]
+ * @param maxY [CN_TEXT]High temperature[CN_TEXT] Y [CN_TEXT] [0, 1000]
+ * @param minX [CN_TEXT]Low temperature[CN_TEXT] X [CN_TEXT] [0, 1000]
+ * @param minY [CN_TEXT]Low temperature[CN_TEXT] Y [CN_TEXT] [0, 1000]
+ * @param pointCount [CN_TEXT]
+ * @param pointList [CN_TEXT]、[CN_TEXT]、[CN_TEXT] [CN_TEXT]
  */
 data class TempRule(
     val enable: Boolean,
@@ -63,7 +63,7 @@ data class TempRule(
 
     companion object {
         /**
-         * 从指定数组的 index 开始，解析共 count 个点坐标
+         * [CN_TEXT]Specified[CN_TEXT] index [CN_TEXT]，[CN_TEXT] count [CN_TEXT]
          */
         private fun ByteArray.toPointList(index: Int, count: Int): ArrayList<Point> = try {
             val resultList: ArrayList<Point> = ArrayList(count)
@@ -78,11 +78,11 @@ data class TempRule(
         }
     }
 
-    override fun toString(): String = "规则$regionId ${if (enable) "开启" else "关闭"} " +
-            "距离:$distance cm，类型$regionType，" +
-            "发射率:$emissivity，名称:$regionName，" +
-            "最低温:($minX,$minY) ${minTemp}°C，" +
-            "最高温:($maxX,$maxY) ${maxTemp}°C，" +
-            "平均温:${aveTemp}°C，" +
-            "顶点数:$pointCount"
+    override fun toString(): String = "[CN_TEXT]$regionId ${if (enable) "[CN_TEXT]" else "[CN_TEXT]"} " +
+            "[CN_TEXT]:$distance cm，Type$regionType，" +
+            "[CN_TEXT]:$emissivity，[CN_TEXT]:$regionName，" +
+            "[CN_TEXT]Low temperature:($minX,$minY) ${minTemp}°C，" +
+            "[CN_TEXT]High temperature:($maxX,$maxY) ${maxTemp}°C，" +
+            "[CN_TEXT]:${aveTemp}°C，" +
+            "[CN_TEXT]:$pointCount"
 }

@@ -12,10 +12,10 @@ import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lms.sdk.weiget.TToast
 
 /**
- * 输入一项文字内容 弹框.
+ * [CN_TEXT] [CN_TEXT].
  *
  * Created by LCG on 2024/8/29.
- * @param inputText 预输入的文字内容
+ * @param inputText [CN_TEXT]
  */
 class InputTextDialog(context: Context, private val inputText: String, private val onConfirmListener: (text: String) -> Unit) :
     Dialog(context, LibR.style.TextInputDialog), View.OnClickListener {

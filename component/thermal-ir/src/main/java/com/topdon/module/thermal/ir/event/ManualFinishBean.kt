@@ -1,7 +1,7 @@
 package com.topdon.module.thermal.ir.event
 
 /**
- * 双光校正完成事件.
+ * Dual light[CN_TEXT].
  *
  * Created by LCG on 2023/12/27.
  */

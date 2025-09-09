@@ -10,25 +10,25 @@ import com.topdon.lib.core.utils.ByteUtils.toBytes
 import com.topdon.pseudo.bean.CustomPseudoBean
 
 /**
- * 首部结构，数值均为大端
+ * [CN_TEXT]，[CN_TEXT]
  * ```
- * len                 [ 0,  2)    2 byte   首部长度，目前固定为 1024
- * name                [ 2, 18)   16 byte   名称(老数据有叫 TopInfrared 的，现已更名为MPDC4GSR，新的只有TC001、TS001 或 TC007)
- * ver                 [18, 26)    6 byte   APP版本名称(versionName)
- * width               [26, 28)    2 byte   宽 256 或 192(未使用)
- * height              [28, 30)    2 byte   高 256 或 192(未使用)
- * rotate              [30, 32)    2 byte   旋转角度
- * pseudo              [32, 34)    2 byte   伪彩代号
- * initRotate          [34, 36)    2 byte   初始角度(未使用)
- * correctRotate       [36, 38)    2 byte   矫正角度(未使用)
- *                     [38, 81)   44 byte   点线面(未使用，实际全为0的没卵用数据)
+ * len                 [ 0,  2)    2 byte   [CN_TEXT]，[CN_TEXT] 1024
+ * name                [ 2, 18)   16 byte   [CN_TEXT]([CN_TEXT] TopInfrared [CN_TEXT]，[CN_TEXT]MPDC4GSR，[CN_TEXT]TC001、TS001 [CN_TEXT] TC007)
+ * ver                 [18, 26)    6 byte   APP[CN_TEXT](versionName)
+ * width               [26, 28)    2 byte   [CN_TEXT] 256 [CN_TEXT] 192([CN_TEXT])
+ * height              [28, 30)    2 byte   [CN_TEXT] 256 [CN_TEXT] 192([CN_TEXT])
+ * rotate              [30, 32)    2 byte   RotateAngle
+ * pseudo              [32, 34)    2 byte   Pseudo-color[CN_TEXT]
+ * initRotate          [34, 36)    2 byte   [CN_TEXT]Angle([CN_TEXT])
+ * correctRotate       [36, 38)    2 byte   [CN_TEXT]Angle([CN_TEXT])
+ *                     [38, 81)   44 byte   Point/Line/Area([CN_TEXT]，[CN_TEXT]0[CN_TEXT])
  *
  * customPseudoBean    [81,173)  92 byte
- *   colorSize                   81     1 byte   色块数量
- *   selectIndex                 82     1 byte   当前选中色块在列表中 index
- *   colors                [ 83,111)   28 byte   7 个色块颜色值
- *   zAltitudes            [111,118)    7 byte   7 个色块海拔
- *   places                [118,146)   28 byte   7 个色块占比值
+ *   colorSize                   81     1 byte   [CN_TEXT]
+ *   selectIndex                 82     1 byte   CurrentSelected[CN_TEXT] index
+ *   colors                [ 83,111)   28 byte   7 [CN_TEXT]
+ *   zAltitudes            [111,118)    7 byte   7 [CN_TEXT]
+ *   places                [118,146)   28 byte   7 [CN_TEXT]
  *   isUseCustomPseudo          146     1 byte
  *   maxTemp               [147,151)    4 byte
  *   minTemp               [151,155)    4 byte
@@ -39,45 +39,45 @@ import com.topdon.pseudo.bean.CustomPseudoBean
  *   customRecommendIndex  [168,172)    4 byte
  *   isUseGray                  172     1 byte
  *
- * isShowPseudoBar          173     1 byte   是否显示伪彩条
- * textColor           [174,178)    4 byte   字体颜色值
+ * isShowPseudoBar          173     1 byte   [CN_TEXT]Pseudo-color[CN_TEXT]
+ * textColor           [174,178)    4 byte   [CN_TEXT]
  *
- * watermarkBean       [178,628)  450 byte   水印信息
- *   isOpen                 178     1 byte   水印是否开启
- *   titleLen          [179,183)    4 byte   水印标题字节数
- *   title             [183,303)  120 byte   水印标题
- *   addressLen        [303,307)    4 byte   水印地址字节数
- *   address           [307,627)  320 byte   水印地址
- *   isAddTime              627     1 byte   水印是否添加时间
+ * watermarkBean       [178,628)  450 byte   [CN_TEXT]
+ *   isOpen                 178     1 byte   [CN_TEXT]
+ *   titleLen          [179,183)    4 byte   [CN_TEXT]
+ *   title             [183,303)  120 byte   [CN_TEXT]
+ *   addressLen        [303,307)    4 byte   [CN_TEXT]
+ *   address           [307,627)  320 byte   [CN_TEXT]
+ *   isAddTime              627     1 byte   [CN_TEXT]
  *
- * alarmBean           [628,656)   28 byte   报警信息
- *   isHighOpen             628     1 byte   高温报警是否开启
- *   isLowOpen              629     1 byte   低温报警是否开启
- *   highTemp          [630,634)    4 byte   高温报警温度值，单位摄氏度
- *   lowTemp           [634,638)    4 byte   低温报警温度值，单位摄氏度
- *   isMarkOpen             638     1 byte   区域标记是否开启
- *   highColor         [639,643)    4 byte   高温报警颜色值
- *   lowColor          [643,647)    4 byte   低温报警颜色值
- *   markType          [647,651)    4 byte   区域标记类型 1-描边 2-矩阵
- *   isRingtoneOpen         651     1 byte   报警铃声是否开启
- *   ringtoneType      [652,656)    4 byte   报警铃声类型
- *   gainStatus       [657)    1 byte   //高低增益 1:（低温）高增益 0: 高温（低增益）
- *   textSize         [658,659） 2byte //字号大小
- *   environment      [660,663) 4byte //温度修正参数 ： 环境温度，单位摄氏度
- *   distance      [664,667) 4byte //温度修正参数 ：距离，
- *   radiation      [668,671) 4byte //温度修正参数 ：发射率 环境温度，单位摄氏度
- *   amplify        672     1 byte   //是否开启放大
+ * alarmBean           [628,656)   28 byte   [CN_TEXT]
+ *   isHighOpen             628     1 byte   High temperature[CN_TEXT]
+ *   isLowOpen              629     1 byte   Low temperature[CN_TEXT]
+ *   highTemp          [630,634)    4 byte   High temperature[CN_TEXT]，[CN_TEXT]Celsius
+ *   lowTemp           [634,638)    4 byte   Low temperature[CN_TEXT]，[CN_TEXT]Celsius
+ *   isMarkOpen             638     1 byte   [CN_TEXT]
+ *   highColor         [639,643)    4 byte   High temperature[CN_TEXT]
+ *   lowColor          [643,647)    4 byte   Low temperature[CN_TEXT]
+ *   markType          [647,651)    4 byte   [CN_TEXT]Type 1-[CN_TEXT] 2-[CN_TEXT]
+ *   isRingtoneOpen         651     1 byte   [CN_TEXT]
+ *   ringtoneType      [652,656)    4 byte   [CN_TEXT]Type
+ *   gainStatus       [657)    1 byte   //[CN_TEXT]Low gain 1:（Low temperature）High gain 0: High temperature（Low gain）
+ *   textSize         [658,659） 2byte //[CN_TEXT]
+ *   environment      [660,663) 4byte //[CN_TEXT] ： [CN_TEXT]，[CN_TEXT]Celsius
+ *   distance      [664,667) 4byte //[CN_TEXT] ：[CN_TEXT]，
+ *   radiation      [668,671) 4byte //[CN_TEXT] ：[CN_TEXT] [CN_TEXT]，[CN_TEXT]Celsius
+ *   amplify        672     1 byte   //[CN_TEXT]
  * ```
  */
 class FrameStruct() {
     companion object {
         /**
-         * 数据长度.
+         * [CN_TEXT].
          */
         private const val SIZE = 1024
 
         /**
-         * 将指定参数的数据转换为数组.
+         * [CN_TEXT]Specified[CN_TEXT].
          */
         fun toCode(
             name : String,
@@ -151,12 +151,12 @@ class FrameStruct() {
             resultArray[658] = (textSize ushr 8).toByte()
             resultArray[659] = textSize.toByte()
 
-            // 将 Float 转换为 4 字节
+            // [CN_TEXT] Float [CN_TEXT] 4 [CN_TEXT]
             val envBytes = java.nio.ByteBuffer.allocate(4).putFloat(environment).array()
             val distanceBytes = java.nio.ByteBuffer.allocate(4).putFloat(distance).array()
             val radiationBytes = java.nio.ByteBuffer.allocate(4).putFloat(radiation).array()
 
-            // 存储在 resultArray 中，[660, 663)是环境温度，[664, 667)是距离，[668, 671)是发射率
+            // [CN_TEXT] resultArray [CN_TEXT]，[660, 663)[CN_TEXT]，[664, 667)[CN_TEXT]，[668, 671)[CN_TEXT]
             System.arraycopy(envBytes, 0, resultArray, 660, 4)
             System.arraycopy(distanceBytes, 0, resultArray, 664, 4)
             System.arraycopy(radiationBytes, 0, resultArray, 668, 4)
@@ -180,7 +180,7 @@ class FrameStruct() {
     var textColor = 0xffffffff.toInt()
     var watermarkBean = WatermarkBean()
     var alarmBean = AlarmBean()
-    var gainStatus : Int = 1 // 高低增益 1:低增益 0: 高增益
+    var gainStatus : Int = 1 // [CN_TEXT]Low gain 1:Low gain 0: High gain
     var textSize : Int = SizeUtils.sp2px(14f)
     var environment : Float = 0f
     var distance : Float = 0f

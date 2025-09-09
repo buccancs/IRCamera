@@ -24,26 +24,26 @@ import com.topdon.lib.ui.R as UiR
 import com.topdon.lib.core.R as LibCoreR
 
 /**
- * 图库 Tab 页，下分图片和视频.
+ * Gallery Tab [CN_TEXT]，[CN_TEXT].
  *
- * 需要传递参数：
- * - [ExtraKeyConfig.HAS_BACK_ICON] - 图库是否有返回箭头，默认 false
- * - [ExtraKeyConfig.CAN_SWITCH_DIR] - 图库是否可切换 有线设备、TS004、TC007 目录，默认 true
- * - [ExtraKeyConfig.DIR_TYPE] - 进入图库时初始的目录类型 具体取值由 [DirType] 定义
+ * [CN_TEXT]：
+ * - [ExtraKeyConfig.HAS_BACK_ICON] - Gallery[CN_TEXT]，[CN_TEXT] false
+ * - [ExtraKeyConfig.CAN_SWITCH_DIR] - Gallery[CN_TEXT]Switch [CN_TEXT]、TS004、TC007 [CN_TEXT]，[CN_TEXT] true
+ * - [ExtraKeyConfig.DIR_TYPE] - [CN_TEXT]Gallery[CN_TEXT]Type [CN_TEXT] [DirType] [CN_TEXT]
  *
  * Created by chenggeng.lin on 2023/11/14.
  */
 class IRGalleryTabFragment : BaseFragment() {
     /**
-     * 从上一界面传递过来的，图库是否有返回箭头
+     * [CN_TEXT]，Gallery[CN_TEXT]
      */
     private var hasBackIcon = false
     /**
-     * 从上一界面传递过来的，图库是否可切换 有线设备、TS004、TC007 目录
+     * [CN_TEXT]，Gallery[CN_TEXT]Switch [CN_TEXT]、TS004、TC007 [CN_TEXT]
      */
     private var canSwitchDir = true
     /**
-     * 从上一界面传递过来的，进入图库时初始的目录类型
+     * [CN_TEXT]，[CN_TEXT]Gallery[CN_TEXT]Type
      */
     private var currentDirType = DirType.LINE
 
@@ -99,9 +99,9 @@ class IRGalleryTabFragment : BaseFragment() {
         titleView.setTitleText(if (canSwitchDir) "" else getString(R.string.app_gallery))
         titleView.setLeftDrawable(if (hasBackIcon) R.drawable.ic_back_white_svg else 0)
         titleView.setLeftClickListener {
-            if (viewModel.isEditModeLD.value == true) {//当前为编辑状态，退出编辑
+            if (viewModel.isEditModeLD.value == true) {//Current[CN_TEXT]State，[CN_TEXT]
                 viewModel.isEditModeLD.value = false
-            } else {//当前为非编辑状态，退出页面
+            } else {//Current[CN_TEXT]State，[CN_TEXT]
                 if (hasBackIcon) {
                     requireActivity().finish()
                 }
@@ -109,9 +109,9 @@ class IRGalleryTabFragment : BaseFragment() {
         }
         titleView.setRightDrawable(UiR.drawable.ic_toolbar_check_svg)
         titleView.setRightClickListener {
-            if (viewModel.isEditModeLD.value == true) {//当前为编辑状态，全选
+            if (viewModel.isEditModeLD.value == true) {//Current[CN_TEXT]State，[CN_TEXT]
                 viewModel.selectAllIndex.value = viewPager2.currentItem
-            } else {//当前为非编辑状态，进入编辑
+            } else {//Current[CN_TEXT]State，[CN_TEXT]
                 viewModel.isEditModeLD.value = true
             }
         }

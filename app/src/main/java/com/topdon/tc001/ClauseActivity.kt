@@ -25,7 +25,7 @@ import java.util.*
 import com.topdon.lib.core.R as LibCoreR
 
 /**
- * 条款
+ * [CN_TEXT]
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class ClauseActivity : BaseBindingActivity<ActivityClauseBinding>() {
@@ -52,7 +52,7 @@ class ClauseActivity : BaseBindingActivity<ActivityClauseBinding>() {
             confirmInitApp()
         }
         binding.clauseDisagreeBtn.setOnClickListener {
-            // 再次弹框确认是否退出
+            // [CN_TEXT]
             TipDialog.Builder(this)
                 .setMessage(getString(R.string.privacy_tips))
                 .setPositiveListener(R.string.privacy_confirm) {
@@ -69,7 +69,7 @@ class ClauseActivity : BaseBindingActivity<ActivityClauseBinding>() {
             if (!NetworkUtil.isConnected(this)) {
                 TToast.shortToast(this, R.string.lms_setting_http_error)
             } else {
-                // 服务条款
+                // [CN_TEXT]
                 NavigationManager.getInstance()
                     .build(RouterConfig.POLICY)
                     .withInt(PolicyActivity.KEY_THEME_TYPE, 1)
@@ -81,7 +81,7 @@ class ClauseActivity : BaseBindingActivity<ActivityClauseBinding>() {
             if (!NetworkUtil.isConnected(this)) {
                 TToast.shortToast(this, R.string.lms_setting_http_error)
             } else {
-                // 隐私条款
+                // [CN_TEXT]
                 NavigationManager.getInstance()
                     .build(RouterConfig.POLICY)
                     .withInt(PolicyActivity.KEY_THEME_TYPE, 2)
@@ -90,7 +90,7 @@ class ClauseActivity : BaseBindingActivity<ActivityClauseBinding>() {
             }
         }
         binding.clauseItem3.setOnClickListener {
-            // 第三方
+            // [CN_TEXT]
             if (!NetworkUtil.isConnected(this)) {
                 TToast.shortToast(this, R.string.lms_setting_http_error)
             } else {
@@ -115,10 +115,10 @@ class ClauseActivity : BaseBindingActivity<ActivityClauseBinding>() {
     private fun confirmInitApp() {
         lifecycleScope.launch {
             showLoading()
-            // 初始化
+            // [CN_TEXT]
             App.delayInit()
             async(Dispatchers.IO) {
-                // 等待1000ms 初始化结束
+                // [CN_TEXT]1000ms [CN_TEXT]
                 delay(1000)
                 return@async
             }.await().let {

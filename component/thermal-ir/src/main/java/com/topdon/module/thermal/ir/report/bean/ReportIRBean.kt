@@ -4,14 +4,14 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 /**
- * 一张图片对应的数据信息.
+ * [CN_TEXT].
  */
 @Parcelize
 data class ReportIRBean(
-    var picture_id: String, //上传服务器后接口返回的图片Id
-    var picture_url: String,//上传服务器后接口返回的图片URL
-    val full_graph_data: ReportTempBean?,   //全图数据
-    val point_data: List<ReportTempBean>,  //点数据
-    val line_data: List<ReportTempBean>,   //线数据
-    val surface_data: List<ReportTempBean>,//面数据
+    var picture_id: String, //[CN_TEXT]Id
+    var picture_url: String,//[CN_TEXT]URL
+    val full_graph_data: ReportTempBean?,   //[CN_TEXT]
+    val point_data: List<ReportTempBean>,  //[CN_TEXT]
+    val line_data: List<ReportTempBean>,   //[CN_TEXT]
+    val surface_data: List<ReportTempBean>,//[CN_TEXT]
 ) : Parcelable

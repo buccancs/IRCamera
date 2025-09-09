@@ -5,9 +5,9 @@ import com.topdon.lms.sdk.xutils.x
 
 object HttpUtils {
     /**
-     * 设置伪彩样式
-     * @param mode              伪彩样式
-     * @param iResponseCallback 回调函数
+     * SettingsPseudo-color[CN_TEXT]
+     * @param mode              Pseudo-color[CN_TEXT]
+     * @param iResponseCallback [CN_TEXT]
      * @ void
      */
     fun setPseudoColor(
@@ -23,7 +23,7 @@ object HttpUtils {
     }
 
     /**
-     * 获取伪彩样式
+     * [CN_TEXT]Pseudo-color[CN_TEXT]
      */
     fun getPseudoColor(iResponseCallback: Callback.CommonCallback<String>?) {
         val params = RequestParams()
@@ -33,9 +33,9 @@ object HttpUtils {
     }
 
     /**
-     * 设置屏幕亮度
-     * @param mode              屏幕亮度值:范围0-100
-     * @param iResponseCallback 回调函数
+     * Settings[CN_TEXT]
+     * @param mode              [CN_TEXT]:[CN_TEXT]0-100
+     * @param iResponseCallback [CN_TEXT]
      * @ void
      */
     fun setBrightness(
@@ -50,7 +50,7 @@ object HttpUtils {
     }
 
     /**
-     * 获取屏幕亮度
+     * [CN_TEXT]
      */
     fun getBrightness(iResponseCallback: Callback.CommonCallback<String>?) {
         val params = RequestParams()
@@ -60,8 +60,8 @@ object HttpUtils {
     }
 
     /**
-     * 设置画中画
-     * @param iResponseCallback 回调函数
+     * SettingsPicture in picture
+     * @param iResponseCallback [CN_TEXT]
      * @ void
      */
     fun setPip(
@@ -76,7 +76,7 @@ object HttpUtils {
     }
 
     /**
-     * 获取画中画
+     * [CN_TEXT]Picture in picture
      */
     fun getPip(iResponseCallback: Callback.CommonCallback<String>?) {
         val params = RequestParams()
@@ -86,9 +86,9 @@ object HttpUtils {
     }
 
     /**
-     * 设置放大倍数
-     * @param factor            放大倍数:1,2,4,8
-     * @param iResponseCallback 回调函数
+     * Settings[CN_TEXT]
+     * @param factor            [CN_TEXT]:1,2,4,8
+     * @param iResponseCallback [CN_TEXT]
      * @ void
      */
     fun setZoom(
@@ -104,7 +104,7 @@ object HttpUtils {
     }
 
     /**
-     * 获取放大倍数
+     * [CN_TEXT]
      */
     fun getZoom(iResponseCallback: Callback.CommonCallback<String>?) {
         val params = RequestParams()
@@ -114,8 +114,8 @@ object HttpUtils {
     }
 
     /**
-     * 设置拍照
-     * @param iResponseCallback 回调函数
+     * SettingsPhoto
+     * @param iResponseCallback [CN_TEXT]
      * @void
      */
     fun setCamera(iResponseCallback: Callback.CommonCallback<String>?) {
@@ -126,9 +126,9 @@ object HttpUtils {
     }
 
     /**
-     * 设置录像
-     * @param enable 录制开关
-     * @param iResponseCallback 回调函数
+     * SettingsVideo
+     * @param enable [CN_TEXT]
+     * @param iResponseCallback [CN_TEXT]
      * @void
      */
     fun setVideo(
@@ -143,8 +143,8 @@ object HttpUtils {
     }
 
     /**
-     * 获取录像状态
-     * @param iResponseCallback 回调函数
+     * [CN_TEXT]VideoState
+     * @param iResponseCallback [CN_TEXT]
      * @void
      */
     fun getVideoStatus(iResponseCallback: Callback.CommonCallback<String>?) {
@@ -155,7 +155,7 @@ object HttpUtils {
     }
 
     /**
-     * 获取版本信息
+     * [CN_TEXT]
      */
     fun getVersion(iResponseCallback: Callback.CommonCallback<String>?) {
         val params = RequestParams()
@@ -165,7 +165,7 @@ object HttpUtils {
     }
 
     /**
-     * 获取设备信息
+     * [CN_TEXT]
      */
     fun getDeviceDetails(iResponseCallback: Callback.CommonCallback<String>?) {
         val params = RequestParams()
@@ -175,7 +175,7 @@ object HttpUtils {
     }
 
     /**
-     * 获取存储分区信息
+     * [CN_TEXT]
      */
     fun getFreeSpace(iResponseCallback: Callback.CommonCallback<String>?) {
         val params = RequestParams()
@@ -185,7 +185,7 @@ object HttpUtils {
     }
 
     /**
-     * 恢复出厂设置
+     * [CN_TEXT]Settings
      */
     fun getResetAll(iResponseCallback: Callback.CommonCallback<String>?) {
         val params = RequestParams()

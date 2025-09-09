@@ -9,7 +9,7 @@ import android.widget.LinearLayout
 import com.topdon.lib.ui.databinding.UiSteeringWheelViewBinding
 
 /**
- * 校准方向
+ * [CN_TEXT]
  */
 class SteeringWheelView : LinearLayout, OnClickListener {
     var listener: ((action: Int, moveX: Int) -> Unit)? = null

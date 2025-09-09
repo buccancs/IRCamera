@@ -10,18 +10,18 @@ import com.topdon.lib.ui.databinding.DialogMonitorSelectBinding
 import com.topdon.lib.ui.R as UiR
 
 /**
- * 提示窗
+ * [CN_TEXT]
  * create by fylder on 2018/6/15
  **/
 class MonitorSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
     class Builder(private val context: Context) {
         /**
-         * 是否处于第 1 步.
+         * [CN_TEXT] 1 [CN_TEXT].
          */
         private var isFirstStep = true
 
         /**
-         * 当前选中的监控类型 1-点 2-线 3-面.
+         * CurrentSelected[CN_TEXT]Type 1-[CN_TEXT] 2-[CN_TEXT] 3-[CN_TEXT].
          */
         private var monitorType = 0
 
@@ -40,12 +40,12 @@ class MonitorSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
             dialog.setContentView(binding.root)
 
             val lp = dialog.window!!.attributes
-            lp.width = (ScreenUtil.getScreenWidth(context) * if (ScreenUtil.isPortrait(context)) 0.85 else 0.35).toInt() // 设置宽度
+            lp.width = (ScreenUtil.getScreenWidth(context) * if (ScreenUtil.isPortrait(context)) 0.85 else 0.35).toInt() // Settings[CN_TEXT]
             dialog.window!!.attributes = lp
 
             binding.btnConfirmOrBack.setOnClickListener {
-                if (isFirstStep) { // 步骤1->步骤2 逻辑为“确认”
-                    if (monitorType == 0) { // 还没选取类型不允许点确认
+                if (isFirstStep) { // [CN_TEXT]1->[CN_TEXT]2 [CN_TEXT]“[CN_TEXT]”
+                    if (monitorType == 0) { // [CN_TEXT]Type[CN_TEXT]
                         return@setOnClickListener
                     }
                     isFirstStep = false
@@ -54,7 +54,7 @@ class MonitorSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
                     binding.clSecondStep.visibility = View.VISIBLE
                     binding.tvTitle.text = context.getString(R.string.select_monitor_type_step2)
                     binding.btnConfirmOrBack.text = context.getString(R.string.select_monitor_return)
-                } else { // 步骤2->步骤1 逻辑为“返回”
+                } else { // [CN_TEXT]2->[CN_TEXT]1 [CN_TEXT]“[CN_TEXT]”
                     isFirstStep = true
                     binding.btnCancel.visibility = View.GONE
                     binding.clFirstStep.visibility = View.VISIBLE

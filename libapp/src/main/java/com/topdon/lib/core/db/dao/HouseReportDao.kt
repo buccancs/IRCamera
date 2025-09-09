@@ -11,14 +11,14 @@ import com.topdon.lib.core.db.entity.HouseReport
 import com.topdon.lib.core.db.entity.ItemReport
 
 /**
- * 房屋检测-报告 DAO。
+ * [CN_TEXT]-[CN_TEXT] DAO。
  *
  * Created by LCG on 2024/8/19.
  */
 @Dao
 abstract class HouseReportDao {
     /**
-     * 插入指定的房屋检测报告.
+     * [CN_TEXT]Specified[CN_TEXT].
      */
     @Transaction
     open fun insert(houseReport: HouseReport): Long {

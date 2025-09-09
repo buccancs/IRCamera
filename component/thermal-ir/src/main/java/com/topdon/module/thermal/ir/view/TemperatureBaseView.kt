@@ -24,7 +24,7 @@ import kotlin.math.pow
 import kotlin.math.sqrt
 
 /**
- * TC007、2D 编辑 点线面温度图层公共逻辑封装.
+ * TC007、2D [CN_TEXT] Point/Line/Area[CN_TEXT].
  *
  * Created by LCG on 2024/5/7.
  */
@@ -32,23 +32,23 @@ abstract class TemperatureBaseView : View {
 
     companion object {
         /**
-         * 支持点线面的默认最大数量.
+         * [CN_TEXT]Point/Line/Area[CN_TEXT].
          */
         private const val DEFAULT_MAX_COUNT = 3
 
         /**
-         * 选中操作灵敏度，当 Touch Down 坐标与点线面坐标偏差在该值范围内，视为选中，单位 px.
+         * Selected[CN_TEXT]，[CN_TEXT] Touch Down [CN_TEXT]Point/Line/Area[CN_TEXT]，[CN_TEXT]Selected，[CN_TEXT] px.
          */
         private val TOUCH_TOLERANCE = SizeUtils.dp2px(8f)
         /**
-         * 删除操作灵敏度，当 Touch UP 与 Touch Down 坐标偏差在该值范围内，视为删除，单位 px.
+         * Delete[CN_TEXT]，[CN_TEXT] Touch UP [CN_TEXT] Touch Down [CN_TEXT]，[CN_TEXT]Delete，[CN_TEXT] px.
          */
         private val DELETE_TOLERANCE = SizeUtils.dp2px(2f)
     }
 
 
     /**
-     * 操作模式，点、线、面、全图、清除.
+     * [CN_TEXT]Mode，[CN_TEXT]、[CN_TEXT]、[CN_TEXT]、[CN_TEXT]、Clear.
      */
     enum class Mode {
         POINT,
@@ -60,7 +60,7 @@ abstract class TemperatureBaseView : View {
     }
 
     /**
-     * 当前是否显示了全图.
+     * Current[CN_TEXT].
      */
     @Volatile
     var isShowFull: Boolean = true
@@ -72,13 +72,13 @@ abstract class TemperatureBaseView : View {
             invalidate()
         }
     /**
-     * 当前操作模式：点、线、面、全图、清除。
+     * Current[CN_TEXT]Mode：[CN_TEXT]、[CN_TEXT]、[CN_TEXT]、[CN_TEXT]、Clear。
      */
     @Volatile
     open var mode = Mode.FULL
         set(value) {
             field = value
-            if (value == Mode.FULL) {//全图
+            if (value == Mode.FULL) {//[CN_TEXT]
                 isShowFull = true
                 invalidate()
             } else if (value == Mode.CLEAR) {
@@ -95,7 +95,7 @@ abstract class TemperatureBaseView : View {
 
 
     /**
-     * 温度值文字大小，单位 px.
+     * [CN_TEXT]，[CN_TEXT] px.
      */
     var tempTextSize: Int
         get() = helper.textSize
@@ -104,7 +104,7 @@ abstract class TemperatureBaseView : View {
             invalidate()
         }
     /**
-     * 温度值文字、点线面名称文字 颜色值.
+     * [CN_TEXT]、Point/Line/Area[CN_TEXT] [CN_TEXT].
      */
     var textColor: Int
         @ColorInt get() = helper.textColor
@@ -115,40 +115,40 @@ abstract class TemperatureBaseView : View {
 
 
     /**
-     * 由于 Touch 事件导致的点添加、移除、变更事件监听，坐标为通过 [setImageSize] 设置的坐标系
+     * [CN_TEXT] Touch [CN_TEXT]、[CN_TEXT]、[CN_TEXT]，[CN_TEXT] [setImageSize] Settings[CN_TEXT]
      */
     var onPointListener: ((pointList: List<Point>) -> Unit)? = null
     /**
-     * 由于 Touch 事件导致的线添加、移除、变更事件监听，坐标为通过 [setImageSize] 设置的坐标系
+     * [CN_TEXT] Touch [CN_TEXT]、[CN_TEXT]、[CN_TEXT]，[CN_TEXT] [setImageSize] Settings[CN_TEXT]
      */
     var onLineListener: ((lineList: List<Point>) -> Unit)? = null
     /**
-     * 由于 Touch 事件导致的面添加、移除、变更事件监听，坐标为通过 [setImageSize] 设置的坐标系
+     * [CN_TEXT] Touch [CN_TEXT]、[CN_TEXT]、[CN_TEXT]，[CN_TEXT] [setImageSize] Settings[CN_TEXT]
      */
     var onRectListener: ((rectList: List<Rect>) -> Unit)? = null
     /**
-     * 由于 Touch 事件导致的趋势图添加或趋势图移除事件监听.
+     * [CN_TEXT] Touch [CN_TEXT].
      *
-     * 也就是说：将 [mode] 设置为 [Mode.CLEAR] 不会触发该回调.
+     * [CN_TEXT]：[CN_TEXT] [mode] Settings[CN_TEXT] [Mode.CLEAR] [CN_TEXT].
      */
     var onTrendOperateListener: ((isAdd: Boolean) -> Unit)? = null
 
 
 
     /**
-     * 以 View 尺寸为坐标系，当前已添加的点列表.
+     * [CN_TEXT] View [CN_TEXT]，Current[CN_TEXT].
      */
     protected val pointList = ArrayList<Point>()
     /**
-     * 以 View 尺寸为坐标系，当前已添加的线列表.
+     * [CN_TEXT] View [CN_TEXT]，Current[CN_TEXT].
      */
     protected val lineList = ArrayList<Line>()
     /**
-     * 以 View 尺寸为坐标系，当前已添加的面列表.
+     * [CN_TEXT] View [CN_TEXT]，Current[CN_TEXT].
      */
     protected val rectList = ArrayList<Rect>()
     /**
-     * 以 View 尺寸为坐标系，当前已添加的趋势图直线.
+     * [CN_TEXT] View [CN_TEXT]，Current[CN_TEXT].
      */
     @Volatile
     protected var trendLine: Line? = null
@@ -207,7 +207,7 @@ abstract class TemperatureBaseView : View {
 
 
     /**
-     * 支持点线面的最大数量，默认3.
+     * [CN_TEXT]Point/Line/Area[CN_TEXT]，[CN_TEXT]3.
      */
     protected val maxCount: Int
 
@@ -234,21 +234,21 @@ abstract class TemperatureBaseView : View {
 
     /* ******************************************** Draw ******************************************** */
     /**
-     * 以 View 尺寸为坐标系，在 (x,y) 画一个十字.
+     * [CN_TEXT] View [CN_TEXT]，[CN_TEXT] (x,y) [CN_TEXT].
      *
-     * 注意，不对 x、y 进行处理，传进来是哪就在哪绘制。
-     * @param point 以 View 尺寸为坐标系的点
+     * Note，[CN_TEXT] x、y [CN_TEXT]，[CN_TEXT]。
+     * @param point [CN_TEXT] View [CN_TEXT]
      */
     protected fun drawPoint(canvas: Canvas, point: Point) {
         helper.drawPoint(canvas, point.x, point.y)
     }
 
     /**
-     * 以 View 尺寸为坐标系，连接 (startX, startY)、(stopX, stopY) 两点绘制一条线段.
+     * [CN_TEXT] View [CN_TEXT]，[CN_TEXT] (startX, startY)、(stopX, stopY) [CN_TEXT].
      */
     protected fun drawLine(canvas: Canvas, line: Line) {
-        // 由于线段与实心点的的绘制是分开的，线段使用当前 View 坐标，而实心点使用温度(192x256)坐标转换为 View 坐标
-        // 故而这里需要把当前的坐标，尽量贴近温度坐标的整数倍，否则会出现实心圆偏离直线太远的情况
+        // [CN_TEXT]，[CN_TEXT]Current View [CN_TEXT]，[CN_TEXT](192x256)[CN_TEXT] View [CN_TEXT]
+        // [CN_TEXT]Current[CN_TEXT]，[CN_TEXT]，[CN_TEXT]
         val startX: Int = ((line.start.x / xScale).toInt() * xScale).toInt()
         val startY: Int = ((line.start.y / yScale).toInt() * yScale).toInt()
         val stopX: Int = ((line.end.x / xScale).toInt() * xScale).toInt()
@@ -257,7 +257,7 @@ abstract class TemperatureBaseView : View {
     }
 
     /**
-     * 以 View 尺寸为坐标系，按指定范围绘制一个矩形.
+     * [CN_TEXT] View [CN_TEXT]，[CN_TEXT]Specified[CN_TEXT].
      */
     protected fun drawRect(canvas: Canvas, rect: Rect) {
         val left: Int = ((rect.left / xScale).toInt() * xScale).toInt()
@@ -270,30 +270,30 @@ abstract class TemperatureBaseView : View {
 
 
     /**
-     * 以 View 尺寸为坐标系，在 (x,y) 画一个实心圆。
+     * [CN_TEXT] View [CN_TEXT]，[CN_TEXT] (x,y) [CN_TEXT]。
      *
-     * 注意，不对 x、y 进行处理，传进来是哪就在哪绘制。
-     * @param isMax true-最高温红色 false-最低温蓝色
+     * Note，[CN_TEXT] x、y [CN_TEXT]，[CN_TEXT]。
+     * @param isMax true-[CN_TEXT]High temperature[CN_TEXT] false-[CN_TEXT]Low temperature[CN_TEXT]
      */
     protected fun drawCircle(canvas: Canvas, x: Int, y: Int, isMax: Boolean) {
         helper.drawCircle(canvas, x, y, isMax)
     }
 
     /**
-     * 以 View 尺寸为坐标系，指定的 (x,y) 坐标为实心圆圆心，以该实心圆为基准绘制指定文字。
-     * 若空间允许则放置在实心圆圆心右上方，否则根据实际情况放置在下方、左方或左下方.
+     * [CN_TEXT] View [CN_TEXT]，Specified[CN_TEXT] (x,y) [CN_TEXT]，[CN_TEXT]Specified[CN_TEXT]。
+     * [CN_TEXT]，[CN_TEXT]、[CN_TEXT].
      *
-     * 注意，不对 x、y 进行处理，传进来是哪就在哪绘制。
-     * @param x 实心圆圆心的 View 尺寸坐标
+     * Note，[CN_TEXT] x、y [CN_TEXT]，[CN_TEXT]。
+     * @param x [CN_TEXT] View [CN_TEXT]
      */
     protected fun drawTempText(canvas: Canvas, x: Int, y: Int, temp: Float) {
         helper.drawTempText(canvas, UnitTools.showC(temp), width, x, y)
     }
 
     /**
-     * 以 View 尺寸为坐标系，以指定线段为基准绘制趋势图的 "A"、"B" 文字。
+     * [CN_TEXT] View [CN_TEXT]，[CN_TEXT]Specified[CN_TEXT] "A"、"B" [CN_TEXT]。
      *
-     * 注意，不对 x、y 进行处理，传进来是哪就在哪绘制。
+     * Note，[CN_TEXT] x、y [CN_TEXT]，[CN_TEXT]。
      */
     protected fun drawTrendText(canvas: Canvas, line: Line) {
         helper.drawTrendText(canvas, width, height, line.start.x, line.start.y, line.end.x, line.end.y)
@@ -301,20 +301,20 @@ abstract class TemperatureBaseView : View {
 
 
     /**
-     * 以 View 尺寸为坐标系，指定的 (x,y) 坐标为实心圆圆心，以该实心圆为基准绘制指定点名称文字。
-     * 若空间允许则放置在实心圆圆心正下方，否则放正上方.
+     * [CN_TEXT] View [CN_TEXT]，Specified[CN_TEXT] (x,y) [CN_TEXT]，[CN_TEXT]Specified[CN_TEXT]。
+     * [CN_TEXT]，[CN_TEXT].
      */
     protected fun drawPointName(canvas: Canvas, name: String, point: Point) {
-        // 由于十字与实心点的的绘制是分开的，十字使用当前 View 坐标，而实心点使用温度(192x256)坐标
-        // 故而这里需要把当前的坐标，转换为温度坐标的整数倍，否则会出现中心对不上的情况
+        // [CN_TEXT]，[CN_TEXT]Current View [CN_TEXT]，[CN_TEXT](192x256)[CN_TEXT]
+        // [CN_TEXT]Current[CN_TEXT]，[CN_TEXT]，[CN_TEXT]
         val x = ((point.x / xScale).toInt() * xScale).toInt()
         val y = ((point.y / yScale).toInt() * yScale).toInt()
         helper.drawPointName(canvas, name, width, height, x, y)
     }
 
     /**
-     * 以 View 尺寸为坐标系，指定的 线段或矩形 坐标为范围，
-     * 以该范围为基准绘制指定线名称文字，放置于范围中心。
+     * [CN_TEXT] View [CN_TEXT]，Specified[CN_TEXT] [CN_TEXT] [CN_TEXT]，
+     * [CN_TEXT]Specified[CN_TEXT]，[CN_TEXT]。
      */
     protected fun drawLineName(canvas: Canvas, name: String, line: Line) {
         val startX = ((line.start.x / xScale).toInt() * xScale).toInt()
@@ -325,8 +325,8 @@ abstract class TemperatureBaseView : View {
     }
 
     /**
-     * 以 View 尺寸为坐标系，指定的 线段或矩形 坐标为范围，
-     * 以该范围为基准绘制指定线名称文字，放置于范围中心。
+     * [CN_TEXT] View [CN_TEXT]，Specified[CN_TEXT] [CN_TEXT] [CN_TEXT]，
+     * [CN_TEXT]Specified[CN_TEXT]，[CN_TEXT]。
      */
     protected fun drawRectName(canvas: Canvas, name: String, rect: Rect) {
         val left: Int = ((rect.left / xScale).toInt() * xScale).toInt()
@@ -344,9 +344,9 @@ abstract class TemperatureBaseView : View {
     private var downY = 0
 
     /**
-     * 是否为添加 点线面 模式。
+     * [CN_TEXT] Point/Line/Area Mode。
      *
-     * true-添加一个新点线面 false-移动一个已有点线面
+     * true-[CN_TEXT]Point/Line/Area false-[CN_TEXT]Point/Line/Area
      */
     private var isAddAction = true
 
@@ -365,10 +365,10 @@ abstract class TemperatureBaseView : View {
     }
 
 
-    /* **************************************** 点 **************************************** */
+    /* **************************************** [CN_TEXT] **************************************** */
 
     /**
-     * Touch 时当前正在操作（添加、移动）的点.
+     * Touch [CN_TEXT]Current[CN_TEXT]（[CN_TEXT]、[CN_TEXT]）[CN_TEXT].
      */
     protected var operatePoint: Point? = null
 
@@ -380,7 +380,7 @@ abstract class TemperatureBaseView : View {
                 val point: Point? = pollPoint(downX, downY)
                 isAddAction = point == null
                 operatePoint = point ?: Point(downX, downY)
-                if (point == null && pointList.size == maxCount) {//新增时已达最大数量
+                if (point == null && pointList.size == maxCount) {//[CN_TEXT]
                     synchronized(this) {
                         pointList.removeAt(0)
                     }
@@ -426,25 +426,25 @@ abstract class TemperatureBaseView : View {
     }
 
 
-    /* **************************************** 线 **************************************** */
+    /* **************************************** [CN_TEXT] **************************************** */
 
     /**
-     * Touch 时当前正在操作（添加、移动）的线.
+     * Touch [CN_TEXT]Current[CN_TEXT]（[CN_TEXT]、[CN_TEXT]）[CN_TEXT].
      */
     protected var operateLine: Line? = null
     /**
-     * Touch 时当前正在操作（添加、移动）的趋势图线.
+     * Touch [CN_TEXT]Current[CN_TEXT]（[CN_TEXT]、[CN_TEXT]）[CN_TEXT].
      */
     protected var operateTrend: Line? = null
 
     private enum class LineMoveType { ALL, START, END, }
     /**
-     * 线移动方式：整体移动、仅变更头、仅变更尾。
+     * [CN_TEXT]：[CN_TEXT]、[CN_TEXT]、[CN_TEXT]。
      */
     private var lineMoveType = LineMoveType.ALL
 
     /**
-     * 仅整体移动线时，保存 DOWN 状态下的线初始坐标，用于计算移动.
+     * [CN_TEXT]，[CN_TEXT] DOWN State[CN_TEXT]，[CN_TEXT].
      */
     private val downLine: Line = Line(Point(0, 0), Point(0, 0))
 
@@ -499,7 +499,7 @@ abstract class TemperatureBaseView : View {
                     (if (isTrend) operateTrend else operateLine)?.end?.y = y
                 } else {
                     when (lineMoveType) {
-                        LineMoveType.ALL -> {//整体移动
+                        LineMoveType.ALL -> {//[CN_TEXT]
                             val rect: Rect = TempDrawHelper.getRect(width, height)
                             val minX: Int = min(downLine.start.x, downLine.end.x)
                             val maxX: Int = max(downLine.start.x, downLine.end.x)
@@ -528,7 +528,7 @@ abstract class TemperatureBaseView : View {
                 val y: Int = event.y.correct(height)
                 val line: Line = (if (isTrend) operateTrend else operateLine) ?: Line(Point(), Point())
                 if ((line.start.x / xScale).toInt() != (line.end.x / xScale).toInt() || (line.start.y / yScale).toInt() != (line.end.y / yScale).toInt()) {
-                    //只有画出来的结果不是一个点才生效
+                    //[CN_TEXT]
                     if (isAddAction || abs(x - downX) > DELETE_TOLERANCE || abs(y - downY) > DELETE_TOLERANCE) {
                         if (isTrend) {
                             trendLine = line
@@ -572,7 +572,7 @@ abstract class TemperatureBaseView : View {
     }
 
     /**
-     * 判断指定坐标 (x, y) 是否视为指定 Line 的选中.
+     * [CN_TEXT]Specified[CN_TEXT] (x, y) [CN_TEXT]Specified Line [CN_TEXT]Selected.
      */
     private fun isLineConcat(line: Line?, x: Int, y: Int): Boolean {
         if (line == null) {
@@ -585,36 +585,36 @@ abstract class TemperatureBaseView : View {
 
 
 
-    /* **************************************** 面 **************************************** */
+    /* **************************************** [CN_TEXT] **************************************** */
 
     /**
-     * Touch 时当前正在操作（添加、移动）的面.
+     * Touch [CN_TEXT]Current[CN_TEXT]（[CN_TEXT]、[CN_TEXT]）[CN_TEXT].
      */
     protected var operateRect: Rect? = null
 
 
     private enum class RectMoveType { ALL, EDGE, CORNER, }
     /**
-     * 面移动方式：点击面内部-整体移动、点击面4条边-边移动、点击面4个角-角移动。
+     * [CN_TEXT]：[CN_TEXT]-[CN_TEXT]、[CN_TEXT]4[CN_TEXT]-[CN_TEXT]、[CN_TEXT]4[CN_TEXT]-[CN_TEXT]。
      */
     private var rectMoveType = RectMoveType.ALL
 
 
     private enum class RectMoveEdge { LEFT, TOP, RIGHT, BOTTOM }
     /**
-     * 仅边移动模式时，移动的是哪条边.
+     * [CN_TEXT]Mode[CN_TEXT]，[CN_TEXT].
      */
     private var rectMoveEdge = RectMoveEdge.LEFT
 
 
     private enum class RectMoveCorner { LT, RT, RB, LB }
     /**
-     * 仅角移动模式时，移动的是哪个角.
+     * [CN_TEXT]Mode[CN_TEXT]，[CN_TEXT].
      */
     private var rectMoveCorner = RectMoveCorner.LT
 
     /**
-     * 移动面时，保存 DOWN 状态下的面初始坐标，用于计算移动.
+     * [CN_TEXT]，[CN_TEXT] DOWN State[CN_TEXT]，[CN_TEXT].
      */
     private val downRect = Rect()
 
@@ -624,7 +624,7 @@ abstract class TemperatureBaseView : View {
                 downX = event.x.correct(width)
                 downY = event.y.correct(height)
                 val rect: Rect? = pollRect(downX, downY)
-                if (rect == null) {//插入
+                if (rect == null) {//[CN_TEXT]
                     isAddAction = true
                     operateRect = Rect(downX, downY, downX, downY)
                     if (rectList.size == maxCount) {
@@ -632,18 +632,18 @@ abstract class TemperatureBaseView : View {
                             rectList.removeAt(0)
                         }
                     }
-                } else {//选取 - 删除
+                } else {//[CN_TEXT] - Delete
                     isAddAction = false
                     operateRect = rect
                     downRect.set(rect)
                     when (downX) {
-                        in rect.left - TOUCH_TOLERANCE .. rect.left + TOUCH_TOLERANCE -> {//选中最左那条边
+                        in rect.left - TOUCH_TOLERANCE .. rect.left + TOUCH_TOLERANCE -> {//Selected[CN_TEXT]
                             when (downY) {
-                                in rect.top - TOUCH_TOLERANCE .. rect.top + TOUCH_TOLERANCE -> {//选中顶边
+                                in rect.top - TOUCH_TOLERANCE .. rect.top + TOUCH_TOLERANCE -> {//Selected[CN_TEXT]
                                     rectMoveType = RectMoveType.CORNER
                                     rectMoveCorner = RectMoveCorner.LT
                                 }
-                                in rect.bottom - TOUCH_TOLERANCE .. rect.bottom + TOUCH_TOLERANCE -> {//选中底边
+                                in rect.bottom - TOUCH_TOLERANCE .. rect.bottom + TOUCH_TOLERANCE -> {//Selected[CN_TEXT]
                                     rectMoveType = RectMoveType.CORNER
                                     rectMoveCorner = RectMoveCorner.LB
                                 }
@@ -653,13 +653,13 @@ abstract class TemperatureBaseView : View {
                                 }
                             }
                         }
-                        in rect.right - TOUCH_TOLERANCE .. rect.right + TOUCH_TOLERANCE -> {//选中最右那条边
+                        in rect.right - TOUCH_TOLERANCE .. rect.right + TOUCH_TOLERANCE -> {//Selected[CN_TEXT]
                             when (downY) {
-                                in rect.top - TOUCH_TOLERANCE .. rect.top + TOUCH_TOLERANCE -> {//选中顶边
+                                in rect.top - TOUCH_TOLERANCE .. rect.top + TOUCH_TOLERANCE -> {//Selected[CN_TEXT]
                                     rectMoveType = RectMoveType.CORNER
                                     rectMoveCorner = RectMoveCorner.RT
                                 }
-                                in rect.bottom - TOUCH_TOLERANCE .. rect.bottom + TOUCH_TOLERANCE -> {//选中底边
+                                in rect.bottom - TOUCH_TOLERANCE .. rect.bottom + TOUCH_TOLERANCE -> {//Selected[CN_TEXT]
                                     rectMoveType = RectMoveType.CORNER
                                     rectMoveCorner = RectMoveCorner.RB
                                 }
@@ -669,13 +669,13 @@ abstract class TemperatureBaseView : View {
                                 }
                             }
                         }
-                        else -> {//左右都没选中
+                        else -> {//[CN_TEXT]Selected
                             when (downY) {
-                                in rect.top - TOUCH_TOLERANCE .. rect.top + TOUCH_TOLERANCE -> {//选中顶边
+                                in rect.top - TOUCH_TOLERANCE .. rect.top + TOUCH_TOLERANCE -> {//Selected[CN_TEXT]
                                     rectMoveType = RectMoveType.EDGE
                                     rectMoveEdge = RectMoveEdge.TOP
                                 }
-                                in rect.bottom - TOUCH_TOLERANCE .. rect.bottom + TOUCH_TOLERANCE -> {//选中底边
+                                in rect.bottom - TOUCH_TOLERANCE .. rect.bottom + TOUCH_TOLERANCE -> {//Selected[CN_TEXT]
                                     rectMoveType = RectMoveType.EDGE
                                     rectMoveEdge = RectMoveEdge.BOTTOM
                                 }
@@ -695,50 +695,50 @@ abstract class TemperatureBaseView : View {
                     operateRect?.set(min(downX, x), min(downY, y), max(downX, x), max(downY, y))
                 } else {
                     when (rectMoveType) {
-                        RectMoveType.ALL -> {//整体移动
+                        RectMoveType.ALL -> {//[CN_TEXT]
                             val rect: Rect = TempDrawHelper.getRect(width, height)
                             val biasX: Int = if (x < downX) max(x - downX, rect.left - downRect.left) else min(x - downX, rect.right - downRect.right)
                             val biasY: Int = if (y < downY) max(y - downY, rect.top - downRect.top) else min(y - downY, rect.bottom - downRect.bottom)
                             operateRect?.set(downRect.left + biasX, downRect.top + biasY, downRect.right + biasX, downRect.bottom + biasY)
                         }
                         RectMoveType.EDGE -> when (rectMoveEdge) {
-                            RectMoveEdge.LEFT -> {//移动左边
+                            RectMoveEdge.LEFT -> {//[CN_TEXT]
                                 operateRect?.left = min(x, downRect.right)
                                 operateRect?.right = max(x, downRect.right)
                             }
-                            RectMoveEdge.TOP -> {//移动上边
+                            RectMoveEdge.TOP -> {//[CN_TEXT]
                                 operateRect?.top = min(y, downRect.bottom)
                                 operateRect?.bottom = max(y, downRect.bottom)
                             }
-                            RectMoveEdge.RIGHT -> {//移动右边
+                            RectMoveEdge.RIGHT -> {//[CN_TEXT]
                                 operateRect?.right = max(x, downRect.left)
                                 operateRect?.left = min(x, downRect.left)
                             }
-                            RectMoveEdge.BOTTOM -> {//移动下边
+                            RectMoveEdge.BOTTOM -> {//[CN_TEXT]
                                 operateRect?.bottom = max(y, downRect.top)
                                 operateRect?.top = min(y, downRect.top)
                             }
                         }
                         RectMoveType.CORNER -> when (rectMoveCorner) {
-                            RectMoveCorner.LT -> {//移动左上角
+                            RectMoveCorner.LT -> {//[CN_TEXT]
                                 operateRect?.left = min(x, downRect.right)
                                 operateRect?.right = max(x, downRect.right)
                                 operateRect?.top = min(y, downRect.bottom)
                                 operateRect?.bottom = max(y, downRect.bottom)
                             }
-                            RectMoveCorner.RT -> {//移动右上角
+                            RectMoveCorner.RT -> {//[CN_TEXT]
                                 operateRect?.right = max(x, downRect.left)
                                 operateRect?.left = min(x, downRect.left)
                                 operateRect?.top = min(y, downRect.bottom)
                                 operateRect?.bottom = max(y, downRect.bottom)
                             }
-                            RectMoveCorner.RB -> {//移动右下角
+                            RectMoveCorner.RB -> {//[CN_TEXT]
                                 operateRect?.right = max(x, downRect.left)
                                 operateRect?.left = min(x, downRect.left)
                                 operateRect?.bottom = max(y, downRect.top)
                                 operateRect?.top = min(y, downRect.top)
                             }
-                            RectMoveCorner.LB -> {//移动左下角
+                            RectMoveCorner.LB -> {//[CN_TEXT]
                                 operateRect?.left = min(x, downRect.right)
                                 operateRect?.right = max(x, downRect.right)
                                 operateRect?.bottom = max(y, downRect.top)
@@ -756,7 +756,7 @@ abstract class TemperatureBaseView : View {
                 val rect: Rect = operateRect ?: Rect()
                 if ((rect.left / xScale).toInt() != (rect.right / xScale).toInt() &&
                     (rect.top / yScale).toInt() != (rect.bottom / yScale).toInt()) {
-                    //画出来的结果不是一条线才生效
+                    //[CN_TEXT]
                     if (isAddAction || abs(x - downX) > DELETE_TOLERANCE || abs(y - downY) > DELETE_TOLERANCE) {
                         synchronized(this) {
                             rectList.add(rect)

@@ -34,14 +34,14 @@ internal class ColorAdapter : RecyclerView.Adapter<ColorAdapter.ViewHolder>() {
 
 
     /**
-     * 这里的 code 来源不详，由于历史遗留（2D编辑的数据、保存设置开关的伪彩都按这个保存）没法改了
-     * 1-白热 3-铁红 4-彩虹1 5-彩虹2 6-彩虹3 7-红热 8-热铁 9-彩虹4 10-彩虹5 11-黑热
+     * [CN_TEXT] code [CN_TEXT]，[CN_TEXT]Historical legacy（2D[CN_TEXT]、[CN_TEXT]Settings[CN_TEXT]Pseudo-color[CN_TEXT]）[CN_TEXT]
+     * 1-White hot 3-Iron red 4-Rainbow1 5-Rainbow2 6-Rainbow3 7-Red hot 8-Hot iron 9-Rainbow4 10-Rainbow5 11-Black hot
      */
     private val colorCodeArray: IntArray = intArrayOf(1, 3, 4, 5, 6, 7, 8, 9, 10, 11)
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        //按照UI图，宽度与屏幕宽度比例为 62:375
+        //[CN_TEXT]UI[CN_TEXT]，[CN_TEXT] 62:375
         val width: Int = (parent.context.resources.displayMetrics.widthPixels * 62f / 375).toInt()
         val colorView = ColorView(parent.context)
         colorView.layoutParams = ViewGroup.LayoutParams(width, ViewGroup.LayoutParams.WRAP_CONTENT)

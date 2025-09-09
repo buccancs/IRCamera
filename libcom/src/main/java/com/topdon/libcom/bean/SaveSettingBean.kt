@@ -11,19 +11,19 @@ import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.utils.CommUtils
 
 /**
- * 保存设置开关开启时倒还好，读写都可以用 SharedPreferences 保存；
+ * [CN_TEXT]Settings[CN_TEXT]，[CN_TEXT] SharedPreferences [CN_TEXT]；
  *
- * 但若保存设置开关关闭时，那一堆的配置每个都需要一个变量来保存当前的更改，
- * 结果就是 Activity 里一大堆的变量。
+ * [CN_TEXT]Settings[CN_TEXT]，[CN_TEXT]Current[CN_TEXT]，
+ * [CN_TEXT] Activity [CN_TEXT]。
  *
- * 这个类的想法就是把保存设置开关相关的变量都扔进里面，从这里读写。
+ * [CN_TEXT]Settings[CN_TEXT]，[CN_TEXT]。
  *
  * Created by LCG on 2024/12/24.
  */
 class SaveSettingBean(private val isWifi: Boolean = false) {
 
     /**
-     * 获取 SPUtil 单例.
+     * [CN_TEXT] SPUtil [CN_TEXT].
      */
     private fun getSPUtils(): SPUtils = SPUtils.getInstance(if (isWifi) "WifiSaveSettingUtil" else "SaveSettingUtil")
 
@@ -31,7 +31,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
 
 
     /**
-     * 是否开启保存设置开关，默认关闭.
+     * [CN_TEXT]Settings[CN_TEXT]，[CN_TEXT].
      */
     var isSaveSetting: Boolean = getSPUtils().getBoolean("isSaveSetting", true)
         set(value) {
@@ -42,7 +42,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
 
 
     /**
-     * 热成像是否处于测温模式，默认测温模式 true-测温 false-观测
+     * [CN_TEXT]Temperature measurementMode，[CN_TEXT]Temperature measurementMode true-Temperature measurement false-Observation
      */
     var isMeasureTempMode: Boolean = if (isSaveSetting) getSPUtils().getBoolean("isMeasureTempMode", true) else true
         set(value) {
@@ -52,7 +52,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
             }
         }
     /**
-     * 是否开启超分
+     * [CN_TEXT]
      */
     var isOpenAmplify : Boolean = if (isSaveSetting) getSPUtils().getBoolean("isOpenAmplify", false) else false
         set(value) {
@@ -64,7 +64,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
 
 
     /**
-     * 热成像是否选择录像模式，默认拍照 true-录像 false-拍照
+     * [CN_TEXT]VideoMode，[CN_TEXT]Photo true-Video false-Photo
      */
     var isVideoMode: Boolean = if (isSaveSetting) getSPUtils().getBoolean("isVideoMode", false) else false
         set(value) {
@@ -74,7 +74,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
             }
         }
     /**
-     * 热成像是否打开自动快门，默认打开 true-打开 false-关闭
+     * [CN_TEXT]，[CN_TEXT] true-[CN_TEXT] false-[CN_TEXT]
      */
     var isAutoShutter: Boolean = if (isSaveSetting) getSPUtils().getBoolean("isAutoShutter", true) else true
         set(value) {
@@ -84,7 +84,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
             }
         }
     /**
-     * 热成像录像是否同时使用麦克风录制音频，默认关闭 true-开启 false-关闭
+     * [CN_TEXT]Video[CN_TEXT]，[CN_TEXT] true-[CN_TEXT] false-[CN_TEXT]
      */
     var isRecordAudio: Boolean = if (isSaveSetting) getSPUtils().getBoolean("isRecordAudio", false) else false
         set(value) {
@@ -94,7 +94,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
             }
         }
     /**
-     * 延迟拍照或延时录制的延时秒数，单位秒，默认0秒即不延迟.
+     * [CN_TEXT]Photo[CN_TEXT]，[CN_TEXT]，[CN_TEXT]0[CN_TEXT].
      */
     var delayCaptureSecond: Int = if (isSaveSetting) getSPUtils().getInt("delayCaptureSecond", 0) else 0
         set(value) {
@@ -113,7 +113,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
             }
         }
     /**
-     * 热成像-测温模式-是否开启双光，默认关闭 true-开启 false-关闭
+     * [CN_TEXT]-Temperature measurementMode-[CN_TEXT]Dual light，[CN_TEXT] true-[CN_TEXT] false-[CN_TEXT]
      */
     var isOpenTwoLight: Boolean = if (isSaveSetting) getSPUtils().getBoolean("isOpenTwoLight", false) else false
         set(value) {
@@ -123,7 +123,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
             }
         }
     /**
-     * 热成像-测温模式-双光开启时融合度，取值`[0,100]`，0表示完全不透明，100表示完全透明，默认 50%
+     * [CN_TEXT]-Temperature measurementMode-Dual light[CN_TEXT]Fusion degree，[CN_TEXT]`[0,100]`，0[CN_TEXT]，100[CN_TEXT]，[CN_TEXT] 50%
      */
     var twoLightAlpha: Int = if (isSaveSetting) getSPUtils().getInt("twoLightAlpha", 50) else 50
         set(value) {
@@ -135,7 +135,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
 
 
     /**
-     * 热成像伪彩模式，取值为伪彩枚举值，默认铁红
+     * [CN_TEXT]Pseudo-colorMode，[CN_TEXT]Pseudo-color[CN_TEXT]，[CN_TEXT]Iron red
      */
     var pseudoColorMode: Int = if (isSaveSetting) getSPUtils().getInt("pseudoColorMode", 3) else 3
         set(value) {
@@ -147,7 +147,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
 
 
     /**
-     * 热成像-测温模式-是否开启伪彩条，默认开启 true-开启 false-关闭
+     * [CN_TEXT]-Temperature measurementMode-[CN_TEXT]Pseudo-color[CN_TEXT]，[CN_TEXT] true-[CN_TEXT] false-[CN_TEXT]
      */
     var isOpenPseudoBar: Boolean = if (isSaveSetting) getSPUtils().getBoolean("isOpenPseudoBar", true) else true
         set(value) {
@@ -157,7 +157,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
             }
         }
     /**
-     * 热成像对比度，取值范围`[0,255]`，默认 128
+     * [CN_TEXT]，[CN_TEXT]`[0,255]`，[CN_TEXT] 128
      */
     var contrastValue: Int = if (isSaveSetting) getSPUtils().getInt("contrastValue", 128) else 128
         set(value) {
@@ -167,7 +167,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
             }
         }
     /**
-     * 热成像-测温模式-锐度(细节增强等级)，取值范围`[0,4]`，默认为 2
+     * [CN_TEXT]-Temperature measurementMode-[CN_TEXT]([CN_TEXT])，[CN_TEXT]`[0,4]`，[CN_TEXT] 2
      */
     var ddeConfig: Int = if (isSaveSetting) getSPUtils().getInt("ddeConfig", 2) else 2
         set(value) {
@@ -177,7 +177,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
             }
         }
     /**
-     *热成像-测温模式-温度报警相关设置项.
+     *[CN_TEXT]-Temperature measurementMode-[CN_TEXT]Settings[CN_TEXT].
      */
     var alarmBean: AlarmBean = if (isSaveSetting) {
         val json = getSPUtils().getString("alarmBean", "")
@@ -192,7 +192,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
             }
         }
     /**
-     * 热成像画面逆时针旋转角度，取值 0、90、180、270，默认 [DeviceConfig.S_ROTATE_ANGLE]
+     * [CN_TEXT]RotateAngle，[CN_TEXT] 0、90、180、270，[CN_TEXT] [DeviceConfig.S_ROTATE_ANGLE]
      */
     var rotateAngle: Int = if (isSaveSetting) getSPUtils().getInt("rotateAngle", DeviceConfig.S_ROTATE_ANGLE) else DeviceConfig.S_ROTATE_ANGLE
         set(value) {
@@ -202,12 +202,12 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
             }
         }
     /**
-     * 热成像画面是否为竖屏尺寸(192x256)
+     * [CN_TEXT](192x256)
      */
     fun isRotatePortrait(): Boolean = rotateAngle == 90 || rotateAngle == 270
 
     /**
-     * 热成像是否开启镜像，默认关闭即不镜像 true-镜像 false-不镜像
+     * [CN_TEXT]，[CN_TEXT] true-[CN_TEXT] false-[CN_TEXT]
      */
     var isOpenMirror: Boolean = if (isSaveSetting) getSPUtils().getBoolean("isOpenMirror", false) else false
         set(value) {
@@ -217,7 +217,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
             }
         }
     /**
-     * 热成像-观测模式-是否开启指南针，默认关闭 true-开启 false-关闭
+     * [CN_TEXT]-ObservationMode-[CN_TEXT]，[CN_TEXT] true-[CN_TEXT] false-[CN_TEXT]
      */
     var isOpenCompass: Boolean = if (isSaveSetting) getSPUtils().getBoolean("isOpenCompass", false) else false
         set(value) {
@@ -227,7 +227,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
             }
         }
     /**
-     * 热成像-测温模式-温度字体颜色值，默认白色.
+     * [CN_TEXT]-Temperature measurementMode-[CN_TEXT]，[CN_TEXT].
      */
     var tempTextColor: Int = if (isSaveSetting) getSPUtils().getInt("tempTextColor", 0xffffffff.toInt()) else 0xffffffff.toInt()
         set(value) {
@@ -237,7 +237,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
             }
         }
     /**
-     * 热成像-测温模式-温度字体大小，单位 px，默认14sp.
+     * [CN_TEXT]-Temperature measurementMode-[CN_TEXT]，[CN_TEXT] px，[CN_TEXT]14sp.
      */
     var tempTextSize: Int = if (isSaveSetting) getSPUtils().getInt("tempTextSize", SizeUtils.sp2px(14f)) else SizeUtils.sp2px(14f)
         set(value) {
@@ -247,19 +247,19 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
             }
         }
     /**
-     * 判断当前温度字体颜色及大小是否为默认设置
+     * [CN_TEXT]Current[CN_TEXT]Settings
      */
     fun isTempTextDefault(): Boolean = tempTextColor == 0xffffffff.toInt() && tempTextSize == SizeUtils.sp2px(14f)
 
 
     /**
-     * 热成像-测温模式-温度档位，默认常温，取值
+     * [CN_TEXT]-Temperature measurementMode-Temperature level，[CN_TEXT]Normal temperature，[CN_TEXT]
      *
-     * 常温 ([CameraItemBean.TYPE_TMP_C] = 1）
+     * Normal temperature ([CameraItemBean.TYPE_TMP_C] = 1）
      *
-     * 高温 ([CameraItemBean.TYPE_TMP_H] = 0)
+     * High temperature ([CameraItemBean.TYPE_TMP_H] = 0)
      *
-     * 自动 ([CameraItemBean.TYPE_TMP_ZD] = -1)
+     * [CN_TEXT] ([CameraItemBean.TYPE_TMP_ZD] = -1)
      */
     var temperatureMode: Int = if (isSaveSetting) getSPUtils().getInt("temperatureMode", CameraItemBean.TYPE_TMP_C) else CameraItemBean.TYPE_TMP_C
         set(value) {
@@ -272,7 +272,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
 
 
     /**
-     * 热成像-观测模式-是否开启高温点，默认关闭 true-开启 false-关闭
+     * [CN_TEXT]-ObservationMode-[CN_TEXT]High temperature[CN_TEXT]，[CN_TEXT] true-[CN_TEXT] false-[CN_TEXT]
      */
     var isOpenHighPoint: Boolean = if (isSaveSetting) getSPUtils().getBoolean("isOpenHighPoint", false) else false
         set(value) {
@@ -282,7 +282,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
             }
         }
     /**
-     * 热成像-观测模式-是否开启低温点，默认关闭 true-开启 false-关闭
+     * [CN_TEXT]-ObservationMode-[CN_TEXT]Low temperature[CN_TEXT]，[CN_TEXT] true-[CN_TEXT] false-[CN_TEXT]
      */
     var isOpenLowPoint: Boolean = if (isSaveSetting) getSPUtils().getBoolean("isOpenLowPoint", false) else false
         set(value) {
@@ -293,15 +293,15 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
         }
 
     /**
-     * 热成像-观测模式-选中AI追踪类型，默认未选中，取值
+     * [CN_TEXT]-ObservationMode-SelectedAI[CN_TEXT]Type，[CN_TEXT]Selected，[CN_TEXT]
      *
-     * 未选中 ([ObserveBean.TYPE_NONE] = -1)
+     * [CN_TEXT]Selected ([ObserveBean.TYPE_NONE] = -1)
      *
-     * 动态识别 ([ObserveBean.TYPE_DYN_R] = 0)
+     * Dynamic recognition ([ObserveBean.TYPE_DYN_R] = 0)
      *
-     * 高温源 ([ObserveBean.TYPE_TMP_H_S] = 1)
+     * High temperature[CN_TEXT] ([ObserveBean.TYPE_TMP_H_S] = 1)
      *
-     * 低温源 ([ObserveBean.TYPE_TMP_L_S] = 2)
+     * Low temperature[CN_TEXT] ([ObserveBean.TYPE_TMP_L_S] = 2)
      */
     var aiTraceType: Int = if (isSaveSetting) getSPUtils().getInt("aiTraceType", ObserveBean.TYPE_NONE) else ObserveBean.TYPE_NONE
         set(value) {
@@ -312,7 +312,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
         }
 
     /**
-     * 热成像-观测模式-标靶-是否开启标靶，默认关闭 true-开启 false-关闭
+     * [CN_TEXT]-ObservationMode-Target-[CN_TEXT]Target，[CN_TEXT] true-[CN_TEXT] false-[CN_TEXT]
      */
     var isOpenTarget: Boolean = if (isSaveSetting) getSPUtils().getBoolean("isOpenTarget", false) else false
         set(value) {
@@ -323,15 +323,15 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
         }
 
     /**
-     * 热成像-观测模式-标靶-标靶测量模式，默认人，取值
+     * [CN_TEXT]-ObservationMode-Target-Target[CN_TEXT]Mode，[CN_TEXT]Person，[CN_TEXT]
      *
-     * 人 ([ObserveBean.TYPE_MEASURE_PERSON] = 10)
+     * Person ([ObserveBean.TYPE_MEASURE_PERSON] = 10)
      *
-     * 羊 ([ObserveBean.TYPE_MEASURE_SHEEP] = 11)
+     * Sheep ([ObserveBean.TYPE_MEASURE_SHEEP] = 11)
      *
-     * 狗 ([ObserveBean.TYPE_MEASURE_DOG] = 12)
+     * Dog ([ObserveBean.TYPE_MEASURE_DOG] = 12)
      *
-     * 鸟 ([ObserveBean.TYPE_MEASURE_BIRD] = 13)
+     * Bird ([ObserveBean.TYPE_MEASURE_BIRD] = 13)
      */
     var targetMeasureMode: Int = if (isSaveSetting) getSPUtils().getInt("targetMeasureMode", ObserveBean.TYPE_MEASURE_PERSON) else ObserveBean.TYPE_MEASURE_PERSON
         set(value) {
@@ -342,13 +342,13 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
         }
 
     /**
-     * 热成像-观测模式-标靶-标靶类型，默认横向，取值
+     * [CN_TEXT]-ObservationMode-Target-TargetType，[CN_TEXT]，[CN_TEXT]
      *
-     * 横向 ([ObserveBean.TYPE_TARGET_HORIZONTAL] = 15)
+     * [CN_TEXT] ([ObserveBean.TYPE_TARGET_HORIZONTAL] = 15)
      *
-     * 竖向 ([ObserveBean.TYPE_TARGET_VERTICAL] = 16)
+     * [CN_TEXT] ([ObserveBean.TYPE_TARGET_VERTICAL] = 16)
      *
-     * 圆形 ([ObserveBean.TYPE_TARGET_CIRCLE] = 17)
+     * [CN_TEXT] ([ObserveBean.TYPE_TARGET_CIRCLE] = 17)
      */
     var targetType: Int = if (isSaveSetting) getSPUtils().getInt("targetType", ObserveBean.TYPE_TARGET_HORIZONTAL) else ObserveBean.TYPE_TARGET_HORIZONTAL
         set(value) {
@@ -359,17 +359,17 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
         }
 
     /**
-     * 热成像-观测模式-标靶-标靶颜色，默认绿色，取值
+     * [CN_TEXT]-ObservationMode-Target-Target[CN_TEXT]，[CN_TEXT]，[CN_TEXT]
      *
-     * 绿色 ([ObserveBean.TYPE_TARGET_COLOR_GREEN] = 20)
+     * [CN_TEXT] ([ObserveBean.TYPE_TARGET_COLOR_GREEN] = 20)
      *
-     * 红色 ([ObserveBean.TYPE_TARGET_COLOR_RED] = 21)
+     * [CN_TEXT] ([ObserveBean.TYPE_TARGET_COLOR_RED] = 21)
      *
-     * 蓝色 ([ObserveBean.TYPE_TARGET_COLOR_BLUE] = 22)
+     * [CN_TEXT] ([ObserveBean.TYPE_TARGET_COLOR_BLUE] = 22)
      *
-     * 黑色 ([ObserveBean.TYPE_TARGET_COLOR_BLACK] = 23)
+     * [CN_TEXT] ([ObserveBean.TYPE_TARGET_COLOR_BLACK] = 23)
      *
-     * 白色 ([ObserveBean.TYPE_TARGET_COLOR_WHITE] = 24)
+     * [CN_TEXT] ([ObserveBean.TYPE_TARGET_COLOR_WHITE] = 24)
      */
     var targetColorType: Int = if (isSaveSetting) getSPUtils().getInt("targetColorType", ObserveBean.TYPE_TARGET_COLOR_GREEN) else ObserveBean.TYPE_TARGET_COLOR_GREEN
         set(value) {
@@ -381,7 +381,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
 
 
     /**
-     * 报告-作者名称，默认值 App 名称.
+     * [CN_TEXT]-[CN_TEXT]，[CN_TEXT] App [CN_TEXT].
      */
     var reportAuthorName: String = if (isSaveSetting) getSPUtils().getString("reportAuthorName", CommUtils.getAppName()) else CommUtils.getAppName()
         set(value) {
@@ -392,7 +392,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
         }
 
     /**
-     * 报告-水印内容，默认值 App 名称.
+     * [CN_TEXT]-[CN_TEXT]，[CN_TEXT] App [CN_TEXT].
      */
     var reportWatermarkText: String = if (isSaveSetting) getSPUtils().getString("reportWatermarkText", CommUtils.getAppName()) else CommUtils.getAppName()
         set(value) {
@@ -403,7 +403,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
         }
 
     /**
-     * 报告-环境湿度千分比，默认值500，取值`[0, 1000]`
+     * [CN_TEXT]-[CN_TEXT]，[CN_TEXT]500，[CN_TEXT]`[0, 1000]`
      */
     var reportHumidity: Int = if (isSaveSetting) getSPUtils().getInt("reportHumidity", 500) else 500
         set(value) {

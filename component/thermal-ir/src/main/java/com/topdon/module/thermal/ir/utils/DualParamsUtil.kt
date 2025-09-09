@@ -6,7 +6,7 @@ import com.topdon.lib.core.common.SaveSettingUtil
 /**
 author: CaiSongL
 date: 2024/2/1 17:59
-des:艾睿枚举参数转换工具
+des:[CN_TEXT]
  **/
 object DualParamsUtil {
 

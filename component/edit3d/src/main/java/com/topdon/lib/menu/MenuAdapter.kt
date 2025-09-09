@@ -20,16 +20,16 @@ import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lib.core.R as RCore
 
 /**
- * 二级菜单 RecyclerView 所用 Adapter.
+ * [CN_TEXT]Menu RecyclerView [CN_TEXT] Adapter.
  */
 class MenuAdapter(val context: Context, val type: Type) : RecyclerView.Adapter<MenuAdapter.ViewHolder>() {
     /**
-     * 当前选中 item index，用于实现选中效果.
+     * CurrentSelected item index，[CN_TEXT]Selected[CN_TEXT].
      */
     private var selectIndex = 0
 
     /**
-     * item 点击事件监听.
+     * item [CN_TEXT].
      */
     var onItemClickListener: ((position: Int) -> Unit)? = null
 
@@ -109,7 +109,7 @@ class MenuAdapter(val context: Context, val type: Type) : RecyclerView.Adapter<M
             holder.ivPseudo.visibility = if(position == selectIndex) View.VISIBLE else View.GONE
         }
 
-        //单独设置删除文本颜色
+        //[CN_TEXT]SettingsDelete[CN_TEXT]
         if (type == Type.MARK && position == MARK_ARRAY.size - 1) {
             holder.tvMenu.setTextColor(0x66ffffff)
         }
@@ -157,7 +157,7 @@ class MenuAdapter(val context: Context, val type: Type) : RecyclerView.Adapter<M
         val clRoot: ConstraintLayout = rootView.findViewById(R.id.cl_root)
         
         init {
-            val canSeeCount = itemCount.toFloat() //一屏可见的 item 数量，目前都是全都显示完
+            val canSeeCount = itemCount.toFloat() //[CN_TEXT] item [CN_TEXT]，[CN_TEXT]
             if (ScreenUtil.isPortrait(context)) {
                 val with = (ScreenUtil.getScreenWidth(context)/ canSeeCount).toInt()
                 rootView.layoutParams = ViewGroup.LayoutParams(with, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -189,22 +189,22 @@ class MenuAdapter(val context: Context, val type: Type) : RecyclerView.Adapter<M
 
     enum class Type {
         /**
-         * 视觉.
+         * [CN_TEXT].
          */
         VISUAL,
 
         /**
-         * 标定.
+         * [CN_TEXT].
          */
         MARK,
 
         /**
-         * 伪彩.
+         * Pseudo-color.
          */
         PSEUDO,
 
         /**
-         * 模式.
+         * Mode.
          */
         MODE,
     }

@@ -14,14 +14,14 @@ import com.topdon.lib.ui.listener.SingleClickListener
 import com.topdon.lib.ui.R as UiR
 import com.topdon.menu.R as MenuR
 
-@Deprecated("看起来是旧版 2D 编辑的菜单，根本没使用了")
+@Deprecated("[CN_TEXT] 2D [CN_TEXT]Menu，[CN_TEXT]")
 class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var listener: ((index: Int, code: Int) -> Unit)? = null
     private var type = 0
     private var selected = -1
-    private var colorEnable = false // 伪彩条
-    private var contrastEnable = false // 对比度
-    private var ddeEnable = false // 细节
+    private var colorEnable = false // Pseudo-color[CN_TEXT]
+    private var contrastEnable = false // [CN_TEXT]
+    private var ddeEnable = false // [CN_TEXT]
 
     fun selected(index: Int) {
         selected = index
@@ -91,7 +91,7 @@ class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.V
         }
     }
 
-    // 状态变化
+    // State[CN_TEXT]
     private fun iconUI(
         isActive: Boolean,
         img: ImageView,

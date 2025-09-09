@@ -7,9 +7,9 @@ import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import com.topdon.module.thermal.ir.R
 
 /**
- * 魔改 StandardGSYVideoPlayer.
+ * [CN_TEXT] StandardGSYVideoPlayer.
  *
- * 产品嫌播放暂停图标太丑了，这里改一下.
+ * [CN_TEXT]，[CN_TEXT].
  *
  * Created by chenggeng.lin on 2023/12/8.
  */

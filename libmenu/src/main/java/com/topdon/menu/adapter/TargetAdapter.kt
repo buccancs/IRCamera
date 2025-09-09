@@ -28,8 +28,8 @@ internal class TargetAdapter : BaseMenuAdapter() {
     var onTargetListener: ((targetType: TargetType) -> Unit)? = null
 
     /**
-     * 设置指定选项的选中状态.
-     * 对于一些互斥的选中取消选中操作，由于历史遗留现在先不改动，丢给上层去维护这个互斥状态.
+     * SettingsSpecifiedOption[CN_TEXT]SelectedState.
+     * [CN_TEXT]Selected[CN_TEXT]Selected[CN_TEXT]，[CN_TEXT]Historical legacy[CN_TEXT]，[CN_TEXT]State.
      */
     fun setSelected(targetType: TargetType, isSelected: Boolean) {
         for (i in dataArray.indices) {
@@ -42,13 +42,13 @@ internal class TargetAdapter : BaseMenuAdapter() {
     }
 
     /**
-     * 设置 观测模式-菜单4-标靶-测量模式 图标类型.
+     * Settings ObservationMode-Menu4-Target-[CN_TEXT]Mode [CN_TEXT]Type.
      *
-     * 由于历史遗留（已保存在 SharedPreferences 中），这里 code 取值为
-     * - 人：10
-     * - 羊：11
-     * - 狗：12
-     * - 鸟：13
+     * [CN_TEXT]Historical legacy（Already saved[CN_TEXT] SharedPreferences [CN_TEXT]），[CN_TEXT] code [CN_TEXT]
+     * - Person：10
+     * - Sheep：11
+     * - Dog：12
+     * - Bird：13
      */
     fun setTargetMode(modeCode: Int) {
         for (i in dataArray.indices) {
@@ -81,8 +81,8 @@ internal class TargetAdapter : BaseMenuAdapter() {
         holder.binding.ivIcon.isSelected = data.isSelected
         holder.binding.tvText.isSelected = data.isSelected
         holder.binding.clRoot.setOnClickListener {
-            //标靶颜色以生效才视为高亮选中的，这里先保持旧代码逻辑，
-            //菜单的选中刷新丢给上层的 listener 去做，后面有空再考虑更改
+            //Target[CN_TEXT]Selected[CN_TEXT]，[CN_TEXT]，
+            //Menu[CN_TEXT]Selected[CN_TEXT] listener [CN_TEXT]，[CN_TEXT]
 //            data.isSelected = !data.isSelected
 //            holder.binding.ivIcon.isSelected = data.isSelected
 //            holder.binding.tvText.isSelected = data.isSelected

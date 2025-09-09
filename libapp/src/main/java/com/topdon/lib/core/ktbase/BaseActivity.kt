@@ -96,7 +96,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     /**
-     * 监听 USB 连接状态
+     * [CN_TEXT] USB [CN_TEXT]State
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun getConnectState(event: DeviceConnectEvent) {
@@ -130,12 +130,12 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     /**
-     * 新版 LMS 风格的加载中弹框.
+     * [CN_TEXT] LMS [CN_TEXT].
      */
     private var loadingDialog: LoadingDialog? = null
 
     /**
-     * 真是醉了，一个加载中的弹框现在就有 3 种，不管了，继续加，理论上后续都要改成这个.
+     * [CN_TEXT]，[CN_TEXT] 3 [CN_TEXT]，[CN_TEXT]，[CN_TEXT]，[CN_TEXT].
      */
     fun showLoadingDialog(
         @StringRes resId: Int = R.string.tip_loading,
@@ -152,7 +152,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     /**
-     * 真是醉了，一个加载中的弹框现在就有 3 种，不管了，继续加，理论上后续都要改成这个.
+     * [CN_TEXT]，[CN_TEXT] 3 [CN_TEXT]，[CN_TEXT]，[CN_TEXT]，[CN_TEXT].
      */
     fun dismissLoadingDialog() {
         loadingDialog?.dismiss()
@@ -175,8 +175,8 @@ abstract class BaseActivity : AppCompatActivity() {
                 cameraDialog?.show()
             }
         } catch (e: Exception) {
-            // 临时捕获方案，后面需求完成后再追踪优化
-            Log.e("临时处理方案", e.message.toString())
+            // [CN_TEXT]，[CN_TEXT]
+            Log.e("[CN_TEXT]", e.message.toString())
         }
     }
 
@@ -186,7 +186,7 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    // 同步登录信息
+    // [CN_TEXT]
     private fun synLogin() {
         if (this::class.java.simpleName == "MainActivity") {
             LMS.getInstance().syncUserInfo()
@@ -209,7 +209,7 @@ abstract class BaseActivity : AppCompatActivity() {
             }
         } else {
             if (UserInfoManager.getInstance().isLogin()) {
-                // 账号已退出,本地登录状态,需退出操作
+                // [CN_TEXT],[CN_TEXT]State,[CN_TEXT]
                 UserInfoManager.getInstance().logout()
             }
         }

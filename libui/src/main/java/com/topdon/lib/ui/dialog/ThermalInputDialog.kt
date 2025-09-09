@@ -34,11 +34,11 @@ import java.math.BigDecimal
 import com.topdon.lib.ui.R as UiR
 
 /**
- * 提示窗
+ * [CN_TEXT]
  * create by fylder on 2018/6/15
  **/
 class ThermalInputDialog : Dialog {
-    private var action = 100 // 100:初始温度输入界面     201: 温度上限颜色选择界面   301: 温度下限颜色选择界面
+    private var action = 100 // 100:[CN_TEXT]     201: [CN_TEXT]   301: [CN_TEXT]
 
     constructor(context: Context) : super(context)
 
@@ -63,9 +63,9 @@ class ThermalInputDialog : Dialog {
         private var cancelEvent: (() -> Unit)? = null
         private var canceled = false
         private var saturation = 0
-        private var upColor = Color.parseColor("#FFF3812F") // 默认颜色
-        private var downColor = Color.parseColor("#FF28C445") // 默认颜色
-        private var selectColor = 0 // 预设颜色
+        private var upColor = Color.parseColor("#FFF3812F") // [CN_TEXT]
+        private var downColor = Color.parseColor("#FF28C445") // [CN_TEXT]
+        private var selectColor = 0 // [CN_TEXT]
         private var max = 0f
         private var min = 0f
         private var maxColor = 0
@@ -123,11 +123,11 @@ class ThermalInputDialog : Dialog {
             min: Float,
         ): Builder {
             if (SharedManager.getTemperature() == 1) {
-                // 摄氏度
+                // Celsius
                 this.max = max
                 this.min = min
             } else {
-                // 转成华氏度
+                // [CN_TEXT]Fahrenheit
                 this.max = UnitTools.toF(max)
                 this.min = UnitTools.toF(min)
             }
@@ -223,7 +223,7 @@ class ThermalInputDialog : Dialog {
             binding.colorPickerViewLay.visibility = View.GONE
             binding.dialogInputLay.visibility = View.VISIBLE
             
-            // 隐藏颜色
+            // [CN_TEXT]
             if (isIconEdit) {
                 binding.dialogUpColor.visibility = View.GONE
                 binding.dialogDownColor.visibility = View.GONE
@@ -232,7 +232,7 @@ class ThermalInputDialog : Dialog {
                 binding.dialogDownColor.visibility = View.VISIBLE
             }
             messageText.text = message
-            // 初始化颜色
+            // [CN_TEXT]
             if (maxColor != 0) upColor = maxColor
             if (minColor != 0) downColor = minColor
             upUnit.text = UnitTools.showUnit()
@@ -255,19 +255,19 @@ class ThermalInputDialog : Dialog {
             val lp = dialog!!.window!!.attributes
             val wRatio =
                 if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    // 竖屏
+                    // [CN_TEXT]
                     0.85
                 } else {
-                    // 横屏
+                    // [CN_TEXT]
                     0.35
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // 设置宽度
+            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // Settings[CN_TEXT]
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceled)
             successBtn.setOnClickListener {
                 if (binding.colorPickerViewLay.isVisible) {
-                    // 选取颜色,返回上一步
+                    // [CN_TEXT],[CN_TEXT]
                     binding.colorPickerViewLay.visibility = View.GONE
                     binding.dialogInputLay.visibility = View.VISIBLE
                     messageText.text = message
@@ -330,7 +330,7 @@ class ThermalInputDialog : Dialog {
                     } else
                     {
                         if (SharedManager.getTemperature() == 1) {
-                            // 摄氏度不用转
+                            // Celsius[CN_TEXT]
                             positiveEvent?.invoke(
                                 if (upValue.isBlank()) -273f else upValue.toFloat(),
                                 if (downValue.isBlank()) -273f else downValue.toFloat(),
@@ -338,7 +338,7 @@ class ThermalInputDialog : Dialog {
                                 downColor,
                             )
                         } else {
-                            // 华氏度
+                            // Fahrenheit
                             positiveEvent?.invoke(
                                 if (upValue.isBlank()) -273f else UnitTools.toC(upValue.toFloat()),
                                 if (downValue.isBlank()) -273f else UnitTools.toC(downValue.toFloat()),
@@ -350,7 +350,7 @@ class ThermalInputDialog : Dialog {
             }
             cancelBtn.setOnClickListener {
                 if (binding.colorPickerViewLay.isVisible) {
-                    // 返回上一步
+                    // [CN_TEXT]
                     binding.colorPickerViewLay.visibility = View.GONE
                     binding.dialogInputLay.visibility = View.VISIBLE
                     messageText.text = message
@@ -381,15 +381,15 @@ class ThermalInputDialog : Dialog {
                         fromUser: Boolean,
                     ) {
                         if ("#${envelope.hexCode}" != "#FFFFFFFF") {
-                            // 非预设颜色,复位预设参数
+                            // [CN_TEXT],[CN_TEXT]
                             adapter.selected(-1)
                             selectColor = 0
                         }
                         if (dialog!!.action == 201) {
-                            // 第一个颜色
+                            // [CN_TEXT]
                             upColor = Color.parseColor("#${envelope.hexCode}")
                         } else if (dialog!!.action == 301) {
-                            // 第二个颜色
+                            // [CN_TEXT]
                             downColor = Color.parseColor("#${envelope.hexCode}")
                         }
                     }

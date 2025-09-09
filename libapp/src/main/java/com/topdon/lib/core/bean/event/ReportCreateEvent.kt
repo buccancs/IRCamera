@@ -1,6 +1,6 @@
 package com.topdon.lib.core.bean.event
 
 /**
- * 生成报告上传JSON至服务器成功，整个流程已走完.
+ * [CN_TEXT]JSON[CN_TEXT]，[CN_TEXT].
  */
 public data class ReportCreateEvent(val name: String = "")

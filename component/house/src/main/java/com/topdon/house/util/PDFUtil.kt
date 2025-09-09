@@ -35,17 +35,17 @@ import java.io.IOException
 import java.io.OutputStream
 
 /**
- * 生成房屋检测报告 PDF 工具.
+ * [CN_TEXT] PDF [CN_TEXT].
  *
  * Created by LCG on 2024/1/18.
  */
 object PDFUtil {
 
     /**
-     * 删除所有房屋检测报告 PDF 文件
+     * DeleteAll[CN_TEXT] PDF [CN_TEXT]
      */
     suspend fun delAllPDF(context: Context) = withContext(Dispatchers.IO) {
-        if (Build.VERSION.SDK_INT < 29) {//小于 Android10
+        if (Build.VERSION.SDK_INT < 29) {//[CN_TEXT] Android10
             val files: Array<File> = File(FileConfig.documentsDir).listFiles() ?: return@withContext
             for (file in files) {
                 if (file.isFile) {
@@ -67,7 +67,7 @@ object PDFUtil {
 
 
     suspend fun delPDF(context: Context, houseReport: HouseReport): Boolean = withContext(Dispatchers.IO) {
-        if (Build.VERSION.SDK_INT < 29) {//小于 Android10
+        if (Build.VERSION.SDK_INT < 29) {//[CN_TEXT] Android10
             return@withContext FileUtils.delete(File(FileConfig.documentsDir, houseReport.getPdfFileName()))
         } else {
             val resolver: ContentResolver = context.contentResolver
@@ -82,7 +82,7 @@ object PDFUtil {
     @SuppressLint("InflateParams")
     suspend fun savePDF(context: Context, houseReport: HouseReport): Uri? = withContext(Dispatchers.IO) {
         val pageWidth = ScreenUtil.getScreenWidth(context).coerceAtMost(ScreenUtil.getScreenHeight(context))
-        val pageHeight = (pageWidth * 297f / 210f).toInt() // A4纸宽高比210:297
+        val pageHeight = (pageWidth * 297f / 210f).toInt() // A4[CN_TEXT]210:297
 
         val pdfDocument = PdfDocument()
 
@@ -93,14 +93,14 @@ object PDFUtil {
         var canvas: Canvas = page.canvas
 
 
-        //绘制头部信息
+        //[CN_TEXT]
         val headView = buildHeadView(context, houseReport)
         headView.draw(canvas)
         canvas.translate(0f, headView.height.toFloat())
 
 
-        var hasUseHeight = headView.height //当前页已使用高度
-        val margin = SizeUtils.dp2px(6f) //每个信息之间的间距，单位px
+        var hasUseHeight = headView.height //Current[CN_TEXT]
+        val margin = SizeUtils.dp2px(6f) //[CN_TEXT]，[CN_TEXT]px
         val marginPaint = Paint()
         marginPaint.color = 0xfff5f5f7.toInt()
 
@@ -122,24 +122,24 @@ object PDFUtil {
                 }
             }
             if (hasAnyItem) {
-                //计算表头高度
+                //[CN_TEXT]
                 val tabTitleView = LayoutInflater.from(context).inflate(R.layout.pdf_tab_title, null)
                 tabTitleView.measure(MeasureSpec.makeMeasureSpec(pageWidth, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED))
                 tabTitleView.layout(0, 0, tabTitleView.measuredWidth, tabTitleView.measuredHeight)
 
-                //计算第1行item高度
+                //[CN_TEXT]1[CN_TEXT]item[CN_TEXT]
                 val tabItemView = LayoutInflater.from(context).inflate(R.layout.pdf_tab_item, null)
                 tabItemView.findViewById<android.widget.TextView>(R.id.tv_item_name).text = dirBean.itemList[0].itemName
                 tabItemView.findViewById<android.widget.TextView>(R.id.tv_input).text = dirBean.itemList[0].inputText.ifEmpty { dirBean.itemList[0].getStateStr(context) }
                 tabItemView.measure(MeasureSpec.makeMeasureSpec(pageWidth, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED))
                 tabItemView.layout(0, 0, tabItemView.measuredWidth, tabItemView.measuredHeight)
 
-                if (hasUseHeight + margin + titleText.height + tabTitleView.measuredHeight + tabItemView.measuredHeight > pageHeight) {//1行item都显示不了，另起一页
+                if (hasUseHeight + margin + titleText.height + tabTitleView.measuredHeight + tabItemView.measuredHeight > pageHeight) {//1[CN_TEXT]item[CN_TEXT]，[CN_TEXT]
                     pdfDocument.finishPage(page)
                     page = pdfDocument.startPage(pageInfo)
                     canvas = page.canvas
                     hasUseHeight = 0
-                } else {//至少能放得下1行item
+                } else {//[CN_TEXT]1[CN_TEXT]item
                     canvas.drawRect(0f, 0f, pageWidth.toFloat(), margin.toFloat(), marginPaint)
                     canvas.translate(0f, margin.toFloat())
                     hasUseHeight += margin
@@ -162,7 +162,7 @@ object PDFUtil {
                     tabItemView.measure(MeasureSpec.makeMeasureSpec(pageWidth, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED))
                     tabItemView.layout(0, 0, tabItemView.measuredWidth, tabItemView.measuredHeight)
 
-                    if (hasUseHeight + tabItemView.height > pageHeight) {//1行item都显示不了，另起一页
+                    if (hasUseHeight + tabItemView.height > pageHeight) {//1[CN_TEXT]item[CN_TEXT]，[CN_TEXT]
                         pdfDocument.finishPage(page)
                         page = pdfDocument.startPage(pageInfo)
                         canvas = page.canvas
@@ -195,7 +195,7 @@ object PDFUtil {
                 }
             }
             if (dataList.isEmpty()) {
-                //没有图片，放个 13dp 的底部 padding
+                //[CN_TEXT]，[CN_TEXT] 13dp [CN_TEXT] padding
                 val paddingBottom = SizeUtils.dp2px(13f).coerceAtMost(pageHeight - hasUseHeight)
                 canvas.translate(0f, paddingBottom.toFloat())
                 hasUseHeight += paddingBottom
@@ -217,8 +217,8 @@ object PDFUtil {
                 imgLineView.measure(MeasureSpec.makeMeasureSpec(pageWidth, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED))
                 imgLineView.layout(0, 0, imgLineView.measuredWidth, imgLineView.measuredHeight)
 
-                if (hasAnyItem) {//标题已在 itemShowView 绘制
-                    if (hasUseHeight + photoText.height + imgLineView.height > pageHeight) {//1行item都显示不了，另起一页
+                if (hasAnyItem) {//[CN_TEXT] itemShowView [CN_TEXT]
+                    if (hasUseHeight + photoText.height + imgLineView.height > pageHeight) {//1[CN_TEXT]item[CN_TEXT]，[CN_TEXT]
                         pdfDocument.finishPage(page)
                         page = pdfDocument.startPage(pageInfo)
                         canvas = page.canvas
@@ -228,13 +228,13 @@ object PDFUtil {
                     photoText.draw(canvas)
                     canvas.translate(0f, photoText.height.toFloat())
                     hasUseHeight += photoText.height
-                } else {//没有 item，标题要在这里绘制
-                    if (hasUseHeight + margin + titleText.height + photoText.height + imgLineView.height > pageHeight) {//1行item都显示不了，另起一页
+                } else {//[CN_TEXT] item，[CN_TEXT]
+                    if (hasUseHeight + margin + titleText.height + photoText.height + imgLineView.height > pageHeight) {//1[CN_TEXT]item[CN_TEXT]，[CN_TEXT]
                         pdfDocument.finishPage(page)
                         page = pdfDocument.startPage(pageInfo)
                         canvas = page.canvas
                         hasUseHeight = 0
-                    } else {//至少能放得下1行item
+                    } else {//[CN_TEXT]1[CN_TEXT]item
                         canvas.drawRect(0f, 0f, pageWidth.toFloat(), margin.toFloat(), marginPaint)
                         canvas.translate(0f, margin.toFloat())
                         hasUseHeight += margin
@@ -277,7 +277,7 @@ object PDFUtil {
                         }
                     }
 
-                    if (hasUseHeight + imgLineView.height > pageHeight) {//1行item都显示不了，另起一页
+                    if (hasUseHeight + imgLineView.height > pageHeight) {//1[CN_TEXT]item[CN_TEXT]，[CN_TEXT]
                         pdfDocument.finishPage(page)
                         page = pdfDocument.startPage(pageInfo)
                         canvas = page.canvas
@@ -290,16 +290,16 @@ object PDFUtil {
                     hasUseHeight += imgLineView.height
                 }
 
-                //最后面还需要 paddingBottom 3dp
+                //[CN_TEXT] paddingBottom 3dp
                 val paddingBottom = SizeUtils.dp2px(3f).coerceAtMost(pageHeight - hasUseHeight)
                 canvas.translate(0f, paddingBottom.toFloat())
                 hasUseHeight += paddingBottom
             }
         }
 
-        //绘制底部签名信息
+        //[CN_TEXT]
         val footView = buildFootView(context, houseReport)
-        if (hasUseHeight + margin + footView.height > pageHeight) {//超出内容，另起一页
+        if (hasUseHeight + margin + footView.height > pageHeight) {//[CN_TEXT]，[CN_TEXT]
             pdfDocument.finishPage(page)
             page = pdfDocument.startPage(pageInfo)
             canvas = page.canvas
@@ -329,7 +329,7 @@ object PDFUtil {
                     if (outputStream != null) {
                         pdfDocument.writeTo(outputStream)
 
-                        //部分机型 resolver.insert() 返回的 Uri 用 id 拼的，导致分享时显示的文件名有问题，这里查询一遍
+                        //[CN_TEXT] resolver.insert() [CN_TEXT] Uri [CN_TEXT] id [CN_TEXT]，[CN_TEXT]，[CN_TEXT]
                         val selection = "${MediaStore.MediaColumns.RELATIVE_PATH} = ? AND ${MediaStore.MediaColumns.DISPLAY_NAME} = ?"
                         val selectionArgs: Array<String> = arrayOf(FileConfig.documentsDir, houseReport.getPdfFileName())
                         val cursor: Cursor? = resolver.query(contentUri, arrayOf(MediaStore.MediaColumns.DATA), selection, selectionArgs, null)
@@ -354,7 +354,7 @@ object PDFUtil {
     }
 
     private fun getPdfUri(context: Context, pdfFileName: String): Uri? {
-        if (Build.VERSION.SDK_INT < 29) {//小于 Android10
+        if (Build.VERSION.SDK_INT < 29) {//[CN_TEXT] Android10
             val pdfFile = File(FileConfig.documentsDir, pdfFileName)
             return if (pdfFile.exists()) UriUtils.file2Uri(pdfFile) else null
         } else {

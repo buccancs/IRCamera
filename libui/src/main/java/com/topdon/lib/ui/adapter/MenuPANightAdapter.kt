@@ -9,7 +9,7 @@ import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.lib.ui.listener.SingleClickListener
 import com.topdon.lib.ui.R as UiR
 
-@Deprecated("旧的双光菜单，已重构过了")
+@Deprecated("[CN_TEXT]Dual lightMenu，[CN_TEXT]")
 class MenuPANightAdapter(
     data: MutableList<ColorBean>,
     layoutId: Int,

@@ -13,30 +13,30 @@ import android.view.View
 import kotlin.math.abs
 
 /**
- * 电子签名自定义 View.
+ * [CN_TEXT] View.
  *
  * Created by LCG on 2024/1/22.
  */
 class SignView : View {
     companion object {
         /**
-         * 默认画笔宽度，单位 px.
+         * [CN_TEXT]，[CN_TEXT] px.
          */
         private const val PAINT_WIDTH = 10f
     }
 
     /**
-     * 当前是否有签名.
-     * true-有签名 false-空白的
+     * Current[CN_TEXT].
+     * true-[CN_TEXT] false-[CN_TEXT]
      */
     var hasSign = false
     /**
-     * 是否有签名状态变更监听.
+     * [CN_TEXT]State[CN_TEXT].
      */
     var onSignChangeListener: ((hasSign: Boolean) -> Unit)? = null
 
     /**
-     * 保存当前绘制的签名的 Bitmap.
+     * [CN_TEXT]Current[CN_TEXT] Bitmap.
      */
     var bitmap: Bitmap? = null
 
@@ -109,7 +109,7 @@ class SignView : View {
             }
 
             MotionEvent.ACTION_MOVE -> {
-                if (abs(currentX - beforeX) > 3 || abs(currentY - beforeY) > 3) {//滑动达到一定距离(3px)时才刷新
+                if (abs(currentX - beforeX) > 3 || abs(currentY - beforeY) > 3) {//[CN_TEXT](3px)[CN_TEXT]
                     path.quadTo(beforeX, beforeY, currentX, currentY)
                     hasSign = true
                     onSignChangeListener?.invoke(true)

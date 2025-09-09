@@ -9,7 +9,7 @@ import com.blankj.utilcode.util.Utils
 import com.topdon.lib.core.R
 
 /**
- * 检测 或 报告的一项目录.
+ * [CN_TEXT] [CN_TEXT] [CN_TEXT].
  *
  * Created by LCG on 2024/8/19.
  */
@@ -18,37 +18,37 @@ open class DirBase {
     var id: Long = 0
 
     /**
-     * 所对应的检测或报告目录 Id
+     * [CN_TEXT] Id
      */
     @ColumnInfo(index = true)
     open var parentId: Long = 0
 
     /**
-     * 该目录在检测或报告目录列表中的 index.
+     * [CN_TEXT] index.
      */
     @ColumnInfo
     var position: Int = 0
 
     /**
-     * 目录名，如“一楼”
+     * [CN_TEXT]，[CN_TEXT]“[CN_TEXT]”
      */
     @ColumnInfo
     var dirName: String = ""
 
     /**
-     * 没问题项目的数量.
+     * [CN_TEXT].
      */
     @ColumnInfo
     var goodCount: Int = 0
 
     /**
-     * 需维修项目的数量.
+     * [CN_TEXT].
      */
     @ColumnInfo
     var warnCount: Int = 0
 
     /**
-     * 需更换项目的数量.
+     * [CN_TEXT].
      */
     @ColumnInfo
     var dangerCount: Int = 0
@@ -65,7 +65,7 @@ open class DirBase {
 }
 
 /**
- * 检测所属的一项目录.
+ * [CN_TEXT].
  */
 @Entity(
     foreignKeys = [
@@ -87,37 +87,37 @@ class DirDetect() : DirBase() {
     }
 
     /**
-     * 所对应的检测 Id
+     * [CN_TEXT] Id
      */
     @ColumnInfo(index = true)
     override var parentId: Long = 0
 
     /**
-     * 该目录是否已选中，仅用于目录编辑界面.
+     * [CN_TEXT]Selected，[CN_TEXT].
      */
     @Ignore
     var hasSelect = false
 
     /**
-     * 该目录是否处于展开状态
+     * [CN_TEXT]State
      */
     @Ignore
     var isExpand: Boolean = false
 
     /**
-     * 该目录所属的检测.
+     * [CN_TEXT].
      */
     @Ignore
     var houseDetect = HouseDetect()
 
     /**
-     * 该目录下的项目列表
+     * [CN_TEXT]
      */
     @Ignore
     var itemList: ArrayList<ItemDetect> = ArrayList()
 
     /**
-     * 返回一个 id 为 0，名称添加 (1)，position + 1，itemList 复制，其余属性完全一致的新对象.
+     * [CN_TEXT] id [CN_TEXT] 0，[CN_TEXT] (1)，position + 1，itemList [CN_TEXT]，[CN_TEXT].
      */
     fun copyOne(): DirDetect {
         val newDirDetect = DirDetect()
@@ -140,7 +140,7 @@ class DirDetect() : DirBase() {
     }
 
     /**
-     * 将当前检测目录转换为报告目录，注意 id、parent 重置为 0，无效目录剔除.
+     * [CN_TEXT]Current[CN_TEXT]，Note id、parent [CN_TEXT] 0，[CN_TEXT].
      */
     fun toDirReport(): DirReport {
         val dirReport = DirReport()
@@ -164,7 +164,7 @@ class DirDetect() : DirBase() {
 
     companion object {
         /**
-         * 构建默认的检测目录列表.
+         * [CN_TEXT].
          */
         fun buildDefaultDirList(parentId: Long): ArrayList<DirDetect> =
             arrayListOf(
@@ -184,7 +184,7 @@ class DirDetect() : DirBase() {
 }
 
 /**
- * 报告所属的一项目录.
+ * [CN_TEXT].
  */
 @Entity(
     foreignKeys = [
@@ -199,13 +199,13 @@ class DirDetect() : DirBase() {
 )
 class DirReport : DirBase() {
     /**
-     * 所对应的报告 Id
+     * [CN_TEXT] Id
      */
     @ColumnInfo(index = true)
     override var parentId: Long = 0
 
     /**
-     * 该目录下的项目列表
+     * [CN_TEXT]
      */
     @Ignore
     var itemList: ArrayList<ItemReport> = ArrayList()

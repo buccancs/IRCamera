@@ -31,7 +31,7 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 
 /**
- * 相册迁移，由老 TC001 APP 调起，当前 APP 本身并不使用.
+ * [CN_TEXT]，[CN_TEXT] TC001 APP [CN_TEXT]，Current APP [CN_TEXT].
  *
  * Created by LCG on 2024/3/28.
  */
@@ -58,7 +58,7 @@ class TransferActivity : BaseBindingActivity<ActivityTransferBinding>() {
     }
 
     /**
-     * 请求文件或图片读取权限.
+     * [CN_TEXT].
      */
     private fun requestPermission() {
         XXPermissions.with(this)
@@ -73,7 +73,7 @@ class TransferActivity : BaseBindingActivity<ActivityTransferBinding>() {
                 }
 
                 override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
-                    if (doNotAskAgain) {//拒绝授权并且不再提醒
+                    if (doNotAskAgain) {//[CN_TEXT]
                         TipDialog.Builder(this@TransferActivity)
                             .setTitleMessage(getString(R.string.app_tip))
                             .setMessage(getString(R.string.app_album_content))
@@ -91,7 +91,7 @@ class TransferActivity : BaseBindingActivity<ActivityTransferBinding>() {
 
 
     /**
-     * 开始执行迁移流程.
+     * [CN_TEXT].
      */
     private fun startTransfer() {
         val oldGalleryList: Array<File>? = File(FileConfig.oldTc001GalleryDir).listFiles()
@@ -113,7 +113,7 @@ class TransferActivity : BaseBindingActivity<ActivityTransferBinding>() {
     }
 
     /**
-     * 从 Intent 中获取 Uri 并解压缩迁移的 ir 文件.
+     * [CN_TEXT] Intent [CN_TEXT] Uri [CN_TEXT] ir [CN_TEXT].
      */
     private suspend fun transferIrFiles() {
         withContext(Dispatchers.IO) {
@@ -155,7 +155,7 @@ class TransferActivity : BaseBindingActivity<ActivityTransferBinding>() {
     }
 
     /**
-     * 迁移旧图库图片到新图库.
+     * [CN_TEXT]Gallery[CN_TEXT]Gallery.
      */
     private suspend fun transferImgFile() {
         withContext(Dispatchers.IO) {

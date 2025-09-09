@@ -18,9 +18,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
- * 条款 1: 用户条款  2: 隐私条款  3: 第三方
+ * [CN_TEXT] 1: [CN_TEXT]  2: [CN_TEXT]  3: [CN_TEXT]
  *
- * 服务返回有错误时,加载默认条款
+ * [CN_TEXT],[CN_TEXT]
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
@@ -28,7 +28,7 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
 
     companion object {
         const val KEY_THEME_TYPE = "key_theme_type"
-        const val KEY_USE_TYPE = "key_use_type" // 使用类型 用本地和用网络
+        const val KEY_USE_TYPE = "key_use_type" // [CN_TEXT]Type [CN_TEXT]
     }
 
     private var themeType = 1
@@ -84,7 +84,7 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
     }
 
     /**
-     * 为解决闪缩白屏问题，延时打开webView
+     * [CN_TEXT]，[CN_TEXT]webView
      */
     private fun delayShowWebView() {
         lifecycleScope.launch(Dispatchers.IO) {
@@ -113,7 +113,7 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
     private fun initWeb(url: String) {
         binding.policyWeb.visibility = android.view.View.INVISIBLE
         val webSettings: android.webkit.WebSettings = binding.policyWeb.settings
-        webSettings.javaScriptEnabled = true // 设置支持javascript
+        webSettings.javaScriptEnabled = true // Settings[CN_TEXT]javascript
 
         binding.policyWeb.webViewClient =
             object : android.webkit.WebViewClient() {
@@ -164,11 +164,11 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
     }
 
     /**
-     * 处理富文本
+     * [CN_TEXT]
      *
      * @param bodyHTML body
-     * @param fontColor 需要改变的字体颜色
-     * @param backgroundColor 修改字体颜色
+     * @param fontColor [CN_TEXT]
+     * @param backgroundColor [CN_TEXT]
      * @return String
      */
     fun getHtmlData(
@@ -187,7 +187,7 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
         text: String,
         requestUrl: String,
     ) {
-        XLog.w("声明接口异常,打开默认链接")
+        XLog.w("[CN_TEXT],[CN_TEXT]")
         loadHttp(binding.policyWeb)
         delayShowWebView()
     }
@@ -196,28 +196,28 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
         reloadCount--
         when (themeType) {
             1 -> {
-                // 用户服务协议
+                // [CN_TEXT]
                 view.loadUrl(
                     "https://plat.topdon.com/topdon-plat/out-user/baseinfo/template/getHtmlContentById?softCode=${BaseApplication.instance.getSoftWareCode()}&language=1&type=21",
                 )
             }
 
             2 -> {
-                // 隐私政策
+                // [CN_TEXT]
                 view.loadUrl(
                     "https://plat.topdon.com/topdon-plat/out-user/baseinfo/template/getHtmlContentById?softCode=${BaseApplication.instance.getSoftWareCode()}&language=1&type=22",
                 )
             }
 
             3 -> {
-                // 第三方组件
+                // [CN_TEXT]
                 view.loadUrl("file:///android_asset/web/third_statement.html")
             }
         }
     }
 
     /**
-     * 加载默认协议网址(英文版)
+     * [CN_TEXT]([CN_TEXT])
      */
     fun loadHttp(view: android.webkit.WebView) {
         reloadCount--
@@ -226,7 +226,7 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
                 if (BaseApplication.instance.isDomestic()) {
                     view.loadUrl("file:///android_asset/web/services_agreement_default_inside_china.html")
                 } else {
-                    // 用户服务协议
+                    // [CN_TEXT]
                     view.loadUrl("file:///android_asset/web/services_agreement_default.html")
                 }
             }
@@ -235,13 +235,13 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
                 if (BaseApplication.instance.isDomestic()) {
                     view.loadUrl("file:///android_asset/web/privacy_default_inside_china.html")
                 } else {
-                    // 隐私政策
+                    // [CN_TEXT]
                     view.loadUrl("file:///android_asset/web/privacy_default.html")
                 }
             }
 
             3 -> {
-                // 第三方组件
+                // [CN_TEXT]
                 view.loadUrl("file:///android_asset/web/third_statement.html")
             }
         }

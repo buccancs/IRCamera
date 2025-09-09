@@ -10,8 +10,8 @@ import com.energy.iruvc.utils.CommonParams.PropImageParamsValue.DDEType
 import com.energy.iruvc.utils.CommonParams.PropImageParamsValue.MirrorFlipType
 
 /**
- * 设置自动快门开启或关闭
- * @param isAutoShutter true-开启自动快门 false-关闭自动快门
+ * Settings[CN_TEXT]
+ * @param isAutoShutter true-[CN_TEXT] false-[CN_TEXT]
  */
 fun IRCMD.setAutoShutter(isAutoShutter: Boolean) {
     setPropAutoShutterParameter(
@@ -21,8 +21,8 @@ fun IRCMD.setAutoShutter(isAutoShutter: Boolean) {
 }
 
 /**
- * 设置镜像开启或关闭
- * @param isMirror true-开启 false-关闭
+ * Settings[CN_TEXT]
+ * @param isMirror true-[CN_TEXT] false-[CN_TEXT]
  */
 fun IRCMD.setMirror(isMirror: Boolean) {
     setPropImageParams(
@@ -32,16 +32,16 @@ fun IRCMD.setMirror(isMirror: Boolean) {
 }
 
 /**
- * 设置对比度
- * @param value 取值范围 `[0, 255]`
+ * Settings[CN_TEXT]
+ * @param value [CN_TEXT] `[0, 255]`
  */
 fun IRCMD.setContrast(value: Int) {
     setPropImageParams(PropImageParams.IMAGE_PROP_LEVEL_CONTRAST, PropImageParamsValue.NumberType(value.toString()))
 }
 
 /**
- * 设置锐度（细节）
- * @param level 取值范围 `[0,4]`
+ * Settings[CN_TEXT]（[CN_TEXT]）
+ * @param level [CN_TEXT] `[0,4]`
  */
 fun IRCMD.setPropDdeLevel(level: Int) {
     when (level) {

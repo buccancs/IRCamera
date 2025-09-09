@@ -3,6 +3,6 @@ package com.topdon.module.thermal.ir.event
 import com.topdon.lib.core.repository.GalleryRepository.DirType
 
 /**
- * 图库目录切换事件.
+ * Gallery[CN_TEXT]Switch[CN_TEXT].
  */
 data class GalleryDirChangeEvent(val dirType: DirType)

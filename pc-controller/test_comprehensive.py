@@ -22,11 +22,11 @@ sys.path.insert(0, str(src_dir))
 
 def test_all_components():
     """Test all PC Controller components comprehensively."""
-    print("🧪 Testing IRCamera PC Controller - ALL COMPONENTS")
+    print("Testing IRCamera PC Controller - ALL COMPONENTS")
     print("=" * 60)
 
     temp_dir = tempfile.mkdtemp()
-    print(f"📁 Using temporary directory: {temp_dir}")
+    print(f"Using temporary directory: {temp_dir}")
 
     try:
         # Import all components
@@ -43,13 +43,13 @@ def test_all_components():
         print("\n1. Testing Configuration Manager...")
         config_file = Path(temp_dir) / "test_config.yaml"
         ConfigManager(config_file)
-        print("   ✓ Configuration manager created")
+        print("   + Configuration manager created")
 
         print("\n2. Testing Session Manager...")
         session_manager = SessionManager()
         session_metadata = session_manager.create_session("comprehensive_test")
         session_id = session_metadata.session_id  # Extract the actual ID string
-        print(f"   ✓ Session created: {session_id}")
+        print(f"   + Session created: {session_id}")
 
         print("\n3. Testing GSR Ingestor...")
         test_gsr_config = {
@@ -63,7 +63,7 @@ def test_all_components():
 
         # Test GSR session
         asyncio.run(test_gsr_session(gsr_ingestor, session_id))
-        print("   ✓ GSR Ingestor: PASS")
+        print("   + GSR Ingestor: PASS")
 
         print("\n4. Testing File Transfer Manager...")
         test_transfer_config = {
@@ -77,7 +77,7 @@ def test_all_components():
 
         # Test file transfer
         asyncio.run(test_file_transfer(file_transfer_manager, session_id))
-        print("   ✓ File Transfer Manager: PASS")
+        print("   + File Transfer Manager: PASS")
 
         print("\n5. Testing Camera Calibrator...")
         test_calib_config = {
@@ -91,16 +91,16 @@ def test_all_components():
 
         # Test calibration session
         asyncio.run(test_calibration_session(camera_calibrator, session_id))
-        print("   ✓ Camera Calibrator: PASS")
+        print("   + Camera Calibrator: PASS")
 
         print("\n6. Testing Network Server Integration...")
         network_server = NetworkServer()
-        print("   ✓ Network server created")
-        print("   ✓ Ready for device connections")
+        print("   + Network server created")
+        print("   + Ready for device connections")
 
         print("\n7. Testing Time Sync Service...")
         time_sync = TimeSyncService()
-        print("   ✓ Time sync service created")
+        print("   + Time sync service created")
 
         print("\n8. Testing Complete System Integration...")
         # Test that all components can be created together
@@ -113,47 +113,47 @@ def test_all_components():
             "time_sync": time_sync,
         }
 
-        print(f"   ✓ All {len(all_components)} components" "integrated successfully")
+        print(f"   + All {len(all_components)} components integrated successfully")
 
         # Test component interactions
-        print(f"   ✓ GSR sessions: {len(gsr_ingestor.get_active_sessions())} " "active")
-        print(f"   ✓ Transfer summary: {file_transfer_manager.get_transfer_summary()}")
+        print(f"   + GSR sessions: {len(gsr_ingestor.get_active_sessions())} active")
+        print(f"   + Transfer summary: {file_transfer_manager.get_transfer_summary()}")
         print(
-            f"   ✓ Calibration sessions: {len(camera_calibrator.get_active_calibrations())}"
+            f"   + Calibration sessions: {len(camera_calibrator.get_active_calibrations())} "
             "active"
         )
 
         print("\n" + "=" * 60)
-        print("🎉 ALL COMPONENTS PASSED!")
+        print("ALL COMPONENTS PASSED!")
         print("\nComponent Status:")
-        print("- ✅ Configuration Management")
-        print("- ✅ Session Management")
-        print("- ✅ GSR Ingestor (FR11)")
-        print("- ✅ File Transfer Manager (FR10)")
-        print("- ✅ Camera Calibrator (FR9)")
-        print("- ✅ Network Server")
-        print("- ✅ Time Synchronization Service")
-        print("- ✅ Complete System Integration")
+        print("- [PASS] Configuration Management")
+        print("- [PASS] Session Management")
+        print("- [PASS] GSR Ingestor (FR11)")
+        print("- [PASS] File Transfer Manager (FR10)")
+        print("- [PASS] Camera Calibrator (FR9)")
+        print("- [PASS] Network Server")
+        print("- [PASS] Time Synchronization Service")
+        print("- [PASS] Complete System Integration")
 
-        print("\n🚀 IRCamera PC Controller is FULLY IMPLEMENTED!")
+        print("\nIRCamera PC Controller is FULLY IMPLEMENTED!")
         print("Ready for:")
-        print("- 📱 Android device integration")
-        print("- 🔄 Real-time data collection")
-        print("- 📊 Multi-modal recording sessions")
-        print("- 🎯 Camera calibration")
-        print("- 📁 File transfer and data aggregation")
+        print("- Android device integration")
+        print("- Real-time data collection")
+        print("- Multi-modal recording sessions")
+        print("- Camera calibration")
+        print("- File transfer and data aggregation")
 
         return True
 
     except (OSError, ValueError, RuntimeError) as e:
-        print(f"\n❌ TEST FAILED: {e}")
+        print(f"\nTEST FAILED: {e}")
         import traceback
 
         traceback.print_exc()
         return False
 
     finally:
-        print(f"\n🧹 Cleaned up temporary directory: {temp_dir}")
+        print(f"\nCleaned up temporary directory: {temp_dir}")
         shutil.rmtree(temp_dir)
 
 

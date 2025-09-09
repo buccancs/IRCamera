@@ -5,7 +5,7 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.module.thermal.R
 
-// 连接设备
+// [CN_TEXT]
 // Legacy ARouter route annotation - now using NavigationManager
 class ConnectActivity : BaseActivity() {
     override fun initContentView() = R.layout.activity_connect
@@ -18,10 +18,10 @@ class ConnectActivity : BaseActivity() {
         val bluetoothBtn = findViewById<TextView>(R.id.bluetooth_btn)
         val isDeviceConnected = DeviceTools.isConnect()
         if (!isDeviceConnected) {
-            // 未连接
+            // [CN_TEXT]
             bluetoothBtn.text = getString(R.string.app_no_connect)
         } else {
-            // 已连接
+            // [CN_TEXT]
             bluetoothBtn.text = getString(R.string.app_connect)
         }
     }

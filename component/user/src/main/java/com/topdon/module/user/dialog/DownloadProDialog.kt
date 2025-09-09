@@ -13,7 +13,7 @@ import com.topdon.lib.core.R as RCore
 import java.text.DecimalFormat
 
 /**
- * 下载进度提示弹框.
+ * [CN_TEXT].
  * Created by LCG on 2024/3/5.
  */
 class DownloadProDialog(context: Context) : Dialog(context, LibAppR.style.InfoDialog) {
@@ -35,7 +35,7 @@ class DownloadProDialog(context: Context) : Dialog(context, LibAppR.style.InfoDi
     }
 
     /**
-     * 刷新进度值
+     * [CN_TEXT]
      */
     fun refreshProgress(current: Long, total: Long) {
         val progress = (current * 100f / total).toInt()

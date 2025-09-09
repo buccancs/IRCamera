@@ -10,52 +10,52 @@ import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.utils.CommUtils
 
 /**
- * 保存设置开关牵扯面太广，分布太乱，统一封装使用.
+ * [CN_TEXT]Settings[CN_TEXT]，[CN_TEXT]，[CN_TEXT].
  *
- * 当前类封装受“保存设置开关”影响的配置项，
+ * Current[CN_TEXT]“[CN_TEXT]Settings[CN_TEXT]”[CN_TEXT]，
  *
- * [SharedManager] 保存不受“保存设置开关”影响的配置项.
+ * [SharedManager] [CN_TEXT]“[CN_TEXT]Settings[CN_TEXT]”[CN_TEXT].
  */
 object SaveSettingUtil {
     /**
-     * 保存设置开关使用的 SharedPreferences 名称.
+     * [CN_TEXT]Settings[CN_TEXT] SharedPreferences [CN_TEXT].
      */
     private const val SP_NAME = "SaveSettingUtil"
 
     /**
-     * 双光1
+     * Dual light1
      */
     const val FusionTypeLPYFusion = 4
 
     /**
-     * 双光2
+     * Dual light2
      */
     const val FusionTypeMeanFusion = 2
 
     /**
-     * 单红外
+     * [CN_TEXT]Infrared
      */
-    const val FusionTypeIROnly = 1 // 单独红外
+    const val FusionTypeIROnly = 1 // [CN_TEXT]Infrared
 
     /**
-     * 单可见光
+     * [CN_TEXT]Visible light
      */
-    const val FusionTypeVLOnly = 0 // 单独可见光
+    const val FusionTypeVLOnly = 0 // [CN_TEXT]Visible light
 
     /**
-     * 画中画
+     * Picture in picture
      */
-    const val FusionTypeTC007Fusion = 7 // tc007的画中画
+    const val FusionTypeTC007Fusion = 7 // tc007[CN_TEXT]Picture in picture
 
     const val FusionTypeHSLFusion = 3
     const val FusionTypeScreenFusion = 5
     const val FusionTypeIROnlyNoFusion = 6
 
     /**
-     * 保存设置开关关闭时，要将所有影响的配置项重置为默认项.
+     * [CN_TEXT]Settings[CN_TEXT]，[CN_TEXT]All[CN_TEXT].
      */
     fun reset() {
-        // 热成像测温观测模式共有
+        // [CN_TEXT]Temperature measurementObservationMode[CN_TEXT]
         isMeasureTempMode = true
         isVideoMode = false
         isAutoShutter = true
@@ -66,7 +66,7 @@ object SaveSettingUtil {
         pseudoColorMode = 3
         rotateAngle = DeviceConfig.S_ROTATE_ANGLE
 
-        // 测温模式独有
+        // Temperature measurementMode[CN_TEXT]
         isOpenPseudoBar = true
         isOpenTwoLight = false
         twoLightAlpha = 50
@@ -75,7 +75,7 @@ object SaveSettingUtil {
         temperatureMode = CameraItemBean.TYPE_TMP_C
         alarmBean = AlarmBean()
 
-        // 观测模式独有
+        // ObservationMode[CN_TEXT]
         isOpenCompass = false
         isOpenHighPoint = false
         isOpenLowPoint = false
@@ -93,7 +93,7 @@ object SaveSettingUtil {
     }
 
     /**
-     * 是否开启保存设置开关，默认关闭.
+     * [CN_TEXT]Settings[CN_TEXT]，[CN_TEXT].
      */
     var isSaveSetting: Boolean
         get() = SPUtils.getInstance(SP_NAME).getBoolean("isSaveSetting", true)
@@ -102,7 +102,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像是否处于测温模式，默认测温模式 true-测温 false-观测
+     * [CN_TEXT]Temperature measurementMode，[CN_TEXT]Temperature measurementMode true-Temperature measurement false-Observation
      */
     var isMeasureTempMode: Boolean
         get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getBoolean("isMeasureTempMode", true) else true
@@ -113,7 +113,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 是否开启超分
+     * [CN_TEXT]
      */
     var isOpenAmplify: Boolean
         get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getBoolean("isOpenAmplify", false) else false
@@ -122,7 +122,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像是否选择录像模式，默认拍照 true-录像 false-拍照
+     * [CN_TEXT]VideoMode，[CN_TEXT]Photo true-Video false-Photo
      */
     var isVideoMode: Boolean
         get() =
@@ -139,7 +139,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像是否打开自动快门，默认打开 true-打开 false-关闭
+     * [CN_TEXT]，[CN_TEXT] true-[CN_TEXT] false-[CN_TEXT]
      */
     var isAutoShutter: Boolean
         get() =
@@ -156,7 +156,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像录像是否同时使用麦克风录制音频，默认关闭 true-开启 false-关闭
+     * [CN_TEXT]Video[CN_TEXT]，[CN_TEXT] true-[CN_TEXT] false-[CN_TEXT]
      */
     var isRecordAudio: Boolean
         get() =
@@ -173,7 +173,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 延迟拍照或延时录制的延时秒数，单位秒，默认0秒即不延迟.
+     * [CN_TEXT]Photo[CN_TEXT]，[CN_TEXT]，[CN_TEXT]0[CN_TEXT].
      */
     var delayCaptureSecond: Int
         get() =
@@ -196,7 +196,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-测温模式-是否开启双光，默认关闭 true-开启 false-关闭
+     * [CN_TEXT]-Temperature measurementMode-[CN_TEXT]Dual light，[CN_TEXT] true-[CN_TEXT] false-[CN_TEXT]
      */
     var isOpenTwoLight: Boolean
         get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getBoolean("isOpenTwoLight", false) else false
@@ -207,7 +207,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-测温模式-双光开启时融合度，取值`[0,100]`，0表示完全不透明，100表示完全透明，默认 50%
+     * [CN_TEXT]-Temperature measurementMode-Dual light[CN_TEXT]Fusion degree，[CN_TEXT]`[0,100]`，0[CN_TEXT]，100[CN_TEXT]，[CN_TEXT] 50%
      */
     var twoLightAlpha: Int
         get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getInt("twoLightAlpha", 50) else 50
@@ -218,7 +218,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像伪彩模式，取值为伪彩枚举值，默认铁红
+     * [CN_TEXT]Pseudo-colorMode，[CN_TEXT]Pseudo-color[CN_TEXT]，[CN_TEXT]Iron red
      */
     var pseudoColorMode: Int
         get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getInt("pseudoColorMode", 3) else 3
@@ -229,7 +229,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-测温模式-是否开启伪彩条，默认开启 true-开启 false-关闭
+     * [CN_TEXT]-Temperature measurementMode-[CN_TEXT]Pseudo-color[CN_TEXT]，[CN_TEXT] true-[CN_TEXT] false-[CN_TEXT]
      */
     var isOpenPseudoBar: Boolean
         get() =
@@ -246,7 +246,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像对比度，取值范围`[0,255]`，默认 128
+     * [CN_TEXT]，[CN_TEXT]`[0,255]`，[CN_TEXT] 128
      */
     var contrastValue: Int
         get() =
@@ -263,7 +263,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-测温模式-锐度(细节增强等级)，取值范围`[0,4]`，默认为 2
+     * [CN_TEXT]-Temperature measurementMode-[CN_TEXT]([CN_TEXT])，[CN_TEXT]`[0,4]`，[CN_TEXT] 2
      */
     var ddeConfig: Int
         get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getInt("ddeConfig", 2) else 2
@@ -274,7 +274,7 @@ object SaveSettingUtil {
         }
 
     /**
-     *热成像-测温模式-温度报警相关设置项.
+     *[CN_TEXT]-Temperature measurementMode-[CN_TEXT]Settings[CN_TEXT].
      */
     var alarmBean: AlarmBean
         get() =
@@ -291,7 +291,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像画面逆时针旋转角度，取值 0、90、180、270，默认 [DeviceConfig.S_ROTATE_ANGLE]
+     * [CN_TEXT]RotateAngle，[CN_TEXT] 0、90、180、270，[CN_TEXT] [DeviceConfig.S_ROTATE_ANGLE]
      */
     var rotateAngle: Int
         get() =
@@ -308,7 +308,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像是否开启镜像，默认关闭即不镜像 true-镜像 false-不镜像
+     * [CN_TEXT]，[CN_TEXT] true-[CN_TEXT] false-[CN_TEXT]
      */
     var isOpenMirror: Boolean
         get() =
@@ -325,7 +325,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-观测模式-是否开启指南针，默认关闭 true-开启 false-关闭
+     * [CN_TEXT]-ObservationMode-[CN_TEXT]，[CN_TEXT] true-[CN_TEXT] false-[CN_TEXT]
      */
     var isOpenCompass: Boolean
         get() =
@@ -342,7 +342,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-测温模式-温度字体颜色值，默认白色.
+     * [CN_TEXT]-Temperature measurementMode-[CN_TEXT]，[CN_TEXT].
      */
     var tempTextColor: Int
         get() =
@@ -359,7 +359,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-测温模式-温度字体颜色值，默认14sp.
+     * [CN_TEXT]-Temperature measurementMode-[CN_TEXT]，[CN_TEXT]14sp.
      */
     var tempTextSize: Int
         get() =
@@ -376,13 +376,13 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-测温模式-温度档位，默认常温，取值
+     * [CN_TEXT]-Temperature measurementMode-Temperature level，[CN_TEXT]Normal temperature，[CN_TEXT]
      *
-     * 常温 ([CameraItemBean.TYPE_TMP_C] = 1）
+     * Normal temperature ([CameraItemBean.TYPE_TMP_C] = 1）
      *
-     * 高温 ([CameraItemBean.TYPE_TMP_H] = 0)
+     * High temperature ([CameraItemBean.TYPE_TMP_H] = 0)
      *
-     * 自动 ([CameraItemBean.TYPE_TMP_ZD] = -1)
+     * [CN_TEXT] ([CameraItemBean.TYPE_TMP_ZD] = -1)
      */
     var temperatureMode: Int
         get() =
@@ -399,7 +399,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-观测模式-是否开启高温点，默认关闭 true-开启 false-关闭
+     * [CN_TEXT]-ObservationMode-[CN_TEXT]High temperature[CN_TEXT]，[CN_TEXT] true-[CN_TEXT] false-[CN_TEXT]
      */
     var isOpenHighPoint: Boolean
         get() =
@@ -416,7 +416,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-观测模式-是否开启低温点，默认关闭 true-开启 false-关闭
+     * [CN_TEXT]-ObservationMode-[CN_TEXT]Low temperature[CN_TEXT]，[CN_TEXT] true-[CN_TEXT] false-[CN_TEXT]
      */
     var isOpenLowPoint: Boolean
         get() =
@@ -433,15 +433,15 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-观测模式-选中AI追踪类型，默认未选中，取值
+     * [CN_TEXT]-ObservationMode-SelectedAI[CN_TEXT]Type，[CN_TEXT]Selected，[CN_TEXT]
      *
-     * 未选中 ([ObserveBean.TYPE_NONE] = -1)
+     * [CN_TEXT]Selected ([ObserveBean.TYPE_NONE] = -1)
      *
-     * 动态识别 ([ObserveBean.TYPE_DYN_R] = 0)
+     * Dynamic recognition ([ObserveBean.TYPE_DYN_R] = 0)
      *
-     * 高温源 ([ObserveBean.TYPE_TMP_H_S] = 1)
+     * High temperature[CN_TEXT] ([ObserveBean.TYPE_TMP_H_S] = 1)
      *
-     * 低温源 ([ObserveBean.TYPE_TMP_L_S] = 2)
+     * Low temperature[CN_TEXT] ([ObserveBean.TYPE_TMP_L_S] = 2)
      */
     var aiTraceType: Int
         get() =
@@ -458,7 +458,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-观测模式-标靶-是否开启标靶，默认关闭 true-开启 false-关闭
+     * [CN_TEXT]-ObservationMode-Target-[CN_TEXT]Target，[CN_TEXT] true-[CN_TEXT] false-[CN_TEXT]
      */
     var isOpenTarget: Boolean
         get() =
@@ -475,15 +475,15 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-观测模式-标靶-标靶测量模式，默认人，取值
+     * [CN_TEXT]-ObservationMode-Target-Target[CN_TEXT]Mode，[CN_TEXT]Person，[CN_TEXT]
      *
-     * 人 ([ObserveBean.TYPE_MEASURE_PERSON] = 10)
+     * Person ([ObserveBean.TYPE_MEASURE_PERSON] = 10)
      *
-     * 羊 ([ObserveBean.TYPE_MEASURE_SHEEP] = 11)
+     * Sheep ([ObserveBean.TYPE_MEASURE_SHEEP] = 11)
      *
-     * 狗 ([ObserveBean.TYPE_MEASURE_DOG] = 12)
+     * Dog ([ObserveBean.TYPE_MEASURE_DOG] = 12)
      *
-     * 鸟 ([ObserveBean.TYPE_MEASURE_BIRD] = 13)
+     * Bird ([ObserveBean.TYPE_MEASURE_BIRD] = 13)
      */
     var targetMeasureMode: Int
         get() =
@@ -502,13 +502,13 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-观测模式-标靶-标靶类型，默认横向，取值
+     * [CN_TEXT]-ObservationMode-Target-TargetType，[CN_TEXT]，[CN_TEXT]
      *
-     * 横向 ([ObserveBean.TYPE_TARGET_HORIZONTAL] = 15)
+     * [CN_TEXT] ([ObserveBean.TYPE_TARGET_HORIZONTAL] = 15)
      *
-     * 竖向 ([ObserveBean.TYPE_TARGET_VERTICAL] = 16)
+     * [CN_TEXT] ([ObserveBean.TYPE_TARGET_VERTICAL] = 16)
      *
-     * 圆形 ([ObserveBean.TYPE_TARGET_CIRCLE] = 17)
+     * [CN_TEXT] ([ObserveBean.TYPE_TARGET_CIRCLE] = 17)
      */
     var targetType: Int
         get() =
@@ -527,17 +527,17 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-观测模式-标靶-标靶颜色，默认绿色，取值
+     * [CN_TEXT]-ObservationMode-Target-Target[CN_TEXT]，[CN_TEXT]，[CN_TEXT]
      *
-     * 绿色 ([ObserveBean.TYPE_TARGET_COLOR_GREEN] = 20)
+     * [CN_TEXT] ([ObserveBean.TYPE_TARGET_COLOR_GREEN] = 20)
      *
-     * 红色 ([ObserveBean.TYPE_TARGET_COLOR_RED] = 21)
+     * [CN_TEXT] ([ObserveBean.TYPE_TARGET_COLOR_RED] = 21)
      *
-     * 蓝色 ([ObserveBean.TYPE_TARGET_COLOR_BLUE] = 22)
+     * [CN_TEXT] ([ObserveBean.TYPE_TARGET_COLOR_BLUE] = 22)
      *
-     * 黑色 ([ObserveBean.TYPE_TARGET_COLOR_BLACK] = 23)
+     * [CN_TEXT] ([ObserveBean.TYPE_TARGET_COLOR_BLACK] = 23)
      *
-     * 白色 ([ObserveBean.TYPE_TARGET_COLOR_WHITE] = 24)
+     * [CN_TEXT] ([ObserveBean.TYPE_TARGET_COLOR_WHITE] = 24)
      */
     var targetColorType: Int
         get() =
@@ -556,7 +556,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 报告-作者名称，默认值 App 名称.
+     * [CN_TEXT]-[CN_TEXT]，[CN_TEXT] App [CN_TEXT].
      */
     var reportAuthorName: String
         get() =
@@ -573,7 +573,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 报告-水印内容，默认值 App 名称.
+     * [CN_TEXT]-[CN_TEXT]，[CN_TEXT] App [CN_TEXT].
      */
     var reportWatermarkText: String
         get() =
@@ -590,7 +590,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 报告-环境湿度千分比，默认值500，取值`[0, 1000]`
+     * [CN_TEXT]-[CN_TEXT]，[CN_TEXT]500，[CN_TEXT]`[0, 1000]`
      */
     var reportHumidity: Int
         get() =

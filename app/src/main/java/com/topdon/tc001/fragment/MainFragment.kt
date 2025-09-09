@@ -36,7 +36,7 @@ import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONObject
 
 /**
- * 首页 Fragment.
+ * [CN_TEXT] Fragment.
  *
  * Created by LCG on 2024/4/18.
  */
@@ -129,7 +129,7 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
         viewLifecycleOwner.lifecycle.addObserver(
             object : DefaultLifecycleObserver {
                 override fun onResume(owner: LifecycleOwner) {
-                    // 要是当前已连接 TS004、TC007，切到流量上，不然登录注册意见反馈那些没网
+                    // [CN_TEXT]Current[CN_TEXT] TS004、TC007，[CN_TEXT]，[CN_TEXT]
                     if (WebSocketProxy.getInstance().isConnected()) {
                         NetWorkUtils.switchNetwork(true)
                     }
@@ -190,7 +190,7 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
 
     override fun onClick(v: View?) {
         when (v) {
-            binding.tvConnectDevice, binding.ivAdd -> { // 添加设备
+            binding.tvConnectDevice, binding.ivAdd -> { // [CN_TEXT]
                 startActivity(Intent(requireContext(), DeviceTypeActivity::class.java))
 //                NavigationManager.getInstance().build(RoutePath.UsbIrModule.PAGE_IR_MAIN_ACTIVITY)
 //                    .navigation()
@@ -201,8 +201,8 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onSocketMsgEvent(event: SocketMsgEvent) {
-        if (SocketCmdUtil.getCmdResponse(event.text) == WsCmdConstants.APP_EVENT_HEART_BEATS) { // 心跳
-            if (!adapter.hasConnectTC007) { // 当前连接的不是 TC007
+        if (SocketCmdUtil.getCmdResponse(event.text) == WsCmdConstants.APP_EVENT_HEART_BEATS) { // [CN_TEXT]
+            if (!adapter.hasConnectTC007) { // Current[CN_TEXT] TC007
                 return
             }
             try {
@@ -215,7 +215,7 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
 
     private class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
         /**
-         * 有线设备当前是否已连接.
+         * [CN_TEXT]Current[CN_TEXT].
          */
         var hasConnectLine: Boolean = false
             set(value) {
@@ -224,7 +224,7 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
             }
 
         /**
-         * TS004 当前是否已连接.
+         * TS004 Current[CN_TEXT].
          */
         var hasConnectTS004: Boolean = false
             set(value) {
@@ -233,7 +233,7 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
             }
 
         /**
-         * TC007 当前是否已连接.
+         * TC007 Current[CN_TEXT].
          */
         var hasConnectTC007: Boolean = false
             set(value) {
@@ -242,7 +242,7 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
             }
 
         /**
-         * TC007 设备电池信息.
+         * TC007 [CN_TEXT].
          */
         var tc007Battery: BatteryInfo? = null
             set(value) {
@@ -319,7 +319,7 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
                 ivBg.setOnLongClickListener {
                     val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
-                        // 只有离线设备才能长按删除
+                        // [CN_TEXT]Delete
                         val deviceType = getConnectType(position)
                         when (deviceType) {
                             ConnectType.LINE -> {

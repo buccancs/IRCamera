@@ -16,7 +16,7 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.utils.IRConfigData
 
 /**
- * 温度修正（环境温度、测温距离、发射率修改那个页面）常用发射率表 Adapter.
+ * [CN_TEXT]（[CN_TEXT]、Temperature measurement[CN_TEXT]、[CN_TEXT]）[CN_TEXT] Adapter.
  * Created by LCG on 2024/11/13.
  */
 class ConfigEmAdapter(val context: Context) : RecyclerView.Adapter<ConfigEmAdapter.ViewHolder>() {

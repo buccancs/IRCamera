@@ -692,13 +692,15 @@ class FileTransferManager:
                             if actual_size >= job.manifest.size_bytes:
                                 job.status = TransferStatus.COMPLETED
                                 logger.info(
-                                    f"Restored completed transfer: {job.manifest.filename}"
+                                    f"Restored completed transfer: "
+                                    f"{job.manifest.filename}"
                                 )
                             else:
                                 job.status = TransferStatus.PAUSED  # Resume later
                                 self.transfer_queue.append(job_id)
                                 logger.info(
-                                    f"Restored paused transfer: {job.manifest.filename} "
+                                    f"Restored paused transfer: "
+                                    f"{job.manifest.filename} "
                                     f"({actual_size}/{job.manifest.size_bytes} bytes)"
                                 )
                         else:

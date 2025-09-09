@@ -19,7 +19,7 @@ import com.topdon.lib.core.bean.ObserveBean
 
 
 /**
- * 缩放view基类 - Optimized findViewById usage
+ * [CN_TEXT]view[CN_TEXT] - Optimized findViewById usage
  */
 class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener{
     private var centerX: Float = Float.MAX_VALUE
@@ -28,7 +28,7 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
     private var isReverse : Boolean = false
     private lateinit var mTextureView : View
     private var canScale = false
-    private var def_caliper = 180f //2米是出厂测量数据标准
+    private var def_caliper = 180f //2[CN_TEXT]
     var magnifier : Magnifier ?= null
     var textureMagnifier : Magnifier ?= null
     var m : Float = 0.0f
@@ -88,7 +88,7 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
         val layoutParams =  mTextureView.layoutParams
         layoutParams.width  = showBitmapHeightWidth.toInt()
         layoutParams.height = showBitmapHeight.toInt()
-//        Log.e("测试","旋转后的宽高：标靶"+showBitmapHeight+"///"+imageHeight+"---")
+//        Log.e("[CN_TEXT]","Rotate[CN_TEXT]：Target"+showBitmapHeight+"///"+imageHeight+"---")
         mTextureView.layoutParams = layoutParams
         (mTextureView as ImageView ).setImageBitmap(originalBitmap)
     }
@@ -97,7 +97,7 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
         super.onDetachedFromWindow()
     }
 
-    private var startX = 0f//记录落点到控件的距离
+    private var startX = 0f//[CN_TEXT]
     private var startY = 0f
     private var moveX = 0f
     private var moveY = 0f
@@ -105,10 +105,10 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
     private var parentViewH = 0f
     private var isScale = false
     private var scale = 1f
-    private var scaleW = 0f//单边缩放长度
+    private var scaleW = 0f//[CN_TEXT]
     private var scaleH = 0f
 
-    //原始图片
+    //[CN_TEXT]
     private lateinit var originalBitmap: Bitmap
     private var imageWidth = 0
     private var imageHeight = 0
@@ -147,10 +147,10 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
             }
             MotionEvent.ACTION_MOVE -> {
                 if (isCheckChildView){
-                    //滑动
+                    //[CN_TEXT]
                     moveX = event.x - startX
                     moveY = event.y - startY
-                    //越界归位
+                    //[CN_TEXT]
                     if(m < 100f && m >= 50f){
                         contentWith   = (mTextureView.measuredWidth / 2).toInt()
                         contentHeight = (mTextureView.measuredHeight / 2).toInt()
@@ -246,7 +246,7 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
     }
 
     override fun onScale(detector: ScaleGestureDetector): Boolean {
-        //缩放
+        //[CN_TEXT]
         isScale = true
         detector?.let {
             val scaleFactor = it.scaleFactor - 1
@@ -265,7 +265,7 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
     override fun onScaleEnd(detector: ScaleGestureDetector) {
     }
 
-    /**预览大小 */
+    /**[CN_TEXT] */
     private var mPreviewSize: Size? = null
 
 
@@ -326,7 +326,7 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
         val targetIcon = TargetUtils.getSelectTargetDraw(targetMeasureMode, targetType, targetColorType)
         originalBitmap = (androidx.core.content.ContextCompat.getDrawable(context, targetIcon) as? BitmapDrawable)?.bitmap ?: return
         (mTextureView as ImageView ).setImageBitmap(originalBitmap)
-//        Log.e("测试","旋转后的宽高updateSelectBitmap"+parentCameraView!!.width+"---"+parentCameraView!!.height)
+//        Log.e("[CN_TEXT]","Rotate[CN_TEXT]updateSelectBitmap"+parentCameraView!!.width+"---"+parentCameraView!!.height)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             magnifier?.dismiss()
             if (m >= 100f){
@@ -400,7 +400,7 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
     }
 
     /**
-     * 还原
+     * [CN_TEXT]
      */
     fun del(reductionXY: Boolean) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {

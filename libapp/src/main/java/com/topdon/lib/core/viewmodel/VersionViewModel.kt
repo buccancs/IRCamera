@@ -11,40 +11,40 @@ class VersionViewModel : BaseViewModel() {
     val updateLiveData = SingleLiveEvent<VersionUpData>()
 
     /**
-     * forcedUpgradeFlag: 1 强制更新    0 非强制更新
-     * descType: 包含3时,显示给用户(descType获取升级描述信息)
+     * forcedUpgradeFlag: 1 [CN_TEXT]    0 [CN_TEXT]
+     * descType: [CN_TEXT]3[CN_TEXT],[CN_TEXT](descType[CN_TEXT])
      */
     fun checkVersion() {
 //        viewModelScope.launch(Dispatchers.IO) {
 //            try {
 //                if (TimeUtils.isToday(SharedManager.getVersionCheckDate())) {
-//                    Log.w("123", "今天已有版本更新提示")
+//                    Log.w("123", "[CN_TEXT]")
 //                    return@launch
 //                }
 //                val result: CheckVersionJson = LmsRepository.getVersionInfo() ?: return@launch
 //                /*if (result.googleVerCode > AppUtils.getAppVersionCode()) {
-//                    // google play需要升级
+//                    // google play[CN_TEXT]
 //                    updateTip(result)
 //                    return@launch
 //                }*/
 //                if (VersionTool.checkVersion(remoteStr = result.versionNo ?: "1.0", localStr = AppUtils.getAppVersionName())) {
-//                    // google play检测不出时,官方升级,根据app情况跳转对应的升级渠道
+//                    // google play[CN_TEXT],[CN_TEXT],[CN_TEXT]app[CN_TEXT]
 //                    updateTip(result)
 //                    return@launch
 //                }
 //            } catch (e: Exception) {
-//                XLog.e("检测异常: ${e.message}")
+//                XLog.e("[CN_TEXT]: ${e.message}")
 //            }
 //        }
     }
 
     private fun updateTip(result: CheckVersionJson) {
-        val isForcedUpgrade = (result.forcedUpgradeFlag?.toInt() ?: 0) == 1 // 1: 强制升级
+        val isForcedUpgrade = (result.forcedUpgradeFlag?.toInt() ?: 0) == 1 // 1: [CN_TEXT]
         val description = getDescription(result.softConfigOtherTypeVOList)
         val downPageUrl = result.downloadPageUrl
         val sizeStr = "${result.notUnZipSize}MB"
 
-        XLog.i("有版本升级,升级信息: $description, 是否强制升级: $isForcedUpgrade")
+        XLog.i("[CN_TEXT],[CN_TEXT]: $description, [CN_TEXT]: $isForcedUpgrade")
 
         val versionUpData =
             VersionUpData(
@@ -58,7 +58,7 @@ class VersionViewModel : BaseViewModel() {
     }
 
     /**
-     * 获取升级信息
+     * [CN_TEXT]
      */
     private fun getDescription(list: List<SoftConfigOtherTypeVO>?): String {
         list?.forEach {

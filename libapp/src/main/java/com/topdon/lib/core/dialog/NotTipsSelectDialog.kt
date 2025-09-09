@@ -10,7 +10,7 @@ import com.topdon.lib.core.databinding.DialogNotTipsSelectBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * 与 TipDialog 类似，不过多了个 “不再提示” 选中效果的提示弹窗.
+ * [CN_TEXT] TipDialog [CN_TEXT]，[CN_TEXT] “[CN_TEXT]” Selected[CN_TEXT].
  *
  * Created by LCG on 2024/10/26.
  */
@@ -29,7 +29,7 @@ class NotTipsSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
     }
 
     /**
-     * 点击 “我知道了” 事件监听.
+     * [CN_TEXT] “[CN_TEXT]” [CN_TEXT].
      */
     fun setOnConfirmListener(l: ((isSelect: Boolean) -> Unit)?): NotTipsSelectDialog {
         onConfirmListener = l

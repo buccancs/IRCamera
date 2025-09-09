@@ -8,42 +8,42 @@ import androidx.appcompat.widget.AppCompatTextView
 import com.topdon.lib.core.R
 
 /**
- * 魔改 TextView.
+ * [CN_TEXT] TextView.
  *
- * 原生 TextView 附加的 drawable 尺寸不可设置，这个 TextView 可以设置高度，宽度等比缩放.
+ * [CN_TEXT] TextView [CN_TEXT] drawable [CN_TEXT]Settings，[CN_TEXT] TextView [CN_TEXT]Settings[CN_TEXT]，[CN_TEXT].
  *
- * 其中 wrap_content 使用原生逻辑，不设置则使用 textSize（默认），指定值>0则使用指定值.
+ * [CN_TEXT] wrap_content [CN_TEXT]，[CN_TEXT]Settings[CN_TEXT] textSize（[CN_TEXT]），Specified[CN_TEXT]>0[CN_TEXT]Specified[CN_TEXT].
  *
  * Created by chenggeng.lin on 2023/11/21.
  */
 class MyTextView : AppCompatTextView {
     /**
-     * drawableTop 高度，单位 **px**
+     * drawableTop [CN_TEXT]，[CN_TEXT] **px**
      */
     private var topHeight = 0
 
     /**
-     * drawableBottom 高度，单位 **px**
+     * drawableBottom [CN_TEXT]，[CN_TEXT] **px**
      */
     private var bottomHeight = 0
 
     /**
-     * drawableStart 高度，单位 **px**
+     * drawableStart [CN_TEXT]，[CN_TEXT] **px**
      */
     private var startHeight = 0
 
     /**
-     * drawableEnd 高度，单位 **px**
+     * drawableEnd [CN_TEXT]，[CN_TEXT] **px**
      */
     private var endHeight = 0
 
     /**
-     * drawableLeft 高度，单位 **px**
+     * drawableLeft [CN_TEXT]，[CN_TEXT] **px**
      */
     private var leftHeight = 0
 
     /**
-     * drawableRight 高度，单位 **px**
+     * drawableRight [CN_TEXT]，[CN_TEXT] **px**
      */
     private var rightHeight = 0
 
@@ -62,7 +62,7 @@ class MyTextView : AppCompatTextView {
         rightHeight = typedArray.getDimensionPixelSize(R.styleable.MyTextView_right_height, drawableHeight)
         typedArray.recycle()
 
-        // 取出设置的各个Drawable
+        // [CN_TEXT]Settings[CN_TEXT]Drawable
         val drawables = compoundDrawables
         val relativeDrawables = compoundDrawablesRelative
         val left = drawables[0]
@@ -124,7 +124,7 @@ class MyTextView : AppCompatTextView {
     }
 
     /**
-     * 统一设置该 TextView 所有 compound drawable 高度，单位**px**.
+     * [CN_TEXT]Settings[CN_TEXT] TextView All compound drawable [CN_TEXT]，[CN_TEXT]**px**.
      */
     fun setDrawableHeightPx(pxHeight: Int) {
         topHeight = pxHeight
@@ -137,14 +137,14 @@ class MyTextView : AppCompatTextView {
     }
 
     /**
-     * 设置 drawableStart 并将其他 drawableXX 置为 null.
+     * Settings drawableStart [CN_TEXT] drawableXX [CN_TEXT] null.
      */
     fun setOnlyDrawableStart(drawable: Drawable?) {
         setCompoundDrawablesRelative(drawable, null, null, null)
     }
 
     /**
-     * 设置 drawableStart 并将其他 drawableXX 置为 null.
+     * Settings drawableStart [CN_TEXT] drawableXX [CN_TEXT] null.
      */
     fun setOnlyDrawableStart(
         @DrawableRes start: Int,
@@ -153,8 +153,8 @@ class MyTextView : AppCompatTextView {
     }
 
     /**
-     * 判断是否有设置任意 drawable.
-     * true-至少有一个 drawable false-一个都没有
+     * [CN_TEXT]Settings[CN_TEXT] drawable.
+     * true-[CN_TEXT] drawable false-[CN_TEXT]
      */
     fun hasAnyDrawable(): Boolean {
         for (drawable in compoundDrawables) {
@@ -171,7 +171,7 @@ class MyTextView : AppCompatTextView {
     }
 
     /**
-     * 为指定 drawable 设置指定高度，宽度等比缩放 bounds.
+     * [CN_TEXT]Specified drawable SettingsSpecified[CN_TEXT]，[CN_TEXT] bounds.
      */
     private fun setDrawableBounds(
         drawable: Drawable?,

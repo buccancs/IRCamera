@@ -16,12 +16,12 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
- * 温度监控 Tab 页，包含
- * - 历史 [IRMonitorHistoryFragment]
- * - 实时 [IRMonitorCaptureFragment]
+ * [CN_TEXT] Tab [CN_TEXT]，[CN_TEXT]
+ * - [CN_TEXT] [IRMonitorHistoryFragment]
+ * - [CN_TEXT] [IRMonitorCaptureFragment]
  *
- * 需要传递参数：
- * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
+ * [CN_TEXT]：
+ * - [ExtraKeyConfig.IS_TC007] - Current[CN_TEXT] TC007
  *
  * Created by LCG on 2024/8/20.
  */

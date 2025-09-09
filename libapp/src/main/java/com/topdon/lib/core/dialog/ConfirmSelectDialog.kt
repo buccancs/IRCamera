@@ -13,7 +13,7 @@ import com.topdon.lib.core.databinding.DialogConfirmSelectBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * TS004 远端图库删除提示弹框.
+ * TS004 [CN_TEXT]GalleryDelete[CN_TEXT].
  *
  * Created by LCG on 2024/2/29.
  */
@@ -22,7 +22,7 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
     private lateinit var binding: DialogConfirmSelectBinding
 
     /**
-     * 是否显示顶部信息图标，默认不显示.
+     * [CN_TEXT]，[CN_TEXT].
      */
     fun setShowIcon(isShowIcon: Boolean) {
         binding.ivIcon.isVisible = isShowIcon
@@ -39,7 +39,7 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
     }
 
     /**
-     * 是否显示提示文字及选中效果，默认不显示.
+     * [CN_TEXT]Selected[CN_TEXT]，[CN_TEXT].
      */
     fun setShowMessage(isShowMessage: Boolean) {
         binding.rlMessage.isVisible = isShowMessage
@@ -52,14 +52,14 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
     }
 
     /**
-     * 是否显示取消按钮，默认显示且默认文字为“取消”.
+     * [CN_TEXT]，[CN_TEXT]“[CN_TEXT]”.
      */
     fun setShowCancel(isShowCancel: Boolean) {
         binding.tvCancel.isVisible = isShowCancel
     }
 
     /**
-     * 设置取消按钮文字，默认为“取消”.
+     * Settings[CN_TEXT]，[CN_TEXT]“[CN_TEXT]”.
      */
     fun setCancelText(
         @StringRes cancelRes: Int,
@@ -68,7 +68,7 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
     }
 
     /**
-     * 设置确认按钮文字，默认为“删除"
+     * Settings[CN_TEXT]，[CN_TEXT]“Delete"
      */
     fun setConfirmText(
         @StringRes confirmRes: Int,
@@ -98,13 +98,13 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
 
     override fun onClick(v: View?) {
         when (v) {
-            binding.rlMessage -> { // 选中状态
+            binding.rlMessage -> { // SelectedState
                 binding.ivSelect.isSelected = !binding.ivSelect.isSelected
             }
-            binding.tvCancel -> { // 取消
+            binding.tvCancel -> { // [CN_TEXT]
                 dismiss()
             }
-            binding.tvConfirm -> { // 确认
+            binding.tvConfirm -> { // [CN_TEXT]
                 dismiss()
                 onConfirmClickListener?.invoke(binding.ivSelect.isSelected)
             }

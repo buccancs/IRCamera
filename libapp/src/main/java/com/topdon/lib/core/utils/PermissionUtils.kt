@@ -7,13 +7,13 @@ import androidx.core.content.ContextCompat
 import com.topdon.lib.core.BaseApplication
 
 /**
- * des: 统一处理android 14的权限
+ * des: [CN_TEXT]android 14[CN_TEXT]
  * author: CaiSongL
  * date: 2024/9/9 9:45
  **/
 object PermissionUtils {
     /**
-     * android 14是否授权了部分读取权限
+     * android 14[CN_TEXT]
      * @return Boolean
      */
     fun isVisualUser(): Boolean  {

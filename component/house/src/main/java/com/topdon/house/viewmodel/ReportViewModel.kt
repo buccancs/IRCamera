@@ -13,17 +13,17 @@ import kotlinx.coroutines.launch
 import java.io.File
 
 /**
- * 房屋报告 ViewModel.
+ * [CN_TEXT] ViewModel.
  *
  * Created by LCG on 2024/8/28.
  */
 class ReportViewModel(application: Application) : AndroidViewModel(application) {
     /**
-     * 所有房屋报告列表，调用 [queryAll] 会触发更改.
+     * All[CN_TEXT]，[CN_TEXT] [queryAll] [CN_TEXT].
      */
     val reportListLD =  MutableLiveData<List<HouseReport>>()
     /**
-     * 查询所有房屋检测列表，结果通过 [reportListLD] 返回.
+     * [CN_TEXT]All[CN_TEXT]，[CN_TEXT] [reportListLD] [CN_TEXT].
      */
     fun queryAll() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -33,11 +33,11 @@ class ReportViewModel(application: Application) : AndroidViewModel(application) 
 
 
     /**
-     * 一项房屋报告，调用 [queryById] 会触发更改.
+     * [CN_TEXT]，[CN_TEXT] [queryById] [CN_TEXT].
      */
     val reportLD = MutableLiveData<HouseReport?>()
     /**
-     * 查询指定 id 的房屋报告数据，结果通过 [reportLD] 返回.
+     * [CN_TEXT]Specified id [CN_TEXT]，[CN_TEXT] [reportLD] [CN_TEXT].
      */
     fun queryById(id: Long) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -47,7 +47,7 @@ class ReportViewModel(application: Application) : AndroidViewModel(application) 
 
 
     /**
-     * 更新指定的一项房屋报告.
+     * [CN_TEXT]Specified[CN_TEXT].
      */
     fun update(houseReport: HouseReport) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -57,7 +57,7 @@ class ReportViewModel(application: Application) : AndroidViewModel(application) 
 
 
     /**
-     * 删除指定的房屋报告数据.
+     * DeleteSpecified[CN_TEXT].
      */
     fun deleteMore(vararg houseReports: HouseReport) {
         viewModelScope.launch(Dispatchers.IO) {

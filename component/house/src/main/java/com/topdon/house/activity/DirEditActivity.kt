@@ -37,10 +37,10 @@ import org.greenrobot.eventbus.EventBus
 import java.util.Collections
 
 /**
- * 房屋检测 - 目录编辑.
+ * [CN_TEXT] - [CN_TEXT].
  *
- * 需要传递：
- * - [ExtraKeyConfig.DETECT_ID] - 执行检测的房屋检测 Id
+ * [CN_TEXT]：
+ * - [ExtraKeyConfig.DETECT_ID] - [CN_TEXT] Id
  *
  * Created by LCG on 2024/8/26.
  */
@@ -106,7 +106,7 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v) {
             findViewById<ImageView>(R.id.iv_exit) -> showExitTipsDialog()
-            findViewById<ImageView>(R.id.iv_save) -> {//保存
+            findViewById<ImageView>(R.id.iv_save) -> {//[CN_TEXT]
                 val houseDetect: HouseDetect = viewModel.detectLD.value ?: return
                 showLoadingDialog()
                 lifecycleScope.launch(Dispatchers.IO) {
@@ -120,14 +120,14 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
                     }
                 }
             }
-            findViewById<View>(R.id.view_select_all) -> {//全选、取消全选
+            findViewById<View>(R.id.view_select_all) -> {//[CN_TEXT]、[CN_TEXT]
                 adapter.isSelectAll = !adapter.isSelectAll
             }
-            findViewById<View>(R.id.view_copy) -> {//复制
+            findViewById<View>(R.id.view_copy) -> {//[CN_TEXT]
                 adapter.copySelect()
                 TToast.shortToast(this@DirEditActivity, LibR.string.ts004_copy_success)
             }
-            findViewById<View>(R.id.view_del) -> {//删除
+            findViewById<View>(R.id.view_del) -> {//Delete
                 TipDialog.Builder(this)
                     .setTitleMessage(getString(LibR.string.tips_del_item_title))
                     .setMessage(LibR.string.tips_del_item_content)
@@ -145,7 +145,7 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
                     }
                     .create().show()
             }
-            findViewById<TextView>(R.id.tv_add) -> {//新增默认目录
+            findViewById<TextView>(R.id.tv_add) -> {//[CN_TEXT]
                 val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
                 val clBottom = findViewById<ConstraintLayout>(R.id.cl_bottom)
                 val clEmpty = findViewById<ConstraintLayout>(R.id.cl_empty)
@@ -165,7 +165,7 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 显示退出不保存提示弹框
+     * [CN_TEXT]
      */
     private fun showExitTipsDialog() {
         TipDialog.Builder(this)
@@ -212,21 +212,21 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
         var dataList: ArrayList<DirDetect> = ArrayList(0)
 
         /**
-         * 当前已选中的数量.
+         * Current[CN_TEXT]Selected[CN_TEXT].
          */
         private var selectCount = 0
         /**
-         * 当前是否已全选 true-已全选 false-未全选
+         * Current[CN_TEXT] true-[CN_TEXT] false-[CN_TEXT]
          */
         var isSelectAll: Boolean
             get() = selectCount == dataList.size && dataList.size > 0
             set(value) {
-                if (value) {//->全选
+                if (value) {//->[CN_TEXT]
                     selectCount = dataList.size
                     for (dir in dataList) {
                         dir.hasSelect = true
                     }
-                } else {//全选->取消全选
+                } else {//[CN_TEXT]->[CN_TEXT]
                     selectCount = 0
                     for (dir in dataList) {
                         dir.hasSelect = false
@@ -237,7 +237,7 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
             }
 
         /**
-         * 一个 item 选中或取消选中事件监听.
+         * [CN_TEXT] item Selected[CN_TEXT]Selected[CN_TEXT].
          */
         var onSelectChangeListener: ((selectSize: Int) -> Unit)? = null
 
@@ -247,7 +247,7 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
         }
 
         /**
-         * 删除选中的目录.
+         * DeleteSelected[CN_TEXT].
          */
         fun delSelect() {
             selectCount = 0
@@ -266,7 +266,7 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
         }
 
         /**
-         * 复制选中的目录.
+         * [CN_TEXT]Selected[CN_TEXT].
          */
         fun copySelect() {
             selectCount *= 2

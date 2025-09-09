@@ -11,7 +11,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import com.infisense.usbir.R
 
 /**
- * 卡尺图片
+ * [CN_TEXT]
  * @author: CaiSongL
  * @date: 2023/10/25 13:31
  */

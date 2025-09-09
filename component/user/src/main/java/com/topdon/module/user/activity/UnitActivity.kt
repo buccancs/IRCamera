@@ -7,7 +7,7 @@ import com.topdon.lib.core.common.SharedManager
 import com.topdon.module.user.databinding.ActivityUnitBinding
 
 /**
- * 温度单位切换
+ * [CN_TEXT]Switch
  */
 class UnitActivity : AppCompatActivity() {
 

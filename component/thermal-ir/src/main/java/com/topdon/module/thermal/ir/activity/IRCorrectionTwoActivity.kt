@@ -16,19 +16,19 @@ import org.greenrobot.eventbus.ThreadMode
 
 /**
  *
- * 锅盖矫正
+ * [CN_TEXT]
  * @author: CaiSongL
  * @date: 2023/8/4 9:06
  *
- * 需要传递参数：
- * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
+ * [CN_TEXT]：
+ * - [ExtraKeyConfig.IS_TC007] - Current[CN_TEXT] TC007
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class IRCorrectionTwoActivity : BaseActivity() {
 
     /**
-     * From上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
+     * From[CN_TEXT]，Current[CN_TEXT] TC007 [CN_TEXT]Type.
+     * true-TC007 false-[CN_TEXT]
      */
     private var isTC007 = false
     

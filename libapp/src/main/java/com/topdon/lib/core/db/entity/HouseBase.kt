@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 import com.blankj.utilcode.util.TimeUtils
 
 /**
- * 房屋检测 - 检测与报告都有的栏位.
+ * [CN_TEXT] - [CN_TEXT].
  *
  * Created by LCG on 2024/1/15.
  */
@@ -16,73 +16,73 @@ open class HouseBase {
     var id: Long = 0
 
     /**
-     * 报告名称
+     * [CN_TEXT]
      */
     @ColumnInfo
     var name: String = ""
 
     /**
-     * 检测师姓名
+     * [CN_TEXT]
      */
     @ColumnInfo
     var inspectorName: String = ""
 
     /**
-     * 房屋详细地址
+     * [CN_TEXT]
      */
     @ColumnInfo
     var address: String = ""
 
     /**
-     * 房屋图片在本地绝对路径
+     * [CN_TEXT]
      */
     @ColumnInfo
     var imagePath: String = ""
 
     /**
-     * 建筑年份
+     * [CN_TEXT]
      */
     @ColumnInfo
     var year: Int? = null
 
     /**
-     * 建筑面积.
+     * [CN_TEXT].
      */
     @ColumnInfo
     var houseSpace: String = ""
 
     /**
-     * 建筑面积单位 0-英亩 1-平方米 2-公顷
+     * [CN_TEXT] 0-[CN_TEXT] 1-[CN_TEXT] 2-[CN_TEXT]
      */
     @ColumnInfo
     var houseSpaceUnit: Int = 0
 
     /**
-     * 检测费用
+     * [CN_TEXT]
      */
     @ColumnInfo
     var cost: String = ""
 
     /**
-     * 检测费用单位，0-美元USD 1-欧元EUR 2-英镑GBP 3-澳元AUD 4-日元JPY 5-加元CAD 6-新西兰NZD 7-人民币RMB 8-港币HKD
+     * [CN_TEXT]，0-[CN_TEXT]USD 1-[CN_TEXT]EUR 2-[CN_TEXT]GBP 3-[CN_TEXT]AUD 4-[CN_TEXT]JPY 5-[CN_TEXT]CAD 6-[CN_TEXT]NZD 7-Person[CN_TEXT]RMB 8-[CN_TEXT]HKD
      */
     @ColumnInfo
     var costUnit: Int = 0
 
     /**
-     * 该检测或报告由用户选择的“检测时间”时间戳，单位毫秒
+     * [CN_TEXT]“[CN_TEXT]”[CN_TEXT]，[CN_TEXT]
      */
     @ColumnInfo
     var detectTime: Long = 0
 
     /**
-     * 该检测或报告创建时间戳，单位毫秒
+     * [CN_TEXT]，[CN_TEXT]
      */
     @ColumnInfo
     var createTime: Long = 0
 
     /**
-     * 该检测或报告更新时间戳，单位毫秒
+     * [CN_TEXT]，[CN_TEXT]
      */
     @ColumnInfo
     var updateTime: Long = 0
@@ -92,7 +92,7 @@ open class HouseBase {
     override fun hashCode(): Int = id.toInt()
 
     /**
-     * 获取房屋面积单位.
+     * [CN_TEXT].
      */
     fun getSpaceUnitStr(): String =
         when (houseSpaceUnit) {
@@ -102,40 +102,40 @@ open class HouseBase {
         }
 
     /**
-     * 获取检测费用货币单位.
+     * [CN_TEXT].
      */
     fun getCostUnitStr(): String =
         when (costUnit) {
-            1 -> "EUR" // 欧元EUR
-            2 -> "GBP" // 英镑GBP
-            3 -> "AUD" // 澳元AUD
-            4 -> "JPY" // 日元JPY
-            5 -> "CAD" // 加元CAD
-            6 -> "NZD" // 新西兰NZD
-            7 -> "RMB" // 人民币RMB
-            8 -> "HKD" // 港币HKD
-            else -> "USD" // 美元USD
+            1 -> "EUR" // [CN_TEXT]EUR
+            2 -> "GBP" // [CN_TEXT]GBP
+            3 -> "AUD" // [CN_TEXT]AUD
+            4 -> "JPY" // [CN_TEXT]JPY
+            5 -> "CAD" // [CN_TEXT]CAD
+            6 -> "NZD" // [CN_TEXT]NZD
+            7 -> "RMB" // Person[CN_TEXT]RMB
+            8 -> "HKD" // [CN_TEXT]HKD
+            else -> "USD" // [CN_TEXT]USD
         }
 
     /**
-     * 获取该报告对应的 PDF 文件名称
+     * [CN_TEXT] PDF [CN_TEXT]
      */
     fun getPdfFileName(): String = "TC_${TimeUtils.millis2String(createTime, "yyyyMMdd_HHmmss")}.pdf"
 }
 
 /**
- * 房屋检测 - 一项检测.
+ * [CN_TEXT] - [CN_TEXT].
  */
 @Entity
 class HouseDetect : HouseBase() {
     /**
-     * 该检测或下的目录列表
+     * [CN_TEXT]
      */
     @Ignore
     var dirList: ArrayList<DirDetect> = ArrayList()
 
     /**
-     * 返回一个 id 为 0，名称添加 (1)，其余属性完全一致的新对象.
+     * [CN_TEXT] id [CN_TEXT] 0，[CN_TEXT] (1)，[CN_TEXT].
      */
     fun copyOne(): HouseDetect {
         val newDetect = HouseDetect()
@@ -186,36 +186,36 @@ class HouseDetect : HouseBase() {
 }
 
 /**
- * 房屋检测 - 一项报告.
+ * [CN_TEXT] - [CN_TEXT].
  */
 @Entity
 class HouseReport : HouseBase() {
     /**
-     * 检测师签名图片（白色笔刷版）在本地绝对路径
+     * [CN_TEXT]（[CN_TEXT]）[CN_TEXT]
      */
     @ColumnInfo
     var inspectorWhitePath: String = ""
 
     /**
-     * 检测师签名图片（黑色笔刷版）在本地绝对路径
+     * [CN_TEXT]（[CN_TEXT]）[CN_TEXT]
      */
     @ColumnInfo
     var inspectorBlackPath: String = ""
 
     /**
-     * 房主签名图片（白色笔刷版）在本地绝对路径
+     * [CN_TEXT]（[CN_TEXT]）[CN_TEXT]
      */
     @ColumnInfo
     var houseOwnerWhitePath: String = ""
 
     /**
-     * 房主签名图片（黑色笔刷版）在本地绝对路径
+     * [CN_TEXT]（[CN_TEXT]）[CN_TEXT]
      */
     @ColumnInfo
     var houseOwnerBlackPath: String = ""
 
     /**
-     * 该报告下的目录列表
+     * [CN_TEXT]
      */
     @Ignore
     var dirList: ArrayList<DirReport> = ArrayList()

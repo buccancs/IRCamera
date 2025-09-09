@@ -16,12 +16,12 @@ import com.topdon.menu.constant.TargetType
 import com.topdon.lib.ui.R as UiR
 import com.topdon.menu.R as MenuR
 
-@Deprecated("旧的标靶菜单，已重构过了")
+@Deprecated("[CN_TEXT]TargetMenu，[CN_TEXT]")
 class MenuTargetAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var listener: ((code: Int) -> Unit)? = null
 
     /**
-     * 设置指定选项的选中状态
+     * SettingsSpecifiedOption[CN_TEXT]SelectedState
      */
     fun setSelected(
         targetType: TargetType,
@@ -64,7 +64,7 @@ class MenuTargetAdapter(val context: Context) : RecyclerView.Adapter<RecyclerVie
         )
 
     /**
-     * 刷新测量模式图标
+     * [CN_TEXT]Mode[CN_TEXT]
      */
     fun upCurrentMeasureMode(measureMode: Int)  {
         secondBean.clear()
@@ -174,7 +174,7 @@ class MenuTargetAdapter(val context: Context) : RecyclerView.Adapter<RecyclerVie
         val name: TextView = itemView.findViewById(UiR.id.item_menu_tab_text)
 
         init {
-//            val canSeeCount = 4.5 //一屏占4个
+//            val canSeeCount = 4.5 //[CN_TEXT]4[CN_TEXT]
 //            val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()
             itemView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
 //            val imageSize = (ScreenUtils.getScreenWidth() * 62 / 375f).toInt()

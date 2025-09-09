@@ -16,16 +16,16 @@ import com.topdon.module.thermal.ir.report.bean.ReportIRBean
 import com.topdon.module.thermal.ir.report.bean.ReportTempBean
 
 /**
- * 一项红外数据预览 View.
+ * [CN_TEXT]Infrared[CN_TEXT] View.
  *
- * 包含一张图片对应的 全图、点、线、面 预览信息.
+ * [CN_TEXT] [CN_TEXT]、[CN_TEXT]、[CN_TEXT]、[CN_TEXT] [CN_TEXT].
  */
 class ReportIRShowView: LinearLayout {
     companion object {
-        private const val TYPE_FULL = 0 //全图
-        private const val TYPE_POINT = 1//点
-        private const val TYPE_LINE = 2 //线
-        private const val TYPE_RECT = 3 //面
+        private const val TYPE_FULL = 0 //[CN_TEXT]
+        private const val TYPE_POINT = 1//[CN_TEXT]
+        private const val TYPE_LINE = 2 //[CN_TEXT]
+        private const val TYPE_RECT = 3 //[CN_TEXT]
     }
 
     // View references - migrated from synthetic views
@@ -112,7 +112,7 @@ class ReportIRShowView: LinearLayout {
             else -> context.getString(LibR.string.thermal_rect) + "(R)"
         }
         tvAverageTitle.text = when (type) {
-            TYPE_FULL, TYPE_POINT -> "" //全图、点没有平均温
+            TYPE_FULL, TYPE_POINT -> "" //[CN_TEXT]、[CN_TEXT]
             TYPE_LINE -> "L${index + 1} " + context.getString(LibR.string.album_report_mean_temperature)
             else -> "R${index + 1} " + context.getString(LibR.string.album_report_mean_temperature)
         }
@@ -125,7 +125,7 @@ class ReportIRShowView: LinearLayout {
     }
 
     /**
-     * 获取需要转为 PDF 的所有 View 列表.
+     * [CN_TEXT] PDF [CN_TEXT]All View [CN_TEXT].
      */
     fun getPrintViewList(): ArrayList<View> {
         val result = ArrayList<View>()
@@ -261,7 +261,7 @@ class ReportIRShowView: LinearLayout {
         tvTitleRect4.isVisible = !clRect1.isVisible && !clRect2.isVisible && !clRect3.isVisible
         tvTitleRect5.isVisible = !clRect1.isVisible && !clRect2.isVisible && !clRect3.isVisible && !clRect4.isVisible
 
-        // 把最后一条分割线藏起来
+        // [CN_TEXT]
         if (rectList.isNotEmpty()) {
             when (rectList.size) {
                 1 -> hideLastLine(isLast, clRect1, rectList[0], TYPE_RECT)

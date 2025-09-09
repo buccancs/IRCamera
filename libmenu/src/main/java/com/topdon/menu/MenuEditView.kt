@@ -29,7 +29,7 @@ class MenuEditView : FrameLayout, View.OnClickListener {
      */
     var onTabClickListener: ((selectPosition: Int) -> Unit)? = null
     /**
-     * 伪彩条图标点击事件监听.
+     * Pseudo-color[CN_TEXT].
      */
     var onBarClickListener: ((isBarSelect: Boolean) -> Unit)? = null
 
@@ -59,7 +59,7 @@ class MenuEditView : FrameLayout, View.OnClickListener {
 
 
     /**
-     * 当前选中那个 tab，取值 `[0,2]`
+     * CurrentSelected[CN_TEXT] tab，[CN_TEXT] `[0,2]`
      */
     private var selectPosition = -1
         set(value) {

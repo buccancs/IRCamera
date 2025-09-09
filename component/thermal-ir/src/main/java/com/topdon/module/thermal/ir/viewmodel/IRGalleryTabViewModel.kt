@@ -5,16 +5,16 @@ import com.topdon.lib.core.ktbase.BaseViewModel
 
 class IRGalleryTabViewModel : BaseViewModel() {
     /**
-     * 是否处于编辑模式.
+     * [CN_TEXT]Mode.
      */
     val isEditModeLD: MutableLiveData<Boolean> = MutableLiveData(false)
     /**
-     * 当前选中数量.
+     * CurrentSelected[CN_TEXT].
      */
     val selectSizeLD: MutableLiveData<Int> = MutableLiveData(0)
 
     /**
-     * 点击全选的 Fragment index，如 0 表示照片全选，1表示视频全选.
+     * [CN_TEXT] Fragment index，[CN_TEXT] 0 [CN_TEXT]，1[CN_TEXT].
      */
     val selectAllIndex: MutableLiveData<Int> = MutableLiveData(0)
 }

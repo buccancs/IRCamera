@@ -16,7 +16,7 @@ import com.topdon.lib.core.tools.GlideLoader
 import com.topdon.lib.core.tools.TimeTool
 
 /**
- * 检测 及 报告 列表所用 Adapter.
+ * [CN_TEXT] [CN_TEXT] [CN_TEXT] [CN_TEXT] Adapter.
  *
  * Created by LCG on 2024/8/28.
  */
@@ -25,7 +25,7 @@ internal class HouseAdapter(val context: Context, val isDetect: Boolean) : Recyc
     var dataList: ArrayList<HouseBase> = ArrayList()
 
     /**
-     * 当前是否处于编辑模式.
+     * Current[CN_TEXT]Mode.
      */
     var isEditMode: Boolean = false
         set(value) {
@@ -35,29 +35,29 @@ internal class HouseAdapter(val context: Context, val isDetect: Boolean) : Recyc
             notifyItemRangeChanged(0, itemCount)
         }
     /**
-     * 仅当处于编辑模式时，当前选中的 item index 列表.
+     * [CN_TEXT]Mode[CN_TEXT]，CurrentSelected[CN_TEXT] item index [CN_TEXT].
      */
     var selectIndexList: ArrayList<Int> = ArrayList()
 
     /**
-     * 更多被点击事件监听.
+     * [CN_TEXT].
      */
     var onMoreClickListener: ((position: Int, v: View) -> Unit)? = null
     /**
-     * 仅报告列表时，分享被点击事件监听.
+     * [CN_TEXT]，[CN_TEXT].
      */
     var onShareClickListener: ((position: Int) -> Unit)? = null
     /**
-     * item 点击事件监听.
+     * item [CN_TEXT].
      */
     var onItemClickListener: ((position: Int) -> Unit)? = null
     /**
-     * 一个 item 选中或取消选中事件监听.
+     * [CN_TEXT] item Selected[CN_TEXT]Selected[CN_TEXT].
      */
     var onSelectChangeListener: ((selectSize: Int) -> Unit)? = null
 
     /**
-     * 使用指定的检测数据刷新整个列表.
+     * [CN_TEXT]Specified[CN_TEXT].
      */
     fun refresh(newList: List<HouseBase>) {
         dataList.clear()
@@ -126,10 +126,10 @@ internal class HouseAdapter(val context: Context, val isDetect: Boolean) : Recyc
                 if (isEditMode) {
                     val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
-                        if (selectIndexList.contains(position)) {//选中->未选中
+                        if (selectIndexList.contains(position)) {//Selected->[CN_TEXT]Selected
                             selectIndexList.remove(position)
                             ivSelect.isSelected = false
-                        } else {//未选中->选中
+                        } else {//[CN_TEXT]Selected->Selected
                             selectIndexList.add(position)
                             ivSelect.isSelected = true
                         }
@@ -144,7 +144,7 @@ internal class HouseAdapter(val context: Context, val isDetect: Boolean) : Recyc
             }
             if (!isDetect) {
                 tvDetectShare.setOnClickListener {
-                    if (!isEditMode) {//编辑模式不响应分享事件
+                    if (!isEditMode) {//[CN_TEXT]Mode[CN_TEXT]
                         val position = bindingAdapterPosition
                         if (position != RecyclerView.NO_POSITION) {
                             onShareClickListener?.invoke(position)

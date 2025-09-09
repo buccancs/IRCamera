@@ -10,8 +10,8 @@ import java.io.File
 
 object FileConfig {
     /**
-     * 获取房屋检测缓存目录下指定文件.
-     * 注意，不执行子文件创建逻辑，若有需要需自行创建.
+     * [CN_TEXT]Specified[CN_TEXT].
+     * Note，[CN_TEXT]，[CN_TEXT].
      */
     fun getDetectImageDir(
         context: Context,
@@ -30,8 +30,8 @@ object FileConfig {
     }
 
     /**
-     * 获取房屋检测-签名图片缓存目录.
-     * 注意，不执行子文件创建逻辑，若有需要需自行创建.
+     * [CN_TEXT]-[CN_TEXT].
+     * Note，[CN_TEXT]，[CN_TEXT].
      */
     fun getSignImageDir(
         context: Context,
@@ -50,12 +50,12 @@ object FileConfig {
     }
 
     /**
-     * 固件升级包安装目录.
+     * [CN_TEXT].
      */
     fun getFirmwareFile(filename: String): File = File(Utils.getApp().getExternalFilesDir("firmware"), filename)
 
     /**
-     * 图片报告路径.
+     * [CN_TEXT].
      */
     @JvmStatic
     fun getPdfDir(): String {
@@ -73,7 +73,7 @@ object FileConfig {
     }
 
     /**
-     * 温度监控导出 Excel 目录.
+     * [CN_TEXT] Excel [CN_TEXT].
      */
     @JvmStatic
     val excelDir: String
@@ -92,7 +92,7 @@ object FileConfig {
         }
 
     /**
-     * 原有图库目录
+     * [CN_TEXT]Gallery[CN_TEXT]
      */
     @JvmStatic
     val gallerySourDir: String
@@ -106,7 +106,7 @@ object FileConfig {
         }
 
     /**
-     * 老 APP TC001 图库目录，仅用于相册迁移
+     * [CN_TEXT] APP TC001 Gallery[CN_TEXT]，[CN_TEXT]
      */
     @JvmStatic
     val oldTc001GalleryDir: String
@@ -128,7 +128,7 @@ object FileConfig {
         }
 
     /**
-     * 有线设备 图库目录
+     * [CN_TEXT] Gallery[CN_TEXT]
      */
     @JvmStatic
     val lineGalleryDir: String
@@ -143,7 +143,7 @@ object FileConfig {
         }
 
     /**
-     * TS004 手机本地图库目录
+     * TS004 [CN_TEXT]Gallery[CN_TEXT]
      */
     @JvmStatic
     val ts004GalleryDir: String
@@ -158,7 +158,7 @@ object FileConfig {
         }
 
     /**
-     * TC007 手机本地图库目录
+     * TC007 [CN_TEXT]Gallery[CN_TEXT]
      */
     @JvmStatic
     val tc007GalleryDir: String
@@ -173,7 +173,7 @@ object FileConfig {
         }
 
     /**
-     * 有线设备 手机本地图库温度数据目录
+     * [CN_TEXT] [CN_TEXT]Gallery[CN_TEXT]
      */
     @JvmStatic
     val lineIrGalleryDir: String
@@ -188,7 +188,7 @@ object FileConfig {
         }
 
     /**
-     * TC007 手机本地图库温度数据目录
+     * TC007 [CN_TEXT]Gallery[CN_TEXT]
      */
     @JvmStatic
     val tc007IrGalleryDir: String
@@ -203,7 +203,7 @@ object FileConfig {
         }
 
     /**
-     * 外部存储/Documents/APP名称/house
+     * [CN_TEXT]/Documents/APP[CN_TEXT]/house
      */
     @JvmStatic
     val documentsDir: String
