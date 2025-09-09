@@ -34,7 +34,7 @@ try:
 
 except ImportError:
     PYQT_AVAILABLE = False
-    
+
     # Fallback signal implementation for when PyQt is not available
     class pyqtSignal:
         def __init__(self, *args):
@@ -44,7 +44,7 @@ except ImportError:
                 callback(*args)
         def connect(self, callback):
             self._callbacks.append(callback)
-    
+
     def pyqtSlot(*args, **kwargs):
         def decorator(func):
             return func
@@ -241,16 +241,16 @@ class WiFiScanWorker(BaseThread):
     def _parse_windows_scan(self, output: str) -> List[WiFiNetwork]:
         """
         Parse Windows netsh scan output.
-        
+
         Processes the text output from Windows netsh command to extract
         WiFi network information including SSID, signal strength, and security.
-        
+
         Args:
             output: Raw text output from netsh wlan show networks command
-            
+
         Returns:
             List of WiFiNetwork objects parsed from the command output
-            
+
         Raises:
             ValueError: If output format is unexpected or unparseable
         """
@@ -812,22 +812,22 @@ class WiFiManager(BaseManager):
         """Connect to WiFi on Windows using netsh and Windows WiFi API."""
         try:
             logger.info(f"Connecting to {ssid} on Windows")
-            
+
             # Security: Use full path for netsh command
             netsh_path = "C:\\Windows\\System32\\netsh.exe"
             if not os.path.exists(netsh_path):
                 raise FileNotFoundError("netsh.exe not found")
-            
+
             # Create WiFi profile if password is provided
             if password and security != NetworkSecurityType.OPEN:
                 profile_xml = self._create_wifi_profile_xml(ssid, password, security)
-                
+
                 # Write profile to temporary file
                 import tempfile
                 with tempfile.NamedTemporaryFile(mode='w', suffix='.xml', delete=False) as f:
                     f.write(profile_xml)
                     profile_path = f.name
-                
+
                 try:
                     # Add the profile
                     result = await asyncio.create_subprocess_exec(
@@ -836,7 +836,7 @@ class WiFiManager(BaseManager):
                         stderr=asyncio.subprocess.PIPE
                     )
                     stdout, stderr = await result.communicate()
-                    
+
                     if result.returncode != 0:
                         logger.error(f"Failed to add WiFi profile: {stderr.decode()}")
                         return False
@@ -846,7 +846,7 @@ class WiFiManager(BaseManager):
                         os.unlink(profile_path)
                     except OSError:
                         pass
-            
+
             # Connect to the network
             result = await asyncio.create_subprocess_exec(
                 netsh_path, "wlan", "connect", f"name={ssid}",
@@ -854,22 +854,22 @@ class WiFiManager(BaseManager):
                 stderr=asyncio.subprocess.PIPE
             )
             stdout, stderr = await result.communicate()
-            
+
             if result.returncode == 0:
                 logger.info(f"Successfully initiated connection to {ssid}")
-                
+
                 # Wait for connection to establish (up to 30 seconds)
                 for _ in range(30):
                     await asyncio.sleep(1)
                     if await self._check_connection_status(ssid):
                         return True
-                        
+
                 logger.error(f"Connection to {ssid} timed out")
                 return False
             else:
                 logger.error(f"Failed to connect to {ssid}: {stderr.decode()}")
                 return False
-                
+
         except Exception as e:
             logger.error(f"Windows WiFi connection failed: {e}")
             return False
@@ -880,19 +880,19 @@ class WiFiManager(BaseManager):
         """Connect to WiFi on Linux using NetworkManager (nmcli)."""
         try:
             logger.info(f"Connecting to {ssid} on Linux")
-            
+
             # Security: Validate nmcli path
             nmcli_path = shutil.which("nmcli")
             if not nmcli_path:
                 raise FileNotFoundError("nmcli not found - NetworkManager required")
-            
+
             # Build connection command
             cmd = [nmcli_path, "device", "wifi", "connect", ssid]
-            
+
             # Add password if required
             if password and security != NetworkSecurityType.OPEN:
                 cmd.extend(["password", password])
-            
+
             # Execute connection command
             result = await asyncio.create_subprocess_exec(
                 *cmd,
@@ -900,20 +900,20 @@ class WiFiManager(BaseManager):
                 stderr=asyncio.subprocess.PIPE
             )
             stdout, stderr = await result.communicate()
-            
+
             if result.returncode == 0:
                 logger.info(f"Successfully connected to {ssid} on Linux")
                 return True
             else:
                 error_msg = stderr.decode().strip()
                 logger.error(f"Failed to connect to {ssid}: {error_msg}")
-                
+
                 # Try alternative approach with connection profile
                 if "already exists" in error_msg or "activation failed" in error_msg:
                     return await self._connect_linux_with_profile(ssid, password, security)
-                
+
                 return False
-                
+
         except Exception as e:
             logger.error(f"Linux WiFi connection failed: {e}")
             return False
@@ -924,12 +924,12 @@ class WiFiManager(BaseManager):
         """Connect to WiFi on macOS using networksetup and security framework."""
         try:
             logger.info(f"Connecting to {ssid} on macOS")
-            
+
             # Security: Validate networksetup path
             networksetup_path = "/usr/sbin/networksetup"
             if not os.path.exists(networksetup_path):
                 raise FileNotFoundError("networksetup not found")
-            
+
             # Get WiFi interface name
             result = await asyncio.create_subprocess_exec(
                 networksetup_path, "-listallhardwareports",
@@ -937,7 +937,7 @@ class WiFiManager(BaseManager):
                 stderr=asyncio.subprocess.PIPE
             )
             stdout, stderr = await result.communicate()
-            
+
             wifi_interface = None
             lines = stdout.decode().split('\n')
             for i, line in enumerate(lines):
@@ -946,11 +946,11 @@ class WiFiManager(BaseManager):
                     if device_line.startswith("Device:"):
                         wifi_interface = device_line.split(":")[1].strip()
                         break
-            
+
             if not wifi_interface:
                 logger.error("Could not find WiFi interface")
                 return False
-            
+
             # Connect to network
             if password and security != NetworkSecurityType.OPEN:
                 # For secured networks, use networksetup with password
@@ -966,9 +966,9 @@ class WiFiManager(BaseManager):
                     stdout=asyncio.subprocess.PIPE,
                     stderr=asyncio.subprocess.PIPE
                 )
-            
+
             stdout, stderr = await result.communicate()
-            
+
             if result.returncode == 0:
                 logger.info(f"Successfully connected to {ssid} on macOS")
                 return True
@@ -976,7 +976,7 @@ class WiFiManager(BaseManager):
                 error_msg = stderr.decode().strip()
                 logger.error(f"Failed to connect to {ssid}: {error_msg}")
                 return False
-                
+
         except Exception as e:
             logger.error(f"macOS WiFi connection failed: {e}")
             return False
@@ -1062,7 +1062,7 @@ class WiFiManager(BaseManager):
         """Create Windows WiFi profile XML."""
         auth_type = "WPA2PSK" if security == NetworkSecurityType.WPA2 else "WPAPSK"
         encryption = "AES" if security == NetworkSecurityType.WPA2 else "TKIP"
-        
+
         return f'''<?xml version="1.0"?>
 <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
     <name>{ssid}</name>
@@ -1089,37 +1089,37 @@ class WiFiManager(BaseManager):
         </security>
     </MSM>
 </WLANProfile>'''
-    
+
     async def _check_connection_status(self, ssid: str) -> bool:
         """Check if connected to specified WiFi network."""
         try:
             netsh_path = "C:\\Windows\\System32\\netsh.exe"
             if not os.path.exists(netsh_path):
                 return False
-            
+
             result = await asyncio.create_subprocess_exec(
                 netsh_path, "wlan", "show", "interfaces",
                 stdout=asyncio.subprocess.PIPE,
                 stderr=asyncio.subprocess.PIPE
             )
             stdout, stderr = await result.communicate()
-            
+
             if result.returncode == 0:
                 output = stdout.decode()
                 return f"SSID                   : {ssid}" in output and "State                  : connected" in output
-            
+
         except Exception as e:
             logger.error(f"Failed to check connection status: {e}")
-        
+
         return False
-    
+
     async def _connect_linux_with_profile(self, ssid: str, password: str, security: NetworkSecurityType) -> bool:
         """Connect to WiFi on Linux using connection profile."""
         try:
             nmcli_path = shutil.which("nmcli")
             if not nmcli_path:
                 return False
-            
+
             # Try to activate existing connection first
             result = await asyncio.create_subprocess_exec(
                 nmcli_path, "connection", "up", ssid,
@@ -1127,34 +1127,34 @@ class WiFiManager(BaseManager):
                 stderr=asyncio.subprocess.PIPE
             )
             stdout, stderr = await result.communicate()
-            
+
             if result.returncode == 0:
                 logger.info(f"Activated existing connection to {ssid}")
                 return True
-            
+
             # Create new connection profile
             security_type = "wpa-psk" if security in [NetworkSecurityType.WPA, NetworkSecurityType.WPA2] else "none"
-            
+
             cmd = [
                 nmcli_path, "connection", "add",
                 "type", "wifi",
                 "con-name", ssid,
                 "ssid", ssid
             ]
-            
+
             if password and security != NetworkSecurityType.OPEN:
                 cmd.extend([
                     "wifi-sec.key-mgmt", security_type,
                     "wifi-sec.psk", password
                 ])
-            
+
             result = await asyncio.create_subprocess_exec(
                 *cmd,
                 stdout=asyncio.subprocess.PIPE,
                 stderr=asyncio.subprocess.PIPE
             )
             stdout, stderr = await result.communicate()
-            
+
             if result.returncode == 0:
                 # Activate the new connection
                 result = await asyncio.create_subprocess_exec(
@@ -1164,9 +1164,9 @@ class WiFiManager(BaseManager):
                 )
                 stdout, stderr = await result.communicate()
                 return result.returncode == 0
-            
+
             return False
-            
+
         except Exception as e:
             logger.error(f"Failed to connect with profile: {e}")
             return False

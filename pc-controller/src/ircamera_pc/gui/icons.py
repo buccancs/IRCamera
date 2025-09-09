@@ -12,7 +12,7 @@ from pathlib import Path
 
 class IconRegistry:
     """Registry of available icons and their references."""
-    
+
     # Icon definitions based on Android drawable resources
     ICONS = {
         "settings": {
@@ -24,7 +24,7 @@ class IconRegistry:
         },
         "calibration": {
             "name": "Calibration Crosshair",
-            "android_resource": "ic_menu_coordinate_svg.xml", 
+            "android_resource": "ic_menu_coordinate_svg.xml",
             "android_path": "libui/src/main/res/drawable/ic_menu_coordinate_svg.xml",
             "description": "Crosshair with concentric circles for calibration and targeting",
             "use_cases": ["Camera calibration", "Coordinate systems", "Targeting tools"]
@@ -32,7 +32,7 @@ class IconRegistry:
         "camera": {
             "name": "Camera Menu",
             "android_resource": "ic_camera_more_svg.xml",
-            "android_path": "libui/src/main/res/drawable/ic_camera_more_svg.xml", 
+            "android_path": "libui/src/main/res/drawable/ic_camera_more_svg.xml",
             "description": "Camera icon for camera-related functionality",
             "use_cases": ["Camera controls", "Video capture", "Image processing"]
         },
@@ -44,23 +44,23 @@ class IconRegistry:
             "use_cases": ["Network status", "Connection management", "Communication"]
         }
     }
-    
+
     @classmethod
     def get_icon_info(cls, icon_name: str) -> Dict[str, Any]:
         """Get information about a specific icon."""
         return cls.ICONS.get(icon_name, {})
-    
+
     @classmethod
     def list_available_icons(cls) -> Dict[str, str]:
         """List all available icons with their descriptions."""
         return {name: info["description"] for name, info in cls.ICONS.items()}
-    
+
     @classmethod
     def get_android_resource_path(cls, icon_name: str) -> str:
         """Get the Android resource path for an icon."""
         icon_info = cls.ICONS.get(icon_name, {})
         return icon_info.get("android_path", "")
-    
+
     @classmethod
     def get_icon_use_cases(cls, icon_name: str) -> list:
         """Get recommended use cases for an icon."""
@@ -91,7 +91,7 @@ Available Icons:
    - Used for: Placeholder GUI widgets, settings panels, configuration
    - Location: libui/src/main/res/drawable/ic_setting_default_svg.xml
 
-2. CALIBRATION ICON (ic_menu_coordinate_svg.xml) 
+2. CALIBRATION ICON (ic_menu_coordinate_svg.xml)
    - Visual: Crosshair with concentric circles and axis lines
    - Used for: Camera calibration utilities, coordinate systems, targeting
    - Location: libui/src/main/res/drawable/ic_menu_coordinate_svg.xml
@@ -102,7 +102,7 @@ Available Icons:
    - Location: libui/src/main/res/drawable/ic_camera_more_svg.xml
 
 4. NETWORK ICON (ic_connection_tip1.xml)
-   - Visual: Connection/network symbol  
+   - Visual: Connection/network symbol
    - Used for: Network status, connection management
    - Location: libui/src/main/res/drawable/ic_connection_tip1.xml
 
@@ -120,7 +120,7 @@ if __name__ == "__main__":
     # Print icon registry for debugging
     print("IRCamera Icon Registry")
     print("====================")
-    
+
     for name, description in IconRegistry.list_available_icons().items():
         print(f"{name}: {description}")
         use_cases = IconRegistry.get_icon_use_cases(name)

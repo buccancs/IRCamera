@@ -6,7 +6,6 @@ definition. Implements FR2: Synchronised Multi-Modal Recording and FR7:
 Device Synchronisation with enhanced security and discovery features.
 """
 
-import asyncio
 import json
 import ssl
 import time
@@ -166,10 +165,10 @@ class NetworkServer:
         """Set up enhanced networking services."""
         # Configure messaging service transport
         self._messaging_service.set_transport(self._send_message_to_device)
-        
+
         # Register discovery listener
         self._discovery_service.add_discovery_listener(self._on_device_discovered)
-        
+
         # Register reliable message handlers
         self._messaging_service.register_message_handler("session_start", self._handle_reliable_session_start)
         self._messaging_service.register_message_handler("session_stop", self._handle_reliable_session_stop)
@@ -199,21 +198,21 @@ class NetworkServer:
 
         try:
             logger.info("Starting enhanced network server...")
-            
+
             # Initialize security manager
             if not self._security_manager.initialize():
                 logger.error("Failed to initialize security manager")
                 return False
-            
+
             # Initialize messaging service
             if not await self._messaging_service.initialize():
                 logger.error("Failed to initialize messaging service")
                 return False
-            
+
             # Start discovery service
             if not await self._discovery_service.start_discovery():
                 logger.warning("Discovery service failed to start - continuing without discovery")
-            
+
             # Start plaintext server
             self._server = await asyncio.start_server(
                 self._handle_client,
@@ -221,7 +220,7 @@ class NetworkServer:
                 self._port,
                 limit=2**16,  # 64KB buffer
             )
-            
+
             # Start secure server with TLS
             ssl_context = self._security_manager.create_ssl_context(for_client_auth=True)
             self._secure_server = await asyncio.start_server(
@@ -241,7 +240,7 @@ class NetworkServer:
             secure_addr = self._secure_server.sockets[0].getsockname()
             logger.info(f"Network server started on {addr[0]}:{addr[1]} (plaintext) and {secure_addr[0]}:{secure_addr[1]} (TLS)")
             logger.info("Enhanced networking features: TLS encryption, mDNS discovery, reliable messaging")
-            
+
             return True
 
         except (OSError, ValueError, RuntimeError) as e:
@@ -543,10 +542,10 @@ class NetworkServer:
         # Forward to enhanced GSR data ingestion system
         try:
             from ..data import get_data_aggregator
-            
+
             # Get the data aggregator instance for real-time processing
             aggregator = get_data_aggregator()
-            
+
             # Process each GSR data point with enhanced metadata
             for point in data_points:
                 enhanced_point = {
@@ -564,22 +563,22 @@ class NetworkServer:
                         'data_integrity_hash': self._calculate_data_hash(point)
                     }
                 }
-                
+
                 # Add to aggregator with device synchronization
                 await aggregator.add_gsr_data_point(enhanced_point)
-            
+
             # Update real-time visualization if available
             self._update_realtime_gsr_visualization(device_id, data_points)
-            
+
             logger.info(f"Successfully processed {len(data_points)} GSR points from {device_id}")
-            
+
         except ImportError:
             logger.warning("Data aggregator not available, trying fallback GSR ingestor")
-            
+
             # Fallback to GSR ingestor for processing
             try:
                 from ..core.gsr_ingestor import GSRIngestor, GSRSample, GSRMode
-                
+
                 # Convert data points to GSR samples
                 gsr_samples = []
                 for point in data_points:
@@ -590,25 +589,25 @@ class NetworkServer:
                         device_id=device_id
                     )
                     gsr_samples.append(sample)
-                
+
                 # Get or create GSR ingestor instance
                 if not hasattr(self, "_gsr_ingestor"):
                     self._gsr_ingestor = GSRIngestor()
-                
+
                 # Process the data batch
                 await self._gsr_ingestor.process_data_batch(
                     session_id=message.get("session_id"),
                     device_id=device_id,
                     samples=gsr_samples
                 )
-                
+
                 logger.debug(f"Forwarded {len(gsr_samples)} GSR samples to ingestor")
-                
+
             except Exception as e:
                 logger.warning(f"GSR ingestor also failed, storing data to buffer: {e}")
                 # Final fallback to simple storage
                 self._buffer_gsr_data(device_id, data_points)
-                
+
         except Exception as e:
             logger.error(f"Failed to process GSR data from {device_id}: {e}")
             return create_message("ack", ack_for="gsr_data_batch", status="error", error=str(e))
@@ -883,19 +882,19 @@ class NetworkServer:
         """Handle secure client connections with TLS."""
         peer_addr = writer.get_extra_info('peername')
         logger.info(f"Secure client connected from {peer_addr}")
-        
+
         # Handle the same way as regular clients but with security context
         await self._handle_client(reader, writer, is_secure=True)
 
     async def _send_message_to_device(self, host: str, port: int, message: Dict[str, Any]) -> bool:
         """
         Send message to a specific device (transport for reliable messaging).
-        
+
         Args:
             host: Target device IP address
             port: Target device port
             message: Message data to send
-            
+
         Returns:
             bool: True if message was sent successfully
         """
@@ -906,15 +905,15 @@ class NetworkServer:
                 if device.ip_address == host:
                     target_device = device
                     break
-            
+
             if not target_device:
                 logger.warning(f"No device found for {host}:{port}")
                 return False
-            
+
             # Send message to device
             await self._send_to_client(target_device.device_id, message)
             return True
-            
+
         except Exception as e:
             logger.error(f"Failed to send message to {host}:{port}: {e}")
             return False
@@ -924,16 +923,16 @@ class NetworkServer:
         try:
             if event_type == 'discovered':
                 logger.info(f"Discovered device: {device.service_name} ({device.device_type.value}) at {device.ip_address}:{device.port}")
-                
+
                 # Optionally auto-connect to discovered devices
                 auto_connect = config.get("network.auto_connect_discovered", False)
                 if auto_connect:
                     logger.debug(f"Auto-connecting to discovered device: {device.service_name}")
                     # Could implement auto-connection logic here
-                    
+
             elif event_type == 'lost':
                 logger.info(f"Lost device: {device.service_name}")
-                
+
         except Exception as e:
             logger.error(f"Error handling device discovery event: {e}")
 
@@ -942,16 +941,16 @@ class NetworkServer:
         try:
             auth_token = message.get('auth_token')
             certificate_data = message.get('certificate')
-            
+
             if certificate_data:
                 # Validate device certificate
                 cert_bytes = certificate_data.encode('utf-8')
                 is_valid, device_type = self._security_manager.validate_device_certificate(cert_bytes)
-                
+
                 if is_valid:
                     # Generate auth token for the device
                     token = self._security_manager.generate_auth_token(device_id)
-                    
+
                     return create_message("auth_response", {
                         "success": True,
                         "auth_token": token,
@@ -966,7 +965,7 @@ class NetworkServer:
             elif auth_token:
                 # Validate existing token
                 is_valid, token_device_id = self._security_manager.validate_auth_token(auth_token)
-                
+
                 if is_valid and token_device_id == device_id:
                     return create_message("auth_response", {
                         "success": True,
@@ -982,7 +981,7 @@ class NetworkServer:
                     "success": False,
                     "error": "No authentication data provided"
                 })
-                
+
         except Exception as e:
             logger.error(f"Error handling device authentication: {e}")
             return create_message("auth_response", {
@@ -1065,21 +1064,21 @@ class NetworkServer:
     ) -> str:
         """
         Send a reliable message to a specific device.
-        
+
         Args:
             device_id: Target device ID
             message_type: Type of message
             content: Message content
             priority: Message priority
             timeout_seconds: Message timeout
-            
+
         Returns:
             str: Message ID for tracking
         """
         device = self._devices.get(device_id)
         if not device:
             raise ValueError(f"Device {device_id} not found")
-        
+
         return await self._messaging_service.send_message(
             target_host=device.ip_address,
             target_port=device.port or self._port,
@@ -1093,7 +1092,7 @@ class NetworkServer:
     def is_running(self) -> bool:
         """Check if server is running."""
         return self._is_running
-    
+
     def _calculate_network_latency(self, device_id: str) -> float:
         """Calculate network latency for a device."""
         # Simple latency estimation based on heartbeat timing
@@ -1105,18 +1104,18 @@ class NetworkServer:
                 latency_ms = (current_time - device.last_heartbeat).total_seconds() * 500  # Rough estimate
                 return min(latency_ms, 1000.0)  # Cap at 1 second
         return 50.0  # Default estimate
-    
+
     def _calculate_data_hash(self, data_point: Dict[str, Any]) -> str:
         """Calculate integrity hash for data verification."""
         import hashlib
-        
+
         # Create hash from critical data fields
         hash_data = f"{data_point.get('timestamp_ns', 0)}" \
                    f"{data_point.get('gsr_raw', 0)}" \
                    f"{data_point.get('ppg_raw', 0)}"
-        
+
         return hashlib.md5(hash_data.encode()).hexdigest()[:8]
-    
+
     def _update_realtime_gsr_visualization(self, device_id: str, data_points: List[Dict[str, Any]]) -> None:
         """Update real-time GSR visualization if available."""
         try:
@@ -1126,36 +1125,36 @@ class NetworkServer:
                 latest_point = data_points[-1]
                 gsr_value = latest_point.get('gsr_microsiemens', 0)
                 logger.debug(f"Real-time GSR from {device_id}: {gsr_value:.4f} µS")
-                
+
                 # In a full implementation, this would:
                 # 1. Send data to GUI plotting thread
                 # 2. Update real-time charts
                 # 3. Trigger alarms if values exceed thresholds
                 # 4. Update device status indicators
-                
+
         except Exception as e:
             logger.debug(f"Real-time visualization update failed: {e}")
-    
+
     def _buffer_gsr_data(self, device_id: str, data_points: List[Dict[str, Any]]) -> None:
         """Fallback method to buffer GSR data when aggregator is unavailable."""
         if not hasattr(self, '_gsr_data_buffer'):
             self._gsr_data_buffer = {}
-        
+
         if device_id not in self._gsr_data_buffer:
             self._gsr_data_buffer[device_id] = []
-        
+
         # Add timestamp for when data was received
         timestamped_points = []
         for point in data_points:
             enhanced_point = point.copy()
             enhanced_point['reception_timestamp_ns'] = time.time_ns()
             timestamped_points.append(enhanced_point)
-        
+
         self._gsr_data_buffer[device_id].extend(timestamped_points)
-        
+
         # Limit buffer size to prevent memory issues
         max_buffer_size = 10000  # Keep last 10k points per device
         if len(self._gsr_data_buffer[device_id]) > max_buffer_size:
             self._gsr_data_buffer[device_id] = self._gsr_data_buffer[device_id][-max_buffer_size:]
-        
+
         logger.debug(f"Buffered {len(data_points)} GSR points from {device_id}, buffer size: {len(self._gsr_data_buffer[device_id])}")

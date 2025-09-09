@@ -5,7 +5,6 @@ Provides PyQt6-based researcher interface for controlling recording sessions.
 Implements FR6: User Interface for Monitoring & Control requirements.
 """
 
-import asyncio
 import signal
 import sys
 from typing import Optional
