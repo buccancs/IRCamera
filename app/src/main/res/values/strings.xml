@@ -145,4 +145,60 @@
     <string name="gsr_value_format">%.3f μS</string>
     <string name="resistance_format">%.1f kΩ</string>
     <string name="conductance_format">%.6f S</string>
+    
+    <!-- Session Detail Activity strings -->
+    <string name="session_information">Session Information</string>
+    <string name="session_information_description">Session information card</string>
+    <string name="session_id_description">Session identifier</string>
+    <string name="session_date_description">Session recording date and time</string>
+    <string name="session_duration_description">Total session duration</string>
+    <string name="data_analysis">Data Analysis</string>
+    <string name="data_analysis_description">Data analysis summary</string>
+    <string name="gsr_samples_description">Total GSR samples recorded</string>
+    <string name="video_frames_description">Total video frames captured</string>
+    <string name="sync_quality_description">Synchronization quality measurement</string>
+    <string name="view_raw_data">View Raw Data</string>
+    <string name="view_raw_data_description">Open raw data viewer</string>
+    <string name="export_session">Export Session</string>
+    <string name="export_session_description">Export session data</string>
+    <string name="playback_video">Playback Video</string>
+    <string name="playback_video_description">Play session video</string>
+    <string name="detailed_analysis_coming_soon">Detailed session analysis functionality coming soon…</string>
+    <string name="coming_soon_description">Feature in development notice</string>
+    
+    <!-- Session Export Activity strings -->
+    <string name="export_format_options">Export Format Options</string>
+    <string name="export_format_options_description">Available export format options</string>
+    <string name="export_csv_format">CSV Format</string>
+    <string name="csv_format_description">Export data in CSV format</string>
+    <string name="csv_format_details">Raw sensor data with timestamps, suitable for statistical analysis</string>
+    <string name="export_json_format">JSON Format</string>
+    <string name="json_format_description">Export data in JSON format</string>
+    <string name="json_format_details">Structured data with metadata, ideal for custom analysis tools</string>
+    <string name="export_research_metadata">Research-grade Metadata</string>
+    <string name="research_metadata_description">Include research metadata</string>
+    <string name="metadata_format_details">Detailed synchronization data and measurement parameters</string>
+    <string name="session_to_export">Session to Export</string>
+    <string name="session_to_export_description">Session selected for export</string>
+    <string name="estimated_size_description">Estimated export file size</string>
+    <string name="start_export">Start Export</string>
+    <string name="start_export_description">Begin export process</string>
+    <string name="export_progress_description">Export progress indicator</string>
+    <string name="export_status_description">Current export status</string>
+    <string name="export_functionality_coming_soon">Export functionality implementation coming soon…</string>
+    
+    <!-- Additional Session Activity strings -->
+    <string name="session_details_title">Session Details</string>
+    <string name="export_session_title">Export Session</string>
+    <string name="session_id_format">Session ID: %s</string>
+    <string name="session_date_placeholder">Date: Loading…</string>
+    <string name="session_duration_placeholder">Duration: Loading…</string>
+    <string name="gsr_samples_placeholder">GSR Samples: Loading…</string>
+    <string name="video_frames_placeholder">Video Frames: Loading…</string>
+    <string name="sync_quality_placeholder">Sync Quality: Loading…</string>
+    <string name="estimated_export_size_placeholder">Estimated export size: Calculating…</string>
+    <string name="estimated_size_format">Estimated export size: %.1f MB</string>
+    <string name="no_format_selected">Select at least one export format</string>
+    <string name="export_starting">Starting export…</string>
+    <string name="export_implementation_pending">Export functionality implementation in progress</string>
 </resources>

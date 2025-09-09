@@ -4,15 +4,16 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.csl.irCamera.R
 
 /**
- * GSR Recording Settings Activity
- * Configure recording parameters, device settings, and data collection options
+ * Enhanced GSR Recording Settings Activity with modern SharedPreferences patterns
+ * 
+ * Configure recording parameters, device settings, and data collection options.
+ * Enhanced in Phase 11 with modern SharedPreferences usage and improved patterns.
  */
 class GSRSettingsActivity : AppCompatActivity() {
     companion object {
@@ -52,7 +53,8 @@ class GSRSettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gsr_settings)
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        // Modern SharedPreferences initialization (replacing deprecated PreferenceManager)
+        prefs = getSharedPreferences("${packageName}_gsr_preferences", Context.MODE_PRIVATE)
 
         setupUI()
         loadCurrentSettings()

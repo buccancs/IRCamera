@@ -1,7 +1,7 @@
 package com.topdon.lib.core.common
 
 import android.content.Context
-import android.preference.PreferenceManager
+import android.content.Context
 import android.util.Base64
 import com.blankj.utilcode.util.GsonUtils
 import com.blankj.utilcode.util.SPUtils
@@ -448,17 +448,28 @@ object SharedManager {
         return SPUtils.getInstance().getString(BASE_HOST, "")
     }
 
+    /**
+     * Modern language preference setter using SharedPreferences directly
+     * Enhanced to replace deprecated PreferenceManager with modern patterns
+     */
     fun setLanguage(
         context: Context,
         language: String,
     ) {
-        PreferenceManager.getDefaultSharedPreferences(context)
+        context.getSharedPreferences("${context.packageName}_preferences", Context.MODE_PRIVATE)
             .edit().putString(LANGUAGE, language).apply()
     }
 
-    // 在Application上使用applicationContext会为空，需要传递context
+    /**
+     * Modern language preference getter with proper null safety
+     * Enhanced to replace deprecated PreferenceManager with modern patterns
+     * 
+     * @param context Application context for SharedPreferences access
+     * @return Language setting or empty string as default
+     */
     fun getLanguage(context: Context): String {
-        return PreferenceManager.getDefaultSharedPreferences(context).getString(LANGUAGE, "")!!
+        return context.getSharedPreferences("${context.packageName}_preferences", Context.MODE_PRIVATE)
+            .getString(LANGUAGE, "") ?: ""
     }
 
     fun setHasShowClause(hasShowClause: Boolean) {

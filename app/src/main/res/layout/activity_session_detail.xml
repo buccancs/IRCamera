@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context="com.topdon.tc001.gsr.SessionDetailActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_horizontal_margin">
+
+        <!-- Session Info Card -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/session_information"
+                    android:textAppearance="?android:textAppearanceLarge"
+                    android:textStyle="bold"
+                    android:contentDescription="@string/session_information_description" />
+
+                <TextView
+                    android:id="@+id/session_id_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    tools:text="Session ID: ABC123"
+                    android:contentDescription="@string/session_id_description" />
+
+                <TextView
+                    android:id="@+id/session_date_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    tools:text="Date: 2024-01-15 14:30:00"
+                    android:contentDescription="@string/session_date_description" />
+
+                <TextView
+                    android:id="@+id/session_duration_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    tools:text="Duration: 00:05:30"
+                    android:contentDescription="@string/session_duration_description" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Data Analysis Card -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/data_analysis"
+                    android:textAppearance="?android:textAppearanceLarge"
+                    android:textStyle="bold"
+                    android:contentDescription="@string/data_analysis_description" />
+
+                <TextView
+                    android:id="@+id/gsr_samples_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    tools:text="GSR Samples: 41,600 samples"
+                    android:contentDescription="@string/gsr_samples_description" />
+
+                <TextView
+                    android:id="@+id/video_frames_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    tools:text="Video Frames: 9,900 frames"
+                    android:contentDescription="@string/video_frames_description" />
+
+                <TextView
+                    android:id="@+id/sync_quality_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    tools:text="Sync Quality: ±2.1ms (Good)"
+                    android:contentDescription="@string/sync_quality_description" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Action Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="8dp">
+
+            <Button
+                android:id="@+id/view_data_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/view_raw_data"
+                android:contentDescription="@string/view_raw_data_description" />
+
+            <Button
+                android:id="@+id/export_session_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/export_session"
+                android:contentDescription="@string/export_session_description" />
+
+            <Button
+                android:id="@+id/playback_video_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/playback_video"
+                android:contentDescription="@string/playback_video_description" />
+
+        </LinearLayout>
+
+        <!-- Coming Soon Notice -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/detailed_analysis_coming_soon"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textStyle="italic"
+            android:gravity="center"
+            android:contentDescription="@string/coming_soon_description" />
+
+    </LinearLayout>
+
+</ScrollView>
