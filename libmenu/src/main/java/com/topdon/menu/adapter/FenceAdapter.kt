@@ -52,7 +52,8 @@ internal class FenceAdapter(menuType: MenuType) : BaseMenuAdapter() {
 
 
 
-    private val dataList: ArrayList<Data> = ArrayList(6)
+    // Use MutableList interface for better type safety and performance
+    private val dataList: MutableList<Data> = ArrayList(6)
 
     init {
         dataList.add(Data(R.string.thermal_point, MenuR.drawable.selector_menu2_fence_point, FenceType.POINT))

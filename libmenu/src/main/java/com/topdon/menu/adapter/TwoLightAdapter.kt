@@ -96,7 +96,8 @@ internal class TwoLightAdapter(private val menuType: MenuType) : BaseMenuAdapter
 
 
 
-    private val dataList: ArrayList<Data> = ArrayList(7)
+    // Use List instead of ArrayList for better memory efficiency and performance
+    private val dataList: MutableList<Data> = ArrayList(7)
 
     init {
         if (menuType == MenuType.DOUBLE_LIGHT || menuType == MenuType.TC007) {

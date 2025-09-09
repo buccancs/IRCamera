@@ -28,6 +28,10 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.annotation.NonNull
 import com.blankj.utilcode.util.ThreadUtils.runOnUiThread
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import com.blankj.utilcode.util.ToastUtils
 import com.topdon.lib.core.utils.ScreenUtil
 import java.nio.ByteBuffer
@@ -444,10 +448,10 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
                     }
                 }
                 flag++
-                thread {
+                // Use coroutine instead of raw thread for better resource management
+                GlobalScope.launch(Dispatchers.IO) {
                     while (flag < 3) {
-//                        delay(100)
-                        Thread.sleep(100)
+                        delay(100) // Non-blocking delay using coroutines
                     }
                     flag = 0
                     image.close()

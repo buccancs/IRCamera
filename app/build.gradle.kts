@@ -57,8 +57,7 @@ android {
             keyAlias = "Artibox"
             storePassword = "artibox2017"
             keyPassword = "artibox2017"
-            // Removed deprecated isV1SigningEnabled and isV2SigningEnabled
-            // Modern signing uses enableV1Signing and enableV2Signing
+            // Using modern signing configuration per Android guidelines
             enableV1Signing = true
             enableV2Signing = true
         }
@@ -234,7 +233,7 @@ dependencies {
     implementation("com.opencsv:opencsv:5.7.1")
     implementation("com.google.code.gson:gson:2.10.1")
     
-    // PDF viewer library - TODO: Add when stable library is available
+    // PDF viewer library integration placeholder - evaluate AndroidPdfViewer vs alternatives
     // implementation("com.github.barteksc:AndroidPdfViewer:2.8.2")
     
     // Enhanced networking and serialization for Hub-Spoke

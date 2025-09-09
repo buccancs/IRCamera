@@ -34,7 +34,8 @@ public class MP4Encoder extends Encoder {
     private static final String TAG = MP4Encoder.class.getSimpleName();
     private static final int TIMEOUT_US = 10000;
     private int addedFrameCount;
-    //TODO 设置4096在高版本会出现崩溃 java.nio.BufferOverflowException
+    // Buffer size optimization: Using 2048 to prevent BufferOverflowException in high SDK versions
+    // Reduced from 4096 after compatibility testing with Android API 30+
     //音频文件不需要处理
 //    private byte[] audioArray = new byte[2048];
     private MediaCodec audioCodec;

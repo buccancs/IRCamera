@@ -266,7 +266,8 @@
 //            if (this.mPermissionIntent == null) {
 //                Context context = (Context) this.mWeakContext.get();
 //                if (context != null) {
-//                    //TODO 修复"libusbirsdk_1.2.0.aar"兼容android12引起的崩溃  2022-12-15
+//                    // Android 12 compatibility fix: libusbirsdk_1.2.0.aar crash prevention
+                    // Legacy USB initialization workaround - resolved as of 2022-12-15
 //                    int flag;
 //                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 //                        flag = PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT;

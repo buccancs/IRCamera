@@ -23,8 +23,8 @@ android {
 
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
-        // targetSdk = libs.versions.targetSdk.get().toInt()  // Deprecated in library modules
-
+        // targetSdk not used in library modules per Android guidelines
+        
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
