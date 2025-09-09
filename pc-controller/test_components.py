@@ -89,7 +89,8 @@ def test_data_aggregation():
         # Get statistics
         stats = engine.get_statistics()
         print(
-            f"[CHECK] Statistics: {stats.total_devices} devices, {stats.active_streams} streams"
+            f"[CHECK] Statistics: {stats.total_devices} devices, "
+            f"{stats.active_streams} streams"
         )
 
         # Clean up
@@ -250,7 +251,8 @@ def main():
 
     if passed == total:
         print(
-            "[CELEBRATION] All tests passed! PC Controller components are working correctly."
+            "[CELEBRATION] All tests passed! PC Controller components are "
+            "working correctly."
         )
         return 0
     else:

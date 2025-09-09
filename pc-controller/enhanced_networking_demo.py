@@ -17,14 +17,18 @@ from pathlib import Path
 # Add the src directory to Python path for imports
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
-from ircamera_pc.core.timesync import TimeSyncService
-from ircamera_pc.network.discovery import DeviceType, NetworkDiscoveryService
-from ircamera_pc.network.messaging import (
+# Import after path modification to avoid E402  # noqa: E402
+from ircamera_pc.core.timesync import TimeSyncService  # noqa: E402
+from ircamera_pc.network.discovery import (  # noqa: E402
+    DeviceType,
+    NetworkDiscoveryService,
+)
+from ircamera_pc.network.messaging import (  # noqa: E402
     MessagePriority,
     ReliableMessageService,
 )
-from ircamera_pc.network.security import SecurityManager
-from ircamera_pc.network.server import NetworkServer
+from ircamera_pc.network.security import SecurityManager  # noqa: E402
+from ircamera_pc.network.server import NetworkServer  # noqa: E402
 
 try:
     from loguru import logger

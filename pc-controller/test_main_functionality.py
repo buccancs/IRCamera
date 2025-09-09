@@ -11,11 +11,15 @@ from pathlib import Path
 # Add the src directory to Python path for imports
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
-from ircamera_pc.network.discovery import NetworkDiscoveryService
-from ircamera_pc.network.messaging import MessagePriority, ReliableMessageService
+# Import after path modification to avoid E402  # noqa: E402
+from ircamera_pc.network.discovery import NetworkDiscoveryService  # noqa: E402
+from ircamera_pc.network.messaging import (  # noqa: E402
+    MessagePriority,
+    ReliableMessageService,
+)
 
 # Import core networking components directly
-from ircamera_pc.network.security import SecurityManager
+from ircamera_pc.network.security import SecurityManager  # noqa: E402
 
 
 async def test_basic_integration():
@@ -115,7 +119,8 @@ async def test_basic_integration():
         print("   [OK] NetworkDiscoveryService stopped")
     else:
         print(
-            "   [WARNING] NetworkDiscoveryService fallback mode (expected without zeroconf)"
+            "   [WARNING] NetworkDiscoveryService fallback mode "
+            "(expected without zeroconf)"
         )
         return True  # This is expected without zeroconf
 

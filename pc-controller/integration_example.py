@@ -34,18 +34,19 @@ import numpy as np
 # Add src directory to path
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
-from ircamera_pc.core.session import SessionManager
-from ircamera_pc.core.timesync import TimeSyncService
-from ircamera_pc.data import DataAggregationEngine
-from ircamera_pc.gui.plotting_widgets import MultiModalDashboard
-from ircamera_pc.gui.widgets import (
+# Import after path modification to avoid E402  # noqa: E402
+from ircamera_pc.core.session import SessionManager  # noqa: E402
+from ircamera_pc.core.timesync import TimeSyncService  # noqa: E402
+from ircamera_pc.data import DataAggregationEngine  # noqa: E402
+from ircamera_pc.gui.plotting_widgets import MultiModalDashboard  # noqa: E402
+from ircamera_pc.gui.widgets import (  # noqa: E402
     DeviceListWidget,
     SessionControlWidget,
     StatusDisplayWidget,
 )
-from ircamera_pc.network.server import NetworkServer
-from PyQt6.QtCore import QTimer, pyqtSignal
-from PyQt6.QtWidgets import (
+from ircamera_pc.network.server import NetworkServer  # noqa: E402
+from PyQt6.QtCore import QTimer, pyqtSignal  # noqa: E402
+from PyQt6.QtWidgets import (  # noqa: E402
     QApplication,
     QHBoxLayout,
     QMainWindow,
