@@ -349,7 +349,7 @@ class MultiModalDashboard(QWidget):
         """Initialize multi-modal dashboard."""
         super().__init__()
 
-        self.gsr_plot = None
+        self.gsr_plot: Optional[GSRPlotWidget] = None
         self.video_widgets: Dict[str, VideoPreviewWidget] = {}
 
         self._setup_layout()

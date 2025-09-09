@@ -90,8 +90,8 @@ class DataAggregationEngine:
         self.sync_events: List[SyncEvent] = []
 
         # Threading and async management
-        self.data_queue = Queue()
-        self.sync_queue = Queue()
+        self.data_queue: Queue[Any] = Queue()
+        self.sync_queue: Queue[Any] = Queue()
         self.aggregation_thread: Optional[threading.Thread] = None
         self.is_running = threading.Event()
 
@@ -240,7 +240,7 @@ class DataAggregationEngine:
         event_type: str,
         source_device: str,
         timestamp_ns: Optional[int] = None,
-        metadata: Dict = None,
+        metadata: Optional[Dict[Any, Any]] = None,
     ) -> None:
         """
         Add synchronization event.
@@ -695,7 +695,7 @@ def calculate_temporal_alignment(
     Returns:
         Dictionary mapping device_id to offset in nanoseconds
     """
-    device_offsets = {}
+    device_offsets: Dict[str, float] = {}
 
     if not sync_events:
         return device_offsets
@@ -743,7 +743,7 @@ def validate_data_synchronization(
     Returns:
         Synchronization quality report
     """
-    report = {
+    report: Dict[str, Any] = {
         "total_streams": len(streams),
         "synchronized_streams": 0,
         "max_offset_ms": 0.0,

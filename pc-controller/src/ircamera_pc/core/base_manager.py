@@ -26,13 +26,13 @@ except ImportError:
     PYQT_AVAILABLE = False
 
     # Mock classes and functions for when PyQt6 is not available
-    class QtQObject:
+    class QtQObject:  # type: ignore[no-redef]
         """Mock QObject when PyQt6 is not available"""
 
         def __init__(self, parent: Optional[Any] = None) -> None:
             self.parent = parent
 
-    class QObjectMeta(ABCMeta):
+    class QObjectMeta(ABCMeta):  # type: ignore[no-redef]
         """Fallback metaclass when PyQt6 is not available"""
 
     def pyqtSignal(*args: Any, **kwargs: Any) -> Any:
