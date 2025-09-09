@@ -30,7 +30,7 @@ Architecture:
 
 Example:
     Basic main window initialization and customization:
-    
+
     ```python
     # Initialize main window with enterprise configuration
     main_window = MainWindow(
@@ -41,7 +41,7 @@ Example:
             "accessibility_mode": False
         }
     )
-    
+
     # Configure custom workspace layout
     main_window.configure_workspace({
         "primary_layout": "researcher_dashboard",
@@ -49,18 +49,18 @@ Example:
         "sidebar_position": "left",
         "enable_minimap": True
     })
-    
+
     # Add custom analysis widgets
     main_window.add_analysis_widget(ThermalAnalyticsWidget())
     main_window.add_analysis_widget(GSRAnalyticsWidget())
-    
+
     # Configure real-time data streams
     main_window.setup_data_streams([
         "thermal_stream_001",
-        "gsr_stream_001", 
+        "gsr_stream_001",
         "sync_events"
     ])
-    
+
     # Launch with enterprise settings
     main_window.show_maximized()
     ```
@@ -90,51 +90,47 @@ License:
 """
 
 import asyncio
-from datetime import datetime, timezone
-from typing import Optional, Dict, List, Any, Callable, Union
-from pathlib import Path
-import json
+from datetime import datetime
 from enum import Enum
+from typing import Optional
 
 from loguru import logger
-from PyQt6.QtCore import (
-    Qt, QTimer, pyqtSignal, QThread, QMutex, QPropertyAnimation,
-    QEasingCurve, QRect, QSize, QPoint
-)
-from PyQt6.QtGui import (
-    QFont, QIcon, QPalette, QColor, QPixmap, QAction, QKeySequence,
-    QShortcut, QPainter, QLinearGradient
-)
+from PyQt6.QtCore import Qt, QTimer, pyqtSignal
+from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import (
-    QGroupBox, QHBoxLayout, QInputDialog, QLabel, QMainWindow,
-    QMessageBox, QPushButton, QSplitter, QStatusBar, QTextEdit,
-    QVBoxLayout, QWidget, QTabWidget, QToolBar, QMenuBar, QDockWidget,
-    QProgressBar, QSlider, QCheckBox, QComboBox, QSpinBox, QFrame,
-    QScrollArea, QGridLayout, QStackedWidget, QSizePolicy
+    QGroupBox,
+    QHBoxLayout,
+    QInputDialog,
+    QLabel,
+    QMainWindow,
+    QMessageBox,
+    QPushButton,
+    QSplitter,
+    QStatusBar,
+    QTextEdit,
+    QVBoxLayout,
+    QWidget,
 )
 
 from ..core.session import SessionManager, SessionState
 from ..core.timesync import TimeSyncService
-from ..core.config import config
 from ..network.server import DeviceInfo, NetworkServer
 from .widgets import (
     DeviceListWidget,
     SessionControlWidget,
     StatusDisplayWidget,
     SystemIntegrationWidget,
-    AnalyticsWidget,
-    SecurityWidget,
 )
 
 
 class WindowState(Enum):
     """
     Main window operational states for state machine management.
-    
+
     These states control the overall application behavior and determine
     which UI components are active and accessible.
     """
-    
+
     INITIALIZING = "initializing"
     IDLE = "idle"
     CONNECTING = "connecting"
@@ -151,10 +147,11 @@ class MainWindow(QMainWindow):
     This comprehensive interface serves as the central command center for thermal
     imaging research operations, providing researchers with sophisticated tools for
     device management, data collection, real-time monitoring, and session orchestration.
-    
-    The window implements advanced UI patterns including responsive design, accessibility
-    compliance, multi-monitor support, and enterprise-grade security features. It serves
-    as the primary interface for managing complex thermal imaging research workflows.
+
+    The window implements advanced UI patterns including responsive design,
+    accessibility compliance, multi-monitor support, and enterprise-grade security
+    features. It serves as the primary interface for managing complex thermal
+    imaging research workflows.
 
     ## Core Interface Components
 
@@ -200,7 +197,7 @@ class MainWindow(QMainWindow):
     - **Flexible Layouts**: Drag-and-drop widget arrangement and customization
     - **Workspace Presets**: Saved layout configurations for different workflows
 
-    ### Accessibility Compliance  
+    ### Accessibility Compliance
     - **WCAG 2.1 AA**: Full compliance with accessibility standards
     - **Screen Reader Support**: Complete navigation and content access
     - **Keyboard Navigation**: Comprehensive keyboard shortcuts and tab ordering
@@ -221,12 +218,12 @@ class MainWindow(QMainWindow):
         network_server=net_server,
         config={
             "theme": "enterprise_professional",
-            "layout": "researcher_dashboard", 
+            "layout": "researcher_dashboard",
             "enable_analytics": True,
             "multi_monitor": True
         }
     )
-    
+
     # Configure custom workspace
     window.setup_workspace({
         "primary_panel": "device_management",
@@ -234,11 +231,11 @@ class MainWindow(QMainWindow):
         "sidebar": "session_control",
         "notifications": "top_right"
     })
-    
+
     # Add custom analysis components
     window.register_analytics_widget(CustomThermalAnalyzer())
     window.register_analytics_widget(PhysiologicalMonitor())
-    
+
     # Launch application
     window.show_enterprise_mode()
     ```
@@ -262,7 +259,7 @@ class MainWindow(QMainWindow):
     Attributes:
         session_manager: Core session management instance
         network_server: Network communication server
-        current_state: Current window operational state  
+        current_state: Current window operational state
         device_widgets: Dictionary of active device monitoring widgets
         analytics_panels: List of registered analytics visualization components
         security_manager: Enterprise security and access control manager

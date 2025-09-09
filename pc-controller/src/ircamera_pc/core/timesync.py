@@ -2,11 +2,12 @@
 Enterprise-Grade Time Synchronization Service for IRCamera PC Controller.
 
 This advanced module provides comprehensive SNTP-like time synchronization services
-for Android devices and multi-device thermal imaging systems. It implements sophisticated
-timing algorithms with nanosecond precision, network jitter compensation, and enterprise-grade
-reliability to ensure precise temporal coordination across all connected devices.
+for Android devices and multi-device thermal imaging systems. It implements
+sophisticated timing algorithms with nanosecond precision, network jitter
+compensation, and enterprise-grade reliability to ensure precise temporal
+coordination across all connected devices.
 
-The service is critical for research-grade data collection where precise temporal alignment
+The service is critical for research-grade data collection where precise temporal
 between thermal cameras, physiological sensors, and other data sources is essential for
 accurate multi-modal analysis and correlation studies.
 
@@ -30,30 +31,30 @@ graph TB
         Atomic[Atomic Clock]
         System[System Clock]
     end
-    
+
     subgraph "PC Controller Hub"
         TimeService[Time Sync Service]
         RefClock[Reference Clock]
         SyncEngine[Sync Engine]
         QualityMgr[Quality Manager]
     end
-    
+
     subgraph "Connected Devices"
         Android1[Android Device 1]
         Android2[Android Device 2]
         Thermal[Thermal Cameras]
         GSR[GSR Sensors]
     end
-    
+
     NTP --> RefClock
     GPS --> RefClock
     Atomic --> RefClock
     System --> RefClock
-    
+
     RefClock --> TimeService
     TimeService --> SyncEngine
     SyncEngine --> QualityMgr
-    
+
     SyncEngine <--> Android1
     SyncEngine <--> Android2
     SyncEngine <--> Thermal
@@ -170,19 +171,14 @@ Dependencies:
 """
 
 import asyncio
-import math
 import statistics
 import struct
 import time
-from collections import deque
-from dataclasses import dataclass, field
-from datetime import datetime, timezone, timedelta
-from enum import Enum
-from typing import (
-    Dict, List, Optional, Tuple, Callable, Any, Union,
-    AsyncGenerator, Protocol, TypeVar
-)
 import warnings
+from dataclasses import dataclass, field
+from datetime import datetime, timezone
+from enum import Enum
+from typing import Dict, List, Optional, Tuple, TypeVar
 
 try:
     from loguru import logger
@@ -191,54 +187,54 @@ except ImportError:
 
 try:
     import numpy as np
+
     NUMPY_AVAILABLE = True
 except ImportError:
     NUMPY_AVAILABLE = False
     warnings.warn(
-        "NumPy not available - advanced statistical analysis disabled",
-        ImportWarning
+        "NumPy not available - advanced statistical analysis disabled", ImportWarning
     )
 
 from .config import config
 
 # Type variables
-DeviceType = TypeVar('DeviceType')
+DeviceType = TypeVar("DeviceType")
 
 
 class SyncQuality(Enum):
     """
     Time synchronization quality levels for real-time assessment.
-    
+
     These quality levels are determined by accuracy, stability,
     network conditions, and long-term performance metrics.
     """
-    
+
     EXCELLENT = 5  # < 50μs accuracy, stable network
-    GOOD = 4       # < 100μs accuracy, good network
-    FAIR = 3       # < 500μs accuracy, acceptable network
-    POOR = 2       # < 1ms accuracy, poor network
-    UNUSABLE = 1   # > 1ms accuracy, unstable network
-    UNKNOWN = 0    # Quality assessment not available
+    GOOD = 4  # < 100μs accuracy, good network
+    FAIR = 3  # < 500μs accuracy, acceptable network
+    POOR = 2  # < 1ms accuracy, poor network
+    UNUSABLE = 1  # > 1ms accuracy, unstable network
+    UNKNOWN = 0  # Quality assessment not available
 
 
 class SyncMode(Enum):
     """Time synchronization operation modes."""
-    
-    RESEARCH_GRADE = "research_grade"    # Maximum precision for research
-    PRODUCTION = "production"            # Balanced precision and performance
-    POWER_SAVING = "power_saving"        # Reduced frequency for battery devices
-    REAL_TIME = "real_time"             # Continuous synchronization for live streams
+
+    RESEARCH_GRADE = "research_grade"  # Maximum precision for research
+    PRODUCTION = "production"  # Balanced precision and performance
+    POWER_SAVING = "power_saving"  # Reduced frequency for battery devices
+    REAL_TIME = "real_time"  # Continuous synchronization for live streams
 
 
 @dataclass
 class TimeSyncStats:
     """
     Comprehensive time synchronization statistics for device monitoring.
-    
+
     This class provides detailed metrics for assessing synchronization quality,
     network performance, and long-term stability. It includes statistical analysis
     of synchronization accuracy and network jitter compensation effectiveness.
-    
+
     Attributes:
         device_id: Unique identifier for the synchronized device
         last_sync: Timestamp of most recent synchronization attempt
@@ -275,7 +271,7 @@ class TimeSyncStats:
     def update_statistics(self, max_samples: int = 100) -> None:
         """
         Update statistical metrics based on recent offset measurements.
-        
+
         Args:
             max_samples: Maximum number of recent samples to maintain
         """
@@ -289,20 +285,22 @@ class TimeSyncStats:
         # Calculate statistical metrics
         if len(self.recent_offsets) >= 3:
             self.median_offset_ms = statistics.median(self.recent_offsets)
-            self.p95_offset_ms = np.percentile(
-                self.recent_offsets, 95
-            ) if NUMPY_AVAILABLE else max(self.recent_offsets)
-            
+            self.p95_offset_ms = (
+                np.percentile(self.recent_offsets, 95)
+                if NUMPY_AVAILABLE
+                else max(self.recent_offsets)
+            )
+
             # Calculate network jitter (standard deviation of offsets)
             self.network_jitter_ms = statistics.stdev(self.recent_offsets)
-            
+
             # Assess synchronization quality
             self._assess_quality()
 
     def _assess_quality(self) -> None:
         """Assess overall synchronization quality based on metrics."""
         accuracy_us = abs(self.median_offset_ms) * 1000  # Convert to microseconds
-        
+
         if accuracy_us < 50 and self.network_jitter_ms < 0.1:
             self.quality = SyncQuality.EXCELLENT
         elif accuracy_us < 100 and self.network_jitter_ms < 0.5:
@@ -313,7 +311,7 @@ class TimeSyncStats:
             self.quality = SyncQuality.POOR
         else:
             self.quality = SyncQuality.UNUSABLE
-            
+
         self.accuracy_us = accuracy_us
 
 
@@ -321,57 +319,73 @@ class TimeSyncService:
     """
     Enterprise-grade time synchronization service for multi-device coordination.
 
-    This service provides sophisticated time synchronization capabilities for thermal
-    imaging research systems, ensuring precise temporal alignment between thermal cameras,
-    physiological sensors, and mobile devices. It implements advanced timing protocols
-    with network jitter compensation and enterprise-grade reliability.
+    This service provides sophisticated time synchronization capabilities for
+    thermal imaging research systems, ensuring precise temporal alignment between
+    thermal cameras, physiological sensors, and mobile devices. It implements
+    advanced timing protocols with network jitter compensation and enterprise-grade
+    reliability.
 
-    The service implements the Time Synchronisation Service functional requirement (FR3)
-    with enhanced capabilities for research-grade precision and enterprise scalability.
-    It supports simultaneous synchronization of hundreds of devices with microsecond-level
-    accuracy and comprehensive quality monitoring.
+    The service implements the Time Synchronisation Service functional requirement
+    (FR3) with enhanced capabilities for research-grade precision and enterprise
+    scalability. It supports simultaneous synchronization of hundreds of devices
+    with microsecond-level accuracy and comprehensive quality monitoring.
 
     ## Core Synchronization Features
 
     ### High-Precision Timing
-    - **Microsecond Accuracy**: Sub-millisecond synchronization with statistical validation
-    - **Network Compensation**: Advanced algorithms for network jitter and delay compensation
-    - **Multi-Source Reference**: Integration with NTP, GPS, and atomic clock references
-    - **Adaptive Algorithms**: Dynamic adjustment based on network conditions and device capabilities
+    - **Microsecond Accuracy**: Sub-millisecond synchronization with statistical
+      validation
+    - **Network Compensation**: Advanced algorithms for network jitter and delay
+      compensation
+    - **Multi-Source Reference**: Integration with NTP, GPS, and atomic clock
+      references
+    - **Adaptive Algorithms**: Dynamic adjustment based on network conditions and
+      device capabilities
 
     ### Enterprise Scalability
     - **Multi-Device Support**: Simultaneous synchronization of 200+ devices
-    - **Load Balancing**: Distributed synchronization load across multiple service instances
-    - **Fault Tolerance**: Automatic failover and recovery from synchronization failures
-    - **Performance Monitoring**: Real-time performance metrics and quality assessment
+    - **Load Balancing**: Distributed synchronization load across multiple service
+      instances
+    - **Fault Tolerance**: Automatic failover and recovery from synchronization
+      failures
+    - **Performance Monitoring**: Real-time performance metrics and quality
+      assessment
 
     ### Research-Grade Quality
-    - **Statistical Validation**: Comprehensive statistical analysis of synchronization quality
+    - **Statistical Validation**: Comprehensive statistical analysis of
+      synchronization quality
     - **Drift Compensation**: Automatic detection and compensation of clock drift
     - **Quality Metrics**: Detailed quality assessment with accuracy guarantees
-    - **Audit Trails**: Complete logging of synchronization events for research validation
+    - **Audit Trails**: Complete logging of synchronization events for research
+      validation
 
     ## Implementation Details
 
     The service implements a sophisticated synchronization protocol:
 
-    1. **Device Registration**: Secure device authentication and capability negotiation
-    2. **Initial Synchronization**: Multi-sample clock offset determination with outlier rejection
-    3. **Continuous Monitoring**: Periodic synchronization with adaptive frequency adjustment  
-    4. **Quality Assessment**: Real-time evaluation of synchronization accuracy and stability
-    5. **Drift Correction**: Long-term clock drift detection and automatic compensation
+    1. **Device Registration**: Secure device authentication and capability
+       negotiation
+    2. **Initial Synchronization**: Multi-sample clock offset determination with
+       outlier rejection
+    3. **Continuous Monitoring**: Periodic synchronization with adaptive frequency
+       adjustment
+    4. **Quality Assessment**: Real-time evaluation of synchronization accuracy
+       and stability
+    5. **Drift Correction**: Long-term clock drift detection and automatic
+       compensation
 
     ## Performance Guarantees
 
     - **Target Accuracy**: ±100 microseconds under normal network conditions
     - **Worst-Case Accuracy**: ±1 millisecond under adverse conditions
-    - **Sync Frequency**: Configurable from 1Hz to 0.01Hz based on stability requirements
+    - **Sync Frequency**: Configurable from 1Hz to 0.01Hz based on stability
+      requirements
     - **Network Tolerance**: Robust operation with up to 500ms network latency
     - **Jitter Compensation**: Automatic compensation for ±100ms network jitter
 
     Example:
         Enterprise time synchronization setup:
-        
+
         ```python
         # Initialize with research-grade configuration
         time_sync = TimeSyncService(
@@ -382,17 +396,17 @@ class TimeSyncService:
                 "time.google.com"
             ]
         )
-        
+
         # Start synchronization service
         await time_sync.start_service(port=8123)
-        
+
         # Configure device-specific parameters
         await time_sync.configure_device("android_001", {
             "sync_priority": "high",
             "accuracy_requirement": "research_grade",
             "sync_interval": 10.0  # seconds
         })
-        
+
         # Monitor synchronization quality
         stats = await time_sync.get_device_stats("android_001")
         print(f"Accuracy: {stats.accuracy_us}μs")
@@ -410,7 +424,7 @@ class TimeSyncService:
     Methods:
         start_service: Initialize and start the synchronization service
         register_device: Register a new device for synchronization
-        sync_device: Perform synchronization with a specific device  
+        sync_device: Perform synchronization with a specific device
         get_statistics: Retrieve comprehensive synchronization statistics
         configure_quality: Set quality thresholds and monitoring parameters
     """

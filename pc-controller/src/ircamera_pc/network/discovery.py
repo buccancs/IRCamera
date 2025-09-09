@@ -29,7 +29,7 @@ Security Features:
 
 Example:
     Basic service discovery:
-    
+
     ```python
     # Initialize discovery service
     discovery = NetworkDiscoveryService(
@@ -37,21 +37,21 @@ Example:
         port=8080,
         enable_security=True
     )
-    
+
     # Start discovery
     await discovery.start_discovery()
-    
+
     # Register service
     await discovery.register_service({
         "service_type": "thermal_hub",
         "version": "2.1.0",
         "capabilities": ["thermal", "gsr", "sync"]
     })
-    
+
     # Monitor for devices
     discovery.on_device_discovered = handle_device_found
     discovery.on_device_lost = handle_device_lost
-    
+
     # Discover existing services
     devices = await discovery.discover_services(timeout=10.0)
     ```
@@ -86,15 +86,15 @@ Dependencies:
 
 import asyncio
 import socket
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
-from typing import Dict, List, Optional, Callable, Any, Union
-from ipaddress import IPv4Address, IPv6Address
+from typing import Dict, List, Optional
 
 try:
     from zeroconf import ServiceInfo, Zeroconf
     from zeroconf.asyncio import AsyncServiceBrowser, AsyncZeroconf
+
     ZEROCONF_AVAILABLE = True
 except ImportError:
     # Graceful fallback implementation without zeroconf
@@ -114,11 +114,11 @@ except ImportError:
         class EnterpriseLogger:
             """
             Enterprise-grade fallback logger for environments without loguru.
-            
+
             Provides structured logging with timestamp, level, and message formatting
             compatible with enterprise logging standards.
             """
-            
+
             def _log(self, level: str, msg: str) -> None:
                 timestamp = datetime.now().isoformat()
                 print(f"{timestamp} [{level}] NetworkDiscovery: {msg}")

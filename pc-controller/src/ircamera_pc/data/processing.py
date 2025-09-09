@@ -4,22 +4,28 @@ Advanced Data Processing and Analytics Engine for IRCamera PC Controller.
 
 This enterprise-grade module provides comprehensive real-time data processing and
 aggregation capabilities for multi-modal physiological sensing data including GSR,
-thermal imaging, RGB camera data, and environmental sensors. It implements sophisticated
-signal processing algorithms, machine learning pipelines, and advanced analytics for
-research-grade data analysis and visualization.
+thermal imaging, RGB camera data, and environmental sensors. It implements
+sophisticated signal processing algorithms, machine learning pipelines, and
+advanced analytics for research-grade data analysis and visualization.
 
-The module serves as the central data processing hub, coordinating multiple data streams,
-applying real-time analysis algorithms, and generating insights for thermal imaging
-research applications. It supports both streaming and batch processing modes with
-enterprise-grade performance and reliability.
+The module serves as the central data processing hub, coordinating multiple data
+streams, applying real-time analysis algorithms, and generating insights for
+thermal imaging research applications. It supports both streaming and batch
+processing modes with enterprise-grade performance and reliability.
 
 Key Features:
-    - **Multi-Modal Data Fusion**: Synchronized processing of thermal, GSR, and RGB data
-    - **Real-Time Signal Processing**: Low-latency filtering, artifact removal, and analysis
-    - **Machine Learning Pipeline**: Real-time inference with batch training capabilities
-    - **Advanced Analytics**: Statistical analysis, feature extraction, and pattern recognition
-    - **High-Performance Computing**: Optimized algorithms with GPU acceleration support
-    - **Enterprise Data Export**: Multiple format support (HDF5, CSV, JSON, MAT, Parquet)
+    - **Multi-Modal Data Fusion**: Synchronized processing of thermal, GSR, and
+      RGB data
+    - **Real-Time Signal Processing**: Low-latency filtering, artifact removal,
+      and analysis
+    - **Machine Learning Pipeline**: Real-time inference with batch training
+      capabilities
+    - **Advanced Analytics**: Statistical analysis, feature extraction, and
+      pattern recognition
+    - **High-Performance Computing**: Optimized algorithms with GPU acceleration
+      support
+    - **Enterprise Data Export**: Multiple format support (HDF5, CSV, JSON, MAT,
+      Parquet)
     - **Quality Assurance**: Automated data validation and quality metrics
     - **Scalable Architecture**: Distributed processing with cloud integration
 
@@ -29,11 +35,11 @@ Key Features:
 graph LR
     subgraph "Data Sources"
         GSR[GSR Sensors]
-        Thermal[Thermal Cameras] 
+        Thermal[Thermal Cameras]
         RGB[RGB Cameras]
         Env[Environmental Sensors]
     end
-    
+
     subgraph "Processing Pipeline"
         Ingest[Data Ingestion]
         Sync[Temporal Sync]
@@ -41,24 +47,24 @@ graph LR
         ML[ML Processing]
         Agg[Data Aggregation]
     end
-    
+
     subgraph "Outputs"
         RT[Real-Time Analytics]
         Export[Data Export]
         Cloud[Cloud Storage]
         API[Analysis APIs]
     end
-    
+
     GSR --> Ingest
     Thermal --> Ingest
     RGB --> Ingest
     Env --> Ingest
-    
+
     Ingest --> Sync
     Sync --> Filter
     Filter --> ML
     ML --> Agg
-    
+
     Agg --> RT
     Agg --> Export
     Agg --> Cloud
@@ -73,7 +79,7 @@ graph LR
 - **Quality Assessment**: Signal quality metrics and artifact classification
 - **Calibration**: Automatic sensor calibration with drift compensation
 
-### Thermal Data Processing  
+### Thermal Data Processing
 - **Thermal Analysis**: Temperature mapping, hotspot detection, thermal gradients
 - **Image Processing**: Noise reduction, edge enhancement, contrast optimization
 - **Spatial Analysis**: ROI analysis, thermal pattern recognition, object tracking
@@ -142,7 +148,8 @@ await processor.export_session(
 ## Quality Assurance System
 
 - **Data Validation**: Real-time quality assessment and error detection
-- **Artifact Detection**: Automated identification and classification of signal artifacts
+- **Artifact Detection**: Automated identification and classification of signal
+  artifacts
 - **Calibration Monitoring**: Continuous sensor calibration validation and alerts
 - **Performance Metrics**: Processing performance tracking and optimization
 - **Audit Trails**: Comprehensive logging of all processing operations and decisions
@@ -176,90 +183,92 @@ import asyncio
 import json
 import time
 import warnings
-from collections import deque
 from dataclasses import asdict, dataclass, field
-from datetime import datetime, timezone
 from enum import Enum
 from pathlib import Path
-from typing import (
-    Any, Dict, List, Optional, Callable, Union, Tuple, Protocol,
-    AsyncGenerator, Iterator, TypeVar, Generic
-)
+from typing import Any, Dict, List, Optional, Tuple, TypeVar
 
 import numpy as np
 from loguru import logger
 
 try:
-    import pandas as pd
     PANDAS_AVAILABLE = True
 except ImportError:
     PANDAS_AVAILABLE = False
     warnings.warn(
-        "pandas not available - advanced time series analysis disabled", 
-        ImportWarning
+        "pandas not available - advanced time series analysis disabled", ImportWarning
     )
 
 try:
     import h5py
+
     HDF5_AVAILABLE = True
 except ImportError:
     HDF5_AVAILABLE = False
     warnings.warn(
-        "h5py not available - HDF5 export functionality disabled", 
-        ImportWarning
+        "h5py not available - HDF5 export functionality disabled", ImportWarning
     )
 
 try:
-    import scipy.signal as signal
-    import scipy.stats as stats
     SCIPY_AVAILABLE = True
 except ImportError:
     SCIPY_AVAILABLE = False
     warnings.warn(
-        "SciPy not available - advanced signal processing disabled",
-        ImportWarning
+        "SciPy not available - advanced signal processing disabled", ImportWarning
     )
 
 # Type variables for generic data handling
-T = TypeVar('T')
-DataPointType = TypeVar('DataPointType', bound='DataPoint')
+T = TypeVar("T")
+
+
+@dataclass
+class DataPoint:
+    """Base class for all data points with timestamp and quality metrics."""
+
+    timestamp: float
+    quality: "DataQuality"
+    session_id: str
+    device_id: str
+
+
+DataPointType = TypeVar("DataPointType", bound="DataPoint")
 
 
 class DataQuality(Enum):
     """
     Data quality assessment levels for real-time quality monitoring.
-    
+
     These quality levels are determined by signal-to-noise ratio,
     artifact presence, calibration status, and temporal consistency.
     """
-    
+
     EXCELLENT = 5  # Perfect signal quality, no artifacts
-    GOOD = 4       # High quality, minimal artifacts
-    FAIR = 3       # Acceptable quality, some artifacts
-    POOR = 2       # Poor quality, many artifacts  
-    INVALID = 1    # Unusable data, excessive artifacts
-    UNKNOWN = 0    # Quality assessment not available
+    GOOD = 4  # High quality, minimal artifacts
+    FAIR = 3  # Acceptable quality, some artifacts
+    POOR = 2  # Poor quality, many artifacts
+    INVALID = 1  # Unusable data, excessive artifacts
+    UNKNOWN = 0  # Quality assessment not available
 
 
 class ProcessingMode(Enum):
     """Data processing operation modes."""
-    
-    REAL_TIME = "real_time"      # Low-latency streaming processing
-    BATCH = "batch"              # High-throughput batch processing
-    HYBRID = "hybrid"            # Combined real-time and batch processing
-    SIMULATION = "simulation"    # Synthetic data processing for testing
+
+    REAL_TIME = "real_time"  # Low-latency streaming processing
+    BATCH = "batch"  # High-throughput batch processing
+    HYBRID = "hybrid"  # Combined real-time and batch processing
+    SIMULATION = "simulation"  # Synthetic data processing for testing
 
 
 @dataclass
 class GSRDataPoint:
     """
     Comprehensive GSR data point with advanced signal analysis metadata.
-    
+
     This class encapsulates a single GSR (Galvanic Skin Response) measurement
     with comprehensive metadata required for advanced physiological analysis.
     It includes signal quality metrics, artifact detection, and real-time
     feature extraction results.
-    
+
     Attributes:
         timestamp: High-precision Unix timestamp (microsecond resolution)
         gsr_value: Calibrated GSR conductance in microsiemens (μS)
@@ -271,7 +280,7 @@ class GSRDataPoint:
         temperature: Sensor temperature in Celsius (if available)
         artifacts: List of detected signal artifacts and classifications
         features: Real-time extracted physiological features
-        
+
     Example:
         ```python
         gsr_point = GSRDataPoint(
@@ -309,7 +318,7 @@ class GSRDataPoint:
             self.artifacts = []
         if self.features is None:
             self.features = {}
-            
+
         # Validate physiological ranges
         if not (0.1 <= self.gsr_value <= 100.0):  # μS
             self.artifacts.append("out_of_range")
@@ -320,12 +329,12 @@ class GSRDataPoint:
 class ThermalDataPoint:
     """
     Advanced thermal camera data point with comprehensive thermal analysis.
-    
+
     This class represents a single thermal frame with complete thermal analysis
     metadata, including temperature matrices, spatial analysis results, and
     real-time thermal feature extraction. It supports multiple thermal camera
     resolutions and provides enterprise-grade thermal data management.
-    
+
     Attributes:
         timestamp: High-precision capture timestamp (microsecond resolution)
         temperature_data: 2D temperature matrix in Celsius (calibrated values)
@@ -337,7 +346,7 @@ class ThermalDataPoint:
         calibration_data: Camera calibration parameters and coefficients
         spatial_features: Extracted spatial thermal features and patterns
         quality_metrics: Frame quality assessment and validation results
-        
+
     Example:
         ```python
         thermal_point = ThermalDataPoint(
