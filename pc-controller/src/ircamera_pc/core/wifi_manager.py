@@ -37,24 +37,24 @@ except ImportError:
     PYQT_AVAILABLE = False
 
     # Fallback signal implementation for when PyQt is not available
-    class pyqtSignal:
-        def __init__(self, *args):
-            self._callbacks = []
+    class MockPyQtSignal:
+        def __init__(self, *args: Any) -> None:
+            self._callbacks: List[Any] = []
 
-        def emit(self, *args):
+        def emit(self, *args: Any) -> None:
             for callback in self._callbacks:
                 callback(*args)
 
-        def connect(self, callback):
+        def connect(self, callback: Any) -> None:
             self._callbacks.append(callback)
 
-    def pyqtSlot(*args, **kwargs):
-        def decorator(func):
+    def pyqtSlot(*args: Any, **kwargs: Any) -> Any:
+        def decorator(func: Any) -> Any:
             return func
 
         return decorator
 
-    class BaseThread:
+    class MockBaseThread:
         def __init__(self) -> None:
             pass
 
@@ -64,6 +64,10 @@ except ImportError:
 
         def run(self) -> None:
             pass
+
+    # Assign mock classes for compatibility
+    pyqtSignal = MockPyQtSignal  # type: ignore
+    BaseThread = MockBaseThread  # type: ignore
 
 
 try:

@@ -44,12 +44,12 @@ class SessionMetadata:
     ended_at: Optional[str] = None
     duration_seconds: Optional[float] = None
     gsr_mode: str = "local"
-    devices: List[Dict[str, Any]] = None
-    files: List[Dict[str, Any]] = None
-    sync_events: List[Dict[str, Any]] = None
-    calibration_data: Dict[str, Any] = None
+    devices: Optional[List[Dict[str, Any]]] = None
+    files: Optional[List[Dict[str, Any]]] = None
+    sync_events: Optional[List[Dict[str, Any]]] = None
+    calibration_data: Optional[Dict[str, Any]] = None
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if self.devices is None:
             self.devices = []
         if self.files is None:
@@ -71,7 +71,7 @@ class SessionManager:
     - Only one session active at a time
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize session manager."""
         self._current_session: Optional[SessionMetadata] = None
         self._session_history: List[str] = []
@@ -249,7 +249,7 @@ class SessionManager:
         logger.debug(f"File added to session: {file_info.get('filename', 'unknown')}")
 
     def add_sync_event(
-        self, event_type: str, event_data: Dict[str, Any] = None
+        self, event_type: str, event_data: Optional[Dict[str, Any]] = None
     ) -> None:
         """
         Add synchronization event to current session.

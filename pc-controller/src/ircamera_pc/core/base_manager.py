@@ -18,9 +18,9 @@ try:
     PYQT_AVAILABLE = True
 
     # Create a hybrid metaclass that combines QObject and ABC metaclasses
-    class QObjectMeta(type(QtQObject), ABCMeta):
+    class QObjectMeta(type(QtQObject), ABCMeta):  # type: ignore
         """Metaclass to resolve conflict between QObject and ABC"""
-
+        pass
 
 except ImportError:
     PYQT_AVAILABLE = False
