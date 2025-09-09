@@ -1,5 +1,6 @@
 package com.topdon.tc001
 
+import android.util.Log
 import android.view.WindowManager
 // Note: PDFView library dependency not included in current build configuration
 import android.widget.TextView
@@ -9,7 +10,6 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-import java.io.OutputStream
 
 /**
  * create by fylder on 2018/8/9
@@ -43,14 +43,27 @@ class PdfActivity : BaseActivity() {
     }
 
     override fun initData() {
-        val tc001File = File(getExternalFilesDir("pdf")!!, "TC001.pdf")
+        val pdfDir = getExternalFilesDir(PDF_DIRECTORY) 
+            ?: throw IllegalStateException("Unable to access external files directory")
+            
+        val tc001File = File(pdfDir, "TC001.pdf")
         if (!tc001File.exists()) {
-            copyBigDataToSD("TC001.pdf", tc001File)
+            try {
+                copyBigDataToSD("TC001.pdf", tc001File)
+            } catch (e: IOException) {
+                Log.e("PdfActivity", "Failed to copy TC001.pdf", e)
+                // Graceful fallback - could show error to user
+            }
         }
 
-        val tc004File = File(getExternalFilesDir("pdf")!!, "TS004.pdf")
+        val tc004File = File(pdfDir, "TS004.pdf")
         if (!tc004File.exists()) {
-            copyBigDataToSD("TS004.pdf", tc004File)
+            try {
+                copyBigDataToSD("TS004.pdf", tc004File)
+            } catch (e: IOException) {
+                Log.e("PdfActivity", "Failed to copy TS004.pdf", e)
+                // Graceful fallback - could show error to user
+            }
         }
     }
 
@@ -64,22 +77,36 @@ class PdfActivity : BaseActivity() {
         window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }
 
-    // 复制assets文件
+    companion object {
+        private const val BUFFER_SIZE = 8192 // Optimized buffer size for better I/O performance
+        private const val PDF_DIRECTORY = "pdf"
+    }
+
+    /**
+     * Copies assets files to external storage using proper resource management
+     * 
+     * @param assetsName Name of the asset file to copy
+     * @param targetFile Target file location for the copied asset
+     * @throws IOException if file operations fail
+     */
     @Throws(IOException::class)
     private fun copyBigDataToSD(
         assetsName: String,
         targetFile: File,
     ) {
-        val myOutput: OutputStream = FileOutputStream(targetFile)
-        val myInput = assets.open(assetsName)
-        val buffer = ByteArray(1024)
-        var length: Int = myInput.read(buffer)
-        while (length > 0) {
-            myOutput.write(buffer, 0, length)
-            length = myInput.read(buffer)
+        // Ensure parent directory exists
+        targetFile.parentFile?.mkdirs()
+        
+        // Use try-with-resources pattern for automatic resource management
+        assets.open(assetsName).use { inputStream ->
+            FileOutputStream(targetFile).use { outputStream ->
+                val buffer = ByteArray(BUFFER_SIZE)
+                var bytesRead: Int
+                while (inputStream.read(buffer).also { bytesRead = it } != -1) {
+                    outputStream.write(buffer, 0, bytesRead)
+                }
+                outputStream.flush()
+            }
         }
-        myOutput.flush()
-        myInput.close()
-        myOutput.close()
     }
 }

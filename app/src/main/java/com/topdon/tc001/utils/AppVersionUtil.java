@@ -11,6 +11,9 @@ import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.blankj.utilcode.util.GsonUtils;
 import com.blankj.utilcode.util.ZipUtils;
@@ -40,64 +43,146 @@ import kotlin.jvm.functions.Function0;
 
 /**
  * AppVersionUtil
- * APP版本检测工具类
+ * Enhanced APP版本检测工具类 with improved error handling and resource management
  *
  * @author chuanfeng.bi
  * @date 2022/2/10 19:48
  */
 public class AppVersionUtil {
-    // Constants for improved maintainability
+    // Enhanced constants for improved maintainability and performance
     private static final String TAG = "AppVersionUtil";
     private static final String FILE_NAME_PREFIX = "topinfrared";
     private static final String FILE_NAME_SUFFIX = ".zip";
     private static final String LOG_TAG = "bcf";
+    private static final int NETWORK_TIMEOUT_MS = 10000; // 10 second timeout
+    private static final long MIN_FILE_SIZE_BYTES = 1024L; // Minimum valid file size
     
-    private Context mContext;
+    private final Context mContext;
     private DownloadCompleteReceiver completeReceiver; // 声明一个下载完成的广播接收器
-    private DownloadManager dowanloadmanager = null;
-    private DotIsShowListener dotIsShowListener = null;
+    private DownloadManager downloadManager = null;
+    private final DotIsShowListener dotIsShowListener;
     private String fileName = "";//文件名称
     private Long mDownloadId = 0L;//下载id
 
-    public AppVersionUtil(Context context, DotIsShowListener dotIsShow) {
-        this.mContext = context;
+    /**
+     * Constructor with enhanced null safety
+     *
+     * @param context Application context (non-null)
+     * @param dotIsShow Listener for version update notifications (nullable)
+     * @throws IllegalArgumentException if context is null
+     */
+    public AppVersionUtil(@NonNull Context context, @Nullable DotIsShowListener dotIsShow) {
+        if (context == null) {
+            throw new IllegalArgumentException("Context cannot be null");
+        }
+        this.mContext = context.getApplicationContext(); // Use application context to prevent memory leaks
         this.dotIsShowListener = dotIsShow;
     }
 
-    public void checkVersion( boolean isShowDialog) {
-        if (dowanloadmanager == null) {
-            dowanloadmanager = (DownloadManager) mContext.getSystemService(DOWNLOAD_SERVICE);
+    /**
+     * Enhanced version check with improved error handling and validation
+     *
+     * @param isShowDialog Whether to show update dialog to user
+     */
+    public void checkVersion(boolean isShowDialog) {
+        // Initialize download manager with null safety
+        if (downloadManager == null) {
+            downloadManager = (DownloadManager) mContext.getSystemService(DOWNLOAD_SERVICE);
+            if (downloadManager == null) {
+                Log.e(TAG, "DownloadManager service is unavailable");
+                return;
+            }
         }
 
+        // Validate network connectivity before proceeding
         if (!NetworkUtil.isConnected(mContext)) {
             TToast.shortToast(mContext, com.topdon.lms.sdk.R.string.lms_setting_http_error);
             return;
         }
-        LMS.getInstance().checkAppUpdate(commonBean -> {
-            if (commonBean.code == SUCCESS) {
-                AppInfoBean appInfoBean = LMS.getInstance().getUpdateAppInfoBean();
-                XLog.w(LOG_TAG, "app更新信息:" + GsonUtils.toJson(appInfoBean));
-                if (appInfoBean != null) {
-                    if (appInfoBean.getVersionCode() > getDealVersionCode()) {
-                        if (isShowDialog) {
-                            String information = "";
-//                            showNewVersionDialog(appInfoBean);
-                            if (appInfoBean.softConfigOtherTypeVOList != null) {
-                                for (AppInfoBean.UpdateDescription updateDescription : appInfoBean.softConfigOtherTypeVOList) {
-                                    if (updateDescription.descType == 3) {
-                                        information = updateDescription.textDescription;
-                                    }
-                                }
-                            }
-                            showUpdateDialog(mContext, appInfoBean.downloadPackageUrl, information,Integer.parseInt(appInfoBean.forcedUpgradeFlag));
-                        }
-                        if (dotIsShowListener != null) {
-                            dotIsShowListener.isShow(true);
-                            dotIsShowListener.version(appInfoBean.versionNo);
-                        }
-                        HttpConfig.INSTANCE.setHasNewVersion(true);
-                    } else {
-                        HttpConfig.INSTANCE.setHasNewVersion(false);
+        
+        // Enhanced version check with proper error handling
+        try {
+            LMS.getInstance().checkAppUpdate(commonBean -> {
+                if (commonBean == null) {
+                    Log.w(TAG, "Received null response from version check");
+                    return;
+                }
+                
+                if (commonBean.code == SUCCESS) {
+                    handleVersionCheckSuccess(isShowDialog);
+                } else {
+                    Log.w(TAG, "Version check failed with code: " + commonBean.code);
+                }
+            });
+        } catch (Exception e) {
+            Log.e(TAG, "Exception during version check", e);
+        }
+    }
+
+    /**
+     * Handles successful version check response with enhanced validation
+     *
+     * @param isShowDialog Whether to show update dialog
+     */
+    private void handleVersionCheckSuccess(boolean isShowDialog) {
+        try {
+            AppInfoBean appInfoBean = LMS.getInstance().getUpdateAppInfoBean();
+            XLog.w(LOG_TAG, "app更新信息:" + GsonUtils.toJson(appInfoBean));
+            
+            if (appInfoBean == null) {
+                Log.w(TAG, "AppInfoBean is null, unable to process version update");
+                return;
+            }
+            
+            // Enhanced version comparison with validation
+            final int currentVersionCode = getDealVersionCode();
+            final int remoteVersionCode = appInfoBean.getVersionCode();
+            
+            if (remoteVersionCode > currentVersionCode) {
+                if (isShowDialog) {
+                    String information = extractVersionInformation(appInfoBean);
+                    showUpdateDialog(mContext, appInfoBean.downloadPackageUrl, information, 
+                                   Integer.parseInt(appInfoBean.forcedUpgradeFlag));
+                }
+                
+                // Notify listener with null safety check
+                if (dotIsShowListener != null) {
+                    dotIsShowListener.isShow(true);
+                    dotIsShowListener.version(appInfoBean.versionNo);
+                }
+                HttpConfig.INSTANCE.setHasNewVersion(true);
+            } else {
+                HttpConfig.INSTANCE.setHasNewVersion(false);
+                Log.d(TAG, "App is up to date. Current: " + currentVersionCode + 
+                         ", Remote: " + remoteVersionCode);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error processing version check response", e);
+        }
+    }
+
+    /**
+     * Extracts version information from app info bean with null safety
+     *
+     * @param appInfoBean The app info bean containing update information
+     * @return Formatted version information string
+     */
+    @NonNull
+    private String extractVersionInformation(@NonNull AppInfoBean appInfoBean) {
+        String information = "";
+        
+        if (appInfoBean.softConfigOtherTypeVOList != null) {
+            for (AppInfoBean.UpdateDescription updateDescription : appInfoBean.softConfigOtherTypeVOList) {
+                if (updateDescription != null && updateDescription.descType == 3) {
+                    information = updateDescription.textDescription != null ? 
+                                updateDescription.textDescription : "";
+                    break;
+                }
+            }
+        }
+        
+        return information;
+    }
                     }
                 } else {
                     HttpConfig.INSTANCE.setHasNewVersion(false);
