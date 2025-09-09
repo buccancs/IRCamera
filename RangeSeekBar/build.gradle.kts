@@ -14,7 +14,8 @@ android {
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
     }
     
-    buildTypes {release {
+    buildTypes {
+        release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),

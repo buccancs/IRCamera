@@ -1,4 +1,4 @@
-package com.example.thermal_lite.util
+package com.topdon.module.thermal.ir.util.thermal_lite
 
 import android.util.Log
 import com.elvishew.xlog.XLog
@@ -6,8 +6,8 @@ import com.energy.ac020library.bean.CommonParams
 import com.energy.ac020library.bean.IrcmdError
 import com.energy.irutilslibrary.LibIRTempAC020
 import com.energy.irutilslibrary.bean.GainStatus
-import com.example.thermal_lite.camera.CameraPreviewManager
-import com.example.thermal_lite.camera.DeviceIrcmdControlManager
+import com.topdon.module.thermal.ir.camera.thermal_lite.CameraPreviewManager
+import com.topdon.module.thermal.ir.camera.thermal_lite.DeviceIrcmdControlManager
 import com.topdon.lib.core.bean.CameraItemBean
 import kotlinx.coroutines.delay
 

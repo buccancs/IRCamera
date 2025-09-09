@@ -1,4 +1,4 @@
-package com.example.thermal_lite.activity
+package com.topdon.module.thermal.ir.activity.thermal_lite
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.ProgressDialog
@@ -48,13 +48,13 @@ import com.energy.iruvc.utils.CommonParams
 import com.energy.iruvc.utils.SynchronizedBitmap
 import com.energy.iruvccamera.usb.USBMonitor
 import com.example.thermal_lite.IrConst
-import com.example.thermal_lite.R
-import com.example.thermal_lite.camera.CameraPreviewManager
-import com.example.thermal_lite.camera.DeviceControlManager
-import com.example.thermal_lite.camera.DeviceIrcmdControlManager
-import com.example.thermal_lite.camera.OnUSBConnectListener
-import com.example.thermal_lite.camera.TempCompensation
-import com.example.thermal_lite.camera.USBMonitorManager
+import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.ir.camera.thermal_lite.CameraPreviewManager
+import com.topdon.module.thermal.ir.camera.thermal_lite.DeviceControlManager
+import com.topdon.module.thermal.ir.camera.thermal_lite.DeviceIrcmdControlManager
+import com.topdon.module.thermal.ir.camera.thermal_lite.OnUSBConnectListener
+import com.topdon.module.thermal.ir.camera.thermal_lite.TempCompensation
+import com.topdon.module.thermal.ir.camera.thermal_lite.USBMonitorManager
 import com.topdon.module.thermal.ir.activity.BaseIRActivity
 import com.topdon.pseudo.bean.CustomPseudoBean
 import com.topdon.lib.core.bean.CameraItemBean
@@ -115,7 +115,7 @@ import com.topdon.module.thermal.ir.repository.ConfigRepository
 import com.topdon.module.thermal.ir.utils.IRConfigData
 import com.topdon.module.thermal.ir.video.VideoRecordFFmpeg
 import com.topdon.module.thermal.ir.view.TimeDownView
-import com.example.thermal_lite.databinding.ActivityIrThermalLiteBinding
+import com.topdon.module.thermal.ir.databinding.ActivityIrThermalLiteBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

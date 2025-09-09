@@ -1,4 +1,4 @@
-package com.example.thermal_lite.camera;
+package com.topdon.module.thermal.ir.camera.thermal_lite;
 
 import android.os.Handler;
 import android.os.HandlerThread;

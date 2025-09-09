@@ -146,12 +146,12 @@ object NavigationManager {
                 RouterConfig.LOG_MP_CHART -> getClassByName("com.topdon.module.thermal.activity.LogMPChartActivity")
 
                 // Thermal-lite routes
-                RouterConfig.IR_TCLITE -> getClassByName("com.example.thermal_lite.activity.IRThermalLiteActivity")
-                RouterConfig.IR_THERMAL_MONITOR_LITE -> getClassByName("com.example.thermal_lite.activity.IRMonitorLiteActivity")
-                RouterConfig.IR_IMG_PICK_LITE -> getClassByName("com.example.thermal_lite.activity.ImagePickIRLiteActivity")
-                RouterConfig.IR_MONITOR_CHART_LITE -> getClassByName("com.example.thermal_lite.activity.IRMonitorChartLiteActivity")
-                RouterConfig.IR_CORRECTION_THREE_LITE -> getClassByName("com.example.thermal_lite.activity.IRCorrectionLiteThreeActivity")
-                RouterConfig.IR_CORRECTION_FOUR_LITE -> getClassByName("com.example.thermal_lite.activity.IRCorrectionLiteFourActivity")
+                RouterConfig.IR_TCLITE -> getClassByName("com.topdon.module.thermal.ir.activity.thermal_lite.IRThermalLiteActivity")
+                RouterConfig.IR_THERMAL_MONITOR_LITE -> getClassByName("com.topdon.module.thermal.ir.activity.thermal_lite.IRMonitorLiteActivity")
+                RouterConfig.IR_IMG_PICK_LITE -> getClassByName("com.topdon.module.thermal.ir.activity.thermal_lite.ImagePickIRLiteActivity")
+                RouterConfig.IR_MONITOR_CHART_LITE -> getClassByName("com.topdon.module.thermal.ir.activity.thermal_lite.IRMonitorChartLiteActivity")
+                RouterConfig.IR_CORRECTION_THREE_LITE -> getClassByName("com.topdon.module.thermal.ir.activity.thermal_lite.IRCorrectionLiteThreeActivity")
+                RouterConfig.IR_CORRECTION_FOUR_LITE -> getClassByName("com.topdon.module.thermal.ir.activity.thermal_lite.IRCorrectionLiteFourActivity")
 
                 // Report routes
                 RouterConfig.REPORT_CREATE_FIRST -> getClassByName("com.topdon.module.thermal.ir.report.activity.ReportCreateFirstActivity")

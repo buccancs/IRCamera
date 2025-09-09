@@ -27,7 +27,7 @@ import com.elvishew.xlog.XLog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 // Note: SupHelp library integration is not included in this build configuration
-import com.example.thermal_lite.activity.IRThermalLiteActivity
+import com.topdon.module.thermal.ir.activity.thermal_lite.IRThermalLiteActivity
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions

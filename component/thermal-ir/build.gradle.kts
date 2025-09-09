@@ -28,7 +28,8 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
-    buildTypes {release {
+    buildTypes {
+        release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -70,8 +71,12 @@ dependencies {
     implementation(project(":libui"))
     implementation(project(":libmenu"))
     implementation(project(":component:pseudo"))
-    implementation(project(":component:thermal"))
+    // REMOVED: thermal dependency to break circular dependency
+    // thermal-ir now uses thermal-lite for CommonComponent classes
+    // implementation(project(":component:thermal"))
     implementation(project(":component:house"))
+    // Add thermal-lite dependency to access CommonComponent classes
+    implementation(project(":component:thermal-lite"))
     
     // AAR dependencies as compileOnly for compilation but not packaging
     compileOnly(files("../../libir/libs/suplib-release.aar"))  // Required for SupHelp class

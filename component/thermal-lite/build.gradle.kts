@@ -25,7 +25,8 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
-    buildTypes {release {
+    buildTypes {
+        release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -68,8 +69,10 @@ dependencies {
     implementation(project(":libmenu"))
 
     implementation(project(":component:pseudo"))
-    // Re-add thermal-ir dependency - needed for thermal-lite functionality
-    implementation(project(":component:thermal-ir"))
+    // REMOVED: thermal-ir dependency to break circular dependency
+    // Thermal-lite should only contain essential utility classes (RotateDegree, DeviceType, ThermalConst)
+    // Activities that need thermal-ir should be moved to thermal-ir module
+    // implementation(project(":component:thermal-ir"))
     // Add commonlibrary dependency for thermal-lite
     implementation(project(":commonlibrary"))
     

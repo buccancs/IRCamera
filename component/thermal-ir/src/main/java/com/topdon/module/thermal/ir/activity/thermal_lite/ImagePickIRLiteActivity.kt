@@ -1,8 +1,8 @@
-package com.example.thermal_lite.activity
+package com.topdon.module.thermal.ir.activity.thermal_lite
 
 import android.graphics.Bitmap
 import android.view.View
-import com.example.thermal_lite.fragment.IRMonitorLiteFragment
+import com.topdon.module.thermal.ir.fragment.thermal_lite.IRMonitorLiteFragment
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.ktbase.BasePickImgActivity

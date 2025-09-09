@@ -1,4 +1,4 @@
-package com.example.thermal_lite.camera;
+package com.topdon.module.thermal.ir.camera.thermal_lite;
 
 import android.hardware.usb.UsbDevice;
 

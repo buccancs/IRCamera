@@ -1,4 +1,4 @@
-package com.example.thermal_lite.camera.task;
+package com.topdon.module.thermal.ir.camera.thermal_lite.task;
 
 import android.util.Log;
 

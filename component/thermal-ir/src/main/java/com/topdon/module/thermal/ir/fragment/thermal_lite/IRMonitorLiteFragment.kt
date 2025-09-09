@@ -1,4 +1,4 @@
-package com.example.thermal_lite.fragment
+package com.topdon.module.thermal.ir.fragment.thermal_lite
 
 import android.app.ProgressDialog
 import android.graphics.Bitmap

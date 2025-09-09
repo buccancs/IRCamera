@@ -1,12 +1,12 @@
-package com.example.thermal_lite.activity
+package com.topdon.module.thermal.ir.activity.thermal_lite
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.ToastUtils
-import com.example.thermal_lite.R
-import com.example.thermal_lite.databinding.ActivityIrCorrectionLiteFourBinding
-import com.example.thermal_lite.fragment.IRMonitorLiteFragment
+import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.ir.databinding.ActivityIrCorrectionLiteFourBinding
+import com.topdon.module.thermal.ir.fragment.thermal_lite.IRMonitorLiteFragment
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.dialog.TipDialog
