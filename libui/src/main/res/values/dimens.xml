@@ -5,4 +5,6 @@
     <dimen name="app_font_15">15sp</dimen>
     <dimen name="app_small_font">12sp</dimen>
     <dimen name="app_btn_big_height">48dp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
 </resources>
