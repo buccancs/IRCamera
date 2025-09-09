@@ -188,9 +188,7 @@ class GSRIngestor:
         else:
             return "good"
 
-    def get_recent_data(
-        self, session_id: str, seconds: int = 30
-    ) -> List[GSRDataPoint]:
+    def get_recent_data(self, session_id: str, seconds: int = 30) -> List[GSRDataPoint]:
         """Get recent GSR data for a session"""
         cutoff_time = time.time() - seconds
         return [
@@ -258,9 +256,7 @@ class DataProcessor:
             )
 
             if session_id in self.active_sessions:
-                self.active_sessions[session_id]["data_points"]["thermal"].append(
-                    point
-                )
+                self.active_sessions[session_id]["data_points"]["thermal"].append(point)
 
             logger.debug(f"Processed thermal frame from {device_id}")
             return True
@@ -307,9 +303,7 @@ class DataProcessor:
             timestamp = int(time.time())
 
             if format.lower() == "json":
-                output_file = (
-                    self.output_dir / f"session_{session_id}_{timestamp}.json"
-                )
+                output_file = self.output_dir / f"session_{session_id}_{timestamp}.json"
 
                 # Convert data points to serializable format
                 export_data = {

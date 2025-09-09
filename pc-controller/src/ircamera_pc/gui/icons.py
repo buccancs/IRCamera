@@ -25,9 +25,7 @@ class IconRegistry:
         "calibration": {
             "name": "Calibration Crosshair",
             "android_resource": "ic_menu_coordinate_svg.xml",
-            "android_path": (
-                "libui/src/main/res/drawable/ic_menu_coordinate_svg.xml"
-            ),
+            "android_path": ("libui/src/main/res/drawable/ic_menu_coordinate_svg.xml"),
             "description": (
                 "Crosshair with concentric circles for calibration and targeting"
             ),
@@ -61,19 +59,20 @@ class IconRegistry:
     @classmethod
     def list_available_icons(cls) -> Dict[str, str]:
         """List all available icons with their descriptions."""
-        return {name: info["description"] for name, info in cls.ICONS.items()}
+        return {name: str(info["description"]) for name, info in cls.ICONS.items()}
 
     @classmethod
     def get_android_resource_path(cls, icon_name: str) -> str:
         """Get the Android resource path for an icon."""
         icon_info = cls.ICONS.get(icon_name, {})
-        return icon_info.get("android_path", "")
+        return str(icon_info.get("android_path", ""))
 
     @classmethod
     def get_icon_use_cases(cls, icon_name: str) -> list:
         """Get recommended use cases for an icon."""
         icon_info = cls.ICONS.get(icon_name, {})
-        return icon_info.get("use_cases", [])
+        use_cases = icon_info.get("use_cases", [])
+        return list(use_cases) if use_cases else []
 
 
 def get_project_icon_path(icon_name: str) -> Path:

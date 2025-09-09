@@ -235,9 +235,7 @@ class AdminPrivilegesManager(BaseManager):
         logger.warning(f"Unknown operation permission check: {operation}")
         return False
 
-    def run_as_admin(
-        self, command: str, arguments: Optional[List[Any]] = None
-    ) -> bool:
+    def run_as_admin(self, command: str, arguments: Optional[List[Any]] = None) -> bool:
         """
         Run a command with administrator privileges.
 

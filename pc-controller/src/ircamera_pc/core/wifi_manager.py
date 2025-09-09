@@ -720,9 +720,7 @@ class WiFiManager(BaseManager):
     def _init_interfaces(self) -> None:
         """Initialize network interface information."""
         if not PSUTIL_AVAILABLE:
-            logger.warning(
-                "Cannot monitor network interfaces" "- psutil not available"
-            )
+            logger.warning("Cannot monitor network interfaces" "- psutil not available")
             return
 
         try:

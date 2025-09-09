@@ -304,9 +304,7 @@ class ReliableMessageService:
             error_message: Error message if success is False
         """
         if message_id not in self.pending_messages:
-            logger.warning(
-                f"Received acknowledgment for unknown message: {message_id}"
-            )
+            logger.warning(f"Received acknowledgment for unknown message: {message_id}")
             return
 
         message = self.pending_messages[message_id]
@@ -527,9 +525,7 @@ class ReliableMessageService:
                     self._remove_pending_message(message_id)
 
                 if expired_messages:
-                    logger.debug(
-                        f"Cleaned up {len(expired_messages)} expired messages"
-                    )
+                    logger.debug(f"Cleaned up {len(expired_messages)} expired messages")
 
             except Exception as e:
                 logger.error(f"Error in cleanup processor: {e}")

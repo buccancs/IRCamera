@@ -133,9 +133,7 @@ class TestDataAggregator(unittest.TestCase):
         self.aggregator.ingest_sensor_data(session_id, "DEVICE_2", "gsr", device2_data)
 
         # Perform temporal alignment
-        aligned_data = self.aggregator.align_temporal_data(
-            session_id, tolerance_ms=100
-        )
+        aligned_data = self.aggregator.align_temporal_data(session_id, tolerance_ms=100)
 
         self.assertIsNotNone(aligned_data)
         # Should have aligned the data within tolerance

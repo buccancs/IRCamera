@@ -311,9 +311,7 @@ class SecurityManager:
                 x509.NameAttribute(NameOID.COUNTRY_NAME, "US"),
                 x509.NameAttribute(NameOID.STATE_OR_PROVINCE_NAME, "CA"),
                 x509.NameAttribute(NameOID.LOCALITY_NAME, "San Francisco"),
-                x509.NameAttribute(
-                    NameOID.ORGANIZATION_NAME, "IRCamera PC Controller"
-                ),
+                x509.NameAttribute(NameOID.ORGANIZATION_NAME, "IRCamera PC Controller"),
                 x509.NameAttribute(NameOID.COMMON_NAME, "IRCamera CA"),
             ]
         )
@@ -369,9 +367,7 @@ class SecurityManager:
                 x509.NameAttribute(NameOID.COUNTRY_NAME, "US"),
                 x509.NameAttribute(NameOID.STATE_OR_PROVINCE_NAME, "CA"),
                 x509.NameAttribute(NameOID.LOCALITY_NAME, "San Francisco"),
-                x509.NameAttribute(
-                    NameOID.ORGANIZATION_NAME, "IRCamera PC Controller"
-                ),
+                x509.NameAttribute(NameOID.ORGANIZATION_NAME, "IRCamera PC Controller"),
                 x509.NameAttribute(NameOID.COMMON_NAME, "IRCamera Server"),
             ]
         )

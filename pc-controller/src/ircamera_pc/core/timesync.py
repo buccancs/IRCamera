@@ -231,9 +231,7 @@ class TimeSyncService:
             return False
 
         # Check if sync is recent
-        time_since_sync = (
-            datetime.now(timezone.utc) - stats.last_sync
-        ).total_seconds()
+        time_since_sync = (datetime.now(timezone.utc) - stats.last_sync).total_seconds()
         if time_since_sync > self._sync_interval * 2:
             return False
 

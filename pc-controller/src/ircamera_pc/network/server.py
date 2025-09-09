@@ -376,9 +376,7 @@ class NetworkServer:
             message_id = message.get("message_id", str(uuid.uuid4()))
 
             if not message_type:
-                await self._send_error(
-                    writer, "Missing message_type field", message_id
-                )
+                await self._send_error(writer, "Missing message_type field", message_id)
                 return
 
             # Handle message using protocol-aware handlers
@@ -530,9 +528,7 @@ class NetworkServer:
 
         logger.info(f"File transfer {status} from {device_id}: {transfer_id}")
 
-        return create_message(
-            "ack", ack_for="file_transfer_complete", status="success"
-        )
+        return create_message("ack", ack_for="file_transfer_complete", status="success")
 
     async def _handle_time_sync_request(
         self, message: Dict[str, Any], writer: asyncio.StreamWriter
@@ -633,9 +629,7 @@ class NetworkServer:
                 logger.debug(f"Forwarded {len(gsr_samples)} GSR samples to ingestor")
 
             except Exception as e:
-                logger.warning(
-                    f"GSR ingestor also failed, storing data to buffer: {e}"
-                )
+                logger.warning(f"GSR ingestor also failed, storing data to buffer: {e}")
                 # Final fallback to simple storage
                 self._buffer_gsr_data(device_id, data_points)
 
@@ -787,8 +781,7 @@ class NetworkServer:
                     await self._send_message(self._clients[device_id], command)
                     results[device_id] = True
                     logger.debug(
-                        f"Command sent to {device_id}: "
-                        "{command.get('message_type')}"
+                        f"Command sent to {device_id}: " "{command.get('message_type')}"
                     )
                 except (OSError, ValueError, RuntimeError) as e:
                     logger.error(f"Failed to send command to {device_id}: {e}")

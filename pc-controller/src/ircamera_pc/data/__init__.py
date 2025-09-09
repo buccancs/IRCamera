@@ -161,9 +161,7 @@ class DataAggregationEngine:
         stream_id = f"{device_id}_{stream_type}"
 
         if stream_id in self.streams:
-            logger.warning(
-                f"Stream {stream_id} already exists, updating configuration"
-            )
+            logger.warning(f"Stream {stream_id} already exists, updating configuration")
 
         stream = DataStream(
             device_id=device_id,
@@ -475,9 +473,7 @@ class DataAggregationEngine:
             # Last sync timing
             if self.sync_events:
                 last_sync_ns = self.sync_events[-1].timestamp_ns
-                self.stats.last_sync_seconds_ago = (
-                    time.time_ns() - last_sync_ns
-                ) / 1e9
+                self.stats.last_sync_seconds_ago = (time.time_ns() - last_sync_ns) / 1e9
 
         # Buffer usage
         total_buffer_size = sum(
