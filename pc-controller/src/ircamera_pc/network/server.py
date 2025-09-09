@@ -238,7 +238,8 @@ class NetworkServer:
 
             addr = self._server.sockets[0].getsockname()
             secure_addr = self._secure_server.sockets[0].getsockname()
-            logger.info(f"Network server started on {addr[0]}:{addr[1]} (plaintext) and {secure_addr[0]}:{secure_addr[1]} (TLS)")
+            logger.info(f"Network server started on {addr[0]}:{addr[1]} (plaintext) "
+                        f"and {secure_addr[0]}:{secure_addr[1]} (TLS)")
             logger.info("Enhanced networking features: TLS encryption, mDNS discovery, reliable messaging")
 
             return True

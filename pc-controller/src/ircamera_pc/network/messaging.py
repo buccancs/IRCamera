@@ -23,13 +23,13 @@ except ImportError:
         class FallbackLogger:
             def info(self, msg):
                 print(f"INFO: {msg}")
-            
+
             def debug(self, msg):
                 print(f"DEBUG: {msg}")
-            
+
             def warning(self, msg):
                 print(f"WARNING: {msg}")
-            
+
             def error(self, msg):
                 print(f"ERROR: {msg}")
         logger = FallbackLogger()
@@ -132,8 +132,8 @@ class ReliableMessageService:
         self.transport = transport
 
     def register_message_handler(self, message_type: str,
-                                handler: Callable[[Dict[str, Any]], 
-                                               Optional[Dict[str, Any]]]):
+                                 handler: Callable[[Dict[str, Any]],
+                                                  Optional[Dict[str, Any]]]):
         """
         Register a handler for incoming messages of a specific type.
 
@@ -307,7 +307,7 @@ class ReliableMessageService:
         self._remove_pending_message(message_id)
 
     async def handle_incoming_message(self, message_data: Dict[str, Any],
-                                     sender_info: Dict[str, Any] = None) -> Optional[Dict[str, Any]]:
+                                      sender_info: Dict[str, Any] = None) -> Optional[Dict[str, Any]]:
         """
         Handle an incoming message from a remote device.
 
@@ -486,7 +486,8 @@ class ReliableMessageService:
 
                 # Find expired messages
                 for message_id, message in self.pending_messages.items():
-                    if current_time >= message.expires_at and message.status in [MessageStatus.PENDING, MessageStatus.SENT]:
+                    if (current_time >= message.expires_at and 
+                            message.status in [MessageStatus.PENDING, MessageStatus.SENT]):
                         expired_messages.append(message_id)
 
                 # Clean up expired messages
@@ -517,7 +518,8 @@ class ReliableMessageService:
         if original_message_id:
             await self.handle_acknowledgment(original_message_id, False, error_message)
 
-    async def _send_acknowledgment(self, original_message: Dict[str, Any], success: bool, sender_info: Dict[str, Any] = None, error_message: str = None):
+    async def _send_acknowledgment(self, original_message: Dict[str, Any], success: bool, 
+                                   sender_info: Dict[str, Any] = None, error_message: str = None):
         """Send acknowledgment for a received message."""
         if not self.transport or not sender_info:
             return

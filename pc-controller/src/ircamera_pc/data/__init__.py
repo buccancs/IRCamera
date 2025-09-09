@@ -642,7 +642,7 @@ class DataAggregationEngine:
 # Utility functions for data aggregation
 
 def calculate_temporal_alignment(sync_events: List[SyncEvent],
-                                tolerance_ms: float = 5.0) -> Dict[str, float]:
+                                 tolerance_ms: float = 5.0) -> Dict[str, float]:
     """
     Calculate temporal alignment offsets for devices based on sync events.
 
