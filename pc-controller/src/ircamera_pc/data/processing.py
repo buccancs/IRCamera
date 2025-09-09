@@ -408,7 +408,7 @@ class GSRIngestor:
         self.active_sessions: Dict[str, Dict] = {}
         self.data_buffer: List[GSRDataPoint] = []
         self.buffer_size = 1000  # Maximum buffer size
-        self.processing_queue = asyncio.Queue()
+        self.processing_queue: asyncio.Queue[Dict[str, Any]] = asyncio.Queue()
 
         logger.info("GSRIngestor initialized")
 

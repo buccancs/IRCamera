@@ -12,7 +12,7 @@ import subprocess
 import sys
 from dataclasses import dataclass
 from enum import Enum
-from typing import Optional
+from typing import Any, List, Optional
 
 try:
     from PyQt6.QtCore import pyqtSignal
@@ -235,7 +235,7 @@ class AdminPrivilegesManager(BaseManager):
         logger.warning(f"Unknown operation permission check: {operation}")
         return False
 
-    def run_as_admin(self, command: str, arguments: list = None) -> bool:
+    def run_as_admin(self, command: str, arguments: Optional[List[Any]] = None) -> bool:
         """
         Run a command with administrator privileges.
 

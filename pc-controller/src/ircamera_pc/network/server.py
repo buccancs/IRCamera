@@ -1200,7 +1200,7 @@ class NetworkServer:
     ) -> None:
         """Fallback method to buffer GSR data when aggregator is unavailable."""
         if not hasattr(self, "_gsr_data_buffer"):
-            self._gsr_data_buffer = {}
+            self._gsr_data_buffer: Dict[str, List[Dict[str, Any]]] = {}
 
         if device_id not in self._gsr_data_buffer:
             self._gsr_data_buffer[device_id] = []

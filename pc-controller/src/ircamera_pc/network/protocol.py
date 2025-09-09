@@ -9,7 +9,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from enum import Enum
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, cast
 
 import jsonschema
 from loguru import logger
@@ -207,7 +207,7 @@ class ProtocolManager:
         common_fields = self._protocol_def.get("common_fields", {})
 
         # Make a copy of the schema
-        complete_schema = json.loads(json.dumps(schema))
+        complete_schema: Dict[str, Any] = json.loads(json.dumps(schema))
 
         # Add common fields to properties
         if "properties" not in complete_schema:
@@ -301,13 +301,13 @@ class ProtocolManager:
         """Get transport configuration from protocol."""
         if self._protocol_def is None:
             return {}
-        return self._protocol_def.get("transport", {})
+        return cast(Dict[str, Any], self._protocol_def.get("transport", {}))
 
     def get_validation_config(self) -> Dict[str, Any]:
         """Get validation configuration from protocol."""
         if self._protocol_def is None:
             return {}
-        return self._protocol_def.get("validation", {})
+        return cast(Dict[str, Any], self._protocol_def.get("validation", {}))
 
     def reload_protocol(self) -> None:
         """Reload protocol definition from file."""

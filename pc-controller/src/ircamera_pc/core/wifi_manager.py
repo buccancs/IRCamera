@@ -14,7 +14,7 @@ import subprocess
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
 try:
     from loguru import logger
@@ -258,9 +258,9 @@ class WiFiScanWorker(BaseThread):
         Raises:
             ValueError: If output format is unexpected or unparseable
         """
-        networks = []
+        networks: List[Dict[str, Any]] = []
         lines = output.split("\n")
-        current_network = {}
+        current_network: Dict[str, Any] = {}
 
         for line in lines:
             line = line.strip()

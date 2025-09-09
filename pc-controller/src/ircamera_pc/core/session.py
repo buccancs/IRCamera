@@ -138,15 +138,15 @@ class SessionMetadata:
     sync_events: List[Dict[str, Any]] = field(default_factory=list)
     calibration_data: Dict[str, Any] = field(default_factory=dict)
 
-    def __post_init__(self):
-        if self.devices is None:
-            self.devices = []
-        if self.files is None:
-            self.files = []
-        if self.sync_events is None:
-            self.sync_events = []
-        if self.calibration_data is None:
-            self.calibration_data = {}
+    def __post_init__(self) -> None:
+        """Post-initialization hook for validation."""
+        # Validate session_id format
+        if not self.session_id:
+            raise ValueError("Session ID cannot be empty")
+        
+        # Ensure state is valid
+        if self.state not in [state.value for state in SessionState]:
+            logger.warning(f"Unknown session state: {self.state}")
 
 
 class SessionManager:
@@ -458,7 +458,7 @@ class SessionManager:
         logger.debug(f"File added to session: {file_info.get('filename', 'unknown')}")
 
     def add_sync_event(
-        self, event_type: str, event_data: Dict[str, Any] = None
+        self, event_type: str, event_data: Optional[Dict[str, Any]] = None
     ) -> None:
         """
         Add synchronization event to current session.

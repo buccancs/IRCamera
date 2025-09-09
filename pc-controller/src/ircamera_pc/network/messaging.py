@@ -231,7 +231,7 @@ class ReliableMessageService:
         message_type: str,
         content: Dict[str, Any],
         priority: MessagePriority = MessagePriority.NORMAL,
-        timeout_seconds: float = None,
+        timeout_seconds: Optional[float] = None,
         max_retries: int = 3,
         callback: Optional[MessageCallback] = None,
     ) -> str:
