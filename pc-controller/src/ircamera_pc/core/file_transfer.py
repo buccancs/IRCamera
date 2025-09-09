@@ -339,7 +339,7 @@ class FileTransferManager:
             logger.info(
                 f"Size: {job.manifest.size_bytes} bytes, "
                 f"Duration: {duration:.2f}s, "
-                f"Rate: {rate/1024/1024:.2f} MB/s"
+                f"Rate: {rate / 1024 / 1024:.2f} MB/s"
             )
 
         except (OSError, ValueError, RuntimeError) as e:

@@ -915,8 +915,8 @@ class WiFiManager(BaseManager):
                 logger.error(f"Failed to connect to {ssid}: {error_msg}")
 
                 # Try alternative approach with connection profile
-                if ("already exists" in error_msg or
-                        "activation failed" in error_msg):
+                if ("already exists" in error_msg
+                        or "activation failed" in error_msg):
                     return await self._connect_linux_with_profile(
                         ssid, password, security)
 
@@ -1117,8 +1117,8 @@ class WiFiManager(BaseManager):
 
             if result.returncode == 0:
                 output = stdout.decode()
-                return (f"SSID                   : {ssid}" in output and
-                        "State                  : connected" in output)
+                return (f"SSID                   : {ssid}" in output
+                        and "State                  : connected" in output)
 
         except Exception as e:
             logger.error(f"Failed to check connection status: {e}")

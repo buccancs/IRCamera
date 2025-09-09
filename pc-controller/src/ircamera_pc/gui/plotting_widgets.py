@@ -165,8 +165,6 @@ class GSRPlotWidget(pg.PlotWidget):
 
     def _update_plot(self) -> None:
         """Update plot with latest data."""
-        current_time = time.time()
-
         for device_id, data_deque in self.gsr_data.items():
             if not data_deque or device_id not in self.plot_items:
                 continue
@@ -189,8 +187,6 @@ class GSRPlotWidget(pg.PlotWidget):
 
     def _cleanup_old_markers(self) -> None:
         """Remove sync markers outside the time window."""
-        current_time = time.time()
-
         markers_to_remove = []
         for marker in self.sync_markers:
             marker_time = marker.pos()[0]

@@ -29,7 +29,7 @@ from .protocol import (
 )
 from .security import SecurityManager
 from .discovery import NetworkDiscoveryService
-from .messaging import ReliableMessageService, MessageCallback, MessagePriority
+from .messaging import ReliableMessageService, MessagePriority
 
 
 class DeviceState(Enum):
@@ -577,7 +577,7 @@ class NetworkServer:
 
             # Fallback to GSR ingestor for processing
             try:
-                from ..core.gsr_ingestor import GSRIngestor, GSRSample, GSRMode
+                from ..core.gsr_ingestor import GSRIngestor, GSRSample
 
                 # Convert data points to GSR samples
                 gsr_samples = []

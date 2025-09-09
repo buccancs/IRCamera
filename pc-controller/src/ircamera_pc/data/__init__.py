@@ -232,7 +232,7 @@ class DataAggregationEngine:
         return True
 
     def add_sync_event(self, event_type: str, source_device: str,
-                      timestamp_ns: Optional[int] = None, metadata: Dict = None) -> None:
+                       timestamp_ns: Optional[int] = None, metadata: Dict = None) -> None:
         """
         Add synchronization event.
 
@@ -446,7 +446,7 @@ class DataAggregationEngine:
         # Calculate sync quality (simplified metric)
         if self.sync_events:
             recent_syncs = [e for e in self.sync_events
-                          if (time.time_ns() - e.timestamp_ns) < 60e9]  # Last minute
+                            if (time.time_ns() - e.timestamp_ns) < 60e9]  # Last minute
             sync_rate = len(recent_syncs) / 60.0  # Syncs per second
             self.stats.sync_quality_percent = min(100.0, sync_rate * 100)
 
@@ -642,7 +642,7 @@ class DataAggregationEngine:
 # Utility functions for data aggregation
 
 def calculate_temporal_alignment(sync_events: List[SyncEvent],
-                               tolerance_ms: float = 5.0) -> Dict[str, float]:
+                                tolerance_ms: float = 5.0) -> Dict[str, float]:
     """
     Calculate temporal alignment offsets for devices based on sync events.
 
@@ -686,7 +686,7 @@ def calculate_temporal_alignment(sync_events: List[SyncEvent],
 
 
 def validate_data_synchronization(streams: Dict[str, DataStream],
-                                tolerance_ms: float = 5.0) -> Dict[str, Any]:
+                                  tolerance_ms: float = 5.0) -> Dict[str, Any]:
     """
     Validate synchronization quality across data streams.
 

@@ -6,14 +6,12 @@ priority queuing to match the Android implementation.
 """
 
 import asyncio
-import json
 import time
 import uuid
-from dataclasses import dataclass, asdict
-from datetime import datetime
+from dataclasses import dataclass
 from enum import Enum
-from typing import Dict, List, Optional, Callable, Any
-from collections import defaultdict, deque
+from typing import Dict, Optional, Callable, Any
+from collections import deque
 
 try:
     from loguru import logger
@@ -23,10 +21,17 @@ except ImportError:
     except ImportError:
         # Fallback logger for testing
         class FallbackLogger:
-            def info(self, msg): print(f"INFO: {msg}")
-            def debug(self, msg): print(f"DEBUG: {msg}")
-            def warning(self, msg): print(f"WARNING: {msg}")
-            def error(self, msg): print(f"ERROR: {msg}")
+            def info(self, msg):
+                print(f"INFO: {msg}")
+            
+            def debug(self, msg):
+                print(f"DEBUG: {msg}")
+            
+            def warning(self, msg):
+                print(f"WARNING: {msg}")
+            
+            def error(self, msg):
+                print(f"ERROR: {msg}")
         logger = FallbackLogger()
 
 try:
@@ -126,7 +131,9 @@ class ReliableMessageService:
         """
         self.transport = transport
 
-    def register_message_handler(self, message_type: str, handler: Callable[[Dict[str, Any]], Optional[Dict[str, Any]]]):
+    def register_message_handler(self, message_type: str,
+                                handler: Callable[[Dict[str, Any]], 
+                                               Optional[Dict[str, Any]]]):
         """
         Register a handler for incoming messages of a specific type.
 
@@ -267,7 +274,8 @@ class ReliableMessageService:
         # Add to priority queue
         self.priority_queues[priority].append(message_id)
 
-        logger.debug(f"Queued reliable message {message_id} to {target_host}:{target_port} (priority: {priority.name})")
+        logger.debug(f"Queued reliable message {message_id} to "
+                     f"{target_host}:{target_port} (priority: {priority.name})")
         return message_id
 
     async def handle_acknowledgment(self, message_id: str, success: bool, error_message: str = None):
@@ -298,7 +306,8 @@ class ReliableMessageService:
         # Remove from pending messages
         self._remove_pending_message(message_id)
 
-    async def handle_incoming_message(self, message_data: Dict[str, Any], sender_info: Dict[str, Any] = None) -> Optional[Dict[str, Any]]:
+    async def handle_incoming_message(self, message_data: Dict[str, Any],
+                                     sender_info: Dict[str, Any] = None) -> Optional[Dict[str, Any]]:
         """
         Handle an incoming message from a remote device.
 

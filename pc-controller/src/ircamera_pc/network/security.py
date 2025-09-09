@@ -12,7 +12,7 @@ import time
 import ipaddress
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, Optional, Tuple
 from cryptography import x509
 from cryptography.x509.oid import NameOID
 from cryptography.hazmat.primitives import hashes, serialization
@@ -26,10 +26,17 @@ except ImportError:
     except ImportError:
         # Fallback logger for testing
         class FallbackLogger:
-            def info(self, msg): print(f"INFO: {msg}")
-            def debug(self, msg): print(f"DEBUG: {msg}")
-            def warning(self, msg): print(f"WARNING: {msg}")
-            def error(self, msg): print(f"ERROR: {msg}")
+            def info(self, msg):
+                print(f"INFO: {msg}")
+            
+            def debug(self, msg):
+                print(f"DEBUG: {msg}")
+            
+            def warning(self, msg):
+                print(f"WARNING: {msg}")
+            
+            def error(self, msg):
+                print(f"ERROR: {msg}")
         logger = FallbackLogger()
 
 try:

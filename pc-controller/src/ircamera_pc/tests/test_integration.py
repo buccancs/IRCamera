@@ -11,8 +11,7 @@ import time
 import threading
 import sys
 import os
-from pathlib import Path
-from unittest.mock import Mock, patch, MagicMock, AsyncMock
+from unittest.mock import Mock, MagicMock, AsyncMock
 from typing import Dict
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
