@@ -8,14 +8,14 @@ import android.widget.FrameLayout
 import com.topdon.menu.databinding.ViewMenuEditBinding
 
 /**
- * 2D编辑页面所用底部菜单栏.
+ * Bottom menu bar used for 2D editing page.
  *
- * 点线面、伪彩、设置、伪彩条
+ * Point/Line/Area, Pseudo color, Settings, Pseudo color bar
  */
 class MenuEditView : FrameLayout, View.OnClickListener {
 
     /**
-     * 伪彩条图标当前是否处于选中状态
+     * Whether the pseudo color bar icon is currently in selected state
      */
     var isBarSelect: Boolean
         get() = binding.ivMenu4.isSelected
@@ -25,7 +25,7 @@ class MenuEditView : FrameLayout, View.OnClickListener {
         }
 
     /**
-     * 0-点线面、1-伪彩颜色、2-设置 菜单点击事件监听.
+     * 0-Point/Line/Area, 1-Pseudo color, 2-Settings menu click event listener.
      */
     var onTabClickListener: ((selectPosition: Int) -> Unit)? = null
     /**

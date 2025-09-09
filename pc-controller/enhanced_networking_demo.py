@@ -14,14 +14,14 @@ import asyncio
 import sys
 from pathlib import Path
 
-# Add the src directory to Python path for imports
-sys.path.insert(0, str(Path(__file__).parent / "src"))
-
 from ircamera_pc.core.timesync import TimeSyncService
 from ircamera_pc.network.discovery import DeviceType, NetworkDiscoveryService
 from ircamera_pc.network.messaging import MessagePriority, ReliableMessageService
 from ircamera_pc.network.security import SecurityManager
 from ircamera_pc.network.server import NetworkServer
+
+# Add the src directory to Python path for imports
+sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 try:
     from loguru import logger
@@ -119,49 +119,9 @@ class EnhancedNetworkingDemo:
 
         while asyncio.get_event_loop().time() - start_time < demo_duration:
             try:
-                # Check for discovered devices
-                discovered_devices = (
-                    await self.discovery_service.get_discovered_devices()
-                )
-                if discovered_devices:
-                    logger.info(f"Discovered {len(discovered_devices)} devices:")
-                    for device in discovered_devices:
-                        logger.info(
-                            f"  - {device.service_name} ({device.device_type.value}) at {device.ip_address}:{device.port}"
-                        )
-
-                # Check connected devices
-                connected_devices = self.server.get_connected_devices()
-                if connected_devices:
-                    logger.info(f"Connected devices: {len(connected_devices)}")
-
-                    # Demonstrate reliable messaging
-                    for device in connected_devices:
-                        try:
-                            message_id = (
-                                await self.server.send_reliable_message_to_device(
-                                    device.device_id,
-                                    "heartbeat_check",
-                                    {"timestamp": asyncio.get_event_loop().time()},
-                                    MessagePriority.NORMAL,
-                                )
-                            )
-                            logger.debug(
-                                f"Sent reliable heartbeat to {device.device_id}: {message_id}"
-                            )
-                        except Exception as e:
-                            logger.warning(
-                                f"Failed to send reliable message to {device.device_id}: {e}"
-                            )
-
-                # Check messaging service health
-                pending_count = self.messaging_service.get_pending_message_count()
-                if pending_count > 0:
-                    logger.debug(f"Pending messages: {pending_count}")
-
-                # Clean up expired tokens
-                self.security_manager.cleanup_expired_tokens()
-
+                await self._process_discovered_devices()
+                await self._process_connected_devices()
+                await self._check_service_status()
                 await asyncio.sleep(5)  # Check every 5 seconds
 
             except Exception as e:
@@ -170,13 +130,66 @@ class EnhancedNetworkingDemo:
 
         logger.info("Demonstration completed")
 
+    async def _process_discovered_devices(self):
+        """Process and log discovered devices."""
+        discovered_devices = await self.discovery_service.get_discovered_devices()
+        if discovered_devices:
+            logger.info(f"Discovered {len(discovered_devices)} devices:")
+            for device in discovered_devices:
+                device_info = (
+                    f"  - {device.service_name} "
+                    f"({device.device_type.value}) "
+                    f"at {device.ip_address}:{device.port}"
+                )
+                logger.info(device_info)
+
+    async def _process_connected_devices(self):
+        """Process connected devices and send heartbeats."""
+        connected_devices = self.server.get_connected_devices()
+        if connected_devices:
+            logger.info(f"Connected devices: {len(connected_devices)}")
+            await self._send_heartbeats(connected_devices)
+
+    async def _send_heartbeats(self, devices):
+        """Send heartbeat messages to connected devices."""
+        for device in devices:
+            try:
+                message_id = (
+                    await self.server.send_reliable_message_to_device(
+                        device.device_id,
+                        "heartbeat_check",
+                        {"timestamp": asyncio.get_event_loop().time()},
+                        MessagePriority.NORMAL,
+                    )
+                )
+                logger.debug(
+                    f"Sent reliable heartbeat to {device.device_id}: "
+                    f"{message_id}"
+                )
+            except Exception as e:
+                logger.warning(
+                    f"Failed to send reliable message to "
+                    f"{device.device_id}: {e}"
+                )
+
+    def _check_service_status(self):
+        """Check messaging service health and cleanup."""
+        # Check messaging service health
+        pending_count = self.messaging_service.get_pending_message_count()
+        if pending_count > 0:
+            logger.debug(f"Pending messages: {pending_count}")
+
+        # Clean up expired tokens
+        self.security_manager.cleanup_expired_tokens()
+
     async def _message_transport(self, host: str, port: int, message: dict) -> bool:
         """Transport function for reliable messaging."""
         try:
             # This would normally send the message via the actual network connection
             # For demo purposes, we'll just log it
             logger.debug(
-                f"Transport: Sending message to {host}:{port} - {message.get('message_type')}"
+                f"Transport: Sending message to {host}:{port} - "
+                f"{message.get('message_type')}"
             )
 
             # Simulate successful delivery

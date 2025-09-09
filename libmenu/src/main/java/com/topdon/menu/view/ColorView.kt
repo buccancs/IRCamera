@@ -15,21 +15,21 @@ import com.topdon.menu.R as MenuR
 import com.topdon.lib.core.R
 
 /**
- * 测温模式-菜单3-伪彩/观测模式-菜单4-伪彩 其中一个伪彩块.
+ * Temperature measurement mode - Menu 3 - Pseudo color / Observation mode - Menu 4 - Pseudo color, one pseudo color block.
  *
- * 这个 View 仅在菜单-伪彩中使用，太过定制化不能通用，故而里面很多尺寸、比例直接写死。
+ * This View is only used in the menu - pseudo color, too customized to be universal, so many sizes and ratios are hardcoded.
  *
- * 仅提供一个方法 [refreshColor] 用于刷新 UI.
+ * Only provides one method [refreshColor] for refreshing UI.
  *
  * Created by LCG on 2024/11/12.
  */
 class ColorView : View {
     /**
-     * 伪彩渐变颜色值数组.
+     * Pseudo color gradient color value array.
      */
     var colors: IntArray = intArrayOf(0xfffbda00.toInt(), 0xffea0e0e.toInt(), 0xff6907af.toInt())
     /**
-     * 伪彩渐变颜色对应的位置数组.
+     * Pseudo color gradient color corresponding position array.
      */
     var positions: FloatArray = floatArrayOf(0f, 0.5f, 1f)
 
@@ -37,15 +37,15 @@ class ColorView : View {
 
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
     /**
-     * 已选中时 paint 的 shader.
+     * Paint shader when selected.
      */
     private var shaderSelectYes = LinearGradient(0f, 0f, 0f, 0f, colors, positions, Shader.TileMode.CLAMP)
     /**
-     * 未选中时 paint 的 shader.
+     * Paint shader when not selected.
      */
     private var shaderSelectNot = LinearGradient(0f, 0f, 0f, 0f, colors, positions, Shader.TileMode.CLAMP)
     /**
-     * 选中时的底部三角形
+     * Bottom triangle when selected
      */
     private val triangleDrawable: Drawable
 

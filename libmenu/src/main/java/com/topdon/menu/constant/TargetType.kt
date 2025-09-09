@@ -22,12 +22,12 @@ enum class TargetType {
     COLOR,
 
     /**
-     * 删除
+     * Delete
      */
     DELETE,
 
     /**
-     * 帮助
+     * Help
      */
     HELP,
 }

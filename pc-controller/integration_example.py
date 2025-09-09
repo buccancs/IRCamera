@@ -11,7 +11,8 @@ This enhanced example demonstrates the full Hub-and-Spoke architecture:
 - Comprehensive error handling and recovery mechanisms
 
 Usage:
-    python integration_example.py [--demo-mode] [--session-dir PATH] [--enable-native] [--port PORT]
+    python integration_example.py [--demo-mode] [--session-dir PATH]
+    [--enable-native] [--port PORT]
 
 Features Demonstrated:
     • Multi-modal sensor coordination (RGB, Thermal, GSR)

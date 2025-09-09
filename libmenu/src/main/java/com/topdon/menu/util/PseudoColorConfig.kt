@@ -1,14 +1,14 @@
 package com.topdon.menu.util
 
 /**
- * 伪彩菜单、伪彩条所用的预设伪彩配置.
+ * Preset pseudo color configuration used by pseudo color menu and pseudo color bar.
  */
 object PseudoColorConfig {
 
     /**
-     * 根据指定伪彩代号获取对应的颜色数组
-     * 1-白热 3-铁红 4-彩虹1 5-彩虹2 6-彩虹3 7-红热 8-热铁 9-彩虹4 10-彩虹5 11-黑热
-     * @param code 伪彩代号，由于历史遗留（2D编辑的数据、保存设置开关的伪彩）没法改了
+     * Get corresponding color array based on specified pseudo color code
+     * 1-White hot 3-Iron red 4-Rainbow1 5-Rainbow2 6-Rainbow3 7-Red hot 8-Hot iron 9-Rainbow4 10-Rainbow5 11-Black hot
+     * @param code Pseudo color code, cannot be changed due to legacy reasons (2D editing data, saved settings pseudo color)
      */
     @JvmStatic
     fun getColors(code: Int): IntArray = when (code) {
