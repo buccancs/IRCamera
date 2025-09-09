@@ -238,7 +238,7 @@ public class AppVersionUtil {
             File file = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath(), fileName);
             File localFile = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());//本地文件
             List<File> files = ZipUtils.unzipFile(file, localFile);
-            if (files != null && files.size() != 0) {
+            if (files != null && !files.isEmpty()) {
                 AppUtil.installApp(mContext, files.get(0));
             }
         } catch (FileNotFoundException e) {

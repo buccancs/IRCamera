@@ -42,12 +42,13 @@ class GSRDataRowAdapter(
         position: Int,
     ) {
         val dataRow = dataRows[position]
+        val context = holder.itemView.context
 
         holder.rowNumber.text = dataRow.rowNumber.toString()
         holder.timestamp.text = dataRow.timestamp
-        holder.gsrValue.text = "%.3f μS".format(dataRow.gsrValue)
-        holder.resistance.text = "%.1f kΩ".format(dataRow.resistance / RESISTANCE_CONVERSION_FACTOR)
-        holder.conductance.text = "%.6f S".format(dataRow.conductance)
+        holder.gsrValue.text = context.getString(R.string.gsr_value_format, dataRow.gsrValue)
+        holder.resistance.text = context.getString(R.string.resistance_format, dataRow.resistance / RESISTANCE_CONVERSION_FACTOR)
+        holder.conductance.text = context.getString(R.string.conductance_format, dataRow.conductance)
     }
 
     override fun getItemCount() = minOf(dataRows.size, MAX_DISPLAY_ROWS) // Limit for performance

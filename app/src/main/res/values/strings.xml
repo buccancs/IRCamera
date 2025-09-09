@@ -118,4 +118,31 @@
     <string name="gsr_recording_stopped">Recording stopped. %1$d samples recorded.</string>
     <string name="gsr_session_saved">Session saved to:\n%1$s</string>
     <string name="gsr_files_created">Files created:\n- signals.csv (GSR data)\n- sync_marks.csv (sync events)\n- session_metadata.json (metadata)</string>
+    
+    <!-- Multi-Modal Recording Activity strings -->
+    <string name="multi_modal_title">Multi-Modal Physiological Recording</string>
+    <string name="camera_preview_title">RGB Camera Preview</string>
+    <string name="recording_options_title">Recording Options</string>
+    <string name="network_status_title">Network Status</string>
+    <string name="record_video_label">Record Video:</string>
+    <string name="enable_4k_label">Enable 4K:</string>
+    <string name="capture_raw_label">Capture RAW:</string>
+    <string name="thermal_recording_label">Thermal Recording:</string>
+    <string name="session_id_hint">Session ID</string>
+    <string name="participant_id_hint">Participant ID</string>
+    <string name="study_name_hint">Study Name</string>
+    <string name="recording_gsr_status">Recording GSR data at 128 Hz…</string>
+    <string name="recording_completed_status">Recording completed. %d samples recorded.</string>
+    <string name="samples_count_format">Samples: %d</string>
+    <string name="duration_format">Duration: %ds</string>
+    <string name="sync_events_format">Sync Events: %d</string>
+    <string name="files_location_format">Files: %s</string>
+    <string name="sync_event_toast">Sync: %s</string>
+    <string name="gsr_error_format">GSR Error: %s</string>
+    <string name="error_format">Error: %s</string>
+    
+    <!-- GSR Data Row Adapter strings -->
+    <string name="gsr_value_format">%.3f μS</string>
+    <string name="resistance_format">%.1f kΩ</string>
+    <string name="conductance_format">%.6f S</string>
 </resources>

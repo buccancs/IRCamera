@@ -21,9 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.csl.irCamera.R
 import com.topdon.gsr.model.SessionInfo
 import com.topdon.gsr.service.SessionManager
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -44,18 +42,17 @@ class SessionManagerActivity : AppCompatActivity() {
     private lateinit var searchView: SearchView
     private lateinit var filterSpinner: Spinner
 
-    private val sessions = mutableListOf<SessionInfo>()
-    private val filteredSessions = mutableListOf<SessionInfo>()
-    private val job = SupervisorJob()
-    private val scope = CoroutineScope(Dispatchers.Main + job)
-
     companion object {
         private const val TAG = "SessionManagerActivity"
+        private const val MINUTES_IN_MILLISECONDS = 60000L
 
         fun startActivity(context: Context) {
             context.startActivity(Intent(context, SessionManagerActivity::class.java))
         }
     }
+
+    private val sessions = mutableListOf<SessionInfo>()
+    private val filteredSessions = mutableListOf<SessionInfo>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -145,7 +142,7 @@ class SessionManagerActivity : AppCompatActivity() {
     private fun loadSessions() {
         showLoading(true)
 
-        scope.launch {
+        lifecycleScope.launch {
             try {
                 val loadedSessions =
                     withContext(Dispatchers.IO) {
@@ -308,7 +305,7 @@ class SessionManagerActivity : AppCompatActivity() {
     }
 
     private fun deleteSession(session: SessionInfo) {
-        scope.launch {
+        lifecycleScope.launch {
             try {
                 val success =
                     withContext(Dispatchers.IO) {
@@ -369,7 +366,7 @@ class SessionManagerActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        job.cancel()
+        // lifecycleScope automatically cancels when activity is destroyed
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -430,7 +427,7 @@ class SessionAdapter(
                 val duration =
                     if (session.endTime != null) {
                         val durationMs = session.endTime!! - session.startTime
-                        val minutes = durationMs / (1000 * 60)
+                        val minutes = durationMs / MINUTES_IN_MILLISECONDS
                         "${minutes}min"
                     } else {
                         "Unknown duration"

@@ -44,6 +44,10 @@ class MultiModalRecordingActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "MultiModalActivity"
         private const val REQUEST_PERMISSIONS = 100
+        private const val CAMERA_PREVIEW_HEIGHT = 400
+        private const val UI_UPDATE_INTERVAL = 2000L // 2 seconds
+        private const val MILLISECONDS_IN_SECOND = 1000
+        private const val SECONDS_IN_MINUTE = 60
 
         private val REQUIRED_PERMISSIONS =
             arrayOf(
@@ -112,6 +116,9 @@ class MultiModalRecordingActivity : AppCompatActivity() {
     private var sampleCount = 0L
     private var syncMarkCount = 0
     
+    // Performance optimization: Track last UI update time
+    private var lastUIUpdate = 0L
+    
     // Enhanced service integration
     private var enhancedRecordingService: com.topdon.gsr.service.EnhancedRecordingService? = null
     private var isServiceBound = false
@@ -141,24 +148,24 @@ class MultiModalRecordingActivity : AppCompatActivity() {
     private val gsrListener =
         object : GSRRecorder.GSRRecordingListener {
             override fun onRecordingStarted(sessionInfo: SessionInfo) {
-                runOnUiThread {
+                lifecycleScope.launch {
                     isRecording = true
                     currentSession = sessionInfo
                     updateUI()
-                    statusText.text = "Recording GSR data at 128 Hz..."
+                    statusText.text = getString(R.string.recording_gsr_status)
                     progressBar.visibility = View.VISIBLE
 
                     val sessionDir = gsrRecorder.getSessionDirectory()?.absolutePath ?: "Unknown"
-                    fileLocationText.text = "Files: $sessionDir"
+                    fileLocationText.text = getString(R.string.files_location_format, sessionDir)
                 }
             }
 
             override fun onRecordingStopped(sessionInfo: SessionInfo) {
-                runOnUiThread {
+                lifecycleScope.launch {
                     isRecording = false
                     currentSession = null
                     updateUI()
-                    statusText.text = "Recording completed. ${sessionInfo.sampleCount} samples recorded."
+                    statusText.text = getString(R.string.recording_completed_status, sessionInfo.sampleCount)
                     progressBar.visibility = View.GONE
 
                     Toast.makeText(
@@ -191,13 +198,14 @@ class MultiModalRecordingActivity : AppCompatActivity() {
                     }
                 }
 
-                // Update UI every second (128 samples)
-                if (sampleCount % 128 == 0L) {
-                    runOnUiThread {
-                        sampleCountText.text = "Samples: $sampleCount"
+                // Update UI periodically instead of on every sample for performance
+                if (System.currentTimeMillis() - lastUIUpdate > UI_UPDATE_INTERVAL) {
+                    lastUIUpdate = System.currentTimeMillis()
+                    lifecycleScope.launch {
+                        sampleCountText.text = getString(R.string.samples_count_format, sampleCount)
                         currentSession?.let { session ->
-                            val duration = (System.currentTimeMillis() - session.startTime) / 1000
-                            sessionDurationText.text = "Duration: ${duration}s"
+                            val duration = (System.currentTimeMillis() - session.startTime) / MILLISECONDS_IN_SECOND
+                            sessionDurationText.text = getString(R.string.duration_format, duration)
                         }
                     }
                 }
@@ -205,23 +213,23 @@ class MultiModalRecordingActivity : AppCompatActivity() {
 
             override fun onSyncMarkAdded(syncMark: SyncMark) {
                 syncMarkCount++
-                runOnUiThread {
-                    syncCountText.text = "Sync Events: $syncMarkCount"
+                lifecycleScope.launch {
+                    syncCountText.text = getString(R.string.sync_events_format, syncMarkCount)
                     Toast.makeText(
                         this@MultiModalRecordingActivity,
-                        "Sync: ${syncMark.eventType}",
+                        getString(R.string.sync_event_toast, syncMark.eventType),
                         Toast.LENGTH_SHORT,
                     ).show()
                 }
             }
 
             override fun onError(error: String) {
-                runOnUiThread {
-                    statusText.text = "Error: $error"
+                lifecycleScope.launch {
+                    statusText.text = getString(R.string.error_format, error)
                     progressBar.visibility = View.GONE
                     Toast.makeText(
                         this@MultiModalRecordingActivity,
-                        "GSR Error: $error",
+                        getString(R.string.gsr_error_format, error),
                         Toast.LENGTH_LONG,
                     ).show()
                 }
@@ -243,7 +251,7 @@ class MultiModalRecordingActivity : AppCompatActivity() {
         // Title
         val title =
             TextView(this).apply {
-                text = "Multi-Modal Physiological Recording"
+                text = getString(R.string.multi_modal_title)
                 textSize = 20f
                 setPadding(0, 0, 0, 16)
             }
@@ -258,7 +266,7 @@ class MultiModalRecordingActivity : AppCompatActivity() {
 
         val cameraTitle =
             TextView(this).apply {
-                text = "RGB Camera Preview"
+                text = getString(R.string.camera_preview_title)
                 textSize = 16f
                 setTypeface(null, android.graphics.Typeface.BOLD)
             }
@@ -269,7 +277,7 @@ class MultiModalRecordingActivity : AppCompatActivity() {
                 layoutParams =
                     LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
-                        400,
+                        CAMERA_PREVIEW_HEIGHT,
                     )
             }
         cameraSection.addView(cameraPreview)
@@ -284,7 +292,7 @@ class MultiModalRecordingActivity : AppCompatActivity() {
 
         val optionsTitle =
             TextView(this).apply {
-                text = "Recording Options"
+                text = getString(R.string.recording_options_title)
                 textSize = 16f
                 setTypeface(null, android.graphics.Typeface.BOLD)
             }
