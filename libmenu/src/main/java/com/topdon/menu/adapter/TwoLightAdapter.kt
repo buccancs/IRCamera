@@ -9,19 +9,19 @@ import com.topdon.menu.constant.MenuType
 import com.topdon.menu.constant.TwoLightType
 
 /**
- * 测温模式-菜单3-双光 菜单所用 Adapter.
+ * Adapter used for Temperature measurement mode - Menu 3 - Dual light menu.
  *
- * - 单光：  画中画、融合度
- * - Lite： 画中画、融合度
- * - 双光：  双光1、双光2、红外、可见光、配准、画中画、融合度
- * - TC007：双光、红外、可见光、配准、画中画、融合度
- * - 2D编辑：无该菜单
+ * - Single light: Picture-in-picture, Blend extent
+ * - Lite: Picture-in-picture, Blend extent
+ * - Dual light: Dual light 1, Dual light 2, Infrared, Visible light, Calibration, Picture-in-picture, Blend extent
+ * - TC007: Dual light, Infrared, Visible light, Calibration, Picture-in-picture, Blend extent
+ * - 2D editing: No such menu
  *
- * 单光、Lite：画中画、融合度 独立可选
+ * Single light, Lite: Picture-in-picture, Blend extent are independently selectable
  *
- * 双光：双光1、双光2、红外、可见光 互斥； 配准、画中画、融合度 独立可选
+ * Dual light: Dual light 1, Dual light 2, Infrared, Visible light are mutually exclusive; Calibration, Picture-in-picture, Blend extent are independently selectable
  *
- * TC007：双光、红外、可见光、画中画 互斥；配准、融合度 独立可选
+ * TC007: Dual light, Infrared, Visible light, Picture-in-picture are mutually exclusive; Calibration, Blend extent are independently selectable
  *
  * Created by LCG on 2024/11/20.
  */
@@ -29,16 +29,16 @@ import com.topdon.menu.constant.TwoLightType
 internal class TwoLightAdapter(private val menuType: MenuType) : BaseMenuAdapter() {
 
     /**
-     * 双光菜单点击事件监听。
+     * Dual light menu click event listener.
      */
     var onTwoLightListener: ((twoLightType: TwoLightType, isSelected: Boolean) -> Unit)? = null
 
     /**
-     * 当前单选的双光类型
-     * - 单光：  不应该使用这个属性
-     * - Lite： 不应该使用这个属性
-     * - 双光：  双光1、双光2、红外、可见光
-     * - TC007：双光、红外、可见光、画中画
+     * Currently selected single dual light type
+     * - Single light: Should not use this property
+     * - Lite: Should not use this property
+     * - Dual light: Dual light 1, Dual light 2, Infrared, Visible light
+     * - TC007: Dual light, Infrared, Visible light, Picture-in-picture
      */
     var twoLightType: TwoLightType
         get() {
@@ -59,7 +59,7 @@ internal class TwoLightAdapter(private val menuType: MenuType) : BaseMenuAdapter
             for (data in dataList) {
                 if (data.isSingle) {
                     if (menuType == MenuType.TC007 && value == TwoLightType.TWO_LIGHT_1) {
-                        //TC007 时无论双光1还是双光2都视为双光
+                        // For TC007, both dual light 1 and dual light 2 are considered as dual light
                         data.isSelected = data.twoLightType == TwoLightType.TWO_LIGHT_2
                     } else {
                         data.isSelected = data.twoLightType == value
@@ -70,11 +70,11 @@ internal class TwoLightAdapter(private val menuType: MenuType) : BaseMenuAdapter
         }
 
     /**
-     * 设置多选状态
-     * - 单光：  画中画、融合度
-     * - Lite： 画中画、融合度
-     * - 双光：  配准、画中画、融合度
-     * - TC007：配准、、融合度
+     * Set multiple selection state
+     * - Single light: Picture-in-picture, Blend extent
+     * - Lite: Picture-in-picture, Blend extent
+     * - Dual light: Calibration, Picture-in-picture, Blend extent
+     * - TC007: Calibration, Blend extent
      */
     fun setSelected(twoLightType: TwoLightType, isSelected: Boolean) {
         if (twoLightType == TwoLightType.TWO_LIGHT_1 || twoLightType == TwoLightType.TWO_LIGHT_2) {//双光1、双光2

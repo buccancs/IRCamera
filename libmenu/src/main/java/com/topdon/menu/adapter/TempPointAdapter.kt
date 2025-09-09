@@ -8,22 +8,22 @@ import com.topdon.lib.core.R
 import com.topdon.menu.constant.TempPointType
 
 /**
- * 观测模式-菜单5-高低温点 菜单所用 Adapter，按旧逻辑存在全部未选择的状态。
+ * Adapter used for Observation mode - Menu 5 - High/Low temperature points menu, allows all unselected state according to legacy logic.
  *
- * - 高温点、低温点 互相独立，可多选
- * - {高温点、低温点} 与 删除 互斥
+ * - High temperature point and Low temperature point are independent, support multiple selection
+ * - {High temperature point, Low temperature point} are mutually exclusive with Delete
  *
  * Created by LCG on 2024/11/28.
  */
 @SuppressLint("NotifyDataSetChanged")
 internal class TempPointAdapter : BaseMenuAdapter() {
     /**
-     * 观测模式-菜单5-高低温点 点击事件监听.
+     * Observation mode - Menu 5 - High/Low temperature points click event listener.
      */
     var onTempPointListener: ((type: TempPointType, isSelected: Boolean) -> Unit)? = null
 
     /**
-     * 设置 高温点 或 低稳点 的选中状态。
+     * Set selection state of High temperature point or Low temperature point.
      */
     fun setSelected(tempPointType: TempPointType, isSelected: Boolean) {
         for (i in dataArray.indices) {

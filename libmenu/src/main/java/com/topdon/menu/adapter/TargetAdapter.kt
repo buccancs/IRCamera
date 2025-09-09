@@ -8,14 +8,14 @@ import com.topdon.lib.core.R
 import com.topdon.menu.constant.TargetType
 
 /**
- * 观测模式-菜单4-标靶 菜单所用 Adapter.
+ * Adapter used for Observation mode - Menu 4 - Target menu.
  *
- * 测量模式(MODE)、标靶(STYLE)、标靶颜色(COLOR)、删除(DELETE)、帮助(HELP)
+ * Measurement mode (MODE), Target (STYLE), Target color (COLOR), Delete (DELETE), Help (HELP)
  *
- * - 测量模式(MODE)、标靶(STYLE) 捆绑，要么都选中，要么都不选中，与 删除(DELETE) 互斥
- * - 删除(DELETE) 与 {测量模式(MODE)、标靶(STYLE)、标靶颜色(COLOR)} 互斥
- * - 标靶颜色(COLOR) 生效且未处于删除亮，颜色为默认绿色或处于删除不亮，丢给上层维护这个状态
- * - 帮助(HELP) 显示弹框亮，关闭弹框不亮，丢给上层维护这个状态
+ * - Measurement mode (MODE) and Target (STYLE) are bundled, either both selected or both unselected, mutually exclusive with Delete (DELETE)
+ * - Delete (DELETE) is mutually exclusive with {Measurement mode (MODE), Target (STYLE), Target color (COLOR)}
+ * - Target color (COLOR) is effective and not in delete state - color is default green, or in delete state - not lit, leave state management to upper layer
+ * - Help (HELP) shows dialog - lit, closes dialog - not lit, leave state management to upper layer
  *
  * Created by LCG on 2024/11/28.
  */
@@ -23,7 +23,7 @@ import com.topdon.menu.constant.TargetType
 internal class TargetAdapter : BaseMenuAdapter() {
 
     /**
-     * 观测模式-菜单4-标靶 点击事件监听.
+     * Observation mode - Menu 4 - Target click event listener.
      */
     var onTargetListener: ((targetType: TargetType) -> Unit)? = null
 

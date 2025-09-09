@@ -8,18 +8,18 @@ import com.topdon.lib.core.R
 import com.topdon.menu.constant.MenuType
 
 /**
- * 测温模式-菜单6-高低温档 菜单所用 Adapter，单选且必须选中其中一个.
+ * Adapter used for Temperature measurement mode - Menu 6 - High/Low temperature level menu, single selection and must select one.
  *
- * 低温档(高增益)、高温档(低增益)、自动切换
+ * Low temperature level (high gain), High temperature level (low gain), Auto switch
  *
  * Created by LCG on 2024/11/28.
  */
 @SuppressLint("NotifyDataSetChanged")
 internal class TempLevelAdapter(menuType: MenuType) : BaseMenuAdapter() {
     /**
-     * 是否使用华氏度作为单位
+     * Whether to use Fahrenheit as unit
      *
-     * true-华氏度 false-摄氏度
+     * true - Fahrenheit, false - Celsius
      */
     var isUnitF = false
         set(value) {

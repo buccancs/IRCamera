@@ -7,7 +7,7 @@ import com.topdon.menu.view.ColorView
 import com.topdon.menu.util.PseudoColorConfig
 
 /**
- * 测温模式-菜单3-伪彩/观测模式-菜单4-伪彩 所用 Adapter，只支持单选.
+ * Adapter used for Temperature measurement mode - Menu 3 - Pseudo color / Observation mode - Menu 4 - Pseudo color, supports single selection only.
  *
  * Created by LCG on 2024/11/12.
  */
@@ -15,7 +15,7 @@ import com.topdon.menu.util.PseudoColorConfig
 internal class ColorAdapter : RecyclerView.Adapter<ColorAdapter.ViewHolder>() {
 
     /**
-     * 当前选中的伪彩代号.
+     * Currently selected pseudo color code.
      */
     var selectCode = -1
         set(value) {
@@ -25,10 +25,10 @@ internal class ColorAdapter : RecyclerView.Adapter<ColorAdapter.ViewHolder>() {
             }
         }
     /**
-     * 选中变更事件监听.
-     * index-选中伪彩在列表中的 index，也就 TC007 要用
-     * code-伪彩代号，由于历史遗留（2D编辑的数据、保存设置开关的伪彩）没法改了
-     * size-预设伪彩数量，也就 TC007 要用
+     * Selection change event listener.
+     * index - Selected pseudo color index in the list, used by TC007
+     * code - Pseudo color code, cannot be changed due to legacy reasons (2D editing data, saved settings pseudo color)
+     * size - Number of preset pseudo colors, used by TC007
      */
     var onColorListener: ((index: Int, code: Int, size: Int) -> Unit)? = null
 

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.topdon.menu.databinding.ItemMenuBinding
 
 /**
- * 除伪彩颜色外，所有菜单 Adapter 共有逻辑抽取.
+ * Common logic extraction for all menu Adapters except pseudo color.
  *
  * Created by LCG on 2024/11/29.
  */
@@ -27,18 +27,18 @@ internal abstract class BaseMenuAdapter : RecyclerView.Adapter<BaseMenuAdapter.V
         val binding = ItemMenuBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val widthPixels: Int = parent.context.resources.displayMetrics.widthPixels
 
-        //计算及设置图标尺寸
-        val iconSize: Int = (widthPixels * 62 / 375f).toInt() // 62、375 是按 UI 图比例
+        // Calculate and set icon size
+        val iconSize: Int = (widthPixels * 62 / 375f).toInt() // 62, 375 are proportions based on UI design
         val iconParams: ViewGroup.LayoutParams = binding.ivIcon.layoutParams
         iconParams.width = iconSize
         iconParams.height = iconSize
 
-        //计算及设置整体尺寸
+        // Calculate and set overall size
         if (itemCount <= 4) {
             binding.root.layoutParams.width = (widthPixels / itemCount.toFloat()).toInt()
         } else {
-            val bigMargin: Int = (widthPixels * 24 / 375f).toInt()  //按 UI 图最左最右间距为 24
-            val smallMargin: Int = (widthPixels * 8 / 375f).toInt() //按 UI 图每个 item 间距为 16
+            val bigMargin: Int = (widthPixels * 24 / 375f).toInt()  // Based on UI design, left and right margin is 24
+            val smallMargin: Int = (widthPixels * 8 / 375f).toInt() // Based on UI design, each item margin is 16
             when (viewType) {
                 VIEW_TYPE_FIRST -> binding.root.setPadding(bigMargin, 0, smallMargin, 0)
                 VIEW_TYPE_LAST -> binding.root.setPadding(smallMargin, 0, bigMargin, 0)

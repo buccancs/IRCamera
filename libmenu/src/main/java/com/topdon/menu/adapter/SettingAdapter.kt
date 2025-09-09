@@ -9,23 +9,23 @@ import com.topdon.menu.constant.MenuType
 import com.topdon.menu.constant.SettingType
 
 /**
- * 设置菜单所用 Adapter，所有选项互相独立，可多选.
+ * Adapter used for Settings menu, all options are independent and support multiple selection.
  *
- * - 单光：   伪彩条、对比度、锐度、警示、旋转、字体、镜像
- * - 双光：   伪彩条、对比度、锐度、警示、旋转、字体
- * - Lite：  伪彩条、对比度、警示、旋转、字体、镜像
- * - TC007： 伪彩条、对比度、锐度、警示、字体、镜像
- * - 2D 编辑：警示、字体、水印
+ * - Single light: Pseudo color bar, Contrast, Sharpness, Alarm, Rotation, Font, Mirror
+ * - Dual light: Pseudo color bar, Contrast, Sharpness, Alarm, Rotation, Font
+ * - Lite: Pseudo color bar, Contrast, Alarm, Rotation, Font, Mirror
+ * - TC007: Pseudo color bar, Contrast, Sharpness, Alarm, Font, Mirror
+ * - 2D editing: Alarm, Font, Watermark
  *
- * - TS001 观测：指南针、旋转、镜像、对比度
+ * - TS001 observation: Compass, Rotation, Mirror, Contrast
  *
  * Created by LCG on 2024/11/28.
  */
 @SuppressLint("NotifyDataSetChanged")
 internal class SettingAdapter(menuType: MenuType = MenuType.SINGLE_LIGHT, isObserver: Boolean = false) : BaseMenuAdapter() {
     /**
-     * 设置菜单点击事件监听。
-     * isSelected：点击时是否处于选中状态
+     * Settings menu click event listener.
+     * isSelected: Whether in selected state when clicked
      */
     var onSettingListener: ((settingType: SettingType, isSelected: Boolean) -> Unit)? = null
 

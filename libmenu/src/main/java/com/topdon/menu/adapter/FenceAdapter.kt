@@ -9,24 +9,24 @@ import com.topdon.lib.core.R
 import com.topdon.menu.constant.FenceType
 
 /**
- * 点、线、面、全图、趋势图(可选)、删除 菜单 Adapter.
+ * Point, Line, Area, Full image, Trend chart (optional), Delete menu Adapter.
  *
- * - 单光：   点、线、面、全图、趋势图、删除
- * - 双光：   点、线、面、全图、趋势图、删除
- * - Lite：  点、线、面、全图、趋势图、删除
- * - TC007： 点、线、面、全图、趋势图、删除
- * - 2D 编辑：点、线、面、全图、删除
+ * - Single light: Point, Line, Area, Full image, Trend chart, Delete
+ * - Dual light: Point, Line, Area, Full image, Trend chart, Delete
+ * - Lite: Point, Line, Area, Full image, Trend chart, Delete
+ * - TC007: Point, Line, Area, Full image, Trend chart, Delete
+ * - 2D editing: Point, Line, Area, Full image, Delete
  *
- * 点、线、面、趋势图、全图 与 删除互斥
+ * Point, Line, Area, Trend chart, Full image are mutually exclusive with Delete
  *
- * 点、线、面、趋势图 互斥，全图独立可选
+ * Point, Line, Area, Trend chart are mutually exclusive, Full image is independently selectable
  *
  * Created by LCG on 2024/11/18.
  */
 @SuppressLint("NotifyDataSetChanged")
 internal class FenceAdapter(menuType: MenuType) : BaseMenuAdapter() {
     /**
-     * 当前选中的菜单类型，若为 null 表示所有都未选中.
+     * Currently selected menu type, null indicates none are selected.
      */
     var selectType: FenceType? = null
         set(value) {
