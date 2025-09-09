@@ -6,8 +6,8 @@ definition. Implements FR2: Synchronised Multi-Modal Recording and FR7:
 Device Synchronisation with enhanced security and discovery features.
 """
 
+import asyncio
 import json
-import ssl
 import time
 import uuid
 from dataclasses import asdict, dataclass

@@ -5,6 +5,7 @@ Provides Bluetooth device discovery, connection management, and integration
 with IRCamera devices for wireless communication.
 """
 
+import asyncio
 import platform
 from dataclasses import dataclass
 from datetime import datetime

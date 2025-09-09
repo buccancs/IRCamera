@@ -6,7 +6,7 @@ data streams from multiple sensors according to the Hub-and-Spoke architecture.
 """
 
 import time
-from collections import defaultdict, deque
+from collections import deque
 from dataclasses import dataclass, field
 from pathlib import Path
 import json
@@ -100,7 +100,9 @@ class DataAggregationEngine:
         self.hdf5_file: Optional[h5py.File] = None
         self.export_enabled = True
 
-        logger.info(f"Data aggregation engine initialized for session: {session_directory}")
+        logger.info(
+            f"Data aggregation engine initialized for session: {session_directory}"
+        )
 
     def start(self) -> None:
         """Start the data aggregation engine."""

@@ -11,7 +11,6 @@ import time
 from pathlib import Path
 from dataclasses import dataclass, asdict
 from loguru import logger
-import numpy as np
 
 try:
     import pandas as pd
