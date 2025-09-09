@@ -4,6 +4,7 @@ Main Window for IRCamera PC Controller
 Provides the main researcher interface with device monitoring and session control.
 """
 
+import asyncio
 from datetime import datetime
 from typing import Optional
 

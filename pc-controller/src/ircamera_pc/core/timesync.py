@@ -5,6 +5,7 @@ Provides SNTP-like time synchronization service for Android devices.
 Implements FR3: Time Synchronisation Service requirements.
 """
 
+import asyncio
 import struct
 import time
 from dataclasses import dataclass

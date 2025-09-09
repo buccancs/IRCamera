@@ -5,6 +5,7 @@ Provides WiFi network discovery, connection management, and hotspot creation
 for direct communication with IRCamera devices.
 """
 
+import asyncio
 import os
 import platform
 import re
@@ -39,9 +40,11 @@ except ImportError:
     class pyqtSignal:
         def __init__(self, *args):
             self._callbacks = []
+
         def emit(self, *args):
             for callback in self._callbacks:
                 callback(*args)
+
         def connect(self, callback):
             self._callbacks.append(callback)
 
@@ -824,14 +827,17 @@ class WiFiManager(BaseManager):
 
                 # Write profile to temporary file
                 import tempfile
-                with tempfile.NamedTemporaryFile(mode='w', suffix='.xml', delete=False) as f:
+                with tempfile.NamedTemporaryFile(
+                    mode='w', suffix='.xml', delete=False
+                ) as f:
                     f.write(profile_xml)
                     profile_path = f.name
 
                 try:
                     # Add the profile
                     result = await asyncio.create_subprocess_exec(
-                        netsh_path, "wlan", "add", "profile", f"filename={profile_path}",
+                        netsh_path, "wlan", "add", "profile",
+                        f"filename={profile_path}",
                         stdout=asyncio.subprocess.PIPE,
                         stderr=asyncio.subprocess.PIPE
                     )
@@ -909,8 +915,10 @@ class WiFiManager(BaseManager):
                 logger.error(f"Failed to connect to {ssid}: {error_msg}")
 
                 # Try alternative approach with connection profile
-                if "already exists" in error_msg or "activation failed" in error_msg:
-                    return await self._connect_linux_with_profile(ssid, password, security)
+                if ("already exists" in error_msg or
+                        "activation failed" in error_msg):
+                    return await self._connect_linux_with_profile(
+                        ssid, password, security)
 
                 return False
 
@@ -955,7 +963,8 @@ class WiFiManager(BaseManager):
             if password and security != NetworkSecurityType.OPEN:
                 # For secured networks, use networksetup with password
                 result = await asyncio.create_subprocess_exec(
-                    networksetup_path, "-setairportnetwork", wifi_interface, ssid, password,
+                    networksetup_path, "-setairportnetwork", wifi_interface,
+                    ssid, password,
                     stdout=asyncio.subprocess.PIPE,
                     stderr=asyncio.subprocess.PIPE
                 )
@@ -1058,7 +1067,9 @@ class WiFiManager(BaseManager):
 
         return None
 
-    def _create_wifi_profile_xml(self, ssid: str, password: str, security: NetworkSecurityType) -> str:
+    def _create_wifi_profile_xml(
+        self, ssid: str, password: str, security: NetworkSecurityType
+    ) -> str:
         """Create Windows WiFi profile XML."""
         auth_type = "WPA2PSK" if security == NetworkSecurityType.WPA2 else "WPAPSK"
         encryption = "AES" if security == NetworkSecurityType.WPA2 else "TKIP"
@@ -1106,14 +1117,17 @@ class WiFiManager(BaseManager):
 
             if result.returncode == 0:
                 output = stdout.decode()
-                return f"SSID                   : {ssid}" in output and "State                  : connected" in output
+                return (f"SSID                   : {ssid}" in output and
+                        "State                  : connected" in output)
 
         except Exception as e:
             logger.error(f"Failed to check connection status: {e}")
 
         return False
 
-    async def _connect_linux_with_profile(self, ssid: str, password: str, security: NetworkSecurityType) -> bool:
+    async def _connect_linux_with_profile(
+        self, ssid: str, password: str, security: NetworkSecurityType
+    ) -> bool:
         """Connect to WiFi on Linux using connection profile."""
         try:
             nmcli_path = shutil.which("nmcli")
@@ -1133,7 +1147,10 @@ class WiFiManager(BaseManager):
                 return True
 
             # Create new connection profile
-            security_type = "wpa-psk" if security in [NetworkSecurityType.WPA, NetworkSecurityType.WPA2] else "none"
+            if security in [NetworkSecurityType.WPA, NetworkSecurityType.WPA2]:
+                security_type = "wpa-psk"
+            else:
+                security_type = "none"
 
             cmd = [
                 nmcli_path, "connection", "add",

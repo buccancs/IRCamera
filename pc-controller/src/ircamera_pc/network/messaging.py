@@ -5,6 +5,7 @@ Provides reliable message delivery with acknowledgments, retry logic, and
 priority queuing to match the Android implementation.
 """
 
+import asyncio
 import json
 import time
 import uuid

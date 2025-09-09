@@ -5,9 +5,10 @@ Provides mDNS/Zeroconf service registration and device discovery to match
 the Android implementation and enable automatic device discovery.
 """
 
+import asyncio
 import socket
 from datetime import datetime
-from typing import Dict, List, Optional, Set
+from typing import Dict, List, Optional
 from dataclasses import dataclass
 from enum import Enum
 
@@ -32,7 +33,7 @@ except ImportError:
             def info(self, msg): print(f"INFO: {msg}")
             def debug(self, msg): print(f"DEBUG: {msg}")
             def warning(self, msg): print(f"WARNING: {msg}")
-            def error(self, msg): print(f"ERROR: {e}")
+            def error(self, msg): print(f"ERROR: {msg}")
         logger = FallbackLogger()
 
 try:

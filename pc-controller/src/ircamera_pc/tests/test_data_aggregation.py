@@ -7,6 +7,7 @@ import unittest
 import tempfile
 import os
 import json
+import sys
 import pandas as pd
 import numpy as np
 import h5py
@@ -14,7 +15,6 @@ from pathlib import Path
 from unittest.mock import Mock, patch, MagicMock
 from typing import Dict, List, Any
 
-import sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
 from ircamera_pc.data.aggregator import DataAggregator

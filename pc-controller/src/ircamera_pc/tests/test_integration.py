@@ -9,18 +9,17 @@ import shutil
 import json
 import time
 import threading
-from pathlib import Path
-from unittest.mock import Mock, patch, MagicMock, AsyncMock
-from typing import Dict, List, Any, Optional
-
 import sys
 import os
+from pathlib import Path
+from unittest.mock import Mock, patch, MagicMock, AsyncMock
+from typing import Dict
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
 from ircamera_pc.network.server import NetworkServer
 from ircamera_pc.data.aggregator import DataAggregator
 from ircamera_pc.core.session_manager import SessionManager
-from ircamera_pc.gui.main_window import MainWindow
 
 
 class TestEndToEndIntegration(unittest.TestCase):

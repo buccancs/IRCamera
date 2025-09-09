@@ -6,13 +6,11 @@ Tests NetworkServer, JSON protocol, and Hub-Spoke communication
 import unittest
 import json
 import socket
-import threading
 import time
-from unittest.mock import Mock, patch, MagicMock
-from typing import Dict, Any, Optional
-
 import sys
 import os
+from unittest.mock import Mock, patch
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
 from ircamera_pc.network.server import NetworkServer
