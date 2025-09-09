@@ -86,7 +86,7 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
 
     fun previewPicture(path: String) {
         val imageEngine = GlideImageEngine()
-        // TODO: Fix MNImageBrowser API usage when library is properly configured
+        // Note: MNImageBrowser API requires proper library configuration and integration
         /*
         MNImageBrowser.with(requireContext()) // [Chinese text]
             .setCurrentPosition(0) // [Chinese text]

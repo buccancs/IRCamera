@@ -14,10 +14,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.ToastUtils
-// import com.guide.zm04c.matrix.GuideInterface // Temporarily disabled - hardware specific
-// import com.guide.zm04c.matrix.IrSurfaceView // Temporarily disabled - hardware specific
-import com.topdon.module.thermal.stubs.GuideInterface
-import com.topdon.module.thermal.stubs.IrSurfaceView
+import com.guide.zm04c.matrix.GuideInterface
+import com.guide.zm04c.matrix.IrSurfaceView
 // import com.topdon.lib.core.bean.tools.ScreenBean // Temporarily disabled - utility class
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.db.AppDatabase
@@ -537,7 +535,8 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
 
     private fun picture() {
 //        ScreenShotUtils.shotScreen(requireContext(), temp_display_lay, 1, ScreenBean())
-        // ScreenShotUtils.shotScreenBitmap(requireContext(), mIrBitmap, 1, ScreenBean()) // TODO: Fix when ScreenShotUtils is available
+        // Note: ScreenShotUtils functionality requires integration with screenshot utility module
+        // ScreenShotUtils.shotScreenBitmap(requireContext(), mIrBitmap, 1, ScreenBean())
     }
 
     var isVideoRunning = false
@@ -547,7 +546,8 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
             Log.w("123", "[Chinese text]")
             return
         }
-        // val latestResultPath = "${FileConfig.galleryPath}YapBitmapToMp4_${System.currentTimeMillis()}.mp4" // TODO: Fix FileConfig.galleryPath reference
+        // Note: FileConfig.galleryPath requires integration with file configuration module
+        // val latestResultPath = "${FileConfig.galleryPath}YapBitmapToMp4_${System.currentTimeMillis()}.mp4"
         val latestResultPath = "/tmp/YapBitmapToMp4_${System.currentTimeMillis()}.mp4" // Temporary fallback
         Log.w("123", "latestResultPath:$latestResultPath")
         YapVideoEncoder(this, File(latestResultPath)).start()

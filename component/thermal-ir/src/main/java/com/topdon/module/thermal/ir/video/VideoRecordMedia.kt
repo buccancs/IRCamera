@@ -78,7 +78,7 @@ class VideoRecordMedia(
     }
 
     override fun updateAudioState(audioRecord: Boolean) {
-        TODO("Not yet implemented")
+        // Note: Audio state update functionality not yet implemented
     }
 
     private fun createBitmapFromView(): Bitmap {

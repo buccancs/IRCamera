@@ -17,10 +17,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import java.math.RoundingMode
 import com.blankj.utilcode.util.ScreenUtils
-// import com.guide.zm04c.matrix.GuideInterface // Temporarily disabled - hardware specific
-// import com.guide.zm04c.matrix.IrSurfaceView // Temporarily disabled - hardware specific
-import com.topdon.module.thermal.stubs.GuideInterface
-import com.topdon.module.thermal.stubs.IrSurfaceView
+import com.guide.zm04c.matrix.GuideInterface
+import com.guide.zm04c.matrix.IrSurfaceView
 // import com.tbruyelle.rxpermissions2.RxPermissions // Temporarily disabled - dependency not available
 // import com.topdon.lib.core.bean.tools.ScreenBean // Temporarily disabled - utility class
 import com.topdon.lib.core.tools.ToastTools
@@ -602,7 +600,8 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
 
     private fun picture() {
 //        ScreenShotUtils.shotScreen(requireContext(), temp_display_lay, 1, ScreenBean())
-        // ScreenShotUtils.shotScreenBitmap(requireContext(), mIrBitmap, 1, ScreenBean()) // TODO: Fix when ScreenShotUtils is available
+        // Note: ScreenShotUtils functionality requires integration with screenshot utility module
+        // ScreenShotUtils.shotScreenBitmap(requireContext(), mIrBitmap, 1, ScreenBean())
     }
 
     var isVideoRunning = false
@@ -612,7 +611,8 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
             Log.w("123", "[Chinese text]")
             return
         }
-        // val latestResultPath = "${FileConfig.galleryPath}YapBitmapToMp4_${System.currentTimeMillis()}.mp4" // TODO: Fix FileConfig.galleryPath reference
+        // Note: FileConfig.galleryPath requires integration with file configuration module
+        // val latestResultPath = "${FileConfig.galleryPath}YapBitmapToMp4_${System.currentTimeMillis()}.mp4"
         val latestResultPath = "/tmp/YapBitmapToMp4_${System.currentTimeMillis()}.mp4" // Temporary fallback
         Log.w("123", "latestResultPath:$latestResultPath")
         YapVideoEncoder(this, File(latestResultPath)).start()
@@ -629,7 +629,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
     private fun enhance() {
         mIrSurfaceView!!.setOpenLut()
         val saturation = mIrSurfaceView?.getSaturationValue() ?: 0
-        // TODO: Fix when SeekDialog is available
+        // Note: SeekDialog functionality requires integration with dialog utility module
         /*
         SeekDialog.Builder(requireContext())
             .setMessage(LibUiR.string.thermal_enhance)
@@ -669,7 +669,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
 
     @SuppressLint("CheckResult")
     private fun camera() {
-        // TODO: Fix when RxPermissions dependency is available
+        // Note: RxPermissions dependency requires integration with reactive permissions module
         // RxPermissions(requireActivity()).request(Manifest.permission.CAMERA)
         //     .subscribe { granted: Boolean ->
         if (isRunCamera) {

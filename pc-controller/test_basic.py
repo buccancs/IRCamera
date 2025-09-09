@@ -152,7 +152,7 @@ def test_basic_functionality() -> None:
         print("\nReady for full system integration with:")
         print("- 🔄 Time synchronization service")
         print("- 🌐 Network server for device communication")
-        print("- 🖥️  PyQt5 GUI interface")
+        print("- 🖥️  PyQt6 GUI interface")
 
         return True
 

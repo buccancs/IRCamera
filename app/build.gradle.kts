@@ -66,7 +66,6 @@ android {
     }
 
     buildTypes {
-        // Only release build type - no debug variants
         getByName("release") {
             signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = false
@@ -77,10 +76,11 @@ android {
         }
     }
     
-    // Disable all debug variants completely - release-only configuration
-    variantFilter {
-        if (buildType.name == "debug") {
-            ignore = true
+    // Configure single release variant for easier maintenance
+    androidComponents {
+        beforeVariants { variant ->
+            // Only enable release variant for single-developer maintenance
+            variant.enable = variant.buildType == "release"
         }
     }
 
@@ -168,18 +168,19 @@ android {
     }
 }
 
-// Dependency resolution strategy to fix Guava conflicts
+// Dependency resolution strategy to fix Guava conflicts and add ListenableFuture
 configurations.all {
     resolutionStrategy {
         force("com.google.guava:guava:31.1-android")
-        exclude(group = "com.google.guava", module = "listenablefuture")
-        exclude(group = "com.google.guava", module = "guava-jdk5")
     }
 }
 
 dependencies {
     // Core library desugaring support
     coreLibraryDesugaring(libs.desugar.jdk.libs)
+    
+    // Guava for CameraX ListenableFuture support
+    implementation("com.google.guava:guava:31.1-android")
     
     // Core consolidated modules
     implementation(project(":component:thermal"))      // Consolidated thermal functionality
@@ -230,6 +231,70 @@ dependencies {
 
     // UMeng - Simplified single implementation
     implementation(libs.umeng.common)
+    
+    // Enhanced charting and data visualization
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation("com.opencsv:opencsv:5.7.1")
+    implementation("com.google.code.gson:gson:2.10.1")
+    
+    // PDF viewer library - TODO: Add when stable library is available
+    // implementation("com.github.barteksc:AndroidPdfViewer:2.8.2")
+    
+    // Enhanced networking and serialization for Hub-Spoke
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+    
+    // Nordic BLE Library for robust Bluetooth communication
+    implementation("no.nordicsemi.android:ble:2.6.1")
+    implementation("no.nordicsemi.android:ble-ktx:2.6.1")
+    
+    // CameraX for RGB camera dual-stream capture
+    implementation("androidx.camera:camera-camera2:1.3.1")
+    implementation("androidx.camera:camera-lifecycle:1.3.1")
+    implementation("androidx.camera:camera-video:1.3.1")
+    implementation("androidx.camera:camera-view:1.3.1")
+    implementation("androidx.camera:camera-extensions:1.3.1")
+    
+    // Comprehensive Testing Dependencies
+    // Unit testing framework
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
+    testImplementation("org.hamcrest:hamcrest:2.2")
+    
+    // Mocking framework
+    testImplementation("io.mockk:mockk:1.13.4")
+    testImplementation("io.mockk:mockk-android:1.13.4")
+    
+    // Kotlin coroutines testing
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    
+    // Android instrumented testing
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("androidx.test:runner:1.5.2")
+    androidTestImplementation("androidx.test:rules:1.5.0")
+    
+    // AndroidX Test - Instrumented testing
+    androidTestImplementation("androidx.test.ext:junit-ktx:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-contrib:3.5.1")
+    androidTestImplementation("androidx.test.espresso:espresso-intents:3.5.1")
+    androidTestImplementation("androidx.test.uiautomator:uiautomator:2.2.0")
+    
+    // Robolectric for unit tests that need Android framework
+    testImplementation("org.robolectric:robolectric:4.10.3")
+    
+    // Network testing
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.11.0")
+    
+    // Performance testing and benchmarking
+    androidTestImplementation("androidx.benchmark:benchmark-junit4:1.2.2")
+    
+    // Truth assertions for better test readability
+    testImplementation("com.google.truth:truth:1.1.4")
+    androidTestImplementation("com.google.truth:truth:1.1.4")
+    
+    // Test data generation
+    testImplementation("com.github.javafaker:javafaker:1.0.2")
 }
 
 // Utility functions for APK naming (converted from original Groovy)
