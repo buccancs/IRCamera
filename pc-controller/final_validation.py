@@ -18,21 +18,18 @@ def test_imports_and_basic_functionality():
     try:
         # Test core imports
         from ircamera_pc.core import (
-            CameraCalibrator,
             ConfigManager,
-            FileTransferManager,
-            GSRIngestor,
             SessionManager,
-            TimeSyncService,
         )
         from ircamera_pc.gui.icons import IconRegistry
-        from ircamera_pc.network import NetworkServer
 
         print("[OK] All imports successful")
 
         # Test instantiation
         config = ConfigManager()
         session_manager = SessionManager()
+        assert config is not None, "ConfigManager failed to instantiate"
+        assert session_manager is not None, "SessionManager failed to instantiate"
         print("[OK] All components instantiate successfully")
 
         # Test icons

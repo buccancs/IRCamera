@@ -12,7 +12,6 @@ Tests all the enhanced networking components:
 import asyncio
 import sys
 import tempfile
-import time
 import uuid
 from pathlib import Path
 from unittest.mock import AsyncMock, MagicMock, patch
@@ -22,7 +21,6 @@ sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 from ircamera_pc.network.discovery import DeviceType, NetworkDiscoveryService
 from ircamera_pc.network.messaging import (
-    MessageCallback,
     MessagePriority,
     ReliableMessageService,
 )
@@ -165,7 +163,9 @@ class EnhancedNetworkingTests:
             logger.info(f"[CHECK] Local IP detection: {local_ip}")
 
             # Test discovery listener management
-            test_callback = lambda event, device: None
+            def test_callback(event, device):
+                pass
+
             discovery_service.add_discovery_listener(test_callback)
             assert (
                 test_callback in discovery_service.discovery_listeners
@@ -267,6 +267,7 @@ class EnhancedNetworkingTests:
                 "test_id": "test_123",
             }
             response = await messaging_service.handle_incoming_message(test_message)
+            assert response is not None, "Message handling response is None"
             assert len(response_messages) > 0, "Incoming message not handled"
             logger.info("[CHECK] Incoming message handling")
 
@@ -374,7 +375,6 @@ class EnhancedNetworkingTests:
 
     def _mock_security_init(self, *args, **kwargs):
         """Mock SecurityManager __init__ to avoid config dependencies."""
-        pass
 
     def report_results(self):
         """Report test results summary."""

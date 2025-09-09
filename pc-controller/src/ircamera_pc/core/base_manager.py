@@ -21,7 +21,6 @@ try:
     class QObjectMeta(type(QtQObject), ABCMeta):
         """Metaclass to resolve conflict between QObject and ABC"""
 
-        pass
 
 except ImportError:
     PYQT_AVAILABLE = False
@@ -35,8 +34,6 @@ except ImportError:
 
     class QObjectMeta(ABCMeta):
         """Fallback metaclass when PyQt6 is not available"""
-
-        pass
 
     def pyqtSignal(*args: Any, **kwargs: Any) -> Any:
         """Mock pyqtSignal decorator"""
@@ -120,12 +117,10 @@ class BaseManager(QtQObject, ABC, metaclass=QObjectMeta):
         Returns:
             bool: True if initialization successful, False otherwise
         """
-        pass
 
     @abstractmethod
     async def cleanup(self) -> None:
         """Clean up manager resources."""
-        pass
 
     def set_state(self, key: str, value: Any) -> None:
         """Set a state value."""

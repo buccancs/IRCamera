@@ -8,8 +8,6 @@ Tests just the core enhanced networking components without dependencies.
 import asyncio
 import sys
 import tempfile
-import time
-import uuid
 from pathlib import Path
 
 import pytest
@@ -71,9 +69,6 @@ except ImportError as e:
     messaging_available = False
 
 
-import pytest
-
-
 @pytest.mark.asyncio
 async def test_security_manager():
     """Test SecurityManager basic functionality."""
@@ -114,7 +109,8 @@ async def test_security_manager():
                     token
                 )
                 logger.info(
-                    f"[CHECK] Token validation: {is_valid}, Device: {validated_device_id}"
+                    f"[CHECK] Token validation: {is_valid}, "
+                    f"Device: {validated_device_id}"
                 )
 
                 # Test SSL context
@@ -221,7 +217,7 @@ async def main():
         logger.error("[ERROR] ReliableMessageService tests failed")
 
     # Report results
-    logger.info(f"\n=== Test Results ===")
+    logger.info("\n=== Test Results ===")
     logger.info(f"Passed: {tests_passed}/{total_tests}")
 
     if tests_passed == total_tests:

@@ -24,7 +24,6 @@ class DeviceListWidget(QWidget):
 
     def update_devices(self, devices: List[Any]) -> None:
         """Update device list - placeholder implementation."""
-        pass
 
 
 class SessionControlWidget(QWidget):
