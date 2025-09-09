@@ -168,7 +168,10 @@ class FileTransferManager:
         """
         try:
             # Generate unique job ID
-            job_id = f"transfer_{manifest.device_id}_{manifest.session_id}_{int(time.time())}"
+            job_id = (
+                f"transfer_{manifest.device_id}_{manifest.session_id}_"
+                f"{int(time.time())}"
+            )
 
             # Determine local file path
             session_dir = self.data_dir / manifest.session_id
@@ -195,7 +198,7 @@ class FileTransferManager:
                 resume_offset=0,
                 retry_count=0,
                 error_message=None,
-                device_connection=device_conn,  # Store device connection for real file transfer
+                device_connection=device_conn,  # Store device connection for real transfer
             )
 
             # Check for partial file to resume

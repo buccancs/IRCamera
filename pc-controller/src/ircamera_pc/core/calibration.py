@@ -388,7 +388,8 @@ class CameraCalibrator:
             image_points = session_data["image_points"]
 
             logger.info(
-                f"Computing calibration for {calibration_id}with {len(object_points)} images"
+                f"Computing calibration for {calibration_id} "
+                f"with {len(object_points)} images"
             )
 
             # Calibrate camera
@@ -580,8 +581,8 @@ class CameraCalibrator:
             )
 
             # For stereo calibration, we need corresponding object and image points
-            # In a real implementation, you'd collect synchronized stereo image pairs
-            # For now, we'll create a working calibration based on the individual results
+            # In a real implementation, you'd collect synchronized stereo pairs
+            # For now, we'll create working calibration based on individual results
 
             # Get the image resolution from the calibration results
             image_size = left_result.image_resolution

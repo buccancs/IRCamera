@@ -154,22 +154,18 @@ class EnhancedNetworkingDemo:
         """Send heartbeat messages to connected devices."""
         for device in devices:
             try:
-                message_id = (
-                    await self.server.send_reliable_message_to_device(
-                        device.device_id,
-                        "heartbeat_check",
-                        {"timestamp": asyncio.get_event_loop().time()},
-                        MessagePriority.NORMAL,
-                    )
+                message_id = await self.server.send_reliable_message_to_device(
+                    device.device_id,
+                    "heartbeat_check",
+                    {"timestamp": asyncio.get_event_loop().time()},
+                    MessagePriority.NORMAL,
                 )
                 logger.debug(
-                    f"Sent reliable heartbeat to {device.device_id}: "
-                    f"{message_id}"
+                    f"Sent reliable heartbeat to {device.device_id}: " f"{message_id}"
                 )
             except Exception as e:
                 logger.warning(
-                    f"Failed to send reliable message to "
-                    f"{device.device_id}: {e}"
+                    f"Failed to send reliable message to " f"{device.device_id}: {e}"
                 )
 
     def _check_service_status(self):

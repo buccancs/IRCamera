@@ -48,7 +48,7 @@ class CameraMenuView : FrameLayout, View.OnClickListener {
     /**
      * Whether currently in video mode.
      *
-     * true-录像模式 false-拍照模式
+     * true-video recording mode false-photo capture mode
      */
     var isVideoMode: Boolean
         get() = binding.viewPager2.currentItem == 1
@@ -57,9 +57,10 @@ class CameraMenuView : FrameLayout, View.OnClickListener {
         }
 
     /**
-     * 拍照/录像 文字是否可见及是否可切换，拍照中或录像中不允许切换.
+     * Photo/video text visibility and switching capability. 
+     * Switching is not allowed during active photo capture or video recording.
      *
-     * true-可见及可切换 false-不可见及不可切换
+     * true-visible and switchable false-hidden and non-switchable
      */
     var canSwitchMode: Boolean
         get() = binding.viewPager2.isUserInputEnabled
@@ -70,13 +71,13 @@ class CameraMenuView : FrameLayout, View.OnClickListener {
         }
 
     /**
-     * 各个操作的点击事件监听.
-     * actionCode: 0-拍照/录像  1-图库  2-更多菜单  3-切换到拍照  4-切换到录像
+     * Click event listener for various operations.
+     * actionCode: 0-photo/video  1-gallery  2-more menu  3-switch to photo  4-switch to video
      */
     var onCameraClickListener: ((actionCode: Int) -> Unit)? = null
 
     /**
-     * 将中间 拍照/录像 按钮设置为 未拍照/未录像
+     * Set the central photo/video button to normal (not capturing/recording) state.
      */
     fun setToNormal() {
         if (isVideoMode) {
@@ -87,8 +88,8 @@ class CameraMenuView : FrameLayout, View.OnClickListener {
     }
 
     /**
-     * 将中间 拍照/录像 按钮设置为 拍照中-立即/拍照中-延迟/录像中
-     * @param isDelay true-延迟拍照 false-立即拍照 录像的话无所谓
+     * Set the central photo/video button to recording state: immediate photo/delayed photo/video recording.
+     * @param isDelay true-delayed photo capture false-immediate photo capture (irrelevant for video)
      */
     fun setToRecord(isDelay: Boolean) {
         if (isVideoMode) {
@@ -103,7 +104,7 @@ class CameraMenuView : FrameLayout, View.OnClickListener {
     }
 
     /**
-     * 使用指定的本地绝对路径刷新图库封面.
+     * Refresh the gallery thumbnail using the specified local absolute path.
      */
     fun refreshGallery(path: String) {
         try {
@@ -152,29 +153,30 @@ class CameraMenuView : FrameLayout, View.OnClickListener {
     }
 
     /**
-     * 考虑到 拍照、录像 所需的时间，需要防止用户快速点击拍照录像，保存点击时的时间戳避免.
+     * Prevent rapid clicking during photo capture or video recording operations.
+     * Store click timestamp to avoid duplicate operations considering processing time.
      */
     private var lastClickTime: Long = 0
 
     override fun onClick(v: View?) {
         when (v) {
-            binding.ivAction -> {// 开始拍照/开始录像/停止录像
+            binding.ivAction -> {// Start photo capture/Start video recording/Stop video recording
                 val currentTime = System.currentTimeMillis()
                 if (currentTime - lastClickTime > 500) {
                     lastClickTime = currentTime
                     onCameraClickListener?.invoke(CODE_ACTION)
                 }
             }
-            binding.ivGallery -> {//图库
+            binding.ivGallery -> {//Gallery
                 onCameraClickListener?.invoke(CODE_GALLERY)
             }
-            binding.ivMore -> {//更多菜单
+            binding.ivMore -> {//More menu
                 onCameraClickListener?.invoke(CODE_MORE)
             }
-            binding.tvPhoto -> {//拍照文字
+            binding.tvPhoto -> {//Photo text
                 binding.viewPager2.currentItem = 0
             }
-            binding.tvVideo -> {//视频文字
+            binding.tvVideo -> {//Video text
                 binding.viewPager2.currentItem = 1
             }
         }
@@ -203,7 +205,7 @@ class CameraMenuView : FrameLayout, View.OnClickListener {
     }
 
     /**
-     * ViewPager2 所用 Adapter.
+     * ViewPager2 adapter implementation.
      */
     class MenuCameraAdapter : RecyclerView.Adapter<MenuCameraAdapter.ViewHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

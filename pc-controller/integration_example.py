@@ -30,8 +30,17 @@ from pathlib import Path
 from typing import Dict, Optional
 
 import numpy as np
+from PyQt6.QtCore import QTimer, pyqtSignal
+from PyQt6.QtWidgets import (
+    QApplication,
+    QHBoxLayout,
+    QMainWindow,
+    QPushButton,
+    QVBoxLayout,
+    QWidget,
+)
 
-# Add src directory to path
+# Add src directory to path - must be before local imports
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 from ircamera_pc.core.session import SessionManager
@@ -44,15 +53,6 @@ from ircamera_pc.gui.widgets import (
     StatusDisplayWidget,
 )
 from ircamera_pc.network.server import NetworkServer
-from PyQt6.QtCore import QTimer, pyqtSignal
-from PyQt6.QtWidgets import (
-    QApplication,
-    QHBoxLayout,
-    QMainWindow,
-    QPushButton,
-    QVBoxLayout,
-    QWidget,
-)
 
 try:
     import native_backend
@@ -510,7 +510,7 @@ def main():
     app = QApplication(sys.argv)
 
     # Create and show main window
-    controller = IntegratedPCController(args.session_dir, args.demo_mode)
+    controller = EnhancedPCController(args.session_dir, args.demo_mode)
     controller.show()
 
     print("🚀 IRCamera PC Controller started")
