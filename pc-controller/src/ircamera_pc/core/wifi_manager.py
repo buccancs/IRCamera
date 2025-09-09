@@ -260,48 +260,71 @@ class WiFiScanWorker(BaseThread):
         """
         networks = []
         lines = output.split("\n")
-
         current_network = {}
+
         for line in lines:
             line = line.strip()
+            current_network = self._process_scan_line(line, current_network, networks)
 
-            if line.startswith("SSID"):
-                if current_network and "ssid" in current_network:
-                    network = self._create_network_from_dict(current_network)
-                    if network:
-                        networks.append(network)
+        # Process the last network
+        self._finalize_current_network(current_network, networks)
+        return networks
 
-                ssid_match = re.search(r"SSID \d+ : (.+)", line)
-                current_network = {
-                    "ssid": ssid_match.group(1) if ssid_match else "Unknown"
-                }
+    def _process_scan_line(
+        self, line: str, current_network: Dict, networks: List[WiFiNetwork]
+    ) -> Dict:
+        """Process a single line from Windows scan output"""
+        if line.startswith("SSID"):
+            return self._process_ssid_line(line, current_network, networks)
+        elif "Network type" in line:
+            current_network["type"] = line.split(":")[1].strip()
+        elif "Authentication" in line:
+            self._process_auth_line(line, current_network)
+        elif "Signal" in line:
+            self._process_signal_line(line, current_network)
+        elif "BSSID" in line and ":" in line:
+            current_network["bssid"] = line.split(":")[1].strip()
+        elif "Channel" in line:
+            self._process_channel_line(line, current_network)
 
-            elif "Network type" in line:
-                current_network["type"] = line.split(":")[1].strip()
-            elif "Authentication" in line:
-                auth = line.split(":")[1].strip()
-                current_network["security"] = self._parse_security_type(auth)
-            elif "Signal" in line:
-                signal_match = re.search(r"(\d+)%", line)
-                if signal_match:
-                    # Convert percentage to dBm approximation
-                    percentage = int(signal_match.group(1))
-                    current_network["signal"] = -100 + (percentage * 70 // 100)
-            elif "BSSID" in line and ":" in line:
-                bssid = line.split(":")[1].strip()
-                current_network["bssid"] = bssid
-            elif "Channel" in line:
-                channel_match = re.search(r"(\d+)", line)
-                if channel_match:
-                    current_network["channel"] = int(channel_match.group(1))
+        return current_network
 
-        # Don't forget the last network
+    def _process_ssid_line(
+        self, line: str, current_network: Dict, networks: List[WiFiNetwork]
+    ) -> Dict:
+        """Process SSID line and finalize previous network"""
+        self._finalize_current_network(current_network, networks)
+
+        ssid_match = re.search(r"SSID \d+ : (.+)", line)
+        return {"ssid": ssid_match.group(1) if ssid_match else "Unknown"}
+
+    def _process_auth_line(self, line: str, current_network: Dict):
+        """Process authentication line"""
+        auth = line.split(":")[1].strip()
+        current_network["security"] = self._parse_security_type(auth)
+
+    def _process_signal_line(self, line: str, current_network: Dict):
+        """Process signal strength line"""
+        signal_match = re.search(r"(\d+)%", line)
+        if signal_match:
+            # Convert percentage to dBm approximation
+            percentage = int(signal_match.group(1))
+            current_network["signal"] = -100 + (percentage * 70 // 100)
+
+    def _process_channel_line(self, line: str, current_network: Dict):
+        """Process channel line"""
+        channel_match = re.search(r"(\d+)", line)
+        if channel_match:
+            current_network["channel"] = int(channel_match.group(1))
+
+    def _finalize_current_network(
+        self, current_network: Dict, networks: List[WiFiNetwork]
+    ):
+        """Finalize and add current network to list"""
         if current_network and "ssid" in current_network:
             network = self._create_network_from_dict(current_network)
             if network:
                 networks.append(network)
-
-        return networks
 
     def _scan_linux(self) -> List[WiFiNetwork]:
         """Scan WiFi networks on Linux using iwlist or nmcli."""

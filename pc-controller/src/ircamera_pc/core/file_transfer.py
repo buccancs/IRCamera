@@ -638,7 +638,6 @@ class FileTransferManager:
         """Load transfer job states from disk for recovery"""
         try:
             state_file = self.data_dir / "transfer_state.json"
-
             if not state_file.exists():
                 logger.info("No transfer state file found")
                 return
@@ -646,85 +645,8 @@ class FileTransferManager:
             with open(state_file, "r") as f:
                 state_data = json.load(f)
 
-            # Reconstruct TransferJob objects from saved data
-            reconstructed_jobs = 0
-            for job_id, job_data in state_data.get("active_jobs", {}).items():
-                try:
-                    # Recreate file manifest
-                    manifest_data = job_data.get("manifest", {})
-                    manifest = FileManifest(
-                        file_id=manifest_data.get("file_id", ""),
-                        filename=manifest_data.get("filename", ""),
-                        size_bytes=manifest_data.get("size_bytes", 0),
-                        checksum=manifest_data.get("checksum", ""),
-                        file_type=FileType(manifest_data.get("file_type", "metadata")),
-                        device_id=manifest_data.get("device_id", ""),
-                        timestamp=manifest_data.get("timestamp", 0.0),
-                    )
-
-                    # Recreate transfer job
-                    job = TransferJob(
-                        job_id=job_id,
-                        manifest=manifest,
-                        local_path=Path(job_data.get("local_path", "")),
-                        status=TransferStatus(job_data.get("status", "pending")),
-                        bytes_transferred=job_data.get("bytes_transferred", 0),
-                        start_time=job_data.get("start_time", 0.0),
-                        end_time=job_data.get("end_time"),
-                        resume_offset=job_data.get("resume_offset", 0),
-                        retry_count=job_data.get("retry_count", 0),
-                        error_message=job_data.get("error_message"),
-                    )
-
-                    # Only restore jobs that were in progress or pending
-                    if job.status in [
-                        TransferStatus.PENDING,
-                        TransferStatus.IN_PROGRESS,
-                        TransferStatus.PAUSED,
-                    ]:
-                        # Verify local file state
-                        if job.local_path.exists():
-                            actual_size = job.local_path.stat().st_size
-                            job.bytes_transferred = actual_size
-                            job.resume_offset = actual_size
-
-                            # If file is complete, mark as completed
-                            if actual_size >= job.manifest.size_bytes:
-                                job.status = TransferStatus.COMPLETED
-                                logger.info(
-                                    f"Restored completed transfer: "
-                                    f"{job.manifest.filename}"
-                                )
-                            else:
-                                job.status = TransferStatus.PAUSED  # Resume later
-                                self.transfer_queue.append(job_id)
-                                logger.info(
-                                    f"Restored paused transfer: "
-                                    f"{job.manifest.filename} "
-                                    f"({actual_size}/{job.manifest.size_bytes} bytes)"
-                                )
-                        else:
-                            # File doesn't exist, reset transfer
-                            job.bytes_transferred = 0
-                            job.resume_offset = 0
-                            job.status = TransferStatus.PENDING
-                            self.transfer_queue.append(job_id)
-                            logger.info(
-                                f"Restored pending transfer: {job.manifest.filename}"
-                            )
-
-                        self.active_jobs[job_id] = job
-                        reconstructed_jobs += 1
-
-                except Exception as e:
-                    logger.warning(f"Failed to restore transfer job {job_id}: {e}")
-                    continue
-
-            # Restore transfer queue if saved
-            saved_queue = state_data.get("transfer_queue", [])
-            for job_id in saved_queue:
-                if job_id in self.active_jobs and job_id not in self.transfer_queue:
-                    self.transfer_queue.append(job_id)
+            reconstructed_jobs = self._restore_jobs_from_state(state_data)
+            self._restore_transfer_queue(state_data)
 
             logger.info(
                 f"Transfer state loaded: {reconstructed_jobs} jobs reconstructed, "
@@ -733,3 +655,92 @@ class FileTransferManager:
 
         except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Failed to load transfer state: {e}")
+
+    def _restore_jobs_from_state(self, state_data: Dict) -> int:
+        """Restore transfer jobs from state data"""
+        reconstructed_jobs = 0
+        for job_id, job_data in state_data.get("active_jobs", {}).items():
+            try:
+                job = self._recreate_transfer_job(job_id, job_data)
+                if self._should_restore_job(job):
+                    self._restore_job_state(job)
+                    self.active_jobs[job_id] = job
+                    reconstructed_jobs += 1
+            except Exception as e:
+                logger.warning(f"Failed to restore transfer job {job_id}: {e}")
+        return reconstructed_jobs
+
+    def _recreate_transfer_job(self, job_id: str, job_data: Dict) -> TransferJob:
+        """Recreate a TransferJob from saved data"""
+        manifest = self._recreate_file_manifest(job_data.get("manifest", {}))
+        return TransferJob(
+            job_id=job_id,
+            manifest=manifest,
+            local_path=Path(job_data.get("local_path", "")),
+            status=TransferStatus(job_data.get("status", "pending")),
+            bytes_transferred=job_data.get("bytes_transferred", 0),
+            start_time=job_data.get("start_time", 0.0),
+            end_time=job_data.get("end_time"),
+            resume_offset=job_data.get("resume_offset", 0),
+            retry_count=job_data.get("retry_count", 0),
+            error_message=job_data.get("error_message"),
+        )
+
+    def _recreate_file_manifest(self, manifest_data: Dict) -> FileManifest:
+        """Recreate a FileManifest from saved data"""
+        return FileManifest(
+            file_id=manifest_data.get("file_id", ""),
+            filename=manifest_data.get("filename", ""),
+            size_bytes=manifest_data.get("size_bytes", 0),
+            checksum=manifest_data.get("checksum", ""),
+            file_type=FileType(manifest_data.get("file_type", "metadata")),
+            device_id=manifest_data.get("device_id", ""),
+            timestamp=manifest_data.get("timestamp", 0.0),
+        )
+
+    def _should_restore_job(self, job: TransferJob) -> bool:
+        """Check if job should be restored"""
+        return job.status in [
+            TransferStatus.PENDING,
+            TransferStatus.IN_PROGRESS,
+            TransferStatus.PAUSED,
+        ]
+
+    def _restore_job_state(self, job: TransferJob):
+        """Restore job state based on local file"""
+        if job.local_path.exists():
+            self._restore_existing_file_job(job)
+        else:
+            self._restore_missing_file_job(job)
+
+    def _restore_existing_file_job(self, job: TransferJob):
+        """Restore job with existing local file"""
+        actual_size = job.local_path.stat().st_size
+        job.bytes_transferred = actual_size
+        job.resume_offset = actual_size
+
+        if actual_size >= job.manifest.size_bytes:
+            job.status = TransferStatus.COMPLETED
+            logger.info(f"Restored completed transfer: {job.manifest.filename}")
+        else:
+            job.status = TransferStatus.PAUSED
+            self.transfer_queue.append(job.job_id)
+            logger.info(
+                f"Restored paused transfer: {job.manifest.filename} "
+                f"({actual_size}/{job.manifest.size_bytes} bytes)"
+            )
+
+    def _restore_missing_file_job(self, job: TransferJob):
+        """Restore job with missing local file"""
+        job.bytes_transferred = 0
+        job.resume_offset = 0
+        job.status = TransferStatus.PENDING
+        self.transfer_queue.append(job.job_id)
+        logger.info(f"Restored pending transfer: {job.manifest.filename}")
+
+    def _restore_transfer_queue(self, state_data: Dict):
+        """Restore transfer queue from saved state"""
+        saved_queue = state_data.get("transfer_queue", [])
+        for job_id in saved_queue:
+            if job_id in self.active_jobs and job_id not in self.transfer_queue:
+                self.transfer_queue.append(job_id)

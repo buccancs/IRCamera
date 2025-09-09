@@ -9,48 +9,42 @@ import logging
 from abc import ABC, abstractmethod
 from typing import Any, Dict, Optional
 
-try:
+
+def _create_pyqt_base_manager():
+    """Create PyQt6-based BaseManager"""
     from abc import ABCMeta
 
     from PyQt6.QtCore import QObject as QtQObject
     from PyQt6.QtCore import pyqtSignal
 
-    PYQT_AVAILABLE = True
-
     class QObjectMeta(type(QtQObject), ABCMeta):
         """Metaclass to resolve conflict between QObject and ABC"""
 
-    class BaseManager(QtQObject, ABC, metaclass=QObjectMeta):
-        """
-        Unified base manager class for all IRCamera PC Controller components.
-
-        Provides common functionality including:
-        - Logging setup
-        - State management
-        - Error handling patterns
-        - PyQt6 signal support
-        """
+    class PyQtBaseManager(QtQObject, ABC, metaclass=QObjectMeta):
+        """PyQt6-enabled base manager implementation"""
 
         # Common signals
         status_changed = pyqtSignal(str, dict)  # status_name, details
         error_occurred = pyqtSignal(str, str)  # error_type, message
-        operation_completed = pyqtSignal(str, bool, str)  # operation,
-        # success, message
+        operation_completed = pyqtSignal(str, bool, str)  # operation, success, message
 
         def __init__(self, name: str, parent: Optional[QtQObject] = None):
             super().__init__(parent)
             self._setup_base_manager(name)
 
         def _setup_base_manager(self, name: str):
-            """Common setup for both PyQt and non-PyQt versions"""
+            """Common setup for PyQt version"""
             self._name = name
             self._logger = logging.getLogger(f"ircamera_pc.{name.lower()}")
             self._is_initialized = False
             self._state: Dict[str, Any] = {}
             self._last_error: Optional[str] = None
 
-except ImportError:
-    PYQT_AVAILABLE = False
+    return PyQtBaseManager
+
+
+def _create_fallback_base_manager():
+    """Create fallback BaseManager without PyQt6"""
 
     def pyqtSignal(*args, **kwargs):
         """Mock pyqtSignal decorator"""
@@ -60,16 +54,8 @@ except ImportError:
 
         return decorator
 
-    class BaseManager(ABC):
-        """
-        Unified base manager class for all IRCamera PC Controller components.
-
-        Provides common functionality including:
-        - Logging setup
-        - State management
-        - Error handling patterns
-        - No PyQt6 dependencies
-        """
+    class FallbackBaseManager(ABC):
+        """Fallback base manager without PyQt6 dependencies"""
 
         # Mock signals
         status_changed = None
@@ -81,12 +67,26 @@ except ImportError:
             self._setup_base_manager(name)
 
         def _setup_base_manager(self, name: str):
-            """Common setup for both PyQt and non-PyQt versions"""
+            """Common setup for fallback version"""
             self._name = name
             self._logger = logging.getLogger(f"ircamera_pc.{name.lower()}")
             self._is_initialized = False
             self._state: Dict[str, Any] = {}
             self._last_error: Optional[str] = None
+
+    return FallbackBaseManager
+
+
+# Attempt PyQt6 import and setup appropriate base classes
+try:
+    PYQT_AVAILABLE = True
+    BaseManagerImpl = _create_pyqt_base_manager()
+except ImportError:
+    PYQT_AVAILABLE = False
+    BaseManagerImpl = _create_fallback_base_manager()
+
+
+class BaseManager(BaseManagerImpl):
 
     @property
     def name(self) -> str:

@@ -743,7 +743,22 @@ def validate_data_synchronization(
     Returns:
         Synchronization quality report
     """
-    report = {
+    report = _initialize_sync_report(streams)
+
+    if len(streams) < 2:
+        return report
+
+    stream_timestamps = _extract_stream_timestamps(streams)
+    if len(stream_timestamps) < 2:
+        return report
+
+    _calculate_sync_metrics(stream_timestamps, tolerance_ms, report)
+    return report
+
+
+def _initialize_sync_report(streams: Dict[str, DataStream]) -> Dict[str, Any]:
+    """Initialize synchronization report structure"""
+    return {
         "total_streams": len(streams),
         "synchronized_streams": 0,
         "max_offset_ms": 0.0,
@@ -751,48 +766,60 @@ def validate_data_synchronization(
         "quality_issues": [],
     }
 
-    if len(streams) < 2:
-        return report
 
-    # Get recent timestamps from each stream
+def _extract_stream_timestamps(streams: Dict[str, DataStream]) -> Dict[str, List]:
+    """Extract recent timestamps from active streams"""
     stream_timestamps = {}
     for stream_id, stream in streams.items():
         if stream.data_buffer and stream.is_active:
             recent_data = list(stream.data_buffer)[-10:]  # Last 10 samples
             if recent_data:
                 stream_timestamps[stream_id] = [ts for ts, _ in recent_data]
+    return stream_timestamps
 
-    if len(stream_timestamps) < 2:
-        return report
 
-    # Calculate synchronization metrics
+def _calculate_sync_metrics(
+    stream_timestamps: Dict[str, List], tolerance_ms: float, report: Dict[str, Any]
+):
+    """Calculate synchronization metrics and update report"""
     all_timestamps = []
     for timestamps in stream_timestamps.values():
         all_timestamps.extend(timestamps)
 
-    if all_timestamps:
-        min_timestamp = min(all_timestamps)
-        max_timestamp = max(all_timestamps)
-        max_offset_ns = max_timestamp - min_timestamp
-        max_offset_ms = max_offset_ns / 1e6
+    if not all_timestamps:
+        return
 
-        report["max_offset_ms"] = max_offset_ms
+    min_timestamp = min(all_timestamps)
+    max_timestamp = max(all_timestamps)
+    max_offset_ns = max_timestamp - min_timestamp
+    max_offset_ms = max_offset_ns / 1e6
+    report["max_offset_ms"] = max_offset_ms
 
-        # Count streams within tolerance
-        synchronized_count = 0
-        for stream_id, timestamps in stream_timestamps.items():
-            if timestamps:
-                latest_timestamp = max(timestamps)
-                offset_ms = abs(latest_timestamp - max_timestamp) / 1e6
+    synchronized_count = _count_synchronized_streams(
+        stream_timestamps, max_timestamp, tolerance_ms, report
+    )
 
-                if offset_ms <= tolerance_ms:
-                    synchronized_count += 1
-                else:
-                    report["quality_issues"].append(
-                        f"Stream {stream_id} offset {offset_ms:.2f}ms exceeds tolerance"
-                    )
+    report["synchronized_streams"] = synchronized_count
+    report["synchronization_rate"] = synchronized_count / len(stream_timestamps)
 
-        report["synchronized_streams"] = synchronized_count
-        report["synchronization_rate"] = synchronized_count / len(stream_timestamps)
 
-    return report
+def _count_synchronized_streams(
+    stream_timestamps: Dict[str, List],
+    max_timestamp: float,
+    tolerance_ms: float,
+    report: Dict[str, Any],
+) -> int:
+    """Count streams within synchronization tolerance"""
+    synchronized_count = 0
+    for stream_id, timestamps in stream_timestamps.items():
+        if timestamps:
+            latest_timestamp = max(timestamps)
+            offset_ms = abs(latest_timestamp - max_timestamp) / 1e6
+
+            if offset_ms <= tolerance_ms:
+                synchronized_count += 1
+            else:
+                report["quality_issues"].append(
+                    f"Stream {stream_id} offset {offset_ms:.2f}ms exceeds tolerance"
+                )
+    return synchronized_count

@@ -92,7 +92,7 @@ License:
 import asyncio
 from datetime import datetime
 from enum import Enum
-from typing import Optional
+from typing import Dict, List, Optional
 
 from loguru import logger
 from PyQt6.QtCore import Qt, QTimer, pyqtSignal
@@ -662,59 +662,72 @@ class MainWindow(QMainWindow):
     def _update_displays(self) -> None:
         """Update all display components."""
         try:
-            # Update device count
             connected_devices = self.network_server.get_connected_devices()
-            self.devices_label.setText(f"Devices: {len(connected_devices)}")
-
-            # Update device list
-            if self.device_list_widget:
-                self.device_list_widget.update_devices(connected_devices)
-
-            # Update status display
-            if self.status_display_widget:
-                self.status_display_widget.update_time_sync_stats(
-                    self.time_sync_service.get_synchronization_quality()
-                )
-
-                current_session = self.session_manager.get_current_session()
-                if current_session:
-                    self.status_display_widget.update_session_info(current_session)
-
-            # Update session status in status bar
-            current_session = self.session_manager.get_current_session()
-            if current_session:
-                if current_session.state == SessionState.RECORDING.value:
-                    if self._session_start_time:
-                        elapsed = datetime.now() - self._session_start_time
-                        elapsed_str = str(elapsed).split(".")[0]  # Remove microseconds
-                        self.session_label.setText(f"Recording: {elapsed_str}")
-                    else:
-                        self.session_label.setText("Recording: --:--:--")
-                else:
-                    self.session_label.setText(
-                        f"Session: {current_session.name}" "({current_session.state})"
-                    )
-            else:
-                self.session_label.setText("No active session")
-
-            # Update sync status
-            sync_quality = self.time_sync_service.get_synchronization_quality()
-            if sync_quality["total_devices"] > 0:
-                sync_rate = sync_quality["synchronization_rate"] * 100
-                if sync_rate >= 90:
-                    self.sync_label.setText(f"Time sync: OK ({sync_rate:.0f}%)")
-                elif sync_rate >= 70:
-                    self.sync_label.setText(f"Time sync: WARNING ({sync_rate:.0f}%)")
-                else:
-                    self.sync_label.setText(f"Time sync: ERROR ({sync_rate:.0f}%)")
-            else:
-                self.sync_label.setText("Time sync: No devices")
-
-            # Update UI state
+            self._update_device_displays(connected_devices)
+            self._update_status_displays()
+            self._update_session_displays()
+            self._update_sync_displays()
             self._update_ui_state()
 
         except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Error updating displays: {e}")
+
+    def _update_device_displays(self, connected_devices: List) -> None:
+        """Update device-related displays"""
+        self.devices_label.setText(f"Devices: {len(connected_devices)}")
+
+        if self.device_list_widget:
+            self.device_list_widget.update_devices(connected_devices)
+
+    def _update_status_displays(self) -> None:
+        """Update status-related displays"""
+        if self.status_display_widget:
+            sync_quality = self.time_sync_service.get_synchronization_quality()
+            self.status_display_widget.update_time_sync_stats(sync_quality)
+
+            current_session = self.session_manager.get_current_session()
+            if current_session:
+                self.status_display_widget.update_session_info(current_session)
+
+    def _update_session_displays(self) -> None:
+        """Update session status displays"""
+        current_session = self.session_manager.get_current_session()
+        if current_session:
+            if current_session.state == SessionState.RECORDING.value:
+                self._update_recording_status()
+            else:
+                self.session_label.setText(
+                    f"Session: {current_session.name}({current_session.state})"
+                )
+        else:
+            self.session_label.setText("No active session")
+
+    def _update_recording_status(self) -> None:
+        """Update recording status display"""
+        if self._session_start_time:
+            elapsed = datetime.now() - self._session_start_time
+            elapsed_str = str(elapsed).split(".")[0]  # Remove microseconds
+            self.session_label.setText(f"Recording: {elapsed_str}")
+        else:
+            self.session_label.setText("Recording: --:--:--")
+
+    def _update_sync_displays(self) -> None:
+        """Update synchronization status displays"""
+        sync_quality = self.time_sync_service.get_synchronization_quality()
+        if sync_quality["total_devices"] > 0:
+            self._update_sync_status(sync_quality)
+        else:
+            self.sync_label.setText("Time sync: No devices")
+
+    def _update_sync_status(self, sync_quality: Dict) -> None:
+        """Update sync status based on quality metrics"""
+        sync_rate = sync_quality["synchronization_rate"] * 100
+        if sync_rate >= 90:
+            self.sync_label.setText(f"Time sync: OK ({sync_rate:.0f}%)")
+        elif sync_rate >= 70:
+            self.sync_label.setText(f"Time sync: WARNING ({sync_rate:.0f}%)")
+        else:
+            self.sync_label.setText(f"Time sync: ERROR ({sync_rate:.0f}%)")
 
     def _update_ui_state(self) -> None:
         """Update UI component enabled/disabled"
