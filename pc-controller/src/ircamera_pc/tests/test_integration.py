@@ -9,16 +9,16 @@ import sys
 # Add project root to path for imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
-import unittest  # noqa: E402
-import tempfile  # noqa: E402
 import shutil  # noqa: E402
-import time  # noqa: E402
+import tempfile  # noqa: E402
 import threading  # noqa: E402
+import time  # noqa: E402
+import unittest  # noqa: E402
 from unittest.mock import Mock  # noqa: E402
 
-from ircamera_pc.network.server import NetworkServer  # noqa: E402
-from ircamera_pc.data.aggregator import DataAggregator  # noqa: E402
 from ircamera_pc.core.session_manager import SessionManager  # noqa: E402
+from ircamera_pc.data.aggregator import DataAggregator  # noqa: E402
+from ircamera_pc.network.server import NetworkServer  # noqa: E402
 
 
 class TestEndToEndIntegration(unittest.TestCase):

@@ -11,6 +11,7 @@ from typing import Any, Dict, Optional, Union
 
 try:
     from abc import ABCMeta
+
     from PyQt6.QtCore import QObject as QtQObject
     from PyQt6.QtCore import pyqtSignal
 

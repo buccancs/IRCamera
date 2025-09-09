@@ -9,9 +9,10 @@ multi-modal physiological sensing data including GSR, thermal, and RGB camera da
 import asyncio
 import json
 import time
+from dataclasses import asdict, dataclass
 from pathlib import Path
-from dataclasses import dataclass, asdict
 from typing import Any, Dict, List, Optional
+
 from loguru import logger
 
 try:

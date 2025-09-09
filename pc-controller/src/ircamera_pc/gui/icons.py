@@ -6,8 +6,8 @@ This module provides access to generic icons for GUI widgets and utilities,
 sourced from Android drawable resources for cross-platform visual consistency.
 """
 
-from typing import Dict, Any
 from pathlib import Path
+from typing import Any, Dict
 
 
 class IconRegistry:

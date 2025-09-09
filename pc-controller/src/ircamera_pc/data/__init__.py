@@ -5,18 +5,18 @@ This module implements the data aggregation engine that handles synchronized
 data streams from multiple sensors according to the Hub-and-Spoke architecture.
 """
 
+import json
+import threading
 import time
 from collections import deque
 from dataclasses import dataclass, field
 from pathlib import Path
-import json
-import threading
-from queue import Queue, Empty
+from queue import Empty, Queue
 from typing import Any, Dict, List, Optional, Tuple
+
 import h5py
 import numpy as np
 import pandas as pd
-
 from loguru import logger
 
 

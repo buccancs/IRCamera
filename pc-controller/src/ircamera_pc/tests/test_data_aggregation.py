@@ -9,13 +9,13 @@ import sys
 # Add project root to path for imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
-import unittest  # noqa: E402
-import tempfile  # noqa: E402
 import json  # noqa: E402
-import pandas as pd  # noqa: E402
-import numpy as np  # noqa: E402
-import h5py  # noqa: E402
+import tempfile  # noqa: E402
+import unittest  # noqa: E402
 
+import h5py  # noqa: E402
+import numpy as np  # noqa: E402
+import pandas as pd  # noqa: E402
 from ircamera_pc.data.aggregator import DataAggregator  # noqa: E402
 from ircamera_pc.data.exporter import DataExporter, ExportFormat  # noqa: E402
 from ircamera_pc.data.processor import DataProcessor  # noqa: E402

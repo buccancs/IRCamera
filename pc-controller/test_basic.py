@@ -93,7 +93,9 @@ def test_basic_functionality() -> None:
         if loaded_session:
             print(f"   [CHECK] Loaded session: {loaded_session.name}")
             print(f"   [CHECK] Devices in session: {len(loaded_session.devices)}")
-            print(f"   [CHECK] Sync events in session: {len(loaded_session.sync_events)}")
+            print(
+                f"   [CHECK] Sync events in session: {len(loaded_session.sync_events)}"
+            )
             print("   [CHECK] Session Persistence: PASS")
         else:
             print("    Failed to load session")

@@ -116,8 +116,12 @@ def test_all_components() -> None:
         print(f"   [OK] All {len(all_components)} components" "integrated successfully")
 
         # Test component interactions
-        print(f"   [OK] GSR sessions: {len(gsr_ingestor.get_active_sessions())} " "active")
-        print(f"   [OK] Transfer summary: {file_transfer_manager.get_transfer_summary()}")
+        print(
+            f"   [OK] GSR sessions: {len(gsr_ingestor.get_active_sessions())} " "active"
+        )
+        print(
+            f"   [OK] Transfer summary: {file_transfer_manager.get_transfer_summary()}"
+        )
         print(
             f"   [OK] Calibration sessions: "
             f"{len(camera_calibrator.get_active_calibrations())} active"
@@ -235,7 +239,9 @@ async def test_calibration_session(camera_calibrator, session_id) -> None:
         device_id, session_id, CameraType.THERMAL
     )
     assert status is not None, "Failed to get calibration status"
-    assert status["status"] == "active", f"Unexpected calibration status: {status['status']}"
+    assert (
+        status["status"] == "active"
+    ), f"Unexpected calibration status: {status['status']}"
 
     # Cancel calibration (since we don't have real images)
     success = camera_calibrator.cancel_calibration(

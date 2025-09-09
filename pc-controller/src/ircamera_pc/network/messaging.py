@@ -8,10 +8,10 @@ priority queuing to match the Android implementation.
 import asyncio
 import time
 import uuid
+from collections import deque
 from dataclasses import dataclass
 from enum import Enum
-from typing import Dict, Optional, Callable, Any
-from collections import deque
+from typing import Any, Callable, Dict, Optional
 
 try:
     from loguru import logger

@@ -7,10 +7,10 @@ the Android implementation and enable automatic device discovery.
 
 import asyncio
 import socket
-from datetime import datetime
-from typing import Dict, List, Optional
 from dataclasses import dataclass
+from datetime import datetime
 from enum import Enum
+from typing import Dict, List, Optional
 
 try:
     from zeroconf import ServiceInfo, Zeroconf

@@ -9,14 +9,14 @@ import sys
 # Add project root to path for imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
-import unittest  # noqa: E402
 import json  # noqa: E402
 import socket  # noqa: E402
 import time  # noqa: E402
+import unittest  # noqa: E402
 from unittest.mock import Mock, patch  # noqa: E402
 
-from ircamera_pc.network.server import NetworkServer  # noqa: E402
 from ircamera_pc.network.protocol import MessageProtocol, MessageType  # noqa: E402
+from ircamera_pc.network.server import NetworkServer  # noqa: E402
 
 
 class TestNetworkServer(unittest.TestCase):
