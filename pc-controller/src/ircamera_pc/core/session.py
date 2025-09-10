@@ -1,4 +1,5 @@
 
+"""Session management module for the PC Controller."""
 
 import json
 import uuid
@@ -15,8 +16,44 @@ except ImportError:
 
 from .config import config
 
-class SessionState(Enum):
 
+class SessionState(Enum):
+    """Session state enumeration."""
+    IDLE = "idle"
+    ACTIVE = "active"
+    RECORDING = "recording"
+    PAUSED = "paused"
+    COMPLETED = "completed"
+    ERROR = "error"
+
+
+@dataclass
+class SessionMetadata:
+    """Session metadata container."""
+    session_id: str
+    name: str
+    state: str
+    created_at: float
+    started_at: Optional[float] = None
+    ended_at: Optional[float] = None
+    description: Optional[str] = None
+    participants: List[str] = field(default_factory=list)
+    device_configs: Dict[str, Any] = field(default_factory=dict)
+    recording_parameters: Dict[str, Any] = field(default_factory=dict)
+    data_files: List[str] = field(default_factory=list)
+    session_notes: List[str] = field(default_factory=list)
+    metadata: Dict[str, Any] = field(default_factory=dict)
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert session metadata to dictionary."""
+        return asdict(self)
+
+
+class SessionManager:
+    """Manages recording sessions and their lifecycle."""
+
+    def __init__(self, data_root: Optional[Path] = None) -> None:
+        """Initialize session manager."""
         self._current_session: Optional[SessionMetadata] = None
         self._session_history: List[str] = []
 
@@ -31,12 +68,17 @@ class SessionState(Enum):
         logger.info(f"Session Manager initialized with data root: {self._data_root}")
 
     def _ensure_data_root(self) -> None:
+        """Ensure data root directory exists."""
+        self._data_root.mkdir(parents=True, exist_ok=True)
+        logger.debug(f"Data root directory ensured: {self._data_root}")
 
+    def create_session(self, name: Optional[str] = None, description: Optional[str] = None) -> SessionMetadata:
+        """Create a new recording session."""
         if self._current_session and self._current_session.state in [
             SessionState.ACTIVE.value,
             SessionState.RECORDING.value,
         ]:
-            raise ValueError("Cannot create new session:" "another session is active")
+            raise ValueError("Cannot create new session: another session is active")
 
         # Generate session ID and name
         session_id = str(uuid.uuid4())
