@@ -17,6 +17,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.Locale
 
+/**
+ * Location utility for GPS and address lookups
+ */
+object LocationUtil {
+
     @RequiresPermission(Permission.ACCESS_FINE_LOCATION)
     suspend fun getLastLocationStr(context: Context): String? =
         withContext(Dispatchers.IO) {

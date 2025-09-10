@@ -9,6 +9,8 @@ data class TS004Response<T>(
     val status: Int,
     val transmit_cast: Int,
 ) {
+    fun isSuccess(): Boolean = status == 0
+}
 
 data class PseudoColorBean(
     val enable: Boolean?,
@@ -35,6 +37,7 @@ data class FirmwareBean(
     val firmware: String?,
 )
 
+data class DeviceInfoBean(
     val code: String,
     val model: String,
     val sn: String,

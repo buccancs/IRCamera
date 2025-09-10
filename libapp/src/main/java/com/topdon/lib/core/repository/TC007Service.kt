@@ -10,6 +10,11 @@ import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Query
 
+/**
+ * Retrofit service interface for TC007 device API
+ */
+interface TC007Service {
+
     @GET("/v1/system/upgrade/status")
     suspend fun getUpgradeStatus(): TC007Response<TC07UpgradeStatus>
 

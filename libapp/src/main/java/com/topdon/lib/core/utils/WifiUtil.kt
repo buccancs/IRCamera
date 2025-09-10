@@ -14,6 +14,11 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.hjq.permissions.XXPermissions
 
+/**
+ * WiFi utility for network scanning and connection management
+ */
+object WifiUtil {
+
     fun getCurrentWifiSSID(context: Context): String? {
         if (!XXPermissions.isGranted(context, Manifest.permission.ACCESS_FINE_LOCATION)) {
             return null

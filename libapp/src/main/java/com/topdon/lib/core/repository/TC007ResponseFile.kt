@@ -13,6 +13,8 @@ data class TC007Response<T>(
     val Detail: String?,
     val Data: T?,
 ) {
+    fun isSuccess(): Boolean = Code == 200
+}
 
 data class ProductBean(
     val ProductName: String,
@@ -215,6 +217,7 @@ data class ColorParam(
     val blue: Int,
 )
 
+data class TargetParam(
     val mode: Int, // 0：data，1：data，2：data，3：data
     val highThreshold: Int,
     val lowThreshold: Int,

@@ -9,6 +9,11 @@ import retrofit2.http.POST
 import retrofit2.http.Streaming
 import retrofit2.http.Url
 
+/**
+ * Retrofit service interface for TS004 device API
+ */
+interface TS004Service {
+
     @POST("/api/v1/system/sendUpgradeFileStart")
     suspend fun sendUpgradeFileStart(
         @Body requestBody: RequestBody,

@@ -35,6 +35,7 @@ data class WsPip(
     val enable: Int?, // 0-data，1-data
 )
 
+/**
  * websocket - data
  */
 data class WsZoom(

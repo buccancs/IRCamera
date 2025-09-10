@@ -6,6 +6,11 @@ import android.os.Build
 import androidx.core.content.ContextCompat
 import com.topdon.lib.core.BaseApplication
 
+/**
+ * Utility for checking Android permissions
+ */
+object PermissionUtils {
+
     fun isVisualUser(): Boolean {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE &&
             ContextCompat.checkSelfPermission(
