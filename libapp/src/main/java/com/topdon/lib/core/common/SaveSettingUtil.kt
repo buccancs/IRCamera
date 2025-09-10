@@ -9,6 +9,11 @@ import com.topdon.lib.core.bean.ObserveBean
 import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.utils.CommUtils
 
+/**
+ * Settings persistence utility for thermal camera configuration
+ */
+object SaveSettingUtil {
+
     fun reset() {
         // Measure view dimensionsTemperature measurementObservationModeutility
         isMeasureTempMode = true
@@ -568,3 +573,4 @@ import com.topdon.lib.core.utils.CommUtils
             }
         }
 }
+

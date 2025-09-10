@@ -17,6 +17,11 @@ import com.topdon.lib.core.view.ImageEditView
 import kotlinx.coroutines.launch
 import java.io.File
 
+/**
+ * Base activity for image selection and editing functionality
+ */
+abstract class BasePickImgActivity : BaseBindingActivity<ActivityImagePickIrPlushBinding>() {
+
     private fun showExitTipsDialog(listener: (() -> Unit)) {
         TipDialog.Builder(this)
             .setMessage(R.string.diy_tip_save)
@@ -32,3 +37,4 @@ import java.io.File
         finish()
     }
 }
+

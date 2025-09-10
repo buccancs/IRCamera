@@ -25,10 +25,13 @@ data class ProductBean(
         "${SoftwareVersion?.Major ?: "-"}.${SoftwareVersion?.Minor ?: "-"}${SoftwareVersion?.Build ?: "-"}"
 }
 
+data class Version07Bean(
+    val Major: String?,
     val Minor: String?,
     val Build: String?,
 )
 
+data class BatteryBean(
     val Status: String?,
     val Remaining: String?,
 ) {
@@ -42,10 +45,12 @@ data class ProductBean(
         }
 }
 
+data class ChargeBean(
     val Percent: Int,
     val Code: Int,
 )
 
+data class CameraBean(
     val Fps: Int,
     val Level: Int,
     val OsdMode: Int,
@@ -53,10 +58,12 @@ data class ProductBean(
     val DistanceUnit: Int,
 )
 
+data class TempWarningBean(
     var Enable: Boolean,
     val TempRule: TempRule,
 )
 
+data class TempRule(
     val AlarmRule: Int,
     val ThresholdTemp: Int,
     val Debounce: Int,
@@ -64,12 +71,14 @@ data class ProductBean(
     val TempRise: TempRise,
 )
 
+data class TempRise(
     var Enable: Boolean,
     var TRTemp: Int,
     var TRTime: Int,
     var TRNum: Int,
 )
 
+data class TempFrameParam(
     val FrameHigh: FrameParam,
     val FrameLow: FrameParam,
     val FrameCenter: FrameParam,
@@ -77,7 +86,9 @@ data class ProductBean(
 //    constructor(isEnable: Boolean): this(FrameParam(isEnable), FrameParam(isEnable), FrameParam(isEnable))
 }
 
-}
+data class FrameParam(
+    val Enable: Boolean,
+)
 
 internal data class TempPointParam(
     val Enable: Boolean,
@@ -95,6 +106,7 @@ internal data class TempPointParam(
     )
 }
 
+internal data class TempLineParam(
     val Enable: Boolean,
     val ID: Int,
     val Name: String,
@@ -112,6 +124,7 @@ internal data class TempPointParam(
     data class LineParam(val Point0: PointParam, val Point1: PointParam)
 }
 
+internal data class TempRectParam(
     val Enable: Boolean,
     val ID: Int,
     val Name: String,
@@ -136,17 +149,20 @@ internal data class TempPointParam(
     }
 }
 
+data class TempDataParam(
     val DCFile: String?,
     val IRFile: String?,
 )
 
+data class CameraSetting(
     var Fps: Int?,
     var Level: Int?,
     var TempUnit: Int?,
     var DistanceUnit: Int?,
 )
 
- * dataTC007dataAlldata
+/**
+ * WiFi attribute configuration for TC007 device
  */
 data class WifiAttributeBean(
     var Ratio: Int? = null,

@@ -64,7 +64,6 @@ open class DirBase {
     fun getDangerCountStr(): String = if (dangerCount > 99) "99+" else dangerCount.toString()
 }
 
- */
 @Entity(
     foreignKeys = [
         ForeignKey(
@@ -181,7 +180,6 @@ class DirDetect() : DirBase() {
     }
 }
 
- */
 @Entity(
     foreignKeys = [
         ForeignKey(

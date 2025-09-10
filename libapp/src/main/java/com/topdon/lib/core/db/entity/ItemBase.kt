@@ -9,6 +9,47 @@ import androidx.room.PrimaryKey
 import com.blankj.utilcode.util.Utils
 import com.topdon.lib.core.R
 
+/**
+ * Base item entity for thermal imaging data
+ */
+abstract class ItemBase {
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0
+
+    /**
+     * Directory ID for parent relationship
+     */
+    @ColumnInfo(index = true)
+    open var parentId: Long = 0
+
+    /**
+     * Position within directory
+     */
+    var position: Int = 0
+
+    /**
+     * Item display name
+     */
+    var itemName: String = ""
+
+    /**
+     * Current state (0=normal, 1=good, 2=warn, 3=danger)
+     */
+    var state: Int = 0
+
+    /**
+     * User input text/notes
+     */
+    var inputText: String = ""
+
+    /**
+     * Image file paths (up to 4 images)
+     */
+    var image1: String = ""
+    var image2: String = ""
+    var image3: String = ""
+    var image4: String = ""
+
     fun delOneImage(imageNum: Int) {
         when (imageNum) {
             4 -> {
@@ -57,7 +98,6 @@ import com.topdon.lib.core.R
     }
 }
 
- */
 @Entity(
     foreignKeys = [
         ForeignKey(
@@ -244,7 +284,6 @@ class ItemDetect() : ItemBase() {
     }
 }
 
- */
 @Entity(
     foreignKeys = [
         ForeignKey(

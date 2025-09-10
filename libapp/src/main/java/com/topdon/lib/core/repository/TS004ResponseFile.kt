@@ -15,18 +15,23 @@ data class PseudoColorBean(
     val mode: Int?,
 )
 
+data class CameraStatusBean(
     val state: Int?,
 )
 
+data class BatteryStatusBean(
     val enable: Boolean?,
 )
 
+data class ZoomFactorBean(
     val factor: Int?,
 )
 
+data class DeviceStatusBean(
     val enable: Int?,
 )
 
+data class FirmwareBean(
     val firmware: String?,
 )
 

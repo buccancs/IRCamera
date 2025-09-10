@@ -10,6 +10,11 @@ import androidx.annotation.ColorInt
 import androidx.databinding.BindingAdapter
 import com.blankj.utilcode.util.SizeUtils
 
+/**
+ * Data binding adapters for view background styling
+ */
+object ViewBindingAdapter {
+
     @JvmStatic
     @BindingAdapter(
         value = ["bgCorners", "bgCornersLT", "bgCornersRT", "bgCornersLB", "bgCornersRB"],

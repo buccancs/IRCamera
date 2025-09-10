@@ -8,6 +8,11 @@ import android.os.Parcelable
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.tools.DeviceTools
 
+/**
+ * Navigation management utility for handling screen transitions and intent routing
+ */
+object NavigationManager {
+
     fun getInstance(): NavigationManager = this
 
     /**
@@ -213,3 +218,4 @@ import com.topdon.lib.core.tools.DeviceTools
         }
     }
 }
+
