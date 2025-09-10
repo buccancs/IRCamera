@@ -778,7 +778,7 @@ class CameraCalibrator:
             return None
 
     def _generate_realistic_corners(
-        self, pattern_size: tuple, image_size: tuple, seed: int
+        self, pattern_size: Tuple[int, int], image_size: Tuple[int, int], seed: int
     ) -> np.ndarray:
         """Generate realistic chessboard corner points with noise."""
         np.random.seed(seed)

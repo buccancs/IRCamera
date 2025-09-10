@@ -7,7 +7,7 @@ according to the PC Controller GUI requirements.
 
 import time
 from collections import deque
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
 import pyqtgraph as pg
@@ -45,7 +45,7 @@ class GSRPlotWidget(pg.PlotWidget):
         self.time_window = time_window
 
         # Data storage
-        self.gsr_data: Dict[str, deque] = (
+        self.gsr_data: Dict[str, deque[Tuple[float, float]]] = (
             {}
         )  # device_id -> deque of (timestamp, gsr_value)
         self.plot_items: Dict[str, pg.PlotDataItem] = {}
@@ -349,11 +349,11 @@ class MultiModalDashboard(QWidget):
     Implements the dynamic grid layout requirement from FR6.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize multi-modal dashboard."""
         super().__init__()
 
-        self.gsr_plot = None
+        self.gsr_plot: Optional[GSRPlotWidget] = None
         self.video_widgets: Dict[str, VideoPreviewWidget] = {}
 
         self._setup_layout()
@@ -475,7 +475,7 @@ class DataAggregationWidget(QWidget):
     Widget for displaying data aggregation statistics and synchronization quality.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize data aggregation widget."""
         super().__init__()
 

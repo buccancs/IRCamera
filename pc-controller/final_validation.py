@@ -11,7 +11,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 
-def test_imports_and_basic_functionality():
+def test_imports_and_basic_functionality() -> bool:
     """Test that all core modules import and basic functionality works."""
     print("ANALYZE Testing imports and basic functionality...")
 
@@ -60,7 +60,7 @@ def test_imports_and_basic_functionality():
         return False
 
 
-def test_android_build():
+def test_android_build() -> bool:
     """Test that Android build is successful."""
     print("\nDEVICE Testing Android build...")
 
@@ -94,7 +94,7 @@ def test_android_build():
         return False
 
 
-def test_python_tests():
+def test_python_tests() -> bool:
     """Run Python test suite."""
     print("\nTESTING Testing Python test suite...")
 
@@ -137,7 +137,7 @@ def test_python_tests():
         return False
 
 
-def main():
+def main() -> int:
     """Run all validation tests."""
     print("START Starting Final Validation for IRCamera PC Controller")
     print("=" * 60)
