@@ -221,7 +221,7 @@ class EnhancedNetworkingTests:
             if not messaging_service.is_running:
                 logger.error("Messaging service should be running")
                 return False
-            logger.info("OK Service initialization")
+            logger.info("OK Service initialization")  # type: ignore[unreachable]
 
             # Test message handler registration
             response_messages = []

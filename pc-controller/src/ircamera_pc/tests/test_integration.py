@@ -8,10 +8,9 @@ import os
 import shutil
 import sys
 import tempfile
-import threading
 import time
 import unittest
-from typing import Dict, List
+from typing import Any, Dict, List
 from unittest.mock import Mock
 
 from loguru import logger
@@ -100,7 +99,7 @@ class TestEndToEndIntegration(unittest.TestCase):
         """Async implementation of device discovery and registration test"""
         await self.network_server.start()
 
-        registered_devices = []
+        registered_devices: List[str] = []
 
         # Simulate devices connecting
         for device_config in self.test_devices:
@@ -115,13 +114,13 @@ class TestEndToEndIntegration(unittest.TestCase):
                 await self.network_server._handle_device_register(
                     registration_msg, mock_socket
                 )
-                registered_devices.append(device_config["device_id"])
+                registered_devices.append(str(device_config["device_id"]))
             except Exception as e:
                 logger.warning(f"Registration failed: {e}")
 
         # Verify devices can be queried
         for device_id in registered_devices:
-            device_info = self.network_server.get_device_info(device_id)
+            self.network_server.get_device_info(device_id)
             # Device info may be None for mock devices, just check it doesn't crash
 
     async def test_coordinated_multi_modal_session(self):
@@ -209,7 +208,11 @@ class TestEndToEndIntegration(unittest.TestCase):
         ]
 
         for event in experimental_events:
-            time_offset = float(event["time_offset"])
+            time_offset_val = event.get("time_offset", 0.0)
+            if isinstance(time_offset_val, (int, float)):
+                time_offset = float(time_offset_val)
+            else:
+                time_offset = 0.0
             time.sleep(time_offset / 10)  # Accelerated for testing
 
             sync_marker = {
@@ -293,6 +296,7 @@ class TestEndToEndIntegration(unittest.TestCase):
 
         # Coordinate file transfer requests
         transfer_requests = []
+        transfer_counter = 0
         for device_id, files in test_files.items():
             for file_info in files:
                 transfer_request = {
@@ -305,7 +309,8 @@ class TestEndToEndIntegration(unittest.TestCase):
                 }
 
                 # Mock file transfer request handling
-                response = {"status": "ready", "transfer_id": f"transfer_{i}"}
+                response = {"status": "ready", "transfer_id": f"transfer_{transfer_counter}"}
+                transfer_counter += 1
                 self.assertEqual(response["status"], "ready")
 
                 transfer_requests.append(
@@ -324,17 +329,7 @@ class TestEndToEndIntegration(unittest.TestCase):
             chunk_size = transfer["response"]["chunk_size"]
 
             for offset in range(0, len(content), chunk_size):
-                chunk = content[offset : offset + chunk_size]
-
-                chunk_msg = {
-                    "type": "file_chunk",
-                    "transfer_id": transfer["response"]["transfer_id"],
-                    "offset": offset,
-                    "size": len(chunk),
-                    "data": chunk.hex(),  # Hex encode for JSON
-                }
-
-                # Mock file chunk handling
+                # Mock file chunk handling (simplified)
                 chunk_response = {"status": "received"}
                 self.assertEqual(chunk_response["status"], "received")
 
@@ -371,16 +366,7 @@ class TestEndToEndIntegration(unittest.TestCase):
         await self._register_test_devices()
 
         # Enable real-time monitoring
-        monitoring_config = {
-            "sync_accuracy_threshold_ms": 5.0,
-            "data_loss_threshold_percent": 1.0,
-            "network_latency_threshold_ms": 50.0,
-            "quality_check_interval_s": 10.0,
-        }
-
-        # Mock enabling real-time monitoring
-        monitoring_enabled = True  # Mock successful monitoring setup
-
+        # Remove unused monitoring_config variable - already set above
         # Create and start session
         session_id = self.session_manager.create_session(
             {"session_name": "QualityMonitoring_Test", "participant_id": "P001"}
@@ -424,7 +410,7 @@ class TestEndToEndIntegration(unittest.TestCase):
                 quality_reports.append(quality_report)
 
         # Analyze quality trends (mock)
-        quality_stats = {
+        quality_stats: Dict[str, Any] = {
             "overall_sync_accuracy": {
                 "average_ms": 2.5,
                 "max_ms": 4.8,
@@ -500,10 +486,7 @@ class TestEndToEndIntegration(unittest.TestCase):
             # Inject error condition
             if scenario_name == "device_disconnection":
                 # Mock device disconnection simulation
-                device_id = scenario["device_id"]
-                
-                # Mock disconnection behavior
-                disconnect_success = True
+                # Mock disconnection and recovery behavior
 
                 # Wait for detection
                 time.sleep(2)
@@ -515,7 +498,6 @@ class TestEndToEndIntegration(unittest.TestCase):
             elif scenario_name == "network_congestion":
                 # Mock high latency behavior
                 original_latency = 50  # Mock original latency in ms
-                simulated_latency = 200  # Mock high latency simulation
 
                 # Check if system adapts
                 time.sleep(3)
