@@ -37,7 +37,7 @@ object NetWorkUtils {
 
         @Suppress("DEPRECATION")
         val wifiInfo = wifiManager.connectionInfo
-        val ssid = wifiInfo.ssid.replace("\"", "") // utility
+        val ssid = wifiInfo.ssid.replace("\"", "") // Utility function
         for (prefix in prefixes) {
             if (ssid.startsWith(prefix)) {
                 return true
@@ -52,11 +52,11 @@ object NetWorkUtils {
         listener: ((network: Network?) -> Unit)? = null,
     ) {
         netWorkListener = listener
-        if (Build.VERSION.SDK_INT < 29) { // utility Android10
+        if (Build.VERSION.SDK_INT < 29) { // Calculate value Android10
             val request =
                 NetworkRequest.Builder()
                     .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
-                    .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) // utility internet
+                    .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) // Utility function internet
                     .build()
             val callback =
                 object : ConnectivityManager.NetworkCallback() {
@@ -169,7 +169,7 @@ object NetWorkUtils {
         isWifi: Boolean,
         listener: ((network: Network?) -> Unit)? = null,
     ) {
-        if (Build.VERSION.SDK_INT < 29) { // utility Android10
+        if (Build.VERSION.SDK_INT < 29) { // Return result Android10
             return
         }
         if (isWifi) {

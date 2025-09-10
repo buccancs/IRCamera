@@ -235,7 +235,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
     private fun loginAction() {
         isNeedRefreshLogin = true
-        // activityLogin()fragment，fragmentonResume()
+        // Activity operationLogin()fragment，fragmentonResume()
         val bgBitmap =
             BitmapFactory.decodeResource(
                 resources,

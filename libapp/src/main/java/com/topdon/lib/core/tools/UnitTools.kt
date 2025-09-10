@@ -13,7 +13,7 @@ object UnitTools {
     fun showC(float: Float): String {
         val str =
             if (SharedManager.getTemperature() == 1) {
-                // utility
+                // Utility function
                 "${String.format(Locale.ENGLISH, "%.1f", float)}°C"
             } else {
                 // Fahrenheit
@@ -34,7 +34,7 @@ object UnitTools {
     ): String {
         val str =
             if (isC) {
-                // utility
+                // Utility function
                 "${String.format(Locale.ENGLISH, "%.1f", float)}°C"
             } else {
                 // Fahrenheit
@@ -53,7 +53,7 @@ object UnitTools {
     ): String {
         val str =
             if (SharedManager.getTemperature() == 1) {
-                // utility
+                // Utility function
                 "$min~$max°C"
             } else {
                 // Fahrenheit
@@ -74,7 +74,7 @@ object UnitTools {
     ): String {
         val str =
             if (SharedManager.getTemperature() == 1) {
-                // utility
+                // Utility function
                 "($min~$max°C)"
             } else {
                 // Fahrenheit
@@ -94,7 +94,7 @@ object UnitTools {
     fun showUnit(): String {
         val str =
             if (SharedManager.getTemperature() == 1) {
-                // utility
+                // Utility function
                 "°C"
             } else {
                 // Fahrenheit
@@ -112,7 +112,7 @@ object UnitTools {
     fun showUnitValue(value: Float): Float {
         val str =
             if (SharedManager.getTemperature() == 1) {
-                // utility
+                // Utility function
                 value
             } else {
                 // Fahrenheit
@@ -136,7 +136,7 @@ object UnitTools {
         }
         val str =
             if (showC) {
-                // utility
+                // Utility function
                 value
             } else {
                 // Fahrenheit
@@ -157,7 +157,7 @@ object UnitTools {
     ): Float {
         val str =
             if (isShowC) {
-                // utility
+                // Utility function
                 value
             } else {
                 // Fahrenheit
@@ -175,7 +175,7 @@ object UnitTools {
     fun showToCValue(value: Float): Float {
         val str =
             if (SharedManager.getTemperature() == 1) {
-                // utility
+                // Utility function
                 value
             } else {
                 // Fahrenheit

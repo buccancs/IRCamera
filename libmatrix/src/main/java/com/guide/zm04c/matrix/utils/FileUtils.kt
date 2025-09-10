@@ -87,9 +87,9 @@ class FileUtils {
             data: ByteArray,
             filePath: String,
         ) {
-            // utility，utility
+            // Initialize variable，utility
             var randomFile = RandomAccessFile(filePath, "rw")
-            // utility，utility
+            // Initialize variable，utility
             var fileLength = randomFile.length()
             // Utility function。
             randomFile.seek(fileLength)
@@ -286,7 +286,7 @@ class FileUtils {
             fileNotFoundErrAction: () -> Unit,
             ioErrAction: () -> Unit,
         ): ByteArray? {
-            // utility
+            // Initialize variable
             var fis: FileInputStream? = null
             val inFile = File(filePath)
             val buffer: ByteArray?
@@ -325,7 +325,7 @@ class FileUtils {
                 }
             } catch (e1: Exception) {
                 e1.printStackTrace()
-                // utility
+                // Utility function
                 try {
                     if (null != inputStream) {
                         byteArr = ByteArray(inputStream.available())

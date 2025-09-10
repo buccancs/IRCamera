@@ -59,7 +59,7 @@ object ArrayUtils {
         selectIndexList: ArrayList<Int> = arrayListOf(),
     ): Int {
         if (selectIndexList.size == 0) {
-            // utilitySpecifiedutility
+            // Initialize variableSpecifiedutility
             var maxIndex = 0
             for (i in 1 until data.size - 1) {
                 if (data[i] > data[maxIndex]) {
@@ -207,7 +207,7 @@ object ArrayUtils {
         val destMatrix = Array(column) { FloatArray(row) }
         for (x in 0 until column) {
             for (y in 0 until row) {
-                destMatrix[x][y] = srcMatrix[row - 1 - y][x] // utilityRotate90utility
+                destMatrix[x][y] = srcMatrix[row - 1 - y][x] // Utility functionRotate90utility
             }
         }
         val data = FloatArray(srcData.size)
@@ -234,7 +234,7 @@ object ArrayUtils {
         val destMatrix = Array(row) { FloatArray(column) }
         for (x in 0 until row) {
             for (y in 0 until column) {
-                destMatrix[x][y] = srcMatrix[row - 1 - x][column - 1 - y] // utilityRotate180utility
+                destMatrix[x][y] = srcMatrix[row - 1 - x][column - 1 - y] // Utility functionRotate180utility
             }
         }
         val data = FloatArray(srcData.size)
@@ -253,16 +253,16 @@ object ArrayUtils {
     private fun matrixRotate270(srcData: FloatArray): FloatArray {
         val row = 192
         val column = 256
-        val srcMatrix = Array(row) { FloatArray(column) } // utility
+        val srcMatrix = Array(row) { FloatArray(column) } // Utility function
         for (i in 0 until row) {
             for (j in 0 until column) {
                 srcMatrix[i][j] = srcData[i * column + j]
             }
         }
-        val destMatrix = Array(column) { FloatArray(row) } // utility
+        val destMatrix = Array(column) { FloatArray(row) } // Utility function
         for (x in 0 until column) {
             for (y in 0 until row) {
-                destMatrix[x][y] = srcMatrix[y][column - 1 - x] // utilityRotate270utility
+                destMatrix[x][y] = srcMatrix[y][column - 1 - x] // Utility functionRotate270utility
             }
         }
         val data = FloatArray(srcData.size)

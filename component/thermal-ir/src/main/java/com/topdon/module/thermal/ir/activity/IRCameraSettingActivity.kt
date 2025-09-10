@@ -411,7 +411,7 @@ class IRCameraSettingActivity : BaseActivity() {
                         never: Boolean,
                     ) {
                         if (never) {
-                            // activitySettingsactivity
+                            // Activity operationSettingsactivity
                             if (BaseApplication.instance.isDomestic()) {
                                 ToastUtils.showShort(getString(LibR.string.app_location_content))
                             } else {

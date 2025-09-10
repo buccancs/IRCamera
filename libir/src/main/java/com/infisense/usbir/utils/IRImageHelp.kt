@@ -82,10 +82,10 @@ class IRImageHelp {
             if (colorList != null && temperatureSrc != null) {
                 var j = 0
                 val imageDstLength: Int = imageWidth * imageHeight * 4
-                // utility，utility
+                // Initialize variable，utility
                 var index = 0
                 while (index < imageDstLength) {
-                    // utility
+                    // Initialize variable
                     var temperature0: Float =
                         (
                             (temperatureSrc.get(j).toInt() and 0xff) + (
@@ -163,12 +163,12 @@ class IRImageHelp {
             var j = 0
             val imageDstLength: Int = imageWidth * imageHeight * 4
             val biaochiMax: Float = max
-            val biaochiMin: Float = min // utility
+            val biaochiMin: Float = min // Calculate value
             val startTimeAll = System.currentTimeMillis()
-            // utility，utility
+            // Initialize variable，utility
             var index = 0
             while (index < imageDstLength) {
-                // utility
+                // Initialize variable
                 var temperature0: Float =
                     (
                         (temperatureSrc[j].toInt() and 0xff) + (

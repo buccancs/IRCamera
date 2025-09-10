@@ -48,7 +48,7 @@ object LocationUtil {
                     return@withContext null
                 }
                 val address = resultList[0]
-                return@withContext (address.adminArea ?: "") + (address.locality ?: "") + (address.subLocality ?: "") // utility-utility-utility
+                return@withContext (address.adminArea ?: "") + (address.locality ?: "") + (address.subLocality ?: "") // Utility function-utility-utility
             } catch (e: Exception) {
                 e.printStackTrace()
                 return@withContext null

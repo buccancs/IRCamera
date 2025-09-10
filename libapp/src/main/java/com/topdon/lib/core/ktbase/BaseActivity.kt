@@ -172,7 +172,7 @@ abstract class BaseActivity : AppCompatActivity() {
                 cameraDialog?.show()
             }
         } catch (e: Exception) {
-            // activity，activity
+            // Activity operation，activity
             Log.e("activity", e.message.toString())
         }
     }
@@ -183,7 +183,7 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    // activity
+    // Activity operation
     private fun synLogin() {
         if (this::class.java.simpleName == "MainActivity") {
             LMS.getInstance().syncUserInfo()
@@ -206,7 +206,7 @@ abstract class BaseActivity : AppCompatActivity() {
             }
         } else {
             if (UserInfoManager.getInstance().isLogin()) {
-                // activity,activityState,activity
+                // Activity operation,activityState,activity
                 UserInfoManager.getInstance().logout()
             }
         }

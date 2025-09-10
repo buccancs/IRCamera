@@ -19,7 +19,7 @@ object CalibrationTools {
         singlePointTemp: Int,
     ): Boolean {
         var success = false
-        // utilityTemperature measurementutility,utility
+        // Utility functionTemperature measurementutility,utility
         if (irCmd.restoreDefaultConfig(CommonParams.DefaultConfigType.DEF_CFG_TPD) == 0) {
             irCmd.restoreDefaultConfig(CommonParams.DefaultConfigType.DEF_CFG_TPD)
             val result = irCmd.setTPDKtBtRecalPoint(CommonParams.TPDKtBtRecalPointType.RECAL_1_POINT, singlePointTemp)
@@ -43,7 +43,7 @@ object CalibrationTools {
         pointTemp: Int,
     ): Boolean {
         var success = false
-        // utilityTemperature measurementutility,utility
+        // Utility functionTemperature measurementutility,utility
         if (irCmd.restoreDefaultConfig(CommonParams.DefaultConfigType.DEF_CFG_TPD) == 0) {
             val result =
                 irCmd.setTPDKtBtRecalPoint(
@@ -72,7 +72,7 @@ object CalibrationTools {
         pointTemp: Int,
     ): Boolean {
         var success = false
-        // utilityTemperature measurementutility,utility
+        // Utility functionTemperature measurementutility,utility
         if (irCmd.restoreDefaultConfig(CommonParams.DefaultConfigType.DEF_CFG_TPD) == 0) {
             val result =
                 irCmd.setTPDKtBtRecalPoint(
@@ -189,7 +189,7 @@ object CalibrationTools {
         if (syncImage.type == 1) {
             irCmd?.tc1bShutterManual()
         } else {
-            // utility
+            // Utility function
             irCmd?.updateOOCOrB(CommonParams.UpdateOOCOrBType.B_UPDATE)
         }
     }

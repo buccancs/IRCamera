@@ -66,8 +66,8 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
      */
     private var irPid = 0x5830
 
-    private var imageWidth = 0 // activityRotateactivity
-    private var imageHeight = 0 // activityRotateactivity
+    private var imageWidth = 0 // Private instance variableRotateactivity
+    private var imageHeight = 0 // Private instance variableRotateactivity
     private var syncimage = SynchronizedBitmap()
 
     protected var mCurrentFusionType = DualParamsUtil.fusionTypeToParams(SaveSettingUtil.fusionType)
@@ -79,11 +79,11 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
      * 8833
      */
     private var vlPid = 12337
-    private var vlFps = 30 // activity
+    private var vlFps = 30 // Activity operation
 
     protected var vlCameraWidth = 1280
     protected var vlCameraHeight = 720
-    private var vlData = ByteArray(vlCameraWidth * vlCameraHeight * 3) // activityVisible lightactivity
+    private var vlData = ByteArray(vlCameraWidth * vlCameraHeight * 3) // Activity operationVisible lightactivity
 
     /**
      * dual camera
@@ -91,7 +91,7 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
     private var dualCameraWidth = 480
     private var dualCameraHeight = 640
 
-    // activityIRISPactivity
+    // Initialize flagIRISPactivity
     private val isUseIRISP = false
 
     private var psedocolor: Array<ByteArray>? = null
@@ -127,8 +127,8 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
         super.initView()
         if (isDualIR()) {
             // defaultDataFlowMode activity activity+activity，activity SDK activity 256x384
-            // activity、activity 256x(384/2) = 256x192
-            // activityRotate，activity 192x256
+            // Activity operation、activity 256x(384/2) = 256x192
+            // Activity operationRotate，activity 192x256
             imageWidth = 192
             imageHeight = 256
             USBMonitorManager.getInstance().init(irPid, isUseIRISP, defaultDataFlowMode)
@@ -181,7 +181,7 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
                 if (msg.what == Const.RESTART_USB) {
                     restartDualCamera()
                 } else if (msg.what == Const.HANDLE_CONNECT) {
-                    // activity，activity
+                    // Activity operation，activity
                     /**
                      * activityVisible lightactivity
                      * activitypidactivity
@@ -189,7 +189,7 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
                     lifecycleScope.launch(Dispatchers.Main) {
                         startVLCamera(vlPid, vlFps, vlCameraWidth, vlCameraHeight)
                         initDualCamera()
-                        // activity
+                        // Activity operation
                         initDefIntegralArgsDISPValue(DualCameraParams.TypeLoadParameters.ROTATE_270)
                     }
                 } else if (msg.what == Const.HANDLE_REGISTER) {
@@ -230,7 +230,7 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
             val data = dualView?.dualUVCCamera?.loadParameters(parameters, typeLoadParameters)
             dualDisp = IRCmdTool.dispNumber
             setDispViewData(dualDisp)
-            // activity
+            // Activity operation
             dualView?.dualUVCCamera?.setDisp(dualDisp)
             dualView?.startPreview()
         }
@@ -264,7 +264,7 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
         getTemperatureDualView().setDualUVCCamera(dualView!!.getDualUVCCamera())
         initPseudoColor()
         initAmplify(true)
-        // activitySettingsactivityMode
+        // Activity operationSettingsactivityMode
 //        setFusion(mCurrentFusionType)
 //        dualView!!.startPreview()
         dualView?.setHandler(mIrHandler)
@@ -287,7 +287,7 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
                 CommonParams.PseudoColorUsbDualType.WHITE_HOT_MODE,
                 psedocolor!![0],
             )
-            // activitySettingsactivityMode
+            // Activity operationSettingsactivityMode
             setFusion(mCurrentFusionType)
             inputStream.close()
         } catch (e: IOException) {
@@ -370,7 +370,7 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
 //        popupImage.setIrcmd(ircmd)
 //        popupOthers.setIrcmd(ircmd)
 //        getTemperatureDualView().setIrcmd(ircmd)
-//        // activityRotateSettings
+//        // Activity operationRotateSettings
 //        popupCalibration.setRotate(true)
 //        popupImage.setRotate(true)
     }

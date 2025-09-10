@@ -96,13 +96,13 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
         data: Int,
     ) {
         if (action == -1 || action == 1) {
-            // activity
+            // Activity operation
             lifecycleScope.launch(Dispatchers.IO) {
                 dualDisp = data
                 dualView?.dualUVCCamera!!.setDisp(data)
             }
         } else {
-            // activity
+            // Activity operation
             val oemInfo = ByteArray(1024)
             ircmd?.oemRead(CommonParams.ProductType.P2, oemInfo)
             val dataStr = data.toString()
@@ -110,7 +110,7 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
             val result = ircmd?.oemWrite(CommonParams.ProductType.P2, oemInfo)
 //            SharedManager.setIrDualDisp(dualDisp)
             if (result == 0) {
-                // activity
+                // Activity operation
                 // if (thermalSteeringView.isVisible) {
                 //    thermalSteeringView.visibility = View.GONE
                 thermalRecyclerNight.setTwoLightSelected(TwoLightType.CORRECT, false)

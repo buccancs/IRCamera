@@ -239,11 +239,11 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener, ITsTemp
                                 object :
                                     ViewTreeObserver.OnGlobalLayoutListener {
                                     override fun onGlobalLayout() {
-                                        // activity
+                                        // Activity operation
                                         binding.thermalFragment.getViewTreeObserver().removeOnGlobalLayoutListener(this)
                                         irMonitorLiteFragment?.restTempView()
                                         irMonitorLiteFragment?.addTempLine(selectIndex!!)
-                                        // activity
+                                        // Activity operation
                                     }
                                 },
                             )

@@ -76,7 +76,7 @@ class ElectronicManualActivity : BaseActivity() {
         private val optionList: ArrayList<String> = ArrayList(2)
 
         init {
-            // activity TC001 activity activity， 2024-4-9 activity，activity TS004 activity
+            // Activity operation TC001 activity activity， 2024-4-9 activity，activity TS004 activity
             if (isFAQ) {
                 optionList.add("TS001")
             }

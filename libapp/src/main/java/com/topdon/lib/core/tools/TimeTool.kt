@@ -84,10 +84,10 @@ object TimeTool {
     ): Long {
         val dateFormat =
             when (type) {
-                1 -> SimpleDateFormat("yyyy-MM-dd HH:mm:ss") // utility
-                2 -> SimpleDateFormat("yyyy-MM-dd HH:mm:00") // utility
-                3 -> SimpleDateFormat("yyyy-MM-dd HH:00:00") // utility
-                4 -> SimpleDateFormat("yyyy-MM-dd 00:00:0") // utility
+                1 -> SimpleDateFormat("yyyy-MM-dd HH:mm:ss") // Utility function
+                2 -> SimpleDateFormat("yyyy-MM-dd HH:mm:00") // Utility function
+                3 -> SimpleDateFormat("yyyy-MM-dd HH:00:00") // Utility function
+                4 -> SimpleDateFormat("yyyy-MM-dd 00:00:0") // Handle negative slope or alternative case
                 else -> SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
             }
         val date = Date(time)

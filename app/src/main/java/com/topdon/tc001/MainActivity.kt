@@ -74,7 +74,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
 
     private var checkPermissionType: Int = -1 // 0: initData, 1: Gallery, 2: connect method
 
-    // activity
+    // Activity operation
     private fun logInfo() {
         try {
             val str = StringBuilder()
@@ -141,7 +141,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
         }
 
         if (!SharedManager.hasTcLine && !SharedManager.hasTS004 && !SharedManager.hasTC007) {
-            // activity，activity
+            // Activity operation，activity
             if (DeviceTools.isConnect()) {
                 if (!WebSocketProxy.getInstance().isConnected()) {
                     NavigationManager.build(RouterConfig.IR_MAIN)
@@ -174,7 +174,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
     override fun onStart() {
         super.onStart()
 
-        // activity
+        // Activity operation
         versionViewModel.updateLiveData.observe(this) {
             FirmwareUpDialog(this).apply {
                 titleStr = getString(com.topdon.lib.core.R.string.update_new_version)
@@ -185,7 +185,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
                     updateApk(it.downPageUrl)
                 }
                 onCancelClickListener = {
-                    SharedManager.setVersionCheckDate(System.currentTimeMillis()) // activity
+                    SharedManager.setVersionCheckDate(System.currentTimeMillis()) // Activity operation
                 }
             }.show()
         }
@@ -193,7 +193,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
 
     private fun updateApk(url: String) {
         if (applicationInfo.targetSdkVersion < Build.VERSION_CODES.P) {
-            // activity27activity
+            // Create intent27activity
             val intent = Intent()
             intent.action = "android.intent.action.VIEW"
             intent.data = Uri.parse(url)
@@ -256,7 +256,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
         filename: String,
         targetFile: File,
     ) {
-        if (targetFile.exists()) { // activity
+        if (targetFile.exists()) { // Activity operation
             return
         }
         try {
@@ -295,10 +295,10 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
                 checkPermissionType = 1
                 checkStoragePermission()
             }
-            binding.viewMain -> { // activity
+            binding.viewMain -> { // Activity operation
                 binding.viewPage.setCurrentItem(1, false)
             }
-            binding.clIconMine -> { // activity
+            binding.clIconMine -> { // Activity operation
                 binding.viewPage.setCurrentItem(2, false)
             }
         }
@@ -351,7 +351,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
             1 -> {
                 binding.ivBottomMainBg.setImageResource(R.drawable.ic_main_bg_select)
             }
-            2 -> { // activity
+            2 -> { // Set flag
                 binding.ivIconMine.isSelected = true
                 binding.tvIconMine.isSelected = true
             }
@@ -371,7 +371,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
         if (WebSocketProxy.getInstance().isTS004Connect()) {
             NavigationManager.build(RouterConfig.IR_MONOCULAR).navigation(this)
         }
-        // activityOTGactivity
+        // Activity operationOTGactivity
         if (tipOtgDialog != null && tipOtgDialog!!.isShowing) {
             return
         }
@@ -463,7 +463,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
         ) {
             if (BaseApplication.instance.isDomestic()) {
                 if (SharedManager.getMainPermissionsState()) {
-                    // activity
+                    // Activity operation
                     return
                 }
                 TipDialog.Builder(this)
@@ -506,7 +506,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
                             SharedManager.setMainPermissionsState(true)
                         }
                         if (doNotAskAgain) {
-                            // activity
+                            // Activity operation
                             TipDialog.Builder(this@MainActivity)
                                 .setTitleMessage(getString(R.string.app_tip))
                                 .setMessage(
@@ -575,7 +575,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
                         doNotAskAgain: Boolean,
                     ) {
                         if (doNotAskAgain) {
-                            // activity
+                            // Activity operation
                             TipDialog.Builder(this@MainActivity)
                                 .setTitleMessage(getString(R.string.app_tip))
                                 .setMessage(getString(R.string.app_album_content))

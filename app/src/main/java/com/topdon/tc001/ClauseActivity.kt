@@ -52,7 +52,7 @@ class ClauseActivity : BaseBindingActivity<ActivityClauseBinding>() {
             confirmInitApp()
         }
         binding.clauseDisagreeBtn.setOnClickListener {
-            // activity
+            // Activity operation
             TipDialog.Builder(this)
                 .setMessage(getString(R.string.privacy_tips))
                 .setPositiveListener(R.string.privacy_confirm) {
@@ -69,7 +69,7 @@ class ClauseActivity : BaseBindingActivity<ActivityClauseBinding>() {
             if (!NetworkUtil.isConnected(this)) {
                 TToast.shortToast(this, R.string.lms_setting_http_error)
             } else {
-                // activity
+                // Activity operation
                 NavigationManager.getInstance()
                     .build(RouterConfig.POLICY)
                     .withInt(PolicyActivity.KEY_THEME_TYPE, 1)
@@ -81,7 +81,7 @@ class ClauseActivity : BaseBindingActivity<ActivityClauseBinding>() {
             if (!NetworkUtil.isConnected(this)) {
                 TToast.shortToast(this, R.string.lms_setting_http_error)
             } else {
-                // activity
+                // Activity operation
                 NavigationManager.getInstance()
                     .build(RouterConfig.POLICY)
                     .withInt(PolicyActivity.KEY_THEME_TYPE, 2)
@@ -90,7 +90,7 @@ class ClauseActivity : BaseBindingActivity<ActivityClauseBinding>() {
             }
         }
         binding.clauseItem3.setOnClickListener {
-            // activity
+            // Activity operation
             if (!NetworkUtil.isConnected(this)) {
                 TToast.shortToast(this, R.string.lms_setting_http_error)
             } else {
@@ -115,10 +115,10 @@ class ClauseActivity : BaseBindingActivity<ActivityClauseBinding>() {
     private fun confirmInitApp() {
         lifecycleScope.launch {
             showLoading()
-            // activity
+            // Activity operation
             App.delayInit()
             async(Dispatchers.IO) {
-                // activity1000ms activity
+                // Activity operation1000ms activity
                 delay(1000)
                 return@async
             }.await().let {

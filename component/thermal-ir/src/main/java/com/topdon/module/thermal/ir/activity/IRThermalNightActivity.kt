@@ -2049,7 +2049,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
 
                     override fun onIRCMDCreate(ircmd: IRCMD) {
                         this@IRThermalNightActivity.ircmd = ircmd
-                        // activityIRCMDactivity
+                        // Initialize flagIRCMDactivity
                         isConfigWait = false
                     }
                 },
@@ -2093,7 +2093,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                     isOnRestart = false
                 }
             }
-            // activityToastactivity
+            // Activity operationToastactivity
             lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
                     setTsBin()
@@ -2128,7 +2128,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                     tvTitleTemp.isVisible = true
                     tvTitleObserve.isVisible = true
                 }
-                // activityLow gainactivity
+                // Activity operationLow gainactivity
 //                getUTable()
                 val value = IntArray(1)
                 ircmd!!.getPropTPDParams(CommonParams.PropTPDParams.TPD_PROP_GAIN_SEL, value)
@@ -2137,7 +2137,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                     if (value[0] == 1) {
                         // CurrentCoreactivityHigh gain
                         CommonParams.GainStatus.HIGH_GAIN
-                        // activity
+                        // Activity operation
                     } else {
                         // CurrentCoreactivityLow gain
                         CommonParams.GainStatus.LOW_GAIN
@@ -2287,7 +2287,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             Log.e(TAG, "imageThread.join(): catch an interrupted exception")
         }
 
-        // activitysensor
+        // Activity operationsensor
 //        if (Usbcontorl.isload) {
 //            Usbcontorl.usb3803_mode_setting(0) // Activity logic5V
 //        }
@@ -2544,7 +2544,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             }
             try {
                 synchronized(syncimage.dataLock) {
-                    // activity
+                    // Activity operation
                     var cameraViewBitmap: Bitmap? =
                         if (isOpenAmplify) {
                             OpencvTools.supImageFourExToBitmap(getCameraViewBitmap())
@@ -2565,13 +2565,13 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                         }
                     }
 
-//                    // activity，activity，activity，activitybitmap
+//                    // Activity operation，activity，activity，activitybitmap
 //                    if ((curChooseTabPos == 1 && temperatureView.temperatureRegionMode != REGION_MODE_CLEAN) ||
 //                        (curChooseTabPos == 2 && temperatureView.isUserHighTemp && temperatureView.isUserLowTemp)) {
 //                        cameraViewBitmap = BitmapUtils.mergeBitmap(cameraViewBitmap, temperatureView.regionAndValueBitmap, 0, 0)
 //                    }
 
-                    // activityPseudo-coloractivity
+                    // Activity operationPseudo-coloractivity
                     val isShowPseudoBar = cl_seek_bar.visibility == VISIBLE
                     if (isShowPseudoBar) {
                         val seekBarBitmap = cl_seek_bar.drawToBitmap()
@@ -2603,7 +2603,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                         compassBitmap.recycle()
                     }
 
-                    // activity 2023/11/24 activityPhotoactivity
+                    // Activity operation 2023/11/24 activityPhotoactivity
                     /*if (temp_bg.isVisible) {
                         if (alphaPaint == null) {
                             alphaPaint = Paint()
@@ -2612,7 +2612,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                         cameraViewBitmap = BitmapUtils.mergeBitmapAlpha(cameraViewBitmap, temp_bg.drawToBitmap(), alphaPaint, 0, 0)
                     }*/
 
-                    // activity，activity，activity，activitybitmap
+                    // Activity operation，activity，activity，activitybitmap
                     if ((curChooseTabPos == 1 && temperatureView.temperatureRegionMode != REGION_MODE_CLEAN) ||
                         (curChooseTabPos == 2 && temperatureView.isUserHighTemp() && temperatureView.isUserLowTemp())
                     ) {
@@ -2934,17 +2934,17 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 )
 //            SettingsHigh temperature、Low temperature
                 setTemperatureMode(temperatureMode, false)
-                // activity
+                // Activity operation
                 delay(timeMillis)
                 XLog.w("SettingsTPD_PROP DISTANCE:$disChar, EMS:$emsChar}")
                 if (isFirst && isrun) {
                     // Activity logic
                     // thermalRecyclerNight.setSettingSelected - synthetic method removed
                     ircmd?.setMirror(saveSetBean.isOpenMirror)
-                    // activity
+                    // Activity operation
                     delay(timeMillis)
                     withContext(Dispatchers.IO) {
-                        // activity，activity
+                        // Activity operation，activity
                         ircmd?.setAutoShutter(true)
                         delay(2500)
                         ircmd?.setAutoShutter(isAutoShutter)

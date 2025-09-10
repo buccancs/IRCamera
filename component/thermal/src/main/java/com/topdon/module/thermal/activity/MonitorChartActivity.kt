@@ -45,16 +45,16 @@ import kotlinx.coroutines.launch
 class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueSelectedListener {
     private val viewModel: LogViewModel by viewModels()
 
-    private val timeAdapter: SettingTimeAdapter by lazy { SettingTimeAdapter(this) } // activity
-    private val adapter: SettingCheckAdapter by lazy { SettingCheckAdapter(this) } // activity
+    private val timeAdapter: SettingTimeAdapter by lazy { SettingTimeAdapter(this) } // Activity operation
+    private val adapter: SettingCheckAdapter by lazy { SettingCheckAdapter(this) } // Activity operation
 
     //    var MONITOR_ACTION = STATS_START
     private var selectDuration = 1
-    private var selectType = 1 // activity 1:activity    2:activity    3:activity
-    private var selectIndex: ArrayList<Int> = arrayListOf() // activity
+    private var selectType = 1 // Private instance variable 1:activity    2:activity    3:activity
+    private var selectIndex: ArrayList<Int> = arrayListOf() // Activity operation
     private val bean = ThermalBean()
     private var selectTimeType = 1
-    private var latestTime = 0L // activityCurrentactivity,activity(activity, activity, activity)activity
+    private var latestTime = 0L // Initialize flagCurrentactivity,activity(activity, activity, activity)activity
     private var startMonitor = false
 
     private lateinit var chart: LineChart
@@ -81,7 +81,7 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
         initChart()
         initRecycler()
         viewModel.resultLiveData.observe(this) {
-            // activity
+            // Activity operation
             Log.w("123", "activity:${it.dataList.size}")
             resultVol(it)
         }
@@ -132,7 +132,7 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
                     timeType: Int,
                 ) {
                     selectTimeType = timeType
-                    chart.highlightValue(null) // activityMarker
+                    chart.highlightValue(null) // Activity operationMarker
                     latestTime = 0L
                     showLoadingDialog()
                     lifecycleScope.launch {
@@ -141,7 +141,7 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
                     }
                 }
             }
-        // activity
+        // Activity operation
         adapter.listener =
             object : SettingCheckAdapter.OnItemClickListener {
                 override fun onClick(
@@ -157,12 +157,12 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
                     adapter.setCheck(index)
                     timeMillis = time * 1000L
                     pointIndex = startIndex - defaultCount
-                    recordThermal() // activity
+                    recordThermal() // Activity operation
                 }
             }
     }
 
-    val defaultCount = 20 // activity10activity
+    val defaultCount = 20 // Activity operation10activity
     val startIndex = 0f
     var pointIndex = startIndex - defaultCount
 
@@ -240,7 +240,7 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
 
     var isRecord = false
     var type = ""
-    var timeMillis = 1000L // activity1s
+    var timeMillis = 1000L // Initialize flag1s
     var canUpdate = false
     var recordTask: Job? = null
     var thermalId = TimeTool.showDateSecond()
@@ -287,18 +287,18 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
         chart.setTouchEnabled(true)
         chart.isDragEnabled = true
         chart.setDrawGridBackground(false)
-        chart.description = null // activity
+        chart.description = null // Activity operation
         chart.setBackgroundResource(com.topdon.lib.core.R.color.chart_bg)
-        chart.setScaleEnabled(true) // activity
-        chart.setPinchZoom(false) // activity，activityxactivityyactivity
-        chart.isDoubleTapToZoomEnabled = false // activity
-        chart.isScaleYEnabled = false // activityYactivity
+        chart.setScaleEnabled(true) // Activity operation
+        chart.setPinchZoom(false) // Initialize flag，activityxactivityyactivity
+        chart.isDoubleTapToZoomEnabled = false // Initialize flag
+        chart.isScaleYEnabled = false // Activity operationYactivity
         chart.setExtraOffsets(
             0f,
             0f,
             SizeUtils.dp2px(8f).toFloat(),
             SizeUtils.dp2px(4f).toFloat(),
-        ) // activity
+        ) // Activity operation
         chart.setNoDataText(getString(R.string.lms_http_code998))
         chart.setNoDataTextColor(textColor)
         val mv = MyMarkerView(this, R.layout.marker_lay)
@@ -310,7 +310,7 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
         val l = chart.legend
         l.form = Legend.LegendForm.CIRCLE
         l.textColor = textColor
-        l.isEnabled = false // activity
+        l.isEnabled = false // Activity operation
         val xAxis = chart.xAxis
         xAxis.textColor = textColor
         xAxis.setDrawGridLines(true)
@@ -319,7 +319,7 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.axisLineColor = textColor
         xAxis.granularity = 1f
-        xAxis.isGranularityEnabled = true // activity
+        xAxis.isGranularityEnabled = true // Activity operation
         xAxis.textSize = 9f
 //        xAxis.setLabelCount(6, true)//trueactivity
         xAxis.setLabelCount(6, false) // trueactivity
@@ -333,7 +333,7 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
         chart.zoom(100f, 1f, chart.xChartMax, 0f)
         selectDuration = adapter.selectTime
         startTime = System.currentTimeMillis()
-        canUpdate = true // activity
+        canUpdate = true // Activity operation
     }
 
     /**
@@ -343,25 +343,25 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
         ++pointIndex
         when (selectTimeType) {
             1 -> {
-                // activity
+                // Activity operation
                 addPointToChart(bean)
             }
             2 -> {
-                // activity
+                // Activity operation
                 val addTime = 2 * 60 * 1000L
                 if (bean.createTime > TimeTool.timeToMinute(latestTime, 2) + addTime) {
                     queryLog(3)
                 }
             }
             3 -> {
-                // activity
+                // Activity operation
                 val addTime = 2 * 60 * 60 * 1000L
                 if (bean.createTime > TimeTool.timeToMinute(latestTime, 3) + addTime) {
                     queryLog(3)
                 }
             }
             4 -> {
-                // activity(activity，activity)
+                // Activity operation(activity，activity)
                 val addTime = 2 * 24 * 60 * 60 * 1000L
                 if (bean.createTime > TimeTool.timeToMinute(latestTime, 4) + addTime) {
                     queryLog(3)
@@ -386,7 +386,7 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
                 data.thermal = bean.centerTemp
                 data.createTime = bean.createTime
                 val lineData: LineData = chart.data
-                var volDataSet = lineData.getDataSetByIndex(0) // activityxactivity0activity
+                var volDataSet = lineData.getDataSetByIndex(0) // Activity operationxactivity0activity
                 if (volDataSet == null) {
                     startTime = data.createTime
                     Log.w("123", "SettingsactivitystartTime:$startTime")
@@ -406,7 +406,7 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
                         Log.w("123", "activity:$entity")
                     }
                     "line" -> {
-                        // activity
+                        // Activity operation
                         if (volDataSet == null) {
                             volDataSet = createSet("red")
                             lineData.addDataSet(volDataSet)
@@ -416,8 +416,8 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
                         entity.data = data
                         volDataSet.addEntry(entity)
 
-                        // activity
-                        var secondDataSet = lineData.getDataSetByIndex(1) // activityxactivity0activity
+                        // Activity operation
+                        var secondDataSet = lineData.getDataSetByIndex(1) // Activity operationxactivity0activity
                         if (secondDataSet == null) {
                             secondDataSet = createSet("blue")
                             lineData.addDataSet(secondDataSet)
@@ -427,7 +427,7 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
                         secondDataSet.addEntry(secondEntity)
                     }
                     else -> {
-                        // activity
+                        // Activity operation
                         if (volDataSet == null) {
                             volDataSet = createSet("red")
                             lineData.addDataSet(volDataSet)
@@ -436,8 +436,8 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
                         entity.data = data
                         volDataSet.addEntry(entity)
 
-                        // activity
-                        var secondDataSet = lineData.getDataSetByIndex(1) // activityxactivity0activity
+                        // Activity operation
+                        var secondDataSet = lineData.getDataSetByIndex(1) // Activity operationxactivity0activity
                         if (secondDataSet == null) {
                             secondDataSet = createSet("blue")
                             lineData.addDataSet(secondDataSet)
@@ -453,7 +453,7 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
                 chart.setVisibleXRangeMinimum(getMinimum()) // SettingsactivityXactivity
                 chart.setVisibleXRangeMaximum(getMaximum()) // SettingsactivityXactivity
                 chart.xAxis.setLabelCount(getLabCount(volDataSet.entryCount), false) // trueactivity
-                chart.moveViewToX(chart.xChartMax) // activity
+                chart.moveViewToX(chart.xChartMax) // Activity operation
                 if (volDataSet.entryCount == 20) {
                     chart.zoom(100f, 1f, chart.xChartMax, 0f)
                 }
@@ -485,30 +485,30 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
 
         when (label) {
             "red" -> {
-                set.color = lineRed // activity
-                set.circleHoleColor = lineRed // activity
+                set.color = lineRed // Activity operation
+                set.circleHoleColor = lineRed // Activity operation
             }
             "blue" -> {
-                set.color = lineBlue // activity
-                set.circleHoleColor = lineBlue // activity
+                set.color = lineBlue // Activity operation
+                set.circleHoleColor = lineBlue // Activity operation
             }
             else -> {
-                set.color = lineGreen // activity
-                set.circleHoleColor = lineGreen // activity
+                set.color = lineGreen // Activity operation
+                set.circleHoleColor = lineGreen // Activity operation
             }
         }
 
-        set.setCircleColor(whiteColors) // activity
-        set.circleHoleRadius = 4f // activity
-        set.circleRadius = 5f // activity
+        set.setCircleColor(whiteColors) // Activity operation
+        set.circleHoleRadius = 4f // Activity operation
+        set.circleRadius = 5f // Activity operation
         set.valueTextColor = Color.WHITE
         set.lineWidth = 2f
         set.fillAlpha = 200
         set.valueTextSize = 10f
         set.setDrawValues(false) // Settingsactivity
-        set.isHighlightEnabled = true // activity
-        set.setDrawHorizontalHighlightIndicator(false) // activity
-        set.enableDashedHighlightLine(8f, 8f, 0f) // activity
+        set.isHighlightEnabled = true // Activity operation
+        set.setDrawHorizontalHighlightIndicator(false) // Activity operation
+        set.enableDashedHighlightLine(8f, 8f, 0f) // Activity operation
         return set
     }
 
@@ -538,21 +538,21 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
             val logTime = TimeTool.showDateType(bean.dataList.last().createTime, selectTimeType)
             val nowTime = TimeTool.showDateType(System.currentTimeMillis(), selectTimeType)
             if (TextUtils.equals(logTime, nowTime)) {
-                // activity,Currentactivity，activityDeleteactivityCurrentactivity
+                // Activity operation,Currentactivity，activityDeleteactivityCurrentactivity
                 bean.dataList.removeLast()
             }
         }
 //        dataList = bean.dataList
         if (latestTime == 0L) {
-            // activity
+            // Activity operation
             addEntity(bean.dataList)
         } else if (bean.dataList.size > 0 && latestTime < bean.dataList.last().createTime) {
-            // activity
+            // Activity operation
             addEntity(bean.dataList)
         }
     }
 
-    // activity
+    // Activity operation
     private fun addEntity(data: ArrayList<ThermalEntity>) {
         clearEntity(data.size == 0)
         if (data.size == 0) {
@@ -562,7 +562,7 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
         startTime = data[0].createTime
         chart.xAxis.valueFormatter = MyValueFormatter(startTime = startTime)
         val lineData: LineData = chart.data
-        var volDataSet = lineData.getDataSetByIndex(0) // activityxactivity0activity
+        var volDataSet = lineData.getDataSetByIndex(0) // Activity operationxactivity0activity
         if (volDataSet == null) {
             volDataSet = createSet("vol")
             lineData.addDataSet(volDataSet)
@@ -586,7 +586,7 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
                     Log.w("123", "activity:$entity")
                 }
                 "line" -> {
-                    // activity
+                    // Activity operation
                     if (volDataSet == null) {
                         volDataSet = createSet("red")
                         lineData.addDataSet(volDataSet)
@@ -596,8 +596,8 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
                     entity.data = it
                     volDataSet.addEntry(entity)
 
-                    // activity
-                    var secondDataSet = lineData.getDataSetByIndex(1) // activityxactivity0activity
+                    // Activity operation
+                    var secondDataSet = lineData.getDataSetByIndex(1) // Activity operationxactivity0activity
                     if (secondDataSet == null) {
                         secondDataSet = createSet("blue")
                         lineData.addDataSet(secondDataSet)
@@ -607,7 +607,7 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
                     secondDataSet.addEntry(secondEntity)
                 }
                 else -> {
-                    // activity
+                    // Activity operation
                     if (volDataSet == null) {
                         volDataSet = createSet("red")
                         lineData.addDataSet(volDataSet)
@@ -616,8 +616,8 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
                     entity.data = it
                     volDataSet.addEntry(entity)
 
-                    // activity
-                    var secondDataSet = lineData.getDataSetByIndex(1) // activityxactivity0activity
+                    // Activity operation
+                    var secondDataSet = lineData.getDataSetByIndex(1) // Activity operationxactivity0activity
                     if (secondDataSet == null) {
                         secondDataSet = createSet("blue")
                         lineData.addDataSet(secondDataSet)
@@ -637,7 +637,7 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
             "123",
             "list moveViewToX:${chart.xChartMax}, chart.highestVisibleX:${chart.highestVisibleX}",
         )
-        chart.moveViewToX(chart.xChartMax) // activity
+        chart.moveViewToX(chart.xChartMax) // Activity operation
         chart.xAxis.setLabelCount(getLabCount(volDataSet.entryCount), false) // trueactivity
         chart.zoom(100f, 1f, chart.xChartMax, 0f)
         startMonitor = true
@@ -674,7 +674,7 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
         }
     }
 
-    // activity
+    // Activity operation
     private fun getMinimum(): Float {
         val min =
             when (selectTimeType) {
@@ -687,7 +687,7 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
         return min
     }
 
-    // activity，activity50activity
+    // Activity operation，activity50activity
     private fun getMaximum(): Float {
         return getMinimum() * 50f
     }

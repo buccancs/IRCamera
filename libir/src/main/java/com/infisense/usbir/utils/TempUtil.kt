@@ -10,12 +10,12 @@ object TempUtil {
         tempArray: ByteArray,
         width: Int,
     ): List<Float> {
-        if (point1 == point2) { // Utility function，utility
+        if (point1 == point2) { // Handle identical points case
             return ArrayList(0)
         }
 
         val pointList: ArrayList<Point> = ArrayList(abs(point1.x - point2.x).coerceAtLeast(abs(point1.y - point2.y)))
-        if (point1.x == point2.x) { // Utility function X utility
+        if (point1.x == point2.x) { // Handle vertical line case (same X coordinate)
             val startY = point1.y.coerceAtMost(point2.y)
             val endY = point1.y.coerceAtLeast(point2.y)
             for (i in startY..endY) {
@@ -24,20 +24,20 @@ object TempUtil {
         } else {
             val k = (point1.y - point2.y).toFloat() / (point1.x - point2.x).toFloat()
             val b = point1.y - k * point1.x
-            if (abs(k) <= 1) { // xutility
+            if (abs(k) <= 1) { // Iterate over X axis when slope is gentle
                 val startX = point1.x.coerceAtMost(point2.x)
                 val endX = point1.x.coerceAtLeast(point2.x)
                 for (i in startX..endX) {
                     pointList.add(Point(i, (k * i + b).toInt()))
                 }
-            } else { // yutility
-                if (k >= 0) { // Utility function
+            } else { // Iterate over Y axis when slope is steep
+                if (k >= 0) { // Handle positive slope
                     val startY = point1.y.coerceAtMost(point2.y)
                     val endY = point1.y.coerceAtLeast(point2.y)
                     for (y in startY..endY) {
                         pointList.add(Point(((y - b) / k).toInt(), y))
                     }
-                } else { // Utility function
+                } else { // Handle negative slope
                     val startY = point1.y.coerceAtLeast(point2.y)
                     val endY = point1.y.coerceAtMost(point2.y)
                     for (y in startY downTo endY) {

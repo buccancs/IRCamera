@@ -521,7 +521,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
         }
 //
 //        handler = Handler(Looper.getMainLooper())
-//        // activity
+//        // Activity operation
 //        fun takePicture() {
 //            shutterCount++
 //            try {
@@ -529,16 +529,16 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
 //            }catch (e : Exception){
 //            }
 //        }
-//        // activity Runnable，activity5activity
+//        // Activity operation Runnable，activity5activity
 //        shutterRunnable = object : Runnable {
 //            override fun run() {
-//                if (shutterCount < 4) { // activity40activity（8activity）
-//                    handler?.postDelayed(this, 5000L) // activity5activity
+//                if (shutterCount < 4) { // Activity operation40activity（8activity）
+//                    handler?.postDelayed(this, 5000L) // Activity operation5activity
 //                    takePicture()
 //                }
 //            }
 //        }
-//        // activity
+//        // Activity operation
 //        handler?.postDelayed(shutterRunnable!!,5000L)
         initOrientationEventListener()
 
@@ -846,7 +846,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                 saveSetBean.rotateAngle = if (saveSetBean.rotateAngle == 0) 270 else (saveSetBean.rotateAngle - 90)
                 updateRotateAngle(saveSetBean.rotateAngle)
             }
-            SettingType.FONT -> { // activity
+            SettingType.FONT -> { // Activity operation
                 val colorPickDialog = ColorPickDialog(this, saveSetBean.tempTextColor, saveSetBean.tempTextSize)
                 colorPickDialog.onPickListener = { it: Int, textSize: Int ->
                     saveSetBean.tempTextColor = it
@@ -1087,7 +1087,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                 else -> RotateDegree.DEGREE_180
             }
         CameraPreviewManager.getInstance().imageRotate = imageRotate
-        // activity
+        // Activity operation
         CameraPreviewManager.getInstance().init(binding.cameraView, mLiteHandler)
 
         CameraPreviewManager.getInstance().setOnTempDataChangeCallback { data ->
@@ -1819,7 +1819,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
             }
             try {
                 synchronized(syncimage.dataLock) {
-                    // activity
+                    // Activity operation
                     var cameraViewBitmap: Bitmap? = getCameraViewBitmap()
                     // Visible light
                     if (isOpenPreview) {
@@ -1835,7 +1835,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                         }
                     }
 
-                    // activity，activity，activity，activitybitmap
+                    // Activity operation，activity，activity，activitybitmap
                     if (binding.temperatureView.temperatureRegionMode != REGION_MODE_CLEAN) {
                         cameraViewBitmap =
                             BitmapUtils.mergeBitmap(
@@ -1846,7 +1846,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                             )
                     }
 
-                    // activityPseudo-coloractivity
+                    // Activity operationPseudo-coloractivity
                     val isShowPseudoBar = binding.clSeekBar.visibility == VISIBLE
                     if (isShowPseudoBar) {
                         val seekBarBitmap = binding.clSeekBar.drawToBitmap()

@@ -430,7 +430,7 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
                         never: Boolean,
                     ) {
                         if (never) {
-                            // activitySettingsactivity
+                            // Activity operationSettingsactivity
                             if (BaseApplication.instance.isDomestic()) {
                                 ToastUtils.showShort(getString(R.string.app_location_content))
                                 return

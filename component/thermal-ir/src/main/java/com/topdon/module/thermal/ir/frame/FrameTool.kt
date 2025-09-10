@@ -168,10 +168,10 @@ class FrameTool {
                 minRGB[2] = minColor and 0xFF
                 var j = 0
                 val argbBytesLength = imageWidth * imageHeight * 4
-                // utility，utility
+                // Initialize variable，utility
                 var index = 0
                 while (index < argbBytesLength) {
-                    // utility
+                    // Initialize variable
                     var temperature0: Float =
                         (
                             (temperatureBytes[j].toInt() and 0xff) + (
@@ -347,7 +347,7 @@ class FrameTool {
     }
 
 //    fun getTemp() {
-//        // utilityHigh temperatureutilityLow temperatureutility
+//        // Calculate valueHigh temperatureutilityLow temperatureutility
 //        val irTemp = Libirtemp(256, 192)
 //        irTemp.settempdata(mixTemperatureBytes)
 //        val temperatureSampleEasyResult = irTemp.getTemperatureOfRect(Rect(0, 0, 256, 192))
@@ -355,7 +355,7 @@ class FrameTool {
 //    }
 
 //    fun getSrcTemp()：Libirt{
-//        // utilityHigh temperatureutilityLow temperatureutility
+//        // Calculate valueHigh temperatureutilityLow temperatureutility
 //        val irTemp = Libirtemp(256, 192)
 //        irTemp.settempdata(temperatureBytes)
 //        val temperatureSampleEasyResult = irTemp.getTemperatureOfRect(Rect(0, 0, 256, 192))
@@ -367,7 +367,7 @@ class FrameTool {
      * utilityTemperature measurement(utility)
      */
     fun getSrcTemp(): LibIRTemp.TemperatureSampleResult {
-        // utilityHigh temperatureutilityLow temperatureutility
+        // Calculate valueHigh temperatureutilityLow temperatureutility
         val irTemp = LibIRTemp(imageWidth, imageHeight)
         irTemp.setTempData(temperatureBytes)
         return irTemp.getTemperatureOfRect(Rect(0, 0, imageWidth, imageHeight))

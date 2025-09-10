@@ -28,7 +28,7 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
 
     companion object {
         const val KEY_THEME_TYPE = "key_theme_type"
-        const val KEY_USE_TYPE = "key_use_type" // activityType activity
+        const val KEY_USE_TYPE = "key_use_type" // Activity operationType activity
     }
 
     private var themeType = 1
@@ -196,21 +196,21 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
         reloadCount--
         when (themeType) {
             1 -> {
-                // activity
+                // Activity operation
                 view.loadUrl(
                     "https://plat.topdon.com/topdon-plat/out-user/baseinfo/template/getHtmlContentById?softCode=${BaseApplication.instance.getSoftWareCode()}&language=1&type=21",
                 )
             }
 
             2 -> {
-                // activity
+                // Activity operation
                 view.loadUrl(
                     "https://plat.topdon.com/topdon-plat/out-user/baseinfo/template/getHtmlContentById?softCode=${BaseApplication.instance.getSoftWareCode()}&language=1&type=22",
                 )
             }
 
             3 -> {
-                // activity
+                // Activity operation
                 view.loadUrl("file:///android_asset/web/third_statement.html")
             }
         }
@@ -226,7 +226,7 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
                 if (BaseApplication.instance.isDomestic()) {
                     view.loadUrl("file:///android_asset/web/services_agreement_default_inside_china.html")
                 } else {
-                    // activity
+                    // Activity operation
                     view.loadUrl("file:///android_asset/web/services_agreement_default.html")
                 }
             }
@@ -235,13 +235,13 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
                 if (BaseApplication.instance.isDomestic()) {
                     view.loadUrl("file:///android_asset/web/privacy_default_inside_china.html")
                 } else {
-                    // activity
+                    // Activity operation
                     view.loadUrl("file:///android_asset/web/privacy_default.html")
                 }
             }
 
             3 -> {
-                // activity
+                // Activity operation
                 view.loadUrl("file:///android_asset/web/third_statement.html")
             }
         }

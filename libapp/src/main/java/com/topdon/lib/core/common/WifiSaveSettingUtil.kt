@@ -33,7 +33,7 @@ object WifiSaveSettingUtil {
      * utilitySettingsutility，utilityAllutility.
      */
     fun reset() {
-        // utilityTemperature measurementObservationModeutility
+        // Measure view dimensionsTemperature measurementObservationModeutility
         isMeasureTempMode = true
         isVideoMode = false
         isAutoShutter = true

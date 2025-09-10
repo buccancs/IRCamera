@@ -13,12 +13,12 @@ object ChartTools {
         rotate: Int,
     ): List<Float> {
         val tempList: ArrayList<Float> = ArrayList()
-        if (point1 == point2) { // Utility function，utility
+        if (point1 == point2) { // Handle special case
             return tempList
         }
 
         val pointList: ArrayList<Point> = ArrayList()
-        if (point1.x == point2.x) { // Utility function X utility
+        if (point1.x == point2.x) { // Handle vertical line case
             val startY = point1.y.coerceAtMost(point2.y)
             val endY = point1.y.coerceAtLeast(point2.y)
             for (i in startY..endY) {
@@ -27,13 +27,13 @@ object ChartTools {
         } else {
             val k = (point1.y - point2.y).toFloat() / (point1.x - point2.x).toFloat()
             val b = point1.y - k * point1.x
-            if (abs(k) <= 1) { // xutility
+            if (abs(k) <= 1) { // Iterate over X axis
                 val startX = point1.x.coerceAtMost(point2.x)
                 val endX = point1.x.coerceAtLeast(point2.x)
                 for (i in startX..endX) {
                     pointList.add(Point(i, (k * i + b).toInt()))
                 }
-            } else { // yutility
+            } else { // Iterate over Y axis
                 if (k >= 0) { // Utility function
                     val startY = point1.y.coerceAtMost(point2.y)
                     val endY = point1.y.coerceAtLeast(point2.y)
@@ -86,7 +86,7 @@ object ChartTools {
         return min
     }
 
-    // Utility function，utility50utility
+    // Handle special case50utility
     fun getMaximum(type: Int): Float {
         return getMinimum(type) * 50f
     }

@@ -44,7 +44,7 @@ object PDFHelp {
 
         for (index in 0 until viewList.size) {
             val contentHeight = viewList[index].measuredHeight
-            if (onePageContentHeight + contentHeight > onePageHeight) { // Utility function，utility
+            if (onePageContentHeight + contentHeight > onePageHeight) { // Handle special case
                 onePageContentHeight = 0f
                 pdfDocument.finishPage(page)
                 page = null

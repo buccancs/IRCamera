@@ -222,7 +222,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
     private fun loginAction() {
         isNeedRefreshLogin = true
-        // activityLogin()回调不可靠，但必然触发onResume()
+        // Activity operationLogin()回调不可靠，但必然触发onResume()
         val bgBitmap = BitmapFactory.decodeResource(resources, R.mipmap.bg_login)
         LMS.getInstance().activityLogin(null, null, false, null, bgBitmap)
     }

@@ -111,7 +111,7 @@ object PermissionTool {
                                     Type.IMAGE -> R.string.app_album_content
                                     Type.FILE -> R.string.app_storage_content
                                 }
-                            if (BaseApplication.instance.isDomestic()) { // utility
+                            if (BaseApplication.instance.isDomestic()) { // Utility function
                                 TToast.shortToast(context, tipsResId)
                             } else {
                                 TipDialog.Builder(context)
@@ -138,7 +138,7 @@ object PermissionTool {
      * utility Android12 utility。
      */
     fun hasBtPermission(context: Context): Boolean {
-        return if (Build.VERSION.SDK_INT < 31) { // utility Android12
+        return if (Build.VERSION.SDK_INT < 31) { // Utility function Android12
             XXPermissions.isGranted(context, Permission.ACCESS_FINE_LOCATION)
         } else {
             XXPermissions.isGranted(
@@ -160,7 +160,7 @@ object PermissionTool {
         callback: Callback,
     ) {
         val permissionList: List<String> =
-            if (Build.VERSION.SDK_INT < 31) { // utility Android12
+            if (Build.VERSION.SDK_INT < 31) { // Utility function Android12
                 arrayListOf(Permission.ACCESS_FINE_LOCATION, Permission.ACCESS_COARSE_LOCATION)
             } else {
                 arrayListOf(
@@ -199,7 +199,7 @@ object PermissionTool {
                                     isLocationNever = true
                                 }
                             }
-                            // utilitySettingsutility
+                            // Utility functionSettingsutility
                             TipDialog.Builder(context)
                                 .setTitleMessage(context.getString(R.string.app_tip))
                                 .setMessage(

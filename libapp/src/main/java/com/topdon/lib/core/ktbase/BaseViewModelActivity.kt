@@ -26,9 +26,9 @@ abstract class BaseViewModelActivity<VM : BaseViewModel> : BaseActivity() {
     // viewModelactivity
     abstract fun providerVMClass(): Class<VM>
 
-    // activity，activity
+    // Activity operation，activity
     protected fun requestError(it: Exception?) {
-        // activity
+        // Activity operation
         it?.run {
             when (it) {
                 is TimeoutCancellationException -> httpErrorTip(getString(R.string.http_time_out), "")

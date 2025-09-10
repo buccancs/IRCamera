@@ -217,12 +217,12 @@ class TempDrawHelper {
         var textY: Float = (y - TEMP_TEXT_OFFSET).toFloat()
 
         val textWidth: Float = textPaint.measureText(text)
-        if (x > width - textWidth - TEMP_TEXT_OFFSET) { // Utility function，utility
+        if (x > width - textWidth - TEMP_TEXT_OFFSET) { // Handle special case
             textX = x - TEMP_TEXT_OFFSET - textWidth
         }
 
         val textFontTop: Float = -textPaint.getFontMetrics().top
-        if (y < textFontTop + TEMP_TEXT_OFFSET / 2) { // Utility function，utility
+        if (y < textFontTop + TEMP_TEXT_OFFSET / 2) { // Handle special case
             textY = y + TEMP_TEXT_OFFSET / 2 + textFontTop
         }
 
@@ -284,13 +284,13 @@ class TempDrawHelper {
         var textX = x - textWidth / 2
         var textY = y + POINT_SIZE / 2 + textHeight
 
-        if (textX < 0) { // xutility
+        if (textX < 0) { // Iterate over X axis
             textX = 0f
         }
-        if (textX + textWidth > width) { // xutility
+        if (textX + textWidth > width) { // Iterate over X axis
             textX = width - textWidth
         }
-        if (textY > height) { // Utility function，utility
+        if (textY > height) { // Handle special case
             textY = y - POINT_SIZE / 2 - textPaint.fontMetrics.bottom
         }
         canvas.drawText(name, textX, textY, textPaint)
@@ -322,16 +322,16 @@ class TempDrawHelper {
         var textX: Float = centerX - textWidth / 2
         var textY: Float = centerY + offset
 
-        if (textX < 0) { // xutility
+        if (textX < 0) { // Iterate over X axis
             textX = 0f
         }
-        if (textX + textWidth > width) { // xutility
+        if (textX + textWidth > width) { // Iterate over X axis
             textX = width - textWidth
         }
-        if (textY < textHeight) { // yutility
+        if (textY < textHeight) { // Iterate over Y axis
             textY = textHeight
         }
-        if (textY > height) { // yutility
+        if (textY > height) { // Iterate over Y axis
             textY = height.toFloat()
         }
         canvas.drawText(name, textX, textY, textPaint)

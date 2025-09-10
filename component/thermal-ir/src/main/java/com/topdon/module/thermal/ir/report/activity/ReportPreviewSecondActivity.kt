@@ -140,7 +140,7 @@ class ReportPreviewSecondActivity : BaseViewModelActivity<UpReportViewModel>(), 
         lifecycle.addObserver(
             object : DefaultLifecycleObserver {
                 override fun onResume(owner: LifecycleOwner) {
-                    // activityCurrentactivity TS004、TC007，activity，activity
+                    // Activity operationCurrentactivity TS004、TC007，activity，activity
                     if (WebSocketProxy.getInstance().isConnected()) {
                         NetWorkUtils.connectivityManager.bindProcessToNetwork(null)
                     }

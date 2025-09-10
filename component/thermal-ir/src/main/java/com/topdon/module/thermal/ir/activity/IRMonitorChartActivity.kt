@@ -346,7 +346,7 @@ class IRMonitorChartActivity : BaseActivity(), ITsTempListener {
         temperatureView.setSyncimage(syncimage)
         temperatureView.setTemperature(temperatureBytes)
         setViewLay()
-        // activitysensor
+        // Activity operationsensor
         if (Usbcontorl.isload) {
             Usbcontorl.usb3803_mode_setting(1) // Activity logic5V
             Log.w("123", "activity5V")
@@ -404,7 +404,7 @@ class IRMonitorChartActivity : BaseActivity(), ITsTempListener {
                             "ConnectCallback->onIRCMDCreate",
                         )
                         this@IRMonitorChartActivity.ircmd = ircmd
-                        // activityIRCMDactivity
+                        // Activity operationIRCMDactivity
 //                    ircmd.setPseudoColor(
 //                        CommonParams.PreviewPathChannel.PREVIEW_PATH0,
 //                        PseudocodeUtils.changePseudocodeModeByOld(pseudoColorMode))
@@ -422,7 +422,7 @@ class IRMonitorChartActivity : BaseActivity(), ITsTempListener {
                             if (value[0] == 1) {
                                 // CurrentCoreactivityHigh gain
                                 CommonParams.GainStatus.HIGH_GAIN
-                                // activity
+                                // Activity operation
                             } else {
                                 // CurrentCoreactivityLow gain
                                 CommonParams.GainStatus.LOW_GAIN
@@ -491,7 +491,7 @@ class IRMonitorChartActivity : BaseActivity(), ITsTempListener {
                 CommonParams.PropTPDParams.TPD_PROP_DISTANCE,
                 CommonParams.PropTPDParamsValue.NumberType(disChar.toString()),
             )
-            // activity
+            // Activity operation
             delay(timeMillis)
             ircmd?.zoomCenterDown(
                 CommonParams.PreviewPathChannel.PREVIEW_PATH0,
@@ -513,7 +513,7 @@ class IRMonitorChartActivity : BaseActivity(), ITsTempListener {
                 CommonParams.ZoomScaleStep.ZOOM_STEP2,
             )
             iruvc?.let {
-                // activity，activity
+                // Activity operation，activity
                 withContext(Dispatchers.IO) {
                     if (SaveSettingUtil.isAutoShutter) {
                         ircmd!!.setPropAutoShutterParameter(

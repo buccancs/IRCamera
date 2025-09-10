@@ -43,7 +43,7 @@ object ImageTools {
         ) // Utility function
     }
 
-    // utility
+    // Utility function
     private fun bitmapFromRgba(
         bytes: ByteArray,
         bean: SelectIndexBean,
@@ -88,7 +88,7 @@ object ImageTools {
         }
     }
 
-    // utility
+    // Utility function
     private fun bitmapFromRgbaGrey(
         bytes: ByteArray,
         bean: SelectIndexBean,

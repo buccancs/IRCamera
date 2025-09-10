@@ -26,12 +26,12 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
     protected lateinit var binding: ActivityImagePickIrPlushBinding
 
     /**
-     * String Type - activity.
+     * String key for returning the selected image path.
      */
     val RESULT_IMAGE_PATH = "RESULT_IMAGE_PATH"
 
     /**
-     * Currentactivity.
+     * Flag indicating whether photo has been taken.
      */
     private var hasTakePhoto = false
 
@@ -50,7 +50,7 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
         binding = ActivityImagePickIrPlushBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // activitySelectedactivity
+        // Set flagSelectedactivity
         binding.ivEditCircle.isSelected = true
         binding.imageEditView.type = ImageEditView.Type.CIRCLE
         binding.viewColor.setBackgroundColor(binding.imageEditView.color)
@@ -95,12 +95,12 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
             MeasureSpec.makeMeasureSpec(heightPixels, MeasureSpec.AT_MOST),
         )
 
-        val ivPickHeight = SizeUtils.dp2px(60f + 20 + 20) // Photoactivity，60dp+activity20dp margin
+        val ivPickHeight = SizeUtils.dp2px(60f + 20 + 20) // Photo picker height: 60dp + 20dp margins
         val menuHeight = (widthPixels * 75f / 384).toInt()
         val bottomHeight = ivPickHeight.coerceAtLeast(menuHeight)
         val canUseHeight = heightPixels - binding.titleView.measuredHeight - bottomHeight
         val wantHeight = (widthPixels * 256f / 192).toInt()
-        if (wantHeight <= canUseHeight) { // activity
+        if (wantHeight <= canUseHeight) { // Use preferred dimensions if screen height allows
             binding.fragmentContainerView.layoutParams =
                 binding.fragmentContainerView.layoutParams.apply {
                     this.width = widthPixels

@@ -35,12 +35,12 @@ object SaveSettingUtil {
     /**
      * utilityInfrared
      */
-    const val FUSION_TYPE_IR_ONLY = 1 // utilityInfrared
+    const val FUSION_TYPE_IR_ONLY = 1 // Utility functionInfrared
 
     /**
      * utilityVisible light
      */
-    const val FUSION_TYPE_VL_ONLY = 0 // utilityVisible light
+    const val FUSION_TYPE_VL_ONLY = 0 // Utility functionVisible light
 
     /**
      * Picture in picture
@@ -55,7 +55,7 @@ object SaveSettingUtil {
      * utilitySettingsutility，utilityAllutility.
      */
     fun reset() {
-        // utilityTemperature measurementObservationModeutility
+        // Measure view dimensionsTemperature measurementObservationModeutility
         isMeasureTempMode = true
         isVideoMode = false
         isAutoShutter = true

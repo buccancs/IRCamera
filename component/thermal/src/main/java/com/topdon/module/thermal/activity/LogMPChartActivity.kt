@@ -57,7 +57,7 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
                     time: Int,
                 ) {
                     // SwitchType
-                    chart.highlightValue(null) // activityMarker
+                    chart.highlightValue(null) // Activity operationMarker
                     selectType = index + 1
                     queryLog()
                 }
@@ -105,18 +105,18 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
         chart.setTouchEnabled(true)
         chart.isDragEnabled = true
         chart.setDrawGridBackground(false)
-        chart.description = null // activity
+        chart.description = null // Activity operation
         chart.setBackgroundResource(com.topdon.lib.core.R.color.chart_bg)
-        chart.setScaleEnabled(true) // activity
-        chart.setPinchZoom(false) // activity，activityxactivityyactivity
-        chart.isDoubleTapToZoomEnabled = false // activity
-        chart.isScaleYEnabled = false // activityYactivity
+        chart.setScaleEnabled(true) // Activity operation
+        chart.setPinchZoom(false) // Initialize flag，activityxactivityyactivity
+        chart.isDoubleTapToZoomEnabled = false // Initialize flag
+        chart.isScaleYEnabled = false // Activity operationYactivity
         chart.setExtraOffsets(
             0f,
             0f,
             SizeUtils.dp2px(8f).toFloat(),
             SizeUtils.dp2px(4f).toFloat(),
-        ) // activity
+        ) // Activity operation
         chart.setNoDataText(getString(R.string.lms_http_code998))
         chart.setNoDataTextColor(textColor)
         val mv = MyMarkerView(this, R.layout.marker_lay)
@@ -128,7 +128,7 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
         val l = chart.legend
         l.form = Legend.LegendForm.CIRCLE
         l.textColor = textColor
-        l.isEnabled = false // activity
+        l.isEnabled = false // Activity operation
         val xAxis = chart.xAxis
         xAxis.textColor = textColor
         xAxis.setDrawGridLines(true)
@@ -137,13 +137,13 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.axisLineColor = textColor
         xAxis.granularity = 1f
-        xAxis.isGranularityEnabled = true // activity
+        xAxis.isGranularityEnabled = true // Activity operation
         xAxis.textSize = 9f
         val leftAxis = chart.axisLeft
         leftAxis.textSize = 9f
         leftAxis.textColor = textColor
         leftAxis.setDrawGridLines(true)
-        leftAxis.setLabelCount(6, false) // activityxactivity
+        leftAxis.setLabelCount(6, false) // Activity operationxactivity
         val rightAxis = chart.axisRight
         rightAxis.isEnabled = false
 //        chart.zoom(10f, 1f, chart.xChartMax, 0f)
@@ -176,14 +176,14 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
         set.setDrawFilled(false)
         set.fillDrawable = ContextCompat.getDrawable(this, bgChartColors[index]) // Settingsactivity
         set.axisDependency = YAxis.AxisDependency.LEFT
-        set.color = ContextCompat.getColor(this, lineChartColors[index]) // activity
-        set.setCircleColor(ContextCompat.getColor(this, com.topdon.lib.core.R.color.white)) // activity
+        set.color = ContextCompat.getColor(this, lineChartColors[index]) // Activity operation
+        set.setCircleColor(ContextCompat.getColor(this, com.topdon.lib.core.R.color.white)) // Activity operation
 //        set.fillColor = ContextCompat.getColor(this, R.color.purple_500)
 //        set.highLightColor = ContextCompat.getColor(this, R.color.white)
         set.valueTextColor = Color.WHITE
         set.lineWidth = 2f
-        set.circleRadius = 1f // activity
-        set.setCircleColor(ContextCompat.getColor(this, lineChartColors[index])) // activity(activity)
+        set.circleRadius = 1f // Activity operation
+        set.setCircleColor(ContextCompat.getColor(this, lineChartColors[index])) // Activity operation(activity)
 //        set.setCircleColor(ContextCompat.getColor(this, R.color.white))// Activity logic(activity)
         set.fillAlpha = 200
         set.valueTextSize = 10f
@@ -213,7 +213,7 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
                     data[0].type = "default"
                     when (data[0].type) {
                         "point" -> {
-                            var set = lineData.getDataSetByIndex(0) // activityxactivity0activity
+                            var set = lineData.getDataSetByIndex(0) // Activity operationxactivity0activity
                             if (set == null) {
                                 set = createSet(2, "temp")
                                 lineData.addDataSet(set)
@@ -227,13 +227,13 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
                             XLog.w("DataSet:${set.entryCount}")
                         }
                         "line" -> {
-                            var maxDataSet = lineData.getDataSetByIndex(0) // activityxactivity0activity
+                            var maxDataSet = lineData.getDataSetByIndex(0) // Activity operationxactivity0activity
                             if (maxDataSet == null) {
                                 maxDataSet = createSet(0, "line maxTemp")
                                 lineData.addDataSet(maxDataSet)
                             }
 
-                            var minDataSet = lineData.getDataSetByIndex(1) // activityxactivity0activity
+                            var minDataSet = lineData.getDataSetByIndex(1) // Activity operationxactivity0activity
                             if (minDataSet == null) {
                                 minDataSet = createSet(1, "line minTemp")
                                 lineData.addDataSet(minDataSet)
@@ -254,13 +254,13 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
                         }
                         else -> {
                             // max
-                            var maxTempDataSet = lineData.getDataSetByIndex(0) // activityxactivity0activity
+                            var maxTempDataSet = lineData.getDataSetByIndex(0) // Activity operationxactivity0activity
                             if (maxTempDataSet == null) {
                                 maxTempDataSet = createSet(0, "fence maxTemp")
                                 lineData.addDataSet(maxTempDataSet)
                             }
                             // center
-                            var centerTempDataSet = lineData.getDataSetByIndex(1) // activityxactivity0activity
+                            var centerTempDataSet = lineData.getDataSetByIndex(1) // Activity operationxactivity0activity
                             if (centerTempDataSet == null) {
                                 centerTempDataSet = createSet(1, "fence minTemp")
                                 lineData.addDataSet(centerTempDataSet)
@@ -284,8 +284,8 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
                     chart.setVisibleXRangeMinimum(getMinimum()) // SettingsactivityXactivity
                     chart.setVisibleXRangeMaximum(getMaximum()) // SettingsactivityXactivity
                     chart.xAxis.setLabelCount(5, false) // trueactivity
-                    chart.moveViewToX(chart.xChartMax) // activity
-                    chart.zoom(1f, 1f, chart.xChartMax, 0f) // activity，activity
+                    chart.moveViewToX(chart.xChartMax) // Activity operation
+                    chart.zoom(1f, 1f, chart.xChartMax, 0f) // Activity operation，activity
                 }
                 Log.w("chart", "update chart finish")
             }
@@ -314,7 +314,7 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
         }
     }
 
-    // activity
+    // Activity operation
     private fun getMinimum(): Float {
         val min =
             when (selectType) {
@@ -327,7 +327,7 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
         return min
     }
 
-    // activity，activity50activity
+    // Activity operation，activity50activity
     private fun getMaximum(): Float {
         return getMinimum() * 50f
     }

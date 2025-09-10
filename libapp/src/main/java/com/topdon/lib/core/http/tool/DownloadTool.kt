@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit
 object DownloadTool {
     private fun getOKHttpClient(): OkHttpClient =
         OkHttpClient.Builder()
-            .retryOnConnectionFailure(false) // utility
+            .retryOnConnectionFailure(false) // Utility function
             .connectTimeout(10, TimeUnit.SECONDS) // 10utility
             .readTimeout(10, TimeUnit.SECONDS) // 10utility
             .writeTimeout(10, TimeUnit.SECONDS) // 10utility

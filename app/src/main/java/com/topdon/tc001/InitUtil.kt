@@ -34,7 +34,7 @@ object InitUtil {
         val fileDir = BaseApplication.instance.getExternalFilesDir("log")!!.absolutePath
         val tag = "MPDC4GSR_LOG"
         val pattern = "{d}, {L}, {t}, {m}"
-        val backupStrategy = FileSizeBackupStrategy2(5 * 1024 * 1024L, 10) // utility
+        val backupStrategy = FileSizeBackupStrategy2(5 * 1024 * 1024L, 10) // Calculate value
         val cleanStrategy = FileLastModifiedCleanStrategy(30 * 24 * 60 * 60) // SettingsutilityClearutility
 
         val config =
@@ -48,7 +48,7 @@ object InitUtil {
                 .fileNameGenerator(ChangelessFileNameGenerator(fileName)) // Specifiedutility
                 .backupStrategy(backupStrategy) // Specifiedutility
                 .cleanStrategy(cleanStrategy) // SpecifiedutilityClearutility
-                .flattener(PatternFlattener(pattern)) // utility
+                .flattener(PatternFlattener(pattern)) // Utility function
                 .build()
         if (BuildConfig.DEBUG) {
             XLog.init(config, androidPrinter, filePrinter)
@@ -59,12 +59,12 @@ object InitUtil {
     }
 
     fun initLms() {
-        // utility
+        // Calculate value
         val privacyPolicyUrl =
             "https://plat.topdon.com/topdon-plat/out-user/baseinfo/template/getHtmlContentById?" +
                 "softCode=${BaseApplication.instance.getSoftWareCode()}&" +
                 "language=${LanguageUtil.getLanguageId(Utils.getApp())}&type=22"
-        // utility
+        // Calculate value
         val servicesAgreementUrl =
             "https://plat.topdon.com/topdon-plat/out-user/baseinfo/template/getHtmlContentById?" +
                 "softCode=${BaseApplication.instance.getSoftWareCode()}&" +
@@ -81,10 +81,10 @@ object InitUtil {
                 if (!BaseApplication.instance.isDomestic()) {
                     initXutils()
                 } else {
-                    // utility
+                    // Utility function
                     setWxAppId("wx588cb319449b72dd")
                     setBuglyAppId("0b375add84")
-                    // utility
+                    // Utility function
 //                    setUMengAppKey("65780ed9a7208a5af184643c", channel, "")
                 }
                 setAppKey(BuildConfig.APP_KEY)
@@ -95,7 +95,7 @@ object InitUtil {
 
     fun initUM() {
 //        if (BaseApplication.instance.isDomestic()){
-        // utility
+        // Utility function
 //            UMConfigure.setLogEnabled(BuildConfig.DEBUG)
 //            // Utility function
 //            UMConfigure.preInit(BaseApplication.instance, "659384b895b14f599d0d9247", "Um-eng")
@@ -129,13 +129,13 @@ object InitUtil {
             BaseApplication.instance.unregisterReceiver(BaseApplication.usbObserver)
         } catch (e: Exception) {
         }
-        // utility,utilityusbState
+        // Calculate value,utilityusbState
         val filter = IntentFilter()
         filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED)
         filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED)
         filter.addAction(UsbManager.ACTION_USB_ACCESSORY_ATTACHED)
         filter.addAction(UsbManager.ACTION_USB_ACCESSORY_DETACHED)
-        filter.addAction(DeviceBroadcastReceiver.ACTION_USB_PERMISSION) // utilityUSButility
+        filter.addAction(DeviceBroadcastReceiver.ACTION_USB_PERMISSION) // Utility functionUSButility
         if (Build.VERSION.SDK_INT < 33) {
             BaseApplication.instance.registerReceiver(BaseApplication.usbObserver, filter)
         } else {

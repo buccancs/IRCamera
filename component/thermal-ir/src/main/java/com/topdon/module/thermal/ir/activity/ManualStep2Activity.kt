@@ -63,10 +63,10 @@ class ManualStep2Activity :
      */
     private val mIrPid = 0x5830
     private val mIrFps = 25
-    private var mIrCameraWidth = 0 // activity
-    private var mIrCameraHeight = 0 // activity
-    private var mImageWidth = 0 // activityRotateactivity
-    private var mImageHeight = 0 // activityRotateactivity
+    private var mIrCameraWidth = 0 // Private instance variable
+    private var mIrCameraHeight = 0 // Private instance variable
+    private var mImageWidth = 0 // Private instance variableRotateactivity
+    private var mImageHeight = 0 // Activity operationRotateactivity
 
     /**
      * vl camera
@@ -74,7 +74,7 @@ class ManualStep2Activity :
      * 38704 - 0x9730  25 fps 1280*720
      */
     private val mVlPid = 12337
-    private val mVlFps = 30 // activity
+    private val mVlFps = 30 // Activity operation
     private val mVlCameraWidth = 1280
     private val mVlCameraHeight = 720
 
@@ -222,8 +222,8 @@ class ManualStep2Activity :
             /**
              * activity+activity
              */
-            mIrCameraWidth = Const.SENSOR_WIDTH // activity
-            mIrCameraHeight = Const.SENSOR_HEIGHT // activity
+            mIrCameraWidth = Const.SENSOR_WIDTH // Activity operation
+            mIrCameraHeight = Const.SENSOR_HEIGHT // Activity operation
             mImageWidth = mIrCameraHeight / 2
             mImageHeight = mIrCameraWidth
         }
@@ -233,7 +233,7 @@ class ManualStep2Activity :
      *
      */
     public override fun initData() {
-        // activity，activity
+        // Activity operation，activity
 //        var width = 0
 //        var height = 0
 //        val screenWidth = ScreenUtils.getScreenWidth(this)
@@ -339,7 +339,7 @@ class ManualStep2Activity :
                 mPseudoColors[3],
             )
 
-            // activitySettingsactivityPseudo-color
+            // Activity operationSettingsactivityPseudo-color
             mDualView!!.dualUVCCamera.setPseudocolor(CommonParams.PseudoColorUsbDualType.IRONBOW_MODE)
             `is`.close()
         } catch (e: IOException) {
@@ -356,7 +356,7 @@ class ManualStep2Activity :
             val parameters = IRCmdTool.getDualBytes(USBMonitorDualManager.getInstance().ircmd)
             val data = mDualView!!.dualUVCCamera.loadParameters(parameters, typeLoadParameters)
             dualDisp = IRCmdTool.dispNumber
-            // activity
+            // Activity operation
             mDualView?.dualUVCCamera?.setDisp(dualDisp)
             mDualView?.startPreview()
             Log.e("Coreactivity", "activity:")
