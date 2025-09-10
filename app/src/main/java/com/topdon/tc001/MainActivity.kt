@@ -72,7 +72,7 @@ import java.io.OutputStream
 class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickListener {
     private val versionViewModel: VersionViewModel by viewModels()
 
-    private var checkPermissionType: Int = -1 // 0 initDataactivity 1 Gallery  2 connectactivity
+    private var checkPermissionType: Int = -1 // 0: initData, 1: Gallery, 2: connect method
 
     // activity
     private fun logInfo() {
