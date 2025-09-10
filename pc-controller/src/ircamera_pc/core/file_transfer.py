@@ -11,8 +11,94 @@ from typing import Any, Callable, Dict, List, Optional
 
 from loguru import logger
 
-class TransferStatus(Enum):
+from .config import config
 
+class TransferStatus(Enum):
+    """Transfer job status enumeration."""
+    PENDING = "pending"
+    IN_PROGRESS = "in_progress" 
+    PAUSED = "paused"
+    COMPLETED = "completed"
+    FAILED = "failed"
+    CANCELLED = "cancelled"
+
+
+class FileType(Enum):
+    """File type enumeration."""
+    RGB_VIDEO = "rgb_video"
+    RGB_IMAGES = "rgb_images"
+    THERMAL_DATA = "thermal_data"
+    GSR_DATA = "gsr_data"
+    METADATA = "metadata"
+    LOG = "log"
+
+
+@dataclass
+class FileManifest:
+    """File manifest for transfer operations."""
+    file_id: str
+    filename: str
+    size_bytes: int
+    checksum: str
+    file_type: FileType
+    device_id: str
+    session_id: str
+    timestamp: float
+
+
+@dataclass
+class TransferJob:
+    """Transfer job tracking data."""
+    job_id: str
+    manifest: FileManifest
+    local_path: Path
+    status: TransferStatus
+    bytes_transferred: int
+    start_time: float
+    end_time: Optional[float]
+    resume_offset: int
+    retry_count: int
+    error_message: Optional[str]
+    device_connection: Optional[Any] = None
+
+    @property
+    def progress_percent(self) -> float:
+        """Calculate transfer progress percentage."""
+        if self.manifest.size_bytes == 0:
+            return 100.0
+        return (self.bytes_transferred / self.manifest.size_bytes) * 100.0
+
+    @property
+    def transfer_rate(self) -> float:
+        """Calculate transfer rate in bytes per second."""
+        if self.start_time == 0 or self.status != TransferStatus.IN_PROGRESS:
+            return 0.0
+        duration = time.time() - self.start_time
+        if duration <= 0:
+            return 0.0
+        return self.bytes_transferred / duration
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert job to dictionary for serialization."""
+        return {
+            "job_id": self.job_id,
+            "manifest": asdict(self.manifest),
+            "local_path": str(self.local_path),
+            "status": self.status.value,
+            "bytes_transferred": self.bytes_transferred,
+            "start_time": self.start_time,
+            "end_time": self.end_time,
+            "resume_offset": self.resume_offset,
+            "retry_count": self.retry_count,
+            "error_message": self.error_message,
+        }
+
+
+class FileTransferManager:
+    """Manages file transfers between devices and PC."""
+
+    def __init__(self, config: Any) -> None:
+        """Initialize file transfer manager."""
         self.config = config.get("file_transfer", {})
         self.data_dir = Path(self.config.get("data_dir", "data/transfers"))
         self.data_dir.mkdir(parents=True, exist_ok=True)
@@ -40,12 +126,12 @@ class TransferStatus(Enum):
             f"Chunk size: {self.chunk_size} bytes, Maxconcurrent: {self.max_concurrent}"
         )
 
-    def add_progress_callback(self, callback: Callable[[str, float, float], None]):
-
+    def add_progress_callback(self, callback: Callable[[str, float, float], None]) -> None:
+        """Add progress callback for transfer updates."""
         self.progress_callbacks.append(callback)
 
     async def queue_transfer(self, manifest: FileManifest, device_conn: Any) -> str:
-
+        """Queue a file transfer job."""
         try:
             # Generate unique job ID
             job_id = (
@@ -104,7 +190,7 @@ class TransferStatus(Enum):
             raise
 
     async def cancel_transfer(self, job_id: str) -> bool:
-
+        """Cancel an active transfer job."""
         try:
             if job_id in self.active_jobs:
                 job = self.active_jobs[job_id]
@@ -124,7 +210,21 @@ class TransferStatus(Enum):
             return False
 
     async def pause_transfer(self, job_id: str) -> bool:
+        """Pause an active transfer job."""
+        try:
+            if job_id in self.active_jobs:
+                job = self.active_jobs[job_id]
+                if job.status == TransferStatus.IN_PROGRESS:
+                    job.status = TransferStatus.PAUSED
+                    logger.info(f"Paused transfer: {job.manifest.filename}")
+                    return True
+            return False
+        except Exception as e:
+            logger.error(f"Failed to pause transfer {job_id}: {e}")
+            return False
 
+    async def _read_file_chunk(self, job: "TransferJob", offset: int, size: int) -> bytes:
+        """Read file chunk from device."""
         try:
             # Real network communication to read file chunk from Android device
             device_conn = job.device_connection
@@ -165,7 +265,7 @@ class TransferStatus(Enum):
             raise
 
     async def _send_device_request(self, device_conn: Any, request_data: dict) -> dict:
-
+        """Send request to device and get response."""
         try:
             import json
 
@@ -204,6 +304,60 @@ class TransferStatus(Enum):
                 callback(job.job_id, progress, rate)
             except (OSError, ValueError, RuntimeError) as e:
                 logger.error(f"Error in progress callback: {e}")
+
+    async def _start_next_transfer(self) -> None:
+        """Start the next queued transfer if possible."""
+        if not self.transfer_queue or self.concurrent_transfers >= self.max_concurrent:
+            return
+
+        job_id = self.transfer_queue.pop(0)
+        if job_id in self.active_jobs:
+            job = self.active_jobs[job_id]
+            job.status = TransferStatus.IN_PROGRESS
+            job.start_time = time.time()
+            self.concurrent_transfers += 1
+            
+            # Start transfer in background task
+            asyncio.create_task(self._perform_transfer(job))
+
+    async def _perform_transfer(self, job: TransferJob) -> None:
+        """Perform the actual file transfer."""
+        try:
+            # Simplified transfer logic
+            remaining = job.manifest.size_bytes - job.resume_offset
+            while remaining > 0 and job.status == TransferStatus.IN_PROGRESS:
+                chunk_size = min(self.chunk_size, remaining)
+                chunk_data = await self._read_file_chunk(job, job.resume_offset, chunk_size)
+                
+                # Write chunk to local file
+                with open(job.local_path, "ab") as f:
+                    f.write(chunk_data)
+                
+                job.bytes_transferred += len(chunk_data)
+                job.resume_offset += len(chunk_data)
+                remaining -= len(chunk_data)
+                
+                await self._update_progress(job)
+            
+            if remaining == 0:
+                job.status = TransferStatus.COMPLETED
+                job.end_time = time.time()
+                if self.verify_checksums:
+                    await self._verify_file_integrity(job)
+                
+                # Move to completed jobs
+                self.completed_jobs[job.job_id] = job
+                del self.active_jobs[job.job_id]
+                
+            self.concurrent_transfers -= 1
+            await self._start_next_transfer()  # Start next queued transfer
+            
+        except Exception as e:
+            job.status = TransferStatus.FAILED
+            job.error_message = str(e)
+            job.end_time = time.time()
+            self.concurrent_transfers -= 1
+            logger.error(f"Transfer failed for {job.manifest.filename}: {e}")
 
     async def _verify_file_integrity(self, job: TransferJob) -> bool:
         """Verify transferred file integrity using checksum"""

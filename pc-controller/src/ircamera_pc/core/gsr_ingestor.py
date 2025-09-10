@@ -1,5 +1,37 @@
 #!/usr/bin/env python3
 
+import json
+import struct
+import time
+from dataclasses import dataclass, field
+from enum import Enum, IntEnum
+from pathlib import Path
+from typing import Any, Dict, List, Optional
+
+from loguru import logger
+
+from .config import config
+
+
+class GSRQuality(IntEnum):
+    """GSR signal quality enumeration."""
+    POOR = 0
+    FAIR = 25
+    GOOD = 50
+    EXCELLENT = 75
+    PERFECT = 100
+
+
+class GSRMode(Enum):
+    """GSR recording mode enumeration."""
+    CONTINUOUS = "continuous"
+    TRIGGERED = "triggered"
+    CALIBRATION = "calibration"
+
+
+@dataclass
+class GSRSample:
+    """Individual GSR sample data."""
     timestamp: float
     value: float
     raw_adc: int
@@ -12,7 +44,16 @@
     features: Optional[Dict[str, float]] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
+        """Post-initialization validation."""
+        if self.quality < 0:
+            self.quality = GSRQuality.POOR
+        if self.value < 0:
+            self.value = 0.0
 
+
+@dataclass
+class GSRDataSet:
+    """GSR dataset for a recording session."""
     session_id: str
     device_id: str
     mode: GSRMode
@@ -26,14 +67,60 @@
     processing_notes: List[str] = field(default_factory=list)
 
     def __post_init__(self) -> None:
+        """Post-initialization setup."""
+        self.total_samples = len(self.samples)
 
+    def add_sample(self, sample: GSRSample) -> None:
+        """Add a sample to the dataset."""
         self.samples.append(sample)
         self.total_samples = len(self.samples)
         self.end_time = sample.timestamp
 
     def compute_quality_statistics(self) -> Dict[str, Any]:
+        """Compute quality statistics for the dataset."""
+        if not self.samples:
+            return {}
+        
+        qualities = [s.quality.value for s in self.samples]
+        return {
+            "min": min(qualities),
+            "max": max(qualities),
+            "mean": sum(qualities) / len(qualities),
+            "count": len(qualities)
+        }
 
-        self.config = config.get("gsr", {})
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert dataset to dictionary."""
+        return {
+            "session_id": self.session_id,
+            "device_id": self.device_id,
+            "mode": self.mode.value,
+            "start_time": self.start_time,
+            "end_time": self.end_time,
+            "sample_rate": self.sample_rate,
+            "samples": [
+                {
+                    "timestamp": s.timestamp,
+                    "value": s.value,
+                    "raw_adc": s.raw_adc,
+                    "quality": s.quality.value,
+                    "device_id": s.device_id,
+                    "session_id": s.session_id,
+                }
+                for s in self.samples
+            ],
+            "quality_stats": self.quality_stats,
+            "calibration_data": self.calibration_data,
+            "processing_notes": self.processing_notes,
+        }
+
+
+class GSRIngestor:
+    """GSR data ingestor and processor."""
+
+    def __init__(self, config_dict: Dict[str, Any]) -> None:
+        """Initialize GSR ingestor."""
+        self.config = config_dict.get("gsr", {})
         self.data_dir = Path(self.config.get("data_dir", "data/gsr"))
         self.data_dir.mkdir(parents=True, exist_ok=True)
 
@@ -52,7 +139,7 @@
     async def start_session(
         self, session_id: str, device_id: str, mode: GSRMode
     ) -> bool:
-
+        """Start a new GSR recording session."""
         try:
             if session_id in self.active_sessions:
                 logger.warning(f"GSR session {session_id} already active")
@@ -81,7 +168,7 @@
             return False
 
     async def ingest_sample(self, session_id: str, sample_data: bytes) -> bool:
-
+        """Ingest a GSR sample for the given session."""
         try:
             if session_id not in self.active_sessions:
                 logger.warning(
@@ -120,7 +207,7 @@
             return False
 
     async def end_session(self, session_id: str) -> Optional[GSRDataSet]:
-
+        """End a GSR recording session."""
         try:
             if session_id not in self.active_sessions:
                 logger.warning(f"Cannot end inactive GSR session: {session_id}")
@@ -166,8 +253,7 @@
             return None
 
     def _validate_sample(self, sample: GSRSample, dataset: GSRDataSet) -> bool:
-        """Validate GSR sample quality and consistency"""
-
+        """Validate GSR sample quality and consistency."""
         if sample.quality < self.quality_threshold:
             logger.debug(
                 f"GSR sample below quality threshold: {sample.quality}"
@@ -191,8 +277,8 @@
 
         return True
 
-    def _update_quality_stats(self, dataset: GSRDataSet, sample: GSRSample):
-        """Update running quality statistics"""
+    def _update_quality_stats(self, dataset: GSRDataSet, sample: GSRSample) -> None:
+        """Update running quality statistics."""
         stats = dataset.quality_stats
         stats["min"] = min(stats["min"], sample.quality)
         stats["max"] = max(stats["max"], sample.quality)
@@ -203,8 +289,8 @@
         else:
             stats["mean"] = ((stats["mean"] * (n - 1)) + sample.quality) / n
 
-    async def _save_dataset(self, dataset: GSRDataSet):
-        """Save GSR dataset to JSON file"""
+    async def _save_dataset(self, dataset: GSRDataSet) -> None:
+        """Save GSR dataset to JSON file."""
         try:
             filename = f"gsr_{dataset.session_id}_{dataset.device_id}.json"
             filepath = self.data_dir / filename
@@ -220,7 +306,7 @@
     async def load_dataset(
         self, session_id: str, device_id: str
     ) -> Optional[GSRDataSet]:
-        """Load GSR dataset from file"""
+        """Load GSR dataset from file."""
         try:
             filename = f"gsr_{session_id}_{device_id}.json"
             filepath = self.data_dir / filename
@@ -254,7 +340,7 @@
             return None
 
     def get_session_status(self, session_id: str) -> Optional[Dict[str, Any]]:
-        """Get status of GSR session"""
+        """Get status of GSR session."""
         if session_id in self.active_sessions:
             dataset = self.active_sessions[session_id]
             return {
@@ -281,9 +367,9 @@
             return None
 
     def get_active_sessions(self) -> List[str]:
-        """Get list of active GSR session IDs"""
+        """Get list of active GSR session IDs."""
         return list(self.active_sessions.keys())
 
     def get_completed_sessions(self) -> List[str]:
-        """Get list of completed GSR session IDs"""
+        """Get list of completed GSR session IDs."""
         return list(self.completed_sessions.keys())
