@@ -4,7 +4,8 @@ import android.content.Intent
 import android.view.View
 import android.widget.ImageView
 import com.topdon.lib.core.navigation.NavigationManager
-import com.topdon.house.activity.HouseHomeActivity
+// Removed house module import - module removed as unused
+// import com.topdon.house.activity.HouseHomeActivity
 import com.topdon.lib.core.bean.event.WinterClickEvent
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.ExtraKeyConfig
@@ -22,10 +23,10 @@ import com.topdon.module.thermal.ir.activity.MonitoryHomeActivity
 import org.greenrobot.eventbus.EventBus
 
 /**
- * [CN_TEXT] Tab [CN_TEXT]
+ * 功能 Tab 页
  *
- * [CN_TEXT]：
- * - [ExtraKeyConfig.IS_TC007] - Current[CN_TEXT] TC007（[CN_TEXT]，[CN_TEXT]）
+ * 需要传递参数：
+ * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007（不使用，透传）
  */
 class AbilityFragment : BaseFragment(), View.OnClickListener {
     private var mIsTC007 = false
@@ -58,7 +59,7 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            ivWinter -> {//[CN_TEXT]
+            ivWinter -> {//冬季特辑入口
                 SharedManager.hasClickWinter = true
                 EventBus.getDefault().post(WinterClickEvent())
                 val url = if (UrlConstant.BASE_URL == "https://api.topdon.com/") {
@@ -71,19 +72,20 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
                     .withString(ExtraKeyConfig.URL, url)
                     .navigation(requireContext())
             }
-            viewMonitory -> {//[CN_TEXT]
+            viewMonitory -> {//温度监控
                 val intent = Intent(requireContext(), MonitoryHomeActivity::class.java)
                 intent.putExtra(ExtraKeyConfig.IS_TC007, mIsTC007)
                 startActivity(intent)
             }
 
-            viewHouse -> {//[CN_TEXT]
-                val intent = Intent(requireContext(), HouseHomeActivity::class.java)
-                intent.putExtra(ExtraKeyConfig.IS_TC007, mIsTC007)
-                startActivity(intent)
+            viewHouse -> {//房屋检测
+                // Disabled - HouseHomeActivity from removed house module
+                // val intent = Intent(requireContext(), HouseHomeActivity::class.java)
+                // intent.putExtra(ExtraKeyConfig.IS_TC007, mIsTC007)
+                // startActivity(intent)
             }
 
-            viewCar -> {//[CN_TEXT]
+            viewCar -> {//汽车检测
                 if (mIsTC007) {
                     if (WebSocketProxy.getInstance().isConnected()) {
                         NavigationManager.getInstance().build(RouterConfig.IR_THERMAL_07)
