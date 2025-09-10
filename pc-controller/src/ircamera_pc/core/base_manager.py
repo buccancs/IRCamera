@@ -8,10 +8,10 @@ to eliminate code duplication and ensure consistent behavior.
 import logging
 import time
 from abc import ABC, abstractmethod
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, cast
 
 
-def _create_pyqt_base_manager():
+def _create_pyqt_base_manager() -> type:
     """Create PyQt6-based BaseManager"""
     from abc import ABCMeta
 
@@ -44,7 +44,7 @@ def _create_pyqt_base_manager():
     return PyQtBaseManager
 
 
-def _create_fallback_base_manager():
+def _create_fallback_base_manager() -> type:
     """Create fallback BaseManager without PyQt6"""
 
     def pyqtSignal(*args, **kwargs):
@@ -79,6 +79,7 @@ def _create_fallback_base_manager():
 
 
 # Attempt PyQt6 import and setup appropriate base classes
+BaseManagerImpl: type
 try:
     PYQT_AVAILABLE = True
     BaseManagerImpl = _create_pyqt_base_manager()
@@ -87,7 +88,7 @@ except ImportError:
     BaseManagerImpl = _create_fallback_base_manager()
 
 
-class BaseManager(BaseManagerImpl):
+class BaseManager(BaseManagerImpl):  # type: ignore[misc]
     """
     Enterprise-grade unified base manager for all IRCamera PC Controller components.
 
@@ -132,7 +133,7 @@ class BaseManager(BaseManagerImpl):
         Returns:
             The manager name used for logging and identification
         """
-        return self._name
+        return cast(str, self._name)
 
     @property
     def logger(self) -> logging.Logger:
@@ -142,7 +143,7 @@ class BaseManager(BaseManagerImpl):
         Returns:
             Configured logger with manager-specific context
         """
-        return self._logger
+        return cast(logging.Logger, self._logger)
 
     @property
     def is_initialized(self) -> bool:
@@ -152,7 +153,7 @@ class BaseManager(BaseManagerImpl):
         Returns:
             True if initialize() completed successfully, False otherwise
         """
-        return self._is_initialized
+        return cast(bool, self._is_initialized)
 
     @property
     def state(self) -> Dict[str, Any]:
@@ -162,7 +163,7 @@ class BaseManager(BaseManagerImpl):
         Returns:
             Immutable copy of internal state for safe external access
         """
-        return self._state.copy()
+        return cast(Dict[str, Any], self._state.copy())
 
     @property
     def last_error(self) -> Optional[str]:

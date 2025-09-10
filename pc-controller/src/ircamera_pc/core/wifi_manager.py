@@ -129,7 +129,7 @@ class WiFiNetwork:
     security_type: NetworkSecurityType
     channel: int
     is_ircamera_hotspot: bool = False
-    last_seen: datetime = None
+    last_seen: Optional[datetime] = None
 
     def __post_init__(self):
         if self.last_seen is None:
@@ -600,7 +600,7 @@ class WiFiManager(BaseManager):
         """Handle scan error."""
         self.error_occurred.emit("scan", error)
 
-    async def connect_to_network(self, ssid: str, password: str = None) -> bool:
+    async def connect_to_network(self, ssid: str, password: Optional[str] = None) -> bool:
         """
         Connect to a WiFi network.
 
@@ -657,7 +657,7 @@ class WiFiManager(BaseManager):
             self.error_occurred.emit("disconnect", str(e))
 
     async def start_hotspot(
-        self, ssid: str = None, password: str = None, channel: int = None
+        self, ssid: Optional[str] = None, password: Optional[str] = None, channel: Optional[int] = None
     ) -> bool:
         """
         Start mobile hotspot for IRCamera device connections.

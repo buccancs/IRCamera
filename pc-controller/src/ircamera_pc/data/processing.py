@@ -370,18 +370,16 @@ class ThermalDataPoint:
     temperature_data: np.ndarray  # 2D temperature matrix in Celsius
     device_id: str
     session_id: str
+    frame_number: int
+    min_temp: float
+    max_temp: float
+    avg_temp: float
     raw_data: Optional[np.ndarray] = None
     resolution: Tuple[int, int] = (320, 240)
     temperature_range: Optional[Tuple[float, float]] = None
     calibration_data: Optional[Dict[str, Any]] = field(default_factory=dict)
     spatial_features: Optional[Dict[str, float]] = field(default_factory=dict)
     quality_metrics: Optional[Dict[str, float]] = field(default_factory=dict)
-    min_temp: float
-    max_temp: float
-    avg_temp: float
-    device_id: str
-    session_id: str
-    frame_number: int
 
 
 @dataclass
@@ -508,14 +506,14 @@ class GSRIngestor:
 
         return max(0.0, min(gsr_microsiemens, 1000.0))  # Clamp to reasonable range
 
-    def _assess_signal_quality(self, raw_value: int) -> str:
+    def _assess_signal_quality(self, raw_value: int) -> DataQuality:
         """Assess GSR signal quality based on raw ADC value"""
         if raw_value < 100 or raw_value > 4000:
-            return "poor"
+            return DataQuality.POOR
         elif raw_value < 200 or raw_value > 3800:
-            return "fair"
+            return DataQuality.FAIR
         else:
-            return "good"
+            return DataQuality.GOOD
 
     def get_recent_data(self, session_id: str, seconds: int = 30) -> List[GSRDataPoint]:
         """Get recent GSR data for a session"""

@@ -1158,7 +1158,7 @@ class NetworkServer:
                 latency_ms = (
                     current_time - device.last_heartbeat
                 ).total_seconds() * 500  # Rough estimate
-                return min(latency_ms, 1000.0)  # Cap at 1 second
+                return float(min(latency_ms, 1000.0))  # Cap at 1 second
         return 50.0  # Default estimate
 
     def _calculate_data_hash(self, data_point: Dict[str, Any]) -> str:

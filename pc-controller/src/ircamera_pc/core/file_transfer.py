@@ -515,9 +515,10 @@ class FileTransferManager:
             device_conn = job.device_connection
             if hasattr(device_conn, "read_file_chunk"):
                 # Use device connection's file reading method
-                return await device_conn.read_file_chunk(
+                result = await device_conn.read_file_chunk(
                     job.manifest.remote_path, offset, size
                 )
+                return bytes(result)
             else:
                 # Fallback: use TCP socket communication with Android device
                 request_data = {
@@ -538,7 +539,7 @@ class FileTransferManager:
                         import base64
 
                         chunk_data = base64.b64decode(chunk_data)
-                    return chunk_data
+                    return bytes(chunk_data)
                 else:
                     raise Exception(
                         f"Device read failed: {response.get('error', 'Unknown error')}"
@@ -567,7 +568,8 @@ class FileTransferManager:
 
             # Send via device connection
             if hasattr(device_conn, "send_json"):
-                return await device_conn.send_json(request_data)
+                result = await device_conn.send_json(request_data)
+                return dict(result)
             elif hasattr(device_conn, "writer"):
                 # Direct socket communication
                 device_conn.writer.write(request_json.encode("utf-8"))
@@ -576,7 +578,7 @@ class FileTransferManager:
                 # Read response
                 response_data = await device_conn.reader.read(65536)
                 response_json = response_data.decode("utf-8")
-                return json.loads(response_json)
+                return dict(json.loads(response_json))
             else:
                 # Fallback error
                 raise Exception("No valid device communication method available")

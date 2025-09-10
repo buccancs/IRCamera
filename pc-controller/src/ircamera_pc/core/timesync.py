@@ -178,7 +178,7 @@ import warnings
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from enum import Enum
-from typing import Dict, List, Optional, Tuple, TypeVar
+from typing import Any, Dict, List, Optional, Tuple, TypeVar
 
 try:
     from loguru import logger
@@ -617,12 +617,11 @@ class TimeSyncService:
             return False
 
         # Check accuracy
-        return (
-            stats.median_offset_ms <= self._target_accuracy_ms
-            and stats.p95_offset_ms <= self._max_offset_ms
-        )
+        offset_condition = bool(stats.median_offset_ms <= self._target_accuracy_ms)
+        max_offset_condition = bool(stats.p95_offset_ms <= self._max_offset_ms)
+        return offset_condition and max_offset_condition
 
-    def get_synchronization_quality(self) -> Dict[str, any]:
+    def get_synchronization_quality(self) -> Dict[str, Any]:
         """
         Get overall synchronization quality metrics.
 

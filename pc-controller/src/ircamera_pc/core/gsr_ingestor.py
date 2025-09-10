@@ -389,9 +389,6 @@ class GSRDataSet:
 
         return gaps
 
-    sample_rate: float  # Hz
-    quality_stats: Dict[str, float]  # min, max, mean quality
-
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for JSON serialization"""
         return {
@@ -508,7 +505,8 @@ class GSRIngestor:
             sample = GSRSample(
                 timestamp=timestamp,
                 value=value,
-                quality=quality,
+                raw_adc=int(quality),  # Use quality as raw ADC value
+                quality=GSRQuality(quality),
                 device_id=dataset.device_id,
             )
 
@@ -552,7 +550,7 @@ class GSRIngestor:
 
             # Finalize quality statistics
             if dataset.samples:
-                qualities = [sample.quality for sample in dataset.samples]
+                qualities = [sample.quality.value for sample in dataset.samples]
                 dataset.quality_stats = {
                     "min": min(qualities),
                     "max": max(qualities),
@@ -691,7 +689,7 @@ class GSRIngestor:
                 "device_id": dataset.device_id,
                 "mode": dataset.mode.value,
                 "samples_collected": len(dataset.samples),
-                "duration": dataset.end_time - dataset.start_time,
+                "duration": (dataset.end_time or dataset.start_time) - dataset.start_time,
                 "sample_rate": dataset.sample_rate,
                 "quality_stats": dataset.quality_stats,
             }
