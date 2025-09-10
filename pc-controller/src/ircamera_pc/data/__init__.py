@@ -689,7 +689,7 @@ _global_aggregator: Optional[DataAggregationEngine] = None
 def get_data_aggregator() -> Optional[DataAggregationEngine]:
     """
     Get the global data aggregator instance.
-    
+
     Returns:
         Global DataAggregationEngine instance or None if not initialized
     """
@@ -699,7 +699,7 @@ def get_data_aggregator() -> Optional[DataAggregationEngine]:
 def set_data_aggregator(aggregator: DataAggregationEngine) -> None:
     """
     Set the global data aggregator instance.
-    
+
     Args:
         aggregator: DataAggregationEngine instance to set as global
     """

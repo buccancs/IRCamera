@@ -33,9 +33,9 @@ def test_imports_and_basic_functionality():
         # Test instantiation
         config = ConfigManager()
         session_manager = SessionManager()
-        FileTransferManager(config)
-        CameraCalibrator(config)
-        GSRIngestor(config)
+        FileTransferManager(config.to_dict())
+        CameraCalibrator(config.to_dict())
+        GSRIngestor(config.to_dict())
         TimeSyncService()
         NetworkServer()
         print("OK All components instantiate successfully")
