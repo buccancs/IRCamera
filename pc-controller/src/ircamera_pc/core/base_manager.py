@@ -18,7 +18,13 @@ def _create_pyqt_base_manager() -> type:
     from PyQt6.QtCore import QObject as QtQObject
     from PyQt6.QtCore import pyqtSignal
 
-    class QObjectMeta(type(QtQObject), ABCMeta):
+    try:
+        from sip import wrappertype
+        QObjectMetaClass = wrappertype
+    except ImportError:
+        QObjectMetaClass = type(QtQObject)
+
+    class QObjectMeta(QObjectMetaClass, ABCMeta):  # type: ignore
         """Metaclass to resolve conflict between QObject and ABC"""
 
     class PyQtBaseManager(QtQObject, ABC, metaclass=QObjectMeta):

@@ -89,7 +89,7 @@ import socket
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
-from typing import Dict, List, Optional
+from typing import Callable, Dict, List, Optional, cast
 
 try:
     from zeroconf import ServiceInfo, Zeroconf
@@ -149,7 +149,7 @@ except ImportError:
             }
             return config_map.get(key, default)
 
-    config = FallbackConfig()
+    config = cast("ConfigManager", FallbackConfig())
 
 
 class DeviceType(Enum):
@@ -192,18 +192,18 @@ class NetworkDiscoveryService:
         self.service_browser: Optional[AsyncServiceBrowser] = None
         self.discovered_devices: Dict[str, DiscoveredDevice] = {}
         self.registered_services: List[ServiceInfo] = []
-        self.discovery_listeners: List[callable] = []
+        self.discovery_listeners: List[Callable] = []
         self.is_running = False
 
         # Service registration info
         self.hostname = socket.gethostname()
         self.local_ip = self._get_local_ip()
 
-    def add_discovery_listener(self, callback: callable):
+    def add_discovery_listener(self, callback: Callable):
         """Add a callback for discovery events."""
         self.discovery_listeners.append(callback)
 
-    def remove_discovery_listener(self, callback: callable):
+    def remove_discovery_listener(self, callback: Callable):
         """Remove a discovery callback."""
         if callback in self.discovery_listeners:
             self.discovery_listeners.remove(callback)
@@ -321,8 +321,11 @@ class NetworkDiscoveryService:
                 server=f"{self.hostname}.local.",
             )
 
-            await self.zeroconf.async_register_service(service_info)
-            self.registered_services.append(service_info)
+            if self.zeroconf is not None:
+                await self.zeroconf.async_register_service(service_info)
+                self.registered_services.append(service_info)
+            else:
+                logger.error("Zeroconf not available for service registration")
 
             logger.info(
                 f"Registered PC controller service: {service_name} at "
@@ -345,9 +348,12 @@ class NetworkDiscoveryService:
                 handler = ServiceBrowserHandler(self, service_type)
                 handlers.append(handler)
 
-            self.service_browser = AsyncServiceBrowser(
-                self.zeroconf.zeroconf, service_types, handlers=handlers
-            )
+            if self.zeroconf is not None:
+                self.service_browser = AsyncServiceBrowser(
+                    self.zeroconf.zeroconf, service_types, handlers=handlers
+                )
+            else:
+                logger.error("Zeroconf not available for service browsing")
 
             logger.debug(f"Started browsing for service types: {service_types}")
 
@@ -384,8 +390,8 @@ class NetworkDiscoveryService:
         """Determine device type from service information."""
         try:
             # Check explicit device type property
-            if b"device_type" in properties:
-                device_type_str = properties[b"device_type"].decode("utf-8")
+            if "device_type" in properties:
+                device_type_str = properties["device_type"].decode("utf-8")
                 try:
                     return DeviceType(device_type_str)
                 except ValueError:
@@ -396,8 +402,8 @@ class NetworkDiscoveryService:
                 return DeviceType.PC_CONTROLLER
             elif self.SERVICE_TYPE_THERMAL_CAMERA in service_type:
                 # Check for specific thermal camera models
-                if b"model" in properties:
-                    model = properties[b"model"].decode("utf-8").upper()
+                if "model" in properties:
+                    model = properties["model"].decode("utf-8").upper()
                     if "TS004" in model:
                         return DeviceType.THERMAL_CAMERA_TS004
                     elif "TC007" in model:

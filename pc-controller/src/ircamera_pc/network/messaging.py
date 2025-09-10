@@ -11,7 +11,7 @@ import uuid
 from collections import deque
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, Callable, Dict, Optional
+from typing import Any, Callable, Dict, Optional, cast
 
 try:
     from loguru import logger
@@ -49,7 +49,7 @@ except ImportError:
             }
             return config_map.get(key, default)
 
-    config = FallbackConfig()
+    config = cast("ConfigManager", FallbackConfig())
 
 
 class MessagePriority(Enum):
@@ -293,7 +293,7 @@ class ReliableMessageService:
         return message_id
 
     async def handle_acknowledgment(
-        self, message_id: str, success: bool, error_message: str = None
+        self, message_id: str, success: bool, error_message: Optional[str] = None
     ):
         """
         Handle an acknowledgment for a sent message.
@@ -323,7 +323,7 @@ class ReliableMessageService:
         self._remove_pending_message(message_id)
 
     async def handle_incoming_message(
-        self, message_data: Dict[str, Any], sender_info: Dict[str, Any] = None
+        self, message_data: Dict[str, Any], sender_info: Optional[Dict[str, Any]] = None
     ) -> Optional[Dict[str, Any]]:
         """
         Handle an incoming message from a remote device.
@@ -454,9 +454,13 @@ class ReliableMessageService:
             }
 
             # Attempt delivery
-            success = await self.transport(
-                message.target_host, message.target_port, payload
-            )
+            if self.transport is not None:
+                success = await self.transport(
+                    message.target_host, message.target_port, payload
+                )
+            else:
+                success = False
+                logger.error(f"No transport available for message {message_id}")
 
             message.last_attempt = current_time
 
@@ -549,8 +553,8 @@ class ReliableMessageService:
         self,
         original_message: Dict[str, Any],
         success: bool,
-        sender_info: Dict[str, Any] = None,
-        error_message: str = None,
+        sender_info: Optional[Dict[str, Any]] = None,
+        error_message: Optional[str] = None,
     ):
         """Send acknowledgment for a received message."""
         if not self.transport or not sender_info:

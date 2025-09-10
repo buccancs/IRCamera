@@ -28,7 +28,7 @@ except ImportError:
     PYQT_AVAILABLE = False
 
     # Mock classes for when PyQt6 is not available
-    class QMessageBox:
+    class MockQMessageBox:
         StandardButton = type(
             "StandardButton",
             (),
@@ -37,16 +37,20 @@ except ImportError:
 
         @staticmethod
         def question(*args, **kwargs):
-            return QMessageBox.StandardButton.Yes
+            return MockQMessageBox.StandardButton.Yes
 
         @staticmethod
         def warning(*args, **kwargs):
             pass
 
-    class QApplication:
+    class MockQApplication:
         @staticmethod
         def quit():
             pass
+
+    # Assign to the names that would be imported
+    QMessageBox = MockQMessageBox
+    QApplication = MockQApplication
 
 
 from loguru import logger

@@ -12,7 +12,7 @@ import ssl
 import time
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Dict, Optional, Tuple
+from typing import Dict, Optional, Tuple, cast
 
 from cryptography import x509
 from cryptography.hazmat.primitives import hashes, serialization
@@ -52,7 +52,7 @@ except ImportError:
             }
             return config_map.get(key, default)
 
-    config = FallbackConfig()
+    config = cast("ConfigManager", FallbackConfig())
 
 
 class SecurityManager:
@@ -171,7 +171,7 @@ class SecurityManager:
 
             # Default to generic acceptance for development
             logger.warning(
-                f"Unknown device certificate: {common_name} from {organization}"
+                f"Unknown device certificate: {common_name!r} from {organization!r}"
             )
             return True, "UNKNOWN"
 

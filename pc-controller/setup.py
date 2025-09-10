@@ -13,8 +13,8 @@ from setuptools import find_packages, setup
 ParallelCompile("NPY_NUM_BUILD_JOBS").install()
 
 # Platform-specific configurations
-extra_compile_args = []
-extra_link_args = []
+extra_compile_args: list[str] = []
+extra_link_args: list[str] = []
 
 if platform.system() == "Windows":
     extra_compile_args = ["/std:c++17", "/O2"]
@@ -26,10 +26,10 @@ try:
     import cv2
 
     opencv_include_dirs = [cv2.includes()]
-    opencv_libs = []
+    opencv_libs: list[str] = []
 except ImportError:
-    opencv_include_dirs = []
-    opencv_libs = []
+    opencv_include_dirs: list[str] = []
+    opencv_libs: list[str] = []
 
 # Define the native backend extension
 ext_modules = [
