@@ -17,14 +17,14 @@ import java.io.File;
 
 /**
  * Created by fengjibo on 2023/3/29.
- * 设备控制类，应于APP同一生命周期
+ * ，APP
  */
 public class DeviceIrcmdControlManager {
 
     private static final String TAG = "DeviceIrcmdControlManager";
-    //图像交互类
+    //Graph
     private IrcamEngine mIrcamEngine;
-    //命令交互类
+    //
     private IrcmdEngine mIrcmdEngine;
 
     private boolean mSendFPGACommand = false;
@@ -67,7 +67,7 @@ public class DeviceIrcmdControlManager {
     }
 
     /**
-     * 发送fpga算法参数指令
+     * fpga
      */
     public void sendFPGAParam() {
         if (!mSendFPGACommand) {
@@ -78,7 +78,7 @@ public class DeviceIrcmdControlManager {
             public void run() {
                 Log.i(TAG, "sendFPGAParam");
                 try {
-                    //todo 暂时先一条一条指令发送
+                    //todo 
                     String fpga_param_path = Const.DATA_FILE_SAVE_PATH + File.separator + "fpga.json";
                     File file = new File(fpga_param_path);
                     if (!file.exists()) {
@@ -110,7 +110,7 @@ public class DeviceIrcmdControlManager {
                                     .advAlgorithmParametersWrite(reAddress, params);
                             Log.d(TAG, "algorithmParametersWriteGet result = " + algorithmParametersWriteGet);
 
-                            //获取FPGA算法参数读取 PASS
+                            //FPGA PASS
                             int[] algorithmParametersReadData = new int[1];
                             IrcmdError algorithmParametersReadGet = mIrcmdEngine
                                     .advAlgorithmParametersRead(reAddress, algorithmParametersReadData);
@@ -128,7 +128,7 @@ public class DeviceIrcmdControlManager {
 //                                .advAlgorithmParametersWrite(firstAddress, params);
 //                        Log.d(TAG, "algorithmParametersWriteGet result = " + algorithmParametersWriteGet);
 //
-//                        //获取FPGA算法参数读取 PASS
+//                        //FPGA PASS
 //                        float[] algorithmParametersReadData = new float[jsonArray.length()];
 //                        IrcmdError algorithmParametersReadGet = mIrcmdEngine
 //                                .advAlgorithmParametersRead(firstAddress, algorithmParametersReadData);
@@ -148,8 +148,8 @@ public class DeviceIrcmdControlManager {
     }
 
     /**
-     * 大端模式转换
-     * 将int数值转换为占四个字节的byte数组，本方法适用于(高位在前，低位在后)的顺序。  和bytesToInt2（）配套使用
+     * 
+     * intbyteArray，(，)。  bytesToInt2（）
      */
     public static byte[] intToBytes2(int value) {
         byte[] src = new byte[4];
@@ -170,8 +170,8 @@ public class DeviceIrcmdControlManager {
     }
 
     /**
-     * 大端模式转换
-     * byte数组中取int数值，本方法适用于(低位在后，高位在前)的顺序。和intToBytes2（）配套使用
+     * 
+     * byteArrayint，(，)。intToBytes2（）
      */
     public static int bytesToInt2(byte[] src, int offset) {
         int value =
@@ -180,7 +180,7 @@ public class DeviceIrcmdControlManager {
     }
 
     /**
-     * 获取isp读取到的值
+     * isp
      *
      * @param name
      * @param ispParamReadByteArray
@@ -190,7 +190,7 @@ public class DeviceIrcmdControlManager {
      * @return
      */
     public static String getReadValue(String name, byte[] ispParamReadByteArray, int byteWidth, int begin, int end) {
-        // 读取出来的一个int，共四个字节的值
+        // int，
         StringBuilder ispParamReadByteArrStr = new StringBuilder();
         // 00000111 00000000 00000000 00000000
         for (int i = 0; i < ispParamReadByteArray.length; i++) {
@@ -209,7 +209,7 @@ public class DeviceIrcmdControlManager {
     }
 
     /**
-     * int类型的byte数组，转为二进制字符串，然后根据传入的值做替换，最终输出拼装好的值
+     * intbyteArray，，，
      *
      * @param name
      * @param ispParamReadByteArray
@@ -221,7 +221,7 @@ public class DeviceIrcmdControlManager {
      */
     public static long byteArrToBinStr(String name, byte[] ispParamReadByteArray, int byteWidth, int begin, int end,
                                        byte[] valueArray) {
-        // 读取出来的一个int，共四个字节的值
+        // int，
         StringBuilder ispParamReadByteArrStr = new StringBuilder();
         // 00000111 00000000 00000000 00000000
         for (int i = 0; i < ispParamReadByteArray.length; i++) {
@@ -231,7 +231,7 @@ public class DeviceIrcmdControlManager {
         Log.i(TAG, "name = " + name + " ispParamReadByteArrStr = " + ispParamReadByteArrStr.toString() +
                 " ispParamReadByteArrStrInt = " + Long.parseLong(ispParamReadByteArrStr.toString(), 2));
 
-        // 要写入的值，以int类型给出，共四个字节  0000000000000001 00000000 10001001
+        // ，int，  0000000000000001 00000000 10001001
         StringBuilder valueArrStr = new StringBuilder();
         // 00000111 00000000 00000000 00000000
         for (int i = 0; i < valueArray.length; i++) {
@@ -244,7 +244,7 @@ public class DeviceIrcmdControlManager {
         Log.i(TAG, "name = " + name + " orgValue = " + orgValue +
                 " orgValueInt = " + Long.parseLong(orgValue, 2));
 
-        // 需要根据begin和end来截取要传入的值,然后替换读取出来的值
+        // beginend,
         String valueStr = ispParamReadByteArrStr.replace(byteWidth * 8 - end - 1, byteWidth * 8 - begin,
                 valueArrStr.substring(byteWidth * 8 - end - 1, byteWidth * 8 - begin)).toString();
 
@@ -256,8 +256,8 @@ public class DeviceIrcmdControlManager {
     }
 
     /**
-     * 设置ISP算法需要修改的文件路径
-     * 会在重新回到预览页面的时候调用sendISPParam方法来设置参数
+     * ISP
+     * sendISPParam
      *
      * @param param_path
      */
@@ -267,9 +267,9 @@ public class DeviceIrcmdControlManager {
     }
 
     /**
-     * 会在重新回到预览页面的时候调用sendISPParam方法来设置参数
+     * sendISPParam
      * <p>
-     * ISP参数设置后，停图后不会保存参数，固件会重新下发
+     * ISP，Graph，
      *
      * @throws IllegalArgumentException
      */
@@ -307,12 +307,12 @@ public class DeviceIrcmdControlManager {
 //                                end + " value = " + value);
                         int reAddress = Integer.parseInt(address, 16);
                         if (mIrcmdEngine != null) {
-                            // 需要先把该地址的值读出来
+                            // 
                             long[] ispParamReadData = new long[1];
                             if (IrcmdError.IRCMD_SUCCESS != mIrcmdEngine.advISPParamRead(reAddress, ispParamReadData)) {
                                 throw new IllegalArgumentException("The method advISPParamRead execute fail.");
                             }
-                            // 然后单独修改begin到end之前的值，重新写入进去
+                            // beginend，
                             ispParamWriteData[0] = byteArrToBinStr(name, intToBytes2(ispParamReadData[0]), 4,
                                     begin, end, intToBytes2(value));
 //                            if (IrcmdError.IRCMD_SUCCESS != mIrcmdEngine.advISPParamWrite(reAddress,

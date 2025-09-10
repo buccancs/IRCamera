@@ -22,7 +22,7 @@ public class TDatrsInIUtil {
     public static String getTdartsVersion(String path) {
         File file = new File(path + "T-darts.ini");
         if (!file.exists()) {
-            LLog.e("bcf", "  ini不存在：" + file.getPath());
+            LLog.e("bcf", "  ini：" + file.getPath());
             return "";
         }
         Config cfg = new Config();
@@ -51,7 +51,7 @@ public class TDatrsInIUtil {
         HashMap<String, String> hashMap = new HashMap<>();
         File file = new File(path + "T-darts.ini");
         if (!file.exists()) {
-            LLog.e("bcf", "  ini不存在：" + file.getPath());
+            LLog.e("bcf", "  ini：" + file.getPath());
             return hashMap;
         }
         Config cfg = new Config();

@@ -32,11 +32,11 @@ import static com.jaygoo.widget.VerticalRangeSeekBar.TEXT_DIRECTION_VERTICAL;
  * //                       `=---='
  * //
  * //    .............................................
- * //             佛祖保佑             永无BUG
+ * //                          BUG
  * =====================================================
- * 作    者：JayGoo
- * 创建日期：2019-06-05
- * 描    述:
+ *     ：JayGoo
+ * ：2019-06-05
+ *     :
  * =====================================================
  */
 public class VerticalSeekBar extends SeekBar {

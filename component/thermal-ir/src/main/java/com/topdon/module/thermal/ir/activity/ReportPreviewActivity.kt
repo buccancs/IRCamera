@@ -26,9 +26,9 @@ import kotlinx.coroutines.launch
 import kotlin.math.abs
 
 /**
- * 需要传递：
- * - [ExtraKeyConfig.IS_REPORT] - true-查看报告即查看 false-查看检测即生成
- * - [ExtraKeyConfig.LONG_ID] - 房屋检测Id(生成时)  房屋报告Id(查看时）
+ * ：
+ * - [ExtraKeyConfig.IS_REPORT] - true- false-
+ * - [ExtraKeyConfig.LONG_ID] - Id()  Id(）
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class ReportPreviewActivity : BaseActivity(), View.OnClickListener {
@@ -54,7 +54,7 @@ private lateinit var tvSave: android.widget.TextView
     private lateinit var rcyFloor: androidx.recyclerview.widget.RecyclerView
 
     /**
-     * true-查看报告即查看 false-查看检测即生成
+     * true- false-
      */
     private var isReport = false
     private var houseReport = HouseReport()
@@ -112,7 +112,7 @@ tvSave.isEnabled = false
 
     private fun setAvatorChange() {
         layAppbar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
-            // verticalOffset始终为0以下的负数
+            // verticalOffset0
             val percent = abs(verticalOffset * 1.0f) / appBarLayout.totalScrollRange
             layToolbar.setBackgroundColor(changeAlpha(getColor(R.color.color_23202E), percent))
         }
@@ -142,7 +142,7 @@ tvSave.isEnabled = false
 }
 
             tvSave -> {
-                if (isReport) { // 分享
+                if (isReport) { // 
                     lifecycleScope.launch {
                         showLoadingDialog()
 dismissLoadingDialog()
@@ -150,7 +150,7 @@ dismissLoadingDialog()
                         // Disabled PDF functionality - house module removed
                         TToast.shortToast(this@ReportPreviewActivity, "PDF sharing disabled - house module removed")
 }
-                } else { // 定稿并保存
+                } else { // 
                     if (houseReport.inspectorWhitePath.isEmpty() || houseReport.houseOwnerWhitePath.isEmpty()) {
                         if (clSign.bottom + layAppbar.height > llSave.top) {
                             layAppbar.setExpanded(false, true)
@@ -189,14 +189,14 @@ dismissLoadingDialog()
             val blackPath = data.getStringExtra(ExtraKeyConfig.RESULT_PATH_BLACK) ?: return
             when (requestCode) {
                 1000 -> {
-                    // 检测师签名
+                    // 
                     Glide.with(this).load(whitePath).into(ivInspectorSignature)
                     houseReport.inspectorWhitePath = whitePath
                     houseReport.inspectorBlackPath = blackPath
                 }
 
                 1001 -> {
-                    // 房主签名
+                    // 
                     Glide.with(this).load(whitePath).into(ivHouseOwnerSignature)
                     houseReport.houseOwnerWhitePath = whitePath
                     houseReport.houseOwnerBlackPath = blackPath

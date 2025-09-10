@@ -99,28 +99,28 @@ public class DefRangeSeekBar extends View {
 
     private int progressTop, progressBottom, progressLeft, progressRight;
     private int seekBarMode;
-    //刻度模式：number根据数字实际比例排列；other 均分排列
+    //：number；other 
     private int tickMarkMode;
-    //刻度与进度条间的间距
+    //
     //The spacing between the tick mark and the progress bar
     private int tickMarkTextMargin;
-    //刻度文字与提示文字的大小
+    //
     //tick mark text and prompt text size
     private int tickMarkTextSize;
     private int tickMarkGravity;
     private int tickMarkLayoutGravity;
     private int tickMarkTextColor;
     private int tickMarkInRangeTextColor;
-    //刻度上显示的文字
+    //
     //The texts displayed on the scale
     private CharSequence[] tickMarkTextArray;
-    //进度条圆角
+    //
     //radius of progress bar
     private float progressRadius;
-    //进度中进度条的颜色
+    //
     //the color of seekBar in progress
     private int progressColor;
-    //默认进度条颜色
+    //
     //the default color of the progress bar
     private int progressDefaultColor;
 
@@ -159,7 +159,7 @@ public class DefRangeSeekBar extends View {
 
     private boolean isEnable = true;
     float touchDownX,touchDownY;
-    //剩余最小间隔的进度
+    //
     float reservePercent;
     boolean isScaleThumb = false;
     Paint paint = new Paint();
@@ -309,18 +309,18 @@ public class DefRangeSeekBar extends View {
         initProgressBitmap();
     }
 
-    //Android 7.0以后，优化了View的绘制，onMeasure和onSizeChanged调用顺序有所变化
-    //Android7.0以下：onMeasure--->onSizeChanged--->onMeasure
-    //Android7.0以上：onMeasure--->onSizeChanged
+    //Android 7.0，View，onMeasureonSizeChanged
+    //Android7.0：onMeasure--->onSizeChanged--->onMeasure
+    //Android7.0：onMeasure--->onSizeChanged
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int heightSize = MeasureSpec.getSize(heightMeasureSpec);
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         /*
-         * onMeasure传入的widthMeasureSpec和heightMeasureSpec不是一般的尺寸数值，而是将模式和尺寸组合在一起的数值
-         * MeasureSpec.EXACTLY 是精确尺寸
-         * MeasureSpec.AT_MOST 是最大尺寸
-         * MeasureSpec.UNSPECIFIED 是未指定尺寸
+         * onMeasurewidthMeasureSpecheightMeasureSpec，Composition
+         * MeasureSpec.EXACTLY 
+         * MeasureSpec.AT_MOST 
+         * MeasureSpec.UNSPECIFIED 
          */
 
         if (heightMode == MeasureSpec.EXACTLY) {
@@ -394,7 +394,7 @@ public class DefRangeSeekBar extends View {
         onDrawSeekBar(canvas);
     }
 
-    //绘制刻度，并且根据当前位置是否在刻度范围内设置不同的颜色显示
+    //，
     // Draw the scales, and according to the current position is set within
     // the scale range of different color display
     protected void onDrawTickMark(Canvas canvas, Paint paint) {
@@ -405,7 +405,7 @@ public class DefRangeSeekBar extends View {
                 if (TextUtils.isEmpty(text2Draw)) continue;
                 paint.getTextBounds(text2Draw, 0, text2Draw.length(), tickMarkTextRect);
                 paint.setColor(tickMarkTextColor);
-                //平分显示
+                //
                 float x;
                 if (tickMarkMode == TRICK_MARK_MODE_OTHER) {
                     if (tickMarkGravity == TICK_MARK_GRAVITY_RIGHT) {
@@ -421,7 +421,7 @@ public class DefRangeSeekBar extends View {
                     if (Utils.compareFloat(num, states[0].value) != -1 && Utils.compareFloat(num, states[1].value) != 1 && (seekBarMode == SEEKBAR_MODE_RANGE)) {
                         paint.setColor(tickMarkInRangeTextColor);
                     }
-                    //按实际比例显示
+                    //
                     x = getProgressLeft() + progressWidth * (num - minProgress) / (maxProgress - minProgress)
                             - tickMarkTextRect.width() / 2f;
                 }
@@ -436,7 +436,7 @@ public class DefRangeSeekBar extends View {
         }
     }
 
-    //绘制进度条
+    //
     // draw the progress bar
     protected void onDrawProgressBar(Canvas canvas, Paint paint) {
 
@@ -506,7 +506,7 @@ public class DefRangeSeekBar extends View {
         }
     }
 
-    //绘制SeekBar相关
+    //SeekBar
     protected void onDrawSeekBar(Canvas canvas) {
         //draw left SeekBar
         if (leftSB.getIndicatorShowMode() == INDICATOR_ALWAYS_SHOW) {
@@ -522,7 +522,7 @@ public class DefRangeSeekBar extends View {
         }
     }
 
-    //初始化画笔
+    //Initialize
     private void initPaint() {
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(progressDefaultColor);
@@ -803,21 +803,21 @@ public class DefRangeSeekBar extends View {
 
 
     /**
-     * 设置范围
+     * 
      *
-     * @param min 最小值
-     * @param max 最大值
+     * @param min 
+     * @param max 
      */
     public void setRange(float min, float max) {
         setRange(min, max, minInterval);
     }
 
     /**
-     * 设置范围
+     * 
      *
-     * @param min         最小值
-     * @param max         最大值
-     * @param minInterval 最小间隔
+     * @param min         
+     * @param max         
+     * @param minInterval 
      */
     public void setRange(float min, float max, float minInterval) {
         if (max <= min) {

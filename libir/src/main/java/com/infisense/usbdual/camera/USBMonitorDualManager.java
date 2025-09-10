@@ -173,11 +173,11 @@ public class USBMonitorDualManager {
                         .build();
                 mIrUvcCamera.setDefaultBandwidth(irBandWidth);
                 mIrUvcCamera.setDefaultPreviewMaxFps(irFps);
-                // uvc开启
+                // uvc
                 mIrUvcCamera.openUVCCamera(controlBlock);
                 /**
-                 * 调整带宽
-                 * 部分分辨率或在部分机型上，会出现无法出图，或出图一段时间后卡顿的问题，需要配置对应的带宽
+                 * 
+                 * ，Graph，Graph，
                  */
 
                 initIRCMD();
@@ -224,11 +224,11 @@ public class USBMonitorDualManager {
                 mVlUvcCamera.setDefaultPreviewMode(CommonParams.FRAMEFORMATType.FRAME_FORMAT_MJPEG);
                 mVlUvcCamera.setDefaultBandwidth(vlBandWidth);
                 mVlUvcCamera.setDefaultPreviewMaxFps(vlFps);
-                // uvc开启
+                // uvc
                 mVlUvcCamera.openUVCCamera(controlBlock);
                 /**
-                 * 调整带宽
-                 * 部分分辨率或在部分机型上，会出现无法出图，或出图一段时间后卡顿的问题，需要配置对应的带宽
+                 * 
+                 * ，Graph，Graph，
                  */
 
                 mVlUvcCamera.setUSBPreviewSize(vlWidth, vlHeight);

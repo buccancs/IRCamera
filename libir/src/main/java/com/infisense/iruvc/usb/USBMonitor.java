@@ -31,7 +31,7 @@
 //import java.util.concurrent.ConcurrentHashMap;
 //
 ///**
-// * 替换libusbirsdk_1.2.0.aar类,为兼容android 12
+// * libusbirsdk_1.2.0.aar,android 12
 // */
 //public class USBMonitor {
 //    private static final boolean DEBUG = false;
@@ -266,7 +266,7 @@
 //            if (this.mPermissionIntent == null) {
 //                Context context = (Context) this.mWeakContext.get();
 //                if (context != null) {
-//                    //TODO 修复"libusbirsdk_1.2.0.aar"兼容android12引起的崩溃  2022-12-15
+//                    //TODO "libusbirsdk_1.2.0.aar"android12  2022-12-15
 //                    int flag;
 //                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 //                        flag = PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT;

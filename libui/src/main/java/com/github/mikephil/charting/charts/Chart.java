@@ -745,7 +745,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
                 // draw the marker
                 mMarker.draw(canvas, pos[0], pos[1]);
             }catch (Exception exception){
-                Log.e("测试",exception.getMessage());
+                Log.e("",exception.getMessage());
             }
         }
     }

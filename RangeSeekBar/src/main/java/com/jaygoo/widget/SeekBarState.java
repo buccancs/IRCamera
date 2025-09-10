@@ -2,10 +2,10 @@ package com.jaygoo.widget;
 
 /**
  * ================================================
- * 作    者：JayGoo
- * 版    本：
- * 创建日期：2018/5/9
- * 描    述: it works for draw indicator text
+ *     ：JayGoo
+ *     ：
+ * ：2018/5/9
+ *     : it works for draw indicator text
  * ================================================
  */
 public class SeekBarState {

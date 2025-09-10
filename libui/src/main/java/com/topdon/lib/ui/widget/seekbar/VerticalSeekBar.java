@@ -35,11 +35,11 @@ import com.topdon.lib.ui.R;
  * //                       `=---='
  * //
  * //    .............................................
- * //             佛祖保佑             永无BUG
+ * //                          BUG
  * =====================================================
- * 作    者：JayGoo
- * 创建日期：2019-06-05
- * 描    述:
+ *     ：JayGoo
+ * ：2019-06-05
+ *     :
  * =====================================================
  */
 public class VerticalSeekBar extends SeekBar {
@@ -74,20 +74,20 @@ public class VerticalSeekBar extends SeekBar {
         }
     }
 
-    private boolean drawIndPathBg = true;//是否绘制背景
+    private boolean drawIndPathBg = true;//
 
     public void setDrawIndPathBg(boolean draw){
         drawIndPathBg = draw;
     }
     private boolean noNegativeNumber = false;
     /**
-     * 临时处理负数
+     * 
      */
     public void setNoNegativeNumber(Boolean noNegativeNumber){
         this.noNegativeNumber = noNegativeNumber;
     }
     /**
-     * 竖标签绘制
+     * 
      *
      * @param canvas
      * @param paint
@@ -119,7 +119,7 @@ public class VerticalSeekBar extends SeekBar {
             indicatorRect.right = indicatorRect.left + realIndicatorWidth;
             indicatorRect.bottom = indicatorRect.top + realIndicatorHeight;
 
-            //指示箭头
+            //
             //draw default indicator arrow
             if (indicatorBitmap == null && drawIndPathBg) {
                 //arrow three point
@@ -138,7 +138,7 @@ public class VerticalSeekBar extends SeekBar {
                 canvas.drawPath(indicatorArrowPath, paint);
                 indicatorRect.bottom -= getIndicatorArrowSize();
                 indicatorRect.top -= getIndicatorArrowSize();
-                Log.w("伪彩条刷新","///");
+                Log.w("","///");
             }
 
             int defaultPaddingOffset = Utils.dp2px(getContext(), 1);
@@ -152,7 +152,7 @@ public class VerticalSeekBar extends SeekBar {
                 indicatorRect.right -= rightOffset;
             }
 
-            //背景
+            //
             //draw indicator background
             if (drawIndPathBg){
                 if (indicatorBitmap != null) {
@@ -185,13 +185,13 @@ public class VerticalSeekBar extends SeekBar {
             if (degrees != 0) {
                 canvas.rotate(degrees, rotateX, rotateY);
             }
-            //标签文本
+            //
             canvas.drawText(text2Draw, tx, ty, paint);
             if (degrees != 0) {
                 canvas.rotate(-degrees, rotateX, rotateY);
             }
         }catch (Exception e){
-            Log.e("伪彩条渲染失败",e.getMessage());
+            Log.e("",e.getMessage());
         }
     }
 

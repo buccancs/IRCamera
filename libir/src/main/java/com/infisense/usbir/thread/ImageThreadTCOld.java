@@ -14,7 +14,7 @@
 //
 ///**
 // * bytes -> bitmap
-// * 将源数据转出图像照片
+// * Graph
 // */
 //public class ImageThreadTCOld extends Thread {
 //
@@ -26,7 +26,7 @@
 //    private int imageWidth;
 //    private int imageHeight;
 //    private byte[] imageSrc;
-//    private byte[] temperatureSrc;//温度源数据
+//    private byte[] temperatureSrc;//
 //    private int rotate = 0;
 //    private float max = Float.MAX_VALUE;
 //    private float min = Float.MIN_VALUE;
@@ -126,7 +126,7 @@
 //                        Libirparse.yuv422_to_argb(imagerTemp1, imageHeight * imageWidth, imagerTemp2);
 //                    }
 //
-////                    // imagerTemp2二次处理 (温度原始数据)
+////                    // imagerTemp2 ()
 ////                    if (max != 0 && min != 0) {
 ////                        ImageTools.INSTANCE.readFrame(imagerTemp2, temperatureSrc, max, min);
 ////                    }
@@ -154,27 +154,27 @@
 //
 //            //jpegBytes = PixelFormatConverter.yuv422ToJpeg(pseudoImage, imageWidth, imageHeight);
 //
-//            // imagerTemp2二次处理 (温度旋转后数据)
+//            // imagerTemp2 ()
 //            if (max != Float.MAX_VALUE || min != Float.MIN_VALUE ) {
-//                // 当不设高温，只设置低温时
+//                // ，
 //                if (max == -273) {
-//                    // 替换颜色的方法里最高温不能低于最低温
+//                    // 
 //                    max = 1000000;
 //                }
-//                //FF808080固定触发
+//                //FF808080
 //                if (maxColor == Color.parseColor("#FF808080") && minColor == Color.parseColor("#FF808080")) {
-//                    ImageTools.INSTANCE.readFrame(imageDst, temperatureSrc, max, min);//替换灰度处理
+//                    ImageTools.INSTANCE.readFrame(imageDst, temperatureSrc, max, min);//
 //                } else {
 //                    Log.w("123", "max:" + max + ", min: " + min);
-////                    ImageTools.INSTANCE.readFrame(imageDst, temperatureSrc, max, min,maxColor,minColor);//替换颜色处理
-//                    BitmapTools.INSTANCE.replaceBitmapColor(imageDst, temperatureSrc, max, min,0,0);//替换颜色处理
+////                    ImageTools.INSTANCE.readFrame(imageDst, temperatureSrc, max, min,maxColor,minColor);//
+//                    BitmapTools.INSTANCE.replaceBitmapColor(imageDst, temperatureSrc, max, min,0,0);//
 //                }
-//                Log.w("原始图像:", imageDst.toString());
+//                Log.w("Graph:", imageDst.toString());
 //            }
 //            synchronized (syncImage.viewLock) {
 //                if (!syncImage.valid) {
 //                    if (bitmap != null) {
-//                        bitmap.copyPixelsFromBuffer(ByteBuffer.wrap(imageDst)); //bitmap图像刷新数据
+//                        bitmap.copyPixelsFromBuffer(ByteBuffer.wrap(imageDst)); //bitmapGraph
 //                    } else {
 //                        XLog.e("ImageThreadTC copyPixelsFromBuffer(): bitmap is null");
 //                    }
@@ -186,7 +186,7 @@
 //            try {
 //                SystemClock.sleep(20);
 //            } catch (Exception e) {
-//                XLog.e("Image Thread刷新异常: " + e.getMessage());
+//                XLog.e("Image Thread: " + e.getMessage());
 //            }
 //        }
 //        Log.w(TAG, "ImageThread exit:");

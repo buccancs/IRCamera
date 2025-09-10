@@ -29,7 +29,7 @@
 //
 ///**
 // * device -> bytes
-// * 红外出图核心工具类
+// * Graph
 // */
 //public class IRUVCTC {
 //
@@ -44,18 +44,18 @@
 //    private byte[] image;
 //    private byte[] temperature;
 //    private SynchronizedBitmap syncimage;
-//    // 设备PID白名单
+//    // PID
 //    private int pids[] = {0x5840, 0x3901, 0x5830, 0x5838};
 //    public boolean auto_gain_switch = false;
 //    private boolean auto_over_portect = false;
 //    /**
-//     * 自动增益切换
+//     * 
 //     */
 //    private LibIRProcess.AutoGainSwitchInfo_t auto_gain_switch_info = new LibIRProcess.AutoGainSwitchInfo_t();
 //    private LibIRProcess.GainSwitchParam_t gain_switch_param = new LibIRProcess.GainSwitchParam_t();
 //    private int count = 0;
 //    private int rotate = 0;
-//    long timeLog = 0L;//记录时间
+//    long timeLog = 0L;//
 //
 //    private byte[] imageTemp = null;
 //    private byte[] temperatureTemp = null;
@@ -81,7 +81,7 @@
 //        init(cameraHeight, cameraWidth, context);
 //
 //
-//        // 注意：USBMonitor的所有回调函数都是运行在线程中的
+//        // ：USBMonitorCallback function
 //        mUSBMonitor = new USBMonitor(context, new USBMonitor.OnDeviceConnectListener() {
 //
 //            // called by checking usb device
@@ -136,28 +136,28 @@
 //
 //            @Override
 //            public void onCancel(UsbDevice device) {
-//                //在usb permission获取无效时触发
+//                //usb permission
 //                XLog.tag(TAG).w("onCancel");
 //
 //            }
 //        });
 //        // auto gain switch parameter
-//        gain_switch_param.above_pixel_prop = 0.1f;    //用于high -> low gain,设备像素总面积的百分比
-//        gain_switch_param.above_temp_data = (int) ((130 + 273.15) * 16 * 4); //用于high -> low gain,高增益向低增益切换的触发温度
-//        gain_switch_param.below_pixel_prop = 0.95f;   //用于low -> high gain,设备像素总面积的百分比
-//        gain_switch_param.below_temp_data = (int) ((110 + 273.15) * 16 * 4);//用于low -> high gain,低增益向高增益切换的触发温度
-//        auto_gain_switch_info.switch_frame_cnt = 5 * 15; //连续满足触发条件帧数超过该阈值会触发自动增益切换(假设出图速度为15帧每秒，则5 * 15大概为5秒)
-//        auto_gain_switch_info.waiting_frame_cnt = 7 * 15;//触发自动增益切换之后，会间隔该阈值的帧数不进行增益切换监测(假设出图速度为15帧每秒，则7 * 15大概为7秒)
+//        gain_switch_param.above_pixel_prop = 0.1f;    //high -> low gain,
+//        gain_switch_param.above_temp_data = (int) ((130 + 273.15) * 16 * 4); //high -> low gain,
+//        gain_switch_param.below_pixel_prop = 0.95f;   //low -> high gain,
+//        gain_switch_param.below_temp_data = (int) ((110 + 273.15) * 16 * 4);//low -> high gain,
+//        auto_gain_switch_info.switch_frame_cnt = 5 * 15; //(Graph15，5 * 155)
+//        auto_gain_switch_info.waiting_frame_cnt = 7 * 15;//，(Graph15，7 * 157)
 //        //over_portect parameter
 //        int low_gain_over_temp_data = (int) ((550 + 273.15) * 16 * 4);
 //        int high_gain_over_temp_data = (int) ((100 + 273.15) * 16 * 4);
 //        float pixel_above_prop = 0.02f;         //0-1
 //
-//        // 监听读取设备红外数据
+//        // 
 //        iFrameCallback = frame -> {
-//            Log.d(TAG, "frame: " + "刷新："+(System.currentTimeMillis()-updateTime));
+//            Log.d(TAG, "frame: " + "："+(System.currentTimeMillis()-updateTime));
 //            updateTime = System.currentTimeMillis();
-//            // 测试帧率，可以根据实际需要决定是否保留
+//            // ，
 //            if (count++ >= 25) {
 //                count = 1;
 //                Log.d(TAG, "frame: " + frame.length);
@@ -165,7 +165,7 @@
 //            if (syncimage == null) return;
 //            syncimage.start = true;
 //            synchronized (syncimage.dataLock) {
-//                // 判断坏帧，出现坏帧则重启sensor
+//                // ，sensor
 //                int length = frame.length - 1;
 //                if (frame[length] == 1) {
 //                    EventBus.getDefault().post(new IRMsgEvent(MsgCode.RESTART_USB));
@@ -173,13 +173,13 @@
 //                    return;
 //                }
 //                /**
-//                 * copy红外数据到image数组中
-//                 * 出图的frame数组中前半部分是红外数据，后半部分是温度数据，
-//                 * 例如256*384分辨率的设备，前面的256*192是红外数据，后面的256*192是温度数据，
-//                 * 其中的数据是旋转90度的，需要旋转回来。
+//                 * copyimageArray
+//                 * GraphframeArray，，
+//                 * 256*384，256*192，256*192，
+//                 * 90，。
 //                 */
 //                if (imageEditTemp != null && imageEditTemp.length >= length) {
-//                    //部分场景不需要保存帧数据
+//                    //
 //                    System.arraycopy(frame, 0, imageEditTemp, 0, length);
 //                }
 //                System.arraycopy(frame, 0, image, 0, length / 2);
@@ -187,10 +187,10 @@
 //                imageRes.height = (char) (cameraHeight / 2);
 //                imageRes.width = (char) cameraWidth;
 ////                Libirprocess.rotate_right_90(frame, imageRes, Libirprocess.IRPROC_SRC_FMT_Y14, imageEditTemp);
-////                //获取原始温度数据
+////                //
 ////                System.arraycopy(frame, length / 2, temperatureSrc, 0, length / 2);
 //
-////                //保存测试数据
+////                //
 ////                countTemp++;
 ////                if (countTemp == 100) {
 ////                    imageTemp = new byte[length / 2];
@@ -222,11 +222,11 @@
 //                    // 0
 //                    System.arraycopy(frame, length / 2, temperature, 0, length / 2);
 //                }
-//                // 自动增益切换，不生效的话请您的设备是否支持自动增益切换
+//                // ，
 //                if (auto_gain_switch) {
 //                    Libircmd.auto_gain_switch(temperature, imageRes, auto_gain_switch_info, gain_switch_param, uvcCamera.nativePtr);
 //                }
-//                // 防灼烧保护
+//                // 
 //                if (auto_over_portect) {
 //                    Libircmd.avoid_overexposure(temperature, imageRes, low_gain_over_temp_data,
 //                            high_gain_over_temp_data, pixel_above_prop, 15 * 25, uvcCamera.nativePtr);
@@ -261,7 +261,7 @@
 //    }
 //
 //    /**
-//     * 判断是否是红外设备，请把您的设备的PID添加进设备PID白名单
+//     * ，PIDPID
 //     *
 //     * @param devpid
 //     * @return
@@ -354,11 +354,11 @@
 //        try {
 //            XLog.tag(TAG).w("start");
 //            uvcCamera.setOpenStatus(true);
-//            uvcCamera.setFrameCallback(iFrameCallback); //注册监听事件
+//            uvcCamera.setFrameCallback(iFrameCallback); //
 //            //uvcCamera.setgetframemode(uvcCamera.GET_FRAME_ASYNC);
 //            //default sync mode for some devices  Lost-Packet
 //            //uvcCamera.DEFAULT_BANDWIDTH=0.3f;//hub
-//            uvcCamera.startPreview(); //开始读取数据
+//            uvcCamera.startPreview(); //
 //            new Thread(() -> {
 //                try {
 //                    Thread.sleep(100);
@@ -366,18 +366,18 @@
 //                    e.printStackTrace();
 //                }
 //                EventBus.getDefault().post(new DeviceCameraEvent(101));
-//                //打快门
+//                //
 //                if (uvcCamera != null) {
 //                    if (syncimage.type == 1) {
 //                        Libircmd.tiny1b_shutter_manual(uvcCamera.nativePtr);
 //                    } else {
-//                        //源码设置快门
+//                        //
 //                        Libircmd.ooc_b_update(Libircmd.B_UPDATE, uvcCamera.nativePtr);
 //                    }
 //                }
 //            }).start();
 //        }catch (Exception e){
-//            Log.w("红外sdk异常", e.getMessage());
+//            Log.w("sdk", e.getMessage());
 //        }
 //
 //    }
@@ -413,10 +413,10 @@
 ////                    Log.w("123", "aLong" + aLong);
 //////                    if (isRun) {
 //////                        if (timeLog != 0 && System.currentTimeMillis() - timeLog > 1000) {
-//////                            //通知超时
+//////                            //
 //////                            EventBus.getDefault().post(new DeviceConnectEvent(false, null));
-//////                            XLog.w("超过1s没数据采集,退出界面");
-////////                ToastTools.INSTANCE.showShort("超过1s没数据采集,退出界面");
+//////                            XLog.w("1s,");
+////////                ToastTools.INSTANCE.showShort("1s,");
 //////                        }
 //////                        timeLog = System.currentTimeMillis();
 //////                    }

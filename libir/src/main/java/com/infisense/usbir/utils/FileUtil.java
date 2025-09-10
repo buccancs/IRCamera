@@ -150,9 +150,9 @@ public class FileUtil {
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(toByteArray(bytes));
             fos.close();
-            Log.i(TAG, fileTitle + " 保存成功");
+            Log.i(TAG, fileTitle + " ");
         } catch (IOException e) {
-            Log.e(TAG, fileTitle + " 保存失败："+e.getMessage());
+            Log.e(TAG, fileTitle + " ："+e.getMessage());
         }
     }
 
@@ -177,7 +177,7 @@ public class FileUtil {
     }
 
     /**
-     * 根据数据流获取Y16类型
+     * Y16
      *
      * @param dataFlowMode
      * @return
@@ -222,7 +222,7 @@ public class FileUtil {
     }
 
     /**
-     * 创建文件夹---之所以要一层层创建，是因为一次性创建多层文件夹可能会失败！
+     * ---，！
      *
      * @param dirFile
      * @return
@@ -234,7 +234,7 @@ public class FileUtil {
         }
         File parentFile = dirFile.getParentFile();
         if (parentFile != null && !parentFile.exists()) {
-            //父文件夹不存在，则先创建父文件夹，再创建自身文件夹
+            //，，
             return createFileDir(parentFile) && createFileDir(dirFile);
         } else {
             boolean mkdirs = dirFile.mkdirs();
@@ -284,10 +284,10 @@ public class FileUtil {
     }
 
     /**
-     * 把两个位图覆盖合成为一个位图，以底层位图的长宽为基准
+     * GraphGraph，Graph
      *
-     * @param bytes  在底部的位图
-     * @param bytes2 盖在上面的位图
+     * @param bytes  Graph
+     * @param bytes2 Graph
      */
     public static void savaRawFile(byte[] bytes, byte[] bytes2) {
         try {
@@ -307,7 +307,7 @@ public class FileUtil {
     }
 
     /**
-     * 保存红外数据
+     * 
      *
      * @param bytes
      */
@@ -330,7 +330,7 @@ public class FileUtil {
     }
 
     /**
-     * 保存温度数据
+     * 
      *
      * @param bytes
      */
@@ -409,7 +409,7 @@ public class FileUtil {
     }
 
     /**
-     * short数组转byte数组
+     * shortArraybyteArray
      *
      * @param src
      * @return
@@ -425,7 +425,7 @@ public class FileUtil {
     }
 
     /**
-     * byte数组转short数组
+     * byteArrayshortArray
      *
      * @param src
      * @return
@@ -444,7 +444,7 @@ public class FileUtil {
      * @param fileTitle
      */
     public static void saveShortFile(String fileDir, short[] bytes, String fileTitle) {
-        // 创建目录
+        // 
         createOrExistsDir(fileDir);
         try {
             File file = new File(fileDir, fileTitle + ".bin");
@@ -462,7 +462,7 @@ public class FileUtil {
      * @param file
      */
     private static void createOrExistsDir(File file) {
-        // 文件不存在则创建文件
+        // 
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -473,18 +473,18 @@ public class FileUtil {
     }
 
     /**
-     * 如果文件夹不存在则创建
+     * 
      *
      * @param fileDir
      */
     private static void createOrExistsDir(String fileDir) {
         File file = new File(fileDir);
-        //如果文件夹不存在则创建
+        //
         if (!file.exists() && !file.isDirectory()) {
-            //不存在
+            //
             file.mkdir();
         } else {
-            //目录存在
+            //
         }
     }
 
@@ -534,7 +534,7 @@ public class FileUtil {
     }
 
     /**
-     * 从Assets拷贝数据到SD
+     * AssetsSD
      *
      * @param context
      * @param srcFileName
@@ -546,12 +546,12 @@ public class FileUtil {
             File file = new File(strOutFileName);
             Log.i(TAG, "file.exists->getAbsolutePath = " + file.getAbsolutePath());
             if (file.exists()) {
-                // 如果文件存在则删除文件，重新创建，避免修改的内容不生效
+                // ，，
                 file.delete();
             }
             //
             if (!file.createNewFile()) {
-                Log.e(TAG, "创建文件 " + srcFileName + " 失败");
+                Log.e(TAG, " " + srcFileName + " ");
                 return;
             }
 
@@ -573,7 +573,7 @@ public class FileUtil {
     }
 
     /**
-     * 根据增益状态获取对应的ISP算法的配置文件
+     * StateISP
      *
      * @param gainStatus
      * @return
@@ -589,7 +589,7 @@ public class FileUtil {
 
     /**
      * @param gainStatus
-     * @return 输出hex
+     * @return hex
      */
     public static String getISPConfigWithEncryptHexByGainStatus(CommonParams.GainStatus gainStatus) {
         if (CommonParams.GainStatus.HIGH_GAIN == gainStatus) {
@@ -603,14 +603,14 @@ public class FileUtil {
     static String INFISENSE_SAVE_DIR(){
        return Utils.getApp().getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath();
     }
-    //=== 设备信息存储到私有区域，app删除后一起删除
+    //=== ，app
     static String  DEVICE_DATA_SAVE_DIR (){
        return Utils.getApp().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath();
     }
 
     /**
      * @param gainStatus
-     * @return 输出base64
+     * @return base64
      */
     public static String getISPConfigWithEncryptBase64ByGainStatus(CommonParams.GainStatus gainStatus) {
         if (CommonParams.GainStatus.HIGH_GAIN == gainStatus) {
@@ -621,7 +621,7 @@ public class FileUtil {
     }
 
     /**
-     * 获取版本信息
+     * 
      *
      * @param context
      * @return
@@ -758,7 +758,7 @@ public class FileUtil {
     }
 
     /**
-     * 存储String到本地，覆盖原始数据
+     * String，
      *
      * @param str
      * @param path
@@ -773,7 +773,7 @@ public class FileUtil {
                 file.createNewFile();
             }
             byte[] contentInBytes = str.getBytes();
-            stream.write(contentInBytes); // 写入
+            stream.write(contentInBytes); // 
             stream.flush();
             stream.close();
         } catch (IOException e) {

@@ -27,15 +27,15 @@ import java.nio.ByteBuffer;
 
 public class MP4Encoder extends Encoder {
 
-    private static final int BIT_RATE = 600000;//码率2000000
-    private static final int FRAME_RATE = 20;//帧数
+    private static final int BIT_RATE = 600000;//2000000
+    private static final int FRAME_RATE = 20;//
     private static final int I_FRAME_INTERVAL = 5;
     private static final long ONE_SEC = 1000000;
     private static final String TAG = MP4Encoder.class.getSimpleName();
     private static final int TIMEOUT_US = 10000;
     private int addedFrameCount;
-    //TODO 设置4096在高版本会出现崩溃 java.nio.BufferOverflowException
-    //音频文件不需要处理
+    //TODO 4096 java.nio.BufferOverflowException
+    //
 //    private byte[] audioArray = new byte[2048];
     private MediaCodec audioCodec;
     private int audioTrackIndex;
@@ -221,8 +221,8 @@ public class MP4Encoder extends Encoder {
     }
 
     /**
-     * COLOR_FormatYUV420SemiPlanar 默认
-     * COLOR_FormatYUV420Planar     个例使用
+     * COLOR_FormatYUV420SemiPlanar 
+     * COLOR_FormatYUV420Planar     
      */
     private int getColorFormat() {
         if ("GOOGLE".equalsIgnoreCase(Build.BRAND) && "PIXEL 4".equalsIgnoreCase(Build.MODEL)) {
